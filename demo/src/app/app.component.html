@@ -4,8 +4,15 @@
     Welcome to {{ title }}!
   </h1>
   <thy-first></thy-first>
-  <button thy-button="" btnType="primary" [btnLoading]="loading" (click)="loading = !loading;" btnLoadingText="加载中...">按钮</button>
-  <button thy-button="" btnType="success">按钮</button>
-  <button thy-button="" btnType="default">按钮</button>
+  <button thyButton="primary" [btnLoading]="loading" (click)="loading = !loading;" btnLoadingText="加载中...">按钮</button>
+  <button thyButton="success">按钮</button>
+  <button thyButton="default">按钮</button>
+
+
+  <br>
+  <br>
+  <br>
+  <br>
+  <demo-pop-box-section></demo-pop-box-section>
   
 </div>

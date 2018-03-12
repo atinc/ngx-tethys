@@ -5,11 +5,12 @@ import { inputValueToBoolean } from '../util/helpers';
 
 export type ThyButtonType = 'primary' | 'success' | 'dashed' | 'danger';
 
-@Component({
-    selector: '[thy-button]',
-    templateUrl: './button.component.html'
+@Directive({
+    selector: '[thyButton]'
 })
-export class ThyButtonComponent implements AfterContentInit, OnChanges {
+export class ThyButtonDirective implements AfterContentInit, OnChanges {
+
+    @Input() thyButton: ThyButtonType;
 
     @Input() btnType: ThyButtonType;
 
@@ -30,8 +31,8 @@ export class ThyButtonComponent implements AfterContentInit, OnChanges {
 
     setClassesByState() {
         const classNames = ['btn'];
-        if (this.btnType) {
-            classNames.push(`btn-${this.btnType}`);
+        if (this.btnType || this.thyButton) {
+            classNames.push(`btn-${this.btnType || this.thyButton}`);
         }
         const loading = inputValueToBoolean(this.btnLoading);
         if (loading) {

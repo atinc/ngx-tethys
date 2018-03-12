@@ -1,16 +1,22 @@
 import { Component, NgModule } from '@angular/core';
-import { ThyButtonComponent } from './button/button.component';
+import { ThyButtonDirective } from './button/button.component';
 
 import { FirstComponent } from './first/first.component';
+import { NgxPopBoxModule } from './pop-box/pop-box.module';
 
 @NgModule({
     declarations: [
         FirstComponent,
-        ThyButtonComponent
+        ThyButtonDirective
     ],
     exports: [
         FirstComponent,
-        ThyButtonComponent
+        ThyButtonDirective
+    ],
+    providers: [
+    ],
+    imports: [
+        NgxPopBoxModule
     ]
 })
 export class NgxTethysModule {

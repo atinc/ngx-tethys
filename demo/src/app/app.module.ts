@@ -4,11 +4,16 @@ import { NgxTethysModule } from '../../../src/index';
 
 
 import { AppComponent } from './app.component';
+import { COMPONENTS, ENTRY_COMPONENTS } from './components';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ...COMPONENTS
+  ],
+  entryComponents: [
+    ...ENTRY_COMPONENTS
   ],
   imports: [
     BrowserModule,
