@@ -7,7 +7,7 @@ import { PopBoxRef } from '../../../../../src/pop-box/pop-box-ref.service';
     templateUrl: './pop-box-section.component.html',
     styleUrls: ['./pop-box-section.component.scss']
 })
-export class PopBoxSectionComponent {
+export class DemoPopBoxSectionComponent {
 
     constructor(private popBoxService: PopBoxService) {
 

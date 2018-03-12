@@ -1,8 +1,10 @@
-import { PopBoxSectionComponent, PopBoxDemoShowComponent } from './+pop-box/pop-box-section.component';
+import { DemoPopBoxSectionComponent, PopBoxDemoShowComponent } from './+pop-box/pop-box-section.component';
+import { DemoButtonSectionComponent } from './+button/button-section.component';
 
 export const COMPONENTS = [
-    PopBoxSectionComponent,
-    PopBoxDemoShowComponent
+    DemoPopBoxSectionComponent,
+    PopBoxDemoShowComponent,
+    DemoButtonSectionComponent
 ];
 
 export const ENTRY_COMPONENTS = [
