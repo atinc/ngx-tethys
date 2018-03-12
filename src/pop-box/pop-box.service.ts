@@ -24,7 +24,7 @@ export class PopBoxService {
             this._popBoxLoader.hide();
         }
         const loader = this.clf.createLoader<PopBoxContainerComponent>(
-            null,
+            config.target,
             null,
             null
         );
@@ -36,6 +36,7 @@ export class PopBoxService {
             .provide({ provide: PopBoxRef, useValue: popBoxRef })
             .attach(PopBoxContainerComponent)
             .to('body')
+            .position({ attachment: `bottom left`, target: config.target, targetOffset: '10px' })
             .show({ content, initialState: _config.initialState, popBoxService: this });
 
         popBoxRef.hide = () => {

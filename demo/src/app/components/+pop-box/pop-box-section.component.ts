@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { PopBoxService } from '../../../../../src/pop-box/pop-box.service';
 import { PopBoxRef } from '../../../../../src/pop-box/pop-box-ref.service';
 
@@ -13,12 +13,14 @@ export class PopBoxSectionComponent {
 
     }
 
-    add(viewRef: any) {
+    add(nativeElement: any) {
         const initialState = {
             name: 'hello'
         };
+        const elementRef = new ElementRef(nativeElement);
         this.popBoxService.show(PopBoxDemoShowComponent, {
-            initialState: initialState
+            initialState: initialState,
+            target: elementRef
         });
     }
 }

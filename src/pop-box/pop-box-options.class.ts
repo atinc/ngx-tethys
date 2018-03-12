@@ -1,9 +1,9 @@
-import { Injectable, ViewRef } from '@angular/core';
+import { Injectable, ElementRef } from '@angular/core';
 
 @Injectable()
 export class PopBoxOptions {
 
-    target?: ViewRef;
+    target?: any;
     /**
      * Closes the modal when escape key is pressed.
      */
