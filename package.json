@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "build": "rimraf ./built/* ./codegen/* && ngc -p tsconfig-dist.json",
-    "build.ngm": "ngm build -p src --clean",
+    "build:ngm": "ngm build -p src --clean",
     "ng": "ng",
     "start": "ng serve",
     "build:demo": "ng build --prod",
