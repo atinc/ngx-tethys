@@ -3,12 +3,13 @@ import { PopBoxService } from './pop-box.service';
 @Component({
     selector: 'pop-box-container',
     template: `
-      <div [class]="'modal-dialog'" role="document">
-        <div class="modal-content">
+      <div [class]="'pop-box'" role="document">
+        <div class="pop-box-content">
           <ng-content></ng-content>
         </div>
       </div>
     `,
+    styleUrls: ['./pop-box.scss']
 })
 export class PopBoxContainerComponent {
 
