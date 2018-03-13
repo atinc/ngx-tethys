@@ -1,3 +1,11 @@
-<button thyButton="primary" [btnLoading]="loading" (click)="startLoading()" [btnLoadingText]="'加载中... ' + loadingSeconds + 's 后恢复'">按钮</button>
+<button thyButton="primary" [btnLoading]="loading" (click)="startLoading(thyFirst)" [btnLoadingText]="'加载中... ' + loadingSeconds + 's 后恢复'">按钮</button>
 <button thyButton="success">按钮</button>
 <button thyButton="default">按钮</button>
+
+<thy-first #thyFirst></thy-first>
+
+<div *ngFor="let item of [1,2,3]">
+    <p *ngIf="item === 2">
+        {{ item }}
+    </p>
+</div>

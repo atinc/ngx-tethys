@@ -1,4 +1,4 @@
-import { Component, ElementRef, Renderer2 } from '@angular/core';
+import { Component, ElementRef, Renderer2, ViewEncapsulation } from '@angular/core';
 import { PopBoxService } from './pop-box.service';
 @Component({
     selector: 'pop-box-container',
@@ -9,7 +9,8 @@ import { PopBoxService } from './pop-box.service';
         </div>
       </div>
     `,
-    styleUrls: ['./pop-box.scss']
+    styleUrls: ['./pop-box.scss'],
+    encapsulation: ViewEncapsulation.None
 })
 export class PopBoxContainerComponent {
 

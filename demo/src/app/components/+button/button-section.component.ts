@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-
+import { Component, TemplateRef } from '@angular/core';
 @Component({
     selector: 'demo-button-section',
     templateUrl: './button-section.component.html',
@@ -11,7 +10,10 @@ export class DemoButtonSectionComponent {
 
     loadingSeconds: number;
 
-    startLoading() {
+    constructor() {
+    }
+
+    startLoading(thyFirst: any) {
         this.loading = true;
         this.loadingSeconds = 3;
 
@@ -23,8 +25,5 @@ export class DemoButtonSectionComponent {
                 this.loadingSeconds = this.loadingSeconds - 1;
             }
         }, 1000);
-        // setTimeout(() => {
-        //     this.loading = false;
-        // }, 3000);
     }
 }
