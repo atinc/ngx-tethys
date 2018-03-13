@@ -1,6 +1,6 @@
 # ngx-tethys
 
-One the way...
+on the way...
 
 An UI components based on Worktile Design and Angular.
 
