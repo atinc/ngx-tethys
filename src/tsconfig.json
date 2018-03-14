@@ -28,8 +28,7 @@
   ],
   "files": [
     "../scripts/typings.d.ts",
-    "./index.ts",
-    "./locale.ts"
+    "./index.ts"
   ],
   "angularCompilerOptions": {
     "genDir": "../temp/factories",

@@ -1,5 +1,9 @@
 {
     "name": "ngx-tethys",
+    "repository": {
+      "type": "git",
+      "url": "git+ssh://git@github.com/worktile/ngx-tethys.git"
+    },
     "es2015": "bundles/ngx-tethys.es2015.js",
     "peerDependencies": {
       "@angular/common": "*",

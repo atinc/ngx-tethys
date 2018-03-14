@@ -1,6 +1,6 @@
 {
   "name": "ngx-tethys",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "license": "MIT",
   "scripts": {
     "build": "rimraf ./built/* ./codegen/* && ngc -p tsconfig-dist.json",
@@ -13,6 +13,15 @@
     "e2e": "ng e2e"
   },
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/worktile/ngx-tethys.git"
+  },
+  "description": "Angular UI Components",
+  "keywords": [
+    "Angular",
+    "Angular 2+"
+  ],
   "dependencies": {
     "@angular/animations": "^5.2.0",
     "@angular/common": "^5.2.0",

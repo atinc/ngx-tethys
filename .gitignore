@@ -58,4 +58,5 @@ typings/
 .env
 built
 .DS_Store
-
+.tmp
+dist
