@@ -1,11 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgxTethysModule } from '../../../src/index';
-
+import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { COMPONENTS, ENTRY_COMPONENTS } from './components';
-
+import { appRoutes } from './app.routes';
 
 @NgModule({
   declarations: [
@@ -17,7 +17,8 @@ import { COMPONENTS, ENTRY_COMPONENTS } from './components';
   ],
   imports: [
     BrowserModule,
-    NgxTethysModule
+    NgxTethysModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [],
   bootstrap: [AppComponent]

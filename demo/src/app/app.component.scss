@@ -9,14 +9,16 @@
     }
 }
 
-.toc {
-    margin-top: 1rem;
-    .toc-item {
-        line-height: 3rem;
-        padding-left: 1rem;
-    }
-    .toc-sub-item {
-        padding-left: 1.1rem;
+.toc-slider {
+    .toc {
+        margin-top: 1rem;
+        .toc-item {
+            line-height: 3rem;
+            padding-left: 1rem;
+        }
+        .toc-sub-item {
+            padding-left: 1.1rem;
+        }
     }
 }
 
