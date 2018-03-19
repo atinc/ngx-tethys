@@ -60,3 +60,4 @@ built
 .DS_Store
 .tmp
 dist
+reference
