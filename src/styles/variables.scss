@@ -1,10 +1,10 @@
 @import './variables-theme';
-$primary: #22d7bb;
-$secondary: #aaa;
-$success: #22d7bb;
-$info: #2dbcff;
-$warning: #ffc442;
-$danger: #ff5b57;
+$primary: #22d7bb !default;
+$secondary: #aaa !default;
+$success: #22d7bb !default;
+$info: #2dbcff !default;
+$warning: #ffc442 !default;
+$danger: #ff5b57 !default;
 // $light : $gray-100;
 // $dark : $gray-800;
 // enable-gradients
@@ -16,21 +16,21 @@ $link-decoration: none;
 $link-hover-color: $primary;
 $link-hover-decoration: underline;
 // font
-$font-family-sans-serif : 'Helvetica Neue',
+$font-family-sans-serif: 'Helvetica Neue',
 'Hiragino Sans GB',
 'stheiti',
 'Microsoft Yahei',
 '微软雅黑',
 tahoma,
 'sans-serif';
-$font-family-monospace : SFMono-Regular,
+$font-family-monospace: SFMono-Regular,
 Menlo,
 Monaco,
 Consolas,
 "Liberation Mono",
 "Courier New",
 monospace;
-$font-family-base : $font-family-sans-serif;
+$font-family-base: $font-family-sans-serif;
 $font-size-base: 0.875rem; // 14px
 $font-size-lg: 1.25rem; // 20px
 $font-size-sm: 0.75rem; // 12px

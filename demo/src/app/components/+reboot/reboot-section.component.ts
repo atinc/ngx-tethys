@@ -16,15 +16,15 @@ export class DemoRebootSectionComponent implements OnInit {
     }
 
     ngOnInit() {
-        // this.componentExamples = [
-        //     {
-        //         title: 'Basic',
-        //         anchor: 'basic',
-        //         component: require('!!raw-loader?lang=typescript!./items/link.component.ts'),
-        //         html: require('!!raw-loader?lang=markup!./items/basic/link.component.html'),
-        //         outlet: RebootSectionLinkComponent
-        //     }
-        // ];
+        this.componentExamples = [
+            {
+                title: 'Basic',
+                anchor: 'basic',
+                component: require('!!raw-loader?lang=typescript!./items/link.component.ts'),
+                html: require('!!raw-loader?lang=markup!./items/link.component.html'),
+                outlet: RebootSectionLinkComponent
+            }
+        ];
 
     }
 }

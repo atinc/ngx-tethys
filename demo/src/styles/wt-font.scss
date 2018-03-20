@@ -1,0 +1,108 @@
+@import "../assets/fonts/wtd/iconfont";
+
+
+@font-face {
+  font-family: 'wtf';
+  src: url('../assets/fonts/wtd/iconfont.eot?@{time-version}');
+  /* IE9*/
+  src: url('../assets/fonts/wtd/iconfont.eot?@{time-version}#iefix') format('embedded-opentype'),
+  /* IE6-IE8 */
+  url('../assets/fonts/wtd/iconfont.woff?@{time-version}') format('woff'),
+  /* chrome、firefox */
+  url('../assets/fonts/wtd/iconfont.ttf?@{time-version}') format('truetype'),
+  /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+  url('../assets/fonts/wtd/iconfont.svg?@{time-version}#iconfont') format('svg');
+  /* iOS 4.1- */
+}
+
+.wtf {
+  display: inline-block;
+}
+
+// 和 check-square-o 一样的图标
+.wtf-link-task {
+  display: inline-block;
+  &:before {
+    content: "\e69a";
+  }
+}
+
+.wtf-type-ios {
+  color: #508df6;
+}
+
+.wtf-type-worksheet {
+  color: #9477fa;
+}
+
+.wtf-type-task {
+  color: #33d6bb;
+}
+
+.wtf-type-man {
+  color: #39ccd9;
+}
+
+.wtf-type-pending {
+  color: #fdbf2d;
+}
+
+.wtf-type-message {
+  color: #28bea4;
+}
+
+.wtf-type-pc {
+  color: #3abcfc;
+}
+
+.wtf-type-star {
+  color: #3fba61;
+}
+
+.wtf-type-money {
+  color: #717af7;
+}
+
+.wtf-type-bug {
+  color: #f85b59;
+}
+
+.wtf-type-demand {
+  color: #69bf64;
+}
+
+.wtf-type-android {
+  color: #99d561;
+}
+
+.wtf-template-task {
+  color: #3fba61;
+}
+
+.wtf-template-scrum {
+  color: #99d561;
+}
+
+.wtf-template-personal {
+  color: #508df6;
+}
+
+.wtf-template-kanban {
+  color: #28bea4;
+}
+
+.wtf-template-bug {
+  color: #f85b59;
+}
+
+.wtf-template-administration {
+  color: #39ccd9;
+}
+
+.wtf-template-crm {
+  color: #28bea4;
+}
+
+.wtf-template-project {
+  color: #69b464;
+}
