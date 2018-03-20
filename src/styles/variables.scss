@@ -8,4 +8,47 @@ $danger: #ff5b57;
 // $light : $gray-100;
 // $dark : $gray-800;
 // enable-gradients
-$enable-gradients:false
+$enable-gradients: false;
+$enable-shadows: true;
+// link
+$link-color: $primary;
+$link-decoration: none;
+$link-hover-color: $primary;
+$link-hover-decoration: underline;
+// font
+$font-family-sans-serif : 'Helvetica Neue',
+'Hiragino Sans GB',
+'stheiti',
+'Microsoft Yahei',
+'微软雅黑',
+tahoma,
+'sans-serif';
+$font-family-monospace : SFMono-Regular,
+Menlo,
+Monaco,
+Consolas,
+"Liberation Mono",
+"Courier New",
+monospace;
+$font-family-base : $font-family-sans-serif;
+$font-size-base: 0.875rem; // 14px
+$font-size-lg: 1.25rem; // 20px
+$font-size-sm: 0.75rem; // 12px
+// 扩展
+$font-size-md: 1rem; // 16px
+$font-size-max-lg: 3.25rem; // 补充字体大小 52px
+$font-size-min-sm: 0.625rem; // 10px
+// Buttons
+$btn-border-radius: 1rem;
+$btn-border-radius-lg: 1rem;
+$btn-border-radius-sm: 1rem;
+$btn-box-shadow: null;
+$btn-padding-y: 5px;
+$btn-padding-x: 30px !default;
+// $btn-line-height:             $input-btn-line-height !default;
+$btn-padding-y-sm: 3px;
+$btn-padding-x-sm: 20px !default;
+// $btn-line-height-sm:          $input-btn-line-height-sm !default;
+$btn-padding-y-lg: 8px;
+$btn-padding-x-lg: 34px;
+// $btn-line-height-lg : $input-btn-line-height-lg !default;

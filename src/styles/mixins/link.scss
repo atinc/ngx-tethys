@@ -1,0 +1,15 @@
+@mixin link-variant($link-color, $link-decoration, $link-hover-color, $link-hover-decoration) {
+    color: $link-color;
+    text-decoration: $link-decoration;
+    @include hover-focus {
+        color: $link-hover-color;
+        text-decoration: $link-hover-decoration;
+    }
+}
+
+@mixin link-size($font-size: $font-size-base, $icon-font-size: $font-size-base) {
+    font-size: $font-size;
+    .wtf {
+        font-size: $icon-font-size;
+    }
+}

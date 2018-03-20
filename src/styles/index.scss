@@ -1,12 +1,17 @@
 @import "~bootstrap/scss/functions";
+@import "./variables-theme";
 @import "./variables";
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins";
+@import "./mixins/index";
 @import "~bootstrap/scss/grid";
-@import "~bootstrap/scss/buttons";
 
+// @import "~bootstrap/scss/reboot";
+@import "./components/reboot";
+@import "./components/buttons";
+@import "./components/link";
+
+@import "~bootstrap/scss/nav";
+// @import "~bootstrap/scss/buttons";
 // @import "~bootstrap/scss/nav";
 // @import "~bootstrap/scss/navbar";
-.hello {
-    color: $primary;
-}

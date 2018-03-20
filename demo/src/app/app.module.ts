@@ -5,12 +5,16 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { COMPONENTS, ENTRY_COMPONENTS } from './components';
+import {  DOCS_COMPONENTS } from './docs/index';
 import { appRoutes } from './app.routes';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ...COMPONENTS
+    ...COMPONENTS,
+    ...DOCS_COMPONENTS
   ],
   entryComponents: [
     ...ENTRY_COMPONENTS
@@ -18,7 +22,9 @@ import { appRoutes } from './app.routes';
   imports: [
     BrowserModule,
     NgxTethysModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    ModalModule.forRoot(),
+    TabsModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

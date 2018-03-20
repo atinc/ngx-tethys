@@ -1,0 +1,21 @@
+<section>
+    <div class="header">
+        <h5>链接</h5>
+    </div>
+    <div class="body">
+        <ng-container [ngTemplateOutlet]="link"></ng-container>
+        <ng-template #link>
+            <a href="javascript:;">主链接</a>
+            <br>
+            <a href="javascript:;" class="link-secondary">次链接</a>
+            <br>
+            <a href="javascript:;" class="link-sm">小链接</a>
+        </ng-template>
+
+        <pre>
+            <code>
+                <!-- {{link.elementRef.nativeElement}} -->
+            </code>
+        </pre>
+    </div>
+</section>

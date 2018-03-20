@@ -1,5 +1,8 @@
 import { DemoButtonSectionComponent } from './components/+button/button-section.component';
-import { DemoPopBoxSectionComponent } from './components/+pop-box/pop-box-section.component'
+import { DemoPopBoxSectionComponent } from './components/+pop-box/pop-box-section.component';
+import { DemoRebootSectionComponent } from './components/+reboot/reboot-section.component';
+
+
 const appRoutes = [
     {
         path: 'components/button',
@@ -8,6 +11,10 @@ const appRoutes = [
     {
         path: 'components/pob-box',
         component: DemoPopBoxSectionComponent
+    },
+    {
+        path: 'components/reboot',
+        component: DemoRebootSectionComponent
     }
 ];
 
