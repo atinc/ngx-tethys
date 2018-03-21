@@ -22,11 +22,13 @@ export class ThyButtonComponent implements AfterContentInit, OnChanges {
 
     private nativeElement: any;
 
-    private classNames: string[] = [];
+    private _typeClassNames: string[] = [];
 
     private _originalText: string;
 
     private _type: string;
+
+    private _size: string;
 
     private _loading: boolean;
 
@@ -68,6 +70,17 @@ export class ThyButtonComponent implements AfterContentInit, OnChanges {
         }
     }
 
+    @Input()
+    set btnSize(size: string) {
+        if (!isUndefined(size)) {
+            if (this._size) {
+                this.renderer.removeClass(this.nativeElement, `btn-${this._size}`);
+            }
+            this._size = size;
+            this.renderer.addClass(this.nativeElement, `btn-${this._size}`);
+        }
+    }
+
     private _setLoadingStatus() {
         let disabled = false;
         let innerText: string;
@@ -89,21 +102,22 @@ export class ThyButtonComponent implements AfterContentInit, OnChanges {
         if (btnTypeClassesMap[this._type]) {
             classNames = btnTypeClassesMap[this._type];
         } else {
-            console.log(`button type (${this._type}) is not support`);
+            console.error(`button type (${this._type}) is not support`);
             classNames = ['btn'];
             classNames.push(`btn-${this._type}`);
         }
-        this.classNames.forEach(className => {
+        // remove old classes
+        this._typeClassNames.forEach(className => {
             this.renderer.removeClass(this.nativeElement, className);
         });
-        this.classNames = classNames;
-        this.classNames.forEach((className) => {
+        // add new classes
+        this._typeClassNames = classNames;
+        this._typeClassNames.forEach((className) => {
             this.renderer.addClass(this.nativeElement, className);
         });
     }
 
     constructor(private elementRef: ElementRef, private renderer: Renderer2) {
-        this.nativeElement = this.elementRef.nativeElement;
         this.nativeElement = this.elementRef.nativeElement;
     }
 
