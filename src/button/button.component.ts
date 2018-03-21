@@ -1,11 +1,11 @@
-import { Component, Directive, Input, ElementRef, Renderer2 } from '@angular/core';
+import { Component, Directive, Input, ElementRef, Renderer2, ViewEncapsulation } from '@angular/core';
 import { AfterContentInit, OnChanges, SimpleChanges } from '@angular/core';
-import { inputValueToBoolean } from '../util/helpers';
+import { inputValueToBoolean, isUndefined } from '../util/helpers';
 
 
 export type ThyButtonType = 'primary' | 'secondary' | 'outline-primary' | 'outline-default' | 'danger';
 
-const btnTypeClassesMap = {
+const btnTypeClassesMap: any = {
     'primary': ['btn', 'btn-primary'],
     'secondary': ['btn', 'btn-primary', 'btn-md'],
     'outline-primary': ['btn', 'btn-outline-primary'],
@@ -15,7 +15,8 @@ const btnTypeClassesMap = {
 
 @Component({
     selector: '[thyButton]',
-    templateUrl: './button.component.html'
+    templateUrl: './button.component.html',
+    encapsulation: ViewEncapsulation.None
 })
 export class ThyButtonComponent implements AfterContentInit, OnChanges {
 
@@ -34,50 +35,56 @@ export class ThyButtonComponent implements AfterContentInit, OnChanges {
     @Input()
     set thyButton(value: ThyButtonType) {
         this._type = value;
+        this._setClassesByType();
     }
 
     @Input()
     set btnType(value: ThyButtonType) {
         this._type = value;
+        this._setClassesByType();
     }
 
     @Input()
     set btnLoading(value: boolean) {
         const newLoading = inputValueToBoolean(value);
-        // if(this._loading)
-        // this.setLoadingStatus();
+        // from false to true
+        if (!this._loading && newLoading) {
+            this._loading = newLoading;
+            this._originalText = this.nativeElement.innerText;
+            this._setLoadingStatus();
+        } else {
+            this._loading = newLoading;
+            this._setLoadingStatus();
+        }
     }
 
     @Input()
     set btnLoadingText(value: string) {
         if (this._loadingText !== value) {
-
-        }
-        this._loadingText = value;
-        // this.setLoadingStatus();
-    }
-
-    constructor(private elementRef: ElementRef, private renderer: Renderer2) {
-        this.nativeElement = this.elementRef.nativeElement;
-        this.nativeElement = this.elementRef.nativeElement;
-    }
-
-    private setLoadingStatus() {
-        if (this._loading) {
-            // classNames.push('disabled');
-            this.renderer.setProperty(this.nativeElement, 'disabled', true);
-            if (this._loadingText) {
+            this._loadingText = value;
+            if (this._loading) {
                 this.renderer.setProperty(this.nativeElement, 'innerText', this._loadingText);
             }
-        } else {
-            this.renderer.setProperty(this.nativeElement, 'disabled', false);
-            if (this._originalText) {
-                this.renderer.setProperty(this.nativeElement, 'innerText', this._originalText);
-            }
         }
     }
 
-    setClassesByType() {
+    private _setLoadingStatus() {
+        let disabled = false;
+        let innerText: string;
+        if (this._loading) {
+            disabled = true;
+            innerText = this._loadingText ? this._loadingText : null;
+        } else {
+            disabled = false;
+            innerText = this._originalText ? this._originalText : null;
+        }
+        this.renderer.setProperty(this.nativeElement, 'disabled', disabled);
+        if (innerText) {
+            this.renderer.setProperty(this.nativeElement, 'innerText', this._originalText);
+        }
+    }
+
+    private _setClassesByType() {
         let classNames: string[] = null;
         if (btnTypeClassesMap[this._type]) {
             classNames = btnTypeClassesMap[this._type];
@@ -95,22 +102,14 @@ export class ThyButtonComponent implements AfterContentInit, OnChanges {
         });
     }
 
+    constructor(private elementRef: ElementRef, private renderer: Renderer2) {
+        this.nativeElement = this.elementRef.nativeElement;
+        this.nativeElement = this.elementRef.nativeElement;
+    }
+
     ngAfterContentInit() {
-        this.setClassesByType();
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes['btnLoading'] && !changes['btnLoading'].firstChange) {
-            if (this._loading) {
-                this._originalText = this.nativeElement.innerText;
-            }
-            this.setLoadingStatus();
-        }
-
-        if (changes['btnLoadingText'] && !changes['btnLoadingText'].firstChange) {
-            if (this._loading) {
-                this.renderer.setProperty(this.nativeElement, 'innerText', this._loadingText);
-            }
-        }
     }
 }
