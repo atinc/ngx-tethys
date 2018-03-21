@@ -117,3 +117,7 @@
     border: none;
     @include box-shadow(none);
 }
+
+@mixin button-icon-margin($right) {
+    margin-right: $right;
+}

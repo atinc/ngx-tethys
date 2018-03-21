@@ -30,9 +30,13 @@ export class ThyButtonComponent implements AfterContentInit, OnChanges {
 
     private _size: string;
 
+    private icon: string;
+
     private _loading: boolean;
 
     private _loadingText: string;
+
+    public iconClass: any;
 
     @Input()
     set thyButton(value: ThyButtonType) {
@@ -81,6 +85,19 @@ export class ThyButtonComponent implements AfterContentInit, OnChanges {
         }
     }
 
+    @Input() btnIconPrefix: string;
+
+    @Input()
+    set btnIcon(icon: string) {
+        this.icon = icon;
+        if (icon) {
+            const btnIconPrefix = this.btnIconPrefix || 'wtf';
+            this.iconClass = [btnIconPrefix, `${icon}`];
+        } else {
+            this.iconClass = null;
+        }
+    }
+
     private _setLoadingStatus() {
         let disabled = false;
         let innerText: string;
@@ -116,6 +133,15 @@ export class ThyButtonComponent implements AfterContentInit, OnChanges {
             this.renderer.addClass(this.nativeElement, className);
         });
     }
+
+    private _removeClass(className: string) {
+        this.renderer.removeClass(this.nativeElement, className);
+    }
+
+    private _addClass(className: string) {
+        this.renderer.addClass(this.nativeElement, className);
+    }
+
 
     constructor(private elementRef: ElementRef, private renderer: Renderer2) {
         this.nativeElement = this.elementRef.nativeElement;
