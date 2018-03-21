@@ -87,6 +87,22 @@ fieldset:disabled a.btn {
 //     border-radius: $border-radius;
 //     @include button-outline-variant($primary, $primary, $white, $primary, null, $primary, null);
 // }
+
+//
+// Button Sizes
+//
+.btn-lg {
+    @include button-size($btn-padding-y-lg, $btn-padding-x-lg, $font-size-lg, $btn-line-height-lg, $btn-border-radius-lg);
+}
+
+.btn-md {
+    @include button-size($btn-padding-y-md, $btn-padding-x-md, $font-size-base, $btn-line-height, $btn-border-radius);
+}
+
+.btn-sm {
+    @include button-size($btn-padding-y-sm, $btn-padding-x-sm, $font-size-sm, $btn-line-height-sm, $btn-border-radius-sm);
+}
+
 //
 // Link buttons
 //
@@ -113,19 +129,8 @@ fieldset:disabled a.btn {
     } // No need for an active state here
 }
 
-//
-// Button Sizes
-//
-.btn-lg {
-    @include button-size($btn-padding-y-lg, $btn-padding-x-lg, $font-size-lg, $btn-line-height-lg, $btn-border-radius-lg);
-}
-
-.btn-md {
-    @include button-size($btn-padding-y-md, $btn-padding-x-md, $font-size-base, $btn-line-height, $btn-border-radius);
-}
-
-.btn-sm {
-    @include button-size($btn-padding-y-sm, $btn-padding-x-sm, $font-size-sm, $btn-line-height-sm, $btn-border-radius-sm);
+.btn-link-default {
+    @include btn-link-variant($btn-link-color-default, $primary, none);
 }
 
 //

@@ -121,3 +121,23 @@
 @mixin button-icon-margin($right) {
     margin-right: $right;
 }
+
+@mixin btn-link-variant($link-color, $link-hover-color, $link-hover-decoration) {
+    color: $link-color;
+    background-color: transparent;
+    @include hover {
+        color: $link-hover-color;
+        text-decoration: $link-hover-decoration;
+    }
+    &:focus,
+    &.focus {
+        text-decoration: $link-hover-decoration;
+    }
+    &:disabled,
+    &.disabled {
+        color: $btn-link-disabled-color;
+        @include hover {
+            color: $btn-link-disabled-color;
+        }
+    } // No need for an active state here
+}

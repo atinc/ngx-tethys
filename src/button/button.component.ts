@@ -10,7 +10,9 @@ const btnTypeClassesMap: any = {
     'secondary': ['btn', 'btn-primary', 'btn-md'],
     'outline-primary': ['btn', 'btn-outline-primary'],
     'outline-default': ['btn', 'btn-outline-default'],
-    'danger': ['btn', 'btn-danger']
+    'danger': ['btn', 'btn-danger'],
+    'link': ['btn', 'btn-link'], // 链接按钮
+    'link-secondary': ['btn', 'btn-link', 'btn-link-default'] // 幽灵链接按钮
 };
 
 @Component({
@@ -78,13 +80,14 @@ export class ThyButtonComponent implements AfterContentInit, OnChanges {
     set btnSize(size: string) {
         if (!isUndefined(size)) {
             if (this._size) {
-                this.renderer.removeClass(this.nativeElement, `btn-${this._size}`);
+                this._removeClass(`btn-${this._size}`);
             }
             this._size = size;
-            this.renderer.addClass(this.nativeElement, `btn-${this._size}`);
+            this._addClass(`btn-${this._size}`);
         }
     }
 
+    // 字体前缀，默认 wtf
     @Input() btnIconPrefix: string;
 
     @Input()
@@ -125,12 +128,12 @@ export class ThyButtonComponent implements AfterContentInit, OnChanges {
         }
         // remove old classes
         this._typeClassNames.forEach(className => {
-            this.renderer.removeClass(this.nativeElement, className);
+            this._removeClass(className);
         });
         // add new classes
         this._typeClassNames = classNames;
         this._typeClassNames.forEach((className) => {
-            this.renderer.addClass(this.nativeElement, className);
+            this._addClass(className);
         });
     }
 
@@ -141,7 +144,6 @@ export class ThyButtonComponent implements AfterContentInit, OnChanges {
     private _addClass(className: string) {
         this.renderer.addClass(this.nativeElement, className);
     }
-
 
     constructor(private elementRef: ElementRef, private renderer: Renderer2) {
         this.nativeElement = this.elementRef.nativeElement;
