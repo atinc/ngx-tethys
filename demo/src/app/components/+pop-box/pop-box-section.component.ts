@@ -17,7 +17,6 @@ export class DemoPopBoxSectionComponent {
         const initialState = {
             name: 'hello'
         };
-    
         this.popBoxService.show(PopBoxDemoShowComponent, {
             initialState: initialState,
             target: templateRef.elementRef
