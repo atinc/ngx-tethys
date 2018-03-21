@@ -14,7 +14,7 @@ $gray-900: #212529;
 $black: #000;
 
 // color
-$body-color:$gray-800;
+$body-color: $gray-800;
 
 $primary: #22d7bb !default;
 $secondary: #aaa !default;
@@ -35,20 +35,8 @@ $link-hover-color: $primary;
 $link-hover-decoration: underline;
 
 // font
-$font-family-sans-serif: 'Helvetica Neue',
-'Hiragino Sans GB',
-'stheiti',
-'Microsoft Yahei',
-'微软雅黑',
-tahoma,
-'sans-serif';
-$font-family-monospace: SFMono-Regular,
-Menlo,
-Monaco,
-Consolas,
-"Liberation Mono",
-"Courier New",
-monospace;
+$font-family-sans-serif: 'Helvetica Neue','Hiragino Sans GB','stheiti','Microsoft Yahei','微软雅黑',tahoma,'sans-serif';
+$font-family-monospace: SFMono-Regular,Menlo,Monaco,Consolas "Liberation Mono","Courier New",monospace;
 $font-family-base: $font-family-sans-serif;
 $font-size-base: 0.875rem; // 14px
 $font-size-lg: 1.25rem; // 20px
@@ -68,10 +56,10 @@ $btn-border-radius-sm: 1rem;
 $btn-box-shadow: null;
 $btn-padding-y: 0.469rem;//5px 30px 
 $btn-padding-x: 2.438rem;
-// $btn-line-height: $input-btn-line-height !default;
+// $btn-line-height: $input-btn-line-height;
 $btn-padding-y-sm: 3px;
 $btn-padding-x-sm: 20px;
-// $btn-line-height-sm: $input-btn-line-height-sm !default;
+// $btn-line-height-sm: $input-btn-line-height-sm;
 $btn-padding-y-lg: 8px;
 $btn-padding-x-lg: 34px;
 $btn-disabled-color: $gray-400;
