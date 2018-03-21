@@ -20,7 +20,6 @@
         "prefix": "app",
         "styles": [
           "styles.scss",
-          "styles/themes/olivine.scss",
           "assets/fonts/wtd/iconfont.css"
         ],
         "scripts": [],
