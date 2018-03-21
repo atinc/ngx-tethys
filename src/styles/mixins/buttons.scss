@@ -26,9 +26,10 @@
     } // Disabled comes first so active can properly restyle
     &.disabled,
     &:disabled {
-        color: color-yiq($background);
-        background-color: $background;
-        border-color: $border;
+        &:hover {
+            @include button-disabled();
+        }
+        @include button-disabled();
     }
     &:not(:disabled):not(.disabled):active,
     &:not(:disabled):not(.disabled).active,
@@ -67,8 +68,9 @@
     }
     &.disabled,
     &:disabled {
-        color: $color;
-        background-color: transparent;
+        color: $btn-disabled-color;
+        background-color: $btn-disabled-bg-color;
+        border-color: $btn-disabled-border-color;
     }
     &:not(:disabled):not(.disabled):active,
     &:not(:disabled):not(.disabled).active,
@@ -106,4 +108,12 @@
         // lighten($primary-active-theme, 15%)
         @include box-shadow(0px 2px 5px 1px rgba($color, 0.6));
     }
+}
+
+@mixin button-disabled() {
+    color: $btn-disabled-color;
+    background-color: $btn-disabled-bg-color;
+    border-color: $btn-disabled-border-color;
+    border: none;
+    @include box-shadow(none);
 }

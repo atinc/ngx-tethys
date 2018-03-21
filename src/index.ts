@@ -1,5 +1,5 @@
 import { Component, NgModule } from '@angular/core';
-import { ThyButtonDirective } from './button/button.component';
+import { ThyButtonComponent } from './button/button.component';
 
 import { FirstComponent } from './first/first.component';
 import { NgxPopBoxModule } from './pop-box/pop-box.module';
@@ -7,11 +7,11 @@ import { NgxPopBoxModule } from './pop-box/pop-box.module';
 @NgModule({
     declarations: [
         FirstComponent,
-        ThyButtonDirective
+        ThyButtonComponent
     ],
     exports: [
         FirstComponent,
-        ThyButtonDirective
+        ThyButtonComponent
     ],
     providers: [
     ],

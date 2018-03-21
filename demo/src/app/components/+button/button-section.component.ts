@@ -8,7 +8,10 @@ export class DemoButtonSectionComponent {
 
     loading: Boolean = false;
 
-    loadingSeconds: number;
+    loadingSeconds = 0;
+
+    outlineButtonTemplate = `<button thyButton="outline-default">预览</button>
+<button thyButton="outline-primary">新建文件夹</button>`;
 
     constructor() {
     }

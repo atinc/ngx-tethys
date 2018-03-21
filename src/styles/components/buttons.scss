@@ -3,6 +3,11 @@
 // Base styles
 //
 .btn {
+    // 设置 icon 字体大小
+    .wtf {
+        font-size: $font-size-base;
+        line-height: 1rem;
+    }
     display: inline-block;
     font-weight: $btn-font-weight;
     text-align: center;
@@ -21,7 +26,9 @@
     } // Disabled comes first so active can properly restyle
     &.disabled,
     &:disabled {
-        opacity: $btn-disabled-opacity;
+        color: $btn-disabled-color;
+        background-color: $btn-disabled-bg-color;
+        border-color: $btn-disabled-border-color; // opacity: $btn-disabled-opacity;
         @include box-shadow(none);
     } // Opinionated: add "hand" cursor to non-disabled .btn elements
     &:not(:disabled):not(.disabled) {
@@ -40,32 +47,17 @@ fieldset:disabled a.btn {
     pointer-events: none;
 }
 
-//
-// Alternate buttons
-//
-// @each $color,
-// $value in $theme-colors {
-//     .btn-#{$color} {
-//         @include button-variant($value, $value);
-//     }
-// }
 .btn-primary {
     @include button-variant($white, $white, $primary, $primary, $primary, $primary, $primary, $primary);
     @include button-hover-box-shadow($primary);
-    // &:hover {
-    //     // lighten($primary-active-theme, 15%)
-    //     @include box-shadow(0px 2px 5px 1px rgba($primary, 0.6));
-    // }
 }
 
-.btn-secondary {
-    @include button-variant($white, $white, $secondary, $secondary, $secondary, $secondary, $secondary, $secondary);
-}
-
-.btn-info {
-    @include button-variant($white, $white, $info, $info, $info, $info, $info, $info);
-}
-
+// .btn-secondary {
+//     @include button-variant($white, $white, $secondary, $secondary, $secondary, $secondary, $secondary, $secondary);
+// }
+// .btn-info {
+//     @include button-variant($white, $white, $info, $info, $info, $info, $info, $info);
+// }
 .btn-warning {
     @include button-variant($white, $white, $warning, $warning, $warning, $warning, $warning, $warning);
 }
@@ -82,20 +74,18 @@ fieldset:disabled a.btn {
 // $color, $border-color, $hover-color, $hover-background, 
 // $hover-border, $active-background, $active-border
 .btn-outline-primary {
+    border-radius: $border-radius;
     @include button-outline-variant($primary, $primary, $white, $primary, null, $primary, null);
 }
 
-.btn-outline-info {
-    border-radius: 4px;
-    @include button-outline-variant($primary, $primary, $white, $primary, null, $primary, null);
+.btn-outline-default {
+    @include button-outline-variant($gray-600, $gray-300, $primary, null, $primary, null, $primary);
 }
 
-// @each $color,
-// $value in $theme-colors {
-//     .btn-outline-#{$color} {
-//         @include button-outline-variant($value);
-//     }
-// } 
+// .btn-outline-info {
+//     border-radius: $border-radius;
+//     @include button-outline-variant($primary, $primary, $white, $primary, null, $primary, null);
+// }
 //
 // Link buttons
 //
@@ -120,7 +110,9 @@ fieldset:disabled a.btn {
     &.disabled {
         color: $btn-link-disabled-color;
     } // No need for an active state here
-} //
+}
+
+//
 // Button Sizes
 //
 .btn-lg {
@@ -129,7 +121,9 @@ fieldset:disabled a.btn {
 
 .btn-sm {
     @include button-size($btn-padding-y-sm, $btn-padding-x-sm, $font-size-sm, $btn-line-height-sm, $btn-border-radius-sm);
-} //
+}
+
+//
 // Block button
 //
 .btn-block {
@@ -138,7 +132,9 @@ fieldset:disabled a.btn {
     +.btn-block {
         margin-top: $btn-block-spacing-y;
     }
-} // Specificity overrides
+}
+
+// Specificity overrides
 input[type="submit"],
 input[type="reset"],
 input[type="button"] {

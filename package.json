@@ -6,7 +6,7 @@
     "build": "rimraf ./built/* ./codegen/* && ngc -p tsconfig-dist.json",
     "build:ngm": "ngm build -p src --clean",
     "ng": "ng",
-    "start": "ng serve --port 4444",
+    "start": "ng serve --port 4444 --host 0.0.0.0",
     "build:demo": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",

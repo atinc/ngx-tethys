@@ -1,48 +1,59 @@
-<a href="">链接</a>
 <section>
     <div class="header">
-        <h5>主要按钮</h5>
+        <h2>主要按钮</h2>
     </div>
     <div class="body">
-        <button thyButton="primary">按钮</button>
-        <button thyButton="secondary">按钮</button>
-        <button thyButton="info">按钮</button>
-        <button thyButton="success">按钮</button>
-        <button thyButton="warning">按钮</button>
-        <button thyButton="danger">按钮</button>
+        <button thyButton="primary">确认</button>
+        <button thyButton="primary">
+            <i class="wtf wtf-plus"></i>新建任务</button>
+        <button thyButton="danger">删除</button>
         <br>
         <br>
-        <button thyButton="primary" disabled>禁用按钮</button>
-        <button thyButton="secondary" disabled>禁用按钮</button>
-        <button thyButton="info" disabled>禁用按钮</button>
-        <button thyButton="success" disabled>禁用按钮</button>
-        <button thyButton="warning" disabled>禁用按钮</button>
-        <button thyButton="danger" disabled>禁用按钮</button>
+        <button thyButton="primary" disabled>确认</button>
+        <button thyButton="primary" disabled>
+            <i class="wtf wtf-plus"></i>新建任务</button>
+        <button thyButton="danger" disabled>删除</button>
+
         <br>
         <br>
-        <button thyButton="outline-primary">按钮</button>
-        <button thyButton="outline-secondary">按钮</button>
-        <button thyButton="outline-info">按钮</button>
-        <button thyButton="outline-success">按钮</button>
-        <button thyButton="outline-warning">按钮</button>
-        <button thyButton="outline-danger">按钮</button>
+        <button thyButton="primary">确认</button>
+        <button thyButton="link">取消</button>
     </div>
 </section>
 
 <section>
     <div class="header">
-        <h5>二级按钮</h5>
+        <h2>二级按钮</h2>
     </div>
     <div class="body">
-        xxxx
+        <button thyButton="secondary">设置安全模式</button>
+        <button thyButton="secondary" icon="wtf-plus">设置安全模式</button>
     </div>
 </section>
 
+<section>
+    <div class="header">
+        <h2>加载状态</h2>
+    </div>
+    <div class="body">
 
-<button thyButton="primary" [btnLoading]="loading" (click)="startLoading()" [btnLoadingText]="'加载中... ' + loadingSeconds + 's 后恢复'">按钮</button>
-<button thyButton="success">按钮</button>
-<button thyButton="default">按钮</button>
+        <button thyButton="primary" [btnLoading]="loading" (click)="startLoading()" [btnLoadingText]="'加载中... ' + loadingSeconds + 's 后恢复'">点击加载</button>
+    </div>
+</section>
 
-<!-- <thy-first #thyFirst></thy-first> -->
-
-<a class="btn btn-link">link</a>
+<section>
+    <div class="header">
+        <h2>线框按钮</h2>
+    </div>
+    <div class="body">
+        <button thyButton="outline-default">预览</button>
+        <button thyButton="outline-primary">新建文件夹</button>
+        <p>
+            <code>outline-default</code> 为之前的
+            <code>btn-default</code>，
+            <code>outline-primary</code> 为之前的
+            <code>btn-info</code>
+        </p>
+        <pre>{{outlineButtonTemplate}} </pre>
+    </div>
+</section>
