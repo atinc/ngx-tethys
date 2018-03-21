@@ -50,7 +50,7 @@ export class ThyButtonComponent implements AfterContentInit, OnChanges {
 
     @Input()
     set btnLoadingText(value: string) {
-        if(this._loadingText !== value){
+        if (this._loadingText !== value) {
 
         }
         this._loadingText = value;

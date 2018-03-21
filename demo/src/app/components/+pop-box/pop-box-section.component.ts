@@ -13,14 +13,14 @@ export class DemoPopBoxSectionComponent {
 
     }
 
-    add(nativeElement: any) {
+    add(templateRef: any) {
         const initialState = {
             name: 'hello'
         };
-        const elementRef = new ElementRef(nativeElement);
+    
         this.popBoxService.show(PopBoxDemoShowComponent, {
             initialState: initialState,
-            target: elementRef
+            target: templateRef.elementRef
         });
     }
 }
