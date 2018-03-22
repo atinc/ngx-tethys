@@ -1,9 +1,12 @@
+@import '../styles/variables.scss';
 pop-box-container {
-    position: fixed;
+  position: fixed;
 }
 
 .pop-box {
-    border: 1px solid red;
-    padding: 20px;
-    width: 500px;
+  border: 1px solid red;
+  padding: 20px;
+  width: 300px;
+  background: $white;
+  box-shadow: $box-shadow;
 }
