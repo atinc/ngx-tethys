@@ -38,7 +38,6 @@ export class PopBoxDemoShowComponent {
     }
 
     ngOnInit() {
-        console.log(1)
     }
 }
 

@@ -1,21 +1,21 @@
 import { Component, NgModule } from '@angular/core';
-import { ThyButtonComponent } from './button/button.component';
+import { ThyButtonModule } from './button/button.module';
 
 import { FirstComponent } from './first/first.component';
 import { NgxPopBoxModule } from './pop-box/pop-box.module';
 
 @NgModule({
     declarations: [
-        FirstComponent,
-        ThyButtonComponent
+        FirstComponent
     ],
     exports: [
         FirstComponent,
-        ThyButtonComponent
+        ThyButtonModule
     ],
     providers: [
     ],
     imports: [
+        ThyButtonModule,
         NgxPopBoxModule
     ]
 })

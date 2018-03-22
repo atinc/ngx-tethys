@@ -1,0 +1,12 @@
+.btn-primary {
+    @include button-variant($white, $white, $primary, $primary, $primary, $primary, $primary, $primary);
+    @include button-hover-box-shadow($primary);
+}
+
+.btn-outline-primary {
+    @include button-outline-variant($primary, $primary, $white, $primary, null, $primary, null);
+}
+
+.btn-outline-default {
+    @include button-outline-variant($gray-600, $gray-300, $primary, null, $primary, null, $primary);
+}

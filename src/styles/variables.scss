@@ -1,5 +1,3 @@
-@import './variables-theme';
-
 // gray color
 $white: #fff;
 $gray-99:#fdfdfd; // 内容区域背景色
@@ -16,7 +14,7 @@ $gray-900: #212529;
 $black: #000;
 
 // color
-$body-color:$gray-800;
+$body-color: $gray-800;
 
 $primary: #22d7bb !default;
 $secondary: #aaa !default;
@@ -36,21 +34,12 @@ $link-decoration: none;
 $link-hover-color: $primary;
 $link-hover-decoration: underline;
 
+// box shadow
+$box-shadow: 0 0 24px rgba(0, 0, 0, 0.18);
+
 // font
-$font-family-sans-serif: 'Helvetica Neue',
-'Hiragino Sans GB',
-'stheiti',
-'Microsoft Yahei',
-'微软雅黑',
-tahoma,
-'sans-serif';
-$font-family-monospace: SFMono-Regular,
-Menlo,
-Monaco,
-Consolas,
-"Liberation Mono",
-"Courier New",
-monospace;
+$font-family-sans-serif: 'Helvetica Neue','Hiragino Sans GB','stheiti','Microsoft Yahei','微软雅黑',tahoma,'sans-serif';
+$font-family-monospace: SFMono-Regular,Menlo,Monaco,Consolas "Liberation Mono","Courier New",monospace;
 $font-family-base: $font-family-sans-serif;
 $font-size-base: 0.875rem; // 14px
 $font-size-lg: 1.25rem; // 20px
@@ -68,17 +57,41 @@ $btn-border-radius: 1.25rem;
 $btn-border-radius-lg: 1.25rem;
 $btn-border-radius-sm: 1rem;
 $btn-box-shadow: null;
-$btn-padding-y: 0.469rem;//5px 30px 
+$btn-padding-y: 0.469rem;//108*38px
 $btn-padding-x: 2.438rem;
-// $btn-line-height: $input-btn-line-height !default;
-$btn-padding-y-sm: 3px;
-$btn-padding-x-sm: 20px;
-// $btn-line-height-sm: $input-btn-line-height-sm !default;
+$btn-padding-y-md: 0.407rem;// 100*36px 变种按钮大小 
+$btn-padding-x-md: 1.25rem;
+// $btn-line-height: $input-btn-line-height;
+$btn-padding-y-sm: 0.25rem; // 70*28px
+$btn-padding-x-sm: 1.375rem;
+// $btn-line-height-sm: $input-btn-line-height-sm;
 $btn-padding-y-lg: 8px;
 $btn-padding-x-lg: 34px;
 $btn-disabled-color: $gray-400;
 $btn-disabled-bg-color: $gray-100;
 $btn-disabled-border-color: $gray-300;
+$btn-link-color-default: $gray-500;
+$btn-link-color-disabled: $gray-400;
 
-// box shadow
-$box-shadow: 0 0 24px rgba(0, 0, 0, 0.18);
+
+// Tables
+$table-cell-padding:          .75rem 1rem !default;
+$table-cell-padding-sm:       .3rem !default;
+
+$table-bg:                    transparent !default;
+$table-accent-bg:             rgba($black, .05) !default;
+$table-hover-bg:              rgba($black, .075) !default;
+$table-active-bg:             $table-hover-bg !default;
+$table-margin-bottom:         1.25rem;
+$table-hover-color:           $gray-200;
+
+$table-border-width:          1px !default;
+$table-border-color:          $gray-200 !default;
+
+$table-head-bg:               $gray-200 !default;
+$table-head-color:            $gray-700 !default;
+
+$table-default-head-color:    $gray-600;
+
+$table-bordered-bg:           $gray-100;
+$table-bordered-head-color:   $gray-700;

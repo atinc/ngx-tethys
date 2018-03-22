@@ -61,3 +61,4 @@ built
 .tmp
 dist
 reference
+.history
