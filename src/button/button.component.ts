@@ -32,7 +32,7 @@ export class ThyButtonComponent implements AfterContentInit, OnChanges {
 
     private _size: string;
 
-    private icon: string;
+    private _icon: string;
 
     private _loading: boolean;
 
@@ -92,10 +92,10 @@ export class ThyButtonComponent implements AfterContentInit, OnChanges {
 
     @Input()
     set btnIcon(icon: string) {
-        this.icon = icon;
-        if (icon) {
+        this._icon = icon;
+        if (this._icon ) {
             const btnIconPrefix = this.btnIconPrefix || 'wtf';
-            this.iconClass = [btnIconPrefix, `${icon}`];
+            this.iconClass = [btnIconPrefix, `${this._icon }`];
         } else {
             this.iconClass = null;
         }
