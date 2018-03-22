@@ -79,3 +79,28 @@ $btn-padding-x-lg: 34px;
 $btn-disabled-color: $gray-400;
 $btn-disabled-bg-color: $gray-100;
 $btn-disabled-border-color: $gray-300;
+
+// Tables
+//
+// Customizes the `.table` component with basic values, each used across all table variations.
+
+$table-cell-padding:          .75rem 1rem !default;
+$table-cell-padding-sm:       .3rem !default;
+
+$table-bg:                    transparent !default;
+$table-accent-bg:             rgba($black, .05) !default;
+$table-hover-bg:              rgba($black, .075) !default;
+$table-active-bg:             $table-hover-bg !default;
+$table-margin-bottom:         1.25rem;
+$table-hover-color:           $gray-200;
+
+$table-border-width:          1px !default;
+$table-border-color:          $gray-200 !default;
+
+$table-head-bg:               $gray-200 !default;
+$table-head-color:            $gray-700 !default;
+
+$table-default-head-color:    $gray-600;
+
+$table-bordered-bg:           $gray-100;
+$table-bordered-head-color:   $gray-700;

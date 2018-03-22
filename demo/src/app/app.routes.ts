@@ -1,6 +1,7 @@
 import { DemoButtonSectionComponent } from './components/+button/button-section.component';
 import { DemoPopBoxSectionComponent } from './components/+pop-box/pop-box-section.component';
 import { DemoRebootSectionComponent } from './components/+reboot/reboot-section.component';
+import { DemoTableSectionComponent } from './components/+table/table-section.component';
 
 
 const appRoutes = [
@@ -15,6 +16,10 @@ const appRoutes = [
     {
         path: 'components/reboot',
         component: DemoRebootSectionComponent
+    },
+    {
+        path: 'components/table',
+        component: DemoTableSectionComponent
     }
 ];
 
