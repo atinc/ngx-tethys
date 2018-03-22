@@ -1,5 +1,4 @@
 @import "~bootstrap/scss/functions";
-@import "./variables-theme";
 @import "./variables";
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins";
@@ -8,7 +7,7 @@
 
 // @import "~bootstrap/scss/reboot";
 @import "./components/reboot";
-@import "./components/buttons";
+@import "../button/styles/button";
 @import "./components/link";
 @import "./components/tables";
 

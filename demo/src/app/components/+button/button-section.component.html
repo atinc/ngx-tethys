@@ -17,7 +17,7 @@
         <br>
         <br>
         <button thyButton="primary">确认</button>
-        <button thyButton="link">取消</button>
+        <button thyButton="link-default">取消</button>
     </div>
 </section>
 
@@ -27,7 +27,8 @@
     </div>
     <div class="body">
         <button thyButton="secondary">设置安全模式</button>
-        <button thyButton="secondary" icon="wtf-plus">设置安全模式</button>
+        <button thyButton="secondary" btnIcon="wtf-th-plus">新建任务</button>
+        <button thyButton="secondary" btnIcon="wtf-download">导出</button>
     </div>
 </section>
 
@@ -55,5 +56,48 @@
             <code>btn-info</code>
         </p>
         <pre>{{outlineButtonTemplate}} </pre>
+    </div>
+</section>
+
+<section>
+        <div class="header">
+            <h2>按钮链接</h2>
+        </div>
+        <div class="body">
+            <button thyButton="link">预览</button>
+            <!-- <button thyButton="link" btnIcon="wtf-plus">搜索</button> -->
+            <button thyButton="link-secondary">取消</button>
+        </div>
+    </section>
+
+<section>
+    <div class="header">
+        <h2>按钮大小</h2>
+    </div>
+    <div class="body">
+    
+        <code>sm</code> 小按钮：
+        <button thyButton="primary" btnSize="sm">确定</button>
+        <button thyButton="danger" btnSize="sm">删除</button>
+        <button thyButton="outline-default" btnSize="sm">预览</button>
+        <button thyButton="outline-primary" btnSize="sm">新建文件夹</button>
+    
+        <br>
+        <br>
+        <code>md</code> 二级大小按钮：
+        <button thyButton="primary" btnSize="md">确定</button>
+        <button thyButton="danger" btnSize="md">删除</button>
+        <button thyButton="outline-default" btnSize="md">预览</button>
+        <button thyButton="outline-primary" btnSize="md">新建文件夹</button>
+        
+        <br>
+        <br>
+        一级按钮
+        <button thyButton="primary">确定</button>
+        <button thyButton="danger">删除</button>
+        <button thyButton="outline-default">预览</button>
+        <button thyButton="outline-primary">新建文件夹</button>
+        
+
     </div>
 </section>

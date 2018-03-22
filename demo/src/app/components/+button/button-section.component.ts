@@ -16,7 +16,7 @@ export class DemoButtonSectionComponent {
     constructor() {
     }
 
-    startLoading(thyFirst: any) {
+    startLoading() {
         this.loading = true;
         this.loadingSeconds = 3;
 
