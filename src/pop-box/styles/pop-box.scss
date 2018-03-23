@@ -1,0 +1,40 @@
+pop-box-container {
+  position: fixed;
+}
+
+.pop-box {
+  width: 240px;
+  background: $white;
+  box-shadow: $box-shadow;
+  .pop-box-menu {
+    padding: $rem-5px 0;
+    margin: 0;
+    li {
+      line-height: 30px;
+      list-style: none;
+      .pop-box-menu-item {
+        display: block;
+        padding: $rem-5px $rem-18px;
+        font-weight: 400;
+        color: $pop-box-text;
+        border: 0;
+        background-color: transparent;
+        transition: all 200ms;
+        text-decoration: none;
+        .icon {
+          display: inline-block;
+          width: 1rem;
+        }
+        &:hover {
+          padding-left: $rem-26px;
+          color: $pop-box-text-hover;
+          background: $pop-box-bg-hover;
+        }
+      }
+    }
+    .divider {
+      margin: $rem-5px $rem-20px;
+      border-bottom: solid 1px $pop-box-divider;
+    }
+  }
+}

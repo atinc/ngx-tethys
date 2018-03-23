@@ -14,12 +14,12 @@ export class DemoPopBoxSectionComponent {
 
     }
 
-    add(templateRef: any) {
+    openPopBoxMenu(templateRef: any) {
         const initialState = {
-            name: 'hello'
+            title: 'hello'
         };
 
-        this.popBoxService.show(PopBoxDemoShowComponent, {
+        this.popBoxService.show(PopBoxMenuDemoShowComponent, {
             initialState: initialState,
             target: templateRef.elementRef
         })
@@ -27,17 +27,47 @@ export class DemoPopBoxSectionComponent {
 }
 
 @Component({
-    selector: 'demo-pop-box-show',
-    template: `show demo, name from section: {{name}} <input type="text"/>  <a href="javascript:;" (click)="popBoxRef.hide()">关闭</a>`
+    selector: 'demo-pop-box-menu-show',
+    template: `
+        <ul class="pop-box-menu">
+            <li (click)="itemClick(1)">
+                <a class="pop-box-menu-item" href="javascript:;">
+                    <span class="icon"><i class="wtf wtf-task-o"></i></span>
+                    <span>有图标</span>
+                </a>
+            </li>
+            <li (click)="itemClick(2)">
+                <a class="pop-box-menu-item" href="javascript:;">
+                    <span class="icon"></span>
+                    <span>空位图标</span>
+                </a>
+            </li>
+            <li class="divider"></li>
+            <li (click)="itemClick(3)">
+                <a class="pop-box-menu-item" href="javascript:;">
+                    <span>复制</span>
+                </a>
+            </li>
+            <li (click)="itemClick(4)">
+                <a class="pop-box-menu-item" href="javascript:;">
+                    <span>删除</span>
+                </a>
+            </li>
+        </ul>
+    `
 })
-export class PopBoxDemoShowComponent {
+export class PopBoxMenuDemoShowComponent {
 
-    name: string;
+    title: string;
 
     constructor(public popBoxRef: PopBoxRef) {
     }
 
     ngOnInit() {
+        console.log(this.title);
+    }
+
+    itemClick(value) {
+        alert(value);
     }
 }
-
