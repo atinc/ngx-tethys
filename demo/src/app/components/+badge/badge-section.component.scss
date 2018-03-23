@@ -1,0 +1,20 @@
+.demo-badge-list {
+    margin-bottom: 20px;
+    thy-badge {
+        margin-left: 20px;
+    }
+    .square {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        border-radius: 5px;
+        background: #333;
+    }
+    .circle {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: #333;
+    }
+}
