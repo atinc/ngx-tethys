@@ -11,7 +11,6 @@ import { PopBoxOptions } from './pop-box-options.class';
         </div>
       </div>
     `,
-    styleUrls: ['./pop-box.scss'],
     encapsulation: ViewEncapsulation.None
 })
 export class PopBoxContainerComponent {
