@@ -11,7 +11,6 @@ import { PopBoxOptions } from './pop-box-options.class';
         </div>
       </div>
     `,
-    encapsulation: ViewEncapsulation.None
 })
 export class PopBoxContainerComponent {
 
@@ -48,9 +47,10 @@ export class PopBoxContainerComponent {
 
     @HostListener('document:click', ['$event'])
     onDocumentClick(event: any): void {
-        if (!this.config.target.nativeElement.contains(event.target) &&
-            !this._element.nativeElement.contains(event.target)) {
-            this.hide();
+        if (!this.config.target.nativeElement.contains(event.target)) {
+            if (this.config.autoClose || !this._element.nativeElement.contains(event.target)) {
+                this.hide();
+            }
         }
     }
 

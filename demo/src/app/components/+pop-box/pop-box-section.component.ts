@@ -21,6 +21,18 @@ export class DemoPopBoxSectionComponent {
 
         this.popBoxService.show(PopBoxMenuDemoShowComponent, {
             initialState: initialState,
+            autoClose: true,
+            target: templateRef.elementRef
+        })
+    }
+
+    openPopBoxWithTemplate(templateRef: any, popBoxTemplate: any) {
+        const initialState = {
+            title: 'hello'
+        };
+
+        this.popBoxService.show(popBoxTemplate, {
+            initialState: initialState,
             target: templateRef.elementRef
         })
     }
@@ -30,28 +42,41 @@ export class DemoPopBoxSectionComponent {
     selector: 'demo-pop-box-menu-show',
     template: `
         <ul class="pop-box-menu">
-            <li (click)="itemClick(1)">
-                <a class="pop-box-menu-item" href="javascript:;">
+            <li>
+                <a class="pop-box-menu-item" href="javascript:;" (click)="itemClick(1)">
                     <span class="icon"><i class="wtf wtf-task-o"></i></span>
                     <span>有图标</span>
                 </a>
             </li>
-            <li (click)="itemClick(2)">
-                <a class="pop-box-menu-item" href="javascript:;">
+            <li>
+                <a class="pop-box-menu-item" href="javascript:;" (click)="itemClick(2)">
                     <span class="icon"></span>
                     <span>空位图标</span>
                 </a>
             </li>
             <li class="divider"></li>
-            <li (click)="itemClick(3)">
-                <a class="pop-box-menu-item" href="javascript:;">
+            <li>
+                <a class="pop-box-menu-item" href="javascript:;" (click)="itemClick(3)">
                     <span>复制</span>
                 </a>
             </li>
-            <li (click)="itemClick(4)">
-                <a class="pop-box-menu-item" href="javascript:;">
+            <li>
+                <a class="pop-box-menu-item" href="javascript:;" (click)="itemClick(4)">
                     <span>删除</span>
+                    <span class="extend-icon"><i class="wtf wtf-angle-right"></i></span>
                 </a>
+                <ul class="pop-box-sub-menu">
+                    <li>
+                        <a class="pop-box-sub-menu-item" href="javascript:;" (click)="itemClick(5)">
+                            <span>二级菜单</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="pop-box-sub-menu-item" href="javascript:;" (click)="itemClick(6)">
+                            <span>二级菜单</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
         </ul>
     `
