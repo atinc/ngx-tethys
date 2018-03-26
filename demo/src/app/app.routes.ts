@@ -2,7 +2,8 @@ import { DemoButtonSectionComponent } from './components/+button/button-section.
 import { DemoPopBoxSectionComponent } from './components/+pop-box/pop-box-section.component';
 import { DemoRebootSectionComponent } from './components/+reboot/reboot-section.component';
 import { DemoTableSectionComponent } from './components/+table/table-section.component';
-import { DemoWTDSectionLinkComponent } from "./components/+wtd/wtd.component";
+import { DemoWTDSectionLinkComponent } from './components/+wtd/wtd.component';
+import { DemoBadgeSectionComponent } from './components/+badge/badge-section.component';
 
 
 const appRoutes = [
@@ -26,6 +27,10 @@ const appRoutes = [
         path: 'components/wtd',
         component: DemoWTDSectionLinkComponent
     },
+    {
+        path: 'components/badge',
+        component: DemoBadgeSectionComponent
+    }
 ];
 
 export { appRoutes };

@@ -4,6 +4,7 @@ import { DemoRebootSectionComponent } from './+reboot/reboot-section.component';
 import { DemoTableSectionComponent } from './+table/table-section.component';
 import { RebootSectionLinkComponent } from './+reboot/items/link.component';
 import { DemoWTDSectionLinkComponent } from './+wtd/wtd.component';
+import { DemoBadgeSectionComponent } from './+badge/badge-section.component';
 
 
 export const COMPONENTS = [
@@ -14,6 +15,7 @@ export const COMPONENTS = [
     DemoTableSectionComponent,
     RebootSectionLinkComponent,
     DemoWTDSectionLinkComponent,
+    DemoBadgeSectionComponent
 ];
 
 export const ENTRY_COMPONENTS = [
