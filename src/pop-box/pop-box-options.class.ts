@@ -46,11 +46,15 @@ export class PopBoxOptions {
      * Close PopBox on outside click
      */
     outsideClick?: boolean;
+
+
+    autoClose?: boolean;
 }
 
 export const popBoxConfigDefaults: PopBoxOptions = {
     placement: 'bottom left',
     visibleArrow: false,
     keyboard: true,
-    outsideClick: true
+    outsideClick: true,
+    autoClose: false,
 }

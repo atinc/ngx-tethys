@@ -1,6 +1,6 @@
 import {
     Injectable, Inject, ViewContainerRef, ComponentFactoryResolver,
-    EventEmitter, HostListener
+    EventEmitter, HostListener, ElementRef
 } from '@angular/core';
 import { TemplateRef, RendererFactory2, Renderer2 } from '@angular/core';
 import { PopBoxRef } from './pop-box-ref.service';
@@ -15,7 +15,7 @@ export class PopBoxService {
 
     isOpen: boolean;
 
-
+    private _target: ElementRef;
 
     private _renderer: Renderer2;
 
@@ -29,10 +29,14 @@ export class PopBoxService {
     }
 
     show(content: string | TemplateRef<any> | any, config: PopBoxOptions): PopBoxRef {
-        if (this.isOpen) {
-            this.hide();
-            return;
+        if (this._popBoxLoader) {
+            this._popBoxLoader.hide();
+            this._popBoxLoader = null;
+            if (this._target === config.target.nativeElement) {
+                return;
+            }
         }
+        this._target = config.target.nativeElement;
 
         const loader = this.clf.createLoader<PopBoxContainerComponent>(
             config.target,
@@ -54,15 +58,21 @@ export class PopBoxService {
             popBoxContainerRef.instance.hide();
         };
         popBoxRef.content = loader.getInnerComponent() || null;
-        this.isOpen = true;
+
+        this.toggle();
+
         return popBoxRef;
     }
 
     hide() {
         if (this._popBoxLoader) {
             this._popBoxLoader.hide();
-            this.isOpen = false;
+            this._popBoxLoader = null;
         }
+    }
+
+    toggle() {
+        this._config.target.nativeElement.isOpen = !this._config.target.nativeElement.isOpen;
     }
 
     dispose() {
