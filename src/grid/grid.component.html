@@ -1,0 +1,17 @@
+<table class="table table-default">
+    <thead>
+        <tr>
+            <th *ngFor="let column of columns">{{column.label}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let row of data">
+            <td *ngFor="let column of columns">
+                {{row[column.model]}}
+            </td>
+        </tr>
+    </tbody>
+</table>
+<ng-content>
+    
+</ng-content>

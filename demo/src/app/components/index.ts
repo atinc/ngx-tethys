@@ -2,6 +2,7 @@ import { DemoPopBoxSectionComponent, PopBoxDemoShowComponent } from './+pop-box/
 import { DemoButtonSectionComponent } from './+button/button-section.component';
 import { DemoRebootSectionComponent } from './+reboot/reboot-section.component';
 import { DemoTableSectionComponent } from './+table/table-section.component';
+import { DemoGridSectionComponent } from './+grid/grid-section.component';
 import { RebootSectionLinkComponent } from './+reboot/items/link.component';
 
 
@@ -11,6 +12,7 @@ export const COMPONENTS = [
     DemoButtonSectionComponent,
     DemoRebootSectionComponent,
     DemoTableSectionComponent,
+    DemoGridSectionComponent,
     RebootSectionLinkComponent
 ];
 

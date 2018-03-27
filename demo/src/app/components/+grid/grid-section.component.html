@@ -1,0 +1,11 @@
+<thy-grid [data]='data'>
+    <thy-grid-column label="姓名" model="name">
+
+        <ng-template #tpl>
+                <div>{{tpl}}}</div>
+        </ng-template>
+       
+    </thy-grid-column>
+    <thy-grid-column label="年龄" model="age"></thy-grid-column>
+    <thy-grid-column label="备注" model="desc"></thy-grid-column>
+</thy-grid>

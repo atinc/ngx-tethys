@@ -3,6 +3,7 @@ import { ThyButtonModule } from './button/button.module';
 
 import { FirstComponent } from './first/first.component';
 import { NgxPopBoxModule } from './pop-box/pop-box.module';
+import { ThyGridModule } from './grid/grid.module';
 
 @NgModule({
     declarations: [
@@ -10,13 +11,15 @@ import { NgxPopBoxModule } from './pop-box/pop-box.module';
     ],
     exports: [
         FirstComponent,
-        ThyButtonModule
+        ThyButtonModule,
+        ThyGridModule
     ],
     providers: [
     ],
     imports: [
         ThyButtonModule,
-        NgxPopBoxModule
+        NgxPopBoxModule,
+        ThyGridModule
     ]
 })
 export class NgxTethysModule {
