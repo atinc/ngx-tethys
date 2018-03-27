@@ -111,3 +111,15 @@ $table-default-head-color:    $gray-600;
 
 $table-bordered-bg:           $gray-100;
 $table-bordered-head-color:   $gray-700;
+
+
+// badges
+$badge-font-size : 75% !default;
+$badge-font-weight : normal !default;
+$badge-padding-y : .25em !default;
+$badge-padding-x : 7px !default;
+$badge-border-radius : 14px !default;
+$badge-pill-padding-x : .6em !default;
+$badge-pill-border-radius : 10rem !default;
+$badge-bg: $gray-200; //#eee
+$badge-color: $gray-700; //#666

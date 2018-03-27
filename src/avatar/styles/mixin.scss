@@ -1,0 +1,19 @@
+@mixin avatarSize($size, $fontsize: 12px, $radius: 3px) {
+    &-#{$size} {
+        img,
+        .lc-avatar-default {
+            width: 0px+$size;
+            height: 0px+$size;
+            line-height: 0px+$size;
+            font-size: 0px+$fontsize;
+            border-radius: 0px+$radius;
+            vertical-align: middle;
+            div {
+                display: inline-block;
+            }
+        }
+        .lc-avatar-name {
+            line-height: 0px+$size;
+        }
+    }
+}
