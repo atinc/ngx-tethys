@@ -3,22 +3,20 @@
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins";
 @import "./mixins/index";
-@import "~bootstrap/scss/grid";
 
+@import "~bootstrap/scss/grid";
+@import "~bootstrap/scss/nav";
+@import "~bootstrap/scss/code";
 // @import "~bootstrap/scss/reboot";
+// @import "~bootstrap/scss/buttons";
+// @import "~bootstrap/scss/navbar";
+// @import "~bootstrap/scss/badge";
+
 @import "./components/reboot";
-@import "../button/styles/button";
-@import "../pop-box/styles/pop-box";
 @import "./components/link";
 @import "./components/tables";
 
-// @import "~bootstrap/scss/buttons";
-
-@import "~bootstrap/scss/nav";
-@import "~bootstrap/scss/code";
-// @import "~bootstrap/scss/navbar";
-
-// @import "~bootstrap/scss/badge";
+@import "../button/styles/button";
+@import "../pop-box/styles/pop-box";
 @import "../badge/styles/badge";
-
 @import "../avatar/styles/avatar";
