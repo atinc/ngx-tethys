@@ -13,7 +13,6 @@ const badgeStatusTypeClassesMap: any = {
     templateUrl: './badge.component.html',
     styleUrls: ['./badge.scss']
 })
-
 export class ThyBadgeComponent implements OnInit, OnChanges {
 
     @Input() thyCount?: any;    // 标记显示的数字
