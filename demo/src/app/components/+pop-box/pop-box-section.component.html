@@ -1,1 +1,22 @@
-<button [thyButton]="'primary'" #btnTrigger (click)="add(btnTrigger)">弹出 PopBox</button>
+<section>
+    <div class="header">
+        <h2>PopBoxMenu</h2>
+    </div>
+    <div class="body">
+        <button [thyButton]="'primary'" #btnTriggerPopBoxMenu (click)="openPopBoxMenu(btnTriggerPopBoxMenu)">下拉菜单</button>
+    </div>
+</section>
+
+<section>
+    <div class="header">
+        <h2>PopBoxTemplate</h2>
+    </div>
+    <div class="body">
+        <div>
+            <button [thyButton]="'primary'" #btnTriggerPopBoxTemplate (click)="openPopBoxWithTemplate(btnTriggerPopBoxTemplate,popBoxTemplate)">弹出 PopBox</button>
+        </div>
+        <ng-template #popBoxTemplate>
+            <div>template</div>
+        </ng-template>
+    </div>
+</section>

@@ -1,0 +1,29 @@
+@mixin set-badge-color($color, $badge-bg) {
+    color: $color;
+    background-color: $badge-bg;
+    .nav-pills>.active>a>& {
+        color: $color;
+        background-color: $badge-bg;
+    }
+}
+
+@mixin set-badge-size($font-size, $padding-horizontal, $padding-vertical) {
+    font-size: $font-size;
+    padding: $padding-horizontal $padding-vertical;
+}
+
+
+// bootstrap 4
+@mixin badge-variant($bg) {
+    color: color-yiq($bg);
+    background-color: $bg;
+  
+    &[href] {
+      @include hover-focus {
+        color: color-yiq($bg);
+        text-decoration: none;
+        background-color: darken($bg, 10%);
+      }
+    }
+  }
+  

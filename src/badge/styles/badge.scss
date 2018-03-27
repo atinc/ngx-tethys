@@ -1,0 +1,74 @@
+// bootstrap 4
+// Base class
+//
+// Requires one of the contextual, color modifier classes for `color` and
+// `background-color`.
+.badge {
+    display: inline-block;
+    padding: $badge-padding-y $badge-padding-x;
+    font-size: $badge-font-size;
+    font-weight: $badge-font-weight;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    color: $badge-color;
+    vertical-align: middle;
+    background-color: $badge-bg;
+    @include border-radius($badge-border-radius); // Empty badges collapse automatically
+}
+
+// Quick fix for badges in buttons
+.btn .badge {
+    position: relative;
+    top: -1px;
+}
+
+// Pill badges
+//
+// Make them extra rounded with a modifier to replace v3's badges.
+.badge-pill {
+    padding-right: $badge-pill-padding-x;
+    padding-left: $badge-pill-padding-x;
+    @include border-radius($badge-pill-border-radius);
+}
+
+// Colors
+//
+// Contextual variations (linked badges get darker on :hover).
+@each $color,
+$value in $theme-colors {
+    .badge-#{$color} {
+        @include badge-variant($value);
+    }
+}
+
+// bootstrap
+.badge {
+    @include set-badge-size($font-size-sm, 2px, 6px);
+}
+
+.badge-dot {
+    display: inline-block;
+    padding: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    vertical-align: middle
+}
+
+.badge-danger {
+    @include set-badge-color($white, $danger);
+}
+
+.badge-primary {
+    @include set-badge-color($white, $primary);
+}
+
+.badge-lg {
+    @include set-badge-size($font-size-sm, 6px, 10px);
+}
+
+.badge-sm {
+    @include set-badge-size($font-size-min-sm, 1px, 4px);
+}

@@ -2,6 +2,8 @@ import { DemoButtonSectionComponent } from './components/+button/button-section.
 import { DemoPopBoxSectionComponent } from './components/+pop-box/pop-box-section.component';
 import { DemoRebootSectionComponent } from './components/+reboot/reboot-section.component';
 import { DemoTableSectionComponent } from './components/+table/table-section.component';
+import { DemoWTDSectionLinkComponent } from './components/+wtd/wtd.component';
+import { DemoBadgeSectionComponent } from './components/+badge/badge-section.component';
 import { DemoGridSectionComponent } from './components/+grid/grid-section.component';
 
 
@@ -23,9 +25,18 @@ const appRoutes = [
         component: DemoTableSectionComponent
     },
     {
+        path: 'components/wtd',
+        component: DemoWTDSectionLinkComponent
+    },
+    {
         path: 'components/grid',
         component: DemoGridSectionComponent
+    },
+    {
+        path: 'components/badge',
+        component: DemoBadgeSectionComponent
     }
+
 ];
 
 export { appRoutes };

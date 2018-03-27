@@ -34,6 +34,9 @@ $link-decoration: none;
 $link-hover-color: $primary;
 $link-hover-decoration: underline;
 
+// box shadow
+$box-shadow: 0 0 24px rgba(0, 0, 0, 0.18);
+
 // font
 $font-family-sans-serif: 'Helvetica Neue','Hiragino Sans GB','stheiti','Microsoft Yahei','微软雅黑',tahoma,'sans-serif';
 $font-family-monospace: SFMono-Regular,Menlo,Monaco,Consolas "Liberation Mono","Courier New",monospace;
@@ -41,6 +44,15 @@ $font-family-base: $font-family-sans-serif;
 $font-size-base: 0.875rem; // 14px
 $font-size-lg: 1.25rem; // 20px
 $font-size-sm: 0.75rem; // 12px
+
+//px to rem
+$rem-5px: 0.3125rem;
+$rem-10px: 0.625rem;
+$rem-15px: 0.9375rem;
+$rem-18px: 1.125rem;
+$rem-20px: 1.25rem;
+$rem-26px: 1.625rem;
+
 // 扩展
 $font-size-md: 1rem; // 16px
 $font-size-max-lg: 3.25rem; // 补充字体大小 52px
@@ -67,9 +79,15 @@ $btn-padding-x-lg: 34px;
 $btn-disabled-color: $gray-400;
 $btn-disabled-bg-color: $gray-100;
 $btn-disabled-border-color: $gray-300;
-
 $btn-link-color-default: $gray-500;
 $btn-link-color-disabled: $gray-400;
+
+// PopBox
+
+$pop-box-divider: $gray-100;
+$pop-box-bg-hover: $gray-100;
+$pop-box-text: $gray-700;
+$pop-box-text-hover: $gray-900;
 
 
 // Tables
@@ -93,3 +111,15 @@ $table-default-head-color:    $gray-600;
 
 $table-bordered-bg:           $gray-100;
 $table-bordered-head-color:   $gray-700;
+
+
+// badges
+$badge-font-size : 75% !default;
+$badge-font-weight : normal !default;
+$badge-padding-y : .25em !default;
+$badge-padding-x : 7px !default;
+$badge-border-radius : 14px !default;
+$badge-pill-padding-x : .6em !default;
+$badge-pill-border-radius : 10rem !default;
+$badge-bg: $gray-200; //#eee
+$badge-color: $gray-700; //#666
