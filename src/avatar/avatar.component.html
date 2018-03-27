@@ -1,0 +1,9 @@
+<div class="lc-avatar">
+    <div class="{{'lc-avatar-' + avatarSize}}">
+        <img *ngIf="avatarSrc" [src]="avatarSrc" class="lc-avatar-avatar" alt="" />
+        <span *ngIf="!avatarSrc" class="lc-avatar-default" [ngStyle]="avatarName | avatarBgColor">
+            <div>{{avatarName | avatarShortName}}</div>
+        </span>
+        <div *ngIf="showName" class="lc-avatar-name">{{[avatarName] | cutString}}</div>
+    </div>
+</div>

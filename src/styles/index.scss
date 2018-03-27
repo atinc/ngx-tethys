@@ -19,4 +19,6 @@
 // @import "~bootstrap/scss/navbar";
 
 // @import "~bootstrap/scss/badge";
-@import "./components/badge";
+@import "../badge/styles/badge";
+
+@import "../avatar/styles/avatar";

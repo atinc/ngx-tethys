@@ -5,6 +5,7 @@ import { DemoTableSectionComponent } from './+table/table-section.component';
 import { RebootSectionLinkComponent } from './+reboot/items/link.component';
 import { DemoWTDSectionLinkComponent } from './+wtd/wtd.component';
 import { DemoBadgeSectionComponent } from './+badge/badge-section.component';
+import {DemoAvatarSectionComponent} from './+avatar/avatar-section.component';
 
 
 export const COMPONENTS = [
@@ -15,7 +16,8 @@ export const COMPONENTS = [
     DemoTableSectionComponent,
     RebootSectionLinkComponent,
     DemoWTDSectionLinkComponent,
-    DemoBadgeSectionComponent
+    DemoBadgeSectionComponent,
+    DemoAvatarSectionComponent
 ];
 
 export const ENTRY_COMPONENTS = [

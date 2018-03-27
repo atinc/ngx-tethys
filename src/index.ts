@@ -4,8 +4,10 @@ import { ThyButtonModule } from './button/button.module';
 import { FirstComponent } from './first/first.component';
 import { NgxPopBoxModule } from './pop-box/pop-box.module';
 
-// import { ThyAvatarModule } from './avatar/avatar.module';
+import { ThyAvatarModule } from './avatar/avatar.module';
 import { ThyBadgeModule } from './badge/badge.module';
+
+
 
 @NgModule({
     declarations: [
@@ -14,14 +16,16 @@ import { ThyBadgeModule } from './badge/badge.module';
     exports: [
         FirstComponent,
         ThyButtonModule,
-        ThyBadgeModule
+        ThyBadgeModule,
+        ThyAvatarModule
     ],
     providers: [
     ],
     imports: [
         ThyButtonModule,
         NgxPopBoxModule,
-        ThyBadgeModule
+        ThyBadgeModule,
+        ThyAvatarModule
     ]
 })
 export class NgxTethysModule {
