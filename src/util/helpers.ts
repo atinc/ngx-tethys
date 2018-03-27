@@ -2,23 +2,23 @@ export function inputValueToBoolean(value: boolean | string): boolean {
     return value === '' || (value && value !== 'false');
 }
 
-export function isUndefined(value) {
+export function isUndefined(value: any) {
     return value === undefined;
 }
 
-export function isNull(value) {
+export function isNull(value: any) {
     return value === null;
 }
 
-export function isUndefinedOrNull(value) {
+export function isUndefinedOrNull(value: any) {
     return isUndefined(value) || isNull(value);
 }
 
-function isObjectLike(value) {
-    return typeof value == 'object' && value !== null
+function isObjectLike(value: any) {
+    return typeof value === 'object' && value !== null;
 }
 
-function baseGetTag(value) {
+function baseGetTag(value: any) {
 
     const objectProto = Object.prototype;
     const hasOwnProperty = objectProto.hasOwnProperty;
@@ -50,12 +50,12 @@ function baseGetTag(value) {
     return result;
 }
 
-export function isNumber(value) {
+export function isNumber(value: any) {
     return typeof value === 'number' ||
         (isObjectLike(value) && baseGetTag(value) === '[object Number]');
 }
 
-export function isObject(value) {
+export function isObject(value: any) {
     // Avoid a V8 JIT bug in Chrome 19-20.
     // See https://code.google.com/p/v8/issues/detail?id=2291 for more details.
     const type = typeof value;

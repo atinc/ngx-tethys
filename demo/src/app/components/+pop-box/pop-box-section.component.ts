@@ -23,7 +23,7 @@ export class DemoPopBoxSectionComponent {
             initialState: initialState,
             autoClose: true,
             target: templateRef.elementRef
-        })
+        });
     }
 
     openPopBoxWithTemplate(templateRef: any, popBoxTemplate: any) {
@@ -34,7 +34,7 @@ export class DemoPopBoxSectionComponent {
         this.popBoxService.show(popBoxTemplate, {
             initialState: initialState,
             target: templateRef.elementRef
-        })
+        });
     }
 }
 
@@ -81,7 +81,7 @@ export class DemoPopBoxSectionComponent {
         </ul>
     `
 })
-export class PopBoxMenuDemoShowComponent {
+export class PopBoxMenuDemoShowComponent implements OnInit {
 
     title: string;
 
