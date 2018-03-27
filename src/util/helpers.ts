@@ -55,9 +55,52 @@ export function isNumber(value) {
         (isObjectLike(value) && baseGetTag(value) === '[object Number]');
 }
 
-function isObject(value) {
+export function isObject(value) {
     // Avoid a V8 JIT bug in Chrome 19-20.
     // See https://code.google.com/p/v8/issues/detail?id=2291 for more details.
     const type = typeof value;
     return !!value && (type === 'object' || type === 'function');
+}
+
+export function isFunction(value) {
+    const type = typeof value;
+    return !!value && type === 'function';
+}
+
+
+export function get(object: any, path: string, defaultValue?: any) {
+    let paths = path.split('.')
+    let result = object[paths.shift()];
+    while (result && paths.length) {
+        result = result[paths.shift()];
+    }
+    return result === undefined ? defaultValue : result;
+}
+
+
+export function set(object: any, path: string, value: any) {
+    if (object == null) {
+        return object;
+    }
+    let paths = path.split('.');
+    let index = -1;
+    let length = paths.length;
+    let lastIndex = length - 1;
+    let nested = object;
+    while (nested !== null && ++index < length) {
+        var key = paths[index];
+        if (isObject(nested)) {
+            if (index === lastIndex) {
+                nested[key] = value;
+                nested = nested[key];
+                break;
+            } else {
+                if (nested[key] == null) {
+                    nested[key] = {};
+                }
+            }
+        }
+        nested = nested[key];
+    }
+    return object;
 }

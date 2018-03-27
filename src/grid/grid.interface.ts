@@ -1,14 +1,17 @@
+import { TemplateRef } from "@angular/core";
+
 export interface GridColumn {
+  key: string,
   model: string,
   label: string,
-  type:string, 
+  type: string,
   width: string | number,
-  className:string,
+  className: string,
   headerClassName: string,
-  disabled:boolean
+  disabled: boolean,
+  template: TemplateRef<any>
 }
 
 
- 
- 
- 
+
+

@@ -16,11 +16,8 @@ export class DemoGridSectionComponent implements OnInit {
         this.data = [{
             name: '张三',
             age: 10,
-            desc: '啛啛喳喳错错错错错错错错'
-        }, {
-            name: '李四',
-            age: 18,
-            desc: '啛啛喳喳错错错错错错错错'
+            checked: true,
+            desc: '这是一条测试数据'
         }];
     }
 }

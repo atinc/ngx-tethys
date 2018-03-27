@@ -1,11 +1,11 @@
-<thy-grid [data]='data'>
-    <thy-grid-column label="姓名" model="name">
-
-        <ng-template #tpl>
-                <div>{{tpl}}}</div>
-        </ng-template>
-       
-    </thy-grid-column>
+<thy-grid [data]='data' className="table-hover">
+    <thy-grid-column label="选择" model="checked" type="checkbox"></thy-grid-column>
+    <thy-grid-column label="姓名" model="name"></thy-grid-column>
     <thy-grid-column label="年龄" model="age"></thy-grid-column>
     <thy-grid-column label="备注" model="desc"></thy-grid-column>
+    <thy-grid-column label="操作">
+        <ng-template #template let-row>
+            <button thyButton="primary">确定</button>
+        </ng-template>
+    </thy-grid-column>
 </thy-grid>

@@ -1,4 +1,4 @@
-import { Component, Directive, Input, ElementRef, Renderer2, ViewEncapsulation, ContentChild, TemplateRef, ViewChild } from '@angular/core';
+import { Component, Directive, Input, ElementRef, Renderer2, ViewEncapsulation, ContentChild, ContentChildren, TemplateRef, ViewChild } from '@angular/core';
 import { AfterContentInit, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { inputValueToBoolean, isUndefined } from '../util/helpers';
 import { ThyGridComponent } from './grid.component'
@@ -9,7 +9,7 @@ import { GridColumn } from './grid.interface';
     template: '<ng-content></ng-content>',
     encapsulation: ViewEncapsulation.None
 })
-export class ThyGridColumnComponent implements OnInit, OnChanges, AfterContentInit {
+export class ThyGridColumnComponent implements OnInit {
 
     @Input() model: string = '';
     @Input() label: string = '';
@@ -19,31 +19,30 @@ export class ThyGridColumnComponent implements OnInit, OnChanges, AfterContentIn
     @Input() headerClassName: string = '';
     @Input() disabled: boolean = false;
 
-    @ContentChild('tpl') content: TemplateRef<any>;
+    @ContentChild('template') template: TemplateRef<any>;
+
+    private _column: GridColumn;
 
     constructor(private root: ThyGridComponent, private el: ElementRef) {
 
     }
 
     ngOnInit() {
-
-    }
-
-    ngAfterContentInit() {
-        console.log(this.content);
-    }
-
-    ngOnChanges(changes: SimpleChanges) {
-        const gridColumn: GridColumn = {
+        this._column = {
+            key: this.generateKey(),
             model: this.model,
             label: this.label,
             type: this.type,
             width: this.width,
             className: this.className,
             headerClassName: this.headerClassName,
-            disabled: this.disabled
+            disabled: this.disabled,
+            template: this.template
         };
+        this.root.updateColumn(this._column);
+    }
 
-        this.root.appendGridColumn(gridColumn);
+    generateKey() {
+        return Math.random().toString(16).substr(2, 8);
     }
 }

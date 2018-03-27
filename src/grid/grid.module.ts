@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms'; 
 import { CommonModule } from '@angular/common';
 import { ThyGridComponent } from './grid.component';
 import { ThyGridColumnComponent } from './grid-column.component';
@@ -9,7 +10,8 @@ import { ThyGridColumnComponent } from './grid-column.component';
         ThyGridColumnComponent
     ],
     imports: [
-        CommonModule
+        CommonModule,
+        FormsModule
     ],
     exports: [
         ThyGridComponent,
