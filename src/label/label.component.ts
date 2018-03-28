@@ -12,7 +12,6 @@ const labelTypeClassesMap: any = {
     selector: 'thy-label',
     templateUrl: './label.component.html'
 })
-
 export class ThyLabelComponent implements OnInit {
 
     @Input() thyStyle: string;

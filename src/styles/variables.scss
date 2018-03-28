@@ -13,6 +13,14 @@ $gray-800: #333; // 标题和重点文字
 $gray-900: #212529;
 $black: #000;
 
+//px to rem
+$rem-5px: 0.3125rem;
+$rem-10px: 0.625rem;
+$rem-15px: 0.9375rem;
+$rem-18px: 1.125rem;
+$rem-20px: 1.25rem;
+$rem-26px: 1.625rem;
+
 // color
 $body-color: $gray-800;
 
@@ -44,14 +52,6 @@ $font-family-base: $font-family-sans-serif;
 $font-size-base: 0.875rem; // 14px
 $font-size-lg: 1.25rem; // 20px
 $font-size-sm: 0.75rem; // 12px
-
-//px to rem
-$rem-5px: 0.3125rem;
-$rem-10px: 0.625rem;
-$rem-15px: 0.9375rem;
-$rem-18px: 1.125rem;
-$rem-20px: 1.25rem;
-$rem-26px: 1.625rem;
 
 // 扩展
 $font-size-md: 1rem; // 16px
