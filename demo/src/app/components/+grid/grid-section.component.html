@@ -1,11 +1,37 @@
-<thy-grid [data]='data' className="table-hover">
-    <thy-grid-column label="选择" model="checked" type="checkbox"></thy-grid-column>
-    <thy-grid-column label="姓名" model="name"></thy-grid-column>
-    <thy-grid-column label="年龄" model="age"></thy-grid-column>
-    <thy-grid-column label="备注" model="desc"></thy-grid-column>
-    <thy-grid-column label="操作">
-        <ng-template #template let-row>
-            <button thyButton="primary">确定</button>
-        </ng-template>
-    </thy-grid-column>
-</thy-grid>
+<section>
+    <div class="header">
+        <h2>默认Grid</h2>
+    </div>
+    <div class="body">
+        <thy-grid [data]='data' className="table-hover">
+            <thy-grid-column label="选择" model="checked" type="checkbox"></thy-grid-column>
+            <thy-grid-column label="姓名" model="name"></thy-grid-column>
+            <thy-grid-column label="年龄" model="age"></thy-grid-column>
+            <thy-grid-column label="备注" model="desc"></thy-grid-column>
+            <thy-grid-column label="操作">
+                <ng-template #template let-row>
+                    <button thyButton="primary">确定</button>
+                </ng-template>
+            </thy-grid-column>
+        </thy-grid>
+    </div>
+</section>
+
+<section>
+        <div class="header">
+            <h2>Bordered Grid</h2>
+        </div>
+        <div class="body">
+            <thy-grid [data]='data' theme="bordered" className="table-hover">
+                <thy-grid-column label="选择" model="checked" type="checkbox"></thy-grid-column>
+                <thy-grid-column label="姓名" model="name"></thy-grid-column>
+                <thy-grid-column label="年龄" model="age"></thy-grid-column>
+                <thy-grid-column label="备注" model="desc"></thy-grid-column>
+                <thy-grid-column label="操作">
+                    <ng-template #template let-row>
+                        <button thyButton="primary">确定</button>
+                    </ng-template>
+                </thy-grid-column>
+            </thy-grid>
+        </div>
+    </section>

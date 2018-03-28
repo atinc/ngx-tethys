@@ -18,6 +18,16 @@ export class DemoGridSectionComponent implements OnInit {
             age: 10,
             checked: true,
             desc: '这是一条测试数据'
+        },{
+            name: '李四',
+            age: 10,
+            checked: true,
+            desc: '这是一条测试数据'
+        },{
+            name: '王五',
+            age: 10,
+            checked: false,
+            desc: '这是一条测试数据'
         }];
     }
 }

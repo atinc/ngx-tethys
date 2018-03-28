@@ -1,7 +1,7 @@
-import { Component, Directive, Input, ElementRef, Renderer2, ViewEncapsulation, ContentChild, ContentChildren, TemplateRef, ViewChild } from '@angular/core';
+import { Component, Input, ElementRef, ViewEncapsulation, ContentChild, ContentChildren, TemplateRef, ViewChild } from '@angular/core';
 import { AfterContentInit, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { inputValueToBoolean, isUndefined } from '../util/helpers';
-import { ThyGridComponent } from './grid.component'
+import { ThyGridComponent } from './grid.component';
 import { GridColumn } from './grid.interface';
 
 @Component({
@@ -11,13 +11,13 @@ import { GridColumn } from './grid.interface';
 })
 export class ThyGridColumnComponent implements OnInit {
 
-    @Input() model: string = '';
-    @Input() label: string = '';
-    @Input() type: string = '';
+    @Input() model = '';
+    @Input() label = '';
+    @Input() type = '';
     @Input() width: string | number = '';
-    @Input() className: string = '';
-    @Input() headerClassName: string = '';
-    @Input() disabled: boolean = false;
+    @Input() className = '';
+    @Input() headerClassName = '';
+    @Input() disabled = false;
 
     @ContentChild('template') template: TemplateRef<any>;
 

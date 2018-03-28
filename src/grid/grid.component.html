@@ -6,7 +6,7 @@
     </thead>
     <tbody>
         <tr *ngFor="let row of models">
-            <td *ngFor="let column of columns">
+            <td *ngFor="let column of columns" [ngClass]="column.className">
                 <ng-container *ngIf="column.model">
                     <ng-container *ngIf="!column.type">
                         {{getModelValue(row,column.model)}}
