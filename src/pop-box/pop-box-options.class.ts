@@ -27,20 +27,17 @@ export class PopBoxOptions {
      */
     initialState?: Object;
     /**
-     * Placement of a pop-box. 
-     * Default: "bottom left". 
-     * Accepts: 
-     * "top", "top left", "top right", 
-     * "bottom", "bottom left", "bottom right", 
-     * "left", "left top", "left bottom" 
+     * Placement of a pop-box.
+     * Default: "bottom left".
+     * Accepts:
+     * "top", "top left", "top right",
+     * "bottom", "bottom left", "bottom right",
+     * "left", "left top", "left bottom"
      * "right", "right top", "right bottom".
      */
     placement?: string;
 
-    /**
-     * 
-     */
-    visibleArrow?: boolean;
+    // visibleArrow?: boolean;
 
     /**
      * Close PopBox on outside click
@@ -53,8 +50,8 @@ export class PopBoxOptions {
 
 export const popBoxConfigDefaults: PopBoxOptions = {
     placement: 'bottom left',
-    visibleArrow: false,
+    // visibleArrow: false,
     keyboard: true,
     outsideClick: true,
     autoClose: false,
-}
+};

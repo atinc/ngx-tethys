@@ -1,4 +1,4 @@
-import { Component, ElementRef, Renderer2, ViewEncapsulation, HostListener } from '@angular/core';
+import { Component, ElementRef, Renderer2, ViewEncapsulation, HostListener, OnInit, OnDestroy } from '@angular/core';
 import { PopBoxService } from './pop-box.service';
 import { PopBoxOptions } from './pop-box-options.class';
 
@@ -12,7 +12,7 @@ import { PopBoxOptions } from './pop-box-options.class';
       </div>
     `,
 })
-export class PopBoxContainerComponent {
+export class PopBoxContainerComponent implements OnInit, OnDestroy {
 
     public popBoxService: PopBoxService;
 
