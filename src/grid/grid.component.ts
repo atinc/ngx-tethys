@@ -56,7 +56,6 @@ export class ThyGridComponent implements OnInit, AfterContentInit {
     private _filterModels() {
         if (this.models && this.models.length > 0) {
             if (this._filter) {
-                
             }
         }
     }
