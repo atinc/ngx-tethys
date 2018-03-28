@@ -9,6 +9,7 @@
 }
 
 .label-default {
+    color:$gray-600;
     @include label-variant($label-default-bg);
 }
 
@@ -34,39 +35,6 @@
 
 .label-custom{
     @include label-variant($label-custom-bg);
-}
-
-// 特殊的 Label, 适用于详情页
-.label-spec {
-    @include set-label-spec-size(4px, 8px);
-    font-size: $font-size-sm;
-    color: $gray-700;
-    background: $gray-200;
-    border-radius: $rem-18px;
-}
-
-.label-spec-title {
-    color: $gray-800
-}
-
-.label-spec-primary {
-    color: $primary;
-}
-
-.label-spec-warning {
-    color: $warning;
-}
-
-.label-spec-danger {
-    color: $danger;
-}
-
-.label-spec-success {
-    color: $success;
-}
-
-.label-spec-lg {
-    @include set-label-spec-size(5px, 10px);
 }
 
 .list-status {
@@ -111,10 +79,5 @@
     &.canceled, &.deserted {
         background: $gray-200;
         color: $gray-600;
-    }
-
-    //废弃
-    &.transferred {
-        background: $label-primary-bg;
     }
 }
