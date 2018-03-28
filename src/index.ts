@@ -7,6 +7,7 @@ import { ThyGridModule } from './grid/grid.module';
 
 import { ThyAvatarModule } from './avatar/avatar.module';
 import { ThyBadgeModule } from './badge/badge.module';
+import { ThyLabelModule } from './label/label.module';
 
 
 
@@ -19,7 +20,8 @@ import { ThyBadgeModule } from './badge/badge.module';
         ThyButtonModule,
         ThyBadgeModule,
         ThyGridModule,
-        ThyAvatarModule
+        ThyAvatarModule,
+        ThyLabelModule
     ],
     providers: [
     ],
@@ -28,7 +30,8 @@ import { ThyBadgeModule } from './badge/badge.module';
         NgxPopBoxModule,
         ThyBadgeModule,
         ThyGridModule,
-        ThyAvatarModule
+        ThyAvatarModule,
+        ThyLabelModule
     ]
 })
 export class NgxTethysModule {

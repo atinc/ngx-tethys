@@ -19,7 +19,7 @@ export class ThyGridComponent implements OnInit, AfterContentInit {
 
     public models: any[] = [];
     public columns: GridColumn[] = [];
-    public themeClass: string = "";
+    public themeClass = '';
 
     private _filter: any = null;
 
