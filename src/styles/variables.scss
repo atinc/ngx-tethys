@@ -68,7 +68,7 @@ $btn-border-radius-sm: 1rem;
 $btn-box-shadow: null;
 $btn-padding-y: 0.469rem;//108*38px
 $btn-padding-x: 2.438rem;
-$btn-padding-y-md: 0.407rem;// 100*36px 变种按钮大小 
+$btn-padding-y-md: 0.407rem;// 100*36px 变种按钮大小
 $btn-padding-x-md: 1.25rem;
 // $btn-line-height: $input-btn-line-height;
 $btn-padding-y-sm: 0.25rem; // 70*28px
@@ -123,3 +123,15 @@ $badge-pill-padding-x : .6em !default;
 $badge-pill-border-radius : 10rem !default;
 $badge-bg: $gray-200; //#eee
 $badge-color: $gray-700; //#666
+
+
+//label
+$label-size-padding: 5px 10px;
+$label-border-radius:3px;
+$label-default-bg:$gray-600;
+$label-primary-bg:$primary;
+$label-success-bg:$success;
+$label-info-bg:$info;
+$label-warning-bg:$warning;
+$label-danger-bg:$danger;
+$label-custom-bg:#7076fa;

@@ -6,6 +6,7 @@ import { NgxPopBoxModule } from './pop-box/pop-box.module';
 
 import { ThyAvatarModule } from './avatar/avatar.module';
 import { ThyBadgeModule } from './badge/badge.module';
+import { ThyLabelModule } from './label/label.module';
 
 
 
@@ -17,7 +18,8 @@ import { ThyBadgeModule } from './badge/badge.module';
         FirstComponent,
         ThyButtonModule,
         ThyBadgeModule,
-        ThyAvatarModule
+        ThyAvatarModule,
+        ThyLabelModule
     ],
     providers: [
     ],
@@ -25,7 +27,8 @@ import { ThyBadgeModule } from './badge/badge.module';
         ThyButtonModule,
         NgxPopBoxModule,
         ThyBadgeModule,
-        ThyAvatarModule
+        ThyAvatarModule,
+        ThyLabelModule
     ]
 })
 export class NgxTethysModule {
