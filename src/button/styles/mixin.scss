@@ -7,12 +7,12 @@
     color: $color;
     @include gradient-bg($background);
     border-color: $border;
-    @include box-shadow($btn-box-shadow);
     @include hover {
         // color: color-yiq($hover-background);
         color: $hover-color;
         @include gradient-bg($hover-background);
         border-color: $hover-border;
+        @include box-shadow($btn-box-shadow);
     }
     &:focus,
     &.focus {
