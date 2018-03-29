@@ -5,7 +5,6 @@ import { Component, Input, OnInit, ElementRef, Renderer2 } from '@angular/core';
     selector: 'thy-label',
     templateUrl: './label.component.html'
 })
-
 export class ThyLabelComponent implements OnInit {
 
     @Input() thyStyle: string;

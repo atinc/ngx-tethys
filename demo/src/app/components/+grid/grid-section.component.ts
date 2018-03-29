@@ -6,7 +6,7 @@ import { OnInit } from '@angular/core';
 })
 export class DemoGridSectionComponent implements OnInit {
 
-    private data: any[] = [];
+    public data: any[] = [];
 
     constructor() {
 
@@ -17,6 +17,16 @@ export class DemoGridSectionComponent implements OnInit {
             name: '张三',
             age: 10,
             checked: true,
+            desc: '这是一条测试数据'
+        },{
+            name: '李四',
+            age: 10,
+            checked: true,
+            desc: '这是一条测试数据'
+        },{
+            name: '王五',
+            age: 10,
+            checked: false,
             desc: '这是一条测试数据'
         }];
     }
