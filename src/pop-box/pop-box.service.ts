@@ -32,7 +32,7 @@ export class PopBoxService {
         const target = config.target.nativeElement || config.target;
         if (this._popBoxLoader) {
             this.hide();
-            if (this._target === target) {
+            if (target && this._target === target) {
                 return;
             }
         }
