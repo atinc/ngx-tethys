@@ -62,14 +62,14 @@ export function isObject(value: any) {
     return !!value && (type === 'object' || type === 'function');
 }
 
-export function isFunction(value) {
+export function isFunction(value:any) {
     const type = typeof value;
     return !!value && type === 'function';
 }
 
 
 export function get(object: any, path: string, defaultValue?: any) {
-    let paths = path.split('.')
+    const paths = path.split('.');
     let result = object[paths.shift()];
     while (result && paths.length) {
         result = result[paths.shift()];
@@ -82,13 +82,13 @@ export function set(object: any, path: string, value: any) {
     if (object == null) {
         return object;
     }
-    let paths = path.split('.');
+    const paths = path.split('.');
     let index = -1;
-    let length = paths.length;
-    let lastIndex = length - 1;
+    const length = paths.length;
+    const lastIndex = length - 1;
     let nested = object;
     while (nested !== null && ++index < length) {
-        var key = paths[index];
+        const key = paths[index];
         if (isObject(nested)) {
             if (index === lastIndex) {
                 nested[key] = value;
