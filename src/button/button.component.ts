@@ -47,13 +47,13 @@ export class ThyButtonComponent implements AfterContentInit, OnChanges {
     }
 
     @Input()
-    set btnType(value: ThyButtonType) {
+    set thyType(value: ThyButtonType) {
         this._type = value;
         this._setClassesByType();
     }
 
     @Input()
-    set btnLoading(value: boolean) {
+    set thyLoading(value: boolean) {
         const newLoading = inputValueToBoolean(value);
         // from false to true
         if (!this._loading && newLoading) {
@@ -67,7 +67,7 @@ export class ThyButtonComponent implements AfterContentInit, OnChanges {
     }
 
     @Input()
-    set btnLoadingText(value: string) {
+    set thyLoadingText(value: string) {
         if (this._loadingText !== value) {
             this._loadingText = value;
             if (this._loading) {
@@ -77,7 +77,7 @@ export class ThyButtonComponent implements AfterContentInit, OnChanges {
     }
 
     @Input()
-    set btnSize(size: string) {
+    set thySize(size: string) {
         if (!isUndefined(size)) {
             if (this._size) {
                 this._removeClass(`btn-${this._size}`);
@@ -88,13 +88,13 @@ export class ThyButtonComponent implements AfterContentInit, OnChanges {
     }
 
     // 字体前缀，默认 wtf
-    @Input() btnIconPrefix: string;
+    @Input() thyIconPrefix: string;
 
     @Input()
-    set btnIcon(icon: string) {
+    set thyIcon(icon: string) {
         this._icon = icon;
         if (this._icon ) {
-            const btnIconPrefix = this.btnIconPrefix || 'wtf';
+            const btnIconPrefix = this.thyIconPrefix || 'wtf';
             this.iconClass = [btnIconPrefix, `${this._icon }`];
         } else {
             this.iconClass = null;

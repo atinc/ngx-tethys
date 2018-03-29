@@ -1,63 +1,89 @@
 pop-box-container {
-  position: absolute;
+    position: absolute;
 }
 
 .pop-box {
-  width: 240px;
-  background: $white;
-  box-shadow: $box-shadow;
-  .pop-box-menu {
-    padding: $rem-5px 0;
-    margin: 0;
-    li {
-      line-height: 30px;
-      list-style: none;
-      .pop-box-menu-item,
-      .pop-box-sub-menu-item {
-        display: block;
-        position: relative;
-        padding: $rem-5px $rem-18px;
-        font-weight: 400;
-        color: $pop-box-text;
-        border: 0;
+    .pop-box-content {
+        margin: 2px;
+        min-width: 240px;
+        background: $white;
+        box-shadow: $box-shadow;
+    }
+    .pop-box-header {
+        border-bottom: solid 1px $pop-box-divider;
         background-color: transparent;
-        transition: all 200ms;
-        text-decoration: none;
-        .icon {
-          display: inline-block;
-          width: 1rem;
+        padding: 12px 20px;
+        .pop-box-header,
+        h5 {
+            font-size: $font-size-md;
+            line-height: 20px;
+            font-weight: normal;
+            margin: 0;
+            color: $gray-700;
         }
-        .extend-icon {
-          float: right;
+        &--no-underline {
+            border-bottom: none;
         }
-        &:hover {
-          padding-left: $rem-26px;
-          color: $pop-box-text-hover;
-          background: $pop-box-bg-hover;
+        .pop-box-close {
+            display: none;
         }
-      }
-      &:hover {
+    }
+    .pop-box-body {
+        position: relative;
+        padding: 15px;
+    }
+    .pop-box-menu {
+        padding: $rem-5px 0;
+        margin: 0;
+        li {
+            line-height: 30px;
+            list-style: none;
+            .pop-box-menu-item,
+            .pop-box-sub-menu-item {
+                display: block;
+                position: relative;
+                padding: $rem-5px $rem-18px;
+                font-weight: 400;
+                color: $pop-box-text;
+                border: 0;
+                background-color: transparent;
+                transition: all 200ms;
+                text-decoration: none;
+                .icon {
+                    display: inline-block;
+                    width: 1rem;
+                }
+                .extend-icon {
+                    float: right;
+                }
+                &:hover {
+                    padding-left: $rem-26px;
+                    color: $pop-box-text-hover;
+                    background: $pop-box-bg-hover;
+                }
+            }
+            &:hover {
+                .pop-box-sub-menu {
+                    display: block;
+                }
+            }
+        }
+        .divider {
+            margin: $rem-5px $rem-20px;
+            border-bottom: solid 1px $pop-box-divider;
+        }
         .pop-box-sub-menu {
-          display: block;
+            display: none;
+            position: absolute;
+            left: 100%;
+            bottom: 0;
+            padding: $rem-5px 0;
+            margin: 0;
+            width: 240px;
+            background: $white;
+            box-shadow: $box-shadow;
         }
-      }
     }
-    .divider {
-      margin: $rem-5px $rem-20px;
-      border-bottom: solid 1px $pop-box-divider;
-    }
-    .pop-box-sub-menu {
-      display: none;
-      position: absolute;
-      left: 100%;
-      bottom: 0;
-      padding: $rem-5px 0;
-      margin: 0;
-      width: 240px;
-      background: $white;
-      box-shadow: $box-shadow;
-    }
-  }
 }
 
 @mixin pop-box {}

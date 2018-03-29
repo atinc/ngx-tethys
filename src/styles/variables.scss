@@ -13,6 +13,14 @@ $gray-800: #333; // 标题和重点文字
 $gray-900: #212529;
 $black: #000;
 
+//px to rem
+$rem-5px: 0.3125rem;
+$rem-10px: 0.625rem;
+$rem-15px: 0.9375rem;
+$rem-18px: 1.125rem;
+$rem-20px: 1.25rem;
+$rem-26px: 1.625rem;
+
 // color
 $body-color: $gray-800;
 
@@ -44,14 +52,6 @@ $font-family-base: $font-family-sans-serif;
 $font-size-base: 0.875rem; // 14px
 $font-size-lg: 1.25rem; // 20px
 $font-size-sm: 0.75rem; // 12px
-
-//px to rem
-$rem-5px: 0.3125rem;
-$rem-10px: 0.625rem;
-$rem-15px: 0.9375rem;
-$rem-18px: 1.125rem;
-$rem-20px: 1.25rem;
-$rem-26px: 1.625rem;
 
 // 扩展
 $font-size-md: 1rem; // 16px
@@ -89,7 +89,6 @@ $pop-box-bg-hover: $gray-100;
 $pop-box-text: $gray-700;
 $pop-box-text-hover: $gray-900;
 
-
 // Tables
 $table-cell-padding:          .75rem 1rem !default;
 $table-cell-padding-sm:       .3rem !default;
@@ -112,7 +111,6 @@ $table-default-head-color:    $gray-600;
 $table-bordered-bg:           $gray-100;
 $table-bordered-head-color:   $gray-700;
 
-
 // badges
 $badge-font-size : 75% !default;
 $badge-font-weight : normal !default;
@@ -128,7 +126,7 @@ $badge-color: $gray-700; //#666
 //label
 $label-size-padding: 5px 10px;
 $label-border-radius:3px;
-$label-default-bg:$gray-600;
+$label-default-bg:$gray-200;
 $label-primary-bg:$primary;
 $label-success-bg:$success;
 $label-info-bg:$info;

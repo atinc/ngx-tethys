@@ -16,7 +16,12 @@
             <button [thyButton]="'primary'" #btnTriggerPopBoxTemplate (click)="openPopBoxWithTemplate(btnTriggerPopBoxTemplate,popBoxTemplate)">弹出 PopBox</button>
         </div>
         <ng-template #popBoxTemplate>
-            <div>template</div>
+            <div class="pop-box-header">
+                <h5 class="pop-box-title">确认删除</h5>
+            </div>
+            <div class="pop-box-body">
+                你确认要删除这条记录吗？
+            </div>
         </ng-template>
     </div>
 </section>
