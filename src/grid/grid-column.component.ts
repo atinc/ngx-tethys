@@ -19,7 +19,7 @@ export class ThyGridColumnComponent implements OnInit {
     @Input() headerClassName = '';
     @Input() disabled = false;
 
-    @ContentChild('template') template: TemplateRef<any>;
+    @ContentChild(TemplateRef) templateRef: TemplateRef<any>;
 
     private _column: GridColumn;
 
@@ -37,7 +37,7 @@ export class ThyGridColumnComponent implements OnInit {
             className: this.className,
             headerClassName: this.headerClassName,
             disabled: this.disabled,
-            template: this.template
+            templateRef: this.templateRef
         };
         this.root.updateColumn(this._column);
     }

@@ -22,8 +22,8 @@
                     </ng-container>
                 </ng-container>
                 <!--template-->
-                <ng-container *ngIf="!column.model && isTemplateRef(column.template)">
-                    <ng-template [ngTemplateOutlet]="column.template" [ngTemplateOutletContext]="{$implicit : row}"></ng-template>
+                <ng-container *ngIf="!column.model && isTemplateRef(column.templateRef)">
+                    <ng-template [ngTemplateOutlet]="column.templateRef" [ngTemplateOutletContext]="{$implicit : row}"></ng-template>
                 </ng-container>
             </td>
         </tr>
