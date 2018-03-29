@@ -6,8 +6,8 @@ const labelTypeClassesMap: any = {
     'default': ['label', 'label-default'],
     'primary': ['label', 'label-primary'],
     'success': ['label', 'label-success'],
-    'info': ['label', 'label-success'],
-    'warning': ['label', 'label-success'],
+    'info': ['label', 'label-info'],
+    'warning': ['label', 'label-warning'],
     'danger': ['label', 'label-danger']
 };
 
