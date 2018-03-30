@@ -1,0 +1,29 @@
+.thy-layout {
+    display: flex;
+    flex-direction: column;
+    flex: auto;
+    background: $layout-content-background;
+    &,
+    * {
+        box-sizing: border-box;
+    }
+    &--has-sidebar {
+        flex-direction: row;
+        >.thy-layout--body {
+            overflow-x: hidden;
+        }
+    }
+    &-header {
+        display: block;
+        flex: 0 0 auto;
+        background: $layout-header-background;
+        padding: $layout-header-padding;
+        height: $layout-header-height;
+        line-height: $layout-header-height;
+    }
+    &-content {
+        flex: auto;
+        background: $layout-content-background;
+        padding: $layout-content-padding;
+    }
+}
