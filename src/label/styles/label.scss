@@ -1,83 +1,101 @@
 .label {
-    padding: $label-size-padding;
-    font-weight: normal;
-    display: inline-block;
-    line-height: 1;
-    font-size: $font-size-sm;
-    border-radius: $label-border-radius;
-    color: $white;
+  padding: $label-size-padding;
+  font-weight: normal;
+  display: inline-block;
+  line-height: 1;
+  font-size: $font-size-sm;
+  border-radius: $label-border-radius;
+  color: $white;
+
+  &.label-default {
+    color: $gray-600;
+  }
 }
 
 .label-default {
-    color:$gray-600;
-    @include label-variant($label-default-bg);
+  @include label-variant($label-default-bg);
 }
 
 .label-primary {
-    @include label-variant($label-primary-bg);
+  @include label-variant($label-primary-bg);
 }
 
 .label-success {
-    @include label-variant($label-success-bg);
+  @include label-variant($label-success-bg);
 }
 
 .label-info {
-    @include label-variant($label-info-bg);
+  @include label-variant($label-info-bg);
 }
 
 .label-warning {
-    @include label-variant($label-warning-bg);
+  @include label-variant($label-warning-bg);
 }
 
 .label-danger {
-    @include label-variant($label-danger-bg);
+  @include label-variant($label-danger-bg);
 }
 
-.label-custom{
-    @include label-variant($label-custom-bg);
+.label-custom {
+  @include label-variant($label-custom-bg);
 }
 
-.list-status {
-    padding: $label-size-padding;
-    font-size: $font-size-sm;
-    border-radius: $label-border-radius;
-    color: $white;
+// .list-status {
+//   padding: $label-size-padding;
+//   font-size: $font-size-sm;
+//   border-radius: $label-border-radius;
+//   color: $white;
 
-    //已拒绝：reject
-    //已截止：ended
-    //已同意：agreed
-    //已提交：submited
-    //已评审：reviewed
-    //已撤销: canceled
-    //已作废: deserted
-    //审批中: waiting
-    //已读: readed
-    //未读: unread
-    //未回执:unreceipt
-    //已回执:receipted
-    //进行中:in-progress
-    //已结束:finished
-    //未开始:unbegin
-    //已转交: transferred
-    //未发布:unpublished
-    //已发布:published
-    //未提交:unsubmited
-    //待评审:pending
+//   //已拒绝：reject
+//   //已截止：ended
+//   //已同意：agreed
+//   //已提交：submited
+//   //已评审：reviewed
+//   //已撤销: canceled
+//   //已作废: deserted
+//   //审批中: waiting
+//   //已读: readed
+//   //未读: unread
+//   //未回执:unreceipt
+//   //已回执:receipted
+//   //进行中:in-progress
+//   //已结束:finished
+//   //未开始:unbegin
+//   //已转交: transferred
+//   //未发布:unpublished
+//   //已发布:published
+//   //未提交:unsubmited
+//   //待评审:pending
 
-    &.approved, &.submited, &.reviewed, &.receipted, &.readed, &.published, &.in-progress, &.agreed {
-        background: $label-primary-bg;
-    }
+//   &.agreed,
+//   &.approved,
+//   &.in-progress,
+//   &.published,
+//   &.readed,
+//   &.receipted,
+//   &.reviewed,
+//   &.submitted {
+//     @include label-variant($label-primary-bg);
+//   }
 
-    &.waiting, &.unread, &.unreceipt, &.unpublished, &.unbegin, &.unsubmited, &.pending {
-        background: $label-warning-bg;
-    }
+//   &.pending,
+//   &.unbegin,
+//   &.unpublished,
+//   &.unread,
+//   &.unreceipt,
+//   &.unsubmited,
+//   &.waiting {
+//     @include label-variant($label-warning-bg);
+//   }
 
-    &.reject, &.ended, &.finished {
-        background: $label-danger-bg;
-    }
+//   &.ended,
+//   &.finished,
+//   &.reject {
+//     @include label-variant($label-danger-bg);
+//   }
 
-    &.canceled, &.deserted {
-        background: $gray-200;
-        color: $gray-600;
-    }
-}
+//   &.canceled,
+//   &.deserted {
+//     @include label-variant($label-default-bg);
+//   }
+// }

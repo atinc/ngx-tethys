@@ -37,44 +37,7 @@ export class AvatarBgColorPipe implements PipeTransform {
     }
 }
 
-@Pipe({ name: 'cutString' })
-export class CutStringPipe implements PipeTransform {
-    transform(params: any): string {
-        if (Array.isArray(params)) {
-            const str = params[0];
-            const len = params[1];
-            if (len == null) {
-                return str;
-            }
-            if (!str) {
-                return '';
-            }
-            if (str.length * 2 <= len) {
-                return str;
-            }
-            let strlen = 0;
-            let s = '';
-            for (let i = 0; i < str.length; i++) {
-                s = s + str.charAt(i);
-                if (str.charCodeAt(i) > 128) {
-                    strlen = strlen + 2;
-                    if (strlen > len) {
-                        return s.substring(0, Math.floor(len / 2)) + '...';
-                    }
-                } else {
-                    strlen = strlen + 1;
-                    if (strlen > len) {
-                        return s.substring(0, s.length) + '...';
-                    }
-                }
-            }
-            return s;
-        }
-    }
-}
-
 export const AvatarPipes = [
     AvatarShortNamePipe,
-    AvatarBgColorPipe,
-    CutStringPipe
+    AvatarBgColorPipe
 ];

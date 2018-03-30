@@ -90,8 +90,9 @@ $pop-box-text: $gray-700;
 $pop-box-text-hover: $gray-900;
 
 // Tables
-$table-cell-padding:          .75rem 1rem !default;
+$table-cell-padding:          12px 15px !default;
 $table-cell-padding-sm:       .3rem !default;
+$table-color:                 $gray-800;
 
 $table-bg:                    transparent !default;
 $table-accent-bg:             rgba($black, .05) !default;
@@ -107,6 +108,7 @@ $table-head-bg:               $gray-200 !default;
 $table-head-color:            $gray-700 !default;
 
 $table-default-head-color:    $gray-600;
+$table-default-cell-height:   55px;
 
 $table-bordered-bg:           $gray-100;
 $table-bordered-head-color:   $gray-700;
@@ -133,3 +135,15 @@ $label-info-bg:$info;
 $label-warning-bg:$warning;
 $label-danger-bg:$danger;
 $label-custom-bg:#7076fa;
+
+//avatar
+$avatar-sizes: () !default;
+$avatar-sizes:map-merge((
+    24:12,
+    30:12,
+    38:12,
+    48:12,
+    68:16,
+    110:45,
+    160:50
+), $avatar-sizes);

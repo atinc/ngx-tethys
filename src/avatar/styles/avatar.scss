@@ -1,24 +1,18 @@
-.lc-avatar {
+.avatar {
     display: inline-block;
     &:hover {
         text-decoration: none;
     }
-    img,
-    .lc-avatar-default {
-        border-radius: 50%;
-    }
-    .lc-avatar-default {
+    .avatar-default {
         display: inline-block;
-        padding: 0px !important;
         vertical-align: middle;
-        text-align: center !important;
+        text-align: center;
         overflow: hidden;
         zoom: 1;
-        font-size: $font-size-sm; //12px;
-        color: $white !important;
+        color: $white;
         text-shadow: transparent 0 0 0;
     }
-    .lc-avatar-name {
+    .avatar-name {
         margin-left: 5px;
         display: inline-block;
         max-width: 130px;
@@ -27,21 +21,9 @@
         white-space: nowrap;
         vertical-align: middle;
     }
-    @include avatarSize(24, 12, 24);
-    @include avatarSize(30, 12, 30);
-    @include avatarSize(38, 12, 38);
-    @include avatarSize(48, 12, 48);
-    @include avatarSize(68, 16, 68);
-    @include avatarSize(110, 45, 110); // 通信录-成员详情
-    @include avatarSize(160, 50, 160); // 通信录-robot详情
-    @include avatarSize(320, 50, 320);
-}
-
-.lc-avatar-24 {
-    .lc-avatar-default {
-        div {
-            display: inline-block;
-            transform: scale(0.9);
+    @each $size,$value in $avatar-sizes{
+        .avatar-#{$size} {
+            @include avatarSize($size,$value);
         }
     }
 }

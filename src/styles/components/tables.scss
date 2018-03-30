@@ -1,92 +1,90 @@
 .table {
-    width: 100%;
-    max-width: 100%;
-    margin-bottom:$table-margin-bottom;
-    background-color: $table-bg; // Reset for nesting within parents with `background-color`.
-  
-    th,
-    td {
-      padding: $table-cell-padding;
-      vertical-align: middle;
-      border-top: $table-border-width solid $table-border-color;
-    }
-  
-    thead th {
-      vertical-align: bottom;
-      font-weight: 400;
-      border-bottom: $table-border-width solid $table-border-color;
-    }
-  
-    tbody + tbody {
-      border-top: $table-border-width solid $table-border-color;
-    }
-  
-    .table {
-      background-color: $body-bg;
-    }
+  width: 100%;
+  max-width: 100%;
+  color: $table-color;
+  margin-bottom: $table-margin-bottom;
+  background-color: $table-bg; // Reset for nesting within parents with `background-color`.
+  th,
+  td {
+    padding: $table-cell-padding;
+    vertical-align: middle;
+    border-top: $table-border-width solid $table-border-color;
   }
-  
-  .table-sm {
-    th,
-    td {
-      padding: $table-cell-padding-sm; 
-    }
+  thead th {
+    vertical-align: bottom;
+    font-weight: 400;
+    border-bottom: $table-border-width solid $table-border-color;
   }
+  tbody+tbody {
+    border-top: $table-border-width solid $table-border-color;
+  }
+  .table {
+    background-color: $body-bg;
+  }
+}
 
-  .table-default {
-    thead {
-      th,
-      td {
-        border-top:0;
-        color: $table-default-head-color;
-      }
+.table-sm {
+  th,
+  td {
+    padding: $table-cell-padding-sm;
+  }
+}
+
+.table-default {
+  @include table-set-padding-space();
+  thead {
+    th,
+    td {
+      border-top: 0;
+      color: $table-default-head-color;
     }
   }
-  
-  .table-bordered {
+  tr {
+    height: $table-default-cell-height;
+  }
+}
+
+.table-bordered {
+  border: $table-border-width solid $table-border-color;
+  th,
+  td {
     border: $table-border-width solid $table-border-color;
+  }
+  thead {
     th,
     td {
-      border: $table-border-width solid $table-border-color;
-    }
-  
-    thead {
-      th,
-      td {
-        text-align: center;
-        color:$table-bordered-head-color;
-        background-color:$table-bordered-bg;
-      }
+      text-align: center;
+      color: $table-bordered-head-color;
+      background-color: $table-bordered-bg;
     }
   }
+}
 
-  .table-hover {
-    tbody tr {
-      @include hover {
-        @include table-hover-box-shadow($table-hover-color); 
-      }
+.table-hover {
+  @include table-hover-set-space-none();
+  tbody tr {
+    @include hover {
+      @include table-hover-box-shadow($table-hover-color);
     }
   }
-  
-  .table-responsive {
-    @each $breakpoint in map-keys($grid-breakpoints) {
-      $next: breakpoint-next($breakpoint, $grid-breakpoints);
-      $infix: breakpoint-infix($next, $grid-breakpoints);
-  
-      &#{$infix} {
-        @include media-breakpoint-down($breakpoint) {
-          display: block;
-          width: 100%;
-          overflow-x: auto;
-          -webkit-overflow-scrolling: touch;
-          -ms-overflow-style: -ms-autohiding-scrollbar; // See https://github.com/twbs/bootstrap/pull/10057
-  
-          // Prevent double border on horizontal scroll due to use of `display: block;`
-          > .table-bordered {
-            border: 0;
-          }
+}
+
+.table-responsive {
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    $next: breakpoint-next($breakpoint, $grid-breakpoints);
+    $infix: breakpoint-infix($next, $grid-breakpoints);
+    &#{$infix} {
+      @include media-breakpoint-down($breakpoint) {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        -ms-overflow-style: -ms-autohiding-scrollbar; // See https://github.com/twbs/bootstrap/pull/10057
+        // Prevent double border on horizontal scroll due to use of `display: block;`
+        >.table-bordered {
+          border: 0;
         }
       }
     }
   }
-  
+}

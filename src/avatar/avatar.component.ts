@@ -1,22 +1,23 @@
-import { Component, OnInit, OnChanges, Input } from '@angular/core';
+import { Component, Input, HostBinding } from '@angular/core';
 import { isNumber } from '../util/helpers';
 import { AvatarMemberInfo } from './avatar-member-info';
 
 const sizeArray = [24, 30, 38, 48, 68, 110, 160, 320];
-const avatarSizeMap = [40, 80, 160, 320];
 
 @Component({
     selector: 'thy-avatar',
     templateUrl: './avatar.component.html'
 })
-export class AvatarComponent implements OnInit {
+export class AvatarComponent {
 
-    @Input() src: string;
-    @Input() name: string;
-    @Input() size: number;
-    @Input() shape: string;
-    @Input() showName: boolean;
-    @Input() member?: AvatarMemberInfo;
+    @HostBinding('attr.class') avatarClass = 'avatar';
+
+    @Input() thyShowName: boolean;
+
+    private _src: string;
+    private _name: string;
+    private _size: number;
+    private _member: AvatarMemberInfo;
 
     public avatarSrc: string;
     public avatarSize?: number;
@@ -24,17 +25,36 @@ export class AvatarComponent implements OnInit {
 
     constructor() { }
 
-    ngOnInit() {
-        this.getAvatarSize();
-        this.getAvatarName();
+    @Input()
+    set thySrc(value: string) {
+        this._src = value;
         this.getAvatarSrc();
     }
 
+    @Input()
+    set thyName(value: string) {
+        this._name = value;
+        this.getAvatarName();
+    }
+
+    @Input()
+    set thySize(value: number) {
+        this._size = value;
+        this.getAvatarSize();
+    }
+
+    @Input()
+    set thyMember(value: AvatarMemberInfo) {
+        this._member = value;
+        this.getAvatarSrc();
+        this.getAvatarName();
+    }
+
     private getAvatarSize() {
-        if (isNumber(this.size * 1)) {
-            if (sizeArray.indexOf(this.size * 1) > -1) {
-                this.avatarSize = this.size;
-            } else if (this.size * 1 > sizeArray[sizeArray.length - 1]) {
+        if (isNumber(this._size * 1)) {
+            if (sizeArray.indexOf(this._size * 1) > -1) {
+                this.avatarSize = this._size;
+            } else if (this._size * 1 > sizeArray[sizeArray.length - 1]) {
                 this.avatarSize = sizeArray[sizeArray.length - 1];
             } else {
                 this.avatarSize = sizeArray[0];
@@ -43,11 +63,11 @@ export class AvatarComponent implements OnInit {
     }
 
     private getAvatarName() {
-        this.avatarName = this.name || (this.member && this.member.display_name);
+        this.avatarName = this._name || (this._member && this._member.display_name);
     }
 
     private getAvatarSrc() {
-        this.avatarSrc = this.src || (this.member && this.member.avatar);
+        this.avatarSrc = this._src || (this._member && this._member.avatar);
     }
 
 }

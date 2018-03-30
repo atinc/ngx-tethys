@@ -9,7 +9,7 @@ export interface GridColumn {
   className: string;
   headerClassName: string;
   disabled: boolean;
-  template: TemplateRef<any>;
+  templateRef: TemplateRef<any>;
 }
 
 
