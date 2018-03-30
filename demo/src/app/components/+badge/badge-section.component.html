@@ -1,20 +1,20 @@
 <div class="demo-badge-list">
     <thy-badge [thyCount]="3"></thy-badge>
-    <thy-badge [thyCount]="3" thyStatus="primary"></thy-badge>
-    <thy-badge [thyCount]="3" thyStatus="danger" thySize="lg"></thy-badge>
+    <thy-badge [thyCount]="3" thyType="primary"></thy-badge>
+    <thy-badge [thyCount]="3" thyType="danger" thySize="lg"></thy-badge>
 </div>
 
 <div class="demo-badge-list">
     <thy-badge [thyCount]="3">
         <div class="circle"></div>
     </thy-badge>
-    <thy-badge [thyCount]="3" thyStatus="primary">
+    <thy-badge [thyCount]="3" thyType="primary">
         <div class="circle"></div>
     </thy-badge>
-    <thy-badge [thyCount]="3" thyStatus="danger">
+    <thy-badge [thyCount]="3" thyType="danger">
         <div class="square"></div>
     </thy-badge>
-    <thy-badge [thyCount]="3" thyStatus="secondary">
+    <thy-badge [thyCount]="3" thyType="secondary">
         <div class="square"></div>
     </thy-badge>
 </div>
@@ -23,13 +23,13 @@
     <thy-badge [thyCount]="100" [thyMaxCount]="99">
         <div class="circle"></div>
     </thy-badge>
-    <thy-badge [thyCount]="100" [thyMaxCount]="99" thyStatus="primary">
+    <thy-badge [thyCount]="100" [thyMaxCount]="99" thyType="primary">
         <div class="circle"></div>
     </thy-badge>
-    <thy-badge [thyCount]="100" [thyMaxCount]="99" thyStatus="danger">
+    <thy-badge [thyCount]="100" [thyMaxCount]="99" thyType="danger">
         <div class="square"></div>
     </thy-badge>
-    <thy-badge [thyCount]="100" [thyMaxCount]="99" thyStatus="secondary">
+    <thy-badge [thyCount]="100" [thyMaxCount]="99" thyType="secondary">
         <div class="square"></div>
     </thy-badge>
 </div>
@@ -38,13 +38,13 @@
     <thy-badge thyCount="new">
         <div class="circle"></div>
     </thy-badge>
-    <thy-badge thyCount="new" thyStatus="primary">
+    <thy-badge thyCount="new" thyType="primary">
         <div class="circle"></div>
     </thy-badge>
-    <thy-badge thyCount="new" thyStatus="danger">
+    <thy-badge thyCount="new" thyType="danger">
         <div class="square"></div>
     </thy-badge>
-    <thy-badge thyCount="new" thyStatus="secondary">
+    <thy-badge thyCount="new" thyType="secondary">
         <div class="square"></div>
     </thy-badge>
 </div>
@@ -52,20 +52,24 @@
     <thy-badge thyIsDot="true">
         <div class="circle"></div>
     </thy-badge>
-    <thy-badge thyIsDot="true" thyStatus="primary">
+    <thy-badge thyIsDot="true" thyType="primary">
         <div class="circle"></div>
     </thy-badge>
-    <thy-badge thyIsDot="true" thyStatus="danger">
+    <thy-badge thyIsDot="true" thyType="danger">
         <div class="square"></div>
     </thy-badge>
-    <thy-badge thyIsDot="true" thyStatus="secondary">
+    <thy-badge thyIsDot="true" thyType="secondary">
         <div class="square"></div>
     </thy-badge>
 </div>
 
 <div class="demo-badge-list">
     <thy-badge></thy-badge>
-    <thy-badge thyStatus="primary"></thy-badge>
-    <thy-badge thyStatus="danger"></thy-badge>
-    <thy-badge thyStatus="secondary"></thy-badge>
+    <thy-badge thyType="primary"></thy-badge>
+    <thy-badge thyType="danger"></thy-badge>
+    <thy-badge thyType="secondary"></thy-badge>
+</div>
+
+<div class="demo-badge-list">
+    <span thyBadge="primary">3</span>
 </div>

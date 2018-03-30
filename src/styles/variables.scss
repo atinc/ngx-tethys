@@ -135,3 +135,15 @@ $label-info-bg:$info;
 $label-warning-bg:$warning;
 $label-danger-bg:$danger;
 $label-custom-bg:#7076fa;
+
+//avatar
+$avatar-sizes: () !default;
+$avatar-sizes:map-merge((
+    24:12,
+    30:12,
+    38:12,
+    48:12,
+    68:16,
+    110:45,
+    160:50
+), $avatar-sizes);

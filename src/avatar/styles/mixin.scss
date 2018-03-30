@@ -1,19 +1,37 @@
-@mixin avatarSize($size, $fontsize: 12px, $radius: 3px) {
-    &-#{$size} {
+// @mixin avatarSize($size, $fontsize: 12px) {
+//     &-#{$size} {
+//         img,
+//         .avatar-default {
+//             width: #{$size}px;
+//             height: #{$size}px;
+//             border-radius: 50%;
+//             line-height: #{$size}px;
+//             font-size: #{$fontsize}px;
+//             vertical-align: middle;
+//             div {
+//                 display: inline-block;
+//                 @if $size == 24 {
+//                     transform: scale(0.9);
+//                 }
+//             }
+//         }
+//     }
+// }
+
+@mixin avatarSize($size, $fontsize: 12px) {
         img,
-        .lc-avatar-default {
-            width: 0px+$size;
-            height: 0px+$size;
-            line-height: 0px+$size;
-            font-size: 0px+$fontsize;
-            border-radius: 0px+$radius;
+        .avatar-default {
+            width: #{$size}px;
+            height: #{$size}px;
+            border-radius: 50%;
+            line-height: #{$size}px;
+            font-size: #{$fontsize}px;
             vertical-align: middle;
             div {
                 display: inline-block;
+                @if $size == 24 {
+                    transform: scale(0.9);
+                }
             }
         }
-        .lc-avatar-name {
-            line-height: 0px+$size;
-        }
-    }
 }

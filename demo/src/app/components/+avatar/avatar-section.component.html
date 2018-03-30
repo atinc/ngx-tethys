@@ -1,8 +1,13 @@
 <div>
-    <thy-avatar name="路晓贝" size="24" [showName]="true"></thy-avatar>
-    <thy-avatar name="luxiaobei" size="30" [showName]="false"></thy-avatar>
-    <thy-avatar src="https://s3.cn-north-1.amazonaws.com.cn/lcavatar/dfea7c36-5147-4569-8910-829137920172_80x80.png" name="路晓贝" size="38" [showName]="true"></thy-avatar>
-    <thy-avatar src="https://s3.cn-north-1.amazonaws.com.cn/lcavatar/dfea7c36-5147-4569-8910-829137920172_80x80.png" name="路晓贝" size="48"></thy-avatar>
-    <thy-avatar [member]="member" size="68"></thy-avatar>
-    <thy-avatar [member]="hasAvatarMember" size="160"></thy-avatar>
+    <thy-avatar thyName="路晓贝" thySize="24" [thyShowName]="true"></thy-avatar>
+    <thy-avatar thyName="luxiaobei" thySize="30" [thyShowName]="false"></thy-avatar>
+    <thy-avatar thySrc="https://s3.cn-north-1.amazonaws.com.cn/lcavatar/dfea7c36-5147-4569-8910-829137920172_80x80.png" thyName="路晓贝" thySize="38" [thyShowName]="true"></thy-avatar>
+    <thy-avatar thySrc="https://s3.cn-north-1.amazonaws.com.cn/lcavatar/dfea7c36-5147-4569-8910-829137920172_80x80.png" thyName="路晓贝" thySize="48"></thy-avatar>
+    <thy-avatar [thyMember]="member" thySize="68"></thy-avatar>
+    <thy-avatar [thyMember]="hasAvatarMember" thySize="160"></thy-avatar>
+</div>
+<div>
+    <thy-badge [thyCount]="3" thyStatus="primary">
+        <thy-avatar [thyMember]="hasAvatarMember" thySize="24"></thy-avatar>
+    </thy-badge>
 </div>
