@@ -37,13 +37,16 @@ export class PopBoxService {
             }
         }
         this._target = target;
+        this.config = Object.assign({}, popBoxConfigDefaults, config, {
+            target: target
+        });
 
         const loader = this._popBoxLoader = this.clf.createLoader<PopBoxContainerComponent>(
             config.target,
             null,
             null
         );
-        this.config = Object.assign({}, popBoxConfigDefaults, config);
+
         const popBoxRef = new PopBoxRef();
         const popBoxContainerRef = loader
             .provide({ provide: PopBoxOptions, useValue: this.config })
