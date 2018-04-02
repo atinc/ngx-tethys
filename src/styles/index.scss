@@ -5,13 +5,15 @@
 @import "./mixins/index";
 
 @import "~bootstrap/scss/grid";
-@import "~bootstrap/scss/nav";
-@import "~bootstrap/scss/code";
-// @import "~bootstrap/scss/reboot";
+@import "~bootstrap/scss/code"; 
+@import "~bootstrap/scss/reboot";
 // @import "~bootstrap/scss/buttons";
-// @import "~bootstrap/scss/navbar";
 // @import "~bootstrap/scss/badge";
 // @import "~bootstrap/scss/label";
+@import "~bootstrap/scss/transitions";
+// @import "~bootstrap/scss/nav";
+// @import "~bootstrap/scss/navbar";
+// @import "~bootstrap/scss/forms";
 
 @import "./components/reboot";
 @import "./components/link";
@@ -23,3 +25,4 @@
 @import "../avatar/styles/avatar";
 @import "../label/styles/label";
 @import "../layout/styles/layout";
+@import "../nav/styles/nav";
