@@ -16,7 +16,7 @@
         background: $layout-header-background;
         padding: $layout-header-padding;
         height: $layout-header-height;
-        line-height: $layout-header-height;
+        // line-height: $layout-header-height;
     }
     &-content {
         flex: auto;
@@ -42,5 +42,21 @@
         .sidebar-content {
             flex: auto;
         }
+    }
+}
+
+.thy-layout-header {
+    display: flex;
+    .layout-header-title {
+        width: 200px;
+        line-height: $layout-header-height;
+    }
+
+    .layout-header-content {
+        flex: auto;
+    }
+
+    .layout-header-operation {
+        line-height: $layout-header-height;
     }
 }
