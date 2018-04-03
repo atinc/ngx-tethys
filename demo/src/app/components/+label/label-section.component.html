@@ -1,9 +1,9 @@
 <section>
     <div class="header">
-        <h2>Label</h2>
+        <h2>常规标签</h2>
+        <p>· 标记与分类当前任务。 </p>
     </div>
     <div class="body">
-        <span thyLabel="default">已同意</span>
         <span thyLabel="primary">Primary</span>
         <span thyLabel="success">Success</span>
         <span thyLabel="info">Info</span>
@@ -12,35 +12,45 @@
         <br/>
         <br/> 自定义颜色
         <code>#7076fa</code>覆盖
-        <span thyLabel thyLabelColor="#7076fa">Danger</span>
+        <span thyLabel [thyLabelColor]="color">Danger</span>
         <br>
         <br>
-        <span thyLabel="danger">已拒绝：reject</span>
-        <span thyLabel="danger">已截止：ended</span>
-        <span thyLabel="danger">已结束:finished</span>
-        <span thyLabel="primary">已同意：agree</span>
-        <span thyLabel="primary">已提交：submited</span>
-        <span thyLabel="primary">已评审：reviewed</span>
-        <br/>
-        <br/>
-        <span thyLabel="primary">已读: readed</span>
-        <span thyLabel="primary">已回执:receipted</span>
-        <span thyLabel="primary">进行中:in-progress</span>
-        <span thyLabel="primary">已发布:published</span>
-        <br/>
-        <br/>
-        <span thyLabel="warning">未开始:unbegind</span>
-        <span thyLabel="warning">未回执:unreceipt</span>
-        <span thyLabel="warning">未读: unread</span>
-        <span thyLabel="warning">审批中: waiting</span>
-        <br/>
-        <br/>
-        <span thyLabel="warning">未发布:unpublished</span>
-        <span thyLabel="warning">未提交:unsubmited</span>
-        <span thyLabel="warning">待评审:pending</span>
-        <br/>
-        <br/>
-        <span thyLabel="default">已撤销: canceled</span>
-        <span thyLabel="default">已作废: deserted</span>
+        <a href="javascript:;" thyLabel="default">添加标签</a>
+        <a href="javascript:;" thyLabel="primary">重要不紧急</a>
+    </div>
+</section>
+
+<section>
+    <div class="header">
+        <h2>状态标签</h2>
+        <p>· 显示“审批”、“考核”、“公告”、“投票”等操作的当前状态</p>
+    </div>
+    <div class="body">
+        <span thyLabel="warning" thyLabelType="state">未开始</span>
+        <span thyLabel="primary" thyLabelType="state">进行中</span>
+        <span thyLabel="danger" thyLabelType="state">已结束</span>
+        <span thyLabel="default" thyLabelType="state">已作废</span>
+        <span thyLabel="default" thyLabelType="state">已撤销</span>
+    </div>
+</section>
+
+<section>
+    <div class="header">
+        <h2>状态标签2</h2>
+        <p>· 多用于“销售_客户详情_沟通状态”展示，状态颜色由管理员自定义</p>
+    </div>
+    <div class="body">
+        <span thyLabel="default" thyLabelType="pill">
+            <span class="label-pill-spot" thyLabel [thyLabelColor]="color"></span>
+            初步沟通
+        </span>
+        <span thyLabel="default" thyLabelType="pill">
+            <span class="label-pill-spot" thyLabel [thyLabelColor]="color1"></span>
+            确定意向
+        </span>
+        <span thyLabel="default" thyLabelType="pill">
+            <span class="label-pill-spot" thyLabel="primary"></span>
+            签约成交
+        </span>
     </div>
 </section>

@@ -21,6 +21,7 @@ export class ThyLabelDirective {
     private _labelClass?: string;
     private _color?: string;
     private _type?: string;
+    private _labelType?: string;
 
 
     constructor(private el: ElementRef, private renderer: Renderer2) {
@@ -39,6 +40,12 @@ export class ThyLabelDirective {
         this._setLabelCustomColor();
     }
 
+    @Input()
+    set thyLabelType(labelType: string) {
+        this._labelType = labelType;
+        this._setClassesByType();
+    }
+
     private _setClassesByType() {
         let classNames: string[] = null;
         if (labelTypeClassesMap[this._type]) {
@@ -46,6 +53,9 @@ export class ThyLabelDirective {
         } else {
             classNames = ['label'];
             classNames.push(`label-${this._type}`);
+        }
+        if (this._labelType) {
+            classNames.push(`label-${this._labelType}`);
         }
         // remove old classes
         this._typeClassNames.forEach(className => {
