@@ -9,6 +9,7 @@ import { DemoAvatarSectionComponent } from './components/+avatar/avatar-section.
 import { DemoLabelSectionComponent } from './components/+label/label-section.component';
 import { DemoLayoutSectionComponent } from './components/+layout/layout-section.component';
 import { DemoNavSectionComponent } from './components/+nav/nav-section.component';
+import { DemoModalSectionComponent } from './components/+modal/modal-section.component';
 
 const appRoutes = [
     {
@@ -54,6 +55,10 @@ const appRoutes = [
     {
         path: 'components/nav',
         component: DemoNavSectionComponent
+    },
+    {
+        path: 'components/modal',
+        component: DemoModalSectionComponent
     }
 ];
 

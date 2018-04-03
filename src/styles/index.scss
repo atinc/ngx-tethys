@@ -3,6 +3,7 @@
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins";
 @import "./mixins/index";
+@import "./components/index";
 
 @import "~bootstrap/scss/grid";
 @import "~bootstrap/scss/code"; 
@@ -14,6 +15,8 @@
 // @import "~bootstrap/scss/nav";
 // @import "~bootstrap/scss/navbar";
 // @import "~bootstrap/scss/forms";
+@import "~bootstrap/scss/modal";
+@import "~bootstrap/scss/utilities/display";
 
 @import "./components/reboot";
 @import "./components/link";
@@ -26,3 +29,4 @@
 @import "../label/styles/label";
 @import "../layout/styles/layout";
 @import "../nav/styles/nav";
+@import "../modal/styles/modal";

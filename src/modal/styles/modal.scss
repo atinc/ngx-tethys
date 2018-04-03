@@ -1,0 +1,56 @@
+.modal-header {
+  min-height: $modal-title-line-height;
+  h3 {
+    font-size: $font-size-md;
+    font-weight: 500;
+  }
+  .modal-info {
+    color: $gray-500;
+  }
+  .modal-back {
+    position: absolute;
+    line-height: 50px;
+    color: $gray-300;
+  }
+  .modal-close {
+    color: $gray-300;
+    &:hover {
+      text-decoration: none;
+      color: $primary;
+    }
+  }
+}
+
+.modal-body {
+  .sure-card {
+    p {
+      color: $gray-600;
+      font-size: $font-size-base;
+    }
+  }
+  &--lg {
+    padding: 20px 30px;
+  }
+  &--clear-padding-l {
+    padding-left: 0;
+  }
+  &--clear-padding-lr {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+.modal-footer {
+  justify-content: flex-start;
+  border: 0;
+}
+
+.table-wrap {
+  margin: 0 -30px;
+  &--modal {
+    min-height: 200px;
+    padding: 0 30px;
+    overflow-y: auto;
+    max-height: 400px
+  }
+}
