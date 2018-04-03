@@ -44,7 +44,7 @@ export class PopBoxContainerComponent implements OnInit {
 
     @HostListener('document:click', ['$event'])
     onDocumentClick(event: any): void {
-        if (!this.config.target.nativeElement.contains(event.target)) {
+        if (!this.config.target.contains(event.target)) {
             if (this.config.insideAutoClose || !this.element.nativeElement.contains(event.target)) {
                 this.hide();
             }

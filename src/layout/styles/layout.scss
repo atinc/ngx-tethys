@@ -1,0 +1,46 @@
+.thy-layout {
+    display: flex;
+    flex-direction: column;
+    flex: auto;
+    height: 100%;
+    background: $layout-content-background;
+    &--has-sidebar {
+        flex-direction: row;
+        >.thy-layout--body {
+            overflow-x: hidden;
+        }
+    }
+    &-header {
+        display: block;
+        flex: 0 0 auto;
+        background: $layout-header-background;
+        padding: $layout-header-padding;
+        height: $layout-header-height;
+        line-height: $layout-header-height;
+    }
+    &-content {
+        flex: auto;
+        background: $layout-content-background;
+        padding: $layout-content-padding;
+    }
+    &-sidebar {
+        transition: all .2s;
+        position: relative;
+        background: $layout-sidebar-background;
+        min-width: 0;
+        width: $layout-sidebar-width;
+        border-right: $layout-sidebar-border-right;
+        display: flex;
+        flex-direction: column;
+
+        .sidebar-header {
+            padding: 0 20px;
+            height: $layout-header-height;
+            line-height: $layout-header-height;
+        }
+
+        .sidebar-content {
+            flex: auto;
+        }
+    }
+}
