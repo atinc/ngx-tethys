@@ -18,7 +18,7 @@
     background: $layout-header-background;
     padding: $layout-header-padding;
     height: $layout-header-height;
-    // line-height: $layout-header-height;
+    line-height: $layout-header-height;
     &.header-has-border {
         border-bottom: 1px solid $nav-border-color;
     }
@@ -55,7 +55,6 @@
     display: flex;
 
     .layout-header-title {
-        line-height: $layout-header-height;
         font-size: $font-size-md;
         color: $gray-800;
         a {
@@ -70,20 +69,14 @@
     .layout-header-content {
         flex: auto;
     }
-
-    .layout-header-operation {
-        line-height: $layout-header-height;
-    }
 }
 
 .thy-layout-header-sm {
     height: $layout-header-height-sm;
-    .layout-header-operation,
-    .layout-header-title {
-        line-height: $layout-header-height-sm
-    }
+    line-height: $layout-header-height-sm;
 }
 
-// .thy-layout-header .thy-nav {
-//     justify-content: center;
-// }
+.thy-layout-header .thy-nav {
+    line-height: normal;
+    justify-content: center;
+}
