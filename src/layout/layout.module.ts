@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import { ThyLayoutComponent } from './layout.component';
 import { ThyHeaderComponent } from './header.component';
 import { ThyContentComponent } from './content.component';
+import { ThySidebarComponent } from './sidebar.component';
 
 @NgModule({
     declarations: [
         ThyLayoutComponent,
         ThyHeaderComponent,
-        ThyContentComponent
+        ThyContentComponent,
+        ThySidebarComponent
     ],
     imports: [
         CommonModule
@@ -16,7 +18,8 @@ import { ThyContentComponent } from './content.component';
     exports: [
         ThyLayoutComponent,
         ThyHeaderComponent,
-        ThyContentComponent
+        ThyContentComponent,
+        ThySidebarComponent
     ]
 })
 export class ThyLayoutModule {
