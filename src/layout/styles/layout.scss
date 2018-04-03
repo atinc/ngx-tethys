@@ -17,6 +17,12 @@
         padding: $layout-header-padding;
         height: $layout-header-height;
         // line-height: $layout-header-height;
+        &.header-has-border {
+            border-bottom: 1px solid $nav-border-color;
+        }
+        .thy-nav {
+            justify-content: center;
+        }
     }
     &-content {
         flex: auto;
@@ -47,8 +53,8 @@
 
 .thy-layout-header {
     display: flex;
+
     .layout-header-title {
-        width: 200px;
         line-height: $layout-header-height;
     }
 
