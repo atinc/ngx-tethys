@@ -16,6 +16,10 @@
     &:hover {
       color: $hover-color;
       text-decoration: none;
+
+      i.wtf-times {
+        display: inline-block;
+      }
     }
   }
 }
