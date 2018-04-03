@@ -1,12 +1,20 @@
-@mixin label-variant($color,$bg-color,$hover-color) {
-  color: $color;
+@mixin label-variant($bg-color) {
   background-color: $bg-color;
 
   &[href] {
     &:focus,
     &:hover {
-      color: $hover-color;
       background-color: darken($bg-color, 10%);
+    }
+  }
+}
+@mixin label-color-variant($color,$hover-color) {
+  color: $color;
+
+  &[href] {
+    &:focus,
+    &:hover {
+      color: $hover-color;
       text-decoration: none;
     }
   }
