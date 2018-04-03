@@ -1,6 +1,6 @@
 import { TemplateRef } from '@angular/core';
 
-export interface GridColumn {
+export interface ThyGridColumn {
   key: string;
   model: string;
   label: string;
@@ -10,6 +10,17 @@ export interface GridColumn {
   headerClassName: string;
   disabled: boolean;
   templateRef: TemplateRef<any>;
+}
+
+
+export interface ThyMultiSelectEvent {
+  event: Event;
+  rows: any[];
+}
+
+export interface ThyRadioSelectEvent {
+  event: Event;
+  row: any;
 }
 
 

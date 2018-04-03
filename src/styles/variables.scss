@@ -14,9 +14,9 @@ $gray-900: #212529;
 $black: #000;
 
 //px to rem
-$rem-5px: 0.3125rem;
-$rem-10px: 0.625rem;
-$rem-15px: 0.9375rem;
+$rem-5px: .3125rem;
+$rem-10px: .625rem;
+$rem-15px: .9375rem;
 $rem-18px: 1.125rem;
 $rem-20px: 1.25rem;
 $rem-26px: 1.625rem;
@@ -51,14 +51,14 @@ $font-family-sans-serif: "Helvetica Neue", "Hiragino Sans GB", "stheiti",
 $font-family-monospace: SFMono-Regular, Menlo, Monaco,
     Consolas "Liberation Mono", "Courier New", monospace;
 $font-family-base: $font-family-sans-serif;
-$font-size-base: 0.875rem; // 14px
+$font-size-base: .875rem; // 14px
 $font-size-lg: 1.25rem; // 20px
-$font-size-sm: 0.75rem; // 12px
+$font-size-sm: .75rem; // 12px
 
 // 扩展
 $font-size-md: 1rem; // 16px
 $font-size-max-lg: 3.25rem; // 补充字体大小 52px
-$font-size-min-sm: 0.625rem; // 10px
+$font-size-min-sm: .625rem; // 10px
 
 // code
 $code-color: $danger;
@@ -73,7 +73,7 @@ $btn-padding-x: 2.438rem;
 $btn-padding-y-md: 0.407rem; // 100*36px 变种按钮大小
 $btn-padding-x-md: 1.25rem;
 // $btn-line-height: $input-btn-line-height;
-$btn-padding-y-sm: 0.25rem; // 70*28px
+$btn-padding-y-sm: .25rem; // 70*28px
 $btn-padding-x-sm: 1.375rem;
 // $btn-line-height-sm: $input-btn-line-height-sm;
 $btn-padding-y-lg: 8px;
@@ -93,11 +93,15 @@ $pop-box-text-hover: $gray-900;
 
 // Layout
 
-$layout-header-background: $white;
+$layout-header-background: rgba($gray-99, 0.97);
 $layout-header-padding: 0 15px;
 $layout-header-height: 50px;
 $layout-content-background: $gray-200;
 $layout-content-padding: 15px 15px 15px 15px;
+$layout-sidebar-width: 240px;
+$layout-sidebar-background: rgba($gray-99, 0.97);
+$layout-sidebar-border-right: 1px solid $gray-300;
+$layout-header-height-sm: 38px;
 
 // Tables
 $table-cell-padding: 12px 15px !default;
@@ -136,6 +140,9 @@ $badge-color: $gray-700; //#666
 
 //label
 $label-size-padding: 5px 10px;
+$label-state-padding: 6px 10px;
+$label-border-radius: 3px;
+$label-pill-radius: 18px;
 $label-border-radius: 3px;
 $label-default-bg: $gray-200;
 $label-primary-bg: $primary;
@@ -143,7 +150,6 @@ $label-success-bg: $success;
 $label-info-bg: $info;
 $label-warning-bg: $warning;
 $label-danger-bg: $danger;
-$label-custom-bg: #7076fa;
 
 //avatar
 $avatar-sizes: () !default;
@@ -160,7 +166,7 @@ $nav-link-hover-color: $primary !default;
 $nav-border-color: $gray-200;
 $nav-border-bottom: 2px solid $primary;
 
-$nav-link-primary-padding-y: 0.5rem !default;
+$nav-link-primary-padding-y: 0.844rem !default;
 $nav-link-primary-padding-x: 1rem !default;
 $nav-link-primary-right: 20px;
 $nav-link-primary-min-width: 80px;

@@ -1,5 +1,5 @@
-import { Component, HostBinding } from '@angular/core';
-
+import { Component, HostBinding, Host, Optional, OnInit } from '@angular/core';
+import { ThyLayoutComponent } from './layout.component';
 @Component({
     selector: 'thy-sidebar',
     preserveWhitespaces: false,
@@ -7,6 +7,16 @@ import { Component, HostBinding } from '@angular/core';
     <ng-content></ng-content>
     `
 })
-export class ThySidebarComponent {
+export class ThySidebarComponent implements OnInit {
     @HostBinding('class.thy-layout-sidebar') thyLayoutSidebarClass = true;
+
+    constructor( @Optional() @Host() private thyLayoutComponent: ThyLayoutComponent) {
+
+    }
+
+    ngOnInit() {
+        if (this.thyLayoutComponent) {
+            this.thyLayoutComponent.hasSidebar = true;
+        }
+    }
 }

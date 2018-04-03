@@ -2,7 +2,7 @@ import { Component, Input, ElementRef, ViewEncapsulation, ContentChild, ContentC
 import { AfterContentInit, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { inputValueToBoolean, isUndefined } from '../util/helpers';
 import { ThyGridComponent } from './grid.component';
-import { GridColumn } from './grid.interface';
+import { ThyGridColumn } from './grid.interface';
 
 @Component({
     selector: 'thy-grid-column',
@@ -11,17 +11,17 @@ import { GridColumn } from './grid.interface';
 })
 export class ThyGridColumnComponent implements OnInit {
 
-    @Input() model = '';
-    @Input() label = '';
-    @Input() type = '';
-    @Input() width: string | number = '';
-    @Input() className = '';
-    @Input() headerClassName = '';
-    @Input() disabled = false;
+    @Input() thyModelKey = '';
+    @Input() thyLabel = '';
+    @Input() thyType = '';
+    @Input() thyWidth: string | number = '';
+    @Input() thyClassName = '';
+    @Input() thyHeaderClassName = '';
+    @Input() thyDisabled = false;
 
     @ContentChild(TemplateRef) templateRef: TemplateRef<any>;
 
-    private _column: GridColumn;
+    private _column: ThyGridColumn;
 
     constructor(private root: ThyGridComponent, private el: ElementRef) {
 
@@ -30,19 +30,19 @@ export class ThyGridColumnComponent implements OnInit {
     ngOnInit() {
         this._column = {
             key: this.generateKey(),
-            model: this.model,
-            label: this.label,
-            type: this.type,
-            width: this.width,
-            className: this.className,
-            headerClassName: this.headerClassName,
-            disabled: this.disabled,
+            model: this.thyModelKey,
+            label: this.thyLabel,
+            type: this.thyType,
+            width: this.thyWidth,
+            className: this.thyClassName,
+            headerClassName: this.thyHeaderClassName,
+            disabled: this.thyDisabled,
             templateRef: this.templateRef
         };
         this.root.updateColumn(this._column);
     }
 
     generateKey() {
-        return Math.random().toString(16).substr(2, 8);
+        return 'column' + Math.random().toString(16).substr(2, 8);
     }
 }

@@ -1,7 +1,10 @@
-import { Component, Directive, Input, ElementRef, Renderer2, ViewEncapsulation, TemplateRef, OnInit } from '@angular/core';
-import { AfterContentInit, OnChanges, SimpleChanges } from '@angular/core';
+import {
+    Component, Directive, Input, Output, ElementRef, Renderer2,
+    ViewEncapsulation, TemplateRef, OnInit, EventEmitter
+} from '@angular/core';
+import { AfterContentInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import { inputValueToBoolean, isUndefined, get, set } from '../util/helpers';
-import { GridColumn } from './grid.interface';
+import { ThyGridColumn, ThyMultiSelectEvent, ThyRadioSelectEvent } from './grid.interface';
 
 export type ThyGridTheme = 'default' | 'bordered';
 
@@ -15,36 +18,46 @@ const themeMap: any = {
     templateUrl: './grid.component.html',
     encapsulation: ViewEncapsulation.None
 })
-export class ThyGridComponent implements OnInit, AfterContentInit {
+export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy {
 
-    public models: any[] = [];
-    public columns: GridColumn[] = [];
-    public themeClass = '';
+    public model: any[] = [];
+    public columns: ThyGridColumn[] = [];
+    public themeClass = themeMap['default'];
+    public className = '';
+    public selectedRadioRow: any = null;
 
     private _filter: any = null;
 
+
     @Input()
-    set data(value: any) {
-        this.models = value;
-        this._formatModels();
+    set thyModel(value: any) {
+        this.model = value;
+        this._formatModel();
     }
 
     @Input()
-    set theme(value: ThyGridTheme) {
+    set thyTheme(value: ThyGridTheme) {
         this.themeClass = themeMap[value];
     }
 
-    @Input() className: string;
+    @Input()
+    set thyClassName(value: string) {
+        this.className = value || ' ';
+    }
 
     @Input()
-    set filter(value: any) {
+    set thyFilter(value: any) {
         this._filter = value;
     }
 
-    private _formatModels() {
-        this.models.forEach(row => {
+    @Output() thyOnMultiSelectChange: EventEmitter<ThyMultiSelectEvent> = new EventEmitter<ThyMultiSelectEvent>();
+
+    @Output() thyOnRadioSelectChange: EventEmitter<ThyRadioSelectEvent> = new EventEmitter<ThyRadioSelectEvent>();
+
+    private _formatModel() {
+        this.model.forEach(row => {
             this.columns.forEach(column => {
-                if (column.type === 'checkbox' || column.type === 'radio') {
+                if (column.type === 'checkbox') {
                     if (column.model) {
                         row[column.key] = get(row, column.model);
                     }
@@ -53,10 +66,29 @@ export class ThyGridComponent implements OnInit, AfterContentInit {
         });
     }
 
-    private _filterModels() {
-        if (this.models && this.models.length > 0) {
+    private _filterModel() {
+        if (this.model && this.model.length > 0) {
             if (this._filter) {
             }
+        }
+    }
+
+    private _destroyInvalidAttribute() {
+        this.model.forEach(row => {
+            for (const key in row) {
+                if (key.includes('column')) {
+                    delete row[key];
+                }
+            }
+        });
+    }
+
+    public updateColumn(column: ThyGridColumn) {
+        let old = this.columns.find(item => item.key === column.key);
+        if (old) {
+            old = column;
+        } else {
+            this.columns.push(column);
         }
     }
 
@@ -68,19 +100,29 @@ export class ThyGridComponent implements OnInit, AfterContentInit {
         return get(row, path);
     }
 
-    public onModelChange(row: any, column: GridColumn) {
+    public onModelChange(row: any, column: ThyGridColumn) {
         if (column.model) {
             set(row, column.model, row[column.key]);
         }
     }
 
-    public updateColumn(column: GridColumn) {
-        let old = this.columns.find(item => item.key === column.key);
-        if (old) {
-            old = column;
-        } else {
-            this.columns.push(column);
-        }
+    public onMultiSelectChange(event: Event, column: ThyGridColumn) {
+        const rows = this.model.filter(row => {
+            return !!get(row, column.model);
+        });
+        const multiSelect: ThyMultiSelectEvent = {
+            event: event,
+            rows: rows
+        };
+        this.thyOnMultiSelectChange.emit(multiSelect);
+    }
+
+    public onRadioSelectChange(event: Event, row: any) {
+        const radioSelect: ThyRadioSelectEvent = {
+            event: event,
+            row: row
+        };
+        this.thyOnRadioSelectChange.emit(radioSelect);
     }
 
     ngOnInit() {
@@ -88,6 +130,10 @@ export class ThyGridComponent implements OnInit, AfterContentInit {
     }
 
     ngAfterContentInit() {
-        this._formatModels();
+        this._formatModel();
+    }
+
+    ngOnDestroy() {
+        this._destroyInvalidAttribute();
     }
 }
