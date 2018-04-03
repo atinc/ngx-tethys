@@ -8,6 +8,7 @@ import { DemoGridSectionComponent } from './components/+grid/grid-section.compon
 import { DemoAvatarSectionComponent } from './components/+avatar/avatar-section.component';
 import { DemoLabelSectionComponent } from './components/+label/label-section.component';
 import { DemoLayoutSectionComponent } from './components/+layout/layout-section.component';
+import { DemoNavSectionComponent } from './components/+nav/nav-section.component';
 
 const appRoutes = [
     {
@@ -49,6 +50,10 @@ const appRoutes = [
     {
         path: 'components/layout',
         component: DemoLayoutSectionComponent
+    },
+    {
+        path: 'components/nav',
+        component: DemoNavSectionComponent
     }
 ];
 
