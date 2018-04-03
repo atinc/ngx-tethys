@@ -13,8 +13,15 @@ export class ThyHeaderComponent {
 
     @HostBinding('class.header-has-border') _thyHasBorder = false;
 
+    @HostBinding('class.thy-layout-header-sm') _thySizeSm = false;
+
     @Input('thyHasBorder')
     set thyHasBorder(value: string) {
         this._thyHasBorder = inputValueToBoolean(value);
+    }
+
+    @Input('thySize')
+    set thySize(value: string) {
+        this._thySizeSm = (value === 'sm');
     }
 }

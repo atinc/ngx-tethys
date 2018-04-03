@@ -34,18 +34,24 @@
                     </thy-sidebar>
                     <thy-layout>
                         <thy-header thyHasBorder="true">
-                            <div class="layout-header-title">恩，我是头部</div>
+                            <div class="layout-header-title">
+                                <i class="wtf wtf-setting-o"></i><a href="javascript:;">我的项目</a>
+                            </div>
                             <div class="layout-header-content">
                                 <thy-nav thyType="primary" class="justify-content-center">
-                                    <a href="javascript:;" class="nav-link">看板</a>
+                                    <a href="javascript:;" class="nav-link active">看板</a>
                                     <a href="javascript:;" class="nav-link">报表</a>
                                 </thy-nav>
                             </div>
                             <div class="layout-header-operation">操作区域</div>
                         </thy-header>
                         <thy-layout>
-                            <thy-header>
+                            <thy-header thySize="sm">
                                 <div class="layout-header-title">恩，我是头部</div>
+                                <div class="layout-header-content"></div>
+                                <div class="layout-header-operation">
+                                    <a href="javascript:;" class="btn btn-link">操作</a>
+                                </div>
                             </thy-header>
                             <thy-content>
                                 恩，我是 content
