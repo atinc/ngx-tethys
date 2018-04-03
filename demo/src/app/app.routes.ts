@@ -6,8 +6,9 @@ import { DemoWTDSectionLinkComponent } from './components/+wtd/wtd.component';
 import { DemoBadgeSectionComponent } from './components/+badge/badge-section.component';
 import { DemoGridSectionComponent } from './components/+grid/grid-section.component';
 import { DemoAvatarSectionComponent } from './components/+avatar/avatar-section.component';
-import {DemoLabelSectionComponent} from './components/+label/label-section.component';
-
+import { DemoLabelSectionComponent } from './components/+label/label-section.component';
+import { DemoLayoutSectionComponent } from './components/+layout/layout-section.component';
+import { DemoNavSectionComponent } from './components/+nav/nav-section.component';
 
 const appRoutes = [
     {
@@ -46,6 +47,14 @@ const appRoutes = [
         path: 'components/label',
         component: DemoLabelSectionComponent
     },
+    {
+        path: 'components/layout',
+        component: DemoLayoutSectionComponent
+    },
+    {
+        path: 'components/nav',
+        component: DemoNavSectionComponent
+    }
 ];
 
 export { appRoutes };

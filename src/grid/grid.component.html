@@ -1,12 +1,12 @@
-<table class="table" [ngClass]="[themeClass , className || '']">
+<table class="table" [ngClass]="[themeClass,className]">
     <thead>
         <tr>
-            <th *ngFor="let column of columns">{{column.label}}</th>
+            <th *ngFor="let column of columns" [ngClass]="column.headerClassName">{{column.label}}</th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let row of models">
-            <td *ngFor="let column of columns">
+        <tr *ngFor="let row of model">
+            <td *ngFor="let column of columns" [ngClass]="column.className" [width]="column.width">
                 <ng-container *ngIf="column.model">
                     <ng-container *ngIf="!column.type">
                         {{getModelValue(row,column.model)}}
@@ -14,16 +14,16 @@
                     <!--custom type-->
                     <ng-container *ngIf="column.type">
                         <ng-container *ngIf="column.type === 'checkbox'">
-                            <input type="checkbox" [(ngModel)]="row[column.key]" (ngModelChange)="onModelChange(row,column)" />
+                            <input type="checkbox" [(ngModel)]="row[column.key]" [disabled]="column.disabled" (ngModelChange)="onModelChange(row,column)" />
                         </ng-container>
                         <ng-container *ngIf="column.type === 'radio'">
-                            <input type="checkbox" [(ngModel)]="row[column.key]" (ngModelChange)="onModelChange(row,column)" />
+                            <input type="radio" [(ngModel)]="selectedRadioRow" [value]="row" [disabled]="column.disabled" (change)="onRadioSelectChange($event,row)" />
                         </ng-container>
                     </ng-container>
                 </ng-container>
                 <!--template-->
-                <ng-container *ngIf="!column.model && isTemplateRef(column.template)">
-                    <ng-template [ngTemplateOutlet]="column.template" [ngTemplateOutletContext]="{$implicit : row}"></ng-template>
+                <ng-container *ngIf="!column.model && isTemplateRef(column.templateRef)">
+                    <ng-template [ngTemplateOutlet]="column.templateRef" [ngTemplateOutletContext]="{$implicit : row}"></ng-template>
                 </ng-container>
             </td>
         </tr>

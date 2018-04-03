@@ -5,7 +5,12 @@ import { Component } from '@angular/core';
 })
 export class DemoLabelSectionComponent {
 
+    public color?: string;
+    public color1?: string;
+
     constructor() {
+        this.color = '#7076fa';
+        this.color1 = '#f969aa';
     }
 
 }

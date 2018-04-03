@@ -1,64 +1,61 @@
 <section>
     <div class="header">
-        <h2>Label</h2>
+        <h2>常规标签</h2>
+        <p>· 标记与分类当前任务。 </p>
     </div>
     <div class="body">
-        <thy-label thyClassify="label" thyStyle="default" thyText="已同意"></thy-label>
-        <thy-label thyClassify="label" thyStyle="primary" thyText="Primary"></thy-label>
-        <thy-label thyClassify="label" thyStyle="success" thyText="Success"></thy-label>
-        <thy-label thyClassify="label" thyStyle="info" thyText="Info"></thy-label>
-        <thy-label thyClassify="label" thyStyle="warning" thyText="Warning"></thy-label>
-        <thy-label thyClassify="label" thyStyle="danger" thyText="Danger"></thy-label>
+        <span thyLabel="primary">Primary</span>
+        <span thyLabel="success">Success</span>
+        <span thyLabel="info">Info</span>
+        <span thyLabel="warning">Warning</span>
+        <span thyLabel="danger">Danger</span>
         <br/>
         <br/> 自定义颜色
         <code>#7076fa</code>覆盖
-        <thy-label thyClassify="label" thyStyle="custom" thyText="Danger"></thy-label>
+        <span thyLabel [thyLabelColor]="color">Danger</span>
         <br>
         <br>
-        <code>.list-status</code> 基本上和 label 样式一致, 颜色从 18 种颜色取值
-        <br>
-        <br>
-        <thy-label thyClassify="list-status" thyStyle="reject" thyText="已拒绝：reject"></thy-label>
-        <thy-label thyClassify="list-status" thyStyle="ended" thyText="已截止：ended"></thy-label>
-        <thy-label thyClassify="list-status" thyStyle="finished" thyText="已结束:finished"></thy-label>
-        <thy-label thyClassify="list-status" thyStyle="agreed" thyText="已同意：agree"></thy-label>
-        <thy-label thyClassify="list-status" thyStyle="submited" thyText="已提交：submited"></thy-label>
-        <thy-label thyClassify="list-status" thyStyle="reviewed" thyText="已评审：reviewed"></thy-label>
-        <br/>
-        <br/>
-        <thy-label thyClassify="list-status" thyStyle="readed" thyText="已读: reade"></thy-label>
-        <thy-label thyClassify="list-status" thyStyle="receipted" thyText="已回执:receipted"></thy-label>
-        <thy-label thyClassify="list-status" thyStyle="in-progress" thyText="进行中:in-progress"></thy-label>
-        <thy-label thyClassify="list-status" thyStyle="transferred" thyText="已转交: transferre"></thy-label>
-        <thy-label thyClassify="list-status" thyStyle="published" thyText="已发布:published"></thy-label>
-        <br/>
-        <br/>
-        <thy-label thyClassify="list-status" thyStyle="unbegin" thyText="未开始:unbegind"></thy-label>
-        <thy-label thyClassify="list-status" thyStyle="unreceipt" thyText="未回执:unreceipt"></thy-label>
-        <thy-label thyClassify="list-status" thyStyle="unread" thyText="未读: unread"></thy-label>
-        <thy-label thyClassify="list-status" thyStyle="waiting" thyText="审批中: waiting"></thy-label>
-        <br/>
-        <br/>
-        <thy-label thyClassify="list-status" thyStyle="unpublished" thyText="未发布:unpublished"></thy-label>
-        <thy-label thyClassify="list-status" thyStyle="unsubmited" thyText="未提交:unsubmited"></thy-label>
-        <thy-label thyClassify="list-status" thyStyle="pending" thyText="待评审:pending"></thy-label>
-        <br/>
-        <br/>
-        <thy-label thyClassify="list-status" thyStyle="canceled" thyText="已撤销: canceled"></thy-label>
-        <thy-label thyClassify="list-status" thyStyle="deserted" thyText="已作废: deserted"></thy-label>
+        <a href="javascript:;" thyLabel="default">
+            <i class="wtf wtf-th-plus"></i>添加标签</a>
+        <a href="javascript:;" thyLabel="primary">
+            重要不紧急
+            <i class="wtf wtf-times"></i>
+        </a>
+        <a href="javascript:;" thyLabel="default">…</a>
     </div>
 </section>
 
 <section>
     <div class="header">
-        <h2>Label Specific</h2>
+        <h2>状态标签</h2>
+        <p>· 显示“审批”、“考核”、“公告”、“投票”等操作的当前状态</p>
     </div>
     <div class="body">
-        <thy-label thyClassify="label-spec" thyExtend="label-spec-lg" thyText="特殊的Label"></thy-label>
-        <thy-label thyClassify="label-spec" thyStyle="title" thyText="特殊的Label"></thy-label>
-        <thy-label thyClassify="label-spec" thyStyle="primary" thyText="特殊的Label"></thy-label>
-        <thy-label thyClassify="label-spec" thyStyle="success" thyText="特殊的Label"></thy-label>
-        <thy-label thyClassify="label-spec" thyStyle="warning" thyText="特殊的Label"></thy-label>
-        <thy-label thyClassify="label-spec" thyStyle="dange" thyText="特殊的Label"></thy-label>
+        <span thyLabel="warning" thyLabelType="state">未开始</span>
+        <span thyLabel="primary" thyLabelType="state">进行中</span>
+        <span thyLabel="danger" thyLabelType="state">已结束</span>
+        <span thyLabel="default" thyLabelType="state">已作废</span>
+        <span thyLabel="default" thyLabelType="state">已撤销</span>
+    </div>
+</section>
+
+<section>
+    <div class="header">
+        <h2>状态标签2</h2>
+        <p>· 多用于“销售_客户详情_沟通状态”展示，状态颜色由管理员自定义</p>
+    </div>
+    <div class="body">
+        <span thyLabel="default" thyLabelType="pill">
+            <span class="label-pill-spot" thyLabel [thyLabelColor]="color"></span>
+            初步沟通
+        </span>
+        <span thyLabel="default" thyLabelType="pill">
+            <span class="label-pill-spot" thyLabel [thyLabelColor]="color1"></span>
+            确定意向
+        </span>
+        <span thyLabel="default" thyLabelType="pill">
+            <span class="label-pill-spot" thyLabel="primary"></span>
+            签约成交
+        </span>
     </div>
 </section>

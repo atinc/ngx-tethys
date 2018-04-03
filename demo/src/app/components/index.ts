@@ -8,6 +8,8 @@ import { DemoWTDSectionLinkComponent } from './+wtd/wtd.component';
 import { DemoBadgeSectionComponent } from './+badge/badge-section.component';
 import {DemoAvatarSectionComponent} from './+avatar/avatar-section.component';
 import { DemoLabelSectionComponent } from './+label/label-section.component';
+import { DemoLayoutSectionComponent } from './+layout/layout-section.component';
+import { DemoNavSectionComponent } from './+nav/nav-section.component';
 
 
 export const COMPONENTS = [
@@ -21,7 +23,9 @@ export const COMPONENTS = [
     DemoBadgeSectionComponent,
     DemoGridSectionComponent,
     DemoAvatarSectionComponent,
-    DemoLabelSectionComponent
+    DemoLabelSectionComponent,
+    DemoLayoutSectionComponent,
+    DemoNavSectionComponent
 ];
 
 export const ENTRY_COMPONENTS = [

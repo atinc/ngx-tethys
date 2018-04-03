@@ -11,11 +11,11 @@ import { PopBoxOptions, popBoxConfigDefaults } from './pop-box-options.class';
 @Injectable()
 export class PopBoxService {
 
-    _config: PopBoxOptions;
+    public config: PopBoxOptions;
 
-    isOpen: boolean;
+    private isOpen: boolean;
 
-    private _target: ElementRef;
+    private _target: any;
 
     private _renderer: Renderer2;
 
@@ -29,37 +29,37 @@ export class PopBoxService {
     }
 
     show(content: string | TemplateRef<any> | any, config: PopBoxOptions): PopBoxRef {
+        const target = config.target.nativeElement || config.target;
         if (this._popBoxLoader) {
-            this._popBoxLoader.hide();
-            this._popBoxLoader = null;
-            if (this._target === config.target.nativeElement) {
+            this.hide();
+            if (target && this._target === target) {
                 return;
             }
         }
-        this._target = config.target.nativeElement;
+        this._target = target;
+        this.config = Object.assign({}, popBoxConfigDefaults, config, {
+            target: target
+        });
 
-        const loader = this.clf.createLoader<PopBoxContainerComponent>(
+        const loader = this._popBoxLoader = this.clf.createLoader<PopBoxContainerComponent>(
             config.target,
             null,
             null
         );
-        this._popBoxLoader = loader;
-        this._config = Object.assign({}, popBoxConfigDefaults, config);
+
         const popBoxRef = new PopBoxRef();
         const popBoxContainerRef = loader
-            .provide({ provide: PopBoxOptions, useValue: this._config })
+            .provide({ provide: PopBoxOptions, useValue: this.config })
             .provide({ provide: PopBoxRef, useValue: popBoxRef })
             .attach(PopBoxContainerComponent)
             .to('body')
-            .position({ attachment: this._config.placement, target: config.target, targetOffset: '10px' })
-            .show({ content, initialState: this._config.initialState, popBoxService: this });
+            .position({ attachment: this.config.placement, target: config.target, targetOffset: '10px' })
+            .show({ content, initialState: this.config.initialState, popBoxService: this });
 
         popBoxRef.hide = () => {
             popBoxContainerRef.instance.hide();
         };
         popBoxRef.content = loader.getInnerComponent() || null;
-
-        this.toggle();
 
         return popBoxRef;
     }
@@ -69,13 +69,5 @@ export class PopBoxService {
             this._popBoxLoader.hide();
             this._popBoxLoader = null;
         }
-    }
-
-    toggle() {
-        this._config.target.nativeElement.isOpen = !this._config.target.nativeElement.isOpen;
-    }
-
-    dispose() {
-        // this._popBoxLoader.dispose();
     }
 }

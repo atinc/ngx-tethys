@@ -1,4 +1,4 @@
-import { Component, ElementRef, Renderer2, ViewEncapsulation, HostListener, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, ElementRef, Renderer2, ViewEncapsulation, HostListener } from '@angular/core';
 import { PopBoxService } from './pop-box.service';
 import { PopBoxOptions } from './pop-box-options.class';
 
@@ -12,7 +12,7 @@ import { PopBoxOptions } from './pop-box-options.class';
       </div>
     `,
 })
-export class PopBoxContainerComponent implements OnInit, OnDestroy {
+export class PopBoxContainerComponent implements OnInit {
 
     public popBoxService: PopBoxService;
 
@@ -20,13 +20,13 @@ export class PopBoxContainerComponent implements OnInit, OnDestroy {
 
 
     constructor(
-        protected _element: ElementRef,
-        private _renderer: Renderer2) {
+        protected element: ElementRef,
+        private renderer: Renderer2) {
 
     }
 
     ngOnInit(): void {
-        this.config = this.popBoxService._config;
+        this.config = this.popBoxService.config;
     }
 
 
@@ -36,24 +36,18 @@ export class PopBoxContainerComponent implements OnInit, OnDestroy {
 
     @HostListener('window:keydown.esc', ['$event'])
     onEsc(event: any): void {
-        if (event.keyCode === 27) {
+        if (this.config.keyboardESCClose) {
             event.preventDefault();
-        }
-
-        if (this.config.keyboard) {
             this.hide();
         }
     }
 
     @HostListener('document:click', ['$event'])
     onDocumentClick(event: any): void {
-        if (!this.config.target.nativeElement.contains(event.target)) {
-            if (this.config.autoClose || !this._element.nativeElement.contains(event.target)) {
+        if (!this.config.target.contains(event.target)) {
+            if (this.config.insideAutoClose || !this.element.nativeElement.contains(event.target)) {
                 this.hide();
             }
         }
-    }
-
-    ngOnDestroy(): void {
     }
 }

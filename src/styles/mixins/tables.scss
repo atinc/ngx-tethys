@@ -42,14 +42,14 @@
           &:first-child {
             padding-left:$table-first-last-padding;
             position: relative;
-            &:hover before {
+            &:before {
               @include table-cover-item('', -1px, 0px, '', $white, $first-last-space-width);
             }
           }
           &:last-child {
             padding-right: $table-first-last-padding;
             position: relative;
-            &:hover before {
+            &:before {
               @include table-cover-item('', -1px, '', 0px,$white,  $first-last-space-width);
             }
           }
@@ -94,50 +94,6 @@
         }
       }
     }
-  &.table-hover {
-    tbody {
-      tr {
-        &:first-child {
-          &:hover {
-            td {
-              &:first-child,
-              &:last-child {
-                &:before,
-                &:after {
-                  display: block;
-                }
-              }
-            }
-          }
-        }
-        &:hover {
-          td {
-            &:first-child,
-            &:last-child {
-              &:before,
-              &:after {
-                display: none;
-              }
-            }
-          }
-          & + tr {
-            td {
-              &:first-child {
-                &:before {
-                  display: none;
-                }
-              }
-              &:last-child {
-                &:after {
-                  display: none;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
 }
 
 @mixin table-cover-item($top,$bottom,$left,$right,$color: $color-white,$width: 20px) {
@@ -150,4 +106,51 @@
   right:$right;
   background: $color;
   height: 1px;
+}
+
+@mixin table-hover-set-space-none(){
+  tbody {
+    tr {
+      &:first-child {
+        &.active,
+        &:hover {
+          td {
+            &:first-child,
+            &:last-child {
+              &:before,
+              &:after {
+                display: block;
+              }
+            }
+          }
+        }
+      }
+      &:hover,
+      &.active {
+        td {
+          &:first-child,
+          &:last-child {
+            &:before,
+            &:after {
+              display: none;
+            }
+          }
+        }
+        & + tr {
+          td {
+            &:first-child {
+              &:before {
+                display: none;
+              }
+            }
+            &:last-child {
+              &:after {
+                display: none;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }

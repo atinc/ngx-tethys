@@ -1,9 +1,9 @@
 // gray color
 $white: #fff;
-$gray-99:#fdfdfd; // 内容区域背景色
+$gray-99: #fdfdfd; // 内容区域背景色
 $gray-100: #f3f3f3; // 搜索框背景色，消息栏置顶色, 完成任务卡片颜色
 $gray-200: #eee; // 模块左侧导航鼠标移上去的阴影, 次分割线，部分控件描边, 消息评论图标使用
-$gray-210:#e9e9e9; //整块区域的背景色为 #f3f3f3 后，某个卡片模块的背景色，用于文件详情
+$gray-210: #e9e9e9; //整块区域的背景色为 #f3f3f3 后，某个卡片模块的背景色，用于文件详情
 $gray-300: #ddd; // 主分割线, 进度条背景色，三级图标色
 $gray-400: #cacaca; // 搜索框默认文字， 禁用图标颜色, 部分图标颜色,
 $gray-500: #aaa; // 添加参与人,负责人等操作图标的边框颜色,说明文字, 搜索框文字
@@ -12,6 +12,14 @@ $gray-700: #666; // 主要文字
 $gray-800: #333; // 标题和重点文字
 $gray-900: #212529;
 $black: #000;
+
+//px to rem
+$rem-5px: .3125rem;
+$rem-10px: .625rem;
+$rem-15px: .9375rem;
+$rem-18px: 1.125rem;
+$rem-20px: 1.25rem;
+$rem-26px: 1.625rem;
 
 // color
 $body-color: $gray-800;
@@ -38,25 +46,19 @@ $link-hover-decoration: underline;
 $box-shadow: 0 0 24px rgba(0, 0, 0, 0.18);
 
 // font
-$font-family-sans-serif: 'Helvetica Neue','Hiragino Sans GB','stheiti','Microsoft Yahei','微软雅黑',tahoma,'sans-serif';
-$font-family-monospace: SFMono-Regular,Menlo,Monaco,Consolas "Liberation Mono","Courier New",monospace;
+$font-family-sans-serif: "Helvetica Neue", "Hiragino Sans GB", "stheiti",
+    "Microsoft Yahei", "微软雅黑", tahoma, "sans-serif";
+$font-family-monospace: SFMono-Regular, Menlo, Monaco,
+    Consolas "Liberation Mono", "Courier New", monospace;
 $font-family-base: $font-family-sans-serif;
-$font-size-base: 0.875rem; // 14px
+$font-size-base: .875rem; // 14px
 $font-size-lg: 1.25rem; // 20px
-$font-size-sm: 0.75rem; // 12px
-
-//px to rem
-$rem-5px: 0.3125rem;
-$rem-10px: 0.625rem;
-$rem-15px: 0.9375rem;
-$rem-18px: 1.125rem;
-$rem-20px: 1.25rem;
-$rem-26px: 1.625rem;
+$font-size-sm: .75rem; // 12px
 
 // 扩展
 $font-size-md: 1rem; // 16px
 $font-size-max-lg: 3.25rem; // 补充字体大小 52px
-$font-size-min-sm: 0.625rem; // 10px
+$font-size-min-sm: .625rem; // 10px
 
 // code
 $code-color: $danger;
@@ -66,12 +68,12 @@ $btn-border-radius: 1.25rem;
 $btn-border-radius-lg: 1.25rem;
 $btn-border-radius-sm: 1rem;
 $btn-box-shadow: null;
-$btn-padding-y: 0.469rem;//108*38px
+$btn-padding-y: 0.469rem; //108*38px
 $btn-padding-x: 2.438rem;
-$btn-padding-y-md: 0.407rem;// 100*36px 变种按钮大小
+$btn-padding-y-md: 0.407rem; // 100*36px 变种按钮大小
 $btn-padding-x-md: 1.25rem;
 // $btn-line-height: $input-btn-line-height;
-$btn-padding-y-sm: 0.25rem; // 70*28px
+$btn-padding-y-sm: .25rem; // 70*28px
 $btn-padding-x-sm: 1.375rem;
 // $btn-line-height-sm: $input-btn-line-height-sm;
 $btn-padding-y-lg: 8px;
@@ -89,49 +91,89 @@ $pop-box-bg-hover: $gray-100;
 $pop-box-text: $gray-700;
 $pop-box-text-hover: $gray-900;
 
+// Layout
+
+$layout-header-background: rgba($gray-99, 0.97);
+$layout-header-padding: 0 15px;
+$layout-header-height: 50px;
+$layout-content-background: $gray-200;
+$layout-content-padding: 15px 15px 15px 15px;
+$layout-sidebar-width: 240px;
+$layout-sidebar-background: rgba($gray-99, 0.97);
+$layout-sidebar-border-right: 1px solid $gray-300;
 
 // Tables
-$table-cell-padding:          .75rem 1rem !default;
-$table-cell-padding-sm:       .3rem !default;
+$table-cell-padding: 12px 15px !default;
+$table-cell-padding-sm: 0.3rem !default;
+$table-color: $gray-800;
 
-$table-bg:                    transparent !default;
-$table-accent-bg:             rgba($black, .05) !default;
-$table-hover-bg:              rgba($black, .075) !default;
-$table-active-bg:             $table-hover-bg !default;
-$table-margin-bottom:         1.25rem;
-$table-hover-color:           $gray-200;
+$table-bg: transparent !default;
+$table-accent-bg: rgba($black, 0.05) !default;
+$table-hover-bg: rgba($black, 0.075) !default;
+$table-active-bg: $table-hover-bg !default;
+$table-margin-bottom: 1.25rem;
+$table-hover-color: $gray-200;
 
-$table-border-width:          1px !default;
-$table-border-color:          $gray-200 !default;
+$table-border-width: 1px !default;
+$table-border-color: $gray-200 !default;
 
-$table-head-bg:               $gray-200 !default;
-$table-head-color:            $gray-700 !default;
+$table-head-bg: $gray-200 !default;
+$table-head-color: $gray-700 !default;
 
-$table-default-head-color:    $gray-600;
+$table-default-head-color: $gray-600;
+$table-default-cell-height: 55px;
 
-$table-bordered-bg:           $gray-100;
-$table-bordered-head-color:   $gray-700;
-
+$table-bordered-bg: $gray-100;
+$table-bordered-head-color: $gray-700;
 
 // badges
-$badge-font-size : 75% !default;
-$badge-font-weight : normal !default;
-$badge-padding-y : .25em !default;
-$badge-padding-x : 7px !default;
-$badge-border-radius : 14px !default;
-$badge-pill-padding-x : .6em !default;
-$badge-pill-border-radius : 10rem !default;
+$badge-font-size: 75% !default;
+$badge-font-weight: normal !default;
+$badge-padding-y: 0.25em !default;
+$badge-padding-x: 7px !default;
+$badge-border-radius: 14px !default;
+$badge-pill-padding-x: 0.6em !default;
+$badge-pill-border-radius: 10rem !default;
 $badge-bg: $gray-200; //#eee
 $badge-color: $gray-700; //#666
 
-
 //label
 $label-size-padding: 5px 10px;
-$label-border-radius:3px;
-$label-default-bg:$gray-600;
-$label-primary-bg:$primary;
-$label-success-bg:$success;
-$label-info-bg:$info;
-$label-warning-bg:$warning;
-$label-danger-bg:$danger;
-$label-custom-bg:#7076fa;
+$label-state-padding: 6px 10px;
+$label-border-radius: 3px;
+$label-pill-radius: 18px;
+$label-border-radius: 3px;
+$label-default-bg: $gray-200;
+$label-primary-bg: $primary;
+$label-success-bg: $success;
+$label-info-bg: $info;
+$label-warning-bg: $warning;
+$label-danger-bg: $danger;
+
+//avatar
+$avatar-sizes: () !default;
+$avatar-sizes: map-merge(
+    (24: 12, 30: 12, 38: 12, 48: 12, 68: 16, 110: 45, 160: 50),
+    $avatar-sizes
+);
+
+// Navs
+
+$nav-link-disabled-color: $gray-300 !default;
+$nav-link-color: $gray-600 !default;
+$nav-link-hover-color: $primary !default;
+$nav-border-color: $gray-200;
+$nav-border-bottom: 2px solid $primary;
+
+$nav-link-primary-padding-y: 0.5rem !default;
+$nav-link-primary-padding-x: 1rem !default;
+$nav-link-primary-right: 20px;
+$nav-link-primary-min-width: 80px;
+
+$nav-link-secondary-padding-y: 0.5rem !default;
+$nav-link-secondary-padding-x: 0rem !default;
+$nav-link-secondary-right: 40px;
+
+$nav-link-thirdly-padding-y: 0.5rem !default;
+$nav-link-thirdly-padding-x: 1rem !default;
+$nav-link-thirdly-right: 30px;

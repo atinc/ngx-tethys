@@ -21,7 +21,7 @@ export class DemoPopBoxSectionComponent {
 
         this.popBoxService.show(PopBoxMenuDemoShowComponent, {
             initialState: initialState,
-            autoClose: true,
+            insideAutoClose: true,
             target: templateRef.elementRef
         });
     }
