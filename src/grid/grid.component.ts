@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import { AfterContentInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import { inputValueToBoolean, isUndefined, get, set } from '../util/helpers';
-import { ThyGridColumn, ThyMultiSelectEvent, ThyRadioSelectEvent } from './grid.interface';
+import { ThyGridColumn, ThyMultiSelectEvent, ThyRadioSelectEvent, ThyPage, ThyPageEvent } from './grid.interface';
 
 export type ThyGridTheme = 'default' | 'bordered';
 
@@ -25,6 +25,7 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy {
     public themeClass = themeMap['default'];
     public className = '';
     public selectedRadioRow: any = null;
+    public pagination: ThyPage = { index: 1, size: 20, total: 0 };
 
     private _filter: any = null;
 
@@ -49,6 +50,23 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy {
     set thyFilter(value: any) {
         this._filter = value;
     }
+
+    @Input()
+    set thyPageIndex(value: number) {
+        this.pagination.index = value;
+    }
+
+    @Input()
+    set thyPageSize(value: number) {
+        this.pagination.size = value;
+    }
+
+    @Input()
+    set thyPageTotal(value: number) {
+        this.pagination.total = value;
+    }
+
+    @Output() thyOnPageChange: EventEmitter<ThyPageEvent> = new EventEmitter<ThyPageEvent>();
 
     @Output() thyOnMultiSelectChange: EventEmitter<ThyMultiSelectEvent> = new EventEmitter<ThyMultiSelectEvent>();
 
@@ -106,23 +124,31 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy {
         }
     }
 
+    public onPageChange($event: Event) {
+        const pageEvent: ThyPageEvent = {
+            event: event,
+            page: this.pagination
+        };
+        this.thyOnPageChange.emit(pageEvent);
+    }
+
     public onMultiSelectChange(event: Event, column: ThyGridColumn) {
         const rows = this.model.filter(row => {
             return !!get(row, column.model);
         });
-        const multiSelect: ThyMultiSelectEvent = {
+        const multiSelectEvent: ThyMultiSelectEvent = {
             event: event,
             rows: rows
         };
-        this.thyOnMultiSelectChange.emit(multiSelect);
+        this.thyOnMultiSelectChange.emit(multiSelectEvent);
     }
 
     public onRadioSelectChange(event: Event, row: any) {
-        const radioSelect: ThyRadioSelectEvent = {
+        const radioSelectEvent: ThyRadioSelectEvent = {
             event: event,
             row: row
         };
-        this.thyOnRadioSelectChange.emit(radioSelect);
+        this.thyOnRadioSelectChange.emit(radioSelectEvent);
     }
 
     ngOnInit() {
