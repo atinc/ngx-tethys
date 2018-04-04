@@ -1,16 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ThyNavComponent } from './nav.component';
+import { ThyNavComponent, ThyNavLinkDirective } from './nav.component';
 
 @NgModule({
     declarations: [
-        ThyNavComponent
+        ThyNavComponent,
+        ThyNavLinkDirective
     ],
     imports: [
         CommonModule
     ],
     exports: [
-        ThyNavComponent
+        ThyNavComponent,
+        ThyNavLinkDirective
     ]
 })
 export class ThyNavModule {

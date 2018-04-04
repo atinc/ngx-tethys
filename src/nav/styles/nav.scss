@@ -1,75 +1,91 @@
 .thy-nav {
-    display: flex;
-    flex-wrap: wrap;
-    padding-left: 0;
-    margin-bottom: 0;
-    list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
 }
 
 @mixin nav-link-variant($color, $hover-color, $border-bottom) {
-    color: $color;
-    &.active {
-        color: $hover-color;
-        border-bottom: $border-bottom;
-    }
-    @include hover-focus-active {
-        color: $hover-color;
-        text-decoration: none;
-        border-bottom: $border-bottom;
-    }
-    // Disabled state lightens text
-    &.disabled {
-        color: $nav-link-disabled-color;
-        border-bottom: none;
-    }
+  color: $color;
+  &.active {
+    color: $hover-color;
+    border-bottom: $border-bottom;
+  }
+  @include hover-focus-active {
+    color: $hover-color;
+    text-decoration: none;
+    border-bottom: $border-bottom;
+  } // Disabled state lightens text
+  &.disabled {
+    color: $nav-link-disabled-color;
+    border-bottom: none;
+  }
 }
 
 .nav-link {
-    display: block;
-    text-align: center;
-    @include nav-link-variant(
-        $nav-link-color,
-        $nav-link-hover-color,
-        $nav-border-bottom
-    );
+  display: block;
+  text-align: center;
+  @include nav-link-variant( $nav-link-color, $nav-link-hover-color, $nav-border-bottom);
 }
 
 .nav-primary {
-    .nav-link {
-        padding: $nav-link-primary-padding-y $nav-link-primary-padding-x;
-        margin-right: $nav-link-primary-right;
-        min-width: $nav-link-primary-min-width;
-    }
+  .nav-link {
+    padding: $nav-link-primary-padding-y $nav-link-primary-padding-x;
+    margin-right: $nav-link-primary-right;
+    min-width: $nav-link-primary-min-width;
+  }
 }
 
 .nav-secondary {
-    border-bottom: 1px solid $nav-border-color;
-    .nav-link {
-        padding: $nav-link-padding-y $nav-link-secondary-padding-x;
-        margin-right: $nav-link-secondary-right;
-    }
+  border-bottom: 1px solid $nav-border-color;
+  .nav-link {
+    padding: $nav-link-secondary-padding-y $nav-link-secondary-padding-x;
+    margin-right: $nav-link-secondary-right;
+  }
 }
 
 .nav-thirdly {
-    .nav-link {
-        padding: $nav-link-padding-y 0px;
-        margin-right: 30px;
-        &:after {
-            border: 1px solid #eee;
-            height: 20px;
-            content: "";
-            position: absolute;
-            right: 0px;
-            display: block;
-        }
-        &.active {
-            color: $nav-link-hover-color;
-            border-bottom: none;
-        }
-        @include hover-focus-active {
-            color: $nav-link-hover-color;
-            text-decoration: none;
-            border-bottom: none;
-        }
+  .nav-link {
+    padding: $nav-link-thirdly-padding-y $nav-link-thirdly-padding-x;
+    margin-right: $nav-link-thirdly-right;
+    position: relative;
+    &:after {
+      display: block;
+      position: absolute;
+      top: calc(50% - #{$nav-link-thirdly-split-line-height}/2);
+      right: $nav-link-thirdly-right/2 * -1;
+      width: 0;
+      height: $nav-link-thirdly-split-line-height;
+      content: "";
+      border-right: 1px solid #eee;
     }
+    &:last-child {
+      &:after {
+        display: none;
+      }
+    }
+    &.active {
+      color: $nav-link-hover-color;
+      border-bottom: none;
+    }
+    @include hover-focus-active {
+      color: $nav-link-hover-color;
+      text-decoration: none;
+      border-bottom: none;
+    }
+  }
+}
+
+.nav-sm {
+  .nav-link {
+    padding: $nav-link-thirdly-padding-y-sm $nav-link-thirdly-padding-x-sm;
+    margin-right: $nav-link-thirdly-right-sm;
+    font-size: $font-size-sm;
+    &:after {
+      top: calc(50% - #{$nav-link-thirdly-split-line-height-sm}/2);
+      right: $nav-link-thirdly-right-sm/2 * -1;
+      height: $nav-link-thirdly-split-line-height-sm;
+    }
+  }
 }
