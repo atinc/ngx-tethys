@@ -28,7 +28,7 @@ export class ThyModalService implements OnInit {
 }
 
 
-class ThyModalConfigInfo {
+export class ThyModalConfigInfo {
     size?: string;
     backdrop?: string | boolean; // true || false || 'static'
     keyboard?: boolean;
