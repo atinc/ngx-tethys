@@ -12,7 +12,7 @@ import { ThyGridColumn } from './grid.interface';
 export class ThyGridColumnComponent implements OnInit {
 
     @Input() thyModelKey = '';
-    @Input() thyLabel = '';
+    @Input() thyTitle = '';
     @Input() thyType = '';
     @Input() thyWidth: string | number = '';
     @Input() thyClassName = '';
@@ -31,7 +31,7 @@ export class ThyGridColumnComponent implements OnInit {
         this._column = {
             key: this.generateKey(),
             model: this.thyModelKey,
-            label: this.thyLabel,
+            title: this.thyTitle,
             type: this.thyType,
             width: this.thyWidth,
             className: this.thyClassName,

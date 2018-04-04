@@ -3,7 +3,7 @@ import { TemplateRef } from '@angular/core';
 export interface ThyGridColumn {
   key: string;
   model: string;
-  label: string;
+  title: string;
   type: string;
   width: string | number;
   className: string;
