@@ -9,6 +9,8 @@ import { ThyBadgeModule } from './badge/badge.module';
 import { ThyLabelModule } from './label/label.module';
 import { ThyNavModule } from './nav/nav.module';
 import { ThyPaginationModule } from './pagination/pagination.module';
+import { ThyModalModule } from './modal/modal.module';
+
 
 @NgModule({
     declarations: [
@@ -22,7 +24,8 @@ import { ThyPaginationModule } from './pagination/pagination.module';
         ThyAvatarModule,
         ThyLabelModule,
         ThyNavModule,
-        ThyPaginationModule
+        ThyPaginationModule,
+        ThyModalModule
     ],
     exports: [
         ThyLayoutModule,
@@ -32,7 +35,10 @@ import { ThyPaginationModule } from './pagination/pagination.module';
         ThyAvatarModule,
         ThyLabelModule,
         ThyNavModule,
-        ThyPaginationModule
+        ThyPaginationModule,
+        ThyModalModule
+    ],
+    providers: [
     ]
 })
 export class NgxTethysModule {

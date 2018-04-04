@@ -10,6 +10,7 @@ import {DemoAvatarSectionComponent} from './+avatar/avatar-section.component';
 import { DemoLabelSectionComponent } from './+label/label-section.component';
 import { DemoLayoutSectionComponent } from './+layout/layout-section.component';
 import { DemoNavSectionComponent } from './+nav/nav-section.component';
+import { DemoModalSectionComponent } from './+modal/modal-section.component';
 
 
 export const COMPONENTS = [
@@ -25,7 +26,8 @@ export const COMPONENTS = [
     DemoAvatarSectionComponent,
     DemoLabelSectionComponent,
     DemoLayoutSectionComponent,
-    DemoNavSectionComponent
+    DemoNavSectionComponent,
+    DemoModalSectionComponent
 ];
 
 export const ENTRY_COMPONENTS = [

@@ -5,31 +5,28 @@
     <div class="body">
         <ul class="thy-nav nav-primary">
             <li class="nav-item">
-                <a class="nav-link active" href="#">Active</a>
+                <a thyNavLink="true" href="#">Active</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                <a thyNavLink>Link</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                <a thyNavLink>Link</a>
             </li>
         </ul>
-
-        <br>
-        <br>
         <thy-nav thyType="primary">
-            <a class="nav-link active" href="#">任务
+            <a thyNavLink="true">任务
                 <i class="wtf wtf-angle-double-down"></i>
             </a>
-            <a class="nav-link" href="#">看板</a>
-            <a class="nav-link" href="#">需求</a>
+            <a thyNavLink>看板</a>
+            <a thyNavLink>需求</a>
         </thy-nav>
         <!-- <nav class="thy-nav nav-primary">
-            <a class="nav-link active" href="#">任务
+            <a thyNavLink="true" href="#">任务
                 <i class="wtf wtf-angle-double-down"></i>
             </a>
-            <a class="nav-link" href="#">看板</a>
-            <a class="nav-link" href="#">需求</a>
+            <a thyNavLink>看板</a>
+            <a thyNavLink>需求</a>
         </nav> -->
     </div>
 </section>
@@ -40,9 +37,9 @@
     </div>
     <div class="body">
         <nav class="thy-nav nav-secondary">
-            <a class="nav-link active" href="javascript:;">权限设置</a>
-            <a class="nav-link" href="javascript:;">安全设置</a>
-            <a class="nav-link" href="javascript:;">提醒设置</a>
+            <a thyNavLink="true">权限设置</a>
+            <a thyNavLink>安全设置</a>
+            <a thyNavLink>提醒设置</a>
         </nav>
     </div>
 </section>
@@ -52,10 +49,21 @@
         <h2>三级导航</h2>
     </div>
     <div class="body">
-        <nav class="thy-nav nav-thirdly">
-            <a class="nav-link active" href="javascript:;">权限设置</a>
-            <a class="nav-link" href="javascript:;">安全设置</a>
-            <a class="nav-link" href="javascript:;">提醒设置</a>
-        </nav>
+        <thy-nav thyType="thirdly">
+            <a thyNavLink="true">权限设置</a>
+            <a thyNavLink>安全设置</a>
+            <a thyNavLink>提醒设置</a>
+        </thy-nav>
+
+        <thy-nav thyType="thirdly" thySize='sm'>
+            <a thyNavLink>权限设置</a>
+            <a thyNavLink="{{true}}">安全设置</a>
+            <a thyNavLink>提醒设置</a>
+        </thy-nav>
+
+        <thy-nav thyType="thirdly">
+            <a thyNavLink="{{true}}"><i class="wtf wtf-commenting-o"></i>评论</a>
+            <a thyNavLink><i class="wtf wtf-commenting-o"></i>动态</a>
+        </thy-nav>
     </div>
 </section>
