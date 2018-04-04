@@ -1,4 +1,5 @@
 import { Component, NgModule } from '@angular/core';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { ThyButtonModule } from './button/button.module';
 import { ThyLayoutModule } from './layout/layout.module';
@@ -15,6 +16,7 @@ import { ThyModalModule } from './modal/modal.module';
     declarations: [
     ],
     imports: [
+        ModalModule.forRoot(),
         ThyLayoutModule,
         ThyButtonModule,
         NgxPopBoxModule,
