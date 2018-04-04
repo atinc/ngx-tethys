@@ -6,14 +6,7 @@
         <div class="demo-layout">
             <thy-layout>
                 <thy-header>
-                    <div class="layout-header-title">恩，我是头部</div>
-                    <div class="layout-header-content">
-                        <thy-nav thyType="primary">
-                            <a href="javascript:;" class="nav-link">看板</a>
-                            <a href="javascript:;" class="nav-link">报表</a>
-                        </thy-nav>
-                    </div>
-                    <div class="layout-header-operation">操作区域</div>
+                    我是头部
                 </thy-header>
                 <thy-content>
                     恩，我是 content
@@ -30,24 +23,42 @@
     <div class="body">
         <div class="demo-layout">
             <thy-layout>
-                <thy-header style="background:#eee">
-                </thy-header>
                 <thy-layout>
                     <thy-sidebar>
                         <div class="sidebar-header">
                             侧边栏
                         </div>
                         <div class="sidebar-content">
-                            侧边栏
+
                         </div>
                     </thy-sidebar>
                     <thy-layout>
-                        <thy-header>
-                            恩，我是头部
+                        <thy-header thyHasBorder="true">
+                            <div class="layout-header-title">
+                                <i class="wtf wtf-setting-o"></i>
+                                <a href="javascript:;">我的项目</a>
+                            </div>
+                            <div class="layout-header-content">
+                                <thy-nav thyType="primary" class="justify-content-center">
+                                    <a href="javascript:;" class="nav-link active">看板</a>
+                                    <a href="javascript:;" class="nav-link">报表</a>
+                                </thy-nav>
+                            </div>
+                            <div class="layout-header-operation">操作区域</div>
                         </thy-header>
-                        <thy-content>
-                            恩，我是 content
-                        </thy-content>
+                        <thy-layout>
+                            <thy-header thySize="sm">
+                                <div class="layout-header-title">恩，我是头部</div>
+                                <div class="layout-header-content"></div>
+                                <div class="layout-header-operation">
+                                    <a href="javascript:;" class="">操作</a>
+                                </div>
+                            </thy-header>
+                            <thy-content>
+                                恩，我是 content
+                            </thy-content>
+                        </thy-layout>
+
                     </thy-layout>
 
                 </thy-layout>

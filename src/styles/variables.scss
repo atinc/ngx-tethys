@@ -101,6 +101,7 @@ $layout-content-padding: 15px 15px 15px 15px;
 $layout-sidebar-width: 240px;
 $layout-sidebar-background: rgba($gray-99, 0.97);
 $layout-sidebar-border-right: 1px solid $gray-300;
+$layout-header-height-sm: 38px;
 
 // Tables
 $table-cell-padding: 12px 15px !default;
@@ -174,6 +175,7 @@ $nav-link-secondary-padding-y: 0.4375rem !default;
 $nav-link-secondary-padding-x: 0rem !default;
 $nav-link-secondary-right: 40px;
 
+<<<<<<< HEAD
 $nav-link-thirdly-padding-y: 0.4375rem !default;
 $nav-link-thirdly-padding-x: 0rem !default;
 $nav-link-thirdly-right: 60px;
@@ -184,3 +186,39 @@ $nav-link-thirdly-padding-x-sm: 0rem !default;
 $nav-link-thirdly-right-sm: 40px;
 $nav-link-thirdly-split-line-height-sm: 11px !default;
 
+=======
+$nav-link-thirdly-padding-y: 0.5rem !default;
+$nav-link-thirdly-padding-x: 1rem !default;
+$nav-link-thirdly-right: 30px;
+
+// Modals
+
+// Padding applied to the modal body
+$modal-inner-padding:         1.25rem 1.875rem !default;//
+
+$modal-dialog-margin:         .5rem !default;
+$modal-dialog-margin-y-sm-up: 3.75rem !default;//
+
+$modal-title-line-height:           3.125rem !default;
+
+$modal-content-bg:               $white !default;
+$modal-content-border-color:     rgba($black, .2) !default;
+$modal-content-border-width:     0 !default;//
+$modal-content-box-shadow-xs:    0 0 1.5rem rgba($black, .4) !default;//
+$modal-content-box-shadow-sm-up: 0 0 1.5rem rgba($black, .5) !default;//
+
+$modal-backdrop-bg:           $black !default;
+$modal-backdrop-opacity:      .3 !default;//
+$modal-header-border-color:   $gray-200 !default;//
+$modal-footer-border-color:   $modal-header-border-color !default;
+$modal-header-border-width:   1px !default;
+$modal-footer-border-width:   $modal-header-border-width !default;
+$modal-header-padding:        0 1.875rem !default;//
+
+$modal-lg:                          980px !default;//
+$modal-blg:                         800px; //稍微大点，自定义属性
+$modal-md:                          660px !default;//
+$modal-sm:                          400px !default;//
+
+$modal-transition:                  transform .3s ease-out !default;
+>>>>>>> 8f85c8f626d8cdbb30a3bdb1427cec7ed03476a4
