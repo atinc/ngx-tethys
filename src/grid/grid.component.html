@@ -14,10 +14,12 @@
                     <!--custom type-->
                     <ng-container *ngIf="column.type">
                         <ng-container *ngIf="column.type === 'checkbox'">
-                            <input type="checkbox" [(ngModel)]="row[column.key]" [disabled]="column.disabled" (ngModelChange)="onModelChange(row,column)" />
+                            <input type="checkbox" [(ngModel)]="row[column.key]" [disabled]="column.disabled" (ngModelChange)="onModelChange(row,column)"
+                            />
                         </ng-container>
                         <ng-container *ngIf="column.type === 'radio'">
-                            <input type="radio" [(ngModel)]="selectedRadioRow" [value]="row" [disabled]="column.disabled" (change)="onRadioSelectChange($event,row)" />
+                            <input type="radio" [(ngModel)]="selectedRadioRow" [value]="row" [disabled]="column.disabled" (change)="onRadioSelectChange($event,row)"
+                            />
                         </ng-container>
                     </ng-container>
                 </ng-container>
@@ -29,3 +31,7 @@
         </tr>
     </tbody>
 </table>
+<div class="clearfix" *ngIf="pagination.total > pagination.size">
+    <pagination class="float-right" [directionLinks]="true" [maxSize]="6" [boundaryLinks]="false" [rotate]="false" [totalItems]="pagination.total"
+    [(ngModel)]="pagination.index" [itemsPerPage]="pagination.size" (pageChanged)="onPageChange($event)"></pagination>
+</div>

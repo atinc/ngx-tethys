@@ -13,6 +13,17 @@ export interface ThyGridColumn {
 }
 
 
+export interface ThyPage {
+  index?: number;
+  size?: number;
+  total?: number;
+}
+
+export interface ThyPageEvent {
+  event: Event;
+  page: any;
+}
+
 export interface ThyMultiSelectEvent {
   event: Event;
   rows: any[];
@@ -22,6 +33,7 @@ export interface ThyRadioSelectEvent {
   event: Event;
   row: any;
 }
+
 
 
 
