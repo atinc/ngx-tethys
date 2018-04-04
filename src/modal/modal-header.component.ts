@@ -2,24 +2,12 @@ import { Component, Input, Output, EventEmitter, ContentChild, TemplateRef, OnIn
 
 @Component({
     selector: 'thy-modal-header',
-    template: `<div class="modal-header">
-    <ng-container *ngIf="!isTemplateRef">
-    <h3 class="modal-title">
-    <i *ngIf="icon" class="{{icon}}"></i>
-    {{title}}
-    </h3>
-    <a href="javascript:;" class="modal-close" (click)="closeModal()"><i class="wtf wtf-times"></i></a>
-    </ng-container>
-    <ng-container *ngIf="isTemplateRef">
-    <template [ngTemplateOutlet]="headerTemplate"></template>
-    </ng-container>
-    </div>`
+    templateUrl:'./modal-header.component.html'
 })
-
 export class ModalHeaderComponent implements OnInit {
     @Input() thyTitle: string;
     @Input() thyIcon: string;
-    @Output() thyClose: EventEmitter<any> = new EventEmitter<any>();
+    @Output() thyOnClose: EventEmitter<any> = new EventEmitter<any>();
 
     @ContentChild(TemplateRef)
     public headerTemplate: TemplateRef<any>;
@@ -33,6 +21,6 @@ export class ModalHeaderComponent implements OnInit {
     }
 
     closeModal() {
-        this.thyClose.emit();
+        this.thyOnClose.emit();
     }
 }
