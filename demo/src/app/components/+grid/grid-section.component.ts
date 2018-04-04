@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { ThyMultiSelectEvent, ThyRadioSelectEvent } from '../../../../../src/grid/grid.interface';
 @Component({
     selector: 'demo-grid-section',
     templateUrl: './grid-section.component.html'
@@ -8,6 +7,7 @@ import { ThyMultiSelectEvent, ThyRadioSelectEvent } from '../../../../../src/gri
 export class DemoGridSectionComponent implements OnInit {
 
     public data: any[] = [];
+    public pagination = { index: 1, size: 10, total: 100 };
 
     constructor() {
 
@@ -32,13 +32,18 @@ export class DemoGridSectionComponent implements OnInit {
         }];
     }
 
-    onMultiSelectChange($event: ThyMultiSelectEvent) {
+    onMultiSelectChange($event: any) {
         const event = $event.event;
         const rows = $event.rows;
     }
 
-    onRadioSelectChange($event: ThyRadioSelectEvent) {
+    onRadioSelectChange($event: any) {
         const event = $event.event;
         const row = $event.row;
+    }
+
+    onPageChange($event: any) {
+        const event = $event.event;
+        const page = $event.page;
     }
 }
