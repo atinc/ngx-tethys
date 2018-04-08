@@ -1,6 +1,6 @@
 .modal-header {
   min-height: $modal-title-line-height;
-  h3 {
+  .modal-title {
     font-size: $font-size-md;
     font-weight: 500;
   }
@@ -12,13 +12,13 @@
     line-height: 50px;
     color: $gray-300;
   }
+
   .modal-close {
-    color: $gray-300;
     line-height: 50px;
-    &:hover {
-      text-decoration: none;
-      color: $primary;
-    }
+    @include link-variant($gray-300, none, $primary, none);
+  }
+  .close {
+    @include link-variant($gray-300, none, $primary, none);
   }
 }
 
