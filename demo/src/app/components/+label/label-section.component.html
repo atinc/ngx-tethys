@@ -15,11 +15,10 @@
         <span thyLabel [thyLabelColor]="color">Danger</span>
         <br>
         <br>
-        <a href="javascript:;" thyLabel="default">
-            <i class="wtf wtf-th-plus"></i>添加标签</a>
-        <a href="javascript:;" thyLabel="primary">
+        <a href="javascript:;" thyLabel="default" thyBeforeIcon="wtf-th-plus">添加标签</a>
+        <a href="javascript:;" thyLabel="primary" thyAfterIcon="wtf-times">
             重要不紧急
-            <i class="wtf wtf-times"></i>
+            <!-- <i class="wtf wtf-times"></i> -->
         </a>
         <a href="javascript:;" thyLabel="default">…</a>
     </div>
@@ -46,15 +45,15 @@
     </div>
     <div class="body">
         <span thyLabel="default" thyLabelType="pill">
-            <span class="label-pill-spot" thyLabel [thyLabelColor]="color"></span>
+            <span class="dot dot-label" thyLabel [thyLabelColor]="color"></span>
             初步沟通
         </span>
         <span thyLabel="default" thyLabelType="pill">
-            <span class="label-pill-spot" thyLabel [thyLabelColor]="color1"></span>
+            <span class="dot dot-label" thyLabel [thyLabelColor]="color1"></span>
             确定意向
         </span>
         <span thyLabel="default" thyLabelType="pill">
-            <span class="label-pill-spot" thyLabel="primary"></span>
+            <span class="dot dot-label" thyLabel="primary"></span>
             签约成交
         </span>
     </div>

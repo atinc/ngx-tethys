@@ -6,27 +6,10 @@
   list-style: none;
 }
 
-@mixin nav-link-variant($color, $hover-color, $border-bottom) {
-  color: $color;
-  &.active {
-    color: $hover-color;
-    border-bottom: $border-bottom;
-  }
-  @include hover-focus-active {
-    color: $hover-color;
-    text-decoration: none;
-    border-bottom: $border-bottom;
-  } // Disabled state lightens text
-  &.disabled {
-    color: $nav-link-disabled-color;
-    border-bottom: none;
-  }
-}
-
 .nav-link {
   display: block;
   text-align: center;
-  @include nav-link-variant( $nav-link-color, $nav-link-hover-color, $nav-border-bottom);
+  @include nav-link-variant($nav-link-color, $nav-link-hover-color, $nav-border-bottom);
 }
 
 .nav-primary {
@@ -47,32 +30,13 @@
 
 .nav-thirdly {
   .nav-link {
+    @include nav-link-variant-thirdly($nav-link-hover-color);
     padding: $nav-link-thirdly-padding-y $nav-link-thirdly-padding-x;
     margin-right: $nav-link-thirdly-right;
-    position: relative;
     &:after {
-      display: block;
-      position: absolute;
       top: calc(50% - #{$nav-link-thirdly-split-line-height}/2);
       right: $nav-link-thirdly-right/2 * -1;
-      width: 0;
       height: $nav-link-thirdly-split-line-height;
-      content: "";
-      border-right: 1px solid #eee;
-    }
-    &:last-child {
-      &:after {
-        display: none;
-      }
-    }
-    &.active {
-      color: $nav-link-hover-color;
-      border-bottom: none;
-    }
-    @include hover-focus-active {
-      color: $nav-link-hover-color;
-      text-decoration: none;
-      border-bottom: none;
     }
   }
 }
