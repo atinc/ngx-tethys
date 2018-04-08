@@ -12,7 +12,7 @@ export class ThyModalService {
 
     constructor(private modalService: BsModalService) { }
 
-    show(template: TemplateRef<any>, config?: ThyModalConfigInfo): BsModalRef {
+    show(template: string | TemplateRef<any> | any, config?: ThyModalConfigInfo): BsModalRef {
         this.setModalConfig(config);
         return this.modalService.show(template, this.modalConfig);
     }

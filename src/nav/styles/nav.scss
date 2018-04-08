@@ -53,3 +53,13 @@
     }
   }
 }
+
+.thy-layout-header .thy-nav {
+  line-height: normal;
+}
+.thy-layout-header .nav-primary {
+  // 为了和字体大 2px 的标题在一条线上
+  .nav-link {
+    padding: ($nav-link-primary-padding-y + 0.0625rem) $nav-link-primary-padding-x ($nav-link-primary-padding-y - 0.0625rem) $nav-link-primary-padding-x;
+  }
+}

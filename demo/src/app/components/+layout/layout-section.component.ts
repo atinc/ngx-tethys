@@ -10,9 +10,15 @@ import { Component } from '@angular/core';
 })
 export class DemoLayoutSectionComponent {
 
-    title = '我的项目';
+    title = '头部标题';
+
+    activeMenu = 'kanban';
 
     constructor() {
+    }
+
+    setActiveMenu(menu: string) {
+        this.activeMenu = menu;
     }
 
 }
