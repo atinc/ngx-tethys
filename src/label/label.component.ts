@@ -1,4 +1,5 @@
-import { Component, ElementRef, Renderer2, Input } from '@angular/core';
+import { Component, ElementRef, Renderer2, Input, Output, EventEmitter, HostBinding } from '@angular/core';
+import { inputValueToBoolean } from '../util/helpers';
 
 export type ThyLabelType = 'default' | 'primary' | 'success' | 'info' | 'warning' | 'danger';
 
@@ -16,6 +17,8 @@ const labelTypeClassesMap: any = {
     templateUrl: './label.component.html'
 })
 export class ThyLabelComponent {
+
+    @HostBinding('class.label-has-hover') _thyHasHover = false;
 
     private nativeElement: any;
 
@@ -35,9 +38,16 @@ export class ThyLabelComponent {
 
     public afterIconClass: any;
 
+    @Output() thyOnRemove: EventEmitter<any> = new EventEmitter<any>();
+
 
     constructor(private el: ElementRef, private renderer: Renderer2) {
         this.nativeElement = this.el.nativeElement;
+    }
+
+    @Input('thyHasHover')
+    set thyHasHover(value: string) {
+        this._thyHasHover = inputValueToBoolean(value);
     }
 
     @Input()
@@ -117,5 +127,9 @@ export class ThyLabelComponent {
 
     private _removeClass(className: string) {
         this.renderer.removeClass(this.nativeElement, className);
+    }
+
+    remove() {
+        alert('delete success');
     }
 }
