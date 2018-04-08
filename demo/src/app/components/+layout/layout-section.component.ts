@@ -10,6 +10,8 @@ import { Component } from '@angular/core';
 })
 export class DemoLayoutSectionComponent {
 
+    title = '我的项目';
+
     constructor() {
     }
 

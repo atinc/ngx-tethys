@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ThyButtonModule} from '../button/button.module';
+import { ThyModalService } from './modal.service';
+import { ThyButtonModule } from '../button/button.module';
 import { ModalComponent } from './modal.component';
 import { ModalHeaderComponent } from './modal-header.component';
 import { ModalBodyComponent } from './modal-body.component';
@@ -22,6 +23,9 @@ import { ModalFooterComponent } from './modal-footer.component';
         ModalHeaderComponent,
         ModalBodyComponent,
         ModalFooterComponent
+    ],
+    providers: [
+        ThyModalService
     ]
 })
 export class ThyModalModule {

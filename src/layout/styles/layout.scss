@@ -60,8 +60,12 @@
         a {
             @include link-variant($gray-800, none, $gray-800, none);
         }
-        .wtf {
+        .prefix-icon {
             margin-right: 10px; 
+            color: $primary;
+        }
+        .suffix-icon{
+            margin-left: 10px; 
             color: $primary;
         }
     }

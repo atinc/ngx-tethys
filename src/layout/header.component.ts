@@ -1,13 +1,13 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { Component, HostBinding, Input, OnInit, TemplateRef, Optional, ViewChild, ContentChild, ViewContainerRef } from '@angular/core';
 import { inputValueToBoolean } from '../util/helpers';
 @Component({
     selector: 'thy-header',
     preserveWhitespaces: false,
-    template: `
-    <ng-content></ng-content>
-    `
+    templateUrl: './header.component.html'
 })
-export class ThyHeaderComponent {
+export class ThyHeaderComponent implements OnInit {
+
+    public iconClass: string;
 
     @HostBinding('class.thy-layout-header') thyLayoutHeaderClass = true;
 
@@ -23,5 +23,33 @@ export class ThyHeaderComponent {
     @Input('thySize')
     set thySize(value: string) {
         this._thySizeSm = (value === 'sm');
+    }
+
+    @Input('thyTitle') thyTitle: string;
+
+    @Input('thyIconPrefix') thyIconPrefix = 'wtf';
+
+    @Input('thyIcon')
+    set thyIcon(value: string) {
+        if (value) {
+            this.iconClass = `${this.thyIconPrefix} ${value}`;
+        } else {
+            this.iconClass = null;
+        }
+    }
+
+    @ContentChild('headerTitle')
+    public titleTemplateRef: TemplateRef<any>;
+
+    @ContentChild('headerContent')
+    public contentTemplateRef: TemplateRef<any>;
+
+    @ContentChild('headerOperation')
+    public operationTemplateRef: TemplateRef<any>;
+
+    constructor() {
+    }
+
+    ngOnInit() {
     }
 }
