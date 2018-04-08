@@ -9,6 +9,7 @@ import {
 
 export type ThyNavType = 'primary' | 'secondary' | 'thirdly';
 export type ThyNavSize = '' | 'sm';
+export type ThyNavHorizontal = '' | 'left' | 'center' | 'right';
 
 const navTypeClassesMap: any = {
     primary: ['thy-nav', 'nav-primary'],
@@ -17,7 +18,13 @@ const navTypeClassesMap: any = {
 };
 
 const navSizeClassesMap: any = {
-    sm: ['nav-sm']
+    sm: 'nav-sm'
+};
+
+const navHorizontalClassesMap: any = {
+    left: '',
+    center: 'justify-content-center',
+    right: 'justify-content-end'
 };
 
 @Component({
@@ -27,6 +34,7 @@ const navSizeClassesMap: any = {
 export class ThyNavComponent {
     private _type: ThyNavType;
     private _size: ThyNavSize;
+    private _horizontal: ThyNavHorizontal;
 
     @Input()
     set thyType(type: ThyNavType) {
@@ -40,7 +48,15 @@ export class ThyNavComponent {
     set thySize(size: ThyNavSize) {
         this._size = size;
         if (navSizeClassesMap[this._size]) {
-            this.navClass += ' ' + navSizeClassesMap[this._size].join(' ');
+            this.navClass += ' ' + navSizeClassesMap[this._size];
+        }
+    }
+
+    @Input()
+    set thyHorizontal(horizontal: ThyNavHorizontal) {
+        this._horizontal = horizontal;
+        if (navHorizontalClassesMap[this._horizontal]) {
+            this.navClass += ' ' + navHorizontalClassesMap[this._horizontal];
         }
     }
 
@@ -62,16 +78,14 @@ export class ThyNavLinkDirective {
     private _active: any;
 
     @Input()
-    set thyNavLink(active: ThyNavLink) {
+    set thyNavLinkActive(active: ThyNavLink) {
         this._active = active;
         if (this._active) {
-            this.navLinkClass = navLinkClassesMap['active'].join(' ');
-        } else {
-            this.navLinkClass = navLinkClassesMap['default'].join(' ');
+            this.navLinkClass += ' active';
         }
     }
 
-    @HostBinding('class') navLinkClass = '';
+    @HostBinding('class') navLinkClass = 'nav-link';
 
     @HostBinding('attr.href') navLinkHref = 'javascript:;';
 }
