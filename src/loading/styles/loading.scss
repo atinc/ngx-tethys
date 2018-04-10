@@ -1,10 +1,20 @@
+.thy-loading-mask {
+  position: relative;
+  .thy-loading-indicator {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .2);
+  }
+}
+
 .thy-loading-indicator {
   h4 {
+    padding-top: 20px;
     font-size: $font-size-base;
     font-weight: normal;
   }
   margin-bottom: 20px;
-  padding-top: 20px;
   width: 100%;
   text-align: center;
 }

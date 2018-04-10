@@ -7,16 +7,12 @@ import { isBoolean } from '../util/helpers';
 })
 export class ThyLoadingComponent {
 
-    public isDone: boolean | string;
+    public isDone: boolean;
 
     public tip: string;
 
-    @HostBinding('style.display')
     @Input()
-    get thyDone() {
-        return this.setDisplay(this.isDone);
-    }
-    set thyDone(value: boolean | string) {
+    set thyDone(value: boolean) {
         this.isDone = value;
     }
 
@@ -25,13 +21,8 @@ export class ThyLoadingComponent {
         this.tip = value;
     }
 
-    private setDisplay(value: boolean | string): boolean | string {
-        if (isBoolean(value)) {
-            return value ? 'none' : 'block';
-        } else {
-            return value === 'true' ? 'none' : 'block';
-        }
-    }
+    // 不传或穿false,没有遮罩层，加载完成出现内容
+    @Input() thyIsMask:boolean;
 
     constructor() { }
 }
