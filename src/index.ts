@@ -12,6 +12,7 @@ import { ThyLabelModule } from './label/label.module';
 import { ThyNavModule } from './nav/nav.module';
 import { ThyPaginationModule } from './pagination/pagination.module';
 import { ThyModalModule } from './modal/modal.module';
+import { ThyLoadingModule } from './loading/loading.module';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { ThyModalModule } from './modal/modal.module';
         ThyLabelModule,
         ThyNavModule,
         ThyPaginationModule,
-        ThyModalModule
+        ThyModalModule,
+        ThyLoadingModule
     ],
     exports: [
         ThyLayoutModule,
@@ -39,7 +41,8 @@ import { ThyModalModule } from './modal/modal.module';
         ThyLabelModule,
         ThyNavModule,
         ThyPaginationModule,
-        ThyModalModule
+        ThyModalModule,
+        ThyLoadingModule
     ],
     providers: [
     ]

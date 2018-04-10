@@ -10,6 +10,7 @@ import { DemoLabelSectionComponent } from './components/+label/label-section.com
 import { DemoLayoutSectionComponent } from './components/+layout/layout-section.component';
 import { DemoNavSectionComponent } from './components/+nav/nav-section.component';
 import { DemoModalSectionComponent } from './components/+modal/modal-section.component';
+import { DemoLoadingSectionComponent } from './components/+loading/loading-section.component';
 
 const appRoutes = [
     {
@@ -59,6 +60,10 @@ const appRoutes = [
     {
         path: 'components/modal',
         component: DemoModalSectionComponent
+    },
+    {
+        path: 'components/loading',
+        component: DemoLoadingSectionComponent
     }
 ];
 
