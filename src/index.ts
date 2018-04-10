@@ -1,5 +1,7 @@
 import { Component, NgModule } from '@angular/core';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
+import { ThySharedModule } from './shared/shared.module';
 import { ThyButtonModule } from './button/button.module';
 import { ThyLayoutModule } from './layout/layout.module';
 import { NgxPopBoxModule } from './pop-box/pop-box.module';
@@ -10,12 +12,14 @@ import { ThyLabelModule } from './label/label.module';
 import { ThyNavModule } from './nav/nav.module';
 import { ThyPaginationModule } from './pagination/pagination.module';
 import { ThyModalModule } from './modal/modal.module';
+import { ThyLoadingModule } from './loading/loading.module';
 
 
 @NgModule({
     declarations: [
     ],
     imports: [
+        ModalModule.forRoot(),
         ThyLayoutModule,
         ThyButtonModule,
         NgxPopBoxModule,
@@ -25,7 +29,8 @@ import { ThyModalModule } from './modal/modal.module';
         ThyLabelModule,
         ThyNavModule,
         ThyPaginationModule,
-        ThyModalModule
+        ThyModalModule,
+        ThyLoadingModule
     ],
     exports: [
         ThyLayoutModule,
@@ -36,7 +41,8 @@ import { ThyModalModule } from './modal/modal.module';
         ThyLabelModule,
         ThyNavModule,
         ThyPaginationModule,
-        ThyModalModule
+        ThyModalModule,
+        ThyLoadingModule
     ],
     providers: [
     ]
@@ -45,3 +51,11 @@ export class NgxTethysModule {
 
 }
 
+
+export {
+    ThyPopBoxService
+} from './pop-box';
+
+export {
+    ThyModalService
+} from './modal';

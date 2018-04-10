@@ -1,4 +1,5 @@
-import { Directive, ElementRef, Renderer2, Input } from '@angular/core';
+import { Component, ElementRef, Renderer2, Input, Output, EventEmitter, HostBinding } from '@angular/core';
+import { inputValueToBoolean } from '../util/helpers';
 
 export type ThyLabelType = 'default' | 'primary' | 'success' | 'info' | 'warning' | 'danger';
 
@@ -11,21 +12,42 @@ const labelTypeClassesMap: any = {
     'danger': ['label', 'label-danger']
 };
 
-@Directive({
+@Component({
     selector: '[thyLabel]',
+    templateUrl: './label.component.html'
 })
-export class ThyLabelDirective {
+export class ThyLabelComponent {
+
+    @HostBinding('class.label-has-hover') _thyHasHover = false;
 
     private nativeElement: any;
+
     private _typeClassNames: string[] = [];
+
     private _labelClass?: string;
+
     private _color?: string;
+
     private _type?: string;
+
     private _labelType?: string;
+
+    private _icon: string;
+
+    public beforeIconClass: any;
+
+    public afterIconClass: any;
+
+    @Output() thyOnRemove: EventEmitter<any> = new EventEmitter<any>();
 
 
     constructor(private el: ElementRef, private renderer: Renderer2) {
         this.nativeElement = this.el.nativeElement;
+    }
+
+    @Input('thyHasHover')
+    set thyHasHover(value: string) {
+        this._thyHasHover = inputValueToBoolean(value);
     }
 
     @Input()
@@ -44,6 +66,31 @@ export class ThyLabelDirective {
     set thyLabelType(labelType: string) {
         this._labelType = labelType;
         this._setClassesByType();
+    }
+
+    // 字体前缀，默认 wtf
+    @Input() thyIconPrefix: string;
+
+    @Input()
+    set thyBeforeIcon(icon: string) {
+        this._icon = icon;
+        if (this._icon) {
+            const iconPrefix = this.thyIconPrefix || 'wtf';
+            this.beforeIconClass = [iconPrefix, `${this._icon}`];
+        } else {
+            this.beforeIconClass = null;
+        }
+    }
+
+    @Input()
+    set thyAfterIcon(icon: string) {
+        this._icon = icon;
+        if (this._icon) {
+            const iconPrefix = this.thyIconPrefix || 'wtf';
+            this.afterIconClass = [iconPrefix, `${this._icon}`];
+        } else {
+            this.afterIconClass = null;
+        }
     }
 
     private _setClassesByType() {
@@ -80,5 +127,9 @@ export class ThyLabelDirective {
 
     private _removeClass(className: string) {
         this.renderer.removeClass(this.nativeElement, className);
+    }
+
+    remove() {
+        alert('delete success');
     }
 }

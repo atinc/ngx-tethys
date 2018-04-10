@@ -9,7 +9,7 @@ import { PopBoxContainerComponent } from './pop-box-container.component';
 import { PopBoxOptions, popBoxConfigDefaults } from './pop-box-options.class';
 
 @Injectable()
-export class PopBoxService {
+export class ThyPopBoxService {
 
     public config: PopBoxOptions;
 

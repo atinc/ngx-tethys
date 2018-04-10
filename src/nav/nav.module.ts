@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ThyNavComponent, ThyNavLinkDirective } from './nav.component';
+import { ThyNavComponent } from './nav.component';
+import { ThyNavLinkDirective } from './nav-link.directive';
 
 @NgModule({
     declarations: [

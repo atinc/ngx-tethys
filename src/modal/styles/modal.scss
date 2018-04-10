@@ -1,6 +1,6 @@
 .modal-header {
   min-height: $modal-title-line-height;
-  h3 {
+  .modal-title {
     font-size: $font-size-md;
     font-weight: 500;
   }
@@ -12,22 +12,17 @@
     line-height: 50px;
     color: $gray-300;
   }
+
   .modal-close {
-    color: $gray-300;
-    &:hover {
-      text-decoration: none;
-      color: $primary;
-    }
+    line-height: 50px;
+    @include link-variant($gray-300, none, $primary, none);
+  }
+  .close {
+    @include link-variant($gray-300, none, $primary, none);
   }
 }
 
 .modal-body {
-  .sure-card {
-    p {
-      color: $gray-600;
-      font-size: $font-size-base;
-    }
-  }
   &--lg {
     padding: 20px 30px;
   }
@@ -43,14 +38,4 @@
 .modal-footer {
   justify-content: flex-start;
   border: 0;
-}
-
-.table-wrap {
-  margin: 0 -30px;
-  &--modal {
-    min-height: 200px;
-    padding: 0 30px;
-    overflow-y: auto;
-    max-height: 400px
-  }
 }

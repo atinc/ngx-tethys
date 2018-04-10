@@ -1,20 +1,24 @@
-import { Component, TemplateRef } from '@angular/core';
-import { BsModalService } from 'ngx-bootstrap/modal';
-import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-
+import { Component, TemplateRef, OnInit } from '@angular/core';
+import { BsModalRef } from 'ngx-bootstrap/modal';
+import { ThyModalService } from '../../../../../src/modal';
 @Component({
     selector: 'demo-modal-section',
     templateUrl: './modal-section.component.html'
 })
-export class DemoModalSectionComponent {
+export class DemoModalSectionComponent implements OnInit {
 
+    public time = 0;
     modalRef: BsModalRef;
     constructor(
-        private modalService: BsModalService
+        private modalService: ThyModalService
     ) { }
 
-    addModal(template: TemplateRef<any>,option:object): void {
-        this.modalRef = this.modalService.show(template,option);
+    ngOnInit() {
+
+    }
+
+    addModal(template: TemplateRef<any>, option?: object): void {
+        this.modalRef = this.modalService.show(template, option);
     }
 
     closeModal() {

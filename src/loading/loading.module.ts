@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ThyLabelComponent } from './label.component';
+import { ThyLoadingComponent } from './loading.component';
 
 @NgModule({
     declarations: [
-        ThyLabelComponent
+        ThyLoadingComponent
     ],
     imports: [
         CommonModule
     ],
     exports: [
-        ThyLabelComponent
+        ThyLoadingComponent
     ]
 })
-export class ThyLabelModule {
+export class ThyLoadingModule {
 
 }
