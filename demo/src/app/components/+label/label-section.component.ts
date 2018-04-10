@@ -17,6 +17,10 @@ export class DemoLabelSectionComponent {
         alert('add success');
     }
 
+    remove() {
+        alert('remove success');
+    }
+
     showMore() {
         alert('show more menu');
     }

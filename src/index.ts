@@ -51,3 +51,11 @@ export class NgxTethysModule {
 
 }
 
+
+export {
+    ThyPopBoxService
+} from './pop-box';
+
+export {
+    ThyModalService
+} from './modal';

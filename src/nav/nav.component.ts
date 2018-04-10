@@ -63,10 +63,3 @@ export class ThyNavComponent {
     @HostBinding('class') navClass = '';
 }
 
-
-const navLinkClassesMap: any = {
-    default: ['nav-link'],
-    active: ['nav-link', 'active'],
-};
-
-

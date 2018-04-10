@@ -26,7 +26,8 @@
     ]
   },
   "files": [
-    "./src/index.ts"
+    "./src/index.ts",
+    "./scripts/typings.d.ts"
   ],
   "exclude": [
     "node_modules/",
@@ -34,7 +35,7 @@
   ],
   "angularCompilerOptions": {
     "genDir": "codegen",
-    "strictMetadataEmit": true,
+    "strictMetadataEmit": false,
     "skipTemplateCodegen": true,
     "fullTemplateTypeCheck": true
   }
