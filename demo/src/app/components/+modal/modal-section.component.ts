@@ -17,7 +17,7 @@ export class DemoModalSectionComponent implements OnInit {
 
     }
 
-    addModal(template: TemplateRef<any>, option: object): void {
+    addModal(template: TemplateRef<any>, option?: object): void {
         this.modalRef = this.modalService.show(template, option);
     }
 
