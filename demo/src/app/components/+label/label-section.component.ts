@@ -13,4 +13,12 @@ export class DemoLabelSectionComponent {
         this.color1 = '#f969aa';
     }
 
+    add() {
+        alert('add success');
+    }
+
+    showMore() {
+        alert('show more menu');
+    }
+
 }

@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ThyLabelDirective } from './label.directive';
+import { ThyLabelComponent } from './label.component';
 
 @NgModule({
     declarations: [
-        ThyLabelDirective
+        ThyLabelComponent
     ],
     imports: [
         CommonModule
     ],
     exports: [
-        ThyLabelDirective
+        ThyLabelComponent
     ]
 })
 export class ThyLabelModule {

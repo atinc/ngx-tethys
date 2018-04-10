@@ -6,15 +6,13 @@ import {
 } from 'ngx-bootstrap/modal/modal-options.class';
 
 @Injectable()
-export class ThyModalService implements OnInit {
+export class ThyModalService {
 
     private modalConfig: ModalOptions;
 
     constructor(private modalService: BsModalService) { }
 
-    ngOnInit() { }
-
-    show(template: TemplateRef<any>, config?: ThyModalConfigInfo): BsModalRef {
+    show(template: string | TemplateRef<any> | any, config?: ThyModalConfigInfo): BsModalRef {
         this.setModalConfig(config);
         return this.modalService.show(template, this.modalConfig);
     }

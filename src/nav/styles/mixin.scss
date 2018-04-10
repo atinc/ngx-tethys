@@ -1,0 +1,56 @@
+@mixin nav-link-variant($color, $hover-color, $border-bottom) {
+  color: $color;
+  &:last-child {
+    margin-right: 0;
+  }
+  &.active {
+    color: $hover-color;
+    @if $border-bottom {
+      border-bottom: $border-bottom;
+    }
+  }
+  @include hover-focus-active {
+    color: $hover-color;
+    text-decoration: none;
+    @if $border-bottom {
+      border-bottom: $border-bottom;
+    }
+  } // Disabled state lightens text
+  &.disabled {
+    color: $nav-link-disabled-color;
+    border-bottom: none;
+  }
+}
+
+@mixin nav-link-variant-thirdly($nav-link-hover-color) {
+  position: relative;
+  &:after {
+    display: block;
+    position: absolute;
+    width: 0;
+    content: "";
+    border-right: 1px solid #eee;
+  }
+  &:last-child {
+    &:after {
+      display: none;
+    }
+  }
+  &.active {
+    border-bottom: none;
+  }
+  @include hover-focus-active {
+    color: $nav-link-hover-color;
+    text-decoration: none;
+    border-bottom: none;
+  }
+  .wtf {
+    margin-right: 0.3125rem;
+  }
+}
+
+@mixin nav-link-clear-margin-right() {
+  &:last-child {
+    margin-right: 0;
+  }
+}

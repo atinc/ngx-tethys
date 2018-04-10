@@ -1,0 +1,7 @@
+.nav-link {
+  @include nav-link-variant();
+}
+
+.nav-thirdly {
+  @include nav-link-variant-thirdly($nav-link-hover-color);
+}

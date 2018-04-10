@@ -1,21 +1,22 @@
 @mixin label-variant($bg-color) {
   background-color: $bg-color;
 
-  &[href] {
+  &.label-has-hover {
     &:focus,
     &:hover {
       background-color: darken($bg-color, 10%);
+      cursor: pointer;
     }
   }
 }
 @mixin label-color-variant($color,$hover-color) {
   color: $color;
 
-  &[href] {
+  &.label-has-hover {
     &:focus,
     &:hover {
       color: $hover-color;
-      text-decoration: none;
+      cursor: pointer;
 
       i.wtf-times {
         display: inline-block;
