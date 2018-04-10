@@ -30,7 +30,6 @@ export class ModalHeaderComponent implements OnInit {
     }
 
     closeModal(event?: Event) {
-        // event.stopPropagation();
         if (isFunction(this.thyOnClose)) {
             this.thyOnClose.emit();
         } else {

@@ -1,4 +1,4 @@
-import { Directive, Component, Input } from '@angular/core';
+import { Directive, Component, Input, HostBinding, Renderer2, ElementRef } from '@angular/core';
 import { isNumber } from '../util/helpers';
 
 export type ThyBadgeStatusTypes = 'primary' | 'danger' | 'dot';
@@ -8,35 +8,36 @@ const badgeStatusTypeClassesMap: any = {
     'danger': 'badge-danger'
 };
 
-// @Directive({
-//     selector: '[thyBadge]'
-// })
 
 @Component({
-    selector: 'thy-badge,thyBadge',
+    selector: 'thy-badge,[thyBadge]',
     templateUrl: './badge.component.html',
-    styleUrls: ['./badge.scss']
 })
 
 export class ThyBadgeComponent {
 
-    // @Input() thyCount?: any;    // 标记显示的数字
-    // @Input() thyMaxCount?: number; // thyCount > thyMaxCount 时，显示 {{thyMaxCount}}+
-    // @Input() thyType: string;   // 标记的状态
-    // @Input() thySize?: string; // 标记的大小
-
     private _count?: number | string;
+
     private _maxCount?: number;
+
     private _type?: string;
+
     private _size?: string;
-    private _isDot?:boolean;
+
+    private _isDot?: boolean;
+
+    private nativeElement: any;
 
     public displayContent = '';
+
     public badgeClass = '';
 
+    public isElement = true;
 
+    @HostBinding('attr.class') bodyclass = `badge-body`;
 
-    constructor() {
+    constructor(private elementRef: ElementRef, private renderer: Renderer2) {
+        this.nativeElement = this.elementRef.nativeElement;
     }
 
     @Input()
@@ -62,7 +63,9 @@ export class ThyBadgeComponent {
     @Input()
     set thyBadge(value: string) {
         this._type = value;
+        this.isElement = false;
         this.getBadgeClass();
+        this.renderer.addClass(this.nativeElement, `badge-body`);
     }
 
     @Input()
@@ -96,9 +99,7 @@ export class ThyBadgeComponent {
         if (this._type) {
             this.badgeClass = `${this.badgeClass} ${badgeStatusTypeClassesMap[this._type]}`;
         }
-        if (this._isDot) {
-
-        } else if (!this.displayContent) {
+        if (this._isDot || this.isElement && !this.displayContent) {
             this.badgeClass = `${this.badgeClass} badge-dot`;
         }
         this.badgeClass = this._size ? `${this.badgeClass} badge-${this._size}` : this.badgeClass;

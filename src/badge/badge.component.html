@@ -1,4 +1,8 @@
-<span class="badge-body">
+<ng-container *ngIf="isElement">
     <span class="badge {{badgeClass}}" [ngClass]="{'badge-content':displayContent}">{{displayContent}}</span>
     <ng-content></ng-content>
-</span>
+</ng-container>
+
+<ng-container *ngIf="!isElement">
+    <span class="badge {{badgeClass}}"><ng-content></ng-content></span>
+</ng-container>
