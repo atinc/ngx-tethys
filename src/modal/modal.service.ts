@@ -15,7 +15,7 @@ export class ThyModalService extends BsModalService {
     onHidden: EventEmitter<any> = new EventEmitter();
 
     private modalConfig: ModalOptions;
-    private bsModalRef: BsModalRef;
+    private bsModalRefs: BsModalRef[] = [];
 
     constructor(
         private modalService: BsModalService,
@@ -25,16 +25,16 @@ export class ThyModalService extends BsModalService {
     }
 
     show(content: string | TemplateRef<any> | any, config?: ThyModalConfigInfo): BsModalRef {
-        this.bsModalRef = new BsModalRef();
         this.createLoaders();
         this.setModalConfig(config);
-        this.bsModalRef = this.modalService.show(content, this.modalConfig);
-        return this.bsModalRef;
+        const bsModalRef = this.modalService.show(content, this.modalConfig);
+        this.bsModalRefs.push(bsModalRef);
+        return bsModalRef;
     }
 
     close() {
-        // this.modalService.hide(this.modalService.getModalsCount());
-        this.bsModalRef.hide();
+        this.bsModalRefs[this.bsModalRefs.length-1].hide();
+        this.bsModalRefs.splice(this.bsModalRefs.length-1,1);
     }
 
     private setModalConfig(config: ThyModalConfigInfo) {
