@@ -1,5 +1,4 @@
 import { Component, Input, HostBinding } from '@angular/core';
-import { isBoolean } from '../util/helpers';
 
 @Component({
     selector: 'thy-loading',

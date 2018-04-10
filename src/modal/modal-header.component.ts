@@ -1,6 +1,5 @@
 import { Component, Input, Output, EventEmitter, ContentChild, TemplateRef, OnInit } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
-import { isFunction } from '../util/helpers';
 import { ThyModalService } from './modal.service';
 
 @Component({
@@ -30,7 +29,7 @@ export class ModalHeaderComponent implements OnInit {
     }
 
     closeModal(event?: Event) {
-        if (isFunction(this.thyOnClose)) {
+        if (this.thyOnClose.observers.length > 0) {
             this.thyOnClose.emit();
         } else {
             this.thyModalService.close();

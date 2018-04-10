@@ -4,12 +4,12 @@
 
 <ng-template #add>
     <thy-modal>
-        <thy-modal-header thyTitle="添加项目">
+        <thy-modal-header thyTitle="添加项目" (thyOnClose)="closeModal()">
         </thy-modal-header>
         <thy-modal-body>
             <span>添加一个项目</span>
         </thy-modal-body>
-        <thy-modal-footer (thyOnSave)="addModal(addTwo)" (thyOnCancel)="hideModal($event)"> </thy-modal-footer>
+        <thy-modal-footer (thyOnSave)="modalService.show(addTwo)" (thyOnCancel)="hideModal()"> </thy-modal-footer>
     </thy-modal>
 </ng-template>
 
