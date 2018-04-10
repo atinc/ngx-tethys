@@ -2,7 +2,7 @@ import { Component, Input, HostBinding } from '@angular/core';
 import { isBoolean } from '../util/helpers';
 
 @Component({
-    selector: 'thy-part-loading,[thyPartLoading]',
+    selector: 'thy-loading',
     templateUrl: './loading.component.html'
 })
 export class ThyLoadingComponent {
@@ -18,11 +18,6 @@ export class ThyLoadingComponent {
     }
     set thyDone(value: boolean | string) {
         this.isDone = value;
-    }
-
-    @Input()
-    set thyPartLoading(value: boolean | string) {
-        document.getElementById('thy-part-loading').style.display = this.setDisplay(value).toString();
     }
 
     @Input()
