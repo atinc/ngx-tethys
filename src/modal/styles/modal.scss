@@ -1,5 +1,8 @@
 .modal-header {
+  padding: 0 $modal-header-padding;
   min-height: $modal-title-line-height;
+  align-items: center;
+  height: 50px;
   h3 {
     font-size: $font-size-md;
     font-weight: 500;
@@ -12,14 +15,18 @@
     line-height: 50px;
     color: $gray-300;
   }
-  .modal-close {
-    color: $gray-300;
-    line-height: 50px;
-    &:hover {
-      text-decoration: none;
-      color: $primary;
-    }
+  .close {
+    padding: 1rem $modal-header-padding;
+    margin: (-$modal-header-padding) (-$modal-header-padding) (-$modal-header-padding) auto;
   }
+  // .modal-close {
+  //   color: $gray-300;
+  //   line-height: 50px;
+  //   &:hover {
+  //     text-decoration: none;
+  //     color: $primary;
+  //   }
+  // }
 }
 
 .modal-body {
