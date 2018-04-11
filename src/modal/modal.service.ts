@@ -54,7 +54,7 @@ export class ThyModalService extends BsModalService {
 
 
 export class ThyModalConfigInfo {
-    size?: string;
+    size?: string; // 默认md大小，'blg','lg','mg','sm'
     backdrop?: string | boolean; // true || false || 'static'
     keyboard?: boolean;
     animated?: boolean;

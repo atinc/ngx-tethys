@@ -45,3 +45,7 @@
   justify-content: flex-start;
   border: 0;
 }
+
+@include media-breakpoint-up(lg) {
+  .modal-blg { max-width: $modal-blg; }
+}
