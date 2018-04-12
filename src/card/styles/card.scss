@@ -1,0 +1,30 @@
+.thy-card {
+  display: flex;
+  flex-direction: column;
+  flex: auto;
+  padding: 20px 28px;
+  height: 100%;
+  // background: lightgray;
+  .thy-card-header {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    .card-header-icon {
+      display: block;
+      margin-right: 12px;
+      width: 0;
+      height: 20px;
+      border-left: solid 3px $card-title-icon-color;
+    }
+    .card-header-title {
+      line-height: 20px;
+    }
+    .card-header-operation {
+      margin-left: auto;
+    }
+  }
+  .thy-card-content {
+    margin-top: 10px;
+    flex: auto;
+  }
+}

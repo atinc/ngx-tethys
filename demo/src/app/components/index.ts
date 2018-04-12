@@ -6,11 +6,12 @@ import { DemoGridSectionComponent } from './+grid/grid-section.component';
 import { RebootSectionLinkComponent } from './+reboot/items/link.component';
 import { DemoWTDSectionLinkComponent } from './+wtd/wtd.component';
 import { DemoBadgeSectionComponent } from './+badge/badge-section.component';
-import {DemoAvatarSectionComponent} from './+avatar/avatar-section.component';
+import { DemoAvatarSectionComponent } from './+avatar/avatar-section.component';
 import { DemoLabelSectionComponent } from './+label/label-section.component';
 import { DemoLayoutSectionComponent } from './+layout/layout-section.component';
 import { DemoNavSectionComponent } from './+nav/nav-section.component';
 import { DemoModalSectionComponent } from './+modal/modal-section.component';
+import { DemoCardSectionComponent } from './+card/card-section.component';
 
 
 export const COMPONENTS = [
@@ -27,7 +28,8 @@ export const COMPONENTS = [
     DemoLabelSectionComponent,
     DemoLayoutSectionComponent,
     DemoNavSectionComponent,
-    DemoModalSectionComponent
+    DemoModalSectionComponent,
+    DemoCardSectionComponent,
 ];
 
 export const ENTRY_COMPONENTS = [
