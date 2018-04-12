@@ -14,7 +14,7 @@
       margin-right: 12px;
       width: 0;
       height: 20px;
-      border-left: solid 3px $card-title-icon-color;
+      @include card-head-title-icon($card-title-icon-color);
     }
     .card-header-title {
       line-height: 20px;
