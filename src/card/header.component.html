@@ -1,0 +1,10 @@
+<div class="card-header-icon"></div>
+<div class="card-header-title">
+    <ng-template [ngTemplateOutlet]="titleTemplateRef"></ng-template>
+    <ng-container *ngIf="!titleTemplateRef">
+        {{thyTitle}}
+    </ng-container>
+</div>
+<div class="card-header-operation">
+    <ng-template [ngTemplateOutlet]="operationTemplateRef"></ng-template>
+</div>

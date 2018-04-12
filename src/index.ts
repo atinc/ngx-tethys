@@ -12,7 +12,9 @@ import { ThyLabelModule } from './label/label.module';
 import { ThyNavModule } from './nav/nav.module';
 import { ThyPaginationModule } from './pagination/pagination.module';
 import { ThyModalModule } from './modal/modal.module';
+import { ThyCardModule } from './card/card.module';
 import { ThyLoadingModule } from './loading/loading.module';
+import { ThyActionMenuModule } from './action-menu/action-menu.module';
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import { ThyLoadingModule } from './loading/loading.module';
         ThyNavModule,
         ThyPaginationModule,
         ThyModalModule,
-        ThyLoadingModule
+        ThyCardModule,
+        ThyLoadingModule,
+        ThyActionMenuModule,
     ],
     exports: [
         ThyLayoutModule,
@@ -42,7 +46,9 @@ import { ThyLoadingModule } from './loading/loading.module';
         ThyNavModule,
         ThyPaginationModule,
         ThyModalModule,
-        ThyLoadingModule
+        ThyCardModule,
+        ThyLoadingModule,
+        ThyActionMenuModule,
     ],
     providers: [
     ]

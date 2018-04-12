@@ -1,0 +1,7 @@
+.thy-card {
+  .thy-card-header {
+    .card-header-icon {
+      @include card-head-title-icon($primary);
+    }
+  }
+}
