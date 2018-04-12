@@ -1,52 +1,94 @@
 <section>
     <div class="header">
-        <h2>ActionMenu</h2>
+        <h2>默认</h2>
     </div>
     <div class="body">
-        <button [thyButton]="'primary'" [thyActionMenu]="menu1">ActionMenu</button>
+        <button [thyButton]="'primary'" [thyActionMenuToggle]="menu1">默认</button>
         <ng-template #menu1>
-            <ul class="pop-box-menu">
-                <li>
-                    <a class="pop-box-menu-item" href="javascript:;" (click)="itemClick(1)">
-                        <span class="icon">
-                            <i class="wtf wtf-task-o"></i>
-                        </span>
-                        <span>有图标</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="pop-box-menu-item" href="javascript:;" (click)="itemClick(2)">
-                        <span class="icon"></span>
-                        <span>空位图标</span>
-                    </a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <a class="pop-box-menu-item" href="javascript:;" (click)="itemClick(3)">
-                        <span>复制</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="pop-box-menu-item" href="javascript:;" (click)="itemClick(4)">
-                        <span>删除</span>
-                        <span class="extend-icon">
-                            <i class="wtf wtf-angle-right"></i>
-                        </span>
-                    </a>
-                    <ul class="pop-box-sub-menu">
-                        <li>
-                            <a class="pop-box-sub-menu-item" href="javascript:;" (click)="itemClick(5)">
-                                <span>二级菜单</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="pop-box-sub-menu-item" href="javascript:;" (click)="itemClick(6)">
-                                <span>二级菜单</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+            <div thyActionMenu>
+                <a thyActionMenuItem (click)="itemClick(1)">
+                    <span class="icon">
+                        <i class="wtf wtf-task-o"></i>
+                    </span>
+                    <span>有图标</span>
+                </a>
+                <a thyActionMenuItem (click)="itemClick(1)">
+                    <span class="icon">
+                        <i class="wtf wtf-task-o"></i>
+                    </span>
+                    <span>有图标</span>
+                    <span class="extend-icon">
+                        <i class="wtf wtf-accepted"></i>
+                    </span>
+                </a>
+                <div thyActionMenuDivider></div>
+                <a thyActionMenuItem (click)="itemClick(1)">
+                    <span class="icon">
+                        <i class="wtf wtf-task-o"></i>
+                    </span>
+                    <span>有图标</span>
+                </a>
+                <a thyActionMenuItem (click)="itemClick(1)">
+                    <span class="icon">
+                        <i class="wtf wtf-task-o"></i>
+                    </span>
+                    <span>有图标</span>
+                    <span class="extend-icon">
+                        <i class="wtf wtf-angle-right"></i>
+                    </span>
+                    <div thyActionMenuSubItem>
+                        <a thyActionMenuItem (click)="itemClick(1)">
+                            <span class="icon">
+                                <i class="wtf wtf-task-o"></i>
+                            </span>
+                            <span>有图标</span>
+                        </a>
+                        <a thyActionMenuItem (click)="itemClick(1)">
+                            <span class="icon">
+                                <i class="wtf wtf-task-o"></i>
+                            </span>
+                            <span>有图标</span>
+                        </a>
+                    </div>
+                </a>
+            </div>
+        </ng-template>
+    </div>
+</section>
+
+<section>
+    <div class="header">
+        <h2>带分组</h2>
+    </div>
+    <div class="body">
+        <button [thyButton]="'primary'" [thyActionMenuToggle]="menu2">带分组</button>
+        <ng-template #menu2>
+            <div thyActionMenu thyTheme="group">
+                <div thyActionMenuDivider>
+                    <div thyActionMenuDividerTitle>视图</div>
+                </div>
+                <a thyActionMenuItem (click)="itemClick(1)">
+                    <span class="icon">
+                        <i class="wtf wtf-task-o"></i>
+                    </span>
+                    <span>有图标</span>
+                </a>
+                <a thyActionMenuItem (click)="itemClick(1)">
+                    <span class="icon">
+                        <i class="wtf wtf-task-o"></i>
+                    </span>
+                    <span>有图标</span>
+                </a>
+                <div thyActionMenuDivider>
+                    <div thyActionMenuDividerTitle>视图</div>
+                </div>
+                <a thyActionMenuItem (click)="itemClick(1)">
+                    <span class="icon">
+                        <i class="wtf wtf-task-o"></i>
+                    </span>
+                    <span>有图标</span>
+                </a>
+            </div>
         </ng-template>
     </div>
 </section>
