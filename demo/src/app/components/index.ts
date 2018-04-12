@@ -5,6 +5,7 @@ import { DemoTableSectionComponent } from './+table/table-section.component';
 import { DemoGridSectionComponent } from './+grid/grid-section.component';
 import { RebootSectionLinkComponent } from './+reboot/items/link.component';
 import { DemoWTDSectionLinkComponent } from './+wtd/wtd.component';
+import { DemoActionMenuSectionComponent } from './+action-menu/action-menu-section.component';
 import { DemoBadgeSectionComponent } from './+badge/badge-section.component';
 import { DemoAvatarSectionComponent } from './+avatar/avatar-section.component';
 import { DemoLabelSectionComponent } from './+label/label-section.component';
@@ -25,6 +26,7 @@ export const COMPONENTS = [
     DemoTableSectionComponent,
     RebootSectionLinkComponent,
     DemoWTDSectionLinkComponent,
+    DemoActionMenuSectionComponent,
     DemoBadgeSectionComponent,
     DemoGridSectionComponent,
     DemoAvatarSectionComponent,
