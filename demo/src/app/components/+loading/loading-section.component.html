@@ -1,4 +1,4 @@
-<thy-loading [thyDone]="isDone" thyTip="加载中..." thyIsMask="true">
+<thy-loading thyDone="false" thyTip="加载中..." thyIsMask="true">
     <thy-grid [thyModel]='data' thyTheme="bordered" className="table-hover">
         <thy-grid-column thyTitle="选择" thyModelKey="checked" thyType="radio"></thy-grid-column>
         <thy-grid-column thyTitle="姓名" thyModelKey="name"></thy-grid-column>
@@ -7,7 +7,7 @@
     </thy-grid>
 </thy-loading>
 
-<thy-loading [thyDone]="isDone" thyTip="加载中...">
+<thy-loading [thyDone]="isDone">
     <thy-grid [thyModel]='data' thyTheme="bordered" className="table-hover">
         <thy-grid-column thyTitle="选择" thyModelKey="checked" thyType="radio"></thy-grid-column>
         <thy-grid-column thyTitle="姓名" thyModelKey="name"></thy-grid-column>
@@ -24,5 +24,9 @@
         <thy-grid-column thyTitle="备注" thyModelKey="desc"></thy-grid-column>
     </thy-grid>
     <thy-loading [thyDone]="isDone" thyTip="加载中...">
+    </thy-loading>
+</div>
+<div>
+    <thy-loading>
     </thy-loading>
 </div>

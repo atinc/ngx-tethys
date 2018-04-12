@@ -1,4 +1,5 @@
 import { Component, Input, HostBinding } from '@angular/core';
+import { inputValueToBoolean } from '../util/helpers';
 
 @Component({
     selector: 'thy-loading',
@@ -10,9 +11,11 @@ export class ThyLoadingComponent {
 
     public tip: string;
 
+    public isMask: boolean;
+
     @Input()
-    set thyDone(value: boolean) {
-        this.isDone = value;
+    set thyDone(value: boolean | string) {
+        this.isDone = inputValueToBoolean(value);
     }
 
     @Input()
@@ -21,7 +24,10 @@ export class ThyLoadingComponent {
     }
 
     // 不传或穿false,没有遮罩层，加载完成出现内容
-    @Input() thyIsMask:boolean;
+    @Input()
+    set thyIsMask(value: boolean | string) {
+        this.isMask = inputValueToBoolean(value);
+    }
 
     constructor() { }
 }
