@@ -34,7 +34,7 @@ export class ThyBadgeComponent {
 
     public isElement = true;
 
-    @HostBinding('attr.class') bodyclass = `badge-body`;
+    // @HostBinding('attr.class') bodyclass = `badge-body`;
 
     constructor(private elementRef: ElementRef, private renderer: Renderer2) {
         this.nativeElement = this.elementRef.nativeElement;
@@ -60,12 +60,15 @@ export class ThyBadgeComponent {
         this.getBadgeClass();
     }
 
+    @HostBinding('attr.class')
     @Input()
+    get thyBadge():string {
+        return this.isElement ?  'badge-body' : `badge${this.badgeClass}`;
+    }
     set thyBadge(value: string) {
         this._type = value;
         this.isElement = false;
         this.getBadgeClass();
-        this.renderer.addClass(this.nativeElement, `badge-body`);
     }
 
     @Input()
