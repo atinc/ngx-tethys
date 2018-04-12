@@ -63,30 +63,3 @@ export class ThyNavComponent {
     @HostBinding('class') navClass = '';
 }
 
-
-const navLinkClassesMap: any = {
-    default: ['nav-link'],
-    active: ['nav-link', 'active'],
-};
-
-export type ThyNavLink = '' | 'active';
-
-@Directive({
-    selector: '[thyNavLink]',
-})
-export class ThyNavLinkDirective {
-    private _active: any;
-
-    @Input()
-    set thyNavLinkActive(active: ThyNavLink) {
-        this._active = active;
-        if (this._active) {
-            this.navLinkClass += ' active';
-        }
-    }
-
-    @HostBinding('class') navLinkClass = 'nav-link';
-
-    @HostBinding('attr.href') navLinkHref = 'javascript:;';
-}
-

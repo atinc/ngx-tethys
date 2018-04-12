@@ -1,0 +1,11 @@
+.close {
+  @include set-close-link-variant($gray-300, $primary);
+}
+
+.close-link {
+  @include set-close-link-variant();
+}
+
+.close-link-danger {
+  @include set-close-link-variant($gray-300, $danger);
+}

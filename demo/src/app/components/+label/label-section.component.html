@@ -4,6 +4,7 @@
         <p>· 标记与分类当前任务。 </p>
     </div>
     <div class="body">
+        <span thyLabel="default">Primary</span>
         <span thyLabel="primary">Primary</span>
         <span thyLabel="success">Success</span>
         <span thyLabel="info">Info</span>
@@ -15,12 +16,11 @@
         <span thyLabel [thyLabelColor]="color">Danger</span>
         <br>
         <br>
-        <a href="javascript:;" thyLabel="default" thyBeforeIcon="wtf-th-plus">添加标签</a>
-        <a href="javascript:;" thyLabel="primary" thyAfterIcon="wtf-times">
+        <span thyLabel="default" thyHasHover="true" thyBeforeIcon="wtf-th-plus" (click)="add()">添加标签</span>
+        <span thyLabel="primary" thyHasHover="true" thyAfterIcon="wtf-times" (thyOnRemove)="remove()">
             重要不紧急
-            <!-- <i class="wtf wtf-times"></i> -->
-        </a>
-        <a href="javascript:;" thyLabel="default">…</a>
+        </span>
+        <span thyLabel="default" thyHasHover="true" (click)="showMore()">…</span>
     </div>
 </section>
 
@@ -45,15 +45,15 @@
     </div>
     <div class="body">
         <span thyLabel="default" thyLabelType="pill">
-            <span class="dot dot-label" thyLabel [thyLabelColor]="color"></span>
+            <span class="thy-dot thy-dot-label" thyLabel [thyLabelColor]="color"></span>
             初步沟通
         </span>
         <span thyLabel="default" thyLabelType="pill">
-            <span class="dot dot-label" thyLabel [thyLabelColor]="color1"></span>
+            <span class="thy-dot thy-dot-label" thyLabel [thyLabelColor]="color1"></span>
             确定意向
         </span>
         <span thyLabel="default" thyLabelType="pill">
-            <span class="dot dot-label" thyLabel="primary"></span>
+            <span class="thy-dot thy-dot-label" thyLabel="primary"></span>
             签约成交
         </span>
     </div>

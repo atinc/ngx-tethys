@@ -4,9 +4,9 @@
             <i *ngIf="thyIcon" class="{{thyIcon}}"></i>
             {{thyTitle}}
         </h3>
-        <a href="javascript:;" class="close" (click)="closeModal()">
+        <button type="button" class="close" (click)="closeModal($event)">
             <i class="wtf wtf-times"></i>
-        </a>
+        </button>
     </ng-container>
     <ng-container *ngIf="isTemplateRef">
         <template [ngTemplateOutlet]="headerTemplate"></template>

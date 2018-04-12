@@ -175,7 +175,7 @@ $nav-link-secondary-padding-y: 0.4375rem !default;
 $nav-link-secondary-padding-x: 0rem !default;
 $nav-link-secondary-right: 40px;
 
-$nav-link-thirdly-padding-y: 0.4375rem !default;
+$nav-link-thirdly-padding-y: 0.532rem !default;
 $nav-link-thirdly-padding-x: 0rem !default;
 $nav-link-thirdly-right: 60px;
 $nav-link-thirdly-split-line-height: 15px !default;
@@ -193,7 +193,7 @@ $modal-inner-padding:         1.25rem 1.875rem !default;//
 $modal-dialog-margin:         .5rem !default;
 $modal-dialog-margin-y-sm-up: 3.75rem !default;//
 
-$modal-title-line-height:           3.125rem !default;
+$modal-title-line-height:           1.5 !default;
 
 $modal-content-bg:               $white !default;
 $modal-content-border-color:     rgba($black, .2) !default;
@@ -207,7 +207,7 @@ $modal-header-border-color:   $gray-200 !default;//
 $modal-footer-border-color:   $modal-header-border-color !default;
 $modal-header-border-width:   1px !default;
 $modal-footer-border-width:   $modal-header-border-width !default;
-$modal-header-padding:        0 1.875rem !default;//
+$modal-header-padding:        1.875rem !default;//
 
 $modal-lg:                          980px !default;//
 $modal-blg:                         800px; //稍微大点，自定义属性
@@ -247,3 +247,9 @@ $pagination-active-border-color:    $primary !default;
 $pagination-disabled-color:         $gray-400 !default;
 $pagination-disabled-bg:            $white !default;
 $pagination-disabled-border-color:  $gray-200 !default;
+
+//close
+$close-font-size:                   $font-size-md !default;
+$close-font-weight:                 normal !default;
+$close-color:                       $black !default;
+$close-text-shadow:                 0 1px 0 $white !default;

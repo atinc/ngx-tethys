@@ -13,6 +13,7 @@ import { ThyNavModule } from './nav/nav.module';
 import { ThyPaginationModule } from './pagination/pagination.module';
 import { ThyModalModule } from './modal/modal.module';
 import { ThyCardModule } from './card/card.module';
+import { ThyLoadingModule } from './loading/loading.module';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { ThyCardModule } from './card/card.module';
         ThyPaginationModule,
         ThyModalModule,
         ThyCardModule,
+        ThyLoadingModule
     ],
     exports: [
         ThyLayoutModule,
@@ -43,6 +45,7 @@ import { ThyCardModule } from './card/card.module';
         ThyPaginationModule,
         ThyModalModule,
         ThyCardModule,
+        ThyLoadingModule
     ],
     providers: [
     ]
@@ -51,3 +54,11 @@ export class NgxTethysModule {
 
 }
 
+
+export {
+    ThyPopBoxService
+} from './pop-box';
+
+export {
+    ThyModalService
+} from './modal';

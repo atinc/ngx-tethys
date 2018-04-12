@@ -1,1 +1,1 @@
-export {ThyModalService} from './modal.service';
+export * from './modal.service';

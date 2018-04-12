@@ -1,5 +1,8 @@
 .modal-header {
+  padding: 0 $modal-header-padding;
   min-height: $modal-title-line-height;
+  align-items: center;
+  height: 50px;
   h3 {
     font-size: $font-size-md;
     font-weight: 500;
@@ -12,23 +15,20 @@
     line-height: 50px;
     color: $gray-300;
   }
-  .modal-close {
-    color: $gray-300;
-    line-height: 50px;
-    &:hover {
-      text-decoration: none;
-      color: $primary;
-    }
-  }
+  .close {
+    padding: 1rem $modal-header-padding;
+    margin: (-$modal-header-padding) (-$modal-header-padding) (-$modal-header-padding) auto;
+  } // .modal-close {
+  //   color: $gray-300;
+  //   line-height: 50px;
+  //   &:hover {
+  //     text-decoration: none;
+  //     color: $primary;
+  //   }
+  // }
 }
 
 .modal-body {
-  .sure-card {
-    p {
-      color: $gray-600;
-      font-size: $font-size-base;
-    }
-  }
   &--lg {
     padding: 20px 30px;
   }
@@ -44,14 +44,4 @@
 .modal-footer {
   justify-content: flex-start;
   border: 0;
-}
-
-.table-wrap {
-  margin: 0 -30px;
-  &--modal {
-    min-height: 200px;
-    padding: 0 30px;
-    overflow-y: auto;
-    max-height: 400px
-  }
 }

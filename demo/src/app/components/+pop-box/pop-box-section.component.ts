@@ -1,6 +1,6 @@
 import { Component, ElementRef, TemplateRef, OnInit } from '@angular/core';
 import { ComponentExample } from '../../docs/model/component-example';
-import { PopBoxService } from '../../../../../src/pop-box/pop-box.service';
+import { ThyPopBoxService } from '../../../../../src/pop-box/pop-box.service';
 import { PopBoxRef } from '../../../../../src/pop-box/pop-box-ref.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { PopBoxRef } from '../../../../../src/pop-box/pop-box-ref.service';
 })
 export class DemoPopBoxSectionComponent {
 
-    constructor(private popBoxService: PopBoxService) {
+    constructor(private popBoxService: ThyPopBoxService) {
 
     }
 

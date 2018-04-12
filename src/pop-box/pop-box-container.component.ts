@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef, Renderer2, ViewEncapsulation, HostListener } from '@angular/core';
-import { PopBoxService } from './pop-box.service';
+import { ThyPopBoxService } from './pop-box.service';
 import { PopBoxOptions } from './pop-box-options.class';
 
 @Component({
@@ -14,7 +14,7 @@ import { PopBoxOptions } from './pop-box-options.class';
 })
 export class PopBoxContainerComponent implements OnInit {
 
-    public popBoxService: PopBoxService;
+    public popBoxService: ThyPopBoxService;
 
     protected config: PopBoxOptions;
 

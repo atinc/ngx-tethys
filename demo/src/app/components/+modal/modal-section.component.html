@@ -1,5 +1,6 @@
-<button thyButton="primary" (click)="addModal(add)">添加</button>
+<button thyButton="primary" (click)="addModal(add,{size:'lg'})">添加</button>
 <button thyButton="primary" (click)="addModal(addDefine,{size:'lg'})">添加自定义title、footer</button>
+<button thyButton="primary" (click)="openModalComponent()">使用组件创建modal框</button>
 
 <ng-template #add>
     <thy-modal>
@@ -8,7 +9,17 @@
         <thy-modal-body>
             <span>添加一个项目</span>
         </thy-modal-body>
-        <thy-modal-footer (thyOnSave)="closeModal()" (thyOnCancel)="closeModal()"> </thy-modal-footer>
+        <thy-modal-footer (thyOnSave)="modalService.show(addTwo)" (thyOnCancel)="hideModal()"> </thy-modal-footer>
+    </thy-modal>
+</ng-template>
+
+<ng-template #addTwo>
+    <thy-modal>
+        <thy-modal-header thyTitle="添加项目2">
+        </thy-modal-header>
+        <thy-modal-body>
+            <span>添加一个项目2</span>
+        </thy-modal-body>
     </thy-modal>
 </ng-template>
 
@@ -16,7 +27,7 @@
     <thy-modal>
         <thy-modal-header>
             <ng-template>
-                <h3 class="modal-title">自定义title {{time}}</h3>
+                <h3 class="modal-title">自定义title</h3>
                 <a href="javascript:;" class="modal-close" (click)="closeModal()">
                         <i class="wtf wtf-times"></i>
                 </a>

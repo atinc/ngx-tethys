@@ -1,29 +1,30 @@
 .avatar {
+  display: inline-block;
+  &:hover {
+    text-decoration: none;
+  }
+  .avatar-default {
     display: inline-block;
-    &:hover {
-        text-decoration: none;
+    vertical-align: middle;
+    text-align: center;
+    overflow: hidden;
+    zoom: 1;
+    color: $white;
+    text-shadow: transparent 0 0 0;
+  }
+  .avatar-name {
+    margin-left: 5px;
+    display: inline-block;
+    max-width: 130px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: middle;
+  }
+  @each $size,
+  $value in $avatar-sizes {
+    .avatar-#{$size} {
+      @include avatarSize($size, $value);
     }
-    .avatar-default {
-        display: inline-block;
-        vertical-align: middle;
-        text-align: center;
-        overflow: hidden;
-        zoom: 1;
-        color: $white;
-        text-shadow: transparent 0 0 0;
-    }
-    .avatar-name {
-        margin-left: 5px;
-        display: inline-block;
-        max-width: 130px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        vertical-align: middle;
-    }
-    @each $size,$value in $avatar-sizes{
-        .avatar-#{$size} {
-            @include avatarSize($size,$value);
-        }
-    }
+  }
 }

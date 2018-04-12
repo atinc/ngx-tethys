@@ -10,8 +10,11 @@ import { DemoAvatarSectionComponent } from './+avatar/avatar-section.component';
 import { DemoLabelSectionComponent } from './+label/label-section.component';
 import { DemoLayoutSectionComponent } from './+layout/layout-section.component';
 import { DemoNavSectionComponent } from './+nav/nav-section.component';
+import { DemoModalContentComponent } from './+modal/modal.content.component';
 import { DemoModalSectionComponent } from './+modal/modal-section.component';
 import { DemoCardSectionComponent } from './+card/card-section.component';
+import { DemoLoadingSectionComponent } from './+loading/loading-section.component';
+
 
 
 export const COMPONENTS = [
@@ -30,9 +33,13 @@ export const COMPONENTS = [
     DemoNavSectionComponent,
     DemoModalSectionComponent,
     DemoCardSectionComponent,
+    DemoModalContentComponent,
+    DemoModalSectionComponent,
+    DemoLoadingSectionComponent
 ];
 
 export const ENTRY_COMPONENTS = [
     PopBoxMenuDemoShowComponent,
-    RebootSectionLinkComponent
+    RebootSectionLinkComponent,
+    DemoModalContentComponent
 ];

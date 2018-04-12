@@ -62,7 +62,7 @@ export function isObject(value: any) {
     return !!value && (type === 'object' || type === 'function');
 }
 
-export function isFunction(value:any) {
+export function isFunction(value: any) {
     const type = typeof value;
     return !!value && type === 'function';
 }
@@ -103,4 +103,9 @@ export function set(object: any, path: string, value: any) {
         nested = nested[key];
     }
     return object;
+}
+
+export function isBoolean(value: any) {
+    return value === true || value === false ||
+        (isObjectLike(value) && baseGetTag(value) === '[object Boolean]');
 }
