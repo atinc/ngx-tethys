@@ -1,5 +1,6 @@
 .action-menu {
   padding: 5px 0;
+  display: block;
   background: $action-menu-bg;
   .action-menu-item {
     display: flex;
@@ -40,6 +41,7 @@
   }
   .action-menu-divider {
     margin: 2px 20px;
+    display: block;
     border-top: solid 1px $action-menu-divider-border-color;
   }
   &--group {

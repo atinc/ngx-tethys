@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ThyActionMenuToggleDirective } from './action-menu-toggle.component';
 import {
-    ThyActionMenuDirective,
-    ThyActionMenuDividerDirective,
+    ThyActionMenuComponent,
+    ThyActionMenuDividerComponent,
     ThyActionMenuItemDirective,
     ThyActionMenuSubItemDirective,
     ThyActionMenuDividerTitleDirective,
@@ -12,8 +12,8 @@ import {
 @NgModule({
     declarations: [
         ThyActionMenuToggleDirective,
-        ThyActionMenuDirective,
-        ThyActionMenuDividerDirective,
+        ThyActionMenuComponent,
+        ThyActionMenuDividerComponent,
         ThyActionMenuItemDirective,
         ThyActionMenuSubItemDirective,
         ThyActionMenuDividerTitleDirective,
@@ -23,8 +23,8 @@ import {
     ],
     exports: [
         ThyActionMenuToggleDirective,
-        ThyActionMenuDirective,
-        ThyActionMenuDividerDirective,
+        ThyActionMenuComponent,
+        ThyActionMenuDividerComponent,
         ThyActionMenuItemDirective,
         ThyActionMenuSubItemDirective,
         ThyActionMenuDividerTitleDirective,

@@ -4,15 +4,16 @@
     </div>
     <div class="body">
         <button [thyButton]="'primary'" [thyActionMenuToggle]="menu1">默认</button>
+        <button [thyButton]="'primary'" [thyActionMenuToggle]="menu1" disabled="disabled">禁用</button>
         <ng-template #menu1>
-            <div thyActionMenu>
-                <a thyActionMenuItem (click)="itemClick(1)">
+            <thy-action-menu>
+                <a thyActionMenuItem href="javascript:;" (click)="itemClick(1)">
                     <span class="icon">
                         <i class="wtf wtf-task-o"></i>
                     </span>
                     <span>有图标</span>
                 </a>
-                <a thyActionMenuItem (click)="itemClick(1)">
+                <a thyActionMenuItem href="javascript:;" (click)="itemClick(1)">
                     <span class="icon">
                         <i class="wtf wtf-task-o"></i>
                     </span>
@@ -21,14 +22,14 @@
                         <i class="wtf wtf-accepted"></i>
                     </span>
                 </a>
-                <div thyActionMenuDivider></div>
-                <a thyActionMenuItem (click)="itemClick(1)">
+                <thy-action-menu-divider></thy-action-menu-divider>
+                <a thyActionMenuItem href="javascript:;" (click)="itemClick(1)">
                     <span class="icon">
                         <i class="wtf wtf-task-o"></i>
                     </span>
                     <span>有图标</span>
                 </a>
-                <a thyActionMenuItem (click)="itemClick(1)">
+                <a thyActionMenuItem href="javascript:;" (click)="itemClick(1)">
                     <span class="icon">
                         <i class="wtf wtf-task-o"></i>
                     </span>
@@ -37,13 +38,13 @@
                         <i class="wtf wtf-angle-right"></i>
                     </span>
                     <div thyActionMenuSubItem>
-                        <a thyActionMenuItem (click)="itemClick(1)">
+                        <a thyActionMenuItem href="javascript:;" (click)="itemClick(1)">
                             <span class="icon">
                                 <i class="wtf wtf-task-o"></i>
                             </span>
                             <span>有图标</span>
                         </a>
-                        <a thyActionMenuItem (click)="itemClick(1)">
+                        <a thyActionMenuItem href="javascript:;" (click)="itemClick(1)">
                             <span class="icon">
                                 <i class="wtf wtf-task-o"></i>
                             </span>
@@ -51,7 +52,7 @@
                         </a>
                     </div>
                 </a>
-            </div>
+            </thy-action-menu>
         </ng-template>
     </div>
 </section>
@@ -63,32 +64,28 @@
     <div class="body">
         <button [thyButton]="'primary'" [thyActionMenuToggle]="menu2">带分组</button>
         <ng-template #menu2>
-            <div thyActionMenu thyTheme="group">
-                <div thyActionMenuDivider>
-                    <div thyActionMenuDividerTitle>视图</div>
-                </div>
-                <a thyActionMenuItem (click)="itemClick(1)">
+            <thy-action-menu thyTheme="group">
+                <thy-action-menu-divider thyTitle="分组"></thy-action-menu-divider>
+                <a thyActionMenuItem href="javascript:;" (click)="itemClick(1)">
                     <span class="icon">
                         <i class="wtf wtf-task-o"></i>
                     </span>
                     <span>有图标</span>
                 </a>
-                <a thyActionMenuItem (click)="itemClick(1)">
+                <a thyActionMenuItem href="javascript:;" (click)="itemClick(1)">
                     <span class="icon">
                         <i class="wtf wtf-task-o"></i>
                     </span>
                     <span>有图标</span>
                 </a>
-                <div thyActionMenuDivider>
-                    <div thyActionMenuDividerTitle>视图</div>
-                </div>
-                <a thyActionMenuItem (click)="itemClick(1)">
+                <thy-action-menu-divider thyTitle="分组"></thy-action-menu-divider>
+                <a thyActionMenuItem href="javascript:;" (click)="itemClick(1)">
                     <span class="icon">
                         <i class="wtf wtf-task-o"></i>
                     </span>
                     <span>有图标</span>
                 </a>
-            </div>
+            </thy-action-menu>
         </ng-template>
     </div>
 </section>

@@ -21,7 +21,8 @@ export class ThyActionMenuToggleDirective {
     @HostListener('click', ['$event'])
     onClick(event: any): void {
         this.popBoxService.show(this._templateRef, {
-            target: event.currentTarget
+            target: event.currentTarget,
+            insideAutoClose: true
         });
     }
 

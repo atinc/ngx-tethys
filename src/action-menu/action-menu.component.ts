@@ -1,12 +1,13 @@
 
-import { Directive, HostBinding, Input } from '@angular/core';
+import { Directive, HostBinding, Input, Component } from '@angular/core';
 
 export type ThyActionMenuTheme = 'default' | 'group';
 
-@Directive({
-    selector: '[thyActionMenu]',
+@Component({
+    selector: 'thy-action-menu',
+    template: `<ng-content></ng-content>`
 })
-export class ThyActionMenuDirective {
+export class ThyActionMenuComponent {
 
     @HostBinding('class.action-menu') className = true;
 
@@ -27,8 +28,6 @@ export class ThyActionMenuItemDirective {
 
     @HostBinding('class.action-menu-item') className = true;
 
-    @HostBinding('attr.href') href = 'javascript:;';
-
     constructor() { }
 }
 
@@ -42,12 +41,20 @@ export class ThyActionMenuSubItemDirective {
     constructor() { }
 }
 
-@Directive({
-    selector: '[thyActionMenuDivider]',
+@Component({
+    selector: 'thy-action-menu-divider',
+    template: `<div class="action-menu-divider-title">{{title}}</div>`
 })
-export class ThyActionMenuDividerDirective {
+export class ThyActionMenuDividerComponent {
+
+    title: string;
 
     @HostBinding('class.action-menu-divider') className = true;
+
+    @Input()
+    set thyTitle(value: string) {
+        this.title = value;
+    }
 
     constructor() { }
 }
