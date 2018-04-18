@@ -63,8 +63,21 @@
                                 </ng-template>
                             </thy-header>
                             <thy-content>
-                                恩，我是 content
+                                <thy-content-section>
+                                    返回> 标题
+                                </thy-content-section>
+                                <thy-content-main>
+                                    <thy-nav thyType="secondary" thyHorizontal="left">
+                                        <a href="javascript:;" thyNavLink thyNavLinkActive="true">导航一</a>
+                                        <a href="javascript:;" thyNavLink>导航二</a>
+                                        <a href="javascript:;" thyNavLink>导航三</a>
+                                    </thy-nav>
+                                    <div>
+                                        恩，我是 content
+                                    </div>
+                                </thy-content-main>
                             </thy-content>
+
                         </thy-layout>
 
                     </thy-layout>

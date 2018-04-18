@@ -26,8 +26,19 @@
 
 .thy-layout-content {
     flex: auto;
-    background: $layout-content-background;
+    display: flex;
+    flex-direction: column;
     padding: $layout-content-padding;
+    background: $layout-content-background;
+
+    .thy-layout-content-section {
+        background: $layout-content-section-background;
+        margin-bottom: $layout-content-section-margin-bottom;
+    }
+    .thy-layout-content-main {
+        flex: auto;
+        background: $layout-content-section-background;
+    }
 }
 
 .thy-layout-sidebar {

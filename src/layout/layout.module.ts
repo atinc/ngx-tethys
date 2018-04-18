@@ -4,13 +4,17 @@ import { ThyLayoutComponent } from './layout.component';
 import { ThyHeaderComponent } from './header.component';
 import { ThyContentComponent } from './content.component';
 import { ThySidebarComponent } from './sidebar.component';
+import { ThyContentSectionComponent } from './content-section.component';
+import { ThyContentMainComponent } from './content-main.component';
 
 @NgModule({
     declarations: [
         ThyLayoutComponent,
         ThyHeaderComponent,
         ThyContentComponent,
-        ThySidebarComponent
+        ThySidebarComponent,
+        ThyContentSectionComponent,
+        ThyContentMainComponent
     ],
     imports: [
         CommonModule
@@ -19,7 +23,9 @@ import { ThySidebarComponent } from './sidebar.component';
         ThyLayoutComponent,
         ThyHeaderComponent,
         ThyContentComponent,
-        ThySidebarComponent
+        ThySidebarComponent,
+        ThyContentSectionComponent,
+        ThyContentMainComponent
     ]
 })
 export class ThyLayoutModule {

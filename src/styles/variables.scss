@@ -96,12 +96,14 @@ $pop-box-text-hover: $gray-900;
 $layout-header-background: rgba($gray-99, 0.97);
 $layout-header-padding: 0 15px;
 $layout-header-height: 50px;
-$layout-content-background: $gray-200;
+$layout-content-background: $gray-200 !default;
 $layout-content-padding: 15px 15px 15px 15px;
 $layout-sidebar-width: 240px;
 $layout-sidebar-background: rgba($gray-99, 0.97);
 $layout-sidebar-border-right: 1px solid $gray-300;
 $layout-header-height-sm: 38px;
+$layout-content-section-background: $white !default;
+$layout-content-section-margin-bottom: 15px !default;
 
 // Tables
 $table-cell-padding: 12px 15px !default;
