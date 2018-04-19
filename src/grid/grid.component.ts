@@ -32,7 +32,7 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy {
 
     @Input()
     set thyModel(value: any) {
-        this.model = value;
+        this.model = value || [];
         this._formatModel();
     }
 
