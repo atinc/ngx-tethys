@@ -2,9 +2,10 @@
   display: flex;
   flex-direction: column;
   flex: auto;
-  height: 100%; // background: lightgray;
+  height: 100%;
+  background: $white;
   .thy-card-header {
-    padding: 0 28px;
+    padding: 10px 20px 0 20px;
     display: flex;
     flex: 0 0 auto;
     align-items: center;
@@ -28,11 +29,11 @@
     }
   }
   .thy-card-content {
-    padding: 15px 30px 20px 30px;
+    padding: 15px 20px;
     flex: auto;
     &--alignment-title {
-      padding-left: 43px;
-      padding-right: 43px;
+      padding-left: 35px;
+      padding-right: 35px;
     }
   }
 }
