@@ -113,7 +113,7 @@ export class ThyButtonComponent implements AfterContentInit, OnChanges {
         }
         this.renderer.setProperty(this.nativeElement, 'disabled', disabled);
         if (innerText) {
-            this.renderer.setProperty(this.nativeElement, 'innerText', this._originalText);
+            this.renderer.setProperty(this.nativeElement, 'innerText', innerText);
         }
     }
 
