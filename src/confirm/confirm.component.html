@@ -1,0 +1,12 @@
+<thy-modal>
+    <thy-modal-header thyTitle="{{title}}"></thy-modal-header>
+    <thy-modal-body>
+        <div class="form-group">
+            <p [innerHtml]="content"></p>
+        </div>
+        <div class="form-group">
+            <button thyButton="buttons.confirm.type" (click)="confirm()" [thyLoading]="loading" [thyLoadingText]="buttons.confirm.loadingText">{{buttons.confirm.text}}</button>
+            <button thyButton="buttons.decline.type" (click)="closeModal()">取消</button>
+        </div>
+    </thy-modal-body>
+</thy-modal>

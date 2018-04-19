@@ -13,6 +13,7 @@ import { DemoModalSectionComponent } from './components/+modal/modal-section.com
 import { DemoCardSectionComponent } from './components/+card/card-section.component';
 import { DemoLoadingSectionComponent } from './components/+loading/loading-section.component';
 import { DemoActionMenuSectionComponent } from './components/+action-menu/action-menu-section.component';
+import { DemoConfirmSectionComponent } from './components/+confirm/confirm-section.component';
 
 const appRoutes = [
     {
@@ -66,6 +67,10 @@ const appRoutes = [
     {
         path: 'components/modal',
         component: DemoModalSectionComponent
+    },
+    {
+        path: 'components/confirm',
+        component: DemoConfirmSectionComponent
     },
     {
         path: 'components/card',

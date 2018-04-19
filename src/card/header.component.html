@@ -2,7 +2,8 @@
 <div class="card-header-title">
     <ng-template [ngTemplateOutlet]="titleTemplateRef"></ng-template>
     <ng-container *ngIf="!titleTemplateRef">
-        {{thyTitle}}
+        <span>{{thyTitle}}</span>
+        <span class="text-desc">thyTitleInfo</span>
     </ng-container>
 </div>
 <div class="card-header-operation">

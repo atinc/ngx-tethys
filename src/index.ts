@@ -15,7 +15,7 @@ import { ThyModalModule } from './modal/modal.module';
 import { ThyCardModule } from './card/card.module';
 import { ThyLoadingModule } from './loading/loading.module';
 import { ThyActionMenuModule } from './action-menu/action-menu.module';
-
+import { ThyConfirmModule } from './confirm/confirm.module';
 
 @NgModule({
     declarations: [
@@ -35,6 +35,7 @@ import { ThyActionMenuModule } from './action-menu/action-menu.module';
         ThyCardModule,
         ThyLoadingModule,
         ThyActionMenuModule,
+        ThyConfirmModule,
     ],
     exports: [
         ThyLayoutModule,
@@ -49,8 +50,7 @@ import { ThyActionMenuModule } from './action-menu/action-menu.module';
         ThyCardModule,
         ThyLoadingModule,
         ThyActionMenuModule,
-    ],
-    providers: [
+        ThyConfirmModule,
     ]
 })
 export class NgxTethysModule {

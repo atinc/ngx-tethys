@@ -1,7 +1,8 @@
 import { Component, TemplateRef, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
-import { ThyModalService } from '../../../../../src/modal';
+import { ThyModalService } from '../../../../../src/modal/modal.service';
 import { DemoModalContentComponent } from './modal.content.component';
+
 @Component({
     selector: 'demo-modal-section',
     templateUrl: './modal-section.component.html'

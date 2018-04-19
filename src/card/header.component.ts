@@ -19,6 +19,8 @@ export class ThyCardHeaderComponent implements OnInit {
 
     @Input('thyTitle') thyTitle: string;
 
+    @Input('thyTitleInfo') thyTitleInfo: string;
+
     @Input('thySize')
     set thySize(value: string) {
         this._thySizeSm = (value === 'sm');
