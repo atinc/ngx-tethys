@@ -35,11 +35,15 @@ export class DemoGridSectionComponent implements OnInit {
     onMultiSelectChange($event: any) {
         const event = $event.event;
         const rows = $event.rows;
+
+        console.log($event);
     }
 
     onRadioSelectChange($event: any) {
         const event = $event.event;
         const row = $event.row;
+
+        console.log($event);
     }
 
     onPageChange($event: any) {

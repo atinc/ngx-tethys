@@ -16,6 +16,8 @@ import { ThyCardModule } from './card/card.module';
 import { ThyLoadingModule } from './loading/loading.module';
 import { ThyActionMenuModule } from './action-menu/action-menu.module';
 import { ThyConfirmModule } from './confirm/confirm.module';
+import { ThyTreeModule } from './tree/tree.module';
+
 
 @NgModule({
     declarations: [
@@ -51,6 +53,9 @@ import { ThyConfirmModule } from './confirm/confirm.module';
         ThyLoadingModule,
         ThyActionMenuModule,
         ThyConfirmModule,
+        ThyTreeModule
+    ],
+    providers: [
     ]
 })
 export class NgxTethysModule {

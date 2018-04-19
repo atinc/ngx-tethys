@@ -132,12 +132,13 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy {
         this.thyOnPageChange.emit(pageEvent);
     }
 
-    public onMultiSelectChange(event: Event, column: ThyGridColumn) {
-        const rows = this.model.filter(row => {
-            return !!get(row, column.model);
+    public onMultiSelectChange(event: Event, row: any, column: ThyGridColumn) {
+        const rows = this.model.filter(item => {
+            return !!get(item, column.model);
         });
         const multiSelectEvent: ThyMultiSelectEvent = {
             event: event,
+            row: row,
             rows: rows
         };
         this.thyOnMultiSelectChange.emit(multiSelectEvent);
