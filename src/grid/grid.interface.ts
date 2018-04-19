@@ -26,6 +26,7 @@ export interface ThyPageEvent {
 
 export interface ThyMultiSelectEvent {
   event: Event;
+  row: any;
   rows: any[];
 }
 

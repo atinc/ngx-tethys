@@ -5,7 +5,7 @@
     <div class="body">
         <thy-grid [thyModel]="data" thyClassName="table-hover" (thyOnMultiSelectChange)="onMultiSelectChange($event)"
             [thyPageIndex]="pagination.index" [thyPageSize]="pagination.size" [thyPageTotal]="pagination.total" (thyOnPageChange)="onPageChange($event)" >
-            <thy-grid-column thyTitle="选择" thyModelKey="checked" thyType="checkbox" thyDisabled="true" ></thy-grid-column>
+            <thy-grid-column thyTitle="选择" thyModelKey="checked" thyType="checkbox" ></thy-grid-column>
             <thy-grid-column thyTitle="姓名" thyModelKey="name"></thy-grid-column>
             <thy-grid-column thyTitle="年龄" thyModelKey="age"></thy-grid-column>
             <thy-grid-column thyTitle="备注" thyModelKey="desc"></thy-grid-column>
