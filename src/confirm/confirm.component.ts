@@ -1,8 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Observable, Subscribable } from 'rxjs/Observable';
+import { Observable, Subscription } from 'rxjs';
 import { ThyModalService } from '../modal/modal.service';
 import { ConfirmOption, ConfirmButtonsOption } from './confirm-option.interface';
-import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     templateUrl: './confirm.component.html'
