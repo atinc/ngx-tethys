@@ -10,8 +10,6 @@ import {
 })
 export class ThyTreeComponent implements OnInit {
 
-    public nodeChildren = [];
-
     @Input() thyNodes: any[];
 
     @Input() thyLevel = 0;
@@ -30,7 +28,7 @@ export class ThyTreeComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    public createNodeContext(node) {
+    public createNodeContext(node: any) {
         return {
             $implicit: node,
             node: node,
