@@ -1,0 +1,12 @@
+<section>
+    <div class="header">
+        <h2>Tree</h2>
+    </div>
+    <div class="body">
+        <thy-tree [thyNodes]="nodes" class="thy-tree">
+            <ng-template #treeNodeTemplate let-node="node" let-level="level">
+                <div><input type="checkbox"/> {{level}}级 --- {{node.name}}</div>
+            </ng-template>
+        </thy-tree>
+    </div>
+</section>

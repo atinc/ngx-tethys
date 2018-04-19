@@ -15,6 +15,7 @@ import { DemoModalContentComponent } from './+modal/modal.content.component';
 import { DemoModalSectionComponent } from './+modal/modal-section.component';
 import { DemoCardSectionComponent } from './+card/card-section.component';
 import { DemoLoadingSectionComponent } from './+loading/loading-section.component';
+import { DemoTreeSectionComponent } from './+tree/tree-section.component';
 
 
 
@@ -37,7 +38,8 @@ export const COMPONENTS = [
     DemoCardSectionComponent,
     DemoModalContentComponent,
     DemoModalSectionComponent,
-    DemoLoadingSectionComponent
+    DemoLoadingSectionComponent,
+    DemoTreeSectionComponent
 ];
 
 export const ENTRY_COMPONENTS = [

@@ -13,6 +13,7 @@ import { DemoModalSectionComponent } from './components/+modal/modal-section.com
 import { DemoCardSectionComponent } from './components/+card/card-section.component';
 import { DemoLoadingSectionComponent } from './components/+loading/loading-section.component';
 import { DemoActionMenuSectionComponent } from './components/+action-menu/action-menu-section.component';
+import { DemoTreeSectionComponent } from './components/+tree/tree-section.component';
 
 const appRoutes = [
     {
@@ -74,6 +75,10 @@ const appRoutes = [
     {
         path: 'components/loading',
         component: DemoLoadingSectionComponent
+    },
+    {
+        path: 'components/tree',
+        component: DemoTreeSectionComponent
     }
 ];
 

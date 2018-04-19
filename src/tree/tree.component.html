@@ -1,0 +1,5 @@
+<thy-tree-node *ngFor="let node of thyNodes;let i=index;">
+    <ng-template [ngTemplateOutlet]="templateRef" [ngTemplateOutletContext]="createNodeContext(node)"></ng-template>
+    <thy-tree #childrenTree *ngIf="node[thyChildrenPropName] && node[thyChildrenPropName].length > 0" [thyTemplate]="templateRef"
+        [thyNodes]="node[thyChildrenPropName]" [thyLevel]="thyLevel + 1"></thy-tree>
+</thy-tree-node>
