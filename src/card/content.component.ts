@@ -1,4 +1,4 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component, HostBinding, Input, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-card-content',
@@ -7,6 +7,15 @@ import { Component, HostBinding } from '@angular/core';
     <ng-content></ng-content>
     `
 })
-export class ThyCardContentComponent {
+export class ThyCardContentComponent implements OnInit {
+
+    @Input('thyAlignment') thyAlignment: string;
+
     @HostBinding('class.thy-card-content') thyCardContentClass = true;
+
+    @HostBinding('class.thy-card-content--alignment-title') alignmentClass = false;
+
+    ngOnInit() {
+        this.alignmentClass = this.thyAlignment === 'title';
+    }
 }
