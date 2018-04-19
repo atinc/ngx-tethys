@@ -34,6 +34,9 @@ export class ThyCardHeaderComponent implements OnInit {
     @ContentChild('headerTitle')
     public titleTemplateRef: TemplateRef<any>;
 
+    @ContentChild('headerTitleInfo')
+    public titleInfoTemplateRef: TemplateRef<any>;
+
     @ContentChild('headerOperation')
     public operationTemplateRef: TemplateRef<any>;
 

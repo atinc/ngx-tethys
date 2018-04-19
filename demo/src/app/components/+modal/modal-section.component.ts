@@ -12,7 +12,7 @@ export class DemoModalSectionComponent implements OnInit {
     modalRef: BsModalRef;
     message: string[] = [];
     constructor(
-        private modalService: ThyModalService
+        public modalService: ThyModalService
     ) { }
 
     ngOnInit() {

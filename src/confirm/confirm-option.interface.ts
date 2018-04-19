@@ -24,7 +24,7 @@ export interface ConfirmButtonsOption {
 
 
 export interface ConfirmButtonsConfirmOption {
-    text: string;
+    text?: string;
     loadingText?: string;
     type?: ThyButtonType;
     action?: Function;

@@ -4,7 +4,7 @@
   flex: auto;
   height: 100%; // background: lightgray;
   .thy-card-header {
-    padding: 20px 28px;
+    padding: 0 28px;
     display: flex;
     flex: 0 0 auto;
     align-items: center;
@@ -18,12 +18,17 @@
     .card-header-title {
       line-height: 20px;
     }
+    .card-header-title-info {
+      margin-left: 10px;
+      font-size: 12px;
+      color: $card-title-info-color;
+    }
     .card-header-operation {
       margin-left: auto;
     }
   }
   .thy-card-content {
-    padding: 0 30px 20px 30px;
+    padding: 15px 30px 20px 30px;
     flex: auto;
     &--alignment-title {
       padding-left: 43px;

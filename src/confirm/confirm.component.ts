@@ -1,18 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Observable, Subscribable } from 'rxjs/Observable';
 import { ThyModalService } from '../modal/modal.service';
-import { ConfirmOption } from './confirm-option.interface';
-
-const ConfirmTranslateDefault = {
-    modalTitleKey: 'common.DELETE_CONFIRM',
-    modalDescriptionKey: 'common.DELETE_CONFIRM_TEXT',
-    modalPrimaryLoadingTextKey: 'common.DELETING',
-};
+import { ConfirmOption, ConfirmButtonsOption } from './confirm-option.interface';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     templateUrl: './confirm.component.html'
 })
-export class ThyConfirmComponent implements OnInit {
+export class ThyConfirmComponent implements OnDestroy {
 
     loading: boolean;
 
@@ -20,23 +15,38 @@ export class ThyConfirmComponent implements OnInit {
 
     public content: string;
 
-    public buttons: ConfirmOption;
+    public buttons: ConfirmButtonsOption;
 
+    private _confirmAction$: Subscription;
 
     constructor(
         private modalService: ThyModalService,
     ) { }
 
-    ngOnInit() {
-
-
-    }
-
     confirm(): any {
-
+        const _action = this.buttons.confirm.action();
+        if (_action && _action.subscribe) {
+            this.loading = true;
+            this._confirmAction$ = _action.subscribe({
+                next: () => {
+                    this.closeModal();
+                },
+                complete: () => {
+                    this.loading = false;
+                }
+            });
+        } else {
+            this.closeModal();
+        }
     }
 
     closeModal() {
         this.modalService.close();
+    }
+
+    ngOnDestroy() {
+        if (this._confirmAction$) {
+            this._confirmAction$.unsubscribe();
+        }
     }
 }

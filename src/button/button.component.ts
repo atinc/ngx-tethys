@@ -93,9 +93,9 @@ export class ThyButtonComponent implements AfterContentInit, OnChanges {
     @Input()
     set thyIcon(icon: string) {
         this._icon = icon;
-        if (this._icon ) {
+        if (this._icon) {
             const btnIconPrefix = this.thyIconPrefix || 'wtf';
-            this.iconClass = [btnIconPrefix, `${this._icon }`];
+            this.iconClass = [btnIconPrefix, `${this._icon}`];
         } else {
             this.iconClass = null;
         }
@@ -113,7 +113,7 @@ export class ThyButtonComponent implements AfterContentInit, OnChanges {
         }
         this.renderer.setProperty(this.nativeElement, 'disabled', disabled);
         if (innerText) {
-            this.renderer.setProperty(this.nativeElement, 'innerText', this._originalText);
+            this.renderer.setProperty(this.nativeElement, 'innerText', innerText);
         }
     }
 
