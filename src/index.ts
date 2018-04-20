@@ -15,6 +15,7 @@ import { ThyModalModule } from './modal/modal.module';
 import { ThyCardModule } from './card/card.module';
 import { ThyLoadingModule } from './loading/loading.module';
 import { ThyActionMenuModule } from './action-menu/action-menu.module';
+import { ThyConfirmModule } from './confirm/confirm.module';
 import { ThyTreeModule } from './tree/tree.module';
 
 
@@ -36,6 +37,7 @@ import { ThyTreeModule } from './tree/tree.module';
         ThyCardModule,
         ThyLoadingModule,
         ThyActionMenuModule,
+        ThyConfirmModule,
     ],
     exports: [
         ThyLayoutModule,
@@ -50,6 +52,7 @@ import { ThyTreeModule } from './tree/tree.module';
         ThyCardModule,
         ThyLoadingModule,
         ThyActionMenuModule,
+        ThyConfirmModule,
         ThyTreeModule
     ],
     providers: [
