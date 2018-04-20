@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination/pagination.component';
 @Component({
     selector: 'demo-grid-section',
     templateUrl: './grid-section.component.html'
@@ -46,8 +47,7 @@ export class DemoGridSectionComponent implements OnInit {
         console.log($event);
     }
 
-    onPageChange($event: any) {
-        const event = $event.event;
-        const page = $event.page;
+    onPageChange($event: PageChangedEvent) {
+        console.log($event);
     }
 }

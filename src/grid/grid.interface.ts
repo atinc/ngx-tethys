@@ -19,11 +19,6 @@ export interface ThyPage {
   total?: number;
 }
 
-export interface ThyPageEvent {
-  event: Event;
-  page: any;
-}
-
 export interface ThyMultiSelectEvent {
   event: Event;
   row: any;
