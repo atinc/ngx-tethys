@@ -1,0 +1,68 @@
+.thy-notify-root {
+  position: fixed;
+  z-index: 200;
+  top: 20px;
+  right: 20px;
+  width: 330px;
+  .thy-notify {
+    padding: 16px;
+    margin-bottom: 10px;
+    position: relative;
+    display: flex;
+    border-radius: 4px;
+    background: $white;
+    box-shadow: $box-shadow;
+    .thy-notify-close {
+      padding-top: 2px;
+      position: absolute;
+      right: 16px;
+      top: 10px;
+      width: 20px;
+      height: 20px;
+      text-align: center;
+      font-size: 12px;
+      color: $gray-400;
+      text-decoration: none;
+      transition: color 200ms;
+      i {
+        font-size: 12px;
+      }
+      &:hover {
+        color: $gray-600;
+      }
+    }
+    .thy-notify-icon-success {
+      @include thy-notify-icon($success, 2px, 25px);
+    }
+    .thy-notify-icon-info {
+      @include thy-notify-icon($info, 2px, 25px);
+    }
+    .thy-notify-icon-warning {
+      @include thy-notify-icon($warning, 4px 5px 4px 4px, 20px);
+    }
+    .thy-notify-icon-error {
+      @include thy-notify-icon($danger, 6px, 17px);
+    }
+    .thy-notify-main {
+      flex: 1;
+      .thy-notify-title {
+        padding-right: 24px;
+        margin-bottom: 4px;
+        color: $gray-800;
+      }
+      .thy-notify-content {
+        flex: 1;
+        font-size: 12px;
+        color: $gray-700;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+        overflow: hidden;
+        cursor: pointer;
+        &--extend {
+          -webkit-line-clamp: initial;
+        }
+      }
+    }
+  }
+}

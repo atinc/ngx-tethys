@@ -17,6 +17,7 @@ import { DemoCardSectionComponent } from './+card/card-section.component';
 import { DemoLoadingSectionComponent } from './+loading/loading-section.component';
 import { DemoConfirmSectionComponent } from './+confirm/confirm-section.component';
 import { DemoTreeSectionComponent } from './+tree/tree-section.component';
+import { DemoNotifySectionComponent } from './+notify/notify-section.component';
 
 
 
@@ -34,6 +35,7 @@ export const COMPONENTS = [
     DemoAvatarSectionComponent,
     DemoLabelSectionComponent,
     DemoLayoutSectionComponent,
+    DemoNotifySectionComponent,
     DemoNavSectionComponent,
     DemoModalSectionComponent,
     DemoCardSectionComponent,

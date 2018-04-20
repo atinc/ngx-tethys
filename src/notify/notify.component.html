@@ -1,0 +1,18 @@
+<ng-container *ngIf="!option.html">
+    <a href="javascript:;" class="thy-notify-close">
+        <i class="wtf wtf-times" (click)="closeNotify()"></i>
+    </a>
+    <div [ngClass]="notifyIconType">
+        <i class="wtf" [ngClass]="notifyIconClass"></i>
+    </div>
+    <div class="thy-notify-main">
+        <div class="thy-notify-title">{{option.title}}</div>
+        <div class="thy-notify-content" [ngClass]="{'thy-notify-content--extend':extendContentClass===true}" (click)="extendContent()">{{option.content}}</div>
+    </div>
+</ng-container>
+<ng-container *ngIf="option.html">
+    <a href="javascript:;" class="thy-notify-close">
+        <i class="wtf wtf-times" (click)="closeNotify()"></i>
+    </a>
+    <template [ngTemplateOutlet]="option.html"></template>
+</ng-container>
