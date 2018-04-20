@@ -14,5 +14,7 @@
     <a href="javascript:;" class="thy-notify-close">
         <i class="wtf wtf-times" (click)="closeNotify()"></i>
     </a>
-    <template [ngTemplateOutlet]="option.html"></template>
+    <div class="thy-notify-main">
+        <template [ngTemplateOutlet]="option.html"></template>
+    </div>
 </ng-container>
