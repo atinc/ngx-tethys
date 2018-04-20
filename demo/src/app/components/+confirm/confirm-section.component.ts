@@ -1,8 +1,7 @@
 
 import { Component } from '@angular/core';
 import { ThyConfirmService } from '../../../../../src/confirm/confirm.service';
-import { Subject } from 'rxjs/Subject';
-import { of } from 'rxjs/observable/of';
+import { Subject, of } from 'rxjs';
 import { tap, delay } from 'rxjs/operators';
 
 @Component({
