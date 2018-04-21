@@ -2,9 +2,9 @@ import { Component, NgModule, ModuleWithProviders } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalModule } from 'ngx-bootstrap/modal';
 
-import { ThySharedModule } from './shared/shared.module';
-import { ThyButtonModule } from './button/button.module';
-import { ThyLayoutModule } from './layout/layout.module';
+import { ThySharedModule } from './shared';
+import { ThyButtonModule } from './button';
+import { ThyLayoutModule } from './layout';
 import { NgxPopBoxModule } from './pop-box/pop-box.module';
 import { ThyGridModule } from './grid/grid.module';
 import { ThyAvatarModule } from './avatar/avatar.module';
