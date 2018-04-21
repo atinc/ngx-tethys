@@ -1,4 +1,4 @@
-import { Component, HostBinding, Host, Optional, OnInit } from '@angular/core';
+import { Component, HostBinding, Host, Optional, OnInit, Input } from '@angular/core';
 import { ThyLayoutComponent } from './layout.component';
 @Component({
     selector: 'thy-sidebar',
@@ -10,7 +10,14 @@ import { ThyLayoutComponent } from './layout.component';
 export class ThySidebarComponent implements OnInit {
     @HostBinding('class.thy-layout-sidebar') thyLayoutSidebarClass = true;
 
-    constructor( @Optional() @Host() private thyLayoutComponent: ThyLayoutComponent) {
+    @HostBinding('style.width.px') thyLayoutSidebarWidth: number;
+
+    @Input('thyWidth')
+    set thyWidth(value: any) {
+        this.thyLayoutSidebarWidth = value;
+    }
+
+    constructor(@Optional() @Host() private thyLayoutComponent: ThyLayoutComponent) {
 
     }
 

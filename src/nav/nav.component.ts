@@ -17,6 +17,10 @@ const navTypeClassesMap: any = {
     thirdly: ['thy-nav', 'nav-thirdly']
 };
 
+const navVerticalClassesMap: any = {
+    vertical: 'thy-nav-vertical',
+};
+
 const navSizeClassesMap: any = {
     sm: 'nav-sm'
 };
@@ -35,6 +39,7 @@ export class ThyNavComponent {
     private _type: ThyNavType;
     private _size: ThyNavSize;
     private _horizontal: ThyNavHorizontal;
+    private _vertical: boolean;
 
     @Input()
     set thyType(type: ThyNavType) {
@@ -57,6 +62,14 @@ export class ThyNavComponent {
         this._horizontal = horizontal;
         if (navHorizontalClassesMap[this._horizontal]) {
             this.navClass += ' ' + navHorizontalClassesMap[this._horizontal];
+        }
+    }
+
+    @Input()
+    set thyVertical(value: boolean) {
+        this._vertical = value;
+        if (value) {
+            this.navClass += ' thy-nav--vertical';
         }
     }
 
