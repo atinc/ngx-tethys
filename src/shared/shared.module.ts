@@ -1,5 +1,6 @@
 import { Component, NgModule } from '@angular/core';
 import { ThyTranscludeDirective } from './ng-transclude.directice';
+import { ThyTranslate } from './translate';
 
 @NgModule({
     declarations: [
@@ -9,6 +10,7 @@ import { ThyTranscludeDirective } from './ng-transclude.directice';
         ThyTranscludeDirective
     ],
     providers: [
+        ThyTranslate
     ]
 })
 export class ThySharedModule {
