@@ -1,4 +1,5 @@
 import { Component, NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { ThySharedModule } from './shared/shared.module';
@@ -17,12 +18,14 @@ import { ThyLoadingModule } from './loading/loading.module';
 import { ThyActionMenuModule } from './action-menu/action-menu.module';
 import { ThyConfirmModule } from './confirm/confirm.module';
 import { ThyTreeModule } from './tree/tree.module';
+import { ThyNotifyModule } from './notify/notify.module';
 
 
 @NgModule({
     declarations: [
     ],
     imports: [
+        BrowserAnimationsModule,
         ModalModule.forRoot(),
         ThyLayoutModule,
         ThyButtonModule,
@@ -34,12 +37,14 @@ import { ThyTreeModule } from './tree/tree.module';
         ThyNavModule,
         ThyPaginationModule,
         ThyModalModule,
+        ThyNotifyModule,
         ThyCardModule,
         ThyLoadingModule,
         ThyActionMenuModule,
         ThyConfirmModule,
     ],
     exports: [
+        BrowserAnimationsModule,
         ThyLayoutModule,
         ThyButtonModule,
         ThyBadgeModule,
@@ -49,6 +54,7 @@ import { ThyTreeModule } from './tree/tree.module';
         ThyNavModule,
         ThyPaginationModule,
         ThyModalModule,
+        ThyNotifyModule,
         ThyCardModule,
         ThyLoadingModule,
         ThyActionMenuModule,

@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { COMPONENTS, ENTRY_COMPONENTS } from './components';
-import {  DOCS_COMPONENTS } from './docs/index';
+import { DOCS_COMPONENTS } from './docs/index';
 import { appRoutes } from './app.routes';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { TabsModule } from 'ngx-bootstrap/tabs';

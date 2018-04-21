@@ -1,78 +1,153 @@
 <header class="navbar">
-    <a class="navbar-brand">WDC For Worktile Design</a>
+    <a class="navbar-brand">WDC For Worktile Design Center</a>
 </header>
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col col-2 col-sm-3 col-xl-2 col-md-3 toc-slider">
-            <div class="toc">
-                <div class="toc-item">介绍</div>
-                <div class="toc-item">原则</div>
-                <div class="toc-item group">
-                    <div class="header">组件</div>
-                    <div class="body">
-                        <div class="toc-sub-item">
-                            <a routerLink="/components/reboot">通用</a>
-                        </div>
-                        <div class="toc-sub-item">
-                            <a routerLink="/components/button">按钮</a>
-                        </div>
-                        <div class="toc-sub-item">
-                            <a routerLink="/components/pob-box">PopBox 弹出框</a>
-                        </div>
-                        <div class="toc-sub-item">
-                            <a routerLink="/components/table">Table</a>
-                        </div>
-                        <div class="toc-sub-item">
-                            <a routerLink="/components/grid">Grid</a>
-                        </div>
-                        <div class="toc-sub-item">
-                            <a routerLink="/components/wtd">WTD图标</a>
-                        </div>
-                        <div class="toc-sub-item">
-                            <a routerLink="/components/action-menu">ActionMenu</a>
-                        </div>
-                        <div class="toc-sub-item">
-                            <a routerLink="/components/avatar">Avatar 头像</a>
-                        </div>
-                        <div class="toc-sub-item">
-                            <a routerLink="/components/badge">徽标</a>
-                        </div>
-                        <div class="toc-sub-item">
-                            <a routerLink="/components/confirm">confirm确认消息框</a>
-                        </div>
-                        <div class="toc-sub-item">
-                            <a routerLink="/components/label">Label</a>
-                        </div>
-                        <div class="toc-sub-item">
-                            <a routerLink="/components/layout">Layout 布局</a>
-                        </div>
-                        <div class="toc-sub-item">
-                            <a routerLink="/components/nav">导航</a>
-                        </div>
-                        <div class="toc-sub-item">
-                            <a routerLink="/components/modal">Modal 弹框</a>
-                        </div>
-                        <div class="toc-sub-item">
-                            <a routerLink="/components/card">Card</a>
-                        </div>
-                        <div class="toc-sub-item">
-                            <a routerLink="/components/loading">Loading 加载中</a>
-                        </div>
-                        <div class="toc-sub-item">
-                            <a routerLink="/components/tree">Tree</a>
-                        </div>
+<thy-layout>
+    <thy-sidebar>
+        <div class="toc-slider">
+            <dl>
+                <dd class="toc-section">
+                    <div class="toc-section-head">
+                        介绍
+                        <span class="mate">Introduction</span>
+                        <span class="extend-icon">
+                            <i class="wtf wtf-angle-right"></i>
+                        </span>
                     </div>
-                </div>
-            </div>
+                </dd>
+                <dd class="toc-section">
+                    <div class="toc-section-head">
+                        原则
+                        <span class="mate">Principles</span>
+                        <span class="extend-icon">
+                            <i class="wtf wtf-angle-right"></i>
+                        </span>
+                    </div>
+                </dd>
+                <dd class="toc-section">
+                    <div class="toc-section-head">
+                        组件
+                        <span class="mate">Components</span>
+                        <span class="extend-icon">
+                            <i class="wtf wtf-angle-right"></i>
+                        </span>
+                    </div>
+                    <div class="toc-section-body">
+                        <dl>
+                            <dd class="toc-item-group">General</dd>
+                            <dd class="toc-item">
+                                <a routerLink="/components/reboot" routerLinkActive="active">Reboot
+                                    <span>全局</span>
+                                </a>
+                            </dd>
+                            <dd class="toc-item">
+                                <a routerLink="/components/button" routerLinkActive="active">Button
+                                    <span>按钮</span>
+                                </a>
+                            </dd>
+                            <dd class="toc-item">
+                                <a routerLink="/components/wtd" routerLinkActive="active">wtf
+                                    <span>图标</span>
+                                </a>
+                            </dd>
+                            <dd class="toc-item-group">Layout</dd>
+                            <dd class="toc-item">
+                                <a routerLink="/components/card" routerLinkActive="active">Card
+                                    <span>卡片</span>
+                                </a>
+                            </dd>
+                            <dd class="toc-item">
+                                <a routerLink="/components/layout" routerLinkActive="active">Layout
+                                    <span>布局</span>
+                                </a>
+                            </dd>
+                            <dd class="toc-item-group">Navigation</dd>
+                            <dd class="toc-item">
+                                <a routerLink="/components/action-menu" routerLinkActive="active">ActionMenu
+                                    <span>下拉菜单</span>
+                                </a>
+                            </dd>
+                            <dd class="toc-item">
+                                <a routerLink="/components/nav" routerLinkActive="active">Nav
+                                    <span>导航</span>
+                                </a>
+                            </dd>
+                            <dd class="toc-item-group">Data Entry</dd>
+                            <dd class="toc-item-group">Data Display</dd>
+                            <dd class="toc-item">
+                                <a routerLink="/components/avatar" routerLinkActive="active">Avatar
+                                    <span>头像</span>
+                                </a>
+                            </dd>
+                            <dd class="toc-item">
+                                <a routerLink="/components/badge" routerLinkActive="active">Badge
+                                    <span>徽标</span>
+                                </a>
+                            </dd>
+                            <dd class="toc-item">
+                                <a routerLink="/components/grid" routerLinkActive="active">Grid
+                                    <span>列表</span>
+                                </a>
+                            </dd>
+                            <dd class="toc-item">
+                                <a routerLink="/components/label" routerLinkActive="active">Label
+                                    <span>标签</span>
+                                </a>
+                            </dd>
+                            <dd class="toc-item">
+                                <a routerLink="/components/table" routerLinkActive="active">Table
+                                    <span>表格</span>
+                                </a>
+                            </dd>
+                            <dd class="toc-item">
+                                <a routerLink="/components/tree" routerLinkActive="active">Tree
+                                    <span>树</span>
+                                </a>
+                            </dd>
+                            <dd class="toc-item-group">FeedBack</dd>
+                            <dd class="toc-item">
+                                <a routerLink="/components/confirm" routerLinkActive="active">Confirm
+                                    <span>确认消息框</span>
+                                </a>
+                            </dd>
+                            <dd class="toc-item">
+                                <a routerLink="/components/loading" routerLinkActive="active">Loading
+                                    <span>加载中</span>
+                                </a>
+                            </dd>
+                            <dd class="toc-item">
+                                <a routerLink="/components/modal" routerLinkActive="active">Modal
+                                    <span>弹框</span>
+                                </a>
+                            </dd>
+                            <dd class="toc-item">
+                                <a routerLink="/components/notify" routerLinkActive="active">Notify
+                                    <span>通知</span>
+                                </a>
+                            </dd>
+                            <dd class="toc-item">
+                                <a routerLink="/components/pob-box" routerLinkActive="active">PopBox
+                                    <span>弹出框</span>
+                                </a>
+                            </dd>
+                            <dd class="toc-item-group">Other</dd>
+                        </dl>
+                    </div>
+                </dd>
+            </dl>
         </div>
-        <div class="col col-10 col-sm-8 col-xl-9 col-md-8 main-wrapper">
-            <div class="header">
-                <h4>按钮</h4>
+    </thy-sidebar>
+    <thy-content>
+        <div class="main-content">
+            <div class="content-header">
+                按钮
+                <span class="mate">按钮</span>
             </div>
-            <div class="main">
+            <div class="content-main">
                 <router-outlet></router-outlet>
             </div>
         </div>
-    </div>
-</div>
+    </thy-content>
+</thy-layout>
+
+<thy-notify-root></thy-notify-root>

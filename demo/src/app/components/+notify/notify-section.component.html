@@ -1,0 +1,24 @@
+<section>
+    <div class="header">
+        <h2>Notify</h2>
+    </div>
+    <div class="body">
+        <button thyButton="primary" (click)="showDefault()">基本</button>
+        <br>
+        <br>
+        <button thyButton="primary" (click)="showHoverClose()">Hover也继续关闭</button>
+        <br>
+        <br>
+        <button thyButton="primary" (click)="showNotAutoClose()">带图标,不自动关闭</button>
+        <br>
+        <br>
+        <button thyButton="primary" (click)="showWithHtml(notify)">HTML</button>
+        <ng-template #notify>
+            <h1>Worktile</h1>
+            <h2>Worktile</h2>
+            <h3>Worktile</h3>
+        </ng-template>
+        <br>
+        <br>
+    </div>
+</section>
