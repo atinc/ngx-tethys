@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ThyNotifyComponent } from './notify.component';
-import { ThyNotifyRootComponent } from './notify.root.component';
+import { ThyNotifyContainerComponent } from './notify.container.component';
 import { ThyNotifyService } from './notify.service';
 
 @NgModule({
     declarations: [
-        ThyNotifyRootComponent,
         ThyNotifyComponent,
+        ThyNotifyContainerComponent,
     ],
     entryComponents: [
+        ThyNotifyContainerComponent,
     ],
     providers: [
         ThyNotifyService
@@ -18,7 +19,7 @@ import { ThyNotifyService } from './notify.service';
         CommonModule,
     ],
     exports: [
-        ThyNotifyRootComponent,
+        ThyNotifyContainerComponent,
         ThyNotifyComponent,
     ]
 })

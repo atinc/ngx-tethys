@@ -1,5 +1,5 @@
 import { Injectable, TemplateRef } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/observable';
 import { ThyConfirmComponent } from './confirm.component';
 import { ThyButtonType } from '../button/button.component';
 import { ConfirmOption } from './confirm-option.interface';
@@ -19,6 +19,25 @@ export class ThyConfirmService {
         this._option = option;
         this.modalService.show(ThyConfirmComponent, {
             initialState: this._option
+        });
+    }
+
+    showDelete(contentValues: object, confirmAction: Function) {
+        let _deleteOption: ConfirmOption;
+        _deleteOption = {
+            title: '确认删除',
+            content: '确认删除{{typeName}} <code>{{name}}</code> 吗？',
+            contentValues: contentValues,
+            buttons: {
+                confirm: {
+                    text: '确认',
+                    type: 'danger',
+                    action: confirmAction
+                }
+            }
+        };
+        this.modalService.show(ThyConfirmComponent, {
+            initialState: _deleteOption
         });
     }
 }

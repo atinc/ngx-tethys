@@ -5,6 +5,7 @@
     <div class="body">
         <button [thyButton]="'primary'" [thyActionMenuToggle]="menu1">默认</button>
         <button [thyButton]="'primary'" [thyActionMenuToggle]="menu1" disabled="disabled">禁用</button>
+        <button [thyButton]="'primary'" [thyActionMenuToggle]="menu1">弹出位置</button>
         <ng-template #menu1>
             <thy-action-menu>
                 <a thyActionMenuItem href="javascript:;" (click)="itemClick(1)">
