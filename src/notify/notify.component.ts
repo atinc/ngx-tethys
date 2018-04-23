@@ -41,6 +41,8 @@ export class ThyNotifyComponent implements OnInit, OnDestroy {
 
     closeTimer: any;
 
+    isShowDetail = false;
+
     @Input()
     set thyOption(value: any) {
         this.option = value;
@@ -75,6 +77,10 @@ export class ThyNotifyComponent implements OnInit, OnDestroy {
 
     extendContent() {
         this.extendContentClass = true;
+    }
+
+    showDetailToggle() {
+        this.isShowDetail = !this.isShowDetail;
     }
 
     closeNotify() {

@@ -1,4 +1,4 @@
-import { ElementDef } from "@angular/core/src/view";
+import { ElementRef } from '@angular/core';
 
 export interface ThyNotifyOption {
 
@@ -10,7 +10,9 @@ export interface ThyNotifyOption {
 
     content?: string;
 
-    html?: ElementDef;
+    detail?: string;
+
+    html?: ElementRef;
 
     pauseOnHover?: boolean;
 

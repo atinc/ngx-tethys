@@ -231,6 +231,27 @@ $modal-transition:                  transform .3s ease-out !default;
 $card-title-icon-color: $primary;
 $card-title-info-color: $gray-500;
 
+// Notify
+$notify-bg: $white;
+$notify-box-shadow: $box-shadow;
+$notify-close-color: $gray-400;
+$notify-close-hover-color: $gray-600;
+$notify-success: $success;
+$notify-info: $info;
+$notify-warning: $warning;
+$notify-danger: $danger;
+$notify-success-icon-font-size: 23px;
+$notify-info-icon-font-size: 23px;
+$notify-warning-icon-font-size: 18px;
+$notify-danger-icon-font-size: 15px;
+$notify-success-icon-padding: 2px;
+$notify-info-icon-padding: 2px;
+$notify-warning-icon-padding: 4px 5px 4px 4px;
+$notify-danger-icon-padding: 6px;
+$notify-title-color: $gray-800;
+$notify-content-color: $gray-700;
+
+
 // Pagination
 
 $pagination-padding-y:              5px !default;
