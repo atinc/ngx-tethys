@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/observable';
+import { Observable } from 'rxjs';
 import { ThyButtonType } from '../button/button.component';
 
 export interface ConfirmOption {

@@ -2,7 +2,7 @@
 import { Component } from '@angular/core';
 import { ThyConfirmService } from '../../../../../src/confirm/confirm.service';
 import { tap, delay } from 'rxjs/operators';
-import { of } from 'rxjs/observable/of';
+import { of } from 'rxjs';
 
 @Component({
     selector: 'demo-confirm-section',

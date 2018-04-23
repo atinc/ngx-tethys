@@ -1,0 +1,20 @@
+.empty-state {
+    display: block;
+    text-align: center;
+    .empty-icon {
+        i {
+            color: $empty-icon-color;
+        }
+    }
+
+    .empty-text {
+        color: $empty-text-color;
+        margin-left: 15px;
+    }
+
+    @include set-empty-state-size($empty-icon-size, $empty-text-size);
+
+    &--lg {
+        @include set-empty-state-size($empty-icon-size-lg, $empty-text-size-lg);
+    }
+}

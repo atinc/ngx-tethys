@@ -19,7 +19,7 @@ import { ThyActionMenuModule } from './action-menu/action-menu.module';
 import { ThyConfirmModule } from './confirm/confirm.module';
 import { ThyTreeModule } from './tree/tree.module';
 import { ThyNotifyModule } from './notify/notify.module';
-
+import { ThyEmptyModule } from './empty';
 
 @NgModule({
     declarations: [
@@ -42,6 +42,7 @@ import { ThyNotifyModule } from './notify/notify.module';
         ThyLoadingModule,
         ThyActionMenuModule,
         ThyConfirmModule,
+        ThyEmptyModule
     ],
     exports: [
         BrowserAnimationsModule,
@@ -59,7 +60,8 @@ import { ThyNotifyModule } from './notify/notify.module';
         ThyLoadingModule,
         ThyActionMenuModule,
         ThyConfirmModule,
-        ThyTreeModule
+        ThyTreeModule,
+        ThyEmptyModule
     ],
     providers: [
     ]

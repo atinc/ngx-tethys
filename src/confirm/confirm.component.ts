@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Observable } from 'rxjs/observable';
+import { Observable } from 'rxjs';
 import { ThyModalService } from '../modal/modal.service';
 import { ConfirmOption, ConfirmButtonsOption } from './confirm-option.interface';
 

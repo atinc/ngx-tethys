@@ -2,7 +2,7 @@ import { Injectable, TemplateRef } from '@angular/core';
 import { ThyNotifyOption } from './notify-option.interface';
 import { ThyNotifyContainerComponent } from './notify.container.component';
 import { ComponentLoaderFactory, ComponentLoader } from 'ngx-bootstrap/component-loader';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 
 const NOTIFY_OPTION_DEFAULT = {
     duration: 4500,

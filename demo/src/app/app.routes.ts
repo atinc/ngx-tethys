@@ -16,6 +16,7 @@ import { DemoActionMenuSectionComponent } from './components/+action-menu/action
 import { DemoConfirmSectionComponent } from './components/+confirm/confirm-section.component';
 import { DemoTreeSectionComponent } from './components/+tree/tree-section.component';
 import { DemoNotifySectionComponent } from './components/+notify/notify-section.component';
+import { DemoEmptySectionComponent } from './components/+empty/empty-section.component';
 
 const appRoutes = [
     {
@@ -61,6 +62,10 @@ const appRoutes = [
     {
         path: 'components/layout',
         component: DemoLayoutSectionComponent
+    },
+    {
+        path: 'components/empty',
+        component: DemoEmptySectionComponent
     },
     {
         path: 'components/nav',

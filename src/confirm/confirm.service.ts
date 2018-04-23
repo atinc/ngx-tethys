@@ -1,5 +1,5 @@
 import { Injectable, TemplateRef } from '@angular/core';
-import { Observable } from 'rxjs/observable';
+import { Observable } from 'rxjs';
 import { ThyConfirmComponent } from './confirm.component';
 import { ThyButtonType } from '../button/button.component';
 import { ConfirmOption } from './confirm-option.interface';
