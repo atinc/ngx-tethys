@@ -1,4 +1,6 @@
 import { Store, Action } from '../store';
+import { of } from 'rxjs';
+import { map, tap, skip } from 'rxjs/operators';
 
 describe('Store: Store', () => {
 
@@ -19,13 +21,59 @@ describe('Store: Store', () => {
         @Action({
             type: 'loadMe'
         })
-        private loadMe(state, payload) {
+        private loadMe(state: AppState, payload) {
             state.me = payload;
-            this.state$.next(state);
+            this.next(state);
         }
 
+        @Action()
+        private initTeam(state: AppState, team) {
+            state.team = team;
+            this.next(state);
+        }
+
+        @Action()
+        private httpLoadTeam(state: AppState) {
+            return of(null).pipe(map(() => {
+                state.team = {
+                    name: 'fromHttp'
+                };
+                this.next(state);
+                return state.team;
+            }));
+        }
     }
-    it('store dispatch', () => {
+
+    it('store default value', () => {
+        const appStore = new AppStateStore();
+        appStore.select((state: AppState) => {
+            return state.me;
+        }).subscribe((me) => {
+            expect(me).toBe(null);
+        });
+    });
+
+    it('store action default type', () => {
+        const appStore = new AppStateStore();
+        let timer = 0;
+        appStore.select((state: AppState) => {
+            return state.team;
+        }).subscribe((team) => {
+            if (timer === 0) {
+                expect(team).toBe(null);
+            } else if (timer === 1) {
+                expect(team).toEqual({
+                    name: 'team1'
+                });
+            }
+            timer++;
+        });
+        appStore.dispatch('initTeam', {
+            name: 'team1'
+        });
+    });
+
+    it('store dispatch value', () => {
         const appStore = new AppStateStore();
         let timer = 0;
         appStore.select((state: AppState) => {
@@ -45,21 +93,20 @@ describe('Store: Store', () => {
         });
     });
 
-    // it('store selector', () => {
-    //     const appStore = new AppStateStore();
-    //     let timer = 0;
-    //     appStore.select((state: AppState) => {
-    //         return state.me;
-    //     }).subscribe((me) => {
-    //         if (timer === 0) {
-    //             expect(me).toBe(null);
-    //         } else if (timer === 1) {
-    //             expect(me).toEqual({
-    //                 name: 'peter1'
-    //             });
-    //         }
-    //         timer++;
-    //     });
-    //     appStore.loadMe();
-    // });
+
+    it('store action return observable', () => {
+        const appStore = new AppStateStore();
+        appStore.select((state: AppState) => {
+            return state.team;
+        }).pipe(skip(1)).subscribe((team) => {
+            expect(team).toEqual({
+                name: 'fromHttp'
+            });
+        });
+        appStore.dispatch('httpLoadTeam').subscribe((team: any) => {
+            expect(team).toEqual({
+                name: 'fromHttp'
+            });
+        });
+    });
 });

@@ -1,5 +1,5 @@
 
-import { Observable, BehaviorSubject, from, of } from 'rxjs';
+import { Observable, Observer, BehaviorSubject, from, of } from 'rxjs';
 import { distinctUntilChanged, map, shareReplay } from 'rxjs/operators';
 import { META_KEY } from './types';
 
@@ -8,9 +8,9 @@ interface Action {
     payload?: any;
 }
 
-export class Store<T> {
+export class Store<T> implements Observer<T> {
 
-    protected state$: BehaviorSubject<T>;
+    private state$: BehaviorSubject<T>;
 
     constructor(initialState: any) {
         this.state$ = new BehaviorSubject<T>(initialState);
@@ -59,5 +59,17 @@ export class Store<T> {
             map(selector),
             distinctUntilChanged()
         );
+    }
+
+    next(state: T) {
+        this.state$.next(state);
+    }
+
+    error(error: any) {
+        this.state$.error(error);
+    }
+
+    complete() {
+        this.state$.complete();
     }
 }
