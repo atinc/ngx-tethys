@@ -1,3 +1,6 @@
+## 0.0.19
+fix ts define file error.
+
 ## 0.0.18
 1. add thy-empty component;
 1. add thy store for state management.

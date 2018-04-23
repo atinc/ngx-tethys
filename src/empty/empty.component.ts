@@ -62,7 +62,7 @@ export class ThyEmptyComponent implements OnInit, AfterViewInit {
 
     @Input() thyTopAuto: boolean;
 
-    @Input() thyContainer: ElementRef<any>;
+    @Input() thyContainer: ElementRef;
 
     get displayText() {
         if (this.thyMessage) {
