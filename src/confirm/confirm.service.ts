@@ -21,4 +21,23 @@ export class ThyConfirmService {
             initialState: this._option
         });
     }
+
+    showDelete(contentValues: object, confirmAction: Function) {
+        let _deleteOption: ConfirmOption;
+        _deleteOption = {
+            title: '确认删除',
+            content: '确认删除{{typeName}} <code>{{name}}</code> 吗？',
+            contentValues: contentValues,
+            buttons: {
+                confirm: {
+                    text: '确认',
+                    type: 'danger',
+                    action: confirmAction
+                }
+            }
+        };
+        this.modalService.show(ThyConfirmComponent, {
+            initialState: _deleteOption
+        });
+    }
 }

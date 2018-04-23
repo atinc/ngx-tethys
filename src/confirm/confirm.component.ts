@@ -1,13 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/observable';
-import { Subscription } from 'rxjs/Subscription';
 import { ThyModalService } from '../modal/modal.service';
 import { ConfirmOption, ConfirmButtonsOption } from './confirm-option.interface';
 
 @Component({
     templateUrl: './confirm.component.html'
 })
-export class ThyConfirmComponent implements OnDestroy {
+export class ThyConfirmComponent implements OnInit, OnDestroy {
 
     loading: boolean;
 
@@ -15,13 +14,24 @@ export class ThyConfirmComponent implements OnDestroy {
 
     public content: string;
 
+    public contentValues: any;
+
     public buttons: ConfirmButtonsOption;
 
-    private _confirmAction$: Subscription;
+    private _confirmAction$: any;
 
     constructor(
         private modalService: ThyModalService,
     ) { }
+
+    ngOnInit() {
+        for (const key in this.contentValues) {
+            if (this.contentValues.hasOwnProperty(key)) {
+                const _value = this.contentValues[key];
+                this.content = this.content.replace('{{' + key + '}}', _value);
+            }
+        }
+    }
 
     confirm(): any {
         const _action = this.buttons.confirm.action();
