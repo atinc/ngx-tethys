@@ -19,34 +19,47 @@ describe('Store: Store', () => {
         @Action({
             type: 'loadMe'
         })
-        loadMe() {
-            this.snapshot.me = {
-                name: 'peter1'
-            };
-            this.state$.next(this.snapshot);
+        private loadMe(state, payload) {
+            state.me = payload;
+            this.state$.next(state);
         }
 
     }
+    it('store dispatch', () => {
+        const appStore = new AppStateStore();
+        let timer = 0;
+        appStore.select((state: AppState) => {
+            return state.me;
+        }).subscribe((me) => {
+            if (timer === 0) {
+                expect(me).toBe(null);
+            } else if (timer === 1) {
+                expect(me).toEqual({
+                    name: 'peter1'
+                });
+            }
+            timer++;
+        });
+        appStore.dispatch('loadMe', {
+            name: 'peter1'
+        });
+    });
 
-    const appStore = new AppStateStore();
-
-    it(
-        'should work test',
-        () => {
-            let timer = 0;
-            appStore.select((state: AppState) => {
-                return state.me;
-            }).subscribe((me) => {
-                if (timer === 0) {
-                    expect(me).toBe(null);
-                } else if (timer === 1) {
-                    expect(me).toEqual({
-                        name: 'peter1'
-                    });
-                }
-                timer++;
-            });
-            appStore.loadMe();
-        }
-    );
+    // it('store selector', () => {
+    //     const appStore = new AppStateStore();
+    //     let timer = 0;
+    //     appStore.select((state: AppState) => {
+    //         return state.me;
+    //     }).subscribe((me) => {
+    //         if (timer === 0) {
+    //             expect(me).toBe(null);
+    //         } else if (timer === 1) {
+    //             expect(me).toEqual({
+    //                 name: 'peter1'
+    //             });
+    //         }
+    //         timer++;
+    //     });
+    //     appStore.loadMe();
+    // });
 });

@@ -4,7 +4,6 @@ export function findAndCreateStoreMetadata(target): StoreMetaInfo {
     if (!target.hasOwnProperty(META_KEY)) {
         const defaultMetadata: StoreMetaInfo = {
             actions: {},
-            defaults: {},
             path: null,
             children: [],
             instance: null
