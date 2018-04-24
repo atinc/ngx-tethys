@@ -1,3 +1,5 @@
+## 0.0.22
+fix store dispatch subscribe publishRelay
 ## 0.0.21
 export RootStoreModule
 
