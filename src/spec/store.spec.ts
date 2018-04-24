@@ -93,7 +93,6 @@ describe('Store: Store', () => {
         });
     });
 
-
     it('store action return observable', () => {
         const appStore = new AppStateStore();
         appStore.select((state: AppState) => {

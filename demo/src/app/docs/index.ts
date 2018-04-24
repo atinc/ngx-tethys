@@ -1,7 +1,9 @@
 import { ShowcaseSectionsComponent } from './showcase-section/showcase-section.component';
+import { ApiParametersComponent } from './api-parameters/api-parameters.component';
 
 const DOCS_COMPONENTS = [
-    ShowcaseSectionsComponent
+    ShowcaseSectionsComponent,
+    ApiParametersComponent
 ];
 
 export {
