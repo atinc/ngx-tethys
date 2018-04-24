@@ -68,13 +68,15 @@
 .thy-nav--vertical {
   display: block;
   .nav-link {
-    border-left: solid 2px transparent;
+    margin-right: 0;
+    text-align: left;
+    border-left: $nav-vertical-border-left-empty;
     &.active,
     &:hover,
     &:focus,
     &:active {
       border-bottom: 0;
-      border-left: $nav-border-left;
+      border-left: $nav-vertical-border-left;
     }
   }
 }

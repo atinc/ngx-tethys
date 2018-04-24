@@ -49,9 +49,9 @@ export class Store<T extends Object> implements Observer<T> {
         if (result instanceof Observable) {
             result = result.pipe(map(r => r));
         } else {
-            result = of({}).pipe(shareReplay());
+            result = of({});
         }
-        return result;
+        return result.pipe(shareReplay());
     }
 
     select(selector: (state: any) => T): Observable<T>;

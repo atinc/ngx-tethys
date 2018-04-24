@@ -18,54 +18,51 @@ class StringSelectStore extends Store<StringSelectState> {
 }
 
 describe('select', () => {
-    it(
-        'should select the correct state using string',
-        async(() => {
-            @Component({
-                selector: 'my-component-0',
-                template: ''
-            })
-            class StringSelectComponent {
-                // @Select('counter') state: Observable<StateModel>;
-                // @Select('counter.boo') subState: Observable<SubStateModel>;
-                // @Select('counter.boo.baz') subSubState: Observable<SubSubStateModel>;
+    it('should select the correct state using string', async(() => {
+        @Component({
+            selector: 'my-component-0',
+            template: ''
+        })
+        class StringSelectComponent {
+            // @Select('counter') state: Observable<StateModel>;
+            // @Select('counter.boo') subState: Observable<SubStateModel>;
+            // @Select('counter.boo.baz') subSubState: Observable<SubSubStateModel>;
 
-                state: Observable<StringSelectState>;
+            state: Observable<StringSelectState>;
 
-                subState: Observable<string>;
+            subState: Observable<string>;
 
-                constructor(store: StringSelectStore) {
-                    this.state = store.select((state) => {
-                        return state;
-                    });
+            constructor(store: StringSelectStore) {
+                this.state = store.select((state) => {
+                    return state;
+                });
 
-                    this.subState = store.select((state: StringSelectState) => {
-                        return state.baz;
-                    });
-                }
-
+                this.subState = store.select((state: StringSelectState) => {
+                    return state.baz;
+                });
             }
 
-            TestBed.configureTestingModule({
-                imports: [
-                    ThyStoreModule.forRoot([
-                        StringSelectStore
-                    ])],
-                declarations: [
-                    StringSelectComponent
-                ]
-            });
+        }
 
-            const comp = TestBed.createComponent(StringSelectComponent);
+        TestBed.configureTestingModule({
+            imports: [
+                ThyStoreModule.forRoot([
+                    StringSelectStore
+                ])],
+            declarations: [
+                StringSelectComponent
+            ]
+        });
 
-            comp.componentInstance.state.subscribe(state => {
-                expect(state.baz).toBe('Hello');
-                expect(state.boo).toBe('Worktile');
-            });
+        const comp = TestBed.createComponent(StringSelectComponent);
 
-            comp.componentInstance.subState.subscribe(state => {
-                expect(state).toBe('Hello');
-            });
-        })
-    );
+        comp.componentInstance.state.subscribe(state => {
+            expect(state.baz).toBe('Hello');
+            expect(state.boo).toBe('Worktile');
+        });
+
+        comp.componentInstance.subState.subscribe(state => {
+            expect(state).toBe('Hello');
+        });
+    }));
 });

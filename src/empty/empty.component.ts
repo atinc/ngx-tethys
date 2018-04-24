@@ -108,14 +108,14 @@ export class ThyEmptyComponent implements OnInit, AfterViewInit {
                 emptyStateHeight = sizeOptions.height;
             }
             marginTop = (containerElement.offsetHeight - emptyStateHeight) / 2 - sizeOptions.offsetTop;
-            // if (marginTop < 0) {
-            //     marginTop = sizeOptions.defaultMarginTop;
-            // }
+            if (marginTop < 0) {
+                marginTop = 0; // sizeOptions.defaultMarginTop;
+            }
         } else {
             if (this.thyMarginTop) {
                 marginTop = this.thyMarginTop;
             } else {
-                // marginTop = sizeOptions.defaultMarginTop;
+                marginTop = 0; // sizeOptions.defaultMarginTop;
             }
         }
         if (marginTop) {

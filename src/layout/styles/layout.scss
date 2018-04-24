@@ -1,92 +1,90 @@
 .thy-layout {
-    display: flex;
-    flex-direction: column;
-    flex: auto;
-    height: 100%;
-    background: $layout-content-background;
-    &--has-sidebar {
-        flex-direction: row;
-        >.thy-layout-content {
-            overflow-x: hidden;
-        }
+  display: flex;
+  flex-direction: column;
+  flex: auto;
+  height: 100%;
+  background: $layout-content-background;
+  &--has-sidebar {
+    flex-direction: row;
+    >.thy-layout-content {
+      overflow-x: hidden;
     }
+  }
 }
 
 .thy-layout-header {
-    display: block;
-    flex: 0 0 auto;
-    background: $layout-header-background;
-    padding: $layout-header-padding;
-    height: $layout-header-height;
-    line-height: $layout-header-height;
-    &.header-has-border {
-        border-bottom: 1px solid $nav-border-color;
-    }
+  display: block;
+  flex: 0 0 auto;
+  background: $layout-header-background;
+  padding: $layout-header-padding;
+  height: $layout-header-height;
+  line-height: $layout-header-height;
+  &.header-has-border {
+    border-bottom: 1px solid $nav-border-color;
+  }
 }
 
 .thy-layout-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: $layout-content-padding;
+  background: $layout-content-background;
+  .thy-layout-content-section {
+    background: $layout-content-section-background;
+    margin-bottom: $layout-content-section-margin-bottom;
+  }
+  .thy-layout-content-main {
     flex: auto;
-    display: flex;
-    flex-direction: column;
-    padding: $layout-content-padding;
-    background: $layout-content-background;
-
-    .thy-layout-content-section {
-        background: $layout-content-section-background;
-        margin-bottom: $layout-content-section-margin-bottom;
-    }
-    .thy-layout-content-main {
-        flex: auto;
-        background: $layout-content-section-background;
-    }
+    background: $layout-content-section-background;
+  }
 }
 
 .thy-layout-sidebar {
-    transition: all .2s;
-    position: relative;
-    background: $layout-sidebar-background;
-    min-width: 0;
-    width: $layout-sidebar-width;
-    border-right: $layout-sidebar-border-right;
-    display: flex;
-    flex-direction: column;
-
-    .sidebar-header {
-        padding: 0 20px;
-        height: $layout-header-height;
-        line-height: $layout-header-height;
-    }
-
-    .sidebar-content {
-        flex: auto;
-    }
+  transition: all .2s;
+  position: relative;
+  background: $layout-sidebar-background;
+  min-width: 0;
+  width: $layout-sidebar-width;
+  border-right: $layout-sidebar-border-right;
+  display: flex;
+  flex-direction: column;
+  .sidebar-header {
+    padding: 0 20px;
+    height: $layout-header-height;
+    line-height: $layout-header-height;
+  }
+  .sidebar-content {
+    flex: auto;
+  }
+  &--clear-border-right {
+    border-right: none;
+  }
 }
 
 .thy-layout-header {
-    display: flex;
-
-    .layout-header-title {
-        font-size: $font-size-md;
-        color: $gray-800;
-        a {
-            @include link-variant($gray-800, none, $gray-800, none);
-        }
-        .prefix-icon {
-            margin-right: 10px; 
-            color: $primary;
-        }
-        .suffix-icon{
-            margin-left: 10px; 
-            color: $primary;
-        }
+  display: flex;
+  .layout-header-title {
+    font-size: $font-size-md;
+    color: $gray-800;
+    a {
+      @include link-variant($gray-800, none, $gray-800, none);
     }
-
-    .layout-header-content {
-        flex: auto;
+    .prefix-icon {
+      margin-right: 10px;
+      color: $primary;
     }
+    .suffix-icon {
+      margin-left: 10px;
+      color: $primary;
+    }
+  }
+  .layout-header-content {
+    flex: auto;
+  }
 }
 
 .thy-layout-header-sm {
-    height: $layout-header-height-sm;
-    line-height: $layout-header-height-sm;
+  height: $layout-header-height-sm;
+  line-height: $layout-header-height-sm;
 }
