@@ -5,7 +5,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let row of model">
+        <tr *ngFor="let row of model;let i=index;trackBy:trackByFn">
             <td *ngFor="let column of columns" [ngClass]="column.className" [width]="column.width">
                 <ng-container *ngIf="column.model">
                     <ng-container *ngIf="!column.type">
@@ -13,6 +13,7 @@
                     </ng-container>
                     <!--custom type-->
                     <ng-container *ngIf="column.type">
+                        <ng-container *ngIf="column.type === 'index'"> {{i+1}} </ng-container>
                         <ng-container *ngIf="column.type === 'checkbox'">
                             <input type="checkbox" [(ngModel)]="row[column.key]" [disabled]="column.disabled" (ngModelChange)="onModelChange(row,column)"
                                 (change)="onMultiSelectChange($event,row,column)" />
