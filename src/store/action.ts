@@ -1,7 +1,7 @@
 import { META_KEY } from './types';
 import { findAndCreateStoreMetadata } from './util';
 
-interface DecoratorActionOptions {
+export interface DecoratorActionOptions {
     type: string;
     payload?: any;
 }

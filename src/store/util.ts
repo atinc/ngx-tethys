@@ -1,6 +1,6 @@
 import { StoreMetaInfo, META_KEY } from './types';
 
-export function findAndCreateStoreMetadata(target): StoreMetaInfo {
+export function findAndCreateStoreMetadata(target: any): StoreMetaInfo {
     if (!target.hasOwnProperty(META_KEY)) {
         const defaultMetadata: StoreMetaInfo = {
             actions: {},

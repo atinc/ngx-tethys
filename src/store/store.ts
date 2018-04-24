@@ -1,14 +1,16 @@
 
 import { Observable, Observer, BehaviorSubject, from, of } from 'rxjs';
 import { distinctUntilChanged, map, shareReplay } from 'rxjs/operators';
-import { META_KEY } from './types';
+import { META_KEY, StoreMetaInfo } from './types';
 
 interface Action {
     type: string;
     payload?: any;
 }
 
-export class Store<T> implements Observer<T> {
+export class Store<T extends Object> implements Observer<T> {
+
+    [key: string]: any;
 
     private state$: BehaviorSubject<T>;
 
@@ -30,7 +32,7 @@ export class Store<T> implements Observer<T> {
     }
 
     private _dispatch(action: any): Observable<any> {
-        const meta = this[META_KEY];
+        const meta = this[META_KEY] as StoreMetaInfo;
         if (!meta) {
             throw new Error(`${META_KEY} is not found, current store has not action`);
         }
@@ -38,7 +40,7 @@ export class Store<T> implements Observer<T> {
         if (!actionMeta) {
             throw new Error(`${action.type} is not found`);
         }
-        let result = this[actionMeta.fn](this.snapshot, action.payload);
+        let result: any = this[actionMeta.fn](this.snapshot, action.payload);
 
         if (result instanceof Promise) {
             result = from(result);
