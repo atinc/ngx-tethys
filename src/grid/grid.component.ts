@@ -4,7 +4,8 @@ import {
 } from '@angular/core';
 import { AfterContentInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import { inputValueToBoolean, isUndefined, get, set } from '../util/helpers';
-import { ThyGridColumn, ThyMultiSelectEvent, ThyRadioSelectEvent, ThyPage, ThyPageEvent } from './grid.interface';
+import { ThyGridColumn, ThyMultiSelectEvent, ThyRadioSelectEvent, ThyPage } from './grid.interface';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination/pagination.component';
 
 export type ThyGridTheme = 'default' | 'bordered';
 
@@ -66,7 +67,7 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy {
         this.pagination.total = value;
     }
 
-    @Output() thyOnPageChange: EventEmitter<ThyPageEvent> = new EventEmitter<ThyPageEvent>();
+    @Output() thyOnPageChange: EventEmitter<PageChangedEvent> = new EventEmitter<PageChangedEvent>();
 
     @Output() thyOnMultiSelectChange: EventEmitter<ThyMultiSelectEvent> = new EventEmitter<ThyMultiSelectEvent>();
 
@@ -124,12 +125,8 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy {
         }
     }
 
-    public onPageChange($event: Event) {
-        const pageEvent: ThyPageEvent = {
-            event: event,
-            page: this.pagination
-        };
-        this.thyOnPageChange.emit(pageEvent);
+    public onPageChange(event: PageChangedEvent) {
+        this.thyOnPageChange.emit(event);
     }
 
     public onMultiSelectChange(event: Event, row: any, column: ThyGridColumn) {

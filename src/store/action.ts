@@ -9,7 +9,7 @@ export interface DecoratorActionOptions {
 /**
  * Decorates a method with a action information.
  */
-export function Action(action?: DecoratorActionOptions) {
+export function Action(action?: DecoratorActionOptions | string) {
     return function (target: any, name: string, descriptor: TypedPropertyDescriptor<any>) {
         const meta = findAndCreateStoreMetadata(target);
 
@@ -17,6 +17,12 @@ export function Action(action?: DecoratorActionOptions) {
         if (!action) {
             action = {
                 type: name
+            };
+        }
+        // support string for type
+        if (typeof action === 'string') {
+            action = {
+                type: action
             };
         }
         const type = action.type;

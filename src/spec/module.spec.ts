@@ -20,6 +20,14 @@ class RootStore extends Store<RootStateModel> {
     }
 }
 
+class FeatureState {
+    zoo: string;
+}
+class FeatureStore extends Store<FeatureState> {
+    constructor() {
+        super(new FeatureState());
+    }
+}
 
 @NgModule({
     imports: [
@@ -28,15 +36,15 @@ class RootStore extends Store<RootStateModel> {
 })
 class RootModule { }
 
+@NgModule({
+    imports: [
+        ThyStoreModule.forFeature([FeatureStore])
+    ]
+})
+class FeatureModule { }
+
 
 describe('module', () => {
-    // it('should configure and run with no states', () => {
-    //     TestBed.configureTestingModule({
-    //         imports: [ThyStoreModule.forRoot()]
-    //     });
-
-    //     expect(TestBed.get(RootStore)).toBeTruthy();
-    // });
 
     it('should configure and return `RootStore`', () => {
         TestBed.configureTestingModule({
@@ -47,7 +55,7 @@ describe('module', () => {
     });
 
 
-    it('should initialize all  modules state', async(() => {
+    it('should initialize all modules state', async(() => {
         TestBed.configureTestingModule({
             imports: [RootModule]
         });
@@ -56,4 +64,14 @@ describe('module', () => {
         expect(store).toBeTruthy();
         store.select(store.getFoo).subscribe((foo: string) => expect(foo).toEqual('Hello'));
     }));
+
+    it('should configure feature module and return `RootStore` and `FeatureStore`', () => {
+        TestBed.configureTestingModule({
+          imports: [RootModule, FeatureModule]
+        });
+
+        expect(TestBed.get(RootStore)).toBeTruthy();
+        expect(TestBed.get(FeatureModule)).toBeTruthy();
+        expect(TestBed.get(FeatureStore)).toBeTruthy();
+      });
 });
