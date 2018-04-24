@@ -3,7 +3,7 @@
         <h2>默认Grid</h2>
     </div>
     <div class="body">
-        <thy-grid [thyModel]="data$ | async" thyClassName="table-hover" (thyOnMultiSelectChange)="onMultiSelectChange($event)" [thyPageIndex]="pagination.index"
+        <thy-grid [thyModel]="data" thyClassName="table-hover" (thyOnMultiSelectChange)="onMultiSelectChange($event)" [thyPageIndex]="pagination.index"
             [thyPageSize]="pagination.size" [thyPageTotal]="pagination.total" (thyOnPageChange)="onPageChange($event)">
             <thy-grid-column thyTitle="选择" thyModelKey="checked" thyType="checkbox"></thy-grid-column>
             <thy-grid-column thyTitle="姓名" thyModelKey="name"></thy-grid-column>

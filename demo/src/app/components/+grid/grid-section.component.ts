@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination/pagination.component';
-import { BehaviorSubject } from 'rxjs';
-import { of } from 'rxjs/observable/of';
+
 @Component({
     selector: 'demo-grid-section',
     templateUrl: './grid-section.component.html'
@@ -10,7 +9,6 @@ import { of } from 'rxjs/observable/of';
 export class DemoGridSectionComponent implements OnInit {
 
     public data: any[] = [];
-    public data$ = new BehaviorSubject<any>([]);
     public pagination = { index: 1, size: 10, total: 100 };
 
     constructor() {
@@ -34,27 +32,6 @@ export class DemoGridSectionComponent implements OnInit {
             checked: false,
             desc: '这是一条测试数据'
         }];
-
-        this.data$.next(this.data);
-        this.data$.subscribe();
-
-
-        setTimeout(() => {
-            this.data = [{
-                name: '1111',
-                age: 10,
-                checked: true,
-                desc: '这是一条测试数据'
-            }, {
-                name: '222',
-                age: 10,
-                checked: true,
-                desc: '这是一条测试数据'
-            }];
-
-            this.data$.next(this.data);
-
-        }, 5000);
     }
 
     onMultiSelectChange($event: any) {
