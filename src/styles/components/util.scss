@@ -1,18 +1,28 @@
 .d-flex-column-fill {
-    flex: auto;
-    display: flex;
-    flex-direction: column;
+  flex: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .d-flex-row-fill {
-    flex: auto;
-    display: flex;
-    flex-direction: row;
+  flex: auto;
+  display: flex;
+  flex-direction: row;
 }
 
 .thy-dot {
-    display: inline-block;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.thy-operation-links {
+  >a,
+  >button {
+    margin-right: $operation-link-margin-y;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
 }
