@@ -2,7 +2,7 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { ROOT_STATE_TOKEN } from './types';
 
 @NgModule()
-class RootStoreModule {
+export class RootStoreModule {
 
 }
 @NgModule({})
