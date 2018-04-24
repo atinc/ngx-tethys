@@ -36,4 +36,14 @@
       padding-right: 35px;
     }
   }
+  &--clear-left-right-padding {
+    .thy-card-header {
+      padding-left: 0;
+      padding-right: 0;
+    }
+    .thy-card-content {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
 }

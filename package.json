@@ -1,6 +1,6 @@
 {
   "name": "ngx-tethys",
-  "version": "0.0.17",
+  "version": "0.0.21",
   "license": "MIT",
   "scripts": {
     "build": "rimraf ./built/* ./codegen/* && ngc -p tsconfig-dist.json",
@@ -10,7 +10,8 @@
     "build:demo": "ng build --prod --extract-css",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "ts-node": "ts-node test/index"
   },
   "private": true,
   "repository": {
@@ -32,11 +33,13 @@
     "@angular/platform-browser": "^6.0.0-rc.3",
     "@angular/platform-browser-dynamic": "^6.0.0-rc.3",
     "@angular/router": "^6.0.0-rc.3",
-    "core-js": "^2.5.4",
-    "rxjs": "6.0.0-tactical-rc.1",
-    "zone.js": "^0.8.24",
+    "@ngx-translate/core": "^10.0.1",
     "bootstrap": "^4.0.0",
-    "ngx-bootstrap": "^2.0.2"
+    "core-js": "^2.5.4",
+    "ngx-bootstrap": "^2.0.2",
+    "rxjs": "6.0.0-tactical-rc.1",
+    "ts-node": "^6.0.0",
+    "zone.js": "^0.8.24"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.5.0",
@@ -58,7 +61,6 @@
     "ngm-cli": "^0.9.1",
     "npm-run-all": "^4.1.2",
     "protractor": "~5.3.0",
-    "ts-node": "~5.0.1",
     "tslint": "~5.9.1",
     "typescript": "~2.7.2",
     "webpack": "^4.5.0"

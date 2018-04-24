@@ -17,7 +17,8 @@ import { DemoCardSectionComponent } from './+card/card-section.component';
 import { DemoLoadingSectionComponent } from './+loading/loading-section.component';
 import { DemoConfirmSectionComponent } from './+confirm/confirm-section.component';
 import { DemoTreeSectionComponent } from './+tree/tree-section.component';
-
+import { DemoNotifySectionComponent } from './+notify/notify-section.component';
+import { DemoEmptySectionComponent } from './+empty/empty-section.component';
 
 
 export const COMPONENTS = [
@@ -34,6 +35,7 @@ export const COMPONENTS = [
     DemoAvatarSectionComponent,
     DemoLabelSectionComponent,
     DemoLayoutSectionComponent,
+    DemoNotifySectionComponent,
     DemoNavSectionComponent,
     DemoModalSectionComponent,
     DemoCardSectionComponent,
@@ -41,7 +43,8 @@ export const COMPONENTS = [
     DemoModalContentComponent,
     DemoModalSectionComponent,
     DemoLoadingSectionComponent,
-    DemoTreeSectionComponent
+    DemoTreeSectionComponent,
+    DemoEmptySectionComponent
 ];
 
 export const ENTRY_COMPONENTS = [

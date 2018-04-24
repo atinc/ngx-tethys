@@ -1,0 +1,11 @@
+@mixin thy-notify-icon($color,$padding,$fontSize) {
+  width: 45px;
+  font-size: 20px;
+  i {
+    padding: $padding;
+    font-size: $fontSize;
+    color: $color;
+    border: solid 2px $color;
+    border-radius: 100%;
+  }
+}

@@ -1,0 +1,11 @@
+@mixin set-empty-state-size($icon-size, $text-size: $font-size-md) {
+    .empty-icon {
+        i {
+            font-size: $icon-size;
+        }
+    }
+
+    .empty-text {
+        font-size: $text-size;
+    }
+}

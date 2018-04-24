@@ -1,9 +1,8 @@
 
 import { Component } from '@angular/core';
 import { ThyConfirmService } from '../../../../../src/confirm/confirm.service';
-import { Subject } from 'rxjs/Subject';
-import { of } from 'rxjs/observable/of';
 import { tap, delay } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
     selector: 'demo-confirm-section',
@@ -15,6 +14,17 @@ export class DemoConfirmSectionComponent {
     constructor(
         private confirmService: ThyConfirmService
     ) { }
+
+    deleteSimplyConfirm() {
+        this.confirmService.showDelete(
+            {
+                name: '6.0迭代开发',
+                typeName: '项目'
+            }, () => {
+                console.log(1);
+            }
+        );
+    }
 
     deleteConfirm() {
         this.confirmService.show({

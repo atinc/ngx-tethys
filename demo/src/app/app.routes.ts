@@ -15,6 +15,8 @@ import { DemoLoadingSectionComponent } from './components/+loading/loading-secti
 import { DemoActionMenuSectionComponent } from './components/+action-menu/action-menu-section.component';
 import { DemoConfirmSectionComponent } from './components/+confirm/confirm-section.component';
 import { DemoTreeSectionComponent } from './components/+tree/tree-section.component';
+import { DemoNotifySectionComponent } from './components/+notify/notify-section.component';
+import { DemoEmptySectionComponent } from './components/+empty/empty-section.component';
 
 const appRoutes = [
     {
@@ -62,6 +64,10 @@ const appRoutes = [
         component: DemoLayoutSectionComponent
     },
     {
+        path: 'components/empty',
+        component: DemoEmptySectionComponent
+    },
+    {
         path: 'components/nav',
         component: DemoNavSectionComponent
     },
@@ -72,6 +78,10 @@ const appRoutes = [
     {
         path: 'components/confirm',
         component: DemoConfirmSectionComponent
+    },
+    {
+        path: 'components/notify',
+        component: DemoNotifySectionComponent
     },
     {
         path: 'components/card',
