@@ -68,6 +68,8 @@
 .thy-nav--vertical {
   display: block;
   .nav-link {
+    margin-right: 0;
+    text-align: left;
     border-left: solid 2px transparent;
     &.active,
     &:hover,
