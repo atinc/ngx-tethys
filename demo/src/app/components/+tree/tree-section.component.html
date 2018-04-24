@@ -5,7 +5,23 @@
     <div class="body">
         <thy-tree [thyNodes]="nodes" class="thy-tree">
             <ng-template #treeNodeTemplate let-node="node" let-level="level">
-                <div><input type="checkbox"/> {{level}}级 --- {{node.name}}</div>
+                <input type="checkbox" /> {{level}}级 --- {{node.name}}
+            </ng-template>
+        </thy-tree>
+    </div>
+</section>
+
+<br/>
+
+<section>
+    <div class="header">
+        <h2>Tree(更灵活的使用方式)</h2>
+    </div>
+    <div class="body">
+        <thy-tree [thyNodes]="nodes" [thyAutoLoop]="false" class="thy-tree" [sortablejs]="nodes">
+            <ng-template #treeNodeTemplate let-node="node" let-level="level" let-instance="instance">
+                <div> ● {{level}}级 --- {{node.name}}</div>
+                <thy-tree [thyInstance]="instance" [sortablejs]="node.children"></thy-tree>
             </ng-template>
         </thy-tree>
     </div>

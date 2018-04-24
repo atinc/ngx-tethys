@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgxTethysModule } from '../../../src/index';
 import { RouterModule } from '@angular/router';
+import { SortablejsModule } from 'angular-sortablejs';
 
 import { AppComponent } from './app.component';
 import { COMPONENTS, ENTRY_COMPONENTS } from './components';
@@ -29,7 +30,8 @@ import { DemoThyTranslate } from './demo-thy-translate';
         ModalModule.forRoot(),
         TranslateModule.forRoot(),
         TabsModule.forRoot(),
-        TranslateModule
+        TranslateModule,
+        SortablejsModule.forRoot({})
     ],
     providers: [
         {
