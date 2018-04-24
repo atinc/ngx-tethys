@@ -1,5 +1,9 @@
+## 0.0.21
+export RootStoreModule
+
 ## 0.0.20
 fix store build error.
+
 ## 0.0.19
 fix ts define file error.
 
