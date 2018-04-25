@@ -12,6 +12,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ThyTranslate } from '../../../src/shared';
 import { DemoThyTranslate } from './demo-thy-translate';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
     declarations: [
@@ -29,7 +30,8 @@ import { DemoThyTranslate } from './demo-thy-translate';
         ModalModule.forRoot(),
         TranslateModule.forRoot(),
         TabsModule.forRoot(),
-        TranslateModule
+        TranslateModule,
+        FormsModule
     ],
     providers: [
         {
