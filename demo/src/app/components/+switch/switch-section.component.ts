@@ -13,8 +13,8 @@ export class DemoSwitchSectionComponent implements OnInit {
 
     }
 
-    switchChange(data) {
-        console.log(data.checked);
+    switchChange(event) {
+        console.log(this.isChecked);
     }
 
     ngOnInit() {
