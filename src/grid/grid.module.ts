@@ -4,6 +4,9 @@ import { CommonModule } from '@angular/common';
 import { ThyGridComponent } from './grid.component';
 import { ThyGridColumnComponent } from './grid-column.component';
 import { ThyPaginationModule } from '../pagination/pagination.module';
+import { ThySwitchModule } from '../switch/switch.module';
+import { ThyLoadingModule } from '../loading/loading.module';
+import { ThyEmptyModule } from '../empty/empty.module';
 
 @NgModule({
     declarations: [
@@ -13,7 +16,10 @@ import { ThyPaginationModule } from '../pagination/pagination.module';
     imports: [
         CommonModule,
         FormsModule,
-        ThyPaginationModule
+        ThyPaginationModule,
+        ThySwitchModule,
+        ThyLoadingModule,
+        ThyEmptyModule
     ],
     exports: [
         ThyGridComponent,

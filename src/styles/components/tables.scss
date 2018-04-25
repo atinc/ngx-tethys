@@ -66,6 +66,9 @@
     @include hover {
       @include table-hover-box-shadow($table-hover-color);
     }
+    &.hover-clear {
+      box-shadow: initial;
+    }
   }
 }
 

@@ -5,10 +5,12 @@ export interface ThyGridColumn {
   model: string;
   title: string;
   type: string;
+  selections: any;
   width: string | number;
   className: string;
   headerClassName: string;
   disabled: boolean;
+  defaultText: string;
   templateRef: TemplateRef<any>;
 }
 
@@ -18,6 +20,21 @@ export interface ThyPage {
   size?: number;
   total?: number;
 }
+
+
+export interface ThyGridEmptyOptions {
+  message?: string;
+  translationId?: string;
+  translationValues?: any;
+  entityName?: string;
+  entityNameTranslateId?: string;
+  iconClass?: string;
+  size?: string;
+  marginTop?: string;
+  topAuto?: string;
+  container?: TemplateRef<any>;
+}
+
 
 export interface ThyMultiSelectEvent {
   event: Event;
@@ -29,6 +46,7 @@ export interface ThyRadioSelectEvent {
   event: Event;
   row: any;
 }
+
 
 
 

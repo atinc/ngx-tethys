@@ -4,34 +4,47 @@
             <th *ngFor="let column of columns" [ngClass]="column.headerClassName">{{column.title}}</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody *ngIf="loadingDone">
         <tr *ngFor="let row of model;let i=index;trackBy:trackByFn">
             <td *ngFor="let column of columns" [ngClass]="column.className" [width]="column.width">
-                <ng-container *ngIf="column.model">
-                    <ng-container *ngIf="!column.type">
-                        {{getModelValue(row,column.model)}}
-                    </ng-container>
-                    <!--custom type-->
-                    <ng-container *ngIf="column.type">
-                        <ng-container *ngIf="column.type === 'index'"> {{i+1}} </ng-container>
-                        <ng-container *ngIf="column.type === 'checkbox'">
-                            <input type="checkbox" [(ngModel)]="row[column.key]" [disabled]="column.disabled" (ngModelChange)="onModelChange(row,column)"
-                                (change)="onMultiSelectChange($event,row,column)" />
-                        </ng-container>
-                        <ng-container *ngIf="column.type === 'radio'">
-                            <input type="radio" [(ngModel)]="selectedRadioRow" [value]="row" [disabled]="column.disabled" (change)="onRadioSelectChange($event,row)"
-                            />
-                        </ng-container>
-                    </ng-container>
-                </ng-container>
                 <!--template-->
-                <ng-container *ngIf="!column.model && isTemplateRef(column.templateRef)">
+                <ng-container *ngIf="isTemplateRef(column.templateRef)">
                     <ng-template [ngTemplateOutlet]="column.templateRef" [ngTemplateOutletContext]="{$implicit : row}"></ng-template>
                 </ng-container>
+                <!--not template-->
+                <ng-container *ngIf="!isTemplateRef(column.templateRef)">
+                    <!-- default -->
+                    <ng-container *ngIf="column.model && !column.type">
+                        {{getModelValue(row,column.model) || column.defaultText}}
+                    </ng-container>
+                    <!-- index -->
+                    <ng-container *ngIf="column.type === customType.index"> {{i+1}} </ng-container>
+                    <!-- checkbox -->
+                    <ng-container *ngIf="column.type === customType.checkbox">
+                        <input type="checkbox" [(ngModel)]="row[column.key]" [disabled]="column.disabled" (change)="onMultiSelectChange($event,row,column)">
+                    </ng-container>
+                    <!-- radio -->
+                    <ng-container *ngIf="column.type === customType.radio">
+                        <input type="radio" [(ngModel)]="selectedRadioRow" [value]="row" [disabled]="column.disabled" (change)="onRadioSelectChange($event,row)">
+                    </ng-container>
+                    <!-- switch -->
+                    <ng-container *ngIf="column.type === customType.switch">
+                        <thy-switch [(ngModel)]="row[column.key]" (ngModelChange)="onModelChange(row,column)" (thyChange)="onSwitchChange($event)"></thy-switch>
+                    </ng-container>
+                </ng-container>
+            </td>
+        </tr>
+        <tr *ngIf="model && model.length === 0" class="hover-clear">
+            <td [colSpan]="columns.length">
+                <thy-empty [thyMessage]="emptyOptions.message" [thyTranslationId]="emptyOptions.translationId" [thyTranslationValues]="emptyOptions.translationValues"
+                    [thyEntityName]="emptyOptions.entityName" [thyEntityNameTranslateId]="emptyOptions.entityNameTranslateId" [thyIconClass]="emptyOptions.iconClass"
+                    [thySize]="emptyOptions.size" [thyMarginTop]="emptyOptions.marginTop" [thyTopAuto]="emptyOptions.topAuto"
+                    [thyContainer]="emptyOptions.container"></thy-empty>
             </td>
         </tr>
     </tbody>
 </table>
+<thy-loading [thyDone]="loadingDone" [thyTip]="loadingText"></thy-loading>
 <div class="clearfix" *ngIf="pagination.total > pagination.size">
     <pagination class="float-right" [directionLinks]="true" [maxSize]="6" [boundaryLinks]="false" [rotate]="false" [totalItems]="pagination.total"
         [(ngModel)]="pagination.index" [itemsPerPage]="pagination.size" (pageChanged)="onPageChange($event)"></pagination>

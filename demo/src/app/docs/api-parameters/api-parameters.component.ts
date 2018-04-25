@@ -9,8 +9,9 @@ class ApiParameter {
 
 @Component({
     selector: 'api-parameters',
-    templateUrl:'./api-parameters.component.html'
+    templateUrl: './api-parameters.component.html'
 })
 export class ApiParametersComponent {
+    @Input() title = '参数列表';
     @Input() parameters: ApiParameter[];
 }
