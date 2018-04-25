@@ -1,14 +1,15 @@
 <section>
     <div class="header">
-        <h2>默认Grid</h2>
+        <h2>Default Grid</h2>
     </div>
     <div class="body">
-        <thy-grid [thyModel]="data" thyClassName="table-hover" (thyOnMultiSelectChange)="onMultiSelectChange($event)" [thyPageIndex]="pagination.index"
-            [thyPageSize]="pagination.size" [thyPageTotal]="pagination.total" (thyOnPageChange)="onPageChange($event)">
-            <thy-grid-column thyTitle="选择" thyModelKey="checked" thyType="checkbox"></thy-grid-column>
+        <thy-grid [thyModel]="model" thyRowKey="id" thyClassName="table-hover" (thyOnMultiSelectChange)="onMultiSelectChange($event)" [thyPageIndex]="pagination.index"
+            [thyPageSize]="pagination.size" [thyPageTotal]="pagination.total" (thyOnPageChange)="onPageChange($event)" (thyOnSwitchChange)="onSwitchChange($event)">
+            <thy-grid-column thyTitle="选择" thyType="checkbox" [thySelections]="selections"></thy-grid-column>
             <thy-grid-column thyTitle="姓名" thyModelKey="name"></thy-grid-column>
             <thy-grid-column thyTitle="年龄" thyModelKey="age"></thy-grid-column>
             <thy-grid-column thyTitle="备注" thyModelKey="desc" thyDefaultText="-"></thy-grid-column>
+            <thy-grid-column thyTitle="默认" thyModelKey="checked" thyType="switch"></thy-grid-column>
             <thy-grid-column thyTitle="操作" thyClassName="thy-operation-links">
                 <ng-template let-row>
                     <a href="javascript:;">设置</a>
@@ -21,14 +22,17 @@
     </div>
 </section>
 
+<br/>
+
 <section>
     <div class="header">
         <h2>Bordered Grid</h2>
     </div>
     <div class="body">
-        <thy-grid [thyModel]='data' thyTheme="bordered" thyRowKey="id" thyClassName="table-hover" (thyOnRadioSelectChange)="onRadioSelectChange($event)">
+        <thy-grid [thyModel]='model' [thyLoadingDone]="loadingDone" thyLoadingText="测试加载" thyTheme="bordered" thyRowKey="id" thyClassName="table-hover"
+            (thyOnRadioSelectChange)="onRadioSelectChange($event)">
             <thy-grid-column thyTitle="编号" thyType="index"></thy-grid-column>
-            <thy-grid-column thyTitle="选择" thyType="checkbox" [thySelections]="selections[2]"></thy-grid-column>
+            <thy-grid-column thyTitle="选择" thyType="radio" [thySelections]="model[1]"></thy-grid-column>
             <thy-grid-column thyTitle="姓名" thyModelKey="name"></thy-grid-column>
             <thy-grid-column thyTitle="年龄" thyModelKey="age"></thy-grid-column>
             <thy-grid-column thyTitle="备注" thyModelKey="desc"></thy-grid-column>
@@ -43,3 +47,11 @@
         </thy-grid>
     </div>
 </section>
+
+<br/>
+
+<api-parameters title="Gird 参数列表" [parameters]="gridApiParams"></api-parameters>
+
+<br/>
+
+<api-parameters title="Gird Column 参数列表" [parameters]="columnApiParams"></api-parameters>

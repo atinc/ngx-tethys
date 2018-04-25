@@ -4,15 +4,23 @@ import {
 } from '@angular/core';
 import { AfterContentInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import { inputValueToBoolean, isUndefined, get, set } from '../util/helpers';
-import { ThyGridColumn, ThyMultiSelectEvent, ThyRadioSelectEvent, ThyPage } from './grid.interface';
+import { ThyGridColumn, ThyMultiSelectEvent, ThyRadioSelectEvent, ThyPage, ThyGridEmptyOptions } from './grid.interface';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination/pagination.component';
 
 export type ThyGridTheme = 'default' | 'bordered';
 
-const themeMap: any = {
+const themeMap = {
     default: 'table-default',
     bordered: 'table-bordered'
 };
+
+const customType = {
+    index: 'index',
+    checkbox: 'checkbox',
+    radio: 'radio',
+    switch: 'switch'
+};
+
 
 @Component({
     selector: 'thy-grid',
@@ -20,6 +28,8 @@ const themeMap: any = {
     encapsulation: ViewEncapsulation.None
 })
 export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy {
+
+    public customType = customType;
 
     public model: object[] = [];
 
@@ -31,21 +41,28 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy {
 
     public className = '';
 
+    public loadingDone = true;
+
+    public loadingText: string;
+
+    public emptyOptions: ThyGridEmptyOptions = {};
+
     public selectedRadioRow: any = null;
 
     public pagination: ThyPage = { index: 1, size: 20, total: 0 };
 
     private _filter: any = null;
 
-    @Input()
-    set thyRowKey(value: any) {
-        this.rowKey = value || this.rowKey;
-    }
 
     @Input()
     set thyModel(value: any) {
         this.model = value || [];
         this._formatModel();
+    }
+
+    @Input()
+    set thyRowKey(value: any) {
+        this.rowKey = value || this.rowKey;
     }
 
     @Input()
@@ -56,6 +73,21 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy {
     @Input()
     set thyClassName(value: string) {
         this.className = value || ' ';
+    }
+
+    @Input()
+    set thyLoadingDone(value: boolean) {
+        this.loadingDone = value;
+    }
+
+    @Input()
+    set thyLoadingText(value: string) {
+        this.loadingText = value;
+    }
+
+    @Input()
+    set thyEmptyOptions(value: ThyGridEmptyOptions) {
+        this.emptyOptions = value;
     }
 
     @Input()
@@ -83,6 +115,8 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy {
     @Output() thyOnMultiSelectChange: EventEmitter<ThyMultiSelectEvent> = new EventEmitter<ThyMultiSelectEvent>();
 
     @Output() thyOnRadioSelectChange: EventEmitter<ThyRadioSelectEvent> = new EventEmitter<ThyRadioSelectEvent>();
+
+    @Output() thyOnSwitchChange: EventEmitter<Event> = new EventEmitter<Event>();
 
     private _formatModel() {
         this.model.forEach(row => {
@@ -115,7 +149,7 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy {
     private _destroyInvalidAttribute() {
         this.model.forEach(row => {
             for (const key in row) {
-                if (key.includes('column')) {
+                if (key.includes('[$$column]')) {
                     delete row[key];
                 }
             }
@@ -171,6 +205,10 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy {
             row: row
         };
         this.thyOnRadioSelectChange.emit(radioSelectEvent);
+    }
+
+    public onSwitchChange(event: Event) {
+        this.thyOnSwitchChange.emit(event);
     }
 
     ngOnInit() {

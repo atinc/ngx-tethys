@@ -74,6 +74,6 @@ export class ThyGridColumnComponent implements OnInit {
     }
 
     private _generateKey() {
-        return 'column' + Math.random().toString(16).substr(2, 8);
+        return '[$$column]' + Math.random().toString(16).substr(2, 8);
     }
 }

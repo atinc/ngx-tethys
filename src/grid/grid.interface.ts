@@ -21,6 +21,21 @@ export interface ThyPage {
   total?: number;
 }
 
+
+export interface ThyGridEmptyOptions {
+  message?: string;
+  translationId?: string;
+  translationValues?: any;
+  entityName?: string;
+  entityNameTranslateId?: string;
+  iconClass?: string;
+  size?: string;
+  marginTop?: string;
+  topAuto?: string;
+  container?: TemplateRef<any>;
+}
+
+
 export interface ThyMultiSelectEvent {
   event: Event;
   row: any;
@@ -31,6 +46,7 @@ export interface ThyRadioSelectEvent {
   event: Event;
   row: any;
 }
+
 
 
 
