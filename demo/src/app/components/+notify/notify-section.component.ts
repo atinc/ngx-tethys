@@ -29,10 +29,10 @@ export class DemoNotifySectionComponent {
     }
 
     showNotAutoClose() {
-        this.notifyService.success('创建项目成功！');
-        this.notifyService.info('你可以尝试创建一个项目。');
-        this.notifyService.warning('删除项目后，项目将无法还原！');
-        this.notifyService.error('删除项目失败！');
+        this.notifyService.success(null, '创建项目成功！');
+        this.notifyService.info(null, '你可以尝试创建一个项目。');
+        this.notifyService.warning(null, '删除项目后，项目将无法还原！');
+        this.notifyService.error(null, '删除项目失败！');
     }
 
     showHasDetail() {

@@ -41,26 +41,19 @@ export class ThyConfirmService {
     }
 
     deleteTranslateKey(titleKey: string, contentKey: ContentKeyParams | string, action: Function) {
-        let _deleteOption: ConfirmOption;
-        _deleteOption = {
-            buttons: {
-                confirm: {
-                    type: 'danger',
-                    action: action
-                }
-            }
-        };
+        let title = null,
+            content = null;
         if (titleKey) {
-            _deleteOption.title = this.translate.instant(titleKey);
+            title = this.translate.instant(titleKey);
         }
         if (isObject(contentKey)) {
             contentKey = <ContentKeyParams>contentKey;
-            _deleteOption.content = this.translate.instant(contentKey.content, contentKey.params);
+            content = this.translate.instant(contentKey.content, contentKey.params);
         } else {
             contentKey = <string>contentKey;
-            _deleteOption.content = this.translate.instant(contentKey);
+            content = this.translate.instant(contentKey);
         }
-        this.show(_deleteOption);
+        this.delete(title, content, action);
     }
 
     private _formatOption(option: ConfirmOption) {
