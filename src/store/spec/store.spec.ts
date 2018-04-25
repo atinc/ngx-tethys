@@ -1,4 +1,4 @@
-import { Store, Action } from '../store';
+import { Store, Action } from '../index';
 import { of } from 'rxjs';
 import { map, tap, skip } from 'rxjs/operators';
 
