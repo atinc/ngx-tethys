@@ -8,18 +8,18 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination/pagination.component'
 })
 export class DemoGridSectionComponent implements OnInit {
 
-    public model: object[] = [
+    public model: any[] = [
         {
             id: 1,
             name: '张三',
             age: 10,
-            checked: true,
+            checked: false,
             desc: ''
         }, {
             id: 2,
             name: '李四',
             age: 10,
-            checked: true,
+            checked: false,
             desc: '这是一条测试数据'
         }, {
             id: 3,
@@ -192,6 +192,7 @@ export class DemoGridSectionComponent implements OnInit {
     ngOnInit() {
         setTimeout(() => {
             this.loadingDone = true;
+            this.model.push({ ...this.model[0], checked: true });
         }, 3000);
     }
 

@@ -121,12 +121,12 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy {
     private _formatModel() {
         this.model.forEach(row => {
             this.columns.forEach(column => {
-                this._initialSelections(column, row);
+                this._initialSelections(row, column);
             });
         });
     }
 
-    private _initialSelections(column: ThyGridColumn, row: object) {
+    private _initialSelections( row: object,column: ThyGridColumn,) {
         if (column.selections && column.selections.length > 0) {
             if (column.type === 'checkbox') {
                 row[column.key] = column.selections.includes(row[this.rowKey]);
