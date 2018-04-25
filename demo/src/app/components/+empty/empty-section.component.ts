@@ -18,7 +18,7 @@ export class DemoEmptySectionComponent {
             default: ''
         },
         {
-            property: 'thyTranslationId',
+            property: 'thyTranslationKey',
             description: '显示文本提示信息多语言 Key',
             type: 'String',
             default: ''
@@ -36,7 +36,7 @@ export class DemoEmptySectionComponent {
             default: ''
         },
         {
-            property: 'thyEntityNameTranslateId',
+            property: 'thyEntityNameTranslateKey',
             description: 'thyEntityName 的多语言 Key',
             type: 'String',
             default: ''

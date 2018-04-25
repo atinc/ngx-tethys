@@ -38,15 +38,15 @@ export class ThyEmptyComponent implements OnInit, AfterViewInit {
     @Input() thyMessage: string;
 
     // 显示文本的多语言 Key 优先级 99
-    @Input() thyTranslationId: string;
+    @Input() thyTranslationKey: string;
 
     @Input() thyTranslationValues: any;
 
     // 显示默认提示信息，替换目标名称
     @Input() thyEntityName: string;
 
-    // 显示默认提示信息，替换目标名称的 translateId
-    @Input() thyEntityNameTranslateId: string;
+    // 显示默认提示信息，替换目标名称的 translateKey
+    @Input() thyEntityNameTranslateKey: string;
 
     @Input() thyIconClass: string;
 
@@ -67,18 +67,18 @@ export class ThyEmptyComponent implements OnInit, AfterViewInit {
     get displayText() {
         if (this.thyMessage) {
             return this.thyMessage;
-        } else if (this.thyTranslationId) {
-            return this.thyTranslate.instant(this.thyTranslationId, this.thyTranslationValues);
+        } else if (this.thyTranslationKey) {
+            return this.thyTranslate.instant(this.thyTranslationKey, this.thyTranslationValues);
         } else if (this.thyEntityName) {
-            return this.thyTranslate.instant(this.thyEmptyConfig.noResultWithTargetTranslateId, {
+            return this.thyTranslate.instant(this.thyEmptyConfig.noResultWithTargetTranslateKey, {
                 target: this.thyEntityName
             });
-        } else if (this.thyEntityNameTranslateId) {
-            return this.thyTranslate.instant(this.thyEmptyConfig.noResultWithTargetTranslateId, {
-                target: this.thyTranslate.instant(this.thyEntityNameTranslateId)
+        } else if (this.thyEntityNameTranslateKey) {
+            return this.thyTranslate.instant(this.thyEmptyConfig.noResultWithTargetTranslateKey, {
+                target: this.thyTranslate.instant(this.thyEntityNameTranslateKey)
             });
         } else {
-            return this.thyTranslate.instant(this.thyEmptyConfig.noResultTranslateId);
+            return this.thyTranslate.instant(this.thyEmptyConfig.noResultTranslateKey);
         }
     }
 
