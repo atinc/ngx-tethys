@@ -2,13 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ThyTreeComponent } from './tree.component';
 import { ThyTreeNodeComponent } from './tree-node.component';
-import { ThyTreeChildRegionComponent } from './tree-child-region.component';
+import { ThyTreeReplaceRegionComponent } from './tree-replace-region.component';
 
 @NgModule({
     declarations: [
         ThyTreeComponent,
         ThyTreeNodeComponent,
-        ThyTreeChildRegionComponent
+        ThyTreeReplaceRegionComponent
     ],
     imports: [
         CommonModule
@@ -19,7 +19,7 @@ import { ThyTreeChildRegionComponent } from './tree-child-region.component';
     exports: [
         ThyTreeComponent,
         ThyTreeNodeComponent,
-        ThyTreeChildRegionComponent
+        ThyTreeReplaceRegionComponent
     ]
 })
 export class ThyTreeModule {

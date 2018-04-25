@@ -1,0 +1,5 @@
+@each $color, $value in $theme-colors {
+  .switch-#{$color} {
+    @include switch-variant($value);
+  }
+}

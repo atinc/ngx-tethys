@@ -1,5 +1,10 @@
 <thy-tree-node *ngFor="let node of thyNodes;let i=index;">
-    <ng-template [ngTemplateOutlet]="templateRef" [ngTemplateOutletContext]="createNodeContext(node)"></ng-template>
-    <thy-tree *ngIf="thyAutoLoop && node[thyChildrenPropName] && node[thyChildrenPropName].length > 0" [thyTemplate]="templateRef"
-        [thyNodes]="node[thyChildrenPropName]" [thyLevel]="thyLevel + 1" [thyAutoLoop]="thyAutoLoop"></thy-tree>
+    <ng-container *ngIf="templateRef">
+        <ng-template [ngTemplateOutlet]="templateRef" [ngTemplateOutletContext]="createNodeContext(node)"></ng-template>
+        <thy-tree *ngIf="node[thyChildrenPropName] && node[thyChildrenPropName].length > 0" [thyTemplate]="templateRef" [thyNodes]="node[thyChildrenPropName]"
+            [thyLevel]="thyLevel + 1"></thy-tree>
+    </ng-container>
+    <ng-container *ngIf="flexibleTemplateRef">
+        <ng-template [ngTemplateOutlet]="flexibleTemplateRef" [ngTemplateOutletContext]="createNodeContext(node)"></ng-template>
+    </ng-container>
 </thy-tree-node>

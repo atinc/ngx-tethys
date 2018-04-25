@@ -1,0 +1,38 @@
+$switch-lg-width: 48px;
+$switch-lg-height: 28px;
+
+$switch-width: 40px;
+$switch-height: 24px;
+
+$handle-margin: 2px;
+
+$switch-sm-width: 32px;
+$switch-sm-height: 20px;
+
+$switch-xs-width: 24px;
+$switch-xs-height: 16px;
+
+
+.switch {
+  @include switch($switch-width, $switch-height, 0);
+}
+
+.switch-pill {
+  .switch-label,
+  .switch-handle {
+    border-radius: 50em !important;
+  }
+
+  .switch-label::before {
+    right: 2px !important;
+  }
+  .switch-label::after {
+    left: 2px !important;
+  }
+}
+
+@each $color, $value in $theme-colors {
+  .switch-#{$color} {
+    @include switch-variant($value);
+  }
+}
