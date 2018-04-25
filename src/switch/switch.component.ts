@@ -48,7 +48,7 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor {
         this.size = value;
     }
 
-    @Output() thyChange: EventEmitter<any> = new EventEmitter<any>();
+    @Output() thyChange: EventEmitter<Event> = new EventEmitter<Event>();
 
 
     constructor() {
@@ -75,12 +75,10 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor {
         this.onModelTouched = fn;
     }
 
-    toggle() {
+    toggle(event:any) {
         this.model = !this.model;
         this.onModelChange(this.model);
-        this.thyChange.emit({
-            'checked': this.model
-        });
+        this.thyChange.emit(event);
 
     }
 
