@@ -18,4 +18,6 @@ export interface ThyNotifyOption {
 
     duration?: number;
 
+    maxStack?: number;
+
 }
