@@ -22,25 +22,30 @@ const themeMap: any = {
 export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy {
 
     public model: object[] = [];
-    public rowKey: string;
+
+    public rowKey = '_id';
+
     public columns: ThyGridColumn[] = [];
+
     public themeClass = themeMap['default'];
+
     public className = '';
+
     public selectedRadioRow: any = null;
+
     public pagination: ThyPage = { index: 1, size: 20, total: 0 };
 
     private _filter: any = null;
 
+    @Input()
+    set thyRowKey(value: any) {
+        this.rowKey = value || this.rowKey;
+    }
 
     @Input()
     set thyModel(value: any) {
         this.model = value || [];
         this._formatModel();
-    }
-
-    @Input()
-    set thyRowKey(value: any) {
-        this.rowKey = value;
     }
 
     @Input()
@@ -82,13 +87,22 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy {
     private _formatModel() {
         this.model.forEach(row => {
             this.columns.forEach(column => {
-                if (column.type === 'checkbox') {
-                    if (column.model) {
-                        row[column.key] = get(row, column.model);
-                    }
-                }
+                this._initialSelections(column, row);
             });
         });
+    }
+
+    private _initialSelections(column: ThyGridColumn, row: object) {
+        if (column.selections && column.selections.length > 0) {
+            if (column.type === 'checkbox') {
+                row[column.key] = column.selections.includes(row[this.rowKey]);
+            }
+            if (column.type === 'radio') {
+                if (column.selections.includes(row[this.rowKey])) {
+                    this.selectedRadioRow = row;
+                }
+            }
+        }
     }
 
     private _filterModel() {
@@ -141,7 +155,7 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy {
 
     public onMultiSelectChange(event: Event, row: any, column: ThyGridColumn) {
         const rows = this.model.filter(item => {
-            return !!get(item, column.model);
+            return item[column.key];
         });
         const multiSelectEvent: ThyMultiSelectEvent = {
             event: event,

@@ -5,10 +5,12 @@ export interface ThyGridColumn {
   model: string;
   title: string;
   type: string;
+  selections: any;
   width: string | number;
   className: string;
   headerClassName: string;
   disabled: boolean;
+  defaultText: string;
   templateRef: TemplateRef<any>;
 }
 

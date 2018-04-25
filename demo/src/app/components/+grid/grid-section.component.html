@@ -8,7 +8,7 @@
             <thy-grid-column thyTitle="选择" thyModelKey="checked" thyType="checkbox"></thy-grid-column>
             <thy-grid-column thyTitle="姓名" thyModelKey="name"></thy-grid-column>
             <thy-grid-column thyTitle="年龄" thyModelKey="age"></thy-grid-column>
-            <thy-grid-column thyTitle="备注" thyModelKey="desc"></thy-grid-column>
+            <thy-grid-column thyTitle="备注" thyModelKey="desc" thyDefaultText="-"></thy-grid-column>
             <thy-grid-column thyTitle="操作" thyClassName="thy-operation-links">
                 <ng-template let-row>
                     <a href="javascript:;">设置</a>
@@ -26,8 +26,9 @@
         <h2>Bordered Grid</h2>
     </div>
     <div class="body">
-        <thy-grid [thyModel]='data' thyTheme="bordered" className="table-hover" (thyOnRadioSelectChange)="onRadioSelectChange($event)">
-            <thy-grid-column thyTitle="选择" thyModelKey="checked" thyType="radio"></thy-grid-column>
+        <thy-grid [thyModel]='data' thyTheme="bordered" thyRowKey="id" thyClassName="table-hover" (thyOnRadioSelectChange)="onRadioSelectChange($event)">
+            <thy-grid-column thyTitle="编号" thyType="index"></thy-grid-column>
+            <thy-grid-column thyTitle="选择" thyType="checkbox" [thySelections]="selections[2]"></thy-grid-column>
             <thy-grid-column thyTitle="姓名" thyModelKey="name"></thy-grid-column>
             <thy-grid-column thyTitle="年龄" thyModelKey="age"></thy-grid-column>
             <thy-grid-column thyTitle="备注" thyModelKey="desc"></thy-grid-column>

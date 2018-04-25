@@ -9,6 +9,7 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination/pagination.component'
 export class DemoGridSectionComponent implements OnInit {
 
     public data: any[] = [];
+    public selections: any[];
     public pagination = { index: 1, size: 10, total: 100 };
 
     constructor() {
@@ -17,21 +18,26 @@ export class DemoGridSectionComponent implements OnInit {
 
     ngOnInit() {
         this.data = [{
+            id: 1,
             name: '张三',
             age: 10,
             checked: true,
-            desc: '这是一条测试数据'
+            desc: ''
         }, {
+            id: 2,
             name: '李四',
             age: 10,
             checked: true,
             desc: '这是一条测试数据'
         }, {
+            id: 3,
             name: '王五',
             age: 10,
             checked: false,
             desc: '这是一条测试数据'
         }];
+
+        this.selections = [1,2];
     }
 
     onMultiSelectChange($event: any) {

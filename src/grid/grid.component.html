@@ -7,26 +7,26 @@
     <tbody>
         <tr *ngFor="let row of model;let i=index;trackBy:trackByFn">
             <td *ngFor="let column of columns" [ngClass]="column.className" [width]="column.width">
-                <ng-container *ngIf="column.model">
-                    <ng-container *ngIf="!column.type">
-                        {{getModelValue(row,column.model)}}
-                    </ng-container>
-                    <!--custom type-->
-                    <ng-container *ngIf="column.type">
-                        <ng-container *ngIf="column.type === 'index'"> {{i+1}} </ng-container>
-                        <ng-container *ngIf="column.type === 'checkbox'">
-                            <input type="checkbox" [(ngModel)]="row[column.key]" [disabled]="column.disabled" (ngModelChange)="onModelChange(row,column)"
-                                (change)="onMultiSelectChange($event,row,column)" />
-                        </ng-container>
-                        <ng-container *ngIf="column.type === 'radio'">
-                            <input type="radio" [(ngModel)]="selectedRadioRow" [value]="row" [disabled]="column.disabled" (change)="onRadioSelectChange($event,row)"
-                            />
-                        </ng-container>
-                    </ng-container>
-                </ng-container>
                 <!--template-->
-                <ng-container *ngIf="!column.model && isTemplateRef(column.templateRef)">
+                <ng-container *ngIf="isTemplateRef(column.templateRef)">
                     <ng-template [ngTemplateOutlet]="column.templateRef" [ngTemplateOutletContext]="{$implicit : row}"></ng-template>
+                </ng-container>
+                <!--not template-->
+                <ng-container *ngIf="!isTemplateRef(column.templateRef)">
+                    <!-- default -->
+                    <ng-container *ngIf="column.model && !column.type">
+                        {{getModelValue(row,column.model) || column.defaultText}}
+                    </ng-container>
+                    <!-- index -->
+                    <ng-container *ngIf="column.type === 'index'"> {{i+1}} </ng-container>
+                    <!-- checkbox -->
+                    <ng-container *ngIf="column.type === 'checkbox'">
+                        <input type="checkbox" [(ngModel)]="row[column.key]" [disabled]="column.disabled" (change)="onMultiSelectChange($event,row,column)">
+                    </ng-container>
+                    <!-- radio -->
+                    <ng-container *ngIf="column.type === 'radio'">
+                        <input type="radio" [(ngModel)]="selectedRadioRow" [value]="row" [disabled]="column.disabled" (change)="onRadioSelectChange($event,row)">
+                    </ng-container>
                 </ng-container>
             </td>
         </tr>
