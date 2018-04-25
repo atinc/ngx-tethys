@@ -1,18 +1,18 @@
-@mixin switch-size($width, $height, $handle-margin) {
+@mixin thy-switch-size($width, $height, $handle-margin) {
   width: $width;
   height: $height;
 
-  .switch-handle {
+  .thy-switch-handle {
     width: $height - $handle-margin * 2;
     height: $height - $handle-margin * 2;
   }
 
-  .switch-input:checked ~ .switch-handle {
+  .thy-switch-input:checked ~ .thy-switch-handle {
     left: $width - $height + $handle-margin;
   }
 }
 
-@mixin switch($width, $height, $handle-margin) {
+@mixin thy-switch($width, $height, $handle-margin) {
   position: relative;
   display: inline-block;
   vertical-align: top;
@@ -21,14 +21,14 @@
   background-color: transparent;
   cursor: pointer;
 
-  .switch-input {
+  .thy-switch-input {
     position: absolute;
     top: 0;
     left: 0;
     opacity: 0;
   }
 
-  .switch-label {
+  .thy-switch-label {
     position: relative;
     display: block;
     height: inherit;
@@ -41,17 +41,17 @@
     transition: opacity background .15s ease-out;
   }
 
-  .switch-input:checked ~ .switch-label {
+  .thy-switch-input:checked ~ .thy-switch-label {
     //background: $gray-lightest;
   }
-  .switch-input:checked ~ .switch-label::before {
+  .thy-switch-input:checked ~ .thy-switch-label::before {
     opacity: 0;
   }
-  .switch-input:checked ~ .switch-label::after {
+  .thy-switch-input:checked ~ .thy-switch-label::after {
     opacity: 1;
   }
 
-  .switch-handle {
+  .thy-switch-handle {
     position: absolute;
     top: $handle-margin;
     left: $handle-margin;
@@ -65,28 +65,28 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, .3);
   }
 
-  .switch-input:checked ~ .switch-handle {
+  .thy-switch-input:checked ~ .thy-switch-handle {
     left: $width - $height + $handle-margin;
   }
-  @extend .switch-pill;
-  &.switch-lg {
-    @include switch-size($switch-lg-width, $switch-lg-height, 0);
+  @extend .thy-switch-pill;
+  &.thy-switch-lg {
+    @include thy-switch-size($switch-lg-width, $switch-lg-height, 0);
   }
-  &.switch-sm {
-    @include switch-size($switch-sm-width, $switch-sm-height, 0);
+  &.thy-switch-sm {
+    @include thy-switch-size($switch-sm-width, $switch-sm-height, 0);
   }
-  &.switch-xs {
-    @include switch-size($switch-xs-width, $switch-xs-height, 0);
+  &.thy-switch-xs {
+    @include thy-switch-size($switch-xs-width, $switch-xs-height, 0);
   }
 }
 
-@mixin switch-variant($color) {
-  > .switch-input:checked ~ .switch-label {
+@mixin thy-switch-variant($color) {
+  > .thy-switch-input:checked ~ .thy-switch-label {
     background: $color !important;
     border-color: darken($color, 10%);
   }
 
-  > .switch-input:checked ~ .switch-handle {
+  > .thy-switch-input:checked ~ .thy-switch-handle {
     border-color: darken($color, 10%);
   }
 }
