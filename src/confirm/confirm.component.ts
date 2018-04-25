@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Observable } from 'rxjs';
 import { ThyModalService } from '../modal/modal.service';
 import { ConfirmOption, ConfirmButtonsOption } from './confirm-option.interface';
 
@@ -25,10 +24,12 @@ export class ThyConfirmComponent implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit() {
-        for (const key in this.contentValues) {
-            if (this.contentValues.hasOwnProperty(key)) {
-                const _value = this.contentValues[key];
-                this.content = this.content.replace('{{' + key + '}}', _value);
+        if (this.contentValues) {
+            for (const key in this.contentValues) {
+                if (this.contentValues.hasOwnProperty(key)) {
+                    const _value = this.contentValues[key];
+                    this.content = this.content.replace('{{' + key + '}}', _value);
+                }
             }
         }
     }

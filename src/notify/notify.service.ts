@@ -37,37 +37,37 @@ export class ThyNotifyService {
         this.notifyQueue$.next(this._notifyQueue);
     }
 
-    success(content?: string, detail?: string) {
+    success(title?: string, content?: string, detail?: string) {
         this.show({
             type: 'success',
-            title: '成功',
+            title: title || '成功',
             content: content,
             detail: detail,
         });
     }
 
-    info(content?: string, detail?: string) {
+    info(title?: string, content?: string, detail?: string) {
         this.show({
             type: 'info',
-            title: '提示',
+            title: title || '提示',
             content: content,
             detail: detail,
         });
     }
 
-    warning(content?: string, detail?: string) {
+    warning(title?: string, content?: string, detail?: string) {
         this.show({
             type: 'warning',
-            title: '警告',
+            title: title || '警告',
             content: content,
             detail: detail,
         });
     }
 
-    error(content?: string, detail?: string) {
+    error(title?: string, content?: string, detail?: string) {
         this.show({
             type: 'error',
-            title: '错误',
+            title: title || '错误',
             content: content,
             detail: detail,
         });

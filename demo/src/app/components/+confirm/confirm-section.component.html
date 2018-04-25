@@ -1,16 +1,27 @@
 <section>
     <div class="header">
-        <h2>Layout</h2>
+        <h2>确认删除封装</h2>
     </div>
     <div class="body">
-        <button thyButton="primary" (click)="deleteSimplyConfirm()">确认删除简化</button>
+        <button thyButton="primary" (click)="deleteSimplyConfirm()">确认删除</button>
         <br>
         <br>
-        <button thyButton="primary" (click)="deleteConfirm()">删除</button>
+        <button thyButton="primary" (click)="deleteSimplyConfirmTranslate()">确认删除多语言</button>
+    </div>
+</section>
+
+<section>
+    <div class="header">
+        <h2>全参数方式</h2>
+    </div>
+    <div class="body">
+        <button thyButton="primary" (click)="show()">删除</button>
         <br>
         <br>
-        <button thyButton="primary" (click)="deleteConfirmSync()">同步删除，等待API返回</button>
+        <button thyButton="primary" (click)="showSync()">同步删除，等待API返回</button>
         <br>
         <br>
     </div>
 </section>
+
+<api-parameters [parameters]="apiParameters"></api-parameters>
