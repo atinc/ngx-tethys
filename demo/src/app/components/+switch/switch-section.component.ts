@@ -1,23 +1,23 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector:'',
-    templateUrl:'./switch-section.component.html'
+    selector: '',
+    templateUrl: './switch-section.component.html'
 })
 
-export class DemoSwitchSectionComponent implements OnInit{
+export class DemoSwitchSectionComponent implements OnInit {
 
-    public isChecked:boolean = true;
+    public isChecked: Boolean = true;
 
-    constructor(){
+    constructor() {
 
     }
 
-    switchChange(data){
-        console.log(data.checked)
+    switchChange(data) {
+        console.log(data.checked);
     }
 
-    ngOnInit(){
+    ngOnInit() {
 
     }
 }
