@@ -1,0 +1,68 @@
+<section>
+    <div class="header">
+        <h2>Switch default</h2>
+    </div>
+    <div class="body">
+        <div class="demo-layout">
+            <thy-switch [(ngModel)]="isChecked" (thyChange)="switchChange($event)"></thy-switch>
+            <br/>
+            <br/>
+            <pre>
+&lt;thy-switch [(ngModel)]="isChecked" (thyChange)="switchChange($event)"&gt;&lt;/thy-switch&gt;
+            </pre>
+        </div>
+    </div>
+</section>
+
+
+<section>
+    <div class="header">
+        <h2>Switch types: thyType</h2>
+    </div>
+    <div class="body">
+        <div class="demo-layout">
+
+            <thy-switch [class]="'mr-4'" [(ngModel)]="isChecked" (thyChange)="switchChange($event)"></thy-switch>
+
+            <thy-switch [class]="'mr-4'" [(ngModel)]="isChecked" thyType="info" (thyChange)="switchChange($event)"></thy-switch>
+
+            <thy-switch [class]="'mr-4'" [(ngModel)]="isChecked" thyType="warning" (thyChange)="switchChange($event)"></thy-switch>
+
+            <thy-switch [(ngModel)]="isChecked" thyType="danger" (thyChange)="switchChange($event)"></thy-switch>
+            <br/>
+            <br/>
+            <pre>
+&lt;thy-switch [(ngModel)]="isChecked" (thyChange)="switchChange($event)"&gt;&lt;/thy-switch&gt;
+&lt;thy-switch [(ngModel)]="isChecked" thyType="info" (thyChange)="switchChange($event)"&gt;&lt;/thy-switch&gt;
+&lt;thy-switch [(ngModel)]="isChecked" thyType="warning" (thyChange)="switchChange($event)"&gt;&lt;/thy-switch&gt;
+&lt;thy-switch [(ngModel)]="isChecked" thyType="danger" (thyChange)="switchChange($event)"&gt;&lt;/thy-switch&gt;
+            </pre>
+        </div>
+    </div>
+</section>
+
+
+
+<section>
+    <div class="header">
+        <h2>Switch size: thySize</h2>
+    </div>
+    <div class="body">
+        <div class="demo-layout">
+
+            <thy-switch [class]="'mr-4'" [(ngModel)]="isChecked" thySize="lg" (thyChange)="switchChange($event)"></thy-switch>
+
+            <thy-switch [class]="'mr-4'" [(ngModel)]="isChecked" (thyChange)="switchChange($event)"></thy-switch>
+
+            <thy-switch [(ngModel)]="isChecked" thySize="sm" (thyChange)="switchChange($event)"></thy-switch>
+
+            <br/>
+            <br/>
+            <pre>
+&lt;thy-switch [(ngModel)]="isChecked" thySize="lg" (thyChange)="switchChange($event)"&gt;&lt;/thy-switch&gt;
+&lt;thy-switch [(ngModel)]="isChecked" (thyChange)="switchChange($event)"&gt;&lt;/thy-switch&gt;
+&lt;thy-switch [(ngModel)]="isChecked" thySize="sm" (thyChange)="switchChange($event)"&gt;&lt;/thy-switch&gt;
+            </pre>
+        </div>
+    </div>
+</section>

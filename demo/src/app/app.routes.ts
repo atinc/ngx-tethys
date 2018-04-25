@@ -17,6 +17,7 @@ import { DemoConfirmSectionComponent } from './components/+confirm/confirm-secti
 import { DemoTreeSectionComponent } from './components/+tree/tree-section.component';
 import { DemoNotifySectionComponent } from './components/+notify/notify-section.component';
 import { DemoEmptySectionComponent } from './components/+empty/empty-section.component';
+import { DemoSwitchSectionComponent } from './components/+switch/switch-section.component';
 
 const appRoutes = [
     {
@@ -94,6 +95,9 @@ const appRoutes = [
     {
         path: 'components/tree',
         component: DemoTreeSectionComponent
+    },{
+        path:'components/switch',
+        component:DemoSwitchSectionComponent
     }
 ];
 

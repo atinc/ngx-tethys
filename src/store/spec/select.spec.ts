@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { TestBed, async } from '@angular/core/testing';
 import { Observable } from 'rxjs';
-import { ThyStoreModule, Store } from '../store';
-import { stagger } from '@angular/animations/src/animation_metadata';
+import { ThyStoreModule, Store } from '../index';
 
 class StringSelectState {
     baz: string;

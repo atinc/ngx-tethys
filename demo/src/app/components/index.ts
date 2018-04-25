@@ -19,6 +19,7 @@ import { DemoConfirmSectionComponent } from './+confirm/confirm-section.componen
 import { DemoTreeSectionComponent } from './+tree/tree-section.component';
 import { DemoNotifySectionComponent } from './+notify/notify-section.component';
 import { DemoEmptySectionComponent } from './+empty/empty-section.component';
+import { DemoSwitchSectionComponent } from './+switch/switch-section.component';
 
 
 export const COMPONENTS = [
@@ -44,7 +45,8 @@ export const COMPONENTS = [
     DemoModalSectionComponent,
     DemoLoadingSectionComponent,
     DemoTreeSectionComponent,
-    DemoEmptySectionComponent
+    DemoEmptySectionComponent,
+    DemoSwitchSectionComponent
 ];
 
 export const ENTRY_COMPONENTS = [

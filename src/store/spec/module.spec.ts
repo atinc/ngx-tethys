@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
 
-import { ThyStoreModule, Store } from '../store';
+import { ThyStoreModule, Store } from '../index';
 
 
 interface RootStateModel {
