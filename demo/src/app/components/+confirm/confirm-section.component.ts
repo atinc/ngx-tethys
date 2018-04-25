@@ -16,17 +16,31 @@ export class DemoConfirmSectionComponent {
     ) { }
 
     deleteSimplyConfirm() {
-        this.confirmService.showDelete(
-            {
-                name: '6.0迭代开发',
-                typeName: '项目'
+        this.confirmService.delete(null, '确认删除项目 <code>6.0迭代开发</code> 吗？text', () => {
+            console.log(1);
+        });
+    }
+    deleteSimplyConfirmTranslate() {
+        this.confirmService.deleteTranslateKey(
+            null, {
+                content: 'common.confirm.CONTENT',
+                params: {
+                    name: '6.0迭代开发'
+                }
             }, () => {
-                console.log(1);
+                return of([1]).pipe(
+                    delay(2000),
+                    tap({
+                        complete: () => {
+
+                        }
+                    })
+                );
             }
         );
     }
 
-    deleteConfirm() {
+    show() {
         this.confirmService.show({
             title: '确认删除',
             content: '确认删除项目 <code>aaa</code> 吗？',
@@ -42,7 +56,7 @@ export class DemoConfirmSectionComponent {
         });
     }
 
-    deleteConfirmSync() {
+    showSync() {
         this.confirmService.show({
             title: '确认删除',
             content: '确认删除项目 <code>aaa</code> 吗？',

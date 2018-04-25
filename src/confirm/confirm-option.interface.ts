@@ -1,4 +1,3 @@
-import { Observable } from 'rxjs';
 import { ThyButtonType } from '../button/button.component';
 
 export interface ConfirmOption {
@@ -13,25 +12,45 @@ export interface ConfirmOption {
 
     ignoreBackdropClick?: boolean;
 
-    buttons: ConfirmButtonsOption;
+    buttons?: ConfirmButtonsOption;
 
 }
 
 export interface ConfirmButtonsOption {
-    confirm: ConfirmButtonsConfirmOption;
+
+    confirm?: ConfirmButtonsConfirmOption;
+
     decline?: ConfirmButtonsDeclineOption;
+
 }
 
 
 export interface ConfirmButtonsConfirmOption {
+
     text?: string;
+
     loadingText?: string;
+
     type?: ThyButtonType;
+
     action?: Function;
+
 }
 
 export interface ConfirmButtonsDeclineOption {
+
     hidden?: boolean;
+
     type?: ThyButtonType;
+
     action?: Function;
+
+}
+
+export interface ContentKeyParams {
+
+    content: string;
+
+    params: object;
+
 }

@@ -46,12 +46,21 @@ export class AppModule {
         translate.use('zh-cn');
         translate.setTranslation('zh-cn', {
             common: {
+                OK: '确定',
+                CANCEL: '取消',
+                DELETING: '删除中...',
+                DELETE_CONFIRM: '确认删除',
                 tips: {
                     'NO_RESULT': '没有数据',
                     'NO_RESULT_TARGET': '没有{{target}}'
-                }
+                },
+                confirm: {
+                    CONTENT_DEFAULT: '确认删除这个吗？',
+                    CONTENT: '确认删除项目 <code>{{name}}</code> 吗？'
+                },
             },
             mission: {
+                PROJECT: '项目',
                 'TASK': '任务'
             }
         });
