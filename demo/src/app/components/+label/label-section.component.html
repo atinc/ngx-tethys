@@ -4,23 +4,23 @@
         <p>· 标记与分类当前任务。 </p>
     </div>
     <div class="body">
-        <span thyLabel="default">Primary</span>
-        <span thyLabel="primary">Primary</span>
-        <span thyLabel="success">Success</span>
-        <span thyLabel="info">Info</span>
-        <span thyLabel="warning">Warning</span>
-        <span thyLabel="danger">Danger</span>
+        <span class="mr-1" thyLabel="default">Default</span>
+        <span class="mr-1" thyLabel="primary">Primary</span>
+        <span class="mr-1" thyLabel="success">Success</span>
+        <span class="mr-1" thyLabel="info">Info</span>
+        <span class="mr-1" thyLabel="warning">Warning</span>
+        <span class="mr-1" thyLabel="danger">Danger</span>
         <br/>
         <br/> 自定义颜色
         <code>#7076fa</code>覆盖
         <span thyLabel [thyLabelColor]="color">Danger</span>
         <br>
         <br>
-        <span thyLabel="default" thyHasHover="true" thyBeforeIcon="wtf-th-plus" (click)="add()">添加标签</span>
-        <span thyLabel="primary" thyHasHover="true" thyAfterIcon="wtf-times" (thyOnRemove)="remove()">
+        <span class="mr-1" thyLabel="default" thyHasHover="true" thyBeforeIcon="wtf-th-plus" (click)="add()">添加标签</span>
+        <span class="mr-1" thyLabel="primary" thyHasHover="true" thyAfterIcon="wtf-times" (thyOnRemove)="remove()">
             重要不紧急
         </span>
-        <span thyLabel="default" thyHasHover="true" (click)="showMore()">…</span>
+        <span class="mr-1" thyLabel="default" thyHasHover="true" (click)="showMore()">…</span>
     </div>
 </section>
 
@@ -30,11 +30,11 @@
         <p>· 显示“审批”、“考核”、“公告”、“投票”等操作的当前状态</p>
     </div>
     <div class="body">
-        <span thyLabel="warning" thyLabelType="state">未开始</span>
-        <span thyLabel="primary" thyLabelType="state">进行中</span>
-        <span thyLabel="danger" thyLabelType="state">已结束</span>
-        <span thyLabel="default" thyLabelType="state">已作废</span>
-        <span thyLabel="default" thyLabelType="state">已撤销</span>
+        <span class="mr-1" thyLabel="warning" thyLabelType="state">未开始</span>
+        <span class="mr-1" thyLabel="primary" thyLabelType="state">进行中</span>
+        <span class="mr-1" thyLabel="danger" thyLabelType="state">已结束</span>
+        <span class="mr-1" thyLabel="default" thyLabelType="state">已作废</span>
+        <span class="mr-1" thyLabel="default" thyLabelType="state">已撤销</span>
     </div>
 </section>
 
@@ -44,11 +44,11 @@
         <p>· 多用于“销售_客户详情_沟通状态”展示，状态颜色由管理员自定义</p>
     </div>
     <div class="body">
-        <span thyLabel="default" thyLabelType="pill">
+        <span class="mr-1" thyLabel="default" thyLabelType="pill">
             <span class="thy-dot thy-dot-label" thyLabel [thyLabelColor]="color"></span>
             初步沟通
         </span>
-        <span thyLabel="default" thyLabelType="pill">
+        <span class="mr-1" thyLabel="default" thyLabelType="pill">
             <span class="thy-dot thy-dot-label" thyLabel [thyLabelColor]="color1"></span>
             确定意向
         </span>
@@ -58,3 +58,5 @@
         </span>
     </div>
 </section>
+
+<api-parameters [parameters]="apiParameters"></api-parameters>
