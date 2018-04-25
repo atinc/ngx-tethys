@@ -36,7 +36,7 @@ export class DemoTreeSectionComponent {
         {
             property: 'thyNodes',
             description: 'Tree展现所需的数据',
-            type: 'object[]',
+            type: 'Object[]',
             default: ''
         },
         {
