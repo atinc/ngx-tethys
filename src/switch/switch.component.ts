@@ -20,11 +20,11 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 })
 export class ThySwitchComponent implements OnInit, ControlValueAccessor {
 
-    private model: any;
+    public model: any;
 
-    public type?: string = 'primary';
+    public type?: String = 'primary';
 
-    public size?: string = '';
+    public size?: String = '';
 
     public thyClassName = '';
 
