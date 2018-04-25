@@ -83,8 +83,8 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor {
     }
 
     setClass() {
-        this.thyClassName = this.thyClassName + ' ' + 'switch-' + this.size;
-        this.thyClassName = this.thyClassName + ' ' + 'switch-' + this.type;
+        this.thyClassName = this.thyClassName + ' ' + 'thy-switch-' + this.size;
+        this.thyClassName = this.thyClassName + ' ' + 'thy-switch-' + this.type;
     }
 
     ngOnInit() {
