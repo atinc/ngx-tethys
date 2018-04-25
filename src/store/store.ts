@@ -49,7 +49,10 @@ export class Store<T extends Object> implements Observer<T> {
         if (result instanceof Observable) {
             result = result.pipe(map(r => r));
         } else {
-            result = of({});
+            result = Observable.create((observer: Observer<any>) => {
+                observer.next({});
+            });
+            // result = of({});
         }
         return result.pipe(shareReplay());
     }
