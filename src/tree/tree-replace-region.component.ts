@@ -2,14 +2,13 @@ import { Component, ViewEncapsulation, ContentChild, TemplateRef, ViewContainerR
 import { ThyTreeComponent } from './tree.component';
 
 @Component({
-    selector: '[thyTreeChildRegion]',
+    selector: '[ThyTreeReplaceRegion]',
     template: '<ng-content></ng-content>',
     encapsulation: ViewEncapsulation.None
 })
-export class ThyTreeChildRegionComponent implements OnInit {
+export class ThyTreeReplaceRegionComponent implements OnInit {
 
-
-    @Input() thyNode: any;
+    @Input() thyInstance: any;
 
     constructor(
         private root: ThyTreeComponent,
@@ -18,7 +17,7 @@ export class ThyTreeChildRegionComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.root.createTreeComponent(this.viewRef, this.thyNode);
+        this.root.createTreeComponent(this.viewRef, this.thyInstance);
     }
 }
 

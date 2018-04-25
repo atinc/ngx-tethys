@@ -1,6 +1,7 @@
 <section>
     <div class="header">
-        <h2>Tree</h2>
+        <h2>Tree （简单的使用方式）</h2>
+        <p>只需传入<code>[thyNodes]</code> 并且定义 <code>#treeNodeTemplate</code> 类型模板</p>
     </div>
     <div class="body">
         <thy-tree [thyNodes]="nodes" class="thy-tree">
@@ -15,14 +16,38 @@
 
 <section>
     <div class="header">
-        <h2>Tree(更灵活的使用方式)</h2>
+        <h2>Tree(插入区域使用方式)</h2>
+        <p>需要定义 <code>#treeNodeFlexibleTemplate</code> 类型模板，通过设置属性指令 <code>ThyTreeReplaceRegion</code> 将子级tree 插入到指定区域（指令所需参数 <code>[thyInstance]</code>）</p>
     </div>
     <div class="body">
-        <thy-tree [thyNodes]="nodes" [thyAutoLoop]="false" class="thy-tree" [sortablejs]="nodes">
-            <ng-template #treeNodeTemplate let-node="node" let-level="level" let-instance="instance">
+        <thy-tree [thyNodes]="nodes" class="thy-tree">
+            <ng-template #treeNodeFlexibleTemplate let-node="node" let-level="level" let-instance="instance">
                 <div> ● {{level}}级 --- {{node.name}}</div>
-                <thy-tree [thyInstance]="instance" [sortablejs]="node.children"></thy-tree>
+                <div *ngIf="node.children && node.children.length > 0" style="border:1px solid #ececec">
+                    <ng-container ThyTreeReplaceRegion [thyInstance]="instance"></ng-container>
+                </div>
             </ng-template>
         </thy-tree>
     </div>
 </section>
+
+<br/>
+
+<section>
+    <div class="header">
+        <h2>Tree(灵活的实用方式)</h2>
+        <p>需要定义 <code>#treeNodeFlexibleTemplate</code> 类型模板，在模板中可以再次调用<code>thy-tree</code>（ 所需参数 thyInstance ）</p>
+    </div>
+    <div class="body">
+        <thy-tree [thyNodes]="nodes" class="thy-tree">
+            <ng-template #treeNodeFlexibleTemplate let-node="node" let-level="level" let-instance="instance">
+                <div> ● {{level}}级 --- {{node.name}}</div>
+                <thy-tree [thyInstance]="instance"></thy-tree>
+            </ng-template>
+        </thy-tree>
+    </div>
+</section>
+
+<br/>
+
+<api-parameters [parameters]="apiParameters"></api-parameters>

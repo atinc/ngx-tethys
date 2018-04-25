@@ -14,15 +14,11 @@ import { INHERITED_CLASS } from '@angular/core/src/reflection/reflection_capabil
 })
 export class ThyTreeComponent implements OnInit {
 
-    public treeRegionViewRef: ViewContainerRef;
-
     @Input() thyNodes: any[];
 
     @Input() thyLevel = 0;
 
     @Input() thyChildrenPropName = 'children';
-
-    @Input() thyAutoLoop = true;
 
     @Input()
     set thyTemplate(value: TemplateRef<any>) {
@@ -36,12 +32,13 @@ export class ThyTreeComponent implements OnInit {
         if (value) {
             this.thyNodes = value.node[this.thyChildrenPropName];
             this.thyLevel = value.level + 1;
-            this.thyTemplate = value.template;
-            this.thyAutoLoop = value.autoLoop;
+            this.flexibleTemplateRef = value.template;
         }
     }
 
     @ContentChild('treeNodeTemplate') templateRef: TemplateRef<any>;
+
+    @ContentChild('treeNodeFlexibleTemplate') flexibleTemplateRef: TemplateRef<any>;
 
     constructor(
         private componentFactoryResolver: ComponentFactoryResolver
@@ -55,8 +52,7 @@ export class ThyTreeComponent implements OnInit {
         const instance = {
             node: node,
             level: this.thyLevel,
-            template: this.templateRef,
-            autoLoop: this.thyAutoLoop
+            template: this.flexibleTemplateRef || this.templateRef
         };
         return {
             ...instance,
@@ -65,14 +61,12 @@ export class ThyTreeComponent implements OnInit {
         };
     }
 
-    public createTreeComponent(viewRef: ViewContainerRef, node: any) {
+    public createTreeComponent(viewRef: ViewContainerRef, instance: object) {
         viewRef.clear();
         const componentFactory = this.componentFactoryResolver.resolveComponentFactory(ThyTreeComponent);
         const componentRef = viewRef.createComponent(componentFactory);
         const componentInstance = (<ThyTreeComponent>componentRef.instance);
-        componentInstance.thyTemplate = this.templateRef;
-        componentInstance.thyNodes = node[this.thyChildrenPropName];
-        componentInstance.thyLevel = this.thyLevel + 1;
+        componentInstance.thyInstance = instance;
     }
 }
 
