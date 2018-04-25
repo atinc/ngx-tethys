@@ -24,10 +24,10 @@ export interface ThyPage {
 
 export interface ThyGridEmptyOptions {
   message?: string;
-  translationId?: string;
+  translationKey?: string;
   translationValues?: any;
   entityName?: string;
-  entityNameTranslateId?: string;
+  entityNameTranslateKey?: string;
   iconClass?: string;
   size?: string;
   marginTop?: string;
