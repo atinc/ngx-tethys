@@ -1,6 +1,6 @@
 {
   "name": "ngx-tethys",
-  "version": "0.0.23",
+  "version": "0.0.25",
   "license": "MIT",
   "scripts": {
     "build": "rimraf ./built/* ./codegen/* && ngc -p tsconfig-dist.json",
@@ -34,10 +34,12 @@
     "@angular/platform-browser-dynamic": "^6.0.0-rc.3",
     "@angular/router": "^6.0.0-rc.3",
     "@ngx-translate/core": "^10.0.1",
+    "angular-sortablejs": "^2.5.2",
     "bootstrap": "^4.0.0",
     "core-js": "^2.5.4",
     "ngx-bootstrap": "^2.0.2",
     "rxjs": "6.0.0-tactical-rc.1",
+    "sortablejs": "^1.7.0",
     "ts-node": "^6.0.0",
     "zone.js": "^0.8.24"
   },

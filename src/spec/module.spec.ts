@@ -54,7 +54,6 @@ describe('module', () => {
         expect(TestBed.get(RootStore)).toBeTruthy();
     });
 
-
     it('should initialize all modules state', async(() => {
         TestBed.configureTestingModule({
             imports: [RootModule]

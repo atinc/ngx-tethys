@@ -21,7 +21,8 @@ const themeMap: any = {
 })
 export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy {
 
-    public model: any[] = [];
+    public model: object[] = [];
+    public rowKey: string;
     public columns: ThyGridColumn[] = [];
     public themeClass = themeMap['default'];
     public className = '';
@@ -35,6 +36,11 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy {
     set thyModel(value: any) {
         this.model = value || [];
         this._formatModel();
+    }
+
+    @Input()
+    set thyRowKey(value: any) {
+        this.rowKey = value;
     }
 
     @Input()
@@ -117,6 +123,10 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy {
 
     public getModelValue(row: any, path: string) {
         return get(row, path);
+    }
+
+    public trackByFn(index: number, item: any) {
+        return this.rowKey ? item[item.rowKey] : index;
     }
 
     public onModelChange(row: any, column: ThyGridColumn) {

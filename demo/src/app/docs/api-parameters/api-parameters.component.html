@@ -1,0 +1,17 @@
+<section *ngIf="parameters">
+    <div class="header">
+        <h2>参数列表</h2>
+    </div>
+    <div class="body">
+        <thy-grid [thyModel]='parameters' thyTheme="bordered" className="table-hover">
+            <thy-grid-column thyTitle="属性" thyModelKey="property"></thy-grid-column>
+            <thy-grid-column thyTitle="说明" thyModelKey="description"></thy-grid-column>
+            <thy-grid-column thyTitle="类型" thyModelKey="type"></thy-grid-column>
+            <thy-grid-column thyTitle="默认值">
+                <ng-template let-row>
+                    {{row.default || '---'}}
+                </ng-template>
+            </thy-grid-column>
+        </thy-grid>
+    </div>
+</section>
