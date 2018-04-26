@@ -35,11 +35,11 @@
             </td>
         </tr>
         <tr *ngIf="model && model.length === 0" class="hover-clear">
-            <td [colSpan]="columns.length">
+            <td [colSpan]="columns.length" height="280px">
                 <thy-empty [thyMessage]="emptyOptions.message" [thyTranslationKey]="emptyOptions.translationKey" [thyTranslationValues]="emptyOptions.translationValues"
-                    [thyEntityName]="emptyOptions.entityName" [thyEntityNameTranslateKey]="emptyOptions.entityNameTranslateKey" [thyIconClass]="emptyOptions.iconClass"
-                    [thySize]="emptyOptions.size" [thyMarginTop]="emptyOptions.marginTop" [thyTopAuto]="emptyOptions.topAuto"
-                    [thyContainer]="emptyOptions.container"></thy-empty>
+                    [thyEntityName]="emptyOptions.entityName" [thyEntityNameTranslateKey]="emptyOptions.entityNameTranslateKey"
+                    [thyIconClass]="emptyOptions.iconClass" [thySize]="emptyOptions.size" [thyMarginTop]="emptyOptions.marginTop"
+                    [thyTopAuto]="emptyOptions.topAuto" [thyContainer]="emptyOptions.container"></thy-empty>
             </td>
         </tr>
     </tbody>
