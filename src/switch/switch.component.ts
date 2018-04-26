@@ -6,7 +6,7 @@ import {
     OnInit,
     forwardRef
 } from '@angular/core';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 
 @Component({
@@ -25,6 +25,8 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor {
     public type?: String = 'primary';
 
     public size?: String = '';
+
+    public disabled?: Boolean = false;
 
     public thyClassName = '';
 
@@ -46,6 +48,12 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor {
             value = '';
         }
         this.size = value;
+    }
+
+
+    @Input()
+    set thyDisabled(value: boolean) {
+        this.disabled = value;
     }
 
     @Output() thyChange: EventEmitter<Event> = new EventEmitter<Event>();
@@ -75,7 +83,7 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor {
         this.onModelTouched = fn;
     }
 
-    toggle(event:any) {
+    toggle(event: any) {
         this.model = !this.model;
         this.onModelChange(this.model);
         this.thyChange.emit(event);
@@ -83,8 +91,13 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor {
     }
 
     setClass() {
-        this.thyClassName = this.thyClassName + ' ' + 'thy-switch-' + this.size;
+        if (this.size !== '') {
+            this.thyClassName = this.thyClassName + ' ' + 'thy-switch-' + this.size;
+        }
         this.thyClassName = this.thyClassName + ' ' + 'thy-switch-' + this.type;
+        if (this.disabled) {
+            this.thyClassName = this.thyClassName + ' ' + 'thy-switch-disabled';
+        }
     }
 
     ngOnInit() {

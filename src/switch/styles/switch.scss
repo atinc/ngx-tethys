@@ -1,6 +1,9 @@
 .thy-switch {
   @include thy-switch($switch-width, $switch-height, 0);
 }
+.thy-switch-disabled{
+  opacity: 0.5;
+}
 
 .thy-switch-pill {
   .thy-switch-label,
