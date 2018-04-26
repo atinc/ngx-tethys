@@ -13,7 +13,7 @@ export class DemoGridSectionComponent implements OnInit {
             id: 1,
             name: '张三',
             age: 10,
-            checked: false,
+            checked: true,
             desc: ''
         }, {
             id: 2,
@@ -190,10 +190,7 @@ export class DemoGridSectionComponent implements OnInit {
     public loadingDone = false;
 
     ngOnInit() {
-        setTimeout(() => {
-            this.loadingDone = true;
-            this.model.push({ ...this.model[0], checked: true });
-        }, 3000);
+        this.loadingDone = true;
     }
 
     onMultiSelectChange(event) {

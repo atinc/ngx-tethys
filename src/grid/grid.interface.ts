@@ -47,6 +47,10 @@ export interface ThyRadioSelectEvent {
   row: any;
 }
 
+export interface ThySwitchEvent {
+  event: Event;
+  row: any;
+}
 
 
 

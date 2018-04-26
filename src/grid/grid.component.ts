@@ -1,11 +1,16 @@
 import {
     Component, Directive, Input, Output, ElementRef, Renderer2,
-    ViewEncapsulation, TemplateRef, OnInit, EventEmitter
+    ViewEncapsulation, TemplateRef, OnInit, EventEmitter, DoCheck,
+    IterableDiffers,
+    IterableDiffer,
+    IterableChanges,
+    IterableChangeRecord
 } from '@angular/core';
 import { AfterContentInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import { inputValueToBoolean, isUndefined, get, set } from '../util/helpers';
-import { ThyGridColumn, ThyMultiSelectEvent, ThyRadioSelectEvent, ThyPage, ThyGridEmptyOptions } from './grid.interface';
+import { ThyGridColumn, ThyMultiSelectEvent, ThyRadioSelectEvent, ThyPage, ThyGridEmptyOptions, ThySwitchEvent } from './grid.interface';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination/pagination.component';
+import { AnimateChildAst } from '@angular/animations/browser/src/dsl/animation_ast';
 
 export type ThyGridTheme = 'default' | 'bordered';
 
@@ -27,7 +32,7 @@ const customType = {
     templateUrl: './grid.component.html',
     encapsulation: ViewEncapsulation.None
 })
-export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy {
+export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy, DoCheck {
 
     public customType = customType;
 
@@ -51,12 +56,16 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy {
 
     public pagination: ThyPage = { index: 1, size: 20, total: 0 };
 
+    public trackByFn: any;
+
     private _filter: any = null;
 
+    private _diff: IterableDiffer<any>;
 
     @Input()
     set thyModel(value: any) {
         this.model = value || [];
+        this._diff = this._differs.find(this.model).create();
         this._formatModel();
     }
 
@@ -116,17 +125,25 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy {
 
     @Output() thyOnRadioSelectChange: EventEmitter<ThyRadioSelectEvent> = new EventEmitter<ThyRadioSelectEvent>();
 
-    @Output() thyOnSwitchChange: EventEmitter<Event> = new EventEmitter<Event>();
+    @Output() thyOnSwitchChange: EventEmitter<ThySwitchEvent> = new EventEmitter<ThySwitchEvent>();
+
+
+    constructor(
+        private _differs: IterableDiffers
+    ) {
+        this._bindTrackFn();
+    }
 
     private _formatModel() {
         this.model.forEach(row => {
             this.columns.forEach(column => {
                 this._initialSelections(row, column);
+                this._initialCustomModelValue(row, column);
             });
         });
     }
 
-    private _initialSelections( row: object,column: ThyGridColumn,) {
+    private _initialSelections(row: object, column: ThyGridColumn, ) {
         if (column.selections && column.selections.length > 0) {
             if (column.type === 'checkbox') {
                 row[column.key] = column.selections.includes(row[this.rowKey]);
@@ -139,11 +156,30 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy {
         }
     }
 
-    private _filterModel() {
-        if (this.model && this.model.length > 0) {
-            if (this._filter) {
-            }
+    private _initialCustomModelValue(row: object, column: ThyGridColumn, ) {
+        if (column.type === customType.switch) {
+            row[column.key] = get(row, column.model);
         }
+    }
+
+    private _refreshCustomModelValue(row: any) {
+        this.columns.forEach(column => {
+            this._initialCustomModelValue(row, column);
+        });
+    }
+
+    private _applyDiffChanges(changes: IterableChanges<any>) {
+        if (changes) {
+            changes.forEachAddedItem((record: IterableChangeRecord<any>) => {
+                this._refreshCustomModelValue(record.item);
+            });
+        }
+    }
+
+    private _bindTrackFn() {
+        this.trackByFn = function (this: any, index: number, row: any): any {
+            return this.rowKey ? row[this.rowKey] : index;
+        }.bind(this);
     }
 
     private _destroyInvalidAttribute() {
@@ -156,6 +192,13 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy {
         });
     }
 
+    private _filterModel() {
+        if (this.model && this.model.length > 0) {
+            if (this._filter) {
+            }
+        }
+    }
+
     public updateColumn(column: ThyGridColumn) {
         let old = this.columns.find(item => item.key === column.key);
         if (old) {
@@ -163,6 +206,8 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy {
         } else {
             this.columns.push(column);
         }
+
+        console.log('column');
     }
 
     public isTemplateRef(ref: any) {
@@ -171,10 +216,6 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy {
 
     public getModelValue(row: any, path: string) {
         return get(row, path);
-    }
-
-    public trackByFn(index: number, item: any) {
-        return this.rowKey ? item[item.rowKey] : index;
     }
 
     public onModelChange(row: any, column: ThyGridColumn) {
@@ -207,12 +248,21 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy {
         this.thyOnRadioSelectChange.emit(radioSelectEvent);
     }
 
-    public onSwitchChange(event: Event) {
-        this.thyOnSwitchChange.emit(event);
+    public onSwitchChange(event: Event, row: any) {
+        const switchEvent: ThySwitchEvent = {
+            event: event,
+            row: row
+        };
+        this.thyOnSwitchChange.emit(switchEvent);
     }
 
     ngOnInit() {
 
+    }
+
+    ngDoCheck() {
+        const changes = this._diff.diff(this.model);
+        this._applyDiffChanges(changes);
     }
 
     ngAfterContentInit() {
