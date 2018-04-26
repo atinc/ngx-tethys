@@ -10,23 +10,81 @@ import { of } from 'rxjs';
 })
 export class DemoConfirmSectionComponent {
 
+    apiParameters = [
+        {
+            property: 'title',
+            description: '标题',
+            type: 'String',
+            default: ''
+        },{
+            property: 'content',
+            description: '内容',
+            type: 'String',
+            default: ''
+        },{
+            property: 'buttons',
+            description: '按钮',
+            type: 'Object',
+            default: ''
+        },{
+            property: 'buttons.confirm',
+            description: '确认按钮',
+            type: 'Object',
+            default: ''
+        },{
+            property: 'buttons.confirm.text',
+            description: '确认按钮-显示文本',
+            type: 'String',
+            default: ''
+        },{
+            property: 'buttons.confirm.type',
+            description: '确认按钮-样式',
+            type: 'ThyButtonType',
+            default: ''
+        },{
+            property: 'buttons.confirm.loadingText',
+            description: '确认按钮-处理中显示文本',
+            type: 'String',
+            default: ''
+        },{
+            property: 'buttons.confirm.action',
+            description: '确认按钮-处理事件',
+            type: 'Function',
+            default: ''
+        },
+    ];
+
 
     constructor(
         private confirmService: ThyConfirmService
     ) { }
 
     deleteSimplyConfirm() {
-        this.confirmService.showDelete(
-            {
-                name: '6.0迭代开发',
-                typeName: '项目'
+        this.confirmService.delete(null, '确认删除项目 <code>6.0迭代开发</code> 吗？text', () => {
+            console.log(1);
+        });
+    }
+    deleteSimplyConfirmTranslate() {
+        this.confirmService.deleteTranslateKey(
+            null, {
+                content: 'common.confirm.CONTENT',
+                params: {
+                    name: '6.0迭代开发'
+                }
             }, () => {
-                console.log(1);
+                return of([1]).pipe(
+                    delay(2000),
+                    tap({
+                        complete: () => {
+
+                        }
+                    })
+                );
             }
         );
     }
 
-    deleteConfirm() {
+    show() {
         this.confirmService.show({
             title: '确认删除',
             content: '确认删除项目 <code>aaa</code> 吗？',
@@ -42,7 +100,7 @@ export class DemoConfirmSectionComponent {
         });
     }
 
-    deleteConfirmSync() {
+    showSync() {
         this.confirmService.show({
             title: '确认删除',
             content: '确认删除项目 <code>aaa</code> 吗？',

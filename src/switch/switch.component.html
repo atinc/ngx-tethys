@@ -1,5 +1,5 @@
-<label class="switch" [ngClass]="thyClassName">
-    <input type="checkbox" class="switch-input" [checked]="model" (change)="toggle($event)">
-    <span class="switch-label"></span>
-    <span class="switch-handle"></span>
+<label class="thy-switch" [ngClass]="thyClassName">
+    <input type="checkbox" [disabled]="disabled" class="thy-switch-input" [checked]="model" (change)="toggle($event)">
+    <span class="thy-switch-label"></span>
+    <span class="thy-switch-handle"></span>
 </label>
