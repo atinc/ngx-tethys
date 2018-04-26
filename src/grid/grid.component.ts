@@ -206,8 +206,6 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy, Do
         } else {
             this.columns.push(column);
         }
-
-        console.log('column');
     }
 
     public isTemplateRef(ref: any) {

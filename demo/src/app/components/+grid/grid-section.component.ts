@@ -190,7 +190,9 @@ export class DemoGridSectionComponent implements OnInit {
     public loadingDone = false;
 
     ngOnInit() {
-        this.loadingDone = true;
+        setTimeout(() => {
+            this.loadingDone = true;
+        }, 3000);
     }
 
     onMultiSelectChange(event) {
