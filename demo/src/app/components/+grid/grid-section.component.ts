@@ -118,7 +118,7 @@ export class DemoGridSectionComponent implements OnInit {
         {
             property: '(thyOnSwitchChange)',
             description: '切换组件回调事件',
-            type: 'Event',
+            type: 'ThySwitchEvent',
             default: ''
         },
     ];
@@ -150,7 +150,7 @@ export class DemoGridSectionComponent implements OnInit {
         {
             property: 'thyHeaderClassName',
             description: '是指列头部的Class',
-            type: 'Event',
+            type: 'String',
             default: ''
         },
         {
