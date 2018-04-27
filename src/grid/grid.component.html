@@ -29,7 +29,7 @@
                     </ng-container>
                     <!-- switch -->
                     <ng-container *ngIf="column.type === customType.switch">
-                        <thy-switch [(ngModel)]="row[column.key]" (ngModelChange)="onModelChange(row,column)" [thyDisabled]="column.disabled" (thyChange)="onSwitchChange($event,row)"></thy-switch>
+                        <thy-switch [(ngModel)]="row[column.key]" (ngModelChange)="onModelChange(row,column)" [thyDisabled]="column.disabled" (thyChange)="onSwitchChange($event,row,column)"></thy-switch>
                     </ng-container>
                 </ng-container>
             </td>

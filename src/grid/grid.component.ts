@@ -246,10 +246,15 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy, Do
         this.thyOnRadioSelectChange.emit(radioSelectEvent);
     }
 
-    public onSwitchChange(event: Event, row: any) {
+    public onSwitchChange(event: Event, row: any, column: any) {
         const switchEvent: ThySwitchEvent = {
             event: event,
-            row: row
+            row: row,
+            change: (value: any) => {
+                setTimeout(() => {
+                    row[column.key] = get(value, column.model);
+                });
+            }
         };
         this.thyOnSwitchChange.emit(switchEvent);
     }

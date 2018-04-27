@@ -192,6 +192,7 @@ export class DemoGridSectionComponent implements OnInit {
     ngOnInit() {
         setTimeout(() => {
             this.loadingDone = true;
+            this.model.push({ ...this.model[1], checked: true });
         }, 3000);
     }
 
@@ -208,6 +209,7 @@ export class DemoGridSectionComponent implements OnInit {
     }
 
     onSwitchChange(event) {
-        console.log(event);
+        event.row.checked = !event.row.checked;
+        event.change(event.row);
     }
 }
