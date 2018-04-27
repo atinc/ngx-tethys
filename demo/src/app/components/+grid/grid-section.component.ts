@@ -209,7 +209,10 @@ export class DemoGridSectionComponent implements OnInit {
     }
 
     onSwitchChange(event) {
-        event.row.checked = !event.row.checked;
-        event.change(event.row);
+        // 设置选中后，如果需要取消选中(必须调change 来刷新数据)
+        setTimeout(() => {
+            event.row.checked = false;
+            event.refresh();
+        }, 2000);
     }
 }

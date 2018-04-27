@@ -50,7 +50,7 @@ export interface ThyRadioSelectEvent {
 export interface ThySwitchEvent {
     event: Event;
     row: any;
-    change?: any;
+    refresh?: Function;
 }
 
 
