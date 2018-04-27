@@ -20,6 +20,7 @@ import { DemoTreeSectionComponent } from './+tree/tree-section.component';
 import { DemoNotifySectionComponent } from './+notify/notify-section.component';
 import { DemoEmptySectionComponent } from './+empty/empty-section.component';
 import { DemoSwitchSectionComponent } from './+switch/switch-section.component';
+import { DemoTransferSectionComponent } from './+transfer/transfer-section.component';
 
 
 export const COMPONENTS = [
@@ -46,7 +47,8 @@ export const COMPONENTS = [
     DemoLoadingSectionComponent,
     DemoTreeSectionComponent,
     DemoEmptySectionComponent,
-    DemoSwitchSectionComponent
+    DemoSwitchSectionComponent,
+    DemoTransferSectionComponent
 ];
 
 export const ENTRY_COMPONENTS = [

@@ -1,0 +1,17 @@
+<section>
+    <div class="header">
+        <h2>穿梭框</h2>
+    </div>
+    <div class="body">
+        <thy-transfer [thyData]="transferData" [thyTitles]="['数据源','已选中']" (thyChange)="onTransferChange($event)">
+        </thy-transfer>
+    </div>
+</section>
+
+<br/>
+
+<api-parameters [parameters]="apiParameters"></api-parameters>
+
+<br/>
+
+<api-parameters [parameters]="transferItemParameters" title="TransferItem 属性说明"></api-parameters>

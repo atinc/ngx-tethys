@@ -1,0 +1,13 @@
+<thy-transfer-list [items]="sourceItems" [title]="titles[0]" [template]="templateRef" (select)="onSelect('left' , $event)"></thy-transfer-list>
+<div class="thy-transfer-operation">
+    <div class="thy-transfer-operation-body">
+        <a class="operation-link" href="javascript:;" (click)="onMove('right')">
+            <i class="wtf wtf-angle-right"></i>
+        </a>
+        <br>
+        <a class="operation-link rotate-left" href="javascript:;" (click)="onMove('left')">
+            <i class="wtf wtf-angle-right"></i>
+        </a>
+    </div>
+</div>
+<thy-transfer-list [items]="targetItems" [title]="titles[1]" [template]="templateRef" (select)="onSelect('right' , $event)"></thy-transfer-list>
