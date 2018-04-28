@@ -14,6 +14,14 @@ export function isUndefinedOrNull(value: any) {
     return isUndefined(value) || isNull(value);
 }
 
+export function isArray(value: any): boolean {
+    return value && this.baseGetTag(value) === '[object Array]';
+}
+
+export function isString(value: any): boolean {
+    return value && this.baseGetTag(value) === '[object String]';
+}
+
 function isObjectLike(value: any) {
     return typeof value === 'object' && value !== null;
 }

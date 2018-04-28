@@ -49,6 +49,14 @@
   }
 }
 
+@mixin nav-link-size($padding, $margin-right){
+  padding: $padding;
+  margin-right: $margin-right;
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
 @mixin nav-link-clear-margin-right() {
   &:last-child {
     margin-right: 0;

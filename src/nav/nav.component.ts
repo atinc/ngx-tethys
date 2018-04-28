@@ -4,8 +4,11 @@ import {
     ElementRef,
     Renderer2,
     Input,
-    HostBinding
+    HostBinding,
+    OnInit
 } from '@angular/core';
+import { UpdateHostClassService } from '../shared';
+import { inputValueToBoolean } from '../util/helpers';
 
 export type ThyNavType = 'primary' | 'secondary' | 'thirdly';
 export type ThyNavSize = '' | 'sm';
@@ -17,62 +20,81 @@ const navTypeClassesMap: any = {
     thirdly: ['thy-nav', 'nav-thirdly']
 };
 
-const navVerticalClassesMap: any = {
-    vertical: 'thy-nav-vertical',
-};
-
 const navSizeClassesMap: any = {
     sm: 'nav-sm'
 };
 
 const navHorizontalClassesMap: any = {
-    left: '',
+    left: null,
     center: 'justify-content-center',
     right: 'justify-content-end'
 };
 
 @Component({
     selector: 'thy-nav',
-    template: `<ng-content></ng-content>`
+    template: `<ng-content></ng-content>`,
+    providers: [
+        UpdateHostClassService
+    ]
 })
-export class ThyNavComponent {
+export class ThyNavComponent implements OnInit {
     private _type: ThyNavType;
     private _size: ThyNavSize;
     private _horizontal: ThyNavHorizontal;
-    private _vertical: boolean;
+    private _initialized = false;
 
     @Input()
     set thyType(type: ThyNavType) {
         this._type = type;
-        if (navTypeClassesMap[this._type]) {
-            this.navClass += navTypeClassesMap[this._type].join(' ');
+        if (this._initialized) {
+            this._updateClasses();
         }
     }
 
     @Input()
     set thySize(size: ThyNavSize) {
         this._size = size;
-        if (navSizeClassesMap[this._size]) {
-            this.navClass += ' ' + navSizeClassesMap[this._size];
+        if (this._initialized) {
+            this._updateClasses();
         }
     }
 
     @Input()
     set thyHorizontal(horizontal: ThyNavHorizontal) {
         this._horizontal = horizontal;
-        if (navHorizontalClassesMap[this._horizontal]) {
-            this.navClass += ' ' + navHorizontalClassesMap[this._horizontal];
+        if (this._initialized) {
+            this._updateClasses();
         }
     }
 
     @Input()
     set thyVertical(value: boolean) {
-        this._vertical = value;
-        if (value) {
-            this.navClass += ' thy-nav--vertical';
-        }
+        this._isVertical = value;
     }
 
-    @HostBinding('class') navClass = '';
+    @HostBinding('class.thy-nav--vertical') _isVertical = false;
+
+    private _updateClasses() {
+        let classNames = [];
+        if (navTypeClassesMap[this._type]) {
+            classNames = [...navTypeClassesMap[this._type]];
+        }
+        if (navTypeClassesMap[this._size]) {
+            classNames.push(navSizeClassesMap[this._size]);
+        }
+        if (navHorizontalClassesMap[this._horizontal]) {
+            classNames.push(navHorizontalClassesMap[this._horizontal]);
+        }
+        this.updateHostClass.updateClass(classNames);
+    }
+
+    constructor(private updateHostClass: UpdateHostClassService, private elementRef: ElementRef) {
+        this.updateHostClass.initializeElement(elementRef.nativeElement);
+    }
+
+    ngOnInit() {
+        this._initialized = true;
+        this._updateClasses();
+    }
 }
 

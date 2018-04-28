@@ -14,8 +14,7 @@
 
 .nav-primary {
   .nav-link {
-    padding: $nav-link-primary-padding-y $nav-link-primary-padding-x;
-    margin-right: $nav-link-primary-right;
+    @include nav-link-size($nav-link-primary-padding-y $nav-link-primary-padding-x, $nav-link-primary-right);
     min-width: $nav-link-primary-min-width;
   }
 }
@@ -23,16 +22,14 @@
 .nav-secondary {
   border-bottom: 1px solid $nav-border-color;
   .nav-link {
-    padding: $nav-link-secondary-padding-y $nav-link-secondary-padding-x;
-    margin-right: $nav-link-secondary-right;
+    @include nav-link-size($nav-link-secondary-padding-y $nav-link-secondary-padding-x, $nav-link-secondary-right);
   }
 }
 
 .nav-thirdly {
   .nav-link {
     @include nav-link-variant-thirdly($nav-link-hover-color);
-    padding: $nav-link-thirdly-padding-y $nav-link-thirdly-padding-x;
-    margin-right: $nav-link-thirdly-right;
+    @include nav-link-size ($nav-link-thirdly-padding-y $nav-link-thirdly-padding-x, $nav-link-thirdly-right);
     &:after {
       top: calc(50% - #{$nav-link-thirdly-split-line-height}/2);
       right: $nav-link-thirdly-right/2 * -1;
