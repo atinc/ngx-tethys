@@ -4,6 +4,7 @@ import { isString } from '../util/helpers';
 @Injectable()
 export class UpdateHostClassService {
 
+    // host element old classes
     private _classNames: string[] = [];
 
     private _hostElement: HTMLElement;
@@ -24,7 +25,7 @@ export class UpdateHostClassService {
                 }
             });
         }
-        const newClasses = [];
+        const newClasses: string[] = [];
         classNames.forEach((className) => {
             if (className) {
                 newClasses.push(className);
@@ -36,11 +37,11 @@ export class UpdateHostClassService {
         this._classNames = newClasses;
     }
 
-    addClass(className: string) {
+    private addClass(className: string) {
         this.renderer.addClass(this._hostElement, className);
     }
 
-    removeClass(className: string) {
+    private removeClass(className: string) {
         this.renderer.removeClass(this._hostElement, className);
     }
 }

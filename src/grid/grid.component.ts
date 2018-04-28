@@ -250,7 +250,7 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy, Do
         const switchEvent: ThySwitchEvent = {
             event: event,
             row: row,
-            refresh: (value) => {
+            refresh: (value: any) => {
                 value = value || row;
                 setTimeout(() => {
                     value[column.key] = get(value, column.model);

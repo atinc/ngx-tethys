@@ -22,6 +22,7 @@ import { ThyNotifyModule } from './notify/notify.module';
 import { ThyEmptyModule } from './empty';
 import { ThySwitchModule } from './switch/switch.module';
 import { ThyTransferModule } from './transfer/transfer.module';
+import { ThyFormModule } from './form';
 
 @NgModule({
     declarations: [
@@ -46,7 +47,8 @@ import { ThyTransferModule } from './transfer/transfer.module';
         ThyConfirmModule,
         ThyEmptyModule,
         ThySwitchModule,
-        ThyTransferModule
+        ThyTransferModule,
+        ThyFormModule
     ],
     exports: [
         BrowserAnimationsModule,
@@ -67,7 +69,8 @@ import { ThyTransferModule } from './transfer/transfer.module';
         ThyTreeModule,
         ThyEmptyModule,
         ThySwitchModule,
-        ThyTransferModule
+        ThyTransferModule,
+        ThyFormModule
     ],
     providers: [
     ]

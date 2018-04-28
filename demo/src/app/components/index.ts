@@ -21,7 +21,7 @@ import { DemoNotifySectionComponent } from './+notify/notify-section.component';
 import { DemoEmptySectionComponent } from './+empty/empty-section.component';
 import { DemoSwitchSectionComponent } from './+switch/switch-section.component';
 import { DemoTransferSectionComponent } from './+transfer/transfer-section.component';
-
+import { DemoFormSectionComponent } from './+form/form-section.component';
 
 export const COMPONENTS = [
     DemoPopBoxSectionComponent,
@@ -48,7 +48,8 @@ export const COMPONENTS = [
     DemoTreeSectionComponent,
     DemoEmptySectionComponent,
     DemoSwitchSectionComponent,
-    DemoTransferSectionComponent
+    DemoTransferSectionComponent,
+    DemoFormSectionComponent
 ];
 
 export const ENTRY_COMPONENTS = [
