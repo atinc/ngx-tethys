@@ -1,0 +1,13 @@
+<div class="thy-transfer-list-header">
+    <span class="thy-transfer-list-header-title">{{title}}</span>
+</div>
+<div class="thy-transfer-list-body">
+    <ul class="thy-transfer-list-content">
+        <ng-container *ngFor="let item of items;">
+            <li class="thy-transfer-list-content-item" [ngClass]="{'active' : item.checked}" (click)="onSelect(item)">
+                <ng-template *ngIf="template" [ngTemplateOutlet]="template" [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
+                <ng-container *ngIf="!template">{{item.title}}</ng-container>
+            </li>
+        </ng-container>
+    </ul>
+</div>

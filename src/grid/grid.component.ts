@@ -156,7 +156,7 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy, Do
         }
     }
 
-    private _initialCustomModelValue(row: object, column: ThyGridColumn, ) {
+    private _initialCustomModelValue(row: object, column: ThyGridColumn) {
         if (column.type === customType.switch) {
             row[column.key] = get(row, column.model);
         }
@@ -246,10 +246,16 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy, Do
         this.thyOnRadioSelectChange.emit(radioSelectEvent);
     }
 
-    public onSwitchChange(event: Event, row: any) {
+    public onSwitchChange(event: Event, row: any, column: any) {
         const switchEvent: ThySwitchEvent = {
             event: event,
-            row: row
+            row: row,
+            refresh: (value) => {
+                value = value || row;
+                setTimeout(() => {
+                    value[column.key] = get(value, column.model);
+                });
+            }
         };
         this.thyOnSwitchChange.emit(switchEvent);
     }

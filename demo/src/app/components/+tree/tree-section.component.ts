@@ -50,6 +50,18 @@ export class DemoTreeSectionComponent {
             description: '灵活模式下需要注入的数据 （ instance可从 ng-template 定义 let instance="instance" 获取）',
             type: 'Object',
             default: ''
+        },
+        {
+            property: '#treeNodeTemplate',
+            description: '设置TreeNode的渲染模板',
+            type: 'TemplateRef',
+            default: ''
+        },
+        {
+            property: '#treeNodeFlexibleTemplate',
+            description: '设置灵活模式的TreeNode渲染模板',
+            type: 'TemplateRef',
+            default: ''
         }
     ];
 

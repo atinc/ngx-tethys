@@ -192,6 +192,7 @@ export class DemoGridSectionComponent implements OnInit {
     ngOnInit() {
         setTimeout(() => {
             this.loadingDone = true;
+            this.model.push({ ...this.model[1], checked: true });
         }, 3000);
     }
 
@@ -208,6 +209,10 @@ export class DemoGridSectionComponent implements OnInit {
     }
 
     onSwitchChange(event) {
-        console.log(event);
+        // 设置选中后，如果需要取消选中(必须调 refresh 来刷新数据)
+        setTimeout(() => {
+            event.row.checked = false;
+            event.refresh();
+        }, 2000);
     }
 }
