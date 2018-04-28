@@ -10,6 +10,8 @@ import { PopBoxRef } from '../../../../../src/pop-box/pop-box-ref.service';
 })
 export class DemoPopBoxSectionComponent {
 
+    public demoPlacement = 'bottom center';
+
     constructor(private popBoxService: ThyPopBoxService) {
 
     }
@@ -22,7 +24,8 @@ export class DemoPopBoxSectionComponent {
         this.popBoxService.show(PopBoxMenuDemoShowComponent, {
             initialState: initialState,
             insideAutoClose: true,
-            target: templateRef.elementRef
+            target: templateRef.elementRef,
+            placement: this.demoPlacement
         });
     }
 

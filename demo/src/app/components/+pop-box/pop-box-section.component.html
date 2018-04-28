@@ -3,6 +3,21 @@
         <h2>PopBoxMenu</h2>
     </div>
     <div class="body">
+        <select class="form-control w-25" [(ngModel)]="demoPlacement">
+            <option value="bottom center">下中</option>
+            <option value="bottom left">下左</option>
+            <option value="bottom right">下右</option>
+            <option value="top left">上左</option>
+            <option value="top center">上中</option>
+            <option value="top right">上右</option>
+            <option value="left top">左上</option>
+            <option value="left center">左中</option>
+            <option value="left bottom">左下</option>
+            <option value="right top">右上</option>
+            <option value="right center">右中</option>
+            <option value="right bottom">右下</option>
+        </select>
+        <br>
         <button [thyButton]="'primary'" #btnTriggerPopBoxMenu (click)="openPopBoxMenu(btnTriggerPopBoxMenu)">下拉菜单</button>
     </div>
 </section>

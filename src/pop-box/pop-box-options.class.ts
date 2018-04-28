@@ -52,7 +52,7 @@ export class PopBoxOptions {
 }
 
 export const popBoxConfigDefaults: PopBoxOptions = {
-    placement: 'bottom left',
+    placement: 'bottom center',
     arrow: false,
     keyboardESCClose: true,
     outsideAutoClose: true,
