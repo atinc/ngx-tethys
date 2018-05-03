@@ -1,5 +1,5 @@
 
-import { Observable, Observer, BehaviorSubject, from, of } from 'rxjs';
+import { Observable, Observer, BehaviorSubject, from, of, PartialObserver, Subscription } from 'rxjs';
 import { distinctUntilChanged, map, shareReplay } from 'rxjs/operators';
 import { META_KEY, StoreMetaInfo } from './types';
 
@@ -12,7 +12,7 @@ export class Store<T extends Object> implements Observer<T> {
 
     [key: string]: any;
 
-    private state$: BehaviorSubject<T>;
+    protected state$: BehaviorSubject<T>;
 
     constructor(initialState: any) {
         this.state$ = new BehaviorSubject<T>(initialState);
@@ -76,5 +76,9 @@ export class Store<T extends Object> implements Observer<T> {
 
     complete() {
         this.state$.complete();
+    }
+
+    subscribe(next?: (value: T) => void, error?: (error: any) => void, complete?: () => void): Subscription {
+        return this.state$.subscribe(next, error, complete);
     }
 }
