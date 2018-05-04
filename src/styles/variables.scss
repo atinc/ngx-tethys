@@ -319,14 +319,14 @@ $switch-xs-height: 16px !default;
 
 
 //Transfer
-$transfer-list-header-padding: 5px !default;
-$transfer-list-header-font-color:$gray-800 !default;
-$transfer-list-header-font-size:$font-size-md !default;
+$transfer-list-header-padding: 10px 0 !default;
+$transfer-list-header-font-color:$gray-600 !default;
+$transfer-list-header-font-size:$font-size-base !default;
 $transfer-list-border-width:1px !default;
 $transfer-list-border-color:$gray-200 !default;
 $transfer-list-border-radius:5px !default;
 $transfer-list-width :280px !default;
-$transfer-list-height :320px !default;
+$transfer-list-height :360px !default;
 $transfer-list-padding :10px 0 !default;
 $transfer-list-item-padding :0 10px !default;
 $transfer-list-item-line-hight :38px !default;
@@ -334,5 +334,4 @@ $transfer-list-item-hover-color: $gray-200 !default;
 $transfer-operation-padding : 0 10px !default;
 $transfer-operation-font-size :  $font-size-base * 2 !default;
 $transfer-operation-color : $gray-600 !default;
-
 
