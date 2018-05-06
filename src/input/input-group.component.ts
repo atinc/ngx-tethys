@@ -1,7 +1,7 @@
 import { Component, HostBinding, Input, ContentChild, TemplateRef, ElementRef } from '@angular/core';
 import { ThyTranslate, UpdateHostClassService } from '../shared';
 
-type InputGroupSize = 'sm' | 'lg' | '';
+export type InputGroupSize = 'sm' | 'lg' | '';
 
 const inputGroupSizeMap = {
     'sm': ['input-group-sm'],
