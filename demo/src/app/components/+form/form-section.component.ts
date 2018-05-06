@@ -10,8 +10,25 @@ import { Component } from '@angular/core';
 })
 export class DemoFormSectionComponent {
 
+    model: any = {
+        select: 1
+    };
+
+    options = [
+        {
+            _id: 1,
+            value: '选项1'
+        },
+        {
+            _id: 2,
+            value: '选项2'
+        }
+    ];
 
     constructor() {
     }
 
+    save(form: any) {
+        debugger;
+    }
 }

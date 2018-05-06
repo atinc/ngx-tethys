@@ -3,24 +3,21 @@ import {
     HostBinding,
     Optional,
     Input,
-    ViewEncapsulation,
-    ContentChild,
-    OnInit
+    ViewEncapsulation
 } from '@angular/core';
 import { ThyFormDirective } from './form.directive';
 import { inputValueToBoolean } from '../util/helpers';
-import { TemplateRef } from '@angular/core';
 
 @Component({
-    selector: 'thy-form-group',
-    templateUrl: './form-group.component.html',
+    selector: 'thy-form-group-label',
+    template: `<ng-content></ng-content>`,
     encapsulation: ViewEncapsulation.None
 })
-export class ThyFormGroupComponent implements OnInit {
+export class ThyFormGroupLabelComponent {
 
     public labelRequired: boolean;
 
-    @HostBinding('class.form-group') _isFormGroup = true;
+    @HostBinding('class.col-sm-2 col-form-label') _isFormGroupLabel = true;
 
     @Input() thyLabelText: string;
 
@@ -31,17 +28,10 @@ export class ThyFormGroupComponent implements OnInit {
         this.labelRequired = inputValueToBoolean(value);
     }
 
-    @Input() thyTips: string;
-
-    @ContentChild('formGroup')
-    public contentTemplateRef: TemplateRef<any>;
 
     constructor(
         @Optional() thyFormDirective: ThyFormDirective
     ) {
-    }
 
-    ngOnInit() {
-        debugger;
     }
 }

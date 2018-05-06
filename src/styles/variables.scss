@@ -44,6 +44,7 @@ $link-hover-decoration: underline;
 
 // box shadow
 $box-shadow: 0 0 24px rgba(0, 0, 0, 0.18);
+$enable-shadows: false !default;
 
 // font
 $font-family-sans-serif: "Helvetica Neue", "Hiragino Sans GB", "stheiti",
@@ -63,13 +64,18 @@ $font-size-min-sm: .625rem; // 10px
 // code
 $code-color: $danger;
 
+$input-btn-padding-y: 0.469rem !default;
+$input-btn-padding-x:  2.438rem !default;
+// $input-btn-line-height: $line-height-base !default;
+$input-btn-focus-width: 0.0625rem !default; // 1px
+
 // Buttons
 $btn-border-radius: 1.25rem;
 $btn-border-radius-lg: 1.25rem;
 $btn-border-radius-sm: 1rem;
 $btn-box-shadow: null;
-$btn-padding-y: 0.469rem; //108*38px
-$btn-padding-x: 2.438rem;
+// $btn-padding-y: 0.469rem; //108*38px
+// $btn-padding-x: 2.438rem;
 $btn-padding-y-md: 0.407rem; // 100*36px 变种按钮大小
 $btn-padding-x-md: 1.25rem;
 // $btn-line-height: $input-btn-line-height;
@@ -84,6 +90,17 @@ $btn-disabled-border-color: $gray-300;
 $btn-link-color-default: $gray-500;
 $btn-link-color-disabled: $gray-400;
 
+// Forms
+
+$input-padding-x: 0.875rem; // 输入框左右 padding 和 按钮大小不一致， bootstrap 是一致的
+$input-focus-border-color: $primary;
+$input-btn-focus-box-shadow: none;
+$input-box-shadow: none;
+$input-placeholder-color: $gray-400 !default;
+$input-color: $gray-800 !default;
+$input-border-color: $gray-300 !default;
+
+$form-text-margin-top: .5rem !default;
 // PopBox
 
 $pop-box-divider: $gray-100;

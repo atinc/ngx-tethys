@@ -1,0 +1,27 @@
+.col-form-label {
+    color: $gray-600;
+    text-align: right;
+}
+
+.label-required {
+    &::before {
+      content: '*';
+      color: $danger;
+      margin-right: 3px;
+      position: relative;
+      top: 3px;
+    }
+    &--after {
+      &::before {
+        content: none;
+      }
+      &::after {
+        content: '*';
+        color: $danger;
+        margin-left: 3px;
+        position: relative;
+        top: 3px;
+      }
+    }
+  }
+  
