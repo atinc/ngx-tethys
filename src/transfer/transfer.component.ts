@@ -23,7 +23,9 @@ export class ThyTransferComponent {
 
     public targetItems: ThyTransferItem[];
 
-    public titles: string[];
+    public leftTitle: string;
+
+    public rightTitle: string;
 
     private _canMove: Function;
 
@@ -39,7 +41,8 @@ export class ThyTransferComponent {
 
     @Input()
     set thyTitles(value: string[]) {
-        this.titles = value;
+        this.leftTitle = value[0] || '';
+        this.rightTitle = value[1] || '';
     }
 
     @Input()

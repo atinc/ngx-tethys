@@ -1,4 +1,4 @@
-<thy-transfer-list [items]="sourceItems" [title]="titles[0]" [template]="templateRef" (select)="onSelect('left' , $event)"></thy-transfer-list>
+<thy-transfer-list [items]="sourceItems" [title]="leftTitle" [template]="templateRef" (select)="onSelect('left' , $event)"></thy-transfer-list>
 <div class="thy-transfer-operation">
     <div class="thy-transfer-operation-body">
         <a class="operation-link" href="javascript:;" (click)="onMove('right')">
@@ -10,4 +10,4 @@
         </a>
     </div>
 </div>
-<thy-transfer-list [items]="targetItems" [title]="titles[1]" [template]="templateRef" (select)="onSelect('right' , $event)"></thy-transfer-list>
+<thy-transfer-list [items]="targetItems" [title]="rightTitle" [template]="templateRef" (select)="onSelect('right' , $event)"></thy-transfer-list>
