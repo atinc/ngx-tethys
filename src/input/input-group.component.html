@@ -1,0 +1,13 @@
+<div class="input-group-prepend" *ngIf="prependText">
+    <span class="input-group-text">{{prependText}}</span>
+</div>
+<div class="input-group-prepend" *ngIf="prependTemplate">
+    <ng-template *ngTemplateOutlet="prependTemplate"></ng-template>
+</div>
+<ng-content></ng-content>
+<div class="input-group-append" *ngIf="appendText">
+    <span class="input-group-text">{{appendText}}</span>
+</div>
+<div class="input-group-append" *ngIf="appendTemplate">
+    <ng-template *ngTemplateOutlet="appendTemplate"></ng-template>
+</div>
