@@ -42,6 +42,5 @@ export class ThyFormGroupComponent implements OnInit {
     }
 
     ngOnInit() {
-        debugger;
     }
 }

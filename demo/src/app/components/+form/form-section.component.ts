@@ -1,12 +1,13 @@
 
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
     selector: 'demo-form-section',
     templateUrl: './form-section.component.html',
     styleUrls: [
         './form-section.scss'
-    ]
+    ],
+    encapsulation: ViewEncapsulation.None
 })
 export class DemoFormSectionComponent {
 

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ThyFormDirective } from './form.directive';
 import { ThyFormGroupComponent } from './form-group.component';
-import { ThyFormGroupLabelComponent } from './form-group-label.component';
+import { ThyFormGroupLabelDirective } from './form-group-label.directive';
 
 @NgModule({
     imports: [
@@ -11,12 +11,12 @@ import { ThyFormGroupLabelComponent } from './form-group-label.component';
     declarations: [
         ThyFormDirective,
         ThyFormGroupComponent,
-        ThyFormGroupLabelComponent
+        ThyFormGroupLabelDirective
     ],
     exports: [
         ThyFormDirective,
         ThyFormGroupComponent,
-        ThyFormGroupLabelComponent
+        ThyFormGroupLabelDirective
     ]
 })
 export class ThyFormModule {
