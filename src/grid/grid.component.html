@@ -1,12 +1,15 @@
-<table class="table" [ngClass]="[themeClass,className]">
+<table class="table" [ngClass]="[themeClass,className]" [class.table-draggable]="draggable">
     <thead>
         <tr>
             <th *ngFor="let column of columns" [ngClass]="column.headerClassName">{{column.title}}</th>
         </tr>
     </thead>
-    <tbody *ngIf="loadingDone">
-        <tr *ngFor="let row of model;let i=index;trackBy:trackByFn">
-            <td *ngFor="let column of columns" [ngClass]="column.className" [width]="column.width">
+    <tbody *ngIf="loadingDone" [sortablejs]="model" [sortablejsOptions]="draggableOptions">
+        <tr *ngFor="let row of model; let i = index; trackBy:trackByFn">
+            <td *ngFor="let column of columns; let j = index;" [ngClass]="column.className" [width]="column.width">
+                <ng-container *ngIf="j === 0 && draggable">
+                    <i class="table-draggable-icon wtf wtf-move"></i>
+                </ng-container>
                 <!--template-->
                 <ng-container *ngIf="isTemplateRef(column.templateRef)">
                     <ng-template [ngTemplateOutlet]="column.templateRef" [ngTemplateOutletContext]="{$implicit : row}"></ng-template>

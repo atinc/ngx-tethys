@@ -189,6 +189,15 @@ export class DemoGridSectionComponent implements OnInit {
 
     public loadingDone = false;
 
+    public draggableOptions = {
+        onStart: (event) => {
+            console.log('onStart', event);
+        },
+        onUpdate: (event) => {
+            console.log('onUpdate', event);
+        }
+    };
+
     ngOnInit() {
         setTimeout(() => {
             this.loadingDone = true;
