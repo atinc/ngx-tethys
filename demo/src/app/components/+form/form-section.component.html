@@ -6,11 +6,15 @@
         <div class="demo-form">
             <form thyForm name="demoForm" #demoForm="ngForm">
                 <thy-form-group thyLabelText="用户名" thyLabelRequired thyTips="这是一个输入用户名的描述">
-                    <input class="form-control" name="username" [(ngModel)]="model.name" required placeholder="请输入用户名">
+                    <input thyInput name="username" [(ngModel)]="model.name" required placeholder="请输入用户名">
                 </thy-form-group>
-                <thy-form-group thyLabelText="姓名">
+                <div class="form-group row">
                     <input thyInput name="displayName" [(ngModel)]="model.display_name" placeholder="请输入姓名">
-                </thy-form-group>
+                    <!-- <label class="col-sm-2 col-form-label">姓名</label>
+                    <div class="col-sm-10">
+                        <input thyInput name="displayName" [(ngModel)]="model.display_name" placeholder="请输入姓名">
+                    </div> -->
+                </div>
                 <thy-form-group thyLabelText="选择">
                     <select class="form-control" required [(ngModel)]="model.select" name="power">
                         <option *ngFor="let option of options" [value]="option._id">{{option.value}}</option>
@@ -29,7 +33,7 @@
                 <thy-form-group>
                     <ng-template #formGroup>
                         <label class="col-sm-2 col-form-label pr-0">开始时间</label>
-                        <div class="col-sm-4 control-panel">
+                        <div class="col-sm-4 form-control-container">
                             <thy-input-group>
                                 <input type="text" class="form-control pbox-trigger" name="deadline_at" readonly="readonly" placeholder="" value="7月17日">
                                 <ng-template #append>
@@ -41,7 +45,7 @@
                             </thy-input-group>
                         </div>
                         <label class="col-sm-2 col-form-label">结束时间</label>
-                        <div class="col-sm-4 control-panel has-feedback">
+                        <div class="col-sm-4 form-control-container has-feedback">
                             <input type="email" class="form-control" placeholder="结束时间">
                             <span class="form-control-feedback wtf wtf-schedule-o"></span>
                         </div>
@@ -104,7 +108,7 @@
                     </div>
                 </thy-form-group>
                 <thy-form-group>
-                    <button [thyButton]="'primary'" (click)="save(demoForm)">保存</button>
+                    <button [thyButton]="'primary'" (thyFormSubmit)="save(demoForm)">保存</button>
                     <button [thyButton]="'link-secondary'">取消</button>
                 </thy-form-group>
             </form>
