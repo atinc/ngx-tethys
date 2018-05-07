@@ -60,8 +60,10 @@
   }
 
   // Thy Custom
-  @include hover {
-    border-color: $input-hover-border-color;
+  &:not(:disabled){
+    @include hover {
+      border-color: $input-hover-border-color;
+    }
   }
 }
 
