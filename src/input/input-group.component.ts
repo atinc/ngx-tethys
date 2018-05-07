@@ -21,7 +21,7 @@ export class ThyInputGroupComponent {
 
     public prependText: string;
 
-    @HostBinding('class.input-group') _isInputGroup = true;
+    @HostBinding('class.thy-input-group') _isInputGroup = true;
 
     @Input()
     set thyAppendText(value: string) {
