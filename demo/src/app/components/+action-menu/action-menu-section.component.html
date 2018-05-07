@@ -5,7 +5,7 @@
     <div class="body">
         <button [thyButton]="'primary'" [thyActionMenuToggle]="menu1">默认</button>
         <button [thyButton]="'primary'" [thyActionMenuToggle]="menu1" disabled="disabled">禁用</button>
-        <button [thyButton]="'primary'" [thyActionMenuToggle]="menu1">弹出位置</button>
+        <button [thyButton]="'primary'" [thyActionMenuToggle]="menu1" [thyPlacement]="'bottom right'">弹出位置</button>
         <ng-template #menu1>
             <thy-action-menu>
                 <a thyActionMenuItem href="javascript:;" (click)="itemClick(1)">
@@ -29,6 +29,8 @@
                         <i class="wtf wtf-task-o"></i>
                     </span>
                     <span>有图标</span>
+                    <span class="meta">(默认排序)</span>
+                    <div class="info">默认排序下可拖拽移动任务；其他排序下只能显示，不可拖拽</div>
                 </a>
                 <a thyActionMenuItem href="javascript:;" (click)="itemClick(1)">
                     <span class="icon">
