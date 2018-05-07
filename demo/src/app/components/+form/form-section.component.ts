@@ -11,6 +11,8 @@ import { Component, ViewEncapsulation } from '@angular/core';
 })
 export class DemoFormSectionComponent {
 
+    submitSuccess = false;
+
     public apiParameters = [
         {
             property: 'thyLabelText',
@@ -69,5 +71,7 @@ export class DemoFormSectionComponent {
     }
 
     save(form: any) {
+        console.log(`submit success!`);
+        this.submitSuccess = true;
     }
 }
