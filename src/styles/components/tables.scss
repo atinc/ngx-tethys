@@ -72,6 +72,35 @@
   }
 }
 
+.table-draggable {
+  tbody tr {
+    cursor: move;
+    td {
+      position: relative;
+      .table-draggable-icon {
+        position: absolute;
+        display: none;
+        color: $table-draggable-icon-color;
+        left: $table-draggable-icon-left;
+      }
+    }
+    @include hover {
+      td {
+        .table-draggable-icon {
+          display: block;
+        }
+      }
+    }
+  }
+  &.table-bordered {
+    tbody tr td {
+      &:first-child {
+        padding-left: $table-draggable-bordered-icon-padding-left;
+      }
+    }
+  }
+}
+
 .table-responsive {
   @each $breakpoint in map-keys($grid-breakpoints) {
     $next: breakpoint-next($breakpoint, $grid-breakpoints);

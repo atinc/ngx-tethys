@@ -7,7 +7,7 @@ import { ThyPaginationModule } from '../pagination/pagination.module';
 import { ThySwitchModule } from '../switch/switch.module';
 import { ThyLoadingModule } from '../loading/loading.module';
 import { ThyEmptyModule } from '../empty/empty.module';
-import { ThySharedModule } from '../shared';
+import { SortablejsModule } from 'angular-sortablejs';
 
 @NgModule({
     declarations: [
@@ -21,7 +21,7 @@ import { ThySharedModule } from '../shared';
         ThySwitchModule,
         ThyLoadingModule,
         ThyEmptyModule,
-        ThySharedModule
+        SortablejsModule
     ],
     exports: [
         ThyGridComponent,
