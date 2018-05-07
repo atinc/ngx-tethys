@@ -11,6 +11,10 @@ import { Component, ViewEncapsulation } from '@angular/core';
 })
 export class DemoInputSectionComponent {
 
+    model = {
+        searchText: '文本1'
+    };
+
     public apiParameters = [
         {
             property: 'thyAppendText',
@@ -55,6 +59,16 @@ export class DemoInputSectionComponent {
             default: 'md'
         }
     ];
+
     constructor() {
+    }
+
+    enter() {
+        console.log(`enter`);
+        this.model.searchText = '';
+    }
+
+    searchModelChange() {
+        console.log(`searchModelChange:${this.model.searchText}`);
     }
 }

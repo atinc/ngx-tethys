@@ -30,12 +30,13 @@
                     <ng-template #formGroup>
                         <label class="col-sm-2 col-form-label pr-0">开始时间</label>
                         <div class="col-sm-4 control-panel">
-                            <div class="input-group">
+                            <thy-input-group>
                                 <input type="text" class="form-control pbox-trigger" name="deadline_at" readonly="readonly" placeholder="" value="7月17日">
-                                <span class="input-group-addon">
-                                    <i class="lcfont lc-schedule-o"></i>
-                                </span>
-                            </div>
+                                <ng-template #append>
+                                    <span class="input-group-text"> <i class="wtf wtf-schedule-o"></i></span>
+                                    <span class="input-group-text"> $ </span>
+                                </ng-template>
+                            </thy-input-group>
                         </div>
                         <label class="col-sm-2 col-form-label">结束时间</label>
                         <div class="col-sm-4 control-panel">

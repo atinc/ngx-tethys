@@ -1,0 +1,28 @@
+.input-search-container {
+    position: relative;
+    display: block;
+    width: 400px;
+
+    .input-prefix-icon,
+    .input-suffix-icon {
+        position: absolute;
+        z-index: 10;
+    }
+
+    .input-prefix-icon {
+        left: $input-padding-x;
+        top: $input-padding-y;
+        color: $input-icon-color;
+    }
+
+    .input-suffix-icon {
+        right: $input-padding-x;
+        top: $input-padding-y;
+        color: $input-icon-color;
+    }
+
+    .form-control {
+        padding: $input-padding-y ($input-padding-x + $input-padding-x + 0.5rem);
+    }
+
+}

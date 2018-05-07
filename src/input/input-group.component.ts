@@ -1,4 +1,8 @@
-import { Component, HostBinding, Input, ContentChild, TemplateRef, ElementRef } from '@angular/core';
+import {
+    Component, HostBinding, Input,
+    ContentChild, TemplateRef, ElementRef,
+    ViewEncapsulation
+} from '@angular/core';
 import { ThyTranslate, UpdateHostClassService } from '../shared';
 
 export type InputGroupSize = 'sm' | 'lg' | '';
@@ -13,7 +17,8 @@ const inputGroupSizeMap = {
     templateUrl: './input-group.component.html',
     providers: [
         UpdateHostClassService
-    ]
+    ],
+    encapsulation: ViewEncapsulation.None
 })
 export class ThyInputGroupComponent {
 

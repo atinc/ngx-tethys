@@ -42,5 +42,17 @@
     </div>
 </section>
 
+<section>
+    <div class="header">
+        <h2>搜索</h2>
+    </div>
+    <div class="body">
+        <div class="demo-input">
+            <thy-input-search (keydown.enter)="enter()" [(searchModel)]="model.searchText" (searchModelChange)="searchModelChange()"></thy-input-search>
+            searchText: {{model.searchText || 'None'}}
+        </div>
+    </div>
+</section>
+
 
 <api-parameters [parameters]="apiParameters"></api-parameters>
