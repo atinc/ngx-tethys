@@ -8,9 +8,16 @@ export class ThyActionMenuToggleDirective {
 
     private _templateRef: ElementRef;
 
+    private _placement: string;
+
     @Input()
     set thyActionMenuToggle(value: ElementRef) {
         this._templateRef = value;
+    }
+
+    @Input()
+    set thyPlacement(value: string) {
+        this._placement = value;
     }
 
     constructor(
@@ -22,7 +29,8 @@ export class ThyActionMenuToggleDirective {
     onClick(event: any): void {
         this.popBoxService.show(this._templateRef, {
             target: event.currentTarget,
-            insideAutoClose: true
+            insideAutoClose: true,
+            placement: this._placement || 'bottom left'
         });
     }
 
