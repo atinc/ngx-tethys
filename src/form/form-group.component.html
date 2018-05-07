@@ -1,6 +1,13 @@
 <div class="form-group row">
-    <label class="col-sm-2 col-form-label">{{thyLabelText}}</label>
-    <div class="col-sm-10">
-        <ng-content></ng-content>
-    </div>
+    <ng-container *ngIf="!contentTemplateRef">
+        <label class="col-sm-2 col-form-label" [ngClass]="{'label-required' : labelRequired}">{{thyLabelText}}</label>
+        <div class="col-sm-10">
+            <ng-content></ng-content>
+            <span *ngIf="thyTips" class="form-text text-secondary">{{thyTips}}</span>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="contentTemplateRef">
+        <ng-container [ngTemplateOutlet]="contentTemplateRef"></ng-container>
+    </ng-container>
 </div>

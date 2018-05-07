@@ -4,12 +4,104 @@
     </div>
     <div class="body">
         <div class="demo-form">
-            <form thyForm name="demoForm">
-                <thy-form-group thyLabelText="用户名">
-                    <input class="form-control" name="username" placeholder="请输入用户名">
+            <form thyForm name="demoForm" #demoForm="ngForm">
+                <thy-form-group thyLabelText="用户名" thyLabelRequired thyTips="这是一个输入用户名的描述">
+                    <input class="form-control" name="username" [(ngModel)]="model.name" required placeholder="请输入用户名">
                 </thy-form-group>
                 <thy-form-group thyLabelText="姓名">
-                    <input class="form-control" name="displayName" placeholder="请输入姓名">
+                    <input thyInput name="displayName" [(ngModel)]="model.display_name" placeholder="请输入姓名">
+                </thy-form-group>
+                <thy-form-group thyLabelText="选择">
+                    <select class="form-control" required [(ngModel)]="model.select" name="power">
+                        <option *ngFor="let option of options" [value]="option._id">{{option.value}}</option>
+                    </select>
+                </thy-form-group>
+                <thy-form-group thyLabelText="Textarea">
+                    <textarea class="form-control" rows="3"></textarea>
+                </thy-form-group>
+                <thy-form-group thyLabelText="输入框大小">
+                    <input class="form-control form-control-lg" type="text" placeholder=".form-control-lg">
+                    <br>
+                    <input class="form-control" type="text" placeholder="Default input">
+                    <br>
+                    <input class="form-control form-control-sm" type="text" placeholder=".form-control-sm">
+                </thy-form-group>
+                <thy-form-group>
+                    <ng-template #formGroup>
+                        <label class="col-sm-2 col-form-label pr-0">开始时间</label>
+                        <div class="col-sm-4 control-panel">
+                            <div class="input-group">
+                                <input type="text" class="form-control pbox-trigger" name="deadline_at" readonly="readonly" placeholder="" value="7月17日">
+                                <span class="input-group-addon">
+                                    <i class="lcfont lc-schedule-o"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <label class="col-sm-2 col-form-label">结束时间</label>
+                        <div class="col-sm-4 control-panel">
+                            <input type="email" class="form-control" placeholder="结束时间">
+                        </div>
+                    </ng-template>
+                </thy-form-group>
+
+                <thy-form-group thyLabelText="时间">
+                    <input type="text" disabled="" readonly="readonly" value="2017-12-12" class="form-control" placeholder="error" />
+                    <span class="form-control-feedback form-control-feedback-date" aria-hidden="true"></span>
+                </thy-form-group>
+                <thy-form-group thyLabelText="静态输入框">
+                    <input type="text" readonly class="form-control-plaintext" value="email@example.com">
+                </thy-form-group>
+                <thy-form-group>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                        <label class="form-check-label" for="defaultCheck1">
+                            Default checkbox
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" disabled>
+                        <label class="form-check-label" for="defaultCheck2">
+                            Disabled checkbox
+                        </label>
+                    </div>
+                </thy-form-group>
+                <thy-form-group>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                        <label class="form-check-label" for="exampleRadios1">
+                            Default radio
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                        <label class="form-check-label" for="exampleRadios2">
+                            Second default radio
+                        </label>
+                    </div>
+                    <div class="form-check disabled">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3" disabled>
+                        <label class="form-check-label" for="exampleRadios3">
+                            Disabled radio
+                        </label>
+                    </div>
+                </thy-form-group>
+                <thy-form-group>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                        <label class="form-check-label" for="inlineCheckbox1">1</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                        <label class="form-check-label" for="inlineCheckbox2">2</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3" disabled>
+                        <label class="form-check-label" for="inlineCheckbox3">3 (disabled)</label>
+                    </div>
+                </thy-form-group>
+                <thy-form-group>
+                    <button [thyButton]="'primary'" (click)="save(demoForm)">保存</button>
+                    <button [thyButton]="'link-secondary'">取消</button>
                 </thy-form-group>
             </form>
         </div>

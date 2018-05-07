@@ -23,6 +23,7 @@ import { ThyEmptyModule } from './empty';
 import { ThySwitchModule } from './switch/switch.module';
 import { ThyTransferModule } from './transfer/transfer.module';
 import { ThyFormModule } from './form';
+import { ThyInputModule } from './input';
 
 @NgModule({
     declarations: [
@@ -48,7 +49,8 @@ import { ThyFormModule } from './form';
         ThyEmptyModule,
         ThySwitchModule,
         ThyTransferModule,
-        ThyFormModule
+        ThyFormModule,
+        ThyInputModule
     ],
     exports: [
         BrowserAnimationsModule,
@@ -70,7 +72,8 @@ import { ThyFormModule } from './form';
         ThyEmptyModule,
         ThySwitchModule,
         ThyTransferModule,
-        ThyFormModule
+        ThyFormModule,
+        ThyInputModule
     ],
     providers: [
     ]
