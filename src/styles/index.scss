@@ -20,7 +20,8 @@
 // @import "~bootstrap/scss/pagination";
 // @import "~bootstrap/scss/close";
 @import "~bootstrap/scss/modal";
-@import "~bootstrap/scss/forms";
+// @import "~bootstrap/scss/forms";
+// @import "~bootstrap/scss/input-group";
 
 @import "./components/index";
 
@@ -41,4 +42,6 @@
 @import "../empty/styles/empty";
 @import "../switch/styles/switch";
 @import "../transfer/styles/transfer";
-@import "../form/styles/form";
+@import "../input/styles/input";
+@import "../input/styles/input-group";
+@import "../form/styles/forms";

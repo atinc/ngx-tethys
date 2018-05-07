@@ -1,0 +1,72 @@
+.input-search-container {
+    position: relative;
+    display: block;
+    width: 400px;
+
+    .input-prefix-icon,
+    .input-suffix-icon {
+        position: absolute;
+        z-index: 2;
+    }
+
+    .input-prefix-icon {
+        left: $input-padding-x;
+        top: $input-padding-y;
+        color: $input-icon-color;
+    }
+
+    .input-suffix-icon {
+        right: $input-padding-x;
+        top: $input-padding-y;
+        color: $input-icon-color;
+    }
+
+    .form-control {
+        padding: $input-padding-y ($input-padding-x + $input-padding-x + 0.5rem);
+    }
+
+}
+
+
+// Form control feedback states
+//
+// Apply contextual and semantic states to individual form controls.
+
+.has-feedback {
+    // Enable absolute positioning
+    position: relative;
+  
+    // Ensure icons don't overlap text
+    .form-control {
+      padding-right: 2 * $input-padding-x + 1rem;
+    }
+}
+
+// Feedback icon (requires .glyphicon classes)
+.form-control-feedback {
+    position: absolute;
+    top: (2 * $input-padding-y + $input-line-height * $font-size-base - $input-line-height) / 2;
+    right: 2 * $input-padding-x;
+    z-index: 2; // Ensure icon is above input groups
+    display: block;
+    // width: $input-hei;
+    // height: @input-height-base;
+    // line-height: $input-line-height;
+    text-align: center;
+    pointer-events: none;
+}
+
+// .input-lg + .form-control-feedback,
+// .input-group-lg + .form-control-feedback,
+// .form-group-lg .form-control + .form-control-feedback {
+//     width: @input-height-large;
+//     height: @input-height-large;
+//     line-height: @input-height-large;
+// }
+// .input-sm + .form-control-feedback,
+// .input-group-sm + .form-control-feedback,
+// .form-group-sm .form-control + .form-control-feedback {
+//     width: @input-height-small;
+//     height: @input-height-small;
+//     line-height: @input-height-small;
+// }

@@ -30,23 +30,27 @@
                     <ng-template #formGroup>
                         <label class="col-sm-2 col-form-label pr-0">开始时间</label>
                         <div class="col-sm-4 control-panel">
-                            <div class="input-group">
+                            <thy-input-group>
                                 <input type="text" class="form-control pbox-trigger" name="deadline_at" readonly="readonly" placeholder="" value="7月17日">
-                                <span class="input-group-addon">
-                                    <i class="lcfont lc-schedule-o"></i>
-                                </span>
-                            </div>
+                                <ng-template #append>
+                                    <span class="input-group-text">
+                                        <i class="wtf wtf-schedule-o"></i>
+                                    </span>
+                                    <span class="input-group-text"> $ </span>
+                                </ng-template>
+                            </thy-input-group>
                         </div>
                         <label class="col-sm-2 col-form-label">结束时间</label>
-                        <div class="col-sm-4 control-panel">
+                        <div class="col-sm-4 control-panel has-feedback">
                             <input type="email" class="form-control" placeholder="结束时间">
+                            <span class="form-control-feedback wtf wtf-schedule-o"></span>
                         </div>
                     </ng-template>
                 </thy-form-group>
 
-                <thy-form-group thyLabelText="时间">
+                <thy-form-group thyLabelText="时间" [thyFeedbackIcon]="'date'">
                     <input type="text" disabled="" readonly="readonly" value="2017-12-12" class="form-control" placeholder="error" />
-                    <span class="form-control-feedback form-control-feedback-date" aria-hidden="true"></span>
+                    <!-- <span class="form-control-feedback form-control-feedback-date" aria-hidden="true"></span> -->
                 </thy-form-group>
                 <thy-form-group thyLabelText="静态输入框">
                     <input type="text" readonly class="form-control-plaintext" value="email@example.com">
@@ -108,4 +112,4 @@
     </div>
 </section>
 
-<!-- <api-parameters [parameters]="apiParameters"></api-parameters> -->
+<api-parameters [parameters]="apiParameters"></api-parameters>

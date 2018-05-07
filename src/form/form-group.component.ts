@@ -10,6 +10,11 @@ import {
 import { ThyFormDirective } from './form.directive';
 import { inputValueToBoolean } from '../util/helpers';
 import { TemplateRef } from '@angular/core';
+import { ThyTranslate } from '../shared';
+
+const internalIconMap = {
+    date: 'wtf wtf-schedule-o'
+};
 
 @Component({
     selector: 'thy-form-group',
@@ -18,17 +23,45 @@ import { TemplateRef } from '@angular/core';
 })
 export class ThyFormGroupComponent implements OnInit {
 
+    public labelText: string;
+
     public labelRequired: boolean;
+
+    public feedbackIcon: string;
 
     @HostBinding('class.form-group') _isFormGroup = true;
 
-    @Input() thyLabelText: string;
+    @HostBinding('class.row') _isRow = true;
 
-    @Input() thyLabelTranslateKey: string;
+    @HostBinding('class.has-feedback') hasFeedback = false;
+
+    @Input()
+    set thyLabelText(value: string) {
+        this.labelText = value;
+    }
+
+    @Input()
+    set thyLabelTranslateKey(value: string) {
+        if (value) {
+            this.labelText = this.thyTranslate.instant(value);
+        } else {
+            this.labelText = '';
+        }
+    }
 
     @Input()
     set thyLabelRequired(value: string) {
         this.labelRequired = inputValueToBoolean(value);
+    }
+
+    @Input()
+    set thyFeedbackIcon(value: string) {
+        this.hasFeedback = true;
+        if (internalIconMap[value]) {
+            this.feedbackIcon = internalIconMap[value];
+        } else {
+            this.feedbackIcon = value;
+        }
     }
 
     @Input() thyTips: string;
@@ -37,7 +70,8 @@ export class ThyFormGroupComponent implements OnInit {
     public contentTemplateRef: TemplateRef<any>;
 
     constructor(
-        @Optional() thyFormDirective: ThyFormDirective
+        @Optional() private thyFormDirective: ThyFormDirective,
+        private thyTranslate: ThyTranslate
     ) {
     }
 

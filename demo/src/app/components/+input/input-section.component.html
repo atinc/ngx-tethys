@@ -1,0 +1,58 @@
+<section>
+    <div class="header">
+        <h2>Input 默认</h2>
+    </div>
+    <div class="body">
+        <div class="demo-input">
+            <input thyInput placeholder="请输入元素">
+        </div>
+    </div>
+</section>
+<section>
+    <div class="header">
+        <h2>Input Group</h2>
+    </div>
+    <div class="body">
+        <div class="demo-input">
+            <thy-input-group thyAppendText="$" thyPrependText="前置">
+                <input thyInput placeholder="请输入元素">
+            </thy-input-group>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="header">
+        <h2>自定义 prepend 和 append 模板</h2>
+    </div>
+    <div class="body">
+        <div class="demo-input">
+            <thy-input-group>
+                <input thyInput placeholder="请输入元素">
+                <ng-template #prepend>
+                    <span class="input-group-text">前置文案1</span>
+                    <span class="input-group-text">前置文案2</span>
+                </ng-template>
+                <ng-template #append>
+                    <button thyButton="outline-primary" type="button">Button</button>
+                    <span class="input-group-text">后置文案2</span>
+                </ng-template>
+            </thy-input-group>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="header">
+        <h2>搜索</h2>
+    </div>
+    <div class="body">
+        <div class="demo-input">
+            <thy-input-search (keydown.enter)="enter()" [(searchModel)]="model.searchText" (searchModelChange)="searchModelChange()"></thy-input-search>
+            searchText: {{model.searchText || 'None'}}
+        </div>
+    </div>
+</section>
+
+
+<api-parameters [parameters]="apiParameters"></api-parameters>
