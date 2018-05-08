@@ -157,7 +157,7 @@ select.form-control {
 
 .form-control-sm {
   padding: $input-padding-y-sm $input-padding-x-sm;
-  font-size: $font-size-sm;
+  font-size: $font-size-base;
   line-height: $input-line-height-sm;
   @include border-radius($input-border-radius-sm);
 }
@@ -170,7 +170,7 @@ select.form-control-sm {
 
 .form-control-lg {
   padding: $input-padding-y-lg $input-padding-x-lg;
-  font-size: $font-size-lg;
+  font-size: $font-size-base;
   line-height: $input-line-height-lg;
   @include border-radius($input-border-radius-lg);
 }
@@ -180,6 +180,33 @@ select.form-control-lg {
     height: $input-height-lg;
   }
 }
+
+.form-control-xs {
+  padding: $input-padding-y-xs $input-padding-x-xs;
+  font-size: $font-size-sm;
+  line-height: $input-line-height-xs;
+  @include border-radius($input-border-radius-xs);
+}
+
+select.form-control-xs {
+  &:not([size]):not([multiple]) {
+    height: $input-height-xs;
+  }
+}
+
+.form-control-md {
+  padding: $input-padding-y-md $input-padding-x-md;
+  font-size: $font-size-base;
+  line-height: $input-line-height-md;
+  @include border-radius($input-border-radius-md);
+}
+
+select.form-control-xs {
+  &:not([size]):not([multiple]) {
+    height: $input-height-md;
+  }
+}
+
 
 
 // Form groups
