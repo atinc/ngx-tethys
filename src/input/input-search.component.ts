@@ -5,6 +5,7 @@ import {
 } from '@angular/core';
 import { ThyTranslate, UpdateHostClassService } from '../shared';
 
+export type InputSearchTheme = 'ellipse' | '';
 
 @Component({
     selector: 'thy-input-search',
@@ -17,11 +18,20 @@ import { ThyTranslate, UpdateHostClassService } from '../shared';
 export class ThyInputSearchComponent {
     @HostBinding('class.input-search-container') _isSearchContainer = true;
 
+    @HostBinding('class.input-search-ellipse') _isSearchEllipse = false;
+
     searchText: string;
 
     @Input()
     set searchModel(value: string) {
         this.searchText = value;
+    }
+
+    @Input()
+    set thyTheme(value: InputSearchTheme) {
+        if (value === 'ellipse') {
+            this._isSearchEllipse = true;
+        }
     }
 
     @Output() searchModelChange = new EventEmitter();

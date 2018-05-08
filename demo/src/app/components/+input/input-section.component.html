@@ -48,8 +48,13 @@
     </div>
     <div class="body">
         <div class="demo-input">
+            <h4>Default Input Search</h4>
             <thy-input-search (keydown.enter)="enter()" [(searchModel)]="model.searchText" (searchModelChange)="searchModelChange()"></thy-input-search>
-            searchText: {{model.searchText || 'None'}}
+            <br/>
+            <h4>Ellipse Input Search</h4>
+            <thy-input-search (keydown.enter)="enter()" thyTheme="ellipse" [(searchModel)]="model.searchText" (searchModelChange)="searchModelChange()"></thy-input-search>
+            <br/>
+            <span> searchText: {{model.searchText || 'None'}}</span>
         </div>
     </div>
 </section>

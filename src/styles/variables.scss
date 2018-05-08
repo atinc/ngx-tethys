@@ -66,6 +66,9 @@ $code-color: $danger;
 
 $input-btn-padding-y: 0.469rem !default;
 $input-btn-padding-x:  2.438rem !default;
+$input-btn-padding-y-sm: 0.157rem !default;
+$input-btn-padding-y-lg: 0.656rem !default;
+
 // $input-btn-line-height: $line-height-base !default;
 $input-btn-focus-width: 0.0625rem !default; // 1px
 
@@ -92,7 +95,23 @@ $btn-link-color-disabled: $gray-400;
 
 // Forms
 
-$input-padding-x: 0.875rem; // 输入框左右 padding 和 按钮大小不一致， bootstrap 是一致的
+$input-padding-x: 0.875rem !default; // 输入框左右 padding 和 按钮大小不一致， bootstrap 是一致的
+$input-padding-x-sm: $input-padding-x !default;
+$input-padding-x-lg: $input-padding-x !default;
+
+$input-padding-y-xs: 0.125rem !default;
+$input-padding-x-xs: $input-padding-x !default;
+$input-line-height-xs: 1.5 !default;
+$input-border-radius-xs: 0.25rem !default;
+$input-height-xs: 24px !default;
+
+$input-padding-y-md: 0.282rem !default;
+$input-padding-x-md: $input-padding-x !default;
+$input-line-height-md: 1.5 !default;
+$input-border-radius-md: 0.25rem !default;
+$input-height-md: 32px !default;
+
+
 $input-focus-border-color: $primary;
 $input-btn-focus-box-shadow: none;
 $input-box-shadow: none;
@@ -103,10 +122,16 @@ $input-hover-border-color: $primary !default;
 $input-disabled-bg: $gray-100 !default;
 
 $input-icon-color: $gray-500 !default;
-
 $input-group-addon-color: $gray-700 !default;
 $input-group-addon-bg: $gray-100 !default;
 $form-text-margin-top: .5rem !default;
+
+$input-ellipse-radius: 1.25rem !default;
+$input-ellipse-background-color: $gray-100 !default;
+$input-ellipse-focus-border-color: $primary !default;
+$input-ellipse-hover-border-color: $gray-300 !default;
+$input-ellipse-hover-focus-background-color: $white !default;
+
 
 // PopBox
 
@@ -363,3 +388,4 @@ $transfer-operation-padding : 0 10px !default;
 $transfer-operation-font-size :  $font-size-base * 2 !default;
 $transfer-operation-color : $gray-600 !default;
 
+ 
