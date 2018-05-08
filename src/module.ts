@@ -1,6 +1,5 @@
 import { Component, NgModule, ModuleWithProviders } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { ThySharedModule } from './shared';
 import { ThyButtonModule } from './button';
@@ -18,6 +17,7 @@ import { ThyLoadingModule } from './loading/loading.module';
 import { ThyActionMenuModule } from './action-menu/action-menu.module';
 import { ThyConfirmModule } from './confirm/confirm.module';
 import { ThyTreeModule } from './tree/tree.module';
+import { ThyDatepickerModule } from './datepicker/datepicker.module';
 import { ThyNotifyModule } from './notify/notify.module';
 import { ThyEmptyModule } from './empty';
 import { ThySwitchModule } from './switch/switch.module';
@@ -31,7 +31,6 @@ import { ThyDirectiveModule } from './directive';
     ],
     imports: [
         BrowserAnimationsModule,
-        ModalModule.forRoot(),
         ThyLayoutModule,
         ThyButtonModule,
         NgxPopBoxModule,
@@ -45,6 +44,7 @@ import { ThyDirectiveModule } from './directive';
         ThyNotifyModule,
         ThyCardModule,
         ThyLoadingModule,
+        ThyDatepickerModule,
         ThyActionMenuModule,
         ThyConfirmModule,
         ThyEmptyModule,
@@ -68,6 +68,7 @@ import { ThyDirectiveModule } from './directive';
         ThyNotifyModule,
         ThyCardModule,
         ThyLoadingModule,
+        ThyDatepickerModule,
         ThyActionMenuModule,
         ThyConfirmModule,
         ThyTreeModule,
