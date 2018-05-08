@@ -8,7 +8,7 @@
                 <thy-form-group thyLabelText="用户名" thyLabelRequired thyTips="这是一个输入用户名的描述">
                     <input thyInput name="username" [(ngModel)]="model.name" required placeholder="请输入用户名">
                 </thy-form-group>
-                <thy-form-group>
+                <thy-form-group thyRowFill>
                     <ng-template #formGroup>
                         <input thyInput name="displayName" [(ngModel)]="model.display_name" placeholder="请输入姓名">
                     </ng-template>
@@ -115,6 +115,34 @@
                 </thy-form-group>
             </form>
         </div>
+    </div>
+</section>
+<section>
+    <div class="header">
+        <h2>Form 默认</h2>
+    </div>
+    <div class="body">
+        <button thyButton="primary" (click)="openFormModal(template)">弹出 Modal Form</button>
+
+        <ng-template #template>
+            <thy-modal-header [thyTitle]="'标题'"></thy-modal-header>
+            <thy-modal-body>
+                <form thyForm name="modalForm">
+                    <thy-form-group thyRowFill>
+                        <ng-template #formGroup>
+                            <input thyInput name="project" [(ngModel)]="model.projectName" required placeholder="请输入项目名" />
+                        </ng-template>
+                    </thy-form-group>
+                    <thy-form-group thyLabelText="用户名">
+                        <input thyInput name="username" [(ngModel)]="model.username" required placeholder="请输入用户名" >
+                    </thy-form-group>
+                    <thy-form-group>
+                        <button thyButton="primary" (thyFormSubmit)="modalFormSubmit()">提交</button>
+                        <button thyButton="link-secondary">取消</button>
+                    </thy-form-group>
+                </form>
+            </thy-modal-body>
+        </ng-template>
     </div>
 </section>
 

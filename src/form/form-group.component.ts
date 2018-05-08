@@ -31,6 +31,8 @@ export class ThyFormGroupComponent implements OnInit {
 
     public tips: string;
 
+    @HostBinding('class.row-fill') _rowFill = false;
+
     @HostBinding('class.form-group') _isFormGroup = true;
 
     @HostBinding('class.row') _isRow = true;
@@ -74,6 +76,11 @@ export class ThyFormGroupComponent implements OnInit {
     @Input()
     set thyTipsTranslateKey(value: string) {
         this.tips = this.thyTranslate.instant(value);
+    }
+
+    @Input()
+    set thyRowFill(value: boolean) {
+        this._rowFill = inputValueToBoolean(value);
     }
 
     @ContentChild('formGroup')

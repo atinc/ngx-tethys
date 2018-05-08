@@ -371,5 +371,12 @@ select.form-control-lg {
 }
 
 .form-control-container {
-  padding-right: 0px; 
+  // padding-right: 0px; 
+}
+
+.thy-form {
+  .row-fill {
+    margin-right: 0px;
+    margin-left: 0px;  
+  }
 }

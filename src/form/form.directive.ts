@@ -27,6 +27,8 @@ export class ThyFormDirective implements OnInit, AfterViewInit, AfterViewChecked
         return this._layout;
     }
 
+    @HostBinding('class.thy-form') isThyForm = true;
+
     @HostBinding('class.was-validated') wasValidated = false;
 
     onSubmitSuccess: ($event: any) => void;
