@@ -29,6 +29,8 @@ export class ThyFormGroupComponent implements OnInit {
 
     public feedbackIcon: string;
 
+    public tips: string;
+
     @HostBinding('class.form-group') _isFormGroup = true;
 
     @HostBinding('class.row') _isRow = true;
@@ -64,7 +66,15 @@ export class ThyFormGroupComponent implements OnInit {
         }
     }
 
-    @Input() thyTips: string;
+    @Input()
+    set thyTips(value: string) {
+        this.tips = value;
+    }
+
+    @Input()
+    set thyTipsTranslateKey(value: string) {
+        this.tips = this.thyTranslate.instant(value);
+    }
 
     @ContentChild('formGroup')
     public contentTemplateRef: TemplateRef<any>;
