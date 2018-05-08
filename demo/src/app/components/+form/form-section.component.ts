@@ -11,7 +11,33 @@ import { Component, ViewEncapsulation } from '@angular/core';
 })
 export class DemoFormSectionComponent {
 
-    public apiParameters = [
+    submitSuccess = false;
+
+    public apiThyFormParameters = [
+        {
+            property: 'thyForm',
+            description: '表示这个 Form 由 Thy 控制',
+            type: 'Directive',
+            default: ''
+        },
+        {
+            property: 'thyLayout',
+            description: `布局, 'horizontal' | 'vertical' | 'inline' , 默认水平居中 horizontal， 其他2种布局待开发`,
+            type: 'String',
+            default: ''
+        }
+    ];
+
+    public apiThyFormSubmitParameters = [
+        {
+            property: 'thyFormSubmit',
+            description: 'Form 验证通过的提交函数',
+            type: 'Function',
+            default: ''
+        },
+    ];
+
+    public apiFormGroupParameters = [
         {
             property: 'thyLabelText',
             description: 'Label 文本',
@@ -69,5 +95,7 @@ export class DemoFormSectionComponent {
     }
 
     save(form: any) {
+        console.log(`submit success!`);
+        this.submitSuccess = true;
     }
 }

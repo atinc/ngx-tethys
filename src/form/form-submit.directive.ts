@@ -16,15 +16,13 @@ export class ThyFormSubmitDirective implements OnInit {
     }
 
     ngOnInit(): void {
+        this.thyFormDirective.onSubmitSuccess = ($event: any) => {
+            this.thyFormSubmit.emit($event);
+        };
     }
 
     @HostListener('click', ['$event'])
     onSubmit($event: any) {
-        this.ngForm.onSubmit($event);
-        if (this.ngForm.valid) {
-            this.thyFormSubmit.emit();
-        } else {
-            // this.thyFormDirective.wasValidated = true;
-        }
+        this.thyFormDirective.submit($event);
     }
 }

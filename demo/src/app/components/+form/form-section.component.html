@@ -8,13 +8,12 @@
                 <thy-form-group thyLabelText="用户名" thyLabelRequired thyTips="这是一个输入用户名的描述">
                     <input thyInput name="username" [(ngModel)]="model.name" required placeholder="请输入用户名">
                 </thy-form-group>
-                <div class="form-group row">
-                    <input thyInput name="displayName" [(ngModel)]="model.display_name" placeholder="请输入姓名">
-                    <!-- <label class="col-sm-2 col-form-label">姓名</label>
-                    <div class="col-sm-10">
+                <thy-form-group>
+                    <ng-template #formGroup>
                         <input thyInput name="displayName" [(ngModel)]="model.display_name" placeholder="请输入姓名">
-                    </div> -->
-                </div>
+                    </ng-template>
+                </thy-form-group>
+
                 <thy-form-group thyLabelText="选择">
                     <select class="form-control" required [(ngModel)]="model.select" name="power">
                         <option *ngFor="let option of options" [value]="option._id">{{option.value}}</option>
@@ -112,6 +111,9 @@
                         <label class="form-check-label" for="inlineCheckbox3">3 (disabled)</label>
                     </div>
                 </thy-form-group>
+                <thy-form-group *ngIf="submitSuccess">
+                    <div class="text text-success">提交成功!</div>
+                </thy-form-group>
                 <thy-form-group>
                     <button [thyButton]="'primary'" (thyFormSubmit)="save(demoForm)">保存</button>
                     <button [thyButton]="'link-secondary'">取消</button>
@@ -121,4 +123,7 @@
     </div>
 </section>
 
-<api-parameters [parameters]="apiParameters"></api-parameters>
+
+<api-parameters title="thyForm 参数列表" [parameters]="apiThyFormParameters"></api-parameters>
+<api-parameters title="thyFormSubmit 参数列表" [parameters]="apiThyFormSubmitParameters"></api-parameters>
+<api-parameters title="thy-form-group 参数列表" [parameters]="apiFormGroupParameters"></api-parameters>
