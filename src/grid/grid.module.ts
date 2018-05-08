@@ -7,6 +7,7 @@ import { ThyPaginationModule } from '../pagination/pagination.module';
 import { ThySwitchModule } from '../switch/switch.module';
 import { ThyLoadingModule } from '../loading/loading.module';
 import { ThyEmptyModule } from '../empty/empty.module';
+import { SortablejsModule } from 'angular-sortablejs';
 
 @NgModule({
     declarations: [
@@ -19,7 +20,8 @@ import { ThyEmptyModule } from '../empty/empty.module';
         ThyPaginationModule,
         ThySwitchModule,
         ThyLoadingModule,
-        ThyEmptyModule
+        ThyEmptyModule,
+        SortablejsModule
     ],
     exports: [
         ThyGridComponent,

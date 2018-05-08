@@ -1,0 +1,3 @@
+<i class="wtf wtf-search-o input-prefix-icon"></i>
+<input class="input-search-control" thyInput [(ngModel)]="searchText" (ngModelChange)="searchTextChange()">
+<a *ngIf="searchText" class="" href="javascript:;" (click)="clearSearchText()"><i class="wtf wtf-close input-suffix-icon"></i></a>

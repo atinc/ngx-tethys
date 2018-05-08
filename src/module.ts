@@ -24,6 +24,7 @@ import { ThySwitchModule } from './switch/switch.module';
 import { ThyTransferModule } from './transfer/transfer.module';
 import { ThyFormModule } from './form';
 import { ThyInputModule } from './input';
+import { ThyDirectiveModule } from './directive';
 
 @NgModule({
     declarations: [
@@ -50,7 +51,8 @@ import { ThyInputModule } from './input';
         ThySwitchModule,
         ThyTransferModule,
         ThyFormModule,
-        ThyInputModule
+        ThyInputModule,
+        ThyDirectiveModule
     ],
     exports: [
         BrowserAnimationsModule,
@@ -74,7 +76,8 @@ import { ThyInputModule } from './input';
         ThySwitchModule,
         ThyTransferModule,
         ThyFormModule,
-        ThyInputModule
+        ThyInputModule,
+        ThyDirectiveModule
     ],
     providers: [
     ]

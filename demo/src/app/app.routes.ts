@@ -21,7 +21,7 @@ import { DemoSwitchSectionComponent } from './components/+switch/switch-section.
 import { DemoTransferSectionComponent } from './components/+transfer/transfer-section.component';
 import { DemoFormSectionComponent } from './components/+form/form-section.component';
 import { DemoDataPickerSectionComponent } from './components/+date-picker/date-picker-section.component';
-
+import { DemoInputSectionComponent } from './components/+input/input-section.component';
 
 const appRoutes = [
     {
@@ -115,7 +115,12 @@ const appRoutes = [
     {
         path: 'components/form',
         component: DemoFormSectionComponent
-    }
+    },
+    {
+        path: 'components/input',
+        component: DemoInputSectionComponent
+    },
+
 ];
 
 export { appRoutes };

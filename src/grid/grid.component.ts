@@ -11,6 +11,7 @@ import { inputValueToBoolean, isUndefined, get, set } from '../util/helpers';
 import { ThyGridColumn, ThyMultiSelectEvent, ThyRadioSelectEvent, ThyPage, ThyGridEmptyOptions, ThySwitchEvent } from './grid.interface';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination/pagination.component';
 import { AnimateChildAst } from '@angular/animations/browser/src/dsl/animation_ast';
+import { SortablejsOptions } from 'angular-sortablejs/dist';
 
 export type ThyGridTheme = 'default' | 'bordered';
 
@@ -51,6 +52,10 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy, Do
     public loadingText: string;
 
     public emptyOptions: ThyGridEmptyOptions = {};
+
+    public draggable = false;
+
+    public draggableOptions: SortablejsOptions = { disabled: !this.draggable };
 
     public selectedRadioRow: any = null;
 
@@ -97,6 +102,15 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy, Do
     @Input()
     set thyEmptyOptions(value: ThyGridEmptyOptions) {
         this.emptyOptions = value;
+    }
+
+    @Input()
+    set thyDraggableOptions(value: SortablejsOptions) {
+        if (value) {
+            this.draggable = true;
+            this.draggableOptions.disabled = !this.draggable;
+            Object.assign(this.draggableOptions, value);
+        }
     }
 
     @Input()

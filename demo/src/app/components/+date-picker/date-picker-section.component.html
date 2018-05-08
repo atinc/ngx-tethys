@@ -3,8 +3,10 @@
         <h2>默认</h2>
     </div>
     <div class="body">
-        <div class="col-xs-12 col-12 col-md-4 form-group">
-            <input [thyDatepicker]="value1" [ngModel]="value1|date: 'yyyy-MM-dd'" (thyOnChange)="onChange($event)" type="text" class="form-control">
+        <div class="col-sm-4 form-control-container has-feedback">
+            <input [thyDatepicker]="value1" [ngModel]="value1|date: 'yyyy-MM-dd'" (thyOnChange)="onChange($event)" type="text" class="form-control"
+                placeholder="日期">
+            <span class="form-control-feedback wtf wtf-schedule-o"></span>
         </div>
     </div>
 </section>

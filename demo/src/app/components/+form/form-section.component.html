@@ -6,11 +6,14 @@
         <div class="demo-form">
             <form thyForm name="demoForm" #demoForm="ngForm">
                 <thy-form-group thyLabelText="用户名" thyLabelRequired thyTips="这是一个输入用户名的描述">
-                    <input class="form-control" name="username" [(ngModel)]="model.name" required placeholder="请输入用户名">
+                    <input thyInput name="username" [(ngModel)]="model.name" required placeholder="请输入用户名">
                 </thy-form-group>
-                <thy-form-group thyLabelText="姓名">
-                    <input thyInput name="displayName" [(ngModel)]="model.display_name" placeholder="请输入姓名">
+                <thy-form-group>
+                    <ng-template #formGroup>
+                        <input thyInput name="displayName" [(ngModel)]="model.display_name" placeholder="请输入姓名">
+                    </ng-template>
                 </thy-form-group>
+
                 <thy-form-group thyLabelText="选择">
                     <select class="form-control" required [(ngModel)]="model.select" name="power">
                         <option *ngFor="let option of options" [value]="option._id">{{option.value}}</option>
@@ -20,33 +23,42 @@
                     <textarea class="form-control" rows="3"></textarea>
                 </thy-form-group>
                 <thy-form-group thyLabelText="输入框大小">
-                    <input class="form-control form-control-lg" type="text" placeholder=".form-control-lg">
+                    <input thyInput thySize="lg"  placeholder=".form-control-lg">
                     <br>
-                    <input class="form-control" type="text" placeholder="Default input">
+                    <input thyInput placeholder="Default input">
                     <br>
-                    <input class="form-control form-control-sm" type="text" placeholder=".form-control-sm">
+                    <input thyInput thySize="md"  placeholder=".form-control-md">
+                    <br>
+                    <input thyInput thySize="sm"  placeholder=".form-control-sm">
+                    <br>
+                    <input thyInput thySize="xs"  placeholder=".form-control-xs">
+                    <br>
                 </thy-form-group>
                 <thy-form-group>
                     <ng-template #formGroup>
                         <label class="col-sm-2 col-form-label pr-0">开始时间</label>
-                        <div class="col-sm-4 control-panel">
-                            <div class="input-group">
+                        <div class="col-sm-4 form-control-container">
+                            <thy-input-group>
                                 <input type="text" class="form-control pbox-trigger" name="deadline_at" readonly="readonly" placeholder="" value="7月17日">
-                                <span class="input-group-addon">
-                                    <i class="lcfont lc-schedule-o"></i>
-                                </span>
-                            </div>
+                                <ng-template #append>
+                                    <span class="input-group-text">
+                                        <i class="wtf wtf-schedule-o"></i>
+                                    </span>
+                                    <span class="input-group-text"> $ </span>
+                                </ng-template>
+                            </thy-input-group>
                         </div>
                         <label class="col-sm-2 col-form-label">结束时间</label>
-                        <div class="col-sm-4 control-panel">
+                        <div class="col-sm-4 form-control-container has-feedback">
                             <input type="email" class="form-control" placeholder="结束时间">
+                            <span class="form-control-feedback wtf wtf-schedule-o"></span>
                         </div>
                     </ng-template>
                 </thy-form-group>
 
-                <thy-form-group thyLabelText="时间">
+                <thy-form-group thyLabelText="时间" [thyFeedbackIcon]="'date'">
                     <input type="text" disabled="" readonly="readonly" value="2017-12-12" class="form-control" placeholder="error" />
-                    <span class="form-control-feedback form-control-feedback-date" aria-hidden="true"></span>
+                    <!-- <span class="form-control-feedback form-control-feedback-date" aria-hidden="true"></span> -->
                 </thy-form-group>
                 <thy-form-group thyLabelText="静态输入框">
                     <input type="text" readonly class="form-control-plaintext" value="email@example.com">
@@ -99,8 +111,11 @@
                         <label class="form-check-label" for="inlineCheckbox3">3 (disabled)</label>
                     </div>
                 </thy-form-group>
+                <thy-form-group *ngIf="submitSuccess">
+                    <div class="text text-success">提交成功!</div>
+                </thy-form-group>
                 <thy-form-group>
-                    <button [thyButton]="'primary'" (click)="save(demoForm)">保存</button>
+                    <button [thyButton]="'primary'" (thyFormSubmit)="save(demoForm)">保存</button>
                     <button [thyButton]="'link-secondary'">取消</button>
                 </thy-form-group>
             </form>
@@ -108,4 +123,7 @@
     </div>
 </section>
 
-<!-- <api-parameters [parameters]="apiParameters"></api-parameters> -->
+
+<api-parameters title="thyForm 参数列表" [parameters]="apiThyFormParameters"></api-parameters>
+<api-parameters title="thyFormSubmit 参数列表" [parameters]="apiThyFormSubmitParameters"></api-parameters>
+<api-parameters title="thy-form-group 参数列表" [parameters]="apiFormGroupParameters"></api-parameters>
