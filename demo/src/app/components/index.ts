@@ -22,6 +22,7 @@ import { DemoEmptySectionComponent } from './+empty/empty-section.component';
 import { DemoSwitchSectionComponent } from './+switch/switch-section.component';
 import { DemoTransferSectionComponent } from './+transfer/transfer-section.component';
 import { DemoFormSectionComponent } from './+form/form-section.component';
+import { DemoDataPickerSectionComponent } from './+date-picker/date-picker-section.component';
 
 export const COMPONENTS = [
     DemoPopBoxSectionComponent,
@@ -49,7 +50,8 @@ export const COMPONENTS = [
     DemoEmptySectionComponent,
     DemoSwitchSectionComponent,
     DemoTransferSectionComponent,
-    DemoFormSectionComponent
+    DemoFormSectionComponent,
+    DemoDataPickerSectionComponent,
 ];
 
 export const ENTRY_COMPONENTS = [

@@ -20,6 +20,7 @@ import { DemoEmptySectionComponent } from './components/+empty/empty-section.com
 import { DemoSwitchSectionComponent } from './components/+switch/switch-section.component';
 import { DemoTransferSectionComponent } from './components/+transfer/transfer-section.component';
 import { DemoFormSectionComponent } from './components/+form/form-section.component';
+import { DemoDataPickerSectionComponent } from './components/+date-picker/date-picker-section.component';
 
 
 const appRoutes = [
@@ -86,6 +87,10 @@ const appRoutes = [
     {
         path: 'components/notify',
         component: DemoNotifySectionComponent
+    },
+    {
+        path: 'components/datepicker',
+        component: DemoDataPickerSectionComponent
     },
     {
         path: 'components/card',
