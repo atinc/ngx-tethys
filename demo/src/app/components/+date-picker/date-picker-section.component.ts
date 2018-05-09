@@ -12,7 +12,10 @@ export class DemoDataPickerSectionComponent implements OnInit {
     constructor() { }
 
     ngOnInit() {
-        this.value1 = new Date();
+        this.value1 = {
+            date: new Date(),
+            with_time: true
+        };
     }
 
     onChange(event) {

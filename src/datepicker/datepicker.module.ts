@@ -2,6 +2,8 @@ import { Component, NgModule } from '@angular/core';
 import { ComponentLoaderFactory } from 'ngx-bootstrap/component-loader';
 import { PositioningService } from 'ngx-bootstrap/positioning';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { TimepickerModule } from 'ngx-bootstrap/timepicker';
+import { ThyButtonModule } from '../button/button.module';
 
 import { ThyDatepickerDirective } from './datepicker.directive';
 import { ThyDatepickerContainerComponent } from './datepicker-container.component';
@@ -18,10 +20,12 @@ import { FormsModule } from '@angular/forms';
     entryComponents: [
         ThyDatepickerContainerComponent,
     ],
-    imports:[
+    imports: [
         CommonModule,
         FormsModule,
-        BsDatepickerModule.forRoot()
+        ThyButtonModule,
+        BsDatepickerModule.forRoot(),
+        TimepickerModule.forRoot(),
     ],
     exports: [
         BsDatepickerModule,

@@ -1,11 +1,14 @@
 @import '../../../node_modules/ngx-bootstrap/datepicker/bs-datepicker.scss';
 thy-datepicker-container {
   position: absolute;
+  padding-bottom: 100px;
+  box-shadow: $box-shadow;
 }
 
 .thy-datepicker {
-  text-align: center;
+  position: relative;
   line-height: 0;
+  text-align: center;
   .thy-datepicker-bs {
     padding: 0;
     margin: 0;
@@ -17,6 +20,26 @@ thy-datepicker-container {
     .bs-datepicker {
       background: transparent;
       box-shadow: none;
+    }
+  }
+  .timepicker-section {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    width: 100%;
+    line-height: 1.5;
+    transform: translateY(100%);
+    .timepicker-warp {
+      padding-left: 20px;
+      width: 48%;
+      .btn {
+        padding: 0;
+      }
+    }
+    .timepicker-btn-warp {
+      display: flex;
+      align-items: center;
     }
   }
 }

@@ -2,7 +2,7 @@ import { Directive, OnInit, ElementRef, Renderer2, ViewContainerRef, Input, Comp
 import { ComponentLoaderFactory, ComponentLoader } from 'ngx-bootstrap/component-loader';
 import { ThyDatepickerContainerComponent } from './datepicker-container.component';
 import { ThyDatepickerConfig } from './datepicker.config';
-
+import { DatepickerValueEntry } from './i.datepicker';
 
 @Directive({
     selector: 'input[thyDatepicker]',
@@ -14,9 +14,9 @@ export class ThyDatepickerDirective implements OnInit {
     @Input() container = 'body';
     @Input() outsideClick = true;
 
-    _value: any;
+    _value: DatepickerValueEntry;
     @Input()
-    set thyDatepicker(value: any) {
+    set thyDatepicker(value: DatepickerValueEntry) {
         this._value = value;
     }
 
@@ -59,7 +59,7 @@ export class ThyDatepickerDirective implements OnInit {
                 placement: this.placement,
                 initialState: {
                     value: this._value,
-                    changeValue: (date: Date) => {
+                    changeValue: (date: DatepickerValueEntry) => {
                         this.thyOnChange.emit(date);
                     }
                 }

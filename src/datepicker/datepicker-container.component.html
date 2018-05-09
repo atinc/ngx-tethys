@@ -1,3 +1,13 @@
 <div class="thy-datepicker">
-    <input type="text" class="thy-datepicker-bs" bsDatepicker #dp="bsDatepicker" [bsValue]="initialState.value" (bsValueChange)="onValueChange($event)">
+    <!-- <bs-datepicker-container></bs-datepicker-container> -->
+    <input class="datepicker-input" type="text" class="thy-datepicker-bs" container="" bsDatepicker #dp="bsDatepicker" [bsValue]="initialState.value.date"
+        (bsValueChange)="onValueChange($event)">
+
+    <div *ngIf="isShowTime" class="timepicker-section" (click)="$event.stopPropagation()">
+        <timepicker class="timepicker-warp" [(ngModel)]="timeValue" [showMeridian]="isMeridian"></timepicker>
+        <div class="timepicker-btn-warp">
+            <button thyButton="primary" thySize="sm" (click)="onTimeOk()">确定</button>&nbsp;
+            <button thyButton="outline-default" thySize="sm">取消</button>
+        </div>
+    </div>
 </div>

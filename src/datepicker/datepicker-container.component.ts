@@ -11,10 +11,16 @@ import { ThyDatepickerConfig } from './datepicker.config';
 })
 export class ThyDatepickerContainerComponent implements OnInit {
 
-    @ViewChild('dp')
-    datepickerRef: any;
+    initialState: any;
 
-    public initialState: any;
+    timeValue: Date;
+
+    isShowTime = false;
+
+    @ViewChild('dp')
+    private datepickerRef: any;
+
+    private isMeridian = false;
 
     constructor(
         private cis: ComponentLoaderFactory,
@@ -22,12 +28,42 @@ export class ThyDatepickerContainerComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        this.isShowTime = this.initialState.value.with_time;
+
         setTimeout(() => {
             this.datepickerRef.show();
         }, 0);
+
+        this._initTimeValue();
+    }
+
+    onTimeOk() {
+        this.onValueChange(this._getTimeValue());
     }
 
     onValueChange(value: Date): void {
-        this.initialState.changeValue(value);
+        this.initialState.changeValue({
+            date: value,
+            with_time: this.initialState.value.with_time
+        });
+    }
+
+    private _initTimeValue() {
+        if (this.isShowTime) {
+            this.timeValue = new Date();
+            // this.timeValue = new Date(this.initialState.value.date.getTime());
+        }
+    }
+
+    private _getTimeValue(): Date {
+        const v = this.initialState.value.date;
+        const t = this.timeValue;
+        return new Date(
+            v.getFullYear(),
+            v.getMonth() + 1,
+            v.getDay(),
+            t.getHours(),
+            t.getMinutes()
+        );
     }
 }

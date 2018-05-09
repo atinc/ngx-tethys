@@ -4,7 +4,7 @@
     </div>
     <div class="body">
         <div class="col-sm-4 form-control-container has-feedback">
-            <input [thyDatepicker]="value1" [ngModel]="value1|date: 'yyyy-MM-dd'" (thyOnChange)="onChange($event)" type="text" class="form-control"
+            <input [thyDatepicker]="value1" [ngModel]="value1.date|date: 'yyyy-MM-dd HH:mm'" (thyOnChange)="onChange($event)" type="text" class="form-control"
                 placeholder="日期">
             <span class="form-control-feedback wtf wtf-schedule-o"></span>
         </div>
