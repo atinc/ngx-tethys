@@ -3,10 +3,25 @@
         <h2>默认</h2>
     </div>
     <div class="body">
-        <div class="col-sm-4 form-control-container has-feedback">
-            <input [thyDatepicker]="value1" [ngModel]="value1.date|date: 'yyyy-MM-dd HH:mm'" (thyOnChange)="onChange($event)" type="text" class="form-control"
-                placeholder="日期">
-            <span class="form-control-feedback wtf wtf-schedule-o"></span>
-        </div>
+        <div class="text-right">{{value1.date}}</div>
+        <thy-form-group thyLabelText="时间" [thyFeedbackIcon]="'date'">
+            <input type="text" readonly="readonly" [thyDatepicker]="value1" [ngModel]="value1.date|date: 'yyyy-MM-dd HH:mm'" (thyOnChange)="onChange($event)"
+                class="form-control" placeholder="error" />
+            <!-- <span class="form-control-feedback form-control-feedback-date" aria-hidden="true"></span> -->
+        </thy-form-group>
+    </div>
+</section>
+
+<section>
+    <div class="header">
+        <h2>包含时间</h2>
+    </div>
+    <div class="body">
+        <div class="text-right">{{value2.date}}</div>
+        <thy-form-group thyLabelText="时间" [thyFeedbackIcon]="'date'">
+            <input type="text" readonly="readonly" [thyDatepicker]="value2" [ngModel]="value2.date|date: 'yyyy-MM-dd HH:mm'" (thyOnChange)="onChange2($event)"
+                class="form-control" placeholder="error" />
+            <!-- <span class="form-control-feedback form-control-feedback-date" aria-hidden="true"></span> -->
+        </thy-form-group>
     </div>
 </section>

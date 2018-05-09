@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Renderer2, ViewContainerRef, ComponentRef, HostBinding } from '@angular/core';
 import { BsDatepickerContainerComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-datepicker-container.component';
-import { ComponentLoaderFactory } from 'ngx-bootstrap/component-loader';
+import { ComponentLoaderFactory, ComponentLoader } from 'ngx-bootstrap/component-loader';
 import { BsDatepickerStore } from 'ngx-bootstrap/datepicker/reducer/bs-datepicker.store';
 
 import { ThyDatepickerConfig } from './datepicker.config';
+import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 
 @Component({
     selector: 'thy-datepicker-container',
@@ -11,59 +12,87 @@ import { ThyDatepickerConfig } from './datepicker.config';
 })
 export class ThyDatepickerContainerComponent implements OnInit {
 
-    initialState: any;
+    hideLoader: Function;
 
-    timeValue: Date;
+    public initialState: any;
+
+    value: Date;
 
     isShowTime = false;
 
-    @ViewChild('dp')
-    private datepickerRef: any;
+    isMeridian = false;
 
-    private isMeridian = false;
+    @ViewChild('dpContainer')
+    private dpContainerRef: any;
+
+    private _datepicker: ComponentLoader<BsDatepickerContainerComponent>;
+
+    private _datepickerRef: ComponentRef<BsDatepickerContainerComponent>;
+
+    @HostBinding('class.thy-datepicker-container--has-time') _isHasTime = false;
 
     constructor(
         private cis: ComponentLoaderFactory,
-        private _store: BsDatepickerStore
-    ) { }
-
-    ngOnInit() {
-        this.isShowTime = this.initialState.value.with_time;
-
-        setTimeout(() => {
-            this.datepickerRef.show();
-        }, 0);
-
-        this._initTimeValue();
+        private _store: BsDatepickerStore,
+        public _config: BsDatepickerConfig,
+        _elementRef: ElementRef,
+        _renderer: Renderer2,
+        _viewContainerRef: ViewContainerRef,
+    ) {
+        this._datepicker = cis.createLoader<BsDatepickerContainerComponent>(
+            _elementRef,
+            _viewContainerRef,
+            _renderer
+        );
     }
 
-    onTimeOk() {
-        this.onValueChange(this._getTimeValue());
+    ngOnInit() {
+        this._initData();
+        this._initDatepickerComponent();
     }
 
     onValueChange(value: Date): void {
-        this.initialState.changeValue({
-            date: value,
-            with_time: this.initialState.value.with_time
-        });
-    }
-
-    private _initTimeValue() {
-        if (this.isShowTime) {
-            this.timeValue = new Date();
-            // this.timeValue = new Date(this.initialState.value.date.getTime());
+        if (!this.isShowTime) {
+            this._sendChangeValueEvent();
         }
     }
 
-    private _getTimeValue(): Date {
-        const v = this.initialState.value.date;
-        const t = this.timeValue;
-        return new Date(
-            v.getFullYear(),
-            v.getMonth() + 1,
-            v.getDay(),
-            t.getHours(),
-            t.getMinutes()
-        );
+    onTimeOk() {
+        this._sendChangeValueEvent();
+    }
+
+    hide() {
+        this.hideLoader();
+    }
+
+    private _sendChangeValueEvent() {
+        this.initialState.changeValue({
+            date: this.value,
+            with_time: this.initialState.value.with_time
+        });
+        this.hide();
+    }
+
+    private _initData() {
+        this.isShowTime = this.initialState.value.with_time;
+        this._isHasTime = this.isShowTime;
+        this.value = new Date(this.initialState.value.date.getTime());
+    }
+
+    private _initDatepickerComponent() {
+        this._datepickerRef = this._datepicker
+            .provide({
+                provide: BsDatepickerConfig, useValue: Object.assign({}, this._config, {
+                    value: this.value
+                })
+            })
+            .attach(BsDatepickerContainerComponent)
+            .to(this.dpContainerRef)
+            .show();
+
+        this._datepickerRef.instance.valueChange.subscribe((value: Date) => {
+            this.value = value;
+            this.onValueChange(value);
+        });
     }
 }

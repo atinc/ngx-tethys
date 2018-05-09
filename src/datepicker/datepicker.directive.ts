@@ -56,7 +56,9 @@ export class ThyDatepickerDirective implements OnInit {
             .to(this.container)
             .position({ attachment: this.placement })
             .show({
-                placement: this.placement,
+                hideLoader: () => {
+                    this.hide();
+                },
                 initialState: {
                     value: this._value,
                     changeValue: (date: DatepickerValueEntry) => {
@@ -64,6 +66,10 @@ export class ThyDatepickerDirective implements OnInit {
                     }
                 }
             });
+    }
+
+    hide() {
+        this._loader.hide();
     }
 
 }

@@ -1,13 +1,16 @@
 @import '../../../node_modules/ngx-bootstrap/datepicker/bs-datepicker.scss';
 thy-datepicker-container {
   position: absolute;
-  padding-bottom: 100px;
+  background: white;
   box-shadow: $box-shadow;
+}
+
+.thy-datepicker-container--has-time {
+  padding-bottom: 100px;
 }
 
 .thy-datepicker {
   position: relative;
-  line-height: 0;
   text-align: center;
   .thy-datepicker-bs {
     padding: 0;
@@ -20,6 +23,10 @@ thy-datepicker-container {
     .bs-datepicker {
       background: transparent;
       box-shadow: none;
+    }
+    bs-datepicker-navigation-view {
+      display: flex;
+      justify-content: space-evenly;
     }
   }
   .timepicker-section {

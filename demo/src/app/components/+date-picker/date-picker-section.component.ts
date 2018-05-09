@@ -9,10 +9,17 @@ export class DemoDataPickerSectionComponent implements OnInit {
 
     value1;
 
+    value2;
+
     constructor() { }
 
     ngOnInit() {
         this.value1 = {
+            date: new Date(),
+            with_time: false
+        };
+
+        this.value2 = {
             date: new Date(),
             with_time: true
         };
@@ -20,7 +27,10 @@ export class DemoDataPickerSectionComponent implements OnInit {
 
     onChange(event) {
         this.value1 = event;
-        console.log(event);
+    }
+
+    onChange2(event) {
+        this.value2 = event;
     }
 
 }
