@@ -1,0 +1,125 @@
+// Checkboxes and radios
+//
+// Indent the labels to position radios/checkboxes as hanging controls.
+
+.form-check {
+  position: relative;
+  display: block;
+  padding-left: $form-check-input-gutter;
+  padding-bottom: 4px;
+}
+
+.form-check-input {
+  position: absolute;
+  margin-top: $form-check-input-margin-y;
+  margin-left: -$form-check-input-gutter;
+
+  &:disabled ~ .form-check-label {
+    color: $input-form-check-disable-color;
+  }
+}
+
+.form-check-label {
+  margin-bottom: 0; // Override default `<label>` bottom margin
+}
+
+.form-check-inline {
+  display: inline-flex;
+  align-items: center;
+  padding-left: 0; // Override base .form-check
+  margin-right: $form-check-inline-margin-x;
+  
+  // Undo .form-check-input defaults and add some `margin-right`.
+  .form-check-input {
+    // position: static;
+    position: relative;
+    margin-top: 0;
+    margin-right: $form-check-inline-input-margin-x;
+    margin-left: 0;
+  }
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  margin-top: 2px;
+  -webkit-appearance: none;
+  appearance: none;
+  width: $input-form-check-size;
+  height: $input-form-check-size;
+  border: solid 1px $input-form-check-border-color;
+  // position: relative;
+  cursor: pointer;
+
+  &:disabled {
+    &::after {
+      color: $input-form-check-disable-color;
+    }
+  }
+
+  &:checked {
+    &:disabled {
+      &::after {
+        color: $input-form-check-disable-color;
+      }
+    }
+  }
+
+  &:focus {
+    outline: 0;
+  }
+
+  &:not(:disabled){
+    @include hover {
+        border-color: $primary;
+    }
+  }
+ 
+}
+
+// checkbox
+input[type=checkbox] {
+    border-radius: 2px;
+    &:checked {
+      &::after {
+        content: "\e6a5";
+        display: block;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        color: $primary;
+        font: normal normal normal 14px/1 wtf;
+      }
+    }
+}
+
+
+//radio
+input[type=radio] {
+    border-radius: 100%;
+    cursor: pointer;
+  
+    &:checked {
+      &::after {
+        content: "\e6b5";
+        display: block;
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        color: $primary;
+        font: normal normal normal 18px/1 wtf;
+      }
+    }
+  
+    // .set-input-hover-border();
+}
+
+
+.form-check-label {
+    padding-left: 5px;
+    cursor: pointer;
+    color: $input-label-color;
+    // .form-check-inline & {
+    //   margin-left: 5px;
+    // }
+}
+

@@ -135,3 +135,28 @@
     }
   }
 }
+
+
+// @mixin set-input-hover-border($border-color : $input-hover-border) {
+//   &:hover {
+//     border-color: $border-color;
+//   }
+//   &[disabled],
+//   &.disabled {
+//     &:hover {
+//       border-color: @radio-and-checkbox-border;
+//     }
+//   }
+// }
+
+@mixin set-select-arrow() {
+  content: "\e6b8"; //"\f078";
+  font: normal normal normal 14px/1 wtf;
+  position: absolute;
+  right: 12px;
+  bottom: $input-padding-y + ($font-size-base * $line-height-base - $font-size-md ) / 2;
+  font-size: $font-size-md;
+  pointer-events: none;
+  color: $gray-500;
+  z-index: 10;
+}

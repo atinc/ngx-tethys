@@ -22,10 +22,14 @@ export class ThyModalService extends BsModalService {
         rendererFactory: RendererFactory2,
         clf: ComponentLoaderFactory) {
         super(rendererFactory, clf);
+        this.modalService.onHidden.subscribe(() => {
+            if (this.bsModalRefs.length > 0) {
+                this.bsModalRefs.splice(this.bsModalRefs.length - 1, 1);
+            }
+        });
     }
 
     show(content: string | TemplateRef<any> | any, config?: ThyModalConfigInfo): BsModalRef {
-        this.createLoaders();
         this.setModalConfig(config);
         const bsModalRef = this.modalService.show(content, this.modalConfig);
         this.bsModalRefs.push(bsModalRef);
@@ -33,8 +37,9 @@ export class ThyModalService extends BsModalService {
     }
 
     close() {
-        this.bsModalRefs[this.bsModalRefs.length-1].hide();
-        this.bsModalRefs.splice(this.bsModalRefs.length-1,1);
+        if (this.bsModalRefs.length > 0) {
+            this.bsModalRefs[this.bsModalRefs.length - 1].hide();
+        }
     }
 
     private setModalConfig(config: ThyModalConfigInfo) {
@@ -42,13 +47,6 @@ export class ThyModalService extends BsModalService {
         if (config && config.size) {
             this.modalConfig.class = `modal-${config.size}`;
         }
-    }
-
-    private createLoaders(): void {
-        this.modalService.onShow = this.onShow;
-        this.modalService.onShown = this.onShown;
-        this.modalService.onHide = this.onHide;
-        this.modalService.onHidden = this.onHidden;
     }
 }
 

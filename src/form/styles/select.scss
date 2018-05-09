@@ -1,0 +1,27 @@
+// select
+.thy-select {
+    width: 100%;
+    position: relative;
+    &:after {
+      @include set-select-arrow();
+    }
+  
+    select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        padding-right: 30px;
+        &:required {
+            &:invalid {
+                color: $input-form-check-border-color;
+            }
+        }
+    }
+  
+    option[value=""][disabled] {
+        display: none;
+    }
+    option {
+        color: $input-color;
+    }
+}  

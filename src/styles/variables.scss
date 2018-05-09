@@ -117,6 +117,7 @@ $input-btn-focus-box-shadow: none;
 $input-box-shadow: none;
 $input-placeholder-color: $gray-400 !default;
 $input-color: $gray-800 !default;
+$input-label-color: $gray-600 !default; // label 文本的颜色，包括 Checkbox 和 Radio Label 的颜色
 $input-border-color: $gray-200 !default;
 $input-hover-border-color: $primary !default;
 $input-disabled-bg: $gray-100 !default;
@@ -132,6 +133,9 @@ $input-ellipse-focus-border-color: $primary !default;
 $input-ellipse-hover-border-color: $gray-300 !default;
 $input-ellipse-hover-focus-background-color: $white !default;
 
+$input-form-check-size: 1rem !default;
+$input-form-check-disable-color: $gray-400 !default;
+$input-form-check-border-color: $gray-300 !default;
 
 // PopBox
 

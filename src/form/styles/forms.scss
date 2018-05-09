@@ -104,7 +104,7 @@ select.form-control {
   font-size: inherit; // Override the `<legend>` default
   line-height: $input-line-height;
   // THY CUSTOM
-  color: $gray-600;
+  color: $input-label-color;
   text-align: right;
 }
 
@@ -241,47 +241,6 @@ select.form-control-xs {
   }
 }
 
-
-// Checkboxes and radios
-//
-// Indent the labels to position radios/checkboxes as hanging controls.
-
-.form-check {
-  position: relative;
-  display: block;
-  padding-left: $form-check-input-gutter;
-}
-
-.form-check-input {
-  position: absolute;
-  margin-top: $form-check-input-margin-y;
-  margin-left: -$form-check-input-gutter;
-
-  &:disabled ~ .form-check-label {
-    color: $text-muted;
-  }
-}
-
-.form-check-label {
-  margin-bottom: 0; // Override default `<label>` bottom margin
-}
-
-.form-check-inline {
-  display: inline-flex;
-  align-items: center;
-  padding-left: 0; // Override base .form-check
-  margin-right: $form-check-inline-margin-x;
-
-  // Undo .form-check-input defaults and add some `margin-right`.
-  .form-check-input {
-    position: static;
-    margin-top: 0;
-    margin-right: $form-check-inline-input-margin-x;
-    margin-left: 0;
-  }
-}
-
-
 // Form validation
 //
 // Provide feedback to users when form field values are valid or invalid. Works
@@ -398,5 +357,15 @@ select.form-control-xs {
 }
 
 .form-control-container {
-  padding-right: 0px; 
+  // padding-right: 0px; 
 }
+
+.thy-form {
+  .row-fill {
+    margin-right: 0px;
+    margin-left: 0px;  
+  }
+}
+
+@import "./custom-check";
+@import "./select";
