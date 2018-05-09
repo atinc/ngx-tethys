@@ -8,30 +8,32 @@
                 <thy-form-group thyLabelText="用户名" thyLabelRequired thyTips="这是一个输入用户名的描述">
                     <input thyInput name="username" [(ngModel)]="model.name" required placeholder="请输入用户名">
                 </thy-form-group>
-                <thy-form-group>
+                <thy-form-group thyRowFill>
                     <ng-template #formGroup>
                         <input thyInput name="displayName" [(ngModel)]="model.display_name" placeholder="请输入姓名">
                     </ng-template>
                 </thy-form-group>
 
                 <thy-form-group thyLabelText="选择">
-                    <select class="form-control" required [(ngModel)]="model.select" name="power">
-                        <option *ngFor="let option of options" [value]="option._id">{{option.value}}</option>
-                    </select>
+                    <div class="thy-select">
+                        <select class="form-control" required [(ngModel)]="model.select" name="power">
+                            <option *ngFor="let option of options" [value]="option._id">{{option.value}}</option>
+                        </select>
+                    </div>
                 </thy-form-group>
                 <thy-form-group thyLabelText="Textarea">
                     <textarea class="form-control" rows="3"></textarea>
                 </thy-form-group>
                 <thy-form-group thyLabelText="输入框大小">
-                    <input thyInput thySize="lg"  placeholder=".form-control-lg">
+                    <input thyInput thySize="lg" placeholder=".form-control-lg">
                     <br>
                     <input thyInput placeholder="Default input">
                     <br>
-                    <input thyInput thySize="md"  placeholder=".form-control-md">
+                    <input thyInput thySize="md" placeholder=".form-control-md">
                     <br>
-                    <input thyInput thySize="sm"  placeholder=".form-control-sm">
+                    <input thyInput thySize="sm" placeholder=".form-control-sm">
                     <br>
-                    <input thyInput thySize="xs"  placeholder=".form-control-xs">
+                    <input thyInput thySize="xs" placeholder=".form-control-xs">
                     <br>
                 </thy-form-group>
                 <thy-form-group>
@@ -68,6 +70,12 @@
                         <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
                         <label class="form-check-label" for="defaultCheck1">
                             Default checkbox
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" checked="checked" value="" id="defaultCheck2" disabled>
+                        <label class="form-check-label" for="defaultCheck2">
+                            Disabled checked
                         </label>
                     </div>
                     <div class="form-check">
@@ -111,6 +119,20 @@
                         <label class="form-check-label" for="inlineCheckbox3">3 (disabled)</label>
                     </div>
                 </thy-form-group>
+                <thy-form-group>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="inlineCheckbox1" value="option1">
+                        <label class="form-check-label" for="inlineCheckbox1">1</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="inlineCheckbox2" value="option2">
+                        <label class="form-check-label" for="inlineCheckbox2">2</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="inlineCheckbox3" value="option3" disabled>
+                        <label class="form-check-label" for="inlineCheckbox3">3 (disabled)</label>
+                    </div>
+                </thy-form-group>
                 <thy-form-group *ngIf="submitSuccess">
                     <div class="text text-success">提交成功!</div>
                 </thy-form-group>
@@ -120,6 +142,34 @@
                 </thy-form-group>
             </form>
         </div>
+    </div>
+</section>
+<section>
+    <div class="header">
+        <h2>Form 默认</h2>
+    </div>
+    <div class="body">
+        <button thyButton="primary" (click)="openFormModal(template)">弹出 Modal Form</button>
+
+        <ng-template #template>
+            <thy-modal-header [thyTitle]="'标题'"></thy-modal-header>
+            <thy-modal-body>
+                <form thyForm name="modalForm">
+                    <thy-form-group thyRowFill>
+                        <ng-template #formGroup>
+                            <input thyInput name="project" [(ngModel)]="model.projectName" required placeholder="请输入项目名" />
+                        </ng-template>
+                    </thy-form-group>
+                    <thy-form-group thyLabelText="用户名">
+                        <input thyInput name="username" [(ngModel)]="model.username" required placeholder="请输入用户名">
+                    </thy-form-group>
+                    <thy-form-group>
+                        <button thyButton="primary" (thyFormSubmit)="modalFormSubmit()">提交</button>
+                        <button thyButton="link-secondary">取消</button>
+                    </thy-form-group>
+                </form>
+            </thy-modal-body>
+        </ng-template>
     </div>
 </section>
 

@@ -22,6 +22,7 @@ import { DemoEmptySectionComponent } from './+empty/empty-section.component';
 import { DemoSwitchSectionComponent } from './+switch/switch-section.component';
 import { DemoTransferSectionComponent } from './+transfer/transfer-section.component';
 import { DemoFormSectionComponent } from './+form/form-section.component';
+import { DemoDataPickerSectionComponent } from './+date-picker/date-picker-section.component';
 import { DemoInputSectionComponent } from './+input/input-section.component';
 
 export const COMPONENTS = [
@@ -51,6 +52,7 @@ export const COMPONENTS = [
     DemoSwitchSectionComponent,
     DemoTransferSectionComponent,
     DemoFormSectionComponent,
+    DemoDataPickerSectionComponent,
     DemoInputSectionComponent
 ];
 

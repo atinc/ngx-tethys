@@ -1,5 +1,6 @@
 
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, TemplateRef } from '@angular/core';
+import { ThyModalService } from '../../../../../src';
 
 @Component({
     selector: 'demo-form-section',
@@ -69,6 +70,18 @@ export class DemoFormSectionComponent {
             default: ''
         },
         {
+            property: 'thyTipsTranslateKey',
+            description: '提示文案的多语言 Key',
+            type: 'String',
+            default: ''
+        },
+        {
+            property: 'thyRowFill',
+            description: '是否填充整行, 没有 Label 文本，只有输入框',
+            type: 'Boolean',
+            default: ''
+        },
+        {
             property: 'formGroup',
             description: '自定义内容的 Template',
             type: 'NgTemplate',
@@ -91,11 +104,19 @@ export class DemoFormSectionComponent {
         }
     ];
 
-    constructor() {
+    constructor(private thyModalService: ThyModalService) {
     }
 
     save(form: any) {
         console.log(`submit success!`);
         this.submitSuccess = true;
+    }
+
+    openFormModal(template: TemplateRef<any>) {
+        this.thyModalService.show(template);
+    }
+
+    modalFormSubmit() {
+        console.log(`modal form submit success!`);
     }
 }

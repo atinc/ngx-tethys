@@ -4,12 +4,12 @@
 
 <ng-template #add>
     <thy-modal>
-        <thy-modal-header thyTitle="添加项目" (thyOnClose)="closeModal()">
+        <thy-modal-header thyTitle="添加项目" (thyOnClose)="hideModal()">
         </thy-modal-header>
         <thy-modal-body>
             <span>添加一个项目</span>
         </thy-modal-body>
-        <thy-modal-footer (thyOnSave)="modalService.show(addTwo)" (thyOnCancel)="hideModal()"> </thy-modal-footer>
+        <thy-modal-footer (thyOnSave)="modalService.show(addTwo)" (thyOnCancel)="closeModal()"> </thy-modal-footer>
     </thy-modal>
 </ng-template>
 
@@ -28,9 +28,9 @@
         <thy-modal-header>
             <ng-template>
                 <h3 class="modal-title">自定义title</h3>
-                <a href="javascript:;" class="modal-close" (click)="closeModal()">
-                        <i class="wtf wtf-times"></i>
-                </a>
+                <button type="button" class="close" (click)="closeModal($event)">
+                    <i class="wtf wtf-times"></i>
+                </button>
             </ng-template>
         </thy-modal-header>
         <thy-modal-body>
