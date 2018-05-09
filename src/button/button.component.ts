@@ -22,7 +22,7 @@ const btnTypeClassesMap: any = {
 })
 export class ThyButtonComponent implements AfterContentInit, OnChanges {
 
-    private nativeElement: any;
+    private _nativeElement: any;
 
     private _typeClassNames: string[] = [];
 
@@ -58,7 +58,7 @@ export class ThyButtonComponent implements AfterContentInit, OnChanges {
         // from false to true
         if (!this._loading && newLoading) {
             this._loading = newLoading;
-            this._originalText = this.nativeElement.innerText;
+            this._originalText = this._nativeElement.innerText;
             this._setLoadingStatus();
         } else {
             this._loading = newLoading;
@@ -71,7 +71,7 @@ export class ThyButtonComponent implements AfterContentInit, OnChanges {
         if (this._loadingText !== value) {
             this._loadingText = value;
             if (this._loading) {
-                this.renderer.setProperty(this.nativeElement, 'innerText', this._loadingText);
+                this.renderer.setProperty(this._nativeElement, 'innerText', this._loadingText);
             }
         }
     }
@@ -111,9 +111,9 @@ export class ThyButtonComponent implements AfterContentInit, OnChanges {
             disabled = false;
             innerText = this._originalText ? this._originalText : null;
         }
-        this.renderer.setProperty(this.nativeElement, 'disabled', disabled);
+        this.renderer.setProperty(this._nativeElement, 'disabled', disabled);
         if (innerText) {
-            this.renderer.setProperty(this.nativeElement, 'innerText', innerText);
+            this.renderer.setProperty(this._nativeElement, 'innerText', innerText);
         }
     }
 
@@ -138,15 +138,15 @@ export class ThyButtonComponent implements AfterContentInit, OnChanges {
     }
 
     private _removeClass(className: string) {
-        this.renderer.removeClass(this.nativeElement, className);
+        this.renderer.removeClass(this._nativeElement, className);
     }
 
     private _addClass(className: string) {
-        this.renderer.addClass(this.nativeElement, className);
+        this.renderer.addClass(this._nativeElement, className);
     }
 
     constructor(private elementRef: ElementRef, private renderer: Renderer2) {
-        this.nativeElement = this.elementRef.nativeElement;
+        this._nativeElement = this.elementRef.nativeElement;
     }
 
     ngAfterContentInit() {
