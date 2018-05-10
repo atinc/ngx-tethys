@@ -5,7 +5,7 @@
     <div class="body">
         <div class="text-right">{{value1.date}}</div>
         <thy-form-group thyLabelText="时间" [thyFeedbackIcon]="'date'">
-            <input type="text" readonly="readonly" [thyDatepicker]="value1" [ngModel]="value1.date|date: 'yyyy-MM-dd HH:mm'" (thyOnChange)="onChange($event)"
+            <input type="text" readonly="readonly" [thyDatepicker]="value1" [ngModel]="value1.date|date: 'yyyy-MM-dd'" (thyOnChange)="onChange($event)"
                 class="form-control" placeholder="error" />
             <!-- <span class="form-control-feedback form-control-feedback-date" aria-hidden="true"></span> -->
         </thy-form-group>
