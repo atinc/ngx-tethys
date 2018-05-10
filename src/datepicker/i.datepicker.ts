@@ -1,5 +1,5 @@
 export interface DatepickerValueEntry {
-    date: Date;
+    date: Date | '';
     with_time: boolean;
 }
 

@@ -6,11 +6,11 @@ import { ThyDraggableDirective } from '../shared/draggable.directive';
 @NgModule({
     declarations: [
         ThyTranscludeDirective,
-        ThyDraggableDirective
+        ThyDraggableDirective,
     ],
     exports: [
         ThyTranscludeDirective,
-        ThyDraggableDirective
+        ThyDraggableDirective,
     ],
     providers: [
         ThyTranslate

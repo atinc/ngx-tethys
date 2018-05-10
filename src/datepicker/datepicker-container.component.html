@@ -3,8 +3,8 @@
     <div *ngIf="isShowTime" class="timepicker-section" (click)="$event.stopPropagation()">
         <timepicker class="timepicker-warp" [(ngModel)]="value" [showMeridian]="isMeridian"></timepicker>
         <div class="timepicker-btn-warp">
-            <button thyButton="primary" thySize="sm" (click)="onTimeOk()">确定</button>&nbsp;
-            <button thyButton="outline-default" thySize="sm" (click)="hide()">取消</button>
+            <button class="timepicker-ok-btn" thyButton="primary" thySize="sm" (click)="onTimeOk()">确定</button>
+            <button class="timepicker-clear-btn" thyButton="link-secondary" thySize="sm" (click)="onClear()">清除</button>
         </div>
     </div>
 </div>
