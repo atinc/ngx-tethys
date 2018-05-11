@@ -18,8 +18,14 @@
         <br/>
         <p>结合 button-group 分裂式下拉菜单</p>
         <thy-button-group>
-            <button thyButton="primary">下拉菜单</button>
-            <button thyDropdownSplit thyButton="primary" [thyActionMenuToggle]="menu1"></button>
+            <button thyButton="outline-default">下拉菜单</button>
+            <button thyDropdownSplit thyButton="outline-default" [thyActionMenuToggle]="menu1"></button>
+        </thy-button-group>
+        <br/>
+        <br/>
+        <thy-button-group>
+            <button thyButton="primary" thySize="md">下拉菜单</button>
+            <button thyDropdownSplit thyButton="primary"  thySize="md" [thyActionMenuToggle]="menu1"></button>
         </thy-button-group>
         <ng-template #menu1>
             <thy-action-menu>
