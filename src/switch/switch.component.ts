@@ -83,6 +83,11 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor {
         this.onModelTouched = fn;
     }
 
+    setDisabledState(isDisabled:Boolean){
+        this.disabled = isDisabled;
+        this.setClass();
+    }
+
     toggle(event: any) {
         this.model = !this.model;
         this.onModelChange(this.model);
