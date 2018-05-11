@@ -3,6 +3,7 @@ import { ComponentLoaderFactory, ComponentLoader } from 'ngx-bootstrap/component
 import { ThyDatepickerContainerComponent } from './datepicker-container.component';
 import { ThyDatepickerConfig } from './datepicker.config';
 import { DatepickerValueEntry } from './i.datepicker';
+import { ThyDatepickerService } from './datepicker.service';
 
 @Directive({
     selector: 'input[thyDatepicker]',
@@ -29,7 +30,8 @@ export class ThyDatepickerDirective implements OnInit {
         private _elementRef: ElementRef,
         _renderer: Renderer2,
         _viewContainerRef: ViewContainerRef,
-        cis: ComponentLoaderFactory
+        cis: ComponentLoaderFactory,
+        private datepickerService: ThyDatepickerService,
     ) {
         this._loader = cis.createLoader<ThyDatepickerContainerComponent>(
             _elementRef,
@@ -51,6 +53,8 @@ export class ThyDatepickerDirective implements OnInit {
     }
 
     show() {
+        this.datepickerService.initLocale();
+
         this._loader.provide({ provide: ThyDatepickerConfig, useValue: this._config })
             .attach(ThyDatepickerContainerComponent)
             .to(this.container)

@@ -1,3 +1,5 @@
+$font-color-03: $gray-700;
+$border-color: transparent;
 @import '../../../node_modules/ngx-bootstrap/datepicker/bs-datepicker.scss';
 thy-datepicker-container {
   position: absolute;
@@ -6,47 +8,8 @@ thy-datepicker-container {
 }
 
 .thy-datepicker-container--has-time {
-  padding-bottom: 100px;
+  padding-bottom: 90px;
 }
 
-.thy-datepicker {
-  position: relative;
-  text-align: center;
-  .thy-datepicker-bs {
-    padding: 0;
-    margin: 0;
-    height: 0;
-    border: 0;
-  }
-  bs-datepicker-container {
-    position: relative !important;
-    .bs-datepicker {
-      background: transparent;
-      box-shadow: none;
-    }
-    bs-datepicker-navigation-view {
-      display: flex;
-      justify-content: space-evenly;
-    }
-  }
-  .timepicker-section {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    display: flex;
-    width: 100%;
-    line-height: 1.5;
-    transform: translateY(100%);
-    .timepicker-warp {
-      padding-left: 20px;
-      width: 48%;
-      .btn {
-        padding: 0;
-      }
-    }
-    .timepicker-btn-warp {
-      display: flex;
-      align-items: center;
-    }
-  }
-}
+@include theming('ngx', $primary);
+@include thy-detepicker-variant();

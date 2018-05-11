@@ -5,6 +5,7 @@ import { BsDatepickerStore } from 'ngx-bootstrap/datepicker/reducer/bs-datepicke
 
 import { ThyDatepickerConfig } from './datepicker.config';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
+import { DatepickerValueEntry } from './i.datepicker';
 
 @Component({
     selector: 'thy-datepicker-container',
@@ -61,29 +62,46 @@ export class ThyDatepickerContainerComponent implements OnInit {
         this._sendChangeValueEvent();
     }
 
+    onClear() {
+        this._sendChangeValueEvent({
+            date: '',
+            with_time: this.initialState.value.with_time
+        });
+    }
+
     hide() {
         this.hideLoader();
     }
 
-    private _sendChangeValueEvent() {
-        this.initialState.changeValue({
-            date: this.value,
-            with_time: this.initialState.value.with_time
-        });
+    private _sendChangeValueEvent(value?: DatepickerValueEntry) {
+        if (value !== undefined) {
+            this.initialState.changeValue(value);
+        } else {
+            this.initialState.changeValue({
+                date: this.value,
+                with_time: this.initialState.value.with_time
+            });
+        }
         this.hide();
     }
 
     private _initData() {
         this.isShowTime = this.initialState.value.with_time;
         this._isHasTime = this.isShowTime;
-        this.value = new Date(this.initialState.value.date.getTime());
+        if (this.initialState.value && this.initialState.value.date) {
+            this.value = new Date(this.initialState.value.date.getTime());
+        } else {
+            this.value = new Date();
+        }
     }
 
     private _initDatepickerComponent() {
         this._datepickerRef = this._datepicker
             .provide({
                 provide: BsDatepickerConfig, useValue: Object.assign({}, this._config, {
-                    value: this.value
+                    value: this.value,
+                    containerClass: 'theme-ngx',
+                    showWeekNumbers: false
                 })
             })
             .attach(BsDatepickerContainerComponent)
