@@ -2,7 +2,8 @@ import { Directive, OnInit, ElementRef, Renderer2, ViewContainerRef, Input, Comp
 import { ComponentLoaderFactory, ComponentLoader } from 'ngx-bootstrap/component-loader';
 import { ThyDatepickerContainerComponent } from './datepicker-container.component';
 import { ThyDatepickerConfig } from './datepicker.config';
-
+import { DatepickerValueEntry } from './i.datepicker';
+import { ThyDatepickerService } from './datepicker.service';
 
 @Directive({
     selector: 'input[thyDatepicker]',
@@ -14,9 +15,9 @@ export class ThyDatepickerDirective implements OnInit {
     @Input() container = 'body';
     @Input() outsideClick = true;
 
-    _value: any;
+    _value: DatepickerValueEntry;
     @Input()
-    set thyDatepicker(value: any) {
+    set thyDatepicker(value: DatepickerValueEntry) {
         this._value = value;
     }
 
@@ -29,7 +30,8 @@ export class ThyDatepickerDirective implements OnInit {
         private _elementRef: ElementRef,
         _renderer: Renderer2,
         _viewContainerRef: ViewContainerRef,
-        cis: ComponentLoaderFactory
+        cis: ComponentLoaderFactory,
+        private datepickerService: ThyDatepickerService,
     ) {
         this._loader = cis.createLoader<ThyDatepickerContainerComponent>(
             _elementRef,
@@ -51,19 +53,27 @@ export class ThyDatepickerDirective implements OnInit {
     }
 
     show() {
+        this.datepickerService.initLocale();
+
         this._loader.provide({ provide: ThyDatepickerConfig, useValue: this._config })
             .attach(ThyDatepickerContainerComponent)
             .to(this.container)
             .position({ attachment: this.placement })
             .show({
-                placement: this.placement,
+                hideLoader: () => {
+                    this.hide();
+                },
                 initialState: {
                     value: this._value,
-                    changeValue: (date: Date) => {
+                    changeValue: (date: DatepickerValueEntry) => {
                         this.thyOnChange.emit(date);
                     }
                 }
             });
+    }
+
+    hide() {
+        this._loader.hide();
     }
 
 }

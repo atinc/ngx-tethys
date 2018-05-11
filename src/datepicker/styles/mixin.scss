@@ -1,0 +1,79 @@
+@mixin thy-detepicker-variant() {
+  .thy-datepicker {
+    position: relative;
+    text-align: center;
+    .thy-datepicker-bs {
+      padding: 0;
+      margin: 0;
+      height: 0;
+      border: 0;
+    }
+    bs-datepicker-container {
+      // 日期区域
+      position: relative !important;
+      .bs-datepicker {
+        background: transparent;
+        box-shadow: none;
+        .bs-datepicker-container {
+          padding: 0;
+          .bs-datepicker-head {
+            padding-bottom: 0;
+            height: 40px;
+            background: transparent !important;
+            bs-datepicker-navigation-view {
+              display: flex;
+              justify-content: space-evenly;
+              button {
+                color: $gray-700;
+              }
+            }
+          }
+        }
+      }
+    }
+    .timepicker-section {
+      // 时间区域
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      padding-top: 5px;
+      margin: 0 20px;
+      display: flex;
+      width: calc(100% - 40px);
+      line-height: 1.5;
+      border-top: solid 1px $gray-300;
+      transform: translateY(100%);
+      .timepicker-warp {
+        // 时间input
+        .btn {
+          padding: 0;
+        }
+        .bs-timepicker-field {
+          padding: $input-padding-y-sm $input-padding-x-sm;
+        }
+        .bs-chevron {
+          width: 7px;
+          height: 7px;
+          border-width: 2px 0px 0 2px;
+          border-color: $gray-700;
+        }
+      }
+      .timepicker-btn-warp {
+        // 按钮
+        display: flex;
+        align-items: center;
+        flex: 1;
+        justify-content: flex-end;
+        .timepicker-ok-btn {
+          padding-left: 15px;
+          padding-right: 15px;
+        }
+        .timepicker-clear-btn {
+          margin-left: 5px;
+          padding-left: 5px;
+          padding-right: 5px;
+        }
+      }
+    }
+  }
+}

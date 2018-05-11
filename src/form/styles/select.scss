@@ -1,5 +1,6 @@
 // select
 .thy-select {
+    width: 100%;
     position: relative;
     &:after {
       @include set-select-arrow();
