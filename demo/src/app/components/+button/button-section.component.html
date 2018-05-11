@@ -124,7 +124,7 @@
             <button thyButton="outline-default" thySize="md">Left</button>
             <button thyButton="outline-default" thySize="md">Right</button>
             <thy-button-group>
-                <button thyButton="outline-default" thySize="md" class="dropdown-toggle" [thyActionMenuToggle]="menu1">下拉菜单</button>
+                <button thyButton="outline-default" thySize="md"  thyDropdown [thyActionMenuToggle]="menu1">下拉菜单</button>
                 <ng-template #menu1>
                     <thy-action-menu>
                         <a thyActionMenuItem href="javascript:;">
@@ -136,19 +136,6 @@
                     </thy-action-menu>
                 </ng-template>
             </thy-button-group>
-        </thy-button-group>
-        <br/>
-        <br/>
-        <thy-button-group>
-            <button thyButton="primary">Left</button>
-            <button thyButton="primary" thyDropdown>Right</button>
-        </thy-button-group>
-        <br/>
-        <br/>
-        <button thyDropdown thyButton="primary" thyIcon="wtf-plus">Right</button>
-        <thy-button-group>
-            <button thyButton="primary" >上传文件</button>
-            <button thyDropdownSplit thyButton="primary"></button>
         </thy-button-group>
     </div>
 </section>
