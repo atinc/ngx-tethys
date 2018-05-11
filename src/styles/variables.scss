@@ -93,6 +93,12 @@ $btn-disabled-border-color: $gray-300;
 $btn-link-color-default: $gray-500;
 $btn-link-color-disabled: $gray-400;
 
+
+// Dropdown
+$dropdown-toggle-y-l: 1.25rem ! default;
+$dropdown-toggle-y-r: 0.938rem ! default;
+$dropdown-toggle-split-y: 0.625rem ! default;
+
 // Forms
 
 $input-padding-x: 0.875rem !default; // 输入框左右 padding 和 按钮大小不一致， bootstrap 是一致的

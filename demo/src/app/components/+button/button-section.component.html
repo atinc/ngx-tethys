@@ -60,28 +60,28 @@
 </section>
 
 <section>
-        <div class="header">
-            <h2>按钮链接</h2>
-        </div>
-        <div class="body">
-            <button thyButton="link">预览</button>
-            <!-- <button thyButton="link" btnIcon="wtf-plus">搜索</button> -->
-            <button thyButton="link-secondary">取消</button>
-        </div>
-    </section>
+    <div class="header">
+        <h2>按钮链接</h2>
+    </div>
+    <div class="body">
+        <button thyButton="link">预览</button>
+        <!-- <button thyButton="link" btnIcon="wtf-plus">搜索</button> -->
+        <button thyButton="link-secondary">取消</button>
+    </div>
+</section>
 
 <section>
     <div class="header">
         <h2>按钮大小</h2>
     </div>
     <div class="body">
-    
+
         <code>sm</code> 小按钮：
         <button thyButton="primary" thySize="sm">确定</button>
         <button thyButton="danger" thySize="sm">删除</button>
         <button thyButton="outline-default" thySize="sm">预览</button>
         <button thyButton="outline-primary" thySize="sm">新建文件夹</button>
-    
+
         <br>
         <br>
         <code>md</code> 二级大小按钮：
@@ -89,15 +89,66 @@
         <button thyButton="danger" thySize="md">删除</button>
         <button thyButton="outline-default" thySize="md">预览</button>
         <button thyButton="outline-primary" thySize="md">新建文件夹</button>
-        
+
         <br>
-        <br>
-        一级按钮
+        <br> 一级按钮
         <button thyButton="primary">确定</button>
         <button thyButton="danger">删除</button>
         <button thyButton="outline-default">预览</button>
         <button thyButton="outline-primary">新建文件夹</button>
-        
 
+
+    </div>
+</section>
+
+<section>
+    <div class="header">
+        <h2>按钮组</h2>
+    </div>
+    <div class="body">
+        <thy-button-group>
+            <button thyButton="outline-default" thySize="md">Left</button>
+            <button thyButton="outline-default" thySize="md">Middle</button>
+            <button thyButton="outline-default" thySize="md">Right</button>
+        </thy-button-group>
+        <br/>
+        <br/>
+        <thy-button-group>
+            <button thyButton="outline-primary" thySize="md">Left</button>
+            <button thyButton="outline-primary" thySize="md">Middle</button>
+            <button thyButton="outline-primary" thySize="md">Right</button>
+        </thy-button-group>
+        <br/>
+        <br/>
+        <thy-button-group>
+            <button thyButton="outline-default" thySize="md">Left</button>
+            <button thyButton="outline-default" thySize="md">Right</button>
+            <thy-button-group>
+                <button thyButton="outline-default" thySize="md" class="dropdown-toggle" [thyActionMenuToggle]="menu1">下拉菜单</button>
+                <ng-template #menu1>
+                    <thy-action-menu>
+                        <a thyActionMenuItem href="javascript:;">
+                            <span>Dropdown link</span>
+                        </a>
+                        <a thyActionMenuItem href="javascript:;">
+                            <span>Dropdown link</span>
+                        </a>
+                    </thy-action-menu>
+                </ng-template>
+            </thy-button-group>
+        </thy-button-group>
+        <br/>
+        <br/>
+        <thy-button-group>
+            <button thyButton="primary">Left</button>
+            <button thyButton="primary" thyDropdown>Right</button>
+        </thy-button-group>
+        <br/>
+        <br/>
+        <button thyDropdown thyButton="primary" thyIcon="wtf-plus">Right</button>
+        <thy-button-group>
+            <button thyButton="primary" >上传文件</button>
+            <button thyDropdownSplit thyButton="primary"></button>
+        </thy-button-group>
     </div>
 </section>

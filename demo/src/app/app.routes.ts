@@ -22,11 +22,16 @@ import { DemoTransferSectionComponent } from './components/+transfer/transfer-se
 import { DemoFormSectionComponent } from './components/+form/form-section.component';
 import { DemoDataPickerSectionComponent } from './components/+date-picker/date-picker-section.component';
 import { DemoInputSectionComponent } from './components/+input/input-section.component';
+import { DemoDropdownSectionComponent } from './components/+dropdown/dropdown-section.component';
 
 const appRoutes = [
     {
         path: 'components/button',
         component: DemoButtonSectionComponent
+    },
+    {
+        path: 'components/dropdown',
+        component: DemoDropdownSectionComponent
     },
     {
         path: 'components/pob-box',
