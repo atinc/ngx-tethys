@@ -12,6 +12,11 @@ export class DemoPopBoxSectionComponent {
 
     public demoPlacement = 'bottom center';
 
+    public config = {
+        outsideAutoClose: true,
+        insideAutoClose: true
+    };
+
     constructor(private popBoxService: ThyPopBoxService) {
 
     }
@@ -23,7 +28,8 @@ export class DemoPopBoxSectionComponent {
 
         this.popBoxService.show(PopBoxMenuDemoShowComponent, {
             initialState: initialState,
-            insideAutoClose: true,
+            insideAutoClose: this.config.insideAutoClose,
+            outsideAutoClose: this.config.outsideAutoClose,
             target: templateRef.elementRef,
             placement: this.demoPlacement
         });

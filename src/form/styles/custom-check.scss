@@ -47,7 +47,7 @@ input[type="checkbox"] {
   width: $input-form-check-size;
   height: $input-form-check-size;
   border: solid 1px $input-form-check-border-color;
-  position: relative;
+  // position: relative;
   cursor: pointer;
 
   &:disabled {
