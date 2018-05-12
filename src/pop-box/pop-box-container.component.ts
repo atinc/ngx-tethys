@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef, Renderer2, ViewEncapsulation, HostListener } from '@angular/core';
-import { ThyPopBoxService } from './pop-box.service';
+import { PopBoxRef } from './pop-box-ref.service';
 import { PopBoxOptions } from './pop-box-options.class';
 
 @Component({
@@ -14,9 +14,9 @@ import { PopBoxOptions } from './pop-box-options.class';
 })
 export class PopBoxContainerComponent implements OnInit {
 
-    public popBoxService: ThyPopBoxService;
+    public popBoxRef: PopBoxRef;
 
-    protected config: PopBoxOptions;
+    public config: PopBoxOptions;
 
 
     constructor(
@@ -26,12 +26,11 @@ export class PopBoxContainerComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.config = this.popBoxService.config;
     }
 
 
     hide(): void {
-        this.popBoxService.hide();
+        this.popBoxRef.hide();
     }
 
     @HostListener('window:keydown.esc', ['$event'])

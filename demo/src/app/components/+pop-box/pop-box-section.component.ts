@@ -39,6 +39,10 @@ export class DemoPopBoxSectionComponent {
             target: templateRef.elementRef
         });
     }
+
+    close() {
+        this.popBoxService.hide();
+    }
 }
 
 @Component({
