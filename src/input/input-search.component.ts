@@ -1,31 +1,47 @@
 import {
     Component, HostBinding, Input, Output,
     ContentChild, TemplateRef, ElementRef,
-    ViewEncapsulation, EventEmitter
+    ViewEncapsulation, EventEmitter, forwardRef
 } from '@angular/core';
 import { ThyTranslate, UpdateHostClassService } from '../shared';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export type InputSearchTheme = 'ellipse' | '';
+
+
+export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => ThyInputSearchComponent),
+    multi: true
+};
+
+const noop = () => { };
 
 @Component({
     selector: 'thy-input-search',
     templateUrl: './input-search.component.html',
     providers: [
-        UpdateHostClassService
+        UpdateHostClassService,
+        CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR
     ],
     encapsulation: ViewEncapsulation.None
 })
-export class ThyInputSearchComponent {
+export class ThyInputSearchComponent implements ControlValueAccessor {
+
+
+    private onTouchedCallback: () => void = noop;
+
+    private onChangeCallback: (_: any) => void = noop;
+
+    public disabled = false;
+
     @HostBinding('class.input-search-container') _isSearchContainer = true;
 
     @HostBinding('class.input-search-ellipse') _isSearchEllipse = false;
 
     searchText: string;
 
-    @Input()
-    set searchModel(value: string) {
-        this.searchText = value;
-    }
+    @Input() name = '';
 
     @Input()
     set thyTheme(value: InputSearchTheme) {
@@ -34,19 +50,36 @@ export class ThyInputSearchComponent {
         }
     }
 
-    @Output() searchModelChange = new EventEmitter();
-
     constructor() {
 
     }
 
-    searchTextChange() {
-        this.searchModelChange.emit(this.searchText);
+    writeValue(value: any): void {
+        this.searchText = value;
+    }
+
+    registerOnChange(fn: any): void {
+        this.onChangeCallback = fn;
+    }
+
+    registerOnTouched(fn: any): void {
+        this.onTouchedCallback = fn;
+    }
+
+    setDisabledState?(isDisabled: boolean): void {
+        this.disabled = isDisabled;
+    }
+
+    searchModelChange() {
+        this.onChangeCallback(this.searchText);
     }
 
     clearSearchText() {
+        if (this.disabled) {
+            return;
+        }
         this.searchText = '';
-        this.searchTextChange();
+        this.onChangeCallback(this.searchText);
     }
 }
 

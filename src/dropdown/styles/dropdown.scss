@@ -1,0 +1,21 @@
+.dropdown-toggle {
+  // Generate the caret automatically
+  @include caret;
+  &.btn {
+    padding-left: $dropdown-toggle-y-l;
+    padding-right: $dropdown-toggle-y-r;
+  }
+  &::after {
+    margin-left: 1.25rem;
+  }
+}
+
+.dropdown-toggle-split {
+  &.btn {
+    padding-right: $dropdown-toggle-split-y;
+    padding-left: $dropdown-toggle-split-y;
+  }
+  &::after {
+    margin-left: 0;
+  }
+}

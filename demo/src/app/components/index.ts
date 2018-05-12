@@ -24,6 +24,7 @@ import { DemoTransferSectionComponent } from './+transfer/transfer-section.compo
 import { DemoFormSectionComponent } from './+form/form-section.component';
 import { DemoDataPickerSectionComponent } from './+date-picker/date-picker-section.component';
 import { DemoInputSectionComponent } from './+input/input-section.component';
+import { DemoDropdownSectionComponent } from './+dropdown/dropdown-section.component';
 
 export const COMPONENTS = [
     DemoPopBoxSectionComponent,
@@ -53,7 +54,8 @@ export const COMPONENTS = [
     DemoTransferSectionComponent,
     DemoFormSectionComponent,
     DemoDataPickerSectionComponent,
-    DemoInputSectionComponent
+    DemoInputSectionComponent,
+    DemoDropdownSectionComponent
 ];
 
 export const ENTRY_COMPONENTS = [

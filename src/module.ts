@@ -24,6 +24,7 @@ import { ThySwitchModule } from './switch/switch.module';
 import { ThyTransferModule } from './transfer/transfer.module';
 import { ThyFormModule } from './form';
 import { ThyInputModule } from './input';
+import { ThyDropdownModule } from './dropdown';
 import { ThyDirectiveModule } from './directive';
 
 @NgModule({
@@ -52,6 +53,7 @@ import { ThyDirectiveModule } from './directive';
         ThyTransferModule,
         ThyFormModule,
         ThyInputModule,
+        ThyDropdownModule,
         ThyDirectiveModule
     ],
     exports: [
@@ -77,6 +79,7 @@ import { ThyDirectiveModule } from './directive';
         ThyTransferModule,
         ThyFormModule,
         ThyInputModule,
+        ThyDropdownModule,
         ThyDirectiveModule
     ],
     providers: [
