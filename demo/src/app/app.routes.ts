@@ -23,6 +23,9 @@ import { DemoFormSectionComponent } from './components/+form/form-section.compon
 import { DemoDataPickerSectionComponent } from './components/+date-picker/date-picker-section.component';
 import { DemoInputSectionComponent } from './components/+input/input-section.component';
 import { DemoDropdownSectionComponent } from './components/+dropdown/dropdown-section.component';
+import { DemoProgressSectionComponent } from './components/+progress/progress-section.component';
+
+
 
 const appRoutes = [
     {
@@ -108,6 +111,10 @@ const appRoutes = [
     {
         path: 'components/tree',
         component: DemoTreeSectionComponent
+    },
+    {
+        path: 'components/progress',
+        component:DemoProgressSectionComponent
     },
     {
         path: 'components/switch',
