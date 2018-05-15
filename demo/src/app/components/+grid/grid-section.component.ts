@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination/pagination.component';
+import { REACTIVE_DRIVEN_DIRECTIVES } from '@angular/forms';
 
 @Component({
     selector: 'demo-grid-section',
@@ -223,5 +224,9 @@ export class DemoGridSectionComponent implements OnInit {
             event.row.checked = false;
             event.refresh();
         }, 2000);
+    }
+
+    onDraggableUpdate(event) {
+        console.log(event);
     }
 }

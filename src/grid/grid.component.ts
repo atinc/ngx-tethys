@@ -8,7 +8,10 @@ import {
 } from '@angular/core';
 import { AfterContentInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import { inputValueToBoolean, isUndefined, get, set } from '../util/helpers';
-import { ThyGridColumn, ThyMultiSelectEvent, ThyRadioSelectEvent, ThyPage, ThyGridEmptyOptions, ThySwitchEvent } from './grid.interface';
+import {
+    ThyGridColumn, ThyMultiSelectEvent, ThyRadioSelectEvent, ThyPage,
+    ThyGridEmptyOptions, ThySwitchEvent, ThyGridDraggableEvent
+} from './grid.interface';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination/pagination.component';
 import { AnimateChildAst } from '@angular/animations/browser/src/dsl/animation_ast';
 import { SortablejsOptions } from 'angular-sortablejs/dist';
@@ -55,7 +58,11 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy, Do
 
     public draggable = false;
 
-    public draggableOptions: SortablejsOptions = { disabled: true };
+    public draggableOptions: SortablejsOptions = {
+        disabled: true,
+        onStart: this.onDraggableStart.bind(this),
+        onUpdate: this.onDraggableUpdate.bind(this)
+    };
 
     public selectedRadioRow: any = null;
 
@@ -66,6 +73,8 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy, Do
     private _filter: any = null;
 
     private _diff: IterableDiffer<any>;
+
+    private _draggableModel: any;
 
     @Input()
     set thyModel(value: any) {
@@ -105,12 +114,18 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy, Do
     }
 
     @Input()
-    set thyDraggableOptions(value: SortablejsOptions) {
-        if (value) {
-            this.draggable = value && !this.draggableOptions.disabled;
-            this.draggableOptions = value;
-        }
+    set thyDraggable(value: boolean) {
+        this.draggable = value;
+        this.draggableOptions.disabled = !value;
     }
+
+    // @Input()
+    // set thyDraggableOptions(value: SortablejsOptions) {
+    //     if (value) {
+    //         this.draggable = value && !this.draggableOptions.disabled;
+    //         this.draggableOptions = value;
+    //     }
+    // }
 
     @Input()
     set thyFilter(value: any) {
@@ -132,14 +147,15 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy, Do
         this.pagination.total = value;
     }
 
+    @Output() thyOnSwitchChange: EventEmitter<ThySwitchEvent> = new EventEmitter<ThySwitchEvent>();
+
     @Output() thyOnPageChange: EventEmitter<PageChangedEvent> = new EventEmitter<PageChangedEvent>();
 
     @Output() thyOnMultiSelectChange: EventEmitter<ThyMultiSelectEvent> = new EventEmitter<ThyMultiSelectEvent>();
 
     @Output() thyOnRadioSelectChange: EventEmitter<ThyRadioSelectEvent> = new EventEmitter<ThyRadioSelectEvent>();
 
-    @Output() thyOnSwitchChange: EventEmitter<ThySwitchEvent> = new EventEmitter<ThySwitchEvent>();
-
+    @Output() thyOnDraggableUpdate: EventEmitter<ThyGridDraggableEvent> = new EventEmitter<ThyGridDraggableEvent>();
 
     constructor(
         private _differs: IterableDiffers
@@ -271,6 +287,21 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy, Do
             }
         };
         this.thyOnSwitchChange.emit(switchEvent);
+    }
+
+    public onDraggableStart(event: any) {
+        this._draggableModel = this.model[event.oldIndex];
+        const switchEvent: ThyGridDraggableEvent = {
+        };
+    }
+    public onDraggableUpdate(event: any) {
+        const dragEvent: ThyGridDraggableEvent = {
+            model: this._draggableModel,
+            models: this.model,
+            oldIndex: event.oldIndex,
+            newIndex: event.newIndex
+        };
+        this.thyOnDraggableUpdate.emit(dragEvent);
     }
 
     ngOnInit() {
