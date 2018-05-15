@@ -10,7 +10,7 @@ import { ThyDatepickerService } from './datepicker.service';
 import { DatePipe, registerLocaleData } from '@angular/common';
 import localeZhHans from '@angular/common/locales/zh-Hans';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { isObject, isNumber, isDate } from '../util/helpers';
+import { isObject, isNumber, isDate, inputValueToBoolean } from '../util/helpers';
 registerLocaleData(localeZhHans, 'zh-Hans');
 
 const FORMAT_RULES = {
@@ -40,7 +40,8 @@ export class ThyDatepickerDirective implements OnInit, ControlValueAccessor {
     @Input() thyContainer = 'body';
     @Input() thyOutsideClick = true;
     @Input() thyDisabled = false;
-    @Input() thyFormat = FORMAT_RULES.default;
+    @Input() thyWithTime = false;
+    @Input() thyFormat: string;
     @Output() thyOnChange: EventEmitter<any> = new EventEmitter();
 
     constructor(
@@ -96,10 +97,12 @@ export class ThyDatepickerDirective implements OnInit, ControlValueAccessor {
                     this.hide();
                 },
                 initialState: {
+                    withTime: inputValueToBoolean(this.thyWithTime),
                     value: this._value,
-                    changeValue: (date: DatepickerValueEntry) => {
-                        this._setInputProperty(date.date);
-                        this._onChange(date);
+                    changeValue: (result: DatepickerValueEntry) => {
+                        this._initFormatRule(result);
+                        this._setInputProperty(result.date);
+                        this._onChange(result);
                     }
                 }
             });
@@ -140,12 +143,20 @@ export class ThyDatepickerDirective implements OnInit, ControlValueAccessor {
 
     }
 
-    private _initFormatRule() {
-        if (!this.thyFormat) {
-            if (this._value.with_time) {
+    private _initFormatRule(value?: DatepickerValueEntry) {
+        if (value) {
+            if (value.with_time) {
                 this.thyFormat = FORMAT_RULES.full;
             } else {
                 this.thyFormat = FORMAT_RULES.short;
+            }
+        } else {
+            if (!this.thyFormat) {
+                if (this._value.with_time) {
+                    this.thyFormat = FORMAT_RULES.full;
+                } else {
+                    this.thyFormat = FORMAT_RULES.short;
+                }
             }
         }
     }

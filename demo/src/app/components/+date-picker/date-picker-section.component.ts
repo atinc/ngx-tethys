@@ -14,6 +14,11 @@ export class DemoDataPickerSectionComponent implements OnInit {
         with_time: false
     };
 
+    elementDateEntry = {
+        date: new Date(),
+        with_time: false
+    };
+
     dateEntryWithTime = {
         date: new Date(),
         with_time: true
