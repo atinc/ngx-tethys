@@ -88,11 +88,7 @@ export class ThyDatepickerContainerComponent implements OnInit {
     private _initData() {
         this.isShowTime = this.initialState.value.with_time;
         this._isHasTime = this.isShowTime;
-        if (this.initialState.value && this.initialState.value.date) {
-            this.value = new Date(this.initialState.value.date.getTime());
-        } else {
-            this.value = new Date();
-        }
+        this.value = new Date(this.initialState.value.date.getTime());
     }
 
     private _initDatepickerComponent() {

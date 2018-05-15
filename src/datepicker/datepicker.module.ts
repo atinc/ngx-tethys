@@ -5,7 +5,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { ThyButtonModule } from '../button/button.module';
 
-import { ThyDatepickerPipe } from './pipe';
+import { ThyDatepickerFormatPipe } from './pipe';
 import { ThyDatepickerDirective } from './datepicker.directive';
 import { ThyDatepickerContainerComponent } from './datepicker-container.component';
 import { ThyDatepickerConfig } from './datepicker.config';
@@ -18,7 +18,7 @@ import { FormsModule } from '@angular/forms';
     declarations: [
         ThyDatepickerContainerComponent,
         ThyDatepickerDirective,
-        ThyDatepickerPipe,
+        ThyDatepickerFormatPipe,
     ],
     entryComponents: [
         ThyDatepickerContainerComponent,
@@ -33,7 +33,7 @@ import { FormsModule } from '@angular/forms';
     exports: [
         BsDatepickerModule,
         ThyDatepickerDirective,
-        ThyDatepickerPipe,
+        ThyDatepickerFormatPipe,
     ],
     providers: [
         ThyDatepickerConfig,

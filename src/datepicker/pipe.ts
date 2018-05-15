@@ -4,8 +4,8 @@ import { DatepickerValueEntry } from './i.datepicker';
 import localeZhHans from '@angular/common/locales/zh-Hans';
 registerLocaleData(localeZhHans, 'zh-Hans');
 
-@Pipe({ name: 'thyDatepicker' })
-export class ThyDatepickerPipe implements PipeTransform {
+@Pipe({ name: 'thyDatepickerFormat' })
+export class ThyDatepickerFormatPipe implements PipeTransform {
 
     dataPipe = new DatePipe('zh-Hans');
 
@@ -18,7 +18,7 @@ export class ThyDatepickerPipe implements PipeTransform {
             }
             _res = this.dataPipe.transform(value.date, _formatRule.join(' '));
         } else {
-            _res = ' ';
+            _res = '';
         }
         return _res;
     }
