@@ -23,7 +23,9 @@ export class ThyTransferComponent {
 
     public rightTitle: string;
 
-    public draggable = false;
+    public leftDraggable = false;
+
+    public rightDraggable = false;
 
     private _canMove: Function;
 
@@ -54,8 +56,13 @@ export class ThyTransferComponent {
     }
 
     @Input()
-    set thyDraggable(value: boolean) {
-        this.draggable = value;
+    set thyLeftDraggable(value: boolean) {
+        this.leftDraggable = value;
+    }
+
+    @Input()
+    set thyRightDraggable(value: boolean) {
+        this.rightDraggable = value;
     }
 
     @Output() thyDraggableUpdate: EventEmitter<ThyTransferDragEvent> = new EventEmitter<ThyTransferDragEvent>();
