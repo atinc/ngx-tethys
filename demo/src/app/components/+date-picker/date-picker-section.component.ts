@@ -45,6 +45,18 @@ export class DemoDataPickerSectionComponent implements OnInit {
             type: 'String',
             default: 'yyyy-MM-dd'
         },
+        {
+            property: 'thyDisabled',
+            description: '非Input时禁用，Input时直接使用 disabled',
+            type: 'boolean',
+            default: 'false'
+        },
+        {
+            property: 'thyWithTime',
+            description: '显示\'设置时间\'按钮',
+            type: 'boolean',
+            default: 'false'
+        },
     ];
 
     constructor() { }
