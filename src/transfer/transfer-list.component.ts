@@ -5,8 +5,9 @@ import {
     EventEmitter,
     TemplateRef
 } from '@angular/core';
-import { ThyTransferModel, ThyTransferSelectEvent, ThyTransferItem } from './transfer.interface';
+import { ThyTransferModel, ThyTransferSelectEvent, ThyTransferItem, ThyTransferDragEvent } from './transfer.interface';
 import { ThyTransferComponent } from './transfer.component';
+import { SortablejsOptions } from 'angular-sortablejs/dist';
 
 @Component({
     selector: 'thy-transfer-list',
@@ -21,9 +22,24 @@ export class ThyTransferListComponent {
 
     @Input() items: ThyTransferItem[];
 
+    @Input()
+    set draggable(value: boolean) {
+        this.draggableOptions.disabled = !value;
+    }
+
     @Input() template: TemplateRef<any>;
 
+    @Output() draggableUpdate: EventEmitter<ThyTransferDragEvent> = new EventEmitter<ThyTransferDragEvent>();
+
     @Output() select: EventEmitter<ThyTransferSelectEvent> = new EventEmitter<ThyTransferSelectEvent>();
+
+    public draggableOptions: SortablejsOptions = {
+        disabled: false,
+        onStart: this.onDragStart.bind(this),
+        onUpdate: this.onDragUpdate.bind(this)
+    };
+
+    private _dragModel: ThyTransferItem;
 
     constructor(
         private root: ThyTransferComponent
@@ -34,5 +50,19 @@ export class ThyTransferListComponent {
     onSelect(item: any) {
         const event: ThyTransferSelectEvent = { item: item };
         this.select.emit(event);
+    }
+
+    onDragStart(event: any) {
+        this._dragModel = this.items[event.oldIndex];
+    }
+
+    onDragUpdate(event: any) {
+        const dragEvent: ThyTransferDragEvent = {
+            model: this._dragModel,
+            models: this.items,
+            oldIndex: event.oldIndex,
+            newIndex: event.newIndex,
+        };
+        this.draggableUpdate.emit(dragEvent);
     }
 }

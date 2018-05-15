@@ -55,7 +55,7 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy, Do
 
     public draggable = false;
 
-    public draggableOptions: SortablejsOptions = { disabled: !this.draggable };
+    public draggableOptions: SortablejsOptions = { disabled: true };
 
     public selectedRadioRow: any = null;
 
@@ -107,9 +107,8 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy, Do
     @Input()
     set thyDraggableOptions(value: SortablejsOptions) {
         if (value) {
-            this.draggable = true;
-            this.draggableOptions.disabled = !this.draggable;
-            Object.assign(this.draggableOptions, value);
+            this.draggable = value && !this.draggableOptions.disabled;
+            this.draggableOptions = value;
         }
     }
 

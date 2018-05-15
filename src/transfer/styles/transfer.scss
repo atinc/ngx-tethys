@@ -3,6 +3,7 @@
   &-list {
     display: flex;
     flex-flow: column;
+    flex: 1;
     &-header {
       padding: $transfer-list-header-padding;
       width: 100%;
@@ -15,8 +16,8 @@
       border: $transfer-list-border-width solid $transfer-list-border-color;
       border-radius: $transfer-list-border-radius;
       padding: $transfer-list-padding;
-      width: $transfer-list-width;
-      height: $transfer-list-height;
+      min-width: $transfer-list-width;
+      min-height: $transfer-list-height;
       vertical-align: middle;
       overflow-y: auto;
     }
@@ -35,6 +36,20 @@
       &-item:not(&-item-disabled):hover {
         cursor: pointer;
         @include box-shadow(0px 0px 8px 2px $transfer-list-item-hover-color);
+      }
+    }
+  }
+  &-drag {
+    &-icon {
+      visibility: hidden;
+    }
+    .thy-transfer-list-content {
+      &-item {
+        &:hover {
+          .thy-transfer-drag-icon {
+            visibility: visible;
+          }
+        }
       }
     }
   }

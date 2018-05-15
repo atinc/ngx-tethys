@@ -27,3 +27,10 @@ export interface ThyTransferChangeEvent {
     to: string;
     items?: ThyTransferItem[];
 }
+
+export interface ThyTransferDragEvent {
+    oldIndex?: number;
+    newIndex?: number;
+    model?: ThyTransferItem;
+    models?: ThyTransferItem[];
+}

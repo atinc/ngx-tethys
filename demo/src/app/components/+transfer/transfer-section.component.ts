@@ -9,30 +9,39 @@ import { ThyTransferData, ThyTransferItem } from '../../../../../src/transfer/tr
 export class DemoTransferSectionComponent {
 
     public transferData: ThyTransferItem[] = [{
+        id: 1,
         title: '第1条数据',
         direction: 'left'
     }, {
+        id: 2,
         title: '第2条数据',
         direction: 'left'
     }, {
+        id: 3,
         title: '第3条数据',
         direction: 'left'
     }, {
+        id: 4,
         title: '第4条数据',
         direction: 'left'
     }, {
+        id: 5,
         title: '第5条数据',
         direction: 'right'
     }, {
+        id: 6,
         title: '第6条数据',
         direction: 'right'
     }, {
+        id: 7,
         title: '第7条数据',
         direction: 'right'
     }, {
+        id: 8,
         title: '第8条数据',
         direction: 'right'
     }, {
+        id: 9,
         title: '第9条数据',
         direction: 'right'
     }];
@@ -99,6 +108,10 @@ export class DemoTransferSectionComponent {
 
     constructor() {
 
+    }
+
+    onDragUpdate(event) {
+        console.log(event);
     }
 
     onTransferChange(event) {

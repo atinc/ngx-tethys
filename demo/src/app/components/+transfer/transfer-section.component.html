@@ -3,7 +3,7 @@
         <h2>穿梭框</h2>
     </div>
     <div class="body">
-        <thy-transfer [thyData]="transferData" [thyTitles]="['数据源','已选中']" (thyChange)="onTransferChange($event)">
+        <thy-transfer [thyData]="transferData" [thyTitles]="['数据源','已选中']" [thyDraggable]="true" (thyDraggableUpdate)="onDragUpdate($event)" (thyChange)="onTransferChange($event)">
         </thy-transfer>
     </div>
 </section>
