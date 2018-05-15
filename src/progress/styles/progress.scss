@@ -1,0 +1,80 @@
+@keyframes progress-bar-stripes {
+    from {
+        background-position: $progress-height 0;
+    }
+    to {
+        background-position: 0 0;
+    }
+}
+
+.progress {
+    display: flex;
+    height: $progress-height;
+    overflow: hidden; // force rounded corners by cropping it
+    font-size: $progress-font-size;
+    background-color: $progress-bg;
+    @include border-radius($progress-border-radius);
+    // @include box-shadow($progress-box-shadow);
+    &-sm {
+        height: $progress-height-sm;
+        .progress-bar {
+            border-radius: 0 3px 3px 0;
+            position: relative;
+            &:first-child {
+                &:before {
+                    display: none;
+                }
+            }
+            &:last-child {
+                border-right: 1px $progress-split-color solid;
+            }
+            &:before {
+                content: '';
+                display: block;
+                width: 3px;
+                height: $progress-height-sm;
+                background: $progress-split-color;
+                border-radius: 0 3px 3px 0;
+                transform: scaleX(0.7) translateX(-1px);
+            }
+        }
+    }
+}
+
+.progress-bar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: $progress-bar-color;
+    text-align: center;
+    background-color: $progress-bar-bg;
+    @include transition($progress-bar-transition);
+    border-radius: 0 5px 5px 0;
+    position: relative;
+    &:first-child {
+        &:before {
+            display: none;
+        }
+    }
+    &:last-child {
+        border-right: 1px $progress-split-color solid;
+    }
+    &:before {
+        content: '';
+        display: block;
+        width: 5px;
+        height: $progress-height;
+        background: $progress-split-color;
+        border-radius: 0 5px 5px 0;
+        transform: scaleX(0.5) translateX(-3px);
+    }
+}
+
+.progress-bar-striped {
+    @include gradient-striped();
+    background-size: $progress-height $progress-height;
+}
+
+.progress-bar-animated {
+    animation: progress-bar-stripes $progress-bar-animation-timing;
+}

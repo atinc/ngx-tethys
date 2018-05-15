@@ -28,7 +28,7 @@
   align-items: center;
   padding-left: 0; // Override base .form-check
   margin-right: $form-check-inline-margin-x;
-  
+
   // Undo .form-check-input defaults and add some `margin-right`.
   .form-check-input {
     // position: static;
@@ -47,8 +47,11 @@ input[type="checkbox"] {
   width: $input-form-check-size;
   height: $input-form-check-size;
   border: solid 1px $input-form-check-border-color;
-  // position: relative;
   cursor: pointer;
+
+  &:not(.form-check-input) {
+    position: relative;
+  }
 
   &:disabled {
     &::after {

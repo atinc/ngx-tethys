@@ -11,11 +11,10 @@ import { PopBoxOptions, popBoxConfigDefaults } from './pop-box-options.class';
 @Injectable()
 export class ThyPopBoxService {
 
-    public config: PopBoxOptions;
-
-    private isOpen: boolean;
-
-    private _target: any;
+    private _loaders: {
+        target: any,
+        loader: any
+    }[] = [];
 
     private _renderer: Renderer2;
 
@@ -30,14 +29,15 @@ export class ThyPopBoxService {
 
     show(content: string | TemplateRef<any> | any, config: PopBoxOptions): PopBoxRef {
         const target = config.target.nativeElement || config.target;
-        if (this._popBoxLoader) {
-            this.hide();
-            if (target && this._target === target) {
-                return;
-            }
+        const targetLoader = this._loaders.find((item) => {
+            return item.target === target;
+        });
+        if (targetLoader) {
+            this._hide(targetLoader);
+            return;
         }
-        this._target = target;
-        this.config = Object.assign({}, popBoxConfigDefaults, config, {
+
+        const _config = Object.assign({}, popBoxConfigDefaults, config, {
             target: target
         });
 
@@ -49,25 +49,42 @@ export class ThyPopBoxService {
 
         const popBoxRef = new PopBoxRef();
         const popBoxContainerRef = loader
-            .provide({ provide: PopBoxOptions, useValue: this.config })
+            .provide({ provide: PopBoxOptions, useValue: _config })
             .provide({ provide: PopBoxRef, useValue: popBoxRef })
             .attach(PopBoxContainerComponent)
             .to('body')
-            .position({ attachment: this.config.placement, target: config.target, targetOffset: '10px' })
-            .show({ content, initialState: this.config.initialState, popBoxService: this });
+            .position({ attachment: _config.placement, target: _config.target, targetOffset: '10px' })
+            .show({ content, initialState: _config.initialState, popBoxRef: popBoxRef });
 
+        const _loader = {
+            target: target,
+            loader: loader
+        };
+        popBoxContainerRef.instance.config = _config;
         popBoxRef.hide = () => {
-            popBoxContainerRef.instance.hide();
+            this._hide(_loader);
         };
         popBoxRef.content = loader.getInnerComponent() || null;
-
+        this._loaders.push(_loader);
         return popBoxRef;
     }
 
+    private _hide(loader: {
+        target: any,
+        loader: any
+    }) {
+        this._loaders = this._loaders.filter((item) => {
+            return item.target !== loader.target;
+        });
+        setTimeout(() => {
+            loader.loader.hide();
+        });
+
+    }
+
     hide() {
-        if (this._popBoxLoader) {
-            this._popBoxLoader.hide();
-            this._popBoxLoader = null;
+        if (this._loaders && this._loaders.length > 0) {
+            this._hide(this._loaders[this._loaders.length - 1]);
         }
     }
 }
