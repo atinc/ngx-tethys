@@ -14,7 +14,7 @@ export interface ThyTransferItem {
     direction?: 'left' | 'right';
     disabled?: boolean;
     checked?: boolean;
-    [key: string]: {};
+    [key: string]: any;
 }
 
 export interface ThyTransferSelectEvent {

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination/pagination.component';
-import { REACTIVE_DRIVEN_DIRECTIVES } from '@angular/forms';
 
 @Component({
     selector: 'demo-grid-section',
