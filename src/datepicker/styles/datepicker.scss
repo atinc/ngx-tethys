@@ -3,13 +3,17 @@ $border-color: transparent;
 @import '../../../node_modules/ngx-bootstrap/datepicker/bs-datepicker.scss';
 thy-datepicker-container {
   position: absolute;
+  padding-bottom: 10px;
   background: white;
   box-shadow: $box-shadow;
 }
 
-.thy-datepicker-container--has-time {
-  padding-bottom: 90px;
-}
+// .thy-datepicker-container--has-time {
+//   padding-bottom: 90px;
+// }
+// .thy-datepicker-container--can-time {
+//   padding-bottom: 60px;
+// }
 
 @include theming('ngx', $primary);
 @include thy-detepicker-variant();

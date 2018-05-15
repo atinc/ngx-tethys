@@ -13,24 +13,18 @@ import { DatepickerValueEntry } from './i.datepicker';
 })
 export class ThyDatepickerContainerComponent implements OnInit {
 
-    hideLoader: Function;
-
     public initialState: any;
-
+    hideLoader: Function;
     value: Date;
-
     isShowTime = false;
-
+    isCanTime = false;
     isMeridian = false;
-
     @ViewChild('dpContainer')
     private dpContainerRef: any;
-
     private _datepicker: ComponentLoader<BsDatepickerContainerComponent>;
-
     private _datepickerRef: ComponentRef<BsDatepickerContainerComponent>;
-
-    @HostBinding('class.thy-datepicker-container--has-time') _isHasTime = false;
+    // @HostBinding('class.thy-datepicker-container--has-time') isShowTime = false;
+    // @HostBinding('class.thy-datepicker-container--can-time') isCanTime = false;
 
     constructor(
         private cis: ComponentLoaderFactory,
@@ -48,7 +42,8 @@ export class ThyDatepickerContainerComponent implements OnInit {
     }
 
     ngOnInit() {
-        this._initData();
+        this._initTimeShowMode();
+        this._initDataValue();
         this._initDatepickerComponent();
     }
 
@@ -73,25 +68,46 @@ export class ThyDatepickerContainerComponent implements OnInit {
         this.hideLoader();
     }
 
+    changeTimeShowMode(type: string) {
+        switch (type) {
+            case 'clear':
+                this.isCanTime = false;
+                this.isShowTime = false;
+                break;
+            case 'can':
+                this.isCanTime = true;
+                this.isShowTime = false;
+                break;
+            case 'show':
+                this.isCanTime = false;
+                this.isShowTime = true;
+                break;
+        }
+    }
+
     private _sendChangeValueEvent(value?: DatepickerValueEntry) {
         if (value !== undefined) {
             this.initialState.changeValue(value);
         } else {
             this.initialState.changeValue({
                 date: this.value,
-                with_time: this.initialState.value.with_time
+                with_time: this.isShowTime
             });
         }
         this.hide();
     }
 
-    private _initData() {
-        this.isShowTime = this.initialState.value.with_time;
-        this._isHasTime = this.isShowTime;
-        if (this.initialState.value && this.initialState.value.date) {
-            this.value = new Date(this.initialState.value.date.getTime());
+    private _initDataValue() {
+        this.value = new Date(this.initialState.value.date.getTime());
+    }
+
+    private _initTimeShowMode() {
+        if (this.initialState.value.with_time) {
+            this.changeTimeShowMode('show');
         } else {
-            this.value = new Date();
+            if (this.initialState.withTime) {
+                this.changeTimeShowMode('can');
+            }
         }
     }
 

@@ -33,16 +33,22 @@
     }
     .timepicker-section {
       // 时间区域
-      position: absolute;
-      bottom: 0;
-      left: 0;
+      // position: absolute;
+      // bottom: 0;
+      // left: 0;
       padding-top: 5px;
       margin: 0 20px;
       display: flex;
       width: calc(100% - 40px);
       line-height: 1.5;
       border-top: solid 1px $gray-300;
-      transform: translateY(100%);
+      // transform: translateY(100%);
+      .timepicker-set{
+        .timepicker-set-btn{
+          padding-left: 5px;
+          padding-right: 5px;
+        }
+      }
       .timepicker-warp {
         // 时间input
         .btn {

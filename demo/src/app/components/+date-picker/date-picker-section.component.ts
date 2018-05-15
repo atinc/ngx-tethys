@@ -7,30 +7,64 @@ import { ComponentExample } from '../../docs/model/component-example';
 })
 export class DemoDataPickerSectionComponent implements OnInit {
 
-    value1;
+    onlyDate = new Date();
 
-    value2;
+    dateEntry = {
+        date: new Date(),
+        with_time: false
+    };
+
+    elementDateEntry = {
+        date: new Date(),
+        with_time: false
+    };
+
+    dateEntryWithTime = {
+        date: new Date(),
+        with_time: true
+    };
+
+    dateTime = Math.floor((new Date()).getTime() / 1000);
+
+    apiParameters = [
+        {
+            property: 'thyDatepicker',
+            description: '组件指令',
+            type: '',
+            default: ''
+        },
+        {
+            property: 'ngModel',
+            description: '双向绑定值',
+            type: 'DatepickerValueEntry',
+            default: ''
+        },
+        {
+            property: 'thyFormat',
+            description: '格式化显示',
+            type: 'String',
+            default: 'yyyy-MM-dd'
+        },
+        {
+            property: 'thyDisabled',
+            description: '非Input时禁用，Input时直接使用 disabled',
+            type: 'boolean',
+            default: 'false'
+        },
+        {
+            property: 'thyWithTime',
+            description: '显示\'设置时间\'按钮',
+            type: 'boolean',
+            default: 'false'
+        },
+    ];
 
     constructor() { }
 
     ngOnInit() {
-        this.value1 = {
-            date: new Date(),
-            with_time: false
-        };
-
-        this.value2 = {
-            date: new Date(),
-            with_time: true
-        };
     }
 
-    onChange(event) {
-        this.value1 = event;
+    log($event) {
+        console.log($event);
     }
-
-    onChange2(event) {
-        this.value2 = event;
-    }
-
 }

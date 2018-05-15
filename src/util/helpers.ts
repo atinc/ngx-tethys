@@ -75,6 +75,11 @@ export function isFunction(value: any) {
     return !!value && type === 'function';
 }
 
+export function isDate(value: any) {
+    const type = typeof value;
+    return !!value && type === 'object' && !!value.getTime;
+}
+
 
 export function get(object: any, path: string, defaultValue?: any) {
     const paths = path.split('.');
