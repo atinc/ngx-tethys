@@ -1,5 +1,6 @@
 
-import { Directive, HostBinding, Input, Component } from '@angular/core';
+import { Directive, HostBinding, Input, Component, HostListener } from '@angular/core';
+import { inputValueToBoolean } from '../util/helpers';
 
 export type ThyActionMenuTheme = 'default' | 'group';
 
@@ -13,10 +14,17 @@ export class ThyActionMenuComponent {
 
     @HostBinding('class.action-menu--group') themeClassName = false;
 
+    @HostBinding('style.width') styleWidth = '';
+
     @Input()
     set thyTheme(value: ThyActionMenuTheme) {
         this.themeClassName = value === 'group';
     }
+
+    @Input() set thyWidth(value: string) {
+        this.styleWidth = value;
+    }
+
 
     constructor() { }
 }
@@ -27,6 +35,21 @@ export class ThyActionMenuComponent {
 export class ThyActionMenuItemDirective {
 
     @HostBinding('class.action-menu-item') className = true;
+    @HostBinding('class.action-menu-item--disabled') disabled = false;
+
+    @Input() set thyActionMenuItem(value: any) {
+        if (value) {
+            this.disabled = inputValueToBoolean(value);
+        }
+    }
+
+    @HostListener('click', ['$event'])
+    onClick(event: any): void {
+        if (this.disabled) {
+            event.stopPropagation();
+            event.preventDefault();
+        }
+    }
 
     constructor() { }
 }

@@ -5,6 +5,7 @@
     <div class="body">
         <button [thyButton]="'primary'" [thyActionMenuToggle]="menu1">默认</button>
         <button [thyButton]="'primary'" [thyActionMenuToggle]="menu1" disabled="disabled">禁用</button>
+        <button [thyButton]="'primary'" [thyActionMenuToggle]="menu1" [thyAction]="'contextmenu'">右键弹出</button>
         <button [thyButton]="'primary'" [thyActionMenuToggle]="menu1" [thyPlacement]="'bottom right'">弹出位置</button>
         <ng-template #menu1>
             <thy-action-menu>
@@ -22,6 +23,12 @@
                     <span class="extend-icon">
                         <i class="wtf wtf-accepted"></i>
                     </span>
+                </a>
+                <a thyActionMenuItem="disabled" href="javascript:;" (click)="itemClick(1)">
+                    <span class="icon">
+                        <i class="wtf wtf-task-o"></i>
+                    </span>
+                    <span>禁用</span>
                 </a>
                 <thy-action-menu-divider></thy-action-menu-divider>
                 <a thyActionMenuItem href="javascript:;" (click)="itemClick(1)">
@@ -92,3 +99,4 @@
         </ng-template>
     </div>
 </section>
+<api-parameters [parameters]="apiParameters"></api-parameters>

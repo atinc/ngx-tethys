@@ -10,6 +10,45 @@ import { PopBoxRef } from '../../../../../src/pop-box/pop-box-ref.service';
 })
 export class DemoActionMenuSectionComponent {
 
+    apiParameters = [
+        {
+            property: 'thyActionMenuToggle',
+            description: '',
+            type: 'ElementRef',
+            default: ''
+        },
+        {
+            property: 'thyAction',
+            description: '触发事件',
+            type: 'String: \'click\' | \'contextmenu\'',
+            default: 'click'
+        },
+        {
+            property: 'thyPlacement',
+            description: '菜单显示位置',
+            type: 'String',
+            default: 'bottom right'
+        },
+        {
+            property: 'thyWidth',
+            description: '设置菜单宽度',
+            type: '',
+            default: '240px'
+        },
+        {
+            property: 'thy-action-menu',
+            description: '菜单',
+            type: '',
+            default: ''
+        },
+        {
+            property: 'thyActionMenuItem',
+            description: '菜单项，设置‘disabled’可禁用',
+            type: 'String',
+            default: ''
+        },
+    ];
+
     constructor() {
 
     }
@@ -17,5 +56,4 @@ export class DemoActionMenuSectionComponent {
     itemClick(value) {
         console.log(value);
     }
-
 }
