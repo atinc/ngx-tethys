@@ -38,8 +38,8 @@ export class ThyActionMenuItemDirective {
     @HostBinding('class.action-menu-item--disabled') disabled = false;
 
     @Input() set thyActionMenuItem(value: any) {
-        if (value) {
-            this.disabled = inputValueToBoolean(value);
+        if (value === 'disabled') {
+            this.disabled = true;
         }
     }
 
