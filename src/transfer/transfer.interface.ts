@@ -14,7 +14,7 @@ export interface ThyTransferItem {
     direction?: 'left' | 'right';
     disabled?: boolean;
     checked?: boolean;
-    [key: string]: {};
+    [key: string]: any;
 }
 
 export interface ThyTransferSelectEvent {
@@ -26,4 +26,11 @@ export interface ThyTransferChangeEvent {
     from: string;
     to: string;
     items?: ThyTransferItem[];
+}
+
+export interface ThyTransferDragEvent {
+    oldIndex?: number;
+    newIndex?: number;
+    model?: ThyTransferItem;
+    models?: ThyTransferItem[];
 }

@@ -224,4 +224,8 @@ export class DemoGridSectionComponent implements OnInit {
             event.refresh();
         }, 2000);
     }
+
+    onDraggableUpdate(event) {
+        console.log(event);
+    }
 }

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ThyTransferComponent } from './transfer.component';
 import { ThyTransferListComponent } from './transfer-list.component';
 import { ThyButtonModule } from '../button/button.module';
-
+import { SortablejsModule } from 'angular-sortablejs';
 @NgModule({
     declarations: [
         ThyTransferComponent,
@@ -11,7 +11,8 @@ import { ThyButtonModule } from '../button/button.module';
     ],
     imports: [
         CommonModule,
-        ThyButtonModule
+        ThyButtonModule,
+        SortablejsModule
     ],
     exports: [
         ThyTransferComponent

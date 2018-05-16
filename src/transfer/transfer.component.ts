@@ -1,14 +1,10 @@
 import {
-    Component, Input, Output, ElementRef,
-    ViewEncapsulation,
-    HostBinding,
-    EventEmitter,
-    ContentChild,
-    TemplateRef
+    Component, Input, Output, ElementRef, ViewEncapsulation, HostBinding,
+    EventEmitter, ContentChild, TemplateRef
 } from '@angular/core';
-import { ArgumentOutOfRangeError } from 'rxjs';
 
-import { ThyTransferItem, ThyTransferChangeEvent, ThyTransferSelectEvent } from './transfer.interface';
+import { ThyTransferItem, ThyTransferChangeEvent, ThyTransferSelectEvent, ThyTransferDragEvent } from './transfer.interface';
+import { SortablejsOptions } from 'angular-sortablejs/dist';
 
 @Component({
     selector: 'thy-transfer',
@@ -26,6 +22,10 @@ export class ThyTransferComponent {
     public leftTitle: string;
 
     public rightTitle: string;
+
+    public leftDraggable = false;
+
+    public rightDraggable = false;
 
     private _canMove: Function;
 
@@ -54,6 +54,18 @@ export class ThyTransferComponent {
     set thyCanMove(value: Function) {
         this._canMove = value;
     }
+
+    @Input()
+    set thyLeftDraggable(value: boolean) {
+        this.leftDraggable = value;
+    }
+
+    @Input()
+    set thyRightDraggable(value: boolean) {
+        this.rightDraggable = value;
+    }
+
+    @Output() thyDraggableUpdate: EventEmitter<ThyTransferDragEvent> = new EventEmitter<ThyTransferDragEvent>();
 
     @Output() thyChange: EventEmitter<ThyTransferChangeEvent> = new EventEmitter<ThyTransferChangeEvent>();
 
@@ -85,5 +97,9 @@ export class ThyTransferComponent {
             targetItems.push(removed);
         });
         this.thyChange.emit(changeEvent);
+    }
+
+    onDragUpdate(event: ThyTransferDragEvent) {
+        this.thyDraggableUpdate.emit(event);
     }
 }

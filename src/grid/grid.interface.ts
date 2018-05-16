@@ -53,6 +53,14 @@ export interface ThySwitchEvent {
     refresh?: Function;
 }
 
+export interface ThyGridDraggableEvent {
+    oldIndex?: number;
+    newIndex?: number;
+    model?: any;
+    models?: Array<any>;
+    [key: string]: any;
+}
+
 
 
 
