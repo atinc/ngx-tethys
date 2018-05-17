@@ -1,3 +1,6 @@
+## 0.0.44
+1. add ThyPositioningService for set setPosition;
+1. change pop box use ThyPositioningService to pop.
 ## 0.0.22
 fix store dispatch subscribe publishRelay
 ## 0.0.21
