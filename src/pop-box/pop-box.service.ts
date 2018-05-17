@@ -37,7 +37,10 @@ export class ThyPopBoxService {
         });
         if (targetLoader) {
             this._hide(targetLoader);
-            return;
+            // 如果 target 有值返回，没有值说明通过 position 传入位置，直接关闭后再次打开
+            if (target) {
+                return;
+            }
         }
 
         const _config = Object.assign({}, popBoxConfigDefaults, config, {

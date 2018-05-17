@@ -14,7 +14,7 @@ export class DemoPopBoxSectionComponent {
 
     public config = {
         outsideAutoClose: true,
-        insideAutoClose: true
+        insideAutoClose: false
     };
 
     constructor(private popBoxService: ThyPopBoxService) {
@@ -47,7 +47,7 @@ export class DemoPopBoxSectionComponent {
     }
 
     @HostListener('contextmenu', ['$event'])
-    contextMenu($event: any) {
+    contextMenu($event: MouseEvent) {
         const initialState = {
             title: 'contextmenu'
         };
@@ -58,8 +58,8 @@ export class DemoPopBoxSectionComponent {
             target: null,
             placement: this.demoPlacement,
             position: {
-                top: $event.clientY,
-                left: $event.clientX,
+                top: $event.pageY,
+                left: $event.pageX,
             }
         });
         return false;
