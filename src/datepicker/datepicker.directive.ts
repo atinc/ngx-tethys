@@ -45,7 +45,7 @@ export class ThyDatepickerDirective implements OnInit, AfterContentInit, Control
     @Input() thyOutsideClick = true;
     @Input() thyDisabled = false;
     @Input() thyWithTime = false;
-    @Input() thyFormat = null;
+    @Input() thyFormat: string = null;
     @Output() thyOnChange: EventEmitter<any> = new EventEmitter();
 
     constructor(
