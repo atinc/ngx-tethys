@@ -1,6 +1,6 @@
 import {
     Directive, OnInit, ElementRef, Renderer2, ViewContainerRef,
-    Input, ComponentRef, Output, EventEmitter, forwardRef
+    Input, ComponentRef, Output, EventEmitter, forwardRef, OnChanges, AfterContentInit
 } from '@angular/core';
 import { ComponentLoaderFactory, ComponentLoader } from 'ngx-bootstrap/component-loader';
 import { ThyDatepickerContainerComponent } from './datepicker-container.component';
@@ -29,11 +29,15 @@ const DATEPICKER_VALUE_ACCESSOR = {
     selector: '[thyDatepicker]',
     providers: [DATEPICKER_VALUE_ACCESSOR]
 })
-export class ThyDatepickerDirective implements OnInit, ControlValueAccessor {
+export class ThyDatepickerDirective implements OnInit, AfterContentInit, ControlValueAccessor {
     dataPipe = new DatePipe('zh-Hans');
+    private _valueRef: DatepickerValueEntry;
     private _value: DatepickerValueEntry;
+    private _format: string;
     private _onChange = Function.prototype;
     private _onTouched = Function.prototype;
+    private _isAfterContentInit = false;
+    private _isFirstInitValueWithNullOnce = false; // 第一次初始化，如果为null，显示时需要为空
     private _loader: ComponentLoader<ThyDatepickerContainerComponent>;
     @Input() thyPlacement: 'top' | 'bottom' | 'left' | 'right' = 'bottom';
     @Input() thyTriggers = 'click';
@@ -41,7 +45,7 @@ export class ThyDatepickerDirective implements OnInit, ControlValueAccessor {
     @Input() thyOutsideClick = true;
     @Input() thyDisabled = false;
     @Input() thyWithTime = false;
-    @Input() thyFormat: string;
+    @Input() thyFormat = null;
     @Output() thyOnChange: EventEmitter<any> = new EventEmitter();
 
     constructor(
@@ -67,9 +71,15 @@ export class ThyDatepickerDirective implements OnInit, ControlValueAccessor {
         });
     }
 
+    ngAfterContentInit() {
+        this._isAfterContentInit = true;
+    }
+
     writeValue(value: DatepickerValueEntry | Date | number) {
-        if (value) {
-            this._initValueDate(value);
+        this._initValueDate(value);
+        if (this._isAfterContentInit) {
+            this._saveInitValueClone();
+            this._isFirstInitValueWithNullOnce = true;
         }
     }
 
@@ -99,10 +109,13 @@ export class ThyDatepickerDirective implements OnInit, ControlValueAccessor {
                 initialState: {
                     withTime: inputValueToBoolean(this.thyWithTime),
                     value: this._value,
+                    valueRef: this._valueRef,
                     changeValue: (result: DatepickerValueEntry) => {
+                        this._isFirstInitValueWithNullOnce = false;
                         this._initFormatRule(result);
                         this._setInputProperty(result.date);
                         this._onChange(result);
+                        this._initValueDate(result);
                     }
                 }
             });
@@ -134,7 +147,7 @@ export class ThyDatepickerDirective implements OnInit, ControlValueAccessor {
             }
         } else {
             this._value = {
-                date: value,
+                date: null,
                 with_time: false
             };
         }
@@ -143,26 +156,34 @@ export class ThyDatepickerDirective implements OnInit, ControlValueAccessor {
 
     }
 
+    private _saveInitValueClone() {
+        if (this._value) {
+            this._valueRef = {
+                date: this._value.date,
+                with_time: this._value.with_time
+            };
+        }
+    }
+
     private _initFormatRule(value?: DatepickerValueEntry) {
-        if (value) {
-            if (value.with_time) {
-                this.thyFormat = FORMAT_RULES.full;
-            } else {
-                this.thyFormat = FORMAT_RULES.short;
-            }
+        if (this.thyFormat) {
+            this._format = this.thyFormat;
         } else {
-            if (!this.thyFormat) {
-                if (this._value.with_time) {
-                    this.thyFormat = FORMAT_RULES.full;
+            if (this._isFirstInitValueWithNullOnce) {
+                this._format = '';
+            } else {
+                const _v = value || this._value;
+                if (_v.with_time) {
+                    this._format = FORMAT_RULES.full;
                 } else {
-                    this.thyFormat = FORMAT_RULES.short;
+                    this._format = FORMAT_RULES.short;
                 }
             }
         }
     }
 
     private _setInputProperty(value: any) {
-        const initialDate = !value ? '' : this.dataPipe.transform(value, this.thyFormat);
+        const initialDate = this.dataPipe.transform(value, this._format);
         this._renderer.setProperty(this._elementRef.nativeElement, 'value', initialDate);
     }
 

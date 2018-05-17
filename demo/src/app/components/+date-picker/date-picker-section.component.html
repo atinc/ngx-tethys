@@ -3,40 +3,41 @@
         <h2>Input绑定</h2>
     </div>
     <div class="body">
-        <pre>
-dateEntry = {{dateEntry|json}}
-
-dateEntryWithTime = {{dateEntryWithTime|json}}
-
-onlyDate = {{onlyDate|json}}
-
-dateTime = {{dateTime|json}}
-
-        </pre>
-        <thy-form-group thyLabelText="dateEntry" [thyFeedbackIcon]="'date'">
+        <div class="text-right">dateEntry : {{dateEntry|json}}</div>
+        <thy-form-group thyLabelText="传入数据，DatepickerValueEntry类型" [thyFeedbackIcon]="'date'">
             <input type="text" readonly="readonly" thyDatepicker [(ngModel)]="dateEntry" class="form-control" placeholder="" />
         </thy-form-group>
+        <div class="text-right">dateEntry2 : {{dateEntry2|json}}</div>
         <thy-form-group thyLabelText="- 禁用" [thyFeedbackIcon]="'date'">
-            <input type="text" readonly="readonly" disabled thyDatepicker [(ngModel)]="dateEntry" class="form-control" placeholder=""
+            <input type="text" readonly="readonly" disabled thyDatepicker [(ngModel)]="dateEntry2" class="form-control" placeholder=""
             />
         </thy-form-group>
+        <div class="text-right">dateEntry3 : {{dateEntry3|json}}</div>
         <thy-form-group thyLabelText="- 自定义格式化" [thyFeedbackIcon]="'date'">
-            <input type="text" readonly="readonly" thyDatepicker [(ngModel)]="dateEntry" [thyFormat]="'yyyy/MM/dd'" class="form-control"
+            <input type="text" readonly="readonly" thyDatepicker [(ngModel)]="dateEntry3" [thyFormat]="'yyyy/MM/dd hh:mm:ss'" class="form-control"
                 placeholder="" />
         </thy-form-group>
+        <div class="text-right">dateEntry4 : {{dateEntry4|json}}</div>
         <thy-form-group thyLabelText="- 可选择时间" [thyFeedbackIcon]="'date'">
-            <input type="text" readonly="readonly" thyDatepicker [(ngModel)]="dateEntry" [thyWithTime]="true" class="form-control" placeholder=""
+            <input type="text" readonly="readonly" thyDatepicker [(ngModel)]="dateEntry4" [thyWithTime]="true" class="form-control" placeholder=""
             />
         </thy-form-group>
-        <thy-form-group thyLabelText="dateEntryWithTime" [thyFeedbackIcon]="'date'">
+        <div class="text-right">dateEntryWithTime : {{dateEntryWithTime|json}}</div>
+        <thy-form-group thyLabelText="传入数据，要选择时间" [thyFeedbackIcon]="'date'">
             <input type="text" readonly="readonly" thyDatepicker [(ngModel)]="dateEntryWithTime" (ngModelChange)="log($event)" class="form-control"
                 placeholder="" />
         </thy-form-group>
-        <thy-form-group thyLabelText="onlyDate" [thyFeedbackIcon]="'date'">
+        <div class="text-right">onlyDate : {{onlyDate|json}}</div>
+        <thy-form-group thyLabelText="传入数据，Date类型" [thyFeedbackIcon]="'date'">
             <input type="text" readonly="readonly" thyDatepicker [(ngModel)]="onlyDate" class="form-control" placeholder="" />
         </thy-form-group>
-        <thy-form-group thyLabelText="dateTime" [thyFeedbackIcon]="'date'">
+        <div class="text-right">dateTime : {{dateTime|json}}</div>
+        <thy-form-group thyLabelText="传入数据，Date time类型" [thyFeedbackIcon]="'date'">
             <input type="text" readonly="readonly" thyDatepicker [(ngModel)]="dateTime" class="form-control" placeholder="" />
+        </thy-form-group>
+        <div class="text-right">dateNull : {{dateNull|json}}</div>
+        <thy-form-group thyLabelText="传入数据，null类型" [thyFeedbackIcon]="'date'">
+            <input type="text" readonly="readonly" thyDatepicker [(ngModel)]="dateNull" class="form-control" placeholder="" />
         </thy-form-group>
     </div>
 </section>
@@ -45,9 +46,6 @@ dateTime = {{dateTime|json}}
         <h2>元素绑定</h2>
     </div>
     <div class="body">
-        <pre>
-elementDateEntry = {{elementDateEntry|json}}
-            </pre>
         <table>
             <tr>
                 <td>
@@ -62,8 +60,8 @@ elementDateEntry = {{elementDateEntry|json}}
             <tr>
                 <td>元素绑定 dateEntry 禁用：</td>
                 <td>
-                    <a href="javascript:;" thyDatepicker [thyDisabled]="true" [(ngModel)]="elementDateEntry">
-                        <i class="wtf wtf-calendar-date"></i> {{elementDateEntry.date}}
+                    <a href="javascript:;" thyDatepicker [thyDisabled]="true" [(ngModel)]="elementDateEntry2">
+                        <i class="wtf wtf-calendar-date"></i> {{elementDateEntry2.date}}
                     </a>
                 </td>
             </tr>
