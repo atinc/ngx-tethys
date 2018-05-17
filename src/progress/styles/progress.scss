@@ -60,8 +60,8 @@
         border-right: 1px $progress-split-color solid;
     }
     &:before {
+        position: absolute;
         content: '';
-        display: block;
         width: 5px;
         height: $progress-height;
         background: $progress-split-color;
