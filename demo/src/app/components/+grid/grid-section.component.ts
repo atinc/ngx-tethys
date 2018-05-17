@@ -98,6 +98,12 @@ export class DemoGridSectionComponent implements OnInit {
             default: ''
         },
         {
+            property: 'thyDraggable',
+            description: '开启Grid拖拽',
+            type: 'Boolean',
+            default: 'false'
+        },
+        {
             property: '(thyOnPageChange)',
             description: '翻页回调事件',
             type: 'PageChangedEvent',
@@ -121,6 +127,12 @@ export class DemoGridSectionComponent implements OnInit {
             type: 'ThySwitchEvent',
             default: ''
         },
+        {
+            property: '(thyOnDraggableUpdate)',
+            description: '拖动修改事件',
+            type: 'ThyGridDraggableEvent',
+            default: ''
+        }
     ];
     public columnApiParams = [
         {
