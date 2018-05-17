@@ -9,6 +9,12 @@
                 outsideAutoClose
             </label>
         </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" [(ngModel)]="config.insideAutoClose" name="insideAutoClose" >
+            <label class="form-check-label" for="defaultCheck1">
+                insideAutoClose
+            </label>
+        </div>
         <select class="form-control w-25" [(ngModel)]="demoPlacement">
             <option value="bottom center">下中</option>
             <option value="bottom left">下左</option>
