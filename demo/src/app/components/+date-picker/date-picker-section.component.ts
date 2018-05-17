@@ -14,7 +14,27 @@ export class DemoDataPickerSectionComponent implements OnInit {
         with_time: false
     };
 
+    dateEntry2 = {
+        date: new Date(),
+        with_time: false
+    };
+
+    dateEntry3 = {
+        date: new Date(),
+        with_time: false
+    };
+
+    dateEntry4 = {
+        date: new Date(),
+        with_time: false
+    };
+
     elementDateEntry = {
+        date: new Date(),
+        with_time: false
+    };
+
+    elementDateEntry2 = {
         date: new Date(),
         with_time: false
     };
@@ -25,6 +45,8 @@ export class DemoDataPickerSectionComponent implements OnInit {
     };
 
     dateTime = Math.floor((new Date()).getTime() / 1000);
+
+    dateNull = null;
 
     apiParameters = [
         {

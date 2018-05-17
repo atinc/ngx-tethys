@@ -12,7 +12,6 @@ import { DatepickerValueEntry } from './i.datepicker';
     templateUrl: './datepicker-container.component.html'
 })
 export class ThyDatepickerContainerComponent implements OnInit {
-
     public initialState: any;
     hideLoader: Function;
     value: Date;
@@ -20,7 +19,7 @@ export class ThyDatepickerContainerComponent implements OnInit {
     isCanTime = false;
     isMeridian = false;
     @ViewChild('dpContainer')
-    private dpContainerRef: any;
+    private _dpContainerRef: any;
     private _datepicker: ComponentLoader<BsDatepickerContainerComponent>;
     private _datepickerRef: ComponentRef<BsDatepickerContainerComponent>;
     // @HostBinding('class.thy-datepicker-container--has-time') isShowTime = false;
@@ -59,8 +58,8 @@ export class ThyDatepickerContainerComponent implements OnInit {
 
     onClear() {
         this._sendChangeValueEvent({
-            date: '',
-            with_time: this.initialState.value.with_time
+            date: null,
+            with_time: this.initialState.valueRef.with_time
         });
     }
 
@@ -98,7 +97,7 @@ export class ThyDatepickerContainerComponent implements OnInit {
     }
 
     private _initDataValue() {
-        this.value = new Date(this.initialState.value.date.getTime());
+        this.value = this.initialState.value.date ? new Date(this.initialState.value.date.getTime()) : new Date();
     }
 
     private _initTimeShowMode() {
@@ -121,10 +120,13 @@ export class ThyDatepickerContainerComponent implements OnInit {
                 })
             })
             .attach(BsDatepickerContainerComponent)
-            .to(this.dpContainerRef)
+            .to(this._dpContainerRef)
             .show();
 
-        this._datepickerRef.instance.valueChange.subscribe((value: Date) => {
+        this._datepickerRef.instance.valueChange.subscribe((result: Date) => {
+            const nowDate = new Date();
+            const value = new Date(result.getFullYear(), result.getMonth(), result.getDate(),
+                nowDate.getHours(), nowDate.getMinutes(), nowDate.getSeconds());
             this.value = value;
             this.onValueChange(value);
         });
