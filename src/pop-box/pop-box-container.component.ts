@@ -20,7 +20,7 @@ export class PopBoxContainerComponent implements OnInit {
 
 
     constructor(
-        protected element: ElementRef,
+        protected elementRef: ElementRef,
         private renderer: Renderer2) {
 
     }
@@ -43,12 +43,24 @@ export class PopBoxContainerComponent implements OnInit {
 
     @HostListener('document:click', ['$event'])
     onDocumentClick(event: any): void {
+        // 是否点击了 pop box 内部区域
+        const isClickPopBoxInner = this.elementRef.nativeElement.contains(event.target);
+        let needClose = false;
         if (this.config.outsideAutoClose) {
-            if (!this.config.target.contains(event.target)) {
-                if (this.config.insideAutoClose || !this.element.nativeElement.contains(event.target)) {
-                    this.hide();
-                }
+            // 没有 target，说明是 直接传入的 position，点击外部元素直接关闭即可
+            if (!this.config.target && !isClickPopBoxInner) {
+                needClose = true;
+            } else if (this.config.target && !this.config.target.contains(event.target) && !isClickPopBoxInner) {
+                // 点击事件元素不是原来的触发弹出元素，并且不是 pob box 内部元素点击
+                needClose = true;
             }
+        }
+        if (this.config.insideAutoClose && isClickPopBoxInner) {
+            needClose = true;
+        }
+
+        if (needClose) {
+            this.hide();
         }
     }
 }

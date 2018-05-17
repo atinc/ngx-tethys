@@ -7,6 +7,7 @@ import { PopBoxRef } from './pop-box-ref.service';
 import { ComponentLoader, ComponentLoaderFactory } from 'ngx-bootstrap/component-loader';
 import { PopBoxContainerComponent } from './pop-box-container.component';
 import { PopBoxOptions, popBoxConfigDefaults } from './pop-box-options.class';
+import { ThyPositioningService } from '../positioning/positioning.service';
 
 @Injectable()
 export class ThyPopBoxService {
@@ -23,12 +24,14 @@ export class ThyPopBoxService {
     constructor(
         private componentFactoryResolver: ComponentFactoryResolver,
         private rendererFactory: RendererFactory2,
-        private clf: ComponentLoaderFactory) {
+        private clf: ComponentLoaderFactory,
+        private thyPositioningService: ThyPositioningService
+    ) {
         this._renderer = rendererFactory.createRenderer(null, null);
     }
 
     show(content: string | TemplateRef<any> | any, config: PopBoxOptions): PopBoxRef {
-        const target = config.target.nativeElement || config.target;
+        const target = config.target && (config.target.nativeElement || config.target);
         const targetLoader = this._loaders.find((item) => {
             return item.target === target;
         });
@@ -53,9 +56,17 @@ export class ThyPopBoxService {
             .provide({ provide: PopBoxRef, useValue: popBoxRef })
             .attach(PopBoxContainerComponent)
             .to('body')
-            .position({ attachment: _config.placement, target: _config.target, targetOffset: '10px' })
+            // .position({ attachment: _config.placement, target: _config.target, targetOffset: '10px' })
             .show({ content, initialState: _config.initialState, popBoxRef: popBoxRef });
 
+        this.thyPositioningService.setPosition({
+            target: popBoxContainerRef.location,
+            attach: _config.target,
+            placement: _config.placement,
+            offset: _config.offset,
+            appendToBody: true,
+            position: _config.position
+        });
         const _loader = {
             target: target,
             loader: loader

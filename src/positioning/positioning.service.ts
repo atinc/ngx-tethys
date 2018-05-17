@@ -1,4 +1,5 @@
 import { Injectable, ElementRef } from '@angular/core';
+import { isNumber } from '../util/helpers';
 
 enum PlacementTypes {
     left = 'left',
@@ -10,7 +11,7 @@ enum PlacementTypes {
 
 export interface PositioningOptions {
     /** The DOM element, ElementRef, or a selector string of an element which will be moved */
-    element?: HTMLElement | ElementRef | string;
+    attach?: HTMLElement | ElementRef | string;
 
     /** The DOM element, ElementRef, or a selector string of an element which the element will be attached to  */
     target?: HTMLElement | ElementRef | string;
@@ -125,6 +126,77 @@ export class ThyPositioningService {
         return offsetParentEl || document.documentElement;
     }
 
+    private calculateTopBottomPosition(
+        placementSecondary: string,
+        attachElPosition: ClientRect,
+        targetElPosition: ClientRect,
+        offset: number
+    ): ClientRect {
+        const documentClientHeight = document.documentElement.clientHeight;
+        if (placementSecondary === PlacementTypes.top) {
+            targetElPosition.top = attachElPosition.top;
+            targetElPosition.bottom = null;
+            // Top 对齐时，下面的内容超过了整个屏幕的高度, 为了可以看见全部内容，牺牲 Top 对齐
+            if (targetElPosition.top + targetElPosition.height > documentClientHeight) {
+                targetElPosition.top = documentClientHeight - targetElPosition.height;
+            }
+        } else if (placementSecondary === PlacementTypes.bottom) {
+            targetElPosition.bottom = documentClientHeight - attachElPosition.top - attachElPosition.height;
+            targetElPosition.top = null;
+            // Bottom 对齐时，上面的内容超过了整个屏幕的高度，为了可以看见全部内容，牺牲 Bottom 对齐
+            if (targetElPosition.bottom + targetElPosition.height > documentClientHeight) {
+                targetElPosition.bottom = documentClientHeight - targetElPosition.height;
+            }
+        } else {
+            targetElPosition.top = attachElPosition.top +
+                attachElPosition.height / 2 -
+                targetElPosition.height / 2;
+            // 顶部的内容被遮挡，牺牲居中，让顶部侧内容可见
+            if (targetElPosition.top < 0) {
+                targetElPosition.top = offset;
+            } else if (targetElPosition.top + targetElPosition.height > documentClientHeight) {
+                // 下面的内容被遮挡，牺牲居中，让下方的内容可见
+                targetElPosition.top = documentClientHeight - targetElPosition.height + offset;
+            }
+        }
+        return targetElPosition;
+    }
+
+    private calculateLeftRightPosition(
+        placementSecondary: string,
+        attachElPosition: ClientRect,
+        targetElPosition: ClientRect,
+        offset: number
+    ): ClientRect {
+        const documentClientWidth = document.documentElement.clientWidth;
+        if (placementSecondary === PlacementTypes.right) {
+            targetElPosition.right = document.documentElement.clientWidth - attachElPosition.left - attachElPosition.width;
+            targetElPosition.left = null;
+            // 右对齐时，左侧的内容超过了整个屏幕的宽度, 为了可以看见全部内容，牺牲右对齐
+            if (targetElPosition.right + targetElPosition.width > documentClientWidth) {
+                targetElPosition.right = documentClientWidth - targetElPosition.width - offset;
+            }
+        } else if (placementSecondary === PlacementTypes.left) {
+            targetElPosition.left = attachElPosition.left;
+            // 左对齐时，右侧的内容超过了整个屏幕的宽度, 为了可以看见全部内容，牺牲左对齐
+            if (targetElPosition.left + targetElPosition.width > documentClientWidth) {
+                targetElPosition.left = documentClientWidth - targetElPosition.width - offset;
+            }
+        } else {
+            targetElPosition.left = attachElPosition.left +
+                attachElPosition.width / 2 -
+                targetElPosition.width / 2;
+            // 左侧的内容被遮挡，牺牲居中，让左侧内容可见
+            if (targetElPosition.left < 0) {
+                targetElPosition.left = offset;
+            } else if (targetElPosition.left + targetElPosition.width > documentClientWidth) {
+                // 右侧的内容被遮挡，牺牲居中，让右侧内容可见
+                targetElPosition.left = documentClientWidth - targetElPosition.width - offset;
+            }
+        }
+        return targetElPosition;
+    }
+
     public position(element: HTMLElement, round = true): ClientRect {
         let elPosition: ClientRect;
         let parentOffset: ClientRect = {
@@ -208,30 +280,32 @@ export class ThyPositioningService {
         options: PositioningOptions
     ): ClientRect {
         const { placement, appendToBody, offset, position } = options;
-        const hostElPosition = appendToBody
-            ? this.offset(hostElement, false)
-            : this.position(hostElement, false);
+        let hostElPosition: ClientRect = null;
+        // 外部传入已经算好的位置, 需要设置 hostElPosition 宽度和高度为 0，不计算位置，主要使用于右击弹出位置计算
+        if (position) {
+            hostElPosition = {
+                top: position.top || 0,
+                left: position.left || 0,
+                bottom: 0,
+                right: 0,
+                width: 0,
+                height: 0
+            };
+        } else {
+            hostElPosition = appendToBody
+                ? this.offset(hostElement, false)
+                : this.position(hostElement, false);
+        }
+
         const targetElStyles = this.getAllStyles(targetElement);
-        const shiftWidth: any = {
-            left: hostElPosition.left,
-            center:
-                hostElPosition.left +
-                hostElPosition.width / 2 -
-                targetElement.offsetWidth / 2,
-            right: hostElPosition.left + hostElPosition.width
-        };
-        const shiftHeight: any = {
-            top: hostElPosition.top,
-            center:
-                hostElPosition.top +
-                hostElPosition.height / 2 -
-                targetElement.offsetHeight / 2,
-            bottom: hostElPosition.top + hostElPosition.height
-        };
-        const targetElBCR = targetElement.getBoundingClientRect();
+
+        const documentClientWidth = document.documentElement.clientWidth;
+        const documentClientHeight = document.documentElement.clientHeight;
+
         let placementPrimary = placement.split(' ')[0] || 'top';
         const placementSecondary = placement.split(' ')[1] || 'center';
 
+        const targetElBCR = targetElement.getBoundingClientRect();
         const targetElPosition: ClientRect = {
             height: targetElBCR.height || targetElement.offsetHeight,
             width: targetElBCR.width || targetElement.offsetWidth,
@@ -263,67 +337,55 @@ export class ThyPositioningService {
 
         switch (placementPrimary) {
             case 'top':
-                targetElPosition.top =
-                    hostElPosition.top -
-                    (targetElement.offsetHeight +
-                        parseFloat(targetElStyles.marginBottom));
-                targetElPosition.bottom +=
-                    hostElPosition.top - targetElement.offsetHeight;
-                targetElPosition.left = shiftWidth[placementSecondary];
-                targetElPosition.right += shiftWidth[placementSecondary];
+                targetElPosition.bottom = documentClientHeight - hostElPosition.top + offset;
+                targetElPosition.top = null;
+                this.calculateLeftRightPosition(placementSecondary, hostElPosition, targetElPosition, offset);
                 break;
             case 'bottom':
-                targetElPosition.top = hostElPosition.top - options.offset;
-                // targetElPosition.bottom += shiftHeight[placementPrimary];
-                if (placementSecondary === PlacementTypes.right) {
-                    targetElPosition.right = hostElPosition.right;
-                } else if (placementSecondary === PlacementTypes.left) {
-                    targetElPosition.left = hostElPosition.left;
-                } else {
-                    targetElPosition.left = hostElPosition.left +
-                        hostElPosition.width / 2 -
-                        targetElement.offsetWidth / 2;
-                }
-
-                targetElPosition.right += shiftWidth[placementSecondary];
+                targetElPosition.top = hostElPosition.top + hostElPosition.height + offset;
+                this.calculateLeftRightPosition(placementSecondary, hostElPosition, targetElPosition, offset);
                 break;
             case 'left':
-                targetElPosition.top = shiftHeight[placementSecondary];
-                targetElPosition.bottom += shiftHeight[placementSecondary];
-                targetElPosition.left =
-                    hostElPosition.left -
-                    (targetElement.offsetWidth + parseFloat(targetElStyles.marginRight));
-                targetElPosition.right +=
-                    hostElPosition.left - targetElement.offsetWidth;
+                targetElPosition.right = documentClientWidth - hostElPosition.left + offset;
+                targetElPosition.left = null;
+                this.calculateTopBottomPosition(placementSecondary, hostElPosition, targetElPosition, offset);
                 break;
             case 'right':
-                targetElPosition.top = shiftHeight[placementSecondary];
-                targetElPosition.bottom += shiftHeight[placementSecondary];
-                targetElPosition.left = shiftWidth[placementPrimary];
-                targetElPosition.right += shiftWidth[placementPrimary];
+                targetElPosition.left = hostElPosition.left + hostElPosition.width + offset;
+                targetElPosition.right = 0;
+                this.calculateTopBottomPosition(placementSecondary, hostElPosition, targetElPosition, offset);
                 break;
         }
 
-        targetElPosition.top = Math.round(targetElPosition.top);
-        targetElPosition.bottom = Math.round(targetElPosition.bottom);
-        targetElPosition.left = Math.round(targetElPosition.left);
-        targetElPosition.right = Math.round(targetElPosition.right);
+        // targetElPosition.top = Math.round(targetElPosition.top);
+        // targetElPosition.bottom = Math.round(targetElPosition.bottom);
+        // targetElPosition.left = Math.round(targetElPosition.left);
+        // targetElPosition.right = Math.round(targetElPosition.right);
 
         return targetElPosition;
     }
 
     setPosition(options: PositioningOptions): void {
-        const { element, target } = options;
+        const { attach, target } = options;
+        const attachElement = ThyPositioningService.getHTMLElement(attach);
         const targetElement = ThyPositioningService.getHTMLElement(target);
-        const hostElement = ThyPositioningService.getHTMLElement(element);
         const pos = this.calculatePosition(
-            hostElement,
+            attachElement,
             targetElement,
             options
         );
 
-        hostElement.style.top = `${pos.top}px`;
-        hostElement.style.left = `${pos.left}px`;
+        if (isNumber(pos.top)) {
+            targetElement.style.top = `${pos.top}px`;
+        } else if (isNumber(pos.bottom)) {
+            targetElement.style.bottom = `${pos.bottom}px`;
+        }
+
+        if (isNumber(pos.left)) {
+            targetElement.style.left = `${pos.left}px`;
+        } else if (isNumber(pos.right)) {
+            targetElement.style.right = `${pos.right}px`;
+        }
     }
 
 
