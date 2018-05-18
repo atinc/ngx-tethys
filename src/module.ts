@@ -26,6 +26,7 @@ import { ThyFormModule } from './form';
 import { ThyInputModule } from './input';
 import { ThyDropdownModule } from './dropdown';
 import { ThyDirectiveModule } from './directive';
+import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 
 @NgModule({
     declarations: [
@@ -54,7 +55,8 @@ import { ThyDirectiveModule } from './directive';
         ThyFormModule,
         ThyInputModule,
         ThyDropdownModule,
-        ThyDirectiveModule
+        ThyDirectiveModule,
+        ProgressbarModule.forRoot()
     ],
     exports: [
         BrowserAnimationsModule,
@@ -80,7 +82,8 @@ import { ThyDirectiveModule } from './directive';
         ThyFormModule,
         ThyInputModule,
         ThyDropdownModule,
-        ThyDirectiveModule
+        ThyDirectiveModule,
+        ProgressbarModule
     ],
     providers: [
     ]

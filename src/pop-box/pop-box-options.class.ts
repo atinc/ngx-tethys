@@ -11,7 +11,10 @@ export class PopBoxOptions {
     /**
      * 传入的位置，当位置传入后，不自动根据 target 计算弹出框的位置, top, left, bottom, right,
      */
-    position?: ClientRect;
+    position?: {
+        top: number,
+        left: number
+    };
     /**
      * Closes the modal when escape key is pressed.
      */
@@ -35,6 +38,8 @@ export class PopBoxOptions {
      */
     placement?: string;
 
+    offset?: number;
+
     /**
      * 是否有 arrow
      */
@@ -56,5 +61,6 @@ export const popBoxConfigDefaults: PopBoxOptions = {
     arrow: false,
     keyboardESCClose: true,
     outsideAutoClose: true,
-    insideAutoClose: false
+    insideAutoClose: false,
+    offset: 2
 };
