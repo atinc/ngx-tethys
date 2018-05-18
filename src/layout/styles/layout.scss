@@ -31,6 +31,7 @@
   padding: $layout-content-padding;
   background: $layout-content-background;
   .thy-layout-content-section {
+    display: block;
     background: $layout-content-section-background;
     margin-bottom: $layout-content-section-margin-bottom;
   }
