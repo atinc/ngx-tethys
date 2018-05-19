@@ -1,7 +1,7 @@
 import { Component, Directive, Input, ElementRef, Renderer2, ViewEncapsulation } from '@angular/core';
-import { AfterContentInit, OnChanges, SimpleChanges } from '@angular/core';
+import { AfterContentInit, OnChanges, OnInit } from '@angular/core';
 import { inputValueToBoolean, isUndefined } from '../util/helpers';
-
+import { UpdateHostClassService } from '../shared';
 
 export type ThyButtonType = 'primary' | 'secondary' | 'outline-primary' | 'outline-default' | 'danger';
 
@@ -18,11 +18,16 @@ const btnTypeClassesMap: any = {
 @Component({
     selector: '[thyButton]',
     templateUrl: './button.component.html',
+    providers: [
+        UpdateHostClassService
+    ],
     encapsulation: ViewEncapsulation.None
 })
-export class ThyButtonComponent implements AfterContentInit, OnChanges {
+export class ThyButtonComponent implements OnInit {
 
     private _nativeElement: any;
+
+    private _initialized = false;
 
     private _typeClassNames: string[] = [];
 
@@ -43,13 +48,17 @@ export class ThyButtonComponent implements AfterContentInit, OnChanges {
     @Input()
     set thyButton(value: ThyButtonType) {
         this._type = value;
-        this._setClassesByType();
+        if (this._initialized) {
+            this._setClasses();
+        }
     }
 
     @Input()
     set thyType(value: ThyButtonType) {
         this._type = value;
-        this._setClassesByType();
+        if (this._initialized) {
+            this._setClasses();
+        }
     }
 
     @Input()
@@ -78,12 +87,9 @@ export class ThyButtonComponent implements AfterContentInit, OnChanges {
 
     @Input()
     set thySize(size: string) {
-        if (!isUndefined(size)) {
-            if (this._size) {
-                this._removeClass(`btn-${this._size}`);
-            }
-            this._size = size;
-            this._addClass(`btn-${this._size}`);
+        this._size = size;
+        if (this._initialized) {
+            this._setClasses();
         }
     }
 
@@ -117,41 +123,32 @@ export class ThyButtonComponent implements AfterContentInit, OnChanges {
         }
     }
 
-    private _setClassesByType() {
+    private _setClasses() {
         let classNames: string[] = null;
         if (btnTypeClassesMap[this._type]) {
-            classNames = btnTypeClassesMap[this._type];
+            classNames = [...btnTypeClassesMap[this._type]];
         } else {
             console.error(`button type (${this._type}) is not support`);
             classNames = ['btn'];
             classNames.push(`btn-${this._type}`);
         }
-        // remove old classes
-        this._typeClassNames.forEach(className => {
-            this._removeClass(className);
-        });
-        // add new classes
-        this._typeClassNames = classNames;
-        this._typeClassNames.forEach((className) => {
-            this._addClass(className);
-        });
+        if (this._size) {
+            classNames.push(`btn-${this._size}`);
+        }
+        this.updateHostClassService.updateClass(classNames);
     }
 
-    private _removeClass(className: string) {
-        this.renderer.removeClass(this._nativeElement, className);
-    }
-
-    private _addClass(className: string) {
-        this.renderer.addClass(this._nativeElement, className);
-    }
-
-    constructor(private elementRef: ElementRef, private renderer: Renderer2) {
+    constructor(
+        private elementRef: ElementRef,
+        private renderer: Renderer2,
+        private updateHostClassService: UpdateHostClassService
+    ) {
         this._nativeElement = this.elementRef.nativeElement;
+        this.updateHostClassService.initializeElement(this._nativeElement);
     }
 
-    ngAfterContentInit() {
-    }
-
-    ngOnChanges(changes: SimpleChanges) {
+    ngOnInit() {
+        this._setClasses();
+        this._initialized = true;
     }
 }

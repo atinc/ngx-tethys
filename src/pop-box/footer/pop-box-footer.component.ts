@@ -1,9 +1,10 @@
-import { Component, Input, HostBinding } from '@angular/core';
+import { Component, Input, HostBinding, ViewEncapsulation } from '@angular/core';
 import { inputValueToBoolean } from '../../util/helpers';
 
 @Component({
     selector: 'thy-pop-box-footer',
-    template: '<ng-content></ng-content>'
+    template: '<ng-content></ng-content>',
+    encapsulation: ViewEncapsulation.None
 })
 export class ThyPopBoxFooter {
 

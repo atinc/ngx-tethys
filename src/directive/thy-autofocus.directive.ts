@@ -24,7 +24,6 @@ export class ThyAutofocusDirective {
                     this.elementRef.nativeElement.select();
                 }
             });
-
         }
     }
 

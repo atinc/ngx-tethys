@@ -40,7 +40,7 @@
     </div>
     <div class="body">
         <div>
-            <button [thyButton]="'primary'" #btnTriggerPopBoxTemplate (click)="openPopBoxWithTemplate(btnTriggerPopBoxTemplate,popBoxTemplate)">弹出 PopBox</button>
+            <button [thyButton]="'primary'" #btnTriggerPopBoxTemplate (click)="openPopBoxWithTemplate(btnTriggerPopBoxTemplate, popBoxTemplate)">弹出 PopBox</button>
         </div>
         <ng-template #popBoxTemplate>
             <thy-pop-box-header>
@@ -85,5 +85,31 @@
         </ng-template>
     </div>
 </section>
+
+<section>
+        <div class="header">
+            <h2>PopBoxTrigger</h2>
+        </div>
+        <div class="body">
+            <div >
+                <button thyButton="primary" thyPopBoxTrigger [thyPopBoxTrigger]="popBoxTriggerTemplate">弹出 PopBox</button>
+            </div>
+            <ng-template #popBoxTriggerTemplate>
+                <thy-pop-box-header>
+                    <h5 class="pop-box-title">确认删除</h5>
+                    <a href="javascript:;" (click)="close()" class="close">
+                        <i class="wtf wtf-close"></i>
+                    </a>
+                </thy-pop-box-header>
+                <thy-pop-box-body>
+                    你确认要删除这条记录吗？
+                </thy-pop-box-body>
+                <thy-pop-box-footer>
+                    <button thyButton="danger" thySize="">确认</button>
+                    <button thyButton="link-secondary" thySize="" (click)="close()">取消</button>
+                </thy-pop-box-footer>
+            </ng-template>
+        </div>
+    </section>
 
 <api-parameters [parameters]="apiParameters"></api-parameters>

@@ -7,13 +7,15 @@ import { ThySharedModule } from '../shared';
 import { ThyPopBoxHeader } from './header/pop-box-header.component';
 import { ThyPopBoxBody } from './body/pop-box-body.component';
 import { ThyPopBoxFooter } from './footer/pop-box-footer.component';
+import {ThyPopBoxTriggerDirective} from './pop-box-trigger.directive';
 
 @NgModule({
     declarations: [
         PopBoxContainerComponent,
         ThyPopBoxHeader,
         ThyPopBoxBody,
-        ThyPopBoxFooter
+        ThyPopBoxFooter,
+        ThyPopBoxTriggerDirective
     ],
     entryComponents: [
         PopBoxContainerComponent
@@ -24,7 +26,8 @@ import { ThyPopBoxFooter } from './footer/pop-box-footer.component';
     exports: [
         ThyPopBoxHeader,
         ThyPopBoxBody,
-        ThyPopBoxFooter
+        ThyPopBoxFooter,
+        ThyPopBoxTriggerDirective
     ],
     providers: [
         ThyPopBoxService,

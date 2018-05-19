@@ -1,12 +1,13 @@
 
-import { Directive, HostBinding, Input, Component, HostListener } from '@angular/core';
+import { Directive, HostBinding, Input, Component, HostListener, ViewEncapsulation } from '@angular/core';
 import { inputValueToBoolean } from '../util/helpers';
 
 export type ThyActionMenuTheme = 'default' | 'group';
 
 @Component({
     selector: 'thy-action-menu',
-    template: `<ng-content></ng-content>`
+    template: `<ng-content></ng-content>`,
+    encapsulation: ViewEncapsulation.None
 })
 export class ThyActionMenuComponent {
 

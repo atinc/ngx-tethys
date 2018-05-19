@@ -65,13 +65,15 @@ export class ThyPopBoxService {
             // .position({ attachment: _config.placement, target: _config.target, targetOffset: '10px' })
             .show({ content, initialState: _config.initialState, popBoxRef: popBoxRef });
 
-        this.thyPositioningService.setPosition({
-            target: popBoxContainerRef.location,
-            attach: _config.target,
-            placement: _config.placement,
-            offset: _config.offset,
-            appendToBody: true,
-            position: _config.position
+        setTimeout(() => {
+            this.thyPositioningService.setPosition({
+                target: popBoxContainerRef.location,
+                attach: _config.target,
+                placement: _config.placement,
+                offset: _config.offset,
+                appendToBody: true,
+                position: _config.position
+            });
         });
         const _loader = {
             target: target,
