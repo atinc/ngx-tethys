@@ -77,7 +77,8 @@ export class DemoPopBoxSectionComponent {
             insideAutoClose: this.config.insideAutoClose,
             outsideAutoClose: this.config.outsideAutoClose,
             target: templateRef.elementRef,
-            placement: this.demoPlacement
+            placement: this.demoPlacement,
+            zIndex: 100
         });
     }
 

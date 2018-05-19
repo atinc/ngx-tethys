@@ -1,4 +1,8 @@
-import { Component, OnInit, ElementRef, Renderer2, ViewEncapsulation, HostListener } from '@angular/core';
+import {
+    Component, OnInit, ElementRef,
+    HostBinding,
+    Renderer2, ViewEncapsulation, HostListener
+} from '@angular/core';
 import { PopBoxRef } from './pop-box-ref.service';
 import { PopBoxOptions } from './pop-box-options.class';
 
@@ -14,18 +18,22 @@ import { PopBoxOptions } from './pop-box-options.class';
 })
 export class PopBoxContainerComponent implements OnInit {
 
+
+    @HostBinding('style.z-index') _zIndex: number | string;
+
     public popBoxRef: PopBoxRef;
 
-    public config: PopBoxOptions;
-
+    // public config: PopBoxOptions;
 
     constructor(
         protected elementRef: ElementRef,
-        private renderer: Renderer2) {
+        private renderer: Renderer2,
+        private config: PopBoxOptions) {
 
     }
 
     ngOnInit(): void {
+        this._zIndex = this.config.zIndex || '';
     }
 
 

@@ -57,6 +57,8 @@ export class PopBoxOptions {
 
     // 点击弹出的组件是否阻止冒泡
     stopPropagation?: boolean;
+
+    zIndex?: number;
 }
 
 export const popBoxConfigDefaults: PopBoxOptions = {

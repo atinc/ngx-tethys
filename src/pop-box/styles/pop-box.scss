@@ -1,6 +1,6 @@
 pop-box-container {
   position: absolute;
-  z-index: 100;
+  z-index: $zindex-pop-box;
 }
 
 .pop-box {

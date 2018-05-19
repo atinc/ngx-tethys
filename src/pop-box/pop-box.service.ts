@@ -79,7 +79,6 @@ export class ThyPopBoxService {
             target: target,
             loader: loader
         };
-        popBoxContainerRef.instance.config = _config;
         popBoxRef.hide = () => {
             this._hide(_loader);
         };
