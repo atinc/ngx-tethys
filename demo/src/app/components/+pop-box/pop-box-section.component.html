@@ -4,13 +4,13 @@
     </div>
     <div class="body">
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" [(ngModel)]="config.outsideAutoClose" name="outsideAutoClose" >
+            <input class="form-check-input" type="checkbox" [(ngModel)]="config.outsideAutoClose" name="outsideAutoClose">
             <label class="form-check-label" for="defaultCheck1">
                 outsideAutoClose
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" [(ngModel)]="config.insideAutoClose" name="insideAutoClose" >
+            <input class="form-check-input" type="checkbox" [(ngModel)]="config.insideAutoClose" name="insideAutoClose">
             <label class="form-check-label" for="defaultCheck1">
                 insideAutoClose
             </label>
@@ -43,13 +43,13 @@
             <button [thyButton]="'primary'" #btnTriggerPopBoxTemplate (click)="openPopBoxWithTemplate(btnTriggerPopBoxTemplate,popBoxTemplate)">弹出 PopBox</button>
         </div>
         <ng-template #popBoxTemplate>
-            <div class="pop-box-header">
+            <thy-pop-box-header>
                 <h5 class="pop-box-title">确认删除</h5>
                 <a href="javascript:;" (click)="close()" class="close">
                     <i class="wtf wtf-close"></i>
                 </a>
-            </div>
-            <div class="pop-box-body">
+            </thy-pop-box-header>
+            <thy-pop-box-body>
                 你确认要删除这条记录吗？
 
                 <button [thyButton]="'primary'" [thyActionMenuToggle]="menu2" thyPlacement="bottom left">带分组</button>
@@ -77,7 +77,11 @@
                         </a>
                     </thy-action-menu>
                 </ng-template>
-            </div>
+            </thy-pop-box-body>
+            <thy-pop-box-footer>
+                <button thyButton="danger" thySize="">确认</button>
+                <button thyButton="link-secondary" thySize="" (click)="close()">取消</button>
+            </thy-pop-box-footer>
         </ng-template>
     </div>
 </section>

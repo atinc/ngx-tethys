@@ -62,6 +62,7 @@ import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
         BrowserAnimationsModule,
         ThyLayoutModule,
         ThyButtonModule,
+        NgxPopBoxModule,
         ThyBadgeModule,
         ThyGridModule,
         ThyAvatarModule,

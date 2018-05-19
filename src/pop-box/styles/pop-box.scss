@@ -1,14 +1,16 @@
 pop-box-container {
   position: absolute;
-  z-index: 1100;
+  z-index: 100;
 }
 
 .pop-box {
+  
   .pop-box-content {
     min-width: 240px;
     background: $white;
     box-shadow: $box-shadow;
   }
+  
   .pop-box-header {
     padding: 12px 20px;
     display: flex;
@@ -31,10 +33,18 @@ pop-box-container {
       display: none;
     }
   }
+  
   .pop-box-body {
+    display: block;
     position: relative;
     padding: 15px;
   }
+  
+  .pop-box-footer {
+    display: flex;
+    padding: 15px;
+  }
+
   .pop-box-menu {
     padding: $rem-5px 0;
     margin: 0;

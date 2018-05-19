@@ -54,6 +54,9 @@ export class PopBoxOptions {
      * 内部点击自动关闭
      */
     insideAutoClose?: boolean;
+
+    // 点击弹出的组件是否阻止冒泡
+    stopPropagation?: boolean;
 }
 
 export const popBoxConfigDefaults: PopBoxOptions = {
@@ -62,5 +65,6 @@ export const popBoxConfigDefaults: PopBoxOptions = {
     keyboardESCClose: true,
     outsideAutoClose: true,
     insideAutoClose: false,
-    offset: 2
+    offset: 2,
+    stopPropagation: false
 };

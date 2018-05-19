@@ -33,6 +33,13 @@ export class PopBoxContainerComponent implements OnInit {
         this.popBoxRef.hide();
     }
 
+    @HostListener('click', ['$event'])
+    onClick(event: Event): void {
+        if (this.config.stopPropagation) {
+            event.stopPropagation();
+        }
+    }
+
     @HostListener('window:keydown.esc', ['$event'])
     onEsc(event: any): void {
         if (this.config.keyboardESCClose) {
