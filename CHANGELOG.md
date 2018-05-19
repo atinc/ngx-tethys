@@ -1,3 +1,7 @@
+## 0.0.45
+1. change action menu default not stopPropagation;
+1. add Input params `thyStopPropagation` for thyActionMenuToggle directive.
+
 ## 0.0.44
 1. add ThyPositioningService for set setPosition;
 1. change pop box use ThyPositioningService to pop.

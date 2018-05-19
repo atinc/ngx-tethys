@@ -24,6 +24,12 @@ export class DemoActionMenuSectionComponent {
             default: 'click'
         },
         {
+            property: 'thyStopPropagation',
+            description: '阻止冒泡',
+            type: '',
+            default: 'false'
+        },
+        {
             property: 'thyPlacement',
             description: '菜单显示位置',
             type: 'String',

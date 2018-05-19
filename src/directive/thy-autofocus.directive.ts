@@ -18,10 +18,13 @@ export class ThyAutofocusDirective {
     @Input()
     set thyAutofocus(value: boolean) {
         if (value !== false) {
-            this.elementRef.nativeElement.focus();
-            if (this._autoSelect && this.elementRef.nativeElement.select) {
-                this.elementRef.nativeElement.select();
-            }
+            setTimeout(() => {
+                this.elementRef.nativeElement.focus();
+                if (this._autoSelect && this.elementRef.nativeElement.select) {
+                    this.elementRef.nativeElement.select();
+                }
+            });
+
         }
     }
 

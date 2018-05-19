@@ -31,6 +31,9 @@ export class ThyPopBoxService {
     }
 
     show(content: string | TemplateRef<any> | any, config: PopBoxOptions): PopBoxRef {
+        if (config.target && config.position) {
+            throw new Error(`target and position only set one.`);
+        }
         const target = config.target && (config.target.nativeElement || config.target);
         const targetLoader = this._loaders.find((item) => {
             return item.target === target;

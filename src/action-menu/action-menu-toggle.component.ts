@@ -1,5 +1,6 @@
 import { Directive, Input, ElementRef, HostListener } from '@angular/core';
 import { ThyPopBoxService } from '../pop-box/pop-box.service';
+import { inputValueToBoolean } from '../util/helpers';
 
 export enum ActionEnum {
     click = 'click',
@@ -17,6 +18,8 @@ export class ThyActionMenuToggleDirective {
 
     private _action = ActionEnum.click;
 
+    private _stopPropagation = false;
+
     @Input()
     set thyActionMenuToggle(value: ElementRef) {
         this._templateRef = value;
@@ -32,6 +35,11 @@ export class ThyActionMenuToggleDirective {
         this._action = value;
     }
 
+    @Input()
+    set thyStopPropagation(value: boolean) {
+        this._stopPropagation = inputValueToBoolean(value);
+    }
+
     constructor(
         private popBoxService: ThyPopBoxService
     ) { }
@@ -39,20 +47,24 @@ export class ThyActionMenuToggleDirective {
     @HostListener('click', ['$event'])
     onClick(event: any): void {
         if (this._action === ActionEnum.click) {
-            this._show.bind(this)();
+            this._show.bind(this)(event);
         }
     }
 
     @HostListener('contextmenu', ['$event'])
-    onRightClick(event: any): void {
+    onRightClick(event: any): boolean {
         if (this._action === ActionEnum.contextmenu) {
-            this._show.bind(this)();
+            this._show.bind(this)(event);
+            return false;
         }
+        return true;
     }
 
-    private _show() {
-        event.stopPropagation();
-        event.preventDefault();
+    private _show(event: any) {
+        if (this._stopPropagation) {
+            event.stopPropagation();
+            // event.preventDefault();
+        }
         this.popBoxService.show(this._templateRef, {
             target: event.currentTarget,
             insideAutoClose: true,
