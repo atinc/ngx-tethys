@@ -29,8 +29,6 @@ export class ThyButtonComponent implements OnInit {
 
     private _initialized = false;
 
-    private _typeClassNames: string[] = [];
-
     private _originalText: string;
 
     private _type: string;
