@@ -56,7 +56,9 @@ export class DemoCheckboxSectionComponent {
     model = {
         checked1: true,
         checked2: false,
-        checkboxInline: false
+        checked3: false,
+        checkboxInline: false,
+        disabled: false
     };
 
     constructor(

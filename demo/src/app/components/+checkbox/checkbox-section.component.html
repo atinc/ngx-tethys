@@ -3,9 +3,13 @@
         <h2>Checkbox</h2>
     </div>
     <div class="body">
-        <label thyCheckbox [(ngModel)]="model.checkboxInline" thyLabelText="Checkbox Inline"></label>
-        <label thyCheckbox [thyCheckboxInline]="model.checkboxInline" [(ngModel)]="model.checked1" thyLabelText="选项1"></label>
-        <label thyCheckbox [thyCheckboxInline]="model.checkboxInline" [(ngModel)]="model.checked2" thyLabelText="选项2"></label>
+        <div>
+            <label thyCheckbox thyCheckboxInline="true" [(ngModel)]="model.checkboxInline" thyLabelText="内联展示"></label>
+            <label thyCheckbox thyCheckboxInline="true" [(ngModel)]="model.disabled" thyLabelText="禁用"></label>
+        </div>
+        <label thyCheckbox [thyCheckboxInline]="model.checkboxInline" [(ngModel)]="model.checked1" thyLabelText="选项1" [disabled]="model.disabled"></label>
+        <label thyCheckbox [thyCheckboxInline]="model.checkboxInline" [(ngModel)]="model.checked2" thyLabelText="选项2" [disabled]="model.disabled"></label>
+        <label thyCheckbox [thyCheckboxInline]="model.checkboxInline" [(ngModel)]="model.checked3" thyLabelText="选项3" [disabled]="model.disabled"></label>
 
         <div>
             Model :

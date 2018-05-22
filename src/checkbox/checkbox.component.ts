@@ -20,7 +20,7 @@ const noop = () => {
 export class ThyCheckboxComponent implements ControlValueAccessor {
 
     // The internal data model
-    _innerValue: any = null;
+    _innerValue: boolean = null;
 
     _disabled = false;
 
@@ -53,7 +53,7 @@ export class ThyCheckboxComponent implements ControlValueAccessor {
         }
     }
 
-    writeValue(obj: any): void {
+    writeValue(obj: boolean): void {
         if (obj !== this._innerValue) {
             this._innerValue = obj;
             this.onChangeCallback(obj);
