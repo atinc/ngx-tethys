@@ -1,4 +1,4 @@
-import { Component, forwardRef, HostBinding, Input, ElementRef } from '@angular/core';
+import { Component, forwardRef, HostBinding, HostListener, Input, ElementRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ThyTranslate } from '../shared';
 import { inputValueToBoolean } from '../util/helpers';
@@ -72,13 +72,18 @@ export class ThyCheckboxComponent implements ControlValueAccessor {
         this._disabled = isDisabled;
     }
 
+    updateValue(value: boolean): void {
+        this._innerValue = value;
+        this.onChangeCallback(value);
+    }
+
     constructor(
         private elementRef: ElementRef,
         private thyTranslate: ThyTranslate
     ) {
     }
 
-    ngModelChange() {
-        this.onChangeCallback(this._innerValue);
+    change() {
+        this.updateValue(!this._innerValue);
     }
 }
