@@ -4,10 +4,10 @@ import { tap, delay } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 @Component({
-    selector: 'demo-checkbox-section',
-    templateUrl: './checkbox-section.component.html',
+    selector: 'demo-select-section',
+    templateUrl: './select-section.component.html',
 })
-export class DemoCheckboxSectionComponent {
+export class DemoSelectSectionComponent {
 
     apiParameters = [
         {
@@ -54,17 +54,13 @@ export class DemoCheckboxSectionComponent {
     ];
 
     model = {
-        checked1: true,
-        checked2: false,
-        checked3: false,
-        checkboxInline: false,
-        disabled: false
+        selectedValue: ''
     };
 
     constructor(
     ) { }
 
     change() {
-        console.log(`model change as ${this.model.checked1}`);
+        console.log(`select change value as :${this.model.selectedValue}`);
     }
 }

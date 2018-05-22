@@ -19,12 +19,7 @@ const inputGroupSizeMap = {
     selector: '[thyFormCheck]',
     templateUrl: `./form-check.component.html`,
     providers: [
-        UpdateHostClassService,
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => ThyFormCheckComponent),
-            multi: true
-        }
+        UpdateHostClassService
     ],
 })
 export class ThyFormCheckComponent {

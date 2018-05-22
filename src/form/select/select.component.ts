@@ -32,7 +32,6 @@ export class ThySelectComponent implements ControlValueAccessor {
     writeValue(obj: any): void {
         if (obj !== this._innerValue) {
             this._innerValue = obj;
-            this.onChangeCallback(obj);
         }
     }
 

@@ -25,7 +25,7 @@ import { DemoInputSectionComponent } from './components/+input/input-section.com
 import { DemoDropdownSectionComponent } from './components/+dropdown/dropdown-section.component';
 import { DemoProgressSectionComponent } from './components/+progress/progress-section.component';
 import { DemoCheckboxSectionComponent } from './components/+checkbox/checkbox-section.component';
-
+import { DemoSelectSectionComponent } from './components/+select/select-section.component';
 
 const appRoutes = [
     {
@@ -135,6 +135,10 @@ const appRoutes = [
     {
         path: 'components/checkbox',
         component: DemoCheckboxSectionComponent
+    },
+    {
+        path: 'components/select',
+        component: DemoSelectSectionComponent
     }
 
 ];

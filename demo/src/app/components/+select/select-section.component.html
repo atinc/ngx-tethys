@@ -1,0 +1,17 @@
+<section>
+    <div class="header">
+        <h2>Select</h2>
+    </div>
+    <div class="body">
+        <thy-select [(ngModel)]="model.selectedValue" (change)="change()">
+            <option value="">请选择</option>
+            <option value="option1">选项1</option>
+            <option value="option2">选项2</option>
+        </thy-select>
+
+        <div>
+            Model :
+            <pre><code>{{model | json}}</code></pre>
+        </div>
+    </div>
+</section>

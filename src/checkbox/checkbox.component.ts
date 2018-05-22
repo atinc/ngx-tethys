@@ -56,7 +56,6 @@ export class ThyCheckboxComponent implements ControlValueAccessor {
     writeValue(obj: boolean): void {
         if (obj !== this._innerValue) {
             this._innerValue = obj;
-            this.onChangeCallback(obj);
         }
     }
 

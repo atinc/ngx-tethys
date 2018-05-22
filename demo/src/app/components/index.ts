@@ -27,6 +27,7 @@ import { DemoInputSectionComponent } from './+input/input-section.component';
 import { DemoDropdownSectionComponent } from './+dropdown/dropdown-section.component';
 import { DemoProgressSectionComponent } from './+progress/progress-section.component';
 import { DemoCheckboxSectionComponent } from './+checkbox/checkbox-section.component';
+import { DemoSelectSectionComponent } from './+select/select-section.component';
 
 export const COMPONENTS = [
     DemoPopBoxSectionComponent,
@@ -59,7 +60,8 @@ export const COMPONENTS = [
     DemoInputSectionComponent,
     DemoDropdownSectionComponent,
     DemoProgressSectionComponent,
-    DemoCheckboxSectionComponent
+    DemoCheckboxSectionComponent,
+    DemoSelectSectionComponent
 ];
 
 export const ENTRY_COMPONENTS = [
