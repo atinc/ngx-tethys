@@ -7,6 +7,7 @@
   display: block;
   padding-left: $form-check-input-gutter;
   padding-bottom: 4px;
+  margin-bottom: 0; // Override default `<label>` bottom margin
 }
 
 .form-check-input {
@@ -60,6 +61,9 @@ input[type="checkbox"] {
   }
 
   &:checked {
+    &:not(:disabled) {
+      border-color: $primary; 
+    }
     &:disabled {
       &::after {
         color: $input-form-check-disable-color;

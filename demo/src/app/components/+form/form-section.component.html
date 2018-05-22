@@ -15,11 +15,15 @@
                 </thy-form-group>
 
                 <thy-form-group thyLabelText="选择">
-                    <div class="thy-select">
+                    <thy-select required [(ngModel)]="model.select" name="power">
+                        <option value="">---请选择---</option>
+                        <option *ngFor="let option of options" [value]="option._id">{{option.value}}</option>
+                    </thy-select>
+                    <!-- <div class="thy-select">
                         <select class="form-control" required [(ngModel)]="model.select" name="power">
                             <option *ngFor="let option of options" [value]="option._id">{{option.value}}</option>
                         </select>
-                    </div>
+                    </div> -->
                 </thy-form-group>
                 <thy-form-group thyLabelText="Textarea">
                     <textarea class="form-control" rows="3"></textarea>
@@ -39,7 +43,7 @@
                 <thy-form-group>
                     <ng-template #formGroup>
                         <label class="col-sm-2 col-form-label pr-0">开始时间</label>
-                        <div class="col-sm-4 form-control-container">
+                        <div class="col-sm-4">
                             <thy-input-group>
                                 <input type="text" class="form-control pbox-trigger" name="deadline_at" readonly="readonly" placeholder="" value="7月17日">
                                 <ng-template #append>
@@ -51,7 +55,7 @@
                             </thy-input-group>
                         </div>
                         <label class="col-sm-2 col-form-label">结束时间</label>
-                        <div class="col-sm-4 form-control-container has-feedback">
+                        <div class="col-sm-4 has-feedback">
                             <input type="email" class="form-control" placeholder="结束时间">
                             <span class="form-control-feedback wtf wtf-schedule-o"></span>
                         </div>
@@ -65,59 +69,48 @@
                 <thy-form-group thyLabelText="静态输入框">
                     <input type="text" readonly class="form-control-plaintext" value="email@example.com">
                 </thy-form-group>
-                <thy-form-group>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                        <label class="form-check-label" for="defaultCheck1">
-                            Default checkbox
-                        </label>
-                    </div>
-                    <div class="form-check">
+                <thy-form-group thyLabelText="Checkbox" thyLabelPaddingTopClear="true">
+                    <label thy-checkbox thyLabelText="选择项1" [(ngModel)]="model.checkbox" name="checkbox1"></label>
+                    <!-- <label thyFormCheck labelText="选择项">
+                        <input class="form-check-input" type="checkbox" name="exampleRadios" value="" />
+                    </label> -->
+                    <label thyFormCheck thyLabelText="选择项2">
+                        <input class="form-check-input" type="checkbox" name="exampleRadios" value="" />
+                    </label>
+                    <label thyFormCheck thyLabelText="禁用的选择项">
                         <input class="form-check-input" type="checkbox" checked="checked" value="" id="defaultCheck2" disabled>
-                        <label class="form-check-label" for="defaultCheck2">
-                            Disabled checked
-                        </label>
-                    </div>
-                    <div class="form-check">
+                    </label>
+                    <label thyFormCheck thyLabelText="禁用的选择项">
                         <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" disabled>
-                        <label class="form-check-label" for="defaultCheck2">
-                            Disabled checkbox
-                        </label>
-                    </div>
+                    </label>
                 </thy-form-group>
-                <thy-form-group>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-                        <label class="form-check-label" for="exampleRadios1">
-                            Default radio
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                        <label class="form-check-label" for="exampleRadios2">
-                            Second default radio
-                        </label>
-                    </div>
-                    <div class="form-check disabled">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3" disabled>
-                        <label class="form-check-label" for="exampleRadios3">
-                            Disabled radio
-                        </label>
-                    </div>
+                <thy-form-group thyLabelText="Radio">
+                    <label thyFormCheck thyLabelText="选择项1">
+                        <input class="form-check-input" type="radio" name="exampleRadios" value="option1" checked>
+                    </label>
+                    <label thyFormCheck thyLabelText="选择项2">
+                        <input class="form-check-input" type="radio" name="exampleRadios" value="option2">
+                    </label>
+                    <label thyFormCheck thyLabelText="禁用的选择项">
+                        <input class="form-check-input" type="radio" name="exampleRadios" disabled="" value="option3" checked>
+                    </label>
+                    <label thyFormCheck labelText="Disabled Radio">
+                        <input class="form-check-input" type="radio" name="exampleRadios" disabled="" value="option4">
+                    </label>
                 </thy-form-group>
-                <thy-form-group>
-                    <div class="form-check form-check-inline">
+                <thy-form-group thyLabelText="Checkbox">
+                    <label class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
                         <label class="form-check-label" for="inlineCheckbox1">1</label>
-                    </div>
-                    <div class="form-check form-check-inline">
+                    </label>
+                    <label class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
                         <label class="form-check-label" for="inlineCheckbox2">2</label>
-                    </div>
-                    <div class="form-check form-check-inline">
+                    </label>
+                    <label class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3" disabled>
                         <label class="form-check-label" for="inlineCheckbox3">3 (disabled)</label>
-                    </div>
+                    </label>
                     <input type="checkbox" checked="checked" value="" id="defaultCheck10">
                 </thy-form-group>
                 <thy-form-group>

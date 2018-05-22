@@ -1,0 +1,15 @@
+<section>
+    <div class="header">
+        <h2>Checkbox</h2>
+    </div>
+    <div class="body">
+        <label thyCheckbox [(ngModel)]="model.checkboxInline" thyLabelText="Checkbox Inline"></label>
+        <label thyCheckbox [thyCheckboxInline]="model.checkboxInline" [(ngModel)]="model.checked1" thyLabelText="选项1"></label>
+        <label thyCheckbox [thyCheckboxInline]="model.checkboxInline" [(ngModel)]="model.checked2" thyLabelText="选项2"></label>
+
+        <div>
+            Model :
+            <pre><code>{{model | json}}</code></pre>
+        </div>
+    </div>
+</section>

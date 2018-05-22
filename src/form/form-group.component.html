@@ -1,6 +1,6 @@
 <ng-container *ngIf="!contentTemplateRef">
-    <label class="col-sm-2 col-form-label" [ngClass]="{'label-required' : labelRequired}">{{labelText}}</label>
-    <div class="col-sm-10 form-control-container">
+    <label class="col-sm-2 col-form-label" [ngClass]="{'label-required' : labelRequired,'pt-0': labelPaddingTopClear}">{{labelText}}</label>
+    <div class="col-sm-10">
         <ng-content></ng-content>
         <span *ngIf="tips" class="form-text text-secondary">{{tips}}</span>
     </div>
