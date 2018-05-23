@@ -22,8 +22,6 @@ export class ThyDatepickerContainerComponent implements OnInit {
     private _dpContainerRef: any;
     private _datepicker: ComponentLoader<BsDatepickerContainerComponent>;
     private _datepickerRef: ComponentRef<BsDatepickerContainerComponent>;
-    // @HostBinding('class.thy-datepicker-container--has-time') isShowTime = false;
-    // @HostBinding('class.thy-datepicker-container--can-time') isCanTime = false;
 
     constructor(
         private cis: ComponentLoaderFactory,
