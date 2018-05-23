@@ -67,21 +67,21 @@
   }
 }
 
-select.form-control {
-  &:not([size]):not([multiple]) {
-    height: $input-height;
-  }
+// select.form-control {
+//   &:not([size]):not([multiple]) {
+//     height: $input-height;
+//   }
 
-  &:focus::-ms-value {
-    // Suppress the nested default white text on blue background highlight given to
-    // the selected option text when the (still closed) <select> receives focus
-    // in IE and (under certain conditions) Edge, as it looks bad and cannot be made to
-    // match the appearance of the native widget.
-    // See https://github.com/twbs/bootstrap/issues/19398.
-    color: $input-color;
-    background-color: $input-bg;
-  }
-}
+//   &:focus::-ms-value {
+//     // Suppress the nested default white text on blue background highlight given to
+//     // the selected option text when the (still closed) <select> receives focus
+//     // in IE and (under certain conditions) Edge, as it looks bad and cannot be made to
+//     // match the appearance of the native widget.
+//     // See https://github.com/twbs/bootstrap/issues/19398.
+//     color: $input-color;
+//     background-color: $input-bg;
+//   }
+// }
 
 // Make file inputs better match text inputs by forcing them to new lines.
 .form-control-file,
@@ -157,16 +157,16 @@ select.form-control {
 
 .form-control-sm {
   padding: $input-padding-y-sm $input-padding-x-sm;
-  font-size: $font-size-base;
+  font-size: $font-size-sm;
   line-height: $input-line-height-sm;
   @include border-radius($input-border-radius-sm);
 }
 
-select.form-control-sm {
-  &:not([size]):not([multiple]) {
-    height: $input-height-sm;
-  }
-}
+// select.form-control-sm {
+//   &:not([size]):not([multiple]) {
+//     height: $input-height-sm;
+//   }
+// }
 
 .form-control-lg {
   padding: $input-padding-y-lg $input-padding-x-lg;
@@ -175,11 +175,11 @@ select.form-control-sm {
   @include border-radius($input-border-radius-lg);
 }
 
-select.form-control-lg {
-  &:not([size]):not([multiple]) {
-    height: $input-height-lg;
-  }
-}
+// select.form-control-lg {
+//   &:not([size]):not([multiple]) {
+//     height: $input-height-lg;
+//   }
+// }
 
 .form-control-xs {
   padding: $input-padding-y-xs $input-padding-x-xs;
@@ -188,11 +188,11 @@ select.form-control-lg {
   @include border-radius($input-border-radius-xs);
 }
 
-select.form-control-xs {
-  &:not([size]):not([multiple]) {
-    height: $input-height-xs;
-  }
-}
+// select.form-control-xs {
+//   &:not([size]):not([multiple]) {
+//     height: $input-height-xs;
+//   }
+// }
 
 .form-control-md {
   padding: $input-padding-y-md $input-padding-x-md;
@@ -200,13 +200,6 @@ select.form-control-xs {
   line-height: $input-line-height-md;
   @include border-radius($input-border-radius-md);
 }
-
-select.form-control-xs {
-  &:not([size]):not([multiple]) {
-    height: $input-height-md;
-  }
-}
-
 
 
 // Form groups
@@ -367,5 +360,4 @@ select.form-control-xs {
   }
 }
 
-@import "./custom-check";
-@import "./select";
+@import "./form-check";
