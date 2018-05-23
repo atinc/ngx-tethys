@@ -68,6 +68,10 @@
 .btn-group-lg > .btn { @extend .btn-lg; }
 
 
+// type 
+
+.btn-group-outline-primary > .btn { @extend .btn-outline-primary }
+
 // The clickable button for toggling the menu
 // Set the same inset shadow as the :active state
 .btn-group.show .dropdown-toggle {
