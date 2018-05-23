@@ -90,7 +90,8 @@ export class DemoFormSectionComponent {
     ];
 
     model: any = {
-        select: 1
+        select: 1,
+        checkbox: 0
     };
 
     options = [

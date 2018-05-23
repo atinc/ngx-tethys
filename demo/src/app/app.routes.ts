@@ -24,8 +24,8 @@ import { DemoDataPickerSectionComponent } from './components/+date-picker/date-p
 import { DemoInputSectionComponent } from './components/+input/input-section.component';
 import { DemoDropdownSectionComponent } from './components/+dropdown/dropdown-section.component';
 import { DemoProgressSectionComponent } from './components/+progress/progress-section.component';
-
-
+import { DemoCheckboxSectionComponent } from './components/+checkbox/checkbox-section.component';
+import { DemoSelectSectionComponent } from './components/+select/select-section.component';
 
 const appRoutes = [
     {
@@ -114,7 +114,7 @@ const appRoutes = [
     },
     {
         path: 'components/progress',
-        component:DemoProgressSectionComponent
+        component: DemoProgressSectionComponent
     },
     {
         path: 'components/switch',
@@ -132,6 +132,14 @@ const appRoutes = [
         path: 'components/input',
         component: DemoInputSectionComponent
     },
+    {
+        path: 'components/checkbox',
+        component: DemoCheckboxSectionComponent
+    },
+    {
+        path: 'components/select',
+        component: DemoSelectSectionComponent
+    }
 
 ];
 

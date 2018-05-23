@@ -23,13 +23,11 @@ const internalIconMap = {
 })
 export class ThyFormGroupComponent implements OnInit {
 
-    public labelText: string;
-
-    public labelRequired: boolean;
-
-    public feedbackIcon: string;
-
-    public tips: string;
+    labelText: string;
+    labelRequired = false;
+    labelPaddingTopClear = false;
+    feedbackIcon: string;
+    tips: string;
 
     @HostBinding('class.row-fill') _rowFill = false;
 
@@ -45,7 +43,7 @@ export class ThyFormGroupComponent implements OnInit {
     }
 
     @Input()
-    set thyLabelTranslateKey(value: string) {
+    set thyLabelTextTranslateKey(value: string) {
         if (value) {
             this.labelText = this.thyTranslate.instant(value);
         } else {
@@ -56,6 +54,11 @@ export class ThyFormGroupComponent implements OnInit {
     @Input()
     set thyLabelRequired(value: string) {
         this.labelRequired = inputValueToBoolean(value);
+    }
+
+    @Input()
+    set thyLabelPaddingTopClear(value: string) {
+        this.labelPaddingTopClear = inputValueToBoolean(value);
     }
 
     @Input()
