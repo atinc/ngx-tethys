@@ -43,6 +43,8 @@ export class ThyInputSearchComponent implements ControlValueAccessor {
 
     @Input() name = '';
 
+    @Input() placeholder = '';
+
     @Input()
     set thyTheme(value: InputSearchTheme) {
         if (value === 'ellipse') {

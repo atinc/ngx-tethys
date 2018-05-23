@@ -1,5 +1,5 @@
 <i class="wtf wtf-search-o input-prefix-icon"></i>
-<input [name]="name" class="input-search-control" thyInput [disabled]="disabled" [(ngModel)]="searchText" (ngModelChange)="searchModelChange()">
+<input [name]="name"  [placeholder]="placeholder" class="input-search-control" thyInput [disabled]="disabled" [(ngModel)]="searchText" (ngModelChange)="searchModelChange()">
 <a *ngIf="searchText" class="" href="javascript:;" (click)="clearSearchText()">
     <i class="wtf wtf-close input-suffix-icon"></i>
 </a>
