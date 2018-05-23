@@ -24,7 +24,6 @@ export class ThyStopPropagationDirective implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        debugger;
         this._listener = this._renderer.listen(this._elementRef.nativeElement, this._eventName, ($event: Event) => {
             $event.stopPropagation();
         });
