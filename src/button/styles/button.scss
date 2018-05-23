@@ -75,7 +75,7 @@ fieldset:disabled a.btn {
 // $color, $border-color, $hover-color, $hover-background, 
 // $hover-border, $active-background, $active-border
 .btn-outline-primary {
-    border-radius: $border-radius;
+    @include btn-normal-radius();
     @include button-outline-variant($primary, $primary, $white, $primary, null, $primary, null);
 }
 

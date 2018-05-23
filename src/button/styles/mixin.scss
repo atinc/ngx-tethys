@@ -141,3 +141,11 @@
         }
     } // No need for an active state here
 }
+
+@mixin btn-normal-radius {
+  // 设置大小也不影响 border-radius
+  border-radius: $border-radius;
+  &.btn-lg, &.btn-md, &.btn-sm {
+      border-radius: $border-radius;
+  }
+}
