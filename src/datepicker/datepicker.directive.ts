@@ -114,7 +114,10 @@ export class ThyDatepickerDirective implements OnInit, AfterContentInit, Control
                         this._isFirstInitValueWithNullOnce = false;
                         this._initFormatRule(result);
                         this._setInputProperty(result.date);
-                        this._onChange(result);
+                        this._onChange({
+                            date: result.date && result.date.getTime() / 1000,
+                            with_time: result.with_time
+                        });
                         this._initValueDate(result);
                     }
                 }
