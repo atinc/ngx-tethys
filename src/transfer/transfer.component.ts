@@ -82,15 +82,16 @@ export class ThyTransferComponent implements OnInit {
         });
     }
 
-    onSelect(direction: TransferDirection, event: ThyTransferSelectEvent) {
-        const to = (direction === TransferDirection.left) ? TransferDirection.right : TransferDirection.left;
+    onSelect(from: string, event: ThyTransferSelectEvent) {
+        const to = (from === TransferDirection.left) ? TransferDirection.right : TransferDirection.left;
         event.item.checked = !event.item.checked;
         if (this._autoMove) {
             this.onMove(to);
         }
     }
 
-    onMove(to: TransferDirection) {
+
+    onMove(to: string) {
         const from = (to === TransferDirection.right) ? TransferDirection.left : TransferDirection.right;
         const leftDataSource = (to === TransferDirection.right) ? this.leftDataSource : this.rightDataSource;
         const rightDataSource = (to === TransferDirection.right) ? this.rightDataSource : this.leftDataSource;
