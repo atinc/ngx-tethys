@@ -5,7 +5,6 @@ import { ThyFormDirective } from './form.directive';
 import { ThyFormGroupComponent } from './form-group.component';
 import { ThyFormGroupLabelDirective } from './form-group-label.directive';
 import { ThyFormSubmitDirective } from './form-submit.directive';
-import { ThySelectComponent } from './select/select.component';
 import { ThyFormCheckComponent } from './form-check/form-check.component';
 import { ThyInputModule } from '../input/module';
 
@@ -20,7 +19,6 @@ import { ThyInputModule } from '../input/module';
         ThyFormGroupComponent,
         ThyFormGroupLabelDirective,
         ThyFormSubmitDirective,
-        ThySelectComponent,
         ThyFormCheckComponent
     ],
     exports: [
@@ -28,7 +26,6 @@ import { ThyInputModule } from '../input/module';
         ThyFormGroupComponent,
         ThyFormGroupLabelDirective,
         ThyFormSubmitDirective,
-        ThySelectComponent,
         ThyFormCheckComponent
     ]
 })
