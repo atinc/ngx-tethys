@@ -71,6 +71,11 @@ export class ThyTransferListComponent implements OnInit, DoCheck {
                     item.order = index;
                 });
             });
+            changes.forEachMovedItem(() => {
+                this.items.forEach((item, index) => {
+                    item.order = index;
+                });
+            });
         }
     }
 
