@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ThyTransferData, ThyTransferItem } from '../../../../../src/transfer/transfer.interface';
+import { TransferDirection } from '../../../../../src';
 @Component({
     selector: 'demo-transfer-section',
     templateUrl: './transfer-section.component.html',
@@ -11,39 +12,39 @@ export class DemoTransferSectionComponent {
     public transferData: ThyTransferItem[] = [{
         id: 1,
         title: '第1条数据',
-        direction: 'left'
+        direction: TransferDirection.left
     }, {
         id: 2,
         title: '第2条数据',
-        direction: 'left'
+        direction: TransferDirection.left
     }, {
         id: 3,
         title: '第3条数据',
-        direction: 'left'
+        direction: TransferDirection.left
     }, {
         id: 4,
         title: '第4条数据',
-        direction: 'left'
+        direction: TransferDirection.left
     }, {
         id: 5,
         title: '第5条数据',
-        direction: 'right'
+        direction: TransferDirection.right
     }, {
         id: 6,
         title: '第6条数据',
-        direction: 'right'
+        direction: TransferDirection.right
     }, {
         id: 7,
         title: '第7条数据',
-        direction: 'right'
+        direction: TransferDirection.right
     }, {
         id: 8,
         title: '第8条数据',
-        direction: 'right'
+        direction: TransferDirection.right
     }, {
         id: 9,
         title: '第9条数据',
-        direction: 'right'
+        direction: TransferDirection.right
     }];
 
     public apiParameters = [

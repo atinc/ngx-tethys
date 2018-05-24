@@ -1,4 +1,4 @@
-<thy-transfer-list [items]="sourceItems" [title]="leftTitle" [template]="templateRef" [draggable]="leftDraggable" (draggableUpdate)="onDragUpdate($event)"
+<thy-transfer-list [items]="leftDataSource" [title]="leftTitle" [template]="templateRef" [draggable]="leftDraggable" (draggableUpdate)="onDragUpdate($event)"
     (select)="onSelect('left' , $event)"></thy-transfer-list>
 <div class="thy-transfer-operation">
     <div class="thy-transfer-operation-body">
@@ -11,5 +11,5 @@
         </a>
     </div>
 </div>
-<thy-transfer-list [items]="targetItems" [title]="rightTitle" [template]="templateRef" [draggable]="rightDraggable" (draggableUpdate)="onDragUpdate($event)"
+<thy-transfer-list [items]="rightDataSource" [title]="rightTitle" [template]="templateRef" [draggable]="rightDraggable" (draggableUpdate)="onDragUpdate($event)"
     (select)="onSelect('right' , $event)"></thy-transfer-list>
