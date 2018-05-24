@@ -1,3 +1,4 @@
+import { TransferDirection } from './transfer.component';
 
 export interface ThyTransferData {
     source: ThyTransferModel;
@@ -11,7 +12,8 @@ export interface ThyTransferModel {
 
 export interface ThyTransferItem {
     title: string;
-    direction?: 'left' | 'right';
+    direction?: TransferDirection;
+    order?: number;
     disabled?: boolean;
     checked?: boolean;
     [key: string]: any;
@@ -23,8 +25,8 @@ export interface ThyTransferSelectEvent {
 
 
 export interface ThyTransferChangeEvent {
-    from: string;
-    to: string;
+    from: TransferDirection;
+    to: TransferDirection;
     items?: ThyTransferItem[];
 }
 
