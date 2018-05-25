@@ -61,6 +61,12 @@ export interface ThyGridDraggableEvent {
     [key: string]: any;
 }
 
+export interface ThyGridRowEvent {
+    event: Event;
+    row: any;
+}
+
+
 
 
 

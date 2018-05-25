@@ -240,4 +240,8 @@ export class DemoGridSectionComponent implements OnInit {
     onDraggableUpdate(event) {
         console.log(event);
     }
+
+    onRowClick(event) {
+        console.log(event);
+    }
 }
