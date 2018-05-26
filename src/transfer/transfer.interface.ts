@@ -11,7 +11,8 @@ export interface ThyTransferModel {
 
 export interface ThyTransferItem {
     title: string;
-    direction?: 'left' | 'right';
+    direction?: string;
+    order?: number;
     disabled?: boolean;
     checked?: boolean;
     [key: string]: any;

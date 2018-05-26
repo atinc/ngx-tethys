@@ -1,0 +1,74 @@
+// select
+
+select.form-control {
+    &:not([size]):not([multiple]) {
+      height: $input-height;
+    }
+  
+    &:focus::-ms-value {
+      // Suppress the nested default white text on blue background highlight given to
+      // the selected option text when the (still closed) <select> receives focus
+      // in IE and (under certain conditions) Edge, as it looks bad and cannot be made to
+      // match the appearance of the native widget.
+      // See https://github.com/twbs/bootstrap/issues/19398.
+      color: $input-color;
+      background-color: $input-bg;
+    }
+}
+
+select.form-control-sm {
+    &:not([size]):not([multiple]) {
+      height: $input-height-sm;
+    }
+    &:after {
+        bottom: $input-padding-y-sm + ($font-size-sm * $line-height-sm - $font-size-md ) / 2;
+    }
+}
+
+select.form-control-lg {
+    &:not([size]):not([multiple]) {
+      height: $input-height-lg;
+    }
+}
+
+select.form-control-xs {
+    &:not([size]):not([multiple]) {
+      height: $input-height-xs;
+    }
+}
+
+select.form-control-xs {
+    &:not([size]):not([multiple]) {
+      height: $input-height-md;
+    }
+}
+  
+
+.thy-select {
+    width: 100%;
+    position: relative;
+    display: block;
+    &:after {
+      @include set-select-arrow();
+    }
+  
+    select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        padding-right: 30px;
+        &:required {
+            &:invalid {
+                color: $input-form-check-border-color;
+            }
+        }
+    }
+  
+    option[value=""][disabled] {
+        display: none;
+    }
+    option {
+        color: $input-color;
+    }
+}  
+

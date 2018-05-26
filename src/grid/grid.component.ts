@@ -10,7 +10,7 @@ import { AfterContentInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/
 import { inputValueToBoolean, isUndefined, get, set } from '../util/helpers';
 import {
     ThyGridColumn, ThyMultiSelectEvent, ThyRadioSelectEvent, ThyPage,
-    ThyGridEmptyOptions, ThySwitchEvent, ThyGridDraggableEvent
+    ThyGridEmptyOptions, ThySwitchEvent, ThyGridDraggableEvent, ThyGridRowEvent
 } from './grid.interface';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination/pagination.component';
 import { AnimateChildAst } from '@angular/animations/browser/src/dsl/animation_ast';
@@ -157,6 +157,8 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy, Do
 
     @Output() thyOnDraggableUpdate: EventEmitter<ThyGridDraggableEvent> = new EventEmitter<ThyGridDraggableEvent>();
 
+    @Output() thyOnRowClick: EventEmitter<ThyGridRowEvent> = new EventEmitter<ThyGridRowEvent>();
+
     constructor(
         private _differs: IterableDiffers
     ) {
@@ -294,6 +296,7 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy, Do
         const switchEvent: ThyGridDraggableEvent = {
         };
     }
+
     public onDraggableUpdate(event: any) {
         const dragEvent: ThyGridDraggableEvent = {
             model: this._draggableModel,
@@ -302,6 +305,14 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy, Do
             newIndex: event.newIndex
         };
         this.thyOnDraggableUpdate.emit(dragEvent);
+    }
+
+    public onRowClick(event: Event, row: any) {
+        const rowEvent = {
+            event: event,
+            row: row
+        };
+        this.thyOnRowClick.emit(rowEvent);
     }
 
     ngOnInit() {

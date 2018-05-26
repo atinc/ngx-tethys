@@ -3,7 +3,12 @@ import {
     ViewEncapsulation,
     HostBinding,
     EventEmitter,
-    TemplateRef
+    TemplateRef,
+    IterableDiffer,
+    IterableDiffers,
+    OnInit,
+    OnDestroy,
+    DoCheck
 } from '@angular/core';
 import { ThyTransferModel, ThyTransferSelectEvent, ThyTransferItem, ThyTransferDragEvent } from './transfer.interface';
 import { ThyTransferComponent } from './transfer.component';
@@ -14,9 +19,17 @@ import { SortablejsOptions } from 'angular-sortablejs/dist';
     templateUrl: './transfer-list.component.html',
     encapsulation: ViewEncapsulation.None
 })
-export class ThyTransferListComponent {
+export class ThyTransferListComponent implements OnInit, DoCheck {
 
-    @HostBinding('class') hostClass = 'thy-transfer-list';
+    public draggableOptions: SortablejsOptions = {
+        disabled: false,
+        onStart: this.onDragStart.bind(this),
+        onUpdate: this.onDragUpdate.bind(this)
+    };
+
+    private _dragModel: ThyTransferItem;
+
+    private _diff: IterableDiffer<ThyTransferItem>;
 
     @Input() title: string;
 
@@ -33,18 +46,37 @@ export class ThyTransferListComponent {
 
     @Output() select: EventEmitter<ThyTransferSelectEvent> = new EventEmitter<ThyTransferSelectEvent>();
 
-    public draggableOptions: SortablejsOptions = {
-        disabled: false,
-        onStart: this.onDragStart.bind(this),
-        onUpdate: this.onDragUpdate.bind(this)
-    };
-
-    private _dragModel: ThyTransferItem;
+    @HostBinding('class') hostClass = 'thy-transfer-list';
 
     constructor(
-        private root: ThyTransferComponent
+        private root: ThyTransferComponent,
+        private differs: IterableDiffers
     ) {
 
+    }
+
+    ngOnInit() {
+        this._diff = this.differs.find(this.items).create();
+    }
+
+    ngDoCheck() {
+        const changes = this._diff.diff(this.items);
+        if (changes) {
+            // 数据发生变化时，更改order值
+            changes.forEachAddedItem((record) => {
+                record.item.order = record.currentIndex;
+            });
+            changes.forEachRemovedItem(() => {
+                this.items.forEach((item, index) => {
+                    item.order = index;
+                });
+            });
+            changes.forEachMovedItem(() => {
+                this.items.forEach((item, index) => {
+                    item.order = index;
+                });
+            });
+        }
     }
 
     onSelect(item: any) {

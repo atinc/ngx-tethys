@@ -106,36 +106,10 @@
         <h2>按钮组</h2>
     </div>
     <div class="body">
-        <thy-button-group>
-            <button thyButton="outline-default" thySize="md">Left</button>
-            <button thyButton="outline-default" thySize="md">Middle</button>
-            <button thyButton="outline-default" thySize="md">Right</button>
-        </thy-button-group>
-        <br/>
-        <br/>
-        <thy-button-group>
-            <button thyButton="outline-primary" thySize="md">Left</button>
-            <button thyButton="outline-primary" thySize="md">Middle</button>
-            <button thyButton="outline-primary" thySize="md">Right</button>
-        </thy-button-group>
-        <br/>
-        <br/>
-        <thy-button-group>
-            <button thyButton="outline-default" thySize="md">Left</button>
-            <button thyButton="outline-default" thySize="md">Right</button>
-            <thy-button-group>
-                <button thyButton="outline-default" thySize="md"  thyDropdown [thyActionMenuToggle]="menu1">下拉菜单</button>
-                <ng-template #menu1>
-                    <thy-action-menu>
-                        <a thyActionMenuItem href="javascript:;">
-                            <span>Dropdown link</span>
-                        </a>
-                        <a thyActionMenuItem href="javascript:;">
-                            <span>Dropdown link</span>
-                        </a>
-                    </thy-action-menu>
-                </ng-template>
-            </thy-button-group>
+        <thy-button-group thySize="sm" thyType="outline-primary">
+            <button thyButton>Left</button>
+            <button thyButton>Middle</button>
+            <button thyButton>Right</button>
         </thy-button-group>
     </div>
 </section>

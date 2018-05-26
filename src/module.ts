@@ -28,6 +28,7 @@ import { ThyDropdownModule } from './dropdown';
 import { ThyDirectiveModule } from './directive';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 import { ThyCheckboxModule } from './checkbox';
+import { ThySelectModule } from './select';
 
 @NgModule({
     declarations: [
@@ -58,7 +59,8 @@ import { ThyCheckboxModule } from './checkbox';
         ThyDropdownModule,
         ThyDirectiveModule,
         ProgressbarModule.forRoot(),
-        ThyCheckboxModule
+        ThyCheckboxModule,
+        ThySelectModule
     ],
     exports: [
         BrowserAnimationsModule,
@@ -87,7 +89,8 @@ import { ThyCheckboxModule } from './checkbox';
         ThyDropdownModule,
         ThyDirectiveModule,
         ProgressbarModule,
-        ThyCheckboxModule
+        ThyCheckboxModule,
+        ThySelectModule
     ],
     providers: [
     ]

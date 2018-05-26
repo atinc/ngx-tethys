@@ -104,6 +104,12 @@ export class DemoGridSectionComponent implements OnInit {
             default: 'false'
         },
         {
+            property: '(thyOnRowClick)',
+            description: 'Grid行点击事件',
+            type: 'ThyGridRowEvent',
+            default: ''
+        },
+        {
             property: '(thyOnPageChange)',
             description: '翻页回调事件',
             type: 'PageChangedEvent',
@@ -238,6 +244,10 @@ export class DemoGridSectionComponent implements OnInit {
     }
 
     onDraggableUpdate(event) {
+        console.log(event);
+    }
+
+    onRowClick(event) {
         console.log(event);
     }
 }

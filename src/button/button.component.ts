@@ -126,9 +126,11 @@ export class ThyButtonComponent implements OnInit {
         if (btnTypeClassesMap[this._type]) {
             classNames = [...btnTypeClassesMap[this._type]];
         } else {
-            console.error(`button type (${this._type}) is not support`);
             classNames = ['btn'];
-            classNames.push(`btn-${this._type}`);
+            if (this._type) {
+                classNames.push(`btn-${this._type}`);
+            }
+            //console.error(`button type (${this._type}) is not support`);
         }
         if (this._size) {
             classNames.push(`btn-${this._size}`);
