@@ -1,88 +1,90 @@
 .navbar {
-  position: sticky;
-  line-height: 50px;
-  box-shadow: 0 0 8px 2px #eee;
-  z-index: 100;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  .navbar-brand {
-    padding-left: 20px;
-    display: inline-block;
-    font-size: 20px;
-    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.15);
-  }
+    position: sticky;
+    line-height: 50px;
+    box-shadow: 0 0 8px 2px #eee;
+    z-index: 100;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    .navbar-brand {
+        padding-left: 20px;
+        display: inline-block;
+        font-size: 20px;
+        text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.15);
+    }
 }
 
 .toc-slider {
-  padding-top: 25px;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  .toc-section {
-    .toc-section-head {
-      padding: 0 20px;
-      display: flex;
-      align-items: center;
-      color: #333333;
-      font-size: 16px;
-      line-height: 50px;
-      .mate {
-        margin-left: 6px;
-        padding-top: 3px;
-        line-height: 1;
-        font-size: 12px;
-        color: #aaaaaa;
-      }
-      .extend-icon {
-        margin-left: auto;
-      }
-    }
-    .toc-section-body {
-      .toc-item-group {
-        padding-left: 30px;
-        font-size: 12px;
-        color: rgba(0, 0, 0, .43);
-      }
-      .toc-item {
-        a {
-          padding-left: 50px;
-          display: block;
-          width: 100%;
-          height: 100%;
-          line-height: 40px;
-          color: rgba(0, 0, 0, .65);
-          text-decoration: none;
-          span {
-            font-size: 12px;
-            opacity: .67;
-          }
-          &.active {
-            border-right: solid 2px #22d7bb;
-            background: #e8fbf8;
-          }
+    padding-top: 25px;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    .toc-section {
+        .toc-section-head {
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            color: #333333;
+            font-size: 16px;
+            line-height: 50px;
+            .mate {
+                margin-left: 6px;
+                padding-top: 3px;
+                line-height: 1;
+                font-size: 12px;
+                color: #aaaaaa;
+            }
+            .extend-icon {
+                margin-left: auto;
+            }
         }
-      }
+        .toc-section-body {
+            .toc-item-group {
+                padding-left: 30px;
+                font-size: 12px;
+                color: rgba(0, 0, 0, .43);
+            }
+            .toc-item {
+                a {
+                    padding-left: 50px;
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    line-height: 40px;
+                    color: rgba(0, 0, 0, .65);
+                    text-decoration: none;
+                    span {
+                        font-size: 12px;
+                        opacity: .67;
+                    }
+                    &.active {
+                        border-right: solid 2px #22d7bb;
+                        background: #e8fbf8;
+                    }
+                }
+            }
+        }
     }
-  }
 }
 
 .main-content {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  .content-header {
-    margin: 10px;
-    font-size: 20px;
-    color: #333333; // text-rendering: optimizeLegibility;
-    // -webkit-font-smoothing: antialiased;
-    .mate {
-      font-size: 14px;
-      color: #888888;
-    }
-  }
-  .content-main {
-    margin: 10px;
-    padding: 20px;
+    display: flex;
+    flex-direction: column;
     height: 100%;
-    background: white;
-  }
+    .content-header {
+        margin: 10px;
+        font-size: 20px;
+        color: #333333; // text-rendering: optimizeLegibility;
+        // -webkit-font-smoothing: antialiased;
+        .mate {
+            font-size: 14px;
+            color: #888888;
+        }
+    }
+    .content-main {
+        margin: 10px;
+        padding: 20px;
+        height: 100%;
+        background: white;
+    }
 }
+
+// Component style

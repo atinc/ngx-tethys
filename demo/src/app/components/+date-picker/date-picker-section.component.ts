@@ -7,46 +7,61 @@ import { ComponentExample } from '../../docs/model/component-example';
 })
 export class DemoDataPickerSectionComponent implements OnInit {
 
-    onlyDate = new Date();
-
     dateEntry = {
-        date: new Date(),
+        date: Math.floor((new Date()).getTime() / 1000),
         with_time: false
     };
 
-    dateEntry2 = {
-        date: new Date(),
-        with_time: false
-    };
+    dateEntry2 = Math.floor((new Date()).getTime() / 1000);
 
-    dateEntry3 = {
-        date: new Date(),
-        with_time: false
-    };
-
-    dateEntry4 = {
-        date: new Date(),
-        with_time: false
-    };
-
-    elementDateEntry = {
-        date: new Date(),
-        with_time: false
-    };
-
-    elementDateEntry2 = {
-        date: new Date(),
+    dateEntryDisable = {
+        date: Math.floor((new Date()).getTime() / 1000),
         with_time: false
     };
 
     dateEntryWithTime = {
-        date: new Date(),
+        date: Math.floor((new Date()).getTime() / 1000),
+        with_time: false
+    };
+
+    dateEntryWithTime2 = {
+        date: Math.floor((new Date()).getTime() / 1000),
         with_time: true
     };
 
-    dateTime = Math.floor((new Date()).getTime() / 1000);
-
     dateNull = null;
+
+    elementDateEntry = {
+        date: Math.floor((new Date()).getTime() / 1000),
+        with_time: false
+    };
+
+    elementDateEntry2 = {
+        date: Math.floor((new Date()).getTime() / 1000),
+        with_time: false
+    };
+
+    //
+
+    // onlyDate = new Date();
+
+    // dateEntry2 = 1527249785;
+
+    // dateEntry3 = {
+    //     date: new Date(),
+    //     with_time: false
+    // };
+
+    // dateEntry4 = {
+    //     date: new Date(),
+    //     with_time: false
+    // };
+
+    // dateEntryWithTime = {
+    //     date: new Date(),
+    //     with_time: true
+    // };
+
 
     apiParameters = [
         {

@@ -2,6 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { DatePipe, registerLocaleData } from '@angular/common';
 import { DatepickerValueEntry } from './i.datepicker';
 import localeZhHans from '@angular/common/locales/zh-Hans';
+import { datepickerUtilConvertToDatepickerObject } from './util';
 registerLocaleData(localeZhHans, 'zh-Hans');
 
 @Pipe({ name: 'thyDatepickerFormat' })
@@ -11,12 +12,14 @@ export class ThyDatepickerFormatPipe implements PipeTransform {
 
     transform(value: DatepickerValueEntry, exponent: string): string {
         let _res;
-        if (value && value.date) {
+
+        if (value) {
+            const _value = datepickerUtilConvertToDatepickerObject(value);
             const _formatRule = ['yyyy-MM-dd'];
-            if (value.with_time) {
+            if (_value.with_time) {
                 _formatRule.push('HH:mm');
             }
-            _res = this.dataPipe.transform(value.date, _formatRule.join(' '));
+            _res = this.dataPipe.transform(_value.date, _formatRule.join(' '));
         } else {
             _res = '';
         }
