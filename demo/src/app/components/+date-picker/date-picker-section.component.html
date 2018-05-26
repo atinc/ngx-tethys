@@ -43,6 +43,12 @@
                     <input type="text" readonly="readonly" thyDatepicker [(ngModel)]="dateNull" class="form-control" placeholder="" />
                 </thy-form-group>
             </dd>
+            <dd class="mt-5">
+                <div>空值 - {{dateNull2|json}}</div>
+                <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
+                    <input type="text" readonly="readonly" thyDatepicker [(ngModel)]="dateNull2" class="form-control" placeholder="" />
+                </thy-form-group>
+            </dd>
         </dl>
     </div>
 </section>
