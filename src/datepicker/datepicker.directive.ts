@@ -184,10 +184,10 @@ export class ThyDatepickerDirective implements OnInit, AfterContentInit, Control
                 this._value = result.date.getTime() / 1000;
                 break;
             default:
-                this._onChange({
-                    date: result.date,
+                this._value = {
+                    date: Math.floor(result.date.getTime() / 1000),
                     with_time: result.with_time
-                });
+                };
                 break;
         }
         this._onChange(this._value);
