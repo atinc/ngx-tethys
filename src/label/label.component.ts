@@ -102,7 +102,7 @@ export class ThyLabelComponent {
             classNames.push(`label-${this._type}`);
         }
         if (this._labelType) {
-            classNames.push(`label-${this._labelType}`);
+            classNames = [...classNames, `label-${this._labelType}`];
         }
         // remove old classes
         this._typeClassNames.forEach(className => {
