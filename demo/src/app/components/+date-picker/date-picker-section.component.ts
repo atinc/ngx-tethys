@@ -93,7 +93,7 @@ export class DemoDataPickerSectionComponent implements OnInit {
             default: 'false'
         },
         {
-            property: 'thyWithTime',
+            property: 'thyShowTime',
             description: '显示\'设置时间\'按钮',
             type: 'boolean',
             default: 'false'

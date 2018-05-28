@@ -19,14 +19,14 @@
             <dd class="mt-5">
                 <div>可选时间 - {{dateEntryWithTime|json}}</div>
                 <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
-                    <input type="text" readonly="readonly" thyDatepicker [thyWithTime]="true" [(ngModel)]="dateEntryWithTime" class="form-control"
+                    <input type="text" readonly="readonly" thyDatepicker [thyShowTime]="true" [(ngModel)]="dateEntryWithTime" class="form-control"
                         placeholder="" />
                 </thy-form-group>
             </dd>
             <dd class="mt-5">
                 <div>必选时间 - {{dateEntryWithTime2|json}}</div>
                 <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
-                    <input type="text" readonly="readonly" thyDatepicker [thyWithTime]="true" [(ngModel)]="dateEntryWithTime2" class="form-control"
+                    <input type="text" readonly="readonly" thyDatepicker [(ngModel)]="dateEntryWithTime2" class="form-control"
                         placeholder="" />
                 </thy-form-group>
             </dd>
@@ -63,7 +63,7 @@
                     绑定
                 </td>
                 <td>
-                    <a href="javascript:;" thyDatepicker [thyWithTime]="true" [(ngModel)]="elementDateEntry">
+                    <a href="javascript:;" thyDatepicker [thyShowTime]="true" [(ngModel)]="elementDateEntry">
                         <i class="wtf wtf-calendar-date"></i> {{elementDateEntry|thyDatepickerFormat}}
                     </a>
                 </td>

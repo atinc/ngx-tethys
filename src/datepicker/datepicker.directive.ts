@@ -47,7 +47,7 @@ export class ThyDatepickerDirective implements OnInit, AfterContentInit, Control
     @Input() thyContainer = 'body';
     @Input() thyOutsideClick = true;
     @Input() thyDisabled = false;
-    @Input() thyWithTime = false;
+    @Input() thyShowTime = false;
     @Input() thyFormat: string = null;
     @Output() thyOnChange: EventEmitter<any> = new EventEmitter();
 
@@ -111,7 +111,7 @@ export class ThyDatepickerDirective implements OnInit, AfterContentInit, Control
                     this.hide();
                 },
                 initialState: {
-                    withTime: inputValueToBoolean(this.thyWithTime),
+                    withTime: inputValueToBoolean(this.thyShowTime),
                     value: this._value,
                     valueRef: this._valueRef,
                     changeValue: (result: DatepickerValueEntry) => {
@@ -181,6 +181,9 @@ export class ThyDatepickerDirective implements OnInit, AfterContentInit, Control
                 };
                 break;
             case DatepickerValueShowTypesEnum.dateTime:
+                this._value = result.date.getTime() / 1000;
+                break;
+            case DatepickerValueShowTypesEnum.nullValue:
                 this._value = result.date.getTime() / 1000;
                 break;
             default:

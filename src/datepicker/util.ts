@@ -17,6 +17,9 @@ export function datepickerUtilIdentificationValueType(value: any): DatepickerVal
             case DatepickerValueShowTypesEnum.dateTimeLong:
                 res = DatepickerValueShowTypesEnum.datepickerTimeLongObject;
                 break;
+            case DatepickerValueShowTypesEnum.nullValue:
+                res = DatepickerValueShowTypesEnum.datepickerNullValue;
+                break;
             default:
                 res = result;
         }
@@ -26,10 +29,10 @@ export function datepickerUtilIdentificationValueType(value: any): DatepickerVal
         } else if (value.toString().length === 13) {
             res = DatepickerValueShowTypesEnum.dateTimeLong;
         } else {
-            res = DatepickerValueShowTypesEnum.noType;
+            res = DatepickerValueShowTypesEnum.nullValue;
         }
     } else {
-        res = DatepickerValueShowTypesEnum.noType;
+        res = DatepickerValueShowTypesEnum.nullValue;
     }
     return res;
 }
@@ -54,6 +57,18 @@ export function datepickerUtilConvertToDatepickerObject(value: any, valueType?: 
             _value = {
                 date: value.date,
                 with_time: value.with_time
+            };
+            break;
+        case DatepickerValueShowTypesEnum.datepickerNullValue:
+            _value = {
+                date: value.date,
+                with_time: value.with_time
+            };
+            break;
+        case DatepickerValueShowTypesEnum.nullValue:
+            _value = {
+                date: value,
+                with_time: false
             };
             break;
         default:
