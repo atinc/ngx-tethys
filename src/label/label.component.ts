@@ -4,12 +4,12 @@ import { inputValueToBoolean } from '../util/helpers';
 export type ThyLabelType = 'default' | 'primary' | 'success' | 'info' | 'warning' | 'danger';
 
 const labelTypeClassesMap: any = {
-    'default': ['label', 'label-default'],
-    'primary': ['label', 'label-primary'],
-    'success': ['label', 'label-success'],
-    'info': ['label', 'label-info'],
-    'warning': ['label', 'label-warning'],
-    'danger': ['label', 'label-danger']
+    'default': ['thy-label', 'thy-label-default'],
+    'primary': ['thy-label', 'thy-label-primary'],
+    'success': ['thy-label', 'thy-label-success'],
+    'info': ['thy-label', 'thy-label-info'],
+    'warning': ['thy-label', 'thy-label-warning'],
+    'danger': ['thy-label', 'thy-label-danger']
 };
 
 @Component({
@@ -98,11 +98,11 @@ export class ThyLabelComponent {
         if (labelTypeClassesMap[this._type]) {
             classNames = labelTypeClassesMap[this._type];
         } else {
-            classNames = ['label'];
-            classNames.push(`label-${this._type}`);
+            classNames = ['thy-label'];
+            classNames.push(`thy-label-${this._type}`);
         }
         if (this._labelType) {
-            classNames.push(`label-${this._labelType}`);
+            classNames = [...classNames, `thy-label-${this._labelType}`];
         }
         // remove old classes
         this._typeClassNames.forEach(className => {
