@@ -45,28 +45,6 @@ export class DemoDataPickerSectionComponent implements OnInit {
         with_time: false
     };
 
-    //
-
-    // onlyDate = new Date();
-
-    // dateEntry2 = 1527249785;
-
-    // dateEntry3 = {
-    //     date: new Date(),
-    //     with_time: false
-    // };
-
-    // dateEntry4 = {
-    //     date: new Date(),
-    //     with_time: false
-    // };
-
-    // dateEntryWithTime = {
-    //     date: new Date(),
-    //     with_time: true
-    // };
-
-
     apiParameters = [
         {
             property: 'thyDatepicker',
@@ -103,6 +81,16 @@ export class DemoDataPickerSectionComponent implements OnInit {
     constructor() { }
 
     ngOnInit() {
+    }
+
+    test() {
+        this.dateEntry = {
+            date: Math.floor((new Date()).getTime() / 1000),
+            with_time: false
+        };
+
+        this.dateNull = Math.floor((new Date()).getTime() / 1000);
+
     }
 
     log($event) {
