@@ -3,21 +3,9 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { UpdateHostClassService } from '../../shared';
 import { ThyTranslate } from '../../shared';
 
-export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
-
-const noop = () => {
-};
-
-const inputGroupSizeMap = {
-    'xs': ['form-control-xs'],
-    'sm': ['form-control-sm'],
-    'md': ['form-control-md'],
-    'lg': ['form-control-lg']
-};
-
 @Component({
     selector: '[thyFormCheck]',
-    templateUrl: `./form-check.component.html`,
+    templateUrl: './form-check.component.html',
     providers: [
         UpdateHostClassService
     ],

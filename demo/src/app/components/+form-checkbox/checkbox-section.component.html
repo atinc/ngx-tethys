@@ -1,0 +1,21 @@
+<section>
+    <div class="header">
+        <h2>Checkbox</h2>
+    </div>
+    <div class="body">
+        <div>
+            <label thyCheckbox thyInline="true" [(ngModel)]="model.checkboxInline" thyLabelText="内联展示"></label>
+            <label thyCheckbox thyInline="true" [(ngModel)]="model.disabled" thyLabelText="禁用"></label>
+        </div>
+        <label thyCheckbox [thyInline]="model.checkboxInline" [(ngModel)]="model.checked1" (ngModelChange)="change()" thyLabelText="选项1" [disabled]="model.disabled"></label>
+        <label thyCheckbox [thyInline]="model.checkboxInline" [(ngModel)]="model.checked2" thyLabelText="选项2" [disabled]="model.disabled"></label>
+        <label thyCheckbox [thyInline]="model.checkboxInline" [(ngModel)]="model.checked3" thyLabelText="选项3" [disabled]="model.disabled"></label>
+
+        <div>
+            Model :
+            <pre><code>{{model | json}}</code></pre>
+        </div>
+    </div>
+</section>
+
+<api-parameters title="thyCheckbox 参数列表" [parameters]="apiParameters"></api-parameters>

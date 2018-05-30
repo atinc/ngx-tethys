@@ -26,7 +26,8 @@ import { DemoDataPickerSectionComponent } from './+date-picker/date-picker-secti
 import { DemoInputSectionComponent } from './+input/input-section.component';
 import { DemoDropdownSectionComponent } from './+dropdown/dropdown-section.component';
 import { DemoProgressSectionComponent } from './+progress/progress-section.component';
-import { DemoCheckboxSectionComponent } from './+checkbox/checkbox-section.component';
+import { DemoCheckboxSectionComponent } from './+form-checkbox/checkbox-section.component';
+import { DemoRadioSectionComponent } from './+form-radio/radio-section.component';
 import { DemoSelectSectionComponent } from './+select/select-section.component';
 
 export const COMPONENTS = [
@@ -61,6 +62,7 @@ export const COMPONENTS = [
     DemoDropdownSectionComponent,
     DemoProgressSectionComponent,
     DemoCheckboxSectionComponent,
+    DemoRadioSectionComponent,
     DemoSelectSectionComponent
 ];
 
