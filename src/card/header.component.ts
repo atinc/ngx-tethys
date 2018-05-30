@@ -11,11 +11,9 @@ export class ThyCardHeaderComponent implements OnInit {
 
     @HostBinding('class.thy-card-header') thyLayoutHeaderClass = true;
 
-    @HostBinding('class.header-has-border') _thyHasBorder = false;
+    @HostBinding('class.thy-card-header--sm') _thySizeSm = false;
 
-    @HostBinding('class.thy-layout-header-sm') _thySizeSm = false;
-
-
+    @HostBinding('class.thy-card-header--lg') _thySizeLg = false;
 
     @Input('thyTitle') thyTitle: string;
 
@@ -24,11 +22,7 @@ export class ThyCardHeaderComponent implements OnInit {
     @Input('thySize')
     set thySize(value: string) {
         this._thySizeSm = (value === 'sm');
-    }
-
-    @Input('thyHasBorder')
-    set thyHasBorder(value: string) {
-        this._thyHasBorder = inputValueToBoolean(value);
+        this._thySizeLg = (value === 'lg');
     }
 
     @ContentChild('headerTitle')

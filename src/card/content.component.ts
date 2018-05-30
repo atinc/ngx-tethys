@@ -1,4 +1,5 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { inputValueToBoolean } from '../util/helpers';
 
 @Component({
     selector: 'thy-card-content',
@@ -9,13 +10,22 @@ import { Component, HostBinding, Input, OnInit } from '@angular/core';
 })
 export class ThyCardContentComponent implements OnInit {
 
-    @Input('thyAlignment') thyAlignment: string;
-
     @HostBinding('class.thy-card-content') thyCardContentClass = true;
 
     @HostBinding('class.thy-card-content--alignment-title') alignmentClass = false;
 
-    ngOnInit() {
+    @Input('thyAlignment')
+    set thyAlignment(value: any) {
         this.alignmentClass = this.thyAlignment === 'title';
+    }
+
+    @HostBinding('class.thy-card-content--scroll') scrollClassName = false;
+
+    @Input('thyScroll')
+    set thyScroll(value: any) {
+        this.scrollClassName = inputValueToBoolean(value);
+    }
+
+    ngOnInit() {
     }
 }
