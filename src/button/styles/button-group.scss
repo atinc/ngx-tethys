@@ -71,6 +71,9 @@
 // type 
 
 .btn-group-outline-primary > .btn { @extend .btn-outline-primary }
+.btn-group-outline-default > .btn { 
+  @extend .btn-outline-default-rounded
+}
 
 // The clickable button for toggling the menu
 // Set the same inset shadow as the :active state

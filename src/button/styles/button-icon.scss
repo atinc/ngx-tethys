@@ -1,0 +1,23 @@
+.btn-icon {
+    padding: 0px;
+    @extend .btn-link-default;
+    i,.wtf {
+        font-size: $font-size-md;
+    }
+}
+
+.btn-icon-light {
+    color: $btn-icon-light-color;
+}
+
+.btn-icon-sm {
+    i,.wtf {
+        font-size: $font-size-base;
+    }
+}
+
+.btn-icon-lg {
+    i,.wtf {
+        font-size: $font-size-lg;
+    }
+}

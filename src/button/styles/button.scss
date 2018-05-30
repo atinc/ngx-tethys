@@ -83,6 +83,13 @@ fieldset:disabled a.btn {
     @include button-outline-variant($gray-600, $gray-300, $primary, null, $primary, null, $primary);
 }
 
+// 主要给 btn-group 的 outline-default 使用，因为分组后不需要圆角
+// 直接使用  btn-outline-default 难度太大
+.btn-outline-default-rounded {
+    @include btn-normal-radius();
+    @include button-outline-variant($gray-600, $gray-300, $primary, null, $primary, null, $primary);
+}
+
 // .btn-outline-info {
 //     border-radius: $border-radius;
 //     @include button-outline-variant($primary, $primary, $white, $primary, null, $primary, null);
@@ -152,3 +159,5 @@ input[type="button"] {
         width: 100%;
     }
 }
+
+@import './button-icon';

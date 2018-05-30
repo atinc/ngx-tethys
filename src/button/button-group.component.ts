@@ -18,6 +18,7 @@ const buttonGroupSizeMap = {
 
 const buttonGroupTypeMap = {
     'outline-primary': ['btn-group-outline-primary'],
+    'outline-default': ['btn-group-outline-default'],
 };
 
 @Component({

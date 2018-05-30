@@ -1,8 +1,9 @@
 <ng-container *ngFor="let componentExample of componentExamples">
     <div class="header">
-        <h5>链接</h5>
+        <h2>链接</h2>
     </div>
     <ng-container [ngComponentOutlet]="componentExample.outlet"></ng-container>
+
     <tabset #staticTabs>
         <tab heading="HTML">
             <pre><code>{{componentExample.html}}</code></pre>
@@ -12,3 +13,22 @@
         </tab>
     </tabset>
 </ng-container>
+
+<div>
+    <div class="header">
+        <h2>文本</h2>
+    </div>
+    <div class="body">
+        <p class="text-primary">.text-primary</p>
+        <p class="text-secondary">.text-secondary</p>
+        <p class="text-success">.text-success</p>
+        <p class="text-danger">.text-danger</p>
+        <p class="text-warning">.text-warning</p>
+        <p class="text-info">.text-info</p>
+        <p class="text-light bg-dark">.text-light</p>
+        <p class="text-dark">.text-dark</p>
+        <p class="text-body">.text-body</p>
+        <p class="text-muted">.text-muted</p>
+        <p class="text-white bg-dark">.text-white</p>
+    </div>
+</div>
