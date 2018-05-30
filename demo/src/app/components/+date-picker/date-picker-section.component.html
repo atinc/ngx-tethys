@@ -26,8 +26,8 @@
             <dd class="mt-5">
                 <div>必选时间 - {{dateEntryWithTime2|json}}</div>
                 <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
-                    <input type="text" readonly="readonly" thyDatepicker [(ngModel)]="dateEntryWithTime2" class="form-control"
-                        placeholder="" />
+                    <input type="text" readonly="readonly" thyDatepicker [(ngModel)]="dateEntryWithTime2" class="form-control" placeholder=""
+                    />
                 </thy-form-group>
             </dd>
             <dd class="mt-5">
@@ -50,6 +50,7 @@
                 </thy-form-group>
             </dd>
         </dl>
+        <button (click)="test()">TEST</button>
     </div>
 </section>
 <section>

@@ -1,6 +1,6 @@
 export interface DatepickerValueEntry {
     date: Date | '' | number | any;
-    with_time: boolean;
+    with_time: boolean | number;
 }
 
 export interface DatepickerInitialState {

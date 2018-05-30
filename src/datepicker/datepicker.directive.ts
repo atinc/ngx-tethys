@@ -39,7 +39,7 @@ export class ThyDatepickerDirective implements OnInit, AfterContentInit, Control
     private _onChange = Function.prototype;
     private _onTouched = Function.prototype;
     private _isAfterContentInit = false;
-    private _isFirstInitValueWithNullOnce = false; // 第一次初始化，如果为null，显示时需要为空
+    // private _isFirstInitValueWithNullOnce = false; // 第一次初始化，如果为null，显示时需要为空
     private _loader: ComponentLoader<ThyDatepickerContainerComponent>;
     private _valueType: DatepickerValueShowTypesEnum;
     @Input() thyPlacement: 'top' | 'bottom' | 'left' | 'right' = 'bottom';
@@ -83,7 +83,7 @@ export class ThyDatepickerDirective implements OnInit, AfterContentInit, Control
         this._initValueDate(value, true);
         if (this._isAfterContentInit) {
             this._saveInitValueClone();
-            this._isFirstInitValueWithNullOnce = true;
+            // this._isFirstInitValueWithNullOnce = true;
         }
     }
 
@@ -115,7 +115,7 @@ export class ThyDatepickerDirective implements OnInit, AfterContentInit, Control
                     value: this._value,
                     valueRef: this._valueRef,
                     changeValue: (result: DatepickerValueEntry) => {
-                        this._isFirstInitValueWithNullOnce = false;
+                        // this._isFirstInitValueWithNullOnce = false;
                         this._initFormatRule(result);
                         this._setInputProperty(result.date);
                         this._sendValueToNgModel(result);
@@ -154,16 +154,16 @@ export class ThyDatepickerDirective implements OnInit, AfterContentInit, Control
         if (this.thyFormat) {
             this._format = this.thyFormat;
         } else {
-            if (this._isFirstInitValueWithNullOnce) {
-                this._format = '';
-            } else {
+            // if (this._isFirstInitValueWithNullOnce) {
+            //     this._format = '';
+            // } else {
                 const _v = value || this._value;
                 if (_v.with_time) {
                     this._format = FORMAT_RULES.full;
                 } else {
                     this._format = FORMAT_RULES.short;
                 }
-            }
+            // }
         }
     }
 

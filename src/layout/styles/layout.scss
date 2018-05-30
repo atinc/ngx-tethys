@@ -32,12 +32,18 @@
   background: $layout-content-background;
   .thy-layout-content-section {
     display: block;
+    overflow: hidden;
+    border-radius: 3px;
     background: $layout-content-section-background;
     margin-bottom: $layout-content-section-margin-bottom;
   }
   .thy-layout-content-main {
     flex: auto;
     background: $layout-content-section-background;
+  }
+  &--align-title{
+    padding-left: 30px;
+    padding-right: 30px;
   }
 }
 
