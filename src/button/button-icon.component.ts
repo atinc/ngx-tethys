@@ -6,9 +6,17 @@ import { AfterContentInit, OnChanges, OnInit } from '@angular/core';
 import { inputValueToBoolean, isUndefined } from '../util/helpers';
 import { UpdateHostClassService } from '../shared';
 
+export type IconType = '' | 'dashed' | 'solid';
+
 const sizeClassesMap: any = {
     'lg': ['btn-icon-lg'],
-    'sm': ['btn-icon-sm']
+    'sm': ['btn-icon-sm'],
+    'xs': ['btn-icon-xs']
+};
+
+const typeClassesMap: any = {
+    'circle-dashed': ['btn-icon-circle', 'circle-dashed'],
+    'circle-solid': ['btn-icon-circle', 'circle-solid']
 };
 
 @Component({
@@ -22,6 +30,8 @@ const sizeClassesMap: any = {
 export class ThyButtonIconComponent implements OnInit {
 
     private _initialized = false;
+
+    private _type: IconType;
 
     private _size: string;
 
@@ -53,11 +63,26 @@ export class ThyButtonIconComponent implements OnInit {
     }
 
     @Input()
+    set thyType(value: IconType) {
+        this._type = value;
+        if (this._initialized) {
+            this._setClasses();
+        }
+    }
+
+    @Input()
     set thyLight(value: boolean) {
         this._isLighted = inputValueToBoolean(value);
     }
+
     private _setClasses() {
-        this.updateHostClassService.updateClass(sizeClassesMap[this._size] || []);
+        const classes = sizeClassesMap[this._size] ? [...sizeClassesMap[this._size]] : [];
+        if (this._type && typeClassesMap[this._type]) {
+            typeClassesMap[this._type].forEach((className: string) => {
+                classes.push(className);
+            });
+        }
+        this.updateHostClassService.updateClass(classes);
     }
 
     constructor(

@@ -4,10 +4,12 @@
 //
 .btn {
     // 设置 icon 字体大小
-    .wtf {
-        font-size: $font-size-base;
-        line-height: 1rem;
-        @include button-icon-margin(0.375rem);
+    &:not(.btn-icon){
+        .wtf {
+            font-size: $font-size-base;
+            line-height: 1rem;
+            @include button-icon-margin(0.375rem);
+        }
     }
     display: inline-block;
     font-weight: $btn-font-weight;

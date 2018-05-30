@@ -1,23 +1,86 @@
+@mixin btn-icon-size-variant($font-size, $round-padding) {
+    i,.wtf {
+        font-size: $font-size;
+    }
+    &.btn-icon-circle {
+        i,.wtf {
+            padding: $round-padding;
+        }
+        @include hover-focus {
+            i,.wtf {
+                border: 2px solid $primary;
+                padding: $round-padding - 1;
+            }
+        }
+    }
+}
+
 .btn-icon {
     padding: 0px;
     @extend .btn-link-default;
     i,.wtf {
-        font-size: $font-size-md;
+        display: inline-block;
+        line-height: 1;
     }
+    @include btn-icon-size-variant($font-size-md, 9px);
 }
 
 .btn-icon-light {
     color: $btn-icon-light-color;
 }
 
+.btn-icon-xs {
+    @include btn-icon-size-variant($font-size-sm, 4px);
+}
+
 .btn-icon-sm {
-    i,.wtf {
-        font-size: $font-size-base;
-    }
+    @include btn-icon-size-variant($font-size-base, 6px);
 }
 
 .btn-icon-lg {
+    @include btn-icon-size-variant($font-size-lg, 13px);
+}
+
+.btn-icon-circle {
     i,.wtf {
-        font-size: $font-size-lg;
+        transition: border 200ms, padding 200ms;
+        color: $btn-icon-light-color;
+        border-radius: 50%;
+        line-height: 1;
+        padding: 10px;
     }
+    span {
+        margin-left: 6px; 
+    }
+    @include hover-focus {
+        color: $primary;
+        i,.wtf {
+            color: $primary;
+        }
+    }
+    &.circle-dashed {
+        i,.wtf {
+            border: 1px dashed $btn-link-color-default;
+        }
+    }
+    &.circle-solid {
+        i,.wtf {
+            border: 1px solid $btn-link-color-default;
+        }
+    }
+
+    &.invalid {
+        color: $danger;
+        i, .wtf {
+          border-color: $danger;
+          color: $danger;
+        }
+        &:hover,
+        &:focus {
+            i, .wtf {
+                color: $primary;
+                border-color: $primary;
+            }
+        }
+      }
 }

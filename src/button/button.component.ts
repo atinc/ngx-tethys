@@ -3,7 +3,7 @@ import { AfterContentInit, OnChanges, OnInit } from '@angular/core';
 import { inputValueToBoolean, isUndefined } from '../util/helpers';
 import { UpdateHostClassService } from '../shared';
 
-export type ThyButtonType = 'primary' | 'secondary' | 'outline-primary' | 'outline-default' | 'danger';
+export type ThyButtonType = 'primary' | 'secondary' | 'outline-primary' | 'outline-default' | 'danger' | 'link' | 'link-secondary';
 
 const btnTypeClassesMap: any = {
     'primary': ['btn', 'btn-primary'],
@@ -130,7 +130,7 @@ export class ThyButtonComponent implements OnInit {
             if (this._type) {
                 classNames.push(`btn-${this._type}`);
             }
-            //console.error(`button type (${this._type}) is not support`);
+            // console.error(`button type (${this._type}) is not support`);
         }
         if (this._size) {
             classNames.push(`btn-${this._size}`);
