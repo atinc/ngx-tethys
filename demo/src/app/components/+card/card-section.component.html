@@ -1,26 +1,25 @@
 <section>
     <div class="header">
-        <h2>Layout</h2>
+        <h2>示例</h2>
     </div>
     <div class="body">
-        <div class="demo-card">
+        <div class="demo-layout">
             <thy-card>
                 <thy-card-header thyTitle="成员列表" thyTitleInfo="(共10人)">
                 </thy-card-header>
                 <thy-card-content>
-                    恩，我是 content
+                    我是 content
                 </thy-card-content>
             </thy-card>
-        </div>
-    </div>
-</section>
-
-<section>
-    <div class="header">
-        <h2>Layout</h2>
-    </div>
-    <div class="body">
-        <div class="demo-card">
+            <br>
+            <thy-card thyHasLeftRightPadding="false">
+                <thy-card-header thyTitle="需求进度">
+                </thy-card-header>
+                <thy-card-content>
+                    无左右内边距
+                </thy-card-content>
+            </thy-card>
+            <br>
             <thy-card>
                 <thy-card-header>
                     <ng-template #headerTitle>
@@ -30,27 +29,50 @@
                         自定义operation
                     </ng-template>
                 </thy-card-header>
+                <thy-card-content>
+                    头部，自定义
+                </thy-card-content>
+            </thy-card>
+            <br>
+            <thy-card>
+                <thy-card-header thyTitle="迭代信息" thySize="lg">
+                </thy-card-header>
+                <thy-card-content>
+                    头部，大
+                </thy-card-content>
+            </thy-card>
+            <br>
+            <div style="height:100px;">
+                <thy-card>
+                    <thy-card-header thyTitle="任务列表">
+                    </thy-card-header>
+                    <thy-card-content thyScroll="true">
+                        内容区，滚动
+                        <br> 滚动
+                        <br> 滚动
+                        <br> 滚动
+                        <br> 滚动
+                        <br> 滚动
+                        <br> 滚动
+                        <br> 滚动
+                        <br> 滚动
+                        <br> 滚动
+                        <br> 滚动
+                        <br> 滚动
+                        <br>
+                    </thy-card-content>
+                </thy-card>
+            </div>
+            <br>
+            <thy-card>
+                <thy-card-header thyTitle="规划">
+                </thy-card-header>
                 <thy-card-content thyAlignment="title">
-                    恩，我是 content，对齐title文字
+                    内容区，对其头部文字
                 </thy-card-content>
             </thy-card>
         </div>
     </div>
 </section>
 
-<section>
-    <div class="header">
-        <h2>清除左右padding</h2>
-    </div>
-    <div class="body">
-        <div class="demo-card">
-            <thy-card thyHasLeftRightPadding="false">
-                <thy-card-header thyTitle="成员列表" thyTitleInfo="(共10人)">
-                </thy-card-header>
-                <thy-card-content>
-                    恩，我是 content
-                </thy-card-content>
-            </thy-card>
-        </div>
-    </div>
-</section>
+<api-parameters [parameters]="apiParameters"></api-parameters>
