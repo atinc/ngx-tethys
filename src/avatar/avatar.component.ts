@@ -2,7 +2,7 @@ import { Component, Input, HostBinding } from '@angular/core';
 import { isNumber } from '../util/helpers';
 import { AvatarMemberInfo } from './avatar-member-info';
 
-const sizeArray = [24, 30, 38, 48, 68, 110, 160, 320];
+const sizeArray = [22, 24, 30, 38, 48, 68, 110, 160, 320];
 
 @Component({
     selector: 'thy-avatar',

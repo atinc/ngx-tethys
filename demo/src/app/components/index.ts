@@ -28,6 +28,8 @@ import { DemoDropdownSectionComponent } from './+dropdown/dropdown-section.compo
 import { DemoProgressSectionComponent } from './+progress/progress-section.component';
 import { DemoCheckboxSectionComponent } from './+checkbox/checkbox-section.component';
 import { DemoSelectSectionComponent } from './+select/select-section.component';
+import { DemoSlideSectionComponent } from './+slide/slide-section.component';
+import { DemoSlideContentComponent } from './+slide/slide-content.component';
 
 export const COMPONENTS = [
     DemoPopBoxSectionComponent,
@@ -61,11 +63,14 @@ export const COMPONENTS = [
     DemoDropdownSectionComponent,
     DemoProgressSectionComponent,
     DemoCheckboxSectionComponent,
-    DemoSelectSectionComponent
+    DemoSelectSectionComponent,
+    DemoSlideSectionComponent,
+    DemoSlideContentComponent
 ];
 
 export const ENTRY_COMPONENTS = [
     PopBoxMenuDemoShowComponent,
     RebootSectionLinkComponent,
-    DemoModalContentComponent
+    DemoModalContentComponent,
+    DemoSlideContentComponent
 ];
