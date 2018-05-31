@@ -4,12 +4,10 @@
 //
 .btn {
     // 设置 icon 字体大小
-    &:not(.btn-icon){
-        .wtf {
-            font-size: $font-size-base;
-            line-height: 1rem;
-            @include button-icon-margin(0.375rem);
-        }
+    i, .wtf {
+        font-size: $font-size-base;
+        line-height: 1rem;
+        @include button-icon-margin(0.375rem);
     }
     display: inline-block;
     font-weight: $btn-font-weight;
@@ -44,7 +42,15 @@
         //     @include box-shadow($btn-focus-box-shadow, $btn-active-box-shadow);
         // }
     }
-} // Future-proof disabling of clicks on `<a>` elements
+} 
+
+.btn .btn-has-icon {
+    i, .wtf {
+        @include button-icon-margin(0.375rem);
+    } 
+}
+
+// Future-proof disabling of clicks on `<a>` elements
 a.btn.disabled,
 fieldset:disabled a.btn {
     pointer-events: none;

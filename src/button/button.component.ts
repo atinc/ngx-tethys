@@ -135,6 +135,9 @@ export class ThyButtonComponent implements OnInit {
         if (this._size) {
             classNames.push(`btn-${this._size}`);
         }
+        if (this._icon) {
+            classNames.push('btn-has-icon');
+        }
         this.updateHostClassService.updateClass(classNames);
     }
 
