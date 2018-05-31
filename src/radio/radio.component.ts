@@ -6,7 +6,7 @@ import { ThyFormCheckBaseComponent } from '../shared';
 
 
 @Component({
-    selector: '[thyRadio]',
+    selector: '[thy-radio],[thyRadio]',
     templateUrl: './radio.component.html',
     providers: [
         {

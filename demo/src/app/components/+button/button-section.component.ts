@@ -2,7 +2,7 @@ import { Component, TemplateRef } from '@angular/core';
 @Component({
     selector: 'demo-button-section',
     templateUrl: './button-section.component.html',
-    //   styleUrls: ['./app.component.scss']
+    styleUrls: ['./button-section.scss']
 })
 export class DemoButtonSectionComponent {
 
@@ -15,7 +15,7 @@ export class DemoButtonSectionComponent {
         },
         {
             property: 'thyType',
-            description: `和 thyButton 含义相同，一般使用 thyButton，为了减少参数输入`,
+            description: `和 thyButton 含义相同，一般使用 thyButton，为了减少参数输入, 设置按钮组件通过 thy-button 时，只能使用该参数控制类型`,
             type: 'String',
             default: 'primary'
         },
@@ -27,13 +27,7 @@ export class DemoButtonSectionComponent {
         },
         {
             property: 'thyIcon',
-            description: `按钮中显示的图标,比如 wtf-plus`,
-            type: 'String',
-            default: ''
-        },
-        {
-            property: 'thyIconPrefix',
-            description: `按钮中显示的图标前缀，默认 wtf`,
+            description: `按钮中显示的图标,比如 wtf-plus，默认字体前缀是 wtf, 如果使用其他字体，加上其他的字体前缀，比如 fa fa-plus`,
             type: 'String',
             default: ''
         },
@@ -54,19 +48,19 @@ export class DemoButtonSectionComponent {
     apiThyButtonIconParameters = [
         {
             property: 'thyButtonIcon',
-            description: `图标按钮的图标, 比如 wtf-plus`,
+            description: `图标按钮的图标, 比如 wtf-plus，默认字体前缀是 wtf, 如果使用其他字体，加上其他的字体前缀，比如 fa fa-plus`,
             type: 'String',
             default: ''
         },
         {
-            property: 'thyIconPrefix',
-            description: `图标前缀，默认 wtf`,
+            property: 'thyIcon',
+            description: `图标按钮的图标, 和 thyButtonIcon 类似，当使用 thy-button-icon 时，只能使用 thyIcon 设置图标`,
             type: 'String',
-            default: 'wtf'
+            default: ''
         },
         {
-            property: 'thyType',
-            description: `展示的类型，默认只有图标，circle-dashed, circle-solid 展示成虚线圆形图标`,
+            property: 'thyShape',
+            description: `展示的形状，默认只显示字体图标图标，circle-dashed, circle-solid 展示成虚线圆形图标`,
             type: 'String',
             default: ''
         },

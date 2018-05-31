@@ -2,7 +2,7 @@
     <div class="header">
         <h2>主要按钮</h2>
     </div>
-    <div class="body">
+    <div class="body demo-buttons">
         <button thyButton="primary">确认</button>
         <button thyButton="primary">
             <i class="wtf wtf-plus"></i>新建文件夹</button>
@@ -25,7 +25,7 @@
     <div class="header">
         <h2>二级按钮</h2>
     </div>
-    <div class="body">
+    <div class="body demo-buttons">
         <button thyButton="secondary">设置</button>
         <button thyButton="secondary" thyIcon="wtf-th-plus">新建文件夹</button>
         <button thyButton="secondary" thyIcon="wtf-download">导出</button>
@@ -46,7 +46,7 @@
     <div class="header">
         <h2>线框按钮</h2>
     </div>
-    <div class="body">
+    <div class="body demo-buttons">
         <button thyButton="outline-default">预览</button>
         <button thyButton="outline-primary">新建文件夹</button>
         <p>
@@ -63,9 +63,8 @@
     <div class="header">
         <h2>按钮链接</h2>
     </div>
-    <div class="body">
+    <div class="body demo-buttons">
         <button thyButton="link">预览</button>
-        <a thyButton="link-secondary" thyIcon="wtf-plus"></a>
         <button thyButton="link-secondary">取消</button>
     </div>
 </section>
@@ -74,7 +73,7 @@
     <div class="header">
         <h2>按钮大小</h2>
     </div>
-    <div class="body">
+    <div class="body demo-buttons">
 
         <code>sm</code> 小按钮：
         <button thyButton="primary" thySize="sm">确定</button>
@@ -144,20 +143,20 @@
         <a thyButtonIcon="wtf-project-add-o" thyLight="" href="javascript:;" thySize="lg"></a>
 
         <br>
-        <button thyButtonIcon="wtf-plus" thyType="circle-dashed" thySize="xs"></button>
-        <button thyButtonIcon="wtf-plus" thyType="circle-dashed" thySize="sm"></button>
-        <button thyButtonIcon="wtf-plus" thyType="circle-dashed"></button>
-        <button thyButtonIcon="wtf-plus" thyType="circle-dashed" class="invalid"></button>
+        <button thyButtonIcon="wtf-plus" thyShape="circle-dashed" thySize="xs"></button>
+        <button thyButtonIcon="wtf-plus" thyShape="circle-dashed" thySize="sm"></button>
+        <button thyButtonIcon="wtf-plus" thyShape="circle-dashed"></button>
+        <button thyButtonIcon="wtf-plus" thyShape="circle-dashed" class="invalid"></button>
         <br>
-        <button thyButtonIcon="wtf-plus" thyType="circle-solid" thySize="xs"></button>
-        <button thyButtonIcon="wtf-plus" thyType="circle-solid" thySize="sm"></button>
-        <button thyButtonIcon="wtf-plus" thyType="circle-solid" ></button>
-        <button thyButtonIcon="wtf-plus" thyType="circle-solid" class="invalid"></button>
+        <button thyButtonIcon="wtf-plus" thyShape="circle-solid" thySize="xs"></button>
+        <button thyButtonIcon="wtf-plus" thyShape="circle-solid" thySize="sm"></button>
+        <button thyButtonIcon="wtf-plus" thyShape="circle-solid" ></button>
+        <button thyButtonIcon="wtf-plus" thyShape="circle-solid" class="invalid"></button>
         <br>
-        <button thyButtonIcon="wtf-calendar-o" thyType="circle-dashed"><span>截止时间</span></button>
+        <button thyButtonIcon="wtf-calendar-o" thyShape="circle-dashed"><span>截止时间</span></button>
         <br>
     </div>
 </section>
 
-<api-parameters title="thyButton 参数列表" [parameters]="apiThyButtonParameters"></api-parameters>
-<api-parameters title="thyButtonIcon 参数列表" [parameters]="apiThyButtonIconParameters"></api-parameters>
+<api-parameters title="thyButton,thy-button 参数列表" [parameters]="apiThyButtonParameters"></api-parameters>
+<api-parameters title="thyButtonIcon, thy-button-icon 参数列表" [parameters]="apiThyButtonIconParameters"></api-parameters>

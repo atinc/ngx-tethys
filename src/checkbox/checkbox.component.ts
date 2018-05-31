@@ -9,7 +9,7 @@ const noop = () => {
 };
 
 @Component({
-    selector: '[thyCheckbox]',
+    selector: '[thy-checkbox],[thyCheckbox]',
     templateUrl: './checkbox.component.html',
     providers: [
         {
