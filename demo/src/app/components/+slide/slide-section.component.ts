@@ -14,8 +14,8 @@ export class DemoSlideSectionComponent {
 
     public apiThySlideParameters = [
         {
-            property: 'target',
-            description: '弹出组件位置计算的参照元素',
+            property: 'key',
+            description: 'Slide 的唯一标识，相同 key 控制是否弹出 slide',
             type: 'ElementRef | HTMLElement',
             default: 'null'
         },
@@ -52,9 +52,9 @@ export class DemoSlideSectionComponent {
         private thySlideService: ThySlideService
     ) { }
 
-    showSlide(templateRef: any) {
+    showSlide() {
         this.thySlideService.show(DemoSlideContentComponent, {
-            target: templateRef.elementRef,
+            key: 'slide',
             from: this.thySlideFrom, // 'left','right','top','bottom'
             class: this.thySlideClass,
         });

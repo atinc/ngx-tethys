@@ -20,6 +20,9 @@ button.close {
   background-color: transparent;
   border: 0;
   -webkit-appearance: none;
+  &:focus{
+    outline: none;
+  }
 } // stylelint-enable
 
 .close-link {

@@ -17,11 +17,16 @@ export class ThySlideService {
     }
 
     public show(content: string | TemplateRef<any> | any, config?: ThySlideOption) {
+        setTimeout(() => {
+            this._show(content, config);
+        });
+    }
 
+    private _show(content: string | TemplateRef<any> | any, config?: ThySlideOption) {
         if (this._slideLoader) {
-            const oldTarget = this._config && this._config.target;
-            const newTarget = config && config.target;
-            if (oldTarget && newTarget && oldTarget.nativeElement.contains(newTarget.nativeElement)) {
+            const oldKey = this._config && this._config.key;
+            const newKey = config && config.key;
+            if (oldKey && newKey && oldKey === newKey) {
                 this.hide();
                 return;
             } else {
@@ -51,9 +56,13 @@ export class ThySlideService {
     }
 
     public hide() {
-        this._slideLoader.hide();
-        this._slideLoader = null;
-        this._config = null;
+        setTimeout(() => {
+            if (this._slideLoader) {
+                this._slideLoader.hide();
+            }
+            this._slideLoader = null;
+            this._config = null;
+        }, 200);
     }
 
 }
