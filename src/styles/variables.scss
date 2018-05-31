@@ -72,26 +72,26 @@ $input-btn-padding-y-lg: 0.656rem !default;
 // $input-btn-line-height: $line-height-base !default;
 $input-btn-focus-width: 0.0625rem !default; // 1px
 // Buttons
-$btn-border-radius: 1.25rem;
-$btn-border-radius-lg: 1.25rem;
-$btn-border-radius-sm: 1rem;
-$btn-box-shadow: null;
+$btn-border-radius: 1.25rem !default;
+$btn-border-radius-lg: 1.25rem !default;
+$btn-border-radius-sm: 1rem !default;
+$btn-box-shadow: null !default;
 // $btn-padding-y: 0.469rem; //108*38px
 // $btn-padding-x: 2.438rem;
-$btn-padding-y-md: 0.407rem; // 100*36px 变种按钮大小
-$btn-padding-x-md: 1.25rem;
+$btn-padding-y-md: 0.407rem !default; // 100*36px 变种按钮大小
+$btn-padding-x-md: 1.25rem !default;
 // $btn-line-height: $input-btn-line-height;
-$btn-padding-y-sm: .25rem; // 70*28px
-$btn-padding-x-sm: 1.375rem;
+$btn-padding-y-sm: .25rem !default; // 70*28px
+$btn-padding-x-sm: 1.375rem !default;
 // $btn-line-height-sm: $input-btn-line-height-sm;
-$btn-padding-y-lg: 8px;
-$btn-padding-x-lg: 34px;
-$btn-disabled-color: $gray-400;
-$btn-disabled-bg-color: $gray-100;
-$btn-disabled-border-color: $gray-300;
-$btn-link-color-default: $gray-500;
-$btn-link-color-disabled: $gray-400;
-$btn-icon-light-color: $gray-400;
+$btn-padding-y-lg: 8px !default;
+$btn-padding-x-lg: 34px !default;
+$btn-disabled-color: $gray-400 !default;
+$btn-disabled-bg-color: $gray-100 !default;
+$btn-disabled-border-color: $gray-300 !default;
+$btn-link-color-default: $gray-500 !default;
+$btn-link-color-disabled: $gray-400 !default;
+$btn-icon-light-color: $gray-300 !default;
 
 // Dropdown
 $dropdown-toggle-y-l: 1.25rem ! default;

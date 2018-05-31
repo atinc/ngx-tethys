@@ -70,6 +70,12 @@ export class DemoButtonSectionComponent {
             type: 'String',
             default: ''
         },
+        {
+            property: 'thyLight',
+            description: `亮色，颜色更浅，适合左侧导航顶部的按钮`,
+            type: 'Boolean',
+            default: 'false'
+        }
     ];
 
     loading: Boolean = false;
