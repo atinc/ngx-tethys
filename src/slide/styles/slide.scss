@@ -1,0 +1,29 @@
+thy-slide-container {
+    position: fixed; 
+    height: 100%;
+    width: 350px;
+    background-color: #ffffff;
+    overflow-y: auto;
+    box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.04), 0 6px 30px 5px rgba(0, 0, 0, 0.08), 0 8px 10px -5px rgba(0, 0, 0, 0.12);
+    z-index: 1000;
+    .thy-slide-header {
+        padding: 12px 20px;
+        display: flex;
+        flex-direction: row;
+        border-bottom: solid 1px $pop-box-divider;
+        background-color: transparent;
+        .thy-slide-title {
+            flex: 1;
+            margin: 0;
+            color: $gray-800;
+            font-size: $font-size-md;
+            line-height: 20px;
+            font-weight: normal;
+        }
+    }
+    .thy-slide-body {
+        width: 100%;
+        overflow-y: auto;
+        margin-top: 5px;
+    }
+}

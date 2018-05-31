@@ -1,0 +1,14 @@
+<div class="thy-slide-header">
+    <ng-container *ngIf="!isTemplateRef">
+        <h3 class="thy-slide-title">
+            <i *ngIf="thyIcon" class="{{thyIcon}}"></i>
+            {{thyTitle}}
+        </h3>
+        <button type="button" class="close" (click)="closeModal($event)">
+            <i class="wtf wtf-times"></i>
+        </button>
+    </ng-container>
+    <ng-container *ngIf="isTemplateRef">
+        <template [ngTemplateOutlet]="headerTemplate"></template>
+    </ng-container>
+</div>

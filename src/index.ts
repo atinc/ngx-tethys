@@ -8,3 +8,4 @@ export { ThyTranslate } from './shared';
 export * from './grid';
 export * from './transfer';
 export * from './store';
+export { ThySlideService } from './slide/slide.service';

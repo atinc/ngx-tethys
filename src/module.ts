@@ -30,6 +30,7 @@ import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 import { ThyCheckboxModule } from './checkbox';
 import { ThyRadioModule } from './radio';
 import { ThySelectModule } from './select';
+import { ThySlideModule } from './slide/slide.module';
 
 @NgModule({
     declarations: [
@@ -61,6 +62,8 @@ import { ThySelectModule } from './select';
         ThyDirectiveModule,
         ProgressbarModule.forRoot(),
         ThyCheckboxModule,
+        ThySelectModule,
+        ThySlideModule,
         ThyRadioModule,
         ThySelectModule
     ],
@@ -92,6 +95,8 @@ import { ThySelectModule } from './select';
         ThyDirectiveModule,
         ProgressbarModule,
         ThyCheckboxModule,
+        ThySelectModule,
+        ThySlideModule,
         ThyRadioModule,
         ThySelectModule
     ],
