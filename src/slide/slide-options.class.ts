@@ -1,18 +1,12 @@
 import { ElementRef } from '@angular/core';
 
-export class ThySliderOption {
+export class ThySlideOption {
     target?: ElementRef | any;
     from?: string; // 'left','right','top','bottom'
-    width?: number | string;
-    height?: number | string;
-    align?: string; // 'left','center','right'
-    vertical?: string; // 'top','middle','left'
+    class?:string;
 }
 
-export const thySlideOptionDefaults: ThySliderOption = {
+export const thySlideOptionDefaults: ThySlideOption = {
     from: 'right', // 'left','right','top','bottom'
-    width: 350,
-    height: '100%',
-    align: 'left', // 'left','center','right'
-    vertical: 'middle', // 'top','middle','left'
+    class:'thy-slide',
 };
