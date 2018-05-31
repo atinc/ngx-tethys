@@ -57,7 +57,9 @@ export class ThySlideService {
 
     public hide() {
         setTimeout(() => {
-            this._slideLoader && this._slideLoader.hide();
+            if (this._slideLoader) {
+                this._slideLoader.hide();
+            }
             this._slideLoader = null;
             this._config = null;
         }, 200);

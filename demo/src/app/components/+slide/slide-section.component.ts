@@ -15,7 +15,7 @@ export class DemoSlideSectionComponent {
     public apiThySlideParameters = [
         {
             property: 'key',
-            description: 'Slide 的唯一标识，key 控制相同 key 的 slide 是否弹出',
+            description: 'Slide 的唯一标识，相同 key 控制是否弹出 slide',
             type: 'ElementRef | HTMLElement',
             default: 'null'
         },
