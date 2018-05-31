@@ -67,11 +67,9 @@ export class ThySlideContainerComponent implements OnInit {
     onDocumentClick(event: any): void {
         event.stopPropagation();
         const isInnerClick = this.elementRef.nativeElement.contains(event.target);
-        if (!isInnerClick && !this.thySlideOption.target.nativeElement.contains(event.target)) {
+        if (!isInnerClick) {
             this.flyInOut = 'void';
-            setTimeout(() => {
-                this.thySlideRef.hide();
-            }, 200);
+            this.thySlideRef.hide();
         }
     }
 

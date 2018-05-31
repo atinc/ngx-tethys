@@ -1,12 +1,12 @@
 import { ElementRef } from '@angular/core';
 
 export class ThySlideOption {
-    target?: ElementRef | any;
+    key?: string;
     from?: string; // 'left','right','top','bottom'
-    class?:string;
+    class?: string;
 }
 
 export const thySlideOptionDefaults: ThySlideOption = {
     from: 'right', // 'left','right','top','bottom'
-    class:'thy-slide',
+    class: 'thy-slide',
 };
