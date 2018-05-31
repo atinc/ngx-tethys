@@ -29,3 +29,14 @@ kbd,
 samp {
     font-family: 'Roboto Mono', monospace;
 }
+
+
+$demo-bg-dark:#ccc;
+$demo-bg-light: rgba(255, 255, 255, .2);
+.demo-layout {
+    padding: 15px;
+    background-size: 25px 25px;
+    background-color: $demo-bg-dark;
+    background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(.25, $demo-bg-light), color-stop(.25, transparent), color-stop(.5, transparent), color-stop(.5, $demo-bg-light), color-stop(.75, $demo-bg-light), color-stop(.75, transparent), to(transparent));
+}
+

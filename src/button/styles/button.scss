@@ -4,7 +4,7 @@
 //
 .btn {
     // 设置 icon 字体大小
-    .wtf {
+    i, .wtf {
         font-size: $font-size-base;
         line-height: 1rem;
         @include button-icon-margin(0.375rem);
@@ -42,7 +42,15 @@
         //     @include box-shadow($btn-focus-box-shadow, $btn-active-box-shadow);
         // }
     }
-} // Future-proof disabling of clicks on `<a>` elements
+} 
+
+.btn .btn-has-icon {
+    i, .wtf {
+        @include button-icon-margin(0.375rem);
+    } 
+}
+
+// Future-proof disabling of clicks on `<a>` elements
 a.btn.disabled,
 fieldset:disabled a.btn {
     pointer-events: none;
@@ -80,6 +88,13 @@ fieldset:disabled a.btn {
 }
 
 .btn-outline-default {
+    @include button-outline-variant($gray-600, $gray-300, $primary, null, $primary, null, $primary);
+}
+
+// 主要给 btn-group 的 outline-default 使用，因为分组后不需要圆角
+// 直接使用  btn-outline-default 难度太大
+.btn-outline-default-rounded {
+    @include btn-normal-radius();
     @include button-outline-variant($gray-600, $gray-300, $primary, null, $primary, null, $primary);
 }
 
@@ -152,3 +167,5 @@ input[type="button"] {
         width: 100%;
     }
 }
+
+@import './button-icon';

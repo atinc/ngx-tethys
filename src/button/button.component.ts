@@ -3,7 +3,7 @@ import { AfterContentInit, OnChanges, OnInit } from '@angular/core';
 import { inputValueToBoolean, isUndefined } from '../util/helpers';
 import { UpdateHostClassService } from '../shared';
 
-export type ThyButtonType = 'primary' | 'secondary' | 'outline-primary' | 'outline-default' | 'danger';
+export type ThyButtonType = 'primary' | 'secondary' | 'outline-primary' | 'outline-default' | 'danger' | 'link' | 'link-secondary';
 
 const btnTypeClassesMap: any = {
     'primary': ['btn', 'btn-primary'],
@@ -16,7 +16,7 @@ const btnTypeClassesMap: any = {
 };
 
 @Component({
-    selector: '[thyButton]',
+    selector: '[thy-button],[thyButton]',
     templateUrl: './button.component.html',
     providers: [
         UpdateHostClassService
@@ -41,7 +41,7 @@ export class ThyButtonComponent implements OnInit {
 
     private _loadingText: string;
 
-    public iconClass: any;
+    _iconClass: string[];
 
     @Input()
     set thyButton(value: ThyButtonType) {
@@ -91,17 +91,17 @@ export class ThyButtonComponent implements OnInit {
         }
     }
 
-    // 字体前缀，默认 wtf
-    @Input() thyIconPrefix: string;
-
     @Input()
     set thyIcon(icon: string) {
         this._icon = icon;
         if (this._icon) {
-            const btnIconPrefix = this.thyIconPrefix || 'wtf';
-            this.iconClass = [btnIconPrefix, `${this._icon}`];
+            const classes = this._icon.split(' ');
+            if (classes.length === 1) {
+                classes.unshift('wtf');
+            }
+            this._iconClass = classes;
         } else {
-            this.iconClass = null;
+            this._iconClass = null;
         }
     }
 
@@ -130,10 +130,13 @@ export class ThyButtonComponent implements OnInit {
             if (this._type) {
                 classNames.push(`btn-${this._type}`);
             }
-            //console.error(`button type (${this._type}) is not support`);
+            // console.error(`button type (${this._type}) is not support`);
         }
         if (this._size) {
             classNames.push(`btn-${this._size}`);
+        }
+        if (this._icon) {
+            classNames.push('btn-has-icon');
         }
         this.updateHostClassService.updateClass(classNames);
     }

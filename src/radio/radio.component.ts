@@ -2,31 +2,26 @@ import { Component, forwardRef, HostBinding, HostListener, Input, ElementRef } f
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ThyTranslate } from '../shared';
 import { inputValueToBoolean } from '../util/helpers';
-
 import { ThyFormCheckBaseComponent } from '../shared';
 
-const noop = () => {
-};
 
 @Component({
-    selector: '[thy-checkbox],[thyCheckbox]',
-    templateUrl: './checkbox.component.html',
+    selector: '[thy-radio],[thyRadio]',
+    templateUrl: './radio.component.html',
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => ThyCheckboxComponent),
+            useExisting: forwardRef(() => ThyRadioComponent),
             multi: true
         }
     ]
 })
-export class ThyCheckboxComponent extends ThyFormCheckBaseComponent {
+export class ThyRadioComponent extends ThyFormCheckBaseComponent {
+
     constructor(
         thyTranslate: ThyTranslate
     ) {
         super(thyTranslate);
     }
 
-    change() {
-        this.updateValue(!this._innerValue);
-    }
 }
