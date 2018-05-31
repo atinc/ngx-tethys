@@ -1,11 +1,11 @@
-import { Directive, Component, Input, HostBinding, Renderer2, ElementRef } from '@angular/core';
+import { Directive, Component, Input, HostBinding, Renderer2, ElementRef, OnInit } from '@angular/core';
 import { isNumber } from '../util/helpers';
 
 export type ThyBadgeStatusTypes = 'primary' | 'danger' | 'dot';
 
 const badgeStatusTypeClassesMap: any = {
-    'primary': 'badge-primary',
-    'danger': 'badge-danger'
+    'primary': 'thy-badge-primary',
+    'danger': 'thy-badge-danger'
 };
 
 
@@ -14,7 +14,7 @@ const badgeStatusTypeClassesMap: any = {
     templateUrl: './badge.component.html',
 })
 
-export class ThyBadgeComponent {
+export class ThyBadgeComponent implements OnInit {
 
     private _count?: number | string;
 
@@ -34,41 +34,53 @@ export class ThyBadgeComponent {
 
     public isElement = true;
 
-    // @HostBinding('attr.class') bodyclass = `badge-body`;
+    private _initialized = false;
 
-    constructor(private elementRef: ElementRef, private renderer: Renderer2) {
+    private _badgeClasses: string[] = [];
+
+    constructor(
+        private elementRef: ElementRef,
+        private renderer: Renderer2) {
         this.nativeElement = this.elementRef.nativeElement;
     }
 
     @Input()
     set thyCount(value: number | string) {
         this._count = value;
-        this.getDisplayContent();
-        this.getBadgeClass();
+        if (this._initialized) {
+            this.getDisplayContent();
+            this.getBadgeClass();
+        }
     }
 
     @Input()
     set thyMaxCount(value: number) {
         this._maxCount = value;
-        this.getDisplayContent();
-        this.getBadgeClass();
+        if (this._initialized) {
+            this.getDisplayContent();
+            this.getBadgeClass();
+        }
     }
 
     @Input()
     set thyType(value: string) {
         this._type = value;
-        this.getBadgeClass();
+        if (this._initialized) {
+            this.getBadgeClass();
+        }
     }
 
     @HostBinding('attr.class')
     @Input()
-    get thyBadge():string {
-        return this.isElement ?  'badge-body' : `badge${this.badgeClass}`;
+    get thyBadge(): string {
+        return this.isElement ? 'badge-body' : `badge${this.badgeClass}`;
     }
     set thyBadge(value: string) {
         this._type = value;
         this.isElement = false;
-        this.getBadgeClass();
+        if (this._initialized) {
+            this.getBadgeClass();
+        }
     }
 
     @Input()
@@ -79,9 +91,11 @@ export class ThyBadgeComponent {
     @Input()
     set thyIsDot(value: boolean) {  // 右上角是点
         this._isDot = value;
-        this.badgeClass = value ? `${this.badgeClass} badge-dot-content` : this.badgeClass;
-        this.getDisplayContent();
-        this.getBadgeClass();
+        this.badgeClass = value ? `${this.badgeClass} thy-badge-dot-content` : this.badgeClass;
+        if (this._initialized) {
+            this.getDisplayContent();
+            this.getBadgeClass();
+        }
     }
 
     private getDisplayContent(): void {
@@ -100,11 +114,27 @@ export class ThyBadgeComponent {
 
     private getBadgeClass() {
         if (this._type) {
-            this.badgeClass = `${this.badgeClass} ${badgeStatusTypeClassesMap[this._type]}`;
+            this._badgeClasses.push(badgeStatusTypeClassesMap[this._type]);
         }
+
         if (this._isDot || this.isElement && !this.displayContent) {
-            this.badgeClass = `${this.badgeClass} badge-dot`;
+            this._badgeClasses.push('thy-badge-dot');
         }
-        this.badgeClass = this._size ? `${this.badgeClass} badge-${this._size}` : this.badgeClass;
+
+        if (this._size) {
+            this._badgeClasses.push(`thy-badge-${this._size}`);
+        }
+
+        if (this._badgeClasses.length > 0) {
+            this.badgeClass = this._badgeClasses.join(' ');
+        }
     }
+
+    ngOnInit() {
+        this.getDisplayContent();
+        this.getBadgeClass();
+        this._initialized = true;
+    }
+
+
 }
