@@ -6,9 +6,7 @@ import { DebugHelper } from 'protractor/built/debugger';
 
 @Component({
     selector: 'thy-slide-container',
-    template: `<div>
-    <ng-content></ng-content>
-    </div>`,
+    template: `<ng-content></ng-content>`,
     animations: [
         trigger('flyInOut', [
             state('left', style({ transform: '*' })),
