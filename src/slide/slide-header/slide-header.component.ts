@@ -1,4 +1,4 @@
-import { Component, ContentChild, TemplateRef, Input, Output, OnInit } from '@angular/core';
+import { Component, ContentChild, TemplateRef, Input, Output, OnInit, HostBinding } from '@angular/core';
 import { ThySlideService } from '../slide.service';
 
 @Component({
@@ -6,6 +6,8 @@ import { ThySlideService } from '../slide.service';
     templateUrl: './slide-header.component.html'
 })
 export class ThySlideHeaderComponent implements OnInit {
+
+    @HostBinding('class.thy-slide-header') thySlideHeader = true;
 
     @ContentChild(TemplateRef)
     public headerTemplate: TemplateRef<any>;
