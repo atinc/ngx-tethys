@@ -22,12 +22,13 @@ $rem-26px: 1.625rem;
 // color
 $body-color: $gray-800;
 $primary: #22d7bb !default;
-$secondary: #aaa !default;
+$secondary: $gray-700 !default;
 $success: #22d7bb !default;
-$info: #2dbcff !default;
+$info: $gray-500 !default;
 $warning: #ffc442 !default;
 $danger: #ff5b57 !default;
 $item-active-bg-color: #e7f9f6; // item 选中背景色, 项目或者任务列表选中
+$light: $gray-300;
 // $light : $gray-100;
 // $dark : $gray-800;
 // enable-gradients
@@ -42,20 +43,23 @@ $link-hover-decoration: underline;
 $box-shadow: 0 0 24px rgba(0, 0, 0, 0.18);
 $enable-shadows: false !default;
 // font
-$font-family-sans-serif: "Helvetica Neue",
-"Hiragino Sans GB",
-"stheiti",
-"Microsoft Yahei",
-"微软雅黑",
-tahoma,
-"sans-serif";
-$font-family-monospace: SFMono-Regular,
-Menlo,
-Monaco,
-Consolas "Liberation Mono",
-"Courier New",
-monospace;
-$font-family-base: $font-family-sans-serif;
+// $font-family-sans-serif: "Helvetica Neue",
+// "Hiragino Sans GB",
+// "stheiti",
+// "Microsoft Yahei",
+// "微软雅黑",
+// tahoma,
+// "sans-serif";
+// $font-family-monospace: SFMono-Regular,
+// Menlo,
+// Monaco,
+// Consolas "Liberation Mono",
+// "Courier New",
+// monospace;
+// $font-family-base: $font-family-sans-serif;
+$font-family-sans-serif: "Helvetica Neue", "Hiragino Sans GB", "stheiti", "Microsoft Yahei", "微软雅黑", tahoma, "sans-serif" !default;
+$font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default;
+$font-family-base: $font-family-sans-serif !default;
 $font-size-base: .875rem; // 14px
 $font-size-lg: 1.25rem; // 20px
 $font-size-sm: .75rem; // 12px

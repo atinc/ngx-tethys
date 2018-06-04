@@ -1,4 +1,4 @@
-.dropdown-toggle {
+.thy-dropdown-toggle {
   // Generate the caret automatically
   @include caret;
   &.btn {
@@ -10,7 +10,7 @@
   }
 }
 
-.dropdown-toggle-split {
+.thy-dropdown-toggle-split {
   &.btn {
     padding-right: $dropdown-toggle-split-y;
     padding-left: $dropdown-toggle-split-y;

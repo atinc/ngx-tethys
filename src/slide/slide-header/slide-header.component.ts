@@ -26,7 +26,7 @@ export class ThySlideHeaderComponent implements OnInit {
         this.isTemplateRef = this.headerTemplate instanceof TemplateRef;
     }
 
-    closeModal() {
+    closeModal(event: Event) {
         this.thySlideService.hide();
     }
 
