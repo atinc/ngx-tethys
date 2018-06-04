@@ -1,24 +1,26 @@
 .thy-switch {
-  @include thy-switch($switch-width, $switch-height, 0);
+  box-sizing: content-box;
+  @include thy-switch($switch-width, $switch-height, 3);
 }
-.thy-switch-disabled{
-  opacity: 0.5;
+
+.thy-switch-disabled {
+  opacity: .5;
 }
 
 .thy-switch-pill {
-  .thy-switch-label,
-  .thy-switch-handle {
-    border-radius: 50em !important;
+  .thy-switch-handle,
+  .thy-switch-label {
+    border-radius: 20px !important;
   }
 
   .thy-switch-label::before {
     right: 2px !important;
   }
+
   .thy-switch-label::after {
     left: 2px !important;
   }
 }
-
 @each $color, $value in $theme-colors {
   .thy-switch-#{$color} {
     @include thy-switch-variant($value);
