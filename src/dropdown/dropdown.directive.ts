@@ -9,9 +9,9 @@ const thyDropdownSplit = 'thyDropdownSplit';
 })
 export class ThyDropdownDirective {
 
-    @HostBinding('class.dropdown-toggle') _isDropdownClass = true;
+    @HostBinding('class.thy-dropdown-toggle') _isDropdownClass = true;
 
-    @HostBinding('class.dropdown-toggle-split') _isDropdownSplitClass = false;
+    @HostBinding('class.thy-dropdown-toggle-split') _isDropdownSplitClass = false;
 
     constructor(
         private elementRef: ElementRef
