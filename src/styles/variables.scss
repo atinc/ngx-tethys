@@ -308,13 +308,13 @@ $empty-icon-size-lg: 6.25rem !default;
 //util 
 $operation-link-margin-y: 20px !default;
 //switch
-$switch-lg-width: 48px !default;
-$switch-lg-height: 28px !default;
-$switch-width: 40px !default;
-$switch-height: 24px !default;
+// $switch-lg-width: 48px !default;
+// $switch-lg-height: 28px !default;
+$switch-width: 48px !default;
+$switch-height: 28px !default;
 $handle-margin: 2px;
-$switch-sm-width: 32px !default;
-$switch-sm-height: 20px !default;
+$switch-sm-width: 40px !default;
+$switch-sm-height: 22px !default;
 $switch-xs-width: 24px !default;
 $switch-xs-height: 16px !default;
 //Transfer
@@ -339,3 +339,8 @@ $progress-height:10px;
 $progress-height-sm: 6px;
 $progress-bar-bg:$gray-200;
 $progress-split-color:$white;
+//Slide
+$slide-header-height: 45px !default;
+$slide-header-padding: 0.75rem 1.25rem !default; 
+$slide-body-content-padding: 0 0 0.75rem 1.25rem !default;
+$slide-divider: $gray-100 !default;

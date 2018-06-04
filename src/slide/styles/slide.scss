@@ -1,5 +1,5 @@
 thy-slide-container {
-    position: fixed; 
+    position: fixed;
     height: 100%;
     width: 350px;
     background-color: $white;
@@ -7,30 +7,33 @@ thy-slide-container {
     box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.04), 0 6px 30px 5px rgba(0, 0, 0, 0.08), 0 8px 10px -5px rgba(0, 0, 0, 0.12);
     z-index: 1000;
     .thy-slide-header {
-        padding: 12px 20px;
+        padding: $slide-header-padding;
         display: flex;
         flex-direction: row;
-        border-bottom: solid 1px $pop-box-divider;
+        border-bottom: solid 1px $slide-divider;
         background-color: transparent;
         .thy-slide-title {
             flex: 1;
             margin: 0;
             color: $gray-800;
             font-size: $font-size-md;
-            line-height: 20px;
+            line-height: 1.25rem;
             font-weight: normal;
         }
     }
     .thy-slide-body {
+        display: block;
         width: 100%;
         overflow-y: auto;
-        margin-top: 5px;
+        .thy-slide-body-content {
+            padding: $slide-body-content-padding;
+        }
     }
 }
 
-.thy-slide-lg{
-    right:0;
-    top:0;
+.thy-slide-lg {
+    right: 0;
+    top: 0;
     height: 100%;
     width: calc(100% - 310px);
 }
@@ -38,5 +41,6 @@ thy-slide-container {
 .thy-slide {
     bottom: 0;
     right: 0;
-    height: calc(100% - 90px);
+    height: calc(100% - #{$layout-header-height} - #{$layout-header-height-sm});
+    max-height: calc(100vh - #{$layout-header-height} - #{$layout-header-height-sm} - #{$slide-header-height});
 }

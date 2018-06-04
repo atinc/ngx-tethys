@@ -52,7 +52,7 @@ export class ThySlideService {
             .provide({ provide: ThySlideOption, useValue: this._config })
             .attach(ThySlideContainerComponent)
             .to('body')
-            .show({ content, thySlideRef: thySlideRef });
+            .show({ content, initialState: this._config.initialState, thySlideRef: thySlideRef });
     }
 
     public hide() {
