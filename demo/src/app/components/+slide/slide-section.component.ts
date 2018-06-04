@@ -57,6 +57,7 @@ export class DemoSlideSectionComponent {
             key: 'slide',
             from: this.thySlideFrom, // 'left','right','top','bottom'
             class: this.thySlideClass,
+            initialState: { name: 'slide' }
         });
     }
 
