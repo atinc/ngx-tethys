@@ -4,6 +4,7 @@ export class ThySlideOption {
     key?: string;
     from?: string; // 'left','right','top','bottom'
     class?: string;
+    initialState?: Object;
 }
 
 export const thySlideOptionDefaults: ThySlideOption = {
