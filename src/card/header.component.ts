@@ -17,7 +17,7 @@ export class ThyCardHeaderComponent implements OnInit {
 
     @Input('thyTitle') thyTitle: string;
 
-    @Input('thyTitleInfo') thyTitleInfo: string;
+    @Input('thyDescription') thyDescription: string;
 
     @Input('thySize')
     set thySize(value: string) {
@@ -28,8 +28,8 @@ export class ThyCardHeaderComponent implements OnInit {
     @ContentChild('headerTitle')
     public titleTemplateRef: TemplateRef<any>;
 
-    @ContentChild('headerTitleInfo')
-    public titleInfoTemplateRef: TemplateRef<any>;
+    @ContentChild('headerDescription')
+    public descriptionTemplateRef: TemplateRef<any>;
 
     @ContentChild('headerOperation')
     public operationTemplateRef: TemplateRef<any>;
