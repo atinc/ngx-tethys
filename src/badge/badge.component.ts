@@ -73,7 +73,7 @@ export class ThyBadgeComponent implements OnInit {
     @HostBinding('attr.class')
     @Input()
     get thyBadge(): string {
-        return this.isElement ? 'badge-body' : `badge${this.badgeClass}`;
+        return this.isElement ? 'thy-badge-body' : `thy-badge ${this.badgeClass}`;
     }
     set thyBadge(value: string) {
         this._type = value;
