@@ -68,9 +68,10 @@
     }
     &.disabled,
     &:disabled {
-        color: $btn-disabled-color;
-        background-color: $btn-disabled-bg-color;
-        border-color: $btn-disabled-border-color;
+        &:hover {
+            @include button-disabled();
+        }
+        @include button-disabled();
     }
     &:not(:disabled):not(.disabled):active,
     &:not(:disabled):not(.disabled).active,
