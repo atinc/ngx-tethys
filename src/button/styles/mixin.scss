@@ -101,6 +101,9 @@
     @else {
         border-radius: 0;
     }
+    &.btn-link {
+        padding: $padding-y ($padding-x - 1rem);
+    }
 }
 
 @mixin button-hover-box-shadow($color) {
