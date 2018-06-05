@@ -5,7 +5,7 @@
     <div class="body">
         <div class="demo-layout">
             <thy-card>
-                <thy-card-header thyTitle="成员列表" thyTitleInfo="(共10人)">
+                <thy-card-header thyTitle="成员列表" thyDescription="(共10人)">
                 </thy-card-header>
                 <thy-card-content>
                     我是 content
@@ -24,6 +24,9 @@
                 <thy-card-header>
                     <ng-template #headerTitle>
                         自定义title
+                    </ng-template>
+                    <ng-template #headerDescription>
+                        自定义description
                     </ng-template>
                     <ng-template #headerOperation>
                         自定义operation
@@ -67,7 +70,7 @@
             <thy-card>
                 <thy-card-header thyTitle="规划">
                 </thy-card-header>
-                <thy-card-content thyAlignment="title">
+                <thy-card-content thyAlign="title">
                     内容区，对其头部文字
                 </thy-card-content>
             </thy-card>

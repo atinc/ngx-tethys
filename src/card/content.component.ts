@@ -14,9 +14,9 @@ export class ThyCardContentComponent implements OnInit {
 
     @HostBinding('class.thy-card-content--alignment-title') alignmentClass = false;
 
-    @Input('thyAlignment')
-    set thyAlignment(value: any) {
-        this.alignmentClass = this.thyAlignment === 'title';
+    @Input('thyAlign')
+    set thyAlign(value: any) {
+        this.alignmentClass = value === 'title';
     }
 
     @HostBinding('class.thy-card-content--scroll') scrollClassName = false;
