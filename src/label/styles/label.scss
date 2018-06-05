@@ -7,10 +7,8 @@
     border-radius: $label-border-radius;
     color: $white;
     i {
+        cursor: pointer;
         font-size: $font-size-sm;
-        &.wtf-times {
-            display: none;
-        }
     }
     &.thy-label-state {
         padding: $label-state-padding;

@@ -17,7 +17,7 @@ export class DemoCardSectionComponent {
             default: ''
         },
         {
-            property: 'thyTitleInfo',
+            property: 'thyDescription',
             description: '头部，附加信息',
             type: '',
             default: ''
@@ -41,7 +41,7 @@ export class DemoCardSectionComponent {
             default: ''
         },
         {
-            property: 'thyAlignment',
+            property: 'thyAlign',
             description: '内容区，对齐头部文字',
             type: '',
             default: ''

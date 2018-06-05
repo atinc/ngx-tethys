@@ -70,9 +70,13 @@
 
 // type 
 
-.btn-group-outline-primary > .btn { @extend .btn-outline-primary }
+.btn-group-outline-primary > .btn { 
+  @extend .btn-outline-primary;
+  @extend .btn-square; 
+}
 .btn-group-outline-default > .btn { 
-  @extend .btn-outline-default-rounded
+  @extend .btn-outline-default;
+  @extend .btn-square;
 }
 
 // The clickable button for toggling the menu

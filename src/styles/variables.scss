@@ -42,36 +42,26 @@ $link-hover-decoration: underline;
 // box shadow
 $box-shadow: 0 0 24px rgba(0, 0, 0, 0.18);
 $enable-shadows: false !default;
+
 // font
-// $font-family-sans-serif: "Helvetica Neue",
-// "Hiragino Sans GB",
-// "stheiti",
-// "Microsoft Yahei",
-// "微软雅黑",
-// tahoma,
-// "sans-serif";
-// $font-family-monospace: SFMono-Regular,
-// Menlo,
-// Monaco,
-// Consolas "Liberation Mono",
-// "Courier New",
-// monospace;
-// $font-family-base: $font-family-sans-serif;
 $font-family-sans-serif: "Helvetica Neue", "Hiragino Sans GB", "stheiti", "Microsoft Yahei", "微软雅黑", tahoma, "sans-serif" !default;
 $font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default;
 $font-family-base: $font-family-sans-serif !default;
 $font-size-base: .875rem; // 14px
 $font-size-lg: 1.25rem; // 20px
 $font-size-sm: .75rem; // 12px
+
 // 扩展
 $font-size-md: 1rem; // 16px
 $font-size-max-lg: 3.25rem; // 补充字体大小 52px
-$font-size-min-sm: .625rem; // 10px
+$font-size-xs: .625rem; // 10px
+
 // code
 $code-color: $danger;
 $input-btn-padding-y: 0.469rem !default;
 $input-btn-padding-x: 2.438rem !default;
-$input-btn-padding-y-sm: 0.157rem !default;
+$input-btn-padding-y-sm: .25rem !default;
+$input-btn-padding-x-sm: .5rem !default;
 $input-btn-padding-y-lg: 0.656rem !default;
 // $input-btn-line-height: $line-height-base !default;
 $input-btn-focus-width: 0.0625rem !default; // 1px
@@ -318,13 +308,13 @@ $empty-icon-size-lg: 6.25rem !default;
 //util 
 $operation-link-margin-y: 20px !default;
 //switch
-$switch-lg-width: 48px !default;
-$switch-lg-height: 28px !default;
-$switch-width: 40px !default;
-$switch-height: 24px !default;
+// $switch-lg-width: 48px !default;
+// $switch-lg-height: 28px !default;
+$switch-width: 48px !default;
+$switch-height: 28px !default;
 $handle-margin: 2px;
-$switch-sm-width: 32px !default;
-$switch-sm-height: 20px !default;
+$switch-sm-width: 40px !default;
+$switch-sm-height: 22px !default;
 $switch-xs-width: 24px !default;
 $switch-xs-height: 16px !default;
 //Transfer

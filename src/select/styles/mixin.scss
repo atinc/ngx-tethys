@@ -1,11 +1,16 @@
-@mixin set-select-arrow() {
+@mixin select-arrow-variant() {
     content: "\e6b8"; //"\f078";
     font: normal normal normal 14px/1 wtf;
     position: absolute;
     right: 12px;
-    bottom: $input-padding-y + ($font-size-base * $line-height-base - $font-size-md ) / 2;
     font-size: $font-size-md;
     pointer-events: none;
     color: $gray-500;
     z-index: 10;
+}
+
+@mixin select-arrow-bottom($bottom) {
+    &:after {
+        bottom: $bottom;
+    }
 }

@@ -5,10 +5,10 @@
         <span>{{thyTitle}}</span>
     </ng-container>
 </div>
-<div class="card-header-title-info">
-    <ng-template [ngTemplateOutlet]="titleInfoTemplateRef"></ng-template>
-    <ng-container *ngIf="!titleInfoTemplateRef">
-        <span>{{thyTitleInfo}}</span>
+<div class="card-header-description">
+    <ng-template [ngTemplateOutlet]="descriptionTemplateRef"></ng-template>
+    <ng-container *ngIf="!descriptionTemplateRef">
+        <span>{{thyDescription}}</span>
     </ng-container>
 </div>
 <div class="card-header-operation">

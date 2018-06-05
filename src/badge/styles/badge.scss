@@ -61,5 +61,5 @@
 }
 
 .thy-badge-sm {
-  @include set-badge-size($font-size-min-sm, 1px, 4px);
+  @include set-badge-size($font-size-xs, 1px, 4px);
 }

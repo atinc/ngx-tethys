@@ -24,6 +24,7 @@
   position: relative;
   height: 10px;
   border-radius: 10px;
+  transform: translateX(-18px);
   &:before,
   &:after {
     content: "";
