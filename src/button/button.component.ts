@@ -41,22 +41,34 @@ export class ThyButtonComponent implements OnInit {
 
     private _loadingText: string;
 
+    // 圆角方形
+    _isRadiusSquare = false;
+
     _iconClass: string[];
 
-    @Input()
-    set thyButton(value: ThyButtonType) {
-        this._type = value;
-        if (this._initialized) {
-            this._setClasses();
+    _setBtnType(value: ThyButtonType) {
+        if (value) {
+            if (value.includes('-square')) {
+                this._type = value.replace('-square', '');
+                this._isRadiusSquare = true;
+            } else {
+                this._type = value;
+            }
+
+            if (this._initialized) {
+                this._setClasses();
+            }
         }
     }
 
     @Input()
+    set thyButton(value: ThyButtonType) {
+       this._setBtnType(value);
+    }
+
+    @Input()
     set thyType(value: ThyButtonType) {
-        this._type = value;
-        if (this._initialized) {
-            this._setClasses();
-        }
+        this._setBtnType(value);
     }
 
     @Input()
@@ -105,6 +117,11 @@ export class ThyButtonComponent implements OnInit {
         }
     }
 
+    @Input()
+    set thySquare(value: boolean) {
+        this._isRadiusSquare = inputValueToBoolean(value);
+    }
+
     private _setLoadingStatus() {
         let disabled = false;
         let innerText: string;
@@ -137,6 +154,9 @@ export class ThyButtonComponent implements OnInit {
         }
         if (this._icon) {
             classNames.push('btn-has-icon');
+        }
+        if (this._isRadiusSquare) {
+            classNames.push('btn-square');
         }
         this.updateHostClassService.updateClass(classNames);
     }

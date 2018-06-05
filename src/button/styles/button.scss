@@ -56,52 +56,66 @@ fieldset:disabled a.btn {
     pointer-events: none;
 }
 
-.btn-primary {
-    @include button-variant($white, $white, $primary, $primary, $primary, $primary, $primary, $primary);
-    @include button-hover-box-shadow($primary);
-}
 
-// .btn-secondary {
-//     @include button-variant($white, $white, $secondary, $secondary, $secondary, $secondary, $secondary, $secondary);
-// }
-// .btn-info {
-//     @include button-variant($white, $white, $info, $info, $info, $info, $info, $info);
-// }
-.btn-warning {
-    @include button-variant($white, $white, $warning, $warning, $warning, $warning, $warning, $warning);
-}
+//
+// Alternate buttons
+//
 
-.btn-success {
-    @include button-variant($white, $white, $success, $success, $success, $success, $success, $success);
+@each $color, $value in $theme-colors {
+    .btn-#{$color} {
+      @include button-variant($white, $white, $value, $value, $value, $value, $value, $value);
+      @include button-hover-box-shadow($value);
+    }
 }
-
-.btn-danger {
-    @include button-variant($white, $white, $danger, $danger, $danger, $danger, $danger, $danger);
-    @include button-hover-box-shadow($danger);
-}
-
-// $color, $border-color, $hover-color, $hover-background, 
-// $hover-border, $active-background, $active-border
-.btn-outline-primary {
-    @include btn-normal-radius();
-    @include button-outline-variant($primary, $primary, $white, $primary, null, $primary, null);
+  
+@each $color, $value in $theme-colors {
+    .btn-outline-#{$color} {
+      @include button-outline-variant($value, $value, $white, $value, null, $value, null);
+    }
 }
 
 .btn-outline-default {
     @include button-outline-variant($gray-600, $gray-300, $primary, null, $primary, null, $primary);
 }
 
-// 主要给 btn-group 的 outline-default 使用，因为分组后不需要圆角
-// 直接使用  btn-outline-default 难度太大
-.btn-outline-default-rounded {
-    @include btn-normal-radius();
-    @include button-outline-variant($gray-600, $gray-300, $primary, null, $primary, null, $primary);
-}
+// .btn-primary {
+//     @include button-variant($white, $white, $primary, $primary, $primary, $primary, $primary, $primary);
+//     @include button-hover-box-shadow($primary);
+// }
+
+// .btn-warning {
+//     @include button-variant($white, $white, $warning, $warning, $warning, $warning, $warning, $warning);
+// }
+
+// .btn-success {
+//     @include button-variant($white, $white, $success, $success, $success, $success, $success, $success);
+// }
+
+// .btn-danger {
+//     @include button-variant($white, $white, $danger, $danger, $danger, $danger, $danger, $danger);
+//     @include button-hover-box-shadow($danger);
+// }
+
+// // $color, $border-color, $hover-color, $hover-background, 
+// // $hover-border, $active-background, $active-border
+// .btn-outline-primary {
+//     @include btn-normal-radius();
+//     @include button-outline-variant($primary, $primary, $white, $primary, null, $primary, null);
+// }
+
+// .btn-outline-default {
+//     @include button-outline-variant($gray-600, $gray-300, $primary, null, $primary, null, $primary);
+// }
 
 // .btn-outline-info {
 //     border-radius: $border-radius;
 //     @include button-outline-variant($primary, $primary, $white, $primary, null, $primary, null);
 // }
+
+// 圆角方正，回归正常的圆角
+.btn-square {
+    @include btn-square-radius();
+}
 
 //
 // Button Sizes

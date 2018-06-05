@@ -26,6 +26,12 @@ export class DemoButtonSectionComponent {
             default: ''
         },
         {
+            property: 'thySquare',
+            description: `按钮圆角恢复正常的方形，可以通过在 buttonType 后加上 -square 达到同样的效果，比如设置按钮类型为 outline-primary-square`,
+            type: 'Boolean',
+            default: ''
+        },
+        {
             property: 'thyIcon',
             description: `按钮中显示的图标,比如 wtf-plus，默认字体前缀是 wtf, 如果使用其他字体，加上其他的字体前缀，比如 fa fa-plus`,
             type: 'String',
