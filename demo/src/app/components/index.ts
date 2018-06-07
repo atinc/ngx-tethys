@@ -31,6 +31,7 @@ import { DemoRadioSectionComponent } from './+form-radio/radio-section.component
 import { DemoSelectSectionComponent } from './+select/select-section.component';
 import { DemoSlideSectionComponent } from './+slide/slide-section.component';
 import { DemoSlideContentComponent } from './+slide/slide-content.component';
+import { DemoPropertyOperationSectionComponent } from './+property-operation/property-operation-section.component'
 
 export const COMPONENTS = [
     DemoPopBoxSectionComponent,
@@ -68,7 +69,8 @@ export const COMPONENTS = [
     DemoSlideSectionComponent,
     DemoSlideContentComponent,
     DemoRadioSectionComponent,
-    DemoSelectSectionComponent
+    DemoSelectSectionComponent,
+    DemoPropertyOperationSectionComponent
 ];
 
 export const ENTRY_COMPONENTS = [

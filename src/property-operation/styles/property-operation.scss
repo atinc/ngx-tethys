@@ -1,0 +1,26 @@
+.thy-property-operation {
+    display: inline-flex;
+    cursor: pointer;
+    @include hover {
+        .thy-operation-content.only-has-tips >.thy-tips {
+            color: $gray-800;
+        }
+    }
+    .thy-operation-content {
+        margin-left: 10px;
+
+        &.only-has-tips {
+            display: flex;
+            .thy-tips {
+                display: flex;
+                align-items: center;
+                font-size: $font-size-base;
+            }
+        }
+
+        .thy-tips {
+            color: $gray-500;
+            font-size: $font-size-sm;
+        }
+    }
+}
