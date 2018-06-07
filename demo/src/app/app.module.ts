@@ -14,6 +14,8 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ThyTranslate } from '../../../src/shared';
 import { DemoThyTranslate } from './demo-thy-translate';
 import { FormsModule } from '@angular/forms';
+import { ThyAvatarService } from '../../../src';
+import { CustomAvatarService } from './components/+avatar/custom-avatar.service';
 
 @NgModule({
     declarations: [
@@ -39,6 +41,10 @@ import { FormsModule } from '@angular/forms';
         {
             provide: ThyTranslate,
             useClass: DemoThyTranslate
+        },
+        {
+            provide: ThyAvatarService,
+            useClass: CustomAvatarService
         }
     ],
     bootstrap: [AppComponent]
