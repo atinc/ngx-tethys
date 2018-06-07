@@ -1,13 +1,7 @@
+<ng-content></ng-content>
 <div class="thy-form-control" (click)="dropDownMenuToggle()">
-    <i class="{{_innerValue?.icon}}"></i>
-    <span class="pl-1">{{_innerValue?.name || '选择选项'}}</span>
-    <i class="wtf wtf-angle-down float-right text-info"></i>
+    <span class="item-name">
+        <i class="{{_innerValue?.icon}} pr-1"></i> {{_innerValue?.name || '选择选项'}}
+    </span>
 </div>
-<div class="thy-select-custom-options" *ngIf="_expandOptions">
-    <div class="pr-2 pl-2 pt-2 pb-2 select-search-input" *ngIf="thySearch">
-        <input thyInput type="text">
-    </div>
-    <div class="select-option">
-        <ng-content></ng-content>
-    </div>
-</div>
+<select-container [listOfOptionComponent]="listOfOptionComponent" [listOfOptionGroupComponent]="listOfOptionGroupComponent"></select-container>

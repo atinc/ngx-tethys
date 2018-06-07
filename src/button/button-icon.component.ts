@@ -16,7 +16,8 @@ const sizeClassesMap: any = {
 
 const shapeClassesMap: any = {
     'circle-dashed': ['btn-icon-circle', 'circle-dashed'],
-    'circle-solid': ['btn-icon-circle', 'circle-solid']
+    'circle-solid': ['btn-icon-circle', 'circle-solid'],
+    'self-icon': ['btn-icon-self-circle']
 };
 
 @Component({

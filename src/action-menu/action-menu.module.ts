@@ -7,6 +7,7 @@ import {
     ThyActionMenuItemDirective,
     ThyActionMenuSubItemDirective,
     ThyActionMenuDividerTitleDirective,
+    ThyActionMenuItemActiveDirective
 } from './action-menu.component';
 
 @NgModule({
@@ -17,6 +18,7 @@ import {
         ThyActionMenuItemDirective,
         ThyActionMenuSubItemDirective,
         ThyActionMenuDividerTitleDirective,
+        ThyActionMenuItemActiveDirective
     ],
     imports: [
         CommonModule
@@ -28,6 +30,7 @@ import {
         ThyActionMenuItemDirective,
         ThyActionMenuSubItemDirective,
         ThyActionMenuDividerTitleDirective,
+        ThyActionMenuItemActiveDirective
     ]
 })
 export class ThyActionMenuModule {

@@ -169,12 +169,16 @@ $table-draggable-icon-color: $gray-600;
 $table-draggable-icon-left: 10px;
 $table-draggable-bordered-icon-padding-left: 30px;
 // action-menu
-$action-menu-bg: $white;
-$action-menu-item-color: $gray-600;
-$action-menu-item-icon-color: $gray-400;
-$action-menu-item-hover-bg: $gray-200;
-$action-menu-divider-title-color: $gray-400;
-$action-menu-divider-border-color: $gray-200;
+$action-menu-bg: $white !default;
+$action-menu-item-padding-x: 20px !default;
+$action-menu-item-padding-y: 10px !default;
+$action-menu-item-color: $gray-700 !default;
+$action-menu-item-hover-color: $gray-800 !default;
+$action-menu-item-icon-color: $gray-600 !default;
+$action-menu-item-extend-color: $gray-400 !default;
+$action-menu-item-hover-bg: $gray-100 !default;
+$action-menu-divider-title-color: $gray-400 !default;
+$action-menu-divider-border-color: $gray-200 !default;
 // badges
 $badge-font-size: 75% !default;
 $badge-font-weight: normal !default;
@@ -199,7 +203,7 @@ $label-warning-bg: $warning;
 $label-danger-bg: $danger;
 //avatar
 $avatar-sizes: () !default;
-$avatar-sizes: map-merge( (22:12, 24: 12, 30: 12, 38: 12, 48: 12, 68: 16, 110: 45, 160: 50), $avatar-sizes);
+$avatar-sizes: map-merge( (22: 12, 24: 12, 30: 12, 38: 12, 48: 12, 68: 16, 110: 45, 160: 50), $avatar-sizes);
 // Navs
 $nav-link-disabled-color: $gray-300 !default;
 $nav-link-color: $gray-600 !default;

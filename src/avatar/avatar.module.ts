@@ -1,18 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AvatarComponent } from './avatar.component';
+import { ThyAvatarComponent } from './avatar.component';
 import { AvatarPipes } from './avatar.pipe';
+import { ThyAvatarService, ThyDefaultAvatarService } from './avatar.service';
 
 @NgModule({
     declarations: [
-        AvatarComponent,
+        ThyAvatarComponent,
         AvatarPipes
     ],
     imports: [
         CommonModule
     ],
+    providers: [
+        {
+            provide: ThyAvatarService,
+            useClass: ThyDefaultAvatarService
+        }
+    ],
     exports: [
-        AvatarComponent,
+        ThyAvatarComponent,
         AvatarPipes
     ]
 })

@@ -6,7 +6,7 @@ import { ThyButtonModule } from './button';
 import { ThyLayoutModule } from './layout';
 import { NgxPopBoxModule } from './pop-box/pop-box.module';
 import { ThyGridModule } from './grid/grid.module';
-import { ThyAvatarModule } from './avatar/avatar.module';
+import { ThyAvatarModule } from './avatar';
 import { ThyBadgeModule } from './badge/badge.module';
 import { ThyLabelModule } from './label/label.module';
 import { ThyNavModule } from './nav/nav.module';
@@ -31,6 +31,7 @@ import { ThyCheckboxModule } from './checkbox';
 import { ThyRadioModule } from './radio';
 import { ThySelectModule } from './select';
 import { ThySlideModule } from './slide/slide.module';
+import { ThyPropertyOperationModule } from './property-operation';
 
 @NgModule({
     declarations: [
@@ -65,7 +66,8 @@ import { ThySlideModule } from './slide/slide.module';
         ThySelectModule,
         ThySlideModule,
         ThyRadioModule,
-        ThySelectModule
+        ThySelectModule,
+        ThyPropertyOperationModule
     ],
     exports: [
         BrowserAnimationsModule,
@@ -98,7 +100,8 @@ import { ThySlideModule } from './slide/slide.module';
         ThySelectModule,
         ThySlideModule,
         ThyRadioModule,
-        ThySelectModule
+        ThySelectModule,
+        ThyPropertyOperationModule
     ],
     providers: [
     ]

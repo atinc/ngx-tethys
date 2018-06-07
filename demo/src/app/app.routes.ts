@@ -28,6 +28,7 @@ import { DemoCheckboxSectionComponent } from './components/+form-checkbox/checkb
 import { DemoRadioSectionComponent } from './components/+form-radio/radio-section.component';
 import { DemoSelectSectionComponent } from './components/+select/select-section.component';
 import { DemoSlideSectionComponent } from './components/+slide/slide-section.component';
+import { DemoPropertyOperationSectionComponent } from './components/+property-operation/property-operation-section.component';
 
 const appRoutes = [
     {
@@ -149,8 +150,11 @@ const appRoutes = [
     {
         path: 'components/slide',
         component: DemoSlideSectionComponent
+    },
+    {
+        path: 'components/property-operation',
+        component: DemoPropertyOperationSectionComponent
     }
-
 ];
 
 export { appRoutes };

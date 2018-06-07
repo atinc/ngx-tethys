@@ -92,3 +92,21 @@ export class ThyActionMenuDividerTitleDirective {
 
     constructor() { }
 }
+
+
+
+@Directive({
+    selector: '[thyActionMenuItemActive]',
+})
+export class ThyActionMenuItemActiveDirective {
+
+    @HostBinding('class.active') _isActive = false;
+
+    @Input()
+    set thyActionMenuItemActive(value: boolean) {
+        this._isActive = inputValueToBoolean(value);
+    }
+
+    constructor() { }
+
+}

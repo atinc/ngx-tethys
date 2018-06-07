@@ -1,13 +1,13 @@
-export class AvatarMemberInfo {
-    public uid?: string;
+// export class AvatarMemberInfo {
+//     public uid?: string;
 
-    public name?: string;
+//     public name?: string;
 
-    public display_name?: string;
+//     public display_name?: string;
 
-    public short_code?: string;
+//     public short_code?: string;
 
-    public avatar?: string;
+//     public avatar?: string;
 
-    public display_name_pinyin?: string;
-}
+//     public display_name_pinyin?: string;
+// }

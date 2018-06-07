@@ -1,73 +1,93 @@
-import { Component, Input, HostBinding } from '@angular/core';
+import { Component, Input, ElementRef, HostBinding, OnInit } from '@angular/core';
 import { isNumber } from '../util/helpers';
-import { AvatarMemberInfo } from './avatar-member-info';
+import { UpdateHostClassService } from '../shared/update-host-class.service';
 
-const sizeArray = [22, 24, 30, 38, 48, 68, 110, 160, 320];
+const sizeArray = [22, 24, 30, 38, 48, 68, 110, 160];
+const sizeMap = {
+    sm: 24,
+    xs: 30,
+    md: 38,
+    lg: 48
+};
+
+const DEFAULT_SIZE = 38;
 
 @Component({
     selector: 'thy-avatar',
-    templateUrl: './avatar.component.html'
+    templateUrl: './avatar.component.html',
+    providers: [
+        UpdateHostClassService
+    ]
 })
-export class AvatarComponent {
+export class ThyAvatarComponent implements OnInit {
 
-    @HostBinding('attr.class') avatarClass = 'avatar';
+    _src: string;
+    _name: string;
+    _size: number;
+
+    public avatarSrc: string;
+    public avatarName?: string;
+
+    @HostBinding('class.thy-avatar') _isAvatar = true;
 
     @Input() thyShowName: boolean;
 
-    private _src: string;
-    private _name: string;
-    private _size: number;
-    private _member: AvatarMemberInfo;
-
-    public avatarSrc: string;
-    public avatarSize?: number;
-    public avatarName?: string;
-
-    constructor() { }
-
     @Input()
     set thySrc(value: string) {
-        this._src = value;
-        this.getAvatarSrc();
+        this._setAvatarSrc(value);
     }
 
     @Input()
     set thyName(value: string) {
         this._name = value;
-        this.getAvatarName();
+        this._setAvatarName();
     }
 
     @Input()
-    set thySize(value: number) {
-        this._size = value;
-        this.getAvatarSize();
-    }
-
-    @Input()
-    set thyMember(value: AvatarMemberInfo) {
-        this._member = value;
-        this.getAvatarSrc();
-        this.getAvatarName();
-    }
-
-    private getAvatarSize() {
-        if (isNumber(this._size * 1)) {
-            if (sizeArray.indexOf(this._size * 1) > -1) {
-                this.avatarSize = this._size;
-            } else if (this._size * 1 > sizeArray[sizeArray.length - 1]) {
-                this.avatarSize = sizeArray[sizeArray.length - 1];
-            } else {
-                this.avatarSize = sizeArray[0];
-            }
+    set thySize(value: number | string) {
+        if (sizeMap[value]) {
+            this._setAvatarSize(sizeMap[value]);
+        } else {
+            this._setAvatarSize((value as number) * 1);
         }
     }
 
-    private getAvatarName() {
-        this.avatarName = this._name || (this._member && this._member.display_name);
+    // @Input()
+    // set thyMember(value: AvatarMemberInfo) {
+    //     this._member = value;
+    //     this._setAvatarSrc(this._member && this._member.avatar);
+    //     this._setAvatarName();
+    // }
+
+    private _setAvatarSize(size: number) {
+        if (sizeArray.indexOf(size) > -1) {
+            this._size = size;
+        } else if (size > sizeArray[sizeArray.length - 1]) {
+            this._size = sizeArray[sizeArray.length - 1];
+        } else {
+            this._size = DEFAULT_SIZE;
+        }
     }
 
-    private getAvatarSrc() {
-        this.avatarSrc = this._src || (this._member && this._member.avatar);
+    private _setAvatarSrc(src: string) {
+        this._src = src;
     }
 
+    private _setAvatarName() {
+        this.avatarName = this._name;
+    }
+
+    constructor(
+        private updateHostClassService: UpdateHostClassService,
+        private elementRef: ElementRef
+    ) {
+        updateHostClassService.initializeElement(elementRef.nativeElement);
+    }
+
+    ngOnInit() {
+        if (!this._size) {
+            this._setAvatarSize(DEFAULT_SIZE);
+        }
+        this.updateHostClassService.updateClass([`thy-avatar-${this._size}`]);
+    }
 }

@@ -9,7 +9,7 @@
         <button [thyButton]="'primary'" [thyActionMenuToggle]="menu1" [thyPlacement]="'bottom right'">弹出位置</button>
         <ng-template #menu1>
             <thy-action-menu>
-                <a thyActionMenuItem href="javascript:;" (click)="itemClick(1)">
+                <a thyActionMenuItem thyActionMenuItemActive="true"  href="javascript:;" (click)="itemClick(1)">
                     <span class="icon">
                         <i class="wtf wtf-task-o"></i>
                     </span>

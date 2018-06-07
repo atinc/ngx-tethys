@@ -1,0 +1,48 @@
+<section>
+    <div class="header">
+        <h2>属性操作</h2>
+    </div>
+    <div class="body">
+        <div class="">
+            <thy-property-operation thyLabelText="负责人" class="mr-2">
+                <ng-template #operationIcon>
+                    <button thyButtonIcon="wtf wtf-user-o" thyShape="circle-dashed"></button>
+                </ng-template>
+            </thy-property-operation>
+            <thy-property-operation thyLabelText="负责人" class="mr-2">
+                <ng-template #operationIcon>
+                    <thy-avatar thySrc="9cb2637b-9f70-4d73-8c1d-24542b6ab4e1_80x80.png" thyName="why520crazy" thySize="38"></thy-avatar>
+                </ng-template>
+                why520crazy
+            </thy-property-operation>
+            <thy-property-operation thyLabelText="截止时间" thyIcon="wtf-calendar-o" class="mr-2"></thy-property-operation>
+            <thy-property-operation thyLabelText="截止时间" thyValue="2018-10-10" thyIcon="wtf-calendar-o" class="mr-2"></thy-property-operation>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="header">
+        <h2>属性操作分组</h2>
+    </div>
+    <div class="body">
+        <div class="">
+            <thy-property-operation-group>
+                <thy-property-operation thyLabelText="负责人" class="mr-2">
+                    <ng-template #operationIcon>
+                        <button thyButtonIcon="wtf wtf-user-o" thyShape="circle-dashed"></button>
+                    </ng-template>
+                </thy-property-operation>
+                <thy-property-operation thyLabelText="负责人" class="mr-2" thyShowClose="">
+                    <ng-template #operationIcon>
+                        <thy-avatar thySrc="9cb2637b-9f70-4d73-8c1d-24542b6ab4e1_80x80.png" thyName="why520crazy" thySize="38"></thy-avatar>
+                    </ng-template>
+                    why520crazy
+                </thy-property-operation>
+                <thy-property-operation thyLabelText="截止时间" thyIcon="wtf-calendar-o" class="mr-2"></thy-property-operation>
+                <thy-property-operation thyLabelText="截止时间" thyValue="2018-10-10" thyIcon="wtf-calendar-o" class="mr-2"></thy-property-operation>
+            </thy-property-operation-group>
+
+        </div>
+    </div>
+</section>

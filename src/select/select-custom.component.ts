@@ -1,7 +1,12 @@
-import { Component, forwardRef, HostBinding, Input, ElementRef, OnInit, HostListener } from '@angular/core';
+import {
+    Component, forwardRef, HostBinding, Input,
+    ElementRef, OnInit, HostListener, ContentChildren, QueryList, AfterViewInit
+} from '@angular/core';
 import { UpdateHostClassService } from '../shared/update-host-class.service';
 import { inputValueToBoolean } from '../util/helpers';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { ThyOptionComponent } from './option.component';
+import { ThyOptionGroupComponent } from './option-group.component';
 
 export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -20,7 +25,8 @@ const noop = () => {
         UpdateHostClassService
     ]
 })
-export class ThySelectCustomComponent implements ControlValueAccessor, OnInit {
+export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, AfterViewInit {
+
 
     _innerValue: any = null;
 
@@ -49,11 +55,30 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit {
         this._size = value;
     }
 
+    @ContentChildren(ThyOptionComponent) listOfOptionComponent: QueryList<any>;
+
+    @ContentChildren(ThyOptionGroupComponent) listOfOptionGroupComponent: QueryList<any>;
+
     constructor(
         private elementRef: ElementRef,
         private updateHostClassService: UpdateHostClassService
     ) {
         this.updateHostClassService.initializeElement(elementRef.nativeElement);
+    }
+
+    @HostListener('document:click', ['$event'])
+    onDocumentClick(event: any): void {
+        if (!this.elementRef.nativeElement.contains(event.target)) {
+            this._expandOptions = false;
+        }
+    }
+
+    ngOnInit() {
+        const classes = this._size ? [`thy-select-custom-${this._size}`] : [];
+        this.updateHostClassService.updateClass(classes);
+    }
+
+    ngAfterViewInit(): void {
     }
 
     writeValue(obj: any): void {
@@ -74,14 +99,6 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit {
         this._expandOptions = !this._expandOptions;
     }
 
-
-    @HostListener('document:click', ['$event'])
-    onDocumentClick(event: any): void {
-        if (!this.elementRef.nativeElement.contains(event.target)) {
-            this._expandOptions = false;
-        }
-    }
-
     enter() {
         this._searchText = '';
     }
@@ -90,8 +107,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit {
         this.selectedItem = event;
     }
 
-    ngOnInit() {
-        const classes = this._size ? [`thy-select-custom-${this._size}`] : [];
-        this.updateHostClassService.updateClass(classes);
+    changeSearchText() {
+
     }
 }

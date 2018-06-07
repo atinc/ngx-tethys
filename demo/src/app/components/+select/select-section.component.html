@@ -46,13 +46,32 @@
         <h2>自定义 select</h2>
     </div>
     <div class="body">
-        <!-- <thy-custom-select thySize="sm" [(ngModel)]="selectedItem">
-            <thy-option *ngFor="let item of optionData" [value]="item" [selected]="selectedItem?._id === item?._id" (thySelectItem)="select($event)"></thy-option>
-        </thy-custom-select> -->
+        <thy-custom-select thySize="sm" [(ngModel)]="selectedItem">
+            <thy-option value="1" label="测试">
+                <ng-template>
+                    11111111111111
+                </ng-template>
+            </thy-option>
+            <thy-option value="2" label="测试"></thy-option>
+            <thy-option value="3" label="测试"></thy-option>
+        </thy-custom-select>
 
         <br>
-        <thy-custom-select [(ngModel)]="selectedItem" [thySearch]="true">
-            <thy-option *ngFor="let item of optionData" [value]="item" [selected]="selectedItem?._id === item?._id" (thySelectItem)="select($event)"></thy-option>
+
+        <thy-custom-select [(ngModel)]="selectedItem">
+            <thy-option-group label="分组001">
+                <thy-option value="1" label="测试1"></thy-option>
+                <thy-option value="2" label="测试2"></thy-option>
+            </thy-option-group>
         </thy-custom-select>
+
+        <!-- <thy-custom-select [(ngModel)]="selectedItem" [thySearch]="true">
+            <thy-option *ngFor="let item of optionData" [value]="item" [selected]="selectedItem?._id === item?._id"></thy-option>
+        </thy-custom-select>
+
+        <br>
+        <thy-custom-select thySize="lg" [(ngModel)]="selectedItem" [thySearch]="true">
+            <thy-option *ngFor="let item of optionData" [value]="item" [selected]="selectedItem?._id === item?._id"></thy-option>
+        </thy-custom-select> -->
     </div>
 </section>

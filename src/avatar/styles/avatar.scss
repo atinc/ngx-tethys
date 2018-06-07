@@ -1,4 +1,4 @@
-.avatar {
+.thy-avatar {
   display: inline-block;
   &:hover {
     text-decoration: none;
@@ -21,10 +21,10 @@
     white-space: nowrap;
     vertical-align: middle;
   }
-  @each $size,
-  $value in $avatar-sizes {
-    .avatar-#{$size} {
-      @include avatarSize($size, $value);
-    }
+}
+
+@each $size, $value in $avatar-sizes {
+  .thy-avatar-#{$size} {
+    @include avatarSize($size, $value);
   }
 }
