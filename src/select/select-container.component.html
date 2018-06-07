@@ -1,0 +1,13 @@
+<div class="search"></div>
+<ul *ngIf="listOfOptionComponent">
+    <li *ngFor="let option of listOfOptionComponent;" option-item [option]="option"></li>
+</ul>
+
+<ng-container *ngIf="listOfOptionGroupComponent">
+    <div *ngFor="let group of listOfOptionGroupComponent;">
+        <p>{{group.label}}</p>
+        <ul>
+            <li *ngFor="let option of group.listOfOptionComponent;" option-item [option]="option"></li>
+        </ul>
+    </div>
+</ng-container>
