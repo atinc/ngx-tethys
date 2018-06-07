@@ -1,13 +1,79 @@
-<div>
-    <thy-avatar thyName="路晓贝" thySize="24" [thyShowName]="true"></thy-avatar>
-    <thy-avatar thyName="luxiaobei" thySize="30" [thyShowName]="false"></thy-avatar>
-    <thy-avatar [thySrc]="avatarFullUrl" thyName="路晓贝" thySize="38" [thyShowName]="true"></thy-avatar>
-    <thy-avatar [thySrc]="avatarFullUrl" thyName="路晓贝" thySize="48"></thy-avatar>
-    <thy-avatar [thySrc]="avatarFullUrl" thySize="68"></thy-avatar>
-    <thy-avatar [thySrc]="avatarFullUrl" thySize="160"></thy-avatar>
-</div>
-<div>
-    <thy-badge [thyCount]="3" thyStatus="primary">
-        <thy-avatar [thySrc]="avatarFullUrl" thySize="24"></thy-avatar>
-    </thy-badge>
-</div>
+<section>
+    <div class="header">
+        <h2>文字头像</h2>
+    </div>
+    <div class="body">
+        <thy-avatar thyName="路晓贝" class="mr-2" [thyShowName]="true"></thy-avatar>
+        <thy-avatar thyName="luxiaobei" [thyShowName]="false"></thy-avatar>
+    </div>
+</section>
+
+<section>
+    <div class="header">
+        <h2>图片头像</h2>
+    </div>
+    <div class="body">
+        <button thyButton="primary-square" thySize="sm" (click)="toggleSrcTransform()">切换图片路径</button>
+        <span class="text-danger ml-2">avatarSrc</span>: {{avatarSrc}}
+        <br>
+        <br>
+        <thy-avatar [thySrc]="avatarSrc" class="mr-2" thyName="路晓贝"></thy-avatar>
+        <thy-avatar [thySrc]="avatarSrc" class="mr-2"></thy-avatar>
+        <thy-avatar [thySrc]="avatarSrc" class="mr-2" thyName="路晓贝" [thyShowName]="true"></thy-avatar>
+    </div>
+</section>
+
+<section>
+    <div class="header">
+        <h2>徽标头像</h2>
+    </div>
+    <div class="body">
+        <thy-badge [thyCount]="3" thyStatus="primary" class="mr-2">
+            <thy-avatar [thySrc]="avatarSrc" thySize="24"></thy-avatar>
+        </thy-badge>
+        <thy-badge [thyCount]="3" thyStatus="primary">
+            <thy-avatar [thySrc]="avatarSrc"></thy-avatar>
+        </thy-badge>
+    </div>
+</section>
+
+<section>
+    <div class="header">
+        <h2>头像大小</h2>
+    </div>
+    <div class="body">
+        <thy-avatar thyName="路晓贝" class="mr-2" thySize="22"></thy-avatar>
+        <thy-avatar thyName="路晓贝" class="mr-2" thySize="24"></thy-avatar>
+        <thy-avatar thyName="路晓贝" class="mr-2" thySize="30"></thy-avatar>
+        <thy-avatar thyName="路晓贝" class="mr-2" thySize="38"></thy-avatar>
+        <thy-avatar thyName="路晓贝" class="mr-2" thySize="48"></thy-avatar>
+        <thy-avatar thyName="路晓贝" class="mr-2" thySize="68"></thy-avatar>
+        <thy-avatar thyName="路晓贝" class="mr-2" thySize="110"></thy-avatar>
+        <thy-avatar thyName="路晓贝" class="mr-2" thySize="160"></thy-avatar>
+        <br/>
+        <br/>
+        <thy-avatar [thySrc]="avatarSrc" class="mr-2" thySize="22"></thy-avatar>
+        <thy-avatar [thySrc]="avatarSrc" class="mr-2" thySize="24"></thy-avatar>
+        <thy-avatar [thySrc]="avatarSrc" class="mr-2" thySize="30"></thy-avatar>
+        <thy-avatar [thySrc]="avatarSrc" class="mr-2" thySize="38"></thy-avatar>
+        <thy-avatar [thySrc]="avatarSrc" class="mr-2" thySize="48"></thy-avatar>
+        <thy-avatar [thySrc]="avatarSrc" class="mr-2" thySize="68"></thy-avatar>
+        <thy-avatar [thySrc]="avatarSrc" class="mr-2" thySize="110"></thy-avatar>
+        <thy-avatar [thySrc]="avatarSrc" class="mr-2" thySize="160"></thy-avatar>
+        <br/>
+        <br/>
+        <thy-avatar thyName="路晓贝" class="mr-2" [thyShowName]="true" thySize="22"></thy-avatar>
+        <thy-avatar thyName="路晓贝" class="mr-2" [thyShowName]="true" thySize="24"></thy-avatar>
+        <thy-avatar thyName="路晓贝" class="mr-2" [thyShowName]="true" thySize="30"></thy-avatar>
+        <thy-avatar thyName="路晓贝" class="mr-2" [thyShowName]="true" thySize="38"></thy-avatar>
+        <thy-avatar thyName="路晓贝" class="mr-2" [thyShowName]="true" thySize="48"></thy-avatar>
+        <thy-avatar thyName="路晓贝" class="mr-2" [thyShowName]="true" thySize="68"></thy-avatar>
+        <thy-avatar thyName="路晓贝" class="mr-2" [thyShowName]="true" thySize="110"></thy-avatar>
+        <thy-avatar thyName="路晓贝" class="mr-2" [thyShowName]="true" thySize="160"></thy-avatar>
+        <br/>
+        <br/>
+    </div>
+</section>
+
+<api-parameters title="参数列表" [parameters]="apiParameters"></api-parameters>
+

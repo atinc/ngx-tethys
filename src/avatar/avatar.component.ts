@@ -2,7 +2,14 @@ import { Component, Input, ElementRef, HostBinding, OnInit } from '@angular/core
 import { isNumber } from '../util/helpers';
 import { UpdateHostClassService } from '../shared/update-host-class.service';
 
-const sizeArray = [22, 24, 30, 38, 48, 68, 110, 160, 320];
+const sizeArray = [22, 24, 30, 38, 48, 68, 110, 160];
+const sizeMap = {
+    sm: 24,
+    xs: 30,
+    md: 38,
+    lg: 48
+};
+
 const DEFAULT_SIZE = 38;
 
 @Component({
@@ -37,8 +44,12 @@ export class ThyAvatarComponent implements OnInit {
     }
 
     @Input()
-    set thySize(value: number) {
-        this._setAvatarSize(value * 1);
+    set thySize(value: number | string) {
+        if (sizeMap[value]) {
+            this._setAvatarSize(sizeMap[value]);
+        } else {
+            this._setAvatarSize((value as number) * 1);
+        }
     }
 
     // @Input()
