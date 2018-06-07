@@ -3,7 +3,7 @@ import {
     Input, AfterContentInit, ViewChild
 } from '@angular/core';
 import { ThyTranslate } from '../shared/translate';
-import { htmlElementIsEmpty } from '../util/helpers';
+import { htmlElementIsEmpty, inputValueToBoolean } from '../util/helpers';
 
 @Component({
     selector: 'thy-property-operation',
@@ -19,6 +19,8 @@ export class ThyPropertyOperationComponent implements AfterContentInit {
 
     _onlyHasTips = false;
 
+    _showClose = false;
+    
     @HostBinding('class.thy-property-operation') _isPropertyOperation = true;
 
     @ContentChild('operationIcon') operationIcon: TemplateRef<any>;
@@ -45,10 +47,14 @@ export class ThyPropertyOperationComponent implements AfterContentInit {
         this._icon = value;
     }
 
+    @Input()
+    set thyShowClose(value: boolean) {
+        this._showClose = inputValueToBoolean(value);
+    }
+
     constructor(private thyTranslate: ThyTranslate) {
 
     }
-
 
     ngAfterContentInit() {
         this._onlyHasTips = htmlElementIsEmpty(this.contentElement.nativeElement) && !this._value;
