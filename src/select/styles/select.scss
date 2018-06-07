@@ -83,34 +83,17 @@ select.form-control-xs {
   width: 100%;
   position: relative;
 
-  &:after {
-    content: '';
-  }
-
   .thy-form-control {
-    // padding: $input-padding-y $input-padding-x;
-    // height: $input-height;
-    // border: 1px solid $input-border-color;
-    // border-radius: $input-border-radius-md;
     @include select-custom-variant($input-padding-x,$input-padding-y,$input-height,$font-size-base);
+    @include select-arrow-bottom($input-padding-y + ($font-size-base * $input-line-height - $font-size-md ) / 2);
 
-    &:hover {
-      border-color: $input-hover-border-color;
+    &:after {
+      @include select-arrow-variant();
     }
-
-    // &.-sm {
-    //   @include select-custom-variant($input-padding-x-sm,$input-padding-y-sm,$input-height-sm,$font-size-sm);
-    // }
-
-    // &.-lg {
-    //   @include select-custom-variant($input-padding-x-lg,$input-padding-y-lg,$input-height-lg,$font-size-md);
-    // }
   }
 
-  &.-sm {
-    .thy-form-control {
-      @include select-custom-variant($input-padding-x-sm,$input-padding-y-sm,$input-height-sm,$font-size-sm);
-    }
+  &:hover {
+    border-color: $input-hover-border-color;
   }
 
   .thy-select-custom-options {
@@ -127,5 +110,39 @@ select.form-control-xs {
       overflow-y: auto;
     }
 
+  }
+}
+
+.thy-select-custom-sm {
+  .thy-form-control {
+    line-height: normal;
+    @include select-custom-variant($input-padding-x-sm,$input-padding-y-sm,$input-height-sm,$font-size-sm);
+    @include select-arrow-bottom($input-padding-y-sm + ($font-size-sm * $input-line-height-sm - $font-size-md ) / 2);
+  }
+
+  .thy-select-custom-options {
+    top: $input-height-sm;
+  }
+}
+
+.thy-select-custom-xs {
+  .thy-form-control {
+    @include select-custom-variant($input-padding-x-xs,$input-padding-y-xs,$input-height-xs,$font-size-xs);
+    @include select-arrow-bottom($input-padding-y-xs + ($font-size-sm * $input-line-height-xs - $font-size-md ) / 2);
+  }
+
+  .thy-select-custom-options {
+    top: $input-height-xs;
+  }
+}
+
+.thy-select-custom-lg {
+  .thy-form-control {
+    @include select-custom-variant($input-padding-x-lg,$input-padding-y-lg,$input-height-lg,$font-size-md);
+    @include select-arrow-bottom($input-padding-y-lg + ($font-size-lg * $input-line-height-lg - $font-size-md ) / 2);
+  }
+
+  .thy-select-custom-options {
+    top: $input-height-lg;
   }
 }
