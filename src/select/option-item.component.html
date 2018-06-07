@@ -1,0 +1,6 @@
+<ng-container *ngIf="option.template">
+    <ng-template [ngTemplateOutlet]="option.template"></ng-template>
+</ng-container>
+<ng-container *ngIf="!option.template">
+    {{option.label}}
+</ng-container>
