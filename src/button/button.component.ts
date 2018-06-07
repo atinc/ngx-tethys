@@ -12,7 +12,8 @@ const btnTypeClassesMap: any = {
     'outline-default': ['btn', 'btn-outline-default'],
     'danger': ['btn', 'btn-danger'],
     'link': ['btn', 'btn-link'], // 链接按钮
-    'link-secondary': ['btn', 'btn-link', 'btn-link-default'] // 幽灵链接按钮
+    'link-info': ['btn', 'btn-link', 'btn-link-info'],// 幽灵链接按钮
+    'link-secondary': ['btn', 'btn-link', 'btn-link-info'] // 幽灵链接按钮
 };
 
 @Component({

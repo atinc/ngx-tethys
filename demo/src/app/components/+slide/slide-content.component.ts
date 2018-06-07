@@ -1,5 +1,6 @@
 
-import { Component } from '@angular/core';
+import { Component, TemplateRef } from '@angular/core';
+import { ThyModalService } from '../../../../../src';
 
 @Component({
     selector: 'demo-slide-content',
@@ -8,4 +9,12 @@ import { Component } from '@angular/core';
 export class DemoSlideContentComponent {
 
     public name: string;
+
+    constructor(
+        public modalService: ThyModalService
+    ) { }
+
+    addModal(template: TemplateRef<any>, option?: object): void {
+        this.modalService.show(template, option);
+    }
 }

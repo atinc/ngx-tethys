@@ -40,3 +40,19 @@
         </thy-select>
     </div>
 </section>
+
+<section>
+    <div class="header">
+        <h2>自定义 select</h2>
+    </div>
+    <div class="body">
+        <!-- <thy-custom-select thySize="sm" [(ngModel)]="selectedItem">
+            <thy-option *ngFor="let item of optionData" [value]="item" [selected]="selectedItem?._id === item?._id" (thySelectItem)="select($event)"></thy-option>
+        </thy-custom-select> -->
+
+        <br>
+        <thy-custom-select [(ngModel)]="selectedItem" [thySearch]="true">
+            <thy-option *ngFor="let item of optionData" [value]="item" [selected]="selectedItem?._id === item?._id" (thySelectItem)="select($event)"></thy-option>
+        </thy-custom-select>
+    </div>
+</section>

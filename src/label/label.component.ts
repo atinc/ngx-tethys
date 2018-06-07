@@ -130,6 +130,6 @@ export class ThyLabelComponent {
     }
 
     remove() {
-        alert('delete success');
+        this.thyOnRemove.emit();
     }
 }

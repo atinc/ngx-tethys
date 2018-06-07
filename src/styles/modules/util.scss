@@ -30,3 +30,6 @@
     }
   }
 }
+
+// 比 light 更亮，但是还没有到达白色 #f3f3f3f3
+@include bg-variant(".bg-brighter", $gray-100);

@@ -52,9 +52,9 @@ export class DemoSlideSectionComponent {
         private thySlideService: ThySlideService
     ) { }
 
-    showSlide() {
+    showSlide(key) {
         this.thySlideService.show(DemoSlideContentComponent, {
-            key: 'slide',
+            key: key,
             from: this.thySlideFrom, // 'left','right','top','bottom'
             class: this.thySlideClass,
             initialState: { name: 'slide' }
