@@ -50,6 +50,8 @@ export class DemoDataPickerSectionComponent implements OnInit {
         end: { date: Math.floor((new Date()).getTime() / 1000) + 180000 }
     };
 
+    dateRangeNullValue = null;
+
     Datepicker: Date;
 
     apiParameters = [

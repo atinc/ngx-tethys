@@ -102,7 +102,7 @@ export function daterangepickerUtilIdentificationValueType(value: any): Datepick
     if (value) {
         return DatepickerValueShowTypesEnum.daterangepickerTimeObject;
     } else {
-        return DatepickerValueShowTypesEnum.datepickerNullValue;
+        return DatepickerValueShowTypesEnum.daterangepickerNullValue;
     }
 }
 
@@ -116,8 +116,11 @@ export function daterangepickerUtilConvertToDaterangepickerObject(value: any, va
                 new Date(value.end.date * 1000)
             ];
             break;
+        case DatepickerValueShowTypesEnum.daterangepickerNullValue:
+            _value = [];
+            break;
         default:
-            _value = null;
+            console.error('Can not matched value type!');
             break;
     }
     return _value;

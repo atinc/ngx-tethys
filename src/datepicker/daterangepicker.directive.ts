@@ -28,13 +28,14 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
     private _isAfterContentInit = false;
     private _loader: ComponentLoader<ThyDaterangepickerContainerComponent>;
     private _valueType: DatepickerValueShowTypesEnum;
-    private _valueState = {
-        hasTime: false
-    };
-    private _valueInitialState = {  // 初始化value的状态
-        hasTime: false,     // 是否显示时间，清除时候需要用
-        valueType: DatepickerValueShowTypesEnum     // 值的类型，用于输出与输入相同类型
-    };
+    private _isFirstShowInputProperty = true;
+    private store: {
+        originValue?: any,
+        originValueType?: any,
+        originWithTime?: boolean,
+        value?: any,
+        withTime?: boolean,
+    } = {};
     @Input() thyPlacement: 'top' | 'bottom' | 'left' | 'right' = 'bottom';
     @Input() thyTriggers = 'click';
     @Input() thyContainer = 'body';
@@ -71,9 +72,9 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
     }
 
     writeValue(value: DatepickerValueEntry | Date | number) {
-        this.service.storeType = 'range';
         if (this._isAfterContentInit) {
-            this.service.initValueData(value);
+            this.initValueData(value);
+            this._initFormatRule();
             this._setInputProperty();
         }
     }
@@ -101,8 +102,8 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
                     this.hide();
                 },
                 initialState: {
+                    store: this.store,
                     value: this._value,
-                    valueInitialState: this._valueInitialState,
                     withTime: inputValueToBoolean(this.thyShowTime),
                     changeValue: (result: DatepickerValueEntry) => {
                         this._initFormatRule();
@@ -117,15 +118,19 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
         this._loader.hide();
     }
 
-    private _initValueState() {
-        this._valueInitialState.hasTime = this._value && this._value[0] && this._value[0].with_time;
+    private initValueData(value: any, isRefreshType?: boolean) {
+        this.store.originValue = value;
+        this.store.originValueType = daterangepickerUtilIdentificationValueType(value);
+        this.store.originWithTime = value && value.begin && value.begin.with_time;
+        this.store.withTime = inputValueToBoolean(this.thyShowTime);
+        this.store.value = daterangepickerUtilConvertToDaterangepickerObject(value);
     }
 
     private _initFormatRule() {
         if (this.thyFormat) {
             this._showFormatRule = this.thyFormat;
         } else {
-            if (this.service.store.withTime) {
+            if (this.store.withTime) {
                 this._showFormatRule = DatepickerFormatRules.full;
             } else {
                 this._showFormatRule = DatepickerFormatRules.short;
@@ -134,29 +139,43 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
     }
 
     private _setInputProperty() {
-        const initialDate = this.service.dataPipe.transform(this.service.store.value[0], this._showFormatRule)
+        let initialDate = this.service.dataPipe.transform(this.store.value[0], this._showFormatRule)
             + ' ~ '
-            + this.service.dataPipe.transform(this.service.store.value[1], this._showFormatRule);
+            + this.service.dataPipe.transform(this.store.value[1], this._showFormatRule);
+        if (this._isFirstShowInputProperty &&
+            this.store.originValueType === DatepickerValueShowTypesEnum.daterangepickerNullValue) {
+            initialDate = '';
+            this._isFirstShowInputProperty = false;
+        }
         this._renderer.setProperty(this._elementRef.nativeElement, 'value', initialDate);
     }
 
     private _sendValueToNgModel() {
         let result;
-        switch (this.service.store.originValueType) {
+        switch (this.store.originValueType) {
             case DatepickerValueShowTypesEnum.daterangepickerTimeObject:
                 result = {
                     begin: {
-                        date: this.service.store.value[0].getTime() / 1000,
-                        with_time: this.service.store.withTime
+                        date: this.store.value[0].getTime() / 1000,
+                        with_time: this.store.withTime
                     },
                     end: {
-                        date: this.service.store.value[1].getTime() / 1000,
-                        with_time: this.service.store.withTime
+                        date: this.store.value[1].getTime() / 1000,
+                        with_time: this.store.withTime
                     }
                 };
                 break;
             default:
-                result = { begin: {}, end: {} };
+                result = {
+                    begin: {
+                        date: this.store.value[0].getTime() / 1000,
+                        with_time: this.store.withTime
+                    },
+                    end: {
+                        date: this.store.value[1].getTime() / 1000,
+                        with_time: this.store.withTime
+                    }
+                };
                 break;
         }
         this._onChange(result);
