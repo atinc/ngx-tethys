@@ -30,11 +30,19 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit {
 
     _expandOptions = false;
 
+    _searchText = '';
+
+    selectedItem: any;
+
     private onTouchedCallback: () => void = noop;
 
     private onChangeCallback: (_: any) => void = noop;
 
     @HostBinding('class.thy-select-custom') _isSelectCustom = true;
+
+    @Input() thySearch: boolean;
+
+    @Input() thyData?: any;
 
     @Input()
     set thySize(value: InputSize) {
@@ -72,6 +80,14 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit {
         if (!this.elementRef.nativeElement.contains(event.target)) {
             this._expandOptions = false;
         }
+    }
+
+    enter() {
+        this._searchText = '';
+    }
+
+    select(event: any) {
+        this.selectedItem = event;
     }
 
     ngOnInit() {

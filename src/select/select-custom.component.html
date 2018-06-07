@@ -4,5 +4,10 @@
     <i class="wtf wtf-angle-down float-right text-info"></i>
 </div>
 <div class="thy-select-custom-options" *ngIf="_expandOptions">
-    <ng-content></ng-content>
+    <div class="pr-2 pl-2 pt-2 pb-2 select-search-input" *ngIf="thySearch">
+        <input thyInput type="text">
+    </div>
+    <div class="select-option">
+        <ng-content></ng-content>
+    </div>
 </div>

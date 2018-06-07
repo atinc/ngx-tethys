@@ -51,7 +51,7 @@
         </thy-custom-select> -->
 
         <br>
-        <thy-custom-select [(ngModel)]="selectedItem">
+        <thy-custom-select [(ngModel)]="selectedItem" [thySearch]="true">
             <thy-option *ngFor="let item of optionData" [value]="item" [selected]="selectedItem?._id === item?._id" (thySelectItem)="select($event)"></thy-option>
         </thy-custom-select>
     </div>
