@@ -471,7 +471,8 @@ $color in $theme-list {
 }
 
 //#endregion
-thy-datepicker-container {
+thy-datepicker-container,
+thy-daterangepicker-container {
     position: absolute;
     z-index: $datepicker-z-index;
     padding-bottom: 10px;

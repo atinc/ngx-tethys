@@ -80,3 +80,51 @@ export function datepickerUtilConvertToDatepickerObject(value: any, valueType?: 
     }
     return _value;
 }
+
+export function daterangepickerUtilIdentificationValueType(value: any): DatepickerValueShowTypesEnum {
+    // let res;
+    // if (isObject(value) && value.hasOwnProperty('begin') && value.hasOwnProperty('end')) {
+    //     if (isDate(value.begin)) {
+    //         res = DatepickerValueShowTypesEnum.daterangepickerObject;
+    //     } else if (isObject(value.begin)) {
+
+    //     } else if (true) {
+
+    //     } else if (true) {
+
+    //     } else {
+    //         res = DatepickerValueShowTypesEnum.daterangepickerNullValue;
+    //     }
+    // } else {
+    //     res = DatepickerValueShowTypesEnum.nullValue;
+    // }
+    // return res;
+    if (value) {
+        return DatepickerValueShowTypesEnum.daterangepickerTimeObject;
+    } else {
+        return DatepickerValueShowTypesEnum.datepickerNullValue;
+    }
+}
+
+export function daterangepickerUtilConvertToDaterangepickerObject(value: any, valueType?: DatepickerValueShowTypesEnum) {
+    const _valueType = valueType || daterangepickerUtilIdentificationValueType(value);
+    let _value: any;
+    switch (_valueType) {
+        case DatepickerValueShowTypesEnum.daterangepickerTimeObject:
+            _value = [
+                new Date(value.begin.date * 1000),
+                new Date(value.end.date * 1000)
+            ];
+            break;
+        default:
+            _value = null;
+            break;
+    }
+    return _value;
+}
+
+export class DatepickerUtil {
+    constructor(
+
+    ) { }
+}

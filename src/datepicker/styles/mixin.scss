@@ -1,9 +1,5 @@
 @mixin theming($name, $color) {
   .theme-#{$name} {
-    .bs-datepicker-head {
-      background-color: $color;
-    }
-
     .bs-datepicker-body {
       table {
         td {
@@ -33,7 +29,8 @@
       height: 0;
       border: 0;
     }
-    bs-datepicker-container {
+    bs-datepicker-container,
+    bs-daterangepicker-container {
       // 日期区域
       position: relative !important;
       .bs-datepicker {

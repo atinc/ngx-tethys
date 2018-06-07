@@ -11,12 +11,15 @@ export class ThySlideService {
 
     private _config: ThySlideOption;
 
+    private _isHide = false;
+
     constructor(
         private clf: ComponentLoaderFactory,
     ) {
     }
 
     public show(content: string | TemplateRef<any> | any, config?: ThySlideOption) {
+        this._isHide = false;
         setTimeout(() => {
             this._show(content, config);
         });
@@ -52,10 +55,15 @@ export class ThySlideService {
             .provide({ provide: ThySlideOption, useValue: this._config })
             .attach(ThySlideContainerComponent)
             .to('body')
-            .show({ content, initialState: this._config.initialState, thySlideRef: thySlideRef });
+            .show({ content, initialState: this._config.initialState, thySlideRef: thySlideRef, thySlideService: this });
     }
 
     public hide() {
+        this._isHide = true;
+        this._hide();
+    }
+
+    private _hide() {
         setTimeout(() => {
             if (this._slideLoader) {
                 this._slideLoader.hide();

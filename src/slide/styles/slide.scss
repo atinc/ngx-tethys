@@ -1,7 +1,16 @@
-thy-slide-container {
+.slide{
     position: fixed;
-    height: 100%;
-    width: 350px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: block;
+    opacity: 1;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.slide-dialog {
+    position: fixed;
     background-color: $white;
     overflow-y: auto;
     box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.04), 0 6px 30px 5px rgba(0, 0, 0, 0.08), 0 8px 10px -5px rgba(0, 0, 0, 0.12);
@@ -10,6 +19,7 @@ thy-slide-container {
         padding: $slide-header-padding;
         display: flex;
         flex-direction: row;
+        height: $slide-header-height;;
         border-bottom: solid 1px $slide-divider;
         background-color: transparent;
         .thy-slide-title {
@@ -24,6 +34,7 @@ thy-slide-container {
     .thy-slide-body {
         display: block;
         width: 100%;
+        height: calc(100% - #{$slide-header-height});
         overflow-y: auto;
         .thy-slide-body-content {
             padding: $slide-body-content-padding;
@@ -41,6 +52,7 @@ thy-slide-container {
 .thy-slide {
     bottom: 0;
     right: 0;
-    height: calc(100% - #{$layout-header-height} - #{$layout-header-height-sm});
+    width: 350px;
+    height: calc(100vh - #{$layout-header-height} - #{$layout-header-height-sm} - #{$slide-header-height});
     max-height: calc(100vh - #{$layout-header-height} - #{$layout-header-height-sm} - #{$slide-header-height});
 }
