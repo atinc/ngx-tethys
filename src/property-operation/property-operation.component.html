@@ -1,0 +1,11 @@
+<div class="thy-operation-icon">
+    <ng-container *ngTemplateOutlet="operationIcon"></ng-container>
+    <button *ngIf="_icon" [thyButtonIcon]="_icon" thyShape="circle-dashed"></button>
+</div>
+<div class="thy-operation-content" [ngClass]="{'only-has-tips' : _onlyHasTips}">
+    <div #contentElement>
+        <ng-content></ng-content>
+    </div>
+    <ng-container *ngIf="_value">{{_value}}</ng-container>
+    <div class="thy-tips">{{_labelText}}</div>
+</div>

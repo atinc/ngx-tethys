@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AvatarComponent } from './avatar.component';
+import { ThyAvatarComponent } from './avatar.component';
 import { AvatarPipes } from './avatar.pipe';
 
 @NgModule({
     declarations: [
-        AvatarComponent,
+        ThyAvatarComponent,
         AvatarPipes
     ],
     imports: [
         CommonModule
     ],
     exports: [
-        AvatarComponent,
+        ThyAvatarComponent,
         AvatarPipes
     ]
 })

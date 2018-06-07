@@ -122,3 +122,21 @@ export function isBoolean(value: any) {
     return value === true || value === false ||
         (isObjectLike(value) && baseGetTag(value) === '[object Boolean]');
 }
+
+
+export function htmlElementIsEmpty(element: HTMLElement) {
+    if (element && element.childNodes) {
+        const nodes = element.childNodes;
+        for (let i = 0; i < nodes.length; i++) {
+            const node = nodes[i];
+            if ((node.nodeType === Node.ELEMENT_NODE) && ((node as HTMLElement).outerHTML.toString().trim().length !== 0)) {
+                return false;
+            } else if ((node.nodeType === Node.TEXT_NODE) && ((node.textContent.toString().trim().length !== 0))) {
+                return false;
+            } else if (node.nodeType !== Node.COMMENT_NODE) {
+                return false;
+            }
+        }
+    }
+    return true;
+}

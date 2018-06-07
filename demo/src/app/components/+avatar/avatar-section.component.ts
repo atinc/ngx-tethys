@@ -20,7 +20,7 @@ export class DemoAvatarSectionComponent implements OnInit {
     }
 
     ngOnInit() {
-        setInterval(() => {
+        setTimeout(() => {
             this.member = { display_name: 'worktile', avatar: '' };
             this.hasAvatarMember = {
                 display_name: 'worktile',
