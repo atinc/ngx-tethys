@@ -46,9 +46,11 @@ export class DemoDataPickerSectionComponent implements OnInit {
     };
 
     dateRangeEntry = {
-        begin: { date: Math.floor((new Date()).getTime() / 1000) - 90000 },
-        end: { date: Math.floor((new Date()).getTime() / 1000) + 180000 }
+        begin: { date: Math.floor((new Date()).getTime() / 1000) },
+        end: { date: Math.floor((new Date()).getTime() / 1000) + 90000 * 3 }
     };
+
+    dateRangeNullValue = null;
 
     Datepicker: Date;
 
@@ -99,6 +101,20 @@ export class DemoDataPickerSectionComponent implements OnInit {
         this.dateNull = Math.floor((new Date()).getTime() / 1000);
 
     }
+
+    test2() {
+        this.dateRangeEntry = {
+            begin: { date: Math.floor((new Date()).getTime() / 1000) },
+            end: { date: Math.floor((new Date()).getTime() / 1000) + 90000 * 7 }
+        };
+
+        this.dateRangeNullValue = {
+            begin: { date: Math.floor((new Date()).getTime() / 1000) },
+            end: { date: Math.floor((new Date()).getTime() / 1000) + 90000 * 7 }
+        };
+
+    }
+
     log($event) {
         console.log($event);
     }

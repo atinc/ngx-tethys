@@ -1,11 +1,11 @@
-<!-- <section>
+<section>
     <div class="header">
         <h2>Input绑定</h2>
     </div>
     <div class="body">
         <dl class="datepicker-section">
             <dd class="mt-5">
-                <div class="">DatepickerTimeObject类型 - {{dateEntry|json}}</div>
+                <div>DatepickerTimeObject类型 - {{dateEntry|json}}</div>
                 <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
                     <input type="text" readonly="readonly" thyDatepicker [(ngModel)]="dateEntry" class="form-control" placeholder="" />
                 </thy-form-group>
@@ -53,6 +53,7 @@
         <button thyButton="primary" thySize="sm" (click)="test()">测试修改值</button>
     </div>
 </section>
+
 <section>
     <div class="header">
         <h2>元素绑定</h2>
@@ -84,10 +85,30 @@
         </table>
     </div>
 </section>
-<api-parameters [parameters]="apiParameters"></api-parameters> -->
-<thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
-        <input type="text" readonly="readonly" thyDatepicker [(ngModel)]="dateEntry" class="form-control" placeholder="" />
-    </thy-form-group>
-<div class="">DatepickerTimeObject类型 - {{dateRangeEntry|json}}</div>
-<input type="text" readonly="readonly" thyDaterangepicker [(ngModel)]="dateRangeEntry" class="form-control" placeholder="" />
 
+<section>
+    <div class="header">
+        <h2>元素绑定</h2>
+    </div>
+    <div class="body">
+        <dl class="datepicker-section">
+            <dd class="mt-5">
+                <div>DaterangepickerTimeObject类型 - {{dateRangeEntry|json}}</div>
+                <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
+                    <input type="text" readonly="readonly" thyDaterangepicker [(ngModel)]="dateRangeEntry" class="form-control" placeholder=""
+                    />
+                </thy-form-group>
+            </dd>
+            <dd class="mt-5">
+                <div>空值 - {{dateRangeNullValue|json}}</div>
+                <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
+                    <input type="text" readonly="readonly" thyDaterangepicker [(ngModel)]="dateRangeNullValue" class="form-control" placeholder=""
+                    />
+                </thy-form-group>
+            </dd>
+        </dl>
+        <button thyButton="primary" thySize="sm" (click)="test2()">测试修改值</button>
+    </div>
+</section>
+
+<api-parameters [parameters]="apiParameters"></api-parameters>
