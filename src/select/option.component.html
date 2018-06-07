@@ -1,0 +1,11 @@
+<div class="action-menu action-menu--select">
+    <a class="action-menu-item" href="javascript:;" (click)="selectItem(value)">
+        <span class="icon">
+            <i class="{{value?.icon}}"></i>
+        </span>
+        <span>{{value?.name}}</span>
+        <span class="extend-icon text-info" *ngIf="selected">
+            <i class="wtf wtf-accepted"></i>
+        </span>
+    </a>
+</div>

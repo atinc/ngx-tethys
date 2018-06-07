@@ -1,4 +1,4 @@
-<section>
+<!-- <section>
     <div class="header">
         <h2>Input绑定</h2>
     </div>
@@ -50,7 +50,7 @@
                 </thy-form-group>
             </dd>
         </dl>
-        <button (click)="test()">TEST</button>
+        <button thyButton="primary" thySize="sm" (click)="test()">测试修改值</button>
     </div>
 </section>
 <section>
@@ -84,4 +84,10 @@
         </table>
     </div>
 </section>
-<api-parameters [parameters]="apiParameters"></api-parameters>
+<api-parameters [parameters]="apiParameters"></api-parameters> -->
+<thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
+        <input type="text" readonly="readonly" thyDatepicker [(ngModel)]="dateEntry" class="form-control" placeholder="" />
+    </thy-form-group>
+<div class="">DatepickerTimeObject类型 - {{dateRangeEntry|json}}</div>
+<input type="text" readonly="readonly" thyDaterangepicker [(ngModel)]="dateRangeEntry" class="form-control" placeholder="" />
+

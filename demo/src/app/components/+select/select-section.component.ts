@@ -57,10 +57,38 @@ export class DemoSelectSectionComponent {
         selectedValue: ''
     };
 
+    selectedItem: any;
+
+    optionData = [{
+        icon: 'wtf wtf-type-task',
+        name: '任务',
+        _id: '5b0527cfc8f2ff200a33d4aa'
+    }, {
+        icon: 'wtf wtf-type-money',
+        name: '钱',
+        _id: '5b0527cfc8f2ff200a33d4ab'
+    }, {
+        icon: 'wtf wtf-type-worksheet',
+        name: '工时',
+        _id: '5b0527cfc8f2ff200a33d4ac'
+    }, {
+        icon: 'wtf wtf-type-demand',
+        name: '需求',
+        _id: '5b0527cfc8f2ff200a33d4ad'
+    }, {
+        // icon: 'wtf wtf-type-ios',
+        name: 'IOS缺陷',
+        _id: '5b0527cfc8f2ff200a33d4b1'
+    }];
+
     constructor(
     ) { }
 
     change() {
         console.log(`select change value as :${this.model.selectedValue}`);
+    }
+
+    select(event) {
+        this.selectedItem = event;
     }
 }

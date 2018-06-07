@@ -6,7 +6,8 @@ import { DebugHelper } from 'protractor/built/debugger';
 
 @Component({
     selector: 'thy-slide-container',
-    template: `<ng-content></ng-content>`,
+    template: `<div [class]="'slide-dialog' + (thySlideContainerClass ? ' ' + thySlideContainerClass : '')" [@flyInOut]="flyInOut">
+    <ng-container *ngIf="isShow"><ng-content></ng-content></ng-container></div>`,
     animations: [
         trigger('flyInOut', [
             state('left', style({ transform: '*' })),
@@ -46,9 +47,17 @@ import { DebugHelper } from 'protractor/built/debugger';
 })
 export class ThySlideContainerComponent implements OnInit {
 
-    @HostBinding('@flyInOut') flyInOut: string;
+    @HostBinding('class.slide') slideClass = true;
 
-    @HostBinding('class') thySlideContainerClass: string;
+    public flyInOut: string;
+
+    public thySlideContainerClass: string;
+
+    public isShow = false;
+
+    public isHide: boolean;
+
+    thySlideService: any;
 
     constructor(
         private thySlideRef: ThySlideRef,
@@ -60,14 +69,15 @@ export class ThySlideContainerComponent implements OnInit {
     ngOnInit() {
         this.flyInOut = this.thySlideOption.from;
         this.thySlideContainerClass = this.thySlideOption.class;
-        this.renderer.setStyle(this.elementRef.nativeElement, this.thySlideOption.from, 0);
+        setTimeout(() => {
+            this.isShow = true;
+        }, 200);
     }
 
-    @HostListener('document:click', ['$event'])
-    onDocumentClick(event: any): void {
+    @HostListener('click', ['$event'])
+    onClick(event: any): void {
         event.stopPropagation();
-        const isInnerClick = this.elementRef.nativeElement.contains(event.target);
-        if (!isInnerClick) {
+        if (this.thySlideService._isHide || event.target === this.elementRef.nativeElement) {
             this.flyInOut = 'void';
             this.thySlideRef.hide();
         }

@@ -1,4 +1,18 @@
 <thy-slide-header thyTitle="筛选"></thy-slide-header>
 <thy-slide-body>
-    <div>筛选 body---{{name}}</div>
+    <div>筛选 body---{{name}}
+        <button thyButton="primary" (click)="addModal(add)">添加</button>
+    </div>
 </thy-slide-body>
+
+<ng-template #add>
+    <thy-modal thyStopPropagation>
+        <thy-modal-header thyTitle="添加项目"></thy-modal-header>
+        <thy-modal-body>
+            <span>添加一个项目</span>
+            <h1>H1 标题</h1>
+            <h2>H2 标题</h2>
+            <h3>H3 标题</h3>
+        </thy-modal-body>
+    </thy-modal>
+</ng-template>
