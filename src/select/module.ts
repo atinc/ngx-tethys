@@ -3,18 +3,24 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ThySelectComponent } from './select.component';
 import { ThyInputModule } from '../input/module';
+import { ThyOptionComponent } from './option.component';
+import { ThySelectCustomComponent } from './select-custom.component';
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
-        ThyInputModule
+        ThyInputModule,
     ],
     declarations: [
-        ThySelectComponent
+        ThySelectComponent,
+        ThyOptionComponent,
+        ThySelectCustomComponent,
     ],
     exports: [
-        ThySelectComponent
+        ThySelectComponent,
+        ThyOptionComponent,
+        ThySelectCustomComponent,
     ]
 })
 export class ThySelectModule {

@@ -158,11 +158,11 @@ fieldset:disabled a.btn {
     } // No need for an active state here
 }
 
-.btn-link-info {
+.btn-link.btn-link-info {
     @include btn-link-variant($info, $primary, none);
 }
 
-.btn-link-default {
+.btn-link.btn-link-default {
     @include btn-link-variant($btn-link-color-default, $primary, none);
 }
 

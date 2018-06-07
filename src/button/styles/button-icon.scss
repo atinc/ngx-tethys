@@ -17,7 +17,7 @@
 
 .btn-icon {
     padding: 0px;
-    @extend .btn-link-default;
+    @extend .btn-link.btn-link-default;
     i,.wtf {
         display: inline-block;
         line-height: 1;

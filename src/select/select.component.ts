@@ -1,6 +1,7 @@
 import { Component, forwardRef, HostBinding, Input, ElementRef, OnInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { UpdateHostClassService } from '../shared/update-host-class.service';
+import { inputValueToBoolean } from '../util/helpers';
 
 export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -25,6 +26,7 @@ export class ThySelectComponent implements ControlValueAccessor, OnInit {
     _innerValue: any = null;
     _disabled = false;
     _size: InputSize;
+    _expandOptions = false;
     private onTouchedCallback: () => void = noop;
     private onChangeCallback: (_: any) => void = noop;
 
@@ -68,4 +70,5 @@ export class ThySelectComponent implements ControlValueAccessor, OnInit {
         const classes = this._size ? [`thy-select-${this._size}`] : [];
         this.updateHostClassService.updateClass(classes);
     }
+
 }
