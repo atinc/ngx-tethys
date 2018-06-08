@@ -1,4 +1,4 @@
-<img *ngIf="_src" [src]="_src | thyAvatarSrc" class="avatar-avatar" alt="{{avatarName || ''}}" />
+<img *ngIf="_src" [src]="_src | thyAvatarSrc: _size" class="avatar-avatar" alt="{{avatarName || ''}}" />
 <span *ngIf="!_src" class="avatar-default" [ngStyle]="avatarName | avatarBgColor">
     <div>{{avatarName | avatarShortName}}</div>
 </span>

@@ -41,8 +41,8 @@ export class AvatarBgColorPipe implements PipeTransform {
 @Pipe({ name: 'thyAvatarSrc' })
 export class AvatarSrcPipe implements PipeTransform {
     constructor(private thyAvatarService: ThyAvatarService) { }
-    transform(src: string) {
-        return this.thyAvatarService.avatarSrcTransform(src);
+    transform(src: string, size: number) {
+        return this.thyAvatarService.avatarSrcTransform(src, size);
     }
 }
 

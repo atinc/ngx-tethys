@@ -42,7 +42,7 @@ export class DemoAvatarSectionComponent implements OnInit {
 
     isFullPath = false;
 
-    originalTransform: (src: string) => string;
+    originalTransform: (src: string, size: number) => string;
 
     constructor(private thyAvatarService: ThyAvatarService) {
         this.originalTransform = thyAvatarService.avatarSrcTransform;
@@ -56,7 +56,7 @@ export class DemoAvatarSectionComponent implements OnInit {
         this.isFullPath = !this.isFullPath;
         if (this.isFullPath) {
             this.avatarSrc = 'https://s3.cn-north-1.amazonaws.com.cn/lcavatar/dfea7c36-5147-4569-8910-829137920172_80x80.png';
-            this.thyAvatarService.avatarSrcTransform = (src) => {
+            this.thyAvatarService.avatarSrcTransform = (src: string, size: number) => {
                 return src;
             };
         } else {
