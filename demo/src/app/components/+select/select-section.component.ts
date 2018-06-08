@@ -9,50 +9,6 @@ import { of } from 'rxjs';
 })
 export class DemoSelectSectionComponent {
 
-    apiParameters = [
-        {
-            property: 'title',
-            description: '标题',
-            type: 'String',
-            default: ''
-        }, {
-            property: 'content',
-            description: '内容',
-            type: 'String',
-            default: ''
-        }, {
-            property: 'buttons',
-            description: '按钮',
-            type: 'Object',
-            default: ''
-        }, {
-            property: 'buttons.confirm',
-            description: '确认按钮',
-            type: 'Object',
-            default: ''
-        }, {
-            property: 'buttons.confirm.text',
-            description: '确认按钮-显示文本',
-            type: 'String',
-            default: ''
-        }, {
-            property: 'buttons.confirm.type',
-            description: '确认按钮-样式',
-            type: 'ThyButtonType',
-            default: ''
-        }, {
-            property: 'buttons.confirm.loadingText',
-            description: '确认按钮-处理中显示文本',
-            type: 'String',
-            default: ''
-        }, {
-            property: 'buttons.confirm.action',
-            description: '确认按钮-处理事件',
-            type: 'Function',
-            default: ''
-        },
-    ];
-
     model = {
         selectedValue: ''
     };
@@ -81,14 +37,52 @@ export class DemoSelectSectionComponent {
         _id: '5b0527cfc8f2ff200a33d4b1'
     }];
 
+    public apiParameters = [
+        {
+            property: 'thySize',
+            description: '大小，sm、lg',
+            type: 'String',
+            default: ''
+        },
+        {
+            property: 'thyIsSearch',
+            description: '下拉列表是否显示搜索框',
+            type: 'boolean',
+            default: 'false'
+        }
+    ];
+
+    public optionApiParameters = [
+        {
+            property: '[icon]',
+            description: '可传图标',
+            type: 'String',
+            default: ''
+        },
+        {
+            property: 'hasSelectedIcon',
+            description: '是否显示选中图标',
+            type: 'boolean',
+            default: 'false'
+        },
+        {
+            property: '[value]',
+            description: '每个option的value值',
+            type: 'string',
+            default: ''
+        },
+        {
+            property: '[label]',
+            description: '每个option的label，用于显示',
+            type: 'String',
+            default: ''
+        }
+    ];
+
     constructor(
     ) { }
 
     change() {
         console.log(`select change value as :${this.model.selectedValue}`);
-    }
-
-    select(event) {
-        this.selectedItem = event;
     }
 }

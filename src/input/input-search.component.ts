@@ -76,7 +76,8 @@ export class ThyInputSearchComponent implements ControlValueAccessor {
         this.onChangeCallback(this.searchText);
     }
 
-    clearSearchText() {
+    clearSearchText(event: Event) {
+        event.stopPropagation();
         if (this.disabled) {
             return;
         }

@@ -36,19 +36,13 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
 
     _expandOptions = false;
 
-    _searchText = '';
-
-    selectedItem: any;
-
     private onTouchedCallback: () => void = noop;
 
     private onChangeCallback: (_: any) => void = noop;
 
     @HostBinding('class.thy-select-custom') _isSelectCustom = true;
 
-    @Input() thySearch: boolean;
-
-    @Input() thyData?: any;
+    @Input() thyIsSearch: boolean;
 
     @Input()
     set thySize(value: InputSize) {
@@ -99,15 +93,4 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
         this._expandOptions = !this._expandOptions;
     }
 
-    enter() {
-        this._searchText = '';
-    }
-
-    select(event: any) {
-        this.selectedItem = event;
-    }
-
-    changeSearchText() {
-
-    }
 }

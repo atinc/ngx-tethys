@@ -1,6 +1,6 @@
 import {
     Component, forwardRef, HostBinding,
-    Input, ElementRef, OnInit, Output, EventEmitter, ContentChild, TemplateRef
+    Input, ElementRef, OnInit, Output, EventEmitter, ContentChild, TemplateRef, ViewChild
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ThySelectCustomComponent } from './select-custom.component';
@@ -15,11 +15,15 @@ export class ThyOptionComponent implements OnInit {
 
     @Input() label: string;
 
-    @Input() selected: boolean;
-
     @Input() disabled: boolean;
 
-    @ContentChild(TemplateRef) template: TemplateRef<any>;
+    @Input() custom: boolean;
+
+    @Input() icon: string;
+
+    @Input() hasSelectedIcon: boolean;
+
+    @ViewChild(TemplateRef) template: TemplateRef<any>;
 
     constructor(
     ) {

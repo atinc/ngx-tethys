@@ -1,6 +1,10 @@
-<ng-container *ngIf="option.template">
+<ng-container *ngIf="option.custom">
     <ng-template [ngTemplateOutlet]="option.template"></ng-template>
 </ng-container>
-<ng-container *ngIf="!option.template">
-    {{option.label}}
+<ng-container *ngIf="!option.custom">
+    <i [class]="option?.icon"></i>
+    <span class="ml-1">{{option.label}}</span>
+    <span class="extend-icon text-info" *ngIf="option?.hasSelectedIcon">
+        <i class="wtf wtf-accepted"></i>
+    </span>
 </ng-container>

@@ -14,7 +14,7 @@ import { OptionItemComponent } from './option-item.component';
     imports: [
         CommonModule,
         FormsModule,
-        ThyInputModule,
+        ThyInputModule
     ],
     declarations: [
         ThySelectComponent,

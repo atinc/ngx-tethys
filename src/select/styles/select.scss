@@ -108,6 +108,19 @@ select.form-control-xs {
     .select-option {
       max-height: 400px;
       overflow-y: auto;
+
+      .option-hover-bg {
+        background: $gray-100;
+      }
+    }
+
+    .select-group {
+      .group-name {
+        padding: 0 15px;
+        margin-bottom: 0;
+        font-size: $font-size-base;
+        font-weight: 600;
+      }
     }
 
   }

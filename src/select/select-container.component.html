@@ -1,13 +1,35 @@
-<div class="search"></div>
-<ul *ngIf="listOfOptionComponent">
-    <li *ngFor="let option of listOfOptionComponent;" option-item [option]="option"></li>
-</ul>
-
-<ng-container *ngIf="listOfOptionGroupComponent">
-    <div *ngFor="let group of listOfOptionGroupComponent;">
-        <p>{{group.label}}</p>
-        <ul>
-            <li *ngFor="let option of group.listOfOptionComponent;" option-item [option]="option"></li>
-        </ul>
+<div class="thy-select-custom-options">
+    <div class="thy-select-search" *ngIf="parent.thyIsSearch">
+        <thy-input-search thyAutofocus name="search" [(ngModel)]="searchText" (ngModelChange)="changeSearchText()"></thy-input-search>
     </div>
-</ng-container>
+    <ng-container *ngIf="listOfOptionComponent.length > 0">
+        <ul class="select-option action-menu action-menu--select mb-0" *ngIf="!isSearch">
+            <li class="action-menu-item" [ngClass]="{true:'option-hover-bg',false:''}[option?.label === parent._innerValue?.label]" *ngFor="let option of listOfOptionComponent;"
+                option-item [option]="option" (click)="selectedOption(option)">
+            </li>
+        </ul>
+        <ul class="select-option action-menu action-menu--select mb-0" *ngIf="isSearch">
+            <li class="action-menu-item" [ngClass]="{true:'option-hover-bg',false:''}[option?.value === parent._innerValue?.value]" *ngFor="let option of searchData;"
+                option-item [option]="option" (click)="selectedOption(option)">
+            </li>
+        </ul>
+    </ng-container>
+
+    <ng-container *ngIf="listOfOptionGroupComponent.length > 0">
+        <div class="select-group mt-2" [hidden]="isSearch" *ngFor="let group of listOfOptionGroupComponent;">
+            <h6 class="group-name" *ngIf="group.listOfOptionComponent.length > 0">{{group.label}}</h6>
+            <ul class="select-option action-menu action-menu--select mb-0">
+                <li class="action-menu-item" [ngClass]="{true:'option-hover-bg',false:''}[option?.value === parent._innerValue?.value]" *ngFor="let option of group.listOfOptionComponent;"
+                    option-item [option]="option" (click)="selectedOption(option)"></li>
+            </ul>
+        </div>
+        <div class="select-group mt-2" [hidden]="!isSearch" *ngFor="let group of searchData;">
+            <h6 class="group-name" *ngIf="group.listOfOptionComponent.length > 0">{{group.label}}</h6>
+            <ul class="select-option action-menu action-menu--select mb-0">
+                <li class="action-menu-item" [ngClass]="{true:'option-hover-bg',false:''}[option?.value === parent._innerValue?.value]" *ngFor="let option of group.listOfOptionComponent;"
+                    option-item [option]="option" (click)="selectedOption(option)">
+                </li>
+            </ul>
+        </div>
+    </ng-container>
+</div>
