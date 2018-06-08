@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { ThyAvatarService } from './avatar.service';
 
 @Pipe({ name: 'avatarShortName' })
 export class AvatarShortNamePipe implements PipeTransform {
@@ -37,7 +38,16 @@ export class AvatarBgColorPipe implements PipeTransform {
     }
 }
 
+@Pipe({ name: 'thyAvatarSrc' })
+export class AvatarSrcPipe implements PipeTransform {
+    constructor(private thyAvatarService: ThyAvatarService) { }
+    transform(src: string, size: number) {
+        return this.thyAvatarService.avatarSrcTransform(src, size);
+    }
+}
+
 export const AvatarPipes = [
     AvatarShortNamePipe,
-    AvatarBgColorPipe
+    AvatarBgColorPipe,
+    AvatarSrcPipe
 ];

@@ -1,9 +1,16 @@
 import { Component, Input, ElementRef, HostBinding, OnInit } from '@angular/core';
 import { isNumber } from '../util/helpers';
-import { AvatarMemberInfo } from './avatar-member-info';
 import { UpdateHostClassService } from '../shared/update-host-class.service';
+import { ThyAvatarService } from './avatar.service';
 
-const sizeArray = [22, 24, 30, 38, 48, 68, 110, 160, 320];
+const sizeArray = [22, 24, 30, 38, 48, 68, 110, 160];
+const sizeMap = {
+    sm: 24,
+    xs: 30,
+    md: 38,
+    lg: 48
+};
+
 const DEFAULT_SIZE = 38;
 
 @Component({
@@ -14,10 +21,10 @@ const DEFAULT_SIZE = 38;
     ]
 })
 export class ThyAvatarComponent implements OnInit {
-    private _src: string;
-    private _name: string;
-    private _size: number;
-    private _member: AvatarMemberInfo;
+
+    _src: string;
+    _name: string;
+    _size: number;
 
     public avatarSrc: string;
     public avatarName?: string;
@@ -28,27 +35,30 @@ export class ThyAvatarComponent implements OnInit {
 
     @Input()
     set thySrc(value: string) {
-        this._src = value;
-        this.getAvatarSrc();
+        this._setAvatarSrc(value);
     }
 
     @Input()
     set thyName(value: string) {
         this._name = value;
-        this.getAvatarName();
+        this._setAvatarName();
     }
 
     @Input()
-    set thySize(value: number) {
-        this._setAvatarSize(value * 1);
+    set thySize(value: number | string) {
+        if (sizeMap[value]) {
+            this._setAvatarSize(sizeMap[value]);
+        } else {
+            this._setAvatarSize((value as number) * 1);
+        }
     }
 
-    @Input()
-    set thyMember(value: AvatarMemberInfo) {
-        this._member = value;
-        this.getAvatarSrc();
-        this.getAvatarName();
-    }
+    // @Input()
+    // set thyMember(value: AvatarMemberInfo) {
+    //     this._member = value;
+    //     this._setAvatarSrc(this._member && this._member.avatar);
+    //     this._setAvatarName();
+    // }
 
     private _setAvatarSize(size: number) {
         if (sizeArray.indexOf(size) > -1) {
@@ -60,17 +70,20 @@ export class ThyAvatarComponent implements OnInit {
         }
     }
 
-    private getAvatarName() {
-        this.avatarName = this._name || (this._member && this._member.display_name);
+    private _setAvatarSrc(src: string) {
+        if (src && !this.thyAvatarService.ignoreAvatarSrcPaths.includes(src)) {
+            this._src = src;
+        }
     }
 
-    private getAvatarSrc() {
-        this.avatarSrc = this._src || (this._member && this._member.avatar);
+    private _setAvatarName() {
+        this.avatarName = this._name;
     }
 
     constructor(
         private updateHostClassService: UpdateHostClassService,
-        private elementRef: ElementRef
+        private elementRef: ElementRef,
+        private thyAvatarService: ThyAvatarService
     ) {
         updateHostClassService.initializeElement(elementRef.nativeElement);
     }

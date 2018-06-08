@@ -6,7 +6,7 @@ import { ThyButtonModule } from './button';
 import { ThyLayoutModule } from './layout';
 import { NgxPopBoxModule } from './pop-box/pop-box.module';
 import { ThyGridModule } from './grid/grid.module';
-import { ThyAvatarModule } from './avatar/avatar.module';
+import { ThyAvatarModule } from './avatar';
 import { ThyBadgeModule } from './badge/badge.module';
 import { ThyLabelModule } from './label/label.module';
 import { ThyNavModule } from './nav/nav.module';
