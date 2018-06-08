@@ -46,8 +46,9 @@
         <h2>自定义 select</h2>
     </div>
     <div class="body">
-        <thy-custom-select thySize="sm" thyPlaceHolder="请选择" [(ngModel)]="selectedItem" [thyShowSearch]="true" (thyFilterOption)="searchTextChange($event)">
-            <thy-option *ngFor="let option of optionData" [thyOptionValue]="option._id" [thyOptionLabel]="option.name">
+        <thy-custom-select thySize="sm" thyPlaceHolder="请选择" [(ngModel)]="selectedItem" [thyShowSearch]="true">
+            <thy-option *ngFor="let option of optionData" thyOptionSearchKey="{{option?.name}},{{option?.display_name}},{{option?.pin_yin}}"
+                [thyOptionValue]="option._id" [thyOptionLabel]="option.display_name">
             </thy-option>
         </thy-custom-select>
 
@@ -55,9 +56,9 @@
 
         <thy-custom-select [(ngModel)]="selectedItem" thyPlaceHolder="请选择">
             <thy-option thyOptionValue="001" thyOptionLabel="country"></thy-option>
-            <thy-option *ngFor="let option of optionData" thyShowOptionCustom="true" [thyOptionValue]="option._id" [thyOptionLabel]="option.name">
+            <thy-option *ngFor="let option of optionData" thyShowOptionCustom="true" [thyOptionValue]="option._id" [thyOptionLabel]="option.display_name">
                 <i [class]="option?.icon"></i>
-                <span class="ml-1">{{option?.name}}</span>
+                <span class="ml-1">{{option?.display_name}}</span>
             </thy-option>
         </thy-custom-select>
 

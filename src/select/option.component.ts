@@ -19,6 +19,8 @@ export class ThyOptionComponent implements OnInit {
 
     @Input() thyShowOptionCustom: boolean;
 
+    @Input() thyOptionSearchKey: string;
+
     @ViewChild(TemplateRef) template: TemplateRef<any>;
 
     constructor(
