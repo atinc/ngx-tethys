@@ -126,6 +126,10 @@ select.form-control-xs {
         font-size: $font-size-base;
         font-weight: 600;
       }
+
+      ul > li {
+        padding: 10px 30px;
+      }
     }
 
   }

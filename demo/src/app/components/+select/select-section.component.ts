@@ -54,12 +54,6 @@ export class DemoSelectSectionComponent {
 
     public optionApiParameters = [
         {
-            property: 'hasSelectedIcon',
-            description: '是否显示选中图标',
-            type: 'boolean',
-            default: 'false'
-        },
-        {
             property: '[value]',
             description: '每个option的value值',
             type: 'string',

@@ -39,7 +39,7 @@ export class SelectContainerComponent implements OnInit {
     }
 
     changeSearchText() {
-        this.parent.thySearchChange.emit(this.searchText);
+        this.parent.thyFilterOption.emit(this.searchText);
     }
 
     clearSearchText() {

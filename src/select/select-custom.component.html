@@ -1,7 +1,7 @@
 <ng-content></ng-content>
 <div class="thy-form-control" (click)="dropDownMenuToggle()">
     <span class="align-middle">
-        <i class="{{_innerValue?.icon}} pr-1"></i> {{_innerValue?.label || '请选择'}}
+        {{_innerValue?.thyOptionLabel || thyPlaceHolder}}
     </span>
 </div>
 <select-container *ngIf="_expandOptions" [listOfOptionComponent]="listOfOptionComponent" [listOfOptionGroupComponent]="listOfOptionGroupComponent"></select-container>

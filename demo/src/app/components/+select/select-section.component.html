@@ -46,32 +46,32 @@
         <h2>自定义 select</h2>
     </div>
     <div class="body">
-        <thy-custom-select thySize="sm" [(ngModel)]="selectedItem" [thyShowSearch]="true" (thySearchChange)="searchTextChange($event)">
-            <thy-option *ngFor="let option of optionData" [value]="option._id" [label]="option.name" [icon]="option?.icon" [hasSelectedIcon]="false">
+        <thy-custom-select thySize="sm" thyPlaceHolder="请选择" [(ngModel)]="selectedItem" [thyShowSearch]="true" (thyFilterOption)="searchTextChange($event)">
+            <thy-option *ngFor="let option of optionData" [thyOptionValue]="option._id" [thyOptionLabel]="option.name">
             </thy-option>
         </thy-custom-select>
 
         <br>
 
-        <thy-custom-select [(ngModel)]="selectedItem">
-            <thy-option value="001" label="country"></thy-option>
-            <!-- <thy-option *ngFor="let option of optionData" [custom]="true">
+        <thy-custom-select [(ngModel)]="selectedItem" thyPlaceHolder="请选择">
+            <thy-option thyOptionValue="001" thyOptionLabel="country"></thy-option>
+            <!-- <thy-option *ngFor="let option of optionData" [thyShowOptionCustom]="true">
                 {{option.name}}
             </thy-option> -->
         </thy-custom-select>
 
         <br>
 
-        <thy-custom-select [(ngModel)]="selectedItem" [thyShowSearch]="true">
-            <thy-option-group label="服饰">
-                <thy-option value="001" label="上衣"></thy-option>
-                <thy-option value="002" label="裤子"></thy-option>
+        <thy-custom-select [(ngModel)]="selectedItem" [thyShowSearch]="true" thyPlaceHolder="请选择">
+            <thy-option-group thyGroupLabel="服饰">
+                <thy-option thyOptionValue="001" thyOptionLabel="上衣"></thy-option>
+                <thy-option thyOptionValue="002" thyOptionLabel="裤子"></thy-option>
             </thy-option-group>
-            <thy-option-group label="食物">
-                <thy-option value="003" label="饮料"></thy-option>
-                <thy-option value="004" label="面包"></thy-option>
-                <thy-option value="005" label="牛奶"></thy-option>
-                <thy-option value="006" label="鸡蛋"></thy-option>
+            <thy-option-group thyGroupLabel="食物">
+                <thy-option thyOptionValue="003" thyOptionLabel="饮料"></thy-option>
+                <thy-option thyOptionValue="004" thyOptionLabel="面包"></thy-option>
+                <thy-option thyOptionValue="005" thyOptionLabel="牛奶"></thy-option>
+                <thy-option thyOptionValue="006" thyOptionLabel="鸡蛋"></thy-option>
             </thy-option-group>
         </thy-custom-select>
     </div>
