@@ -7,7 +7,7 @@ import { htmlElementIsEmpty } from '../util/helpers';
 
 @Component({
     selector: 'thy-property-operation-group',
-    templateUrl: './property-operation-group.component.html'
+    templateUrl: './property-operation-group.component.html'
 })
 
 export class ThyPropertyOperationGroupComponent {
