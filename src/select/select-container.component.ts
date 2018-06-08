@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ContentChild, TemplateRef, QueryList, Output,
 import { ThyOptionComponent } from './option.component';
 import { ThyOptionGroupComponent } from './option-group.component';
 import { ThySelectCustomComponent } from './select-custom.component';
+import { UpdateHostClassService } from '../shared';
 
 @Component({
     selector: 'select-container',
@@ -20,7 +21,8 @@ export class SelectContainerComponent implements OnInit {
     public searchData: any = [];
 
     constructor(
-        public parent: ThySelectCustomComponent
+        public parent: ThySelectCustomComponent,
+        private updateHostClassService: UpdateHostClassService
     ) {
 
     }
@@ -36,6 +38,9 @@ export class SelectContainerComponent implements OnInit {
         }
 
         this.parent._expandOptions = false;
+        const classes =
+            this.parent._size ? [`thy-select-custom-${this.parent._size}`] : [];
+        this.updateHostClassService.updateClass(classes);
     }
 
     changeSearchText() {
