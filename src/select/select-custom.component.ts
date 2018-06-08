@@ -42,11 +42,13 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
 
     @HostBinding('class.thy-select-custom') _isSelectCustom = true;
 
-    @Output() thyFilterOption: EventEmitter<any> = new EventEmitter<any>();
+    @Output() thyOnSearch: EventEmitter<any> = new EventEmitter<any>();
 
     @Input() thyShowSearch: boolean;
 
     @Input() thyPlaceHolder: string;
+
+    @Input() thyServerSearch:boolean;
 
     @Input()
     set thySize(value: InputSize) {

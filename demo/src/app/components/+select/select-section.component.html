@@ -64,7 +64,8 @@
 
         <br>
 
-        <thy-custom-select [(ngModel)]="selectedItem" [thyShowSearch]="true" thyPlaceHolder="请选择">
+        <thy-custom-select [(ngModel)]="selectedItem" [thyServerSearch]="true" (thyOnSearch)="searchTextChange($event)" [thyShowSearch]="true"
+            thyPlaceHolder="请选择">
             <thy-option-group thyGroupLabel="服饰">
                 <thy-option thyOptionValue="001" thyOptionLabel="上衣"></thy-option>
                 <thy-option thyOptionValue="002" thyOptionLabel="裤子"></thy-option>

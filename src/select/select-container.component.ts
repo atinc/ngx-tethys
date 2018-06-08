@@ -42,46 +42,51 @@ export class SelectContainerComponent implements OnInit {
     }
 
     onSearchFilter() {
-        // this.parent.thyFilterOption.emit(this.searchText);
-        const text = (this.searchText || '').toLowerCase();
-        if (!text) {
-            this.clearSearchText();
-            return;
-        }
-        if (/^#(.*)/g.test(text)) {
+        if (this.parent.thyServerSearch) {
+            this.parent.thyOnSearch.emit(this.searchText);
             this.isSearch = false;
-            return;
-        }
-        this.isSearch = true;
-        const searchData: any = [];
-        if (text) {
-            if (this.listOfOptionComponent.length > 0) {
-                this.listOfOptionComponent.forEach((item: any) => {
-                    if (!item.custom) {
-                        const _searchKey = item.thyOptionSearchKey ? item.thyOptionSearchKey : item.thyOptionLabel;
-                        if (_searchKey.toLowerCase().indexOf(text) >= 0) {
-                            searchData.push(item);
-                        }
-                    }
-                });
+        } else {
+            const text = (this.searchText || '').toLowerCase();
+            if (!text) {
+                this.clearSearchText();
+                return;
             }
-            if (this.listOfOptionGroupComponent.length > 0) {
-                this.listOfOptionGroupComponent.forEach((group: any) => {
-                    const groupData: any = [];
-                    group.listOfOptionComponent.forEach((item: any) => {
-                        const _searchKey = item.thyOptionSearchKey ? item.thyOptionSearchKey : item.thyOptionLabel;
-                        if (_searchKey.toLowerCase().indexOf(text) >= 0) {
-                            groupData.push(item);
+            if (/^#(.*)/g.test(text)) {
+                this.isSearch = false;
+                return;
+            }
+            this.isSearch = true;
+            const searchData: any = [];
+            if (text) {
+                if (this.listOfOptionComponent.length > 0) {
+                    this.listOfOptionComponent.forEach((item: any) => {
+                        if (!item.custom) {
+                            const _searchKey = item.thyOptionSearchKey ? item.thyOptionSearchKey : item.thyOptionLabel;
+                            if (_searchKey.toLowerCase().indexOf(text) >= 0) {
+                                searchData.push(item);
+                            }
                         }
                     });
-                    searchData.push({
-                        thyOptionLabel: group.thyOptionLabel,
-                        listOfOptionComponent: groupData
+                }
+                if (this.listOfOptionGroupComponent.length > 0) {
+                    this.listOfOptionGroupComponent.forEach((group: any) => {
+                        const groupData: any = [];
+                        group.listOfOptionComponent.forEach((item: any) => {
+                            const _searchKey = item.thyOptionSearchKey ? item.thyOptionSearchKey : item.thyOptionLabel;
+                            if (_searchKey.toLowerCase().indexOf(text) >= 0) {
+                                groupData.push(item);
+                            }
+                        });
+                        searchData.push({
+                            thyOptionLabel: group.thyOptionLabel,
+                            listOfOptionComponent: groupData
+                        });
                     });
-                });
+                }
+                this.searchData = searchData;
             }
-            this.searchData = searchData;
         }
+
     }
 
     clearSearchText() {
