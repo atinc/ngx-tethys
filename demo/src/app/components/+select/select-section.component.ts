@@ -45,7 +45,7 @@ export class DemoSelectSectionComponent {
             default: ''
         },
         {
-            property: 'thyIsSearch',
+            property: 'thyShowSearch',
             description: '下拉列表是否显示搜索框',
             type: 'boolean',
             default: 'false'
@@ -53,12 +53,6 @@ export class DemoSelectSectionComponent {
     ];
 
     public optionApiParameters = [
-        {
-            property: '[icon]',
-            description: '可传图标',
-            type: 'String',
-            default: ''
-        },
         {
             property: 'hasSelectedIcon',
             description: '是否显示选中图标',
@@ -84,5 +78,9 @@ export class DemoSelectSectionComponent {
 
     change() {
         console.log(`select change value as :${this.model.selectedValue}`);
+    }
+
+    searchTextChange(event: any) {
+        console.log(event);
     }
 }

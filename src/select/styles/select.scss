@@ -104,6 +104,11 @@ select.form-control-xs {
     border: 1px solid $input-border-color;
     border-radius: 0 0 4px 4px;
     z-index: 99;
+    background: $white;
+
+    .thy-select-search {
+      padding: 5px 10px 0;
+    }
 
     .select-option {
       max-height: 400px;
@@ -123,6 +128,16 @@ select.form-control-xs {
       }
     }
 
+  }
+
+  &.thy-select-custom-show-option {
+    .thy-form-control {
+      border-radius: $input-border-radius-md $input-border-radius-md 0 0;
+    }
+
+    .thy-select-custom-options {
+      border-top: 0;
+    }
   }
 }
 

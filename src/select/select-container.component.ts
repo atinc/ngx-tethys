@@ -39,44 +39,7 @@ export class SelectContainerComponent implements OnInit {
     }
 
     changeSearchText() {
-        const text = (this.searchText || '').toLowerCase();
-        if (!text) {
-            this.clearSearchText();
-            return;
-        }
-        if (/^#(.*)/g.test(text)) {
-            this.isSearch = false;
-            return;
-        }
-        this.isSearch = true;
-        const searchData: any = [];
-        if (text) {
-            if (this.listOfOptionComponent.length > 0) {
-                this.listOfOptionComponent.forEach((item: any) => {
-                    if (!item.custom) {
-                        if ((item.label).toLowerCase().indexOf(text) >= 0) {
-                            searchData.push(item);
-                        }
-                    }
-                });
-            }
-            if (this.listOfOptionGroupComponent.length > 0) {
-                this.listOfOptionGroupComponent.forEach((group: any) => {
-                    const groupData: any = [];
-                    group.listOfOptionComponent.forEach((item: any) => {
-                        if ((item.label).toLowerCase().indexOf(text) >= 0) {
-                            groupData.push(item);
-                        }
-                    });
-                    searchData.push({
-                        label: group.label,
-                        listOfOptionComponent: groupData
-                    });
-                });
-            }
-            this.searchData = searchData;
-        }
-
+        this.parent.thySearchChange.emit(this.searchText);
     }
 
     clearSearchText() {

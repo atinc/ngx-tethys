@@ -1,6 +1,6 @@
 import {
     Component, forwardRef, HostBinding, Input,
-    ElementRef, OnInit, HostListener, ContentChildren, QueryList, AfterViewInit
+    ElementRef, OnInit, HostListener, ContentChildren, QueryList, AfterViewInit, Output, EventEmitter
 } from '@angular/core';
 import { UpdateHostClassService } from '../shared/update-host-class.service';
 import { inputValueToBoolean } from '../util/helpers';
@@ -42,7 +42,9 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
 
     @HostBinding('class.thy-select-custom') _isSelectCustom = true;
 
-    @Input() thyIsSearch: boolean;
+    @Output() thySearchChange: EventEmitter<any> = new EventEmitter<any>();
+
+    @Input() thyShowSearch: boolean;
 
     @Input()
     set thySize(value: InputSize) {
@@ -91,6 +93,15 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
 
     dropDownMenuToggle() {
         this._expandOptions = !this._expandOptions;
+        if (this._expandOptions) {
+            const classes =
+                this._size ? [`thy-select-custom-${this._size}`, 'thy-select-custom-show-option'] : ['thy-select-custom-show-option'];
+            this.updateHostClassService.updateClass(classes);
+        } else {
+            const classes =
+                this._size ? [`thy-select-custom-${this._size}`] : [];
+            this.updateHostClassService.updateClass(classes);
+        }
     }
 
 }
