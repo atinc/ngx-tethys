@@ -1,3 +1,8 @@
+## 0.0.68
+1. add property-operation component；
+1. avatar component optimize and add ThyAvatarService to transform src, so `thySrc` can't input src full path.
+
+
 ## 0.0.45
 1. change action menu default not stopPropagation;
 1. add Input params `thyStopPropagation` for thyActionMenuToggle directive.
