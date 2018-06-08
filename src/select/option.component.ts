@@ -27,7 +27,6 @@ export class ThyOptionComponent implements OnInit {
     }
 
     ngOnInit() {
-
     }
 }
 

@@ -34,13 +34,11 @@ export class SelectContainerComponent implements OnInit {
         if (!option.custom) {
             this.parent._innerValue = option;
         } else {
-            this.parent._innerValue = option.template;
+            this.parent._innerValue = option;
         }
 
         this.parent._expandOptions = false;
-        const classes =
-            this.parent._size ? [`thy-select-custom-${this.parent._size}`] : [];
-        this.updateHostClassService.updateClass(classes);
+        this.parent._removeClass();
     }
 
     changeSearchText() {

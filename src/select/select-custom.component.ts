@@ -68,6 +68,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
     onDocumentClick(event: any): void {
         if (!this.elementRef.nativeElement.contains(event.target)) {
             this._expandOptions = false;
+            this._removeClass();
         }
     }
 
@@ -93,16 +94,24 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
         this.onTouchedCallback = fn;
     }
 
+    _addClass() {
+        const classes =
+            this._size ? [`thy-select-custom-${this._size}`, 'thy-select-custom-show-option'] : ['thy-select-custom-show-option'];
+        this.updateHostClassService.updateClass(classes);
+    }
+
+    _removeClass() {
+        const classes =
+            this._size ? [`thy-select-custom-${this._size}`] : [];
+        this.updateHostClassService.updateClass(classes);
+    }
+
     dropDownMenuToggle() {
         this._expandOptions = !this._expandOptions;
         if (this._expandOptions) {
-            const classes =
-                this._size ? [`thy-select-custom-${this._size}`, 'thy-select-custom-show-option'] : ['thy-select-custom-show-option'];
-            this.updateHostClassService.updateClass(classes);
+            this._addClass();
         } else {
-            const classes =
-                this._size ? [`thy-select-custom-${this._size}`] : [];
-            this.updateHostClassService.updateClass(classes);
+            this._removeClass();
         }
     }
 

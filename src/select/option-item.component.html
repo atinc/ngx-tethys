@@ -1,5 +1,6 @@
 <ng-container *ngIf="option.thyShowOptionCustom">
-    <ng-template [ngTemplateOutlet]="option.template"></ng-template>
+    <ng-template [ngTemplateOutlet]="option.template">
+    </ng-template>
 </ng-container>
 <ng-container *ngIf="!option.thyShowOptionCustom">
     <span>{{option?.thyOptionLabel}}</span>

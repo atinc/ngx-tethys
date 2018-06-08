@@ -11,7 +11,7 @@
     </ng-container>
 
     <ng-container *ngIf="listOfOptionGroupComponent.length > 0">
-        <div class="select-group mt-2" *ngFor="let group of listOfOptionGroupComponent;">
+        <div class="select-group mt-3" *ngFor="let group of listOfOptionGroupComponent;">
             <h6 class="group-name" *ngIf="group.listOfOptionComponent.length > 0">{{group.thyGroupLabel}}</h6>
             <ul class="select-option action-menu action-menu--select mb-0">
                 <li class="action-menu-item" [ngClass]="{true:'option-hover-bg',false:''}[option?.thyOptionValue === parent._innerValue?.thyOptionValue]"

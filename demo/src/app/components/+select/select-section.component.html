@@ -55,9 +55,10 @@
 
         <thy-custom-select [(ngModel)]="selectedItem" thyPlaceHolder="请选择">
             <thy-option thyOptionValue="001" thyOptionLabel="country"></thy-option>
-            <!-- <thy-option *ngFor="let option of optionData" [thyShowOptionCustom]="true">
-                {{option.name}}
-            </thy-option> -->
+            <thy-option *ngFor="let option of optionData" thyShowOptionCustom="true" [thyOptionValue]="option._id" [thyOptionLabel]="option.name">
+                <i [class]="option?.icon"></i>
+                <span class="ml-1">{{option?.name}}</span>
+            </thy-option>
         </thy-custom-select>
 
         <br>
