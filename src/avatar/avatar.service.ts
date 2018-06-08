@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 
 export abstract class ThyAvatarService {
+
+    ignoreAvatarSrcPaths = [`default.png`];
+
     abstract avatarSrcTransform(src: string, size: number): string;
 }
 

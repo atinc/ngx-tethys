@@ -1,6 +1,7 @@
 import { Component, Input, ElementRef, HostBinding, OnInit } from '@angular/core';
 import { isNumber } from '../util/helpers';
 import { UpdateHostClassService } from '../shared/update-host-class.service';
+import { ThyAvatarService } from './avatar.service';
 
 const sizeArray = [22, 24, 30, 38, 48, 68, 110, 160];
 const sizeMap = {
@@ -70,7 +71,9 @@ export class ThyAvatarComponent implements OnInit {
     }
 
     private _setAvatarSrc(src: string) {
-        this._src = src;
+        if (src && !this.thyAvatarService.ignoreAvatarSrcPaths.includes(src)) {
+            this._src = src;
+        }
     }
 
     private _setAvatarName() {
@@ -79,7 +82,8 @@ export class ThyAvatarComponent implements OnInit {
 
     constructor(
         private updateHostClassService: UpdateHostClassService,
-        private elementRef: ElementRef
+        private elementRef: ElementRef,
+        private thyAvatarService: ThyAvatarService
     ) {
         updateHostClassService.initializeElement(elementRef.nativeElement);
     }
