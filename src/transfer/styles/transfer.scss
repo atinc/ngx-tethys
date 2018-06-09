@@ -1,19 +1,19 @@
 .thy-transfer {
   display: flex;
   width: $transfer-width;
-  &-list {
+  .thy-transfer-list {
     display: flex;
     flex-flow: column;
     flex: 1;
-    &-header {
+    .thy-transfer-list-header {
       padding: $transfer-list-header-padding;
       width: 100%;
-      &-title {
+      .thy-transfer-list-header-title {
         color: $transfer-list-header-font-color;
         font-size: $transfer-list-header-font-size;
       }
     }
-    &-body {
+    .thy-transfer-list-body {
       border: $transfer-list-border-width solid $transfer-list-border-color;
       border-radius: $transfer-list-border-radius;
       padding: $transfer-list-padding; // min-width: $transfer-list-width;
@@ -21,10 +21,10 @@
       vertical-align: middle;
       overflow-y: auto;
     }
-    &-content {
+    .thy-transfer-list-content {
       padding: 0;
       margin: 0;
-      &-item {
+      .thy-transfer-list-content-item {
         position: relative;
         overflow: hidden;
         white-space: nowrap;
@@ -34,33 +34,31 @@
         transition: all .3s;
       }
       & .active,
-      &-item:not(&-item-disabled):hover {
+      .thy-transfer-list-content-item:not(&-item-disabled):hover {
         cursor: pointer;
         @include box-shadow(0px 0px 8px 2px $transfer-list-item-hover-color);
       }
     }
   }
-  &-drag {
-    &-icon {
+  .thy-transfer-drag {
+    .thy-transfer-drag-icon {
       position: absolute;
       left: 5px;
       display: none;
     }
-    .thy-transfer-list-content {
-      &-item {
-        &:hover {
-          .thy-transfer-drag-icon {
-            display: inline-block;
-          }
+    .thy-transfer-list-content-item {
+      @include hover {
+        .thy-transfer-drag-icon {
+          display: inline-block;
         }
       }
     }
   }
-  &-operation {
+  .thy-transfer-operation {
     padding: $transfer-operation-padding;
     display: flex;
     align-items: center;
-    &-body {
+    .thy-transfer-operation-body {
       .operation-link {
         display: block;
         color: $transfer-operation-color;
