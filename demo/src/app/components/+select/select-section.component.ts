@@ -74,6 +74,12 @@ export class DemoSelectSectionComponent {
             property: 'thyOnSearch',
             description: '搜索时回调',
             type: '(searchText:string)=>{}'
+        },
+        {
+            property: 'thyMultiSelect',
+            description: '是否为多选模式',
+            type: 'boolean',
+            default: 'false'
         }
     ];
 

@@ -22,7 +22,7 @@
             </ul>
         </div>
         <div class="select-group mt-2" [hidden]="!isSearch" *ngFor="let group of searchData;">
-            <h6 class="group-name" *ngIf="group.listOfOptionComponent.length > 0">{{group.label}}</h6>
+            <h6 class="group-name" *ngIf="group.listOfOptionComponent.length > 0">{{group.thyGroupLabel}}</h6>
             <ul class="select-option action-menu action-menu--select mb-0">
                 <li class="action-menu-item" [ngClass]="{'option-hover-bg':option?.thyOptionValue === parent._innerValue?.thyOptionValue,'option-disabled-bg':option.thyOptionDisabled}" *ngFor="let option of group.listOfOptionComponent;" option-item [option]="option"
                     (click)="selectedOption(option)">

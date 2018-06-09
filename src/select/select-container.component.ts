@@ -20,6 +20,8 @@ export class SelectContainerComponent implements OnInit {
 
     public searchData: any = [];
 
+    public selectedValues: any = [];
+
     constructor(
         public parent: ThySelectCustomComponent,
         private updateHostClassService: UpdateHostClassService
@@ -31,14 +33,28 @@ export class SelectContainerComponent implements OnInit {
     }
 
     selectedOption(option: any) {
-        if (!option.custom) {
-            this.parent._innerValue = option;
+        if (this.parent.thyMultiSelect) {
+            if (this.parent._innerValues.length > 0) {
+                const _index = this.parent._innerValues.findIndex((item: any) => {
+                    return item.thyOptionValue === option.thyOptionValue;
+                });
+                if (_index === -1) {
+                    option.selected = true;
+                    this.parent._innerValues.push(option);
+                } else {
+                    option.selected = false;
+                    this.parent._innerValues.splice(_index, 1);
+                }
+            } else {
+                option.selected = true;
+                this.parent._innerValues.push(option);
+            }
+            console.log(this.parent._innerValues);
         } else {
             this.parent._innerValue = option;
+            this.parent._expandOptions = false;
+            this.parent._removeClass();
         }
-
-        this.parent._expandOptions = false;
-        this.parent._removeClass();
     }
 
     onSearchFilter() {

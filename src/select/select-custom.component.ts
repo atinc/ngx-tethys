@@ -1,6 +1,6 @@
 import {
     Component, forwardRef, HostBinding, Input,
-    ElementRef, OnInit, HostListener, ContentChildren, QueryList, AfterViewInit, Output, EventEmitter
+    ElementRef, OnInit, HostListener, ContentChildren, QueryList, AfterViewInit, Output, EventEmitter, TemplateRef
 } from '@angular/core';
 import { UpdateHostClassService } from '../shared/update-host-class.service';
 import { inputValueToBoolean } from '../util/helpers';
@@ -9,6 +9,16 @@ import { ThyOptionComponent } from './option.component';
 import { ThyOptionGroupComponent } from './option-group.component';
 
 export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
+
+export type SelectMode = 'multiple' | '';
+
+export interface OptionValue {
+    thyOptionLabel?: string;
+    thyOptionValue?: string;
+    thyOptionDisabled?: boolean;
+    thyShowOptionCustom?: boolean;
+    thyOptionSearchKey?: string;
+}
 
 const noop = () => {
 };
@@ -30,6 +40,8 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
 
     _innerValue: any = null;
 
+    _innerValues: any = [];
+
     _disabled = false;
 
     _size: InputSize;
@@ -48,7 +60,9 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
 
     @Input() thyPlaceHolder: string;
 
-    @Input() thyServerSearch:boolean;
+    @Input() thyServerSearch: boolean;
+
+    @Input() thyMultiSelect: boolean;
 
     @Input()
     set thySize(value: InputSize) {
@@ -115,6 +129,11 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
         } else {
             this._removeClass();
         }
+    }
+
+    remove(item: any, index: number) {
+        this._innerValues.splice(index, 1);
+        this._expandOptions = true;
     }
 
 }

@@ -1,7 +1,15 @@
 <ng-content></ng-content>
 <div class="thy-form-control" (click)="dropDownMenuToggle()">
-    <span class="align-middle">
+    <span class="align-middle" *ngIf="!thyMultiSelect">
         {{_innerValue?.thyOptionLabel || thyPlaceHolder}}
     </span>
+    <div class="align-middle" *ngIf="thyMultiSelect">
+        <span class="mr-1" [hidden]="_innerValues?.length === 0" *ngFor="let item of _innerValues;index as i" thyLabel="default" thyAfterIcon="wtf-times" (thyOnRemove)="remove(item,i)">
+                {{item?.thyOptionLabel || thyPlaceHolder}}
+        </span>
+        <span class="align-middle" *ngIf="_innerValues?.length === 0">
+                {{thyPlaceHolder}}
+        </span>
+    </div>
 </div>
 <select-container *ngIf="_expandOptions" [listOfOptionComponent]="listOfOptionComponent" [listOfOptionGroupComponent]="listOfOptionGroupComponent"></select-container>

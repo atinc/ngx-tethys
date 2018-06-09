@@ -78,6 +78,18 @@
     </div>
 </section>
 
+<section>
+    <div class="header">
+        <h2>自定义 select多选</h2>
+    </div>
+    <div class="body">
+        <thy-custom-select [(ngModel)]="selectedItem" [thyMultiSelect]="true" thyPlaceHolder="请选择">
+            <thy-option *ngFor="let option of optionData" [thyOptionValue]="option._id" [thyOptionLabel]="option.display_name">
+            </thy-option>
+        </thy-custom-select>
+    </div>
+</section>
+
 
 <api-parameters title="thy-custom-select 参数列表" [parameters]="apiParameters"></api-parameters>
 <api-parameters title="thy-option 参数列表" [parameters]="optionApiParameters"></api-parameters>
