@@ -159,7 +159,7 @@ export class ThyUploaderService {
 
                 formData.append(uploadFile.fileField || 'file', uploadFile.nativeFile, uploadFile.fileName);
 
-                // this.serviceEvents.emit({ type: 'start', file: file });
+                observer.next({ status: ThyUploadStatus.started, uploadFile: uploadFile });
                 xhr.send(formData);
             } catch (error) {
                 observer.error(error);

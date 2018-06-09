@@ -7,13 +7,19 @@ import { ThyUploaderService, ThyUploadStatus, ThyUploadFile } from '../../../../
     templateUrl: './uploader-section.component.html'
 })
 export class DemoUploaderSectionComponent {
-    
+
     public apiParameters = [
         {
-            property: 'thyNodes',
-            description: 'Tree展现所需的数据',
-            type: 'Object[]',
-            default: ''
+            property: 'thyOnSelectFiles',
+            description: '文件选择事件',
+            type: 'EventEmitter',
+            default: '$event: { files: File[], nativeEvent: Event}'
+        },
+        {
+            property: 'thyMultiple',
+            description: '文件是否多选',
+            type: 'Boolean',
+            default: 'false'
         }
     ];
 
@@ -23,18 +29,20 @@ export class DemoUploaderSectionComponent {
     }
 
     selectFiles(event: { files: File[] }) {
-        const files = event.files;
-        this.thyUploaderService.uploadFile({
-            nativeFile: files[0],
-            url: 'http://ngx-uploader.com/upload',
-            method: 'POST',
-            fileName: '复制粘贴.png'
-        }).subscribe((result) => {
-            if (result.status === ThyUploadStatus.started) {
-                this.queueFiles.push(result.uploadFile);
-            } else if (result.status === ThyUploadStatus.done) {
-                this.queueFiles.slice(this.queueFiles.indexOf(result.uploadFile));
-            }
-        });
+        for (let i = 0; i < event.files.length; i++) {
+            this.thyUploaderService.uploadFile({
+                nativeFile: event.files[i],
+                url: 'http://ngx-uploader.com/upload',
+                method: 'POST',
+                fileName: '复制粘贴.png'
+            }).subscribe((result) => {
+                if (result.status === ThyUploadStatus.started) {
+                    this.queueFiles.push(result.uploadFile);
+                } else if (result.status === ThyUploadStatus.done) {
+                    const index = this.queueFiles.indexOf(result.uploadFile);
+                    this.queueFiles.splice(index);
+                }
+            });
+        }
     }
 }
