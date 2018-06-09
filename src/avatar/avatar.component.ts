@@ -71,7 +71,7 @@ export class ThyAvatarComponent implements OnInit {
     }
 
     private _setAvatarSrc(src: string) {
-        if (src && !this.thyAvatarService.ignoreAvatarSrcPaths.includes(src)) {
+        if (src && this.thyAvatarService.ignoreAvatarSrcPaths.indexOf(src) < 0) {
             this._src = src;
         }
     }
