@@ -11,17 +11,15 @@ import { ThySelectCustomComponent } from './select-custom.component';
 })
 export class ThyOptionComponent implements OnInit {
 
-    @Input() value: any;
+    @Input() thyOptionValue: any;
 
-    @Input() label: string;
+    @Input() thyOptionLabel: string;
 
-    @Input() disabled: boolean;
+    @Input() thyOptionDisabled: boolean;
 
-    @Input() custom: boolean;
+    @Input() thyShowOptionCustom: boolean;
 
-    @Input() icon: string;
-
-    @Input() hasSelectedIcon: boolean;
+    @Input() thyOptionSearchKey: string;
 
     @ViewChild(TemplateRef) template: TemplateRef<any>;
 
@@ -31,7 +29,6 @@ export class ThyOptionComponent implements OnInit {
     }
 
     ngOnInit() {
-
     }
 }
 

@@ -17,23 +17,31 @@ export class DemoSelectSectionComponent {
 
     optionData = [{
         icon: 'wtf wtf-type-task',
-        name: '任务',
+        display_name: '任务',
+        name: 'task',
+        pin_yin: 'r,re,ren,renw,renwu',
         _id: '5b0527cfc8f2ff200a33d4aa'
     }, {
         icon: 'wtf wtf-type-money',
-        name: '钱',
+        display_name: '钱',
+        name: 'money',
+        pin_yin: 'qian',
         _id: '5b0527cfc8f2ff200a33d4ab'
     }, {
         icon: 'wtf wtf-type-worksheet',
-        name: '工时',
+        display_name: '工时',
+        name: 'worksheet',
+        pin_yin: 'gongshi',
         _id: '5b0527cfc8f2ff200a33d4ac'
     }, {
         icon: 'wtf wtf-type-demand',
-        name: '需求',
+        display_name: '需求',
+        name: 'requirement',
         _id: '5b0527cfc8f2ff200a33d4ad'
     }, {
         // icon: 'wtf wtf-type-ios',
-        name: 'IOS缺陷',
+        display_name: 'IOS缺陷',
+        name: 'ios',
         _id: '5b0527cfc8f2ff200a33d4b1'
     }];
 
@@ -45,37 +53,60 @@ export class DemoSelectSectionComponent {
             default: ''
         },
         {
-            property: 'thyIsSearch',
+            property: 'thyShowSearch',
             description: '下拉列表是否显示搜索框',
             type: 'boolean',
             default: 'false'
+        },
+        {
+            property: 'thyPlaceHolder',
+            description: '选择框默认文字',
+            type: 'string',
+            default: ''
+        },
+        {
+            property: 'thyServerSearch',
+            description: '是否使用服务端搜索，当为 true 时，将不再在前端进行过滤',
+            type: 'boolean',
+            default: 'false'
+        },
+        {
+            property: 'thyOnSearch',
+            description: '搜索时回调',
+            type: '(searchText:string)=>{}'
         }
     ];
 
     public optionApiParameters = [
         {
-            property: '[icon]',
-            description: '可传图标',
-            type: 'String',
-            default: ''
-        },
-        {
-            property: 'hasSelectedIcon',
-            description: '是否显示选中图标',
-            type: 'boolean',
-            default: 'false'
-        },
-        {
-            property: '[value]',
+            property: 'thyOptionValue',
             description: '每个option的value值',
             type: 'string',
             default: ''
         },
         {
-            property: '[label]',
+            property: 'thyOptionLabel',
             description: '每个option的label，用于显示',
-            type: 'String',
+            type: 'string',
             default: ''
+        },
+        {
+            property: 'thyShowOptionCustom',
+            description: '是否自定义展示option内容',
+            type: 'boolean',
+            default: 'false'
+        },
+        {
+            property: 'thyOptionSearchKey',
+            description: '传入搜索需要的关键字，如不传则默认按照label进行搜索, 此为前端过滤',
+            type: 'string',
+            default: ''
+        },
+        {
+            property: 'thyOptionDisabled',
+            description: '是否禁用',
+            type: 'boolean',
+            default: 'false'
         }
     ];
 
@@ -84,5 +115,9 @@ export class DemoSelectSectionComponent {
 
     change() {
         console.log(`select change value as :${this.model.selectedValue}`);
+    }
+
+    searchTextChange(event: any) {
+        console.log(event);
     }
 }

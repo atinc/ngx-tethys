@@ -31,7 +31,7 @@ import { ThyCheckboxModule } from './checkbox';
 import { ThyRadioModule } from './radio';
 import { ThySelectModule } from './select';
 import { ThySlideModule } from './slide/slide.module';
-import { ThyPropertyOperationModule } from './property-operation';
+import { ThyPropertyOperationModule } from './property-operation';
 
 @NgModule({
     declarations: [

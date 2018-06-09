@@ -1,6 +1,6 @@
 import {
     Component, forwardRef, HostBinding, Input,
-    ElementRef, OnInit, HostListener, ContentChildren, QueryList, AfterViewInit
+    ElementRef, OnInit, HostListener, ContentChildren, QueryList, AfterViewInit, Output, EventEmitter
 } from '@angular/core';
 import { UpdateHostClassService } from '../shared/update-host-class.service';
 import { inputValueToBoolean } from '../util/helpers';
@@ -42,7 +42,13 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
 
     @HostBinding('class.thy-select-custom') _isSelectCustom = true;
 
-    @Input() thyIsSearch: boolean;
+    @Output() thyOnSearch: EventEmitter<any> = new EventEmitter<any>();
+
+    @Input() thyShowSearch: boolean;
+
+    @Input() thyPlaceHolder: string;
+
+    @Input() thyServerSearch:boolean;
 
     @Input()
     set thySize(value: InputSize) {
@@ -64,6 +70,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
     onDocumentClick(event: any): void {
         if (!this.elementRef.nativeElement.contains(event.target)) {
             this._expandOptions = false;
+            this._removeClass();
         }
     }
 
@@ -89,8 +96,25 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
         this.onTouchedCallback = fn;
     }
 
+    _addClass() {
+        const classes =
+            this._size ? [`thy-select-custom-${this._size}`, 'thy-select-custom-show-option'] : ['thy-select-custom-show-option'];
+        this.updateHostClassService.updateClass(classes);
+    }
+
+    _removeClass() {
+        const classes =
+            this._size ? [`thy-select-custom-${this._size}`] : [];
+        this.updateHostClassService.updateClass(classes);
+    }
+
     dropDownMenuToggle() {
         this._expandOptions = !this._expandOptions;
+        if (this._expandOptions) {
+            this._addClass();
+        } else {
+            this._removeClass();
+        }
     }
 
 }
