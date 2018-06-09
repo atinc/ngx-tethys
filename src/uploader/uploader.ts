@@ -10,10 +10,6 @@ export enum ThyUploadStatus {
 export interface ThyUploadResponse {
     status: ThyUploadStatus;
     uploadFile?: ThyUploadFile;
-    result?: {
-        response?: any;
-        responseStatus?: number;
-    };
 }
 
 export interface ThyUploadFile {
@@ -42,8 +38,8 @@ export interface ThyUploadFile {
         speedHuman?: string;
         startTime: number | null;
         endTime?: number | null;
-        eta?: number | null;
-        etaHuman?: string | null;
+        estimatedTime?: number | null;
+        estimatedTimeHuman?: string | null;
     };
 }
 
@@ -75,7 +71,7 @@ export class ThyUploaderService {
             const xhr = new XMLHttpRequest();
             const time: number = new Date().getTime();
             let speed = 0;
-            let eta: number | null = null;
+            let estimatedTime: number | null = null;
 
             if (!uploadFile.progress) {
                 uploadFile.progress = {
@@ -85,24 +81,24 @@ export class ThyUploaderService {
                 };
             }
 
-            xhr.upload.addEventListener('progress', (e: ProgressEvent) => {
-                if (e.lengthComputable) {
-                    let percentage = Math.round((e.loaded * 100) / e.total);
+            xhr.upload.addEventListener('progress', (event: ProgressEvent) => {
+                if (event.lengthComputable) {
+                    let percentage = Math.round((event.loaded * 100) / event.total);
                     if (percentage === 100) {
                         percentage = 99;
                     }
                     const diff = new Date().getTime() - time;
-                    speed = Math.round(e.loaded / diff * 1000);
+                    speed = Math.round(event.loaded / diff * 1000);
                     const progressStartTime = (uploadFile.progress && uploadFile.progress.startTime) || new Date().getTime();
-                    eta = Math.ceil((e.total - e.loaded) / speed);
+                    estimatedTime = Math.ceil((event.total - event.loaded) / speed);
 
                     uploadFile.progress.status = ThyUploadStatus.uploading;
                     uploadFile.progress.percentage = percentage;
                     uploadFile.progress.speed = speed;
                     uploadFile.progress.speedHuman = `${this._humanizeBytes(speed)}/s`;
                     uploadFile.progress.startTime = progressStartTime;
-                    uploadFile.progress.eta = eta;
-                    uploadFile.progress.etaHuman = this._secondsToHuman(eta);
+                    uploadFile.progress.estimatedTime = estimatedTime;
+                    uploadFile.progress.estimatedTimeHuman = this._secondsToHuman(estimatedTime);
 
                     observer.next({ status: ThyUploadStatus.uploading, uploadFile: uploadFile });
                 }
@@ -122,8 +118,8 @@ export class ThyUploaderService {
                     uploadFile.progress.percentage = 100;
                     uploadFile.progress.speed = speedAverage;
                     uploadFile.progress.speedHuman = `${this._humanizeBytes(speed)}/s`;
-                    uploadFile.progress.eta = eta;
-                    uploadFile.progress.etaHuman = this._secondsToHuman(eta || 0);
+                    uploadFile.progress.estimatedTime = estimatedTime;
+                    uploadFile.progress.estimatedTimeHuman = this._secondsToHuman(estimatedTime || 0);
 
                     uploadFile.responseStatus = xhr.status;
 
@@ -145,13 +141,6 @@ export class ThyUploaderService {
             xhr.withCredentials = uploadFile.withCredentials ? true : false;
 
             try {
-                // const uploadFile = <BlobFile>inputFile.nativeFile;
-                // const uploadIndex = this.queue.findIndex(outFile => outFile.nativeFile === uploadFile);
-
-                // if (this.queue[uploadIndex].progress.status === UploadStatus.Cancelled) {
-                //     observer.complete();
-                // }
-
                 const formData = new FormData();
 
                 Object.keys(uploadFile.data || {}).forEach(key => formData.append(key, uploadFile.data[key]));

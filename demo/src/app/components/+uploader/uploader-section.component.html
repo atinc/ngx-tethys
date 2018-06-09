@@ -3,12 +3,12 @@
             <h2>上传</h2>
         </div>
         <div class="body">
-            <thy-file-select (thyOnSelectFiles)="selectFiles($event)" [thyMultiple]="true">
+            <thy-file-select (thyOnFileSelect)="selectFiles($event)" [thyMultiple]="true">
                 <button thyButton="primary">上传</button>
             </thy-file-select>
     
             <div *ngFor="let queueFile of queueFiles">
-                {{queueFile.fileName}}:
+                {{queueFile.fileName}} speed: {{queueFile.progress.speedHuman}}, estimatedTime - {{queueFile.progress.estimatedTimeHuman}}
                 <progressbar class="progress" type="success" [value]="queueFile.progress.percentage" [max]="100">{{queueFile.progress.percentage}}%</progressbar>
             </div>
     

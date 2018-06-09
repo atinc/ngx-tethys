@@ -10,7 +10,7 @@ export class DemoUploaderSectionComponent {
 
     public apiParameters = [
         {
-            property: 'thyOnSelectFiles',
+            property: 'thyOnFileSelect',
             description: '文件选择事件',
             type: 'EventEmitter',
             default: '$event: { files: File[], nativeEvent: Event}'
