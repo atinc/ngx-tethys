@@ -1,0 +1,17 @@
+<section>
+    <div class="header">
+        <h2>上传</h2>
+    </div>
+    <div class="body">
+        <thy-file-select thyFileSelect="" (thyOnSelectFiles)="selectFiles($event)">
+            <button thyButton="primary">上传</button>
+        </thy-file-select>
+
+        <div *ngFor="let queueFile of queueFiles">
+            <progressbar class="progress" [value]="queueFile.progress.percentage" [max]="100"></progressbar>
+        </div>
+
+    </div>
+</section>
+
+<api-parameters [parameters]="apiParameters"></api-parameters>
