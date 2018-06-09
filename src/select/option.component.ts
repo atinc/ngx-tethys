@@ -15,7 +15,7 @@ export class ThyOptionComponent implements OnInit {
 
     @Input() thyOptionLabel: string;
 
-    @Input() thyDisabled: boolean;
+    @Input() thyOptionDisabled: boolean;
 
     @Input() thyShowOptionCustom: boolean;
 

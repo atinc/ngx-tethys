@@ -63,6 +63,17 @@ export class DemoSelectSectionComponent {
             description: '选择框默认文字',
             type: 'string',
             default: ''
+        },
+        {
+            property: 'thyServerSearch',
+            description: '是否使用服务端搜索，当为 true 时，将不再在前端进行过滤',
+            type: 'boolean',
+            default: 'false'
+        },
+        {
+            property: 'thyOnSearch',
+            description: '搜索时回调',
+            type: '(searchText:string)=>{}'
         }
     ];
 
@@ -87,9 +98,15 @@ export class DemoSelectSectionComponent {
         },
         {
             property: 'thyOptionSearchKey',
-            description: '传入搜索需要的关键字，如不传则默认按照label进行搜索',
+            description: '传入搜索需要的关键字，如不传则默认按照label进行搜索, 此为前端过滤',
             type: 'string',
             default: ''
+        },
+        {
+            property: 'thyOptionDisabled',
+            description: '是否禁用',
+            type: 'boolean',
+            default: 'false'
         }
     ];
 

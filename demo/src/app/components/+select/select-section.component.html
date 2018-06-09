@@ -47,8 +47,7 @@
     </div>
     <div class="body">
         <thy-custom-select thySize="sm" thyPlaceHolder="请选择" [(ngModel)]="selectedItem" [thyShowSearch]="true">
-            <thy-option *ngFor="let option of optionData" thyOptionSearchKey="{{option?.name}},{{option?.display_name}},{{option?.pin_yin}}"
-                [thyOptionValue]="option._id" [thyOptionLabel]="option.display_name">
+            <thy-option *ngFor="let option of optionData" thyOptionSearchKey="{{option?.name}},{{option?.display_name}},{{option?.pin_yin}}" [thyOptionValue]="option._id" [thyOptionLabel]="option.display_name">
             </thy-option>
         </thy-custom-select>
 
@@ -64,15 +63,14 @@
 
         <br>
 
-        <thy-custom-select [(ngModel)]="selectedItem" [thyServerSearch]="true" (thyOnSearch)="searchTextChange($event)" [thyShowSearch]="true"
-            thyPlaceHolder="请选择">
+        <thy-custom-select [(ngModel)]="selectedItem" [thyServerSearch]="true" (thyOnSearch)="searchTextChange($event)" [thyShowSearch]="true" thyPlaceHolder="请选择">
             <thy-option-group thyGroupLabel="服饰">
                 <thy-option thyOptionValue="001" thyOptionLabel="上衣"></thy-option>
                 <thy-option thyOptionValue="002" thyOptionLabel="裤子"></thy-option>
             </thy-option-group>
             <thy-option-group thyGroupLabel="食物">
                 <thy-option thyOptionValue="003" thyOptionLabel="饮料"></thy-option>
-                <thy-option thyOptionValue="004" thyOptionLabel="面包"></thy-option>
+                <thy-option thyOptionValue="004" thyOptionLabel="面包" [thyOptionDisabled]="true"></thy-option>
                 <thy-option thyOptionValue="005" thyOptionLabel="牛奶"></thy-option>
                 <thy-option thyOptionValue="006" thyOptionLabel="鸡蛋"></thy-option>
             </thy-option-group>
