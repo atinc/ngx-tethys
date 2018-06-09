@@ -7,7 +7,7 @@ import { ThyOptionComponent } from './option.component';
 })
 export class ThyOptionGroupComponent implements OnInit {
 
-    @Input() label: string;
+    @Input() thyGroupLabel: string;
 
     @ContentChildren(ThyOptionComponent) listOfOptionComponent: QueryList<ThyOptionComponent>;
 
