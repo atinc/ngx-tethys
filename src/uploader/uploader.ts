@@ -23,7 +23,7 @@ export interface ThyUploadFile {
     withCredentials?: Boolean;
     nativeFile: File;
     fileField?: string;
-    fileName: string;
+    fileName?: string;
     headers?: {
         [key: string]: string
     };
@@ -70,10 +70,10 @@ export class ThyUploaderService {
     }
 
     uploadFile(uploadFile: ThyUploadFile): Observable<ThyUploadResponse> {
+        uploadFile.fileName = uploadFile.fileName || uploadFile.nativeFile.name;
         return new Observable(observer => {
             const xhr = new XMLHttpRequest();
             const time: number = new Date().getTime();
-            // let progressStartTime: number = (file.progress.data && file.progress.data.startTime) || time;
             let speed = 0;
             let eta: number | null = null;
 
