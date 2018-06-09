@@ -8,7 +8,7 @@
             </thy-file-select>
     
             <div *ngFor="let queueFile of queueFiles">
-                {{queueFile.fileName}} speed: {{queueFile.progress.speed}} - {{queueFile.progress.speedHuman}}, eta: {{queueFile.progress.eta}} - {{queueFile.progress.etaHuman}}
+                {{queueFile.fileName}} speed: {{queueFile.progress.speedHuman}}, estimatedTime - {{queueFile.progress.estimatedTimeHuman}}
                 <progressbar class="progress" type="success" [value]="queueFile.progress.percentage" [max]="100">{{queueFile.progress.percentage}}%</progressbar>
             </div>
     

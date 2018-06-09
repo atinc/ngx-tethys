@@ -38,8 +38,8 @@ export interface ThyUploadFile {
         speedHuman?: string;
         startTime: number | null;
         endTime?: number | null;
-        eta?: number | null;
-        etaHuman?: string | null;
+        estimatedTime?: number | null;
+        estimatedTimeHuman?: string | null;
     };
 }
 
@@ -71,7 +71,7 @@ export class ThyUploaderService {
             const xhr = new XMLHttpRequest();
             const time: number = new Date().getTime();
             let speed = 0;
-            let eta: number | null = null;
+            let estimatedTime: number | null = null;
 
             if (!uploadFile.progress) {
                 uploadFile.progress = {
@@ -90,15 +90,15 @@ export class ThyUploaderService {
                     const diff = new Date().getTime() - time;
                     speed = Math.round(event.loaded / diff * 1000);
                     const progressStartTime = (uploadFile.progress && uploadFile.progress.startTime) || new Date().getTime();
-                    eta = Math.ceil((event.total - event.loaded) / speed);
+                    estimatedTime = Math.ceil((event.total - event.loaded) / speed);
 
                     uploadFile.progress.status = ThyUploadStatus.uploading;
                     uploadFile.progress.percentage = percentage;
                     uploadFile.progress.speed = speed;
                     uploadFile.progress.speedHuman = `${this._humanizeBytes(speed)}/s`;
                     uploadFile.progress.startTime = progressStartTime;
-                    uploadFile.progress.eta = eta;
-                    uploadFile.progress.etaHuman = this._secondsToHuman(eta);
+                    uploadFile.progress.estimatedTime = estimatedTime;
+                    uploadFile.progress.estimatedTimeHuman = this._secondsToHuman(estimatedTime);
 
                     observer.next({ status: ThyUploadStatus.uploading, uploadFile: uploadFile });
                 }
@@ -118,8 +118,8 @@ export class ThyUploaderService {
                     uploadFile.progress.percentage = 100;
                     uploadFile.progress.speed = speedAverage;
                     uploadFile.progress.speedHuman = `${this._humanizeBytes(speed)}/s`;
-                    uploadFile.progress.eta = eta;
-                    uploadFile.progress.etaHuman = this._secondsToHuman(eta || 0);
+                    uploadFile.progress.estimatedTime = estimatedTime;
+                    uploadFile.progress.estimatedTimeHuman = this._secondsToHuman(estimatedTime || 0);
 
                     uploadFile.responseStatus = xhr.status;
 
