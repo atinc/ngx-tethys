@@ -14,7 +14,7 @@ export class ThyFileSelectComponent implements OnInit, OnDestroy {
 
     _multiple: boolean;
 
-    @Output() thyOnSelectFiles = new EventEmitter();
+    @Output() thyOnFileSelect = new EventEmitter();
 
     @ViewChild('fileInput') fileInput: ElementRef<HTMLInputElement>;
 
@@ -30,9 +30,7 @@ export class ThyFileSelectComponent implements OnInit, OnDestroy {
 
     constructor(
         private thyUploaderService: ThyUploaderService,
-        private elementRef: ElementRef,
-        private renderer: Renderer2,
-        @Inject(DOCUMENT) private document: Document
+        private elementRef: ElementRef
     ) {
 
     }
@@ -45,7 +43,7 @@ export class ThyFileSelectComponent implements OnInit, OnDestroy {
     selectFile($event: any) {
         const files = this.fileInput.nativeElement.files;
         if (files && files.length > 0) {
-            this.thyOnSelectFiles.emit({
+            this.thyOnFileSelect.emit({
                 files: files,
                 nativeEvent: $event
             });
@@ -53,6 +51,7 @@ export class ThyFileSelectComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+
     }
 
     ngOnDestroy() {

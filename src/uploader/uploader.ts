@@ -10,10 +10,6 @@ export enum ThyUploadStatus {
 export interface ThyUploadResponse {
     status: ThyUploadStatus;
     uploadFile?: ThyUploadFile;
-    result?: {
-        response?: any;
-        responseStatus?: number;
-    };
 }
 
 export interface ThyUploadFile {
@@ -85,16 +81,16 @@ export class ThyUploaderService {
                 };
             }
 
-            xhr.upload.addEventListener('progress', (e: ProgressEvent) => {
-                if (e.lengthComputable) {
-                    let percentage = Math.round((e.loaded * 100) / e.total);
+            xhr.upload.addEventListener('progress', (event: ProgressEvent) => {
+                if (event.lengthComputable) {
+                    let percentage = Math.round((event.loaded * 100) / event.total);
                     if (percentage === 100) {
                         percentage = 99;
                     }
                     const diff = new Date().getTime() - time;
-                    speed = Math.round(e.loaded / diff * 1000);
+                    speed = Math.round(event.loaded / diff * 1000);
                     const progressStartTime = (uploadFile.progress && uploadFile.progress.startTime) || new Date().getTime();
-                    eta = Math.ceil((e.total - e.loaded) / speed);
+                    eta = Math.ceil((event.total - event.loaded) / speed);
 
                     uploadFile.progress.status = ThyUploadStatus.uploading;
                     uploadFile.progress.percentage = percentage;
@@ -145,13 +141,6 @@ export class ThyUploaderService {
             xhr.withCredentials = uploadFile.withCredentials ? true : false;
 
             try {
-                // const uploadFile = <BlobFile>inputFile.nativeFile;
-                // const uploadIndex = this.queue.findIndex(outFile => outFile.nativeFile === uploadFile);
-
-                // if (this.queue[uploadIndex].progress.status === UploadStatus.Cancelled) {
-                //     observer.complete();
-                // }
-
                 const formData = new FormData();
 
                 Object.keys(uploadFile.data || {}).forEach(key => formData.append(key, uploadFile.data[key]));
