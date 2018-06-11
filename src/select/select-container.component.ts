@@ -33,6 +33,9 @@ export class SelectContainerComponent implements OnInit {
     }
 
     selectedOption(option: any) {
+        if (option.thyOptionDisabled) {
+            return;
+        }
         if (this.parent.thyMultiSelect) {
             if (this.parent._innerValues.length > 0) {
                 const _index = this.parent._innerValues.findIndex((item: any) => {
