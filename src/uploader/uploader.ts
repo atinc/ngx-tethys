@@ -65,7 +65,7 @@ export class ThyUploaderService {
         return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
     }
 
-    uploadFile(uploadFile: ThyUploadFile): Observable<ThyUploadResponse> {
+    upload(uploadFile: ThyUploadFile): Observable<ThyUploadResponse> {
         uploadFile.fileName = uploadFile.fileName || uploadFile.nativeFile.name;
         return new Observable(observer => {
             const xhr = new XMLHttpRequest();

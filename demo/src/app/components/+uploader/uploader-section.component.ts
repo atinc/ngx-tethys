@@ -30,7 +30,7 @@ export class DemoUploaderSectionComponent {
 
     selectFiles(event: { files: File[] }) {
         for (let i = 0; i < event.files.length; i++) {
-            this.thyUploaderService.uploadFile({
+            this.thyUploaderService.upload({
                 nativeFile: event.files[i],
                 url: 'http://ngx-uploader.com/upload',
                 method: 'POST',
