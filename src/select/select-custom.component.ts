@@ -1,5 +1,5 @@
 import {
-    Component, forwardRef, HostBinding, Input, Optional
+    Component, forwardRef, HostBinding, Input, Optional,
     ElementRef, OnInit, HostListener, ContentChildren, QueryList, AfterViewInit, Output, EventEmitter, TemplateRef
 } from '@angular/core';
 import { UpdateHostClassService } from '../shared/update-host-class.service';
