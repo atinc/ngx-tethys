@@ -33,13 +33,13 @@ export class SelectContainerComponent implements OnInit {
     }
 
     selectedOption(option: any) {
-        if (option.thyOptionDisabled) {
+        if (option.thyDisabled) {
             return;
         }
-        if (this.parent.thyMultiSelect) {
+        if (this.parent._mode === 'multiple') {
             if (this.parent._innerValues.length > 0) {
                 const _index = this.parent._innerValues.findIndex((item: any) => {
-                    return item.thyOptionValue === option.thyOptionValue;
+                    return item.thyValue === option.thyValue;
                 });
                 if (_index === -1) {
                     option.selected = true;
@@ -80,7 +80,7 @@ export class SelectContainerComponent implements OnInit {
                 if (this.listOfOptionComponent.length > 0) {
                     this.listOfOptionComponent.forEach((item: any) => {
                         if (!item.custom) {
-                            const _searchKey = item.thyOptionSearchKey ? item.thyOptionSearchKey : item.thyOptionLabel;
+                            const _searchKey = item.thySearchKey ? item.thySearchKey : item.thyLabelText;
                             if (_searchKey.toLowerCase().indexOf(text) >= 0) {
                                 searchData.push(item);
                             }
@@ -91,13 +91,13 @@ export class SelectContainerComponent implements OnInit {
                     this.listOfOptionGroupComponent.forEach((group: any) => {
                         const groupData: any = [];
                         group.listOfOptionComponent.forEach((item: any) => {
-                            const _searchKey = item.thyOptionSearchKey ? item.thyOptionSearchKey : item.thyOptionLabel;
+                            const _searchKey = item.thySearchKey ? item.thySearchKey : item.thyLabelText;
                             if (_searchKey.toLowerCase().indexOf(text) >= 0) {
                                 groupData.push(item);
                             }
                         });
                         searchData.push({
-                            thyOptionLabel: group.thyOptionLabel,
+                            thyLabelText: group.thyLabelText,
                             listOfOptionComponent: groupData
                         });
                     });

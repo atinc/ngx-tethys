@@ -1,5 +1,5 @@
 import {
-    Component, forwardRef, HostBinding, Input,
+    Component, forwardRef, HostBinding, Input, Optional
     ElementRef, OnInit, HostListener, ContentChildren, QueryList, AfterViewInit, Output, EventEmitter, TemplateRef
 } from '@angular/core';
 import { UpdateHostClassService } from '../shared/update-host-class.service';
@@ -13,11 +13,11 @@ export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 export type SelectMode = 'multiple' | '';
 
 export interface OptionValue {
-    thyOptionLabel?: string;
-    thyOptionValue?: string;
-    thyOptionDisabled?: boolean;
+    thyLabelText?: string;
+    thyValue?: string;
+    thyDisabled?: boolean;
     thyShowOptionCustom?: boolean;
-    thyOptionSearchKey?: string;
+    thySearchKey?: string;
 }
 
 const noop = () => {
@@ -48,6 +48,8 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
 
     _expandOptions = false;
 
+    _mode: SelectMode;
+
     private onTouchedCallback: () => void = noop;
 
     private onChangeCallback: (_: any) => void = noop;
@@ -62,7 +64,10 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
 
     @Input() thyServerSearch: boolean;
 
-    @Input() thyMultiSelect: boolean;
+    @Input()
+    set thyMode(value: SelectMode) {
+        this._mode = value;
+    }
 
     @Input()
     set thySize(value: InputSize) {
@@ -75,7 +80,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
 
     constructor(
         private elementRef: ElementRef,
-        private updateHostClassService: UpdateHostClassService
+        private updateHostClassService: UpdateHostClassService,
     ) {
         this.updateHostClassService.initializeElement(elementRef.nativeElement);
     }

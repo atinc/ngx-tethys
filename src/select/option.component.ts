@@ -11,15 +11,15 @@ import { ThySelectCustomComponent } from './select-custom.component';
 })
 export class ThyOptionComponent implements OnInit {
 
-    @Input() thyOptionValue: any;
+    @Input() thyValue: any;
 
-    @Input() thyOptionLabel: string;
+    @Input() thyLabelText: string;
 
-    @Input() thyOptionDisabled: boolean;
+    @Input() thyDisabled: boolean;
 
     @Input() thyShowOptionCustom: boolean;
 
-    @Input() thyOptionSearchKey: string;
+    @Input() thySearchKey: string;
 
     @ViewChild(TemplateRef) template: TemplateRef<any>;
 

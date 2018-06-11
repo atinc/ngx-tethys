@@ -76,22 +76,22 @@ export class DemoSelectSectionComponent {
             type: '(searchText:string)=>{}'
         },
         {
-            property: 'thyMultiSelect',
-            description: '是否为多选模式',
-            type: 'boolean',
-            default: 'false'
+            property: 'thyMode',
+            description: '下拉选择模式',
+            type: '"" | multiple',
+            default: ''
         }
     ];
 
     public optionApiParameters = [
         {
-            property: 'thyOptionValue',
+            property: 'thyValue',
             description: '每个option的value值',
             type: 'string',
             default: ''
         },
         {
-            property: 'thyOptionLabel',
+            property: 'thyLabelText',
             description: '每个option的label，用于显示',
             type: 'string',
             default: ''
@@ -103,13 +103,13 @@ export class DemoSelectSectionComponent {
             default: 'false'
         },
         {
-            property: 'thyOptionSearchKey',
-            description: '传入搜索需要的关键字，如不传则默认按照label进行搜索, 此为前端过滤',
+            property: 'thySearchKey',
+            description: '传入搜索需要的关键字，支持多个关键字（“{{display_name}},{{name}},{{pin_yin}}”），如不传则默认按照label进行搜索,此为前端过滤',
             type: 'string',
             default: ''
         },
         {
-            property: 'thyOptionDisabled',
+            property: 'thyDisabled',
             description: '是否禁用',
             type: 'boolean',
             default: 'false'
