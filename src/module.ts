@@ -33,6 +33,7 @@ import { ThySelectModule } from './select';
 import { ThySlideModule } from './slide/slide.module';
 import { ThyPropertyOperationModule } from './property-operation';
 import { ThyUploaderModule } from './uploader/index';
+import { ThyEditorModule } from './editor';
 
 @NgModule({
     declarations: [
@@ -68,8 +69,7 @@ import { ThyUploaderModule } from './uploader/index';
         ThySlideModule,
         ThyRadioModule,
         ThySelectModule,
-        ThyPropertyOperationModule,
-        ThyUploaderModule
+        ThyPropertyOperationModule
     ],
     exports: [
         BrowserAnimationsModule,
@@ -104,7 +104,8 @@ import { ThyUploaderModule } from './uploader/index';
         ThyRadioModule,
         ThySelectModule,
         ThyPropertyOperationModule,
-        ThyUploaderModule
+        ThyUploaderModule,
+        ThyEditorModule
     ],
     providers: [
     ]
