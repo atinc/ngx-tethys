@@ -29,6 +29,7 @@ import { DemoRadioSectionComponent } from './components/+form-radio/radio-sectio
 import { DemoSelectSectionComponent } from './components/+select/select-section.component';
 import { DemoSlideSectionComponent } from './components/+slide/slide-section.component';
 import { DemoPropertyOperationSectionComponent } from './components/+property-operation/property-operation-section.component';
+import { DemoEditorSectionComponent } from './components/+editor/editor-section.component';
 
 const appRoutes = [
     {
@@ -154,6 +155,9 @@ const appRoutes = [
     {
         path: 'components/property-operation',
         component: DemoPropertyOperationSectionComponent
+    },{
+        path: 'components/editor',
+        component:DemoEditorSectionComponent
     }
 ];
 
