@@ -1,6 +1,6 @@
 .thy-switch {
   box-sizing: content-box;
-  @include thy-switch($switch-width, $switch-height, 3);
+  @include thy-switch($switch-width, $switch-height, 2);
 }
 
 .thy-switch-disabled {

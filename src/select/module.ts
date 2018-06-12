@@ -8,13 +8,15 @@ import { ThyOptionComponent } from './option.component';
 import { ThyOptionGroupComponent } from './option-group.component';
 import { SelectContainerComponent } from './select-container.component';
 import { OptionItemComponent } from './option-item.component';
+import { ThyLabelModule } from '../label/label.module';
 
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
-        ThyInputModule
+        ThyInputModule,
+        ThyLabelModule
     ],
     declarations: [
         ThySelectComponent,

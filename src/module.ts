@@ -31,7 +31,8 @@ import { ThyCheckboxModule } from './checkbox';
 import { ThyRadioModule } from './radio';
 import { ThySelectModule } from './select';
 import { ThySlideModule } from './slide/slide.module';
-import { ThyPropertyOperationModule } from './property-operation';
+import { ThyPropertyOperationModule } from './property-operation';
+import { ThyUploaderModule } from './uploader/index';
 import { ThyEditorModule } from './editor';
 
 @NgModule({
@@ -68,8 +69,7 @@ import { ThyEditorModule } from './editor';
         ThySlideModule,
         ThyRadioModule,
         ThySelectModule,
-        ThyPropertyOperationModule,
-        ThyEditorModule
+        ThyPropertyOperationModule
     ],
     exports: [
         BrowserAnimationsModule,
@@ -104,6 +104,7 @@ import { ThyEditorModule } from './editor';
         ThyRadioModule,
         ThySelectModule,
         ThyPropertyOperationModule,
+        ThyUploaderModule,
         ThyEditorModule
     ],
     providers: [

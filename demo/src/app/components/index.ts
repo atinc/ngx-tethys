@@ -31,7 +31,8 @@ import { DemoRadioSectionComponent } from './+form-radio/radio-section.component
 import { DemoSelectSectionComponent } from './+select/select-section.component';
 import { DemoSlideSectionComponent } from './+slide/slide-section.component';
 import { DemoSlideContentComponent } from './+slide/slide-content.component';
-import { DemoPropertyOperationSectionComponent } from './+property-operation/property-operation-section.component';
+import { DemoPropertyOperationSectionComponent } from './+property-operation/property-operation-section.component'
+import { DemoUploaderSectionComponent } from './+uploader/uploader-section.component';
 import { DemoEditorSectionComponent } from './+editor/editor-section.component';
 
 export const COMPONENTS = [
@@ -72,6 +73,7 @@ export const COMPONENTS = [
     DemoRadioSectionComponent,
     DemoSelectSectionComponent,
     DemoPropertyOperationSectionComponent,
+    DemoUploaderSectionComponent,
     DemoEditorSectionComponent
 ];
 

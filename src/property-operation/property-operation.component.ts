@@ -7,7 +7,7 @@ import { htmlElementIsEmpty, inputValueToBoolean } from '../util/helpers';
 
 @Component({
     selector: 'thy-property-operation',
-    templateUrl: './property-operation.component.html'
+    templateUrl: './property-operation.component.html'
 })
 export class ThyPropertyOperationComponent implements AfterContentInit {
 
