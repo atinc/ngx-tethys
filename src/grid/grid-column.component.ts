@@ -42,6 +42,8 @@ export class ThyGridColumnComponent implements OnInit {
 
     @ContentChild(TemplateRef) templateRef: TemplateRef<any>;
 
+    @ContentChild('cell') cellTemplateRef: TemplateRef<any>;
+
     private _column: ThyGridColumn;
 
     constructor(private root: ThyGridComponent, private el: ElementRef) {
@@ -68,7 +70,7 @@ export class ThyGridColumnComponent implements OnInit {
             headerClassName: this.thyHeaderClassName,
             disabled: this.thyDisabled,
             defaultText: this.thyDefaultText,
-            templateRef: this.templateRef
+            templateRef: this.templateRef || this.cellTemplateRef
         };
         this.root.updateColumn(this._column);
     }
