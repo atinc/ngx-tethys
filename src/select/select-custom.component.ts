@@ -38,7 +38,7 @@ const noop = () => {
 export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, AfterViewInit {
 
 
-    _innerValue: any = null;
+    _innerValue: any;
 
     _innerValues: any = [];
 
@@ -64,6 +64,8 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
 
     @Input() thyServerSearch: boolean;
 
+    @Input() thyShowOptionMenu: boolean;
+
     @Input()
     set thyMode(value: SelectMode) {
         this._mode = value;
@@ -86,10 +88,16 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
     }
 
     @HostListener('document:click', ['$event'])
-    onDocumentClick(event: any): void {
+    onDocumentClick(event: Event): void {
+        event.stopPropagation();
         if (!this.elementRef.nativeElement.contains(event.target)) {
-            this._expandOptions = false;
-            this._removeClass();
+            if (this.thyShowOptionMenu) {
+                this._expandOptions = true;
+                this._addClass();
+            } else {
+                this._expandOptions = false;
+                this._removeClass();
+            }
         }
     }
 
@@ -101,9 +109,16 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
     ngAfterViewInit(): void {
     }
 
-    writeValue(obj: any): void {
-        if (obj !== this._innerValue) {
-            this._innerValue = obj;
+    writeValue(value: any): void {
+        // if (obj !== this._innerValue) {
+        //     this._innerValue = obj;
+        // }
+        if (value) {
+            if (this._mode === 'multiple') {
+                this._innerValues = value;
+            } else {
+                this._innerValue = value;
+            }
         }
     }
 
@@ -113,6 +128,10 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
 
     registerOnTouched(fn: any): void {
         this.onTouchedCallback = fn;
+    }
+
+    valueOnChange(value: any) {
+        this.onChangeCallback(value);
     }
 
     _addClass() {
@@ -140,5 +159,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
         this._innerValues.splice(index, 1);
         this._expandOptions = true;
     }
+
+
 
 }

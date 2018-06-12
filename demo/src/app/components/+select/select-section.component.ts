@@ -15,6 +15,8 @@ export class DemoSelectSectionComponent {
 
     selectedItem: any;
 
+    expand = false;
+
     optionData = [{
         icon: 'wtf wtf-type-task',
         display_name: '任务',
@@ -121,6 +123,10 @@ export class DemoSelectSectionComponent {
 
     change() {
         console.log(`select change value as :${this.model.selectedValue}`);
+    }
+
+    changeSelect() {
+        console.log(this.selectedItem);
     }
 
     searchTextChange(event: any) {
