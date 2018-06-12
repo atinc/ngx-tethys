@@ -15,13 +15,13 @@
 
                     <i *ngIf="item.type === 'styleFn'" title="{{item.title}}" class="{{item.className}} toolbar-icon" (click)="styleFn(item.name,$event)"></i>
                     <i *ngIf="item.type === 'tableFn'" title="{{item.title}}" class="{{item.className}} toolbar-icon" (click)="styleFn(item.name,$event)"></i>
-                    <!-- <div ng-if="item.type === 'tableFn'" ng-show="vm.table_action" class="table-menu" flag="table" ng-mouseleave="vm.tableActiveX=1;vm.tableActiveY=1;vm.table_action=false">
+                    <div *ngIf="item.type === 'tableFn'" [hidden]="!thyEditorService.tableOptions.table_action" class="table-menu" flag="table" (mouseleave)="thyEditorService.setTable(1,1,false)">
                         <ul flag="table">
-                            <li flag="table" ng-repeat="n in vm.tableMenu">
-                                <i ng-repeat="s in n" flag="table" ng-click="vm.insertTable()" ng-mouseenter="vm.setTableMemu(s[0],s[1])" ng-mouseleave="" ng-class="{true: 'active', false: ''}[s[0]<=vm.tableActiveX && s[1] <= vm.tableActiveY]"></i>
+                            <li flag="table" *ngFor="let n of thyEditorService.tableOptions.tableMenu">
+                                <i *ngFor="let s of n" flag="table" (click)="thyEditorService.insertTable()" (mouseenter)="thyEditorService.setTable(s[0],s[1],true)" [ngClass]="{'active':s[0]<=thyEditorService.tableOptions.tableActiveX && s[1] <= thyEditorService.tableOptions.tableActiveY}"></i>
                             </li>
                         </ul>
-                    </div> -->
+                    </div>
 
 
                     <!-- <i *ngIf="item.type === 'emoji'" title="{{item.title}}" class="{{item.className}} toolbar-icon" data-toggle="modal" data-target="#{{item.target}}"></i> -->
