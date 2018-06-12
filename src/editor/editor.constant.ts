@@ -8,7 +8,7 @@ export const thyEditorConstant = {
         all: ['heading', 'bold', 'italic', 'underline',
             'strikethrough', 'divider', 'hr', 'quote', 'list', 'list-2',
             'square', 'check-square', 'divider', 'link', 'image',
-            'code', 'table', 'divider', 'math', 'diagram', 'gantt', 'divider', 'preview', 'expand']
+            'code', 'table', 'divider', 'math', 'diagram', 'gantt']
     },
     allButtons: {
         'heading': {
@@ -132,7 +132,7 @@ export const thyEditorConstant = {
         'square': {
             id: 15,
             title: '未完成任务列表',
-            className: 'wtf wtf-square-o',
+            className: 'wtf wtf-square',
             prefix: '- [ ] ',
             type: 'styleFn',
             name: 'square'
@@ -173,7 +173,7 @@ export const thyEditorConstant = {
         'table': {
             id: 20,
             title: '表格',
-            className: 'wtf wtf-table',
+            className: 'wtf wtf-table-toolbar',
             type: 'tableFn',
             name: 'table'
         },
@@ -192,24 +192,17 @@ export const thyEditorConstant = {
             type: 'mathFn',
             name: 'math'
         },
-        'flow': {
-            id: 23,
-            title: '流程图',
-            className: 'wtf wtf-long-arrow-right',
-            type: 'flowchart',
-            name: 'flow'
-        },
         'diagram': {
             id: 24,
             title: '顺序图',
-            className: 'wtf wtf-exchange',
+            className: 'wtf wtf-exchange-alt',
             type: 'diagram',
             name: 'diagram'
         },
         'gantt': {
             id: 25,
             title: '甘特图',
-            className: 'wtf wtf-sliders',
+            className: 'wtf wtf-sliders-h',
             type: 'gantt',
             name: 'gantt'
         },

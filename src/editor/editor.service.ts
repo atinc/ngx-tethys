@@ -7,12 +7,11 @@ export class ThyEditorService implements OnInit, OnDestroy {
         fontSize: '16px',
         theme: 'kuroir',
         maxHeight: 600,
-        isFullScreen: false,
+        isHeightFull: false,
         className: '',
         autofocus: true, // 默认聚焦
         type: 'simple', // toolbar按钮显示的类型 ［simple:简易, all:全部按钮］
-        quickSearch: {},
-        locale: 'zh-cn', // 国际化设置[未]
+        locale: 'zh-cn', // 国际化设置
         hideButtons: <any>[],
         additionalButtons: <any>[],
         replaceButtons: <any>[],
@@ -27,7 +26,14 @@ export class ThyEditorService implements OnInit, OnDestroy {
     public elementRef: ElementRef;
     public textareaDom: any;
     public header_action: Boolean = false;
-    public table_action: Boolean = false;
+    public isPreview: Boolean = false;
+
+    public tableOptions = {
+        table_action: false,
+        tableActiveX: 1,
+        tableActiveY: 1,
+        tableMenu: thyEditorConstant.tableMenu
+    };
 
 
     constructor() {
@@ -191,6 +197,14 @@ export class ThyEditorService implements OnInit, OnDestroy {
         this.elementRef = elementRef;
         this.textareaDom = this.elementRef.nativeElement.querySelector('.thy-editor-textarea');
         this.setToolbars();
+        if (this.options.autofocus) {
+            setTimeout(() => {
+                this.textareaDom.focus();
+            }, 200);
+        }
+        if (this.options.isHeightFull) {
+            this.textareaDom.style.height = '100%';
+        }
     }
 
     getLocaleText(key: string) {
@@ -414,7 +428,7 @@ export class ThyEditorService implements OnInit, OnDestroy {
                 }
                 break;
             case 'table':
-                this.table_action = true;
+                this.tableOptions.table_action = true;
                 break;
             case 'math':
                 let _mathText = sel.text;
@@ -458,6 +472,7 @@ export class ThyEditorService implements OnInit, OnDestroy {
                 this.setFocus(sel.start + ganttText.length + 10, sel.start + ganttText.length + 10);
                 break;
         }
+        this.setTextareaHeight();
     }
 
     togglePreview() {
@@ -465,13 +480,58 @@ export class ThyEditorService implements OnInit, OnDestroy {
     }
 
     setTextareaHeight() {
-        const _height = this.textareaDom.scrollHeight;
+        if (this.options.isHeightFull) {
+            return;
+        }
+        let _height = this.textareaDom.scrollHeight;
         if (_height > this.options.maxHeight) {
-            this.textareaDom.style.height = this.options.maxHeight + 'px';
-        } else {
-            this.textareaDom.style.height = this.textareaDom.scrollHeight + 'px';
+            _height = this.options.maxHeight + 'px';
+        }
+        this.textareaDom.style.height = _height + 'px';
+    }
+
+    setTable(x: number, y: number, action: boolean) {
+        this.tableOptions.tableActiveX = x;
+        this.tableOptions.tableActiveY = y;
+        this.tableOptions.table_action = action;
+    }
+
+    insertTable() {
+        const cols = this.tableOptions.tableActiveY;
+        const rows = this.tableOptions.tableActiveX + 1;
+        let _header = this.getLocaleText('col');
+        let _header_hr = '---';
+        let _row = this.getLocaleText('row');
+
+        for (let i = 0; i < cols; i++) {
+            _header += '| ' + this.getLocaleText('col') + ' ';
+            _header_hr += '| --- ';
+            _row += '| ' + this.getLocaleText('row') + ' ';
+        }
+        let _str = '';
+        for (let i = 0; i < rows; i++) {
+            _str += _row + '\n';
         }
 
+        const sample = _header + '\n' + _header_hr + '\n' + _str;
+        let sel = this.getSelection();
+        if (sel.text.length > 0) {
+            this.clearSelection();
+            sel = this.getSelection();
+        }
+        if (this.isRowFirst(sel.start)) {
+            this.insertText('\n' + sample + '\n\n', sel.start, sel.end);
+            this.setFocus(sel.start + sample.length + 2, sel.start + sample.length + 2);
+        } else {
+            this.insertText('\n\n' + sample + '\n\n', sel.start, sel.end);
+            this.setFocus(sel.start + sample.length + 4, sel.start + sample.length + 4);
+        }
+        this.tableOptions.table_action = false;
+        this.setTextareaHeight();
+    }
+
+    previewHTML() {
+        return this.textareaDom.value;
     }
 
     clear() {
