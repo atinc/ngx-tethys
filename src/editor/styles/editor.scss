@@ -1,5 +1,5 @@
 /*
-*name   : ngx-editor
+*name   : thy-editor
 *layout : use css3 flex layout
 *brower : ie10+ chrome firefox safari opera
 */
@@ -32,7 +32,16 @@ $text-placeholder:#cacaca;
     z-index: 100000;
 }
 
-.ngx-editor {
+.thy-editor-wrapper {
+    display: block;
+}
+
+.thy-editor-wrapper-full {
+    width: 100%;
+    height: 100%;
+}
+
+.thy-editor {
     width: 100%;
     height: 100%;
     border: 1px $layout-boder solid;
@@ -48,7 +57,7 @@ $text-placeholder:#cacaca;
     -ms-flex-direction: column;
     flex-direction: column;
     -webkit-flex-direction: column;
-    .ngx-editor-toobar {
+    .thy-editor-toobar {
         //padding: 5px 10px;
         background: $layout-toolbar-bg;
         border-bottom: 1px $layout-toolbar-border solid;
@@ -137,7 +146,7 @@ $text-placeholder:#cacaca;
             vertical-align: top;
         }
     }
-    .ngx-editor-container {
+    .thy-editor-container {
         -webkit-box-flex: 1;
         -ms-flex: 1;
         flex: 1;
@@ -155,7 +164,7 @@ $text-placeholder:#cacaca;
             flex: inherit!important;
         }
     }
-    .ngx-editor-container-code {
+    .thy-editor-container-code {
         position: relative;
         -webkit-box-flex: 1;
         -ms-flex: 1;
@@ -163,7 +172,7 @@ $text-placeholder:#cacaca;
         -webkit-flex: 1;
         overflow-x: hidden;
         overflow-y: auto;
-        .ngx-editor-textarea {
+        .thy-editor-textarea {
             border: 0;
             display: block;
             resize: none;
@@ -189,7 +198,7 @@ $text-placeholder:#cacaca;
                 outline: none;
             }
         }
-        .ngx-editor-panel {
+        .thy-editor-panel {
             position: absolute;
             width: 100%;
             height: 100%;
@@ -205,7 +214,7 @@ $text-placeholder:#cacaca;
             }
         }
     }
-    .ngx-editor-container-preview {
+    .thy-editor-container-preview {
         -webkit-box-flex: 1;
         -ms-flex: 1;
         flex: 1;

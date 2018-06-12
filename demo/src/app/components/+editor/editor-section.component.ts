@@ -5,9 +5,9 @@ import { Component, TemplateRef, OnInit } from '@angular/core';
 })
 export class DemoEditorSectionComponent implements OnInit {
 
-    public value = 'this is ngx-editor';
+    public value = 'this is thy-editor';
 
-    public config = { type: 'simple', className: 'wt-editor-desc', autofocus: false, autoHeight: true };
+    public config = { type: 'all', className: 'thy-editor-desc', autofocus: false, autoHeight: true };
 
     constructor(
     ) {

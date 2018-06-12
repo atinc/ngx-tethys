@@ -1,4 +1,4 @@
-import { Component, Input, ElementRef, Renderer2, OnInit, forwardRef, ViewChild, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Component, Input, ElementRef, Renderer2, OnInit, forwardRef, HostBinding } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyEditorService } from './editor.service';
 @Component({
@@ -20,6 +20,10 @@ export class ThyEditorComponent implements OnInit, ControlValueAccessor {
     @Input() config: {};
 
     public className: String = '';
+
+    @HostBinding('class.thy-editor-wrapper') _thyClass = true;
+
+    @HostBinding('class.thy-editor-wrapper-full') _thyFullClass = true;
 
     constructor(
         private elementRef: ElementRef,
@@ -51,6 +55,7 @@ export class ThyEditorComponent implements OnInit, ControlValueAccessor {
     changeValue(event: Event) {
         this.model = event;
         this.onModelChange(this.model);
+        this.thyEditorService.setTextareaHeight();
     }
 
     setHeaderLi(id: string): void {
@@ -68,5 +73,6 @@ export class ThyEditorComponent implements OnInit, ControlValueAccessor {
 
     ngOnInit(): void {
         this.thyEditorService.initEditor(this.config, this.elementRef);
+        this._thyFullClass = this.thyEditorService.options.isFullScreen;
     }
 }

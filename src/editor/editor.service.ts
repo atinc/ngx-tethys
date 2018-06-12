@@ -7,6 +7,7 @@ export class ThyEditorService implements OnInit, OnDestroy {
         fontSize: '16px',
         theme: 'kuroir',
         maxHeight: 600,
+        isFullScreen: false,
         className: '',
         autofocus: true, // 默认聚焦
         type: 'simple', // toolbar按钮显示的类型 ［simple:简易, all:全部按钮］
@@ -25,8 +26,8 @@ export class ThyEditorService implements OnInit, OnDestroy {
     public headers: any = [];
     public elementRef: ElementRef;
     public textareaDom: any;
-    public header_action: boolean;
-    public table_action: boolean;
+    public header_action: Boolean = false;
+    public table_action: Boolean = false;
 
 
     constructor() {
@@ -86,7 +87,7 @@ export class ThyEditorService implements OnInit, OnDestroy {
     }
 
     clearSelection() {
-        this.textareaDom.selectionStart = this.textareaDom.editor.selectionEnd;
+        this.textareaDom.selectionStart = this.textareaDom.selectionEnd;
     }
 
     setFocus(star: number, end: number) {
@@ -188,7 +189,7 @@ export class ThyEditorService implements OnInit, OnDestroy {
     initEditor(config: {}, elementRef: ElementRef) {
         this.setOptions(config);
         this.elementRef = elementRef;
-        this.textareaDom = this.elementRef.nativeElement.querySelector('.ngx-editor-textarea');
+        this.textareaDom = this.elementRef.nativeElement.querySelector('.thy-editor-textarea');
         this.setToolbars();
     }
 
@@ -460,6 +461,16 @@ export class ThyEditorService implements OnInit, OnDestroy {
     }
 
     togglePreview() {
+
+    }
+
+    setTextareaHeight() {
+        const _height = this.textareaDom.scrollHeight;
+        if (_height > this.options.maxHeight) {
+            this.textareaDom.style.height = this.options.maxHeight + 'px';
+        } else {
+            this.textareaDom.style.height = this.textareaDom.scrollHeight + 'px';
+        }
 
     }
 

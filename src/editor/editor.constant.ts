@@ -14,7 +14,7 @@ export const thyEditorConstant = {
         'heading': {
             id: 0,
             title: '标题',
-            className: 'wtf wtf-header',
+            className: 'wtf wtf-heading',
             type: 'headingFns',
             name: 'heading'
         },

@@ -1,11 +1,11 @@
-<div class="ngx-editor {{className}}">
-    <div class="ngx-editor-toobar">
+<div class="thy-editor {{className}}">
+    <div class="thy-editor-toobar">
         <div class="noselect">
             <ul class="wtEditorToolBarUl">
                 <li class="wtEditorToolBarli" *ngFor="let item of thyEditorService.toolbars;" [ngClass]="{'active':item.id == 0 && thyEditorService.header_action}">
                     <i *ngIf="item.type === 'custom'" title="{{item.title}}" class="{{item.className}} toolbar-icon" (click)="item.action($event,vm)"></i>
                     <i *ngIf="item.type === 'headingFns'" title="{{item.title}}" class="{{item.className}} toolbar-icon" (click)="setHeaderLi(item.id)"></i>
-                    <div *ngIf="item.type === 'headingFns'" ng-show="thyEditorService.header_action" class="toolbar-menu" flag="h">
+                    <div *ngIf="item.type === 'headingFns'" [hidden]="!thyEditorService.header_action" class="toolbar-menu" flag="h">
                         <ul flag="h">
                             <li *ngFor="let n of thyEditorService.headers" class="{{n.className}}" (click)="styleFn(n.name,$event)" flag="h">
                                 {{n.title}}
@@ -37,9 +37,9 @@
             </ul>
         </div>
     </div>
-    <div class="ngx-editor-container" [ngClass]="{'height-auto':autoHeight}">
-        <div class="ngx-editor-container-code">
-            <textarea class="ngx-editor-textarea" [(ngModel)]="model" (ngModelChange)="changeValue($event)"></textarea>
+    <div class="thy-editor-container">
+        <div class="thy-editor-container-code">
+            <textarea class="thy-editor-textarea" [(ngModel)]="model" (ngModelChange)="changeValue($event)"></textarea>
         </div>
         <!-- <div class="wt-editor-container-preview" [ngStyle]="editorHeight" [hidden]="!isPreview">
                 <article class="markdown-body" data-open-title="Hide Preview" data-closed-title="Show Preview"></article>
