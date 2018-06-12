@@ -16,37 +16,37 @@ export class DemoConfirmSectionComponent {
             description: '标题',
             type: 'String',
             default: ''
-        },{
+        }, {
             property: 'content',
             description: '内容',
             type: 'String',
             default: ''
-        },{
+        }, {
             property: 'buttons',
             description: '按钮',
             type: 'Object',
             default: ''
-        },{
+        }, {
             property: 'buttons.confirm',
             description: '确认按钮',
             type: 'Object',
             default: ''
-        },{
+        }, {
             property: 'buttons.confirm.text',
             description: '确认按钮-显示文本',
             type: 'String',
             default: ''
-        },{
+        }, {
             property: 'buttons.confirm.type',
             description: '确认按钮-样式',
             type: 'ThyButtonType',
             default: ''
-        },{
+        }, {
             property: 'buttons.confirm.loadingText',
             description: '确认按钮-处理中显示文本',
             type: 'String',
             default: ''
-        },{
+        }, {
             property: 'buttons.confirm.action',
             description: '确认按钮-处理事件',
             type: 'Function',
@@ -64,6 +64,7 @@ export class DemoConfirmSectionComponent {
             console.log(1);
         });
     }
+
     deleteSimplyConfirmTranslate() {
         this.confirmService.deleteTranslateKey(
             null, {
