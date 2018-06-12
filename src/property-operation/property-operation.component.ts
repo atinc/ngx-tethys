@@ -20,7 +20,9 @@ export class ThyPropertyOperationComponent implements AfterContentInit {
     _onlyHasTips = false;
 
     _showClose = false;
-    
+
+    _initialized = false;
+
     @HostBinding('class.thy-property-operation') _isPropertyOperation = true;
 
     @ContentChild('operationIcon') operationIcon: TemplateRef<any>;
@@ -35,6 +37,9 @@ export class ThyPropertyOperationComponent implements AfterContentInit {
     @Input()
     set thyValue(value: string) {
         this._value = value;
+        if (this._initialized) {
+            this._setOnlyHasTips();
+        }
     }
 
     @Input()
@@ -52,11 +57,22 @@ export class ThyPropertyOperationComponent implements AfterContentInit {
         this._showClose = inputValueToBoolean(value);
     }
 
+    _setOnlyHasTips() {
+        if (this._value) {
+            this._onlyHasTips = false;
+        } else if (htmlElementIsEmpty(this.contentElement.nativeElement)) {
+            this._onlyHasTips = true;
+        } else {
+            this._onlyHasTips = false;
+        }
+    }
+
     constructor(private thyTranslate: ThyTranslate) {
 
     }
 
     ngAfterContentInit() {
-        this._onlyHasTips = htmlElementIsEmpty(this.contentElement.nativeElement) && !this._value;
+        this._setOnlyHasTips();
+        this._initialized = true;
     }
 }

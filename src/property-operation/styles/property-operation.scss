@@ -14,7 +14,7 @@
     }
     .thy-operation-content {
         margin-left: 10px;
-    
+        position: relative;
         &.only-has-tips {
             display: flex;
             .thy-tips {
@@ -33,15 +33,16 @@
     .close-link {
         position: absolute;
         visibility: hidden;
-        top: 10px;
-        right: 10px;
+        top: 14px;
+        right: -20px;
     }
 }
 
 .thy-property-operation-group {
-    display: inline-flex;
+    display: flex;
 
     .thy-property-operation {
+        flex-grow: 1;
         &:not(:first-child) {
             padding-left: 35px; 
         }
