@@ -1,6 +1,6 @@
 import {
     Component, HostBinding, ContentChild, TemplateRef, ElementRef,
-    Input, AfterContentInit, ViewChild
+    Input, Output, AfterContentInit, ViewChild, EventEmitter
 } from '@angular/core';
 import { ThyTranslate } from '../shared/translate';
 import { htmlElementIsEmpty, inputValueToBoolean } from '../util/helpers';
@@ -22,6 +22,8 @@ export class ThyPropertyOperationComponent implements AfterContentInit {
     _showClose = false;
 
     _initialized = false;
+
+    @Output() thyOnRemove = new EventEmitter();
 
     @HostBinding('class.thy-property-operation') _isPropertyOperation = true;
 
@@ -74,5 +76,9 @@ export class ThyPropertyOperationComponent implements AfterContentInit {
     ngAfterContentInit() {
         this._setOnlyHasTips();
         this._initialized = true;
+    }
+
+    remove($event: Event) {
+        this.thyOnRemove.emit($event);
     }
 }
