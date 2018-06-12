@@ -79,6 +79,7 @@ export class ThyPropertyOperationComponent implements AfterContentInit {
     }
 
     remove($event: Event) {
+        $event.stopPropagation();
         this.thyOnRemove.emit($event);
     }
 }
