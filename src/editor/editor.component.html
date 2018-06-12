@@ -3,7 +3,7 @@
         <div class="noselect">
             <ul class="wtEditorToolBarUl">
                 <li class="wtEditorToolBarli" *ngFor="let item of thyEditorService.toolbars;" [ngClass]="{'active':item.id == 0 && thyEditorService.header_action}">
-                    <i *ngIf="item.type === 'custom'" title="{{item.title}}" class="{{item.className}} toolbar-icon" (click)="item.action($event,vm)"></i>
+                    <!-- <i *ngIf="item.type === 'custom'" title="{{item.title}}" class="{{item.className}} toolbar-icon" (click)="item.action($event,vm)"></i> -->
                     <i *ngIf="item.type === 'headingFns'" title="{{item.title}}" class="{{item.className}} toolbar-icon" (click)="setHeaderLi(item.id)"></i>
                     <div *ngIf="item.type === 'headingFns'" [hidden]="!thyEditorService.header_action" class="toolbar-menu" flag="h">
                         <ul flag="h">
