@@ -7,12 +7,11 @@ export class ThyEditorService implements OnInit, OnDestroy {
         fontSize: '16px',
         theme: 'kuroir',
         maxHeight: 600,
-        isFullScreen: false,
+        isHeightFull: false,
         className: '',
         autofocus: true, // 默认聚焦
         type: 'simple', // toolbar按钮显示的类型 ［simple:简易, all:全部按钮］
-        quickSearch: {},
-        locale: 'zh-cn', // 国际化设置[未]
+        locale: 'zh-cn', // 国际化设置
         hideButtons: <any>[],
         additionalButtons: <any>[],
         replaceButtons: <any>[],
@@ -27,6 +26,7 @@ export class ThyEditorService implements OnInit, OnDestroy {
     public elementRef: ElementRef;
     public textareaDom: any;
     public header_action: Boolean = false;
+    public isPreview: Boolean = false;
 
     public tableOptions = {
         table_action: false,
@@ -197,6 +197,14 @@ export class ThyEditorService implements OnInit, OnDestroy {
         this.elementRef = elementRef;
         this.textareaDom = this.elementRef.nativeElement.querySelector('.thy-editor-textarea');
         this.setToolbars();
+        if (this.options.autofocus) {
+            setTimeout(() => {
+                this.textareaDom.focus();
+            }, 200);
+        }
+        if (this.options.isHeightFull) {
+            this.textareaDom.style.height = '100%';
+        }
     }
 
     getLocaleText(key: string) {
@@ -472,13 +480,14 @@ export class ThyEditorService implements OnInit, OnDestroy {
     }
 
     setTextareaHeight() {
-        const _height = this.textareaDom.scrollHeight;
-        if (_height > this.options.maxHeight) {
-            this.textareaDom.style.height = this.options.maxHeight + 'px';
-        } else {
-            this.textareaDom.style.height = this.textareaDom.scrollHeight + 'px';
+        if (this.options.isHeightFull) {
+            return;
         }
-
+        let _height = this.textareaDom.scrollHeight;
+        if (_height > this.options.maxHeight) {
+            _height = this.options.maxHeight + 'px';
+        }
+        this.textareaDom.style.height = _height + 'px';
     }
 
     setTable(x: number, y: number, action: boolean) {
@@ -519,6 +528,10 @@ export class ThyEditorService implements OnInit, OnDestroy {
         }
         this.tableOptions.table_action = false;
         this.setTextareaHeight();
+    }
+
+    previewHTML() {
+        return this.textareaDom.value;
     }
 
     clear() {

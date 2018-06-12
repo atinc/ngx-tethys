@@ -12,9 +12,6 @@ import { ThyEditorService } from './editor.service';
 })
 export class ThyEditorComponent implements OnInit, ControlValueAccessor {
 
-    // <wt-editor ng-model="vm.temp.description" ctrl-enter="vm.updateDescription()"
-    // config="{type:'simple',className:'wt-editor-desc',autofocus:false,autoHeight:true}"></wt-editor>
-
     public model: any;
 
     @Input() config: {};
@@ -56,6 +53,7 @@ export class ThyEditorComponent implements OnInit, ControlValueAccessor {
         this.model = event;
         this.onModelChange(this.model);
         this.thyEditorService.setTextareaHeight();
+        this.showHTML();
     }
 
     setHeaderLi(id: string): void {
@@ -67,12 +65,22 @@ export class ThyEditorComponent implements OnInit, ControlValueAccessor {
     }
 
     togglePreview() {
+        this.thyEditorService.isPreview = !this.thyEditorService.isPreview;
+        this.showHTML();
+    }
 
+    showHTML() {
+        if (this.thyEditorService.isPreview) {
+            setTimeout(() => {
+                const html = this.thyEditorService.previewHTML();
+                this.elementRef.nativeElement.querySelector('.markdown-body').innerHTML = html;
+            }, 50);
+        }
     }
 
 
     ngOnInit(): void {
         this.thyEditorService.initEditor(this.config, this.elementRef);
-        this._thyFullClass = this.thyEditorService.options.isFullScreen;
+        this._thyFullClass = this.thyEditorService.options.isHeightFull;
     }
 }
