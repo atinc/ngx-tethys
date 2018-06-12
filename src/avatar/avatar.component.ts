@@ -1,5 +1,5 @@
-import { Component, Input, ElementRef, HostBinding, OnInit } from '@angular/core';
-import { isNumber } from '../util/helpers';
+import { Component, Input, Output, EventEmitter, ElementRef, HostBinding, OnInit } from '@angular/core';
+import { isNumber, inputValueToBoolean } from '../util/helpers';
 import { UpdateHostClassService } from '../shared/update-host-class.service';
 import { ThyAvatarService } from './avatar.service';
 
@@ -25,11 +25,14 @@ export class ThyAvatarComponent implements OnInit {
     _src: string;
     _name: string;
     _size: number;
+    _showRemove = false;
 
     public avatarSrc: string;
     public avatarName?: string;
 
     @HostBinding('class.thy-avatar') _isAvatar = true;
+
+    @Output() thyOnRemove = new EventEmitter();
 
     @Input() thyShowName: boolean;
 
@@ -53,12 +56,10 @@ export class ThyAvatarComponent implements OnInit {
         }
     }
 
-    // @Input()
-    // set thyMember(value: AvatarMemberInfo) {
-    //     this._member = value;
-    //     this._setAvatarSrc(this._member && this._member.avatar);
-    //     this._setAvatarName();
-    // }
+    @Input()
+    set thyShowRemove(value: boolean) {
+        this._showRemove = inputValueToBoolean(value);
+    }
 
     private _setAvatarSize(size: number) {
         if (sizeArray.indexOf(size) > -1) {
@@ -73,6 +74,8 @@ export class ThyAvatarComponent implements OnInit {
     private _setAvatarSrc(src: string) {
         if (src && this.thyAvatarService.ignoreAvatarSrcPaths.indexOf(src) < 0) {
             this._src = src;
+        } else {
+            this._src = null;
         }
     }
 
@@ -93,5 +96,9 @@ export class ThyAvatarComponent implements OnInit {
             this._setAvatarSize(DEFAULT_SIZE);
         }
         this.updateHostClassService.updateClass([`thy-avatar-${this._size}`]);
+    }
+
+    remove($event: Event) {
+        this.thyOnRemove.emit($event);
     }
 }

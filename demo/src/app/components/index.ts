@@ -33,6 +33,7 @@ import { DemoSlideSectionComponent } from './+slide/slide-section.component';
 import { DemoSlideContentComponent } from './+slide/slide-content.component';
 import { DemoPropertyOperationSectionComponent } from './+property-operation/property-operation-section.component'
 import { DemoUploaderSectionComponent } from './+uploader/uploader-section.component';
+import { DemoEditorSectionComponent } from './+editor/editor-section.component';
 
 export const COMPONENTS = [
     DemoPopBoxSectionComponent,
@@ -72,7 +73,8 @@ export const COMPONENTS = [
     DemoRadioSectionComponent,
     DemoSelectSectionComponent,
     DemoPropertyOperationSectionComponent,
-    DemoUploaderSectionComponent
+    DemoUploaderSectionComponent,
+    DemoEditorSectionComponent
 ];
 
 export const ENTRY_COMPONENTS = [

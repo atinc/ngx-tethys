@@ -1,0 +1,262 @@
+/*
+*name   : thy-editor
+*layout : use css3 flex layout
+*brower : ie10+ chrome firefox safari opera
+*/
+
+
+/***common color****/
+
+$layout-boder:#E3E6EC;
+$layout-bg:#fff;
+$layout-shadow:rgba(0, 0, 0, 0.15);
+$layout-toolbar-bg:#fff;
+$layout-toolbar-border:#eee;
+$layout-toolbar-icon-bg:#ddd;
+$layout-toolbar-icon-color:#333;
+$layout-toolbar-icon-border:#ccc;
+$layout-toolbar-dividor-bg:#cfcfcf;
+$layout-toolbar-active-bg:#eeeeee;
+$layout-code-content:#fff;
+$layout-code-content-shadow:#eee;
+$layout-code-line:#fcfcfc;
+$layout-code-line-color:#ddd;
+$layout-table-menu-bg:#f3f3f3;
+$layout-table-menu-hover:#cfcfcf;
+$text-placeholder:#cacaca;
+
+/***layout***/
+
+.wt-editor-full-screen {
+    position: absolute;
+    z-index: 100000;
+}
+
+.thy-editor-wrapper {
+    display: block;
+}
+
+.thy-editor-wrapper-full {
+    width: 100%;
+    height: 100%;
+}
+
+.thy-editor {
+    width: 100%;
+    height: 100%;
+    border: 1px $layout-boder solid;
+    box-shadow: 0 3px 20px $layout-shadow;
+    background: $layout-bg;
+    margin: auto;
+    display: -webkit-box;
+    display: flex;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    .thy-editor-toobar {
+        //padding: 5px 10px;
+        background: $layout-toolbar-bg;
+        border-bottom: 1px $layout-toolbar-border solid;
+        position: relative;
+        .noselect {
+            /* toolbar上面的按钮无论怎样点击都不应该选中 */
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        .wtEditorToolBarUl {
+            display: block;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            .wtEditorToolBarli {
+                display: inline-block;
+                padding: 0;
+                margin: 0;
+                &.active {
+                    background: $layout-toolbar-active-bg;
+                }
+                .toolbar-menu {
+                    position: absolute;
+                    top: 38px;
+                    left: -1px;
+                    z-index: 1;
+                    background: #fff;
+                    width: 162px;
+                    border: 1px #e8e8e8 solid;
+                    box-shadow: 1px 2px 4px $layout-shadow;
+                    ul {
+                        display: block;
+                        padding: 0;
+                        margin: 0;
+                        list-style: none;
+                        li {
+                            padding: 0;
+                            margin: 0;
+                            display: block;
+                            padding: 10px;
+                            vertical-align: middle;
+                            cursor: pointer;
+                            &:hover {
+                                background: #f6f6f6;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .toolbar-icon,
+        .file-icon,
+        .styling-icon,
+        .heading-icon,
+        .list-icon,
+        .link-icon,
+        .image-icon,
+        .code-icon,
+        .table-icon,
+        .icon-icon,
+        .math-icon,
+        .mermaid-icon,
+        .con-icon {
+            padding: 10px;
+            border: 1px solid transparent;
+            color: $layout-toolbar-icon-color;
+            opacity: 0.5;
+            font-size: 16px;
+            display: inline-block;
+            &:hover {
+                cursor: pointer;
+                opacity: 0.8;
+            }
+        }
+        .divider {
+            font-style: normal;
+            background: $layout-toolbar-dividor-bg;
+            margin: 0 5px;
+            display: inline-block;
+            width: 1px;
+            height: 18px;
+            line-height: 20px;
+            vertical-align: top;
+        }
+    }
+    .thy-editor-container {
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        -webkit-flex: 1;
+        display: -webkit-box;
+        display: flex;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        -webkit-flex-direction: row;
+        &.height-auto {
+            flex: inherit!important;
+        }
+    }
+    .thy-editor-container-code {
+        position: relative;
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        -webkit-flex: 1;
+        overflow-x: hidden;
+        overflow-y: auto;
+        .thy-editor-textarea {
+            border: 0;
+            display: block;
+            resize: none;
+            font-size: 18px;
+            line-height: 18px;
+            padding: 30px 15px;
+            box-sizing: border-box;
+            width: 100%;
+            &::-webkit-input-placeholder {
+                color: $text-placeholder;
+            }
+            &:-moz-placeholder {
+                color: $text-placeholder;
+            }
+            &::-moz-placeholder {
+                color: $text-placeholder;
+            }
+            &::-ms-input-placeholder {
+                color: $text-placeholder;
+            }
+            &:focus {
+                border: 0;
+                outline: none;
+            }
+        }
+        .thy-editor-panel {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            .ace_content {
+                background: $layout-code-content;
+                box-shadow: inset 0 0 2px $layout-code-content-shadow;
+            }
+            .ace_gutter-layer {
+                background: $layout-code-line;
+                .ace_gutter-cell {
+                    color: $layout-code-line-color;
+                }
+            }
+        }
+    }
+    .thy-editor-container-preview {
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        -webkit-flex: 1;
+        overflow: auto;
+        border-left: 1px $layout-toolbar-border solid;
+        padding: 30px 15px;
+        box-sizing: border-box;
+    }
+    .table-menu {
+        position: absolute;
+        z-index: 100;
+        top: 38px;
+        background: $layout-bg;
+        border: 1px $layout-boder solid;
+        ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            display: block;
+            padding-bottom: 2px;
+            li {
+                padding: 0;
+                margin: 0;
+                display: block;
+                margin-top: 2px;
+                line-height: 15px;
+                height: 15px;
+                padding-right: 2px;
+                i {
+                    width: 15px;
+                    height: 15px;
+                    background: $layout-table-menu-bg;
+                    display: inline-block;
+                    //margin-top: 5px;
+                    margin-left: 2px;
+                    &.active {
+                        background: $layout-table-menu-hover;
+                    }
+                }
+            }
+        }
+    }
+}

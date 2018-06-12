@@ -29,6 +29,18 @@ export class DemoAvatarSectionComponent implements OnInit {
             default: 'false'
         },
         {
+            property: 'thyShowRemove',
+            description: '是否展示移除按钮',
+            type: 'Boolean',
+            default: 'false'
+        },
+        {
+            property: 'thyOnRemove',
+            description: '移除按钮的事件, 当 thyShowRemove 为 true 时起作用',
+            type: 'Event',
+            default: ''
+        },
+        {
             property: 'thySize',
             description: '头像大小，可选择  22, 24, 30, 38, 48, 68, 110, 160, sm: 30px, xs: 24px lg: 48',
             type: 'Number | String',
@@ -43,6 +55,24 @@ export class DemoAvatarSectionComponent implements OnInit {
     isFullPath = false;
 
     originalTransform: (src: string, size: number) => string;
+
+    removeMembers = [
+        {
+            avatar: this.avatarPath,
+            _id: 1,
+            size: 24
+        },
+        {
+            avatar: this.avatarSrc,
+            _id: 2,
+            size: 30
+        },
+        {
+            avatar: this.avatarPath,
+            _id: 3,
+            size: 38
+        }
+    ];
 
     constructor(private thyAvatarService: ThyAvatarService) {
         this.originalTransform = thyAvatarService.avatarSrcTransform;
@@ -63,5 +93,29 @@ export class DemoAvatarSectionComponent implements OnInit {
             this.avatarSrc = '9cb2637b-9f70-4d73-8c1d-24542b6ab4e1_80x80.png';
             this.thyAvatarService.avatarSrcTransform = this.originalTransform;
         }
+    }
+
+    onRemove(member: any) {
+        this.removeMembers.splice(this.removeMembers.indexOf(member), 1);
+    }
+
+    resetRemoveMembers() {
+        this.removeMembers = [
+            {
+                avatar: this.avatarPath,
+                _id: 1,
+                size: 24
+            },
+            {
+                avatar: this.avatarSrc,
+                _id: 2,
+                size: 30
+            },
+            {
+                avatar: this.avatarPath,
+                _id: 3,
+                size: 38
+            }
+        ];
     }
 }
