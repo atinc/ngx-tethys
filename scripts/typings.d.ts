@@ -13,3 +13,10 @@ declare module jasmine {
     toHaveCssClass(expected: any): boolean;
   }
 }
+
+declare const mermaid: any;
+declare const liteMarked: any;
+declare const $: any;
+declare const katex: any;
+
+

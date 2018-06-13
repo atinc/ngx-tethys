@@ -8,7 +8,7 @@ export const thyEditorConstant = {
         all: ['heading', 'bold', 'italic', 'underline',
             'strikethrough', 'divider', 'hr', 'quote', 'list', 'list-2',
             'square', 'check-square', 'divider', 'link', 'image',
-            'code', 'table', 'divider', 'math', 'diagram', 'gantt']
+            'code', 'table', 'divider', 'math', 'diagram', 'gantt','divider','preview']
     },
     allButtons: {
         'heading': {
