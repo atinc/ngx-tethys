@@ -15,6 +15,16 @@ export class DemoSelectSectionComponent {
 
     selectedItem: any;
 
+    selectedItem1: any;
+
+    selectedItem2: any;
+
+    selectedItem3: any;
+
+    selectedItem4: any;
+
+    expand = false;
+
     optionData = [{
         icon: 'wtf wtf-type-task',
         display_name: '任务',
@@ -48,7 +58,7 @@ export class DemoSelectSectionComponent {
     public apiParameters = [
         {
             property: 'thySize',
-            description: '大小，sm、lg',
+            description: '大小，sm | md | lg',
             type: 'String',
             default: ''
         },
@@ -121,6 +131,10 @@ export class DemoSelectSectionComponent {
 
     change() {
         console.log(`select change value as :${this.model.selectedValue}`);
+    }
+
+    changeSelect() {
+        console.log('success');
     }
 
     searchTextChange(event: any) {
