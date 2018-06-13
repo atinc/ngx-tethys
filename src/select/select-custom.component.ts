@@ -101,6 +101,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
         }
     }
 
+
     ngOnInit() {
         const classes = this._size ? [`thy-select-custom-${this._size}`] : [];
         this.updateHostClassService.updateClass(classes);

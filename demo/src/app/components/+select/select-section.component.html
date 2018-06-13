@@ -92,7 +92,7 @@
         <h2>自定义 select多选</h2>
     </div>
     <div class="body">
-        <thy-custom-select [(ngModel)]="selectedItem4" thyMode="multiple" thyPlaceHolder="请选择" [thyShowSearch]="true">
+        <thy-custom-select [(ngModel)]="selectedItem4" (ngModelChange)="selectMultiple()" thyMode="multiple" thyPlaceHolder="请选择" [thyShowSearch]="true">
             <thy-option *ngFor="let option of optionData" thySearchKey="{{option?.name}},{{option?.display_name}},{{option?.pin_yin}}"
                 [thyValue]="option._id" [thyLabelText]="option.display_name">
             </thy-option>

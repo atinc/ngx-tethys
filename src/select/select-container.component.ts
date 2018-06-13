@@ -52,7 +52,6 @@ export class SelectContainerComponent implements OnInit {
                 option.selected = true;
                 this.parent._innerValues.push(option);
             }
-            console.log(this.parent._innerValues);
             this.parent.valueOnChange(this.parent._innerValues);
         } else {
             this.parent._innerValue = option;
