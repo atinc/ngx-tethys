@@ -1,13 +1,13 @@
 export const thyEditorConstant = {
     typeArray: {
         hs: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
-        simple: ['bold', 'italic', 'link', 'divider', 'hr', 'quote', 'list', 'list-2', 'table'],
+        simple: ['bold', 'italic', 'link', 'uploadImg' ,'divider', 'hr', 'quote', 'list', 'list-2', 'table'],
         complex: ['heading', 'bold', 'italic', 'underline',
             'strikethrough', 'divider', 'hr', 'quote', 'list', 'list-2', 'square', 'check-square', 'divider',
             'link', 'image', 'code', 'table', 'divider', 'math', 'diagram', 'gantt', 'divider', 'preview'],
         all: ['heading', 'bold', 'italic', 'underline',
             'strikethrough', 'divider', 'hr', 'quote', 'list', 'list-2',
-            'square', 'check-square', 'divider', 'link', 'image',
+            'square', 'check-square', 'divider', 'link', 'uploadImg',
             'code', 'table', 'divider', 'math', 'diagram', 'gantt','divider','preview']
     },
     allButtons: {
@@ -222,7 +222,23 @@ export const thyEditorConstant = {
         'divider': {
             id: parseInt(Math.random() * 1000000 + '', 10),
             type: 'divider'
-        }
+        },
+        'uploadImg': {
+            id: 29,
+            title: '上传',
+            className: 'wtf wtf-image',
+            text: '上传',
+            type: 'uploadImg',
+            name: 'image'
+        },
+        'linkModule': {
+            id: 30,
+            title: '关联',
+            className: 'wtf wtf-link-entity',
+            text: '关联',
+            type: 'linkModule',
+            name: 'linkModule'
+        },
     },
     tableMenu: [
         [

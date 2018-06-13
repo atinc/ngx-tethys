@@ -78,12 +78,12 @@ export class ThyEditorService implements OnInit, OnDestroy {
     }
 
 
-    // insertText(text: string, start: number, end: number) {
-    //     this.textareaDom.focus();
-    //     const leftText = this.textareaDom.value.substring(0, start);
-    //     const rightText = this.textareaDom.value.substring(end);
-    //     this.textareaDom.value = leftText + text + rightText;
-    // }
+    insertText(text: string, start: number, end: number) {
+        this.textareaDom.focus();
+        const leftText = this.textareaDom.value.substring(0, start);
+        const rightText = this.textareaDom.value.substring(end);
+        this.textareaDom.value = leftText + text + rightText;
+    }
 
     getInsertText(text: string, start: number, end: number) {
         this.textareaDom.focus();
@@ -122,11 +122,12 @@ export class ThyEditorService implements OnInit, OnDestroy {
     //     this.insertText(content, sel.start, sel.end);
     //     this.textareaDom.focus();
     // }
-    // insertContent(content: string) {
-    //     const sel = this.getSelection();
-    //     this.insertText(content, sel.start, sel.end);
-    //     this.textareaDom.focus();
-    // }
+
+    insertContent(content: string, change?: Function) {
+        const sel = this.getSelection();
+        change(this.getInsertText(content, sel.start, sel.end));
+        this.textareaDom.focus();
+    }
 
     setOptions(config: {}) {
         if (config) {
@@ -135,6 +136,7 @@ export class ThyEditorService implements OnInit, OnDestroy {
     }
 
     setToolbars() {
+        // this.toolbars = [];
         thyEditorConstant.typeArray[this.options.type].forEach((value: string, index: number) => {
             let _tempBtn = thyEditorConstant.allButtons[value];
             if (!_tempBtn) {

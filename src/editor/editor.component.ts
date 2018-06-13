@@ -1,4 +1,4 @@
-import { Component, Input, ElementRef, Renderer2, OnInit, forwardRef, HostBinding } from '@angular/core';
+import { Component, Input, ElementRef, Renderer2, OnInit, forwardRef, HostBinding, Output, EventEmitter } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyEditorService } from './editor.service';
 @Component({
@@ -8,7 +8,7 @@ import { ThyEditorService } from './editor.service';
         provide: NG_VALUE_ACCESSOR,
         useExisting: forwardRef(() => ThyEditorComponent),
         multi: true
-    }]
+    }, ThyEditorService]
 })
 export class ThyEditorComponent implements OnInit, ControlValueAccessor {
 
@@ -21,6 +21,10 @@ export class ThyEditorComponent implements OnInit, ControlValueAccessor {
     @HostBinding('class.thy-editor-wrapper') _thyWrapperClass = true;
 
     @HostBinding('class.thy-editor-wrapper-full') _thyFullClass = true;
+
+    @Output() uploadImg: EventEmitter<any> = new EventEmitter<any>();
+
+    @Output() linkModule: EventEmitter<any> = new EventEmitter<any>();
 
     public value: String = '';
 
@@ -73,6 +77,32 @@ export class ThyEditorComponent implements OnInit, ControlValueAccessor {
     togglePreview() {
         this.thyEditorService.isPreview = !this.thyEditorService.isPreview;
         this.value = this.elementRef.nativeElement.querySelector('.thy-editor-textarea').value;
+    }
+
+    selectFiles(event: Event) {
+        if (this.uploadImg) {
+            this.uploadImg.emit({
+                event: event,
+                callBack: this.uploadImgAction.bind(this)
+            });
+        }
+    }
+
+    uploadImgAction(src: string, title: string) {
+        this.thyEditorService.insertContent('\n![' + title + '](' + src + ')\n', this.changeValue.bind(this));
+    }
+
+    selectModule(event: Event) {
+        if (this.linkModule) {
+            this.linkModule.emit({
+                event: event,
+                callBack: this.linkModuleAction.bind(this)
+            });
+        }
+    }
+
+    linkModuleAction(str: string) {
+        this.thyEditorService.insertContent(str, this.changeValue.bind(this));
     }
 
     ngOnInit(): void {

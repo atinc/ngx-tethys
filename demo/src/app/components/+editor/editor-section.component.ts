@@ -7,7 +7,7 @@ export class DemoEditorSectionComponent implements OnInit {
 
     public value = '**editor**';
 
-    public config = { type: 'simple', className: 'thy-editor-desc', isHeightFull: false };
+    public config = { type: 'simple' };
 
     constructor(
     ) {

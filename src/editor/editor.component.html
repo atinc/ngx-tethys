@@ -14,6 +14,8 @@
                     </div>
 
                     <i *ngIf="item.type === 'styleFn'" title="{{item.title}}" class="{{item.className}} toolbar-icon" (click)="styleFn(item.name,$event)"></i>
+                    <i *ngIf="item.type === 'uploadImg'" title="{{item.title}}" thyFileSelect class="{{item.className}} toolbar-icon" (thyOnFileSelect)="selectFiles($event)"></i>
+                    <i *ngIf="item.type === 'linkModule'" title="{{item.title}}" class="{{item.className}} toolbar-icon" (click)="selectModule($event)"></i>
                     <i *ngIf="item.type === 'tableFn'" title="{{item.title}}" class="{{item.className}} toolbar-icon" (click)="styleFn(item.name,$event)"></i>
                     <div *ngIf="item.type === 'tableFn'" [hidden]="!thyEditorService.tableOptions.table_action" class="table-menu" flag="table" (mouseleave)="thyEditorService.setTable(1,1,false)">
                         <ul flag="table">
