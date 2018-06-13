@@ -27,6 +27,12 @@
             <option value="option2">选项2</option>
         </thy-select>
         <br>
+        <thy-select thySize="md" [(ngModel)]="model.selectedValue">
+            <option value="">请选择</option>
+            <option value="option1">选项1</option>
+            <option value="option2">选项2</option>
+        </thy-select>
+        <br>
         <thy-select thySize="" [(ngModel)]="model.selectedValue">
             <option value="">请选择</option>
             <option value="option1">选项1</option>
@@ -46,33 +52,60 @@
         <h2>自定义 select</h2>
     </div>
     <div class="body">
-        <thy-custom-select thySize="sm" [(ngModel)]="selectedItem" [thyIsSearch]="true">
-            <thy-option *ngFor="let option of optionData" [value]="option._id" [label]="option.name" [icon]="option?.icon" [hasSelectedIcon]="false">
+        <thy-custom-select thySize="sm" thyPlaceHolder="请选择" [(ngModel)]="selectedItem" (ngModelChange)="changeSelect()" [thyShowSearch]="true">
+            <thy-option *ngFor="let option of optionData" thySearchKey="{{option?.name}},{{option?.display_name}},{{option?.pin_yin}}"
+                [thyValue]="option._id" [thyLabelText]="option.display_name">
             </thy-option>
         </thy-custom-select>
 
         <br>
 
-        <thy-custom-select [(ngModel)]="selectedItem">
-            <thy-option value="001" label="country"></thy-option>
-            <!-- <thy-option *ngFor="let option of optionData" [custom]="true">
-                {{option.name}}
-            </thy-option> -->
+
+        <thy-custom-select [(ngModel)]="selectedItem2" thyPlaceHolder="请选择">
+            <thy-option thyValue="001" thyLabelText="country"></thy-option>
+            <thy-option *ngFor="let option of optionData" thyShowOptionCustom="true" [thyValue]="option._id" [thyLabelText]="option.display_name">
+                <i [class]="option?.icon"></i>
+                <span class="ml-1">{{option?.display_name}}</span>
+            </thy-option>
         </thy-custom-select>
 
         <br>
 
-        <thy-custom-select [(ngModel)]="selectedItem" [thyIsSearch]="true">
-            <thy-option-group label="服饰">
-                <thy-option value="001" label="上衣"></thy-option>
-                <thy-option value="002" label="裤子"></thy-option>
+        <thy-custom-select [(ngModel)]="selectedItem3" [thyServerSearch]="true" (thyOnSearch)="searchTextChange($event)" [thyShowSearch]="true"
+            thyPlaceHolder="请选择">
+            <thy-option-group thyGroupLabel="服饰">
+                <thy-option thyValue="001" thyLabelText="上衣"></thy-option>
+                <thy-option thyValue="002" thyLabelText="裤子"></thy-option>
             </thy-option-group>
-            <thy-option-group label="食物">
-                <thy-option value="003" label="饮料"></thy-option>
-                <thy-option value="004" label="面包"></thy-option>
-                <thy-option value="005" label="牛奶"></thy-option>
-                <thy-option value="006" label="鸡蛋"></thy-option>
+            <thy-option-group thyGroupLabel="食物">
+                <thy-option thyValue="003" thyLabelText="饮料"></thy-option>
+                <thy-option thyValue="004" thyLabelText="面包" [thyDisabled]="true"></thy-option>
+                <thy-option thyValue="005" thyLabelText="牛奶"></thy-option>
+                <thy-option thyValue="006" thyLabelText="鸡蛋"></thy-option>
             </thy-option-group>
+        </thy-custom-select>
+    </div>
+</section>
+
+<section>
+    <div class="header">
+        <h2>自定义 select多选</h2>
+    </div>
+    <div class="body">
+        <thy-custom-select [(ngModel)]="selectedItem4" (ngModelChange)="selectMultiple()" thyMode="multiple" thyPlaceHolder="请选择" [thyShowSearch]="true">
+            <thy-option *ngFor="let option of optionData" thySearchKey="{{option?.name}},{{option?.display_name}},{{option?.pin_yin}}"
+                [thyValue]="option._id" [thyLabelText]="option.display_name">
+            </thy-option>
+        </thy-custom-select>
+    </div>
+</section>
+
+<section>
+    <div class="body">
+        <button thyButton="primary" (click)="$event.preventDefault();expand = !expand">点击显示 select</button>
+        <thy-custom-select *ngIf="expand" [(ngModel)]="selectedItem" thyPlaceHolder="请选择" [thyShowSearch]="true" [thyShowOptionMenu]="true">
+            <thy-option *ngFor="let option of optionData" [thyValue]="option._id" [thyLabelText]="option.display_name">
+            </thy-option>
         </thy-custom-select>
     </div>
 </section>

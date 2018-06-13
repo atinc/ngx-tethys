@@ -39,6 +39,18 @@
 
 <section>
     <div class="header">
+        <h2>移除</h2>
+    </div>
+    <div class="body">
+        <ng-container *ngFor="let member of removeMembers">
+            <thy-avatar class="mr-2" ngFor="" [thySrc]="member.avatar" [thySize]="member.size" (thyOnRemove)="onRemove(member)" thyShowRemove="true"></thy-avatar>
+        </ng-container>
+        <a href="javascript:;" *ngIf="removeMembers.length < 3" class="link-secondary" (click)="resetRemoveMembers()">重置</a>
+    </div>
+</section>
+
+<section>
+    <div class="header">
         <h2>头像大小</h2>
     </div>
     <div class="body">
@@ -76,4 +88,3 @@
 </section>
 
 <api-parameters title="参数列表" [parameters]="apiParameters"></api-parameters>
-

@@ -32,6 +32,8 @@ import { ThyRadioModule } from './radio';
 import { ThySelectModule } from './select';
 import { ThySlideModule } from './slide/slide.module';
 import { ThyPropertyOperationModule } from './property-operation';
+import { ThyUploaderModule } from './uploader/index';
+import { ThyEditorModule } from './editor';
 
 @NgModule({
     declarations: [
@@ -101,7 +103,9 @@ import { ThyPropertyOperationModule } from './property-operation';
         ThySlideModule,
         ThyRadioModule,
         ThySelectModule,
-        ThyPropertyOperationModule
+        ThyPropertyOperationModule,
+        ThyUploaderModule,
+        ThyEditorModule
     ],
     providers: [
     ]

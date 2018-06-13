@@ -34,6 +34,12 @@ select.form-control-xs {
   }
 }
 
+select.form-control-md {
+    &:not([size]):not([multiple]) {
+      height: $input-height-md;
+    }
+  }
+
 .thy-select {
   width: 100%;
   position: relative;
@@ -42,7 +48,7 @@ select.form-control-xs {
   &:after {
     @include select-arrow-variant();
   }
-  @include select-arrow-bottom($input-padding-y + ($font-size-base * $input-line-height - $font-size-md ) / 2);
+  @include select-arrow-bottom($input-padding-y + ($font-size-base * $input-line-height - $font-size-md) / 2);
 
   select {
     -webkit-appearance: none;
@@ -67,15 +73,19 @@ select.form-control-xs {
 }
 
 .thy-select-sm {
-  @include select-arrow-bottom($input-padding-y-sm + ($font-size-sm * $input-line-height-sm - $font-size-md ) / 2);
+  @include select-arrow-bottom($input-padding-y-sm + ($font-size-sm * $input-line-height-sm - $font-size-md) / 2);
 }
 
 .thy-select-xs {
-  @include select-arrow-bottom($input-padding-y-xs + ($font-size-sm * $input-line-height-xs - $font-size-md ) / 2);
+  @include select-arrow-bottom($input-padding-y-xs + ($font-size-sm * $input-line-height-xs - $font-size-md) / 2);
 }
 
 .thy-select-lg {
-  @include select-arrow-bottom($input-padding-y-lg + ($font-size-lg * $input-line-height-lg - $font-size-md ) / 2);
+  @include select-arrow-bottom($input-padding-y-lg + ($font-size-lg * $input-line-height-lg - $font-size-md) / 2);
+}
+
+.thy-select-md {
+  @include select-arrow-bottom($input-padding-y-md + ($font-size-md * $input-line-height-xs - $font-size-base) / 2);
 }
 
 .thy-select-custom {
@@ -84,8 +94,8 @@ select.form-control-xs {
   position: relative;
 
   .thy-form-control {
-    @include select-custom-variant($input-padding-x,$input-padding-y,$input-height,$font-size-base);
-    @include select-arrow-bottom($input-padding-y + ($font-size-base * $input-line-height - $font-size-md ) / 2);
+    @include select-custom-variant($input-padding-x, $input-padding-y, $input-height, $font-size-base);
+    @include select-arrow-bottom($input-padding-y + ($font-size-base * $input-line-height - $font-size-md) / 2);
 
     &:after {
       @include select-arrow-variant();
@@ -104,6 +114,11 @@ select.form-control-xs {
     border: 1px solid $input-border-color;
     border-radius: 0 0 4px 4px;
     z-index: 99;
+    background: $white;
+
+    .thy-select-search {
+      padding: 5px 10px 0;
+    }
 
     .select-option {
       max-height: 400px;
@@ -111,6 +126,16 @@ select.form-control-xs {
 
       .option-hover-bg {
         background: $gray-100;
+      }
+
+      .option-disabled-bg {
+        background: none;
+        color: $gray-400;
+
+        &:hover {
+          color: $gray-400;
+          cursor: default;
+        }
       }
     }
 
@@ -121,16 +146,29 @@ select.form-control-xs {
         font-size: $font-size-base;
         font-weight: 600;
       }
+
+      ul > li {
+        padding: 10px 30px;
+      }
+    }
+  }
+
+  &.thy-select-custom-show-option {
+    .thy-form-control {
+      border-radius: $input-border-radius-md $input-border-radius-md 0 0;
     }
 
+    .thy-select-custom-options {
+      border-top: 0;
+    }
   }
 }
 
 .thy-select-custom-sm {
   .thy-form-control {
     line-height: normal;
-    @include select-custom-variant($input-padding-x-sm,$input-padding-y-sm,$input-height-sm,$font-size-sm);
-    @include select-arrow-bottom($input-padding-y-sm + ($font-size-sm * $input-line-height-sm - $font-size-md ) / 2);
+    @include select-custom-variant($input-padding-x-sm, $input-padding-y-sm, $input-height-sm, $font-size-sm);
+    @include select-arrow-bottom($input-padding-y-sm + ($font-size-sm * $input-line-height-sm - $font-size-md) / 2);
   }
 
   .thy-select-custom-options {
@@ -140,8 +178,8 @@ select.form-control-xs {
 
 .thy-select-custom-xs {
   .thy-form-control {
-    @include select-custom-variant($input-padding-x-xs,$input-padding-y-xs,$input-height-xs,$font-size-xs);
-    @include select-arrow-bottom($input-padding-y-xs + ($font-size-sm * $input-line-height-xs - $font-size-md ) / 2);
+    @include select-custom-variant($input-padding-x-xs, $input-padding-y-xs, $input-height-xs, $font-size-xs);
+    @include select-arrow-bottom($input-padding-y-xs + ($font-size-sm * $input-line-height-xs - $font-size-md) / 2);
   }
 
   .thy-select-custom-options {
@@ -151,11 +189,22 @@ select.form-control-xs {
 
 .thy-select-custom-lg {
   .thy-form-control {
-    @include select-custom-variant($input-padding-x-lg,$input-padding-y-lg,$input-height-lg,$font-size-md);
-    @include select-arrow-bottom($input-padding-y-lg + ($font-size-lg * $input-line-height-lg - $font-size-md ) / 2);
+    @include select-custom-variant($input-padding-x-lg, $input-padding-y-lg, $input-height-lg, $font-size-md);
+    @include select-arrow-bottom($input-padding-y-lg + ($font-size-lg * $input-line-height-lg - $font-size-md) / 2);
   }
 
   .thy-select-custom-options {
     top: $input-height-lg;
+  }
+}
+
+.thy-select-custom-md {
+  .thy-form-control {
+    @include select-custom-variant($input-padding-x-md, $input-padding-y-md, $input-height-md, $font-size-base);
+    @include select-arrow-bottom($input-padding-y-md + ($font-size-base * $input-line-height-md - $font-size-base) / 2);
+  }
+
+  .thy-select-custom-options {
+    top: $input-height-md;
   }
 }

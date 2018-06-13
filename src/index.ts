@@ -10,3 +10,5 @@ export * from './transfer';
 export * from './store';
 export { ThySlideService } from './slide/slide.service';
 export * from './avatar';
+export * from './uploader';
+export { ThyEditorService } from './editor/editor.service';

@@ -42,20 +42,29 @@ $link-hover-decoration: underline;
 // box shadow
 $box-shadow: 0 0 24px rgba(0, 0, 0, 0.18);
 $enable-shadows: false !default;
-
 // font
-$font-family-sans-serif: "Helvetica Neue", "Hiragino Sans GB", "stheiti", "Microsoft Yahei", "微软雅黑", tahoma, "sans-serif" !default;
-$font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default;
+$font-family-sans-serif: "Helvetica Neue",
+"Hiragino Sans GB",
+"stheiti",
+"Microsoft Yahei",
+"微软雅黑",
+tahoma,
+"sans-serif" !default;
+$font-family-monospace: SFMono-Regular,
+Menlo,
+Monaco,
+Consolas,
+"Liberation Mono",
+"Courier New",
+monospace !default;
 $font-family-base: $font-family-sans-serif !default;
 $font-size-base: .875rem; // 14px
 $font-size-lg: 1.25rem; // 20px
 $font-size-sm: .75rem; // 12px
-
 // 扩展
 $font-size-md: 1rem; // 16px
 $font-size-max-lg: 3.25rem; // 补充字体大小 52px
 $font-size-xs: .625rem; // 10px
-
 // code
 $code-color: $danger;
 $input-btn-padding-y: 0.469rem !default;
@@ -86,7 +95,6 @@ $btn-disabled-border-color: $gray-300 !default;
 $btn-link-color-default: $gray-500 !default;
 $btn-link-color-disabled: $gray-400 !default;
 $btn-icon-light-color: $gray-300 !default;
-
 // Dropdown
 $dropdown-toggle-y-l: 1.25rem ! default;
 $dropdown-toggle-y-r: 0.938rem ! default;
@@ -127,14 +135,12 @@ $input-ellipse-hover-focus-background-color: $white !default;
 $input-form-check-size: 1rem !default;
 $input-form-check-disable-color: $gray-400 !default;
 $input-form-check-border-color: $gray-300 !default;
-
 // PopBox
 $pop-box-divider: $gray-100 !default;
 $pop-box-bg-hover: $gray-100 !default;
 $pop-box-text: $gray-700 !default;
 $pop-box-text-hover: $gray-900 !default;
 $zindex-pop-box: 1080 !default;
-
 // Layout
 $layout-header-background: rgba($gray-99, 0.97);
 $layout-header-padding: 0 15px;
@@ -314,11 +320,11 @@ $operation-link-margin-y: 20px !default;
 //switch
 // $switch-lg-width: 48px !default;
 // $switch-lg-height: 28px !default;
-$switch-width: 48px !default;
-$switch-height: 28px !default;
+$switch-width: 42px !default;
+$switch-height: 24px !default;
 $handle-margin: 2px;
-$switch-sm-width: 40px !default;
-$switch-sm-height: 22px !default;
+$switch-sm-width: 36px !default;
+$switch-sm-height: 20px !default;
 $switch-xs-width: 24px !default;
 $switch-xs-height: 16px !default;
 //Transfer
@@ -345,6 +351,6 @@ $progress-bar-bg:$gray-200;
 $progress-split-color:$white;
 //Slide
 $slide-header-height: 45px !default;
-$slide-header-padding: 0.75rem 1.25rem !default; 
+$slide-header-padding: 0.75rem 1.25rem !default;
 $slide-body-content-padding: 0 1.25rem 0.75rem 1.25rem !default;
 $slide-divider: $gray-100 !default;

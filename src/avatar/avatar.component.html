@@ -3,3 +3,4 @@
     <div>{{avatarName | avatarShortName}}</div>
 </span>
 <div *ngIf="thyShowName" class="avatar-name">{{avatarName}}</div>
+<a *ngIf="_showRemove" (click)="remove($event)" href="javascript:;" class="avatar-remove"><i class="wtf wtf-times-circle"></i></a>

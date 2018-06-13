@@ -1,7 +1,17 @@
 <ng-content></ng-content>
 <div class="thy-form-control" (click)="dropDownMenuToggle()">
-    <span class="align-middle">
-        <i class="{{_innerValue?.icon}} pr-1"></i> {{_innerValue?.label || '请选择'}}
-    </span>
+    <div class="align-middle" *ngIf="!_mode">
+        <span *ngIf="_innerValue">{{_innerValue?.thyLabelText}}</span>
+        <span class="text-placeholder" *ngIf="!_innerValue">{{thyPlaceHolder}}</span>
+    </div>
+    <div class="align-middle" *ngIf="_mode === 'multiple'">
+        <span class="mr-1" [hidden]="_innerValues?.length === 0" *ngFor="let item of _innerValues;index as i" thyLabel="default"
+            thyAfterIcon="wtf-times" (thyOnRemove)="remove(item,i)">
+            {{item?.thyLabelText}}
+        </span>
+        <span class="align-middle text-placeholder" *ngIf="_innerValues?.length === 0">
+            {{thyPlaceHolder}}
+        </span>
+    </div>
 </div>
 <select-container *ngIf="_expandOptions" [listOfOptionComponent]="listOfOptionComponent" [listOfOptionGroupComponent]="listOfOptionGroupComponent"></select-container>

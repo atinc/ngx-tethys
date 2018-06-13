@@ -22,7 +22,6 @@
 @import "~bootstrap/scss/modal";
 // @import "~bootstrap/scss/forms";
 // @import "~bootstrap/scss/input-group";
-
 @import "../button/styles/button";
 @import "../button/styles/button-group";
 @import "../dropdown/styles/dropdown";
@@ -50,3 +49,5 @@
 @import "../progress/styles/progress.scss";
 @import "../slide/styles/slide.scss";
 @import "../property-operation/styles/property-operation.scss";
+@import "../editor/styles/editor.scss";
+@import "../editor/styles/markdown.scss";

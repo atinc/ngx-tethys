@@ -8,6 +8,7 @@
     </div>
     <ng-container *ngIf="_value">{{_value}}</ng-container>
     <div class="thy-tips">{{_labelText}}</div>
+    <span *ngIf="_showClose" (click)="remove($event)" class="close-link close-link-danger close-link-sm wtf wtf-times"></span>
 </div>
 
-<span *ngIf="_showClose" class="close-link close-link-danger close-link-sm wtf wtf-times"></span>
+
