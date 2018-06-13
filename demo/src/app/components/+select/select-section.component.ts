@@ -15,6 +15,14 @@ export class DemoSelectSectionComponent {
 
     selectedItem: any;
 
+    selectedItem1: any;
+
+    selectedItem2: any;
+
+    selectedItem3: any;
+
+    selectedItem4: any;
+
     expand = false;
 
     optionData = [{
@@ -50,7 +58,7 @@ export class DemoSelectSectionComponent {
     public apiParameters = [
         {
             property: 'thySize',
-            description: '大小，sm、lg',
+            description: '大小，sm | md | lg',
             type: 'String',
             default: ''
         },
@@ -126,7 +134,7 @@ export class DemoSelectSectionComponent {
     }
 
     changeSelect() {
-        console.log(this.selectedItem);
+        console.log('success');
     }
 
     searchTextChange(event: any) {

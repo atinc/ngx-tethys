@@ -52,7 +52,7 @@
         <h2>自定义 select</h2>
     </div>
     <div class="body">
-        <thy-custom-select thySize="sm" thyPlaceHolder="请选择" [(ngModel)]="selectedItem" (change)="changeSelect()" [thyShowSearch]="true">
+        <thy-custom-select thySize="sm" thyPlaceHolder="请选择" [(ngModel)]="selectedItem" (ngModelChange)="changeSelect()" [thyShowSearch]="true">
             <thy-option *ngFor="let option of optionData" thySearchKey="{{option?.name}},{{option?.display_name}},{{option?.pin_yin}}"
                 [thyValue]="option._id" [thyLabelText]="option.display_name">
             </thy-option>
@@ -60,13 +60,8 @@
 
         <br>
 
-        <thy-custom-select thySize="md" thyPlaceHolder="请选择" [(ngModel)]="selectedItem">
-            <thy-option thyValue="001" thyLabelText="上衣"></thy-option>
-        </thy-custom-select>
 
-        <br>
-
-        <thy-custom-select [(ngModel)]="selectedItem" thyPlaceHolder="请选择">
+        <thy-custom-select [(ngModel)]="selectedItem2" thyPlaceHolder="请选择">
             <thy-option thyValue="001" thyLabelText="country"></thy-option>
             <thy-option *ngFor="let option of optionData" thyShowOptionCustom="true" [thyValue]="option._id" [thyLabelText]="option.display_name">
                 <i [class]="option?.icon"></i>
@@ -76,7 +71,7 @@
 
         <br>
 
-        <thy-custom-select [(ngModel)]="selectedItem" [thyServerSearch]="true" (thyOnSearch)="searchTextChange($event)" [thyShowSearch]="true"
+        <thy-custom-select [(ngModel)]="selectedItem3" [thyServerSearch]="true" (thyOnSearch)="searchTextChange($event)" [thyShowSearch]="true"
             thyPlaceHolder="请选择">
             <thy-option-group thyGroupLabel="服饰">
                 <thy-option thyValue="001" thyLabelText="上衣"></thy-option>
@@ -97,7 +92,7 @@
         <h2>自定义 select多选</h2>
     </div>
     <div class="body">
-        <thy-custom-select [(ngModel)]="selectedItem" thyMode="multiple" thyPlaceHolder="请选择" [thyShowSearch]="true">
+        <thy-custom-select [(ngModel)]="selectedItem4" thyMode="multiple" thyPlaceHolder="请选择" [thyShowSearch]="true">
             <thy-option *ngFor="let option of optionData" thySearchKey="{{option?.name}},{{option?.display_name}},{{option?.pin_yin}}"
                 [thyValue]="option._id" [thyLabelText]="option.display_name">
             </thy-option>
