@@ -26,7 +26,7 @@
                     <i *ngIf="item.type === 'flowchart'" title="{{item.title}}" class="{{item.className}} toolbar-icon" (click)="styleFn(item.name,$event)"></i>
                     <i *ngIf="item.type === 'diagram'" title="{{item.title}}" class="{{item.className}} toolbar-icon" (click)="styleFn(item.name,$event)"></i>
                     <i *ngIf="item.type === 'gantt'" title="{{item.title}}" class="{{item.className}} toolbar-icon" (click)="styleFn(item.name,$event)"></i>
-                    <!-- <i *ngIf="item.type === 'preview'" title="{{item.title}}" class="{{item.className}} toolbar-icon" (click)="togglePreview()"></i> -->
+                    <i *ngIf="item.type === 'preview'" title="{{item.title}}" class="{{item.className}} toolbar-icon" (click)="togglePreview()"></i>
                     <i *ngIf="item.type === 'divider'" class="divider"></i>
                 </li>
             </ul>
@@ -37,7 +37,7 @@
             <textarea class="thy-editor-textarea" [(ngModel)]="model" (ngModelChange)="changeValue($event)"></textarea>
         </div>
         <div class="thy-editor-container-preview" [hidden]="!thyEditorService.isPreview">
-            <article class="markdown-body"></article>
+            <article class="thy-editor-container-preview-body markdown-body">{{thyEditorService.valueHTML}}</article>
         </div>
     </div>
 </div>
