@@ -90,6 +90,12 @@ export class DemoSelectSectionComponent {
             description: '下拉选择模式',
             type: '"" | multiple',
             default: ''
+        },
+        {
+            property: 'thyShowOptionMenu',
+            description: '是否默认展开下拉菜单',
+            type: 'boolean',
+            default: 'false'
         }
     ];
 
