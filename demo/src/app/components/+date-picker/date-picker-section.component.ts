@@ -34,6 +34,7 @@ export class DemoDataPickerSectionComponent implements OnInit {
         date: null,
         with_time: false
     };
+    dateNullObject = {};
 
     elementDateEntry = {
         date: Math.floor((new Date()).getTime() / 1000),

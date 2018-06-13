@@ -5,23 +5,27 @@ export function datepickerUtilIdentificationValueType(value: any): DatepickerVal
     let res;
     if (isDate(value)) {
         res = DatepickerValueShowTypesEnum.dateObject;
-    } else if (isObject(value) && value.hasOwnProperty('date')) {
-        const result = datepickerUtilIdentificationValueType(value.date);
-        switch (result) {
-            case DatepickerValueShowTypesEnum.dateObject:
-                res = DatepickerValueShowTypesEnum.datepickerObject;
-                break;
-            case DatepickerValueShowTypesEnum.dateTime:
-                res = DatepickerValueShowTypesEnum.datepickerTimeObject;
-                break;
-            case DatepickerValueShowTypesEnum.dateTimeLong:
-                res = DatepickerValueShowTypesEnum.datepickerTimeLongObject;
-                break;
-            case DatepickerValueShowTypesEnum.nullValue:
-                res = DatepickerValueShowTypesEnum.datepickerNullValue;
-                break;
-            default:
-                res = result;
+    } else if (isObject(value)) {
+        if (value.hasOwnProperty('date')) {
+            const result = datepickerUtilIdentificationValueType(value.date);
+            switch (result) {
+                case DatepickerValueShowTypesEnum.dateObject:
+                    res = DatepickerValueShowTypesEnum.datepickerObject;
+                    break;
+                case DatepickerValueShowTypesEnum.dateTime:
+                    res = DatepickerValueShowTypesEnum.datepickerTimeObject;
+                    break;
+                case DatepickerValueShowTypesEnum.dateTimeLong:
+                    res = DatepickerValueShowTypesEnum.datepickerTimeLongObject;
+                    break;
+                case DatepickerValueShowTypesEnum.nullValue:
+                    res = DatepickerValueShowTypesEnum.datepickerNullValue;
+                    break;
+                default:
+                    res = result;
+            }
+        } else {
+            res = DatepickerValueShowTypesEnum.datepickerNullValue;
         }
     } else if (isNumber(value)) {
         if (value.toString().length === 10) {

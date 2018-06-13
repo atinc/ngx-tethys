@@ -157,12 +157,12 @@ export class ThyDatepickerDirective implements OnInit, AfterContentInit, Control
             // if (this._isFirstInitValueWithNullOnce) {
             //     this._format = '';
             // } else {
-                const _v = value || this._value;
-                if (_v.with_time) {
-                    this._format = FORMAT_RULES.full;
-                } else {
-                    this._format = FORMAT_RULES.short;
-                }
+            const _v = value || this._value;
+            if (_v.with_time) {
+                this._format = FORMAT_RULES.full;
+            } else {
+                this._format = FORMAT_RULES.short;
+            }
             // }
         }
     }
@@ -176,19 +176,19 @@ export class ThyDatepickerDirective implements OnInit, AfterContentInit, Control
         switch (this._valueType) {
             case DatepickerValueShowTypesEnum.datepickerTimeObject:
                 this._value = {
-                    date: result.date.getTime() / 1000,
+                    date: result.date && result.date.getTime() / 1000,
                     with_time: result.with_time
                 };
                 break;
             case DatepickerValueShowTypesEnum.dateTime:
-                this._value = result.date.getTime() / 1000;
+                this._value = result.date && result.date.getTime() / 1000;
                 break;
             case DatepickerValueShowTypesEnum.nullValue:
-                this._value = result.date.getTime() / 1000;
+                this._value = result.date && result.date.getTime() / 1000;
                 break;
             default:
                 this._value = {
-                    date: Math.floor(result.date.getTime() / 1000),
+                    date: result.date && Math.floor(result.date.getTime() / 1000),
                     with_time: result.with_time
                 };
                 break;
