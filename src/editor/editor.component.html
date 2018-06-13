@@ -1,4 +1,4 @@
-<div class="thy-editor {{className}}">
+<div class="thy-editor thy-editor-{{thyEditorService.options.type}} {{className}}">
     <div class="thy-editor-toobar">
         <div class="noselect">
             <ul class="wtEditorToolBarUl">
@@ -34,7 +34,7 @@
     </div>
     <div class="thy-editor-container">
         <div class="thy-editor-container-code">
-            <textarea class="thy-editor-textarea" [(ngModel)]="model" (ngModelChange)="changeValue($event)"></textarea>
+            <textarea class="thy-editor-textarea" thyAutofocus [(ngModel)]="model" (ngModelChange)="changeValue($event)" placeholder="输入内容..."></textarea>
         </div>
         <div class="thy-editor-container-preview" [hidden]="!thyEditorService.isPreview">
             <article class="thy-editor-container-preview-body markdown-body" [thyMarkdownParser]="model"></article>

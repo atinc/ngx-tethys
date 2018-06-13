@@ -18,7 +18,7 @@ export class ThyEditorComponent implements OnInit, ControlValueAccessor {
 
     public className: String = '';
 
-    @HostBinding('class.thy-editor-wrapper') _thyClass = true;
+    @HostBinding('class.thy-editor-wrapper') _thyWrapperClass = true;
 
     @HostBinding('class.thy-editor-wrapper-full') _thyFullClass = true;
 

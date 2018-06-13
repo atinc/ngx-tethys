@@ -1,7 +1,5 @@
 import { Component, NgModule, ModuleWithProviders } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { ThySharedModule } from './shared';
 import { ThyButtonModule } from './button';
 import { ThyLayoutModule } from './layout';
 import { NgxPopBoxModule } from './pop-box/pop-box.module';

@@ -45,7 +45,6 @@ $text-placeholder:#cacaca;
     width: 100%;
     height: 100%;
     border: 1px $layout-boder solid;
-    box-shadow: 0 3px 20px $layout-shadow;
     background: $layout-bg;
     margin: auto;
     display: -webkit-box;
@@ -60,7 +59,6 @@ $text-placeholder:#cacaca;
     .thy-editor-toobar {
         //padding: 5px 10px;
         background: $layout-toolbar-bg;
-        border-bottom: 1px $layout-toolbar-border solid;
         position: relative;
         .noselect {
             /* toolbar上面的按钮无论怎样点击都不应该选中 */
@@ -177,9 +175,9 @@ $text-placeholder:#cacaca;
             border: 0;
             display: block;
             resize: none;
-            font-size: 18px;
-            line-height: 18px;
-            padding: 30px 15px;
+            padding: 15px;
+            font-size: 16px;
+            line-height: 180%;
             box-sizing: border-box;
             width: 100%;
             &::-webkit-input-placeholder {
@@ -256,6 +254,37 @@ $text-placeholder:#cacaca;
                         background: $layout-table-menu-hover;
                     }
                 }
+            }
+        }
+    }
+    &-simple {
+        border: 1px $primary solid;
+        min-height: 200px;
+        border-radius: 3px;
+        .thy-editor-toobar {
+            .toolbar-icon,
+            .file-icon,
+            .styling-icon,
+            .heading-icon,
+            .list-icon,
+            .link-icon,
+            .image-icon,
+            .code-icon,
+            .table-icon,
+            .icon-icon,
+            .math-icon,
+            .mermaid-icon,
+            .con-icon {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+        }
+        .thy-editor-container-code {
+            .thy-editor-textarea {
+                font-size: 14px;
+                color: #888;
+                padding: 10px;
+                min-height: 160px;
             }
         }
     }
