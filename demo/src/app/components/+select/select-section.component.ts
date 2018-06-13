@@ -140,4 +140,8 @@ export class DemoSelectSectionComponent {
     searchTextChange(event: any) {
         console.log(event);
     }
+
+    selectMultiple() {
+        console.log(this.selectedItem4);
+    }
 }
