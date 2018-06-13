@@ -22,6 +22,8 @@ export class ThyEditorComponent implements OnInit, ControlValueAccessor {
 
     @HostBinding('class.thy-editor-wrapper-full') _thyFullClass = true;
 
+    public value: String = '';
+
     constructor(
         private elementRef: ElementRef,
         private renderer: Renderer2,
@@ -55,16 +57,22 @@ export class ThyEditorComponent implements OnInit, ControlValueAccessor {
         this.thyEditorService.setTextareaHeight();
     }
 
+
+    insertTable() {
+        this.thyEditorService.insertTable(this.changeValue.bind(this));
+    }
+
     setHeaderLi(id: string): void {
         this.thyEditorService.header_action = !this.thyEditorService.header_action;
     }
 
     styleFn(name: string, event: Event) {
-        this.thyEditorService.styleFn(name, event);
+        this.thyEditorService.styleFn(name, event, this.changeValue.bind(this));
     }
 
     togglePreview() {
         this.thyEditorService.isPreview = !this.thyEditorService.isPreview;
+        this.value = this.elementRef.nativeElement.querySelector('.thy-editor-textarea').value;
     }
 
     ngOnInit(): void {

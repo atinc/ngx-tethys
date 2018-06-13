@@ -5,9 +5,9 @@ import { Component, TemplateRef, OnInit } from '@angular/core';
 })
 export class DemoEditorSectionComponent implements OnInit {
 
-    public value = '<thy-editor [(ngModel)]="value" [config]="config"></thy-editor>';
+    public value = '**editor**';
 
-    public config = { type: 'all', className: 'thy-editor-desc', isHeightFull: true };
+    public config = { type: 'simple', className: 'thy-editor-desc', isHeightFull: true };
 
     constructor(
     ) {

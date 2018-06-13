@@ -49,117 +49,6 @@ export class ThyEditorService implements OnInit, OnDestroy {
 
     }
 
-    initGantt() {
-        if (mermaid) {
-            mermaid.parseError = function (err: any, hash: any) {
-                mermaid.error = err;
-            };
-            mermaid.ganttConfig = {
-                // Configuration for Gantt diagrams
-                numberSectionStyles: 4,
-                axisFormatter: [
-                    ['%I:%M', function (d: any) { // Within a day
-                        return d.getHours();
-                    }],
-                    ['w. %U', function (d: any) { // Monday a week
-                        return d.getDay() === 1;
-                    }],
-                    ['%a %d', function (d: any) { // Day within a week (not monday)
-                        return d.getDay() && d.getDate() !== 1;
-                    }],
-                    ['%b %d', function (d: any) { // within a month
-                        return d.getDate() !== 1;
-                    }],
-                    ['%m-%y', function (d: any) { // Month
-                        return d.getMonth();
-                    }]
-                ]
-            };
-        }
-    }
-
-    initMarked() {
-        // 设置marked
-        const renderer = new liteMarked.Renderer();
-        renderer.listitem = function (text: string) {
-            if (!/^\[[ x]\]\s/.test(text)) {
-                return liteMarked.Renderer.prototype.listitem(text);
-            }
-            // 任务列表
-            const checkbox = $('<input type="checkbox" disabled/>');
-            if (/^\[x\]\s/.test(text)) { // 完成的任务列表
-                checkbox.attr('checked', true);
-            }
-            return $(liteMarked.Renderer.prototype.listitem(text.substring(3))).addClass('task-list-item')
-                .prepend(checkbox)[0].outerHTML;
-        };
-        renderer.codespan = function (text: string) { // inline code
-            if (/^\$.+\$$/.test(text)) { // inline math
-                const raw = /^\$(.+)\$$/.exec(text)[1];
-                const line = raw.replace(/&lt;/g, '<').replace(/&gt;/g, '>')
-                    .replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;/g, '\''); // unescape html characters
-                try {
-                    return katex.renderToString(line, { displayMode: false });
-                } catch (err) {
-                    return '<code>' + err + '</code>';
-                }
-            }
-            return liteMarked.Renderer.prototype.codespan.apply(this, arguments);
-        };
-        renderer.code = function (code: any, language: any, escaped: any, line_number: any) {
-            code = code.trim();
-            const firstLine = code.split(/\n/)[0].trim();
-            if (language === 'math') { // 数学公式
-                let tex = '';
-                code.split(/\n\n/).forEach(function (line: any) { // 连续两个换行，则开始下一个公式
-                    line = line.trim();
-                    if (line.length > 0) {
-                        try {
-                            tex += katex.renderToString(line, { displayMode: true });
-                        } catch (err) {
-                            tex += '<pre>' + err + '</pre>';
-                        }
-                    }
-                });
-                return '<div data-line="' + line_number + '">' + tex + '</div>';
-            } else if (firstLine === 'gantt' || firstLine === 'sequenceDiagram' || firstLine.match(/^graph (?:TB|BT|RL|LR|TD);?$/)) {
-                // mermaid
-                if (firstLine === 'sequenceDiagram') {
-                    code += '\n'; // 如果末尾没有空行，则语法错误
-                }
-                if (mermaid && mermaid.parse(code)) {
-                    return '<div class="mermaid" data-line="' + line_number + '">' + code + '</div>';
-                } else {
-                    if (mermaid && mermaid.error) {
-                        return '<pre data-line="' + line_number + '">' + mermaid.error + '</pre>';
-                    }
-                }
-            } else {
-                return liteMarked.Renderer.prototype.code.apply(this, arguments);
-            }
-        };
-        renderer.html = function (html: string) {
-            const result = liteMarked.Renderer.prototype.html.apply(this, arguments);
-            const h = $(result.bold());
-            return h.html();
-        };
-        renderer.paragraph = function (text: string) {
-            const result = liteMarked.Renderer.prototype.paragraph.apply(this, arguments);
-            const h = $(result.bold());
-            return h.html();
-        };
-        liteMarked.setOptions({
-            renderer: renderer,
-            gfm: true,
-            tables: true,
-            breaks: true,
-            pedantic: false,
-            sanitize: false,
-            smartLists: true,
-            smartypants: true
-        });
-    }
-
     getSelection() {
         return {
             target: this.textareaDom,
@@ -189,11 +78,18 @@ export class ThyEditorService implements OnInit, OnDestroy {
     }
 
 
-    insertText(text: string, start: number, end: number) {
+    // insertText(text: string, start: number, end: number) {
+    //     this.textareaDom.focus();
+    //     const leftText = this.textareaDom.value.substring(0, start);
+    //     const rightText = this.textareaDom.value.substring(end);
+    //     this.textareaDom.value = leftText + text + rightText;
+    // }
+
+    getInsertText(text: string, start: number, end: number) {
         this.textareaDom.focus();
         const leftText = this.textareaDom.value.substring(0, start);
         const rightText = this.textareaDom.value.substring(end);
-        this.textareaDom.value = leftText + text + rightText;
+        return leftText + text + rightText;
     }
 
     clearSelection() {
@@ -222,18 +118,15 @@ export class ThyEditorService implements OnInit, OnDestroy {
         return _text;
     }
 
-    replaceContent(content: string, sel: any) {
-        this.insertText(content, sel.start, sel.end);
-        this.textareaDom.focus();
-    }
-    insertContent(content: string) {
-        const sel = this.getSelection();
-        this.insertText(content, sel.start, sel.end);
-        this.textareaDom.focus();
-    }
-    getContent() {
-        return this.textareaDom.value;
-    }
+    // replaceContent(content: string, sel: any) {
+    //     this.insertText(content, sel.start, sel.end);
+    //     this.textareaDom.focus();
+    // }
+    // insertContent(content: string) {
+    //     const sel = this.getSelection();
+    //     this.insertText(content, sel.start, sel.end);
+    //     this.textareaDom.focus();
+    // }
 
     setOptions(config: {}) {
         if (config) {
@@ -334,7 +227,7 @@ export class ThyEditorService implements OnInit, OnDestroy {
 
     }
 
-    insert(flag: any, title: string, sel: any, keepSelection: any, search: any, replace: any) {
+    insert(flag: any, title: string, sel: any, keepSelection: any, search: any, replace: any, change: Function) {
         // 有序列表和无序列表选择统一添加
         if (sel.text.indexOf('\n') !== -1 && keepSelection && search && replace) {
             if (sel.text.length > 0) {
@@ -342,7 +235,8 @@ export class ThyEditorService implements OnInit, OnDestroy {
             }
             const replaceStr = sel.text.replace(search, replace);
             const _sub = this.getRowText(sel.start);
-            this.insertText(replaceStr, sel.start - _sub.length, sel.end);
+            // this.insertText(replaceStr, sel.start - _sub.length, sel.end);
+            change(this.getInsertText(replaceStr, sel.start - _sub.length, sel.end));
             this.setFocus(sel.start + replaceStr.length, sel.start + replaceStr.length);
         } else {
             if (sel.text.length > 0) {
@@ -350,13 +244,14 @@ export class ThyEditorService implements OnInit, OnDestroy {
                 sel = this.getSelection();
             }
             const _sub = this.getRowText(sel.start);
-            this.insertText(flag + ' ' + _sub, sel.start - _sub.length, sel.end);
+            // this.insertText(flag + ' ' + _sub, sel.start - _sub.length, sel.end);
+            change(this.getInsertText(flag + ' ' + _sub, sel.start - _sub.length, sel.end));
             this.setFocus(sel.start + flag.length + 1, sel.start + flag.length + 1);
         }
     }
 
     // 插入markdown
-    styleFn(param: string, event: Event) {
+    styleFn(param: string, event: Event, change: Function) {
         let sel = this.getSelection();
         switch (param) {
             case 'bold':
@@ -365,20 +260,22 @@ export class ThyEditorService implements OnInit, OnDestroy {
                         sel = this.getSelection();
                         const _str = sel.text.replace(/([^\n]+)([\n\s]*)/g, '**$1**$2');
                         const _sub = this.getRowText(sel.start);
-                        this.insertText(_str, sel.start - _sub.length, sel.end);
+                        change(this.getInsertText(_str, sel.start - _sub.length, sel.end));
                         this.setFocus(sel.start + _str.length, sel.start + _str.length);
                     } else {
-                        this.insertText(' **' + sel.text + '** ', sel.start, sel.end);
+                        change(this.getInsertText(' **' + sel.text + '** ', sel.start, sel.end));
                         this.setFocus(sel.start, sel.start + 6 + sel.text.length);
                     }
 
                 } else {
                     const _sub = this.getRowText(sel.start);
                     if (_sub.length > 0) {
-                        this.insertText(' **** ', sel.start, sel.end);
+                        // this.insertText(' **** ', sel.start, sel.end);
+                        change(this.getInsertText(' **** ', sel.start, sel.end));
                         this.setFocus(sel.start + 3, sel.start + 3);
                     } else {
-                        this.insertText('****', sel.start, sel.end);
+                        // this.insertText('****', sel.start, sel.end);
+                        change(this.getInsertText('****', sel.start, sel.end));
                         this.setFocus(sel.start + 2, sel.start + 2);
                     }
                 }
@@ -389,19 +286,23 @@ export class ThyEditorService implements OnInit, OnDestroy {
                         sel = this.getSelection();
                         const _str = sel.text.replace(/([^\n]+)([\n\s]*)/g, '_$1_$2');
                         const _sub = this.getRowText(sel.start);
-                        this.insertText(_str, sel.start - _sub.length, sel.end);
+                        // this.insertText(_str, sel.start - _sub.length, sel.end);
+                        change(this.getInsertText(_str, sel.start - _sub.length, sel.end));
                         this.setFocus(sel.start + _str.length, sel.start + _str.length);
                     } else {
-                        this.insertText(' *' + sel.text + '* ', sel.start, sel.end);
+                        // this.insertText(' *' + sel.text + '* ', sel.start, sel.end);
+                        change(this.getInsertText(' *' + sel.text + '* ', sel.start, sel.end));
                         this.setFocus(sel.start, sel.start + 4 + sel.text.length);
                     }
                 } else {
                     const _sub = this.getRowText(sel.start);
                     if (_sub.length > 0) {
-                        this.insertText(' ** ', sel.start, sel.end);
+                        // this.insertText(' ** ', sel.start, sel.end);
+                        change(this.getInsertText(' ** ', sel.start, sel.end));
                         this.setFocus(sel.start + 2, sel.start + 2);
                     } else {
-                        this.insertText('**', sel.start, sel.end);
+                        // this.insertText('**', sel.start, sel.end);
+                        change(this.getInsertText('**', sel.start, sel.end));
                         this.setFocus(sel.start + 1, sel.start + 1);
                     }
                 }
@@ -412,14 +313,16 @@ export class ThyEditorService implements OnInit, OnDestroy {
                         sel = this.getSelection();
                         const _str = sel.text.replace(/([^\n]+)([\n\s]*)/g, '<u>$1</u>$2');
                         const _sub = this.getRowText(sel.start);
-                        this.insertText(_str, sel.start - _sub.length, sel.end);
+                        // this.insertText(_str, sel.start - _sub.length, sel.end);
+                        change(this.getInsertText(_str, sel.start - _sub.length, sel.end));
                         this.setFocus(sel.start + _str.length, sel.start + _str.length);
                     } else {
-                        this.insertText('<u>' + sel.text + '</u>', sel.start, sel.end);
+                        // this.insertText('<u>' + sel.text + '</u>', sel.start, sel.end);
+                        change(this.getInsertText('<u>' + sel.text + '</u>', sel.start, sel.end));
                         this.setFocus(sel.start, sel.start + 7 + sel.text.length);
                     }
                 } else {
-                    this.insertText('<u></u>', sel.start, sel.end);
+                    change(this.getInsertText('<u></u>', sel.start, sel.end));
                     this.setFocus(sel.start + 3, sel.start + 3);
                 }
                 break;
@@ -429,45 +332,49 @@ export class ThyEditorService implements OnInit, OnDestroy {
                         sel = this.getSelection();
                         const replaceStr = sel.text.replace(/([^\n]+)([\n\s]*)/g, ' ~~$1~~ $2');
                         const _sub = this.getRowText(sel.start);
-                        this.insertText(replaceStr, sel.start - _sub.length, sel.end);
+                        // this.insertText(replaceStr, sel.start - _sub.length, sel.end);
+                        change(this.getInsertText(replaceStr, sel.start - _sub.length, sel.end));
                         this.setFocus(sel.start + replaceStr.length, sel.start + replaceStr.length);
                     } else {
-                        this.insertText(' ~~' + sel.text + '~~ ', sel.start, sel.end);
+                        // this.insertText(' ~~' + sel.text + '~~ ', sel.start, sel.end);
+                        change(this.getInsertText(' ~~' + sel.text + '~~ ', sel.start, sel.end));
                         this.setFocus(sel.start, sel.start + 6 + sel.text.length);
                     }
                 } else {
                     const _sub = this.getRowText(sel.start);
                     if (_sub.length > 0) {
-                        this.insertText(' ~~~~ ', sel.start, sel.end);
+                        // this.insertText(' ~~~~ ', sel.start, sel.end);
+                        change(this.getInsertText(' ~~~~ ', sel.start, sel.end));
                         this.setFocus(sel.start + 3, sel.start + 3);
                     } else {
-                        this.insertText('~~~~', sel.start, sel.end);
+                        // this.insertText('~~~~', sel.start, sel.end);
+                        change(this.getInsertText('~~~~', sel.start, sel.end));
                         this.setFocus(sel.start + 2, sel.start + 2);
                     }
                 }
                 break;
             case 'h1':
-                this.insert('#', '', sel, true, /(.+)([\n]?)/g, '\n# $1$2\n');
+                this.insert('#', '', sel, true, /(.+)([\n]?)/g, '\n# $1$2\n', change);
                 this.header_action = false;
                 break;
             case 'h2':
-                this.insert('##', '', sel, true, /(.+)([\n]?)/g, '\n## $1$2\n');
+                this.insert('##', '', sel, true, /(.+)([\n]?)/g, '\n## $1$2\n', change);
                 this.header_action = false;
                 break;
             case 'h3':
-                this.insert('###', '', sel, true, /(.+)([\n]?)/g, '\n### $1$2\n');
+                this.insert('###', '', sel, true, /(.+)([\n]?)/g, '\n### $1$2\n', change);
                 this.header_action = false;
                 break;
             case 'h4':
-                this.insert('####', '', sel, true, /(.+)([\n]?)/g, '\n#### $1$2\n');
+                this.insert('####', '', sel, true, /(.+)([\n]?)/g, '\n#### $1$2\n', change);
                 this.header_action = false;
                 break;
             case 'h5':
-                this.insert('#####', '', sel, true, /(.+)([\n]?)/g, '\n##### $1$2\n');
+                this.insert('#####', '', sel, true, /(.+)([\n]?)/g, '\n##### $1$2\n', change);
                 this.header_action = false;
                 break;
             case 'h6':
-                this.insert('######', '', sel, true, /(.+)([\n]?)/g, '\n###### $1$2\n');
+                this.insert('######', '', sel, true, /(.+)([\n]?)/g, '\n###### $1$2\n', change);
                 this.header_action = false;
                 break;
             case 'hr':
@@ -475,24 +382,25 @@ export class ThyEditorService implements OnInit, OnDestroy {
                     this.clearSelection();
                     sel = this.getSelection();
                 }
-                this.insertText('\n---\n', sel.start, sel.end);
+                // this.insertText('\n---\n', sel.start, sel.end);
+                change(this.getInsertText('\n---\n', sel.start, sel.end));
                 this.setFocus(sel.start + 5, sel.start + 5);
                 break;
             case 'quote':
-                this.insert('>', '', sel, true, /(.+)([\n]?)/g, '\n> $1$2');
+                this.insert('>', '', sel, true, /(.+)([\n]?)/g, '\n> $1$2', change);
                 break;
             case 'list':
-                this.insert('-', '', sel, true, /(.+)([\n]?)/g, '\n- $1$2');
+                this.insert('-', '', sel, true, /(.+)([\n]?)/g, '\n- $1$2', change);
                 break;
             case 'list-2':
-                this.insert('1.', '', sel, true, /(.+)([\n]?)/g, '\n1. $1$2');
+                this.insert('1.', '', sel, true, /(.+)([\n]?)/g, '\n1. $1$2', change);
                 break;
 
             case 'square':
-                this.insert('- [ ] ', '', sel, true, /(.+)([\n]?)/g, '- [ ] $1$2');
+                this.insert('- [ ] ', '', sel, true, /(.+)([\n]?)/g, '- [ ] $1$2', change);
                 break;
             case 'check-square':
-                this.insert('- [x] ', '', sel, true, /(.+)([\n]?)/g, '- [x] $1$2');
+                this.insert('- [x] ', '', sel, true, /(.+)([\n]?)/g, '- [x] $1$2', change);
                 break;
 
             case 'link':
@@ -506,7 +414,8 @@ export class ThyEditorService implements OnInit, OnDestroy {
                     }
                 }
                 const _aUrl = '[' + _localText + '](' + _iUrl + ')';
-                this.insertText(_aUrl, sel.start, sel.end);
+                // this.insertText(_aUrl, sel.start, sel.end);
+                change(this.getInsertText(_aUrl, sel.start, sel.end));
                 this.setFocus(sel.start + _aUrl.length, sel.start + _aUrl.length);
                 break;
             case 'image':
@@ -520,15 +429,17 @@ export class ThyEditorService implements OnInit, OnDestroy {
                     }
                 }
                 const aUrl = '![' + _imageText + '](' + iUrl + ')';
-                this.insertText(aUrl, sel.start, sel.end);
+                // this.insertText(aUrl, sel.start, sel.end);
+                change(this.getInsertText(aUrl, sel.start, sel.end));
                 this.setFocus(sel.start + aUrl.length, sel.start + aUrl.length);
                 break;
             case 'code':
                 if (sel.text.length === 0) {
-                    this.insertText('\n```\n  \n```\n', sel.start, sel.end);
+                    // this.insertText('\n```\n  \n```\n', sel.start, sel.end);
+                    change(this.getInsertText('\n```\n  \n```\n', sel.start, sel.end));
                     this.setFocus(sel.start + 6, sel.start + 6);
                 } else {
-                    this.insertText('`' + sel.text + '`', sel.start, sel.end);
+                    change(this.getInsertText('`' + sel.text + '`', sel.start, sel.end));
                     this.setFocus(sel.start + 2 + sel.text.length, sel.start + 2 + sel.text.length);
                 }
                 break;
@@ -540,7 +451,7 @@ export class ThyEditorService implements OnInit, OnDestroy {
                 if (_mathText.length === 0) {
                     _mathText = 'E = mc^2';
                 }
-                this.insertText('\n```math\n' + _mathText + '\n```\n', sel.start, sel.end);
+                change(this.getInsertText('\n```math\n' + _mathText + '\n```\n', sel.start, sel.end));
                 this.setFocus(sel.start + _mathText.length + 14, sel.start + _mathText.length + 14);
                 break;
             case 'flow':
@@ -548,7 +459,7 @@ export class ThyEditorService implements OnInit, OnDestroy {
                 if (flowText.length === 0) {
                     flowText = 'graph LR\nA-->B';
                 }
-                this.insertText('\n```\n' + flowText + '\n```\n', sel.start, sel.end);
+                change(this.getInsertText('\n```\n' + flowText + '\n```\n', sel.start, sel.end));
                 this.setFocus(sel.start + flowText.length + 10, sel.start + flowText.length + 10);
                 break;
             case 'diagram':
@@ -557,7 +468,7 @@ export class ThyEditorService implements OnInit, OnDestroy {
                     // text = 'sequenceDiagram\nA->>B: 你好吗?\nB->>A: 我很好3!';
                     diagramText = this.getLocaleText('diagram');
                 }
-                this.insertText('\n```\n' + diagramText + '\n```\n', sel.start, sel.end);
+                change(this.getInsertText('\n```\n' + diagramText + '\n```\n', sel.start, sel.end));
                 this.setFocus(sel.start + diagramText.length + 10, sel.start + diagramText.length + 10);
                 break;
             case 'gantt':
@@ -573,7 +484,7 @@ export class ThyEditorService implements OnInit, OnDestroy {
                     ganttText += 'section S3\n';
                     ganttText += 'T3: 2014-01-02, 9d';
                 }
-                this.insertText('\n```\n' + ganttText + '\n```\n', sel.start, sel.end);
+                change(this.getInsertText('\n```\n' + ganttText + '\n```\n', sel.start, sel.end));
                 this.setFocus(sel.start + ganttText.length + 10, sel.start + ganttText.length + 10);
                 break;
         }
@@ -601,7 +512,7 @@ export class ThyEditorService implements OnInit, OnDestroy {
         this.tableOptions.table_action = action;
     }
 
-    insertTable() {
+    insertTable(change: Function) {
         const cols = this.tableOptions.tableActiveY;
         const rows = this.tableOptions.tableActiveX + 1;
         let _header = this.getLocaleText('col');
@@ -624,36 +535,24 @@ export class ThyEditorService implements OnInit, OnDestroy {
             this.clearSelection();
             sel = this.getSelection();
         }
+        let _strHTML = '';
         if (this.isRowFirst(sel.start)) {
-            this.insertText('\n' + sample + '\n\n', sel.start, sel.end);
+            _strHTML = this.getInsertText('\n' + sample + '\n\n', sel.start, sel.end);
+            change(_strHTML);
+            // this.insertText('\n' + sample + '\n\n', sel.start, sel.end);
             this.setFocus(sel.start + sample.length + 2, sel.start + sample.length + 2);
         } else {
-            this.insertText('\n\n' + sample + '\n\n', sel.start, sel.end);
+            _strHTML = this.getInsertText('\n\n' + sample + '\n\n', sel.start, sel.end);
+            change(_strHTML);
+            // this.insertText('\n\n' + sample + '\n\n', sel.start, sel.end);
             this.setFocus(sel.start + sample.length + 4, sel.start + sample.length + 4);
         }
+
+        change(_strHTML);
+
         this.tableOptions.table_action = false;
         this.setTextareaHeight();
     }
-
-    // parseMarked(value: string) {
-    //     if (liteMarked) {
-    //         return liteMarked(value);
-    //     }
-
-    // }
-
-    // parseMermaid() {
-    //     if (mermaid) {
-    //         mermaid.init();
-    //     }
-    // }
-
-    // previewHTML() {
-    //     let _value: any = this.parseMarked(this.textareaDom.value);
-    //     _value = this.emojiFn(_value);
-    //     this.parseMermaid();
-    //     this.textareaDom.focus();
-    // }
 
     clear() {
 

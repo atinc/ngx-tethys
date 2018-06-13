@@ -18,7 +18,7 @@
                     <div *ngIf="item.type === 'tableFn'" [hidden]="!thyEditorService.tableOptions.table_action" class="table-menu" flag="table" (mouseleave)="thyEditorService.setTable(1,1,false)">
                         <ul flag="table">
                             <li flag="table" *ngFor="let n of thyEditorService.tableOptions.tableMenu">
-                                <i *ngFor="let s of n" flag="table" (click)="thyEditorService.insertTable()" (mouseenter)="thyEditorService.setTable(s[0],s[1],true)" [ngClass]="{'active':s[0]<=thyEditorService.tableOptions.tableActiveX && s[1] <= thyEditorService.tableOptions.tableActiveY}"></i>
+                                <i *ngFor="let s of n" flag="table" (click)="insertTable()" (mouseenter)="thyEditorService.setTable(s[0],s[1],true)" [ngClass]="{'active':s[0]<=thyEditorService.tableOptions.tableActiveX && s[1] <= thyEditorService.tableOptions.tableActiveY}"></i>
                             </li>
                         </ul>
                     </div>
@@ -37,7 +37,7 @@
             <textarea class="thy-editor-textarea" [(ngModel)]="model" (ngModelChange)="changeValue($event)"></textarea>
         </div>
         <div class="thy-editor-container-preview" [hidden]="!thyEditorService.isPreview">
-            <article class="thy-editor-container-preview-body markdown-body">{{thyEditorService.valueHTML}}</article>
+            <article class="thy-editor-container-preview-body markdown-body" [thyMarkdownParser]="model"></article>
         </div>
     </div>
 </div>

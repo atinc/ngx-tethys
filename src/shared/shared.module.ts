@@ -3,15 +3,18 @@ import { ThyTranscludeDirective } from './ng-transclude.directive';
 import { ThyTranslate } from './translate';
 import { ThyDraggableDirective } from '../shared/draggable.directive';
 import { ThyPositioningService } from '../positioning/positioning.service';
+import { ThyMarkdownParserDirective } from '../shared/markdown-parser.directive';
 
 @NgModule({
     declarations: [
         ThyTranscludeDirective,
-        ThyDraggableDirective
+        ThyDraggableDirective,
+        ThyMarkdownParserDirective
     ],
     exports: [
         ThyTranscludeDirective,
-        ThyDraggableDirective
+        ThyDraggableDirective,
+        ThyMarkdownParserDirective
     ],
     providers: [
         ThyTranslate,
