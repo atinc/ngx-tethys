@@ -5,12 +5,22 @@ import { Component, TemplateRef, OnInit } from '@angular/core';
 })
 export class DemoEditorSectionComponent implements OnInit {
 
-    public value = '**editor**';
+    public value = ' :dizzy: :frowning: ';
 
-    public config = { type: 'simple' };
+    public config = { type: 'all' };
+
+    public thyMarkdownParserConfig = {
+        emoji_style: 2,
+        emoji_size: 2,
+        cdnRoot: 'http://www.baidu.com'
+    };
 
     constructor(
     ) {
+    }
+
+    filterHTMLAction(event) {
+        return event;
     }
 
     ngOnInit() {

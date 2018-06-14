@@ -20,7 +20,7 @@
     </div>
     <div class="body">
         <div class="demo-layout">
-            <div [thyMarkdownParser]="value"></div>
+            <div [thyMarkdownParser]="value" [filterHTML]="filterHTMLAction" [config]="thyMarkdownParserConfig"></div>
             <br/>
             <pre>
 &lt;div [thyMarkdownParser]="value"&gt;&lt;/div&gt;

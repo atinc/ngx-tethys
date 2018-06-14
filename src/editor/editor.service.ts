@@ -46,7 +46,7 @@ export class ThyEditorService implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-
+        this.clear();
     }
 
     getSelection() {
@@ -66,15 +66,15 @@ export class ThyEditorService implements OnInit, OnDestroy {
         }
     }
     emojiFn(htmlstr: string) {
-        return htmlstr.replace(thyEditorConstant.emojRegx, function (match) {
-            if (thyEditorConstant.emojis.indexOf(match) !== -1) {
-                const name = String(match).slice(1, -1);
-                return '<img class="emoji" title=":' + name + ':" alt="' +
-                    name + '" src="https://s.tylingsoft.com/emoji-icons/' + name + '.png" width="18" />';
-            } else {
-                return match;
-            }
-        });
+        // return htmlstr.replace(thyEditorConstant.emojRegx, function (match) {
+        //     if (thyEditorConstant.emojis.indexOf(match) !== -1) {
+        //         const name = String(match).slice(1, -1);
+        //         return '<img class="emoji" title=":' + name + ':" alt="' +
+        //             name + '" src="https://s.tylingsoft.com/emoji-icons/' + name + '.png" width="18" />';
+        //     } else {
+        //         return match;
+        //     }
+        // });
     }
 
 
@@ -557,6 +557,8 @@ export class ThyEditorService implements OnInit, OnDestroy {
     }
 
     clear() {
-
+        this.toolbars = null;
+        this.headers = null;
+        this.tableOptions.tableMenu = null;
     }
 }

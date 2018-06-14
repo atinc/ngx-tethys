@@ -1,4 +1,5 @@
-import { Directive, ElementRef, OnInit, Input } from '@angular/core';
+import { Directive, ElementRef, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { thyEditorConstant } from '../editor/editor.constant';
 
 @Directive({
     selector: '[thyMarkdownParser]'
@@ -7,16 +8,27 @@ export class ThyMarkdownParserDirective implements OnInit {
 
     public value: string;
 
+    public initFlag = false;
+
     @Input()
     set thyMarkdownParser(value: string) {
-        console.log(value);
         if (value) {
             this.value = value;
-            this.translateHTML();
+            if (this.initFlag) {
+                this.translateHTML();
+            }
         }
     }
 
-    private marketOptions = {
+    @Input() filterHTML: Function;
+
+    @Input() config: {
+        emoji_style: number,
+        emoji_size: number,
+        cdnRoot: string
+    };
+
+    private liteMarkedOptions: any = {
         gfm: true,
         tables: true,
         breaks: true,
@@ -161,7 +173,7 @@ export class ThyMarkdownParserDirective implements OnInit {
             const h = $(result.bold());
             return h.html();
         };
-        liteMarked.setOptions(this.marketOptions);
+        liteMarked.setOptions(this.liteMarkedOptions);
     }
     initComponent() {
         // 初始化甘特图
@@ -171,15 +183,52 @@ export class ThyMarkdownParserDirective implements OnInit {
     }
 
     setEmoJies() {
-        // var _emojies = setEmijiOption();
-        // if (_emojies) {
-        //     marketOptions.wtemoji = true;
-        //     marketOptions.wtemojiRender = _emojies;
-        // }
+        if (!this.config) {
+            return;
+        }
+        let getEmojiImageSrc;
+        const emojiStyle = this.config.emoji_style;
+        const emojiSize = this.config.emoji_size;
+        if (emojiStyle === 2) {
+            getEmojiImageSrc = (emoji: any) => {
+                if (emoji.unicode) {
+                    return this.config.cdnRoot + 'image/emojione/' + emoji.unicode + '.png';
+                } else {
+                    return this.config.cdnRoot + 'image/emoji/' + encodeURIComponent(emoji.name) + '.png';
+                }
+            };
+        } else {
+            getEmojiImageSrc = (emoji: any) => {
+                return this.config.cdnRoot + 'image/emoji/' + encodeURIComponent(emoji.name) + '.png';
+            };
+        }
+
+        let emojiClassName;
+        switch (emojiSize) {
+            case 2:
+                emojiClassName = 'middle';
+                break;
+            case 3:
+                emojiClassName = 'big';
+                break;
+            case 4:
+                emojiClassName = 'most';
+                break;
+            default:
+                break;
+        }
+        emojiClassName = 'emoji ' + emojiClassName;
+        const _emojies = {
+            emojis: thyEditorConstant.emojis,
+            getImageSrc: getEmojiImageSrc,
+            className: emojiClassName
+        };
+        this.liteMarkedOptions.wtemoji = true;
+        this.liteMarkedOptions.wtemojiRender = _emojies;
     }
 
     parseMarked() {
-        if (liteMarked) {
+        if (liteMarked && this.value) {
             return liteMarked(this.value);
         } else {
             return this.value;
@@ -194,16 +243,51 @@ export class ThyMarkdownParserDirective implements OnInit {
 
     translateHTML() {
         this.initComponent();
-        // this.setEmoJies();
-        const _value = this.parseMarked();
-        // var sanitizedString = sanitize(_value);
+        this.setEmoJies();
+        let _value = this.parseMarked();
+        if (this.filterHTML) {
+            _value = this.filterHTML(_value);
+        }
         setTimeout(() => {
             this.parseMermaid();
         }, 100);
         this.elementRef.nativeElement.innerHTML = _value;
+        $(this.elementRef.nativeElement).find('a').attr('target', function () {
+            if (this.host !== location.host) {
+                return '_blank';
+            } else {
+                let outer_path: any = [
+                    'shared\/',
+                    'share\/',
+                    'club',
+                    'videos',
+                    'blog',
+                    'plan',
+                    'tour',
+                    'mobile',
+                    'security',
+                    'uservoice',
+                    'customers',
+                    'press',
+                    'help',
+                    'guide',
+                    'feedback',
+                    'about',
+                    'contact',
+                    'privacy',
+                    'terms',
+                ].join(')|(\/');
+                outer_path = new RegExp('^(\/' + outer_path + ')');
+                if (outer_path.test(this.pathname)) {
+                    return '_blank';
+                }
+            }
+
+        });
     }
 
     ngOnInit() {
-
+        this.initFlag = true;
+        this.translateHTML();
     }
 }

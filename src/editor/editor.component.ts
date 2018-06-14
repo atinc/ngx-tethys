@@ -1,4 +1,4 @@
-import { Component, Input, ElementRef, Renderer2, OnInit, forwardRef, HostBinding, Output, EventEmitter } from '@angular/core';
+import { Component, Input, ElementRef, Renderer2, OnInit, forwardRef, HostBinding, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyEditorService } from './editor.service';
 @Component({
@@ -10,7 +10,7 @@ import { ThyEditorService } from './editor.service';
         multi: true
     }, ThyEditorService]
 })
-export class ThyEditorComponent implements OnInit, ControlValueAccessor {
+export class ThyEditorComponent implements OnInit, ControlValueAccessor, OnDestroy {
 
     public model: any;
 
@@ -108,5 +108,9 @@ export class ThyEditorComponent implements OnInit, ControlValueAccessor {
     ngOnInit(): void {
         this.thyEditorService.initEditor(this.config, this.elementRef);
         this._thyFullClass = this.thyEditorService.options.isHeightFull;
+    }
+
+    ngOnDestroy() {
+        this.thyEditorService.clear();
     }
 }
