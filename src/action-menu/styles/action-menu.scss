@@ -117,3 +117,8 @@
         }
     }
 }
+
+.action-menu-height-limit {
+    max-height: 400px;
+    overflow-y: auto;
+}

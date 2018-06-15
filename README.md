@@ -16,3 +16,8 @@ npm install ngx-tethys --save
 
 
 ## Usage & Demo
+
+## Building
+
+1. `npm run build:ngm`;
+1. cd `built` folder, `npm publish`
