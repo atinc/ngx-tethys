@@ -7,52 +7,52 @@
             <dd class="mt-5">
                 <div>DatepickerTimeObject类型 - {{dateEntry|json}}</div>
                 <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
-                    <input type="text" readonly="readonly" thyDatepicker [(ngModel)]="dateEntry" class="form-control" placeholder="" />
+                    <input type="text" readonly="readonly" (thyOnChange)='change($event)' thyDatepicker [(ngModel)]="dateEntry" class="form-control" placeholder="" />
                 </thy-form-group>
             </dd>
             <dd class="mt-5">
                 <div>DateTime类型 - {{dateEntry2|json}}</div>
                 <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
-                    <input type="text" readonly="readonly" thyDatepicker [(ngModel)]="dateEntry2" class="form-control" placeholder="" />
+                    <input type="text" readonly="readonly" (thyOnChange)='change($event)' thyDatepicker [(ngModel)]="dateEntry2" class="form-control" placeholder="" />
                 </thy-form-group>
             </dd>
             <dd class="mt-5">
                 <div>可选时间 - {{dateEntryWithTime|json}}</div>
                 <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
-                    <input type="text" readonly="readonly" thyDatepicker [thyShowTime]="true" [(ngModel)]="dateEntryWithTime" class="form-control"
+                    <input type="text" readonly="readonly" (thyOnChange)='change($event)' thyDatepicker [thyShowTime]="true" [(ngModel)]="dateEntryWithTime" class="form-control"
                         placeholder="" />
                 </thy-form-group>
             </dd>
             <dd class="mt-5">
                 <div>必选时间 - {{dateEntryWithTime2|json}}</div>
                 <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
-                    <input type="text" readonly="readonly" thyDatepicker [(ngModel)]="dateEntryWithTime2" class="form-control" placeholder=""
+                    <input type="text" readonly="readonly" (thyOnChange)='change($event)' thyDatepicker [(ngModel)]="dateEntryWithTime2" class="form-control" placeholder=""
                     />
                 </thy-form-group>
             </dd>
             <dd class="mt-5">
                 <div>禁用 - </div>
                 <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
-                    <input type="text" readonly="readonly" thyDatepicker disabled [(ngModel)]="dateEntryDisable" class="form-control" placeholder=""
+                    <input type="text" readonly="readonly" (thyOnChange)='change($event)' thyDatepicker disabled [(ngModel)]="dateEntryDisable" class="form-control" placeholder=""
                     />
                 </thy-form-group>
             </dd>
             <dd class="mt-5">
                 <div>空值 - {{dateNull|json}}</div>
                 <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
-                    <input type="text" readonly="readonly" thyDatepicker [thyShowTime]="true" [(ngModel)]="dateNull" class="form-control" placeholder="" />
+                    <input type="text" readonly="readonly" (thyOnChange)='change($event)' thyDatepicker [thyShowTime]="true" [(ngModel)]="dateNull" class="form-control" placeholder="" />
                 </thy-form-group>
             </dd>
             <dd class="mt-5">
                 <div>空值 - {{dateNull2|json}}</div>
                 <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
-                    <input type="text" readonly="readonly" thyDatepicker [thyShowTime]="true" [(ngModel)]="dateNull2" class="form-control" placeholder="" />
+                    <input type="text" readonly="readonly" (thyOnChange)='change($event)' thyDatepicker [thyShowTime]="true" [(ngModel)]="dateNull2" class="form-control" placeholder="" />
                 </thy-form-group>
             </dd>
             <dd class="mt-5">
                 <div>空值 - {{dateNullObject|json}}</div>
                 <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
-                    <input type="text" readonly="readonly" thyDatepicker [thyShowTime]="true" [(ngModel)]="dateNullObject" class="form-control" placeholder="" />
+                    <input type="text" readonly="readonly" thyDatepicker (thyOnChange)='change($event)' [thyShowTime]="true" [(ngModel)]="dateNullObject" class="form-control" placeholder="" />
                 </thy-form-group>
             </dd>
         </dl>
@@ -101,14 +101,14 @@
             <dd class="mt-5">
                 <div>DaterangepickerTimeObject类型 - {{dateRangeEntry|json}}</div>
                 <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
-                    <input type="text" readonly="readonly" thyDaterangepicker [(ngModel)]="dateRangeEntry" class="form-control" placeholder=""
+                    <input type="text" readonly="readonly" thyDaterangepicker (thyOnChange)='change($event)' [(ngModel)]="dateRangeEntry" class="form-control" placeholder=""
                     />
                 </thy-form-group>
             </dd>
             <dd class="mt-5">
                 <div>空值 - {{dateRangeNullValue|json}}</div>
                 <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
-                    <input type="text" readonly="readonly" thyDaterangepicker [(ngModel)]="dateRangeNullValue" class="form-control" placeholder=""
+                    <input type="text" readonly="readonly" thyDaterangepicker (thyOnChange)='change($event)' [(ngModel)]="dateRangeNullValue" class="form-control" placeholder=""
                     />
                 </thy-form-group>
             </dd>

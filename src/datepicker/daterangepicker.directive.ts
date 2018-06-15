@@ -179,6 +179,7 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
                 break;
         }
         this._onChange(result);
+        this.thyOnChange.emit(result);
     }
 
 }

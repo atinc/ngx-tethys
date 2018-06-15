@@ -86,6 +86,12 @@ export class DemoDataPickerSectionComponent implements OnInit {
             type: 'boolean',
             default: 'false'
         },
+        {
+            property: 'thyOnChange',
+            description: '值改变事件',
+            type: 'Function',
+            default: ''
+        },
     ];
 
     constructor() { }
@@ -118,5 +124,9 @@ export class DemoDataPickerSectionComponent implements OnInit {
 
     log($event) {
         console.log($event);
+    }
+
+    change($event){
+        console.log($event)
     }
 }
