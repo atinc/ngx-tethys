@@ -9,15 +9,11 @@ export class ThyMarkdownParserDirective implements OnInit {
 
     public value: string;
 
-    public initFlag = false;
-
     @Input()
     set thyMarkdownParser(value: string) {
         if (value) {
             this.value = value;
-            if (this.initFlag) {
-                this.translateHTML();
-            }
+            this.translateHTML();
         }
     }
 
@@ -178,51 +174,6 @@ export class ThyMarkdownParserDirective implements OnInit {
         this.initMarked();
     }
 
-    // setEmoJies() {
-    //     if (!this.config) {
-    //         return;
-    //     }
-    //     let getEmojiImageSrc;
-    //     const emojiStyle = this.config.emoji_style;
-    //     const emojiSize = this.config.emoji_size;
-    //     if (emojiStyle === 2) {
-    //         getEmojiImageSrc = (emoji: any) => {
-    //             if (emoji.unicode) {
-    //                 return this.config.cdnRoot + 'image/emojione/' + emoji.unicode + '.png';
-    //             } else {
-    //                 return this.config.cdnRoot + 'image/emoji/' + encodeURIComponent(emoji.name) + '.png';
-    //             }
-    //         };
-    //     } else {
-    //         getEmojiImageSrc = (emoji: any) => {
-    //             return this.config.cdnRoot + 'image/emoji/' + encodeURIComponent(emoji.name) + '.png';
-    //         };
-    //     }
-
-    //     let emojiClassName;
-    //     switch (emojiSize) {
-    //         case 2:
-    //             emojiClassName = 'middle';
-    //             break;
-    //         case 3:
-    //             emojiClassName = 'big';
-    //             break;
-    //         case 4:
-    //             emojiClassName = 'most';
-    //             break;
-    //         default:
-    //             break;
-    //     }
-    //     emojiClassName = 'emoji ' + emojiClassName;
-    //     const _emojies = {
-    //         emojis: thyEditorConstant.emojis,
-    //         getImageSrc: getEmojiImageSrc,
-    //         className: emojiClassName
-    //     };
-    //     this.liteMarkedOptions.wtemoji = true;
-    //     this.liteMarkedOptions.wtemojiRender = _emojies;
-    // }
-
     parseMarked() {
         if (liteMarked && this.value) {
             return liteMarked(this.value);
@@ -239,11 +190,6 @@ export class ThyMarkdownParserDirective implements OnInit {
 
     translateHTML() {
         this.initComponent();
-        const _emojiesSetting: any = this.thyMarkdownParserService.setEmoJies();
-        if (_emojiesSetting) {
-            this.liteMarkedOptions.wtemoji = true;
-            this.liteMarkedOptions.wtemojiRender = _emojiesSetting.emojis;
-        }
         let _value = this.parseMarked();
         _value = this.thyMarkdownParserService.filterHTML(_value);
         setTimeout(() => {
@@ -285,7 +231,11 @@ export class ThyMarkdownParserDirective implements OnInit {
     }
 
     ngOnInit() {
-        this.initFlag = true;
+        const _emojiesSetting: any = this.thyMarkdownParserService.setEmoJies();
+        if (_emojiesSetting) {
+            this.liteMarkedOptions.wtemoji = true;
+            this.liteMarkedOptions.wtemojiRender = _emojiesSetting;
+        }
         this.translateHTML();
     }
 }
