@@ -1,5 +1,6 @@
 import { Directive, ElementRef, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { thyEditorConstant } from '../editor/editor.constant';
+import { thyEditorConstant } from '../../editor/editor.constant';
+import { ThyMarkdownParserService } from './thy-markdown-parser.service';
 
 @Directive({
     selector: '[thyMarkdownParser]'
@@ -19,14 +20,6 @@ export class ThyMarkdownParserDirective implements OnInit {
             }
         }
     }
-
-    @Input() filterHTML: Function;
-
-    @Input() config: {
-        emoji_style: number,
-        emoji_size: number,
-        cdnRoot: string
-    };
 
     private liteMarkedOptions: any = {
         gfm: true,
@@ -70,7 +63,10 @@ export class ThyMarkdownParserDirective implements OnInit {
         isImgPreview: true
     };
 
-    constructor(private elementRef: ElementRef) {
+    constructor(
+        private elementRef: ElementRef,
+        private thyMarkdownParserService: ThyMarkdownParserService
+    ) {
 
     }
 
@@ -182,50 +178,50 @@ export class ThyMarkdownParserDirective implements OnInit {
         this.initMarked();
     }
 
-    setEmoJies() {
-        if (!this.config) {
-            return;
-        }
-        let getEmojiImageSrc;
-        const emojiStyle = this.config.emoji_style;
-        const emojiSize = this.config.emoji_size;
-        if (emojiStyle === 2) {
-            getEmojiImageSrc = (emoji: any) => {
-                if (emoji.unicode) {
-                    return this.config.cdnRoot + 'image/emojione/' + emoji.unicode + '.png';
-                } else {
-                    return this.config.cdnRoot + 'image/emoji/' + encodeURIComponent(emoji.name) + '.png';
-                }
-            };
-        } else {
-            getEmojiImageSrc = (emoji: any) => {
-                return this.config.cdnRoot + 'image/emoji/' + encodeURIComponent(emoji.name) + '.png';
-            };
-        }
+    // setEmoJies() {
+    //     if (!this.config) {
+    //         return;
+    //     }
+    //     let getEmojiImageSrc;
+    //     const emojiStyle = this.config.emoji_style;
+    //     const emojiSize = this.config.emoji_size;
+    //     if (emojiStyle === 2) {
+    //         getEmojiImageSrc = (emoji: any) => {
+    //             if (emoji.unicode) {
+    //                 return this.config.cdnRoot + 'image/emojione/' + emoji.unicode + '.png';
+    //             } else {
+    //                 return this.config.cdnRoot + 'image/emoji/' + encodeURIComponent(emoji.name) + '.png';
+    //             }
+    //         };
+    //     } else {
+    //         getEmojiImageSrc = (emoji: any) => {
+    //             return this.config.cdnRoot + 'image/emoji/' + encodeURIComponent(emoji.name) + '.png';
+    //         };
+    //     }
 
-        let emojiClassName;
-        switch (emojiSize) {
-            case 2:
-                emojiClassName = 'middle';
-                break;
-            case 3:
-                emojiClassName = 'big';
-                break;
-            case 4:
-                emojiClassName = 'most';
-                break;
-            default:
-                break;
-        }
-        emojiClassName = 'emoji ' + emojiClassName;
-        const _emojies = {
-            emojis: thyEditorConstant.emojis,
-            getImageSrc: getEmojiImageSrc,
-            className: emojiClassName
-        };
-        this.liteMarkedOptions.wtemoji = true;
-        this.liteMarkedOptions.wtemojiRender = _emojies;
-    }
+    //     let emojiClassName;
+    //     switch (emojiSize) {
+    //         case 2:
+    //             emojiClassName = 'middle';
+    //             break;
+    //         case 3:
+    //             emojiClassName = 'big';
+    //             break;
+    //         case 4:
+    //             emojiClassName = 'most';
+    //             break;
+    //         default:
+    //             break;
+    //     }
+    //     emojiClassName = 'emoji ' + emojiClassName;
+    //     const _emojies = {
+    //         emojis: thyEditorConstant.emojis,
+    //         getImageSrc: getEmojiImageSrc,
+    //         className: emojiClassName
+    //     };
+    //     this.liteMarkedOptions.wtemoji = true;
+    //     this.liteMarkedOptions.wtemojiRender = _emojies;
+    // }
 
     parseMarked() {
         if (liteMarked && this.value) {
@@ -243,11 +239,13 @@ export class ThyMarkdownParserDirective implements OnInit {
 
     translateHTML() {
         this.initComponent();
-        this.setEmoJies();
-        let _value = this.parseMarked();
-        if (this.filterHTML) {
-            _value = this.filterHTML(_value);
+        const _emojiesSetting: any = this.thyMarkdownParserService.setEmoJies();
+        if (_emojiesSetting) {
+            this.liteMarkedOptions.wtemoji = true;
+            this.liteMarkedOptions.wtemojiRender = _emojiesSetting.emojis;
         }
+        let _value = this.parseMarked();
+        _value = this.thyMarkdownParserService.filterHTML(_value);
         setTimeout(() => {
             this.parseMermaid();
         }, 100);

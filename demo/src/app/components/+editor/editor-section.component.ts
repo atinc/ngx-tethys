@@ -9,18 +9,14 @@ export class DemoEditorSectionComponent implements OnInit {
 
     public config = { type: 'all' };
 
-    public thyMarkdownParserConfig = {
-        emoji_style: 2,
-        emoji_size: 2,
-        cdnRoot: 'http://www.baidu.com'
-    };
+    // public thyMarkdownParserConfig = {
+    //     emoji_style: 2,
+    //     emoji_size: 2,
+    //     cdnRoot: 'http://www.baidu.com'
+    // };
 
     constructor(
     ) {
-    }
-
-    filterHTMLAction(event) {
-        return event;
     }
 
     ngOnInit() {

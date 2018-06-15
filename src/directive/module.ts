@@ -5,7 +5,8 @@ import { ThyAutofocusDirective } from './thy-autofocus.directive';
 import { ThyEnterDirective } from './thy-enter.directive';
 import { ThyShowDirective } from './thy-show';
 import { ThyStopPropagationDirective } from './thy-stop-propagation.directive';
-import { ThyMarkdownParserDirective } from './thy-markdown-parser.directive';
+import { ThyMarkdownParserDirective } from './thy-markdown/thy-markdown-parser.directive';
+import { ThyMarkdownParserService, ThyDefaultMarkdownParserService } from './thy-markdown/thy-markdown-parser.service';
 
 @NgModule({
     declarations: [
@@ -25,7 +26,13 @@ import { ThyMarkdownParserDirective } from './thy-markdown-parser.directive';
         ThyShowDirective,
         ThyStopPropagationDirective,
         ThyMarkdownParserDirective
-    ]
+    ],
+    providers: [
+        {
+            provide: ThyMarkdownParserService,
+            useClass: ThyDefaultMarkdownParserService
+        }
+    ],
 })
 export class ThyDirectiveModule {
 
