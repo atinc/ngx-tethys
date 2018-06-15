@@ -194,6 +194,7 @@ export class ThyDatepickerDirective implements OnInit, AfterContentInit, Control
                 break;
         }
         this._onChange(this._value);
+        this.thyOnChange.emit(this._value);
     }
 
 }
