@@ -16,6 +16,8 @@ import { DemoThyTranslate } from './demo-thy-translate';
 import { FormsModule } from '@angular/forms';
 import { ThyAvatarService } from '../../../src';
 import { CustomAvatarService } from './components/+avatar/custom-avatar.service';
+import { CustomEditorService } from './components/+editor/custom-editor.service';
+import { ThyMarkdownParserService } from '../../../src/directive';
 
 @NgModule({
     declarations: [
@@ -45,6 +47,10 @@ import { CustomAvatarService } from './components/+avatar/custom-avatar.service'
         {
             provide: ThyAvatarService,
             useClass: CustomAvatarService
+        },
+        {
+            provide: ThyMarkdownParserService,
+            useClass: CustomEditorService
         }
     ],
     bootstrap: [AppComponent]
