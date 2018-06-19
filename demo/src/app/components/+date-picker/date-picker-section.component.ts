@@ -53,6 +53,11 @@ export class DemoDataPickerSectionComponent implements OnInit {
 
     dateRangeNullValue = null;
 
+    dateRangeNullValueObject = {
+        begin: { date: null },
+        end: { date: null }
+    };
+
     Datepicker: Date;
 
     apiParameters = [
