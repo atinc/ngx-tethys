@@ -111,6 +111,9 @@ export function daterangepickerUtilConvertToDaterangepickerObject(value: any, va
                 new Date(value.end.date * 1000)
             ];
             break;
+        case DatepickerValueShowTypesEnum.daterangepickerNullValueObject:
+            _value = [];
+            break;
         case DatepickerValueShowTypesEnum.daterangepickerNullValue:
             _value = [];
             break;

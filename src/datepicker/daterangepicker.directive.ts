@@ -43,7 +43,7 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
     @Input() thyDisabled = false;
     @Input() thyShowTime = false;
     @Input() thyFormat: string = null;
-    @Output() thyOnChange: EventEmitter<any> = new EventEmitter();
+    // @Output() thyOnChange: EventEmitter<any> = new EventEmitter();
 
     constructor(
         private _elementRef: ElementRef,
@@ -143,7 +143,8 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
             + ' ~ '
             + this.service.dataPipe.transform(this.store.value[1], this._showFormatRule);
         if (this._isFirstShowInputProperty &&
-            this.store.originValueType === DatepickerValueShowTypesEnum.daterangepickerNullValue) {
+            (this.store.originValueType === DatepickerValueShowTypesEnum.daterangepickerNullValue
+                || this.store.originValueType === DatepickerValueShowTypesEnum.daterangepickerNullValueObject)) {
             initialDate = '';
             this._isFirstShowInputProperty = false;
         }

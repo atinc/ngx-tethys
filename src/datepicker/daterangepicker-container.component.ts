@@ -15,7 +15,7 @@ export class ThyDaterangepickerContainerComponent implements OnInit {
     public initialState: any;
     public store: any;
     hideLoader: Function;
-    value: Date;
+    value: Date[];
     isShowTime = false;
     isCanTime = false;
     isMeridian = false;
