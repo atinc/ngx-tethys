@@ -86,25 +86,16 @@ export function datepickerUtilConvertToDatepickerObject(value: any, valueType?: 
 }
 
 export function daterangepickerUtilIdentificationValueType(value: any): DatepickerValueShowTypesEnum {
-    // let res;
-    // if (isObject(value) && value.hasOwnProperty('begin') && value.hasOwnProperty('end')) {
-    //     if (isDate(value.begin)) {
-    //         res = DatepickerValueShowTypesEnum.daterangepickerObject;
-    //     } else if (isObject(value.begin)) {
-
-    //     } else if (true) {
-
-    //     } else if (true) {
-
-    //     } else {
-    //         res = DatepickerValueShowTypesEnum.daterangepickerNullValue;
-    //     }
-    // } else {
-    //     res = DatepickerValueShowTypesEnum.nullValue;
-    // }
-    // return res;
     if (value) {
-        return DatepickerValueShowTypesEnum.daterangepickerTimeObject;
+        if (isObject(value.begin) && value.begin.hasOwnProperty('date')) {
+            if (value.begin.date) {
+                return DatepickerValueShowTypesEnum.daterangepickerTimeObject;
+            } else {
+                return DatepickerValueShowTypesEnum.daterangepickerNullValueObject;
+            }
+        } else {
+            return DatepickerValueShowTypesEnum.daterangepickerNullValue;
+        }
     } else {
         return DatepickerValueShowTypesEnum.daterangepickerNullValue;
     }
@@ -119,6 +110,9 @@ export function daterangepickerUtilConvertToDaterangepickerObject(value: any, va
                 new Date(value.begin.date * 1000),
                 new Date(value.end.date * 1000)
             ];
+            break;
+        case DatepickerValueShowTypesEnum.daterangepickerNullValueObject:
+            _value = [];
             break;
         case DatepickerValueShowTypesEnum.daterangepickerNullValue:
             _value = [];

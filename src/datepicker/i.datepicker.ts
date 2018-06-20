@@ -60,6 +60,7 @@ export enum DatepickerValueShowTypesEnum {
     daterangepickerObject,
     daterangepickerTimeObject,
     daterangepickerNullValue,
+    daterangepickerNullValueObject,
 }
 
 

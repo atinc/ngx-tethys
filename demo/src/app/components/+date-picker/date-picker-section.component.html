@@ -94,7 +94,7 @@
 
 <section>
     <div class="header">
-        <h2>元素绑定</h2>
+        <h2>日期区间</h2>
     </div>
     <div class="body">
         <dl class="datepicker-section">
@@ -109,6 +109,13 @@
                 <div>空值 - {{dateRangeNullValue|json}}</div>
                 <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
                     <input type="text" readonly="readonly" thyDaterangepicker [(ngModel)]="dateRangeNullValue" class="form-control" placeholder=""
+                    />
+                </thy-form-group>
+            </dd>
+            <dd class="mt-5">
+                <div>空值 - {{dateRangeNullValueObject|json}}</div>
+                <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
+                    <input type="text" readonly="readonly" thyDaterangepicker [(ngModel)]="dateRangeNullValueObject" class="form-control" placeholder=""
                     />
                 </thy-form-group>
             </dd>
