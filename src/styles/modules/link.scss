@@ -34,7 +34,7 @@ a {
         @include link-variant($primary,  $link-decoration, $primary, $link-hover-decoration);
     }
     &.link-secondary {
-        @include link-variant($secondary, none, $primary, none);
+        @include link-variant($info, none, $primary, none);
     }
     &.link-sm {
         @include link-size($font-size-sm, $font-size-sm);
