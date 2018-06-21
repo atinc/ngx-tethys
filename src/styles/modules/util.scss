@@ -22,9 +22,11 @@
 }
 
 .thy-operation-links {
-  >a,
-  >button {
+   > button,
+  > a {
+    display: inline-block;
     margin-right: $operation-link-margin-y;
+
     &:last-child {
       margin-right: 0;
     }
