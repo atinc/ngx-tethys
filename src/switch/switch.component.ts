@@ -4,19 +4,25 @@ import {
     Output,
     EventEmitter,
     OnInit,
-    forwardRef
+    forwardRef,
+    ElementRef,
+    ViewChild
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { helpers } from '../util';
+import { UpdateHostClassService } from '../shared';
 
 
 @Component({
     selector: 'thy-switch',
     templateUrl: './switch.component.html',
-    providers: [{
-        provide: NG_VALUE_ACCESSOR,
-        useExisting: forwardRef(() => ThySwitchComponent),
-        multi: true
-    }]
+    providers: [
+        UpdateHostClassService,
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => ThySwitchComponent),
+            multi: true
+        }]
 })
 export class ThySwitchComponent implements OnInit, ControlValueAccessor {
 
@@ -33,6 +39,8 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor {
     public typeArray: any = ['primary', 'info', 'warning', 'danger'];
 
     public sizeArray: any = ['lg', '', 'sm'];
+
+    @ViewChild('switch') switchElementRef: ElementRef;
 
     @Input()
     set thyType(value: string) {
@@ -52,14 +60,14 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor {
 
 
     @Input()
-    set thyDisabled(value: boolean) {
-        this.disabled = value;
+    set thyDisabled(value: boolean | string) {
+        this.disabled = helpers.isBoolean(value) ? Boolean(value) : value === 'true';
     }
 
     @Output() thyChange: EventEmitter<Event> = new EventEmitter<Event>();
 
 
-    constructor() {
+    constructor(private updateHostClassService: UpdateHostClassService) {
 
     }
 
@@ -85,7 +93,6 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor {
 
     setDisabledState(isDisabled: Boolean) {
         this.disabled = isDisabled;
-        this.setClass();
     }
 
     toggle(event: any) {
@@ -95,18 +102,17 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor {
 
     }
 
-    setClass() {
-        if (this.size !== '') {
-            this.thyClassName = this.thyClassName + ' ' + 'thy-switch-' + this.size;
+    setClassNames() {
+        const classNames = [`thy-switch-${this.type}`];
+        if (this.size) {
+            classNames.push(`thy-switch-${this.size}`);
         }
-        this.thyClassName = this.thyClassName + ' ' + 'thy-switch-' + this.type;
-        if (this.disabled) {
-            this.thyClassName = this.thyClassName + ' ' + 'thy-switch-disabled';
-        }
+        this.updateHostClassService.updateClass(classNames);
     }
 
     ngOnInit() {
-        this.setClass();
+        this.updateHostClassService.initializeElement(this.switchElementRef.nativeElement);
+        this.setClassNames();
     }
 
 }
