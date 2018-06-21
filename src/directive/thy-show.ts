@@ -1,8 +1,7 @@
 import {
     Directive, Renderer2, Input, ElementRef,
-    ViewContainerRef, Output, EventEmitter, OnDestroy
+    Output, EventEmitter, OnDestroy
 } from '@angular/core';
-
 
 @Directive({ selector: '[thyShow]' })
 export class ThyShowDirective implements OnDestroy {
@@ -37,7 +36,6 @@ export class ThyShowDirective implements OnDestroy {
 
     constructor(
         private elementRef: ElementRef,
-        private viewContainer: ViewContainerRef,
         private renderer: Renderer2
     ) { }
 

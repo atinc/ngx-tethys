@@ -38,3 +38,5 @@
 
 // text-placeholder #cacaca
 @include text-emphasis-variant(".text-placeholder", $gray-400);
+
+@include text-emphasis-variant(".text-body", $gray-800);
