@@ -3,7 +3,6 @@ import {
     Output, EventEmitter, OnDestroy
 } from '@angular/core';
 
-
 @Directive({ selector: '[thyShow]' })
 export class ThyShowDirective implements OnDestroy {
 
