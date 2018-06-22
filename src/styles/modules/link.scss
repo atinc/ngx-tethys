@@ -10,7 +10,6 @@ a {
     .wtf {
         font-size: $font-size-base;
         display: inline-block;
-        padding-right: 5px;
     }
 }
 
@@ -28,6 +27,13 @@ a:not([href]):not([tabindex]) {
     }
     &:focus {
         outline: 0;
+    }
+}
+
+// 带有图标的链接
+a.link-icon {
+    .wtf {
+        padding-right: $link-icon-padding-right;
     }
 }
 
