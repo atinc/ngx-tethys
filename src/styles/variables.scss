@@ -70,7 +70,7 @@ $font-size-xs: .625rem; // 10px
 // code
 $code-color: $danger;
 $input-btn-padding-y: 0.469rem !default;
-$input-btn-padding-x: 1.313rem !default;//2.375rem !default;
+$input-btn-padding-x: 26px !default;// 1.313rem  !default;
 $input-btn-padding-y-sm: .25rem !default;
 $input-btn-padding-x-sm: .5rem !default;
 $input-btn-padding-y-lg: 0.656rem !default;
@@ -84,10 +84,10 @@ $btn-box-shadow: null !default;
 // $btn-padding-y: 0.469rem; //108*38px
 // $btn-padding-x: 2.438rem;
 $btn-padding-y-md: 0.407rem !default; // 100*36px 变种按钮大小
-$btn-padding-x-md: 1.25rem !default;
+$btn-padding-x-md: 22px; // 1.25rem !default;
 // $btn-line-height: $input-btn-line-height;
 $btn-padding-y-sm: .25rem !default; // 70*28px
-$btn-padding-x-sm: 1.375rem !default;
+$btn-padding-x-sm: 20px !default;
 // $btn-line-height-sm: $input-btn-line-height-sm;
 $btn-padding-y-lg: 0.5rem !default;
 $btn-padding-x-lg: 2.215rem !default;
@@ -100,7 +100,7 @@ $btn-icon-light-color: $gray-300 !default;
 
 // min-width
 $btn-base-min-width: 106px !default;
-$btn-md-min-width: 106px !default;
+$btn-md-min-width: 70px !default;
 $btn-sm-min-width: 70px !default;
 $btn-xs-min-width: 60px !default;
 $btn-lg-min-width: 108px !default;

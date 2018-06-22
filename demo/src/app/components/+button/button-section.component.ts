@@ -101,6 +101,7 @@ export class DemoButtonSectionComponent {
     }
 
     startLoading() {
+        console.log('click loading');
         this.loading = true;
         this.loadingSeconds = 3;
 
