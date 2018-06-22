@@ -5,7 +5,7 @@ import { ThySelectComponent } from './select.component';
 import { ThyInputModule } from '../input/module';
 import { ThySelectCustomComponent } from './select-custom.component';
 import { ThyOptionComponent } from './option.component';
-import { ThyOptionGroupComponent } from './option-group.component';
+import { ThyOptionListComponent } from './option-list.component';
 import { SelectContainerComponent } from './select-container.component';
 import { OptionItemComponent } from './option-item.component';
 import { ThyLabelModule } from '../label/label.module';
@@ -22,7 +22,7 @@ import { ThyLabelModule } from '../label/label.module';
         ThySelectComponent,
         ThySelectCustomComponent,
         ThyOptionComponent,
-        ThyOptionGroupComponent,
+        ThyOptionListComponent,
         SelectContainerComponent,
         OptionItemComponent
     ],
@@ -30,7 +30,7 @@ import { ThyLabelModule } from '../label/label.module';
         ThySelectComponent,
         ThySelectCustomComponent,
         ThyOptionComponent,
-        ThyOptionGroupComponent
+        ThyOptionListComponent
     ]
 })
 export class ThySelectModule {

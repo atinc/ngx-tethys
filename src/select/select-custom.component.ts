@@ -6,7 +6,6 @@ import { UpdateHostClassService } from '../shared/update-host-class.service';
 import { inputValueToBoolean } from '../util/helpers';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ThyOptionComponent } from './option.component';
-import { ThyOptionGroupComponent } from './option-group.component';
 
 export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -78,7 +77,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
 
     @ContentChildren(ThyOptionComponent) listOfOptionComponent: QueryList<any>;
 
-    @ContentChildren(ThyOptionGroupComponent) listOfOptionGroupComponent: QueryList<any>;
+    // @ContentChildren(ThyOptionGroupComponent) listOfOptionGroupComponent: QueryList<any>;
 
     constructor(
         private elementRef: ElementRef,
@@ -140,9 +139,15 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
         }
     }
 
-    remove(item: any, index: number) {
+    remove(event: Event, item: any, index: number) {
+        event.stopPropagation();
         this._innerValues.splice(index, 1);
         this._expandOptions = true;
+        this.listOfOptionComponent.forEach(i => {
+            if (i.thyValue === item.thyValue) {
+                i.selected = false;
+            }
+        });
     }
 
 

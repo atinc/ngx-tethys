@@ -134,35 +134,57 @@ select.form-control-md {
     overflow-y: auto;
     padding: 10px 0;
 
+    .group-name {
+      margin-left: -10px;
+      margin-bottom: 0;
+      font-size: $font-size-sm;
+      height: 30px;
+      line-height: 30px;
+    }
+
     .select-option {
+      width: 100%;
       list-style: none;
       padding-left: 0;
       margin-bottom: 0;
 
-      .option-item {
-        display: flex;
+      .option-list {
+        width: 100%;
         height: 40px;
         font-size: $font-size-base;
         color: $secondary;
-        align-items: center;
-        justify-content: space-between;
-        padding: {
-          left: 20px;
-          right: 20px;
-        }
         cursor: pointer;
 
-        .text-light {
-          visibility: hidden;
-        }
+        .option-item {
+          display: flex;
+          height: 40px;
+          align-items: center;
+          justify-content: space-between;
+          padding: {
+            left: 20px;
+            right: 20px;
+          }
 
-        &:hover {
-          box-shadow: $box-shadow;
-          color: $body-color;
+          .text-light {
+            visibility: hidden;
+          }
+
+          &:hover {
+            box-shadow: $box-shadow;
+            color: $body-color;
+          }
+
+          &--group {
+            cursor: default;
+
+            &:hover {
+              box-shadow: none;
+            }
+          }
         }
       }
 
-      .option-hover-bg {
+      .option-active-bg {
         background: rgba(34,215,187,.1);
         color: $primary;
       }
@@ -172,19 +194,10 @@ select.form-control-md {
         color: $gray-400;
 
         &:hover {
+          box-shadow: none;
           color: $gray-400;
           cursor: default;
         }
-      }
-    }
-
-    .select-group {
-      .group-name {
-        padding: 0 10px;
-        margin-bottom: 0;
-        font-size: $font-size-sm;
-        height: 30px;
-        line-height: 30px;
       }
     }
   }
@@ -193,25 +206,25 @@ select.form-control-md {
 .thy-select-custom--multiple {
   .thy-select-custom-options {
     .select-option {
-      .option-item {
-        .text-light {
-          visibility: hidden;
-        }
-
-        &:hover {
-          .text-light {
-            visibility: visible;
+      .option-list {
+        .option-item {
+          &:hover {
+            .text-light {
+              visibility: visible;
+            }
           }
         }
       }
 
-      .option-hover-bg {
+      .option-active-bg {
         background: none;
         color: $body-color;
 
-        .text-light {
-          visibility: visible;
-          color: $primary!important;
+        .option-item {
+          .text-light {
+            visibility: visible;
+            color: $primary!important;
+          }
         }
       }
     }
