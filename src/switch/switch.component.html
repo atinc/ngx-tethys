@@ -1,4 +1,4 @@
-<label class="thy-switch" [ngClass]="thyClassName">
+<label #switch class="thy-switch" [ngClass]="{'thy-switch-disabled': disabled}">
     <input type="checkbox" [disabled]="disabled" class="thy-switch-input" [checked]="model" (change)="toggle($event)">
     <span class="thy-switch-label"></span>
     <span class="thy-switch-handle"></span>

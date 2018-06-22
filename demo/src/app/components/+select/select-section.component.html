@@ -63,7 +63,7 @@
 
         <thy-custom-select [(ngModel)]="selectedItem2" thyPlaceHolder="请选择">
             <thy-option thyValue="001" thyLabelText="country"></thy-option>
-            <thy-option *ngFor="let option of optionData" thyShowOptionCustom="true" [thyValue]="option._id" [thyLabelText]="option.display_name">
+            <thy-option *ngFor="let option of optionData" thyShowOptionCustom="true" [thyValue]="option" [thyLabelText]="option.display_name">
                 <i [class]="option?.icon"></i>
                 <span class="ml-1">{{option?.display_name}}</span>
             </thy-option>
@@ -71,8 +71,7 @@
 
         <br>
 
-        <thy-custom-select [(ngModel)]="selectedItem3" [thyServerSearch]="true" (thyOnSearch)="searchTextChange($event)" [thyShowSearch]="true"
-            thyPlaceHolder="请选择">
+        <thy-custom-select [(ngModel)]="selectedItem3" thyPlaceHolder="请选择">
             <thy-option-group thyGroupLabel="服饰">
                 <thy-option thyValue="001" thyLabelText="上衣"></thy-option>
                 <thy-option thyValue="002" thyLabelText="裤子"></thy-option>

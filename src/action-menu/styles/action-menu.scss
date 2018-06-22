@@ -98,24 +98,6 @@
             }
         }
     }
-    &--select{
-        width:100%;
-        .action-menu-item{
-            &:not(.action-menu-item--disabled):hover {
-                background: $action-menu-item-hover-bg;
-                &>.icon {
-                    margin-left: 0;
-                }
-                &>.info {
-                    padding-left: 0;
-                    padding-right: 0;
-                }
-                .action-menu-sub-item {
-                    display: block;
-                }
-            }
-        }
-    }
 }
 
 .action-menu-height-limit {

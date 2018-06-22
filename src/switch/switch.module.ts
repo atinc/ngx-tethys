@@ -6,6 +6,9 @@ import { ThySwitchComponent } from './switch.component';
     declarations: [
         ThySwitchComponent
     ],
+    entryComponents: [
+        ThySwitchComponent
+    ],
     imports: [
         CommonModule
     ],

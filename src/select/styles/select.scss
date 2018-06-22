@@ -35,10 +35,10 @@ select.form-control-xs {
 }
 
 select.form-control-md {
-    &:not([size]):not([multiple]) {
-      height: $input-height-md;
-    }
+  &:not([size]):not([multiple]) {
+    height: $input-height-md;
   }
+}
 
 .thy-select {
   width: 100%;
@@ -109,23 +109,46 @@ select.form-control-md {
   .thy-select-custom-options {
     width: 100%;
     position: absolute;
-    top: $input-height;
+    top: $input-custom-height + 4px;
     left: 0;
-    border: 1px solid $input-border-color;
+    padding: 8px 0;
+    box-shadow: $box-shadow;
     border-radius: 0 0 4px 4px;
     z-index: 99;
     background: $white;
 
     .thy-select-search {
-      padding: 5px 10px 0;
+      padding: 5px 20px 8px;
     }
 
     .select-option {
       max-height: 400px;
       overflow-y: auto;
+      list-style: none;
+      padding-left: 0;
+      margin-bottom: 0;
+
+      > li {
+        display: flex;
+        height: 40px;
+        font-size: $font-size-base;
+        color: $secondary;
+        align-items: center;
+        padding: {
+          left: 20px;
+          right: 20px;
+        }
+        cursor: pointer;
+
+        &:hover {
+          box-shadow: $box-shadow;
+          color: $body-color;
+        }
+      }
 
       .option-hover-bg {
-        background: $gray-100;
+        background: rgba(34,215,187,.1);
+        color: $primary;
       }
 
       .option-disabled-bg {
@@ -141,25 +164,12 @@ select.form-control-md {
 
     .select-group {
       .group-name {
-        padding: 0 15px;
+        padding: 0 10px;
         margin-bottom: 0;
-        font-size: $font-size-base;
-        font-weight: 600;
+        font-size: $font-size-sm;
+        height: 30px;
+        line-height: 30px;
       }
-
-      ul > li {
-        padding: 10px 30px;
-      }
-    }
-  }
-
-  &.thy-select-custom-show-option {
-    .thy-form-control {
-      border-radius: $input-border-radius-md $input-border-radius-md 0 0;
-    }
-
-    .thy-select-custom-options {
-      border-top: 0;
     }
   }
 }
@@ -172,7 +182,7 @@ select.form-control-md {
   }
 
   .thy-select-custom-options {
-    top: $input-height-sm;
+    top: $input-custom-height-sm + 4px;
   }
 }
 
@@ -194,7 +204,7 @@ select.form-control-md {
   }
 
   .thy-select-custom-options {
-    top: $input-height-lg;
+    top: $input-custom-height-lg + 4px;
   }
 }
 
@@ -205,6 +215,6 @@ select.form-control-md {
   }
 
   .thy-select-custom-options {
-    top: $input-height-md;
+    top: $input-custom-height-md + 4px;
   }
 }

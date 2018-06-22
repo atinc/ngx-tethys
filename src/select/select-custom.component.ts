@@ -150,9 +150,9 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
     dropDownMenuToggle() {
         this._expandOptions = !this._expandOptions;
         if (this._expandOptions) {
-            this._addClass();
+            // this._addClass();
         } else {
-            this._removeClass();
+            // this._removeClass();
         }
     }
 
