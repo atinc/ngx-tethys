@@ -6,7 +6,9 @@ import {
     OnInit,
     forwardRef,
     ElementRef,
-    ViewChild
+    ViewChild,
+    OnChanges,
+    SimpleChanges
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { helpers } from '../util';
@@ -24,7 +26,7 @@ import { UpdateHostClassService } from '../shared';
             multi: true
         }]
 })
-export class ThySwitchComponent implements OnInit, ControlValueAccessor {
+export class ThySwitchComponent implements OnInit, ControlValueAccessor, OnChanges {
 
     public model: any;
 
@@ -59,25 +61,30 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor {
     }
 
 
-    @Input()
-    set thyDisabled(value: boolean | string) {
-        this.disabled = helpers.isBoolean(value) ? Boolean(value) : value === 'true';
-    }
+    @Input() thyDisabled: boolean | string;
 
     @Output() thyChange: EventEmitter<Event> = new EventEmitter<Event>();
-
 
     constructor(private updateHostClassService: UpdateHostClassService) {
 
     }
 
-    public onModelChange: Function = () => {
-
+    ngOnInit() {
+        this.updateHostClassService.initializeElement(this.switchElementRef.nativeElement);
+        this.setClassNames();
     }
 
-    public onModelTouched: Function = () => {
-
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes.thyDisabled) {
+            const value = changes.thyDisabled.currentValue;
+            this.disabled = helpers.isBoolean(value) ? Boolean(value) : value === 'true';
+        }
     }
+
+    public onModelChange: Function = () => { };
+
+    public onModelTouched: Function = () => { };
+
 
     writeValue(value: any) {
         this.model = value;
@@ -108,11 +115,6 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor {
             classNames.push(`thy-switch-${this.size}`);
         }
         this.updateHostClassService.updateClass(classNames);
-    }
-
-    ngOnInit() {
-        this.updateHostClassService.initializeElement(this.switchElementRef.nativeElement);
-        this.setClassNames();
     }
 
 }
