@@ -64,7 +64,7 @@ export class ThyButtonComponent implements OnInit {
 
     @Input()
     set thyButton(value: ThyButtonType) {
-       this._setBtnType(value);
+        this._setBtnType(value);
     }
 
     @Input()
@@ -124,16 +124,17 @@ export class ThyButtonComponent implements OnInit {
     }
 
     private _setLoadingStatus() {
-        let disabled = false;
+        // let disabled = false;
         let innerText: string;
         if (this._loading) {
-            disabled = true;
+            // disabled = true;
             innerText = this._loadingText ? this._loadingText : null;
         } else {
-            disabled = false;
+            // disabled = false;
             innerText = this._originalText ? this._originalText : null;
         }
-        this.renderer.setProperty(this._nativeElement, 'disabled', disabled);
+        // this.renderer.setProperty(this._nativeElement, 'disabled', disabled);
+        this._setClasses();
         if (innerText) {
             this.renderer.setProperty(this._nativeElement, 'innerText', innerText);
         }
@@ -158,6 +159,9 @@ export class ThyButtonComponent implements OnInit {
         }
         if (this._isRadiusSquare) {
             classNames.push('btn-square');
+        }
+        if (this._loading) {
+            classNames.push('loading');
         }
         this.updateHostClassService.updateClass(classNames);
     }

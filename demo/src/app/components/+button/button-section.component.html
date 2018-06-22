@@ -2,20 +2,22 @@
     <div class="header">
         <h2>主要按钮</h2>
     </div>
-    <div class="body demo-buttons">
-        <button thyButton="primary">确认</button>
-        <button thyButton="primary" thyIcon="wtf wtf-plus">新建文件夹</button>
-        <button thyButton="danger">删除</button>
+    <div class="body">
+        <button thyButton="primary" class="mr-2">确认</button>
+        <button thyButton="primary" thyIcon="wtf wtf-plus" class="mr-2">新建文件夹</button>
+        <button thyButton="danger" class="mr-2">删除</button>
         <br>
         <br>
-        <button thyButton="primary" disabled>确认</button>
-        <button thyButton="primary" disabled thyIcon="wtf wtf-plus">新建文件夹</button>
-        <button thyButton="danger" disabled>删除</button>
+        <button thyButton="primary" class="mr-2" disabled>确认</button>
+        <button thyButton="primary" class="mr-2" disabled thyIcon="wtf wtf-plus">新建文件夹</button>
+        <button thyButton="danger" class="mr-2" disabled>删除</button>
 
         <br>
         <br>
-        <button thyButton="primary">确认</button>
-        <button thyButton="link-secondary">取消</button>
+        <div class="btn-pair">
+            <button thyButton="primary">确认</button>
+            <button thyButton="link-secondary">取消</button>
+        </div>
     </div>
 </section>
 
@@ -79,11 +81,17 @@
         <button thyButton="primary-square">主要按钮</button>
         <button thyButton="success-square">成功按钮</button>
         <button thyButton="warning-square">警告按钮</button>
-        <button thyButton="danger-square">危险按钮</button><br><br>
+        <button thyButton="danger-square">危险按钮</button>
+        <br><br>
         <button thyButton="outline-primary-square">主要按钮</button>
         <button thyButton="outline-success-square">成功按钮</button>
         <button thyButton="outline-warning-square">警告按钮</button>
         <button thyButton="outline-danger-square">危险按钮</button>
+        <br><br>
+        <button thyButton="outline-primary-square" thySize="md">主要按钮</button>
+        <button thyButton="outline-success-square" thySize="md">成功按钮</button>
+        <button thyButton="outline-warning-square" thySize="md">警告按钮</button>
+        <button thyButton="outline-danger-square" thySize="md">危险按钮</button>
     </div>
 </section>
 
@@ -144,6 +152,13 @@
             <button thyButton="">Left</button>
             <button thyButton="">Middle</button>
             <button thyButton="">Right</button>
+        </thy-button-group>
+        <br>
+        <br>
+        <thy-button-group thySize="sm" thyType="outline-default">
+            <button thyButton="">年</button>
+            <button thyButton="">月</button>
+            <button thyButton="">日</button>
         </thy-button-group>
     </div>
 </section>

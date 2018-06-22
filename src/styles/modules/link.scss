@@ -31,7 +31,7 @@ a:not([href]):not([tabindex]) {
 }
 
 // 带有图标的链接
-a.link-icon {
+a.link-has-icon {
     .wtf {
         padding-right: $link-icon-padding-right;
     }
