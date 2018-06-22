@@ -38,3 +38,18 @@
 @include text-emphasis-variant(".text-placeholder", $gray-400);
 
 @include text-emphasis-variant(".text-body", $gray-800);
+
+// font-size-{name}
+$font-sizes: (
+  base: $font-size-base, 
+  sm: $font-size-sm,
+  md: $font-size-md,
+  xs: $font-size-xs,
+  lg: $font-size-lg
+);
+
+@each $name, $size in $font-sizes {
+  .font-size-#{$name} {
+     font-size: $size !important;
+  }
+}

@@ -8,7 +8,9 @@ a {
         text-decoration: $link-hover-decoration;
     }
     .wtf {
-        font-size: $font-size-base
+        font-size: $font-size-base;
+        display: inline-block;
+        padding-right: 5px;
     }
 }
 

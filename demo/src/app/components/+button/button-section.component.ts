@@ -71,6 +71,12 @@ export class DemoButtonSectionComponent {
             default: ''
         },
         {
+            property: 'thyTheme',
+            description: `按钮展示类型，默认图标移上去显示主色， danger-weak 鼠标移上去显示 danger 红色`,
+            type: 'String',
+            default: ''
+        },
+        {
             property: 'thySize',
             description: `大小，xs | sm | lg | ''`,
             type: 'String',
