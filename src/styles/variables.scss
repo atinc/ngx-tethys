@@ -70,7 +70,7 @@ $font-size-xs: .625rem; // 10px
 // code
 $code-color: $danger;
 $input-btn-padding-y: 0.469rem !default;
-$input-btn-padding-x: 2.438rem !default;
+$input-btn-padding-x: 1.313rem !default;//2.375rem !default;
 $input-btn-padding-y-sm: .25rem !default;
 $input-btn-padding-x-sm: .5rem !default;
 $input-btn-padding-y-lg: 0.656rem !default;
@@ -97,6 +97,14 @@ $btn-disabled-border-color: $gray-300 !default;
 $btn-link-color-default: $gray-500 !default;
 $btn-link-color-disabled: $gray-400 !default;
 $btn-icon-light-color: $gray-300 !default;
+
+// min-width
+$btn-base-min-width: 106px;
+$btn-md-min-width: 106px;
+$btn-sm-min-width: 70px;
+$btn-xs-min-width: 60px;
+$btn-lg-min-width: 108px;
+
 // Dropdown
 $dropdown-toggle-y-l: 1.25rem ! default;
 $dropdown-toggle-y-r: 0.938rem ! default;

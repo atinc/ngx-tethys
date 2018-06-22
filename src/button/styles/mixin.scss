@@ -92,10 +92,13 @@
 }
 
 // Button sizes
-@mixin button-size($padding-y, $padding-x, $font-size, $line-height, $border-radius) {
+@mixin button-size($padding-y, $padding-x, $font-size, $line-height, $border-radius, $min-width) {
     padding: $padding-y $padding-x;
     font-size: $font-size;
     line-height: $line-height; // Manually declare to provide an override to the browser default
+    @if $min-width {
+        min-width: $min-width;
+    }
     @if $enable-rounded {
         border-radius: $border-radius;
     }

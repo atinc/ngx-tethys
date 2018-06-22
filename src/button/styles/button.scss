@@ -16,7 +16,7 @@
     vertical-align: middle;
     user-select: none;
     border: $btn-border-width solid transparent;
-    @include button-size($btn-padding-y, $btn-padding-x, $font-size-base, $btn-line-height, $btn-border-radius);
+    @include button-size($btn-padding-y, $btn-padding-x, $font-size-base, $btn-line-height, $btn-border-radius, $btn-base-min-width);
     @include transition($btn-transition); // Share hover and focus styles
     @include hover-focus {
         text-decoration: none;
@@ -43,7 +43,7 @@
         // }
     }
 } 
-
+// 有图标居右设置间距
 .btn.btn-has-icon {
     i, .wtf {
         @include button-icon-margin(0.375rem);
@@ -55,7 +55,6 @@ a.btn.disabled,
 fieldset:disabled a.btn {
     pointer-events: none;
 }
-
 
 //
 // Alternate buttons
@@ -78,40 +77,6 @@ fieldset:disabled a.btn {
     @include button-outline-variant($gray-600, $gray-300, $primary, null, $primary, null, $primary);
 }
 
-// .btn-primary {
-//     @include button-variant($white, $white, $primary, $primary, $primary, $primary, $primary, $primary);
-//     @include button-hover-box-shadow($primary);
-// }
-
-// .btn-warning {
-//     @include button-variant($white, $white, $warning, $warning, $warning, $warning, $warning, $warning);
-// }
-
-// .btn-success {
-//     @include button-variant($white, $white, $success, $success, $success, $success, $success, $success);
-// }
-
-// .btn-danger {
-//     @include button-variant($white, $white, $danger, $danger, $danger, $danger, $danger, $danger);
-//     @include button-hover-box-shadow($danger);
-// }
-
-// // $color, $border-color, $hover-color, $hover-background, 
-// // $hover-border, $active-background, $active-border
-// .btn-outline-primary {
-//     @include btn-normal-radius();
-//     @include button-outline-variant($primary, $primary, $white, $primary, null, $primary, null);
-// }
-
-// .btn-outline-default {
-//     @include button-outline-variant($gray-600, $gray-300, $primary, null, $primary, null, $primary);
-// }
-
-// .btn-outline-info {
-//     border-radius: $border-radius;
-//     @include button-outline-variant($primary, $primary, $white, $primary, null, $primary, null);
-// }
-
 // 圆角方正，回归正常的圆角
 .btn-square {
     @include btn-square-radius();
@@ -121,15 +86,15 @@ fieldset:disabled a.btn {
 // Button Sizes
 //
 .btn-lg {
-    @include button-size($btn-padding-y-lg, $btn-padding-x-lg, $font-size-lg, $btn-line-height-lg, $btn-border-radius-lg);
+    @include button-size($btn-padding-y-lg, $btn-padding-x-lg, $font-size-lg, $btn-line-height-lg, $btn-border-radius-lg, $btn-lg-min-width);
 }
 
 .btn-md {
-    @include button-size($btn-padding-y-md, $btn-padding-x-md, $font-size-base, $btn-line-height, $btn-border-radius);
+    @include button-size($btn-padding-y-md, $btn-padding-x-md, $font-size-base, $btn-line-height, $btn-border-radius, $btn-md-min-width);
 }
 
 .btn-sm {
-    @include button-size($btn-padding-y-sm, $btn-padding-x-sm, $font-size-sm, $btn-line-height-sm, $btn-border-radius-sm);
+    @include button-size($btn-padding-y-sm, $btn-padding-x-sm, $font-size-sm, $btn-line-height-sm, $btn-border-radius-sm, $btn-sm-min-width);
 }
 
 //
@@ -156,6 +121,12 @@ fieldset:disabled a.btn {
     &.disabled {
         color: $btn-link-disabled-color;
     } // No need for an active state here
+}
+
+// 去除按钮图标和按钮链接的最小宽度
+.btn.btn-icon,
+.btn.btn-link {
+    min-width: 0px;
 }
 
 .btn-link.btn-link-info {
