@@ -4,6 +4,7 @@
 }
 
 .thy-switch-disabled {
+  cursor: not-allowed;
   opacity: .5;
 }
 
@@ -12,16 +13,16 @@
   .thy-switch-label {
     border-radius: 20px !important;
   }
-
   .thy-switch-label::before {
     right: 2px !important;
   }
-
   .thy-switch-label::after {
     left: 2px !important;
   }
 }
-@each $color, $value in $theme-colors {
+
+@each $color,
+$value in $theme-colors {
   .thy-switch-#{$color} {
     @include thy-switch-variant($value);
   }
