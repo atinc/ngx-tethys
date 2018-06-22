@@ -1,8 +1,9 @@
-import { Component, OnInit, Input, ContentChild, TemplateRef, QueryList, Output, EventEmitter, } from '@angular/core';
+import { Component, OnInit, Input, ContentChild, TemplateRef, QueryList, Output, EventEmitter, HostBinding, } from '@angular/core';
 import { ThyOptionComponent } from './option.component';
 import { ThyOptionGroupComponent } from './option-group.component';
 import { ThySelectCustomComponent } from './select-custom.component';
 import { UpdateHostClassService } from '../shared';
+import { helpers } from '../util';
 
 @Component({
     selector: 'select-container',
@@ -26,10 +27,11 @@ export class SelectContainerComponent implements OnInit {
         public parent: ThySelectCustomComponent,
         private updateHostClassService: UpdateHostClassService
     ) {
-
     }
 
     ngOnInit() {
+        const classes = this.parent._mode === 'multiple' ? [`thy-select-custom--multiple`] : [];
+        this.updateHostClassService.updateClass(classes);
     }
 
     selectedOption(option: any) {
@@ -56,7 +58,6 @@ export class SelectContainerComponent implements OnInit {
         } else {
             this.parent._innerValue = option;
             this.parent._expandOptions = false;
-            this.parent._removeClass();
             this.parent.valueOnChange(this.parent._innerValue);
         }
     }
