@@ -9,6 +9,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { isObject, isNumber, isDate, inputValueToBoolean } from '../util/helpers';
 import { daterangepickerUtilIdentificationValueType, daterangepickerUtilConvertToDaterangepickerObject } from './util';
 import { ThyDaterangepickerContainerComponent } from './daterangepicker-container.component';
+import { ThyPositioningService } from '../positioning/positioning.service';
 
 const DATEPICKER_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
@@ -51,6 +52,7 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
         private _viewContainerRef: ViewContainerRef,
         private cis: ComponentLoaderFactory,
         private service: ThyDatepickerService,
+        private thyPositioningService: ThyPositioningService,
     ) {
         this._loader = cis.createLoader<ThyDaterangepickerContainerComponent>(
             _elementRef,
@@ -94,9 +96,8 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
 
         this.service.initLocale();
 
-        this._loader.attach(ThyDaterangepickerContainerComponent)
+        const daterangeContainerRef = this._loader.attach(ThyDaterangepickerContainerComponent)
             .to(this.thyContainer)
-            .position({ attachment: this.thyPlacement })
             .show({
                 hideLoader: () => {
                     this.hide();
@@ -111,6 +112,13 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
                         this._sendValueToNgModel();
                     }
                 }
+            });
+            this.thyPositioningService.setPosition({
+                target: daterangeContainerRef.location,
+                attach: this._elementRef,
+                placement: this.thyPlacement,
+                offset: 2,
+                appendToBody: true
             });
     }
 
