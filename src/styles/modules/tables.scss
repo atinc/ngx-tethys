@@ -84,6 +84,7 @@
       }
     }
     @include hover {
+      cursor: move;
       td {
         .table-draggable-icon {
           display: block;
