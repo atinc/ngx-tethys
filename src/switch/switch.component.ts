@@ -77,7 +77,7 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor, OnChang
         // 兼容降级后的Switch，使用onChanges
         if (changes.thyDisabled) {
             const value = changes.thyDisabled.currentValue;
-            this.disabled = helpers.isBoolean(value) ? Boolean(value) : value === 'true' || value === '1';
+            this.disabled = helpers.isBoolean(value) ? Boolean(value) : (value === 'true' || value === '1');
             this.setClassNames();
         }
     }
