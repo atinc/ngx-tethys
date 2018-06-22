@@ -35,10 +35,12 @@ $light: $gray-300;
 $enable-gradients: false;
 $enable-shadows: true;
 // link
-$link-color: $primary;
-$link-decoration: none;
-$link-hover-color: $primary;
-$link-hover-decoration: underline;
+$link-color: $primary !default;
+$link-decoration: none !default;
+$link-hover-color: $primary !default;
+$link-hover-decoration: underline !default;
+$link-icon-padding-right: 4px !default;
+
 // box shadow
 $box-shadow: 0 0 24px rgba(0, 0, 0, 0.18);
 $enable-shadows: false !default;
@@ -120,6 +122,7 @@ $input-box-shadow: none;
 $input-placeholder-color: $gray-400 !default;
 $input-color: $gray-800 !default;
 $input-label-color: $gray-600 !default; // label 文本的颜色，包括 Checkbox 和 Radio Label 的颜色
+$input-label-checked-color: $gray-800 !default; // Checkbox 和 Radio Label 选中后的颜色
 $input-border-color: $gray-200 !default;
 $input-hover-border-color: $primary !default;
 $input-disabled-bg: $gray-100 !default;

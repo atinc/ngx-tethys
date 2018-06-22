@@ -23,6 +23,8 @@ export class ThyFormCheckBaseComponent implements ControlValueAccessor {
 
     @HostBinding('class.form-check-inline') _isFormCheckInline = false;
 
+    @HostBinding('class.form-check-checked') _isChecked = false;
+
     @Input()
     set thyInline(value: boolean) {
         this._isFormCheckInline = inputValueToBoolean(value);
@@ -50,6 +52,7 @@ export class ThyFormCheckBaseComponent implements ControlValueAccessor {
     writeValue(obj: boolean): void {
         if (obj !== this._innerValue) {
             this._innerValue = obj;
+            this._isChecked = !!this._innerValue;
         }
     }
 
@@ -67,6 +70,7 @@ export class ThyFormCheckBaseComponent implements ControlValueAccessor {
 
     updateValue(value: boolean): void {
         this._innerValue = value;
+        this._isChecked = !!this._innerValue;
         this.onChangeCallback(value);
     }
 

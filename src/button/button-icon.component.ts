@@ -20,6 +20,10 @@ const shapeClassesMap: any = {
     'self-icon': ['btn-icon-self-circle']
 };
 
+const themeClassesMap: any = {
+    'danger-weak': ['btn-icon-danger-weak']
+};
+
 @Component({
     selector: '[thy-button-icon],[thyButtonIcon]',
     templateUrl: './button-icon.component.html',
@@ -41,6 +45,8 @@ export class ThyButtonIconComponent implements OnInit {
     _iconClasses: string[];
 
     _icon: string;
+
+    _theme: string;
 
     @HostBinding('class.btn') _isBtn = true;
     @HostBinding('class.btn-icon') _isBtnIcon = true;
@@ -90,10 +96,23 @@ export class ThyButtonIconComponent implements OnInit {
         this._isLighted = inputValueToBoolean(value);
     }
 
+    @Input()
+    set thyTheme(value: string) {
+        this._theme = value;
+        if (this._initialized) {
+            this._setClasses();
+        }
+    }
+
     private _setClasses() {
         const classes = sizeClassesMap[this._size] ? [...sizeClassesMap[this._size]] : [];
         if (this._shape && shapeClassesMap[this._shape]) {
             shapeClassesMap[this._shape].forEach((className: string) => {
+                classes.push(className);
+            });
+        }
+        if (this._theme && themeClassesMap[this._theme]) {
+            themeClassesMap[this._theme].forEach((className: string) => {
                 classes.push(className);
             });
         }
