@@ -1,35 +1,37 @@
-<div class="thy-select-custom-options">
+<div class="thy-select-custom-menu">
     <div class="thy-select-search" *ngIf="parent.thyShowSearch">
         <thy-input-search thyAutofocus name="search" [(ngModel)]="searchText" (ngModelChange)="onSearchFilter()"></thy-input-search>
     </div>
-    <ng-container *ngIf="listOfOptionComponent.length > 0">
-        <ul class="select-option" *ngIf="!isSearch">
-            <li class="option-item" [ngClass]="{'option-hover-bg':(option?.thyValue === parent._innerValue?.thyValue || option.selected),'option-disabled-bg':option.thyDisabled}"
-                *ngFor="let option of listOfOptionComponent;" option-item [option]="option" (click)="selectedOption(option)">
-            </li>
-        </ul>
-        <ul class="select-option" *ngIf="isSearch">
-            <li class="option-item" [ngClass]="{'option-hover-bg':(option?.thyValue === parent._innerValue?.thyValue || option.selected),'option-disabled-bg':option.thyDisabled}"
-                *ngFor="let option of searchData;" option-item [option]="option" (click)="selectedOption(option)">
-            </li>
-        </ul>
-    </ng-container>
-
-    <ng-container *ngIf="listOfOptionGroupComponent.length > 0">
-        <div class="select-group" [hidden]="isSearch" *ngFor="let group of listOfOptionGroupComponent;">
-            <p class="group-name text-info" *ngIf="group.listOfOptionComponent.length > 0">{{group.thyGroupLabel}}</p>
-            <ul class="select-option">
+    <div class="thy-select-custom-options">
+        <ng-container *ngIf="listOfOptionComponent.length > 0">
+            <ul class="select-option" *ngIf="!isSearch">
                 <li class="option-item" [ngClass]="{'option-hover-bg':(option?.thyValue === parent._innerValue?.thyValue || option.selected),'option-disabled-bg':option.thyDisabled}"
-                    *ngFor="let option of group.listOfOptionComponent;" option-item [option]="option" (click)="selectedOption(option)"></li>
-            </ul>
-        </div>
-        <div class="select-group" [hidden]="!isSearch" *ngFor="let group of searchData;">
-            <p class="group-name text-info" *ngIf="group.listOfOptionComponent.length > 0">{{group.thyGroupLabel}}</p>
-            <ul class="select-option">
-                <li class="option-item" [ngClass]="{'option-hover-bg':(option?.thyValue === parent._innerValue?.thyValue || option.selected),'option-disabled-bg':option.thyDisabled}"
-                    *ngFor="let option of group.listOfOptionComponent;" option-item [option]="option" (click)="selectedOption(option)">
+                    *ngFor="let option of listOfOptionComponent;" option-item [option]="option" (click)="selectedOption(option)">
                 </li>
             </ul>
-        </div>
-    </ng-container>
+            <ul class="select-option" *ngIf="isSearch">
+                <li class="option-item" [ngClass]="{'option-hover-bg':(option?.thyValue === parent._innerValue?.thyValue || option.selected),'option-disabled-bg':option.thyDisabled}"
+                    *ngFor="let option of searchData;" option-item [option]="option" (click)="selectedOption(option)">
+                </li>
+            </ul>
+        </ng-container>
+
+        <ng-container *ngIf="listOfOptionGroupComponent.length > 0">
+            <div class="select-group" [hidden]="isSearch" *ngFor="let group of listOfOptionGroupComponent;">
+                <p class="group-name text-info" *ngIf="group.listOfOptionComponent.length > 0">{{group.thyGroupLabel}}</p>
+                <ul class="select-option">
+                    <li class="option-item" [ngClass]="{'option-hover-bg':(option?.thyValue === parent._innerValue?.thyValue || option.selected),'option-disabled-bg':option.thyDisabled}"
+                        *ngFor="let option of group.listOfOptionComponent;" option-item [option]="option" (click)="selectedOption(option)"></li>
+                </ul>
+            </div>
+            <div class="select-group" [hidden]="!isSearch" *ngFor="let group of searchData;">
+                <p class="group-name text-info" *ngIf="group.listOfOptionComponent.length > 0">{{group.thyGroupLabel}}</p>
+                <ul class="select-option">
+                    <li class="option-item" [ngClass]="{'option-hover-bg':(option?.thyValue === parent._innerValue?.thyValue || option.selected),'option-disabled-bg':option.thyDisabled}"
+                        *ngFor="let option of group.listOfOptionComponent;" option-item [option]="option" (click)="selectedOption(option)">
+                    </li>
+                </ul>
+            </div>
+        </ng-container>
+    </div>
 </div>
