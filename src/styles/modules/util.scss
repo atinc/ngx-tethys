@@ -38,20 +38,36 @@
 
 // text-placeholder #cacaca
 @include text-emphasis-variant(".text-placeholder", $gray-400);
-
 @include text-emphasis-variant(".text-body", $gray-800);
 
 // font-size-{name}
-$font-sizes: (
-  base: $font-size-base, 
-  sm: $font-size-sm,
-  md: $font-size-md,
-  xs: $font-size-xs,
-  lg: $font-size-lg
-);
-
+$font-sizes: ( base: $font-size-base, sm: $font-size-sm, md: $font-size-md, xs: $font-size-xs, lg: $font-size-lg );
 @each $name, $size in $font-sizes {
   .font-size-#{$name} {
-     font-size: $size !important;
+    font-size: $size !important;
+  }
+}
+
+// size:24,28
+.icon-text {
+  display: flex;
+  align-items: center;
+  font-size: $font-size-base;
+
+  i {
+    font-size: 24px;
+    margin-right: 5px;
+  }
+
+  &-lg {
+    i {
+      font-size: 28px;
+    }
+  }
+
+  &-sm {
+    i {
+      font-size: 20px;
+    }
   }
 }
