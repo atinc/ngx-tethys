@@ -76,6 +76,8 @@
                 <thy-option thyValue="001" thyLabelText="上衣"></thy-option>
                 <thy-option thyValue="002" thyLabelText="裤子"></thy-option>
             </thy-option-group>
+            <thy-option *ngFor="let option of optionData" [thyValue]="option._id" [thyLabelText]="option.display_name">
+            </thy-option>
             <thy-option-group thyGroupLabel="食物">
                 <thy-option thyValue="003" thyLabelText="饮料"></thy-option>
                 <thy-option thyValue="004" thyLabelText="面包" [thyDisabled]="true"></thy-option>
@@ -91,9 +93,8 @@
         <h2>自定义 select多选</h2>
     </div>
     <div class="body">
-        <thy-custom-select [(ngModel)]="selectedItem4" (ngModelChange)="selectMultiple()" thyMode="multiple" thyPlaceHolder="请选择" [thyShowSearch]="true">
-            <thy-option *ngFor="let option of optionData" thySearchKey="{{option?.name}},{{option?.display_name}},{{option?.pin_yin}}"
-                [thyValue]="option._id" [thyLabelText]="option.display_name">
+        <thy-custom-select [(ngModel)]="selectedItem4" thyMode="multiple" thyPlaceHolder="请选择">
+            <thy-option *ngFor="let option of optionData" [thyValue]="option._id" [thyLabelText]="option.display_name">
             </thy-option>
         </thy-custom-select>
     </div>

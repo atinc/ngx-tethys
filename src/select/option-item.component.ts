@@ -9,6 +9,6 @@ export class OptionItemComponent implements OnInit {
     @Input() option: any;
 
     ngOnInit() {
-        // console.log(this.option);
+        //  console.log(this.option);
     }
 }
