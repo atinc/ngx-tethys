@@ -34,7 +34,7 @@
         transition: all .3s;
       }
       & .active,
-      .thy-transfer-list-content-item:not(&-item-disabled):hover {
+      & .thy-transfer-list-content-item:hover {
         cursor: pointer;
         @include box-shadow(0px 0px 8px 2px $transfer-list-item-hover-color);
       }
@@ -48,6 +48,7 @@
     }
     .thy-transfer-list-content-item {
       @include hover {
+        cursor: move !important;
         .thy-transfer-drag-icon {
           display: inline-block;
         }
