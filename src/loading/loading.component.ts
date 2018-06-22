@@ -29,5 +29,7 @@ export class ThyLoadingComponent {
         this.isMask = inputValueToBoolean(value);
     }
 
+    @HostBinding('class.thy-loading') loadingClassName = true;
+
     constructor() { }
 }
