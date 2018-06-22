@@ -8,7 +8,8 @@ a {
         text-decoration: $link-hover-decoration;
     }
     .wtf {
-        font-size: $font-size-base
+        font-size: $font-size-base;
+        display: inline-block;
     }
 }
 
@@ -26,6 +27,13 @@ a:not([href]):not([tabindex]) {
     }
     &:focus {
         outline: 0;
+    }
+}
+
+// 带有图标的链接
+a.link-icon {
+    .wtf {
+        padding-right: $link-icon-padding-right;
     }
 }
 

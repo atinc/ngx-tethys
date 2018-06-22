@@ -162,8 +162,19 @@ fieldset:disabled a.btn {
     @include btn-link-variant($info, $primary, none);
 }
 
+// 兼容之前的样式
 .btn-link.btn-link-default {
     @include btn-link-variant($btn-link-color-default, $primary, none);
+}
+
+// 默认显示灰色，鼠标移上去显示主色
+.btn-link.btn-link-primary-weak {
+    @include btn-link-variant($info, $primary, none);
+}
+
+// 默认显示灰色，鼠标移上去显示红色
+.btn-link.btn-link-danger-weak {
+    @include btn-link-variant($info, $danger, none);
 }
 
 //

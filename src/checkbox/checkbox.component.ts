@@ -25,8 +25,4 @@ export class ThyCheckboxComponent extends ThyFormCheckBaseComponent {
     ) {
         super(thyTranslate);
     }
-
-    change() {
-        this.updateValue(!this._innerValue);
-    }
 }
