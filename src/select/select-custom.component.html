@@ -6,7 +6,7 @@
     </div>
     <div class="align-middle" *ngIf="_mode === 'multiple'">
         <span class="mr-1" [hidden]="_innerValues?.length === 0" *ngFor="let item of _innerValues;index as i" thyLabel="default"
-            thyAfterIcon="wtf-times" (thyOnRemove)="remove(item,i)">
+            thyAfterIcon="wtf-times" (click)="remove($event,item,i)">
             {{item?.thyLabelText}}
         </span>
         <span class="align-middle text-placeholder" *ngIf="_innerValues?.length === 0">
@@ -14,4 +14,4 @@
         </span>
     </div>
 </div>
-<select-container *ngIf="_expandOptions" [listOfOptionComponent]="listOfOptionComponent" [listOfOptionGroupComponent]="listOfOptionGroupComponent"></select-container>
+<select-container *ngIf="_expandOptions" [listOfOptionComponent]="listOfOptionComponent">
