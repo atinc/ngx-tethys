@@ -36,7 +36,7 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor, OnChang
 
     public disabled?: Boolean = false;
 
-    public classNames: string[] = [];
+    public classNames: string[] | string;
 
     public typeArray: any = ['primary', 'info', 'warning', 'danger'];
 
@@ -119,6 +119,7 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor, OnChang
         if (this.disabled) {
             this.classNames.push(`thy-switch-disabled`);
         }
+        this.classNames = this.classNames.join(' ');
     }
 }
 
