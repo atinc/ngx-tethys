@@ -12,6 +12,8 @@ import localeZhHans from '@angular/common/locales/zh-Hans';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { isObject, isNumber, isDate, inputValueToBoolean } from '../util/helpers';
 import { datepickerUtilIdentificationValueType, datepickerUtilConvertToDatepickerObject } from './util';
+import { ThyPositioningService } from '../positioning/positioning.service';
+
 
 registerLocaleData(localeZhHans, 'zh-Hans');
 
@@ -58,6 +60,7 @@ export class ThyDatepickerDirective implements OnInit, AfterContentInit, Control
         _viewContainerRef: ViewContainerRef,
         cis: ComponentLoaderFactory,
         private datepickerService: ThyDatepickerService,
+        private thyPositioningService: ThyPositioningService,
 
     ) {
         this._loader = cis.createLoader<ThyDatepickerContainerComponent>(
@@ -102,7 +105,7 @@ export class ThyDatepickerDirective implements OnInit, AfterContentInit, Control
 
         this.datepickerService.initLocale();
 
-        this._loader.provide({ provide: ThyDatepickerConfig, useValue: this._config })
+        const dateContainerRef = this._loader.provide({ provide: ThyDatepickerConfig, useValue: this._config })
             .attach(ThyDatepickerContainerComponent)
             .to(this.thyContainer)
             .position({ attachment: this.thyPlacement })
@@ -122,6 +125,13 @@ export class ThyDatepickerDirective implements OnInit, AfterContentInit, Control
                         this._initValueDate(result);
                     }
                 }
+            });
+            this.thyPositioningService.setPosition({
+                target: dateContainerRef.location,
+                attach: this._elementRef,
+                placement: this.thyPlacement,
+                offset: 2,
+                appendToBody: true
             });
     }
 

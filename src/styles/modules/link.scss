@@ -8,7 +8,7 @@ a {
         text-decoration: $link-hover-decoration;
     }
     .wtf {
-        font-size: $font-size-base;
+        // font-size: $font-size-md;
         display: inline-block;
     }
 }
@@ -43,6 +43,9 @@ a {
     }
     &.link-secondary {
         @include link-variant($info, none, $primary, none);
+    }
+    &.link-danger-weak {
+        @include link-variant($info, none, $danger, none);
     }
     &.link-sm {
         @include link-size($font-size-sm, $font-size-sm);

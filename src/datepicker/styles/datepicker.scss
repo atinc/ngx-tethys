@@ -480,5 +480,9 @@ thy-daterangepicker-container {
     box-shadow: $box-shadow;
 }
 
+thy-daterangepicker-container {
+    width: 546px;
+}
+
 @include theming('ngx', $primary);
 @include thy-detepicker-variant();
