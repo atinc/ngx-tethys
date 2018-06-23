@@ -22,8 +22,8 @@
 }
 
 .thy-operation-links {
-   > a,
-  > button {
+   > button,
+  > a {
     display: inline-block;
     margin-right: $operation-link-margin-y;
 
@@ -53,6 +53,7 @@ $font-sizes: ( base: $font-size-base, sm: $font-size-sm, md: $font-size-md, xs: 
   display: inline-block;
   position: relative;
   font-size: $font-size-base;
+  margin-right: 28px;
 
   i {
     position: absolute;
@@ -61,29 +62,21 @@ $font-sizes: ( base: $font-size-base, sm: $font-size-sm, md: $font-size-md, xs: 
     font-size: 24px;
   }
 
-  span {
-    margin-left: 28px;
-  }
-
   &-lg {
+    margin-right: 28px;
+
     i {
       font-size: 28px;
       top: -12px;
     }
-
-    span {
-      margin-left: 28px;
-    }
   }
 
   &-sm {
+    margin-right: 25px;
+
     i {
       font-size: 20px;
       top: -4px;
-    }
-
-    span {
-      margin-left: 25px;
     }
   }
 }
