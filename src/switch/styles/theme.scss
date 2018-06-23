@@ -1,5 +1,1 @@
-@each $color, $value in $theme-colors {
-  .thy-switch-#{$color} {
-    @include thy-switch-variant($value);
-  }
-}
+@include thy-switch-theme();

@@ -205,6 +205,8 @@ export class DemoGridSectionComponent implements OnInit {
         total: 100
     };
 
+    public abc = true;
+
     public loadingDone = false;
 
     public draggableOptions = {
@@ -236,7 +238,6 @@ export class DemoGridSectionComponent implements OnInit {
     }
 
     onSwitchChange(event) {
-        // 设置选中后，如果需要取消选中(必须调 refresh 来刷新数据)
         setTimeout(() => {
             event.row.checked = false;
             event.refresh();

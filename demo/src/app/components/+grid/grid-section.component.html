@@ -30,11 +30,11 @@
         <h2>Bordered Grid</h2>
     </div>
     <div class="body">
-        <thy-grid [thyModel]='model' [thyLoadingDone]="loadingDone"  [thyDraggable]="true"  thyLoadingText="测试加载" thyTheme="bordered" thyRowKey="id" thyClassName="table-hover"
+        <thy-grid [thyModel]='model' [thyLoadingDone]="loadingDone" thyLoadingText="测试加载" thyTheme="bordered" thyRowKey="id" thyClassName="table-hover"
             (thyOnRadioSelectChange)="onRadioSelectChange($event)">
             <thy-grid-column thyTitle="编号" thyType="index"></thy-grid-column>
             <thy-grid-column thyTitle="选择" thyType="radio" [thySelections]="model[1]"></thy-grid-column>
-            <thy-grid-column thyTitle="姓名" thyModelKey="name"></thy-grid-column>
+            <thy-grid-column *ngIf="abc" thyTitle="姓名" thyModelKey="name"></thy-grid-column>
             <thy-grid-column thyTitle="年龄" thyModelKey="age"></thy-grid-column>
             <thy-grid-column thyTitle="备注" thyModelKey="desc"></thy-grid-column>
             <thy-grid-column thyTitle="操作" thyClassName="thy-operation-links text-center">

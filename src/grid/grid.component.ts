@@ -4,7 +4,9 @@ import {
     IterableDiffers,
     IterableDiffer,
     IterableChanges,
-    IterableChangeRecord
+    IterableChangeRecord,
+    ContentChildren,
+    QueryList
 } from '@angular/core';
 import { AfterContentInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import { inputValueToBoolean, isUndefined, get, set } from '../util/helpers';
@@ -15,6 +17,7 @@ import {
 import { PageChangedEvent } from 'ngx-bootstrap/pagination/pagination.component';
 import { AnimateChildAst } from '@angular/animations/browser/src/dsl/animation_ast';
 import { SortablejsOptions } from 'angular-sortablejs/dist';
+import { ThyGridColumnComponent } from './grid-column.component';
 
 export type ThyGridTheme = 'default' | 'bordered';
 
@@ -80,7 +83,6 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy, Do
     set thyModel(value: any) {
         this.model = value || [];
         this._diff = this._differs.find(this.model).create();
-        this._formatModel();
     }
 
     @Input()
@@ -119,14 +121,6 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy, Do
         this.draggableOptions.disabled = !value;
     }
 
-    // @Input()
-    // set thyDraggableOptions(value: SortablejsOptions) {
-    //     if (value) {
-    //         this.draggable = value && !this.draggableOptions.disabled;
-    //         this.draggableOptions = value;
-    //     }
-    // }
-
     @Input()
     set thyFilter(value: any) {
         this._filter = value;
@@ -159,13 +153,41 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy, Do
 
     @Output() thyOnRowClick: EventEmitter<ThyGridRowEvent> = new EventEmitter<ThyGridRowEvent>();
 
+    @ContentChildren(ThyGridColumnComponent) listOfColumnComponents: QueryList<ThyGridColumnComponent>;
+
     constructor(
         private _differs: IterableDiffers
     ) {
         this._bindTrackFn();
     }
 
-    private _formatModel() {
+    private _initializeColumns() {
+        const components = this.listOfColumnComponents.toArray();
+        this.columns = components.map<ThyGridColumn>((component) => {
+            const selections = component.selections.map((item: any) => {
+                if (typeof (item) === 'number' || typeof (item) === 'string') {
+                    return item;
+                } else {
+                    return item[this.rowKey];
+                }
+            });
+            return {
+                key: component.key,
+                model: component.model,
+                title: component.title,
+                type: component.type,
+                selections: selections,
+                width: component.width,
+                className: component.className,
+                headerClassName: component.headerClassName,
+                disabled: component.disabled,
+                defaultText: component.defaultText,
+                templateRef: component.templateRef,
+            };
+        });
+    }
+
+    private _initializeDataModel() {
         this.model.forEach(row => {
             this.columns.forEach(column => {
                 this._initialSelections(row, column);
@@ -199,6 +221,15 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy, Do
         });
     }
 
+    private _applyDiffColumnsChanges() {
+        if (this.listOfColumnComponents && this.columns) {
+            if (this.listOfColumnComponents.length !== this.columns.length) {
+                this._initializeColumns();
+                this._initializeDataModel();
+            }
+        }
+    }
+
     private _applyDiffChanges(changes: IterableChanges<any>) {
         if (changes) {
             changes.forEachAddedItem((record: IterableChangeRecord<any>) => {
@@ -227,15 +258,6 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy, Do
         if (this.model && this.model.length > 0) {
             if (this._filter) {
             }
-        }
-    }
-
-    public updateColumn(column: ThyGridColumn) {
-        let old = this.columns.find(item => item.key === column.key);
-        if (old) {
-            old = column;
-        } else {
-            this.columns.push(column);
         }
     }
 
@@ -316,16 +338,17 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy, Do
     }
 
     ngOnInit() {
-
     }
 
     ngDoCheck() {
         const changes = this._diff.diff(this.model);
         this._applyDiffChanges(changes);
+        this._applyDiffColumnsChanges();
     }
 
     ngAfterContentInit() {
-        this._formatModel();
+        this._initializeColumns();
+        this._initializeDataModel();
     }
 
     ngOnDestroy() {

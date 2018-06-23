@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,HostBinding } from '@angular/core';
 
 @Component({
     selector: 'thy-modal',
@@ -6,6 +6,8 @@ import { Component } from '@angular/core';
 })
 
 export class ModalComponent {
+
+    @HostBinding('class.thy-modal--has-footer') hasFooter = false;
 
     constructor() { }
 }

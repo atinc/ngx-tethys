@@ -39,6 +39,30 @@
             }
         }
     }
+    &-xs {
+        height: $progress-height-xs;
+        .progress-bar {
+            border-radius: 0 3px 3px 0;
+            position: relative;
+            &:first-child {
+                &:before {
+                    display: none;
+                }
+            }
+            &:last-child {
+                border-right: 1px $progress-split-color solid;
+            }
+            &:before {
+                content: '';
+                display: block;
+                width: 3px;
+                height: $progress-height-xs;
+                background: $progress-split-color;
+                border-radius: 0 3px 3px 0;
+                transform: scaleX(0.7) translateX(-1px);
+            }
+        }
+    }
 }
 
 .progress-bar {
