@@ -52,6 +52,10 @@
   @include set-badge-color($white, $danger);
 }
 
+.thy-badge-warning {
+  @include set-badge-color($white, $warning);
+}
+
 .thy-badge-primary {
   @include set-badge-color($white, $primary);
 }

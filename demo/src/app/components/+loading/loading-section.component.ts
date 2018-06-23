@@ -9,6 +9,8 @@ export class DemoLoadingSectionComponent implements OnInit {
 
     public isDone = false;
 
+    public isDoneValueTrue = true;
+
     data = [{
         name: '张三',
         age: 10,
