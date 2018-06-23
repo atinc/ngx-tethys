@@ -46,17 +46,26 @@ export class DemoDataPickerSectionComponent implements OnInit {
         with_time: false
     };
 
+    //#region DateRange
+
     dateRangeEntry = {
         begin: { date: Math.floor((new Date()).getTime() / 1000) },
         end: { date: Math.floor((new Date()).getTime() / 1000) + 90000 * 3 }
     };
 
-    dateRangeNullValue = null;
+    dateRangeTime = {
+        begin: Math.floor((new Date()).getTime() / 1000),
+        end: Math.floor((new Date()).getTime() / 1000) + 90000 * 3
+    };
 
     dateRangeNullValueObject = {
         begin: { date: null },
         end: { date: null }
     };
+
+    dateRangeNullValue = null;
+
+    //#endregion
 
     Datepicker: Date;
 
@@ -114,9 +123,19 @@ export class DemoDataPickerSectionComponent implements OnInit {
             end: { date: Math.floor((new Date()).getTime() / 1000) + 90000 * 7 }
         };
 
-        this.dateRangeNullValue = {
+        this.dateRangeTime = {
+            begin: Math.floor((new Date()).getTime() / 1000),
+            end: Math.floor((new Date()).getTime() / 1000) + 90000 * 7
+        };
+
+        this.dateRangeNullValueObject = {
             begin: { date: Math.floor((new Date()).getTime() / 1000) },
             end: { date: Math.floor((new Date()).getTime() / 1000) + 90000 * 7 }
+        };
+
+        this.dateRangeNullValue = {
+            begin: Math.floor((new Date()).getTime() / 1000),
+            end: Math.floor((new Date()).getTime() / 1000) + 90000 * 7
         };
 
     }

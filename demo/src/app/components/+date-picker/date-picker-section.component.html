@@ -106,6 +106,13 @@
                 </thy-form-group>
             </dd>
             <dd class="mt-5">
+                <div>DaterangepickerTime类型 - {{dateRangeTime|json}}</div>
+                <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
+                    <input type="text" readonly="readonly" thyDaterangepicker [(ngModel)]="dateRangeTime" class="form-control" placeholder=""
+                    />
+                </thy-form-group>
+            </dd>
+            <dd class="mt-5">
                 <div>空值 - {{dateRangeNullValue|json}}</div>
                 <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
                     <input type="text" readonly="readonly" thyDaterangepicker [(ngModel)]="dateRangeNullValue" class="form-control" placeholder=""
