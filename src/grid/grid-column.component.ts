@@ -11,8 +11,6 @@ import { ThyGridColumn } from './grid.interface';
 })
 export class ThyGridColumnComponent implements OnInit {
 
-    private _selections: any = [];
-
     @Input() thyModelKey = '';
 
     @Input() thyTitle = '';
@@ -31,9 +29,9 @@ export class ThyGridColumnComponent implements OnInit {
     set thySelections(value: any) {
         if (value) {
             if (Array.isArray(value)) {
-                this._selections = value;
+                this.selections = value;
             } else {
-                this._selections = [value];
+                this.selections = [value];
             }
         }
     }
@@ -44,35 +42,40 @@ export class ThyGridColumnComponent implements OnInit {
 
     @ContentChild('cell') cellTemplateRef: TemplateRef<any>;
 
-    private _column: ThyGridColumn;
+    public key?: string;
 
-    constructor(private root: ThyGridComponent, private el: ElementRef) {
+    public model: string;
 
+    public title: string;
+
+    public type: string;
+
+    public selections: any = [];
+
+    public width: string | number;
+
+    public className: string;
+
+    public headerClassName: string;
+
+    public disabled: boolean;
+
+    public defaultText: string;
+
+    constructor(private el: ElementRef) {
     }
 
     ngOnInit() {
-        const selections = this._selections.map((item: any) => {
-            if (typeof (item) === 'number' || typeof (item) === 'string') {
-                return item;
-            } else {
-                return item[this.root.rowKey];
-            }
-        });
-
-        this._column = {
-            key: this._generateKey(),
-            model: this.thyModelKey,
-            title: this.thyTitle,
-            type: this.thyType,
-            selections: selections,
-            width: this.thyWidth,
-            className: this.thyClassName,
-            headerClassName: this.thyHeaderClassName,
-            disabled: this.thyDisabled,
-            defaultText: this.thyDefaultText,
-            templateRef: this.templateRef || this.cellTemplateRef
-        };
-        this.root.updateColumn(this._column);
+        this.key = this._generateKey();
+        this.model = this.thyModelKey;
+        this.title = this.thyTitle;
+        this.type = this.thyType;
+        this.width = this.thyWidth;
+        this.className = this.thyClassName;
+        this.headerClassName = this.thyHeaderClassName;
+        this.disabled = this.thyDisabled;
+        this.defaultText = this.thyDefaultText;
+        this.templateRef = this.templateRef || this.cellTemplateRef;
     }
 
     private _generateKey() {
