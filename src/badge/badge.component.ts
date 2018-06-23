@@ -5,6 +5,7 @@ export type ThyBadgeStatusTypes = 'primary' | 'danger' | 'dot';
 
 const badgeStatusTypeClassesMap: any = {
     'primary': 'thy-badge-primary',
+    'warning': 'thy-badge-warning',
     'danger': 'thy-badge-danger'
 };
 

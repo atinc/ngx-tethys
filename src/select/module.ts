@@ -9,6 +9,7 @@ import { ThyOptionListComponent } from './option-list.component';
 import { SelectContainerComponent } from './select-container.component';
 import { OptionItemComponent } from './option-item.component';
 import { ThyLabelModule } from '../label/label.module';
+import { SelectPipes } from './select.pipe';
 
 
 @NgModule({
@@ -24,13 +25,15 @@ import { ThyLabelModule } from '../label/label.module';
         ThyOptionComponent,
         ThyOptionListComponent,
         SelectContainerComponent,
-        OptionItemComponent
+        OptionItemComponent,
+        SelectPipes
     ],
     exports: [
         ThySelectComponent,
         ThySelectCustomComponent,
         ThyOptionComponent,
-        ThyOptionListComponent
+        ThyOptionListComponent,
+        SelectPipes
     ]
 })
 export class ThySelectModule {
