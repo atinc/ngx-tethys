@@ -1,11 +1,11 @@
 .close {
-  float: right;
+  // float: right;
   font-size: $close-font-size;
   font-weight: $close-font-weight;
-  line-height: 1;
+  // line-height: 1;
   text-shadow: $close-text-shadow;
   opacity: 1;
-  @include set-close-link-variant($gray-300,$primary);
+  @include set-close-link-variant($gray-300, $primary);
   // Opinionated: add "hand" cursor to non-disabled .close elements
   &:not(:disabled):not(.disabled) {
     cursor: pointer;

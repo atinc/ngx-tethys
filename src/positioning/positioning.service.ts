@@ -158,6 +158,7 @@ export class ThyPositioningService {
                 // 下面的内容被遮挡，牺牲居中，让下方的内容可见
                 targetElPosition.top = documentClientHeight - targetElPosition.height + offset;
             }
+            targetElPosition.bottom = null;
         }
         return targetElPosition;
     }
@@ -309,10 +310,10 @@ export class ThyPositioningService {
         const targetElPosition: ClientRect = {
             height: targetElBCR.height || targetElement.offsetHeight,
             width: targetElBCR.width || targetElement.offsetWidth,
-            top: 0,
-            bottom: targetElBCR.height || targetElement.offsetHeight,
-            left: 0,
-            right: targetElBCR.width || targetElement.offsetWidth
+            top: null,
+            bottom: null,
+            left: null,
+            right: null
         };
 
         if (placementPrimary === 'auto') {
@@ -352,7 +353,7 @@ export class ThyPositioningService {
                 break;
             case 'right':
                 targetElPosition.left = hostElPosition.left + hostElPosition.width + offset;
-                targetElPosition.right = 0;
+                targetElPosition.right = null;
                 this.calculateTopBottomPosition(placementSecondary, hostElPosition, targetElPosition, offset);
                 break;
         }
