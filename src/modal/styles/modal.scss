@@ -1,3 +1,8 @@
+.thy-modal--has-footer{
+  .modal-body{
+    padding: $modal-has-footer-inner-padding;
+  }
+}
 .modal-header {
   padding: 0 $modal-header-padding;
   min-height: $modal-title-line-height;
@@ -53,3 +58,4 @@
 @include media-breakpoint-up(lg) {
   .modal-blg { max-width: $modal-blg; }
 }
+

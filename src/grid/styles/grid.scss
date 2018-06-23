@@ -1,0 +1,16 @@
+.table-wrap {
+  margin: 0 -30px;
+  &--modal{
+    padding: 0 30px;
+    overflow-y:auto;
+    max-height:400px;
+    thy-grid{
+      .table{
+        margin-bottom: 0;
+      }
+      .pagination{
+        margin-bottom: 0;
+      }
+    }
+  }
+}
