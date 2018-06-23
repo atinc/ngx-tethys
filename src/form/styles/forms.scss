@@ -358,6 +358,11 @@
     margin-right: 0px;
     margin-left: 0px;  
   }
+  .form-group{
+    &:last-child{
+      margin-bottom: 0;
+    }
+  }
 }
 
 @import "./form-check";
