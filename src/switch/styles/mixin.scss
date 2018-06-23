@@ -82,3 +82,16 @@
         // border-color: darken($color, 10%);
     }
 }
+@mixin thy-switch-theme(){
+    $switch-theme: ((
+            "primary":    $primary,
+            "info":       $gray-400,
+            "warning":    $warning,
+            "danger":     $danger
+    ))!default;
+    @each $color, $value in $switch-theme {
+        .thy-switch-#{$color} {
+            @include thy-switch-variant($value);
+        }
+    }
+}

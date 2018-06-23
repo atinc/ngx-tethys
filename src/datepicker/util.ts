@@ -93,6 +93,8 @@ export function daterangepickerUtilIdentificationValueType(value: any): Datepick
             } else {
                 return DatepickerValueShowTypesEnum.daterangepickerNullValueObject;
             }
+        } else if (isNumber(value.begin)) {
+            return DatepickerValueShowTypesEnum.daterangepickerTime;
         } else {
             return DatepickerValueShowTypesEnum.daterangepickerNullValue;
         }
@@ -105,6 +107,12 @@ export function daterangepickerUtilConvertToDaterangepickerObject(value: any, va
     const _valueType = valueType || daterangepickerUtilIdentificationValueType(value);
     let _value: any;
     switch (_valueType) {
+        case DatepickerValueShowTypesEnum.daterangepickerTime:
+            _value = [
+                new Date(value.begin * 1000),
+                new Date(value.end * 1000)
+            ];
+            break;
         case DatepickerValueShowTypesEnum.daterangepickerTimeObject:
             _value = [
                 new Date(value.begin.date * 1000),

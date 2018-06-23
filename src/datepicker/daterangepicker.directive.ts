@@ -162,6 +162,12 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
     private _sendValueToNgModel() {
         let result;
         switch (this.store.originValueType) {
+            case DatepickerValueShowTypesEnum.daterangepickerTime:
+                result = {
+                    begin: this.store.value[0].getTime() / 1000,
+                    end: this.store.value[1].getTime() / 1000
+                };
+                break;
             case DatepickerValueShowTypesEnum.daterangepickerTimeObject:
                 result = {
                     begin: {
@@ -176,14 +182,8 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
                 break;
             default:
                 result = {
-                    begin: {
-                        date: this.store.value[0].getTime() / 1000,
-                        with_time: this.store.withTime
-                    },
-                    end: {
-                        date: this.store.value[1].getTime() / 1000,
-                        with_time: this.store.withTime
-                    }
+                    begin: this.store.value[0].getTime() / 1000,
+                    end: this.store.value[1].getTime() / 1000
                 };
                 break;
         }
