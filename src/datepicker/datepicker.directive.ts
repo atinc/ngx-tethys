@@ -108,7 +108,7 @@ export class ThyDatepickerDirective implements OnInit, AfterContentInit, Control
         const dateContainerRef = this._loader.provide({ provide: ThyDatepickerConfig, useValue: this._config })
             .attach(ThyDatepickerContainerComponent)
             .to(this.thyContainer)
-            .position({ attachment: this.thyPlacement })
+            // .position({ attachment: this.thyPlacement })
             .show({
                 hideLoader: () => {
                     this.hide();
