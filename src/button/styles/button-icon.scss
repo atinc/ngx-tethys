@@ -26,15 +26,11 @@
     @include btn-icon-size-variant($font-size-md, 9px);
 }
 
-.btn-icon.btn-icon-danger-weak{
+.btn-icon.btn-icon-danger-weak {
     @extend .btn-link.btn-link-danger-weak;
 }
 
 .btn-icon-light {
-    color: $btn-icon-light-color;
-}
-
-.btn-icon-danger-weak {
     color: $btn-icon-light-color;
 }
 
@@ -94,8 +90,8 @@
       }
 }
 
-.btn-icon-self-circle {
-    i,.wtf {
-        font-size: 38px;
-    }
-}
+// .btn-icon-self-circle {
+//     i,.wtf {
+//         font-size: 38px;
+//     }
+// }
