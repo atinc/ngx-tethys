@@ -47,36 +47,3 @@ $font-sizes: ( base: $font-size-base, sm: $font-size-sm, md: $font-size-md, xs: 
     font-size: $size !important;
   }
 }
-
-// size:24,20
-.icon-text {
-  display: inline-block;
-  position: relative;
-  font-size: $font-size-base;
-  padding-left: 26px;
-
-  i {
-    position: absolute;
-    top: -5px;
-    left: 0;
-    font-size: 20px;
-  }
-
-  &-lg {
-    padding-left: 28px;
-
-    i {
-      font-size: 24px;
-      top: -8px;
-    }
-  }
-
-  &-sm {
-    padding-left: 25px;
-
-    i {
-      font-size: 18px;
-      top: -4px;
-    }
-  }
-}
