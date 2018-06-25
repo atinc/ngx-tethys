@@ -3,7 +3,6 @@ import {
     ElementRef, OnInit, HostListener, ContentChildren, QueryList, AfterViewInit, Output, EventEmitter, TemplateRef
 } from '@angular/core';
 import { UpdateHostClassService } from '../shared/update-host-class.service';
-import { inputValueToBoolean } from '../util/helpers';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ThyOptionComponent } from './option.component';
 
@@ -77,8 +76,6 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
 
     @ContentChildren(ThyOptionComponent) listOfOptionComponent: QueryList<any>;
 
-    // @ContentChildren(ThyOptionGroupComponent) listOfOptionGroupComponent: QueryList<any>;
-
     constructor(
         private elementRef: ElementRef,
         private updateHostClassService: UpdateHostClassService,
@@ -132,10 +129,9 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
         this.onChangeCallback(value);
     }
 
-    dropDownMenuToggle() {
+    dropDownMenuToggle(event: Event, templateRef: any) {
         this._expandOptions = !this._expandOptions;
         if (this._expandOptions) {
-        } else {
         }
     }
 
