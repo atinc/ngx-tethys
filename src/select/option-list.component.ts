@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ContentChild, TemplateRef, ContentChildren, QueryList, } from '@angular/core';
 import { ThySelectCustomComponent } from './select-custom.component';
 import { UpdateHostClassService } from '../shared';
+import { helpers } from '../util';
 
 @Component({
     selector: 'thy-option-list',
@@ -44,7 +45,7 @@ export class ThyOptionListComponent implements OnInit {
         } else {
             this.parent._innerValue = option;
             this.parent._expandOptions = false;
-            this.parent.valueOnChange(this.parent._innerValue);
+            this.parent.valueOnChange(this.parent._innerValue.thyValue);
         }
     }
 }

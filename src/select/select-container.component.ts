@@ -19,9 +19,7 @@ export class SelectContainerComponent implements OnInit {
 
     public isSearch: boolean;
 
-    public searchData: any = [];
-
-    public selectedValues: any = [];
+    public searchListOption: any = [];
 
     constructor(
         public parent: ThySelectCustomComponent,
@@ -32,6 +30,9 @@ export class SelectContainerComponent implements OnInit {
     ngOnInit() {
         const classes = this.parent._mode === 'multiple' ? [`thy-select-custom--multiple`] : [];
         this.updateHostClassService.updateClass(classes);
+        if (!this.isSearch) {
+            this.searchListOption = this.listOfOptionComponent;
+        }
     }
 
     onSearchFilter() {
@@ -39,30 +40,30 @@ export class SelectContainerComponent implements OnInit {
             this.parent.thyOnSearch.emit(this.searchText);
             this.isSearch = false;
         } else {
-            // const text = (this.searchText || '').toLowerCase();
-            // if (!text) {
-            //     this.clearSearchText();
-            //     return;
-            // }
-            // if (/^#(.*)/g.test(text)) {
-            //     this.isSearch = false;
-            //     return;
-            // }
-            // this.isSearch = true;
-            // const searchData: any = [];
-            // if (text) {
-            //     if (this.listOfOptionComponent.length > 0) {
-            //         this.listOfOptionComponent.forEach((item: any) => {
-            //             if (!item.custom) {
-            //                 const _searchKey = item.thySearchKey ? item.thySearchKey : item.thyLabelText;
-            //                 if (_searchKey.toLowerCase().indexOf(text) >= 0) {
-            //                     searchData.push(item);
-            //                 }
-            //             }
-            //         });
-            //     }
-            //     this.searchData = searchData;
-            // }
+            const text = (this.searchText || '').toLowerCase();
+            if (!text) {
+                this.clearSearchText();
+                return;
+            }
+            if (/^#(.*)/g.test(text)) {
+                this.isSearch = false;
+                return;
+            }
+            this.isSearch = true;
+            const searchData: any = [];
+            if (text) {
+                if (this.listOfOptionComponent.length > 0) {
+                    this.listOfOptionComponent.forEach((item: any) => {
+                        if (!item.custom) {
+                            const _searchKey = item.thySearchKey ? item.thySearchKey : item.thyLabelText;
+                            if (_searchKey.toLowerCase().indexOf(text) >= 0) {
+                                searchData.push(item);
+                            }
+                        }
+                    });
+                }
+                this.searchListOption = this.listOfOptionComponent;
+            }
         }
 
     }
@@ -70,7 +71,7 @@ export class SelectContainerComponent implements OnInit {
     clearSearchText() {
         this.searchText = '';
         this.isSearch = false;
-        this.searchData = [];
+        this.searchListOption = this.listOfOptionComponent;
     }
 }
 

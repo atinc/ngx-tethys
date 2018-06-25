@@ -5,7 +5,7 @@
         <span class="text-placeholder" *ngIf="!_innerValue">{{thyPlaceHolder}}</span>
     </div>
     <div class="align-middle" *ngIf="_mode === 'multiple'">
-        <span class="mr-1" [hidden]="_innerValues?.length === 0" *ngFor="let item of _innerValues;index as i" thyLabel="default"
+        <span class="mr-1 mb-1" [hidden]="_innerValues?.length === 0" *ngFor="let item of _innerValues;index as i" thyLabel="default"
             thyAfterIcon="wtf-times" (click)="remove($event,item,i)">
             {{item?.thyLabelText}}
         </span>
