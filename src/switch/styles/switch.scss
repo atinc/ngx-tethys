@@ -1,23 +1,29 @@
 .thy-switch {
-  box-sizing: content-box;
-  @include thy-switch($switch-width, $switch-height, 2);
+    box-sizing: content-box;
+    @include thy-switch($switch-width, $switch-height, 2);
 }
 
 .thy-switch-disabled {
-  cursor: not-allowed;
+    cursor: not-allowed;
 }
 
 .thy-switch-pill {
-  .thy-switch-handle,
-  .thy-switch-label {
-    border-radius: 20px !important;
-  }
-  .thy-switch-label::before {
-    right: 2px !important;
-  }
-  .thy-switch-label::after {
-    left: 2px !important;
-  }
+    .thy-switch-handle,
+    .thy-switch-label {
+        border-radius: 20px !important;
+    }
+    .thy-switch-label::before {
+        right: 2px !important;
+    }
+    .thy-switch-label::after {
+        left: 2px !important;
+    }
 }
 
-@include thy-switch-theme();
+$switch-theme: (( "primary": $primary, "info": $gray-400, "warning": $warning, "danger": $danger))!default;
+@each $color,
+$value in $switch-theme {
+    .thy-switch-#{$color} {
+        @include thy-switch-variant($value);
+    }
+}

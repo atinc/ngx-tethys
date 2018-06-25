@@ -1,6 +1,5 @@
-.table-wrap {
-  margin: 0 -30px;
-  &--modal{
+.thy-grid-modal-wrap {
+    margin: 0 -30px;
     padding: 0 30px;
     overflow-y:auto;
     max-height:400px;
@@ -12,5 +11,4 @@
         margin-bottom: 0;
       }
     }
-  }
 }
