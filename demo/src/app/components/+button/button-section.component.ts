@@ -66,7 +66,7 @@ export class DemoButtonSectionComponent {
         },
         {
             property: 'thyShape',
-            description: `展示的形状，默认只显示字体图标图标，circle-dashed, circle-solid 展示成虚线圆形图标`,
+            description: `展示的形状，默认只显示字体图标图标，circle-dashed, circle-solid 展示成虚线,实线边框圆形图标, circle-thick-dashed, circle-thick-solid 边框加粗`,
             type: 'String',
             default: ''
         },
