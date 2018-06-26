@@ -1,5 +1,5 @@
 import {
-    Component, Directive, Input, Output, ElementRef, Renderer2,
+    Component, Input, Output,
     ViewEncapsulation, TemplateRef, OnInit, EventEmitter, DoCheck,
     IterableDiffers,
     IterableDiffer,
@@ -7,16 +7,15 @@ import {
     IterableChangeRecord,
     ContentChildren,
     QueryList,
-    AfterViewInit
+    OnDestroy,
+    AfterContentInit
 } from '@angular/core';
-import { AfterContentInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
-import { inputValueToBoolean, isUndefined, get, set } from '../util/helpers';
+import { get, set } from '../util/helpers';
 import {
     ThyGridColumn, ThyMultiSelectEvent, ThyRadioSelectEvent, ThyPage,
     ThyGridEmptyOptions, ThySwitchEvent, ThyGridDraggableEvent, ThyGridRowEvent
 } from './grid.interface';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination/pagination.component';
-import { AnimateChildAst } from '@angular/animations/browser/src/dsl/animation_ast';
 import { SortablejsOptions } from 'angular-sortablejs/dist';
 import { ThyGridColumnComponent } from './grid-column.component';
 
@@ -40,7 +39,7 @@ const customType = {
     templateUrl: './grid.component.html',
     encapsulation: ViewEncapsulation.None
 })
-export class ThyGridComponent implements OnInit, AfterViewInit, OnDestroy, DoCheck {
+export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy, DoCheck {
 
     public customType = customType;
 
@@ -154,7 +153,7 @@ export class ThyGridComponent implements OnInit, AfterViewInit, OnDestroy, DoChe
 
     @Output() thyOnRowClick: EventEmitter<ThyGridRowEvent> = new EventEmitter<ThyGridRowEvent>();
 
-    @ContentChildren(ThyGridColumnComponent) listOfColumnComponents: QueryList<ThyGridColumnComponent>;
+    @ContentChildren(ThyGridColumnComponent) listOfColumnComponents: QueryList<any>;
 
     constructor(
         private _differs: IterableDiffers
@@ -347,7 +346,7 @@ export class ThyGridComponent implements OnInit, AfterViewInit, OnDestroy, DoChe
         this._applyDiffColumnsChanges();
     }
 
-    ngAfterViewInit() {
+    ngAfterContentInit() {
         this._initializeColumns();
         this._initializeDataModel();
     }
