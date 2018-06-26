@@ -47,21 +47,27 @@
         <h2>线框按钮</h2>
     </div>
     <div class="body demo-buttons">
-        正常状态 <button thyButton="outline-default">默认按钮</button>
+        正常状态
+        <button thyButton="outline-default">默认按钮</button>
         <button thyButton="outline-primary">主要按钮</button>
         <button thyButton="outline-warning">警告按钮</button>
-        <button thyButton="outline-danger">删除按钮</button><br><br>
-
-        激活状态 <button thyButton="outline-default" class="active">默认按钮</button>
+        <button thyButton="outline-danger">删除按钮</button>
+        <br>
+        <br> 激活状态
+        <button thyButton="outline-default" class="active">默认按钮</button>
         <button thyButton="outline-primary" class="active">主要按钮</button>
         <button thyButton="outline-warning" class="active">警告按钮</button>
-        <button thyButton="outline-danger" class="active">删除按钮</button><br><br>
-
-        禁用状态 <button thyButton="outline-default" disabled>默认按钮</button>
+        <button thyButton="outline-danger" class="active">删除按钮</button>
+        <br>
+        <br> 禁用状态
+        <button thyButton="outline-default" disabled>默认按钮</button>
         <button thyButton="outline-primary" disabled>主要按钮</button>
         <button thyButton="outline-warning" disabled>警告按钮</button>
-        <button thyButton="outline-danger" disabled>删除按钮</button><br><br>
-        <br><br>
+        <button thyButton="outline-danger" disabled>删除按钮</button>
+        <br>
+        <br>
+        <br>
+        <br>
         <p>
             <code>outline-default</code> 为之前的
             <code>thy-default</code>，
@@ -82,12 +88,14 @@
         <button thyButton="success-square">成功按钮</button>
         <button thyButton="warning-square">警告按钮</button>
         <button thyButton="danger-square">危险按钮</button>
-        <br><br>
+        <br>
+        <br>
         <button thyButton="outline-primary-square">主要按钮</button>
         <button thyButton="outline-success-square">成功按钮</button>
         <button thyButton="outline-warning-square">警告按钮</button>
         <button thyButton="outline-danger-square">危险按钮</button>
-        <br><br>
+        <br>
+        <br>
         <button thyButton="outline-primary-square" thySize="md">主要按钮</button>
         <button thyButton="outline-success-square" thySize="md">成功按钮</button>
         <button thyButton="outline-warning-square" thySize="md">警告按钮</button>
@@ -102,6 +110,22 @@
     <div class="body demo-buttons">
         <button thyButton="link">预览</button>
         <button thyButton="link-secondary">取消</button>
+    </div>
+</section>
+
+<section>
+    <div class="header">
+        <h2>按钮对</h2>
+    </div>
+    <div class="body">
+        <div class="btn-pair">
+            <button thyButton="primary">确认</button>
+            <a thyButton="link-secondary">取消</a>
+        </div>
+        <div class="btn-pair-sm mt-1">
+            <button thyButton="primary" thySize="sm">确认</button>
+            <a thyButton="link-secondary" thySize="sm">取消</a>
+        </div>
     </div>
 </section>
 
@@ -187,32 +211,34 @@
 
         <br>
         <a thyButtonIcon="wtf-project-add-o" thyTheme="danger-weak" thySize="xs" href="javascript:;"></a>
-        <a thyButtonIcon="wtf-project-add-o" thyTheme="danger-weak"thySize="sm" href="javascript:;"></a>
+        <a thyButtonIcon="wtf-project-add-o" thyTheme="danger-weak" thySize="sm" href="javascript:;"></a>
         <a thyButtonIcon="wtf-project-add-o" thyTheme="danger-weak" href="javascript:;"></a>
         <a thyButtonIcon="wtf-project-add-o" thyTheme="danger-weak" href="javascript:;" thySize="lg"></a>
 
         <br>
-        <button thyButtonIcon="wtf-h-plus" thyShape="circle-dashed" thySize="xs"></button>
-        <button thyButtonIcon="wtf-h-plus" thyShape="circle-dashed" thySize="sm"></button>
-        <button thyButtonIcon="wtf-h-plus" thyShape="circle-dashed"></button>
-        <button thyButtonIcon="wtf-h-plus" thyShape="circle-dashed" class="invalid"></button>
+        <button thyButtonIcon="wtf-th-plus" thyShape="circle-dashed" thySize="xs"></button>
+        <button thyButtonIcon="wtf-th-plus" thyShape="circle-dashed" thySize="sm"></button>
+        <button thyButtonIcon="wtf-th-plus" thyShape="circle-dashed"></button>
+        <button thyButtonIcon="wtf-th-plus" thyShape="circle-dashed" class="invalid"></button>
         <br>
         <button thyButtonIcon="wtf-plus" thyShape="circle-solid" thySize="xs"></button>
         <button thyButtonIcon="wtf-plus" thyShape="circle-solid" thySize="sm"></button>
-        <button thyButtonIcon="wtf-plus" thyShape="circle-solid" ></button>
+        <button thyButtonIcon="wtf-plus" thyShape="circle-solid"></button>
         <button thyButtonIcon="wtf-plus" thyShape="circle-solid" class="invalid"></button>
         <br>
         <button thyButtonIcon="wtf-user-add-th-o" thyShape="circle-thick-dashed" thySize="xs"></button>
         <button thyButtonIcon="wtf-user-add-th-o" thyShape="circle-thick-dashed" thySize="sm"></button>
-        <button thyButtonIcon="wtf-user-add-th-o" thyShape="circle-thick-dashed" ></button>
+        <button thyButtonIcon="wtf-user-add-th-o" thyShape="circle-thick-dashed"></button>
         <button thyButtonIcon="wtf-user-add-th-o" thyShape="circle-thick-dashed" class="invalid"></button>
         <br>
         <button thyButtonIcon="wtf-user-add-th-o" thyShape="circle-thick-solid" thySize="xs"></button>
         <button thyButtonIcon="wtf-user-add-th-o" thyShape="circle-thick-solid" thySize="sm"></button>
-        <button thyButtonIcon="wtf-user-add-th-o" thyShape="circle-thick-solid" ></button>
+        <button thyButtonIcon="wtf-user-add-th-o" thyShape="circle-thick-solid"></button>
         <button thyButtonIcon="wtf-user-add-th-o" thyShape="circle-thick-solid" class="invalid"></button>
         <br>
-        <button thyButtonIcon="wtf-begin-date" thyShape="circle-dashed"><span>截止时间</span></button>
+        <button thyButtonIcon="wtf-begin-date" thyShape="circle-dashed">
+            <span>截止时间</span>
+        </button>
         <br>
         <!-- <button thyButtonIcon="wtf-timeline-o" thyShape="self-icon"></button> -->
         <br>

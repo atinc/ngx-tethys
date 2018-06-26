@@ -106,6 +106,12 @@
   // THY CUSTOM
   color: $input-label-color;
   text-align: right;
+  padding-right: 10px;
+}
+
+// form 左右布局 padding 减少
+.col-form-control {
+  padding-left: 10px;
 }
 
 .col-form-label-lg {
@@ -356,9 +362,9 @@
 .thy-form {
   .row-fill {
     margin-right: 0px;
-    margin-left: 0px;  
+    margin-left: 0px;
   }
-  .form-group{
+  .form-group {
     &:last-child{
       margin-bottom: 0;
     }
