@@ -339,10 +339,6 @@ export class ThyGridComponent implements OnInit, AfterViewInit, AfterContentInit
     }
 
     ngOnInit() {
-        // 某些原因导致ngAfterContentInit不执行，暂时先用timeout来处理
-        setTimeout(() => {
-            this._applyDiffColumnsChanges();
-        });
     }
 
     ngDoCheck() {
@@ -352,12 +348,13 @@ export class ThyGridComponent implements OnInit, AfterViewInit, AfterContentInit
     }
 
     ngAfterViewInit() {
-
+        // 设置成一个异步操作，规避在AfterViewInit修改数据值
+        setTimeout(() => {
+            this._applyDiffColumnsChanges();
+        });
     }
 
     ngAfterContentInit() {
-        this._initializeColumns();
-        this._initializeDataModel();
     }
 
     ngOnDestroy() {
