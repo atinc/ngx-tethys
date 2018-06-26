@@ -8,7 +8,8 @@ import {
     ContentChildren,
     QueryList,
     OnDestroy,
-    AfterContentInit
+    AfterContentInit,
+    AfterViewInit
 } from '@angular/core';
 import { get, set } from '../util/helpers';
 import {
@@ -39,7 +40,7 @@ const customType = {
     templateUrl: './grid.component.html',
     encapsulation: ViewEncapsulation.None
 })
-export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy, DoCheck {
+export class ThyGridComponent implements OnInit, AfterViewInit, AfterContentInit, OnDestroy, DoCheck {
 
     public customType = customType;
 
@@ -346,9 +347,14 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy, Do
         this._applyDiffColumnsChanges();
     }
 
+    ngAfterViewInit() {
+        // 设置成一个异步操作，规避在AfterViewInit修改数据值
+        setTimeout(() => {
+            this._applyDiffColumnsChanges();
+        });
+    }
+
     ngAfterContentInit() {
-        this._initializeColumns();
-        this._initializeDataModel();
     }
 
     ngOnDestroy() {
