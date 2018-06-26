@@ -15,10 +15,6 @@
   .input-suffix-icon {
     right: $input-padding-x;
     top: $input-padding-y;
-    // .wtf {
-    //   font-size: $font-size-base;
-    // }
-    // color: $input-icon-color;
   }
   .input-search-control {
     padding: $input-padding-y ($input-padding-x + $input-padding-x + 0.5rem);
@@ -64,6 +60,9 @@
   text-align: center;
   pointer-events: none;
   font-size: $font-size-md;
+
+  -webkit-font-smoothing: subpixel-antialiased;
+  color: $input-icon-color;
 }
 
 // .input-lg + .form-control-feedback,

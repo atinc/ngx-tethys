@@ -50,8 +50,13 @@
   // don't honor that edge case; we style them as disabled anyway.
   &:disabled {
     background-color: $input-disabled-bg;
+    color: $input-disabled-color;
     // iOS fix for unreadable disabled content; see https://github.com/twbs/bootstrap/issues/11655.
     opacity: 1;
+    // 如果 input 框禁用了，后面的反馈图标颜色变浅
+    // & + .form-control-feedback {
+    //   color: $input-disabled-color;
+    // }
   }
   // Thy Custom readonly is not disabled-bg
   &[readonly] {
