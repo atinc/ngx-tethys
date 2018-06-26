@@ -20,22 +20,22 @@
         .progress-bar {
             border-radius: 0 3px 3px 0;
             position: relative;
-            &:first-child {
-                &:before {
+            &:last-child {
+                &:after {
                     display: none;
                 }
             }
             &:last-child {
                 border-right: 1px $progress-split-color solid;
             }
-            &:before {
+            &:after {
                 content: '';
                 display: block;
                 width: 3px;
                 height: $progress-height-sm;
                 background: $progress-split-color;
                 border-radius: 0 3px 3px 0;
-                transform: scaleX(0.7) translateX(-1px);
+                transform: scaleX(0.7) translateX(3px);
             }
         }
     }
@@ -44,22 +44,22 @@
         .progress-bar {
             border-radius: 0 3px 3px 0;
             position: relative;
-            &:first-child {
-                &:before {
+            &:last-child {
+                &:after {
                     display: none;
                 }
             }
             &:last-child {
                 border-right: 1px $progress-split-color solid;
             }
-            &:before {
+            &:after {
                 content: '';
                 display: block;
                 width: 3px;
                 height: $progress-height-xs;
                 background: $progress-split-color;
                 border-radius: 0 3px 3px 0;
-                transform: scaleX(0.7) translateX(-1px);
+                transform: scaleX(0.7) translateX(3px);
             }
         }
     }
@@ -75,22 +75,29 @@
     @include transition($progress-bar-transition);
     border-radius: 0 5px 5px 0;
     position: relative;
-    &:first-child {
-        &:before {
+    &[aria-valuenow="0"] {
+        &:after {
+            display: none;
+        }
+    }
+    &:last-child {
+        &:after {
             display: none;
         }
     }
     &:last-child {
         border-right: 1px $progress-split-color solid;
     }
-    &:before {
+    &:after {
         position: absolute;
         content: '';
         width: 5px;
+        right: 0;
+        z-index: 1;
         height: $progress-height;
         background: $progress-split-color;
         border-radius: 0 5px 5px 0;
-        transform: scaleX(0.5) translateX(-3px);
+        transform: scaleX(0.5) translateX(6px);
     }
 }
 
