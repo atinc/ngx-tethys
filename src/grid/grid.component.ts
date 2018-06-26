@@ -339,6 +339,10 @@ export class ThyGridComponent implements OnInit, AfterViewInit, AfterContentInit
     }
 
     ngOnInit() {
+        // 某些原因导致ngAfterContentInit不执行，暂时先用timeout来处理
+        setTimeout(() => {
+            this._applyDiffColumnsChanges();
+        });
     }
 
     ngDoCheck() {
