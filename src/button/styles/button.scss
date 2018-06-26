@@ -103,7 +103,7 @@ fieldset:disabled a.btn {
 }
 
 .btn-sm {
-    @include button-size($btn-padding-y-sm, $btn-padding-x-sm, $font-size-sm, $btn-line-height-sm, $btn-border-radius-sm, $btn-sm-min-width);
+    @include button-size($btn-padding-y-sm, $btn-padding-x-sm, $font-size-base, $btn-line-height-sm, $btn-border-radius-sm, $btn-sm-min-width);
 }
 
 //
@@ -181,6 +181,11 @@ input[type="button"] {
 .btn-pair {
     .btn + .btn {
         margin-left: 10px;
+    }
+}
+.btn-pair-sm {
+    .btn + .btn {
+        margin-left: 4px;
     }
 }
 

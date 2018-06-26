@@ -43,7 +43,7 @@
                 <thy-form-group>
                     <ng-template #formGroup>
                         <label class="col-sm-2 col-form-label pr-0">开始时间</label>
-                        <div class="col-sm-4">
+                        <div class="col-sm-4 col-form-control">
                             <thy-input-group>
                                 <input type="text" class="form-control pbox-trigger" name="deadline_at" readonly="readonly" placeholder="" value="7月17日">
                                 <ng-template #append>
@@ -55,7 +55,7 @@
                             </thy-input-group>
                         </div>
                         <label class="col-sm-2 col-form-label">结束时间</label>
-                        <div class="col-sm-4 has-feedback">
+                        <div class="col-sm-4 has-feedback col-form-control">
                             <input type="email" class="form-control" placeholder="结束时间">
                             <span class="form-control-feedback wtf wtf-schedule-o"></span>
                         </div>
@@ -73,7 +73,7 @@
                     <label thyCheckbox thyLabelText="选择项1" [(ngModel)]="model.checkbox" name="checkbox1"></label>
                     <label thyCheckbox thyLabelText="选择项2">
                     </label>
-                    <label thyCheckbox  thyLabelText="禁用的选择项" thyDisabled="">
+                    <label thyCheckbox thyLabelText="禁用的选择项" thyDisabled="">
                     </label>
                     <label thyCheckbox thyLabelText="禁用的选择项" thyDisabled="">
                     </label>
@@ -115,8 +115,10 @@
                         <input thyInput name="username" [(ngModel)]="model.username" required placeholder="请输入用户名">
                     </thy-form-group>
                     <thy-form-group>
-                        <button thyButton="primary" (thyFormSubmit)="modalFormSubmit()">提交</button>
-                        <button thyButton="link-secondary">取消</button>
+                        <div class="btn-pair">
+                            <button thyButton="primary" (thyFormSubmit)="modalFormSubmit()">提交</button>
+                            <button thyButton="link-secondary">取消</button>
+                        </div>
                     </thy-form-group>
                 </form>
             </thy-modal-body>
