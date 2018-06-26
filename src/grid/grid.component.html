@@ -1,4 +1,3 @@
-<ng-content></ng-content>
 <table class="table" [ngClass]="[themeClass,className]" [class.table-draggable]="draggable">
     <thead>
         <tr>
@@ -53,3 +52,6 @@
     <pagination class="float-right" [directionLinks]="true" [maxSize]="6" [boundaryLinks]="false" [rotate]="false" [totalItems]="pagination.total"
         [(ngModel)]="pagination.index" [itemsPerPage]="pagination.size" (pageChanged)="onPageChange($event)"></pagination>
 </div>
+<ng-template>
+    <ng-content></ng-content>
+</ng-template>

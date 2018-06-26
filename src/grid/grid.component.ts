@@ -8,7 +8,8 @@ import {
     ContentChildren,
     QueryList,
     OnDestroy,
-    AfterContentInit
+    AfterContentInit,
+    AfterViewInit
 } from '@angular/core';
 import { get, set } from '../util/helpers';
 import {
@@ -39,7 +40,7 @@ const customType = {
     templateUrl: './grid.component.html',
     encapsulation: ViewEncapsulation.None
 })
-export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy, DoCheck {
+export class ThyGridComponent implements OnInit, AfterViewInit, AfterContentInit, OnDestroy, DoCheck {
 
     public customType = customType;
 
@@ -344,6 +345,10 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy, Do
         const changes = this._diff.diff(this.model);
         this._applyDiffChanges(changes);
         this._applyDiffColumnsChanges();
+    }
+
+    ngAfterViewInit() {
+
     }
 
     ngAfterContentInit() {
