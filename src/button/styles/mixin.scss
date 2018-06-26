@@ -156,3 +156,35 @@
       border-radius: $border-radius;
   }
 }
+
+@mixin btn-icon-circle-hover-variant($round-padding) {
+    &.btn-icon-circle {
+        i,.wtf {
+            padding: $round-padding;
+        }
+        &.border-thick {
+            i,.wtf {
+                padding: $round-padding - 1;
+            }
+            @include hover-focus {
+                i,.wtf {
+                    padding: $round-padding - 1;
+                }
+            }
+        }
+        @include hover-focus {
+            i,.wtf {
+                border: 2px solid $primary;
+                padding: $round-padding - 1;
+            }
+        }
+    }
+}
+
+@mixin btn-icon-size-variant($font-size, $round-padding) {
+    i,.wtf {
+        font-size: $font-size;
+    }
+
+    @include btn-icon-circle-hover-variant($round-padding);
+}

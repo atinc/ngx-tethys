@@ -18,6 +18,7 @@ const shapeClassesMap: any = {
     'circle-dashed': ['btn-icon-circle', 'circle-dashed'],
     'circle-solid': ['btn-icon-circle', 'circle-solid'],
     'circle-thick-dashed': ['btn-icon-circle', 'circle-dashed', 'border-thick'],
+    'circle-thick-solid': ['btn-icon-circle', 'circle-solid', 'border-thick'],
     'self-icon': ['btn-icon-self-circle']
 };
 

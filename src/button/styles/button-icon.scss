@@ -1,29 +1,8 @@
-@mixin btn-icon-size-variant($font-size, $round-padding) {
-    i,.wtf {
-        font-size: $font-size;
-    }
-    &.btn-icon-circle {
-        i,.wtf {
-            padding: $round-padding;
-        }
-        &.border-thick {
-            i,.wtf {
-                padding: $round-padding - 1;
-            }
-            @include hover-focus {
-                i,.wtf {
-                    padding: $round-padding - 1;
-                }
-            }
-        }
-        @include hover-focus {
-            i,.wtf {
-                border: 2px solid $primary;
-                padding: $round-padding - 1;
-            }
-        }
-    }
-}
+
+$btn-icon-circle-padding-lg: 13px;
+$btn-icon-circle-padding-base: 9px;
+$btn-icon-circle-padding-sm: 6px;
+$btn-icon-circle-padding-xs: 4px;
 
 .btn-icon {
     padding: 0px;
@@ -33,27 +12,7 @@
         line-height: 1;
         margin: 0px;
     }
-    @include btn-icon-size-variant($font-size-md, 9px);
-}
-
-.btn-icon.btn-icon-danger-weak {
-    @extend .btn-link.btn-link-danger-weak;
-}
-
-.btn-icon-light {
-    color: $btn-icon-light-color;
-}
-
-.btn-icon-xs {
-    @include btn-icon-size-variant($font-size-sm, 4px);
-}
-
-.btn-icon-sm {
-    @include btn-icon-size-variant($font-size-base, 6px);
-}
-
-.btn-icon-lg {
-    @include btn-icon-size-variant($font-size-lg, 13px);
+    @include btn-icon-size-variant($font-size-md, $btn-icon-circle-padding-base);
 }
 
 .btn-icon-circle {
@@ -113,8 +72,44 @@
       }
 }
 
-// .btn-icon-self-circle {
-//     i,.wtf {
-//         font-size: 38px;
-//     }
-// }
+
+.btn-icon.btn-icon-danger-weak {
+    @extend .btn-link.btn-link-danger-weak;
+}
+
+.btn-icon-light {
+    color: $btn-icon-light-color;
+}
+
+.btn-icon-xs {
+    @include btn-icon-size-variant($font-size-sm, $btn-icon-circle-padding-xs);
+}
+
+.btn-icon-sm {
+    @include btn-icon-size-variant($font-size-base, $btn-icon-circle-padding-sm);
+}
+
+.btn-icon-lg {
+    @include btn-icon-size-variant($font-size-lg, $btn-icon-circle-padding-lg);
+}
+
+// 属性操作鼠标移上去  btn-icon-circle 样式的变化
+.thy-property-operation {
+    &:hover {
+        .btn-icon-circle {
+            i,.wtf {
+                border: 2px solid $primary;
+                padding: $btn-icon-circle-padding-base - 1px;
+                color: $primary;
+            }
+            &.border-thick {
+                i,.wtf {
+                    padding: $btn-icon-circle-padding-base - 1px;
+                }
+                i,.wtf {
+                    padding: $btn-icon-circle-padding-base - 1px;
+                }
+            }
+        }
+    }
+}
