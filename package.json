@@ -1,6 +1,6 @@
 {
     "name": "ngx-tethys",
-    "version": "0.0.91",
+    "version": "0.0.92",
     "license": "MIT",
     "scripts": {
         "build": "rimraf ./built/* ./codegen/* && ngc -p tsconfig-dist.json",
