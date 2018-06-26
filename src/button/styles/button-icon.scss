@@ -6,6 +6,16 @@
         i,.wtf {
             padding: $round-padding;
         }
+        &.border-thick {
+            i,.wtf {
+                padding: $round-padding - 1;
+            }
+            @include hover-focus {
+                i,.wtf {
+                    padding: $round-padding - 1;
+                }
+            }
+        }
         @include hover-focus {
             i,.wtf {
                 border: 2px solid $primary;
@@ -49,14 +59,26 @@
 .btn-icon-circle {
     i,.wtf {
         transition: border 200ms, padding 200ms;
-        color: $btn-icon-light-color;
+        color: $gray-400; //$btn-icon-light-color;
+        border-color: $gray-400;
+        border-width: 1px;
         border-radius: 50%;
         line-height: 1;
         padding: 10px;
     }
+
     span {
         margin-left: 6px; 
     }
+
+    &.border-thick {
+        i,.wtf {
+            color: $gray-300; // $btn-icon-light-color;
+            border-color: $gray-300;
+            border-width: 2px;
+        }
+    }
+
     @include hover-focus {
         color: $primary;
         i,.wtf {
@@ -65,12 +87,13 @@
     }
     &.circle-dashed {
         i,.wtf {
-            border: 1px dashed $btn-link-color-default;
+            border-style: dashed;
         }
     }
+
     &.circle-solid {
         i,.wtf {
-            border: 1px solid $btn-link-color-default;
+            border-style: solid;
         }
     }
 
