@@ -6,7 +6,8 @@ import {
     IterableChanges,
     IterableChangeRecord,
     ContentChildren,
-    QueryList
+    QueryList,
+    AfterViewInit
 } from '@angular/core';
 import { AfterContentInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import { inputValueToBoolean, isUndefined, get, set } from '../util/helpers';
@@ -39,7 +40,7 @@ const customType = {
     templateUrl: './grid.component.html',
     encapsulation: ViewEncapsulation.None
 })
-export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy, DoCheck {
+export class ThyGridComponent implements OnInit, AfterViewInit, OnDestroy, DoCheck {
 
     public customType = customType;
 
@@ -162,7 +163,7 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy, Do
     }
 
     private _initializeColumns() {
-        const components = this.listOfColumnComponents.toArray();
+        const components = this.listOfColumnComponents ? this.listOfColumnComponents.toArray() : [];
         this.columns = components.map<ThyGridColumn>((component) => {
             const selections = component.selections.map((item: any) => {
                 if (typeof (item) === 'number' || typeof (item) === 'string') {
@@ -346,7 +347,7 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy, Do
         this._applyDiffColumnsChanges();
     }
 
-    ngAfterContentInit() {
+    ngAfterViewInit() {
         this._initializeColumns();
         this._initializeDataModel();
     }
