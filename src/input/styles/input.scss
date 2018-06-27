@@ -1,3 +1,5 @@
+$input-search-padding-y: $btn-padding-y-md; // 36px
+
 .input-search-container {
   position: relative;
   display: block;
@@ -6,18 +8,21 @@
   .input-suffix-icon {
     position: absolute;
     z-index: 2;
+    i {
+      font-size: $font-size-base;
+    }
   }
   .input-prefix-icon {
     left: $input-padding-x;
-    top: $input-padding-y;
+    top: $input-search-padding-y;
     color: $input-icon-color;
   }
   .input-suffix-icon {
     right: $input-padding-x;
-    top: $input-padding-y;
+    top: $input-search-padding-y;
   }
   .input-search-control {
-    padding: $input-padding-y ($input-padding-x + $input-padding-x + 0.5rem);
+    padding: $input-search-padding-y ($input-padding-x + $input-padding-x + 0.5rem);
   }
   &.input-search-ellipse {
     .input-search-control {

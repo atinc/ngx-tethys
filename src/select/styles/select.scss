@@ -93,6 +93,20 @@ select.form-control-md {
   width: 100%;
   position: relative;
 
+  // 打开状态
+  &.options-is-opened {
+    .thy-form-control {
+      border-color: $input-hover-border-color;
+    }
+
+    .thy-form-control {
+      &:after {
+        transform: rotate(180deg);
+      }
+    }
+    
+  }
+
   .thy-form-control {
     @include select-custom-variant($input-padding-x, $input-padding-y, $input-height, $font-size-base);
     @include select-arrow-bottom($input-padding-y + ($font-size-base * $input-line-height - $font-size-md) / 2);
@@ -106,14 +120,22 @@ select.form-control-md {
     }
 
     &:after {
+      transition: transform 200ms;
       @include select-arrow-variant();
     }
   }
 
+  select-container {
+    position: absolute;
+    width: 100%;
+    z-index: 100;
+  }
+
   .thy-select-custom-menu {
     width: 100%;
-    position: absolute;
-    top: $input-height + 4;
+    // position: absolute;
+    margin-top: 4px;
+    top: $input-height;
     left: 0;
     box-shadow: $box-shadow;
     border-radius: 0 0 4px 4px;
