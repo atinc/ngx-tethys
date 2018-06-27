@@ -15,6 +15,7 @@ import { PopBoxOptions } from './pop-box-options.class';
         </div>
       </div>
     `,
+    encapsulation: ViewEncapsulation.None
 })
 export class PopBoxContainerComponent implements OnInit {
 

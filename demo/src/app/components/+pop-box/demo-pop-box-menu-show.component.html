@@ -1,53 +1,55 @@
-<ul class="pop-box-menu" *ngIf="step === 'menu'">
-    <li>
-        <a class="pop-box-menu-item" href="javascript:;" (click)="toRename()">
-            <span class="icon">
-                <i class="wtf wtf-task-o"></i>
-            </span>
-            <span>重命名</span>
-        </a>
-    </li>
-    <li>
-        <a class="pop-box-menu-item" href="javascript:;" (click)="itemClick(2)">
-            <span class="icon"></span>
-            <span>空位图标</span>
-        </a>
-    </li>
-    <li class="divider"></li>
-    <li>
-        <a class="pop-box-menu-item" href="javascript:;" (click)="itemClick(3)">
-            <span>复制</span>
-        </a>
-    </li>
-    <li>
-        <a class="pop-box-menu-item" href="javascript:;" (click)="itemClick(4)">
-            <span>删除</span>
-            <span class="extend-icon">
-                <i class="wtf wtf-angle-right"></i>
-            </span>
-        </a>
-        <ul class="pop-box-sub-menu">
-            <li>
-                <a class="pop-box-sub-menu-item" href="javascript:;" (click)="itemClick(5)">
-                    <span>二级菜单</span>
-                </a>
-            </li>
-            <li>
-                <a class="pop-box-sub-menu-item" href="javascript:;" (click)="itemClick(6)">
-                    <span>二级菜单</span>
-                </a>
-            </li>
-        </ul>
-    </li>
-</ul>
-<ng-container *ngIf="step === 'rename'">
-    <div class="pop-box-header">
-        <h5 class="pop-box-title">重命名</h5>
-        <a href="javascript:;" (click)="close()" class="close">
-            <i class="wtf wtf-close"></i>
-        </a>
-    </div>
-    <div class="pop-box-body">
-        你确认要删除这条记录吗？
-    </div>
-</ng-container>
+<thy-action-menu>
+    <a thyActionMenuItem thyActionMenuItemActive="true" href="javascript:;" (click)="itemClick(1)">
+        <span class="icon">
+            <i class="wtf wtf-task-o"></i>
+        </span>
+        <span>有图标</span>
+    </a>
+    <a thyActionMenuItem href="javascript:;" (click)="itemClick(1)">
+        <span class="icon">
+            <i class="wtf wtf-task-o"></i>
+        </span>
+        <span>有图标</span>
+        <span class="extend-icon">
+            <i class="wtf wtf-accepted"></i>
+        </span>
+    </a>
+    <a thyActionMenuItem="disabled" href="javascript:;" (click)="itemClick(1)">
+        <span class="icon">
+            <i class="wtf wtf-task-o"></i>
+        </span>
+        <span>禁用</span>
+    </a>
+    <thy-action-menu-divider></thy-action-menu-divider>
+    <a thyActionMenuItem href="javascript:;" (click)="itemClick(1)">
+        <span class="icon">
+            <i class="wtf wtf-task-o"></i>
+        </span>
+        <span>有图标</span>
+        <span class="meta">(默认排序)</span>
+        <div class="info">默认排序下可拖拽移动任务；其他排序下只能显示，不可拖拽</div>
+    </a>
+    <a thyActionMenuItem href="javascript:;" (click)="itemClick(1)">
+        <span class="icon">
+            <i class="wtf wtf-task-o"></i>
+        </span>
+        <span>有图标</span>
+        <span class="extend-icon">
+            <i class="wtf wtf-angle-right"></i>
+        </span>
+        <div thyActionMenuSubItem>
+            <a thyActionMenuItem href="javascript:;" (click)="itemClick(1)">
+                <span class="icon">
+                    <i class="wtf wtf-task-o"></i>
+                </span>
+                <span>有图标</span>
+            </a>
+            <a thyActionMenuItem href="javascript:;" (click)="itemClick(1)">
+                <span class="icon">
+                    <i class="wtf wtf-task-o"></i>
+                </span>
+                <span>有图标</span>
+            </a>
+        </div>
+    </a>
+</thy-action-menu>
