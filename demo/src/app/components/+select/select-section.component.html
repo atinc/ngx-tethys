@@ -70,6 +70,9 @@
                         <i [class]="option?.icon" class="mr-1"></i> {{option?.display_name}}
                     </span>
                 </thy-option>
+                <ng-template #selectedDisplay let-value>
+                    <span class="icon-text"> <i [ngClass]="value?.icon" class="text-primary"></i>{{value?.display_name}}</span>
+                </ng-template>
             </thy-custom-select>
 
             <br>

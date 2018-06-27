@@ -121,8 +121,8 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
         }
         this.selectedValueContext = {
             $implicit: {
-                value: this._selectedOptions,
-                values: this._selectedOption
+                value: this._selectedOption,
+                values: this._selectedOptions
             }
         };
     }
@@ -232,15 +232,15 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
         this._expandOptions = !this._expandOptions;
     }
 
-    remove(event: Event, item: any, index: number) {
+    remove(event: Event, item: ThyOptionComponent, index: number) {
         event.stopPropagation();
-        this._innerValues.splice(index, 1);
-        this._expandOptions = true;
-        this.listOfOptionComponent.forEach(i => {
-            if (i.thyValue === item.thyValue) {
-                i.selected = false;
-            }
+        this._selectedOptions.splice(index, 1);
+        this._innerValues = this._selectedOptions.map((option) => {
+            return option.thyValue;
         });
+        item.selected = false;
+        this._expandOptions = true;
+        this.valueOnChange(this._innerValues);
     }
 
     selectItem(option: ThyOptionComponent) {
@@ -269,6 +269,11 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
             this._innerValue = option.thyValue;
             this._expandOptions = false;
             this.valueOnChange(this._innerValue);
+            this.selectedValueContext = {
+                $implicit: this._selectedOption.thyValue,
+                labelText: this._selectedOption.thyLabelText
+            };
         }
+
     }
 }

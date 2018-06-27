@@ -1,10 +1,10 @@
 <ng-content></ng-content>
 <div class="thy-form-control" #selectMenuSetting (click)="dropDownMenuToggle($event,selectMenuSetting)">
     <div class="align-middle" *ngIf="!_mode">
-        <span *ngIf="_selectedOption">{{_selectedOption.thyLabelText}}</span>
-        <!-- <ng-container *ngIf="_innerValue && selectedValueDisplayRef">
+        <span *ngIf="_selectedOption && !selectedValueDisplayRef">{{_selectedOption.thyLabelText}}</span>
+        <ng-container *ngIf="_innerValue && selectedValueDisplayRef">
             <ng-container *ngTemplateOutlet="selectedValueDisplayRef; context: selectedValueContext"></ng-container>
-        </ng-container> -->
+        </ng-container>
         <span class="text-placeholder" *ngIf="!_selectedOption">{{thyPlaceHolder}}</span>
     </div>
     <div class="align-middle d-flex flex-nowrap align-items-center" *ngIf="_mode === 'multiple'">
