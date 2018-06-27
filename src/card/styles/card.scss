@@ -49,6 +49,9 @@
             overflow-y: auto;
             overflow-x: hidden;
         }
+        &--sm {
+            padding: 10px 20px;
+        }
     }
     &--clear-left-right-padding {
         .thy-card-header {
