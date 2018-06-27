@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ContentChild, TemplateRef, QueryList, Output, EventEmitter, HostBinding, } from '@angular/core';
+import { Component, OnInit, Input, ContentChild, TemplateRef, QueryList, Output, EventEmitter, HostBinding } from '@angular/core';
 import { ThyOptionComponent } from './option.component';
 // import { ThyOptionGroupComponent } from './option-group.component';
 import { ThySelectCustomComponent } from './select-custom.component';
@@ -28,8 +28,6 @@ export class SelectContainerComponent implements OnInit {
     }
 
     ngOnInit() {
-        const classes = this.parent._mode === 'multiple' ? [`thy-select-custom--multiple`] : [];
-        this.updateHostClassService.updateClass(classes);
         if (!this.isSearch) {
             this.searchListOption = this.listOfOptionComponent;
         }

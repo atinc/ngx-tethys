@@ -48,6 +48,8 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
 
     _mode: SelectMode;
 
+    _classNames: any = [];
+
     private onTouchedCallback: () => void = noop;
 
     private onChangeCallback: (_: any) => void = noop;
@@ -95,10 +97,14 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
         }
     }
 
-
     ngOnInit() {
-        const classes = this._size ? [`thy-select-custom-${this._size}`] : [];
-        this.updateHostClassService.updateClass(classes);
+        if (this._size) {
+            this._classNames.push(`thy-select-custom-${this._size}`);
+        }
+        if (this._mode === 'multiple') {
+            this._classNames.push(`thy-select-custom--multiple`);
+        }
+        this.updateHostClassService.updateClass(this._classNames);
     }
 
     ngAfterViewInit(): void {
@@ -131,8 +137,6 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
 
     dropDownMenuToggle(event: Event, templateRef: any) {
         this._expandOptions = !this._expandOptions;
-        if (this._expandOptions) {
-        }
     }
 
     remove(event: Event, item: any, index: number) {

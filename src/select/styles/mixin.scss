@@ -20,4 +20,8 @@
   border-radius: $input-border-radius-md;
   font-size: $font-size;
   cursor: pointer;
+
+  &:hover {
+    border-color: $input-hover-border-color;
+  }
 }
