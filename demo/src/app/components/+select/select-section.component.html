@@ -2,7 +2,7 @@
     <div class="header">
         <h2>Select</h2>
     </div>
-    <div class="body">
+    <div class="body demo-select">
         <thy-select [(ngModel)]="model.selectedValue" (change)="change()">
             <option value="">请选择</option>
             <option value="option1">选项1</option>
@@ -20,7 +20,7 @@
     <div class="header">
         <h2>Select 大小</h2>
     </div>
-    <div class="body">
+    <div class="body demo-select">
         <thy-select thySize="sm" [(ngModel)]="model.selectedValue">
             <option value="">请选择</option>
             <option value="option1">选项1</option>
@@ -52,48 +52,51 @@
         <h2>自定义 select</h2>
     </div>
     <div class="body">
-        <thy-custom-select thySize="sm" thyPlaceHolder="请选择" [(ngModel)]="selectedItem" (ngModelChange)="changeSelect()" [thyShowSearch]="true">
-            <thy-option *ngFor="let option of optionData" thySearchKey="{{option?.name}},{{option?.display_name}},{{option?.pin_yin}}"
-                [thyValue]="option._id" [thyLabelText]="option.display_name">
-            </thy-option>
-        </thy-custom-select>
+        <div class="demo-select">
+            <thy-custom-select thySize="md" thyPlaceHolder="请选择" [(ngModel)]="selectedItem" (ngModelChange)="changeSelect()" [thyShowSearch]="true">
+                <thy-option *ngFor="let option of optionData" 
+                    thySearchKey="{{option?.name}},{{option?.display_name}},{{option?.pin_yin}}"
+                    [thyValue]="option._id" [thyLabelText]="option.display_name">
+                </thy-option>
+            </thy-custom-select>
 
-        <br>
+            <br>
 
+            <thy-custom-select [(ngModel)]="selectedItem2" thyPlaceHolder="请选择">
+                <thy-option thyValue="001" thyLabelText="country"></thy-option>
+                <thy-option *ngFor="let option of optionData" thyShowOptionCustom="true" [thyValue]="option" [thyLabelText]="option.display_name">
+                    <span>
+                        <i [class]="option?.icon" class="mr-1"></i> {{option?.display_name}}
+                    </span>
+                </thy-option>
+            </thy-custom-select>
 
-        <thy-custom-select [(ngModel)]="selectedItem2" thyPlaceHolder="请选择">
-            <thy-option thyValue="001" thyLabelText="country"></thy-option>
-            <thy-option *ngFor="let option of optionData" thyShowOptionCustom="true" [thyValue]="option" [thyLabelText]="option.display_name">
-                <span>
-                    <i [class]="option?.icon" class="mr-1"></i>{{option?.display_name}}
-                </span>
-            </thy-option>
-        </thy-custom-select>
+            <br>
 
-        <br>
-
-        <thy-custom-select [(ngModel)]="selectedItem3" thyPlaceHolder="请选择">
-            <thy-option-group thyGroupLabel="服饰">
-                <thy-option thyValue="001" thyLabelText="上衣"></thy-option>
-                <thy-option thyValue="002" thyLabelText="裤子"></thy-option>
-            </thy-option-group>
-            <thy-option *ngFor="let option of optionData" [thyValue]="option._id" [thyLabelText]="option.display_name">
-            </thy-option>
-            <thy-option-group thyGroupLabel="食物">
-                <thy-option thyValue="003" thyLabelText="饮料"></thy-option>
-                <thy-option thyValue="004" thyLabelText="面包" [thyDisabled]="true"></thy-option>
-                <thy-option thyValue="005" thyLabelText="牛奶"></thy-option>
-                <thy-option thyValue="006" thyLabelText="鸡蛋"></thy-option>
-            </thy-option-group>
-        </thy-custom-select>
+            <thy-custom-select [(ngModel)]="selectedItem3" thyPlaceHolder="请选择">
+                <thy-option-group thyGroupLabel="服饰">
+                    <thy-option thyValue="001" thyLabelText="上衣"></thy-option>
+                    <thy-option thyValue="002" thyLabelText="裤子"></thy-option>
+                </thy-option-group>
+                <thy-option *ngFor="let option of optionData" [thyValue]="option._id" [thyLabelText]="option.display_name">
+                </thy-option>
+                <thy-option-group thyGroupLabel="食物">
+                    <thy-option thyValue="003" thyLabelText="饮料"></thy-option>
+                    <thy-option thyValue="004" thyLabelText="面包" [thyDisabled]="true"></thy-option>
+                    <thy-option thyValue="005" thyLabelText="牛奶"></thy-option>
+                    <thy-option thyValue="006" thyLabelText="鸡蛋"></thy-option>
+                </thy-option-group>
+            </thy-custom-select>
+        </div>
     </div>
+
 </section>
 
 <section>
     <div class="header">
         <h2>自定义 select多选</h2>
     </div>
-    <div class="body">
+    <div class="body demo-select">
         <thy-custom-select [(ngModel)]="selectedItem4" thyMode="multiple" thyPlaceHolder="请选择">
             <thy-option *ngFor="let option of optionData" [thyValue]="option._id" [thyLabelText]="option.display_name">
             </thy-option>

@@ -1,5 +1,5 @@
 <ng-content></ng-content>
-<div class="thy-form-control" #selectMenuSetting (click)="dropDownMenuToggle($event,selectMenuSetting)">
+<div class="form-control thy-select form-control-md thy-select-md"  #selectMenuSetting (click)="dropDownMenuToggle($event,selectMenuSetting)">
     <div class="align-middle" *ngIf="!_mode">
         <span *ngIf="_innerValue">{{_innerValue?.thyLabelText}}</span>
         <span class="text-placeholder" *ngIf="!_innerValue">{{thyPlaceHolder}}</span>

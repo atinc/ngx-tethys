@@ -6,6 +6,9 @@ import { of } from 'rxjs';
 @Component({
     selector: 'demo-select-section',
     templateUrl: './select-section.component.html',
+    styleUrls: [
+        './select-section.scss'
+    ]
 })
 export class DemoSelectSectionComponent {
 
@@ -53,6 +56,12 @@ export class DemoSelectSectionComponent {
         display_name: 'IOS缺陷',
         name: 'ios',
         _id: '5b0527cfc8f2ff200a33d4b1'
+    },
+    {
+        // icon: 'wtf wtf-type-ios',
+        display_name: 'IOS缺陷',
+        name: 'ios',
+        _id: '5b0527cfc8f2ff200a33d4b2'
     }];
 
     public apiParameters = [

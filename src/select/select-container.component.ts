@@ -60,7 +60,7 @@ export class SelectContainerComponent implements OnInit {
                         }
                     });
                 }
-                this.searchListOption = this.listOfOptionComponent;
+                this.searchListOption = searchData;
             }
         }
 

@@ -44,7 +44,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
 
     _size: InputSize;
 
-    _expandOptions = false;
+    // _expandOptions = false;
 
     _mode: SelectMode;
 
@@ -55,6 +55,8 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
     private onChangeCallback: (_: any) => void = noop;
 
     @HostBinding('class.thy-select-custom') _isSelectCustom = true;
+
+    @HostBinding('class.options-is-opened') _expandOptions = false;
 
     @Output() thyOnSearch: EventEmitter<any> = new EventEmitter<any>();
 

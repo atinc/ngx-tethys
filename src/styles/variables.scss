@@ -231,6 +231,8 @@ $avatar-sizes: map-merge( (22: 12, 24: 12, 30: 12, 38: 12, 48: 12, 68: 16, 110: 
 // Navs
 $nav-link-disabled-color: $gray-300 !default;
 $nav-link-color: $gray-600 !default;
+$nav-link-icon-color: $gray-500 !default;
+$nav-link-primary-color: $gray-800 !default;
 $nav-link-hover-color: $primary !default;
 $nav-border-color: $gray-200;
 $nav-border-bottom: 2px solid $primary;
