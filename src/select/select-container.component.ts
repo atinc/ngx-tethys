@@ -54,7 +54,7 @@ export class SelectContainerComponent implements OnInit {
                     this.listOfOptionComponent.forEach((item: any) => {
                         if (!item.custom) {
                             const _searchKey = item.thySearchKey ? item.thySearchKey : item.thyLabelText;
-                            if (_searchKey.toLowerCase().indexOf(text) >= 0) {
+                            if (_searchKey && _searchKey.toLowerCase().indexOf(text) >= 0) {
                                 searchData.push(item);
                             }
                         }

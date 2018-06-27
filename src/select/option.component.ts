@@ -28,6 +28,7 @@ export class ThyOptionComponent implements OnInit {
 
     @ContentChildren(ThyOptionComponent) listOfOptionComponent: QueryList<ThyOptionComponent>;
 
+    selected = false;
 
     constructor(
     ) {

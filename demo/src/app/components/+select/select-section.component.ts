@@ -16,15 +16,16 @@ export class DemoSelectSectionComponent {
         selectedValue: ''
     };
 
-    selectedItem: any;
-
     selectedItem1: any;
 
     selectedItem2: any;
 
-    selectedItem3: any;
+    selectedItem3 = '003';
 
-    selectedItem4: any;
+    selectedItem4 = [
+        '5b0527cfc8f2ff200a33d4aa',
+        '5b0527cfc8f2ff200a33d4ab'
+    ];
 
     expand = false;
 
@@ -63,6 +64,8 @@ export class DemoSelectSectionComponent {
         name: 'ios',
         _id: '5b0527cfc8f2ff200a33d4b2'
     }];
+
+    selectedItem = this.optionData[0];
 
     public apiParameters = [
         {
