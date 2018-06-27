@@ -1,9 +1,10 @@
 {
     "name": "ngx-tethys",
-    "version": "0.0.99",
+    "version": "0.1.0",
     "license": "MIT",
     "scripts": {
-        "build": "rimraf ./built/* ./codegen/* && ngc -p tsconfig-dist.json",
+        "build": "npm run build:ngm",
+        "build-ngc": "rimraf ./built/* ./codegen/* && ngc -p tsconfig-dist.json",
         "build:ngm": "ngm build -p src --clean",
         "ng": "ng",
         "start": "ng serve --port 4444 --host 0.0.0.0",

@@ -87,10 +87,10 @@
                 <thy-form-group *ngIf="submitSuccess">
                     <div class="text text-success">提交成功!</div>
                 </thy-form-group>
-                <thy-form-group>
+                <thy-form-group-footer>
                     <button [thyButton]="'primary'" (thyFormSubmit)="save(demoForm)">保存</button>
                     <button [thyButton]="'link-secondary'">取消</button>
-                </thy-form-group>
+                </thy-form-group-footer>
             </form>
         </div>
     </div>
