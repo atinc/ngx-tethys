@@ -119,6 +119,7 @@ $input-padding-x-xs: $input-padding-x !default;
 $input-line-height-xs: 1.5 !default;
 $input-border-radius-xs: 0.25rem !default;
 $input-height-xs: 24px !default;
+$input-height-sm: 28px !default;
 $input-padding-y-md: 0.282rem !default;
 $input-padding-x-md: $input-padding-x !default;
 $input-line-height-md: 1.5 !default;
@@ -147,10 +148,7 @@ $input-ellipse-hover-focus-background-color: $white !default;
 $input-form-check-size: 1rem !default;
 $input-form-check-disable-color: $gray-400 !default;
 $input-form-check-border-color: $gray-300 !default;
-$input-custom-height-sm: 28px;
-$input-custom-height-md: 32px;
-$input-custom-height: 38px;
-$input-custom-height-lg: 52px;
+
 // PopBox
 $pop-box-divider: $gray-100 !default;
 $pop-box-bg-hover: $gray-100 !default;

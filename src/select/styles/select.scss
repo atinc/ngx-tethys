@@ -110,14 +110,10 @@ select.form-control-md {
     }
   }
 
-  &:hover {
-    border-color: $input-hover-border-color;
-  }
-
   .thy-select-custom-menu {
     width: 100%;
     position: absolute;
-    top: $input-custom-height + 4px;
+    top: $input-height + 4;
     left: 0;
     box-shadow: $box-shadow;
     border-radius: 0 0 4px 4px;
@@ -239,7 +235,7 @@ select.form-control-md {
   }
 
   .thy-select-custom-options {
-    top: $input-custom-height-sm + 4px;
+    top: $input-height-sm + 4;
   }
 }
 
@@ -250,7 +246,7 @@ select.form-control-md {
   }
 
   .thy-select-custom-options {
-    top: $input-height-xs;
+    top: $input-height-xs + 4px;
   }
 }
 
@@ -261,7 +257,7 @@ select.form-control-md {
   }
 
   .thy-select-custom-options {
-    top: $input-custom-height-lg + 4px;
+    top: $input-height-lg + 4;
   }
 }
 
@@ -272,6 +268,6 @@ select.form-control-md {
   }
 
   .thy-select-custom-options {
-    top: $input-custom-height-md + 4px;
+    top: $input-height-md + 4;
   }
 }
