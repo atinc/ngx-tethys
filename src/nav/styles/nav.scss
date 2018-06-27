@@ -16,6 +16,7 @@
   .nav-link {
     @include nav-link-size($nav-link-primary-padding-y $nav-link-primary-padding-x, $nav-link-primary-right);
     min-width: $nav-link-primary-min-width;
+    @include nav-link-variant($nav-link-primary-color, $nav-link-hover-color, $nav-border-bottom);
   }
 }
 

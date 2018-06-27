@@ -1,5 +1,8 @@
 @mixin nav-link-variant($color, $hover-color, $border-bottom) {
   color: $color;
+  i {
+    color: $nav-link-icon-color;
+  }
   &:last-child {
     margin-right: 0;
   }
@@ -8,12 +11,18 @@
     @if $border-bottom {
       border-bottom: $border-bottom;
     }
+    i {
+      color: $hover-color;
+    }
   }
   @include hover-focus-active {
     color: $hover-color;
     text-decoration: none;
     @if $border-bottom {
       border-bottom: $border-bottom;
+    }
+    i {
+      color: $hover-color;
     }
   } // Disabled state lightens text
   &.disabled {
