@@ -29,6 +29,8 @@ export class DemoSelectSectionComponent {
 
     expand = false;
 
+    showSearch = false;
+
     optionData = [{
         icon: 'wtf wtf-type-task',
         display_name: '任务',

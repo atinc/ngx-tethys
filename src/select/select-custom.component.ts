@@ -2,7 +2,7 @@ import {
     Component, forwardRef, HostBinding, Input, Optional,
     ElementRef, OnInit, HostListener, ContentChildren,
     QueryList, AfterViewInit, Output, EventEmitter,
-    TemplateRef, ContentChild, AfterContentInit
+    TemplateRef, ContentChild, AfterContentInit, ViewChildren
 } from '@angular/core';
 import { UpdateHostClassService } from '../shared/update-host-class.service';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';

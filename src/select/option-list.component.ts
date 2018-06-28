@@ -1,32 +1,32 @@
-import { Component, OnInit, Input, ContentChild, TemplateRef, ContentChildren, QueryList, } from '@angular/core';
-import { ThySelectCustomComponent } from './select-custom.component';
-import { UpdateHostClassService } from '../shared';
-import { helpers } from '../util';
-import { ThyOptionComponent } from './option.component';
+// import { Component, OnInit, Input, ContentChild, TemplateRef, ContentChildren, QueryList, } from '@angular/core';
+// import { ThySelectCustomComponent } from './select-custom.component';
+// import { UpdateHostClassService } from '../shared';
+// import { helpers } from '../util';
+// import { ThyOptionComponent } from './option.component';
 
-@Component({
-    selector: 'thy-option-list',
-    templateUrl: './option-list.component.html'
-})
-export class ThyOptionListComponent implements OnInit {
+// @Component({
+//     selector: 'thy-option-list',
+//     templateUrl: './option-list.component.html'
+// })
+// export class ThyOptionListComponent implements OnInit {
 
-    @Input() option: any;
+//     @Input() option: any;
 
-    constructor(
-        public parent: ThySelectCustomComponent,
-        private updateHostClassService: UpdateHostClassService
-    ) {
+//     constructor(
+//         public parent: ThySelectCustomComponent,
+//         private updateHostClassService: UpdateHostClassService
+//     ) {
 
-    }
+//     }
 
-    ngOnInit() {
-    }
+//     ngOnInit() {
+//     }
 
-    selectedOption(option: ThyOptionComponent) {
-        if (option.thyGroupLabel || option.thyDisabled) {
-            return;
-        }
-        this.parent.selectItem(option);
-    }
-}
+//     selectedOption(option: ThyOptionComponent) {
+//         if (option.thyGroupLabel || option.thyDisabled) {
+//             return;
+//         }
+//         this.parent.selectItem(option);
+//     }
+// }
 

@@ -1,7 +1,7 @@
 import {
     Component, forwardRef, HostBinding,
     Input, ElementRef, OnInit, AfterViewInit, Output, EventEmitter,
-    ContentChild, TemplateRef, ViewChild, ContentChildren, QueryList
+    ViewChildren, TemplateRef, ViewChild, ContentChildren, QueryList
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ThySelectCustomComponent } from './select-custom.component';
@@ -39,7 +39,6 @@ export class ThyOptionComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        debugger;
     }
 }
 

@@ -1,17 +1,10 @@
-<ng-container *ngIf="option.thyShowOptionCustom">
-    <div class="option-item">
-        <ng-template [ngTemplateOutlet]="option.template">
-        </ng-template>
-    </div>
+<ng-container *ngIf="option.thyShowOptionCustom; else defaultOption">
+    <ng-template [ngTemplateOutlet]="option.template">
+    </ng-template>
 </ng-container>
-<ng-container *ngIf="!option.thyShowOptionCustom">
-    <div class="option-item option-item--group" *ngIf="option.thyGroupLabel">
-        <span class="group-name text-info">{{option.thyGroupLabel}}</span>
-    </div>
-    <div class="option-item" *ngIf="!option.thyGroupLabel">
-        <span class="ml-1">{{option.thyLabelText}}</span>
-        <span class="text-light">
-            <i class="wtf wtf-accepted"></i>
-        </span>
-    </div>
-</ng-container>
+<ng-template #defaultOption>
+    <span class="ml-1">{{option.thyLabelText}}</span>
+    <span class="text-light checked-icon">
+        <i class="wtf wtf-accepted"></i>
+    </span>
+</ng-template>

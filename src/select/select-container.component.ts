@@ -13,8 +13,6 @@ export class SelectContainerComponent implements OnInit {
 
     @Input() listOfOptionComponent: QueryList<ThyOptionComponent>;
 
-    // @Input() listOfOptionGroupComponent: QueryList<ThyOptionGroupComponent>;
-
     public searchText = '';
 
     public isSearch: boolean;
@@ -31,6 +29,13 @@ export class SelectContainerComponent implements OnInit {
         if (!this.isSearch) {
             this.searchListOption = this.listOfOptionComponent;
         }
+    }
+
+    selectedOption(option: ThyOptionComponent) {
+        if (option.thyGroupLabel || option.thyDisabled) {
+            return;
+        }
+        this.parent.selectItem(option);
     }
 
     onSearchFilter() {
