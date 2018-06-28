@@ -17,6 +17,9 @@ export class ThyOptionComponent implements OnInit, AfterViewInit {
 
     @Input() thyValue: any;
 
+    // 原始值，用于自定义模板展示内容时回传的对象
+    @Input() thyRawValue: any;
+
     @Input() thyLabelText: string;
 
     @Input() thyDisabled: boolean;

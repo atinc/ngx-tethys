@@ -61,10 +61,10 @@
             </thy-custom-select>
 
             <br>
-
+            ngModel : {{selectedItem2 | json}}
             <thy-custom-select [(ngModel)]="selectedItem2" thyPlaceHolder="请选择">
                 <thy-option thyValue="001" thyLabelText="country"></thy-option>
-                <thy-option *ngFor="let option of optionData" thyShowOptionCustom="true" [thyValue]="option" [thyLabelText]="option.display_name">
+                <thy-option *ngFor="let option of optionData" thyShowOptionCustom="true" [thyRawValue]="option" [thyValue]="option.name" [thyLabelText]="option.display_name">
                     <span>
                         <i [class]="option?.icon" class="mr-1"></i> {{option?.display_name}}
                     </span>

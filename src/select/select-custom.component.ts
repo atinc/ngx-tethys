@@ -94,7 +94,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
 
     @ViewChild('selectMenuSetting') formControlElementRef: ElementRef<any>;
 
-    @ViewChild('selectContainerWrapper') selectContainerWrapperElementRef: ElementRef<any>;
+    // @ViewChild('selectContainerWrapper') selectContainerWrapperElementRef: ElementRef<any>;
 
     selectedValueContext: any;
 
@@ -111,11 +111,9 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
                 this._selectedOptions = [];
             }
 
-            // this._selectedOptions = this._innerValues.map((itemValue: any) => {
-            //     return this.listOfOptionComponent.find((item) => {
-            //         return item.thyValue === itemValue;
-            //     });
-            // });
+            this.selectedValueContext = {
+                $implicit: this._selectedOptions
+            };
         } else {
             if (this._innerValue) {
                 this._selectedOption = this.findOneOptionComponent((item) => {
@@ -124,13 +122,11 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
             } else {
                 this._selectedOption = null;
             }
+            this.selectedValueContext = {
+                $implicit: this._selectedOption ? (this._selectedOption.thyRawValue || this._selectedOption.thyValue) : null
+            };
         }
-        this.selectedValueContext = {
-            $implicit: {
-                value: this._selectedOption,
-                values: this._selectedOptions
-            }
-        };
+
     }
 
     findOneOptionComponent(iterate: (option: ThyOptionComponent) => boolean): ThyOptionComponent {
@@ -303,14 +299,16 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
                 return item.thyValue;
             });
             this.valueOnChange(this._innerValues);
+            this.selectedValueContext = {
+                $implicit: this._selectedOptions
+            };
         } else {
             this._selectedOption = option;
             this._innerValue = option.thyValue;
             this._expandOptions = false;
             this.valueOnChange(this._innerValue);
             this.selectedValueContext = {
-                $implicit: this._selectedOption.thyValue,
-                labelText: this._selectedOption.thyLabelText
+                $implicit: this._selectedOption.thyRawValue || this._selectedOption.thyValue
             };
         }
 
