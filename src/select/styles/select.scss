@@ -85,7 +85,7 @@ select.form-control-md {
 }
 
 .thy-select-md {
-  @include select-arrow-bottom($input-padding-y-md + ($font-size-md * $input-line-height-xs - $font-size-base) / 2);
+  @include select-arrow-bottom($input-padding-y-md + ($font-size-base * $input-line-height-xs - $font-size-md) / 2);
 }
 
 .thy-select-custom {
@@ -131,6 +131,10 @@ select.form-control-md {
     z-index: 100;
   }
 
+  .thy-select-search {
+    padding: 10px 20px 0;
+  }
+
   .thy-select-custom-menu {
     width: 100%;
     // position: absolute;
@@ -141,10 +145,6 @@ select.form-control-md {
     border-radius: 0 0 4px 4px;
     z-index: 99;
     background: $white;
-  }
-
-  .thy-select-search {
-    padding: 10px 20px 0;
   }
 
   .thy-select-custom-options {
@@ -347,19 +347,11 @@ select.form-control-md {
     @include select-custom-variant($input-padding-x-lg, $input-padding-y-lg, $input-height-lg, $font-size-md);
     @include select-arrow-bottom($input-padding-y-lg + ($font-size-lg * $input-line-height-lg - $font-size-md) / 2);
   }
-
-  .thy-select-custom-options {
-    top: $input-height-lg + 4;
-  }
 }
 
 .thy-select-custom-md {
   .thy-form-control {
     @include select-custom-variant($input-padding-x-md, $input-padding-y-md, $input-height-md, $font-size-base);
     @include select-arrow-bottom($input-padding-y-md + ($font-size-base * $input-line-height-md - $font-size-base) / 2);
-  }
-
-  .thy-select-custom-options {
-    top: $input-height-md + 4;
   }
 }
