@@ -112,7 +112,7 @@ select.form-control-md {
   .form-control {
     cursor: pointer;
     .thy-label-default {
-      color: $body-color!important;
+      color: $body-color !important;
 
       i.wtf-times {
         color: $info;
@@ -170,8 +170,13 @@ select.form-control-md {
     .thy-option-item {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      // justify-content: space-between;
       width: 100%;
+      position: relative;
+      .checked-icon {
+        position: absolute;
+        right: 20px;
+      }
     }
 
     .thy-option-item {
