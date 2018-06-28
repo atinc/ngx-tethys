@@ -2,12 +2,13 @@ import {
     Component, forwardRef, HostBinding, Input, Optional,
     ElementRef, OnInit, HostListener, ContentChildren,
     QueryList, AfterViewInit, Output, EventEmitter,
-    TemplateRef, ContentChild, AfterContentInit, ViewChildren
+    TemplateRef, ContentChild, AfterContentInit, ViewChild, Renderer2
 } from '@angular/core';
 import { UpdateHostClassService } from '../shared/update-host-class.service';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ThyOptionComponent } from './option.component';
 import { ThyActionMenuSubItemDirective } from '../action-menu/action-menu.component';
+import { ThyPositioningService } from '../positioning/positioning.service';
 
 export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -50,8 +51,6 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
 
     _size: InputSize;
 
-    // _expandOptions = false;
-
     _mode: SelectMode;
 
     _classNames: any = [];
@@ -66,6 +65,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
 
     @HostBinding('class.thy-select') _isSelect = true;
 
+    // 菜单是否展开
     @HostBinding('class.menu-is-opened') _expandOptions = false;
 
     @Output() thyOnSearch: EventEmitter<any> = new EventEmitter<any>();
@@ -91,6 +91,10 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
     @ContentChildren(ThyOptionComponent) listOfOptionComponent: QueryList<ThyOptionComponent>;
 
     @ContentChild('selectedDisplay') selectedValueDisplayRef: TemplateRef<any>;
+
+    @ViewChild('selectMenuSetting') formControlElementRef: ElementRef<any>;
+
+    @ViewChild('selectContainerWrapper') selectContainerWrapperElementRef: ElementRef<any>;
 
     selectedValueContext: any;
 
@@ -171,6 +175,8 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
     constructor(
         private elementRef: ElementRef,
         private updateHostClassService: UpdateHostClassService,
+        private thyPositioningService: ThyPositioningService,
+        private renderer: Renderer2
     ) {
         this.updateHostClassService.initializeElement(elementRef.nativeElement);
     }
@@ -232,6 +238,34 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
 
     dropDownMenuToggle(event: Event, templateRef: any) {
         this._expandOptions = !this._expandOptions;
+        this.autoCalculateMenuPosition();
+    }
+
+    autoCalculateMenuPosition() {
+        const selectElement = this.elementRef.nativeElement as any;
+        // const targetElement = this.selectContainerWrapperElementRef.nativeElement as HTMLElement;
+
+        if (this._expandOptions) {
+            setTimeout(() => {
+                const targetElement = selectElement.parentNode.querySelector('.select-container-wrapper');
+                const hostElement = this.formControlElementRef.nativeElement;
+                const targetElBCR = targetElement.getBoundingClientRect();
+                const hostOffset = this.thyPositioningService.offset(hostElement);
+                const hostPos = this.thyPositioningService.position(hostElement);
+                // 底部空间不够
+                if (targetElBCR.top + targetElBCR.height > document.documentElement.clientHeight) {
+                    // 上方可以放下直接放上方，否则遮盖 form-control
+                    if (targetElBCR.top - hostPos.height < targetElBCR.height) {
+                        targetElement.style.top = `${document.documentElement.clientHeight - targetElBCR.top - targetElBCR.height}px`;
+                    } else {
+                        targetElement.style.bottom = `${(hostPos.height + 4)}px`;
+                    }
+                }
+            });
+        } else {
+            // targetElement.style.bottom = null;
+            // targetElement.style.top = null;
+        }
     }
 
     remove(event: Event, item: ThyOptionComponent, index: number) {
@@ -241,7 +275,10 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
             return option.thyValue;
         });
         item.selected = false;
-        this._expandOptions = true;
+        if (!this._expandOptions) {
+            this._expandOptions = true;
+            this.autoCalculateMenuPosition();
+        }
         this.valueOnChange(this._innerValues);
     }
 
