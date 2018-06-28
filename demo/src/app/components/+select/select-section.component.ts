@@ -63,19 +63,19 @@ export class DemoSelectSectionComponent {
     {
         icon: 'wtf wtf-type-ios',
         display_name: 'IOS缺陷',
-        name: 'ios',
+        name: 'ios1',
         _id: '5b0527cfc8f2ff200a33d4b2'
     },
     {
         icon: 'wtf wtf-type-ios',
         display_name: 'IOS缺陷',
-        name: 'ios',
+        name: 'ios2',
         _id: '5b0527cfc8f2ff200a33d4b3'
     },
     {
         icon: 'wtf wtf-type-ios',
         display_name: 'IOS缺陷',
-        name: 'ios',
+        name: 'ios3',
         _id: '5b0527cfc8f2ff200a33d4b4'
     }
     ];
