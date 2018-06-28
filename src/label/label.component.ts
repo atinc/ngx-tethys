@@ -1,5 +1,6 @@
 import { Component, ElementRef, Renderer2, Input, Output, EventEmitter, HostBinding } from '@angular/core';
 import { inputValueToBoolean } from '../util/helpers';
+import { helpers } from '../util';
 
 export type ThyLabelType = 'default' | 'primary' | 'success' | 'info' | 'warning' | 'danger';
 
@@ -19,6 +20,19 @@ const labelTypeClassesMap: any = {
 export class ThyLabelComponent {
 
     @HostBinding('class.label-has-hover') _thyHasHover = false;
+
+    @HostBinding('class.thy-label--sm') _classNameSM = false;
+
+    @HostBinding('class.thy-label--md') _classNameDM = false;
+
+    @HostBinding('class.thy-label--lg') _classNameLG = false;
+
+    @Input('thySize')
+    set thySize(value: string) {
+        this._classNameSM = (value === 'sm');
+        this._classNameDM = (value === 'md');
+        this._classNameLG = (value === 'lg');
+    }
 
     private nativeElement: any;
 
@@ -117,7 +131,12 @@ export class ThyLabelComponent {
 
     private _setLabelCustomColor() {
         if (this._color) {
-            this.el.nativeElement.style.backgroundColor = this._color;
+            if (this._type.indexOf('emboss') > -1) {
+                this.el.nativeElement.style.color = this._color;
+                this.el.nativeElement.style.backgroundColor = helpers.hexToRgb(this._color, 0.1);
+            } else {
+                this.el.nativeElement.style.backgroundColor = this._color;
+            }
         }
     }
 

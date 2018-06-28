@@ -9,13 +9,17 @@
         <span class="mr-1" thyLabel="success">Success</span>
         <span class="mr-1" thyLabel="info">Info</span>
         <span class="mr-1" thyLabel="warning">Warning</span>
-        <span class="mr-1" thyLabel="emboss-primary">emboss-primary</span>
         <br/>
-        <br/> 自定义颜色
+        <br/>
+        <span class="mr-1" thyLabel="emboss-default">emboss-default</span>
+        <span class="mr-1" thyLabel="emboss-primary">emboss-primary</span>
+        <hr>
+        自定义颜色
         <code>#7076fa</code>覆盖
-        <span thyLabel [thyLabelColor]="color">Danger</span>
-        <br>
-        <br>
+        <span class="mr-1" thyLabel [thyLabelColor]="color">Danger</span>
+        <span class="mr-1" thyLabel="emboss-default" [thyLabelColor]="''">emboss-primary</span>
+        <span class="mr-1" thyLabel="emboss-default" [thyLabelColor]="color">emboss-primary</span>
+        <hr/>
         <span class="mr-1" thyLabel="default" thyHasHover="true" thyBeforeIcon="wtf-th-plus" (click)="add()">添加标签</span>
         <span class="mr-1" thyLabel="primary" thyHasHover="true" thyAfterIcon="wtf-times" (thyOnRemove)="remove()">
             重要不紧急
@@ -24,6 +28,18 @@
         <br>
         <br>
         <span thyLabel="default" thyAfterIcon="wtf-times" (thyOnRemove)="remove()">default</span>
+    </div>
+</section>
+
+<section>
+    <div class="header">
+        <h2>大小</h2>
+    </div>
+    <div class="body">
+        <span class="mr-1" thyLabel="default" thySize="sm">标签 sm 20</span>
+        <span class="mr-1" thyLabel="default">标签 default 22</span>
+        <span class="mr-1" thyLabel="default" thySize="md">标签 md 24</span>
+        <span class="mr-1" thyLabel="default" thySize="lg">标签 lg 26</span>
     </div>
 </section>
 

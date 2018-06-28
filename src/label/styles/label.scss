@@ -11,13 +11,23 @@
         font-size: $font-size-sm;
     }
     &.thy-label-state {
-        padding: $label-state-padding;
+        padding: $label-size-padding-md;
     }
     &.thy-label-pill {
         font-size: $font-size-sm;
         border-radius: $label-pill-radius;
         color: $gray-700;
         background: $gray-200;
+    }
+    &--sm{
+        padding: $label-size-padding-sm;
+    }
+    &--md{
+        padding: $label-size-padding-md;
+    }
+    &--lg{
+        padding: $label-size-padding-lg;
+        
     }
 }
 
@@ -56,6 +66,11 @@
 .thy-label-danger {
     @include label-variant($label-danger-bg);
     @include label-color-variant($white, $white);
+}
+
+.thy-label-emboss-default {
+    @include label-color-variant($gray-500, $gray-600);
+    background-color: $label-default-bg;
 }
 
 .thy-label-emboss-primary {
