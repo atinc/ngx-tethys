@@ -29,6 +29,8 @@ export class ThyOptionComponent implements OnInit, AfterViewInit {
 
     @ContentChildren(ThyOptionComponent) listOfOptionComponent: QueryList<ThyOptionComponent>;
 
+    showOptionComponents: ThyOptionComponent[];
+
     selected = false;
 
     constructor(
@@ -39,6 +41,22 @@ export class ThyOptionComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
+        this.showOptionComponents = this.listOfOptionComponent.toArray();
+    }
+
+    filterOptionComponents(iterate: (option: ThyOptionComponent) => boolean): ThyOptionComponent[] {
+        const matchComponents: ThyOptionComponent[] = [];
+        this.listOfOptionComponent.forEach((item) => {
+            if (!item.thyGroupLabel && iterate(item)) {
+                matchComponents.push(item);
+            }
+        });
+        this.showOptionComponents = matchComponents;
+        return matchComponents;
+    }
+
+    resetFilterComponents() {
+        this.showOptionComponents = this.listOfOptionComponent.toArray();
     }
 }
 
