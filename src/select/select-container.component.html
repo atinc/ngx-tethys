@@ -3,8 +3,6 @@
         <thy-input-search thyAutofocus name="search" [(ngModel)]="searchText" (ngModelChange)="onSearchFilter()"></thy-input-search>
     </div>
     <div class="thy-select-custom-options">
-        <ng-container>
-            <thy-option-list *ngFor="let option of searchListOption" [option]="option"></thy-option-list>
-        </ng-container>
+        <thy-option-list *ngFor="let option of searchListOption" [option]="option"></thy-option-list>
     </div>
 </div>

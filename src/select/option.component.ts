@@ -1,6 +1,7 @@
 import {
     Component, forwardRef, HostBinding,
-    Input, ElementRef, OnInit, Output, EventEmitter, ContentChild, TemplateRef, ViewChild, ContentChildren, QueryList
+    Input, ElementRef, OnInit, AfterViewInit, Output, EventEmitter,
+    ContentChild, TemplateRef, ViewChild, ContentChildren, QueryList
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ThySelectCustomComponent } from './select-custom.component';
@@ -10,7 +11,7 @@ import { ThyInputSearchComponent } from '../input/input-search.component';
     selector: 'thy-option,thy-option-group',
     templateUrl: './option.component.html'
 })
-export class ThyOptionComponent implements OnInit {
+export class ThyOptionComponent implements OnInit, AfterViewInit {
 
     @Input() thyGroupLabel: string;
 
@@ -35,6 +36,10 @@ export class ThyOptionComponent implements OnInit {
     }
 
     ngOnInit() {
+    }
+
+    ngAfterViewInit() {
+        debugger;
     }
 }
 
