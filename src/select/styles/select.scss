@@ -110,6 +110,7 @@ select.form-control-md {
   }
 
   .form-control {
+    cursor: pointer;
     .thy-label-default {
       color: $body-color!important;
 
@@ -137,7 +138,7 @@ select.form-control-md {
   //   }
   // }
 
-  select-container {
+  .select-container-wrapper {
     position: absolute;
     width: 100%;
     z-index: 100;
@@ -147,9 +148,10 @@ select.form-control-md {
     padding: 10px 20px 0;
   }
 
-  .thy-select-custom-menu {
+  .thy-select-container {
     width: 100%;
     // position: absolute;
+    display: block;
     margin-top: 4px;
     top: $input-height;
     left: 0;
