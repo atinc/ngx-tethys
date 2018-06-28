@@ -64,6 +64,8 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
 
     @HostBinding('class.thy-select-custom') _isSelectCustom = true;
 
+    @HostBinding('class.thy-select') _isSelect = true;
+
     @HostBinding('class.options-is-opened') _expandOptions = false;
 
     @Output() thyOnSearch: EventEmitter<any> = new EventEmitter<any>();
@@ -187,7 +189,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
 
     ngOnInit() {
         if (this._size) {
-            this._classNames.push(`thy-select-custom-${this._size}`);
+            this._classNames.push(`thy-select-${this._size}`);
         }
         if (this._mode === 'multiple') {
             this._classNames.push(`thy-select-custom--multiple`);

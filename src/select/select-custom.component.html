@@ -1,5 +1,5 @@
 <ng-content></ng-content>
-<div class="thy-form-control" #selectMenuSetting (click)="dropDownMenuToggle($event,selectMenuSetting)">
+<div class="form-control" [ngClass]="_size ? 'form-control-' + _size : ''" #selectMenuSetting (click)="dropDownMenuToggle($event,selectMenuSetting)">
     <ng-container *ngIf="!_mode">
         <span *ngIf="_selectedOption && !selectedValueDisplayRef">{{_selectedOption.thyLabelText}}</span>
         <ng-container *ngIf="_innerValue && selectedValueDisplayRef">

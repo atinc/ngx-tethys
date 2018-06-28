@@ -93,24 +93,23 @@ select.form-control-md {
   width: 100%;
   position: relative;
 
+  &:after {
+    transition: transform 200ms;
+  }
+  
   // 打开状态
   &.options-is-opened {
-    .thy-form-control {
+    .form-control {
       border-color: $input-hover-border-color;
     }
 
-    .thy-form-control {
-      &:after {
-        transform: rotate(180deg);
-      }
+    &:after {
+      transform: rotate(180deg);
     }
     
   }
 
-  .thy-form-control {
-    @include select-custom-variant($input-padding-x, $input-padding-y, $input-height, $font-size-base);
-    @include select-arrow-bottom($input-padding-y + ($font-size-base * $input-line-height - $font-size-md) / 2);
-
+  .form-control {
     .thy-label-default {
       color: $body-color!important;
 
@@ -118,12 +117,25 @@ select.form-control-md {
         color: $info;
       }
     }
-
-    &:after {
-      transition: transform 200ms;
-      @include select-arrow-variant();
-    }
   }
+
+  // .thy-form-control {
+  //   @include select-custom-variant($input-padding-x, $input-padding-y, $input-height, $font-size-base);
+  //   @include select-arrow-bottom($input-padding-y + ($font-size-base * $input-line-height - $font-size-md) / 2);
+
+  //   .thy-label-default {
+  //     color: $body-color!important;
+
+  //     i.wtf-times {
+  //       color: $info;
+  //     }
+  //   }
+
+  //   &:after {
+  //     transition: transform 200ms;
+  //     @include select-arrow-variant();
+  //   }
+  // }
 
   select-container {
     position: absolute;
@@ -319,39 +331,39 @@ select.form-control-md {
   }
 }
 
-.thy-select-custom-sm {
-  .thy-form-control {
-    line-height: normal;
-    @include select-custom-variant($input-padding-x-sm, $input-padding-y-sm, $input-height-sm, $font-size-sm);
-    @include select-arrow-bottom($input-padding-y-sm + ($font-size-sm * $input-line-height-sm - $font-size-md) / 2);
-  }
+// .thy-select-custom-sm {
+//   .thy-form-control {
+//     line-height: normal;
+//     @include select-custom-variant($input-padding-x-sm, $input-padding-y-sm, $input-height-sm, $font-size-sm);
+//     @include select-arrow-bottom($input-padding-y-sm + ($font-size-sm * $input-line-height-sm - $font-size-md) / 2);
+//   }
 
-  .thy-select-custom-options {
-    top: $input-height-sm + 4;
-  }
-}
+//   .thy-select-custom-options {
+//     top: $input-height-sm + 4;
+//   }
+// }
 
-.thy-select-custom-xs {
-  .thy-form-control {
-    @include select-custom-variant($input-padding-x-xs, $input-padding-y-xs, $input-height-xs, $font-size-xs);
-    @include select-arrow-bottom($input-padding-y-xs + ($font-size-sm * $input-line-height-xs - $font-size-md) / 2);
-  }
+// .thy-select-custom-xs {
+//   .thy-form-control {
+//     @include select-custom-variant($input-padding-x-xs, $input-padding-y-xs, $input-height-xs, $font-size-xs);
+//     @include select-arrow-bottom($input-padding-y-xs + ($font-size-sm * $input-line-height-xs - $font-size-md) / 2);
+//   }
 
-  .thy-select-custom-options {
-    top: $input-height-xs + 4px;
-  }
-}
+//   .thy-select-custom-options {
+//     top: $input-height-xs + 4px;
+//   }
+// }
 
-.thy-select-custom-lg {
-  .thy-form-control {
-    @include select-custom-variant($input-padding-x-lg, $input-padding-y-lg, $input-height-lg, $font-size-md);
-    @include select-arrow-bottom($input-padding-y-lg + ($font-size-lg * $input-line-height-lg - $font-size-md) / 2);
-  }
-}
+// .thy-select-custom-lg {
+//   .thy-form-control {
+//     @include select-custom-variant($input-padding-x-lg, $input-padding-y-lg, $input-height-lg, $font-size-md);
+//     @include select-arrow-bottom($input-padding-y-lg + ($font-size-lg * $input-line-height-lg - $font-size-md) / 2);
+//   }
+// }
 
-.thy-select-custom-md {
-  .thy-form-control {
-    @include select-custom-variant($input-padding-x-md, $input-padding-y-md, $input-height-md, $font-size-base);
-    @include select-arrow-bottom($input-padding-y-md + ($font-size-base * $input-line-height-md - $font-size-base) / 2);
-  }
-}
+// .thy-select-custom-md {
+//   .thy-form-control {
+//     @include select-custom-variant($input-padding-x-md, $input-padding-y-md, $input-height-md, $font-size-base);
+//     @include select-arrow-bottom($input-padding-y-md + ($font-size-base * $input-line-height-md - $font-size-base) / 2);
+//   }
+// }
