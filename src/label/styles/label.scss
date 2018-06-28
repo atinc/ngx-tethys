@@ -19,15 +19,14 @@
         color: $gray-700;
         background: $gray-200;
     }
-    &--sm{
+    &--sm {
         padding: $label-size-padding-sm;
     }
-    &--md{
+    &--md {
         padding: $label-size-padding-md;
     }
-    &--lg{
+    &--lg {
         padding: $label-size-padding-lg;
-        
     }
 }
 
@@ -74,6 +73,16 @@
 }
 
 .thy-label-emboss-primary {
-    @include label-variant($item-active-bg-color);
+    @include label-variant(rgba($primary, 0.1));
     @include label-color-variant($primary, $primary);
+}
+
+.thy-label-emboss-warning {
+    @include label-variant(rgba($warning, 0.1));
+    @include label-color-variant($warning, $warning);
+}
+
+.thy-label-emboss-danger {
+    @include label-variant(rgba($danger, 0.1));
+    @include label-color-variant($danger, $danger);
 }
