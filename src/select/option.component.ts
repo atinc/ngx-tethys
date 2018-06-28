@@ -1,6 +1,7 @@
 import {
     Component, forwardRef, HostBinding,
-    Input, ElementRef, OnInit, Output, EventEmitter, ContentChild, TemplateRef, ViewChild, ContentChildren, QueryList
+    Input, ElementRef, OnInit, AfterViewInit, Output, EventEmitter,
+    ViewChildren, TemplateRef, ViewChild, ContentChildren, QueryList
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ThySelectCustomComponent } from './select-custom.component';
@@ -10,7 +11,7 @@ import { ThyInputSearchComponent } from '../input/input-search.component';
     selector: 'thy-option,thy-option-group',
     templateUrl: './option.component.html'
 })
-export class ThyOptionComponent implements OnInit {
+export class ThyOptionComponent implements OnInit, AfterViewInit {
 
     @Input() thyGroupLabel: string;
 
@@ -28,12 +29,34 @@ export class ThyOptionComponent implements OnInit {
 
     @ContentChildren(ThyOptionComponent) listOfOptionComponent: QueryList<ThyOptionComponent>;
 
+    showOptionComponents: ThyOptionComponent[];
+
+    selected = false;
 
     constructor(
     ) {
     }
 
     ngOnInit() {
+    }
+
+    ngAfterViewInit() {
+        this.showOptionComponents = this.listOfOptionComponent.toArray();
+    }
+
+    filterOptionComponents(iterate: (option: ThyOptionComponent) => boolean): ThyOptionComponent[] {
+        const matchComponents: ThyOptionComponent[] = [];
+        this.listOfOptionComponent.forEach((item) => {
+            if (!item.thyGroupLabel && iterate(item)) {
+                matchComponents.push(item);
+            }
+        });
+        this.showOptionComponents = matchComponents;
+        return matchComponents;
+    }
+
+    resetFilterComponents() {
+        this.showOptionComponents = this.listOfOptionComponent.toArray();
     }
 }
 

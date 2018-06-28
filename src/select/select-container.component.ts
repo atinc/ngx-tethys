@@ -13,13 +13,11 @@ export class SelectContainerComponent implements OnInit {
 
     @Input() listOfOptionComponent: QueryList<ThyOptionComponent>;
 
-    // @Input() listOfOptionGroupComponent: QueryList<ThyOptionGroupComponent>;
-
     public searchText = '';
 
     public isSearch: boolean;
 
-    public searchListOption: any = [];
+    public searchListOption: ThyOptionComponent[] = [];
 
     constructor(
         public parent: ThySelectCustomComponent,
@@ -29,8 +27,32 @@ export class SelectContainerComponent implements OnInit {
 
     ngOnInit() {
         if (!this.isSearch) {
-            this.searchListOption = this.listOfOptionComponent;
+            this.searchListOption = this.listOfOptionComponent.toArray();
         }
+    }
+
+    selectedOption(option: ThyOptionComponent) {
+        if (option.thyGroupLabel || option.thyDisabled) {
+            return;
+        }
+        this.parent.selectItem(option);
+    }
+
+    findOptionComponents(iterate: (option: ThyOptionComponent) => boolean): ThyOptionComponent[] {
+        const result: ThyOptionComponent[] = [];
+        this.listOfOptionComponent.forEach((item) => {
+            if (item.thyGroupLabel) {
+                const subOptions = item.filterOptionComponents(iterate);
+                if (subOptions.length > 0) {
+                    result.push(item);
+                }
+            } else {
+                if (iterate(item)) {
+                    result.push(item);
+                }
+            }
+        });
+        return result;
     }
 
     onSearchFilter() {
@@ -48,19 +70,19 @@ export class SelectContainerComponent implements OnInit {
                 return;
             }
             this.isSearch = true;
-            const searchData: any = [];
             if (text) {
                 if (this.listOfOptionComponent.length > 0) {
-                    this.listOfOptionComponent.forEach((item: any) => {
-                        if (!item.custom) {
-                            const _searchKey = item.thySearchKey ? item.thySearchKey : item.thyLabelText;
-                            if (_searchKey.toLowerCase().indexOf(text) >= 0) {
-                                searchData.push(item);
-                            }
+                    this.searchListOption = this.findOptionComponents((item) => {
+                        const _searchKey = item.thySearchKey ? item.thySearchKey : item.thyLabelText;
+                        if (_searchKey && _searchKey.toLowerCase().indexOf(text) >= 0) {
+                            return true;
+                        } else {
+                            return false;
                         }
                     });
+                } else {
+                    this.searchListOption = [];
                 }
-                this.searchListOption = searchData;
             }
         }
 
@@ -69,7 +91,12 @@ export class SelectContainerComponent implements OnInit {
     clearSearchText() {
         this.searchText = '';
         this.isSearch = false;
-        this.searchListOption = this.listOfOptionComponent;
+        this.searchListOption = this.listOfOptionComponent.toArray();
+        this.searchListOption.forEach((item) => {
+            if (item.thyGroupLabel) {
+                item.resetFilterComponents();
+            }
+        });
     }
 }
 

@@ -1,15 +1,18 @@
 <ng-content></ng-content>
-<div class="form-control thy-select form-control-md thy-select-md"  #selectMenuSetting (click)="dropDownMenuToggle($event,selectMenuSetting)">
-    <div class="align-middle" *ngIf="!_mode">
-        <span *ngIf="_innerValue">{{_innerValue?.thyLabelText}}</span>
-        <span class="text-placeholder" *ngIf="!_innerValue">{{thyPlaceHolder}}</span>
-    </div>
-    <div class="align-middle d-flex flex-nowrap align-items-center" *ngIf="_mode === 'multiple'">
-        <span class="mr-1" [hidden]="_innerValues?.length === 0" *ngFor="let item of _innerValues;index as i" thyLabel="default"
-            thyAfterIcon="wtf-times" (click)="remove($event,item,i)">
+<div class="form-control form-control-custom" [ngClass]="_size ? 'form-control-' + _size : ''" #selectMenuSetting (click)="dropDownMenuToggle($event,selectMenuSetting)">
+    <ng-container *ngIf="!_mode">
+        <span *ngIf="_selectedOption && !selectedValueDisplayRef">{{_selectedOption.thyLabelText}}</span>
+        <ng-container *ngIf="_innerValue && selectedValueDisplayRef">
+            <ng-container *ngTemplateOutlet="selectedValueDisplayRef; context: selectedValueContext"></ng-container>
+        </ng-container>
+        <span class="text-placeholder" *ngIf="!_selectedOption">{{thyPlaceHolder}}</span>
+    </ng-container>
+    <div [ngClass]="{'multiple-value-wrapper': _selectedOptions?.length > 0}" *ngIf="_mode === 'multiple'">
+        <span class="mr-1" [hidden]="_selectedOptions?.length === 0" *ngFor="let item of _selectedOptions;index as i" thyLabel="default"
+            thyAfterIcon="wtf-times" (click)="remove($event, item, i)">
             {{item?.thyLabelText}}
         </span>
-        <span class="align-middle text-placeholder" *ngIf="_innerValues?.length === 0">
+        <span class="text-placeholder" *ngIf="_selectedOptions?.length === 0">
             {{thyPlaceHolder}}
         </span>
 

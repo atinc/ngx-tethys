@@ -16,17 +16,20 @@ export class DemoSelectSectionComponent {
         selectedValue: ''
     };
 
-    selectedItem: any;
-
     selectedItem1: any;
 
     selectedItem2: any;
 
-    selectedItem3: any;
+    selectedItem3 = '003';
 
-    selectedItem4: any;
+    selectedItem4 = [
+        '5b0527cfc8f2ff200a33d4aa',
+        '5b0527cfc8f2ff200a33d4ab'
+    ];
 
     expand = false;
+
+    showSearch = false;
 
     optionData = [{
         icon: 'wtf wtf-type-task',
@@ -52,17 +55,32 @@ export class DemoSelectSectionComponent {
         name: 'requirement',
         _id: '5b0527cfc8f2ff200a33d4ad'
     }, {
-        // icon: 'wtf wtf-type-ios',
+        icon: 'wtf wtf-type-ios',
         display_name: 'IOS缺陷',
         name: 'ios',
         _id: '5b0527cfc8f2ff200a33d4b1'
     },
     {
-        // icon: 'wtf wtf-type-ios',
+        icon: 'wtf wtf-type-ios',
         display_name: 'IOS缺陷',
         name: 'ios',
         _id: '5b0527cfc8f2ff200a33d4b2'
-    }];
+    },
+    {
+        icon: 'wtf wtf-type-ios',
+        display_name: 'IOS缺陷',
+        name: 'ios',
+        _id: '5b0527cfc8f2ff200a33d4b3'
+    },
+    {
+        icon: 'wtf wtf-type-ios',
+        display_name: 'IOS缺陷',
+        name: 'ios',
+        _id: '5b0527cfc8f2ff200a33d4b4'
+    }
+    ];
+
+    selectedItem = this.optionData[0];
 
     public apiParameters = [
         {
