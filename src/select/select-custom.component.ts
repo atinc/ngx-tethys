@@ -66,7 +66,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
 
     @HostBinding('class.thy-select') _isSelect = true;
 
-    @HostBinding('class.options-is-opened') _expandOptions = false;
+    @HostBinding('class.menu-is-opened') _expandOptions = false;
 
     @Output() thyOnSearch: EventEmitter<any> = new EventEmitter<any>();
 

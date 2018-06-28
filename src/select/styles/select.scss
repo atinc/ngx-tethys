@@ -96,9 +96,9 @@ select.form-control-md {
   &:after {
     transition: transform 200ms;
   }
-  
+
   // 打开状态
-  &.options-is-opened {
+  &.menu-is-opened {
     .form-control {
       border-color: $input-hover-border-color;
     }
