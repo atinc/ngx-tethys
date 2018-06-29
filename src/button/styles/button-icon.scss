@@ -1,7 +1,7 @@
 
-$btn-icon-circle-padding-lg: 13px;
-$btn-icon-circle-padding-base: 9px;
-$btn-icon-circle-padding-sm: 6px;
+$btn-icon-circle-padding-lg: 14px;
+$btn-icon-circle-padding-base: 10px;
+$btn-icon-circle-padding-sm: 7px;
 $btn-icon-circle-padding-xs: 4px;
 
 .btn-icon {
@@ -16,6 +16,10 @@ $btn-icon-circle-padding-xs: 4px;
 }
 
 .btn-icon-circle {
+    &.btn {
+        border: 0px;
+    }
+
     i,.wtf {
         transition: border 200ms, padding 200ms;
         color: $gray-400; //$btn-icon-light-color;
@@ -82,7 +86,7 @@ $btn-icon-circle-padding-xs: 4px;
 }
 
 .btn-icon-xs {
-    @include btn-icon-size-variant($font-size-sm, $btn-icon-circle-padding-xs);
+    @include btn-icon-size-variant($font-size-base, $btn-icon-circle-padding-xs);
 }
 
 .btn-icon-sm {
