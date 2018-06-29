@@ -68,14 +68,13 @@ export class ThyPopBoxService {
 
         setTimeout(() => {
             this.thyPositioningService.setPosition({
-                target: popBoxContainerRef.location.nativeElement.querySelector('div'),
+                target: popBoxContainerRef.location,
                 attach: _config.target,
                 placement: _config.placement,
                 offset: _config.offset,
                 appendToBody: true,
                 position: _config.position
             });
-            popBoxContainerRef.location.nativeElement.querySelector('div').style.display = 'block';
         });
         const _loader = {
             target: target,
