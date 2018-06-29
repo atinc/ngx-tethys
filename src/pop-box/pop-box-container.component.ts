@@ -22,6 +22,8 @@ export class PopBoxContainerComponent implements OnInit {
 
     @HostBinding('style.z-index') _zIndex: number | string;
 
+    @HostBinding('class.pop-box-container-mask') popBoxContainerClass = false;
+
     public popBoxRef: PopBoxRef;
 
     // public config: PopBoxOptions;
@@ -35,6 +37,7 @@ export class PopBoxContainerComponent implements OnInit {
 
     ngOnInit(): void {
         this._zIndex = this.config.zIndex || '';
+        this.popBoxContainerClass = this.config.showMask;
     }
 
 
@@ -44,8 +47,10 @@ export class PopBoxContainerComponent implements OnInit {
 
     @HostListener('click', ['$event'])
     onClick(event: Event): void {
-        if (this.config.stopPropagation) {
-            event.stopPropagation();
+        if (!this.config.showMask) {
+            if (this.config.stopPropagation) {
+                event.stopPropagation();
+            }
         }
     }
 
@@ -59,6 +64,10 @@ export class PopBoxContainerComponent implements OnInit {
 
     @HostListener('document:click', ['$event'])
     onDocumentClick(event: any): void {
+        if (this.config.showMask && event.target === this.elementRef.nativeElement) {
+            this.hide();
+            return;
+        }
         // 是否点击了 pop box 内部区域
         const isClickPopBoxInner = this.elementRef.nativeElement.contains(event.target);
         let needClose = false;
