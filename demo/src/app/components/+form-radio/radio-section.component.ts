@@ -52,6 +52,8 @@ export class DemoRadioSectionComponent {
         disabled: false
     };
 
+    modelGroup = '1';
+
     constructor(
     ) { }
 
