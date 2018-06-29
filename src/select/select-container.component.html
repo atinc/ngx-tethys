@@ -1,18 +1,19 @@
-<div class="thy-select-search" *ngIf="parent.thyShowSearch">
-    <thy-input-search thyAutofocus name="search" [(ngModel)]="searchText" (ngModelChange)="onSearchFilter()"></thy-input-search>
-</div>
-<div class="thy-select-custom-options">
-    <ng-container *ngFor="let option of searchListOption">
-        <div class="thy-option-item-group" *ngIf="option.thyGroupLabel; else optionItem">
-            <span class="group-name text-info">{{option?.thyGroupLabel}}</span>
-            <ng-container *ngFor="let subOption of option.listOfOptionComponent">
-                <thy-option-item *ngIf="!subOption.thyGroupLabel" (click)="selectedOption(subOption)" [thyDisabled]="option.thyDisabled"
-                    [option]="subOption" [ngClass]="{'active': (option?.thyValue === parent._innerValue || option.selected)}"></thy-option-item>
-            </ng-container>
-        </div>
-        <ng-template #optionItem>
-            <thy-option-item [option]="option" (click)="selectedOption(option)" [thyDisabled]="option.thyDisabled" [ngClass]="{'active': (option?.thyValue === parent._innerValue || option.selected)}"></thy-option-item>
-        </ng-template>
-    </ng-container>
-    <!-- <thy-option-list *ngFor="let option of searchListOption" [option]="option"></thy-option-list> -->
+<div class="thy-select-container">
+    <div class="thy-select-search" *ngIf="parent.thyShowSearch">
+        <thy-input-search thyAutofocus name="search" [(ngModel)]="searchText" (ngModelChange)="onSearchFilter()"></thy-input-search>
+    </div>
+    <div class="thy-select-custom-options">
+        <ng-container *ngFor="let option of showOptionComponents">
+            <div class="thy-option-item-group" *ngIf="option.thyGroupLabel; else optionItem">
+                <span class="group-name text-info">{{option?.thyGroupLabel}}</span>
+                <ng-container *ngFor="let subOption of option.listOfOptionComponent">
+                    <thy-option-item *ngIf="!subOption.thyGroupLabel" (click)="selectedOption(subOption)" [thyDisabled]="option.thyDisabled"
+                        [option]="subOption" [ngClass]="{'active': (option?.thyValue === parent._innerValue || option.selected)}"></thy-option-item>
+                </ng-container>
+            </div>
+            <ng-template #optionItem>
+                <thy-option-item [option]="option" (click)="selectedOption(option)" [thyDisabled]="option.thyDisabled" [ngClass]="{'active': (option?.thyValue === parent._innerValue || option.selected)}"></thy-option-item>
+            </ng-template>
+        </ng-container>
+    </div>
 </div>

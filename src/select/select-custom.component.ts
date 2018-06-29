@@ -88,13 +88,24 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
         this._size = value;
     }
 
-    @ContentChildren(ThyOptionComponent) listOfOptionComponent: QueryList<ThyOptionComponent>;
+    _listOfOptionComponent: QueryList<ThyOptionComponent>;
+
+    @ContentChildren(ThyOptionComponent)
+    set listOfOptionComponent(value: QueryList<ThyOptionComponent>) {
+        this._listOfOptionComponent = value;
+        this._setSelectedOptions();
+    }
 
     @ContentChild('selectedDisplay') selectedValueDisplayRef: TemplateRef<any>;
 
     @ViewChild('selectMenuSetting') formControlElementRef: ElementRef<any>;
 
-    // @ViewChild('selectContainerWrapper') selectContainerWrapperElementRef: ElementRef<any>;
+    @ViewChild('selectContainer')
+    set selectContainerWrapperElementRef(value: ElementRef<any>) {
+        if (value && value.nativeElement) {
+            this.autoCalculateMenuPosition(value.nativeElement);
+        }
+    }
 
     selectedValueContext: any;
 
@@ -131,7 +142,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
 
     findOneOptionComponent(iterate: (option: ThyOptionComponent) => boolean): ThyOptionComponent {
         let result: ThyOptionComponent;
-        this.listOfOptionComponent.forEach((item) => {
+        this._listOfOptionComponent.forEach((item) => {
             if (result) {
                 return;
             }
@@ -152,7 +163,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
 
     findOptionComponents(iterate: (option: ThyOptionComponent) => boolean): ThyOptionComponent[] {
         const result: ThyOptionComponent[] = [];
-        this.listOfOptionComponent.forEach((item) => {
+        this._listOfOptionComponent.forEach((item) => {
             if (item.thyGroupLabel) {
                 item.listOfOptionComponent.forEach((subItem) => {
                     if (iterate(subItem)) {
@@ -234,33 +245,23 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
 
     dropDownMenuToggle(event: Event, templateRef: any) {
         this._expandOptions = !this._expandOptions;
-        this.autoCalculateMenuPosition();
     }
 
-    autoCalculateMenuPosition() {
-        const selectElement = this.elementRef.nativeElement as any;
-        // const targetElement = this.selectContainerWrapperElementRef.nativeElement as HTMLElement;
-
+    autoCalculateMenuPosition(targetElement: HTMLElement) {
         if (this._expandOptions) {
-            setTimeout(() => {
-                const targetElement = selectElement.parentNode.querySelector('.select-container-wrapper');
-                const hostElement = this.formControlElementRef.nativeElement;
-                const targetElBCR = targetElement.getBoundingClientRect();
-                const hostOffset = this.thyPositioningService.offset(hostElement);
-                const hostPos = this.thyPositioningService.position(hostElement);
-                // 底部空间不够
-                if (targetElBCR.top + targetElBCR.height > document.documentElement.clientHeight) {
-                    // 上方可以放下直接放上方，否则遮盖 form-control
-                    if (targetElBCR.top - hostPos.height < targetElBCR.height) {
-                        targetElement.style.top = `${document.documentElement.clientHeight - targetElBCR.top - targetElBCR.height}px`;
-                    } else {
-                        targetElement.style.bottom = `${(hostPos.height + 4)}px`;
-                    }
+            const hostElement = this.formControlElementRef.nativeElement;
+            const targetElBCR = targetElement.getBoundingClientRect();
+            const hostOffset = this.thyPositioningService.offset(hostElement);
+            const hostPos = this.thyPositioningService.position(hostElement);
+            // 底部空间不够
+            if (targetElBCR.top + targetElBCR.height > document.documentElement.clientHeight) {
+                // 上方可以放下直接放上方，否则遮盖 form-control
+                if (targetElBCR.top - hostPos.height < targetElBCR.height) {
+                    targetElement.style.top = `${document.documentElement.clientHeight - targetElBCR.top - targetElBCR.height}px`;
+                } else {
+                    targetElement.style.bottom = `${(hostPos.height + 4)}px`;
                 }
-            });
-        } else {
-            // targetElement.style.bottom = null;
-            // targetElement.style.top = null;
+            }
         }
     }
 
@@ -273,7 +274,6 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
         item.selected = false;
         if (!this._expandOptions) {
             this._expandOptions = true;
-            this.autoCalculateMenuPosition();
         }
         this.valueOnChange(this._innerValues);
     }
