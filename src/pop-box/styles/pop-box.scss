@@ -1,7 +1,7 @@
-// pop-box-container {
-//     position: absolute;
-//     z-index: $zindex-pop-box;
-// }
+pop-box-container {
+    position: absolute;
+    z-index: $zindex-pop-box;
+}
 
 .pop-box-container-mask {
     position: fixed;
@@ -17,7 +17,6 @@
 
 .pop-box {
     position: absolute;
-    display: none;
     z-index: $zindex-pop-box;
     .pop-box-content {
         min-width: 240px;
