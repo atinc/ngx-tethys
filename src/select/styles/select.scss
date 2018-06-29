@@ -138,10 +138,11 @@ select.form-control-md {
   //   }
   // }
 
-  .select-container-wrapper {
+  .thy-select-container-wrapper {
     position: absolute;
     width: 100%;
     z-index: 100;
+    display: block;
   }
 
   .thy-select-search {

@@ -20,6 +20,4 @@
 
     </div>
 </div>
-<div class="select-container-wrapper" *ngIf="_expandOptions" #selectContainerWrapper>
-    <select-container [listOfOptionComponent]="listOfOptionComponent"></select-container>
-</div>
+<select-container *ngIf="_expandOptions" #selectContainer [listOfOptionComponent]="_listOfOptionComponent"></select-container>

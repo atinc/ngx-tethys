@@ -20,7 +20,7 @@ export class DemoSelectSectionComponent {
 
     selectedItem2: any;
 
-    selectedItem3 = '003';
+    selectedItem3 = '';
 
     selectedItem4 = [
         '5b0527cfc8f2ff200a33d4aa',
@@ -160,7 +160,11 @@ export class DemoSelectSectionComponent {
     ];
 
     constructor(
-    ) { }
+    ) {
+        setTimeout(() => {
+            this.selectedItem3 = '003';
+        }, 400);
+    }
 
     change() {
         console.log(`select change value as :${this.model.selectedValue}`);

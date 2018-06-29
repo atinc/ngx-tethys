@@ -11,7 +11,7 @@ import { helpers } from '../util';
 })
 export class SelectContainerComponent implements OnInit {
 
-    @HostBinding('class.thy-select-container') _isSelectContainer = true;
+    @HostBinding('class.thy-select-container-wrapper') _isSelectContainer = true;
 
     @Input() listOfOptionComponent: QueryList<ThyOptionComponent>;
 
