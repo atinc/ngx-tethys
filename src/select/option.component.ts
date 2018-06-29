@@ -59,7 +59,7 @@ export class ThyOptionComponent implements OnInit, AfterViewInit {
     }
 
     resetFilterComponents() {
-        this.showOptionComponents = this.listOfOptionComponent.toArray();
+        this.showOptionComponents = this.listOfOptionComponent ? this.listOfOptionComponent.toArray() : [];
     }
 }
 

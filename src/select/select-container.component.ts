@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, ContentChild, TemplateRef, QueryList, Output, EventEmitter, HostBinding } from '@angular/core';
 import { ThyOptionComponent } from './option.component';
-// import { ThyOptionGroupComponent } from './option-group.component';
 import { ThySelectCustomComponent } from './select-custom.component';
 import { UpdateHostClassService } from '../shared';
 import { helpers } from '../util';
@@ -13,13 +12,21 @@ export class SelectContainerComponent implements OnInit {
 
     @HostBinding('class.thy-select-container-wrapper') _isSelectContainer = true;
 
-    @Input() listOfOptionComponent: QueryList<ThyOptionComponent>;
+    _listOfOptionComponent: QueryList<ThyOptionComponent>;
+
+    @Input()
+    set listOfOptionComponent(value: QueryList<ThyOptionComponent>) {
+        this._listOfOptionComponent = value;
+        if (!this.isSearch) {
+            this.showOptionComponents = this._listOfOptionComponent ? this._listOfOptionComponent.toArray() : [];
+        }
+    }
 
     public searchText = '';
 
     public isSearch: boolean;
 
-    public searchListOption: ThyOptionComponent[] = [];
+    public showOptionComponents: ThyOptionComponent[] = [];
 
     constructor(
         public parent: ThySelectCustomComponent,
@@ -28,9 +35,7 @@ export class SelectContainerComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (!this.isSearch) {
-            this.searchListOption = this.listOfOptionComponent.toArray();
-        }
+
     }
 
     selectedOption(option: ThyOptionComponent) {
@@ -42,7 +47,7 @@ export class SelectContainerComponent implements OnInit {
 
     findOptionComponents(iterate: (option: ThyOptionComponent) => boolean): ThyOptionComponent[] {
         const result: ThyOptionComponent[] = [];
-        this.listOfOptionComponent.forEach((item) => {
+        this._listOfOptionComponent.forEach((item) => {
             if (item.thyGroupLabel) {
                 const subOptions = item.filterOptionComponents(iterate);
                 if (subOptions.length > 0) {
@@ -73,8 +78,8 @@ export class SelectContainerComponent implements OnInit {
             }
             this.isSearch = true;
             if (text) {
-                if (this.listOfOptionComponent.length > 0) {
-                    this.searchListOption = this.findOptionComponents((item) => {
+                if (this._listOfOptionComponent.length > 0) {
+                    this.showOptionComponents = this.findOptionComponents((item) => {
                         const _searchKey = item.thySearchKey ? item.thySearchKey : item.thyLabelText;
                         if (_searchKey && _searchKey.toLowerCase().indexOf(text) >= 0) {
                             return true;
@@ -83,7 +88,7 @@ export class SelectContainerComponent implements OnInit {
                         }
                     });
                 } else {
-                    this.searchListOption = [];
+                    this.showOptionComponents = [];
                 }
             }
         }
@@ -93,8 +98,8 @@ export class SelectContainerComponent implements OnInit {
     clearSearchText() {
         this.searchText = '';
         this.isSearch = false;
-        this.searchListOption = this.listOfOptionComponent.toArray();
-        this.searchListOption.forEach((item) => {
+        this.showOptionComponents = this._listOfOptionComponent ? this._listOfOptionComponent.toArray() : [];
+        this.showOptionComponents.forEach((item) => {
             if (item.thyGroupLabel) {
                 item.resetFilterComponents();
             }
