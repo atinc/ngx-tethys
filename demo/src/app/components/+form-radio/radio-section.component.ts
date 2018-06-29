@@ -40,8 +40,39 @@ export class DemoRadioSectionComponent {
             description: '是否禁用，当和 ngModel 配置使用才会有效，如果单独设置禁用使用  thyDisabled',
             type: 'Boolean',
             default: ''
+        },
+        {
+            property: 'thyValue',
+            description: '当和 thy-radio-group 配合使用时的值，选中后的 NgModel 值',
+            type: 'String',
+            default: ''
         }
     ];
+
+    apiGroupParameters = [
+        {
+            property: 'ngModel',
+            description: '双向绑定值，指定选中的 Radio 的 thyValue 的值',
+            type: 'String',
+            default: ''
+        }, {
+            property: 'ngModelChange',
+            description: '值发生改变回调函数',
+            type: 'String',
+            default: ''
+        }, {
+            property: 'thyDisabled',
+            description: '禁用',
+            type: 'Boolean',
+            default: 'false'
+        }, {
+            property: 'disabled',
+            description: '是否禁用，当和 ngModel 配置使用才会有效，如果单独设置禁用使用  thyDisabled',
+            type: 'Boolean',
+            default: ''
+        }
+    ];
+
 
 
     model = {

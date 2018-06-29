@@ -20,6 +20,11 @@ export class ThyRadioGroupComponent implements ControlValueAccessor {
 
     radios: ThyRadioComponent[] = [];
 
+    @Input()
+    set thyDisabled(value: boolean) {
+        this.setDisabledState(value);
+    }
+
     onChange: (_: string) => void = () => null;
     onTouched: () => void = () => null;
 
