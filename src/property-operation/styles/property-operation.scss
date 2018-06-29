@@ -35,10 +35,15 @@
     }
 
     .close-link {
-        position: absolute;
         visibility: hidden;
-        top: 14px;
-        right: -20px;
+        padding-left: 20px;
+        display: flex;
+        justify-items: center;
+        align-items: center;
+        // position: absolute;
+        // visibility: hidden;
+        // top: 14px;
+        // right: -20px;
     }
 }
 
