@@ -27,7 +27,7 @@ export class DemoSlideContentComponent {
             insideAutoClose: false,
             outsideAutoClose: true,
             showMask: true,
-            stopPropagation:true
+            stopPropagation: true
         });
     }
 
