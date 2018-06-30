@@ -53,7 +53,7 @@
     </div>
     <div class="body">
         <div class="demo-select">
-            <thy-custom-select thySize="md" [thyShowSearch]="true">
+            <thy-custom-select thySize="md" [thyShowSearch]="true" thyEmptyStateText="无匹配结果">
                 <thy-option thyValue="" thyLabelText="空"></thy-option>
                 <thy-option *ngFor="let option of optionData" [thyValue]="option" [thyDisabled]="option.name === 'money'" [thyLabelText]="option.display_name">
                 </thy-option>

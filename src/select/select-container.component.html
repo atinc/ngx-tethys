@@ -15,5 +15,8 @@
                 <thy-option-item [option]="option" (click)="selectedOption(option)" [thyDisabled]="option.thyDisabled" [ngClass]="{'active': (option?.thyValue === parent._innerValue || option.selected)}"></thy-option-item>
             </ng-template>
         </ng-container>
+        <ng-container *ngIf="showOptionComponents.length === 0">
+            <div class="pl-4 pt-1 pb-1 text-placeholder">{{parent._emptyStateText}}</div>
+        </ng-container>
     </div>
 </div>

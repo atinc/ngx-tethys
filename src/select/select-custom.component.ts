@@ -54,6 +54,8 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
 
     _mode: SelectMode;
 
+    _emptyStateText: string;
+
     _classNames: any = [];
 
     _viewContentInitialized = false;
@@ -87,6 +89,11 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
     @Input()
     set thySize(value: InputSize) {
         this._size = value;
+    }
+
+    @Input()
+    set thyEmptyStateText(value: string) {
+        this._emptyStateText = value;
     }
 
     _listOfOptionComponent: QueryList<ThyOptionComponent>;
