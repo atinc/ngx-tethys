@@ -7,8 +7,8 @@
             <div class="thy-option-item-group" *ngIf="option.thyGroupLabel; else optionItem">
                 <span class="group-name text-info">{{option?.thyGroupLabel}}</span>
                 <ng-container *ngFor="let subOption of option.listOfOptionComponent">
-                    <thy-option-item *ngIf="!subOption.thyGroupLabel" (click)="selectedOption(subOption)" [thyDisabled]="option.thyDisabled"
-                        [option]="subOption" [ngClass]="{'active': (option?.thyValue === parent._innerValue || option.selected)}"></thy-option-item>
+                    <thy-option-item *ngIf="!subOption.thyGroupLabel" (click)="selectedOption(subOption)" [thyDisabled]="subOption.thyDisabled"
+                        [option]="subOption" [ngClass]="{'active': (subOption?.thyValue === parent._innerValue || subOption.selected)}"></thy-option-item>
                 </ng-container>
             </div>
             <ng-template #optionItem>
