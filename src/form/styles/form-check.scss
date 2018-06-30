@@ -3,15 +3,15 @@
 // Indent the labels to position radios/checkboxes as hanging controls.
 
 .form-check {
-  position: relative;
-  display: block;
+  display: flex;
+  justify-items: center;
   padding-left: $form-check-input-gutter;
   padding-bottom: 4px;
   margin-bottom: 0; // Override default `<label>` bottom margin
 }
 
 .form-check-input {
-  position: absolute;
+  position: relative;
   margin-top: $form-check-input-margin-y;
   margin-left: -$form-check-input-gutter;
 
@@ -34,8 +34,8 @@
   .form-check-input {
     // position: static;
     position: relative;
-    margin-top: 0;
-    margin-right: $form-check-inline-input-margin-x;
+    margin-top: -1px;
+    // margin-right: $form-check-inline-input-margin-x;
     margin-left: 0;
   }
 }
@@ -122,7 +122,8 @@ input[type=radio] {
 
 
 .form-check-label {
-    padding-left: 5px;
+    // padding-left: 5px;
+    margin-left: 10px;
     cursor: pointer;
     color: $input-label-color;
     // .form-check-inline & {
