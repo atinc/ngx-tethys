@@ -9,7 +9,7 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ThyOptionComponent } from './option.component';
 import { ThyActionMenuSubItemDirective } from '../action-menu/action-menu.component';
 import { ThyPositioningService } from '../positioning/positioning.service';
-import { isUndefined } from '../util/helpers';
+import { isUndefinedOrNull } from '../util/helpers';
 
 export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -128,7 +128,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
             };
         } else {
             // allow value is empty
-            if (isUndefined(this._innerValue)) {
+            if (isUndefinedOrNull(this._innerValue)) {
                 this._selectedOption = null;
             } else {
                 this._selectedOption = this.findOneOptionComponent((item) => {
@@ -149,11 +149,13 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
                 return;
             }
             if (item.thyGroupLabel) {
-                item.listOfOptionComponent.forEach((subItem) => {
-                    if (iterate(subItem)) {
-                        result = subItem;
-                    }
-                });
+                if (item.listOfOptionComponent) {
+                    item.listOfOptionComponent.forEach((subItem) => {
+                        if (iterate(subItem)) {
+                            result = subItem;
+                        }
+                    });
+                }
             } else {
                 if (iterate(item)) {
                     result = item;
