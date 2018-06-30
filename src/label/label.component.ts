@@ -40,8 +40,6 @@ export class ThyLabelComponent {
 
     private _labelClass?: string;
 
-    private _color?: string;
-
     private _type?: string;
 
     private _labelType?: string;
@@ -51,6 +49,8 @@ export class ThyLabelComponent {
     public beforeIconClass: any;
 
     public afterIconClass: any;
+
+    public _color?: string;
 
     @Output() thyOnRemove: EventEmitter<any> = new EventEmitter<any>();
 
