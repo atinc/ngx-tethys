@@ -77,6 +77,12 @@ export class DemoSelectSectionComponent {
             description: '是否默认展开下拉菜单',
             type: 'boolean',
             default: 'false'
+        },
+        {
+            property: 'thyEmptyStateText',
+            description: '数据为空时显示的提示文字',
+            type: 'string',
+            default: ''
         }
     ];
 
