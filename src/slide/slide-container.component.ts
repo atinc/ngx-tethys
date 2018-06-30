@@ -76,7 +76,6 @@ export class ThySlideContainerComponent implements OnInit {
 
     @HostListener('click', ['$event'])
     onClick(event: any): void {
-        event.stopPropagation();
         if (this.thySlideService._isHide || event.target === this.elementRef.nativeElement) {
             this.flyInOut = 'void';
             this.thySlideRef.hide();
