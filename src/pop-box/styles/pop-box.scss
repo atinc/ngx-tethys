@@ -16,7 +16,6 @@ pop-box-container {
 }
 
 .pop-box {
-    position: absolute;
     z-index: $zindex-pop-box;
     .pop-box-content {
         min-width: 240px;

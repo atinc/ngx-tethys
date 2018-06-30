@@ -44,7 +44,7 @@ export class ThyOptionComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        this.showOptionComponents = this.listOfOptionComponent.toArray();
+        this.showOptionComponents = this.listOfOptionComponent ? this.listOfOptionComponent.toArray() : [];
     }
 
     filterOptionComponents(iterate: (option: ThyOptionComponent) => boolean): ThyOptionComponent[] {

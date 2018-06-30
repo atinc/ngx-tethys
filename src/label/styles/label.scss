@@ -86,3 +86,10 @@
     @include label-variant(rgba($danger, 0.1));
     @include label-color-variant($danger, $danger);
 }
+
+.thy-label-emboss-status {
+    i.wtf {
+        font-size: $font-size-base;
+        margin-right: 6px;
+    }
+}
