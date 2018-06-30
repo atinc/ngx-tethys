@@ -34,13 +34,11 @@ export class ThyLabelComponent {
         this._classNameLG = (value === 'lg');
     }
 
-    private nativeElement: any;
+    private nativeElement: HTMLElement;
 
     private _typeClassNames: string[] = [];
 
     private _labelClass?: string;
-
-    private _color?: string;
 
     private _type?: string;
 
@@ -51,6 +49,8 @@ export class ThyLabelComponent {
     public beforeIconClass: any;
 
     public afterIconClass: any;
+
+    public _color?: string;
 
     @Output() thyOnRemove: EventEmitter<any> = new EventEmitter<any>();
 
@@ -132,7 +132,11 @@ export class ThyLabelComponent {
     private _setLabelCustomColor() {
         if (this._color) {
             if (this._type.indexOf('emboss') > -1) {
-                this.el.nativeElement.style.color = this._color;
+                if (this._type === 'emboss-status') {
+                    this.el.nativeElement.style.color = '#333';
+                } else {
+                    this.el.nativeElement.style.color = this._color;
+                }
                 this.el.nativeElement.style.backgroundColor = helpers.hexToRgb(this._color, 0.1);
             } else {
                 this.el.nativeElement.style.backgroundColor = this._color;
