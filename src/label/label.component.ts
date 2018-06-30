@@ -34,13 +34,13 @@ export class ThyLabelComponent {
         this._classNameLG = (value === 'lg');
     }
 
+    public _color?: string;
+
     private nativeElement: HTMLElement;
 
     private _typeClassNames: string[] = [];
 
     private _labelClass?: string;
-
-    private _color?: string;
 
     private _type?: string;
 
