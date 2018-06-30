@@ -7,9 +7,7 @@ import {
     IterableChangeRecord,
     ContentChildren,
     QueryList,
-    OnDestroy,
-    AfterContentInit,
-    AfterViewInit
+    OnDestroy
 } from '@angular/core';
 import { get, set } from '../util/helpers';
 import {
@@ -40,7 +38,7 @@ const customType = {
     templateUrl: './grid.component.html',
     encapsulation: ViewEncapsulation.None
 })
-export class ThyGridComponent implements OnInit, AfterViewInit, AfterContentInit, OnDestroy, DoCheck {
+export class ThyGridComponent implements OnInit, OnDestroy, DoCheck {
 
     public customType = customType;
 
@@ -79,6 +77,8 @@ export class ThyGridComponent implements OnInit, AfterViewInit, AfterContentInit
     private _diff: IterableDiffer<any>;
 
     private _draggableModel: any;
+
+    private _listOfColumnComponents: QueryList<ThyGridColumnComponent>;
 
     @Input()
     set thyModel(value: any) {
@@ -154,7 +154,14 @@ export class ThyGridComponent implements OnInit, AfterViewInit, AfterContentInit
 
     @Output() thyOnRowClick: EventEmitter<ThyGridRowEvent> = new EventEmitter<ThyGridRowEvent>();
 
-    @ContentChildren(ThyGridColumnComponent) listOfColumnComponents: QueryList<any>;
+    @ContentChildren(ThyGridColumnComponent)
+    set listOfColumnComponents(components: QueryList<ThyGridColumnComponent>) {
+        if (components) {
+            this._listOfColumnComponents = components;
+            this._initializeColumns();
+            this._initializeDataModel();
+        }
+    }
 
     constructor(
         private _differs: IterableDiffers
@@ -163,7 +170,7 @@ export class ThyGridComponent implements OnInit, AfterViewInit, AfterContentInit
     }
 
     private _initializeColumns() {
-        const components = this.listOfColumnComponents ? this.listOfColumnComponents.toArray() : [];
+        const components = this._listOfColumnComponents ? this._listOfColumnComponents.toArray() : [];
         this.columns = components.map<ThyGridColumn>((component) => {
             const selections = component.selections.map((item: any) => {
                 if (typeof (item) === 'number' || typeof (item) === 'string') {
@@ -220,15 +227,6 @@ export class ThyGridComponent implements OnInit, AfterViewInit, AfterContentInit
         this.columns.forEach(column => {
             this._initialCustomModelValue(row, column);
         });
-    }
-
-    private _applyDiffColumnsChanges() {
-        if (this.listOfColumnComponents && this.columns) {
-            if (this.listOfColumnComponents.length !== this.columns.length) {
-                this._initializeColumns();
-                this._initializeDataModel();
-            }
-        }
     }
 
     private _applyDiffChanges(changes: IterableChanges<any>) {
@@ -344,17 +342,6 @@ export class ThyGridComponent implements OnInit, AfterViewInit, AfterContentInit
     ngDoCheck() {
         const changes = this._diff.diff(this.model);
         this._applyDiffChanges(changes);
-        this._applyDiffColumnsChanges();
-    }
-
-    ngAfterViewInit() {
-        // 设置成一个异步操作，规避在AfterViewInit修改数据值
-        setTimeout(() => {
-            this._applyDiffColumnsChanges();
-        });
-    }
-
-    ngAfterContentInit() {
     }
 
     ngOnDestroy() {
