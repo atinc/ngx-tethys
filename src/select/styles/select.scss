@@ -156,7 +156,7 @@ select.form-control-md {
     margin-top: 4px;
     top: $input-height;
     left: 0;
-    box-shadow: $box-shadow;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.14);
     border-radius: 0 0 4px 4px;
     z-index: 99;
     background: $white;
@@ -189,7 +189,7 @@ select.form-control-md {
         right: 20px;
       }
       &:hover {
-        box-shadow: $box-shadow;
+        box-shadow: 0 2px 8px 1px rgba(0, 0, 0, 0.08);
         color: $body-color;
       }
       &:not(.disabled).active {
