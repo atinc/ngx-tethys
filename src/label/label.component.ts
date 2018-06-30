@@ -34,8 +34,6 @@ export class ThyLabelComponent {
         this._classNameLG = (value === 'lg');
     }
 
-    public _color?: string;
-
     private nativeElement: HTMLElement;
 
     private _typeClassNames: string[] = [];
@@ -51,6 +49,8 @@ export class ThyLabelComponent {
     public beforeIconClass: any;
 
     public afterIconClass: any;
+
+    public _color?: string;
 
     @Output() thyOnRemove: EventEmitter<any> = new EventEmitter<any>();
 
