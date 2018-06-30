@@ -39,6 +39,7 @@
   .nav-link {
     @include nav-link-size ($nav-link-thirdly-padding-y $nav-link-thirdly-padding-x, $nav-link-thirdly-right);
     @include nav-link-divider-variant($nav-link-hover-color, $nav-link-thirdly-split-line-height, $nav-link-thirdly-right);
+    @include clear-nav-link-bottom();
   }
 }
 

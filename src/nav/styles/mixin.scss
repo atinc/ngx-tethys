@@ -31,32 +31,32 @@
   }
 }
 
-@mixin nav-link-variant-thirdly($nav-link-hover-color) {
-  position: relative;
-  &:after {
-    display: block;
-    position: absolute;
-    width: 0;
-    content: "";
-    border-right: 1px solid #eee;
-  }
-  &:last-child {
-    &:after {
-      display: none;
-    }
-  }
-  // &.active {
-  //   border-bottom: none;
-  // }
-  @include hover-focus-active {
-    color: $nav-link-hover-color;
-    text-decoration: none;
-    // border-bottom: none;
-  }
-  .wtf {
-    margin-right: 0.3125rem;
-  }
-}
+// @mixin nav-link-variant-thirdly($nav-link-hover-color) {
+//   position: relative;
+//   &:after {
+//     display: block;
+//     position: absolute;
+//     width: 0;
+//     content: "";
+//     border-right: 1px solid #eee;
+//   }
+//   &:last-child {
+//     &:after {
+//       display: none;
+//     }
+//   }
+//   &.active {
+//     border-bottom: none;
+//   }
+//   @include hover-focus-active {
+//     color: $nav-link-hover-color;
+//     text-decoration: none;
+//     border-bottom: none;
+//   }
+//   .wtf {
+//     margin-right: 0.3125rem;
+//   }
+// }
 
 @mixin nav-link-size($padding, $margin-right){
   padding: $padding;
@@ -95,5 +95,14 @@
   }
   .wtf {
     margin-right: 0.3125rem;
+  }
+}
+
+@mixin clear-nav-link-bottom {
+  &.active {
+    border-bottom: none;
+  }
+  @include hover-focus-active {
+    border-bottom: none;
   }
 }
