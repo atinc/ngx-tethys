@@ -4,6 +4,9 @@ import { ThyAvatarService } from './avatar.service';
 @Pipe({ name: 'avatarShortName' })
 export class AvatarShortNamePipe implements PipeTransform {
     transform(name: string): string {
+        if (!name) {
+            return;
+        }
         name = name.trim();
         if (/^[\u4e00-\u9fa5]+$/.test(name)) {
             if (name.length > 2) {
@@ -26,6 +29,9 @@ export class AvatarShortNamePipe implements PipeTransform {
 @Pipe({ name: 'avatarBgColor' })
 export class AvatarBgColorPipe implements PipeTransform {
     transform(name: string) {
+        if (!name) {
+            return;
+        }
         const colors = ['#2cccda', '#2dbcff', '#4e8af9', '#7076fa', '#9473fd', '#ef7ede', '#99d75a', '#66c060', '#39ba5d'];
         const nameArray: string[] = name.split('');
         const code: number = name && name.length > 0 ? nameArray.reduce(function (result, item) {
