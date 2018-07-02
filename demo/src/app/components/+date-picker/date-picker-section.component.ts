@@ -50,12 +50,12 @@ export class DemoDataPickerSectionComponent implements OnInit {
 
     dateRangeEntry = {
         begin: { date: Math.floor((new Date()).getTime() / 1000) },
-        end: { date: Math.floor((new Date()).getTime() / 1000) + 90000 * 3 }
+        end: { date: Math.floor((new Date()).getTime() / 1000) + 90000 * 30 }
     };
 
     dateRangeTime = {
         begin: Math.floor((new Date()).getTime() / 1000),
-        end: Math.floor((new Date()).getTime() / 1000) + 90000 * 3
+        end: Math.floor((new Date()).getTime() / 1000) + 90000 * 30
     };
 
     dateRangeNullValueObject = {
