@@ -1,0 +1,6 @@
+<div class="pop-box-container-mask" *ngIf="showMask" (click)="clickMask($event)"></div>
+<div class="pop-box" (click)="clickPopBox($event)">
+    <div class="pop-box-content">
+        <ng-content></ng-content>
+    </div>
+</div>

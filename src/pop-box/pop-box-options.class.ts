@@ -59,6 +59,15 @@ export class PopBoxOptions {
     stopPropagation?: boolean;
 
     zIndex?: number;
+
+    // 弹出元素追加的位置，默认是 body
+    append?: string;
+
+    // 弹出后是否显示遮罩层
+    showMask?: boolean;
+
+    // 自动关闭上一个弹出框
+    autoClosePrevious?: boolean;
 }
 
 export const popBoxConfigDefaults: PopBoxOptions = {
@@ -68,5 +77,8 @@ export const popBoxConfigDefaults: PopBoxOptions = {
     outsideAutoClose: true,
     insideAutoClose: false,
     offset: 2,
-    stopPropagation: false
+    stopPropagation: false,
+    append: 'body',
+    showMask: false,
+    autoClosePrevious: false
 };

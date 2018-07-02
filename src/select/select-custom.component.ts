@@ -9,6 +9,7 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ThyOptionComponent } from './option.component';
 import { ThyActionMenuSubItemDirective } from '../action-menu/action-menu.component';
 import { ThyPositioningService } from '../positioning/positioning.service';
+import { isUndefinedOrNull } from '../util/helpers';
 
 export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -53,6 +54,8 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
 
     _mode: SelectMode;
 
+    _emptyStateText: string;
+
     _classNames: any = [];
 
     _viewContentInitialized = false;
@@ -88,13 +91,29 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
         this._size = value;
     }
 
-    @ContentChildren(ThyOptionComponent) listOfOptionComponent: QueryList<ThyOptionComponent>;
+    @Input()
+    set thyEmptyStateText(value: string) {
+        this._emptyStateText = value;
+    }
+
+    _listOfOptionComponent: QueryList<ThyOptionComponent>;
+
+    @ContentChildren(ThyOptionComponent)
+    set listOfOptionComponent(value: QueryList<ThyOptionComponent>) {
+        this._listOfOptionComponent = value;
+        this._setSelectedOptions();
+    }
 
     @ContentChild('selectedDisplay') selectedValueDisplayRef: TemplateRef<any>;
 
     @ViewChild('selectMenuSetting') formControlElementRef: ElementRef<any>;
 
-    @ViewChild('selectContainerWrapper') selectContainerWrapperElementRef: ElementRef<any>;
+    @ViewChild('selectContainer')
+    set selectContainerWrapperElementRef(value: ElementRef<any>) {
+        if (value && value.nativeElement) {
+            this.autoCalculateMenuPosition(value.nativeElement);
+        }
+    }
 
     selectedValueContext: any;
 
@@ -111,40 +130,39 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
                 this._selectedOptions = [];
             }
 
-            // this._selectedOptions = this._innerValues.map((itemValue: any) => {
-            //     return this.listOfOptionComponent.find((item) => {
-            //         return item.thyValue === itemValue;
-            //     });
-            // });
+            this.selectedValueContext = {
+                $implicit: this._selectedOptions
+            };
         } else {
-            if (this._innerValue) {
+            // allow value is empty
+            if (isUndefinedOrNull(this._innerValue)) {
+                this._selectedOption = null;
+            } else {
                 this._selectedOption = this.findOneOptionComponent((item) => {
                     return item.thyValue === this._innerValue;
                 });
-            } else {
-                this._selectedOption = null;
             }
+            this.selectedValueContext = {
+                $implicit: this._selectedOption ? (this._selectedOption.thyRawValue || this._selectedOption.thyValue) : null
+            };
         }
-        this.selectedValueContext = {
-            $implicit: {
-                value: this._selectedOption,
-                values: this._selectedOptions
-            }
-        };
+
     }
 
     findOneOptionComponent(iterate: (option: ThyOptionComponent) => boolean): ThyOptionComponent {
         let result: ThyOptionComponent;
-        this.listOfOptionComponent.forEach((item) => {
+        this._listOfOptionComponent.forEach((item) => {
             if (result) {
                 return;
             }
             if (item.thyGroupLabel) {
-                item.listOfOptionComponent.forEach((subItem) => {
-                    if (iterate(subItem)) {
-                        result = subItem;
-                    }
-                });
+                if (item.listOfOptionComponent) {
+                    item.listOfOptionComponent.forEach((subItem) => {
+                        if (iterate(subItem)) {
+                            result = subItem;
+                        }
+                    });
+                }
             } else {
                 if (iterate(item)) {
                     result = item;
@@ -156,7 +174,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
 
     findOptionComponents(iterate: (option: ThyOptionComponent) => boolean): ThyOptionComponent[] {
         const result: ThyOptionComponent[] = [];
-        this.listOfOptionComponent.forEach((item) => {
+        this._listOfOptionComponent.forEach((item) => {
             if (item.thyGroupLabel) {
                 item.listOfOptionComponent.forEach((subItem) => {
                     if (iterate(subItem)) {
@@ -238,33 +256,23 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
 
     dropDownMenuToggle(event: Event, templateRef: any) {
         this._expandOptions = !this._expandOptions;
-        this.autoCalculateMenuPosition();
     }
 
-    autoCalculateMenuPosition() {
-        const selectElement = this.elementRef.nativeElement as any;
-        // const targetElement = this.selectContainerWrapperElementRef.nativeElement as HTMLElement;
-
+    autoCalculateMenuPosition(targetElement: HTMLElement) {
         if (this._expandOptions) {
-            setTimeout(() => {
-                const targetElement = selectElement.parentNode.querySelector('.select-container-wrapper');
-                const hostElement = this.formControlElementRef.nativeElement;
-                const targetElBCR = targetElement.getBoundingClientRect();
-                const hostOffset = this.thyPositioningService.offset(hostElement);
-                const hostPos = this.thyPositioningService.position(hostElement);
-                // 底部空间不够
-                if (targetElBCR.top + targetElBCR.height > document.documentElement.clientHeight) {
-                    // 上方可以放下直接放上方，否则遮盖 form-control
-                    if (targetElBCR.top - hostPos.height < targetElBCR.height) {
-                        targetElement.style.top = `${document.documentElement.clientHeight - targetElBCR.top - targetElBCR.height}px`;
-                    } else {
-                        targetElement.style.bottom = `${(hostPos.height + 4)}px`;
-                    }
+            const hostElement = this.formControlElementRef.nativeElement;
+            const targetElBCR = targetElement.getBoundingClientRect();
+            const hostOffset = this.thyPositioningService.offset(hostElement);
+            const hostPos = this.thyPositioningService.position(hostElement);
+            // 底部空间不够
+            if (targetElBCR.top + targetElBCR.height > document.documentElement.clientHeight) {
+                // 上方可以放下直接放上方，否则遮盖 form-control
+                if (targetElBCR.top - hostPos.height < targetElBCR.height) {
+                    targetElement.style.top = `${document.documentElement.clientHeight - targetElBCR.top - targetElBCR.height}px`;
+                } else {
+                    targetElement.style.bottom = `${(hostPos.height + 4)}px`;
                 }
-            });
-        } else {
-            // targetElement.style.bottom = null;
-            // targetElement.style.top = null;
+            }
         }
     }
 
@@ -277,7 +285,6 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
         item.selected = false;
         if (!this._expandOptions) {
             this._expandOptions = true;
-            this.autoCalculateMenuPosition();
         }
         this.valueOnChange(this._innerValues);
     }
@@ -303,14 +310,16 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
                 return item.thyValue;
             });
             this.valueOnChange(this._innerValues);
+            this.selectedValueContext = {
+                $implicit: this._selectedOptions
+            };
         } else {
             this._selectedOption = option;
             this._innerValue = option.thyValue;
             this._expandOptions = false;
             this.valueOnChange(this._innerValue);
             this.selectedValueContext = {
-                $implicit: this._selectedOption.thyValue,
-                labelText: this._selectedOption.thyLabelText
+                $implicit: this._selectedOption.thyRawValue || this._selectedOption.thyValue
             };
         }
 

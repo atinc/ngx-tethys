@@ -53,24 +53,31 @@
     </div>
     <div class="body">
         <div class="demo-select">
-            ngModel: {{selectedItem | json}}
+            <thy-custom-select thySize="md" [thyShowSearch]="true" thyEmptyStateText="无匹配结果">
+                <thy-option thyValue="" thyLabelText="空"></thy-option>
+                <thy-option *ngFor="let option of optionData" [thyValue]="option" [thyDisabled]="option.name === 'money'" [thyLabelText]="option.display_name">
+                </thy-option>
+            </thy-custom-select>
+            <br>
+            <br> ngModel: {{selectedItem | json}}
             <thy-custom-select thySize="md" thyPlaceHolder="请选择" [(ngModel)]="selectedItem" (ngModelChange)="changeSelect()" [thyShowSearch]="true">
                 <thy-option *ngFor="let option of optionData" thySearchKey="{{option?.name}},{{option?.display_name}},{{option?.pin_yin}}"
                     [thyValue]="option" [thyDisabled]="option.name === 'money'" [thyLabelText]="option.display_name">
                 </thy-option>
             </thy-custom-select>
 
-            <br>
-
+            <br> ngModel : {{selectedItem2 | json}}
             <thy-custom-select [(ngModel)]="selectedItem2" thyPlaceHolder="请选择">
-                <thy-option thyValue="001" thyLabelText="country"></thy-option>
-                <thy-option *ngFor="let option of optionData" thyShowOptionCustom="true" [thyValue]="option" [thyLabelText]="option.display_name">
+                <thy-option thyValue="" thyLabelText="空"></thy-option>
+                <thy-option *ngFor="let option of optionData" thyShowOptionCustom="true" [thyRawValue]="option" [thyValue]="option.name"
+                    [thyLabelText]="option.display_name">
                     <span>
                         <i [class]="option?.icon" class="mr-1"></i> {{option?.display_name}}
                     </span>
                 </thy-option>
                 <ng-template #selectedDisplay let-value>
-                    <span class="icon-text">
+                    <span *ngIf="!value">!!!空</span>
+                    <span class="icon-text" *ngIf="value">
                         <i [ngClass]="value?.icon" class="text-primary"></i>{{value?.display_name}}</span>
                 </ng-template>
             </thy-custom-select>

@@ -17,7 +17,8 @@ export type ThyNavHorizontal = '' | 'left' | 'center' | 'right';
 const navTypeClassesMap: any = {
     primary: ['thy-nav', 'nav-primary'],
     secondary: ['thy-nav', 'nav-secondary'],
-    thirdly: ['thy-nav', 'nav-thirdly']
+    thirdly: ['thy-nav', 'nav-thirdly'],
+    'secondary-divider': ['thy-nav', 'nav-secondary-divider']
 };
 
 const navSizeClassesMap: any = {
@@ -72,7 +73,14 @@ export class ThyNavComponent implements OnInit {
         this._isVertical = value;
     }
 
+    @Input()
+    set thyFill(value: boolean) {
+        this._isFill = value;
+    }
+
     @HostBinding('class.thy-nav--vertical') _isVertical = false;
+
+    @HostBinding('class.thy-nav--fill') _isFill = false;
 
     private _updateClasses() {
         let classNames = [];

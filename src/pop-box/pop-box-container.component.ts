@@ -8,13 +8,7 @@ import { PopBoxOptions } from './pop-box-options.class';
 
 @Component({
     selector: 'pop-box-container',
-    template: `
-      <div [class]="'pop-box'" role="document">
-        <div class="pop-box-content">
-          <ng-content></ng-content>
-        </div>
-      </div>
-    `,
+    templateUrl: './pop-box-container.component.html',
     encapsulation: ViewEncapsulation.None
 })
 export class PopBoxContainerComponent implements OnInit {
@@ -24,13 +18,13 @@ export class PopBoxContainerComponent implements OnInit {
 
     public popBoxRef: PopBoxRef;
 
-    // public config: PopBoxOptions;
+    public showMask = false;
 
     constructor(
         protected elementRef: ElementRef,
         private renderer: Renderer2,
-        private config: PopBoxOptions) {
-
+        public config: PopBoxOptions) {
+        this.showMask = this.config.showMask;
     }
 
     ngOnInit(): void {
@@ -42,10 +36,21 @@ export class PopBoxContainerComponent implements OnInit {
         this.popBoxRef.hide();
     }
 
-    @HostListener('click', ['$event'])
-    onClick(event: Event): void {
+    clickPopBox(event:Event): void {
         if (this.config.stopPropagation) {
             event.stopPropagation();
+        }
+        if(this.showMask && this.config.insideAutoClose){
+            this.hide();
+        }
+    }
+
+    clickMask(event: Event): void {
+        if (this.config.outsideAutoClose) {
+            this.hide();
+        } else {
+            return;
+            // this.closePopBox(event);
         }
     }
 
@@ -58,7 +63,11 @@ export class PopBoxContainerComponent implements OnInit {
     }
 
     @HostListener('document:click', ['$event'])
-    onDocumentClick(event: any): void {
+    onDocumentClick(event: Event): void {
+        if (this.config.showMask) {
+            return;
+        }
+        
         // 是否点击了 pop box 内部区域
         const isClickPopBoxInner = this.elementRef.nativeElement.contains(event.target);
         let needClose = false;

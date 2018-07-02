@@ -39,6 +39,7 @@ export class ThyPopBoxService {
             return item.target === target;
         });
         if (targetLoader) {
+            // 已经弹出了一样的 Loader， 再次点击直接关闭
             this._hide(targetLoader);
             // 如果 target 有值返回，没有值说明通过 position 传入位置，直接关闭后再次打开
             if (target) {

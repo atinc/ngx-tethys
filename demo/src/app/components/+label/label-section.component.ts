@@ -47,6 +47,20 @@ export class DemoLabelSectionComponent {
         }
     ];
 
+    public statusLabels = [{
+        name: '未开始',
+        icon: 'wtf-pending',
+        color: '#fa5a55'
+    }, {
+        name: '进行中',
+        icon: 'wtf-processing',
+        color: '#ef7bde'
+    }, {
+        name: '已完成',
+        icon: 'wtf-completed',
+        color: '#22d7bb'
+    }];
+
     constructor() {
         this.color = '#7076fa';
         this.color1 = '#f969aa';
