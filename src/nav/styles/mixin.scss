@@ -3,9 +3,6 @@
   i {
     color: $nav-link-icon-color;
   }
-  &:last-child {
-    margin-right: 0;
-  }
   &.active {
     color: $hover-color;
     @if $border-bottom {
