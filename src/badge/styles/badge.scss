@@ -1,69 +1,74 @@
 .thy-badge-body {
-  position: relative;
-  display: inline-block;
-  .thy-badge-content {
-    position: absolute;
-    top: 0px;
-    right: 10px;
-    transform: translateY(-50%) translateX(100%);
-  }
-  .thy-badge-dot-content {
-    position: absolute;
-    top: 2px;
-    right: 5px;
-    transform: translateY(-50%) translateX(100%);
-  }
+    position: relative;
+    display: inline-block;
+    .thy-badge-content {
+        position: absolute;
+        top: 0px;
+        right: 10px;
+        transform: translateY(-50%) translateX(100%);
+    }
+    .thy-badge-dot-content {
+        position: absolute;
+        top: 2px;
+        right: 5px;
+        transform: translateY(-50%) translateX(100%);
+    }
 }
 
 .thy-badge {
-  display: inline-block;
-  padding: $badge-padding-y $badge-padding-x;
-  font-size: $badge-font-size;
-  font-weight: $badge-font-weight;
-  line-height: 1;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: baseline;
-  color: $badge-color;
-  vertical-align: middle;
-  background-color: $badge-bg;
-  @include border-radius($badge-border-radius); // Empty badges collapse automatically
+    display: inline-block;
+    padding: $badge-padding-y $badge-padding-x;
+    font-size: $badge-font-size;
+    font-weight: $badge-font-weight;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    color: $badge-color;
+    vertical-align: middle;
+    background-color: $badge-bg;
+    @include border-radius($badge-border-radius); // Empty badges collapse automatically
 }
 
 .btn .thy-badge {
-  position: relative;
-  top: -1px;
+    position: relative;
+    top: -1px;
 }
 
 .thy-badge {
-  @include set-badge-size($font-size-sm, 2px, 6px);
+    @include set-badge-size($font-size-sm, 2px, 6px);
 }
 
 .thy-badge-dot {
-  display: inline-block;
-  padding: 0;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  vertical-align: middle
+    display: inline-block;
+    padding: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    vertical-align: middle
+}
+
+.thy-badge-hollow {
+    border: solid 1px $badge-bg;
+    background-color: transparent;
 }
 
 .thy-badge-danger {
-  @include set-badge-color($white, $danger);
+    @include set-badge-color($white, $danger);
 }
 
 .thy-badge-warning {
-  @include set-badge-color($white, $warning);
+    @include set-badge-color($white, $warning);
 }
 
 .thy-badge-primary {
-  @include set-badge-color($white, $primary);
+    @include set-badge-color($white, $primary);
 }
 
 .thy-badge-lg {
-  @include set-badge-size($font-size-sm, 6px, 10px);
+    @include set-badge-size($font-size-sm, 6px, 10px);
 }
 
 .thy-badge-sm {
-  @include set-badge-size($font-size-xs, 1px, 4px);
+    @include set-badge-size($font-size-xs, 1px, 4px);
 }

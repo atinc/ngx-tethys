@@ -27,6 +27,8 @@ export class ThyBadgeComponent implements OnInit {
 
     private _isDot?: boolean;
 
+    private _isHollow?: boolean;
+
     private nativeElement: any;
 
     public displayContent = '';
@@ -99,6 +101,15 @@ export class ThyBadgeComponent implements OnInit {
         }
     }
 
+    @Input()
+    set thyIsHollow(value: boolean) {
+        this._isHollow = value;
+        if (this._initialized) {
+            this.getDisplayContent();
+            this.getBadgeClass();
+        }
+    }
+
     private getDisplayContent(): void {
         if (this._isDot) {
             this.displayContent = '';
@@ -124,6 +135,10 @@ export class ThyBadgeComponent implements OnInit {
 
         if (this._size) {
             this._badgeClasses.push(`thy-badge-${this._size}`);
+        }
+
+        if (this._isHollow) {
+            this._badgeClasses.push(`thy-badge-hollow`);
         }
 
         if (this._badgeClasses.length > 0) {

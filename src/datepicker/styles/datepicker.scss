@@ -213,9 +213,9 @@ $border-color: transparent;
                     }
                 }
                 span {
-                    width: 32px;
-                    height: 32px;
-                    line-height: 32px;
+                    width: 30px;
+                    height: 30px;
+                    line-height: 30px;
                     &.select-start {
                         z-index: 2;
                     }
@@ -475,13 +475,12 @@ thy-datepicker-container,
 thy-daterangepicker-container {
     position: absolute;
     z-index: $datepicker-z-index;
-    padding-bottom: 10px;
     background: white;
     box-shadow: $box-shadow;
 }
 
 thy-daterangepicker-container {
-    width: 546px;
+    width: 530px;
 }
 
 @include theming('ngx', $primary);

@@ -114,7 +114,7 @@ export class ThyDatepickerContainerComponent implements OnInit {
                 provide: BsDatepickerConfig, useValue: Object.assign({}, this._config, {
                     value: this.value,
                     containerClass: 'theme-ngx',
-                    showWeekNumbers: false
+                    showWeekNumbers: false,
                 })
             })
             .attach(BsDatepickerContainerComponent)

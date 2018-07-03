@@ -73,7 +73,14 @@ export class ThyNavComponent implements OnInit {
         this._isVertical = value;
     }
 
+    @Input()
+    set thyFill(value: boolean) {
+        this._isFill = value;
+    }
+
     @HostBinding('class.thy-nav--vertical') _isVertical = false;
+
+    @HostBinding('class.thy-nav--fill') _isFill = false;
 
     private _updateClasses() {
         let classNames = [];
