@@ -3,10 +3,11 @@
         <h2>Default Grid</h2>
     </div>
     <div class="body">
-        <thy-grid [thyModel]="model" thyRowKey="id" thyClassName="table-hover" [thyDraggable]="true" (thyOnDraggableUpdate)="onDraggableUpdate($event)"
-            (thyOnRowClick)="onRowClick($event)" (thyOnMultiSelectChange)="onMultiSelectChange($event)" [thyPageIndex]="pagination.index"
-            [thyPageSize]="pagination.size" [thyPageTotal]="pagination.total" (thyOnPageChange)="onPageChange($event)" (thyOnSwitchChange)="onSwitchChange($event)">
-            <thy-grid-column thyTitle="选择" thyType="checkbox" [thySelections]="selections"></thy-grid-column>
+        <thy-grid [thyModel]="model" thyRowKey="id" [thyDraggable]="true" (thyOnDraggableUpdate)="onDraggableUpdate($event)"
+            (thyOnRowClick)="onRowClick($event)" [thyWholeRowSelect]="true" (thyOnMultiSelectChange)="onMultiSelectChange($event)"
+            [thyPageIndex]="pagination.index" [thyPageSize]="pagination.size" [thyPageTotal]="pagination.total" (thyOnPageChange)="onPageChange($event)"
+            (thyOnSwitchChange)="onSwitchChange($event)">
+            <thy-grid-column thyTitle="选择" thyModelKey="checked" thyType="checkbox" [thySelections]="selections"></thy-grid-column>
             <thy-grid-column thyTitle="姓名" thyModelKey="name"></thy-grid-column>
             <thy-grid-column thyTitle="年龄" thyModelKey="age"></thy-grid-column>
             <thy-grid-column thyTitle="备注" thyModelKey="desc" thyDefaultText="-"></thy-grid-column>
@@ -31,9 +32,9 @@
     </div>
     <div class="body">
         <thy-grid [thyModel]='model' [thyLoadingDone]="loadingDone" thyLoadingText="测试加载" thyTheme="bordered" thyRowKey="id" thyClassName="table-hover"
-            (thyOnRadioSelectChange)="onRadioSelectChange($event)">
+            [thyWholeRowSelect]="true" (thyOnRadioSelectChange)="onRadioSelectChange($event)">
             <thy-grid-column thyTitle="编号" thyType="index"></thy-grid-column>
-            <thy-grid-column thyTitle="选择" thyType="radio" [thySelections]="model[1]"></thy-grid-column>
+            <thy-grid-column thyTitle="选择" thyType="radio"></thy-grid-column>
             <thy-grid-column *ngIf="abc" thyTitle="姓名" thyModelKey="name"></thy-grid-column>
             <thy-grid-column thyTitle="年龄" thyModelKey="age"></thy-grid-column>
             <thy-grid-column thyTitle="备注" thyModelKey="desc"></thy-grid-column>
