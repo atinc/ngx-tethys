@@ -36,11 +36,11 @@ export class PopBoxContainerComponent implements OnInit {
         this.popBoxRef.hide();
     }
 
-    clickPopBox(event:Event): void {
+    clickPopBox(event: Event): void {
         if (this.config.stopPropagation) {
             event.stopPropagation();
         }
-        if(this.showMask && this.config.insideAutoClose){
+        if (this.showMask && this.config.insideAutoClose) {
             this.hide();
         }
     }
@@ -67,7 +67,6 @@ export class PopBoxContainerComponent implements OnInit {
         if (this.config.showMask) {
             return;
         }
-        
         // 是否点击了 pop box 内部区域
         const isClickPopBoxInner = this.elementRef.nativeElement.contains(event.target);
         let needClose = false;

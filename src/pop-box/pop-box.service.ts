@@ -14,7 +14,8 @@ export class ThyPopBoxService {
 
     private _loaders: {
         target: any,
-        loader: any
+        loader: any,
+        config: PopBoxOptions
     }[] = [];
 
     private _renderer: Renderer2;
@@ -78,8 +79,12 @@ export class ThyPopBoxService {
         });
         const _loader = {
             target: target,
-            loader: loader
+            loader: loader,
+            config: _config
         };
+        if (target) {
+            this._renderer.addClass(target, _config.openedClass);
+        }
         popBoxRef.hide = () => {
             this._hide(_loader);
         };
@@ -90,8 +95,12 @@ export class ThyPopBoxService {
 
     private _hide(loader: {
         target: any,
-        loader: any
+        loader: any,
+        config: PopBoxOptions
     }) {
+        if (loader.config && loader.config.target) {
+            this._renderer.removeClass(loader.config.target, loader.config.openedClass);
+        }
         this._loaders = this._loaders.filter((item) => {
             return item.target !== loader.target;
         });

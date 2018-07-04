@@ -68,6 +68,9 @@ export class PopBoxOptions {
 
     // 自动关闭上一个弹出框
     autoClosePrevious?: boolean;
+
+    // 打开后在 target 追加的样式
+    openedClass?: string;
 }
 
 export const popBoxConfigDefaults: PopBoxOptions = {
@@ -76,9 +79,10 @@ export const popBoxConfigDefaults: PopBoxOptions = {
     keyboardESCClose: true,
     outsideAutoClose: true,
     insideAutoClose: false,
-    offset: 2,
+    offset: 0,
     stopPropagation: false,
     append: 'body',
     showMask: false,
-    autoClosePrevious: false
+    autoClosePrevious: false,
+    openedClass: 'thy-pop-box-opened'
 };
