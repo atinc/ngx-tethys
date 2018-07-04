@@ -72,6 +72,8 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck {
 
     public trackByFn: any;
 
+    public wholeRowSelect = false;
+
     private _filter: any = null;
 
     private _diff: IterableDiffer<any>;
@@ -140,6 +142,11 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck {
     @Input()
     set thyPageTotal(value: number) {
         this.pagination.total = value;
+    }
+
+    @Input()
+    set thyWholeRowSelect(value: boolean) {
+        this.wholeRowSelect = value;
     }
 
     @Output() thyOnSwitchChange: EventEmitter<ThySwitchEvent> = new EventEmitter<ThySwitchEvent>();
@@ -274,6 +281,12 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck {
         }
     }
 
+    public onStopPropagation(event: Event) {
+        if (this.wholeRowSelect) {
+            event.stopPropagation();
+        }
+    }
+
     public onPageChange(event: PageChangedEvent) {
         this.thyOnPageChange.emit(event);
     }
@@ -329,6 +342,22 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck {
     }
 
     public onRowClick(event: Event, row: any) {
+        if (this.wholeRowSelect) {
+            const column = this.columns.find((item) => {
+                return item.type === customType.checkbox || item.type === customType.radio;
+            });
+            if (!column.disabled) {
+                if (column.type === customType.checkbox) {
+                    row[column.key] = !row[column.key];
+                    this.onModelChange(row, column);
+                    this.onMultiSelectChange(event, row, column);
+                }
+                if (column.type === customType.radio) {
+                    this.selectedRadioRow = row;
+                    this.onRadioSelectChange(event, row);
+                }
+            }
+        }
         const rowEvent = {
             event: event,
             row: row

@@ -104,6 +104,12 @@ export class DemoGridSectionComponent implements OnInit {
             default: 'false'
         },
         {
+            property: 'thyWholeRowSelect',
+            description: '设置开启选中当前行自动选中checkbox',
+            type: 'Boolean',
+            default: 'false'
+        },
+        {
             property: '(thyOnRowClick)',
             description: 'Grid行点击事件',
             type: 'ThyGridRowEvent',
@@ -197,7 +203,7 @@ export class DemoGridSectionComponent implements OnInit {
         }
     ];
 
-    public selections = [1, 2, 3];
+    public selections = [1];
 
     public pagination = {
         index: 1,

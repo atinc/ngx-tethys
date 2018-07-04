@@ -1,4 +1,4 @@
-<table class="table" [ngClass]="[themeClass,className]" [class.table-draggable]="draggable">
+<table class="table" [ngClass]="[themeClass,className]" [class.table-draggable]="draggable" [class.table-hover]="wholeRowSelect">
     <thead>
         <tr>
             <th *ngFor="let column of columns" [ngClass]="column.headerClassName">{{column.title}}</th>
@@ -24,11 +24,13 @@
                     <ng-container *ngIf="column.type === customType.index"> {{i+1}} </ng-container>
                     <!-- checkbox -->
                     <ng-container *ngIf="column.type === customType.checkbox">
-                        <input type="checkbox" [(ngModel)]="row[column.key]" [disabled]="column.disabled" (change)="onMultiSelectChange($event,row,column)">
+                        <input type="checkbox" [(ngModel)]="row[column.key]" (ngModelChange)="onModelChange(row,column)" (click)="onStopPropagation($event)"
+                            [disabled]="column.disabled" (change)="onMultiSelectChange($event,row,column)">
                     </ng-container>
                     <!-- radio -->
                     <ng-container *ngIf="column.type === customType.radio">
-                        <input type="radio" [(ngModel)]="selectedRadioRow" [value]="row" [disabled]="column.disabled" (change)="onRadioSelectChange($event,row)">
+                        <input type="radio" [(ngModel)]="selectedRadioRow" [value]="row" [disabled]="column.disabled" (click)="onStopPropagation($event)"
+                            (change)="onRadioSelectChange($event,row)">
                     </ng-container>
                     <!-- switch -->
                     <ng-container *ngIf="column.type === customType.switch">
