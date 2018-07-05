@@ -44,6 +44,14 @@ export class ThyActionMenuItemDirective {
         }
     }
 
+    @Input()
+    set thyDisabled(value: any) {
+        if (value) {
+            this.disabled = true;
+        }
+
+    }
+
     @HostListener('click', ['$event'])
     onClick(event: any): void {
         if (this.disabled) {
