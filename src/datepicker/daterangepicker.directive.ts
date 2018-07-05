@@ -10,6 +10,7 @@ import { isObject, isNumber, isDate, inputValueToBoolean } from '../util/helpers
 import { daterangepickerUtilIdentificationValueType, daterangepickerUtilConvertToDaterangepickerObject } from './util';
 import { ThyDaterangepickerContainerComponent } from './daterangepicker-container.component';
 import { ThyPositioningService } from '../positioning/positioning.service';
+import { ThyDaterangepickerConfig } from './daterangepicker.config';
 
 const DATEPICKER_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
@@ -53,6 +54,7 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
         private cis: ComponentLoaderFactory,
         private service: ThyDatepickerService,
         private thyPositioningService: ThyPositioningService,
+        private _config: ThyDaterangepickerConfig
     ) {
         this._loader = cis.createLoader<ThyDaterangepickerContainerComponent>(
             _elementRef,
@@ -65,7 +67,10 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
         this._loader.listen({
             outsideClick: this.thyOutsideClick,
             triggers: this.thyTriggers,
-            show: () => this.show()
+            show: () => this.show(),
+            hide: () => {
+                this.hide();
+            }
         });
     }
 
@@ -96,7 +101,7 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
 
         this.service.initLocale();
 
-        const daterangeContainerRef = this._loader.attach(ThyDaterangepickerContainerComponent)
+        const dateRangeContainerRef = this._loader.attach(ThyDaterangepickerContainerComponent)
             .to(this.thyContainer)
             .show({
                 hideLoader: () => {
@@ -113,16 +118,19 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
                     }
                 }
             });
-            this.thyPositioningService.setPosition({
-                target: daterangeContainerRef.location,
-                attach: this._elementRef,
-                placement: this.thyPlacement,
-                offset: 2,
-                appendToBody: true
-            });
+
+        this._renderer.addClass(this._elementRef.nativeElement, this._config.openedClass);
+        this.thyPositioningService.setPosition({
+            target: dateRangeContainerRef.location,
+            attach: this._elementRef,
+            placement: this.thyPlacement,
+            offset: 2,
+            appendToBody: true
+        });
     }
 
     hide() {
+        this._renderer.removeClass(this._elementRef.nativeElement, this._config.openedClass);
         this._loader.hide();
     }
 
