@@ -74,7 +74,10 @@ export class ThyDatepickerDirective implements OnInit, AfterContentInit, Control
         this._loader.listen({
             outsideClick: this.thyOutsideClick,
             triggers: this.thyTriggers,
-            show: () => this.show()
+            show: () => this.show(),
+            hide: () => {
+                this.hide();
+            }
         });
     }
 
@@ -126,16 +129,18 @@ export class ThyDatepickerDirective implements OnInit, AfterContentInit, Control
                     }
                 }
             });
-            this.thyPositioningService.setPosition({
-                target: dateContainerRef.location,
-                attach: this._elementRef,
-                placement: this.thyPlacement,
-                offset: 2,
-                appendToBody: true
-            });
+        this._renderer.addClass(this._elementRef.nativeElement, this._config.openedClass);
+        this.thyPositioningService.setPosition({
+            target: dateContainerRef.location,
+            attach: this._elementRef,
+            placement: this.thyPlacement,
+            offset: 2,
+            appendToBody: true
+        });
     }
 
     hide() {
+        this._renderer.removeClass(this._elementRef.nativeElement, this._config.openedClass);
         this._loader.hide();
     }
 
