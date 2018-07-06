@@ -38,18 +38,15 @@ export class ThyActionMenuItemDirective {
     @HostBinding('class.action-menu-item') className = true;
     @HostBinding('class.action-menu-item--disabled') disabled = false;
 
-    @Input() set thyActionMenuItem(value: any) {
-        if (value === 'disabled') {
-            this.disabled = true;
-        }
-    }
+    // @Input() set thyActionMenuItem(value: any) {
+    //     if (value === 'disabled') {
+    //         this.disabled = true;
+    //     }
+    // }
 
     @Input()
-    set thyDisabled(value: any) {
-        if (value) {
-            this.disabled = true;
-        }
-
+    set thyDisabled(value: boolean) {
+        this.disabled = inputValueToBoolean(value);
     }
 
     @HostListener('click', ['$event'])
