@@ -7,7 +7,6 @@ const gulpRename = require('gulp-rename');
 const path = require('path');
 
 const _distDemoPath = 'demo/src/assets/css';
-const _distBuiltPath = 'built/styles';
 const scssOptions = {
     includePaths: [`${__dirname}/node_modules`],
     importer: function (url, prev, done) {
