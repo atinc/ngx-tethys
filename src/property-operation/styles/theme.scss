@@ -1,0 +1,7 @@
+.thy-property-operation {
+    @include hover {
+        .thy-operation-content.only-has-tips >.thy-tips {
+            color: $primary;
+        }
+    } 
+}
