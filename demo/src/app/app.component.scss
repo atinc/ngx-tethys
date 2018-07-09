@@ -11,6 +11,27 @@
         font-size: 20px;
         text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.15);
     }
+    .theme-color-container {
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-right: 20px;
+        padding: 3px;
+        display: block;
+        border: solid 1px $gray-200;
+        border-radius: 3px;
+        div {
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            color: white;
+            text-align: center;
+            background: $primary;
+            i {
+                line-height: 1;
+                vertical-align: middle;
+            }
+        }
+    }
 }
 
 .toc-slider {
