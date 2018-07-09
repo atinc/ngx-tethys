@@ -1,12 +1,62 @@
-.btn-primary {
-    @include button-variant($white, $white, $primary, $primary, $primary, $primary, $primary, $primary);
-    @include button-hover-box-shadow($primary);
+.btn {
+    @include button-size($btn-padding-y, $btn-padding-x, $font-size-base, $btn-line-height, $btn-border-radius, $btn-base-min-width);
+    &.disabled,
+    &:disabled {
+        color: $btn-disabled-color;
+        background-color: $btn-disabled-bg-color;
+        border-color: $btn-disabled-border-color; // opacity: $btn-disabled-opacity;
+    }
 }
 
-.btn-outline-primary {
-    @include button-outline-variant($primary, $primary, $white, $primary, null, $primary, null);
+@each $color,
+$value in $theme-colors {
+    .btn-#{$color} {
+        @include button-variant($white, $white, $value, $value, $value, $value, $value, $value);
+        @include button-hover-box-shadow($value);
+    }
+}
+
+@each $color,
+$value in $theme-colors {
+    .btn-outline-#{$color} {
+        @include button-outline-variant($value, $value, $white, $value, null, $value, null);
+    }
 }
 
 .btn-outline-default {
     @include button-outline-variant($gray-600, $gray-300, $primary, null, $primary, null, $primary);
 }
+
+.btn-link {
+    color: $link-color;
+    @include hover {
+        color: $link-hover-color;
+    }
+    &:focus,
+    &.focus {}
+    &:disabled,
+    &.disabled {
+        color: $btn-link-disabled-color;
+    }
+}
+
+.btn-link.btn-link-info {
+    @include btn-link-variant($info, $primary, none);
+}
+
+// 兼容之前的样式
+.btn-link.btn-link-default {
+    @include btn-link-variant($btn-link-color-default, $primary, none);
+}
+
+// 默认显示灰色，鼠标移上去显示主色
+.btn-link.btn-link-primary-weak {
+    @include btn-link-variant($info, $primary, none);
+}
+
+// 默认显示灰色，鼠标移上去显示红色
+.btn-link.btn-link-danger-weak {
+    @include btn-link-variant($info, $danger, none);
+}
+
+@import './button-icon';

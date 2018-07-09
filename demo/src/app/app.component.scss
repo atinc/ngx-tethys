@@ -34,6 +34,30 @@
     }
 }
 
+.theme-select-show-wrap {
+    padding-right: 5px;
+    padding-bottom: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 240px;
+    a {
+        margin-top: 5px;
+        margin-left: 5px;
+        display: inline-block;
+        flex: 1 0 40%;
+        font-size: 16px;
+        color: #ffffff;
+        text-align: center;
+        line-height: 50px;
+        transition: all 200ms;
+        &:hover {
+            text-decoration: none;
+            color: #ffffff;
+            box-shadow: 0 2px 13px 1px rgba(0, 0, 0, .15);
+        }
+    }
+}
+
 .toc-slider {
     padding-top: 25px;
     text-rendering: optimizeLegibility;

@@ -47,6 +47,12 @@ a {
     &.link-danger-weak {
         @include link-variant($info, none, $danger, none);
     }
+    &.link-danger {
+        @include link-variant($danger,  $link-decoration, $danger, $link-hover-decoration);
+    }
+    &.link-success {
+        @include link-variant($success,  $link-decoration, $success, $link-hover-decoration);
+    }
     &.link-sm {
         @include link-size($font-size-sm, $font-size-sm);
     }

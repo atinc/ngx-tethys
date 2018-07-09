@@ -3,6 +3,7 @@
 const gulp = require('gulp');
 const gulpSass = require('gulp-sass');
 const gulpCleanCSS = require('gulp-clean-css');
+const gulpRename = require('gulp-rename');
 const path = require('path');
 
 const _distDemoPath = 'demo/src/assets/css';
@@ -28,10 +29,22 @@ const scssOptions = {
     },
 };
 
-gulp.task('built-theme', function () {
+gulp.task('build-theme', function () {
     let _themePath = './src/styles/themes/*.scss';
     return gulp.src(_themePath)
         .pipe(gulpSass.sync(scssOptions).on('error', gulpSass.logError))
         .pipe(gulpCleanCSS())
+        .pipe(gulpRename(function (path) {
+            path.basename += ".min";
+            return path;
+        }))
         .pipe(gulp.dest(_distDemoPath));
+});
+
+gulp.task('build-theme:watch', function () {
+    var watches = [
+        'src/**/styles/*.scss',
+        'src/styles/**/**.*'
+    ];
+    gulp.watch(watches, ['build-theme']);
 });
