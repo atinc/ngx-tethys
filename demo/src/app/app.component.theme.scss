@@ -1,0 +1,14 @@
+.toc-slider {
+    .toc-section {
+        .toc-section-body {
+            .toc-item {
+                a {
+                    &.active {
+                        border-right: solid 2px #22d7bb;
+                        background: #e8fbf8;
+                    }
+                }
+            }
+        }
+    }
+}
