@@ -1,0 +1,12 @@
+a {
+   @include hover {
+        color: $link-hover-color;
+        text-decoration: $link-hover-decoration;
+    }
+}
+
+a {
+    &.link-primary {
+        @include link-variant($primary,  $link-decoration, $primary, $link-hover-decoration);
+    }
+}
