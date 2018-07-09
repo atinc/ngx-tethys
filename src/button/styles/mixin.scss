@@ -157,10 +157,11 @@
   }
 }
 
-@mixin btn-icon-circle-hover-variant($round-padding) {
+@mixin btn-icon-circle-hover-variant($round-padding, $btn-icon-circle-font-size) {
     &.btn-icon-circle {
         i,.wtf {
             padding: $round-padding;
+            font-size: $btn-icon-circle-font-size;
         }
         &.border-thick {
             i,.wtf {
@@ -174,17 +175,18 @@
         }
         @include hover-focus {
             i,.wtf {
-                border: 2px solid $primary;
+                border-width: 2px; 
+                // border: 2px solid $primary;
                 padding: $round-padding - 1;
             }
         }
     }
 }
 
-@mixin btn-icon-size-variant($font-size, $round-padding) {
+@mixin btn-icon-size-variant($font-size, $round-padding, $btn-icon-circle-font-size) {
     i,.wtf {
         font-size: $font-size;
     }
 
-    @include btn-icon-circle-hover-variant($round-padding);
+    @include btn-icon-circle-hover-variant($round-padding, $btn-icon-circle-font-size);
 }

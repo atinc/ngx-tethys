@@ -5,7 +5,9 @@
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins";
 @import '../mixins/index.scss';
+
 // theme
+@import '../modules/theme';
 @import '../../button/styles/theme.scss';
 @import '../../card/styles/theme.scss';
 @import '../../datepicker/styles/theme.scss';
