@@ -71,6 +71,9 @@ export class PopBoxOptions {
 
     // 打开后在 target 追加的样式
     openedClass?: string;
+
+    // 打开后在 target 追加的样式
+    containerClass?: string;
 }
 
 export const popBoxConfigDefaults: PopBoxOptions = {
