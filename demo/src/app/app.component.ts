@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
 
     changeTheme(theme: ThemeInterface) {
         const elm = (document.querySelector('#theme') as HTMLLinkElement);
-        elm.href = `/assets/css/${theme.key}.css`;
+        elm.href = `/assets/css/${theme.key}.min.css`;
         this.currentTheme = theme;
         history.pushState({}, '', `${location.pathname}?theme=${theme.key}`);
     }
