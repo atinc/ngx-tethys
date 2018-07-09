@@ -7,23 +7,23 @@
 
 /***common color****/
 
-$layout-boder:#E3E6EC;
-$layout-bg:#fff;
+$layout-boder:$gray-210;
+$layout-bg:$white;
 $layout-shadow:rgba(0, 0, 0, 0.15);
-$layout-toolbar-bg:#fff;
-$layout-toolbar-border:#eee;
-$layout-toolbar-icon-bg:#ddd;
-$layout-toolbar-icon-color:#333;
-$layout-toolbar-icon-border:#ccc;
-$layout-toolbar-dividor-bg:#cfcfcf;
-$layout-toolbar-active-bg:#eeeeee;
-$layout-code-content:#fff;
-$layout-code-content-shadow:#eee;
-$layout-code-line:#fcfcfc;
-$layout-code-line-color:#ddd;
-$layout-table-menu-bg:#f3f3f3;
-$layout-table-menu-hover:#cfcfcf;
-$text-placeholder:#cacaca;
+$layout-toolbar-bg:$white;
+$layout-toolbar-border:$gray-200;
+$layout-toolbar-icon-bg:$gray-300;
+$layout-toolbar-icon-color:$gray-800;
+$layout-toolbar-icon-border:$gray-400;
+$layout-toolbar-dividor-bg:$gray-400;
+$layout-toolbar-active-bg:$gray-200;
+$layout-code-content:$white;
+$layout-code-content-shadow:$gray-200;
+$layout-code-line:$gray-100;
+$layout-code-line-color:$gray-300;
+$layout-table-menu-bg:$gray-100;
+$layout-table-menu-hover:$gray-400;
+$text-placeholder:$gray-400;
 
 /***layout***/
 
@@ -180,6 +180,7 @@ $text-placeholder:#cacaca;
             line-height: 180%;
             box-sizing: border-box;
             width: 100%;
+            color: $gray-700;
             &::-webkit-input-placeholder {
                 color: $text-placeholder;
             }
@@ -282,7 +283,6 @@ $text-placeholder:#cacaca;
         .thy-editor-container-code {
             .thy-editor-textarea {
                 font-size: 14px;
-                color: #888;
                 padding: 10px;
                 min-height: 160px;
             }
