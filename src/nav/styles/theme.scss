@@ -1,7 +1,9 @@
 .nav-link {
-  @include nav-link-variant();
+    @include nav-link-variant($nav-link-color, $nav-link-hover-color, $nav-border-bottom);
 }
 
 .nav-thirdly {
-  @include nav-link-variant-thirdly($nav-link-hover-color);
+    .nav-link {
+        @include nav-link-divider-variant($nav-link-hover-color, $nav-link-thirdly-split-line-height, $nav-link-thirdly-right);
+    }
 }
