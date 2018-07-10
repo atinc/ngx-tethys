@@ -63,6 +63,7 @@ input[type="checkbox"] {
   &:checked {
     &:not(:disabled) {
       border-color: $primary; 
+      color: $primary;
     }
     &:disabled {
       &::after {
@@ -93,7 +94,6 @@ input[type=checkbox] {
         position: absolute;
         top: 0px;
         left: 0px;
-        color: $primary;
         font: normal normal normal 14px/1 wtf;
       }
     }
@@ -112,7 +112,6 @@ input[type=radio] {
         position: absolute;
         top: -2px;
         left: -2px;
-        color: $primary;
         font: normal normal normal 18px/1 wtf;
       }
     }

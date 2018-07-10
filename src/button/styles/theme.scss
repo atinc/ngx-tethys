@@ -1,26 +1,9 @@
-.btn {
-    @include button-size($btn-padding-y, $btn-padding-x, $font-size-base, $btn-line-height, $btn-border-radius, $btn-base-min-width);
-    &.disabled,
-    &:disabled {
-        color: $btn-disabled-color;
-        background-color: $btn-disabled-bg-color;
-        border-color: $btn-disabled-border-color; // opacity: $btn-disabled-opacity;
-    }
+.btn-primary {
+    @include button-variant($white, $white, $primary, $primary, $primary, $primary, $primary, $primary);
 }
 
-@each $color,
-$value in $theme-colors {
-    .btn-#{$color} {
-        @include button-variant($white, $white, $value, $value, $value, $value, $value, $value);
-        @include button-hover-box-shadow($value);
-    }
-}
-
-@each $color,
-$value in $theme-colors {
-    .btn-outline-#{$color} {
-        @include button-outline-variant($value, $value, $white, $value, null, $value, null);
-    }
+.btn-outline-primary {
+    @include button-outline-variant($primary, $primary, $white, $primary, null, $primary, null);
 }
 
 .btn-outline-default {
@@ -59,4 +42,51 @@ $value in $theme-colors {
     @include btn-link-variant($info, $danger, none);
 }
 
-@import './button-icon';
+// btn-icon theme
+
+.btn-icon {
+    @extend .btn-link.btn-link-default;
+}
+
+.btn-icon-circle {
+    @include hover-focus {
+        color: $primary;
+        i,.wtf {
+            border-color: $primary;
+            color: $primary;
+        }
+    }
+
+    &.invalid {
+        &:hover,
+        &:focus {
+            i, .wtf {
+                color: $primary;
+                border-color: $primary;
+            }
+        }
+      }
+}
+
+// 属性操作鼠标移上去  btn-icon-circle 样式的变化
+.thy-property-operation {
+    &:hover {
+        .btn-icon-circle {
+            i,.wtf {
+                border-color: $primary;
+                color: $primary;
+            }
+        }
+    }
+}
+
+
+
+.btn-group-outline-primary > .btn { 
+    @include button-outline-variant($primary, $primary, $white, $primary, null, $primary, null);
+}
+
+.btn-group-outline-default > .btn { 
+    @include button-outline-variant($gray-600, $gray-300, $primary, null, $primary, null, $primary);
+}
+  

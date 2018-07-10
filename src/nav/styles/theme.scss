@@ -1,9 +1,40 @@
-.nav-link {
-    @include nav-link-variant($nav-link-color, $nav-link-hover-color, $nav-border-bottom);
-}
+  .nav-link {
+      @include nav-link-variant($nav-link-color, $nav-link-hover-color, $nav-border-bottom);
+  }
 
-.nav-thirdly {
-    .nav-link {
-        @include nav-link-divider-variant($nav-link-hover-color, $nav-link-thirdly-split-line-height, $nav-link-thirdly-right);
-    }
-}
+  .nav-primary {
+      .nav-link {
+          @include nav-link-size($nav-link-primary-padding-y $nav-link-primary-padding-x, $nav-link-primary-right);
+          @include nav-link-variant($nav-link-primary-color, $nav-link-hover-color, $nav-border-bottom);
+      }
+  }
+
+  .nav-secondary {
+      border-bottom: 1px solid $nav-border-color;
+  }
+
+  .nav-secondary-divider {
+      border-bottom: 1px solid $nav-border-color;
+      .nav-link {
+          @include nav-link-divider-variant($nav-link-hover-color, $nav-link-thirdly-split-line-height, $nav-link-secondary-split-right);
+      }
+  }
+
+  .nav-thirdly {
+      .nav-link {
+          @include nav-link-divider-variant($nav-link-hover-color, $nav-link-thirdly-split-line-height, $nav-link-thirdly-right);
+      }
+  }
+
+  .thy-nav--vertical {
+      .nav-link {
+          border-left: $nav-vertical-border-left-empty;
+          &.active,
+          &:hover,
+          &:focus,
+          &:active {
+              border-bottom: 0;
+              border-left: $nav-vertical-border-left;
+          }
+      }
+  }
