@@ -14,7 +14,7 @@
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e",
-        "ts-node": "ts-node test/index"
+        "serve-demo": "http-server dist/demo -p 4444 -g -P http://pic4us.com:4444"
     },
     "repository": {
         "type": "git",
@@ -59,6 +59,7 @@
         "gulp-clean-css": "^3.9.4",
         "gulp-rename": "^1.2.2",
         "gulp-sass": "^4.0.1",
+        "http-server": "^0.11.1",
         "jasmine-core": "~2.99.1",
         "jasmine-spec-reporter": "~4.2.1",
         "karma": "~1.7.1",

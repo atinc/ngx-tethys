@@ -11,7 +11,7 @@ export class AppComponent implements OnInit {
 
     loading: Boolean = false;
 
-    currentTheme = {};
+    currentTheme: any = {};
 
     themesConstant = ThemesConstant;
 

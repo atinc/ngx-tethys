@@ -20,7 +20,7 @@ export class DemoSlideContentComponent {
         this.modalService.show(template, option);
     }
 
-    addPopBox(templateRef: any, popBoxTemplate: any, config) {
+    addPopBox(templateRef: any, popBoxTemplate: any) {
 
         this.thyPopBoxService.show(popBoxTemplate, {
             target: templateRef.elementRef,
