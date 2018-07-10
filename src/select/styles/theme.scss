@@ -7,6 +7,12 @@
         }  
       }
     }
+
+    &.menu-is-opened {
+      .form-control-custom {
+        border-color: $input-hover-border-color;
+      }
+    }
 }
   
 .thy-select-custom--multiple {  

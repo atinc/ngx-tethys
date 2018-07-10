@@ -26,7 +26,8 @@
         padding: $label-size-padding-md;
     }
     &--lg {
-        padding: $label-size-padding-lg;
+        padding: $label-size-padding-md;
+        font-size: $font-size-base;
     }
 }
 
