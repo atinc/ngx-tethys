@@ -71,7 +71,7 @@
     justify-content: center;
     color: $progress-bar-color;
     text-align: center;
-    background-color: $progress-bar-bg;
+    background-color: $primary;
     @include transition($progress-bar-transition);
     border-radius: 0 5px 5px 0;
     position: relative;
