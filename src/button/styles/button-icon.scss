@@ -22,8 +22,8 @@ $btn-icon-circle-padding-xs: 4px;
 
     i,.wtf {
         transition: border 200ms, padding 200ms;
-        color: $gray-400; //$btn-icon-light-color;
-        border-color: $gray-400;
+        color: $btn-icon-color;
+        border-color: $btn-icon-color;
         border-width: 1px;
         border-radius: 50%;
         line-height: 1;
@@ -37,10 +37,26 @@ $btn-icon-circle-padding-xs: 4px;
 
     &.border-thick {
         i,.wtf {
-            color: $gray-300; // $btn-icon-light-color;
-            border-color: $gray-300;
             border-width: 2px;
         }
+        &.circle-solid {
+            i,.wtf {
+                color: $btn-icon-thick-solid-color;
+                border-color:$btn-icon-thick-solid-color;
+            }
+        }
+        &.circle-dashed {
+            i,.wtf {
+                color: $btn-icon-thick-dashed-color;
+                border-color: $btn-icon-thick-dashed-color;
+            }
+        }
+        // &.active {
+        //     i,.wtf {
+        //         color: $btn-icon-thick-active-color;
+        //         border-color: $btn-icon-thick-active-color;
+        //     }
+        // }
     }
 
     @include hover-focus {
@@ -48,17 +64,6 @@ $btn-icon-circle-padding-xs: 4px;
         i,.wtf {
             border-color: $primary;
             color: $primary;
-        }
-    }
-    &.circle-dashed {
-        i,.wtf {
-            border-style: dashed;
-        }
-    }
-
-    &.circle-solid {
-        i,.wtf {
-            border-style: solid;
         }
     }
 
@@ -75,7 +80,20 @@ $btn-icon-circle-padding-xs: 4px;
                 border-color: $primary;
             }
         }
-      }
+    }
+
+    &.circle-dashed {
+        i,.wtf {
+            border-style: dashed;
+        }
+    }
+
+    &.circle-solid {
+        i,.wtf {
+            border-style: solid;
+        }
+    }
+
 }
 
 
