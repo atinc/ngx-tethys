@@ -9,4 +9,8 @@ a {
     &.link-primary {
         @include link-variant($primary,  $link-decoration, $primary, $link-hover-decoration);
     }
+    
+    &.link-secondary {
+        @include link-variant($info, none, $primary, none);
+    }
 }
