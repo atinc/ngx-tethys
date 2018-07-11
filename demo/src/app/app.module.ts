@@ -31,7 +31,9 @@ import { ThyMarkdownParserService } from '../../../src/directive';
     imports: [
         BrowserModule,
         NgxTethysModule,
-        RouterModule.forRoot(appRoutes),
+        RouterModule.forRoot(appRoutes, {
+            useHash: true
+        }),
         ModalModule.forRoot(),
         TranslateModule.forRoot(),
         TabsModule.forRoot(),

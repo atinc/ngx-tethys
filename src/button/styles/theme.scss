@@ -1,6 +1,5 @@
 .btn-primary {
     @include button-variant($white, $white, $primary, $primary, $primary, $primary, $primary, $primary);
-    @include button-hover-box-shadow($primary);
 }
 
 .btn-outline-primary {
@@ -10,3 +9,84 @@
 .btn-outline-default {
     @include button-outline-variant($gray-600, $gray-300, $primary, null, $primary, null, $primary);
 }
+
+.btn-link {
+    color: $link-color;
+    @include hover {
+        color: $link-hover-color;
+    }
+    &:focus,
+    &.focus {}
+    &:disabled,
+    &.disabled {
+        color: $btn-link-disabled-color;
+    }
+}
+
+.btn-link.btn-link-info {
+    @include btn-link-variant($info, $primary, none);
+}
+
+// 兼容之前的样式
+.btn-link.btn-link-default {
+    @include btn-link-variant($btn-link-color-default, $primary, none);
+}
+
+// 默认显示灰色，鼠标移上去显示主色
+.btn-link.btn-link-primary-weak {
+    @include btn-link-variant($info, $primary, none);
+}
+
+// 默认显示灰色，鼠标移上去显示红色
+.btn-link.btn-link-danger-weak {
+    @include btn-link-variant($info, $danger, none);
+}
+
+// btn-icon theme
+
+.btn-icon {
+    @extend .btn-link.btn-link-default;
+}
+
+.btn-icon-circle {
+    @include hover-focus {
+        color: $primary;
+        i,.wtf {
+            border-color: $primary;
+            color: $primary;
+        }
+    }
+
+    &.invalid {
+        &:hover,
+        &:focus {
+            i, .wtf {
+                color: $primary;
+                border-color: $primary;
+            }
+        }
+      }
+}
+
+// 属性操作鼠标移上去  btn-icon-circle 样式的变化
+.thy-property-operation {
+    &:hover {
+        .btn-icon-circle {
+            i,.wtf {
+                border-color: $primary;
+                color: $primary;
+            }
+        }
+    }
+}
+
+
+
+.btn-group-outline-primary > .btn { 
+    @include button-outline-variant($primary, $primary, $white, $primary, null, $primary, null);
+}
+
+.btn-group-outline-default > .btn { 
+    @include button-outline-variant($gray-600, $gray-300, $primary, null, $primary, null, $primary);
+}
+  

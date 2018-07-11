@@ -7,4 +7,6 @@ $danger:#ff5b57;
 $primary-active: #3870f7;
 $secondary-item-active: #edf3ff; // item 选中背景色, 项目或者任务列表选中
 
-@import "../theme-bootstrap";
+// @import "../theme-bootstrap";
+
+@import './index.scss';

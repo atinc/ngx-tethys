@@ -1,0 +1,14 @@
+
+.thy-layout-header {
+    .layout-header-title {
+      a {
+        @include link-variant($gray-800, none, $gray-800, none);
+      }
+      .prefix-icon {
+        color: $primary;
+      }
+      .suffix-icon {
+        color: $primary;
+      }
+    }
+}

@@ -1,6 +1,6 @@
 
 $btn-icon-circle-padding-lg: 14px;
-$btn-icon-circle-padding-base: 10px;
+$btn-icon-circle-padding-base: 9px;
 $btn-icon-circle-padding-sm: 7px;
 $btn-icon-circle-padding-xs: 4px;
 
@@ -12,7 +12,7 @@ $btn-icon-circle-padding-xs: 4px;
         line-height: 1;
         margin: 0px;
     }
-    @include btn-icon-size-variant($font-size-md, $btn-icon-circle-padding-base);
+    @include btn-icon-size-variant($font-size-md, $btn-icon-circle-padding-base, 18px);
 }
 
 .btn-icon-circle {
@@ -22,12 +22,13 @@ $btn-icon-circle-padding-xs: 4px;
 
     i,.wtf {
         transition: border 200ms, padding 200ms;
-        color: $gray-400; //$btn-icon-light-color;
-        border-color: $gray-400;
+        color: $btn-icon-color;
+        border-color: $btn-icon-color;
         border-width: 1px;
         border-radius: 50%;
         line-height: 1;
         padding: 10px;
+        font-size: 18px;
     }
 
     span {
@@ -36,27 +37,33 @@ $btn-icon-circle-padding-xs: 4px;
 
     &.border-thick {
         i,.wtf {
-            color: $gray-300; // $btn-icon-light-color;
-            border-color: $gray-300;
             border-width: 2px;
         }
+        &.circle-solid {
+            i,.wtf {
+                color: $btn-icon-thick-solid-color;
+                border-color:$btn-icon-thick-solid-color;
+            }
+        }
+        &.circle-dashed {
+            i,.wtf {
+                color: $btn-icon-thick-dashed-color;
+                border-color: $btn-icon-thick-dashed-color;
+            }
+        }
+        // &.active {
+        //     i,.wtf {
+        //         color: $btn-icon-thick-active-color;
+        //         border-color: $btn-icon-thick-active-color;
+        //     }
+        // }
     }
 
     @include hover-focus {
         color: $primary;
         i,.wtf {
+            border-color: $primary;
             color: $primary;
-        }
-    }
-    &.circle-dashed {
-        i,.wtf {
-            border-style: dashed;
-        }
-    }
-
-    &.circle-solid {
-        i,.wtf {
-            border-style: solid;
         }
     }
 
@@ -73,7 +80,20 @@ $btn-icon-circle-padding-xs: 4px;
                 border-color: $primary;
             }
         }
-      }
+    }
+
+    &.circle-dashed {
+        i,.wtf {
+            border-style: dashed;
+        }
+    }
+
+    &.circle-solid {
+        i,.wtf {
+            border-style: solid;
+        }
+    }
+
 }
 
 
@@ -86,15 +106,15 @@ $btn-icon-circle-padding-xs: 4px;
 }
 
 .btn-icon-xs {
-    @include btn-icon-size-variant($font-size-base, $btn-icon-circle-padding-xs);
+    @include btn-icon-size-variant($font-size-base, $btn-icon-circle-padding-xs, $font-size-base);
 }
 
 .btn-icon-sm {
-    @include btn-icon-size-variant($font-size-base, $btn-icon-circle-padding-sm);
+    @include btn-icon-size-variant($font-size-base, $btn-icon-circle-padding-sm, $font-size-base);
 }
 
 .btn-icon-lg {
-    @include btn-icon-size-variant($font-size-lg, $btn-icon-circle-padding-lg);
+    @include btn-icon-size-variant($font-size-lg, $btn-icon-circle-padding-lg, $font-size-lg);
 }
 
 // 属性操作鼠标移上去  btn-icon-circle 样式的变化
