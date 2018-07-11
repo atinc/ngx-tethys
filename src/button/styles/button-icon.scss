@@ -1,16 +1,20 @@
-
 $btn-icon-circle-padding-lg: 14px;
 $btn-icon-circle-padding-base: 9px;
 $btn-icon-circle-padding-sm: 7px;
 $btn-icon-circle-padding-xs: 4px;
-
 .btn-icon {
     padding: 0px;
     @extend .btn-link.btn-link-default;
-    i,.wtf {
+    i,
+    .wtf {
         display: inline-block;
         line-height: 1;
         margin: 0px;
+    }
+    &:disabled,
+    &.disabled {
+        border: none;
+        background: none;
     }
     @include btn-icon-size-variant($font-size-md, $btn-icon-circle-padding-base, 18px);
 }
@@ -19,8 +23,8 @@ $btn-icon-circle-padding-xs: 4px;
     &.btn {
         border: 0px;
     }
-
-    i,.wtf {
+    i,
+    .wtf {
         transition: border 200ms, padding 200ms;
         color: $btn-icon-color;
         border-color: $btn-icon-color;
@@ -30,23 +34,24 @@ $btn-icon-circle-padding-xs: 4px;
         padding: 10px;
         font-size: 18px;
     }
-
     span {
-        margin-left: 6px; 
+        margin-left: 6px;
     }
-
     &.border-thick {
-        i,.wtf {
+        i,
+        .wtf {
             border-width: 2px;
         }
         &.circle-solid {
-            i,.wtf {
+            i,
+            .wtf {
                 color: $btn-icon-thick-solid-color;
-                border-color:$btn-icon-thick-solid-color;
+                border-color: $btn-icon-thick-solid-color;
             }
         }
         &.circle-dashed {
-            i,.wtf {
+            i,
+            .wtf {
                 color: $btn-icon-thick-dashed-color;
                 border-color: $btn-icon-thick-dashed-color;
             }
@@ -58,44 +63,43 @@ $btn-icon-circle-padding-xs: 4px;
         //     }
         // }
     }
-
     @include hover-focus {
         color: $primary;
-        i,.wtf {
+        i,
+        .wtf {
             border-color: $primary;
             color: $primary;
         }
     }
-
     &.invalid {
         color: $danger;
-        i, .wtf {
-          border-color: $danger;
-          color: $danger;
+        i,
+        .wtf {
+            border-color: $danger;
+            color: $danger;
         }
         &:hover,
         &:focus {
-            i, .wtf {
+            i,
+            .wtf {
                 color: $primary;
                 border-color: $primary;
             }
         }
     }
-
     &.circle-dashed {
-        i,.wtf {
+        i,
+        .wtf {
             border-style: dashed;
         }
     }
-
     &.circle-solid {
-        i,.wtf {
+        i,
+        .wtf {
             border-style: solid;
         }
     }
-
 }
-
 
 .btn-icon.btn-icon-danger-weak {
     @extend .btn-link.btn-link-danger-weak;
@@ -121,16 +125,19 @@ $btn-icon-circle-padding-xs: 4px;
 .thy-property-operation {
     &:hover {
         .btn-icon-circle {
-            i,.wtf {
+            i,
+            .wtf {
                 border: 2px solid $primary;
                 padding: $btn-icon-circle-padding-base - 1px;
                 color: $primary;
             }
             &.border-thick {
-                i,.wtf {
+                i,
+                .wtf {
                     padding: $btn-icon-circle-padding-base - 1px;
                 }
-                i,.wtf {
+                i,
+                .wtf {
                     padding: $btn-icon-circle-padding-base - 1px;
                 }
             }

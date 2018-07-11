@@ -39,7 +39,7 @@
                 </ng-container>
             </td>
         </tr>
-        <tr *ngIf="model && model.length === 0" class="hover-clear">
+        <tr *ngIf="model && model.length === 0" class="clear-hover">
             <td [colSpan]="columns.length" height="280px">
                 <thy-empty [thyMessage]="emptyOptions.message" [thyTranslationKey]="emptyOptions.translationKey" [thyTranslationValues]="emptyOptions.translationValues"
                     [thyEntityName]="emptyOptions.entityName" [thyEntityNameTranslateKey]="emptyOptions.entityNameTranslateKey"

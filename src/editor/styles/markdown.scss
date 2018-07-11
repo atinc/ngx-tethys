@@ -8,7 +8,7 @@
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
     text-size-adjust: 100%;
-    color: #666;
+    color: $gray-700;
     overflow: hidden;
     font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif;
     font-size: 16px;
@@ -29,7 +29,7 @@
         border-color: #4078c0;
     }
     a {
-        color: #22d7bb;
+        color: $primary;
         text-decoration: none;
         background-color: transparent;
         &:active,
@@ -58,11 +58,11 @@
         box-sizing: content-box;
         overflow: hidden;
         background: transparent;
-        border-bottom: 1px solid #ddd;
+        border-bottom: 1px solid $gray-300;
         height: 1px;
         padding: 0;
         margin: 16px 0;
-        background-color: #ddd;
+        background-color: $gray-300;
         border: 0 none;
         &:before {
             display: table;
@@ -108,23 +108,23 @@
         word-break: normal;
         word-break: keep-all;
         th {
-            background: #f3f3f3;
+            background: $gray-100;
             border: none;
             text-align: center;
             font-weight: normal;
-            color: #666;
+            color: $gray-700;
             padding: 10px 20px;
-            border: 1px solid #ddd;
+            border: 1px solid $gray-300;
         }
         td {
-            border: 1px solid #ddd;
+            border: 1px solid $gray-300;
             vertical-align: middle;
             padding: 8px 20px;
-            color: #888;
+            color: $gray-600;
         }
         tr {
-            background-color: #fff;
-            border-top: 1px solid #eee;
+            background-color: $white;
+            border-top: 1px solid $gray-200;
             //&:nth-child(2n) {
             //background-color : #f8f8f8;
             //}
@@ -144,7 +144,7 @@
         color: #333;
         .octicon-link {
             display: none;
-            color: #000;
+            color: $black;
             vertical-align: middle;
         }
         &:hover .anchor {
@@ -160,7 +160,7 @@
         padding-bottom: 0.3em;
         font-size: 2.25em;
         line-height: 1.2;
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid $gray-200;
         .anchor {
             line-height: 1;
         }
@@ -169,7 +169,7 @@
         padding-bottom: 0.3em;
         font-size: 1.75em;
         line-height: 1.225;
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid $gray-200;
         .anchor {
             line-height: 1;
         }
@@ -257,7 +257,7 @@
         overflow: auto;
         font-size: 85%;
         line-height: 1.45;
-        background-color: #f3f3f3;
+        background-color: $gray-100;
         border-radius: 3px;
         word-wrap: normal;
         &>code {
@@ -330,7 +330,7 @@
     blockquote {
         padding: 0 15px;
         color: #666;
-        border-left: 3px solid #22d7bb;
+        border-left: 3px solid $primary;
         &> :first-child {
             margin-top: 0;
         }
@@ -345,7 +345,7 @@
             overflow: auto;
             font-size: 85%;
             line-height: 1.45;
-            background-color: #f3f3f3;
+            background-color: $gray-100;
             border-radius: 3px;
             margin-bottom: 0;
             word-break: normal;
@@ -356,13 +356,13 @@
         padding: 3px 5px;
         font-size: 11px;
         line-height: 10px;
-        color: #555;
+        color: $gray-700;
         vertical-align: middle;
-        background-color: #f3f3f3;
-        border: solid 1px #ccc;
-        border-bottom-color: #bbb;
+        background-color: $gray-100;
+        border: solid 1px $gray-300;
+        border-bottom-color: $gray-500;
         border-radius: 3px;
-        box-shadow: inset 0 -1px 0 #bbb;
+        box-shadow: inset 0 -1px 0 $gray-500;
     }
     .pl-c {
         color: #969896;
@@ -465,7 +465,7 @@
     /* Sequence Diagram variables */
     /* Gantt chart variables */
     .mermaid .label {
-        color: #333333;
+        color: $gray-800;
     }
     .node rect,
     .node circle,
@@ -475,7 +475,7 @@
         stroke-width: 1px;
     }
     .edgePath .path {
-        stroke: #333333;
+        stroke: $gray-800;
     }
     .cluster rect {
         fill: #ffffde;
@@ -484,11 +484,11 @@
         stroke-width: 1px;
     }
     .cluster text {
-        fill: #333333;
+        fill: $gray-800;
     }
     .actor {
-        stroke: #22d7bb;
-        fill: #22d7bb;
+        stroke: $primary;
+        fill: $primary;
     }
     text.actor {
         fill: #fff;
@@ -502,22 +502,22 @@
         stroke-width: 1.5;
         stroke-dasharray: "2 2";
         marker-end: "url(#arrowhead)";
-        stroke: #333333;
+        stroke: $gray-800;
     }
     .messageLine1 {
         stroke-width: 1.5;
         stroke-dasharray: "2 2";
-        stroke: #333333;
+        stroke: $gray-800;
     }
     #arrowhead {
-        fill: #333333;
+        fill: $gray-800;
     }
     #crosshead path {
-        fill: #333333 !important;
-        stroke: #333333 !important;
+        fill: $gray-800 !important;
+        stroke: $gray-800 !important;
     }
     .messageText {
-        fill: #333333;
+        fill: $gray-800;
         stroke: none;
     }
     .labelBox {
@@ -565,16 +565,16 @@
         opacity: 0.2;
     }
     .sectionTitle0 {
-        fill: #333333;
+        fill: $gray-800;
     }
     .sectionTitle1 {
-        fill: #333333;
+        fill: $gray-800;
     }
     .sectionTitle2 {
-        fill: #333333;
+        fill: $gray-800;
     }
     .sectionTitle3 {
-        fill: #333333;
+        fill: $gray-800;
     }
     .sectionTitle {
         text-anchor: start;
@@ -627,8 +627,8 @@
         .task1,
         .task2,
         .task3 {
-            fill: #22d7bb;
-            stroke: #22d7bb;
+            fill: $primary;
+            stroke: $primary;
         }
         .taskTextOutside0,
         .taskTextOutside2 {
