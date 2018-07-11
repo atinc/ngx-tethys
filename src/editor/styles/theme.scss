@@ -3,3 +3,18 @@
         border: 1px $primary solid;
     }
 }
+
+.markdown-body {
+    a {
+        color: $primary;
+    }
+    blockquote {
+        border-left: 3px solid $primary;
+    }
+    .mermaid {
+        .task3 {
+            fill: $primary;
+            stroke: $primary;
+        }
+    }
+}
