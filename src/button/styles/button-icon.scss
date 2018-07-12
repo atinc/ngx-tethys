@@ -38,30 +38,21 @@ $btn-icon-circle-padding-xs: 4px;
         margin-left: 6px;
     }
     &.border-thick {
-        i,
-        .wtf {
+        i,.wtf {
             border-width: 2px;
         }
-        &.circle-solid {
-            i,
-            .wtf {
+        &:not(:hover):not(.invalid).circle-solid {
+            i, .wtf {
                 color: $btn-icon-thick-solid-color;
                 border-color: $btn-icon-thick-solid-color;
             }
         }
-        &.circle-dashed {
-            i,
-            .wtf {
+        &:not(:hover):not(.invalid).circle-dashed {
+            i, .wtf {
                 color: $btn-icon-thick-dashed-color;
                 border-color: $btn-icon-thick-dashed-color;
             }
         }
-        // &.active {
-        //     i,.wtf {
-        //         color: $btn-icon-thick-active-color;
-        //         border-color: $btn-icon-thick-active-color;
-        //     }
-        // }
     }
     @include hover-focus {
         color: $primary;
@@ -69,6 +60,7 @@ $btn-icon-circle-padding-xs: 4px;
         .wtf {
             border-color: $primary;
             color: $primary;
+            border-style: solid;
         }
     }
     &.invalid {
@@ -87,7 +79,7 @@ $btn-icon-circle-padding-xs: 4px;
             }
         }
     }
-    &.circle-dashed {
+    &:not(:hover).circle-dashed {
         i,
         .wtf {
             border-style: dashed;
