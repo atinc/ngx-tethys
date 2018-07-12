@@ -1,5 +1,6 @@
 .btn-primary {
     @include button-variant($white, $white, $primary, $primary, $primary, $primary, $primary, $primary);
+    @include button-hover-box-shadow($primary);
 }
 
 .btn-outline-primary {

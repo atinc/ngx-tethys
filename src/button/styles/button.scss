@@ -4,7 +4,8 @@
 //
 .btn {
     // 设置 icon 字体大小
-    i, .wtf {
+    i,
+    .wtf {
         font-size: $font-size-base;
         line-height: 1rem;
         // @include button-icon-margin(0.375rem);
@@ -24,8 +25,7 @@
     &:focus,
     &.focus {
         outline: 0; // box-shadow: $btn-focus-box-shadow;
-    } 
-    
+    }
     // Disabled comes first so active can properly restyle
     &.disabled,
     &:disabled {
@@ -33,30 +33,31 @@
         background-color: $btn-disabled-bg-color;
         border-color: $btn-disabled-border-color; // opacity: $btn-disabled-opacity;
         @include box-shadow(none);
-    } 
+    }
     // Opinionated: add "hand" cursor to non-disabled .btn elements
     &:not(:disabled):not(.disabled) {
         cursor: pointer;
     }
     &:not(:disabled):not(.disabled):active,
     &:not(:disabled):not(.disabled).active {
-        background-image: none; 
+        background-image: none;
         // @include box-shadow($btn-active-box-shadow);
         // &:focus {
         //     @include box-shadow($btn-focus-box-shadow, $btn-active-box-shadow);
         // }
     }
-
     &:not(:disabled):not(.disabled).loading {
         opacity: 0.65;
         pointer-events: none;
     }
-} 
+}
+
 // 有图标居右设置间距
 .btn.btn-has-icon {
-    i, .wtf {
+    i,
+    .wtf {
         @include button-icon-margin(8px);
-    } 
+    }
 }
 
 // Future-proof disabling of clicks on `<a>` elements
@@ -68,17 +69,18 @@ fieldset:disabled a.btn {
 //
 // Alternate buttons
 //
-
-@each $color, $value in $theme-colors {
+@each $color,
+$value in $theme-colors {
     .btn-#{$color} {
-      @include button-variant($white, $white, $value, $value, $value, $value, $value, $value);
-      @include button-hover-box-shadow($value);
+        @include button-variant($white, $white, $value, $value, $value, $value, $value, $value);
+        @include button-hover-box-shadow($value);
     }
 }
-  
-@each $color, $value in $theme-colors {
+
+@each $color,
+$value in $theme-colors {
     .btn-outline-#{$color} {
-      @include button-outline-variant($value, $value, $white, $value, null, $value, null);
+        @include button-outline-variant($value, $value, $white, $value, null, $value, null);
     }
 }
 
@@ -129,6 +131,7 @@ fieldset:disabled a.btn {
     &:disabled,
     &.disabled {
         color: $btn-link-disabled-color;
+        border: none;
     } // No need for an active state here
 }
 
@@ -179,12 +182,13 @@ input[type="button"] {
 
 // 确认取消按钮成对出现
 .btn-pair {
-    .btn + .btn {
+    .btn+.btn {
         margin-left: 10px;
     }
 }
+
 .btn-pair-sm {
-    .btn + .btn {
+    .btn+.btn {
         margin-left: 4px;
     }
 }
