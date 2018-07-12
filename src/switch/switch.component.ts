@@ -89,6 +89,7 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor, OnChang
 
     writeValue(value: any) {
         this.model = value;
+        // this.setClassNames();
     }
 
     registerOnChange(fn: Function): void {
@@ -118,6 +119,9 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor, OnChang
         }
         if (this.disabled) {
             this.classNames.push(`thy-switch-disabled`);
+            if (this.model) {
+                this.classNames.push(`thy-switch-disabled-true`);
+            }
         }
     }
 }
