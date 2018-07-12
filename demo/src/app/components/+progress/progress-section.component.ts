@@ -11,7 +11,7 @@ export class DemoProgressSectionComponent implements OnInit {
 
     }
     randomStacked(): void {
-        const types = ['success', 'info', 'warning', 'danger'];
+        const types = ['success','warning', 'danger'];
 
         this.stacked = [];
         const n = Math.floor(Math.random() * 4 + 1);

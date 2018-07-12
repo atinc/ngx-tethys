@@ -67,6 +67,7 @@
 
 .progress-bar {
     display: flex;
+    height: 100%;
     flex-direction: column;
     justify-content: center;
     color: $progress-bar-color;
@@ -98,6 +99,21 @@
         background: $progress-split-color;
         border-radius: 0 5px 5px 0;
         transform: scaleX(0.5) translateX(6px);
+    }
+    &.progress-bar-success {
+        background: $primary;
+    }
+    &.progress-bar-primary {
+        background: $primary;
+    }
+    &.progress-bar-warning {
+        background: $warning;
+    }
+    &.progress-bar-danger {
+        background: $danger;
+    }
+    &.progress-bar-default {
+        background: $gray-200;
     }
 }
 
