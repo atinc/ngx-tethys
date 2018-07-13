@@ -465,10 +465,10 @@ bs-daterangepicker-container {
 
 /* theming */
 
-@each $name,
-$color in $theme-list {
-    @include theming($name, $color);
-}
+// @each $name,
+// $color in $theme-list {
+//     @include theming($name, $color);
+// }
 
 //#endregion
 thy-datepicker-container,
@@ -483,5 +483,5 @@ thy-daterangepicker-container {
     width: 530px;
 }
 
-@include theming('ngx', $primary);
+@include theming('ngx', $primary, $secondary-item-active);
 @include thy-detepicker-variant();
