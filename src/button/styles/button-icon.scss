@@ -2,6 +2,7 @@ $btn-icon-circle-padding-lg: 14px;
 $btn-icon-circle-padding-base: 9px;
 $btn-icon-circle-padding-sm: 7px;
 $btn-icon-circle-padding-xs: 4px;
+
 .btn-icon {
     padding: 0px;
     @extend .btn-link.btn-link-default;
@@ -17,6 +18,10 @@ $btn-icon-circle-padding-xs: 4px;
         background: none;
     }
     @include btn-icon-size-variant($font-size-md, $btn-icon-circle-padding-base, 18px);
+}
+
+.btn-icon.btn-icon-danger-weak {
+    @extend .btn-link.btn-link-danger-weak;
 }
 
 .btn-icon-circle {
@@ -91,10 +96,6 @@ $btn-icon-circle-padding-xs: 4px;
             border-style: solid;
         }
     }
-}
-
-.btn-icon.btn-icon-danger-weak {
-    @extend .btn-link.btn-link-danger-weak;
 }
 
 .btn-icon-light {

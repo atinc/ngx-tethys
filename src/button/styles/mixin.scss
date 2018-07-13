@@ -149,6 +149,13 @@
     } // No need for an active state here
 }
 
+@mixin btn-link-theme-variant($link-hover-color) {
+    @include hover {
+        color: $link-hover-color;
+    }
+}
+
+
 @mixin btn-square-radius {
   // 设置大小也不影响 border-radius
   border-radius: $border-radius;

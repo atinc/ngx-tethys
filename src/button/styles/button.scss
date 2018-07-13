@@ -172,6 +172,11 @@ $value in $theme-colors {
 .btn-link.btn-link-danger {
     @include btn-link-variant($danger, $danger, underline);
 }
+
+.btn-link.btn-link-success {
+    @include btn-link-variant($success, $success, underline);
+}
+
 //
 // Block button
 //
