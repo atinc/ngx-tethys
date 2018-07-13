@@ -13,7 +13,8 @@ const btnTypeClassesMap: any = {
     'danger': ['btn', 'btn-danger'],
     'link': ['btn', 'btn-link'], // 链接按钮
     'link-info': ['btn', 'btn-link', 'btn-link-info'],// 幽灵链接按钮
-    'link-danger-weak': ['btn', 'btn-link', 'btn-link-info', 'btn-link-danger-weak'],// 幽灵链接按钮
+    'link-danger-weak': ['btn', 'btn-link', 'btn-link-danger-weak'],// 幽灵危险按钮
+    'link-danger': ['btn', 'btn-link', 'btn-link-danger'],// 危险按钮
     'link-secondary': ['btn', 'btn-link', 'btn-link-info'] // 幽灵链接按钮
 };
 

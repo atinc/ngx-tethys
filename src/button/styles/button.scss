@@ -116,18 +116,23 @@ $value in $theme-colors {
     font-weight: $font-weight-normal;
     color: $link-color;
     background-color: transparent;
-    &:not(.disabled :disabled) {
-        @include hover {
-            color: $link-hover-color;
-            text-decoration: $link-hover-decoration;
-            background-color: transparent;
-            border-color: transparent;
-        }
-        &:focus,
-        &.focus {
-            text-decoration: $link-hover-decoration;
-            border-color: transparent;
-            box-shadow: none;
+    @include hover {
+        color: $link-hover-color;
+        text-decoration: $link-hover-decoration;
+        background-color: transparent;
+        border-color: transparent;
+    }
+    &:focus,
+    &.focus {
+        text-decoration: $link-hover-decoration;
+        border-color: transparent;
+        box-shadow: none;
+    }
+    &.disabled,
+    &:disabled {
+        @include hover-focus {
+            color: $btn-link-disabled-color;
+            text-decoration: none;
         }
     }
 
@@ -163,6 +168,10 @@ $value in $theme-colors {
     @include btn-link-variant($info, $danger, none);
 }
 
+// 默认显示灰色，鼠标移上去显示红色
+.btn-link.btn-link-danger {
+    @include btn-link-variant($danger, $danger, underline);
+}
 //
 // Block button
 //
