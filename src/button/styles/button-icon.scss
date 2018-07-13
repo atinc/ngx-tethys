@@ -2,6 +2,7 @@ $btn-icon-circle-padding-lg: 14px;
 $btn-icon-circle-padding-base: 9px;
 $btn-icon-circle-padding-sm: 7px;
 $btn-icon-circle-padding-xs: 4px;
+
 .btn-icon {
     padding: 0px;
     @extend .btn-link.btn-link-default;
@@ -17,6 +18,10 @@ $btn-icon-circle-padding-xs: 4px;
         background: none;
     }
     @include btn-icon-size-variant($font-size-md, $btn-icon-circle-padding-base, 18px);
+}
+
+.btn-icon.btn-icon-danger-weak {
+    @extend .btn-link.btn-link-danger-weak;
 }
 
 .btn-icon-circle {
@@ -38,30 +43,21 @@ $btn-icon-circle-padding-xs: 4px;
         margin-left: 6px;
     }
     &.border-thick {
-        i,
-        .wtf {
+        i,.wtf {
             border-width: 2px;
         }
-        &.circle-solid {
-            i,
-            .wtf {
+        &:not(:hover):not(.invalid).circle-solid {
+            i, .wtf {
                 color: $btn-icon-thick-solid-color;
                 border-color: $btn-icon-thick-solid-color;
             }
         }
-        &.circle-dashed {
-            i,
-            .wtf {
+        &:not(:hover):not(.invalid).circle-dashed {
+            i, .wtf {
                 color: $btn-icon-thick-dashed-color;
                 border-color: $btn-icon-thick-dashed-color;
             }
         }
-        // &.active {
-        //     i,.wtf {
-        //         color: $btn-icon-thick-active-color;
-        //         border-color: $btn-icon-thick-active-color;
-        //     }
-        // }
     }
     @include hover-focus {
         color: $primary;
@@ -69,6 +65,7 @@ $btn-icon-circle-padding-xs: 4px;
         .wtf {
             border-color: $primary;
             color: $primary;
+            border-style: solid;
         }
     }
     &.invalid {
@@ -87,7 +84,7 @@ $btn-icon-circle-padding-xs: 4px;
             }
         }
     }
-    &.circle-dashed {
+    &:not(:hover).circle-dashed {
         i,
         .wtf {
             border-style: dashed;
@@ -99,10 +96,6 @@ $btn-icon-circle-padding-xs: 4px;
             border-style: solid;
         }
     }
-}
-
-.btn-icon.btn-icon-danger-weak {
-    @extend .btn-link.btn-link-danger-weak;
 }
 
 .btn-icon-light {

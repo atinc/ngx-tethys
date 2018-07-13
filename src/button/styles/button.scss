@@ -112,7 +112,7 @@ $value in $theme-colors {
 // Link buttons
 //
 // Make a button look and behave like a link
-.btn-link {
+.btn.btn-link {
     font-weight: $font-weight-normal;
     color: $link-color;
     background-color: transparent;
@@ -128,6 +128,14 @@ $value in $theme-colors {
         border-color: transparent;
         box-shadow: none;
     }
+    &.disabled,
+    &:disabled {
+        @include hover-focus {
+            color: $btn-link-disabled-color;
+            text-decoration: none;
+        }
+    }
+
     &:disabled,
     &.disabled {
         color: $btn-link-disabled-color;
@@ -158,6 +166,15 @@ $value in $theme-colors {
 // 默认显示灰色，鼠标移上去显示红色
 .btn-link.btn-link-danger-weak {
     @include btn-link-variant($info, $danger, none);
+}
+
+// 默认显示灰色，鼠标移上去显示红色
+.btn-link.btn-link-danger {
+    @include btn-link-variant($danger, $danger, underline);
+}
+
+.btn-link.btn-link-success {
+    @include btn-link-variant($success, $success, underline);
 }
 
 //

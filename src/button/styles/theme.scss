@@ -11,7 +11,7 @@
     @include button-outline-variant($gray-600, $gray-300, $primary, null, $primary, null, $primary);
 }
 
-.btn-link {
+.btn.btn-link {
     color: $link-color;
     @include hover {
         color: $link-hover-color;
@@ -43,10 +43,23 @@
     @include btn-link-variant($info, $danger, none);
 }
 
+// 默认显示灰色，鼠标移上去显示红色
+.btn-link.btn-link-danger {
+    @include btn-link-variant($danger, $danger, underline);
+}
+
+.btn-link.btn-link-success {
+    @include btn-link-variant($success, $success, underline);
+}
+
 // btn-icon theme
 
 .btn-icon {
     @extend .btn-link.btn-link-default;
+}
+
+.btn-icon-light {
+    color: $btn-icon-light-color;
 }
 
 .btn-icon-circle {
