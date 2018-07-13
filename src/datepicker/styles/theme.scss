@@ -1,0 +1,3 @@
+@import './variables.scss';
+@include theming('ngx', $primary, $secondary-item-active);
+@include thy-detepicker-variant();
