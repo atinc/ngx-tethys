@@ -112,22 +112,25 @@ $value in $theme-colors {
 // Link buttons
 //
 // Make a button look and behave like a link
-.btn-link {
+.btn.btn-link {
     font-weight: $font-weight-normal;
     color: $link-color;
     background-color: transparent;
-    @include hover {
-        color: $link-hover-color;
-        text-decoration: $link-hover-decoration;
-        background-color: transparent;
-        border-color: transparent;
+    &:not(.disabled :disabled) {
+        @include hover {
+            color: $link-hover-color;
+            text-decoration: $link-hover-decoration;
+            background-color: transparent;
+            border-color: transparent;
+        }
+        &:focus,
+        &.focus {
+            text-decoration: $link-hover-decoration;
+            border-color: transparent;
+            box-shadow: none;
+        }
     }
-    &:focus,
-    &.focus {
-        text-decoration: $link-hover-decoration;
-        border-color: transparent;
-        box-shadow: none;
-    }
+
     &:disabled,
     &.disabled {
         color: $btn-link-disabled-color;
