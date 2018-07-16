@@ -35,6 +35,8 @@ export class ThyInputSearchComponent implements ControlValueAccessor {
 
     public disabled = false;
 
+    public autoFocus = false;
+
     @HostBinding('class.input-search-container') _isSearchContainer = true;
 
     @HostBinding('class.input-search-ellipse') _isSearchEllipse = false;
@@ -50,6 +52,12 @@ export class ThyInputSearchComponent implements ControlValueAccessor {
         if (value === 'ellipse') {
             this._isSearchEllipse = true;
         }
+    }
+
+
+    @Input()
+    set thySearchFocus(value: boolean) {
+        this.autoFocus = value;
     }
 
     constructor() {

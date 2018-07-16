@@ -1,5 +1,6 @@
 <i class="wtf wtf-search-o input-prefix-icon"></i>
-<input [name]="name"  [placeholder]="placeholder" class="input-search-control" thyInput [disabled]="disabled" [(ngModel)]="searchText" (ngModelChange)="searchModelChange()">
+<input class="input-search-control" thyInput [name]="name" [placeholder]="placeholder" [disabled]="disabled" [thyAutofocus]="autoFocus"
+    [(ngModel)]="searchText" (ngModelChange)="searchModelChange()">
 <a *ngIf="searchText" class="close input-suffix-icon" href="javascript:;" (click)="clearSearchText($event)">
     <i class="wtf wtf-close"></i>
 </a>
