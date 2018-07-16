@@ -1,4 +1,4 @@
-@mixin theming($name, $color) {
+@mixin theming($name, $color, $item-active-bg-color) {
     .theme-#{$name} {
         .bs-datepicker-body {
             table {
@@ -94,10 +94,9 @@
                                             width: 5px;
                                             transform: translateX(34px);
                                         }
-                                    }
-                                    &.in-range {
-                                        background: transparent !important;
-                                    }
+                                    } // &.in-range {
+                                    //     background: transparent !important;
+                                    // }
                                     &.select-end {
                                         &:before {
                                             left: -5px;

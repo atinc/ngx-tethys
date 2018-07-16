@@ -27,7 +27,8 @@ $success: #22d7bb !default;
 $info: $gray-500 !default;
 $warning: #ffc442 !default;
 $danger: #ff5b57 !default;
-$item-active-bg-color: #e7f9f6; // item 选中背景色, 项目或者任务列表选中
+$secondary-item-active: #e7f9f6 !default;
+$item-active-bg-color:$secondary-item-active !default;
 $light: $gray-300;
 // $light : $gray-100;
 // $dark : $gray-800;
@@ -40,7 +41,6 @@ $link-decoration: none !default;
 $link-hover-color: $primary !default;
 $link-hover-decoration: underline !default;
 $link-icon-padding-right: 4px !default;
-
 // box shadow
 $box-shadow: 0 0 24px rgba(0, 0, 0, 0.18);
 $enable-shadows: false !default;
@@ -70,7 +70,7 @@ $font-size-xs: .625rem; // 10px
 // code
 $code-color: $danger;
 $input-btn-padding-y: 0.469rem !default;
-$input-btn-padding-x: 26px !default;// 1.313rem  !default;
+$input-btn-padding-x: 26px !default; // 1.313rem  !default;
 $input-btn-padding-y-sm: .25rem !default;
 $input-btn-padding-x-sm: .5rem !default;
 $input-btn-padding-y-lg: 0.656rem !default;
@@ -97,18 +97,16 @@ $btn-disabled-border-color: $gray-300 !default;
 $btn-link-color-default: $gray-500 !default;
 $btn-link-color-disabled: $gray-400 !default;
 $btn-icon-light-color: $gray-300 !default;
-
+$btn-link-disabled-color: $gray-400 !default;
 $btn-icon-color: $gray-400; // #cacaca
 $btn-icon-thick-dashed-color: $gray-300; // #ddd
 $btn-icon-thick-solid-color: $gray-400; // #cacaca
-
 // min-width
 $btn-base-min-width: 106px !default;
 $btn-md-min-width: 70px !default;
 $btn-sm-min-width: 70px !default;
 $btn-xs-min-width: 60px !default;
 $btn-lg-min-width: 108px !default;
-
 // Dropdown
 $dropdown-toggle-y-l: 1.25rem ! default;
 $dropdown-toggle-y-r: 0.938rem ! default;
@@ -134,6 +132,7 @@ $input-btn-focus-box-shadow: none;
 $input-box-shadow: none;
 $input-placeholder-color: $gray-400 !default;
 $input-color: $gray-800 !default;
+$input-focus-bg: transparent !default;
 $input-label-color: $gray-600 !default; // label 文本的颜色，包括 Checkbox 和 Radio Label 的颜色
 $input-label-checked-color: $gray-800 !default; // Checkbox 和 Radio Label 选中后的颜色
 $input-border-color: $gray-200 !default;
@@ -152,7 +151,6 @@ $input-ellipse-hover-focus-background-color: $white !default;
 $input-form-check-size: 1rem !default;
 $input-form-check-disable-color: $gray-400 !default;
 $input-form-check-border-color: $gray-300 !default;
-
 // PopBox
 $pop-box-divider: $gray-100 !default;
 $pop-box-bg-hover: $gray-100 !default;
@@ -161,8 +159,6 @@ $pop-box-text-hover: $gray-900 !default;
 $pop-box-body-padding: 15px 20px !default;
 $pop-box-footer-padding: 15px 20px !default;
 $zindex-pop-box: 1080 !default;
-
-
 // Layout
 $layout-header-background: rgba($gray-99, 0.97);
 $layout-header-padding: 0 15px;
@@ -258,7 +254,7 @@ $nav-link-thirdly-right: 40px !default;
 $nav-link-thirdly-split-line-height: 15px !default;
 $nav-link-thirdly-padding-y-sm: 0.4375rem !default;
 $nav-link-thirdly-padding-x-sm: 0rem !default;
-$nav-link-thirdly-right-sm: 40px!default;
+$nav-link-thirdly-right-sm: 40px !default;
 $nav-link-thirdly-split-line-height-sm: 11px !default;
 $nav-vertical-border-left: 4px solid $primary;
 $nav-vertical-border-left-empty: 4px solid transparent;
