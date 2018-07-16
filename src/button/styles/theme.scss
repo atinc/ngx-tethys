@@ -11,7 +11,7 @@
     @include button-outline-variant($gray-600, $gray-300, $primary, null, $primary, null, $primary);
 }
 
-.btn.btn-link {
+.btn-link {
     color: $link-color;
     @include hover {
         color: $link-hover-color;

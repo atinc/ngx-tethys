@@ -112,7 +112,7 @@ $value in $theme-colors {
 // Link buttons
 //
 // Make a button look and behave like a link
-.btn.btn-link {
+.btn-link {
     font-weight: $font-weight-normal;
     color: $link-color;
     background-color: transparent;
@@ -130,6 +130,7 @@ $value in $theme-colors {
     }
     &.disabled,
     &:disabled {
+        background-color: transparent;
         @include hover-focus {
             color: $btn-link-disabled-color;
             text-decoration: none;
