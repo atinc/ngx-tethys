@@ -146,6 +146,9 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck {
 
     @Input()
     set thyWholeRowSelect(value: boolean) {
+        if (value) {
+            this.className += ' table-hover';
+        }
         this.wholeRowSelect = value;
     }
 

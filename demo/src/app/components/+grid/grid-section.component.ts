@@ -12,7 +12,7 @@ export class DemoGridSectionComponent implements OnInit {
         {
             id: 1,
             name: '张三',
-            age: 10,
+            age: 0,
             checked: true,
             desc: ''
         }, {
