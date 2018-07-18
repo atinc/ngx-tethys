@@ -86,6 +86,7 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck {
     set thyModel(value: any) {
         this.model = value || [];
         this._diff = this._differs.find(this.model).create();
+        this._initializeDataModel();
     }
 
     @Input()
