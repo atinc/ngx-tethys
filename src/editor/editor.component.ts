@@ -66,7 +66,7 @@ export class ThyEditorComponent implements OnInit, ControlValueAccessor, OnDestr
                 }
             }
         }
-        if (this.uploadImg) {
+        if ($files.length > 0 && this.uploadImg) {
             this.uploadImg.emit({
                 event: { files: $files },
                 callBack: this.uploadImgAction.bind(this)
