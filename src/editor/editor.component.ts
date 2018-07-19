@@ -4,7 +4,6 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyEditorService } from './editor.service';
-import { moment } from '../../node_modules/ngx-bootstrap/chronos/test/chain';
 @Component({
     selector: 'thy-editor',
     templateUrl: './editor.component.html',
@@ -52,11 +51,15 @@ export class ThyEditorComponent implements OnInit, ControlValueAccessor, OnDestr
             _name = window['appGlobal'].me.display_name;
         }
 
+        let _date = '';
+        const _now = new Date();
+        _date = _now.getFullYear() + '-' + (_now.getMonth() + 1) + '-' + _now.getDate() + ' ' + _now.getHours() + ':' +
+            _now.getMinutes() + ':' + _now.getSeconds();
         for (const item of theClipboardData.items) {
             if (item.kind === 'file' && item.type.indexOf('image/') === 0) {
                 const imageFile: any = item.getAsFile();
                 if (imageFile) {
-                    imageFile.title = '[' + _name + '] ' + 'upload' + ' - ' + moment().format('YYYY-MM-DD HH:mm ss') + '.png';
+                    imageFile.title = '[' + _name + '] ' + 'upload' + ' - ' + _date + '.png';
                     $files.push(imageFile);
                     e.preventDefault();
                     break;
