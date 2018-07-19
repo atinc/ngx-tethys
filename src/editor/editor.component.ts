@@ -1,6 +1,10 @@
-import { Component, Input, ElementRef, Renderer2, OnInit, forwardRef, HostBinding, Output, EventEmitter, OnDestroy } from '@angular/core';
+import {
+    Component, Input, ElementRef, Renderer2, OnInit, forwardRef, HostBinding, Output, EventEmitter,
+    OnDestroy, HostListener
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyEditorService } from './editor.service';
+import { moment } from '../../node_modules/ngx-bootstrap/chronos/test/chain';
 @Component({
     selector: 'thy-editor',
     templateUrl: './editor.component.html',
@@ -33,6 +37,38 @@ export class ThyEditorComponent implements OnInit, ControlValueAccessor, OnDestr
         private renderer: Renderer2,
         public thyEditorService: ThyEditorService,
     ) {
+    }
+
+    @HostListener('paste', ['$event'])
+    paste(e: any) {
+        const $files = [];
+        const theClipboardData = e.clipboardData;
+        if (!theClipboardData.items) {
+            return;
+        }
+
+        let _name = 'image';
+        if (window['appGlobal']) {
+            _name = window['appGlobal'].me.display_name;
+        }
+
+        for (const item of theClipboardData.items) {
+            if (item.kind === 'file' && item.type.indexOf('image/') === 0) {
+                const imageFile: any = item.getAsFile();
+                if (imageFile) {
+                    imageFile.title = '[' + _name + '] ' + 'upload' + ' - ' + moment().format('YYYY-MM-DD HH:mm ss') + '.png';
+                    $files.push(imageFile);
+                    e.preventDefault();
+                    break;
+                }
+            }
+        }
+        if (this.uploadImg) {
+            this.uploadImg.emit({
+                event: { files: $files },
+                callBack: this.uploadImgAction.bind(this)
+            });
+        }
     }
 
     writeValue(value: any) {
