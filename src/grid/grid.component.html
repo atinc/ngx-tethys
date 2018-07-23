@@ -1,4 +1,4 @@
-<table class="table" [ngClass]="[themeClass,className]" [class.table-draggable]="draggable" [class.table-hover]="wholeRowSelect">
+<table class="table" [ngClass]="[themeClass,className]" [class.table-draggable]="draggable">
     <thead>
         <tr>
             <th *ngFor="let column of columns" [ngClass]="column.headerClassName">{{column.title}}</th>
@@ -18,7 +18,12 @@
                 <ng-container *ngIf="!isTemplateRef(column.templateRef)">
                     <!-- default -->
                     <ng-container *ngIf="column.model && !column.type">
-                        {{getModelValue(row,column.model) || column.defaultText}}
+                        <ng-container *ngIf="getModelValue(row,column.model) | isValidModelValue;else default;">
+                            {{getModelValue(row,column.model)}}
+                        </ng-container>
+                        <ng-template #default>
+                            <div class="text-info"> {{column.defaultText}}</div>
+                        </ng-template>
                     </ng-container>
                     <!-- index -->
                     <ng-container *ngIf="column.type === customType.index"> {{i+1}} </ng-container>

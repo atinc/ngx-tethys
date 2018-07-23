@@ -64,10 +64,11 @@
         <form>
             <div class="demo-input">
                 <h4>Default Input Search</h4>
-                <thy-input-search name="search" (keydown.enter)="enter()" [(ngModel)]="model.searchText" (ngModelChange)="searchModelChange()"></thy-input-search>
+                <thy-input-search name="search" (keydown.enter)="enter()"  [(ngModel)]="model.searchText" (ngModelChange)="searchModelChange()"></thy-input-search>
                 <br/>
                 <h4>Ellipse Input Search</h4>
-                <thy-input-search name="search1" (keydown.enter)="enter()" thyTheme="ellipse" [(ngModel)]="model.searchText" (ngModelChange)="searchModelChange()"></thy-input-search>
+                <thy-input-search name="search1" (keydown.enter)="enter()" [thySearchFocus]="true" thyTheme="ellipse" [(ngModel)]="model.searchText"
+                    (ngModelChange)="searchModelChange()"></thy-input-search>
                 <br/>
                 <span> searchText: {{model.searchText || 'None'}}</span>
             </div>

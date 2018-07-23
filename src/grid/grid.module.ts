@@ -8,11 +8,13 @@ import { ThySwitchModule } from '../switch/switch.module';
 import { ThyLoadingModule } from '../loading/loading.module';
 import { ThyEmptyModule } from '../empty/empty.module';
 import { SortablejsModule } from 'angular-sortablejs';
+import { GridIsValidModelValuePipe } from './grid.pipe';
 
 @NgModule({
     declarations: [
         ThyGridComponent,
-        ThyGridColumnComponent
+        ThyGridColumnComponent,
+        GridIsValidModelValuePipe
     ],
     imports: [
         CommonModule,

@@ -19,11 +19,10 @@ export class AppComponent implements OnInit {
 
     ngOnInit() {
         document.querySelector('head').appendChild(document.querySelector('#theme'));
-        const _urlObject = (new URL(location.href)) as any;
-        if (_urlObject.searchParams.has('theme')) {
-            const urlThemeKey = _urlObject.searchParams.get('theme');
+        const themeKey = sessionStorage.getItem('theme');
+        if (themeKey) {
             this.changeTheme(this.themesConstant.find(n => {
-                return n.key === urlThemeKey;
+                return n.key === themeKey;
             }));
         }
     }
@@ -32,7 +31,7 @@ export class AppComponent implements OnInit {
         const elm = (document.querySelector('#theme') as HTMLLinkElement);
         elm.href = `/assets/css/${theme.key}.min.css`;
         this.currentTheme = theme;
-        history.pushState({}, '', `${location.pathname}?theme=${theme.key}`);
+        sessionStorage.setItem('theme', theme.key);
     }
 
 }
