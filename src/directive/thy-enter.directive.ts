@@ -1,4 +1,8 @@
-import { Directive, Output, HostListener, EventEmitter } from '@angular/core';
+import {
+    Directive, Output, HostListener,
+    EventEmitter, OnInit, NgZone,
+    ElementRef, Renderer2, ChangeDetectorRef
+} from '@angular/core';
 import { keycodes } from '../util';
 
 /**
@@ -7,19 +11,29 @@ import { keycodes } from '../util';
 @Directive({
     selector: '[thyEnter]'
 })
-export class ThyEnterDirective {
+export class ThyEnterDirective implements OnInit {
 
     @Output() thyEnter = new EventEmitter();
 
-    @HostListener('keydown', ['$event'])
     onKeydown(event: KeyboardEvent) {
         const keyCode = event.which || event.keyCode;
         if (keyCode === keycodes.ENTER) {
             event.preventDefault();
             this.thyEnter.emit(event);
+            this.changeDetectorRef.detectChanges();
         }
     }
 
-    constructor() { }
+    constructor(
+        private ngZone: NgZone,
+        private elementRef: ElementRef,
+        private renderer: Renderer2,
+        private changeDetectorRef: ChangeDetectorRef
+    ) { }
 
+    ngOnInit(): void {
+        this.ngZone.runOutsideAngular(() => {
+            this.renderer.listen(this.elementRef.nativeElement, 'keydown', this.onKeydown.bind(this));
+        });
+    }
 }
