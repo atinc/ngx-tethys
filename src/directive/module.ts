@@ -3,6 +3,7 @@ import { ThyRowDirective } from './thy-row.directive';
 import { ThyColDirective } from './thy-clo.directive';
 import { ThyAutofocusDirective } from './thy-autofocus.directive';
 import { ThyEnterDirective } from './thy-enter.directive';
+import { ThyCtrlEnterDirective } from './thy-ctrl-enter.directive';
 import { ThyShowDirective } from './thy-show';
 import { ThyStopPropagationDirective } from './thy-stop-propagation.directive';
 import { ThyMarkdownParserDirective } from './thy-markdown/thy-markdown-parser.directive';
@@ -14,6 +15,7 @@ import { ThyMarkdownParserService, ThyDefaultMarkdownParserService } from './thy
         ThyColDirective,
         ThyAutofocusDirective,
         ThyEnterDirective,
+        ThyCtrlEnterDirective,
         ThyShowDirective,
         ThyStopPropagationDirective,
         ThyMarkdownParserDirective
@@ -21,6 +23,7 @@ import { ThyMarkdownParserService, ThyDefaultMarkdownParserService } from './thy
     exports: [
         ThyRowDirective,
         ThyColDirective,
+        ThyCtrlEnterDirective,
         ThyAutofocusDirective,
         ThyEnterDirective,
         ThyShowDirective,
