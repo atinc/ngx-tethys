@@ -3,14 +3,22 @@ import { Component, OnInit } from '@angular/core';
 @Component({
     selector: 'demo-badge-section',
     templateUrl: './badge-section.component.html',
-    styleUrls:['./badge-section.component.scss']
+    styleUrls: ['./badge-section.component.scss']
 })
 
-export class DemoBadgeSectionComponent {
+export class DemoBadgeSectionComponent implements OnInit {
+
+    badgeDotTheme;
+
+    themes = ['danger', 'primary', 'warning', 'secondary'];
 
     constructor() {
 
     }
 
-    // ngOnInit() { }
+    ngOnInit() {
+        setInterval(() => {
+            this.badgeDotTheme = this.themes[Math.floor(Math.random() * this.themes.length)];
+        }, 1000);
+    }
 }

@@ -1,8 +1,7 @@
-<ng-container *ngIf="isElement">
-    <span class="thy-badge {{badgeClass}}" [ngClass]="{'thy-badge-content':displayContent}">{{displayContent}}</span>
-    
+<ng-container>
+    <span class="thy-badge {{badgeClassName}}">{{displayContent}}</span>
 </ng-container>
-<ng-content></ng-content>
+<ng-content #content></ng-content>
 
 <!-- <ng-container *ngIf="!isElement">
     <ng-content></ng-content>

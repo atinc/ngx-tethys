@@ -1,94 +1,93 @@
-<div class="demo-badge-list">
-    <thy-badge [thyCount]="3"></thy-badge>
-    <thy-badge [thyCount]="3" thyType="primary"></thy-badge>
-    <thy-badge [thyCount]="3" thyType="danger" thySize="lg"></thy-badge>
-</div>
+<div class="demo-badge-section">
+    <section>
+        <div class="header">标记 sup</div>
+        <div class="body">
+            <div class="mb-3">
+                <thy-badge [thyCount]="5">
+                    <div class="square"></div>
+                </thy-badge>
+            </div>
+            <div class="mb-3">
+                <thy-badge [thyCount]="100" [thyMaxCount]="99">
+                    <div class="square"></div>
+                </thy-badge>
+            </div>
+            <div class="mb-3">
+                <thy-badge [thyContext]="'new'">
+                    <div class="square"></div>
+                </thy-badge>
+            </div>
+            <div class="mb-3">
+                <thy-badge [thyCount]="5">
+                    <div class="square"></div>
+                </thy-badge>
+                <thy-badge [thyCount]="5" thyType="primary">
+                    <div class="square"></div>
+                </thy-badge>
+                <thy-badge [thyCount]="5" thyType="warning">
+                    <div class="square"></div>
+                </thy-badge>
+                <thy-badge [thyCount]="5" thyType="secondary">
+                    <div class="square"></div>
+                </thy-badge>
+            </div>
+        </div>
+    </section>
 
-<div class="demo-badge-list">
-    <thy-badge [thyCount]="3">
-        <div class="circle"></div>
-    </thy-badge>
-    <thy-badge [thyCount]="3" thyType="primary">
-        <div class="circle"></div>
-    </thy-badge>
-    <thy-badge [thyCount]="3" thyType="danger">
-        <div class="square"></div>
-    </thy-badge>
-    <thy-badge [thyCount]="3" thyType="warning">
-        <div class="square"></div>
-    </thy-badge>
-    <thy-badge [thyCount]="3" thyType="secondary">
-        <div class="square"></div>
-    </thy-badge>
-</div>
+    <section>
+        <div class="header">独立使用</div>
+        <div class="body">
+            <div class="mb-3">
+                <thy-badge [thyCount]="3"></thy-badge>
+            </div>
+            <div class="mb-3">
+                <thy-badge [thyCount]="3" thySize="lg"></thy-badge>
+                <thy-badge [thyCount]="2"></thy-badge>
+                <thy-badge [thyCount]="3" thySize="sm"></thy-badge>
+            </div>
+        </div>
+    </section>
 
-<div class="demo-badge-list">
-    <thy-badge [thyCount]="100" [thyMaxCount]="99">
-        <div class="circle"></div>
-    </thy-badge>
-    <thy-badge [thyCount]="100" [thyMaxCount]="99" thyType="primary">
-        <div class="circle"></div>
-    </thy-badge>
-    <thy-badge [thyCount]="100" [thyMaxCount]="99" thyType="danger">
-        <div class="square"></div>
-    </thy-badge>
-    <thy-badge [thyCount]="100" [thyMaxCount]="99" thyType="warning">
-        <div class="square"></div>
-    </thy-badge>
-    <thy-badge [thyCount]="100" [thyMaxCount]="99" thyType="secondary">
-        <div class="square"></div>
-    </thy-badge>
-</div>
+    <section>
+        <div class="header">小红点 sup</div>
+        <div class="body">
+            <thy-badge thyIsDot>
+                <div class="square"></div>
+            </thy-badge>
+            <thy-badge thyIsDot [thyType]="badgeDotTheme">
+                <div class="square"></div>
+            </thy-badge>
+            颜色变化{{badgeDotTheme}}
+        </div>
+    </section>
 
-<div class="demo-badge-list">
-    <thy-badge thyCount="new">
-        <div class="circle"></div>
-    </thy-badge>
-    <thy-badge thyCount="new" thyType="primary">
-        <div class="circle"></div>
-    </thy-badge>
-    <thy-badge thyCount="new" thyType="danger">
-        <div class="square"></div>
-    </thy-badge>
-    <thy-badge thyCount="new" thyType="warning">
-        <div class="square"></div>
-    </thy-badge>
-    <thy-badge thyCount="new" thyType="secondary">
-        <div class="square"></div>
-    </thy-badge>
-</div>
+    <section>
+        <div class="header">状态点</div>
+        <div class="body">
+            <div class="mb-3">
+                <thy-badge thyIsDot="true"></thy-badge>
+                <thy-badge thyIsDot="true" thyType="primary"></thy-badge>
+                <thy-badge thyIsDot="true"></thy-badge>
+                <thy-badge thyIsDot="true" thyType="warning"></thy-badge>
+            </div>
+            <div class="mb-3">
+                <thy-badge thyIsDot="true" thySize="lg"></thy-badge>
+            </div>
+        </div>
+    </section>
 
-<div class="demo-badge-list">
-    <thy-badge thyIsDot="true">
-    </thy-badge>
-    <thy-badge thyIsDot="true" thyType="primary">
-    </thy-badge>
-    <thy-badge thyIsDot="true" thyType="danger">
-    </thy-badge>
-    <thy-badge thyIsDot="true" thyType="warning">
-    </thy-badge>
-    <thy-badge thyIsDot="true" thyType="secondary">
-    </thy-badge>
-</div>
-
-<div class="demo-badge-list">
-    <thy-badge thyIsDot="true" thyIsHollow="true"></thy-badge>
-</div>
-
-<div class="demo-badge-list">
-    <thy-badge thyType="" [thyCount]="100"></thy-badge>
-    <thy-badge thyType="primary" [thyCount]="100"></thy-badge>
-    <thy-badge thyType="danger" [thyCount]="100"></thy-badge>
-    <thy-badge thyType="warning" [thyCount]="100"></thy-badge>
-    <thy-badge thyType="secondary" [thyCount]="100"></thy-badge>
-</div>
-
-<div class="demo-badge-list">
-    <code>[thyBadge]</code>
-    <span thyBadge="primary">3</span>
-</div>
-
-<div class="demo-badge-list">
-    <code>[thyBadge]</code>
-    <span thyBadge="primary" thyIsDot="true"></span>
+    <section>
+        <div class="header">镂空点</div>
+        <div class="body">
+            <div class="mb-3">
+                <thy-badge thyIsHollow="true"></thy-badge>
+                <thy-badge thyIsHollow="true" thyType="primary"></thy-badge>
+                <thy-badge thyIsHollow="true" thyType="warning"></thy-badge>
+                <thy-badge thyIsHollow="true" thyType="secondary"></thy-badge>
+            </div>
+            <div class="mb-3">
+                <thy-badge thyIsHollow="true" thyType="secondary" thySize="lg"></thy-badge>
+            </div>
+        </div>
+    </section>
 </div>

@@ -1,33 +1,6 @@
-.thy-badge-body {
+.thy-badge-container {
     position: relative;
     display: inline-block;
-    .thy-badge-content {
-        position: absolute;
-        top: 0px;
-        right: 10px;
-        transform: translateY(-50%) translateX(100%);
-    }
-    .thy-badge-dot-content {
-        position: absolute;
-        top: 2px;
-        right: 5px;
-        transform: translateY(-50%) translateX(100%);
-    }
-}
-
-.thy-badge {
-    display: inline-block;
-    padding: $badge-padding-y $badge-padding-x;
-    font-size: $badge-font-size;
-    font-weight: $badge-font-weight;
-    line-height: 1;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: baseline;
-    color: $badge-color;
-    vertical-align: middle;
-    background-color: $badge-bg;
-    @include border-radius($badge-border-radius); // Empty badges collapse automatically
 }
 
 .btn .thy-badge {
@@ -35,40 +8,107 @@
     top: -1px;
 }
 
+// #region 
 .thy-badge {
-    @include set-badge-size($font-size-sm, 2px, 6px);
+    display: inline-block;
+    font-size: $badge-font-size;
+    font-weight: $badge-font-weight;
+    line-height: 1;
+    vertical-align: middle;
+    padding: $badge-padding-y $badge-padding-x;
+    @include border-radius($badge-border-radius);
+}
+
+.thy-badge-count {
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    color: $badge-color;
+    background-color: $badge-bg;
+    @include set-badge-size($font-size-sm, 2px, 5px);
 }
 
 .thy-badge-dot {
-    display: inline-block;
     padding: 0;
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    vertical-align: middle
+    vertical-align: middle;
 }
 
 .thy-badge-hollow {
+    padding: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    vertical-align: middle;
     border: solid 1px $badge-bg;
     background-color: transparent;
 }
 
+// #endregion
+// #region
 .thy-badge-danger {
     @include set-badge-color($white, $danger);
+    &.thy-badge-hollow {
+        background-color: transparent;
+    }
 }
 
 .thy-badge-warning {
     @include set-badge-color($white, $warning);
+    &.thy-badge-hollow {
+        background-color: transparent;
+    }
 }
 
 .thy-badge-primary {
     @include set-badge-color($white, $primary);
+    &.thy-badge-hollow {
+        background-color: transparent;
+    }
+}
+
+.thy-badge-secondary {
+    @include set-badge-color($gray-600, $gray-200);
+    &.thy-badge-dot {
+        @include set-badge-color($gray-600, $gray-300);
+    }
+    &.thy-badge-hollow {
+        @include set-badge-color($gray-600, $gray-300);
+        background-color: transparent;
+    }
+}
+
+// #endregion
+// #region
+.thy-badge-sup {
+    position: absolute;
+    top: 0px;
+    right: 0;
+    transform: translateY(-50%) translateX(50%);
+}
+
+.thy-badge-multiple-words {
+    padding-left: 7px;
+    padding-right: 7px;
 }
 
 .thy-badge-lg {
-    @include set-badge-size($font-size-sm, 6px, 10px);
+    &.thy-badge-count {
+        @include set-badge-size($font-size-sm, 6px, 9px);
+    }
+    &.thy-badge-dot,
+    &.thy-badge-hollow {
+        width: 10px;
+        height: 10px;
+    }
 }
 
 .thy-badge-sm {
-    @include set-badge-size($font-size-xs, 1px, 4px);
+    &.thy-badge-count {
+        @include set-badge-size($font-size-xs, 1px, 4px);
+    }
 }
+
+// #endregion

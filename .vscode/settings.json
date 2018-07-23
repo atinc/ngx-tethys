@@ -12,6 +12,7 @@
         "transclude",
         "Injectable",
         "endregion",
+        "Mutex",
         "Sortablejs",
         "vnext",
         "kanban",
