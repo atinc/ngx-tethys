@@ -1,7 +1,9 @@
 import {
     Directive, ElementRef,
     Input, OnInit, Renderer2, HostBinding,
-    AfterViewInit, AfterViewChecked, HostListener
+    AfterViewInit, AfterViewChecked, HostListener,
+    ChangeDetectorRef,
+    NgZone
 } from '@angular/core';
 import { UpdateHostClassService } from '../shared';
 import { NgForm, AbstractControl } from '@angular/forms';
@@ -48,26 +50,22 @@ export class ThyFormDirective implements OnInit, AfterViewInit, AfterViewChecked
     constructor(
         private ngForm: NgForm,
         private elementRef: ElementRef,
+        private changeDetectorRef: ChangeDetectorRef,
+        private renderer: Renderer2,
+        private ngZone: NgZone,
         private updateHostClassService: UpdateHostClassService) {
     }
 
     ngOnInit(): void {
+        this.ngZone.runOutsideAngular(() => {
+            this.renderer.listen(this.elementRef.nativeElement, 'keydown', this.enter.bind(this));
+        });
     }
 
     ngAfterViewInit() {
     }
 
     ngAfterViewChecked() {
-        // if (this._formControlKeys.length > 0) {
-        //     return;
-        // }
-        // for (const key in this.ngForm.controls) {
-        //     if (this.ngForm.controls.hasOwnProperty(key)) {
-        //         this._formControlKeys.push(key);
-        //         this.ngForm.controls[key].valueChanges.subscribe((value) => {
-        //         });
-        //     }
-        // }
     }
 
     submit($event: any) {
@@ -79,7 +77,7 @@ export class ThyFormDirective implements OnInit, AfterViewInit, AfterViewChecked
         }
     }
 
-    @HostListener('keydown', ['$event'])
+    // @HostListener('keydown', ['$event'])
     enter($event: KeyboardEvent) {
         const currentInput = document.activeElement;
         const key = $event.which || $event.keyCode;
@@ -90,15 +88,18 @@ export class ThyFormDirective implements OnInit, AfterViewInit, AfterViewChecked
                     if ($event.ctrlKey || $event.metaKey) {
                         $event.preventDefault();
                         this.submit($event);
+                        this.changeDetectorRef.detectChanges();
                     }
                 } else {
                     // 不是 TEXTAREA Enter 阻止默认行为并提交
                     $event.preventDefault();
                     this.submit($event);
+                    this.changeDetectorRef.detectChanges();
                 }
             } else if (this.thyEnterKeyModel === ThyEnterKeyModel.alwaysSubmit) {
                 $event.preventDefault();
                 this.submit($event);
+                this.changeDetectorRef.detectChanges();
             } else {
                 // do nothing
             }

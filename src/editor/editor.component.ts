@@ -40,6 +40,7 @@ export class ThyEditorComponent implements OnInit, ControlValueAccessor, OnDestr
 
     @HostListener('paste', ['$event'])
     paste(e: any) {
+        e.stopPropagation();
         const $files = [];
         const theClipboardData = e.clipboardData;
         if (!theClipboardData.items) {

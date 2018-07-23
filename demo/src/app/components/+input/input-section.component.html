@@ -4,7 +4,7 @@
     </div>
     <div class="body">
         <div class="demo-input">
-            <input thyInput placeholder="请输入元素">
+            <input thyInput [(ngModel)]="model.input" (thyEnter)="enterInput()" placeholder="请输入元素">
         </div>
     </div>
 </section>
