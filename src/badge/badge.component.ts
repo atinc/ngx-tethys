@@ -142,14 +142,14 @@ export class ThyBadgeComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.st.isSup = this.nativeElement.childElementCount > 1;
+        this.st.isSup = this.nativeElement.childNodes.length > 1;
         this.combineBadgeClassName();
         this.combineBadgeDisplayContent();
         this._initialized = true;
 
     }
 
-    combineBadgeClassName() {
+    private combineBadgeClassName() {
         this.badgeClassNameMap['thy-badge-sup'] = this.st.isSup;
         this.explorationValueLength();
 
@@ -164,7 +164,7 @@ export class ThyBadgeComponent implements OnInit {
         this.badgeClassName = _badgeClassNames.join(' ');
     }
 
-    combineBadgeDisplayContent() {
+    private combineBadgeDisplayContent() {
         if (this.st.value) {
             if (this.st.max.is) {
                 if (this.st.value > this.st.max.value) {
