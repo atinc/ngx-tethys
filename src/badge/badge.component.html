@@ -1,9 +1,4 @@
 <ng-container>
-    <span class="thy-badge {{badgeClassName}}">{{displayContent}}</span>
+    <span *ngIf="st.isShowBadge" class="thy-badge {{badgeClassName}}">{{displayContent}}</span>
 </ng-container>
 <ng-content></ng-content>
-
-<!-- <ng-container *ngIf="!isElement">
-    <ng-content></ng-content>
-</ng-container> -->
-<!-- <ng-content></ng-content> -->

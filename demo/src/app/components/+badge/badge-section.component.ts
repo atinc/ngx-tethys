@@ -12,6 +12,8 @@ export class DemoBadgeSectionComponent implements OnInit {
 
     themes = ['danger', 'primary', 'warning', 'secondary'];
 
+    nullValue;
+
     constructor() {
 
     }
