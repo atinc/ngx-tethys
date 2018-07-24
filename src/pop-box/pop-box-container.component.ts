@@ -1,8 +1,9 @@
 import {
     Component, OnInit, ElementRef,
-    HostBinding,
-    Renderer2, ViewEncapsulation, HostListener
+    HostBinding, Inject,
+    Renderer2, ViewEncapsulation, HostListener, NgZone, OnDestroy
 } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { PopBoxRef } from './pop-box-ref.service';
 import { PopBoxOptions } from './pop-box-options.class';
 
@@ -11,8 +12,7 @@ import { PopBoxOptions } from './pop-box-options.class';
     templateUrl: './pop-box-container.component.html',
     encapsulation: ViewEncapsulation.None
 })
-export class PopBoxContainerComponent implements OnInit {
-
+export class PopBoxContainerComponent implements OnInit, OnDestroy {
 
     @HostBinding('style.z-index') _zIndex: number | string;
 
@@ -20,15 +20,23 @@ export class PopBoxContainerComponent implements OnInit {
 
     public showMask = false;
 
+    _unsubscribe: () => void;
+
     constructor(
         protected elementRef: ElementRef,
         private renderer: Renderer2,
-        public config: PopBoxOptions) {
+        public config: PopBoxOptions,
+        @Inject(DOCUMENT) private document: Document,
+        private ngZone: NgZone
+    ) {
         this.showMask = this.config.showMask;
     }
 
     ngOnInit(): void {
         this._zIndex = this.config.zIndex || '';
+        this.ngZone.runOutsideAngular(() => {
+            this._unsubscribe = this.renderer.listen(this.document, 'click', this.onDocumentClick.bind(this));
+        });
     }
 
 
@@ -62,7 +70,7 @@ export class PopBoxContainerComponent implements OnInit {
         }
     }
 
-    @HostListener('document:click', ['$event'])
+    // @HostListener('document:click', ['$event'])
     onDocumentClick(event: Event): void {
         if (this.config.showMask) {
             return;
@@ -84,7 +92,16 @@ export class PopBoxContainerComponent implements OnInit {
         }
 
         if (needClose) {
-            this.hide();
+            this.ngZone.run(() => {
+                this.hide();
+            });
+        }
+    }
+
+    ngOnDestroy() {
+        if (this._unsubscribe) {
+            this._unsubscribe();
+            this._unsubscribe = null;
         }
     }
 }

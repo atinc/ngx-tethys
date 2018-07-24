@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ElementRef, HostBinding, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ElementRef, HostBinding, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { isNumber, inputValueToBoolean } from '../util/helpers';
 import { UpdateHostClassService } from '../shared/update-host-class.service';
 import { ThyAvatarService } from './avatar.service';
@@ -18,7 +18,8 @@ const DEFAULT_SIZE = 38;
     templateUrl: './avatar.component.html',
     providers: [
         UpdateHostClassService
-    ]
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyAvatarComponent implements OnInit {
 

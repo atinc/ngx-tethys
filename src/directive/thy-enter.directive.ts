@@ -19,8 +19,9 @@ export class ThyEnterDirective implements OnInit {
         const keyCode = event.which || event.keyCode;
         if (keyCode === keycodes.ENTER) {
             event.preventDefault();
-            this.thyEnter.emit(event);
-            this.changeDetectorRef.detectChanges();
+            this.ngZone.run(() => {
+                this.thyEnter.emit(event);
+            });
         }
     }
 
