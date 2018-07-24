@@ -8,12 +8,18 @@ export interface KeySelectConfig {
     itemSelector?: string;
     filterSelector?: string;
     callbacks?: {
-        beforeHover?: () => Boolean
-        hover?: () => void,
+        beforeHover?: (event: Event) => Boolean
+        hover?: (event?: Event, keyHover?: any) => void,
         select?: () => void
     };
     preventDefault: boolean;
     scrollMargin: number;
+    delay?: number;
+    keyActions?: [{
+        keyCode: number,
+        action: string
+    }];
+    globalKey?: boolean;
 }
 
 export const defaultConfig = {
