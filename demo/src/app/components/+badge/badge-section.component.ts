@@ -14,6 +14,8 @@ export class DemoBadgeSectionComponent implements OnInit {
 
     nullValue;
 
+    badgeCount = 0;
+
     constructor() {
 
     }
@@ -21,6 +23,7 @@ export class DemoBadgeSectionComponent implements OnInit {
     ngOnInit() {
         setInterval(() => {
             this.badgeDotTheme = this.themes[Math.floor(Math.random() * this.themes.length)];
-        }, 1000);
+            this.badgeCount = Math.floor(Math.random() * 10);
+        }, 2000);
     }
 }

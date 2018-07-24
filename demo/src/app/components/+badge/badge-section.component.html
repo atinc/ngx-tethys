@@ -17,6 +17,10 @@
                     <div class="square"></div>
                 </thy-badge>
                 0 强制显示 thyKeepShow
+                <thy-badge [thyCount]="badgeCount">
+                    <div class="square"></div>
+                </thy-badge>
+                变化 thyCount {{badgeCount}}
             </div>
             <div class="mb-3">
                 <thy-badge [thyCount]="100" [thyMaxCount]="99">
@@ -108,7 +112,13 @@
     <section>
         <div class="header">属性使用thyBadge</div>
         <div class="body">
-            <span thyBadge thyIsDot="true">
+            <span thyBadge thyIsDot="true" class="mr-5">
+                Worktile
+            </span>
+            <span thyBadge [thyCount]="5" class="mr-5">
+                Worktile
+            </span>
+            <span thyBadge [thyCount]="0" class="mr-5">
                 Worktile
             </span>
         </div>

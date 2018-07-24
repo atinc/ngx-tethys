@@ -186,6 +186,8 @@ export class ThyBadgeComponent implements OnInit {
 
         if (!this.st.value && !this.st.isValueKeepShow) {
             this.st.isShowBadge = false;
+        } else {
+            this.st.isShowBadge = true;
         }
     }
 
