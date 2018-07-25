@@ -2,7 +2,7 @@ import {
     Directive, ElementRef,
     Input, OnInit, Renderer2, HostBinding,
     AfterViewInit, AfterViewChecked, HostListener,
-    ChangeDetectorRef,
+    ChangeDetectorRef, OnDestroy,
     NgZone
 } from '@angular/core';
 import { UpdateHostClassService } from '../shared';
@@ -24,7 +24,7 @@ export enum ThyEnterKeyModel {
     selector: '[thyForm]',
     providers: [UpdateHostClassService]
 })
-export class ThyFormDirective implements OnInit, AfterViewInit, AfterViewChecked {
+export class ThyFormDirective implements OnInit, AfterViewInit, AfterViewChecked, OnDestroy {
 
     private _layout: ThyFormLayout = 'horizontal';
 
@@ -47,6 +47,8 @@ export class ThyFormDirective implements OnInit, AfterViewInit, AfterViewChecked
 
     onSubmitSuccess: ($event: any) => void;
 
+    _unsubscribe: () => void;
+
     constructor(
         private ngForm: NgForm,
         private elementRef: ElementRef,
@@ -58,7 +60,7 @@ export class ThyFormDirective implements OnInit, AfterViewInit, AfterViewChecked
 
     ngOnInit(): void {
         this.ngZone.runOutsideAngular(() => {
-            this.renderer.listen(this.elementRef.nativeElement, 'keydown', this.enter.bind(this));
+            this._unsubscribe = this.renderer.listen(this.elementRef.nativeElement, 'keydown', this.enter.bind(this));
         });
     }
 
@@ -77,6 +79,12 @@ export class ThyFormDirective implements OnInit, AfterViewInit, AfterViewChecked
         }
     }
 
+    submitRunInZone($event: any) {
+        this.ngZone.run(() => {
+            this.submit($event);
+        });
+    }
+
     // @HostListener('keydown', ['$event'])
     enter($event: KeyboardEvent) {
         const currentInput = document.activeElement;
@@ -87,22 +95,26 @@ export class ThyFormDirective implements OnInit, AfterViewInit, AfterViewChecked
                 if (currentInput.tagName === 'TEXTAREA') {
                     if ($event.ctrlKey || $event.metaKey) {
                         $event.preventDefault();
-                        this.submit($event);
-                        this.changeDetectorRef.detectChanges();
+                        this.submitRunInZone($event);
                     }
                 } else {
                     // 不是 TEXTAREA Enter 阻止默认行为并提交
                     $event.preventDefault();
-                    this.submit($event);
-                    this.changeDetectorRef.detectChanges();
+                    this.submitRunInZone($event);
                 }
             } else if (this.thyEnterKeyModel === ThyEnterKeyModel.alwaysSubmit) {
                 $event.preventDefault();
-                this.submit($event);
-                this.changeDetectorRef.detectChanges();
+                this.submitRunInZone($event);
             } else {
                 // do nothing
             }
+        }
+    }
+
+    ngOnDestroy() {
+        if (this._unsubscribe) {
+            this._unsubscribe();
+            this._unsubscribe = null;
         }
     }
 }

@@ -1,6 +1,6 @@
 import {
     Component, Directive, HostBinding,
-    Input, ElementRef, Renderer2, ViewEncapsulation
+    Input, ElementRef, Renderer2, ViewEncapsulation, ChangeDetectionStrategy
 } from '@angular/core';
 import { AfterContentInit, OnChanges, OnInit } from '@angular/core';
 import { inputValueToBoolean, isUndefined } from '../util/helpers';
@@ -32,7 +32,8 @@ const themeClassesMap: any = {
     providers: [
         UpdateHostClassService
     ],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyButtonIconComponent implements OnInit {
 

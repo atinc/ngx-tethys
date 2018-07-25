@@ -1,4 +1,4 @@
-import { Component, Directive, Input, ElementRef, Renderer2, ViewEncapsulation } from '@angular/core';
+import { Component, Directive, Input, ElementRef, Renderer2, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { AfterContentInit, OnChanges, OnInit } from '@angular/core';
 import { inputValueToBoolean, isUndefined } from '../util/helpers';
 import { UpdateHostClassService } from '../shared';
@@ -26,7 +26,8 @@ const btnTypeClassesMap: any = {
     providers: [
         UpdateHostClassService
     ],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyButtonComponent implements OnInit {
 

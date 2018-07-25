@@ -34,25 +34,31 @@ export class ThyBadgeComponent implements OnInit {
         'thy-badge-multiple-words': false,
     };
 
-    private st:
+    st:
         {
             value: number | string | any,
-            valueIsString: boolean,
+            isValueOfString: boolean,
+            isSetValue: boolean,
+            isValueKeepShow: boolean,
             max: {
                 is: boolean,
                 value: number
             },
             isElement: boolean,
             isSup: boolean,
+            isShowBadge: boolean,
         } = {
             value: '',
-            valueIsString: false,
+            isValueOfString: false,
+            isSetValue: false,
+            isValueKeepShow: false,
             max: {
                 is: false,
                 value: null
             },
             isElement: false,
             isSup: false,
+            isShowBadge: true,
         };
 
     constructor(
@@ -82,6 +88,7 @@ export class ThyBadgeComponent implements OnInit {
     @Input()
     set thyCount(value: number) {
         this.st.value = value;
+        this.st.isSetValue = true;
         if (this._initialized) {
             this.combineBadgeDisplayContent();
             this.combineBadgeClassName();
@@ -90,8 +97,9 @@ export class ThyBadgeComponent implements OnInit {
 
     @Input()
     set thyContext(value: string) {
-        this.st.valueIsString = true;
         this.st.value = value;
+        this.st.isValueOfString = true;
+        this.st.isSetValue = true;
         if (this._initialized) {
             this.combineBadgeDisplayContent();
             this.combineBadgeClassName();
@@ -116,7 +124,6 @@ export class ThyBadgeComponent implements OnInit {
             case 'sm': this.badgeClassNameMap['thy-badge-sm'] = true; break;
         }
         if (this._initialized) {
-            this.combineBadgeDisplayContent();
             this.combineBadgeClassName();
         }
     }
@@ -126,7 +133,6 @@ export class ThyBadgeComponent implements OnInit {
         this.resetBadgeClassNameMap(BadgeMutexType);
         this.badgeClassNameMap['thy-badge-dot'] = inputValueToBoolean(value);
         if (this._initialized) {
-            this.combineBadgeDisplayContent();
             this.combineBadgeClassName();
         }
     }
@@ -136,20 +142,28 @@ export class ThyBadgeComponent implements OnInit {
         this.resetBadgeClassNameMap(BadgeMutexType);
         this.badgeClassNameMap['thy-badge-hollow'] = inputValueToBoolean(value);
         if (this._initialized) {
-            this.combineBadgeDisplayContent();
             this.combineBadgeClassName();
         }
     }
 
-    ngOnInit() {
-        this.st.isSup = this.nativeElement.childElementCount > 1;
-        this.combineBadgeClassName();
-        this.combineBadgeDisplayContent();
-        this._initialized = true;
-
+    @Input()
+    set thyKeepShow(value: boolean) {
+        this.st.isValueKeepShow = inputValueToBoolean(value);
+        if (this._initialized) {
+            this.combineBadgeDisplayContent();
+        }
     }
 
-    combineBadgeClassName() {
+    ngOnInit() {
+        this.st.isSup = this.nativeElement.childNodes.length > 1;
+        this.combineBadgeClassName();
+        if (this.st.isSetValue) {
+            this.combineBadgeDisplayContent();
+        }
+        this._initialized = true;
+    }
+
+    private combineBadgeClassName() {
         this.badgeClassNameMap['thy-badge-sup'] = this.st.isSup;
         this.explorationValueLength();
 
@@ -164,20 +178,21 @@ export class ThyBadgeComponent implements OnInit {
         this.badgeClassName = _badgeClassNames.join(' ');
     }
 
-    combineBadgeDisplayContent() {
-        if (this.st.value) {
-            if (this.st.max.is) {
-                if (this.st.value > this.st.max.value) {
-                    this.displayContent = `${this.st.max.value}+`;
-                    return;
-                }
-            }
-            this.displayContent = this.st.value;
+    private combineBadgeDisplayContent() {
+        this.displayContent = this.st.value;
+        if (this.st.value && this.st.max.is && (this.st.value > this.st.max.value)) {
+            this.displayContent = `${this.st.max.value}+`;
+        }
+
+        if (!this.st.value && !this.st.isValueKeepShow) {
+            this.st.isShowBadge = false;
+        } else {
+            this.st.isShowBadge = true;
         }
     }
 
     private explorationValueLength() {
-        if (this.st.value.toString().length > 1 && this.st.isSup) {
+        if (this.st.value && (this.st.value.toString().length > 1) && this.st.isSup) {
             this.badgeClassNameMap['thy-badge-multiple-words'] = true;
         }
     }

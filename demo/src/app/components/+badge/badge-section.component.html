@@ -6,16 +6,33 @@
                 <thy-badge [thyCount]="5">
                     <div class="square"></div>
                 </thy-badge>
+                thyCount 5
+            </div>
+            <div class="mb-3">
+                <thy-badge [thyCount]="0">
+                    <div class="square"></div>
+                </thy-badge>
+                0 默认不显示
+                <thy-badge [thyCount]="0" thyKeepShow="true">
+                    <div class="square"></div>
+                </thy-badge>
+                0 强制显示 thyKeepShow
+                <thy-badge [thyCount]="badgeCount">
+                    <div class="square"></div>
+                </thy-badge>
+                变化 thyCount {{badgeCount}}
             </div>
             <div class="mb-3">
                 <thy-badge [thyCount]="100" [thyMaxCount]="99">
                     <div class="square"></div>
                 </thy-badge>
+                thyMaxCount 99
             </div>
             <div class="mb-3">
                 <thy-badge [thyContext]="'new'">
                     <div class="square"></div>
                 </thy-badge>
+                thyContext 'new'
             </div>
             <div class="mb-3">
                 <thy-badge [thyCount]="5">
@@ -30,6 +47,7 @@
                 <thy-badge [thyCount]="5" thyType="secondary">
                     <div class="square"></div>
                 </thy-badge>
+                thyType secondary
             </div>
         </div>
     </section>
@@ -88,6 +106,21 @@
             <div class="mb-3">
                 <thy-badge thyIsHollow="true" thyType="secondary" thySize="lg"></thy-badge>
             </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="header">属性使用thyBadge</div>
+        <div class="body">
+            <span thyBadge thyIsDot="true" class="mr-5">
+                Worktile
+            </span>
+            <span thyBadge [thyCount]="5" class="mr-5">
+                Worktile
+            </span>
+            <span thyBadge [thyCount]="0" class="mr-5">
+                Worktile
+            </span>
         </div>
     </section>
 </div>

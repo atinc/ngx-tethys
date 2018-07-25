@@ -1,6 +1,7 @@
 .thy-badge-container {
     position: relative;
     display: inline-block;
+    vertical-align: middle;
 }
 
 .btn .thy-badge {
@@ -72,10 +73,10 @@
 .thy-badge-secondary {
     @include set-badge-color($gray-600, $gray-200);
     &.thy-badge-dot {
-        @include set-badge-color($gray-600, $gray-300);
+        @include set-badge-color($gray-600, $gray-400);
     }
     &.thy-badge-hollow {
-        @include set-badge-color($gray-600, $gray-300);
+        @include set-badge-color($gray-600, $gray-400);
         background-color: transparent;
     }
 }
@@ -102,6 +103,9 @@
     &.thy-badge-hollow {
         width: 10px;
         height: 10px;
+    }
+    &.thy-badge-hollow {
+        border-width: 2px;
     }
 }
 
