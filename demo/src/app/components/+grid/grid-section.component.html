@@ -3,7 +3,7 @@
         <h2>Default Grid</h2>
     </div>
     <div class="body">
-        <thy-grid [thyModel]="model" thyRowKey="id" [thyDraggable]="true" (thyOnDraggableUpdate)="onDraggableUpdate($event)" (thyOnRowClick)="onRowClick($event)"
+        <thy-grid [thyModel]="model" thyRowKey="id" [thyDraggable]="draggableOptions" (thyOnDraggableUpdate)="onDraggableUpdate($event)" (thyOnRowClick)="onRowClick($event)"
             [thyWholeRowSelect]="true" (thyOnMultiSelectChange)="onMultiSelectChange($event)" [thyPageIndex]="pagination.index"
             [thyPageSize]="pagination.size" [thyPageTotal]="pagination.total" (thyOnPageChange)="onPageChange($event)" (thyOnSwitchChange)="onSwitchChange($event)">
             <thy-grid-column thyTitle="选择" thyModelKey="checked" thyType="checkbox" [thySelections]="selections"></thy-grid-column>
