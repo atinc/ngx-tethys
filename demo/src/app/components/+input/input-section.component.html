@@ -5,6 +5,10 @@
     <div class="body">
         <div class="demo-input">
             <input thyInput [(ngModel)]="model.input" (thyEnter)="enterInput()" placeholder="请输入元素">
+            <div class="position-relative">
+                <input thyInput placeholder="请输入元素">
+                <span class="form-control-feedback wtf wtf-schedule-o"></span>
+            </div>
         </div>
     </div>
 </section>
