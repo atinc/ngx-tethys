@@ -17,6 +17,7 @@ import {
 import { PageChangedEvent } from 'ngx-bootstrap/pagination/pagination.component';
 import { SortablejsOptions } from 'angular-sortablejs/dist';
 import { ThyGridColumnComponent } from './grid-column.component';
+import { helpers } from '../util';
 
 export type ThyGridTheme = 'default' | 'bordered';
 
@@ -120,9 +121,16 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck {
     }
 
     @Input()
-    set thyDraggable(value: boolean) {
-        this.draggable = value;
-        this.draggableOptions.disabled = !value;
+    set thyDraggable(value: boolean | any) {
+        if (helpers.isBoolean(value)) {
+            this.draggable = value;
+            this.draggableOptions.disabled = !value;
+        } else {
+            if (value) {
+                Object.assign(this.draggableOptions, value);
+                this.draggable = !this.draggableOptions.disabled;
+            }
+        }
     }
 
     @Input()

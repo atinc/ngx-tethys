@@ -56,8 +56,10 @@ $input-search-padding-y: $btn-padding-y-md; // 36px
 // Feedback icon (requires .glyphicon classes)
 .form-control-feedback {
   position: absolute;
-  top: (2 * $input-padding-y + $input-line-height * $font-size-base - $input-line-height) / 2;
-  right: 2 * $input-padding-x;
+  // top: (2 * $input-padding-y + $input-line-height * $font-size-base - $input-line-height) / 2;
+  top: 50%;
+  margin-top: -(($font-size-md * $input-line-height) / 2); 
+  right: $input-padding-x;
   z-index: 2; // Ensure icon is above input groups
   display: block; // width: $input-hei;
   // height: @input-height-base;
@@ -68,6 +70,12 @@ $input-search-padding-y: $btn-padding-y-md; // 36px
 
   -webkit-font-smoothing: subpixel-antialiased;
   color: $input-icon-color;
+}
+
+form .form-group {
+  .form-control-feedback {
+    right: 2 * $input-padding-x;
+  }
 }
 
 // .input-lg + .form-control-feedback,

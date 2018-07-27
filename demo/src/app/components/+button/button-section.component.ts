@@ -1,4 +1,5 @@
 import { Component, TemplateRef } from '@angular/core';
+import { ThyNotifyService } from '../../../../../src/notify/notify.service';
 @Component({
     selector: 'demo-button-section',
     templateUrl: './button-section.component.html',
@@ -97,7 +98,7 @@ export class DemoButtonSectionComponent {
     outlineButtonTemplate = `<button thyButton="outline-default">预览</button>
 <button thyButton="outline-primary">新建文件夹</button>`;
 
-    constructor() {
+    constructor(private thyNotifyService: ThyNotifyService) {
     }
 
     startLoading() {
@@ -113,5 +114,9 @@ export class DemoButtonSectionComponent {
                 this.loadingSeconds = this.loadingSeconds - 1;
             }
         }, 1000);
+    }
+
+    ok() {
+        this.thyNotifyService.success('提示', '操作成功');
     }
 }
