@@ -73,9 +73,10 @@
                         table {
                             th {
                                 color: $gray-600;
-                                text-indent: -33px;
+                                text-indent: -34px;
                                 overflow: hidden;
                                 transform: translateX(10px);
+                                letter-spacing: 10px;
                             }
                             td {
                                 height: 35px;
