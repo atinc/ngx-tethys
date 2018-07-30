@@ -1,7 +1,7 @@
 import {
-    Directive, Output, HostListener,
+    Directive, Output,
     EventEmitter, OnInit, NgZone,
-    ElementRef, Renderer2, ChangeDetectorRef
+    ElementRef, Renderer2
 } from '@angular/core';
 import { keycodes } from '../util';
 
@@ -28,8 +28,7 @@ export class ThyEnterDirective implements OnInit {
     constructor(
         private ngZone: NgZone,
         private elementRef: ElementRef,
-        private renderer: Renderer2,
-        private changeDetectorRef: ChangeDetectorRef
+        private renderer: Renderer2
     ) { }
 
     ngOnInit(): void {
