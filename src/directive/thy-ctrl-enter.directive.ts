@@ -1,4 +1,12 @@
-import { Directive, Output, HostListener, ElementRef, EventEmitter, OnInit, NgZone, Renderer2, ChangeDetectorRef } from '@angular/core';
+import {
+    Directive,
+    Output,
+    ElementRef,
+    EventEmitter,
+    OnInit,
+    NgZone,
+    Renderer2
+} from '@angular/core';
 import { keycodes } from '../util';
 
 @Directive({
@@ -11,8 +19,7 @@ export class ThyCtrlEnterDirective implements OnInit {
     constructor(
         private ngZone: NgZone,
         private elementRef: ElementRef,
-        private renderer: Renderer2,
-        private changeDetectorRef: ChangeDetectorRef
+        private renderer: Renderer2
     ) {
     }
 
@@ -20,8 +27,9 @@ export class ThyCtrlEnterDirective implements OnInit {
         const keyCode = event.which || event.keyCode;
         if ((event.ctrlKey || event.metaKey) && keyCode === keycodes.ENTER) {
             event.preventDefault();
-            this.thyCtrlEnter.emit(event);
-            this.changeDetectorRef.detectChanges();
+            this.ngZone.run(() => {
+                this.thyCtrlEnter.emit(event);
+            });
         }
     }
 
