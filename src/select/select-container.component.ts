@@ -72,10 +72,6 @@ export class SelectContainerComponent implements OnInit {
                 this.clearSearchText();
                 return;
             }
-            if (/^#(.*)/g.test(text)) {
-                this.isSearch = false;
-                return;
-            }
             this.isSearch = true;
             if (text) {
                 if (this._listOfOptionComponent.length > 0) {
