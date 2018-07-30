@@ -1,18 +1,31 @@
 <section>
-        <div class="header">
-            <h2>上传</h2>
+    <div class="header">
+        <h2>上传</h2>
+    </div>
+    <div class="body">
+        <thy-file-select (thyOnFileSelect)="selectFiles($event)" [thyMultiple]="true">
+            <button thyButton="primary">上传</button>
+        </thy-file-select>
+        <div *ngFor="let queueFile of queueFiles">
+            {{queueFile.fileName}} speed: {{queueFile.progress.speedHuman}}, estimatedTime - {{queueFile.progress.estimatedTimeHuman}}
+            <progressbar class="progress" type="success" [value]="queueFile.progress.percentage" [max]="100">{{queueFile.progress.percentage}}%</progressbar>
         </div>
-        <div class="body">
-            <thy-file-select (thyOnFileSelect)="selectFiles($event)" [thyMultiple]="true">
-                <button thyButton="primary">上传</button>
-            </thy-file-select>
-    
-            <div *ngFor="let queueFile of queueFiles">
-                {{queueFile.fileName}} speed: {{queueFile.progress.speedHuman}}, estimatedTime - {{queueFile.progress.estimatedTimeHuman}}
-                <progressbar class="progress" type="success" [value]="queueFile.progress.percentage" [max]="100">{{queueFile.progress.percentage}}%</progressbar>
-            </div>
-    
+    </div>
+</section>
+
+<section>
+    <div class="header">
+        <h2 draggable="true">拖拽上传</h2>
+    </div>
+    <div class="body">
+        <div class="demo-file-drop" thyFileDrop thyFileDropClassName="drop-over2" (thyOnDrop)="onDrop($event)">
+            <div class="drop-text">释放上传</div>
         </div>
-    </section>
-    
-    <api-parameters title="thyFileSelect, thy-file-select 参数" [parameters]="apiParameters"></api-parameters>
+        <div *ngFor="let queueFile of queueFiles2">
+            {{queueFile.fileName}} speed: {{queueFile.progress.speedHuman}}, estimatedTime - {{queueFile.progress.estimatedTimeHuman}}
+            <progressbar class="progress" type="success" [value]="queueFile.progress.percentage" [max]="100">{{queueFile.progress.percentage}}%</progressbar>
+        </div>
+    </div>
+</section>
+
+<api-parameters title="thyFileSelect, thy-file-select 参数" [parameters]="apiParameters"></api-parameters>

@@ -25,6 +25,8 @@ export class DemoUploaderSectionComponent {
 
     queueFiles: ThyUploadFile[] = [];
 
+    queueFiles2: ThyUploadFile[] = [];
+
     constructor(private thyUploaderService: ThyUploaderService) {
     }
 
@@ -41,6 +43,24 @@ export class DemoUploaderSectionComponent {
                 } else if (result.status === ThyUploadStatus.done) {
                     const index = this.queueFiles.indexOf(result.uploadFile);
                     this.queueFiles.splice(index);
+                }
+            });
+        }
+    }
+
+    onDrop(event: { files: File[] }) {
+        for (let i = 0; i < event.files.length; i++) {
+            this.thyUploaderService.upload({
+                nativeFile: event.files[i],
+                url: 'http://ngx-uploader.com/upload',
+                method: 'POST',
+                fileName: event.files[i].name
+            }).subscribe((result) => {
+                if (result.status === ThyUploadStatus.started) {
+                    this.queueFiles2.push(result.uploadFile);
+                } else if (result.status === ThyUploadStatus.done) {
+                    const index = this.queueFiles2.indexOf(result.uploadFile);
+                    this.queueFiles2.splice(index);
                 }
             });
         }
