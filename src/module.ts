@@ -30,7 +30,7 @@ import { ThyRadioModule } from './radio';
 import { ThySelectModule } from './select';
 import { ThySlideModule } from './slide/slide.module';
 import { ThyPropertyOperationModule } from './property-operation';
-import { ThyUploaderModule } from './uploader/index';
+import { ThyUploaderModule } from './uploader';
 import { ThyEditorModule } from './editor';
 
 @NgModule({
