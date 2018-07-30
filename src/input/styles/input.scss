@@ -73,8 +73,11 @@ $input-search-padding-y: $btn-padding-y-md; // 36px
 }
 
 form .form-group {
-  .form-control-feedback {
-    right: 2 * $input-padding-x;
+  > .col,
+  > [class*="col-"] {
+    > .form-control-feedback {
+      right: 2 * $input-padding-x;
+    }
   }
 }
 
