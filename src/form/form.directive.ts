@@ -60,7 +60,7 @@ export class ThyFormDirective implements OnInit, AfterViewInit, AfterViewChecked
 
     ngOnInit(): void {
         this.ngZone.runOutsideAngular(() => {
-            this._unsubscribe = this.renderer.listen(this.elementRef.nativeElement, 'keydown', this.enter.bind(this));
+            this._unsubscribe = this.renderer.listen(this.elementRef.nativeElement, 'keydown', this.onKeydown.bind(this));
         });
     }
 
@@ -85,8 +85,7 @@ export class ThyFormDirective implements OnInit, AfterViewInit, AfterViewChecked
         });
     }
 
-    // @HostListener('keydown', ['$event'])
-    enter($event: KeyboardEvent) {
+    onKeydown($event: KeyboardEvent) {
         const currentInput = document.activeElement;
         const key = $event.which || $event.keyCode;
         if (key === 13 && currentInput.tagName) {
