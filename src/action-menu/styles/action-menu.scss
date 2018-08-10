@@ -25,12 +25,12 @@
       }
     }
     span {
-      &:not(.icon):not(.info):not(.meta):not(.extend-icon) {
-        flex: 1;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
+      // &:not(.icon):not(.info):not(.meta):not(.extend-icon) {
+      //   flex: 1;
+      //   overflow: hidden;
+      //   text-overflow: ellipsis;
+      //   white-space: nowrap;
+      // }
     }
     .icon {
       margin-right: 5px;
