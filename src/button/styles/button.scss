@@ -109,7 +109,7 @@ $value in $theme-colors {
 }
 
 .btn-xs {
-    @include button-size($btn-padding-y-xs, $btn-padding-x-xs, $font-size-sm, $btn-line-height-sm, $btn-border-radius-xs, $btn-sm-min-width);
+    @include button-size($btn-padding-y-xs, $btn-padding-x-xs, $font-size-sm, $btn-line-height-sm, $btn-border-radius-xs, $btn-xs-min-width);
 }
 
 //
