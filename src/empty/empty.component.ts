@@ -1,4 +1,4 @@
-import { Component, HostBinding, TemplateRef, ElementRef, Input, OnInit, AfterViewInit, Renderer2 } from '@angular/core';
+import { Component, HostBinding, TemplateRef, ElementRef, Input, OnInit, AfterViewInit, Renderer2, NgZone } from '@angular/core';
 import { ThyTranslate } from '../shared';
 import { ThyEmptyConfig } from './empty.config';
 import { inputValueToBoolean } from '../util/helpers';
@@ -82,19 +82,7 @@ export class ThyEmptyComponent implements OnInit, AfterViewInit {
         }
     }
 
-    constructor(
-        private thyTranslate: ThyTranslate,
-        private thyEmptyConfig: ThyEmptyConfig,
-        private elementRef: ElementRef,
-        private renderer: Renderer2
-    ) {
-
-    }
-
-    ngOnInit() {
-    }
-
-    ngAfterViewInit() {
+    _calculatePosition() {
         const sizeOptions = sizeMap[this.thySize || 'md'];
         const topAuto = inputValueToBoolean(this.thyTopAuto);
         let marginTop = null;
@@ -121,6 +109,27 @@ export class ThyEmptyComponent implements OnInit, AfterViewInit {
         if (marginTop) {
             this.renderer.setStyle(this.elementRef.nativeElement, 'marginTop', marginTop + 'px');
         }
+    }
+    constructor(
+        private thyTranslate: ThyTranslate,
+        private thyEmptyConfig: ThyEmptyConfig,
+        private elementRef: ElementRef,
+        private renderer: Renderer2,
+        private ngZone: NgZone
+    ) {
+
+    }
+
+    ngOnInit() {
+    }
+
+    ngAfterViewInit() {
+        this.ngZone.runOutsideAngular(() => {
+            setTimeout(() => {
+                this._calculatePosition();
+            }, 50);
+        });
+
     }
 
 }
