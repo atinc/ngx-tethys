@@ -127,7 +127,7 @@ export class ThyEmptyComponent implements OnInit, AfterViewInit {
         this.ngZone.runOutsideAngular(() => {
             setTimeout(() => {
                 this._calculatePosition();
-            });
+            }, 50);
         });
 
     }
