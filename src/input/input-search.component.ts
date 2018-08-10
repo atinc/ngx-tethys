@@ -60,6 +60,8 @@ export class ThyInputSearchComponent implements ControlValueAccessor {
         this.autoFocus = value;
     }
 
+    @Output() clear: EventEmitter<Event> = new EventEmitter<Event>();
+
     constructor() {
 
     }
@@ -91,6 +93,7 @@ export class ThyInputSearchComponent implements ControlValueAccessor {
         }
         this.searchText = '';
         this.onChangeCallback(this.searchText);
+        this.clear.emit(event);
     }
 }
 
