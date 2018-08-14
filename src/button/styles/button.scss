@@ -108,6 +108,10 @@ $value in $theme-colors {
     @include button-size($btn-padding-y-sm, $btn-padding-x-sm, $font-size-base, $btn-line-height-sm, $btn-border-radius-sm, $btn-sm-min-width);
 }
 
+.btn-xs {
+    @include button-size($btn-padding-y-xs, $btn-padding-x-xs, $font-size-sm, $btn-line-height-sm, $btn-border-radius-xs, $btn-xs-min-width);
+}
+
 //
 // Link buttons
 //

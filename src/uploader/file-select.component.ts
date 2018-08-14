@@ -40,13 +40,14 @@ export class ThyFileSelectComponent implements OnInit, OnDestroy {
         return nativeElement.tagName.toLowerCase() === 'input' && nativeElement.type && nativeElement.type.toLowerCase() === 'file';
     }
 
-    selectFile($event: any) {
+    selectFile($event: Event) {
         const files = this.fileInput.nativeElement.files;
         if (files && files.length > 0) {
             this.thyOnFileSelect.emit({
                 files: files,
                 nativeEvent: $event
             });
+            this.fileInput.nativeElement.value = '';
         }
     }
 
