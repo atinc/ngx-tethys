@@ -1,24 +1,27 @@
 import {
     Component, OnInit, ElementRef,
     HostBinding, Inject,
-    Renderer2, ViewEncapsulation, HostListener, NgZone, OnDestroy
+    Renderer2, ViewEncapsulation, HostListener, NgZone, OnDestroy, DoCheck, AfterViewInit
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { PopBoxRef } from './pop-box-ref.service';
 import { PopBoxOptions } from './pop-box-options.class';
+import { ThyPositioningService } from '../positioning/positioning.service';
 
 @Component({
     selector: 'pop-box-container',
     templateUrl: './pop-box-container.component.html',
     encapsulation: ViewEncapsulation.None
 })
-export class PopBoxContainerComponent implements OnInit, OnDestroy {
+export class PopBoxContainerComponent implements OnInit, OnDestroy, DoCheck, AfterViewInit {
 
     @HostBinding('style.z-index') _zIndex: number | string;
 
     public popBoxRef: PopBoxRef;
 
     public showMask = false;
+
+    private _originHeight: number;
 
     _unsubscribe: () => void;
 
@@ -27,7 +30,8 @@ export class PopBoxContainerComponent implements OnInit, OnDestroy {
         private renderer: Renderer2,
         public config: PopBoxOptions,
         @Inject(DOCUMENT) private document: Document,
-        private ngZone: NgZone
+        private ngZone: NgZone,
+        private thyPositioningService: ThyPositioningService
     ) {
         this.showMask = this.config.showMask;
     }
@@ -37,6 +41,10 @@ export class PopBoxContainerComponent implements OnInit, OnDestroy {
         this.ngZone.runOutsideAngular(() => {
             this._unsubscribe = this.renderer.listen(this.document, 'click', this.onDocumentClick.bind(this));
         });
+    }
+
+    ngAfterViewInit() {
+        this._originHeight = (+this.elementRef.nativeElement.clientHeight);
     }
 
 
@@ -94,6 +102,22 @@ export class PopBoxContainerComponent implements OnInit, OnDestroy {
         if (needClose) {
             this.ngZone.run(() => {
                 this.hide();
+            });
+        }
+    }
+
+    ngDoCheck(): void {
+        const height = (+this.elementRef.nativeElement.clientHeight);
+        if (height !== this._originHeight) {
+            this._originHeight = height;
+            this.thyPositioningService.setPosition({
+                target: this.elementRef,
+                attach: this.config.target,
+                placement: this.config.placement,
+                offset: this.config.offset,
+                appendToBody: true,
+                position: this.config.position,
+                autoAdapt: true
             });
         }
     }

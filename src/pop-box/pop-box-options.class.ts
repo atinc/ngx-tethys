@@ -74,6 +74,9 @@ export class PopBoxOptions {
 
     // 打开后在 target 追加的样式
     containerClass?: string;
+
+    // 是否自动调整位置适应内容显示
+    autoAdapt?: boolean;
 }
 
 export const popBoxConfigDefaults: PopBoxOptions = {
@@ -87,5 +90,6 @@ export const popBoxConfigDefaults: PopBoxOptions = {
     append: 'body',
     showMask: false,
     autoClosePrevious: false,
-    openedClass: 'thy-pop-box-opened'
+    openedClass: 'thy-pop-box-opened',
+    autoAdapt: true
 };

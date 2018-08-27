@@ -65,8 +65,12 @@ export class DemoPopBoxSectionComponent {
         showMask: false
     };
 
-    constructor(private popBoxService: ThyPopBoxService) {
+    public loadingDone = false;
 
+    constructor(private popBoxService: ThyPopBoxService) {
+        setTimeout(() => {
+            this.loadingDone = true;
+        }, 3000);
     }
 
     openPopBoxMenu(templateRef: any) {
@@ -111,7 +115,7 @@ export class DemoPopBoxSectionComponent {
                 top: $event.pageY,
                 left: $event.pageX,
             },
-            showMask:this.config.showMask
+            showMask: this.config.showMask
         });
         return false;
     }
