@@ -74,7 +74,8 @@ export class ThyPopBoxService {
             placement: _config.placement,
             offset: _config.offset,
             appendToBody: true,
-            position: _config.position
+            position: _config.position,
+            autoAdapt: true
         });
         const _loader = {
             target: target,
