@@ -32,6 +32,7 @@ import { ThySlideModule } from './slide/slide.module';
 import { ThyPropertyOperationModule } from './property-operation';
 import { ThyUploaderModule } from './uploader';
 import { ThyEditorModule } from './editor';
+import { ThyDateRangeModule } from './date-range';
 
 @NgModule({
     declarations: [
@@ -67,7 +68,8 @@ import { ThyEditorModule } from './editor';
         ThySlideModule,
         ThyRadioModule,
         ThySelectModule,
-        ThyPropertyOperationModule
+        ThyPropertyOperationModule,
+        ThyDateRangeModule
     ],
     exports: [
         BrowserAnimationsModule,
@@ -103,7 +105,8 @@ import { ThyEditorModule } from './editor';
         ThySelectModule,
         ThyPropertyOperationModule,
         ThyUploaderModule,
-        ThyEditorModule
+        ThyEditorModule,
+        ThyDateRangeModule
     ],
     providers: [
     ]

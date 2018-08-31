@@ -154,3 +154,16 @@ export function hexToRgb(hexValue: any, alpha: number): string {
         return `rgb(${resultR},${resultG},${resultB})`;
     }
 }
+
+export function formatDate(date: Date | number): number {
+    if (isNumber(date)) {
+        if (date.toString().length === 10) {
+            return date as number;
+        } else {
+            return parseInt(((date as number) / 1000).toFixed(0), 10);
+        }
+
+    } else {
+        return parseInt(((date as Date).getTime() / 1000).toFixed(0), 10);
+    }
+}

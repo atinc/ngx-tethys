@@ -1,0 +1,21 @@
+.thy-date-range {
+    .thy-date-text {
+        padding: 5px 15px;
+        position: relative;
+
+        .thy-date-text-caret-down {
+            display: none;
+        }
+
+        &:hover {
+            cursor: pointer;
+
+            .thy-date-text-caret-down {
+                display: inline-block;
+                position: absolute;
+                top: 0;
+                color: $gray-700;
+            }
+        }
+    }
+}
