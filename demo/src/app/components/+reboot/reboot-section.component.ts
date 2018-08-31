@@ -20,6 +20,7 @@ export class DemoRebootSectionComponent implements OnInit {
             {
                 title: 'Basic',
                 anchor: 'basic',
+                description: '',
                 component: require('!!raw-loader?lang=typescript!./items/link.component.ts'),
                 html: require('!!raw-loader?lang=markup!./items/link.component.html'),
                 outlet: RebootSectionLinkComponent

@@ -15,7 +15,7 @@
     </div>
 </header>
 
-<thy-layout>
+<thy-layout class="demo-main">
     <thy-sidebar>
         <div class="toc-slider">
             <dl>
@@ -234,13 +234,14 @@
     </thy-sidebar>
     <thy-content>
         <div class="main-content">
-            <div class="content-header">
+                <router-outlet></router-outlet>
+            <!-- <div class="content-header">
                 按钮
                 <span class="mate">按钮</span>
             </div>
             <div class="content-main">
-                <router-outlet></router-outlet>
-            </div>
+                    <router-outlet></router-outlet>
+            </div> -->
         </div>
     </thy-content>
 </thy-layout>

@@ -7,7 +7,13 @@ import { RebootSectionLinkComponent } from './+reboot/items/link.component';
 import { DemoWTDSectionLinkComponent } from './+wtd/wtd.component';
 import { DemoActionMenuSectionComponent } from './+action-menu/action-menu-section.component';
 import { DemoBadgeSectionComponent } from './+badge/badge-section.component';
+
 import { DemoAvatarSectionComponent } from './+avatar/avatar-section.component';
+import { DemoAvatarSizeSectionComponent } from './+avatar/size/size.component';
+import { DemoAvatarTypeSectionComponent } from './+avatar/type/avatar-type.component';
+import { DemoAvatarHasBadgeSectionComponent } from './+avatar/has-badge/has-badge.component';
+import { DemoAvatarRemoveSectionComponent } from './+avatar/remove/remove.component';
+
 import { DemoLabelSectionComponent } from './+label/label-section.component';
 import { DemoLayoutSectionComponent } from './+layout/layout-section.component';
 import { DemoNavSectionComponent } from './+nav/nav-section.component';
@@ -47,7 +53,13 @@ export const COMPONENTS = [
     DemoActionMenuSectionComponent,
     DemoBadgeSectionComponent,
     DemoGridSectionComponent,
+
     DemoAvatarSectionComponent,
+    DemoAvatarSizeSectionComponent,
+    DemoAvatarTypeSectionComponent,
+    DemoAvatarHasBadgeSectionComponent,
+    DemoAvatarRemoveSectionComponent,
+
     DemoLabelSectionComponent,
     DemoLayoutSectionComponent,
     DemoNotifySectionComponent,
@@ -83,5 +95,11 @@ export const ENTRY_COMPONENTS = [
     PopBoxMenuDemoShowComponent,
     RebootSectionLinkComponent,
     DemoModalContentComponent,
-    DemoSlideContentComponent
+    DemoSlideContentComponent,
+
+    DemoAvatarSizeSectionComponent,
+    DemoAvatarTypeSectionComponent,
+    DemoAvatarHasBadgeSectionComponent,
+    DemoAvatarRemoveSectionComponent,
+
 ];

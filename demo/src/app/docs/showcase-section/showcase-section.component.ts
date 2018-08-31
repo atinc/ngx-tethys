@@ -1,32 +1,33 @@
 import { ShowcaseSection } from '../model/showcase-section';
 import { ChangeDetectionStrategy, Component, Injector, Input, ReflectiveInjector } from '@angular/core';
+import { ComponentExample } from '../model/component-example';
 
 @Component({
     selector: 'showcase-section',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    template: `
-    <ng-container *ngFor="let section of sections">
-      <ng-container *ngComponentOutlet="section.outlet; injector: sectionInjections(section)">
-      </ng-container>
-    </ng-container>
-    `
+    templateUrl: `./showcase-section.component.html`,
+    styleUrls: ['./showcase-section.scss']
 })
 export class ShowcaseSectionsComponent {
 
-    @Input() sections: ShowcaseSection[];
+    @Input() sections: ComponentExample[];
 
-    _injectors = new Map<ShowcaseSection, ReflectiveInjector>();
+    _injectors = new Map<ComponentExample, ReflectiveInjector>();
+
+    public usageType = 'html';
+
+    public showCode = false;
 
     constructor(private injector: Injector) {
     }
 
-    sectionInjections(_content: ShowcaseSection) {
+    sectionInjections(_content: ComponentExample) {
         if (this._injectors.has(_content)) {
             return this._injectors.get(_content);
         }
 
         const _injector = ReflectiveInjector.resolveAndCreate([{
-            provide: ShowcaseSection,
+            provide: ComponentExample,
             useValue: _content
         }], this.injector);
 
