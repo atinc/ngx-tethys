@@ -7,7 +7,13 @@ import { RebootSectionLinkComponent } from './+reboot/items/link.component';
 import { DemoWTDSectionLinkComponent } from './+wtd/wtd.component';
 import { DemoActionMenuSectionComponent } from './+action-menu/action-menu-section.component';
 import { DemoBadgeSectionComponent } from './+badge/badge-section.component';
+
 import { DemoAvatarSectionComponent } from './+avatar/avatar-section.component';
+import { DemoAvatarSizeSectionComponent } from './+avatar/size/size.component';
+import { DemoAvatarTypeSectionComponent } from './+avatar/type/avatar-type.component';
+import { DemoAvatarHasBadgeSectionComponent } from './+avatar/has-badge/has-badge.component';
+import { DemoAvatarRemoveSectionComponent } from './+avatar/remove/remove.component';
+
 import { DemoLabelSectionComponent } from './+label/label-section.component';
 import { DemoLayoutSectionComponent } from './+layout/layout-section.component';
 import { DemoNavSectionComponent } from './+nav/nav-section.component';
@@ -31,9 +37,10 @@ import { DemoRadioSectionComponent } from './+form-radio/radio-section.component
 import { DemoSelectSectionComponent } from './+select/select-section.component';
 import { DemoSlideSectionComponent } from './+slide/slide-section.component';
 import { DemoSlideContentComponent } from './+slide/slide-content.component';
-import { DemoPropertyOperationSectionComponent } from './+property-operation/property-operation-section.component'
+import { DemoPropertyOperationSectionComponent } from './+property-operation/property-operation-section.component';
 import { DemoUploaderSectionComponent } from './+uploader/uploader-section.component';
 import { DemoEditorSectionComponent } from './+editor/editor-section.component';
+import { DemoDateRangeSectionComponent } from './+date-range/date-range-section.component';
 
 export const COMPONENTS = [
     DemoPopBoxSectionComponent,
@@ -46,7 +53,13 @@ export const COMPONENTS = [
     DemoActionMenuSectionComponent,
     DemoBadgeSectionComponent,
     DemoGridSectionComponent,
+
     DemoAvatarSectionComponent,
+    DemoAvatarSizeSectionComponent,
+    DemoAvatarTypeSectionComponent,
+    DemoAvatarHasBadgeSectionComponent,
+    DemoAvatarRemoveSectionComponent,
+
     DemoLabelSectionComponent,
     DemoLayoutSectionComponent,
     DemoNotifySectionComponent,
@@ -74,12 +87,19 @@ export const COMPONENTS = [
     DemoSelectSectionComponent,
     DemoPropertyOperationSectionComponent,
     DemoUploaderSectionComponent,
-    DemoEditorSectionComponent
+    DemoEditorSectionComponent,
+    DemoDateRangeSectionComponent
 ];
 
 export const ENTRY_COMPONENTS = [
     PopBoxMenuDemoShowComponent,
     RebootSectionLinkComponent,
     DemoModalContentComponent,
-    DemoSlideContentComponent
+    DemoSlideContentComponent,
+
+    DemoAvatarSizeSectionComponent,
+    DemoAvatarTypeSectionComponent,
+    DemoAvatarHasBadgeSectionComponent,
+    DemoAvatarRemoveSectionComponent,
+
 ];

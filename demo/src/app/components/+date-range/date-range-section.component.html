@@ -1,0 +1,25 @@
+<section>
+    <div class="header">
+        <h2>date-range 不设置dateRanges</h2>
+    </div>
+    <div class="body">
+        <div class="demo-layout">
+            <thy-date-range [(ngModel)]="date" name="setDateRange" (ngModelChange)="change()"></thy-date-range>
+            <span>{{date|json}}</span>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="header">
+        <h2>date-range 设置dateRanges</h2>
+    </div>
+    <div class="body">
+        <div class="demo-layout">
+            <thy-date-range [(ngModel)]="dateHasConfig" name="setDateRangeHasConfig" [dateRanges]="dateRanges" (ngModelChange)="change()"></thy-date-range>
+            <span>{{dateHasConfig|json}}</span>
+        </div>
+    </div>
+</section>
+
+<api-parameters [parameters]="apiParameters"></api-parameters>

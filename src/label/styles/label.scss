@@ -70,7 +70,8 @@
 
 .thy-label-emboss-default {
     @include label-color-variant($gray-500, $gray-600);
-    background-color: $label-default-bg;
+    // background-color: $label-default-bg;
+    @include label-variant(rgba($gray-700, 0.1));
 }
 
 .thy-label-emboss-primary {

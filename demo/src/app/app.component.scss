@@ -58,10 +58,14 @@
     }
 }
 
+.demo-main{
+    height: calc(100vh - 50px);
+}
 .toc-slider {
     padding-top: 25px;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
+    overflow: auto;
     .toc-section {
         .toc-section-head {
             padding: 0 20px;

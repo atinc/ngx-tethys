@@ -61,6 +61,61 @@ export class ThyActionMenuItemDirective {
 }
 
 @Directive({
+    selector: '[thyActionMenuItemIcon]',
+})
+export class ThyActionMenuItemIconDirective {
+
+    @HostBinding('class.icon') className = true;
+
+    constructor() { }
+
+}
+
+@Directive({
+    selector: '[thyActionMenuItemName]',
+})
+export class ThyActionMenuItemNameDirective {
+
+    @HostBinding('class.name') className = true;
+
+    constructor() { }
+
+}
+
+@Directive({
+    selector: '[thyActionMenuItemMeta]',
+})
+export class ThyActionMenuItemMetaDirective {
+
+    @HostBinding('class.meta') className = true;
+
+    constructor() { }
+
+}
+
+@Directive({
+    selector: '[thyActionMenuItemInfo]',
+})
+export class ThyActionMenuItemInfoDirective {
+
+    @HostBinding('class.info') className = true;
+
+    constructor() { }
+
+}
+
+@Directive({
+    selector: '[thyActionMenuItemExtendIcon]',
+})
+export class ThyActionMenuItemExtendIconDirective {
+
+    @HostBinding('class.extend-icon') className = true;
+
+    constructor() { }
+
+}
+
+@Directive({
     selector: '[thyActionMenuSubItem]',
 })
 export class ThyActionMenuSubItemDirective {
@@ -97,8 +152,6 @@ export class ThyActionMenuDividerTitleDirective {
 
     constructor() { }
 }
-
-
 
 @Directive({
     selector: '[thyActionMenuItemActive]',

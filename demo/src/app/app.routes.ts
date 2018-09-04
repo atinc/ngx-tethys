@@ -31,6 +31,7 @@ import { DemoSlideSectionComponent } from './components/+slide/slide-section.com
 import { DemoPropertyOperationSectionComponent } from './components/+property-operation/property-operation-section.component';
 import { DemoUploaderSectionComponent } from './components/+uploader/uploader-section.component';
 import { DemoEditorSectionComponent } from './components/+editor/editor-section.component';
+import { DemoDateRangeSectionComponent } from './components/+date-range/date-range-section.component';
 
 const appRoutes = [
     {
@@ -106,6 +107,10 @@ const appRoutes = [
         component: DemoDataPickerSectionComponent
     },
     {
+        path: 'components/date-range',
+        component: DemoDateRangeSectionComponent
+    },
+    {
         path: 'components/card',
         component: DemoCardSectionComponent
     },
@@ -160,9 +165,9 @@ const appRoutes = [
     {
         path: 'components/uploader',
         component: DemoUploaderSectionComponent
-    },{
+    }, {
         path: 'components/editor',
-        component:DemoEditorSectionComponent
+        component: DemoEditorSectionComponent
     }
 ];
 
