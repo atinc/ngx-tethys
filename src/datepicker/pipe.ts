@@ -10,7 +10,7 @@ export class ThyDatepickerFormatPipe implements PipeTransform {
 
     dataPipe = new DatePipe('zh-Hans');
 
-    transform(value: DatepickerValueEntry, exponent: string): string {
+    transform(value: DatepickerValueEntry, exponent?: string): string {
         let _res;
 
         if (value) {

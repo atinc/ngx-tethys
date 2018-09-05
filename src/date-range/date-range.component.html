@@ -2,7 +2,7 @@
         <span href="javascript:;" class="btn btn-icon" (click)="previous()">
             <i class="wtf wtf-angle-left"></i>
         </span>
-        <span href="javascript:;" [thyActionMenuToggle]="dateMenu" class="thy-date-text" [ngClass]="{'not-down':!popSelectDate}">
+        <span href="javascript:;" [thyActionMenuToggle]="dateMenu" class="thy-date-text" [ngClass]="{'not-down':!selectedDate}">
             <ng-container *ngIf="selectedDate?.key === 'custom'">
                 {{selectedDate?.begin | thyDatepickerFormat}}-{{selectedDate?.end | thyDatepickerFormat}}
             </ng-container>
