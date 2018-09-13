@@ -1,97 +1,109 @@
 .thy-label {
-    padding: $label-size-padding;
-    font-weight: normal;
-    display: inline-block;
-    line-height: 1;
+  padding: $label-size-padding;
+  font-weight: normal;
+  display: inline-block;
+  line-height: 1;
+  font-size: $font-size-sm;
+  border-radius: $label-border-radius;
+  color: $white;
+
+  i {
+    cursor: pointer;
     font-size: $font-size-sm;
-    border-radius: $label-border-radius;
-    color: $white;
-    i {
-        cursor: pointer;
-        font-size: $font-size-sm;
-    }
-    &.thy-label-state {
-        padding: $label-size-padding-md;
-    }
-    &.thy-label-pill {
-        font-size: $font-size-sm;
-        border-radius: $label-pill-radius;
-        color: $gray-700;
-        background: $gray-200;
-    }
-    &--sm {
-        padding: $label-size-padding-sm;
-    }
-    &--md {
-        padding: $label-size-padding-md;
-    }
-    &--lg {
-        padding: $label-size-padding-md;
-        font-size: $font-size-base;
-    }
+  }
+
+  &.thy-label-state {
+    padding: $label-size-padding-md;
+  }
+
+  &.thy-label-pill {
+    font-size: $font-size-sm;
+    border-radius: $label-pill-radius;
+    color: $gray-700;
+    background: $gray-200;
+  }
+
+  &--sm {
+    padding: $label-size-padding-sm;
+  }
+
+  &--md {
+    padding: $label-size-padding-md;
+  }
+
+  &--lg {
+    padding: $label-size-padding-md;
+    font-size: $font-size-base;
+  }
 }
 
 .thy-dot-label {
-    margin: 0 3px 1px 0;
-    &.thy-label {
-        padding: 0;
-    }
+  margin: 0 3px 1px 0;
+
+  &.thy-label {
+    padding: 0;
+  }
 }
 
 .thy-label-default {
-    @include label-color-variant($gray-500, $gray-600);
-    background-color: $label-default-bg;
+  @include label-color-variant($gray-500, $gray-600);
+  background-color: $label-default-bg;
 }
 
 .thy-label-primary {
-    @include label-variant($label-primary-bg);
-    @include label-color-variant($white, $white);
+  @include label-variant($label-primary-bg);
+  @include label-color-variant($white, $white);
 }
 
 .thy-label-success {
-    @include label-variant($label-success-bg);
-    @include label-color-variant($white, $white);
+  @include label-variant($label-success-bg);
+  @include label-color-variant($white, $white);
 }
 
 .thy-label-info {
-    @include label-variant($label-info-bg);
-    @include label-color-variant($white, $white);
+  @include label-variant($label-info-bg);
+  @include label-color-variant($white, $white);
 }
 
 .thy-label-warning {
-    @include label-variant($label-warning-bg);
-    @include label-color-variant($white, $white);
+  @include label-variant($label-warning-bg);
+  @include label-color-variant($white, $white);
 }
 
 .thy-label-danger {
-    @include label-variant($label-danger-bg);
-    @include label-color-variant($white, $white);
+  @include label-variant($label-danger-bg);
+  @include label-color-variant($white, $white);
 }
 
 .thy-label-emboss-default {
-    @include label-color-variant($gray-500, $gray-600);
-    // background-color: $label-default-bg;
-    @include label-variant(rgba($gray-700, 0.1));
+  @include label-color-variant($gray-500, $gray-600);
+  // background-color: $label-default-bg;
+  @include label-variant(rgba($gray-700, 0.1));
 }
 
 .thy-label-emboss-primary {
-    @include label-variant(rgba($primary, 0.1));
-    @include label-color-variant($primary, $primary);
+  @include label-variant(rgba($primary, 0.1));
+  @include label-color-variant($primary, $primary);
 }
 
 .thy-label-emboss-warning {
-    @include label-variant(rgba($warning, 0.1));
-    @include label-color-variant($warning, $warning);
+  @include label-variant(rgba($warning, 0.1));
+  @include label-color-variant($warning, $warning);
 }
 
 .thy-label-emboss-danger {
-    @include label-variant(rgba($danger, 0.1));
-    @include label-color-variant($danger, $danger);
+  @include label-variant(rgba($danger, 0.1));
+  @include label-color-variant($danger, $danger);
 }
 
 .thy-label-emboss-status {
-    i.wtf {
-        font-size: $font-size-base;
-        margin-right: 6px;
-    }
+  i.wtf {
+    font-size: $font-size-base;
+    margin-right: 6px;
+  }
+}
+
+.thy-label-outline {
+  border: 1px solid;
+  background: transparent;
 }

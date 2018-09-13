@@ -138,6 +138,9 @@ export class ThyLabelComponent {
                     this.el.nativeElement.style.color = this._color;
                 }
                 this.el.nativeElement.style.backgroundColor = helpers.hexToRgb(this._color, 0.1);
+            } else if (this._type.indexOf('outline') > -1) {
+                this.el.nativeElement.style.color = this._color;
+                this.el.nativeElement.style.borderColor = this._color;
             } else {
                 this.el.nativeElement.style.backgroundColor = this._color;
             }
