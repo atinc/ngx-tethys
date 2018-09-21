@@ -7,6 +7,14 @@ import { ComponentExample } from '../../docs/model/component-example';
 })
 export class DemoDataPickerSectionComponent implements OnInit {
 
+    private state = {
+        nowDate: Math.floor((new Date()).getTime() / 1000),
+        nowNextWeekDate: Math.floor((new Date()).getTime() / 1000) + 90000 * 7,
+        nowNextNextWeekDate: Math.floor((new Date()).getTime() / 1000) + 90000 * 7 * 2,
+    };
+
+    //#region DatePicker
+
     dateEntry = {
         date: Math.floor((new Date()).getTime() / 1000),
         with_time: false
@@ -46,28 +54,33 @@ export class DemoDataPickerSectionComponent implements OnInit {
         with_time: false
     };
 
-    //#region DateRange
+    //#endregion
 
-    dateRangeEntry = {
-        begin: { date: Math.floor((new Date()).getTime() / 1000) },
-        end: { date: Math.floor((new Date()).getTime() / 1000) + 90000 * 30 }
+    //#region DateRangePicker
+
+    dateRangeObjectTimestamp = {
+        begin: { date: this.state.nowDate },
+        end: { date: this.state.nowNextWeekDate }
     };
 
-    dateRangeTime = {
-        begin: Math.floor((new Date()).getTime() / 1000),
-        end: Math.floor((new Date()).getTime() / 1000) + 90000 * 30
+    dateRangeTimestamp = {
+        begin: this.state.nowDate,
+        end: this.state.nowNextWeekDate
     };
 
-    dateRangeNullValueObject = {
+    dateRangeObjectTimestampNull = {
         begin: { date: null },
         end: { date: null }
     };
 
-    dateRangeNullValue = null;
+    dateRangeTimestampNull = {
+        begin: null,
+        end: null
+    };
+
+    dateRangeNull = null;
 
     //#endregion
-
-    Datepicker: Date;
 
     apiParameters = [
         {
@@ -107,36 +120,79 @@ export class DemoDataPickerSectionComponent implements OnInit {
     ngOnInit() {
     }
 
-    test() {
+    datepickerTestNewValue() {
         this.dateEntry = {
             date: Math.floor((new Date()).getTime() / 1000),
             with_time: false
         };
+        this.dateEntry2 = Math.floor((new Date()).getTime() / 1000);
 
-        this.dateNull = Math.floor((new Date()).getTime() / 1000);
+
+        this.dateEntryWithTime = {
+            date: Math.floor((new Date()).getTime() / 1000),
+            with_time: false
+        };
+
+        this.dateNull = null;
+    }
+
+    datepickerTestNullValue() {
 
     }
 
-    test2() {
-        this.dateRangeEntry = {
-            begin: { date: Math.floor((new Date()).getTime() / 1000) },
-            end: { date: Math.floor((new Date()).getTime() / 1000) + 90000 * 7 }
+
+    daterangepickerTestNewValue() {
+
+        this.dateRangeObjectTimestamp = {
+            begin: { date: this.state.nowNextWeekDate },
+            end: { date: this.state.nowNextNextWeekDate }
         };
 
-        this.dateRangeTime = {
-            begin: Math.floor((new Date()).getTime() / 1000),
-            end: Math.floor((new Date()).getTime() / 1000) + 90000 * 7
+        this.dateRangeTimestamp = {
+            begin: this.state.nowNextWeekDate,
+            end: this.state.nowNextNextWeekDate
         };
 
-        this.dateRangeNullValueObject = {
-            begin: { date: Math.floor((new Date()).getTime() / 1000) },
-            end: { date: Math.floor((new Date()).getTime() / 1000) + 90000 * 7 }
+        this.dateRangeObjectTimestampNull = {
+            begin: { date: this.state.nowNextWeekDate },
+            end: { date: this.state.nowNextNextWeekDate }
         };
 
-        this.dateRangeNullValue = {
-            begin: Math.floor((new Date()).getTime() / 1000),
-            end: Math.floor((new Date()).getTime() / 1000) + 90000 * 7
+        this.dateRangeTimestampNull = {
+            begin: this.state.nowNextWeekDate,
+            end: this.state.nowNextNextWeekDate
         };
+
+        this.dateRangeNull = {
+            begin: { date: this.state.nowNextWeekDate },
+            end: { date: this.state.nowNextNextWeekDate }
+        };
+
+    }
+
+    daterangepickerTestNullValue() {
+
+        this.dateRangeObjectTimestamp = {
+            begin: { date: null },
+            end: { date: null }
+        };
+
+        this.dateRangeTimestamp = {
+            begin: null,
+            end: null
+        };
+
+        this.dateRangeObjectTimestampNull = {
+            begin: { date: null },
+            end: { date: null }
+        };
+
+        this.dateRangeTimestampNull = {
+            begin: null,
+            end: null
+        };
+
+        this.dateRangeNull = null;
 
     }
 
