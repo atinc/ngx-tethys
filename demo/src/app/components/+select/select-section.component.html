@@ -55,12 +55,14 @@
         <div class="demo-select">
             <thy-custom-select thySize="md" [thyShowSearch]="true" thyEmptyStateText="无匹配结果">
                 <thy-option thyValue="" thyLabelText="空"></thy-option>
-                <thy-option *ngFor="let option of optionData" [thyValue]="option" [thyDisabled]="option.name === 'money'" [thyLabelText]="option.display_name">
+                <thy-option *ngFor="let option of optionData" [thyValue]="option" [thyDisabled]="option.name === 'money'"
+                    [thyLabelText]="option.display_name">
                 </thy-option>
             </thy-custom-select>
             <br>
             <br> ngModel: {{selectedItem | json}}
-            <thy-custom-select thySize="md" thyPlaceHolder="请选择" [(ngModel)]="selectedItem" (ngModelChange)="changeSelect()" [thyShowSearch]="true">
+            <thy-custom-select thySize="md" thyPlaceHolder="请选择" [(ngModel)]="selectedItem" (ngModelChange)="changeSelect()"
+                [thyShowSearch]="true">
                 <thy-option *ngFor="let option of optionData" thySearchKey="{{option?.name}},{{option?.display_name}},{{option?.pin_yin}}"
                     [thyValue]="option" [thyDisabled]="option.name === 'money'" [thyLabelText]="option.display_name">
                 </thy-option>
@@ -69,8 +71,8 @@
             <br> ngModel : {{selectedItem2 | json}}
             <thy-custom-select [(ngModel)]="selectedItem2" thyPlaceHolder="请选择">
                 <thy-option thyValue="" thyLabelText="空"></thy-option>
-                <thy-option *ngFor="let option of optionData" thyShowOptionCustom="true" [thyRawValue]="option" [thyValue]="option.name"
-                    [thyLabelText]="option.display_name">
+                <thy-option *ngFor="let option of optionData" thyShowOptionCustom="true" [thyRawValue]="option"
+                    [thyValue]="option.name" [thyLabelText]="option.display_name">
                     <span>
                         <i [class]="option?.icon" class="mr-1"></i> {{option?.display_name}}
                     </span>
@@ -112,6 +114,8 @@
         </div>
     </div>
 </section>
+
+
 <section>
     <div class="header">
         <h2>自定义 select多选</h2>
@@ -122,13 +126,15 @@
             <thy-option *ngFor="let option of optionData" [thyValue]="option._id" [thyLabelText]="option.display_name">
             </thy-option>
         </thy-custom-select>
-    </div>
+        <button class="mt-1" thyButton="danger" thySize="sm" (click)="clearSelected()">清除筛选</button>
+    </div>  
 </section>
 
 <section>
     <div class="body">
         <button thyButton="primary" (click)="$event.preventDefault();expand = !expand">点击显示 select</button>
-        <thy-custom-select *ngIf="expand" [(ngModel)]="selectedItem" thyPlaceHolder="请选择" [thyShowSearch]="true" [thyShowOptionMenu]="true">
+        <thy-custom-select *ngIf="expand" [(ngModel)]="selectedItem" thyPlaceHolder="请选择" [thyShowSearch]="true"
+            [thyShowOptionMenu]="true">
             <thy-option *ngFor="let option of optionData" [thyValue]="option._id" [thyLabelText]="option.display_name">
             </thy-option>
         </thy-custom-select>
