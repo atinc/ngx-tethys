@@ -142,4 +142,8 @@ export class DemoSelectSectionComponent {
     selectMultiple() {
         console.log(this.selectedItem4);
     }
+
+    clearSelected() {
+        this.selectedItem4 = [];
+    }
 }
