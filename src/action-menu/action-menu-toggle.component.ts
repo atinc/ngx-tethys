@@ -75,6 +75,7 @@ export class ThyActionMenuToggleDirective {
         this.popBoxService.show(this._templateRef, {
             target: event.currentTarget,
             insideAutoClose: true,
+            stopPropagation: this._stopPropagation,
             placement: this._placement || 'bottom left',
             containerClass: this._thyContainerClass,
         });
