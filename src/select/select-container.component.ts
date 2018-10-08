@@ -19,6 +19,11 @@ export class SelectContainerComponent implements OnInit {
         this._listOfOptionComponent = value;
         if (!this.isSearch) {
             this.showOptionComponents = this._listOfOptionComponent ? this._listOfOptionComponent.toArray() : [];
+            if (this.parent._selectedOptions.length === 0) {
+                this.showOptionComponents.forEach(item => {
+                    item.selected = false;
+                });
+            }
         }
     }
 

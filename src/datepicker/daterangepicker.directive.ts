@@ -158,12 +158,11 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
         let initialDate = this.service.dataPipe.transform(this.store.value[0], this._showFormatRule)
             + ' ~ '
             + this.service.dataPipe.transform(this.store.value[1], this._showFormatRule);
-        if (this._isFirstShowInputProperty &&
-            (this.store.originValueType === DatepickerValueShowTypesEnum.daterangepickerNullValue
-                || this.store.originValueType === DatepickerValueShowTypesEnum.daterangepickerNullValueObject)) {
+
+        if (this.store.value[0] == null || this.store.value[1] == null) {
             initialDate = '';
-            this._isFirstShowInputProperty = false;
         }
+
         this._renderer.setProperty(this._elementRef.nativeElement, 'value', initialDate);
     }
 

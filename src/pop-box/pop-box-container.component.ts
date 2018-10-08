@@ -56,7 +56,7 @@ export class PopBoxContainerComponent implements OnInit, OnDestroy, DoCheck, Aft
         if (this.config.stopPropagation) {
             event.stopPropagation();
         }
-        if (this.showMask && this.config.insideAutoClose) {
+        if (this.config.insideAutoClose) {
             this.hide();
         }
     }

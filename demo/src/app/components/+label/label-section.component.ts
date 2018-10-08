@@ -61,6 +61,23 @@ export class DemoLabelSectionComponent {
         color: '#22d7bb'
     }];
 
+    public relationLabels = [{
+        name: '阻塞',
+        color: '#ff5b57'
+    }, {
+        name: '被阻塞',
+        color: '#ff5b57'
+    }, {
+        name: '涉及',
+        color: '#ffc442'
+    }, {
+        name: '被涉及',
+        color: '#ffc442'
+    }, {
+        name: '重复',
+        color: '#22d7bb'
+    }];
+
     constructor() {
         this.color = '#7076fa';
         this.color1 = '#f969aa';

@@ -56,7 +56,8 @@
                 </thy-form-group>
             </dd>
         </dl>
-        <button thyButton="primary" thySize="sm" (click)="test()">测试修改值</button>
+        <button thyButton="primary" thySize="sm" (click)="datepickerTestNewValue()">改变值</button> 
+        <button thyButton="primary" thySize="sm" (click)="datepickerTestNullValue()">空值</button>
     </div>
 </section>
 
@@ -99,35 +100,43 @@
     <div class="body">
         <dl class="datepicker-section">
             <dd class="mt-5">
-                <div>DaterangepickerTimeObject类型 - {{dateRangeEntry|json}}</div>
+                <div>DaterangepickerTimeObject类型 - {{dateRangeObjectTimestamp|json}}</div>
                 <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
-                    <input type="text" readonly="readonly" thyDaterangepicker [(ngModel)]="dateRangeEntry" class="form-control" placeholder=""
+                    <input type="text" readonly="readonly" thyDaterangepicker [(ngModel)]="dateRangeObjectTimestamp" class="form-control" placeholder=""
                     />
                 </thy-form-group>
             </dd>
             <dd class="mt-5">
-                <div>DaterangepickerTime类型 - {{dateRangeTime|json}}</div>
+                <div>DaterangepickerTime类型 - {{dateRangeTimestamp|json}}</div>
                 <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
-                    <input type="text" readonly="readonly" thyDaterangepicker [(ngModel)]="dateRangeTime" class="form-control" placeholder=""
+                    <input type="text" readonly="readonly" thyDaterangepicker [(ngModel)]="dateRangeTimestamp" class="form-control" placeholder=""
                     />
                 </thy-form-group>
             </dd>
             <dd class="mt-5">
-                <div>空值 - {{dateRangeNullValue|json}}</div>
+                <div>空值 - {{dateRangeObjectTimestampNull|json}}</div>
                 <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
-                    <input type="text" readonly="readonly" thyDaterangepicker [(ngModel)]="dateRangeNullValue" class="form-control" placeholder=""
+                    <input type="text" readonly="readonly" thyDaterangepicker [(ngModel)]="dateRangeObjectTimestampNull" class="form-control" placeholder=""
                     />
                 </thy-form-group>
             </dd>
             <dd class="mt-5">
-                <div>空值 - {{dateRangeNullValueObject|json}}</div>
+                <div>空值 - {{dateRangeTimestampNull|json}}</div>
                 <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
-                    <input type="text" readonly="readonly" thyDaterangepicker [(ngModel)]="dateRangeNullValueObject" class="form-control" placeholder=""
+                    <input type="text" readonly="readonly" thyDaterangepicker [(ngModel)]="dateRangeTimestampNull" class="form-control" placeholder=""
+                    />
+                </thy-form-group>
+            </dd>
+            <dd class="mt-5">
+                <div>空值 - {{dateRangeNull|json}}</div>
+                <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
+                    <input type="text" readonly="readonly" thyDaterangepicker [(ngModel)]="dateRangeNull" class="form-control" placeholder=""
                     />
                 </thy-form-group>
             </dd>
         </dl>
-        <button thyButton="primary" thySize="sm" (click)="test2()">测试修改值</button>
+        <button thyButton="primary" thySize="sm" (click)="daterangepickerTestNewValue()">改变值</button>&nbsp;&nbsp;
+        <button thyButton="primary" thySize="sm" (click)="daterangepickerTestNullValue()">空值</button>
     </div>
 </section>
 

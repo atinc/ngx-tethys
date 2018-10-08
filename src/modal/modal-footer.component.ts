@@ -16,8 +16,6 @@ export class ModalFooterComponent implements OnInit {
 
     public savingText = '确定...';
 
-    @Input() thyLoadingText?: string;
-
     @Output() thyOnSave: EventEmitter<any> = new EventEmitter<any>();
 
     @Output() thyOnCancel: EventEmitter<any> = new EventEmitter<any>();
@@ -31,6 +29,8 @@ export class ModalFooterComponent implements OnInit {
     set thySavingText(value: string) {
         this.savingText = value;
     }
+
+    @Input() thySaveText: string;
 
     constructor(
         private modalComponent: ModalComponent

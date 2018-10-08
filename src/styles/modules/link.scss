@@ -56,4 +56,7 @@ a {
     &.link-sm {
         @include link-size($font-size-sm, $font-size-sm);
     }
+    &.link-body {
+        @include link-variant($gray-800, none, $primary, none);
+    }
 }
