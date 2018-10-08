@@ -15,11 +15,11 @@ export function isUndefinedOrNull(value: any) {
 }
 
 export function isArray(value: any): boolean {
-    return value && this.baseGetTag(value) === '[object Array]';
+    return value && baseGetTag(value) === '[object Array]';
 }
 
 export function isString(value: any): boolean {
-    return value && this.baseGetTag(value) === '[object String]';
+    return value && baseGetTag(value) === '[object String]';
 }
 
 function isObjectLike(value: any) {
