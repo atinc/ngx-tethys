@@ -123,6 +123,13 @@ export function isBoolean(value: any) {
         (isObjectLike(value) && baseGetTag(value) === '[object Boolean]');
 }
 
+export function fromArray(value: any): any[] {
+    if (Array.from && isFunction(Array.from)) {
+        return Array.from(value);
+    } else {
+        return Array.prototype.slice.call(value);
+    }
+}
 
 export function htmlElementIsEmpty(element: HTMLElement) {
     if (element && element.childNodes) {

@@ -9,7 +9,8 @@
         <ng-template #themeSelectPop>
             <!-- <button [thyButton]="'primary'" thySize="sm" *ngFor="let theme of themesConstant" (click)="changeTheme(theme)">{{theme.name}}</button> -->
             <div class="theme-select-show-wrap">
-                <a href="javascript:;" *ngFor="let theme of themesConstant" [ngStyle]="{background: theme.color}" (click)="changeTheme(theme)">{{theme.name}}</a>
+                <a href="javascript:;" *ngFor="let theme of themesConstant" [ngStyle]="{background: theme.color}"
+                    (click)="changeTheme(theme)">{{theme.name}}</a>
             </div>
         </ng-template>
     </div>
@@ -64,7 +65,8 @@
                                 </a>
                             </dd>
                             <dd class="toc-item">
-                                <a routerLink="components/property-operation" routerLinkActive="active">Property Operation
+                                <a routerLink="components/property-operation" routerLinkActive="active">Property
+                                    Operation
                                     <span>属性操作</span>
                                 </a>
                             </dd>
@@ -224,7 +226,11 @@
                                     <span>编辑器</span>
                                 </a>
                             </dd>
-
+                            <dd class="toc-item">
+                                <a routerLink="components/key-select" routerLinkActive="active">Key Select
+                                    <span>按键上下选择</span>
+                                </a>
+                            </dd>
                             <dd class="toc-item-group">Other</dd>
                         </dl>
                     </div>
@@ -234,7 +240,7 @@
     </thy-sidebar>
     <thy-content>
         <div class="main-content">
-                <router-outlet></router-outlet>
+            <router-outlet></router-outlet>
             <!-- <div class="content-header">
                 按钮
                 <span class="mate">按钮</span>

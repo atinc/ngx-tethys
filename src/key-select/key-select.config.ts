@@ -25,8 +25,8 @@ export interface KeySelectConfig {
 export const defaultConfig = {
     hoverClass: 'key-hover',
     selectedClass: 'selected',
-    itemSelector: '.selection-item',
-    filterSelector: '.ng-hide',
+    itemSelector: '',
+    filterSelector: '.hide',
     callbacks: {
         beforeHover: function () {
             return true;

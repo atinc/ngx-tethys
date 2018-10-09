@@ -33,6 +33,7 @@ import { ThyPropertyOperationModule } from './property-operation';
 import { ThyUploaderModule } from './uploader';
 import { ThyEditorModule } from './editor';
 import { ThyDateRangeModule } from './date-range';
+import { ThyKeySelectModule } from './key-select';
 
 @NgModule({
     declarations: [
@@ -69,7 +70,8 @@ import { ThyDateRangeModule } from './date-range';
         ThyRadioModule,
         ThySelectModule,
         ThyPropertyOperationModule,
-        ThyDateRangeModule
+        ThyDateRangeModule,
+        ThyKeySelectModule
     ],
     exports: [
         BrowserAnimationsModule,
@@ -106,7 +108,8 @@ import { ThyDateRangeModule } from './date-range';
         ThyPropertyOperationModule,
         ThyUploaderModule,
         ThyEditorModule,
-        ThyDateRangeModule
+        ThyDateRangeModule,
+        ThyKeySelectModule
     ],
     providers: [
     ]

@@ -1,6 +1,6 @@
 import {
     Directive, Input, OnInit, ElementRef, Injectable,
-    Inject, ChangeDetectorRef, Renderer2, NgZone
+    Inject, ChangeDetectorRef, Renderer2, NgZone, OnDestroy
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { helpers, dom } from '../util';
@@ -17,7 +17,7 @@ export class ThyKeySelectService {
     _options: KeySelectConfig;
 
     // directive element
-    _element: any;
+    _element: HTMLElement;
 
     _eventElement: HTMLElement;
 
@@ -89,7 +89,7 @@ export class ThyKeySelectService {
         }
     }
 
-    _getOffset(elem) {
+    _getOffset(elem: HTMLElement) {
 
         let docElem, win, rect, doc;
 
@@ -127,12 +127,12 @@ export class ThyKeySelectService {
         return height;
     }
 
-    _scrollTo(item) {
+    _scrollTo(item: any) {
         const scrollContainer = this._scrollContainer;
         const itemOffsetTop = this._getOffset(item).top;
         const itemOuterHeight = this._getOuterHeight(item);
         const containerHeight = this._getOuterHeight(this._scrollContainer);
-        const containerTop = this._getOffset(scrollContainer).top;
+        const containerTop = this._getOffset(this._scrollContainer).top;
         const containerScrollTop = scrollContainer.scrollTop;
 
         const topOffset = containerTop - itemOffsetTop;
@@ -153,7 +153,7 @@ export class ThyKeySelectService {
         this.renderer.removeClass(element, className);
     }
 
-    itemMatch(item) {
+    itemMatch(item: any) {
         if (!this._options.filterSelector || !dom.match(item, this._options.filterSelector)) {
             if (!this._options.itemSelector || dom.match(item, this._options.itemSelector)) {
                 return true;
@@ -163,9 +163,9 @@ export class ThyKeySelectService {
     }
 
     _getAllItems() {
-        const items = [];
-        const children = this._element.children();
-        children.forEach((item) => {
+        const items: any[] = [];
+        const children = helpers.fromArray(this._element.children);
+        children.forEach((item: any) => {
             if (this.itemMatch(item)) {
                 items.push(item);
             }
@@ -174,9 +174,9 @@ export class ThyKeySelectService {
     }
 
     _getFirstItem() {
-        let firstItem = null;
-        const children = this._element.children();
-        children.forEach((item) => {
+        let firstItem: any = null;
+        const children = helpers.fromArray(this._element.children);
+        children.forEach((item: any) => {
             if (firstItem) {
                 return firstItem;
             } else if (!this._options.filterSelector || !dom.match(item, this._options.filterSelector)) {
@@ -207,11 +207,11 @@ export class ThyKeySelectService {
         this.hover(newHoverElement, event);
     }
 
-    up = function (event) {
+    up = function (event: Event) {
         this._switch('up', event);
     };
 
-    down = function (event) {
+    down = function (event: Event) {
         this._switch('down', event);
     };
 
@@ -237,7 +237,7 @@ export class ThyKeySelectService {
         }
     }
 
-    select(event) {
+    select(event: Event) {
         setTimeout(function () {
             this._options.callbacks.select(event, this.keyHover);
             if (this._options.autoDeleteHoverAfterSelect) {
@@ -251,7 +251,7 @@ export class ThyKeySelectService {
 
     clearKeyHover() {
         if (this.keyHover) {
-            this.keyHover.removeClass(this._options.hoverClass);
+            this._removeClass(this.keyHover, this._options.hoverClass);
             this.keyHover = null;
         }
     }
@@ -274,7 +274,7 @@ export class ThyKeySelectService {
 
         const scrollContainer =
             this._options.scrollContainer === 'body'
-                ? this._document
+                ? this._document.body
                 : this._getSelectorElement(this._options.scrollContainer);
 
         let _eventElement = null;
@@ -313,7 +313,7 @@ export class ThyKeySelectService {
         ThyKeySelectService
     ]
 })
-export class ThyKeySelectionDirective implements OnInit {
+export class ThyKeySelectionDirective implements OnInit, OnDestroy {
 
     @Input() thyKeySelection: KeySelectConfig;
 
@@ -329,5 +329,12 @@ export class ThyKeySelectionDirective implements OnInit {
 
     ngOnInit(): void {
         this._thyKeySelectRef.initialize(this.elementRef.nativeElement, this.thyKeySelection);
+    }
+
+    ngOnDestroy() {
+        if (this._thyKeySelectRef) {
+            this._thyKeySelectRef.destroy();
+            delete this._thyKeySelectRef;
+        }
     }
 }
