@@ -1,3 +1,6 @@
 <select thyInput [thySize]="_size" [disabled]="_disabled" [(ngModel)]="_innerValue" (ngModelChange)="ngModelChange()">
     <ng-content></ng-content>
 </select>
+<a class="thy-select-allow-clear link-danger-weak" href="javascript:;" (click)="clearSelectValue($event)" *ngIf="thyAllowClear && _innerValue">
+    <i class="wtf wtf-times-circle"></i>
+</a>
