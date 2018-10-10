@@ -232,7 +232,7 @@ $label-warning-bg: $warning;
 $label-danger-bg: $danger;
 //avatar
 $avatar-sizes: () !default;
-$avatar-sizes: map-merge( (22: 12, 24: 12, 30: 12, 38: 12, 48: 12, 68: 16, 110: 45, 160: 50), $avatar-sizes);
+$avatar-sizes: map-merge( (22: 12, 24: 12, 30: 12, 38: 12, 48: 14, 68: 16, 110: 45, 160: 50), $avatar-sizes);
 // Navs
 $nav-link-disabled-color: $gray-300 !default;
 $nav-link-color: $gray-600 !default;
