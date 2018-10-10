@@ -8,6 +8,9 @@
             <ng-container *ngTemplateOutlet="selectedValueDisplayRef; context: selectedValueContext"></ng-container>
         </ng-container>
         <span class="text-placeholder d-inline-block" *ngIf="!_selectedOption">{{thyPlaceHolder}}</span>
+        <a class="thy-select-allow-clear link-danger-weak" href="javascript:;" (click)="clearSelectValue($event)" *ngIf="thyAllowClear && _innerValue">
+            <i class="wtf wtf-times-circle"></i>
+        </a>
     </ng-container>
     <div [ngClass]="{'multiple-value-wrapper': _selectedOptions?.length > 0}" *ngIf="_mode === 'multiple'">
         <span class="mr-1" [hidden]="_selectedOptions?.length === 0" *ngFor="let item of _selectedOptions;index as i" thyLabel="default"
@@ -20,4 +23,5 @@
 
     </div>
 </div>
+
 <select-container *ngIf="_expandOptions" #selectContainer [listOfOptionComponent]="_listOfOptionComponent"></select-container>

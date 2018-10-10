@@ -96,6 +96,8 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
         this._emptyStateText = value;
     }
 
+    @Input() thyAllowClear = false;
+
     _listOfOptionComponent: QueryList<ThyOptionComponent>;
 
     @ContentChildren(ThyOptionComponent)
@@ -283,9 +285,6 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
             return option.thyValue;
         });
         item.selected = false;
-        if (!this._expandOptions) {
-            this._expandOptions = true;
-        }
         this.valueOnChange(this._innerValues);
     }
 
@@ -323,5 +322,15 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
             };
         }
 
+    }
+
+    clearSelectValue(event: Event) {
+        event.stopPropagation();
+        this._selectedOption = null;
+        this._innerValue = null;
+        this.valueOnChange(this._innerValue);
+        this.selectedValueContext = {
+            $implicit: null
+        };
     }
 }

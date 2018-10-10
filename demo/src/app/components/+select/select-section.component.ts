@@ -14,8 +14,11 @@ import { taskTypes } from './mock-data';
 export class DemoSelectSectionComponent {
 
     model = {
-        selectedValue: ''
+        selectedValue: '',
+        allowClear: false
     };
+
+    allowClear = false;
 
     selectedItem1: any;
 
@@ -71,6 +74,12 @@ export class DemoSelectSectionComponent {
             description: '下拉选择模式',
             type: '"" | multiple',
             default: ''
+        },
+        {
+            property: 'thyAllowClear',
+            description: '单选(thyMode=""或者不设置)时，选择框支持清除',
+            type: 'boolean',
+            default: 'false'
         },
         {
             property: 'thyShowOptionMenu',
