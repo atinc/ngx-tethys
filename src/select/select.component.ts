@@ -37,6 +37,8 @@ export class ThySelectComponent implements ControlValueAccessor, OnInit {
         this._size = value;
     }
 
+    @Input() thyAllowClear = false;
+
     writeValue(obj: any): void {
         if (obj !== this._innerValue) {
             this._innerValue = obj;
@@ -69,6 +71,12 @@ export class ThySelectComponent implements ControlValueAccessor, OnInit {
     ngOnInit() {
         const classes = this._size ? [`thy-select-${this._size}`] : [];
         this.updateHostClassService.updateClass(classes);
+    }
+
+    clearSelectValue(event: Event) {
+        event.stopPropagation();
+        this._innerValue = '';
+        this.onChangeCallback(this._innerValue);
     }
 
 }
