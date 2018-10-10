@@ -1,4 +1,4 @@
-import { Injectable, ElementRef } from '@angular/core';
+import { Injectable, ElementRef, NgZone } from '@angular/core';
 import { isNumber } from '../util/helpers';
 import { NewClientRect } from './client-rect';
 
@@ -52,6 +52,11 @@ export const defaultPositioningOptions: PositioningOptions = {
 
 @Injectable()
 export class ThyPositioningService {
+
+    constructor(
+        private ngZone: NgZone
+    ) {
+    }
 
     static getHTMLElement(element: HTMLElement | ElementRef | string): HTMLElement {
         // it means that we got a selector
@@ -424,23 +429,24 @@ export class ThyPositioningService {
         const { attach, target } = options;
         const attachElement = ThyPositioningService.getHTMLElement(attach);
         const targetElement = ThyPositioningService.getHTMLElement(target);
-
         setTimeout(() => {
-            const pos = this.calculatePosition(
-                attachElement,
-                targetElement,
-                options
-            );
-            if (isNumber(pos.top)) {
-                targetElement.style.top = `${pos.top}px`;
-            } else if (isNumber(pos.bottom)) {
-                targetElement.style.bottom = `${pos.bottom}px`;
-            }
-            if (isNumber(pos.left)) {
-                targetElement.style.left = `${pos.left}px`;
-            } else if (isNumber(pos.right)) {
-                targetElement.style.right = `${pos.right}px`;
-            }
+            this.ngZone.runOutsideAngular(() => {
+                const pos = this.calculatePosition(
+                    attachElement,
+                    targetElement,
+                    options
+                );
+                if (isNumber(pos.top)) {
+                    targetElement.style.top = `${pos.top}px`;
+                } else if (isNumber(pos.bottom)) {
+                    targetElement.style.bottom = `${pos.bottom}px`;
+                }
+                if (isNumber(pos.left)) {
+                    targetElement.style.left = `${pos.left}px`;
+                } else if (isNumber(pos.right)) {
+                    targetElement.style.right = `${pos.right}px`;
+                }
+            });
         });
     }
 
