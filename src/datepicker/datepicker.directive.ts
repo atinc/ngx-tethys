@@ -12,7 +12,7 @@ import localeZhHans from '@angular/common/locales/zh-Hans';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { isObject, isNumber, isDate, inputValueToBoolean } from '../util/helpers';
 import { datepickerUtilIdentificationValueType, datepickerUtilConvertToDatepickerObject } from './util';
-import { ThyPositioningService } from '../positioning/positioning.service';
+import { ThyPositioningService, PlacementTypes } from '../positioning/positioning.service';
 
 
 registerLocaleData(localeZhHans, 'zh-Hans');
@@ -44,7 +44,8 @@ export class ThyDatepickerDirective implements OnInit, AfterContentInit, Control
     // private _isFirstInitValueWithNullOnce = false; // 第一次初始化，如果为null，显示时需要为空
     private _loader: ComponentLoader<ThyDatepickerContainerComponent>;
     private _valueType: DatepickerValueShowTypesEnum;
-    @Input() thyPlacement: 'top' | 'bottom' | 'left' | 'right' = 'bottom';
+    @Input() thyPlacement: PlacementTypes = PlacementTypes.bottom;
+    @Input() thyAutoAdapt = true;
     @Input() thyTriggers = 'click';
     @Input() thyContainer = 'body';
     @Input() thyOutsideClick = true;
@@ -134,6 +135,7 @@ export class ThyDatepickerDirective implements OnInit, AfterContentInit, Control
             target: dateContainerRef.location,
             attach: this._elementRef,
             placement: this.thyPlacement,
+            autoAdapt: this.thyAutoAdapt,
             offset: 2,
             appendToBody: true
         });

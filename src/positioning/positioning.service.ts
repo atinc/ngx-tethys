@@ -2,7 +2,7 @@ import { Injectable, ElementRef } from '@angular/core';
 import { isNumber } from '../util/helpers';
 import { NewClientRect } from './client-rect';
 
-enum PlacementTypes {
+export enum PlacementTypes {
     left = 'left',
     right = 'right',
     center = 'center',
