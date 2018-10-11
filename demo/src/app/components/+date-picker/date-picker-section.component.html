@@ -7,13 +7,13 @@
             <dd class="mt-5">
                 <div>DatepickerTimeObject类型 - {{dateEntry|json}}</div>
                 <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
-                    <input type="text" readonly="readonly" thyDatepicker [(ngModel)]="dateEntry" class="form-control" placeholder="" />
+                    <input type="text" readonly="readonly" thyDatepicker [(ngModel)]="dateEntry" class="form-control" thyPlacement="top" thyAutoAdapt="true" placeholder="" />
                 </thy-form-group>
             </dd>
             <dd class="mt-5">
                 <div>DateTime类型 - {{dateEntry2|json}}</div>
                 <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
-                    <input type="text" readonly="readonly" thyDatepicker [(ngModel)]="dateEntry2" class="form-control" placeholder="" />
+                    <input type="text" readonly="readonly" thyDatepicker [(ngModel)]="dateEntry2" thyPlacement="top" class="form-control" placeholder="" />
                 </thy-form-group>
             </dd>
             <dd class="mt-5">

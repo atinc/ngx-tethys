@@ -72,7 +72,7 @@ $input-search-padding-y: $btn-padding-y-md; // 36px
   color: $input-icon-color;
 }
 
-form .form-group {
+.form-group {
   > .col,
   > [class*="col-"] {
     > .form-control-feedback {
