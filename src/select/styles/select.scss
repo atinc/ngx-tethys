@@ -109,6 +109,13 @@ select.form-control-md {
     }
   }
 
+  .thy-select-selection{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-right: 50px;
+  }
+
   .thy-select-container-wrapper {
     position: absolute;
     width: 100%;
