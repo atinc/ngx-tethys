@@ -47,3 +47,12 @@ button.close {
 .close-link-danger {
   @include set-close-link-variant($gray-300, $danger);
 }
+
+.remove-link {
+  width:13px;
+  height: 13px;
+  background: $white;
+  border-radius: 50%;
+  @include set-close-link-variant($gray-400, $danger);
+  @include set-close-link-size($font-size-base);
+}

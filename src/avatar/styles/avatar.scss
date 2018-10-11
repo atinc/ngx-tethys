@@ -32,14 +32,6 @@
     visibility: hidden;
     top: -7px;
     right: -5px;
-    background: $white;
-    width: 13px;
-    height: 13px;
-    @include link-variant($gray-400, none, $gray-400, none);
-    border-radius: 50%;
-    i, wtf {
-      font-size: $font-size-base;
-    }
   }
 }
 
