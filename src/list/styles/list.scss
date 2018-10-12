@@ -10,8 +10,14 @@
         &.hover {
             @include item-box-shadow();
         }
-        &.active {
-            background: red;
+        &:not(.disabled).active {
+            background: rgba($primary, .1);
+            color: $primary;
+        }
+        &.disabled {
+            background: none;
+            color: $gray-400;
+            cursor: default; // not-allowed;
         }
     }
 }

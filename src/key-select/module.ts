@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ThyKeySelectionDirective } from './key-select.directive';
+import { ThyKeySelectDirective } from './key-select.directive';
 
 @NgModule({
     declarations: [
-        ThyKeySelectionDirective
+        ThyKeySelectDirective
     ],
     imports: [
         CommonModule
     ],
     exports: [
-        ThyKeySelectionDirective
+        ThyKeySelectDirective
     ]
 })
 export class ThyKeySelectModule {
