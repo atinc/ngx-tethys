@@ -59,25 +59,25 @@
         <h2>Select 大小</h2>
     </div>
     <div class="body demo-select">
-        <thy-select thySize="sm" [(ngModel)]="model.selectedValue">
+        <thy-select thySize="sm" [(ngModel)]="model.selectedValue" thyAllowClear="true">
+            <option value="">请选择</option>
+            <option value="option1">选项1选项1选项1选项1选项1选项1选项1选项1选项1选项1选项1选项1选项1选项1选项1选项1选项1选项1选项1</option>
+            <option value="option2">选项2</option>
+        </thy-select>
+        <br>
+        <thy-select thySize="md" [(ngModel)]="model.selectedValue" thyAllowClear="true">
             <option value="">请选择</option>
             <option value="option1">选项1</option>
             <option value="option2">选项2</option>
         </thy-select>
         <br>
-        <thy-select thySize="md" [(ngModel)]="model.selectedValue">
+        <thy-select thySize="" [(ngModel)]="model.selectedValue" thyAllowClear="true">
             <option value="">请选择</option>
             <option value="option1">选项1</option>
             <option value="option2">选项2</option>
         </thy-select>
         <br>
-        <thy-select thySize="" [(ngModel)]="model.selectedValue">
-            <option value="">请选择</option>
-            <option value="option1">选项1</option>
-            <option value="option2">选项2</option>
-        </thy-select>
-        <br>
-        <thy-select thySize="lg" [(ngModel)]="model.selectedValue">
+        <thy-select thySize="lg" [(ngModel)]="model.selectedValue" thyAllowClear="true">
             <option value="">请选择</option>
             <option value="option1">选项1</option>
             <option value="option2">选项2</option>

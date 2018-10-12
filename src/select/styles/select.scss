@@ -50,7 +50,7 @@ select.form-control-md {
   }
 
   &:hover{
-    .thy-select-allow-clear{
+    .thy-select-remove{
       visibility: visible;
     }
   }
@@ -107,6 +107,13 @@ select.form-control-md {
         color: $info;
       }
     }
+  }
+
+  .thy-select-selection{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-right: 50px;
   }
 
   .thy-select-container-wrapper {
@@ -200,15 +207,14 @@ select.form-control-md {
   }
 }
 
-.thy-select-allow-clear{
+.thy-select-remove{
   visibility: hidden;
   position: absolute;
   right: 32px;
-  font-size: $font-size-md;
-  color: $gray-500;
+  top: 50%;
+  margin-top: -11px;
+  font-size: $font-size-base;
   z-index: 10;
-  top: 40%;
-  margin-top: -8px;
 }
 
 .thy-select-custom--multiple {

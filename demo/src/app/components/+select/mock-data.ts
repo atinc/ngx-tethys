@@ -1,6 +1,6 @@
 export const taskTypes = [{
     icon: 'wtf wtf-type-task',
-    display_name: '任务',
+    display_name: '任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务任务',
     name: 'task',
     pin_yin: 'r,re,ren,renw,renwu',
     _id: '5b0527cfc8f2ff200a33d4aa'
