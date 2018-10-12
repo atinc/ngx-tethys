@@ -1,0 +1,17 @@
+.thy-list {
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    flex: 1 1 auto;
+    padding: 2px 0px;
+    .thy-list-item {
+        padding: 10px 10px;
+        &:hover,
+        &.hover {
+            @include item-box-shadow();
+        }
+        &.active {
+            background: red;
+        }
+    }
+}

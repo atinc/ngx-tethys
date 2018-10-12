@@ -3,11 +3,17 @@
         <h2>Key Select</h2>
     </div>
     <div class="body">
-        <ul [thyKeySelection]="{}">
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-        </ul>
+        <thy-list [thyKeySelection]="{hoverClass: 'hover'}">
+            <thy-list-item>
+                1
+            </thy-list-item>
+            <thy-list-item>
+                2
+            </thy-list-item>
+            <thy-list-item>
+                3
+            </thy-list-item>
+        </thy-list>
     </div>
 </section>
 
