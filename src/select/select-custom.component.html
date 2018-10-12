@@ -8,7 +8,7 @@
             <ng-container *ngTemplateOutlet="selectedValueDisplayRef; context: selectedValueContext"></ng-container>
         </ng-container>
         <span class="text-placeholder d-inline-block" *ngIf="!_selectedOption">{{thyPlaceHolder}}</span>
-        <a class="thy-select-remove link-danger-weak" href="javascript:;" (click)="clearSelectValue($event)" *ngIf="thyAllowClear && _innerValue">
+        <a class="thy-select-remove remove-link" href="javascript:;" (click)="clearSelectValue($event)" *ngIf="thyAllowClear && _innerValue">
             <i class="wtf wtf-times-circle"></i>
         </a>
     </ng-container>
