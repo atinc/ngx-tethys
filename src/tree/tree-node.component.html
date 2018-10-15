@@ -1,6 +1,6 @@
 <ng-container *ngIf="!thyTreeService.isCustomTemplate; else customTemplate;">
     <span class="thy-tree-node-item" [class.active]="node.selected" (click)="clickNode()">
-        <span class="node-expand" (click)="expandNode($event)">
+        <span class="node-expand" *ngIf="isShowExpand(node)" (click)="expandNode($event)">
             <i class="wtf fs-16" *ngIf="node.children && node.children.length > 0" [ngClass]="{'wtf-expand': !node.expanded,'wtf-collapse': node.expanded}"></i>
         </span>
         <span *ngIf="node.icon" class="node-icon">
@@ -11,11 +11,11 @@
             <input #title thyInput thySize="xs" thyAutofocus (thyEnter)="updateNode(title.value)">
         </span>
         <span class="node-actions" *ngIf="node.key">
-            <a *ngIf="thyEditable" thyButtonIcon="wtf-edit-o" thySize="sm" href="javascript:;" (click)="editNode()"></a>
-            <a *ngIf="thyDeletable" thyButtonIcon="wtf-trash-o" thySize="sm" href="javascript:;" (click)="deleteNode()"></a>
+            <a *ngIf="isEditable(node)" thyButtonIcon="wtf-edit-o" thySize="sm" href="javascript:;" (click)="editNode()"></a>
+            <a *ngIf="isDeletable(node)" thyButtonIcon="wtf-trash-o" thySize="sm" href="javascript:;" (click)="deleteNode()"></a>
         </span>
     </span>
-    <div class="thy-node-children" *ngIf="node.expanded" [sortablejs]="node.children"
+    <div class="thy-node-children" *ngIf="node.expanded || !isShowExpand(node)" [sortablejs]="node.children"
         [sortablejsOptions]="root.treeNodesSortableOptions" [attr.node-key]="node.key">
         <thy-tree-node *ngFor="let node of node.children;trackBy:root.trackByFn;let i=index;" 
             [node]="node"
@@ -25,6 +25,7 @@
             [thyLevel]="thyLevel"
             [thyEditable]="thyEditable"
             [thyDeletable]="thyDeletable"
+            [thyShowExpand]="thyShowExpand"
             [thyMultiple]="thyMultiple"
             (thyOnClick)="thyOnClick.emit($event)"
             (thyOnEdit)="thyOnEdit.emit($event)"

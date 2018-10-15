@@ -5,6 +5,7 @@ import {
 import { ThyTreeComponent } from './tree.component';
 import { ThyTreeNode } from './tree.class';
 import { ThyTreeService } from './tree.service';
+import { helpers } from '../util';
 
 @Component({
     selector: 'thy-tree-node',
@@ -23,11 +24,34 @@ export class ThyTreeNodeComponent {
 
     @Input() thyLevel: number;
 
-    @Input() thyEditable = false;
-
-    @Input() thyDeletable = false;
-
     @Input() thyMultiple = false;
+
+    @Input()
+    set thyEditable(value: boolean | ((_: ThyTreeNode) => boolean)) {
+        this._editable = value;
+    }
+
+    get thyEditable() {
+        return this._editable;
+    }
+
+    @Input()
+    set thyDeletable(value: boolean | ((_: ThyTreeNode) => boolean)) {
+        this._deletable = value;
+    }
+
+    get thyDeletable() {
+        return this._deletable;
+    }
+
+    @Input()
+    set thyShowExpand(value: boolean | ((_: ThyTreeNode) => boolean)) {
+        this._showExpand = value;
+    }
+
+    get thyShowExpand() {
+        return this._showExpand;
+    }
 
     @Output() thyOnClick: EventEmitter<any> = new EventEmitter<any>();
 
@@ -40,6 +64,12 @@ export class ThyTreeNodeComponent {
     @HostBinding('class.thy-tree-node') thyTreeNodeClass = true;
 
     @ViewChild('title') titleInputElementRef: ElementRef<HTMLInputElement>;
+
+    private _editable: boolean | ((_: ThyTreeNode) => boolean);
+
+    private _deletable: boolean | ((_: ThyTreeNode) => boolean);
+
+    private _showExpand: boolean | ((_: ThyTreeNode) => boolean);
 
     constructor(
         public root: ThyTreeComponent,
@@ -81,6 +111,29 @@ export class ThyTreeNodeComponent {
         this.thyOnDelete.emit(this.node);
     }
 
+    public isEditable(node: ThyTreeNode) {
+        if (helpers.isFunction(this._editable)) {
+            return (this._editable as Function)(node);
+        } else {
+            return this._editable;
+        }
+    }
+
+    public isDeletable(node: ThyTreeNode) {
+        if (helpers.isFunction(this._deletable)) {
+            return (this._deletable as Function)(node);
+        } else {
+            return this._deletable;
+        }
+    }
+
+    public isShowExpand(node: ThyTreeNode) {
+        if (helpers.isFunction(this._deletable)) {
+            return (this._showExpand as Function)(node);
+        } else {
+            return this._showExpand;
+        }
+    }
 
     public createNodeContext(node: any) {
         const instance = {

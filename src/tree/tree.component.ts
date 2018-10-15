@@ -4,7 +4,7 @@ import {
     EventEmitter, ContentChild, ViewChild,
     ViewContainerRef, ComponentFactoryResolver, HostBinding, NgZone
 } from '@angular/core';
-import { ThyTreeNode } from './tree.class';
+import { ThyTreeNode, ThyTreeEmitEvent } from './tree.class';
 import { helpers } from '../util';
 import { SortablejsOptions } from 'angular-sortablejs';
 import { ThyTreeService } from './tree.service';
@@ -50,6 +50,8 @@ export class ThyTreeComponent implements OnInit {
     @Input() thyEditable = false;
 
     @Input() thyDeletable = false;
+
+    @Input() thyShowExpand = true;
 
     @Input() thyMultiple = false;
 
@@ -128,16 +130,16 @@ export class ThyTreeComponent implements OnInit {
         componentInstance.thyInstance = instance;
     }
 
-    private _formatDraggableEvent(event: any) {
+    private _formatDraggableEvent(event: any, eventName: string): ThyTreeEmitEvent {
         const dragToElement: HTMLElement = event.to;
         const toNodeKey = dragToElement.getAttribute('node-key');
         const treeNodesOfFlat = this.thyTreeService.treeNodesOfFlat;
         const targetNode = treeNodesOfFlat.find(node => node.key === toNodeKey);
         return {
+            eventName,
             dragNode: this._draggableNode,
             targetNode: targetNode,
-            oldIndex: event.oldIndex,
-            newIndex: event.newIndex
+            event: event
         };
     }
 
@@ -153,22 +155,16 @@ export class ThyTreeComponent implements OnInit {
     }
 
     private _onDraggableUpdate(event: any) {
-        const draggableEvent = this._formatDraggableEvent(event);
+        const draggableEvent = this._formatDraggableEvent(event, 'draggableUpdate');
         this.ngZone.runTask(() => {
-            this.thyOnDraggableUpdate.emit({
-                ...draggableEvent,
-                event: event
-            });
+            this.thyOnDraggableUpdate.emit(draggableEvent);
         });
     }
 
     private _onDraggableAdd(event: any) {
-        const draggableEvent = this._formatDraggableEvent(event);
+        const draggableEvent = this._formatDraggableEvent(event, 'draggableAdd');
         this.ngZone.runTask(() => {
-            this.thyOnDraggableAdd.emit({
-                ...draggableEvent,
-                event: event
-            });
+            this.thyOnDraggableAdd.emit(draggableEvent);
         });
     }
 

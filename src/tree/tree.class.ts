@@ -20,3 +20,17 @@ export class ThyTreeNode {
   [key: string]: any;
 
 }
+
+export interface ThyTreeEmitEvent {
+
+  eventName: string;
+
+  node?: ThyTreeNode;
+
+  event?: Event | any;
+
+  dragNode?: ThyTreeNode;
+
+  targetNode?: ThyTreeNode;
+
+}

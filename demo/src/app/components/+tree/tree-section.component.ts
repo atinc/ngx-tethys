@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
+import { ThyTreeNode } from '../../../../../src/tree/tree.class';
 @Component({
     selector: 'demo-tree-section',
     templateUrl: './tree-section.component.html',
@@ -116,5 +117,9 @@ export class DemoTreeSectionComponent {
             title: 'new',
             edited: true
         });
+    }
+
+    public isEditable(node: ThyTreeNode) {
+        return node.key === '02';
     }
 }
