@@ -1,12 +1,52 @@
 .thy-tree {
-  thy-tree {
-    thy-tree-node {
-      padding-left: 20px;
+  display: block;
+  overflow: hidden;
+  .thy-tree-node {
+    display: block;
+    padding-left: 15px;
+    .thy-tree-node-item {
+      cursor: pointer;
+      display: flex;
+      line-height: 40px;
+      min-height: 40px;
+      margin: 0 -1000px;
+      padding: 0 1000px;
+      span {
+        display: inline-block;
+      }
+      .node-expand {
+        width: 16px;
+      }
+      .node-icon {
+        padding-left: 5px;
+      }
+      .node-actions {
+        flex: 1;
+        display: none;
+        text-align: right;
+        a {
+          margin-right: 15px;
+        }
+      }
+      .node-edit,
+      .node-title {
+        padding: 0 8px;
+      }
+      .node-edit {
+        input {
+          margin-top: 8px;
+        }
+      }
+      &.active {
+        background: rgba($primary, .1);
+        color: $primary;
+      }
+      &:hover {
+        box-shadow: 0 2px 8px 1px rgba(0, 0, 0, 0.08);
+        .node-actions {
+          display: inline-block;
+        }
+      }
     }
   }
-}
-
-thy-tree,
-thy-tree-node {
-  display: block;
 }

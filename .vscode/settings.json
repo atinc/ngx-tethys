@@ -19,5 +19,6 @@
         "datepicker",
         "uploader",
         "uploaders",
+        "deletable"
     ]
 }

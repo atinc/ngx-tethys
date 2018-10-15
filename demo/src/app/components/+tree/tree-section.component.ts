@@ -32,6 +32,47 @@ export class DemoTreeSectionComponent {
         }
     ];
 
+    public treeNodes: any[] = [{
+        key: '01',
+        title: 'root1',
+        icon: 'wtf wtf-drive-o',
+        children: [
+            {
+                key: '01001',
+                title: 'child1',
+                icon: 'wtf wtf-file-text'
+            },
+            {
+                key: '01002',
+                title: 'child2',
+                icon: 'wtf wtf-file-text'
+            }
+        ]
+    }, {
+        key: '02',
+        title: 'root2',
+        icon: 'wtf wtf-drive-o',
+        children: [
+            {
+                key: '02001',
+                title: 'child2.1',
+                icon: 'wtf wtf-file-text'
+            },
+            {
+                key: '02002',
+                title: 'child2.2',
+                icon: 'wtf wtf-file-text',
+                children: [
+                    {
+                        key: '02002001',
+                        title: 'subsub',
+                        icon: 'wtf wtf-file-text'
+                    }
+                ]
+            }
+        ]
+    }];
+
     public apiParameters = [
         {
             property: 'thyNodes',
@@ -67,5 +108,13 @@ export class DemoTreeSectionComponent {
 
     constructor() {
 
+    }
+
+    public addNode() {
+        this.treeNodes.push({
+            key: '020011',
+            title: 'new',
+            edited: true
+        });
     }
 }
