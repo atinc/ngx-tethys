@@ -1,0 +1,7 @@
+@mixin box-shadow($value) {
+    box-shadow: $value;
+}
+
+@mixin item-box-shadow($color: rgba(0, 0, 0, 0.08)) {
+    @include box-shadow(0px 0px 8px 2px $color);
+}

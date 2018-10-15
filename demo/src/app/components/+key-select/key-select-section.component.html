@@ -3,12 +3,18 @@
         <h2>Key Select</h2>
     </div>
     <div class="body">
-        <ul [thyKeySelection]="{}">
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-        </ul>
+        <thy-list [thyKeySelection]="thyKeySelectConfig">
+            <thy-list-item>
+                1
+            </thy-list-item>
+            <thy-list-item>
+                2
+            </thy-list-item>
+            <thy-list-item>
+                3
+            </thy-list-item>
+        </thy-list>
     </div>
 </section>
 
-<api-parameters title="thy-input-group 参数列表" [parameters]="apiParameters"></api-parameters>
+<api-parameters title="thyKeySelection 参数列表" [parameters]="apiParameters"></api-parameters>

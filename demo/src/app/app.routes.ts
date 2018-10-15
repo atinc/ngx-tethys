@@ -33,6 +33,7 @@ import { DemoUploaderSectionComponent } from './components/+uploader/uploader-se
 import { DemoEditorSectionComponent } from './components/+editor/editor-section.component';
 import { DemoDateRangeSectionComponent } from './components/+date-range/date-range-section.component';
 import { DemoKeySelectSectionComponent } from './components/+key-select/key-select-section.component';
+import { DemoListComponent } from './components/+list/list-section.component';
 
 const appRoutes = [
     {
@@ -174,6 +175,10 @@ const appRoutes = [
     {
         path: 'components/key-select',
         component: DemoKeySelectSectionComponent
+    },
+    {
+        path: 'components/list',
+        component: DemoListComponent
     }
 ];
 

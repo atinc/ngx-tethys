@@ -42,6 +42,8 @@ import { DemoUploaderSectionComponent } from './+uploader/uploader-section.compo
 import { DemoEditorSectionComponent } from './+editor/editor-section.component';
 import { DemoDateRangeSectionComponent } from './+date-range/date-range-section.component';
 import { DemoKeySelectSectionComponent } from './+key-select/key-select-section.component';
+import { DemoListComponent } from './+list/list-section.component';
+
 
 export const COMPONENTS = [
     DemoPopBoxSectionComponent,
@@ -90,7 +92,8 @@ export const COMPONENTS = [
     DemoUploaderSectionComponent,
     DemoEditorSectionComponent,
     DemoDateRangeSectionComponent,
-    DemoKeySelectSectionComponent
+    DemoKeySelectSectionComponent,
+    DemoListComponent
 ];
 
 export const ENTRY_COMPONENTS = [
