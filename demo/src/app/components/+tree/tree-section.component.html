@@ -5,7 +5,13 @@
     </div>
     <div class="body">
         <button thyButton="primary" (click)="addNode()">添加节点</button>
-        <thy-tree [thyNodes]="treeNodes" [thyEditable]="isEditable" [thyDeletable]="true" [thyShowExpand]="false"></thy-tree>
+        <thy-tree 
+            [thyNodes]="treeNodes"
+            [thyEditable]="isEditable" 
+            [thyDeletable]="true" 
+            [thyShowExpand]="true"
+            [thyDraggable]="true">
+        </thy-tree>
     </div>
 </section>
 

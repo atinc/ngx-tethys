@@ -37,6 +37,7 @@ export class DemoTreeSectionComponent {
         key: '01',
         title: 'root1',
         icon: 'wtf wtf-drive-o',
+        iconStyle: { color: 'red' },
         children: [
             {
                 key: '01001',

@@ -26,6 +26,8 @@ export class ThyTreeNodeComponent {
 
     @Input() thyMultiple = false;
 
+    @Input() thyDraggable = false;
+
     @Input()
     set thyEditable(value: boolean | ((_: ThyTreeNode) => boolean)) {
         this._editable = value;
@@ -78,9 +80,13 @@ export class ThyTreeNodeComponent {
     ) {
     }
 
-    public clickNode() {
+    public clickNode(event: Event) {
         this.thyTreeService.setNodeActive(this.node, this.thyMultiple);
-        this.thyOnClick.emit(this.node);
+        this.thyOnClick.emit({
+            eventName: 'click',
+            event: event,
+            node: this.node
+        });
     }
 
     public expandNode(event: Event) {
@@ -91,24 +97,34 @@ export class ThyTreeNodeComponent {
 
     }
 
-    public editNode() {
-        this.node.edited = !this.node.edited;
-        setTimeout(() => {
-            this.titleInputElementRef.nativeElement.value = this.node.title;
+    public editNode(event: Event) {
+        event.stopPropagation();
+        this.ngZone.runTask(() => {
+            this.node.edited = !this.node.edited;
+            setTimeout(() => {
+                this.titleInputElementRef.nativeElement.value = this.node.title;
+            });
         });
     }
 
-    public updateNode(title: string) {
+    public updateNode(event: Event, title: string) {
         if (title) {
             this.node.edited = !this.node.edited;
             this.node.title = title;
-            this.thyOnEdit.emit(this.node);
+            this.thyOnEdit.emit({
+                eventName: 'edit',
+                event: event,
+                node: this.node
+            });
         }
     }
 
-    public deleteNode() {
-        this.root.deleteTreeNode(this.node);
-        this.thyOnDelete.emit(this.node);
+    public deleteNode(event: Event) {
+        this.thyOnDelete.emit({
+            eventName: 'edit',
+            event: event,
+            node: this.node
+        });
     }
 
     public isEditable(node: ThyTreeNode) {
@@ -128,7 +144,7 @@ export class ThyTreeNodeComponent {
     }
 
     public isShowExpand(node: ThyTreeNode) {
-        if (helpers.isFunction(this._deletable)) {
+        if (helpers.isFunction(this._showExpand)) {
             return (this._showExpand as Function)(node);
         } else {
             return this._showExpand;
