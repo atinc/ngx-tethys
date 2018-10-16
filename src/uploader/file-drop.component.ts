@@ -1,5 +1,6 @@
 import { Component, OnInit, ElementRef, Renderer2, HostListener, Output, EventEmitter, HostBinding, Input } from '@angular/core';
 import { ThyUploaderService } from './uploader';
+import { mimeTypeConvert } from './util';
 
 @Component({
     selector: '[thyFileDrop]',
@@ -11,9 +12,15 @@ export class ThyFileDropComponent implements OnInit {
     _state = {
         isDragOver: false,
         isCustomClassName: false,
+        acceptType: '',
     };
 
     @Input() thyFileDropClassName: string;
+
+    @Input()
+    set thyAcceptType(value: Array<string> | string) {
+        this._state.acceptType = mimeTypeConvert(value);
+    }
 
     @Output() thyOnDrop = new EventEmitter();
 
@@ -33,6 +40,7 @@ export class ThyFileDropComponent implements OnInit {
 
     @HostListener('dragover', ['$event'])
     dragover(event: any) {
+
         this._state.isDragOver = true;
         this._dropOverClassName();
         event.preventDefault();
