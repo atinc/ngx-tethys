@@ -23,6 +23,8 @@ export class ThyTreeComponent implements OnInit {
 
     private _flexibleTemplateRef: TemplateRef<any>;
 
+    private _draggable = false;
+
     private _draggableNode: ThyTreeNode;
 
     public treeNodesSortableOptions: SortablejsOptions = {
@@ -30,6 +32,10 @@ export class ThyTreeComponent implements OnInit {
             name: 'tree-node',
             put: ['tree-node']
         },
+        delay: 200,
+        disabled: true,
+        ghostClass: 'thy-tree-item-ghost',
+        chosenClass: 'thy-tree-item-chosen',
         onStart: this._onDraggableStart.bind(this),
         onAdd: this._onDraggableAdd.bind(this),
         onUpdate: this._onDraggableUpdate.bind(this)
@@ -54,6 +60,24 @@ export class ThyTreeComponent implements OnInit {
     @Input() thyShowExpand = true;
 
     @Input() thyMultiple = false;
+
+    @Input()
+    set thyDraggable(value: boolean | any) {
+        if (helpers.isBoolean(value)) {
+            this._draggable = value;
+            this.treeNodesSortableOptions.disabled = !value;
+        } else {
+            if (value) {
+                Object.assign(this.treeNodesSortableOptions, value);
+                this._draggable = !this.treeNodesSortableOptions.disabled;
+            }
+        }
+        this.thyTreeDraggableClass = this._draggable;
+    }
+
+    get thyDraggable() {
+        return this._draggable;
+    }
 
     @Input()
     set thyTemplate(value: TemplateRef<any>) {
@@ -107,6 +131,8 @@ export class ThyTreeComponent implements OnInit {
     }
 
     @HostBinding('class.thy-tree') thyTreeClass = true;
+
+    @HostBinding('class.thy-tree-draggable') thyTreeDraggableClass = false;
 
     constructor(
         private componentFactoryResolver: ComponentFactoryResolver,

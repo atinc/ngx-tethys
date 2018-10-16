@@ -7,6 +7,10 @@ export class ThyTreeNode {
 
   icon?: string;
 
+  iconStyle?: {
+    [key: string]: any;
+  };
+
   children?: ThyTreeNode[];
 
   expanded?: boolean;
