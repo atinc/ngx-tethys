@@ -23,6 +23,8 @@ export class ThyTreeComponent implements OnInit {
 
     private _flexibleTemplateRef: TemplateRef<any>;
 
+    private _emptyChildrenTemplateRef: TemplateRef<any>;
+
     private _draggable = false;
 
     private _draggableNode: ThyTreeNode;
@@ -32,7 +34,7 @@ export class ThyTreeComponent implements OnInit {
             name: 'tree-node',
             put: ['tree-node']
         },
-        delay: 200,
+        delay: 100,
         disabled: true,
         ghostClass: 'thy-tree-item-ghost',
         chosenClass: 'thy-tree-item-chosen',
@@ -130,6 +132,17 @@ export class ThyTreeComponent implements OnInit {
         return this._flexibleTemplateRef;
     }
 
+    @ContentChild('emptyChildrenTemplate') emptyChildrenTemplate: TemplateRef<any>;
+    set emptyChildrenTemplateRef(template: TemplateRef<any>) {
+        if (template) {
+            this._emptyChildrenTemplateRef = template;
+        }
+    }
+
+    get emptyChildrenTemplateRef() {
+        return this._emptyChildrenTemplateRef;
+    }
+
     @HostBinding('class.thy-tree') thyTreeClass = true;
 
     @HostBinding('class.thy-tree-draggable') thyTreeDraggableClass = false;
@@ -196,8 +209,24 @@ export class ThyTreeComponent implements OnInit {
 
     // region 公开出去函数
 
-    public deleteTreeNode(node: string | ThyTreeNode) {
-        this.thyTreeService.deleteTreeNode(node, this.treeNodes);
+    public deleteTreeNode(treeNode: string | ThyTreeNode) {
+        this.thyTreeService.deleteTreeNode(treeNode, this.treeNodes);
+    }
+
+    public getSelectedNode(): ThyTreeNode {
+        return this.thyTreeService.getSelectedNode();
+    }
+
+    public getSelectedNodes(): ThyTreeNode[] {
+        return this.thyTreeService.getSelectedNodes();
+    }
+
+    public getParentNode(treeNode: ThyTreeNode): ThyTreeNode {
+        return this.thyTreeService.getParentNode(treeNode);
+    }
+
+    public getExpandedNodes(): ThyTreeNode[] {
+        return this.thyTreeService.getExpandedNodes();
     }
 
     // endregion

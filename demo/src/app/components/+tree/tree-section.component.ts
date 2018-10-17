@@ -54,25 +54,8 @@ export class DemoTreeSectionComponent {
         key: '02',
         title: 'root2',
         icon: 'wtf wtf-drive-o',
-        children: [
-            {
-                key: '02001',
-                title: 'child2.1',
-                icon: 'wtf wtf-file-text'
-            },
-            {
-                key: '02002',
-                title: 'child2.2',
-                icon: 'wtf wtf-file-text',
-                children: [
-                    {
-                        key: '02002001',
-                        title: 'subsub',
-                        icon: 'wtf wtf-file-text'
-                    }
-                ]
-            }
-        ]
+        expanded: true,
+        children: []
     }];
 
     public apiParameters = [
@@ -122,5 +105,9 @@ export class DemoTreeSectionComponent {
 
     public isEditable(node: ThyTreeNode) {
         return node.key === '02';
+    }
+
+    public draggableNode(event) {
+        console.log(event);
     }
 }

@@ -1,6 +1,5 @@
 .thy-tree {
   display: block;
-  overflow: hidden;
   .thy-tree-node {
     display: block;
     padding-left: 15px;
@@ -17,6 +16,7 @@
         display: inline-block;
       }
       .node-expand {
+        color: #aaa;
         width: 16px;
       }
       .node-icon {

@@ -5,12 +5,13 @@
     </div>
     <div class="body">
         <button thyButton="primary" (click)="addNode()">添加节点</button>
-        <thy-tree 
-            [thyNodes]="treeNodes"
-            [thyEditable]="isEditable" 
-            [thyDeletable]="true" 
-            [thyShowExpand]="true"
-            [thyDraggable]="true">
+        <thy-tree [thyNodes]="treeNodes" [thyEditable]="isEditable" [thyDeletable]="true" [thyShowExpand]="true"
+            [thyDraggable]="true" (thyOnDraggableAdd)="draggableNode($event)" (thyOnDraggableUpdate)="draggableNode($event)">
+            <ng-template #emptyChildrenTemplate>
+                <div style="width: 100%; height: 50px; padding:0 30px; background-color: #efefef;">
+                    拖拽元素区域
+                </div>
+            </ng-template>
         </thy-tree>
     </div>
 </section>

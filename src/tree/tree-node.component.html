@@ -1,10 +1,10 @@
 <ng-container *ngIf="!thyTreeService.isCustomTemplate; else customTemplate;">
     <span class="thy-tree-node-item" [class.active]="node.selected" (click)="clickNode($event)">
-       <span *ngIf="thyDraggable" class="node-draggable" [class.node-draggable-cover]="isShowExpand(node) && !node.children?.length">
+       <span *ngIf="thyDraggable" class="node-draggable" [class.node-draggable-cover]="isShowExpand(node) && !node.children?.length && !emptyChildrenTemplateRef">
            <i class="wtf wtf wtf-move"></i>
        </span>
         <span *ngIf="isShowExpand(node)" class="node-expand" (click)="expandNode($event)">
-            <i class="wtf fs-16" *ngIf="node.children && node.children.length > 0" [ngClass]="{'wtf-expand': !node.expanded,'wtf-collapse': node.expanded}"></i>
+            <i class="wtf fs-16" *ngIf="(node.children && node.children.length > 0) || emptyChildrenTemplateRef" [ngClass]="{'wtf-expand': !node.expanded,'wtf-collapse': node.expanded}"></i>
         </span>
         <span *ngIf="node.icon" class="node-icon">
             <i [ngClass]="node.icon" [ngStyle]="node.iconStyle"></i>
@@ -22,20 +22,22 @@
     </span>
     <div class="thy-node-children" *ngIf="node.expanded || !isShowExpand(node)" [sortablejs]="node.children"
         [sortablejsOptions]="root.treeNodesSortableOptions" [attr.node-key]="node.key">
+        <ng-template *ngIf="!node.children?.length" [ngTemplateOutlet]="emptyChildrenTemplateRef"></ng-template>
         <thy-tree-node *ngFor="let node of node.children;trackBy:root.trackByFn;let i=index;" 
-            [node]="node"
-            [templateRef]="templateRef"
-            [flexibleTemplateRef]="flexibleTemplateRef"
-            [thyChildrenPropName]="thyChildrenPropName"
-            [thyLevel]="thyLevel"
-            [thyDraggable]="thyDraggable"
-            [thyEditable]="thyEditable"
-            [thyDeletable]="thyDeletable"
-            [thyShowExpand]="thyShowExpand"
-            [thyMultiple]="thyMultiple"
-            (thyOnClick)="thyOnClick.emit($event)"
-            (thyOnEdit)="thyOnEdit.emit($event)"
-            (thyOnDelete)="thyOnDelete.emit($event)">
+                [node]="node"
+                [templateRef]="templateRef"
+                [flexibleTemplateRef]="flexibleTemplateRef"
+                [emptyChildrenTemplateRef]="emptyChildrenTemplateRef"
+                [thyChildrenPropName]="thyChildrenPropName"
+                [thyLevel]="thyLevel"
+                [thyDraggable]="thyDraggable"
+                [thyEditable]="thyEditable"
+                [thyDeletable]="thyDeletable"
+                [thyShowExpand]="thyShowExpand"
+                [thyMultiple]="thyMultiple"
+                (thyOnClick)="thyOnClick.emit($event)"
+                (thyOnEdit)="thyOnEdit.emit($event)"
+                (thyOnDelete)="thyOnDelete.emit($event)">
         </thy-tree-node>
     </div>
 </ng-container>

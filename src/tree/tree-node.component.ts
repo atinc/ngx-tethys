@@ -20,6 +20,8 @@ export class ThyTreeNodeComponent {
 
     @Input() flexibleTemplateRef: TemplateRef<any>;
 
+    @Input() emptyChildrenTemplateRef: TemplateRef<any>;
+
     @Input() thyChildrenPropName: string;
 
     @Input() thyLevel: number;
