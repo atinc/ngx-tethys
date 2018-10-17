@@ -1,7 +1,7 @@
 
 export class ThyTreeNode {
 
-  key?: string;
+  key?: number | string;
 
   title?: string;
 
@@ -12,6 +12,8 @@ export class ThyTreeNode {
   };
 
   children?: ThyTreeNode[];
+
+  origin?: any;
 
   expanded?: boolean;
 

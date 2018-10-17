@@ -37,6 +37,7 @@ export class DemoTreeSectionComponent {
         key: '01',
         title: 'root1',
         icon: 'wtf wtf-drive-o',
+        origin: { type: 1 },
         iconStyle: { color: 'red' },
         children: [
             {
@@ -53,6 +54,7 @@ export class DemoTreeSectionComponent {
     }, {
         key: '02',
         title: 'root2',
+        origin: { type: 1 },
         icon: 'wtf wtf-drive-o',
         expanded: true,
         children: []
@@ -105,6 +107,10 @@ export class DemoTreeSectionComponent {
 
     public isEditable(node: ThyTreeNode) {
         return node.key === '02';
+    }
+
+    public isShowExpand(node) {
+        return node.origin && node.origin.type === 1;
     }
 
     public draggableNode(event) {
