@@ -20,6 +20,12 @@ export class DemoUploaderSectionComponent {
             description: '文件是否多选',
             type: 'Boolean',
             default: 'false'
+        },
+        {
+            property: 'thyAcceptType',
+            description: `指定文件后缀类型（MIME_Map），例如".xls,xlsx"，"['.doc','.docx']"`,
+            type: 'string | string[]',
+            default: ''
         }
     ];
 

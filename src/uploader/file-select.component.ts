@@ -2,9 +2,9 @@ import {
     Component, Input, Output, Renderer2, Inject,
     ViewChild, ElementRef, OnInit, OnDestroy, HostListener, EventEmitter
 } from '@angular/core';
-import { inputValueToBoolean } from '../util/helpers';
+import { inputValueToBoolean, isArray, isString } from '../util/helpers';
 import { ThyUploaderService } from './uploader';
-import { DOCUMENT } from '@angular/common';
+import { mimeTypeConvert } from './util';
 
 @Component({
     selector: '[thyFileSelect],thy-file-select',
@@ -14,6 +14,8 @@ export class ThyFileSelectComponent implements OnInit, OnDestroy {
 
     _multiple: boolean;
 
+    acceptType: string;
+
     @Output() thyOnFileSelect = new EventEmitter();
 
     @ViewChild('fileInput') fileInput: ElementRef<HTMLInputElement>;
@@ -21,6 +23,11 @@ export class ThyFileSelectComponent implements OnInit, OnDestroy {
     @Input()
     set thyMultiple(value: boolean) {
         this._multiple = inputValueToBoolean(value);
+    }
+
+    @Input()
+    set thyAcceptType(value: Array<string> | string) {
+        this.acceptType = mimeTypeConvert(value);
     }
 
     @HostListener('click', ['$event'])
