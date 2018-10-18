@@ -91,6 +91,10 @@ export class ThyTreeNodeComponent {
         });
     }
 
+    public clickEditInput(event: Event) {
+        event.stopPropagation();
+    }
+
     public expandNode(event: Event) {
         event.stopPropagation();
         this.ngZone.runTask(() => {
@@ -112,13 +116,13 @@ export class ThyTreeNodeComponent {
     public updateNode(event: Event, title: string) {
         if (title) {
             this.node.edited = !this.node.edited;
-            this.node.title = title;
-            this.thyOnEdit.emit({
-                eventName: 'edit',
-                event: event,
-                node: this.node
-            });
         }
+        this.node.title = title;
+        this.thyOnEdit.emit({
+            eventName: 'edit',
+            event: event,
+            node: this.node
+        });
     }
 
     public deleteNode(event: Event) {

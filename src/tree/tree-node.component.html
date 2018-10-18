@@ -1,29 +1,44 @@
 <ng-container *ngIf="!thyTreeService.isCustomTemplate; else customTemplate;">
-    <span class="thy-tree-node-item" [class.active]="node.selected" (click)="clickNode($event)">
-       <span *ngIf="thyDraggable" class="node-draggable" [class.node-draggable-cover]="isShowExpand(node) && !node.children?.length && !emptyChildrenTemplateRef">
-           <i class="wtf wtf wtf-move"></i>
-       </span>
-        <span *ngIf="isShowExpand(node)" class="node-expand" (click)="expandNode($event)">
-            <i class="wtf fs-16" *ngIf="(node.children && node.children.length > 0) || emptyChildrenTemplateRef" [ngClass]="{'wtf-expand': !node.expanded,'wtf-collapse': node.expanded}"></i>
-        </span>
-        <span *ngIf="node.icon" class="node-icon">
-            <i [ngClass]="node.icon" [ngStyle]="node.iconStyle"></i>
-        </span>
-        <ng-container *ngIf="!node.edited">
-            <span class="node-title">{{node.title}}</span>
-            <span class="node-actions" *ngIf="node.key">
-                <a *ngIf="isEditable(node)" thyButtonIcon="wtf-edit-o" thySize="sm" href="javascript:;" (click)="editNode($event)"></a>
-                <a *ngIf="isDeletable(node)" thyButtonIcon="wtf-trash-o" thySize="sm" href="javascript:;" (click)="deleteNode($event)"></a>
+    <div class="thy-tree-node-wrapper" [class.active]="node.selected" (click)="clickNode($event)">
+        <ng-container *ngIf="thyDraggable">
+            <span class="thy-tree-node-draggable" [class.node-draggable-cover]="isShowExpand(node) && !node.children?.length && !emptyChildrenTemplateRef">
+                <i class="wtf wtf wtf-move"></i>
             </span>
         </ng-container>
-        <span *ngIf="node.edited" class="node-edit">
-            <input #title thyInput thySize="sm" thyAutofocus thyStopPropagation (thyEnter)="updateNode($event,title.value)" (blur)="updateNode($event,title.value)">
-        </span>
-    </span>
-    <div class="thy-node-children" *ngIf="isShowExpand(node) && node.expanded" [sortablejs]="node.children"
+        <ng-container *ngIf="isShowExpand(node)">
+            <span class="thy-tree-expand" (click)="expandNode($event)">
+                <i class="wtf fs-16" *ngIf="(node.children && node.children.length > 0) || emptyChildrenTemplateRef"
+                    [ngClass]="{'wtf-expand': !node.expanded,'wtf-collapse': node.expanded}"></i>
+            </span>
+        </ng-container>
+        <ng-container *ngIf="!templateRef">
+            <span class="thy-tree-node-content">
+                <ng-container *ngIf="node.icon">
+                    <span class="thy-tree-node-icon"> <i [ngClass]="node.icon" [ngStyle]="node.iconStyle"></i></span>
+                </ng-container>
+                <ng-container *ngIf="!node.edited">
+                    <span class="thy-tree-node-title">{{node.title}}</span>
+                    <span class="thy-tree-node-actions" *ngIf="node.key">
+                        <a *ngIf="isEditable(node)" thyButtonIcon="wtf-edit-o" thySize="sm" href="javascript:;" (click)="editNode($event)"></a>
+                        <a *ngIf="isDeletable(node)" thyButtonIcon="wtf-trash-o" thySize="sm" href="javascript:;"
+                            (click)="deleteNode($event)"></a>
+                    </span>
+                </ng-container>
+                <ng-container *ngIf="node.edited">
+                    <span class="thy-tree-node-edit">
+                        <input #title thyInput thySize="sm" (click)="clickEditInput($event)" thyAutofocus (thyEnter)="updateNode($event,title.value)" (blur)="updateNode($event,title.value)">
+                    </span>
+                </ng-container>
+            </span>
+        </ng-container>
+        <ng-container *ngIf="templateRef">
+            <ng-template [ngTemplateOutlet]="templateRef"  [ngTemplateOutletContext]="{ $implicit: node }"></ng-template>
+        </ng-container>
+    </div>
+    <div class="thy-tree-node-children" *ngIf="isShowExpand(node) && node.expanded" [sortablejs]="node.children"
         [sortablejsOptions]="root.treeNodesSortableOptions" [attr.node-key]="node.key">
         <ng-template *ngIf="!node.children?.length" [ngTemplateOutlet]="emptyChildrenTemplateRef"></ng-template>
-        <thy-tree-node *ngFor="let node of node.children;trackBy:root.trackByFn;let i=index;" 
+        <thy-tree-node *ngFor="let node of node.children; trackBy: root.trackByFn; let i=index;" 
                 [node]="node"
                 [templateRef]="templateRef"
                 [flexibleTemplateRef]="flexibleTemplateRef"

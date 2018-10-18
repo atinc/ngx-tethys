@@ -104,8 +104,6 @@ export class ThyTreeComponent implements OnInit {
 
     @Output() thyOnDelete: EventEmitter<any> = new EventEmitter<any>();
 
-    @Output() thyOnDraggableAdd: EventEmitter<any> = new EventEmitter<any>();
-
     @Output() thyOnDraggableUpdate: EventEmitter<any> = new EventEmitter<any>();
 
     @ContentChild('treeNodeTemplate')
@@ -203,7 +201,7 @@ export class ThyTreeComponent implements OnInit {
     private _onDraggableAdd(event: any) {
         const draggableEvent = this._formatDraggableEvent(event, 'draggableAdd');
         this.ngZone.runTask(() => {
-            this.thyOnDraggableAdd.emit(draggableEvent);
+            this.thyOnDraggableUpdate.emit(draggableEvent);
         });
     }
 

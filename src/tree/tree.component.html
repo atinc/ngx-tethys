@@ -1,4 +1,4 @@
-<div  class="pb-3" [sortablejs]="treeNodes" [sortablejsOptions]="treeNodesSortableOptions"
+<div class="pb-3" [sortablejs]="treeNodes" [sortablejsOptions]="treeNodesSortableOptions"
     [attr.node-key]="''">
     <thy-tree-node 
         *ngFor="let node of treeNodes;trackBy:trackByFn;let i=index;" 
