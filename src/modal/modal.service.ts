@@ -58,5 +58,6 @@ export class ThyModalConfigInfo {
     animated?: boolean;
     ignoreBackdropClick?: boolean;
     initialState?: object;
+    class?: string;
     show?: boolean;  // Shows the modal when initialized.
 }
