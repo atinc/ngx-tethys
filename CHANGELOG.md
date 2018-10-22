@@ -1,3 +1,7 @@
+## 0.1.70
+1. add ThyListModule module, contains `thy-list`,`thy-list-item`, `thy-selection-list`, `thy-list-option` components.
+1. `thy-selection-list` support key up, down select option.
+
 ## 0.0.68
 1. add property-operation component；
 1. avatar component optimize and add ThyAvatarService to transform src, so `thySrc` can't input src full path.

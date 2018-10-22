@@ -36,13 +36,13 @@ export const THY_OPTION_PARENT_COMPONENT =
 })
 export class ThyListOptionComponent implements FocusableOption {
 
-    @HostBinding(`class.thy-list-item`) private _isListOption = true;
+    @HostBinding(`class.thy-list-item`) _isListOption = true;
 
-    @HostBinding(`attr.role`) private _role = 'option';
+    @HostBinding(`attr.role`) _role = 'option';
 
-    @HostBinding(`attr.tabindex`) private _tabIndex = -1;
+    @HostBinding(`attr.tabindex`) _tabIndex = -1;
 
-    @Input() private id = `thy-list-option-${_uniqueIdCounter++}`;
+    @Input() id = `thy-list-option-${_uniqueIdCounter++}`;
 
     @Input() thyValue: any;
 
@@ -61,12 +61,12 @@ export class ThyListOptionComponent implements FocusableOption {
     }
 
     @HostListener('click', ['$event'])
-    onClick() {
+    onClick(event: Event) {
         this.parentSelectionList.toggleOption(this);
     }
 
     @HostListener('focus', ['$event'])
-    onFocus() {
+    onFocus(event: Event) {
         this.parentSelectionList.setFocusedOption(this);
     }
 
