@@ -1,10 +1,20 @@
-<thy-tree-node *ngFor="let node of thyNodes;let i=index;">
-    <ng-container *ngIf="templateRef">
-        <ng-template [ngTemplateOutlet]="templateRef" [ngTemplateOutletContext]="createNodeContext(node)"></ng-template>
-        <thy-tree *ngIf="node[thyChildrenPropName] && node[thyChildrenPropName].length > 0" [thyTemplate]="templateRef" [thyNodes]="node[thyChildrenPropName]"
-            [thyLevel]="thyLevel + 1"></thy-tree>
-    </ng-container>
-    <ng-container *ngIf="flexibleTemplateRef">
-        <ng-template [ngTemplateOutlet]="flexibleTemplateRef" [ngTemplateOutletContext]="createNodeContext(node)"></ng-template>
-    </ng-container>
-</thy-tree-node>
+<div class="pb-3" [sortablejs]="treeNodes" [sortablejsOptions]="treeNodesSortableOptions"
+    [attr.node-key]="''">
+    <thy-tree-node 
+        *ngFor="let node of treeNodes;trackBy:trackByFn;let i=index;" 
+        [node]="node" 
+        [templateRef]="templateRef"
+        [flexibleTemplateRef]="flexibleTemplateRef"
+        [emptyChildrenTemplateRef]="emptyChildrenTemplate"
+        [thyChildrenPropName]="thyChildrenPropName"
+        [thyLevel]="thyLevel"
+        [thyDraggable]="thyDraggable"
+        [thyEditable]="thyEditable"
+        [thyDeletable]="thyDeletable"
+        [thyShowExpand]="thyShowExpand"
+        [thyMultiple]="thyMultiple"
+        (thyOnClick)="thyOnClick.emit($event)"
+        (thyOnEdit)="thyOnEdit.emit($event)"
+        (thyOnDelete)="thyOnDelete.emit($event)">
+    </thy-tree-node>
+</div>

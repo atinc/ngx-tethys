@@ -1,5 +1,8 @@
 import { Component, OnInit, ElementRef, Renderer2, HostListener, Output, EventEmitter, HostBinding, Input } from '@angular/core';
 import { ThyUploaderService } from './uploader';
+import { mimeTypeConvert } from './util';
+import { MIME_Map } from './constant';
+import { helpers } from '../util';
 
 @Component({
     selector: '[thyFileDrop]',
@@ -11,9 +14,16 @@ export class ThyFileDropComponent implements OnInit {
     _state = {
         isDragOver: false,
         isCustomClassName: false,
+        acceptType: '',
+        isAllFileTypeAccept: true,
     };
 
     @Input() thyFileDropClassName: string;
+
+    @Input()
+    set thyAcceptType(value: Array<string> | string) {
+        this._state.acceptType = mimeTypeConvert(value);
+    }
 
     @Output() thyOnDrop = new EventEmitter();
 
@@ -33,8 +43,19 @@ export class ThyFileDropComponent implements OnInit {
 
     @HostListener('dragover', ['$event'])
     dragover(event: any) {
-        this._state.isDragOver = true;
-        this._dropOverClassName();
+        if (event.dataTransfer.items.length > 0) {
+            for (let index = 0; index < event.dataTransfer.items.length; index++) {
+                const n = event.dataTransfer.items[index];
+                if (!n.type || this._state.acceptType.indexOf(n.type) === -1) {
+                    this._state.isAllFileTypeAccept = false;
+                }
+            }
+        }
+
+        if (this._state.isAllFileTypeAccept) {
+            this._state.isDragOver = true;
+            this._dropOverClassName();
+        }
         event.preventDefault();
     }
 
@@ -42,6 +63,7 @@ export class ThyFileDropComponent implements OnInit {
     dragleave(event: any) {
         if (!this.elementRef.nativeElement.contains(event.fromElement)) {
             this._state.isDragOver = false;
+            this._state.isAllFileTypeAccept = true;
             this._dropOverClassName();
         }
     }
@@ -50,10 +72,16 @@ export class ThyFileDropComponent implements OnInit {
     drop(event: any) {
         event.preventDefault();
         this._state.isDragOver = false;
-        this.thyOnDrop.emit({
-            files: event.dataTransfer.files,
-            nativeEvent: event
-        });
+
+        if (this._state.isAllFileTypeAccept) {
+            this._state.isAllFileTypeAccept = true;
+            this.thyOnDrop.emit({
+                files: event.dataTransfer.files,
+                nativeEvent: event
+            });
+        } else {
+            console.error('ngx-tethys Error: Uploaded files that do not support extensions.');
+        }
     }
 
     private _dropOverClassName() {

@@ -383,3 +383,12 @@ $slide-header-height: 45px !default;
 $slide-header-padding: 0.75rem 1.25rem !default;
 $slide-body-content-padding: 0 1.25rem 0.75rem 1.25rem !default;
 $slide-divider: $gray-100 !default;
+//tree
+$tree-node-padding: 0 0 0 15px !default;
+$tree-node-wrapper-padding: 0 5px !default;
+$tree-node-wrapper-height: 44px !default;
+$tree-node-wrapper-line-height: 44px !default;
+$tree-node-wrapper-border-bottom: 1px solid $gray-200 !default;
+$tree-node-wrapper-active-border-color:rgba($primary, .3) !default;
+$tree-node-wrapper-active-background-color:rgba($primary, .1) !default;
+$tree-node-wrapper-hover-shadow : 0 2px 8px 1px rgba(0, 0, 0, 0.08) !default;
