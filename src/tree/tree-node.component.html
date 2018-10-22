@@ -1,14 +1,16 @@
 <ng-container *ngIf="!thyTreeService.isCustomTemplate; else customTemplate;">
     <div class="thy-tree-node-wrapper" [class.active]="node.selected" (click)="clickNode($event)">
         <ng-container *ngIf="thyDraggable">
-            <span class="thy-tree-node-draggable" [class.node-draggable-cover]="isShowExpand(node) && !node.children?.length && !emptyChildrenTemplateRef">
+            <span class="thy-tree-node-draggable">
                 <i class="wtf wtf wtf-move"></i>
             </span>
         </ng-container>
-        <ng-container *ngIf="isShowExpand(node)">
+        <ng-container>
             <span class="thy-tree-expand" (click)="expandNode($event)">
-                <i class="wtf fs-16" *ngIf="(node.children && node.children.length > 0) || emptyChildrenTemplateRef"
-                    [ngClass]="{'wtf-expand': !node.expanded,'wtf-collapse': node.expanded}"></i>
+                <ng-container  *ngIf="isShowExpand(node)">
+                    <i class="wtf wtf-caret-down" *ngIf="(node.children && node.children.length > 0) || emptyChildrenTemplateRef"
+                            [class.rotate-caret]="!node.expanded" ></i>
+                </ng-container>
             </span>
         </ng-container>
         <ng-container *ngIf="!templateRef">

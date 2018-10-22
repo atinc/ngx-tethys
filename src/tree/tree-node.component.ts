@@ -106,6 +106,7 @@ export class ThyTreeNodeComponent {
     public editNode(event: Event) {
         event.stopPropagation();
         this.ngZone.runTask(() => {
+            this.node.selected = false;
             this.node.edited = !this.node.edited;
             setTimeout(() => {
                 this.titleInputElementRef.nativeElement.value = this.node.title;
