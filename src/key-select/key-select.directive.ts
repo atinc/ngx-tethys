@@ -1,21 +1,27 @@
 import {
-    Directive, Input, OnInit, ElementRef, Injectable,
-    Inject, ChangeDetectorRef, Renderer2, NgZone, OnDestroy
+    Directive, Input, OnInit, ElementRef, Injectable, ContentChild,
+    Inject, ChangeDetectorRef, Renderer2, NgZone, OnDestroy, ViewChildren, QueryList, ContentChildren
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { helpers, dom } from '../util';
-import { KeySelectConfig } from './key-select.config';
+import { ThyKeySelectConfig } from './key-select.config';
 import { ThyKeySelectService } from './key-select.service';
+import { ThyKeySelectItemDirective } from './key-select-item.directive';
 
 @Directive({
-    selector: '[thyKeySelection]',
+    selector: '[thyKeySelect]',
     providers: [
         ThyKeySelectService
     ]
 })
 export class ThyKeySelectDirective implements OnInit, OnDestroy {
 
-    @Input() thyKeySelection: KeySelectConfig;
+    @Input() thyKeySelect: ThyKeySelectConfig;
+
+    @ContentChildren(ThyKeySelectItemDirective)
+    set selectItems(items: QueryList<ThyKeySelectItemDirective>) {
+        this._thyKeySelectRef.setAllItems(items.toArray());
+    }
 
     get thyKeySelectRef() {
         return this._thyKeySelectRef;
@@ -28,7 +34,7 @@ export class ThyKeySelectDirective implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this._thyKeySelectRef.initialize(this.elementRef.nativeElement, this.thyKeySelection);
+        this._thyKeySelectRef.initialize(this.elementRef.nativeElement, this.thyKeySelect);
     }
 
     ngOnDestroy() {

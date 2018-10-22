@@ -4,21 +4,41 @@
     overflow: auto;
     flex: 1 1 auto;
     padding: 2px 0px;
+}
+
+.thy-list-item {
+    padding: 0.594rem 10px;
+    @include thy-option-common-layout();
+    @include thy-option();
+    // color: $secondary;
+    // &:not(.active):focus,
+    // &:hover,
+    // &.hover {
+    //     outline-style: none;
+    //     @include item-box-shadow();
+    // }
+    // &:not(.disabled).selected,
+    // &:not(.disabled).active {
+    //     background: rgba($primary, .1);
+    //     color: $primary;
+    // }
+    // &.disabled {
+    //     background: none;
+    //     color: $gray-400;
+    //     cursor: default; // not-allowed;
+    // }
+}
+
+// .thy-selection-list {
+
+// }
+.thy-multiple-selection-list {
     .thy-list-item {
-        padding: 0.594rem 10px;
-        color: $secondary;
-        &:hover,
-        &.hover {
-            @include item-box-shadow();
-        }
-        &:not(.disabled).active {
-            background: rgba($primary, .1);
-            color: $primary;
-        }
-        &.disabled {
-            background: none;
-            color: $gray-400;
-            cursor: default; // not-allowed;
-        }
+        // &:not(.disabled).selected,
+        // &:not(.disabled).active {
+        //     background: transparent;
+        //     color: $secondary;
+        // }
+        @include thy-multiple-option();
     }
 }

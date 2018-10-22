@@ -1,6 +1,11 @@
 import { ElementRef } from '@angular/core';
 
-export interface KeySelectConfig {
+export interface ThyKeySelectItem {
+    data: any;
+    element: HTMLElement;
+}
+
+export interface ThyKeySelectConfig {
     scrollContainer?: HTMLElement | ElementRef | string;
     eventContainer?: HTMLElement | ElementRef | string;
     hoverClass?: string;
@@ -10,8 +15,8 @@ export interface KeySelectConfig {
     autoDeleteHoverAfterSelect?: boolean;
     callbacks?: {
         beforeHover?: (event: Event) => boolean
-        hover?: (event?: Event, elementItem?: any) => void,
-        select?: (event?: Event, elementItem?: any) => void
+        hover?: (item?: ThyKeySelectItem, event?: Event ) => void,
+        select?: (item?: ThyKeySelectItem, event?: Event) => void
     };
     preventDefault?: boolean;
     scrollMargin?: number;
@@ -23,7 +28,7 @@ export interface KeySelectConfig {
     globalKey?: boolean;
 }
 
-export const defaultConfig = {
+export const thyKeySelectDefaultConfig = {
     hoverClass: 'key-hover',
     selectedClass: 'key-selected',
     itemSelector: '',

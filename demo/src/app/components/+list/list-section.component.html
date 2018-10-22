@@ -19,5 +19,38 @@
         </thy-list>
     </div>
 </section>
+
+<section>
+    <div class="header">
+        <h2>Selection List</h2>
+    </div>
+    <div class="body selection-list-wrapper" #body>
+        <label thyCheckbox thyInline="true" [(ngModel)]="selectionModel.multiple" thyLabelText="多选"></label>
+        <label thyCheckbox thyInline="true" [(ngModel)]="selectionModel.stopKeydownEvent" thyLabelText="阻止键盘事件"></label>
+        <input thyInput placeholder="输入关键字进行搜索">
+        <thy-selection-list 
+        [thyBindKeyEventContainer]="body" 
+        [thyBeforeKeydown]="thyBeforeKeydown" 
+        [thyMultiple]="selectionModel.multiple"
+        (thySelectionChange)="selectionChange($event)"
+        >
+            <thy-list-option thyValue="1">
+                Item 1
+            </thy-list-option>
+            <thy-list-option thyValue="2">
+                Item 2
+            </thy-list-option>
+            <thy-list-option thyValue="3">
+                Item 3
+            </thy-list-option>
+            <thy-list-option thyValue="4">
+                Item 4
+            </thy-list-option>
+            <thy-list-option thyValue="5">
+                Item 5
+            </thy-list-option>
+        </thy-selection-list>
+    </div>
+</section>
 <!-- 
 <api-parameters title="thyKeySelection 参数列表" [parameters]="apiParameters"></api-parameters> -->

@@ -2,20 +2,23 @@ import { Constructor } from './constructor';
 import { inputValueToBoolean } from '../../util/helpers';
 
 export interface ThyCanDisable {
-    thyDisable: boolean;
+    thyDisabled: boolean;
 }
 
-/** Mixin to augment a directive with a `disableRipple` property. */
-export function mixinDisable<T extends Constructor<{}>>(base: T)
-    : Constructor<ThyCanDisable> & T {
-    return class extends base {
-        private _thyDisable = false;
+export type ThyCanDisableCtor = Constructor<ThyCanDisable>;
 
-        get thyDisable() {
-            return this._thyDisable;
+/** Mixin to augment a directive with a `disableRipple` property. */
+export function mixinDisabled<T extends Constructor<{}>>(base: T)
+    : ThyCanDisableCtor & T {
+    return class extends base {
+        private _thyDisabled = false;
+
+        get thyDisabled() {
+            return this._thyDisabled;
         }
-        set thyDisable(value: any) {
-            this._thyDisable = inputValueToBoolean(value);
+
+        set thyDisabled(value: any) {
+            this._thyDisabled = inputValueToBoolean(value);
         }
 
         constructor(...args: any[]) { super(...args); }

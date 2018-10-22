@@ -1,5 +1,6 @@
 
 import { Component, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+import { ThySelectionListChange } from '../../../../../src/list';
 
 @Component({
     selector: 'demo-list-section',
@@ -7,6 +8,11 @@ import { Component, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/
     encapsulation: ViewEncapsulation.None
 })
 export class DemoListComponent {
+
+    selectionModel = {
+        multiple: false,
+        stopKeydownEvent: false
+    };
 
     public apiParameters = [
         {
@@ -17,6 +23,17 @@ export class DemoListComponent {
         }
     ];
 
+    thyBeforeKeydown = () => {
+        return !this.selectionModel.stopKeydownEvent;
+    }
+
     constructor() {
     }
+
+    selectionChange(event: ThySelectionListChange) {
+        console.log(event.option);
+        console.log(event.source);
+    }
+
+
 }

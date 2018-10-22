@@ -4,46 +4,40 @@ import {
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { helpers, dom } from '../util';
-import { KeySelectConfig, defaultConfig } from './key-select.config';
+import { ThyKeySelectConfig, thyKeySelectDefaultConfig } from './key-select.config';
+import { ThyKeySelectItemDirective } from './key-select-item.directive';
 
 function getWindow(elem: any) {
     return (elem != null && elem === elem.window) ? elem : elem.nodeType === 9 && elem.defaultView;
 }
 
+export interface KeySelectItem {
+    data: any;
+    element: HTMLElement;
+}
 
 @Injectable()
 export class ThyKeySelectService {
 
-    _options: KeySelectConfig;
+    private _options: ThyKeySelectConfig;
 
+    public get options() {
+        return this._options;
+    }
     // directive element
-    _element: HTMLElement;
+    private _element: HTMLElement;
 
-    _eventElement: HTMLElement;
+    private _eventElement: HTMLElement;
 
-    _scrollContainer: HTMLElement;
+    private _scrollContainer: HTMLElement;
 
-    _unsubscribe: () => void;
+    private _unsubscribe: () => void;
 
-    keyHover: any;
+    keyHover: KeySelectItem;
 
-    constructor(
-        @Inject(DOCUMENT) private _document: Document,
-        private changeDetectorRef: ChangeDetectorRef,
-        private renderer: Renderer2,
-        private ngZone: NgZone
-    ) {
-    }
+    private _allSelectItemDirectives: ThyKeySelectItemDirective[];
 
-    setOptions(options: KeySelectConfig) {
-        const _options = Object.assign({}, defaultConfig, options);
-        if (options && options.callbacks) {
-            _options.callbacks = Object.assign({}, defaultConfig.callbacks, options.callbacks);
-        }
-        this._options = _options;
-    }
-
-    _getSelectorElement(element: HTMLElement | ElementRef | string) {
+    private _getSelectorElement(element: HTMLElement | ElementRef | string) {
         if (helpers.isString(element)) {
             return this._document.querySelector(element as string);
         } else if (element instanceof ElementRef) {
@@ -53,7 +47,7 @@ export class ThyKeySelectService {
         }
     }
 
-    _keydownHandler(event: KeyboardEvent) {
+    private _keydownHandler(event: KeyboardEvent) {
         const isContinue = this._options.callbacks.beforeHover(event);
         if (!isContinue) {
             return;
@@ -90,7 +84,7 @@ export class ThyKeySelectService {
         }
     }
 
-    _getOffset(elem: HTMLElement) {
+    private _getOffset(elem: HTMLElement) {
 
         let docElem, win, rect, doc;
 
@@ -119,7 +113,7 @@ export class ThyKeySelectService {
         return rect;
     }
 
-    _getOuterHeight(element: any) {
+    private _getOuterHeight(element: any) {
         const _element = element.documentElement ? element.documentElement : element;
         let height = _element.clientHeight;
         const computedStyle = window.getComputedStyle(_element);
@@ -128,7 +122,7 @@ export class ThyKeySelectService {
         return height;
     }
 
-    _scrollTo(item: any) {
+    private _scrollTo(item: HTMLElement) {
         const scrollContainer = this._scrollContainer;
         const itemOffsetTop = this._getOffset(item).top;
         const itemOuterHeight = this._getOuterHeight(item);
@@ -146,19 +140,19 @@ export class ThyKeySelectService {
         }
     }
 
-    _addClass(element: any, className: string) {
+    private _addClass(element: HTMLElement, className: string) {
         this.renderer.addClass(element, className);
     }
 
-    _removeClass(element: any, className: string) {
+    private _removeClass(element: HTMLElement, className: string) {
         this.renderer.removeClass(element, className);
     }
 
-    _itemIsSelected(item: HTMLElement) {
+    private _itemIsSelected(item: HTMLElement) {
         return item && item.classList.contains(this._options.selectedClass);
     }
 
-    itemMatch(item: any) {
+    private itemMatch(item: HTMLElement) {
         if (!this._options.filterSelector || !dom.match(item, this._options.filterSelector)) {
             if (!this._options.itemSelector || dom.match(item, this._options.itemSelector)) {
                 return true;
@@ -167,43 +161,41 @@ export class ThyKeySelectService {
         return false;
     }
 
-    _getAllItems() {
-        const items: any[] = [];
-        const children = helpers.fromArray(this._element.children);
-        children.forEach((item: any) => {
-            if (this.itemMatch(item)) {
-                items.push(item);
+    private _getAllItems(): KeySelectItem[] {
+        const items: KeySelectItem[] = [];
+        this._allSelectItemDirectives.forEach((item) => {
+            if (this.itemMatch(item.elementRef.nativeElement)) {
+                items.push({
+                    data: item.thyData,
+                    element: item.elementRef.nativeElement
+                });
             }
         });
+        // const children = helpers.fromArray(this._element.children);
+        // children.forEach((item: any) => {
+        //     if (this.itemMatch(item)) {
+        //         items.push(item);
+        //     }
+        // });
         return items;
     }
 
-    _getFirstItem() {
-        let firstItem: any = null;
-        const children = helpers.fromArray(this._element.children);
-        children.forEach((item: any) => {
-            if (firstItem) {
-                return firstItem;
-            } else if (!this._options.filterSelector || !dom.match(item, this._options.filterSelector)) {
-                if (!this._options.itemSelector || dom.match(item, this._options.itemSelector)) {
-                    firstItem = item;
-                }
-            }
-        });
-        return firstItem;
+    private _getFirstItem() {
+        const allItems = this._getAllItems();
+        return allItems.length > 0 ? allItems[0] : null;
     }
 
-    _switch(type: string, event: Event) {
+    private _switch(type: string, event: Event) {
         const items = this._getAllItems();
         if (items.length <= 0) {
             return;
         }
         // 如果 keyHover 没有,找到样式为 hoverClass 的元素
-        if (!this.keyHover && this._options.hoverClass) {
-            this.keyHover = this._element.querySelector('.' + this._options.hoverClass);
-        }
+        // if (!this.keyHover && this._options.hoverClass) {
+        //     this.keyHover = this._element.querySelector('.' + this._options.hoverClass);
+        // }
         const index = items.indexOf(this.keyHover);
-        let newHoverElement = null;
+        let newHoverElement: KeySelectItem;
         if (type === 'up') {
             newHoverElement = index > 0 ? items[index - 1] : items[items.length - 1];
         } else {
@@ -212,69 +204,7 @@ export class ThyKeySelectService {
         this.hover(newHoverElement, event);
     }
 
-    up = function (event: Event) {
-        this._switch('up', event);
-    };
-
-    down = function (event: Event) {
-        this._switch('down', event);
-    };
-
-    hover(element: HTMLElement | string, event: Event) {
-        let _toFirst = false;
-        if (element === 'first') {
-            _toFirst = true;
-            element = this._getFirstItem();
-        }
-        if (!element) {
-            return;
-        }
-        this.clearKeyHover();
-        const keyHoverElement = this.keyHover = element;
-        this._addClass(keyHoverElement, this._options.hoverClass);
-        this._options.callbacks.hover(event, this.keyHover);
-        if (!_toFirst) {
-            this._scrollTo(this.keyHover);
-        }
-    }
-
-    select(event: Event) {
-        if (this.keyHover) {
-            const keyHoverItemIsSelected = this._itemIsSelected(this.keyHover);
-            if (keyHoverItemIsSelected) {
-                this._removeClass(this.keyHover, this._options.selectedClass);
-            } else {
-                this._addClass(this.keyHover, this._options.selectedClass);
-                this._options.callbacks.select(event, this.keyHover);
-            }
-            if (this._options.autoDeleteHoverAfterSelect) {
-                this.clearKeyHover();
-            }
-        }
-    }
-
-    clearKeyHover() {
-        if (this.keyHover) {
-            this._removeClass(this.keyHover, this._options.hoverClass);
-            this.keyHover = null;
-        }
-    }
-
-    resetKeyHover() {
-        if (this.keyHover
-            && (!this.keyHover.parentNode || !this.itemMatch(this.keyHover))) {
-            this.clearKeyHover();
-        }
-    }
-
-    destroy() {
-        if (this._unsubscribe) {
-            this._unsubscribe();
-            this._unsubscribe = null;
-        }
-    }
-
-    _initialize() {
+    private _initialize() {
 
         const scrollContainer =
             this._options.scrollContainer === 'body'
@@ -297,7 +227,27 @@ export class ThyKeySelectService {
         });
     }
 
-    initialize(element: any, options: KeySelectConfig) {
+    constructor(
+        @Inject(DOCUMENT) private _document: Document,
+        private changeDetectorRef: ChangeDetectorRef,
+        private renderer: Renderer2,
+        private ngZone: NgZone
+    ) {
+    }
+
+    setOptions(options: ThyKeySelectConfig) {
+        const _options = Object.assign({}, thyKeySelectDefaultConfig, options);
+        if (options && options.callbacks) {
+            _options.callbacks = Object.assign({}, thyKeySelectDefaultConfig.callbacks, options.callbacks);
+        }
+        this._options = _options;
+    }
+
+    setAllItems(items: ThyKeySelectItemDirective[]) {
+        this._allSelectItemDirectives = items || [];
+    }
+
+    initialize(element: any, options: ThyKeySelectConfig) {
         this._element = element;
         this.setOptions(options);
         const delay = this._options.delay;
@@ -307,6 +257,71 @@ export class ThyKeySelectService {
             }.bind(this), delay);
         } else {
             this._initialize();
+        }
+    }
+
+    up = function (event: Event) {
+        this._switch('up', event);
+    };
+
+    down = function (event: Event) {
+        this._switch('down', event);
+    };
+
+    hover(element: KeySelectItem | string, event: Event) {
+        let _toFirst = false;
+        let keySelectItem: KeySelectItem = null;
+        if (element === 'first') {
+            _toFirst = true;
+            keySelectItem = this._getFirstItem();
+        } else {
+            keySelectItem = element as KeySelectItem;
+        }
+        if (!keySelectItem) {
+            return;
+        }
+        this.clearKeyHover();
+        const keyHoverElement = this.keyHover = keySelectItem;
+        this._addClass(keyHoverElement.element, this._options.hoverClass);
+        this._options.callbacks.hover(this.keyHover, event);
+        if (!_toFirst) {
+            this._scrollTo(this.keyHover.element);
+        }
+    }
+
+    select(event: Event) {
+        if (this.keyHover) {
+            const keyHoverItemIsSelected = this._itemIsSelected(this.keyHover.element);
+            if (keyHoverItemIsSelected) {
+                this._removeClass(this.keyHover.element, this._options.selectedClass);
+            } else {
+                this._addClass(this.keyHover.element, this._options.selectedClass);
+                this._options.callbacks.select(this.keyHover, event);
+            }
+            if (this._options.autoDeleteHoverAfterSelect) {
+                this.clearKeyHover();
+            }
+        }
+    }
+
+    clearKeyHover() {
+        if (this.keyHover) {
+            this._removeClass(this.keyHover.element, this._options.hoverClass);
+            this.keyHover = null;
+        }
+    }
+
+    resetKeyHover() {
+        if (this.keyHover
+            && (!this.keyHover.element.parentNode || !this.itemMatch(this.keyHover.element))) {
+            this.clearKeyHover();
+        }
+    }
+
+    destroy() {
+        if (this._unsubscribe) {
+            this._unsubscribe();
+            this._unsubscribe = null;
         }
     }
 }
