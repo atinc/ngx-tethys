@@ -1,6 +1,6 @@
 
 import { Component, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
-import { ThyKeySelectConfig, ThyKeySelectItem } from '../../../../../src/key-select';
+// import { ThyKeySelectConfig, ThyKeySelectItem } from '../../../../../src/key-select';
 
 @Component({
     selector: 'demo-key-select-section',
@@ -9,18 +9,18 @@ import { ThyKeySelectConfig, ThyKeySelectItem } from '../../../../../src/key-sel
 })
 export class DemoKeySelectSectionComponent {
 
-    public thyKeySelectConfig: ThyKeySelectConfig = {
-        hoverClass: 'hover',
-        selectedClass: 'active',
-        callbacks: {
-            hover(item: ThyKeySelectItem, event: Event, ) {
-                console.log(`hover item:${item}`);
-            },
-            select(item: ThyKeySelectItem, event: Event, ) {
-                console.log(`select item:${item}`);
-            }
-        }
-    };
+    // public thyKeySelectConfig: ThyKeySelectConfig = {
+    //     hoverClass: 'hover',
+    //     selectedClass: 'active',
+    //     callbacks: {
+    //         hover(item: ThyKeySelectItem, event: Event, ) {
+    //             console.log(`hover item:${item}`);
+    //         },
+    //         select(item: ThyKeySelectItem, event: Event, ) {
+    //             console.log(`select item:${item}`);
+    //         }
+    //     }
+    // };
 
     public apiParameters = [
         {

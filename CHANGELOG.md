@@ -1,3 +1,6 @@
+## 0.1.71
+fix build typings file error, remove `thy-key-selection` component.
+
 ## 0.1.70
 1. add ThyListModule module, contains `thy-list`,`thy-list-item`, `thy-selection-list`, `thy-list-option` components.
 1. `thy-selection-list` support key up, down select option.
