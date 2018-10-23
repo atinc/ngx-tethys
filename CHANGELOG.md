@@ -1,4 +1,7 @@
 ## 0.1.71
+`thy-key-selection` support ngModel set default selection values.
+
+## 0.1.71
 fix build typings file error, remove `thy-key-selection` component.
 
 ## 0.1.70

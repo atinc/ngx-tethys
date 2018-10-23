@@ -25,10 +25,12 @@
         <h2>Selection List</h2>
     </div>
     <div class="body selection-list-wrapper" #body>
-        <label thyCheckbox thyInline="true" [(ngModel)]="selectionModel.multiple" thyLabelText="多选"></label>
+        <label thyCheckbox thyInline="true" [(ngModel)]="selectionModel.multiple" thyLabelText="是否是多选列表"></label>
         <label thyCheckbox thyInline="true" [(ngModel)]="selectionModel.stopKeydownEvent" thyLabelText="阻止键盘事件"></label>
+        <label thyCheckbox thyInline="true" [(ngModel)]="selectionModel.selectAll" (ngModelChange)="toggleSelectAll()" thyLabelText="选择所有项"></label>
         <input thyInput placeholder="输入关键字进行搜索">
         <thy-selection-list 
+        [(ngModel)]="selectionModel.defaultValues"
         [thyBindKeyEventContainer]="body" 
         [thyBeforeKeydown]="thyBeforeKeydown" 
         [thyMultiple]="selectionModel.multiple"
@@ -50,6 +52,8 @@
                 Item 5
             </thy-list-option>
         </thy-selection-list>
+        ngModel:
+        <pre><code>{{selectionModel.defaultValues | json}}</code></pre>
     </div>
 </section>
 <!-- 

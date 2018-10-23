@@ -1,6 +1,6 @@
 
-import { Component, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
-import { ThySelectionListChange } from '../../../../../src/list';
+import { Component, ViewEncapsulation, ChangeDetectionStrategy, ContentChild, ViewChild } from '@angular/core';
+import { ThySelectionListChange, ThySelectionListComponent, } from '../../../../../src/list';
 
 @Component({
     selector: 'demo-list-section',
@@ -9,9 +9,13 @@ import { ThySelectionListChange } from '../../../../../src/list';
 })
 export class DemoListComponent {
 
+    @ViewChild(ThySelectionListComponent) selectionList: ThySelectionListComponent;
+
     selectionModel = {
-        multiple: false,
-        stopKeydownEvent: false
+        multiple: true,
+        stopKeydownEvent: false,
+        selectAll: false,
+        defaultValues: ['2', '3']
     };
 
     public apiParameters = [
@@ -35,5 +39,13 @@ export class DemoListComponent {
         console.log(event.source);
     }
 
+    toggleSelectAll() {
+        if (this.selectionModel.selectAll) {
+            this.selectionList.selectAll();
+        } else {
+            this.selectionList.deselectAll();
+        }
+
+    }
 
 }

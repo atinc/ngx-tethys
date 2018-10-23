@@ -79,6 +79,19 @@ export class ThyListOptionComponent implements FocusableOption {
         this.element.nativeElement.focus();
     }
 
+    setSelected(selected: boolean): boolean {
+        if (selected === this.selected) {
+            return false;
+        }
+        this.selected = selected;
+        if (selected) {
+            this.parentSelectionList.selectionModel.select(this);
+        } else {
+            this.parentSelectionList.selectionModel.deselect(this);
+        }
+        this.changeDetector.markForCheck();
+        return true;
+    }
     /**
      * Returns the list item's text label. Implemented as a part of the FocusKeyManager.
      * @docs-private
