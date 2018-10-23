@@ -20,7 +20,7 @@
         <a thyActionMenuItem href="javascript:;" *ngFor="let dateRange of optionalDateRange" (click)="selectDateRange(dateRange)">
             <span thyActionMenuItemName>{{dateRange?.text}}</span>
             <span thyActionMenuItemExtendIcon *ngIf="dateRange.key === selectedDate?.key">
-                <i class="wtf wtf-accepted"></i>
+                <i class="wtf wtf-checked"></i>
             </span>
         </a>
         <thy-action-menu-divider></thy-action-menu-divider>

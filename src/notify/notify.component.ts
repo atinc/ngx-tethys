@@ -62,7 +62,7 @@ export class ThyNotifyComponent implements OnInit, OnDestroy {
         };
 
         this.notifyIconClass = {
-            'wtf-accepted': this.option.type === 'success',
+            'wtf-checked': this.option.type === 'success',
             'wtf-level-low': this.option.type === 'info',
             'wtf-bulletin': this.option.type === 'warning',
             'wtf-times-lg': this.option.type === 'error',
