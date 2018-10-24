@@ -7,7 +7,8 @@ import {
     IterableChangeRecord,
     ContentChildren,
     QueryList,
-    OnDestroy
+    OnDestroy,
+    forwardRef
 } from '@angular/core';
 import { get, set } from '../util/helpers';
 import {
@@ -16,8 +17,9 @@ import {
 } from './grid.interface';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination/pagination.component';
 import { SortablejsOptions } from 'angular-sortablejs/dist';
-import { ThyGridColumnComponent } from './grid-column.component';
+import { ThyGridColumnComponent, IThyGridColumnParentComponent, THY_GRID_COLUMN_PARENT_COMPONENT } from './grid-column.component';
 import { helpers } from '../util';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export type ThyGridTheme = 'default' | 'bordered';
 
@@ -37,9 +39,15 @@ const customType = {
 @Component({
     selector: 'thy-grid',
     templateUrl: './grid.component.html',
+    providers: [
+        {
+            provide: THY_GRID_COLUMN_PARENT_COMPONENT,
+            useExisting: ThyGridComponent
+        }
+    ],
     encapsulation: ViewEncapsulation.None
 })
-export class ThyGridComponent implements OnInit, OnDestroy, DoCheck {
+export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridColumnParentComponent {
 
     public customType = customType;
 
@@ -188,16 +196,20 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck {
         this._bindTrackFn();
     }
 
+    private _getSelectionKeys(selections: any) {
+        return selections.map((item: any) => {
+            if (typeof (item) === 'number' || typeof (item) === 'string') {
+                return item;
+            } else {
+                return item[this.rowKey];
+            }
+        });
+    }
+
     private _initializeColumns() {
         const components = this._listOfColumnComponents ? this._listOfColumnComponents.toArray() : [];
         this.columns = components.map<ThyGridColumn>((component) => {
-            const selections = component.selections.map((item: any) => {
-                if (typeof (item) === 'number' || typeof (item) === 'string') {
-                    return item;
-                } else {
-                    return item[this.rowKey];
-                }
-            });
+            const selections = this._getSelectionKeys(component.selections);
             return {
                 key: component.key,
                 model: component.model,
@@ -279,6 +291,14 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck {
         }
     }
 
+    public updateColumnSelections(key: string, selections: any): void {
+        const column = this.columns.find(item => item.key === key);
+        column.selections = this._getSelectionKeys(selections);
+        this.model.forEach(row => {
+            this._initialSelections(row, column);
+        });
+    }
+
     public isTemplateRef(ref: any) {
         return ref instanceof TemplateRef;
     }
@@ -304,6 +324,7 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck {
     }
 
     public onMultiSelectChange(event: Event, row: any, column: ThyGridColumn) {
+        this.onModelChange(row, column);
         const rows = this.model.filter(item => {
             return item[column.key];
         });

@@ -1,3 +1,7 @@
+## 0.1.73
+1. `thy-grid` fix column selections bug
+1. `thy-tree` remove drag delay
+
 ## 0.1.71
 `thy-key-selection` support ngModel set default selection values.
 

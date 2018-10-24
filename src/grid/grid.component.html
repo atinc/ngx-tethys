@@ -29,7 +29,7 @@
                     <ng-container *ngIf="column.type === customType.index"> {{i+1}} </ng-container>
                     <!-- checkbox -->
                     <ng-container *ngIf="column.type === customType.checkbox">
-                        <input type="checkbox" [(ngModel)]="row[column.key]" (ngModelChange)="onModelChange(row,column)" (click)="onStopPropagation($event)"
+                        <input type="checkbox" [checked]="row[column.key]" (click)="onStopPropagation($event)"
                             [disabled]="column.disabled" (change)="onMultiSelectChange($event,row,column)">
                     </ng-container>
                     <!-- radio -->
