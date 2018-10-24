@@ -4,4 +4,5 @@ import { ThyListOptionComponent } from '../../core/option';
 export interface ThySelectionListChange {
     source: ThySelectionListComponent;
     option: ThyListOptionComponent;
+    event: Event;
 }
