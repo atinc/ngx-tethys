@@ -239,6 +239,7 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
         if (column.selections && column.selections.length > 0) {
             if (column.type === 'checkbox') {
                 row[column.key] = column.selections.includes(row[this.rowKey]);
+                this.onModelChange(row, column);
             }
             if (column.type === 'radio') {
                 if (column.selections.includes(row[this.rowKey])) {
@@ -323,8 +324,12 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
         this.thyOnPageChange.emit(event);
     }
 
-    public onMultiSelectChange(event: Event, row: any, column: ThyGridColumn) {
+    public onCheckboxChange(row: any, column: ThyGridColumn) {
         this.onModelChange(row, column);
+        this.onMultiSelectChange(null, row, column);
+    }
+
+    public onMultiSelectChange(event: Event, row: any, column: ThyGridColumn) {
         const rows = this.model.filter(item => {
             return item[column.key];
         });
