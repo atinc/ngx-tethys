@@ -5,7 +5,8 @@
         </tr>
     </thead>
     <tbody *ngIf="loadingDone" [sortablejs]="model" [sortablejsOptions]="draggableOptions">
-        <tr *ngFor="let row of model; let i = index; trackBy:trackByFn" (click)="onRowClick($event,row)">
+        <tr *ngFor="let row of model; let i = index; trackBy:trackByFn" (mousedown)="draggableStopPropagation($event)"
+            (touchstart)="draggableStopPropagation($event)" (pointerdown)="draggableStopPropagation($event)" (click)="onRowClick($event,row)">
             <td *ngFor="let column of columns; let j = index;" [ngClass]="column.className" [width]="column.width">
                 <ng-container *ngIf="j === 0 && draggable">
                     <i class="table-draggable-icon wtf wtf-move"></i>

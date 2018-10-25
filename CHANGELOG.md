@@ -1,3 +1,6 @@
+## 0.1.76
+1. `thy-grid` fix sortable bug ,restore `sortablejs` reference
+
 ## 0.1.75
 1. replace `WorktileTech/sortablejs`
 

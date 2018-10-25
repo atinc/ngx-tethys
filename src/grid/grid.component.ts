@@ -403,6 +403,13 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
         this.thyOnRowClick.emit(rowEvent);
     }
 
+    // 临时处理Sortable禁用后某些事件还生效的问题
+    public draggableStopPropagation(event: Event) {
+        if (this.draggableOptions.disabled) {
+            event.stopPropagation();
+        }
+    }
+
     ngOnInit() {
     }
 
