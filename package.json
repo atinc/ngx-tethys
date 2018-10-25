@@ -1,6 +1,6 @@
 {
     "name": "ngx-tethys",
-    "version": "0.1.74",
+    "version": "0.1.75",
     "license": "MIT",
     "scripts": {
         "build": "npm run build:ngm",
@@ -44,7 +44,7 @@
         "core-js": "^2.5.4",
         "ngx-bootstrap": "^3.0.1",
         "rxjs": "^6.3.1",
-        "sortablejs": "^1.7.0",
+        "sortablejs": "https://github.com/WorktileTech/Sortable.git",
         "zone.js": "^0.8.26"
     },
     "devDependencies": {

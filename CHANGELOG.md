@@ -1,3 +1,6 @@
+## 0.1.75
+1. replace `WorktileTech/sortablejs`
+
 ## 0.1.73
 1. `thy-grid` fix column selections bug
 1. `thy-tree` remove drag delay
