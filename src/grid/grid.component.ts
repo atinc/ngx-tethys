@@ -16,8 +16,8 @@ import {
     ThyGridEmptyOptions, ThySwitchEvent, ThyGridDraggableEvent, ThyGridRowEvent
 } from './grid.interface';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination/pagination.component';
-import { SortablejsOptions } from 'angular-sortablejs/dist';
 import { ThyGridColumnComponent, IThyGridColumnParentComponent, THY_GRID_COLUMN_PARENT_COMPONENT } from './grid-column.component';
+import { SortablejsOptions } from 'angular-sortablejs';
 import { helpers } from '../util';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 

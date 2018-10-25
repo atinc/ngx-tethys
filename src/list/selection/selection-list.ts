@@ -95,17 +95,18 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
 
     private _onChange: (value: any) => void = (_: any) => { };
 
-    private _emitChangeEvent(option: ThyListOptionComponent) {
+    private _emitChangeEvent(option: ThyListOptionComponent, event: Event) {
         this.thySelectionChange.emit({
             source: this,
-            option: option
+            option: option,
+            event: event
         });
     }
 
-    private _toggleFocusedOption(): void {
+    private _toggleFocusedOption(event: KeyboardEvent): void {
         if (this._keyManager.activeItem) {
             this.ngZone.run(() => {
-                this.toggleOption(this._keyManager.activeItem);
+                this.toggleOption(this._keyManager.activeItem, event);
             });
         }
     }
@@ -230,7 +231,7 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
                 throw new Error(`single selection ngModel not be array.`);
             }
         }
-        const values = helpers.isArray(value) ? value : [value];
+        const values = helpers.isArray(value) ? value : (value ? [value] : null);
         if (this.options) {
             this._setOptionsFromValues(values || []);
         } else {
@@ -265,7 +266,7 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
         switch (keyCode) {
             case keycodes.SPACE:
             case keycodes.ENTER:
-                this._toggleFocusedOption();
+                this._toggleFocusedOption(event);
                 // Always prevent space from scrolling the page since the list has focus
                 event.preventDefault();
                 break;
@@ -275,17 +276,17 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
 
         if ((keyCode === keycodes.UP_ARROW || keyCode === keycodes.DOWN_ARROW) && event.shiftKey &&
             manager.activeItemIndex !== previousFocusIndex) {
-            this._toggleFocusedOption();
+            this._toggleFocusedOption(event);
         }
     }
 
-    toggleOption(option: ThyListOptionComponent) {
+    toggleOption(option: ThyListOptionComponent, event?: Event) {
         if (option && !option.disabled) {
             this.selectionModel.toggle(option);
             // Emit a change event because the focused option changed its state through user
             // interaction.
             this._reportModelValueChange();
-            this._emitChangeEvent(option);
+            this._emitChangeEvent(option, event);
         }
     }
 

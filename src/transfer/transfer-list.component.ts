@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { ThyTransferModel, ThyTransferSelectEvent, ThyTransferItem, ThyTransferDragEvent } from './transfer.interface';
 import { ThyTransferComponent } from './transfer.component';
-import { SortablejsOptions } from 'angular-sortablejs/dist';
+import { SortablejsOptions } from 'angular-sortablejs';
 
 @Component({
     selector: 'thy-transfer-list',
