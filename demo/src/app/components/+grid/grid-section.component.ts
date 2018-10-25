@@ -30,36 +30,6 @@ export class DemoGridSectionComponent implements OnInit {
         }
     ];
 
-    public isShow = true;
-
-    public treeNodes: any[] = [{
-        key: '01',
-        title: 'root1',
-        icon: 'wtf wtf-drive-o',
-        origin: { type: 1 },
-        iconStyle: { color: 'red' },
-        children: [
-            {
-                key: '01001',
-                title: 'child1',
-                icon: 'wtf wtf-file-text'
-            },
-            {
-                key: '01002',
-                title: 'child2',
-                icon: 'wtf wtf-file-text'
-            }
-        ]
-    }, {
-        key: '02',
-        title: 'root2',
-        origin: { type: 1 },
-        icon: 'wtf wtf-drive-o',
-        expanded: true,
-        children: []
-    }];
-
-
     public gridApiParams = [
         {
             property: 'thyModel',
