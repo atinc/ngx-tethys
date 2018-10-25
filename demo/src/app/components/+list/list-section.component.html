@@ -28,7 +28,7 @@
         <label thyCheckbox thyInline="true" [(ngModel)]="selectionModel.multiple" thyLabelText="是否是多选列表"></label>
         <label thyCheckbox thyInline="true" [(ngModel)]="selectionModel.stopKeydownEvent" thyLabelText="阻止键盘事件"></label>
         <label thyCheckbox thyInline="true" [(ngModel)]="selectionModel.selectAll" (ngModelChange)="toggleSelectAll()" thyLabelText="选择所有项"></label>
-        <input thyInput placeholder="输入关键字进行搜索">
+        <thy-input-search name="search" thypPlaceholder="输入关键字进行搜索" (keydown.enter)="enterSearch()"  [(ngModel)]="searchText" (clear)="clearSearch()"></thy-input-search>
         <thy-selection-list 
         [(ngModel)]="selectionModel.defaultValues"
         [thyBindKeyEventContainer]="body" 
@@ -36,20 +36,8 @@
         [thyMultiple]="selectionModel.multiple"
         (thySelectionChange)="selectionChange($event)"
         >
-            <thy-list-option thyValue="1">
-                Item 1
-            </thy-list-option>
-            <thy-list-option thyValue="2">
-                Item 2
-            </thy-list-option>
-            <thy-list-option thyValue="3">
-                Item 3
-            </thy-list-option>
-            <thy-list-option thyValue="4">
-                Item 4
-            </thy-list-option>
-            <thy-list-option thyValue="5">
-                Item 5
+            <thy-list-option *ngFor="let item of items; trackBy:item?.id" [thyValue]="item?.id">
+                {{item.name}}
             </thy-list-option>
         </thy-selection-list>
         ngModel:
