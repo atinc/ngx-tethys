@@ -83,7 +83,7 @@ export class DemoListComponent {
 
     enterSearch() {
         this.items = this.allItems.filter((item) => {
-            return !this.searchText || item.name.includes(this.searchText);
+            return !this.searchText || item.name.toLowerCase().includes(this.searchText.toLowerCase());
         });
     }
 

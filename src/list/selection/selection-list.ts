@@ -16,20 +16,20 @@ import {
     NgZone,
     forwardRef
 } from '@angular/core';
-import { FocusKeyManager } from '@angular/cdk/a11y';
+import { FocusKeyManager, ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
 import {
     ThyListOptionComponent,
     THY_OPTION_PARENT_COMPONENT,
     IThyOptionParentComponent
 } from '../../core/option';
-import { keycodes, helpers } from '../../util';
+import { keycodes, helpers, dom } from '../../util';
 import { inputValueToBoolean } from '../../util/helpers';
 import { Subscription, throwError } from 'rxjs';
 import { DOCUMENT } from '@angular/platform-browser';
 import { ThySelectionListChange } from './selection.interface';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-
+import { ScrollToService } from '../../core';
 
 @Component({
     selector: 'thy-selection-list,[thy-selection-list]',
@@ -49,7 +49,7 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 })
 export class ThySelectionListComponent implements OnInit, OnDestroy, AfterContentInit, IThyOptionParentComponent, ControlValueAccessor {
 
-    private _keyManager: FocusKeyManager<ThyListOptionComponent>;
+    private _keyManager: ActiveDescendantKeyManager<ThyListOptionComponent>;
 
     private _selectionChangesUnsubscribe$ = Subscription.EMPTY;
 
@@ -83,6 +83,8 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
 
     @Input() thyBindKeyEventContainer: HTMLElement | ElementRef | string;
 
+    @Input() thyScrollContainer: HTMLElement | ElementRef | string;
+
     @Input() thyBeforeKeydown: (event?: KeyboardEvent) => boolean;
 
     @Input() thyCompareWith: (o1: any, o2: any) => boolean;
@@ -112,7 +114,7 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
     }
 
     private _initializeFocusKeyManager() {
-        this._keyManager = new FocusKeyManager<ThyListOptionComponent>(this.options)
+        this._keyManager = new ActiveDescendantKeyManager<ThyListOptionComponent>(this.options)
             .withWrap()
             // .withTypeAhead()
             // Allow disabled items to be focusable. For accessibility reasons, there must be a way for
@@ -141,18 +143,8 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
         this.selectionModel = new SelectionModel<ThyListOptionComponent>(this.multiple);
     }
 
-    private _getSelectorElement(element: HTMLElement | ElementRef | string) {
-        if (!element) {
-            return this.elementRef.nativeElement;
-        } else if (element === 'body') {
-            return this.document;
-        } else if (helpers.isString(element)) {
-            return this.document.querySelector(element as string);
-        } else if (element instanceof ElementRef) {
-            return element.nativeElement;
-        } else {
-            return element;
-        }
+    private _getSelectorElement(element: HTMLElement | ElementRef | string): HTMLElement {
+        return dom.getHTMLElementBySelector(element, this.elementRef);
     }
 
     private _setOptionsFromValues(values: any[]) {
@@ -292,6 +284,11 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
 
     setFocusedOption(option: ThyListOptionComponent) {
         this._keyManager.updateActiveItem(option); // .updateActiveItemIndex(this._getOptionIndex(option));
+    }
+
+    scrollIntoView(option: ThyListOptionComponent) {
+        const scrollContainerElement = dom.getHTMLElementBySelector(this.thyScrollContainer, this.elementRef);
+        ScrollToService.scrollToElement(option.element.nativeElement, scrollContainerElement);
     }
 
     /** Selects all of the options. */
