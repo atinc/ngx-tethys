@@ -50,7 +50,7 @@ export class DemoListComponent {
         multiple: true,
         stopKeydownEvent: false,
         selectAll: false,
-        defaultValues: ['2', '3']
+        defaultValues: [2, 3]
     };
 
     public apiParameters = [
@@ -85,6 +85,12 @@ export class DemoListComponent {
         this.items = this.allItems.filter((item) => {
             return !this.searchText || item.name.toLowerCase().includes(this.searchText.toLowerCase());
         });
+    }
+
+    searchChange() {
+        if (this.searchText) {
+            this.selectionList.clearActiveItem();
+        }
     }
 
     clearSearch() {

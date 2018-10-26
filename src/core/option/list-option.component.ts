@@ -20,7 +20,7 @@ export interface IThyOptionParentComponent {
     multiple?: boolean;
     selectionModel: SelectionModel<ThyListOptionComponent>;
     toggleOption(option: ThyListOptionComponent, event?: Event): void;
-    setFocusedOption(option: ThyListOptionComponent, event?: Event): void;
+    setActiveOption(option: ThyListOptionComponent, event?: Event): void;
     scrollIntoView(option: ThyListOptionComponent): void;
 }
 
@@ -50,7 +50,10 @@ export class ThyListOptionComponent implements Highlightable {
     disabled?: boolean;
 
     /** Whether the option is selected. */
-    @HostBinding(`class.active`) selected = false;
+    @HostBinding(`class.active`)
+    get selected() {
+        return this.parentSelectionList.selectionModel.isSelected(this.thyValue);
+    }
 
     constructor(
         public element: ElementRef<HTMLElement>,
@@ -64,6 +67,7 @@ export class ThyListOptionComponent implements Highlightable {
     @HostListener('click', ['$event'])
     onClick(event: Event) {
         this.parentSelectionList.toggleOption(this, event);
+        this.parentSelectionList.setActiveOption(this);
     }
 
     // @HostListener('focus', ['$event'])
@@ -72,9 +76,9 @@ export class ThyListOptionComponent implements Highlightable {
     // }
 
     /** Allows for programmatic focusing of the option. */
-    focus(origin?: FocusOrigin): void {
-        this.element.nativeElement.focus();
-    }
+    // focus(origin?: FocusOrigin): void {
+    //     this.element.nativeElement.focus();
+    // }
 
     setActiveStyles(): void {
         this.element.nativeElement.classList.add('hover');
@@ -85,23 +89,6 @@ export class ThyListOptionComponent implements Highlightable {
         this.element.nativeElement.classList.remove('hover');
     }
 
-    toggle(): void {
-        this.selected = !this.selected;
-    }
-
-    setSelected(selected: boolean): boolean {
-        if (selected === this.selected) {
-            return false;
-        }
-        this.selected = selected;
-        if (selected) {
-            this.parentSelectionList.selectionModel.select(this);
-        } else {
-            this.parentSelectionList.selectionModel.deselect(this);
-        }
-        this.changeDetector.markForCheck();
-        return true;
-    }
     /**
      * Returns the list item's text label. Implemented as a part of the FocusKeyManager.
      * @docs-private
