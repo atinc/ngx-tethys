@@ -19,8 +19,8 @@ let _uniqueIdCounter = 0;
 export interface IThyOptionParentComponent {
     multiple?: boolean;
     selectionModel: SelectionModel<ThyListOptionComponent>;
-    toggleOption(option: ThyListOptionComponent): void;
-    setFocusedOption(option: ThyListOptionComponent): void;
+    toggleOption(option: ThyListOptionComponent, event?: Event): void;
+    setFocusedOption(option: ThyListOptionComponent, event?: Event): void;
 }
 
 /**
@@ -62,12 +62,12 @@ export class ThyListOptionComponent implements FocusableOption {
 
     @HostListener('click', ['$event'])
     onClick(event: Event) {
-        this.parentSelectionList.toggleOption(this);
+        this.parentSelectionList.toggleOption(this, event);
     }
 
     @HostListener('focus', ['$event'])
     onFocus(event: Event) {
-        this.parentSelectionList.setFocusedOption(this);
+        this.parentSelectionList.setFocusedOption(this, event);
     }
 
     toggle(): void {

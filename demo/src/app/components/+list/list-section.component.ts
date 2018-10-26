@@ -35,8 +35,7 @@ export class DemoListComponent {
     }
 
     selectionChange(event: ThySelectionListChange) {
-        console.log(event.option);
-        console.log(event.source);
+        console.log(event);
     }
 
     toggleSelectAll() {

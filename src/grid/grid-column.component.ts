@@ -1,8 +1,22 @@
-import { Component, Input, ElementRef, ViewEncapsulation, ContentChild, ContentChildren, TemplateRef, ViewChild } from '@angular/core';
+import {
+    Component, Input, ElementRef, ViewEncapsulation, ContentChild,
+    ContentChildren, TemplateRef, ViewChild, InjectionToken, Optional, Inject
+} from '@angular/core';
 import { AfterContentInit, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { inputValueToBoolean, isUndefined } from '../util/helpers';
 import { ThyGridComponent } from './grid.component';
 import { ThyGridColumn } from './grid.interface';
+
+
+export interface IThyGridColumnParentComponent {
+    updateColumnSelections(key: string, selections: any): void;
+}
+
+/**
+ * Injection token used to provide the parent component to options.
+ */
+export const THY_GRID_COLUMN_PARENT_COMPONENT =
+    new InjectionToken<IThyGridColumnParentComponent>('THY_GRID_COLUMN_PARENT_COMPONENT');
 
 @Component({
     selector: 'thy-grid-column',
@@ -33,6 +47,9 @@ export class ThyGridColumnComponent implements OnInit {
             } else {
                 this.selections = [value];
             }
+            if (!this._firstChange) {
+                this.parent.updateColumnSelections(this.key, this.selections);
+            }
         }
     }
 
@@ -62,7 +79,12 @@ export class ThyGridColumnComponent implements OnInit {
 
     public defaultText: string;
 
-    constructor(private el: ElementRef) {
+    private _firstChange = true;
+
+    constructor(
+        private el: ElementRef,
+        @Optional() @Inject(THY_GRID_COLUMN_PARENT_COMPONENT) public parent: IThyGridColumnParentComponent
+    ) {
     }
 
     ngOnInit() {
@@ -76,6 +98,7 @@ export class ThyGridColumnComponent implements OnInit {
         this.disabled = this.thyDisabled;
         this.defaultText = this.thyDefaultText;
         this.templateRef = this.templateRef || this.cellTemplateRef;
+        this._firstChange = false;
     }
 
     private _generateKey() {

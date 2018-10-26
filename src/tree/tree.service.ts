@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { helpers } from '../util';
 import { ThyTreeNode } from './tree.class';
-import { SortablejsOptions } from 'angular-sortablejs';
 
 @Injectable()
 export class ThyTreeService {

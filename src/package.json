@@ -11,6 +11,8 @@
       "@angular/core": "*",
       "@angular/forms": "*",
       "@angular/cdk": "*",
+      "sortablejs": "*",
+      "angular-sortablejs": "*",
       "typescript": "*",
       "rxjs": "*"
     }
