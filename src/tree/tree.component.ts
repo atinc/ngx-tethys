@@ -34,7 +34,6 @@ export class ThyTreeComponent implements OnInit {
             name: 'tree-node',
             put: ['tree-node']
         },
-        delay: 100,
         disabled: true,
         ghostClass: 'thy-tree-item-ghost',
         chosenClass: 'thy-tree-item-chosen',

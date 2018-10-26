@@ -7,7 +7,8 @@ import {
     IterableChangeRecord,
     ContentChildren,
     QueryList,
-    OnDestroy
+    OnDestroy,
+    forwardRef
 } from '@angular/core';
 import { get, set } from '../util/helpers';
 import {
@@ -15,9 +16,10 @@ import {
     ThyGridEmptyOptions, ThySwitchEvent, ThyGridDraggableEvent, ThyGridRowEvent
 } from './grid.interface';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination/pagination.component';
+import { ThyGridColumnComponent, IThyGridColumnParentComponent, THY_GRID_COLUMN_PARENT_COMPONENT } from './grid-column.component';
 import { SortablejsOptions } from 'angular-sortablejs';
-import { ThyGridColumnComponent } from './grid-column.component';
 import { helpers } from '../util';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export type ThyGridTheme = 'default' | 'bordered';
 
@@ -37,9 +39,15 @@ const customType = {
 @Component({
     selector: 'thy-grid',
     templateUrl: './grid.component.html',
+    providers: [
+        {
+            provide: THY_GRID_COLUMN_PARENT_COMPONENT,
+            useExisting: ThyGridComponent
+        }
+    ],
     encapsulation: ViewEncapsulation.None
 })
-export class ThyGridComponent implements OnInit, OnDestroy, DoCheck {
+export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridColumnParentComponent {
 
     public customType = customType;
 
@@ -188,16 +196,20 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck {
         this._bindTrackFn();
     }
 
+    private _getSelectionKeys(selections: any) {
+        return selections.map((item: any) => {
+            if (typeof (item) === 'number' || typeof (item) === 'string') {
+                return item;
+            } else {
+                return item[this.rowKey];
+            }
+        });
+    }
+
     private _initializeColumns() {
         const components = this._listOfColumnComponents ? this._listOfColumnComponents.toArray() : [];
         this.columns = components.map<ThyGridColumn>((component) => {
-            const selections = component.selections.map((item: any) => {
-                if (typeof (item) === 'number' || typeof (item) === 'string') {
-                    return item;
-                } else {
-                    return item[this.rowKey];
-                }
-            });
+            const selections = this._getSelectionKeys(component.selections);
             return {
                 key: component.key,
                 model: component.model,
@@ -227,6 +239,7 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck {
         if (column.selections && column.selections.length > 0) {
             if (column.type === 'checkbox') {
                 row[column.key] = column.selections.includes(row[this.rowKey]);
+                this.onModelChange(row, column);
             }
             if (column.type === 'radio') {
                 if (column.selections.includes(row[this.rowKey])) {
@@ -279,6 +292,14 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck {
         }
     }
 
+    public updateColumnSelections(key: string, selections: any): void {
+        const column = this.columns.find(item => item.key === key);
+        column.selections = this._getSelectionKeys(selections);
+        this.model.forEach(row => {
+            this._initialSelections(row, column);
+        });
+    }
+
     public isTemplateRef(ref: any) {
         return ref instanceof TemplateRef;
     }
@@ -301,6 +322,11 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck {
 
     public onPageChange(event: PageChangedEvent) {
         this.thyOnPageChange.emit(event);
+    }
+
+    public onCheckboxChange(row: any, column: ThyGridColumn) {
+        this.onModelChange(row, column);
+        this.onMultiSelectChange(null, row, column);
     }
 
     public onMultiSelectChange(event: Event, row: any, column: ThyGridColumn) {
@@ -375,6 +401,13 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck {
             row: row
         };
         this.thyOnRowClick.emit(rowEvent);
+    }
+
+    // 临时处理Sortable禁用后某些事件还生效的问题
+    public draggableStopPropagation(event: Event) {
+        if (this.draggableOptions.disabled) {
+            event.stopPropagation();
+        }
     }
 
     ngOnInit() {

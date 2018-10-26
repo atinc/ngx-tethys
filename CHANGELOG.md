@@ -1,3 +1,13 @@
+## 0.1.76
+1. `thy-grid` fix sortable bug ,restore `sortablejs` reference
+
+## 0.1.75
+1. replace `WorktileTech/sortablejs`
+
+## 0.1.73
+1. `thy-grid` fix column selections bug
+1. `thy-tree` remove drag delay
+
 ## 0.1.71
 `thy-key-selection` support ngModel set default selection values.
 
