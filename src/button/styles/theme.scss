@@ -62,6 +62,10 @@
     color: $btn-icon-light-color;
 }
 
+.btn-icon-light {
+    color: $primary;
+}
+
 .btn-icon-circle {
     @include hover-focus {
         color: $primary;
