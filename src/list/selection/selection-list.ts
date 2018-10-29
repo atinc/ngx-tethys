@@ -141,23 +141,31 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
         }
     }
 
-    private _setOptionsFromValues(values: any[]) {
-        // this.options.forEach(option => option.setSelected(false));
+    private _setSelectionByValues(values: any[]) {
         this.selectionModel.clear();
         values.forEach(value => {
-            const correspondingOption = this.options.find(option => {
-                // Skip options that are already in the model. This allows us to handle cases
-                // where the same primitive value is selected multiple times.
-                if (option.selected) {
-                    return false;
-                }
-                return this._compareValue(option.thyValue, value);
-            });
-            if (correspondingOption) {
-                this.selectionModel.select(correspondingOption.thyValue);
-            }
+            this.selectionModel.select(value);
         });
     }
+
+    // private _setOptionsFromValues(values: any[]) {
+    //     // this.options.forEach(option => option.setSelected(false));
+    //     this.selectionModel.clear();
+    //     values.forEach(value => {
+    //         this.selectionModel.select(value);
+    //         const correspondingOption = this.options.find(option => {
+    //             // Skip options that are already in the model. This allows us to handle cases
+    //             // where the same primitive value is selected multiple times.
+    //             if (option.selected) {
+    //                 return false;
+    //             }
+    //             return this._compareValue(option.thyValue, value);
+    //         });
+    //         if (correspondingOption) {
+    //             this.selectionModel.select(correspondingOption.thyValue);
+    //         }
+    //     });
+    // }
 
     private _setAllOptionsSelected(toIsSelected: boolean) {
         // Keep track of whether anything changed, because we only want to
@@ -229,7 +237,7 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
         }
         const values = helpers.isArray(value) ? value : (value ? [value] : null);
         if (this.options) {
-            this._setOptionsFromValues(values || []);
+            this._setSelectionByValues(values || []);
         } else {
             this._tempValues = values;
         }
@@ -320,7 +328,7 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
     ngAfterContentInit(): void {
         this._initializeFocusKeyManager();
         if (this._tempValues) {
-            this._setOptionsFromValues(this._tempValues);
+            this._setSelectionByValues(this._tempValues);
             this._tempValues = null;
         }
     }

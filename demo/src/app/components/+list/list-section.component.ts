@@ -44,7 +44,7 @@ export class DemoListComponent {
         }
     ];
 
-    items = this.allItems;
+    items: any[];
 
     selectionModel = {
         multiple: true,
@@ -67,6 +67,9 @@ export class DemoListComponent {
     }
 
     constructor() {
+        setTimeout(() => {
+            this.items = this.allItems;
+        }, 2000);
     }
 
     selectionChange(event: ThySelectionListChange) {

@@ -1,3 +1,6 @@
+## 0.1.77
+change `thy-selection-list` component support delay load options, the default values can been selected.
+
 ## 0.1.76
 1. `thy-grid` fix sortable bug ,restore `sortablejs` reference
 

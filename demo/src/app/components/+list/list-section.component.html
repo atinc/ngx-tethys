@@ -27,15 +27,13 @@
     <div class="body selection-list-wrapper" #body>
         <label thyCheckbox thyInline="true" [(ngModel)]="selectionModel.multiple" thyLabelText="是否是多选列表"></label>
         <label thyCheckbox thyInline="true" [(ngModel)]="selectionModel.stopKeydownEvent" thyLabelText="阻止键盘事件"></label>
-        <label thyCheckbox thyInline="true" [(ngModel)]="selectionModel.selectAll" (ngModelChange)="toggleSelectAll()" thyLabelText="选择所有项"></label>
-        <thy-input-search name="search" thyPlaceholder="输入关键字进行搜索" (keydown.enter)="enterSearch()"  [(ngModel)]="searchText" (ngModelChange)="searchChange()" (clear)="clearSearch()"></thy-input-search>
-        <thy-selection-list [style.height]="'200px'"
-        [(ngModel)]="selectionModel.defaultValues"
-        [thyBindKeyEventContainer]="body" 
-        [thyBeforeKeydown]="thyBeforeKeydown" 
-        [thyMultiple]="selectionModel.multiple"
-        (thySelectionChange)="selectionChange($event)"
-        >
+        <label thyCheckbox thyInline="true" [(ngModel)]="selectionModel.selectAll" (ngModelChange)="toggleSelectAll()"
+            thyLabelText="选择所有项"></label>
+        <thy-input-search name="search" thyPlaceholder="输入关键字进行搜索" (keydown.enter)="enterSearch()" [(ngModel)]="searchText"
+            (ngModelChange)="searchChange()" (clear)="clearSearch()"></thy-input-search>
+        <thy-selection-list [style.height]="'200px'" [(ngModel)]="selectionModel.defaultValues"
+            [thyBindKeyEventContainer]="body" [thyBeforeKeydown]="thyBeforeKeydown" [thyMultiple]="selectionModel.multiple"
+            (thySelectionChange)="selectionChange($event)">
             <thy-list-option *ngFor="let item of items; trackBy:item?.id" [thyValue]="item?.id">
                 {{item.name}}
             </thy-list-option>
