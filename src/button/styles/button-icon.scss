@@ -102,6 +102,10 @@ $btn-icon-circle-padding-xs: 4px;
     color: $btn-icon-light-color;
 }
 
+.btn-icon-active {
+    color: $primary
+}
+
 .btn-icon-xs {
     @include btn-icon-size-variant($font-size-base, $btn-icon-circle-padding-xs, $font-size-base);
 }
