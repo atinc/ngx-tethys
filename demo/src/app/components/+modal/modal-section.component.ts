@@ -13,6 +13,8 @@ export class DemoModalSectionComponent implements OnInit {
 
     message: string[] = [];
 
+    shipId;
+
     public saving;
 
     // public apiParameters = [{

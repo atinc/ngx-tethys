@@ -13,7 +13,22 @@
             <h2>H2 标题</h2>
             <h3>H3 标题</h3>
         </thy-modal-body>
-        <thy-modal-footer (thyOnSave)="save()" (thyOnCancel)="cancel()" [thySaving]="saving" thySaveText="保存" thySavingText="保存中..."> </thy-modal-footer>
+        <thy-modal-footer>
+            <ng-template #thyModalFooterTemplate>
+                <div>
+                    <div class="list-relationship">
+                        <thy-custom-select class="flex-grow-1 ml-1" [(ngModel)]="shipId" thyPlaceHolder="请选择关系">
+                        </thy-custom-select>
+                    </div>
+
+                    <div class="btn-pair">
+                        <button thyButton="primary" (click)="saveModal()" [thyLoading]="saving" [thyLoadingText]="'提交中...'">确认1</button>
+                        <button thyButton="link-secondary" (click)="closeModal()">取消1</button>
+                    </div>
+                </div>
+
+            </ng-template>
+        </thy-modal-footer>
     </thy-modal>
 </ng-template>
 

@@ -7,7 +7,7 @@ import { ModalComponent } from './modal.component';
 })
 export class ModalFooterComponent implements OnInit {
 
-    @ContentChild(TemplateRef)
+    @ContentChild('thyModalFooterTemplate')
     public footerTemplate: TemplateRef<any>;
 
     public isTemplateRef: boolean;
