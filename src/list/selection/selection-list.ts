@@ -16,20 +16,20 @@ import {
     NgZone,
     forwardRef
 } from '@angular/core';
-import { FocusKeyManager } from '@angular/cdk/a11y';
+import { FocusKeyManager, ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
 import {
     ThyListOptionComponent,
     THY_OPTION_PARENT_COMPONENT,
     IThyOptionParentComponent
 } from '../../core/option';
-import { keycodes, helpers } from '../../util';
+import { keycodes, helpers, dom } from '../../util';
 import { inputValueToBoolean } from '../../util/helpers';
 import { Subscription, throwError } from 'rxjs';
 import { DOCUMENT } from '@angular/platform-browser';
 import { ThySelectionListChange } from './selection.interface';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-
+import { ScrollToService } from '../../core';
 
 @Component({
     selector: 'thy-selection-list,[thy-selection-list]',
@@ -49,7 +49,7 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 })
 export class ThySelectionListComponent implements OnInit, OnDestroy, AfterContentInit, IThyOptionParentComponent, ControlValueAccessor {
 
-    private _keyManager: FocusKeyManager<ThyListOptionComponent>;
+    private _keyManager: ActiveDescendantKeyManager<ThyListOptionComponent>;
 
     private _selectionChangesUnsubscribe$ = Subscription.EMPTY;
 
@@ -58,7 +58,7 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
     private _tempValues: any[];
 
     /** The currently selected options. */
-    selectionModel: SelectionModel<ThyListOptionComponent>;
+    selectionModel: SelectionModel<any>;
 
     disabled: boolean;
 
@@ -77,15 +77,16 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
         this.multiple = inputValueToBoolean(value);
         if (previousValue !== this.multiple) {
             this._instanceSelectionModel();
-            this._subscribeSelectionModelChanges();
         }
     }
 
     @Input() thyBindKeyEventContainer: HTMLElement | ElementRef | string;
 
+    @Input() thyScrollContainer: HTMLElement | ElementRef | string;
+
     @Input() thyBeforeKeydown: (event?: KeyboardEvent) => boolean;
 
-    @Input() thyCompareWith: (o1: any, o2: any) => boolean;
+    @Input() thyCompareWith: ((o1: any, o2: any) => boolean) | string;
 
     /** Emits a change event whenever the selected state of an option changes. */
     @Output() readonly thySelectionChange: EventEmitter<ThySelectionListChange> =
@@ -112,7 +113,7 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
     }
 
     private _initializeFocusKeyManager() {
-        this._keyManager = new FocusKeyManager<ThyListOptionComponent>(this.options)
+        this._keyManager = new ActiveDescendantKeyManager<ThyListOptionComponent>(this.options)
             .withWrap()
             // .withTypeAhead()
             // Allow disabled items to be focusable. For accessibility reasons, there must be a way for
@@ -120,38 +121,23 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
             .skipPredicate(() => false);
     }
 
-    private _subscribeSelectionModelChanges() {
-        // Sync external changes to the model back to the options.
-        this._selectionChangesUnsubscribe$ = this.selectionModel.onChange.subscribe(event => {
-            if (event.added) {
-                for (const item of event.added) {
-                    item.selected = true;
-                }
-            }
-
-            if (event.removed) {
-                for (const item of event.removed) {
-                    item.selected = false;
-                }
-            }
-        });
-    }
-
     private _instanceSelectionModel() {
-        this.selectionModel = new SelectionModel<ThyListOptionComponent>(this.multiple);
+        this.selectionModel = new SelectionModel<any>(this.multiple);
     }
 
-    private _getSelectorElement(element: HTMLElement | ElementRef | string) {
-        if (!element) {
-            return this.elementRef.nativeElement;
-        } else if (element === 'body') {
-            return this.document;
-        } else if (helpers.isString(element)) {
-            return this.document.querySelector(element as string);
-        } else if (element instanceof ElementRef) {
-            return element.nativeElement;
+    private _getElementBySelector(element: HTMLElement | ElementRef | string): HTMLElement {
+        return dom.getHTMLElementBySelector(element, this.elementRef);
+    }
+
+    private _compareValue(value1: any, value2: any) {
+        if (helpers.isString(this.thyCompareWith)) {
+            const key = this.thyCompareWith as string;
+            return value1 && value1[key] === value2 && value2[key];
+        } else if (this.thyCompareWith) {
+            const compareFn = this.thyCompareWith as (o1: any, o2: any) => boolean;
+            return compareFn(value1, value2);
         } else {
-            return element;
+            return value1 === value2;
         }
     }
 
@@ -165,11 +151,10 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
                 if (option.selected) {
                     return false;
                 }
-
-                return this.thyCompareWith ? this.thyCompareWith(option.thyValue, value) : option.thyValue === value;
+                return this._compareValue(option.thyValue, value);
             });
             if (correspondingOption) {
-                this.selectionModel.select(correspondingOption);
+                this.selectionModel.select(correspondingOption.thyValue);
             }
         });
     }
@@ -180,23 +165,35 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
         let hasChanged = false;
 
         this.options.forEach(option => {
-            const fromIsSelected = this.selectionModel.isSelected(option);
+            const fromIsSelected = this.selectionModel.isSelected(option.thyValue);
             if (fromIsSelected !== toIsSelected) {
                 hasChanged = true;
-                this.selectionModel.toggle(option);
+                this.selectionModel.toggle(option.thyValue);
             }
         });
 
         if (hasChanged) {
-            this._reportModelValueChange();
+            this._emitModelValueChange();
         }
     }
 
-    private _reportModelValueChange() {
+    private _getOptionByValue(value: any) {
+        return this.options.find(option => {
+            return this._compareValue(option.thyValue, value);
+        });
+    }
+
+    private _getActiveOption() {
+        if (this._keyManager.activeItem) {
+            return this._getOptionByValue(this._keyManager.activeItem.thyValue);
+        } else {
+            return null;
+        }
+    }
+
+    private _emitModelValueChange() {
         if (this.options) {
-            const selectedValues = this.selectionModel.selected.map((option) => {
-                return option.thyValue;
-            });
+            const selectedValues = this.selectionModel.selected;
             let changeValue = selectedValues;
             if (!this.multiple && selectedValues && selectedValues.length > 0) {
                 changeValue = selectedValues[0];
@@ -214,12 +211,11 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
     }
 
     ngOnInit() {
-        const bindKeyEventElement = this._getSelectorElement(this.thyBindKeyEventContainer);
+        const bindKeyEventElement = this._getElementBySelector(this.thyBindKeyEventContainer);
         this.ngZone.runOutsideAngular(() => {
             this._bindKeyEventUnsubscribe = this.renderer.listen(bindKeyEventElement, 'keydown', this.onKeydown.bind(this));
         });
         this._instanceSelectionModel();
-        this._subscribeSelectionModelChanges();
     }
 
     writeValue(value: any[] | any): void {
@@ -282,16 +278,33 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
 
     toggleOption(option: ThyListOptionComponent, event?: Event) {
         if (option && !option.disabled) {
-            this.selectionModel.toggle(option);
+            this.selectionModel.toggle(option.thyValue);
             // Emit a change event because the focused option changed its state through user
             // interaction.
-            this._reportModelValueChange();
+            this._emitModelValueChange();
             this._emitChangeEvent(option, event);
         }
     }
 
-    setFocusedOption(option: ThyListOptionComponent) {
+    setActiveOption(option: ThyListOptionComponent) {
         this._keyManager.updateActiveItem(option); // .updateActiveItemIndex(this._getOptionIndex(option));
+    }
+
+    scrollIntoView(option: ThyListOptionComponent) {
+        const scrollContainerElement = dom.getHTMLElementBySelector(this.thyScrollContainer, this.elementRef);
+        ScrollToService.scrollToElement(option.element.nativeElement, scrollContainerElement);
+    }
+
+    clearActiveItem() {
+        if (this._keyManager.activeItem) {
+            this._keyManager.setActiveItem(-1);
+        }
+    }
+
+    determineClearActiveItem() {
+        if (!this._getActiveOption()) {
+            this.clearActiveItem();
+        }
     }
 
     /** Selects all of the options. */
@@ -306,7 +319,6 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
 
     ngAfterContentInit(): void {
         this._initializeFocusKeyManager();
-        // this._subscribeSelectionModelChanges();
         if (this._tempValues) {
             this._setOptionsFromValues(this._tempValues);
             this._tempValues = null;

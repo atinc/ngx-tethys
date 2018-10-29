@@ -10,7 +10,7 @@ import {
     HostListener,
     Optional
 } from '@angular/core';
-import { FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
+import { FocusableOption, FocusOrigin, Highlightable } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
 import { inputValueToBoolean } from '../../util/helpers';
 
@@ -20,7 +20,8 @@ export interface IThyOptionParentComponent {
     multiple?: boolean;
     selectionModel: SelectionModel<ThyListOptionComponent>;
     toggleOption(option: ThyListOptionComponent, event?: Event): void;
-    setFocusedOption(option: ThyListOptionComponent, event?: Event): void;
+    setActiveOption(option: ThyListOptionComponent, event?: Event): void;
+    scrollIntoView(option: ThyListOptionComponent): void;
 }
 
 /**
@@ -34,7 +35,7 @@ export const THY_OPTION_PARENT_COMPONENT =
     selector: 'thy-list-option,[thy-list-option]',
     templateUrl: './list-option.component.html'
 })
-export class ThyListOptionComponent implements FocusableOption {
+export class ThyListOptionComponent implements Highlightable {
 
     @HostBinding(`class.thy-list-item`) _isListOption = true;
 
@@ -49,10 +50,13 @@ export class ThyListOptionComponent implements FocusableOption {
     disabled?: boolean;
 
     /** Whether the option is selected. */
-    @HostBinding(`class.active`) selected = false;
+    @HostBinding(`class.active`)
+    get selected() {
+        return this.parentSelectionList.selectionModel.isSelected(this.thyValue);
+    }
 
     constructor(
-        private element: ElementRef<HTMLElement>,
+        public element: ElementRef<HTMLElement>,
         private changeDetector: ChangeDetectorRef,
         /** @docs-private */
         @Optional() @Inject(THY_OPTION_PARENT_COMPONENT) public parentSelectionList: IThyOptionParentComponent
@@ -63,35 +67,28 @@ export class ThyListOptionComponent implements FocusableOption {
     @HostListener('click', ['$event'])
     onClick(event: Event) {
         this.parentSelectionList.toggleOption(this, event);
+        this.parentSelectionList.setActiveOption(this);
     }
 
-    @HostListener('focus', ['$event'])
-    onFocus(event: Event) {
-        this.parentSelectionList.setFocusedOption(this, event);
-    }
-
-    toggle(): void {
-        this.selected = !this.selected;
-    }
+    // @HostListener('focus', ['$event'])
+    // onFocus(event: Event) {
+    //     this.parentSelectionList.setFocusedOption(this, event);
+    // }
 
     /** Allows for programmatic focusing of the option. */
-    focus(origin?: FocusOrigin): void {
-        this.element.nativeElement.focus();
+    // focus(origin?: FocusOrigin): void {
+    //     this.element.nativeElement.focus();
+    // }
+
+    setActiveStyles(): void {
+        this.element.nativeElement.classList.add('hover');
+        this.parentSelectionList.scrollIntoView(this);
     }
 
-    setSelected(selected: boolean): boolean {
-        if (selected === this.selected) {
-            return false;
-        }
-        this.selected = selected;
-        if (selected) {
-            this.parentSelectionList.selectionModel.select(this);
-        } else {
-            this.parentSelectionList.selectionModel.deselect(this);
-        }
-        this.changeDetector.markForCheck();
-        return true;
+    setInactiveStyles(): void {
+        this.element.nativeElement.classList.remove('hover');
     }
+
     /**
      * Returns the list item's text label. Implemented as a part of the FocusKeyManager.
      * @docs-private
