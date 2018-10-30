@@ -41,7 +41,7 @@ export const THY_OPTION_PARENT_COMPONENT =
 })
 export class ThyListOptionComponent implements Highlightable {
 
-    @HostBinding(`class.thy-list-item`) _isListOption = true;
+    @HostBinding(`class.thy-list-option`) _isListOption = true;
 
     @HostBinding(`attr.role`) _role = 'option';
 
@@ -51,9 +51,12 @@ export class ThyListOptionComponent implements Highlightable {
 
     @Input() thyValue: any;
 
-    // @Input() thyValueKey: string;
+    @Input()
+    set thyDisabled(value: boolean) {
+        this.disabled = inputValueToBoolean(value);
+    }
 
-    disabled?: boolean;
+    @HostBinding(`class.disabled`) disabled?: boolean;
 
     /** Whether the option is selected. */
     @HostBinding(`class.active`)

@@ -1,10 +1,7 @@
 .thy-select-custom {
     .thy-select-custom-options {
       .thy-option-item {
-        &:not(.disabled).active {
-          background: rgba($primary, .1);
-          color: $primary;
-        }  
+        @include thy-option-theme();
       }
     }
 
@@ -18,11 +15,7 @@
 .thy-select-custom--multiple {  
     .thy-select-custom-options {
       .thy-option-item {
-        &:not(.disabled).active {
-          .checked-icon {
-            color: $primary !important;
-          }
-        }
+        @include thy-multiple-option-theme();
       }
     }
 }

@@ -1,0 +1,9 @@
+.thy-list-option {
+    @include thy-option-theme();
+}
+
+.thy-multiple-selection-list {
+    .thy-list-option {
+        @include thy-multiple-option-theme();
+    }
+}
