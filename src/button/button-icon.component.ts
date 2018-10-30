@@ -54,6 +54,7 @@ export class ThyButtonIconComponent implements OnInit {
     @HostBinding('class.btn') _isBtn = true;
     @HostBinding('class.btn-icon') _isBtnIcon = true;
     @HostBinding('class.btn-icon-light') _isLighted = false;
+    @HostBinding('class.btn-icon-active') _isActive = false;
 
     _setIconClass(icon: string) {
         if (icon) {
@@ -97,6 +98,11 @@ export class ThyButtonIconComponent implements OnInit {
     @Input()
     set thyLight(value: boolean) {
         this._isLighted = inputValueToBoolean(value);
+    }
+
+    @Input()
+    set thyActive(value: boolean) {
+        this._isActive = inputValueToBoolean(value);
     }
 
     @Input()
