@@ -1,3 +1,6 @@
+## 0.1.80
+1. 修复 `thy-selection-list` 的Bug：当 ngModel 设置的默认值在 `thy-list-option` 中不存在的时候报错的问题，存储默认值，modelChange Emit 的时候返回。
+
 ## 0.1.79
 1. `thy-selection-list` `thy-list-option` 样式调整以及换肤样式的添加；
 1. `thy-custom-select` 样式的修改，使用统一的  thy-option 样式 mixin。

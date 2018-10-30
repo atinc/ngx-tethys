@@ -55,7 +55,7 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
 
     private _bindKeyEventUnsubscribe: () => void;
 
-    private _tempValues: any[];
+    private _modelValues: any[];
 
     /** The currently selected options. */
     selectionModel: SelectionModel<any>;
@@ -116,9 +116,16 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
                     const selectedOption = this.options.find((option) => {
                         return option.thyValue[this.thyUniqueKey] === selectedValue;
                     });
-                    return selectedOption.thyValue;
+                    if (selectedOption) {
+                        return selectedOption.thyValue;
+                    } else {
+                        return this._modelValues.find((value) => {
+                            return value[this.thyUniqueKey] === selectedValue;
+                        });
+                    }
                 });
             }
+            this._modelValues = selectedValues;
             let changeValue = selectedValues;
             if (!this.multiple && selectedValues && selectedValues.length > 0) {
                 changeValue = selectedValues[0];
@@ -240,10 +247,9 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
             }
         }
         const values = helpers.isArray(value) ? value : (value ? [value] : []);
+        this._modelValues = values;
         if (this.options) {
             this._setSelectionByValues(values);
-        } else {
-            this._tempValues = values;
         }
     }
 
@@ -334,10 +340,10 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
 
     ngAfterContentInit(): void {
         this._initializeFocusKeyManager();
-        if (this._tempValues) {
-            this._setSelectionByValues(this._tempValues);
-            this._tempValues = null;
-        }
+        // if (this._tempValues) {
+        //     this._setSelectionByValues(this._tempValues);
+        //     this._tempValues = null;
+        // }
     }
 
     ngOnDestroy() {
