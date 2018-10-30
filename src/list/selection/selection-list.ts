@@ -86,7 +86,9 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
 
     @Input() thyBeforeKeydown: (event?: KeyboardEvent) => boolean;
 
-    @Input() thyCompareWith: ((o1: any, o2: any) => boolean) | string;
+    @Input() thyUniqueKey: string;
+
+    @Input() thyCompareWith: ((o1: any, o2: any) => boolean);
 
     /** Emits a change event whenever the selected state of an option changes. */
     @Output() readonly thySelectionChange: EventEmitter<ThySelectionListChange> =
@@ -99,9 +101,30 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
     private _emitChangeEvent(option: ThyListOptionComponent, event: Event) {
         this.thySelectionChange.emit({
             source: this,
+            value: option.thyValue,
             option: option,
-            event: event
+            event: event,
+            selected: this.isSelected(option)
         });
+    }
+
+    private _emitModelValueChange() {
+        if (this.options) {
+            let selectedValues = this.selectionModel.selected;
+            if (this.thyUniqueKey) {
+                selectedValues = selectedValues.map((selectedValue) => {
+                    const selectedOption = this.options.find((option) => {
+                        return option.thyValue[this.thyUniqueKey] === selectedValue;
+                    });
+                    return selectedOption.thyValue;
+                });
+            }
+            let changeValue = selectedValues;
+            if (!this.multiple && selectedValues && selectedValues.length > 0) {
+                changeValue = selectedValues[0];
+            }
+            this._onChange(changeValue);
+        }
     }
 
     private _toggleFocusedOption(event: KeyboardEvent): void {
@@ -130,42 +153,34 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
     }
 
     private _compareValue(value1: any, value2: any) {
-        if (helpers.isString(this.thyCompareWith)) {
-            const key = this.thyCompareWith as string;
-            return value1 && value1[key] === value2 && value2[key];
-        } else if (this.thyCompareWith) {
+        if (this.thyCompareWith) {
             const compareFn = this.thyCompareWith as (o1: any, o2: any) => boolean;
             return compareFn(value1, value2);
+        } else if (this.thyUniqueKey) {
+            return value1 && value1[this.thyUniqueKey] === value2 && value2[this.thyUniqueKey];
         } else {
             return value1 === value2;
+        }
+    }
+
+    private _getOptionSelectionValue(option: ThyListOptionComponent) {
+        if (option.thyValue) {
+            return this.thyUniqueKey ? option.thyValue[this.thyUniqueKey] : option.thyValue;
+        } else {
+            return option;
         }
     }
 
     private _setSelectionByValues(values: any[]) {
         this.selectionModel.clear();
         values.forEach(value => {
-            this.selectionModel.select(value);
+            if (this.thyUniqueKey) {
+                this.selectionModel.select(value[this.thyUniqueKey]);
+            } else {
+                this.selectionModel.select(value);
+            }
         });
     }
-
-    // private _setOptionsFromValues(values: any[]) {
-    //     // this.options.forEach(option => option.setSelected(false));
-    //     this.selectionModel.clear();
-    //     values.forEach(value => {
-    //         this.selectionModel.select(value);
-    //         const correspondingOption = this.options.find(option => {
-    //             // Skip options that are already in the model. This allows us to handle cases
-    //             // where the same primitive value is selected multiple times.
-    //             if (option.selected) {
-    //                 return false;
-    //             }
-    //             return this._compareValue(option.thyValue, value);
-    //         });
-    //         if (correspondingOption) {
-    //             this.selectionModel.select(correspondingOption.thyValue);
-    //         }
-    //     });
-    // }
 
     private _setAllOptionsSelected(toIsSelected: boolean) {
         // Keep track of whether anything changed, because we only want to
@@ -199,17 +214,6 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
         }
     }
 
-    private _emitModelValueChange() {
-        if (this.options) {
-            const selectedValues = this.selectionModel.selected;
-            let changeValue = selectedValues;
-            if (!this.multiple && selectedValues && selectedValues.length > 0) {
-                changeValue = selectedValues[0];
-            }
-            this._onChange(changeValue);
-        }
-    }
-
     constructor(
         private renderer: Renderer2,
         private elementRef: ElementRef,
@@ -235,9 +239,9 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
                 throw new Error(`single selection ngModel not be array.`);
             }
         }
-        const values = helpers.isArray(value) ? value : (value ? [value] : null);
+        const values = helpers.isArray(value) ? value : (value ? [value] : []);
         if (this.options) {
-            this._setSelectionByValues(values || []);
+            this._setSelectionByValues(values);
         } else {
             this._tempValues = values;
         }
@@ -277,7 +281,6 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
             default:
                 manager.onKeydown(event);
         }
-
         if ((keyCode === keycodes.UP_ARROW || keyCode === keycodes.DOWN_ARROW) && event.shiftKey &&
             manager.activeItemIndex !== previousFocusIndex) {
             this._toggleFocusedOption(event);
@@ -286,7 +289,7 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
 
     toggleOption(option: ThyListOptionComponent, event?: Event) {
         if (option && !option.disabled) {
-            this.selectionModel.toggle(option.thyValue);
+            this.selectionModel.toggle(this._getOptionSelectionValue(option));
             // Emit a change event because the focused option changed its state through user
             // interaction.
             this._emitModelValueChange();
@@ -301,6 +304,10 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
     scrollIntoView(option: ThyListOptionComponent) {
         const scrollContainerElement = dom.getHTMLElementBySelector(this.thyScrollContainer, this.elementRef);
         ScrollToService.scrollToElement(option.element.nativeElement, scrollContainerElement);
+    }
+
+    isSelected(option: ThyListOptionComponent) {
+        return this.selectionModel.isSelected(this._getOptionSelectionValue(option));
     }
 
     clearActiveItem() {

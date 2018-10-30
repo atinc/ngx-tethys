@@ -41,7 +41,11 @@ export class DemoListComponent {
         {
             id: 7,
             name: 'Item 7'
-        }
+        },
+        {
+            id: 1,
+            name: 'Item 1 Repeat'
+        },
     ];
 
     items: any[];
@@ -50,15 +54,67 @@ export class DemoListComponent {
         multiple: true,
         stopKeydownEvent: false,
         selectAll: false,
-        defaultValues: [2, 3]
+        defaultValues: [2, 3],
+        objectValues: []
     };
+
+    public apiOptionParameters = [
+        {
+            property: 'thyValue',
+            description: '选项的 Value，可以是普通的 ID，也可以是对象，与 thy-selection-list 的 ngModel 和 thyUniqueKey 配合使用',
+            type: 'any',
+            default: 'null'
+        }
+    ];
 
     public apiParameters = [
         {
-            property: 'hoverClass',
-            description: '选择 Hover  状态的样式',
+            property: 'thyBindKeyEventContainer',
+            description: '绑定键盘事件的容器',
+            type: 'Element | ElementRef | string',
+            default: 'thy-selection-list 组件绑定的元素'
+        },
+        {
+            property: 'thyScrollContainer',
+            description: '出现滚动条的容器',
+            type: 'Element | ElementRef | string',
+            default: 'thy-selection-list 组件绑定的元素'
+        },
+        {
+            property: 'thyBeforeKeydown',
+            description: '键盘事件触发 Before 调用，如果返回 false 则停止继续执行',
+            type: 'Function',
+            default: 'null'
+        },
+        {
+            property: 'thyMultiple',
+            description: '是否为多选',
+            type: 'Boolean',
+            default: 'true'
+        },
+        {
+            property: 'thyUniqueKey',
+            description: 'Option Value 唯一的 Key，用于存储哪些选择被选中的唯一值，只有 Option 的 thyValue 是对象的时才可以传入该选项',
             type: 'String',
-            default: 'key-hover'
+            default: 'null'
+        },
+        {
+            property: 'thyCompareWith',
+            description: '比较2个选项的 Value 是否相同',
+            type: 'Function',
+            default: 'null'
+        },
+        {
+            property: 'thySelectionChange',
+            description: '选择 Options 的 Change 事件，',
+            type: 'Function',
+            default: 'null'
+        },
+        {
+            property: 'ngModel',
+            description: '默认选择项，选择项可以是对象，也可以是唯一的 ID，一般和 Option 的 thyValue 对应',
+            type: 'any　| any[]',
+            default: 'null'
         }
     ];
 
@@ -69,7 +125,8 @@ export class DemoListComponent {
     constructor() {
         setTimeout(() => {
             this.items = this.allItems;
-        }, 2000);
+            this.selectionModel.objectValues = [this.items[0]];
+        }, 1000);
     }
 
     selectionChange(event: ThySelectionListChange) {

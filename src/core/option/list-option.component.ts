@@ -11,17 +11,21 @@ import {
     Optional
 } from '@angular/core';
 import { FocusableOption, FocusOrigin, Highlightable } from '@angular/cdk/a11y';
-import { SelectionModel } from '@angular/cdk/collections';
+// import { SelectionModel } from '@angular/cdk/collections';
 import { inputValueToBoolean } from '../../util/helpers';
 
 let _uniqueIdCounter = 0;
 
 export interface IThyOptionParentComponent {
     multiple?: boolean;
-    selectionModel: SelectionModel<ThyListOptionComponent>;
+    // selectionModel: SelectionModel<ThyListOptionComponent>;
+    // 选择，取消选择 option
     toggleOption(option: ThyListOptionComponent, event?: Event): void;
+    // 设置当前选项为激活状态，即 hover 状态
     setActiveOption(option: ThyListOptionComponent, event?: Event): void;
+    // 滚动到当前的选项
     scrollIntoView(option: ThyListOptionComponent): void;
+    isSelected(option: ThyListOptionComponent): boolean;
 }
 
 /**
@@ -47,12 +51,14 @@ export class ThyListOptionComponent implements Highlightable {
 
     @Input() thyValue: any;
 
+    // @Input() thyValueKey: string;
+
     disabled?: boolean;
 
     /** Whether the option is selected. */
     @HostBinding(`class.active`)
     get selected() {
-        return this.parentSelectionList.selectionModel.isSelected(this.thyValue);
+        return this.parentSelectionList.isSelected(this);
     }
 
     constructor(
