@@ -16,6 +16,7 @@ import { ThyActionMenuModule } from './action-menu/action-menu.module';
 import { ThyConfirmModule } from './confirm/confirm.module';
 import { ThyTreeModule } from './tree/tree.module';
 import { ThyDatepickerModule } from './datepicker/datepicker.module';
+import { ThyDatepickerNextModule } from './datepicker-next/datepicker-next.module';
 import { ThyNotifyModule } from './notify/notify.module';
 import { ThyEmptyModule } from './empty';
 import { ThySwitchModule } from './switch/switch.module';
@@ -52,6 +53,7 @@ const IMPORT_EXPORT_MODULES = [
     ThyCardModule,
     ThyLoadingModule,
     ThyDatepickerModule,
+    ThyDatepickerNextModule,
     ThyActionMenuModule,
     ThyConfirmModule,
     ThyTreeModule,

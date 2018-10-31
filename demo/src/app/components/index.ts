@@ -43,6 +43,7 @@ import { DemoEditorSectionComponent } from './+editor/editor-section.component';
 import { DemoDateRangeSectionComponent } from './+date-range/date-range-section.component';
 import { DemoKeySelectSectionComponent } from './+key-select/key-select-section.component';
 import { DemoListComponent } from './+list/list-section.component';
+import { DemoDatepickerNextSectionComponent } from './+datepicker-next/datepicker-next-section.component';
 
 
 export const COMPONENTS = [
@@ -79,6 +80,7 @@ export const COMPONENTS = [
     DemoTransferSectionComponent,
     DemoFormSectionComponent,
     DemoDataPickerSectionComponent,
+    DemoDatepickerNextSectionComponent,
     DemoInputSectionComponent,
     DemoDropdownSectionComponent,
     DemoProgressSectionComponent,
