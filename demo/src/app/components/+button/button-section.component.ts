@@ -88,6 +88,12 @@ export class DemoButtonSectionComponent {
             description: `亮色，颜色更浅，适合左侧导航顶部的按钮`,
             type: 'Boolean',
             default: 'false'
+        },
+        {
+            property: 'thyActive',
+            description: `设置为选中状态`,
+            type: 'Boolean',
+            default: 'false'
         }
     ];
 

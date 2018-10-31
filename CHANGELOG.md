@@ -1,3 +1,9 @@
+## 0.1.78
+`thy-selection-list` 添加 `thyUniqueKey` 属性用于 thyValue 是对象，但是存储选项的 Value 使用唯一 Key 的场景，主要用于选择的列表有不同对象引用，但是表示同一个对象的场景，比如与多个 Member 都是 {id:1,name:'张三'}，但是会来自不同的列表
+
+## 0.1.77
+change `thy-selection-list` component support delay load options, the default values can been selected.
+
 ## 0.1.76
 1. `thy-grid` fix sortable bug ,restore `sortablejs` reference
 
