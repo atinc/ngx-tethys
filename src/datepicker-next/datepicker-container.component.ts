@@ -1,7 +1,13 @@
 import { Component, OnInit, HostBinding, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 import { ThyDatepickerNextStore, datepickerNextActions } from './datepicker-next.store';
 import { ThyDatepickerNextEventsEnum, ThyDatepickerNextInfo } from './datepicker-next.interface';
-
+import {
+    ComponentType,
+    Overlay,
+    OverlayRef,
+    OverlayConfig,
+    ScrollStrategy,
+} from '@angular/cdk/overlay';
 
 @Component({
     selector: 'thy-datepicker-next',
@@ -23,7 +29,7 @@ export class ThyDatepickerNextContainerComponent implements OnInit, OnDestroy {
     loadingDone = false;
 
     constructor(
-        public store: ThyDatepickerNextStore
+        public store: ThyDatepickerNextStore,
     ) { }
 
     ngOnInit() {

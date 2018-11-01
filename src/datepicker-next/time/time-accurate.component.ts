@@ -3,6 +3,7 @@ import { getFullTimeText } from '../util';
 import { ThyDatepickerNextTimeInfo } from '../datepicker-next.interface';
 import { ThyDatepickerNextStore, datepickerNextActions } from '../datepicker-next.store';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 interface ThyDatepickerNextTime extends ThyDatepickerNextTimeInfo {
     text: string;
@@ -35,6 +36,7 @@ export class ThyDatepickerNextTimeAccurateComponent implements OnInit, OnDestroy
 
     ngOnInit() {
         this.store.select(ThyDatepickerNextStore.timeSelected)
+            .pipe(takeUntil(this.ngUnsubscribe$))
             .subscribe(n => {
                 if (this.store.snapshot.timeSelected) {
                     this.time = {
