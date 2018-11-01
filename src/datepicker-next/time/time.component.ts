@@ -9,7 +9,25 @@ export class ThyDatepickerNextTimeComponent implements OnInit {
 
     @HostBinding('class') stylesClass = 'time-container';
 
+    isEdit = false;
+
+    timeText: string;
+
     constructor() { }
 
-    ngOnInit() { }
+    ngOnInit() {
+
+    }
+
+    private _combinationTimeText() {
+
+    }
+
+    behaviorOnChange() {
+
+    }
+
+    behaviorOnDone() {
+
+    }
 }

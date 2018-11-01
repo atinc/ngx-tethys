@@ -26,5 +26,12 @@ export function calendarDateConvert(year: number, month: number, day?: number): 
     }
 }
 
+export function getFullTimeText(value: number): string {
+    if (value < 10) {
+        return `0${value}`;
+    }
+    return value + '';
+}
+
 
 

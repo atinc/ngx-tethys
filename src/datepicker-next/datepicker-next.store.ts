@@ -2,7 +2,8 @@ import { Store, Action } from '../store';
 import {
     DatepickerNextCalendarViewModeEnum,
     ThyDatepickerNextCalendarDate,
-    DatepickerNextValueChangeTypeEnum
+    DatepickerNextValueChangeTypeEnum,
+    ThyDatepickerNextTimeInfo
 } from './datepicker-next.interface';
 import { calendarDateConvert } from './util';
 
@@ -15,6 +16,7 @@ export class DatepickerNextState {
     };
     calendarCurrent: ThyDatepickerNextCalendarDate;
     calendarSelected: ThyDatepickerNextCalendarDate;
+    timeSelected: ThyDatepickerNextTimeInfo;
     valueChange: any;
 }
 
@@ -24,6 +26,7 @@ export const datepickerNextActions = {
     changeCalendarViewMode: 'changeCalendarViewMode',
     changeCalendarCurrent: 'changeCalendarCurrent',
     changeCalendarSelected: 'changeCalendarSelected',
+    changeTimeSelected: 'changeTimeSelected',
     valueChange: 'valueChange',
 };
 
@@ -39,6 +42,10 @@ export class ThyDatepickerNextStore extends Store<DatepickerNextState> {
 
     static calendarSelected(state: DatepickerNextState) {
         return state.calendarSelected;
+    }
+
+    static timeSelected(state: DatepickerNextState) {
+        return state.timeSelected;
     }
 
     static calendarCurrentYear(state: DatepickerNextState) {
@@ -150,5 +157,13 @@ export class ThyDatepickerNextStore extends Store<DatepickerNextState> {
         this.next(state);
     }
 
+    @Action(datepickerNextActions.changeTimeSelected)
+    changeTimeSelected(state: DatepickerNextState, payload: ThyDatepickerNextTimeInfo): void {
+        state.timeSelected = {
+            hour: payload.hour,
+            minute: payload.minute,
+        };
+        this.next(state);
+    }
 
 }

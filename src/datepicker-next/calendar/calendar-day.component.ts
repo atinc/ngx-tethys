@@ -1,10 +1,10 @@
 import { Component, OnInit, HostBinding, OnDestroy } from '@angular/core';
 import { sliceArray, calendarDateConvert } from '../util';
-import { helpers } from '../../util';
 import { ThyDatepickerNextStore, datepickerNextActions } from '../datepicker-next.store';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ThyDatepickerNextContainerComponent } from '../datepicker-container.component';
+import { ThyDatepickerNextEventsEnum } from '../datepicker-next.interface';
 
 const weeks = ['日', '一', '二', '三', '四', '五', '六'];
 
@@ -47,7 +47,7 @@ export class ThyDatepickerNextCalendarDayComponent implements OnInit, OnDestroy 
 
     constructor(
         public store: ThyDatepickerNextStore,
-        // public parentComponent: ThyDatepickerNextContainerComponent,
+        public parentComponent: ThyDatepickerNextContainerComponent,
     ) { }
 
     ngOnInit() {
@@ -217,7 +217,7 @@ export class ThyDatepickerNextCalendarDayComponent implements OnInit, OnDestroy 
             item.isActive = true;
         }
 
-        // this.parentComponent.behaviorValueChange();
+        this.parentComponent.behaviorValueChange(ThyDatepickerNextEventsEnum.calendarDone);
     }
 
     ngOnDestroy(): void {

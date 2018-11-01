@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 // import { ThyDatepickerNextService } from './datepicker-next.service';
 import { ThyDatepickerNextContainerComponent } from './datepicker-container.component';
 
-
+import { ThyDatepickerNextCalendarComponent } from './calendar/calendar.component';
 import { ThyDatepickerNextCalendarHeadComponent } from './calendar/calendar.head.component';
 import { ThyDatepickerNextCalendarDayComponent } from './calendar/calendar-day.component';
 import { ThyDatepickerNextCalendarMonthComponent } from './calendar/calendar-month.component';
@@ -19,18 +19,26 @@ import { ThyStoreModule } from '../store/module';
 import { ThyDatepickerNextStore } from './datepicker-next.store';
 import { ThyButtonModule } from '../button';
 import { ThyDatepickerNextOperationComponent } from './operation/operation.component';
+import { FormsModule } from '@angular/forms';
+import { ThyEnterDirective } from '../directive/thy-enter.directive';
 
 @NgModule({
     imports: [
         CommonModule,
+        FormsModule,
+        // ThyEnterDirective,
         ThyButtonModule,
         ThyStoreModule.forFeature([ThyDatepickerNextStore]),
     ],
     exports: [
         ThyDatepickerNextContainerComponent,
+
+        ThyDatepickerNextTimeSimplyComponent,
+        ThyDatepickerNextTimeAccurateComponent,
     ],
     entryComponents: [
         ThyDatepickerNextContainerComponent,
+        ThyDatepickerNextCalendarComponent,
         ThyDatepickerNextCalendarDayComponent,
         ThyDatepickerNextCalendarMonthComponent,
         ThyDatepickerNextCalendarYearComponent,
@@ -39,9 +47,13 @@ import { ThyDatepickerNextOperationComponent } from './operation/operation.compo
         ThyDatepickerNextTimeAccurateComponent,
         ThyDatepickerNextTimeSimplyComponent,
         ThyDatepickerNextOperationComponent,
+
+        ThyDatepickerNextTimeSimplyComponent,
+        ThyDatepickerNextTimeAccurateComponent,
     ],
     declarations: [
         ThyDatepickerNextContainerComponent,
+        ThyDatepickerNextCalendarComponent,
         ThyDatepickerNextCalendarHeadComponent,
         ThyDatepickerNextCalendarDayComponent,
         ThyDatepickerNextCalendarMonthComponent,
@@ -51,6 +63,9 @@ import { ThyDatepickerNextOperationComponent } from './operation/operation.compo
         ThyDatepickerNextTimeAccurateComponent,
         ThyDatepickerNextTimeSimplyComponent,
         ThyDatepickerNextOperationComponent,
+
+        ThyDatepickerNextTimeSimplyComponent,
+        ThyDatepickerNextTimeAccurateComponent,
     ],
     providers: [
     ],

@@ -1,1 +1,8 @@
-<div>设置时间</div>
+<ng-container *ngIf="!isEdit">
+    <div>设置时间</div>
+</ng-container>
+<ng-container *ngIf="isEdit">
+    <div>
+        <input thyInput name="time" [(ngModel)]="timeText" placeholder="请选择事件">
+    </div>
+</ng-container>

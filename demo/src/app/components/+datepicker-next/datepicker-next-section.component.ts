@@ -84,7 +84,7 @@ export class DemoDatepickerNextSectionComponent implements OnInit {
 
     apiParameters = [
         {
-            property: 'thyOnSelect',
+            property: 'thyValueChange',
             description: '组件指令',
             type: '',
             default: ''

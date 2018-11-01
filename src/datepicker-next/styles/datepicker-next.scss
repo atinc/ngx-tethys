@@ -119,3 +119,33 @@ $thyDatepickerNext: 'thy-datepicker-next';
         }
     }
 }
+
+.time-accurate-container,
+.time-simply-container {
+    display: inline-block;
+    width: 230px;
+    max-height: 308px;
+    border: solid 1px gray;
+    overflow: auto;
+
+    .time-cell {
+        line-height: 30px;
+        text-align: center;
+        cursor: pointer;
+
+        &.active,
+        &:hover {
+            background: $gray-200;
+        }
+    }
+}
+
+.time-accurate-container {
+    display: flex;
+    overflow: visible;
+
+    .time-group {
+        flex: 1;
+        overflow: auto;
+    }
+}
