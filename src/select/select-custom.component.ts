@@ -9,7 +9,7 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ThyOptionComponent } from './option.component';
 import { ThyActionMenuSubItemDirective } from '../action-menu/action-menu.component';
 import { ThyPositioningService } from '../positioning/positioning.service';
-import { isUndefinedOrNull } from '../util/helpers';
+import { isUndefinedOrNull, inputValueToBoolean } from '../util/helpers';
 
 export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -60,6 +60,8 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
 
     _viewContentInitialized = false;
 
+    _loadingDone = true;
+
     private onTouchedCallback: () => void = noop;
 
     private onChangeCallback: (_: any) => void = noop;
@@ -97,6 +99,16 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
     }
 
     @Input() thyAllowClear = false;
+
+    @Input()
+    set thyLoadingDone(value: boolean) {
+        this._loadingDone = inputValueToBoolean(value);
+    }
+
+    @Input()
+    set thyDisabled(value: string) {
+        this._disabled = inputValueToBoolean(value);
+    }
 
     _listOfOptionComponent: QueryList<ThyOptionComponent>;
 
@@ -256,7 +268,14 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
         this.onChangeCallback(value);
     }
 
+    setDisabledState(isDisabled: boolean): void {
+        this._disabled = inputValueToBoolean(isDisabled);
+    }
+
     dropDownMenuToggle(event: Event, templateRef: any) {
+        if (this._disabled) {
+            return;
+        }
         this._expandOptions = !this._expandOptions;
     }
 

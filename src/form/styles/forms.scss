@@ -48,6 +48,7 @@
   // HTML5 says that controls under a fieldset > legend:first-child won't be
   // disabled if the fieldset is disabled. Due to implementation difficulty, we
   // don't honor that edge case; we style them as disabled anyway.
+  &.disabled,
   &:disabled {
     background-color: $input-disabled-bg;
     color: $input-disabled-color;
@@ -65,7 +66,7 @@
   }
 
   // Thy Custom
-  &:not(:disabled){
+  &:not(:disabled):not(.disabled) {
     @include hover {
       border-color: $input-hover-border-color;
     }

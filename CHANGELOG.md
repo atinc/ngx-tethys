@@ -1,3 +1,13 @@
+## 0.1.81
+1. select-custom add `thyDisabled` property.
+
+## 0.1.80
+1. 修复 `thy-selection-list` 的Bug：当 ngModel 设置的默认值在 `thy-list-option` 中不存在的时候报错的问题，存储默认值，modelChange Emit 的时候返回。
+
+## 0.1.79
+1. `thy-selection-list` `thy-list-option` 样式调整以及换肤样式的添加；
+1. `thy-custom-select` 样式的修改，使用统一的  thy-option 样式 mixin。
+
 ## 0.1.78
 `thy-selection-list` 添加 `thyUniqueKey` 属性用于 thyValue 是对象，但是存储选项的 Value 使用唯一 Key 的场景，主要用于选择的列表有不同对象引用，但是表示同一个对象的场景，比如与多个 Member 都是 {id:1,name:'张三'}，但是会来自不同的列表
 

@@ -34,7 +34,7 @@
         <thy-selection-list [style.height]="'200px'" [(ngModel)]="selectionModel.defaultValues"
             [thyBindKeyEventContainer]="body" [thyBeforeKeydown]="thyBeforeKeydown" [thyMultiple]="selectionModel.multiple"
             (thySelectionChange)="selectionChange($event)">
-            <thy-list-option *ngFor="let item of items; trackBy:item?.id" [thyValue]="item?.id">
+            <thy-list-option *ngFor="let item of items; trackBy:item?.id" [thyDisabled]="item.id === 2" [thyValue]="item?.id">
                 {{item.name}}
             </thy-list-option>
         </thy-selection-list>
