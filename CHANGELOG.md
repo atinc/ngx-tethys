@@ -1,3 +1,6 @@
+## 0.1.81
+1. select-custom add `thyDisabled` property.
+
 ## 0.1.80
 1. 修复 `thy-selection-list` 的Bug：当 ngModel 设置的默认值在 `thy-list-option` 中不存在的时候报错的问题，存储默认值，modelChange Emit 的时候返回。
 

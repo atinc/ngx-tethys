@@ -92,6 +92,12 @@ export class DemoSelectSectionComponent {
             description: '数据为空时显示的提示文字',
             type: 'string',
             default: ''
+        },
+        {
+            property: 'thyDisabled',
+            description: '是否禁用，如果使用了 ngModel，也可以使用 disabled 属性',
+            type: 'boolean',
+            default: 'false'
         }
     ];
 
