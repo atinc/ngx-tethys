@@ -1,2 +1,10 @@
-<div>12</div>
-<div>35</div>
+<div class="time-group">
+    <div class="time-cell" *ngFor="let hour of hours; trackBy:trackByFn" [ngClass]="{'active': hour.isActive}" (click)="onSelectHour(hour)">
+        {{hour.text}}
+    </div>
+</div>
+<div class="time-group">
+    <div class="time-cell" *ngFor="let minute of minutes; trackBy:trackByFn" [ngClass]="{'active': minute.isActive}" (click)="onSelectMinute(minute)">
+        {{minute.text}}
+    </div>
+</div>

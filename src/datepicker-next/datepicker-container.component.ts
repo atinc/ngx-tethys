@@ -1,25 +1,13 @@
 import { Component, OnInit, HostBinding, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 import { ThyDatepickerNextStore, datepickerNextActions } from './datepicker-next.store';
-import { DatepickerNextCalendarViewModeEnum } from './datepicker-next.interface';
-
-import { ThyDatepickerNextCalendarDayComponent } from './calendar/calendar-day.component';
-import { ThyDatepickerNextCalendarMonthComponent } from './calendar/calendar-month.component';
-import { ThyDatepickerNextCalendarYearComponent } from './calendar/calendar-year.component';
-
-import { ThyDatepickerNextShortcutComponent } from './shortcut/shortcut.component';
-
-import { ThyDatepickerNextTimeComponent } from './time/time.component';
-
-import { ThyDatepickerNextOperationComponent } from './operation/operation.component';
-import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
-
-
-const CalendarViewModeComponentEnum = {
-    [DatepickerNextCalendarViewModeEnum.day]: ThyDatepickerNextCalendarDayComponent,
-    [DatepickerNextCalendarViewModeEnum.month]: ThyDatepickerNextCalendarMonthComponent,
-    [DatepickerNextCalendarViewModeEnum.year]: ThyDatepickerNextCalendarYearComponent,
-};
+import { ThyDatepickerNextEventsEnum, ThyDatepickerNextInfo } from './datepicker-next.interface';
+import {
+    ComponentType,
+    Overlay,
+    OverlayRef,
+    OverlayConfig,
+    ScrollStrategy,
+} from '@angular/cdk/overlay';
 
 @Component({
     selector: 'thy-datepicker-next',
@@ -40,18 +28,8 @@ export class ThyDatepickerNextContainerComponent implements OnInit, OnDestroy {
 
     loadingDone = false;
 
-    calendarViewModeComponentEnum = CalendarViewModeComponentEnum;
-
-    shortcutComponent = ThyDatepickerNextShortcutComponent;
-
-    timeComponent = ThyDatepickerNextTimeComponent;
-
-    operationComponent = ThyDatepickerNextOperationComponent;
-
-    private ngUnsubscribe$ = new Subject();
-
     constructor(
-        public store: ThyDatepickerNextStore
+        public store: ThyDatepickerNextStore,
     ) { }
 
     ngOnInit() {
@@ -63,8 +41,34 @@ export class ThyDatepickerNextContainerComponent implements OnInit, OnDestroy {
         this.store.dispatch(datepickerNextActions.initCalendarView);
     }
 
-    public behaviorValueChange() {
-        const result = this.store.snapshot.calendarSelected;
+    public behaviorValueChange(event?: ThyDatepickerNextEventsEnum) {
+        let result: ThyDatepickerNextInfo = {};
+        switch (event) {
+            case ThyDatepickerNextEventsEnum.done:
+                result = {
+                    year: this.store.snapshot.calendarSelected.year,
+                    month: this.store.snapshot.calendarSelected.month,
+                    day: this.store.snapshot.calendarSelected.day,
+                };
+                if (this.store.snapshot.timeSelected) {
+                    const time = {
+                        hour: this.store.snapshot.timeSelected.hour,
+                        minute: this.store.snapshot.timeSelected.minute,
+                    };
+                    Object.assign(result, time);
+                }
+                break;
+            case ThyDatepickerNextEventsEnum.calendarDone:
+                result = {
+                    year: this.store.snapshot.calendarSelected.year,
+                    month: this.store.snapshot.calendarSelected.month,
+                    day: this.store.snapshot.calendarSelected.day,
+                };
+                break;
+            case ThyDatepickerNextEventsEnum.clean:
+                result = null;
+                break;
+        }
         this.thyValueChange.emit(result);
     }
 
