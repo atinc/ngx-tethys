@@ -1,4 +1,7 @@
-<div [hidden]="isEdit" (click)="behaviorEdit()">设置时间{{timeText}}</div>
-<div [hidden]="!isEdit" #timeInput (click)="behaviorPopTimeSelect()">
-    <input thyInput name="time" [(ngModel)]="timeText" placeholder="请选择事件">
+<div *ngIf="!isEdit" (click)="behaviorEdit()">
+    <ng-container *ngIf="timeText">{{timeText}}</ng-container>
+    <ng-container *ngIf="!timeText">设置时间</ng-container>
+</div>
+<div *ngIf="isEdit" #timeInput (click)="behaviorPopTimeSelect()">
+    <input thyInput name="time" [(ngModel)]="timeText" placeholder="">
 </div>

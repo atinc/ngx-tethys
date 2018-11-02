@@ -21,7 +21,7 @@ import { ThyButtonModule } from '../button';
 import { ThyDatepickerNextOperationComponent } from './operation/operation.component';
 import { FormsModule } from '@angular/forms';
 import { ThyEnterDirective } from '../directive/thy-enter.directive';
-import { ThyDatepickerNextDirective } from './datepicker.directive';
+// import { ThyDatepickerNextDirective } from './datepicker-next.directive';
 import { OverlayModule } from '@angular/cdk/overlay';
 
 @NgModule({
@@ -34,7 +34,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
         ThyStoreModule.forFeature([ThyDatepickerNextStore]),
     ],
     exports: [
-        ThyDatepickerNextDirective,
+        // ThyDatepickerNextDirective,
         ThyDatepickerNextContainerComponent,
 
         ThyDatepickerNextTimeSimplyComponent,
@@ -56,7 +56,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
         ThyDatepickerNextTimeAccurateComponent,
     ],
     declarations: [
-        ThyDatepickerNextDirective,
+        // ThyDatepickerNextDirective,
         ThyDatepickerNextContainerComponent,
         ThyDatepickerNextCalendarComponent,
         ThyDatepickerNextCalendarHeadComponent,

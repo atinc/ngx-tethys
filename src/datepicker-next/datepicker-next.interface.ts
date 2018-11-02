@@ -35,3 +35,4 @@ export enum ThyDatepickerNextEventsEnum {
     clean = 'clean',
 }
 
+type ThyDatepickerNextValueType = '';

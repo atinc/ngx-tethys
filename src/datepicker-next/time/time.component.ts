@@ -71,7 +71,8 @@ export class ThyDatepickerNextTimeComponent implements OnInit, OnDestroy {
             .position()
             .connectedTo(this.timeInput, { originX: 'start', originY: 'bottom' }, { overlayX: 'start', overlayY: 'top' });
         this.overlayRef = this.overlay.create({
-            positionStrategy: strategy
+            positionStrategy: strategy,
+            scrollStrategy: this.overlay.scrollStrategies.reposition()
         });
     }
 
