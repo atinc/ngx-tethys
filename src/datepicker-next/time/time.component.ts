@@ -37,17 +37,11 @@ export class ThyDatepickerNextTimeComponent implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit() {
-        const strategy = this.overlay
-            .position()
-            .connectedTo(this.elementRef, { originX: 'end', originY: 'top' }, { overlayX: 'end', overlayY: 'bottom' });
-        this.overlayRef = this.overlay.create({
-            positionStrategy: strategy
-        });
-
         this.store.select(ThyDatepickerNextStore.timeSelected)
             .pipe(takeUntil(this.ngUnsubscribe$))
             .subscribe(n => {
                 this._combinationTimeText();
+                this._detachTimePop();
             });
     }
 
@@ -63,15 +57,29 @@ export class ThyDatepickerNextTimeComponent implements OnInit, OnDestroy {
     }
 
     behaviorPopTimeSelect() {
-        if (this.overlayRef && this.overlayRef.hasAttached()) {
-            this.overlayRef.detach();
-        } else {
+        this._combinationOverlayRef();
+        if (!this._detachTimePop()) {
             this.overlayRef.attach(new ComponentPortal(ThyDatepickerNextTimeSimplyComponent));
         }
     }
 
-    behaviorOnDone() {
+    private _combinationOverlayRef() {
+        if (this.overlayRef) {
+            return;
+        }
+        const strategy = this.overlay
+            .position()
+            .connectedTo(this.timeInput, { originX: 'start', originY: 'bottom' }, { overlayX: 'start', overlayY: 'top' });
+        this.overlayRef = this.overlay.create({
+            positionStrategy: strategy
+        });
+    }
 
+    private _detachTimePop(): boolean {
+        if (this.overlayRef && this.overlayRef.hasAttached()) {
+            this.overlayRef.detach();
+            return true;
+        }
     }
 
     ngOnDestroy(): void {
