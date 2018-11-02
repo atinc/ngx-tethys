@@ -11,7 +11,6 @@ import { daterangepickerUtilIdentificationValueType, daterangepickerUtilConvertT
 import { ThyDaterangepickerContainerComponent } from './daterangepicker-container.component';
 import { ThyPositioningService } from '../positioning/positioning.service';
 import { ThyDaterangepickerConfig } from './daterangepicker.config';
-import { getMonth } from 'ngx-bootstrap/chronos';
 
 const DATEPICKER_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
