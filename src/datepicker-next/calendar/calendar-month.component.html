@@ -1,0 +1,11 @@
+<thy-datepicker-next-calendar-head (preClick)="preYearClick()" (nextClick)="nextYearClick()"></thy-datepicker-next-calendar-head>
+<div class="calendar-content">
+    <div class="calendar-grid">
+        <div class="calendar-row" *ngFor="let row of calendarRows;let i=index; trackBy:trackByFn">
+            <div class="calendar-cell" *ngFor="let item of row;let i=index; trackBy:trackByFn" [ngClass]="{'active':item.isActive}"
+                (click)="cellClick(item)">
+                <span>{{monthEnum[item.month]}}</span>
+            </div>
+        </div>
+    </div>
+</div>

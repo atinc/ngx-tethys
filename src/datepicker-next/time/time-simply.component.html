@@ -1,0 +1,3 @@
+<div class="time-cell" *ngFor="let time of times; trackBy:trackByFn" [ngClass]="{'active': time.isActive}" (click)="onSelectTime(time)">
+    {{time.text}}
+</div>

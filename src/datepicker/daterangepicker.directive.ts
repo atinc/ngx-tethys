@@ -166,31 +166,47 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
         this._renderer.setProperty(this._elementRef.nativeElement, 'value', initialDate);
     }
 
+    private _formatBeginTime(begin?: Date): number {
+        if (begin) {
+            const beginDate = new Date(begin.getFullYear(), begin.getMonth(), begin.getDate());
+            return Math.floor(beginDate.getTime() / 1000);
+        }
+        return 0;
+    }
+
+    private _formatEndTime(end?: Date): number {
+        if (end) {
+            const endDate = new Date(end.getFullYear(), end.getMonth(), end.getDate(), 23, 59, 59);
+            return Math.floor(endDate.getTime() / 1000);
+        }
+        return 0;
+    }
+
     private _sendValueToNgModel() {
         let result;
         switch (this.store.originValueType) {
             case DatepickerValueShowTypesEnum.daterangepickerTime:
                 result = {
-                    begin: this.store.value[0].getTime() / 1000,
-                    end: this.store.value[1].getTime() / 1000
+                    begin: this._formatBeginTime(this.store.value[0]),
+                    end: this._formatEndTime(this.store.value[1])
                 };
                 break;
             case DatepickerValueShowTypesEnum.daterangepickerTimeObject:
                 result = {
                     begin: {
-                        date: this.store.value[0].getTime() / 1000,
+                        date: this._formatBeginTime(this.store.value[0]),
                         with_time: this.store.withTime
                     },
                     end: {
-                        date: this.store.value[1].getTime() / 1000,
+                        date: this._formatEndTime(this.store.value[1]),
                         with_time: this.store.withTime
                     }
                 };
                 break;
             default:
                 result = {
-                    begin: this.store.value[0].getTime() / 1000,
-                    end: this.store.value[1].getTime() / 1000
+                    begin: this._formatBeginTime(this.store.value[0]),
+                    end: this._formatEndTime(this.store.value[1])
                 };
                 break;
         }

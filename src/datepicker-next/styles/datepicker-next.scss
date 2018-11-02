@@ -1,0 +1,151 @@
+$thyDatepickerNext: 'thy-datepicker-next';
+
+.#{$thyDatepickerNext}-container {
+    padding: 5px;
+    display: inline-block;
+    border: solid 1px gray;
+
+    .calendar-container {
+        .calendar-head {
+            display: flex;
+
+            .calendar-button-previous,
+            .calendar-button-next,
+            .calendar-navigation {
+                min-width: 30px;
+                line-height: 30px;
+                transition: all 200ms;
+                border-radius: 30px;
+                text-align: center;
+                cursor: pointer;
+
+                &:hover {
+                    background: $gray-200;
+                }
+            }
+
+            .calendar-button-previous {
+                margin-left: auto;
+            }
+
+            .calendar-button-next {
+                margin-right: auto;
+            }
+
+            .calendar-navigation {
+                padding: 0 10px;
+            }
+        }
+
+        .calendar-content {
+            .calendar-grid {
+                .calendar-row {
+                    .calendar-cell {
+                        display: inline-block;
+                        width: 30px;
+                        height: 30px;
+                        line-height: 30px;
+                        text-align: center;
+
+                        &.pre-month,
+                        &.next-month {
+                            color: $gray-500;
+                        }
+
+                        &.today {
+                            color: $primary;
+                        }
+
+                        span {
+                            display: inline-block;
+                            width: 100%;
+                            height: 100%;
+                            cursor: pointer;
+                            border-radius: 100px;
+                            transition: all 200ms;
+                        }
+
+                        &:hover {
+                            span {
+                                background: $gray-200;
+                            }
+                        }
+
+                        &.active {
+                            span {
+                                color: $white;
+                                background: $primary;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .calendar-day-container {}
+
+    .calendar-month-container {
+        .calendar-content {
+            .calendar-grid {
+                .calendar-row {
+                    .calendar-cell {
+                        width: 70px;
+                    }
+                }
+            }
+        }
+    }
+
+    .calendar-year-container {
+        .calendar-content {
+            .calendar-grid {
+                .calendar-row {
+                    .calendar-cell {
+                        width: 46px;
+                        height: 46px;
+                        line-height: 46px;
+                    }
+                }
+            }
+        }
+    }
+
+    .shortcut-container {
+        display: flex;
+
+        .shortcut-button {
+            flex: 1;
+        }
+    }
+}
+
+.time-accurate-container,
+.time-simply-container {
+    display: inline-block;
+    width: 230px;
+    max-height: 308px;
+    border: solid 1px gray;
+    overflow: auto;
+
+    .time-cell {
+        line-height: 30px;
+        text-align: center;
+        cursor: pointer;
+
+        &.active,
+        &:hover {
+            background: $gray-200;
+        }
+    }
+}
+
+.time-accurate-container {
+    display: flex;
+    overflow: visible;
+
+    .time-group {
+        flex: 1;
+        overflow: auto;
+    }
+}
