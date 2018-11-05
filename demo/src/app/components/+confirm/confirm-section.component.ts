@@ -109,7 +109,7 @@ export class DemoConfirmSectionComponent {
                 confirm: {
                     text: '确认',
                     type: 'danger',
-                    loadingText: '删除中...',
+                    loadingText: '删除自定义文案...',
                     action: () => {
                         return of([1]).pipe(
                             delay(2000),

@@ -76,12 +76,12 @@ export class ThyConfirmService {
             }
         };
         Object.assign(_res, _defaultOption, option);
-        if (option.buttons && option.buttons.confirm) {
-            Object.assign(_res.buttons.confirm, _defaultOption.buttons.confirm, option.buttons.confirm);
-        }
-        if (option.buttons && option.buttons.decline) {
-            Object.assign(_res.buttons.decline, _defaultOption.buttons.decline, option.buttons.decline);
-        }
+        // if (option.buttons && option.buttons.confirm) {
+        //     Object.assign(_res.buttons.confirm, _defaultOption.buttons.confirm, option.buttons.confirm);
+        // }
+        // if (option.buttons && option.buttons.decline) {
+        //     Object.assign(_res.buttons.decline, _defaultOption.buttons.decline, option.buttons.decline);
+        // }
         return _res;
     }
 }
