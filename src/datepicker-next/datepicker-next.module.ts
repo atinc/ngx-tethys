@@ -20,21 +20,23 @@ import { ThyDatepickerNextStore } from './datepicker-next.store';
 import { ThyButtonModule } from '../button';
 import { ThyDatepickerNextOperationComponent } from './operation/operation.component';
 import { FormsModule } from '@angular/forms';
-import { ThyEnterDirective } from '../directive/thy-enter.directive';
-// import { ThyDatepickerNextDirective } from './datepicker-next.directive';
+import { ThyDatepickerNextDirective } from './datepicker-next.directive';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { ThyDirectiveModule } from '../directive';
+import { ThyInputModule } from '../input';
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         OverlayModule,
-        // ThyEnterDirective,
+        ThyDirectiveModule,
         ThyButtonModule,
+        ThyInputModule,
         ThyStoreModule.forFeature([ThyDatepickerNextStore]),
     ],
     exports: [
-        // ThyDatepickerNextDirective,
+        ThyDatepickerNextDirective,
         ThyDatepickerNextContainerComponent,
 
         ThyDatepickerNextTimeSimplyComponent,
@@ -56,7 +58,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
         ThyDatepickerNextTimeAccurateComponent,
     ],
     declarations: [
-        // ThyDatepickerNextDirective,
+        ThyDatepickerNextDirective,
         ThyDatepickerNextContainerComponent,
         ThyDatepickerNextCalendarComponent,
         ThyDatepickerNextCalendarHeadComponent,

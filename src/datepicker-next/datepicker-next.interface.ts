@@ -1,3 +1,4 @@
+export type DatepickerNextValueType = DatepickerNextValueInfo | Date | number | any;
 
 export enum DatepickerNextValueChangeTypeEnum {
     ok = 'ok',
@@ -35,4 +36,45 @@ export enum ThyDatepickerNextEventsEnum {
     clean = 'clean',
 }
 
-type ThyDatepickerNextValueType = '';
+export interface DatepickerNextValueInfo {
+    date: number | Date;
+    with_time: boolean | 1 | 0;
+}
+
+export interface DatepickerNextRangeNextValueInfo {
+    begin: DatepickerNextValueType;
+    end: DatepickerNextValueType;
+}
+
+export enum DatepickerValueTypeEnum {
+    objectTimestamp,
+    objectTimestampLong,
+    objectDate,
+    objectEmpty,
+    timestamp,
+    timestampLong,
+    date,
+    empty,
+}
+
+
+export enum DatepickerFormatRules {
+    default = 'yyyy-MM-dd',
+    short = 'yyyy-MM-dd',
+    full = 'yyyy-MM-dd HH:mm',
+}
+
+
+
+export interface ExploreValueTypePipeInterface {
+    type: DatepickerValueTypeEnum;
+    value: DatepickerNextValueType;
+}
+
+
+export interface CombineToTypeDPValueInterface {
+    type: DatepickerValueTypeEnum;
+    value: ThyDatepickerNextInfo;
+}
+
+

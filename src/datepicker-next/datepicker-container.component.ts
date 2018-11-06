@@ -1,20 +1,29 @@
-import { Component, OnInit, HostBinding, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
-import { ThyDatepickerNextStore, datepickerNextActions } from './datepicker-next.store';
-import { ThyDatepickerNextEventsEnum, ThyDatepickerNextInfo } from './datepicker-next.interface';
 import {
-    ComponentType,
-    Overlay,
-    OverlayRef,
-    OverlayConfig,
-    ScrollStrategy,
-} from '@angular/cdk/overlay';
+    Component, OnInit, HostBinding, OnDestroy,
+    Input, forwardRef, AfterContentInit
+} from '@angular/core';
+import { ThyDatepickerNextStore, datepickerNextActions } from './datepicker-next.store';
+import {
+    ThyDatepickerNextEventsEnum, ThyDatepickerNextInfo,
+    DatepickerNextValueInfo, DatepickerNextValueType,
+    CombineToTypeDPValueInterface
+} from './datepicker-next.interface';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { of } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { exploreValueTypePipe, combineToTypeDPValue } from './util';
 
 @Component({
     selector: 'thy-datepicker-next',
-    templateUrl: 'datepicker-container.component.html'
+    templateUrl: 'datepicker-container.component.html',
+    providers: [{
+        provide: NG_VALUE_ACCESSOR,
+        useExisting: forwardRef(() => ThyDatepickerNextContainerComponent),
+        multi: true
+    }]
 })
 
-export class ThyDatepickerNextContainerComponent implements OnInit, OnDestroy {
+export class ThyDatepickerNextContainerComponent implements OnInit, OnDestroy, AfterContentInit, ControlValueAccessor {
 
     @HostBinding('class.thy-datepicker-next-container') styleClass = true;
 
@@ -24,21 +33,68 @@ export class ThyDatepickerNextContainerComponent implements OnInit, OnDestroy {
 
     @Input() thyHiddenTime = false;
 
-    @Output() thyValueChange: EventEmitter<any> = new EventEmitter<any>();
+    @Input() thyModeType = false;
 
     loadingDone = false;
 
+    private _onChange = Function.prototype;
+    private _onTouched = Function.prototype;
+    private _isAfterContentInit = false;
     constructor(
         public store: ThyDatepickerNextStore,
     ) { }
 
     ngOnInit() {
-        this._initViewComponent();
+
         this.loadingDone = true;
     }
 
-    private _initViewComponent() {
-        this.store.dispatch(datepickerNextActions.initCalendarView);
+    ngAfterContentInit() {
+        this._isAfterContentInit = true;
+    }
+
+    // #region  ng-model
+    writeValue(value: DatepickerNextValueInfo | Date | number) {
+        if (this._isAfterContentInit) {
+            this._initViewComponent(value);
+        }
+    }
+
+    registerOnChange(fn: (value: any) => any): void {
+        this._onChange = fn;
+    }
+
+    registerOnTouched(fn: () => any): void {
+        this._onTouched = fn;
+    }
+
+    // #endregion
+
+
+    private _initViewComponent(value: DatepickerNextValueType) {
+        const value$ = of(value);
+        const subscribe = value$
+            .pipe(
+                map(exploreValueTypePipe),
+                map(combineToTypeDPValue),
+            )
+            .subscribe((result: CombineToTypeDPValueInterface) => {
+                const payload: any = {
+                    calendarDate: {
+                        year: result.value.year,
+                        month: result.value.month,
+                        day: result.value.day,
+                    }
+                };
+                if (result.value.hour !== undefined) {
+                    payload.calendarTime = {
+                        hour: result.value.hour,
+                        minute: result.value.minute,
+                    };
+                }
+                this.store.dispatch(datepickerNextActions.initState, payload);
+            });
+        subscribe.unsubscribe();
     }
 
     public behaviorValueChange(event?: ThyDatepickerNextEventsEnum) {
@@ -69,7 +125,7 @@ export class ThyDatepickerNextContainerComponent implements OnInit, OnDestroy {
                 result = null;
                 break;
         }
-        this.thyValueChange.emit(result);
+        this._onChange(result);
     }
 
     ngOnDestroy() {

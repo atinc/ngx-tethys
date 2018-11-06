@@ -1,13 +1,15 @@
 $thyDatepickerNext: 'thy-datepicker-next';
 
 .#{$thyDatepickerNext}-container {
-    padding: 5px;
+    padding: 0 10px 15px 10px;
     display: inline-block;
     border: solid 1px gray;
 
     .calendar-container {
         .calendar-head {
+            padding: 9px 0 3px 0;
             display: flex;
+            justify-content: space-between;
 
             .calendar-button-previous,
             .calendar-button-next,
@@ -24,14 +26,6 @@ $thyDatepickerNext: 'thy-datepicker-next';
                 }
             }
 
-            .calendar-button-previous {
-                margin-left: auto;
-            }
-
-            .calendar-button-next {
-                margin-right: auto;
-            }
-
             .calendar-navigation {
                 padding: 0 10px;
             }
@@ -40,6 +34,10 @@ $thyDatepickerNext: 'thy-datepicker-next';
         .calendar-content {
             .calendar-grid {
                 .calendar-row {
+                    display: flex;
+                    text-align: center;
+                    justify-content: space-around;
+
                     .calendar-cell {
                         display: inline-block;
                         width: 30px;
@@ -112,11 +110,37 @@ $thyDatepickerNext: 'thy-datepicker-next';
     }
 
     .shortcut-container {
+        padding-top: 8px;
+
+        margin-left: 8px;
+        margin-right: 8px;
         display: flex;
 
         .shortcut-button {
             flex: 1;
+            margin-left: 10px;
+            padding-left: 0;
+            padding-right: 0;
+
+            &:first-child {
+                margin-left: 0;
+            }
+
+            &:last-child {
+                margin-right: 0;
+            }
         }
+    }
+}
+
+.time-container {
+    padding-top: 10px;
+    margin-left: 8px;
+    margin-right: 8px;
+    display: block;
+
+    .form-control {
+        text-align: center;
     }
 }
 
@@ -148,5 +172,28 @@ $thyDatepickerNext: 'thy-datepicker-next';
     .time-group {
         flex: 1;
         overflow: auto;
+    }
+}
+
+
+.operation-container {
+    padding-top: 13px;
+    margin-top: 13px;
+    margin-left: 8px;
+    margin-right: 8px;
+    display: flex;
+    border-top: solid 1px $gray-300;
+
+    .btn {
+        margin-left: 10px;
+        flex: 1;
+
+        &:first-child {
+            margin-left: 0;
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
     }
 }

@@ -42,6 +42,9 @@ export class ThyDatepickerNextTimeComponent implements OnInit, OnDestroy {
             .subscribe(n => {
                 this._combinationTimeText();
                 this._detachTimePop();
+                if (this.store.snapshot.timeSelected) {
+                    this.behaviorEdit();
+                }
             });
     }
 

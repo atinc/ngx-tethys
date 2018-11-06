@@ -3,5 +3,5 @@
     <ng-container *ngIf="!timeText">设置时间</ng-container>
 </div>
 <div *ngIf="isEdit" #timeInput (click)="behaviorPopTimeSelect()">
-    <input thyInput name="time" [(ngModel)]="timeText" placeholder="">
+    <input thyInput thySize="md" name="time" thyAutofocus [(ngModel)]="timeText" placeholder="">
 </div>

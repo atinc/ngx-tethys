@@ -16,8 +16,8 @@ export class DemoDatepickerNextSectionComponent implements OnInit {
     //#region DatePicker
 
     dateEntry = {
-        date: Math.floor((new Date()).getTime() / 1000),
-        with_time: false
+        date: Math.floor((new Date()).getTime() / 1000) + 90000 * 7,
+        with_time: true
     };
 
     dateEntry2 = Math.floor((new Date()).getTime() / 1000);

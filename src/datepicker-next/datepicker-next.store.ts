@@ -21,8 +21,7 @@ export class DatepickerNextState {
 }
 
 export const datepickerNextActions = {
-    init: 'init',
-    initCalendarView: 'initCalendarView',
+    initState: 'initState',
     changeCalendarViewMode: 'changeCalendarViewMode',
     changeCalendarCurrent: 'changeCalendarCurrent',
     changeCalendarSelected: 'changeCalendarSelected',
@@ -64,8 +63,12 @@ export class ThyDatepickerNextStore extends Store<DatepickerNextState> {
         this.next(new DatepickerNextState());
     }
 
-    @Action(datepickerNextActions.initCalendarView)
-    initCalendarView(state: DatepickerNextState, payload: { calendarDate: ThyDatepickerNextCalendarDate }): void {
+    @Action(datepickerNextActions.initState)
+    initState(state: DatepickerNextState, payload: {
+        calendarDate: ThyDatepickerNextCalendarDate,
+        calendarTime: ThyDatepickerNextTimeInfo
+    }): void {
+        // calendarDate
         let year, month, day;
         if (payload && payload.calendarDate) {
             year = payload.calendarDate.year;
@@ -89,6 +92,17 @@ export class ThyDatepickerNextStore extends Store<DatepickerNextState> {
             day: 1,
             viewMode: DatepickerNextCalendarViewModeEnum.day,
         });
+
+        // calendarTime
+        let hour, minute;
+        if (payload && payload.calendarTime) {
+            hour = payload.calendarTime.hour;
+            minute = payload.calendarTime.minute;
+            this.dispatch(datepickerNextActions.changeTimeSelected, {
+                hour,
+                minute,
+            });
+        }
     }
 
     @Action(datepickerNextActions.changeCalendarSelected)
