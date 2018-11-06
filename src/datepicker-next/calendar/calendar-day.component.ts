@@ -14,6 +14,7 @@ interface DatepickerNextCalendarDayInfo {
     month: number;
     day: number;
     isActive?: boolean;
+    isDisabled?: boolean;
     isToday?: boolean;
     isCurrentMonth?: boolean;
     isPreMonth?: boolean;

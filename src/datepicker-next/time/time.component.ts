@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding, ElementRef, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, HostBinding, ElementRef, ViewChild, OnDestroy, HostListener } from '@angular/core';
 import {
     ComponentType,
     Overlay,
@@ -8,7 +8,7 @@ import {
 } from '@angular/cdk/overlay';
 import { TemplatePortal, ComponentPortal } from '@angular/cdk/portal';
 import { ThyDatepickerNextTimeSimplyComponent } from './time-simply.component';
-import { ThyDatepickerNextStore } from '../datepicker-next.store';
+import { ThyDatepickerNextStore, datepickerNextActions } from '../datepicker-next.store';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { getFullTimeText } from '../util';
@@ -83,6 +83,18 @@ export class ThyDatepickerNextTimeComponent implements OnInit, OnDestroy {
         if (this.overlayRef && this.overlayRef.hasAttached()) {
             this.overlayRef.detach();
             return true;
+        }
+    }
+
+    onTimeChange() {
+        const time = this.timeText.trim();
+        const reg = /^[0-9]{2}:[0-9]{2}$/;
+        if (reg.test(time)) {
+            const timeArray: any = time.split(':');
+            this.store.dispatch(datepickerNextActions.changeTimeSelected, {
+                hour: timeArray[0] * 1,
+                minute: timeArray[1] * 1,
+            });
         }
     }
 
