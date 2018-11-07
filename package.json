@@ -5,7 +5,7 @@
     "scripts": {
         "build": "npm run build:ngm",
         "build:ng-pgr": "ng run ng-tethys:build",
-        "build:ng": "ng build ngx-tethys",
+        "build:ng": "ng build ngx-tethys --prod",
         "build:ngc": "rimraf ./built/* ./codegen/* && ngc -p ./src/tsconfig.lib.json",
         "build:ngm": "ngm build -p src --clean",
         "build:theme": "gulp build-theme",

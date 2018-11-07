@@ -1,13 +1,13 @@
-import { isString, isArray } from 'util';
+import { helpers } from '../util';
 import { MIME_Map } from './constant';
 
 
 export function mimeTypeConvert(value: Array<string> | string) {
     let valueArray: any;
     const _acceptTypeArray: any = [];
-    if (isArray(value)) {
+    if (helpers.isArray(value)) {
         valueArray = (value as Array<string>);
-    } else if (isString(value)) {
+    } else if (helpers.isString(value)) {
         valueArray = (value as string).split(',');
     } else {
         valueArray = [];

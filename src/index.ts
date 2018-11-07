@@ -1,4 +1,3 @@
-
 export * from './module';
 export { ThyPopBoxService } from './pop-box';
 export { ThyModalService } from './modal';

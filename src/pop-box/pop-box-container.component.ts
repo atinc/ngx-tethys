@@ -29,7 +29,7 @@ export class PopBoxContainerComponent implements OnInit, OnDestroy, DoCheck, Aft
         protected elementRef: ElementRef,
         private renderer: Renderer2,
         public config: PopBoxOptions,
-        @Inject(DOCUMENT) private document: Document,
+        @Inject(DOCUMENT) private document: any,
         private ngZone: NgZone,
         private thyPositioningService: ThyPositioningService
     ) {

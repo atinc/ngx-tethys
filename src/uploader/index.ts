@@ -1,2 +1,2 @@
 export * from './module';
-export * from './uploader';
+export * from './uploader.service';

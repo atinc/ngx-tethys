@@ -13,7 +13,6 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { helpers } from '../util';
 import { UpdateHostClassService } from '../shared';
-import { timingSafeEqual } from 'crypto';
 
 
 @Component({
