@@ -1,6 +1,12 @@
 <ng-container *ngIf="loadingDone">
     <thy-datepicker-next-calendar></thy-datepicker-next-calendar>
-    <thy-datepicker-next-shortcut></thy-datepicker-next-shortcut>
-    <thy-datepicker-next-time></thy-datepicker-next-time>
-    <thy-datepicker-next-operation></thy-datepicker-next-operation>
+    <ng-container *ngIf="store.snapshot.viewFeatureConfig.shortcut">
+        <thy-datepicker-next-shortcut></thy-datepicker-next-shortcut>
+    </ng-container>
+    <ng-container *ngIf="store.snapshot.viewFeatureConfig.time">
+        <thy-datepicker-next-time></thy-datepicker-next-time>
+    </ng-container>
+    <ng-container *ngIf="store.snapshot.viewFeatureConfig.operation">
+        <thy-datepicker-next-operation></thy-datepicker-next-operation>
+    </ng-container>
 </ng-container>

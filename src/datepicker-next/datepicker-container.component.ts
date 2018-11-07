@@ -1,14 +1,14 @@
 import {
     Component, OnInit, HostBinding, OnDestroy,
-    Input, forwardRef, AfterContentInit
+    Input, forwardRef, AfterContentInit, Output, EventEmitter
 } from '@angular/core';
 import { ThyDatepickerNextStore, datepickerNextActions } from './datepicker-next.store';
 import {
     ThyDatepickerNextEventsEnum, ThyDatepickerNextInfo,
     DatepickerNextValueInfo, DatepickerNextValueType,
-    CombineToTypeDPValueInterface
+    CombineToTypeDPValueInterface,
+    DatepickerNextModeType
 } from './datepicker-next.interface';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { exploreValueTypePipe, combineToTypeDPValue } from './util';
@@ -16,36 +16,41 @@ import { exploreValueTypePipe, combineToTypeDPValue } from './util';
 @Component({
     selector: 'thy-datepicker-next',
     templateUrl: 'datepicker-container.component.html',
-    providers: [{
-        provide: NG_VALUE_ACCESSOR,
-        useExisting: forwardRef(() => ThyDatepickerNextContainerComponent),
-        multi: true
-    }]
+    providers: [
+        ThyDatepickerNextStore
+    ],
 })
 
-export class ThyDatepickerNextContainerComponent implements OnInit, OnDestroy, AfterContentInit, ControlValueAccessor {
-
-    @HostBinding('class.thy-datepicker-next-container') styleClass = true;
-
-    @Input() thyOnlyCalendar = false;
-
-    @Input() thyHiddenShortcut = false;
-
-    @Input() thyHiddenTime = false;
-
-    @Input() thyModeType = false;
+export class ThyDatepickerNextContainerComponent implements OnInit, OnDestroy, AfterContentInit {
 
     loadingDone = false;
 
-    private _onChange = Function.prototype;
-    private _onTouched = Function.prototype;
+    @HostBinding('class.thy-datepicker-next-container') styleClass = true;
+
+    @Input() set thyNgModel(value: DatepickerNextValueType) {
+        this._initViewComponent(value);
+        if (this._isAfterContentInit) {
+        }
+    }
+
+    @Input() thyShortcut = true;
+
+    @Input() thyWithTime = true;
+
+    @Input() thyOperation = true;
+
+    @Input() thyModeType: DatepickerNextModeType = DatepickerNextModeType.simply;
+
+    @Output() thyNgModelChange: EventEmitter<DatepickerNextValueType> = new EventEmitter<DatepickerNextValueType>();
+
     private _isAfterContentInit = false;
+
     constructor(
         public store: ThyDatepickerNextStore,
     ) { }
 
     ngOnInit() {
-
+        this._initViewFeature();
         this.loadingDone = true;
     }
 
@@ -53,22 +58,20 @@ export class ThyDatepickerNextContainerComponent implements OnInit, OnDestroy, A
         this._isAfterContentInit = true;
     }
 
-    // #region  ng-model
-    writeValue(value: DatepickerNextValueInfo | Date | number) {
-        if (this._isAfterContentInit) {
-            this._initViewComponent(value);
+    //#region init view feature
+    private _initViewFeature() {
+        const payload = {
+            shortcut: this.thyShortcut,
+            time: this.thyWithTime,
+            operation: this.thyOperation,
+        };
+        if (!this.thyOperation) {
+            payload.time = false;
         }
-    }
 
-    registerOnChange(fn: (value: any) => any): void {
-        this._onChange = fn;
+        this.store.dispatch(datepickerNextActions.changeViewFeatureConfig, payload);
     }
-
-    registerOnTouched(fn: () => any): void {
-        this._onTouched = fn;
-    }
-
-    // #endregion
+    //#endregion
 
 
     private _initViewComponent(value: DatepickerNextValueType) {
@@ -125,7 +128,7 @@ export class ThyDatepickerNextContainerComponent implements OnInit, OnDestroy, A
                 result = null;
                 break;
         }
-        this._onChange(result);
+        this.thyNgModelChange.emit(result);
     }
 
     ngOnDestroy() {

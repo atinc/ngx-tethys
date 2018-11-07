@@ -3,7 +3,10 @@
     <span class="form-control-feedback wtf wtf-schedule-o"></span>
 </div>
 
-<thy-datepicker-next [(ngModel)]="dateEntry" (ngModelChange)="onSelect($event)"></thy-datepicker-next>
+<thy-datepicker-next [thyNgModel]="dateEntry" (thyNgModelChange)="onSelect($event)"></thy-datepicker-next>
+<thy-datepicker-next [thyNgModel]="dateEntry" (thyNgModelChange)="onSelect($event)" [thyShortcut]="false"></thy-datepicker-next>
+<thy-datepicker-next [thyNgModel]="dateEntry" (thyNgModelChange)="onSelect($event)" [thyWithTime]="false"></thy-datepicker-next>
+<thy-datepicker-next [thyNgModel]="dateEntry" (thyNgModelChange)="onSelect($event)" [thyOperation]="false"></thy-datepicker-next>
 <!-- <br><br><br><br><br>
 <thy-datepicker-next-time-simply></thy-datepicker-next-time-simply>
 <br><br><br><br><br>

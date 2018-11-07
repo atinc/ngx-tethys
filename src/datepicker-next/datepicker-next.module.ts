@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 // import { ThyDatepickerNextService } from './datepicker-next.service';
 import { ThyDatepickerNextContainerComponent } from './datepicker-container.component';
@@ -77,5 +77,6 @@ import { ThyInputModule } from '../input';
     providers: [
     ],
 })
-export class ThyDatepickerNextModule { }
+export class ThyDatepickerNextModule {
+}
 

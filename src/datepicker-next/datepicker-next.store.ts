@@ -3,12 +3,14 @@ import {
     DatepickerNextCalendarViewModeEnum,
     ThyDatepickerNextCalendarDate,
     DatepickerNextValueChangeTypeEnum,
-    ThyDatepickerNextTimeInfo
+    ThyDatepickerNextTimeInfo,
+    DatepickerNextViewFeatureConfig
 } from './datepicker-next.interface';
 import { calendarDateConvert } from './util';
 
 
 export class DatepickerNextState {
+    viewFeatureConfig: DatepickerNextViewFeatureConfig;
     calendarViewMode: DatepickerNextCalendarViewModeEnum;
     calendarViewModeComponent: any;
     calendarNavigation: {
@@ -22,6 +24,7 @@ export class DatepickerNextState {
 
 export const datepickerNextActions = {
     initState: 'initState',
+    changeViewFeatureConfig: 'changeViewFeatureConfig',
     changeCalendarViewMode: 'changeCalendarViewMode',
     changeCalendarCurrent: 'changeCalendarCurrent',
     changeCalendarSelected: 'changeCalendarSelected',
@@ -68,6 +71,7 @@ export class ThyDatepickerNextStore extends Store<DatepickerNextState> {
         calendarDate: ThyDatepickerNextCalendarDate,
         calendarTime: ThyDatepickerNextTimeInfo
     }): void {
+
         // calendarDate
         let year, month, day;
         if (payload && payload.calendarDate) {
@@ -103,6 +107,19 @@ export class ThyDatepickerNextStore extends Store<DatepickerNextState> {
                 minute,
             });
         }
+    }
+
+    @Action(datepickerNextActions.changeViewFeatureConfig)
+    changeViewFeatureConfig(state: DatepickerNextState, payload: DatepickerNextViewFeatureConfig): void {
+        if (!state.viewFeatureConfig) {
+            state.viewFeatureConfig = {};
+        }
+        for (const key in payload) {
+            if (payload.hasOwnProperty(key)) {
+                state.viewFeatureConfig[key] = payload[key];
+            }
+        }
+        this.next(state);
     }
 
     @Action(datepickerNextActions.changeCalendarSelected)

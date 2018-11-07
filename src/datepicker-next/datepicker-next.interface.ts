@@ -1,5 +1,16 @@
 export type DatepickerNextValueType = DatepickerNextValueInfo | Date | number | any;
 
+export class DatepickerNextViewFeatureConfig {
+    shortcut?: boolean;
+    time?: boolean;
+    operation?: boolean;
+}
+
+export enum DatepickerNextModeType {
+    simply = 'simply',
+    accurate = 'accurate',
+}
+
 export enum DatepickerNextValueChangeTypeEnum {
     ok = 'ok',
     clear = 'clear',
