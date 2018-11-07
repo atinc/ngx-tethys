@@ -1,3 +1,8 @@
+## 0.1.84
+1. 修复换肤情况下 Input 输入框移入边框没有变色的 Bug；
+1. 新增粉红色换肤；
+1. 移除相关无用的引用。
+
 ## 0.1.81
 1. select-custom add `thyDisabled` property.
 
