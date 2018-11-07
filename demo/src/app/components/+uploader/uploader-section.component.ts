@@ -50,6 +50,8 @@ export class DemoUploaderSectionComponent {
                     const index = this.queueFiles.indexOf(result.uploadFile);
                     this.queueFiles.splice(index);
                 }
+            }, (error) => {
+                console.log(error);
             });
         }
     }
