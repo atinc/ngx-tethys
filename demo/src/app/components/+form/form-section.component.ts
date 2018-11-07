@@ -27,7 +27,7 @@ export class DemoFormSectionComponent {
             type: 'String',
             default: ''
         }, {
-            property: 'thyEnterKeyModel',
+            property: 'thyEnterKeyMode',
             description: `Enter 键提交模式， submit | alwaysSubmit | forbidSubmit， 默认 submit,
             submit: Textare 需要 Ctrl | Command + Enter 提交，其他元素直接 Enter 提交； alwaysSubmit: 不管是什么元素 Enter 都提交； forbidSubmit: Enter 不提交`,
             type: 'String',
