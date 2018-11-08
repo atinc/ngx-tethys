@@ -1,10 +1,7 @@
 import {
     ThyDatepickerNextCalendarDate, DatepickerValueTypeEnum,
-    DatepickerNextValueType,
-    ExploreValueTypePipeInterface,
-    CombineToTypeDPValueInterface,
-    DatepickerNextValueInfo,
-    ThyDatepickerNextInfo
+    DatepickerNextValueType, ThyDatepickerNextInfo, ValueInRxPipeInterface,
+    ValueOutRxPipeInterface,
 } from './datepicker-next.interface';
 import { isDate, isObject, isNumber } from '../util/helpers';
 
@@ -41,7 +38,7 @@ export function getFullTimeText(value: number): string {
     return value + '';
 }
 
-export function exploreValueTypePipe(value: DatepickerNextValueType): ExploreValueTypePipeInterface {
+export function exploreValueTypePipe(value: DatepickerNextValueType): ValueInRxPipeInterface {
     return {
         type: exploreValueType(value),
         value: value
@@ -86,7 +83,7 @@ export function exploreValueType(value: DatepickerNextValueType): DatepickerValu
     return res;
 }
 
-export function combineToTypeDPValue(data: ExploreValueTypePipeInterface): CombineToTypeDPValueInterface {
+export function combiningDataAccordingToDatepickerType(data: ValueInRxPipeInterface): ValueInRxPipeInterface {
     const _value: ThyDatepickerNextInfo = {};
     let _date;
     let _withTime: any = false;
@@ -104,27 +101,58 @@ export function combineToTypeDPValue(data: ExploreValueTypePipeInterface): Combi
             _withTime = data.value.with_time;
             break;
         case DatepickerValueTypeEnum.timestamp:
-            _date = new Date((data as any).date * 1000);
+            _date = new Date(data.value * 1000);
             break;
         case DatepickerValueTypeEnum.timestampLong:
-            _date = new Date((data as any).date);
+            _date = new Date(data.value);
             break;
         case DatepickerValueTypeEnum.date:
-            _date = (data as any).date;
-            break;
-        default:
-            _date = new Date();
+            _date = data.value;
             break;
     }
-    _value.year = _date.getFullYear();
-    _value.month = _date.getMonth();
-    _value.day = _date.getDate();
-    if (_withTime) {
-        _value.hour = _date.getHours();
-        _value.minute = _date.getMinutes();
+    if (_date) {
+        _value.year = _date.getFullYear();
+        _value.month = _date.getMonth();
+        _value.day = _date.getDate();
+        if (_withTime) {
+            _value.hour = _date.getHours();
+            _value.minute = _date.getMinutes();
+        }
     }
     return {
         type: data.type,
         value: _value,
     };
+}
+
+
+export function combiningDataAccordingToOriginalDataType(data: ValueOutRxPipeInterface): DatepickerNextValueType {
+    const date = new Date(data.value.year, data.value.month, data.value.day, data.value.hour || null, data.value.minute || null);
+    let result: DatepickerNextValueType = {};
+    switch (data.originType) {
+        case DatepickerValueTypeEnum.objectTimestamp:
+        case DatepickerValueTypeEnum.objectEmpty:
+            result.date = date.getTime() / 1000;
+            result.with_time = data.value.hour !== undefined;
+            break;
+        case DatepickerValueTypeEnum.objectTimestampLong:
+            result.date = date.getTime();
+            result.with_time = data.value.hour !== undefined;
+            break;
+        case DatepickerValueTypeEnum.objectDate:
+            result.date = date;
+            result.with_time = data.value.hour !== undefined;
+            break;
+        case DatepickerValueTypeEnum.timestamp:
+        case DatepickerValueTypeEnum.empty:
+            result = date.getTime() / 1000;
+            break;
+        case DatepickerValueTypeEnum.timestampLong:
+            result = date.getTime();
+            break;
+        case DatepickerValueTypeEnum.date:
+            result = date;
+            break;
+    }
+    return result;
 }

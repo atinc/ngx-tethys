@@ -1,6 +1,7 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { ThyDatepickerNextStore, datepickerNextActions } from '../datepicker-next.store';
-import { DatepickerNextCalendarViewModeEnum } from '../datepicker-next.interface';
+import { DatepickerNextCalendarViewModeEnum, ThyDatepickerNextEventsEnum } from '../datepicker-next.interface';
+import { ThyDatepickerNextContainerComponent } from '../datepicker-container.component';
 
 enum ThyDatepickerNextShortcutTypeEnum {
     today = 'today',
@@ -21,6 +22,7 @@ export class ThyDatepickerNextShortcutComponent implements OnInit {
 
     constructor(
         public store: ThyDatepickerNextStore,
+        private parentComponent: ThyDatepickerNextContainerComponent,
     ) { }
 
     ngOnInit() { }
@@ -43,6 +45,7 @@ export class ThyDatepickerNextShortcutComponent implements OnInit {
         this.store.dispatch(datepickerNextActions.changeCalendarViewMode, { viewMode: DatepickerNextCalendarViewModeEnum.day });
         this.store.dispatch(datepickerNextActions.changeCalendarSelected, { year, month, day });
         this.store.dispatch(datepickerNextActions.changeCalendarCurrent, { year, month, day });
+        this.parentComponent.behaviorValueChange(ThyDatepickerNextEventsEnum.shortcutDone);
     }
 
 }

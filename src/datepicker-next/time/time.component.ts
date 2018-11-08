@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding, ElementRef, ViewChild, OnDestroy, HostListener } from '@angular/core';
+import { Component, OnInit, HostBinding, ElementRef, ViewChild, OnDestroy, HostListener, InjectionToken, Injector } from '@angular/core';
 import {
     ComponentType,
     Overlay,
@@ -6,14 +6,16 @@ import {
     OverlayConfig,
     ScrollStrategy,
 } from '@angular/cdk/overlay';
-import { TemplatePortal, ComponentPortal } from '@angular/cdk/portal';
+import { TemplatePortal, ComponentPortal, PortalInjector } from '@angular/cdk/portal';
 import { ThyDatepickerNextTimeSimplyComponent } from './time-simply.component';
 import { ThyDatepickerNextStore, datepickerNextActions } from '../datepicker-next.store';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { getFullTimeText } from '../util';
+import { ThyDatepickerNextTimeAccurateComponent } from './time-accurate.component';
+import { DatepickerNextTimeModeType } from '../datepicker-next.interface';
 
-
+export const CONTAINER_DATA = new InjectionToken<{}>('CONTAINER_DATA');
 
 @Component({
     selector: 'thy-datepicker-next-time',
@@ -23,20 +25,30 @@ import { getFullTimeText } from '../util';
 export class ThyDatepickerNextTimeComponent implements OnInit, OnDestroy {
 
     @HostBinding('class') stylesClass = 'time-container';
+
     @ViewChild('timeInput') timeInput: any;
+
     overlayRef: OverlayRef;
+
     isEdit = false;
 
     timeText: string;
+
+    private _timeOverlayComponent: any = ThyDatepickerNextTimeSimplyComponent;
+
     private ngUnsubscribe$ = new Subject();
 
     constructor(
+        private injector: Injector,
         private overlay: Overlay,
-        private elementRef: ElementRef,
-        private store: ThyDatepickerNextStore,
+        public store: ThyDatepickerNextStore,
     ) { }
 
     ngOnInit() {
+        if (this.store.snapshot.viewFeatureConfig.timeComponentType === DatepickerNextTimeModeType.accurate) {
+            this._timeOverlayComponent = ThyDatepickerNextTimeAccurateComponent;
+        }
+
         this.store.select(ThyDatepickerNextStore.timeSelected)
             .pipe(takeUntil(this.ngUnsubscribe$))
             .subscribe(n => {
@@ -62,8 +74,22 @@ export class ThyDatepickerNextTimeComponent implements OnInit, OnDestroy {
     behaviorPopTimeSelect() {
         this._combinationOverlayRef();
         if (!this._detachTimePop()) {
-            this.overlayRef.attach(new ComponentPortal(ThyDatepickerNextTimeSimplyComponent));
+            this.overlayRef.attach(
+                new ComponentPortal(
+                    this._timeOverlayComponent,
+                    null,
+                    this.createInjector({
+                        store: this.store,
+                    })
+                )
+            );
         }
+    }
+
+    createInjector(dataToPass: any): PortalInjector {
+        const injectorTokens = new WeakMap();
+        injectorTokens.set(CONTAINER_DATA, dataToPass);
+        return new PortalInjector(this.injector, injectorTokens);
     }
 
     private _combinationOverlayRef() {

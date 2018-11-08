@@ -3,10 +3,47 @@
     <span class="form-control-feedback wtf wtf-schedule-o"></span>
 </div>
 
-<thy-datepicker-next [thyNgModel]="dateEntry" (thyNgModelChange)="onSelect($event)"></thy-datepicker-next>
-<thy-datepicker-next [thyNgModel]="dateEntry" (thyNgModelChange)="onSelect($event)" [thyShortcut]="false"></thy-datepicker-next>
-<thy-datepicker-next [thyNgModel]="dateEntry" (thyNgModelChange)="onSelect($event)" [thyWithTime]="false"></thy-datepicker-next>
-<thy-datepicker-next [thyNgModel]="dateEntry" (thyNgModelChange)="onSelect($event)" [thyOperation]="false"></thy-datepicker-next>
+<div>
+    <div>快捷时间选择</div>
+    <thy-datepicker-next [(ngModel)]="objectTimestamp" (ngModelChange)="onSelect($event)"></thy-datepicker-next>
+</div>
+<div>
+    <div>精确时间选择</div>
+    <thy-datepicker-next [(ngModel)]="objectTimestamp2" (ngModelChange)="onSelect($event)" [thyTimeType]="datepickerNextTimeModeType.accurate"></thy-datepicker-next>
+</div>
+
+<hr>
+<hr>
+<hr>
+<div>
+    <div>长时间戳对象：{{objectTimestampLong|json}}</div>
+    <thy-datepicker-next [(ngModel)]="objectTimestampLong" (ngModelChange)="onSelect($event)"></thy-datepicker-next>
+</div>
+<div>
+    <div>日期对象：{{objectDate|json}}</div>
+    <thy-datepicker-next [(ngModel)]="objectDate" (ngModelChange)="onSelect($event)"></thy-datepicker-next>
+</div>
+<div>
+    <div>空对象：{{objectEmpty|json}}</div>
+    <thy-datepicker-next [(ngModel)]="objectEmpty" (ngModelChange)="onSelect($event)"></thy-datepicker-next>
+</div>
+<div>
+    <div>时间戳：{{timestamp|json}}</div>
+    <thy-datepicker-next [(ngModel)]="timestamp" (ngModelChange)="onSelect($event)"></thy-datepicker-next>
+</div>
+<div>
+    <div>长时间戳：{{timestampLong|json}}</div>
+    <thy-datepicker-next [(ngModel)]="timestampLong" (ngModelChange)="onSelect($event)"></thy-datepicker-next>
+</div>
+<div>
+    <div>日期：{{date|json}}</div>
+    <thy-datepicker-next [(ngModel)]="date" (ngModelChange)="onSelect($event)"></thy-datepicker-next>
+</div>
+<div>
+    <div>空：{{empty|json}}</div>
+    <thy-datepicker-next [(ngModel)]="empty" (ngModelChange)="onSelect($event)"></thy-datepicker-next>
+</div>
+
 <!-- <br><br><br><br><br>
 <thy-datepicker-next-time-simply></thy-datepicker-next-time-simply>
 <br><br><br><br><br>

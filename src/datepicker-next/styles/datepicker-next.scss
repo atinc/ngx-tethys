@@ -3,7 +3,7 @@ $thyDatepickerNext: 'thy-datepicker-next';
 .#{$thyDatepickerNext}-container {
     padding: 0 10px 15px 10px;
     display: inline-block;
-    border: solid 1px gray;
+    border: solid 1px $gray-300;
 
     .calendar-container {
         .calendar-head {
@@ -139,6 +139,14 @@ $thyDatepickerNext: 'thy-datepicker-next';
     margin-right: 8px;
     display: block;
 
+    .time-text {
+        line-height: 32px;
+        text-align: center;
+        border: solid 1px $gray-300;
+        cursor: pointer;
+        border-radius: 0.25rem;
+    }
+
     .form-control {
         text-align: center;
     }
@@ -149,7 +157,7 @@ $thyDatepickerNext: 'thy-datepicker-next';
     display: inline-block;
     width: 230px;
     max-height: 308px;
-    border: solid 1px gray;
+    border: solid 1px $gray-300;
     overflow: auto;
     background: $white;
 

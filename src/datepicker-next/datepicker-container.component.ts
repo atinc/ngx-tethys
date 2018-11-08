@@ -5,23 +5,31 @@ import {
 import { ThyDatepickerNextStore, datepickerNextActions } from './datepicker-next.store';
 import {
     ThyDatepickerNextEventsEnum, ThyDatepickerNextInfo,
-    DatepickerNextValueInfo, DatepickerNextValueType,
-    CombineToTypeDPValueInterface,
-    DatepickerNextModeType
+    DatepickerNextValueType,
+    DatepickerNextTimeModeType,
+    ValueInRxPipeInterface,
+    ValueOutRxPipeInterface,
+    DatepickerNextViewFeatureConfig,
 } from './datepicker-next.interface';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { exploreValueTypePipe, combineToTypeDPValue } from './util';
+import { exploreValueTypePipe, combiningDataAccordingToDatepickerType, combiningDataAccordingToOriginalDataType } from './util';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 @Component({
     selector: 'thy-datepicker-next',
     templateUrl: 'datepicker-container.component.html',
     providers: [
-        ThyDatepickerNextStore
+        ThyDatepickerNextStore,
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => ThyDatepickerNextContainerComponent),
+            multi: true
+        }
     ],
 })
 
-export class ThyDatepickerNextContainerComponent implements OnInit, OnDestroy, AfterContentInit {
+export class ThyDatepickerNextContainerComponent implements OnInit, OnDestroy, AfterContentInit, ControlValueAccessor {
 
     loadingDone = false;
 
@@ -39,11 +47,21 @@ export class ThyDatepickerNextContainerComponent implements OnInit, OnDestroy, A
 
     @Input() thyOperation = true;
 
-    @Input() thyModeType: DatepickerNextModeType = DatepickerNextModeType.simply;
+    @Input() thyTimeType = DatepickerNextTimeModeType.simply;
+
+    @Input() thyModeType: DatepickerNextTimeModeType = DatepickerNextTimeModeType.simply;
 
     @Output() thyNgModelChange: EventEmitter<DatepickerNextValueType> = new EventEmitter<DatepickerNextValueType>();
 
     private _isAfterContentInit = false;
+
+    private _onChange = Function.prototype;
+
+    private _onTouched = Function.prototype;
+
+    private _originValueType: DatepickerNextValueType;
+
+    private _originValue: DatepickerNextValueType;
 
     constructor(
         public store: ThyDatepickerNextStore,
@@ -60,12 +78,13 @@ export class ThyDatepickerNextContainerComponent implements OnInit, OnDestroy, A
 
     //#region init view feature
     private _initViewFeature() {
-        const payload = {
+        const payload: DatepickerNextViewFeatureConfig = {
             shortcut: this.thyShortcut,
             time: this.thyWithTime,
-            operation: this.thyOperation,
+            timeComponentType: this.thyTimeType,
+            operation: this.thyWithTime,
         };
-        if (!this.thyOperation) {
+        if (this.thyOperation === false) {
             payload.time = false;
         }
 
@@ -74,27 +93,44 @@ export class ThyDatepickerNextContainerComponent implements OnInit, OnDestroy, A
     //#endregion
 
 
+    writeValue(value: any) {
+        this._initViewComponent(value);
+    }
+
+    registerOnChange(fn: (value: any) => any): void {
+        this._onChange = fn;
+    }
+
+    registerOnTouched(fn: () => any): void {
+        this._onTouched = fn;
+    }
+
+
     private _initViewComponent(value: DatepickerNextValueType) {
+        this._originValue = value;
+
         const value$ = of(value);
         const subscribe = value$
             .pipe(
                 map(exploreValueTypePipe),
-                map(combineToTypeDPValue),
+                map(combiningDataAccordingToDatepickerType),
             )
-            .subscribe((result: CombineToTypeDPValueInterface) => {
-                const payload: any = {
-                    calendarDate: {
+            .subscribe((result: ValueInRxPipeInterface) => {
+                const payload: any = {};
+                if (result.value.year !== undefined) {
+                    payload.calendarDate = {
                         year: result.value.year,
                         month: result.value.month,
                         day: result.value.day,
-                    }
-                };
+                    };
+                }
                 if (result.value.hour !== undefined) {
                     payload.calendarTime = {
                         hour: result.value.hour,
                         minute: result.value.minute,
                     };
                 }
+                this._originValueType = result.type;
                 this.store.dispatch(datepickerNextActions.initState, payload);
             });
         subscribe.unsubscribe();
@@ -104,6 +140,8 @@ export class ThyDatepickerNextContainerComponent implements OnInit, OnDestroy, A
         let result: ThyDatepickerNextInfo = {};
         switch (event) {
             case ThyDatepickerNextEventsEnum.done:
+            case ThyDatepickerNextEventsEnum.calendarDone:
+            case ThyDatepickerNextEventsEnum.shortcutDone:
                 result = {
                     year: this.store.snapshot.calendarSelected.year,
                     month: this.store.snapshot.calendarSelected.month,
@@ -114,21 +152,39 @@ export class ThyDatepickerNextContainerComponent implements OnInit, OnDestroy, A
                         hour: this.store.snapshot.timeSelected.hour,
                         minute: this.store.snapshot.timeSelected.minute,
                     };
-                    Object.assign(result, time);
+                    result = Object.assign({}, result, time);
                 }
-                break;
-            case ThyDatepickerNextEventsEnum.calendarDone:
-                result = {
-                    year: this.store.snapshot.calendarSelected.year,
-                    month: this.store.snapshot.calendarSelected.month,
-                    day: this.store.snapshot.calendarSelected.day,
-                };
                 break;
             case ThyDatepickerNextEventsEnum.clean:
                 result = null;
                 break;
         }
-        this.thyNgModelChange.emit(result);
+
+        console.log(result);
+        const value$ = of<ValueOutRxPipeInterface>({
+            value: result
+        });
+        const subscribe = value$
+            .pipe(
+                map(n => {
+                    n.originType = this._originValueType;
+                    return n;
+                }),
+                map(combiningDataAccordingToOriginalDataType),
+            )
+            .subscribe((res: ValueOutRxPipeInterface) => {
+                this.thyNgModelChange.emit(res);
+                if (event === ThyDatepickerNextEventsEnum.done) {
+                    this._onChange(res);
+                    this._onTouched(res);
+                } else {
+                    if (this.store.snapshot.viewFeatureConfig.time === false) {
+                        this._onChange(res);
+                        this._onTouched(res);
+                    }
+                }
+            });
+        subscribe.unsubscribe();
     }
 
     ngOnDestroy() {

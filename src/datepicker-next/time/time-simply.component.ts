@@ -38,11 +38,20 @@ export class ThyDatepickerNextTimeSimplyComponent implements OnInit, OnDestroy {
     private _combinationTimes() {
         this.times.length = 0;
         for (let index = 0; index < 24; index++) {
-            const time: ThyDatepickerNextTime = {
-                text: `${getFullTimeText(index)}:0`,
+            let time: ThyDatepickerNextTime = {
+                text: `${getFullTimeText(index)}:00`,
                 hour: index,
                 minute: 0,
             };
+            if (this.store.snapshot.timeSelected
+                && this.store.snapshot.timeSelected.hour === time.hour
+                && this.store.snapshot.timeSelected.minute === time.minute) {
+                time.isActive = true;
+            }
+            this.times.push(time);
+
+            time = { ...time };
+            time.isActive = false;
             time.text = `${getFullTimeText(index)}:30`;
             time.minute = 30;
             if (this.store.snapshot.timeSelected

@@ -78,18 +78,17 @@ export class ThyDatepickerNextStore extends Store<DatepickerNextState> {
             year = payload.calendarDate.year;
             month = payload.calendarDate.month;
             day = payload.calendarDate.day;
+            this.dispatch(datepickerNextActions.changeCalendarSelected, {
+                year,
+                month,
+                day,
+            });
         } else {
             const today = new Date();
             year = today.getFullYear();
             month = today.getMonth();
             day = today.getDate();
         }
-
-        this.dispatch(datepickerNextActions.changeCalendarSelected, {
-            year,
-            month,
-            day,
-        });
         this.dispatch(datepickerNextActions.changeCalendarCurrent, {
             year,
             month,
@@ -194,6 +193,7 @@ export class ThyDatepickerNextStore extends Store<DatepickerNextState> {
             hour: payload.hour,
             minute: payload.minute,
         };
+        state.timeSelected = Object.assign({}, state.timeSelected);
         this.next(state);
     }
 

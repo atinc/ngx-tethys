@@ -3,10 +3,11 @@ export type DatepickerNextValueType = DatepickerNextValueInfo | Date | number | 
 export class DatepickerNextViewFeatureConfig {
     shortcut?: boolean;
     time?: boolean;
+    timeComponentType?: DatepickerNextTimeModeType;
     operation?: boolean;
 }
 
-export enum DatepickerNextModeType {
+export enum DatepickerNextTimeModeType {
     simply = 'simply',
     accurate = 'accurate',
 }
@@ -44,6 +45,7 @@ export interface ThyDatepickerNextInfo {
 export enum ThyDatepickerNextEventsEnum {
     done = 'done',
     calendarDone = 'calendarDone',
+    shortcutDone = 'shortcutDone',
     clean = 'clean',
 }
 
@@ -77,15 +79,17 @@ export enum DatepickerFormatRules {
 
 
 
-export interface ExploreValueTypePipeInterface {
-    type: DatepickerValueTypeEnum;
+export interface ValueInRxPipeInterface {
     value: DatepickerNextValueType;
+    type?: DatepickerValueTypeEnum;
 }
 
 
-export interface CombineToTypeDPValueInterface {
-    type: DatepickerValueTypeEnum;
+export interface ValueOutRxPipeInterface {
     value: ThyDatepickerNextInfo;
+    originType?: DatepickerValueTypeEnum;
 }
+
+
 
 

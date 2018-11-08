@@ -1,5 +1,6 @@
 import { Component, ElementRef, TemplateRef, OnInit } from '@angular/core';
 import { ComponentExample } from '../../docs/model/component-example';
+import { DatepickerNextTimeModeType } from '../../../../../src/datepicker-next/datepicker-next.interface';
 
 @Component({
     selector: 'demo-datepicker-next-section',
@@ -13,46 +14,34 @@ export class DemoDatepickerNextSectionComponent implements OnInit {
         nowNextNextWeekDate: Math.floor((new Date()).getTime() / 1000) + 90000 * 7 * 2,
     };
 
-    //#region DatePicker
+    datepickerNextTimeModeType = DatepickerNextTimeModeType;
 
-    dateEntry = {
-        date: Math.floor((new Date()).getTime() / 1000) + 90000 * 7,
-        with_time: true
-    };
+    //#region DatePickerNext
 
-    dateEntry2 = Math.floor((new Date()).getTime() / 1000);
-
-    dateEntryDisable = {
-        date: Math.floor((new Date()).getTime() / 1000),
-        with_time: false
-    };
-
-    dateEntryWithTime = {
-        date: Math.floor((new Date()).getTime() / 1000),
-        with_time: false
-    };
-
-    dateEntryWithTime2 = {
+    objectTimestamp = {
         date: Math.floor((new Date()).getTime() / 1000),
         with_time: true
     };
-
-    dateNull = null;
-    dateNull2 = {
+    objectTimestamp2 = {
+        date: Math.floor((new Date()).getTime() / 1000),
+        with_time: true
+    };
+    objectTimestampLong = {
+        date: Math.floor((new Date()).getTime()),
+        with_time: false
+    };
+    objectDate = {
+        date: new Date(),
+        with_time: true
+    };
+    objectEmpty = {
         date: null,
-        with_time: false
+        with_time: true
     };
-    dateNullObject = {};
-
-    elementDateEntry = {
-        date: Math.floor((new Date()).getTime() / 1000),
-        with_time: false
-    };
-
-    elementDateEntry2 = {
-        date: Math.floor((new Date()).getTime() / 1000),
-        with_time: false
-    };
+    timestamp = Math.floor((new Date()).getTime() / 1000);
+    timestampLong = Math.floor((new Date()).getTime());
+    date = new Date();
+    empty = null;
 
     //#endregion
 

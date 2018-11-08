@@ -12,7 +12,7 @@ export class ThyDatepickerNextOperationComponent implements OnInit {
     @HostBinding('class') stylesClass = 'operation-container';
 
     constructor(
-        public parentComponent: ThyDatepickerNextContainerComponent,
+        private parentComponent: ThyDatepickerNextContainerComponent,
     ) { }
 
     ngOnInit() { }
