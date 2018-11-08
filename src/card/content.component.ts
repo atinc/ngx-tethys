@@ -26,6 +26,13 @@ export class ThyCardContentComponent implements OnInit {
         this.scrollClassName = inputValueToBoolean(value);
     }
 
+    @HostBinding('class.thy-card-content--sm') _thySizeSm = false;
+
+    @Input('thySize')
+    set thySize(value: string) {
+        this._thySizeSm = (value === 'sm');
+    }
+
     ngOnInit() {
     }
 }

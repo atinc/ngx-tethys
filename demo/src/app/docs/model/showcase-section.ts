@@ -3,9 +3,9 @@ import { ComponentExample } from './component-example';
 
 @Injectable()
 export class ShowcaseSection {
-    name: string;
-    anchor: string;
-    outlet: any;
+    name?: string;
+    anchor?: string;
+    outlet?: any;
     description?: string;
-    content: ComponentExample[];
+    content?: ComponentExample[];
 }

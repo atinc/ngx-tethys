@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
+import { ThyTreeNode } from '../../../../../src/tree/tree.class';
 @Component({
     selector: 'demo-tree-section',
     templateUrl: './tree-section.component.html',
@@ -31,6 +32,33 @@ export class DemoTreeSectionComponent {
             ]
         }
     ];
+
+    public treeNodes: any[] = [{
+        key: '01',
+        title: 'root1',
+        icon: 'wtf wtf-drive-o',
+        origin: { type: 1 },
+        iconStyle: { color: 'red' },
+        children: [
+            {
+                key: '01001',
+                title: 'child1',
+                icon: 'wtf wtf-file-text'
+            },
+            {
+                key: '01002',
+                title: 'child2',
+                icon: 'wtf wtf-file-text'
+            }
+        ]
+    }, {
+        key: '02',
+        title: 'root2',
+        origin: { type: 1 },
+        icon: 'wtf wtf-drive-o',
+        expanded: true,
+        children: []
+    }];
 
     public apiParameters = [
         {
@@ -67,5 +95,25 @@ export class DemoTreeSectionComponent {
 
     constructor() {
 
+    }
+
+    public addNode() {
+        this.treeNodes.push({
+            key: '020011',
+            title: 'new',
+            edited: true
+        });
+    }
+
+    public isEditable(node: ThyTreeNode) {
+        return node.key === '02';
+    }
+
+    public isShowExpand(node) {
+        return node.origin && node.origin.type === 1;
+    }
+
+    public draggableNode(event) {
+        console.log(event);
     }
 }

@@ -15,11 +15,11 @@ export function isUndefinedOrNull(value: any) {
 }
 
 export function isArray(value: any): boolean {
-    return value && this.baseGetTag(value) === '[object Array]';
+    return value && baseGetTag(value) === '[object Array]';
 }
 
 export function isString(value: any): boolean {
-    return value && this.baseGetTag(value) === '[object String]';
+    return value && baseGetTag(value) === '[object String]';
 }
 
 function isObjectLike(value: any) {
@@ -121,4 +121,56 @@ export function set(object: any, path: string, value: any) {
 export function isBoolean(value: any) {
     return value === true || value === false ||
         (isObjectLike(value) && baseGetTag(value) === '[object Boolean]');
+}
+
+export function fromArray(value: any): any[] {
+    if (Array.from && isFunction(Array.from)) {
+        return Array.from(value);
+    } else {
+        return Array.prototype.slice.call(value);
+    }
+}
+
+export function htmlElementIsEmpty(element: HTMLElement) {
+    if (element && element.childNodes) {
+        const nodes = element.childNodes;
+        for (let i = 0; i < nodes.length; i++) {
+            const node = nodes[i];
+            if ((node.nodeType === Node.ELEMENT_NODE) && ((node as HTMLElement).outerHTML.toString().trim().length !== 0)) {
+                return false;
+            } else if ((node.nodeType === Node.TEXT_NODE) && ((node.textContent.toString().trim().length !== 0))) {
+                return false;
+            } else if (node.nodeType !== Node.COMMENT_NODE) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+export function hexToRgb(hexValue: any, alpha: number): string {
+    const rgx = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+    const hex = hexValue.replace(rgx, (m: any, r: any, g: any, b: any) => r + r + g + g + b + b);
+    const rgb = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    const resultR = parseInt(rgb[1], 16);
+    const resultG = parseInt(rgb[2], 16);
+    const resultB = parseInt(rgb[3], 16);
+    if (alpha) {
+        return `rgba(${resultR},${resultG},${resultB},${alpha})`;
+    } else {
+        return `rgb(${resultR},${resultG},${resultB})`;
+    }
+}
+
+export function formatDate(date: Date | number): number {
+    if (isNumber(date)) {
+        if (date.toString().length === 10) {
+            return date as number;
+        } else {
+            return parseInt(((date as number) / 1000).toFixed(0), 10);
+        }
+
+    } else {
+        return parseInt(((date as Date).getTime() / 1000).toFixed(0), 10);
+    }
 }

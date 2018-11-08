@@ -20,6 +20,8 @@ export class ThyActionMenuToggleDirective {
 
     private _stopPropagation = false;
 
+    private _thyContainerClass = '';
+
     @Input()
     set thyActionMenuToggle(value: ElementRef) {
         this._templateRef = value;
@@ -38,6 +40,11 @@ export class ThyActionMenuToggleDirective {
     @Input()
     set thyStopPropagation(value: boolean) {
         this._stopPropagation = inputValueToBoolean(value);
+    }
+
+    @Input()
+    set thyContainerClass(value: string) {
+        this._thyContainerClass = value;
     }
 
     constructor(
@@ -68,7 +75,9 @@ export class ThyActionMenuToggleDirective {
         this.popBoxService.show(this._templateRef, {
             target: event.currentTarget,
             insideAutoClose: true,
-            placement: this._placement || 'bottom left'
+            stopPropagation: this._stopPropagation,
+            placement: this._placement || 'bottom left',
+            containerClass: this._thyContainerClass,
         });
     }
 }

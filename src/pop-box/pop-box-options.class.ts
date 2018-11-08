@@ -59,6 +59,24 @@ export class PopBoxOptions {
     stopPropagation?: boolean;
 
     zIndex?: number;
+
+    // 弹出元素追加的位置，默认是 body
+    append?: string;
+
+    // 弹出后是否显示遮罩层
+    showMask?: boolean;
+
+    // 自动关闭上一个弹出框
+    autoClosePrevious?: boolean;
+
+    // 打开后在 target 追加的样式
+    openedClass?: string;
+
+    // 打开后在 target 追加的样式
+    containerClass?: string;
+
+    // 是否自动调整位置适应内容显示
+    autoAdapt?: boolean;
 }
 
 export const popBoxConfigDefaults: PopBoxOptions = {
@@ -67,6 +85,11 @@ export const popBoxConfigDefaults: PopBoxOptions = {
     keyboardESCClose: true,
     outsideAutoClose: true,
     insideAutoClose: false,
-    offset: 2,
-    stopPropagation: false
+    offset: 0,
+    stopPropagation: false,
+    append: 'body',
+    showMask: false,
+    autoClosePrevious: false,
+    openedClass: 'thy-pop-box-opened',
+    autoAdapt: true
 };

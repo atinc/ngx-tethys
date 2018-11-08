@@ -1,0 +1,66 @@
+<section>
+    <div class="header">
+        <h2>List</h2>
+    </div>
+    <div class="body">
+        <thy-list>
+            <thy-list-item class="active">
+                Item 1
+            </thy-list-item>
+            <thy-list-item>
+                Item 2
+            </thy-list-item>
+            <thy-list-item>
+                Item 2
+            </thy-list-item>
+            <thy-list-item>
+                <a href="javascripr:;">Item 3</a>
+            </thy-list-item>
+        </thy-list>
+    </div>
+</section>
+
+<section>
+    <div class="header">
+        <h2>Selection List</h2>
+    </div>
+    <div class="body selection-list-wrapper" #body>
+        <label thyCheckbox thyInline="true" [(ngModel)]="selectionModel.multiple" thyLabelText="是否是多选列表"></label>
+        <label thyCheckbox thyInline="true" [(ngModel)]="selectionModel.stopKeydownEvent" thyLabelText="阻止键盘事件"></label>
+        <label thyCheckbox thyInline="true" [(ngModel)]="selectionModel.selectAll" (ngModelChange)="toggleSelectAll()"
+            thyLabelText="选择所有项"></label>
+        <thy-input-search name="search" thyPlaceholder="输入关键字进行搜索" (keydown.enter)="enterSearch()" [(ngModel)]="searchText"
+            (ngModelChange)="searchChange()" (clear)="clearSearch()"></thy-input-search>
+        <thy-selection-list [style.height]="'200px'" [(ngModel)]="selectionModel.defaultValues"
+            [thyBindKeyEventContainer]="body" [thyBeforeKeydown]="thyBeforeKeydown" [thyMultiple]="selectionModel.multiple"
+            (thySelectionChange)="selectionChange($event)">
+            <thy-list-option *ngFor="let item of items; trackBy:item?.id" [thyDisabled]="item.id === 2" [thyValue]="item?.id">
+                {{item.name}}
+            </thy-list-option>
+        </thy-selection-list>
+        ngModel:
+        <pre><code>{{selectionModel.defaultValues | json}}</code></pre>
+    </div>
+</section>
+
+<section>
+    <div class="header">
+        <h2>Selection List Value is Object</h2>
+    </div>
+    <div class="body selection-list-wrapper" #body1>
+
+        <thy-selection-list [style.height]="'200px'" [(ngModel)]="selectionModel.objectValues"
+            [thyBindKeyEventContainer]="body1" [thyBeforeKeydown]="thyBeforeKeydown" [thyMultiple]="selectionModel.multiple"
+            (thySelectionChange)="selectionChange($event)" thyUniqueKey="id">
+            <thy-list-option *ngFor="let item of items; trackBy:item?.id" [thyValue]="item">
+                {{item.name}}
+            </thy-list-option>
+        </thy-selection-list>
+        ngModel:
+        <pre><code>{{selectionModel.objectValues | json}}</code></pre>
+    </div>
+</section>
+
+
+<api-parameters title="thy-list-option 参数列表" [parameters]="apiOptionParameters"></api-parameters>
+<api-parameters title="thy-selection-list 参数列表" [parameters]="apiParameters"></api-parameters>

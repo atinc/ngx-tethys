@@ -1,5 +1,6 @@
 import { Component, ElementRef, Renderer2, Input, Output, EventEmitter, HostBinding } from '@angular/core';
 import { inputValueToBoolean } from '../util/helpers';
+import { helpers } from '../util';
 
 export type ThyLabelType = 'default' | 'primary' | 'success' | 'info' | 'warning' | 'danger';
 
@@ -20,13 +21,24 @@ export class ThyLabelComponent {
 
     @HostBinding('class.label-has-hover') _thyHasHover = false;
 
-    private nativeElement: any;
+    @HostBinding('class.thy-label--sm') _classNameSM = false;
+
+    @HostBinding('class.thy-label--md') _classNameDM = false;
+
+    @HostBinding('class.thy-label--lg') _classNameLG = false;
+
+    @Input('thySize')
+    set thySize(value: string) {
+        this._classNameSM = (value === 'sm');
+        this._classNameDM = (value === 'md');
+        this._classNameLG = (value === 'lg');
+    }
+
+    private nativeElement: HTMLElement;
 
     private _typeClassNames: string[] = [];
 
     private _labelClass?: string;
-
-    private _color?: string;
 
     private _type?: string;
 
@@ -37,6 +49,8 @@ export class ThyLabelComponent {
     public beforeIconClass: any;
 
     public afterIconClass: any;
+
+    public _color?: string;
 
     @Output() thyOnRemove: EventEmitter<any> = new EventEmitter<any>();
 
@@ -117,7 +131,19 @@ export class ThyLabelComponent {
 
     private _setLabelCustomColor() {
         if (this._color) {
-            this.el.nativeElement.style.backgroundColor = this._color;
+            if (this._type.indexOf('emboss') > -1) {
+                if (this._type === 'emboss-status') {
+                    this.el.nativeElement.style.color = '#333';
+                } else {
+                    this.el.nativeElement.style.color = this._color;
+                }
+                this.el.nativeElement.style.backgroundColor = helpers.hexToRgb(this._color, 0.1);
+            } else if (this._type.indexOf('outline') > -1) {
+                this.el.nativeElement.style.color = this._color;
+                this.el.nativeElement.style.borderColor = this._color;
+            } else {
+                this.el.nativeElement.style.backgroundColor = this._color;
+            }
         }
     }
 

@@ -4,21 +4,28 @@ import {
     Output,
     EventEmitter,
     OnInit,
-    forwardRef
+    forwardRef,
+    ElementRef,
+    ViewChild,
+    OnChanges,
+    SimpleChanges
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { helpers } from '../util';
+import { UpdateHostClassService } from '../shared';
 
 
 @Component({
     selector: 'thy-switch',
     templateUrl: './switch.component.html',
-    providers: [{
-        provide: NG_VALUE_ACCESSOR,
-        useExisting: forwardRef(() => ThySwitchComponent),
-        multi: true
-    }]
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => ThySwitchComponent),
+            multi: true
+        }]
 })
-export class ThySwitchComponent implements OnInit, ControlValueAccessor {
+export class ThySwitchComponent implements OnInit, ControlValueAccessor, OnChanges {
 
     public model: any;
 
@@ -28,11 +35,13 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor {
 
     public disabled?: Boolean = false;
 
-    public thyClassName = '';
+    public classNames: string[];
 
     public typeArray: any = ['primary', 'info', 'warning', 'danger'];
 
     public sizeArray: any = ['lg', '', 'sm'];
+
+    @ViewChild('switch') switchElementRef: ElementRef;
 
     @Input()
     set thyType(value: string) {
@@ -51,28 +60,35 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor {
     }
 
 
-    @Input()
-    set thyDisabled(value: boolean) {
-        this.disabled = value;
-    }
+    @Input() thyDisabled: boolean;
 
     @Output() thyChange: EventEmitter<Event> = new EventEmitter<Event>();
-
 
     constructor() {
 
     }
 
-    public onModelChange: Function = () => {
-
+    ngOnInit() {
+        this.setClassNames();
     }
 
-    public onModelTouched: Function = () => {
-
+    ngOnChanges(changes: SimpleChanges) {
+        // 兼容降级后的Switch，使用onChanges
+        if (changes.thyDisabled) {
+            const value = changes.thyDisabled.currentValue;
+            this.disabled = helpers.isBoolean(value) ? Boolean(value) : (value === 'true' || value === '1');
+            this.setClassNames();
+        }
     }
+
+    public onModelChange: Function = () => { };
+
+    public onModelTouched: Function = () => { };
+
 
     writeValue(value: any) {
         this.model = value;
+        // this.setClassNames();
     }
 
     registerOnChange(fn: Function): void {
@@ -85,7 +101,7 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor {
 
     setDisabledState(isDisabled: Boolean) {
         this.disabled = isDisabled;
-        this.setClass();
+        this.setClassNames();
     }
 
     toggle(event: any) {
@@ -95,19 +111,17 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor {
 
     }
 
-    setClass() {
-        if (this.size !== '') {
-            this.thyClassName = this.thyClassName + ' ' + 'thy-switch-' + this.size;
+    setClassNames() {
+        this.classNames = [`thy-switch-${this.type}`];
+        if (this.size) {
+            this.classNames.push(`thy-switch-${this.size}`);
         }
-        this.thyClassName = this.thyClassName + ' ' + 'thy-switch-' + this.type;
         if (this.disabled) {
-            this.thyClassName = this.thyClassName + ' ' + 'thy-switch-disabled';
+            this.classNames.push(`thy-switch-disabled`);
+            if (this.model) {
+                this.classNames.push(`thy-switch-disabled-true`);
+            }
         }
     }
-
-    ngOnInit() {
-        this.setClass();
-    }
-
 }
 

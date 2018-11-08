@@ -30,6 +30,15 @@
   }
 }
 
+.table {
+  tbody tr {
+    &.clear-hover {
+      cursor: default !important;
+      box-shadow: initial !important;
+    }
+  }
+}
+
 .table-default {
   @include table-set-padding-space();
   thead {
@@ -64,10 +73,8 @@
   @include table-hover-set-space-none();
   tbody tr {
     @include hover {
+      cursor: pointer;
       @include table-hover-box-shadow($table-hover-color);
-    }
-    &.hover-clear {
-      box-shadow: initial;
     }
   }
 }
@@ -84,6 +91,8 @@
       }
     }
     @include hover {
+      cursor: move;
+      @include table-hover-box-shadow($table-hover-color);
       td {
         .table-draggable-icon {
           display: block;

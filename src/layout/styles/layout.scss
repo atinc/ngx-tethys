@@ -25,14 +25,14 @@
 }
 
 .thy-layout-content {
-  flex: 1;
+  flex: auto;
   display: flex;
   flex-direction: column;
   padding: $layout-content-padding;
   background: $layout-content-background;
   .thy-layout-content-section {
     display: block;
-    overflow: hidden;
+    // overflow: hidden;
     border-radius: 3px;
     background: $layout-content-section-background;
     margin-bottom: $layout-content-section-margin-bottom;

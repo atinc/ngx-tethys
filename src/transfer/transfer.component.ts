@@ -4,7 +4,6 @@ import {
 } from '@angular/core';
 
 import { ThyTransferItem, ThyTransferChangeEvent, ThyTransferSelectEvent, ThyTransferDragEvent } from './transfer.interface';
-import { SortablejsOptions } from 'angular-sortablejs/dist';
 
 @Component({
     selector: 'thy-transfer',

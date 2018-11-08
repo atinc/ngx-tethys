@@ -6,7 +6,8 @@
     .action-menu-item {
         display: flex;
         flex-wrap: wrap;
-        padding: 12px 18px;
+        align-items: flex-start;
+        padding: $action-menu-item-padding-y $action-menu-item-padding-x;
         position: relative;
         line-height: 20px;
         color: $action-menu-item-color;
@@ -14,9 +15,34 @@
         cursor: pointer;
         text-decoration: none;
         transition: background 200ms;
+        &:not(.action-menu-item--disabled).active,
+        &:not(.action-menu-item--disabled):hover {
+            background-color: $action-menu-item-hover-bg;
+            &:not(.info),
+            &:not(.action-menu-sub-item) {
+                color: $action-menu-item-hover-color; // .icon {
+                //     color: $action-menu-item-hover-color;
+                // }
+            }
+        }
+        span {
+            // &:not(.icon):not(.info):not(.meta):not(.extend-icon) {
+            //   flex: 1;
+            //   overflow: hidden;
+            //   text-overflow: ellipsis;
+            //   white-space: nowrap;
+            // }
+        }
         .icon {
             margin-right: 5px;
             color: $action-menu-item-icon-color;
+            transition: margin-left 200ms;
+        }
+        .name {
+            flex: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
             transition: margin-left 200ms;
         }
         .meta {
@@ -30,17 +56,20 @@
             width: 100%;
             line-height: 1.5;
             font-size: 12px;
-            transition: padding 200ms;
+            color: $info;
+            transition: margin-left 200ms;
         }
         .extend-icon {
             margin-left: auto;
+            color: $action-menu-item-extend-color
         }
         .action-menu-sub-item {
             display: none;
             position: absolute;
-            right: -100%;
+            left: 100%;
             top: 0;
-            min-width: 100%;
+            z-index: 1;
+            width: 240px;
             background: $action-menu-bg;
             box-shadow: $box-shadow;
         }
@@ -50,13 +79,9 @@
             cursor: not-allowed;
         }
         &:not(.action-menu-item--disabled):hover {
-            background: $action-menu-item-hover-bg;
-            &>.icon {
+            &>span:nth-child(1),
+            .info {
                 margin-left: 10px;
-            }
-            &>.info {
-                padding-left: 10px;
-                padding-right: 0;
             }
             .action-menu-sub-item {
                 display: block;
@@ -87,22 +112,9 @@
             }
         }
     }
-    &--select{
-        width:100%;
-        .action-menu-item{
-            &:not(.action-menu-item--disabled):hover {
-                background: $action-menu-item-hover-bg;
-                &>.icon {
-                    margin-left: 0;
-                }
-                &>.info {
-                    padding-left: 0;
-                    padding-right: 0;
-                }
-                .action-menu-sub-item {
-                    display: block;
-                }
-            }
-        }
-    }
+}
+
+.action-menu-height-limit {
+    max-height: 400px;
+    overflow-y: auto;
 }

@@ -1,0 +1,18 @@
+.thy-list {
+    display: block;
+    overflow: auto;
+    flex: 1 1 auto;
+    padding: 2px 0px;
+}
+
+.thy-list-option {
+    padding: 0.594rem 10px;
+    @include thy-option-common-layout();
+    @include thy-option();
+}
+
+.thy-multiple-selection-list {
+    .thy-list-option {
+        @include thy-multiple-option();
+    }
+}

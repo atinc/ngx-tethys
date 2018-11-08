@@ -1,7 +1,9 @@
 <div class="modal-footer">
     <ng-container *ngIf="!isTemplateRef">
-        <button thyButton="primary" (click)="saveFn()">确认</button>
-        <button thyButton="link-secondary" class="btn btn-link btn-link-default" (click)="cancelFn()">取消</button>
+        <div class="btn-pair">
+            <button thyButton="primary" (click)="saveFn()" [thyLoading]="savingStatus" [thyLoadingText]="savingText">{{thySaveText ? thySaveText : '确认'}}</button>
+            <button thyButton="link-secondary" (click)="cancelFn()">取消</button>
+        </div>
     </ng-container>
     <ng-container *ngIf="isTemplateRef">
         <template [ngTemplateOutlet]="footerTemplate"></template>

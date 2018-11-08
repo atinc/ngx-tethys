@@ -1,8 +1,22 @@
-import { Component, Input, ElementRef, ViewEncapsulation, ContentChild, ContentChildren, TemplateRef, ViewChild } from '@angular/core';
+import {
+    Component, Input, ElementRef, ViewEncapsulation, ContentChild,
+    ContentChildren, TemplateRef, ViewChild, InjectionToken, Optional, Inject
+} from '@angular/core';
 import { AfterContentInit, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { inputValueToBoolean, isUndefined } from '../util/helpers';
 import { ThyGridComponent } from './grid.component';
 import { ThyGridColumn } from './grid.interface';
+
+
+export interface IThyGridColumnParentComponent {
+    updateColumnSelections(key: string, selections: any): void;
+}
+
+/**
+ * Injection token used to provide the parent component to options.
+ */
+export const THY_GRID_COLUMN_PARENT_COMPONENT =
+    new InjectionToken<IThyGridColumnParentComponent>('THY_GRID_COLUMN_PARENT_COMPONENT');
 
 @Component({
     selector: 'thy-grid-column',
@@ -10,8 +24,6 @@ import { ThyGridColumn } from './grid.interface';
     encapsulation: ViewEncapsulation.None
 })
 export class ThyGridColumnComponent implements OnInit {
-
-    private _selections: any = [];
 
     @Input() thyModelKey = '';
 
@@ -31,9 +43,12 @@ export class ThyGridColumnComponent implements OnInit {
     set thySelections(value: any) {
         if (value) {
             if (Array.isArray(value)) {
-                this._selections = value;
+                this.selections = value;
             } else {
-                this._selections = [value];
+                this.selections = [value];
+            }
+            if (!this._firstChange) {
+                this.parent.updateColumnSelections(this.key, this.selections);
             }
         }
     }
@@ -42,35 +57,48 @@ export class ThyGridColumnComponent implements OnInit {
 
     @ContentChild(TemplateRef) templateRef: TemplateRef<any>;
 
-    private _column: ThyGridColumn;
+    @ContentChild('cell') cellTemplateRef: TemplateRef<any>;
 
-    constructor(private root: ThyGridComponent, private el: ElementRef) {
+    public key?: string;
 
+    public model: string;
+
+    public title: string;
+
+    public type: string;
+
+    public selections: any = [];
+
+    public width: string | number;
+
+    public className: string;
+
+    public headerClassName: string;
+
+    public disabled: boolean;
+
+    public defaultText: string;
+
+    private _firstChange = true;
+
+    constructor(
+        private el: ElementRef,
+        @Optional() @Inject(THY_GRID_COLUMN_PARENT_COMPONENT) public parent: IThyGridColumnParentComponent
+    ) {
     }
 
     ngOnInit() {
-        const selections = this._selections.map((item: any) => {
-            if (typeof (item) === 'number' || typeof (item) === 'string') {
-                return item;
-            } else {
-                return item[this.root.rowKey];
-            }
-        });
-
-        this._column = {
-            key: this._generateKey(),
-            model: this.thyModelKey,
-            title: this.thyTitle,
-            type: this.thyType,
-            selections: selections,
-            width: this.thyWidth,
-            className: this.thyClassName,
-            headerClassName: this.thyHeaderClassName,
-            disabled: this.thyDisabled,
-            defaultText: this.thyDefaultText,
-            templateRef: this.templateRef
-        };
-        this.root.updateColumn(this._column);
+        this.key = this._generateKey();
+        this.model = this.thyModelKey;
+        this.title = this.thyTitle;
+        this.type = this.thyType;
+        this.width = this.thyWidth;
+        this.className = this.thyClassName;
+        this.headerClassName = this.thyHeaderClassName;
+        this.disabled = this.thyDisabled;
+        this.defaultText = this.thyDefaultText;
+        this.templateRef = this.templateRef || this.cellTemplateRef;
+        this._firstChange = false;
     }
 
     private _generateKey() {

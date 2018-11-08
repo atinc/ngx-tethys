@@ -12,11 +12,13 @@
         "transclude",
         "Injectable",
         "endregion",
+        "Mutex",
         "Sortablejs",
         "vnext",
         "kanban",
         "datepicker",
         "uploader",
         "uploaders",
+        "deletable"
     ]
 }

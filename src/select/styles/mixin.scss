@@ -7,16 +7,23 @@
   pointer-events: none;
   color: $gray-500;
   z-index: 10;
+  top: 50%;
+  margin-top: -8px; 
 }
-@mixin select-arrow-bottom($bottom) {
-  &:after {
-    bottom: $bottom;
-  }
-}
+// @mixin select-arrow-bottom($bottom) {
+//   &:after {
+//     bottom: $bottom;
+//   }
+// }
 @mixin select-custom-variant($padding-x,$padding-y,$height,$font-size) {
   padding: $padding-y $padding-x;
   height: $height;
   border: 1px solid $input-border-color;
   border-radius: $input-border-radius-md;
   font-size: $font-size;
+  cursor: pointer;
+
+  &:hover {
+    border-color: $input-hover-border-color;
+  }
 }

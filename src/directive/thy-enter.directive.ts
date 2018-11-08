@@ -1,22 +1,39 @@
-import { Directive, Output, HostListener, ElementRef, EventEmitter } from '@angular/core';
-import { inputValueToBoolean } from '../util/helpers';
+import {
+    Directive, Output,
+    EventEmitter, OnInit, NgZone,
+    ElementRef, Renderer2
+} from '@angular/core';
+import { keycodes } from '../util';
 
 /**
- * 将来会移动到 thy 组件库中
+ * 与 (keydown.enter) 区别是支持组合键，当按 Ctrl + Enter 或者 Command + Enter 也会触发
  */
 @Directive({
     selector: '[thyEnter]'
 })
-export class ThyEnterDirective {
+export class ThyEnterDirective implements OnInit {
 
     @Output() thyEnter = new EventEmitter();
 
-    @HostListener('keydown.enter', ['$event'])
-    onKeydown(event: any) {
-        event.preventDefault();
-        this.thyEnter.emit(event);
+    onKeydown(event: KeyboardEvent) {
+        const keyCode = event.which || event.keyCode;
+        if (keyCode === keycodes.ENTER) {
+            event.preventDefault();
+            this.ngZone.run(() => {
+                this.thyEnter.emit(event);
+            });
+        }
     }
 
-    constructor(private elementRef: ElementRef) { }
+    constructor(
+        private ngZone: NgZone,
+        private elementRef: ElementRef,
+        private renderer: Renderer2
+    ) { }
 
+    ngOnInit(): void {
+        this.ngZone.runOutsideAngular(() => {
+            this.renderer.listen(this.elementRef.nativeElement, 'keydown', this.onKeydown.bind(this));
+        });
+    }
 }

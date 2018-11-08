@@ -2,6 +2,7 @@ import { Component, ElementRef, TemplateRef, OnInit, HostListener } from '@angul
 import { ComponentExample } from '../../docs/model/component-example';
 import { ThyPopBoxService } from '../../../../../src/pop-box/pop-box.service';
 import { PopBoxRef } from '../../../../../src/pop-box/pop-box-ref.service';
+import { flattenStyles } from '@angular/platform-browser/src/dom/dom_renderer';
 
 @Component({
     selector: 'demo-pop-box-section',
@@ -60,11 +61,16 @@ export class DemoPopBoxSectionComponent {
 
     public config = {
         outsideAutoClose: true,
-        insideAutoClose: false
+        insideAutoClose: false,
+        showMask: false
     };
 
-    constructor(private popBoxService: ThyPopBoxService) {
+    public loadingDone = false;
 
+    constructor(private popBoxService: ThyPopBoxService) {
+        setTimeout(() => {
+            this.loadingDone = true;
+        }, 3000);
     }
 
     openPopBoxMenu(templateRef: any) {
@@ -78,7 +84,8 @@ export class DemoPopBoxSectionComponent {
             outsideAutoClose: this.config.outsideAutoClose,
             target: templateRef.elementRef,
             placement: this.demoPlacement,
-            zIndex: 100
+            zIndex: 100,
+            showMask: this.config.showMask
         });
     }
 
@@ -107,7 +114,8 @@ export class DemoPopBoxSectionComponent {
             position: {
                 top: $event.pageY,
                 left: $event.pageX,
-            }
+            },
+            showMask: this.config.showMask
         });
         return false;
     }

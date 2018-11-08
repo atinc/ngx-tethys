@@ -1,6 +1,7 @@
 <button thyButton="primary" (click)="addModal(add,{size:'lg'})">添加</button>
 <button thyButton="primary" (click)="addModal(addDefine,{size:'lg'})">添加自定义title、footer</button>
 <button thyButton="primary" (click)="openModalComponent()">使用组件创建modal框</button>
+<!-- <api-parameters title="参数列表" [parameters]="apiParameters"></api-parameters> -->
 
 <ng-template #add>
     <thy-modal>
@@ -12,7 +13,22 @@
             <h2>H2 标题</h2>
             <h3>H3 标题</h3>
         </thy-modal-body>
-        <thy-modal-footer (thyOnSave)="modalService.show(addTwo)" (thyOnCancel)="closeModal()"> </thy-modal-footer>
+        <thy-modal-footer>
+            <ng-template #thyModalFooterTemplate>
+                <div>
+                    <div class="list-relationship">
+                        <thy-custom-select class="flex-grow-1 ml-1" [(ngModel)]="shipId" thyPlaceHolder="请选择关系">
+                        </thy-custom-select>
+                    </div>
+
+                    <div class="btn-pair">
+                        <button thyButton="primary" (click)="saveModal()" [thyLoading]="saving" [thyLoadingText]="'提交中...'">确认1</button>
+                        <button thyButton="link-secondary" (click)="closeModal()">取消1</button>
+                    </div>
+                </div>
+
+            </ng-template>
+        </thy-modal-footer>
     </thy-modal>
 </ng-template>
 

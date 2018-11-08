@@ -9,7 +9,6 @@
 @import "~bootstrap/scss/code";
 @import "~bootstrap/scss/type";
 @import "~bootstrap/scss/utilities";
-@import "~bootstrap/scss/close";
 // @import "~bootstrap/scss/buttons";
 // @import "~bootstrap/scss/badge";
 // @import "~bootstrap/scss/label";
@@ -18,11 +17,9 @@
 // @import "~bootstrap/scss/navbar";
 // @import "~bootstrap/scss/forms";
 // @import "~bootstrap/scss/pagination";
-// @import "~bootstrap/scss/close";
 @import "~bootstrap/scss/modal";
 // @import "~bootstrap/scss/forms";
 // @import "~bootstrap/scss/input-group";
-
 @import "../button/styles/button";
 @import "../button/styles/button-group";
 @import "../dropdown/styles/dropdown";
@@ -49,3 +46,10 @@
 @import "../select/styles/select";
 @import "../progress/styles/progress.scss";
 @import "../slide/styles/slide.scss";
+@import "../datepicker-next/styles/datepicker-next.scss";
+@import "../property-operation/styles/property-operation.scss";
+@import "../editor/styles/editor.scss";
+@import "../editor/styles/markdown.scss";
+@import "../grid/styles/grid";
+@import "../date-range/styles/date-range.scss";
+@import "../list/styles/list.scss";

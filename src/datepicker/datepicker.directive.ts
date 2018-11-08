@@ -12,6 +12,8 @@ import localeZhHans from '@angular/common/locales/zh-Hans';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { isObject, isNumber, isDate, inputValueToBoolean } from '../util/helpers';
 import { datepickerUtilIdentificationValueType, datepickerUtilConvertToDatepickerObject } from './util';
+import { ThyPositioningService, PlacementTypes } from '../positioning/positioning.service';
+
 
 registerLocaleData(localeZhHans, 'zh-Hans');
 
@@ -42,14 +44,15 @@ export class ThyDatepickerDirective implements OnInit, AfterContentInit, Control
     // private _isFirstInitValueWithNullOnce = false; // 第一次初始化，如果为null，显示时需要为空
     private _loader: ComponentLoader<ThyDatepickerContainerComponent>;
     private _valueType: DatepickerValueShowTypesEnum;
-    @Input() thyPlacement: 'top' | 'bottom' | 'left' | 'right' = 'bottom';
+    @Input() thyPlacement: PlacementTypes = PlacementTypes.bottom;
+    @Input() thyAutoAdapt = true;
     @Input() thyTriggers = 'click';
     @Input() thyContainer = 'body';
     @Input() thyOutsideClick = true;
     @Input() thyDisabled = false;
     @Input() thyShowTime = false;
     @Input() thyFormat: string = null;
-    @Output() thyOnChange: EventEmitter<any> = new EventEmitter();
+    // @Output() thyOnChange: EventEmitter<any> = new EventEmitter();
 
     constructor(
         public _config: ThyDatepickerConfig,
@@ -58,6 +61,7 @@ export class ThyDatepickerDirective implements OnInit, AfterContentInit, Control
         _viewContainerRef: ViewContainerRef,
         cis: ComponentLoaderFactory,
         private datepickerService: ThyDatepickerService,
+        private thyPositioningService: ThyPositioningService,
 
     ) {
         this._loader = cis.createLoader<ThyDatepickerContainerComponent>(
@@ -71,7 +75,10 @@ export class ThyDatepickerDirective implements OnInit, AfterContentInit, Control
         this._loader.listen({
             outsideClick: this.thyOutsideClick,
             triggers: this.thyTriggers,
-            show: () => this.show()
+            show: () => this.show(),
+            hide: () => {
+                this.hide();
+            }
         });
     }
 
@@ -102,10 +109,10 @@ export class ThyDatepickerDirective implements OnInit, AfterContentInit, Control
 
         this.datepickerService.initLocale();
 
-        this._loader.provide({ provide: ThyDatepickerConfig, useValue: this._config })
+        const dateContainerRef = this._loader.provide({ provide: ThyDatepickerConfig, useValue: this._config })
             .attach(ThyDatepickerContainerComponent)
             .to(this.thyContainer)
-            .position({ attachment: this.thyPlacement })
+            // .position({ attachment: this.thyPlacement })
             .show({
                 hideLoader: () => {
                     this.hide();
@@ -123,9 +130,19 @@ export class ThyDatepickerDirective implements OnInit, AfterContentInit, Control
                     }
                 }
             });
+        this._renderer.addClass(this._elementRef.nativeElement, this._config.openedClass);
+        this.thyPositioningService.setPosition({
+            target: dateContainerRef.location,
+            attach: this._elementRef,
+            placement: this.thyPlacement,
+            autoAdapt: this.thyAutoAdapt,
+            offset: 2,
+            appendToBody: true
+        });
     }
 
     hide() {
+        this._renderer.removeClass(this._elementRef.nativeElement, this._config.openedClass);
         this._loader.hide();
     }
 
@@ -157,12 +174,12 @@ export class ThyDatepickerDirective implements OnInit, AfterContentInit, Control
             // if (this._isFirstInitValueWithNullOnce) {
             //     this._format = '';
             // } else {
-                const _v = value || this._value;
-                if (_v.with_time) {
-                    this._format = FORMAT_RULES.full;
-                } else {
-                    this._format = FORMAT_RULES.short;
-                }
+            const _v = value || this._value;
+            if (_v.with_time) {
+                this._format = FORMAT_RULES.full;
+            } else {
+                this._format = FORMAT_RULES.short;
+            }
             // }
         }
     }
@@ -176,19 +193,19 @@ export class ThyDatepickerDirective implements OnInit, AfterContentInit, Control
         switch (this._valueType) {
             case DatepickerValueShowTypesEnum.datepickerTimeObject:
                 this._value = {
-                    date: result.date.getTime() / 1000,
+                    date: result.date && result.date.getTime() / 1000,
                     with_time: result.with_time
                 };
                 break;
             case DatepickerValueShowTypesEnum.dateTime:
-                this._value = result.date.getTime() / 1000;
+                this._value = result.date && result.date.getTime() / 1000;
                 break;
             case DatepickerValueShowTypesEnum.nullValue:
-                this._value = result.date.getTime() / 1000;
+                this._value = result.date && result.date.getTime() / 1000;
                 break;
             default:
                 this._value = {
-                    date: Math.floor(result.date.getTime() / 1000),
+                    date: result.date && Math.floor(result.date.getTime() / 1000),
                     with_time: result.with_time
                 };
                 break;

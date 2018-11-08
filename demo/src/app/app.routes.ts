@@ -28,6 +28,13 @@ import { DemoCheckboxSectionComponent } from './components/+form-checkbox/checkb
 import { DemoRadioSectionComponent } from './components/+form-radio/radio-section.component';
 import { DemoSelectSectionComponent } from './components/+select/select-section.component';
 import { DemoSlideSectionComponent } from './components/+slide/slide-section.component';
+import { DemoPropertyOperationSectionComponent } from './components/+property-operation/property-operation-section.component';
+import { DemoUploaderSectionComponent } from './components/+uploader/uploader-section.component';
+import { DemoEditorSectionComponent } from './components/+editor/editor-section.component';
+import { DemoDateRangeSectionComponent } from './components/+date-range/date-range-section.component';
+import { DemoKeySelectSectionComponent } from './components/+key-select/key-select-section.component';
+import { DemoListComponent } from './components/+list/list-section.component';
+import { DemoDatepickerNextSectionComponent } from './components/+datepicker-next/datepicker-next-section.component';
 
 const appRoutes = [
     {
@@ -103,6 +110,14 @@ const appRoutes = [
         component: DemoDataPickerSectionComponent
     },
     {
+        path: 'components/datepicker-next',
+        component: DemoDatepickerNextSectionComponent
+    },
+    {
+        path: 'components/date-range',
+        component: DemoDateRangeSectionComponent
+    },
+    {
         path: 'components/card',
         component: DemoCardSectionComponent
     },
@@ -149,8 +164,27 @@ const appRoutes = [
     {
         path: 'components/slide',
         component: DemoSlideSectionComponent
+    },
+    {
+        path: 'components/property-operation',
+        component: DemoPropertyOperationSectionComponent
+    },
+    {
+        path: 'components/uploader',
+        component: DemoUploaderSectionComponent
+    },
+    {
+        path: 'components/editor',
+        component: DemoEditorSectionComponent
+    },
+    {
+        path: 'components/key-select',
+        component: DemoKeySelectSectionComponent
+    },
+    {
+        path: 'components/list',
+        component: DemoListComponent
     }
-
 ];
 
 export { appRoutes };

@@ -1,0 +1,12 @@
+<div class="has-feedback col-form-control">
+    <input type="email" class="form-control" thyDatepickerNext readonly placeholder="结束时间">
+    <span class="form-control-feedback wtf wtf-schedule-o"></span>
+</div>
+
+<thy-datepicker-next [(ngModel)]="dateEntry" (ngModelChange)="onSelect($event)"></thy-datepicker-next>
+<!-- <br><br><br><br><br>
+<thy-datepicker-next-time-simply></thy-datepicker-next-time-simply>
+<br><br><br><br><br>
+<thy-datepicker-next-time-accurate></thy-datepicker-next-time-accurate> -->
+
+<api-parameters [parameters]="apiParameters"></api-parameters>

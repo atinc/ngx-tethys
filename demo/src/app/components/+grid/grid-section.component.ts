@@ -12,7 +12,7 @@ export class DemoGridSectionComponent implements OnInit {
         {
             id: 1,
             name: '张三',
-            age: 10,
+            age: 0,
             checked: true,
             desc: ''
         }, {
@@ -100,6 +100,12 @@ export class DemoGridSectionComponent implements OnInit {
         {
             property: 'thyDraggable',
             description: '开启Grid拖拽',
+            type: 'Boolean',
+            default: 'false'
+        },
+        {
+            property: 'thyWholeRowSelect',
+            description: '设置开启选中当前行自动选中checkbox',
             type: 'Boolean',
             default: 'false'
         },
@@ -197,7 +203,7 @@ export class DemoGridSectionComponent implements OnInit {
         }
     ];
 
-    public selections = [1, 2, 3];
+    public selections = [1];
 
     public pagination = {
         index: 1,
@@ -205,14 +211,15 @@ export class DemoGridSectionComponent implements OnInit {
         total: 100
     };
 
+    public abc = true;
+
     public loadingDone = false;
 
     public draggableOptions = {
-        onStart: (event) => {
-            console.log('onStart', event);
-        },
-        onUpdate: (event) => {
-            console.log('onUpdate', event);
+        disabled: false,
+        onMove: (event) => {
+            console.log('onMove');
+            // return false;
         }
     };
 
@@ -236,7 +243,6 @@ export class DemoGridSectionComponent implements OnInit {
     }
 
     onSwitchChange(event) {
-        // 设置选中后，如果需要取消选中(必须调 refresh 来刷新数据)
         setTimeout(() => {
             event.row.checked = false;
             event.refresh();

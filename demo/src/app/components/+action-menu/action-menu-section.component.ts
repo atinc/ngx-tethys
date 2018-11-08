@@ -49,10 +49,16 @@ export class DemoActionMenuSectionComponent {
         },
         {
             property: 'thyActionMenuItem',
-            description: '菜单项，设置‘disabled’可禁用',
+            description: '菜单项',
             type: 'String',
             default: ''
         },
+        {
+            property: 'thyDisabled',
+            description: '菜单项禁用',
+            type: 'boolean',
+            default: ''
+        }
     ];
 
     constructor() {

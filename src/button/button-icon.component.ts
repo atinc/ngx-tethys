@@ -1,6 +1,6 @@
 import {
     Component, Directive, HostBinding,
-    Input, ElementRef, Renderer2, ViewEncapsulation
+    Input, ElementRef, Renderer2, ViewEncapsulation, ChangeDetectionStrategy
 } from '@angular/core';
 import { AfterContentInit, OnChanges, OnInit } from '@angular/core';
 import { inputValueToBoolean, isUndefined } from '../util/helpers';
@@ -16,7 +16,14 @@ const sizeClassesMap: any = {
 
 const shapeClassesMap: any = {
     'circle-dashed': ['btn-icon-circle', 'circle-dashed'],
-    'circle-solid': ['btn-icon-circle', 'circle-solid']
+    'circle-solid': ['btn-icon-circle', 'circle-solid'],
+    'circle-thick-dashed': ['btn-icon-circle', 'circle-dashed', 'border-thick'],
+    'circle-thick-solid': ['btn-icon-circle', 'circle-solid', 'border-thick'],
+    'self-icon': ['btn-icon-self-circle']
+};
+
+const themeClassesMap: any = {
+    'danger-weak': ['btn-icon-danger-weak']
 };
 
 @Component({
@@ -25,7 +32,8 @@ const shapeClassesMap: any = {
     providers: [
         UpdateHostClassService
     ],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyButtonIconComponent implements OnInit {
 
@@ -41,9 +49,12 @@ export class ThyButtonIconComponent implements OnInit {
 
     _icon: string;
 
+    _theme: string;
+
     @HostBinding('class.btn') _isBtn = true;
     @HostBinding('class.btn-icon') _isBtnIcon = true;
     @HostBinding('class.btn-icon-light') _isLighted = false;
+    @HostBinding('class.btn-icon-active') _isActive = false;
 
     _setIconClass(icon: string) {
         if (icon) {
@@ -89,10 +100,28 @@ export class ThyButtonIconComponent implements OnInit {
         this._isLighted = inputValueToBoolean(value);
     }
 
+    @Input()
+    set thyActive(value: boolean) {
+        this._isActive = inputValueToBoolean(value);
+    }
+
+    @Input()
+    set thyTheme(value: string) {
+        this._theme = value;
+        if (this._initialized) {
+            this._setClasses();
+        }
+    }
+
     private _setClasses() {
         const classes = sizeClassesMap[this._size] ? [...sizeClassesMap[this._size]] : [];
         if (this._shape && shapeClassesMap[this._shape]) {
             shapeClassesMap[this._shape].forEach((className: string) => {
+                classes.push(className);
+            });
+        }
+        if (this._theme && themeClassesMap[this._theme]) {
+            themeClassesMap[this._theme].forEach((className: string) => {
                 classes.push(className);
             });
         }

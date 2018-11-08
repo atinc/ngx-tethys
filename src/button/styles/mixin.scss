@@ -92,10 +92,13 @@
 }
 
 // Button sizes
-@mixin button-size($padding-y, $padding-x, $font-size, $line-height, $border-radius) {
+@mixin button-size($padding-y, $padding-x, $font-size, $line-height, $border-radius, $min-width) {
     padding: $padding-y $padding-x;
     font-size: $font-size;
     line-height: $line-height; // Manually declare to provide an override to the browser default
+    @if $min-width {
+        min-width: $min-width;
+    }
     @if $enable-rounded {
         border-radius: $border-radius;
     }
@@ -103,7 +106,7 @@
         border-radius: 0;
     }
     &.btn-link {
-        padding: $padding-y 1rem;
+        padding: $padding-y 10px;
     }
 }
 
@@ -146,10 +149,51 @@
     } // No need for an active state here
 }
 
+@mixin btn-link-theme-variant($link-hover-color) {
+    @include hover {
+        color: $link-hover-color;
+    }
+}
+
+
 @mixin btn-square-radius {
   // 设置大小也不影响 border-radius
   border-radius: $border-radius;
   &.btn-lg, &.btn-md, &.btn-sm {
       border-radius: $border-radius;
   }
+}
+
+@mixin btn-icon-circle-hover-variant($round-padding, $btn-icon-circle-font-size) {
+    &.btn-icon-circle {
+        i,.wtf {
+            padding: $round-padding;
+            font-size: $btn-icon-circle-font-size;
+        }
+        &.border-thick {
+            i,.wtf {
+                padding: $round-padding - 1;
+            }
+            @include hover-focus {
+                i,.wtf {
+                    padding: $round-padding - 1;
+                }
+            }
+        }
+        @include hover-focus {
+            i,.wtf {
+                border-width: 2px; 
+                // border: 2px solid $primary;
+                padding: $round-padding - 1;
+            }
+        }
+    }
+}
+
+@mixin btn-icon-size-variant($font-size, $round-padding, $btn-icon-circle-font-size) {
+    i,.wtf {
+        font-size: $font-size;
+    }
+
+    @include btn-icon-circle-hover-variant($round-padding, $btn-icon-circle-font-size);
 }

@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter, TemplateRef, ContentChild, OnInit } from '@angular/core';
+import { ModalComponent } from './modal.component';
 
 @Component({
     selector: 'thy-modal-footer',
@@ -6,7 +7,7 @@ import { Component, Input, Output, EventEmitter, TemplateRef, ContentChild, OnIn
 })
 export class ModalFooterComponent implements OnInit {
 
-    @ContentChild(TemplateRef)
+    @ContentChild('thyModalFooterTemplate')
     public footerTemplate: TemplateRef<any>;
 
     public isTemplateRef: boolean;
@@ -14,8 +15,6 @@ export class ModalFooterComponent implements OnInit {
     public savingStatus?: boolean;
 
     public savingText = '确定...';
-
-    @Input() thyLoadingText?: string;
 
     @Output() thyOnSave: EventEmitter<any> = new EventEmitter<any>();
 
@@ -31,10 +30,15 @@ export class ModalFooterComponent implements OnInit {
         this.savingText = value;
     }
 
-    constructor() { }
+    @Input() thySaveText: string;
+
+    constructor(
+        private modalComponent: ModalComponent
+    ) { }
 
     ngOnInit() {
         this.isTemplateRef = this.footerTemplate instanceof TemplateRef;
+        this.modalComponent.hasFooter = true;
     }
 
     saveFn() {

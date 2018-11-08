@@ -45,4 +45,6 @@ export class ThyDatepickerConfig  {
   monthLabel = 'MMMM';
   yearLabel = 'YYYY';
   weekNumbers = 'w';
+
+  openedClass = 'thy-datepicker-opened';
 }

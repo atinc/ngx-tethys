@@ -1,6 +1,6 @@
 import {
     Injectable, Inject, ViewContainerRef, ComponentFactoryResolver,
-    EventEmitter, HostListener, ElementRef
+    EventEmitter, HostListener, ElementRef, NgZone
 } from '@angular/core';
 import { TemplateRef, RendererFactory2, Renderer2 } from '@angular/core';
 import { PopBoxRef } from './pop-box-ref.service';
@@ -14,7 +14,8 @@ export class ThyPopBoxService {
 
     private _loaders: {
         target: any,
-        loader: any
+        loader: any,
+        config: PopBoxOptions
     }[] = [];
 
     private _renderer: Renderer2;
@@ -25,7 +26,8 @@ export class ThyPopBoxService {
         private componentFactoryResolver: ComponentFactoryResolver,
         private rendererFactory: RendererFactory2,
         private clf: ComponentLoaderFactory,
-        private thyPositioningService: ThyPositioningService
+        private thyPositioningService: ThyPositioningService,
+        private ngZone: NgZone
     ) {
         this._renderer = rendererFactory.createRenderer(null, null);
     }
@@ -39,6 +41,7 @@ export class ThyPopBoxService {
             return item.target === target;
         });
         if (targetLoader) {
+            // 已经弹出了一样的 Loader， 再次点击直接关闭
             this._hide(targetLoader);
             // 如果 target 有值返回，没有值说明通过 position 传入位置，直接关闭后再次打开
             if (target) {
@@ -65,20 +68,23 @@ export class ThyPopBoxService {
             // .position({ attachment: _config.placement, target: _config.target, targetOffset: '10px' })
             .show({ content, initialState: _config.initialState, popBoxRef: popBoxRef });
 
-        setTimeout(() => {
-            this.thyPositioningService.setPosition({
-                target: popBoxContainerRef.location,
-                attach: _config.target,
-                placement: _config.placement,
-                offset: _config.offset,
-                appendToBody: true,
-                position: _config.position
-            });
+        this.thyPositioningService.setPosition({
+            target: popBoxContainerRef.location,
+            attach: _config.target,
+            placement: _config.placement,
+            offset: _config.offset,
+            appendToBody: true,
+            position: _config.position,
+            autoAdapt: true
         });
         const _loader = {
             target: target,
-            loader: loader
+            loader: loader,
+            config: _config
         };
+        if (target) {
+            this._renderer.addClass(target, _config.openedClass);
+        }
         popBoxRef.hide = () => {
             this._hide(_loader);
         };
@@ -89,15 +95,20 @@ export class ThyPopBoxService {
 
     private _hide(loader: {
         target: any,
-        loader: any
+        loader: any,
+        config: PopBoxOptions
     }) {
+        if (loader.config && loader.config.target) {
+            this._renderer.removeClass(loader.config.target, loader.config.openedClass);
+        }
         this._loaders = this._loaders.filter((item) => {
             return item.target !== loader.target;
         });
-        setTimeout(() => {
-            loader.loader.hide();
+        this.ngZone.runOutsideAngular(() => {
+            setTimeout(() => {
+                loader.loader.hide();
+            });
         });
-
     }
 
     hide() {

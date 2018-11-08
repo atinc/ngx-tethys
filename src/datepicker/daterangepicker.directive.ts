@@ -9,6 +9,8 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { isObject, isNumber, isDate, inputValueToBoolean } from '../util/helpers';
 import { daterangepickerUtilIdentificationValueType, daterangepickerUtilConvertToDaterangepickerObject } from './util';
 import { ThyDaterangepickerContainerComponent } from './daterangepicker-container.component';
+import { ThyPositioningService } from '../positioning/positioning.service';
+import { ThyDaterangepickerConfig } from './daterangepicker.config';
 
 const DATEPICKER_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
@@ -28,13 +30,14 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
     private _isAfterContentInit = false;
     private _loader: ComponentLoader<ThyDaterangepickerContainerComponent>;
     private _valueType: DatepickerValueShowTypesEnum;
-    private _valueState = {
-        hasTime: false
-    };
-    private _valueInitialState = {  // 初始化value的状态
-        hasTime: false,     // 是否显示时间，清除时候需要用
-        valueType: DatepickerValueShowTypesEnum     // 值的类型，用于输出与输入相同类型
-    };
+    private _isFirstShowInputProperty = true;
+    private store: {
+        originValue?: any,
+        originValueType?: any,
+        originWithTime?: boolean,
+        value?: any,
+        withTime?: boolean,
+    } = {};
     @Input() thyPlacement: 'top' | 'bottom' | 'left' | 'right' = 'bottom';
     @Input() thyTriggers = 'click';
     @Input() thyContainer = 'body';
@@ -42,7 +45,7 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
     @Input() thyDisabled = false;
     @Input() thyShowTime = false;
     @Input() thyFormat: string = null;
-    @Output() thyOnChange: EventEmitter<any> = new EventEmitter();
+    // @Output() thyOnChange: EventEmitter<any> = new EventEmitter();
 
     constructor(
         private _elementRef: ElementRef,
@@ -50,6 +53,8 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
         private _viewContainerRef: ViewContainerRef,
         private cis: ComponentLoaderFactory,
         private service: ThyDatepickerService,
+        private thyPositioningService: ThyPositioningService,
+        private _config: ThyDaterangepickerConfig
     ) {
         this._loader = cis.createLoader<ThyDaterangepickerContainerComponent>(
             _elementRef,
@@ -62,7 +67,10 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
         this._loader.listen({
             outsideClick: this.thyOutsideClick,
             triggers: this.thyTriggers,
-            show: () => this.show()
+            show: () => this.show(),
+            hide: () => {
+                this.hide();
+            }
         });
     }
 
@@ -71,9 +79,9 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
     }
 
     writeValue(value: DatepickerValueEntry | Date | number) {
-        this.service.storeType = 'range';
         if (this._isAfterContentInit) {
-            this.service.initValueData(value);
+            this.initValueData(value);
+            this._initFormatRule();
             this._setInputProperty();
         }
     }
@@ -93,16 +101,15 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
 
         this.service.initLocale();
 
-        this._loader.attach(ThyDaterangepickerContainerComponent)
+        const dateRangeContainerRef = this._loader.attach(ThyDaterangepickerContainerComponent)
             .to(this.thyContainer)
-            .position({ attachment: this.thyPlacement })
             .show({
                 hideLoader: () => {
                     this.hide();
                 },
                 initialState: {
+                    store: this.store,
                     value: this._value,
-                    valueInitialState: this._valueInitialState,
                     withTime: inputValueToBoolean(this.thyShowTime),
                     changeValue: (result: DatepickerValueEntry) => {
                         this._initFormatRule();
@@ -111,21 +118,35 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
                     }
                 }
             });
+
+        this._renderer.addClass(this._elementRef.nativeElement, this._config.openedClass);
+        this.thyPositioningService.setPosition({
+            target: dateRangeContainerRef.location,
+            attach: this._elementRef,
+            placement: this.thyPlacement,
+            offset: 2,
+            appendToBody: true
+        });
     }
 
     hide() {
+        this._renderer.removeClass(this._elementRef.nativeElement, this._config.openedClass);
         this._loader.hide();
     }
 
-    private _initValueState() {
-        this._valueInitialState.hasTime = this._value && this._value[0] && this._value[0].with_time;
+    private initValueData(value: any, isRefreshType?: boolean) {
+        this.store.originValue = value;
+        this.store.originValueType = daterangepickerUtilIdentificationValueType(value);
+        this.store.originWithTime = value && value.begin && value.begin.with_time;
+        this.store.withTime = inputValueToBoolean(this.thyShowTime);
+        this.store.value = daterangepickerUtilConvertToDaterangepickerObject(value);
     }
 
     private _initFormatRule() {
         if (this.thyFormat) {
             this._showFormatRule = this.thyFormat;
         } else {
-            if (this.service.store.withTime) {
+            if (this.store.withTime) {
                 this._showFormatRule = DatepickerFormatRules.full;
             } else {
                 this._showFormatRule = DatepickerFormatRules.short;
@@ -134,29 +155,59 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
     }
 
     private _setInputProperty() {
-        const initialDate = this.service.dataPipe.transform(this.service.store.value[0], this._showFormatRule)
+        let initialDate = this.service.dataPipe.transform(this.store.value[0], this._showFormatRule)
             + ' ~ '
-            + this.service.dataPipe.transform(this.service.store.value[1], this._showFormatRule);
+            + this.service.dataPipe.transform(this.store.value[1], this._showFormatRule);
+
+        if (this.store.value[0] == null || this.store.value[1] == null) {
+            initialDate = '';
+        }
+
         this._renderer.setProperty(this._elementRef.nativeElement, 'value', initialDate);
+    }
+
+    private _formatBeginTime(begin?: Date): number {
+        if (begin) {
+            const beginDate = new Date(begin.getFullYear(), begin.getMonth(), begin.getDate());
+            return Math.floor(beginDate.getTime() / 1000);
+        }
+        return 0;
+    }
+
+    private _formatEndTime(end?: Date): number {
+        if (end) {
+            const endDate = new Date(end.getFullYear(), end.getMonth(), end.getDate(), 23, 59, 59);
+            return Math.floor(endDate.getTime() / 1000);
+        }
+        return 0;
     }
 
     private _sendValueToNgModel() {
         let result;
-        switch (this.service.store.originValueType) {
+        switch (this.store.originValueType) {
+            case DatepickerValueShowTypesEnum.daterangepickerTime:
+                result = {
+                    begin: this._formatBeginTime(this.store.value[0]),
+                    end: this._formatEndTime(this.store.value[1])
+                };
+                break;
             case DatepickerValueShowTypesEnum.daterangepickerTimeObject:
                 result = {
                     begin: {
-                        date: this.service.store.value[0].getTime() / 1000,
-                        with_time: this.service.store.withTime
+                        date: this._formatBeginTime(this.store.value[0]),
+                        with_time: this.store.withTime
                     },
                     end: {
-                        date: this.service.store.value[1].getTime() / 1000,
-                        with_time: this.service.store.withTime
+                        date: this._formatEndTime(this.store.value[1]),
+                        with_time: this.store.withTime
                     }
                 };
                 break;
             default:
-                result = { begin: {}, end: {} };
+                result = {
+                    begin: this._formatBeginTime(this.store.value[0]),
+                    end: this._formatEndTime(this.store.value[1])
+                };
                 break;
         }
         this._onChange(result);

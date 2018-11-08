@@ -14,6 +14,10 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ThyTranslate } from '../../../src/shared';
 import { DemoThyTranslate } from './demo-thy-translate';
 import { FormsModule } from '@angular/forms';
+import { ThyAvatarService } from '../../../src';
+import { CustomAvatarService } from './components/+avatar/custom-avatar.service';
+import { CustomEditorService } from './components/+editor/custom-editor.service';
+import { ThyMarkdownParserService } from '../../../src/directive';
 
 @NgModule({
     declarations: [
@@ -27,7 +31,9 @@ import { FormsModule } from '@angular/forms';
     imports: [
         BrowserModule,
         NgxTethysModule,
-        RouterModule.forRoot(appRoutes),
+        RouterModule.forRoot(appRoutes, {
+            useHash: true
+        }),
         ModalModule.forRoot(),
         TranslateModule.forRoot(),
         TabsModule.forRoot(),
@@ -39,6 +45,14 @@ import { FormsModule } from '@angular/forms';
         {
             provide: ThyTranslate,
             useClass: DemoThyTranslate
+        },
+        {
+            provide: ThyAvatarService,
+            useClass: CustomAvatarService
+        },
+        {
+            provide: ThyMarkdownParserService,
+            useClass: CustomEditorService
         }
     ],
     bootstrap: [AppComponent]

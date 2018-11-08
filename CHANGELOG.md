@@ -1,3 +1,49 @@
+## 0.1.84
+1. 修复换肤情况下 Input 输入框移入边框没有变色的 Bug；
+1. 新增粉红色换肤；
+1. 移除相关无用的引用。
+
+## 0.1.81
+1. select-custom add `thyDisabled` property.
+
+## 0.1.80
+1. 修复 `thy-selection-list` 的Bug：当 ngModel 设置的默认值在 `thy-list-option` 中不存在的时候报错的问题，存储默认值，modelChange Emit 的时候返回。
+
+## 0.1.79
+1. `thy-selection-list` `thy-list-option` 样式调整以及换肤样式的添加；
+1. `thy-custom-select` 样式的修改，使用统一的  thy-option 样式 mixin。
+
+## 0.1.78
+`thy-selection-list` 添加 `thyUniqueKey` 属性用于 thyValue 是对象，但是存储选项的 Value 使用唯一 Key 的场景，主要用于选择的列表有不同对象引用，但是表示同一个对象的场景，比如与多个 Member 都是 {id:1,name:'张三'}，但是会来自不同的列表
+
+## 0.1.77
+change `thy-selection-list` component support delay load options, the default values can been selected.
+
+## 0.1.76
+1. `thy-grid` fix sortable bug ,restore `sortablejs` reference
+
+## 0.1.75
+1. replace `WorktileTech/sortablejs`
+
+## 0.1.73
+1. `thy-grid` fix column selections bug
+1. `thy-tree` remove drag delay
+
+## 0.1.71
+`thy-key-selection` support ngModel set default selection values.
+
+## 0.1.71
+fix build typings file error, remove `thy-key-selection` component.
+
+## 0.1.70
+1. add ThyListModule module, contains `thy-list`,`thy-list-item`, `thy-selection-list`, `thy-list-option` components.
+1. `thy-selection-list` support key up, down select option.
+
+## 0.0.68
+1. add property-operation component；
+1. avatar component optimize and add ThyAvatarService to transform src, so `thySrc` can't input src full path.
+
+
 ## 0.0.45
 1. change action menu default not stopPropagation;
 1. add Input params `thyStopPropagation` for thyActionMenuToggle directive.

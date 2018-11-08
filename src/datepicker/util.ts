@@ -5,23 +5,27 @@ export function datepickerUtilIdentificationValueType(value: any): DatepickerVal
     let res;
     if (isDate(value)) {
         res = DatepickerValueShowTypesEnum.dateObject;
-    } else if (isObject(value) && value.hasOwnProperty('date')) {
-        const result = datepickerUtilIdentificationValueType(value.date);
-        switch (result) {
-            case DatepickerValueShowTypesEnum.dateObject:
-                res = DatepickerValueShowTypesEnum.datepickerObject;
-                break;
-            case DatepickerValueShowTypesEnum.dateTime:
-                res = DatepickerValueShowTypesEnum.datepickerTimeObject;
-                break;
-            case DatepickerValueShowTypesEnum.dateTimeLong:
-                res = DatepickerValueShowTypesEnum.datepickerTimeLongObject;
-                break;
-            case DatepickerValueShowTypesEnum.nullValue:
-                res = DatepickerValueShowTypesEnum.datepickerNullValue;
-                break;
-            default:
-                res = result;
+    } else if (isObject(value)) {
+        if (value.hasOwnProperty('date')) {
+            const result = datepickerUtilIdentificationValueType(value.date);
+            switch (result) {
+                case DatepickerValueShowTypesEnum.dateObject:
+                    res = DatepickerValueShowTypesEnum.datepickerObject;
+                    break;
+                case DatepickerValueShowTypesEnum.dateTime:
+                    res = DatepickerValueShowTypesEnum.datepickerTimeObject;
+                    break;
+                case DatepickerValueShowTypesEnum.dateTimeLong:
+                    res = DatepickerValueShowTypesEnum.datepickerTimeLongObject;
+                    break;
+                case DatepickerValueShowTypesEnum.nullValue:
+                    res = DatepickerValueShowTypesEnum.datepickerNullValue;
+                    break;
+                default:
+                    res = result;
+            }
+        } else {
+            res = DatepickerValueShowTypesEnum.datepickerNullValue;
         }
     } else if (isNumber(value)) {
         if (value.toString().length === 10) {
@@ -82,27 +86,20 @@ export function datepickerUtilConvertToDatepickerObject(value: any, valueType?: 
 }
 
 export function daterangepickerUtilIdentificationValueType(value: any): DatepickerValueShowTypesEnum {
-    // let res;
-    // if (isObject(value) && value.hasOwnProperty('begin') && value.hasOwnProperty('end')) {
-    //     if (isDate(value.begin)) {
-    //         res = DatepickerValueShowTypesEnum.daterangepickerObject;
-    //     } else if (isObject(value.begin)) {
-
-    //     } else if (true) {
-
-    //     } else if (true) {
-
-    //     } else {
-    //         res = DatepickerValueShowTypesEnum.daterangepickerNullValue;
-    //     }
-    // } else {
-    //     res = DatepickerValueShowTypesEnum.nullValue;
-    // }
-    // return res;
     if (value) {
-        return DatepickerValueShowTypesEnum.daterangepickerTimeObject;
+        if (isObject(value.begin) && value.begin.hasOwnProperty('date')) {
+            if (value.begin.date) {
+                return DatepickerValueShowTypesEnum.daterangepickerTimeObject;
+            } else {
+                return DatepickerValueShowTypesEnum.daterangepickerNullValueObject;
+            }
+        } else if (isNumber(value.begin)) {
+            return DatepickerValueShowTypesEnum.daterangepickerTime;
+        } else {
+            return DatepickerValueShowTypesEnum.daterangepickerNullValue;
+        }
     } else {
-        return DatepickerValueShowTypesEnum.datepickerNullValue;
+        return DatepickerValueShowTypesEnum.daterangepickerNullValue;
     }
 }
 
@@ -110,14 +107,26 @@ export function daterangepickerUtilConvertToDaterangepickerObject(value: any, va
     const _valueType = valueType || daterangepickerUtilIdentificationValueType(value);
     let _value: any;
     switch (_valueType) {
+        case DatepickerValueShowTypesEnum.daterangepickerTime:
+            _value = [
+                new Date(value.begin * 1000),
+                new Date(value.end * 1000)
+            ];
+            break;
         case DatepickerValueShowTypesEnum.daterangepickerTimeObject:
             _value = [
                 new Date(value.begin.date * 1000),
                 new Date(value.end.date * 1000)
             ];
             break;
+        case DatepickerValueShowTypesEnum.daterangepickerNullValueObject:
+            _value = [];
+            break;
+        case DatepickerValueShowTypesEnum.daterangepickerNullValue:
+            _value = [];
+            break;
         default:
-            _value = null;
+            console.error('Can not matched value type!');
             break;
     }
     return _value;

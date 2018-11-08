@@ -10,7 +10,45 @@ import { DemoModalContentComponent } from './modal.content.component';
 export class DemoModalSectionComponent implements OnInit {
 
     modalRef: BsModalRef;
+
     message: string[] = [];
+
+    shipId;
+
+    public saving;
+
+    // public apiParameters = [{
+    //     property: 'thySrc',
+    //     description: '头像路径地址, 默认为全路径，如果不是全路径，可以通过自定义服务 ThyAvatarService，重写 avatarSrcTransform 方法实现转换',
+    //     type: 'string',
+    //     default: ''
+    // }, {
+    //     property: 'thyName',
+    //     description: '人员名称',
+    //     type: 'string',
+    //     default: ''
+    // }, {
+    //     property: 'thyShowName',
+    //     description: '是否展示人员名称',
+    //     type: 'Boolean',
+    //     default: 'false'
+    // }, {
+    //     property: 'thyShowRemove',
+    //     description: '是否展示移除按钮',
+    //     type: 'Boolean',
+    //     default: 'false'
+    // }, {
+    //     property: 'thyOnRemove',
+    //     description: '移除按钮的事件, 当 thyShowRemove 为 true 时起作用',
+    //     type: 'Event',
+    //     default: ''
+    // }, {
+    //     property: 'thySize',
+    //     description: '头像大小，可选择  22, 24, 30, 38, 48, 68, 110, 160, sm: 30px, xs: 24px lg: 48',
+    //     type: 'Number | String',
+    //     default: '38'
+    // }];
+
     constructor(
         public modalService: ThyModalService
     ) { }
@@ -20,6 +58,7 @@ export class DemoModalSectionComponent implements OnInit {
     }
 
     addModal(template: TemplateRef<any>, option: object): void {
+        this.saving = false;
         this.message = [];
         // this.modalService.onShow.subscribe((reason: string) => {
         //     this.message.push('onShow');
@@ -50,6 +89,14 @@ export class DemoModalSectionComponent implements OnInit {
         });
     }
 
+    save() {
+        this.saving = true;
+    }
+
+    cancel() {
+        this.modalService.close();
+    }
+
     hideModal() {
         this.modalService.close();
     }
@@ -57,4 +104,5 @@ export class DemoModalSectionComponent implements OnInit {
     closeModal() {
         this.modalRef.hide();
     }
+
 }

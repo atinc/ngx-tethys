@@ -1,4 +1,5 @@
 import { Component, TemplateRef } from '@angular/core';
+import { ThyNotifyService } from '../../../../../src/notify/notify.service';
 @Component({
     selector: 'demo-button-section',
     templateUrl: './button-section.component.html',
@@ -66,7 +67,13 @@ export class DemoButtonSectionComponent {
         },
         {
             property: 'thyShape',
-            description: `展示的形状，默认只显示字体图标图标，circle-dashed, circle-solid 展示成虚线圆形图标`,
+            description: `展示的形状，默认只显示字体图标图标，circle-dashed, circle-solid 展示成虚线,实线边框圆形图标, circle-thick-dashed, circle-thick-solid 边框加粗`,
+            type: 'String',
+            default: ''
+        },
+        {
+            property: 'thyTheme',
+            description: `按钮展示类型，默认图标移上去显示主色， danger-weak 鼠标移上去显示 danger 红色`,
             type: 'String',
             default: ''
         },
@@ -81,6 +88,12 @@ export class DemoButtonSectionComponent {
             description: `亮色，颜色更浅，适合左侧导航顶部的按钮`,
             type: 'Boolean',
             default: 'false'
+        },
+        {
+            property: 'thyActive',
+            description: `设置为选中状态`,
+            type: 'Boolean',
+            default: 'false'
         }
     ];
 
@@ -91,10 +104,11 @@ export class DemoButtonSectionComponent {
     outlineButtonTemplate = `<button thyButton="outline-default">预览</button>
 <button thyButton="outline-primary">新建文件夹</button>`;
 
-    constructor() {
+    constructor(private thyNotifyService: ThyNotifyService) {
     }
 
     startLoading() {
+        console.log('click loading');
         this.loading = true;
         this.loadingSeconds = 3;
 
@@ -106,5 +120,9 @@ export class DemoButtonSectionComponent {
                 this.loadingSeconds = this.loadingSeconds - 1;
             }
         }, 1000);
+    }
+
+    ok() {
+        this.thyNotifyService.success('提示', '操作成功');
     }
 }

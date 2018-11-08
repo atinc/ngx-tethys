@@ -3,17 +3,15 @@
         <h2>一级导航</h2>
     </div>
     <div class="body">
-        <ul class="thy-nav nav-primary">
-            <li class="nav-item">
-                <a href="javascript:;" thyNavLink thyNavLinkActive="true">导航一</a>
-            </li>
-            <li class="nav-item">
-                <a href="javascript:;" thyNavLink>导航二</a>
-            </li>
-            <li class="nav-item">
-                <a href="javascript:;" thyNavLink>导航三</a>
-            </li>
-        </ul>
+        <thy-nav thyType="primary">
+            <a href="javascript:;" thyNavLink thyNavLinkActive="true">
+                导航一
+                <i class="wtf wtf-angle-double-down"></i>
+            </a>
+            <a href="javascript:;" thyNavLink>导航二</a>
+            <a href="javascript:;" thyNavLink>导航三</a>
+        </thy-nav>
+        
         <thy-nav thyType="primary" thyHorizontal="center">
             <a href="javascript:;" thyNavLink thyNavLinkActive="true">
                 导航一
@@ -35,6 +33,22 @@
             <a href="javascript:;" thyNavLink>导航二</a>
             <a href="javascript:;" thyNavLink>导航三</a>
         </nav>
+    </div>
+</section>
+
+<section>
+    <div class="header">
+        <h2>二级导航带分隔符</h2>
+    </div>
+    <div class="body">
+        <thy-nav thyType="secondary-divider">
+            <a href="javascript:;" thyNavLink thyNavLinkActive="true">
+                <i class="wtf wtf-commenting-o"></i> 导航一</a>
+            <a href="javascript:;" thyNavLink>
+                <i class="wtf wtf-commenting-o"></i> 导航二</a>
+            <a href="javascript:;" thyNavLink>
+                <i class="wtf wtf-commenting-o"></i> 导航三</a>
+        </thy-nav>
     </div>
 </section>
 
@@ -72,6 +86,20 @@
     </div>
     <div class="body">
         <thy-nav thyType="primary" thyVertical="true">
+            <a href="javascript:;" thyNavLink thyNavLinkActive="true">导航一</a>
+            <a href="javascript:;" thyNavLink>导航二</a>
+            <a href="javascript:;" thyNavLink>导航三</a>
+        </thy-nav>
+    </div>
+</section>
+
+
+<section>
+    <div class="header">
+        <h2>Nav Fill 导航填充满整个宽度</h2>
+    </div>
+    <div class="body">
+        <thy-nav thyType="primary" thyFill="true">
             <a href="javascript:;" thyNavLink thyNavLinkActive="true">导航一</a>
             <a href="javascript:;" thyNavLink>导航二</a>
             <a href="javascript:;" thyNavLink>导航三</a>

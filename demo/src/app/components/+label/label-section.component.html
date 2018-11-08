@@ -9,13 +9,18 @@
         <span class="mr-1" thyLabel="success">Success</span>
         <span class="mr-1" thyLabel="info">Info</span>
         <span class="mr-1" thyLabel="warning">Warning</span>
+        <br />
+        <br />
+        <span class="mr-1" thyLabel="emboss-default">emboss-default</span>
         <span class="mr-1" thyLabel="emboss-primary">emboss-primary</span>
-        <br/>
-        <br/> 自定义颜色
+        <span class="mr-1" thyLabel="emboss-warning">emboss-warning</span>
+        <span class="mr-1" thyLabel="emboss-danger">emboss-danger</span>
+        <hr> 自定义颜色
         <code>#7076fa</code>覆盖
-        <span thyLabel [thyLabelColor]="color">Danger</span>
-        <br>
-        <br>
+        <span class="mr-1" thyLabel [thyLabelColor]="color">Danger</span>
+        <span class="mr-1" thyLabel="emboss-default" [thyLabelColor]="''">emboss-primary</span>
+        <span class="mr-1" thyLabel="emboss-default" [thyLabelColor]="color">emboss-primary</span>
+        <hr />
         <span class="mr-1" thyLabel="default" thyHasHover="true" thyBeforeIcon="wtf-th-plus" (click)="add()">添加标签</span>
         <span class="mr-1" thyLabel="primary" thyHasHover="true" thyAfterIcon="wtf-times" (thyOnRemove)="remove()">
             重要不紧急
@@ -24,6 +29,18 @@
         <br>
         <br>
         <span thyLabel="default" thyAfterIcon="wtf-times" (thyOnRemove)="remove()">default</span>
+    </div>
+</section>
+
+<section>
+    <div class="header">
+        <h2>大小</h2>
+    </div>
+    <div class="body">
+        <span class="mr-1" thyLabel="default" thySize="sm">标签 sm 20</span>
+        <span class="mr-1" thyLabel="default">标签 default 22</span>
+        <span class="mr-1" thyLabel="default" thySize="md">标签 md 24</span>
+        <span class="mr-1" thyLabel="default" thySize="lg">标签 lg 26</span>
     </div>
 </section>
 
@@ -59,6 +76,27 @@
             <span class="thy-dot thy-dot-label" thyLabel="primary"></span>
             签约成交
         </span>
+    </div>
+</section>
+
+<section>
+    <div class="header">
+        <h2>状态标签-任务</h2>
+        <p>·任务状态的展示，通用在看板、表格、列表等</p>
+    </div>
+    <div class="body">
+        <span *ngFor="let status of statusLabels" class="mr-3" [thyBeforeIcon]="status.icon" thyLabel="emboss-status"
+            [thyLabelColor]="status.color">{{status.name}}</span>
+    </div>
+</section>
+
+<section>
+    <div class="header">
+        <h2>固定标签</h2>
+        <p>·用于描述任务间的关联关系，不可修改文案及颜色</p>
+    </div>
+    <div class="body">
+        <span *ngFor="let status of relationLabels" class="mr-3" thyLabel="outline" [thyLabelColor]="status.color">{{status.name}}</span>
     </div>
 </section>
 

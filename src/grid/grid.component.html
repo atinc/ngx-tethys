@@ -5,7 +5,8 @@
         </tr>
     </thead>
     <tbody *ngIf="loadingDone" [sortablejs]="model" [sortablejsOptions]="draggableOptions">
-        <tr *ngFor="let row of model; let i = index; trackBy:trackByFn" (click)="onRowClick($event,row)">
+        <tr *ngFor="let row of model; let i = index; trackBy:trackByFn" (mousedown)="draggableStopPropagation($event)"
+            (touchstart)="draggableStopPropagation($event)" (pointerdown)="draggableStopPropagation($event)" (click)="onRowClick($event,row)">
             <td *ngFor="let column of columns; let j = index;" [ngClass]="column.className" [width]="column.width">
                 <ng-container *ngIf="j === 0 && draggable">
                     <i class="table-draggable-icon wtf wtf-move"></i>
@@ -18,37 +19,49 @@
                 <ng-container *ngIf="!isTemplateRef(column.templateRef)">
                     <!-- default -->
                     <ng-container *ngIf="column.model && !column.type">
-                        {{getModelValue(row,column.model) || column.defaultText}}
+                        <ng-container *ngIf="getModelValue(row,column.model) | isValidModelValue;else default;">
+                            {{getModelValue(row,column.model)}}
+                        </ng-container>
+                        <ng-template #default>
+                            <div class="text-info"> {{column.defaultText}}</div>
+                        </ng-template>
                     </ng-container>
                     <!-- index -->
                     <ng-container *ngIf="column.type === customType.index"> {{i+1}} </ng-container>
                     <!-- checkbox -->
                     <ng-container *ngIf="column.type === customType.checkbox">
-                        <input type="checkbox" [(ngModel)]="row[column.key]" [disabled]="column.disabled" (change)="onMultiSelectChange($event,row,column)">
+                        <input type="checkbox" [(ngModel)]="row[column.key]" (ngModelChange)="onCheckboxChange(row,column)"
+                            (click)="onStopPropagation($event)" [disabled]="column.disabled">
                     </ng-container>
                     <!-- radio -->
                     <ng-container *ngIf="column.type === customType.radio">
-                        <input type="radio" [(ngModel)]="selectedRadioRow" [value]="row" [disabled]="column.disabled" (change)="onRadioSelectChange($event,row)">
+                        <input type="radio" [(ngModel)]="selectedRadioRow" [value]="row" [disabled]="column.disabled"
+                            (click)="onStopPropagation($event)" (change)="onRadioSelectChange($event,row)">
                     </ng-container>
                     <!-- switch -->
                     <ng-container *ngIf="column.type === customType.switch">
-                        <thy-switch [(ngModel)]="row[column.key]" (ngModelChange)="onModelChange(row,column)" [disabled]="column.disabled" (thyChange)="onSwitchChange($event,row,column)"></thy-switch>
+                        <thy-switch [(ngModel)]="row[column.key]" (ngModelChange)="onModelChange(row,column)"
+                            [disabled]="column.disabled" (thyChange)="onSwitchChange($event,row,column)"></thy-switch>
                     </ng-container>
                 </ng-container>
             </td>
         </tr>
-        <tr *ngIf="model && model.length === 0" class="hover-clear">
+        <tr *ngIf="model && model.length === 0" class="clear-hover">
             <td [colSpan]="columns.length" height="280px">
-                <thy-empty [thyMessage]="emptyOptions.message" [thyTranslationKey]="emptyOptions.translationKey" [thyTranslationValues]="emptyOptions.translationValues"
-                    [thyEntityName]="emptyOptions.entityName" [thyEntityNameTranslateKey]="emptyOptions.entityNameTranslateKey"
-                    [thyIconClass]="emptyOptions.iconClass" [thySize]="emptyOptions.size" [thyMarginTop]="emptyOptions.marginTop"
-                    [thyTopAuto]="emptyOptions.topAuto" [thyContainer]="emptyOptions.container"></thy-empty>
+                <thy-empty [thyMessage]="emptyOptions.message" [thyTranslationKey]="emptyOptions.translationKey"
+                    [thyTranslationValues]="emptyOptions.translationValues" [thyEntityName]="emptyOptions.entityName"
+                    [thyEntityNameTranslateKey]="emptyOptions.entityNameTranslateKey" [thyIconClass]="emptyOptions.iconClass"
+                    [thySize]="emptyOptions.size" [thyMarginTop]="emptyOptions.marginTop" [thyTopAuto]="emptyOptions.topAuto"
+                    [thyContainer]="emptyOptions.container"></thy-empty>
             </td>
         </tr>
     </tbody>
 </table>
 <thy-loading [thyDone]="loadingDone" [thyTip]="loadingText"></thy-loading>
 <div class="clearfix" *ngIf="pagination.total > pagination.size">
-    <pagination class="float-right" [directionLinks]="true" [maxSize]="6" [boundaryLinks]="false" [rotate]="false" [totalItems]="pagination.total"
-        [(ngModel)]="pagination.index" [itemsPerPage]="pagination.size" (pageChanged)="onPageChange($event)"></pagination>
+    <pagination class="float-right" [directionLinks]="true" [maxSize]="6" [boundaryLinks]="false" [rotate]="false"
+        [totalItems]="pagination.total" [(ngModel)]="pagination.index" [itemsPerPage]="pagination.size" (pageChanged)="onPageChange($event)"></pagination>
 </div>
+<ng-template>
+    <ng-content></ng-content>
+</ng-template>

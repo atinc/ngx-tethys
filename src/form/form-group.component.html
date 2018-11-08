@@ -1,12 +1,14 @@
 <ng-container *ngIf="!contentTemplateRef">
     <label class="col-sm-2 col-form-label" [ngClass]="{'label-required' : labelRequired,'pt-0': labelPaddingTopClear}">{{labelText}}</label>
-    <div class="col-sm-10">
+    <div class="col-sm-10 col-form-control">
         <ng-content></ng-content>
+        <span *ngIf="feedbackIcon" class="form-control-feedback {{feedbackIcon}}"></span>
         <span *ngIf="tips" class="form-text text-info">{{tips}}</span>
+        
     </div>
 </ng-container>
 
 <ng-container *ngIf="contentTemplateRef">
     <ng-container [ngTemplateOutlet]="contentTemplateRef"></ng-container>
+    <span *ngIf="feedbackIcon" class="form-control-feedback {{feedbackIcon}}"></span>
 </ng-container>
-<span *ngIf="feedbackIcon" class="form-control-feedback {{feedbackIcon}}"></span>

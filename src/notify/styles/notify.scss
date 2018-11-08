@@ -1,69 +1,66 @@
 .thy-notify-root {
-  position: fixed;
-  z-index: 1110;
-  top: 20px;
-  right: 20px;
-  width: 330px;
-  .thy-notify {
-    padding: 16px;
-    margin-bottom: 10px;
-    position: relative;
-    display: flex;
-    border-radius: 4px;
-    background: $notify-bg;
-    box-shadow: $notify-box-shadow;
-    .thy-notify-close {
-      padding-top: 2px;
-      position: absolute;
-      right: 16px;
-      top: 10px;
-      width: 20px;
-      height: 20px;
-      text-align: center;
-      font-size: 12px;
-      color: $notify-close-color;
-      text-decoration: none;
-      transition: color 200ms;
-      i {
-        font-size: 12px;
-      }
-      &:hover {
-        color: $gray-600;
-      }
-    }
-    .thy-notify-icon-success {
-      @include thy-notify-icon($success, $notify-success-icon-padding, $notify-success-icon-font-size);
-    }
-    .thy-notify-icon-info {
-      @include thy-notify-icon($info, $notify-info-icon-padding, $notify-info-icon-font-size);
-    }
-    .thy-notify-icon-warning {
-      @include thy-notify-icon($warning, $notify-warning-icon-padding, $notify-warning-icon-font-size);
-    }
-    .thy-notify-icon-error {
-      @include thy-notify-icon($danger, $notify-danger-icon-padding, $notify-danger-icon-font-size);
-    }
-    .thy-notify-main {
-      flex: 1;
-      .thy-notify-title {
-        padding-right: 24px;
-        margin-bottom: 4px;
-        color: $notify-title-color;
-      }
-      .thy-notify-content,
-      .thy-notify-detail {
-        flex: 1;
-        font-size: 12px;
-        color: $gray-700;
-        // display: -webkit-box;
-        // -webkit-box-orient: vertical;
-        // -webkit-line-clamp: 3;
-        // overflow: hidden;
-        // cursor: pointer;
-        &--extend {
-          -webkit-line-clamp: initial;
+    position: fixed;
+    z-index: 1110;
+    top: 20px;
+    right: 20px;
+    width: 330px;
+    .thy-notify {
+        padding: 16px;
+        margin-bottom: 10px;
+        position: relative;
+        display: flex;
+        border-radius: 4px;
+        background: $notify-bg;
+        box-shadow: $notify-box-shadow;
+        .thy-notify-close {
+            padding-top: 2px;
+            position: absolute;
+            right: 16px;
+            top: 10px;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: $notify-close-color;
+            text-decoration: none;
+            transition: color 200ms;
+            i {
+                font-size: 12px;
+            }
+            &:hover {
+                color: $gray-600;
+            }
         }
-      }
+        .thy-notify-icon-success {
+            @include thy-notify-icon($success, $notify-success-icon-padding, $notify-success-icon-font-size);
+        }
+        .thy-notify-icon-info {
+            @include thy-notify-icon($info, $notify-info-icon-padding, $notify-info-icon-font-size);
+        }
+        .thy-notify-icon-warning {
+            @include thy-notify-icon($warning, $notify-warning-icon-padding, $notify-warning-icon-font-size);
+        }
+        .thy-notify-icon-error {
+            @include thy-notify-icon($danger, $notify-danger-icon-padding, $notify-danger-icon-font-size);
+        }
+        .thy-notify-main {
+            flex: 1;
+            .thy-notify-title {
+                padding-right: 24px;
+                margin-bottom: 4px;
+                color: $notify-title-color;
+                word-break: break-all;
+            }
+            .thy-notify-content,
+            .thy-notify-detail {
+                flex: 1;
+                font-size: 12px;
+                color: $gray-700;
+                word-break: break-all;
+                &--extend {
+                    -webkit-line-clamp: initial;
+                }
+            }
+        }
     }
-  }
 }

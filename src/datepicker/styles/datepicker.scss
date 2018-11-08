@@ -213,9 +213,9 @@ $border-color: transparent;
                     }
                 }
                 span {
-                    width: 32px;
-                    height: 32px;
-                    line-height: 32px;
+                    width: 30px;
+                    height: 30px;
+                    line-height: 30px;
                     &.select-start {
                         z-index: 2;
                     }
@@ -465,20 +465,23 @@ bs-daterangepicker-container {
 
 /* theming */
 
-@each $name,
-$color in $theme-list {
-    @include theming($name, $color);
-}
+// @each $name,
+// $color in $theme-list {
+//     @include theming($name, $color);
+// }
 
 //#endregion
 thy-datepicker-container,
 thy-daterangepicker-container {
     position: absolute;
     z-index: $datepicker-z-index;
-    padding-bottom: 10px;
     background: white;
     box-shadow: $box-shadow;
 }
 
-@include theming('ngx', $primary);
+thy-daterangepicker-container {
+    width: 530px;
+}
+
+@include theming('ngx', $primary, $secondary-item-active);
 @include thy-detepicker-variant();

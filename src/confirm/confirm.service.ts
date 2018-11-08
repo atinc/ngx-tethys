@@ -69,19 +69,19 @@ export class ThyConfirmService {
                 decline: {}
             }
         };
-        const _res: ConfirmOption = {
+        let _res: ConfirmOption = {
             buttons: {
                 confirm: {},
                 decline: {}
             }
         };
-        Object.assign(_res, _defaultOption, option);
+        _res = Object.assign({}, _defaultOption, option);
         if (option.buttons && option.buttons.confirm) {
-            Object.assign(_res.buttons.confirm, _defaultOption.buttons.confirm, option.buttons.confirm);
+            _res.buttons.confirm = Object.assign({}, _res.buttons.confirm, _defaultOption.buttons.confirm, option.buttons.confirm);
         }
         if (option.buttons && option.buttons.decline) {
-            Object.assign(_res.buttons.decline, _defaultOption.buttons.decline, option.buttons.decline);
+            _res.buttons.decline = Object.assign({}, _res.buttons.decline, _defaultOption.buttons.decline, option.buttons.decline);
         }
-        return _res;
+        return Object.assign({}, _defaultOption, option);
     }
 }

@@ -1,12 +1,15 @@
 @mixin nav-link-variant($color, $hover-color, $border-bottom) {
   color: $color;
-  &:last-child {
-    margin-right: 0;
+  i {
+    color: $nav-link-icon-color;
   }
   &.active {
     color: $hover-color;
     @if $border-bottom {
       border-bottom: $border-bottom;
+    }
+    i {
+      color: $hover-color;
     }
   }
   @include hover-focus-active {
@@ -14,6 +17,9 @@
     text-decoration: none;
     @if $border-bottom {
       border-bottom: $border-bottom;
+    }
+    i {
+      color: $hover-color;
     }
   } // Disabled state lightens text
   &.disabled {
@@ -22,32 +28,32 @@
   }
 }
 
-@mixin nav-link-variant-thirdly($nav-link-hover-color) {
-  position: relative;
-  &:after {
-    display: block;
-    position: absolute;
-    width: 0;
-    content: "";
-    border-right: 1px solid #eee;
-  }
-  &:last-child {
-    &:after {
-      display: none;
-    }
-  }
-  &.active {
-    border-bottom: none;
-  }
-  @include hover-focus-active {
-    color: $nav-link-hover-color;
-    text-decoration: none;
-    border-bottom: none;
-  }
-  .wtf {
-    margin-right: 0.3125rem;
-  }
-}
+// @mixin nav-link-variant-thirdly($nav-link-hover-color) {
+//   position: relative;
+//   &:after {
+//     display: block;
+//     position: absolute;
+//     width: 0;
+//     content: "";
+//     border-right: 1px solid #eee;
+//   }
+//   &:last-child {
+//     &:after {
+//       display: none;
+//     }
+//   }
+//   &.active {
+//     border-bottom: none;
+//   }
+//   @include hover-focus-active {
+//     color: $nav-link-hover-color;
+//     text-decoration: none;
+//     border-bottom: none;
+//   }
+//   .wtf {
+//     margin-right: 0.3125rem;
+//   }
+// }
 
 @mixin nav-link-size($padding, $margin-right){
   padding: $padding;
@@ -60,5 +66,40 @@
 @mixin nav-link-clear-margin-right() {
   &:last-child {
     margin-right: 0;
+  }
+}
+
+@mixin nav-link-divider-variant($nav-link-hover-color, $divider-height, $nav-link-padding-right) {
+  position: relative;
+  &:after {
+    display: block;
+    position: absolute;
+    width: 0;
+    content: "";
+    border-right: 1px solid $nav-divider-color;
+    top: calc(50% - #{$divider-height} / 2);
+    right: ($nav-link-padding-right / 2) * -1;
+    height: $divider-height;
+  }
+  &:last-child {
+    &:after {
+      display: none;
+    }
+  }
+  @include hover-focus-active {
+    color: $nav-link-hover-color;
+    text-decoration: none;
+  }
+  .wtf {
+    margin-right: 0.3125rem;
+  }
+}
+
+@mixin clear-nav-link-bottom {
+  &.active {
+    border-bottom: none;
+  }
+  @include hover-focus-active {
+    border-bottom: none;
   }
 }

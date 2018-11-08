@@ -1,6 +1,7 @@
 
 import { Component, TemplateRef } from '@angular/core';
-import { ThyModalService } from '../../../../../src';
+import { ThyModalService, ThyPopBoxService } from '../../../../../src';
+import { truncate } from 'fs';
 
 @Component({
     selector: 'demo-slide-content',
@@ -11,10 +12,36 @@ export class DemoSlideContentComponent {
     public name: string;
 
     constructor(
-        public modalService: ThyModalService
+        public modalService: ThyModalService,
+        public thyPopBoxService: ThyPopBoxService
     ) { }
 
     addModal(template: TemplateRef<any>, option?: object): void {
         this.modalService.show(template, option);
+    }
+
+    addPopBox(templateRef: any, popBoxTemplate: any) {
+
+        this.thyPopBoxService.show(popBoxTemplate, {
+            target: templateRef.elementRef,
+            insideAutoClose: false,
+            outsideAutoClose: true,
+            showMask: true,
+            stopPropagation: true
+        });
+    }
+
+    addPopBox1(templateRef: any, popBoxTemplate: any, config) {
+
+        this.thyPopBoxService.show(popBoxTemplate, {
+            target: templateRef.elementRef,
+            insideAutoClose: true,
+            outsideAutoClose: true,
+            showMask: true,
+        });
+    }
+
+    itemClick() {
+
     }
 }

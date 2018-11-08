@@ -1,6 +1,6 @@
 import { Injectable, TemplateRef, RendererFactory2, EventEmitter } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { ComponentLoaderFactory } from 'ngx-bootstrap/component-loader/index';
+import { ComponentLoaderFactory } from 'ngx-bootstrap/component-loader';
 import {
     modalConfigDefaults,
     ModalOptions
@@ -58,5 +58,6 @@ export class ThyModalConfigInfo {
     animated?: boolean;
     ignoreBackdropClick?: boolean;
     initialState?: object;
+    class?: string;
     show?: boolean;  // Shows the modal when initialized.
 }

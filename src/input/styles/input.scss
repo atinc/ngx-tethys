@@ -1,3 +1,5 @@
+$input-search-padding-y: $btn-padding-y-md; // 36px
+
 .input-search-container {
   position: relative;
   display: block;
@@ -6,19 +8,21 @@
   .input-suffix-icon {
     position: absolute;
     z-index: 2;
+    i {
+      font-size: $font-size-base;
+    }
   }
   .input-prefix-icon {
     left: $input-padding-x;
-    top: $input-padding-y;
+    top: $input-search-padding-y;
     color: $input-icon-color;
   }
   .input-suffix-icon {
     right: $input-padding-x;
-    top: $input-padding-y;
-    color: $input-icon-color;
+    top: $input-search-padding-y;
   }
   .input-search-control {
-    padding: $input-padding-y ($input-padding-x + $input-padding-x + 0.5rem);
+    padding: $input-search-padding-y ($input-padding-x + $input-padding-x + 0.5rem);
   }
   &.input-search-ellipse {
     .input-search-control {
@@ -52,8 +56,10 @@
 // Feedback icon (requires .glyphicon classes)
 .form-control-feedback {
   position: absolute;
-  top: (2 * $input-padding-y + $input-line-height * $font-size-base - $input-line-height) / 2;
-  right: 2 * $input-padding-x;
+  // top: (2 * $input-padding-y + $input-line-height * $font-size-base - $input-line-height) / 2;
+  top: 50%;
+  margin-top: -(($font-size-md * $input-line-height) / 2); 
+  right: $input-padding-x;
   z-index: 2; // Ensure icon is above input groups
   display: block; // width: $input-hei;
   // height: @input-height-base;
@@ -61,6 +67,18 @@
   text-align: center;
   pointer-events: none;
   font-size: $font-size-md;
+
+  -webkit-font-smoothing: subpixel-antialiased;
+  color: $input-icon-color;
+}
+
+.form-group {
+  > .col,
+  > [class*="col-"] {
+    > .form-control-feedback {
+      right: 2 * $input-padding-x;
+    }
+  }
 }
 
 // .input-lg + .form-control-feedback,

@@ -1,13 +1,12 @@
-<div>
-    <thy-avatar thyName="路晓贝" thySize="24" [thyShowName]="true"></thy-avatar>
-    <thy-avatar thyName="luxiaobei" thySize="30" [thyShowName]="false"></thy-avatar>
-    <thy-avatar thySrc="https://s3.cn-north-1.amazonaws.com.cn/lcavatar/dfea7c36-5147-4569-8910-829137920172_80x80.png" thyName="路晓贝" thySize="38" [thyShowName]="true"></thy-avatar>
-    <thy-avatar thySrc="https://s3.cn-north-1.amazonaws.com.cn/lcavatar/dfea7c36-5147-4569-8910-829137920172_80x80.png" thyName="路晓贝" thySize="48"></thy-avatar>
-    <thy-avatar [thyMember]="member" thySize="68"></thy-avatar>
-    <thy-avatar [thyMember]="hasAvatarMember" thySize="160"></thy-avatar>
+<div class="content-header">
+        Avatar 头像
+    <span class="mate"></span>
 </div>
-<div>
-    <thy-badge [thyCount]="3" thyStatus="primary">
-        <thy-avatar [thyMember]="hasAvatarMember" thySize="24"></thy-avatar>
-    </thy-badge>
+
+<div class="content-main">
+
+    <showcase-section [sections]="componentExamples"></showcase-section>
+
+    <api-parameters title="参数列表" [parameters]="apiParameters"></api-parameters>
+
 </div>

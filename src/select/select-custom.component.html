@@ -1,13 +1,27 @@
-<div class="thy-form-control" (click)="dropDownMenuToggle()">
-    <span class="item-name">
-        <i class="{{_innerValue?.icon}} pr-1"></i> {{_innerValue?.name || '选择选项'}}
-    </span>
-</div>
-<div class="thy-select-custom-options" *ngIf="_expandOptions">
-    <div class="pr-2 pl-2 pt-2 pb-2 select-search-input" *ngIf="thySearch">
-        <input thyInput type="text" (change)="changeSearchText()" [(ngModel)]="_searchText">
+<ng-template #option>
+    <ng-content></ng-content>
+</ng-template>
+<div class="form-control form-control-custom" [class.disabled]="_disabled" [class.thy-select-selection]="!_mode" [ngClass]="_size ? 'form-control-' + _size : ''" #selectMenuSetting (click)="dropDownMenuToggle($event, selectMenuSetting)">
+    <ng-container *ngIf="!_mode">
+        <span *ngIf="_selectedOption && !selectedValueDisplayRef">{{_selectedOption.thyLabelText}}</span>
+        <ng-container *ngIf="_selectedOption && selectedValueDisplayRef">
+            <ng-container *ngTemplateOutlet="selectedValueDisplayRef; context: selectedValueContext"></ng-container>
+        </ng-container>
+        <span class="text-placeholder d-inline-block" *ngIf="!_selectedOption">{{thyPlaceHolder}}</span>
+        <a class="thy-select-remove remove-link" href="javascript:;" (click)="clearSelectValue($event)" *ngIf="thyAllowClear && _innerValue">
+            <i class="wtf wtf-times-circle"></i>
+        </a>
+    </ng-container>
+    <div [ngClass]="{'multiple-value-wrapper': _selectedOptions?.length > 0}" *ngIf="_mode === 'multiple'">
+        <span class="mr-1" [hidden]="_selectedOptions?.length === 0" *ngFor="let item of _selectedOptions;index as i" thyLabel="default"
+            thyAfterIcon="wtf-times" (click)="remove($event, item, i)">
+            {{item?.thyLabelText}}
+        </span>
+        <span class="text-placeholder d-inline-block" *ngIf="_selectedOptions?.length === 0">
+            {{thyPlaceHolder}}
+        </span>
+
     </div>
-    <div class="select-option">
-        <ng-content></ng-content>
-    </div>
 </div>
+
+<select-container *ngIf="_expandOptions" #selectContainer [listOfOptionComponent]="_listOfOptionComponent"></select-container>

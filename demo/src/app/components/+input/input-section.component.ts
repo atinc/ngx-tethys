@@ -1,5 +1,5 @@
 
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
     selector: 'demo-input-section',
@@ -12,7 +12,8 @@ import { Component, ViewEncapsulation } from '@angular/core';
 export class DemoInputSectionComponent {
 
     model = {
-        searchText: '文本1'
+        searchText: '文本1',
+        input: '输入内容'
     };
 
     public apiParameters = [
@@ -61,6 +62,11 @@ export class DemoInputSectionComponent {
     ];
 
     constructor() {
+    }
+
+    enterInput() {
+        console.log(`enter input`);
+        this.model.input = '';
     }
 
     enter() {

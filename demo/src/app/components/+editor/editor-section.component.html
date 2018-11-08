@@ -1,0 +1,30 @@
+<section>
+    <div class="header">
+        <h2>编辑器</h2>
+    </div>
+    <div class="body">
+        <div class="demo-layout">
+            <thy-editor [(ngModel)]="value" [config]="config"></thy-editor>
+            <br/>
+            <pre>
+&lt;thy-editor [(ngModel)]="value" [config]="config"&gt;&lt;/thy-editor&gt;
+            </pre>
+        </div>
+    </div>
+</section>
+
+
+<section>
+    <div class="header">
+        <h2>解析器</h2>
+    </div>
+    <div class="body">
+        <div class="demo-layout">
+            <div [thyMarkdownParser]="value"></div>
+            <br/>
+            <pre>
+&lt;div [thyMarkdownParser]="value"&gt;&lt;/div&gt;
+            </pre>
+        </div>
+    </div>
+</section>

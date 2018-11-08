@@ -1,20 +1,25 @@
 import {
-    Component, Directive, Input, Output, ElementRef, Renderer2,
+    Component, Input, Output,
     ViewEncapsulation, TemplateRef, OnInit, EventEmitter, DoCheck,
     IterableDiffers,
     IterableDiffer,
     IterableChanges,
-    IterableChangeRecord
+    IterableChangeRecord,
+    ContentChildren,
+    QueryList,
+    OnDestroy,
+    forwardRef
 } from '@angular/core';
-import { AfterContentInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
-import { inputValueToBoolean, isUndefined, get, set } from '../util/helpers';
+import { get, set } from '../util/helpers';
 import {
     ThyGridColumn, ThyMultiSelectEvent, ThyRadioSelectEvent, ThyPage,
     ThyGridEmptyOptions, ThySwitchEvent, ThyGridDraggableEvent, ThyGridRowEvent
 } from './grid.interface';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination/pagination.component';
-import { AnimateChildAst } from '@angular/animations/browser/src/dsl/animation_ast';
-import { SortablejsOptions } from 'angular-sortablejs/dist';
+import { ThyGridColumnComponent, IThyGridColumnParentComponent, THY_GRID_COLUMN_PARENT_COMPONENT } from './grid-column.component';
+import { SortablejsOptions } from 'angular-sortablejs';
+import { helpers } from '../util';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export type ThyGridTheme = 'default' | 'bordered';
 
@@ -34,9 +39,15 @@ const customType = {
 @Component({
     selector: 'thy-grid',
     templateUrl: './grid.component.html',
+    providers: [
+        {
+            provide: THY_GRID_COLUMN_PARENT_COMPONENT,
+            useExisting: ThyGridComponent
+        }
+    ],
     encapsulation: ViewEncapsulation.None
 })
-export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy, DoCheck {
+export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridColumnParentComponent {
 
     public customType = customType;
 
@@ -70,17 +81,21 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy, Do
 
     public trackByFn: any;
 
+    public wholeRowSelect = false;
+
     private _filter: any = null;
 
     private _diff: IterableDiffer<any>;
 
     private _draggableModel: any;
 
+    private _listOfColumnComponents: QueryList<ThyGridColumnComponent>;
+
     @Input()
     set thyModel(value: any) {
         this.model = value || [];
         this._diff = this._differs.find(this.model).create();
-        this._formatModel();
+        this._initializeDataModel();
     }
 
     @Input()
@@ -114,18 +129,17 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy, Do
     }
 
     @Input()
-    set thyDraggable(value: boolean) {
-        this.draggable = value;
-        this.draggableOptions.disabled = !value;
+    set thyDraggable(value: boolean | any) {
+        if (helpers.isBoolean(value)) {
+            this.draggable = value;
+            this.draggableOptions.disabled = !value;
+        } else {
+            if (value) {
+                Object.assign(this.draggableOptions, value);
+                this.draggable = !this.draggableOptions.disabled;
+            }
+        }
     }
-
-    // @Input()
-    // set thyDraggableOptions(value: SortablejsOptions) {
-    //     if (value) {
-    //         this.draggable = value && !this.draggableOptions.disabled;
-    //         this.draggableOptions = value;
-    //     }
-    // }
 
     @Input()
     set thyFilter(value: any) {
@@ -147,6 +161,14 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy, Do
         this.pagination.total = value;
     }
 
+    @Input()
+    set thyWholeRowSelect(value: boolean) {
+        if (value) {
+            this.className += ' table-hover';
+        }
+        this.wholeRowSelect = value;
+    }
+
     @Output() thyOnSwitchChange: EventEmitter<ThySwitchEvent> = new EventEmitter<ThySwitchEvent>();
 
     @Output() thyOnPageChange: EventEmitter<PageChangedEvent> = new EventEmitter<PageChangedEvent>();
@@ -159,13 +181,52 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy, Do
 
     @Output() thyOnRowClick: EventEmitter<ThyGridRowEvent> = new EventEmitter<ThyGridRowEvent>();
 
+    @ContentChildren(ThyGridColumnComponent)
+    set listOfColumnComponents(components: QueryList<ThyGridColumnComponent>) {
+        if (components) {
+            this._listOfColumnComponents = components;
+            this._initializeColumns();
+            this._initializeDataModel();
+        }
+    }
+
     constructor(
         private _differs: IterableDiffers
     ) {
         this._bindTrackFn();
     }
 
-    private _formatModel() {
+    private _getSelectionKeys(selections: any) {
+        return selections.map((item: any) => {
+            if (typeof (item) === 'number' || typeof (item) === 'string') {
+                return item;
+            } else {
+                return item[this.rowKey];
+            }
+        });
+    }
+
+    private _initializeColumns() {
+        const components = this._listOfColumnComponents ? this._listOfColumnComponents.toArray() : [];
+        this.columns = components.map<ThyGridColumn>((component) => {
+            const selections = this._getSelectionKeys(component.selections);
+            return {
+                key: component.key,
+                model: component.model,
+                title: component.title,
+                type: component.type,
+                selections: selections,
+                width: component.width,
+                className: component.className,
+                headerClassName: component.headerClassName,
+                disabled: component.disabled,
+                defaultText: component.defaultText,
+                templateRef: component.templateRef,
+            };
+        });
+    }
+
+    private _initializeDataModel() {
         this.model.forEach(row => {
             this.columns.forEach(column => {
                 this._initialSelections(row, column);
@@ -178,6 +239,7 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy, Do
         if (column.selections && column.selections.length > 0) {
             if (column.type === 'checkbox') {
                 row[column.key] = column.selections.includes(row[this.rowKey]);
+                this.onModelChange(row, column);
             }
             if (column.type === 'radio') {
                 if (column.selections.includes(row[this.rowKey])) {
@@ -230,13 +292,12 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy, Do
         }
     }
 
-    public updateColumn(column: ThyGridColumn) {
-        let old = this.columns.find(item => item.key === column.key);
-        if (old) {
-            old = column;
-        } else {
-            this.columns.push(column);
-        }
+    public updateColumnSelections(key: string, selections: any): void {
+        const column = this.columns.find(item => item.key === key);
+        column.selections = this._getSelectionKeys(selections);
+        this.model.forEach(row => {
+            this._initialSelections(row, column);
+        });
     }
 
     public isTemplateRef(ref: any) {
@@ -253,8 +314,19 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy, Do
         }
     }
 
+    public onStopPropagation(event: Event) {
+        if (this.wholeRowSelect) {
+            event.stopPropagation();
+        }
+    }
+
     public onPageChange(event: PageChangedEvent) {
         this.thyOnPageChange.emit(event);
+    }
+
+    public onCheckboxChange(row: any, column: ThyGridColumn) {
+        this.onModelChange(row, column);
+        this.onMultiSelectChange(null, row, column);
     }
 
     public onMultiSelectChange(event: Event, row: any, column: ThyGridColumn) {
@@ -308,6 +380,22 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy, Do
     }
 
     public onRowClick(event: Event, row: any) {
+        if (this.wholeRowSelect) {
+            const column = this.columns.find((item) => {
+                return item.type === customType.checkbox || item.type === customType.radio;
+            });
+            if (!column.disabled) {
+                if (column.type === customType.checkbox) {
+                    row[column.key] = !row[column.key];
+                    this.onModelChange(row, column);
+                    this.onMultiSelectChange(event, row, column);
+                }
+                if (column.type === customType.radio) {
+                    this.selectedRadioRow = row;
+                    this.onRadioSelectChange(event, row);
+                }
+            }
+        }
         const rowEvent = {
             event: event,
             row: row
@@ -315,17 +403,19 @@ export class ThyGridComponent implements OnInit, AfterContentInit, OnDestroy, Do
         this.thyOnRowClick.emit(rowEvent);
     }
 
-    ngOnInit() {
+    // 临时处理Sortable禁用后某些事件还生效的问题
+    public draggableStopPropagation(event: Event) {
+        if (this.draggableOptions.disabled) {
+            event.stopPropagation();
+        }
+    }
 
+    ngOnInit() {
     }
 
     ngDoCheck() {
         const changes = this._diff.diff(this.model);
         this._applyDiffChanges(changes);
-    }
-
-    ngAfterContentInit() {
-        this._formatModel();
     }
 
     ngOnDestroy() {

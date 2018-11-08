@@ -1,7 +1,12 @@
-.avatar {
+.thy-avatar {
   display: inline-block;
+  position: relative;
+
   &:hover {
     text-decoration: none;
+    .avatar-remove {
+      visibility: visible;
+    }
   }
   .avatar-default {
     display: inline-block;
@@ -21,10 +26,17 @@
     white-space: nowrap;
     vertical-align: middle;
   }
-  @each $size,
-  $value in $avatar-sizes {
-    .avatar-#{$size} {
-      @include avatarSize($size, $value);
-    }
+
+  .avatar-remove {
+    position: absolute;
+    visibility: hidden;
+    top: -7px;
+    right: -5px;
+  }
+}
+
+@each $size, $value in $avatar-sizes {
+  .thy-avatar-#{$size} {
+    @include avatarSize($size, $value);
   }
 }

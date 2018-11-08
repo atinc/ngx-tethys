@@ -48,10 +48,16 @@
   // HTML5 says that controls under a fieldset > legend:first-child won't be
   // disabled if the fieldset is disabled. Due to implementation difficulty, we
   // don't honor that edge case; we style them as disabled anyway.
+  &.disabled,
   &:disabled {
     background-color: $input-disabled-bg;
+    color: $input-disabled-color;
     // iOS fix for unreadable disabled content; see https://github.com/twbs/bootstrap/issues/11655.
     opacity: 1;
+    // 如果 input 框禁用了，后面的反馈图标颜色变浅
+    // & + .form-control-feedback {
+    //   color: $input-disabled-color;
+    // }
   }
   // Thy Custom readonly is not disabled-bg
   &[readonly] {
@@ -60,7 +66,7 @@
   }
 
   // Thy Custom
-  &:not(:disabled){
+  &:not(:disabled):not(.disabled) {
     @include hover {
       border-color: $input-hover-border-color;
     }
@@ -106,6 +112,12 @@
   // THY CUSTOM
   color: $input-label-color;
   text-align: right;
+  padding-right: 10px;
+}
+
+// form 左右布局 padding 减少
+.col-form-control {
+  padding-left: 10px;
 }
 
 .col-form-label-lg {
@@ -356,7 +368,12 @@
 .thy-form {
   .row-fill {
     margin-right: 0px;
-    margin-left: 0px;  
+    margin-left: 0px;
+  }
+  .form-group {
+    &:last-child{
+      margin-bottom: 0;
+    }
   }
 }
 

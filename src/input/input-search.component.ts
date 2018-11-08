@@ -35,6 +35,8 @@ export class ThyInputSearchComponent implements ControlValueAccessor {
 
     public disabled = false;
 
+    public autoFocus = false;
+
     @HostBinding('class.input-search-container') _isSearchContainer = true;
 
     @HostBinding('class.input-search-ellipse') _isSearchEllipse = false;
@@ -51,6 +53,14 @@ export class ThyInputSearchComponent implements ControlValueAccessor {
             this._isSearchEllipse = true;
         }
     }
+
+
+    @Input()
+    set thySearchFocus(value: boolean) {
+        this.autoFocus = value;
+    }
+
+    @Output() clear: EventEmitter<Event> = new EventEmitter<Event>();
 
     constructor() {
 
@@ -76,12 +86,14 @@ export class ThyInputSearchComponent implements ControlValueAccessor {
         this.onChangeCallback(this.searchText);
     }
 
-    clearSearchText() {
+    clearSearchText(event: Event) {
+        event.stopPropagation();
         if (this.disabled) {
             return;
         }
         this.searchText = '';
         this.onChangeCallback(this.searchText);
+        this.clear.emit(event);
     }
 }
 

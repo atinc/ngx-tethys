@@ -6,7 +6,6 @@ import { DatepickerValueEntry } from './i.datepicker';
 import { ThyDaterangepickerConfig } from './daterangepicker.config';
 import { ThyDatepickerConfig } from './datepicker.config';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
-import { ThyDatepickerService } from './datepicker.service';
 
 @Component({
     selector: 'thy-daterangepicker-container',
@@ -14,8 +13,9 @@ import { ThyDatepickerService } from './datepicker.service';
 })
 export class ThyDaterangepickerContainerComponent implements OnInit {
     public initialState: any;
+    public store: any;
     hideLoader: Function;
-    value: Date;
+    value: Date[];
     isShowTime = false;
     isCanTime = false;
     isMeridian = false;
@@ -31,7 +31,6 @@ export class ThyDaterangepickerContainerComponent implements OnInit {
         _elementRef: ElementRef,
         _renderer: Renderer2,
         _viewContainerRef: ViewContainerRef,
-        private service: ThyDatepickerService,
     ) {
         this._datepicker = cis.createLoader<BsDaterangepickerContainerComponent>(
             _elementRef,
@@ -41,6 +40,7 @@ export class ThyDaterangepickerContainerComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.store = this.initialState.store;
         this._initTimeShowMode();
         this._initDataValue();
         this._initDatepickerComponent();
@@ -72,10 +72,9 @@ export class ThyDaterangepickerContainerComponent implements OnInit {
     }
 
     private _sendChangeValueEvent(result?: Date[]) {
-        console.log(result);
         if (result && result.length > 1) {
-            this.service.store.value = result;
-            this.service.store.withTime = this.isShowTime;
+            this.store.value = result;
+            this.store.withTime = this.isShowTime;
             this.initialState.changeValue();
             this.hide();
         }
@@ -88,14 +87,14 @@ export class ThyDaterangepickerContainerComponent implements OnInit {
     }
 
     private _initDataValue() {
-        this.value = this.service.store.value;
+        this.value = this.store.value;
     }
 
     private _initTimeShowMode() {
-        if (this.service.store.originWithTime) {
+        if (this.store.originWithTime) {
             this.changeTimeShowMode('show');
         } else {
-            if (this.initialState.withTime) {
+            if (this.store.withTime) {
                 this.changeTimeShowMode('can');
             }
         }

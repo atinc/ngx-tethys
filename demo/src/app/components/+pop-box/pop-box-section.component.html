@@ -15,6 +15,12 @@
                 insideAutoClose
             </label>
         </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" [(ngModel)]="config.showMask" name="showMask">
+            <label class="form-check-label" for="defaultCheck1">
+                showMask
+            </label>
+        </div>
         <select class="form-control w-25" [(ngModel)]="demoPlacement">
             <option value="bottom center">下中</option>
             <option value="bottom left">下左</option>
@@ -40,7 +46,9 @@
     </div>
     <div class="body">
         <div>
-            <button [thyButton]="'primary'" #btnTriggerPopBoxTemplate (click)="openPopBoxWithTemplate(btnTriggerPopBoxTemplate, popBoxTemplate)">弹出 PopBox</button>
+            <button [thyButton]="'primary'" #btnTriggerPopBoxTemplate (click)="openPopBoxWithTemplate(btnTriggerPopBoxTemplate, popBoxTemplate)">弹出
+                PopBox
+            </button>
         </div>
         <ng-template #popBoxTemplate>
             <thy-pop-box-header>
@@ -87,29 +95,99 @@
 </section>
 
 <section>
-        <div class="header">
-            <h2>PopBoxTrigger</h2>
+    <div class="header">
+        <h2>PopBoxTrigger</h2>
+    </div>
+    <div class="body">
+        <div>
+            <button thyButton="primary" thyPopBoxTrigger [thyPopBoxTrigger]="popBoxTriggerTemplate">弹出 PopBox</button>
         </div>
-        <div class="body">
-            <div >
-                <button thyButton="primary" thyPopBoxTrigger [thyPopBoxTrigger]="popBoxTriggerTemplate">弹出 PopBox</button>
-            </div>
-            <ng-template #popBoxTriggerTemplate>
-                <thy-pop-box-header>
-                    <h5 class="pop-box-title">确认删除</h5>
-                    <a href="javascript:;" (click)="close()" class="close">
-                        <i class="wtf wtf-close"></i>
+        <ng-template #popBoxTriggerTemplate>
+            <thy-pop-box-header>
+                <h5 class="pop-box-title">确认删除</h5>
+                <a href="javascript:;" (click)="close()" class="close">
+                    <i class="wtf wtf-close"></i>
+                </a>
+            </thy-pop-box-header>
+            <thy-pop-box-body>
+                你确认要删除这条记录吗？
+            </thy-pop-box-body>
+            <thy-pop-box-footer>
+                <button thyButton="danger" thySize="">确认</button>
+                <button thyButton="link-secondary" thySize="" (click)="close()">取消</button>
+            </thy-pop-box-footer>
+        </ng-template>
+    </div>
+</section>
+
+<section>
+    <div class="header">
+        <h2>弹出不固定高度内容，自动调整位置</h2>
+    </div>
+    <div class="body">
+        <button [thyButton]="'primary'" [thyActionMenuToggle]="menu1">弹出 PopBox</button>
+    </div>
+    <ng-template #menu1>
+        <thy-loading [thyDone]="loadingDone"></thy-loading>
+        <thy-action-menu *ngIf="loadingDone">
+            <a thyActionMenuItem thyDisabled="true" thyActionMenuItemActive="true" href="javascript:;">
+                <span thyActionMenuItemIcon>
+                    <i class="wtf wtf-task-o"></i>
+                </span>
+                <span thyActionMenuItemName>有图标</span>
+            </a>
+            <a thyActionMenuItem href="javascript:;">
+                <span thyActionMenuItemIcon>
+                    <i class="wtf wtf-task-o"></i>
+                </span>
+                <span thyActionMenuItemName>有图标</span>
+                <span thyActionMenuItemExtendIcon>
+                    <i class="wtf wtf-checked"></i>
+                </span>
+            </a>
+            <a thyActionMenuItem href="javascript:;">
+                <span thyActionMenuItemIcon>
+                    <i class="wtf wtf-task-o"></i>
+                </span>
+                <span thyActionMenuItemName>禁用</span>
+            </a>
+            <thy-action-menu-divider></thy-action-menu-divider>
+            <a thyActionMenuItem href="javascript:;">
+                <span thyActionMenuItemIcon>
+                    <i class="wtf wtf-task-o"></i>
+                </span>
+                <span thyActionMenuItemName>有图标</span>
+                <span thyActionMenuItemMeta>(默认排序)</span>
+                <div thyActionMenuItemInfo>默认排序下可拖拽移动任务；其他排序下只能显示，不可拖拽</div>
+            </a>
+            <a thyActionMenuItem href="javascript:;">
+                <span thyActionMenuItemIcon>
+                    <i class="wtf wtf-task-o"></i>
+                </span>
+                <span thyActionMenuItemName>有图标</span>
+                <span thyActionMenuItemExtendIcon>
+                    <i class="wtf wtf-angle-right"></i>
+                </span>
+                <div thyActionMenuSubItem>
+                    <a thyActionMenuItem href="javascript:;">
+                        <span thyActionMenuItemIcon>
+                            <i class="wtf wtf-task-o"></i>
+                        </span>
+                        <span thyActionMenuItemName>子菜单1</span>
                     </a>
-                </thy-pop-box-header>
-                <thy-pop-box-body>
-                    你确认要删除这条记录吗？
-                </thy-pop-box-body>
-                <thy-pop-box-footer>
-                    <button thyButton="danger" thySize="">确认</button>
-                    <button thyButton="link-secondary" thySize="" (click)="close()">取消</button>
-                </thy-pop-box-footer>
-            </ng-template>
-        </div>
-    </section>
+                    <a thyActionMenuItem href="javascript:;">
+                        <span thyActionMenuItemIcon>
+                            <i class="wtf wtf-task-o"></i>
+                        </span>
+                        <span thyActionMenuItemName>子菜单2子菜单2子菜单2子菜单2子菜单2子菜单2</span>
+                    </a>
+                </div>
+            </a>
+            <a thyActionMenuItem href="javascript:;">
+                <span thyActionMenuItemName>无图标元素无图标元素无图标元素无图标元素无图标元素无图标元素</span>
+            </a>
+        </thy-action-menu>
+    </ng-template>
+</section>
 
 <api-parameters [parameters]="apiParameters"></api-parameters>

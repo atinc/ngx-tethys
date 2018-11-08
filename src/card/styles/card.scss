@@ -4,44 +4,55 @@
     flex: auto;
     height: 100%;
     background: $white;
+    border-radius: 3px;
+
     .thy-card-header {
         padding: 10px 20px 0 20px;
         display: flex;
         flex: 0 0 auto;
         align-items: center;
+
         .card-header-icon {
             display: block;
             margin-right: 7px;
             width: 0;
-            height: 20px;
+            height: 14px;
             @include card-head-title-icon($card-title-icon-color);
         }
+
         .card-header-title {
             line-height: 20px;
             color: $card-title-color;
         }
+
         .card-header-description {
             margin-left: 10px;
             font-size: 12px;
             color: $card-title-info-color;
         }
+
         .card-header-operation {
             margin-left: auto;
         }
+
         &--sm {
             padding-top: 0;
         }
+
         &--lg {
             padding-top: 20px;
         }
     }
+
     .thy-card-content {
         padding: 20px;
         flex: auto;
+
         &--alignment-title {
             padding-left: 30px;
             padding-right: 30px;
         }
+
         &--scroll {
             margin-top: 10px;
             padding-top: 10px;
@@ -49,12 +60,19 @@
             overflow-y: auto;
             overflow-x: hidden;
         }
+
+        &--sm {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
     }
+
     &--clear-left-right-padding {
         .thy-card-header {
             padding-left: 0;
             padding-right: 0;
         }
+
         .thy-card-content {
             padding-left: 0;
             padding-right: 0;

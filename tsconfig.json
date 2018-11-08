@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
@@ -17,5 +18,9 @@
       "es2017",
       "dom"
     ]
-  }
+  },
+  "files": [
+    "./scripts/typings.d.ts",
+    "./src/index.ts"
+  ]
 }

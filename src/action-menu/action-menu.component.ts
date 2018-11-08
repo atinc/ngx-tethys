@@ -38,10 +38,15 @@ export class ThyActionMenuItemDirective {
     @HostBinding('class.action-menu-item') className = true;
     @HostBinding('class.action-menu-item--disabled') disabled = false;
 
-    @Input() set thyActionMenuItem(value: any) {
-        if (value === 'disabled') {
-            this.disabled = true;
-        }
+    // @Input() set thyActionMenuItem(value: any) {
+    //     if (value === 'disabled') {
+    //         this.disabled = true;
+    //     }
+    // }
+
+    @Input()
+    set thyDisabled(value: boolean) {
+        this.disabled = inputValueToBoolean(value);
     }
 
     @HostListener('click', ['$event'])
@@ -53,6 +58,61 @@ export class ThyActionMenuItemDirective {
     }
 
     constructor() { }
+}
+
+@Directive({
+    selector: '[thyActionMenuItemIcon]',
+})
+export class ThyActionMenuItemIconDirective {
+
+    @HostBinding('class.icon') className = true;
+
+    constructor() { }
+
+}
+
+@Directive({
+    selector: '[thyActionMenuItemName]',
+})
+export class ThyActionMenuItemNameDirective {
+
+    @HostBinding('class.name') className = true;
+
+    constructor() { }
+
+}
+
+@Directive({
+    selector: '[thyActionMenuItemMeta]',
+})
+export class ThyActionMenuItemMetaDirective {
+
+    @HostBinding('class.meta') className = true;
+
+    constructor() { }
+
+}
+
+@Directive({
+    selector: '[thyActionMenuItemInfo]',
+})
+export class ThyActionMenuItemInfoDirective {
+
+    @HostBinding('class.info') className = true;
+
+    constructor() { }
+
+}
+
+@Directive({
+    selector: '[thyActionMenuItemExtendIcon]',
+})
+export class ThyActionMenuItemExtendIconDirective {
+
+    @HostBinding('class.extend-icon') className = true;
+
+    constructor() { }
+
 }
 
 @Directive({
@@ -91,4 +151,20 @@ export class ThyActionMenuDividerTitleDirective {
     @HostBinding('class.action-menu-divider-title') className = true;
 
     constructor() { }
+}
+
+@Directive({
+    selector: '[thyActionMenuItemActive]',
+})
+export class ThyActionMenuItemActiveDirective {
+
+    @HostBinding('class.active') _isActive = false;
+
+    @Input()
+    set thyActionMenuItemActive(value: boolean) {
+        this._isActive = inputValueToBoolean(value);
+    }
+
+    constructor() { }
+
 }

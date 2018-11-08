@@ -1,4 +1,4 @@
-import { Component, Directive, Input, ElementRef, Renderer2, ViewEncapsulation } from '@angular/core';
+import { Component, Directive, Input, ElementRef, Renderer2, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { AfterContentInit, OnChanges, OnInit } from '@angular/core';
 import { inputValueToBoolean, isUndefined } from '../util/helpers';
 import { UpdateHostClassService } from '../shared';
@@ -13,7 +13,11 @@ const btnTypeClassesMap: any = {
     'danger': ['btn', 'btn-danger'],
     'link': ['btn', 'btn-link'], // 链接按钮
     'link-info': ['btn', 'btn-link', 'btn-link-info'],// 幽灵链接按钮
-    'link-secondary': ['btn', 'btn-link', 'btn-link-info'] // 幽灵链接按钮
+    'link-secondary': ['btn', 'btn-link', 'btn-link-info'], // 幽灵链接按钮
+    'link-danger-weak': ['btn', 'btn-link', 'btn-link-danger-weak'],// 幽灵危险按钮
+    'link-danger': ['btn', 'btn-link', 'btn-link-danger'], // 危险按钮
+    'link-success': ['btn', 'btn-link', 'btn-link-success'] // 成功按钮
+
 };
 
 @Component({
@@ -22,7 +26,8 @@ const btnTypeClassesMap: any = {
     providers: [
         UpdateHostClassService
     ],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyButtonComponent implements OnInit {
 
@@ -64,7 +69,7 @@ export class ThyButtonComponent implements OnInit {
 
     @Input()
     set thyButton(value: ThyButtonType) {
-       this._setBtnType(value);
+        this._setBtnType(value);
     }
 
     @Input()
@@ -124,16 +129,17 @@ export class ThyButtonComponent implements OnInit {
     }
 
     private _setLoadingStatus() {
-        let disabled = false;
+        // let disabled = false;
         let innerText: string;
         if (this._loading) {
-            disabled = true;
+            // disabled = true;
             innerText = this._loadingText ? this._loadingText : null;
         } else {
-            disabled = false;
+            // disabled = false;
             innerText = this._originalText ? this._originalText : null;
         }
-        this.renderer.setProperty(this._nativeElement, 'disabled', disabled);
+        // this.renderer.setProperty(this._nativeElement, 'disabled', disabled);
+        this._setClasses();
         if (innerText) {
             this.renderer.setProperty(this._nativeElement, 'innerText', innerText);
         }
@@ -158,6 +164,9 @@ export class ThyButtonComponent implements OnInit {
         }
         if (this._isRadiusSquare) {
             classNames.push('btn-square');
+        }
+        if (this._loading) {
+            classNames.push('loading');
         }
         this.updateHostClassService.updateClass(classNames);
     }

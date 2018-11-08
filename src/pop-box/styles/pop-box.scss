@@ -1,102 +1,60 @@
 pop-box-container {
-  position: absolute;
-  z-index: $zindex-pop-box;
+    position: absolute;
+    z-index: $zindex-pop-box;
+}
+
+.pop-box-container-mask {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: block;
+    opacity: 1;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .pop-box {
-  
-  .pop-box-content {
-    min-width: 240px;
-    background: $white;
-    box-shadow: $box-shadow;
-  }
-  
-  .pop-box-header {
-    padding: 12px 20px;
-    display: flex;
-    flex-direction: row;
-    border-bottom: solid 1px $pop-box-divider;
-    background-color: transparent;
-    .pop-box-header,
-    h5 {
-      flex: 1;
-      margin: 0;
-      color: $gray-700;
-      font-size: $font-size-md;
-      line-height: 20px;
-      font-weight: normal;
+    z-index: $zindex-pop-box;
+    .pop-box-content {
+        min-width: 240px;
+        background: $white;
+        box-shadow: $box-shadow;
+        margin-top: 4px; 
     }
-    &--no-underline {
-      border-bottom: none;
+    .pop-box-header {
+        padding: 12px 20px;
+        display: flex;
+        flex-direction: row;
+        border-bottom: solid 1px $pop-box-divider;
+        background-color: transparent;
+        .pop-box-title,
+        h5 {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            margin: 0;
+            font-size: $font-size-md;
+            line-height: 20px;
+            font-weight: normal;
+        }
+        &--no-underline {
+            border-bottom: none;
+        }
+        .pop-box-close {
+            display: none;
+        }
     }
-    .pop-box-close {
-      display: none;
-    }
-  }
-  
-  .pop-box-body {
-    display: block;
-    position: relative;
-    padding: 15px;
-  }
-  
-  .pop-box-footer {
-    display: flex;
-    padding: 15px;
-  }
-
-  .pop-box-menu {
-    padding: $rem-5px 0;
-    margin: 0;
-    li {
-      line-height: 30px;
-      list-style: none;
-      .pop-box-menu-item,
-      .pop-box-sub-menu-item {
+    .pop-box-body {
         display: block;
         position: relative;
-        padding: $rem-5px $rem-18px;
-        font-weight: 400;
-        color: $pop-box-text;
-        border: 0;
-        background-color: transparent;
-        transition: all 200ms;
-        text-decoration: none;
-        .icon {
-          display: inline-block;
-          width: 1rem;
-        }
-        .extend-icon {
-          float: right;
-        }
-        &:hover {
-          padding-left: $rem-26px;
-          color: $pop-box-text-hover;
-          background: $pop-box-bg-hover;
-        }
-      }
-      &:hover {
-        .pop-box-sub-menu {
-          display: block;
-        }
-      }
+        padding: $pop-box-body-padding;
     }
-    .divider {
-      margin: $rem-5px $rem-20px;
-      border-bottom: solid 1px $pop-box-divider;
+    .pop-box-footer {
+        display: flex;
+        padding: $pop-box-footer-padding;
     }
-    .pop-box-sub-menu {
-      display: none;
-      position: absolute;
-      left: 100%;
-      bottom: 0;
-      padding: $rem-5px 0;
-      margin: 0;
-      width: 240px;
-      background: $white;
-      box-shadow: $box-shadow;
-    }
-  }
 }
 
 @mixin pop-box {}

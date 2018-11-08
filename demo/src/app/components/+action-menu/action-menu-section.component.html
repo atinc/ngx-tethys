@@ -9,58 +9,61 @@
         <button [thyButton]="'primary'" [thyActionMenuToggle]="menu1" [thyPlacement]="'bottom right'">弹出位置</button>
         <ng-template #menu1>
             <thy-action-menu>
-                <a thyActionMenuItem href="javascript:;" (click)="itemClick(1)">
-                    <span class="icon">
+                <a thyActionMenuItem thyDisabled="true" thyActionMenuItemActive="true" href="javascript:;" (click)="itemClick(1)">
+                    <span thyActionMenuItemIcon>
                         <i class="wtf wtf-task-o"></i>
                     </span>
-                    <span>有图标</span>
+                    <span thyActionMenuItemName>有图标</span>
                 </a>
-                <a thyActionMenuItem href="javascript:;" (click)="itemClick(1)">
-                    <span class="icon">
+                <a thyActionMenuItem href="javascript:;" (click)="itemClick(2)">
+                    <span thyActionMenuItemIcon>
                         <i class="wtf wtf-task-o"></i>
                     </span>
-                    <span>有图标</span>
-                    <span class="extend-icon">
-                        <i class="wtf wtf-accepted"></i>
+                    <span thyActionMenuItemName>有图标</span>
+                    <span thyActionMenuItemExtendIcon>
+                        <i class="wtf wtf-checked"></i>
                     </span>
                 </a>
-                <a thyActionMenuItem="disabled" href="javascript:;" (click)="itemClick(1)">
-                    <span class="icon">
+                <a thyActionMenuItem href="javascript:;" (click)="itemClick(3)">
+                    <span thyActionMenuItemIcon>
                         <i class="wtf wtf-task-o"></i>
                     </span>
-                    <span>禁用</span>
+                    <span thyActionMenuItemName>禁用</span>
                 </a>
                 <thy-action-menu-divider></thy-action-menu-divider>
-                <a thyActionMenuItem href="javascript:;" (click)="itemClick(1)">
-                    <span class="icon">
+                <a thyActionMenuItem href="javascript:;" (click)="itemClick(4)">
+                    <span thyActionMenuItemIcon>
                         <i class="wtf wtf-task-o"></i>
                     </span>
-                    <span>有图标</span>
-                    <span class="meta">(默认排序)</span>
-                    <div class="info">默认排序下可拖拽移动任务；其他排序下只能显示，不可拖拽</div>
+                    <span thyActionMenuItemName>有图标</span>
+                    <span thyActionMenuItemMeta>(默认排序)</span>
+                    <div thyActionMenuItemInfo>默认排序下可拖拽移动任务；其他排序下只能显示，不可拖拽</div>
                 </a>
-                <a thyActionMenuItem href="javascript:;" (click)="itemClick(1)">
-                    <span class="icon">
+                <a thyActionMenuItem href="javascript:;" (click)="itemClick(5)">
+                    <span thyActionMenuItemIcon>
                         <i class="wtf wtf-task-o"></i>
                     </span>
-                    <span>有图标</span>
-                    <span class="extend-icon">
+                    <span thyActionMenuItemName>有图标</span>
+                    <span thyActionMenuItemExtendIcon>
                         <i class="wtf wtf-angle-right"></i>
                     </span>
                     <div thyActionMenuSubItem>
-                        <a thyActionMenuItem href="javascript:;" (click)="itemClick(1)">
-                            <span class="icon">
+                        <a thyActionMenuItem href="javascript:;" (click)="itemClick(21)">
+                            <span thyActionMenuItemIcon>
                                 <i class="wtf wtf-task-o"></i>
                             </span>
-                            <span>有图标</span>
+                            <span thyActionMenuItemName>子菜单1</span>
                         </a>
-                        <a thyActionMenuItem href="javascript:;" (click)="itemClick(1)">
-                            <span class="icon">
+                        <a thyActionMenuItem href="javascript:;" (click)="itemClick(22)">
+                            <span thyActionMenuItemIcon>
                                 <i class="wtf wtf-task-o"></i>
                             </span>
-                            <span>有图标</span>
+                            <span thyActionMenuItemName>子菜单2子菜单2子菜单2子菜单2子菜单2子菜单2</span>
                         </a>
                     </div>
+                </a>
+                <a thyActionMenuItem href="javascript:;" (click)="itemClick(6)">
+                    <span thyActionMenuItemName>无图标元素无图标元素无图标元素无图标元素无图标元素无图标元素</span>
                 </a>
             </thy-action-menu>
         </ng-template>
@@ -77,23 +80,23 @@
             <thy-action-menu thyTheme="group">
                 <thy-action-menu-divider thyTitle="分组"></thy-action-menu-divider>
                 <a thyActionMenuItem href="javascript:;" (click)="itemClick(1)">
-                    <span class="icon">
+                    <span thyActionMenuItemIcon>
                         <i class="wtf wtf-task-o"></i>
                     </span>
-                    <span>有图标</span>
+                    <span thyActionMenuItemName>有图标</span>
                 </a>
                 <a thyActionMenuItem href="javascript:;" (click)="itemClick(1)">
-                    <span class="icon">
+                    <span thyActionMenuItemIcon>
                         <i class="wtf wtf-task-o"></i>
                     </span>
-                    <span>有图标</span>
+                    <span thyActionMenuItemName>有图标</span>
                 </a>
                 <thy-action-menu-divider thyTitle="分组"></thy-action-menu-divider>
                 <a thyActionMenuItem href="javascript:;" (click)="itemClick(1)">
-                    <span class="icon">
+                    <span thyActionMenuItemIcon>
                         <i class="wtf wtf-task-o"></i>
                     </span>
-                    <span>有图标</span>
+                    <span thyActionMenuItemName>有图标</span>
                 </a>
             </thy-action-menu>
         </ng-template>

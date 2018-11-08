@@ -5,8 +5,14 @@ import {
     ThyActionMenuComponent,
     ThyActionMenuDividerComponent,
     ThyActionMenuItemDirective,
+    ThyActionMenuItemIconDirective,
+    ThyActionMenuItemNameDirective,
+    ThyActionMenuItemExtendIconDirective,
+    ThyActionMenuItemMetaDirective,
+    ThyActionMenuItemInfoDirective,
     ThyActionMenuSubItemDirective,
     ThyActionMenuDividerTitleDirective,
+    ThyActionMenuItemActiveDirective,
 } from './action-menu.component';
 
 @NgModule({
@@ -15,8 +21,14 @@ import {
         ThyActionMenuComponent,
         ThyActionMenuDividerComponent,
         ThyActionMenuItemDirective,
+        ThyActionMenuItemIconDirective,
+        ThyActionMenuItemNameDirective,
+        ThyActionMenuItemExtendIconDirective,
+        ThyActionMenuItemMetaDirective,
+        ThyActionMenuItemInfoDirective,
         ThyActionMenuSubItemDirective,
         ThyActionMenuDividerTitleDirective,
+        ThyActionMenuItemActiveDirective,
     ],
     imports: [
         CommonModule
@@ -26,8 +38,14 @@ import {
         ThyActionMenuComponent,
         ThyActionMenuDividerComponent,
         ThyActionMenuItemDirective,
+        ThyActionMenuItemIconDirective,
+        ThyActionMenuItemNameDirective,
+        ThyActionMenuItemExtendIconDirective,
+        ThyActionMenuItemMetaDirective,
+        ThyActionMenuItemInfoDirective,
         ThyActionMenuSubItemDirective,
         ThyActionMenuDividerTitleDirective,
+        ThyActionMenuItemActiveDirective,
     ]
 })
 export class ThyActionMenuModule {
