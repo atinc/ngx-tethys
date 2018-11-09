@@ -75,7 +75,6 @@ export class ThyDatepickerNextTimeAccurateComponent implements OnInit, OnDestroy
         this.hours.forEach(n => n.isActive = false);
         hour.isActive = true;
         this.time.hour = hour.hour;
-        this._behaviorTimeDone();
     }
 
     onSelectMinute(minute: ThyDatepickerNextTime) {

@@ -91,5 +91,16 @@ export interface ValueOutRxPipeInterface {
 }
 
 
-
+export interface DatepickerNextDisableRules {
+    '<'?: Date;
+    '<='?: Date;
+    '='?: Date | Date[];
+    '>'?: Date;
+    '>='?: Date;
+    't<'?: Date;
+    't<='?: Date;
+    't>'?: Date;
+    't>='?: Date;
+    'fn'?: Function;
+}
 

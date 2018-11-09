@@ -10,6 +10,7 @@ import {
     ValueInRxPipeInterface,
     ValueOutRxPipeInterface,
     DatepickerNextViewFeatureConfig,
+    DatepickerNextDisableRules,
 } from './datepicker-next.interface';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -43,11 +44,15 @@ export class ThyDatepickerNextContainerComponent implements OnInit, OnDestroy, A
 
     @Input() thyShortcut = true;
 
-    @Input() thyWithTime = true;
+    @Input() thyWithTime = false;
 
-    @Input() thyOperation = true;
+    @Input() thyOperation = false;
 
     @Input() thyTimeType = DatepickerNextTimeModeType.simply;
+
+    @Input() set thyDisabledRules(rules: DatepickerNextDisableRules) {
+        this.store.dispatch(datepickerNextActions.changeDisableRules, rules);
+    }
 
     @Input() thyModeType: DatepickerNextTimeModeType = DatepickerNextTimeModeType.simply;
 
@@ -84,10 +89,6 @@ export class ThyDatepickerNextContainerComponent implements OnInit, OnDestroy, A
             timeComponentType: this.thyTimeType,
             operation: this.thyWithTime,
         };
-        if (this.thyOperation === false) {
-            payload.time = false;
-        }
-
         this.store.dispatch(datepickerNextActions.changeViewFeatureConfig, payload);
     }
     //#endregion
@@ -108,6 +109,12 @@ export class ThyDatepickerNextContainerComponent implements OnInit, OnDestroy, A
 
     private _initViewComponent(value: DatepickerNextValueType) {
         this._originValue = value;
+        if (this._originValue && this._originValue.with_time) {
+            this.store.dispatch(datepickerNextActions.changeViewFeatureConfig, {
+                time: true,
+                operation: true,
+            });
+        }
 
         const value$ = of(value);
         const subscribe = value$

@@ -9,7 +9,8 @@ import { DatepickerNextTimeModeType } from '../../../../../src/datepicker-next/d
 export class DemoDatepickerNextSectionComponent implements OnInit {
 
     private state = {
-        nowDate: Math.floor((new Date()).getTime() / 1000),
+        nowTimestamp: Math.floor((new Date()).getTime() / 1000),
+        nowObjectTimestamp: Math.floor((new Date()).getTime() / 1000),
         nowNextWeekDate: Math.floor((new Date()).getTime() / 1000) + 90000 * 7,
         nowNextNextWeekDate: Math.floor((new Date()).getTime() / 1000) + 90000 * 7 * 2,
     };
@@ -18,11 +19,22 @@ export class DemoDatepickerNextSectionComponent implements OnInit {
 
     //#region DatePickerNext
 
-    objectTimestamp = {
-        date: Math.floor((new Date()).getTime() / 1000),
-        with_time: true
+    value1 = { date: this.state.nowTimestamp, with_time: false };
+    value2 = { date: this.state.nowTimestamp, with_time: true };
+    value3 = { date: this.state.nowTimestamp, with_time: false };
+    value4 = { date: this.state.nowTimestamp, with_time: true };
+    disabledRules = {
+        '<': new Date(2018, 10, 1, 12, 0),
+        // '<=': new Date(2018, 10, 1, 12, 0),
+        // 't<': new Date(2018, 10, 1, 12, 0),
+        // 't<=': new Date(2018, 10, 1, 12, 0),
+        // '>': new Date(2018, 10, 1, 13, 0),
+        // 'fn': function (date) {
+
+        // }
     };
-    objectTimestamp2 = {
+
+    objectTimestamp = {
         date: Math.floor((new Date()).getTime() / 1000),
         with_time: true
     };
@@ -46,28 +58,6 @@ export class DemoDatepickerNextSectionComponent implements OnInit {
     //#endregion
 
     //#region DateRangePicker
-
-    dateRangeObjectTimestamp = {
-        begin: { date: this.state.nowDate },
-        end: { date: this.state.nowNextWeekDate }
-    };
-
-    dateRangeTimestamp = {
-        begin: this.state.nowDate,
-        end: this.state.nowNextWeekDate
-    };
-
-    dateRangeObjectTimestampNull = {
-        begin: { date: null },
-        end: { date: null }
-    };
-
-    dateRangeTimestampNull = {
-        begin: null,
-        end: null
-    };
-
-    dateRangeNull = null;
 
     //#endregion
 

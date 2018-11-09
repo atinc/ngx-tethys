@@ -4,17 +4,38 @@
 </div>
 
 <div>
-    <div>快捷时间选择</div>
-    <thy-datepicker-next [(ngModel)]="objectTimestamp" (ngModelChange)="onSelect($event)"></thy-datepicker-next>
+    <div>默认</div>
+    <div>{{value1|json}}</div>
+    <thy-datepicker-next [(ngModel)]="value1" (ngModelChange)="onSelect($event)"></thy-datepicker-next>
+</div>
+<div>
+    <div>必选日期</div>
+    <div>{{value2|json}}</div>
+    <thy-datepicker-next [(ngModel)]="value2" (ngModelChange)="onSelect($event)"></thy-datepicker-next>
+</div>
+<div>
+    <div>可选日期</div>
+    <div>{{value3|json}}</div>
+    <thy-datepicker-next [(ngModel)]="value3" (ngModelChange)="onSelect($event)" [thyWithTime]="true"></thy-datepicker-next>
 </div>
 <div>
     <div>精确时间选择</div>
-    <thy-datepicker-next [(ngModel)]="objectTimestamp2" (ngModelChange)="onSelect($event)" [thyTimeType]="datepickerNextTimeModeType.accurate"></thy-datepicker-next>
+    <div>{{value4|json}}</div>
+    <thy-datepicker-next [(ngModel)]="value4" (ngModelChange)="onSelect($event)" [thyTimeType]="datepickerNextTimeModeType.accurate"></thy-datepicker-next>
 </div>
+<!-- <div>
+    <div>禁用选择</div>
+    <thy-datepicker-next [(ngModel)]="objectTimestamp3" (ngModelChange)="onSelect($event)" [thyDisabledRules]="disabledRules"></thy-datepicker-next>
+</div> -->
 
+<!--<hr>
 <hr>
 <hr>
-<hr>
+<h1>数据类型支持：</h1>
+<div>
+    <div>长时间戳对象：{{objectTimestamp|json}}</div>
+    <thy-datepicker-next [(ngModel)]="objectTimestamp" (ngModelChange)="onSelect($event)"></thy-datepicker-next>
+</div>
 <div>
     <div>长时间戳对象：{{objectTimestampLong|json}}</div>
     <thy-datepicker-next [(ngModel)]="objectTimestampLong" (ngModelChange)="onSelect($event)"></thy-datepicker-next>
@@ -44,9 +65,5 @@
     <thy-datepicker-next [(ngModel)]="empty" (ngModelChange)="onSelect($event)"></thy-datepicker-next>
 </div>
 
-<!-- <br><br><br><br><br>
-<thy-datepicker-next-time-simply></thy-datepicker-next-time-simply>
-<br><br><br><br><br>
-<thy-datepicker-next-time-accurate></thy-datepicker-next-time-accurate> -->
 
-<api-parameters [parameters]="apiParameters"></api-parameters>
+<api-parameters [parameters]="apiParameters"></api-parameters> -->

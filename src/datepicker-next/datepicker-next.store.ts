@@ -4,7 +4,8 @@ import {
     ThyDatepickerNextCalendarDate,
     DatepickerNextValueChangeTypeEnum,
     ThyDatepickerNextTimeInfo,
-    DatepickerNextViewFeatureConfig
+    DatepickerNextViewFeatureConfig,
+    DatepickerNextDisableRules
 } from './datepicker-next.interface';
 import { calendarDateConvert } from './util';
 
@@ -20,6 +21,7 @@ export class DatepickerNextState {
     calendarSelected: ThyDatepickerNextCalendarDate;
     timeSelected: ThyDatepickerNextTimeInfo;
     valueChange: any;
+    disableRules: DatepickerNextDisableRules;
 }
 
 export const datepickerNextActions = {
@@ -30,6 +32,7 @@ export const datepickerNextActions = {
     changeCalendarSelected: 'changeCalendarSelected',
     changeTimeSelected: 'changeTimeSelected',
     valueChange: 'valueChange',
+    changeDisableRules: 'changeDisableRules',
 };
 
 export class ThyDatepickerNextStore extends Store<DatepickerNextState> {
@@ -194,6 +197,12 @@ export class ThyDatepickerNextStore extends Store<DatepickerNextState> {
             minute: payload.minute,
         };
         state.timeSelected = Object.assign({}, state.timeSelected);
+        this.next(state);
+    }
+
+    @Action(datepickerNextActions.changeDisableRules)
+    changeDisableRules(state: DatepickerNextState, payload: DatepickerNextDisableRules): void {
+        state.disableRules = { ...payload };
         this.next(state);
     }
 
