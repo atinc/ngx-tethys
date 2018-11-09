@@ -1,3 +1,3 @@
 export * from './module';
-export * from './store';
+export * from '../store/store';
 export * from './action';

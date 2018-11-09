@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { UpdateHostClassService } from '../shared';
 import { NgForm, AbstractControl } from '@angular/forms';
+import { keycodes } from '../util';
 
 export type ThyFormLayout = 'horizontal' | 'vertical' | 'inline';
 
@@ -14,7 +15,7 @@ export type ThyFormLayout = 'horizontal' | 'vertical' | 'inline';
 // 2. alwaysSubmit 不管是哪个元素 按 Enter 键都提交
 // 3. forbidSubmit Enter 键禁止提交
 // 默认 submit
-export enum ThyEnterKeyModel {
+export enum ThyEnterKeyMode {
     submit = 'submit',
     alwaysSubmit = 'alwaysSubmit',
     forbidSubmit = 'forbidSubmit'
@@ -39,7 +40,7 @@ export class ThyFormDirective implements OnInit, AfterViewInit, AfterViewChecked
         return this._layout;
     }
 
-    @Input() thyEnterKeyModel: ThyEnterKeyModel;
+    @Input() thyEnterKeyMode: ThyEnterKeyMode;
 
     @HostBinding('class.thy-form') isThyForm = true;
 
@@ -47,7 +48,7 @@ export class ThyFormDirective implements OnInit, AfterViewInit, AfterViewChecked
 
     onSubmitSuccess: ($event: any) => void;
 
-    _unsubscribe: () => void;
+    private _unsubscribe: () => void;
 
     constructor(
         private ngForm: NgForm,
@@ -88,8 +89,8 @@ export class ThyFormDirective implements OnInit, AfterViewInit, AfterViewChecked
     onKeydown($event: KeyboardEvent) {
         const currentInput = document.activeElement;
         const key = $event.which || $event.keyCode;
-        if (key === 13 && currentInput.tagName) {
-            if (!this.thyEnterKeyModel || this.thyEnterKeyModel === ThyEnterKeyModel.submit) {
+        if (key === keycodes.ENTER && currentInput.tagName) {
+            if (!this.thyEnterKeyMode || this.thyEnterKeyMode === ThyEnterKeyMode.submit) {
                 // TEXTAREA Ctrl + Enter 或者 Command + Enter 阻止默认行为并提交
                 if (currentInput.tagName === 'TEXTAREA') {
                     if ($event.ctrlKey || $event.metaKey) {
@@ -101,7 +102,7 @@ export class ThyFormDirective implements OnInit, AfterViewInit, AfterViewChecked
                     $event.preventDefault();
                     this.submitRunInZone($event);
                 }
-            } else if (this.thyEnterKeyModel === ThyEnterKeyModel.alwaysSubmit) {
+            } else if (this.thyEnterKeyMode === ThyEnterKeyMode.alwaysSubmit) {
                 $event.preventDefault();
                 this.submitRunInZone($event);
             } else {

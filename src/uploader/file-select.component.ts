@@ -3,7 +3,6 @@ import {
     ViewChild, ElementRef, OnInit, OnDestroy, HostListener, EventEmitter
 } from '@angular/core';
 import { inputValueToBoolean, isArray, isString } from '../util/helpers';
-import { ThyUploaderService } from './uploader';
 import { mimeTypeConvert } from './util';
 
 @Component({
@@ -36,7 +35,6 @@ export class ThyFileSelectComponent implements OnInit, OnDestroy {
     }
 
     constructor(
-        private thyUploaderService: ThyUploaderService,
         private elementRef: ElementRef
     ) {
 

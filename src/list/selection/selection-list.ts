@@ -26,7 +26,6 @@ import {
 import { keycodes, helpers, dom } from '../../util';
 import { inputValueToBoolean } from '../../util/helpers';
 import { Subscription, throwError } from 'rxjs';
-import { DOCUMENT } from '@angular/platform-browser';
 import { ThySelectionListChange } from './selection.interface';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ScrollToService } from '../../core';
@@ -224,7 +223,6 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
     constructor(
         private renderer: Renderer2,
         private elementRef: ElementRef,
-        @Inject(DOCUMENT) private document: Document,
         private ngZone: NgZone
     ) {
     }

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ThyFileSelectComponent } from './file-select.component';
 import { ThyFileDropComponent } from './file-drop.component';
-import { ThyUploaderService } from './uploader';
+import { ThyUploaderService } from './uploader.service';
 import { ThyDirectiveModule } from '../directive';
 
 @NgModule({

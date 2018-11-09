@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef, Renderer2, HostListener, Output, EventEmitter, HostBinding, Input } from '@angular/core';
-import { ThyUploaderService } from './uploader';
+import { ThyUploaderService } from './uploader.service';
 import { mimeTypeConvert } from './util';
 import { MIME_Map } from './constant';
 import { helpers } from '../util';

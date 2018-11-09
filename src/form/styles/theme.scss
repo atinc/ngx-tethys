@@ -6,7 +6,7 @@
     @include form-control-focus();
   
     // Thy Custom
-    &:not(:disabled){
+    &:not(:disabled):not(.disabled) {
       @include hover {
         border-color: $input-hover-border-color;
       }
