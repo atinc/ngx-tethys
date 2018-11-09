@@ -11,3 +11,4 @@ export { ThySlideService } from './slide/slide.service';
 export * from './avatar';
 export * from './uploader';
 export { ThyEditorService } from './editor/editor.service';
+export * from './tree-select';

@@ -1,0 +1,20 @@
+<div (click)="openSelectPop($event)" class="form-control form-control-custom" [class.thy-select-selection]="!thyMultiple"
+    [ngClass]="thySize ? 'form-control-' + thySize : ''" [class.disabled]="thyDisable">
+    <ng-container *ngIf="!thyMultiple">
+        <span *ngIf="selectedNode && !thyTreeSelectTriggerDisplayRef">{{selectedNode[thyShowKey]}}</span>
+        <ng-container *ngIf="selectedNode && thyTreeSelectTriggerDisplayRef" [ngTemplateOutlet]="thyTreeSelectTriggerDisplayRef"
+            [ngTemplateOutletContext]="{$implicit:selectedNode}"></ng-container>
+        <span class="text-placeholder d-inline-block" *ngIf="!selectedNode">{{thyPlaceholder}}</span>
+        <a class="thy-select-remove remove-link" href="javascript:;" (click)="clearSelectedValue($event)" *ngIf="selectedNode && thyAllowClear">
+            <i class="wtf wtf-times-circle"></i>
+        </a>
+    </ng-container>
+    <div *ngIf="thyMultiple" [ngClass]="{'multiple-value-wrapper': selectedNodes?.length > 0}">
+        <span class="mr-1" [hidden]="selectedNodes?.length === 0" *ngFor="let node of selectedNodes;index as i"
+            thyLabel="default" [thyAfterIcon]="'wtf-times'" (click)="removeSelectedNode(node,$event)">{{node[thyShowKey]}}
+        </span>
+        <span class="text-placeholder" *ngIf="selectedNodes?.length == 0">{{thyPlaceholder}}</span>
+    </div>
+</div>
+
+<thy-tree-select-nodes class="thy-select-container-wrapper" *ngIf="expandTreeSelectOptions"></thy-tree-select-nodes>

@@ -35,6 +35,7 @@ import { DemoDateRangeSectionComponent } from './components/+date-range/date-ran
 import { DemoKeySelectSectionComponent } from './components/+key-select/key-select-section.component';
 import { DemoListComponent } from './components/+list/list-section.component';
 import { DemoDatepickerNextSectionComponent } from './components/+datepicker-next/datepicker-next-section.component';
+import { DemoTreeSelectSectionComponent } from './components/+tree-select/tree-select-section.component';
 
 const appRoutes = [
     {
@@ -184,6 +185,10 @@ const appRoutes = [
     {
         path: 'components/list',
         component: DemoListComponent
+    },
+    {
+        path: 'components/tree-select',
+        component: DemoTreeSelectSectionComponent
     }
 ];
 

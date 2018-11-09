@@ -1,0 +1,12 @@
+.thy-tree-select-pop {
+    .thy-tree-select-pop-empty {
+        margin: 10px;
+    }
+
+    .thy-tree-select-node {
+        .rotate-caret {
+            display: inline-block;
+            transform: rotate(-45deg);
+        }
+    }
+}
