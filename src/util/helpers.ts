@@ -18,6 +18,10 @@ export function isArray(value: any): boolean {
     return value && baseGetTag(value) === '[object Array]';
 }
 
+export function isEmpty(value: any): boolean {
+    return !(isArray(value) && value.length > 0);
+}
+
 export function isString(value: any): boolean {
     return value && baseGetTag(value) === '[object String]';
 }

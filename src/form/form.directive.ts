@@ -8,8 +8,9 @@ import {
 import { UpdateHostClassService } from '../shared';
 import { NgForm, AbstractControl } from '@angular/forms';
 import { keycodes } from '../util';
+import { ThyFormLayout } from './form.class';
+import { ThyFormValidatorService } from './form-validator.service';
 
-export type ThyFormLayout = 'horizontal' | 'vertical' | 'inline';
 
 // 1. submit 按 Enter 键提交, Textare 除外，需要按 Ctrl | Command + Enter 提交
 // 2. alwaysSubmit 不管是哪个元素 按 Enter 键都提交
@@ -23,13 +24,15 @@ export enum ThyEnterKeyMode {
 
 @Directive({
     selector: '[thyForm]',
-    providers: [UpdateHostClassService]
+    providers: [
+        UpdateHostClassService,
+        ThyFormValidatorService
+    ],
+    exportAs: 'thyForm'
 })
 export class ThyFormDirective implements OnInit, AfterViewInit, AfterViewChecked, OnDestroy {
 
     private _layout: ThyFormLayout = 'horizontal';
-
-    private _formControlKeys = new Array<string>();
 
     @Input()
     set thyLayout(value: ThyFormLayout) {
@@ -40,9 +43,11 @@ export class ThyFormDirective implements OnInit, AfterViewInit, AfterViewChecked
         return this._layout;
     }
 
-    @Input() thyEnterKeyMode: ThyEnterKeyMode;
+    get isHorizontal() {
+        return this._layout === 'horizontal';
+    }
 
-    @HostBinding('class.thy-form') isThyForm = true;
+    @Input() thyEnterKeyMode: ThyEnterKeyMode;
 
     @HostBinding('class.was-validated') wasValidated = false;
 
@@ -53,15 +58,22 @@ export class ThyFormDirective implements OnInit, AfterViewInit, AfterViewChecked
     constructor(
         private ngForm: NgForm,
         private elementRef: ElementRef,
-        private changeDetectorRef: ChangeDetectorRef,
+        // private changeDetectorRef: ChangeDetectorRef,
         private renderer: Renderer2,
         private ngZone: NgZone,
-        private updateHostClassService: UpdateHostClassService) {
+        private updateHostClassService: UpdateHostClassService,
+        public validator: ThyFormValidatorService
+    ) {
+        this.updateHostClassService.initializeElement(this.elementRef.nativeElement);
     }
 
     ngOnInit(): void {
         this.ngZone.runOutsideAngular(() => {
             this._unsubscribe = this.renderer.listen(this.elementRef.nativeElement, 'keydown', this.onKeydown.bind(this));
+        });
+        this.updateHostClassService.updateClassByMap({
+            'thy-form': true,
+            [`thy-form-${this.thyLayout}`]: true
         });
     }
 
@@ -69,14 +81,14 @@ export class ThyFormDirective implements OnInit, AfterViewInit, AfterViewChecked
     }
 
     ngAfterViewChecked() {
+        this.validator.initialize(this.ngForm, this.elementRef.nativeElement);
     }
 
     submit($event: any) {
-        this.ngForm.onSubmit($event);
-        if (this.ngForm.valid) {
+        if (this.validator.validate($event)) {
             this.onSubmitSuccess($event);
         } else {
-            this.wasValidated = true;
+            // this.wasValidated = true;
         }
     }
 

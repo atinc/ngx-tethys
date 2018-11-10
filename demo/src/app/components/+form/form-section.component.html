@@ -19,11 +19,6 @@
                         <option value="">---请选择---</option>
                         <option *ngFor="let option of options" [value]="option._id">{{option.value}}</option>
                     </thy-select>
-                    <!-- <div class="thy-select">
-                        <select class="form-control" required [(ngModel)]="model.select" name="power">
-                            <option *ngFor="let option of options" [value]="option._id">{{option.value}}</option>
-                        </select>
-                    </div> -->
                 </thy-form-group>
                 <thy-form-group thyLabelText="Textarea">
                     <textarea class="form-control" rows="3"></textarea>
@@ -45,7 +40,8 @@
                         <label class="col-sm-2 col-form-label pr-0">开始时间</label>
                         <div class="col-sm-4 col-form-control">
                             <thy-input-group>
-                                <input type="text" class="form-control pbox-trigger" name="deadline_at" readonly="readonly" placeholder="" value="7月17日">
+                                <input type="text" class="form-control pbox-trigger" name="deadline_at" readonly="readonly"
+                                    placeholder="" value="7月17日">
                                 <ng-template #append>
                                     <span class="input-group-text">
                                         <i class="wtf wtf-schedule-o"></i>
@@ -63,8 +59,8 @@
                 </thy-form-group>
 
                 <thy-form-group thyLabelText="时间" [thyFeedbackIcon]="'date'">
-                    <input type="text" disabled="" readonly="readonly" value="2017-12-12" class="form-control" placeholder="error" />
-                    <!-- <span class="form-control-feedback form-control-feedback-date" aria-hidden="true"></span> -->
+                    <input type="text" disabled="" readonly="readonly" value="2017-12-12" class="form-control"
+                        placeholder="error" />
                 </thy-form-group>
                 <thy-form-group thyLabelText="静态输入框">
                     <input type="text" readonly class="form-control-plaintext" value="email@example.com">
@@ -85,7 +81,8 @@
                     <label thyRadio thyLabelText="选择项1"></label>
                     <label thyRadio thyLabelText="选择项2"></label>
                     <label thyRadio thyLabelText="禁用的选择项" thyDisabled=""></label>
-                    <label thyRadio thyLabelText="Disabled Radio" name="radio22" [(ngModel)]="model.checkbox2" [disabled]="'true'"></label>
+                    <label thyRadio thyLabelText="Disabled Radio" name="radio22" [(ngModel)]="model.checkbox2"
+                        [disabled]="'true'"></label>
                 </thy-form-group>
                 <thy-form-group *ngIf="submitSuccess">
                     <div class="text text-success">提交成功!</div>
@@ -103,10 +100,41 @@
         <h2>Form 垂直</h2>
     </div>
     <div class="body demo-form">
+        <form thyForm thyLayout="vertical" #demoVerticalThyForm="thyForm" #demoVerticalForm="ngForm">
+            <thy-form-group thyLabelText="用户名" thyLabelRequired thyTips="这是一个输入用户名的描述">
+                <input thyInput name="username" [(ngModel)]="model.name" required maxlength="5" placeholder="请输入用户名">
+            </thy-form-group>
+            <thy-form-group thyLabelText="选择1">
+                <thy-select required [(ngModel)]="model.select2" name="power">
+                    <option value="">---请选择---</option>
+                    <option *ngFor="let option of options" [value]="option._id">{{option.value}}</option>
+                </thy-select>
+            </thy-form-group>
+            <thy-form-group thyLabelText="选择2">
+                <thy-custom-select thySize="md" required="" name="select2" [(ngModel)]="model.select3" thyEmptyStateText="无匹配结果">
+                    <thy-option thyValue="" thyLabelText="空"></thy-option>
+                    <thy-option thyValue="1" thyLabelText="选项1"></thy-option>
+                    <thy-option thyValue="2" thyLabelText="选项2"></thy-option>
+                </thy-custom-select>
+            </thy-form-group>
+
+            <thy-form-group thyLabelText="描述">
+                <textarea class="form-control" required [(ngModel)]="model.desc" name="desc" rows="3" placeholder="请输入描述"></textarea>
+            </thy-form-group>
+            <thy-form-group-footer>
+                <button [thyButton]="'primary'" (thyFormSubmit)="save(demoVerticalForm)">保存</button>
+                <button [thyButton]="'link-secondary'">取消</button>
+                <button [thyButton]="'primary'" (click)="demoVerticalThyForm.validator.setElementErrorMessage('power', '这是一个自定义的错误')">设置选择1错误信息</button>
+            </thy-form-group-footer>
+        </form>
+        <!-- {{demoVerticalThyForm.validator._controls | json}} -->
+        <!-- <br>
+        <br>
         <form>
             <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    placeholder="Enter email">
                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
             <div class="form-group">
@@ -118,7 +146,7 @@
                 <label class="form-check-label" for="exampleCheck1">Check me out</label>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+        </form> -->
     </div>
 </section>
 

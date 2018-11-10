@@ -26,12 +26,20 @@
 }
 
 
+@mixin thy-form-validation-state($state, $color) {
+  .form-control {
+    &.thy-invalid {
+      border-color: $color;
+    }
+  }
+}
+
 @mixin form-validation-state($state, $color) {
   .#{$state}-feedback {
     display: none;
     width: 100%;
     margin-top: $form-feedback-margin-top;
-    font-size: $form-feedback-font-size;
+    // font-size: $form-feedback-font-size;
     color: $color;
   }
 
@@ -50,14 +58,25 @@
     border-radius: .2rem;
   }
 
+  // custom select 
+  &.is-#{$state} {
+    .form-control {
+      border-color: $color !important;
+      &:hover {
+        border-color: $color;
+      }
+    }
+  }
+
   .form-control,
+  .thy-select,
   .custom-select {
     .was-validated &:#{$state},
     &.is-#{$state} {
       border-color: $color;
 
       &:focus {
-        border-color: $input-focus-border-color;
+        // border-color: $input-focus-border-color;
         // box-shadow: 0 0 0 $input-focus-width rgba($color, .25);
       }
 

@@ -25,7 +25,7 @@
 }
 
 .thy-layout-content {
-  flex: auto;
+  flex: auto; // = 1 1 auto
   display: flex;
   flex-direction: column;
   padding: $layout-content-padding;
@@ -48,6 +48,7 @@
 }
 
 .thy-layout-sidebar {
+  flex: 0 0 auto;
   transition: all .2s;
   position: relative;
   background: $layout-sidebar-background;

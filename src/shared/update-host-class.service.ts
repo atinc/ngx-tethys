@@ -1,11 +1,14 @@
 import { Injectable, Renderer2 } from '@angular/core';
 import { isString } from '../util/helpers';
+import { Dictionary } from '../typings';
 
 @Injectable()
 export class UpdateHostClassService {
 
     // host element old classes
     private _classNames: string[] = [];
+
+    private _classMap: Dictionary<boolean>;
 
     private _hostElement: HTMLElement;
 
@@ -37,11 +40,21 @@ export class UpdateHostClassService {
         this._classNames = newClasses;
     }
 
-    private addClass(className: string) {
+    updateClassByMap(classMap: Dictionary<boolean>) {
+        const newClasses = [];
+        for (const key in classMap) {
+            if (classMap.hasOwnProperty(key) && classMap[key]) {
+                newClasses.push(key);
+            }
+        }
+        this.updateClass(newClasses);
+    }
+
+    addClass(className: string) {
         this.renderer.addClass(this._hostElement, className);
     }
 
-    private removeClass(className: string) {
+    removeClass(className: string) {
         this.renderer.removeClass(this._hostElement, className);
     }
 }

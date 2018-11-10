@@ -5,12 +5,16 @@ import {
     Input,
     ViewEncapsulation,
     ContentChild,
-    OnInit
+    OnInit,
+    ContentChildren,
+    QueryList
 } from '@angular/core';
 import { ThyFormDirective } from './form.directive';
 import { inputValueToBoolean } from '../util/helpers';
 import { TemplateRef } from '@angular/core';
 import { ThyTranslate } from '../shared';
+import { ThyFormLayout } from './form.class';
+import { NgModel } from '@angular/forms';
 
 const internalIconMap = {
     date: 'wtf wtf-schedule-o'
@@ -33,7 +37,7 @@ export class ThyFormGroupComponent implements OnInit {
 
     @HostBinding('class.form-group') _isFormGroup = true;
 
-    @HostBinding('class.row') _isRow = true;
+    @HostBinding('class.row') isHorizontal = true;
 
     @HostBinding('class.has-feedback') hasFeedback = false;
 
@@ -90,11 +94,12 @@ export class ThyFormGroupComponent implements OnInit {
     public contentTemplateRef: TemplateRef<any>;
 
     constructor(
-        @Optional() private thyFormDirective: ThyFormDirective,
+        @Optional() private thyParentForm: ThyFormDirective,
         private thyTranslate: ThyTranslate
     ) {
     }
 
     ngOnInit() {
+        this.isHorizontal = this.thyParentForm ? this.thyParentForm.isHorizontal : true;
     }
 }

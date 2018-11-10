@@ -1,0 +1,12 @@
+
+import { Dictionary } from '../typings';
+
+export type ThyFormLayout = 'horizontal' | 'vertical' | 'inline';
+
+export declare type ThyFormValidationMessages = Dictionary<Dictionary<string>>;
+
+export interface ThyFormValidatorConfig {
+    showElementError?: boolean | ((element: HTMLElement, errorMessages: string[]) => void);
+    removeElementError?: boolean | ((element: HTMLElement) => void);
+    validationMessages?: ThyFormValidationMessages;
+}

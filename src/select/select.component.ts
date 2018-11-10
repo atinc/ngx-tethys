@@ -37,6 +37,8 @@ export class ThySelectComponent implements ControlValueAccessor, OnInit {
         this._size = value;
     }
 
+    @Input() name: string;
+
     @Input() thyAllowClear = false;
 
     writeValue(obj: any): void {

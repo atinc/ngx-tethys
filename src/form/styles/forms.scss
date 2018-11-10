@@ -66,7 +66,7 @@
   }
 
   // Thy Custom
-  &:not(:disabled):not(.disabled) {
+  &:not(:disabled):not(.disabled):not(:invalid):not(.is-invalid) {
     @include hover {
       border-color: $input-hover-border-color;
     }
@@ -110,9 +110,14 @@
   font-size: inherit; // Override the `<legend>` default
   line-height: $input-line-height;
   // THY CUSTOM
-  color: $input-label-color;
+  // color: $input-label-color;
   text-align: right;
   padding-right: 10px;
+}
+
+// THY CUSTOM
+.form-label {
+  color: $input-label-color;
 }
 
 // form 左右布局 padding 减少
@@ -220,6 +225,7 @@
 // horizontal forms, use the predefined grid classes.
 
 .form-group {
+  // display: block;
   margin-bottom: $form-group-margin-bottom;
 }
 
@@ -255,6 +261,7 @@
 
 // @include form-validation-state("valid", $form-feedback-valid-color);
 @include form-validation-state("invalid", $form-feedback-invalid-color);
+@include thy-form-validation-state("invalid", $form-feedback-invalid-color)
 
 // Inline forms
 //
@@ -374,6 +381,12 @@
     &:last-child{
       margin-bottom: 0;
     }
+  }
+}
+
+.thy-form-vertical {
+  .form-group {
+    display: block;
   }
 }
 

@@ -1,5 +1,5 @@
 
 
-<div class="col-sm-10 offset-sm-2 col-form-control btn-pair">
+<div [ngClass]="{'col-sm-10 offset-sm-2 col-form-control': isHorizontal}" class="btn-pair">
     <ng-content></ng-content>
 </div>

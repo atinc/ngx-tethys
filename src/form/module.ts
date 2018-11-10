@@ -7,6 +7,8 @@ import { ThyFormGroupLabelDirective } from './form-group-label.directive';
 import { ThyFormSubmitDirective } from './form-submit.directive';
 import { ThyInputModule } from '../input/module';
 import { ThyFormGroupFooterComponent } from './from-group-footer/form-group-footer.component';
+import { ThyFormConfigLoader, VALIDATOR_CONFIG } from './form-config-loader';
+import { ThyFormValidatorConfig } from './form.class';
 
 @NgModule({
     imports: [
@@ -27,8 +29,21 @@ import { ThyFormGroupFooterComponent } from './from-group-footer/form-group-foot
         ThyFormGroupLabelDirective,
         ThyFormSubmitDirective,
         ThyFormGroupFooterComponent
+    ],
+    providers: [
+        ThyFormConfigLoader
     ]
 })
 export class ThyFormModule {
-
+    static forRoot(config: ThyFormValidatorConfig) {
+        return {
+            ngModule: ThyFormModule,
+            providers: [
+                {
+                    provide: VALIDATOR_CONFIG,
+                    useValue: config
+                }
+            ]
+        };
+    }
 }
