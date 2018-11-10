@@ -4,12 +4,10 @@ import {
     Injectable,
     Optional
 } from '@angular/core';
-import { ThyFormValidatorConfig, ThyFormValidationMessages } from './form.class';
+import { ThyFormValidatorConfig, ThyFormValidationMessages, THY_VALIDATOR_CONFIG } from './form.class';
 import { Dictionary } from '../typings';
 import { ValidationErrors, } from '@angular/forms';
 import { helpers } from '../util';
-
-export const VALIDATOR_CONFIG = new InjectionToken<ThyFormValidatorConfig>('VALIDATION_CONFIG');
 
 const INVALID_CLASS = 'is-invalid';
 const INVALID_FEEDBACK_CLASS = 'invalid-feedback';
@@ -24,6 +22,7 @@ const defaultValidationMessages = {
     required: '该选项不能为空',
     maxlength: '该选项输入值长度不能大于{maxlength}',
     minlength: '该选项输入值长度不能小于{minlength}',
+    thyUniqueCheck: '输入值已经存在，请重新输入',
     email: '输入邮件的格式不正确',
     repeat: '两次输入不一致',
     pattern: '该选项输入格式不正确',
@@ -35,12 +34,19 @@ const defaultValidationMessages = {
 };
 
 @Injectable()
-export class ThyFormConfigLoader {
+export class ThyFormValidatorLoader {
 
     private config: ThyFormValidatorConfig;
 
+    private _getDefaultValidationMessage(key: string) {
+        if (this.config.defaultValidationMessages && this.config.defaultValidationMessages[key]) {
+            return this.config.defaultValidationMessages[key];
+        } else {
+            return defaultValidationMessages[key];
+        }
+    }
     constructor(
-        @Optional() @Inject(VALIDATOR_CONFIG) config: ThyFormValidatorConfig
+        @Optional() @Inject(THY_VALIDATOR_CONFIG) config: ThyFormValidatorConfig
     ) {
         this.config = Object.assign({}, defaultValidatorConfig, config);
     }
@@ -53,7 +59,7 @@ export class ThyFormConfigLoader {
         if (this.validationMessages[name] && this.validationMessages[name][key]) {
             return this.validationMessages[name][key];
         } else {
-            return defaultValidationMessages[key];
+            return this._getDefaultValidationMessage(key);
         }
     }
 

@@ -7,24 +7,23 @@ import {
 } from '@angular/forms';
 import { Dictionary } from '../typings';
 import { helpers } from '../util';
-import { ThyFormConfigLoader } from './form-config-loader';
+import { ThyFormValidatorLoader } from './form-validator-loader';
 
 @Injectable()
 export class ThyFormValidatorService {
-
-    // controls: Dictionary<AbstractControl>;
 
     private _ngForm: NgForm;
 
     private _formElement: HTMLElement;
 
     private _controls: Dictionary<{
-        // control?: AbstractControl,
         hasError?: boolean,
         errorMessages?: string[]
     }> = {};
 
     private _initialized = false;
+
+    // public errors: string[];
 
     private _getElement(name: string) {
         const element = this._formElement[name];
@@ -38,7 +37,7 @@ export class ThyFormValidatorService {
     private _clearElementError(name: string) {
         if (!helpers.isEmpty(this._controls[name].errorMessages)) {
             this._controls[name].errorMessages = [];
-            this.thyFormConfigLoader.removeError(this._getElement(name));
+            this.thyFormValidateLoader.removeError(this._getElement(name));
         }
     }
 
@@ -73,7 +72,7 @@ export class ThyFormValidatorService {
 
     }
 
-    constructor(private thyFormConfigLoader: ThyFormConfigLoader) {
+    constructor(private thyFormValidateLoader: ThyFormValidatorLoader) {
 
     }
 
@@ -86,13 +85,14 @@ export class ThyFormValidatorService {
     setControlError(name: string, errorMessages: string[]) {
         this._controls[name].errorMessages = errorMessages;
         this._controls[name].hasError = true;
-        this.thyFormConfigLoader.showError(this._getElement(name), errorMessages);
+        this.thyFormValidateLoader.showError(this._getElement(name), errorMessages);
     }
 
-    validateControl(name: string, control: AbstractControl) {
+    validateControl(name: string) {
         this._clearElementError(name);
-        if (control.invalid) {
-            const errorMessages = this.thyFormConfigLoader.getErrorMessages(name, control.errors);
+        const control = this._ngForm.controls[name];
+        if (control && control.invalid) {
+            const errorMessages = this.thyFormValidateLoader.getErrorMessages(name, control.errors);
             this.setControlError(name, errorMessages);
         }
     }
@@ -100,7 +100,7 @@ export class ThyFormValidatorService {
     validateControls() {
         for (const key in this._controls) {
             if (this._controls.hasOwnProperty(key)) {
-                this.validateControl(key, this._ngForm.controls[key]);
+                this.validateControl(key);
             }
         }
     }
@@ -112,6 +112,7 @@ export class ThyFormValidatorService {
     }
 
     setElementErrorMessage(name: string, message: string) {
+        this._clearElementError(name);
         this.setControlError(name, [message]);
     }
 }

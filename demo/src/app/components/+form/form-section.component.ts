@@ -1,6 +1,7 @@
 
 import { Component, ViewEncapsulation, TemplateRef } from '@angular/core';
 import { ThyModalService } from '../../../../../src';
+import { of } from 'rxjs';
 
 @Component({
     selector: 'demo-form-section',
@@ -110,6 +111,11 @@ export class DemoFormSectionComponent {
             value: '选项2'
         }
     ];
+
+    checkUserName = (value: string) => {
+        console.log(`remote checkUserName`);
+        return of(value === 'why520crazy');
+    }
 
     constructor(private thyModalService: ThyModalService) {
     }

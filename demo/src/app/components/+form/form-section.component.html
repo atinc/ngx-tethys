@@ -102,7 +102,7 @@
     <div class="body demo-form">
         <form thyForm thyLayout="vertical" #demoVerticalThyForm="thyForm" #demoVerticalForm="ngForm">
             <thy-form-group thyLabelText="用户名" thyLabelRequired thyTips="这是一个输入用户名的描述">
-                <input thyInput name="username" [(ngModel)]="model.name" required maxlength="5" placeholder="请输入用户名">
+                <input thyInput name="username" [(ngModel)]="model.name" [thyUniqueCheck]="checkUserName" [ngModelOptions]="{updateOn: 'blur'}" required maxlength="50" placeholder="请输入用户名">
             </thy-form-group>
             <thy-form-group thyLabelText="选择1">
                 <thy-select required [(ngModel)]="model.select2" name="power">
@@ -111,7 +111,7 @@
                 </thy-select>
             </thy-form-group>
             <thy-form-group thyLabelText="选择2">
-                <thy-custom-select thySize="md" required="" name="select2" [(ngModel)]="model.select3" thyEmptyStateText="无匹配结果">
+                <thy-custom-select required="" name="select2" [(ngModel)]="model.select3" thyEmptyStateText="无匹配结果">
                     <thy-option thyValue="" thyLabelText="空"></thy-option>
                     <thy-option thyValue="1" thyLabelText="选项1"></thy-option>
                     <thy-option thyValue="2" thyLabelText="选项2"></thy-option>

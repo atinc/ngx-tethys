@@ -1,4 +1,4 @@
-import { ThyTranslate } from '../../../src/shared';
+import { ThyTranslate } from '../../../../src/shared';
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';

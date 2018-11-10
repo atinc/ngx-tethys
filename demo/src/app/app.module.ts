@@ -12,7 +12,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ThyTranslate } from '../../../src/shared';
-import { DemoThyTranslate } from './demo-thy-translate';
+import { DemoThyTranslate, thyValidatorConfigProvider } from './config';
 import { FormsModule } from '@angular/forms';
 import { ThyAvatarService } from '../../../src';
 import { CustomAvatarService } from './components/+avatar/custom-avatar.service';
@@ -53,7 +53,8 @@ import { ThyMarkdownParserService } from '../../../src/directive';
         {
             provide: ThyMarkdownParserService,
             useClass: CustomEditorService
-        }
+        },
+        thyValidatorConfigProvider
     ],
     bootstrap: [AppComponent]
 })
