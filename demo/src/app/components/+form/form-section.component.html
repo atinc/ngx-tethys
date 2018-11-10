@@ -123,7 +123,7 @@
             </thy-form-group>
             <thy-form-group-footer>
                 <button [thyButton]="'primary'" (thyFormSubmit)="save(demoVerticalForm)">保存</button>
-                <button [thyButton]="'link-secondary'">取消</button>
+                <button [thyButton]="'link-secondary'" (click)="demoVerticalThyForm.validator.reset()">重置</button>
                 <button [thyButton]="'primary'" (click)="demoVerticalThyForm.validator.setElementErrorMessage('power', '这是一个自定义的错误')">设置选择1错误信息</button>
             </thy-form-group-footer>
         </form>

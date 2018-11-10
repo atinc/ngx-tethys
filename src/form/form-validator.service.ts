@@ -111,6 +111,18 @@ export class ThyFormValidatorService {
         return this._ngForm.valid;
     }
 
+    reset() {
+        this._ngForm.reset();
+        for (const name in this._controls) {
+            if (this._controls.hasOwnProperty(name)) {
+                const control = this._controls[name];
+                control.errorMessages = [];
+                control.hasError = false;
+                this._clearElementError(name);
+            }
+        }
+    }
+
     setElementErrorMessage(name: string, message: string) {
         this._clearElementError(name);
         this.setControlError(name, [message]);
