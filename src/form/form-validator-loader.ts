@@ -18,7 +18,7 @@ const defaultValidatorConfig: ThyFormValidatorConfig = {
     validationMessages: {}
 };
 
-const defaultValidationMessages = {
+const globalValidationMessages = {
     required: '该选项不能为空',
     maxlength: '该选项输入值长度不能大于{maxlength}',
     minlength: '该选项输入值长度不能小于{minlength}',
@@ -39,10 +39,10 @@ export class ThyFormValidatorLoader {
     private config: ThyFormValidatorConfig;
 
     private _getDefaultValidationMessage(key: string) {
-        if (this.config.defaultValidationMessages && this.config.defaultValidationMessages[key]) {
-            return this.config.defaultValidationMessages[key];
+        if (this.config.globalValidationMessages && this.config.globalValidationMessages[key]) {
+            return this.config.globalValidationMessages[key];
         } else {
-            return defaultValidationMessages[key];
+            return globalValidationMessages[key];
         }
     }
     constructor(

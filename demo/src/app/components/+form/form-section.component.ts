@@ -15,6 +15,8 @@ export class DemoFormSectionComponent {
 
     submitSuccess = false;
 
+    showDescProperty = false;
+
     public apiThyFormParameters = [
         {
             property: 'thyForm',
@@ -118,6 +120,9 @@ export class DemoFormSectionComponent {
     }
 
     constructor(private thyModalService: ThyModalService) {
+        setTimeout(() => {
+            this.showDescProperty = true;
+        }, 300);
     }
 
     save(form: any) {

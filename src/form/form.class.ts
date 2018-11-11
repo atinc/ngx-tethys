@@ -9,7 +9,7 @@ export declare type ThyFormValidationMessages = Dictionary<Dictionary<string>>;
 export interface ThyFormValidatorConfig {
     showElementError?: boolean | ((element: HTMLElement, errorMessages: string[]) => void);
     removeElementError?: boolean | ((element: HTMLElement) => void);
-    defaultValidationMessages?: Dictionary<string>;
+    globalValidationMessages?: Dictionary<string>;
     validationMessages?: ThyFormValidationMessages;
 }
 

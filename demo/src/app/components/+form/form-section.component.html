@@ -118,7 +118,7 @@
                 </thy-custom-select>
             </thy-form-group>
 
-            <thy-form-group thyLabelText="描述">
+            <thy-form-group thyLabelText="描述" *ngIf="showDescProperty">
                 <textarea class="form-control" required [(ngModel)]="model.desc" name="desc" rows="3" placeholder="请输入描述"></textarea>
             </thy-form-group>
             <thy-form-group-footer>

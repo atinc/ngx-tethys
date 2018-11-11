@@ -16,14 +16,13 @@ export class ThyFormValidatorService {
 
     private _formElement: HTMLElement;
 
-    private _controls: Dictionary<{
+    // public errors: string[];
+
+    // 记录所有元素的验证信息
+    public validations: Dictionary<{
         hasError?: boolean,
         errorMessages?: string[]
     }> = {};
-
-    private _initialized = false;
-
-    // public errors: string[];
 
     private _getElement(name: string) {
         const element = this._formElement[name];
@@ -35,56 +34,68 @@ export class ThyFormValidatorService {
     }
 
     private _clearElementError(name: string) {
-        if (!helpers.isEmpty(this._controls[name].errorMessages)) {
-            this._controls[name].errorMessages = [];
+        if (this.validations[name] && this.validations[name].hasError) {
+            this.validations[name].errorMessages = [];
             this.thyFormValidateLoader.removeError(this._getElement(name));
         }
     }
 
-    private _initializeFormControl(name: string, control: AbstractControl) {
-        this._controls[name] = {
-            hasError: false
-            // control: control
+    private _tryGetValidation(name: string) {
+        if (!this.validations[name]) {
+            this._initializeFormControlValidation(name, this._ngForm.controls[name]);
+        }
+        return this.validations[name];
+    }
+
+    private _initializeFormControlValidation(name: string, control: AbstractControl) {
+        this.validations[name] = {
+            hasError: false,
+            errorMessages: []
         };
         control.valueChanges.subscribe(() => {
             this._clearElementError(name);
         });
-        control.statusChanges.subscribe(() => {
-
-        });
     }
 
-    private _initializeFormControls(ngForm: NgForm) {
-        if (this._initialized) {
-            return;
+    private _restFormControlValidation(name: string) {
+        const validation = this.validations[name];
+        if (validation) {
+            validation.hasError = false;
+            validation.errorMessages = [];
         }
-        const allKeys = [];
-        for (const key in ngForm.controls) {
-            if (ngForm.controls.hasOwnProperty(key)) {
-                allKeys.push(key);
-                const formControl = ngForm.controls[key];
-                this._initializeFormControl(key, formControl);
-            }
-        }
-        if (allKeys.length > 0) {
-            this._initialized = true;
-        }
-
     }
+
+    // private _initializeFormControlValidations(ngForm: NgForm) {
+    //     if (this._initialized) {
+    //         return;
+    //     }
+    //     const allKeys = [];
+    //     for (const key in ngForm.controls) {
+    //         if (ngForm.controls.hasOwnProperty(key)) {
+    //             allKeys.push(key);
+    //             const formControl = ngForm.controls[key];
+    //             this._initializeFormControlValidation(key, formControl);
+    //         }
+    //     }
+    //     if (allKeys.length > 0) {
+    //         this._initialized = true;
+    //     }
+
+    // }
 
     constructor(private thyFormValidateLoader: ThyFormValidatorLoader) {
 
     }
 
     initialize(ngForm: NgForm, formElement: HTMLElement) {
-        this._initializeFormControls(ngForm);
         this._ngForm = ngForm;
         this._formElement = formElement;
     }
 
-    setControlError(name: string, errorMessages: string[]) {
-        this._controls[name].errorMessages = errorMessages;
-        this._controls[name].hasError = true;
+    setControlValidationError(name: string, errorMessages: string[]) {
+        const validation = this._tryGetValidation(name);
+        validation.errorMessages = errorMessages;
+        validation.hasError = true;
         this.thyFormValidateLoader.showError(this._getElement(name), errorMessages);
     }
 
@@ -93,16 +104,27 @@ export class ThyFormValidatorService {
         const control = this._ngForm.controls[name];
         if (control && control.invalid) {
             const errorMessages = this.thyFormValidateLoader.getErrorMessages(name, control.errors);
-            this.setControlError(name, errorMessages);
+            this.setControlValidationError(name, errorMessages);
         }
     }
 
     validateControls() {
-        for (const key in this._controls) {
-            if (this._controls.hasOwnProperty(key)) {
-                this.validateControl(key);
+        // 主要是 无法检测到 ngForm 的 controls 的变化，或者是我没有找到
+        // 验证的时候循环 ngForm 的 controls 验证
+        // 发现没有 validation 初始化一个，已经存在不会重新初始化，保存缓存数据
+        for (const name in this._ngForm.controls) {
+            if (this._ngForm.controls.hasOwnProperty(name)) {
+                this._tryGetValidation(name);
+                this.validateControl(name);
             }
         }
+        // 移除已经不存在的 validation
+        const names = Object.keys(this.validations);
+        names.forEach((name) => {
+            if (!this._ngForm.controls[name]) {
+                delete this.validations[name];
+            }
+        });
     }
 
     validate($event?: Event): boolean {
@@ -113,11 +135,9 @@ export class ThyFormValidatorService {
 
     reset() {
         this._ngForm.reset();
-        for (const name in this._controls) {
-            if (this._controls.hasOwnProperty(name)) {
-                const control = this._controls[name];
-                control.errorMessages = [];
-                control.hasError = false;
+        for (const name in this.validations) {
+            if (this.validations.hasOwnProperty(name)) {
+                this._restFormControlValidation(name);
                 this._clearElementError(name);
             }
         }
@@ -125,6 +145,6 @@ export class ThyFormValidatorService {
 
     setElementErrorMessage(name: string, message: string) {
         this._clearElementError(name);
-        this.setControlError(name, [message]);
+        this.setControlValidationError(name, [message]);
     }
 }

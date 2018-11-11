@@ -75,13 +75,13 @@ export class ThyFormDirective implements OnInit, AfterViewInit, AfterViewChecked
             'thy-form': true,
             [`thy-form-${this.thyLayout}`]: true
         });
+        this.validator.initialize(this.ngForm, this.elementRef.nativeElement);
     }
 
     ngAfterViewInit() {
     }
 
     ngAfterViewChecked() {
-        this.validator.initialize(this.ngForm, this.elementRef.nativeElement);
     }
 
     submit($event: any) {
