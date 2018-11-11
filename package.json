@@ -12,7 +12,7 @@
         "build:theme:watch": "npm run build:theme && gulp build-theme:watch",
         "ng": "ng",
         "start": "npm run build:theme && concurrently \"ng serve --port 8888 --host 0.0.0.0\" \"gulp build-theme:watch\"",
-        "build:demo": "ng build --prod --extract-css",
+        "build:demo": "ng build demo --prod --extract-css",
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e",
