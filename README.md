@@ -38,6 +38,7 @@ import { ThyButtonModule } from 'ngx-tethys/button';
 import { ThyLayoutModule } from 'ngx-tethys/layout';
 
 @NgModule({
+    imports: [ ThyButtonModule, ThyLayoutModule ]
 })
 export class AppModule {
 }
