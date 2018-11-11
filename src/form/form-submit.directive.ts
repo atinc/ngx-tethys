@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { ThyFormDirective } from './form.directive';
 
 @Directive({
-    selector: '[thyFormSubmit]'
+    selector: '[thyFormSubmit],[thy-form-submit]'
 })
 export class ThyFormSubmitDirective implements OnInit {
 

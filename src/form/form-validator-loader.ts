@@ -1,12 +1,11 @@
+import { InjectionToken, Inject, Injectable, Optional } from '@angular/core';
 import {
-    InjectionToken,
-    Inject,
-    Injectable,
-    Optional
-} from '@angular/core';
-import { ThyFormValidatorGlobalConfig, ThyFormValidationMessages, THY_VALIDATOR_CONFIG } from './form.class';
+    ThyFormValidatorGlobalConfig,
+    ThyFormValidationMessages,
+    THY_VALIDATOR_CONFIG
+} from './form.class';
 import { Dictionary } from '../typings';
-import { ValidationErrors, } from '@angular/forms';
+import { ValidationErrors } from '@angular/forms';
 import { helpers } from '../util';
 
 const INVALID_CLASS = 'is-invalid';
@@ -30,23 +29,26 @@ const globalValidationMessages = {
     url: '输入URL格式不正确',
     max: '该选项输入值不能大于{max}',
     min: '该选项输入值不能小于{min}'
-
 };
 
 @Injectable()
 export class ThyFormValidatorLoader {
-
     private config: ThyFormValidatorGlobalConfig;
 
     private _getDefaultValidationMessage(key: string) {
-        if (this.config.globalValidationMessages && this.config.globalValidationMessages[key]) {
+        if (
+            this.config.globalValidationMessages &&
+            this.config.globalValidationMessages[key]
+        ) {
             return this.config.globalValidationMessages[key];
         } else {
             return globalValidationMessages[key];
         }
     }
     constructor(
-        @Optional() @Inject(THY_VALIDATOR_CONFIG) config: ThyFormValidatorGlobalConfig
+        @Optional()
+        @Inject(THY_VALIDATOR_CONFIG)
+        config: ThyFormValidatorGlobalConfig
     ) {
         this.config = Object.assign({}, defaultValidatorConfig, config);
     }
@@ -56,7 +58,10 @@ export class ThyFormValidatorLoader {
     }
 
     getErrorMessage(name: string, key: string) {
-        if (this.validationMessages[name] && this.validationMessages[name][key]) {
+        if (
+            this.validationMessages[name] &&
+            this.validationMessages[name][key]
+        ) {
             return this.validationMessages[name][key];
         } else {
             return this._getDefaultValidationMessage(key);
@@ -87,7 +92,9 @@ export class ThyFormValidatorLoader {
 
     defaultRemoveError(element: HTMLElement) {
         if (element && element.parentElement) {
-            const invalidFeedback = element.parentElement.querySelector('.invalid-feedback');
+            const invalidFeedback = element.parentElement.querySelector(
+                '.invalid-feedback'
+            );
             element.parentElement.removeChild(invalidFeedback);
         }
     }
@@ -112,10 +119,13 @@ export class ThyFormValidatorLoader {
         } else {
             // do nothings
         }
-
     }
 
     addValidationMessages(messages: ThyFormValidationMessages) {
         Object.assign(this.config.validationMessages, messages);
+    }
+
+    setGlobalValidationMessages(validationMessages: Dictionary<string>) {
+        this.config.globalValidationMessages = validationMessages;
     }
 }

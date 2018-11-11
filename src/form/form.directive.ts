@@ -27,7 +27,7 @@ export enum ThyEnterKeyMode {
 }
 
 @Directive({
-    selector: '[thyForm]',
+    selector: '[thyForm],[thy-form]',
     providers: [UpdateHostClassService, ThyFormValidatorService],
     exportAs: 'thyForm'
 })
