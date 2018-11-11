@@ -100,9 +100,15 @@
         <h2>Form 垂直</h2>
     </div>
     <div class="body demo-form">
-        <form thyForm thyLayout="vertical" #demoVerticalThyForm="thyForm" #demoVerticalForm="ngForm">
+        <form thyForm [thyFormValidatorConfig]="validatorConfig" thyLayout="vertical" #demoVerticalThyForm="thyForm" #demoVerticalForm="ngForm">
             <thy-form-group thyLabelText="用户名" thyLabelRequired thyTips="这是一个输入用户名的描述">
-                <input thyInput name="username" [(ngModel)]="model.name" [thyUniqueCheck]="checkUserName" [ngModelOptions]="{updateOn: 'blur'}" required maxlength="50" placeholder="请输入用户名">
+                <input thyInput name="username" 
+                [(ngModel)]="model.name" 
+                [thyUniqueCheck]="checkUserName" 
+                required
+                thy-required-message="" 
+                [ngModelOptions]="{updateOn: 'blur'}"
+                maxlength="50" placeholder="请输入用户名">
             </thy-form-group>
             <thy-form-group thyLabelText="选择1">
                 <thy-select required [(ngModel)]="model.select2" name="power">

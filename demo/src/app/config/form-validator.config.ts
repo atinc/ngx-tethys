@@ -1,6 +1,6 @@
-import { THY_VALIDATOR_CONFIG, ThyFormValidatorConfig } from '../../../../src/form';
+import { THY_VALIDATOR_CONFIG, ThyFormValidatorGlobalConfig } from '../../../../src/form';
 
-export const thyValidatorConfig: ThyFormValidatorConfig = {
+export const thyValidatorConfig: ThyFormValidatorGlobalConfig = {
     showElementError: true,
     removeElementError: true,
     validationMessages: {

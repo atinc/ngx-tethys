@@ -4,7 +4,7 @@ import {
     Injectable,
     Optional
 } from '@angular/core';
-import { ThyFormValidatorConfig, ThyFormValidationMessages, THY_VALIDATOR_CONFIG } from './form.class';
+import { ThyFormValidatorGlobalConfig, ThyFormValidationMessages, THY_VALIDATOR_CONFIG } from './form.class';
 import { Dictionary } from '../typings';
 import { ValidationErrors, } from '@angular/forms';
 import { helpers } from '../util';
@@ -12,7 +12,7 @@ import { helpers } from '../util';
 const INVALID_CLASS = 'is-invalid';
 const INVALID_FEEDBACK_CLASS = 'invalid-feedback';
 
-const defaultValidatorConfig: ThyFormValidatorConfig = {
+const defaultValidatorConfig: ThyFormValidatorGlobalConfig = {
     showElementError: true,
     removeElementError: true,
     validationMessages: {}
@@ -36,7 +36,7 @@ const globalValidationMessages = {
 @Injectable()
 export class ThyFormValidatorLoader {
 
-    private config: ThyFormValidatorConfig;
+    private config: ThyFormValidatorGlobalConfig;
 
     private _getDefaultValidationMessage(key: string) {
         if (this.config.globalValidationMessages && this.config.globalValidationMessages[key]) {
@@ -46,7 +46,7 @@ export class ThyFormValidatorLoader {
         }
     }
     constructor(
-        @Optional() @Inject(THY_VALIDATOR_CONFIG) config: ThyFormValidatorConfig
+        @Optional() @Inject(THY_VALIDATOR_CONFIG) config: ThyFormValidatorGlobalConfig
     ) {
         this.config = Object.assign({}, defaultValidatorConfig, config);
     }

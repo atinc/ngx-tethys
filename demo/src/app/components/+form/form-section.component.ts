@@ -114,6 +114,14 @@ export class DemoFormSectionComponent {
         }
     ];
 
+    validatorConfig = {
+        validationMessages: {
+            username: {
+                required: '重写用户名不能为空错误信息'
+            }
+        }
+    };
+
     checkUserName = (value: string) => {
         console.log(`remote checkUserName`);
         return of(value === 'why520crazy');

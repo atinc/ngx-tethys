@@ -3,11 +3,13 @@ import {
 } from '@angular/core';
 import {
     NgForm,
-    AbstractControl
+    AbstractControl,
+    ValidationErrors
 } from '@angular/forms';
 import { Dictionary } from '../typings';
 import { helpers } from '../util';
 import { ThyFormValidatorLoader } from './form-validator-loader';
+import { ThyFormValidatorConfig } from './form.class';
 
 @Injectable()
 export class ThyFormValidatorService {
@@ -15,6 +17,8 @@ export class ThyFormValidatorService {
     private _ngForm: NgForm;
 
     private _formElement: HTMLElement;
+
+    private _config: ThyFormValidatorConfig;
 
     // public errors: string[];
 
@@ -65,23 +69,25 @@ export class ThyFormValidatorService {
         }
     }
 
-    // private _initializeFormControlValidations(ngForm: NgForm) {
-    //     if (this._initialized) {
-    //         return;
-    //     }
-    //     const allKeys = [];
-    //     for (const key in ngForm.controls) {
-    //         if (ngForm.controls.hasOwnProperty(key)) {
-    //             allKeys.push(key);
-    //             const formControl = ngForm.controls[key];
-    //             this._initializeFormControlValidation(key, formControl);
-    //         }
-    //     }
-    //     if (allKeys.length > 0) {
-    //         this._initialized = true;
-    //     }
+    private _getValidationMessage(name: string, validationError) {
+        if (this._config
+            && this._config.validationMessages
+            && this._config.validationMessages[name]
+            && this._config.validationMessages[name][validationError]) {
+            return this._config.validationMessages[name][validationError];
+        }
+        return this.thyFormValidateLoader.getErrorMessage(name, validationError);
+    }
 
-    // }
+    private _getValidationMessages(name: string, validationErrors: ValidationErrors) {
+        const messages = [];
+        for (const validationError in validationErrors) {
+            if (validationErrors.hasOwnProperty(validationError)) {
+                messages.push(this._getValidationMessage(name, validationError));
+            }
+        }
+        return messages;
+    }
 
     constructor(private thyFormValidateLoader: ThyFormValidatorLoader) {
 
@@ -90,6 +96,10 @@ export class ThyFormValidatorService {
     initialize(ngForm: NgForm, formElement: HTMLElement) {
         this._ngForm = ngForm;
         this._formElement = formElement;
+    }
+
+    setValidatorConfig(config: ThyFormValidatorConfig) {
+        this._config = config;
     }
 
     setControlValidationError(name: string, errorMessages: string[]) {
@@ -103,7 +113,7 @@ export class ThyFormValidatorService {
         this._clearElementError(name);
         const control = this._ngForm.controls[name];
         if (control && control.invalid) {
-            const errorMessages = this.thyFormValidateLoader.getErrorMessages(name, control.errors);
+            const errorMessages = this._getValidationMessages(name, control.errors);
             this.setControlValidationError(name, errorMessages);
         }
     }

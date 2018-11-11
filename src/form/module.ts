@@ -8,7 +8,7 @@ import { ThyFormSubmitDirective } from './form-submit.directive';
 import { ThyInputModule } from '../input/module';
 import { ThyFormGroupFooterComponent } from './from-group-footer/form-group-footer.component';
 import { ThyFormValidatorLoader } from './form-validator-loader';
-import { ThyFormValidatorConfig, THY_VALIDATOR_CONFIG } from './form.class';
+import { ThyFormValidatorGlobalConfig, THY_VALIDATOR_CONFIG } from './form.class';
 import { ThyUniqueCheckValidator } from './validator';
 @NgModule({
     imports: [
@@ -37,7 +37,7 @@ import { ThyUniqueCheckValidator } from './validator';
     ]
 })
 export class ThyFormModule {
-    static forRoot(config: ThyFormValidatorConfig) {
+    static forRoot(config: ThyFormValidatorGlobalConfig) {
         return {
             ngModule: ThyFormModule,
             providers: [

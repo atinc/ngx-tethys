@@ -8,7 +8,7 @@ import {
 import { UpdateHostClassService } from '../shared';
 import { NgForm, AbstractControl } from '@angular/forms';
 import { keycodes } from '../util';
-import { ThyFormLayout } from './form.class';
+import { ThyFormLayout, ThyFormValidatorConfig } from './form.class';
 import { ThyFormValidatorService } from './form-validator.service';
 
 
@@ -48,6 +48,11 @@ export class ThyFormDirective implements OnInit, AfterViewInit, AfterViewChecked
     }
 
     @Input() thyEnterKeyMode: ThyEnterKeyMode;
+
+    @Input()
+    set thyFormValidatorConfig(config: ThyFormValidatorConfig) {
+        this.validator.setValidatorConfig(config);
+    }
 
     @HostBinding('class.was-validated') wasValidated = false;
 
