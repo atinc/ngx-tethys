@@ -11,9 +11,9 @@
 
 名称| 类型 | 备注 
 ---| --- | --- 
-showError|  `boolean | (element: HTMLElement, errorMessages: string[]) => void` | 显示错误方法，默认为 true，以 bootstrap 的方式提示错误
-removeError|  `boolean | (element: HTMLElement) => void` | 移除错误，一般和 showError 匹配使用
-globalValidationMessages| `Dictionary<string>` | 全局默认显示错误信息的配置
+showError|  `boolean \| (element: HTMLElement, errorMessages: string[]) => void` | 显示错误方法，默认为 true，以 bootstrap 的方式提示错误
+removeError|  `boolean \| (element: HTMLElement) => void` | 移除错误，一般和 showError 匹配使用
+globalValidationMessages | `Dictionary<string>` | 全局默认显示错误信息的配置
 validationMessages | `Dictionary<Dictionary<string>>` | 每个字段的验证提示信息配置
 
 示例：
