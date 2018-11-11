@@ -53,7 +53,7 @@ $ npm install
 $ npm run start
 ```
 
-## Building & publish
+## Building & Publish
 
 1. `npm run build`;
 1. cd `built` folder, `npm publish`
