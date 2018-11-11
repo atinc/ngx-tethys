@@ -1,11 +1,5 @@
-import {
-    Injectable
-} from '@angular/core';
-import {
-    NgForm,
-    AbstractControl,
-    ValidationErrors
-} from '@angular/forms';
+import { Injectable } from '@angular/core';
+import { NgForm, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Dictionary } from '../typings';
 import { helpers } from '../util';
 import { ThyFormValidatorLoader } from './form-validator-loader';
@@ -13,7 +7,6 @@ import { ThyFormValidatorConfig } from './form.class';
 
 @Injectable()
 export class ThyFormValidatorService {
-
     private _ngForm: NgForm;
 
     private _formElement: HTMLElement;
@@ -24,8 +17,8 @@ export class ThyFormValidatorService {
 
     // 记录所有元素的验证信息
     public validations: Dictionary<{
-        hasError?: boolean,
-        errorMessages?: string[]
+        hasError?: boolean;
+        errorMessages?: string[];
     }> = {};
 
     private _getElement(name: string) {
@@ -46,12 +39,18 @@ export class ThyFormValidatorService {
 
     private _tryGetValidation(name: string) {
         if (!this.validations[name]) {
-            this._initializeFormControlValidation(name, this._ngForm.controls[name]);
+            this._initializeFormControlValidation(
+                name,
+                this._ngForm.controls[name]
+            );
         }
         return this.validations[name];
     }
 
-    private _initializeFormControlValidation(name: string, control: AbstractControl) {
+    private _initializeFormControlValidation(
+        name: string,
+        control: AbstractControl
+    ) {
         this.validations[name] = {
             hasError: false,
             errorMessages: []
@@ -70,28 +69,36 @@ export class ThyFormValidatorService {
     }
 
     private _getValidationMessage(name: string, validationError) {
-        if (this._config
-            && this._config.validationMessages
-            && this._config.validationMessages[name]
-            && this._config.validationMessages[name][validationError]) {
+        if (
+            this._config &&
+            this._config.validationMessages &&
+            this._config.validationMessages[name] &&
+            this._config.validationMessages[name][validationError]
+        ) {
             return this._config.validationMessages[name][validationError];
         }
-        return this.thyFormValidateLoader.getErrorMessage(name, validationError);
+        return this.thyFormValidateLoader.getErrorMessage(
+            name,
+            validationError
+        );
     }
 
-    private _getValidationMessages(name: string, validationErrors: ValidationErrors) {
+    private _getValidationMessages(
+        name: string,
+        validationErrors: ValidationErrors
+    ) {
         const messages = [];
         for (const validationError in validationErrors) {
             if (validationErrors.hasOwnProperty(validationError)) {
-                messages.push(this._getValidationMessage(name, validationError));
+                messages.push(
+                    this._getValidationMessage(name, validationError)
+                );
             }
         }
         return messages;
     }
 
-    constructor(private thyFormValidateLoader: ThyFormValidatorLoader) {
-
-    }
+    constructor(private thyFormValidateLoader: ThyFormValidatorLoader) {}
 
     initialize(ngForm: NgForm, formElement: HTMLElement) {
         this._ngForm = ngForm;
@@ -106,14 +113,20 @@ export class ThyFormValidatorService {
         const validation = this._tryGetValidation(name);
         validation.errorMessages = errorMessages;
         validation.hasError = true;
-        this.thyFormValidateLoader.showError(this._getElement(name), errorMessages);
+        this.thyFormValidateLoader.showError(
+            this._getElement(name),
+            errorMessages
+        );
     }
 
     validateControl(name: string) {
         this._clearElementError(name);
         const control = this._ngForm.controls[name];
         if (control && control.invalid) {
-            const errorMessages = this._getValidationMessages(name, control.errors);
+            const errorMessages = this._getValidationMessages(
+                name,
+                control.errors
+            );
             this.setControlValidationError(name, errorMessages);
         }
     }
@@ -130,7 +143,7 @@ export class ThyFormValidatorService {
         }
         // 移除已经不存在的 validation
         const names = Object.keys(this.validations);
-        names.forEach((name) => {
+        names.forEach(name => {
             if (!this._ngForm.controls[name]) {
                 delete this.validations[name];
             }

@@ -1,8 +1,13 @@
 import {
-    Directive, ElementRef,
-    Input, OnInit, Renderer2, HostBinding,
-    AfterViewInit, AfterViewChecked, HostListener,
-    ChangeDetectorRef, OnDestroy,
+    Directive,
+    ElementRef,
+    Input,
+    OnInit,
+    Renderer2,
+    HostBinding,
+    AfterViewInit,
+    AfterViewChecked,
+    OnDestroy,
     NgZone
 } from '@angular/core';
 import { UpdateHostClassService } from '../shared';
@@ -10,7 +15,6 @@ import { NgForm, AbstractControl } from '@angular/forms';
 import { keycodes } from '../util';
 import { ThyFormLayout, ThyFormValidatorConfig } from './form.class';
 import { ThyFormValidatorService } from './form-validator.service';
-
 
 // 1. submit 按 Enter 键提交, Textare 除外，需要按 Ctrl | Command + Enter 提交
 // 2. alwaysSubmit 不管是哪个元素 按 Enter 键都提交
@@ -24,14 +28,10 @@ export enum ThyEnterKeyMode {
 
 @Directive({
     selector: '[thyForm]',
-    providers: [
-        UpdateHostClassService,
-        ThyFormValidatorService
-    ],
+    providers: [UpdateHostClassService, ThyFormValidatorService],
     exportAs: 'thyForm'
 })
-export class ThyFormDirective implements OnInit, AfterViewInit, AfterViewChecked, OnDestroy {
-
+export class ThyFormDirective implements OnInit, OnDestroy {
     private _layout: ThyFormLayout = 'horizontal';
 
     @Input()
@@ -69,24 +69,24 @@ export class ThyFormDirective implements OnInit, AfterViewInit, AfterViewChecked
         private updateHostClassService: UpdateHostClassService,
         public validator: ThyFormValidatorService
     ) {
-        this.updateHostClassService.initializeElement(this.elementRef.nativeElement);
+        this.updateHostClassService.initializeElement(
+            this.elementRef.nativeElement
+        );
     }
 
     ngOnInit(): void {
         this.ngZone.runOutsideAngular(() => {
-            this._unsubscribe = this.renderer.listen(this.elementRef.nativeElement, 'keydown', this.onKeydown.bind(this));
+            this._unsubscribe = this.renderer.listen(
+                this.elementRef.nativeElement,
+                'keydown',
+                this.onKeydown.bind(this)
+            );
         });
         this.updateHostClassService.updateClassByMap({
             'thy-form': true,
             [`thy-form-${this.thyLayout}`]: true
         });
         this.validator.initialize(this.ngForm, this.elementRef.nativeElement);
-    }
-
-    ngAfterViewInit() {
-    }
-
-    ngAfterViewChecked() {
     }
 
     submit($event: any) {
@@ -107,7 +107,10 @@ export class ThyFormDirective implements OnInit, AfterViewInit, AfterViewChecked
         const currentInput = document.activeElement;
         const key = $event.which || $event.keyCode;
         if (key === keycodes.ENTER && currentInput.tagName) {
-            if (!this.thyEnterKeyMode || this.thyEnterKeyMode === ThyEnterKeyMode.submit) {
+            if (
+                !this.thyEnterKeyMode ||
+                this.thyEnterKeyMode === ThyEnterKeyMode.submit
+            ) {
                 // TEXTAREA Ctrl + Enter 或者 Command + Enter 阻止默认行为并提交
                 if (currentInput.tagName === 'TEXTAREA') {
                     if ($event.ctrlKey || $event.metaKey) {

@@ -1,4 +1,3 @@
-
 import { Component, ViewEncapsulation, TemplateRef } from '@angular/core';
 import { ThyModalService } from '../../../../../src';
 import { of } from 'rxjs';
@@ -6,13 +5,11 @@ import { of } from 'rxjs';
 @Component({
     selector: 'demo-form-section',
     templateUrl: './form-section.component.html',
-    styleUrls: [
-        './form-section.scss'
-    ],
+    styleUrls: ['./form-section.scss'],
+    preserveWhitespaces: false,
     encapsulation: ViewEncapsulation.None
 })
 export class DemoFormSectionComponent {
-
     submitSuccess = false;
 
     showDescProperty = false;
@@ -29,7 +26,8 @@ export class DemoFormSectionComponent {
             description: `布局, 'horizontal' | 'vertical' | 'inline' , 默认水平居中 horizontal， 其他2种布局待开发`,
             type: 'String',
             default: ''
-        }, {
+        },
+        {
             property: 'thyEnterKeyMode',
             description: `Enter 键提交模式， submit | alwaysSubmit | forbidSubmit， 默认 submit,
             submit: Textare 需要 Ctrl | Command + Enter 提交，其他元素直接 Enter 提交； alwaysSubmit: 不管是什么元素 Enter 都提交； forbidSubmit: Enter 不提交`,
@@ -44,7 +42,7 @@ export class DemoFormSectionComponent {
             description: 'Form 验证通过的提交函数',
             type: 'Function',
             default: ''
-        },
+        }
     ];
 
     public apiFormGroupParameters = [
@@ -68,7 +66,8 @@ export class DemoFormSectionComponent {
         },
         {
             property: 'thyFeedbackIcon',
-            description: '反馈图标，比如日期输入框显示日期的图标，常用输入 date 表示时间 wtf wtf-schedule-o',
+            description:
+                '反馈图标，比如日期输入框显示日期的图标，常用输入 date 表示时间 wtf wtf-schedule-o',
             type: 'String',
             default: ''
         },
@@ -125,7 +124,7 @@ export class DemoFormSectionComponent {
     checkUserName = (value: string) => {
         console.log(`remote checkUserName`);
         return of(value === 'why520crazy');
-    }
+    };
 
     constructor(private thyModalService: ThyModalService) {
         setTimeout(() => {
