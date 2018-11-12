@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ThyFormDirective } from './form.directive';
@@ -8,14 +8,14 @@ import { ThyFormSubmitDirective } from './form-submit.directive';
 import { ThyInputModule } from '../input/module';
 import { ThyFormGroupFooterComponent } from './from-group-footer/form-group-footer.component';
 import { ThyFormValidatorLoader } from './form-validator-loader';
-import { ThyFormValidatorGlobalConfig, THY_VALIDATOR_CONFIG } from './form.class';
+import {
+    ThyFormValidatorGlobalConfig,
+    THY_VALIDATOR_CONFIG
+} from './form.class';
 import { ThyUniqueCheckValidator } from './validator';
+
 @NgModule({
-    imports: [
-        CommonModule,
-        FormsModule,
-        ThyInputModule
-    ],
+    imports: [CommonModule, FormsModule, ThyInputModule],
     declarations: [
         ThyFormDirective,
         ThyFormGroupComponent,
@@ -32,12 +32,10 @@ import { ThyUniqueCheckValidator } from './validator';
         ThyFormGroupFooterComponent,
         ThyUniqueCheckValidator
     ],
-    providers: [
-        ThyFormValidatorLoader
-    ]
+    providers: [ThyFormValidatorLoader]
 })
 export class ThyFormModule {
-    static forRoot(config: ThyFormValidatorGlobalConfig) {
+    static forRoot(config: ThyFormValidatorGlobalConfig): ModuleWithProviders {
         return {
             ngModule: ThyFormModule,
             providers: [

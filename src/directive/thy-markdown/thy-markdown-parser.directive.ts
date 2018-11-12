@@ -2,6 +2,11 @@ import { Directive, ElementRef, OnInit, Input, Output, EventEmitter } from '@ang
 import { thyEditorConstant } from '../../editor/editor.constant';
 import { ThyMarkdownParserService } from './thy-markdown-parser.service';
 
+const liteMarked = (window as any).liteMarked;
+const $ = (window as any).$;
+const mermaid = (window as any).mermaid;
+const katex = (window as any).katex;
+
 @Directive({
     selector: '[thyMarkdownParser]'
 })

@@ -1,3 +1,5 @@
+## 0.1.86
+fix build error for ThyFormModule
 ## 0.1.85
 add thyFormValidator feature.
 

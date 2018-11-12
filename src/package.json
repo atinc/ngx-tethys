@@ -1,20 +1,20 @@
 {
     "name": "ngx-tethys",
+    "version": "0.1.86",
     "repository": {
-      "type": "git",
-      "url": "git+ssh://git@github.com/worktile/ngx-tethys.git"
+        "type": "git",
+        "url": "git+ssh://git@github.com/worktile/ngx-tethys.git"
     },
     "es2015": "bundles/ngx-tethys.es2015.js",
     "peerDependencies": {
-      "@angular/common": "*",
-      "@angular/compiler": "*",
-      "@angular/core": "*",
-      "@angular/forms": "*",
-      "@angular/cdk": "*",
-      "sortablejs": "*",
-      "angular-sortablejs": "*",
-      "typescript": "*",
-      "rxjs": "*"
+        "@angular/common": "*",
+        "@angular/compiler": "*",
+        "@angular/core": "*",
+        "@angular/forms": "*",
+        "@angular/cdk": "*",
+        "sortablejs": "*",
+        "angular-sortablejs": "*",
+        "typescript": "*",
+        "rxjs": "*"
     }
-  }
-  
+}
