@@ -5,13 +5,11 @@ import {
     OnInit,
     Renderer2,
     HostBinding,
-    AfterViewInit,
-    AfterViewChecked,
     OnDestroy,
     NgZone
 } from '@angular/core';
 import { UpdateHostClassService } from '../shared';
-import { NgForm, AbstractControl } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 import { keycodes } from '../util';
 import { ThyFormLayout, ThyFormValidatorConfig } from './form.class';
 import { ThyFormValidatorService } from './form-validator.service';
@@ -63,7 +61,6 @@ export class ThyFormDirective implements OnInit, OnDestroy {
     constructor(
         private ngForm: NgForm,
         private elementRef: ElementRef,
-        // private changeDetectorRef: ChangeDetectorRef,
         private renderer: Renderer2,
         private ngZone: NgZone,
         private updateHostClassService: UpdateHostClassService,

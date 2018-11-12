@@ -1,3 +1,6 @@
+## 0.1.85
+add thyFormValidator feature.
+
 ## 0.1.84
 1. 修复换肤情况下 Input 输入框移入边框没有变色的 Bug；
 1. 新增粉红色换肤；

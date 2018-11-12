@@ -32,6 +32,7 @@ export class ThyFormValidatorService {
 
     private _clearElementError(name: string) {
         if (this.validations[name] && this.validations[name].hasError) {
+            this.validations[name].hasError = false;
             this.validations[name].errorMessages = [];
             this.thyFormValidateLoader.removeError(this._getElement(name));
         }
@@ -68,7 +69,7 @@ export class ThyFormValidatorService {
         }
     }
 
-    private _getValidationMessage(name: string, validationError) {
+    private _getValidationMessage(name: string, validationError: string) {
         if (
             this._config &&
             this._config.validationMessages &&
@@ -98,6 +99,16 @@ export class ThyFormValidatorService {
         return messages;
     }
 
+    _setControlValidationError(name: string, errorMessages: string[]) {
+        const validation = this._tryGetValidation(name);
+        validation.errorMessages = errorMessages;
+        validation.hasError = true;
+        this.thyFormValidateLoader.showError(
+            this._getElement(name),
+            errorMessages
+        );
+    }
+
     constructor(private thyFormValidateLoader: ThyFormValidatorLoader) {}
 
     initialize(ngForm: NgForm, formElement: HTMLElement) {
@@ -109,16 +120,6 @@ export class ThyFormValidatorService {
         this._config = config;
     }
 
-    setControlValidationError(name: string, errorMessages: string[]) {
-        const validation = this._tryGetValidation(name);
-        validation.errorMessages = errorMessages;
-        validation.hasError = true;
-        this.thyFormValidateLoader.showError(
-            this._getElement(name),
-            errorMessages
-        );
-    }
-
     validateControl(name: string) {
         this._clearElementError(name);
         const control = this._ngForm.controls[name];
@@ -127,7 +128,7 @@ export class ThyFormValidatorService {
                 name,
                 control.errors
             );
-            this.setControlValidationError(name, errorMessages);
+            this._setControlValidationError(name, errorMessages);
         }
     }
 
@@ -168,6 +169,6 @@ export class ThyFormValidatorService {
 
     setElementErrorMessage(name: string, message: string) {
         this._clearElementError(name);
-        this.setControlValidationError(name, [message]);
+        this._setControlValidationError(name, [message]);
     }
 }
