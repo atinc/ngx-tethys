@@ -1,5 +1,10 @@
 ## 0.1.86
+## 0.1.87
+fix build error for styles folder lost.
+
+## 0.1.86
 fix build error for ThyFormModule
+
 ## 0.1.85
 add thyFormValidator feature.
 
