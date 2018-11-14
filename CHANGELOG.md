@@ -1,3 +1,10 @@
+
+## 0.1.89
+添加 `thy-input` 组件，支持Input输入框内自定义前置后置模板
+
+## 0.1.88
+fix error for markdown
+
 ## 0.1.87
 fix build error for styles folder lost.
 
