@@ -146,11 +146,12 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
         if (this.thyFormat) {
             this._showFormatRule = this.thyFormat;
         } else {
-            if (this.store.withTime) {
-                this._showFormatRule = DatepickerFormatRules.full;
-            } else {
-                this._showFormatRule = DatepickerFormatRules.short;
-            }
+            // if (this.store.withTime) {
+            //     this._showFormatRule = DatepickerFormatRules.full;
+            // } else {
+            //     this._showFormatRule = DatepickerFormatRules.short;
+            // }
+            this._showFormatRule = DatepickerFormatRules.short;
         }
     }
 

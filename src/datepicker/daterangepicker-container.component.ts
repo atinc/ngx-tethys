@@ -51,7 +51,7 @@ export class ThyDaterangepickerContainerComponent implements OnInit {
     }
 
     onClear() {
-        this._sendChangeValueEvent([]);
+        this._sendChangeValueEvent([null,null]);
     }
 
     hide() {
@@ -91,13 +91,14 @@ export class ThyDaterangepickerContainerComponent implements OnInit {
     }
 
     private _initTimeShowMode() {
-        if (this.store.originWithTime) {
-            this.changeTimeShowMode('show');
-        } else {
-            if (this.store.withTime) {
-                this.changeTimeShowMode('can');
-            }
-        }
+        this.changeTimeShowMode('can');
+        // if (this.store.originWithTime) {
+        //     this.changeTimeShowMode('show');
+        // } else {
+        //     if (this.store.withTime) {
+        //         this.changeTimeShowMode('can');
+        //     }
+        // }
     }
 
     private _initDatepickerComponent() {
