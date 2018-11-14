@@ -34,9 +34,9 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
     private store: {
         originValue?: any,
         originValueType?: any,
-        originWithTime?: boolean,
+        // originWithTime?: boolean,
         value?: any,
-        withTime?: boolean,
+        // withTime?: boolean,
     } = {};
     @Input() thyPlacement: 'top' | 'bottom' | 'left' | 'right' = 'bottom';
     @Input() thyTriggers = 'click';
@@ -110,7 +110,7 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
                 initialState: {
                     store: this.store,
                     value: this._value,
-                    withTime: inputValueToBoolean(this.thyShowTime),
+                    // withTime: inputValueToBoolean(this.thyShowTime),
                     changeValue: (result: DatepickerValueEntry) => {
                         this._initFormatRule();
                         this._setInputProperty();
@@ -137,8 +137,8 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
     private initValueData(value: any, isRefreshType?: boolean) {
         this.store.originValue = value;
         this.store.originValueType = daterangepickerUtilIdentificationValueType(value);
-        this.store.originWithTime = value && value.begin && value.begin.with_time;
-        this.store.withTime = inputValueToBoolean(this.thyShowTime);
+        // this.store.originWithTime = value && value.begin && value.begin.with_time;
+        // this.store.withTime = inputValueToBoolean(this.thyShowTime);
         this.store.value = daterangepickerUtilConvertToDaterangepickerObject(value);
     }
 
@@ -196,11 +196,11 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
                 result = {
                     begin: {
                         date: this._formatBeginTime(this.store.value[0]),
-                        with_time: this.store.withTime
+                        // with_time: this.store.withTime
                     },
                     end: {
                         date: this._formatEndTime(this.store.value[1]),
-                        with_time: this.store.withTime
+                        // with_time: this.store.withTime
                     }
                 };
                 break;
