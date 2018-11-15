@@ -1,8 +1,8 @@
 <div #prepend class="input-prepend" *ngIf="prependTemplate">
     <ng-template *ngTemplateOutlet="prependTemplate"></ng-template>
 </div>
-<input #input class="input-control" thyInput [thySize]="thySize" [name]="name" [thyAutofocus]="thyInputAutoFocus"
-    [placeholder]="placeholder" [disabled]="disabled" [(ngModel)]="value" (ngModelChange)="onModelChange()">
+<input #input thyInput [thySize]="thySize" [thyAutofocus]="thyInputAutoFocus" [type]="type" [placeholder]="placeholder"
+    [disabled]="disabled" [(ngModel)]="value" (ngModelChange)="onModelChange()">
 <div #append class="input-append" *ngIf="appendTemplate">
     <ng-template *ngTemplateOutlet="appendTemplate"></ng-template>
 </div>
