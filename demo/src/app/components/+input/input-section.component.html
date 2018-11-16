@@ -112,5 +112,19 @@
     </div>
 </section>
 
+<section>
+    <div class="header">
+        <h2>label</h2>
+    </div>
+    <div class="body">
+        <form>
+            <div class="demo-input">
+                <h4>Default Input Label</h4>
+                <thy-input-label label="姓名" thyLabelFocus="true" name="search" (keydown.enter)="enter()" [(ngModel)]="model.searchText" (clear)="searchModelChange()" placeholder="请输入您的姓名"></thy-input-label>
+            </div>
+        </form>
+    </div>
+</section>
+
 
 <api-parameters title="thy-input-group 参数列表" [parameters]="apiParameters"></api-parameters>

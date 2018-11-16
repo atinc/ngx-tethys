@@ -1,5 +1,7 @@
 
 
+## 0.1.92
+添加 `thy-label-input` 组件
 
 ## 0.1.91
 修改 `thy-input` 组件样式
