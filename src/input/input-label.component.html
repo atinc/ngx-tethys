@@ -1,8 +1,9 @@
-<span class="label" [ngClass]="{ active: isShowLabel }">{{ label }}</span>
+<span class="label label-{{thySize}}" [ngClass]="{ active: isShowLabel }">{{ label }}</span>
 <input
     #inputLabelControl
     class="input-label-control"
     thyInput
+    [thySize]="thySize"
     [name]="name"
     [placeholder]="placeholder"
     [disabled]="disabled"

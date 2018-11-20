@@ -85,6 +85,11 @@ $input-search-padding-y: $btn-padding-y-md; // 36px
       z-index: 0;
       top:-10px;
     }
+    &-sm,&-xs{
+      &.active{
+        top:-13px;
+      }
+    }
   }
 }
 
