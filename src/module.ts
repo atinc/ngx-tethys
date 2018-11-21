@@ -38,6 +38,7 @@ import { ThyDateRangeModule } from './date-range';
 import { ThyListModule } from './list';
 import { ThyTreeSelectModule } from './tree-select';
 import { ThyStrengthModule } from './strength';
+import { ThyStepperModule } from './stepper';
 
 const IMPORT_EXPORT_MODULES = [
     BrowserAnimationsModule,
@@ -79,7 +80,8 @@ const IMPORT_EXPORT_MODULES = [
     ThyDateRangeModule,
     // ThyKeySelectModule,
     ThyListModule,
-    ThyTreeSelectModule
+    ThyTreeSelectModule,
+    ThyStepperModule
 ];
 
 @NgModule({
