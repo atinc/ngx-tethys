@@ -1,3 +1,6 @@
+## 0.1.96
+修改单选按钮组 `thyRadioButton` 支持flex布局
+
 ## 0.1.95
 添加单选按钮组 `thyRadioButton`
 
