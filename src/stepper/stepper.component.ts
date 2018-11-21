@@ -17,7 +17,15 @@ import { ThyStepHeaderComponent } from './step-header.component';
 })
 export class ThyStepperComponent implements IThyStepperComponent {
 
-    private _selected: ThyStepComponent;
+    @Input()
+    set thySelectedIndex(value: number) {
+        this.selectedIndex = value;
+    }
+
+    @Input()
+    set thySelected(value: ThyStepComponent) {
+        this.selected = value;
+    }
 
     private _selectedIndex = 0;
 
@@ -29,7 +37,6 @@ export class ThyStepperComponent implements IThyStepperComponent {
         return this.steps ? this.steps.toArray()[this.selectedIndex] : null;
     }
 
-    @Input()
     set selectedIndex(index: number) {
         if (this.steps) {
             this._updateSelectedItemIndex(index);
