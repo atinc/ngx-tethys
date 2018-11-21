@@ -174,6 +174,16 @@
                         [disabled]="'true'"
                     ></label>
                 </thy-form-group>
+                <thy-form-group thyLabelText="单选框">
+                    <thy-radio-group name="group1" [(ngModel)]="modelGroup" thyLayout="flex">
+                        <label thyRadioButton thyLabelText="选项1" thyValue="1"></label>
+                        <label thyRadioButton thyLabelText="选项1" thyValue="1"></label>
+                        <label thyRadioButton thyLabelText="选项1" thyValue="1"></label>
+                        <label thyRadioButton thyLabelText="选项1" thyValue="1"></label>
+                        <label thyRadioButton thyLabelText="选项2" thyValue="2"></label>
+                        <label thyRadioButton thyLabelText="选项2" thyValue="3"></label>
+                    </thy-radio-group>
+                </thy-form-group>
                 <thy-form-group *ngIf="submitSuccess">
                     <div class="text text-success">提交成功!</div>
                 </thy-form-group>
