@@ -58,6 +58,19 @@
     </div>
 </section>
 
+
+<section>
+    <div class="header">
+        <h2>Password输入框</h2>
+    </div>
+    <div class="body">
+        <div style="width: 700px;">
+            <thy-input [(ngModel)]="model.input" thyType="password">
+            </thy-input>
+        </div>
+    </div>
+</section>
+
 <section>
     <div class="header">
         <h2>Input Group</h2>
@@ -120,11 +133,16 @@
         <form>
             <div class="demo-input">
                 <h4>Default Input Label</h4>
-                <thy-input-label thySize="lg" label="姓名" thyLabelFocus="true" name="input-label" [(ngModel)]="model.searchText"placeholder="请输入您的姓名"></thy-input-label>
-                <thy-input-label thySize="" label="姓名" thyLabelFocus="true" name="input-label" [(ngModel)]="model.searchText"placeholder="请输入您的姓名"></thy-input-label>
-                <thy-input-label thySize="md" label="姓名" thyLabelFocus="true" name="input-label" [(ngModel)]="model.searchText"placeholder="请输入您的姓名"></thy-input-label>
-                <thy-input-label thySize="sm" label="姓名" thyLabelFocus="true" name="input-label" [(ngModel)]="model.searchText"placeholder="请输入您的姓名"></thy-input-label>
-                <thy-input-label thySize="xs" label="姓名" thyLabelFocus="true" name="input-label" [(ngModel)]="model.searchText"placeholder="请输入您的姓名"></thy-input-label>
+                <thy-input-label thySize="lg" label="姓名" thyLabelFocus="true" name="input-label" [(ngModel)]="model.searchText"
+                    placeholder="请输入您的姓名"></thy-input-label>
+                <thy-input-label thySize="" label="姓名" thyLabelFocus="true" name="input-label" [(ngModel)]="model.searchText"
+                    placeholder="请输入您的姓名"></thy-input-label>
+                <thy-input-label thySize="md" label="姓名" thyLabelFocus="true" name="input-label" [(ngModel)]="model.searchText"
+                    placeholder="请输入您的姓名"></thy-input-label>
+                <thy-input-label thySize="sm" label="姓名" thyLabelFocus="true" name="input-label" [(ngModel)]="model.searchText"
+                    placeholder="请输入您的姓名"></thy-input-label>
+                <thy-input-label thySize="xs" label="姓名" thyLabelFocus="true" name="input-label" [(ngModel)]="model.searchText"
+                    placeholder="请输入您的姓名"></thy-input-label>
             </div>
         </form>
     </div>
