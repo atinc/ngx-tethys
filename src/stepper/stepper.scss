@@ -1,0 +1,43 @@
+.thy-stepper {
+  .thy-stepper-header-container {
+    height: 70px;
+    display: flex;
+    border-bottom: 1px solid $gray-300;
+    padding: 0 50px;
+    align-items: center;
+    .thy-stepper-header {
+      display: flex;
+      align-items: center;
+      padding: 0 5px;
+      color: $gray-600;
+      .thy-step-number {
+        width: 24px;
+        height: 24px;
+        line-height: 24px;
+        text-align: center;
+        border-radius: 100%;
+        text-align: center;
+        background-color: $gray-200;
+      }
+      .thy-step-label {
+        padding: 0 10px;
+      }
+      &.thy-stepper-header-active {
+        color: $primary;
+        .thy-step-number {
+          color: $white;
+          background-color: $primary;
+        }
+      }
+    }
+    .thy-stepper-line {
+      flex: auto;
+      border-top: 1px solid $gray-300;
+      margin-right: 10px;
+      min-width: 30px;
+      &.thy-stepper-line-active{
+          border-color: $primary;
+      }
+    }
+  }
+}
