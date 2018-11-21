@@ -37,6 +37,7 @@ import { ThyDateRangeModule } from './date-range';
 // import { ThyKeySelectModule } from './key-select';
 import { ThyListModule } from './list';
 import { ThyTreeSelectModule } from './tree-select';
+import { ThyStrengthModule } from './strength';
 
 const IMPORT_EXPORT_MODULES = [
     BrowserAnimationsModule,
@@ -61,6 +62,7 @@ const IMPORT_EXPORT_MODULES = [
     ThyEmptyModule,
     ThySwitchModule,
     ThyTransferModule,
+    ThyStrengthModule,
     ThyFormModule,
     ThyInputModule,
     ThyDropdownModule,
@@ -81,15 +83,10 @@ const IMPORT_EXPORT_MODULES = [
 ];
 
 @NgModule({
-    declarations: [
-    ],
-    imports: [
-        ProgressbarModule.forRoot(),
-        ...IMPORT_EXPORT_MODULES
-    ],
+    declarations: [],
+    imports: [ProgressbarModule.forRoot(), ...IMPORT_EXPORT_MODULES],
     exports: IMPORT_EXPORT_MODULES,
-    providers: [
-    ]
+    providers: []
 })
 export class NgxTethysModule {
     static forRoot(): ModuleWithProviders {

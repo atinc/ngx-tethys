@@ -36,6 +36,7 @@ import { DemoKeySelectSectionComponent } from './components/+key-select/key-sele
 import { DemoListComponent } from './components/+list/list-section.component';
 import { DemoDatepickerNextSectionComponent } from './components/+datepicker-next/datepicker-next-section.component';
 import { DemoTreeSelectSectionComponent } from './components/+tree-select/tree-select-section.component';
+import { DemoStrengthComponent } from './components/+strength/strength-section.component';
 
 const appRoutes = [
     {
@@ -141,6 +142,10 @@ const appRoutes = [
     {
         path: 'components/transfer',
         component: DemoTransferSectionComponent
+    },
+    {
+        path: 'components/strength',
+        component: DemoStrengthComponent
     },
     {
         path: 'components/form',

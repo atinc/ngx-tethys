@@ -45,6 +45,7 @@ import { DemoKeySelectSectionComponent } from './+key-select/key-select-section.
 import { DemoListComponent } from './+list/list-section.component';
 import { DemoDatepickerNextSectionComponent } from './+datepicker-next/datepicker-next-section.component';
 import { DemoTreeSelectSectionComponent } from './+tree-select/tree-select-section.component';
+import { DemoStrengthComponent } from './+strength/strength-section.component';
 
 export const COMPONENTS = [
     DemoPopBoxSectionComponent,
@@ -78,6 +79,7 @@ export const COMPONENTS = [
     DemoEmptySectionComponent,
     DemoSwitchSectionComponent,
     DemoTransferSectionComponent,
+    DemoStrengthComponent,
     DemoFormSectionComponent,
     DemoDataPickerSectionComponent,
     DemoDatepickerNextSectionComponent,
