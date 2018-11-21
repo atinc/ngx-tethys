@@ -10,11 +10,16 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ThyRadioComponent } from '../radio.component';
 import { ThyRadioButtonComponent } from '../button/radio-button.component';
 import { UpdateHostClassService } from '../../shared';
+import { INHERITED_CLASS } from '@angular/core/src/reflection/reflection_capabilities';
 
 const buttonGroupSizeMap = {
     sm: ['btn-group-sm'],
     lg: ['btn-group-lg']
 };
+
+// const radioGroupLayoutMap = {
+//     flex: ['radio-button-group-flex']
+// };
 
 @Component({
     selector: 'thy-radio-group',
@@ -35,10 +40,17 @@ export class ThyRadioGroupComponent implements ControlValueAccessor, OnInit {
 
     private _size: string;
 
+    private _layout: string;
+
     @Input()
     set thySize(size: string) {
         this._size = size;
     }
+
+    // @Input()
+    // set thyLayout(layout: string) {
+    //     this._layout = layout;
+    // }
 
     _innerValue: string | number;
 
@@ -108,6 +120,9 @@ export class ThyRadioGroupComponent implements ControlValueAccessor, OnInit {
         if (buttonGroupSizeMap[this._size]) {
             classNames.push(buttonGroupSizeMap[this._size]);
         }
+        // if (radioGroupLayoutMap[this._layout]) {
+        //     classNames.push(radioGroupLayoutMap[this._layout]);
+        // }
         this.updateHostClassService.updateClass(classNames);
     }
 }
