@@ -1,11 +1,11 @@
-// .radio-button-group-flex{
-//     display: flex;
-//     flex-direction: row;
-//     .btn{
-//         flex-grow: 1;
-//         min-width: auto;
-//         display: flex;
-//         justify-content: center;
-//         align-items: center;
-//     }
-// }
+.radio-group-layout-flex {
+    &.btn-group {
+        display: flex;
+        .btn {
+            min-width: 0;
+            flex-grow: 1;
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+}
