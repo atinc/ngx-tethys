@@ -1,4 +1,5 @@
-
+## 0.1.93
+扩展 `thy-label-input` 支持thySize
 
 ## 0.1.92
 添加 `thy-label-input` 组件

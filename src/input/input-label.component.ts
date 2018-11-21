@@ -39,6 +39,8 @@ export class ThyInputLabelComponent implements ControlValueAccessor {
 
     @Input() label = '';
 
+    @Input() thySize: string;
+
     @Input()
     set thyLabelFocus(value: boolean) {
         this.autoFocus = value;
