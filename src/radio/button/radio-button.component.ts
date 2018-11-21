@@ -12,19 +12,13 @@ import { ThyTranslate } from '../../shared';
 import { ThyFormCheckBaseComponent } from '../../shared';
 import { ThyRadioGroupComponent } from './../group/radio-group.component';
 import { inputValueToBoolean } from '../../util/helpers';
+import { ThyRadioComponent } from '../radio.component';
 
 @Component({
     selector: '[thy-radio-button],[thyRadioButton]',
-    templateUrl: './radio-button.component.html',
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => ThyRadioButtonComponent),
-            multi: true
-        }
-    ]
+    templateUrl: './radio-button.component.html'
 })
-export class ThyRadioButtonComponent extends ThyFormCheckBaseComponent
+export class ThyRadioButtonComponent extends ThyRadioComponent
     implements OnInit {
     @HostBinding('class.btn') isButton = true;
     @HostBinding('class.active') isActive = false;
@@ -40,9 +34,9 @@ export class ThyRadioButtonComponent extends ThyFormCheckBaseComponent
 
     constructor(
         thyTranslate: ThyTranslate,
-        @Optional() private thyRadioGroupComponent: ThyRadioGroupComponent
+        @Optional() thyRadioGroupComponent: ThyRadioGroupComponent
     ) {
-        super(thyTranslate);
+        super(thyTranslate,thyRadioGroupComponent);
     }
 
     ngOnInit() {
@@ -56,13 +50,5 @@ export class ThyRadioButtonComponent extends ThyFormCheckBaseComponent
     @HostListener('click', ['$event'])
     click($event: MouseEvent) {
         this.change();
-    }
-
-    change() {
-        if (this.thyRadioGroupComponent) {
-            this.thyRadioGroupComponent.updateValue(this.thyValue, true);
-        } else {
-            this.updateValue(!this._innerValue);
-        }
     }
 }

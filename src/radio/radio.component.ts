@@ -27,8 +27,8 @@ export class ThyRadioComponent extends ThyFormCheckBaseComponent implements OnIn
     }
 
     constructor(
-        thyTranslate: ThyTranslate,
-        @Optional() private thyRadioGroupComponent: ThyRadioGroupComponent
+        public thyTranslate: ThyTranslate,
+        @Optional() public thyRadioGroupComponent: ThyRadioGroupComponent
     ) {
         super(thyTranslate);
     }
