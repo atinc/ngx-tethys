@@ -13,7 +13,6 @@ import { UpdateHostClassService } from '../../shared';
 import { INHERITED_CLASS } from '@angular/core/src/reflection/reflection_capabilities';
 import { inputValueToBoolean } from '../../util/helpers';
 
-
 const buttonGroupSizeMap = {
     sm: ['btn-group-sm'],
     lg: ['btn-group-lg']
@@ -36,7 +35,10 @@ const radioGroupLayoutMap = {
     ]
 })
 export class ThyRadioGroupComponent implements ControlValueAccessor, OnInit {
+    @HostBinding('class.thy-radio-group') thyRadioGroup = true;
+
     @HostBinding('class.btn-group') isButtonGroup = false;
+
     @HostBinding('class.btn-group-outline-default')
     isButtonGroupOutline = false;
     // @HostBinding('class.radio-group-layout-flex')
@@ -44,7 +46,7 @@ export class ThyRadioGroupComponent implements ControlValueAccessor, OnInit {
 
     private _size: string;
 
-    private _layout:string;
+    private _layout: string;
 
     @Input()
     set thySize(size: string) {
