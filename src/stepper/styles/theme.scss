@@ -1,0 +1,17 @@
+.thy-stepper {
+    .thy-stepper-header-container {
+      .thy-stepper-header {
+        &.thy-stepper-header-active {
+          color: $primary;
+          .thy-step-number {
+            background-color: $primary;
+          }
+        }
+      }
+      .thy-stepper-line {
+        &.thy-stepper-line-active{
+            border-color: $primary;
+        }
+      }
+    }
+  }
