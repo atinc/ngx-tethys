@@ -1,3 +1,6 @@
+## 0.1.97
+修改单选按钮组 `thyRadioGroup` 支持验证
+
 ## 0.1.96
 修改单选按钮组 `thyRadioButton` 支持flex布局
 
