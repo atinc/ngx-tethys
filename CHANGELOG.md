@@ -1,3 +1,6 @@
+## 0.1.98
+扩展 `thy-label-input` 支持name
+
 ## 0.1.97
 修改单选按钮组 `thyRadioGroup` 支持验证
 
