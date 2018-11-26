@@ -1,4 +1,8 @@
-export type DatepickerNextValueType = DatepickerNextValueInfo | Date | number | any;
+export type DatepickerNextValueType =
+    | DatepickerNextValueInfo
+    | Date
+    | number
+    | any;
 
 export class DatepickerNextViewFeatureConfig {
     shortcut?: boolean;
@@ -9,18 +13,18 @@ export class DatepickerNextViewFeatureConfig {
 
 export enum DatepickerNextTimeModeType {
     simply = 'simply',
-    accurate = 'accurate',
+    accurate = 'accurate'
 }
 
 export enum DatepickerNextValueChangeTypeEnum {
     ok = 'ok',
-    clear = 'clear',
+    clear = 'clear'
 }
 
 export enum DatepickerNextCalendarViewModeEnum {
     day = 'day',
     month = 'month',
-    year = 'year',
+    year = 'year'
 }
 
 export interface ThyDatepickerNextCalendarDate {
@@ -46,7 +50,7 @@ export enum ThyDatepickerNextEventsEnum {
     done = 'done',
     calendarDone = 'calendarDone',
     shortcutDone = 'shortcutDone',
-    clean = 'clean',
+    clean = 'clean'
 }
 
 export interface DatepickerNextValueInfo {
@@ -67,40 +71,28 @@ export enum DatepickerValueTypeEnum {
     timestamp,
     timestampLong,
     date,
-    empty,
+    empty
 }
-
 
 export enum DatepickerFormatRules {
     default = 'yyyy-MM-dd',
     short = 'yyyy-MM-dd',
-    full = 'yyyy-MM-dd HH:mm',
+    full = 'yyyy-MM-dd HH:mm'
 }
-
-
 
 export interface ValueInRxPipeInterface {
     value: DatepickerNextValueType;
     type?: DatepickerValueTypeEnum;
 }
 
-
 export interface ValueOutRxPipeInterface {
     value: ThyDatepickerNextInfo;
     originType?: DatepickerValueTypeEnum;
 }
 
-
 export interface DatepickerNextDisableRules {
-    '<'?: Date;
-    '<='?: Date;
-    '='?: Date | Date[];
-    '>'?: Date;
-    '>='?: Date;
-    't<'?: Date;
-    't<='?: Date;
-    't>'?: Date;
-    't>='?: Date;
-    'fn'?: Function;
+    '<'?: number;
+    '='?: number | number[];
+    '>'?: number;
+    fn?: Function;
 }
-
