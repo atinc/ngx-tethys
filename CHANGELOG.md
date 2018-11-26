@@ -3,7 +3,6 @@
 `thy-radio-group` 支持错误提示
 `datepicker` 组件更新
 
-
 ## 0.1.97
 修改 `thy-input` 组件，`thyType` 为 `password` 时，支持密码明文切换
 修改 `thy-stepper` 样式，支持选中step下方的小箭头
