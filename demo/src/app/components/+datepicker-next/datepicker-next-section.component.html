@@ -1,4 +1,4 @@
-<div class="has-feedback col-form-control">
+<!-- <div class="has-feedback col-form-control">
     <input type="email" class="form-control" thyDatepickerNext readonly placeholder="结束时间">
     <span class="form-control-feedback wtf wtf-schedule-o"></span>
 </div>
@@ -22,11 +22,13 @@
     <div>精确时间选择</div>
     <div>{{value4|json}}</div>
     <thy-datepicker-next [(ngModel)]="value4" (ngModelChange)="onSelect($event)" [thyTimeType]="datepickerNextTimeModeType.accurate"></thy-datepicker-next>
-</div>
-<!-- <div>
-    <div>禁用选择</div>
-    <thy-datepicker-next [(ngModel)]="objectTimestamp3" (ngModelChange)="onSelect($event)" [thyDisabledRules]="disabledRules"></thy-datepicker-next>
 </div> -->
+<div>
+    <div>可选日期范围</div>
+    <div>{{value5|json}}</div>
+    <thy-datepicker-next [(ngModel)]="value5" [thyMaxDate]="value6" (ngModelChange)="onSelect($event)"></thy-datepicker-next>
+    <thy-datepicker-next [(ngModel)]="value6" [thyMinDate]="value5" (ngModelChange)="onSelect($event)"></thy-datepicker-next>
+</div>
 
 <!--<hr>
 <hr>

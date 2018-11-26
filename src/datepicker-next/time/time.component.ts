@@ -1,14 +1,31 @@
-import { Component, OnInit, HostBinding, ElementRef, ViewChild, OnDestroy, HostListener, InjectionToken, Injector } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    HostBinding,
+    ElementRef,
+    ViewChild,
+    OnDestroy,
+    HostListener,
+    InjectionToken,
+    Injector
+} from '@angular/core';
 import {
     ComponentType,
     Overlay,
     OverlayRef,
     OverlayConfig,
-    ScrollStrategy,
+    ScrollStrategy
 } from '@angular/cdk/overlay';
-import { TemplatePortal, ComponentPortal, PortalInjector } from '@angular/cdk/portal';
+import {
+    TemplatePortal,
+    ComponentPortal,
+    PortalInjector
+} from '@angular/cdk/portal';
 import { ThyDatepickerNextTimeSimplyComponent } from './time-simply.component';
-import { ThyDatepickerNextStore, datepickerNextActions } from '../datepicker-next.store';
+import {
+    ThyDatepickerNextStore,
+    datepickerNextActions
+} from '../datepicker-next.store';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { getFullTimeText } from '../util';
@@ -21,9 +38,7 @@ export const CONTAINER_DATA = new InjectionToken<{}>('CONTAINER_DATA');
     selector: 'thy-datepicker-next-time',
     templateUrl: 'time.component.html'
 })
-
 export class ThyDatepickerNextTimeComponent implements OnInit, OnDestroy {
-
     @HostBinding('class') stylesClass = 'time-container';
 
     @ViewChild('timeInput') timeInput: any;
@@ -41,15 +56,19 @@ export class ThyDatepickerNextTimeComponent implements OnInit, OnDestroy {
     constructor(
         private injector: Injector,
         private overlay: Overlay,
-        public store: ThyDatepickerNextStore,
-    ) { }
+        public store: ThyDatepickerNextStore
+    ) {}
 
     ngOnInit() {
-        if (this.store.snapshot.viewFeatureConfig.timeComponentType === DatepickerNextTimeModeType.accurate) {
+        if (
+            this.store.snapshot.viewFeatureConfig.timeComponentType ===
+            DatepickerNextTimeModeType.accurate
+        ) {
             this._timeOverlayComponent = ThyDatepickerNextTimeAccurateComponent;
         }
 
-        this.store.select(ThyDatepickerNextStore.timeSelected)
+        this.store
+            .select(ThyDatepickerNextStore.timeSelected)
             .pipe(takeUntil(this.ngUnsubscribe$))
             .subscribe(n => {
                 this._combinationTimeText();
@@ -63,7 +82,9 @@ export class ThyDatepickerNextTimeComponent implements OnInit, OnDestroy {
     private _combinationTimeText() {
         const time = this.store.snapshot.timeSelected;
         if (time) {
-            this.timeText = `${getFullTimeText(time.hour)}:${getFullTimeText(time.minute)}`;
+            this.timeText = `${getFullTimeText(time.hour)}:${getFullTimeText(
+                time.minute
+            )}`;
         }
     }
 
@@ -79,7 +100,7 @@ export class ThyDatepickerNextTimeComponent implements OnInit, OnDestroy {
                     this._timeOverlayComponent,
                     null,
                     this.createInjector({
-                        store: this.store,
+                        store: this.store
                     })
                 )
             );
@@ -98,7 +119,11 @@ export class ThyDatepickerNextTimeComponent implements OnInit, OnDestroy {
         }
         const strategy = this.overlay
             .position()
-            .connectedTo(this.timeInput, { originX: 'start', originY: 'bottom' }, { overlayX: 'start', overlayY: 'top' });
+            .connectedTo(
+                this.timeInput,
+                { originX: 'start', originY: 'bottom' },
+                { overlayX: 'start', overlayY: 'top' }
+            );
         this.overlayRef = this.overlay.create({
             positionStrategy: strategy,
             scrollStrategy: this.overlay.scrollStrategies.reposition()
@@ -119,8 +144,10 @@ export class ThyDatepickerNextTimeComponent implements OnInit, OnDestroy {
             const timeArray: any = time.split(':');
             this.store.dispatch(datepickerNextActions.changeTimeSelected, {
                 hour: timeArray[0] * 1,
-                minute: timeArray[1] * 1,
+                minute: timeArray[1] * 1
             });
+        } else if (time === '') {
+            this.store.dispatch(datepickerNextActions.changeTimeSelected);
         }
     }
 
