@@ -6,14 +6,15 @@ import { Component, HostBinding, Input } from '@angular/core';
 })
 export class ThyStepHeaderComponent {
 
-    @HostBinding('class.thy-stepper-header') thyStepHeader = true;
-
     @Input() label: string;
 
     @Input() index: number;
 
+    @HostBinding('class.thy-stepper-header-selected')
     @Input() selected: boolean;
 
     @Input() active: boolean;
+
+    @HostBinding('class.thy-stepper-header') thyStepHeader = true;
 
 }

@@ -393,4 +393,13 @@ $tree-node-wrapper-line-height: 44px !default;
 $tree-node-wrapper-border-bottom: 1px solid $gray-200 !default;
 $tree-node-wrapper-active-border-color:rgba($primary, .3) !default;
 $tree-node-wrapper-active-background-color:rgba($primary, .1) !default;
-$tree-node-wrapper-hover-shadow : 0 2px 8px 1px rgba(0, 0, 0, 0.08) !default;
+$tree-node-wrapper-hover-shadow: 0 2px 8px 1px rgba(0, 0, 0, 0.08) !default;
+// stepper
+$stepper-header:70px;
+$stepper-padding:0 50px;
+$stepper-header-padding:0 5px;
+$stepper-number-size:24px;
+$stepper-selected-icon-bottom:-24px;
+$stepper-label-padding : 0 10px;
+$stepper-line-margin : 0 10px 0 0;
+$stepper-line-min-width : 30px;

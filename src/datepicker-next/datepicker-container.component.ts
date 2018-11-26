@@ -206,20 +206,20 @@ export class ThyDatepickerNextContainerComponent
         let result: ThyDatepickerNextInfo = {};
         switch (event) {
             case ThyDatepickerNextEventsEnum.done:
-            case ThyDatepickerNextEventsEnum.calendarDone:
-            case ThyDatepickerNextEventsEnum.shortcutDone:
                 result = {
                     year: this.store.snapshot.calendarSelected.year,
                     month: this.store.snapshot.calendarSelected.month,
                     day: this.store.snapshot.calendarSelected.day
                 };
                 if (this.store.snapshot.timeSelected) {
-                    const time = {
+                    Object.assign(result, {
                         hour: this.store.snapshot.timeSelected.hour,
                         minute: this.store.snapshot.timeSelected.minute
-                    };
-                    result = Object.assign({}, result, time);
+                    });
                 }
+                break;
+            case ThyDatepickerNextEventsEnum.calendarDone:
+            case ThyDatepickerNextEventsEnum.shortcutDone:
                 break;
             case ThyDatepickerNextEventsEnum.clean:
                 result = null;

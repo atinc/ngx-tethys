@@ -14,6 +14,8 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 
 const noop = () => { };
 
+const password = 'password';
+
 @Component({
     selector: 'thy-input',
     templateUrl: './input.component.html',
@@ -25,27 +27,38 @@ const noop = () => { };
 })
 export class ThyInputComponent implements ControlValueAccessor, AfterViewInit {
 
-    @Input() type = 'text';
-
     @Input() placeholder = '';
 
     @Input() thySize: string;
 
     @Input() thyInputAutoFocus: boolean;
 
+    @Input() set type(value: string) {
+        this._type = value;
+        if (this.isPassword(value)) {
+            this.appendTemplate = this.eyeTemplate;
+        }
+    }
+
+    get type() {
+        return this._type;
+    }
+
+    @Input() set thyType(value: string) {
+        this.type = value;
+    }
+
     @ContentChild('append') appendTemplate: TemplateRef<any>;
 
     @ContentChild('prepend') prependTemplate: TemplateRef<any>;
 
-    @ViewChild('append') appendElement: ElementRef<HTMLDivElement>;
-
-    @ViewChild('prepend') prependElement: ElementRef<HTMLDivElement>;
-
-    @ViewChild('input') inputElement: ElementRef<HTMLDivElement>;
+    @ViewChild('eye') eyeTemplate: TemplateRef<any>;
 
     @HostBinding('class.input-container') _isSearchContainer = true;
 
     @HostBinding('class.form-control') _isFormControl = true;
+
+    public _type = 'text';
 
     public value: string;
 
@@ -83,5 +96,12 @@ export class ThyInputComponent implements ControlValueAccessor, AfterViewInit {
         this.onChangeCallback(this.value);
     }
 
+    isPassword(value: string) {
+        return value === password;
+    }
+
+    togglePasswordType() {
+        this.type = this.isPassword(this.type) ? 'text' : 'password';
+    }
 }
 

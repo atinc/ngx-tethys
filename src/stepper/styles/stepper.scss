@@ -1,26 +1,22 @@
 .thy-stepper {
+  @include stepper-size($stepper-header, $stepper-padding, $stepper-header-padding, $stepper-number-size, $stepper-selected-icon-bottom);
   .thy-stepper-header-container {
-    height: 70px;
     display: flex;
-    border-bottom: 1px solid $gray-300;
-    padding: 0 50px;
+    border-bottom: 1px solid $gray-200;
     align-items: center;
     .thy-stepper-header {
       display: flex;
       align-items: center;
-      padding: 0 5px;
       color: $gray-600;
+      position: relative;
       .thy-step-number {
-        width: 24px;
-        height: 24px;
-        line-height: 24px;
         text-align: center;
         border-radius: 100%;
         text-align: center;
         background-color: $gray-200;
       }
       .thy-step-label {
-        padding: 0 10px;
+        padding: $stepper-label-padding;
       }
       &.thy-stepper-header-active {
         color: $primary;
@@ -29,14 +25,29 @@
           background-color: $primary;
         }
       }
+      &.thy-stepper-header-selected {
+        &::before,
+        &::after {
+          content: '';
+          position: absolute;
+          left: 50%;
+          border-left: 8px solid transparent;
+          border-top: 6px solid transparent;
+          border-right: 8px solid transparent;
+          border-bottom: 6px solid $gray-200;
+        }
+        &::after {
+          border-bottom-color: $white;
+        }
+      }
     }
     .thy-stepper-line {
       flex: auto;
       border-top: 1px solid $gray-300;
-      margin-right: 10px;
-      min-width: 30px;
-      &.thy-stepper-line-active{
-          border-color: $primary;
+      margin-right: $stepper-line-margin;
+      min-width: $stepper-line-min-width;
+      &.thy-stepper-line-active {
+        border-color: $primary;
       }
     }
   }

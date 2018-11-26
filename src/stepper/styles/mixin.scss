@@ -1,0 +1,22 @@
+@mixin stepper-size ($height, $padding, $header-padding, $step-number-size, $selected-icon-bottom) {
+  .thy-stepper-header-container {
+    height: $height;
+    padding: $padding;
+    .thy-stepper-header {
+      padding: $header-padding;
+      .thy-step-number {
+        width: $step-number-size;
+        height: $step-number-size;
+        line-height: $step-number-size;
+      }
+      &.thy-stepper-header-selected {
+        &::before {
+          bottom: $selected-icon-bottom+1;
+        }
+        &::after {
+          bottom: $selected-icon-bottom;
+        }
+      }
+    }
+  }
+}
