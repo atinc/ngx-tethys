@@ -18,7 +18,7 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
     multi: true
 };
 
-const noop = () => {};
+const noop = () => { };
 
 @Component({
     selector: 'thy-input-label',
@@ -27,13 +27,12 @@ const noop = () => {};
     encapsulation: ViewEncapsulation.None
 })
 export class ThyInputLabelComponent implements ControlValueAccessor {
+
     @HostBinding('class.input-label-container') _isLabelContainer = true;
 
     @ViewChild('inputLabelControl') inputLabelControl: ElementRef<
         HTMLDivElement
-    >;
-
-    @Input() name = '';
+        >;
 
     @Input() placeholder = '';
 
@@ -58,7 +57,7 @@ export class ThyInputLabelComponent implements ControlValueAccessor {
 
     public isShowLabel = false;
 
-    constructor() {}
+    constructor() { }
 
     writeValue(value: any): void {
         this.value = value;
