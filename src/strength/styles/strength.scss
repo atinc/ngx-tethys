@@ -1,51 +1,64 @@
 .password-strength-container {
     padding: 5px;
-    display: flex;
+
+    .strength-text-highest {
+        color: $success;
+    }
+
+    .strength-text-high {
+        color: $pass;
+    }
+
+    .strength-text-average {
+        color: $warning;
+    }
+
+    .strength-text-low {
+        color: $danger;
+    }
 
     .strength-level {
-        margin: 0 5px;
+        margin-top: 10px;
         display: flex;
+        width: 200px;
         align-items: center;
+        background: $gray-200;
 
         span {
-            margin-right: 5px;
             display: inline-block;
-            width: 20px;
+            width: 0px;
             height: 5px;
-            border: solid 1px lightgray;
             transition: all 300ms;
         }
     }
 
     .strength-level-highest {
         span {
+            width: 100%;
             border-color: $success;
             background: $success;
         }
     }
 
     .strength-level-high {
-
-        span:nth-child(1),
-        span:nth-child(2),
-        span:nth-child(3),
-            {
+        span {
+            width: 75%;
             border-color: $pass;
             background: $pass;
         }
     }
 
     .strength-level-average {
-
-        span:nth-child(1),
-        span:nth-child(2) {
+        span {
+            width: 50%;
             border-color: $warning;
             background: $warning;
         }
     }
 
     .strength-level-low {
-        span:nth-child(1) {
+        span {
+            width: 25%;
             border-color: $danger;
             background: $danger;
         }
