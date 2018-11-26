@@ -1,9 +1,25 @@
-<div 
-    cdkOverlayOrigin 
-    #origin="cdkOverlayOrigin" 
-    #trigger>
+<div cdkOverlayOrigin #origin="cdkOverlayOrigin" #trigger>
     <div *ngIf="thyShowInput">
-        <input #input
-         />
+        <input
+            #input
+            thyInput
+            [ngClass]="{ 'thy-select': true }"
+            placeholder="请选择"
+        />
     </div>
 </div>
+<ng-template
+    cdkConnectedOverlay
+    cdkConnectedOverlayHasBackdrop
+    [cdkConnectedOverlayOrigin]="origin"
+    [cdkConnectedOverlayPositions]="positions"
+    (backdropClick)="closeMenu()"
+    (detach)="closeMenu()"
+    (positionChange)="onPositionChange($event)"
+    [cdkConnectedOverlayOpen]="menuVisible"
+>
+    <div #menu
+    >
+
+    </div>
+</ng-template>
