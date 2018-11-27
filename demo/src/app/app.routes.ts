@@ -39,6 +39,7 @@ import { DemoDatepickerNextSectionComponent } from './components/+datepicker-nex
 import { DemoTreeSelectSectionComponent } from './components/+tree-select/tree-select-section.component';
 import { DemoStrengthComponent } from './components/+strength/strength-section.component';
 import { DemoStepperSectionComponent } from './components/+stepper/stepper-section.component';
+import { DemoCascaderSectionComponent } from './components/+cascader/cascader-section.component';
 
 const appRoutes = [
     {
@@ -204,6 +205,10 @@ const appRoutes = [
     {
         path: 'components/stepper',
         component: DemoStepperSectionComponent
+    },
+    {
+        path: 'components/cascader',
+        component: DemoCascaderSectionComponent
     }
 ];
 

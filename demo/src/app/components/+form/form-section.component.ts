@@ -124,7 +124,7 @@ export class DemoFormSectionComponent {
     checkUserName = (value: string) => {
         console.log(`remote checkUserName`);
         return of(value === 'why520crazy');
-    };
+    }
 
     constructor(private thyModalService: ThyModalService) {
         setTimeout(() => {

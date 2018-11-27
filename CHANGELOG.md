@@ -1,7 +1,11 @@
 ## 0.1.98
-扩展 `thy-label-input` 支持name
+`thy-stepper` 支持换肤
+`thy-radio-group` 支持错误提示
+`datepicker` 组件更新
 
 ## 0.1.97
+修改 `thy-input` 组件，`thyType` 为 `password` 时，支持密码明文切换
+修改 `thy-stepper` 样式，支持选中step下方的小箭头
 修改单选按钮组 `thyRadioGroup` 支持验证
 
 ## 0.1.96

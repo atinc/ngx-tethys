@@ -1,0 +1,70 @@
+.thy-cascader {
+    &-menus {
+        position: absolute;
+        z-index: 1;
+        white-space: nowrap;
+        ul,
+        ol {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        &-empty,
+        &-hidden {
+            display: none;
+        }
+    }
+    &-menu {
+        display: inline-block;
+        vertical-align: top;
+        min-width: 111px;
+        height: 180px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        border-right: 1px solid #888;
+        overflow: auto;
+        -ms-overflow-style: -ms-autohiding-scrollbar; // https://github.com/ant-design/ant-design/issues/11857
+        &:first-child {
+            border-radius: 5px 0 0 5px;
+        }
+        &:last-child {
+            border-right-color: transparent;
+            margin-right: -1px;
+            border-radius: 0 5px 5px 0;
+        }
+        &:only-child {
+            border-radius: 5pxe;
+        }
+    }
+    &-menu-item {
+        padding: 5px 10px;
+        line-height: 22px;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: all 0.3s;
+        &:hover {
+            background: #e6f7ff;
+        }
+        &-active:not(&-disabled) {
+            &,
+            &:hover {
+                background: #888;
+                font-weight: 600;
+            }
+        }
+        &-expand {
+            position: relative;
+            padding-right: 24px;
+        }
+        &-expand &-expand-icon,
+        &-expand &-loading-icon {
+            color: #aaa;
+            position: absolute;
+            right: 10px;
+        }
+        & &-keyword {
+            color: #e6f7ff;
+        }
+    }
+}
