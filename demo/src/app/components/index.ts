@@ -47,6 +47,7 @@ import { DemoDatepickerNextSectionComponent } from './+datepicker-next/datepicke
 import { DemoTreeSelectSectionComponent } from './+tree-select/tree-select-section.component';
 import { DemoStrengthComponent } from './+strength/strength-section.component';
 import { DemoStepperSectionComponent } from './+stepper/stepper-section.component';
+import { DemoCascaderSectionComponent } from './+cascader/cascader-section.component';
 
 export const COMPONENTS = [
     DemoPopBoxSectionComponent,
@@ -100,7 +101,8 @@ export const COMPONENTS = [
     DemoKeySelectSectionComponent,
     DemoListComponent,
     DemoTreeSelectSectionComponent,
-    DemoStepperSectionComponent
+    DemoStepperSectionComponent,
+    DemoCascaderSectionComponent
 ];
 
 export const ENTRY_COMPONENTS = [

@@ -13,8 +13,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import {
-    ConnectedOverlayPositionChange,
-    ConnectionPositionPair
+    ConnectedOverlayPositionChange
 } from '@angular/cdk/overlay';
 import { UpdateHostClassService } from '../shared/update-host-class.service';
 import { inputValueToBoolean } from '../util/helpers';
@@ -79,12 +78,18 @@ export interface CascaderOption {
 export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
     private changeOnSelect = false;
     private showInput = true;
+    private prefixCls = 'thy-cascader';
+    private menuClassName;
+    private columnClassName;
+    private _menuColumnCls;
     private defaultValue: any[];
 
     public dropDownPosition = 'bottom';
     public menuVisible = false;
     public isLoading = false;
     public isOpening = false;
+
+    private _menuCls: { [ name: string]: any };
 
     private labelRenderTpl: TemplateRef<any>;
     public isLabelRenderTemplate = false;
@@ -132,6 +137,8 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
         | ThyCascaderTriggerType
         | ThyCascaderTriggerType[] = ['click'];
 
+    @Input() thyMenuStyle: { [key: string]: string };
+
     @Output() thyChange = new EventEmitter<any[]>();
 
     @Output() thySelectionChange = new EventEmitter<CascaderOption[]>();
@@ -157,6 +164,49 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
     }
 
     ngOnInit(): void {}
+
+    public get menuCls(): any {
+        return this._menuCls;
+    }
+
+    @Input()
+    set thyMenuClassName(value: string) {
+        this.menuClassName = value;
+        this.setMenuClass();
+    }
+
+    get thyMenuClassName(): string {
+        return this.menuClassName;
+    }
+
+    @Input()
+    set thyColumnClassName(value: string) {
+        this.columnClassName = value;
+        this.setMenuClass();
+    }
+
+    get thyColumnClassName(): string {
+        return this.columnClassName;
+    }
+
+    private setMenuClass(): void {
+        this._menuCls = {
+            [`${this.prefixCls}-menus`] :true,
+            [`${this.prefixCls}-menus-hidden`] :!this.menuVisible,
+            [`${this.thyMenuClassName}`] : this.thyMenuClassName
+        };
+    }
+
+    public get menuColumnCls(): any {
+        return this._menuColumnCls;
+    }
+
+    private setMenuColumnClass(): void {
+        this._menuColumnCls = {
+            [`${this.prefixCls}-menu`]: true,
+            [`${this.thyColumnClassName}`]: this.thyColumnClassName
+        };
+    }
 
     private isClickTriggerAction(): boolean {
         if (typeof this.thyTriggerAction === 'string') {
@@ -198,6 +248,21 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
                 this.thyColumns = this.thyColumns.slice(0, index + 1);
             }
         }
+    }
+
+    onOptionClick(option: CascaderOption, index: number, event: Event): void {
+        if(event) {
+            event.preventDefault();
+        }
+        // this.el.focus();
+
+        if(option && option.disabled) {
+            return;
+        }
+
+        // if(this.inS)
+        this.setActiveOption(option, index, true);
+
     }
 
     private setActiveOption(
@@ -379,6 +444,11 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
         if (this.isClickTriggerAction()) {
             this.delaySetMenuVisible(!this.menuVisible, 100);
         }
+    }
+
+    @HostListener('mouseleave', [ '$event' ])
+    public onTriggerMouseLeave(event: MouseEvent): void {
+        return;
     }
 
     private isChangeOn(option: CascaderOption, index: number): boolean {

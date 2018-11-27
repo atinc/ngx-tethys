@@ -1,25 +1,23 @@
 <div cdkOverlayOrigin #origin="cdkOverlayOrigin" #trigger>
     <div *ngIf="thyShowInput">
-        <input
-            #input
-            thyInput
-            [ngClass]="{ 'thy-select': true }"
-            placeholder="请选择"
-        />
+        <input #input thyInput [ngClass]="{ 'thy-select': true }" placeholder="请选择" />
     </div>
 </div>
-<ng-template
-    cdkConnectedOverlay
-    cdkConnectedOverlayHasBackdrop
-    [cdkConnectedOverlayOrigin]="origin"
-    [cdkConnectedOverlayPositions]="positions"
-    (backdropClick)="closeMenu()"
-    (detach)="closeMenu()"
-    (positionChange)="onPositionChange($event)"
-    [cdkConnectedOverlayOpen]="menuVisible"
->
-    <div #menu
-    >
-
+<ng-template cdkConnectedOverlay cdkConnectedOverlayHasBackdrop [cdkConnectedOverlayOrigin]="origin"
+    [cdkConnectedOverlayPositions]="positions" (backdropClick)="closeMenu()" (detach)="closeMenu()" (positionChange)="onPositionChange($event)"
+    [cdkConnectedOverlayOpen]="menuVisible">
+    <div #menu [ngClass]="menuCls" [ngStyle]="thyMenuStyle" (mouseleave)="onTriggerMouseLeave($event)">
+        <ul *ngFor="let options of thyColumns; let i = index;" [ngClass]="menuColumnCls">
+            <li *ngFor="let option of options" [attr.title]="option.title || getOptionLabel(option)" (click)="onOptionClick(option, i, $event)">
+                <ng-container>
+                    {{ getOptionLabel(option) }}
+                </ng-container>
+                <span 
+                *ngIf="!option.isLeaf || option.children && option.children.length || option.loading"
+                class="ant-cascader-menu-item-expand-icon">
+                    <!-- <i ></i> -->
+            </span>
+            </li>
+        </ul>
     </div>
 </ng-template>
