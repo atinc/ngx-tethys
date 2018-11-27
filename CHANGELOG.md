@@ -1,3 +1,11 @@
+## 0.1.20
+`thy-form` 支持添加 `form errors`
+天机 `thy-from-group-error` 组件用于错误展示
+
+## 0.1.99
+添加警示框组件 `thy-alert`
+修改 `thy-input` bug
+
 ## 0.1.98
 `thy-stepper` 支持换肤
 `thy-radio-group` 支持错误提示
