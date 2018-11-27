@@ -1,5 +1,7 @@
 import { Component, Input, HostBinding, ViewChild, TemplateRef, OnInit } from '@angular/core';
 import { inputValueToBoolean } from '../util/helpers';
+import { Dictionary } from '../typings';
+import { helpers } from '../util';
 
 @Component({
     selector: 'thy-alert',
@@ -8,34 +10,43 @@ import { inputValueToBoolean } from '../util/helpers';
 
 export class ThyAlertComponent implements OnInit {
 
-    // tslint:disable-next-line:no-inferrable-types
-    @Input() thyType: string = 'info';
+    @Input() thyType = 'info';
 
-    @Input() thyMessage: string = this.thyType;
+    @Input() thyMessage: string;
 
-    @Input() thyIcon: boolean | string = true;
+    @Input()
+    set thyIcon(value: boolean | string) {
+        if (value) {
+            this._showIcon = true;
+            this._icon = helpers.isString(value) ? value.toString() : null;
+        } else {
+            this._showIcon = false;
+        }
+    }
+
+    get thyIcon() {
+        if (this._showIcon) {
+            return this._icon || this._typeIcon[this.thyType];
+        } else {
+            return null;
+        }
+    }
 
     // @ViewChild(TemplateRef) content: TemplateRef<any>;
 
-    typeIcon: Object = {
-        'success':'wtf-completed-circle',
-        'warning':'wtf-unselected-o',
-        'danger':'wtf-times-circle',
-        'info':'wtf-task',
+    private _typeIcon: Dictionary<string> = {
+        success: 'wtf-completed-circle',
+        warning: 'wtf-unselected-o',
+        danger: 'wtf-times-circle',
+        info: 'wtf-task',
     };
 
-    alertStateClass: any = {};
+    private _showIcon = true;
 
-    alertIconClass:any = {};
+    private _icon: string;
 
-    constructor() {}
+    constructor() { }
 
     ngOnInit() {
-        this.alertStateClass[`thy-alert-${this.thyType}`] = true;
-        if (this.thyIcon === true) {
-            this.alertIconClass[this.typeIcon[this.thyType]] = true;
-        } else {
-            this.alertIconClass[<string>this.thyIcon] = true;
-        }
     }
 }
