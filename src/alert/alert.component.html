@@ -1,0 +1,7 @@
+
+<!-- <ng-template><ng-content></ng-content></ng-template> -->
+<div class="thy-alert " [ngClass]="alertStateClass">
+    <span *ngIf="thyIcon" class="wtf mr-2" [ngClass]="alertIconClass" ></span>
+    <span *ngIf="thyMessage">{{thyMessage}}</span>
+    <!-- <ng-container [ngTemplateOutlet]="content"></ng-container> -->
+</div>
