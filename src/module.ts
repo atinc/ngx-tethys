@@ -12,6 +12,7 @@ import { ThyPaginationModule } from './pagination/pagination.module';
 import { ThyModalModule } from './modal/modal.module';
 import { ThyCardModule } from './card/card.module';
 import { ThyLoadingModule } from './loading/loading.module';
+import { ThyAlertModule } from './alert/alert.module';
 import { ThyActionMenuModule } from './action-menu/action-menu.module';
 import { ThyConfirmModule } from './confirm/confirm.module';
 import { ThyTreeModule } from './tree/tree.module';
@@ -56,6 +57,7 @@ const IMPORT_EXPORT_MODULES = [
     ThyNotifyModule,
     ThyCardModule,
     ThyLoadingModule,
+    ThyAlertModule,
     ThyDatepickerModule,
     ThyDatepickerNextModule,
     ThyActionMenuModule,
