@@ -1,17 +1,14 @@
-@mixin alert-variant($color) {
-    color: rgba($black,.7);
-    @include gradient-bg(rgba($color,.1));
-    border-color: $color;
-  
-    hr {
-      border-top-color: darken($color, 5%);
-    }
-  
-    .alert-link {
-      color: darken($color, 10%);
-    }
-
-    .wtf {
-      color: $color;
-    }
+@mixin thy-alert-variant($color) {
+  color: rgba($black, .7);
+  @include gradient-bg(rgba($color, .1));
+  border-color: $color;
+  hr {
+    border-top-color: darken($color, 5%);
   }
+  .alert-link {
+    color: darken($color, 10%);
+  }
+  .wtf {
+    color: $color;
+  }
+}

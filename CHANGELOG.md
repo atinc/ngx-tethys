@@ -1,4 +1,7 @@
-## 0.1.20
+## 0.2.1
+修改 `thy-alert` scss 和 bootstrap 冲突bug
+
+## 0.2.0
 `thy-form` 支持添加 `form errors`
 天机 `thy-from-group-error` 组件用于错误展示
 
