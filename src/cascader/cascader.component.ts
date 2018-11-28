@@ -89,7 +89,7 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
     public isLoading = false;
     public isOpening = false;
 
-    private _menuCls: { [ name: string]: any };
+    private _menuCls: { [name: string]: any };
 
     private labelRenderTpl: TemplateRef<any>;
     public isLabelRenderTemplate = false;
@@ -133,11 +133,27 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
         return this.showInput;
     }
 
+    public searchWidthStyle: string;
+    private oldColumnsHolder;
+    private oldActivatedOptions;
+
+    public inSearch = false;
+
     @Input() thyTriggerAction:
         | ThyCascaderTriggerType
         | ThyCascaderTriggerType[] = ['click'];
 
     @Input() thyMenuStyle: { [key: string]: string };
+
+    @Input()
+    set thyOptions(options: CascaderOption[] | null) {
+        this.oldColumnsHolder = this.thyColumns = options && options.length ? [options] : [];
+        if (!this.inSearch) {
+            if (this.defaultValue && this.thyColumns.length) {
+                this.initOptions(0);
+            }
+        }
+    }
 
     @Output() thyChange = new EventEmitter<any[]>();
 
@@ -163,7 +179,7 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
         }
     }
 
-    ngOnInit(): void {}
+    ngOnInit(): void { }
 
     public get menuCls(): any {
         return this._menuCls;
@@ -191,9 +207,9 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
 
     private setMenuClass(): void {
         this._menuCls = {
-            [`${this.prefixCls}-menus`] :true,
-            [`${this.prefixCls}-menus-hidden`] :!this.menuVisible,
-            [`${this.thyMenuClassName}`] : this.thyMenuClassName
+            [`${this.prefixCls}-menus`]: true,
+            [`${this.prefixCls}-menus-hidden`]: !this.menuVisible,
+            [`${this.thyMenuClassName}`]: this.thyMenuClassName
         };
     }
 
@@ -251,12 +267,12 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
     }
 
     onOptionClick(option: CascaderOption, index: number, event: Event): void {
-        if(event) {
+        if (event) {
             event.preventDefault();
         }
         // this.el.focus();
 
-        if(option && option.disabled) {
+        if (option && option.disabled) {
             return;
         }
 
@@ -370,7 +386,7 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
         }
     }
 
-    constructor(private cdr: ChangeDetectorRef) {}
+    constructor(private cdr: ChangeDetectorRef) { }
 
     private buildDisplayLabel(): void {
         const selectedOptions = this.selectedOptions;
@@ -442,11 +458,12 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
     public onTriggerClick(event: MouseEvent): void {
         this.onTouched();
         if (this.isClickTriggerAction()) {
-            this.delaySetMenuVisible(!this.menuVisible, 100);
+            // this.delaySetMenuVisible(!this.menuVisible, 100);
+            this.delaySetMenuVisible(!this.menuVisible, 0);
         }
     }
 
-    @HostListener('mouseleave', [ '$event' ])
+    @HostListener('mouseleave', ['$event'])
     public onTriggerMouseLeave(event: MouseEvent): void {
         return;
     }
@@ -462,9 +479,9 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
                 typeof value === 'object'
                     ? value
                     : {
-                          [`${this.thyValueProperty || 'value'}`]: value,
-                          [`${this.thyLabelProperty || 'label'}`]: value
-                      };
+                        [`${this.thyValueProperty || 'value'}`]: value,
+                        [`${this.thyLabelProperty || 'label'}`]: value
+                    };
         }
         this.setActiveOption(option, index, false, false);
     }

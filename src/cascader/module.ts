@@ -8,7 +8,7 @@ import { ThyInputModule } from '../input/module';
 import { ThyCascaderComponent } from './cascader.component';
 
 @NgModule({
-    imports: [ CommonModule, FormsModule, OverlayModule, ThyInputModule, ThyCascaderComponent ],
+    imports: [ CommonModule, FormsModule, OverlayModule, ThyInputModule ],
     declarations: [
         ThyCascaderComponent
     ],
