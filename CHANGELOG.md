@@ -1,3 +1,17 @@
+## 0.2.2
+移除 `thy-input-label` 扩展 `thy-input` 添加 `thyLabelText` 属性
+
+## 0.2.1
+修改 `thy-alert` scss 和 bootstrap 冲突bug
+
+## 0.2.0
+`thy-form` 支持添加 `form errors`
+天机 `thy-from-group-error` 组件用于错误展示
+
+## 0.1.99
+添加警示框组件 `thy-alert`
+修改 `thy-input` bug
+
 ## 0.1.98
 `thy-stepper` 支持换肤
 `thy-radio-group` 支持错误提示

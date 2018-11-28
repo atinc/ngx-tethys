@@ -46,7 +46,7 @@
   
   @each $color, $value in $theme-colors {
     .thy-alert-#{$color} {
-      @include alert-variant(theme-color($color));
+      @include thy-alert-variant(theme-color($color));
     }
   }
 
