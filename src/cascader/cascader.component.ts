@@ -44,7 +44,7 @@ function arrayEquals<T>(array1: T[], array2: T[]): boolean {
     return true;
 }
 
-const defaultDisplayRender = label => label.join(' / ');
+const defaultDisplayRender = (label: any) => label.join(' / ');
 
 export type ThyCascaderSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 export type ThyCascaderTriggerType = 'click' | 'hover';
@@ -79,9 +79,9 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
     private changeOnSelect = false;
     private showInput = true;
     private prefixCls = 'thy-cascader';
-    private menuClassName;
-    private columnClassName;
-    private _menuColumnCls;
+    private menuClassName: any;
+    private columnClassName: any;
+    private _menuColumnCls: any;
     private defaultValue: any[];
 
     public dropDownPosition = 'bottom';
@@ -134,8 +134,8 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
     }
 
     public searchWidthStyle: string;
-    private oldColumnsHolder;
-    private oldActivatedOptions;
+    private oldColumnsHolder: any;
+    private oldActivatedOptions: any;
 
     public inSearch = false;
 
