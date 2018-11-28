@@ -48,6 +48,10 @@ export class ThyInputComponent implements ControlValueAccessor, AfterViewInit {
         this.type = value;
     }
 
+    @Input() thyLabelText: string;
+
+    @Output() focus: EventEmitter<Event> = new EventEmitter<Event>();
+
     @Output() blur: EventEmitter<Event> = new EventEmitter<Event>();
 
     @ContentChild('append') appendTemplate: TemplateRef<any>;
@@ -56,7 +60,7 @@ export class ThyInputComponent implements ControlValueAccessor, AfterViewInit {
 
     @ViewChild('eye') eyeTemplate: TemplateRef<any>;
 
-    @HostBinding('class.input-container') _isSearchContainer = true;
+    @HostBinding('class.thy-input') _isSearchContainer = true;
 
     @HostBinding('class.form-control') _isFormControl = true;
 
@@ -65,6 +69,8 @@ export class ThyInputComponent implements ControlValueAccessor, AfterViewInit {
     public value: string;
 
     public disabled = false;
+
+    public showLabel: boolean;
 
     private onTouchedCallback: () => void = noop;
 
@@ -96,6 +102,16 @@ export class ThyInputComponent implements ControlValueAccessor, AfterViewInit {
 
     onModelChange() {
         this.onChangeCallback(this.value);
+    }
+
+    onInputFocus(event: Event) {
+        this.showLabel = true;
+        this.focus.emit(event);
+    }
+
+    onInputBlur(event: Event) {
+        this.showLabel = false;
+        this.blur.emit(event);
     }
 
     isPassword(value: string) {

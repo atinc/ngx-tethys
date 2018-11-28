@@ -1,3 +1,6 @@
+## 0.2.2
+移除 `thy-input-label` 扩展 `thy-input` 添加 `thyLabelText` 属性
+
 ## 0.2.1
 修改 `thy-alert` scss 和 bootstrap 冲突bug
 

@@ -133,16 +133,16 @@
         <form>
             <div class="demo-input">
                 <h4>Default Input Label</h4>
-                <thy-input-label thySize="lg" label="姓名" thyLabelFocus="true" name="input-label" [(ngModel)]="model.searchText"
-                    placeholder="请输入您的姓名"></thy-input-label>
-                <thy-input-label thySize="" label="姓名" thyLabelFocus="true" name="input-label" [(ngModel)]="model.searchText"
-                    placeholder="请输入您的姓名"></thy-input-label>
-                <thy-input-label thySize="md" label="姓名" thyLabelFocus="true" name="input-label" [(ngModel)]="model.searchText"
-                    placeholder="请输入您的姓名"></thy-input-label>
-                <thy-input-label thySize="sm" label="姓名" thyLabelFocus="true" name="input-label" [(ngModel)]="model.searchText"
-                    placeholder="请输入您的姓名"></thy-input-label>
-                <thy-input-label thySize="xs" label="姓名" thyLabelFocus="true" name="input-label" [(ngModel)]="model.searchText"
-                    placeholder="请输入您的姓名"></thy-input-label>
+                <thy-input thySize="lg" thyLabelText="姓名" thyAutofocus="true" name="input-label" [(ngModel)]="model.searchText"
+                    placeholder="请输入您的姓名"></thy-input>
+                <thy-input thySize="" thyLabelText="姓名" [thyAutofocus]="true" name="input-label" [(ngModel)]="model.searchText"
+                    placeholder="请输入您的姓名"></thy-input>
+                <thy-input thySize="md" thyLabelText="姓名" thyAutofocus="true" name="input-label" [(ngModel)]="model.searchText"
+                    placeholder="请输入您的姓名"></thy-input>
+                <thy-input thySize="sm" thyLabelText="姓名" thyAutofocus="true" name="input-label" [(ngModel)]="model.searchText"
+                    placeholder="请输入您的姓名"></thy-input>
+                <thy-input thySize="xs" thyLabelText="姓名" thyAutofocus="true" name="input-label" [(ngModel)]="model.searchText"
+                    placeholder="请输入您的姓名"></thy-input>
             </div>
         </form>
     </div>

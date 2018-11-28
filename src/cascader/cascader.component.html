@@ -4,7 +4,7 @@
     </div>
 </div>
 <ng-template cdkConnectedOverlay cdkConnectedOverlayHasBackdrop [cdkConnectedOverlayOrigin]="origin"
-    [cdkConnectedOverlayPositions]="positions" (backdropClick)="closeMenu()" (detach)="closeMenu()" (positionChange)="onPositionChange($event)"
+    [cdkConnectedOverlayPositions]="" (backdropClick)="closeMenu()" (detach)="closeMenu()" (positionChange)="onPositionChange($event)"
     [cdkConnectedOverlayOpen]="menuVisible">
     <div #menu [ngClass]="menuCls" [ngStyle]="thyMenuStyle" (mouseleave)="onTriggerMouseLeave($event)">
         <ul *ngFor="let options of thyColumns; let i = index;" [ngClass]="menuColumnCls">
@@ -17,7 +17,6 @@
                 class="ant-cascader-menu-item-expand-icon">
                     <!-- <i ></i> -->
             </span>
-            </li>
         </ul>
     </div>
 </ng-template>
