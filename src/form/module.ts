@@ -7,22 +7,25 @@ import { ThyFormGroupLabelDirective } from './form-group-label.directive';
 import { ThyFormSubmitDirective } from './form-submit.directive';
 import { ThyInputModule } from '../input/module';
 import { ThyFormGroupFooterComponent } from './from-group-footer/form-group-footer.component';
+import { ThyFormGroupErrorComponent } from './form-group-error/form-group-error.component';
 import { ThyFormValidatorLoader } from './form-validator-loader';
 import {
     ThyFormValidatorGlobalConfig,
     THY_VALIDATOR_CONFIG
 } from './form.class';
 import { ThyUniqueCheckValidator } from './validator';
+import { ThyAlertModule } from '../alert/alert.module';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ThyInputModule],
+    imports: [CommonModule, FormsModule, ThyInputModule, ThyAlertModule],
     declarations: [
         ThyFormDirective,
         ThyFormGroupComponent,
         ThyFormGroupLabelDirective,
         ThyFormSubmitDirective,
         ThyFormGroupFooterComponent,
-        ThyUniqueCheckValidator
+        ThyUniqueCheckValidator,
+        ThyFormGroupErrorComponent
     ],
     exports: [
         ThyFormDirective,
@@ -30,7 +33,8 @@ import { ThyUniqueCheckValidator } from './validator';
         ThyFormGroupLabelDirective,
         ThyFormSubmitDirective,
         ThyFormGroupFooterComponent,
-        ThyUniqueCheckValidator
+        ThyUniqueCheckValidator,
+        ThyFormGroupErrorComponent
     ],
     providers: [ThyFormValidatorLoader]
 })

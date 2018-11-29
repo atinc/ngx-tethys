@@ -12,6 +12,7 @@ import { DemoNavSectionComponent } from './components/+nav/nav-section.component
 import { DemoModalSectionComponent } from './components/+modal/modal-section.component';
 import { DemoCardSectionComponent } from './components/+card/card-section.component';
 import { DemoLoadingSectionComponent } from './components/+loading/loading-section.component';
+import { DemoAlertSectionComponent } from './components/+alert/alert-section.component';
 import { DemoActionMenuSectionComponent } from './components/+action-menu/action-menu-section.component';
 import { DemoConfirmSectionComponent } from './components/+confirm/confirm-section.component';
 import { DemoTreeSectionComponent } from './components/+tree/tree-section.component';
@@ -38,6 +39,7 @@ import { DemoDatepickerNextSectionComponent } from './components/+datepicker-nex
 import { DemoTreeSelectSectionComponent } from './components/+tree-select/tree-select-section.component';
 import { DemoStrengthComponent } from './components/+strength/strength-section.component';
 import { DemoStepperSectionComponent } from './components/+stepper/stepper-section.component';
+import { DemoCascaderSectionComponent } from './components/+cascader/cascader-section.component';
 
 const appRoutes = [
     {
@@ -129,6 +131,10 @@ const appRoutes = [
         component: DemoLoadingSectionComponent
     },
     {
+        path: 'components/alert',
+        component: DemoAlertSectionComponent
+    },
+    {
         path: 'components/tree',
         component: DemoTreeSectionComponent
     },
@@ -199,6 +205,10 @@ const appRoutes = [
     {
         path: 'components/stepper',
         component: DemoStepperSectionComponent
+    },
+    {
+        path: 'components/cascader',
+        component: DemoCascaderSectionComponent
     }
 ];
 

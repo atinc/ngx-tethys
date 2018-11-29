@@ -13,7 +13,7 @@ export class ThyFormValidatorService {
 
     private _config: ThyFormValidatorConfig;
 
-    // public errors: string[];
+    public errors: string[] = [];
 
     // 记录所有元素的验证信息
     public validations: Dictionary<{
@@ -48,6 +48,14 @@ export class ThyFormValidatorService {
         return this.validations[name];
     }
 
+    private _addError(message: string) {
+        this.errors.unshift(message);
+    }
+
+    private _clearErrors() {
+        this.errors = [];
+    }
+
     private _initializeFormControlValidation(
         name: string,
         control: AbstractControl
@@ -58,6 +66,7 @@ export class ThyFormValidatorService {
         };
         control.valueChanges.subscribe(() => {
             this._clearElementError(name);
+            this._clearErrors();
         });
     }
 
@@ -109,7 +118,7 @@ export class ThyFormValidatorService {
         );
     }
 
-    constructor(private thyFormValidateLoader: ThyFormValidatorLoader) {}
+    constructor(private thyFormValidateLoader: ThyFormValidatorLoader) { }
 
     initialize(ngForm: NgForm, formElement: HTMLElement) {
         this._ngForm = ngForm;
@@ -149,6 +158,10 @@ export class ThyFormValidatorService {
                 delete this.validations[name];
             }
         });
+    }
+
+    addError(message: string) {
+        this._addError(message);
     }
 
     validate($event?: Event): boolean {

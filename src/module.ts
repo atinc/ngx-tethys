@@ -12,6 +12,7 @@ import { ThyPaginationModule } from './pagination/pagination.module';
 import { ThyModalModule } from './modal/modal.module';
 import { ThyCardModule } from './card/card.module';
 import { ThyLoadingModule } from './loading/loading.module';
+import { ThyAlertModule } from './alert/alert.module';
 import { ThyActionMenuModule } from './action-menu/action-menu.module';
 import { ThyConfirmModule } from './confirm/confirm.module';
 import { ThyTreeModule } from './tree/tree.module';
@@ -39,6 +40,7 @@ import { ThyListModule } from './list';
 import { ThyTreeSelectModule } from './tree-select';
 import { ThyStrengthModule } from './strength';
 import { ThyStepperModule } from './stepper';
+import { ThyCascaderModule } from './cascader';
 
 const IMPORT_EXPORT_MODULES = [
     BrowserAnimationsModule,
@@ -55,6 +57,7 @@ const IMPORT_EXPORT_MODULES = [
     ThyNotifyModule,
     ThyCardModule,
     ThyLoadingModule,
+    ThyAlertModule,
     ThyDatepickerModule,
     ThyDatepickerNextModule,
     ThyActionMenuModule,
@@ -81,7 +84,8 @@ const IMPORT_EXPORT_MODULES = [
     // ThyKeySelectModule,
     ThyListModule,
     ThyTreeSelectModule,
-    ThyStepperModule
+    ThyStepperModule,
+    ThyCascaderModule
 ];
 
 @NgModule({

@@ -1,5 +1,5 @@
 $input-search-padding-y: $btn-padding-y-md; // 36px
-.input-container {
+.thy-input {
   position: relative;
   width: 100%;
   padding: 0 !important;
@@ -19,6 +19,32 @@ $input-search-padding-y: $btn-padding-y-md; // 36px
     color: $gray-300;
     i {
       font-size: 20px;
+    }
+  }
+  .input-label {
+    position: absolute;
+    top: 1px;
+    left: 10px;
+    background: $white;
+    padding: 0 5px;
+    font-size: $font-size-sm;
+    transition: all 0.3s ease-out 0.1s;
+    color: $primary;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    z-index: -1;
+    &.active {
+      width: auto;
+      height: auto;
+      z-index: 0;
+      top: -10px;
+    }
+    &-sm,
+    &-xs {
+      &.active {
+        top: -13px;
+      }
     }
   }
 }
@@ -72,7 +98,7 @@ $input-search-padding-y: $btn-padding-y-md; // 36px
   .input-label-control {
     // padding: $input-search-padding-y ($input-padding-x + $input-padding-x + 0.5rem);
   }
-  .label {
+  .input-label {
     position: absolute;
     top: 1px;
     left: 10px;

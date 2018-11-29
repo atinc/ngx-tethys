@@ -21,6 +21,7 @@ import { DemoModalContentComponent } from './+modal/modal.content.component';
 import { DemoModalSectionComponent } from './+modal/modal-section.component';
 import { DemoCardSectionComponent } from './+card/card-section.component';
 import { DemoLoadingSectionComponent } from './+loading/loading-section.component';
+import { DemoAlertSectionComponent } from './+alert/alert-section.component';
 import { DemoConfirmSectionComponent } from './+confirm/confirm-section.component';
 import { DemoTreeSectionComponent } from './+tree/tree-section.component';
 import { DemoNotifySectionComponent } from './+notify/notify-section.component';
@@ -47,6 +48,7 @@ import { DemoDatepickerNextSectionComponent } from './+datepicker-next/datepicke
 import { DemoTreeSelectSectionComponent } from './+tree-select/tree-select-section.component';
 import { DemoStrengthComponent } from './+strength/strength-section.component';
 import { DemoStepperSectionComponent } from './+stepper/stepper-section.component';
+import { DemoCascaderSectionComponent } from './+cascader/cascader-section.component';
 
 export const COMPONENTS = [
     DemoPopBoxSectionComponent,
@@ -76,6 +78,7 @@ export const COMPONENTS = [
     DemoModalContentComponent,
     DemoModalSectionComponent,
     DemoLoadingSectionComponent,
+    DemoAlertSectionComponent,
     DemoTreeSectionComponent,
     DemoEmptySectionComponent,
     DemoSwitchSectionComponent,
@@ -100,7 +103,8 @@ export const COMPONENTS = [
     DemoKeySelectSectionComponent,
     DemoListComponent,
     DemoTreeSelectSectionComponent,
-    DemoStepperSectionComponent
+    DemoStepperSectionComponent,
+    DemoCascaderSectionComponent
 ];
 
 export const ENTRY_COMPONENTS = [
