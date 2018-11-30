@@ -184,7 +184,7 @@
 
 .form-control-lg {
     padding: $input-padding-y-lg $input-padding-x-lg;
-    font-size: $font-size-md;
+    // font-size: $font-size-md;
     line-height: $input-line-height-lg;
     @include border-radius($input-border-radius-lg);
 }
