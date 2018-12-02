@@ -206,20 +206,13 @@ export class ThyDatepickerNextContainerComponent
         let result: ThyDatepickerNextInfo = {};
         switch (event) {
             case ThyDatepickerNextEventsEnum.done:
-                result = {
-                    year: this.store.snapshot.calendarSelected.year,
-                    month: this.store.snapshot.calendarSelected.month,
-                    day: this.store.snapshot.calendarSelected.day
-                };
-                if (this.store.snapshot.timeSelected) {
-                    Object.assign(result, {
-                        hour: this.store.snapshot.timeSelected.hour,
-                        minute: this.store.snapshot.timeSelected.minute
-                    });
-                }
+                result = this._getCalendarSelected();
                 break;
             case ThyDatepickerNextEventsEnum.calendarDone:
             case ThyDatepickerNextEventsEnum.shortcutDone:
+                if (!this.store.snapshot.viewFeatureConfig.operation) {
+                    result = this._getCalendarSelected();
+                }
                 break;
             case ThyDatepickerNextEventsEnum.clean:
                 result = null;
@@ -251,6 +244,21 @@ export class ThyDatepickerNextContainerComponent
                 }
             });
         subscribe.unsubscribe();
+    }
+
+    private _getCalendarSelected(): ThyDatepickerNextInfo {
+        const result = {
+            year: this.store.snapshot.calendarSelected.year,
+            month: this.store.snapshot.calendarSelected.month,
+            day: this.store.snapshot.calendarSelected.day
+        };
+        if (this.store.snapshot.timeSelected) {
+            Object.assign(result, {
+                hour: this.store.snapshot.timeSelected.hour,
+                minute: this.store.snapshot.timeSelected.minute
+            });
+        }
+        return result;
     }
 
     ngOnDestroy() {}

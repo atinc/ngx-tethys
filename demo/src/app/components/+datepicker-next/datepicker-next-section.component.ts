@@ -23,8 +23,8 @@ export class DemoDatepickerNextSectionComponent implements OnInit {
     value2 = { date: this.state.nowTimestamp, with_time: true };
     value3 = { date: this.state.nowTimestamp, with_time: false };
     value4 = { date: this.state.nowTimestamp, with_time: true };
-    value5 = { with_time: true };
-    value6 = { with_time: true };
+    value5 = { with_time: false };
+    value6 = { with_time: false };
     minDate = {
         date: new Date(2018, 10, 10),
         with_time: true
