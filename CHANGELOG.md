@@ -1,3 +1,6 @@
+## 0.2.4 
+修改 `thy-input` lg 尺寸的placeholder 字号改为 14px
+
 ## 0.2.2
 移除 `thy-input-label` 扩展 `thy-input` 添加 `thyLabelText` 属性
 
