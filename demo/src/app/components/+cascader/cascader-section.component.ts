@@ -55,6 +55,6 @@ export class DemoCascaderSectionComponent implements OnInit {
     }
 
     public onChanges(values: any): void {
-        console.log(values, this.values);
+        console.log(this.values);
     }
 }

@@ -1,39 +1,28 @@
-<div cdkOverlayOrigin 
-    #origin="cdkOverlayOrigin" 
-    #trigger>
+<div cdkOverlayOrigin #origin="cdkOverlayOrigin" #trigger>
     <div *ngIf="thyShowInput">
-        <div #input thyInput [ngClass]="{ 'thy-select': true }" placeholder="请选择" >
-            <span class="text-placeholder d-inline-block">
-                {{thyPlaceHolder}}
-            </span>
-        </div>
+        <thy-input #input [thyInputAutoFocus]="false" [readonly]="true" [placeholder]="showPlaceholder ? thyPlaceHolder : ''"></thy-input>
+        <i *ngIf="!isLoading" class="wtf wtf-angle-down" [ngClass]="arrowCls"></i>
+        <i *ngIf="!isLoading && labelRenderText" class="wtf wtf-times-circle" [ngClass]="clearCls" (click)="clearSelection($event)"></i>
+        <span [ngClass]="labelCls">
+            <ng-container *ngIf="!isLabelRenderTemplate">{{ labelRenderText }}</ng-container>
+            <ng-template #labelTemplate>
+                <ng-template [ngTemplateOutlet]="thyLabelRender" [ngTemplateOutletContext]="labelRenderContext"></ng-template>
+            </ng-template>
+        </span>
     </div>
 </div>
-<ng-template 
-cdkConnectedOverlay 
-cdkConnectedOverlayHasBackdrop
-cdkConnectedOverlayBackdropClass="thy-cascader-backdrop" 
-[cdkConnectedOverlayOrigin]="origin"
-[cdkConnectedOverlayPositions]="positions" 
-(backdropClick)="closeMenu()" 
-(detach)="closeMenu()" 
-(positionChange)="onPositionChange($event)"
-[cdkConnectedOverlayOpen]="menuVisible">
-    <div #menu [ngClass]="menuCls" 
-        [ngStyle]="thyMenuStyle" 
-        (mouseleave)="onTriggerMouseLeave($event)">
+<ng-template cdkConnectedOverlay cdkConnectedOverlayHasBackdrop cdkConnectedOverlayBackdropClass="thy-cascader-backdrop"
+    [cdkConnectedOverlayOrigin]="origin" [cdkConnectedOverlayPositions]="positions" (backdropClick)="closeMenu()"
+    (detach)="closeMenu()" (positionChange)="onPositionChange($event)" [cdkConnectedOverlayOpen]="menuVisible">
+    <div #menu [ngClass]="menuCls" [ngStyle]="thyMenuStyle" (mouseleave)="onTriggerMouseLeave($event)">
         <ul *ngFor="let options of thyColumns; let i = index;" [ngClass]="menuColumnCls">
-            <li *ngFor="let option of options" 
-            [attr.title]="option.title || getOptionLabel(option)" 
-            (click)="onOptionClick(option, i, $event)"
-            [ngClass]="getOptionCls(option, i)">
+            <li *ngFor="let option of options" [attr.title]="option.title || getOptionLabel(option)" (click)="onOptionClick(option, i, $event)"
+                [ngClass]="getOptionCls(option, i)">
                 <ng-container>
                     {{ getOptionLabel(option) }}
                 </ng-container>
-                <span 
-                *ngIf="!option.isLeaf || option.children && option.children.length || option.loading"
-                class="ant-cascader-menu-item-expand-icon">
-            </span>
+                <span *ngIf="!option.isLeaf || option.children && option.children.length || option.loading" class="ant-cascader-menu-item-expand-icon">
+                </span>
         </ul>
     </div>
 </ng-template>
