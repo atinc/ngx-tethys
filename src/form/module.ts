@@ -13,7 +13,7 @@ import {
     ThyFormValidatorGlobalConfig,
     THY_VALIDATOR_CONFIG
 } from './form.class';
-import { ThyUniqueCheckValidator } from './validator';
+import { ThyUniqueCheckValidator, ThyMaxDirective, ThyMinDirective } from './validator';
 import { ThyAlertModule } from '../alert/alert.module';
 
 @NgModule({
@@ -25,7 +25,9 @@ import { ThyAlertModule } from '../alert/alert.module';
         ThyFormSubmitDirective,
         ThyFormGroupFooterComponent,
         ThyUniqueCheckValidator,
-        ThyFormGroupErrorComponent
+        ThyFormGroupErrorComponent,
+        ThyMinDirective,
+        ThyMaxDirective
     ],
     exports: [
         ThyFormDirective,
@@ -34,7 +36,9 @@ import { ThyAlertModule } from '../alert/alert.module';
         ThyFormSubmitDirective,
         ThyFormGroupFooterComponent,
         ThyUniqueCheckValidator,
-        ThyFormGroupErrorComponent
+        ThyFormGroupErrorComponent,
+        ThyMinDirective,
+        ThyMaxDirective
     ],
     providers: [ThyFormValidatorLoader]
 })

@@ -120,6 +120,10 @@
             <thy-form-group thyLabelText="邮箱" thyLabelRequired thyTips="">
                 <input thyInput email name="email" [(ngModel)]="model.email" required maxlength="10" placeholder="请输入邮箱" />
             </thy-form-group>
+
+            <thy-form-group thyLabelText="数字" thyLabelRequired thyTips="">
+                <input thyInput number name="number" [(ngModel)]="model.number" required min="10" placeholder="请输入大于10的数子" />
+            </thy-form-group>
             <thy-form-group thyLabelText="正则验证" thyLabelRequired thyTips="">
                 <input thyInput name="pattern" [pattern]="'[a-zA-Z0-9_-]{0,19}[^\\d]{1}'" [(ngModel)]="model.pattern"
                     required maxlength="20" placeholder="英文字母或数字或下划线或连接线皆可,最后一位不能为数字" />

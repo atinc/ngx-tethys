@@ -1,3 +1,7 @@
+## 0.2.3
+修改 `thy-input` 支持 thyAutoFocus
+扩展 `[min]` `[max]` 验证指令
+
 ## 0.2.2
 移除 `thy-input-label` 扩展 `thy-input` 添加 `thyLabelText` 属性
 

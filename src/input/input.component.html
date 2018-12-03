@@ -2,7 +2,7 @@
     <ng-template *ngTemplateOutlet="prependTemplate"></ng-template>
 </div>
 <span class="input-label input-label-{{thySize}}" [class.active]="showLabel">{{ thyLabelText }}</span>
-<input #input thyInput [thySize]="thySize" [thyAutofocus]="thyInputAutoFocus" [type]="type" [placeholder]="placeholder"
+<input #input thyInput [thySize]="thySize" [thyAutofocus]="thyAutoFocus" [type]="type" [placeholder]="placeholder"
     [disabled]="disabled" [(ngModel)]="value" (ngModelChange)="onModelChange()" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)">
 <div #append class="input-append" *ngIf="appendTemplate">
     <ng-template *ngTemplateOutlet="appendTemplate"></ng-template>

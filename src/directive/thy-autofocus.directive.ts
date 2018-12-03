@@ -2,7 +2,7 @@ import { Directive, Input, ElementRef } from '@angular/core';
 import { inputValueToBoolean } from '../util/helpers';
 
 @Directive({
-    selector: '[thyAutofocus]'
+    selector: 'input[thyAutofocus],textarea[thyAutofocus]'
 })
 export class ThyAutofocusDirective {
 
