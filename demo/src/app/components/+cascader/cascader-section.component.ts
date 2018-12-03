@@ -33,7 +33,12 @@ const options = [{
 
 @Component({
     selector: 'demo-confirm-section',
-    templateUrl: './cascader-section.component.html'
+    templateUrl: './cascader-section.component.html',
+    styles: [
+        `.demo-select {
+            width: 500px;
+        }`
+    ]
 })
 export class DemoCascaderSectionComponent implements OnInit {
     /** init data */
@@ -50,6 +55,6 @@ export class DemoCascaderSectionComponent implements OnInit {
     }
 
     public onChanges(values: any): void {
-        console.log(values, this.values);
+        console.log(this.values);
     }
 }

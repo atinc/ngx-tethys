@@ -50,6 +50,8 @@ export class ThyInputComponent implements ControlValueAccessor, AfterViewInit {
 
     @Input() thyLabelText: string;
 
+    @Input() readonly = false;
+
     @Output() focus: EventEmitter<Event> = new EventEmitter<Event>();
 
     @Output() blur: EventEmitter<Event> = new EventEmitter<Event>();

@@ -13,8 +13,10 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import {
-    ConnectedOverlayPositionChange
+    ConnectedOverlayPositionChange,
+    ConnectionPositionPair
 } from '@angular/cdk/overlay';
+import { DEFAULT_DROPDOWN_POSITIONS } from '../core/overlay/overlay-opsition-map';
 import { UpdateHostClassService } from '../shared/update-host-class.service';
 import { inputValueToBoolean } from '../util/helpers';
 
@@ -73,14 +75,26 @@ export interface CascaderOption {
             useExisting: forwardRef(() => ThyCascaderComponent),
             multi: true
         }
+    ],
+    styles: [
+        `
+            .thy-cascader-menus {
+                margin-top: 4px;
+                margin-bottom: 4px;
+                top: 100%;
+                left: 0;
+                position: relative;
+                width: 100%;
+            }
+        `
     ]
 })
 export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
     private changeOnSelect = false;
     private showInput = true;
     private prefixCls = 'thy-cascader';
-    private menuClassName: any;
-    private columnClassName: any;
+    private menuClassName: string;
+    private columnClassName: string;
     private _menuColumnCls: any;
     private defaultValue: any[];
 
@@ -88,8 +102,12 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
     public menuVisible = false;
     public isLoading = false;
     public isOpening = false;
+    public showSearch = false;
 
+    private _arrowCls: { [name: string]: any };
     private _menuCls: { [name: string]: any };
+    private _labelCls: { [name: string]: any };
+    private _clearCls: { [name: string]: any };
 
     private labelRenderTpl: TemplateRef<any>;
     public isLabelRenderTemplate = false;
@@ -99,6 +117,17 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
     // ngModel Access
     onChange: any = Function.prototype;
     onTouched: any = Function.prototype;
+    positions: ConnectionPositionPair[] = [...DEFAULT_DROPDOWN_POSITIONS];
+
+    @Input()
+    set thyLabelRender(value: TemplateRef<any>) {
+        this.labelRenderTpl = value;
+        this.isLabelRenderTemplate = value instanceof TemplateRef;
+    }
+
+    get thyLabelRender(): TemplateRef<any> {
+        return this.labelRenderTpl;
+    }
 
     private value: any[];
     private selectedOptions: CascaderOption[] = [];
@@ -109,6 +138,19 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
     @Input() thyValueProperty = 'value';
 
     @Input() thyLabelProperty = 'label';
+
+    @Input() thyPlaceHolder = '请选择';
+
+    private _inputValue = '';
+
+    get inputValue(): string {
+        return this._inputValue;
+    }
+
+    set inputValue(inputValue: string) {
+        this._inputValue = inputValue;
+        const willBeInSearch = !!inputValue;
+    }
 
     @Input() thyLoadData: (
         node: CascaderOption,
@@ -147,13 +189,27 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
 
     @Input()
     set thyOptions(options: CascaderOption[] | null) {
-        this.oldColumnsHolder = this.thyColumns = options && options.length ? [options] : [];
+        this.oldColumnsHolder = this.thyColumns =
+            options && options.length ? [options] : [];
         if (!this.inSearch) {
             if (this.defaultValue && this.thyColumns.length) {
                 this.initOptions(0);
             }
         }
     }
+
+    /** Whether can search. Defaults to `false`. */
+    // @Input()
+    // set thyShowSearch(value: boolean) {
+    //     this.showSearch = value;
+    // }
+
+    // get thyShowSearch(): boolean {
+    //     return this.showSearch;
+    // }
+
+    @Input()
+    disabled = false;
 
     @Output() thyChange = new EventEmitter<any[]>();
 
@@ -179,7 +235,26 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
         }
     }
 
-    ngOnInit(): void { }
+    private setClassMap(): void {
+        const classMap = {
+            [`${this.prefixCls}`]: true,
+            [`${this.prefixCls}-picker`]: true,
+            //   [ `${this.prefixCls}-picker-disabled` ]  : this.disabled,
+            //   [ `${this.prefixCls}-focused` ]          : this.isFocused,
+            [`${this.prefixCls}-picker-open`]: this.menuVisible
+            //   [ `${this.prefixCls}-picker-with-value` ]: this.inputValue && this.inputValue.length
+        };
+        this.updateHostClassService.updateClassByMap(classMap);
+    }
+
+    ngOnInit(): void {
+        this.setClassMap();
+        this.setMenuClass();
+        this.setMenuColumnClass();
+        this.setArrowClass();
+        this.setLabelClass();
+        this.setClearClass();
+    }
 
     public get menuCls(): any {
         return this._menuCls;
@@ -224,6 +299,37 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
         };
     }
 
+    /** 获取列中Option的样式 */
+    public getOptionCls(option: CascaderOption, index: number): any {
+        return {
+            [`${this.prefixCls}-menu-item`]: true,
+            [`${this.prefixCls}-menu-item-expand`]: !option.isLeaf,
+            [`${this.prefixCls}-menu-item-active`]: this.isActivedOption(
+                option,
+                index
+            ),
+            [`${this.prefixCls}-menu-item-disabled`]: option.disabled
+        };
+    }
+
+    @HostListener('click', [ '$event' ])
+    public trggleClick($event: Event) {
+        if (this.disabled) {
+            return;
+        }
+        this.onTouched();
+        if (this.isClickTriggerAction()) {
+            this.setMenuVisible(!this.menuVisible);
+        }
+
+        // if (this.showSearch) {
+        //     this.focus();
+        // }
+    }
+
+    public focus() {
+    }
+
     private isClickTriggerAction(): boolean {
         if (typeof this.thyTriggerAction === 'string') {
             return this.thyTriggerAction === 'click';
@@ -235,6 +341,7 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
         // this.blur();
         // this.clearDelayTimer();
         this.setMenuVisible(false);
+        this.setArrowClass();
     }
 
     public getOptionLabel(option: CascaderOption): any {
@@ -243,6 +350,11 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
 
     public getOptionValue(option: CascaderOption): any {
         return option[this.thyValueProperty || 'value'];
+    }
+
+    private isActivedOption(option: CascaderOption, index: number): boolean {
+        const activeOpt = this.activatedOptions[index];
+        return activeOpt === option;
     }
 
     private findOption(option: any, index: number): CascaderOption {
@@ -278,7 +390,6 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
 
         // if(this.inS)
         this.setActiveOption(option, index, true);
-
     }
 
     private setActiveOption(
@@ -362,6 +473,10 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
             this.buildDisplayLabel();
             this.onValueChange();
         }
+
+        if (option.isLeaf) {
+            this.setMenuVisible(false);
+        }
     }
 
     public getSubmitValue(): any[] {
@@ -386,7 +501,13 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
         }
     }
 
-    constructor(private cdr: ChangeDetectorRef) { }
+    constructor(
+        private cdr: ChangeDetectorRef,
+        private elementRef: ElementRef,
+        private updateHostClassService: UpdateHostClassService
+    ) {
+        updateHostClassService.initializeElement(elementRef.nativeElement);
+    }
 
     private buildDisplayLabel(): void {
         const selectedOptions = this.selectedOptions;
@@ -444,9 +565,9 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
             this.menuVisible = menuVisible;
 
             // update class
-            //   this.setClassMap();
-            //   this.setArrowClass();
-            //   this.setMenuClass();
+            this.setClassMap();
+            this.setArrowClass();
+            this.setMenuClass();
             if (menuVisible) {
                 // this.beforeVisible();
             }
@@ -454,14 +575,80 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
         }
     }
 
-    @HostListener('click', ['$event'])
-    public onTriggerClick(event: MouseEvent): void {
-        this.onTouched();
-        if (this.isClickTriggerAction()) {
-            // this.delaySetMenuVisible(!this.menuVisible, 100);
-            this.delaySetMenuVisible(!this.menuVisible, 0);
-        }
+    /** 箭头 样式 */
+    public get arrowCls(): any {
+        return this._arrowCls;
     }
+
+    private setArrowClass(): void {
+        this._arrowCls = {
+            [`${this.prefixCls}-picker-arrow`]: true,
+            [`${this.prefixCls}-picker-arrow-expand`]: this.menuVisible
+        };
+    }
+
+    public get clearCls(): any {
+        return this._clearCls;
+    }
+
+    private setClearClass(): void {
+        this._clearCls = {
+            [`${this.prefixCls}-picker-clear`]: true
+        };
+    }
+
+    public clearSelection($event: Event): void {
+        if ($event) {
+            $event.stopPropagation();
+            $event.preventDefault();
+        }
+
+        this.labelRenderText = '';
+        // this.isLabelRenderTemplate = false;
+        // clear custom context
+        this.labelRenderContext = {};
+        this.selectedOptions = [];
+        this.activatedOptions = [];
+        this.inputValue = '';
+        this.setMenuVisible(false);
+
+        // trigger change event
+        this.onValueChange();
+    }
+
+    private hasInput(): boolean {
+        return this.inputValue.length > 0;
+    }
+
+    private hasValue(): boolean {
+        return this.value && this.value.length > 0;
+    }
+
+    public get showPlaceholder(): boolean {
+        return !(this.hasInput() || this.hasValue());
+    }
+
+    /** 标签 样式 */
+    public get labelCls(): any {
+        return this._labelCls;
+    }
+
+    private setLabelClass(): void {
+        this._labelCls = {
+            [`${this.prefixCls}-picker-label`]: true,
+            [`${this.prefixCls}-show-search`]: false,
+            [`${this.prefixCls}-focused`]: false
+        };
+    }
+
+    // @HostListener('click', ['$event'])
+    // public onTriggerClick(event: MouseEvent): void {
+    //     this.onTouched();
+    //     if (this.isClickTriggerAction()) {
+    //         // this.delaySetMenuVisible(!this.menuVisible, 100);
+    //         this.delaySetMenuVisible(!this.menuVisible, 0);
+    //     }
+    // }
 
     @HostListener('mouseleave', ['$event'])
     public onTriggerMouseLeave(event: MouseEvent): void {
@@ -479,9 +666,9 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
                 typeof value === 'object'
                     ? value
                     : {
-                        [`${this.thyValueProperty || 'value'}`]: value,
-                        [`${this.thyLabelProperty || 'label'}`]: value
-                    };
+                          [`${this.thyValueProperty || 'value'}`]: value,
+                          [`${this.thyLabelProperty || 'label'}`]: value
+                      };
         }
         this.setActiveOption(option, index, false, false);
     }

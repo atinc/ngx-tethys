@@ -1,5 +1,12 @@
-<thy-cascader
-      [thyOptions]="thyOptions"
-      [(ngModel)]="values"
-      (ngModelChange)="onChanges($event)">
-</thy-cascader>
+<section>
+      <div class="header">
+            <h2>Cascader 级联选择</h2>
+      </div>
+      <div class="body demo-select">
+            <thy-cascader [thyOptions]="thyOptions" 
+            [(ngModel)]="values" 
+            (ngModelChange)="onChanges($event)"
+            style="width:200px;">
+            </thy-cascader>
+      </div>
+</section>

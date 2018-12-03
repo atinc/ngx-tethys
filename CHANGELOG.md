@@ -1,3 +1,6 @@
+## 0.2.4 
+修改 `thy-input` lg 尺寸的placeholder 字号改为 14px
+
 ## 0.2.3
 修改 `thy-input` 支持 thyAutoFocus
 扩展 `[min]` `[max]` 验证指令

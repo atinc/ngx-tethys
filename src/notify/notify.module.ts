@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ThyNotifyComponent } from './notify.component';
 import { ThyNotifyContainerComponent } from './notify.container.component';
 import { ThyNotifyService } from './notify.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
     declarations: [
@@ -17,6 +18,7 @@ import { ThyNotifyService } from './notify.service';
     ],
     imports: [
         CommonModule,
+        BrowserAnimationsModule,
     ],
     exports: [
         ThyNotifyContainerComponent,
