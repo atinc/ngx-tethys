@@ -1,7 +1,18 @@
 import {
-    Component, HostBinding, Input, Output,
-    ContentChild, TemplateRef, ElementRef,
-    ViewEncapsulation, EventEmitter, forwardRef, ViewChild, OnInit, AfterViewInit, Renderer2
+    Component,
+    HostBinding,
+    Input,
+    Output,
+    ContentChild,
+    TemplateRef,
+    ElementRef,
+    ViewEncapsulation,
+    EventEmitter,
+    forwardRef,
+    ViewChild,
+    OnInit,
+    AfterViewInit,
+    Renderer2
 } from '@angular/core';
 import { ThyTranslate, UpdateHostClassService } from '../shared';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -12,28 +23,25 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
     multi: true
 };
 
-const noop = () => { };
+const noop = () => {};
 
 const password = 'password';
 
 @Component({
     selector: 'thy-input',
     templateUrl: './input.component.html',
-    providers: [
-        UpdateHostClassService,
-        CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR
-    ],
+    providers: [UpdateHostClassService, CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
     encapsulation: ViewEncapsulation.None
 })
 export class ThyInputComponent implements ControlValueAccessor, AfterViewInit {
-
     @Input() placeholder = '';
 
     @Input() thySize: string;
 
     @Input() thyAutoFocus = false;
 
-    @Input() set type(value: string) {
+    @Input()
+    set type(value: string) {
         this._type = value;
         if (this.isPassword(value)) {
             this.appendTemplate = this.eyeTemplate;
@@ -44,7 +52,8 @@ export class ThyInputComponent implements ControlValueAccessor, AfterViewInit {
         return this._type;
     }
 
-    @Input() set thyType(value: string) {
+    @Input()
+    set thyType(value: string) {
         this.type = value;
     }
 
@@ -62,10 +71,6 @@ export class ThyInputComponent implements ControlValueAccessor, AfterViewInit {
 
     @ViewChild('eye') eyeTemplate: TemplateRef<any>;
 
-    @HostBinding('class.thy-input') _isSearchContainer = true;
-
-    @HostBinding('class.form-control') _isFormControl = true;
-
     public _type = 'text';
 
     public value: string;
@@ -78,13 +83,15 @@ export class ThyInputComponent implements ControlValueAccessor, AfterViewInit {
 
     private onChangeCallback: (_: any) => void = noop;
 
-    constructor(
-        private renderer: Renderer2
-    ) {
-    }
+    @HostBinding('class.thy-input') _isSearchContainer = true;
 
-    ngAfterViewInit() {
-    }
+    @HostBinding('class.form-control') _isFormControl = true;
+
+    @HostBinding('class.form-control-active') _isFocus = false;
+
+    constructor(private renderer: Renderer2) {}
+
+    ngAfterViewInit() {}
 
     writeValue(value: any): void {
         this.value = value;
@@ -107,11 +114,13 @@ export class ThyInputComponent implements ControlValueAccessor, AfterViewInit {
     }
 
     onInputFocus(event: Event) {
+        this._isFocus = true;
         this.showLabel = true;
         this.focus.emit(event);
     }
 
     onInputBlur(event: Event) {
+        this._isFocus = false;
         this.showLabel = false;
         this.blur.emit(event);
     }
@@ -124,4 +133,3 @@ export class ThyInputComponent implements ControlValueAccessor, AfterViewInit {
         this.type = this.isPassword(this.type) ? 'text' : 'password';
     }
 }
-
