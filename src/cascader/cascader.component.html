@@ -1,6 +1,6 @@
 <div cdkOverlayOrigin #origin="cdkOverlayOrigin" #trigger>
     <div *ngIf="thyShowInput">
-        <thy-input #input [thyInputAutoFocus]="false" [readonly]="true" [placeholder]="showPlaceholder ? thyPlaceHolder : ''"></thy-input>
+        <thy-input #input [thyAutoFocus]="false" [readonly]="true" [placeholder]="showPlaceholder ? thyPlaceHolder : ''"></thy-input>
         <i *ngIf="!isLoading" class="wtf wtf-angle-down" [ngClass]="arrowCls"></i>
         <i *ngIf="!isLoading && labelRenderText" class="wtf wtf-times-circle" [ngClass]="clearCls" (click)="clearSelection($event)"></i>
         <span [ngClass]="labelCls">
