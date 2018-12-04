@@ -1,3 +1,6 @@
+## 0.2.6
+修复 `thy-loading` style
+
 ## 0.2.5
 修复 `thy-input` focus 状态下没有显示边bug
 
