@@ -4,6 +4,7 @@
 @import "./utilities";
 @import "./shadow.scss";
 @import "../../button/styles/mixin";
+@import "../../alert/styles/mixin";
 @import "../../badge/styles/mixin";
 @import "../../avatar/styles/mixin";
 @import "../../label/styles/mixin";
@@ -17,3 +18,4 @@
 @import "../../select/styles/mixin";
 @import "../../datepicker/styles/mixin";
 @import "../../core/option/option.mixin.scss";
+@import "../../stepper/styles/mixin.scss"

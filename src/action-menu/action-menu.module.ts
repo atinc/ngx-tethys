@@ -14,6 +14,7 @@ import {
     ThyActionMenuDividerTitleDirective,
     ThyActionMenuItemActiveDirective,
 } from './action-menu.component';
+import { NgxPopBoxModule } from '../pop-box';
 
 @NgModule({
     declarations: [
@@ -31,7 +32,10 @@ import {
         ThyActionMenuItemActiveDirective,
     ],
     imports: [
-        CommonModule
+        CommonModule,
+        NgxPopBoxModule
+    ],
+    providers: [
     ],
     exports: [
         ThyActionMenuToggleDirective,

@@ -75,6 +75,13 @@ $thyDatepickerNext: 'thy-datepicker-next';
                                 background: $primary;
                             }
                         }
+
+                        &.disabled {
+                            span {
+                                color: $gray-500;
+                                background: inherit;
+                            }
+                        }
                     }
                 }
             }

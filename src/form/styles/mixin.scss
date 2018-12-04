@@ -70,7 +70,9 @@
 
   .form-control,
   .thy-select,
-  .custom-select {
+  .thy-radio-group,
+  .custom-select,
+  .input-label-container {
     .was-validated &:#{$state},
     &.is-#{$state} {
       border-color: $color;

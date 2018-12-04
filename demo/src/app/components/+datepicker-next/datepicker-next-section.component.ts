@@ -7,12 +7,12 @@ import { DatepickerNextTimeModeType } from '../../../../../src/datepicker-next/d
     templateUrl: './datepicker-next-section.component.html'
 })
 export class DemoDatepickerNextSectionComponent implements OnInit {
-
     private state = {
-        nowTimestamp: Math.floor((new Date()).getTime() / 1000),
-        nowObjectTimestamp: Math.floor((new Date()).getTime() / 1000),
-        nowNextWeekDate: Math.floor((new Date()).getTime() / 1000) + 90000 * 7,
-        nowNextNextWeekDate: Math.floor((new Date()).getTime() / 1000) + 90000 * 7 * 2,
+        nowTimestamp: Math.floor(new Date().getTime() / 1000),
+        nowObjectTimestamp: Math.floor(new Date().getTime() / 1000),
+        nowNextWeekDate: Math.floor(new Date().getTime() / 1000) + 90000 * 7,
+        nowNextNextWeekDate:
+            Math.floor(new Date().getTime() / 1000) + 90000 * 7 * 2
     };
 
     datepickerNextTimeModeType = DatepickerNextTimeModeType;
@@ -23,23 +23,23 @@ export class DemoDatepickerNextSectionComponent implements OnInit {
     value2 = { date: this.state.nowTimestamp, with_time: true };
     value3 = { date: this.state.nowTimestamp, with_time: false };
     value4 = { date: this.state.nowTimestamp, with_time: true };
-    disabledRules = {
-        '<': new Date(2018, 10, 1, 12, 0),
-        // '<=': new Date(2018, 10, 1, 12, 0),
-        // 't<': new Date(2018, 10, 1, 12, 0),
-        // 't<=': new Date(2018, 10, 1, 12, 0),
-        // '>': new Date(2018, 10, 1, 13, 0),
-        // 'fn': function (date) {
-
-        // }
+    value5 = { with_time: true };
+    value6 = { with_time: true };
+    minDate = {
+        date: new Date(2018, 10, 10),
+        with_time: true
+    };
+    maxDate = {
+        date: new Date(2018, 10, 10),
+        with_time: true
     };
 
     objectTimestamp = {
-        date: Math.floor((new Date()).getTime() / 1000),
+        date: Math.floor(new Date().getTime() / 1000),
         with_time: true
     };
     objectTimestampLong = {
-        date: Math.floor((new Date()).getTime()),
+        date: Math.floor(new Date().getTime()),
         with_time: false
     };
     objectDate = {
@@ -50,8 +50,8 @@ export class DemoDatepickerNextSectionComponent implements OnInit {
         date: null,
         with_time: true
     };
-    timestamp = Math.floor((new Date()).getTime() / 1000);
-    timestampLong = Math.floor((new Date()).getTime());
+    timestamp = Math.floor(new Date().getTime() / 1000);
+    timestampLong = Math.floor(new Date().getTime());
     date = new Date();
     empty = null;
 
@@ -67,13 +67,12 @@ export class DemoDatepickerNextSectionComponent implements OnInit {
             description: '组件指令',
             type: '',
             default: ''
-        },
+        }
     ];
 
-    constructor() { }
+    constructor() {}
 
-    ngOnInit() {
-    }
+    ngOnInit() {}
 
     onSelect(result) {
         console.log(result);

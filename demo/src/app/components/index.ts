@@ -21,6 +21,7 @@ import { DemoModalContentComponent } from './+modal/modal.content.component';
 import { DemoModalSectionComponent } from './+modal/modal-section.component';
 import { DemoCardSectionComponent } from './+card/card-section.component';
 import { DemoLoadingSectionComponent } from './+loading/loading-section.component';
+import { DemoAlertSectionComponent } from './+alert/alert-section.component';
 import { DemoConfirmSectionComponent } from './+confirm/confirm-section.component';
 import { DemoTreeSectionComponent } from './+tree/tree-section.component';
 import { DemoNotifySectionComponent } from './+notify/notify-section.component';
@@ -45,6 +46,9 @@ import { DemoKeySelectSectionComponent } from './+key-select/key-select-section.
 import { DemoListComponent } from './+list/list-section.component';
 import { DemoDatepickerNextSectionComponent } from './+datepicker-next/datepicker-next-section.component';
 import { DemoTreeSelectSectionComponent } from './+tree-select/tree-select-section.component';
+import { DemoStrengthComponent } from './+strength/strength-section.component';
+import { DemoStepperSectionComponent } from './+stepper/stepper-section.component';
+import { DemoCascaderSectionComponent } from './+cascader/cascader-section.component';
 
 export const COMPONENTS = [
     DemoPopBoxSectionComponent,
@@ -74,10 +78,12 @@ export const COMPONENTS = [
     DemoModalContentComponent,
     DemoModalSectionComponent,
     DemoLoadingSectionComponent,
+    DemoAlertSectionComponent,
     DemoTreeSectionComponent,
     DemoEmptySectionComponent,
     DemoSwitchSectionComponent,
     DemoTransferSectionComponent,
+    DemoStrengthComponent,
     DemoFormSectionComponent,
     DemoDataPickerSectionComponent,
     DemoDatepickerNextSectionComponent,
@@ -96,7 +102,9 @@ export const COMPONENTS = [
     DemoDateRangeSectionComponent,
     DemoKeySelectSectionComponent,
     DemoListComponent,
-    DemoTreeSelectSectionComponent
+    DemoTreeSelectSectionComponent,
+    DemoStepperSectionComponent,
+    DemoCascaderSectionComponent
 ];
 
 export const ENTRY_COMPONENTS = [

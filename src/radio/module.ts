@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ThyRadioComponent } from './radio.component';
+import { ThyRadioButtonComponent } from './button/radio-button.component';
 import { ThyRadioGroupComponent } from './group/radio-group.component';
 
 @NgModule({
@@ -11,11 +12,13 @@ import { ThyRadioGroupComponent } from './group/radio-group.component';
     ],
     declarations: [
         ThyRadioComponent,
-        ThyRadioGroupComponent
+        ThyRadioGroupComponent,
+        ThyRadioButtonComponent
     ],
     exports: [
         ThyRadioComponent,
-        ThyRadioGroupComponent
+        ThyRadioGroupComponent,
+        ThyRadioButtonComponent
     ]
 })
 export class ThyRadioModule {

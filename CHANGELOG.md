@@ -1,3 +1,61 @@
+## 0.2.4 
+修改 `thy-input` lg 尺寸的placeholder 字号改为 14px
+
+## 0.2.3
+修改 `thy-input` 支持 thyAutoFocus
+扩展 `[min]` `[max]` 验证指令
+
+## 0.2.2
+移除 `thy-input-label` 扩展 `thy-input` 添加 `thyLabelText` 属性
+
+## 0.2.1
+修改 `thy-alert` scss 和 bootstrap 冲突bug
+
+## 0.2.0
+`thy-form` 支持添加 `form errors`
+天机 `thy-from-group-error` 组件用于错误展示
+
+## 0.1.99
+添加警示框组件 `thy-alert`
+修改 `thy-input` bug
+
+## 0.1.98
+`thy-stepper` 支持换肤
+`thy-radio-group` 支持错误提示
+`datepicker` 组件更新
+
+## 0.1.97
+修改 `thy-input` 组件，`thyType` 为 `password` 时，支持密码明文切换
+修改 `thy-stepper` 样式，支持选中step下方的小箭头
+修改单选按钮组 `thyRadioGroup` 支持验证
+
+## 0.1.96
+修改单选按钮组 `thyRadioButton` 支持flex布局
+
+## 0.1.95
+添加单选按钮组 `thyRadioButton`
+
+## 0.1.94
+添加步骤条组件 `thy-stepper`
+
+## 0.1.93
+扩展 `thy-label-input` 支持thySize
+
+## 0.1.92
+添加 `thy-label-input` 组件
+
+## 0.1.91
+修改 `thy-input` 组件样式
+
+## 0.1.90
+修改 `thy-input` 组件样式
+
+## 0.1.89
+添加 `thy-input` 组件，支持Input输入框内自定义前置后置模板
+
+## 0.1.88
+fix error for markdown
+
 ## 0.1.87
 fix build error for styles folder lost.
 

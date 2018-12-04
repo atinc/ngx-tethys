@@ -12,6 +12,7 @@ import { ThyPaginationModule } from './pagination/pagination.module';
 import { ThyModalModule } from './modal/modal.module';
 import { ThyCardModule } from './card/card.module';
 import { ThyLoadingModule } from './loading/loading.module';
+import { ThyAlertModule } from './alert/alert.module';
 import { ThyActionMenuModule } from './action-menu/action-menu.module';
 import { ThyConfirmModule } from './confirm/confirm.module';
 import { ThyTreeModule } from './tree/tree.module';
@@ -37,6 +38,9 @@ import { ThyDateRangeModule } from './date-range';
 // import { ThyKeySelectModule } from './key-select';
 import { ThyListModule } from './list';
 import { ThyTreeSelectModule } from './tree-select';
+import { ThyStrengthModule } from './strength';
+import { ThyStepperModule } from './stepper';
+import { ThyCascaderModule } from './cascader';
 
 const IMPORT_EXPORT_MODULES = [
     BrowserAnimationsModule,
@@ -53,6 +57,7 @@ const IMPORT_EXPORT_MODULES = [
     ThyNotifyModule,
     ThyCardModule,
     ThyLoadingModule,
+    ThyAlertModule,
     ThyDatepickerModule,
     ThyDatepickerNextModule,
     ThyActionMenuModule,
@@ -61,6 +66,7 @@ const IMPORT_EXPORT_MODULES = [
     ThyEmptyModule,
     ThySwitchModule,
     ThyTransferModule,
+    ThyStrengthModule,
     ThyFormModule,
     ThyInputModule,
     ThyDropdownModule,
@@ -77,19 +83,16 @@ const IMPORT_EXPORT_MODULES = [
     ThyDateRangeModule,
     // ThyKeySelectModule,
     ThyListModule,
-    ThyTreeSelectModule
+    ThyTreeSelectModule,
+    ThyStepperModule,
+    ThyCascaderModule
 ];
 
 @NgModule({
-    declarations: [
-    ],
-    imports: [
-        ProgressbarModule.forRoot(),
-        ...IMPORT_EXPORT_MODULES
-    ],
+    declarations: [],
+    imports: [ProgressbarModule.forRoot(), ...IMPORT_EXPORT_MODULES],
     exports: IMPORT_EXPORT_MODULES,
-    providers: [
-    ]
+    providers: []
 })
 export class NgxTethysModule {
     static forRoot(): ModuleWithProviders {

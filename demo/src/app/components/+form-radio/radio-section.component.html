@@ -1,16 +1,42 @@
 <section>
-    <div class="header">
-        <h2>Radio 单选</h2>
-    </div>
+    <div class="header"><h2>Radio 单选</h2></div>
     <div class="body">
         <div>
-            <label thyRadio thyInline="true" [(ngModel)]="model.checkboxInline" thyLabelText="内联展示"></label>
-            <label thyRadio thyInline="true" [(ngModel)]="model.disabled" thyLabelText="禁用"></label>
+            <label
+                thyRadio
+                thyInline="true"
+                [(ngModel)]="model.checkboxInline"
+                thyLabelText="内联展示"
+            ></label>
+            <label
+                thyRadio
+                thyInline="true"
+                [(ngModel)]="model.disabled"
+                thyLabelText="禁用"
+            ></label>
         </div>
-        <label thyRadio [thyInline]="model.checkboxInline" [(ngModel)]="model.checked1" (ngModelChange)="change()" thyLabelText="选项1"
-            [disabled]="model.disabled"></label>
-        <label thyRadio [thyInline]="model.checkboxInline" [(ngModel)]="model.checked2" thyLabelText="选项2" [disabled]="model.disabled"></label>
-        <label thyRadio [thyInline]="model.checkboxInline" [(ngModel)]="model.checked3" thyLabelText="选项3" [disabled]="model.disabled"></label>
+        <label
+            thyRadio
+            [thyInline]="model.checkboxInline"
+            [(ngModel)]="model.checked1"
+            (ngModelChange)="change()"
+            thyLabelText="选项1"
+            [disabled]="model.disabled"
+        ></label>
+        <label
+            thyRadio
+            [thyInline]="model.checkboxInline"
+            [(ngModel)]="model.checked2"
+            thyLabelText="选项2"
+            [disabled]="model.disabled"
+        ></label>
+        <label
+            thyRadio
+            [thyInline]="model.checkboxInline"
+            [(ngModel)]="model.checked3"
+            thyLabelText="选项3"
+            [disabled]="model.disabled"
+        ></label>
 
         <div>
             Model :
@@ -20,16 +46,13 @@
 </section>
 
 <section>
-    <div class="header">
-        <h2>Radio 单选分组</h2>
-    </div>
+    <div class="header"><h2>Radio 单选分组</h2></div>
     <div class="body">
         <thy-radio-group [(ngModel)]="modelGroup">
             <label thyRadio thyLabelText="选项1" thyValue="1"></label>
             <label thyRadio thyLabelText="选项2" thyValue="2"></label>
             <label thyRadio thyLabelText="选项2" thyValue="3"></label>
         </thy-radio-group>
-       
         <div>
             Model :
             <pre><code>{{modelGroup | json}}</code></pre>
@@ -37,7 +60,39 @@
     </div>
 </section>
 
+<section>
+    <div class="header"><h2>Radio Button Group</h2></div>
+    <div class="body">
+        <thy-radio-group [(ngModel)]="modelGroup" thySize="lg">
+            <label thyRadioButton thyLabelText="选项1" thyValue="1"></label>
+            <label thyRadioButton thyLabelText="选项2" thyValue="2"></label>
+            <label thyRadioButton thyLabelText="选项2" thyValue="3"></label>
+        </thy-radio-group>
+        <br/>
+        <thy-radio-group [(ngModel)]="modelGroup">
+            <label thyRadioButton thyLabelText="选项1" thyValue="1"></label>
+            <label thyRadioButton thyLabelText="选项2" thyValue="2"></label>
+            <label thyRadioButton thyLabelText="选项2" thyValue="3"></label>
+        </thy-radio-group>
+        <br/>
+        <thy-radio-group [(ngModel)]="modelGroup" thySize="sm">
+            <label thyRadioButton thyLabelText="选项1" thyValue="1"></label>
+            <label thyRadioButton thyLabelText="选项2" thyValue="2"></label>
+            <label thyRadioButton thyLabelText="选项2" thyValue="3"></label>
+        </thy-radio-group>
+        <div>
+            Model :
+            <pre><code>{{modelGroup | json}}</code></pre>
+        </div>
+    </div>
+</section>
 
-<api-parameters title="thyRadio 参数列表" [parameters]="apiParameters"></api-parameters>
+<api-parameters
+    title="thyRadio 参数列表"
+    [parameters]="apiParameters"
+></api-parameters>
 
-<api-parameters title="thy-radio-group 参数列表" [parameters]="apiGroupParameters"></api-parameters>
+<api-parameters
+    title="thy-radio-group 参数列表"
+    [parameters]="apiGroupParameters"
+></api-parameters>

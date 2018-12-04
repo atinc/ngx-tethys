@@ -76,6 +76,11 @@
         .thy-card-content {
             padding-left: 0;
             padding-right: 0;
+
+            &--alignment-title {
+                padding-left: 10px;
+                padding-right: 10px;
+            }
         }
     }
 }

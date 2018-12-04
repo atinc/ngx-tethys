@@ -16,8 +16,8 @@ export class ThyDaterangepickerContainerComponent implements OnInit {
     public store: any;
     hideLoader: Function;
     value: Date[];
-    isShowTime = false;
-    isCanTime = false;
+    // isShowTime = false;
+    // isCanTime = false;
     isMeridian = false;
     @ViewChild('dpContainer')
     private _dpContainerRef: any;
@@ -38,43 +38,43 @@ export class ThyDaterangepickerContainerComponent implements OnInit {
             _renderer
         );
     }
-
+    // 开始时间默认0:0 结束时间默认23:59，所以屏蔽掉了时间相关
     ngOnInit() {
         this.store = this.initialState.store;
-        this._initTimeShowMode();
+        // this._initTimeShowMode();
         this._initDataValue();
         this._initDatepickerComponent();
     }
 
-    onTimeOk() {
-        this._sendChangeValueEvent();
-    }
+    // onTimeOk() {
+    //     this._sendChangeValueEvent();
+    // }
 
-    onClear() {
-        this._sendChangeValueEvent([]);
-    }
+    // onClear() {
+    //     this._sendChangeValueEvent([null,null]);
+    // }
 
     hide() {
         this.hideLoader();
     }
 
-    changeTimeShowMode(type: string) {
-        switch (type) {
-            case 'can':
-                this.isCanTime = true;
-                this.isShowTime = false;
-                break;
-            case 'show':
-                this.isCanTime = false;
-                this.isShowTime = true;
-                break;
-        }
-    }
+    // changeTimeShowMode(type: string) {
+    //     switch (type) {
+    //         case 'can':
+    //             this.isCanTime = true;
+    //             this.isShowTime = false;
+    //             break;
+    //         case 'show':
+    //             this.isCanTime = false;
+    //             this.isShowTime = true;
+    //             break;
+    //     }
+    // }
 
     private _sendChangeValueEvent(result?: Date[]) {
         if (result && result.length > 1) {
             this.store.value = result;
-            this.store.withTime = this.isShowTime;
+            // this.store.withTime = this.isShowTime;
             this.initialState.changeValue();
             this.hide();
         }
@@ -90,15 +90,15 @@ export class ThyDaterangepickerContainerComponent implements OnInit {
         this.value = this.store.value;
     }
 
-    private _initTimeShowMode() {
-        if (this.store.originWithTime) {
-            this.changeTimeShowMode('show');
-        } else {
-            if (this.store.withTime) {
-                this.changeTimeShowMode('can');
-            }
-        }
-    }
+    // private _initTimeShowMode() {
+    //     if (this.store.originWithTime) {
+    //         this.changeTimeShowMode('show');
+    //     } else {
+    //         if (this.store.withTime) {
+    //             this.changeTimeShowMode('can');
+    //         }
+    //     }
+    // }
 
     private _initDatepickerComponent() {
         this._datepickerRef = this._datepicker
