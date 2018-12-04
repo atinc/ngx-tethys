@@ -1,3 +1,7 @@
+## 0.2.7
+修改 `thy-avatar` 背景样式
+修复  `thy-input` thyAutofocus 命名错误问题
+
 ## 0.2.6
 修复 `thy-loading` style
 

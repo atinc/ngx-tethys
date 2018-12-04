@@ -5,7 +5,6 @@ import { inputValueToBoolean } from '../util/helpers';
     selector: 'input[thyAutofocus],textarea[thyAutofocus]'
 })
 export class ThyAutofocusDirective {
-
     // 自动选择，用于只读的 input 输入框，方便复制粘贴
     private _autoSelect = false;
 
@@ -16,8 +15,8 @@ export class ThyAutofocusDirective {
 
     // auto focus current element
     @Input()
-    set thyAutofocus(value: boolean) {
-        if (value !== false) {
+    set thyAutofocus(value: boolean | string) {
+        if (inputValueToBoolean(value) !== false) {
             setTimeout(() => {
                 this.elementRef.nativeElement.focus();
                 if (this._autoSelect && this.elementRef.nativeElement.select) {
@@ -27,6 +26,5 @@ export class ThyAutofocusDirective {
         }
     }
 
-    constructor(private elementRef: ElementRef) { }
-
+    constructor(private elementRef: ElementRef) {}
 }
