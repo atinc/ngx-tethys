@@ -38,7 +38,7 @@ export class ThyInputComponent implements ControlValueAccessor, AfterViewInit {
 
     @Input() thySize: string;
 
-    @Input() thyAutoFocus = false;
+    @Input() thyAutofocus = false;
 
     @Input()
     set type(value: string) {
