@@ -1,3 +1,132 @@
+<section>
+    <div class="header"><h2>Input 默认</h2></div>
+    <div class="body">
+        <div class="demo-input">
+            <input
+                thyInput
+                [(ngModel)]="model.input"
+                (thyEnter)="enterInput()"
+                placeholder="请输入元素"
+            />
+            <div class="position-relative">
+                <input thyInput placeholder="请输入元素" />
+                <span class="form-control-feedback wtf wtf-schedule-o"></span>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="header"><h2>Input 大小</h2></div>
+    <div class="body">
+        <div class="demo-input">
+            <input thyInput thySize="lg" placeholder="超大输入框 44px" />
+            <input thyInput thySize="" placeholder="常规输入框 38px" />
+            <input thyInput thySize="md" placeholder="中型输入框 32px" />
+            <input thyInput thySize="sm" placeholder="小型输入框 28px" />
+            <input thyInput thySize="xs" placeholder="微小输入框 24px" />
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="header"><h2>支持自定义模板Input</h2></div>
+    <div class="body">
+        <div style="width: 700px;">
+            <thy-input [(ngModel)]="model.input" [thyAutofocus]="true">
+                <ng-template #prepend>
+                    <div [thyActionMenuToggle]="menu1">中国+86</div>
+                </ng-template>
+                <ng-template #append>
+                    <a> <span thyLabel="default">获取验证码</span></a>
+                </ng-template>
+            </thy-input>
+            <ng-template #menu1>
+                <thy-action-menu>
+                    <a thyActionMenuItem>
+                        <span thyActionMenuItemName>中国+86</span>
+                    </a>
+                    <a thyActionMenuItem>
+                        <span thyActionMenuItemName>台湾+886</span>
+                    </a>
+                    <a thyActionMenuItem>
+                        <span thyActionMenuItemName>日本+81</span>
+                    </a>
+                </thy-action-menu>
+            </ng-template>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="header"><h2>Password输入框</h2></div>
+    <div class="body">
+        <div style="width: 700px;">
+            <thy-input [(ngModel)]="model.input" thyType="password">
+            </thy-input>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="header"><h2>Input Group</h2></div>
+    <div class="body">
+        <div class="demo-input">
+            <thy-input-group thyAppendText="$" thyPrependText="前置">
+                <input thyInput placeholder="请输入元素" />
+            </thy-input-group>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="header"><h2>自定义 prepend 和 append 模板</h2></div>
+    <div class="body">
+        <div class="demo-input">
+            <thy-input-group>
+                <input thyInput placeholder="请输入元素" />
+                <ng-template #prepend>
+                    <span class="input-group-text">前置文案1</span>
+                    <span class="input-group-text">前置文案2</span>
+                </ng-template>
+                <ng-template #append>
+                    <button thyButton="outline-primary" type="button">
+                        Button
+                    </button>
+                    <span class="input-group-text">后置文案2</span>
+                </ng-template>
+            </thy-input-group>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="header"><h2>搜索</h2></div>
+    <div class="body">
+        <form>
+            <div class="demo-input">
+                <h4>Default Input Search</h4>
+                <thy-input-search
+                    name="search"
+                    (keydown.enter)="enter()"
+                    [(ngModel)]="model.searchText"
+                    (clear)="searchModelChange()"
+                ></thy-input-search>
+                <br />
+                <h4>Ellipse Input Search</h4>
+                <thy-input-search
+                    name="search1"
+                    (keydown.enter)="enter()"
+                    [thySearchFocus]="true"
+                    thyTheme="ellipse"
+                    [(ngModel)]="model.searchText"
+                    (ngModelChange)="searchModelChange()"
+                ></thy-input-search>
+                <br />
+                <span> searchText: {{ model.searchText || 'None' }}</span>
+            </div>
+        </form>
+    </div>
+</section>
 
 <section>
     <div class="header"><h2>label</h2></div>
@@ -24,7 +153,7 @@
                 <thy-input
                     thySize="md"
                     thyLabelText="姓名"
-                    [thyAutofocus]="false"
+                    thyAutofocus="false"
                     name="input-label"
                     [(ngModel)]="model.searchText"
                     placeholder="请输入您的姓名"
@@ -32,7 +161,7 @@
                 <thy-input
                     thySize="sm"
                     thyLabelText="姓名"
-                    [thyAutofocus]="false"
+                    thyAutofocus="false"
                     name="input-label"
                     [(ngModel)]="model.searchText"
                     placeholder="请输入您的姓名"
