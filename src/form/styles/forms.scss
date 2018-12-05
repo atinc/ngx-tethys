@@ -127,7 +127,7 @@
 .col-form-label-lg {
     padding-top: calc(#{$input-padding-y-lg} + #{$input-border-width});
     padding-bottom: calc(#{$input-padding-y-lg} + #{$input-border-width});
-    font-size: $font-size-lg;
+    font-size: $font-size-base;
     line-height: $input-line-height-lg;
 }
 
@@ -184,7 +184,7 @@
 
 .form-control-lg {
     padding: $input-padding-y-lg $input-padding-x-lg;
-    font-size: $font-size-md;
+    // font-size: $font-size-md;
     line-height: $input-line-height-lg;
     @include border-radius($input-border-radius-lg);
 }
@@ -214,6 +214,21 @@
     line-height: $input-line-height-md;
     @include border-radius($input-border-radius-md);
 }
+
+
+.form-control-active {
+    color: $input-focus-color;
+    background-color: $input-focus-bg;
+    border-color: $input-focus-border-color;
+    outline: 0;
+    // Avoid using mixin so we can pass custom focus shadow properly
+    @if $enable-shadows {
+      box-shadow: $input-box-shadow, $input-focus-box-shadow;
+    } @else {
+      box-shadow: $input-focus-box-shadow;
+    }
+}
+
 
 // Form groups
 //
