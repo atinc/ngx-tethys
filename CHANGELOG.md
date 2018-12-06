@@ -1,3 +1,13 @@
+## 0.2.7
+修改 `thy-avatar` 背景样式
+修复  `thy-input` thyAutofocus 命名错误问题
+
+## 0.2.6
+修复 `thy-loading` style
+
+## 0.2.5
+修复 `thy-input` focus 状态下没有显示边bug
+
 ## 0.2.4 
 修改 `thy-input` lg 尺寸的placeholder 字号改为 14px
 

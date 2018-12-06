@@ -62,6 +62,8 @@ export class ThyAvatarComponent implements OnInit {
         this._showRemove = inputValueToBoolean(value);
     }
 
+    @Input() thyImgClass: string;
+
     private _setAvatarSize(size: number) {
         if (sizeArray.indexOf(size) > -1) {
             this._size = size;
