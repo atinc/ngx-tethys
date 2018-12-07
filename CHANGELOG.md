@@ -1,5 +1,22 @@
+## 0.2.8
+扩展 `thy-editor` 支持传入placeholder
+
+## 0.2.7
+修改 `thy-avatar` 背景样式
+修复  `thy-input` thyAutofocus 命名错误问题
+
+## 0.2.6
+修复 `thy-loading` style
+
+## 0.2.5
+修复 `thy-input` focus 状态下没有显示边bug
+
 ## 0.2.4 
 修改 `thy-input` lg 尺寸的placeholder 字号改为 14px
+
+## 0.2.3
+修改 `thy-input` 支持 thyAutoFocus
+扩展 `[min]` `[max]` 验证指令
 
 ## 0.2.2
 移除 `thy-input-label` 扩展 `thy-input` 添加 `thyLabelText` 属性
