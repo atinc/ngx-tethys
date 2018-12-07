@@ -17,7 +17,12 @@ export class ThyEditorComponent implements OnInit, ControlValueAccessor, OnDestr
 
     public model: any;
 
-    @Input() config: {};
+    @Input() config: {
+        type: string;
+        placeholder: string;
+    };
+
+    public placeholder: string;
 
     public className: String = '';
 
@@ -148,6 +153,11 @@ export class ThyEditorComponent implements OnInit, ControlValueAccessor, OnDestr
     ngOnInit(): void {
         this.thyEditorService.initEditor(this.config, this.elementRef);
         this._thyFullClass = this.thyEditorService.options.isHeightFull;
+        if (this.config && this.config.placeholder) {
+            this.placeholder = this.config.placeholder;
+        }else{
+            this.placeholder = '输入内容...';
+        }
     }
 
     ngOnDestroy() {

@@ -1,3 +1,6 @@
+## 0.2.8
+扩展 `thy-editor` 支持传入placeholder
+
 ## 0.2.7
 修改 `thy-avatar` 背景样式
 修复  `thy-input` thyAutofocus 命名错误问题
