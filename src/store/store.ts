@@ -1,15 +1,22 @@
-
-import { Observable, Observer, BehaviorSubject, from, of, PartialObserver, Subscription } from 'rxjs';
+import {
+    Observable,
+    Observer,
+    BehaviorSubject,
+    from,
+    of,
+    PartialObserver,
+    Subscription
+} from 'rxjs';
 import { distinctUntilChanged, map, shareReplay } from 'rxjs/operators';
 import { META_KEY, StoreMetaInfo } from './types';
+import { helpers } from '../util';
 
 interface Action {
     type: string;
     payload?: any;
 }
 
-export class Store<T extends Object> implements Observer<T> {
-
+export class Store<T extends object> implements Observer<T> {
     [key: string]: any;
 
     protected state$: BehaviorSubject<T>;
@@ -34,7 +41,9 @@ export class Store<T extends Object> implements Observer<T> {
     private _dispatch(action: any): Observable<any> {
         const meta = this[META_KEY] as StoreMetaInfo;
         if (!meta) {
-            throw new Error(`${META_KEY} is not found, current store has not action`);
+            throw new Error(
+                `${META_KEY} is not found, current store has not action`
+            );
         }
         const actionMeta = meta.actions[action.type];
         if (!actionMeta) {
@@ -57,7 +66,7 @@ export class Store<T extends Object> implements Observer<T> {
         return result.pipe(shareReplay());
     }
 
-    select(selector: (state: any) => T): Observable<T>;
+    select(selector: (state: T) => Partial<T>): Observable<T> | Observable<Partial<T>>;
     select(selector: string | any): Observable<any>;
     select(selector: any): Observable<any> {
         return this.state$.pipe(
@@ -78,7 +87,23 @@ export class Store<T extends Object> implements Observer<T> {
         this.state$.complete();
     }
 
-    subscribe(next?: (value: T) => void, error?: (error: any) => void, complete?: () => void): Subscription {
+    subscribe(
+        next?: (value: T) => void,
+        error?: (error: any) => void,
+        complete?: () => void
+    ): Subscription {
         return this.state$.subscribe(next, error, complete);
+    }
+
+    setState(fn: T | ((newState: T) => T)): void {
+        if (helpers.isFunction(fn)) {
+            this.next((fn as any)(this.snapshot));
+        } else {
+            this.next(fn as T);
+        }
+    }
+
+    getState(): T {
+        return this.snapshot;
     }
 }

@@ -20,5 +20,8 @@
         "uploader",
         "uploaders",
         "deletable"
+    ],
+    "cSpell.words": [
+        "Newable"
     ]
 }

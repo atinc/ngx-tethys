@@ -34,7 +34,7 @@ describe('select', () => {
             constructor(store: StringSelectStore) {
                 this.state = store.select((state) => {
                     return state;
-                });
+                }) as Observable<StringSelectState>;
 
                 this.subState = store.select((state: StringSelectState) => {
                     return state.baz;

@@ -11,3 +11,17 @@ export interface StoreMetaInfo {
     children: any[];
     instance: any;
 }
+
+export interface Id {
+    toString(): string;
+}
+
+export interface PaginationInfo {
+    count?: number;
+    pageCount?: number;
+    pageIndex?: number;
+    pageSize?: number;
+}
+
+
+// export type Newable<T> = { new (...args: any[]): T };
