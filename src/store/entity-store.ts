@@ -30,7 +30,7 @@ export class EntityStore<
     constructor(
         initialState = {
             pageIndex: 1,
-            entities: []
+            entities: [] as TEntity[]
         },
         options: EntityStoreOptions = { idKey: '_id' }
     ) {
@@ -98,8 +98,8 @@ export class EntityStore<
     update(
         id: Id | Id[] | null,
         newStateFn: ((entity: Readonly<TEntity>) => Partial<TEntity>)
-    );
-    update(id: Id | Id[] | null, newState?: Partial<TEntity>);
+    ): void;
+    update(id: Id | Id[] | null, newState?: Partial<TEntity>): void;
     update(
         idsOrFn:
             | Id
@@ -111,13 +111,13 @@ export class EntityStore<
         newStateOrFn?:
             | ((entity: Readonly<TEntity>) => Partial<TEntity>)
             | Partial<TEntity>
-    ) {
+    ): void {
         const ids = helpers.coerceArray(idsOrFn);
 
         const state = this.snapshot;
         for (let i = 0; i < state.entities.length; i++) {
             const oldEntity = state.entities[i];
-            if (ids.includes(oldEntity[this.options.idKey])) {
+            if (ids.indexOf(oldEntity[this.options.idKey]) > -1) {
                 const newState = helpers.isFunction(newStateOrFn)
                     ? (newStateOrFn as any)(oldEntity)
                     : newStateOrFn;
@@ -136,9 +136,11 @@ export class EntityStore<
      * this.store.remove(entity => entity.id === 1);
      * this.store.remove();
      */
-    remove(id: Id | Id[]);
-    remove(predicate: (entity: Readonly<TEntity>) => boolean);
-    remove(idsOrFn?: Id | Id[] | ((entity: Readonly<TEntity>) => boolean)) {
+    remove(id: Id | Id[]): void;
+    remove(predicate: (entity: Readonly<TEntity>) => boolean): void;
+    remove(
+        idsOrFn?: Id | Id[] | ((entity: Readonly<TEntity>) => boolean)
+    ): void {
         const state = this.snapshot;
         if (helpers.isFunction(idsOrFn)) {
             state.entities = state.entities.filter(entity => {
@@ -147,7 +149,7 @@ export class EntityStore<
         } else {
             const ids = helpers.coerceArray(idsOrFn);
             state.entities = state.entities.filter(entity => {
-                return !ids.includes(entity[this.options.idKey]);
+                return ids.indexOf(entity[this.options.idKey]) === -1;
             });
         }
         this.next(state);
