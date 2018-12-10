@@ -1,8 +1,8 @@
 <div cdkOverlayOrigin #origin="cdkOverlayOrigin" #trigger>
     <div *ngIf="thyShowInput">
-        <thy-input #input [thyAutofocus]="false" [readonly]="true" [placeholder]="showPlaceholder ? thyPlaceHolder : ''"></thy-input>
+        <input #input thyInput type="text" readonly [placeholder]="showPlaceholder ? thyPlaceHolder : ''" />
         <i *ngIf="!isLoading" class="wtf wtf-angle-down" [ngClass]="arrowCls"></i>
-        <i *ngIf="!isLoading && labelRenderText" class="wtf wtf-times-circle" [ngClass]="clearCls" (click)="clearSelection($event)"></i>
+        <i *ngIf="!isLoading && labelRenderText" class="wtf wtf-close" [ngClass]="clearCls" (click)="clearSelection($event)"></i>
         <span [ngClass]="labelCls">
             <ng-container *ngIf="!isLabelRenderTemplate">{{ labelRenderText }}</ng-container>
             <ng-template #labelTemplate>
@@ -21,7 +21,7 @@
                 <ng-container>
                     {{ getOptionLabel(option) }}
                 </ng-container>
-                <span *ngIf="!option.isLeaf || option.children && option.children.length || option.loading" class="ant-cascader-menu-item-expand-icon">
+                <span *ngIf="!option.isLeaf || option.children && option.children.length || option.loading" class="wtf wtf-angle-right thy-cascader-menu-item-expand-icon">
                 </span>
         </ul>
     </div>

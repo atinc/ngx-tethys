@@ -79,8 +79,7 @@ export interface CascaderOption {
     styles: [
         `
             .thy-cascader-menus {
-                margin-top: 4px;
-                margin-bottom: 4px;
+                margin-top: 10px;
                 top: 100%;
                 left: 0;
                 position: relative;
