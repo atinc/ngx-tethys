@@ -1,6 +1,6 @@
 ## 0.2.9
-1. add EntityStore lite version to support crud operations
-2. Store Action 支持直接调用，需要注意的是直接调用第一个参数不是 State，需要通过 this.snapshot 或者 this.getState() 获取
+1. add EntityStore lite version to support crud operations [ed0e12b844582f5fd08134f18adf8899ce85b9a7](https://github.com/worktile/ngx-tethys/commit/ed0e12b844582f5fd08134f18adf8899ce85b9a7)
+2. Store Action 支持直接调用，需要注意的是直接调用第一个参数不是 State，需要通过 this.snapshot 或者 this.getState() 获取 [b1da195096590be45031c2c3a9c45da64a0c8dde](https://github.com/worktile/ngx-tethys/commit/b1da195096590be45031c2c3a9c45da64a0c8dde)
 
 ## 0.2.8
 扩展 `thy-editor` 支持传入placeholder
