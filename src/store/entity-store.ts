@@ -51,12 +51,6 @@ export class EntityStore<
         state.entities = entities || [];
         state.pagination = pagination;
         this.next(state);
-        // this.setState(state => {
-        //     return {
-        //         ...(state as any),
-        //         entities: entities || []
-        //     };
-        // });
     }
 
     /**

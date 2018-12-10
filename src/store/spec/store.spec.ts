@@ -21,7 +21,14 @@ describe('Store: Store', () => {
         @Action({
             type: 'loadMe'
         })
-        private loadMe(state: AppState, payload) {
+        public loadMe(state: AppState, payload) {
+            state.me = payload;
+            this.next(state);
+        }
+
+        @Action()
+        public loadMeDirectly(payload:any) {
+            const state = this.snapshot;
             state.me = payload;
             this.next(state);
         }
@@ -89,6 +96,26 @@ describe('Store: Store', () => {
             timer++;
         });
         appStore.dispatch('loadMe', {
+            name: 'peter1'
+        });
+    });
+
+    it('store directly call action method dispatch', () => {
+        const appStore = new AppStateStore();
+        let timer = 0;
+        appStore.select((state: AppState) => {
+            return state.me;
+        }).subscribe((me) => {
+            if (timer === 0) {
+                expect(me).toBe(null);
+            } else if (timer === 1) {
+                expect(me).toEqual({
+                    name: 'peter1'
+                });
+            }
+            timer++;
+        });
+        appStore.loadMeDirectly({
             name: 'peter1'
         });
     });

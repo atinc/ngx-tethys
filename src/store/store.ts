@@ -49,7 +49,12 @@ export class Store<T extends object> implements Observer<T> {
         if (!actionMeta) {
             throw new Error(`${action.type} is not found`);
         }
-        let result: any = this[actionMeta.fn](this.snapshot, action.payload);
+        // let result: any = this[actionMeta.fn](this.snapshot, action.payload);
+        let result: any = actionMeta.originalFn.call(
+            this,
+            this.snapshot,
+            action.payload
+        );
 
         if (result instanceof Promise) {
             result = from(result);
@@ -66,7 +71,9 @@ export class Store<T extends object> implements Observer<T> {
         return result.pipe(shareReplay());
     }
 
-    select(selector: (state: T) => Partial<T>): Observable<T> | Observable<Partial<T>>;
+    select(
+        selector: (state: T) => Partial<T>
+    ): Observable<T> | Observable<Partial<T>>;
     select(selector: string | any): Observable<any>;
     select(selector: any): Observable<any> {
         return this.state$.pipe(

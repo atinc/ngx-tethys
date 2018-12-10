@@ -1,3 +1,7 @@
+## 0.2.9
+1. add EntityStore lite version to support crud operations
+2. Store Action 支持直接调用，需要注意的是直接调用第一个参数不是 State，需要通过 this.snapshot 或者 this.getState() 获取
+
 ## 0.2.8
 扩展 `thy-editor` 支持传入placeholder
 
