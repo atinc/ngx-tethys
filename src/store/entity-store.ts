@@ -8,6 +8,8 @@ export interface EntityStoreOptions {
 
 export interface EntityAddOptions {
     prepend?: boolean;
+    // 如果是最后追加，自动跳转到最后一页
+    autoGotoLastPage?: boolean;
 }
 
 export interface EntityState<TEntity> {
@@ -21,7 +23,26 @@ export class EntityStore<
     TState extends EntityState<TEntity>,
     TEntity
 > extends Store<TState> {
-    private options: EntityStoreOptions;
+    protected options: EntityStoreOptions;
+
+    private resetPagination(pagination: PaginationInfo, count: number) {
+        pagination.count = count;
+        // 向上取整 21 / 20 = 1.05 = 2 pageCount is 2
+        const pageCount = Math.ceil(pagination.count / pagination.pageSize);
+        pagination.pageCount = pageCount;
+    }
+
+    private increasePagination(amount: number) {
+        const pagination = this.snapshot.pagination;
+        this.resetPagination(pagination, pagination.count + amount);
+    }
+
+    private decreasePagination(amount: number) {
+        const pagination = this.snapshot.pagination;
+        if (pagination) {
+            this.resetPagination(pagination, pagination.count - amount);
+        }
+    }
 
     get entities() {
         return this.snapshot.entities;
@@ -43,10 +64,10 @@ export class EntityStore<
      * Replace current collection with provided collection
      *
      * @example
-     * this.store.set([Entity, Entity]);
+     * this.store.initialize([Entity, Entity]);
      *
      */
-    set(entities: TEntity[], pagination: PaginationInfo) {
+    initialize(entities: TEntity[], pagination: PaginationInfo) {
         const state = this.snapshot;
         state.entities = entities || [];
         state.pagination = pagination;
@@ -71,6 +92,17 @@ export class EntityStore<
             state.entities = [...addEntities, ...state.entities];
         } else {
             state.entities = [...state.entities, ...addEntities];
+        }
+        if (state.pagination) {
+            this.increasePagination(addEntities.length);
+            if (
+                addOptions &&
+                !addOptions.prepend &&
+                addOptions.autoGotoLastPage
+            ) {
+                state.pageIndex = state.pagination.pageIndex =
+                    state.pagination.pageCount;
+            }
         }
         this.next(state);
     }
@@ -134,7 +166,6 @@ export class EntityStore<
      * this.store.remove(5);
      * this.store.remove([1,2,3]);
      * this.store.remove(entity => entity.id === 1);
-     * this.store.remove();
      */
     remove(id: Id | Id[]): void;
     remove(predicate: (entity: Readonly<TEntity>) => boolean): void;
@@ -142,6 +173,7 @@ export class EntityStore<
         idsOrFn?: Id | Id[] | ((entity: Readonly<TEntity>) => boolean)
     ): void {
         const state = this.snapshot;
+        const originalLength = state.entities.length;
         if (helpers.isFunction(idsOrFn)) {
             state.entities = state.entities.filter(entity => {
                 return !(idsOrFn as any)(entity);
@@ -152,6 +184,7 @@ export class EntityStore<
                 return ids.indexOf(entity[this.options.idKey]) === -1;
             });
         }
+        this.decreasePagination(originalLength - state.entities.length);
         this.next(state);
     }
 

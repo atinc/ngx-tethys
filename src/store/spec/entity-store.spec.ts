@@ -1,4 +1,4 @@
-import { EntityStore, EntityState } from '../entity-store';
+import { EntityStore, EntityState, EntityStoreOptions } from '../entity-store';
 
 describe('Store: EntityStore', () => {
     interface UserInfo {
@@ -9,8 +9,11 @@ describe('Store: EntityStore', () => {
     interface UserEntityState extends EntityState<UserInfo> {}
 
     class UserEntityStore extends EntityStore<UserEntityState, UserInfo> {
-        constructor(initialState?: UserEntityState) {
-            super(initialState);
+        constructor(
+            initialState?: UserEntityState,
+            options?: EntityStoreOptions
+        ) {
+            super(initialState, options);
         }
     }
 
@@ -30,9 +33,9 @@ describe('Store: EntityStore', () => {
         ).toEqual('111');
     });
 
-    it('store set value', () => {
+    it('store initialize value', () => {
         const userEntityStore = new UserEntityStore();
-        userEntityStore.set(initialUserEntities, {
+        userEntityStore.initialize(initialUserEntities, {
             pageIndex: 1,
             pageSize: 20,
             pageCount: 20
@@ -56,7 +59,11 @@ describe('Store: EntityStore', () => {
         beforeEach(() => {
             userEntityStore = new UserEntityStore({
                 entities: initialUserEntities,
-                pagination: null,
+                pagination: {
+                    pageIndex: 1,
+                    pageSize: 10,
+                    count: initialUserEntities.length
+                },
                 pageIndex: 1
             });
         });
@@ -107,6 +114,44 @@ describe('Store: EntityStore', () => {
                 ...addUserEntities
             ]);
         });
+
+        it('store add entities goto last page', () => {
+            userEntityStore = new UserEntityStore({
+                entities: initialUserEntities,
+                pagination: {
+                    pageIndex: 1,
+                    pageSize: 10,
+                    pageCount: 1,
+                    count: initialUserEntities.length
+                },
+                pageIndex: 1
+            });
+            const addUserEntities = [];
+            for (let index = 0; index < 9; index++) {
+                addUserEntities.push({
+                    _id: index + 2,
+                    name: `${index + 2} user`
+                });
+            }
+            const state = userEntityStore.snapshot;
+            expect(state.pageIndex).toEqual(1);
+            expect(state.pagination).toEqual({
+                pageIndex: 1,
+                count: initialUserEntities.length,
+                pageSize: 10,
+                pageCount: 1
+            });
+            userEntityStore.add(addUserEntities, {
+                autoGotoLastPage: true
+            });
+            expect(state.pageIndex).toEqual(2);
+            expect(state.pagination).toEqual({
+                pageIndex: 2,
+                count: initialUserEntities.length + addUserEntities.length,
+                pageSize: 10,
+                pageCount: 2
+            });
+        });
     });
 
     describe('remove', () => {
@@ -115,14 +160,31 @@ describe('Store: EntityStore', () => {
         beforeEach(() => {
             userEntityStore = new UserEntityStore({
                 entities: initialUserEntities,
-                pagination: null,
+                pagination: {
+                    pageCount: 1,
+                    pageIndex: 1,
+                    pageSize: 10,
+                    count: 2
+                },
                 pageIndex: 1
             });
         });
 
         it(`remove by id`, () => {
-            userEntityStore.remove('1');
             const state = userEntityStore.snapshot;
+            expect(state.pagination).toEqual({
+                pageCount: 1,
+                pageIndex: 1,
+                pageSize: 10,
+                count: 2
+            });
+            userEntityStore.remove('1');
+            expect(state.pagination).toEqual({
+                pageCount: 1,
+                pageIndex: 1,
+                pageSize: 10,
+                count: 1
+            });
             expect(state.entities).toEqual(
                 initialUserEntities.filter(item => {
                     return item._id !== '1';
@@ -147,6 +209,40 @@ describe('Store: EntityStore', () => {
                     name: 'user 2'
                 }
             ]);
+        });
+
+        it(`remove triggered pagination changed`, () => {
+            const userEntities = [];
+            for (let index = 0; index < 11; index++) {
+                userEntities.push({
+                    _id: `${index + 1}`,
+                    name: `${index + 1} name`
+                });
+            }
+            userEntityStore = new UserEntityStore({
+                entities: userEntities,
+                pagination: {
+                    pageCount: 2,
+                    pageIndex: 1,
+                    pageSize: 10,
+                    count: 11
+                },
+                pageIndex: 1
+            });
+            const state = userEntityStore.snapshot;
+            expect(state.pagination).toEqual({
+                pageCount: 2,
+                pageIndex: 1,
+                pageSize: 10,
+                count: 11
+            });
+            userEntityStore.remove('1');
+            expect(state.pagination).toEqual({
+                pageCount: 1,
+                pageIndex: 1,
+                pageSize: 10,
+                count: 10
+            });
         });
     });
 
