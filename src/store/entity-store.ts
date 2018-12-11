@@ -1,6 +1,7 @@
 import { Store } from './store';
 import { Id, PaginationInfo } from './types';
 import { helpers } from '../util';
+import { Observable } from 'rxjs';
 
 export interface EntityStoreOptions {
     idKey: string;
@@ -46,6 +47,12 @@ export class EntityStore<
 
     get entities() {
         return this.snapshot.entities;
+    }
+
+    get entities$(): Observable<TEntity[]> {
+        return this.select((state: TState) => {
+            return state.entities;
+        });
     }
 
     constructor(
