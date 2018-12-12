@@ -1,7 +1,29 @@
 .thy-cascader {
     position: relative;
     display: inline-block;
+    cursor: pointer;
+    border: $input-border-width solid $input-border-color;
+    border-radius: $input-border-radius-xs;
+    &:hover:not(&-picker-disabled):not(.is-invalid) {
+        border-color: $input-hover-border-color;
+    }
+    &-input.form-control {
+        border: none !important;
+        cursor: pointer;
+    }
+    &-xs, &-sm {
+        font-size: 0.75rem;
+    }
     &-picker {
+        &-open {
+            border-color: $input-hover-border-color;
+        }
+        &-disabled {
+            border-color: $input-border-width solid $gray-400;
+        }
+        &-disabled &-arrow {
+            color: $input-border-color;
+        }
         &-label {
             position: absolute;
             left: 0;
@@ -39,7 +61,6 @@
             color: $gray-500;
             margin-top: -7px;
             line-height: 1;
-            cursor: pointer;
             transition: color 0.3s ease, opacity 0.15s ease;
             &:hover {
                 color: $gray-700;

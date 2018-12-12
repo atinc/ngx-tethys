@@ -48,9 +48,15 @@ function arrayEquals<T>(array1: T[], array2: T[]): boolean {
 
 const defaultDisplayRender = (label: any) => label.join(' / ');
 
-export type ThyCascaderSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 export type ThyCascaderTriggerType = 'click' | 'hover';
 export type ThyCascaderExpandTrigger = 'click' | 'hover';
+
+const inputGroupSizeMap = {
+    'xs': ['form-control-xs'],
+    'sm': ['form-control-sm'],
+    'md': ['form-control-md'],
+    'lg': ['form-control-lg']
+};
 
 export interface CascaderOption {
     value?: any;
@@ -102,11 +108,13 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
     public isLoading = false;
     public isOpening = false;
     public showSearch = false;
+    private _thySize = 'md';
 
     private _arrowCls: { [name: string]: any };
     private _menuCls: { [name: string]: any };
     private _labelCls: { [name: string]: any };
     private _clearCls: { [name: string]: any };
+    private _inputCls: { [name: string]: any };
 
     private labelRenderTpl: TemplateRef<any>;
     public isLabelRenderTemplate = false;
@@ -210,6 +218,16 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
     @Input()
     disabled = false;
 
+    @Input()
+    set thySize(v: string) {
+        this._thySize = v;
+
+    }
+
+    get thySize() {
+        return this._thySize;
+    }
+
     @Output() thyChange = new EventEmitter<any[]>();
 
     @Output() thySelectionChange = new EventEmitter<CascaderOption[]>();
@@ -238,7 +256,8 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
         const classMap = {
             [`${this.prefixCls}`]: true,
             [`${this.prefixCls}-picker`]: true,
-            //   [ `${this.prefixCls}-picker-disabled` ]  : this.disabled,
+            [`${this.prefixCls}-${this.thySize}`]: true,
+            [ `${this.prefixCls}-picker-disabled` ]  : this.disabled,
             //   [ `${this.prefixCls}-focused` ]          : this.isFocused,
             [`${this.prefixCls}-picker-open`]: this.menuVisible
             //   [ `${this.prefixCls}-picker-with-value` ]: this.inputValue && this.inputValue.length
@@ -253,6 +272,7 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
         this.setArrowClass();
         this.setLabelClass();
         this.setClearClass();
+        this.setInputClass();
     }
 
     public get menuCls(): any {
@@ -311,7 +331,7 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
         };
     }
 
-    @HostListener('click', [ '$event' ])
+    @HostListener('click', ['$event'])
     public trggleClick($event: Event) {
         if (this.disabled) {
             return;
@@ -640,6 +660,16 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
         };
     }
 
+    public get inputCls(): any {
+        return this._inputCls;
+    }
+
+    private setInputClass(): void {
+        this._inputCls = {
+            [`${this.prefixCls}-input`]: true
+        };
+    }
+
     // @HostListener('click', ['$event'])
     // public onTriggerClick(event: MouseEvent): void {
     //     this.onTouched();
@@ -665,9 +695,9 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
                 typeof value === 'object'
                     ? value
                     : {
-                          [`${this.thyValueProperty || 'value'}`]: value,
-                          [`${this.thyLabelProperty || 'label'}`]: value
-                      };
+                        [`${this.thyValueProperty || 'value'}`]: value,
+                        [`${this.thyLabelProperty || 'label'}`]: value
+                    };
         }
         this.setActiveOption(option, index, false, false);
     }

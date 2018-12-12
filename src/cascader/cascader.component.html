@@ -1,6 +1,6 @@
 <div cdkOverlayOrigin #origin="cdkOverlayOrigin" #trigger>
-    <div *ngIf="thyShowInput">
-        <input #input thyInput type="text" readonly [placeholder]="showPlaceholder ? thyPlaceHolder : ''" />
+    <ng-container *ngIf="thyShowInput">
+        <input #input thyInput type="text" [thySize]="thySize" [ngClass]="inputCls" readonly [placeholder]="showPlaceholder ? thyPlaceHolder : ''" />
         <i *ngIf="!isLoading" class="wtf wtf-angle-down" [ngClass]="arrowCls"></i>
         <i *ngIf="!isLoading && labelRenderText" class="wtf wtf-close" [ngClass]="clearCls" (click)="clearSelection($event)"></i>
         <span [ngClass]="labelCls">
@@ -9,7 +9,7 @@
                 <ng-template [ngTemplateOutlet]="thyLabelRender" [ngTemplateOutletContext]="labelRenderContext"></ng-template>
             </ng-template>
         </span>
-    </div>
+    </ng-container>
 </div>
 <ng-template cdkConnectedOverlay cdkConnectedOverlayHasBackdrop cdkConnectedOverlayBackdropClass="thy-cascader-backdrop"
     [cdkConnectedOverlayOrigin]="origin" [cdkConnectedOverlayPositions]="positions" (backdropClick)="closeMenu()"
