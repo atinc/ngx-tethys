@@ -55,11 +55,13 @@ const options = [{
     ]
 })
 export class DemoCascaderSectionComponent implements OnInit {
+
+    public ngModel = 'zhejiang';
     /** init data */
     public thyOptions = null;
 
     /** ngModel value */
-    public values: any[] = null;
+    public values: any[] = [''];
 
     ngOnInit(): void {
         // let's set nzOptions in a asynchronous way

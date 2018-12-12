@@ -16,13 +16,13 @@
     (detach)="closeMenu()" (positionChange)="onPositionChange($event)" [cdkConnectedOverlayOpen]="menuVisible">
     <div #menu [ngClass]="menuCls" [ngStyle]="thyMenuStyle" (mouseleave)="onTriggerMouseLeave($event)">
         <ul *ngFor="let options of thyColumns; let i = index;" [ngClass]="menuColumnCls">
-            <li *ngFor="let option of options" [attr.title]="option.title || getOptionLabel(option)" (click)="onOptionClick(option, i, $event)"
+            <li thy-cascader-option
+                *ngFor="let option of options" 
+                [option]="option"
+                (click)="onOptionClick(option, i, $event)"
+                [thyLabelProperty]="thyLabelProperty"
                 [ngClass]="getOptionCls(option, i)">
-                <ng-container>
-                    {{ getOptionLabel(option) }}
-                </ng-container>
-                <span *ngIf="!option.isLeaf || option.children && option.children.length || option.loading" class="wtf wtf-angle-right thy-cascader-menu-item-expand-icon">
-                </span>
+            </li>
         </ul>
     </div>
 </ng-template>

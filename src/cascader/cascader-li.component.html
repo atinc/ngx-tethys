@@ -1,0 +1,5 @@
+<ng-container>
+    {{ getOptionLabel() }}
+</ng-container>
+<span *ngIf="!option.isLeaf || option.children && option.children.length || option.loading" class="wtf wtf-angle-right thy-cascader-menu-item-expand-icon">
+</span>

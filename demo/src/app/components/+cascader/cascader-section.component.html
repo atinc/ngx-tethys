@@ -22,6 +22,7 @@
       <p>小</p>
       <div class="body demo-select">
             <thy-cascader [thyOptions]="thyOptions" 
+            [(ngModel)]="values"
             (ngModelChange)="onChanges($event)"
             thyPlaceHolder="自定义PlaceHolder"
             [thySize]="'sm'"
@@ -43,6 +44,16 @@
             (ngModelChange)="onChanges($event)"
             thyPlaceHolder="自定义PlaceHolder"
             [thySize]="'lg'"
+            style="width:200px;">
+            </thy-cascader>
+      </div>
+      <p>实时选择中(带默认值)</p>
+      <div class="body demo-select">
+            <thy-cascader [thyOptions]="thyOptions" 
+            (ngModelChange)="onChanges($event)"
+            thyPlaceHolder="自定义PlaceHolder"
+            [(ngModel)]="ngModel" 
+            [thyChangeOnSelect]="true"
             style="width:200px;">
             </thy-cascader>
       </div>
