@@ -21,7 +21,7 @@
                 [option]="option"
                 (click)="onOptionClick(option, i, $event)"
                 [thyLabelProperty]="thyLabelProperty"
-                [ngClass]="getOptionCls(option, i)">
+                [active]="isActivedOption(option,i)">
             </li>
         </ul>
     </div>

@@ -51,13 +51,6 @@ const defaultDisplayRender = (label: any) => label.join(' / ');
 export type ThyCascaderTriggerType = 'click' | 'hover';
 export type ThyCascaderExpandTrigger = 'click' | 'hover';
 
-const inputGroupSizeMap = {
-    'xs': ['form-control-xs'],
-    'sm': ['form-control-sm'],
-    'md': ['form-control-md'],
-    'lg': ['form-control-lg']
-};
-
 export interface CascaderOption {
     value?: any;
     label?: string;
@@ -367,7 +360,7 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
         return !(this.hasInput() || this.hasValue());
     }
 
-    private isActivedOption(option: CascaderOption, index: number): boolean {
+    public isActivedOption(option: CascaderOption, index: number): boolean {
         const activeOpt = this.activatedOptions[index];
         return activeOpt === option;
     }
@@ -417,36 +410,6 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
                 // this.beforeVisible();
             }
             // this.thyVisibleChange.emit(menuVisible);
-        }
-    }
-
-    /**
-     * 显示或者隐藏菜单
-     *
-     * @param visible true-显示，false-隐藏
-     * @param delay 延迟时间
-     */
-    public delaySetMenuVisible(
-        visible: boolean,
-        delay: number,
-        setOpening: boolean = false
-    ): void {
-        // this.clearDelayTimer();
-        if (delay) {
-            if (visible && setOpening) {
-                this.isOpening = true;
-            }
-            // this.delayTimer = setTimeout(() => {
-            //     this.setMenuVisible(visible);
-            //     this.clearDelayTimer();
-            //     if (visible) {
-            //         setTimeout(() => {
-            //             this.isOpening = false;
-            //         }, 100);
-            //     }
-            // }, delay);
-        } else {
-            this.setMenuVisible(visible);
         }
     }
 
@@ -515,19 +478,6 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
     private setInputClass(): void {
         this._inputCls = {
             [`${this.prefixCls}-input`]: true
-        };
-    }
-
-    /** 获取列中Option的样式 */
-    public getOptionCls(option: CascaderOption, index: number): any {
-        return {
-            [`${this.prefixCls}-menu-item`]: true,
-            [`${this.prefixCls}-menu-item-expand`]: !option.isLeaf,
-            [`${this.prefixCls}-menu-item-active`]: this.isActivedOption(
-                option,
-                index
-            ),
-            [`${this.prefixCls}-menu-item-disabled`]: option.disabled
         };
     }
 

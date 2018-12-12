@@ -1,8 +1,14 @@
-
-import { Component, OnInit, Input, HostBinding, ElementRef, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    Input,
+    HostBinding,
+    ElementRef,
+    ChangeDetectionStrategy,
+    ViewEncapsulation
+} from '@angular/core';
 import { CascaderOption } from './cascader.component';
 import { UpdateHostClassService } from '../shared/update-host-class.service';
-
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -12,21 +18,29 @@ import { UpdateHostClassService } from '../shared/update-host-class.service';
     providers: [UpdateHostClassService]
 })
 export class ThyCascaderOptionComponent implements OnInit {
-
     @Input() option: CascaderOption;
 
+    @HostBinding('class.thy-cascader-menu-item') item = true;
+
+    @HostBinding('class.thy-cascader-menu-item-active')
     @Input()
-    thyLabelProperty: string;
+    active = false;
 
-    constructor() {
-
+    @HostBinding('class.thy-cascader-menu-item-disabled')
+    get disabled() {
+        return this.option.disabled;
     }
+
+    @HostBinding('class.thy-cascader-menu-item-expand') expand =
+        this.option && !this.option.isLeaf;
+
+    @Input() thyLabelProperty: string;
+
+    constructor() {}
 
     public getOptionLabel() {
-        return this.option ? this.option[this.thyLabelProperty || 'label']: '';
+        return this.option ? this.option[this.thyLabelProperty || 'label'] : '';
     }
 
-    ngOnInit() {
-    }
-
+    ngOnInit() {}
 }
