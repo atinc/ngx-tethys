@@ -14,7 +14,7 @@
 <ng-template cdkConnectedOverlay cdkConnectedOverlayHasBackdrop cdkConnectedOverlayBackdropClass="thy-cascader-backdrop"
     [cdkConnectedOverlayOrigin]="origin" [cdkConnectedOverlayPositions]="positions" (backdropClick)="closeMenu()"
     (detach)="closeMenu()" (positionChange)="onPositionChange($event)" [cdkConnectedOverlayOpen]="menuVisible">
-    <div #menu [ngClass]="menuCls" [ngStyle]="thyMenuStyle" (mouseleave)="onTriggerMouseLeave($event)">
+    <div #menu [ngClass]="menuCls" [ngStyle]="thyMenuStyle">
         <ul *ngFor="let options of thyColumns; let i = index;" [ngClass]="menuColumnCls">
             <li thy-cascader-option
                 *ngFor="let option of options" 
