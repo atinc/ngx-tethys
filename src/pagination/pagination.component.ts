@@ -1,4 +1,13 @@
-import { Component, Input, HostBinding, OnInit, Output, EventEmitter, forwardRef, Provider } from '@angular/core';
+import {
+    Component,
+    Input,
+    HostBinding,
+    OnInit,
+    Output,
+    EventEmitter,
+    forwardRef,
+    Provider
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 // import { ConfigModel } from './models';
 
@@ -21,7 +30,6 @@ export const PAGINATION_CONTROL_VALUE_ACCESSOR: Provider = {
 })
 export class ThyPaginationComponent implements ControlValueAccessor, OnInit {
 
-
     /** === 以下选项 为兼容 ngx-bootstrap 用； === */
     @Input() align: boolean;
     @Input() maxSize: number;
@@ -35,31 +43,21 @@ export class ThyPaginationComponent implements ControlValueAccessor, OnInit {
     @Input() pageBtnClass: string;
     /** ===   === */
 
-
-
     @HostBinding('class.thy-pagination') _pagination = true;
 
     @HostBinding('class.disabled')
     @Input()
     disabled: boolean;
 
-    // config: ConfigModel ;
-    // tslint:disable-next-line:no-inferrable-types
-    protected _page: number = 1;
+    protected _page = 1;
     protected _itemsPerPage: number;
     protected _totalItems: number;
     protected _totalPages: number;
-    // tslint:disable-next-line:no-inferrable-types
-    private reservedNum: number = 2;
-    // tslint:disable-next-line:no-inferrable-types
-    private pagerSize: number = 7;
-
+    private reservedNum = 2;
+    private pagerSize = 7;
     public pagerCount: number = this.pagerSize + this.reservedNum * 2;
-
-    private onTouchedCallback: () => void = function () { };
-    private onChangeCallback: (_: number) => void = function () { };
-
-    // tslint:disable-next-line:member-ordering
+    private onTouchedCallback: () => void = function() {};
+    private onChangeCallback: (_: number) => void = function() {};
 
     // tslint:disable-next-line:member-ordering
     @Output() numPages: EventEmitter<number> = new EventEmitter<number>();
@@ -94,6 +92,7 @@ export class ThyPaginationComponent implements ControlValueAccessor, OnInit {
     get totalPages(): number {
         return this._totalPages;
     }
+
     set totalPages(v: number) {
         this._totalPages = v;
         this.numPages.emit(v);
@@ -103,8 +102,8 @@ export class ThyPaginationComponent implements ControlValueAccessor, OnInit {
     get page(): number {
         return this._page;
     }
-    set page(v: number) {
 
+    set page(v: number) {
         this.pageChanged.emit({
             page: this._page,
             itemsPerPage: this.itemsPerPage
@@ -125,21 +124,20 @@ export class ThyPaginationComponent implements ControlValueAccessor, OnInit {
     registerOnChange(fn: any) {
         this.onChangeCallback = fn;
     }
+
     registerOnTouched(fn: any) {
         this.onTouchedCallback = fn;
     }
 
-    constructor(
-    ) {
-    }
+    constructor() {}
 
     ngOnInit() {
-        this.itemsPerPage = typeof this.itemsPerPage !== 'undefined' ? this.itemsPerPage : 10;
+        this.itemsPerPage =
+            typeof this.itemsPerPage !== 'undefined' ? this.itemsPerPage : 20;
 
         if (typeof this.totalPages === 'undefined') {
             this.totalPages = this.calculateTotalPages();
         }
-
     }
 
     nextHandle(step: number): void {
@@ -147,12 +145,19 @@ export class ThyPaginationComponent implements ControlValueAccessor, OnInit {
             return;
         }
         const nextPage: number = this.page + step;
-        this.page = nextPage < 1 ? 1 : nextPage > this.totalPages ? this.totalPages : nextPage;
+        this.page =
+            nextPage < 1
+                ? 1
+                : nextPage > this.totalPages
+                ? this.totalPages
+                : nextPage;
     }
 
-
     protected calculateTotalPages(): number {
-        const totalPages = this.itemsPerPage < 1 ? 1 : Math.ceil(this.totalItems / this.itemsPerPage);
+        const totalPages =
+            this.itemsPerPage < 1
+                ? 1
+                : Math.ceil(this.totalItems / this.itemsPerPage);
         return Math.max(totalPages || 0, 1);
     }
 }
