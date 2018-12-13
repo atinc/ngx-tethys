@@ -1,0 +1,5 @@
+
+<button class="thy-pagination-btn btn-prev wtf wtf-angle-left" *ngIf="page > 1" (click)="nextHandle(-1)"></button>
+<thy-pagination-pager [reservedNum]="reservedNum" [pagerSize]="pagerSize" [current]="page" [count]="totalPages" (next)="nextHandle($event)" ></thy-pagination-pager>
+<button class="thy-pagination-btn btn-next wtf wtf-angle-right" *ngIf="page < totalPages" (click)="nextHandle(1)"></button>
+<thy-pagination-jump *ngIf="totalPages > pagerCount" [page]="page" [max]="totalPages" (next)="nextHandle($event)" [disabled]="disabled"></thy-pagination-jump>
