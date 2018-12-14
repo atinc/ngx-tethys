@@ -4,6 +4,14 @@ $thy-dialog-border-radius: 4px !default;
 $thy-dialog-max-height: 65vh !default;
 $thy-dialog-button-margin: 8px !default;
 
+.thy-dialog-md {
+    width: $dialog-md;
+}
+
+.thy-dialog-sm {
+    width: $dialog-sm;
+}
+
 .thy-dialog-container {
   display: block;
   padding: $thy-dialog-padding;

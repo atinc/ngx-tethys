@@ -1,52 +1,89 @@
-import { Injectable, TemplateRef, Injector, Optional } from '@angular/core';
+import {
+    Injectable,
+    TemplateRef,
+    Injector,
+    Optional,
+    OnDestroy
+} from '@angular/core';
 import { Location } from '@angular/common';
-import { of } from 'rxjs';
+import { of, Subject } from 'rxjs';
 import {
     ComponentType,
     PortalInjector,
     ComponentPortal,
     TemplatePortal
 } from '@angular/cdk/portal';
-import { ThyDialogConfig, THY_DIALOG_SCROLL_STRATEGY } from './dialog.config';
-import { Overlay, OverlayConfig, OverlayRef, ScrollStrategy } from '@angular/cdk/overlay';
+import { ThyDialogConfig, THY_DIALOG_SCROLL_STRATEGY, DialogSizes } from './dialog.config';
+import {
+    Overlay,
+    OverlayConfig,
+    OverlayRef,
+    ScrollStrategy
+} from '@angular/cdk/overlay';
 import { ThyDialogContainerComponent } from './dialog-container.component';
 import { ThyDialogRef } from './dialog-ref';
 import { Directionality } from '@angular/cdk/bidi';
-
+import { helpers } from '../util';
 
 /** @docs-private */
-export function THY_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Overlay):
-  () => ScrollStrategy {
-  return () => overlay.scrollStrategies.block();
+export function THY_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY(
+    overlay: Overlay
+): () => ScrollStrategy {
+    return () => overlay.scrollStrategies.block();
 }
 
 /** @docs-private */
 export const MAT_DIALOG_SCROLL_STRATEGY_PROVIDER = {
-  provide: THY_DIALOG_SCROLL_STRATEGY,
-  deps: [Overlay],
-  useFactory: THY_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY,
+    provide: THY_DIALOG_SCROLL_STRATEGY,
+    deps: [Overlay],
+    useFactory: THY_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY
 };
 
-@Injectable()
-export class ThyDialog {
-    constructor(
-        private overlay: Overlay,
-        private injector: Injector,
-        @Optional() private location: Location
-    ) {}
+@Injectable({
+    providedIn: 'root'
+})
+export class ThyDialog implements OnDestroy {
+    private openedDialogs: ThyDialogRef<any>[] = [];
+
+    private readonly _afterAllClosed = new Subject<void>();
+
+    private readonly _afterOpened = new Subject<ThyDialogRef<any>>();
+
+    private applyConfigDefaults(
+        config?: ThyDialogConfig,
+        defaultOptions?: ThyDialogConfig
+    ): ThyDialogConfig {
+        return { ...defaultOptions, ...config };
+    }
+
+    private getOverlayPanelClasses(dialogConfig: ThyDialogConfig) {
+        let classes = [`cdk-overlay-pane`];
+        const size = dialogConfig.size || DialogSizes.md;
+        classes.push(`thy-dialog-${size}`);
+        if (dialogConfig.panelClass) {
+            if (helpers.isArray(dialogConfig.panelClass)) {
+                classes = classes.concat(dialogConfig.panelClass);
+            } else {
+                classes.push(dialogConfig.panelClass as string);
+            }
+        }
+        return classes;
+    }
 
     private getOverlayConfig(dialogConfig: ThyDialogConfig): OverlayConfig {
         const overlayConfig = new OverlayConfig({
-          positionStrategy: this.overlay.position().global(),
-          scrollStrategy: dialogConfig.scrollStrategy || this.overlay.scrollStrategies.block(),
-          panelClass: dialogConfig.panelClass,
-          hasBackdrop: dialogConfig.hasBackdrop,
-          direction: dialogConfig.direction,
-          minWidth: dialogConfig.minWidth,
-          minHeight: dialogConfig.minHeight,
-          maxWidth: dialogConfig.maxWidth,
-          maxHeight: dialogConfig.maxHeight,
-        //   disposeOnNavigation: dialogConfig.closeOnNavigation
+            positionStrategy: this.overlay.position().global(),
+            scrollStrategy:
+                dialogConfig.scrollStrategy ||
+                this.overlay.scrollStrategies.block(),
+            panelClass: this.getOverlayPanelClasses(dialogConfig),
+            hasBackdrop: dialogConfig.hasBackdrop,
+            direction: dialogConfig.direction,
+            minWidth: dialogConfig.minWidth,
+            minHeight: dialogConfig.minHeight,
+            maxWidth: dialogConfig.maxWidth,
+            maxHeight: dialogConfig.maxHeight
+            //   disposeOnNavigation: dialogConfig.closeOnNavigation
         });
 
         if (dialogConfig.backdropClass) {
@@ -54,7 +91,7 @@ export class ThyDialog {
         }
 
         return overlayConfig;
-      }
+    }
 
     private createInjector<T>(
         config: ThyDialogConfig,
@@ -131,7 +168,7 @@ export class ThyDialog {
         // When the dialog backdrop is clicked, we want to close it.
         if (config.hasBackdrop) {
             overlayRef.backdropClick().subscribe(() => {
-                if (!dialogRef.disableBackdropClose) {
+                if (dialogRef.backdropClickClosable) {
                     dialogRef.close();
                 }
             });
@@ -163,11 +200,39 @@ export class ThyDialog {
         return dialogRef;
     }
 
+    private removeOpenedDialog(dialogRef: ThyDialogRef<any>) {
+        const index = this.openedDialogs.indexOf(dialogRef);
+
+        if (index > -1) {
+            this.openedDialogs.splice(index, 1);
+
+            // If all the dialogs were closed, remove/restore the `aria-hidden`
+            // to a the siblings and emit to the `afterAllClosed` stream.
+            if (!this.openedDialogs.length) {
+                // this._ariaHiddenElements.forEach((previousValue, element) => {
+                //   if (previousValue) {
+                //     element.setAttribute('aria-hidden', previousValue);
+                //   } else {
+                //     element.removeAttribute('aria-hidden');
+                //   }
+                // });
+                // this._ariaHiddenElements.clear();
+                this._afterAllClosed.next();
+            }
+        }
+    }
+
+    constructor(
+        private overlay: Overlay,
+        private injector: Injector,
+        @Optional() private location: Location
+    ) {}
+
     open<T, TData = any, TResult = any>(
         componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
         config?: ThyDialogConfig<TData>
     ): ThyDialogRef<T, TResult> {
-        config = applyConfigDefaults(config, new ThyDialogConfig());
+        config = this.applyConfigDefaults(config, new ThyDialogConfig());
         const overlayConfig: OverlayConfig = this.getOverlayConfig(config);
         const overlayRef = this.overlay.create(overlayConfig);
         const dialogContainer = this.attachDialogContainer(overlayRef, config);
@@ -177,11 +242,49 @@ export class ThyDialog {
             overlayRef,
             config
         );
+
+        this.openedDialogs.push(dialogRef);
+        dialogRef
+            .afterClosed()
+            .subscribe(() => this.removeOpenedDialog(dialogRef));
+        this._afterOpened.next(dialogRef);
+
         return dialogRef;
     }
-}
 
-function applyConfigDefaults(
-    config?: ThyDialogConfig, defaultOptions?: ThyDialogConfig): ThyDialogConfig {
-  return {...defaultOptions, ...config};
+    afterAllClosed() {
+        return this._afterAllClosed;
+    }
+
+    afterOpened() {
+        return this._afterOpened;
+    }
+
+    getDialogById(id: string): ThyDialogRef<any> | undefined {
+        return this.openedDialogs.find(dialog => dialog.id === id);
+    }
+
+    close() {
+        if (this.openedDialogs.length > 0) {
+            const lastDialogRef = this.openedDialogs[
+                this.openedDialogs.length - 1
+            ];
+            if (lastDialogRef) {
+                lastDialogRef.close();
+            }
+        }
+    }
+
+    closeAll() {
+        let i = this.openedDialogs.length;
+        while (i--) {
+            // 不需要操作 openedDialogs, 因为 close 会触发 afterClosed 的订阅
+            // 触发订阅后会自动从 openedDialogs 中移除
+            this.openedDialogs[i].close();
+        }
+    }
+
+    ngOnDestroy() {
+        this.closeAll();
+    }
 }

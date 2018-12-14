@@ -28,8 +28,15 @@ export interface DialogPosition {
     right?: string;
 }
 
+export enum DialogSizes {
+    lg = 'lg',
+    maxLg = 'max-lg',
+    md = 'md',
+    sm = 'sm'
+}
+
 /**
- * Configuration for opening a modal dialog with the MatDialog service.
+ * Configuration for opening a modal dialog with the ThyDialog service.
  */
 export class ThyDialogConfig<TData = any> {
     /**
@@ -47,16 +54,16 @@ export class ThyDialogConfig<TData = any> {
     role?: DialogRole = 'dialog';
 
     /** Custom class for the overlay pane. */
-    panelClass?: string | string[] = '';
+    panelClass?: string | string[] = ''; // 'thy-dialog-panel';
 
     /** Whether the dialog has a backdrop. */
     hasBackdrop? = true;
 
     /** Custom class for the backdrop, */
-    backdropClass? = '';
+    backdropClass? = ''; // 'thy-dialog-backdrop';
 
     /** Whether the user can use escape or clicking on the backdrop to close the modal. */
-    disableBackdropClose? = false;
+    backdropClickClosable? = true;
 
     /** Width of the dialog. */
     width? = '';
@@ -81,6 +88,9 @@ export class ThyDialogConfig<TData = any> {
 
     /** Data being injected into the child component. */
     data?: TData | null = null;
+
+    /** Dialog size md, lg, sm*/
+    size?: DialogSizes;
 
     /** Layout direction for the dialog's content. */
     direction?: Direction;

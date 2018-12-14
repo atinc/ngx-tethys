@@ -1,13 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { ThyDialog } from '../../../../../src/dialog';
 import { helpers } from '../../../../../src/util';
 import { DemoDialogContentComponent } from './dialog-content.component';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'demo-dialog-section',
     templateUrl: './dialog-section.component.html'
 })
-export class DemoDialogSectionComponent {
+export class DemoDialogSectionComponent implements OnDestroy {
+    private ngUnsubscribe$ = new Subject();
+
     public apiParameters = [
         {
             property: 'ngModel',
@@ -17,9 +21,24 @@ export class DemoDialogSectionComponent {
         }
     ];
 
-    constructor(private thyDialog: ThyDialog) {}
+    constructor(private thyDialog: ThyDialog) {
+        thyDialog
+            .afterOpened()
+            .pipe(takeUntil(this.ngUnsubscribe$))
+            .subscribe(dialog => {
+                console.log(dialog);
+            });
+    }
 
     openComponentDialog() {
         const dialogRef = this.thyDialog.open(DemoDialogContentComponent, {});
+        dialogRef.afterClosed().subscribe(result => {
+            console.log(`Dialog result: ${result}`);
+        });
+    }
+
+    ngOnDestroy(): void {
+        this.ngUnsubscribe$.next();
+        this.ngUnsubscribe$.complete();
     }
 }

@@ -14,8 +14,8 @@ export class ThyDialogRef<T, TResult = any> {
     componentInstance: T;
 
     /** Whether the user is allowed to close the dialog. */
-    disableBackdropClose: boolean | undefined = this.containerInstance.config
-        .disableBackdropClose;
+    backdropClickClosable: boolean | undefined = this.containerInstance.config
+        .backdropClickClosable;
 
     /** Subject for notifying the user that the dialog has finished opening. */
     private readonly _afterOpened = new Subject<void>();
@@ -29,11 +29,17 @@ export class ThyDialogRef<T, TResult = any> {
     /** Result to be passed to afterClosed. */
     private _result: TResult | undefined;
 
+    /** Fetches the position strategy object from the overlay ref. */
+    private _getPositionStrategy(): GlobalPositionStrategy {
+        return this.overlayRef.getConfig()
+            .positionStrategy as GlobalPositionStrategy;
+    }
+
     constructor(
         private overlayRef: OverlayRef,
         public containerInstance: ThyDialogContainerComponent,
         _location?: Location,
-        readonly id: string = `mat-dialog-${uniqueId++}`
+        readonly id: string = `thy-dialog-${uniqueId++}`
     ) {
         // Pass the id along to the container.
         // containerInstance._id = id;
@@ -75,39 +81,11 @@ export class ThyDialogRef<T, TResult = any> {
         overlayRef
             .keydownEvents()
             .pipe(
-                filter(event => event.keyCode === ESCAPE && !this.disableBackdropClose)
+                filter(
+                    event => event.keyCode === ESCAPE && this.backdropClickClosable
+                )
             )
             .subscribe(() => this.close());
-
-        // // If the dialog has a backdrop, handle clicks from the backdrop.
-        // if (containerInstance.config.hasBackdrop) {
-        //     overlayRef.backdropClick().subscribe(() => {
-        //         if (!this.disableBackdropClose) {
-        //             this.close();
-        //         }
-        //     });
-        // }
-
-        // this.beforeClosed().subscribe(() => {
-        //     this.overlayRef.detachBackdrop();
-        // });
-
-        // this.afterClosed().subscribe(() => {
-        //     this.overlayRef.detach();
-        //     this.overlayRef.dispose();
-        //     this.componentInstance = null;
-        // });
-
-        // // Close when escape keydown event occurs
-        // overlayRef
-        //     .keydownEvents()
-        //     .pipe(
-        //         filter(
-        //             event =>
-        //                 event.keyCode === ESCAPE && !this.disableBackdropClose
-        //         )
-        //     )
-        //     .subscribe(() => this.close());
     }
 
     /**
@@ -204,29 +182,5 @@ export class ThyDialogRef<T, TResult = any> {
             .height(height);
         this.overlayRef.updatePosition();
         return this;
-    }
-
-    /**
-     * Gets an observable that is notified when the dialog is finished opening.
-     * @deprecated Use `afterOpened` instead.
-     * @breaking-change 8.0.0
-     */
-    afterOpen(): Observable<void> {
-        return this.afterOpened();
-    }
-
-    /**
-     * Gets an observable that is notified when the dialog has started closing.
-     * @deprecated Use `beforeClosed` instead.
-     * @breaking-change 8.0.0
-     */
-    beforeClose(): Observable<TResult | undefined> {
-        return this.beforeClosed();
-    }
-
-    /** Fetches the position strategy object from the overlay ref. */
-    private _getPositionStrategy(): GlobalPositionStrategy {
-        return this.overlayRef.getConfig()
-            .positionStrategy as GlobalPositionStrategy;
     }
 }
