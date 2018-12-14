@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./pagination.scss']
 })
 export class DemoPaginationComponent implements OnInit {
-    public page_ = 2;
+    public page_ = 8;
 
     public apiThyPaginationParameters = [
         {
@@ -29,7 +29,7 @@ export class DemoPaginationComponent implements OnInit {
         },
         {
             property: 'thyMaxSize',
-            description: `分页的长度 固定选项 ： 'sm' | 'md'`,
+            description: `分页的长度 固定选项 ：'xs' | 'sm' | 'md'`,
             type: 'String',
             default: 'md'
         },
