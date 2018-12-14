@@ -53,7 +53,7 @@ export class ThyPaginationComponent implements ControlValueAccessor, OnInit {
 
     @Input() thyJump: boolean;
 
-    @Input() thyMaxSize: ThyPaginationMaxSize;
+    @Input() thySize: ThyPaginationMaxSize;
 
     private _nativeElement: any;
     protected _page = 1;
@@ -151,10 +151,10 @@ export class ThyPaginationComponent implements ControlValueAccessor, OnInit {
         this.itemsPerPage =
             typeof this.itemsPerPage !== 'undefined' ? this.itemsPerPage : 20;
 
-        this.thyMaxSize =
-            typeof this.thyMaxSize !== 'undefined' ? this.thyMaxSize : 'md';
+        this.thySize =
+            typeof this.thySize !== 'undefined' ? this.thySize : 'md';
 
-        this._setMaxSize(this.thyMaxSize);
+        this._setSize(this.thySize);
 
         this.thyJump =
             typeof this.thyJump !== 'undefined' ? this.thyJump : true;
@@ -187,7 +187,7 @@ export class ThyPaginationComponent implements ControlValueAccessor, OnInit {
         return Math.max(totalPages || 0, 1);
     }
 
-    protected _setMaxSize(v: ThyPaginationMaxSize) {
+    protected _setSize(v: ThyPaginationMaxSize) {
         switch (v) {
             case 'sm':
                 this.reservedNum = 1;

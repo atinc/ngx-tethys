@@ -28,7 +28,7 @@ export class DemoPaginationComponent implements OnInit {
             default: '-'
         },
         {
-            property: 'thyMaxSize',
+            property: 'thySize',
             description: `分页的长度 固定选项 ：'xs' | 'sm' | 'md'`,
             type: 'String',
             default: 'md'
