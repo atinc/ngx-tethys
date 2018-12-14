@@ -22,9 +22,9 @@
         <thy-pagination [(ngModel)]="page_" [totalItems]="2000" thyMaxSize="sm" [itemsPerPage]="20" ></thy-pagination>
     </div>
 
-    <div class="header"><p><code>thyMaxSize</code> 传入 <code>'xs'</code>  更改长度 </p></div>
+    <div class="header"><p><code>thyMaxSize</code> 传入 <code>'xs'</code>  切换分页 </p></div>
     <div class="body">
-        <thy-pagination [(ngModel)]="page_" [totalItems]="200" thyMaxSize="xs" [itemsPerPage]="20" ></thy-pagination>
+        <thy-pagination [(ngModel)]="page_" [totalItems]="2000" thyMaxSize="xs" [itemsPerPage]="20" ></thy-pagination>
     </div>
 
 </section>
@@ -50,6 +50,8 @@
             [totalItems]="1000"
             [itemsPerPage]="20"
         ></thy-pagination>
+        <br>
+        <thy-pagination [(ngModel)]="page_" [totalItems]="2000" thyMaxSize="xs" [itemsPerPage]="20" [disabled]="true" ></thy-pagination>
     </div>
 </section>
 
