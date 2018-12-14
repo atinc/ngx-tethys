@@ -6,15 +6,17 @@ import {
     Output,
     EventEmitter,
     forwardRef,
-    Provider
+    Provider,
+    ElementRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-// import { ConfigModel } from './models';
 
 export interface PageChangedEvent {
     itemsPerPage: number;
     page: number;
 }
+
+export type ThyPaginationMaxSize = 'xs' | 'sm' | 'md';
 
 export const PAGINATION_CONTROL_VALUE_ACCESSOR: Provider = {
     provide: NG_VALUE_ACCESSOR,
@@ -29,7 +31,6 @@ export const PAGINATION_CONTROL_VALUE_ACCESSOR: Provider = {
     providers: [PAGINATION_CONTROL_VALUE_ACCESSOR]
 })
 export class ThyPaginationComponent implements ControlValueAccessor, OnInit {
-
     /** === 以下选项 为兼容 ngx-bootstrap 用； === */
     @Input() align: boolean;
     @Input() maxSize: number;
@@ -49,13 +50,19 @@ export class ThyPaginationComponent implements ControlValueAccessor, OnInit {
     @Input()
     disabled: boolean;
 
+    @Input() thyJump: boolean;
+
+    @Input() thyMaxSize: ThyPaginationMaxSize;
+
+    private _nativeElement: any;
     protected _page = 1;
     protected _itemsPerPage: number;
     protected _totalItems: number;
     protected _totalPages: number;
-    private reservedNum = 2;
-    private pagerSize = 7;
-    public pagerCount: number = this.pagerSize + this.reservedNum * 2;
+    public reservedNum: number;
+    public pagerSize: number;
+    public inited = false;
+    public pagerCount: number;
     private onTouchedCallback: () => void = function() {};
     private onChangeCallback: (_: number) => void = function() {};
 
@@ -104,15 +111,18 @@ export class ThyPaginationComponent implements ControlValueAccessor, OnInit {
     }
 
     set page(v: number) {
+        const _previous = this._page;
+        this._page = v > this.totalPages ? this.totalPages : v || 1;
+        this.onChangeCallback(v);
+
+        if (_previous === this._page || typeof _previous === 'undefined') {
+            return;
+        }
+
         this.pageChanged.emit({
             page: this._page,
             itemsPerPage: this.itemsPerPage
         });
-
-        if (v !== this._page) {
-            this._page = v;
-            this.onChangeCallback(v);
-        }
     }
 
     writeValue(page: number) {
@@ -135,9 +145,19 @@ export class ThyPaginationComponent implements ControlValueAccessor, OnInit {
         this.itemsPerPage =
             typeof this.itemsPerPage !== 'undefined' ? this.itemsPerPage : 20;
 
+        this.thyMaxSize =
+            typeof this.thyMaxSize !== 'undefined' ? this.thyMaxSize : 'md';
+
+        this._setMaxSize(this.thyMaxSize);
+
+        this.thyJump =
+            typeof this.thyJump !== 'undefined' ? this.thyJump : true;
+
         if (typeof this.totalPages === 'undefined') {
             this.totalPages = this.calculateTotalPages();
         }
+
+        this.inited = true;
     }
 
     nextHandle(step: number): void {
@@ -159,5 +179,26 @@ export class ThyPaginationComponent implements ControlValueAccessor, OnInit {
                 ? 1
                 : Math.ceil(this.totalItems / this.itemsPerPage);
         return Math.max(totalPages || 0, 1);
+    }
+
+    protected _setMaxSize(v: ThyPaginationMaxSize) {
+        switch (v) {
+            case 'sm':
+                this.reservedNum = 1;
+                this.pagerSize = 5;
+                break;
+            case 'md':
+                this.reservedNum = 2;
+                this.pagerSize = 7;
+                break;
+            case 'xs':
+                this.thyJump =
+                    typeof this.thyJump !== 'undefined' ? this.thyJump : false;
+                this.reservedNum = 1;
+                this.pagerSize = 1;
+                break;
+        }
+
+        this.pagerCount = this.pagerSize + this.reservedNum * 2;
     }
 }

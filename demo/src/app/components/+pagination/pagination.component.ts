@@ -13,7 +13,7 @@ export class DemoPaginationComponent implements OnInit {
             property: 'itemsPerPage',
             description: `每页条目数量`,
             type: 'Number',
-            default: '10'
+            default: '20'
         },
         {
             property: 'totalItems',
@@ -28,9 +28,21 @@ export class DemoPaginationComponent implements OnInit {
             default: '-'
         },
         {
+            property: 'thyMaxSize',
+            description: `分页的长度 固定选项 ： 'sm' | 'md'`,
+            type: 'String',
+            default: 'md'
+        },
+        {
+            property: 'thyJump',
+            description: `显示跳转组件`,
+            type: 'Boolean',
+            default: 'true'
+        },
+        {
             property: 'disabled',
-            description: ``,
-            type: 'boolean',
+            description: `禁用`,
+            type: 'Boolean',
             default: 'false'
         }
     ];

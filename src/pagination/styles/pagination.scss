@@ -149,7 +149,8 @@
 .__initial-hover {
     cursor: initial;
     background-color: $white;
-    border: 1px solid $gray-200;
+    border-width: 1px;
+    border-color: $gray-200;
     color: $gray-500;
 }
 
@@ -167,6 +168,10 @@
     &.btn-next {
         border-radius: 0 3px 3px 0;
         border-left: none;
+    }
+
+    &.disabled{
+        display: none;
     }
 }
 

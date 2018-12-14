@@ -9,19 +9,38 @@
     <div class="body">
         <thy-pagination
             [(ngModel)]="page_"
-            [totalItems]="1000"
+            [totalItems]="2000"
+            
         ></thy-pagination>
         <br />
         <p>当前页 ：{{ page_ }}</p>
     </div>
 </section>
 <section>
-    <div class="header"><p>当总页数过少的情况下不会显示跳转组件</p></div>
+    <div class="header"><p><code>thyMaxSize</code> 传入 <code>'sm'</code>  更改长度 </p></div>
     <div class="body">
-        <thy-pagination [(ngModel)]="page_" [totalItems]="100"></thy-pagination>
+        <thy-pagination [(ngModel)]="page_" [totalItems]="2000" thyMaxSize="sm" [itemsPerPage]="20" ></thy-pagination>
     </div>
+
+    <div class="header"><p><code>thyMaxSize</code> 传入 <code>'xs'</code>  更改长度 </p></div>
+    <div class="body">
+        <thy-pagination [(ngModel)]="page_" [totalItems]="200" thyMaxSize="xs" [itemsPerPage]="20" ></thy-pagination>
+    </div>
+
 </section>
 
+<section>
+    <div class="header"><p>当总页数过少的情况下不会显示跳转组件</p></div>
+    <div class="body">
+        <thy-pagination [(ngModel)]="page_" [totalItems]="50" [itemsPerPage]="10" ></thy-pagination>
+    </div>
+    <div class="header"><p>也可以将<code>thyJump</code> 传入 <code>false</code> 关闭跳转</p></div>
+    <div class="body">
+        <thy-pagination [(ngModel)]="page_" [totalItems]="2000" [thyJump]="false" [itemsPerPage]="20" ></thy-pagination>
+        <br>
+        <thy-pagination [(ngModel)]="page_" [totalItems]="2000" [thyJump]="false" thyMaxSize="sm" [itemsPerPage]="20" ></thy-pagination>
+    </div>
+</section>
 <section>
     <div class="header"><h2>禁用状态</h2></div>
     <div class="body">
@@ -29,6 +48,7 @@
             [(ngModel)]="page_"
             [disabled]="true"
             [totalItems]="1000"
+            [itemsPerPage]="20"
         ></thy-pagination>
     </div>
 </section>
