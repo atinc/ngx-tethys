@@ -6,14 +6,14 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./pagination.scss']
 })
 export class DemoPaginationComponent implements OnInit {
-    public page_ = 2;
+    public page_ = 8;
 
     public apiThyPaginationParameters = [
         {
             property: 'itemsPerPage',
             description: `每页条目数量`,
             type: 'Number',
-            default: '10'
+            default: '20'
         },
         {
             property: 'totalItems',
@@ -28,9 +28,21 @@ export class DemoPaginationComponent implements OnInit {
             default: '-'
         },
         {
+            property: 'thySize',
+            description: `分页的长度 固定选项 ：'xs' | 'sm' | 'md'`,
+            type: 'String',
+            default: 'md'
+        },
+        {
+            property: 'thyJump',
+            description: `显示跳转组件`,
+            type: 'Boolean',
+            default: 'true'
+        },
+        {
             property: 'disabled',
-            description: ``,
-            type: 'boolean',
+            description: `禁用`,
+            type: 'Boolean',
             default: 'false'
         }
     ];

@@ -1,6 +1,6 @@
 import {
     Component,
-    Input,  
+    Input,
     OnInit,
     Output,
     EventEmitter,
@@ -13,7 +13,6 @@ import {
     templateUrl: './pagination-pager.component.html'
 })
 export class ThyPaginationPagerComponent implements OnInit, OnChanges {
-
     @Input() current: number;
 
     @Input() count: number;
@@ -22,11 +21,13 @@ export class ThyPaginationPagerComponent implements OnInit, OnChanges {
 
     @Input() pagerSize: number;
 
+    @Input() mini: boolean;
+
     @Output() clickPage: EventEmitter<number> = new EventEmitter<number>();
 
-    private pagers: number[];
-    private showPrevMore: Boolean = false;
-    private showNextMore: Boolean = false;
+    public pagers: number[];
+    public showPrevMore: Boolean = false;
+    public showNextMore: Boolean = false;
 
     constructor() {}
 
@@ -39,6 +40,12 @@ export class ThyPaginationPagerComponent implements OnInit, OnChanges {
     }
 
     makePagers(current: number, count: number): number[] {
+        if (this.mini) {
+            this.setMoreBtn(false, false);
+            const target = [current,count];
+            return target;
+        }
+
         const pagerCount: number = this.pagerSize + this.reservedNum * 2;
         if (count <= pagerCount) {
             this.setMoreBtn(false, false);
