@@ -13,6 +13,7 @@ import { DemoModalSectionComponent } from './components/+modal/modal-section.com
 import { DemoCardSectionComponent } from './components/+card/card-section.component';
 import { DemoLoadingSectionComponent } from './components/+loading/loading-section.component';
 import { DemoAlertSectionComponent } from './components/+alert/alert-section.component';
+import { DemoPaginationComponent } from './components/+pagination/pagination.component';
 import { DemoActionMenuSectionComponent } from './components/+action-menu/action-menu-section.component';
 import { DemoConfirmSectionComponent } from './components/+confirm/confirm-section.component';
 import { DemoTreeSectionComponent } from './components/+tree/tree-section.component';
@@ -40,6 +41,7 @@ import { DemoTreeSelectSectionComponent } from './components/+tree-select/tree-s
 import { DemoStrengthComponent } from './components/+strength/strength-section.component';
 import { DemoStepperSectionComponent } from './components/+stepper/stepper-section.component';
 import { DemoCascaderSectionComponent } from './components/+cascader/cascader-section.component';
+import { DemoDialogSectionComponent } from './components/+dialog/dialog-section.component';
 
 const appRoutes = [
     {
@@ -103,6 +105,10 @@ const appRoutes = [
         component: DemoModalSectionComponent
     },
     {
+        path: 'components/dialog',
+        component: DemoDialogSectionComponent
+    },
+    {
         path: 'components/confirm',
         component: DemoConfirmSectionComponent
     },
@@ -133,6 +139,10 @@ const appRoutes = [
     {
         path: 'components/alert',
         component: DemoAlertSectionComponent
+    },
+    {
+        path: 'components/pagination',
+        component: DemoPaginationComponent
     },
     {
         path: 'components/tree',

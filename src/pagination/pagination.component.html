@@ -1,0 +1,26 @@
+<button
+    class="thy-pagination-btn btn-prev wtf wtf-angle-left"
+    [class.disabled]="page === 1"
+    (click)="nextHandle(-1)"
+></button>
+<thy-pagination-pager
+    [reservedNum]="reservedNum"
+    [pagerSize]="pagerSize"
+    [current]="page"
+    [count]="totalPages"
+    (clickPage)="nextHandle($event)"
+    *ngIf="inited"
+    [mini]="thyMaxSize === 'xs'"
+></thy-pagination-pager>
+<button
+    class="thy-pagination-btn btn-next wtf wtf-angle-right"
+    [class.disabled]="page === totalPages"
+    (click)="nextHandle(1)"
+></button>
+<thy-pagination-jump
+    *ngIf="inited && thyJump && totalPages > pagerCount"
+    [page]="page"
+    [max]="totalPages"
+    (jump)="nextHandle($event)"
+    [disabled]="disabled"
+></thy-pagination-jump>

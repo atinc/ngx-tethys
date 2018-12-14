@@ -10,6 +10,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "suppressImplicitAnyIndexErrors": true,
+    "skipLibCheck": false,
     "target": "es5",
     "typeRoots": [
       "node_modules/@types"
@@ -18,6 +19,11 @@
       "es2017",
       "dom"
     ]
+  },
+  "angularCompilerOptions": {
+    "strictMetadataEmit": false,
+    "skipTemplateCodegen": true,
+    "fullTemplateTypeCheck": true
   },
   "files": [
     "./scripts/typings.d.ts",

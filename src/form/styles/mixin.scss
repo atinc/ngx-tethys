@@ -72,6 +72,7 @@
   .thy-select,
   .thy-radio-group,
   .custom-select,
+  .thy-cascader,
   .input-label-container {
     .was-validated &:#{$state},
     &.is-#{$state} {

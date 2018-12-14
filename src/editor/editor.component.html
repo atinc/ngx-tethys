@@ -36,7 +36,7 @@
     </div>
     <div class="thy-editor-container">
         <div class="thy-editor-container-code">
-            <textarea class="thy-editor-textarea" thyAutofocus [(ngModel)]="model" (ngModelChange)="changeValue($event)" placeholder="输入内容..."></textarea>
+            <textarea class="thy-editor-textarea" thyAutofocus [(ngModel)]="model" (ngModelChange)="changeValue($event)" [placeholder]="placeholder"></textarea>
         </div>
         <div class="thy-editor-container-preview" [hidden]="!thyEditorService.isPreview">
             <article class="thy-editor-container-preview-body markdown-body" [thyMarkdownParser]="model"></article>

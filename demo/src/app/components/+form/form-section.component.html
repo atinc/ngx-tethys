@@ -13,12 +13,16 @@
                         <input thyInput name="displayName" [(ngModel)]="model.display_name" placeholder="请输入姓名" />
                     </ng-template>
                 </thy-form-group>
-
                 <thy-form-group thyLabelText="选择">
                     <thy-select required [(ngModel)]="model.select" name="power">
                         <option value="">---请选择---</option>
                         <option *ngFor="let option of options" [value]="option._id">{{ option.value }}</option>
                     </thy-select>
+                </thy-form-group>
+                <thy-form-group thyLabelText="Cascader选择">
+                    <thy-cascader name="cascader" required [thyOptions]="thyOptions" [(ngModel)]="values" (ngModelChange)="onChanges($event)"
+                        thyPlaceHolder="自定义PlaceHolder" style="width:200px;">
+                    </thy-cascader>
                 </thy-form-group>
                 <thy-form-group thyLabelText="Textarea">
                     <textarea class="form-control" rows="3"></textarea>

@@ -1,0 +1,16 @@
+<span>到</span>
+<input
+    type="number"
+    #input
+    autocomplete="off"
+    rows="2"
+    [min]="1"
+    [max]="max"
+    [ngModel]="page"
+    (keyup.enter)="changeHandle(input.value)"
+    [disabled]="disabled"
+/>
+<span>页</span>
+<button (click)="changeHandle(input.value)" class="thy-pagination-btn">
+    确定
+</button>
