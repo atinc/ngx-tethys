@@ -1,4 +1,7 @@
-import { DemoPopBoxSectionComponent, PopBoxMenuDemoShowComponent } from './+pop-box/pop-box-section.component';
+import {
+    DemoPopBoxSectionComponent,
+    PopBoxMenuDemoShowComponent
+} from './+pop-box/pop-box-section.component';
 import { DemoButtonSectionComponent } from './+button/button-section.component';
 import { DemoRebootSectionComponent } from './+reboot/reboot-section.component';
 import { DemoTableSectionComponent } from './+table/table-section.component';
@@ -50,6 +53,8 @@ import { DemoTreeSelectSectionComponent } from './+tree-select/tree-select-secti
 import { DemoStrengthComponent } from './+strength/strength-section.component';
 import { DemoStepperSectionComponent } from './+stepper/stepper-section.component';
 import { DemoCascaderSectionComponent } from './+cascader/cascader-section.component';
+import { DemoDialogSectionComponent } from './+dialog/dialog-section.component';
+import { DemoDialogContentComponent } from './+dialog/dialog-content.component';
 
 export const COMPONENTS = [
     DemoPopBoxSectionComponent,
@@ -106,7 +111,10 @@ export const COMPONENTS = [
     DemoListComponent,
     DemoTreeSelectSectionComponent,
     DemoStepperSectionComponent,
-    DemoCascaderSectionComponent
+    DemoCascaderSectionComponent,
+
+    DemoDialogSectionComponent,
+    DemoDialogContentComponent
 ];
 
 export const ENTRY_COMPONENTS = [
@@ -120,4 +128,5 @@ export const ENTRY_COMPONENTS = [
     DemoAvatarHasBadgeSectionComponent,
     DemoAvatarRemoveSectionComponent,
 
+    DemoDialogContentComponent
 ];
