@@ -8,7 +8,6 @@ import { ThyPaginationComponent } from './pagination.component';
 import { ThyPaginationPagerComponent } from './pagination-pager.component';
 import { ThyPaginationJumpComponent } from './pagination-jump.component';
 
-
 @NgModule({
     declarations: [
         ThyPaginationComponent,

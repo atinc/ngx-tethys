@@ -1,11 +1,46 @@
 <ul class="thy-pager">
-    <li class="thy-pager-item" [class.active]="current === 1" (click)="clickHandle(1)" *ngIf="count > 0">1</li>
-    <li class="thy-pager-item" [class.active]="current === 2" (click)="clickHandle(2)" *ngIf="showPrevMore">2</li>
+    <li
+        class="thy-pager-item"
+        [class.active]="current === 1"
+        (click)="clickHandle(1)"
+        *ngIf="count > 0"
+    >
+        1
+    </li>
+    <li
+        class="thy-pager-item"
+        [class.active]="current === 2"
+        (click)="clickHandle(2)"
+        *ngIf="showPrevMore"
+    >
+        2
+    </li>
 
-    <li *ngIf="showPrevMore" class="thy-pager-item thy-pager-item-more " ></li>
-    <li class="thy-pager-item" *ngFor="let pager of pagers" (click)="clickHandle(pager)" [class.active]="current === pager">{{ pager }}</li>
-    <li *ngIf="showNextMore" class="thy-pager-item thy-pager-item-more" ></li>
+    <li *ngIf="showPrevMore" class="thy-pager-item thy-pager-item-more "></li>
+    <li
+        class="thy-pager-item"
+        *ngFor="let pager of pagers"
+        (click)="clickHandle(pager)"
+        [class.active]="current === pager"
+    >
+        {{ pager }}
+    </li>
+    <li *ngIf="showNextMore" class="thy-pager-item thy-pager-item-more"></li>
 
-    <li class="thy-pager-item" [class.active]="current === count - 1" (click)="clickHandle(count - 1)" *ngIf="showNextMore">{{ count - 1 }}</li>
-    <li class="thy-pager-item" [class.active]="current === count" (click)="clickHandle(count)" *ngIf="count > 1">{{ count }}</li>
+    <li
+        class="thy-pager-item"
+        [class.active]="current === count - 1"
+        (click)="clickHandle(count - 1)"
+        *ngIf="showNextMore"
+    >
+        {{ count - 1 }}
+    </li>
+    <li
+        class="thy-pager-item"
+        [class.active]="current === count"
+        (click)="clickHandle(count)"
+        *ngIf="count > 1"
+    >
+        {{ count }}
+    </li>
 </ul>

@@ -1,29 +1,36 @@
+<section>
+    <div class="header">
+        <h1>Pagination 分页</h1>
+        <p>
+            <code>totalItems</code> 和
+            <code>totalPages</code> 二选一传入，建议使用 <code>totalItems</code>
+        </p>
+    </div>
+    <div class="body">
+        <thy-pagination
+            [(ngModel)]="page_"
+            [totalItems]="1000"
+        ></thy-pagination>
+        <br />
+        <p>当前页 ：{{ page_ }}</p>
+    </div>
+</section>
+<section>
+    <div class="header"><p>当总页数过少的情况下不会显示跳转组件</p></div>
+    <div class="body">
+        <thy-pagination [(ngModel)]="page_" [totalItems]="100"></thy-pagination>
+    </div>
+</section>
 
 <section>
-    <div class="header">
-        <h1> Pagination 分页</h1>
-        <p> <code>totalItems</code> 和  <code>totalPages</code> 二选一传入，建议使用 <code>totalItems</code> </p>
-    </div>
+    <div class="header"><h2>禁用状态</h2></div>
     <div class="body">
-        <thy-pagination [(ngModel)]="page_"   [totalItems]="1000"></thy-pagination>
-        <br>
-        <p> 当前页 ：{{page_}}</p>
-    </div>
-</section>
-<section>
-    <div class="header">
-        <p>当总页数过少的情况下不会显示跳转组件</p>
-    </div>
-    <div class="body">
-        <thy-pagination [(ngModel)]="page_"   [totalItems]="100"></thy-pagination>
+        <thy-pagination
+            [(ngModel)]="page_"
+            [disabled]="true"
+            [totalItems]="1000"
+        ></thy-pagination>
     </div>
 </section>
 
-<section>
-    <div class="header">
-        <h2>禁用状态</h2>
-    </div>
-    <div class="body">
-        <thy-pagination [(ngModel)]="page_" [disabled]="true"  [totalItems]="1000"></thy-pagination>
-    </div>
-</section>
+<api-parameters title="thy-pagination 参数列表" [parameters]="apiThyPaginationParameters"></api-parameters>

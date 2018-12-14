@@ -1,37 +1,44 @@
-import { Component, Input, HostBinding, OnInit, Provider, forwardRef, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
-
+import {
+    Component,
+    Input,  
+    OnInit,
+    Output,
+    EventEmitter,
+    OnChanges,
+    SimpleChanges
+} from '@angular/core';
 
 @Component({
     selector: 'thy-pagination-pager',
-    templateUrl: './pagination-pager.component.html',
+    templateUrl: './pagination-pager.component.html'
 })
 export class ThyPaginationPagerComponent implements OnInit, OnChanges {
 
     @Input() current: number;
+
     @Input() count: number;
+
     @Input() reservedNum: number;
+
     @Input() pagerSize: number;
-    @Output() next: EventEmitter<number> = new EventEmitter<number>();
+
+    @Output() clickPage: EventEmitter<number> = new EventEmitter<number>();
 
     private pagers: number[];
     private showPrevMore: Boolean = false;
     private showNextMore: Boolean = false;
 
-
-    constructor() { }
+    constructor() {}
 
     pagerGenerator(minValue: number, all: number = 0): number[] {
         const pagerSize = all ? all : this.pagerSize;
-        const target: number[] = new Array(pagerSize).fill('').map((v, i) => i + minValue);
+        const target: number[] = new Array(pagerSize)
+            .fill('')
+            .map((v, i) => i + minValue);
         return target;
     }
 
     makePagers(current: number, count: number): number[] {
-
-        // if (current === undefined || current === NaN) {
-        //     current = 1;
-        // }
-        // tslint:disable-next-line:no-inferrable-types
         const pagerCount: number = this.pagerSize + this.reservedNum * 2;
         if (count <= pagerCount) {
             this.setMoreBtn(false, false);
@@ -40,11 +47,9 @@ export class ThyPaginationPagerComponent implements OnInit, OnChanges {
             return target;
         }
 
-
         const half: number = (this.pagerSize - 1) / 2;
         const max: number = count - this.reservedNum - 1;
         const min: number = this.reservedNum + 2;
-
 
         if (current + half >= max) {
             this.setMoreBtn(true, false);
@@ -66,11 +71,11 @@ export class ThyPaginationPagerComponent implements OnInit, OnChanges {
 
     clickHandle(to: number): void {
         const step: number = to - this.current;
-        this.next.emit(step);
+        this.clickPage.emit(step);
     }
 
     jumpHandle(step: number): void {
-        this.next.emit(step);
+        this.clickPage.emit(step);
     }
 
     ngOnInit(): void {
@@ -83,5 +88,4 @@ export class ThyPaginationPagerComponent implements OnInit, OnChanges {
         }
         this.pagers = this.makePagers(this.current, this.count);
     }
-
 }
