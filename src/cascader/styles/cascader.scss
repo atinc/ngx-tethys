@@ -2,10 +2,10 @@
     position: relative;
     display: inline-block;
     cursor: pointer;
-    border: $input-border-width solid $input-border-color;
+    border: 1px solid $gray-200;
     border-radius: $input-border-radius-xs;
     &:hover:not(&-picker-disabled):not(.is-invalid) {
-        border-color: $input-hover-border-color;
+        border-color: $primary;
     }
     &-input.form-control {
         border: none !important;
@@ -16,10 +16,10 @@
     }
     &-picker {
         &-open {
-            border-color: $input-hover-border-color;
+            border-color: $primary;
         }
         &-disabled {
-            border-color: $input-border-width solid $gray-400;
+            border-color: 1px solid $gray-400;
         }
         &-label {
             position: absolute;
@@ -106,7 +106,7 @@
             border-radius: 0 5px 5px 0;
         }
         &:only-child {
-            border-radius: 5pxe;
+            border-radius: 5px;
         }
     }
     &-menu-item {
