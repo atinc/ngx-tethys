@@ -110,7 +110,6 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
     public labelRenderText: string;
     public labelRenderContext: any = {};
 
-    // ngModel Access
     onChange: any = Function.prototype;
     onTouched: any = Function.prototype;
     private cascaderPositon = [...DEFAULT_DROPDOWN_POSITIONS];
@@ -129,7 +128,6 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
     private value: any[];
     private selectedOptions: CascaderOption[] = [];
     private activatedOptions: CascaderOption[] = [];
-    // 表示当前菜单的数据列：all data columns
     public thyColumns: CascaderOption[][] = [];
 
     @Input() thyValueProperty = 'value';
@@ -215,16 +213,6 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
         return this.columnClassName;
     }
 
-    /** Whether can search. Defaults to `false`. */
-    // @Input()
-    // set thyShowSearch(value: boolean) {
-    //     this.showSearch = value;
-    // }
-
-    // get thyShowSearch(): boolean {
-    //     return this.showSearch;
-    // }
-
     @Input()
     disabled = false;
 
@@ -252,7 +240,7 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
     @Output() thyClear = new EventEmitter<void>();
 
     @ViewChild('input') input: ElementRef;
-    /** 浮层菜单 */
+
     @ViewChild('menu') menu: ElementRef;
 
     ngOnInit(): void {
@@ -263,8 +251,8 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
         this.setLabelClass();
         this.setClearClass();
         this.setInputClass();
-        this.cascaderPositon[0].offsetY = 10;
-        this.cascaderPositon[1].offsetY = -10;
+        this.cascaderPositon[0].offsetY = -10;
+        this.cascaderPositon[1].offsetY = 10;
         this.positions = this.cascaderPositon;
     }
 
@@ -436,7 +424,6 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
         };
     }
 
-    /** 箭头 样式 */
     public get arrowCls(): any {
         return this._arrowCls;
     }
@@ -458,7 +445,6 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
         };
     }
 
-    /** 标签 样式 */
     public get labelCls(): any {
         return this._labelCls;
     }
