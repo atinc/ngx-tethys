@@ -7,7 +7,14 @@ export class DemoEditorSectionComponent implements OnInit {
 
     public value = ' :dizzy: :frowning: ';
 
-    public config = { type: 'all',placeholder:'这个是自定义的placeholder' };
+    public config = {
+        type: 'all',
+        placeholder:'这个是自定义的placeholder',
+        uploadImg:{
+            multiple: true,
+            acceptType:['.gif','.jpeg']
+        }
+};
 
     // public thyMarkdownParserConfig = {
     //     emoji_style: 2,
