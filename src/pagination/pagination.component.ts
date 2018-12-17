@@ -55,7 +55,6 @@ export class ThyPaginationComponent implements ControlValueAccessor, OnInit {
 
     @Input() thySize: ThyPaginationMaxSize;
 
-    private _nativeElement: any;
     protected _page = 1;
     protected _itemsPerPage: number;
     protected _totalItems: number;
