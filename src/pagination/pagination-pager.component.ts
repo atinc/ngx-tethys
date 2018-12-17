@@ -42,8 +42,7 @@ export class ThyPaginationPagerComponent implements OnInit, OnChanges {
     makePagers(current: number, count: number): number[] {
         if (this.mini) {
             this.setMoreBtn(false, false);
-            const target = [current,count];
-            return target;
+            return [current,count];
         }
 
         const pagerCount: number = this.pagerSize + this.reservedNum * 2;
