@@ -20,10 +20,10 @@ export interface ThyEditorOptions {
     autofocus: boolean;
     type: string;
     locale: string;
-    hideButtons: [];
-    additionalButtons: [];
-    replaceButtons: [];
-    extendButtons: [];
+    hideButtons: string[];
+    additionalButtons: string[];
+    replaceButtons:string [];
+    extendButtons: string[];
     uploadImgMultiple: boolean;
     uploadImgAcceptType: string | string[];
 }
