@@ -78,11 +78,7 @@ export interface CascaderOption {
     styles: [
         `
             .thy-cascader-menus {
-                margin-top: 10px;
-                top: 100%;
-                left: 0;
                 position: relative;
-                width: 100%;
             }
         `
     ]
@@ -117,7 +113,8 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
     // ngModel Access
     onChange: any = Function.prototype;
     onTouched: any = Function.prototype;
-    positions: ConnectionPositionPair[] = [...DEFAULT_DROPDOWN_POSITIONS];
+    private cascaderPositon = [...DEFAULT_DROPDOWN_POSITIONS];
+    positions: ConnectionPositionPair[];
 
     @Input()
     set thyLabelRender(value: TemplateRef<any>) {
@@ -266,6 +263,9 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
         this.setLabelClass();
         this.setClearClass();
         this.setInputClass();
+        this.cascaderPositon[0].offsetY = 10;
+        this.cascaderPositon[1].offsetY = -10;
+        this.positions = this.cascaderPositon;
     }
 
     private initOptions(index: number) {
