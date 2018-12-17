@@ -251,8 +251,12 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
         this.setLabelClass();
         this.setClearClass();
         this.setInputClass();
-        this.cascaderPositon[0].offsetY = -10;
-        this.cascaderPositon[1].offsetY = 10;
+        this.initPosition();
+    }
+
+    private initPosition() {
+        this.cascaderPositon[0].offsetY = 10;// 左下
+        this.cascaderPositon[1].offsetY = -10;// 左上
         this.positions = this.cascaderPositon;
     }
 
@@ -390,14 +394,9 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
         if (this.menuVisible !== menuVisible) {
             this.menuVisible = menuVisible;
 
-            // update class
             this.setClassMap();
             this.setArrowClass();
             this.setMenuClass();
-            if (menuVisible) {
-                // this.beforeVisible();
-            }
-            // this.thyVisibleChange.emit(menuVisible);
         }
     }
 
@@ -496,10 +495,6 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
         if (this.isClickTriggerAction()) {
             this.setMenuVisible(!this.menuVisible);
         }
-
-        // if (this.showSearch) {
-        //     this.focus();
-        // }
     }
 
     onOptionClick(option: CascaderOption, index: number, event: Event): void {

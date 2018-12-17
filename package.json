@@ -42,6 +42,7 @@
         "@ngx-translate/core": "^10.0.1",
         "angular-sortablejs": "^2.5.2",
         "bootstrap": "^4.0.0",
+        "china-division": "^2.1.1",
         "core-js": "^2.5.4",
         "ngx-bootstrap": "^3.0.1",
         "rxjs": "^6.3.1",
