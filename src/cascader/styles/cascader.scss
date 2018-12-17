@@ -21,9 +21,6 @@
         &-disabled {
             border-color: $input-border-width solid $gray-400;
         }
-        &-disabled &-arrow {
-            color: $input-border-color;
-        }
         &-label {
             position: absolute;
             left: 0;

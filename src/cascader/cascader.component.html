@@ -1,6 +1,6 @@
 <div cdkOverlayOrigin #origin="cdkOverlayOrigin" #trigger>
     <ng-container *ngIf="thyShowInput">
-        <input #input thyInput type="text" [thySize]="thySize" [ngClass]="inputCls" readonly [placeholder]="showPlaceholder ? thyPlaceHolder : ''" />
+        <input #input thyInput type="text" [thySize]="thySize" [ngClass]="inputCls" readonly [disabled]="disabled" [placeholder]="showPlaceholder ? thyPlaceHolder : ''" />
         <i *ngIf="!isLoading" class="wtf wtf-angle-down" [ngClass]="arrowCls"></i>
         <i *ngIf="!isLoading && labelRenderText" class="wtf wtf-close" [ngClass]="clearCls" (click)="clearSelection($event)"></i>
         <span [ngClass]="labelCls">
