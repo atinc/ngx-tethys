@@ -31,6 +31,6 @@ export class DemoDialogContentComponent implements OnInit {
     }
 
     toggleShowMore() {
-        this.showMore = true;
+        this.showMore = !this.showMore;
     }
 }

@@ -282,7 +282,8 @@
 // Requires wrapping inputs and labels with `.form-group` for proper display of
 // default HTML form controls and our custom form controls (e.g., input groups).
 
-.form-inline {
+.form-inline,
+.thy-form-inline {
     display: flex;
     flex-flow: row wrap;
     align-items: center; // Prevent shorter elements from growing to same height as others (e.g., small buttons growing to normal sized button height)

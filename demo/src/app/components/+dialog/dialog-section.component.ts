@@ -1,5 +1,9 @@
-import { Component, OnDestroy } from '@angular/core';
-import { ThyDialog } from '../../../../../src/dialog';
+import { Component, OnDestroy, TemplateRef } from '@angular/core';
+import {
+    ThyDialog,
+    ThyDialogConfig,
+    DialogSizes
+} from '../../../../../src/dialog';
 import { helpers } from '../../../../../src/util';
 import { DemoDialogContentComponent } from './dialog-content.component';
 import { Subject } from 'rxjs';
@@ -12,6 +16,10 @@ import { takeUntil } from 'rxjs/operators';
 export class DemoDialogSectionComponent implements OnDestroy {
     private ngUnsubscribe$ = new Subject();
 
+    public config: ThyDialogConfig = {
+        size: DialogSizes.md
+    };
+
     public apiParameters = [
         {
             property: 'ngModel',
@@ -21,7 +29,7 @@ export class DemoDialogSectionComponent implements OnDestroy {
         }
     ];
 
-    constructor(private thyDialog: ThyDialog) {
+    constructor(public thyDialog: ThyDialog) {
         thyDialog
             .afterOpened()
             .pipe(takeUntil(this.ngUnsubscribe$))
@@ -30,12 +38,22 @@ export class DemoDialogSectionComponent implements OnDestroy {
             });
     }
 
+    openTemplateDialog(template: TemplateRef<any>) {
+        this.thyDialog.open(template);
+    }
+
     openComponentDialog() {
-        const dialogRef = this.thyDialog.open(DemoDialogContentComponent, {
-            initialState: {
-                data: `This is Pass Data`
-            }
-        });
+        const dialogRef = this.thyDialog.open(
+            DemoDialogContentComponent,
+            Object.assign(
+                {
+                    initialState: {
+                        data: `This is Pass Data`
+                    }
+                },
+                this.config
+            )
+        );
         dialogRef.afterClosed().subscribe(result => {
             console.log(`Dialog result: ${result}`);
         });
