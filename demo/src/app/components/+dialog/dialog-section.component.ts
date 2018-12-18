@@ -2,15 +2,16 @@ import { Component, OnDestroy, TemplateRef } from '@angular/core';
 import {
     ThyDialog,
     ThyDialogConfig,
-    DialogSizes
+    ThyDialogSizes
 } from '../../../../../src/dialog';
 import { helpers } from '../../../../../src/util';
 import { DemoDialogContentComponent } from './dialog-content.component';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { apiParameters } from './api-parameters';
 
 const exampleCode = `
-import { DialogContentComponent } from './dialog-content.component.ts';
+import { DialogContentComponent } from './dialog-content.component';
 
 export class DialogComponent {
     constructor(public thyDialog: ThyDialog) {
@@ -18,7 +19,7 @@ export class DialogComponent {
 
     open() {
         this.thyDialog.open(DialogContentComponent, {
-            size: DialogSizes.md,
+            size: ThyDialogSizes.md,
             hasBackdrop: true,
             backdropClickClosable: true,
             closeOnNavigation: true,
@@ -44,20 +45,13 @@ export class DemoDialogSectionComponent implements OnDestroy {
     public exampleCode: string = exampleCode;
 
     public config: ThyDialogConfig = {
-        size: DialogSizes.md,
+        size: ThyDialogSizes.md,
         hasBackdrop: true,
         backdropClickClosable: true,
         closeOnNavigation: true
     };
 
-    public apiParameters = [
-        {
-            property: 'ngModel',
-            description: '双向绑定值,选中的可选值列表项或者具体时间',
-            type: 'DateRangeItemInfo',
-            default: ''
-        }
-    ];
+    public apiParameters = apiParameters;
 
     constructor(public thyDialog: ThyDialog) {
         thyDialog

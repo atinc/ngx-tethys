@@ -16,7 +16,7 @@ import {
 import {
     ThyDialogConfig,
     THY_DIALOG_SCROLL_STRATEGY,
-    DialogSizes
+    ThyDialogSizes
 } from './dialog.config';
 import {
     Overlay,
@@ -63,7 +63,7 @@ export class ThyDialog implements OnDestroy {
 
     private getOverlayPanelClasses(dialogConfig: ThyDialogConfig) {
         let classes = [`cdk-overlay-pane`, `dialog-overlay-pane`];
-        const size = dialogConfig.size || DialogSizes.md;
+        const size = dialogConfig.size || ThyDialogSizes.md;
         classes.push(`dialog-${size}`);
         if (dialogConfig.panelClass) {
             if (helpers.isArray(dialogConfig.panelClass)) {
@@ -244,6 +244,7 @@ export class ThyDialog implements OnDestroy {
         config = this.applyConfigDefaults(config, new ThyDialogConfig());
         const overlayConfig: OverlayConfig = this.getOverlayConfig(config);
         const overlayRef = this.overlay.create(overlayConfig);
+
         const dialogContainer = this.attachDialogContainer(overlayRef, config);
         const dialogRef = this.attachDialogContent<T, TResult>(
             componentOrTemplateRef,

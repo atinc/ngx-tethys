@@ -11,7 +11,7 @@ import { Direction } from '@angular/cdk/bidi';
 import { ScrollStrategy } from '@angular/cdk/overlay';
 
 /** Valid ARIA roles for a dialog element. */
-export type DialogRole = 'dialog' | 'alertdialog';
+export type ThyDialogRole = 'dialog' | 'alertdialog';
 
 /** Possible overrides for a dialog's position. */
 export interface DialogPosition {
@@ -28,7 +28,7 @@ export interface DialogPosition {
     right?: string;
 }
 
-export enum DialogSizes {
+export enum ThyDialogSizes {
     lg = 'lg',
     maxLg = 'max-lg',
     md = 'md',
@@ -51,7 +51,7 @@ export class ThyDialogConfig<TData = any> {
     id?: string;
 
     /** The ARIA role of the dialog element. */
-    role?: DialogRole = 'dialog';
+    role?: ThyDialogRole = 'dialog';
 
     /** Custom class for the overlay pane. */
     panelClass?: string | string[] = ''; // 'thy-dialog-panel';
@@ -75,13 +75,13 @@ export class ThyDialogConfig<TData = any> {
     minWidth?: number | string;
 
     /** Min-height of the dialog. If a number is provided, pixel units are assumed. */
-    minHeight?: number | string;
+    minHeight?: number | string = '20vh';
 
     /** Max-width of the dialog. If a number is provided, pixel units are assumed. Defaults to 80vw */
     maxWidth?: number | string;
 
     /** Max-height of the dialog. If a number is provided, pixel units are assumed. */
-    maxHeight?: number | string;
+    maxHeight?: number | string = '85vh';
 
     /** Position overrides. */
     position?: DialogPosition;
@@ -90,7 +90,7 @@ export class ThyDialogConfig<TData = any> {
     initialState?: TData | null = null;
 
     /** Dialog size md, lg, sm*/
-    size?: DialogSizes;
+    size?: ThyDialogSizes;
 
     /** Layout direction for the dialog's content. */
     direction?: Direction;
