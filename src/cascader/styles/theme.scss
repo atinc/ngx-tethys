@@ -1,0 +1,27 @@
+.thy-cascader {
+    &:hover:not(&-picker-disabled):not(.is-invalid) {
+        border-color: $primary;
+    }
+    &-picker {
+        &-open {
+            border-color: $primary;
+        }
+    }
+    &-menu-item {
+        &:hover {
+            color: $body-color;
+        }
+        &-active:not(&-disabled) {
+            &,
+            &:hover {
+                background: rgba($primary, .1);
+                color: $primary;
+            }
+
+        }
+        &-active &-expand-icon,
+        &-active &-loading-icon {
+            color: $primary;
+        }
+    }
+}

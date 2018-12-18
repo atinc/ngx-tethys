@@ -78,11 +78,7 @@ export interface CascaderOption {
     styles: [
         `
             .thy-cascader-menus {
-                margin-top: 10px;
-                top: 100%;
-                left: 0;
                 position: relative;
-                width: 100%;
             }
         `
     ]
@@ -114,10 +110,10 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
     public labelRenderText: string;
     public labelRenderContext: any = {};
 
-    // ngModel Access
     onChange: any = Function.prototype;
     onTouched: any = Function.prototype;
-    positions: ConnectionPositionPair[] = [...DEFAULT_DROPDOWN_POSITIONS];
+    private cascaderPositon = [...DEFAULT_DROPDOWN_POSITIONS];
+    positions: ConnectionPositionPair[];
 
     @Input()
     set thyLabelRender(value: TemplateRef<any>) {
@@ -132,7 +128,6 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
     private value: any[];
     private selectedOptions: CascaderOption[] = [];
     private activatedOptions: CascaderOption[] = [];
-    // 表示当前菜单的数据列：all data columns
     public thyColumns: CascaderOption[][] = [];
 
     @Input() thyValueProperty = 'value';
@@ -218,16 +213,6 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
         return this.columnClassName;
     }
 
-    /** Whether can search. Defaults to `false`. */
-    // @Input()
-    // set thyShowSearch(value: boolean) {
-    //     this.showSearch = value;
-    // }
-
-    // get thyShowSearch(): boolean {
-    //     return this.showSearch;
-    // }
-
     @Input()
     disabled = false;
 
@@ -255,7 +240,7 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
     @Output() thyClear = new EventEmitter<void>();
 
     @ViewChild('input') input: ElementRef;
-    /** 浮层菜单 */
+
     @ViewChild('menu') menu: ElementRef;
 
     ngOnInit(): void {
@@ -266,6 +251,13 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
         this.setLabelClass();
         this.setClearClass();
         this.setInputClass();
+        this.initPosition();
+    }
+
+    private initPosition() {
+        this.cascaderPositon[0].offsetY = 10;// 左下
+        this.cascaderPositon[1].offsetY = -10;// 左上
+        this.positions = this.cascaderPositon;
     }
 
     private initOptions(index: number) {
@@ -402,14 +394,9 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
         if (this.menuVisible !== menuVisible) {
             this.menuVisible = menuVisible;
 
-            // update class
             this.setClassMap();
             this.setArrowClass();
             this.setMenuClass();
-            if (menuVisible) {
-                // this.beforeVisible();
-            }
-            // this.thyVisibleChange.emit(menuVisible);
         }
     }
 
@@ -436,7 +423,6 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
         };
     }
 
-    /** 箭头 样式 */
     public get arrowCls(): any {
         return this._arrowCls;
     }
@@ -458,7 +444,6 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
         };
     }
 
-    /** 标签 样式 */
     public get labelCls(): any {
         return this._labelCls;
     }
@@ -510,10 +495,6 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
         if (this.isClickTriggerAction()) {
             this.setMenuVisible(!this.menuVisible);
         }
-
-        // if (this.showSearch) {
-        //     this.focus();
-        // }
     }
 
     onOptionClick(option: CascaderOption, index: number, event: Event): void {

@@ -1,6 +1,6 @@
 import { Component, OnInit  } from '@angular/core';
 
-const options = [{
+const options1 = [{
     value: 'zhejiang',
     label: 'Zhejiang',
     children: [{
@@ -43,7 +43,7 @@ const options = [{
         }]
     }]
 }];
-
+import options from './cascader-address-options';
 
 @Component({
     selector: 'demo-confirm-section',

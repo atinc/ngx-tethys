@@ -1,9 +1,14 @@
 /* SystemJS module definition */
 declare var module: NodeModule;
 interface NodeModule {
-  id: string;
+    id: string;
 }
 declare const mermaid: any;
 declare const liteMarked: any;
 declare const $: any;
 declare const katex: any;
+
+declare module '*.json' {
+    const value: any;
+    export default value;
+}
