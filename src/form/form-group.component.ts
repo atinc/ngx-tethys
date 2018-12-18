@@ -7,7 +7,8 @@ import {
     ContentChild,
     OnInit,
     ContentChildren,
-    QueryList
+    QueryList,
+    ChangeDetectionStrategy
 } from '@angular/core';
 import { ThyFormDirective } from './form.directive';
 import { inputValueToBoolean } from '../util/helpers';
@@ -23,10 +24,10 @@ const internalIconMap = {
 @Component({
     selector: 'thy-form-group',
     templateUrl: './form-group.component.html',
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyFormGroupComponent implements OnInit {
-
     labelText: string;
     labelRequired = false;
     labelPaddingTopClear = false;
@@ -96,10 +97,11 @@ export class ThyFormGroupComponent implements OnInit {
     constructor(
         @Optional() private thyParentForm: ThyFormDirective,
         private thyTranslate: ThyTranslate
-    ) {
-    }
+    ) {}
 
     ngOnInit() {
-        this.isHorizontal = this.thyParentForm ? this.thyParentForm.isHorizontal : true;
+        this.isHorizontal = this.thyParentForm
+            ? this.thyParentForm.isHorizontal
+            : true;
     }
 }

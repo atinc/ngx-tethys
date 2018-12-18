@@ -134,8 +134,9 @@ $thy-dialog-button-margin: 8px !default;
 // Footer (for actions)
 .dialog-footer {
     display: flex;
+    justify-content: flex-start;
+    border: 0;
     align-items: center; // vertically center
-    justify-content: flex-end; // Right align buttons with flex property because text-align doesn't work on flex items
     padding: $modal-inner-padding;
     border-top: $modal-footer-border-width solid $modal-footer-border-color;
 

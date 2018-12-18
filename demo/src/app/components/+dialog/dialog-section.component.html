@@ -2,11 +2,24 @@
     <div class="header"><h2>Dialog</h2></div>
     <div class="body">
         <form class="mb-2" thyForm thyLayout="inline">
-            <thy-select name="seize" [(ngModel)]="config.size">
-                <option value="sm">小</option> <option value="md">中</option>
-                <option value="lg">大</option>
-                <option value="max-lg">特大</option>
-            </thy-select>
+            <thy-form-group thyLabelText="Size:">
+                <thy-select name="seize" [(ngModel)]="config.size">
+                    <option value="sm">小</option>
+                    <option value="md">中</option>
+                    <option value="lg">大</option>
+                    <option value="max-lg">特大</option>
+                </thy-select>
+            </thy-form-group>
+            <thy-form-group thyLabelText="">
+                <label thyCheckbox name="hasBackdrop" [(ngModel)]="config.hasBackdrop" thyLabelText="是否有背景幕布"></label>
+            </thy-form-group>
+            <thy-form-group thyLabelText="">
+                <label thyCheckbox name="backdropClickClosable" [(ngModel)]="config.backdropClickClosable" thyLabelText="点击幕布自动关闭"></label>
+            </thy-form-group>
+            <thy-form-group thyLabelText="">
+                <label thyCheckbox name="closeOnNavigation" [(ngModel)]="config.closeOnNavigation" thyLabelText="浏览器导航自动关闭"></label>
+            </thy-form-group>
+
         </form>
         <div class="demo-layout btn-pair">
             <button

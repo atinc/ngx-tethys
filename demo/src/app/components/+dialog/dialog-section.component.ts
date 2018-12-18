@@ -17,7 +17,10 @@ export class DemoDialogSectionComponent implements OnDestroy {
     private ngUnsubscribe$ = new Subject();
 
     public config: ThyDialogConfig = {
-        size: DialogSizes.md
+        size: DialogSizes.md,
+        hasBackdrop: true,
+        backdropClickClosable: true,
+        closeOnNavigation: true
     };
 
     public apiParameters = [

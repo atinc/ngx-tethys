@@ -87,8 +87,8 @@ export class ThyDialog implements OnDestroy {
             minWidth: dialogConfig.minWidth,
             minHeight: dialogConfig.minHeight,
             maxWidth: dialogConfig.maxWidth,
-            maxHeight: dialogConfig.maxHeight
-            //   disposeOnNavigation: dialogConfig.closeOnNavigation
+            maxHeight: dialogConfig.maxHeight,
+            disposeOnNavigation: dialogConfig.closeOnNavigation
         });
 
         if (dialogConfig.backdropClass) {
