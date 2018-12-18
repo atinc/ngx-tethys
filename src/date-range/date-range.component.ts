@@ -49,6 +49,8 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
 
     @Input() dateRanges: DateRangeItemInfo[] = [];
 
+    @Input() hiddenMenu: Boolean = false;
+
     constructor() {
 
     }

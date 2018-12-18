@@ -19,3 +19,10 @@
         }
     }
 }
+.thy-date-range-menu-item {
+    border: none;
+    transition: padding 200ms !important;
+    &:hover {
+        padding-left: 30px;
+    }
+}

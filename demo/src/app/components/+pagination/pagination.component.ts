@@ -10,6 +10,12 @@ export class DemoPaginationComponent implements OnInit {
 
     public apiThyPaginationParameters = [
         {
+            property: 'ngModel',
+            description: `双向绑定值,当前页数`,
+            type: 'Number',
+            default: '1'
+        },
+        {
             property: 'itemsPerPage',
             description: `每页条目数量`,
             type: 'Number',
@@ -30,7 +36,7 @@ export class DemoPaginationComponent implements OnInit {
         {
             property: 'thySize',
             description: `分页的长度 固定选项 ：'xs' | 'sm' | 'md'`,
-            type: 'String',
+            type: 'ThyPaginationMaxSize',
             default: 'md'
         },
         {
