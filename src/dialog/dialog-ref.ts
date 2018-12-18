@@ -182,9 +182,9 @@ export class ThyDialogRef<T, TResult = any> {
         height: string = '',
         position?: DialogPosition
     ): this {
-        // this._getPositionStrategy()
-        //     .width(width)
-        //     .height(height);
+        this._getPositionStrategy()
+            .width(width)
+            .height(height);
         this.updatePosition(position);
         return this;
     }

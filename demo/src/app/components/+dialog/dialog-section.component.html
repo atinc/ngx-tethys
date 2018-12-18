@@ -11,17 +11,32 @@
                 </thy-select>
             </thy-form-group>
             <thy-form-group thyLabelText="">
-                <label thyCheckbox name="hasBackdrop" [(ngModel)]="config.hasBackdrop" thyLabelText="是否有背景幕布"></label>
+                <label
+                    thyCheckbox
+                    name="hasBackdrop"
+                    [(ngModel)]="config.hasBackdrop"
+                    thyLabelText="是否有背景幕布"
+                ></label>
             </thy-form-group>
             <thy-form-group thyLabelText="">
-                <label thyCheckbox name="backdropClickClosable" [(ngModel)]="config.backdropClickClosable" thyLabelText="点击幕布自动关闭"></label>
+                <label
+                    thyCheckbox
+                    name="backdropClickClosable"
+                    [(ngModel)]="config.backdropClickClosable"
+                    thyLabelText="点击幕布自动关闭"
+                ></label>
             </thy-form-group>
             <thy-form-group thyLabelText="">
-                <label thyCheckbox name="closeOnNavigation" [(ngModel)]="config.closeOnNavigation" thyLabelText="浏览器导航自动关闭"></label>
+                <label
+                    thyCheckbox
+                    name="closeOnNavigation"
+                    [(ngModel)]="config.closeOnNavigation"
+                    thyLabelText="浏览器导航自动关闭"
+                ></label>
             </thy-form-group>
-
         </form>
-        <div class="demo-layout btn-pair">
+
+        <div class="demo-layout btn-pair mb-2">
             <button
                 thyButton="primary"
                 (click)="openTemplateDialog(templateDialog)"
@@ -33,13 +48,15 @@
             </button>
         </div>
 
+        <pre><code lang="typescript" [highlight]="exampleCode"></code></pre>
         <ng-template #templateDialog>
-            <div class="dialog-header">
+            <thy-dialog-header thyTitle="Dialog Title"></thy-dialog-header>
+            <!-- <div class="dialog-header">
                 <h3 class="dialog-title">Dialog Title</h3>
                 <button type="button" class="close" (click)="thyDialog.close()">
                     <i class="wtf wtf-times"></i>
                 </button>
-            </div>
+            </div> -->
             <div class="dialog-body">template dialog</div>
             <div class="dialog-footer">
                 <button thyButton="primary" (click)="thyDialog.close()">

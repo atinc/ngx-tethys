@@ -273,13 +273,13 @@ export class ThyDialog implements OnDestroy {
         return this.openedDialogs.find(dialog => dialog.id === id);
     }
 
-    close() {
+    close(result?: any) {
         if (this.openedDialogs.length > 0) {
             const lastDialogRef = this.openedDialogs[
                 this.openedDialogs.length - 1
             ];
             if (lastDialogRef) {
-                lastDialogRef.close();
+                lastDialogRef.close(result);
             }
         }
     }

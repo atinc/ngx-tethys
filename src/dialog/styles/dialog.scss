@@ -16,7 +16,7 @@ $thy-dialog-button-margin: 8px !default;
     outline: 0;
 
     // The dialog container should completely fill its parent overlay element.
-    // width: 100%;
+    width: 100%;
     // height: 100%;
 
     // Since the dialog won't stretch to fit the parent, if the height
@@ -28,53 +28,8 @@ $thy-dialog-button-margin: 8px !default;
     //   @include cdk-high-contrast {
     //     outline: solid 1px;
     //   }
-    margin: 3.75rem auto;
+    // margin: 3.75rem auto;
 }
-
-// .thy-dialog-content {
-//     display: block;
-//     margin: 0 $thy-dialog-padding * -1;
-//     padding: 0 $thy-dialog-padding;
-//     max-height: $thy-dialog-max-height;
-//     overflow: auto;
-//     -webkit-overflow-scrolling: touch;
-// }
-
-// .thy-dialog-title {
-//     margin: 0 0 20px;
-//     display: block;
-// }
-
-// .mat-dialog-actions {
-//   padding: 8px 0;
-//   display: flex;
-//   flex-wrap: wrap;
-//   min-height: 52px;
-//   align-items: center;
-
-//   // Pull the actions down to avoid their padding stacking with the dialog's padding.
-//   margin-bottom: $thy-dialog-padding;
-
-//   &[align='end'] {
-//     justify-content: flex-end;
-//   }
-
-//   &[align='center'] {
-//     justify-content: center;
-//   }
-
-//   .mat-button + .mat-button,
-//   .mat-raised-button + .mat-raised-button,
-//   .mat-button + .mat-raised-button,
-//   .mat-raised-button + .mat-button {
-//     margin-left: $thy-dialog-button-margin;
-
-//     [dir='rtl'] & {
-//       margin-left: 0;
-//       margin-right: $thy-dialog-button-margin;
-//     }
-//   }
-// }
 
 // Dialog header
 // Top section of the modal w/ title and dismiss
@@ -162,20 +117,20 @@ $thy-dialog-button-margin: 8px !default;
 @include media-breakpoint-up(sm) {
     // Automatically set modal's width for larger viewports
     .dialog-md {
-        max-width: $modal-md;
+        width: $dialog-md;
         margin: $modal-dialog-margin-y-sm-up auto;
     }
 
     .dialog-sm {
-        max-width: $modal-sm;
+        width: $dialog-sm;
     }
 }
 
 @include media-breakpoint-up(lg) {
     .dialog-lg {
-        max-width: $dialog-lg;
+        width: $dialog-lg;
     }
     .dialog-max-lg {
-        max-width: $dialog-max-lg;
+        width: $dialog-max-lg;
     }
 }

@@ -9,12 +9,39 @@ import { DemoDialogContentComponent } from './dialog-content.component';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
+const exampleCode = `
+import { DialogContentComponent } from './dialog-content.component.ts';
+
+export class DialogComponent {
+    constructor(public thyDialog: ThyDialog) {
+    }
+
+    open() {
+        this.thyDialog.open(DialogContentComponent, {
+            size: DialogSizes.md,
+            hasBackdrop: true,
+            backdropClickClosable: true,
+            closeOnNavigation: true,
+            initialState: {
+                data: 'some data'
+            }
+        });
+    }
+
+    openTemplate(template: TemplateRef<any>) {
+        this.thyDialog.open(template);
+    }
+
+}
+`;
 @Component({
     selector: 'demo-dialog-section',
     templateUrl: './dialog-section.component.html'
 })
 export class DemoDialogSectionComponent implements OnDestroy {
     private ngUnsubscribe$ = new Subject();
+
+    public exampleCode: string = exampleCode;
 
     public config: ThyDialogConfig = {
         size: DialogSizes.md,
