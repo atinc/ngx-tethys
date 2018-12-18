@@ -48,26 +48,21 @@
             </button>
         </div>
 
-        <pre><code lang="typescript" [highlight]="exampleCode"></code></pre>
-        <ng-template #templateDialog>
-            <thy-dialog-header thyTitle="Dialog Title"></thy-dialog-header>
-            <!-- <div class="dialog-header">
-                <h3 class="dialog-title">Dialog Title</h3>
-                <button type="button" class="close" (click)="thyDialog.close()">
-                    <i class="wtf wtf-times"></i>
-                </button>
-            </div> -->
-            <div class="dialog-body">template dialog</div>
-            <div class="dialog-footer">
-                <button thyButton="primary" (click)="thyDialog.close()">
-                    确认
-                </button>
-                <button thyButton="link-secondary" (click)="thyDialog.close()">
-                    关闭
-                </button>
-            </div>
-        </ng-template>
+        <pre><code lang="typescript" [highlight]="exampleCode"></code>></pre>
     </div>
 </section>
+<ng-template #templateDialog>
+    <thy-dialog-header thyTitle="Dialog Title"></thy-dialog-header>
+    <thy-dialog-body>template dialog body</thy-dialog-body>
+    <thy-dialog-footer thyShowBorderTop="true">
+        <button thyButton="primary" (click)="thyDialog.close()">确认</button>
+        <button thyButton="link-secondary" (click)="thyDialog.close()">
+            关闭
+        </button>
+    </thy-dialog-footer>
+</ng-template>
 
-<api-parameters title="config 参数列表"  [parameters]="apiParameters"></api-parameters>
+<api-parameters
+    title="config 参数列表"
+    [parameters]="apiParameters"
+></api-parameters>

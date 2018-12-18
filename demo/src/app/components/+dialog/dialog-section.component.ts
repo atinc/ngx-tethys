@@ -6,8 +6,8 @@ import {
 } from '../../../../../src/dialog';
 import { helpers } from '../../../../../src/util';
 import { DemoDialogContentComponent } from './dialog-content.component';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Subject, of, defer } from 'rxjs';
+import { takeUntil, delay } from 'rxjs/operators';
 import { apiParameters } from './api-parameters';
 
 const exampleCode = `
@@ -52,6 +52,10 @@ export class DemoDialogSectionComponent implements OnDestroy {
     };
 
     public apiParameters = apiParameters;
+
+    public thyPrimaryAction = (event: Event) => {
+        return of(true).pipe(delay(1000));
+    }
 
     constructor(public thyDialog: ThyDialog) {
         thyDialog

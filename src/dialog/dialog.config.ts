@@ -129,6 +129,21 @@ export const THY_DIALOG_DEFAULT_OPTIONS = new InjectionToken<ThyDialogConfig>(
     'thy-dialog-default-options'
 );
 
+export const THY_DIALOG_DEFAULT_OPTIONS_PROVIDER = {
+    provide: THY_DIALOG_DEFAULT_OPTIONS,
+    useValue: {
+        role: 'dialog',
+        hasBackdrop: true,
+        backdropClass: '',
+        panelClass:'',
+        backdropClickClosable: true,
+        closeOnNavigation: true,
+        autoFocus: true,
+        restoreFocus: true,
+        maxHeight: '85vh'
+    }
+};
+
 /** Injection token that determines the scroll handling while the dialog is open. */
 export const THY_DIALOG_SCROLL_STRATEGY = new InjectionToken<
     () => ScrollStrategy

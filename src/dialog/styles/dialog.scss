@@ -82,6 +82,10 @@ $thy-dialog-button-margin: 8px !default;
     // max-height: $thy-dialog-max-height;
     // overflow: auto;
     -webkit-overflow-scrolling: touch;
+
+    &.dialog-body-clear-padding {
+        padding: 0;
+    }
 }
 
 // Footer (for actions)
@@ -91,7 +95,10 @@ $thy-dialog-button-margin: 8px !default;
     border: 0;
     align-items: center; // vertically center
     padding: $modal-inner-padding;
-    border-top: $modal-footer-border-width solid $modal-footer-border-color;
+
+    &.dialog-footer-border-top {
+        border-top: $modal-footer-border-width solid $modal-footer-border-color;
+    }
 
     // Easily place margin between footer elements
     > :not(:first-child) {

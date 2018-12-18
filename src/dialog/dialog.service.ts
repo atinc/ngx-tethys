@@ -3,7 +3,8 @@ import {
     TemplateRef,
     Injector,
     Optional,
-    OnDestroy
+    OnDestroy,
+    Inject
 } from '@angular/core';
 import { Location } from '@angular/common';
 import { of, Subject } from 'rxjs';
@@ -16,7 +17,8 @@ import {
 import {
     ThyDialogConfig,
     THY_DIALOG_SCROLL_STRATEGY,
-    ThyDialogSizes
+    ThyDialogSizes,
+    THY_DIALOG_DEFAULT_OPTIONS
 } from './dialog.config';
 import {
     Overlay,
@@ -38,7 +40,7 @@ export function THY_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY(
 }
 
 /** @docs-private */
-export const MAT_DIALOG_SCROLL_STRATEGY_PROVIDER = {
+export const THY_DIALOG_SCROLL_STRATEGY_PROVIDER = {
     provide: THY_DIALOG_SCROLL_STRATEGY,
     deps: [Overlay],
     useFactory: THY_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY
@@ -53,13 +55,6 @@ export class ThyDialog implements OnDestroy {
     private readonly _afterAllClosed = new Subject<void>();
 
     private readonly _afterOpened = new Subject<ThyDialogRef<any>>();
-
-    private applyConfigDefaults(
-        config?: ThyDialogConfig,
-        defaultOptions?: ThyDialogConfig
-    ): ThyDialogConfig {
-        return { ...defaultOptions, ...config };
-    }
 
     private getOverlayPanelClasses(dialogConfig: ThyDialogConfig) {
         let classes = [`cdk-overlay-pane`, `dialog-overlay-pane`];
@@ -234,14 +229,17 @@ export class ThyDialog implements OnDestroy {
     constructor(
         private overlay: Overlay,
         private injector: Injector,
-        @Optional() private location: Location
+        @Optional() private location: Location,
+        @Optional()
+        @Inject(THY_DIALOG_DEFAULT_OPTIONS)
+        private defaultConfig: ThyDialogConfig
     ) {}
 
     open<T, TData = any, TResult = any>(
         componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
         config?: ThyDialogConfig<TData>
     ): ThyDialogRef<T, TResult> {
-        config = this.applyConfigDefaults(config, new ThyDialogConfig());
+        config = { ...this.defaultConfig, ...config };
         const overlayConfig: OverlayConfig = this.getOverlayConfig(config);
         const overlayRef = this.overlay.create(overlayConfig);
 

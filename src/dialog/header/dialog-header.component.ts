@@ -19,10 +19,8 @@ import { ThyDialog } from '../dialog.service';
 export class DialogHeaderComponent implements OnInit {
     @HostBinding(`class.dialog-header`) _isDialogHeader = true;
 
-    @ContentChild(TemplateRef)
+    @ContentChild('dialogHeader')
     public headerTemplate: TemplateRef<any>;
-
-    isTemplateRef: boolean;
 
     @Input() thyTitle: string;
 
@@ -32,9 +30,7 @@ export class DialogHeaderComponent implements OnInit {
 
     constructor(private dialog: ThyDialog) {}
 
-    ngOnInit() {
-        this.isTemplateRef = this.headerTemplate instanceof TemplateRef;
-    }
+    ngOnInit() {}
 
     close(event?: Event) {
         if (this.thyOnClose.observers.length > 0) {

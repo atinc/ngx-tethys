@@ -24,8 +24,8 @@
     outline: none;
     padding: 1rem $modal-header-padding;
     margin: (-$modal-header-padding) (-$modal-header-padding) (-$modal-header-padding) auto;
-  } 
-  
+  }
+
   // .modal-close {
   //   color: $gray-300;
   //   line-height: 50px;
@@ -47,7 +47,7 @@
     padding-left: 0;
     padding-right: 0;
   }
-  &--clear-padding{
+  &--clear-padding {
     padding: 0;
   }
 }
