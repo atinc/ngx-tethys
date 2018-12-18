@@ -13,7 +13,11 @@ import {
     ComponentPortal,
     TemplatePortal
 } from '@angular/cdk/portal';
-import { ThyDialogConfig, THY_DIALOG_SCROLL_STRATEGY, DialogSizes } from './dialog.config';
+import {
+    ThyDialogConfig,
+    THY_DIALOG_SCROLL_STRATEGY,
+    DialogSizes
+} from './dialog.config';
 import {
     Overlay,
     OverlayConfig,
@@ -24,6 +28,7 @@ import { ThyDialogContainerComponent } from './dialog-container.component';
 import { ThyDialogRef } from './dialog-ref';
 import { Directionality } from '@angular/cdk/bidi';
 import { helpers } from '../util';
+import { DialogGlobalPositionStrategy } from './dialog-position-strategy';
 
 /** @docs-private */
 export function THY_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY(
@@ -57,9 +62,9 @@ export class ThyDialog implements OnDestroy {
     }
 
     private getOverlayPanelClasses(dialogConfig: ThyDialogConfig) {
-        let classes = [`cdk-overlay-pane`];
+        let classes = [`cdk-overlay-pane`, `dialog-overlay-pane`];
         const size = dialogConfig.size || DialogSizes.md;
-        classes.push(`thy-dialog-${size}`);
+        classes.push(`dialog-${size}`);
         if (dialogConfig.panelClass) {
             if (helpers.isArray(dialogConfig.panelClass)) {
                 classes = classes.concat(dialogConfig.panelClass);
@@ -72,7 +77,7 @@ export class ThyDialog implements OnDestroy {
 
     private getOverlayConfig(dialogConfig: ThyDialogConfig): OverlayConfig {
         const overlayConfig = new OverlayConfig({
-            positionStrategy: this.overlay.position().global(),
+            positionStrategy: new DialogGlobalPositionStrategy(), // this.overlay.position().global(),
             scrollStrategy:
                 dialogConfig.scrollStrategy ||
                 this.overlay.scrollStrategies.block(),
@@ -105,7 +110,7 @@ export class ThyDialog implements OnDestroy {
 
         const injectionTokens = new WeakMap<any, any>([
             [ThyDialogContainerComponent, dialogContainer],
-            // [MAT_DIALOG_DATA, config.data],
+            // [THY_DIALOG_DATA, config.data],
             [ThyDialogRef, dialogRef]
         ]);
 
@@ -177,7 +182,7 @@ export class ThyDialog implements OnDestroy {
         if (componentOrTemplateRef instanceof TemplateRef) {
             dialogContainer.attachTemplatePortal(
                 new TemplatePortal<T>(componentOrTemplateRef, null, <any>{
-                    $implicit: config.data,
+                    $implicit: config.initialState,
                     dialogRef
                 })
             );
@@ -190,13 +195,17 @@ export class ThyDialog implements OnDestroy {
             const contentRef = dialogContainer.attachComponentPortal<T>(
                 new ComponentPortal(componentOrTemplateRef, undefined, injector)
             );
+            if (config.initialState) {
+                Object.assign(contentRef.instance, config.initialState);
+            }
             dialogRef.componentInstance = contentRef.instance;
         }
 
-        dialogRef
-            .updateSize(config.width, config.height)
-            .updatePosition(config.position);
-
+        dialogRef.updateSizeAndPosition(
+            config.width,
+            config.height,
+            config.position
+        );
         return dialogRef;
     }
 

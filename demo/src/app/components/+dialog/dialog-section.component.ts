@@ -31,7 +31,11 @@ export class DemoDialogSectionComponent implements OnDestroy {
     }
 
     openComponentDialog() {
-        const dialogRef = this.thyDialog.open(DemoDialogContentComponent, {});
+        const dialogRef = this.thyDialog.open(DemoDialogContentComponent, {
+            initialState: {
+                data: `This is Pass Data`
+            }
+        });
         dialogRef.afterClosed().subscribe(result => {
             console.log(`Dialog result: ${result}`);
         });

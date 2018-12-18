@@ -3,7 +3,7 @@
     "version": "0.2.10",
     "license": "MIT",
     "scripts": {
-        "build": "npm run build:ngm",
+        "build": "npm run test & npm run build:ngm",
         "build:ng-pgr": "ng run ng-tethys:build",
         "build:ng": "ng build ngx-tethys --prod",
         "build:ngc": "rimraf ./built/* ./codegen/* && ngc -p ./src/tsconfig.lib.json",

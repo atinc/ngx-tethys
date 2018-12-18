@@ -78,7 +78,7 @@ export class ThyDialogConfig<TData = any> {
     minHeight?: number | string;
 
     /** Max-width of the dialog. If a number is provided, pixel units are assumed. Defaults to 80vw */
-    maxWidth?: number | string = '80vw';
+    maxWidth?: number | string;
 
     /** Max-height of the dialog. If a number is provided, pixel units are assumed. */
     maxHeight?: number | string;
@@ -87,7 +87,7 @@ export class ThyDialogConfig<TData = any> {
     position?: DialogPosition;
 
     /** Data being injected into the child component. */
-    data?: TData | null = null;
+    initialState?: TData | null = null;
 
     /** Dialog size md, lg, sm*/
     size?: DialogSizes;
@@ -119,6 +119,9 @@ export class ThyDialogConfig<TData = any> {
      * the `HashLocationStrategy`).
      */
     closeOnNavigation? = true;
+
+    /** 点击事件 */
+    event?: Event;
 }
 
 /** Injection token that can be used to specify default dialog options. */

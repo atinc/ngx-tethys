@@ -1,5 +1,10 @@
-<h2 class="thy-dialog-title">Install Angular</h2>
-<div class="mat-typography thy-dialog-content">
+<div class="dialog-header">
+    <h2 class="dialog-title">Install Angular</h2>
+    <button type="button" class="close" (click)="thyDialog.close()">
+        <i class="wtf wtf-times"></i>
+    </button>
+</div>
+<div class="dialog-body">
     <h3>Develop across all platforms</h3>
     <h3>What is Angular?</h3>
     <button thyButton="primary" (click)="openSubDialog(subDialog)">
@@ -68,22 +73,30 @@
         in-browser navigational capabilities.
     </p>
 </div>
-<!--
-    <mat-dialog-actions align="end">
-      <button mat-button mat-dialog-close>Cancel</button>
-      <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button>
-    </mat-dialog-actions>
--->
 
-<div>
+<div class="dialog-footer">
     <button thyButton="primary" (click)="ok()">确认</button>
     <button thyButton="link-secondary">取消</button>
 </div>
 
 <ng-template #subDialog>
-    <h2 class="thy-dialog-title">Sub Dialog Title</h2>
-    <div class="btn-pair">
+    <div class="dialog-header">
+        <h2 class="dialog-title">Sub Dialog Title</h2>
+        <button type="button" class="close" (click)="thyDialog.close()">
+            <i class="wtf wtf-times"></i>
+        </button>
+    </div>
+    <div class="dialog-body">content <a href="javascript:;" (click)="toggleShowMore()">More</a>
+    <p *ngIf="showMore">
+        1<br>
+        2<br>
+        3<br>
+    </p>
+    </div>
+    <div class="dialog-footer">
         <button thyButton="primary" (click)="thyDialog.close()">确认</button>
-        <button thyButton="link-secondary" (click)="thyDialog.closeAll()">关闭所有</button>
+        <button thyButton="link-secondary" (click)="thyDialog.closeAll()">
+            关闭所有
+        </button>
     </div>
 </ng-template>

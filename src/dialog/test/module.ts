@@ -6,7 +6,8 @@ import {
     Component,
     Directive,
     ViewContainerRef,
-    Injector
+    Injector,
+    OnInit
 } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -29,7 +30,7 @@ export class WithViewContainerDirective {
 }
 
 @Component({
-    selector: 'arbitrary-component',
+    selector: 'with-child-view-component',
     template: `
         <with-view-container-directive></with-view-container-directive>
     `
@@ -46,8 +47,8 @@ export class WithChildViewContainerComponent {
 @Component({
     selector: 'arbitrary-component-with-template-ref',
     template: `
-        <ng-template let-data let-dialogRef="dialogRef">
-            Cheese {{ localValue }} {{ data?.value
+        <ng-template let-initialState let-dialogRef="dialogRef">
+            Cheese {{ localValue }} {{ initialState?.value
             }}{{ setDialogRef(dialogRef) }}</ng-template
         >
     `
@@ -64,11 +65,25 @@ export class WithTemplateRefComponent {
     }
 }
 
+@Component({ template: '' })
+export class WithInjectedDataDialogComponent implements OnInit {
+    data: any;
+    constructor() {
+        // console.log(`WithInjectedDataDialogComponent constructor`);
+    }
+
+    ngOnInit() {
+        // console.log(`WithInjectedDataDialogComponent ngOnInit`);
+        // console.log(this.data);
+    }
+}
+
 const TEST_DIRECTIVES = [
     DialogContentComponent,
     WithViewContainerDirective,
     WithTemplateRefComponent,
-    WithChildViewContainerComponent
+    WithChildViewContainerComponent,
+    WithInjectedDataDialogComponent
 ];
 @NgModule({
     imports: [ThyDialogModule, NoopAnimationsModule],
@@ -76,9 +91,9 @@ const TEST_DIRECTIVES = [
     declarations: TEST_DIRECTIVES,
     entryComponents: [
         DialogContentComponent,
+        WithInjectedDataDialogComponent,
         WithChildViewContainerComponent
         //   ComponentWithTemplateRef,
-        //   PizzaMsg,
         //   ContentElementDialog,
         //   DialogWithInjectedData,
         //   DialogWithoutFocusableElements,

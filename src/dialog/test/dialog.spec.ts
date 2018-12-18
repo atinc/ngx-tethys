@@ -11,7 +11,8 @@ import {
     ComponentFixture,
     fakeAsync,
     flushMicrotasks,
-    inject
+    inject,
+    flush
 } from '@angular/core/testing';
 import { Location } from '@angular/common';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -25,7 +26,8 @@ import {
     DialogTestModule,
     DialogContentComponent,
     WithTemplateRefComponent,
-    WithViewContainerDirective
+    WithViewContainerDirective,
+    WithInjectedDataDialogComponent
 } from './module';
 
 describe('ThyDialog', () => {
@@ -86,9 +88,9 @@ describe('ThyDialog', () => {
         return overlayContainerElement.querySelector(`thy-dialog-container`);
     }
 
-    it('should open a dialog with a component', () => {
-        const dialogRef = dialog.open(DialogContentComponent);
-
+    function assertDialogContentComponent(
+        dialogRef: ThyDialogRef<DialogContentComponent>
+    ) {
         viewContainerFixture.detectChanges();
 
         expect(overlayContainerElement.textContent).toContain('Hello Dialog');
@@ -100,6 +102,18 @@ describe('ThyDialog', () => {
         viewContainerFixture.detectChanges();
         const dialogContainerElement = getDialogContainerElement();
         expect(dialogContainerElement.getAttribute('role')).toBe('dialog');
+    }
+
+    it('should open a dialog with a component', () => {
+        const dialogRef = dialog.open(DialogContentComponent);
+        assertDialogContentComponent(dialogRef);
+    });
+
+    it('should open a dialog with a component and viewContainerRef', () => {
+        const dialogRef = dialog.open(DialogContentComponent, {
+            viewContainerRef: testViewContainerRef
+        });
+        assertDialogContentComponent(dialogRef);
     });
 
     it('should open a dialog with a template', () => {
@@ -109,11 +123,11 @@ describe('ThyDialog', () => {
         templateRefFixture.componentInstance.localValue = 'Bees';
         templateRefFixture.detectChanges();
 
-        const data = { value: 'Knees' };
+        const initialState = { value: 'Knees' };
 
         const dialogRef = dialog.open(
             templateRefFixture.componentInstance.templateRef,
-            { data }
+            { initialState }
         );
 
         viewContainerFixture.detectChanges();
@@ -165,5 +179,41 @@ describe('ThyDialog', () => {
         ).toBeTruthy(
             'Expected the dialog component to be created with the injector from the viewContainerRef.'
         );
+    });
+
+    it('should apply the configured role to the dialog element', () => {
+        dialog.open(DialogContentComponent, { role: 'alertdialog' });
+
+        viewContainerFixture.detectChanges();
+
+        const dialogContainerElement = getDialogContainerElement();
+        expect(dialogContainerElement.getAttribute('role')).toBe('alertdialog');
+    });
+
+    it('should close a dialog and get back a result', fakeAsync(() => {
+        const dialogRef = dialog.open(DialogContentComponent, {
+            viewContainerRef: testViewContainerRef
+        });
+        const afterClosedCallback = jasmine.createSpy('afterClosed callback');
+
+        dialogRef.afterClosed().subscribe(afterClosedCallback);
+        dialogRef.close('close result');
+        viewContainerFixture.detectChanges();
+
+        flush();
+
+        expect(afterClosedCallback).toHaveBeenCalledWith('close result');
+        expect(getDialogContainerElement()).toBeNull();
+    }));
+
+    it('should pass initialState', () => {
+        const dialogRef = dialog.open(WithInjectedDataDialogComponent, {
+            initialState: {
+                data: `Hello initialState`
+            }
+        });
+        const instance = dialogRef.componentInstance;
+        viewContainerFixture.detectChanges();
+        expect(instance.data).toBe('Hello initialState');
     });
 });

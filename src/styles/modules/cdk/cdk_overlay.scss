@@ -12,9 +12,7 @@ $cdk-overlay-dark-backdrop-background: rgba(0, 0, 0, 0.288);
 $backdrop-animation-duration: 400ms !default;
 $backdrop-animation-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
 
-
 @mixin cdk-overlay() {
-
     .cdk-overlay-container,
     .cdk-global-overlay-wrapper {
         // Disable events from being captured on the overlay container.
@@ -25,6 +23,11 @@ $backdrop-animation-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
         left: 0;
         height: 100%;
         width: 100%;
+
+        // 弹出模态框时外部的滚动条可以滚动
+        // overflow-y: auto;
+        // justify-content: center;
+        // align-items: baseline;
     }
 
     // The overlay-container is an invisible element which contains all individual overlays.
@@ -76,7 +79,8 @@ $backdrop-animation-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
         z-index: $cdk-z-index-overlay-backdrop;
         pointer-events: auto;
         -webkit-tap-highlight-color: transparent;
-        transition: opacity $backdrop-animation-duration $backdrop-animation-timing-function;
+        transition: opacity $backdrop-animation-duration
+            $backdrop-animation-timing-function;
         opacity: 0;
 
         &.cdk-overlay-backdrop-showing {
@@ -97,7 +101,6 @@ $backdrop-animation-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
     }
 
     .cdk-overlay-transparent-backdrop {
-
         // Note: as of Firefox 57, having the backdrop be `background: none` will prevent it from
         // capturing the user's mouse scroll events. Since we also can't use something like
         // `rgba(0, 0, 0, 0)`, we work around the inconsistency by not setting the background at
