@@ -14,8 +14,8 @@ export class ThyDialogRef<T, TResult = any> {
     componentInstance: T;
 
     /** Whether the user is allowed to close the dialog. */
-    backdropClickClosable: boolean | undefined = this.containerInstance.config
-        .backdropClickClosable;
+    backdropClosable: boolean | undefined = this.containerInstance.config
+        .backdropClosable;
 
     /** Subject for notifying the user that the dialog has finished opening. */
     private readonly _afterOpened = new Subject<void>();
@@ -83,7 +83,7 @@ export class ThyDialogRef<T, TResult = any> {
             .pipe(
                 filter(
                     event =>
-                        event.keyCode === ESCAPE && this.backdropClickClosable
+                        event.keyCode === ESCAPE && this.backdropClosable
                 )
             )
             .subscribe(() => this.close());

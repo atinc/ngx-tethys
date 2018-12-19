@@ -21,7 +21,7 @@ export class DialogComponent {
         this.thyDialog.open(DialogContentComponent, {
             size: ThyDialogSizes.md,
             hasBackdrop: true,
-            backdropClickClosable: true,
+            backdropClosable: true,
             closeOnNavigation: true,
             initialState: {
                 data: 'some data'
@@ -47,7 +47,7 @@ export class DemoDialogSectionComponent implements OnDestroy {
     public config: ThyDialogConfig = {
         size: ThyDialogSizes.md,
         hasBackdrop: true,
-        backdropClickClosable: true,
+        backdropClosable: true,
         closeOnNavigation: true
     };
 

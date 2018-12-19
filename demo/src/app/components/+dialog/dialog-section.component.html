@@ -21,8 +21,8 @@
             <thy-form-group thyLabelText="">
                 <label
                     thyCheckbox
-                    name="backdropClickClosable"
-                    [(ngModel)]="config.backdropClickClosable"
+                    name="backdropClosable"
+                    [(ngModel)]="config.backdropClosable"
                     thyLabelText="点击幕布自动关闭"
                 ></label>
             </thy-form-group>
@@ -48,7 +48,14 @@
             </button>
         </div>
 
-        <pre><code lang="typescript" [highlight]="exampleCode"></code>></pre>
+        <pre><code lang="typescript" [highlight]="exampleCode"></code></pre>
+
+        <button
+            thyButton="primary"
+            (click)="openTemplateDialog(templateDialog)"
+        >
+            Open Dialog (template)
+        </button>
     </div>
 </section>
 <ng-template #templateDialog>

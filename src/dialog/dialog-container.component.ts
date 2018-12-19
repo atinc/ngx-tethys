@@ -17,6 +17,7 @@ import { DOCUMENT } from '@angular/common';
 import { AnimationEvent } from '@angular/animations';
 import { ThyDialogConfig } from './dialog.config';
 import { thyDialogAnimations } from './dialog-animations';
+import { ThyClickPositioner } from '../core';
 
 @Component({
     selector: 'thy-dialog-container',
@@ -48,6 +49,8 @@ export class ThyDialogContainerComponent {
     /** State of the dialog animation. */
     animationState: 'void' | 'enter' | 'exit' = 'enter';
 
+    transformOrigin = '0px 0px 0px';
+
     /** Emits when an animation state changes. */
     animationStateChanged = new EventEmitter<AnimationEvent>();
 
@@ -71,10 +74,24 @@ export class ThyDialogContainerComponent {
         }
     }
 
+    private setTransformOrigin() {
+        this.clickPositioner.runTask(lastPosition => {
+            if (lastPosition) {
+                const containerElement: HTMLElement = this.elementRef
+                    .nativeElement;
+                const transformOrigin = `${lastPosition.x -
+                    containerElement.offsetLeft}px ${lastPosition.y -
+                    containerElement.offsetTop}px 0px`;
+                containerElement.style['transform-origin'] = transformOrigin;
+            }
+        });
+    }
+
     constructor(
         private elementRef: ElementRef,
         @Inject(DOCUMENT) private document: any,
-        public config: ThyDialogConfig
+        public config: ThyDialogConfig,
+        private clickPositioner: ThyClickPositioner
     ) {}
 
     /**
@@ -86,6 +103,7 @@ export class ThyDialogContainerComponent {
             throwThyDialogContentAlreadyAttachedError();
         }
 
+        this.setTransformOrigin();
         this.savePreviouslyFocusedElement();
         return this.portalOutlet.attachComponentPortal(portal);
     }
@@ -99,6 +117,7 @@ export class ThyDialogContainerComponent {
             throwThyDialogContentAlreadyAttachedError();
         }
 
+        this.setTransformOrigin();
         this.savePreviouslyFocusedElement();
         return this.portalOutlet.attachTemplatePortal(portal);
     }

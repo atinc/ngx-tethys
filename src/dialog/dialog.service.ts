@@ -31,6 +31,7 @@ import { ThyDialogRef } from './dialog-ref';
 import { Directionality } from '@angular/cdk/bidi';
 import { helpers } from '../util';
 import { DialogGlobalPositionStrategy } from './dialog-position-strategy';
+import { ThyClickPositioner } from '../core';
 
 /** @docs-private */
 export function THY_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY(
@@ -72,7 +73,7 @@ export class ThyDialog implements OnDestroy {
 
     private getOverlayConfig(dialogConfig: ThyDialogConfig): OverlayConfig {
         const overlayConfig = new OverlayConfig({
-            positionStrategy: new DialogGlobalPositionStrategy(), // this.overlay.position().global(),
+            positionStrategy: this.overlay.position().global(),
             scrollStrategy:
                 dialogConfig.scrollStrategy ||
                 this.overlay.scrollStrategies.block(),
@@ -168,7 +169,7 @@ export class ThyDialog implements OnDestroy {
         // When the dialog backdrop is clicked, we want to close it.
         if (config.hasBackdrop) {
             overlayRef.backdropClick().subscribe(() => {
-                if (dialogRef.backdropClickClosable) {
+                if (dialogRef.backdropClosable) {
                     dialogRef.close();
                 }
             });
@@ -232,8 +233,11 @@ export class ThyDialog implements OnDestroy {
         @Optional() private location: Location,
         @Optional()
         @Inject(THY_DIALOG_DEFAULT_OPTIONS)
-        private defaultConfig: ThyDialogConfig
-    ) {}
+        private defaultConfig: ThyDialogConfig,
+        clickPositioner: ThyClickPositioner
+    ) {
+        clickPositioner.initialize();
+    }
 
     open<T, TData = any, TResult = any>(
         componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,

@@ -63,7 +63,7 @@ export class ThyDialogConfig<TData = any> {
     backdropClass? = ''; // 'thy-dialog-backdrop';
 
     /** Whether the user can use escape or clicking on the backdrop to close the modal. */
-    backdropClickClosable? = true;
+    backdropClosable? = true;
 
     /** Width of the dialog. */
     width? = '';
@@ -136,7 +136,7 @@ export const THY_DIALOG_DEFAULT_OPTIONS_PROVIDER = {
         hasBackdrop: true,
         backdropClass: '',
         panelClass:'',
-        backdropClickClosable: true,
+        backdropClosable: true,
         closeOnNavigation: true,
         autoFocus: true,
         restoreFocus: true,

@@ -12,8 +12,8 @@ export const apiParameters = [
         default: 'true'
     },
     {
-        property: 'backdropClickClosable',
-        description: '点击幕布是否自动关闭弹出框',
+        property: 'backdropClosable',
+        description: '点击幕布或者按ESC键是否自动关闭弹出框',
         type: 'boolean',
         default: 'true'
     },
