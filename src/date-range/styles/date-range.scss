@@ -13,7 +13,8 @@
             .thy-date-text-caret-down {
                 display: inline-block;
                 position: absolute;
-                top: 0;
+                top: 50%;
+                transform: translateY(-50%);
                 color: $gray-700;
             }
         }
