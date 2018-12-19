@@ -83,6 +83,7 @@ export class ThyDialogContainerComponent {
                     containerElement.offsetLeft}px ${lastPosition.y -
                     containerElement.offsetTop}px 0px`;
                 containerElement.style['transform-origin'] = transformOrigin;
+                console.log(containerElement.clientHeight);
             }
         });
     }
