@@ -20,9 +20,13 @@
     }
 }
 .thy-date-range-menu-item {
-    border: none;
+    width: 100%;
+    border: none !important;
     transition: padding 200ms !important;
     &:hover {
         padding-left: 30px;
+    }
+    &:focus{
+        outline: none;
     }
 }
