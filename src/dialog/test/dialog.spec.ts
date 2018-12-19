@@ -12,7 +12,7 @@ import {
     fakeAsync,
     flushMicrotasks,
     inject,
-    flush
+    flush,
 } from '@angular/core/testing';
 import { Location } from '@angular/common';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -158,7 +158,9 @@ describe('ThyDialog', () => {
         // callback should not be called before animation is complete
         expect(spy).not.toHaveBeenCalled();
 
-        flushMicrotasks();
+        // because click-positioner has setTimeout
+        // flushMicrotasks();
+        flush();
         expect(spy).toHaveBeenCalled();
     }));
 
