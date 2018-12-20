@@ -6,7 +6,8 @@ import {
     EmbeddedViewRef,
     ElementRef,
     Inject,
-    EventEmitter
+    EventEmitter,
+    ChangeDetectorRef
 } from '@angular/core';
 import {
     ComponentPortal,
@@ -72,6 +73,23 @@ export class ThyDialogContainerComponent {
         }
     }
 
+    private restoreFocus() {
+        const toFocus = this.elementFocusedBeforeDialogWasOpened;
+
+        // We need the extra check, because IE can set the `activeElement` to null in some cases.
+        if (
+            this.config.restoreFocus &&
+            toFocus &&
+            typeof toFocus.focus === 'function'
+        ) {
+            toFocus.focus();
+        }
+
+        // if (this._focusTrap) {
+        //   this._focusTrap.destroy();
+        // }
+    }
+
     private setTransformOrigin() {
         this.clickPositioner.runTaskUsePosition(lastPosition => {
             if (lastPosition) {
@@ -89,6 +107,7 @@ export class ThyDialogContainerComponent {
         private elementRef: ElementRef,
         @Inject(DOCUMENT) private document: any,
         public config: ThyDialogConfig,
+        private changeDetectorRef: ChangeDetectorRef,
         private clickPositioner: ThyClickPositioner
     ) {}
 
@@ -125,7 +144,7 @@ export class ThyDialogContainerComponent {
         if (event.toState === 'enter') {
             // this._trapFocus();
         } else if (event.toState === 'exit') {
-            // this._restoreFocus();
+            this.restoreFocus();
         }
 
         this.animationStateChanged.emit(event);
@@ -141,7 +160,7 @@ export class ThyDialogContainerComponent {
 
         // Mark the container for check so it can react if the
         // view container is using OnPush change detection.
-        // this.changeDetectorRef.markForCheck();
+        this.changeDetectorRef.markForCheck();
     }
 }
 
