@@ -16,7 +16,6 @@ import {
 } from '@angular/cdk/portal';
 import {
     ThyDialogConfig,
-    THY_DIALOG_SCROLL_STRATEGY,
     ThyDialogSizes,
     THY_DIALOG_DEFAULT_OPTIONS
 } from './dialog.config';
@@ -34,18 +33,18 @@ import { DialogGlobalPositionStrategy } from './dialog-position-strategy';
 import { ThyClickPositioner } from '../core';
 
 /** @docs-private */
-export function THY_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY(
-    overlay: Overlay
-): () => ScrollStrategy {
-    return () => overlay.scrollStrategies.block();
-}
+// export function THY_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY(
+//     overlay: Overlay
+// ): () => ScrollStrategy {
+//     return () => overlay.scrollStrategies.block();
+// }
 
 /** @docs-private */
-export const THY_DIALOG_SCROLL_STRATEGY_PROVIDER = {
-    provide: THY_DIALOG_SCROLL_STRATEGY,
-    deps: [Overlay],
-    useFactory: THY_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY
-};
+// export const THY_DIALOG_SCROLL_STRATEGY_PROVIDER = {
+//     provide: THY_DIALOG_SCROLL_STRATEGY,
+//     deps: [Overlay],
+//     useFactory: THY_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY
+// };
 
 @Injectable({
     providedIn: 'root'
