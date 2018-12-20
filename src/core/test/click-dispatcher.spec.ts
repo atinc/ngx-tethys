@@ -15,7 +15,7 @@ import {
     ElementRef,
     OnDestroy
 } from '@angular/core';
-import { ThyClickDispatcher } from '../click-dispatcher';
+import { ThyClickDispatcher } from '../event-dispatchers/click-dispatcher';
 import { Subscription, Observable } from 'rxjs';
 import { dispatchFakeEvent } from '../testing';
 

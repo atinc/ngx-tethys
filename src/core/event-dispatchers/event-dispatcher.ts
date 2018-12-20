@@ -3,23 +3,20 @@ import { DOCUMENT } from '@angular/common';
 import { fromEvent, Subject, Observable, Observer, Subscription } from 'rxjs';
 import { auditTime } from 'rxjs/operators';
 
-const DEFAULT_CLICKED_TIME = 100;
+const DEFAULT_EVENT_TIME = 100;
 
-@Injectable({
-    providedIn: 'root'
-})
-export class ThyClickDispatcher implements OnDestroy {
+export abstract class ThyEventDispatcher implements OnDestroy {
     private _globalSubscription: Subscription = null;
 
-    private _clickEvent$ = new Subject<Event>();
+    private _event$ = new Subject<Event>();
 
-    private _clickCount = 0;
+    private _subscriptionCount = 0;
 
     private _addGlobalListener() {
         this._globalSubscription = this.ngZone.runOutsideAngular(() => {
-            return fromEvent(this.document, 'click').subscribe(
+            return fromEvent(this.document, this.eventName).subscribe(
                 (event: Event) => {
-                    this._clickEvent$.next(event);
+                    this._event$.next(event);
                 }
             );
         });
@@ -38,10 +35,11 @@ export class ThyClickDispatcher implements OnDestroy {
 
     constructor(
         @Inject(DOCUMENT) private document: any,
-        private ngZone: NgZone
+        private ngZone: NgZone,
+        private eventName: string
     ) {}
 
-    clicked(auditTimeInMs: number = DEFAULT_CLICKED_TIME): Observable<Event> {
+    protected subscribe(auditTimeInMs: number = DEFAULT_EVENT_TIME): Observable<Event> {
         return Observable.create((observer: Observer<Event | void>) => {
             if (!this._globalSubscription) {
                 this._addGlobalListener();
@@ -50,17 +48,17 @@ export class ThyClickDispatcher implements OnDestroy {
             // since it does add a perceptible delay in processing overhead.
             const subscription =
                 auditTimeInMs > 0
-                    ? this._clickEvent$
+                    ? this._event$
                           .pipe(auditTime(auditTimeInMs))
                           .subscribe(observer)
-                    : this._clickEvent$.subscribe(observer);
+                    : this._event$.subscribe(observer);
 
-            this._clickCount++;
+            this._subscriptionCount++;
             return () => {
                 subscription.unsubscribe();
-                this._clickCount--;
+                this._subscriptionCount--;
 
-                if (!this._clickCount) {
+                if (!this._subscriptionCount) {
                     this._removeGlobalListener();
                 }
             };
@@ -69,6 +67,6 @@ export class ThyClickDispatcher implements OnDestroy {
 
     ngOnDestroy() {
         this._removeGlobalListener();
-        this._clickEvent$.complete();
+        this._event$.complete();
     }
 }
