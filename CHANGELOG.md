@@ -1,3 +1,7 @@
+## 0.2.12
+添加分页组件 `thy-pagination`
+扩展 `thy-date-range` 支持点击隐藏菜单
+
 ## 0.2.11
 thyeditor 上传图片支持是否多选，文件类型
 

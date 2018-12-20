@@ -13,16 +13,21 @@
             .thy-date-text-caret-down {
                 display: inline-block;
                 position: absolute;
-                top: 0;
+                top: 50%;
+                transform: translateY(-50%);
                 color: $gray-700;
             }
         }
     }
 }
 .thy-date-range-menu-item {
-    border: none;
+    width: 100%;
+    border: none !important;
     transition: padding 200ms !important;
     &:hover {
         padding-left: 30px;
+    }
+    &:focus{
+        outline: none;
     }
 }
