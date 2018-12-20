@@ -16,7 +16,7 @@ const animationBody = [
     transition(
         '* => enter',
         animate(
-            '2000ms cubic-bezier(0, 0, 0.57, 1)',
+            '200ms cubic-bezier(0, 0, 0.57, 1)',
             style({ transform: 'none', opacity: 1 })
         )
     ),

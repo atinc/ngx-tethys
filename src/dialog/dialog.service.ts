@@ -26,7 +26,7 @@ import {
     ScrollStrategy
 } from '@angular/cdk/overlay';
 import { ThyDialogContainerComponent } from './dialog-container.component';
-import { ThyDialogRef } from './dialog-ref';
+import { ThyDialogRef, ThyDialogRefInternal } from './dialog-ref';
 import { Directionality } from '@angular/cdk/bidi';
 import { helpers } from '../util';
 import { ThyClickPositioner } from '../core';
@@ -143,7 +143,7 @@ export class ThyDialog implements OnDestroy {
     ): ThyDialogRef<T, TResult> {
         // Create a reference to the dialog we're creating in order to give the user a handle
         // to modify and close it.
-        const dialogRef = new ThyDialogRef<T, TResult>(
+        const dialogRef = new ThyDialogRefInternal<T, TResult>(
             overlayRef,
             dialogContainer,
             config.id

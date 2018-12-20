@@ -8,7 +8,18 @@ import { ThyDialogContainerComponent } from './dialog-container.component';
 // Counter for unique dialog ids.
 let uniqueId = 0;
 
-export class ThyDialogRef<T, TResult = any> {
+export abstract class ThyDialogRef<T, TResult = any> {
+    componentInstance: T;
+    id: string;
+    abstract close(dialogResult?: TResult): void;
+    abstract afterOpened(): Observable<void>;
+    abstract afterClosed(): Observable<TResult | undefined>;
+    abstract beforeClosed(): Observable<TResult | undefined>;
+    abstract keydownEvents(): Observable<KeyboardEvent>;
+}
+
+export class ThyDialogRefInternal<T, TResult = any>
+    implements ThyDialogRef<T, TResult> {
     /** The instance of component opened into the dialog. */
     componentInstance: T;
 
@@ -80,8 +91,7 @@ export class ThyDialogRef<T, TResult = any> {
             .keydownEvents()
             .pipe(
                 filter(
-                    event =>
-                        event.keyCode === ESCAPE && this.backdropClosable
+                    event => event.keyCode === ESCAPE && this.backdropClosable
                 )
             )
             .subscribe(() => this.close());
