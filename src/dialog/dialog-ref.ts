@@ -1,6 +1,5 @@
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { GlobalPositionStrategy, OverlayRef } from '@angular/cdk/overlay';
-import { Location } from '@angular/common';
 import { Observable, Subject } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 import { DialogPosition } from './dialog.config';
@@ -38,7 +37,6 @@ export class ThyDialogRef<T, TResult = any> {
     constructor(
         private overlayRef: OverlayRef,
         public containerInstance: ThyDialogContainerComponent,
-        _location?: Location,
         readonly id: string = `thy-dialog-${uniqueId++}`
     ) {
         // Pass the id along to the container.

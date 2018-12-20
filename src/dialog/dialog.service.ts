@@ -146,7 +146,6 @@ export class ThyDialog implements OnDestroy {
         const dialogRef = new ThyDialogRef<T, TResult>(
             overlayRef,
             dialogContainer,
-            this.location,
             config.id
         );
 
@@ -214,7 +213,6 @@ export class ThyDialog implements OnDestroy {
     constructor(
         private overlay: Overlay,
         private injector: Injector,
-        @Optional() private location: Location,
         @Optional()
         @Inject(THY_DIALOG_DEFAULT_OPTIONS)
         private defaultConfig: ThyDialogConfig,

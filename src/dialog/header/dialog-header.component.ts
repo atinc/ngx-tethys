@@ -26,7 +26,7 @@ export class DialogHeaderComponent implements OnInit {
 
     @Input() thyIcon: string;
 
-    @Output() thyOnClose: EventEmitter<any> = new EventEmitter<any>();
+    @Output() thyOnClose: EventEmitter<Event> = new EventEmitter<Event>();
 
     constructor(private dialog: ThyDialog) {}
 
@@ -34,7 +34,7 @@ export class DialogHeaderComponent implements OnInit {
 
     close(event?: Event) {
         if (this.thyOnClose.observers.length > 0) {
-            this.thyOnClose.emit();
+            this.thyOnClose.emit(event);
         } else {
             this.dialog.close();
         }
