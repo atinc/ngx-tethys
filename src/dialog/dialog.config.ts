@@ -143,6 +143,3 @@ export const THY_DIALOG_DEFAULT_OPTIONS_PROVIDER = {
         maxHeight: '85vh'
     }
 };
-
-/** Injection token that determines the scroll handling while the dialog is open. */
-// export const THY_DIALOG_SCROLL_STRATEGY = new InjectionToken<ScrollStrategy>('thy-dialog-scroll-strategy');
