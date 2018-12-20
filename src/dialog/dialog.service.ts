@@ -226,6 +226,12 @@ export class ThyDialog implements OnDestroy {
         config?: ThyDialogConfig<TData>
     ): ThyDialogRef<T, TResult> {
         config = { ...this.defaultConfig, ...config };
+        if (config.id && this.getDialogById(config.id)) {
+            throw Error(
+                `Dialog with id ${config.id} exists already. The dialog id must be unique.`
+            );
+        }
+
         const overlayConfig: OverlayConfig = this.getOverlayConfig(config);
         const overlayRef = this.overlay.create(overlayConfig);
 

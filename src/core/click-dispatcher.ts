@@ -9,19 +9,16 @@ const DEFAULT_CLICKED_TIME = 200;
     providedIn: 'root'
 })
 export class ClickDispatcher implements OnDestroy {
-    private _globalSubscription: Subscription;
+    private _globalSubscription: Subscription = null;
 
     private _clickEvent$ = new Subject<Event>();
 
     private _clickCount = 0;
 
     private _addGlobalListener() {
-        let ff = 0;
         this._globalSubscription = this.ngZone.runOutsideAngular(() => {
             return fromEvent(this.document, 'click').subscribe(
                 (event: Event) => {
-                    ff++;
-                    console.log(`click event: ${ff}`);
                     this._clickEvent$.next(event);
                 }
             );
@@ -35,6 +32,10 @@ export class ClickDispatcher implements OnDestroy {
         }
     }
 
+    get globalSubscription(): Subscription {
+        return this._globalSubscription;
+    }
+
     constructor(
         @Inject(DOCUMENT) private document: any,
         private ngZone: NgZone
@@ -45,8 +46,6 @@ export class ClickDispatcher implements OnDestroy {
             if (!this._globalSubscription) {
                 this._addGlobalListener();
             }
-
-            this._clickEvent$.subscribe(observer);
             // In the case of a 0ms delay, use an observable without auditTime
             // since it does add a perceptible delay in processing overhead.
             const subscription =

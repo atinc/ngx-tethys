@@ -12,7 +12,7 @@ import {
     fakeAsync,
     flushMicrotasks,
     inject,
-    flush,
+    flush
 } from '@angular/core/testing';
 import { Location } from '@angular/common';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -161,7 +161,7 @@ describe('ThyDialog', () => {
         // because click-positioner has setTimeout
         // flushMicrotasks();
         flush();
-        expect(spy).toHaveBeenCalled();
+        expect(spy).toHaveBeenCalledTimes(1);
     }));
 
     it('should use injector from viewContainerRef for DialogInjector', () => {
