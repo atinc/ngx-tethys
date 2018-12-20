@@ -15,7 +15,7 @@ export class DialogFooterComponent {
     @HostBinding(`class.dialog-footer`) _isDialogFooter = true;
 
     @HostBinding(`class.dialog-footer-border-top`)
-    private showBorderTop = false;
+    showBorderTop = false;
 
     @Input()
     set thyShowBorderTop(value: string) {

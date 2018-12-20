@@ -49,8 +49,6 @@ export class ThyDialogContainerComponent {
     /** State of the dialog animation. */
     animationState: 'void' | 'enter' | 'exit' = 'enter';
 
-    transformOrigin = '0px 0px 0px';
-
     /** Emits when an animation state changes. */
     animationStateChanged = new EventEmitter<AnimationEvent>();
 
@@ -83,7 +81,6 @@ export class ThyDialogContainerComponent {
                     containerElement.offsetLeft}px ${lastPosition.y -
                     containerElement.offsetTop}px 0px`;
                 containerElement.style['transform-origin'] = transformOrigin;
-                console.log(containerElement.clientHeight);
             }
         });
     }
