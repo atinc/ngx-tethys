@@ -3,12 +3,12 @@ import { DOCUMENT } from '@angular/common';
 import { fromEvent, Subject, Observable, Observer, Subscription } from 'rxjs';
 import { auditTime } from 'rxjs/operators';
 
-const DEFAULT_CLICKED_TIME = 200;
+const DEFAULT_CLICKED_TIME = 100;
 
 @Injectable({
     providedIn: 'root'
 })
-export class ClickDispatcher implements OnDestroy {
+export class ThyClickDispatcher implements OnDestroy {
     private _globalSubscription: Subscription = null;
 
     private _clickEvent$ = new Subject<Event>();

@@ -1,5 +1,5 @@
 import { Injectable, Inject, NgZone } from '@angular/core';
-import { ClickDispatcher } from './click-dispatcher';
+import { ThyClickDispatcher } from './click-dispatcher';
 
 export interface ThyClickPosition {
     x: number;
@@ -14,7 +14,7 @@ export class ThyClickPositioner {
 
     private initialized = false;
 
-    constructor(private clickDispatcher: ClickDispatcher) {}
+    constructor(private clickDispatcher: ThyClickDispatcher) {}
 
     get lastClickPosition(): ThyClickPosition | null {
         return this.lastPosition;

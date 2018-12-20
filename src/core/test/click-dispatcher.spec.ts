@@ -15,7 +15,7 @@ import {
     ElementRef,
     OnDestroy
 } from '@angular/core';
-import { ClickDispatcher } from '../click-dispatcher';
+import { ThyClickDispatcher } from '../click-dispatcher';
 import { Subscription, Observable } from 'rxjs';
 import { dispatchFakeEvent } from '../testing';
 
@@ -29,10 +29,10 @@ describe('ClickDispatcher', () => {
     }));
 
     describe('basic usage', () => {
-        let click: ClickDispatcher;
+        let click: ThyClickDispatcher;
         let fixture: ComponentFixture<ClickComponent>;
 
-        beforeEach(inject([ClickDispatcher], (s: ClickDispatcher) => {
+        beforeEach(inject([ThyClickDispatcher], (s: ThyClickDispatcher) => {
             click = s;
 
             fixture = TestBed.createComponent(ClickComponent);
@@ -109,9 +109,9 @@ describe('ClickDispatcher', () => {
     });
 
     describe('lazy subscription', () => {
-        let click: ClickDispatcher;
+        let click: ThyClickDispatcher;
 
-        beforeEach(inject([ClickDispatcher], (s: ClickDispatcher) => {
+        beforeEach(inject([ThyClickDispatcher], (s: ThyClickDispatcher) => {
             click = s;
         }));
 
@@ -165,7 +165,7 @@ class ClickComponent implements OnDestroy {
     clicked = 0;
     subscription: Subscription;
     clicked$: Observable<Event>;
-    constructor(public clickDispatcher: ClickDispatcher) {
+    constructor(public clickDispatcher: ThyClickDispatcher) {
         this.clicked$ = clickDispatcher.clicked(0);
         this.subscription = this.clicked$.subscribe(event => {
             this.clicked++;
