@@ -1,3 +1,6 @@
+## 0.2.15
+修复 `thy-date-range` 传值不同步的问题
+
 ## 0.2.12
 添加分页组件 `thy-pagination`
 扩展 `thy-date-range` 支持点击隐藏菜单
