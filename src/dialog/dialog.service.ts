@@ -29,7 +29,6 @@ import { ThyDialogContainerComponent } from './dialog-container.component';
 import { ThyDialogRef } from './dialog-ref';
 import { Directionality } from '@angular/cdk/bidi';
 import { helpers } from '../util';
-import { DialogGlobalPositionStrategy } from './dialog-position-strategy';
 import { ThyClickPositioner } from '../core';
 
 /** @docs-private */
