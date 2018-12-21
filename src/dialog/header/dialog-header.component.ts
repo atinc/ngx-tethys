@@ -7,9 +7,11 @@ import {
     TemplateRef,
     OnInit,
     HostBinding,
-    ChangeDetectionStrategy
+    ChangeDetectionStrategy,
+    Optional
 } from '@angular/core';
 import { ThyDialog } from '../dialog.service';
+import { ThyDialogContainerComponent } from '../dialog-container.component';
 
 @Component({
     selector: 'thy-dialog-header',
@@ -28,9 +30,18 @@ export class DialogHeaderComponent implements OnInit {
 
     @Output() thyOnClose: EventEmitter<Event> = new EventEmitter<Event>();
 
-    constructor(private dialog: ThyDialog) {}
+    constructor(
+        private dialog: ThyDialog,
+        @Optional() private dialogContainer: ThyDialogContainerComponent
+    ) {}
 
-    ngOnInit() {}
+    ngOnInit() {
+        Promise.resolve().then(() => {
+            if (this.dialogContainer) {
+                this.dialogContainer.ariaLabelledBy = this.thyTitle;
+            }
+        });
+    }
 
     close(event?: Event) {
         if (this.thyOnClose.observers.length > 0) {

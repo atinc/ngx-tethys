@@ -33,9 +33,9 @@ import { ThyClickPositioner } from '../core';
         'aria-modal': 'true',
         '[attr.id]': 'id',
         '[attr.role]': 'config.role',
-        // '[attr.aria-labelledby]': 'config.ariaLabel ? null : _ariaLabelledBy',
-        // '[attr.aria-label]': 'config.ariaLabel',
-        // '[attr.aria-describedby]': 'config.ariaDescribedBy || null',
+        '[attr.aria-labelledby]': 'config.ariaLabel ? null : ariaLabelledBy',
+        '[attr.aria-label]': 'config.ariaLabel',
+        '[attr.aria-describedby]': 'config.ariaDescribedBy || null',
         '[@dialogContainer]': 'animationState',
         '(@dialogContainer.start)': 'onAnimationStart($event)',
         '(@dialogContainer.done)': 'onAnimationDone($event)'
@@ -52,6 +52,9 @@ export class ThyDialogContainerComponent {
 
     /** Emits when an animation state changes. */
     animationStateChanged = new EventEmitter<AnimationEvent>();
+
+    /** ID of the element that should be considered as the dialog's label. */
+    ariaLabelledBy: string | null = null;
 
     /** Element that was focused before the dialog was opened. Save this to restore upon close. */
     private elementFocusedBeforeDialogWasOpened: HTMLElement | null = null;

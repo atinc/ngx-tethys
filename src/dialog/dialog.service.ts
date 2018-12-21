@@ -90,7 +90,6 @@ export class ThyDialog implements OnDestroy {
 
         const injectionTokens = new WeakMap<any, any>([
             [ThyDialogContainerComponent, dialogContainer],
-            // [THY_DIALOG_DATA, config.data],
             [ThyDialogRef, dialogRef]
         ]);
 
