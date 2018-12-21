@@ -59,6 +59,8 @@ export class ThyPropertyOperationComponent implements AfterContentInit {
         this._showClose = inputValueToBoolean(value);
     }
 
+    @Input() thyLabelHasValue = true;
+
     _setOnlyHasTips() {
         if (this._value) {
             this._onlyHasTips = false;
