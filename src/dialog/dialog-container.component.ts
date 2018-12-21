@@ -6,7 +6,9 @@ import {
     EmbeddedViewRef,
     ElementRef,
     Inject,
-    EventEmitter
+    EventEmitter,
+    ChangeDetectorRef,
+    HostBinding
 } from '@angular/core';
 import {
     ComponentPortal,
@@ -32,9 +34,9 @@ import { ThyClickPositioner } from '../core';
         'aria-modal': 'true',
         '[attr.id]': 'id',
         '[attr.role]': 'config.role',
-        // '[attr.aria-labelledby]': 'config.ariaLabel ? null : _ariaLabelledBy',
-        // '[attr.aria-label]': 'config.ariaLabel',
-        // '[attr.aria-describedby]': 'config.ariaDescribedBy || null',
+        '[attr.aria-labelledby]': 'config.ariaLabel ? null : ariaLabelledBy',
+        '[attr.aria-label]': 'config.ariaLabel',
+        '[attr.aria-describedby]': 'config.ariaDescribedBy || null',
         '[@dialogContainer]': 'animationState',
         '(@dialogContainer.start)': 'onAnimationStart($event)',
         '(@dialogContainer.done)': 'onAnimationDone($event)'
@@ -44,6 +46,7 @@ export class ThyDialogContainerComponent {
     @ViewChild(CdkPortalOutlet)
     private portalOutlet: CdkPortalOutlet;
 
+    @HostBinding(`attr.id`)
     id: string;
 
     /** State of the dialog animation. */
@@ -51,6 +54,9 @@ export class ThyDialogContainerComponent {
 
     /** Emits when an animation state changes. */
     animationStateChanged = new EventEmitter<AnimationEvent>();
+
+    /** ID of the element that should be considered as the dialog's label. */
+    ariaLabelledBy: string | null = null;
 
     /** Element that was focused before the dialog was opened. Save this to restore upon close. */
     private elementFocusedBeforeDialogWasOpened: HTMLElement | null = null;
@@ -72,8 +78,25 @@ export class ThyDialogContainerComponent {
         }
     }
 
+    private restoreFocus() {
+        const toFocus = this.elementFocusedBeforeDialogWasOpened;
+
+        // We need the extra check, because IE can set the `activeElement` to null in some cases.
+        if (
+            this.config.restoreFocus &&
+            toFocus &&
+            typeof toFocus.focus === 'function'
+        ) {
+            toFocus.focus();
+        }
+
+        // if (this._focusTrap) {
+        //   this._focusTrap.destroy();
+        // }
+    }
+
     private setTransformOrigin() {
-        this.clickPositioner.runTask(lastPosition => {
+        this.clickPositioner.runTaskUseLastPosition(lastPosition => {
             if (lastPosition) {
                 const containerElement: HTMLElement = this.elementRef
                     .nativeElement;
@@ -89,6 +112,7 @@ export class ThyDialogContainerComponent {
         private elementRef: ElementRef,
         @Inject(DOCUMENT) private document: any,
         public config: ThyDialogConfig,
+        private changeDetectorRef: ChangeDetectorRef,
         private clickPositioner: ThyClickPositioner
     ) {}
 
@@ -125,7 +149,7 @@ export class ThyDialogContainerComponent {
         if (event.toState === 'enter') {
             // this._trapFocus();
         } else if (event.toState === 'exit') {
-            // this._restoreFocus();
+            this.restoreFocus();
         }
 
         this.animationStateChanged.emit(event);
@@ -141,7 +165,7 @@ export class ThyDialogContainerComponent {
 
         // Mark the container for check so it can react if the
         // view container is using OnPush change detection.
-        // this.changeDetectorRef.markForCheck();
+        this.changeDetectorRef.markForCheck();
     }
 }
 

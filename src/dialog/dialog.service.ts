@@ -90,7 +90,6 @@ export class ThyDialog implements OnDestroy {
 
         const injectionTokens = new WeakMap<any, any>([
             [ThyDialogContainerComponent, dialogContainer],
-            // [THY_DIALOG_DATA, config.data],
             [ThyDialogRef, dialogRef]
         ]);
 
@@ -226,6 +225,14 @@ export class ThyDialog implements OnDestroy {
         config?: ThyDialogConfig<TData>
     ): ThyDialogRef<T, TResult> {
         config = { ...this.defaultConfig, ...config };
+        if (config.id && this.getDialogById(config.id)) {
+            throw Error(
+                `Dialog with id ${
+                    config.id
+                } exists already. The dialog id must be unique.`
+            );
+        }
+
         const overlayConfig: OverlayConfig = this.getOverlayConfig(config);
         const overlayRef = this.overlay.create(overlayConfig);
 
@@ -256,6 +263,21 @@ export class ThyDialog implements OnDestroy {
 
     getDialogById(id: string): ThyDialogRef<any> | undefined {
         return this.openedDialogs.find(dialog => dialog.id === id);
+    }
+
+    /**
+     * Finds the closest ThyDialogRef to an element by looking at the DOM.
+     */
+    getClosestDialog(element: HTMLElement): ThyDialogRef<any> | undefined {
+        let parent: HTMLElement | null = element.parentElement;
+
+        while (parent && !parent.classList.contains('thy-dialog-container')) {
+            parent = parent.parentElement;
+        }
+        if (parent && parent.id) {
+            return this.getDialogById(parent.id);
+        }
+        return null;
     }
 
     close(result?: any) {

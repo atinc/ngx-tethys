@@ -7,7 +7,7 @@
         <ng-content></ng-content>
     </div>
     <ng-container *ngIf="_value">{{_value}}</ng-container>
-    <div class="thy-tips">{{_labelText}}</div>
+    <div class="thy-tips" *ngIf="thyLabelHasValue || !thyLabelHasValue && !_value">{{_labelText}}</div>
 </div>
 <span *ngIf="_showClose" (click)="remove($event)" class="close-link close-link-danger close-link-sm wtf wtf-times"></span>
 

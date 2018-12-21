@@ -7,14 +7,19 @@ import {
     TemplateRef,
     OnInit,
     HostBinding,
-    ChangeDetectionStrategy
+    ChangeDetectionStrategy,
+    Optional,
+    ElementRef
 } from '@angular/core';
 import { ThyDialog } from '../dialog.service';
+import { ThyDialogContainerComponent } from '../dialog-container.component';
+import { ThyDialogRefInternal } from '../dialog-ref';
 
 @Component({
     selector: 'thy-dialog-header',
     templateUrl: './dialog-header.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    exportAs: 'thyDialogHeader'
 })
 export class DialogHeaderComponent implements OnInit {
     @HostBinding(`class.dialog-header`) _isDialogHeader = true;
@@ -28,9 +33,33 @@ export class DialogHeaderComponent implements OnInit {
 
     @Output() thyOnClose: EventEmitter<Event> = new EventEmitter<Event>();
 
-    constructor(private dialog: ThyDialog) {}
+    constructor(
+        private elementRef: ElementRef,
+        private dialog: ThyDialog,
+        @Optional() private dialogContainer: ThyDialogContainerComponent
+    ) {}
 
-    ngOnInit() {}
+    ngOnInit() {
+        if (!this.dialogContainer) {
+            // When this directive is included in a dialog via TemplateRef (rather than being
+            // in a Component), the ThyDialogContainerComponent isn't available via injection because embedded
+            // views cannot be given a custom injector. Instead, we look up the ThyDialogContainerComponent by
+            // ID. This must occur in `onInit`, as the ID binding for the dialog container won't
+            // be resolved at constructor time.
+            const dialogRef = this.dialog.getClosestDialog(
+                this.elementRef.nativeElement
+            ) as ThyDialogRefInternal<any>;
+            this.dialogContainer = dialogRef.containerInstance;
+        }
+
+        // change in next microtask avoid throw ExpressionChangedAfterItHasBeenCheckedError
+        // because sub component change parent's HostBinding property (ariaLabelledBy)
+        Promise.resolve().then(() => {
+            if (this.dialogContainer) {
+                this.dialogContainer.ariaLabelledBy = this.thyTitle;
+            }
+        });
+    }
 
     close(event?: Event) {
         if (this.thyOnClose.observers.length > 0) {

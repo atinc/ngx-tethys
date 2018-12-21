@@ -119,9 +119,6 @@ export class ThyDialogConfig<TData = any> {
      * the `HashLocationStrategy`).
      */
     closeOnNavigation? = true;
-
-    /** 点击事件 */
-    event?: Event;
 }
 
 /** Injection token that can be used to specify default dialog options. */

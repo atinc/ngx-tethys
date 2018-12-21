@@ -4,7 +4,9 @@ import {
     async,
     fakeAsync,
     ComponentFixture,
-    tick
+    tick,
+    flushMicrotasks,
+    flush
 } from '@angular/core/testing';
 import {
     NgModule,
@@ -13,8 +15,8 @@ import {
     ElementRef,
     OnDestroy
 } from '@angular/core';
-import { ClickDispatcher } from '../click-dispatcher';
-import { Subscription } from 'rxjs';
+import { ThyClickDispatcher } from '../event-dispatchers/click-dispatcher';
+import { Subscription, Observable } from 'rxjs';
 import { dispatchFakeEvent } from '../testing';
 
 describe('ClickDispatcher', () => {
@@ -26,69 +28,60 @@ describe('ClickDispatcher', () => {
         TestBed.compileComponents();
     }));
 
-    describe('Basic usage', () => {
-        let click: ClickDispatcher;
+    describe('basic usage', () => {
+        let click: ThyClickDispatcher;
         let fixture: ComponentFixture<ClickComponent>;
 
-        beforeEach(inject([ClickDispatcher], (s: ClickDispatcher) => {
+        beforeEach(inject([ThyClickDispatcher], (s: ThyClickDispatcher) => {
             click = s;
 
             fixture = TestBed.createComponent(ClickComponent);
             fixture.detectChanges();
         }));
 
+        it('should notify through the component and service that a click event occurred', fakeAsync(() => {
+            // Listen for notifications from scroll directive
+            const clicked$ = fixture.componentInstance.clicked$;
+            const componentSpy = jasmine.createSpy('component click document callback');
+            clicked$.subscribe(componentSpy);
 
-        // it('should notify through the directive and service that a scroll event occurred', fakeAsync(() => {
-        //     // Listen for notifications from scroll directive
-        //     const scrollable = fixture.componentInstance.scrollable;
-        //     const directiveSpy = jasmine.createSpy('directive scroll callback');
-        //     scrollable.elementScrolled().subscribe(directiveSpy);
+            // Listen for notifications from click service with a throttle of 100ms
+            const throttleTime = 100;
+            const serviceSpy = jasmine.createSpy('service click document callback');
+            click.clicked(throttleTime).subscribe(serviceSpy);
+            dispatchFakeEvent(document, 'click', false);
 
-        //     // Listen for notifications from scroll service with a throttle of 100ms
-        //     const throttleTime = 100;
-        //     const serviceSpy = jasmine.createSpy('service scroll callback');
-        //     scroll.scrolled(throttleTime).subscribe(serviceSpy);
+            // The click directive should have notified the service immediately.
+            expect(componentSpy).toHaveBeenCalled();
 
-        //     // Emit a scroll event from the scrolling element in our component.
-        //     // This event should be picked up by the scrollable directive and notify.
-        //     // The notification should be picked up by the service.
-        //     dispatchFakeEvent(
-        //         fixture.componentInstance.scrollingElement.nativeElement,
-        //         'scroll',
-        //         false
-        //     );
+            // Verify that the throttle is used, the service should wait for the throttle time until
+            // sending the notification.
+            expect(serviceSpy).not.toHaveBeenCalled();
 
-        //     // The scrollable directive should have notified the service immediately.
-        //     expect(directiveSpy).toHaveBeenCalled();
+            // After the throttle time, the notification should be sent.
+            tick(throttleTime);
+            expect(serviceSpy).toHaveBeenCalled();
+        }));
 
-        //     // Verify that the throttle is used, the service should wait for the throttle time until
-        //     // sending the notification.
-        //     expect(serviceSpy).not.toHaveBeenCalled();
+        it('should not execute the global events in the Angular zone', () => {
+            click.clicked(0).subscribe(() => {});
+            dispatchFakeEvent(document, 'click', false);
 
-        //     // After the throttle time, the notification should be sent.
-        //     tick(throttleTime);
-        //     expect(serviceSpy).toHaveBeenCalled();
-        // }));
+            expect(fixture.ngZone.isStable).toBe(true);
+        });
 
-        // it('should not execute the global events in the Angular zone', () => {
-        //     click.clicked(0).subscribe(() => {});
-        //     dispatchFakeEvent(document, 'click', false);
+        it('should be able to unsubscribe from the global click', () => {
+            const spy = jasmine.createSpy('global click callback');
+            const subscription = click.clicked(0).subscribe(spy);
 
-        //     expect(fixture.ngZone.isStable).toBe(true);
-        // });
+            dispatchFakeEvent(document, 'click', false);
+            expect(spy).toHaveBeenCalledTimes(1);
 
-        // it('should be able to unsubscribe from the global click', () => {
-        //     const spy = jasmine.createSpy('global click callback');
-        //     const subscription = click.clicked(0).subscribe(spy);
+            subscription.unsubscribe();
+            dispatchFakeEvent(document, 'click', false);
 
-        //     dispatchFakeEvent(document, 'click', false);
-        //     expect(spy).toHaveBeenCalledTimes(1);
-
-        //     subscription.unsubscribe();
-        //     dispatchFakeEvent(document, 'click', false);
-
-        //     expect(spy).toHaveBeenCalledTimes(2);
-        // });
+            expect(spy).toHaveBeenCalledTimes(1);
+        });
 
         it('should complete the `clicked` stream on destroy', () => {
             const completeSpy = jasmine.createSpy('complete spy');
@@ -103,113 +96,63 @@ describe('ClickDispatcher', () => {
             subscription.unsubscribe();
         });
 
-        // it('should complete the scrollable stream when it is destroyed', () => {
-        //     const scrollable = fixture.componentInstance.scrollable;
-        //     const spy = jasmine.createSpy('complete spy');
-        //     const subscription = scrollable
-        //         .elementScrolled()
-        //         .subscribe(undefined, undefined, spy);
+        it('should complete the click stream when it is destroyed', fakeAsync(() => {
+            const clicked$ = fixture.componentInstance.clicked$;
+            const spy = jasmine.createSpy('complete spy');
+            const subscription = clicked$.subscribe(undefined, undefined, spy);
 
-        //     fixture.destroy();
-        //     expect(spy).toHaveBeenCalled();
-        //     subscription.unsubscribe();
-        // });
-
-        // it('should not register the same scrollable twice', () => {
-        //     const scrollable = fixture.componentInstance.scrollable;
-        //     const scrollSpy = jasmine.createSpy('scroll spy');
-        //     const scrollSubscription = scroll.scrolled(0).subscribe(scrollSpy);
-
-        //     expect(scroll.scrollContainers.has(scrollable)).toBe(true);
-
-        //     scroll.register(scrollable);
-        //     scroll.deregister(scrollable);
-
-        //     dispatchFakeEvent(
-        //         fixture.componentInstance.scrollingElement.nativeElement,
-        //         'scroll'
-        //     );
-        //     fixture.detectChanges();
-
-        //     expect(scrollSpy).not.toHaveBeenCalled();
-        //     scrollSubscription.unsubscribe();
-        // });
+            fixture.componentInstance.clickDispatcher.ngOnDestroy();
+            fixture.destroy();
+            expect(spy).toHaveBeenCalled();
+            subscription.unsubscribe();
+        }));
     });
 
-    // describe('lazy subscription', () => {
-    //     let scroll: ScrollDispatcher;
+    describe('lazy subscription', () => {
+        let click: ThyClickDispatcher;
 
-    //     beforeEach(inject([ScrollDispatcher], (s: ScrollDispatcher) => {
-    //         scroll = s;
-    //     }));
+        beforeEach(inject([ThyClickDispatcher], (s: ThyClickDispatcher) => {
+            click = s;
+        }));
 
-    //     it('should lazily add global listeners as service subscriptions are added and removed', () => {
-    //         expect(scroll._globalSubscription).toBeNull(
-    //             'Expected no global listeners on init.'
-    //         );
+        it('should lazily add global listeners as service subscriptions are added and removed', () => {
+            expect(click.globalSubscription).toBeNull(
+                'Expected no global listeners on init.'
+            );
 
-    //         const subscription = scroll.scrolled(0).subscribe(() => {});
+            const subscription = click.clicked(0).subscribe(() => {});
 
-    //         expect(scroll._globalSubscription).toBeTruthy(
-    //             'Expected global listeners after a subscription has been added.'
-    //         );
+            expect(click.globalSubscription).toBeTruthy(
+                'Expected global listeners after a subscription has been added.'
+            );
 
-    //         subscription.unsubscribe();
+            subscription.unsubscribe();
 
-    //         expect(scroll._globalSubscription).toBeNull(
-    //             'Expected global listeners to have been removed after the subscription has stopped.'
-    //         );
-    //     });
+            expect(click.globalSubscription).toBeNull(
+                'Expected global listeners to have been removed after the subscription has stopped.'
+            );
+        });
 
-    //     it('should remove global listeners on unsubscribe, despite any other live scrollables', () => {
-    //         const fixture = TestBed.createComponent(NestedScrollingComponent);
-    //         fixture.detectChanges();
+        it('should remove the global subscription on destroy', () => {
+            expect(click.globalSubscription).toBeNull(
+                'Expected no global listeners on init.'
+            );
 
-    //         expect(scroll._globalSubscription).toBeNull(
-    //             'Expected no global listeners on init.'
-    //         );
-    //         expect(scroll.scrollContainers.size).toBe(
-    //             4,
-    //             'Expected multiple scrollables'
-    //         );
+            const subscription = click.clicked(0).subscribe(() => {});
 
-    //         const subscription = scroll.scrolled(0).subscribe(() => {});
+            expect(click.globalSubscription).toBeTruthy(
+                'Expected global listeners after a subscription has been added.'
+            );
 
-    //         expect(scroll._globalSubscription).toBeTruthy(
-    //             'Expected global listeners after a subscription has been added.'
-    //         );
+            click.ngOnDestroy();
 
-    //         subscription.unsubscribe();
+            expect(click.globalSubscription).toBeNull(
+                'Expected global listeners to have been removed after the subscription has stopped.'
+            );
 
-    //         expect(scroll._globalSubscription).toBeNull(
-    //             'Expected global listeners to have been removed after the subscription has stopped.'
-    //         );
-    //         expect(scroll.scrollContainers.size).toBe(
-    //             4,
-    //             'Expected scrollable count to stay the same'
-    //         );
-    //     });
-
-    //     it('should remove the global subscription on destroy', () => {
-    //         expect(scroll._globalSubscription).toBeNull(
-    //             'Expected no global listeners on init.'
-    //         );
-
-    //         const subscription = scroll.scrolled(0).subscribe(() => {});
-
-    //         expect(scroll._globalSubscription).toBeTruthy(
-    //             'Expected global listeners after a subscription has been added.'
-    //         );
-
-    //         scroll.ngOnDestroy();
-
-    //         expect(scroll._globalSubscription).toBeNull(
-    //             'Expected global listeners to have been removed after the subscription has stopped.'
-    //         );
-
-    //         subscription.unsubscribe();
-    //     });
-    // });
+            subscription.unsubscribe();
+        });
+    });
 });
 
 /** Simple component that contains a large div and can be scrolled. */
@@ -221,10 +164,12 @@ describe('ClickDispatcher', () => {
 class ClickComponent implements OnDestroy {
     clicked = 0;
     subscription: Subscription;
-    constructor(clickDispatcher: ClickDispatcher) {
-        // this.subscription = clickDispatcher.clicked().subscribe(event => {
-        //     this.clicked++;
-        // });
+    clicked$: Observable<Event>;
+    constructor(public clickDispatcher: ThyClickDispatcher) {
+        this.clicked$ = clickDispatcher.clicked(0);
+        this.subscription = this.clicked$.subscribe(event => {
+            this.clicked++;
+        });
     }
 
     ngOnDestroy(): void {

@@ -14,6 +14,12 @@ export class ThyTreeSelectNodesComponent implements OnInit {
 
     public showKey = this.parent.thyShowKey;
 
+    public isMultiple = this.parent.thyMultiple;
+
+    public valueIsObject = this.parent.valueIsObject;
+
+    public selectedValue = this.parent.selectedValue;
+
     constructor(
         public parent: ThyTreeSelectComponent,
     ) { }

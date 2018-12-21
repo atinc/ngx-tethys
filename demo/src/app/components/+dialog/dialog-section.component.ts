@@ -2,7 +2,7 @@ import { Component, OnDestroy, TemplateRef } from '@angular/core';
 import {
     ThyDialog,
     ThyDialogConfig,
-    ThyDialogSizes
+    ThyDialogSizes,
 } from '../../../../../src/dialog';
 import { helpers } from '../../../../../src/util';
 import { DemoDialogContentComponent } from './dialog-content.component';

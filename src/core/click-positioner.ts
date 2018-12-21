@@ -1,5 +1,5 @@
 import { Injectable, Inject, NgZone } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { ThyClickDispatcher } from './event-dispatchers';
 
 export interface ThyClickPosition {
     x: number;
@@ -14,18 +14,13 @@ export class ThyClickPositioner {
 
     private initialized = false;
 
-    constructor(
-        @Inject(DOCUMENT) private document: any,
-        private ngZone: NgZone
-    ) {
-        this.initialize();
-    }
+    constructor(private clickDispatcher: ThyClickDispatcher) {}
 
     get lastClickPosition(): ThyClickPosition | null {
         return this.lastPosition;
     }
 
-    runTask(task: (position?: ThyClickPosition) => void) {
+    runTaskUseLastPosition(task: (position?: ThyClickPosition) => void) {
         setTimeout(() => {
             task(this.lastClickPosition);
         });
@@ -36,10 +31,8 @@ export class ThyClickPositioner {
             return;
         }
         this.initialized = true;
-        this.ngZone.runOutsideAngular(() => {
-            this.document.addEventListener('click', (event: MouseEvent) => {
-                this.lastPosition = { x: event.clientX, y: event.clientY };
-            });
+        this.clickDispatcher.clicked(0).subscribe((event: MouseEvent) => {
+            this.lastPosition = { x: event.clientX, y: event.clientY };
         });
     }
 }
