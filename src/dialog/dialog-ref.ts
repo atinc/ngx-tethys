@@ -51,7 +51,7 @@ export class ThyDialogRefInternal<T, TResult = any>
         readonly id: string = `thy-dialog-${uniqueId++}`
     ) {
         // Pass the id along to the container.
-        // containerInstance._id = id;
+        containerInstance.id = id;
 
         // Emit when opening animation completes
         containerInstance.animationStateChanged

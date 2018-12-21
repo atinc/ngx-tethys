@@ -15,7 +15,8 @@ import { inputValueToBoolean } from '../../util/helpers';
 @Component({
     selector: 'thy-dialog-body',
     template: '<ng-content></ng-content>',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    exportAs: 'thyDialogBody'
 })
 export class DialogBodyComponent implements OnInit {
     @HostBinding(`class.dialog-body`) _isDialogBody = true;

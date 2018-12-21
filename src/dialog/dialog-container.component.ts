@@ -7,7 +7,8 @@ import {
     ElementRef,
     Inject,
     EventEmitter,
-    ChangeDetectorRef
+    ChangeDetectorRef,
+    HostBinding
 } from '@angular/core';
 import {
     ComponentPortal,
@@ -45,6 +46,7 @@ export class ThyDialogContainerComponent {
     @ViewChild(CdkPortalOutlet)
     private portalOutlet: CdkPortalOutlet;
 
+    @HostBinding(`attr.id`)
     id: string;
 
     /** State of the dialog animation. */
