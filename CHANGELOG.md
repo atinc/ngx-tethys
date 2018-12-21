@@ -1,6 +1,8 @@
+## 0.2.16
+扩展 `thy-property-operation`， 当`thyValue`有值时，可通过设置`thyLabelHasValue=true/false`控制`lable` 是否显示
+
 ## 0.2.15
 修复 `thy-date-range` 传值不同步的问题
-扩展 `thy-property-operation`， 当`thyValue`有值时，可通过设置`thyLabelHasValue=true/false`控制`lable` 是否显示
 
 ## 0.2.12
 添加分页组件 `thy-pagination`
