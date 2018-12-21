@@ -1,4 +1,4 @@
-<thy-dialog-header>
+<thy-dialog-header thyTitle="Install Angular">
     <ng-template #dialogHeader>
         <h3 class="dialog-title">Install Angular
             <a href="javascript:;"><i class="wtf wtf-question-o modal-info"></i></a>
@@ -80,7 +80,7 @@
 
 <div class="dialog-footer">
     <button thyButton="primary" (click)="ok()">确认</button>
-    <button thyButton="link-secondary">取消</button>
+    <button thyButton="link-secondary" (click)="close()">取消</button>
 </div>
 
 <ng-template #subDialog>

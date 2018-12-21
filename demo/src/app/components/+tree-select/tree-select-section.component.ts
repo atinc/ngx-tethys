@@ -17,7 +17,7 @@ export class DemoTreeSelectSectionComponent {
     nodes = treeSelectNodes;
 
     singleModel = {
-        selectedValue: '010101',
+        selectedValue: '01',
         allowClear: false,
         disabled: false
     };

@@ -63,7 +63,7 @@ export class ThyDialogConfig<TData = any> {
     backdropClass? = ''; // 'thy-dialog-backdrop';
 
     /** Whether the user can use escape or clicking on the backdrop to close the modal. */
-    backdropClickClosable? = true;
+    backdropClosable? = true;
 
     /** Width of the dialog. */
     width? = '';
@@ -119,9 +119,6 @@ export class ThyDialogConfig<TData = any> {
      * the `HashLocationStrategy`).
      */
     closeOnNavigation? = true;
-
-    /** 点击事件 */
-    event?: Event;
 }
 
 /** Injection token that can be used to specify default dialog options. */
@@ -136,15 +133,10 @@ export const THY_DIALOG_DEFAULT_OPTIONS_PROVIDER = {
         hasBackdrop: true,
         backdropClass: '',
         panelClass:'',
-        backdropClickClosable: true,
+        backdropClosable: true,
         closeOnNavigation: true,
         autoFocus: true,
         restoreFocus: true,
         maxHeight: '85vh'
     }
 };
-
-/** Injection token that determines the scroll handling while the dialog is open. */
-export const THY_DIALOG_SCROLL_STRATEGY = new InjectionToken<
-    () => ScrollStrategy
->('thy-dialog-scroll-strategy');

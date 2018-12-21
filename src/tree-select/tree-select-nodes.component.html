@@ -1,11 +1,11 @@
-<div class="thy-select-container">
+<!-- <div class="thy-select-container">
     <div class="thy-select-custom-options thy-tree-select-pop">
-        <ng-container *ngIf="treeNodes?.length > 0" [ngTemplateOutlet]="treeSelectNode" [ngTemplateOutletContext]="{$implicit:treeNodes}"></ng-container>
+        <ng-container *ngIf="treeNodes?.length > 0" [ngTemplateOutlet]="nodes" [ngTemplateOutletContext]="{$implicit:treeNodes}"></ng-container>
         <div class="thy-tree-select-pop-empty text-muted" *ngIf="treeNodes?.length == 0">{{parent.thyEmptyOptionsText}}</div>
     </div>
-</div>
+</div> -->
 
-<ng-template #treeSelectNode let-nodes>
+<!-- <ng-template #treeSelectNode let-nodes>
     <div class="thy-tree-select-node">
         <ng-container *ngFor="let node of nodes">
             <a class="thy-option-item" [ngClass]="{'active': treeNodeIsSelected(node)}" [class.disabled]="treeNodeIsDisable(node)"
@@ -23,4 +23,36 @@
                 [ngTemplateOutletContext]="{$implicit:node.children}"></ng-container>
         </ng-container>
     </div>
+</ng-template> -->
+<div class="thy-select-container">
+    <div class="thy-select-custom-options thy-tree-select-pop">
+        <ng-container *ngIf="treeNodes?.length > 0" [ngTemplateOutlet]="nodes"></ng-container>
+        <div class="thy-tree-select-pop-empty text-muted" *ngIf="treeNodes?.length == 0">{{parent.thyEmptyOptionsText}}</div>
+    </div>
+</div>
+<ng-template #nodes>
+    <thy-selection-list [thyMultiple]="isMultiple" thyBindKeyEventContainer="body" [thyUniqueKey]="primaryKey"
+        (thySelectionChange)="selectTreeNode($event)" [(ngModel)]="selectedValue">
+        <ng-container [ngTemplateOutlet]="treeSelectNode" [ngTemplateOutletContext]="{$implicit: treeNodes}"></ng-container>
+    </thy-selection-list>
 </ng-template>
+<ng-template #treeSelectNode let-nodes>
+    <thy-list-option [thyValue]="valueIsObject ? node : node[primaryKey]" [thyDisabled]="treeNodeIsDisable(node)"
+        *ngFor="let node of nodes">
+        <a class="thy-option-item" [ngStyle]="{'padding-left.px':10*node.level+5}" *ngIf="!treeNodeIsHidden(node)">
+            <span class="expand-tree-icon text-info hand" [class.invisible]="!(node.children?.length > 0 || node.childCount && node.childCount > 0)"
+                (click)="nodeExpandToggle($event,node)">
+                <i class="wtf wtf-caret-down" [class.rotate-caret]="!treeNodeIsExpand(node)"></i>
+            </span>
+            <span class="ml-1">{{node[showKey]}}</span>
+            <span class="text-light checked-icon">
+                <i class="wtf wtf-checked"></i>
+            </span>
+        </a>
+        <ng-container *ngIf="treeNodeIsExpand(node) && node.children?.length > 0" [ngTemplateOutlet]="treeSelectNode"
+            [ngTemplateOutletContext]="{$implicit:node.children}"></ng-container>
+    </thy-list-option>
+
+</ng-template>
+
+{{selectedValue | json}}

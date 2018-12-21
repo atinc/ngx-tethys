@@ -16,7 +16,6 @@ import {
 } from '@angular/cdk/portal';
 import {
     ThyDialogConfig,
-    THY_DIALOG_SCROLL_STRATEGY,
     ThyDialogSizes,
     THY_DIALOG_DEFAULT_OPTIONS
 } from './dialog.config';
@@ -27,24 +26,10 @@ import {
     ScrollStrategy
 } from '@angular/cdk/overlay';
 import { ThyDialogContainerComponent } from './dialog-container.component';
-import { ThyDialogRef } from './dialog-ref';
+import { ThyDialogRef, ThyDialogRefInternal } from './dialog-ref';
 import { Directionality } from '@angular/cdk/bidi';
 import { helpers } from '../util';
-import { DialogGlobalPositionStrategy } from './dialog-position-strategy';
-
-/** @docs-private */
-export function THY_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY(
-    overlay: Overlay
-): () => ScrollStrategy {
-    return () => overlay.scrollStrategies.block();
-}
-
-/** @docs-private */
-export const THY_DIALOG_SCROLL_STRATEGY_PROVIDER = {
-    provide: THY_DIALOG_SCROLL_STRATEGY,
-    deps: [Overlay],
-    useFactory: THY_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY
-};
+import { ThyClickPositioner } from '../core';
 
 @Injectable({
     providedIn: 'root'
@@ -72,7 +57,7 @@ export class ThyDialog implements OnDestroy {
 
     private getOverlayConfig(dialogConfig: ThyDialogConfig): OverlayConfig {
         const overlayConfig = new OverlayConfig({
-            positionStrategy: new DialogGlobalPositionStrategy(), // this.overlay.position().global(),
+            positionStrategy: this.overlay.position().global(),
             scrollStrategy:
                 dialogConfig.scrollStrategy ||
                 this.overlay.scrollStrategies.block(),
@@ -105,7 +90,6 @@ export class ThyDialog implements OnDestroy {
 
         const injectionTokens = new WeakMap<any, any>([
             [ThyDialogContainerComponent, dialogContainer],
-            // [THY_DIALOG_DATA, config.data],
             [ThyDialogRef, dialogRef]
         ]);
 
@@ -158,17 +142,16 @@ export class ThyDialog implements OnDestroy {
     ): ThyDialogRef<T, TResult> {
         // Create a reference to the dialog we're creating in order to give the user a handle
         // to modify and close it.
-        const dialogRef = new ThyDialogRef<T, TResult>(
+        const dialogRef = new ThyDialogRefInternal<T, TResult>(
             overlayRef,
             dialogContainer,
-            this.location,
             config.id
         );
 
         // When the dialog backdrop is clicked, we want to close it.
         if (config.hasBackdrop) {
             overlayRef.backdropClick().subscribe(() => {
-                if (dialogRef.backdropClickClosable) {
+                if (dialogRef.backdropClosable) {
                     dialogRef.close();
                 }
             });
@@ -229,17 +212,27 @@ export class ThyDialog implements OnDestroy {
     constructor(
         private overlay: Overlay,
         private injector: Injector,
-        @Optional() private location: Location,
         @Optional()
         @Inject(THY_DIALOG_DEFAULT_OPTIONS)
-        private defaultConfig: ThyDialogConfig
-    ) {}
+        private defaultConfig: ThyDialogConfig,
+        clickPositioner: ThyClickPositioner
+    ) {
+        clickPositioner.initialize();
+    }
 
     open<T, TData = any, TResult = any>(
         componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
         config?: ThyDialogConfig<TData>
     ): ThyDialogRef<T, TResult> {
         config = { ...this.defaultConfig, ...config };
+        if (config.id && this.getDialogById(config.id)) {
+            throw Error(
+                `Dialog with id ${
+                    config.id
+                } exists already. The dialog id must be unique.`
+            );
+        }
+
         const overlayConfig: OverlayConfig = this.getOverlayConfig(config);
         const overlayRef = this.overlay.create(overlayConfig);
 
@@ -270,6 +263,21 @@ export class ThyDialog implements OnDestroy {
 
     getDialogById(id: string): ThyDialogRef<any> | undefined {
         return this.openedDialogs.find(dialog => dialog.id === id);
+    }
+
+    /**
+     * Finds the closest ThyDialogRef to an element by looking at the DOM.
+     */
+    getClosestDialog(element: HTMLElement): ThyDialogRef<any> | undefined {
+        let parent: HTMLElement | null = element.parentElement;
+
+        while (parent && !parent.classList.contains('thy-dialog-container')) {
+            parent = parent.parentElement;
+        }
+        if (parent && parent.id) {
+            return this.getDialogById(parent.id);
+        }
+        return null;
     }
 
     close(result?: any) {

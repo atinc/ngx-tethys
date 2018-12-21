@@ -7,7 +7,7 @@ import {
     Directive,
     ViewContainerRef,
     Injector,
-    OnInit
+    OnInit,
 } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 

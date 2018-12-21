@@ -9,13 +9,14 @@ import { inputValueToBoolean } from '../../util/helpers';
 @Component({
     selector: 'thy-dialog-footer',
     template: '<ng-content></ng-content>',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    exportAs: 'thyDialogFooter'
 })
 export class DialogFooterComponent {
     @HostBinding(`class.dialog-footer`) _isDialogFooter = true;
 
     @HostBinding(`class.dialog-footer-border-top`)
-    private showBorderTop = false;
+    showBorderTop = false;
 
     @Input()
     set thyShowBorderTop(value: string) {

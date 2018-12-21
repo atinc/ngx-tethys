@@ -1,6 +1,5 @@
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { GlobalPositionStrategy, OverlayRef } from '@angular/cdk/overlay';
-import { Location } from '@angular/common';
 import { Observable, Subject } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 import { DialogPosition } from './dialog.config';
@@ -9,13 +8,24 @@ import { ThyDialogContainerComponent } from './dialog-container.component';
 // Counter for unique dialog ids.
 let uniqueId = 0;
 
-export class ThyDialogRef<T, TResult = any> {
+export abstract class ThyDialogRef<T, TResult = any> {
+    componentInstance: T;
+    id: string;
+    abstract close(dialogResult?: TResult): void;
+    abstract afterOpened(): Observable<void>;
+    abstract afterClosed(): Observable<TResult | undefined>;
+    abstract beforeClosed(): Observable<TResult | undefined>;
+    abstract keydownEvents(): Observable<KeyboardEvent>;
+}
+
+export class ThyDialogRefInternal<T, TResult = any>
+    implements ThyDialogRef<T, TResult> {
     /** The instance of component opened into the dialog. */
     componentInstance: T;
 
     /** Whether the user is allowed to close the dialog. */
-    backdropClickClosable: boolean | undefined = this.containerInstance.config
-        .backdropClickClosable;
+    backdropClosable: boolean | undefined = this.containerInstance.config
+        .backdropClosable;
 
     /** Subject for notifying the user that the dialog has finished opening. */
     private readonly _afterOpened = new Subject<void>();
@@ -38,11 +48,10 @@ export class ThyDialogRef<T, TResult = any> {
     constructor(
         private overlayRef: OverlayRef,
         public containerInstance: ThyDialogContainerComponent,
-        _location?: Location,
         readonly id: string = `thy-dialog-${uniqueId++}`
     ) {
         // Pass the id along to the container.
-        // containerInstance._id = id;
+        containerInstance.id = id;
 
         // Emit when opening animation completes
         containerInstance.animationStateChanged
@@ -82,8 +91,7 @@ export class ThyDialogRef<T, TResult = any> {
             .keydownEvents()
             .pipe(
                 filter(
-                    event =>
-                        event.keyCode === ESCAPE && this.backdropClickClosable
+                    event => event.keyCode === ESCAPE && this.backdropClosable
                 )
             )
             .subscribe(() => this.close());

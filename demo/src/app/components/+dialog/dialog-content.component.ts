@@ -30,6 +30,10 @@ export class DemoDialogContentComponent implements OnInit {
         this.thyDialogRef.close();
     }
 
+    close() {
+        this.thyDialogRef.close();
+    }
+
     toggleShowMore() {
         this.showMore = !this.showMore;
     }

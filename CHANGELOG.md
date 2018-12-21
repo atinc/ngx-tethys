@@ -1,5 +1,9 @@
+## 0.2.15
+修复 `thy-date-range` 传值不同步的问题
+
 ## 0.2.12
-`thy-property-operation` 当`thyValue`有值时，可通过设置`thyLabelHasValue=true/false`控制`lable` 是否显示
+添加分页组件 `thy-pagination`
+扩展 `thy-date-range` 支持点击隐藏菜单
 
 ## 0.2.11
 thyeditor 上传图片支持是否多选，文件类型

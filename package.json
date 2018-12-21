@@ -1,6 +1,6 @@
 {
     "name": "ngx-tethys",
-    "version": "0.2.12",
+    "version": "0.2.14",
     "license": "MIT",
     "scripts": {
         "build": "npm run build:ngm",
@@ -14,7 +14,7 @@
         "start": "npm run build:theme && concurrently \"ng serve --port 8888 --host 0.0.0.0\" \"gulp build-theme:watch\"",
         "build:demo": "npm run build:docs",
         "build:docs": "ng build demo --prod --extract-css --baseHref=/ngx-tethys/",
-        "test": "ng test",
+        "test": "ng test ngx-tethys",
         "lint": "ng lint",
         "e2e": "ng e2e",
         "serve-demo": "http-server docs -p 8888 -g &"

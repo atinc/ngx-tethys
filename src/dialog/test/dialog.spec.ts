@@ -158,8 +158,10 @@ describe('ThyDialog', () => {
         // callback should not be called before animation is complete
         expect(spy).not.toHaveBeenCalled();
 
-        flushMicrotasks();
-        expect(spy).toHaveBeenCalled();
+        // because click-positioner has setTimeout
+        // flushMicrotasks();
+        flush();
+        expect(spy).toHaveBeenCalledTimes(1);
     }));
 
     it('should use injector from viewContainerRef for DialogInjector', () => {
