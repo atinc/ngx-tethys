@@ -60,7 +60,6 @@ export interface CascaderOption {
     isLeaf?: boolean;
     parent?: CascaderOption;
     children?: CascaderOption[];
-
     [key: string]: any;
 }
 

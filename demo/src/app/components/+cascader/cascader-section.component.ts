@@ -1,48 +1,39 @@
 import { Component, OnInit  } from '@angular/core';
 
-const options1 = [{
+const customerOptions = [{
     value: 'zhejiang',
     label: 'Zhejiang',
+    code: 477200,
     children: [{
-        value: 'hangzhou',
-        label: 'Hangzhou',
-        children: [{
-            value: 'xihu',
-            label: 'West Lake',
-            isLeaf: true
-        }]
-    }, {
-        value: 'ningbo',
-        label: 'Ningbo',
+      value: 'hangzhou',
+      label: 'Hangzhou',
+      children: [{
+        value: 'xihu',
+        label: 'West Lake',
+        code: 752100,
         isLeaf: true
+      }]
+    }, {
+      value: 'ningbo',
+      label: 'Ningbo',
+      code: '315000',
+      isLeaf: true
     }]
-}, {
+  }, {
     value: 'jiangsu',
     label: 'Jiangsu',
     children: [{
-        value: 'nanjing',
-        label: 'Nanjing',
-        disabled: true,
-        children: [{
-            value: 'zhonghuamen',
-            label: 'Zhong Hua Men',
-            isLeaf: true
-        }]
+      value: 'nanjing',
+      label: 'Nanjing',
+      children: [{
+        value: 'zhonghuamen',
+        label: 'Zhong Hua Men',
+        code: 453400,
+        isLeaf: true
+      }]
     }]
-},{
-    value: 'henan',
-    label: 'Henan',
-    disabled: true,
-    children: [{
-        value: 'zhengzhou',
-        label: 'Zhengzhou',
-        children: [{
-            value: 'zhoukou',
-            label: 'Zoukou',
-            isLeaf: true
-        }]
-    }]
-}];
+  }];
+
 import options from './cascader-address-options';
 
 @Component({
@@ -60,6 +51,8 @@ export class DemoCascaderSectionComponent implements OnInit {
     /** init data */
     public thyOptions = null;
 
+    public thyCustomerOptions = null;
+
     /** ngModel value */
     public values: any[] = [''];
 
@@ -67,10 +60,16 @@ export class DemoCascaderSectionComponent implements OnInit {
         // let's set nzOptions in a asynchronous way
         setTimeout(() => {
             this.thyOptions = options;
+            this.thyCustomerOptions = customerOptions;
         }, 100);
     }
 
     public onChanges(values: any): void {
         console.log(this.values);
+    }
+
+    public handleAreaClick($event, label, selectedOptions) {
+        console.log(label);
+        console.log(selectedOptions);
     }
 }
