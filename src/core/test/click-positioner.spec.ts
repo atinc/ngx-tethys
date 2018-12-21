@@ -57,12 +57,12 @@ describe('ClickDispatcher', () => {
         });
     });
 
-    it('should execute runTaskUsePosition expected right position from the global click ', fakeAsync(() => {
+    it('should execute runTaskUseLastPosition expected right position from the global click ', fakeAsync(() => {
         dispatchMouseEvent(document, 'click', 100, 200);
         expect(clickPositioner.lastClickPosition).toBeTruthy();
 
         const completeSpy = jasmine.createSpy('complete spy');
-        clickPositioner.runTaskUsePosition(position => {
+        clickPositioner.runTaskUseLastPosition(position => {
             expect(position).toEqual({
                 x: 100,
                 y: 200

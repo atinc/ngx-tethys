@@ -91,7 +91,7 @@ export class ThyDialogContainerComponent {
     }
 
     private setTransformOrigin() {
-        this.clickPositioner.runTaskUsePosition(lastPosition => {
+        this.clickPositioner.runTaskUseLastPosition(lastPosition => {
             if (lastPosition) {
                 const containerElement: HTMLElement = this.elementRef
                     .nativeElement;

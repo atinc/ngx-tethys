@@ -20,7 +20,7 @@ export class ThyClickPositioner {
         return this.lastPosition;
     }
 
-    runTaskUsePosition(task: (position?: ThyClickPosition) => void) {
+    runTaskUseLastPosition(task: (position?: ThyClickPosition) => void) {
         setTimeout(() => {
             task(this.lastClickPosition);
         });

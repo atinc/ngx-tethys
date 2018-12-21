@@ -24,5 +24,5 @@ class ClickComponent implements OnDestroy {
 ## ThyClickPositioner
 
 记录最后一次点击的位置，如果点击后需要使用调用 
-`clickPositioner.runTaskUsePosition((position: ThyClickPosition)=> void);`
+`clickPositioner.runTaskUseLastPosition((position: ThyClickPosition)=> void);`
 这个函数会推迟到下一个事件循环调用，否则获取不到最后一次的位置，其实是使用了 `setTimeout` 函数。
