@@ -31,8 +31,10 @@ export class ThyCascaderOptionComponent implements OnInit {
         return this.option.disabled;
     }
 
-    @HostBinding('class.thy-cascader-menu-item-expand') expand =
-        this.option && !this.option.isLeaf;
+    @HostBinding('class.thy-cascader-menu-item-expand')
+    get expand() {
+        return this.option && !this.option.isLeaf;
+    }
 
     @Input() thyLabelProperty: string;
 

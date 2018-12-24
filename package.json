@@ -1,6 +1,6 @@
 {
     "name": "ngx-tethys",
-    "version": "0.2.10",
+    "version": "0.2.16",
     "license": "MIT",
     "scripts": {
         "build": "npm run build:ngm",
@@ -14,7 +14,7 @@
         "start": "npm run build:theme && concurrently \"ng serve --port 8888 --host 0.0.0.0\" \"gulp build-theme:watch\"",
         "build:demo": "npm run build:docs",
         "build:docs": "ng build demo --prod --extract-css --baseHref=/ngx-tethys/",
-        "test": "ng test",
+        "test": "ng test ngx-tethys",
         "lint": "ng lint",
         "e2e": "ng e2e",
         "serve-demo": "http-server docs -p 8888 -g &"
@@ -42,8 +42,11 @@
         "@ngx-translate/core": "^10.0.1",
         "angular-sortablejs": "^2.5.2",
         "bootstrap": "^4.0.0",
+        "china-division": "^2.1.1",
         "core-js": "^2.5.4",
+        "highlight.js": "^9.13.1",
         "ngx-bootstrap": "^3.0.1",
+        "ngx-highlightjs": "^3.0.0",
         "rxjs": "^6.3.1",
         "sortablejs": "^1.7.0",
         "zone.js": "^0.8.26"

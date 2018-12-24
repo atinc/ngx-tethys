@@ -41,7 +41,7 @@ select.form-control-md {
 }
 
 .thy-select {
-  width: 100%;
+//   width: 100%;
   position: relative;
   display: block;
 
@@ -54,7 +54,7 @@ select.form-control-md {
       visibility: visible;
     }
   }
-  
+
   select {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -95,7 +95,7 @@ select.form-control-md {
     &:after {
       transform: rotate(180deg);
     }
-    
+
   }
 
   .form-control {
@@ -224,7 +224,7 @@ select.form-control-md {
       right: 15px;
     }
     .thy-label {
-      margin-bottom: $thy-label-spacing; 
+      margin-bottom: $thy-label-spacing;
     }
   }
 

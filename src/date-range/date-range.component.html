@@ -4,18 +4,18 @@
         </span>
         <span href="javascript:;" [thyActionMenuToggle]="dateMenu" class="thy-date-text" [ngClass]="{'not-down':!selectedDate}">
             <ng-container *ngIf="selectedDate?.key === 'custom'">
-                {{selectedDate?.begin | thyDatepickerFormat}}-{{selectedDate?.end | thyDatepickerFormat}}
+                {{selectedDate?.begin | thyDatepickerFormat}} ~ {{selectedDate?.end | thyDatepickerFormat}}
             </ng-container>
             <ng-container *ngIf="selectedDate?.key !== 'custom'">{{selectedDate?.text}}</ng-container>
-            <i class="wtf wtf-angle-down-blod thy-date-text-caret-down"></i>
+            <i *ngIf="!hiddenMenu" class="wtf wtf-angle-down thy-date-text-caret-down"></i>
         </span>
         <span href="javascript:;" class="btn btn-icon" (click)="next()">
             <i class="wtf wtf-angle-right"></i>
         </span>
 </div>
 
-<ng-template #dateMenu>
-    <thy-action-menu>
+<ng-template  #dateMenu >
+    <thy-action-menu *ngIf="!hiddenMenu">
 
         <a thyActionMenuItem href="javascript:;" *ngFor="let dateRange of optionalDateRange" (click)="selectDateRange(dateRange)">
             <span thyActionMenuItemName>{{dateRange?.text}}</span>
@@ -26,6 +26,6 @@
         <thy-action-menu-divider></thy-action-menu-divider>
 
         <input type="text" readonly="readonly" thyDaterangepicker [(ngModel)]="selectedDateRange" (ngModelChange)="changeDate()"
-                class="form-control" placeholder="开始日期~结束日期"  name="setDate" thyStopPropagation/>
+                class="action-menu-item thy-date-range-menu-item" placeholder="开始日期~结束日期"  name="setDate" thyStopPropagation/>
     </thy-action-menu>
 </ng-template>

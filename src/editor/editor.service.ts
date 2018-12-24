@@ -1,9 +1,36 @@
 import { Injectable, OnInit, OnDestroy, ElementRef } from '@angular/core';
 import { thyEditorConstant } from './editor.constant';
+import { helpers } from '../util';
+export interface ThyEditorConfig {
+    type?: string;
+    placeholder?: string;
+    uploadImg?: {
+        multiple?: boolean;
+        acceptType?: string | string[];
+    };
+}
 
+export interface ThyEditorOptions {
+    placeholder: string;
+    fontSize: string;
+    theme: string;
+    maxHeight: number;
+    isHeightFull: boolean;
+    className: string;
+    autofocus: boolean;
+    type: string;
+    locale: string;
+    hideButtons: string[];
+    additionalButtons: string[];
+    replaceButtons:string [];
+    extendButtons: string[];
+    uploadImgMultiple: boolean;
+    uploadImgAcceptType: string | string[];
+}
 @Injectable()
 export class ThyEditorService implements OnInit, OnDestroy {
-    public options = {
+    public options: ThyEditorOptions = {
+        placeholder: '输入内容...',
         fontSize: '16px',
         theme: 'kuroir',
         maxHeight: 600,
@@ -12,10 +39,12 @@ export class ThyEditorService implements OnInit, OnDestroy {
         autofocus: true, // 默认聚焦
         type: 'simple', // toolbar按钮显示的类型 ［simple:简易, all:全部按钮］
         locale: 'zh-cn', // 国际化设置
-        hideButtons: <any>[],
-        additionalButtons: <any>[],
-        replaceButtons: <any>[],
-        extendButtons: <any>[]
+        hideButtons: [],
+        additionalButtons: [],
+        replaceButtons: [],
+        extendButtons: [],
+        uploadImgMultiple: true,
+        uploadImgAcceptType: ['.gif','.jpeg','.png']
     };
     // public hideButtons: any = []; // 要不显示的图标[]
     // public additionalButtons: any = []; // 扩展的图标 {title:'扩展',className:'fa fa-music',type:'custom',action:musicFn,before:2}
@@ -36,14 +65,9 @@ export class ThyEditorService implements OnInit, OnDestroy {
         tableMenu: thyEditorConstant.tableMenu
     };
 
+    constructor() {}
 
-    constructor() {
-
-    }
-
-    ngOnInit() {
-
-    }
+    ngOnInit() {}
 
     ngOnDestroy() {
         this.clear();
@@ -54,7 +78,10 @@ export class ThyEditorService implements OnInit, OnDestroy {
             target: this.textareaDom,
             start: this.textareaDom.selectionStart,
             end: this.textareaDom.selectionEnd,
-            text: this.textareaDom.value.substring(this.textareaDom.selectionStart, this.textareaDom.selectionEnd)
+            text: this.textareaDom.value.substring(
+                this.textareaDom.selectionStart,
+                this.textareaDom.selectionEnd
+            )
         };
     }
 
@@ -76,7 +103,6 @@ export class ThyEditorService implements OnInit, OnDestroy {
         //     }
         // });
     }
-
 
     insertText(text: string, start: number, end: number) {
         this.textareaDom.focus();
@@ -129,31 +155,40 @@ export class ThyEditorService implements OnInit, OnDestroy {
         this.textareaDom.focus();
     }
 
-    setOptions(config: {}) {
+    setOptions(config: ThyEditorConfig) {
         if (config) {
             this.options = Object.assign(this.options, config);
+            if (config.uploadImg.multiple) {
+                this.options.uploadImgMultiple = config.uploadImg.multiple;
+            }
+            if (config.uploadImg.acceptType) {
+                this.options.uploadImgAcceptType = config.uploadImg.acceptType;
+            }
         }
     }
 
     setToolbars() {
         // this.toolbars = [];
-        thyEditorConstant.typeArray[this.options.type].forEach((value: string, index: number) => {
-            let _tempBtn = thyEditorConstant.allButtons[value];
-            if (!_tempBtn) {
-                _tempBtn = this.options.extendButtons[value];
+        thyEditorConstant.typeArray[this.options.type].forEach(
+            (value: string, index: number) => {
+                let _tempBtn = thyEditorConstant.allButtons[value];
+                if (!_tempBtn) {
+                    _tempBtn = this.options.extendButtons[value];
+                }
+                if (_tempBtn) {
+                    this.toolbars[this.toolbars.length] = _tempBtn;
+                }
             }
-            if (_tempBtn) {
-                this.toolbars[this.toolbars.length] = _tempBtn;
-            }
-        });
+        );
 
-        thyEditorConstant.typeArray['hs'].forEach((value: string, index: number) => {
-            const _tempBtn = thyEditorConstant.allButtons[value];
-            if (_tempBtn) {
-                this.headers[this.headers.length] = _tempBtn;
+        thyEditorConstant.typeArray['hs'].forEach(
+            (value: string, index: number) => {
+                const _tempBtn = thyEditorConstant.allButtons[value];
+                if (_tempBtn) {
+                    this.headers[this.headers.length] = _tempBtn;
+                }
             }
-        });
-
+        );
 
         if (this.options.hideButtons.length > 0) {
             this.options.hideButtons.forEach((n: any) => {
@@ -180,9 +215,12 @@ export class ThyEditorService implements OnInit, OnDestroy {
         if (this.options.additionalButtons.length > 0) {
             this.options.additionalButtons.forEach((n: any) => {
                 if (n.before) {
-                    const _index = this.toolbars.findIndex(this.toolbars, (t: any) => {
-                        return t.id === n.before;
-                    });
+                    const _index = this.toolbars.findIndex(
+                        this.toolbars,
+                        (t: any) => {
+                            return t.id === n.before;
+                        }
+                    );
                     this.toolbars.splice(_index, 0, n);
                 } else {
                     this.toolbars.push(n);
@@ -194,8 +232,12 @@ export class ThyEditorService implements OnInit, OnDestroy {
     initEditor(config: {}, elementRef: ElementRef) {
         this.setOptions(config);
         this.elementRef = elementRef;
-        this.textareaDom = this.elementRef.nativeElement.querySelector('.thy-editor-textarea');
-        this.previewDom = this.elementRef.nativeElement.querySelector('.thy-editor-container-preview-body');
+        this.textareaDom = this.elementRef.nativeElement.querySelector(
+            '.thy-editor-textarea'
+        );
+        this.previewDom = this.elementRef.nativeElement.querySelector(
+            '.thy-editor-container-preview-body'
+        );
         this.setToolbars();
         if (this.options.autofocus) {
             setTimeout(() => {
@@ -226,20 +268,37 @@ export class ThyEditorService implements OnInit, OnDestroy {
                 console.log('text ' + key + ' none!');
             }
         }
-
     }
 
-    insert(flag: any, title: string, sel: any, keepSelection: any, search: any, replace: any, change: Function) {
+    insert(
+        flag: any,
+        title: string,
+        sel: any,
+        keepSelection: any,
+        search: any,
+        replace: any,
+        change: Function
+    ) {
         // 有序列表和无序列表选择统一添加
-        if (sel.text.indexOf('\n') !== -1 && keepSelection && search && replace) {
+        if (
+            sel.text.indexOf('\n') !== -1 &&
+            keepSelection &&
+            search &&
+            replace
+        ) {
             if (sel.text.length > 0) {
                 sel = this.getSelection();
             }
             const replaceStr = sel.text.replace(search, replace);
             const _sub = this.getRowText(sel.start);
             // this.insertText(replaceStr, sel.start - _sub.length, sel.end);
-            change(this.getInsertText(replaceStr, sel.start - _sub.length, sel.end));
-            this.setFocus(sel.start + replaceStr.length, sel.start + replaceStr.length);
+            change(
+                this.getInsertText(replaceStr, sel.start - _sub.length, sel.end)
+            );
+            this.setFocus(
+                sel.start + replaceStr.length,
+                sel.start + replaceStr.length
+            );
         } else {
             if (sel.text.length > 0) {
                 this.clearSelection();
@@ -247,8 +306,17 @@ export class ThyEditorService implements OnInit, OnDestroy {
             }
             const _sub = this.getRowText(sel.start);
             // this.insertText(flag + ' ' + _sub, sel.start - _sub.length, sel.end);
-            change(this.getInsertText(flag + ' ' + _sub, sel.start - _sub.length, sel.end));
-            this.setFocus(sel.start + flag.length + 1, sel.start + flag.length + 1);
+            change(
+                this.getInsertText(
+                    flag + ' ' + _sub,
+                    sel.start - _sub.length,
+                    sel.end
+                )
+            );
+            this.setFocus(
+                sel.start + flag.length + 1,
+                sel.start + flag.length + 1
+            );
         }
     }
 
@@ -260,20 +328,42 @@ export class ThyEditorService implements OnInit, OnDestroy {
                 if (this.hasSelection()) {
                     if (sel.text.indexOf('\n') !== -1) {
                         sel = this.getSelection();
-                        const _str = sel.text.replace(/([^\n]+)([\n\s]*)/g, '**$1**$2');
+                        const _str = sel.text.replace(
+                            /([^\n]+)([\n\s]*)/g,
+                            '**$1**$2'
+                        );
                         const _sub = this.getRowText(sel.start);
-                        change(this.getInsertText(_str, sel.start - _sub.length, sel.end));
-                        this.setFocus(sel.start + _str.length, sel.start + _str.length);
+                        change(
+                            this.getInsertText(
+                                _str,
+                                sel.start - _sub.length,
+                                sel.end
+                            )
+                        );
+                        this.setFocus(
+                            sel.start + _str.length,
+                            sel.start + _str.length
+                        );
                     } else {
-                        change(this.getInsertText(' **' + sel.text + '** ', sel.start, sel.end));
-                        this.setFocus(sel.start, sel.start + 6 + sel.text.length);
+                        change(
+                            this.getInsertText(
+                                ' **' + sel.text + '** ',
+                                sel.start,
+                                sel.end
+                            )
+                        );
+                        this.setFocus(
+                            sel.start,
+                            sel.start + 6 + sel.text.length
+                        );
                     }
-
                 } else {
                     const _sub = this.getRowText(sel.start);
                     if (_sub.length > 0) {
                         // this.insertText(' **** ', sel.start, sel.end);
-                        change(this.getInsertText(' **** ', sel.start, sel.end));
+                        change(
+                            this.getInsertText(' **** ', sel.start, sel.end)
+                        );
                         this.setFocus(sel.start + 3, sel.start + 3);
                     } else {
                         // this.insertText('****', sel.start, sel.end);
@@ -286,15 +376,36 @@ export class ThyEditorService implements OnInit, OnDestroy {
                 if (this.hasSelection()) {
                     if (sel.text.indexOf('\n') !== -1) {
                         sel = this.getSelection();
-                        const _str = sel.text.replace(/([^\n]+)([\n\s]*)/g, '_$1_$2');
+                        const _str = sel.text.replace(
+                            /([^\n]+)([\n\s]*)/g,
+                            '_$1_$2'
+                        );
                         const _sub = this.getRowText(sel.start);
                         // this.insertText(_str, sel.start - _sub.length, sel.end);
-                        change(this.getInsertText(_str, sel.start - _sub.length, sel.end));
-                        this.setFocus(sel.start + _str.length, sel.start + _str.length);
+                        change(
+                            this.getInsertText(
+                                _str,
+                                sel.start - _sub.length,
+                                sel.end
+                            )
+                        );
+                        this.setFocus(
+                            sel.start + _str.length,
+                            sel.start + _str.length
+                        );
                     } else {
                         // this.insertText(' *' + sel.text + '* ', sel.start, sel.end);
-                        change(this.getInsertText(' *' + sel.text + '* ', sel.start, sel.end));
-                        this.setFocus(sel.start, sel.start + 4 + sel.text.length);
+                        change(
+                            this.getInsertText(
+                                ' *' + sel.text + '* ',
+                                sel.start,
+                                sel.end
+                            )
+                        );
+                        this.setFocus(
+                            sel.start,
+                            sel.start + 4 + sel.text.length
+                        );
                     }
                 } else {
                     const _sub = this.getRowText(sel.start);
@@ -313,15 +424,36 @@ export class ThyEditorService implements OnInit, OnDestroy {
                 if (this.hasSelection()) {
                     if (sel.text.indexOf('\n') !== -1) {
                         sel = this.getSelection();
-                        const _str = sel.text.replace(/([^\n]+)([\n\s]*)/g, '<u>$1</u>$2');
+                        const _str = sel.text.replace(
+                            /([^\n]+)([\n\s]*)/g,
+                            '<u>$1</u>$2'
+                        );
                         const _sub = this.getRowText(sel.start);
                         // this.insertText(_str, sel.start - _sub.length, sel.end);
-                        change(this.getInsertText(_str, sel.start - _sub.length, sel.end));
-                        this.setFocus(sel.start + _str.length, sel.start + _str.length);
+                        change(
+                            this.getInsertText(
+                                _str,
+                                sel.start - _sub.length,
+                                sel.end
+                            )
+                        );
+                        this.setFocus(
+                            sel.start + _str.length,
+                            sel.start + _str.length
+                        );
                     } else {
                         // this.insertText('<u>' + sel.text + '</u>', sel.start, sel.end);
-                        change(this.getInsertText('<u>' + sel.text + '</u>', sel.start, sel.end));
-                        this.setFocus(sel.start, sel.start + 7 + sel.text.length);
+                        change(
+                            this.getInsertText(
+                                '<u>' + sel.text + '</u>',
+                                sel.start,
+                                sel.end
+                            )
+                        );
+                        this.setFocus(
+                            sel.start,
+                            sel.start + 7 + sel.text.length
+                        );
                     }
                 } else {
                     change(this.getInsertText('<u></u>', sel.start, sel.end));
@@ -332,21 +464,44 @@ export class ThyEditorService implements OnInit, OnDestroy {
                 if (this.hasSelection()) {
                     if (sel.text.indexOf('\n') !== -1) {
                         sel = this.getSelection();
-                        const replaceStr = sel.text.replace(/([^\n]+)([\n\s]*)/g, ' ~~$1~~ $2');
+                        const replaceStr = sel.text.replace(
+                            /([^\n]+)([\n\s]*)/g,
+                            ' ~~$1~~ $2'
+                        );
                         const _sub = this.getRowText(sel.start);
                         // this.insertText(replaceStr, sel.start - _sub.length, sel.end);
-                        change(this.getInsertText(replaceStr, sel.start - _sub.length, sel.end));
-                        this.setFocus(sel.start + replaceStr.length, sel.start + replaceStr.length);
+                        change(
+                            this.getInsertText(
+                                replaceStr,
+                                sel.start - _sub.length,
+                                sel.end
+                            )
+                        );
+                        this.setFocus(
+                            sel.start + replaceStr.length,
+                            sel.start + replaceStr.length
+                        );
                     } else {
                         // this.insertText(' ~~' + sel.text + '~~ ', sel.start, sel.end);
-                        change(this.getInsertText(' ~~' + sel.text + '~~ ', sel.start, sel.end));
-                        this.setFocus(sel.start, sel.start + 6 + sel.text.length);
+                        change(
+                            this.getInsertText(
+                                ' ~~' + sel.text + '~~ ',
+                                sel.start,
+                                sel.end
+                            )
+                        );
+                        this.setFocus(
+                            sel.start,
+                            sel.start + 6 + sel.text.length
+                        );
                     }
                 } else {
                     const _sub = this.getRowText(sel.start);
                     if (_sub.length > 0) {
                         // this.insertText(' ~~~~ ', sel.start, sel.end);
-                        change(this.getInsertText(' ~~~~ ', sel.start, sel.end));
+                        change(
+                            this.getInsertText(' ~~~~ ', sel.start, sel.end)
+                        );
                         this.setFocus(sel.start + 3, sel.start + 3);
                     } else {
                         // this.insertText('~~~~', sel.start, sel.end);
@@ -356,27 +511,75 @@ export class ThyEditorService implements OnInit, OnDestroy {
                 }
                 break;
             case 'h1':
-                this.insert('#', '', sel, true, /(.+)([\n]?)/g, '\n# $1$2\n', change);
+                this.insert(
+                    '#',
+                    '',
+                    sel,
+                    true,
+                    /(.+)([\n]?)/g,
+                    '\n# $1$2\n',
+                    change
+                );
                 this.header_action = false;
                 break;
             case 'h2':
-                this.insert('##', '', sel, true, /(.+)([\n]?)/g, '\n## $1$2\n', change);
+                this.insert(
+                    '##',
+                    '',
+                    sel,
+                    true,
+                    /(.+)([\n]?)/g,
+                    '\n## $1$2\n',
+                    change
+                );
                 this.header_action = false;
                 break;
             case 'h3':
-                this.insert('###', '', sel, true, /(.+)([\n]?)/g, '\n### $1$2\n', change);
+                this.insert(
+                    '###',
+                    '',
+                    sel,
+                    true,
+                    /(.+)([\n]?)/g,
+                    '\n### $1$2\n',
+                    change
+                );
                 this.header_action = false;
                 break;
             case 'h4':
-                this.insert('####', '', sel, true, /(.+)([\n]?)/g, '\n#### $1$2\n', change);
+                this.insert(
+                    '####',
+                    '',
+                    sel,
+                    true,
+                    /(.+)([\n]?)/g,
+                    '\n#### $1$2\n',
+                    change
+                );
                 this.header_action = false;
                 break;
             case 'h5':
-                this.insert('#####', '', sel, true, /(.+)([\n]?)/g, '\n##### $1$2\n', change);
+                this.insert(
+                    '#####',
+                    '',
+                    sel,
+                    true,
+                    /(.+)([\n]?)/g,
+                    '\n##### $1$2\n',
+                    change
+                );
                 this.header_action = false;
                 break;
             case 'h6':
-                this.insert('######', '', sel, true, /(.+)([\n]?)/g, '\n###### $1$2\n', change);
+                this.insert(
+                    '######',
+                    '',
+                    sel,
+                    true,
+                    /(.+)([\n]?)/g,
+                    '\n###### $1$2\n',
+                    change
+                );
                 this.header_action = false;
                 break;
             case 'hr':
@@ -389,20 +592,60 @@ export class ThyEditorService implements OnInit, OnDestroy {
                 this.setFocus(sel.start + 5, sel.start + 5);
                 break;
             case 'quote':
-                this.insert('>', '', sel, true, /(.+)([\n]?)/g, '\n> $1$2', change);
+                this.insert(
+                    '>',
+                    '',
+                    sel,
+                    true,
+                    /(.+)([\n]?)/g,
+                    '\n> $1$2',
+                    change
+                );
                 break;
             case 'list':
-                this.insert('-', '', sel, true, /(.+)([\n]?)/g, '\n- $1$2', change);
+                this.insert(
+                    '-',
+                    '',
+                    sel,
+                    true,
+                    /(.+)([\n]?)/g,
+                    '\n- $1$2',
+                    change
+                );
                 break;
             case 'list-2':
-                this.insert('1.', '', sel, true, /(.+)([\n]?)/g, '\n1. $1$2', change);
+                this.insert(
+                    '1.',
+                    '',
+                    sel,
+                    true,
+                    /(.+)([\n]?)/g,
+                    '\n1. $1$2',
+                    change
+                );
                 break;
 
             case 'square':
-                this.insert('- [ ] ', '', sel, true, /(.+)([\n]?)/g, '- [ ] $1$2', change);
+                this.insert(
+                    '- [ ] ',
+                    '',
+                    sel,
+                    true,
+                    /(.+)([\n]?)/g,
+                    '- [ ] $1$2',
+                    change
+                );
                 break;
             case 'check-square':
-                this.insert('- [x] ', '', sel, true, /(.+)([\n]?)/g, '- [x] $1$2', change);
+                this.insert(
+                    '- [x] ',
+                    '',
+                    sel,
+                    true,
+                    /(.+)([\n]?)/g,
+                    '- [x] $1$2',
+                    change
+                );
                 break;
 
             case 'link':
@@ -418,7 +661,10 @@ export class ThyEditorService implements OnInit, OnDestroy {
                 const _aUrl = '[' + _localText + '](' + _iUrl + ')';
                 // this.insertText(_aUrl, sel.start, sel.end);
                 change(this.getInsertText(_aUrl, sel.start, sel.end));
-                this.setFocus(sel.start + _aUrl.length, sel.start + _aUrl.length);
+                this.setFocus(
+                    sel.start + _aUrl.length,
+                    sel.start + _aUrl.length
+                );
                 break;
             case 'image':
                 let _imageText = this.getLocaleText('image-text');
@@ -438,11 +684,26 @@ export class ThyEditorService implements OnInit, OnDestroy {
             case 'code':
                 if (sel.text.length === 0) {
                     // this.insertText('\n```\n  \n```\n', sel.start, sel.end);
-                    change(this.getInsertText('\n```\n  \n```\n', sel.start, sel.end));
+                    change(
+                        this.getInsertText(
+                            '\n```\n  \n```\n',
+                            sel.start,
+                            sel.end
+                        )
+                    );
                     this.setFocus(sel.start + 6, sel.start + 6);
                 } else {
-                    change(this.getInsertText('`' + sel.text + '`', sel.start, sel.end));
-                    this.setFocus(sel.start + 2 + sel.text.length, sel.start + 2 + sel.text.length);
+                    change(
+                        this.getInsertText(
+                            '`' + sel.text + '`',
+                            sel.start,
+                            sel.end
+                        )
+                    );
+                    this.setFocus(
+                        sel.start + 2 + sel.text.length,
+                        sel.start + 2 + sel.text.length
+                    );
                 }
                 break;
             case 'table':
@@ -453,16 +714,34 @@ export class ThyEditorService implements OnInit, OnDestroy {
                 if (_mathText.length === 0) {
                     _mathText = 'E = mc^2';
                 }
-                change(this.getInsertText('\n```math\n' + _mathText + '\n```\n', sel.start, sel.end));
-                this.setFocus(sel.start + _mathText.length + 14, sel.start + _mathText.length + 14);
+                change(
+                    this.getInsertText(
+                        '\n```math\n' + _mathText + '\n```\n',
+                        sel.start,
+                        sel.end
+                    )
+                );
+                this.setFocus(
+                    sel.start + _mathText.length + 14,
+                    sel.start + _mathText.length + 14
+                );
                 break;
             case 'flow':
                 let flowText = sel.text;
                 if (flowText.length === 0) {
                     flowText = 'graph LR\nA-->B';
                 }
-                change(this.getInsertText('\n```\n' + flowText + '\n```\n', sel.start, sel.end));
-                this.setFocus(sel.start + flowText.length + 10, sel.start + flowText.length + 10);
+                change(
+                    this.getInsertText(
+                        '\n```\n' + flowText + '\n```\n',
+                        sel.start,
+                        sel.end
+                    )
+                );
+                this.setFocus(
+                    sel.start + flowText.length + 10,
+                    sel.start + flowText.length + 10
+                );
                 break;
             case 'diagram':
                 let diagramText = sel.text;
@@ -470,8 +749,17 @@ export class ThyEditorService implements OnInit, OnDestroy {
                     // text = 'sequenceDiagram\nA->>B: 你好吗?\nB->>A: 我很好3!';
                     diagramText = this.getLocaleText('diagram');
                 }
-                change(this.getInsertText('\n```\n' + diagramText + '\n```\n', sel.start, sel.end));
-                this.setFocus(sel.start + diagramText.length + 10, sel.start + diagramText.length + 10);
+                change(
+                    this.getInsertText(
+                        '\n```\n' + diagramText + '\n```\n',
+                        sel.start,
+                        sel.end
+                    )
+                );
+                this.setFocus(
+                    sel.start + diagramText.length + 10,
+                    sel.start + diagramText.length + 10
+                );
                 break;
             case 'gantt':
                 let ganttText = sel.text;
@@ -486,16 +774,23 @@ export class ThyEditorService implements OnInit, OnDestroy {
                     ganttText += 'section S3\n';
                     ganttText += 'T3: 2014-01-02, 9d';
                 }
-                change(this.getInsertText('\n```\n' + ganttText + '\n```\n', sel.start, sel.end));
-                this.setFocus(sel.start + ganttText.length + 10, sel.start + ganttText.length + 10);
+                change(
+                    this.getInsertText(
+                        '\n```\n' + ganttText + '\n```\n',
+                        sel.start,
+                        sel.end
+                    )
+                );
+                this.setFocus(
+                    sel.start + ganttText.length + 10,
+                    sel.start + ganttText.length + 10
+                );
                 break;
         }
         this.setTextareaHeight();
     }
 
-    togglePreview() {
-
-    }
+    togglePreview() {}
 
     setTextareaHeight() {
         if (this.options.isHeightFull) {
@@ -539,15 +834,29 @@ export class ThyEditorService implements OnInit, OnDestroy {
         }
         let _strHTML = '';
         if (this.isRowFirst(sel.start)) {
-            _strHTML = this.getInsertText('\n' + sample + '\n\n', sel.start, sel.end);
+            _strHTML = this.getInsertText(
+                '\n' + sample + '\n\n',
+                sel.start,
+                sel.end
+            );
             change(_strHTML);
             // this.insertText('\n' + sample + '\n\n', sel.start, sel.end);
-            this.setFocus(sel.start + sample.length + 2, sel.start + sample.length + 2);
+            this.setFocus(
+                sel.start + sample.length + 2,
+                sel.start + sample.length + 2
+            );
         } else {
-            _strHTML = this.getInsertText('\n\n' + sample + '\n\n', sel.start, sel.end);
+            _strHTML = this.getInsertText(
+                '\n\n' + sample + '\n\n',
+                sel.start,
+                sel.end
+            );
             change(_strHTML);
             // this.insertText('\n\n' + sample + '\n\n', sel.start, sel.end);
-            this.setFocus(sel.start + sample.length + 4, sel.start + sample.length + 4);
+            this.setFocus(
+                sel.start + sample.length + 4,
+                sel.start + sample.length + 4
+            );
         }
 
         change(_strHTML);

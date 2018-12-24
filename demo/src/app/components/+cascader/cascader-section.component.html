@@ -1,60 +1,57 @@
-<section>
-      <div class="header">
-            <h2>Cascader 级联选择</h2>
-      </div>
-      <div class="body demo-select">
-            <thy-cascader [thyOptions]="thyOptions" 
-            [(ngModel)]="values" 
-            (ngModelChange)="onChanges($event)"
-            thyPlaceHolder="自定义PlaceHolder"
+<section style="margin:0 0 100px 0;">
+    <div class="header">
+        <h2>Cascader 级联选择</h2>
+    </div>
+    <div class="body demo-select">
+        <thy-cascader [thyOptions]="thyOptions" [(ngModel)]="values" (ngModelChange)="onChanges($event)" thyPlaceHolder="自定义PlaceHolder"
             style="width:200px;">
-            </thy-cascader>
-      </div>
-      <p>disabled 默认大小</p>
-      <div class="body demo-select">
-            <thy-cascader [thyOptions]="thyOptions" 
-            (ngModelChange)="onChanges($event)"
-            thyPlaceHolder="自定义PlaceHolder"
-            [disabled]="true"
-            style="width:200px;">
-            </thy-cascader>
-      </div>
-      <p>小</p>
-      <div class="body demo-select">
-            <thy-cascader [thyOptions]="thyOptions" 
-            [(ngModel)]="values"
-            (ngModelChange)="onChanges($event)"
-            thyPlaceHolder="自定义PlaceHolder"
-            [thySize]="'sm'"
-            style="width:200px;">
-            </thy-cascader>
-      </div>
-      <p>小xs</p>
-      <div class="body demo-select">
-            <thy-cascader [thyOptions]="thyOptions" 
-            (ngModelChange)="onChanges($event)"
-            thyPlaceHolder="自定义PlaceHolder"
-            [thySize]="'xs'"
-            style="width:200px;">
-            </thy-cascader>
-      </div>
-      <p>大 lg</p>
-      <div class="body demo-select">
-            <thy-cascader [thyOptions]="thyOptions" 
-            (ngModelChange)="onChanges($event)"
-            thyPlaceHolder="自定义PlaceHolder"
-            [thySize]="'lg'"
-            style="width:200px;">
-            </thy-cascader>
-      </div>
-      <p>实时选择中(带默认值)</p>
-      <div class="body demo-select">
-            <thy-cascader [thyOptions]="thyOptions" 
-            (ngModelChange)="onChanges($event)"
-            thyPlaceHolder="自定义PlaceHolder"
-            [(ngModel)]="ngModel" 
-            [thyChangeOnSelect]="true"
-            style="width:200px;">
-            </thy-cascader>
-      </div>
+        </thy-cascader>
+    </div>
+    <p>disabled 默认大小</p>
+    <div class="body demo-select">
+        <thy-cascader [thyOptions]="thyOptions" (ngModelChange)="onChanges($event)" thyPlaceHolder="自定义PlaceHolder"
+            [disabled]="true" style="width:200px;">
+        </thy-cascader>
+    </div>
+    <p>小</p>
+    <div class="body demo-select">
+        <thy-cascader [thyOptions]="thyOptions" [(ngModel)]="values" (ngModelChange)="onChanges($event)" thyPlaceHolder="自定义PlaceHolder"
+            [thySize]="'sm'" style="width:200px;">
+        </thy-cascader>
+    </div>
+    <p>小xs</p>
+    <div class="body demo-select">
+        <thy-cascader [thyOptions]="thyOptions" (ngModelChange)="onChanges($event)" thyPlaceHolder="自定义PlaceHolder"
+            [thySize]="'xs'" style="width:200px;">
+        </thy-cascader>
+    </div>
+    <p>大 lg</p>
+    <div class="body demo-select">
+        <thy-cascader [thyOptions]="thyOptions" (ngModelChange)="onChanges($event)" thyPlaceHolder="自定义PlaceHolder"
+            [thySize]="'lg'" style="width:200px;">
+        </thy-cascader>
+    </div>
+    <p>实时选择中(带默认值)</p>
+    <div class="body demo-select">
+        <thy-cascader [thyOptions]="thyOptions" (ngModelChange)="onChanges($event)" thyPlaceHolder="自定义PlaceHolder"
+            [(ngModel)]="ngModel" [thyChangeOnSelect]="true" style="width:200px;">
+        </thy-cascader>
+    </div>
+    <p>Label 使用自定义模板，如：追加邮政编码</p>
+    <div>
+        <thy-cascader [thyOptions]="thyCustomerOptions" (ngModelChange)="onChanges($event)" thyPlaceHolder="自定义label"
+            [(ngModel)]="ngModel" style="width:400px;" [thyLabelRender]="renderTpl">
+        </thy-cascader>
+        <ng-template #renderTpl let-labels="labels" let-selectedOptions="selectedOptions">
+            <ng-container>
+                <ng-container *ngFor="let label of labels; let i = index; let isLast = last">
+                    <span *ngIf="!isLast">{{label}} / </span>
+                    <span *ngIf="isLast">
+                        {{label}} (<a href="javascript:;" (click)="handleAreaClick($event, label, selectedOptions[i])">
+                            {{selectedOptions[i].code}} </a>)
+                    </span>
+                </ng-container>
+            </ng-container>
+        </ng-template>
+    </div>
 </section>

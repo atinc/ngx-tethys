@@ -71,6 +71,8 @@ $font-size-max-lg: 3.25rem; // 补充字体大小 52px
 $font-size-xs: .625rem; // 10px
 // code
 $code-color: $danger;
+$code-font-size: 0.875rem;
+
 $input-btn-padding-y: 0.469rem !default;
 $input-btn-padding-x: 26px !default; // 1.313rem  !default;
 $input-btn-padding-y-sm: .25rem !default;
@@ -287,6 +289,11 @@ $modal-blg: 800px; //稍微大点，自定义属性
 $modal-md: 660px !default; //
 $modal-sm: 400px !default; //
 $modal-transition: transform .3s ease-out !default;
+// Dialog
+$dialog-max-lg: 980px !default; //
+$dialog-lg: 800px;
+$dialog-md: 660px !default; //
+$dialog-sm: 400px !default; //
 // Card
 $card-title-icon-color: $primary;
 $card-title-color: $gray-700;
@@ -345,7 +352,7 @@ $empty-text-size: $font-size-base !default;
 $empty-icon-size: 3.125rem !default;
 $empty-text-size-lg: $font-size-md !default;
 $empty-icon-size-lg:5rem !default;
-//util 
+//util
 $operation-link-margin-y: 20px !default;
 //switch
 // $switch-lg-width: 48px !default;

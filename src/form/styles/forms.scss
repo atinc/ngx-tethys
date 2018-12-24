@@ -153,6 +153,7 @@
     background-color: transparent;
     border: solid transparent;
     border-width: $input-border-width 0;
+    outline: none;
 
     &.form-control-sm,
     &.form-control-lg {
@@ -282,7 +283,8 @@
 // Requires wrapping inputs and labels with `.form-group` for proper display of
 // default HTML form controls and our custom form controls (e.g., input groups).
 
-.form-inline {
+.form-inline,
+.thy-form-inline {
     display: flex;
     flex-flow: row wrap;
     align-items: center; // Prevent shorter elements from growing to same height as others (e.g., small buttons growing to normal sized button height)
@@ -310,6 +312,7 @@
             flex-flow: row wrap;
             align-items: center;
             margin-bottom: 0;
+            margin-right: 10px;
         }
 
         // Allow folks to *not* use `.form-group`
@@ -317,6 +320,10 @@
             display: inline-block;
             width: auto; // Prevent labels from stacking above inputs in `.form-group`
             vertical-align: middle;
+        }
+
+        .form-label {
+            margin-right: 10px;
         }
 
         // Make static controls behave like regular ones
@@ -336,7 +343,9 @@
             justify-content: center;
             width: auto;
             padding-left: 0;
+            padding-bottom: 0px;
         }
+
         .form-check-input {
             position: relative;
             margin-top: 0;

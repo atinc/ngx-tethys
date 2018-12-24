@@ -11,7 +11,7 @@ import { Direction } from '@angular/cdk/bidi';
 import { ScrollStrategy } from '@angular/cdk/overlay';
 
 /** Valid ARIA roles for a dialog element. */
-export type DialogRole = 'dialog' | 'alertdialog';
+export type ThyDialogRole = 'dialog' | 'alertdialog';
 
 /** Possible overrides for a dialog's position. */
 export interface DialogPosition {
@@ -28,8 +28,15 @@ export interface DialogPosition {
     right?: string;
 }
 
+export enum ThyDialogSizes {
+    lg = 'lg',
+    maxLg = 'max-lg',
+    md = 'md',
+    sm = 'sm'
+}
+
 /**
- * Configuration for opening a modal dialog with the MatDialog service.
+ * Configuration for opening a modal dialog with the ThyDialog service.
  */
 export class ThyDialogConfig<TData = any> {
     /**
@@ -44,19 +51,19 @@ export class ThyDialogConfig<TData = any> {
     id?: string;
 
     /** The ARIA role of the dialog element. */
-    role?: DialogRole = 'dialog';
+    role?: ThyDialogRole = 'dialog';
 
     /** Custom class for the overlay pane. */
-    panelClass?: string | string[] = '';
+    panelClass?: string | string[] = ''; // 'thy-dialog-panel';
 
     /** Whether the dialog has a backdrop. */
     hasBackdrop? = true;
 
     /** Custom class for the backdrop, */
-    backdropClass? = '';
+    backdropClass? = ''; // 'thy-dialog-backdrop';
 
     /** Whether the user can use escape or clicking on the backdrop to close the modal. */
-    disableBackdropClose? = false;
+    backdropClosable? = true;
 
     /** Width of the dialog. */
     width? = '';
@@ -68,19 +75,22 @@ export class ThyDialogConfig<TData = any> {
     minWidth?: number | string;
 
     /** Min-height of the dialog. If a number is provided, pixel units are assumed. */
-    minHeight?: number | string;
+    minHeight?: number | string = '20vh';
 
     /** Max-width of the dialog. If a number is provided, pixel units are assumed. Defaults to 80vw */
-    maxWidth?: number | string = '80vw';
+    maxWidth?: number | string;
 
     /** Max-height of the dialog. If a number is provided, pixel units are assumed. */
-    maxHeight?: number | string;
+    maxHeight?: number | string = '85vh';
 
     /** Position overrides. */
     position?: DialogPosition;
 
     /** Data being injected into the child component. */
-    data?: TData | null = null;
+    initialState?: TData | null = null;
+
+    /** Dialog size md, lg, sm*/
+    size?: ThyDialogSizes;
 
     /** Layout direction for the dialog's content. */
     direction?: Direction;
@@ -116,7 +126,17 @@ export const THY_DIALOG_DEFAULT_OPTIONS = new InjectionToken<ThyDialogConfig>(
     'thy-dialog-default-options'
 );
 
-/** Injection token that determines the scroll handling while the dialog is open. */
-export const THY_DIALOG_SCROLL_STRATEGY = new InjectionToken<
-    () => ScrollStrategy
->('thy-dialog-scroll-strategy');
+export const THY_DIALOG_DEFAULT_OPTIONS_PROVIDER = {
+    provide: THY_DIALOG_DEFAULT_OPTIONS,
+    useValue: {
+        role: 'dialog',
+        hasBackdrop: true,
+        backdropClass: '',
+        panelClass:'',
+        backdropClosable: true,
+        closeOnNavigation: true,
+        autoFocus: true,
+        restoreFocus: true,
+        maxHeight: '85vh'
+    }
+};

@@ -1,73 +1,141 @@
-
 $thy-dialog-padding: 24px !default;
 $thy-dialog-border-radius: 4px !default;
 $thy-dialog-max-height: 65vh !default;
 $thy-dialog-button-margin: 8px !default;
 
+// .dialog-overlay-pane {
+
+// }
+
 .thy-dialog-container {
-  display: block;
-  padding: $thy-dialog-padding;
-  border-radius: $thy-dialog-border-radius;
-  box-sizing: border-box;
-  overflow: auto;
-  outline: 0;
+    display: block;
+    // padding: $thy-dialog-padding;
+    border-radius: $thy-dialog-border-radius;
+    box-sizing: border-box;
+    overflow: auto;
+    outline: 0;
 
-  // The dialog container should completely fill its parent overlay element.
-  width: 100%;
-  height: 100%;
+    // The dialog container should completely fill its parent overlay element.
+    width: 100%;
+    height: 100%;
+    // Since the dialog won't stretch to fit the parent, if the height
+    // isn't set, we have to inherit the min and max values explicitly.
+    min-height: inherit;
+    max-height: inherit;
 
-  // Since the dialog won't stretch to fit the parent, if the height
-  // isn't set, we have to inherit the min and max values explicitly.
-  min-height: inherit;
-  max-height: inherit;
-
-  background: white;
-//   @include cdk-high-contrast {
-//     outline: solid 1px;
-//   }
+    background: white;
+    //   @include cdk-high-contrast {
+    //     outline: solid 1px;
+    //   }
 }
 
-.thy-dialog-content {
-  display: block;
-  margin: 0 $thy-dialog-padding * -1;
-  padding: 0 $thy-dialog-padding;
-  max-height: $thy-dialog-max-height;
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-}
+// Dialog header
+// Top section of the modal w/ title and dismiss
+.dialog-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; // Put modal header elements (title and dismiss) on opposite ends
+    padding: 0 $modal-header-padding;
+    min-height: $modal-title-line-height;
+    height: 50px;
+    border-bottom: $modal-header-border-width solid $modal-header-border-color;
+    @include border-top-radius($border-radius-lg);
 
-.thy-dialog-title {
-  margin: 0 0 20px;
-  display: block;
-}
-
-.mat-dialog-actions {
-  padding: 8px 0;
-  display: flex;
-  flex-wrap: wrap;
-  min-height: 52px;
-  align-items: center;
-
-  // Pull the actions down to avoid their padding stacking with the dialog's padding.
-  margin-bottom: $thy-dialog-padding;
-
-  &[align='end'] {
-    justify-content: flex-end;
-  }
-
-  &[align='center'] {
-    justify-content: center;
-  }
-
-  .mat-button + .mat-button,
-  .mat-raised-button + .mat-raised-button,
-  .mat-button + .mat-raised-button,
-  .mat-raised-button + .mat-button {
-    margin-left: $thy-dialog-button-margin;
-
-    [dir='rtl'] & {
-      margin-left: 0;
-      margin-right: $thy-dialog-button-margin;
+    h3 {
+        font-size: $font-size-md;
+        font-weight: 500;
     }
-  }
+    .modal-info {
+        color: $gray-500;
+    }
+    .modal-back {
+        position: absolute;
+        line-height: 50px;
+        color: $gray-300;
+    }
+    .close {
+        outline: none;
+        padding: 1rem $modal-header-padding;
+        margin: (-$modal-header-padding) (-$modal-header-padding)
+            (-$modal-header-padding) auto;
+    }
+}
+
+// Title text within header
+.dialog-title {
+    margin-bottom: 0;
+    line-height: $modal-title-line-height;
+}
+
+// Modal body
+// Where all modal content resides (sibling of .modal-header and .modal-footer)
+.dialog-body {
+    position: relative;
+    // Enable `flex-grow: 1` so that the body take up as much space as possible
+    // when should there be a fixed height on `.modal-dialog`.
+    flex: 1 1 auto;
+    padding: $modal-inner-padding;
+
+    display: block;
+    // margin: 0 $thy-dialog-padding * -1;
+    // padding: 0 $thy-dialog-padding;
+    // max-height: $thy-dialog-max-height;
+    // overflow: auto;
+    -webkit-overflow-scrolling: touch;
+
+    &.dialog-body-clear-padding {
+        padding: 0;
+    }
+}
+
+// Footer (for actions)
+.dialog-footer {
+    display: flex;
+    justify-content: flex-start;
+    border: 0;
+    align-items: center; // vertically center
+    padding: $modal-inner-padding;
+
+    &.dialog-footer-border-top {
+        border-top: $modal-footer-border-width solid $modal-footer-border-color;
+    }
+
+    // Easily place margin between footer elements
+    > :not(:first-child) {
+        margin-left: 0.25rem;
+    }
+    > :not(:last-child) {
+        margin-right: 0.25rem;
+    }
+}
+
+// Measure scrollbar width for padding body during modal show/hide
+.dialog-scrollbar-measure {
+    position: absolute;
+    top: -9999px;
+    width: 50px;
+    height: 50px;
+    overflow: scroll;
+}
+
+// Scale up the modal
+@include media-breakpoint-up(sm) {
+    // Automatically set modal's width for larger viewports
+    .dialog-md {
+        width: $dialog-md;
+        margin: $modal-dialog-margin-y-sm-up auto;
+    }
+
+    .dialog-sm {
+        width: $dialog-sm;
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    .dialog-lg {
+        width: $dialog-lg;
+    }
+    .dialog-max-lg {
+        width: $dialog-max-lg;
+    }
 }

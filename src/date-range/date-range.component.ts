@@ -47,7 +47,16 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
         end: { date: number }
     };
 
-    @Input() dateRanges: DateRangeItemInfo[] = [];
+    private _dateRanges:DateRangeItemInfo[];
+
+    @Input()
+    set dateRanges(v: DateRangeItemInfo[]) {
+        this._dateRanges = v;
+        this.optionalDateRange = this._dateRanges.length > 0 ? this._dateRanges : this.optionalDateRange;
+        this.selectedDate = this._dateRanges[0];
+    }
+
+    @Input() hiddenMenu: Boolean = false;
 
     constructor() {
 
@@ -80,7 +89,7 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
     }
 
     ngOnInit() {
-        this.optionalDateRange = this.dateRanges.length > 0 ? this.dateRanges : this.optionalDateRange;
+
     }
 
     private _setSelectedDateRange() {
@@ -157,6 +166,8 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
 
     private _setPreviousOrNextDate(type: string) {
         this.selectedDate = Object.assign({}, this.selectedDate, this._calculateNewTime(type));
+        console.log(this.selectedDate);
+
         this._setSelectedDateRange();
         this.onModelChange(this.selectedDate);
     }

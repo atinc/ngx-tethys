@@ -1,6 +1,5 @@
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { GlobalPositionStrategy, OverlayRef } from '@angular/cdk/overlay';
-import { Location } from '@angular/common';
 import { Observable, Subject } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 import { DialogPosition } from './dialog.config';
@@ -9,13 +8,24 @@ import { ThyDialogContainerComponent } from './dialog-container.component';
 // Counter for unique dialog ids.
 let uniqueId = 0;
 
-export class ThyDialogRef<T, TResult = any> {
+export abstract class ThyDialogRef<T, TResult = any> {
+    componentInstance: T;
+    id: string;
+    abstract close(dialogResult?: TResult): void;
+    abstract afterOpened(): Observable<void>;
+    abstract afterClosed(): Observable<TResult | undefined>;
+    abstract beforeClosed(): Observable<TResult | undefined>;
+    abstract keydownEvents(): Observable<KeyboardEvent>;
+}
+
+export class ThyDialogRefInternal<T, TResult = any>
+    implements ThyDialogRef<T, TResult> {
     /** The instance of component opened into the dialog. */
     componentInstance: T;
 
     /** Whether the user is allowed to close the dialog. */
-    disableBackdropClose: boolean | undefined = this.containerInstance.config
-        .disableBackdropClose;
+    backdropClosable: boolean | undefined = this.containerInstance.config
+        .backdropClosable;
 
     /** Subject for notifying the user that the dialog has finished opening. */
     private readonly _afterOpened = new Subject<void>();
@@ -29,14 +39,19 @@ export class ThyDialogRef<T, TResult = any> {
     /** Result to be passed to afterClosed. */
     private _result: TResult | undefined;
 
+    /** Fetches the position strategy object from the overlay ref. */
+    private _getPositionStrategy(): GlobalPositionStrategy {
+        return this.overlayRef.getConfig()
+            .positionStrategy as GlobalPositionStrategy;
+    }
+
     constructor(
         private overlayRef: OverlayRef,
         public containerInstance: ThyDialogContainerComponent,
-        _location?: Location,
-        readonly id: string = `mat-dialog-${uniqueId++}`
+        readonly id: string = `thy-dialog-${uniqueId++}`
     ) {
         // Pass the id along to the container.
-        // containerInstance._id = id;
+        containerInstance.id = id;
 
         // Emit when opening animation completes
         containerInstance.animationStateChanged
@@ -75,39 +90,11 @@ export class ThyDialogRef<T, TResult = any> {
         overlayRef
             .keydownEvents()
             .pipe(
-                filter(event => event.keyCode === ESCAPE && !this.disableBackdropClose)
+                filter(
+                    event => event.keyCode === ESCAPE && this.backdropClosable
+                )
             )
             .subscribe(() => this.close());
-
-        // // If the dialog has a backdrop, handle clicks from the backdrop.
-        // if (containerInstance.config.hasBackdrop) {
-        //     overlayRef.backdropClick().subscribe(() => {
-        //         if (!this.disableBackdropClose) {
-        //             this.close();
-        //         }
-        //     });
-        // }
-
-        // this.beforeClosed().subscribe(() => {
-        //     this.overlayRef.detachBackdrop();
-        // });
-
-        // this.afterClosed().subscribe(() => {
-        //     this.overlayRef.detach();
-        //     this.overlayRef.dispose();
-        //     this.componentInstance = null;
-        // });
-
-        // // Close when escape keydown event occurs
-        // overlayRef
-        //     .keydownEvents()
-        //     .pipe(
-        //         filter(
-        //             event =>
-        //                 event.keyCode === ESCAPE && !this.disableBackdropClose
-        //         )
-        //     )
-        //     .subscribe(() => this.close());
     }
 
     /**
@@ -198,35 +185,15 @@ export class ThyDialogRef<T, TResult = any> {
      * @param width New width of the dialog.
      * @param height New height of the dialog.
      */
-    updateSize(width: string = '', height: string = ''): this {
+    updateSizeAndPosition(
+        width: string = '',
+        height: string = '',
+        position?: DialogPosition
+    ): this {
         this._getPositionStrategy()
             .width(width)
             .height(height);
-        this.overlayRef.updatePosition();
+        this.updatePosition(position);
         return this;
-    }
-
-    /**
-     * Gets an observable that is notified when the dialog is finished opening.
-     * @deprecated Use `afterOpened` instead.
-     * @breaking-change 8.0.0
-     */
-    afterOpen(): Observable<void> {
-        return this.afterOpened();
-    }
-
-    /**
-     * Gets an observable that is notified when the dialog has started closing.
-     * @deprecated Use `beforeClosed` instead.
-     * @breaking-change 8.0.0
-     */
-    beforeClose(): Observable<TResult | undefined> {
-        return this.beforeClosed();
-    }
-
-    /** Fetches the position strategy object from the overlay ref. */
-    private _getPositionStrategy(): GlobalPositionStrategy {
-        return this.overlayRef.getConfig()
-            .positionStrategy as GlobalPositionStrategy;
     }
 }

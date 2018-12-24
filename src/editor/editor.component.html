@@ -14,7 +14,7 @@
                     </div>
 
                     <i *ngIf="item.type === 'styleFn'" title="{{item.title}}" class="{{item.className}} toolbar-icon" (click)="styleFn(item.name,$event)"></i>
-                    <i *ngIf="item.type === 'uploadImg'" title="{{item.title}}" thyFileSelect class="{{item.className}} toolbar-icon" (thyOnFileSelect)="selectFiles($event)"></i>
+                    <i *ngIf="item.type === 'uploadImg'" title="{{item.title}}" thyFileSelect [thyMultiple]="thyEditorService.options.uploadImgMultiple" [thyAcceptType]="thyEditorService.options.uploadImgAcceptType" class="{{item.className}} toolbar-icon" (thyOnFileSelect)="selectFiles($event)"></i>
                     <i *ngIf="item.type === 'linkModule'" title="{{item.title}}" class="{{item.className}} toolbar-icon" (click)="selectModule($event)"></i>
                     <i *ngIf="item.type === 'tableFn'" title="{{item.title}}" class="{{item.className}} toolbar-icon" (click)="styleFn(item.name,$event)"></i>
                     <div *ngIf="item.type === 'tableFn'" [hidden]="!thyEditorService.tableOptions.table_action" class="table-menu" flag="table" (mouseleave)="thyEditorService.setTable(1,1,false)">
@@ -36,7 +36,7 @@
     </div>
     <div class="thy-editor-container">
         <div class="thy-editor-container-code">
-            <textarea class="thy-editor-textarea" thyAutofocus [(ngModel)]="model" (ngModelChange)="changeValue($event)" [placeholder]="placeholder"></textarea>
+            <textarea class="thy-editor-textarea" thyAutofocus [(ngModel)]="model" (ngModelChange)="changeValue($event)" [placeholder]="thyEditorService.options.placeholder"></textarea>
         </div>
         <div class="thy-editor-container-preview" [hidden]="!thyEditorService.isPreview">
             <article class="thy-editor-container-preview-body markdown-body" [thyMarkdownParser]="model"></article>

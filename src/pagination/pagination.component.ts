@@ -10,6 +10,7 @@ import {
     ElementRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { UpdateHostClassService } from '../shared';
 
 export interface PageChangedEvent {
     itemsPerPage: number;
@@ -28,7 +29,7 @@ export const PAGINATION_CONTROL_VALUE_ACCESSOR: Provider = {
 @Component({
     selector: 'thy-pagination',
     templateUrl: './pagination.component.html',
-    providers: [PAGINATION_CONTROL_VALUE_ACCESSOR]
+    providers: [PAGINATION_CONTROL_VALUE_ACCESSOR, UpdateHostClassService]
 })
 export class ThyPaginationComponent implements ControlValueAccessor, OnInit {
     /** === 以下选项 为兼容 ngx-bootstrap 用； === */
@@ -52,9 +53,8 @@ export class ThyPaginationComponent implements ControlValueAccessor, OnInit {
 
     @Input() thyJump: boolean;
 
-    @Input() thyMaxSize: ThyPaginationMaxSize;
+    @Input() thySize: ThyPaginationMaxSize;
 
-    private _nativeElement: any;
     protected _page = 1;
     protected _itemsPerPage: number;
     protected _totalItems: number;
@@ -139,16 +139,21 @@ export class ThyPaginationComponent implements ControlValueAccessor, OnInit {
         this.onTouchedCallback = fn;
     }
 
-    constructor() {}
+    constructor(
+        private updateHostClassService: UpdateHostClassService,
+        private elementRef: ElementRef
+    ) {
+        updateHostClassService.initializeElement(elementRef.nativeElement);
+    }
 
     ngOnInit() {
         this.itemsPerPage =
             typeof this.itemsPerPage !== 'undefined' ? this.itemsPerPage : 20;
 
-        this.thyMaxSize =
-            typeof this.thyMaxSize !== 'undefined' ? this.thyMaxSize : 'md';
+        this.thySize =
+            typeof this.thySize !== 'undefined' ? this.thySize : 'md';
 
-        this._setMaxSize(this.thyMaxSize);
+        this._setSize(this.thySize);
 
         this.thyJump =
             typeof this.thyJump !== 'undefined' ? this.thyJump : true;
@@ -181,7 +186,7 @@ export class ThyPaginationComponent implements ControlValueAccessor, OnInit {
         return Math.max(totalPages || 0, 1);
     }
 
-    protected _setMaxSize(v: ThyPaginationMaxSize) {
+    protected _setSize(v: ThyPaginationMaxSize) {
         switch (v) {
             case 'sm':
                 this.reservedNum = 1;
@@ -196,6 +201,7 @@ export class ThyPaginationComponent implements ControlValueAccessor, OnInit {
                     typeof this.thyJump !== 'undefined' ? this.thyJump : false;
                 this.reservedNum = 1;
                 this.pagerSize = 1;
+                this.updateHostClassService.updateClass([`thy-pagination-xs`]);
                 break;
         }
 

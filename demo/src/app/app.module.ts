@@ -18,18 +18,25 @@ import { ThyAvatarService } from '../../../src';
 import { CustomAvatarService } from './components/+avatar/custom-avatar.service';
 import { CustomEditorService } from './components/+editor/custom-editor.service';
 import { ThyMarkdownParserService } from '../../../src/directive';
+import { HighlightModule } from 'ngx-highlightjs';
+
+import xml from 'highlight.js/lib/languages/xml';
+import scss from 'highlight.js/lib/languages/scss';
+import typescript from 'highlight.js/lib/languages/typescript';
+export function hljsLanguages() {
+    return [
+        { name: 'typescript', func: typescript },
+        { name: 'scss', func: scss },
+        { name: 'xml', func: xml }
+    ];
+}
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        ...COMPONENTS,
-        ...DOCS_COMPONENTS
-    ],
-    entryComponents: [
-        ...ENTRY_COMPONENTS
-    ],
+    declarations: [AppComponent, ...COMPONENTS, ...DOCS_COMPONENTS],
+    entryComponents: [...ENTRY_COMPONENTS],
     imports: [
         BrowserModule,
+        FormsModule,
         NgxTethysModule,
         RouterModule.forRoot(appRoutes, {
             useHash: true
@@ -39,7 +46,9 @@ import { ThyMarkdownParserService } from '../../../src/directive';
         TabsModule.forRoot(),
         TranslateModule,
         SortablejsModule.forRoot({}),
-        FormsModule
+        HighlightModule.forRoot({
+            languages: hljsLanguages
+        })
     ],
     providers: [
         {
@@ -68,17 +77,17 @@ export class AppModule {
                 DELETING: '删除中...',
                 DELETE_CONFIRM: '确认删除',
                 tips: {
-                    'NO_RESULT': '没有数据',
-                    'NO_RESULT_TARGET': '没有{{target}}'
+                    NO_RESULT: '没有数据',
+                    NO_RESULT_TARGET: '没有{{target}}'
                 },
                 confirm: {
                     CONTENT_DEFAULT: '确认删除这个吗？',
                     CONTENT: '确认删除项目 <code>{{name}}</code> 吗？'
-                },
+                }
             },
             mission: {
                 PROJECT: '项目',
-                'TASK': '任务'
+                TASK: '任务'
             }
         });
     }

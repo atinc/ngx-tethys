@@ -1,26 +1,37 @@
 import {
-    Component, Input, ElementRef, Renderer2, OnInit, forwardRef, HostBinding, Output, EventEmitter,
-    OnDestroy, HostListener
+    Component,
+    Input,
+    ElementRef,
+    Renderer2,
+    OnInit,
+    forwardRef,
+    HostBinding,
+    Output,
+    EventEmitter,
+    OnDestroy,
+    HostListener
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { ThyEditorService } from './editor.service';
+import { ThyEditorService,ThyEditorConfig } from './editor.service';
+
 @Component({
     selector: 'thy-editor',
     templateUrl: './editor.component.html',
-    providers: [{
-        provide: NG_VALUE_ACCESSOR,
-        useExisting: forwardRef(() => ThyEditorComponent),
-        multi: true
-    }, ThyEditorService]
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => ThyEditorComponent),
+            multi: true
+        },
+        ThyEditorService
+    ]
 })
-export class ThyEditorComponent implements OnInit, ControlValueAccessor, OnDestroy {
-
+export class ThyEditorComponent
+    implements OnInit, ControlValueAccessor, OnDestroy {
     public model: any;
+    public options: ThyEditorConfig;
 
-    @Input() config: {
-        type: string;
-        placeholder: string;
-    };
+    @Input() config: ThyEditorConfig;
 
     public placeholder: string;
 
@@ -39,9 +50,8 @@ export class ThyEditorComponent implements OnInit, ControlValueAccessor, OnDestr
     constructor(
         private elementRef: ElementRef,
         private renderer: Renderer2,
-        public thyEditorService: ThyEditorService,
-    ) {
-    }
+        public thyEditorService: ThyEditorService
+    ) {}
 
     @HostListener('paste', ['$event'])
     paste(e: any) {
@@ -59,13 +69,24 @@ export class ThyEditorComponent implements OnInit, ControlValueAccessor, OnDestr
 
         let _date = '';
         const _now = new Date();
-        _date = _now.getFullYear() + '-' + (_now.getMonth() + 1) + '-' + _now.getDate() + ' ' + _now.getHours() + ':' +
-            _now.getMinutes() + ':' + _now.getSeconds();
+        _date =
+            _now.getFullYear() +
+            '-' +
+            (_now.getMonth() + 1) +
+            '-' +
+            _now.getDate() +
+            ' ' +
+            _now.getHours() +
+            ':' +
+            _now.getMinutes() +
+            ':' +
+            _now.getSeconds();
         for (const item of theClipboardData.items) {
             if (item.kind === 'file' && item.type.indexOf('image/') === 0) {
                 const imageFile: any = item.getAsFile();
                 if (imageFile) {
-                    imageFile.title = '[' + _name + '] ' + 'upload' + ' - ' + _date + '.png';
+                    imageFile.title =
+                        '[' + _name + '] ' + 'upload' + ' - ' + _date + '.png';
                     $files.push(imageFile);
                     e.preventDefault();
                     break;
@@ -92,13 +113,9 @@ export class ThyEditorComponent implements OnInit, ControlValueAccessor, OnDestr
         this.onModelTouched = fn;
     }
 
-    public onModelChange: Function = () => {
+    public onModelChange: Function = () => {};
 
-    }
-
-    public onModelTouched: Function = () => {
-
-    }
+    public onModelTouched: Function = () => {};
 
     changeValue(event: Event) {
         this.model = event;
@@ -106,13 +123,13 @@ export class ThyEditorComponent implements OnInit, ControlValueAccessor, OnDestr
         this.thyEditorService.setTextareaHeight();
     }
 
-
     insertTable() {
         this.thyEditorService.insertTable(this.changeValue.bind(this));
     }
 
     setHeaderLi(id: string): void {
-        this.thyEditorService.header_action = !this.thyEditorService.header_action;
+        this.thyEditorService.header_action = !this.thyEditorService
+            .header_action;
     }
 
     styleFn(name: string, event: Event) {
@@ -121,7 +138,9 @@ export class ThyEditorComponent implements OnInit, ControlValueAccessor, OnDestr
 
     togglePreview() {
         this.thyEditorService.isPreview = !this.thyEditorService.isPreview;
-        this.value = this.elementRef.nativeElement.querySelector('.thy-editor-textarea').value;
+        this.value = this.elementRef.nativeElement.querySelector(
+            '.thy-editor-textarea'
+        ).value;
     }
 
     selectFiles(event: Event) {
@@ -134,7 +153,10 @@ export class ThyEditorComponent implements OnInit, ControlValueAccessor, OnDestr
     }
 
     uploadImgAction(src: string, title: string) {
-        this.thyEditorService.insertContent('\n![' + title + '](' + src + ')\n', this.changeValue.bind(this));
+        this.thyEditorService.insertContent(
+            '\n![' + title + '](' + src + ')\n',
+            this.changeValue.bind(this)
+        );
     }
 
     selectModule(event: Event) {
@@ -153,11 +175,6 @@ export class ThyEditorComponent implements OnInit, ControlValueAccessor, OnDestr
     ngOnInit(): void {
         this.thyEditorService.initEditor(this.config, this.elementRef);
         this._thyFullClass = this.thyEditorService.options.isHeightFull;
-        if (this.config && this.config.placeholder) {
-            this.placeholder = this.config.placeholder;
-        }else{
-            this.placeholder = '输入内容...';
-        }
     }
 
     ngOnDestroy() {

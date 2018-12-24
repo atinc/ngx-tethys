@@ -1,0 +1,11 @@
+<ng-container *ngIf="headerTemplate; else: defaultHeader">
+    <template [ngTemplateOutlet]="headerTemplate"></template>
+</ng-container>
+<ng-template #defaultHeader>
+    <h3 class="modal-title">
+        <i *ngIf="thyIcon" class="{{thyIcon}}"></i> {{ thyTitle }}
+    </h3>
+    <button type="button" class="close" (click)="close($event)">
+        <i class="wtf wtf-times"></i>
+    </button>
+</ng-template>

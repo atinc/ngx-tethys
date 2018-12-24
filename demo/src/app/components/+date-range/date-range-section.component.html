@@ -22,4 +22,17 @@
     </div>
 </section>
 
+
+<section>
+    <div class="header">
+        <h2>隐藏菜单</h2>
+    </div>
+    <div class="body">
+        <div class="demo-layout">
+            <thy-date-range [(ngModel)]="dateHasConfig" name="setDateRangeHasConfig" [dateRanges]="dateRanges" (ngModelChange)="change()" [hiddenMenu]="true"></thy-date-range>
+            <span>{{dateHasConfig|json}}</span>
+        </div>
+    </div>
+</section>
+
 <api-parameters [parameters]="apiParameters"></api-parameters>
