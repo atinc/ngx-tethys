@@ -53,8 +53,8 @@ import { DemoTreeSelectSectionComponent } from './+tree-select/tree-select-secti
 import { DemoStrengthComponent } from './+strength/strength-section.component';
 import { DemoStepperSectionComponent } from './+stepper/stepper-section.component';
 import { DemoCascaderSectionComponent } from './+cascader/cascader-section.component';
-import { DemoDialogSectionComponent } from './+dialog/dialog-section.component';
-import { DemoDialogContentComponent } from './+dialog/dialog-content.component';
+// import { DemoDialogSectionComponent } from './+dialog/dialog-section.component';
+// import { DemoDialogContentComponent } from './+dialog/dialog-content.component';
 
 export const COMPONENTS = [
     DemoPopBoxSectionComponent,
@@ -113,8 +113,8 @@ export const COMPONENTS = [
     DemoStepperSectionComponent,
     DemoCascaderSectionComponent,
 
-    DemoDialogSectionComponent,
-    DemoDialogContentComponent
+    // DemoDialogSectionComponent,
+    // DemoDialogContentComponent
 ];
 
 export const ENTRY_COMPONENTS = [
@@ -128,5 +128,5 @@ export const ENTRY_COMPONENTS = [
     DemoAvatarHasBadgeSectionComponent,
     DemoAvatarRemoveSectionComponent,
 
-    DemoDialogContentComponent
+    // DemoDialogContentComponent
 ];

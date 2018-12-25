@@ -41,7 +41,7 @@ import { DemoTreeSelectSectionComponent } from './components/+tree-select/tree-s
 import { DemoStrengthComponent } from './components/+strength/strength-section.component';
 import { DemoStepperSectionComponent } from './components/+stepper/stepper-section.component';
 import { DemoCascaderSectionComponent } from './components/+cascader/cascader-section.component';
-import { DemoDialogSectionComponent } from './components/+dialog/dialog-section.component';
+// import { DemoDialogSectionComponent } from './components/+dialog/dialog-section.component';
 
 const appRoutes = [
     {
@@ -104,10 +104,10 @@ const appRoutes = [
         path: 'components/modal',
         component: DemoModalSectionComponent
     },
-    {
-        path: 'components/dialog',
-        component: DemoDialogSectionComponent
-    },
+    // {
+    //     path: 'components/dialog',
+    //     component: DemoDialogSectionComponent
+    // },
     {
         path: 'components/confirm',
         component: DemoConfirmSectionComponent
