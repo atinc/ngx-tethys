@@ -16,6 +16,7 @@ export abstract class ThyDialogRef<T, TResult = any> {
     abstract afterClosed(): Observable<TResult | undefined>;
     abstract beforeClosed(): Observable<TResult | undefined>;
     abstract keydownEvents(): Observable<KeyboardEvent>;
+    abstract backdropClick(): Observable<MouseEvent>;
 }
 
 export class ThyDialogRefInternal<T, TResult = any>

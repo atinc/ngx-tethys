@@ -14,6 +14,7 @@ import {
 import { ThyDialog } from '../dialog.service';
 import { ThyDialogContainerComponent } from '../dialog-container.component';
 import { ThyDialogRefInternal } from '../dialog-ref';
+import { ThyTranslate } from '../../shared';
 
 @Component({
     selector: 'thy-dialog-header',
@@ -29,6 +30,13 @@ export class DialogHeaderComponent implements OnInit {
 
     @Input() thyTitle: string;
 
+    @Input()
+    set thyTitleTranslationKey(key: string) {
+        if (key && !this.thyTitle) {
+            this.thyTitle = this.translate.instant(key);
+        }
+    }
+
     @Input() thyIcon: string;
 
     @Output() thyOnClose: EventEmitter<Event> = new EventEmitter<Event>();
@@ -36,6 +44,7 @@ export class DialogHeaderComponent implements OnInit {
     constructor(
         private elementRef: ElementRef,
         private dialog: ThyDialog,
+        private translate: ThyTranslate,
         @Optional() private dialogContainer: ThyDialogContainerComponent
     ) {}
 

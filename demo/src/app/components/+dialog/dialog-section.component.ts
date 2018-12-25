@@ -2,7 +2,7 @@ import { Component, OnDestroy, TemplateRef } from '@angular/core';
 import {
     ThyDialog,
     ThyDialogConfig,
-    ThyDialogSizes,
+    ThyDialogSizes
 } from '../../../../../src/dialog';
 import { helpers } from '../../../../../src/util';
 import { DemoDialogContentComponent } from './dialog-content.component';
@@ -55,7 +55,7 @@ export class DemoDialogSectionComponent implements OnDestroy {
 
     public thyPrimaryAction = (event: Event) => {
         return of(true).pipe(delay(1000));
-    }
+    };
 
     constructor(public thyDialog: ThyDialog) {
         thyDialog
@@ -82,8 +82,11 @@ export class DemoDialogSectionComponent implements OnDestroy {
                 this.config
             )
         );
+        dialogRef.keydownEvents().subscribe(event => {
+            console.log(`Dialog keydownEvents: ${event}`);
+        });
         dialogRef.afterClosed().subscribe(result => {
-            console.log(`Dialog result: ${result}`);
+            console.log(`Dialog afterClosed result: ${result}`);
         });
     }
 
