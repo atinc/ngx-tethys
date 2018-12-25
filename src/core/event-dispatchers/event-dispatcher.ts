@@ -1,5 +1,4 @@
-import { Injectable, Inject, NgZone, OnDestroy } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { NgZone, OnDestroy } from '@angular/core';
 import { fromEvent, Subject, Observable, Observer, Subscription } from 'rxjs';
 import { auditTime } from 'rxjs/operators';
 
@@ -34,7 +33,7 @@ export abstract class ThyEventDispatcher implements OnDestroy {
     }
 
     constructor(
-        @Inject(DOCUMENT) private document: any,
+        private document: any,
         private ngZone: NgZone,
         private eventName: string
     ) {}
