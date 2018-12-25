@@ -1,3 +1,6 @@
+## 0.2.17
+修改date-range 左右切换逻辑 修复了当前选择的时期范围是本周（当前周只有两天），interval=7 时左右切换后的范围还是两天的bug 
+
 ## 0.2.16
 扩展 `thy-property-operation`， 当`thyValue`有值时，可通过设置`thyLabelHasValue=true/false`控制`lable` 是否显示
 
