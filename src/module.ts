@@ -86,7 +86,7 @@ const IMPORT_EXPORT_MODULES = [
     ThyListModule,
     ThyTreeSelectModule,
     ThyStepperModule,
-    // ThyCascaderModule,
+    ThyCascaderModule,
     // ThyDialogModule
 ];
 
