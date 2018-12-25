@@ -1,4 +1,11 @@
 .thy-date-range {
+    &.thy-date-range-hidden-menu {
+        .thy-date-text {
+            &:hover {
+                cursor: default;
+            }
+        }
+    }
     .thy-date-text {
         padding: 5px 15px;
         position: relative;
@@ -6,7 +13,6 @@
         .thy-date-text-caret-down {
             display: none;
         }
-
         &:hover {
             cursor: pointer;
 
