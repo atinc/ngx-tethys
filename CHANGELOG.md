@@ -1,3 +1,6 @@
+## 0.2.20
+解决引用组件库 `thy-tree-select` providers useFactory 导致的编辑错误问题
+
 ## 0.2.19
 修改editor上传附件问题
 
