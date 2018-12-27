@@ -2,49 +2,66 @@ import { Component, ViewEncapsulation, TemplateRef } from '@angular/core';
 import { ThyModalService } from '../../../../../src';
 import { of } from 'rxjs';
 
-const options = [{
-    value: 'zhejiang',
-    label: 'Zhejiang',
-    children: [{
-        value: 'hangzhou',
-        label: 'Hangzhou',
-        children: [{
-            value: 'xihu',
-            label: 'West Lake',
-            isLeaf: true
-        }]
-    }, {
-        value: 'ningbo',
-        label: 'Ningbo',
-        isLeaf: true
-    }]
-}, {
-    value: 'jiangsu',
-    label: 'Jiangsu',
-    children: [{
-        value: 'nanjing',
-        label: 'Nanjing',
+const options = [
+    {
+        value: 'zhejiang',
+        label: 'Zhejiang',
+        children: [
+            {
+                value: 'hangzhou',
+                label: 'Hangzhou',
+                children: [
+                    {
+                        value: 'xihu',
+                        label: 'West Lake',
+                        isLeaf: true
+                    }
+                ]
+            },
+            {
+                value: 'ningbo',
+                label: 'Ningbo',
+                isLeaf: true
+            }
+        ]
+    },
+    {
+        value: 'jiangsu',
+        label: 'Jiangsu',
+        children: [
+            {
+                value: 'nanjing',
+                label: 'Nanjing',
+                disabled: true,
+                children: [
+                    {
+                        value: 'zhonghuamen',
+                        label: 'Zhong Hua Men',
+                        isLeaf: true
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        value: 'henan',
+        label: 'Henan',
         disabled: true,
-        children: [{
-            value: 'zhonghuamen',
-            label: 'Zhong Hua Men',
-            isLeaf: true
-        }]
-    }]
-},{
-    value: 'henan',
-    label: 'Henan',
-    disabled: true,
-    children: [{
-        value: 'zhengzhou',
-        label: 'Zhengzhou',
-        children: [{
-            value: 'zhoukou',
-            label: 'Zoukou',
-            isLeaf: true
-        }]
-    }]
-}];
+        children: [
+            {
+                value: 'zhengzhou',
+                label: 'Zhengzhou',
+                children: [
+                    {
+                        value: 'zhoukou',
+                        label: 'Zoukou',
+                        isLeaf: true
+                    }
+                ]
+            }
+        ]
+    }
+];
 
 @Component({
     selector: 'demo-form-section',
@@ -147,7 +164,8 @@ export class DemoFormSectionComponent {
 
     model: any = {
         select: 1,
-        checkbox: 0
+        checkbox: 0,
+        group: 1
     };
 
     options = [
@@ -192,4 +210,6 @@ export class DemoFormSectionComponent {
     modalFormSubmit() {
         console.log(`modal form submit success!`);
     }
+
+    onChanges(event: Event) {}
 }
