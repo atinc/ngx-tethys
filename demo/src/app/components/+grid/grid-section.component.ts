@@ -199,7 +199,7 @@ export class DemoGridSectionComponent implements OnInit {
             default: ''
         },
         {
-            property: '(thyOnDraggableUpdate)',
+            property: '(thyOnDraggableChange)',
             description: '拖动修改事件',
             type: 'ThyGridDraggableEvent',
             default: ''

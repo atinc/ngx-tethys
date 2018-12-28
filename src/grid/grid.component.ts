@@ -177,7 +177,7 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
 
     @Output() thyOnRadioSelectChange: EventEmitter<ThyRadioSelectEvent> = new EventEmitter<ThyRadioSelectEvent>();
 
-    @Output() thyOnDraggableUpdate: EventEmitter<ThyGridDraggableEvent> = new EventEmitter<ThyGridDraggableEvent>();
+    @Output() thyOnDraggableChange: EventEmitter<ThyGridDraggableEvent> = new EventEmitter<ThyGridDraggableEvent>();
 
     @Output() thyOnRowClick: EventEmitter<ThyGridRowEvent> = new EventEmitter<ThyGridRowEvent>();
 
@@ -376,7 +376,7 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
             oldIndex: event.oldIndex,
             newIndex: event.newIndex
         };
-        this.thyOnDraggableUpdate.emit(dragEvent);
+        this.thyOnDraggableChange.emit(dragEvent);
     }
 
     public onRowClick(event: Event, row: any) {

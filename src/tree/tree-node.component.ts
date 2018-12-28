@@ -1,11 +1,24 @@
 import {
-    Component, ViewEncapsulation, ContentChild, TemplateRef, Input, HostBinding,
-    ViewChild, ElementRef, Output, EventEmitter, NgZone
+    Component,
+    ViewEncapsulation,
+    ContentChild,
+    TemplateRef,
+    Input,
+    HostBinding,
+    ViewChild,
+    ElementRef,
+    Output,
+    EventEmitter,
+    NgZone,
+    ViewChildren,
+    AfterViewInit,
+    OnDestroy
 } from '@angular/core';
 import { ThyTreeComponent } from './tree.component';
-import { ThyTreeNode } from './tree.class';
+import { ThyTreeNodeData, ThyTreeNode } from './tree.class';
 import { ThyTreeService } from './tree.service';
 import { helpers } from '../util';
+import { ThyListOptionComponent } from '../core/option';
 
 @Component({
     selector: 'thy-tree-node',
@@ -13,43 +26,20 @@ import { helpers } from '../util';
     encapsulation: ViewEncapsulation.None
 })
 export class ThyTreeNodeComponent {
-
     @Input() node: ThyTreeNode;
 
-    @Input() templateRef: TemplateRef<any>;
-
-    @Input() flexibleTemplateRef: TemplateRef<any>;
-
-    @Input() emptyChildrenTemplateRef: TemplateRef<any>;
-
-    @Input() thyChildrenPropName: string;
-
-    @Input() thyLevel: number;
+    @Input() thyAsync = false;
 
     @Input() thyMultiple = false;
 
     @Input() thyDraggable = false;
 
-    @Input()
-    set thyEditable(value: boolean | ((_: ThyTreeNode) => boolean)) {
-        this._editable = value;
-    }
+    @Input() templateRef: TemplateRef<any>;
 
-    get thyEditable() {
-        return this._editable;
-    }
+    @Input() emptyChildrenTemplateRef: TemplateRef<any>;
 
     @Input()
-    set thyDeletable(value: boolean | ((_: ThyTreeNode) => boolean)) {
-        this._deletable = value;
-    }
-
-    get thyDeletable() {
-        return this._deletable;
-    }
-
-    @Input()
-    set thyShowExpand(value: boolean | ((_: ThyTreeNode) => boolean)) {
+    set thyShowExpand(value: boolean | ((_: ThyTreeNodeData) => boolean)) {
         this._showExpand = value;
     }
 
@@ -59,31 +49,32 @@ export class ThyTreeNodeComponent {
 
     @Output() thyOnClick: EventEmitter<any> = new EventEmitter<any>();
 
-    @Output() thyOnEdit: EventEmitter<any> = new EventEmitter<any>();
-
-    @Output() thyOnDelete: EventEmitter<any> = new EventEmitter<any>();
+    @Output() thyOnExpandChange: EventEmitter<any> = new EventEmitter<any>();
 
     @ContentChild('childrenTree') childrenTreeTemplateRef: TemplateRef<any>;
 
-    @HostBinding('class.thy-tree-node') thyTreeNodeClass = true;
-
     @ViewChild('title') titleInputElementRef: ElementRef<HTMLInputElement>;
 
-    private _editable: boolean | ((_: ThyTreeNode) => boolean);
+    @HostBinding('class.thy-tree-node') thyTreeNodeClass = true;
 
-    private _deletable: boolean | ((_: ThyTreeNode) => boolean);
+    public get nodeIcon() {
+        return this.node.origin.icon;
+    }
 
-    private _showExpand: boolean | ((_: ThyTreeNode) => boolean);
+    public get nodeIconStyle() {
+        return this.node.origin.iconStyle;
+    }
+
+    private _showExpand: boolean | ((_: ThyTreeNodeData) => boolean);
 
     constructor(
         public root: ThyTreeComponent,
         public thyTreeService: ThyTreeService,
         private ngZone: NgZone
-    ) {
-    }
+    ) {}
 
     public clickNode(event: Event) {
-        this.thyTreeService.setNodeActive(this.node, this.thyMultiple);
+        this.root.toggleTreeNode(this.node);
         this.thyOnClick.emit({
             eventName: 'click',
             event: event,
@@ -91,66 +82,22 @@ export class ThyTreeNodeComponent {
         });
     }
 
-    public clickEditInput(event: Event) {
-        event.stopPropagation();
-    }
-
     public expandNode(event: Event) {
         event.stopPropagation();
-        this.ngZone.runTask(() => {
-            this.node.expanded = !this.node.expanded;
-        });
-
-    }
-
-    public editNode(event: Event) {
-        event.stopPropagation();
-        this.ngZone.runTask(() => {
-            this.node.selected = false;
-            this.node.edited = !this.node.edited;
-            setTimeout(() => {
-                this.titleInputElementRef.nativeElement.value = this.node.title;
+        this.node.setExpanded(!this.node.isExpanded);
+        if (this.node.isExpanded) {
+            this.thyOnExpandChange.emit({
+                eventName: 'expand',
+                event: event,
+                node: this.node
             });
-        });
-    }
-
-    public updateNode(event: Event, title: string) {
-        if (title) {
-            this.node.edited = !this.node.edited;
-        }
-        this.node.title = title;
-        this.thyOnEdit.emit({
-            eventName: 'edit',
-            event: event,
-            node: this.node
-        });
-    }
-
-    public deleteNode(event: Event) {
-        this.thyOnDelete.emit({
-            eventName: 'edit',
-            event: event,
-            node: this.node
-        });
-    }
-
-    public isEditable(node: ThyTreeNode) {
-        if (helpers.isFunction(this._editable)) {
-            return (this._editable as Function)(node);
-        } else {
-            return this._editable;
+            if (this.thyAsync && this.node.children.length === 0) {
+                this.node.setLoading(true);
+            }
         }
     }
 
-    public isDeletable(node: ThyTreeNode) {
-        if (helpers.isFunction(this._deletable)) {
-            return (this._deletable as Function)(node);
-        } else {
-            return this._deletable;
-        }
-    }
-
-    public isShowExpand(node: ThyTreeNode) {
+    public isShowExpand(node: ThyTreeNodeData) {
         if (helpers.isFunction(this._showExpand)) {
             return (this._showExpand as Function)(node);
         } else {
@@ -161,8 +108,8 @@ export class ThyTreeNodeComponent {
     public createNodeContext(node: any) {
         const instance = {
             node: node,
-            level: this.thyLevel,
-            template: this.flexibleTemplateRef || this.templateRef
+            // level: this.thyLevel,
+            template: this.templateRef
         };
         return {
             ...instance,
@@ -171,4 +118,3 @@ export class ThyTreeNodeComponent {
         };
     }
 }
-

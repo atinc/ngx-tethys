@@ -4,73 +4,50 @@ import { ThyTreeNode } from './tree.class';
 
 @Injectable()
 export class ThyTreeService {
+    public treeNodes: ThyTreeNode[];
 
-    private _treeNodesOfFlat: ThyTreeNode[] = [];
+    constructor() {}
 
-    public isCustomTemplate: boolean;
-
-    public set treeNodesOfFlat(nodes: ThyTreeNode[]) {
-        this._treeNodesOfFlat = this._getAllNodesOfFlat(nodes);
-    }
-
-    public get treeNodesOfFlat() {
-        return this._treeNodesOfFlat;
-    }
-
-    constructor() {
-    }
-
-    private _getAllNodesOfFlat(nodes: ThyTreeNode[], list: ThyTreeNode[] = []) {
-        nodes.forEach((node) => {
+    private _getParallelTreeNodes(
+        nodes: ThyTreeNode[],
+        list: ThyTreeNode[] = []
+    ) {
+        nodes.forEach(node => {
             list.push(node);
-            this._getAllNodesOfFlat(node.children || [], list);
+            this._getParallelTreeNodes(node.children || [], list);
         });
         return list;
     }
 
-    public setTreeTemplateToCustom() {
-        this.isCustomTemplate = true;
-    }
-
-    public setNodeActive(node: ThyTreeNode, multiple: boolean) {
-        if (!multiple) {
-            const lastSelected = this.treeNodesOfFlat.find((item: ThyTreeNode) =>
-                item.selected && item.key !== node.key
-            );
-            if (lastSelected) {
-                lastSelected.selected = false;
-            }
-        }
-        node.selected = !node.selected;
-    }
-
-    public deleteTreeNode(node: string | ThyTreeNode, nodes: ThyTreeNode[]) {
-        const key = helpers.isString(node) ? node : (node as ThyTreeNode).key;
-        nodes.forEach((item, index) => {
-            if (item.key === key) {
-                nodes.splice(index, 1);
-            } else {
-                this.deleteTreeNode(node, item.children || []);
-            }
+    public resetSortedTreeNodes(
+        treeNodes: ThyTreeNode[],
+        parent?: ThyTreeNode
+    ) {
+        treeNodes.forEach(node => {
+            node.level = node.parentNode ? node.parentNode.level + 1 : 0;
+            node.origin.children = node.children.map(n => n.origin);
+            node.parentNode = parent;
+            this.resetSortedTreeNodes(node.children, node);
         });
     }
 
-    public getSelectedNode(): ThyTreeNode {
-        return this.treeNodesOfFlat.find((node) => node.selected);
-    }
-
-    public getSelectedNodes(): ThyTreeNode[] {
-        return this.treeNodesOfFlat.filter((node) => node.selected);
-    }
-
-    public getParentNode(treeNode: ThyTreeNode): ThyTreeNode {
-        return this.treeNodesOfFlat.find((node) => {
-            return !!(node.children || []).find((item) => item.key === treeNode.key);
-        });
+    public getTreeNode(key: string) {
+        const allNodes = this._getParallelTreeNodes(this.treeNodes);
+        return allNodes.find(n => n.key === key);
     }
 
     public getExpandedNodes(): ThyTreeNode[] {
-        return this.treeNodesOfFlat.filter((node) => node.expanded);
+        const allNodes = this._getParallelTreeNodes(this.treeNodes);
+        return allNodes.filter(n => n.isExpanded);
     }
 
+    public deleteTreeNode(node: ThyTreeNode) {
+        const children = node.parentNode
+            ? node.parentNode.children
+            : this.treeNodes;
+        const index = children.findIndex(n => n.key === node.key);
+        if (index > -1) {
+            children.splice(index, 1);
+        }
+    }
 }

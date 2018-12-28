@@ -5,10 +5,52 @@
     </div>
     <div class="body">
         <button thyButton="primary" (click)="addNode()">添加节点</button>
-        <thy-tree [thyNodes]="treeNodes" [thyEditable]="isEditable" [thyDeletable]="true" [thyShowExpand]="isShowExpand"
-            [thyDraggable]="true" (thyOnDraggableAdd)="draggableNode($event)" (thyOnDraggableUpdate)="draggableNode($event)">
+        <thy-tree
+            #tree
+            [thyNodes]="treeNodes"
+            [thyShowExpand]="isShowExpand"
+            [thyDraggable]="true"
+            (thyOnDraggableChange)="draggableNode($event)"
+        >
+            <ng-template #treeNodeTemplate let-node>
+                <i
+                    class="tree-node-icon"
+                    [ngClass]="node.origin.icon"
+                    [ngStyle]="node.origin.iconStyle"
+                ></i>
+                <ng-container *ngIf="!node.origin.edited">
+                    <div class="thy-tree-node-title">{{ node.title }}</div>
+                    <div class="thy-tree-node-actions">
+                        <a
+                            thyButtonIcon="wtf-edit-o"
+                            thySize="sm"
+                            href="javascript:;"
+                            (click)="node.origin.edited = true"
+                        ></a>
+                        <a
+                            thyButtonIcon="wtf-trash-o"
+                            thySize="sm"
+                            href="javascript:;"
+                            (click)="deleteNode(node)"
+                        ></a>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="node.origin.edited">
+                    <div class="tree-node-edit">
+                        <input
+                            #title
+                            thyInput
+                            thySize="sm"
+                            thyAutofocus
+                            (blur)="node.origin.edited = false"
+                        />
+                    </div>
+                </ng-container>
+            </ng-template>
             <ng-template #emptyChildrenTemplate>
-                <div style="width: 100%; height: 50px; padding:0 30px; background-color: #efefef;">
+                <div
+                    style="width: 100%; height: 50px; padding:0 30px; background-color: #efefef;"
+                >
                     拖拽元素区域
                 </div>
             </ng-template>
@@ -20,13 +62,35 @@
 
 <section>
     <div class="header">
+        <h2>Tree （简单的使用方式）</h2>
+        <p>只需传入<code>[thyNodes]</code>即可</p>
+    </div>
+    <div class="body">
+        <button thyButton="primary" (click)="addNode()">添加节点</button>
+        <thy-tree
+            [thyNodes]="treeNodes"
+            [thyShowExpand]="isShowExpand"
+            [thyDraggable]="true"
+            [thyAsync]="true"
+            (thyOnExpandChange)="loadTreeNodes($event)"
+            (thyOnDraggableChange)="draggableNode($event)"
+        >
+        </thy-tree>
+    </div>
+</section>
+
+<!-- <section>
+    <div class="header">
         <h2>Tree 自定义模板</h2>
-        <p>只需传入<code>[thyNodes]</code> 并且定义 <code>#treeNodeTemplate</code> 类型模板</p>
+        <p>
+            只需传入<code>[thyNodes]</code> 并且定义
+            <code>#treeNodeTemplate</code> 类型模板
+        </p>
     </div>
     <div class="body">
         <thy-tree [thyNodes]="nodes" class="thy-tree">
             <ng-template #treeNodeTemplate let-node="node" let-level="level">
-                <input type="checkbox" /> {{level}}级 --- {{node.name}}
+                <input type="checkbox" /> {{ level }}级 --- {{ node.name }}
             </ng-template>
         </thy-tree>
     </div>
@@ -37,15 +101,30 @@
 <section>
     <div class="header">
         <h2>Tree(插入区域使用方式)</h2>
-        <p>需要定义 <code>#treeNodeFlexibleTemplate</code> 类型模板，通过设置属性指令 <code>ThyTreeReplaceRegion</code> 将子级tree
-            插入到指定区域（指令所需参数 <code>[thyInstance]</code>）</p>
+        <p>
+            需要定义
+            <code>#treeNodeFlexibleTemplate</code> 类型模板，通过设置属性指令
+            <code>ThyTreeReplaceRegion</code> 将子级tree
+            插入到指定区域（指令所需参数 <code>[thyInstance]</code>）
+        </p>
     </div>
     <div class="body">
         <thy-tree [thyNodes]="nodes" class="thy-tree">
-            <ng-template #treeNodeFlexibleTemplate let-node="node" let-level="level" let-instance="instance">
-                <div> ● {{level}}级 --- {{node.name}}</div>
-                <div *ngIf="node.children && node.children.length > 0" style="border:1px solid #ececec">
-                    <ng-container ThyTreeReplaceRegion [thyInstance]="instance"></ng-container>
+            <ng-template
+                #treeNodeFlexibleTemplate
+                let-node="node"
+                let-level="level"
+                let-instance="instance"
+            >
+                <div>● {{ level }}级 --- {{ node.name }}</div>
+                <div
+                    *ngIf="node.children && node.children.length > 0"
+                    style="border:1px solid #ececec"
+                >
+                    <ng-container
+                        ThyTreeReplaceRegion
+                        [thyInstance]="instance"
+                    ></ng-container>
                 </div>
             </ng-template>
         </thy-tree>
@@ -57,20 +136,31 @@
 <section>
     <div class="header">
         <h2>Tree(灵活的实用方式)</h2>
-        <p>需要定义 <code>#treeNodeFlexibleTemplate</code> 类型模板，在模板中可以再次调用<code>thy-tree</code>（ 所需参数 <code>[thyInstance]</code>
-            ）</p>
+        <p>
+            需要定义
+            <code>#treeNodeFlexibleTemplate</code>
+            类型模板，在模板中可以再次调用<code>thy-tree</code>（ 所需参数
+            <code>[thyInstance]</code> ）
+        </p>
     </div>
     <div class="body">
         <thy-tree [thyNodes]="nodes" class="thy-tree">
-            <ng-template #treeNodeFlexibleTemplate let-node="node" let-level="level" let-instance="instance">
-                <div> ● {{level}}级 --- {{node.name}}</div>
-                <thy-tree *ngIf="node.children?.length > 0 " [thyInstance]="instance"></thy-tree>
+            <ng-template
+                #treeNodeFlexibleTemplate
+                let-node="node"
+                let-level="level"
+                let-instance="instance"
+            >
+                <div>● {{ level }}级 --- {{ node.name }}</div>
+                <thy-tree
+                    *ngIf="node.children?.length > 0"
+                    [thyInstance]="instance"
+                ></thy-tree>
             </ng-template>
         </thy-tree>
     </div>
 </section>
 
-<br />
-
+<br /> -->
 
 <api-parameters [parameters]="apiParameters"></api-parameters>
