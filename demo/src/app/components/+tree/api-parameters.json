@@ -1,5 +1,11 @@
 [
     {
+        "property": "[(ngModel)]",
+        "description": "Tree展现所需的数据",
+        "type": "ThyNodeData[]",
+        "default": ""
+    },
+    {
         "property": "thyNodes",
         "description": "Tree展现所需的数据",
         "type": "ThyNodeData[]",
