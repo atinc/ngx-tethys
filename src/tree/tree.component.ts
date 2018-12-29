@@ -12,21 +12,30 @@ import {
     ViewContainerRef,
     ComponentFactoryResolver,
     HostBinding,
-    NgZone
+    NgZone,
+    forwardRef
 } from '@angular/core';
 import { ThyTreeNodeData, ThyTreeEmitEvent, ThyTreeNode } from './tree.class';
 import { helpers } from '../util';
 import { SortablejsOptions } from 'angular-sortablejs';
 import { ThyTreeService } from './tree.service';
 import { SelectionModel } from '@angular/cdk/collections';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 @Component({
     selector: 'thy-tree',
     templateUrl: './tree.component.html',
     encapsulation: ViewEncapsulation.None,
-    providers: [ThyTreeService]
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => ThyTreeComponent),
+            multi: true
+        },
+        ThyTreeService
+    ]
 })
-export class ThyTreeComponent implements OnInit {
+export class ThyTreeComponent implements ControlValueAccessor, OnInit {
     private _templateRef: TemplateRef<any>;
 
     private _emptyChildrenTemplateRef: TemplateRef<any>;
@@ -34,6 +43,8 @@ export class ThyTreeComponent implements OnInit {
     private _draggable = false;
 
     private _draggableNode: ThyTreeNode;
+
+    public _selectionModel: SelectionModel<ThyTreeNode>;
 
     public treeNodesSortableOptions: SortablejsOptions = {
         group: {
@@ -49,8 +60,6 @@ export class ThyTreeComponent implements OnInit {
     };
 
     public treeNodes: ThyTreeNode[];
-
-    public selectionModel: SelectionModel<ThyTreeNode>;
 
     @Input()
     set thyNodes(value: ThyTreeNodeData[]) {
@@ -84,11 +93,17 @@ export class ThyTreeComponent implements OnInit {
 
     @Input() thyAsync = false;
 
-    @Output() thyOnClick: EventEmitter<any> = new EventEmitter<any>();
+    @Output() thyOnClick: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<
+        ThyTreeEmitEvent
+    >();
 
-    @Output() thyOnExpandChange: EventEmitter<any> = new EventEmitter<any>();
+    @Output() thyOnExpandChange: EventEmitter<
+        ThyTreeEmitEvent
+    > = new EventEmitter<ThyTreeEmitEvent>();
 
-    @Output() thyOnDraggableChange: EventEmitter<any> = new EventEmitter<any>();
+    @Output() thyOnDraggableChange: EventEmitter<
+        ThyTreeEmitEvent
+    > = new EventEmitter<ThyTreeEmitEvent>();
 
     @ContentChild('treeNodeTemplate')
     set templateRef(template: TemplateRef<any>) {
@@ -118,6 +133,10 @@ export class ThyTreeComponent implements OnInit {
 
     @HostBinding('class.thy-tree-draggable') thyTreeDraggableClass = false;
 
+    private _onTouched: () => void = () => {};
+
+    private _onChange: (value: any) => void = (_: any) => {};
+
     constructor(
         private componentFactoryResolver: ComponentFactoryResolver,
         private ngZone: NgZone,
@@ -129,16 +148,16 @@ export class ThyTreeComponent implements OnInit {
     }
 
     private _instanceSelectionModel() {
-        this.selectionModel = new SelectionModel<any>(this.thyMultiple);
+        this._selectionModel = new SelectionModel<any>(this.thyMultiple);
     }
 
     public isSelected(node: ThyTreeNode) {
-        return this.selectionModel.isSelected(node);
+        return this._selectionModel.isSelected(node);
     }
 
     public toggleTreeNode(node: ThyTreeNode) {
         if (node && !node.isDisabled) {
-            this.selectionModel.toggle(node);
+            this._selectionModel.toggle(node);
         }
     }
 
@@ -193,6 +212,18 @@ export class ThyTreeComponent implements OnInit {
         });
     }
 
+    writeValue(value: ThyTreeNodeData[]): void {
+        this.thyNodes = value;
+    }
+
+    registerOnChange(fn: any): void {
+        this._onChange = fn;
+    }
+
+    registerOnTouched(fn: any): void {
+        this._onTouched = fn;
+    }
+
     // region 公开出去函数
 
     public getRootNodes(): ThyTreeNode[] {
@@ -200,11 +231,11 @@ export class ThyTreeComponent implements OnInit {
     }
 
     public getSelectedNode(): ThyTreeNode {
-        return this.selectionModel.selected[0];
+        return this._selectionModel.selected[0];
     }
 
     public getSelectedNodes(): ThyTreeNode[] {
-        return this.selectionModel.selected;
+        return this._selectionModel.selected;
     }
 
     public getExpandedNodes(): ThyTreeNode[] {
@@ -229,7 +260,7 @@ export class ThyTreeComponent implements OnInit {
 
     public deleteTreeNode(node: ThyTreeNode) {
         if (this.isSelected(node)) {
-            this.selectionModel.toggle(node);
+            this._selectionModel.toggle(node);
         }
         this.thyTreeService.deleteTreeNode(node);
     }

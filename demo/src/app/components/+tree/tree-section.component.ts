@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ThyTreeNode } from '../../../../../src/tree/tree.class';
 import { ThyTreeComponent } from '../../../../../src/tree/tree.component';
+import apiParameters from './api-parameters.json';
 @Component({
     selector: 'demo-tree-section',
     templateUrl: './tree-section.component.html',
@@ -72,44 +73,11 @@ export class DemoTreeSectionComponent {
         }
     ];
 
-    public apiParameters = [
-        {
-            property: 'thyNodes',
-            description: 'Tree展现所需的数据',
-            type: 'Object[]',
-            default: ''
-        },
-        {
-            property: 'thyChildrenPropName',
-            description: '子级数据的属性名',
-            type: 'String',
-            default: 'children'
-        },
-        {
-            property: 'thyInstance',
-            description:
-                '灵活模式下需要注入的数据 （ instance可从 ng-template 定义 let instance="instance" 获取）',
-            type: 'Object',
-            default: ''
-        },
-        {
-            property: '#treeNodeTemplate',
-            description: '设置TreeNode的渲染模板',
-            type: 'TemplateRef',
-            default: ''
-        },
-        {
-            property: '#treeNodeFlexibleTemplate',
-            description: '设置灵活模式的TreeNode渲染模板',
-            type: 'TemplateRef',
-            default: ''
-        }
-    ];
+    public apiParameters = apiParameters;
 
     constructor() {}
 
     public addNode() {
-
         console.log(this.treeComponent.getSelectedNode());
 
         this.treeComponent.addTreeNode({
