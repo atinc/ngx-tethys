@@ -116,8 +116,6 @@ export class ThyTreeComponent implements OnInit {
 
     @HostBinding('class.thy-tree') thyTreeClass = true;
 
-    @HostBinding('class.thy-list') thyListClass = true;
-
     @HostBinding('class.thy-tree-draggable') thyTreeDraggableClass = false;
 
     constructor(
@@ -197,6 +195,10 @@ export class ThyTreeComponent implements OnInit {
 
     // region 公开出去函数
 
+    public getRootNodes(): ThyTreeNode[] {
+        return this.treeNodes;
+    }
+
     public getSelectedNode(): ThyTreeNode {
         return this.selectionModel.selected[0];
     }
@@ -226,6 +228,9 @@ export class ThyTreeComponent implements OnInit {
     }
 
     public deleteTreeNode(node: ThyTreeNode) {
+        if (this.isSelected(node)) {
+            this.selectionModel.toggle(node);
+        }
         this.thyTreeService.deleteTreeNode(node);
     }
 

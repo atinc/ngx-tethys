@@ -104,17 +104,4 @@ export class ThyTreeNodeComponent {
             return this._showExpand;
         }
     }
-
-    public createNodeContext(node: any) {
-        const instance = {
-            node: node,
-            // level: this.thyLevel,
-            template: this.templateRef
-        };
-        return {
-            ...instance,
-            $implicit: node,
-            instance: instance
-        };
-    }
 }
