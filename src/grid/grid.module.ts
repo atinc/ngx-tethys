@@ -9,6 +9,7 @@ import { ThyLoadingModule } from '../loading/loading.module';
 import { ThyEmptyModule } from '../empty/empty.module';
 import { SortablejsModule } from 'angular-sortablejs';
 import { GridIsValidModelValuePipe } from './grid.pipe';
+import { ThyDirectiveModule } from '../directive';
 
 @NgModule({
     declarations: [
@@ -23,14 +24,9 @@ import { GridIsValidModelValuePipe } from './grid.pipe';
         ThySwitchModule,
         ThyLoadingModule,
         ThyEmptyModule,
-        SortablejsModule
+        SortablejsModule,
+        ThyDirectiveModule
     ],
-    exports: [
-        ThyGridComponent,
-        ThyGridColumnComponent
-    ]
+    exports: [ThyGridComponent, ThyGridColumnComponent]
 })
-export class ThyGridModule {
-
-}
-
+export class ThyGridModule {}

@@ -60,6 +60,16 @@ export class ThyTreeNode {
         }
     }
 
+    public setKey(key: string) {
+        this.origin.key = key;
+        this.key = key;
+    }
+
+    public setTitle(title: string) {
+        this.origin.title = title;
+        this.title = title;
+    }
+
     public setExpanded(expanded: boolean) {
         this.origin.expanded = expanded;
         this.isExpanded = expanded;

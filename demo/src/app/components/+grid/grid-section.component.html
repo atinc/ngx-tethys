@@ -1,17 +1,49 @@
-
 <section>
-    <div class="header">
-        <h2>Default Grid</h2>
-    </div>
+    <div class="header"><h2>Default Grid</h2></div>
     <div class="body">
-        <thy-grid [thyModel]="model" thyRowKey="id" [thyDraggable]="draggableOptions"  (thyOnRowClick)="onRowClick($event)"
-            [thyWholeRowSelect]="true" (thyOnMultiSelectChange)="onMultiSelectChange($event)" [thyPageIndex]="pagination.index"
-            [thyPageSize]="pagination.size" [thyPageTotal]="pagination.total" (thyOnPageChange)="onPageChange($event)" (thyOnSwitchChange)="onSwitchChange($event)">
-            <thy-grid-column thyTitle="选择" thyModelKey="checked" thyType="checkbox" [thySelections]="selections"></thy-grid-column>
-            <thy-grid-column thyTitle="姓名" thyModelKey="name"></thy-grid-column>
-            <thy-grid-column thyTitle="年龄" thyModelKey="age"></thy-grid-column>
-            <thy-grid-column thyTitle="备注" thyModelKey="desc" thyDefaultText="-"></thy-grid-column>
-            <thy-grid-column thyTitle="默认" thyModelKey="checked" thyType="switch"></thy-grid-column>
+        <thy-grid
+            [thyModel]="model"
+            thyRowKey="id"
+            [thyDraggable]="draggableOptions"
+            (thyOnRowClick)="onRowClick($event)"
+            [thyWholeRowSelect]="true"
+            (thyOnMultiSelectChange)="onMultiSelectChange($event)"
+            [thyPageIndex]="pagination.index"
+            [thyPageSize]="pagination.size"
+            [thyPageTotal]="pagination.total"
+            (thyOnPageChange)="onPageChange($event)"
+            (thyOnSwitchChange)="onSwitchChange($event)"
+            (thyOnRowContextMenu)="onContextMenu($event)"
+        >
+            <thy-grid-column
+                thyModelKey="checked"
+                thyType="checkbox"
+                [thySelections]="selections"
+            >
+                <ng-template #header>
+                    <span class="text-primary"
+                        >选择<a href="javascript:;"><i class="wtf wtf-angle-down"></i></a
+                    ></span>
+                </ng-template>
+            </thy-grid-column>
+            <thy-grid-column
+                thyTitle="姓名"
+                thyModelKey="name"
+            ></thy-grid-column>
+            <thy-grid-column
+                thyTitle="年龄"
+                thyModelKey="age"
+            ></thy-grid-column>
+            <thy-grid-column
+                thyTitle="备注"
+                thyModelKey="desc"
+                thyDefaultText="-"
+            ></thy-grid-column>
+            <thy-grid-column
+                thyTitle="默认"
+                thyModelKey="checked"
+                thyType="switch"
+            ></thy-grid-column>
             <thy-grid-column thyTitle="操作" thyClassName="thy-operation-links">
                 <ng-template #cell let-row>
                     <a href="javascript:;">设置</a>
@@ -24,21 +56,40 @@
     </div>
 </section>
 
-<br/>
+<br />
 
 <section>
-    <div class="header">
-        <h2>Bordered Grid</h2>
-    </div>
+    <div class="header"><h2>Bordered Grid</h2></div>
     <div class="body">
-        <thy-grid  [thyModel]='model' [thyLoadingDone]="loadingDone" thyLoadingText="测试加载" thyTheme="bordered" thyRowKey="id" thyClassName="table-hover"
-            [thyWholeRowSelect]="true" (thyOnRadioSelectChange)="onRadioSelectChange($event)">
+        <thy-grid
+            [thyModel]="model"
+            [thyLoadingDone]="loadingDone"
+            thyLoadingText="测试加载"
+            thyTheme="bordered"
+            thyRowKey="id"
+            thyClassName="table-hover"
+            [thyWholeRowSelect]="true"
+            (thyOnRadioSelectChange)="onRadioSelectChange($event)"
+        >
             <thy-grid-column thyTitle="编号" thyType="index"></thy-grid-column>
             <thy-grid-column thyTitle="选择" thyType="radio"></thy-grid-column>
-            <thy-grid-column *ngIf="abc" thyTitle="姓名" thyModelKey="name"></thy-grid-column>
-            <thy-grid-column thyTitle="年龄" thyModelKey="age"></thy-grid-column>
-            <thy-grid-column thyTitle="备注" thyModelKey="desc"></thy-grid-column>
-            <thy-grid-column thyTitle="操作" thyClassName="thy-operation-links text-center">
+            <thy-grid-column
+                *ngIf="abc"
+                thyTitle="姓名"
+                thyModelKey="name"
+            ></thy-grid-column>
+            <thy-grid-column
+                thyTitle="年龄"
+                thyModelKey="age"
+            ></thy-grid-column>
+            <thy-grid-column
+                thyTitle="备注"
+                thyModelKey="desc"
+            ></thy-grid-column>
+            <thy-grid-column
+                thyTitle="操作"
+                thyClassName="thy-operation-links text-center"
+            >
                 <ng-template #cell let-row>
                     <a href="javascript:;">设置</a>
                     <a class="link-secondary" href="javascript:;">
@@ -50,10 +101,16 @@
     </div>
 </section>
 
-<br/>
+<br />
 
-<api-parameters title="Gird 参数列表" [parameters]="gridApiParams"></api-parameters>
+<api-parameters
+    title="Gird 参数列表"
+    [parameters]="gridApiParams"
+></api-parameters>
 
-<br/>
+<br />
 
-<api-parameters title="Gird Column 参数列表" [parameters]="columnApiParams"></api-parameters>
+<api-parameters
+    title="Gird Column 参数列表"
+    [parameters]="columnApiParams"
+></api-parameters>

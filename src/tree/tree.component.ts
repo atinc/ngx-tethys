@@ -182,7 +182,6 @@ export class ThyTreeComponent implements OnInit {
         this.ngZone.runTask(() => {
             this.thyOnDraggableChange.emit(draggableEvent);
         });
-        console.log(this.treeNodes);
     }
 
     private _onDraggableAdd(event: any) {
@@ -194,7 +193,6 @@ export class ThyTreeComponent implements OnInit {
         this.ngZone.runTask(() => {
             this.thyOnDraggableChange.emit(draggableEvent);
         });
-        console.log(this.treeNodes);
     }
 
     // region 公开出去函数

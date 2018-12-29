@@ -1,3 +1,9 @@
+## 0.2.22
+`thy-grid` 组件增加 `(thyOnRowContextMenu)` 支持行右键操作，`thy-grid-column` 增加 `#header` 自定义模板支持column header 自定义 
+
+## 0.2.21
+`thy-tree` 组件部分重构，增加了 `ThyTreeNodeData` 用于规范传入数据格式，增加了 `ThyTreeNode` 类用于对Node进行各种操作，增加了 `[thyAsync]` `(thyOnExpandChange)` 用于异步加载。去除了灵活使用方式Tree（因为可以通过原生Angular支持来实现）
+
 ## 0.2.20
 解决引用组件库 `thy-tree-select` providers useFactory 导致的编辑错误问题
 

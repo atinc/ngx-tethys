@@ -3,7 +3,6 @@ import { OnInit } from '@angular/core';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination/pagination.component';
 import { ThyMultiSelectEvent } from '../../../../../src';
 
-
 @Component({
     selector: 'demo-grid-section',
     templateUrl: './grid-section.component.html'
@@ -17,13 +16,15 @@ export class DemoGridSectionComponent implements OnInit {
             age: 0,
             checked: true,
             desc: ''
-        }, {
+        },
+        {
             id: 2,
             name: '李四',
             age: 10,
             checked: false,
             desc: '这是一条测试数据'
-        }, {
+        },
+        {
             id: 3,
             name: '王五',
             age: 10,
@@ -36,13 +37,15 @@ export class DemoGridSectionComponent implements OnInit {
             age: 0,
             checked: true,
             desc: ''
-        }, {
+        },
+        {
             id: 5,
             name: '李四2',
             age: 10,
             checked: false,
             desc: '这是一条测试数据'
-        }, {
+        },
+        {
             id: 6,
             name: '王五2',
             age: 10,
@@ -55,13 +58,15 @@ export class DemoGridSectionComponent implements OnInit {
             age: 0,
             checked: true,
             desc: ''
-        }, {
+        },
+        {
             id: 8,
             name: '李四3',
             age: 10,
             checked: false,
             desc: '这是一条测试数据'
-        }, {
+        },
+        {
             id: 9,
             name: '王五3',
             age: 10,
@@ -74,13 +79,15 @@ export class DemoGridSectionComponent implements OnInit {
             age: 0,
             checked: true,
             desc: ''
-        }, {
+        },
+        {
             id: 11,
             name: '李四4',
             age: 10,
             checked: false,
             desc: '这是一条测试数据'
-        }, {
+        },
+        {
             id: 12,
             name: '王五4',
             age: 10,
@@ -238,7 +245,8 @@ export class DemoGridSectionComponent implements OnInit {
         },
         {
             property: 'thyType',
-            description: '设置列的类型 index:序列 ，checkbox:多选 ，radio:单选 ，switch:切换',
+            description:
+                '设置列的类型 index:序列 ，checkbox:多选 ，radio:单选 ，switch:切换',
             type: 'String',
             default: ''
         },
@@ -250,7 +258,8 @@ export class DemoGridSectionComponent implements OnInit {
         },
         {
             property: 'thySelections',
-            description: 'checkbox radio 类型的列可设置选中的数据 ，支持 单个对象 单个Id  同时支持多个Id [_id1,_id2] 多个对象 [{_id:1},{_id:2}]',
+            description:
+                'checkbox radio 类型的列可设置选中的数据 ，支持 单个对象 单个Id  同时支持多个Id [_id1,_id2] 多个对象 [{_id:1},{_id:2}]',
             type: 'String | Number | Object | String[] | Number[] | Object[] ',
             default: ''
         },
@@ -276,7 +285,7 @@ export class DemoGridSectionComponent implements OnInit {
 
     public draggableOptions = {
         disabled: false,
-        onMove: (event) => {
+        onMove: event => {
             console.log('onMove');
             // return false;
         }
@@ -285,18 +294,21 @@ export class DemoGridSectionComponent implements OnInit {
     ngOnInit() {
         setTimeout(() => {
             this.loadingDone = true;
-
-            //this.model.push({ ...this.model[1], checked: true });
         }, 3000);
         this.cloneModel = this.model;
-        this.model = this.cloneModel.slice(0, this.pagination.index * this.pagination.size);
+        this.model = this.cloneModel.slice(
+            0,
+            this.pagination.index * this.pagination.size
+        );
     }
 
     onMultiSelectChange(event: ThyMultiSelectEvent) {
         if (!this.selections.includes(event.row)) {
             this.selections.push(event.row);
         } else {
-            this.selections = this.selections.filter(item => item.id !== event.row.id);
+            this.selections = this.selections.filter(
+                item => item.id !== event.row.id
+            );
         }
         this.selections = [...this.selections];
         console.log(event);
@@ -309,7 +321,10 @@ export class DemoGridSectionComponent implements OnInit {
 
     onPageChange(event) {
         console.log(event);
-        this.model = this.cloneModel.slice((event.page - 1) * this.pagination.size, event.page * this.pagination.size);
+        this.model = this.cloneModel.slice(
+            (event.page - 1) * this.pagination.size,
+            event.page * this.pagination.size
+        );
     }
 
     onSwitchChange(event) {
@@ -321,6 +336,11 @@ export class DemoGridSectionComponent implements OnInit {
 
     onDraggableUpdate(event) {
         console.log(event);
+    }
+
+    onContextMenu(event) {
+        console.log(event);
+        alert('右键');
     }
 
     onRowClick(event) {

@@ -1,6 +1,12 @@
 import {
-    Component, Input, Output,
-    ViewEncapsulation, TemplateRef, OnInit, EventEmitter, DoCheck,
+    Component,
+    Input,
+    Output,
+    ViewEncapsulation,
+    TemplateRef,
+    OnInit,
+    EventEmitter,
+    DoCheck,
     IterableDiffers,
     IterableDiffer,
     IterableChanges,
@@ -12,11 +18,22 @@ import {
 } from '@angular/core';
 import { get, set } from '../util/helpers';
 import {
-    ThyGridColumn, ThyMultiSelectEvent, ThyRadioSelectEvent, ThyPage,
-    ThyGridEmptyOptions, ThySwitchEvent, ThyGridDraggableEvent, ThyGridRowEvent
+    ThyGridColumn,
+    ThyMultiSelectEvent,
+    ThyRadioSelectEvent,
+    ThyPage,
+    ThyGridEmptyOptions,
+    ThySwitchEvent,
+    ThyGridDraggableEvent,
+    ThyGridRowEvent,
+    ThyGridEvent
 } from './grid.interface';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination/pagination.component';
-import { ThyGridColumnComponent, IThyGridColumnParentComponent, THY_GRID_COLUMN_PARENT_COMPONENT } from './grid-column.component';
+import {
+    ThyGridColumnComponent,
+    IThyGridColumnParentComponent,
+    THY_GRID_COLUMN_PARENT_COMPONENT
+} from './grid-column.component';
 import { SortablejsOptions } from 'angular-sortablejs';
 import { helpers } from '../util';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -35,7 +52,6 @@ const customType = {
     switch: 'switch'
 };
 
-
 @Component({
     selector: 'thy-grid',
     templateUrl: './grid.component.html',
@@ -47,8 +63,8 @@ const customType = {
     ],
     encapsulation: ViewEncapsulation.None
 })
-export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridColumnParentComponent {
-
+export class ThyGridComponent
+    implements OnInit, OnDestroy, DoCheck, IThyGridColumnParentComponent {
     public customType = customType;
 
     public model: object[] = [];
@@ -169,17 +185,33 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
         this.wholeRowSelect = value;
     }
 
-    @Output() thyOnSwitchChange: EventEmitter<ThySwitchEvent> = new EventEmitter<ThySwitchEvent>();
+    @Output() thyOnSwitchChange: EventEmitter<
+        ThySwitchEvent
+    > = new EventEmitter<ThySwitchEvent>();
 
-    @Output() thyOnPageChange: EventEmitter<PageChangedEvent> = new EventEmitter<PageChangedEvent>();
+    @Output() thyOnPageChange: EventEmitter<
+        PageChangedEvent
+    > = new EventEmitter<PageChangedEvent>();
 
-    @Output() thyOnMultiSelectChange: EventEmitter<ThyMultiSelectEvent> = new EventEmitter<ThyMultiSelectEvent>();
+    @Output() thyOnMultiSelectChange: EventEmitter<
+        ThyMultiSelectEvent
+    > = new EventEmitter<ThyMultiSelectEvent>();
 
-    @Output() thyOnRadioSelectChange: EventEmitter<ThyRadioSelectEvent> = new EventEmitter<ThyRadioSelectEvent>();
+    @Output() thyOnRadioSelectChange: EventEmitter<
+        ThyRadioSelectEvent
+    > = new EventEmitter<ThyRadioSelectEvent>();
 
-    @Output() thyOnDraggableChange: EventEmitter<ThyGridDraggableEvent> = new EventEmitter<ThyGridDraggableEvent>();
+    @Output() thyOnDraggableChange: EventEmitter<
+        ThyGridDraggableEvent
+    > = new EventEmitter<ThyGridDraggableEvent>();
 
-    @Output() thyOnRowClick: EventEmitter<ThyGridRowEvent> = new EventEmitter<ThyGridRowEvent>();
+    @Output() thyOnRowClick: EventEmitter<ThyGridRowEvent> = new EventEmitter<
+        ThyGridRowEvent
+    >();
+
+    @Output() thyOnRowContextMenu: EventEmitter<ThyGridEvent> = new EventEmitter<
+        ThyGridEvent
+    >();
 
     @ContentChildren(ThyGridColumnComponent)
     set listOfColumnComponents(components: QueryList<ThyGridColumnComponent>) {
@@ -190,15 +222,13 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
         }
     }
 
-    constructor(
-        private _differs: IterableDiffers
-    ) {
+    constructor(private _differs: IterableDiffers) {
         this._bindTrackFn();
     }
 
     private _getSelectionKeys(selections: any) {
         return selections.map((item: any) => {
-            if (typeof (item) === 'number' || typeof (item) === 'string') {
+            if (typeof item === 'number' || typeof item === 'string') {
                 return item;
             } else {
                 return item[this.rowKey];
@@ -207,8 +237,10 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
     }
 
     private _initializeColumns() {
-        const components = this._listOfColumnComponents ? this._listOfColumnComponents.toArray() : [];
-        this.columns = components.map<ThyGridColumn>((component) => {
+        const components = this._listOfColumnComponents
+            ? this._listOfColumnComponents.toArray()
+            : [];
+        this.columns = components.map<ThyGridColumn>(component => {
             const selections = this._getSelectionKeys(component.selections);
             return {
                 key: component.key,
@@ -221,7 +253,8 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
                 headerClassName: component.headerClassName,
                 disabled: component.disabled,
                 defaultText: component.defaultText,
-                templateRef: component.templateRef,
+                templateRef: component.cellTemplateRef,
+                headerTemplateRef: component.headerTemplateRef
             };
         });
     }
@@ -235,7 +268,7 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
         });
     }
 
-    private _initialSelections(row: object, column: ThyGridColumn, ) {
+    private _initialSelections(row: object, column: ThyGridColumn) {
         if (column.selections && column.selections.length > 0) {
             if (column.type === 'checkbox') {
                 row[column.key] = column.selections.includes(row[this.rowKey]);
@@ -270,7 +303,7 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
     }
 
     private _bindTrackFn() {
-        this.trackByFn = function (this: any, index: number, row: any): any {
+        this.trackByFn = function(this: any, index: number, row: any): any {
             return this.rowKey ? row[this.rowKey] : index;
         }.bind(this);
     }
@@ -365,8 +398,7 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
 
     public onDraggableStart(event: any) {
         this._draggableModel = this.model[event.oldIndex];
-        const switchEvent: ThyGridDraggableEvent = {
-        };
+        const switchEvent: ThyGridDraggableEvent = {};
     }
 
     public onDraggableUpdate(event: any) {
@@ -381,8 +413,11 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
 
     public onRowClick(event: Event, row: any) {
         if (this.wholeRowSelect) {
-            const column = this.columns.find((item) => {
-                return item.type === customType.checkbox || item.type === customType.radio;
+            const column = this.columns.find(item => {
+                return (
+                    item.type === customType.checkbox ||
+                    item.type === customType.radio
+                );
             });
             if (!column.disabled) {
                 if (column.type === customType.checkbox) {
@@ -403,6 +438,14 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
         this.thyOnRowClick.emit(rowEvent);
     }
 
+    public onRowContextMenu(event: Event, row: any) {
+        const contextMenuEvent: ThyGridEvent = {
+            event: event,
+            row: row
+        };
+        this.thyOnRowContextMenu.emit(contextMenuEvent);
+    }
+
     // 临时处理Sortable禁用后某些事件还生效的问题
     public draggableStopPropagation(event: Event) {
         if (this.draggableOptions.disabled) {
@@ -410,8 +453,7 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
         }
     }
 
-    ngOnInit() {
-    }
+    ngOnInit() {}
 
     ngDoCheck() {
         const changes = this._diff.diff(this.model);
