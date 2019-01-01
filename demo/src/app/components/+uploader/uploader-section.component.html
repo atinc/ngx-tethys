@@ -3,11 +3,17 @@
         <h2>上传</h2>
     </div>
     <div class="body">
-        <thy-file-select (thyOnFileSelect)="selectFiles($event)" [thyMultiple]="true">
+        <select [(ngModel)]="demoType">
+            <option value="1">单个文件</option>
+            <option value="2">多个文件</option>
+            <option value="3">文件夹</option>
+        </select>
+        <thy-file-select #file1 (thyOnFileSelect)="selectFiles($event)" [thyMultiple]="demoType=='2'" [thyAcceptFolder]="demoType=='3'">
             <button thyButton="primary">上传</button>
         </thy-file-select>
         <div *ngFor="let queueFile of queueFiles">
-            {{queueFile.fileName}} speed: {{queueFile.progress.speedHuman}}, estimatedTime - {{queueFile.progress.estimatedTimeHuman}}
+            {{queueFile.fileName}} speed: {{queueFile.progress.speedHuman}}, estimatedTime -
+            {{queueFile.progress.estimatedTimeHuman}}
             <progressbar class="progress" type="success" [value]="queueFile.progress.percentage" [max]="100">{{queueFile.progress.percentage}}%</progressbar>
         </div>
     </div>
@@ -22,7 +28,8 @@
             <div class="drop-text">释放上传</div>
         </div>
         <div *ngFor="let queueFile of queueFiles2">
-            {{queueFile.fileName}} speed: {{queueFile.progress.speedHuman}}, estimatedTime - {{queueFile.progress.estimatedTimeHuman}}
+            {{queueFile.fileName}} speed: {{queueFile.progress.speedHuman}}, estimatedTime -
+            {{queueFile.progress.estimatedTimeHuman}}
             <progressbar class="progress" type="success" [value]="queueFile.progress.percentage" [max]="100">{{queueFile.progress.percentage}}%</progressbar>
         </div>
     </div>

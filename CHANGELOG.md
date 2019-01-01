@@ -1,3 +1,6 @@
+## 0.2.23
+`[thyFileSelect],thy-file-select` 组件增加 `thyAcceptFolder` 支持选择文件夹类型。Fixed `thyMultiple` false 失效 BUG。
+
 ## 0.2.22
 `thy-grid` 组件增加 `(thyOnRowContextMenu)` 支持行右键操作，`thy-grid-column` 增加 `#header` 自定义模板支持column header 自定义 
 

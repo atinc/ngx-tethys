@@ -1,6 +1,15 @@
 import {
-    Component, Input, Output, Renderer2, Inject,
-    ViewChild, ElementRef, OnInit, OnDestroy, HostListener, EventEmitter
+    Component,
+    Input,
+    Output,
+    Renderer2,
+    Inject,
+    ViewChild,
+    ElementRef,
+    OnInit,
+    OnDestroy,
+    HostListener,
+    EventEmitter
 } from '@angular/core';
 import { inputValueToBoolean, isArray, isString } from '../util/helpers';
 import { mimeTypeConvert } from './util';
@@ -10,8 +19,9 @@ import { mimeTypeConvert } from './util';
     templateUrl: './file-select.component.html'
 })
 export class ThyFileSelectComponent implements OnInit, OnDestroy {
-
     _multiple: boolean;
+
+    _acceptFolder: boolean;
 
     acceptType: string;
 
@@ -22,6 +32,21 @@ export class ThyFileSelectComponent implements OnInit, OnDestroy {
     @Input()
     set thyMultiple(value: boolean) {
         this._multiple = inputValueToBoolean(value);
+        if (this._multiple) {
+            this.fileInput.nativeElement.setAttribute('multiple', '');
+        } else {
+            this.fileInput.nativeElement.removeAttribute('multiple');
+        }
+    }
+
+    @Input()
+    set thyAcceptFolder(value: boolean) {
+        this._acceptFolder = inputValueToBoolean(value);
+        if (this._acceptFolder) {
+            this.fileInput.nativeElement.setAttribute('webkitdirectory', '');
+        } else {
+            this.fileInput.nativeElement.removeAttribute('webkitdirectory');
+        }
     }
 
     @Input()
@@ -34,15 +59,15 @@ export class ThyFileSelectComponent implements OnInit, OnDestroy {
         this.fileInput.nativeElement.click();
     }
 
-    constructor(
-        private elementRef: ElementRef
-    ) {
-
-    }
+    constructor(private elementRef: ElementRef) {}
 
     _isInputTypeFile() {
         const nativeElement = this.elementRef.nativeElement;
-        return nativeElement.tagName.toLowerCase() === 'input' && nativeElement.type && nativeElement.type.toLowerCase() === 'file';
+        return (
+            nativeElement.tagName.toLowerCase() === 'input' &&
+            nativeElement.type &&
+            nativeElement.type.toLowerCase() === 'file'
+        );
     }
 
     selectFile($event: Event) {
@@ -56,11 +81,7 @@ export class ThyFileSelectComponent implements OnInit, OnDestroy {
         }
     }
 
-    ngOnInit() {
+    ngOnInit() {}
 
-    }
-
-    ngOnDestroy() {
-
-    }
+    ngOnDestroy() {}
 }
