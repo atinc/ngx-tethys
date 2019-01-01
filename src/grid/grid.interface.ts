@@ -12,15 +12,14 @@ export interface ThyGridColumn {
     disabled: boolean;
     defaultText: string;
     templateRef: TemplateRef<any>;
+    headerTemplateRef: TemplateRef<any>;
 }
-
 
 export interface ThyPage {
     index?: number;
     size?: number;
     total?: number;
 }
-
 
 export interface ThyGridEmptyOptions {
     message?: string;
@@ -35,10 +34,12 @@ export interface ThyGridEmptyOptions {
     container?: TemplateRef<any>;
 }
 
-
-export interface ThyMultiSelectEvent {
+export interface ThyGridEvent {
     event: Event;
     row: any;
+}
+
+export interface ThyMultiSelectEvent extends ThyGridEvent {
     rows: any[];
 }
 
@@ -47,9 +48,7 @@ export interface ThyRadioSelectEvent {
     row: any;
 }
 
-export interface ThySwitchEvent {
-    event: Event;
-    row: any;
+export interface ThySwitchEvent extends ThyGridEvent {
     refresh?: Function;
 }
 
@@ -65,9 +64,3 @@ export interface ThyGridRowEvent {
     event: Event;
     row: any;
 }
-
-
-
-
-
-

@@ -8,9 +8,8 @@ import { DialogHeaderComponent } from './header/dialog-header.component';
 import { DialogBodyComponent } from './body/dialog-body.component';
 import { DialogFooterComponent } from './footer/dialog-footer.component';
 import { ThyButtonModule } from '../button';
-import {
-    THY_DIALOG_DEFAULT_OPTIONS_PROVIDER
-} from './dialog.config';
+
+import { THY_DIALOG_DEFAULT_OPTIONS_PROVIDER } from './dialog.config';
 
 @NgModule({
     declarations: [

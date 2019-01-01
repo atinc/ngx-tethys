@@ -1,3 +1,21 @@
+## 0.2.22
+`thy-grid` 组件增加 `(thyOnRowContextMenu)` 支持行右键操作，`thy-grid-column` 增加 `#header` 自定义模板支持column header 自定义 
+
+## 0.2.21
+`thy-tree` 组件部分重构，增加了 `ThyTreeNodeData` 用于规范传入数据格式，增加了 `ThyTreeNode` 类用于对Node进行各种操作，增加了 `[thyAsync]` `(thyOnExpandChange)` 用于异步加载。去除了灵活使用方式Tree（因为可以通过原生Angular支持来实现）
+
+## 0.2.20
+解决引用组件库 `thy-tree-select` providers useFactory 导致的编辑错误问题
+
+## 0.2.19
+修改editor上传附件问题
+
+## 0.2.18
+临时通过checkout 0.2.15 版本 解决引用组件库后编译报错问题
+
+## 0.2.17
+修改date-range 左右切换逻辑 修复了当前选择的时期范围是本周（当前周只有两天），interval=7 时左右切换后的范围还是两天的bug 
+
 ## 0.2.16
 扩展 `thy-property-operation`， 当`thyValue`有值时，可通过设置`thyLabelHasValue=true/false`控制`lable` 是否显示
 

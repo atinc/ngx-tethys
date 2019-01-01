@@ -8,6 +8,7 @@ import {
     ViewContainerRef,
     Injector,
     OnInit,
+    ChangeDetectionStrategy
 } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -78,12 +79,21 @@ export class WithInjectedDataDialogComponent implements OnInit {
     }
 }
 
+@Component({
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    template: 'hello'
+})
+export class WithOnPushViewContainerComponent {
+    constructor(public viewContainerRef: ViewContainerRef) {}
+}
+
 const TEST_DIRECTIVES = [
     DialogContentComponent,
     WithViewContainerDirective,
     WithTemplateRefComponent,
     WithChildViewContainerComponent,
-    WithInjectedDataDialogComponent
+    WithInjectedDataDialogComponent,
+    WithOnPushViewContainerComponent
 ];
 @NgModule({
     imports: [ThyDialogModule, NoopAnimationsModule],
@@ -92,7 +102,8 @@ const TEST_DIRECTIVES = [
     entryComponents: [
         DialogContentComponent,
         WithInjectedDataDialogComponent,
-        WithChildViewContainerComponent
+        WithChildViewContainerComponent,
+        WithOnPushViewContainerComponent
         //   ComponentWithTemplateRef,
         //   ContentElementDialog,
         //   DialogWithInjectedData,

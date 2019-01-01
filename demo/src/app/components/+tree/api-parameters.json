@@ -1,0 +1,62 @@
+[
+    {
+        "property": "[(ngModel)]",
+        "description": "Tree展现所需的数据",
+        "type": "ThyNodeData[]",
+        "default": ""
+    },
+    {
+        "property": "thyNodes",
+        "description": "Tree展现所需的数据",
+        "type": "ThyNodeData[]",
+        "default": ""
+    },
+    {
+        "property": "thyShowExpand",
+        "description": "设置TreeNode是否可展开",
+        "type": "boolean | Function",
+        "default": ""
+    },
+    {
+        "property": "thyDraggable",
+        "description": "设置Tree是否可以进行拖拽排序",
+        "type": "boolean",
+        "default": "false"
+    },
+    {
+        "property": "thyAsync",
+        "description": "设置Tree是否需要支持异步加载",
+        "type": "boolean",
+        "default": "false"
+    },
+    {
+        "property": "(thyOnClick)",
+        "description": "设置子TreeNode点击事件",
+        "type": "ThyTreeEmitEvent",
+        "default": ""
+    },
+    {
+        "property": "(thyOnExpandChange)",
+        "description": "设置点击展开触发事件",
+        "type": "ThyTreeEmitEvent",
+        "default": ""
+    },
+    {
+        "property": "(thyOnDraggableChange)",
+        "description": "设置Tree拖拽排序事件",
+        "type": "ThyTreeEmitEvent",
+        "default": ""
+    },
+    {
+        "property": "#treeNodeTemplate",
+        "description": "设置TreeNode的渲染模板",
+        "type": "TemplateRef",
+        "default": ""
+    },
+    {
+        "property": "#emptyChildrenTemplate",
+        "description": "设置子节点为空的情况下显示的空状态模板",
+        "type": "TemplateRef",
+        "default": ""
+    }
+]

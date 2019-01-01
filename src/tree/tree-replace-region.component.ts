@@ -1,4 +1,12 @@
-import { Component, ViewEncapsulation, ContentChild, TemplateRef, ViewContainerRef, Input, OnInit } from '@angular/core';
+import {
+    Component,
+    ViewEncapsulation,
+    ContentChild,
+    TemplateRef,
+    ViewContainerRef,
+    Input,
+    OnInit
+} from '@angular/core';
 import { ThyTreeComponent } from './tree.component';
 
 @Component({
@@ -7,17 +15,12 @@ import { ThyTreeComponent } from './tree.component';
     encapsulation: ViewEncapsulation.None
 })
 export class ThyTreeReplaceRegionComponent implements OnInit {
-
     @Input() thyInstance: any;
 
     constructor(
         private root: ThyTreeComponent,
         private viewRef: ViewContainerRef
-    ) {
-    }
+    ) {}
 
-    ngOnInit(): void {
-        this.root.createTreeComponent(this.viewRef, this.thyInstance);
-    }
+    ngOnInit(): void {}
 }
-

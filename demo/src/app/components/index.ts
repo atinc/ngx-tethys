@@ -128,5 +128,5 @@ export const ENTRY_COMPONENTS = [
     DemoAvatarHasBadgeSectionComponent,
     DemoAvatarRemoveSectionComponent,
 
-    DemoDialogContentComponent
+     DemoDialogContentComponent
 ];

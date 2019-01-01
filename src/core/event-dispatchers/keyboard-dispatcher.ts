@@ -10,10 +10,6 @@ import { DOCUMENT } from '@angular/common';
 import {
     Inject,
     Injectable,
-    InjectionToken,
-    OnDestroy,
-    Optional,
-    SkipSelf,
     NgZone
 } from '@angular/core';
 import { Observable, Subject } from 'rxjs';

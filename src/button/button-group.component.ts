@@ -48,7 +48,6 @@ export class ThyButtonGroupComponent implements OnInit {
     @HostBinding('class.btn-group') _isButtonGroup = true;
 
     constructor(
-        private thyTranslate: ThyTranslate,
         private updateHostClassService: UpdateHostClassService,
         private elementRef: ElementRef
     ) {

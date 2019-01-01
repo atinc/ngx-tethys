@@ -115,12 +115,12 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
                 if (type === 'previous') {
                     return {
                         begin: this._getNewDate(beginDate, { day: -this.selectedDate.timestamp.interval }),
-                        end: this._getNewDate(endDate, { day: -this.selectedDate.timestamp.interval }),
+                        end: this._getNewDate(beginDate, { day: -1 }),
                         key: 'custom'
                     };
                 } else {
                     return {
-                        begin: this._getNewDate(beginDate, { day: this.selectedDate.timestamp.interval }),
+                        begin: this._getNewDate(endDate, { day: 1 }),
                         end: this._getNewDate(endDate, { day: this.selectedDate.timestamp.interval }),
                         key: 'custom'
                     };

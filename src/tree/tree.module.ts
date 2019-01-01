@@ -8,6 +8,10 @@ import { ThyButtonModule } from '../button';
 import { ThyDirectiveModule } from '../directive';
 import { SortablejsModule } from 'angular-sortablejs';
 import { ThyTreeService } from './tree.service';
+import { ThyListModule } from '../list';
+import { ThyOptionModule } from '../core/option';
+import { FormsModule } from '@angular/forms';
+import { ThyLoadingModule } from '../loading/loading.module';
 
 @NgModule({
     declarations: [
@@ -20,20 +24,18 @@ import { ThyTreeService } from './tree.service';
         ThyInputModule,
         ThyButtonModule,
         ThyDirectiveModule,
-        SortablejsModule
+        SortablejsModule,
+        FormsModule,
+        ThyListModule,
+        ThyOptionModule,
+        ThyLoadingModule
     ],
-    entryComponents: [
-        ThyTreeComponent,
-    ],
+    entryComponents: [ThyTreeComponent],
     exports: [
         ThyTreeComponent,
         ThyTreeNodeComponent,
         ThyTreeReplaceRegionComponent
     ],
-    providers: [
-        ThyTreeService
-    ]
+    providers: [ThyTreeService]
 })
-export class ThyTreeModule {
-
-}
+export class ThyTreeModule {}

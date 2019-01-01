@@ -1,42 +1,126 @@
+import { helpers } from '../util';
+
+export class ThyTreeNodeData {
+    key?: number | string;
+
+    title?: string;
+
+    icon?: string;
+
+    iconStyle?: {
+        [key: string]: any;
+    };
+
+    children?: ThyTreeNodeData[];
+
+    origin?: any;
+
+    expanded?: boolean;
+
+    edited?: boolean;
+
+    disabled?: boolean;
+
+    [key: string]: any;
+}
 
 export class ThyTreeNode {
+    key?: number | string;
 
-  key?: number | string;
+    title?: string;
 
-  title?: string;
+    children: ThyTreeNode[];
 
-  icon?: string;
+    parentNode: ThyTreeNode;
 
-  iconStyle?: {
-    [key: string]: any;
-  };
+    level = 0;
 
-  children?: ThyTreeNode[];
+    origin: ThyTreeNodeData;
 
-  origin?: any;
+    isExpanded: boolean;
 
-  expanded?: boolean;
+    isLoading: boolean;
 
-  edited?: boolean;
+    isDisabled: boolean;
 
-  disabled?: boolean;
+    constructor(node: ThyTreeNodeData, parent: ThyTreeNode = null) {
+        this.title = node.title;
+        this.key = node.key || null;
+        this.children = [];
+        this.parentNode = parent;
+        this.level = parent ? this.level + 1 : this.level;
+        this.origin = node;
+        this.isDisabled = node.disabled || false;
+        this.isExpanded = node.expanded || false;
+        this.isLoading = false;
+        if (node.children) {
+            node.children.forEach(childNode => {
+                this.children.push(new ThyTreeNode(childNode, this));
+            });
+        }
+    }
 
-  selected?: boolean;
+    public setKey(key: string) {
+        this.origin.key = key;
+        this.key = key;
+    }
 
-  [key: string]: any;
+    public setTitle(title: string) {
+        this.origin.title = title;
+        this.title = title;
+    }
 
+    public setExpanded(expanded: boolean) {
+        this.origin.expanded = expanded;
+        this.isExpanded = expanded;
+    }
+
+    public setLoading(loading: boolean): void {
+        this.isLoading = loading;
+    }
+
+    public getParentNode(): ThyTreeNode {
+        return this.parentNode;
+    }
+
+    public getChildren(): ThyTreeNode[] {
+        return this.children;
+    }
+
+    public addChildren(
+        children: ThyTreeNodeData | ThyTreeNodeData[],
+        index: number = -1
+    ): void {
+        if (!helpers.isArray(children)) {
+            children = [children];
+        }
+        ((children as ThyTreeNodeData[]) || []).forEach(
+            (childNode: ThyTreeNodeData, i: number) => {
+                if (index === -1) {
+                    this.children.push(new ThyTreeNode(childNode, this));
+                } else {
+                    this.children.splice(
+                        index + i,
+                        0,
+                        new ThyTreeNode(childNode, this)
+                    );
+                }
+            }
+        );
+
+        this.origin.children = this.getChildren().map(n => n.origin);
+        this.setLoading(false);
+    }
 }
 
 export interface ThyTreeEmitEvent {
+    eventName: string;
 
-  eventName: string;
+    node?: ThyTreeNode;
 
-  node?: ThyTreeNode;
+    event?: Event | any;
 
-  event?: Event | any;
+    dragNode?: ThyTreeNode;
 
-  dragNode?: ThyTreeNode;
-
-  targetNode?: ThyTreeNode;
-
+    targetNode?: ThyTreeNode;
 }

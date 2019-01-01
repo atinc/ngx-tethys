@@ -158,11 +158,13 @@ export class ThyEditorService implements OnInit, OnDestroy {
     setOptions(config: ThyEditorConfig) {
         if (config) {
             this.options = Object.assign(this.options, config);
-            if (config.uploadImg.multiple) {
-                this.options.uploadImgMultiple = config.uploadImg.multiple;
-            }
-            if (config.uploadImg.acceptType) {
-                this.options.uploadImgAcceptType = config.uploadImg.acceptType;
+            if (config && config.uploadImg) {
+                if (config.uploadImg.multiple) {
+                    this.options.uploadImgMultiple = config.uploadImg.multiple;
+                }
+                if (config.uploadImg.acceptType) {
+                    this.options.uploadImgAcceptType = config.uploadImg.acceptType;
+                }
             }
         }
     }

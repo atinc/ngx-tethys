@@ -51,11 +51,6 @@ export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
             provide: NG_VALUE_ACCESSOR,
             useExisting: forwardRef(() => ThyTreeSelectComponent),
             multi: true
-        },
-        {
-            provide: MAT_SELECT_SCROLL_STRATEGY,
-            deps: [Overlay],
-            useFactory: MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY
         }
     ]
 })
@@ -82,7 +77,7 @@ export class ThyTreeSelectComponent
 
     public cdkConnectOverlayWidth = 0;
 
-    public scrollStrategy: ScrollStrategy;
+    // public scrollStrategy: ScrollStrategy;
 
     public positions: ConnectionPositionPair[] =[ ...DEFAULT_4_POSITIONS ];
 
@@ -192,10 +187,10 @@ export class ThyTreeSelectComponent
         public renderer: Renderer2,
         private ngZone: NgZone,
         private overlay: Overlay,
-        @Inject(MAT_SELECT_SCROLL_STRATEGY) scrollStrategy: any,
+        // @Inject(MAT_SELECT_SCROLL_STRATEGY) scrollStrategy: any,
         private scrollDispatcher: ScrollDispatcher
     ) {
-        this.scrollStrategy = this.overlay.scrollStrategies.reposition();
+        // this.scrollStrategy = this.overlay.scrollStrategies.reposition();
     }
 
     @HostListener('document:click', ['$event'])
