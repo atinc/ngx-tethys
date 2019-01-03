@@ -20,6 +20,8 @@ export class ThyTreeSelectNodesComponent implements OnInit {
 
     public selectedValue = this.parent.selectedValue;
 
+    public childCountKey = this.parent.thyChildCountKey;
+
     constructor(
         public parent: ThyTreeSelectComponent,
     ) { }

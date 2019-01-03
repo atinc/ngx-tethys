@@ -55,7 +55,7 @@
     <div class="body demo-select">
         <br> Model: {{asyncValue | json}}
         <thy-tree-select [thyTreeNodes]="asyncNodes" thyPrimaryKey="key" thyShowKey="title" thyAsyncNode="true"
-            thyPlaceholder="请选择值" [(ngModel)]="asyncValue" [thyGetNodeChildren]="fetchNodeChildren"></thy-tree-select>
+            thyPlaceholder="请选择值" [(ngModel)]="asyncValue" [thyGetNodeChildren]="fetchNodeChildren" thyChildCountKey="childCount"></thy-tree-select>
     </div>
 </section>
 
