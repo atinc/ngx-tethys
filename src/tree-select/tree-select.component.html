@@ -18,10 +18,10 @@
 </div>
 
 <ng-template cdkConnectedOverlay [cdkConnectedOverlayHasBackdrop]="false" [cdkConnectedOverlayPositions]="positions"
-    [cdkConnectedOverlayOrigin]="origin" [cdkConnectedOverlayWidth]="cdkConnectOverlayWidth"
+    [cdkConnectedOverlayOrigin]="origin" [cdkConnectedOverlayWidth]="cdkConnectOverlayWidth" [cdkConnectedOverlayMinHeight]="100" [cdkConnectedOverlayHeight]="250"
     [cdkConnectedOverlayOpen]="expandTreeSelectOptions" (backdropClick)="close()" (detach)="close();">
-    <div class="thy-select-custom tree-container">
-        <thy-tree-select-nodes class="thy-select-container-wrapper"></thy-tree-select-nodes>
+    <div class="thy-select-custom">
+        <thy-tree-select-nodes class="thy-select-container-wrapper h-100"></thy-tree-select-nodes>
     </div>
 </ng-template>
 
