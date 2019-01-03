@@ -1,5 +1,5 @@
 <div class="thy-select-container h-100 bg-white">
-    <div class="thy-select-custom-options thy-tree-select-pop">
+    <div class="thy-select-custom-options thy-tree-select-pop h-100">
         <ng-container *ngIf="treeNodes?.length > 0" [ngTemplateOutlet]="treeSelectNode" [ngTemplateOutletContext]="{$implicit:treeNodes}"></ng-container>
         <div class="thy-tree-select-pop-empty text-muted" *ngIf="treeNodes?.length == 0">{{parent.thyEmptyOptionsText}}</div>
     </div>
