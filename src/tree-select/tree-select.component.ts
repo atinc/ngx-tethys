@@ -29,7 +29,7 @@ import {
     CdkConnectedOverlay,
     ConnectionPositionPair
 } from '@angular/cdk/overlay';
-import { DEFAULT_4_POSITIONS, DEFAULT_DROPDOWN_POSITIONS } from '../core/overlay/overlay-opsition-map';
+import { DEFAULT_4_POSITIONS, DEFAULT_DROPDOWN_POSITIONS, EXPANDED_DROPDOWN_POSITIONS } from '../core/overlay/overlay-opsition-map';
 
 const MAT_SELECT_SCROLL_STRATEGY = new InjectionToken<() => ScrollStrategy>(
     'MAT_SELECT_SCROLL_STRATEGY'
@@ -84,7 +84,7 @@ export class ThyTreeSelectComponent
 
     // public scrollStrategy: ScrollStrategy;
 
-    public positions: ConnectionPositionPair[] =[ ...DEFAULT_DROPDOWN_POSITIONS ];
+    public positions: ConnectionPositionPair[] =[ ...EXPANDED_DROPDOWN_POSITIONS ];
 
     private isInit = true;
 

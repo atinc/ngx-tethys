@@ -16,7 +16,7 @@ import {
     ConnectedOverlayPositionChange,
     ConnectionPositionPair
 } from '@angular/cdk/overlay';
-import { DEFAULT_DROPDOWN_POSITIONS } from '../core/overlay/overlay-opsition-map';
+import { EXPANDED_DROPDOWN_POSITIONS } from '../core/overlay/overlay-opsition-map';
 import { UpdateHostClassService } from '../shared/update-host-class.service';
 import { inputValueToBoolean } from '../util/helpers';
 
@@ -111,7 +111,7 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
 
     onChange: any = Function.prototype;
     onTouched: any = Function.prototype;
-    private cascaderPositon = [...DEFAULT_DROPDOWN_POSITIONS];
+    private cascaderPositon = [...EXPANDED_DROPDOWN_POSITIONS];
     positions: ConnectionPositionPair[];
 
     @Input()
@@ -319,12 +319,12 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
     }
 
     public onPositionChange(position: ConnectedOverlayPositionChange): void {
-        const newValue =
-            position.connectionPair.originY === 'bottom' ? 'bottom' : 'top';
-        if (this.dropDownPosition !== newValue) {
-            this.dropDownPosition = newValue;
-            this.cdr.detectChanges();
-        }
+        // const newValue =
+        //     position.connectionPair.originY === 'bottom' ? 'bottom' : 'top';
+        // if (this.dropDownPosition !== newValue) {
+        //     this.dropDownPosition = newValue;
+        //     this.cdr.detectChanges();
+        // }
     }
 
     private isLoaded(index: number): boolean {
