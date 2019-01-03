@@ -42,6 +42,7 @@ import { DemoStrengthComponent } from './components/+strength/strength-section.c
 import { DemoStepperSectionComponent } from './components/+stepper/stepper-section.component';
 import { DemoCascaderSectionComponent } from './components/+cascader/cascader-section.component';
 import { DemoDialogSectionComponent } from './components/+dialog/dialog-section.component';
+import { DemoBreadcrumbSectionComponent } from './components/+breadcrumb/breadcrumb-section.component';
 
 const appRoutes = [
     {
@@ -219,6 +220,10 @@ const appRoutes = [
     {
         path: 'components/cascader',
         component: DemoCascaderSectionComponent
+    },
+    {
+        path: 'components/breadcrumb',
+        component: DemoBreadcrumbSectionComponent
     }
 ];
 
