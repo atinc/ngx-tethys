@@ -12,50 +12,8 @@
             [(ngModel)]="singleModel.selectedValue" [thyShowWholeName]="singleModel.showWholeName"></thy-tree-select>
     </div>
 </section>
-<section>
-    <div class="header">
-        <h2>Tree Select 单选</h2>
-    </div>
-    <div class="body demo-select">
-        <label thyCheckbox [(ngModel)]="singleModel.allowClear" thyLabelText="是否支持清除选项"></label>
-        <label thyCheckbox [(ngModel)]="singleModel.disabled" thyLabelText="是否禁用树选择"></label>
-        <label thyCheckbox [(ngModel)]="singleModel.showWholeName" thyLabelText="是否支持显示所有父级节点名称"></label>
-        <br> Model: {{singleModel | json}}
-        <thy-tree-select [thyTreeNodes]="nodes" thyPrimaryKey="key" thyShowKey="title" [thyAllowClear]="singleModel.allowClear"
-            [thyDisable]="singleModel.disabled" thyHiddenNodeKey="hidden" thyDisableNodeKey="disabled" thyPlaceholder="请选择值"
-            [(ngModel)]="singleModel.selectedValue" [thyShowWholeName]="singleModel.showWholeName"></thy-tree-select>
-    </div>
-</section>
-<section>
-    <div class="header">
-        <h2>Tree Select 单选</h2>
-    </div>
-    <div class="body demo-select">
-        <label thyCheckbox [(ngModel)]="singleModel.allowClear" thyLabelText="是否支持清除选项"></label>
-        <label thyCheckbox [(ngModel)]="singleModel.disabled" thyLabelText="是否禁用树选择"></label>
-        <label thyCheckbox [(ngModel)]="singleModel.showWholeName" thyLabelText="是否支持显示所有父级节点名称"></label>
-        <br> Model: {{singleModel | json}}
-        <thy-tree-select [thyTreeNodes]="nodes" thyPrimaryKey="key" thyShowKey="title" [thyAllowClear]="singleModel.allowClear"
-            [thyDisable]="singleModel.disabled" thyHiddenNodeKey="hidden" thyDisableNodeKey="disabled" thyPlaceholder="请选择值"
-            [(ngModel)]="singleModel.selectedValue" [thyShowWholeName]="singleModel.showWholeName"></thy-tree-select>
-    </div>
-</section>
-<section>
-    <div class="header">
-        <h2>Tree Select 单选</h2>
-    </div>
-    <div class="body demo-select">
-        <label thyCheckbox [(ngModel)]="singleModel.allowClear" thyLabelText="是否支持清除选项"></label>
-        <label thyCheckbox [(ngModel)]="singleModel.disabled" thyLabelText="是否禁用树选择"></label>
-        <label thyCheckbox [(ngModel)]="singleModel.showWholeName" thyLabelText="是否支持显示所有父级节点名称"></label>
-        <br> Model: {{singleModel | json}}
-        <thy-tree-select [thyTreeNodes]="nodes" thyPrimaryKey="key" thyShowKey="title" [thyAllowClear]="singleModel.allowClear"
-            [thyDisable]="singleModel.disabled" thyHiddenNodeKey="hidden" thyDisableNodeKey="disabled" thyPlaceholder="请选择值"
-            [(ngModel)]="singleModel.selectedValue" [thyShowWholeName]="singleModel.showWholeName"></thy-tree-select>
-    </div>
-</section>
 
-<!-- <section>
+<section>
     <div class="header">
         <h2>Tree Select 禁用、隐藏节点通过传入的 Function 判断</h2>
     </div>
@@ -122,7 +80,7 @@
             thyHiddenNodeKey="hidden" thyDisableNodeKey="disabled" thyPlaceholder="请选择值"
             [(ngModel)]="singleModel.selectedValue"></thy-tree-select>
     </div>
-</section> -->
+</section>
 
 <api-parameters title="thy-tree-select 参数列表" [parameters]="apiParameters"></api-parameters>
 
