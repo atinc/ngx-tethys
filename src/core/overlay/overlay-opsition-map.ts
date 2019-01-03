@@ -108,6 +108,13 @@ export const DEFAULT_MENTION_POSITIONS = [
     }
 ] as ConnectionPositionPair[];
 
+export const EXPANDED_DROPDOWN_POSITIONS = _objectValues([
+    POSITION_MAP.bottomLeft,
+    POSITION_MAP.bottomRight,
+    POSITION_MAP.topLeft,
+    POSITION_MAP.topRight
+]);
+
 function arrayMap<T, S>(
     array: T[],
     iteratee: (item: T, index: number, arr: T[]) => S
