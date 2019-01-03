@@ -10,7 +10,7 @@
         <ng-container *ngFor="let node of nodes">
             <a class="thy-option-item" [ngClass]="{'active': treeNodeIsSelected(node)}" [class.disabled]="treeNodeIsDisable(node)"
                 [ngStyle]="{'padding-left.px':10*node.level+5}" (click)="selectTreeNode($event,node)" *ngIf="!treeNodeIsHidden(node)">
-                <span class="expand-tree-icon text-info" [class.invisible]="!(node.children?.length > 0 || node.childCount && node.childCount > 0)"
+                <span class="expand-tree-icon text-info" [class.invisible]="!(node.children?.length > 0 || node[childCountKey] && node[childCountKey] > 0)"
                     (click)="nodeExpandToggle($event,node)">
                     <i class="wtf wtf-caret-down" [class.rotate-caret]="!treeNodeIsExpand(node)"></i>
                 </span>

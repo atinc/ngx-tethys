@@ -118,6 +118,8 @@ export class ThyTreeSelectComponent
 
     @Input() thyShowKey = 'name';
 
+    @Input() thyChildCountKey = 'childCount';
+
     @Input() thyAllowClear: boolean;
 
     @Input() thyMultiple = false;
