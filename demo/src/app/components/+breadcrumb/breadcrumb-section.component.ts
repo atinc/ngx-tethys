@@ -8,7 +8,7 @@ import { apiBreadcrumbParameters } from './api-parameters';
 })
 export class DemoBreadcrumbSectionComponent implements OnInit {
     exampleCode = `
-    <thy-breadcrumb thyIcon="wtf-folder">
+<thy-breadcrumb thyIcon="wtf-folder">
     <thy-breadcrumb-item><span>首页</span></thy-breadcrumb-item>
     <thy-breadcrumb-item>
         <a href="javascript:;">产品研发部</a>
