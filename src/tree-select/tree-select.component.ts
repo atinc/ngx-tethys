@@ -37,8 +37,8 @@ const MAT_SELECT_SCROLL_STRATEGY = new InjectionToken<() => ScrollStrategy>(
 
 export function MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(
     overlay: Overlay
-): () => ScrollStrategy {
-    return () => overlay.scrollStrategies.reposition();
+): ScrollStrategy {
+    return overlay.scrollStrategies.reposition();
 }
 
 export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
@@ -51,11 +51,16 @@ export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
             provide: NG_VALUE_ACCESSOR,
             useExisting: forwardRef(() => ThyTreeSelectComponent),
             multi: true
-        }
+        },
+        // {
+        //     provide: MAT_SELECT_SCROLL_STRATEGY,
+        //     deps: [Overlay],
+        //     useFactory: MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY
+        // }
     ]
 })
 export class ThyTreeSelectComponent
-    implements OnInit, ControlValueAccessor, AfterViewInit {
+    implements OnInit, ControlValueAccessor {
     @HostBinding('class.thy-select-custom') treeSelectClass = true;
 
     @HostBinding('class.thy-select') isTreeSelect = true;
@@ -79,7 +84,7 @@ export class ThyTreeSelectComponent
 
     // public scrollStrategy: ScrollStrategy;
 
-    public positions: ConnectionPositionPair[] =[ ...DEFAULT_4_POSITIONS ];
+    public positions: ConnectionPositionPair[] =[ ...DEFAULT_DROPDOWN_POSITIONS ];
 
     private isInit = true;
 
@@ -130,6 +135,8 @@ export class ThyTreeSelectComponent
     @Input() thyDisableNodeKey = 'disabled';
 
     @Input() thyAsyncNode = false;
+
+    @Input() thyShowWholeName = false;
 
     @Input() thyHiddenNodeFn: (node: ThyTreeSelectNode) => boolean = (
         node: ThyTreeSelectNode
@@ -208,10 +215,6 @@ export class ThyTreeSelectComponent
         this.init();
     }
 
-    ngAfterViewInit() {
-        // this.registerInScrollDispatcher();
-    }
-
     private init() {
         this.cdkConnectOverlayWidth = this.cdkOverlayOrigin.elementRef.nativeElement.getBoundingClientRect().width;
     }
@@ -268,6 +271,19 @@ export class ThyTreeSelectComponent
         return (this.flattenTreeNodes || []).find(
             item => item[this.thyPrimaryKey] === value
         );
+    }
+
+    getShowNodeName() {
+        if (this.thyShowWholeName) {
+            let wholeName = '';
+            (this.selectedNode.parentValues || []).forEach((item: string, index: number) => {
+                const node = this._findTreeNode(item);
+                wholeName = `${wholeName}${node[this.thyShowKey]} > `;
+            });
+            return `${wholeName}${this.selectedNode[this.thyShowKey]}`;
+        } else {
+            return this.selectedNode[this.thyShowKey];
+        }
     }
 
     private _dataLoadingDoneFn() {

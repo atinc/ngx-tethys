@@ -17,9 +17,10 @@ export class DemoTreeSelectSectionComponent {
     nodes = treeSelectNodes;
 
     singleModel = {
-        selectedValue: '01',
+        selectedValue: '010101',
         allowClear: false,
-        disabled: false
+        disabled: false,
+        showWholeName: true,
     };
 
     multiModel = ['010101'];
