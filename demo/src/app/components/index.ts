@@ -55,6 +55,8 @@ import { DemoStepperSectionComponent } from './+stepper/stepper-section.componen
 import { DemoCascaderSectionComponent } from './+cascader/cascader-section.component';
 import { DemoDialogSectionComponent } from './+dialog/dialog-section.component';
 import { DemoDialogContentComponent } from './+dialog/dialog-content.component';
+import { DemoBreadcrumbSectionComponent } from './+breadcrumb/breadcrumb-section.component';
+
 
 export const COMPONENTS = [
     DemoPopBoxSectionComponent,
@@ -114,7 +116,9 @@ export const COMPONENTS = [
     DemoCascaderSectionComponent,
 
     DemoDialogSectionComponent,
-    DemoDialogContentComponent
+    DemoDialogContentComponent,
+
+    DemoBreadcrumbSectionComponent
 ];
 
 export const ENTRY_COMPONENTS = [

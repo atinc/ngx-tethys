@@ -42,6 +42,7 @@ import { ThyStrengthModule } from './strength';
 import { ThyStepperModule } from './stepper';
 import { ThyCascaderModule } from './cascader';
 import { ThyDialogModule } from './dialog';
+import { ThyBreadcrumbModule } from './breadcrumb';
 
 const IMPORT_EXPORT_MODULES = [
     BrowserAnimationsModule,
@@ -87,7 +88,8 @@ const IMPORT_EXPORT_MODULES = [
     ThyTreeSelectModule,
     ThyStepperModule,
     ThyCascaderModule,
-    ThyDialogModule
+    ThyDialogModule,
+    ThyBreadcrumbModule
 ];
 
 @NgModule({

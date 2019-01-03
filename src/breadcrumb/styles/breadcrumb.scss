@@ -1,0 +1,33 @@
+.thy-breadcrumb {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .thy-breadcrumb-icon {
+        margin-right: 5px;
+        color: $primary;
+    }
+
+    .thy-breadcrumb-item {
+        margin-right: 5px;
+        color: $breadcrumb-text-color;
+        a {
+            @include link-variant($info, none, $primary, none);
+        }
+        &:last-child {
+            color: $breadcrumb-active-color;
+            a {
+                color: $breadcrumb-active-color;
+            }
+            &::after {
+                display: none;
+            }
+        }
+        &::after {
+            content: '\e739';
+            font: normal normal normal 14px/1 wtf;
+            margin-left: 5px;
+            color: $breadcrumb-separator-color;
+        }
+    }
+}
