@@ -13,24 +13,28 @@ import {
     selector: '[thyContextMenu]'
 })
 export class ThyContextMenuDirective implements OnInit {
-
     @Output() thyContextMenu = new EventEmitter();
 
     constructor(
         private ngZone: NgZone,
         private elementRef: ElementRef,
         private renderer: Renderer2
-    ) {
-    }
+    ) {}
 
     rightClick(event: Event) {
         event.preventDefault();
-        this.thyContextMenu.emit(event);
+        this.ngZone.run(() => {
+            this.thyContextMenu.emit(event);
+        });
     }
 
     ngOnInit() {
         this.ngZone.runOutsideAngular(() => {
-            this.renderer.listen(this.elementRef.nativeElement, 'contextmenu', this.rightClick.bind(this));
+            this.renderer.listen(
+                this.elementRef.nativeElement,
+                'contextmenu',
+                this.rightClick.bind(this)
+            );
         });
     }
 }

@@ -1,3 +1,13 @@
+
+
+## 0.2.25
+增加 `thy-breadcrumb` 面包屑组件
+`thy-tree-select` 组件基本功能完成
+
+## 0.2.24
+修改 `thy-tree` loading 加载位置错误的bug
+修改 `thyContextMenu` 指令使用ngZone.runOutside后 回调事件没调用ngZone.run的问题
+
 ## 0.2.23
 `[thyFileSelect],thy-file-select` 组件增加 `thyAcceptFolder` 支持选择文件夹类型。Fixed `thyMultiple` false 失效 BUG。
 

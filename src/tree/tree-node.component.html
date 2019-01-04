@@ -48,9 +48,6 @@
         [sortablejsOptions]="root.treeNodesSortableOptions"
         [attr.node-key]="node.key"
     >
-        <ng-container *ngIf="thyAsync && node.children.length === 0">
-            <thy-loading [thyDone]="!node.isLoading"></thy-loading>
-        </ng-container>
         <ng-template
             *ngIf="node.children.length === 0 && !node.isLoading"
             [ngTemplateOutlet]="emptyChildrenTemplateRef"
@@ -72,5 +69,8 @@
             (thyOnExpandChange)="thyOnExpandChange.emit($event)"
         >
         </thy-tree-node>
+        <ng-container *ngIf="thyAsync">
+            <thy-loading [thyDone]="!node.isLoading"></thy-loading>
+        </ng-container>
     </div>
 </ng-container>
