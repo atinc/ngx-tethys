@@ -67,6 +67,7 @@ export class ThySlideContainerComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        this.slideClass = this.thySlideOption.hasBackdrop;
         this.flyInOut = this.thySlideOption.from;
         this.thySlideContainerClass = this.thySlideOption.class;
         setTimeout(() => {

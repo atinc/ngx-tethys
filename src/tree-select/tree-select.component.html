@@ -1,6 +1,6 @@
 <div cdkOverlayOrigin #origin="cdkOverlayOrigin" class="form-control form-control-custom" [class.thy-select-selection]="!thyMultiple" [ngClass]="thySize ? 'form-control-' + thySize : ''"
     [class.disabled]="thyDisable" (click)="openSelectPop()">
-    <div *ngIf="!thyMultiple">
+    <div *ngIf="!thyMultiple" class="thy-tree-select-selection-text">
         <span *ngIf="selectedNode && !thyTreeSelectTriggerDisplayRef">{{getShowNodeName()}}</span>
         <ng-container *ngIf="selectedNode && thyTreeSelectTriggerDisplayRef" [ngTemplateOutlet]="thyTreeSelectTriggerDisplayRef"
             [ngTemplateOutletContext]="{$implicit:selectedNode}"></ng-container>

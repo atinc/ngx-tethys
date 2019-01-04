@@ -30,6 +30,7 @@ import {
     ConnectionPositionPair
 } from '@angular/cdk/overlay';
 import { DEFAULT_4_POSITIONS, DEFAULT_DROPDOWN_POSITIONS, EXPANDED_DROPDOWN_POSITIONS } from '../core/overlay/overlay-opsition-map';
+import { ThyTreeNode } from '../tree/tree.class';
 
 const MAT_SELECT_SCROLL_STRATEGY = new InjectionToken<() => ScrollStrategy>(
     'MAT_SELECT_SCROLL_STRATEGY'
@@ -408,11 +409,17 @@ export class ThyTreeSelectComponent
         const result = this.thyGetNodeChildren(node);
         if (result && result.subscribe) {
             result.pipe().subscribe((data: ThyTreeSelectNode[]) => {
-                this.flattenTreeNodes = this.flattenNodes(
+                const nodes = this.flattenNodes(
                     data,
                     this.flattenTreeNodes,
                     [...node.parentValues, node[this.thyPrimaryKey]]
                 );
+               const otherNodes = nodes.filter((item: ThyTreeNode) => {
+                    return !this.flattenTreeNodes.find((hasItem) => {
+                        return hasItem[this.thyPrimaryKey] === item[this.thyPrimaryKey];
+                    });
+                });
+                this.flattenTreeNodes = [...this.flattenTreeNodes, ...otherNodes];
                 node.children = data;
             });
         }

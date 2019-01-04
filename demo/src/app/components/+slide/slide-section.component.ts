@@ -12,6 +12,8 @@ export class DemoSlideSectionComponent {
 
     public thySlideClass = 'thy-slide';
 
+    public hasBackdrop = true;
+
     public apiThySlideParameters = [
         {
             property: 'key',
@@ -30,6 +32,12 @@ export class DemoSlideSectionComponent {
             description: 'slide 上的样式,可以控制 Slide 的 height,width,top,left...',
             type: 'string',
             default: 'thy-slide'
+        },
+        {
+            property: 'hasBackdrop',
+            description: 'slide 弹出时，是否有幕布.',
+            type: 'boolean',
+            default: 'true'
         }
     ];
 
@@ -57,6 +65,7 @@ export class DemoSlideSectionComponent {
             key: key,
             from: this.thySlideFrom, // 'left','right','top','bottom'
             class: this.thySlideClass,
+            hasBackdrop: this.hasBackdrop,
             initialState: { name: 'slide' }
         });
     }
