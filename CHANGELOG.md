@@ -3,6 +3,7 @@
 
 ## 0.2.27
 `thy-slide` 增加参数 `hasBackdrop` 支持幕布的显示隐藏
+`thy-tree-select` 弹出样式的修改
 
 ## 0.2.26
 `thy-tree-select` 组件增加 `[thyChildCountKey]` 支持根据该字段判断是否有子节点
