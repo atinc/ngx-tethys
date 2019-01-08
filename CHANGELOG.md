@@ -1,5 +1,10 @@
 
 
+## 0.2.29
+修改 cdk `overlay`的`z-index`大于`modal`的`z-index`，避免在`modal`中弹出选择框，选择框被`modal`框遮盖
+
+## 0.2.28
+修改 `thy-breadcrumb` 组件样式，支持换肤
 
 ## 0.2.27
 `thy-slide` 增加参数 `hasBackdrop` 支持幕布的显示隐藏
