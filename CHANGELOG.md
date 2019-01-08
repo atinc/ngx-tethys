@@ -1,3 +1,28 @@
+
+## 0.2.30
+bugfix： `thyFileDrop` 拖拽失效
+
+## 0.2.29
+修改 cdk `overlay`的`z-index`大于`modal`的`z-index`，避免在`modal`中弹出选择框，选择框被`modal`框遮盖
+
+## 0.2.28
+修改 `thy-breadcrumb` 组件样式，支持换肤
+
+## 0.2.27
+`thy-slide` 增加参数 `hasBackdrop` 支持幕布的显示隐藏
+`thy-tree-select` 弹出样式的修改
+
+## 0.2.26
+`thy-tree-select` 组件增加 `[thyChildCountKey]` 支持根据该字段判断是否有子节点
+
+## 0.2.25
+增加 `thy-breadcrumb` 面包屑组件
+`thy-tree-select` 组件基本功能完成
+
+## 0.2.24
+修改 `thy-tree` loading 加载位置错误的bug
+修改 `thyContextMenu` 指令使用ngZone.runOutside后 回调事件没调用ngZone.run的问题
+
 ## 0.2.23
 `[thyFileSelect],thy-file-select` 组件增加 `thyAcceptFolder` 支持选择文件夹类型。Fixed `thyMultiple` false 失效 BUG。
 

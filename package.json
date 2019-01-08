@@ -1,6 +1,6 @@
 {
     "name": "ngx-tethys",
-    "version": "0.2.23",
+    "version": "0.2.30",
     "license": "MIT",
     "scripts": {
         "build": "npm run build:ngm",
@@ -10,6 +10,7 @@
         "build:ngm": "ngm build -p src --clean",
         "build:theme": "gulp build-theme",
         "build:theme:watch": "npm run build:theme && gulp build-theme:watch",
+        "publish": "npm run build && cd ./built && npm publish && cd ..",
         "ng": "ng",
         "start": "npm run build:theme && concurrently \"ng serve --port 8888 --host 0.0.0.0\" \"gulp build-theme:watch\"",
         "build:demo": "npm run build:docs",

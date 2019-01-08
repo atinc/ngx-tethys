@@ -100,6 +100,7 @@ export class DemoTreeSectionComponent {
     }
 
     public loadTreeNodes(event: { node: ThyTreeNode }) {
+        event.node.setLoading(true);
         setTimeout(() => {
             event.node.addChildren([
                 {

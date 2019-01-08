@@ -10,3 +10,8 @@
         }
     }
 }
+.thy-tree-select-selection-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

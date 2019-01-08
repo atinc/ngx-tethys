@@ -1,5 +1,5 @@
 <div class="thy-select-container h-100 bg-white">
-    <div class="thy-select-custom-options thy-tree-select-pop">
+    <div class="thy-select-custom-options thy-tree-select-pop h-100">
         <ng-container *ngIf="treeNodes?.length > 0" [ngTemplateOutlet]="treeSelectNode" [ngTemplateOutletContext]="{$implicit:treeNodes}"></ng-container>
         <div class="thy-tree-select-pop-empty text-muted" *ngIf="treeNodes?.length == 0">{{parent.thyEmptyOptionsText}}</div>
     </div>
@@ -10,7 +10,7 @@
         <ng-container *ngFor="let node of nodes">
             <a class="thy-option-item" [ngClass]="{'active': treeNodeIsSelected(node)}" [class.disabled]="treeNodeIsDisable(node)"
                 [ngStyle]="{'padding-left.px':10*node.level+5}" (click)="selectTreeNode($event,node)" *ngIf="!treeNodeIsHidden(node)">
-                <span class="expand-tree-icon text-info" [class.invisible]="!(node.children?.length > 0 || node.childCount && node.childCount > 0)"
+                <span class="expand-tree-icon text-info" [class.invisible]="!(node.children?.length > 0 || node[childCountKey] && node[childCountKey] > 0)"
                     (click)="nodeExpandToggle($event,node)">
                     <i class="wtf wtf-caret-down" [class.rotate-caret]="!treeNodeIsExpand(node)"></i>
                 </span>

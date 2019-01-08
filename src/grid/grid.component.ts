@@ -209,9 +209,9 @@ export class ThyGridComponent
         ThyGridRowEvent
     >();
 
-    @Output() thyOnRowContextMenu: EventEmitter<ThyGridEvent> = new EventEmitter<
+    @Output() thyOnRowContextMenu: EventEmitter<
         ThyGridEvent
-    >();
+    > = new EventEmitter<ThyGridEvent>();
 
     @ContentChildren(ThyGridColumnComponent)
     set listOfColumnComponents(components: QueryList<ThyGridColumnComponent>) {
@@ -304,7 +304,7 @@ export class ThyGridComponent
 
     private _bindTrackFn() {
         this.trackByFn = function(this: any, index: number, row: any): any {
-            return this.rowKey ? row[this.rowKey] : index;
+            return row && this.rowKey ? row[this.rowKey] : index;
         }.bind(this);
     }
 

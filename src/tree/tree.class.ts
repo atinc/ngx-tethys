@@ -1,6 +1,6 @@
 import { helpers } from '../util';
 
-export class ThyTreeNodeData {
+export interface ThyTreeNodeData {
     key?: number | string;
 
     title?: string;
