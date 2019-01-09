@@ -1,4 +1,6 @@
 
+## 0.2.30
+bugfix： `thyFileDrop` 拖拽失效
 
 ## 未发版
 `form-validator` 错误信息支持占位符 `{min}` `{max}` `{minlength}` `{maxlength}`
