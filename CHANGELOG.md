@@ -1,5 +1,8 @@
 
 
+## 未发版
+`form-validator` 错误信息支持占位符 `{min}` `{max}` `{minlength}` `{maxlength}`
+
 ## 0.2.29
 修改 cdk `overlay`的`z-index`大于`modal`的`z-index`，避免在`modal`中弹出选择框，选择框被`modal`框遮盖
 
