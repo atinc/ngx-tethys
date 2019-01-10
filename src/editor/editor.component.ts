@@ -104,7 +104,9 @@ export class ThyEditorComponent
     writeValue(value: any) {
         this.model = value;
         if (this.model) {
-            this.thyEditorService.setTextareaHeight();
+            setTimeout(() => {
+                this.thyEditorService.setTextareaHeight();
+            });
         }
     }
 
