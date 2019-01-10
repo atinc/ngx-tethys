@@ -31,16 +31,16 @@
             [thySize]="'lg'" style="width:200px;">
         </thy-cascader>
     </div>
-    <p>实时选择中(带默认值)</p>
+    <p>选择即改变(带默认值)</p>
     <div class="body demo-select">
         <thy-cascader [thyOptions]="thyOptions" (ngModelChange)="onChanges($event)" thyPlaceHolder="自定义PlaceHolder"
             [(ngModel)]="ngModel" [thyChangeOnSelect]="true" style="width:200px;">
         </thy-cascader>
     </div>
     <p>Label 使用自定义模板，如：追加邮政编码</p>
-    <div>
+    <div class="body demo-select">
         <thy-cascader [thyOptions]="thyCustomerOptions" (ngModelChange)="onChanges($event)" thyPlaceHolder="自定义label"
-            [(ngModel)]="ngModel" style="width:400px;" [thyLabelRender]="renderTpl">
+            [(ngModel)]="ngModel2" style="width:400px;" [thyLabelRender]="renderTpl">
         </thy-cascader>
         <ng-template #renderTpl let-labels="labels" let-selectedOptions="selectedOptions">
             <ng-container>
@@ -53,5 +53,25 @@
                 </ng-container>
             </ng-container>
         </ng-template>
+    </div>
+    <p>移入触发</p>
+    <div class="body demo-select">
+        <thy-cascader [thyOptions]="thyOptions" (ngModelChange)="onChanges($event)" 
+            thyPlaceHolder="自定义PlaceHolder"
+            [(ngModel)]="ngModel" [thyChangeOnSelect]="true" 
+            style="width:200px;"
+            thyTriggerAction="hover">
+        </thy-cascader>
+    </div>
+
+    <p>移入展开菜单+移入触发</p>
+    <div class="body demo-select">
+        <thy-cascader [thyOptions]="thyOptions" (ngModelChange)="onChanges($event)" 
+            thyPlaceHolder="自定义PlaceHolder"
+            [(ngModel)]="ngModel" 
+            style="width:200px;"
+            thyExpandTriggerAction="hover"
+            thyTriggerAction="hover">
+        </thy-cascader>
     </div>
 </section>
