@@ -48,8 +48,9 @@ export class ThyFileDropComponent implements OnInit {
 
     @HostListener('dragover', ['$event'])
     dragover(event: any) {
-        event.preventDefault();
+        // event.preventDefault();
         this._backToDefaultState();
+        this._state.isNeedCheckTypeAccept = true;
         let isDataTransferAllAccept = true;
         if (this._state.isNeedCheckTypeAccept) {
             if (event.dataTransfer.items.length > 0) {
@@ -59,10 +60,7 @@ export class ThyFileDropComponent implements OnInit {
                     index++
                 ) {
                     const n = event.dataTransfer.items[index];
-                    if (
-                        !n.type ||
-                        this._state.acceptType.indexOf(n.type) === -1
-                    ) {
+                    if (!n.type || n.kind === "string") {
                         isDataTransferAllAccept = false;
                         return;
                     }
@@ -71,6 +69,7 @@ export class ThyFileDropComponent implements OnInit {
         }
         if (isDataTransferAllAccept) {
             this._state.isDragOver = true;
+            event.preventDefault();
         }
         this._toggleDropOverClassName();
     }
@@ -85,7 +84,12 @@ export class ThyFileDropComponent implements OnInit {
 
     @HostListener('drop', ['$event'])
     drop(event: any) {
-        event.preventDefault();
+        // event.preventDefault();
+        if (event.dataTransfer.files.length <= 0) {
+            return;
+        } else {
+            event.preventDefault();
+        }
         if (!this._state.isDragOver) {
             console.error(
                 'ngx-tethys Error: Uploaded files that do not support extensions.'
