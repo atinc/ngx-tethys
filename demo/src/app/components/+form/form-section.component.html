@@ -122,7 +122,7 @@
             </thy-form-group>
 
             <thy-form-group thyLabelText="邮箱" thyLabelRequired thyTips="">
-                <input thyInput email name="email" [(ngModel)]="model.email" required maxlength="10" placeholder="请输入邮箱" />
+                <input thyInput email name="email" [(ngModel)]="model.email" required minlength="5" placeholder="请输入邮箱" />
             </thy-form-group>
 
             <thy-form-group thyLabelText="数字" thyLabelRequired thyTips="">

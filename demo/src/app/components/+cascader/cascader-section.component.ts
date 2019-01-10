@@ -48,6 +48,7 @@ import options from './cascader-address-options';
 export class DemoCascaderSectionComponent implements OnInit {
 
     public ngModel = 'zhejiang';
+    public ngModel2 = 'zhejiang';
     /** init data */
     public thyOptions = null;
 
@@ -65,7 +66,7 @@ export class DemoCascaderSectionComponent implements OnInit {
     }
 
     public onChanges(values: any): void {
-        console.log(this.values);
+        console.log(values);
     }
 
     public handleAreaClick($event, label, selectedOptions) {

@@ -800,7 +800,7 @@ export class ThyEditorService implements OnInit, OnDestroy {
         }
         let _height = this.textareaDom.scrollHeight;
         if (_height > this.options.maxHeight) {
-            _height = this.options.maxHeight + 'px';
+            _height = this.options.maxHeight;
         }
         this.textareaDom.style.height = _height + 'px';
     }
