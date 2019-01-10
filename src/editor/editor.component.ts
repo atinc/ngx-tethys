@@ -12,7 +12,7 @@ import {
     HostListener
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { ThyEditorService,ThyEditorConfig } from './editor.service';
+import { ThyEditorService, ThyEditorConfig } from './editor.service';
 
 @Component({
     selector: 'thy-editor',
@@ -103,6 +103,9 @@ export class ThyEditorComponent
 
     writeValue(value: any) {
         this.model = value;
+        if (this.model) {
+            this.thyEditorService.setTextareaHeight();
+        }
     }
 
     registerOnChange(fn: Function) {
