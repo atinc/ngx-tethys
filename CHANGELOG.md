@@ -1,4 +1,22 @@
 
+## 未发版
+`form-validator` 错误信息支持占位符 `{min}` `{max}` `{minlength}` `{maxlength}`
+
+## 0.2.30
+bugfix： `thyFileDrop` 拖拽失效
+
+## 0.2.29
+修改 cdk `overlay`的`z-index`大于`modal`的`z-index`，避免在`modal`中弹出选择框，选择框被`modal`框遮盖
+
+## 0.2.28
+修改 `thy-breadcrumb` 组件样式，支持换肤
+
+## 0.2.27
+`thy-slide` 增加参数 `hasBackdrop` 支持幕布的显示隐藏
+`thy-tree-select` 弹出样式的修改
+
+## 0.2.26
+`thy-tree-select` 组件增加 `[thyChildCountKey]` 支持根据该字段判断是否有子节点
 
 ## 0.2.25
 增加 `thy-breadcrumb` 面包屑组件

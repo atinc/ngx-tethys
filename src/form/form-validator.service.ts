@@ -2,7 +2,10 @@ import { Injectable } from '@angular/core';
 import { NgForm, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Dictionary } from '../typings';
 import { helpers } from '../util';
-import { ThyFormValidatorLoader } from './form-validator-loader';
+import {
+    ThyFormValidatorLoader,
+    ERROR_VALUE_REPLACE_REGEX
+} from './form-validator-loader';
 import { ThyFormValidatorConfig } from './form.class';
 
 @Injectable()
@@ -78,19 +81,41 @@ export class ThyFormValidatorService {
         }
     }
 
+    private _formatValidationMessage(name: string, message: string) {
+        const control = this._ngForm.controls[name];
+        if (control) {
+            return message.replace(
+                ERROR_VALUE_REPLACE_REGEX,
+                (tag, key) => {
+                    if (key) {
+                        return (
+                            control.errors[key][key] ||
+                            control.errors[key].requiredLength
+                        );
+                    }
+                }
+            );
+        } else {
+            return message;
+        }
+    }
+
     private _getValidationMessage(name: string, validationError: string) {
+        let message = null;
         if (
             this._config &&
             this._config.validationMessages &&
             this._config.validationMessages[name] &&
             this._config.validationMessages[name][validationError]
         ) {
-            return this._config.validationMessages[name][validationError];
+            message = this._config.validationMessages[name][validationError];
+        } else {
+            message = this.thyFormValidateLoader.getErrorMessage(
+                name,
+                validationError
+            );
         }
-        return this.thyFormValidateLoader.getErrorMessage(
-            name,
-            validationError
-        );
+        return this._formatValidationMessage(name, message);
     }
 
     private _getValidationMessages(
@@ -118,7 +143,7 @@ export class ThyFormValidatorService {
         );
     }
 
-    constructor(private thyFormValidateLoader: ThyFormValidatorLoader) { }
+    constructor(private thyFormValidateLoader: ThyFormValidatorLoader) {}
 
     initialize(ngForm: NgForm, formElement: HTMLElement) {
         this._ngForm = ngForm;

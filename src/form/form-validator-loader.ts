@@ -8,6 +8,8 @@ import { Dictionary } from '../typings';
 import { ValidationErrors } from '@angular/forms';
 import { helpers } from '../util';
 
+export const ERROR_VALUE_REPLACE_REGEX = /\{(.+?)\}/g;
+
 const INVALID_CLASS = 'is-invalid';
 const INVALID_FEEDBACK_CLASS = 'invalid-feedback';
 
