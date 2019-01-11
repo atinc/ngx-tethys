@@ -1,43 +1,43 @@
 {
-  "compilerOptions": {
-    "outDir": "../built",
-    "rootDir": "./",
-    "target": "es5",
-    "module": "es2015",
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "sourceMap": true,
-    "inlineSources": true,
-    "noEmitHelpers": false,
-    "noImplicitAny": true,
-    "declaration": true,
-    "skipLibCheck": false,
-    "stripInternal": true,
-    "strictNullChecks": false,
-    "allowSyntheticDefaultImports": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "lib": [
-      "dom",
-      "es6"
+    "compilerOptions": {
+        "outDir": "../built",
+        "rootDir": "./",
+        "target": "es5",
+        "module": "es2015",
+        "moduleResolution": "node",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "sourceMap": true,
+        "inlineSources": true,
+        "noEmitHelpers": false,
+        "noImplicitAny": true,
+        "declaration": true,
+        "skipLibCheck": false,
+        "stripInternal": true,
+        "strictNullChecks": false,
+        "allowSyntheticDefaultImports": true,
+        "suppressImplicitAnyIndexErrors": true,
+        "noUnusedLocals": false,
+        "noUnusedParameters": false,
+        "lib": [
+            "dom",
+            "es6"
+        ],
+        "types": [
+            "jasmine"
+        ]
+    },
+    "exclude": [
+        "node_modules"
     ],
-    "types": [
-      "jasmine"
-    ]
-  },
-  "exclude": [
-    "node_modules"
-  ],
-  "files": [
-    "../scripts/typings.d.ts",
-    "./index.ts"
-  ],
-  "angularCompilerOptions": {
-    "genDir": "../temp/factories",
-    "strictMetadataEmit": false,
-    "skipTemplateCodegen": true,
-    "fullTemplateTypeCheck": true
-  }
+    "files": [
+        "../scripts/typings.d.ts",
+        "./index.ts"
+    ],
+    "angularCompilerOptions": {
+        "genDir": "../temp/factories",
+        "strictMetadataEmit": false,
+        "skipTemplateCodegen": true,
+        "fullTemplateTypeCheck": true
+    }
 }
