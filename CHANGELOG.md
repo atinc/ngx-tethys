@@ -1,5 +1,7 @@
-
 ## 未发版
+`thy-editor` 支持默认自动伸缩高度, 
+
+## 0.2.31 
 `form-validator` 错误信息支持占位符 `{min}` `{max}` `{minlength}` `{maxlength}`
 
 ## 0.2.30
