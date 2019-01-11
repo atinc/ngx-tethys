@@ -89,7 +89,7 @@ const IMPORT_EXPORT_MODULES = [
     ThyStepperModule,
     ThyCascaderModule,
     ThyDialogModule,
-    ThyBreadcrumbModule,
+    ThyBreadcrumbModule
 ];
 
 @NgModule({
