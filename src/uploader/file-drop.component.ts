@@ -45,27 +45,20 @@ export class ThyFileDropComponent implements OnInit {
     // @HostListener('dragenter', ['$event'])
     dragenter(event: any) {
         event.preventDefault();
+        const items = event.dataTransfer.items;
+        if (items.length > 0) {
+            if (items[0].kind !== 'file' || items[0].type === '') {
+                return;
+            }
+        }
         this.ngZone.run(() => {
             this._backToDefaultState();
             let isDataTransferAllAccept = true;
-            // if (this._state.isNeedCheckTypeAccept) {
-            //     if (event.dataTransfer.items.length > 0) {
-            //         for (let index = 0; index < event.dataTransfer.items.length; index++) {
-            //             const n = event.dataTransfer.items[index];
-            //             if (!n.type || this._state.acceptType.indexOf(n.type) === -1 || n.kind === 'string') {
-            //                 isDataTransferAllAccept = false;
-            //                 return;
-            //             }
-            //         }
-            //     }
-            // }
             if (this._state.isNeedCheckTypeAccept) {
-                isDataTransferAllAccept = true;
-            } else {
                 if (event.dataTransfer.items.length > 0) {
-                    for (var index = 0; index < event.dataTransfer.items.length; index++) {
-                        var n = event.dataTransfer.items[index];
-                        if (!n.type || n.kind !== 'file') {
+                    for (let index = 0; index < event.dataTransfer.items.length; index++) {
+                        const n = event.dataTransfer.items[index];
+                        if (!n.type || this._state.acceptType.indexOf(n.type) === -1) {
                             isDataTransferAllAccept = false;
                             return;
                         }
