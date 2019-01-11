@@ -7,7 +7,8 @@ import {
     Output,
     EventEmitter,
     HostBinding,
-    Input
+    Input,
+    NgZone
 } from '@angular/core';
 import { mimeTypeConvert } from './util';
 
@@ -40,69 +41,86 @@ export class ThyFileDropComponent implements OnInit {
         return this._state.isDragOver;
     }
 
-    constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
+    constructor(
+        private elementRef: ElementRef,
+        private renderer: Renderer2,
+        private ngZone: NgZone,
+        ) {}
 
     ngOnInit(): void {
         this._state.isCustomClassName = !!this.thyFileDropClassName;
+        this.ngZone.runOutsideAngular(() => {
+            this.renderer.listen(this.elementRef.nativeElement, 'dragenter', this.dragenter.bind(this));
+            this.renderer.listen(this.elementRef.nativeElement, 'dragover', this.dragover.bind(this));
+            this.renderer.listen(this.elementRef.nativeElement, 'dragleave', this.dragleave.bind(this));
+            this.renderer.listen(this.elementRef.nativeElement, 'drop', this.drop.bind(this));
+        });
     }
 
-    @HostListener('dragover', ['$event'])
-    dragover(event: any) {
-        // event.preventDefault();
-        this._backToDefaultState();
-        this._state.isNeedCheckTypeAccept = true;
-        let isDataTransferAllAccept = true;
-        if (this._state.isNeedCheckTypeAccept) {
-            if (event.dataTransfer.items.length > 0) {
-                for (
-                    let index = 0;
-                    index < event.dataTransfer.items.length;
-                    index++
-                ) {
-                    const n = event.dataTransfer.items[index];
-                    if (!n.type || n.kind === "string") {
-                        isDataTransferAllAccept = false;
-                        return;
+    // @HostListener('dragenter', ['$event'])
+    dragenter(event: any) {
+        event.preventDefault();
+        this.ngZone.run(() => {
+            this._backToDefaultState();
+            let isDataTransferAllAccept = true;
+            if (this._state.isNeedCheckTypeAccept) {
+                if (event.dataTransfer.items.length > 0) {
+                    for (
+                        let index = 0;
+                        index < event.dataTransfer.items.length;
+                        index++
+                    ) {
+                        const n = event.dataTransfer.items[index];
+                        if (
+                            !n.type ||
+                            this._state.acceptType.indexOf(n.type) === -1
+                        ) {
+                            isDataTransferAllAccept = false;
+                            return;
+                        }
                     }
                 }
             }
-        }
-        if (isDataTransferAllAccept) {
-            this._state.isDragOver = true;
-            event.preventDefault();
-        }
-        this._toggleDropOverClassName();
+            if (isDataTransferAllAccept) {
+                this._state.isDragOver = true;
+            }
+            this._toggleDropOverClassName();
+        });
     }
 
-    @HostListener('dragleave', ['$event'])
+    // @HostListener('dragover', ['$event'])
+    dragover(event: any) {
+        event.preventDefault();
+    }
+
+    // @HostListener('dragleave', ['$event'])
     dragleave(event: any) {
-        if (!this.elementRef.nativeElement.contains(event.fromElement)) {
+        this.ngZone.run(() => {
+            if (!this.elementRef.nativeElement.contains(event.fromElement)) {
+                this._backToDefaultState();
+                this._toggleDropOverClassName();
+            }
+        });
+    }
+
+    // @HostListener('drop', ['$event'])
+    drop(event: any) {
+        event.preventDefault();
+        this.ngZone.run(() => {
+            if (!this._state.isDragOver) {
+                console.error(
+                    'ngx-tethys Error: Uploaded files that do not support extensions.'
+                );
+                return;
+            }
+
+            this.thyOnDrop.emit({
+                files: event.dataTransfer.files,
+                nativeEvent: event
+            });
             this._backToDefaultState();
             this._toggleDropOverClassName();
-        }
-    }
-
-    @HostListener('drop', ['$event'])
-    drop(event: any) {
-        // event.preventDefault();
-        if (event.dataTransfer.files.length <= 0) {
-            return;
-        } else {
-            event.preventDefault();
-        }
-        if (!this._state.isDragOver) {
-            console.error(
-                'ngx-tethys Error: Uploaded files that do not support extensions.'
-            );
-            return;
-        }
-
-        this.thyOnDrop.emit({
-            files: event.dataTransfer.files,
-            nativeEvent: event
         });
-        this._backToDefaultState();
-        this._toggleDropOverClassName();
     }
 
     private _toggleDropOverClassName() {
