@@ -48,12 +48,24 @@ export class ThyFileDropComponent implements OnInit {
         this.ngZone.run(() => {
             this._backToDefaultState();
             let isDataTransferAllAccept = true;
-            this._state.isNeedCheckTypeAccept = true;
+            // if (this._state.isNeedCheckTypeAccept) {
+            //     if (event.dataTransfer.items.length > 0) {
+            //         for (let index = 0; index < event.dataTransfer.items.length; index++) {
+            //             const n = event.dataTransfer.items[index];
+            //             if (!n.type || this._state.acceptType.indexOf(n.type) === -1 || n.kind === 'string') {
+            //                 isDataTransferAllAccept = false;
+            //                 return;
+            //             }
+            //         }
+            //     }
+            // }
             if (this._state.isNeedCheckTypeAccept) {
+                isDataTransferAllAccept = true;
+            } else {
                 if (event.dataTransfer.items.length > 0) {
-                    for (let index = 0; index < event.dataTransfer.items.length; index++) {
-                        const n = event.dataTransfer.items[index];
-                        if (!n.type || this._state.acceptType.indexOf(n.type) === -1 || n.kind === 'string') {
+                    for (var index = 0; index < event.dataTransfer.items.length; index++) {
+                        var n = event.dataTransfer.items[index];
+                        if (!n.type || n.kind !== 'file') {
                             isDataTransferAllAccept = false;
                             return;
                         }
