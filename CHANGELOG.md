@@ -1,5 +1,6 @@
 ## 未发版
 `thy-editor` 支持默认自动伸缩高度, 
+`thyFileDrop` 禁止上传文件夹、无后缀文件。修复拖拽区域中包含其他拖拽排序导致的交叉影响。
 
 ## 0.2.31 
 `form-validator` 错误信息支持占位符 `{min}` `{max}` `{minlength}` `{maxlength}`
