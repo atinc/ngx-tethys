@@ -55,9 +55,9 @@ export class ThyFileDropComponent implements OnInit {
             this._backToDefaultState();
             let isDataTransferAllAccept = true;
             if (this._state.isNeedCheckTypeAccept) {
-                if (event.dataTransfer.items.length > 0) {
-                    for (let index = 0; index < event.dataTransfer.items.length; index++) {
-                        const n = event.dataTransfer.items[index];
+                if (items.length > 0) {
+                    for (let index = 0; index < items.length; index++) {
+                        const n = items[index];
                         if (!n.type || this._state.acceptType.indexOf(n.type) === -1) {
                             isDataTransferAllAccept = false;
                             return;
