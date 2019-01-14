@@ -90,14 +90,89 @@ export class ThyFileDropComponent implements OnInit {
     // @HostListener('drop', ['$event'])
     drop(event: any) {
         event.preventDefault();
+        const df = event.dataTransfer;
+        let dropFiles: File[]; // 拖拽的文件，会放到这里
+        let dealFileCnt = 0; // 读取文件是个异步的过程，需要记录处理了多少个文件了
+        let allFileLen = df.files.length; // 所有的文件的数量，给非Chrome浏览器使用的变量
+
+        // 检测是否已经把所有的文件都遍历过了
+        function checkDropFinish() {
+            if (dealFileCnt === allFileLen - 1) {
+                this.getDropFileCallBack(dropFiles);
+            }
+            dealFileCnt++;
+        }
+
+        if (df.items !== undefined) {
+            // Chrome拖拽文件逻辑
+            for (var i = 0; i < df.items.length; i++) {
+                var item = df.items[i];
+                if (item.kind === 'file' && item.webkitGetAsEntry().isFile) {
+                    var file = item.getAsFile();
+                    dropFiles.push(file);
+                    console.log(file);
+                }
+            }
+        } else {
+            // 非Chrome拖拽文件逻辑
+            for (var i = 0; i < allFileLen; i++) {
+                const dropFile = df.files[i];
+                if (dropFile.type) {
+                    dropFiles.push(dropFile);
+                    checkDropFinish();
+                } else {
+                    try {
+                        var fileReader = new FileReader();
+                        fileReader.readAsDataURL(dropFile.slice(0, 3));
+
+                        fileReader.addEventListener(
+                            'load',
+                            function(e) {
+                                console.log(e, 'load');
+                                dropFiles.push(dropFile);
+                                checkDropFinish();
+                            },
+                            false
+                        );
+
+                        fileReader.addEventListener(
+                            'error',
+                            function(e) {
+                                console.log(e, 'error，不可以上传文件夹');
+                                checkDropFinish();
+                            },
+                            false
+                        );
+                    } catch (e) {
+                        console.log(e, 'catch error，不可以上传文件夹');
+                        checkDropFinish();
+                    }
+                }
+            }
+        }
+
+        // this.ngZone.run(() => {
+        //     if (!this._state.isDragOver) {
+        //         console.error('ngx-tethys Error: Uploaded files that do not support extensions.');
+        //         return;
+        //     }
+        //     this.thyOnDrop.emit({
+        //         files: event.dataTransfer.files,
+        //         nativeEvent: event
+        //     });
+        //     this._backToDefaultState();
+        //     this._toggleDropOverClassName();
+        // });
+    }
+    // 获得拖拽文件的回调函数
+    private getDropFileCallBack(dropFiles: File[]) {
         this.ngZone.run(() => {
             if (!this._state.isDragOver) {
                 console.error('ngx-tethys Error: Uploaded files that do not support extensions.');
                 return;
             }
-
             this.thyOnDrop.emit({
-                files: event.dataTransfer.files,
+                files: dropFiles,
                 nativeEvent: event
             });
             this._backToDefaultState();
