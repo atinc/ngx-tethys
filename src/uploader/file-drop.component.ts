@@ -1,15 +1,4 @@
-import {
-    Component,
-    OnInit,
-    ElementRef,
-    Renderer2,
-    HostListener,
-    Output,
-    EventEmitter,
-    HostBinding,
-    Input,
-    NgZone
-} from '@angular/core';
+import { Component, OnInit, ElementRef, Renderer2, HostListener, Output, EventEmitter, HostBinding, Input, NgZone } from '@angular/core';
 import { mimeTypeConvert } from './util';
 
 @Component({
@@ -41,11 +30,7 @@ export class ThyFileDropComponent implements OnInit {
         return this._state.isDragOver;
     }
 
-    constructor(
-        private elementRef: ElementRef,
-        private renderer: Renderer2,
-        private ngZone: NgZone,
-        ) {}
+    constructor(private elementRef: ElementRef, private renderer: Renderer2, private ngZone: NgZone) {}
 
     ngOnInit(): void {
         this._state.isCustomClassName = !!this.thyFileDropClassName;
@@ -60,21 +45,20 @@ export class ThyFileDropComponent implements OnInit {
     // @HostListener('dragenter', ['$event'])
     dragenter(event: any) {
         event.preventDefault();
+        const items = event.dataTransfer.items;
+        if (items.length > 0) {
+            if (items[0].kind !== 'file' || items[0].type === '') {
+                return;
+            }
+        }
         this.ngZone.run(() => {
             this._backToDefaultState();
             let isDataTransferAllAccept = true;
             if (this._state.isNeedCheckTypeAccept) {
-                if (event.dataTransfer.items.length > 0) {
-                    for (
-                        let index = 0;
-                        index < event.dataTransfer.items.length;
-                        index++
-                    ) {
-                        const n = event.dataTransfer.items[index];
-                        if (
-                            !n.type ||
-                            this._state.acceptType.indexOf(n.type) === -1
-                        ) {
+                if (items.length > 0) {
+                    for (let index = 0; index < items.length; index++) {
+                        const n = items[index];
+                        if (!n.type || this._state.acceptType.indexOf(n.type) === -1) {
                             isDataTransferAllAccept = false;
                             return;
                         }
@@ -108,9 +92,7 @@ export class ThyFileDropComponent implements OnInit {
         event.preventDefault();
         this.ngZone.run(() => {
             if (!this._state.isDragOver) {
-                console.error(
-                    'ngx-tethys Error: Uploaded files that do not support extensions.'
-                );
+                console.error('ngx-tethys Error: Uploaded files that do not support extensions.');
                 return;
             }
 
@@ -126,15 +108,9 @@ export class ThyFileDropComponent implements OnInit {
     private _toggleDropOverClassName() {
         if (this._state.isCustomClassName) {
             if (this._state.isDragOver) {
-                this.renderer.addClass(
-                    this.elementRef.nativeElement,
-                    this.thyFileDropClassName
-                );
+                this.renderer.addClass(this.elementRef.nativeElement, this.thyFileDropClassName);
             } else {
-                this.renderer.removeClass(
-                    this.elementRef.nativeElement,
-                    this.thyFileDropClassName
-                );
+                this.renderer.removeClass(this.elementRef.nativeElement, this.thyFileDropClassName);
             }
         }
     }
