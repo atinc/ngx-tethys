@@ -66,11 +66,9 @@
     }
 
     // Thy Custom
-    &:not(:disabled):not(.disabled):not(:invalid):not(.is-invalid) {
-        @include hover {
-            border-color: $input-hover-border-color;
-        }
-    }
+    // fix bug about form-control state is invalid can't show hover style
+    // 修复当元素有 required 验证时，鼠标移动上去没有边框颜色的 Bug， 因为元素是 invalid 状态
+    @include set-input-hover-border($input-hover-border-color);
 }
 
 // select.form-control {
