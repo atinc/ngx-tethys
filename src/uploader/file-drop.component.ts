@@ -48,16 +48,11 @@ export class ThyFileDropComponent implements OnInit {
         this.ngZone.run(() => {
             this._backToDefaultState();
             let isDataTransferAllAccept = true;
-            const items = event.dataTransfer.items;
-            if (items.length > 0) {
-                if (items[0].kind !== 'file' || items[0].type === '') {
-                    return;
-                }
-            }
+            this._dfItems(event);
             if (this._state.isNeedCheckTypeAccept) {
-                if (items.length > 0) {
-                    for (let index = 0; index < items.length; index++) {
-                        const n = items[index];
+                if (event.dataTransfer.items.length > 0) {
+                    for (let index = 0; index < event.dataTransfer.items.length; index++) {
+                        const n = event.dataTransfer.items[index];
                         if (!n.type || this._state.acceptType.indexOf(n.type) === -1) {
                             isDataTransferAllAccept = false;
                             return;
@@ -91,12 +86,7 @@ export class ThyFileDropComponent implements OnInit {
     drop(event: any) {
         event.preventDefault();
         this.ngZone.run(() => {
-            const items = event.dataTransfer.items;
-            if (items.length > 0) {
-                if (items[0].kind !== 'file' || items[0].type === '') {
-                    return;
-                }
-            }
+            this._dfItems(event);
             if (!this._state.isDragOver) {
                 console.error('ngx-tethys Error: Uploaded files that do not support extensions.');
                 return;
@@ -123,5 +113,14 @@ export class ThyFileDropComponent implements OnInit {
 
     private _backToDefaultState() {
         this._state.isDragOver = false;
+    }
+
+    private _dfItems(event: any){
+        const items = event.dataTransfer.items;
+            if (items.length > 0) {
+                if (items[0].kind !== 'file' || items[0].type === '') {
+                    return;
+                }
+            }
     }
 }
