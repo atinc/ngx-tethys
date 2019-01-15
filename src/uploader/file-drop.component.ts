@@ -1,5 +1,7 @@
-import { Component, OnInit, ElementRef, Renderer2, HostListener, Output, EventEmitter, HostBinding, Input, NgZone } from '@angular/core';
+import { Component, OnInit, ElementRef, Renderer2, Output, EventEmitter, HostBinding, Input, NgZone, OnDestroy } from '@angular/core';
 import { mimeTypeConvert } from './util';
+import { fromEvent, Subject } from 'rxjs';
+import { takeUntil, filter, map, mapTo, tap, debounceTime, auditTime } from 'rxjs/operators';
 
 @Component({
     selector: '[thyFileDrop]',
@@ -7,7 +9,7 @@ import { mimeTypeConvert } from './util';
         <ng-content></ng-content>
     `
 })
-export class ThyFileDropComponent implements OnInit {
+export class ThyFileDropComponent implements OnInit, OnDestroy {
     _state = {
         isDragOver: false,
         isCustomClassName: false,
@@ -30,79 +32,100 @@ export class ThyFileDropComponent implements OnInit {
         return this._state.isDragOver;
     }
 
+    private ngUnsubscribe$ = new Subject();
+
     constructor(private elementRef: ElementRef, private renderer: Renderer2, private ngZone: NgZone) {}
 
     ngOnInit(): void {
         this._state.isCustomClassName = !!this.thyFileDropClassName;
         this.ngZone.runOutsideAngular(() => {
-            this.renderer.listen(this.elementRef.nativeElement, 'dragenter', this.dragenter.bind(this));
-            this.renderer.listen(this.elementRef.nativeElement, 'dragover', this.dragover.bind(this));
-            this.renderer.listen(this.elementRef.nativeElement, 'dragleave', this.dragleave.bind(this));
-            this.renderer.listen(this.elementRef.nativeElement, 'drop', this.drop.bind(this));
-        });
-    }
+            fromEvent(this.elementRef.nativeElement, 'dragenter')
+                .pipe(
+                    takeUntil(this.ngUnsubscribe$),
+                    tap((event: any) => {
+                        event.preventDefault();
+                    }),
+                    filter(event => event.dataTransfer.items && event.dataTransfer.items.length > 0),
+                    filter(this.checkRejectFolderAndHtmlElement.bind(this)),
+                    filter(this.checkOptionAcceptType.bind(this))
+                )
+                .subscribe(() => {
+                    this.ngZone.run(() => {
+                        this._state.isDragOver = true;
+                        this._toggleDropOverClassName();
+                    });
+                });
 
-    // @HostListener('dragenter', ['$event'])
-    dragenter(event: any) {
-        event.preventDefault();
-        const items = event.dataTransfer.items;
-        if (items.length > 0) {
-            if (items[0].kind !== 'file' || items[0].type === '') {
-                return;
-            }
-        }
-        this.ngZone.run(() => {
-            this._backToDefaultState();
-            let isDataTransferAllAccept = true;
-            if (this._state.isNeedCheckTypeAccept) {
-                if (items.length > 0) {
-                    for (let index = 0; index < items.length; index++) {
-                        const n = items[index];
-                        if (!n.type || this._state.acceptType.indexOf(n.type) === -1) {
-                            isDataTransferAllAccept = false;
+            fromEvent(this.elementRef.nativeElement, 'dragover')
+                .pipe(takeUntil(this.ngUnsubscribe$))
+                .subscribe((event: any) => {
+                    event.preventDefault();
+                });
+
+            fromEvent(this.elementRef.nativeElement, 'dragleave')
+                .pipe(takeUntil(this.ngUnsubscribe$))
+                .subscribe((event: any) => {
+                    this.ngZone.run(() => {
+                        if (!this.elementRef.nativeElement.contains(event.fromElement)) {
+                            this._backToDefaultState();
+                            this._toggleDropOverClassName();
+                        }
+                    });
+                });
+
+            fromEvent(this.elementRef.nativeElement, 'drop')
+                .pipe(
+                    takeUntil(this.ngUnsubscribe$),
+                    tap((event: any) => {
+                        event.preventDefault();
+                    }),
+                    filter(event => event.dataTransfer.files && event.dataTransfer.files.length > 0),
+                    filter(this.checkRejectFolderAndHtmlElement.bind(this)),
+                    filter(this.checkOptionAcceptType.bind(this))
+                )
+                .subscribe((event: any) => {
+                    this.ngZone.run(() => {
+                        if (!this._state.isDragOver) {
+                            console.error('ngx-tethys Error: Uploaded files that do not support extensions.');
                             return;
                         }
-                    }
+
+                        this.thyOnDrop.emit({
+                            files: event.dataTransfer.files,
+                            nativeEvent: event
+                        });
+                        this._backToDefaultState();
+                        this._toggleDropOverClassName();
+                    });
+                });
+        });
+    }
+
+    private checkRejectFolderAndHtmlElement(event: any) {
+        // 排除文件夹和HTML元素拖拽
+        const items = event.dataTransfer.items;
+        let res = true;
+        for (let index = 0; index < items.length; index++) {
+            const element = items[index];
+            if (element.kind !== 'file' || element.type === '') {
+                res = false;
+            }
+        }
+        return res;
+    }
+
+    private checkOptionAcceptType(event: any) {
+        const items = event.dataTransfer.items;
+        let res = true;
+        if (this._state.isNeedCheckTypeAccept) {
+            for (let index = 0; index < items.length; index++) {
+                const element = items[index];
+                if (this._state.acceptType.indexOf(element.type) === -1) {
+                    res = false;
                 }
             }
-            if (isDataTransferAllAccept) {
-                this._state.isDragOver = true;
-            }
-            this._toggleDropOverClassName();
-        });
-    }
-
-    // @HostListener('dragover', ['$event'])
-    dragover(event: any) {
-        event.preventDefault();
-    }
-
-    // @HostListener('dragleave', ['$event'])
-    dragleave(event: any) {
-        this.ngZone.run(() => {
-            if (!this.elementRef.nativeElement.contains(event.fromElement)) {
-                this._backToDefaultState();
-                this._toggleDropOverClassName();
-            }
-        });
-    }
-
-    // @HostListener('drop', ['$event'])
-    drop(event: any) {
-        event.preventDefault();
-        this.ngZone.run(() => {
-            if (!this._state.isDragOver) {
-                console.error('ngx-tethys Error: Uploaded files that do not support extensions.');
-                return;
-            }
-
-            this.thyOnDrop.emit({
-                files: event.dataTransfer.files,
-                nativeEvent: event
-            });
-            this._backToDefaultState();
-            this._toggleDropOverClassName();
-        });
+        }
+        return res;
     }
 
     private _toggleDropOverClassName() {
@@ -117,5 +140,10 @@ export class ThyFileDropComponent implements OnInit {
 
     private _backToDefaultState() {
         this._state.isDragOver = false;
+    }
+
+    ngOnDestroy(): void {
+        this.ngUnsubscribe$.next();
+        this.ngUnsubscribe$.complete();
     }
 }
