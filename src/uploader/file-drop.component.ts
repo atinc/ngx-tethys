@@ -53,6 +53,7 @@ export class ThyFileDropComponent implements OnInit {
                 return;
             }
             let isDataTransferAllAccept = true;
+            
             if (this._state.isNeedCheckTypeAccept) {
                 if (event.dataTransfer.items.length > 0) {
                     for (let index = 0; index < event.dataTransfer.items.length; index++) {
@@ -89,10 +90,6 @@ export class ThyFileDropComponent implements OnInit {
     // @HostListener('drop', ['$event'])
     drop(event: any) {
         event.preventDefault();
-        this._dfItems(event);
-        if (this._state.isOn) {
-            return;
-        }
         this.ngZone.run(() => {
             this._dfItems(event);
             if (!this._state.isDragOver) {
@@ -123,14 +120,14 @@ export class ThyFileDropComponent implements OnInit {
         this._state.isDragOver = false;
     }
 
-    private _dfItems(event: any) {
+    private _dfItems(event: any){
         const items = event.dataTransfer.items;
-        if (items.length > 0) {
-            if (items[0].kind !== 'file' || items[0].type === '') {
-                this._state.isOn = true;
-            } else {
-                this._state.isOn = false;
+            if (items.length > 0) {
+                if (items[0].kind !== 'file' || items[0].type === '') {
+                    this._state.isOn = true;
+                } else {
+                    this._state.isOn = false;
+                }
             }
-        }
     }
 }
