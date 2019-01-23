@@ -43,6 +43,7 @@ import { DemoStepperSectionComponent } from './components/+stepper/stepper-secti
 import { DemoCascaderSectionComponent } from './components/+cascader/cascader-section.component';
 import { DemoDialogSectionComponent } from './components/+dialog/dialog-section.component';
 import { DemoBreadcrumbSectionComponent } from './components/+breadcrumb/breadcrumb-section.component';
+import { DemoMenuSectionComponent } from './components/+menu/menu-section.component';
 
 const appRoutes = [
     {
@@ -100,6 +101,10 @@ const appRoutes = [
     {
         path: 'components/nav',
         component: DemoNavSectionComponent
+    },
+    {
+        path: 'components/menu',
+        component: DemoMenuSectionComponent
     },
     {
         path: 'components/modal',

@@ -56,7 +56,7 @@ import { DemoCascaderSectionComponent } from './+cascader/cascader-section.compo
 import { DemoDialogSectionComponent } from './+dialog/dialog-section.component';
 import { DemoDialogContentComponent } from './+dialog/dialog-content.component';
 import { DemoBreadcrumbSectionComponent } from './+breadcrumb/breadcrumb-section.component';
-
+import { DemoMenuSectionComponent } from './+menu/menu-section.component';
 
 export const COMPONENTS = [
     DemoPopBoxSectionComponent,
@@ -80,6 +80,7 @@ export const COMPONENTS = [
     DemoLayoutSectionComponent,
     DemoNotifySectionComponent,
     DemoNavSectionComponent,
+    DemoMenuSectionComponent,
     DemoModalSectionComponent,
     DemoCardSectionComponent,
     DemoConfirmSectionComponent,

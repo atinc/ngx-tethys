@@ -8,6 +8,7 @@ import { ThyAvatarModule } from './avatar';
 import { ThyBadgeModule } from './badge/badge.module';
 import { ThyLabelModule } from './label/label.module';
 import { ThyNavModule } from './nav/nav.module';
+import { ThyMenuModule } from './menu/menu.module';
 import { ThyPaginationModule } from './pagination/pagination.module';
 import { ThyModalModule } from './modal/modal.module';
 import { ThyCardModule } from './card/card.module';
@@ -43,6 +44,7 @@ import { ThyStepperModule } from './stepper';
 import { ThyCascaderModule } from './cascader';
 import { ThyDialogModule } from './dialog';
 import { ThyBreadcrumbModule } from './breadcrumb';
+import { from } from 'rxjs';
 
 const IMPORT_EXPORT_MODULES = [
     BrowserAnimationsModule,
@@ -54,6 +56,7 @@ const IMPORT_EXPORT_MODULES = [
     ThyAvatarModule,
     ThyLabelModule,
     ThyNavModule,
+    ThyMenuModule,
     ThyPaginationModule,
     ThyModalModule,
     ThyNotifyModule,
