@@ -1,0 +1,13 @@
+.input-search-container {
+    &.input-search-ellipse {
+        .input-search-control {
+            background: $input-ellipse-background-color;
+            &:not(:disabled) {
+                &:focus {
+                    background: $input-ellipse-hover-focus-background-color;
+                    border-color: $input-ellipse-focus-border-color;
+                }
+            }
+        }
+    }
+}

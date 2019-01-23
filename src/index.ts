@@ -12,3 +12,4 @@ export * from './avatar';
 export * from './uploader';
 export { ThyEditorService } from './editor/editor.service';
 export * from './tree-select';
+export * from './dialog';
