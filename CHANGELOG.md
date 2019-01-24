@@ -1,6 +1,9 @@
 ## 未发布
 `thyMenu`
 
+## 0.2.35
+`ThyMaxDirective`, `ThyMaxDirective` 支持最大或最小值设置浮点数
+
 ## 0.2.34
 `thyFileDrop` bug fixed
 

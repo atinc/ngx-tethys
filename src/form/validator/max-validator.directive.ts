@@ -16,7 +16,7 @@ import {
 export class ThyMaxDirective implements Validator {
     private _validator: ValidatorFn;
     @Input() public set max(value: string) {
-        this._validator = Validators.max(parseInt(value, 10));
+        this._validator = Validators.max(parseFloat(value));
     }
 
     public validate(control: AbstractControl): { [key: string]: any } {
