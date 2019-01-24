@@ -3,6 +3,11 @@ import { ThyMenuModule } from '../menu.module';
 import { NgModule, Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ThyMenuComponent } from '../menu.component';
+import { ThyMenuGroupComponent } from '../group/menu-group.component';
+import { ThyMenuItemComponent } from '../item/menu-item.component';
+import { ThyMenuItemIconComponent } from '../item/icon/menu-item-icon.component';
+import { ThyMenuItemNameComponent } from '../item/name/menu-item-name.component';
+import { ThyMenuItemIconMoreComponent } from '../item/more/menu-item-icon-more.component';
 import { from } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { ThyPopBoxService } from '../../pop-box';
@@ -11,11 +16,12 @@ import { PositioningService } from 'ngx-bootstrap/positioning/index';
 import { ThyPositioningService } from '../../positioning/positioning.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
 describe('ThyMenu', () => {
     let fixture: ComponentFixture<ThyDemoMenuComponent>;
     let basicTestComponent: ThyDemoMenuComponent;
     let thyMenuComponent;
+    let thyMenuGroupComponent;
+    let thyMenuItemComponent;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
@@ -28,13 +34,51 @@ describe('ThyMenu', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(ThyDemoMenuComponent);
         basicTestComponent = fixture.debugElement.componentInstance;
-        thyMenuComponent = fixture.debugElement.queryAll(By.directive(ThyMenuComponent));
-        // console.log(thyMenuComponent[0].nativeElement);
+        thyMenuComponent = fixture.debugElement.query(By.directive(ThyMenuComponent));
+        thyMenuGroupComponent = fixture.debugElement.query(By.directive(ThyMenuGroupComponent));
+        thyMenuItemComponent = fixture.debugElement.queryAll(By.directive(ThyMenuItemComponent));
+
+        // const thyMenuItemIconComponent = fixture.debugElement.queryAll(By.directive(ThyMenuItemIconComponent));
+        // thyMenuItemIconComponent.forEach((icon) => {
+        //     console.log('---');
+        //     console.log(icon.parent.name === 'thy-menu-item');
+        //     // console.log(icon.parent.nativeElement.classList.contains('thy-menu-item'));
+        // });
     });
 
-    it('should have correct class', () => {
+    it('thy-menu should have class: thy-menu', () => {
         fixture.detectChanges();
-        expect(thyMenuComponent[0].nativeElement.classList.contains('thy-menu')).toBe(true);
+        expect(thyMenuComponent.nativeElement.classList.contains('thy-menu')).toBe(true);
+    });
+    it('thy-menu-group should have class: thy-menu-group', () => {
+        fixture.detectChanges();
+        expect(thyMenuGroupComponent.nativeElement.classList.contains('thy-menu-group')).toBe(true);
+    });
+
+    it('thy-menu-group parent must be thy-menu', () => {
+        const thyMenuGroup = fixture.debugElement.queryAll(By.directive(ThyMenuGroupComponent));
+        expect(thyMenuGroup.every(item => item.parent.name === 'thy-menu')).toBe(true);
+    });
+
+
+    it('thy-menu-item should have class: thy-menu-item', () => {
+        fixture.detectChanges();
+        expect(thyMenuItemComponent.every(item => item.nativeElement.classList.contains('thy-menu-item'))).toBe(true);
+    });
+
+    it('thy-menu-item-icon parent must be thy-menu-item', () => {
+        const thyMenuItemIconComponent = fixture.debugElement.queryAll(By.directive(ThyMenuItemIconComponent));
+        expect(thyMenuItemIconComponent.every(item => item.parent.name === 'thy-menu-item')).toBe(true);
+    });
+
+    it('thy-menu-item-name parent must be thy-menu-item', () => {
+        const thyMenuItemNameComponent = fixture.debugElement.queryAll(By.directive(ThyMenuItemNameComponent));
+        expect(thyMenuItemNameComponent.every(item => item.parent.name === 'thy-menu-item')).toBe(true);
+    });
+
+    it('thy-menu-item-icon-more parent must be thy-menu-item', () => {
+        const thyMenuItemIconMoreComponent = fixture.debugElement.queryAll(By.directive(ThyMenuItemIconMoreComponent));
+        expect(thyMenuItemIconMoreComponent.every(item => item.parent.name === 'thy-menu-item')).toBe(true);
     });
 });
 
@@ -59,9 +103,9 @@ describe('ThyMenu', () => {
 class ThyDemoMenuComponent {}
 
 @NgModule({
-    imports: [ThyMenuModule,BrowserAnimationsModule],
+    imports: [ThyMenuModule, BrowserAnimationsModule],
     declarations: [ThyDemoMenuComponent],
     exports: [ThyDemoMenuComponent],
-    providers:[ThyPopBoxService,ComponentLoaderFactory,PositioningService,ThyPositioningService]
+    providers: [ThyPopBoxService, ComponentLoaderFactory, PositioningService, ThyPositioningService]
 })
 export class ThyMenuTestModule {}
