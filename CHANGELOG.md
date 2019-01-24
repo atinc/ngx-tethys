@@ -1,7 +1,9 @@
-## 未发布
-`thyMenu`
+
+## 0.2.36
+npm 发布错误，重新发布
 
 ## 0.2.35
+新增菜单组件`thyMenu`
 `ThyMaxDirective`, `ThyMaxDirective` 支持最大或最小值设置浮点数
 
 ## 0.2.34
