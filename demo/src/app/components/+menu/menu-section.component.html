@@ -6,22 +6,22 @@
                 <thy-menu-item>
                     <thy-menu-item-icon> <i class="wtf wtf-my"></i> </thy-menu-item-icon>
                     <thy-menu-item-name>我的工作</thy-menu-item-name>
-                    <thy-menu-item-icon-more [thyActionMenu]="menu1"> <i class="wtf wtf-more-lg"></i> </thy-menu-item-icon-more>
+                    <thy-menu-item-action [thyActionMenu]="menu1"> <i class="wtf wtf-more-lg"></i> </thy-menu-item-action>
                 </thy-menu-item>
                 <thy-menu-item>
                     <thy-menu-item-icon> <i class="wtf wtf-analytic-insight"></i> </thy-menu-item-icon>
                     <thy-menu-item-name>统计报表</thy-menu-item-name>
-                    <thy-menu-item-icon-more [thyActionMenu]="menu1"> <i class="wtf wtf-more-lg"></i> </thy-menu-item-icon-more>
+                    <thy-menu-item-action [thyActionMenu]="menu1"> <i class="wtf wtf-more-lg"></i> </thy-menu-item-action>
                 </thy-menu-item>
                 <thy-menu-item>
                     <thy-menu-item-icon> <i class="wtf wtf-work-workload"></i> </thy-menu-item-icon>
                     <thy-menu-item-name>工时视图</thy-menu-item-name>
-                    <thy-menu-item-icon-more [thyActionMenu]="menu1"> <i class="wtf wtf-more-lg"></i> </thy-menu-item-icon-more>
+                    <thy-menu-item-action [thyActionMenu]="menu1"> <i class="wtf wtf-more-lg"></i> </thy-menu-item-action>
                 </thy-menu-item>
                 <thy-menu-item>
                     <thy-menu-item-icon> <i class="wtf wtf-timeline"></i> </thy-menu-item-icon>
                     <thy-menu-item-name>时间视图</thy-menu-item-name>
-                    <thy-menu-item-icon-more [thyActionMenu]="menu1"> <i class="wtf wtf-more-lg"></i> </thy-menu-item-icon-more>
+                    <thy-menu-item-action [thyActionMenu]="menu1"> <i class="wtf wtf-more-lg"></i> </thy-menu-item-action>
                 </thy-menu-item>
             </thy-menu-group>
             <thy-menu-item>
@@ -57,7 +57,7 @@
                 <thy-menu-item>
                     <thy-menu-item-icon> <i class="wtf wtf-my"></i> </thy-menu-item-icon>
                     <thy-menu-item-name>我的工作</thy-menu-item-name>
-                    <thy-menu-item-icon-more [thyActionMenu]="menu2"> <i class="wtf wtf-more-lg"></i> </thy-menu-item-icon-more>
+                    <thy-menu-item-action [thyActionMenu]="menu2"> <i class="wtf wtf-more-lg"></i> </thy-menu-item-action>
                 </thy-menu-item>
             </thy-menu-group>
             <thy-menu-item>
@@ -76,4 +76,4 @@
 </section>
 
 <api-parameters [parameters]="apiThyMenuGroupParameters" title="thyMenuGroup 参数"></api-parameters>
-<api-parameters [parameters]="apiThyMenuItemIconMoreParameters" title="thyMenuItemIconMore 参数"></api-parameters>
+<api-parameters [parameters]="apiThyMenuItemIconMoreParameters" title="thyMenuItemAction 参数"></api-parameters>

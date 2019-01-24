@@ -2,13 +2,13 @@ import { Component, OnInit, HostBinding, HostListener, ElementRef, Input } from 
 import { ThyPopBoxService } from '../../../pop-box';
 
 @Component({
-    selector: 'thy-menu-item-icon-more,[thy-menu-item-icon-more],[thyMenuItemIconMore]',
-    templateUrl: './menu-item-icon-more.component.html'
+    selector: 'thy-menu-item-action,[thy-menu-item-action],[thyMenuItemAction]',
+    templateUrl: './menu-item-action.component.html'
 })
-export class ThyMenuItemIconMoreComponent implements OnInit {
+export class ThyMenuItemActionComponent implements OnInit {
     public _templateRef: ElementRef;
 
-    @HostBinding('class.thy-menu-item-icon-more') isThyMenuItemIconMore = true;
+    @HostBinding('class.thy-menu-item-action') isThyMenuItemIconMore = true;
 
     @Input()
     set thyActionMenu(value: ElementRef) {

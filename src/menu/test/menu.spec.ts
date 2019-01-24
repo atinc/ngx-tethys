@@ -7,7 +7,7 @@ import { ThyMenuGroupComponent } from '../group/menu-group.component';
 import { ThyMenuItemComponent } from '../item/menu-item.component';
 import { ThyMenuItemIconComponent } from '../item/icon/menu-item-icon.component';
 import { ThyMenuItemNameComponent } from '../item/name/menu-item-name.component';
-import { ThyMenuItemIconMoreComponent } from '../item/more/menu-item-icon-more.component';
+import { ThyMenuItemActionComponent } from '../item/action/menu-item-action.component';
 import { from } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { ThyPopBoxService } from '../../pop-box';
@@ -76,8 +76,8 @@ describe('ThyMenu', () => {
         expect(thyMenuItemNameComponent.every(item => item.parent.name === 'thy-menu-item')).toBe(true);
     });
 
-    it('thy-menu-item-icon-more parent must be thy-menu-item', () => {
-        const thyMenuItemIconMoreComponent = fixture.debugElement.queryAll(By.directive(ThyMenuItemIconMoreComponent));
+    it('thy-menu-item-action parent must be thy-menu-item', () => {
+        const thyMenuItemIconMoreComponent = fixture.debugElement.queryAll(By.directive(ThyMenuItemActionComponent));
         expect(thyMenuItemIconMoreComponent.every(item => item.parent.name === 'thy-menu-item')).toBe(true);
     });
 });
@@ -90,7 +90,7 @@ describe('ThyMenu', () => {
                 <thy-menu-item>
                     <thy-menu-item-icon> <i class="wtf wtf-my"></i> </thy-menu-item-icon>
                     <thy-menu-item-name>我的工作</thy-menu-item-name>
-                    <thy-menu-item-icon-more> <i class="wtf wtf-more-lg"></i> </thy-menu-item-icon-more>
+                    <thy-menu-item-action> <i class="wtf wtf-more-lg"></i> </thy-menu-item-action>
                 </thy-menu-item>
             </thy-menu-group>
             <thy-menu-item>

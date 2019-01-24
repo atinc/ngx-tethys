@@ -7,7 +7,7 @@
         cursor: pointer;
         &:hover{
             box-shadow: 0 0 8px 2px $gray-200;
-            .thy-menu-item-icon-more{
+            .thy-menu-item-action{
                 visibility: visible;
             }
         }
@@ -17,7 +17,7 @@
             flex-grow: 1;
             padding: 0 5px;
         }
-        .thy-menu-item-icon-more{
+        .thy-menu-item-action{
             visibility: hidden;
         }
     }
