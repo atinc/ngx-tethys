@@ -1,5 +1,5 @@
 <section>
-    <div class="header"><h2>toc导航 右键菜单</h2></div>
+    <div class="header"><h2>toc导航</h2></div>
     <div class="body">
         <thy-menu>
             <thy-menu-group thyTitle="工作" [thyExpand]="true" [thyShowAction]="true" [thyActionMenu]="menu1">
@@ -44,7 +44,7 @@
 </section>
 
 <section>
-    <div class="header"><h2>toc导航 自定义右侧图标和事件</h2></div>
+    <div class="header"><h2>toc导航 自定义右侧图标、事件、图标颜色</h2></div>
     <div class="body">
         <thy-menu>
             <thy-menu-group
@@ -55,7 +55,7 @@
                 (thyActionClick)="moreAction()"
             >
                 <thy-menu-item>
-                    <thy-menu-item-icon> <i class="wtf wtf-my"></i> </thy-menu-item-icon>
+                    <thy-menu-item-icon [thyColor]="'#aaa'"> <i class="wtf wtf-my"></i> </thy-menu-item-icon>
                     <thy-menu-item-name>我的工作</thy-menu-item-name>
                     <thy-menu-item-action [thyActionMenu]="menu2"> <i class="wtf wtf-more-lg"></i> </thy-menu-item-action>
                 </thy-menu-item>
@@ -76,4 +76,5 @@
 </section>
 
 <api-parameters [parameters]="apiThyMenuGroupParameters" title="thyMenuGroup 参数"></api-parameters>
+<api-parameters [parameters]="apiThyMenuItemIconParameters" title="thyMenuItemIcon 参数"></api-parameters>
 <api-parameters [parameters]="apiThyMenuItemIconMoreParameters" title="thyMenuItemAction 参数"></api-parameters>

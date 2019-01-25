@@ -8,28 +8,28 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
     templateUrl: './menu-group.component.html',
     animations: [
         trigger('detailsContentAnimation', [
-          state(
-            'void',
-            style({
-              height: '*'
-            })
-          ),
-          state(
-            '1',
-            style({
-              height: 0,
-              'overflow': 'hidden'
-            })
-          ),
-          state(
-            '0',
-            style({
-              height: '*'
-            })
-          ),
-          transition('* => *', animate('200ms ease-out'))
+            state(
+                'void',
+                style({
+                    height: '*'
+                })
+            ),
+            state(
+                '1',
+                style({
+                    height: 0,
+                    overflow: 'hidden'
+                })
+            ),
+            state(
+                '0',
+                style({
+                    height: '*'
+                })
+            ),
+            transition('* => *', animate('200ms ease-out'))
         ])
-      ]
+    ]
 })
 export class ThyMenuGroupComponent implements OnInit {
     public _templateRef: ElementRef;
@@ -70,6 +70,7 @@ export class ThyMenuGroupComponent implements OnInit {
     collapseGroup(): void {
         this.isCollapsed = !this.isCollapsed;
     }
+
     rightIconAction(event: Event): void {
         event.stopPropagation();
         if (this._templateRef) {

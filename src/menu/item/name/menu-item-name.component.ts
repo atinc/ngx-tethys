@@ -6,6 +6,7 @@ import { Component, OnInit, HostBinding } from '@angular/core';
 })
 export class ThyMenuItemNameComponent implements OnInit {
     @HostBinding('class.thy-menu-item-name') isThyMenuItemName = true;
+
     constructor() {}
 
     ngOnInit(): void {}

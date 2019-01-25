@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+import { Component, OnInit, HostBinding, Input, ElementRef, Renderer2 } from '@angular/core';
 
 @Component({
     selector: 'thy-menu-item-icon,[thy-menu-item-icon],[thyMenuItemIcon]',
@@ -6,7 +6,15 @@ import { Component, OnInit, HostBinding } from '@angular/core';
 })
 export class ThyMenuItemIconComponent implements OnInit {
     @HostBinding('class.thy-menu-item-icon') isThyMenuItemIcon = true;
-    constructor() {}
+
+    @Input()
+    set thyColor(value: string) {
+        if (value) {
+            this.renderer.setStyle(this.elementRef.nativeElement, 'color', value);
+        }
+    }
+
+    constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
 
     ngOnInit(): void {}
 }

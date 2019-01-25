@@ -3,22 +3,25 @@
     .thy-menu-item {
         display: flex;
         align-items: center;
-        padding: 8px 10px;
+        padding: 8px 20px;
         cursor: pointer;
-        &:hover{
+        &:hover {
             box-shadow: 0 0 8px 2px $gray-200;
-            .thy-menu-item-action{
+            .thy-menu-item-action {
                 visibility: visible;
             }
         }
         .thy-menu-item-icon {
+            color: $gray-500;
         }
         .thy-menu-item-name {
             flex-grow: 1;
             padding: 0 5px;
+            color: $gray-800;
         }
-        .thy-menu-item-action{
+        .thy-menu-item-action {
             visibility: hidden;
+            color: $gray-700;
         }
     }
     .thy-menu-group {
@@ -34,29 +37,34 @@
             cursor: pointer;
             display: flex;
             align-items: center;
-            padding: 8px 10px;
-            &:hover{
+            padding: 8px 20px;
+            &:hover {
                 box-shadow: 0 0 8px 2px $gray-200;
-                .thy-menu-group-more{
-                    visibility:visible;
+                .thy-menu-group-more {
+                    visibility: visible;
                 }
             }
-            .thy-menu-group-icon{
+            .thy-menu-group-icon {
                 transition: all 0.2s cubic-bezier(0.4, 0.1, 0.5, 1) 0.1s;
                 display: inline-block;
                 font-size: $font-size-sm;
+                color: $gray-500;
             }
-            .thy-menu-group-title{
+            .thy-menu-group-title {
                 flex-grow: 1;
                 padding: 0 5px;
             }
-            .thy-menu-group-more{
+            .thy-menu-group-more {
                 visibility: hidden;
+                color: $gray-700;
             }
         }
         .thy-menu-group-body {
             .thy-menu-item {
-                padding: 8px 10px 8px 28px;
+                padding: 8px 20px 8px 38px;
+                .thy-menu-item-icon {
+                    color: $primary;
+                }
             }
         }
     }

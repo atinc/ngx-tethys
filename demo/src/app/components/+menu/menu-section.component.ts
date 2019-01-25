@@ -44,6 +44,15 @@ export class DemoMenuSectionComponent implements OnInit {
         }
     ];
 
+    public apiThyMenuItemIconParameters = [
+        {
+            property: 'thyColor',
+            description: '设置图标颜色',
+            type: 'String',
+            default: '$primary'
+        }
+    ];
+
     public apiThyMenuItemIconMoreParameters = [
         {
             property: 'thyActionMenu',
