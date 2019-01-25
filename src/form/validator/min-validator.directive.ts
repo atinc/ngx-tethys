@@ -16,7 +16,7 @@ import {
 export class ThyMinDirective implements Validator {
     private _validator: ValidatorFn;
     @Input() public set min(value: string) {
-        this._validator = Validators.min(parseInt(value, 10));
+        this._validator = Validators.min(parseFloat(value));
     }
 
     public validate(control: AbstractControl): { [key: string]: any } {
