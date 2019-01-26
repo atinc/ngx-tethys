@@ -1,0 +1,60 @@
+.thy-menu {
+    .thy-menu-item {
+        &:hover {
+            box-shadow: $menu-shadow;
+            .thy-menu-item-name {
+                color: $gray-800;
+            }
+        }
+        &.active {
+            background: rgba($primary, 0.1);
+            border-right: 2px $primary solid;
+        }
+        .thy-menu-item-icon {
+            color: $gray-500;
+        }
+        .thy-menu-item-name {
+            color: $gray-700;
+        }
+        .thy-menu-item-action {
+            color: $gray-500;
+        }
+    }
+    .thy-menu-group {
+        .thy-menu-group-header {
+            &:hover {
+                box-shadow: $menu-shadow;
+                .thy-menu-group-title {
+                    color: $gray-800;
+                }
+            }
+            .thy-menu-group-arrow {
+                color: $gray-500;
+            }
+            .thy-menu-group-folder {
+                color: $gray-500;
+            }
+            .thy-menu-group-title {
+                color: $gray-700;
+            }
+            .thy-menu-group-more {
+                color: $gray-500;
+            }
+        }
+        .thy-menu-group-body {
+            .thy-menu-item {
+                &.active {
+                    .thy-menu-item-icon {
+                        color: $primary;
+                    }
+                    .thy-menu-item-name {
+                        color: $primary;
+                    }
+                }
+            }
+        }
+    }
+    .thy-menu-divider {
+        border-top: solid 1px $gray-200;
+    }
+}

@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'demo-menu-section',
-    templateUrl: './menu-section.component.html'
+    templateUrl: './menu-section.component.html',
+    styleUrls:['./menu-section.scss']
 })
 export class DemoMenuSectionComponent implements OnInit {
     public apiThyMenuGroupParameters = [
@@ -17,6 +18,18 @@ export class DemoMenuSectionComponent implements OnInit {
             description: '默认是否展开',
             type: 'Boolean',
             default: 'false'
+        },
+        {
+            property: 'thyShowIcon',
+            description: '是否标题前面的图标',
+            type: 'Boolean',
+            default: 'false'
+        },
+        {
+            property: 'thyIcon',
+            description: '标题前面的图标class',
+            type: 'String',
+            default: 'wtf wtf-drive-o'
         },
         {
             property: 'thyShowAction',

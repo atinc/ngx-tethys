@@ -36,9 +36,13 @@ export class ThyMenuGroupComponent implements OnInit {
 
     public rightIconClass = 'wtf wtf-more-lg';
 
+    public iconClass = 'wtf wtf-drive-o';
+
     @ViewChild('thyMenuGroup') _thyMenuGroup: ElementRef;
 
     @HostBinding('class.thy-menu-group') isThyMenuGroup = true;
+
+    @HostBinding('class.has-icon') showIcon = false;
 
     @HostBinding('class.collapsed') isCollapsed = true;
 
@@ -47,6 +51,16 @@ export class ThyMenuGroupComponent implements OnInit {
     @Input('thyExpand')
     set thyExpand(value: boolean) {
         this.isCollapsed = !!!value;
+    }
+
+    @Input('thyShowIcon')
+    set thyShowIcon(value: boolean) {
+        this.showIcon = value;
+    }
+
+    @Input('thyIcon')
+    set thyIcon(value: string) {
+        this.iconClass = value;
     }
 
     @Input('thyActionIcon')

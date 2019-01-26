@@ -6,6 +6,7 @@ import { ThyMenuGroupComponent } from './group/menu-group.component';
 import { ThyMenuItemNameComponent } from './item/name/menu-item-name.component';
 import { ThyMenuItemIconComponent } from './item/icon/menu-item-icon.component';
 import { ThyMenuItemActionComponent } from './item/action/menu-item-action.component';
+import { ThyMenuDividerComponent } from './divider/menu-divider.component';
 
 @NgModule({
     declarations: [
@@ -14,7 +15,8 @@ import { ThyMenuItemActionComponent } from './item/action/menu-item-action.compo
         ThyMenuItemComponent,
         ThyMenuItemNameComponent,
         ThyMenuItemIconComponent,
-        ThyMenuItemActionComponent
+        ThyMenuItemActionComponent,
+        ThyMenuDividerComponent
     ],
     imports: [CommonModule],
     exports: [
@@ -23,7 +25,8 @@ import { ThyMenuItemActionComponent } from './item/action/menu-item-action.compo
         ThyMenuItemComponent,
         ThyMenuItemNameComponent,
         ThyMenuItemIconComponent,
-        ThyMenuItemActionComponent
+        ThyMenuItemActionComponent,
+        ThyMenuDividerComponent
     ]
 })
 export class ThyMenuModule {}

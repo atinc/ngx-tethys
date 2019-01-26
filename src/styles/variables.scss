@@ -13,10 +13,10 @@ $gray-800: #333; // 标题和重点文字
 $gray-900: #212529;
 $black: #000;
 //px to rem
-$rem-5px: .3125rem;
-$rem-10px: .625rem;
-$rem-14px: .875rem;
-$rem-15px: .9375rem;
+$rem-5px: 0.3125rem;
+$rem-10px: 0.625rem;
+$rem-14px: 0.875rem;
+$rem-15px: 0.9375rem;
 $rem-18px: 1.125rem;
 $rem-20px: 1.25rem;
 $rem-26px: 1.625rem;
@@ -30,7 +30,7 @@ $warning: #ffc442 !default;
 $danger: #ff5b57 !default;
 $pass: #2cccda !default;
 $secondary-item-active: #e7f9f6 !default;
-$item-active-bg-color:$secondary-item-active !default;
+$item-active-bg-color: $secondary-item-active !default;
 $light: $gray-300;
 // $light : $gray-100;
 // $dark : $gray-800;
@@ -47,36 +47,24 @@ $link-icon-padding-right: 4px !default;
 $box-shadow: 0 0 24px rgba(0, 0, 0, 0.18);
 $enable-shadows: false !default;
 // font
-$font-family-sans-serif: "Helvetica Neue",
-"Hiragino Sans GB",
-"stheiti",
-"Microsoft Yahei",
-"微软雅黑",
-tahoma,
-"sans-serif" !default;
-$font-family-monospace: SFMono-Regular,
-Menlo,
-Monaco,
-Consolas,
-"Liberation Mono",
-"Courier New",
-monospace !default;
+$font-family-sans-serif: 'Helvetica Neue', 'Hiragino Sans GB', 'stheiti', 'Microsoft Yahei', '微软雅黑', tahoma, 'sans-serif' !default;
+$font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !default;
 $font-family-base: $font-family-sans-serif !default;
-$font-size-base: .875rem; // 14px
+$font-size-base: 0.875rem; // 14px
 $font-size-lg: 1.25rem; // 20px
-$font-size-sm: .75rem; // 12px
+$font-size-sm: 0.75rem; // 12px
 // 扩展
 $font-size-md: 1rem; // 16px
 $font-size-max-lg: 3.25rem; // 补充字体大小 52px
-$font-size-xs: .625rem; // 10px
+$font-size-xs: 0.625rem; // 10px
 // code
 $code-color: $danger;
 $code-font-size: 0.875rem;
 
 $input-btn-padding-y: 0.469rem !default;
 $input-btn-padding-x: 1.625rem !default; // 1.313rem  !default;
-$input-btn-padding-y-sm: .25rem !default;
-$input-btn-padding-x-sm: .5rem !default;
+$input-btn-padding-y-sm: 0.25rem !default;
+$input-btn-padding-x-sm: 0.5rem !default;
 $input-btn-padding-y-lg: 0.656rem !default;
 // $input-btn-line-height: $line-height-base !default;
 $input-btn-focus-width: 0.0625rem !default; // 1px
@@ -149,7 +137,7 @@ $input-disabled-color: $gray-600 !default;
 $input-icon-color: $gray-500 !default;
 $input-group-addon-color: $gray-700 !default;
 $input-group-addon-bg: $gray-100 !default;
-$form-text-margin-top: .5rem !default;
+$form-text-margin-top: 0.5rem !default;
 $input-ellipse-radius: 1.25rem !default;
 $input-ellipse-background-color: $gray-100 !default;
 $input-ellipse-focus-border-color: $primary !default;
@@ -236,7 +224,19 @@ $label-warning-bg: $warning;
 $label-danger-bg: $danger;
 //avatar
 $avatar-sizes: () !default;
-$avatar-sizes: map-merge( (22: 12, 24: 12, 30: 12, 38: 12, 48: 14, 68: 16, 110: 45, 160: 50), $avatar-sizes);
+$avatar-sizes: map-merge(
+    (
+        22: 12,
+        24: 12,
+        30: 12,
+        38: 12,
+        48: 14,
+        68: 16,
+        110: 45,
+        160: 50
+    ),
+    $avatar-sizes
+);
 // Navs
 $nav-link-disabled-color: $gray-300 !default;
 $nav-link-color: $gray-600 !default;
@@ -269,16 +269,16 @@ $nav-vertical-border-left-empty: 4px solid transparent;
 // Padding applied to the modal body
 $modal-inner-padding: 1.25rem 1.875rem 1.875rem 1.875rem !default; //
 $modal-has-footer-inner-padding: 1.25rem 1.875rem 0 1.875rem !default; //
-$modal-dialog-margin: .5rem !default;
+$modal-dialog-margin: 0.5rem !default;
 $modal-dialog-margin-y-sm-up: 3.75rem !default; //
 $modal-title-line-height: 1.5 !default;
 $modal-content-bg: $white !default;
-$modal-content-border-color: rgba($black, .2) !default;
+$modal-content-border-color: rgba($black, 0.2) !default;
 $modal-content-border-width: 0 !default; //
-$modal-content-box-shadow-xs: 0 0 1.5rem rgba($black, .4) !default; //
-$modal-content-box-shadow-sm-up: 0 0 1.5rem rgba($black, .5) !default; //
+$modal-content-box-shadow-xs: 0 0 1.5rem rgba($black, 0.4) !default; //
+$modal-content-box-shadow-sm-up: 0 0 1.5rem rgba($black, 0.5) !default; //
 $modal-backdrop-bg: $black !default;
-$modal-backdrop-opacity: .3 !default; //
+$modal-backdrop-opacity: 0.3 !default; //
 $modal-header-border-color: $gray-200 !default; //
 $modal-footer-border-color: $modal-header-border-color !default;
 $modal-header-border-width: 1px !default;
@@ -288,7 +288,7 @@ $modal-lg: 980px !default; //
 $modal-blg: 800px; //稍微大点，自定义属性
 $modal-md: 660px !default; //
 $modal-sm: 400px !default; //
-$modal-transition: transform .3s ease-out !default;
+$modal-transition: transform 0.3s ease-out !default;
 // Dialog
 $dialog-max-lg: 980px !default; //
 $dialog-lg: 800px;
@@ -299,7 +299,7 @@ $card-title-icon-color: $primary;
 $card-title-color: $gray-700;
 $card-title-info-color: $gray-500;
 //Datepicker
-$datepicker-z-index:1100 !default;
+$datepicker-z-index: 1100 !default;
 // Notify
 $notify-bg: $white;
 $notify-box-shadow: $box-shadow;
@@ -351,7 +351,7 @@ $empty-icon-color: $gray-200 !default;
 $empty-text-size: $font-size-base !default;
 $empty-icon-size: 3.125rem !default;
 $empty-text-size-lg: $font-size-md !default;
-$empty-icon-size-lg:5rem !default;
+$empty-icon-size-lg: 5rem !default;
 //util
 $operation-link-margin-y: 20px !default;
 //switch
@@ -365,28 +365,28 @@ $switch-sm-height: 20px !default;
 $switch-xs-width: 24px !default;
 $switch-xs-height: 16px !default;
 //Transfer
-$transfer-width:600px !default;
+$transfer-width: 600px !default;
 $transfer-list-header-padding: 10px 0 !default;
-$transfer-list-header-font-color:$gray-600 !default;
-$transfer-list-header-font-size:$font-size-base !default;
-$transfer-list-border-width:1px !default;
-$transfer-list-border-color:$gray-200 !default;
-$transfer-list-border-radius:5px !default;
-$transfer-list-width :270px !default;
-$transfer-list-height :360px !default;
-$transfer-list-padding :10px 0 !default;
-$transfer-list-item-padding :0 20px !default;
-$transfer-list-item-line-hight :38px !default;
+$transfer-list-header-font-color: $gray-600 !default;
+$transfer-list-header-font-size: $font-size-base !default;
+$transfer-list-border-width: 1px !default;
+$transfer-list-border-color: $gray-200 !default;
+$transfer-list-border-radius: 5px !default;
+$transfer-list-width: 270px !default;
+$transfer-list-height: 360px !default;
+$transfer-list-padding: 10px 0 !default;
+$transfer-list-item-padding: 0 20px !default;
+$transfer-list-item-line-hight: 38px !default;
 $transfer-list-item-hover-color: $gray-200 !default;
 $transfer-operation-padding: 0 10px !default;
 $transfer-operation-font-size: $font-size-base * 2 !default;
 $transfer-operation-color: $gray-600 !default;
 //progress
-$progress-height:10px;
+$progress-height: 10px;
 $progress-height-sm: 6px;
 $progress-height-xs: 4px;
-$progress-bar-bg:$gray-200;
-$progress-split-color:$white;
+$progress-bar-bg: $gray-200;
+$progress-split-color: $white;
 //Slide
 $slide-header-height: 45px !default;
 $slide-header-padding: 0.75rem 1.25rem !default;
@@ -398,21 +398,29 @@ $tree-node-wrapper-padding: 0 5px !default;
 $tree-node-wrapper-height: 44px !default;
 $tree-node-wrapper-line-height: 44px !default;
 $tree-node-wrapper-border-bottom: 1px solid $gray-200 !default;
-$tree-node-wrapper-active-border-color:rgba($primary, .3) !default;
-$tree-node-wrapper-active-background-color:rgba($primary, .1) !default;
+$tree-node-wrapper-active-border-color: rgba($primary, 0.3) !default;
+$tree-node-wrapper-active-background-color: rgba($primary, 0.1) !default;
 $tree-node-wrapper-hover-shadow: 0 2px 8px 1px rgba(0, 0, 0, 0.08) !default;
 // stepper
-$stepper-header:70px;
-$stepper-padding:0 50px;
-$stepper-header-padding:0 5px;
-$stepper-number-size:24px;
-$stepper-selected-icon-bottom:-24px;
-$stepper-label-padding : 0 10px;
-$stepper-line-margin : 0 10px 0 0;
-$stepper-line-min-width : 30px;
+$stepper-header: 70px;
+$stepper-padding: 0 50px;
+$stepper-header-padding: 0 5px;
+$stepper-number-size: 24px;
+$stepper-selected-icon-bottom: -24px;
+$stepper-label-padding: 0 10px;
+$stepper-line-margin: 0 10px 0 0;
+$stepper-line-min-width: 30px;
 
 // breadcrumb
 
 $breadcrumb-separator-color: $gray-500;
 $breadcrumb-text-color: $gray-500;
 $breadcrumb-active-color: $gray-800;
+
+// thyMenu
+$menu-height: 42px;
+$menu-shadow: 0 0 8px 2px $gray-200;
+$menu-item-padding: 0 20px;
+$menu-group-header-padding: 0 1020px;
+$menu-group-margin-left: 15px;
+$menu-divider-margin: 10px 20px;
