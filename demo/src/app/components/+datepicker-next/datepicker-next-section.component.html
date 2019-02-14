@@ -1,35 +1,33 @@
-<!-- <div class="has-feedback col-form-control">
-    <input type="email" class="form-control" thyDatepickerNext readonly placeholder="结束时间">
-    <span class="form-control-feedback wtf wtf-schedule-o"></span>
-</div>
+<thy-datepicker-next></thy-datepicker-next>
 
 <div>
     <div>默认</div>
     <div>{{value1|json}}</div>
-    <thy-datepicker-next [(ngModel)]="value1" (ngModelChange)="onSelect($event)"></thy-datepicker-next>
+    <thy-datepicker-next-container [(ngModel)]="value1" (ngModelChange)="onSelect($event)"></thy-datepicker-next-container>
 </div>
 <div>
     <div>必选日期</div>
     <div>{{value2|json}}</div>
-    <thy-datepicker-next [(ngModel)]="value2" (ngModelChange)="onSelect($event)"></thy-datepicker-next>
+    <thy-datepicker-next-container [(ngModel)]="value2" (ngModelChange)="onSelect($event)"></thy-datepicker-next-container>
 </div>
 <div>
     <div>可选日期</div>
     <div>{{value3|json}}</div>
-    <thy-datepicker-next [(ngModel)]="value3" (ngModelChange)="onSelect($event)" [thyWithTime]="true"></thy-datepicker-next>
+    <thy-datepicker-next-container [(ngModel)]="value3" (ngModelChange)="onSelect($event)" [thyWithTime]="true"></thy-datepicker-next-container>
 </div>
 <div>
     <div>精确时间选择</div>
     <div>{{value4|json}}</div>
-    <thy-datepicker-next [(ngModel)]="value4" (ngModelChange)="onSelect($event)" [thyTimeType]="datepickerNextTimeModeType.accurate"></thy-datepicker-next>
-</div> -->
-<div>
+    <thy-datepicker-next-container [(ngModel)]="value4" (ngModelChange)="onSelect($event)" [thyTimeType]="datepickerNextTimeModeType.accurate"></thy-datepicker-next-container>
+</div>
+
+<!-- <div>
     <div>可选日期范围</div>
     <div>{{value5|json}}</div>
     <div>{{value6|json}}</div>
     <thy-datepicker-next [(ngModel)]="value5" [thyMaxDate]="value6" [thyOperation]="false" (ngModelChange)="onSelect($event)"></thy-datepicker-next>
     <thy-datepicker-next [(ngModel)]="value6" [thyMinDate]="value5" (ngModelChange)="onSelect($event)"></thy-datepicker-next>
-</div>
+</div> -->
 
 <!--<hr>
 <hr>
