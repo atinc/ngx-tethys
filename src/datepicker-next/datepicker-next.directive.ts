@@ -1,6 +1,16 @@
 import {
-    Directive, OnInit, ElementRef, Renderer2, ViewContainerRef,
-    Input, ComponentRef, Output, EventEmitter, forwardRef, OnChanges, AfterContentInit
+    Directive,
+    OnInit,
+    ElementRef,
+    Renderer2,
+    ViewContainerRef,
+    Input,
+    ComponentRef,
+    Output,
+    EventEmitter,
+    forwardRef,
+    OnChanges,
+    AfterContentInit
 } from '@angular/core';
 import { ComponentLoaderFactory, ComponentLoader } from 'ngx-bootstrap/component-loader';
 import { DatePipe, registerLocaleData } from '@angular/common';
@@ -13,16 +23,18 @@ import { DatepickerNextValueInfo } from './datepicker-next.interface';
 const FORMAT_RULES = {
     default: 'yyyy-MM-dd',
     short: 'yyyy-MM-dd',
-    full: 'yyyy-MM-dd HH:mm',
+    full: 'yyyy-MM-dd HH:mm'
 };
 
 @Directive({
     selector: '[thyDatepickerNext]',
-    providers: [{
-        provide: NG_VALUE_ACCESSOR,
-        useExisting: forwardRef(() => ThyDatepickerNextDirective),
-        multi: true
-    }]
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => ThyDatepickerNextDirective),
+            multi: true
+        }
+    ]
 })
 export class ThyDatepickerNextDirective implements OnInit, AfterContentInit, ControlValueAccessor {
     dataPipe = new DatePipe('zh-Hans');
@@ -39,24 +51,22 @@ export class ThyDatepickerNextDirective implements OnInit, AfterContentInit, Con
     @Input() thyFormat: string = null;
 
     constructor(
-        private _elementRef: ElementRef,
-        private _renderer: Renderer2,
+        private elementRef: ElementRef,
+        private renderer: Renderer2,
         _viewContainerRef: ViewContainerRef,
         cis: ComponentLoaderFactory,
-        private thyPositioningService: ThyPositioningService,
-
-    ) {
-    }
+        private thyPositioningService: ThyPositioningService
+    ) {}
 
     ngOnInit() {
+        this.renderer.listen(this.elementRef.nativeElement, 'keydown', () => {
+            alert();
+        });
     }
 
-    ngAfterContentInit() {
-    }
+    ngAfterContentInit() {}
 
-    writeValue(value: DatepickerNextValueInfo | Date | number) {
-
-    }
+    writeValue(value: DatepickerNextValueInfo | Date | number) {}
 
     registerOnChange(fn: (value: any) => any): void {
         this._onChange = fn;
@@ -66,13 +76,7 @@ export class ThyDatepickerNextDirective implements OnInit, AfterContentInit, Con
         this._onTouched = fn;
     }
 
-    show() {
+    show() {}
 
-    }
-
-    hide() {
-
-    }
-
-
+    hide() {}
 }
