@@ -1,5 +1,5 @@
 <div class="thy-datepicker">
-    <div #dpContainer></div>
+    <bs-datepicker-container #dpContainer></bs-datepicker-container>
     <div *ngIf="isShowTime || isCanTime" class="timepicker-section" (click)="$event.stopPropagation()">
         <div *ngIf="isCanTime" class="timepicker-set">
             <a href="javascript:;" class="link-has-icon timepicker-set-btn" (click)="changeTimeShowMode('show')">

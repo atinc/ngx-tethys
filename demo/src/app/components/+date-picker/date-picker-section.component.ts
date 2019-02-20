@@ -16,24 +16,24 @@ export class DemoDataPickerSectionComponent implements OnInit {
     //#region DatePicker
 
     dateEntry = {
-        date: Math.floor((new Date()).getTime() / 1000),
+        date: this.state.nowDate,
         with_time: false
     };
 
-    dateEntry2 = Math.floor((new Date()).getTime() / 1000);
+    dateEntry2 = this.state.nowDate;
 
     dateEntryDisable = {
-        date: Math.floor((new Date()).getTime() / 1000),
+        date: this.state.nowDate,
         with_time: false
     };
 
     dateEntryWithTime = {
-        date: Math.floor((new Date()).getTime() / 1000),
+        date: this.state.nowDate,
         with_time: false
     };
 
     dateEntryWithTime2 = {
-        date: Math.floor((new Date()).getTime() / 1000),
+        date: this.state.nowDate,
         with_time: true
     };
 
@@ -45,12 +45,12 @@ export class DemoDataPickerSectionComponent implements OnInit {
     dateNullObject = {};
 
     elementDateEntry = {
-        date: Math.floor((new Date()).getTime() / 1000),
+        date: this.state.nowDate,
         with_time: false
     };
 
     elementDateEntry2 = {
-        date: Math.floor((new Date()).getTime() / 1000),
+        date: this.state.nowDate,
         with_time: false
     };
 
@@ -122,14 +122,14 @@ export class DemoDataPickerSectionComponent implements OnInit {
 
     datepickerTestNewValue() {
         this.dateEntry = {
-            date: Math.floor((new Date()).getTime() / 1000),
+            date: this.state.nowNextWeekDate,
             with_time: false
         };
-        this.dateEntry2 = Math.floor((new Date()).getTime() / 1000);
+        this.dateEntry2 = this.state.nowNextWeekDate;
 
 
         this.dateEntryWithTime = {
-            date: Math.floor((new Date()).getTime() / 1000),
+            date: this.state.nowNextWeekDate,
             with_time: false
         };
 

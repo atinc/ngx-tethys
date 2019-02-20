@@ -1,6 +1,4 @@
-import { Component, NgModule } from '@angular/core';
-import { ComponentLoaderFactory } from 'ngx-bootstrap/component-loader';
-import { PositioningService } from 'ngx-bootstrap/positioning';
+import { NgModule } from '@angular/core';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { ThyButtonModule } from '../button/button.module';
@@ -16,39 +14,17 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ThyDaterangepickerConfig } from './daterangepicker.config';
 
-
 @NgModule({
     declarations: [
         ThyDatepickerContainerComponent,
         ThyDaterangepickerContainerComponent,
         ThyDatepickerDirective,
         ThyDaterangepickerDirective,
-        ThyDatepickerFormatPipe,
+        ThyDatepickerFormatPipe
     ],
-    entryComponents: [
-        ThyDatepickerContainerComponent,
-        ThyDaterangepickerContainerComponent,
-    ],
-    imports: [
-        CommonModule,
-        FormsModule,
-        ThyButtonModule,
-        BsDatepickerModule.forRoot(),
-        TimepickerModule.forRoot(),
-    ],
-    exports: [
-        BsDatepickerModule,
-        ThyDatepickerDirective,
-        ThyDaterangepickerDirective,
-        ThyDatepickerFormatPipe,
-    ],
-    providers: [
-        ThyDatepickerConfig,
-        ThyDaterangepickerConfig,
-        ThyDatepickerService,
-    ]
+    entryComponents: [ThyDatepickerContainerComponent, ThyDaterangepickerContainerComponent],
+    imports: [CommonModule, FormsModule, ThyButtonModule, BsDatepickerModule.forRoot(), TimepickerModule.forRoot()],
+    exports: [BsDatepickerModule, ThyDatepickerDirective, ThyDaterangepickerDirective, ThyDatepickerFormatPipe],
+    providers: [ThyDatepickerConfig, ThyDaterangepickerConfig, ThyDatepickerService]
 })
-export class ThyDatepickerModule {
-
-}
-
+export class ThyDatepickerModule {}
