@@ -12,7 +12,7 @@ import { from } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { ThyPopBoxService } from '../../pop-box';
 import { ComponentLoader, ComponentLoaderFactory } from 'ngx-bootstrap/component-loader';
-import { PositioningService } from 'ngx-bootstrap/positioning/index';
+import { PositioningService } from 'ngx-bootstrap/positioning';
 import { ThyPositioningService } from '../../positioning/positioning.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
