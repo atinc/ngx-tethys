@@ -1,3 +1,6 @@
+## 7.0.0
+依赖库升级到 Angular 7.2.6， bootstrap 4.3.1。
+主版本号，更改为随 Angular 主版本。
 
 ## 0.2.37
 增加支持 ngx-bootstrap 3.2.0 版本
