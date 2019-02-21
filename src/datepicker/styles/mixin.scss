@@ -3,24 +3,31 @@
         .bs-datepicker-body {
             table {
                 td {
+
                     span.selected,
                     &.selected span,
                     span[class*="select-"]:after,
                     &[class*="select-"] span:after {
                         background-color: $color;
                     }
+
                     &.week span {
                         color: $color;
                     }
                 }
             }
         }
+
         .bs-datepicker-body table.days td.active:not(.select-start):before,
         .bs-datepicker-body table.days td.in-range:not(.select-start):before,
         .bs-datepicker-body table.days span.active:not(.select-start):before,
         .bs-datepicker-body table.days span.in-range:not(.select-start):before {
             background: $item-active-bg-color;
         }
+
+        // .bs-datepicker-body table.days span.in-range.is-highlighted:before {
+        //     background: transparent;
+        // }
     }
 }
 
@@ -28,48 +35,60 @@
     .thy-datepicker {
         position: relative;
         text-align: center;
+
         .thy-datepicker-bs {
             padding: 0;
             margin: 0;
             height: 0;
             border: 0;
         }
+
         bs-datepicker-container,
         bs-daterangepicker-container {
             // 日期区域
             position: relative !important;
+
             .bs-datepicker {
                 background: transparent;
                 box-shadow: none;
+
                 .bs-datepicker-container {
                     padding: 0;
+
                     .bs-datepicker-head {
                         padding: 10px 14px;
                         padding-bottom: 0;
                         height: 40px;
                         background: transparent !important;
+
                         bs-datepicker-navigation-view {
                             display: flex;
                             justify-content: space-evenly;
+
                             button {
                                 color: $gray-700;
+
                                 &:nth-child(2) {
                                     order: 2;
                                 }
                             }
+
                             .previous {
                                 margin-right: auto;
                             }
+
                             .next {
                                 margin-left: auto;
                                 order: 3;
                             }
                         }
                     }
+
                     .bs-datepicker-body {
                         padding: 7px 10px 10px 10px;
                         min-width: 270px;
                         min-height: 222px;
+
                         table {
                             th {
                                 color: $gray-600;
@@ -78,30 +97,38 @@
                                 transform: translateX(10px);
                                 letter-spacing: 10px;
                             }
+
                             td {
                                 height: 35px;
                                 color: $gray-800;
+
                                 span {
                                     font-size: 14px;
+
                                     &:before {
-                                        top: 2px;
-                                        bottom: 2px;
-                                        left: -4px;
-                                        right: -4px;
+                                        // top: 2px;
+                                        // bottom: 2px;
+                                        // left: -4px;
+                                        // right: -4px;
+                                        left: -2.5px;
+                                        right: 2.5px;
                                     }
+
                                     &.select-start {
                                         &:before {
-                                            background: white;
-                                            width: 5px;
-                                            transform: translateX(34px);
+                                            // background: white;
+                                            // width: 5px;
+                                            // transform: translateX(34px);
                                         }
-                                    } // &.in-range {
+                                    }
+
+                                    // &.in-range {
                                     //     background: transparent !important;
                                     // }
                                     &.select-end {
                                         &:before {
-                                            left: -5px;
-                                            background: white;
+                                            // left: -5px;
+                                            // background: white;
                                         }
                                     }
                                 }
@@ -109,14 +136,17 @@
                         }
                     }
                 }
+
                 .is-other-month {
                     color: $gray-500;
                 }
             }
+
             .bs-datepicker-multiple+.bs-datepicker-multiple {
                 margin-left: -10px;
             }
         }
+
         bs-daterangepicker-container {
             .bs-datepicker .bs-datepicker-container bs-days-calendar-view {
                 &:first-child {
@@ -124,56 +154,69 @@
                         padding-left: 12px;
                     }
                 }
+
                 &:last-child {
                     .bs-datepicker-body {
                         padding-right: 12px;
                     }
                 }
             }
+
             .bs-datepicker .bs-datepicker-container .bs-datepicker-head {
                 height: 50px;
                 border-bottom: solid 1px $gray-200;
             }
+
             .bs-datepicker-body {
                 padding: 10px;
+
                 table tr td {
                     &:first-child {
                         .in-range:before {
                             left: 0;
                         }
                     }
+
                     &:last-child {
                         .in-range:before {
-                            right: 0;
+                            // right: 0;
+                            right: 3px;
                         }
                     }
                 }
             }
         }
+
         .timepicker-section {
             margin: 0 auto;
             display: flex;
             width: calc(100% - 40px);
             line-height: 50px;
             border-top: solid 1px $gray-200;
+
             timepicker {
                 margin: 10px 0;
                 line-height: 1;
             }
+
             .timepicker-set {
                 .timepicker-set-btn {
                     padding-left: 0;
                     padding-right: 5px;
                 }
             }
+
             .timepicker-warp {
+
                 // 时间input
                 .btn {
                     padding: 0;
                 }
+
                 .bs-timepicker-field {
                     padding: $input-padding-y-sm $input-padding-x-sm;
                 }
+
                 .bs-chevron {
                     width: 7px;
                     height: 7px;
@@ -181,17 +224,20 @@
                     border-color: $gray-700;
                 }
             }
+
             .timepicker-btn-warp {
                 // 按钮
                 display: flex;
                 align-items: center;
                 flex: 1;
                 justify-content: flex-end;
+
                 .timepicker-ok-btn {
                     padding-left: 15px;
                     padding-right: 15px;
                     min-width: auto;
                 }
+
                 .timepicker-clear-btn {
                     margin-left: 5px;
                     padding-left: 5px;
