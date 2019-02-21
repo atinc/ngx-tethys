@@ -66,20 +66,20 @@ describe('ThyMenu', () => {
         expect(thyMenuItemComponent.every(item => item.nativeElement.classList.contains('thy-menu-item'))).toBe(true);
     });
 
-    it('thy-menu-item-icon parent must be thy-menu-item', () => {
-        const thyMenuItemIconComponent = fixture.debugElement.queryAll(By.directive(ThyMenuItemIconComponent));
-        expect(thyMenuItemIconComponent.every(item => item.parent.name === 'thy-menu-item')).toBe(true);
-    });
+    // it('thy-menu-item-icon parent must be thy-menu-item', () => {
+    //     const thyMenuItemIconComponent = fixture.debugElement.queryAll(By.directive(ThyMenuItemIconComponent));
+    //     expect(thyMenuItemIconComponent.every(item => item.parent.name === 'thy-menu-item')).toBe(true);
+    // });
 
-    it('thy-menu-item-name parent must be thy-menu-item', () => {
-        const thyMenuItemNameComponent = fixture.debugElement.queryAll(By.directive(ThyMenuItemNameComponent));
-        expect(thyMenuItemNameComponent.every(item => item.parent.name === 'thy-menu-item')).toBe(true);
-    });
+    // it('thy-menu-item-name parent must be thy-menu-item', () => {
+    //     const thyMenuItemNameComponent = fixture.debugElement.queryAll(By.directive(ThyMenuItemNameComponent));
+    //     expect(thyMenuItemNameComponent.every(item => item.parent.name === 'thy-menu-item')).toBe(true);
+    // });
 
-    it('thy-menu-item-action parent must be thy-menu-item', () => {
-        const thyMenuItemIconMoreComponent = fixture.debugElement.queryAll(By.directive(ThyMenuItemActionComponent));
-        expect(thyMenuItemIconMoreComponent.every(item => item.parent.name === 'thy-menu-item')).toBe(true);
-    });
+    // it('thy-menu-item-action parent must be thy-menu-item', () => {
+    //     const thyMenuItemIconMoreComponent = fixture.debugElement.queryAll(By.directive(ThyMenuItemActionComponent));
+    //     expect(thyMenuItemIconMoreComponent.every(item => item.parent.name === 'thy-menu-item')).toBe(true);
+    // });
 });
 
 @Component({
