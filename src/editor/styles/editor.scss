@@ -159,6 +159,7 @@ $text-placeholder:$gray-400;
         -ms-flex-direction: row;
         flex-direction: row;
         -webkit-flex-direction: row;
+        flex-basis: auto;
         &.height-auto {
             flex: inherit!important;
         }
