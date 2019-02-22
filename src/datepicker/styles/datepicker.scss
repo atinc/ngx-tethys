@@ -188,7 +188,6 @@ $border-color: transparent;
                     right: -2px;
                     box-sizing: content-box;
                     background: transparent;
-                    // background: $item-active-bg-color;
                 }
                 &.active.select-start+td.active:before {
                     left: -20%;
@@ -214,14 +213,14 @@ $border-color: transparent;
                     }
                 }
                 span {
-                    width: 35px;
-                    height: 35px;
-                    line-height: 32px;  // 原数据30px
+                    width: 30px;
+                    height: 30px;
+                    line-height: 30px;  
                     &.select-start {
                         z-index: 2;
                     }
-                    &.is-highlighted.in-range:before,
-                    &.in-range.select-end:before {
+                    &.in-range.select-end:before,
+                    &.is-highlighted.in-range:before{
                         background: 0 0;
                         right: 0;
                         left: 0;

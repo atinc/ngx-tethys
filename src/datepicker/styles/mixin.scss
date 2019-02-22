@@ -106,19 +106,17 @@
                                     font-size: 14px;
 
                                     &:before {
-                                        // top: 2px;
-                                        // bottom: 2px;
-                                        // left: -4px;
-                                        // right: -4px;
-                                        left: -3.5px;
-                                        right: 2.5px;
+                                        top: 2px;
+                                        bottom: 2px;
+                                        left: -4px;
+                                        right: -4px;
                                     }
 
                                     &.select-start {
                                         &:before {
-                                            // background: white;
-                                            // width: 5px;
-                                            // transform: translateX(34px);
+                                            background: white;
+                                            width: 5px;
+                                            transform: translateX(34px);
                                         }
                                     }
 
@@ -127,8 +125,8 @@
                                     // }
                                     &.select-end {
                                         &:before {
-                                            // left: -5px;
-                                            // background: white;
+                                            left: -5px;
+                                            background: white;
                                         }
                                     }
                                 }
@@ -179,8 +177,8 @@
 
                     &:last-child {
                         .in-range:before {
-                            // right: 0;
-                            right: 3px;
+                            right: 0;
+                            // right: 3px;
                         }
                     }
                 }
