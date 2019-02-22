@@ -1,6 +1,8 @@
-## 7.0.5
+## 7.0.6
 `thyGrid` 新增支持 `thyRowClassName`
 `table` 样式支持排除某一行拖拽样式 `table-draggable-ignore-item`
+
+## 7.0.5
 `thy-date-range` 当双向绑定的值为空时，根据 `dateRanges` 设置日期区间；当双向绑定的值不为空时，不修改双向绑定的值。
 
 ## 7.0.4
