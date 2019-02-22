@@ -12,6 +12,8 @@ export class DemoDateRangeSectionComponent {
 
     public dateHasConfig: DateRangeItemInfo;
 
+    weekDate;
+
     public apiParameters = [{
         property: 'ngModel',
         description: '双向绑定值,选中的可选值列表项或者具体时间',
@@ -44,7 +46,28 @@ export class DemoDateRangeSectionComponent {
         }
     }];
 
+    public weekDateRanges: DateRangeItemInfo[] = [{
+        key: 'week',
+        text: '近俩周',
+        begin: helpers.formatDate(new Date(2019, 1, 11)),
+        end: helpers.formatDate(new Date(2019, 1, 17)),
+        timestamp: {
+            interval: 14,
+            unit: 'day'
+        }
+    }];
+
     change() {
+        this.weekDateRanges = [{
+            key: 'week',
+            text: '近俩周',
+            begin: helpers.formatDate(new Date(2019, 1, 11)),
+            end: helpers.formatDate(new Date(2019, 1, 17)),
+            timestamp: {
+                interval: 14,
+                unit: 'day'
+            }
+        }];
     }
 
     changeValue() {
