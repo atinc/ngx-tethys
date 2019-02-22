@@ -1,3 +1,6 @@
+## 7.0.2
+`thyDatepicker` 新增支持设置最大值 `thyMaxDate`、最小值 `thyMaxDate`。
+
 ## 7.0.1
 注销：ThyDraggableDirective，sky使用报错
 

@@ -1,6 +1,16 @@
 import {
-    Directive, OnInit, ElementRef, Renderer2, ViewContainerRef,
-    Input, ComponentRef, Output, EventEmitter, forwardRef, OnChanges, AfterContentInit
+    Directive,
+    OnInit,
+    ElementRef,
+    Renderer2,
+    ViewContainerRef,
+    Input,
+    ComponentRef,
+    Output,
+    EventEmitter,
+    forwardRef,
+    OnChanges,
+    AfterContentInit
 } from '@angular/core';
 import { ComponentLoaderFactory, ComponentLoader } from 'ngx-bootstrap/component-loader';
 import { ThyDatepickerContainerComponent } from './datepicker-container.component';
@@ -14,13 +24,12 @@ import { isObject, isNumber, isDate, inputValueToBoolean } from '../util/helpers
 import { datepickerUtilIdentificationValueType, datepickerUtilConvertToDatepickerObject } from './util';
 import { ThyPositioningService, PlacementTypes } from '../positioning/positioning.service';
 
-
 registerLocaleData(localeZhHans, 'zh-Hans');
 
 const FORMAT_RULES = {
     default: 'yyyy-MM-dd',
     short: 'yyyy-MM-dd',
-    full: 'yyyy-MM-dd HH:mm',
+    full: 'yyyy-MM-dd HH:mm'
 };
 
 const DATEPICKER_VALUE_ACCESSOR = {
@@ -52,6 +61,8 @@ export class ThyDatepickerDirective implements OnInit, AfterContentInit, Control
     @Input() thyDisabled = false;
     @Input() thyShowTime = false;
     @Input() thyFormat: string = null;
+    @Input() thyMaxDate: Date | number;
+    @Input() thyMinDate: Date | number;
     // @Output() thyOnChange: EventEmitter<any> = new EventEmitter();
 
     constructor(
@@ -61,14 +72,9 @@ export class ThyDatepickerDirective implements OnInit, AfterContentInit, Control
         _viewContainerRef: ViewContainerRef,
         cis: ComponentLoaderFactory,
         private datepickerService: ThyDatepickerService,
-        private thyPositioningService: ThyPositioningService,
-
+        private thyPositioningService: ThyPositioningService
     ) {
-        this._loader = cis.createLoader<ThyDatepickerContainerComponent>(
-            _elementRef,
-            _viewContainerRef,
-            _renderer
-        );
+        this._loader = cis.createLoader<ThyDatepickerContainerComponent>(_elementRef, _viewContainerRef, _renderer);
     }
 
     ngOnInit() {
@@ -108,8 +114,9 @@ export class ThyDatepickerDirective implements OnInit, AfterContentInit, Control
         }
 
         this.datepickerService.initLocale();
-
-        const dateContainerRef = this._loader.provide({ provide: ThyDatepickerConfig, useValue: this._config })
+       let a=  datepickerUtilConvertToDatepickerObject(this.thyMinDate)
+        const dateContainerRef = this._loader
+            .provide({ provide: ThyDatepickerConfig, useValue: this._config })
             .attach(ThyDatepickerContainerComponent)
             .to(this.thyContainer)
             // .position({ attachment: this.thyPlacement })
@@ -121,6 +128,8 @@ export class ThyDatepickerDirective implements OnInit, AfterContentInit, Control
                     withTime: inputValueToBoolean(this.thyShowTime),
                     value: this._value,
                     valueRef: this._valueRef,
+                    maxDate: datepickerUtilConvertToDatepickerObject(this.thyMaxDate).date,
+                    minDate: datepickerUtilConvertToDatepickerObject(this.thyMinDate).date,
                     changeValue: (result: DatepickerValueEntry) => {
                         // this._isFirstInitValueWithNullOnce = false;
                         this._initFormatRule(result);
@@ -155,7 +164,6 @@ export class ThyDatepickerDirective implements OnInit, AfterContentInit, Control
         }
         this._initFormatRule();
         this._setInputProperty(this._value.date);
-
     }
 
     private _saveInitValueClone() {
@@ -212,5 +220,4 @@ export class ThyDatepickerDirective implements OnInit, AfterContentInit, Control
         }
         this._onChange(this._value);
     }
-
 }

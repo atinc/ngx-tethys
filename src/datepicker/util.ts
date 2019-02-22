@@ -51,6 +51,12 @@ export function datepickerUtilConvertToDatepickerObject(value: any, valueType?: 
                 with_time: value.with_time
             };
             break;
+        case DatepickerValueShowTypesEnum.dateTimeLong:
+            _value = {
+                date: new Date(value),
+                with_time: value.with_time
+            };
+            break;
         case DatepickerValueShowTypesEnum.datepickerTimeObject:
             _value = {
                 date: new Date(value.date * 1000),
@@ -108,16 +114,10 @@ export function daterangepickerUtilConvertToDaterangepickerObject(value: any, va
     let _value: any;
     switch (_valueType) {
         case DatepickerValueShowTypesEnum.daterangepickerTime:
-            _value = [
-                new Date(value.begin * 1000),
-                new Date(value.end * 1000)
-            ];
+            _value = [new Date(value.begin * 1000), new Date(value.end * 1000)];
             break;
         case DatepickerValueShowTypesEnum.daterangepickerTimeObject:
-            _value = [
-                new Date(value.begin.date * 1000),
-                new Date(value.end.date * 1000)
-            ];
+            _value = [new Date(value.begin.date * 1000), new Date(value.end.date * 1000)];
             break;
         case DatepickerValueShowTypesEnum.daterangepickerNullValueObject:
             _value = [];
@@ -133,7 +133,5 @@ export function daterangepickerUtilConvertToDaterangepickerObject(value: any, va
 }
 
 export class DatepickerUtil {
-    constructor(
-
-    ) { }
+    constructor() {}
 }
