@@ -1,6 +1,6 @@
 {
   "name": "ngx-tethys",
-  "version": "7.0.2",
+  "version": "7.0.5",
   "license": "MIT",
   "scripts": {
     "build": "npm run build:ngm",
@@ -46,8 +46,10 @@
     "china-division": "^2.1.1",
     "core-js": "^2.5.4",
     "highlight.js": "^9.13.1",
+    "natives": "^1.1.6",
     "ngx-bootstrap": "^3.2.0",
     "ngx-highlightjs": "^3.0.0",
+    "node-sass": "^4.11.0",
     "rxjs": "^6.4.0",
     "sortablejs": "^1.7.0",
     "tslib": "^1.9.0",

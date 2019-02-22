@@ -1,3 +1,7 @@
+## 7.0.5
+`thyGrid` 新增支持 `thyRowClassName`
+`table` 样式支持排除某一行拖拽样式 `table-draggable-ignore-item`
+
 ## 7.0.2
 `thyDatepicker` 新增支持设置最大值 `thyMaxDate`、最小值 `thyMaxDate`。
 
