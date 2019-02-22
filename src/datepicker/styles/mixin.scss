@@ -28,6 +28,12 @@
         // .bs-datepicker-body table.days span.in-range.is-highlighted:before {
         //     background: transparent;
         // }
+        .bs-datepicker-body table.days span.in-range.select-end:before,
+        .bs-datepicker-body table.days span.is-highlighted.in-range:before {
+            background: 0 0;
+            right: 0;
+            left: 0;
+        }
     }
 }
 
@@ -106,15 +112,15 @@
                                     font-size: 14px;
 
                                     &:before {
-                                        top: 2px;
-                                        bottom: 2px;
+                                        // top: 2px;
+                                        // bottom: 2px;
                                         left: -4px;
                                         right: -4px;
                                     }
 
                                     &.select-start {
                                         &:before {
-                                            background: white;
+                                            // background: white;
                                             width: 5px;
                                             transform: translateX(34px);
                                         }
