@@ -1,3 +1,6 @@
+## 7.0.4
+修复发布错误。
+
 ## 7.0.2
 `thyDatepicker` 新增支持设置最大值 `thyMaxDate`、最小值 `thyMaxDate`。
 
