@@ -1,3 +1,6 @@
+## 7.0.7
+`thyDatepicker` 时间范围选择样式的修改
+
 ## 7.0.6
 `thyGrid` 新增支持 `thyRowClassName`
 `table` 样式支持排除某一行拖拽样式 `table-draggable-ignore-item`
