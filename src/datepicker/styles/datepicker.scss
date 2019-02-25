@@ -213,15 +213,15 @@ $border-color: transparent;
                     }
                 }
                 span {
-                    width: 30px;
-                    height: 30px;
-                    line-height: 30px;
+                    width: 32px;
+                    height: 32px;
+                    line-height: 32px;  // 原数据30px
                     &.select-start {
                         z-index: 2;
                     }
-                    &.is-highlighted.in-range:before,
-                    &.in-range.select-end:before {
-                        background: none;
+                    &.in-range.select-end:before,
+                    &.is-highlighted.in-range:before{
+                        background: 0 0;
                         right: 0;
                         left: 0;
                     }
