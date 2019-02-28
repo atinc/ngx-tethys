@@ -12,7 +12,6 @@ import {
     EventEmitter,
     Output,
     OnDestroy,
-    Inject,
     NgZone,
     forwardRef
 } from '@angular/core';
@@ -22,7 +21,7 @@ import {
     ThyListOptionComponent,
     THY_OPTION_PARENT_COMPONENT,
     IThyOptionParentComponent
-} from '../../core/option';
+} from '../../core/option/module';
 import { keycodes, helpers, dom } from '../../util';
 import { inputValueToBoolean } from '../../util/helpers';
 import { Subscription, throwError } from 'rxjs';

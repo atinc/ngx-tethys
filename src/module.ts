@@ -1,4 +1,4 @@
-import { Component, NgModule, ModuleWithProviders } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyButtonModule } from './button';
 import { ThyLayoutModule } from './layout';

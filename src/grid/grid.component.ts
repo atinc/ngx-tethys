@@ -13,8 +13,7 @@ import {
     IterableChangeRecord,
     ContentChildren,
     QueryList,
-    OnDestroy,
-    forwardRef
+    OnDestroy
 } from '@angular/core';
 import { get, set, isString } from '../util/helpers';
 import {
@@ -28,11 +27,10 @@ import {
     ThyGridRowEvent,
     ThyGridEvent
 } from './grid.interface';
-import { PageChangedEvent } from 'ngx-bootstrap/pagination/pagination.component';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination/public_api';
 import { ThyGridColumnComponent, IThyGridColumnParentComponent, THY_GRID_COLUMN_PARENT_COMPONENT } from './grid-column.component';
 import { SortablejsOptions } from 'angular-sortablejs';
 import { helpers } from '../util';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export type ThyGridTheme = 'default' | 'bordered';
 

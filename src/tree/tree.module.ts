@@ -9,7 +9,7 @@ import { ThyDirectiveModule } from '../directive';
 import { SortablejsModule } from 'angular-sortablejs';
 import { ThyTreeService } from './tree.service';
 import { ThyListModule } from '../list';
-import { ThyOptionModule } from '../core/option';
+import { ThyOptionModule } from '../core/option/module';
 import { FormsModule } from '@angular/forms';
 import { ThyLoadingModule } from '../loading/loading.module';
 

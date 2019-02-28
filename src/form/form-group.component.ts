@@ -6,8 +6,6 @@ import {
     ViewEncapsulation,
     ContentChild,
     OnInit,
-    ContentChildren,
-    QueryList,
     ChangeDetectionStrategy
 } from '@angular/core';
 import { ThyFormDirective } from './form.directive';
