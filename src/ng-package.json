@@ -3,7 +3,6 @@
     "dest": "../built",
     "deleteDestPath": false,
     "lib": {
-      "entryFile": "index.ts",
-      "styleIncludePaths": ["./styles/index.scss","./src/styles/index.scss"]
+      "entryFile": "index.ts"
     }
   }
