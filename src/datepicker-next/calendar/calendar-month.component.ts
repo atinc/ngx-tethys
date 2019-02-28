@@ -1,8 +1,5 @@
 import { Component, OnInit, HostBinding, OnDestroy } from '@angular/core';
-import {
-    ThyDatepickerNextStore,
-    datepickerNextActions
-} from '../datepicker-next.store';
+import { ThyDatepickerNextStore, datepickerNextActions } from '../datepicker-next.store';
 import { sliceArray, getTimestamp } from '../util';
 import { DatepickerNextCalendarViewModeEnum } from '../datepicker-next.interface';
 import { takeUntil } from 'rxjs/operators';
@@ -33,10 +30,8 @@ const monthEnum = {
     selector: 'thy-datepicker-next-calendar-month',
     templateUrl: 'calendar-month.component.html'
 })
-export class ThyDatepickerNextCalendarMonthComponent
-    implements OnInit, OnDestroy {
-    @HostBinding('class') styleClass =
-        'calendar-container calendar-month-container';
+export class ThyDatepickerNextCalendarMonthComponent implements OnInit, OnDestroy {
+    @HostBinding('class') styleClass = 'calendar-container calendar-month-container';
 
     calendarRows: any;
 
@@ -87,22 +82,16 @@ export class ThyDatepickerNextCalendarMonthComponent
             // active
             if (
                 this.store.snapshot.calendarSelected &&
-                this.store.snapshot.calendarCurrent.year ===
-                    this.store.snapshot.calendarSelected.year &&
+                this.store.snapshot.calendarCurrent.year === this.store.snapshot.calendarSelected.year &&
                 index === this.store.snapshot.calendarSelected.month
             ) {
                 month.isActive = true;
             }
             // disabled rules
-            const _timestamp = getTimestamp(
-                new Date(
-                    this.store.snapshot.calendarCurrent.year,
-                    this.store.snapshot.calendarCurrent.month
-                )
-            );
+            const _timestamp = getTimestamp(new Date(this.store.snapshot.calendarCurrent.year, this.store.snapshot.calendarCurrent.month));
             if (
-                _timestamp < this.store.snapshot.disableRules['<'] ||
-                _timestamp > this.store.snapshot.disableRules['>']
+                this.store.snapshot.disableRules &&
+                (_timestamp < this.store.snapshot.disableRules['<'] || _timestamp > this.store.snapshot.disableRules['>'])
             ) {
                 month.isDisabled = true;
             }

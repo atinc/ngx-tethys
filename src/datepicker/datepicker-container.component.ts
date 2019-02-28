@@ -12,6 +12,8 @@ export class ThyDatepickerContainerComponent implements OnInit {
     public initialState: any;
     hideLoader: Function;
     value: Date;
+    maxDate: Date;
+    minDate: Date;
     isShowTime = false;
     isCanTime = false;
     isMeridian = false;
@@ -19,9 +21,9 @@ export class ThyDatepickerContainerComponent implements OnInit {
     @ViewChild('dpContainer')
     private _dpContainerRef: any;
 
-    constructor(public _config: BsDatepickerConfig, _elementRef: ElementRef, _renderer: Renderer2, _viewContainerRef: ViewContainerRef) {
-        _config.containerClass = 'theme-ngx';
-        _config.showWeekNumbers = false;
+    constructor(private _config: BsDatepickerConfig, _elementRef: ElementRef, _renderer: Renderer2, _viewContainerRef: ViewContainerRef) {
+        this._config.containerClass = 'theme-ngx';
+        this._config.showWeekNumbers = false;
     }
 
     ngOnInit() {
@@ -83,6 +85,9 @@ export class ThyDatepickerContainerComponent implements OnInit {
         this.value = this.initialState.value.date ? new Date(this.initialState.value.date.getTime()) : new Date();
         this._dpContainerRef._effects.init(this._dpContainerRef._store);
         this._dpContainerRef._effects.setValue(this.value);
+        this._dpContainerRef._effects.setMinDate(this.initialState.minDate);
+        this._dpContainerRef._effects.setMaxDate(this.initialState.maxDate);
+
         this._dpContainerRef.valueChange.pipe(skip(1)).subscribe((result: Date) => {
             const nowDate = new Date();
             const value = new Date(

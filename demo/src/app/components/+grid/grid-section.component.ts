@@ -245,8 +245,7 @@ export class DemoGridSectionComponent implements OnInit {
         },
         {
             property: 'thyType',
-            description:
-                '设置列的类型 index:序列 ，checkbox:多选 ，radio:单选 ，switch:切换',
+            description: '设置列的类型 index:序列 ，checkbox:多选 ，radio:单选 ，switch:切换',
             type: 'String',
             default: ''
         },
@@ -287,8 +286,9 @@ export class DemoGridSectionComponent implements OnInit {
         disabled: false,
         onMove: event => {
             console.log('onMove');
-            // return false;
-        }
+            return event.related.className.indexOf('table-draggable-ignore-item') === -1;
+        },
+        filter: '.table-draggable-ignore-item'
     };
 
     ngOnInit() {
@@ -296,23 +296,24 @@ export class DemoGridSectionComponent implements OnInit {
             this.loadingDone = true;
         }, 3000);
         this.cloneModel = this.model;
-        this.model = this.cloneModel.slice(
-            0,
-            this.pagination.index * this.pagination.size
-        );
+        this.model = this.cloneModel.slice(0, this.pagination.index * this.pagination.size);
     }
 
     onMultiSelectChange(event: ThyMultiSelectEvent) {
         if (!this.selections.includes(event.row)) {
             this.selections.push(event.row);
         } else {
-            this.selections = this.selections.filter(
-                item => item.id !== event.row.id
-            );
+            this.selections = this.selections.filter(item => item.id !== event.row.id);
         }
         this.selections = [...this.selections];
         console.log(event);
         console.log(this.selections);
+    }
+
+    gridRowClassName(row, index) {
+        if (row.id === 1) {
+            return 'table-draggable-ignore-item';
+        }
     }
 
     onRadioSelectChange(event) {
@@ -321,10 +322,7 @@ export class DemoGridSectionComponent implements OnInit {
 
     onPageChange(event) {
         console.log(event);
-        this.model = this.cloneModel.slice(
-            (event.page - 1) * this.pagination.size,
-            event.page * this.pagination.size
-        );
+        this.model = this.cloneModel.slice((event.page - 1) * this.pagination.size, event.page * this.pagination.size);
     }
 
     onSwitchChange(event) {

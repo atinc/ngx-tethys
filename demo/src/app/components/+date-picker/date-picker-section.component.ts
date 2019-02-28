@@ -6,11 +6,11 @@ import { ComponentExample } from '../../docs/model/component-example';
     templateUrl: './date-picker-section.component.html'
 })
 export class DemoDataPickerSectionComponent implements OnInit {
-
-    private state = {
-        nowDate: Math.floor((new Date()).getTime() / 1000),
-        nowNextWeekDate: Math.floor((new Date()).getTime() / 1000) + 90000 * 7,
-        nowNextNextWeekDate: Math.floor((new Date()).getTime() / 1000) + 90000 * 7 * 2,
+    public state = {
+        nowPreWeekDate: Math.floor(new Date().getTime() / 1000) - 90000 * 7,
+        nowDate: Math.floor(new Date().getTime() / 1000),
+        nowNextWeekDate: Math.floor(new Date().getTime() / 1000) + 90000 * 7,
+        nowNextNextWeekDate: Math.floor(new Date().getTime() / 1000) + 90000 * 7 * 2
     };
 
     //#region DatePicker
@@ -109,16 +109,15 @@ export class DemoDataPickerSectionComponent implements OnInit {
         },
         {
             property: 'thyShowTime',
-            description: '显示\'设置时间\'按钮',
+            description: "显示'设置时间'按钮",
             type: 'boolean',
             default: 'false'
-        },
+        }
     ];
 
-    constructor() { }
+    constructor() {}
 
-    ngOnInit() {
-    }
+    ngOnInit() {}
 
     datepickerTestNewValue() {
         this.dateEntry = {
@@ -126,7 +125,6 @@ export class DemoDataPickerSectionComponent implements OnInit {
             with_time: false
         };
         this.dateEntry2 = this.state.nowNextWeekDate;
-
 
         this.dateEntryWithTime = {
             date: this.state.nowNextWeekDate,
@@ -136,13 +134,9 @@ export class DemoDataPickerSectionComponent implements OnInit {
         this.dateNull = null;
     }
 
-    datepickerTestNullValue() {
-
-    }
-
+    datepickerTestNullValue() {}
 
     daterangepickerTestNewValue() {
-
         this.dateRangeObjectTimestamp = {
             begin: { date: this.state.nowNextWeekDate },
             end: { date: this.state.nowNextNextWeekDate }
@@ -167,11 +161,9 @@ export class DemoDataPickerSectionComponent implements OnInit {
             begin: { date: this.state.nowNextWeekDate },
             end: { date: this.state.nowNextNextWeekDate }
         };
-
     }
 
     daterangepickerTestNullValue() {
-
         this.dateRangeObjectTimestamp = {
             begin: { date: null },
             end: { date: null }
@@ -193,7 +185,6 @@ export class DemoDataPickerSectionComponent implements OnInit {
         };
 
         this.dateRangeNull = null;
-
     }
 
     log($event) {
