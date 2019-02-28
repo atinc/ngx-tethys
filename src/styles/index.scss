@@ -1,8 +1,4 @@
-@import "~bootstrap/scss/functions";
-@import "./variables";
-@import "~bootstrap/scss/variables";
-@import "~bootstrap/scss/mixins";
-@import "./mixins/index";
+@import "./basic";
 @import "./modules/index";
 @import "~bootstrap/scss/root";
 @import "~bootstrap/scss/grid";
