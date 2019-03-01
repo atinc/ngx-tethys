@@ -37,7 +37,7 @@ import { CommonModule } from '@angular/common';
         ComponentLoaderFactory
     ]
 })
-export class NgxPopBoxModule {
+export class ThyPopBoxModule {
 
 }
 

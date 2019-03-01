@@ -2,7 +2,7 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyButtonModule } from './button';
 import { ThyLayoutModule } from './layout';
-import { NgxPopBoxModule } from './pop-box/pop-box.module';
+import { ThyPopBoxModule } from './pop-box/pop-box.module';
 import { ThyGridModule } from './grid/grid.module';
 import { ThyAvatarModule } from './avatar';
 import { ThyBadgeModule } from './badge/badge.module';
@@ -44,13 +44,13 @@ import { ThyStepperModule } from './stepper';
 import { ThyCascaderModule } from './cascader';
 import { ThyDialogModule } from './dialog';
 import { ThyBreadcrumbModule } from './breadcrumb';
-import { from } from 'rxjs';
+
 
 const IMPORT_EXPORT_MODULES = [
     BrowserAnimationsModule,
     ThyLayoutModule,
     ThyButtonModule,
-    NgxPopBoxModule,
+    ThyPopBoxModule,
     ThyBadgeModule,
     ThyGridModule,
     ThyAvatarModule,
