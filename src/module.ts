@@ -19,7 +19,7 @@ import { ThyConfirmModule } from './confirm/confirm.module';
 import { ThyTreeModule } from './tree/tree.module';
 import { ThyDatepickerModule } from './datepicker/datepicker.module';
 import { ThyDatepickerNextModule } from './datepicker-next/datepicker-next.module';
-import { ThyNotifyModule } from './notify/notify.module';
+import { ThyNotifyModule } from './notify';
 import { ThyEmptyModule } from './empty';
 import { ThySwitchModule } from './switch/switch.module';
 import { ThyTransferModule } from './transfer/transfer.module';
