@@ -1,8 +1,8 @@
 export * from './module';
 export * from './pop-box';
 export * from './modal';
-export * from './notify/notify.service';
-export * from './confirm/confirm.service';
+export { ThyNotifyService } from './notify';
+export { ThyConfirmService, ConfirmOption } from './confirm';
 export * from './shared';
 export * from './grid';
 export * from './transfer';
