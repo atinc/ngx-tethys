@@ -1,10 +1,10 @@
 {
     "name": "ngx-tethys",
-    "version": "7.0.10",
+    "version": "7.0.11",
     "license": "MIT",
     "scripts": {
         "build": "npm run build:ngm",
-        "build:ng-pgr": "rimraf ./built/* ./codegen/* && ng build ngx-tethys && cpx \"./src/styles/**/*.scss\" built/styles",
+        "build:ng-pgr": "rimraf ./built/* ./codegen/* && ng build ngx-tethys && cpx \"./src/**/**/*.scss\" built",
         "build:ng": "ng build ngx-tethys --prod",
         "build:ngc": "rimraf ./built/* ./codegen/* && ngc -p ./src/tsconfig.lib.json",
         "build:ngm": "ngm build -p src --clean",
