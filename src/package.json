@@ -1,6 +1,6 @@
 {
     "name": "ngx-tethys",
-    "version": "7.0.8",
+    "version": "7.0.10",
     "repository": {
         "type": "git",
         "url": "git+ssh://git@github.com/worktile/ngx-tethys.git"
@@ -12,6 +12,7 @@
         "@angular/core": "*",
         "@angular/forms": "*",
         "@angular/cdk": "*",
+        "lodash": "*",
         "sortablejs": "*",
         "angular-sortablejs": "*",
         "typescript": "*",
