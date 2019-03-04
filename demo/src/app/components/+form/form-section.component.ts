@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation, TemplateRef } from '@angular/core';
-import { ThyModalService } from '../../../../../src/public_api';
+import { ThyModalService } from '../../../../../src/public-api';
 import { of } from 'rxjs';
 
 const options = [

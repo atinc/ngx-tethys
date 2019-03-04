@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ThyAvatarService } from '../../../../../src/public_api';
+import { ThyAvatarService } from '../../../../../src/public-api';
 
 @Injectable()
 export class CustomAvatarService extends ThyAvatarService {

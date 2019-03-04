@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination/pagination.component';
-import { ThyMultiSelectEvent } from '../../../../../src/public_api';
+import { ThyMultiSelectEvent } from '../../../../../src/public-api';
 
 @Component({
     selector: 'demo-grid-section',

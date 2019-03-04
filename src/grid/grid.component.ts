@@ -27,7 +27,7 @@ import {
     ThyGridRowEvent,
     ThyGridEvent
 } from './grid.interface';
-import { PageChangedEvent } from 'ngx-bootstrap/pagination/public_api';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination/public-api';
 import { ThyGridColumnComponent, IThyGridColumnParentComponent, THY_GRID_COLUMN_PARENT_COMPONENT } from './grid-column.component';
 import { SortablejsOptions } from 'angular-sortablejs';
 import { helpers } from '../util';
