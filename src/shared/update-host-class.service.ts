@@ -1,14 +1,10 @@
 import { Injectable, Renderer2 } from '@angular/core';
-import { isString } from '../util/helpers';
 import { Dictionary } from '../typings';
 
 @Injectable()
 export class UpdateHostClassService {
 
-    // host element old classes
     private _classNames: string[] = [];
-
-    private _classMap: Dictionary<boolean>;
 
     private _hostElement: HTMLElement;
 

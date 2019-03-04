@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { TextFieldModule } from '@angular/cdk/text-field';
 import { NgxTethysModule } from '../../../src/index';
 import { RouterModule } from '@angular/router';
 import { SortablejsModule } from 'angular-sortablejs';
@@ -23,6 +24,9 @@ import { HighlightModule } from 'ngx-highlightjs';
 import xml from 'highlight.js/lib/languages/xml';
 import scss from 'highlight.js/lib/languages/scss';
 import typescript from 'highlight.js/lib/languages/typescript';
+import { ThyStoreModule } from '../../../src/store/module';
+import { DriveStore } from './store/drive-store';
+import { TasksStore } from './store/tasks-store';
 export function hljsLanguages() {
     return [
         { name: 'typescript', func: typescript },
@@ -48,7 +52,9 @@ export function hljsLanguages() {
         SortablejsModule.forRoot({}),
         HighlightModule.forRoot({
             languages: hljsLanguages
-        })
+        }),
+        ThyStoreModule.forFeature([TasksStore, DriveStore]),
+        TextFieldModule
     ],
     providers: [
         {

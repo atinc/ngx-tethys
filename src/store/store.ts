@@ -10,19 +10,34 @@ import {
 import { distinctUntilChanged, map, shareReplay } from 'rxjs/operators';
 import { META_KEY, StoreMetaInfo } from './types';
 import { helpers } from '../util';
+import { RootContainer } from './rootStore';
+import { OnDestroy } from '@angular/core';
+import { ActionStateStore } from './actionStateStore';
 
 interface Action {
     type: string;
     payload?: any;
 }
 
-export class Store<T extends object> implements Observer<T> {
+let containerId = -1;
+
+export class Store<T extends object> implements Observer<T>, OnDestroy {
     [key: string]: any;
 
-    protected state$: BehaviorSubject<T>;
+    public state$: BehaviorSubject<T>;
+
+    public apply_redux_tool = false;
+
+    private _defaultContainerInstanceId = `${this._getClassName()}@${++containerId}`;
+
 
     constructor(initialState: any) {
         this.state$ = new BehaviorSubject<T>(initialState);
+        if (this.apply_redux_tool) {
+            const _rootContainer: RootContainer = RootContainer.getSingletonRootContainer();
+            ActionStateStore.changeAction(`init_${this._defaultContainerInstanceId}`);
+            _rootContainer.registerContainer(this);
+        }
     }
 
     get snapshot() {
@@ -112,5 +127,24 @@ export class Store<T extends object> implements Observer<T> {
 
     getState(): T {
         return this.snapshot;
+    }
+
+    ngOnDestroy() {
+        if (this.apply_redux_tool) {
+            const _rootContainer: RootContainer = RootContainer.getSingletonRootContainer();
+            _rootContainer.unregisterContainer(this);
+        }
+    }
+
+    /**
+     * You can override this method if you want to give your container instance a custom id.
+     * The returned id must be unique in the application.
+     */
+    getContainerInstanceId(): string {
+        return this._defaultContainerInstanceId;
+    }
+
+    private _getClassName(): string {
+        return this.constructor.name;
     }
 }

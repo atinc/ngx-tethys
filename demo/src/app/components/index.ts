@@ -56,6 +56,7 @@ import { DemoCascaderSectionComponent } from './+cascader/cascader-section.compo
 import { DemoDialogSectionComponent } from './+dialog/dialog-section.component';
 import { DemoDialogContentComponent } from './+dialog/dialog-content.component';
 import { DemoBreadcrumbSectionComponent } from './+breadcrumb/breadcrumb-section.component';
+import { DemoStoreSectionComponent } from './+store/store-section.component';
 
 
 export const COMPONENTS = [
@@ -118,7 +119,8 @@ export const COMPONENTS = [
     DemoDialogSectionComponent,
     DemoDialogContentComponent,
 
-    DemoBreadcrumbSectionComponent
+    DemoBreadcrumbSectionComponent,
+    DemoStoreSectionComponent
 ];
 
 export const ENTRY_COMPONENTS = [

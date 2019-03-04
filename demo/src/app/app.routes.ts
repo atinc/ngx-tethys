@@ -43,6 +43,7 @@ import { DemoStepperSectionComponent } from './components/+stepper/stepper-secti
 import { DemoCascaderSectionComponent } from './components/+cascader/cascader-section.component';
 import { DemoDialogSectionComponent } from './components/+dialog/dialog-section.component';
 import { DemoBreadcrumbSectionComponent } from './components/+breadcrumb/breadcrumb-section.component';
+import { DemoStoreSectionComponent } from './components/+store/store-section.component';
 
 const appRoutes = [
     {
@@ -224,6 +225,11 @@ const appRoutes = [
     {
         path: 'components/breadcrumb',
         component: DemoBreadcrumbSectionComponent
+    }
+    ,
+    {
+        path: 'components/store',
+        component: DemoStoreSectionComponent
     }
 ];
 
