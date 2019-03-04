@@ -10,8 +10,8 @@ import {
 import { distinctUntilChanged, map, shareReplay } from 'rxjs/operators';
 import { META_KEY, StoreMetaInfo } from './types';
 import { helpers } from '../util';
-import { RootContainer } from './rootStore';
-import { OnDestroy } from '@angular/core';
+import { RootContainer } from './root-store';
+import { OnDestroy, isDevMode } from '@angular/core';
 import { ActionStateStore } from './actionStateStore';
 
 interface Action {
@@ -26,7 +26,7 @@ export class Store<T extends object> implements Observer<T>, OnDestroy {
 
     public state$: BehaviorSubject<T>;
 
-    public apply_redux_tool = false;
+    public apply_redux_tool = isDevMode;
 
     private _defaultContainerInstanceId = `${this._getClassName()}@${++containerId}`;
 
