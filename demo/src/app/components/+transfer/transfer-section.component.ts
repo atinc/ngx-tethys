@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ThyTransferData, ThyTransferItem } from '../../../../../src/transfer/transfer.interface';
-import { TransferDirection } from '../../../../../src';
+import { TransferDirection } from '../../../../../src/public-api';
 @Component({
     selector: 'demo-transfer-section',
     templateUrl: './transfer-section.component.html',

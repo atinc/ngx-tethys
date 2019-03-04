@@ -32,17 +32,15 @@ import {
 import { DEFAULT_4_POSITIONS, DEFAULT_DROPDOWN_POSITIONS, EXPANDED_DROPDOWN_POSITIONS } from '../core/overlay/overlay-opsition-map';
 import { ThyTreeNode } from '../tree/tree.class';
 
-const MAT_SELECT_SCROLL_STRATEGY = new InjectionToken<() => ScrollStrategy>(
-    'MAT_SELECT_SCROLL_STRATEGY'
-);
+import { $ } from '../typings';
 
-export function MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(
-    overlay: Overlay
-): ScrollStrategy {
+const MAT_SELECT_SCROLL_STRATEGY = new InjectionToken<() => ScrollStrategy>('MAT_SELECT_SCROLL_STRATEGY');
+
+export function MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Overlay): ScrollStrategy {
     return overlay.scrollStrategies.reposition();
 }
 
-export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
+type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
 @Component({
     selector: 'thy-tree-select',
@@ -52,7 +50,7 @@ export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
             provide: NG_VALUE_ACCESSOR,
             useExisting: forwardRef(() => ThyTreeSelectComponent),
             multi: true
-        },
+        }
         // {
         //     provide: MAT_SELECT_SCROLL_STRATEGY,
         //     deps: [Overlay],
@@ -60,8 +58,7 @@ export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
         // }
     ]
 })
-export class ThyTreeSelectComponent
-    implements OnInit, ControlValueAccessor {
+export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
     @HostBinding('class.thy-select-custom') treeSelectClass = true;
 
     @HostBinding('class.thy-select') isTreeSelect = true;
@@ -85,7 +82,7 @@ export class ThyTreeSelectComponent
 
     // public scrollStrategy: ScrollStrategy;
 
-    public positions: ConnectionPositionPair[] =[ ...EXPANDED_DROPDOWN_POSITIONS ];
+    public positions: ConnectionPositionPair[] = [...EXPANDED_DROPDOWN_POSITIONS];
 
     private isInit = true;
 
@@ -106,11 +103,7 @@ export class ThyTreeSelectComponent
     set thyTreeNodes(value: ThyTreeSelectNode[]) {
         this.treeNodes = value;
         if (!this.isInit && this.treeNodes && this.treeNodes.length > 0) {
-            this.flattenTreeNodes = this.flattenNodes(
-                this.treeNodes,
-                this.flattenTreeNodes,
-                []
-            );
+            this.flattenTreeNodes = this.flattenNodes(this.treeNodes, this.flattenTreeNodes, []);
             this._dataLoadingDoneFn();
         }
     }
@@ -141,17 +134,11 @@ export class ThyTreeSelectComponent
 
     @Input() thyShowWholeName = false;
 
-    @Input() thyHiddenNodeFn: (node: ThyTreeSelectNode) => boolean = (
-        node: ThyTreeSelectNode
-    ) => node.hidden
+    @Input() thyHiddenNodeFn: (node: ThyTreeSelectNode) => boolean = (node: ThyTreeSelectNode) => node.hidden;
 
-    @Input() thyDisableNodeFn: (node: ThyTreeSelectNode) => boolean = (
-        node: ThyTreeSelectNode
-    ) => node.disable
+    @Input() thyDisableNodeFn: (node: ThyTreeSelectNode) => boolean = (node: ThyTreeSelectNode) => node.disable;
 
-    @Input() thyGetNodeChildren: (
-        node: ThyTreeSelectNode
-    ) => Observable<ThyTreeSelectNode> = (node: ThyTreeSelectNode) => of([])
+    @Input() thyGetNodeChildren: (node: ThyTreeSelectNode) => Observable<ThyTreeSelectNode> = (node: ThyTreeSelectNode) => of([]);
 
     // TODO: 是否可以取消选中的node
     // @Input() thyUnRemoveSelectedNodeFn: Function;
@@ -162,8 +149,7 @@ export class ThyTreeSelectComponent
 
     private _getNgModelType() {
         if (this.thyMultiple) {
-            this.valueIsObject =
-                this.selectedValue[0] && isObject(this.selectedValue[0]);
+            this.valueIsObject = this.selectedValue[0] && isObject(this.selectedValue[0]);
         } else {
             this.valueIsObject = isObject(this.selectedValue);
         }
@@ -172,10 +158,7 @@ export class ThyTreeSelectComponent
     writeValue(value: any): void {
         this.selectedValue = value;
         if (this.isInit) {
-            this.flattenTreeNodes = this.flattenNodes(
-                this.treeNodes,
-                this.flattenTreeNodes
-            );
+            this.flattenTreeNodes = this.flattenNodes(this.treeNodes, this.flattenTreeNodes);
             this.isInit = false;
         }
         if (value) {
@@ -226,10 +209,7 @@ export class ThyTreeSelectComponent
         this.parentNodes = $(this.elementRef.nativeElement).parents();
         for (let i = 0; i < this.parentNodes.length; i++) {
             if (this.parentNodes[i]) {
-                if (
-                    this.parentNodes[i].scrollHeight >
-                    this.parentNodes[i].clientHeight
-                ) {
+                if (this.parentNodes[i].scrollHeight > this.parentNodes[i].clientHeight) {
                     const cdkScrollable: CdkScrollable = new CdkScrollable(
                         { nativeElement: this.parentNodes[i] },
                         this.scrollDispatcher,
@@ -259,11 +239,7 @@ export class ThyTreeSelectComponent
             item.parentValues = parentPrimaryValue;
             item.level = item.parentValues.length;
             if (item.children && isArray(item.children)) {
-                const nodeLeafs = this.flattenNodes(
-                    item.children,
-                    resultNodes,
-                    [...parentPrimaryValue, item[this.thyPrimaryKey]]
-                );
+                const nodeLeafs = this.flattenNodes(item.children, resultNodes, [...parentPrimaryValue, item[this.thyPrimaryKey]]);
                 nodesLeafs = [...nodesLeafs, ...nodeLeafs];
             }
         });
@@ -271,9 +247,7 @@ export class ThyTreeSelectComponent
     }
 
     private _findTreeNode(value: string): ThyTreeSelectNode {
-        return (this.flattenTreeNodes || []).find(
-            item => item[this.thyPrimaryKey] === value
-        );
+        return (this.flattenTreeNodes || []).find(item => item[this.thyPrimaryKey] === value);
     }
 
     getShowNodeName() {
@@ -294,36 +268,21 @@ export class ThyTreeSelectComponent
             // 多选数据初始化
             if (this.thyMultiple) {
                 if (this.selectedValue.length > 0) {
-                    if (
-                        this.valueIsObject &&
-                        this.selectedValue[0]
-                            .keys()
-                            .includes(this.thyPrimaryKey)
-                    ) {
-                        this.selectedNodes = this.selectedValue.map(
-                            (item: any) => {
-                                return this._findTreeNode(
-                                    item[this.thyPrimaryKey]
-                                );
-                            }
-                        );
+                    if (this.valueIsObject && this.selectedValue[0].keys().includes(this.thyPrimaryKey)) {
+                        this.selectedNodes = this.selectedValue.map((item: any) => {
+                            return this._findTreeNode(item[this.thyPrimaryKey]);
+                        });
                     } else {
-                        this.selectedNodes = this.selectedValue.map(
-                            (item: any) => {
-                                return this._findTreeNode(item);
-                            }
-                        );
+                        this.selectedNodes = this.selectedValue.map((item: any) => {
+                            return this._findTreeNode(item);
+                        });
                     }
                 }
             } else {
                 // 单选数据初始化
                 if (this.valueIsObject) {
-                    if (
-                        this.selectedValue.keys().includes(this.thyPrimaryKey)
-                    ) {
-                        this.selectedNode = this._findTreeNode(
-                            this.selectedValue[this.thyPrimaryKey]
-                        );
+                    if (this.selectedValue.keys().includes(this.thyPrimaryKey)) {
+                        this.selectedNode = this._findTreeNode(this.selectedValue[this.thyPrimaryKey]);
                     }
                 } else {
                     this.selectedNode = this._findTreeNode(this.selectedValue);
@@ -357,9 +316,7 @@ export class ThyTreeSelectComponent
 
     private _changeSelectValue() {
         if (this.valueIsObject) {
-            this.selectedValue = this.thyMultiple
-                ? this.selectedNodes
-                : this.selectedNode;
+            this.selectedValue = this.thyMultiple ? this.selectedNodes : this.selectedNode;
         } else {
             this.selectedValue = this.thyMultiple
                 ? this.selectedNodes.map(item => item[this.thyPrimaryKey])
@@ -392,9 +349,7 @@ export class ThyTreeSelectComponent
         } else {
             if (
                 this.selectedNodes.find(item => {
-                    return (
-                        item[this.thyPrimaryKey] === node[this.thyPrimaryKey]
-                    );
+                    return item[this.thyPrimaryKey] === node[this.thyPrimaryKey];
                 })
             ) {
                 this.removeSelectedNode(node);
@@ -409,13 +364,9 @@ export class ThyTreeSelectComponent
         const result = this.thyGetNodeChildren(node);
         if (result && result.subscribe) {
             result.pipe().subscribe((data: ThyTreeSelectNode[]) => {
-                const nodes = this.flattenNodes(
-                    data,
-                    this.flattenTreeNodes,
-                    [...node.parentValues, node[this.thyPrimaryKey]]
-                );
-               const otherNodes = nodes.filter((item: ThyTreeNode) => {
-                    return !this.flattenTreeNodes.find((hasItem) => {
+                const nodes = this.flattenNodes(data, this.flattenTreeNodes, [...node.parentValues, node[this.thyPrimaryKey]]);
+                const otherNodes = nodes.filter((item: ThyTreeNode) => {
+                    return !this.flattenTreeNodes.find(hasItem => {
                         return hasItem[this.thyPrimaryKey] === item[this.thyPrimaryKey];
                     });
                 });

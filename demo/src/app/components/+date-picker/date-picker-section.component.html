@@ -7,7 +7,7 @@
             <dd class="mt-5">
                 <div>DatepickerTimeObject类型 - {{dateEntry|json}}</div>
                 <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
-                    <input type="text" readonly="readonly" thyDatepicker [(ngModel)]="dateEntry" class="form-control" thyPlacement="top" thyAutoAdapt="true" placeholder="" />
+                    <input type="text" readonly="readonly" thyDatepicker [(ngModel)]="dateEntry" [thyMinDate]="state.nowPreWeekDate" [thyMaxDate]="state.nowNextWeekDate" class="form-control" thyPlacement="top" thyAutoAdapt="true" placeholder="" />
                 </thy-form-group>
             </dd>
             <dd class="mt-5">
@@ -56,7 +56,7 @@
                 </thy-form-group>
             </dd>
         </dl>
-        <button thyButton="primary" thySize="sm" (click)="datepickerTestNewValue()">改变值</button> 
+        <button thyButton="primary" thySize="sm" (click)="datepickerTestNewValue()">改变值</button>
         <button thyButton="primary" thySize="sm" (click)="datepickerTestNullValue()">空值</button>
     </div>
 </section>

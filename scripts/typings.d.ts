@@ -19,4 +19,7 @@ declare const liteMarked: any;
 declare const $: any;
 declare const katex: any;
 
+declare interface Dictionary<T> {
+    [key: string]: T;
+}
 

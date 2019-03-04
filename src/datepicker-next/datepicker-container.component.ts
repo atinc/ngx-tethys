@@ -34,7 +34,7 @@ import {
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 @Component({
-    selector: 'thy-datepicker-next',
+    selector: 'thy-datepicker-next-container',
     templateUrl: 'datepicker-container.component.html',
     providers: [
         ThyDatepickerNextStore,

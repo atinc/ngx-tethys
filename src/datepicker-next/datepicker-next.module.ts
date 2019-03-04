@@ -1,6 +1,7 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 // import { ThyDatepickerNextService } from './datepicker-next.service';
+import { ThyDatepickerNextComponent } from './datepicker-next.component';
 import { ThyDatepickerNextContainerComponent } from './datepicker-container.component';
 
 import { ThyDatepickerNextCalendarComponent } from './calendar/calendar.component';
@@ -33,17 +34,16 @@ import { ThyInputModule } from '../input';
         ThyDirectiveModule,
         ThyButtonModule,
         ThyInputModule,
-        ThyStoreModule.forFeature([ThyDatepickerNextStore]),
+        ThyStoreModule.forFeature([ThyDatepickerNextStore])
     ],
     exports: [
+        ThyDatepickerNextComponent,
         ThyDatepickerNextDirective,
         ThyDatepickerNextContainerComponent,
-
         ThyDatepickerNextTimeSimplyComponent,
-        ThyDatepickerNextTimeAccurateComponent,
+        ThyDatepickerNextTimeAccurateComponent
     ],
     entryComponents: [
-        ThyDatepickerNextContainerComponent,
         ThyDatepickerNextCalendarComponent,
         ThyDatepickerNextCalendarDayComponent,
         ThyDatepickerNextCalendarMonthComponent,
@@ -55,9 +55,10 @@ import { ThyInputModule } from '../input';
         ThyDatepickerNextOperationComponent,
 
         ThyDatepickerNextTimeSimplyComponent,
-        ThyDatepickerNextTimeAccurateComponent,
+        ThyDatepickerNextTimeAccurateComponent
     ],
     declarations: [
+        ThyDatepickerNextComponent,
         ThyDatepickerNextDirective,
         ThyDatepickerNextContainerComponent,
         ThyDatepickerNextCalendarComponent,
@@ -72,11 +73,8 @@ import { ThyInputModule } from '../input';
         ThyDatepickerNextOperationComponent,
 
         ThyDatepickerNextTimeSimplyComponent,
-        ThyDatepickerNextTimeAccurateComponent,
+        ThyDatepickerNextTimeAccurateComponent
     ],
-    providers: [
-    ],
+    providers: []
 })
-export class ThyDatepickerNextModule {
-}
-
+export class ThyDatepickerNextModule {}

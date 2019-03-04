@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { ThyConfirmComponent } from './confirm.component';
 import { ThyConfirmService } from './confirm.service';
 import { ThyModalModule } from '../modal/modal.module';
-import { ThyLoadingModule } from '../loading/loading.module';
 import { ThyButtonModule } from '../button/button.module';
 
 @NgModule({
@@ -18,7 +17,6 @@ import { ThyButtonModule } from '../button/button.module';
     ],
     imports: [
         ThyModalModule,
-        ThyLoadingModule,
         ThyButtonModule,
         CommonModule,
     ],

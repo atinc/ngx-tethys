@@ -1,14 +1,7 @@
-<table
-    class="table"
-    [ngClass]="[themeClass, className]"
-    [class.table-draggable]="draggable"
->
+<table class="table" [ngClass]="[themeClass, className]" [class.table-draggable]="draggable">
     <thead>
         <tr>
-            <th
-                *ngFor="let column of columns"
-                [ngClass]="column.headerClassName"
-            >
+            <th *ngFor="let column of columns" [ngClass]="column.headerClassName">
                 <ng-container *ngIf="!column.headerTemplateRef">
                     {{ column.title }}
                 </ng-container>
@@ -21,45 +14,29 @@
             </th>
         </tr>
     </thead>
-    <tbody
-        *ngIf="loadingDone"
-        [sortablejs]="model"
-        [sortablejsOptions]="draggableOptions"
-    >
+    <tbody *ngIf="loadingDone" [sortablejs]="model" [sortablejsOptions]="draggableOptions">
         <tr
             *ngFor="let row of model; let i = index; trackBy: trackByFn"
+            [ngClass]="renderRowClassName(row, i)"
             (mousedown)="draggableStopPropagation($event)"
             (touchstart)="draggableStopPropagation($event)"
             (pointerdown)="draggableStopPropagation($event)"
             (click)="onRowClick($event, row)"
-            (thyContextMenu)="onRowContextMenu($event,row)"
+            (thyContextMenu)="onRowContextMenu($event, row)"
         >
-            <td
-                *ngFor="let column of columns; let j = index"
-                [ngClass]="column.className"
-                [width]="column.width"
-            >
+            <td *ngFor="let column of columns; let j = index" [ngClass]="column.className" [width]="column.width">
                 <ng-container *ngIf="j === 0 && draggable">
                     <i class="table-draggable-icon wtf wtf-move"></i>
                 </ng-container>
                 <!--template-->
                 <ng-container *ngIf="isTemplateRef(column.templateRef)">
-                    <ng-template
-                        [ngTemplateOutlet]="column.templateRef"
-                        [ngTemplateOutletContext]="{ $implicit: row }"
-                    ></ng-template>
+                    <ng-template [ngTemplateOutlet]="column.templateRef" [ngTemplateOutletContext]="{ $implicit: row }"></ng-template>
                 </ng-container>
                 <!--not template-->
                 <ng-container *ngIf="!isTemplateRef(column.templateRef)">
                     <!-- default -->
                     <ng-container *ngIf="column.model && !column.type">
-                        <ng-container
-                            *ngIf="
-                                (getModelValue(row, column.model)
-                                    | isValidModelValue);
-                                else default
-                            "
-                        >
+                        <ng-container *ngIf="(getModelValue(row, column.model) | isValidModelValue); else default">
                             {{ getModelValue(row, column.model) }}
                         </ng-container>
                         <ng-template #default>
@@ -112,9 +89,7 @@
                     [thyTranslationKey]="emptyOptions.translationKey"
                     [thyTranslationValues]="emptyOptions.translationValues"
                     [thyEntityName]="emptyOptions.entityName"
-                    [thyEntityNameTranslateKey]="
-                        emptyOptions.entityNameTranslateKey
-                    "
+                    [thyEntityNameTranslateKey]="emptyOptions.entityNameTranslateKey"
                     [thyIconClass]="emptyOptions.iconClass"
                     [thySize]="emptyOptions.size"
                     [thyMarginTop]="emptyOptions.marginTop"

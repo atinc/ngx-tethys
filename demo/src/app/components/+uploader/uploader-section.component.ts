@@ -4,7 +4,7 @@ import {
     ThyUploaderService,
     ThyUploadStatus,
     ThyUploadFile
-} from '../../../../../src';
+} from '../../../../../src/public-api';
 
 @Component({
     selector: 'demo-uploader-section',

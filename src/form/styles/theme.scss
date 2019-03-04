@@ -1,18 +1,14 @@
 
 .form-control {
     border: $input-border-width solid $input-border-color;
-    
+
     // Customize the `:focus` state to imitate native WebKit styles.
     @include form-control-focus();
-  
+
     // Thy Custom
-    &:not(:disabled):not(.disabled):not(:invalid):not(.is-invalid) {
-      @include hover {
-        border-color: $input-hover-border-color;
-      }
-    }
+    @include set-input-hover-border($input-hover-border-color);
 }
-  
+
 @include form-validation-state("invalid", $form-feedback-invalid-color);
 
 
@@ -26,7 +22,7 @@ input[type="checkbox"] {
     }
     &:checked {
       &:not(:disabled) {
-        border-color: $primary; 
+        border-color: $primary;
         color: $primary;
       }
       &:disabled {

@@ -1,8 +1,5 @@
 import { Component, OnInit, HostBinding, OnDestroy } from '@angular/core';
-import {
-    ThyDatepickerNextStore,
-    datepickerNextActions
-} from '../datepicker-next.store';
+import { ThyDatepickerNextStore, datepickerNextActions } from '../datepicker-next.store';
 import { sliceArray, getTimestamp } from '../util';
 import { DatepickerNextCalendarViewModeEnum } from '../datepicker-next.interface';
 import { Subject } from 'rxjs';
@@ -23,10 +20,8 @@ interface DatepickerNextCalendarYearInfo {
     selector: 'thy-datepicker-next-calendar-year',
     templateUrl: 'calendar-year.component.html'
 })
-export class ThyDatepickerNextCalendarYearComponent
-    implements OnInit, OnDestroy {
-    @HostBinding('class') styleClass =
-        'calendar-container calendar-year-container';
+export class ThyDatepickerNextCalendarYearComponent implements OnInit, OnDestroy {
+    @HostBinding('class') styleClass = 'calendar-container calendar-year-container';
 
     yearRows: any;
 
@@ -45,17 +40,13 @@ export class ThyDatepickerNextCalendarYearComponent
 
     preClick() {
         this.store.dispatch(datepickerNextActions.changeCalendarCurrent, {
-            year:
-                this.store.snapshot.calendarCurrent.year -
-                CALENDAR_YEAR_CONSTANT.yearInterval
+            year: this.store.snapshot.calendarCurrent.year - CALENDAR_YEAR_CONSTANT.yearInterval
         });
     }
 
     nextClick() {
         this.store.dispatch(datepickerNextActions.changeCalendarCurrent, {
-            year:
-                this.store.snapshot.calendarCurrent.year +
-                CALENDAR_YEAR_CONSTANT.yearInterval
+            year: this.store.snapshot.calendarCurrent.year + CALENDAR_YEAR_CONSTANT.yearInterval
         });
     }
 
@@ -71,31 +62,20 @@ export class ThyDatepickerNextCalendarYearComponent
 
     _combinationYears() {
         const years = [];
-        const lastYear =
-            this.store.snapshot.calendarCurrent.year +
-            CALENDAR_YEAR_CONSTANT.currentReciprocalPosition;
-        for (
-            let index = 1;
-            index <= CALENDAR_YEAR_CONSTANT.yearInterval;
-            index++
-        ) {
+        const lastYear = this.store.snapshot.calendarCurrent.year + CALENDAR_YEAR_CONSTANT.currentReciprocalPosition;
+        for (let index = 1; index <= CALENDAR_YEAR_CONSTANT.yearInterval; index++) {
             const year: DatepickerNextCalendarYearInfo = {
                 year: lastYear - index
             };
             // active
-            if (
-                this.store.snapshot.calendarSelected &&
-                year.year === this.store.snapshot.calendarSelected.year
-            ) {
+            if (this.store.snapshot.calendarSelected && year.year === this.store.snapshot.calendarSelected.year) {
                 year.isActive = true;
             }
             // disabled rules
-            const _timestamp = getTimestamp(
-                new Date(this.store.snapshot.calendarCurrent.year)
-            );
+            const _timestamp = getTimestamp(new Date(this.store.snapshot.calendarCurrent.year));
             if (
-                _timestamp < this.store.snapshot.disableRules['<'] ||
-                _timestamp > this.store.snapshot.disableRules['>']
+                this.store.snapshot.disableRules &&
+                (_timestamp < this.store.snapshot.disableRules['<'] || _timestamp > this.store.snapshot.disableRules['>'])
             ) {
                 year.isDisabled = true;
             }

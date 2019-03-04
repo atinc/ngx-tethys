@@ -1,5 +1,44 @@
+## 7.0.7
+`thyDatepicker` 时间范围选择样式的修改
 
-## 未发版
+## 7.0.6
+`thyGrid` 新增支持 `thyRowClassName`
+`table` 样式支持排除某一行拖拽样式 `table-draggable-ignore-item`
+
+## 7.0.5
+`thy-date-range` 当双向绑定的值为空时，根据 `dateRanges` 设置日期区间；当双向绑定的值不为空时，不修改双向绑定的值。
+
+## 7.0.4
+修复发布错误。
+
+## 7.0.2
+`thyDatepicker` 新增支持设置最大值 `thyMaxDate`、最小值 `thyMaxDate`。
+
+## 7.0.1
+注销：ThyDraggableDirective，sky使用报错
+
+## 7.0.0
+依赖库升级到 Angular 7.2.6， bootstrap 4.3.1。
+主版本号，更改为随 Angular 主版本。
+
+## 0.2.37
+增加支持 ngx-bootstrap 3.2.0 版本
+
+## 0.2.36
+npm 发布错误，重新发布
+
+## 0.2.35
+新增菜单组件`thyMenu`
+`ThyMaxDirective`, `ThyMaxDirective` 支持最大或最小值设置浮点数
+
+## 0.2.34
+`thyFileDrop` bug fixed
+
+## 0.2.33
+`thy-editor` 支持默认自动伸缩高度, 
+`thyFileDrop` 禁止上传文件夹、无后缀文件。修复拖拽区域中包含其他拖拽排序导致的交叉影响。
+
+## 0.2.31 
 `form-validator` 错误信息支持占位符 `{min}` `{max}` `{minlength}` `{maxlength}`
 
 ## 0.2.30

@@ -1,0 +1,21 @@
+<thy-dialog-header thyTitle="Install Angular">
+    <ng-template #dialogHeader>
+        <h3 class="dialog-title">{{title}}
+            <a href="javascript:;"><i class="wtf wtf-question-o modal-info"></i></a>
+        </h3>
+        <button type="button" class="close" (click)="close()">
+            <i class="wtf wtf-times"></i>
+        </button>
+    </ng-template>
+</thy-dialog-header>
+<thy-dialog-body class="thy-form">
+    <div class="form-group">
+        <p [innerHTML]="content"></p>
+    </div>
+    <div class="form-group">
+        <div class="btn-pair">
+            <button [thyButton]="okType" (click)="confirm()" [thyLoading]="loading" [thyLoadingText]="okLoadingText">确认</button>
+            <button thyButton="link-secondary" (click)="close()">{{cancelText}}</button>
+        </div>
+    </div>
+</thy-dialog-body>

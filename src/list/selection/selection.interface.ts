@@ -1,5 +1,5 @@
 import { ThySelectionListComponent } from './selection-list';
-import { ThyListOptionComponent } from '../../core/option';
+import { ThyListOptionComponent } from '../../core/option/module';
 
 export interface ThySelectionListChange {
     source: ThySelectionListComponent;

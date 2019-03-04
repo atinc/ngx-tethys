@@ -1,35 +1,16 @@
-import {
-    Injectable,
-    TemplateRef,
-    Injector,
-    Optional,
-    OnDestroy,
-    Inject
-} from '@angular/core';
+import { Injectable, TemplateRef, Injector, Optional, OnDestroy, Inject } from '@angular/core';
 import { Location } from '@angular/common';
 import { of, Subject } from 'rxjs';
-import {
-    ComponentType,
-    PortalInjector,
-    ComponentPortal,
-    TemplatePortal
-} from '@angular/cdk/portal';
-import {
-    ThyDialogConfig,
-    ThyDialogSizes,
-    THY_DIALOG_DEFAULT_OPTIONS
-} from './dialog.config';
-import {
-    Overlay,
-    OverlayConfig,
-    OverlayRef,
-    ScrollStrategy
-} from '@angular/cdk/overlay';
+import { ComponentType, PortalInjector, ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
+import { ThyDialogConfig, ThyDialogSizes, THY_DIALOG_DEFAULT_OPTIONS } from './dialog.config';
+import { Overlay, OverlayConfig, OverlayRef, ScrollStrategy } from '@angular/cdk/overlay';
 import { ThyDialogContainerComponent } from './dialog-container.component';
 import { ThyDialogRef, ThyDialogRefInternal } from './dialog-ref';
 import { Directionality } from '@angular/cdk/bidi';
 import { helpers } from '../util';
 import { ThyClickPositioner } from '../core';
+import { ThyConfirmComponent } from './confirm/confirm.component';
+import { ThyConfirmConfig } from './confirm.config';
 
 @Injectable({
     providedIn: 'root'
@@ -58,9 +39,7 @@ export class ThyDialog implements OnDestroy {
     private getOverlayConfig(dialogConfig: ThyDialogConfig): OverlayConfig {
         const overlayConfig = new OverlayConfig({
             positionStrategy: this.overlay.position().global(),
-            scrollStrategy:
-                dialogConfig.scrollStrategy ||
-                this.overlay.scrollStrategies.block(),
+            scrollStrategy: dialogConfig.scrollStrategy || this.overlay.scrollStrategies.block(),
             panelClass: this.getOverlayPanelClasses(dialogConfig),
             hasBackdrop: dialogConfig.hasBackdrop,
             direction: dialogConfig.direction,
@@ -83,53 +62,28 @@ export class ThyDialog implements OnDestroy {
         dialogRef: ThyDialogRef<T>,
         dialogContainer: ThyDialogContainerComponent
     ): PortalInjector {
-        const userInjector =
-            config &&
-            config.viewContainerRef &&
-            config.viewContainerRef.injector;
+        const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
 
         const injectionTokens = new WeakMap<any, any>([
             [ThyDialogContainerComponent, dialogContainer],
             [ThyDialogRef, dialogRef]
         ]);
 
-        if (
-            config.direction &&
-            (!userInjector ||
-                !userInjector.get<Directionality | null>(Directionality, null))
-        ) {
+        if (config.direction && (!userInjector || !userInjector.get<Directionality | null>(Directionality, null))) {
             injectionTokens.set(Directionality, {
                 value: config.direction,
                 change: of()
             });
         }
 
-        return new PortalInjector(
-            userInjector || this.injector,
-            injectionTokens
-        );
+        return new PortalInjector(userInjector || this.injector, injectionTokens);
     }
 
-    private attachDialogContainer(
-        overlay: OverlayRef,
-        config: ThyDialogConfig
-    ): ThyDialogContainerComponent {
-        const userInjector =
-            config &&
-            config.viewContainerRef &&
-            config.viewContainerRef.injector;
-        const injector = new PortalInjector(
-            userInjector || this.injector,
-            new WeakMap([[ThyDialogConfig, config]])
-        );
-        const containerPortal = new ComponentPortal(
-            ThyDialogContainerComponent,
-            config.viewContainerRef,
-            injector
-        );
-        const containerRef = overlay.attach<ThyDialogContainerComponent>(
-            containerPortal
-        );
+    private attachDialogContainer(overlay: OverlayRef, config: ThyDialogConfig): ThyDialogContainerComponent {
+        const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
+        const injector = new PortalInjector(userInjector || this.injector, new WeakMap([[ThyDialogConfig, config]]));
+        const containerPortal = new ComponentPortal(ThyDialogContainerComponent, config.viewContainerRef, injector);
+        const containerRef = overlay.attach<ThyDialogContainerComponent>(containerPortal);
 
         return containerRef.instance;
     }
@@ -142,11 +96,7 @@ export class ThyDialog implements OnDestroy {
     ): ThyDialogRef<T, TResult> {
         // Create a reference to the dialog we're creating in order to give the user a handle
         // to modify and close it.
-        const dialogRef = new ThyDialogRefInternal<T, TResult>(
-            overlayRef,
-            dialogContainer,
-            config.id
-        );
+        const dialogRef = new ThyDialogRefInternal<T, TResult>(overlayRef, dialogContainer, config.id);
 
         // When the dialog backdrop is clicked, we want to close it.
         if (config.hasBackdrop) {
@@ -165,11 +115,7 @@ export class ThyDialog implements OnDestroy {
                 })
             );
         } else {
-            const injector = this.createInjector<T>(
-                config,
-                dialogRef,
-                dialogContainer
-            );
+            const injector = this.createInjector<T>(config, dialogRef, dialogContainer);
             const contentRef = dialogContainer.attachComponentPortal<T>(
                 new ComponentPortal(componentOrTemplateRef, undefined, injector)
             );
@@ -179,11 +125,7 @@ export class ThyDialog implements OnDestroy {
             dialogRef.componentInstance = contentRef.instance;
         }
 
-        dialogRef.updateSizeAndPosition(
-            config.width,
-            config.height,
-            config.position
-        );
+        dialogRef.updateSizeAndPosition(config.width, config.height, config.position);
         return dialogRef;
     }
 
@@ -226,11 +168,7 @@ export class ThyDialog implements OnDestroy {
     ): ThyDialogRef<T, TResult> {
         config = { ...this.defaultConfig, ...config };
         if (config.id && this.getDialogById(config.id)) {
-            throw Error(
-                `Dialog with id ${
-                    config.id
-                } exists already. The dialog id must be unique.`
-            );
+            throw Error(`Dialog with id ${config.id} exists already. The dialog id must be unique.`);
         }
 
         const overlayConfig: OverlayConfig = this.getOverlayConfig(config);
@@ -245,12 +183,18 @@ export class ThyDialog implements OnDestroy {
         );
 
         this.openedDialogs.push(dialogRef);
-        dialogRef
-            .afterClosed()
-            .subscribe(() => this.removeOpenedDialog(dialogRef));
+        dialogRef.afterClosed().subscribe(() => this.removeOpenedDialog(dialogRef));
         this._afterOpened.next(dialogRef);
 
         return dialogRef;
+    }
+
+    confirm<T>(options: ThyConfirmConfig) {
+        return this.open(ThyConfirmComponent, {
+            initialState: {
+                options: options
+            }
+        });
     }
 
     afterAllClosed() {
@@ -282,9 +226,7 @@ export class ThyDialog implements OnDestroy {
 
     close(result?: any) {
         if (this.openedDialogs.length > 0) {
-            const lastDialogRef = this.openedDialogs[
-                this.openedDialogs.length - 1
-            ];
+            const lastDialogRef = this.openedDialogs[this.openedDialogs.length - 1];
             if (lastDialogRef) {
                 lastDialogRef.close(result);
             }

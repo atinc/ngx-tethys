@@ -12,7 +12,6 @@ import {
     EventEmitter,
     Output,
     OnDestroy,
-    Inject,
     NgZone,
     forwardRef
 } from '@angular/core';

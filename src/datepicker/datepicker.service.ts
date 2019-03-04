@@ -5,12 +5,10 @@ import { zhCnLocale, jaLocale, enGbLocale } from 'ngx-bootstrap/locale';
 import { DatePipe, registerLocaleData } from '@angular/common';
 import localeZhHans from '@angular/common/locales/zh-Hans';
 import { daterangepickerUtilIdentificationValueType, daterangepickerUtilConvertToDaterangepickerObject } from './util';
-import { mergeConfigs } from 'ngx-bootstrap/chronos/locale/locales';
 registerLocaleData(localeZhHans, 'zh-Hans');
 
 @Injectable()
 export class ThyDatepickerService {
-
     dataPipe = new DatePipe('zh-Hans');
 
     locale = 'zh-cn';
@@ -22,17 +20,14 @@ export class ThyDatepickerService {
     storeType: 'date' | 'range';
 
     store: {
-        originValue?: any,
-        originValueType?: any,
-        originWithTime?: boolean,
-        value?: any,
-        withTime?: boolean,
+        originValue?: any;
+        originValueType?: any;
+        originWithTime?: boolean;
+        value?: any;
+        withTime?: boolean;
     } = {};
 
-    constructor(
-        public localeService: BsLocaleService
-    ) {
-    }
+    constructor(public localeService: BsLocaleService) {}
 
     initLocale(value?: string) {
         if (value) {
@@ -45,11 +40,8 @@ export class ThyDatepickerService {
         switch (this.locale) {
             case 'zh-cn':
             case 'zh-tw':
-                this.localeRef = defineLocale('zh-cn', mergeConfigs(zhCnLocale, {
-                    week: {
-                        dow: 0
-                    }
-                }));
+                zhCnLocale.week.dow = 0;
+                this.localeRef = defineLocale('zh-cn', zhCnLocale);
                 break;
             case 'ja-jp':
                 this.localeRef = defineLocale('ja-jp', jaLocale);
@@ -60,7 +52,6 @@ export class ThyDatepickerService {
         }
         this.localeService.use(this.locale);
     }
-
 
     initValueData(value: any, isRefreshType?: boolean) {
         this.store.originValue = value;

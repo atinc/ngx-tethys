@@ -5,7 +5,8 @@
     padding: 2px 0px;
 }
 
-.thy-list-option {
+.thy-list-option,
+.thy-list-item {
     padding: 0.594rem 10px;
     @include thy-option-common-layout();
     @include thy-option();

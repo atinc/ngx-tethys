@@ -1,27 +1,28 @@
-import { Component, NgModule, ModuleWithProviders } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyButtonModule } from './button';
 import { ThyLayoutModule } from './layout';
-import { NgxPopBoxModule } from './pop-box/pop-box.module';
-import { ThyGridModule } from './grid/grid.module';
+import { ThyPopBoxModule } from './pop-box';
+import { ThyGridModule } from './grid';
 import { ThyAvatarModule } from './avatar';
-import { ThyBadgeModule } from './badge/badge.module';
-import { ThyLabelModule } from './label/label.module';
-import { ThyNavModule } from './nav/nav.module';
-import { ThyPaginationModule } from './pagination/pagination.module';
-import { ThyModalModule } from './modal/modal.module';
-import { ThyCardModule } from './card/card.module';
-import { ThyLoadingModule } from './loading/loading.module';
-import { ThyAlertModule } from './alert/alert.module';
-import { ThyActionMenuModule } from './action-menu/action-menu.module';
-import { ThyConfirmModule } from './confirm/confirm.module';
+import { ThyBadgeModule } from './badge';
+import { ThyLabelModule } from './label';
+import { ThyNavModule } from './nav';
+import { ThyMenuModule } from './menu';
+import { ThyPaginationModule } from './pagination';
+import { ThyModalModule } from './modal';
+import { ThyCardModule } from './card';
+import { ThyLoadingModule } from './loading';
+import { ThyAlertModule } from './alert';
+import { ThyActionMenuModule } from './action-menu';
+import { ThyConfirmModule } from './confirm';
 import { ThyTreeModule } from './tree/tree.module';
-import { ThyDatepickerModule } from './datepicker/datepicker.module';
-import { ThyDatepickerNextModule } from './datepicker-next/datepicker-next.module';
-import { ThyNotifyModule } from './notify/notify.module';
+import { ThyDatepickerModule } from './datepicker';
+import { ThyDatepickerNextModule } from './datepicker-next';
+import { ThyNotifyModule } from './notify';
 import { ThyEmptyModule } from './empty';
-import { ThySwitchModule } from './switch/switch.module';
-import { ThyTransferModule } from './transfer/transfer.module';
+import { ThySwitchModule } from './switch';
+import { ThyTransferModule } from './transfer';
 import { ThyFormModule } from './form';
 import { ThyInputModule } from './input';
 import { ThyDropdownModule } from './dropdown';
@@ -30,7 +31,7 @@ import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 import { ThyCheckboxModule } from './checkbox';
 import { ThyRadioModule } from './radio';
 import { ThySelectModule } from './select';
-import { ThySlideModule } from './slide/slide.module';
+import { ThySlideModule } from './slide';
 import { ThyPropertyOperationModule } from './property-operation';
 import { ThyUploaderModule } from './uploader';
 import { ThyEditorModule } from './editor';
@@ -44,16 +45,18 @@ import { ThyCascaderModule } from './cascader';
 import { ThyDialogModule } from './dialog';
 import { ThyBreadcrumbModule } from './breadcrumb';
 
+
 const IMPORT_EXPORT_MODULES = [
     BrowserAnimationsModule,
     ThyLayoutModule,
     ThyButtonModule,
-    NgxPopBoxModule,
+    ThyPopBoxModule,
     ThyBadgeModule,
     ThyGridModule,
     ThyAvatarModule,
     ThyLabelModule,
     ThyNavModule,
+    ThyMenuModule,
     ThyPaginationModule,
     ThyModalModule,
     ThyNotifyModule,

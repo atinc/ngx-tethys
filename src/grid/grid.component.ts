@@ -13,10 +13,9 @@ import {
     IterableChangeRecord,
     ContentChildren,
     QueryList,
-    OnDestroy,
-    forwardRef
+    OnDestroy
 } from '@angular/core';
-import { get, set } from '../util/helpers';
+import { get, set, isString } from '../util/helpers';
 import {
     ThyGridColumn,
     ThyMultiSelectEvent,
@@ -28,15 +27,10 @@ import {
     ThyGridRowEvent,
     ThyGridEvent
 } from './grid.interface';
-import { PageChangedEvent } from 'ngx-bootstrap/pagination/pagination.component';
-import {
-    ThyGridColumnComponent,
-    IThyGridColumnParentComponent,
-    THY_GRID_COLUMN_PARENT_COMPONENT
-} from './grid-column.component';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+import { ThyGridColumnComponent, IThyGridColumnParentComponent, THY_GRID_COLUMN_PARENT_COMPONENT } from './grid-column.component';
 import { SortablejsOptions } from 'angular-sortablejs';
 import { helpers } from '../util';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export type ThyGridTheme = 'default' | 'bordered';
 
@@ -63,8 +57,7 @@ const customType = {
     ],
     encapsulation: ViewEncapsulation.None
 })
-export class ThyGridComponent
-    implements OnInit, OnDestroy, DoCheck, IThyGridColumnParentComponent {
+export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridColumnParentComponent {
     public customType = customType;
 
     public model: object[] = [];
@@ -76,6 +69,8 @@ export class ThyGridComponent
     public themeClass = themeMap['default'];
 
     public className = '';
+
+    public rowClassName: string | Function;
 
     public loadingDone = true;
 
@@ -127,6 +122,11 @@ export class ThyGridComponent
     @Input()
     set thyClassName(value: string) {
         this.className = value || ' ';
+    }
+
+    @Input()
+    set thyRowClassName(value: string | Function) {
+        this.rowClassName = value;
     }
 
     @Input()
@@ -185,33 +185,19 @@ export class ThyGridComponent
         this.wholeRowSelect = value;
     }
 
-    @Output() thyOnSwitchChange: EventEmitter<
-        ThySwitchEvent
-    > = new EventEmitter<ThySwitchEvent>();
+    @Output() thyOnSwitchChange: EventEmitter<ThySwitchEvent> = new EventEmitter<ThySwitchEvent>();
 
-    @Output() thyOnPageChange: EventEmitter<
-        PageChangedEvent
-    > = new EventEmitter<PageChangedEvent>();
+    @Output() thyOnPageChange: EventEmitter<PageChangedEvent> = new EventEmitter<PageChangedEvent>();
 
-    @Output() thyOnMultiSelectChange: EventEmitter<
-        ThyMultiSelectEvent
-    > = new EventEmitter<ThyMultiSelectEvent>();
+    @Output() thyOnMultiSelectChange: EventEmitter<ThyMultiSelectEvent> = new EventEmitter<ThyMultiSelectEvent>();
 
-    @Output() thyOnRadioSelectChange: EventEmitter<
-        ThyRadioSelectEvent
-    > = new EventEmitter<ThyRadioSelectEvent>();
+    @Output() thyOnRadioSelectChange: EventEmitter<ThyRadioSelectEvent> = new EventEmitter<ThyRadioSelectEvent>();
 
-    @Output() thyOnDraggableChange: EventEmitter<
-        ThyGridDraggableEvent
-    > = new EventEmitter<ThyGridDraggableEvent>();
+    @Output() thyOnDraggableChange: EventEmitter<ThyGridDraggableEvent> = new EventEmitter<ThyGridDraggableEvent>();
 
-    @Output() thyOnRowClick: EventEmitter<ThyGridRowEvent> = new EventEmitter<
-        ThyGridRowEvent
-    >();
+    @Output() thyOnRowClick: EventEmitter<ThyGridRowEvent> = new EventEmitter<ThyGridRowEvent>();
 
-    @Output() thyOnRowContextMenu: EventEmitter<
-        ThyGridEvent
-    > = new EventEmitter<ThyGridEvent>();
+    @Output() thyOnRowContextMenu: EventEmitter<ThyGridEvent> = new EventEmitter<ThyGridEvent>();
 
     @ContentChildren(ThyGridColumnComponent)
     set listOfColumnComponents(components: QueryList<ThyGridColumnComponent>) {
@@ -237,9 +223,7 @@ export class ThyGridComponent
     }
 
     private _initializeColumns() {
-        const components = this._listOfColumnComponents
-            ? this._listOfColumnComponents.toArray()
-            : [];
+        const components = this._listOfColumnComponents ? this._listOfColumnComponents.toArray() : [];
         this.columns = components.map<ThyGridColumn>(component => {
             const selections = this._getSelectionKeys(component.selections);
             return {
@@ -341,6 +325,17 @@ export class ThyGridComponent
         return get(row, path);
     }
 
+    public renderRowClassName(row: any, index: number) {
+        if (!this.rowClassName) {
+            return null;
+        }
+        if (isString(this.rowClassName)) {
+            return this.rowClassName;
+        } else {
+            return (this.rowClassName as Function)(row, index);
+        }
+    }
+
     public onModelChange(row: any, column: ThyGridColumn) {
         if (column.model) {
             set(row, column.model, row[column.key]);
@@ -414,10 +409,7 @@ export class ThyGridComponent
     public onRowClick(event: Event, row: any) {
         if (this.wholeRowSelect) {
             const column = this.columns.find(item => {
-                return (
-                    item.type === customType.checkbox ||
-                    item.type === customType.radio
-                );
+                return item.type === customType.checkbox || item.type === customType.radio;
             });
             if (!column.disabled) {
                 if (column.type === customType.checkbox) {

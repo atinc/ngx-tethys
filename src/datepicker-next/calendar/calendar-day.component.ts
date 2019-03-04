@@ -1,9 +1,6 @@
 import { Component, OnInit, HostBinding, OnDestroy } from '@angular/core';
 import { sliceArray, calendarDateConvert, getTimestamp } from '../util';
-import {
-    ThyDatepickerNextStore,
-    datepickerNextActions
-} from '../datepicker-next.store';
+import { ThyDatepickerNextStore, datepickerNextActions } from '../datepicker-next.store';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ThyDatepickerNextContainerComponent } from '../datepicker-container.component';
@@ -28,10 +25,8 @@ interface DatepickerNextCalendarDayInfo {
     selector: 'thy-datepicker-next-date-day',
     templateUrl: 'calendar-day.component.html'
 })
-export class ThyDatepickerNextCalendarDayComponent
-    implements OnInit, OnDestroy {
-    @HostBinding('class') styleClass =
-        'calendar-container calendar-day-container';
+export class ThyDatepickerNextCalendarDayComponent implements OnInit, OnDestroy {
+    @HostBinding('class') styleClass = 'calendar-container calendar-day-container';
 
     today = new Date();
 
@@ -49,10 +44,7 @@ export class ThyDatepickerNextCalendarDayComponent
 
     private ngUnsubscribe$ = new Subject();
 
-    constructor(
-        public store: ThyDatepickerNextStore,
-        public parentComponent: ThyDatepickerNextContainerComponent
-    ) {}
+    constructor(public store: ThyDatepickerNextStore, public parentComponent: ThyDatepickerNextContainerComponent) {}
 
     ngOnInit() {
         this.store
@@ -72,10 +64,7 @@ export class ThyDatepickerNextCalendarDayComponent
     _combinationMonthDays() {
         let allDays: DatepickerNextCalendarDayInfo[] = [];
 
-        const nowDate = new Date(
-            this.store.snapshot.calendarCurrent.year,
-            this.store.snapshot.calendarCurrent.month
-        );
+        const nowDate = new Date(this.store.snapshot.calendarCurrent.year, this.store.snapshot.calendarCurrent.month);
 
         const nowMonthCountDays = this._getMonthCountDays();
         const nowMonthFirstDateWeek = this._getMonthFirstDayWeek();
@@ -95,11 +84,7 @@ export class ThyDatepickerNextCalendarDayComponent
                 isCurrentMonth: true
             };
             // today
-            if (
-                index === this.today.getDate() &&
-                item.month === this.today.getMonth() &&
-                item.year === this.today.getFullYear()
-            ) {
+            if (index === this.today.getDate() && item.month === this.today.getMonth() && item.year === this.today.getFullYear()) {
                 item.isToday = true;
             }
             // active
@@ -112,12 +97,10 @@ export class ThyDatepickerNextCalendarDayComponent
                 item.isActive = true;
             }
             // disabled rules
-            const _timestamp = getTimestamp(
-                new Date(item.year, item.month, item.day)
-            );
+            const _timestamp = getTimestamp(new Date(item.year, item.month, item.day));
             if (
-                _timestamp < this.store.snapshot.disableRules['<'] ||
-                _timestamp > this.store.snapshot.disableRules['>']
+                this.store.snapshot.disableRules &&
+                (_timestamp < this.store.snapshot.disableRules['<'] || _timestamp > this.store.snapshot.disableRules['>'])
             ) {
                 item.isDisabled = true;
             }
@@ -127,10 +110,7 @@ export class ThyDatepickerNextCalendarDayComponent
 
         // _preMonthDays
         const preMonthLastDate = this._getPreMonthLastDate();
-        const preDateObject = calendarDateConvert(
-            this.store.snapshot.calendarCurrent.year,
-            this.store.snapshot.calendarCurrent.month - 1
-        );
+        const preDateObject = calendarDateConvert(this.store.snapshot.calendarCurrent.year, this.store.snapshot.calendarCurrent.month - 1);
 
         for (let index = 0; index < 6; index++) {
             _preMonthDays.push({
@@ -144,10 +124,7 @@ export class ThyDatepickerNextCalendarDayComponent
         _preMonthDays = _preMonthDays.reverse();
 
         // _nextMonthDays
-        const nextDateObject = calendarDateConvert(
-            this.store.snapshot.calendarCurrent.year,
-            this.store.snapshot.calendarCurrent.month + 1
-        );
+        const nextDateObject = calendarDateConvert(this.store.snapshot.calendarCurrent.year, this.store.snapshot.calendarCurrent.month + 1);
         for (let index = 1; index <= 6; index++) {
             _nextMonthDays.push({
                 year: nextDateObject.year,
@@ -167,37 +144,22 @@ export class ThyDatepickerNextCalendarDayComponent
     }
 
     private _getMonthFirstDayWeek(): number {
-        const date = new Date(
-            this.store.snapshot.calendarCurrent.year,
-            this.store.snapshot.calendarCurrent.month
-        );
+        const date = new Date(this.store.snapshot.calendarCurrent.year, this.store.snapshot.calendarCurrent.month);
         return date.getDay();
     }
 
     private _getMonthLastDayWeek(): number {
-        const date = new Date(
-            this.store.snapshot.calendarCurrent.year,
-            this.store.snapshot.calendarCurrent.month + 1,
-            0
-        );
+        const date = new Date(this.store.snapshot.calendarCurrent.year, this.store.snapshot.calendarCurrent.month + 1, 0);
         return date.getDay();
     }
 
     private _getMonthCountDays(): number {
-        const date = new Date(
-            this.store.snapshot.calendarCurrent.year,
-            this.store.snapshot.calendarCurrent.month + 1,
-            0
-        );
+        const date = new Date(this.store.snapshot.calendarCurrent.year, this.store.snapshot.calendarCurrent.month + 1, 0);
         return date.getDate();
     }
 
     private _getPreMonthLastDate(): number {
-        const date = new Date(
-            this.store.snapshot.calendarCurrent.year,
-            this.store.snapshot.calendarCurrent.month,
-            0
-        );
+        const date = new Date(this.store.snapshot.calendarCurrent.year, this.store.snapshot.calendarCurrent.month, 0);
         return date.getDate();
     }
 
@@ -270,9 +232,7 @@ export class ThyDatepickerNextCalendarDayComponent
             item.isActive = true;
         }
 
-        this.parentComponent.behaviorValueChange(
-            ThyDatepickerNextEventsEnum.calendarDone
-        );
+        this.parentComponent.behaviorValueChange(ThyDatepickerNextEventsEnum.calendarDone);
     }
 
     ngOnDestroy(): void {

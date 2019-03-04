@@ -1,8 +1,4 @@
-@import "~bootstrap/scss/functions";
-@import "./variables";
-@import "~bootstrap/scss/variables";
-@import "~bootstrap/scss/mixins";
-@import "./mixins/index";
+@import "./basic";
 @import "./modules/index";
 @import "~bootstrap/scss/root";
 @import "~bootstrap/scss/grid";
@@ -29,6 +25,7 @@
 @import "../avatar/styles/avatar";
 @import "../label/styles/label";
 @import "../layout/styles/layout";
+@import "../menu//styles//menu.scss";
 @import "../nav/styles/nav";
 @import "../pagination/styles/pagination";
 @import "../modal/styles/modal";

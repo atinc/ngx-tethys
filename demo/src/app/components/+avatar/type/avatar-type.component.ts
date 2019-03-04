@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ThyAvatarService } from '../../../../../../src';
+import { ThyAvatarService } from '../../../../../../src/public-api';
 
 @Component({
     selector: 'demo-avatar-size-section',

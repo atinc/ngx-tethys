@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyAvatarService } from '../../../../../src';
+import { ThyAvatarService } from '../../../../../src/public-api';
 import { ComponentExample } from '../../docs/model/component-example';
 import { DemoAvatarSizeSectionComponent } from './size/size.component';
 import { ShowcaseSection } from '../../docs/model/showcase-section';
@@ -64,26 +64,26 @@ export class DemoAvatarSectionComponent implements OnInit {
         this.componentExamples = [{
             title: '头像类型',
             description: '支持俩种类型：图片和字符，其中字符型可以自动生成背景色。',
-            component: require('!!raw-loader?lang=typescript!./type/avatar-type.component.ts'),
-            html: require('!!raw-loader?lang=markup!./type/avatar-type.component.html'),
+            component: require('!!raw-loader!./type/avatar-type.component.ts'),
+            html: require('!!raw-loader!./type/avatar-type.component.html'),
             outlet: DemoAvatarTypeSectionComponent
         }, {
             title: '头像大小',
             description: '可选择 22, 24, 30, 38, 48, 68, 110, 160 或者 sm(30pz) xs(24px) lg(48px)',
-            component: require('!!raw-loader?lang=typescript!./size/size.component.ts'),
-            html: require('!!raw-loader?lang=markup!./size/size.component.html'),
+            component: require('!!raw-loader!./size/size.component.ts'),
+            html: require('!!raw-loader!./size/size.component.html'),
             outlet: DemoAvatarSizeSectionComponent
         }, {
             title: '可移除头像',
             description: '鼠标移动到头像时，头像右上出现移除的按钮，点击可移除',
-            component: require('!!raw-loader?lang=typescript!./remove/remove.component.ts'),
-            html: require('!!raw-loader?lang=markup!./remove/remove.component.html'),
+            component: require('!!raw-loader!./remove/remove.component.ts'),
+            html: require('!!raw-loader!./remove/remove.component.html'),
             outlet: DemoAvatarRemoveSectionComponent
         }, {
             title: '有徽标头像',
             description: '',
-            component: require('!!raw-loader?lang=typescript!./has-badge/has-badge.component.ts'),
-            html: require('!!raw-loader?lang=markup!./has-badge/has-badge.component.html'),
+            component: require('!!raw-loader!./has-badge/has-badge.component.ts'),
+            html: require('!!raw-loader!./has-badge/has-badge.component.html'),
             outlet: DemoAvatarHasBadgeSectionComponent
         }];
     }

@@ -1,6 +1,6 @@
 
 import { Component, TemplateRef } from '@angular/core';
-import { ThyModalService, ThyPopBoxService } from '../../../../../src';
+import { ThyModalService, ThyPopBoxService } from '../../../../../src/public-api';
 import { truncate } from 'fs';
 
 @Component({

@@ -1,13 +1,9 @@
 import { Component, OnDestroy, TemplateRef } from '@angular/core';
-import {
-    ThyDialog,
-    ThyDialogConfig,
-    ThyDialogSizes
-} from '../../../../../src/dialog';
+import { ThyDialog, ThyDialogConfig, ThyDialogSizes } from '../../../../../src/dialog';
 import { helpers } from '../../../../../src/util';
 import { DemoDialogContentComponent } from './dialog-content.component';
 import { Subject, of, defer } from 'rxjs';
-import { takeUntil, delay } from 'rxjs/operators';
+import { takeUntil, delay, map } from 'rxjs/operators';
 import { apiParameters } from './api-parameters';
 
 const exampleCode = `
@@ -87,6 +83,21 @@ export class DemoDialogSectionComponent implements OnDestroy {
         });
         dialogRef.afterClosed().subscribe(result => {
             console.log(`Dialog afterClosed result: ${result}`);
+        });
+    }
+
+    openConfirm() {
+        this.thyDialog.confirm({
+            title: '确认删除',
+            content: '确认要删除这条任务<code>21111</code>吗？</script>',
+            onOk: () => {
+                return of([1]).pipe(
+                    delay(2000),
+                    map(() => {
+                        return false;
+                    })
+                );
+            }
         });
     }
 

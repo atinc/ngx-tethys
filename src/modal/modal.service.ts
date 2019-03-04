@@ -1,14 +1,20 @@
 import { Injectable, TemplateRef, RendererFactory2, EventEmitter } from '@angular/core';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 import { ComponentLoaderFactory } from 'ngx-bootstrap/component-loader';
-import {
-    modalConfigDefaults,
-    ModalOptions
-} from 'ngx-bootstrap/modal/modal-options.class';
+
+const modalConfigDefaults = {
+    backdrop: true,
+    keyboard: true,
+    focus: true,
+    show: false,
+    ignoreBackdropClick: false,
+    class: '',
+    animated: true,
+    initialState: {}
+};
 
 @Injectable()
 export class ThyModalService extends BsModalService {
-
     onShow: EventEmitter<any> = new EventEmitter();
     onShown: EventEmitter<any> = new EventEmitter();
     onHide: EventEmitter<any> = new EventEmitter();
@@ -17,10 +23,7 @@ export class ThyModalService extends BsModalService {
     private modalConfig: ModalOptions;
     private bsModalRefs: BsModalRef[] = [];
 
-    constructor(
-        private modalService: BsModalService,
-        rendererFactory: RendererFactory2,
-        clf: ComponentLoaderFactory) {
+    constructor(private modalService: BsModalService, rendererFactory: RendererFactory2, clf: ComponentLoaderFactory) {
         super(rendererFactory, clf);
         this.modalService.onHidden.subscribe(() => {
             if (this.bsModalRefs.length > 0) {
@@ -50,7 +53,6 @@ export class ThyModalService extends BsModalService {
     }
 }
 
-
 export class ThyModalConfigInfo {
     size?: string; // 默认md大小，'blg','lg','mg','sm'
     backdrop?: string | boolean; // true || false || 'static'
@@ -59,5 +61,5 @@ export class ThyModalConfigInfo {
     ignoreBackdropClick?: boolean;
     initialState?: object;
     class?: string;
-    show?: boolean;  // Shows the modal when initialized.
+    show?: boolean; // Shows the modal when initialized.
 }

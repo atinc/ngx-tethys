@@ -58,6 +58,7 @@ import { DemoDialogContentComponent } from './+dialog/dialog-content.component';
 import { DemoBreadcrumbSectionComponent } from './+breadcrumb/breadcrumb-section.component';
 import { DemoStoreSectionComponent } from './+store/store-section.component';
 
+import { DemoMenuSectionComponent } from './+menu/menu-section.component';
 
 export const COMPONENTS = [
     DemoPopBoxSectionComponent,
@@ -81,6 +82,7 @@ export const COMPONENTS = [
     DemoLayoutSectionComponent,
     DemoNotifySectionComponent,
     DemoNavSectionComponent,
+    DemoMenuSectionComponent,
     DemoModalSectionComponent,
     DemoCardSectionComponent,
     DemoConfirmSectionComponent,

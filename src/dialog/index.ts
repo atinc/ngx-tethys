@@ -7,3 +7,4 @@ export {
     THY_DIALOG_DEFAULT_OPTIONS
 } from './dialog.config';
 export { ThyDialogRef } from './dialog-ref';
+export { ThyConfirmConfig } from './confirm.config';

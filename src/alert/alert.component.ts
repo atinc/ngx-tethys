@@ -1,8 +1,7 @@
 import { Component, Input, HostBinding, ViewChild, TemplateRef, OnInit } from '@angular/core';
 import { inputValueToBoolean } from '../util/helpers';
-import { Dictionary } from '../typings';
 import { helpers } from '../util';
-
+import { Dictionary } from '../typings';
 @Component({
     selector: 'thy-alert',
     templateUrl: './alert.component.html'

@@ -1,5 +1,11 @@
 $thyDatepickerNext: 'thy-datepicker-next';
 
+.#{$thyDatepickerNext} {
+    input {
+        cursor: pointer;
+    }
+}
+
 .#{$thyDatepickerNext}-container {
     padding: 0 10px 15px 10px;
     display: inline-block;
