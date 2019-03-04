@@ -33,7 +33,6 @@ export class ThyConfirmComponent implements OnInit, OnDestroy {
 
     public okLoadingText: string;
 
-    // prettier-ignore
     constructor(
         private dialogRef: ThyDialogRef<ThyConfirmComponent>,
         private changeDetectorRef: ChangeDetectorRef,
