@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { NgxTethysModule } from '../../../src/index';
+import { NgxTethysModule } from '../../../src/public_api';
 import { RouterModule } from '@angular/router';
 import { SortablejsModule } from 'angular-sortablejs';
 
@@ -14,7 +14,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ThyTranslate } from '../../../src/shared';
 import { DemoThyTranslate, thyValidatorConfigProvider } from './config';
 import { FormsModule } from '@angular/forms';
-import { ThyAvatarService } from '../../../src';
+import { ThyAvatarService } from '../../../src/public_api';
 import { CustomAvatarService } from './components/+avatar/custom-avatar.service';
 import { CustomEditorService } from './components/+editor/custom-editor.service';
 import { ThyMarkdownParserService } from '../../../src/directive';

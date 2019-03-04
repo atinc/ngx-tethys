@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyAvatarService } from '../../../../../src';
+import { ThyAvatarService } from '../../../../../src/public_api';
 import { ComponentExample } from '../../docs/model/component-example';
 import { DemoAvatarSizeSectionComponent } from './size/size.component';
 import { ShowcaseSection } from '../../docs/model/showcase-section';
