@@ -4,7 +4,7 @@ import { ThyListComponent } from './list.component';
 import { ThyListItemComponent } from './list-item.component';
 import { ThySelectionListComponent } from './selection/selection-list';
 // import { ThyListOptionComponent } from './option/option';
-import { ThyOptionModule } from '../core/option/module';
+import { ThyOptionModule } from '../core/option';
 
 @NgModule({
     declarations: [

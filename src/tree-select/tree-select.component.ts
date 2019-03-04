@@ -40,7 +40,7 @@ export function MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Overlay): S
     return overlay.scrollStrategies.reposition();
 }
 
-export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
+type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
 @Component({
     selector: 'thy-tree-select',

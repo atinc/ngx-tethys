@@ -9,7 +9,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 export type InputSearchTheme = 'ellipse' | '';
 
 
-export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
+export const CUSTOM_INPUT_SEARCH_CONTROL_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => ThyInputSearchComponent),
     multi: true
@@ -22,7 +22,7 @@ const noop = () => { };
     templateUrl: './input-search.component.html',
     providers: [
         UpdateHostClassService,
-        CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR
+        CUSTOM_INPUT_SEARCH_CONTROL_VALUE_ACCESSOR
     ],
     encapsulation: ViewEncapsulation.None
 })

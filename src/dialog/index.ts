@@ -8,4 +8,3 @@ export {
 } from './dialog.config';
 export { ThyDialogRef } from './dialog-ref';
 export { ThyConfirmConfig } from './confirm.config';
-// export { ThyConfirmComponent } from './confirm/confirm.component';

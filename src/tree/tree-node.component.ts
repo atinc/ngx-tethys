@@ -18,7 +18,6 @@ import { ThyTreeComponent } from './tree.component';
 import { ThyTreeNodeData, ThyTreeNode } from './tree.class';
 import { ThyTreeService } from './tree.service';
 import { helpers } from '../util';
-import { ThyListOptionComponent } from '../core/option/module';
 
 @Component({
     selector: 'thy-tree-node',

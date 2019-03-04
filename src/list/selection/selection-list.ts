@@ -21,7 +21,7 @@ import {
     ThyListOptionComponent,
     THY_OPTION_PARENT_COMPONENT,
     IThyOptionParentComponent
-} from '../../core/option/module';
+} from '../../core/option';
 import { keycodes, helpers, dom } from '../../util';
 import { inputValueToBoolean } from '../../util/helpers';
 import { Subscription, throwError } from 'rxjs';
