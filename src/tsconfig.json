@@ -32,7 +32,8 @@
     ],
     "files": [
         "../scripts/typings.d.ts",
-        "./public_api.ts"
+        "./public-api.ts",
+        "./index.ts"
     ],
     "angularCompilerOptions": {
         "genDir": "../temp/factories",

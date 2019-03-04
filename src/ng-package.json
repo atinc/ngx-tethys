@@ -3,6 +3,6 @@
     "dest": "../built",
     "deleteDestPath": false,
     "lib": {
-        "entryFile": "public_api.ts"
+        "entryFile": "public-api.ts"
     }
 }
