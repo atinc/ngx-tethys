@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { TextFieldModule } from '@angular/cdk/text-field';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgxTethysModule } from '../../../src/public-api';
 import { RouterModule } from '@angular/router';
 import { SortablejsModule } from 'angular-sortablejs';
@@ -46,6 +47,7 @@ export function hljsLanguages() {
             useHash: true
         }),
         ModalModule.forRoot(),
+        DragDropModule,
         TranslateModule.forRoot(),
         TabsModule.forRoot(),
         TranslateModule,

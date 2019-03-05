@@ -1,7 +1,8 @@
 <header class="navbar d-flex">
     <a class="navbar-brand">WDC For Worktile Design Center</a>
     <div class="ml-auto d-flex">
-        <a href="javascript:;" class="theme-color-container" [thyActionMenuToggle]="themeSelectPop" [thyPlacement]="'bottom right'">
+        <a href="javascript:;" class="theme-color-container" [thyActionMenuToggle]="themeSelectPop"
+            [thyPlacement]="'bottom right'">
             <div [ngStyle]="{background: currentTheme.color}">
                 <i class="wtf wtf-angle-down"></i>
             </div>
@@ -36,6 +37,31 @@
                         <span class="extend-icon">
                             <i class="wtf wtf-angle-right"></i>
                         </span>
+                    </div>
+                </dd>
+                <dd class="toc-section">
+                    <div class="toc-section-head">
+                        全局
+                        <span class="mate">Gloabal</span>
+                        <span class="extend-icon">
+                            <i class="wtf wtf-angle-right"></i>
+                        </span>
+                    </div>
+                    <div class="toc-section-body">
+                        <dl>
+                            <dd class="toc-item-group">CDK</dd>
+                            <dd class="toc-item">
+                                <a routerLink="/cdk/dropdrag" routerLinkActive="active">
+                                    DropDrag
+                                </a>
+                            </dd>
+                            <dd class="toc-item-group">Store</dd>
+                            <dd class="toc-item">
+                                <a routerLink="components/store" routerLinkActive="active">
+                                    ReduxDevTool
+                                </a>
+                            </dd>
+                        </dl>
                     </div>
                 </dd>
                 <dd class="toc-section">
@@ -227,10 +253,10 @@
                             </dd>
                             <dd class="toc-item-group">FeedBack</dd>
                             <dd class="toc-item">
-                                    <a routerLink="/components/alert" routerLinkActive="active">Alert
-                                        <span>警告框</span>
-                                    </a>
-                                </dd>
+                                <a routerLink="/components/alert" routerLinkActive="active">Alert
+                                    <span>警告框</span>
+                                </a>
+                            </dd>
                             <dd class="toc-item">
                                 <a routerLink="/components/confirm" routerLinkActive="active">Confirm
                                     <span>确认消息框</span>
@@ -284,11 +310,6 @@
                             <dd class="toc-item">
                                 <a routerLink="components/strength" routerLinkActive="active">Strength
                                     <span>强度</span>
-                                </a>
-                            </dd>
-                            <dd class="toc-item">
-                                <a routerLink="components/store" routerLinkActive="active">ReduxDevTool
-                                    <span>状态管理示例</span>
                                 </a>
                             </dd>
                         </dl>

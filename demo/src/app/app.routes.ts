@@ -45,6 +45,7 @@ import { DemoDialogSectionComponent } from './components/+dialog/dialog-section.
 import { DemoBreadcrumbSectionComponent } from './components/+breadcrumb/breadcrumb-section.component';
 import { DemoStoreSectionComponent } from './components/+store/store-section.component';
 import { DemoMenuSectionComponent } from './components/+menu/menu-section.component';
+import { DropDragComponent } from './components/+drop-drag/drop-drag.component';
 const appRoutes = [
     {
         path: 'components/button',
@@ -234,6 +235,10 @@ const appRoutes = [
     {
         path: 'components/store',
         component: DemoStoreSectionComponent
+    },
+    {
+        path: 'cdk/dropdrag',
+        component: DropDragComponent
     }
 ];
 

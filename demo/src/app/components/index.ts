@@ -59,6 +59,8 @@ import { DemoBreadcrumbSectionComponent } from './+breadcrumb/breadcrumb-section
 import { DemoStoreSectionComponent } from './+store/store-section.component';
 
 import { DemoMenuSectionComponent } from './+menu/menu-section.component';
+import { DropDragComponent } from './+drop-drag/drop-drag.component';
+
 
 export const COMPONENTS = [
     DemoPopBoxSectionComponent,
@@ -122,7 +124,8 @@ export const COMPONENTS = [
     DemoDialogContentComponent,
 
     DemoBreadcrumbSectionComponent,
-    DemoStoreSectionComponent
+    DemoStoreSectionComponent,
+    DropDragComponent
 ];
 
 export const ENTRY_COMPONENTS = [

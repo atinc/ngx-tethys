@@ -1,0 +1,14 @@
+.drop-item {
+    border-bottom: 1px solid #aaa;
+    padding: 15px;
+    display: block;
+    div:focus {
+        outline: none;
+    }
+}
+
+.container_dropdrag {
+    width: 300px;
+    border: 1px solid #aaa;
+    border-bottom: none;
+}
