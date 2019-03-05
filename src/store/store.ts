@@ -12,7 +12,7 @@ import { META_KEY, StoreMetaInfo } from './types';
 import { helpers } from '../util';
 import { RootContainer } from './root-store';
 import { OnDestroy, isDevMode } from '@angular/core';
-import { ActionStateStore } from './actionStateStore';
+import { ActionState } from './action-state';
 
 interface Action {
     type: string;
@@ -35,7 +35,7 @@ export class Store<T extends object> implements Observer<T>, OnDestroy {
         this.state$ = new BehaviorSubject<T>(initialState);
         if (this.apply_redux_tool) {
             const _rootContainer: RootContainer = RootContainer.getSingletonRootContainer();
-            ActionStateStore.changeAction(`init_${this._defaultContainerInstanceId}`);
+            ActionState.changeAction(`init_${this._defaultContainerInstanceId}`);
             _rootContainer.registerContainer(this);
         }
     }

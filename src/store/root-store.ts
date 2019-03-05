@@ -4,7 +4,7 @@ import { Subscription, combineLatest } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 import reduxDevToolsPlugin, { StorePlugin } from './plugins/redux_devtools';
-import { ActionStateStore } from './actionStateStore';
+import { ActionState } from './action-state';
 
 export type ContainerInstanceMap = Map<string, Store<any>>; // Map key：string，value：状态数据
 
@@ -38,7 +38,7 @@ export class RootContainer implements OnDestroy {
             .pipe(switchMap(containers => this._getCombinedState(containers)))
             .pipe(
                 map(states => {
-                    const actionName = ActionStateStore.getActionName();
+                    const actionName = ActionState.getActionName();
                     const state = states.reduce(
                         (acc, curr) => {
                             acc[curr.containerName] = curr.state;

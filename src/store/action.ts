@@ -2,7 +2,7 @@ import { META_KEY } from './types';
 import { findAndCreateStoreMetadata } from './util';
 import { Observable, from, Observer } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { ActionStateStore } from './actionStateStore';
+import { ActionState } from './action-state';
 
 export interface DecoratorActionOptions {
     type: string;
@@ -48,7 +48,7 @@ export function Action(action?: DecoratorActionOptions | string) {
         };
 
         descriptor.value = function (...args: any[]) {
-            ActionStateStore.changeAction(name);
+            ActionState.changeAction(name);
             let result = originalFn.call(this, ...args, this.snapshot);
             result = _dispatch(result);
             result.subscribe();
