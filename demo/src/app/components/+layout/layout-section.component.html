@@ -23,7 +23,7 @@
         <div class="demo-layout">
             <thy-layout>
                 <thy-layout>
-                    <thy-sidebar thyWidth="400">
+                    <thy-sidebar thyWidth="400" thyIsDraggableWidth="true">
                         <div class="sidebar-header">
                             侧边栏
                         </div>
@@ -39,8 +39,10 @@
                             </ng-template>
                             <ng-template #headerContent>
                                 <thy-nav thyType="primary" thyHorizontal="center">
-                                    <a href="javascript:;" thyNavLink [thyNavLinkActive]="activeMenu === 'kanban'" (click)="setActiveMenu('kanban');">导航一</a>
-                                    <a href="javascript:;" thyNavLink [thyNavLinkActive]="activeMenu === 'insight'" (click)="setActiveMenu('insight')">导航二</a>
+                                    <a href="javascript:;" thyNavLink [thyNavLinkActive]="activeMenu === 'kanban'"
+                                        (click)="setActiveMenu('kanban');">导航一</a>
+                                    <a href="javascript:;" thyNavLink [thyNavLinkActive]="activeMenu === 'insight'"
+                                        (click)="setActiveMenu('insight')">导航二</a>
                                 </thy-nav>
                             </ng-template>
                             <ng-template #headerOperation>
@@ -89,3 +91,5 @@
 </section>
 <br>
 <br>
+
+<api-parameters title="thyKeySelection 参数列表" [parameters]="apiParameters"></api-parameters>

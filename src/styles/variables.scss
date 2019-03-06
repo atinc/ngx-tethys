@@ -163,6 +163,8 @@ $layout-content-padding: 15px 15px 15px 15px !default;
 $layout-sidebar-width: 240px !default;
 $layout-sidebar-background: rgba($gray-99, 0.97) !default;
 $layout-sidebar-border-right: 1px solid $gray-300 !default;
+$layout-sidebar-drag-background-hover: $gray-300 !default;
+$layout-sidebar-drag-background-active: $primary !default;
 $layout-header-height-sm: 38px !default;
 $layout-content-section-background: $white !default;
 $layout-content-section-margin-bottom: 15px !default;

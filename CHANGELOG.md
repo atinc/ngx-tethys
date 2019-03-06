@@ -1,3 +1,6 @@
+## 7.0.13
+新增 `thy-sidebar[thyIsDraggableWidth]`， 设置 `thy-sidebar` 宽度可调节
+
 ## 7.0.7
 `thyDatepicker` 时间范围选择样式的修改
 

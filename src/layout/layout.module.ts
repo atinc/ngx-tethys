@@ -6,6 +6,7 @@ import { ThyContentComponent } from './content.component';
 import { ThySidebarComponent } from './sidebar.component';
 import { ThyContentSectionComponent } from './content-section.component';
 import { ThyContentMainComponent } from './content-main.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
     declarations: [
@@ -16,9 +17,7 @@ import { ThyContentMainComponent } from './content-main.component';
         ThyContentSectionComponent,
         ThyContentMainComponent
     ],
-    imports: [
-        CommonModule
-    ],
+    imports: [CommonModule, DragDropModule],
     exports: [
         ThyLayoutComponent,
         ThyHeaderComponent,
@@ -28,6 +27,4 @@ import { ThyContentMainComponent } from './content-main.component';
         ThyContentMainComponent
     ]
 })
-export class ThyLayoutModule {
-
-}
+export class ThyLayoutModule {}
