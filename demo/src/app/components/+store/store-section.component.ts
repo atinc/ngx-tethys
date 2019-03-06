@@ -13,7 +13,7 @@ export class DemoStoreSectionComponent {
 
     }
     addFile() {
-        this.driveStore.addFile();
+        this.driveStore.dispatch('addFile');
     }
 
     changeFold() {

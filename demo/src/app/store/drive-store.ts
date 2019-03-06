@@ -2,6 +2,13 @@ import { Store, Action } from '../../../../src/store';
 import { of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
+
+export const DriveActions = {
+    fetchFiles: 'fetchFiles',
+    addFile: 'addFile',
+    changeFold: 'changeFold'
+};
+
 export
     interface DriveState {
     currentFold: {
