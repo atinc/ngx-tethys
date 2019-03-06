@@ -1,3 +1,8 @@
+## 7.0.13
+`Store` 增加 `Redux Dev Tools`
+`ThyDialog` 修改容器Wrapper样式
+修改 `Webpack` 打包相关配置 
+
 ## 7.0.7
 `thyDatepicker` 时间范围选择样式的修改
 
