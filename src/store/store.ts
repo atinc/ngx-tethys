@@ -14,12 +14,11 @@ import { RootContainer } from './root-store';
 import { OnDestroy, isDevMode } from '@angular/core';
 import { ActionState } from './action-state';
 
+
 interface Action {
     type: string;
     payload?: any;
 }
-
-let containerId = -1;
 
 export class Store<T extends object> implements Observer<T>, OnDestroy {
     [key: string]: any;
@@ -28,14 +27,14 @@ export class Store<T extends object> implements Observer<T>, OnDestroy {
 
     public apply_redux_tool = isDevMode;
 
-    private _defaultContainerInstanceId = `${this._getClassName()}@${++containerId}`;
+    private _defaultContainerInstanceId = `${this._getClassName()}`;
 
 
     constructor(initialState: any) {
         this.state$ = new BehaviorSubject<T>(initialState);
         if (this.apply_redux_tool) {
             const _rootContainer: RootContainer = RootContainer.getSingletonRootContainer();
-            ActionState.changeAction(`init_${this._defaultContainerInstanceId}`);
+            ActionState.changeAction(`Add-${this._defaultContainerInstanceId}`);
             _rootContainer.registerContainer(this);
         }
     }
@@ -45,6 +44,7 @@ export class Store<T extends object> implements Observer<T>, OnDestroy {
     }
 
     public dispatch(type: string, payload?: any): Observable<any> {
+        ActionState.changeAction(type);
         const result = this._dispatch({
             type: type,
             payload: payload
