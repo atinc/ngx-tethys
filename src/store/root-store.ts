@@ -1,9 +1,9 @@
 import { Store } from './store';
-import { Inject, SkipSelf, Optional, OnDestroy } from '@angular/core';
+import { Inject, SkipSelf, Optional, OnDestroy, isDevMode } from '@angular/core';
 import { Subscription, combineLatest } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
-import reduxDevToolsPlugin, { StorePlugin } from './plugins/redux_devtools';
+import getReduxDevToolsPlugin, { StorePlugin } from './plugins/redux_devtools';
 import { ActionState } from './action-state';
 
 export type ContainerInstanceMap = Map<string, Store<any>>; // Map key：string，value：状态数据
@@ -19,7 +19,7 @@ export class RootContainer implements OnDestroy {
     private readonly _containers = new BehaviorSubject<ContainerInstanceMap>(
         new Map<string, Store<any>>()
     );
-    private _plugin: StorePlugin = reduxDevToolsPlugin();
+    private _plugin: StorePlugin = getReduxDevToolsPlugin();
     private _combinedStateSubscription: Subscription = new Subscription();
     public static getSingletonRootContainer() {
         if (!this._rootContainer) {
@@ -29,8 +29,10 @@ export class RootContainer implements OnDestroy {
     }
     constructor(
     ) {
-        this._assignCombinedState(); // 最终调用handleNewState
-        console.log('rootContainer --constructor-- ');
+        if (this._plugin.isConnectSuccessed()) {
+            this._assignCombinedState(); // 最终调用handleNewState
+            console.log(`是否在Angular开发环境：${isDevMode()}, 初始化root-store`);
+        }
     }
 
     private _assignCombinedState() {
