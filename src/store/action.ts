@@ -48,7 +48,7 @@ export function Action(action?: DecoratorActionOptions | string) {
         };
 
         descriptor.value = function (...args: any[]) {
-            ActionState.changeAction(name);
+            ActionState.changeAction(`${target.constructor.name}-${name}`);
             let result = originalFn.call(this, ...args, this.snapshot);
             result = _dispatch(result);
             result.subscribe();

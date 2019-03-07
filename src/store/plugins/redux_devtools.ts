@@ -12,7 +12,7 @@ export interface ReduxDevtoolsInstance {
 }
 
 export function tinyStateVersion(): string {
-    return 'v0.5.0';
+    return 'v0.6.0';
 }
 
 export class ReduxDevtoolsPlugin implements StorePlugin {

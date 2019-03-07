@@ -10,10 +10,9 @@ import {
 import { distinctUntilChanged, map, shareReplay } from 'rxjs/operators';
 import { META_KEY, StoreMetaInfo } from './types';
 import { helpers } from '../util';
-import { RootContainer } from './root-store';
+import { RootStore } from './root-store';
 import { OnDestroy, isDevMode } from '@angular/core';
 import { ActionState } from './action-state';
-
 
 interface Action {
     type: string;
@@ -21,21 +20,22 @@ interface Action {
 }
 
 export class Store<T extends object> implements Observer<T>, OnDestroy {
+
     [key: string]: any;
 
     public state$: BehaviorSubject<T>;
 
     public apply_redux_tool = isDevMode;
 
-    private _defaultContainerInstanceId = `${this._getClassName()}`;
+    private _defaultStoreInstanceId = `${this._getClassName()}`;
 
 
     constructor(initialState: any) {
         this.state$ = new BehaviorSubject<T>(initialState);
         if (this.apply_redux_tool) {
-            const _rootContainer: RootContainer = RootContainer.getSingletonRootContainer();
-            ActionState.changeAction(`Add-${this._defaultContainerInstanceId}`);
-            _rootContainer.registerContainer(this);
+            const _rootStore: RootStore = RootStore.getSingletonRootStore();
+            ActionState.changeAction(`Add-${this._defaultStoreInstanceId}`);
+            _rootStore.registerStore(this);
         }
     }
 
@@ -44,7 +44,7 @@ export class Store<T extends object> implements Observer<T>, OnDestroy {
     }
 
     public dispatch(type: string, payload?: any): Observable<any> {
-        ActionState.changeAction(type);
+        ActionState.changeAction(`${this._defaultStoreInstanceId}-${type}`);
         const result = this._dispatch({
             type: type,
             payload: payload
@@ -131,8 +131,8 @@ export class Store<T extends object> implements Observer<T>, OnDestroy {
 
     ngOnDestroy() {
         if (this.apply_redux_tool) {
-            const _rootContainer: RootContainer = RootContainer.getSingletonRootContainer();
-            _rootContainer.unregisterContainer(this);
+            const _rootStore: RootStore = RootStore.getSingletonRootStore();
+            _rootStore.unregisterStore(this);
         }
     }
 
@@ -140,11 +140,26 @@ export class Store<T extends object> implements Observer<T>, OnDestroy {
      * You can override this method if you want to give your container instance a custom id.
      * The returned id must be unique in the application.
      */
-    getContainerInstanceId(): string {
-        return this._defaultContainerInstanceId;
+    getStoreInstanceId(): string {
+        return this._defaultStoreInstanceId;
     }
 
     private _getClassName(): string {
-        return this.constructor.name;
+        const name = this.constructor.name;
+        if (this.apply_redux_tool) {
+            const _rootStore: RootStore = RootStore.getSingletonRootStore();
+            if (!_rootStore.existStoreInstanceId(name)) {
+                return name;
+            }
+            let j = 0;
+            for (let i = 1; i < 20; i++) {
+                if (!_rootStore.existStoreInstanceId(`${name}-${i}`)) {
+                    j = i;
+                    break;
+                }
+            }
+            return `${this.constructor.name}-${j}`;
+        }
+        return name;
     }
 }
