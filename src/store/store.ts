@@ -25,7 +25,7 @@ export class Store<T extends object> implements Observer<T>, OnDestroy {
 
     public state$: BehaviorSubject<T>;
 
-    public apply_redux_tool = isDevMode;
+    public apply_redux_tool = isDevMode();
 
     private _defaultStoreInstanceId = `${this._getClassName()}`;
 

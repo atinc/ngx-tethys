@@ -1,4 +1,3 @@
-import { isDevMode } from '@angular/core';
 export abstract class StorePlugin {
     // abstract handleNewState(state: Readonly<object>): void;
     abstract handleNewState(actionName: string, state: Readonly<object>): void;
