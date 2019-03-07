@@ -1,3 +1,6 @@
+## 7.0.14
+新增 `thy-sidebar[thyIsDraggableWidth]`， 设置 `thy-sidebar` 宽度可调节
+
 ## 7.0.13
 `Store` 增加 `Redux Dev Tools`
 `ThyDialog` 修改容器Wrapper样式
