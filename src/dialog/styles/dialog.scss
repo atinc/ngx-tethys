@@ -12,7 +12,7 @@ $thy-dialog-button-margin: 8px !default;
     // padding: $thy-dialog-padding;
     border-radius: $thy-dialog-border-radius;
     box-sizing: border-box;
-    overflow: visible;
+    overflow: auto;
     outline: 0;
 
     // The dialog container should completely fill its parent overlay element.

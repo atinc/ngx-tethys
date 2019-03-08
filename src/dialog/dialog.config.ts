@@ -122,9 +122,7 @@ export class ThyDialogConfig<TData = any> {
 }
 
 /** Injection token that can be used to specify default dialog options. */
-export const THY_DIALOG_DEFAULT_OPTIONS = new InjectionToken<ThyDialogConfig>(
-    'thy-dialog-default-options'
-);
+export const THY_DIALOG_DEFAULT_OPTIONS = new InjectionToken<ThyDialogConfig>('thy-dialog-default-options');
 
 export const THY_DIALOG_DEFAULT_OPTIONS_PROVIDER = {
     provide: THY_DIALOG_DEFAULT_OPTIONS,
@@ -132,7 +130,7 @@ export const THY_DIALOG_DEFAULT_OPTIONS_PROVIDER = {
         role: 'dialog',
         hasBackdrop: true,
         backdropClass: '',
-        panelClass:'',
+        panelClass: '',
         backdropClosable: true,
         closeOnNavigation: true,
         autoFocus: true,
