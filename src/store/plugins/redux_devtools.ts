@@ -1,4 +1,3 @@
-import { isDevMode } from '@angular/core';
 export abstract class StorePlugin {
     // abstract handleNewState(state: Readonly<object>): void;
     abstract handleNewState(actionName: string, state: Readonly<object>): void;
@@ -12,7 +11,7 @@ export interface ReduxDevtoolsInstance {
 }
 
 export function tinyStateVersion(): string {
-    return 'v0.5.0';
+    return 'v0.6.0';
 }
 
 export class ReduxDevtoolsPlugin implements StorePlugin {

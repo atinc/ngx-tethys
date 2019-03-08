@@ -57,6 +57,7 @@ import { DemoDialogSectionComponent } from './+dialog/dialog-section.component';
 import { DemoDialogContentComponent } from './+dialog/dialog-content.component';
 import { DemoBreadcrumbSectionComponent } from './+breadcrumb/breadcrumb-section.component';
 import { DemoStoreSectionComponent } from './+store/store-section.component';
+import { DemoStoreOtherSectionComponent } from './+store/store-other-section.component';
 
 import { DemoMenuSectionComponent } from './+menu/menu-section.component';
 import { DropDragComponent } from './+drop-drag/drop-drag.component';
@@ -125,7 +126,8 @@ export const COMPONENTS = [
 
     DemoBreadcrumbSectionComponent,
     DemoStoreSectionComponent,
-    DropDragComponent
+    DropDragComponent,
+    DemoStoreOtherSectionComponent
 ];
 
 export const ENTRY_COMPONENTS = [
@@ -139,5 +141,6 @@ export const ENTRY_COMPONENTS = [
     DemoAvatarHasBadgeSectionComponent,
     DemoAvatarRemoveSectionComponent,
 
-     DemoDialogContentComponent
+     DemoDialogContentComponent,
+     DemoStoreOtherSectionComponent
 ];

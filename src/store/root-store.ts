@@ -6,26 +6,26 @@ import { BehaviorSubject } from 'rxjs';
 import getReduxDevToolsPlugin, { StorePlugin } from './plugins/redux_devtools';
 import { ActionState } from './action-state';
 
-export type ContainerInstanceMap = Map<string, Store<any>>; // Map key：string，value：状态数据
+export type StoreInstanceMap = Map<string, Store<any>>; // Map key：string，value：状态数据
 
 /**
  * @internal
  */
-export class RootContainer implements OnDestroy {
-    private static _rootContainer: RootContainer;
+export class RootStore implements OnDestroy {
+    private static _rootStore: RootStore;
     /**
      * 数据流 数据是一个Map，k,v键值对，关键字->状态数据
      */
-    private readonly _containers = new BehaviorSubject<ContainerInstanceMap>(
+    private readonly _containers = new BehaviorSubject<StoreInstanceMap>(
         new Map<string, Store<any>>()
     );
     private _plugin: StorePlugin = getReduxDevToolsPlugin();
     private _combinedStateSubscription: Subscription = new Subscription();
-    public static getSingletonRootContainer() {
-        if (!this._rootContainer) {
-            this._rootContainer = new RootContainer();
+    public static getSingletonRootStore() {
+        if (!this._rootStore) {
+            this._rootStore = new RootStore();
         }
-        return this._rootContainer;
+        return this._rootStore;
     }
     constructor(
     ) {
@@ -62,7 +62,7 @@ export class RootContainer implements OnDestroy {
      * 通过combineLatest合并成一个数据数据流，这样状态数据只有涉及更新，那么这边就会得到通知
      * @param containers 状态数据的Map
      */
-    private _getCombinedState(containers: ContainerInstanceMap) {
+    private _getCombinedState(containers: StoreInstanceMap) {
         return combineLatest(
             ...Array.from(containers.entries()).map(([containerName, container]) => {
                 return container.state$.pipe(map(state => ({ containerName, state })), tap((data) => {
@@ -81,24 +81,32 @@ export class RootContainer implements OnDestroy {
     /**
      * @internal
      */
-    registerContainer(container: Store<any>) {
+    registerStore(store: Store<any>) {
         const containers = new Map(this._containers.value);
-        if (containers.has(container.getContainerInstanceId())) {
+        if (containers.has(store.getStoreInstanceId())) {
             throw new Error(
-                `TinyState: Container with duplicate instance ID found! ${container.getContainerInstanceId()}` +
-                ` is already registered. Please check your getContainerInstanceId() methods!`
+                `Store: Store with duplicate instance ID found! ${store.getStoreInstanceId()}` +
+                ` is already registered. Please check your getStoreInstanceId() methods!`
             );
         }
-        containers.set(container.getContainerInstanceId(), container);
+        containers.set(store.getStoreInstanceId(), store);
         this._containers.next(containers);
+    }
+
+    existStoreInstanceId(instanceId: string): boolean {
+        const containers = new Map(this._containers.value);
+        if (containers.has(instanceId)) {
+            return true;
+        }
+        return false;
     }
 
     /**
      * @internal
      */
-    unregisterContainer(container: Store<any>) {
+    unregisterStore(store: Store<any>) {
         const containers = new Map(this._containers.value);
-        containers.delete(container.getContainerInstanceId());
+        containers.delete(store.getStoreInstanceId());
         this._containers.next(containers);
     }
 }
