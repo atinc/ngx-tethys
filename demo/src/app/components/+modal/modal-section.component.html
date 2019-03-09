@@ -17,12 +17,19 @@
             <ng-template #thyModalFooterTemplate>
                 <div>
                     <div class="list-relationship">
-                        <thy-custom-select class="flex-grow-1 ml-1" [(ngModel)]="shipId" thyPlaceHolder="请选择关系">
+                        <thy-custom-select thySize="md" thyPlaceHolder="请选择" [(ngModel)]="selectedItem"
+                            [thyShowSearch]="true" [thyAllowClear]="allowClear">
+                            <thy-option *ngFor="let option of optionData"
+                                thySearchKey="{{option?.name}},{{option?.display_name}},{{option?.pin_yin}}"
+                                [thyValue]="option" [thyDisabled]="option.name === 'money'"
+                                [thyLabelText]="option.display_name">
+                            </thy-option>
                         </thy-custom-select>
                     </div>
 
                     <div class="btn-pair">
-                        <button thyButton="primary" (click)="saveModal()" [thyLoading]="saving" [thyLoadingText]="'提交中...'">确认1</button>
+                        <button thyButton="primary" (click)="saveModal()" [thyLoading]="saving"
+                            [thyLoadingText]="'提交中...'">确认1</button>
                         <button thyButton="link-secondary" (click)="closeModal()">取消1</button>
                     </div>
                 </div>
@@ -57,9 +64,11 @@
         </thy-modal-body>
         <thy-modal-footer>
             <ng-template>
-                <button thyButton="link-secondary" class="btn btn-link btn-link-default" (click)="closeModal()">上一步</button>
+                <button thyButton="link-secondary" class="btn btn-link btn-link-default"
+                    (click)="closeModal()">上一步</button>
                 <button thyButton="primary" (click)="closeModal()">确认</button>
-                <button thyButton="link-secondary" class="btn btn-link btn-link-default" (click)="closeModal()">取消</button>
+                <button thyButton="link-secondary" class="btn btn-link btn-link-default"
+                    (click)="closeModal()">取消</button>
             </ng-template>
         </thy-modal-footer>
     </thy-modal>

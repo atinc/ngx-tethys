@@ -2,6 +2,7 @@ import { Component, TemplateRef, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ThyModalService } from '../../../../../src/modal/modal.service';
 import { DemoModalContentComponent } from './modal.content.component';
+import { taskTypes } from '../+select/mock-data';
 
 @Component({
     selector: 'demo-modal-section',
@@ -16,6 +17,11 @@ export class DemoModalSectionComponent implements OnInit {
     shipId;
 
     public saving;
+
+
+    optionData = [];
+
+    selectedItem = this.optionData[0];
 
     // public apiParameters = [{
     //     property: 'thySrc',
@@ -51,7 +57,9 @@ export class DemoModalSectionComponent implements OnInit {
 
     constructor(
         public modalService: ThyModalService
-    ) { }
+    ) {
+        this.optionData = taskTypes;
+     }
 
     ngOnInit() {
 
