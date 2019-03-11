@@ -1,4 +1,15 @@
-import { Component, forwardRef, OnInit, HostBinding, HostListener, Input, ElementRef, Optional } from '@angular/core';
+import {
+    Component,
+    forwardRef,
+    OnInit,
+    HostBinding,
+    HostListener,
+    Input,
+    ElementRef,
+    Optional,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef
+} from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ThyTranslate } from '../shared';
 import { ThyFormCheckBaseComponent } from '../shared';
@@ -14,23 +25,25 @@ import { inputValueToBoolean } from '../util/helpers';
             useExisting: forwardRef(() => ThyRadioComponent),
             multi: true
         }
-    ]
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyRadioComponent extends ThyFormCheckBaseComponent implements OnInit {
-
     name: string;
 
     @Input() thyValue: string;
 
     set thyChecked(value: boolean) {
         this.writeValue(inputValueToBoolean(value));
+        this.changeDetectorRef.markForCheck();
     }
 
     constructor(
         public thyTranslate: ThyTranslate,
-        @Optional() public thyRadioGroupComponent: ThyRadioGroupComponent
+        @Optional() public thyRadioGroupComponent: ThyRadioGroupComponent,
+        changeDetectorRef: ChangeDetectorRef
     ) {
-        super(thyTranslate);
+        super(thyTranslate, changeDetectorRef);
     }
 
     ngOnInit() {
@@ -45,6 +58,5 @@ export class ThyRadioComponent extends ThyFormCheckBaseComponent implements OnIn
         } else {
             this.updateValue(!this._innerValue);
         }
-
     }
 }

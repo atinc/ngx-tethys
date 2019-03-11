@@ -2,7 +2,6 @@ import { Component, HostListener, ElementRef, HostBinding, Renderer2, OnInit } f
 import { ThySlideRef } from './slide-ref.service';
 import { ThySlideOption } from './slide-options.class';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { DebugHelper } from 'protractor/built/debugger';
 
 @Component({
     selector: 'thy-slide-container',

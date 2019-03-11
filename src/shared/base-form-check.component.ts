@@ -1,13 +1,11 @@
 import { ControlValueAccessor } from '@angular/forms';
-import { HostBinding, Input } from '@angular/core';
+import { HostBinding, Input, ChangeDetectorRef } from '@angular/core';
 import { inputValueToBoolean } from '../util/helpers';
 import { ThyTranslate } from './translate';
 
-const noop = () => {
-};
+const noop = () => {};
 
 export class ThyFormCheckBaseComponent implements ControlValueAccessor {
-
     // The internal data model
     _innerValue: boolean = null;
 
@@ -47,6 +45,7 @@ export class ThyFormCheckBaseComponent implements ControlValueAccessor {
     @Input()
     set thyDisabled(value: boolean) {
         this._disabled = inputValueToBoolean(value);
+        this.markForCheck();
     }
 
     writeValue(obj: boolean): void {
@@ -66,20 +65,25 @@ export class ThyFormCheckBaseComponent implements ControlValueAccessor {
 
     setDisabledState?(isDisabled: boolean): void {
         this._disabled = isDisabled;
+        this.markForCheck();
     }
 
     updateValue(value: boolean): void {
         this._innerValue = value;
         this._isChecked = !!this._innerValue;
         this.onChangeCallback(value);
+        this.markForCheck();
     }
 
-    constructor(
-        protected thyTranslate: ThyTranslate
-    ) {
-    }
+    constructor(protected thyTranslate: ThyTranslate, protected changeDetectorRef?: ChangeDetectorRef) {}
 
     change() {
         this.updateValue(!this._innerValue);
+    }
+
+    markForCheck() {
+        if (this.changeDetectorRef) {
+            this.changeDetectorRef.markForCheck();
+        }
     }
 }

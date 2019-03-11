@@ -1,5 +1,9 @@
-## 7.0.20(未发布)
-添加滚动条样式
+## 7.0.20
+- 添加滚动条样式;
+- change thyRadio's changeDetection to OnPush;
+- change thyRadioButton's changeDetection to OnPush;
+- change thyRadioGroup's changeDetection to OnPush;
+- change thy-loading's changeDetection to OnPush;
 
 ## 7.0.19
 `thyEditor` 添加关联

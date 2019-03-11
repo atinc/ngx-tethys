@@ -2,19 +2,10 @@
     <div class="header"><h2>Radio 单选</h2></div>
     <div class="body">
         <div>
-            <label
-                thyRadio
-                thyInline="true"
-                [(ngModel)]="model.checkboxInline"
-                thyLabelText="内联展示"
-            ></label>
-            <label
-                thyRadio
-                thyInline="true"
-                [(ngModel)]="model.disabled"
-                thyLabelText="禁用"
-            ></label>
+            <label thyCheckbox thyInline="true" [(ngModel)]="model.checkboxInline" thyLabelText="内联展示"></label>
+            <label thyCheckbox thyInline="true" [(ngModel)]="model.disabled" thyLabelText="禁用"></label>
         </div>
+
         <label
             thyRadio
             [thyInline]="model.checkboxInline"
@@ -68,13 +59,13 @@
             <label thyRadioButton thyLabelText="选项2" thyValue="2"></label>
             <label thyRadioButton thyLabelText="选项2" thyValue="3"></label>
         </thy-radio-group>
-        <br/>
+        <br />
         <thy-radio-group [(ngModel)]="modelGroup">
             <label thyRadioButton thyLabelText="选项1" thyValue="1"></label>
             <label thyRadioButton thyLabelText="选项2" thyValue="2"></label>
             <label thyRadioButton thyLabelText="选项2" thyValue="3"></label>
         </thy-radio-group>
-        <br/>
+        <br />
         <thy-radio-group [(ngModel)]="modelGroup" thySize="sm">
             <label thyRadioButton thyLabelText="选项1" thyValue="1"></label>
             <label thyRadioButton thyLabelText="选项2" thyValue="2"></label>
@@ -87,12 +78,6 @@
     </div>
 </section>
 
-<api-parameters
-    title="thyRadio 参数列表"
-    [parameters]="apiParameters"
-></api-parameters>
+<api-parameters title="thyRadio 参数列表" [parameters]="apiParameters"></api-parameters>
 
-<api-parameters
-    title="thy-radio-group 参数列表"
-    [parameters]="apiGroupParameters"
-></api-parameters>
+<api-parameters title="thy-radio-group 参数列表" [parameters]="apiGroupParameters"></api-parameters>

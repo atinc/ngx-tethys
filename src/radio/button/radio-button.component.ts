@@ -5,7 +5,8 @@ import {
     HostBinding,
     HostListener,
     Input,
-    Optional
+    Optional,
+    ChangeDetectorRef
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyTranslate } from '../../shared';
@@ -18,8 +19,7 @@ import { ThyRadioComponent } from '../radio.component';
     selector: '[thy-radio-button],[thyRadioButton]',
     templateUrl: './radio-button.component.html'
 })
-export class ThyRadioButtonComponent extends ThyRadioComponent
-    implements OnInit {
+export class ThyRadioButtonComponent extends ThyRadioComponent implements OnInit {
     @HostBinding('class.btn') isButton = true;
     @HostBinding('class.active') isActive = false;
 
@@ -34,9 +34,10 @@ export class ThyRadioButtonComponent extends ThyRadioComponent
 
     constructor(
         thyTranslate: ThyTranslate,
-        @Optional() thyRadioGroupComponent: ThyRadioGroupComponent
+        @Optional() thyRadioGroupComponent: ThyRadioGroupComponent,
+        changeDetectorRef: ChangeDetectorRef
     ) {
-        super(thyTranslate,thyRadioGroupComponent);
+        super(thyTranslate, thyRadioGroupComponent, changeDetectorRef);
     }
 
     ngOnInit() {

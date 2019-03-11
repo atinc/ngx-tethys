@@ -4,7 +4,9 @@ import {
     HostBinding,
     Input,
     ElementRef,
-    OnInit
+    OnInit,
+    ChangeDetectorRef,
+    ChangeDetectionStrategy
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ThyRadioComponent } from '../radio.component';
@@ -32,7 +34,8 @@ const radioGroupLayoutMap = {
             useExisting: forwardRef(() => ThyRadioGroupComponent),
             multi: true
         }
-    ]
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyRadioGroupComponent implements ControlValueAccessor, OnInit {
     @HostBinding('class.thy-radio-group') thyRadioGroup = true;
@@ -72,7 +75,8 @@ export class ThyRadioGroupComponent implements ControlValueAccessor, OnInit {
 
     constructor(
         private updateHostClassService: UpdateHostClassService,
-        private elementRef: ElementRef
+        private elementRef: ElementRef,
+        private changeDetectorRef: ChangeDetectorRef
     ) {
         this.updateHostClassService.initializeElement(elementRef.nativeElement);
     }
@@ -90,6 +94,7 @@ export class ThyRadioGroupComponent implements ControlValueAccessor, OnInit {
         if (emit) {
             this.onChange(value);
         }
+        this.changeDetectorRef.detectChanges();
     }
 
     writeValue(value: any): void {
