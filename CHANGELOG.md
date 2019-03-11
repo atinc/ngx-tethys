@@ -1,3 +1,6 @@
+## 7.0.18
+`thyEditor` 添加关联
+
 ## 7.0.17
 `thyTree` ThyDialog OnPush模式下 tree异步加载界面不更新问题处理
 `thyDialog` ThyDialog thy-dialog-container visible样式修改的撤销

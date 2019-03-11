@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyEditorService, ThyEditorConfig } from './editor.service';
-
+import { ThyEditorLinkModuleService } from './editor-linkmodule.service';
 @Component({
     selector: 'thy-editor',
     templateUrl: './editor.component.html',
@@ -26,8 +26,7 @@ import { ThyEditorService, ThyEditorConfig } from './editor.service';
         ThyEditorService
     ]
 })
-export class ThyEditorComponent
-    implements OnInit, ControlValueAccessor, OnDestroy {
+export class ThyEditorComponent implements OnInit, ControlValueAccessor, OnDestroy {
     public model: any;
     public options: ThyEditorConfig;
 
@@ -43,14 +42,13 @@ export class ThyEditorComponent
 
     @Output() uploadImg: EventEmitter<any> = new EventEmitter<any>();
 
-    @Output() linkModule: EventEmitter<any> = new EventEmitter<any>();
-
     public value: String = '';
 
     constructor(
         private elementRef: ElementRef,
         private renderer: Renderer2,
-        public thyEditorService: ThyEditorService
+        public thyEditorService: ThyEditorService,
+        public thyEditorLinkModuleService: ThyEditorLinkModuleService
     ) {}
 
     @HostListener('paste', ['$event'])
@@ -85,8 +83,7 @@ export class ThyEditorComponent
             if (item.kind === 'file' && item.type.indexOf('image/') === 0) {
                 const imageFile: any = item.getAsFile();
                 if (imageFile) {
-                    imageFile.title =
-                        '[' + _name + '] ' + 'upload' + ' - ' + _date + '.png';
+                    imageFile.title = '[' + _name + '] ' + 'upload' + ' - ' + _date + '.png';
                     $files.push(imageFile);
                     e.preventDefault();
                     break;
@@ -133,8 +130,7 @@ export class ThyEditorComponent
     }
 
     setHeaderLi(id: string): void {
-        this.thyEditorService.header_action = !this.thyEditorService
-            .header_action;
+        this.thyEditorService.header_action = !this.thyEditorService.header_action;
     }
 
     styleFn(name: string, event: Event) {
@@ -143,9 +139,7 @@ export class ThyEditorComponent
 
     togglePreview() {
         this.thyEditorService.isPreview = !this.thyEditorService.isPreview;
-        this.value = this.elementRef.nativeElement.querySelector(
-            '.thy-editor-textarea'
-        ).value;
+        this.value = this.elementRef.nativeElement.querySelector('.thy-editor-textarea').value;
     }
 
     selectFiles(event: Event) {
@@ -158,19 +152,11 @@ export class ThyEditorComponent
     }
 
     uploadImgAction(src: string, title: string) {
-        this.thyEditorService.insertContent(
-            '\n![' + title + '](' + src + ')\n',
-            this.changeValue.bind(this)
-        );
+        this.thyEditorService.insertContent('\n![' + title + '](' + src + ')\n', this.changeValue.bind(this));
     }
 
     selectModule(event: Event) {
-        if (this.linkModule) {
-            this.linkModule.emit({
-                event: event,
-                callBack: this.linkModuleAction.bind(this)
-            });
-        }
+        this.thyEditorLinkModuleService.open(event, this.linkModuleAction.bind(this));
     }
 
     linkModuleAction(str: string) {
