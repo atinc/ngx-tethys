@@ -1,0 +1,22 @@
+::-webkit-scrollbar {
+    width: 6px;
+    height: 9px;
+    -webkit-appearance: none;
+}
+
+::-webkit-scrollbar-track-piece {
+    background: $scrollbar-track-piece;
+}
+
+::-webkit-scrollbar-thumb {
+    background: $scrollbar-thumb;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:vertical:hover {
+    background: darken($scrollbar-thumb, 15%);
+}
+
+::-webkit-scrollbar-thumb:horizontal:hover {
+    background: darken($scrollbar-thumb, 15%);
+}

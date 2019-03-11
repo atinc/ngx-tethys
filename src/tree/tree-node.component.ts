@@ -12,19 +12,22 @@ import {
     NgZone,
     ViewChildren,
     AfterViewInit,
-    OnDestroy
+    OnDestroy,
+    ChangeDetectorRef
 } from '@angular/core';
 import { ThyTreeComponent } from './tree.component';
 import { ThyTreeNodeData, ThyTreeNode } from './tree.class';
 import { ThyTreeService } from './tree.service';
 import { helpers } from '../util';
+import { takeUntil, filter } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
     selector: 'thy-tree-node',
     templateUrl: './tree-node.component.html',
     encapsulation: ViewEncapsulation.None
 })
-export class ThyTreeNodeComponent {
+export class ThyTreeNodeComponent implements OnDestroy {
     @Input() node: ThyTreeNode;
 
     @Input() thyAsync = false;
@@ -66,11 +69,25 @@ export class ThyTreeNodeComponent {
 
     private _showExpand: boolean | ((_: ThyTreeNodeData) => boolean);
 
+    destroy$ = new Subject();
+
+    markForCheck(): void {
+        this.cdr.markForCheck();
+    }
+
     constructor(
         public root: ThyTreeComponent,
         public thyTreeService: ThyTreeService,
-        private ngZone: NgZone
-    ) {}
+        private ngZone: NgZone,
+        private cdr: ChangeDetectorRef,
+    ) {
+        this.thyTreeService.statusChanged().pipe(
+            filter(data => data.node.key === this.node.key),
+            takeUntil(this.destroy$)).
+            subscribe(() => {
+                this.markForCheck();
+            });
+    }
 
     public clickNode(event: Event) {
         this.root.toggleTreeNode(this.node);
@@ -102,5 +119,10 @@ export class ThyTreeNodeComponent {
         } else {
             return this._showExpand;
         }
+    }
+
+    ngOnDestroy(): void {
+        this.destroy$.next();
+        this.destroy$.complete();
     }
 }
