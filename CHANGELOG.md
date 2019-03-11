@@ -1,6 +1,9 @@
-## 7.0.15
-`root-store` 初始化逻辑修改
-修改未安装`Redux_DevTools` 报错的问题
+## 7.0.17
+`thyTree` ThyDialog OnPush模式下 tree异步加载界面不更新问题处理
+`thyDialog` ThyDialog thy-dialog-container visible样式修改的撤销
+
+## 7.0.16
+`store` 非单例注入报错处理
 
 ## 7.0.14
 
