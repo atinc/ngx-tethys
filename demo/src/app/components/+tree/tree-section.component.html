@@ -1,53 +1,29 @@
 <section>
-    <div class="header"><h2>Tree（自定义模板）</h2></div>
+    <div class="header">
+        <h2>Tree（自定义模板）</h2>
+    </div>
     <div class="body">
         <button thyButton="primary" (click)="addNode()">添加节点</button> <br />
-        <thy-tree
-            #tree
-            [thyNodes]="treeNodes"
-            [thyShowExpand]="isShowExpand"
-            [thyDraggable]="true"
-            (thyOnDraggableChange)="draggableNode($event)"
-        >
+        <thy-tree #tree [thyNodes]="treeNodes" [thyShowExpand]="isShowExpand" [thyDraggable]="true"
+            (thyOnDraggableChange)="draggableNode($event)">
             <ng-template #treeNodeTemplate let-node>
-                <i
-                    class="tree-node-icon"
-                    [ngClass]="node.origin.icon"
-                    [ngStyle]="node.origin.iconStyle"
-                ></i>
+                <i class="tree-node-icon" [ngClass]="node.origin.icon" [ngStyle]="node.origin.iconStyle"></i>
                 <ng-container *ngIf="!node.origin.edited">
                     <div class="thy-tree-node-title">{{ node.title }}</div>
                     <div class="thy-tree-node-actions">
-                        <a
-                            thyButtonIcon="wtf-edit-o"
-                            thySize="sm"
-                            href="javascript:;"
-                            (click)="node.origin.edited = true"
-                        ></a>
-                        <a
-                            thyButtonIcon="wtf-trash-o"
-                            thySize="sm"
-                            href="javascript:;"
-                            (click)="deleteNode(node)"
-                        ></a>
+                        <a thyButtonIcon="wtf-edit-o" thySize="sm" href="javascript:;"
+                            (click)="node.origin.edited = true"></a>
+                        <a thyButtonIcon="wtf-trash-o" thySize="sm" href="javascript:;" (click)="deleteNode(node)"></a>
                     </div>
                 </ng-container>
                 <ng-container *ngIf="node.origin.edited">
                     <div class="tree-node-edit">
-                        <input
-                            #title
-                            thyInput
-                            thySize="sm"
-                            thyAutofocus
-                            (blur)="node.origin.edited = false"
-                        />
+                        <input #title thyInput thySize="sm" thyAutofocus (blur)="node.origin.edited = false" />
                     </div>
                 </ng-container>
             </ng-template>
             <ng-template #emptyChildrenTemplate>
-                <div
-                    style="width: 100%; height: 50px; padding:0 30px; background-color: #efefef;"
-                >
+                <div style="width: 100%; height: 50px; padding:0 30px; background-color: #efefef;">
                     拖拽元素区域
                 </div>
             </ng-template>
@@ -58,22 +34,42 @@
 <br />
 
 <section>
-    <div class="header"><h2>Tree （异步加载）</h2></div>
+    <div class="header">
+        <h2>Tree （异步加载）</h2>
+    </div>
     <div class="body">
         <button thyButton="primary" (click)="addNode()">添加节点</button>
-        <thy-tree
-            [(ngModel)]="treeNodes"
-            [thyShowExpand]="isShowExpand"
-            [thyDraggable]="true"
-            [thyAsync]="true"
-            (thyOnExpandChange)="loadTreeNodes($event)"
-            (thyOnDraggableChange)="draggableNode($event)"
-        >
+        <thy-tree [(ngModel)]="treeNodes" [thyShowExpand]="isShowExpand" [thyDraggable]="true" [thyAsync]="true"
+            (thyOnExpandChange)="loadTreeNodes($event)" (thyOnDraggableChange)="draggableNode($event)">
         </thy-tree>
     </div>
 </section>
 
+
 <br />
+<section>
+    <div class="header">
+        <h2>Dialog 弹出模态框 加载Tree （异步加载）</h2>
+    </div>
+    <div class="body">
+        <button thyButton="primary" (click)="openDialogTree(dialogTree)">弹出 Tree</button>
+    </div>
+</section>
+<ng-template #dialogTree>
+    <thy-dialog-header thyTitle="Dialog Title"></thy-dialog-header>
+    <thy-dialog-body>
+        <thy-tree [(ngModel)]="treeNodes" [thyShowExpand]="isShowExpand" [thyAsync]="true"
+            (thyOnExpandChange)="dialogLoadTreeNodes($event)">
+        </thy-tree>
+    </thy-dialog-body>
+    <thy-dialog-footer thyShowBorderTop="true">
+        <button thyButton="primary" (click)="thyDialog.close()">确认</button>
+        <button thyButton="link-secondary" (click)="thyDialog.close()">
+            关闭
+        </button>
+    </thy-dialog-footer>
+</ng-template>
+
 
 
 <api-parameters [parameters]="apiParameters"></api-parameters>

@@ -1,12 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { helpers } from '../util';
 import { ThyTreeNode } from './tree.class';
+import { Subject } from 'rxjs';
 
 @Injectable()
-export class ThyTreeService {
+export class ThyTreeService implements OnDestroy {
     public treeNodes: ThyTreeNode[];
 
-    constructor() {}
+    $statusChange = new Subject<ThyTreeFormatEmitEvent>();
+
+    constructor() { }
 
     private _getParallelTreeNodes(
         nodes: ThyTreeNode[],
@@ -50,4 +53,20 @@ export class ThyTreeService {
             children.splice(index, 1);
         }
     }
+
+    statusChanged() {
+        return this.$statusChange.asObservable();
+    }
+
+    ngOnDestroy(): void {
+        this.$statusChange.complete();
+        this.$statusChange = null;
+    }
+}
+
+
+export interface ThyTreeFormatEmitEvent {
+    eventName: string;
+    node: ThyTreeNode;
+    event?: MouseEvent | DragEvent;
 }

@@ -63,7 +63,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit {
 
     @Input()
     set thyNodes(value: ThyTreeNodeData[]) {
-        this.treeNodes = (value || []).map(node => new ThyTreeNode(node));
+        this.treeNodes = (value || []).map(node => new ThyTreeNode(node,null, this.thyTreeService));
         this.thyTreeService.treeNodes = this.treeNodes;
     }
 

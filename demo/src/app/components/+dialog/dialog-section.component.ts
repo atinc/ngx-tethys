@@ -6,6 +6,7 @@ import { Subject, of, defer } from 'rxjs';
 import { takeUntil, delay, map } from 'rxjs/operators';
 import { apiParameters } from './api-parameters';
 import { taskTypes } from '../+select/mock-data';
+import { DemoTreeSectionComponent } from '../+tree/tree-section.component';
 
 
 const exampleCode = `
@@ -110,6 +111,10 @@ export class DemoDialogSectionComponent implements OnDestroy {
                 );
             }
         });
+    }
+
+    openTreeDemo() {
+        this.thyDialog.open(DemoTreeSectionComponent);
     }
 
     ngOnDestroy(): void {

@@ -1,4 +1,5 @@
 import { helpers } from '../util';
+import { ThyTreeService } from './tree.service';
 
 export interface ThyTreeNodeData {
     key?: number | string;
@@ -43,7 +44,17 @@ export class ThyTreeNode {
 
     isDisabled: boolean;
 
-    constructor(node: ThyTreeNodeData, parent: ThyTreeNode = null) {
+    private readonly service: ThyTreeService;
+
+    get treeService(): ThyTreeService {
+        if (this.service) {
+            return this.service;
+        } else if (this.parentNode) {
+            return this.parentNode.treeService;
+        }
+    }
+
+    constructor(node: ThyTreeNodeData, parent: ThyTreeNode = null, service?: ThyTreeService) {
         this.title = node.title;
         this.key = node.key || null;
         this.children = [];
@@ -58,6 +69,7 @@ export class ThyTreeNode {
                 this.children.push(new ThyTreeNode(childNode, this));
             });
         }
+        this.service = service;
     }
 
     public setKey(key: string) {
@@ -110,6 +122,10 @@ export class ThyTreeNode {
 
         this.origin.children = this.getChildren().map(n => n.origin);
         this.setLoading(false);
+        this.treeService.$statusChange.next({
+            'eventName': 'addChildren',
+            'node': this
+        });
     }
 }
 
