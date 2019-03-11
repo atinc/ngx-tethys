@@ -4,35 +4,19 @@
     -webkit-appearance: none;
 }
 
-.main-layout {
-    .main-body {
-        .main-body-side {
-            ::-webkit-scrollbar {
-                width: 4px;
-            }
-        }
-    }
-
-    .task-board {
-        ::-webkit-scrollbar-track-piece {
-            background-color: #fdfdfd;
-        }
-    }
-}
-
 ::-webkit-scrollbar-track-piece {
-    background-color: #eeeeee;
+    background: $scrollbar-track-piece;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #dddddd;
+    background: $scrollbar-thumb;
     border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:vertical:hover {
-    background: darken(#dddddd, 15%);
+    background: darken($scrollbar-thumb, 15%);
 }
 
 ::-webkit-scrollbar-thumb:horizontal:hover {
-    background: darken(#dddddd, 15%);
+    background: darken($scrollbar-thumb, 15%);
 }

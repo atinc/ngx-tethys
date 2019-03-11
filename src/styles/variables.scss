@@ -413,6 +413,11 @@ $stepper-label-padding: 0 10px !default;
 $stepper-line-margin: 0 10px 0 0 !default;
 $stepper-line-min-width: 30px !default;
 
+//#region scrollbar
+$scrollbar-track-piece: $gray-200 !default;
+$scrollbar-thumb: $gray-300 !default;
+// #endregion
+
 // breadcrumb
 
 $breadcrumb-separator-color: $gray-500 !default;

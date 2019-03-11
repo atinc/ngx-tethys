@@ -1,14 +1,14 @@
 export const thyEditorConstant = {
     typeArray: {
         hs: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
-        simple: ['bold', 'italic', 'link', 'uploadImg', 'divider', 'hr', 'quote', 'list', 'list-2', 'table'],
+        simple: ['bold', 'italic', 'link', 'uploadImg', 'divider', 'hr', 'quote', 'list', 'list-2', 'table','divider','linkModule'],
         complex: ['heading', 'bold', 'italic', 'underline',
             'strikethrough', 'divider', 'hr', 'quote', 'list', 'list-2', 'square', 'check-square', 'divider',
             'link', 'image', 'code', 'table', 'divider', 'math', 'diagram', 'gantt', 'divider', 'preview'],
         all: ['heading', 'bold', 'italic', 'underline',
             'strikethrough', 'divider', 'hr', 'quote', 'list', 'list-2',
             'square', 'check-square', 'divider', 'link', 'uploadImg',
-            'code', 'table', 'divider', 'math', 'diagram', 'gantt', 'divider', 'preview']
+            'code', 'table','linkModule', 'divider', 'math', 'diagram', 'gantt', 'divider', 'preview']
     },
     allButtons: {
         'heading': {
@@ -238,7 +238,7 @@ export const thyEditorConstant = {
             text: '关联',
             type: 'linkModule',
             name: 'linkModule'
-        },
+        }
     },
     tableMenu: [
         [
