@@ -84,8 +84,7 @@ export class ThyDialog implements OnDestroy {
         const injector = new PortalInjector(userInjector || this.injector, new WeakMap([[ThyDialogConfig, config]]));
         const containerPortal = new ComponentPortal(ThyDialogContainerComponent, config.viewContainerRef, injector);
         const containerRef = overlay.attach<ThyDialogContainerComponent>(containerPortal);
-        containerRef.instance.thyCustomerContainerClass = config.thyCustomerContainerClass;
-        containerRef.instance.overflowVisible = config.overflowVisible;
+
         return containerRef.instance;
     }
 

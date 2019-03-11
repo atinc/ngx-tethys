@@ -40,18 +40,5 @@ export const apiParameters = [
         description: '弹出框最大高度',
         type: 'number | string',
         default: '85vh'
-    },
-    {
-        property: 'thyCustomerContainerClass',
-        description: '增加组件thy-dialog-container的自定义类',
-        type: 'string',
-        default: 'null'
-    },
-    {
-        property: 'overflowVisible',
-        description: `特殊样式处理，当模态框主题内容超出thy-dialog-container最大高度时，超出内容直接显示，
-        不会再thy-dialog-container上出现滚动条，示例：Open Custome Select Dialog (template)`,
-        type: 'boolean',
-        default: 'false'
     }
 ];

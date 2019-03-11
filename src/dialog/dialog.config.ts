@@ -119,10 +119,6 @@ export class ThyDialogConfig<TData = any> {
      * the `HashLocationStrategy`).
      */
     closeOnNavigation? = true;
-
-    thyCustomerContainerClass?: string;
-
-    overflowVisible? = false;
 }
 
 /** Injection token that can be used to specify default dialog options. */

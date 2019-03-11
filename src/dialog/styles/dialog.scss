@@ -3,6 +3,10 @@ $thy-dialog-border-radius: 4px !default;
 $thy-dialog-max-height: 65vh !default;
 $thy-dialog-button-margin: 8px !default;
 
+// .dialog-overlay-pane {
+
+// }
+
 .thy-dialog-container {
     display: block;
     // padding: $thy-dialog-padding;
@@ -23,9 +27,6 @@ $thy-dialog-button-margin: 8px !default;
     //   @include cdk-high-contrast {
     //     outline: solid 1px;
     //   }
-}
-.thy-dialog-container-overflow-visible {
-    overflow: visible;
 }
 
 // Dialog header

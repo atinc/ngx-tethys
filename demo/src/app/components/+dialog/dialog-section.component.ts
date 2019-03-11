@@ -47,7 +47,7 @@ export class DemoDialogSectionComponent implements OnDestroy {
         size: ThyDialogSizes.md,
         hasBackdrop: true,
         backdropClosable: true,
-        closeOnNavigation: true,
+        closeOnNavigation: true
     };
 
     public apiParameters = apiParameters;
@@ -71,11 +71,7 @@ export class DemoDialogSectionComponent implements OnDestroy {
     }
 
     openTemplateDialog(template: TemplateRef<any>) {
-        this.thyDialog.open(template, this.config);
-    }
-
-    openOverflowVisbleDialog(template: TemplateRef<any>) {
-        this.thyDialog.open(template, { overflowVisible: true, thyCustomerContainerClass: 'templateClass' });
+        this.thyDialog.open(template);
     }
 
     openComponentDialog() {

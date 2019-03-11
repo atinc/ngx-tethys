@@ -8,9 +8,7 @@ import {
     Inject,
     EventEmitter,
     ChangeDetectorRef,
-    HostBinding,
-    OnInit,
-    Renderer2
+    HostBinding
 } from '@angular/core';
 import {
     ComponentPortal,
@@ -44,17 +42,12 @@ import { ThyClickPositioner } from '../core';
         '(@dialogContainer.done)': 'onAnimationDone($event)'
     }
 })
-export class ThyDialogContainerComponent implements OnInit {
+export class ThyDialogContainerComponent {
     @ViewChild(CdkPortalOutlet)
     private portalOutlet: CdkPortalOutlet;
 
     @HostBinding(`attr.id`)
     id: string;
-
-    @HostBinding(`class.thy-dialog-container-overflow-visible`)
-    overflowVisible: boolean;
-
-    thyCustomerContainerClass: string;
 
     /** State of the dialog animation. */
     animationState: 'void' | 'enter' | 'exit' = 'enter';
@@ -120,15 +113,8 @@ export class ThyDialogContainerComponent implements OnInit {
         @Inject(DOCUMENT) private document: any,
         public config: ThyDialogConfig,
         private changeDetectorRef: ChangeDetectorRef,
-        private clickPositioner: ThyClickPositioner,
-        private render: Renderer2
-    ) { }
-
-    ngOnInit() {
-        if (this.thyCustomerContainerClass) {
-            this.render.addClass(this.elementRef.nativeElement, this.thyCustomerContainerClass);
-        }
-    }
+        private clickPositioner: ThyClickPositioner
+    ) {}
 
     /**
      * Attach a ComponentPortal as content to this dialog container.
