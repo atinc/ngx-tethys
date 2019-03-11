@@ -71,7 +71,9 @@ export class DemoDialogSectionComponent implements OnDestroy {
     }
 
     openTemplateDialog(template: TemplateRef<any>) {
-        this.thyDialog.open(template);
+        this.thyDialog.open(template, {
+            panelClass: 'selectDialogCustomer'
+        });
     }
 
     openComponentDialog() {
