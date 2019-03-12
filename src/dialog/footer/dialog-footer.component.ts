@@ -9,7 +9,7 @@ import { inputValueToBoolean } from '../../util/helpers';
 @Component({
     selector: 'thy-dialog-footer',
     template: '<ng-content></ng-content>',
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    // changeDetection: ChangeDetectionStrategy.OnPush,
     exportAs: 'thyDialogFooter'
 })
 export class DialogFooterComponent {

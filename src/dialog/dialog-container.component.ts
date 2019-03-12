@@ -26,7 +26,9 @@ import { ThyClickPositioner } from '../core';
     template: `
         <ng-template cdkPortalOutlet></ng-template>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    // Using OnPush for dialogs caused some sync issues, e.g. custom ngModel can't to detect changes
+    // Disabled until we can track them down.
+    changeDetection: ChangeDetectionStrategy.Default,
     animations: [thyDialogAnimations.dialogContainer],
     host: {
         class: 'thy-dialog-container',

@@ -19,7 +19,7 @@ import { ThyTranslate } from '../../shared';
 @Component({
     selector: 'thy-dialog-header',
     templateUrl: './dialog-header.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    // changeDetection: ChangeDetectionStrategy.OnPush,
     exportAs: 'thyDialogHeader'
 })
 export class DialogHeaderComponent implements OnInit {
