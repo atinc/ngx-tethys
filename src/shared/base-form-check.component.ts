@@ -44,8 +44,7 @@ export class ThyFormCheckBaseComponent implements ControlValueAccessor {
 
     @Input()
     set thyDisabled(value: boolean) {
-        this._disabled = inputValueToBoolean(value);
-        this.markForCheck();
+        this.setDisabledState(inputValueToBoolean(value));
     }
 
     writeValue(obj: boolean): void {
