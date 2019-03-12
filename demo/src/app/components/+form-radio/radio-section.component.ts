@@ -80,7 +80,8 @@ export class DemoRadioSectionComponent {
         checked2: false,
         checked3: false,
         checkboxInline: false,
-        disabled: false
+        disabled: false,
+        groupDisabled: false
     };
 
     modelGroup = '1';
