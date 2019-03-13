@@ -1,4 +1,4 @@
-# ngx-tethys
+# ngx-tethys [![Build Status](https://api.travis-ci.org/worktile/ngx-tethys.svg?branch=master)](https://travis-ci.org/worktile/ngx-tethys)
 
 >An UI components based on Worktile Design and Angular.
 
