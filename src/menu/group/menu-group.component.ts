@@ -96,7 +96,7 @@ export class ThyMenuGroupComponent implements OnInit {
             });
         } else {
             if (this.thyActionClick) {
-                this.thyActionClick.emit();
+                this.thyActionClick.emit(event);
             }
         }
     }
