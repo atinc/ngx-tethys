@@ -37,6 +37,9 @@ $light: $gray-300 !default;
 // enable-gradients
 $enable-gradients: false;
 $enable-shadows: true;
+// transition-duration
+$transitionDurationNormal: 200ms;
+$transitionDurationLong: 300ms;
 // link
 $link-color: $primary !default;
 $link-decoration: none !default;
