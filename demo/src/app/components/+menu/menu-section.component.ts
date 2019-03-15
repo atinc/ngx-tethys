@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ThyPopBoxService } from '../../../../../src/pop-box';
+import { DemoMenuPopComponent } from './pop-menu.component';
 
 @Component({
     selector: 'demo-menu-section',
@@ -75,9 +77,20 @@ export class DemoMenuSectionComponent implements OnInit {
         }
     ];
 
+    constructor(private pbox: ThyPopBoxService) {}
+
     ngOnInit() {}
 
     moreAction() {
         console.log('click');
+    }
+
+    popMenu(event: Event) {
+        this.pbox.show(DemoMenuPopComponent,{
+            target: event.currentTarget,
+            insideAutoClose: true,
+            stopPropagation: true,
+            placement: 'bottom right'
+        })
     }
 }
