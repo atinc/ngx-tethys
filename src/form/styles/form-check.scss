@@ -49,6 +49,7 @@ input[type="checkbox"] {
   height: $input-form-check-size;
   border: solid 1px $input-form-check-border-color;
   cursor: pointer;
+  transition: border $transitionDurationNormal;
 
   &:not(.form-check-input) {
     position: relative;
@@ -87,14 +88,20 @@ input[type="checkbox"] {
 // checkbox
 input[type=checkbox] {
     border-radius: 2px;
+    &:after {
+      content: "\e6a5";
+      display: block;
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      color: $primary;
+      font: normal normal normal 14px/1 wtf;
+      opacity: 0;
+      transition: opacity 200ms;
+    }
     &:checked {
-      &::after {
-        content: "\e6a5";
-        display: block;
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        font: normal normal normal 14px/1 wtf;
+      &:after {
+        opacity: 1;
       }
     }
 }
@@ -125,6 +132,8 @@ input[type=radio] {
     margin-left: 10px;
     cursor: pointer;
     color: $input-label-color;
+    transition: color $transitionDurationNormal;
+    user-select: none;
     // .form-check-inline & {
     //   margin-left: 5px;
     // }
