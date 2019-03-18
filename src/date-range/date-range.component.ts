@@ -92,12 +92,13 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
         };
     }
 
-    private _getNewDate(fullDate: Date, timestamp: { year?: number, month?: number, day?: number } = {}) {
+    private _getNewDate(fullDate: Date, timestamp: { year?: number, month?: number, day?: number } = {}, end: boolean = false) {
         const newYear = fullDate.getFullYear() + (timestamp.year || 0);
         const newMonth = fullDate.getMonth() + (timestamp.month || 0);
         const newDate = fullDate.getDate() + (timestamp.day || 0);
 
-        return helpers.formatDate(new Date(newYear, newMonth, newDate));
+        const date = end ? new Date(newYear, newMonth, newDate, 23, 59, 59) : new Date(newYear, newMonth, newDate);
+        return helpers.formatDate(date);
     }
 
     private _calculateNewTime(type: string) {
@@ -108,13 +109,13 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
                 if (type === 'previous') {
                     return {
                         begin: this._getNewDate(beginDate, { day: -this.selectedDate.timestamp.interval }),
-                        end: this._getNewDate(beginDate, { day: -1 }),
+                        end: this._getNewDate(beginDate, { day: -1 }, true),
                         key: 'custom'
                     };
                 } else {
                     return {
                         begin: this._getNewDate(endDate, { day: 1 }),
-                        end: this._getNewDate(endDate, { day: this.selectedDate.timestamp.interval }),
+                        end: this._getNewDate(endDate, { day: this.selectedDate.timestamp.interval }, true),
                         key: 'custom'
                     };
                 }
@@ -122,13 +123,13 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
                 if (type === 'previous') {
                     return {
                         begin: this._getNewDate(beginDate, { month: -this.selectedDate.timestamp.interval }),
-                        end: this._getNewDate(endDate, { month: -this.selectedDate.timestamp.interval + 1, day: -endDate.getDate() }),
+                        end: this._getNewDate(endDate, { month: -this.selectedDate.timestamp.interval + 1, day: -endDate.getDate() }, true),
                         key: 'custom'
                     };
                 } else {
                     return {
                         begin: this._getNewDate(beginDate, { month: this.selectedDate.timestamp.interval }),
-                        end: this._getNewDate(endDate, { month: this.selectedDate.timestamp.interval + 1, day: -endDate.getDate() }),
+                        end: this._getNewDate(endDate, { month: this.selectedDate.timestamp.interval + 1, day: -endDate.getDate() }, true),
                         key: 'custom'
                     };
                 }
@@ -136,13 +137,13 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
                 if (type === 'previous') {
                     return {
                         begin: this._getNewDate(beginDate, { year: -this.selectedDate.timestamp.interval }),
-                        end: this._getNewDate(endDate, { year: -this.selectedDate.timestamp.interval }),
+                        end: this._getNewDate(endDate, { year: -this.selectedDate.timestamp.interval }, true),
                         key: 'custom'
                     };
                 } else {
                     return {
                         begin: this._getNewDate(beginDate, { year: this.selectedDate.timestamp.interval }),
-                        end: this._getNewDate(endDate, { year: this.selectedDate.timestamp.interval }),
+                        end: this._getNewDate(endDate, { year: this.selectedDate.timestamp.interval },),
                         key: 'custom'
                     };
                 }
