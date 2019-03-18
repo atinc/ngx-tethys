@@ -37,6 +37,7 @@
         display: flex;
         align-items: center;
         padding: 0 5px;
+        overflow: hidden;
         .thy-tree-node-icon {
           position: relative;
           top: 1px;
@@ -44,6 +45,9 @@
         }
         .thy-tree-node-title {
           padding: 0 5px;
+          // overflow: hidden;
+          // text-overflow: ellipsis;
+          // white-space: nowrap;
         }
         .thy-tree-node-edit {
           padding: 0 5px;

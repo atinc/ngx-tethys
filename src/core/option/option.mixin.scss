@@ -8,7 +8,7 @@
 
 @mixin thy-option ($color: $secondary) {
     @include thy-option-common-layout();
-    height: 40px;
+    min-height: 40px;
     color: $color;
     cursor: pointer;
     outline-style: none;
