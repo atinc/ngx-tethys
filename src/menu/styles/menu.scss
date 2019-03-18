@@ -37,6 +37,9 @@
             flex-grow: 1;
             color: $gray-700;
             font-size: $font-size-base;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
         .thy-menu-item-action {
             visibility: hidden;
@@ -85,6 +88,9 @@
                 flex-grow: 1;
                 padding-left: 8px;
                 color: $gray-700;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
             }
             .thy-menu-group-more {
                 visibility: hidden;
