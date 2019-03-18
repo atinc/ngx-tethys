@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+import { Component, OnInit, HostBinding, Input } from '@angular/core';
 
 @Component({
     selector: 'thy-menu-item-name,[thy-menu-item-name],[thyMenuItemName]',
@@ -7,7 +7,9 @@ import { Component, OnInit, HostBinding } from '@angular/core';
 export class ThyMenuItemNameComponent implements OnInit {
     @HostBinding('class.thy-menu-item-name') isThyMenuItemName = true;
 
-    @HostBinding('class.thy-menu-item-name-ellipsis') overflowEllipsis = false;
+    @HostBinding('class.thy-menu-item-name-ellipsis')
+    @Input()
+    thyOverflowEllipsis = true;
 
     constructor() {}
 
