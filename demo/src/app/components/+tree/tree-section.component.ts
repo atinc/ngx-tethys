@@ -35,24 +35,24 @@ export class DemoTreeSectionComponent {
     public treeNodes: any[] = [
         {
             key: '01',
-            title: 'root1',
+            title: '北京',
             icon: 'wtf wtf-drive-o',
             origin: { type: 1 },
             iconStyle: { color: 'red' },
             children: [
                 {
                     key: '01001',
-                    title: 'child1',
+                    title: '海淀',
                     icon: 'wtf wtf-file-text',
                     children: [
                         {
-                            key: '01001001',
-                            title: 'child1',
+                            key: '西二旗',
+                            title: '西二旗',
                             icon: 'wtf wtf-file-text'
                         },
                         {
-                            key: '010010002',
-                            title: 'child2',
+                            key: '西三旗',
+                            title: '西三旗',
                             icon: 'wtf wtf-file-text'
                         }
                     ]
@@ -76,8 +76,7 @@ export class DemoTreeSectionComponent {
 
     public apiParameters = apiParameters;
 
-    constructor(public thyDialog: ThyDialog) {
-    }
+    constructor(public thyDialog: ThyDialog) {}
 
     public addNode() {
         console.log(this.treeComponent.getSelectedNode());
@@ -86,7 +85,7 @@ export class DemoTreeSectionComponent {
             key: '020011',
             title: 'new',
             edited: true
-        });
+        },this.treeComponent.getSelectedNode());
     }
 
     public deleteNode(node) {

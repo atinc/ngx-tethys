@@ -60,6 +60,7 @@ import { DemoStoreSectionComponent } from './+store/store-section.component';
 import { DemoStoreOtherSectionComponent } from './+store/store-other-section.component';
 
 import { DemoMenuSectionComponent } from './+menu/menu-section.component';
+import { DemoMenuPopComponent } from './+menu/pop-menu.component';
 import { DropDragComponent } from './+drop-drag/drop-drag.component';
 
 
@@ -86,6 +87,7 @@ export const COMPONENTS = [
     DemoNotifySectionComponent,
     DemoNavSectionComponent,
     DemoMenuSectionComponent,
+    DemoMenuPopComponent,
     DemoModalSectionComponent,
     DemoCardSectionComponent,
     DemoConfirmSectionComponent,
@@ -142,5 +144,7 @@ export const ENTRY_COMPONENTS = [
     DemoAvatarRemoveSectionComponent,
 
      DemoDialogContentComponent,
-     DemoStoreOtherSectionComponent
+     DemoStoreOtherSectionComponent,
+
+     DemoMenuPopComponent
 ];

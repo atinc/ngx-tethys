@@ -27,7 +27,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
                     height: '*'
                 })
             ),
-            transition('* => *', animate('200ms ease-out'))
+            transition('* => *', animate('0ms ease-out'))
         ])
     ]
 })
@@ -96,7 +96,7 @@ export class ThyMenuGroupComponent implements OnInit {
             });
         } else {
             if (this.thyActionClick) {
-                this.thyActionClick.emit();
+                this.thyActionClick.emit(event);
             }
         }
     }
