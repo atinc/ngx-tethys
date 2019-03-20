@@ -6,10 +6,10 @@
 
     <tabset #staticTabs>
         <tab heading="HTML">
-            <pre><code>{{componentExample.html}}</code></pre>
+            <pre><code [highlight]="componentExample.html"></code></pre>
         </tab>
         <tab heading="Component">
-            <pre><code>{{componentExample.component}}</code></pre>
+            <pre><code [highlight]="componentExample.component"></code></pre>
         </tab>
     </tabset>
 </ng-container>
@@ -76,19 +76,19 @@
     <div class="body">
         <div class="icon-text">
             <i class="wtf wtf-type-worksheet"></i>
-            <span>任务</span>
+            <span>任务 Normal</span>
         </div>
         <br>
         <br>
         <div class="icon-text icon-text-lg">
-            <i class="wtf wtf-template-kanban"></i>
-            <span>任务</span>
+            <i class="wtf wtf-type-worksheet"></i>
+            <span>任务 lg</span>
         </div>
         <br>
         <br>
         <div class="icon-text icon-text-sm">
             <i class="wtf wtf-type-worksheet"></i>
-            <span>任务</span>
+            <span>任务 sm</span>
         </div>
     </div>
 </div>
