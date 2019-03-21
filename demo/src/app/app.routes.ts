@@ -46,7 +46,17 @@ import { DemoBreadcrumbSectionComponent } from './components/+breadcrumb/breadcr
 import { DemoStoreSectionComponent } from './components/+store/store-section.component';
 import { DemoMenuSectionComponent } from './components/+menu/menu-section.component';
 import { DropDragComponent } from './components/+drop-drag/drop-drag.component';
+import { DesignIntroductionComponent } from './design/introduction/introduction.component';
 const appRoutes = [
+    {
+        path: '',
+        redirectTo: 'introduction',
+        pathMatch: 'full'
+    },
+    {
+        path: 'introduction',
+        component: DesignIntroductionComponent
+    },
     {
         path: 'components/button',
         component: DemoButtonSectionComponent
@@ -230,8 +240,7 @@ const appRoutes = [
     {
         path: 'components/breadcrumb',
         component: DemoBreadcrumbSectionComponent
-    }
-    ,
+    },
     {
         path: 'components/store',
         component: DemoStoreSectionComponent
