@@ -65,13 +65,29 @@
     flex-direction: column;
 
     .sidebar-header {
-        padding: 0 20px;
-        height: $layout-header-height;
+        padding: 0 10px;
+        min-height: $layout-header-height;
         line-height: $layout-header-height;
+        display: flex;
+        flex-direction: row;
+        .title {
+            padding: 0px 0px 0px 10px;
+            color: $body-color;
+            font-size: $font-size-md;
+            flex-grow: 1;
+        }
+        .action {
+            padding: 0px 10px
+        }
     }
 
     .sidebar-content {
         flex: auto;
+        height: 100%;
+        overflow: auto;
+        .search-container {
+            padding: 0 20px 10px 20px;
+        }
     }
 
     .sidebar-drag {
