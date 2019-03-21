@@ -1,3 +1,13 @@
+## 7.0.24
+修改 `thyTreeSelect` 宽度样式的问题
+
+## 7.0.22
+修改`$cdk-z-index-overlay` 设置为1000
+修改`input-search` 加载时边框闪烁样式问题
+
+## 7.0.21
+修改 `thyMenu` 文本溢出样式问题
+
 ## 7.0.20
 - 添加滚动条样式;
 - change thyRadio's changeDetection to OnPush;
