@@ -164,7 +164,11 @@ export class ThyMarkdownParserDirective implements OnInit {
                     }
                 });
                 return '<div data-line="' + line_number + '">' + tex + '</div>';
-            } else if (firstLine === 'gantt' || firstLine === 'sequenceDiagram' || firstLine.match(/^graph (?:TB|BT|RL|LR|TD);?$/)) {
+            } else if (
+                firstLine === 'gantt' ||
+                firstLine === 'sequenceDiagram' ||
+                firstLine.match(/^graph (?:TB|BT|RL|LR|TD);?$/)
+            ) {
                 // mermaid
                 if (firstLine === 'sequenceDiagram') {
                     code += '\n'; // 如果末尾没有空行，则语法错误
@@ -199,11 +203,11 @@ export class ThyMarkdownParserDirective implements OnInit {
         this.initMarked();
     }
 
-    parseMarked() {
-        if (liteMarked && this.value) {
-            return liteMarked(this.value);
+    parseMarked(_value: string) {
+        if (liteMarked && _value) {
+            return liteMarked(_value);
         } else {
-            return this.value;
+            return _value;
         }
     }
 
@@ -215,8 +219,8 @@ export class ThyMarkdownParserDirective implements OnInit {
 
     translateHTML() {
         this.initComponent();
-        let _value = this.parseMarked();
-        _value = this.thyMarkdownParserService.filterHTML(_value);
+        let _value = this.thyMarkdownParserService.filterHTML(this.value);
+        _value = this.parseMarked(_value);
         setTimeout(() => {
             this.parseMermaid();
         }, 100);
