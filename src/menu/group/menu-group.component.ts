@@ -1,7 +1,18 @@
-import { Component, OnInit, HostBinding, Input, Output, EventEmitter, ElementRef, Renderer2, ViewChild } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    HostBinding,
+    Input,
+    Output,
+    EventEmitter,
+    ElementRef,
+    Renderer2,
+    ViewChild
+} from '@angular/core';
 import { ThyPopBoxService } from '../../pop-box';
 import { ElementDef } from '@angular/core/src/view';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { ComponentType } from '@angular/cdk/portal';
 
 @Component({
     selector: 'thy-menu-group, [thy-menu-group],[thyMenuGroup]',
@@ -32,7 +43,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
     ]
 })
 export class ThyMenuGroupComponent implements OnInit {
-    public _templateRef: ElementRef;
+    public _actionMenu: ElementRef | ComponentType<any>;
 
     public rightIconClass = 'wtf wtf-more-lg';
 
@@ -70,11 +81,13 @@ export class ThyMenuGroupComponent implements OnInit {
 
     @Input() thyShowAction = false;
 
-    @Output() thyActionClick: EventEmitter<Event> = new EventEmitter<Event>();
+    @Input() thyActionStopPropagation = true;
+
+    @Output() thyOnActionClick: EventEmitter<Event> = new EventEmitter<Event>();
 
     @Input()
     set thyActionMenu(value: ElementRef) {
-        this._templateRef = value;
+        this._actionMenu = value;
     }
 
     constructor(private popBoxService: ThyPopBoxService, private el: ElementRef, private render: Renderer2) {}
@@ -85,19 +98,19 @@ export class ThyMenuGroupComponent implements OnInit {
         this.isCollapsed = !this.isCollapsed;
     }
 
-    rightIconAction(event: Event): void {
-        event.stopPropagation();
-        if (this._templateRef) {
-            this.popBoxService.show(this._templateRef, {
+    onActionClick(event: Event): void {
+        if (this.thyActionStopPropagation) {
+            event.stopPropagation();
+        }
+        if (this._actionMenu) {
+            this.popBoxService.show(this._actionMenu, {
                 target: event.currentTarget,
                 insideAutoClose: true,
                 stopPropagation: true,
                 placement: 'bottom right'
             });
         } else {
-            if (this.thyActionClick) {
-                this.thyActionClick.emit(event);
-            }
+            this.thyOnActionClick.emit(event);
         }
     }
 }

@@ -36,13 +36,8 @@ export class ThyActionMenuComponent {
 export class ThyActionMenuItemDirective {
 
     @HostBinding('class.action-menu-item') className = true;
-    @HostBinding('class.action-menu-item--disabled') disabled = false;
 
-    // @Input() set thyActionMenuItem(value: any) {
-    //     if (value === 'disabled') {
-    //         this.disabled = true;
-    //     }
-    // }
+    @HostBinding('class.action-menu-item--disabled') disabled = false;
 
     @Input()
     set thyDisabled(value: boolean) {
@@ -50,7 +45,7 @@ export class ThyActionMenuItemDirective {
     }
 
     @HostListener('click', ['$event'])
-    onClick(event: any): void {
+    onClick(event: Event): void {
         if (this.disabled) {
             event.stopPropagation();
             event.preventDefault();
