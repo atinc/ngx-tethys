@@ -15,6 +15,7 @@
                         "main": "demo/src/main.ts",
                         "polyfills": "demo/src/polyfills.ts",
                         "tsConfig": "demo/src/tsconfig.app.json",
+                        "vendorSourceMap": true,
                         "assets": [
                             {
                                 "glob": "favicon.ico",

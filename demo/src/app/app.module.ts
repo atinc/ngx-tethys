@@ -28,16 +28,13 @@ import typescript from 'highlight.js/lib/languages/typescript';
 import { ThyStoreModule } from '../../../src/store/module';
 import { DriveStore } from './store/drive-store';
 import { TasksStore } from './store/tasks-store';
+import { DESIGN_COMPONENTS } from './design';
 export function hljsLanguages() {
-    return [
-        { name: 'typescript', func: typescript },
-        { name: 'scss', func: scss },
-        { name: 'xml', func: xml }
-    ];
+    return [{ name: 'typescript', func: typescript }, { name: 'scss', func: scss }, { name: 'xml', func: xml }];
 }
 
 @NgModule({
-    declarations: [AppComponent, ...COMPONENTS, ...DOCS_COMPONENTS],
+    declarations: [AppComponent, ...COMPONENTS, ...DOCS_COMPONENTS, ...DESIGN_COMPONENTS],
     entryComponents: [...ENTRY_COMPONENTS],
     imports: [
         BrowserModule,

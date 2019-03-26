@@ -295,6 +295,7 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
         if (this.thyDisable) {
             return;
         }
+        this.cdkConnectOverlayWidth = this.cdkOverlayOrigin.elementRef.nativeElement.getBoundingClientRect().width;
         this.expandTreeSelectOptions = !this.expandTreeSelectOptions;
         if (this.expandTreeSelectOptions) {
             this.registerInScrollDispatcher();
