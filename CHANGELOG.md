@@ -1,6 +1,9 @@
 ## 7.0.26
 fix thyMenuItemAction can't bind click event to open popbox
 
+## 7.0.25
+修改 `thyEdit` xss问题修复
+
 ## 7.0.24
 修改 `thyTreeSelect` 宽度样式的问题
 
