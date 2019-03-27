@@ -1,3 +1,6 @@
+## 7.0.27
+修改 `thyAvatar` 默认大小配置错误问题
+
 ## 7.0.26
 fix thyMenuItemAction can't bind click event to open popbox
 
