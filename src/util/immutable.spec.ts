@@ -128,6 +128,32 @@ describe('immutable', () => {
             ]);
         });
 
+        it(`update by id 1 with new IdKey`, () => {
+            const teams = [
+                {
+                    tid: '1',
+                    name: 'team 1'
+                },
+                {
+                    tid: '2',
+                    name: 'team 2'
+                }
+            ];
+            const result = produce(teams, { idKey: 'tid' }).update('1', {
+                name: 'new 1 team'
+            });
+            expect(result).toEqual([
+                {
+                    tid: '1',
+                    name: 'new 1 team'
+                },
+                {
+                    tid: '2',
+                    name: 'team 2'
+                }
+            ]);
+        });
+
         it(`update by ids`, () => {
             const result = produce(users).update(['1', '2'], {
                 name: 'new 1 user'

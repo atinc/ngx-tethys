@@ -5,13 +5,20 @@ export interface EntityAddOptions {
     prepend?: boolean;
 }
 
+export interface ProducerOptions {
+    idKey?: string;
+}
+
 export class Producer<TEntity> {
     private idKey = '_id';
 
     private entities: TEntity[];
 
-    constructor(entities: TEntity[]) {
+    constructor(entities: TEntity[], options?: ProducerOptions) {
         this.entities = entities;
+        if (options && options.idKey) {
+            this.idKey = options.idKey;
+        }
     }
 
     add(entity: TEntity | TEntity[], addOptions?: EntityAddOptions) {
@@ -50,12 +57,7 @@ export class Producer<TEntity> {
     update(id: Id | Id[] | null, newStateFn: (entity: Readonly<TEntity>) => Partial<TEntity>): TEntity[];
     update(id: Id | Id[] | null, newState?: Partial<TEntity>): TEntity[];
     update(
-        idsOrFn:
-            | Id
-            | Id[]
-            | null
-            | Partial<TEntity>
-            | ((entity: Readonly<TEntity>) => boolean),
+        idsOrFn: Id | Id[] | null | Partial<TEntity> | ((entity: Readonly<TEntity>) => boolean),
         newStateOrFn?: ((entity: Readonly<TEntity>) => Partial<TEntity>) | Partial<TEntity>
     ): TEntity[] {
         const ids = coerceArray(idsOrFn);
@@ -96,33 +98,6 @@ export class Producer<TEntity> {
     }
 }
 
-export function produce<TEntity>(entities: TEntity[]) {
-    return new Producer(entities);
+export function produce<TEntity>(entities: TEntity[], options?: ProducerOptions) {
+    return new Producer(entities, options);
 }
-
-
-// /**
-//  * Add an entity or entities to the store.
-//  *
-//  * @example
-//  * immutable.add(Entity);
-//  * immutable.add([Entity, Entity]);
-//  * immutable.add(Entity, { prepend: true });
-//  */
-// export function add<TEntity>(
-//     entities: TEntity[],
-//     entity: TEntity | TEntity[],
-//     addOptions?: EntityAddOptions
-// ): TEntity[] {
-//     const addEntities = coerceArray(entity);
-//     if (addEntities.length === 0) {
-//         return;
-//     }
-//     let result: TEntity[] = null;
-//     if (addOptions && addOptions.prepend) {
-//         result = [...addEntities, ...entities];
-//     } else {
-//         result = [...entities, ...addEntities];
-//     }
-//     return result;
-// }
