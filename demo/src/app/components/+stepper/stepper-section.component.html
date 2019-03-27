@@ -24,4 +24,53 @@
             </thy-stepper>
         </div>
     </div>
+    <br />
+    <br />
+    <div class="header">
+        <h2>Stepper 步骤条</h2>
+        <h5>简单的步骤切换实例</h5>
+    </div>
+    <div class="body">
+        <div class="demo-stepper">
+            <button thyButton="primary" (click)="openTemplateDialog(stepperDemoDialog)">
+                Open Dialog
+            </button>
+
+            <ng-template #stepperDemoDialog>
+                <thy-stepper [thyShowStepHeader]="false">
+                    <thy-step>
+                        <thy-dialog-header thyTitle="Dialog Title"></thy-dialog-header>
+                        <thy-dialog-body> 第一个弹框 </thy-dialog-body>
+                        <thy-dialog-footer thyShowBorderTop="true">
+                            <button thyButton="primary" thyStepperNext>下一步</button>
+                            <button thyButton="link-secondary">
+                                关闭
+                            </button>
+                        </thy-dialog-footer>
+                    </thy-step>
+                    <thy-step>
+                        <thy-dialog-header thyTitle="Dialog Title"></thy-dialog-header>
+                        <thy-dialog-body> 第二个弹框 </thy-dialog-body>
+                        <thy-dialog-footer thyShowBorderTop="true">
+                            <button thyButton="primary" thyStepperPrevious>上一步</button>
+                            <button thyButton="primary" thyStepperNext>下一步</button>
+                            <button thyButton="link-secondary">
+                                关闭
+                            </button>
+                        </thy-dialog-footer>
+                    </thy-step>
+                    <thy-step>
+                        <thy-dialog-header thyTitle="Dialog Title"></thy-dialog-header>
+                        <thy-dialog-body> 第三个弹框 </thy-dialog-body>
+                        <thy-dialog-footer thyShowBorderTop="true">
+                            <button thyButton="primary" thyStepperPrevious>上一步</button>
+                            <button thyButton="link-secondary">
+                                关闭
+                            </button>
+                        </thy-dialog-footer>
+                    </thy-step>
+                </thy-stepper>
+            </ng-template>
+        </div>
+    </div>
 </section>

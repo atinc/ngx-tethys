@@ -1,3 +1,7 @@
+
+## 7.0.29
+thyStepper 增加参数 `thyShowStepHeader` 支持简单的步骤切换
+
 ## 7.0.28
 add immutable util produce function support add, remove, update methods 
 

@@ -1,6 +1,13 @@
 import {
-    Component, ViewChildren, ContentChildren, QueryList,
-    AfterViewInit, HostBinding, Input, Output, EventEmitter
+    Component,
+    ViewChildren,
+    ContentChildren,
+    QueryList,
+    AfterViewInit,
+    HostBinding,
+    Input,
+    Output,
+    EventEmitter
 } from '@angular/core';
 import { ThyStepComponent, IThyStepperComponent, THY_STEPPER_COMPONENT } from './step.component';
 import { ThyStepHeaderComponent } from './step-header.component';
@@ -13,10 +20,9 @@ import { ThyStepHeaderComponent } from './step-header.component';
             provide: THY_STEPPER_COMPONENT,
             useExisting: ThyStepperComponent
         }
-    ],
+    ]
 })
 export class ThyStepperComponent implements IThyStepperComponent {
-
     @Input()
     set thySelectedIndex(value: number) {
         this.selectedIndex = value;
@@ -26,6 +32,8 @@ export class ThyStepperComponent implements IThyStepperComponent {
     set thySelected(value: ThyStepComponent) {
         this.selected = value;
     }
+
+    @Input() thyShowStepHeader = true;
 
     private _selectedIndex = 0;
 
@@ -49,8 +57,7 @@ export class ThyStepperComponent implements IThyStepperComponent {
         return this._selectedIndex;
     }
 
-    @Output() selectionChange: EventEmitter<any>
-        = new EventEmitter<any>();
+    @Output() selectionChange: EventEmitter<any> = new EventEmitter<any>();
 
     @ViewChildren(ThyStepHeaderComponent) stepHeaders: QueryList<ThyStepHeaderComponent>;
 
@@ -64,9 +71,13 @@ export class ThyStepperComponent implements IThyStepperComponent {
             selectedIndex: newIndex,
             previouslySelectedIndex: this._selectedIndex,
             selectedStep: stepsArray[newIndex],
-            previouslySelectedStep: stepsArray[this._selectedIndex],
+            previouslySelectedStep: stepsArray[this._selectedIndex]
         });
         this._selectedIndex = newIndex;
+    }
+
+    to(index: number): void {
+        this.selectedIndex = Math.min(index, this.steps.length - 1);
     }
 
     next(): void {
