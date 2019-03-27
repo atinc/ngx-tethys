@@ -21,7 +21,15 @@ export class Producer<TEntity> {
         }
     }
 
-    add(entity: TEntity | TEntity[], addOptions?: EntityAddOptions) {
+    /**
+     * Add an entity or entities.
+     *
+     * @example
+     * produce([users]).add(Entity);
+     * produce([users]).add([Entity, Entity]);
+     * produce([users]).add(Entity, { prepend: true });
+     */
+    add(entity: TEntity | TEntity[], addOptions?: EntityAddOptions): TEntity[] {
         const addEntities = coerceArray(entity);
         if (addEntities.length === 0) {
             return;
@@ -36,21 +44,21 @@ export class Producer<TEntity> {
 
     /**
      *
-     * Update an entity or entities in the store.
+     * Update an entity or entities.
      *
      * @example
-     * this.store.update(3, {
+     * produce([users]).update(3, {
      *   name: 'New Name'
      * });
      *
-     *  this.store.update(3, entity => {
+     * produce([users]).update(3, entity => {
      *    return {
      *      ...entity,
      *      name: 'New Name'
      *    }
      *  });
      *
-     * this.store.update([1,2,3], {
+     * produce([users]).update([1,2,3], {
      *   name: 'New Name'
      * });
      */
@@ -64,7 +72,7 @@ export class Producer<TEntity> {
 
         for (let i = 0; i < this.entities.length; i++) {
             const oldEntity = this.entities[i];
-            if (ids.includes(oldEntity[this.idKey])) {
+            if (ids.indexOf(oldEntity[this.idKey]) >= 0) {
                 const newState = isFunction(newStateOrFn) ? (newStateOrFn as any)(oldEntity) : newStateOrFn;
                 this.entities[i] = { ...(oldEntity as any), ...newState };
             }
@@ -74,7 +82,7 @@ export class Producer<TEntity> {
 
     /**
      *
-     * Remove one or more entities from the store:
+     * Remove one or more entities:
      *
      * @example
      * produce([users]).remove(5);

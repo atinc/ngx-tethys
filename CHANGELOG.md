@@ -1,3 +1,6 @@
+## 7.0.28
+add immutable util produce function support add, remove, update methods 
+
 ## 7.0.27
 修改 `thyAvatar` 默认大小配置错误问题
 
