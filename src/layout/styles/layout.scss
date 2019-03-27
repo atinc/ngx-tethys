@@ -8,7 +8,7 @@
     &--has-sidebar {
         flex-direction: row;
 
-        >.thy-layout-content {
+        > .thy-layout-content {
             overflow-x: hidden;
         }
     }
@@ -33,6 +33,7 @@
     flex-direction: column;
     padding: $layout-content-padding;
     background: $layout-content-background;
+    overflow-y: auto;
 
     .thy-layout-content-section {
         display: block;
@@ -47,15 +48,15 @@
         background: $layout-content-section-background;
     }
 
-    &--align-title {
-        padding-left: 30px;
-        padding-right: 30px;
-    }
+    // &--align-title {
+    //     padding-left: 30px;
+    //     padding-right: 30px;
+    // }
 }
 
 .thy-layout-sidebar {
     flex: 0 0 auto;
-    transition: all .2s;
+    transition: all 0.2s;
     position: relative;
     background: $layout-sidebar-background;
     min-width: 0;
@@ -77,7 +78,7 @@
             flex-grow: 1;
         }
         .action {
-            padding: 0px 10px
+            padding: 0px 10px;
         }
     }
 

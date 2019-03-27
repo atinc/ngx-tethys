@@ -10,14 +10,63 @@ export class DemoLayoutSectionComponent {
 
     activeMenu = 'kanban';
 
-    public apiParameters = [
+    public thyLayoutApiParameters = [
+    ];
+
+    public thyLayoutSidebarApiParameters = [
         {
-            property: 'thy-sidebar[thyIsDraggableWidth]',
-            description: '设置 thy-sidebar 宽度可调节',
+            property: 'thyHasBorderRight',
+            description: '右侧有边框',
             type: 'Boolean',
-            default: 'false'
+            default: 'true'
+        },
+        {
+            property: 'thyWidth',
+            description: '宽度',
+            type: 'number',
+            default: ''
+        },
+        {
+            property: 'thyIsDraggableWidth',
+            description: '宽度',
+            type: 'boolean',
+            default: ''
         }
     ];
+
+    public thyLayoutHeaderApiParameters = [
+        {
+            property: 'thyHasBorder',
+            description: '底部是否有边框',
+            type: 'boolean',
+            default: 'false'
+        },
+        {
+            property: 'thySize',
+            description: '头部大小',
+            type: 'string',
+            default: 'md | sm'
+        },
+        {
+            property: 'thyTitle',
+            description: '标题',
+            type: 'string',
+            default: ''
+        },
+        {
+            property: 'thyIcon',
+            description: '图标',
+            type: 'string',
+            default: ''
+        },
+        {
+            property: 'thyIconPrefix',
+            description: '图标前缀',
+            type: 'string',
+            default: 'wtf'
+        }
+    ];
+
 
     constructor() {}
 

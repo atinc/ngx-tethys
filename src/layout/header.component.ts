@@ -25,9 +25,9 @@ export class ThyHeaderComponent implements OnInit {
         this._thySizeSm = (value === 'sm');
     }
 
-    @Input('thyTitle') thyTitle: string;
+    @Input() thyTitle: string;
 
-    @Input('thyIconPrefix') thyIconPrefix = 'wtf';
+    @Input() thyIconPrefix = 'wtf';
 
     @Input('thyIcon')
     set thyIcon(value: string) {

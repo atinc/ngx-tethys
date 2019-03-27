@@ -23,14 +23,15 @@ $rem-26px: 1.625rem;
 // color
 $body-color: $gray-800 !default;
 $primary: #22d7bb !default;
+$primary-active: #18bfa4;
 $secondary: $gray-700 !default;
 $success: #22d7bb !default;
 $info: $gray-500 !default;
 $warning: #ffc442 !default;
 $danger: #ff5b57 !default;
 $pass: #2cccda !default;
-$secondary-item-active: #e7f9f6 !default;
-$item-active-bg-color: $secondary-item-active !default;
+$secondary-item-active: rgba($primary, 0.1) !default;
+$item-active-bg-color: rgba($primary, 0.1) !default;
 $light: $gray-300 !default;
 // $light : $gray-100;
 // $dark : $gray-800;
