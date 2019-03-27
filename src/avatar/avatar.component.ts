@@ -1,12 +1,21 @@
-import { Component, Input, Output, EventEmitter, ElementRef, HostBinding, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+    Component,
+    Input,
+    Output,
+    EventEmitter,
+    ElementRef,
+    HostBinding,
+    OnInit,
+    ChangeDetectionStrategy
+} from '@angular/core';
 import { isNumber, inputValueToBoolean } from '../util/helpers';
 import { UpdateHostClassService } from '../shared/update-host-class.service';
 import { ThyAvatarService } from './avatar.service';
 
 const sizeArray = [22, 24, 30, 38, 48, 68, 110, 160];
 const sizeMap = {
-    sm: 24,
-    xs: 30,
+    xs: 24,
+    sm: 30,
     md: 38,
     lg: 48
 };
@@ -16,13 +25,10 @@ const DEFAULT_SIZE = 38;
 @Component({
     selector: 'thy-avatar',
     templateUrl: './avatar.component.html',
-    providers: [
-        UpdateHostClassService
-    ],
+    providers: [UpdateHostClassService],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyAvatarComponent implements OnInit {
-
     _src: string;
     _name: string;
     _size: number;
