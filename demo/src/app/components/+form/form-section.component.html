@@ -132,6 +132,10 @@
                 <input thyInput name="pattern" [pattern]="'[a-zA-Z0-9_-]{0,19}[^\\d]{1}'" [(ngModel)]="model.pattern"
                     required maxlength="20" placeholder="英文字母或数字或下划线或连接线皆可,最后一位不能为数字" />
             </thy-form-group>
+            <thy-form-group thyLabelText="时间" [thyFeedbackIcon]="'date'">
+                    <input type="text" disabled="" readonly="readonly" value="2017-12-12" class="form-control"
+                        placeholder="error" />
+                </thy-form-group>
             <thy-form-group thyLabelText="选择1">
                 <thy-select required [(ngModel)]="model.select2" name="power">
                     <option value="">---请选择---</option>
