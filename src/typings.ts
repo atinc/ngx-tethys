@@ -8,3 +8,11 @@ export const katex = (window as any).katex;
 export declare interface Dictionary<T> {
     [key: string]: T;
 }
+
+export declare interface NumericDictionary<T> {
+    [index: number]: T;
+}
+
+export interface Id {
+    toString(): string;
+}
