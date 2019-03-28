@@ -1,4 +1,11 @@
 
+未发布
+## 7.0.31
+修复 `thyFormGroup` 垂直排列图标显示错位的bug
+
+## 7.0.30
+thyStepper 增加参数 `thyShowStepHeader` 支持简单的步骤切换
+
 ## 7.0.29
 thyStepper 增加参数 `thyShowStepHeader` 支持简单的步骤切换
 

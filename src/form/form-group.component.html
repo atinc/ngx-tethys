@@ -1,12 +1,20 @@
-<ng-container *ngIf="contentTemplateRef else defaultTpl">
+<ng-container *ngIf="contentTemplateRef; else defaultTpl">
     <ng-container [ngTemplateOutlet]="contentTemplateRef"></ng-container>
-    <span *ngIf="feedbackIcon" class="form-control-feedback {{feedbackIcon}}"></span>
+    <span *ngIf="feedbackIcon" class="form-control-feedback {{ feedbackIcon }}"></span>
 </ng-container>
 <ng-template #defaultTpl>
-    <label class="form-label" [ngClass]="{'col-sm-2 col-form-label': isHorizontal,'label-required' : labelRequired,'pt-0': labelPaddingTopClear}">{{labelText}}</label>
-    <div [ngClass]="{'col-sm-10 col-form-control': isHorizontal}">
+    <label
+        class="form-label"
+        [ngClass]="{
+            'col-sm-2 col-form-label': isHorizontal,
+            'label-required': labelRequired,
+            'pt-0': labelPaddingTopClear
+        }"
+        >{{ labelText }}</label
+    >
+    <div [ngClass]="{ 'col-sm-10 col-form-control': isHorizontal, 'position-relative': !isHorizontal }">
         <ng-content></ng-content>
-        <span *ngIf="feedbackIcon" class="form-control-feedback {{feedbackIcon}}"></span>
-        <span *ngIf="tips" class="form-text text-info">{{tips}}</span>
+        <span *ngIf="feedbackIcon" class="form-control-feedback {{ feedbackIcon }}"></span>
+        <span *ngIf="tips" class="form-text text-info">{{ tips }}</span>
     </div>
 </ng-template>
