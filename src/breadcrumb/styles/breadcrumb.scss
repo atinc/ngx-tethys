@@ -31,3 +31,10 @@
         }
     }
 }
+.thy-breadcrumb.separator-icon {
+    .thy-breadcrumb-item {
+        &::after {
+            content: '/';
+        }
+    }
+}
