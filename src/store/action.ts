@@ -50,24 +50,11 @@ export function Action(action?: DecoratorActionOptions | string) {
         descriptor.value = function (...args: any[]) {
             ActionState.changeAction(`${target.constructor.name}-${name}`);
             let result = originalFn.call(this, ...args, this.snapshot);
-            result = _dispatch(result);
-            result.subscribe();
+            if (result instanceof Observable) {
+                result = result.pipe(shareReplay());
+                result.subscribe();
+            }
             return result;
         };
     };
-}
-
-
-function _dispatch(result: any): Observable<any> {
-    if (result instanceof Promise) {
-        result = from(result);
-    }
-    if (result instanceof Observable) {
-        result = result.pipe(map(r => r));
-    } else {
-        result = Observable.create((observer: Observer<any>) => {
-            observer.next({});
-        });
-    }
-    return result.pipe(shareReplay());
 }

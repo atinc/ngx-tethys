@@ -70,9 +70,8 @@ export class Store<T extends object> implements Observer<T>, OnDestroy {
         return result.pipe(shareReplay());
     }
 
-    select(selector: (state: T) => Partial<T>): Observable<T> | Observable<Partial<T>>;
-    select(selector: string | any): Observable<any>;
-    select(selector: any): Observable<any> {
+    select<TResult>(selector: (state: T) => TResult): Observable<TResult> | Observable<TResult>;
+    select(selector: string | any): Observable<any> {
         return this.state$.pipe(
             map(selector),
             distinctUntilChanged()

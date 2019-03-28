@@ -1,7 +1,6 @@
-
-未发布
 ## 7.0.31
-修复 `thyFormGroup` 垂直排列图标显示错位的bug
+修复 `thyFormGroup` 垂直排列图标显示错位的Bug
+修改 Store Action 函数没有副作用返回值是 Observable 的Bug，同时修复 select 的范型提示
 
 ## 7.0.30
 thyStepper 增加参数 `thyShowStepHeader` 支持简单的步骤切换
