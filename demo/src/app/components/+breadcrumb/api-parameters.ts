@@ -7,8 +7,8 @@ export const apiBreadcrumbParameters = [
     },
     {
         property: 'thySeparator',
-        description: '面包屑的分隔符，默认为">", thySeparator值为true时分隔符为"/"',
-        type: 'boolean',
+        description: '面包屑的分隔符，不传值默认为">", thySeparator可选值为"slash","backslash"',
+        type: 'string',
         default: ''
     }
 ];
