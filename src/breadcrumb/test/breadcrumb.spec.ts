@@ -61,10 +61,12 @@ describe('ThyBreadcrumb', () => {
             }`
         );
     }
+
     it('should have correct class', () => {
         fixture.detectChanges();
         assertBreadcrumbComponentAndItemsClass();
         assertBreadcrumbIconClass(`wtf-folder`);
+        expect(breadcrumbComponent.nativeElement.classList.contains('separator-slash')).toBe(true);
     });
 
     it('should have correct class when icon with wtf', () => {
@@ -82,12 +84,24 @@ describe('ThyBreadcrumb', () => {
         );
         expect(breadcrumbIcon).toBeNull();
     });
+
+    it('should have correct class when separator is backslash', () => {
+        basicTestComponent.thySeparator = `backslash`;
+        fixture.detectChanges();
+        expect(breadcrumbComponent.nativeElement.classList.contains('separator-backslash')).toBe(true);
+    });
+
+    it('should have correct class when separator is null', () => {
+        basicTestComponent.thySeparator = ``;
+        fixture.detectChanges();
+        assertBreadcrumbComponentAndItemsClass();
+    });
 });
 
 @Component({
     selector: 'thy-demo-breadcrumb-basic',
     template: `
-        <thy-breadcrumb [thyIcon]="thyIconClass">
+        <thy-breadcrumb [thyIcon]="thyIconClass" [thySeparator]="thySeparator">
             <thy-breadcrumb-item><span>首页</span></thy-breadcrumb-item>
             <thy-breadcrumb-item>
                 <a href="javascript:;">产品研发部</a>
@@ -103,6 +117,7 @@ describe('ThyBreadcrumb', () => {
 })
 class ThyDemoBreadcrumbBasicComponent {
     thyIconClass = `wtf-folder`;
+    thySeparator = `slash`;
 }
 
 @NgModule({
