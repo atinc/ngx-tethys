@@ -31,3 +31,17 @@
         }
     }
 }
+.thy-breadcrumb.separator-slash {
+    .thy-breadcrumb-item {
+        &::after {
+            content: '/';
+        }
+    }
+}
+.thy-breadcrumb.separator-backslash {
+    .thy-breadcrumb-item {
+        &::after {
+            content: '\\';
+        }
+    }
+}

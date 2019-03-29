@@ -22,6 +22,17 @@ export class DemoBreadcrumbSectionComponent implements OnInit {
 </thy-breadcrumb>
     `;
 
+    exampleCode2 = `
+<thy-breadcrumb thyIcon="wtf-folder" thySeparator="slash">
+    ...
+</thy-breadcrumb>
+    `;
+
+    exampleCode3 = `
+<thy-breadcrumb thyIcon="wtf-folder" thySeparator="backslash">
+    ...
+</thy-breadcrumb>
+    `;
     apiBreadcrumbParameters = apiBreadcrumbParameters;
     constructor() {}
 

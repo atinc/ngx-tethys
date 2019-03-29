@@ -14,12 +14,24 @@ import {
 })
 export class ThyBreadcrumbComponent {
     @HostBinding(`class.thy-breadcrumb`) _isBreadcrumb = true;
+    @HostBinding(`class.separator-slash`) isSlash = false;
+    @HostBinding(`class.separator-backslash`) isBackslash = false;
 
     iconClasses: string[];
 
     @Input()
     set thyIcon(icon: string) {
         this.setIconClass(icon);
+    }
+
+    @Input()
+    set thySeparator(type: string) {
+        if (type === 'slash'){
+            this.isSlash = true;
+        };
+        if (type === 'backslash'){
+            this.isBackslash = true;
+        };
     }
 
     private setIconClass(icon: string) {
