@@ -1,3 +1,11 @@
+## 7.0.32
+- thy-breadcrumb 新增 thySeparator 属性，支持 slash | backslash 默认 arrow 箭头
+- util 新增操作数组的 immutable 类库 produce, 支持 `add`, `remove`, `update` 方法
+  ```
+  produce([users]).add(Entity);
+  produce([users]).remove(id);
+  produce([users]).update(id, {name: 'new name'});
+  ```
 ## 7.0.31
 - 修复 `thyFormGroup` 垂直排列图标显示错位的Bug
 - 修改 Store Action 函数没有副作用返回值是 Observable 的Bug
