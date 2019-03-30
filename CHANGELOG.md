@@ -1,3 +1,36 @@
+# Change Log
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## 7.0.33 (2019-03-30)
+
+
+
+# 7.0.0 (2019-02-21)
+
+
+
+## 0.2.34 (2019-01-15)
+
+
+
+## 0.2.33 (2019-01-15)
+
+
+
+## 0.2.30 (2019-01-08)
+
+
+
+## 0.2.23 (2019-01-01)
+
+
+### Bug Fixes
+
+* build error ([4163bea](https://github.com/worktile/ngx-tethys/commit/4163bea))
+
+
+
 ## 7.0.32
 - thy-breadcrumb 新增 thySeparator 属性，支持 slash | backslash 默认 arrow 箭头
 - util 新增操作数组的 immutable 类库 produce, 支持 `add`, `remove`, `update` 方法

@@ -1,6 +1,6 @@
 {
     "name": "ngx-tethys",
-    "version": "7.0.32",
+    "version": "7.0.33",
     "license": "MIT",
     "scripts": {
         "build": "npm run build:ngm",
@@ -10,6 +10,7 @@
         "build:ngm": "ngm build -p src --clean",
         "build:theme": "gulp build-theme",
         "build:theme:watch": "npm run build:theme && gulp build-theme:watch",
+        "release": "standard-version",
         "publish": "npm run build && cd ./built && npm publish && cd ..",
         "ng": "ng",
         "start": "npm run build:theme && concurrently \"ng serve --port 8888\" \"gulp build-theme:watch\"",
@@ -69,6 +70,7 @@
         "@types/webpack": "^4.1.3",
         "codelyzer": "~4.5.0",
         "concurrently": "^3.6.0",
+        "cpx": "^1.5.0",
         "gulp": "^3.9.1",
         "gulp-clean-css": "^3.9.4",
         "gulp-rename": "^1.2.2",
@@ -84,11 +86,11 @@
         "ngm-cli": "^1.0.4",
         "npm-run-all": "^4.1.2",
         "protractor": "~5.3.0",
+        "standard-version": "^5.0.2",
         "ts-node": "~5.0.1",
         "tslint": "~5.9.1",
         "typescript": "~3.2.4",
-        "webpack": "^4.23.1",
-        "cpx": "^1.5.0"
+        "webpack": "^4.23.1"
     },
     "ngPackage": {
         "lib": {
