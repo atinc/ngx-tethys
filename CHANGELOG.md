@@ -1,5 +1,3 @@
-## 7.0.33 (2019-03-30)
-
 ## 7.0.32
 
 -   thy-breadcrumb 新增 thySeparator 属性，支持 slash | backslash 默认 arrow 箭头
