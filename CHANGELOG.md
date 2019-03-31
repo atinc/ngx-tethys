@@ -1,92 +1,77 @@
-# Change Log
-
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
-
 ## 7.0.33 (2019-03-30)
 
-
-
-# 7.0.0 (2019-02-21)
-
-
-
-## 0.2.34 (2019-01-15)
-
-
-
-## 0.2.33 (2019-01-15)
-
-
-
-## 0.2.30 (2019-01-08)
-
-
-
-## 0.2.23 (2019-01-01)
-
-
-### Bug Fixes
-
-* build error ([4163bea](https://github.com/worktile/ngx-tethys/commit/4163bea))
-
-
-
 ## 7.0.32
-- thy-breadcrumb 新增 thySeparator 属性，支持 slash | backslash 默认 arrow 箭头
-- util 新增操作数组的 immutable 类库 produce, 支持 `add`, `remove`, `update` 方法
-  ```
-  produce([users]).add(Entity);
-  produce([users]).remove(id);
-  produce([users]).update(id, {name: 'new name'});
-  ```
+
+-   thy-breadcrumb 新增 thySeparator 属性，支持 slash | backslash 默认 arrow 箭头
+-   util 新增操作数组的 immutable 类库 produce, 支持 `add`, `remove`, `update` 方法
+    ```
+    produce([users]).add(Entity);
+    produce([users]).remove(id);
+    produce([users]).update(id, {name: 'new name'});
+    ```
+
 ## 7.0.31
-- 修复 `thyFormGroup` 垂直排列图标显示错位的Bug
-- 修改 Store Action 函数没有副作用返回值是 Observable 的Bug
-- 修复 Store.select 返回类型的错误问题
+
+-   修复 `thyFormGroup` 垂直排列图标显示错位的 Bug
+-   修改 Store Action 函数没有副作用返回值是 Observable 的 Bug
+-   修复 Store.select 返回类型的错误问题
 
 ## 7.0.30
+
 thyStepper 增加参数 `thyShowStepHeader` 支持简单的步骤切换
 
 ## 7.0.29
+
 thyStepper 增加参数 `thyShowStepHeader` 支持简单的步骤切换
 
 ## 7.0.28
-add immutable util produce function support add, remove, update methods 
+
+add immutable util produce function support add, remove, update methods
 
 ## 7.0.27
+
 修改 `thyAvatar` 默认大小配置错误问题
 
 ## 7.0.26
+
 fix thyMenuItemAction can't bind click event to open popbox
 
 ## 7.0.25
-修改 `thyEdit` xss问题修复
+
+修改 `thyEdit` xss 问题修复
 
 ## 7.0.24
+
 修改 `thyTreeSelect` 宽度样式的问题
 
 ## 7.0.22
-修改`$cdk-z-index-overlay` 设置为1000
+
+修改`$cdk-z-index-overlay` 设置为 1000
 修改`input-search` 加载时边框闪烁样式问题
 
 ## 7.0.21
+
 修改 `thyMenu` 文本溢出样式问题
 
 ## 7.0.20
-- 添加滚动条样式;
-- change thyRadio's changeDetection to OnPush;
-- change thyRadioButton's changeDetection to OnPush;
-- change thyRadioGroup's changeDetection to OnPush;
-- change thy-loading's changeDetection to OnPush;
+
+-   添加滚动条样式;
+-   change thyRadio's changeDetection to OnPush;
+-   change thyRadioButton's changeDetection to OnPush;
+-   change thyRadioGroup's changeDetection to OnPush;
+-   change thy-loading's changeDetection to OnPush;
 
 ## 7.0.19
+
 `thyEditor` 添加关联
 
 ## 7.0.17
-`thyTree` ThyDialog OnPush模式下 tree异步加载界面不更新问题处理
-`thyDialog` ThyDialog thy-dialog-container visible样式修改的撤销
+
+`thyTree` ThyDialog OnPush 模式下 tree 异步加载界面不更新问题处理
+`thyDialog` ThyDialog thy-dialog-container visible 样式修改的撤销
 
 ## 7.0.16
+
 `store` 非单例注入报错处理
 
 ## 7.0.14
