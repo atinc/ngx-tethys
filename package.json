@@ -117,7 +117,7 @@
       "postchangelog": "node ./scripts/remove-changelog-header.js"
     },
     "skip": {
-      "commit": true
+      "tag": true
     }
   }
 }
