@@ -11,7 +11,7 @@
     "build:theme": "gulp build-theme",
     "build:theme:watch": "npm run build:theme && gulp build-theme:watch",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s --pkg src/package.json",
-    "release": "standard-version",
+    "release": "node ./scripts/release.js",
     "publish": "npm run build && cd ./built && npm publish && cd ..",
     "ng": "ng",
     "start": "npm run build:theme && concurrently \"ng serve --port 8888\" \"gulp build-theme:watch\"",
@@ -71,10 +71,13 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
     "@types/webpack": "^4.1.3",
+    "chalk": "^2.4.2",
     "codelyzer": "~4.5.0",
+    "commander": "^2.19.0",
     "concurrently": "^3.6.0",
     "conventional-changelog-cli": "^2.0.12",
     "cpx": "^1.5.0",
+    "fs-extra": "^7.0.1",
     "gulp": "^3.9.1",
     "gulp-clean-css": "^3.9.4",
     "gulp-rename": "^1.2.2",
@@ -93,7 +96,9 @@
     "prettier": "^1.16.4",
     "pretty-quick": "^1.10.0",
     "protractor": "~5.3.0",
+    "readline-sync": "^1.4.9",
     "replace": "^1.1.0",
+    "semver": "^6.0.0",
     "standard-version": "^5.0.2",
     "ts-node": "~5.0.1",
     "tslint": "~5.9.1",
@@ -117,6 +122,7 @@
       "postchangelog": "node ./scripts/remove-changelog-header.js"
     },
     "skip": {
+      "commit": true,
       "tag": true
     }
   }
