@@ -1,4 +1,3 @@
-
 import { Component } from '@angular/core';
 import { tap, delay } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -7,12 +6,9 @@ import { taskTypes } from './mock-data';
 @Component({
     selector: 'demo-select-section',
     templateUrl: './select-section.component.html',
-    styleUrls: [
-        './select-section.scss'
-    ]
+    styleUrls: ['./select-section.scss']
 })
 export class DemoSelectSectionComponent {
-
     model = {
         selectedValue: '',
         allowClear: false
@@ -26,10 +22,7 @@ export class DemoSelectSectionComponent {
 
     selectedItem3 = '';
 
-    selectedItem4 = [
-        '5b0527cfc8f2ff200a33d4aa',
-        '5b0527cfc8f2ff200a33d4ab'
-    ];
+    selectedItem4 = ['5b0527cfc8f2ff200a33d4aa', '5b0527cfc8f2ff200a33d4ab'];
 
     expand = false;
 
@@ -122,7 +115,8 @@ export class DemoSelectSectionComponent {
         },
         {
             property: 'thySearchKey',
-            description: '传入搜索需要的关键字，支持多个关键字（“{{display_name}},{{name}},{{pin_yin}}”），如不传则默认按照label进行搜索,此为前端过滤',
+            description:
+                '传入搜索需要的关键字，支持多个关键字（“{{display_name}},{{name}},{{pin_yin}}”），如不传则默认按照label进行搜索,此为前端过滤',
             type: 'string',
             default: ''
         },
@@ -134,8 +128,52 @@ export class DemoSelectSectionComponent {
         }
     ];
 
-    constructor(
-    ) {
+    public groups = [
+        {
+            groupName: '企业成员',
+            items: [
+                {
+                    _id: 'sadfasdfasdfasfdasdfs1',
+                    name: 'wangwu'
+                },
+                {
+                    _id: 'sadfasdfasdfasfdasdfs2',
+                    name: 'lisi'
+                },
+                {
+                    _id: 'sadfasdfasdfasfdasdfs3',
+                    name: 'zhangsan'
+                }
+            ]
+        },
+        {
+            groupName: '公开群组',
+            items: [
+                {
+                    _id: 'sadfasdfasdfasfdasdfs5',
+                    name: '公告',
+                    pin_yin: 'gg'
+                },
+                {
+                    _id: 'sadfasdfasdfasfdasdfs6',
+                    name: '狼人杀',
+                    pin_yin: 'lrs'
+                },
+                {
+                    _id: 'sadfasdfasdfasfdasdfs7',
+                    name: '前端',
+                    pin_yin: 'qd'
+                },
+                {
+                    _id: 'sadfasdfasdfasfdasdfs8',
+                    name: '小菲',
+                    pin_yin: 'xf'
+                }
+            ]
+        }
+    ];
+
+    constructor() {
         this.selectedItem3 = '003';
         setTimeout(() => {
             this.optionData = taskTypes;
