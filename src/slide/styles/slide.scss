@@ -1,4 +1,4 @@
-.slide{
+.slide {
     position: fixed;
     top: 0;
     right: 0;
@@ -10,37 +10,65 @@
     overflow-x: hidden;
     overflow-y: auto;
 }
+
 .slide-dialog {
     position: fixed;
     background-color: $white;
     overflow-y: auto;
     box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.04), 0 6px 30px 5px rgba(0, 0, 0, 0.08), 0 8px 10px -5px rgba(0, 0, 0, 0.12);
     z-index: 1000;
-    .thy-slide-header {
-        padding: $slide-header-padding;
+
+    .thy-slide-layout {
         display: flex;
-        flex-direction: row;
-        height: $slide-header-height;;
-        border-bottom: solid 1px $slide-divider;
-        background-color: transparent;
-        .thy-slide-title {
-            flex: 1;
-            margin: 0;
-            color: $gray-800;
-            font-size: $font-size-md;
-            line-height: 1.25rem;
-            font-weight: normal;
+        flex: auto;
+        flex-direction: column;
+        height: 100%;
+
+        .thy-slide-header {
+            display: flex;
+            flex-direction: row;
+            padding: $slide-header-padding;
+            height: $slide-header-height;
+            border-bottom: solid 1px $slide-divider;
+            background-color: transparent;
+            flex: 0 0 auto;
+
+            .thy-slide-header-title {
+                color: $gray-800;
+                font-size: $font-size-md;
+                line-height: 1.25rem;
+                font-weight: normal;
+            }
+
+            .thy-slide-header-main {
+                flex: 1;
+                padding: $slide-header-main-padding;
+            }
         }
-    }
-    .thy-slide-body {
-        display: block;
-        width: 100%;
-        height: calc(100% - #{$slide-header-height});
-        overflow-y: auto;
-        .thy-slide-body-content {
+
+        .thy-slide-body {
+            flex: auto;
+            overflow-y: auto;
             padding: $slide-body-content-padding;
         }
+
+        .thy-slide-footer {
+            flex: 0 0 auto;
+            border-top: solid 1px $slide-divider;
+            padding: $slide-footer-padding;
+            height: $slide-footer-height;
+        }
+
+        .thy-slide-body-section {
+            display: block;
+            padding: $slide-body-section-padding;
+
+            &.thy-slide-body-section-divider:not(:last-child) {
+                border-bottom: 1px solid $slide-divider;
+            }
+        }
     }
+
 }
 
 .thy-slide-lg {

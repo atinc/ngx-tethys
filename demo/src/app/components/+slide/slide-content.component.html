@@ -1,9 +1,28 @@
-<thy-slide-header thyTitle="筛选"></thy-slide-header>
-<thy-slide-body>
-    <div>筛选 body---{{name}}
-        <button thyButton="primary" #btnTriggerPopBoxTemplate (click)="addPopBox(btnTriggerPopBoxTemplate,add)">添加</button>
-    </div>
-</thy-slide-body>
+<ng-container *ngIf="slideType === 'slide-layout-3'">
+    <thy-slide-layout>
+        <thy-slide-header [thyTitle]="'筛选'"></thy-slide-header>
+        <thy-slide-body>
+            <thy-slide-body-section>
+                三栏式布局
+            </thy-slide-body-section>
+            <thy-slide-body-section>
+                <div>筛选 body---{{name}}
+                    <button thyButton="primary" #btnTriggerPopBoxTemplate
+                        (click)="addPopBox(btnTriggerPopBoxTemplate,add)">添加</button>
+                </div>
+            </thy-slide-body-section>
+            <thy-slide-body-section>
+                <div>筛选 body---{{name}}
+                    <button thyButton="primary" #btnTriggerPopBoxTemplate
+                        (click)="addPopBox(btnTriggerPopBoxTemplate,add)">添加</button>
+                </div>
+            </thy-slide-body-section>
+        </thy-slide-body>
+        <thy-slide-footer>
+            <button thyButton="primary-square" class="btn-block">确认</button>
+        </thy-slide-footer>
+    </thy-slide-layout>
+</ng-container>
 
 <ng-template #add>
     <thy-pop-box-header>
@@ -27,3 +46,19 @@
         </a>
     </thy-pop-box-body>
 </ng-template>
+<ng-container *ngIf="slideType === 'slide-layout-2'">
+    <thy-slide-layout>
+        <thy-slide-header [thyTitle]="'自定义slide头-'">
+            <ng-template #thyHeaderMain>
+                <a thyShape="circle-thick-dashed" href="javascript:;">
+                    我是自定义头部操作区
+                </a>
+            </ng-template>
+        </thy-slide-header>
+        <thy-slide-body>
+            <thy-slide-body-section>
+                两栏式布局
+            </thy-slide-body-section>
+        </thy-slide-body>
+    </thy-slide-layout>
+</ng-container>
