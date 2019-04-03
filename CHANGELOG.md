@@ -1,3 +1,19 @@
+## 7.0.33 (2019-04-03)
+
+### Bug Fixes
+
+-   build error ([4163bea](https://github.com/worktile/ngx-tethys/commit/4163bea))
+-   **select-custom:** custom-select 组件打开后搜索在关闭，showOptions ([ad2909d](https://github.com/worktile/ngx-tethys/commit/ad2909d))
+-   **thy-enter:** 去除 thy-enter 触发时间 preventDefault 的调用，交给用户处理 ([6b24160](https://github.com/worktile/ngx-tethys/commit/6b24160))
+
+### Reverts
+
+-   7.0.32 ([2eb7013](https://github.com/worktile/ngx-tethys/commit/2eb7013))
+
+### BREAKING CHANGES
+
+-   **thy-enter:** #31
+
 ## 7.0.32
 
 -   thy-breadcrumb 新增 thySeparator 属性，支持 slash | backslash 默认 arrow 箭头
