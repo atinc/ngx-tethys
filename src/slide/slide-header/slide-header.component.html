@@ -1,12 +1,18 @@
-<ng-container *ngIf="!isTemplateRef">
-    <h3 class="thy-slide-title">
-        <i *ngIf="thyIcon" class="{{thyIcon}}"></i>
-        {{thyTitle}}
+<ng-container>
+  <ng-template *ngIf="headerTemplate; else default" [ngTemplateOutlet]="headerTemplate"></ng-template>
+  <ng-template #default>
+    <h3 class="thy-slide-header-title">
+      <i *ngIf="thyIcon" class="{{ thyIcon }}"></i>
+      {{ thyTitle }}
     </h3>
+
+    <div class="thy-slide-header-main">
+      <ng-container>
+        <ng-template *ngIf="headerOperateTemplate" [ngTemplateOutlet]="headerOperateTemplate"> </ng-template>
+      </ng-container>
+    </div>
     <button type="button" class="close" (click)="closeModal($event)">
-        <i class="wtf wtf-times"></i>
+      <i class="wtf wtf-times"></i>
     </button>
-</ng-container>
-<ng-container *ngIf="isTemplateRef">
-    <template [ngTemplateOutlet]="headerTemplate"></template>
+  </ng-template>
 </ng-container>

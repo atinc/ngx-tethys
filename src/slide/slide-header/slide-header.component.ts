@@ -1,4 +1,4 @@
-import { Component, ContentChild, TemplateRef, Input, Output, OnInit, HostBinding } from '@angular/core';
+import { Component, ContentChild, TemplateRef, Input, OnInit, HostBinding } from '@angular/core';
 import { ThySlideService } from '../slide.service';
 
 @Component({
@@ -6,28 +6,22 @@ import { ThySlideService } from '../slide.service';
     templateUrl: './slide-header.component.html'
 })
 export class ThySlideHeaderComponent implements OnInit {
-
-    @HostBinding('class.thy-slide-header') thySlideHeader = true;
-
-    @ContentChild(TemplateRef)
-    public headerTemplate: TemplateRef<any>;
-
-    public isTemplateRef: boolean;
-
-    constructor(
-        private thySlideService: ThySlideService
-    ) { }
+    @HostBinding('class.thy-slide-header') slideLayoutHeader = true;
 
     @Input() thyTitle: string;
 
     @Input() thyIcon: string;
 
-    ngOnInit() {
-        this.isTemplateRef = this.headerTemplate instanceof TemplateRef;
-    }
+    @ContentChild('thyHeader')
+    public headerTemplate: TemplateRef<any>;
+
+    @ContentChild('thyHeaderOperate') headerOperateTemplate: TemplateRef<any>;
+
+    constructor(private thySlideService: ThySlideService) {}
+
+    ngOnInit() {}
 
     closeModal(event: Event) {
         this.thySlideService.hide();
     }
-
 }

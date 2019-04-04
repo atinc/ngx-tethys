@@ -7,12 +7,13 @@ import { ThySlideService } from '../../../../../src/slide/slide.service';
     templateUrl: './slide-section.component.html'
 })
 export class DemoSlideSectionComponent {
-
     public thySlideFrom = 'right';
 
     public thySlideClass = 'thy-slide';
 
     public hasBackdrop = true;
+
+    public thySlideType: string = 'slide-layout-3';
 
     public apiThySlideParameters = [
         {
@@ -53,12 +54,10 @@ export class DemoSlideSectionComponent {
             description: 'Slide 标题的图标',
             type: 'string',
             default: 'null'
-        },
+        }
     ];
 
-    constructor(
-        private thySlideService: ThySlideService
-    ) { }
+    constructor(private thySlideService: ThySlideService) {}
 
     showSlide(key) {
         this.thySlideService.show(DemoSlideContentComponent, {
@@ -66,8 +65,7 @@ export class DemoSlideSectionComponent {
             from: this.thySlideFrom, // 'left','right','top','bottom'
             class: this.thySlideClass,
             hasBackdrop: this.hasBackdrop,
-            initialState: { name: 'slide' }
+            initialState: { name: 'slide', slideType: this.thySlideType }
         });
     }
-
 }

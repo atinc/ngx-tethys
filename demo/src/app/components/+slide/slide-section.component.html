@@ -19,6 +19,12 @@
                         <option value="thy-slide-lg">用于类似任务搜索</option>
                     </thy-select>
                 </thy-form-group>
+                <thy-form-group thyLabelText="Slide 类型">
+                    <thy-select [(ngModel)]="thySlideType" name="thySlideClass">
+                        <option value="slide-layout-2">自定义头部+两栏式布局</option>
+                        <option value="slide-layout-3">三栏式布局</option>
+                    </thy-select>
+                </thy-form-group>
                 <thy-form-group thyLabelText="">
                     <label name="hasBackdrop" thyCheckbox [(ngModel)]="hasBackdrop"
                         thyLabelText="弹出时，是否有幕布"></label>

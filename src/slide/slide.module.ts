@@ -5,14 +5,20 @@ import { ThySharedModule } from '../shared';
 import { ThySlideService } from './slide.service';
 import { ThySlideContainerComponent } from './slide-container.component';
 import { ThySlideRef } from './slide-ref.service';
+import { ThySlideLayoutComponent } from './slide-layout/slide-layout.component';
 import { ThySlideHeaderComponent } from './slide-header/slide-header.component';
 import { ThySlideBodyComponent } from './slide-body/slide-body.component';
+import { ThySlideBodySectionComponent } from './slide-body/slide-body-section.component';
+import { ThySlideFooterComponent } from './slide-footer/slide-footer.component';
 
 @NgModule({
     declarations: [
         ThySlideContainerComponent,
+        ThySlideLayoutComponent,
         ThySlideHeaderComponent,
-        ThySlideBodyComponent
+        ThySlideBodyComponent,
+        ThySlideBodySectionComponent,
+        ThySlideFooterComponent
     ],
     entryComponents: [
         ThySlideContainerComponent
@@ -22,8 +28,11 @@ import { ThySlideBodyComponent } from './slide-body/slide-body.component';
         ThySharedModule,
     ],
     exports: [
+        ThySlideLayoutComponent,
         ThySlideHeaderComponent,
-        ThySlideBodyComponent
+        ThySlideBodyComponent,
+        ThySlideBodySectionComponent,
+        ThySlideFooterComponent
     ],
     providers: [
         ComponentLoaderFactory,
