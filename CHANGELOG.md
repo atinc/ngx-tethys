@@ -1,3 +1,19 @@
+## [7.0.34](https://github.com/worktile/ngx-tethys/compare/7.0.33...7.0.34) (2019-04-04)
+
+### Bug Fixes
+
+-   **select:** 去除 select 的 arrow zindex 值样式,修复 slide 组件无法覆盖 select arrow 的 bug ([307bdb5](https://github.com/worktile/ngx-tethys/commit/307bdb5))
+-   **slide:** 修改 slide 组件的 zIndex 值,修复在某些组件和 slide 共存时,slide 组件 zIndex 值过低的问题 ([f6441a9](https://github.com/worktile/ngx-tethys/commit/f6441a9))
+-   **slide:** 修改 slide 组件的 zIndex 值,修复在某些组件和 slide 共存时,slide 组件 zIndex 值过低的问题 ([7bb2d64](https://github.com/worktile/ngx-tethys/commit/7bb2d64))
+
+### Features
+
+-   **slide:** 新增 slide-layout 组件，组件包含 header，body，footer 三部分，由于更改了过去的布局方式，之前使用 slide-header 和 slide-body 的地方请负责相关模块的同学在组件内使用 slide-layout 包一下 ([ea12ed5](https://github.com/worktile/ngx-tethys/commit/ea12ed5))
+
+### Performance Improvements
+
+-   **slide:** 去除 onpush 模式,修改了 slide-header-main 中自定义模板的名称,以防止和自定义模板头容易混淆 ([0d4bf69](https://github.com/worktile/ngx-tethys/commit/0d4bf69))
+
 ## 7.0.33 (2019-04-03)
 
 ### Bug Fixes
