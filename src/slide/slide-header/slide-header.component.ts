@@ -15,7 +15,7 @@ export class ThySlideHeaderComponent implements OnInit {
     @ContentChild('thyHeader')
     public headerTemplate: TemplateRef<any>;
 
-    @ContentChild('thyHeaderMain') headerMainTemplate: TemplateRef<any>;
+    @ContentChild('thyHeaderOperate') headerOperateTemplate: TemplateRef<any>;
 
     constructor(private thySlideService: ThySlideService) {}
 

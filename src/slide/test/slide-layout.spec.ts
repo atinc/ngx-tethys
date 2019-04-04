@@ -52,7 +52,9 @@ describe('ThySlide', () => {
 
         it('should have corrent header title icon', fakeAsync(() => {
             fixture.detectChanges();
-            const headerIconElement: DebugElement = fixture.debugElement.query(By.css('.thy-slide-header-title .wtf-task-o'));
+            const headerIconElement: DebugElement = fixture.debugElement.query(
+                By.css('.thy-slide-header-title .wtf-task-o')
+            );
 
             expect(headerIconElement.nativeElement.classList.contains(`wtf-task-o`)).toBe(true);
         }));
@@ -72,9 +74,7 @@ describe('ThySlide', () => {
 
         it('should hava correct footer content', fakeAsync(() => {
             fixture.detectChanges();
-            const footerButton: DebugElement = fixture.debugElement.query(
-                By.css('.thy-slide-footer .btn-block')
-            );
+            const footerButton: DebugElement = fixture.debugElement.query(By.css('.thy-slide-footer .btn-block'));
             footerButton.triggerEventHandler('click', null);
 
             expect(footerButton.nativeElement.classList.contains('btn-block')).toBe(true);
@@ -102,7 +102,9 @@ describe('ThySlide', () => {
 
         it('should create a slide header main by template', fakeAsync(() => {
             slideHeaderFixture.detectChanges();
-            const headerElement: DebugElement = slideHeaderFixture.debugElement.query(By.css('.thy-slide-header .custom-slide-title'));
+            const headerElement: DebugElement = slideHeaderFixture.debugElement.query(
+                By.css('.thy-slide-header .custom-slide-title')
+            );
             expect(headerElement).not.toBeNull();
             expect(headerElement.nativeElement.innerText).toBe('头部');
         }));
@@ -114,7 +116,7 @@ describe('ThySlide', () => {
     template: `
         <thy-slide-layout>
             <thy-slide-header [thyTitle]="'测试title'" thyIcon="wtf-task-o">
-                <ng-template #thyHeaderMain>
+                <ng-template #thyHeaderOperate>
                     <a thyShape="circle-thick-dashed" class="header-main-custom" href="javascript:;">
                         自定义头部操作区
                     </a>
