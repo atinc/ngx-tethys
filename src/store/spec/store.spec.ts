@@ -7,36 +7,44 @@ interface UserInfo {
     name?: string;
 }
 
-
 interface TeamInfo {
     _id?: string;
     name?: string;
 }
 
 describe('Store: Store', () => {
-    class AppState {
+    interface AppState {
         me: UserInfo;
         team: TeamInfo;
     }
 
+    const appStateActions = {
+        loadMe: 'loadMe',
+        initializeTeam: 'initializeTeam'
+    };
+
     class AppStateStore extends Store<AppState> {
-        constructor() {
-            super({
-                me: null,
-                team: null
-            });
+        constructor(initialState?: AppState) {
+            super(
+                initialState
+                    ? initialState
+                    : {
+                          me: null,
+                          team: null
+                      }
+            );
         }
 
         @Action({
-            type: 'loadMe'
+            type: appStateActions.loadMe
         })
-        public loadMe(state: AppState, payload) {
+        public loadMe(state: AppState, payload: UserInfo) {
             state.me = payload;
             this.next(state);
         }
 
         @Action()
-        public loadMeDirectly(payload: any) {
+        public loadMeDirectly(payload: UserInfo) {
             const state = this.snapshot;
             state.me = payload;
             this.next(state);
@@ -59,7 +67,7 @@ describe('Store: Store', () => {
         }
 
         @Action()
-        private initTeam(state: AppState, team) {
+        private initializeTeam(state: AppState, team: TeamInfo) {
             state.team = team;
             this.next(state);
         }
@@ -78,18 +86,32 @@ describe('Store: Store', () => {
         }
     }
 
-    it('store default value', () => {
+    it('should get default null value when store initialized', () => {
         const appStore = new AppStateStore();
-        appStore
-            .select((state: AppState) => {
-                return state.me;
-            })
-            .subscribe(me => {
-                expect(me).toBe(null);
-            });
+        appStore.subscribe(state => {
+            expect(state.me).toBe(null);
+            expect(state.team).toBe(null);
+        });
     });
 
-    it('store action default type', () => {
+    it('should get default value when store initialized with data', () => {
+        const appStore = new AppStateStore({
+            team: {
+                _id: '1',
+                name: 'team 1'
+            },
+            me: null
+        });
+        appStore.subscribe(state => {
+            expect(state.me).toBe(null);
+            expect(state.team).toEqual({
+                _id: '1',
+                name: 'team 1'
+            });
+        });
+    });
+
+    it('should get value when store dispatch an action without type', () => {
         const appStore = new AppStateStore();
         let timer = 0;
         appStore
@@ -106,12 +128,12 @@ describe('Store: Store', () => {
                 }
                 timer++;
             });
-        appStore.dispatch('initTeam', {
+        appStore.dispatch(appStateActions.initializeTeam, {
             name: 'team1'
         });
     });
 
-    it('store dispatch value', () => {
+    it('should get value when store dispatch an action with type', () => {
         const appStore = new AppStateStore();
         let timer = 0;
         appStore
@@ -128,12 +150,31 @@ describe('Store: Store', () => {
                 }
                 timer++;
             });
-        appStore.dispatch('loadMe', {
+        appStore.dispatch(appStateActions.loadMe, {
             name: 'peter1'
         });
     });
 
-    it('store directly call action method dispatch', () => {
+    it('should get value when store dispatch an action that return observable', () => {
+        const appStore = new AppStateStore();
+        appStore
+            .select((state: AppState) => {
+                return state.team;
+            })
+            .pipe(skip(1))
+            .subscribe(team => {
+                expect(team).toEqual({
+                    name: 'fromHttp'
+                });
+            });
+        appStore.dispatch('httpLoadTeam').subscribe((team: any) => {
+            expect(team).toEqual({
+                name: 'fromHttp'
+            });
+        });
+    });
+
+    it('should get value when directly call action method dispatch', () => {
         const appStore = new AppStateStore();
         let timer = 0;
         appStore
@@ -152,25 +193,6 @@ describe('Store: Store', () => {
             });
         appStore.loadMeDirectly({
             name: 'peter1'
-        });
-    });
-
-    it('store action return observable', () => {
-        const appStore = new AppStateStore();
-        appStore
-            .select((state: AppState) => {
-                return state.team;
-            })
-            .pipe(skip(1))
-            .subscribe(team => {
-                expect(team).toEqual({
-                    name: 'fromHttp'
-                });
-            });
-        appStore.dispatch('httpLoadTeam').subscribe((team: any) => {
-            expect(team).toEqual({
-                name: 'fromHttp'
-            });
         });
     });
 });
