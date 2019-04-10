@@ -14,7 +14,7 @@
 2. 定义 Store、State、Actions
 
  ```
-import { Store, Action } from 'ngx-tethys';
+ import { Store, Action } from 'ngx-tethys';
 
 export interface UserInfo {
     _id: string;
@@ -145,7 +145,6 @@ export class AppStateStore extends Store<AppState> {
 1. 使用 `this.snapshot` 或者 `this.getState()` 获取最新的状态;
 1. 使用 `this.next(newState)` 更改最新的状态;
 1. 使用 `this.setState()` 更改最新的状态, 支持更改所有状态, 单个状态, 状态函数;
-
  ```
     * @example
     * this.setState(newState);
@@ -156,7 +155,6 @@ export class AppStateStore extends Store<AppState> {
     *    }
     * });
  ```
-
 1. 尽量使用不可变数据, 数组使用封装的 `produce` 作增删改操作, 使用不可变数据后, 模版使用状态绑定数组使用 `trackBy: trackByFn` 指定 `trackBy` 函数提高性能, 同时为特殊的场景采用 `changeDetection: ChangeDetectionStrategy.OnPush` 提高性能作铺垫.
 
 ### EntityStore
