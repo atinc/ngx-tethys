@@ -2,18 +2,18 @@
 
 1. 导入 ThyStoreModule, 并使用 ThyStoreModule.forRoot 定义应用程序的 Stores
 
-```
-import { ThyStoreModule } from 'ngx-tethys';
+ ```
+ import { ThyStoreModule } from 'ngx-tethys';
 
-@NgModule({
-    imports: [ThyStoreModule.forRoot([AppStateStore])]
-})
-class AppModule {}
-```
+ @NgModule({
+     imports: [ThyStoreModule.forRoot([AppStateStore])]
+ })
+ class AppModule {}
+ ```
 
 2. 定义 Store、State、Actions
 
-```
+ ```
 import { Store, Action } from 'ngx-tethys';
 
 export interface UserInfo {
@@ -55,13 +55,12 @@ export class AppStateStore extends Store<AppState> {
     }
 }
 
-
-```
+ ```
 
 3. 在组件中注入 Store 使用
 
-```
-export class AppComponent implements OnInit, OnDestroy {
+ ```
+ export class AppComponent implements OnInit, OnDestroy {
     private unsubscribe$ = new Subject<void>();
 
     title = 'state-management';
@@ -103,7 +102,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.unsubscribe$.complete();
     }
 }
-```
+ ```
 
 ## APIs
 
@@ -147,7 +146,7 @@ export class AppComponent implements OnInit, OnDestroy {
 1. 使用 `this.next(newState)` 更改最新的状态;
 1. 使用 `this.setState()` 更改最新的状态, 支持更改所有状态, 单个状态, 状态函数;
 
-```
+ ```
     * @example
     * this.setState(newState);
     * this.setState({ users: produce(this.snapshot.users).add(user) });
@@ -156,7 +155,7 @@ export class AppComponent implements OnInit, OnDestroy {
     *        users: produce(state.users).add(user)
     *    }
     * });
-```
+ ```
 
 1. 尽量使用不可变数据, 数组使用封装的 `produce` 作增删改操作, 使用不可变数据后, 模版使用状态绑定数组使用 `trackBy: trackByFn` 指定 `trackBy` 函数提高性能, 同时为特殊的场景采用 `changeDetection: ChangeDetectionStrategy.OnPush` 提高性能作铺垫.
 
@@ -168,8 +167,7 @@ export class AppComponent implements OnInit, OnDestroy {
 1. 使用 `this.initialize(entities: TEntity[], pagination: PaginationInfo)` 初始化数据, 一般会在 `fetchXXX` 的 Action 获取到数据后调用;
 1. `this.entities$` 获取实体数据的流, `this.entities` 获取实体数据的快照;
 1. 使用 `this.add(entity: TEntity | TEntity[], addOptions?: EntityAddOptions` 添加实体;
-
-```
+ ```
     /**
     * Add an entity or entities to the store.
     *
@@ -178,11 +176,9 @@ export class AppComponent implements OnInit, OnDestroy {
     * this.store.add([Entity, Entity]);
     * this.store.add(Entity, { prepend: true });
     */
-```
-
+ ```
 1. 使用 `this.update(id: Id | Id[], newState?: Partial<TEntity>)` 修改实体;
-
-```
+ ```
     /**
     * @example
     * this.store.update(3, {
@@ -200,18 +196,15 @@ export class AppComponent implements OnInit, OnDestroy {
     *   name: 'New Name'
     * });
     */
-```
-
+ ```
 1. 使用 `remove(id: Id | Id[]): void;` 移除实体;
-
-```
+ ```
     /**
     * @example
     * this.store.remove(5);
     * this.store.remove([1,2,3]);
     * this.store.remove(entity => entity.id === 1);
     */
-```
-
+ ```
 1. `this.clear()` 清除所有数据;
 1. `this.trackBy` 方便模版中循环 entities 直接使用的 trackBy 函数;
