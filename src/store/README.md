@@ -159,7 +159,7 @@ export class AppStateStore extends Store<AppState> {
 
 ### EntityStore
 
-> EntityStore 集成于 Store, 封装了一个配置管理页面的数据操作, 包括分页, addEntity, updateEntity, removeEntity
+> EntityStore 继承于 Store, 封装了一个配置管理页面的数据操作, 包括分页, addEntity, updateEntity, removeEntity
 
 1. 定义状态和 Store 的时候继承 `EntityState<TEntity>` `EntityStore<EntityState<TEntity>, TEntity>`;
 1. 使用 `this.initialize(entities: TEntity[], pagination: PaginationInfo)` 初始化数据, 一般会在 `fetchXXX` 的 Action 获取到数据后调用;
