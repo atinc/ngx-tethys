@@ -9,31 +9,23 @@ describe('Store: EntityStore', () => {
     interface UserEntityState extends EntityState<UserInfo> {}
 
     class UserEntityStore extends EntityStore<UserEntityState, UserInfo> {
-        constructor(
-            initialState?: UserEntityState,
-            options?: EntityStoreOptions
-        ) {
+        constructor(initialState?: UserEntityState, options?: EntityStoreOptions) {
             super(initialState, options);
         }
     }
 
-    const initialUserEntities = [
-        { _id: '1', name: 'user 1' },
-        { _id: '2', name: 'user 2' }
-    ];
+    const initialUserEntities = [{ _id: '1', name: 'user 1' }, { _id: '2', name: 'user 2' }];
 
-    it('store default value', () => {
+    it('should get store default value', () => {
         const userEntityStore = new UserEntityStore();
         const state = userEntityStore.snapshot;
         expect(state.pagination).toEqual(undefined);
         expect(state.entities).toEqual([]);
 
-        expect(
-            userEntityStore.trackBy(0, { _id: '111', name: 'name1' })
-        ).toEqual('111');
+        expect(userEntityStore.trackBy(0, { _id: '111', name: 'name1' })).toEqual('111');
     });
 
-    it('store initialize value', () => {
+    it('should get initialize data when call store initialize', () => {
         const userEntityStore = new UserEntityStore();
         userEntityStore.initialize(initialUserEntities, {
             pageIndex: 1,
@@ -41,10 +33,7 @@ describe('Store: EntityStore', () => {
             pageCount: 20
         });
         const state = userEntityStore.snapshot;
-        expect(state.entities).toEqual([
-            { _id: '1', name: 'user 1' },
-            { _id: '2', name: 'user 2' }
-        ]);
+        expect(state.entities).toEqual([{ _id: '1', name: 'user 1' }, { _id: '2', name: 'user 2' }]);
         expect(state.pageIndex).toEqual(1);
         expect(state.pagination).toEqual({
             pageIndex: 1,
@@ -68,17 +57,14 @@ describe('Store: EntityStore', () => {
             });
         });
 
-        it('store add one entity', () => {
+        it('should get 3 users when add one user', () => {
             const addUserEntity = {
                 _id: '3',
                 name: 'user 3'
             };
             userEntityStore.add(addUserEntity);
             const state = userEntityStore.snapshot;
-            expect(state.entities).toEqual([
-                ...initialUserEntities,
-                addUserEntity
-            ]);
+            expect(state.entities).toEqual([...initialUserEntities, addUserEntity]);
         });
 
         it('store add one entity prepend', () => {
@@ -90,10 +76,7 @@ describe('Store: EntityStore', () => {
                 prepend: true
             });
             const state = userEntityStore.snapshot;
-            expect(state.entities).toEqual([
-                addUserEntity,
-                ...initialUserEntities
-            ]);
+            expect(state.entities).toEqual([addUserEntity, ...initialUserEntities]);
         });
 
         it('store add entities', () => {
@@ -109,10 +92,7 @@ describe('Store: EntityStore', () => {
             ];
             userEntityStore.add(addUserEntities);
             const state = userEntityStore.snapshot;
-            expect(state.entities).toEqual([
-                ...initialUserEntities,
-                ...addUserEntities
-            ]);
+            expect(state.entities).toEqual([...initialUserEntities, ...addUserEntities]);
         });
 
         it('store add entities goto last page', () => {
