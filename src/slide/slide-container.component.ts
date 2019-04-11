@@ -7,10 +7,7 @@ import { UpdateHostClassService } from '../shared';
 @Component({
     selector: 'thy-slide-container',
     template: `
-        <div
-            [class]="'slide-dialog' + (thySlideContainerClass ? ' ' + thySlideContainerClass : '')"
-            [@flyInOut]="flyInOut"
-        >
+        <div [class]="'slide-dialog' + (thySlideClass ? ' ' + thySlideClass : '')" [@flyInOut]="flyInOut">
             <ng-container *ngIf="isShow"><ng-content></ng-content></ng-container>
         </div>
     `,
@@ -39,9 +36,9 @@ export class ThySlideContainerComponent implements OnInit {
 
     public flyInOut: string;
 
-    public thySlideContainerClass: string;
+    public thySlideClass: string;
 
-    public thySlideSelectorClass: string;
+    public thySlideContainerClass: string;
 
     public isShow = false;
 
@@ -50,8 +47,8 @@ export class ThySlideContainerComponent implements OnInit {
     thySlideService: any;
 
     private _setClasses() {
-        if (this.thySlideSelectorClass) {
-            const classNames: string[] = [this.thySlideSelectorClass];
+        if (this.thySlideContainerClass) {
+            const classNames: string[] = [this.thySlideContainerClass];
             this.updateHostClassService.updateClass(classNames);
         }
     }
@@ -70,8 +67,8 @@ export class ThySlideContainerComponent implements OnInit {
     ngOnInit() {
         this.slideClass = this.thySlideOption.hasBackdrop;
         this.flyInOut = this.thySlideOption.from;
-        this.thySlideContainerClass = this.thySlideOption.class;
-        this.thySlideSelectorClass = this.thySlideOption.slideSelectorClass;
+        this.thySlideClass = this.thySlideOption.class;
+        this.thySlideContainerClass = this.thySlideOption.slideContainerClass;
         this._setClasses();
         setTimeout(() => {
             this.isShow = true;
