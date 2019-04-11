@@ -12,8 +12,7 @@ export class ThySlideHeaderComponent implements OnInit {
 
     @Input() thyIcon: string;
 
-    @ContentChild('thyHeader')
-    public headerTemplate: TemplateRef<any>;
+    @ContentChild('thyHeader') headerTemplate: TemplateRef<any>;
 
     @ContentChild('thyHeaderOperate') headerOperateTemplate: TemplateRef<any>;
 

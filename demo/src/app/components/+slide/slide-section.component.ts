@@ -39,6 +39,12 @@ export class DemoSlideSectionComponent {
             description: 'slide 弹出时，是否有幕布.',
             type: 'boolean',
             default: 'true'
+        },
+        {
+            property: 'slideSelectorClass',
+            description: '自定义添加thySlideContainer的类名',
+            type: 'string',
+            default: 'null'
         }
     ];
 
@@ -54,6 +60,18 @@ export class DemoSlideSectionComponent {
             description: 'Slide 标题的图标',
             type: 'string',
             default: 'null'
+        },
+        {
+            property: 'thyHeader',
+            description: '自定义头模板',
+            type: 'TemplateRef',
+            default: 'null'
+        },
+        {
+            property: 'thyHeaderOperate',
+            description: '头部操作区域模板',
+            type: 'TemplateRef',
+            default: 'null'
         }
     ];
 
@@ -65,6 +83,7 @@ export class DemoSlideSectionComponent {
             from: this.thySlideFrom, // 'left','right','top','bottom'
             class: this.thySlideClass,
             hasBackdrop: this.hasBackdrop,
+            slideSelectorClass: 'slide-container-class',
             initialState: { name: 'slide', slideType: this.thySlideType }
         });
     }
