@@ -1,3 +1,20 @@
+## [7.0.36](https://github.com/worktile/ngx-tethys/compare/7.0.35...7.0.36) (2019-04-11)
+
+
+### Bug Fixes
+
+* **slide:** del demo header attribute ([3ed3941](https://github.com/worktile/ngx-tethys/commit/3ed3941))
+* **slide:** del options property slide ([10f7b00](https://github.com/worktile/ngx-tethys/commit/10f7b00))
+* **slide:** fix slide z-index ([6341e01](https://github.com/worktile/ngx-tethys/commit/6341e01))
+* **slide:** 修改slide container 参数名称 ([52a50bb](https://github.com/worktile/ngx-tethys/commit/52a50bb))
+
+
+### Features
+
+* **slide:** slide container支持传入类名 ([765e9f1](https://github.com/worktile/ngx-tethys/commit/765e9f1))
+
+
+
 ## [7.0.35](https://github.com/worktile/ngx-tethys/compare/7.0.33...7.0.35) (2019-04-11)
 
 
