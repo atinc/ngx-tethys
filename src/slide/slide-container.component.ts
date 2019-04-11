@@ -1,56 +1,44 @@
-import { Component, HostListener, ElementRef, HostBinding, Renderer2, OnInit } from '@angular/core';
+import { Component, HostListener, ElementRef, HostBinding, Renderer2, OnInit, Input } from '@angular/core';
 import { ThySlideRef } from './slide-ref.service';
 import { ThySlideOption } from './slide-options.class';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { UpdateHostClassService } from '../shared';
 
 @Component({
     selector: 'thy-slide-container',
-    template: `<div [class]="'slide-dialog' + (thySlideContainerClass ? ' ' + thySlideContainerClass : '')" [@flyInOut]="flyInOut">
-    <ng-container *ngIf="isShow"><ng-content></ng-content></ng-container></div>`,
+    template: `
+        <div [class]="'slide-dialog' + (thySlideClass ? ' ' + thySlideClass : '')" [@flyInOut]="flyInOut">
+            <ng-container *ngIf="isShow"><ng-content></ng-content></ng-container>
+        </div>
+    `,
+    providers: [UpdateHostClassService],
     animations: [
         trigger('flyInOut', [
             state('left', style({ transform: '*' })),
             state('right', style({ transform: '*' })),
             state('top', style({ transform: '*' })),
             state('bottom', style({ transform: '*' })),
-            transition('void => left', [
-                style({ transform: 'translateX(-100%)' }),
-                animate('0.2s ease-in')
-            ]),
-            transition('left => void', [
-                animate('0.2s', style({ transform: 'translateX(-100%)' })),
-            ]),
-            transition('void => right', [
-                style({ transform: 'translateX(100%)' }),
-                animate('0.2s ease-in')
-            ]),
-            transition('right => void', [
-                animate('0.2s', style({ transform: 'translateX(100%)' })),
-            ]),
-            transition('void => top', [
-                style({ transform: 'translateY(-100%)' }),
-                animate('0.2s ease-in')
-            ]),
-            transition('top => void', [
-                animate('0.2s', style({ transform: 'translateY(-100%)' })),
-            ]),
-            transition('void => bottom', [
-                style({ transform: 'translateY(100%)' }),
-                animate('0.2s ease-in')
-            ]),
-            transition('bottom => void', [
-                animate('0.2s', style({ transform: 'translateY(100%)' })),
-            ])
+            transition('void => left', [style({ transform: 'translateX(-100%)' }), animate('0.2s ease-in')]),
+            transition('left => void', [animate('0.2s', style({ transform: 'translateX(-100%)' }))]),
+            transition('void => right', [style({ transform: 'translateX(100%)' }), animate('0.2s ease-in')]),
+            transition('right => void', [animate('0.2s', style({ transform: 'translateX(100%)' }))]),
+            transition('void => top', [style({ transform: 'translateY(-100%)' }), animate('0.2s ease-in')]),
+            transition('top => void', [animate('0.2s', style({ transform: 'translateY(-100%)' }))]),
+            transition('void => bottom', [style({ transform: 'translateY(100%)' }), animate('0.2s ease-in')]),
+            transition('bottom => void', [animate('0.2s', style({ transform: 'translateY(100%)' }))])
         ])
     ]
 })
 export class ThySlideContainerComponent implements OnInit {
-
     @HostBinding('class.slide') slideClass = true;
+
+    private _nativeElement: any;
 
     public flyInOut: string;
 
-    public thySlideContainerClass: string;
+    public thySlideClass: string;
+
+    public thycontainerClass: string;
 
     public isShow = false;
 
@@ -58,17 +46,30 @@ export class ThySlideContainerComponent implements OnInit {
 
     thySlideService: any;
 
+    private _setClasses() {
+        if (this.thycontainerClass) {
+            const classNames: string[] = [this.thycontainerClass];
+            this.updateHostClassService.updateClass(classNames);
+        }
+    }
+
     constructor(
         private thySlideRef: ThySlideRef,
         private elementRef: ElementRef,
         private thySlideOption: ThySlideOption,
-        private renderer: Renderer2
-    ) { }
+        private renderer: Renderer2,
+        private updateHostClassService: UpdateHostClassService
+    ) {
+        this._nativeElement = this.elementRef.nativeElement;
+        this.updateHostClassService.initializeElement(this._nativeElement);
+    }
 
     ngOnInit() {
         this.slideClass = this.thySlideOption.hasBackdrop;
         this.flyInOut = this.thySlideOption.from;
-        this.thySlideContainerClass = this.thySlideOption.class;
+        this.thySlideClass = this.thySlideOption.class;
+        this.thycontainerClass = this.thySlideOption.containerClass;
+        this._setClasses();
         setTimeout(() => {
             this.isShow = true;
         }, 200);
@@ -81,5 +82,4 @@ export class ThySlideContainerComponent implements OnInit {
             this.thySlideRef.hide();
         }
     }
-
 }
