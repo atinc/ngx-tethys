@@ -41,7 +41,7 @@ export class DemoSlideSectionComponent {
             default: 'true'
         },
         {
-            property: 'slideContainerClass',
+            property: 'containerClass',
             description: '自定义添加thySlideContainer的类名',
             type: 'string',
             default: 'null'
@@ -83,7 +83,7 @@ export class DemoSlideSectionComponent {
             from: this.thySlideFrom, // 'left','right','top','bottom'
             class: this.thySlideClass,
             hasBackdrop: this.hasBackdrop,
-            slideContainerClass: 'slide-container-class',
+            containerClass: 'slide-container-class',
             initialState: { name: 'slide', slideType: this.thySlideType }
         });
     }

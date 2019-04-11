@@ -38,7 +38,7 @@ export class ThySlideContainerComponent implements OnInit {
 
     public thySlideClass: string;
 
-    public thySlideContainerClass: string;
+    public thycontainerClass: string;
 
     public isShow = false;
 
@@ -47,8 +47,8 @@ export class ThySlideContainerComponent implements OnInit {
     thySlideService: any;
 
     private _setClasses() {
-        if (this.thySlideContainerClass) {
-            const classNames: string[] = [this.thySlideContainerClass];
+        if (this.thycontainerClass) {
+            const classNames: string[] = [this.thycontainerClass];
             this.updateHostClassService.updateClass(classNames);
         }
     }
@@ -68,7 +68,7 @@ export class ThySlideContainerComponent implements OnInit {
         this.slideClass = this.thySlideOption.hasBackdrop;
         this.flyInOut = this.thySlideOption.from;
         this.thySlideClass = this.thySlideOption.class;
-        this.thySlideContainerClass = this.thySlideOption.slideContainerClass;
+        this.thycontainerClass = this.thySlideOption.containerClass;
         this._setClasses();
         setTimeout(() => {
             this.isShow = true;

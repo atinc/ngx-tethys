@@ -6,12 +6,12 @@ export class ThySlideOption {
     class?: string;
     hasBackdrop?: boolean;
     initialState?: Object;
-    slideContainerClass?: string;
+    containerClass?: string;
 }
 
 export const thySlideOptionDefaults: ThySlideOption = {
     from: 'right', // 'left','right','top','bottom'
     class: 'thy-slide',
     hasBackdrop: true,
-    slideContainerClass: ''
+    containerClass: ''
 };
