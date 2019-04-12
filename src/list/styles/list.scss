@@ -10,6 +10,12 @@
     padding: 0.594rem 10px;
     @include thy-option-common-layout();
     @include thy-option();
+
+    &.cdk-drag .cdk-drag-handle,
+    &.thy-sortable-item .thy-sortable-handle {
+        padding: 0px 0px 0 4px;
+        margin-left: -20px;
+    }
 }
 
 .thy-multiple-selection-list {

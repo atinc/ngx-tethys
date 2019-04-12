@@ -7,7 +7,9 @@ import {
     EventEmitter,
     ElementRef,
     Renderer2,
-    ViewChild
+    ViewChild,
+    Optional,
+    SkipSelf
 } from '@angular/core';
 import { ThyPopBoxService } from '../../pop-box';
 import { ElementDef } from '@angular/core/src/view';
@@ -48,6 +50,8 @@ export class ThyMenuGroupComponent implements OnInit {
     public rightIconClass = 'wtf wtf-more-lg';
 
     public iconClass = 'wtf wtf-drive-o';
+
+    public groupHeaderPaddingLeft = 0;
 
     @ViewChild('thyMenuGroup') _thyMenuGroup: ElementRef;
 
@@ -90,9 +94,22 @@ export class ThyMenuGroupComponent implements OnInit {
         this._actionMenu = value;
     }
 
-    constructor(private popBoxService: ThyPopBoxService, private el: ElementRef, private render: Renderer2) {}
+    constructor(
+        private popBoxService: ThyPopBoxService,
+        private el: ElementRef,
+        private render: Renderer2,
+        @SkipSelf() @Optional() private parent: ThyMenuGroupComponent
+    ) {}
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        if (this.parent) {
+            this.groupHeaderPaddingLeft = this.parent.showIcon
+                ? this.parent.groupHeaderPaddingLeft + 35
+                : this.parent.groupHeaderPaddingLeft + 15;
+        } else {
+            this.groupHeaderPaddingLeft = 20;
+        }
+    }
 
     collapseGroup(): void {
         this.isCollapsed = !this.isCollapsed;
