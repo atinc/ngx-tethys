@@ -52,8 +52,11 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit {
             put: ['tree-node']
         },
         disabled: true,
-        ghostClass: 'thy-tree-item-ghost',
+        animation: 250,
+        ghostClass: 'thy-sortable-ghost',
         chosenClass: 'thy-tree-item-chosen',
+        handle: '.thy-sortable-handle',
+        dragClass: 'thy-sortable-drag',
         onStart: this._onDraggableStart.bind(this),
         onAdd: this._onDraggableAdd.bind(this),
         onUpdate: this._onDraggableUpdate.bind(this)
@@ -63,7 +66,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit {
 
     @Input()
     set thyNodes(value: ThyTreeNodeData[]) {
-        this.treeNodes = (value || []).map(node => new ThyTreeNode(node,null, this.thyTreeService));
+        this.treeNodes = (value || []).map(node => new ThyTreeNode(node, null, this.thyTreeService));
         this.thyTreeService.treeNodes = this.treeNodes;
     }
 
@@ -93,17 +96,11 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit {
 
     @Input() thyAsync = false;
 
-    @Output() thyOnClick: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<
-        ThyTreeEmitEvent
-    >();
+    @Output() thyOnClick: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
 
-    @Output() thyOnExpandChange: EventEmitter<
-        ThyTreeEmitEvent
-    > = new EventEmitter<ThyTreeEmitEvent>();
+    @Output() thyOnExpandChange: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
 
-    @Output() thyOnDraggableChange: EventEmitter<
-        ThyTreeEmitEvent
-    > = new EventEmitter<ThyTreeEmitEvent>();
+    @Output() thyOnDraggableChange: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
 
     @ContentChild('treeNodeTemplate')
     set templateRef(template: TemplateRef<any>) {
@@ -116,9 +113,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit {
         return this._templateRef;
     }
 
-    @ContentChild('emptyChildrenTemplate') emptyChildrenTemplate: TemplateRef<
-        any
-    >;
+    @ContentChild('emptyChildrenTemplate') emptyChildrenTemplate: TemplateRef<any>;
     set emptyChildrenTemplateRef(template: TemplateRef<any>) {
         if (template) {
             this._emptyChildrenTemplateRef = template;
@@ -165,10 +160,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit {
         return item.key || index;
     }
 
-    private _formatDraggableEvent(
-        event: any,
-        eventName: string
-    ): ThyTreeEmitEvent {
+    private _formatDraggableEvent(event: any, eventName: string): ThyTreeEmitEvent {
         const dragToElement: HTMLElement = event.to;
         const key = dragToElement.getAttribute('node-key');
         const targetNode = this.thyTreeService.getTreeNode(key);
@@ -191,10 +183,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit {
     }
 
     private _onDraggableUpdate(event: any) {
-        const draggableEvent = this._formatDraggableEvent(
-            event,
-            'draggableChange'
-        );
+        const draggableEvent = this._formatDraggableEvent(event, 'draggableChange');
         this.thyTreeService.resetSortedTreeNodes(this.treeNodes);
         this.ngZone.runTask(() => {
             this.thyOnDraggableChange.emit(draggableEvent);
@@ -202,10 +191,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit {
     }
 
     private _onDraggableAdd(event: any) {
-        const draggableEvent = this._formatDraggableEvent(
-            event,
-            'draggableChange'
-        );
+        const draggableEvent = this._formatDraggableEvent(event, 'draggableChange');
         this.thyTreeService.resetSortedTreeNodes(this.treeNodes);
         this.ngZone.runTask(() => {
             this.thyOnDraggableChange.emit(draggableEvent);
@@ -242,11 +228,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit {
         return this.thyTreeService.getExpandedNodes();
     }
 
-    public addTreeNode(
-        node: ThyTreeNodeData,
-        parent?: ThyTreeNode,
-        index = -1
-    ) {
+    public addTreeNode(node: ThyTreeNodeData, parent?: ThyTreeNode, index = -1) {
         if (parent) {
             parent.addChildren(node, index);
         } else {
