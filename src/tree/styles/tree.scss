@@ -1,113 +1,120 @@
 .thy-tree {
-  display: block;
-  padding-bottom: 1rem;
-  .thy-tree-node {
     display: block;
-    padding: $tree-node-padding;
-    background-color: $white;
-    .thy-tree-node-wrapper {
-      display: flex;
-      cursor: pointer;
-      position: relative;
-      padding: $tree-node-wrapper-padding;
-      line-height: $tree-node-wrapper-height;
-      min-height: $tree-node-wrapper-line-height;
-      border-bottom: $tree-node-wrapper-border-bottom;
-      .thy-tree-expand {
-        width: 14px;
-        color: $gray-500;
-        position: relative;
-        top: 1px;
-        text-align: center;
-        display: inline-block;
-        .wtf-caret-down {
-          font-size: 14px;
-          transition: all 0.2s cubic-bezier(0.4, 0.1, 0.5, 1) 0.1s;
-        }
-        .rotate-caret {
-          display: inline-block;
-          transform: rotate(-45deg);
-        }
-        &:hover {
-          color: $gray-600;
-        }
-      }
-      .thy-tree-node-content {
-        flex: 1;
-        display: flex;
-        align-items: center;
-        padding: 0 5px;
-        overflow: hidden;
-        .thy-tree-node-icon {
-          position: relative;
-          top: 1px;
-          display: inline-block;
-        }
-        .thy-tree-node-title {
-          padding: 0 5px;
-          // overflow: hidden;
-          // text-overflow: ellipsis;
-          // white-space: nowrap;
-        }
-        .thy-tree-node-edit {
-          padding: 0 5px;
-          width: 100%;
-        }
-      }
-    }
-    .thy-tree-node-children {}
-  }
-  &.thy-tree-draggable {
+    padding-bottom: 1rem;
     .thy-tree-node {
-      .thy-tree-node-wrapper {
-        .thy-tree-node-draggable {
-          position: relative;
-          top: 1px;
-          color: $gray-500;
-          visibility: hidden;
+        display: block;
+        margin: $tree-node-margin;
+        background-color: $white;
+        .thy-tree-node-wrapper {
+            display: flex;
+            cursor: pointer;
+            position: relative;
+            padding: $tree-node-wrapper-padding;
+            line-height: $tree-node-wrapper-height;
+            min-height: $tree-node-wrapper-line-height;
+            border-top: $tree-node-wrapper-border-bottom;
+            .thy-tree-expand {
+                width: 14px;
+                color: $gray-500;
+                position: relative;
+                top: 1px;
+                text-align: center;
+                display: inline-block;
+                .wtf-caret-down {
+                    font-size: $font-size-base;
+                    transition: all 0.2s cubic-bezier(0.4, 0.1, 0.5, 1) 0.1s;
+                }
+                .rotate-caret {
+                    display: inline-block;
+                    transform: rotate(-45deg);
+                }
+                &:hover {
+                    color: $gray-600;
+                }
+            }
+            .thy-tree-node-content {
+                flex: 1;
+                display: flex;
+                align-items: center;
+                padding: 0 5px;
+                overflow: hidden;
+                .thy-tree-node-icon {
+                    position: relative;
+                    top: 1px;
+                    display: inline-block;
+                }
+                .thy-tree-node-title {
+                    padding: 0 5px;
+                    // overflow: hidden;
+                    // text-overflow: ellipsis;
+                    // white-space: nowrap;
+                }
+                .thy-tree-node-edit {
+                    padding: 0 5px;
+                    width: 100%;
+                }
+            }
+
+            &.cdk-drag .cdk-drag-handle,
+            &.thy-sortable-item .thy-sortable-handle {
+                padding: 0 5px 0 4px;
+            }
         }
-        &:hover {
-          .thy-tree-node-draggable {
-            visibility: visible;
-          }
+        .thy-tree-node-children {
         }
-      }
     }
-  }
+    &.thy-tree-draggable {
+        .thy-tree-node {
+            .thy-tree-node-wrapper {
+                .thy-tree-node-draggable {
+                    position: relative;
+                    top: 1px;
+                    color: $gray-500;
+                    visibility: hidden;
+                }
+                &:hover {
+                    .thy-tree-node-draggable {
+                        visibility: visible;
+                    }
+                }
+            }
+        }
+    }
 }
 
 .thy-tree {
-  .thy-tree-node {
-    .thy-tree-node-content {
-      .thy-tree-node-title {
-        padding: 0 5px;
-      }
-      .thy-tree-node-actions {
-        flex: 1;
-        text-align: right;
-        display: none;
-        >a {
-          margin-right: 15px;
+    .thy-tree-node {
+        .thy-tree-node-content {
+            .thy-tree-node-title {
+                padding: 0 5px;
+            }
+            .thy-tree-node-actions {
+                flex: 1;
+                text-align: right;
+                display: none;
+                > a {
+                    margin-right: 15px;
+                }
+            }
+            &:hover {
+                .thy-tree-node-actions {
+                    display: inline-block;
+                }
+            }
         }
-      }
-      &:hover {
-        .thy-tree-node-actions {
-          display: inline-block;
-        }
-      }
     }
-  }
 }
 
+// 组件库中没有使用的样式
 .thy-tree-item-chosen {
-  .thy-tree-node-item {
-    box-shadow: none !important;
-  }
+    .thy-tree-node-item {
+        box-shadow: none !important;
+    }
 }
 
 .thy-tree-item-ghost {
-  .thy-tree-node-item {
-    color: #aaa !important;
-    background-color: #f3f3f3 !important;
-  }
+    .thy-tree-node-item {
+        color: #aaa !important;
+        background-color: #f3f3f3 !important;
+    }
 }

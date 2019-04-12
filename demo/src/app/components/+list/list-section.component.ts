@@ -1,6 +1,5 @@
-
 import { Component, ViewEncapsulation, ChangeDetectionStrategy, ContentChild, ViewChild } from '@angular/core';
-import { ThySelectionListChange, ThySelectionListComponent, } from '../../../../../src/list';
+import { ThySelectionListChange, ThySelectionListComponent } from '../../../../../src/list';
 
 @Component({
     selector: 'demo-list-section',
@@ -8,7 +7,6 @@ import { ThySelectionListChange, ThySelectionListComponent, } from '../../../../
     encapsulation: ViewEncapsulation.None
 })
 export class DemoListComponent {
-
     @ViewChild(ThySelectionListComponent) selectionList: ThySelectionListComponent;
 
     searchText = '';
@@ -45,7 +43,7 @@ export class DemoListComponent {
         {
             id: 1,
             name: 'Item 1 Repeat'
-        },
+        }
     ];
 
     items: any[];
@@ -61,7 +59,8 @@ export class DemoListComponent {
     public apiOptionParameters = [
         {
             property: 'thyValue',
-            description: '选项的 Value，可以是普通的 ID，也可以是对象，与 thy-selection-list 的 ngModel 和 thyUniqueKey 配合使用',
+            description:
+                '选项的 Value，可以是普通的 ID，也可以是对象，与 thy-selection-list 的 ngModel 和 thyUniqueKey 配合使用',
             type: 'any',
             default: 'null'
         }
@@ -94,7 +93,8 @@ export class DemoListComponent {
         },
         {
             property: 'thyUniqueKey',
-            description: 'Option Value 唯一的 Key，用于存储哪些选择被选中的唯一值，只有 Option 的 thyValue 是对象的时才可以传入该选项',
+            description:
+                'Option Value 唯一的 Key，用于存储哪些选择被选中的唯一值，只有 Option 的 thyValue 是对象的时才可以传入该选项',
             type: 'String',
             default: 'null'
         },
@@ -120,7 +120,7 @@ export class DemoListComponent {
 
     thyBeforeKeydown = () => {
         return !this.selectionModel.stopKeydownEvent;
-    }
+    };
 
     constructor() {
         setTimeout(() => {
@@ -142,7 +142,7 @@ export class DemoListComponent {
     }
 
     enterSearch() {
-        this.items = this.allItems.filter((item) => {
+        this.items = this.allItems.filter(item => {
             return !this.searchText || item.name.toLowerCase().includes(this.searchText.toLowerCase());
         });
     }
@@ -157,4 +157,7 @@ export class DemoListComponent {
         this.items = this.allItems;
     }
 
+    sort(event) {
+        const a = event;
+    }
 }
