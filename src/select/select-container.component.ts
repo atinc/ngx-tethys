@@ -7,7 +7,7 @@ import { UpdateHostClassService } from '../shared';
     selector: 'select-container',
     templateUrl: './select-container.component.html'
 })
-export class SelectContainerComponent implements OnInit, OnDestroy {
+export class SelectContainerComponent implements OnInit {
     @HostBinding('class.thy-select-container-wrapper') _isSelectContainer = true;
 
     _listOfOptionComponent: QueryList<ThyOptionComponent>;
