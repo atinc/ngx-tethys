@@ -5,7 +5,7 @@ import { DemoMenuPopComponent } from './pop-menu.component';
 @Component({
     selector: 'demo-menu-section',
     templateUrl: './menu-section.component.html',
-    styleUrls:['./menu-section.scss']
+    styleUrls: ['./menu-section.scss']
 })
 export class DemoMenuSectionComponent implements OnInit {
     public apiThyMenuGroupParameters = [
@@ -87,16 +87,20 @@ export class DemoMenuSectionComponent implements OnInit {
 
     ngOnInit() {}
 
+    sort(event) {
+        let a = event;
+    }
+
     moreAction() {
         console.log('click');
     }
 
     popMenu(event: Event) {
-        this.pbox.show(DemoMenuPopComponent,{
+        this.pbox.show(DemoMenuPopComponent, {
             target: event.currentTarget,
             insideAutoClose: true,
             stopPropagation: true,
             placement: 'bottom right'
-        })
+        });
     }
 }

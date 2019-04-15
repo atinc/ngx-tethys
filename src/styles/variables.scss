@@ -51,7 +51,8 @@ $link-icon-padding-right: 4px !default;
 $box-shadow: 0 0 24px rgba(0, 0, 0, 0.18) !default;
 $enable-shadows: false !default;
 // font
-$font-family-sans-serif: 'Helvetica Neue', 'Hiragino Sans GB', 'stheiti', 'Microsoft Yahei', '微软雅黑', tahoma, 'sans-serif' !default;
+$font-family-sans-serif: 'Helvetica Neue', 'Hiragino Sans GB', 'stheiti', 'Microsoft Yahei', '微软雅黑', tahoma,
+    'sans-serif' !default;
 $font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !default;
 $font-family-base: $font-family-sans-serif !default;
 $font-size-base: 0.875rem !default; // 14px
@@ -404,7 +405,8 @@ $slide-footer-padding: 15px 20px 0 !default;
 $slide-footer-height: 65px !default;
 //tree
 $tree-node-padding: 0 0 0 15px !default;
-$tree-node-wrapper-padding: 0 5px !default;
+$tree-node-margin: 0 0 0 20px !default;
+$tree-node-wrapper-padding: 0 !default;
 $tree-node-wrapper-height: 44px !default;
 $tree-node-wrapper-line-height: 44px !default;
 $tree-node-wrapper-border-bottom: 1px solid $gray-200 !default;
@@ -436,6 +438,5 @@ $breadcrumb-active-color: $gray-800 !default;
 $menu-height: 42px !default;
 $menu-shadow: 0 0 8px 2px $gray-200 !default;
 $menu-item-padding: 0 20px !default;
-$menu-group-header-padding: 0 1020px !default;
 $menu-group-margin-left: 15px !default;
 $menu-divider-margin: 10px 20px !default;
