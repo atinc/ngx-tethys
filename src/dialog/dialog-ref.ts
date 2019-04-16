@@ -11,22 +11,22 @@ let uniqueId = 0;
 export abstract class ThyDialogRef<T, TResult = any> {
     componentInstance: T;
     id: string;
+    backdropClosable: boolean;
     abstract close(dialogResult?: TResult): void;
     abstract afterOpened(): Observable<void>;
     abstract afterClosed(): Observable<TResult | undefined>;
     abstract beforeClosed(): Observable<TResult | undefined>;
     abstract keydownEvents(): Observable<KeyboardEvent>;
     abstract backdropClick(): Observable<MouseEvent>;
+    abstract updatePosition(position?: DialogPosition): this;
 }
 
-export class ThyDialogRefInternal<T, TResult = any>
-    implements ThyDialogRef<T, TResult> {
+export class ThyDialogRefInternal<T, TResult = any> implements ThyDialogRef<T, TResult> {
     /** The instance of component opened into the dialog. */
     componentInstance: T;
 
     /** Whether the user is allowed to close the dialog. */
-    backdropClosable: boolean | undefined = this.containerInstance.config
-        .backdropClosable;
+    backdropClosable: boolean | undefined = this.containerInstance.config.backdropClosable;
 
     /** Subject for notifying the user that the dialog has finished opening. */
     private readonly _afterOpened = new Subject<void>();
@@ -42,8 +42,7 @@ export class ThyDialogRefInternal<T, TResult = any>
 
     /** Fetches the position strategy object from the overlay ref. */
     private _getPositionStrategy(): GlobalPositionStrategy {
-        return this.overlayRef.getConfig()
-            .positionStrategy as GlobalPositionStrategy;
+        return this.overlayRef.getConfig().positionStrategy as GlobalPositionStrategy;
     }
 
     constructor(
@@ -57,10 +56,7 @@ export class ThyDialogRefInternal<T, TResult = any>
         // Emit when opening animation completes
         containerInstance.animationStateChanged
             .pipe(
-                filter(
-                    event =>
-                        event.phaseName === 'done' && event.toState === 'enter'
-                ),
+                filter(event => event.phaseName === 'done' && event.toState === 'enter'),
                 take(1)
             )
             .subscribe(() => {
@@ -71,10 +67,7 @@ export class ThyDialogRefInternal<T, TResult = any>
         // Dispose overlay when closing animation is complete
         containerInstance.animationStateChanged
             .pipe(
-                filter(
-                    event =>
-                        event.phaseName === 'done' && event.toState === 'exit'
-                ),
+                filter(event => event.phaseName === 'done' && event.toState === 'exit'),
                 take(1)
             )
             .subscribe(() => this.overlayRef.dispose());
@@ -90,11 +83,7 @@ export class ThyDialogRefInternal<T, TResult = any>
 
         overlayRef
             .keydownEvents()
-            .pipe(
-                filter(
-                    event => event.keyCode === ESCAPE && this.backdropClosable
-                )
-            )
+            .pipe(filter(event => event.keyCode === ESCAPE && this.backdropClosable))
             .subscribe(() => this.close());
     }
 
@@ -161,17 +150,13 @@ export class ThyDialogRefInternal<T, TResult = any>
         const strategy = this._getPositionStrategy();
 
         if (position && (position.left || position.right)) {
-            position.left
-                ? strategy.left(position.left)
-                : strategy.right(position.right);
+            position.left ? strategy.left(position.left) : strategy.right(position.right);
         } else {
             strategy.centerHorizontally();
         }
 
         if (position && (position.top || position.bottom)) {
-            position.top
-                ? strategy.top(position.top)
-                : strategy.bottom(position.bottom);
+            position.top ? strategy.top(position.top) : strategy.bottom(position.bottom);
         } else {
             strategy.centerVertically();
         }
@@ -186,11 +171,7 @@ export class ThyDialogRefInternal<T, TResult = any>
      * @param width New width of the dialog.
      * @param height New height of the dialog.
      */
-    updateSizeAndPosition(
-        width: string = '',
-        height: string = '',
-        position?: DialogPosition
-    ): this {
+    updateSizeAndPosition(width: string = '', height: string = '', position?: DialogPosition): this {
         this._getPositionStrategy()
             .width(width)
             .height(height);

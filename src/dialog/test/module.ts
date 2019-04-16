@@ -11,18 +11,47 @@ import {
     ChangeDetectionStrategy
 } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { Directionality } from '@angular/cdk/bidi';
 
+// simple dialog component
 @Component({
     selector: 'dialog-content-component',
     template: `
-        <div>Hello Dialog</div>
+        <div>Hello Dialog <button>Close</button></div>
     `
 })
-export class DialogContentComponent {
+export class DialogSimpleContentComponent {
     constructor(
-        public dialogRef: ThyDialogRef<DialogContentComponent>,
-        public dialogInjector: Injector
+        public dialogRef: ThyDialogRef<DialogSimpleContentComponent>,
+        public dialogInjector: Injector,
+        public directionality: Directionality
     ) {}
+}
+
+// full dialog component
+@Component({
+    selector: 'dialog-full-content-component',
+    template: `
+        <thy-dialog-header thyTitle="Install Angular"> </thy-dialog-header>
+        <thy-dialog-body>
+            <p>dialog body</p>
+        </thy-dialog-body>
+        <thy-dialog-footer thyShowBorderTop="true">
+            <button thyButton="primary" (click)="ok()">确认</button>
+            <button thyButton="link-secondary" (click)="close()">取消</button>
+        </thy-dialog-footer>
+    `
+})
+export class DialogFullContentComponent {
+    constructor(public dialogRef: ThyDialogRef<DialogFullContentComponent>, public dialogInjector: Injector) {}
+
+    ok() {
+        this.close();
+    }
+
+    close() {
+        this.dialogRef.close();
+    }
 }
 
 @Directive({ selector: 'with-view-container-directive' })
@@ -49,8 +78,7 @@ export class WithChildViewContainerComponent {
     selector: 'arbitrary-component-with-template-ref',
     template: `
         <ng-template let-initialState let-dialogRef="dialogRef">
-            Cheese {{ localValue }} {{ initialState?.value
-            }}{{ setDialogRef(dialogRef) }}</ng-template
+            Cheese {{ localValue }} {{ initialState?.value }}{{ setDialogRef(dialogRef) }}</ng-template
         >
     `
 })
@@ -69,14 +97,9 @@ export class WithTemplateRefComponent {
 @Component({ template: '' })
 export class WithInjectedDataDialogComponent implements OnInit {
     data: any;
-    constructor() {
-        // console.log(`WithInjectedDataDialogComponent constructor`);
-    }
+    constructor() {}
 
-    ngOnInit() {
-        // console.log(`WithInjectedDataDialogComponent ngOnInit`);
-        // console.log(this.data);
-    }
+    ngOnInit() {}
 }
 
 @Component({
@@ -88,7 +111,8 @@ export class WithOnPushViewContainerComponent {
 }
 
 const TEST_DIRECTIVES = [
-    DialogContentComponent,
+    DialogSimpleContentComponent,
+    DialogFullContentComponent,
     WithViewContainerDirective,
     WithTemplateRefComponent,
     WithChildViewContainerComponent,
@@ -100,7 +124,8 @@ const TEST_DIRECTIVES = [
     exports: TEST_DIRECTIVES,
     declarations: TEST_DIRECTIVES,
     entryComponents: [
-        DialogContentComponent,
+        DialogSimpleContentComponent,
+        DialogFullContentComponent,
         WithInjectedDataDialogComponent,
         WithChildViewContainerComponent,
         WithOnPushViewContainerComponent

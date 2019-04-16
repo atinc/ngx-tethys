@@ -8,7 +8,6 @@ import { apiParameters } from './api-parameters';
 import { taskTypes } from '../+select/mock-data';
 import { DemoTreeSectionComponent } from '../+tree/tree-section.component';
 
-
 const exampleCode = `
 import { DialogContentComponent } from './dialog-content.component';
 
@@ -71,9 +70,15 @@ export class DemoDialogSectionComponent implements OnDestroy {
     }
 
     openTemplateDialog(template: TemplateRef<any>) {
-        this.thyDialog.open(template, {
-            panelClass: 'selectDialogCustomer'
-        });
+        this.thyDialog.open(
+            template,
+            Object.assign(
+                {
+                    panelClass: 'select-dialog-custom'
+                },
+                this.config
+            )
+        );
     }
 
     openComponentDialog() {

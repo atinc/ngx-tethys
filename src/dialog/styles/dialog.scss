@@ -1,16 +1,7 @@
-$thy-dialog-padding: 24px !default;
-$thy-dialog-border-radius: 4px !default;
-$thy-dialog-max-height: 65vh !default;
-$thy-dialog-button-margin: 8px !default;
-
-// .dialog-overlay-pane {
-
-// }
-
 .thy-dialog-container {
-    display: block;
-    // padding: $thy-dialog-padding;
-    border-radius: $thy-dialog-border-radius;
+    display: flex;
+    flex-direction: column;
+    border-radius: $dialog-border-radius;
     box-sizing: border-box;
     overflow: auto;
     outline: 0;
@@ -22,11 +13,7 @@ $thy-dialog-button-margin: 8px !default;
     // isn't set, we have to inherit the min and max values explicitly.
     min-height: inherit;
     max-height: inherit;
-
-    background: white;
-    //   @include cdk-high-contrast {
-    //     outline: solid 1px;
-    //   }
+    background: $white;
 }
 
 // Dialog header
@@ -35,52 +22,35 @@ $thy-dialog-button-margin: 8px !default;
     display: flex;
     align-items: center;
     justify-content: space-between; // Put modal header elements (title and dismiss) on opposite ends
-    padding: 0 $modal-header-padding;
-    min-height: $modal-title-line-height;
-    height: 50px;
-    border-bottom: $modal-header-border-width solid $modal-header-border-color;
+    padding: 0 $dialog-header-padding;
+    min-height: $dialog-header-height;
+    height: $dialog-header-height;
+    border-bottom: $dialog-header-border-width solid $dialog-header-border-color;
     @include border-top-radius($border-radius-lg);
 
     h3 {
         font-size: $font-size-md;
         font-weight: 500;
     }
-    .modal-info {
-        color: $gray-500;
-    }
-    .modal-back {
-        position: absolute;
-        line-height: 50px;
-        color: $gray-300;
-    }
+
     .close {
         outline: none;
-        padding: 1rem $modal-header-padding;
-        margin: (-$modal-header-padding) (-$modal-header-padding)
-            (-$modal-header-padding) auto;
+        padding: 1rem $dialog-header-padding;
+        margin: (-$dialog-header-padding) (-$dialog-header-padding) (-$dialog-header-padding) auto;
     }
 }
 
 // Title text within header
 .dialog-title {
     margin-bottom: 0;
-    line-height: $modal-title-line-height;
+    line-height: $dialog-header-title-line-height;
 }
 
-// Modal body
-// Where all modal content resides (sibling of .modal-header and .modal-footer)
 .dialog-body {
     position: relative;
-    // Enable `flex-grow: 1` so that the body take up as much space as possible
-    // when should there be a fixed height on `.modal-dialog`.
     flex: 1 1 auto;
-    padding: $modal-inner-padding;
-
+    padding: $dialog-body-padding;
     display: block;
-    // margin: 0 $thy-dialog-padding * -1;
-    // padding: 0 $thy-dialog-padding;
-    // max-height: $thy-dialog-max-height;
-    // overflow: auto;
     -webkit-overflow-scrolling: touch;
 
     &.dialog-body-clear-padding {
@@ -94,10 +64,10 @@ $thy-dialog-button-margin: 8px !default;
     justify-content: flex-start;
     border: 0;
     align-items: center; // vertically center
-    padding: $modal-inner-padding;
+    padding: $dialog-footer-padding;
 
     &.dialog-footer-border-top {
-        border-top: $modal-footer-border-width solid $modal-footer-border-color;
+        border-top: $dialog-footer-border-width solid $dialog-footer-border-color;
     }
 
     // Easily place margin between footer elements
@@ -120,10 +90,10 @@ $thy-dialog-button-margin: 8px !default;
 
 // Scale up the modal
 @include media-breakpoint-up(sm) {
-    // Automatically set modal's width for larger viewports
+    // Automatically set dialog's width for larger view ports
     .dialog-md {
         width: $dialog-md;
-        margin: $modal-dialog-margin-y-sm-up auto;
+        // margin: $modal-dialog-margin-y-sm-up auto;
     }
 
     .dialog-sm {
@@ -138,4 +108,20 @@ $thy-dialog-button-margin: 8px !default;
     .dialog-max-lg {
         width: $dialog-max-lg;
     }
+}
+
+// expect supper-lg
+.dialog-md,
+.dialog-sm,
+.dialog-lg,
+.dialog-max-lg {
+    max-height: $dialog-default-max-height;
+}
+
+// supper lg
+.dialog-supper-lg {
+    width: $dialog-supper-lg-width;
+    height: $dialog-supper-lg-height;
+    max-width: $dialog-supper-lg-max-width;
+    max-height: $dialog-supper-lg-max-height;
 }
