@@ -296,11 +296,31 @@ $modal-blg: 800px !default; //稍微大点，自定义属性
 $modal-md: 660px !default; //
 $modal-sm: 400px !default; //
 $modal-transition: transform 0.3s ease-out !default;
+
 // Dialog
+$dialog-border-radius: 4px !default;
+$dialog-header-height: 50px !default;
+$dialog-header-title-line-height: 1.5rem !default;
+$dialog-header-padding: 1.875rem !default;
+$dialog-header-border-width: 1px !default;
+$dialog-header-border-color: $gray-200 !default;
+
+$dialog-body-padding: 1.25rem 1.875rem 1.875rem 1.875rem !default;
+
+$dialog-footer-padding: 1.25rem 1.875rem 1.875rem 1.875rem !default;
+$dialog-footer-border-width: 1px !default;
+$dialog-footer-border-color: $dialog-header-border-color !default;
+
+$dialog-default-max-height: 85vh !default;
 $dialog-max-lg: 980px !default; //
 $dialog-lg: 800px !default;
 $dialog-md: 660px !default; //
 $dialog-sm: 400px !default; //
+$dialog-supper-lg-max-height: 1000px !default;
+$dialog-supper-lg-max-width: 1600px !default;
+$dialog-supper-lg-height: 94vh !default;
+$dialog-supper-lg-width: 94vw !default;
+
 // Card
 $card-title-icon-color: $primary !default;
 $card-title-color: $gray-700 !default;

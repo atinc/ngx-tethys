@@ -244,5 +244,7 @@ export class ThyDialog implements OnDestroy {
 
     ngOnDestroy() {
         this.closeAll();
+        this._afterAllClosed.complete();
+        this._afterOpened.complete();
     }
 }

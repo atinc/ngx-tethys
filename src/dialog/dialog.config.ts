@@ -30,6 +30,7 @@ export interface DialogPosition {
 
 export enum ThyDialogSizes {
     lg = 'lg',
+    supperLg = 'supper-lg',
     maxLg = 'max-lg',
     md = 'md',
     sm = 'sm'
@@ -81,7 +82,7 @@ export class ThyDialogConfig<TData = any> {
     maxWidth?: number | string;
 
     /** Max-height of the dialog. If a number is provided, pixel units are assumed. */
-    maxHeight?: number | string = '85vh';
+    maxHeight?: number | string;
 
     /** Position overrides. */
     position?: DialogPosition;
@@ -134,7 +135,6 @@ export const THY_DIALOG_DEFAULT_OPTIONS_PROVIDER = {
         backdropClosable: true,
         closeOnNavigation: true,
         autoFocus: true,
-        restoreFocus: true,
-        maxHeight: '85vh'
+        restoreFocus: true
     }
 };
