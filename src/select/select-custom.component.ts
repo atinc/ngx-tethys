@@ -26,9 +26,16 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ThyOptionComponent } from './option.component';
 import { ThyPositioningService } from '../positioning/positioning.service';
 import { isUndefinedOrNull, inputValueToBoolean } from '../util/helpers';
-import { ScrollStrategy, Overlay, ViewportRuler } from '@angular/cdk/overlay';
+import {
+    ScrollStrategy,
+    Overlay,
+    ViewportRuler,
+    ConnectionPositionPair,
+    ConnectedOverlayPositionChange
+} from '@angular/cdk/overlay';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { EXPANDED_DROPDOWN_POSITIONS } from '../core/overlay/overlay-opsition-map';
 
 export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -85,20 +92,25 @@ export class ThySelectCustomComponent
 
     _scrollStrategy: ScrollStrategy;
 
-    _positions = [
-        {
-            originX: 'start',
-            originY: 'top',
-            overlayX: 'start',
-            overlayY: 'top'
-        },
-        {
-            originX: 'start',
-            originY: 'bottom',
-            overlayX: 'start',
-            overlayY: 'bottom'
-        }
-    ];
+    public dropDownPosition = 'bottom';
+
+    // _positions = [
+    //     {
+    //         originX: 'start',
+    //         originY: 'top',
+    //         overlayX: 'start',
+    //         overlayY: 'top'
+    //     },
+    //     {
+    //         originX: 'start',
+    //         originY: 'bottom',
+    //         overlayX: 'start',
+    //         overlayY: 'bottom'
+    //     }
+    // ];
+
+    // private cascaderPositon = [...EXPANDED_DROPDOWN_POSITIONS];
+    positions: ConnectionPositionPair[] = EXPANDED_DROPDOWN_POSITIONS;
 
     _listOfOptionComponent: QueryList<ThyOptionComponent>;
 
@@ -291,6 +303,8 @@ export class ThySelectCustomComponent
             this._classNames.push(`thy-select-custom--multiple`);
         }
         this.updateHostClassService.updateClass(this._classNames);
+
+        console.log(this.positions);
     }
 
     ngAfterViewInit(): void {
@@ -436,6 +450,14 @@ export class ThySelectCustomComponent
             // this._keyManager.withHorizontalOrientation(this._isRtl() ? 'rtl' : 'ltr');
             // this._changeDetectorRef.markForCheck();
             // this._onTouched();
+        }
+    }
+
+    public onPositionChange(position: ConnectedOverlayPositionChange): void {
+        const newValue = position.connectionPair.originY === 'bottom' ? 'bottom' : 'top';
+        if (this.dropDownPosition !== newValue) {
+            this.dropDownPosition = newValue;
+            this.changeDetectorRef.detectChanges();
         }
     }
 

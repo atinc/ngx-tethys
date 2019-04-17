@@ -45,10 +45,10 @@
 
 <ng-template
   cdk-connected-overlay
-  cdkConnectedOverlayLockPosition
   cdkConnectedOverlayHasBackdrop
+  [cdkConnectedOverlayPositions]="positions"
+  (positionChange)="onPositionChange($event)"
   cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
-  [cdkConnectedOverlayScrollStrategy]="_scrollStrategy"
   [cdkConnectedOverlayOrigin]="origin"
   [cdkConnectedOverlayOpen]="_expandOptions"
   [cdkConnectedOverlayMinWidth]="triggerRect?.width"
