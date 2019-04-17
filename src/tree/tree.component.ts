@@ -233,6 +233,10 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
 
     // region 公开出去函数
 
+    public selectTreeNode(node: ThyTreeNode) {
+        this._selectionModel.select(node);
+    }
+
     public getRootNodes(): ThyTreeNode[] {
         return this.treeNodes;
     }

@@ -140,6 +140,14 @@
             }
         }
     }
+
+    &-empty-children-state {
+        width: 100%;
+        line-height: 50px;
+        padding: 0 30px;
+        background-color: #fafafa;
+        color: #aaa;
+    }
 }
 
 .thy-tree-secondary {

@@ -19,7 +19,10 @@
       <span [title]="node.title" class="thy-tree-node-title" [class.truncate]="thyTitleTruncate">{{ node.title }}</span>
     </ng-container>
     <ng-container *ngIf="templateRef">
-      <ng-template [ngTemplateOutlet]="templateRef" [ngTemplateOutletContext]="{ $implicit: node }"></ng-template>
+      <ng-template
+        [ngTemplateOutlet]="templateRef"
+        [ngTemplateOutletContext]="{ $implicit: node, origin: node?.origin }"
+      ></ng-template>
     </ng-container>
   </span>
 </div>
