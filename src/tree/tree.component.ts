@@ -58,6 +58,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
             put: ['tree-node']
         },
         disabled: true,
+        animation: 250,
         ghostClass: 'thy-sortable-ghost',
         handle: '.thy-sortable-handle',
         dragClass: 'thy-sortable-drag',
@@ -233,6 +234,10 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
 
     // region 公开出去函数
 
+    public selectTreeNode(node: ThyTreeNode) {
+        this._selectionModel.select(node);
+    }
+
     public getRootNodes(): ThyTreeNode[] {
         return this.treeNodes;
     }
@@ -254,9 +259,9 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
             parent.addChildren(node, index);
         } else {
             if (index > -1) {
-                this.treeNodes.splice(index, 0, new ThyTreeNode(node));
+                this.treeNodes.splice(index, 0, new ThyTreeNode(node, null, this.thyTreeService));
             } else {
-                this.treeNodes.push(new ThyTreeNode(node));
+                this.treeNodes.push(new ThyTreeNode(node, null, this.thyTreeService));
             }
         }
     }

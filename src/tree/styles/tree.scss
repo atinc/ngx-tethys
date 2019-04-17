@@ -59,6 +59,8 @@
                 }
 
                 .thy-tree-node-title {
+                    flex: 1;
+
                     &.truncate {
                         @include text-truncate();
                     }
@@ -117,10 +119,8 @@
         }
 
         &-actions {
-            flex: 1;
             text-align: right;
             display: none;
-            min-width: 45px;
 
             > a {
                 margin-right: 10px;
@@ -139,6 +139,14 @@
                 }
             }
         }
+    }
+
+    &-empty-children-state {
+        width: 100%;
+        line-height: 50px;
+        padding: 0 30px;
+        background-color: #fafafa;
+        color: #aaa;
     }
 }
 
