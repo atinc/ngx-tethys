@@ -9,12 +9,13 @@ import {
     Renderer2,
     ViewChild,
     Optional,
-    SkipSelf
+    SkipSelf,
+    Host
 } from '@angular/core';
 import { ThyPopBoxService } from '../../pop-box';
-import { ElementDef } from '@angular/core/src/view';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { ComponentType } from '@angular/cdk/portal';
+import { ThyMenuComponent } from '../menu.component';
 
 @Component({
     selector: 'thy-menu-group, [thy-menu-group],[thyMenuGroup]',
@@ -102,13 +103,13 @@ export class ThyMenuGroupComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        if (this.parent) {
-            this.groupHeaderPaddingLeft = this.parent.showIcon
-                ? this.parent.groupHeaderPaddingLeft + 35
-                : this.parent.groupHeaderPaddingLeft + 15;
-        } else {
-            this.groupHeaderPaddingLeft = 20;
-        }
+        // if (this.parent) {
+        //     this.groupHeaderPaddingLeft = this.parent.showIcon
+        //         ? this.parent.groupHeaderPaddingLeft + 35
+        //         : this.parent.groupHeaderPaddingLeft + 15;
+        // } else {
+        //     this.groupHeaderPaddingLeft = 20;
+        // }
     }
 
     collapseGroup(): void {

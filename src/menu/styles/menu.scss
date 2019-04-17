@@ -1,9 +1,22 @@
 .thy-menu {
+    position: relative;
     display: block;
     overflow-x: hidden;
     padding: 10px 0;
     transform: translateY(-10px);
 
+    .thy-menu-item-content {
+        // display: flex;
+        padding: $menu-item-padding;
+        min-height: $menu-height;
+        align-items: center;
+
+        &.cdk-drag .cdk-drag-handle,
+        &.thy-sortable-item .thy-sortable-handle {
+            position: absolute;
+            left: 3px;
+        }
+    }
     .thy-menu-group {
         display: block;
 
@@ -21,10 +34,11 @@
             height: $menu-height;
             align-items: center;
             font-size: $font-size-base;
-            padding-right: 20px;
+            margin: 0 -1000px;
+            padding: $menu-group-header-padding;
 
             &:hover {
-                @include item-box-shadow();
+                box-shadow: $menu-shadow;
 
                 .thy-menu-group-title {
                     color: $gray-800;
@@ -63,6 +77,28 @@
                 color: $gray-500;
             }
         }
+
+        .thy-menu-group-body {
+            margin-left: $menu-group-margin-left;
+
+            .thy-menu-item {
+                &.active {
+                    .thy-menu-item-icon {
+                        color: $primary;
+                    }
+
+                    .thy-menu-item-name {
+                        color: $primary;
+                    }
+                }
+            }
+        }
+
+        &.has-icon {
+            > .thy-menu-group-body {
+                margin-left: 35px;
+            }
+        }
     }
 
     .thy-menu-divider {
@@ -77,6 +113,11 @@
     text-decoration: none;
     cursor: pointer;
     overflow: hidden;
+    margin: 0 -1000px;
+    padding: 0 1000px;
+    display: flex;
+    min-height: $menu-height;
+    align-items: center;
 
     &:hover {
         @include item-box-shadow();
@@ -107,13 +148,6 @@
         }
     }
 
-    .thy-menu-item-content {
-        display: flex;
-        padding-right: 20px;
-        min-height: $menu-height;
-        align-items: center;
-    }
-
     .thy-menu-item-icon {
         color: $gray-500;
         padding: 0 8px 0 6px;
@@ -134,11 +168,5 @@
     .thy-menu-item-action {
         visibility: hidden;
         color: $gray-500;
-    }
-
-    &.cdk-drag .cdk-drag-handle,
-    &.thy-sortable-item .thy-sortable-handle {
-        margin-left: -35px;
-        padding: 0 8px 0 10px;
     }
 }
