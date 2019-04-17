@@ -6,14 +6,14 @@ import {
     ViewEncapsulation,
     TemplateRef,
     OnInit,
+    OnChanges,
     EventEmitter,
     ContentChild,
-    ViewChild,
-    ViewContainerRef,
     ComponentFactoryResolver,
     HostBinding,
     NgZone,
-    forwardRef
+    forwardRef,
+    SimpleChanges
 } from '@angular/core';
 import { ThyTreeNodeData, ThyTreeEmitEvent, ThyTreeNode } from './tree.class';
 import { helpers } from '../util';
@@ -21,6 +21,11 @@ import { SortablejsOptions } from 'angular-sortablejs';
 import { ThyTreeService } from './tree.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { UpdateHostClassService } from '../shared/update-host-class.service';
+
+const treeTypeClassMap: any = {
+    secondary: ['thy-tree-secondary']
+};
 
 @Component({
     selector: 'thy-tree',
@@ -32,10 +37,11 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
             useExisting: forwardRef(() => ThyTreeComponent),
             multi: true
         },
-        ThyTreeService
+        ThyTreeService,
+        UpdateHostClassService
     ]
 })
-export class ThyTreeComponent implements ControlValueAccessor, OnInit {
+export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges {
     private _templateRef: TemplateRef<any>;
 
     private _emptyChildrenTemplateRef: TemplateRef<any>;
@@ -52,9 +58,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit {
             put: ['tree-node']
         },
         disabled: true,
-        animation: 250,
         ghostClass: 'thy-sortable-ghost',
-        chosenClass: 'thy-tree-item-chosen',
         handle: '.thy-sortable-handle',
         dragClass: 'thy-sortable-drag',
         onStart: this._onDraggableStart.bind(this),
@@ -96,6 +100,10 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit {
 
     @Input() thyAsync = false;
 
+    @Input() thyType: string;
+
+    @Input() thyTitleTruncate = true;
+
     @Output() thyOnClick: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
 
     @Output() thyOnExpandChange: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
@@ -133,13 +141,26 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit {
     private _onChange: (value: any) => void = (_: any) => {};
 
     constructor(
-        private componentFactoryResolver: ComponentFactoryResolver,
         private ngZone: NgZone,
-        public thyTreeService: ThyTreeService
+        public thyTreeService: ThyTreeService,
+        private elementRef: ElementRef,
+        private updateHostClassService: UpdateHostClassService
     ) {}
 
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.thyType && !changes.thyType.isFirstChange) {
+            this._setTreeType();
+        }
+    }
+
     ngOnInit(): void {
+        this.updateHostClassService.initializeElement(this.elementRef.nativeElement);
+        this._setTreeType();
         this._instanceSelectionModel();
+    }
+
+    private _setTreeType() {
+        this.updateHostClassService.addClass(treeTypeClassMap[this.thyType]);
     }
 
     private _instanceSelectionModel() {

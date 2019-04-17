@@ -1,3 +1,3 @@
-<ng-container *ngFor="let error of thyErrors">
-    <thy-alert thyType="danger" [thyMessage]="error"></thy-alert>
-</ng-container>
+<div [ngClass]="{ 'col-sm-10 offset-sm-2 col-form-control': isHorizontal }">
+  <thy-alert *ngFor="let error of thyErrors" thyType="danger" [thyMessage]="error"></thy-alert>
+</div>

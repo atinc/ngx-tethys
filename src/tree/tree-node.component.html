@@ -1,63 +1,54 @@
-<ng-container>
-  <div
-    class="thy-list-option thy-tree-node-wrapper thy-sortable-item"
-    [class.active]="root.isSelected(node)"
-    (click)="clickNode($event)"
-  >
-    <ng-container *ngIf="thyDraggable">
-      <span class="thy-tree-node-draggable">
-        <i class="wtf wtf wtf-move thy-sortable-handle"></i>
-      </span>
+<div class="thy-tree-node-wrapper thy-sortable-item" [class.active]="root.isSelected(node)" (click)="clickNode($event)">
+  <span *ngIf="thyDraggable" class="thy-tree-drag-icon">
+    <i class="wtf wtf wtf-move thy-sortable-handle"></i>
+  </span>
+  <span class="thy-tree-expand" (click)="expandNode($event)">
+    <ng-container *ngIf="isShowExpand(node)">
+      <i
+        class="wtf thy-tree-expand-icon"
+        *ngIf="(node.children && node.children.length > 0) || thyAsync || emptyChildrenTemplateRef"
+        [class.narrow]="!node.isExpanded"
+      ></i>
     </ng-container>
-    <ng-container>
-      <span class="thy-tree-expand" (click)="expandNode($event)">
-        <ng-container *ngIf="isShowExpand(node)">
-          <i
-            class="wtf wtf-caret-down"
-            *ngIf="(node.children && node.children.length > 0) || thyAsync || emptyChildrenTemplateRef"
-            [class.rotate-caret]="!node.isExpanded"
-          ></i>
-        </ng-container>
-      </span>
-    </ng-container>
-    <span class="thy-tree-node-content">
-      <ng-container *ngIf="!templateRef">
-        <ng-container *ngIf="nodeIcon">
-          <span class="thy-tree-node-icon"> <i [ngClass]="nodeIcon" [ngStyle]="nodeIconStyle"></i></span>
-        </ng-container>
-        <span class="thy-tree-node-title">{{ node.title }}</span>
+  </span>
+  <span class="thy-tree-node-content">
+    <ng-container *ngIf="!templateRef">
+      <ng-container *ngIf="nodeIcon">
+        <span class="thy-tree-node-icon"> <i [ngClass]="nodeIcon" [ngStyle]="nodeIconStyle"></i></span>
       </ng-container>
-      <ng-container *ngIf="templateRef">
-        <ng-template [ngTemplateOutlet]="templateRef" [ngTemplateOutletContext]="{ $implicit: node }"></ng-template>
-      </ng-container>
-    </span>
-  </div>
-  <div
-    class="thy-tree-node-children"
-    *ngIf="isShowExpand(node) && node.isExpanded"
-    [sortablejs]="node.children"
-    [sortablejsOptions]="root.treeNodesSortableOptions"
-    [attr.node-key]="node.key"
-  >
-    <ng-template
-      *ngIf="node.children.length === 0 && !node.isLoading"
-      [ngTemplateOutlet]="emptyChildrenTemplateRef"
-    ></ng-template>
-    <thy-tree-node
-      *ngFor="let node of node.children; trackBy: root.trackByFn; let i = index"
-      [node]="node"
-      [templateRef]="templateRef"
-      [emptyChildrenTemplateRef]="emptyChildrenTemplateRef"
-      [thyAsync]="thyAsync"
-      [thyShowExpand]="thyShowExpand"
-      [thyMultiple]="thyMultiple"
-      [thyDraggable]="thyDraggable"
-      (thyOnClick)="thyOnClick.emit($event)"
-      (thyOnExpandChange)="thyOnExpandChange.emit($event)"
-    >
-    </thy-tree-node>
-    <ng-container *ngIf="thyAsync">
-      <thy-loading [thyDone]="!node.isLoading"></thy-loading>
+      <span [title]="node.title" class="thy-tree-node-title" [class.truncate]="thyTitleTruncate">{{ node.title }}</span>
     </ng-container>
-  </div>
-</ng-container>
+    <ng-container *ngIf="templateRef">
+      <ng-template [ngTemplateOutlet]="templateRef" [ngTemplateOutletContext]="{ $implicit: node }"></ng-template>
+    </ng-container>
+  </span>
+</div>
+<div
+  class="thy-tree-node-children"
+  *ngIf="isShowExpand(node) && node.isExpanded"
+  [sortablejs]="node.children"
+  [sortablejsOptions]="root.treeNodesSortableOptions"
+  [attr.node-key]="node.key"
+>
+  <ng-template
+    *ngIf="node.children.length === 0 && !node.isLoading"
+    [ngTemplateOutlet]="emptyChildrenTemplateRef"
+  ></ng-template>
+  <thy-tree-node
+    *ngFor="let node of node.children; trackBy: root.trackByFn; let i = index"
+    [node]="node"
+    [templateRef]="templateRef"
+    [emptyChildrenTemplateRef]="emptyChildrenTemplateRef"
+    [thyAsync]="thyAsync"
+    [thyShowExpand]="thyShowExpand"
+    [thyMultiple]="thyMultiple"
+    [thyDraggable]="thyDraggable"
+    [thyTitleTruncate]="thyTitleTruncate"
+    (thyOnClick)="thyOnClick.emit($event)"
+    (thyOnExpandChange)="thyOnExpandChange.emit($event)"
+  >
+  </thy-tree-node>
+  <ng-container *ngIf="thyAsync">
+    <thy-loading [thyDone]="!node.isLoading"></thy-loading>
+  </ng-container>
+</div>

@@ -1,19 +1,16 @@
-<div
-    [sortablejs]="treeNodes"
-    [sortablejsOptions]="treeNodesSortableOptions"
-    [attr.node-key]="''"
->
-    <thy-tree-node
-        *ngFor="let node of treeNodes; trackBy: trackByFn; let i = index"
-        [node]="node"
-        [templateRef]="templateRef"
-        [emptyChildrenTemplateRef]="emptyChildrenTemplate"
-        [thyAsync]="thyAsync"
-        [thyDraggable]="thyDraggable"
-        [thyShowExpand]="thyShowExpand"
-        [thyMultiple]="thyMultiple"
-        (thyOnClick)="thyOnClick.emit($event)"
-        (thyOnExpandChange)="thyOnExpandChange.emit($event)"
-    >
-    </thy-tree-node>
+<div [sortablejs]="treeNodes" [sortablejsOptions]="treeNodesSortableOptions" [attr.node-key]="''">
+  <thy-tree-node
+    *ngFor="let node of treeNodes; trackBy: trackByFn; let i = index"
+    [node]="node"
+    [templateRef]="templateRef"
+    [emptyChildrenTemplateRef]="emptyChildrenTemplate"
+    [thyAsync]="thyAsync"
+    [thyDraggable]="thyDraggable"
+    [thyShowExpand]="thyShowExpand"
+    [thyMultiple]="thyMultiple"
+    [thyTitleTruncate]="thyTitleTruncate"
+    (thyOnClick)="thyOnClick.emit($event)"
+    (thyOnExpandChange)="thyOnExpandChange.emit($event)"
+  >
+  </thy-tree-node>
 </div>
