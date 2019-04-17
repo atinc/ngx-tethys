@@ -58,6 +58,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
             put: ['tree-node']
         },
         disabled: true,
+        animation: 250,
         ghostClass: 'thy-sortable-ghost',
         handle: '.thy-sortable-handle',
         dragClass: 'thy-sortable-drag',
