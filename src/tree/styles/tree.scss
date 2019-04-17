@@ -142,16 +142,3 @@
 .thy-tree-secondary {
     @include thy-tree-secondary();
 }
-
-.thy-tree-node-chosen {
-    .thy-tree-node-item {
-        box-shadow: none !important;
-    }
-}
-
-.thy-tree-node-ghost {
-    .thy-tree-node-item {
-        color: #aaa !important;
-        background-color: #f3f3f3 !important;
-    }
-}

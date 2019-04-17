@@ -1,312 +1,372 @@
 <header class="navbar d-flex">
-    <a class="navbar-brand">WDC For Worktile Design Center</a>
-    <div class="ml-auto d-flex">
-        <a href="javascript:;" class="theme-color-container" [thyActionMenuToggle]="themeSelectPop"
-            [thyPlacement]="'bottom right'">
-            <div [ngStyle]="{background: currentTheme.color}">
-                <i class="wtf wtf-angle-down"></i>
-            </div>
-        </a>
-        <ng-template #themeSelectPop>
-            <!-- <button [thyButton]="'primary'" thySize="sm" *ngFor="let theme of themesConstant" (click)="changeTheme(theme)">{{theme.name}}</button> -->
-            <div class="theme-select-show-wrap">
-                <a href="javascript:;" *ngFor="let theme of themesConstant" [ngStyle]="{background: theme.color}"
-                    (click)="changeTheme(theme)">{{theme.name}}</a>
-            </div>
-        </ng-template>
-    </div>
+  <a class="navbar-brand">WDC For Worktile Design Center</a>
+  <div class="ml-auto d-flex">
+    <a
+      href="javascript:;"
+      class="theme-color-container"
+      [thyActionMenuToggle]="themeSelectPop"
+      [thyPlacement]="'bottom right'"
+    >
+      <div [ngStyle]="{ background: currentTheme.color }">
+        <i class="wtf wtf-angle-down"></i>
+      </div>
+    </a>
+    <ng-template #themeSelectPop>
+      <!-- <button [thyButton]="'primary'" thySize="sm" *ngFor="let theme of themesConstant" (click)="changeTheme(theme)">{{theme.name}}</button> -->
+      <div class="theme-select-show-wrap">
+        <a
+          href="javascript:;"
+          *ngFor="let theme of themesConstant"
+          [ngStyle]="{ background: theme.color }"
+          (click)="changeTheme(theme)"
+          >{{ theme.name }}</a
+        >
+      </div>
+    </ng-template>
+  </div>
 </header>
 
 <thy-layout class="demo-main">
-    <thy-sidebar>
-        <div class="toc-slider">
+  <thy-sidebar>
+    <div class="toc-slider">
+      <dl>
+        <dd class="toc-section">
+          <div class="toc-section-head">
+            介绍
+            <span class="mate">Introduction</span>
+            <span class="extend-icon">
+              <i class="wtf wtf-angle-right"></i>
+            </span>
+          </div>
+        </dd>
+        <dd class="toc-section">
+          <div class="toc-section-head">
+            原则
+            <span class="mate">Principles</span>
+            <span class="extend-icon">
+              <i class="wtf wtf-angle-right"></i>
+            </span>
+          </div>
+        </dd>
+        <dd class="toc-section">
+          <div class="toc-section-head">
+            全局
+            <span class="mate">Gloabal</span>
+            <span class="extend-icon">
+              <i class="wtf wtf-angle-right"></i>
+            </span>
+          </div>
+          <div class="toc-section-body">
             <dl>
-                <dd class="toc-section">
-                    <div class="toc-section-head">
-                        介绍
-                        <span class="mate">Introduction</span>
-                        <span class="extend-icon">
-                            <i class="wtf wtf-angle-right"></i>
-                        </span>
-                    </div>
-                </dd>
-                <dd class="toc-section">
-                    <div class="toc-section-head">
-                        原则
-                        <span class="mate">Principles</span>
-                        <span class="extend-icon">
-                            <i class="wtf wtf-angle-right"></i>
-                        </span>
-                    </div>
-                </dd>
-                <dd class="toc-section">
-                    <div class="toc-section-head">
-                        全局
-                        <span class="mate">Gloabal</span>
-                        <span class="extend-icon">
-                            <i class="wtf wtf-angle-right"></i>
-                        </span>
-                    </div>
-                    <div class="toc-section-body">
-                    </div>
-                </dd>
-                <dd class="toc-section">
-                    <div class="toc-section-head">
-                        组件
-                        <span class="mate">Components</span>
-                        <span class="extend-icon">
-                            <i class="wtf wtf-angle-right"></i>
-                        </span>
-                    </div>
-                    <div class="toc-section-body">
-                        <dl>
-                            <dd class="toc-item-group">General</dd>
-                            <dd class="toc-item">
-                                <a routerLink="/components/reboot" routerLinkActive="active">Reboot
-                                    <span>全局</span>
-                                </a>
-                            </dd>
-                            <dd class="toc-item">
-                                <a routerLink="/components/button" routerLinkActive="active">Button
-                                    <span>按钮</span>
-                                </a>
-                            </dd>
-                            <dd class="toc-item">
-                                <a routerLink="/components/dropdown" routerLinkActive="active">Dropdown
-                                    <span>下拉菜单</span>
-                                </a>
-                            </dd>
-                            <dd class="toc-item">
-                                <a routerLink="components/cascader" routerLinkActive="active">Cascader
-                                    <span>级联选择</span>
-                                </a>
-                            </dd>
-                            <dd class="toc-item">
-                                <a routerLink="components/property-operation" routerLinkActive="active">Property
-                                    Operation
-                                    <span>属性操作</span>
-                                </a>
-                            </dd>
-
-                            <dd class="toc-item">
-                                <a routerLink="/components/wtd" routerLinkActive="active">wtf
-                                    <span>图标</span>
-                                </a>
-                            </dd>
-                            <dd class="toc-item-group">Layout</dd>
-                            <dd class="toc-item">
-                                <a routerLink="/components/card" routerLinkActive="active">Card
-                                    <span>卡片</span>
-                                </a>
-                            </dd>
-                            <dd class="toc-item">
-                                <a routerLink="/components/layout" routerLinkActive="active">Layout
-                                    <span>布局</span>
-                                </a>
-                            </dd>
-                            <dd class="toc-item">
-                                <a routerLink="/components/list" routerLinkActive="active">List
-                                    <span>列表</span>
-                                </a>
-                            </dd>
-                            <dd class="toc-item">
-                                <a routerLink="/components/empty" routerLinkActive="active">Empty
-                                    <span>空状态</span>
-                                </a>
-                            </dd>
-                            <dd class="toc-item-group">Navigation</dd>
-                            <dd class="toc-item">
-                                <a routerLink="/components/action-menu" routerLinkActive="active">ActionMenu
-                                    <span>下拉菜单</span>
-                                </a>
-                            </dd>
-                            <dd class="toc-item">
-                                <a routerLink="/components/menu" routerLinkActive="active">Menu
-                                    <span>菜单</span>
-                                </a>
-                            </dd>
-                            <dd class="toc-item">
-                                <a routerLink="/components/nav" routerLinkActive="active">Nav
-                                    <span>导航</span>
-                                </a>
-                            </dd>
-                            <dd class="toc-item">
-                                <a routerLink="/components/breadcrumb" routerLinkActive="active">Breadcrumb
-                                    <span>面包屑</span>
-                                </a>
-                            </dd>
-
-                            <dd class="toc-item-group">Data Entry</dd>
-                            <dd class="toc-item">
-                                <a routerLink="/components/transfer" routerLinkActive="active">Transfer
-                                    <span>穿梭框</span>
-                                </a>
-                            </dd>
-                            <dd class="toc-item">
-                                <a routerLink="/components/switch" routerLinkActive="active">Switch
-                                    <span>开关</span>
-                                </a>
-                            </dd>
-                            <dd class="toc-item">
-                                <a routerLink="/components/form" routerLinkActive="active">Form
-                                    <span>表单</span>
-                                </a>
-                            </dd>
-                            <dd class="toc-item">
-                                <a routerLink="/components/datepicker" routerLinkActive="active">DatePicker
-                                    <span>日期选择</span>
-                                </a>
-                            </dd>
-                            <dd class="toc-item">
-                                <a routerLink="/components/datepicker-next" routerLinkActive="active">DatepickerNext
-                                    <span>日期选择 NEXT</span>
-                                </a>
-                            </dd>
-                            <dd class="toc-item">
-                                <a routerLink="/components/date-range" routerLinkActive="active">DateRange
-                                    <span>时间段选择</span>
-                                </a>
-                            </dd>
-                            <dd class="toc-item">
-                                <a routerLink="/components/input" routerLinkActive="active">Input
-                                    <span>输入框</span>
-                                </a>
-                            </dd>
-                            <dd class="toc-item">
-                                <a routerLink="/components/checkbox" routerLinkActive="active">Checkbox
-                                    <span>多选项</span>
-                                </a>
-                            </dd>
-                            <dd class="toc-item">
-                                <a routerLink="/components/radio" routerLinkActive="active">Radio
-                                    <span>单选项</span>
-                                </a>
-                            </dd>
-                            <dd class="toc-item">
-                                <a routerLink="/components/select" routerLinkActive="active">Select
-                                    <span>下拉选择</span>
-                                </a>
-                            </dd>
-                            <dd class="toc-item">
-                                <a routerLink="/components/tree-select" routerLinkActive="active">Tree Select
-                                    <span>树选择</span></a>
-                            </dd>
-                            <dd class="toc-item-group">Data Display</dd>
-                            <dd class="toc-item">
-                                <a routerLink="/components/avatar" routerLinkActive="active">Avatar
-                                    <span>头像</span>
-                                </a>
-                            </dd>
-                            <dd class="toc-item">
-                                <a routerLink="/components/badge" routerLinkActive="active">Badge
-                                    <span>徽标</span>
-                                </a>
-                            </dd>
-                            <dd class="toc-item">
-                                <a routerLink="/components/grid" routerLinkActive="active">Grid
-                                    <span>列表</span>
-                                </a>
-                            </dd>
-                            <dd class="toc-item">
-                                <a routerLink="/components/pagination" routerLinkActive="active">Pagination
-                                    <span>分页</span>
-                                </a>
-                            </dd>
-                            <dd class="toc-item">
-                                <a routerLink="/components/label" routerLinkActive="active">Label
-                                    <span>标签</span>
-                                </a>
-                            </dd>
-                            <dd class="toc-item">
-                                <a routerLink="/components/table" routerLinkActive="active">Table
-                                    <span>表格</span>
-                                </a>
-                            </dd>
-                            <dd class="toc-item">
-                                <a routerLink="/components/tree" routerLinkActive="active">Tree
-                                    <span>树</span>
-                                </a>
-                            </dd>
-                            <dd class="toc-item">
-                                <a routerLink="/components/stepper" routerLinkActive="active">Stepper
-                                    <span>步骤条</span>
-                                </a>
-                            </dd>
-                            <dd class="toc-item">
-                                <a routerLink="/components/progress" routerLinkActive="active">Progress
-                                    <span>进度条</span>
-                                </a>
-                            </dd>
-                            <dd class="toc-item-group">FeedBack</dd>
-                            <dd class="toc-item">
-                                <a routerLink="/components/alert" routerLinkActive="active">Alert
-                                    <span>警告框</span>
-                                </a>
-                            </dd>
-                            <dd class="toc-item">
-                                <a routerLink="/components/confirm" routerLinkActive="active">Confirm
-                                    <span>确认消息框</span>
-                                </a>
-                            </dd>
-                            <dd class="toc-item">
-                                <a routerLink="/components/loading" routerLinkActive="active">Loading
-                                    <span>加载中</span>
-                                </a>
-                            </dd>
-                            <dd class="toc-item">
-                                <a routerLink="/components/modal" routerLinkActive="active">Modal
-                                    <span>弹框</span>
-                                </a>
-                            </dd>
-                            <dd class="toc-item">
-                                <a routerLink="/components/dialog" routerLinkActive="active">Dialog
-                                    <span>弹框 New</span>
-                                </a>
-                            </dd>
-                            <dd class="toc-item">
-                                <a routerLink="/components/notify" routerLinkActive="active">Notify
-                                    <span>通知</span>
-                                </a>
-                            </dd>
-                            <dd class="toc-item">
-                                <a routerLink="/components/pob-box" routerLinkActive="active">PopBox
-                                    <span>弹出框</span>
-                                </a>
-                            </dd>
-                            <dd class="toc-item">
-                                <a routerLink="components/slide" routerLinkActive="active">Slide
-                                    <span>滑动弹出框</span>
-                                </a>
-                            </dd>
-                            <dd class="toc-item">
-                                <a routerLink="components/uploader" routerLinkActive="active">Uploader
-                                    <span>上传</span>
-                                </a>
-                            </dd>
-                            <dd class="toc-item">
-                                <a routerLink="components/editor" routerLinkActive="active">Editor
-                                    <span>编辑器</span>
-                                </a>
-                            </dd>
-                            <dd class="toc-item">
-                                <a routerLink="components/key-select" routerLinkActive="active">Key Select
-                                    <span>按键上下选择</span>
-                                </a>
-                            </dd>
-                            <dd class="toc-item">
-                                <a routerLink="components/strength" routerLinkActive="active">Strength
-                                    <span>强度</span>
-                                </a>
-                            </dd>
-                        </dl>
-                    </div>
-                </dd>
+              <dd class="toc-item-group">其它</dd>
+              <dd class="toc-item">
+                <a routerLink="/cdk/dropdrag" routerLinkActive="active">
+                  拖动
+                </a>
+              </dd>
             </dl>
-        </div>
-    </thy-sidebar>
-    <thy-content class="bg-white">
-        <router-outlet></router-outlet>
-        <!-- <div class="main-content">
+          </div>
+        </dd>
+        <dd class="toc-section">
+          <div class="toc-section-head">
+            组件
+            <span class="mate">Components</span>
+            <span class="extend-icon">
+              <i class="wtf wtf-angle-right"></i>
+            </span>
+          </div>
+          <div class="toc-section-body">
+            <dl>
+              <dd class="toc-item-group">General</dd>
+              <dd class="toc-item">
+                <a routerLink="/components/reboot" routerLinkActive="active"
+                  >Reboot
+                  <span>全局</span>
+                </a>
+              </dd>
+              <dd class="toc-item">
+                <a routerLink="/components/button" routerLinkActive="active"
+                  >Button
+                  <span>按钮</span>
+                </a>
+              </dd>
+              <dd class="toc-item">
+                <a routerLink="/components/dropdown" routerLinkActive="active"
+                  >Dropdown
+                  <span>下拉菜单</span>
+                </a>
+              </dd>
+              <dd class="toc-item">
+                <a routerLink="components/cascader" routerLinkActive="active"
+                  >Cascader
+                  <span>级联选择</span>
+                </a>
+              </dd>
+              <dd class="toc-item">
+                <a routerLink="components/property-operation" routerLinkActive="active"
+                  >Property Operation
+                  <span>属性操作</span>
+                </a>
+              </dd>
+
+              <dd class="toc-item">
+                <a routerLink="/components/wtd" routerLinkActive="active"
+                  >wtf
+                  <span>图标</span>
+                </a>
+              </dd>
+              <dd class="toc-item-group">Layout</dd>
+              <dd class="toc-item">
+                <a routerLink="/components/card" routerLinkActive="active"
+                  >Card
+                  <span>卡片</span>
+                </a>
+              </dd>
+              <dd class="toc-item">
+                <a routerLink="/components/layout" routerLinkActive="active"
+                  >Layout
+                  <span>布局</span>
+                </a>
+              </dd>
+              <dd class="toc-item">
+                <a routerLink="/components/list" routerLinkActive="active"
+                  >List
+                  <span>列表</span>
+                </a>
+              </dd>
+              <dd class="toc-item">
+                <a routerLink="/components/empty" routerLinkActive="active"
+                  >Empty
+                  <span>空状态</span>
+                </a>
+              </dd>
+              <dd class="toc-item-group">Navigation</dd>
+              <dd class="toc-item">
+                <a routerLink="/components/action-menu" routerLinkActive="active"
+                  >ActionMenu
+                  <span>下拉菜单</span>
+                </a>
+              </dd>
+              <dd class="toc-item">
+                <a routerLink="/components/menu" routerLinkActive="active"
+                  >Menu
+                  <span>菜单</span>
+                </a>
+              </dd>
+              <dd class="toc-item">
+                <a routerLink="/components/nav" routerLinkActive="active"
+                  >Nav
+                  <span>导航</span>
+                </a>
+              </dd>
+              <dd class="toc-item">
+                <a routerLink="/components/breadcrumb" routerLinkActive="active"
+                  >Breadcrumb
+                  <span>面包屑</span>
+                </a>
+              </dd>
+
+              <dd class="toc-item-group">Data Entry</dd>
+              <dd class="toc-item">
+                <a routerLink="/components/transfer" routerLinkActive="active"
+                  >Transfer
+                  <span>穿梭框</span>
+                </a>
+              </dd>
+              <dd class="toc-item">
+                <a routerLink="/components/switch" routerLinkActive="active"
+                  >Switch
+                  <span>开关</span>
+                </a>
+              </dd>
+              <dd class="toc-item">
+                <a routerLink="/components/form" routerLinkActive="active"
+                  >Form
+                  <span>表单</span>
+                </a>
+              </dd>
+              <dd class="toc-item">
+                <a routerLink="/components/datepicker" routerLinkActive="active"
+                  >DatePicker
+                  <span>日期选择</span>
+                </a>
+              </dd>
+              <dd class="toc-item">
+                <a routerLink="/components/datepicker-next" routerLinkActive="active"
+                  >DatepickerNext
+                  <span>日期选择 NEXT</span>
+                </a>
+              </dd>
+              <dd class="toc-item">
+                <a routerLink="/components/date-range" routerLinkActive="active"
+                  >DateRange
+                  <span>时间段选择</span>
+                </a>
+              </dd>
+              <dd class="toc-item">
+                <a routerLink="/components/input" routerLinkActive="active"
+                  >Input
+                  <span>输入框</span>
+                </a>
+              </dd>
+              <dd class="toc-item">
+                <a routerLink="/components/checkbox" routerLinkActive="active"
+                  >Checkbox
+                  <span>多选项</span>
+                </a>
+              </dd>
+              <dd class="toc-item">
+                <a routerLink="/components/radio" routerLinkActive="active"
+                  >Radio
+                  <span>单选项</span>
+                </a>
+              </dd>
+              <dd class="toc-item">
+                <a routerLink="/components/select" routerLinkActive="active"
+                  >Select
+                  <span>下拉选择</span>
+                </a>
+              </dd>
+              <dd class="toc-item">
+                <a routerLink="/components/tree-select" routerLinkActive="active">Tree Select <span>树选择</span></a>
+              </dd>
+              <dd class="toc-item-group">Data Display</dd>
+              <dd class="toc-item">
+                <a routerLink="/components/avatar" routerLinkActive="active"
+                  >Avatar
+                  <span>头像</span>
+                </a>
+              </dd>
+              <dd class="toc-item">
+                <a routerLink="/components/badge" routerLinkActive="active"
+                  >Badge
+                  <span>徽标</span>
+                </a>
+              </dd>
+              <dd class="toc-item">
+                <a routerLink="/components/grid" routerLinkActive="active"
+                  >Grid
+                  <span>列表</span>
+                </a>
+              </dd>
+              <dd class="toc-item">
+                <a routerLink="/components/pagination" routerLinkActive="active"
+                  >Pagination
+                  <span>分页</span>
+                </a>
+              </dd>
+              <dd class="toc-item">
+                <a routerLink="/components/label" routerLinkActive="active"
+                  >Label
+                  <span>标签</span>
+                </a>
+              </dd>
+              <dd class="toc-item">
+                <a routerLink="/components/table" routerLinkActive="active"
+                  >Table
+                  <span>表格</span>
+                </a>
+              </dd>
+              <dd class="toc-item">
+                <a routerLink="/components/tree" routerLinkActive="active"
+                  >Tree
+                  <span>树</span>
+                </a>
+              </dd>
+              <dd class="toc-item">
+                <a routerLink="/components/stepper" routerLinkActive="active"
+                  >Stepper
+                  <span>步骤条</span>
+                </a>
+              </dd>
+              <dd class="toc-item">
+                <a routerLink="/components/progress" routerLinkActive="active"
+                  >Progress
+                  <span>进度条</span>
+                </a>
+              </dd>
+              <dd class="toc-item-group">FeedBack</dd>
+              <dd class="toc-item">
+                <a routerLink="/components/alert" routerLinkActive="active"
+                  >Alert
+                  <span>警告框</span>
+                </a>
+              </dd>
+              <dd class="toc-item">
+                <a routerLink="/components/confirm" routerLinkActive="active"
+                  >Confirm
+                  <span>确认消息框</span>
+                </a>
+              </dd>
+              <dd class="toc-item">
+                <a routerLink="/components/loading" routerLinkActive="active"
+                  >Loading
+                  <span>加载中</span>
+                </a>
+              </dd>
+              <dd class="toc-item">
+                <a routerLink="/components/modal" routerLinkActive="active"
+                  >Modal
+                  <span>弹框</span>
+                </a>
+              </dd>
+              <dd class="toc-item">
+                <a routerLink="/components/dialog" routerLinkActive="active"
+                  >Dialog
+                  <span>弹框 New</span>
+                </a>
+              </dd>
+              <dd class="toc-item">
+                <a routerLink="/components/notify" routerLinkActive="active"
+                  >Notify
+                  <span>通知</span>
+                </a>
+              </dd>
+              <dd class="toc-item">
+                <a routerLink="/components/pob-box" routerLinkActive="active"
+                  >PopBox
+                  <span>弹出框</span>
+                </a>
+              </dd>
+              <dd class="toc-item">
+                <a routerLink="components/slide" routerLinkActive="active"
+                  >Slide
+                  <span>滑动弹出框</span>
+                </a>
+              </dd>
+              <dd class="toc-item">
+                <a routerLink="components/uploader" routerLinkActive="active"
+                  >Uploader
+                  <span>上传</span>
+                </a>
+              </dd>
+              <dd class="toc-item">
+                <a routerLink="components/editor" routerLinkActive="active"
+                  >Editor
+                  <span>编辑器</span>
+                </a>
+              </dd>
+              <dd class="toc-item">
+                <a routerLink="components/key-select" routerLinkActive="active"
+                  >Key Select
+                  <span>按键上下选择</span>
+                </a>
+              </dd>
+              <dd class="toc-item">
+                <a routerLink="components/strength" routerLinkActive="active"
+                  >Strength
+                  <span>强度</span>
+                </a>
+              </dd>
+            </dl>
+          </div>
+        </dd>
+      </dl>
+    </div>
+  </thy-sidebar>
+  <thy-content class="bg-white">
+    <router-outlet></router-outlet>
+    <!-- <div class="main-content">
             <router-outlet></router-outlet>
             <div class="content-header">
                 按钮
@@ -316,5 +376,5 @@
                     <router-outlet></router-outlet>
             </div>
         </div> -->
-    </thy-content>
+  </thy-content>
 </thy-layout>

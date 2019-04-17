@@ -1,6 +1,6 @@
-<div class="thy-tree-node-wrapper" [class.active]="root.isSelected(node)" (click)="clickNode($event)">
+<div class="thy-tree-node-wrapper thy-sortable-item" [class.active]="root.isSelected(node)" (click)="clickNode($event)">
   <span *ngIf="thyDraggable" class="thy-tree-drag-icon">
-    <i class="wtf wtf wtf-move"></i>
+    <i class="wtf wtf wtf-move thy-sortable-handle"></i>
   </span>
   <span class="thy-tree-expand" (click)="expandNode($event)">
     <ng-container *ngIf="isShowExpand(node)">

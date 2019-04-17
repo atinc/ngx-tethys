@@ -58,8 +58,9 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
             put: ['tree-node']
         },
         disabled: true,
-        ghostClass: 'thy-tree-node-ghost',
-        chosenClass: 'thy-tree-node-chosen',
+        ghostClass: 'thy-sortable-ghost',
+        handle: '.thy-sortable-handle',
+        dragClass: 'thy-sortable-drag',
         onStart: this._onDraggableStart.bind(this),
         onAdd: this._onDraggableAdd.bind(this),
         onUpdate: this._onDraggableUpdate.bind(this)
