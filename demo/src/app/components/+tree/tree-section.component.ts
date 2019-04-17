@@ -35,7 +35,7 @@ export class DemoTreeSectionComponent {
     public treeNodes: any[] = [
         {
             key: '01',
-            title: '北京',
+            title: '北京北京北京北京北京北京北京北京北京北京北京',
             icon: 'wtf wtf-folder',
             origin: { type: 1 },
             children: [

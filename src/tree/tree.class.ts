@@ -99,32 +99,23 @@ export class ThyTreeNode {
         return this.children;
     }
 
-    public addChildren(
-        children: ThyTreeNodeData | ThyTreeNodeData[],
-        index: number = -1
-    ): void {
+    public addChildren(children: ThyTreeNodeData | ThyTreeNodeData[], index: number = -1): void {
         if (!helpers.isArray(children)) {
             children = [children];
         }
-        ((children as ThyTreeNodeData[]) || []).forEach(
-            (childNode: ThyTreeNodeData, i: number) => {
-                if (index === -1) {
-                    this.children.push(new ThyTreeNode(childNode, this));
-                } else {
-                    this.children.splice(
-                        index + i,
-                        0,
-                        new ThyTreeNode(childNode, this)
-                    );
-                }
+        ((children as ThyTreeNodeData[]) || []).forEach((childNode: ThyTreeNodeData, i: number) => {
+            if (index === -1) {
+                this.children.push(new ThyTreeNode(childNode, this));
+            } else {
+                this.children.splice(index + i, 0, new ThyTreeNode(childNode, this, this.treeService));
             }
-        );
+        });
 
         this.origin.children = this.getChildren().map(n => n.origin);
         this.setLoading(false);
         this.treeService.$statusChange.next({
-            'eventName': 'addChildren',
-            'node': this
+            eventName: 'addChildren',
+            node: this
         });
     }
 }

@@ -254,9 +254,9 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
             parent.addChildren(node, index);
         } else {
             if (index > -1) {
-                this.treeNodes.splice(index, 0, new ThyTreeNode(node));
+                this.treeNodes.splice(index, 0, new ThyTreeNode(node, null, this.thyTreeService));
             } else {
-                this.treeNodes.push(new ThyTreeNode(node));
+                this.treeNodes.push(new ThyTreeNode(node, null, this.thyTreeService));
             }
         }
     }
