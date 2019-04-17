@@ -50,6 +50,8 @@
 .cdk-drag-placeholder {
     color: transparent !important;
     background: $gray-200 !important;
+    margin-left: -20px;
+    padding-left: 20px;
 
     &:hover {
         box-shadow: none;
