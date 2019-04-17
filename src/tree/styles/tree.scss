@@ -6,6 +6,7 @@
     position: relative;
     padding: $tree-padding;
     color: $gray-700;
+    transform: translateY(-10px);
 
     &-node {
         display: block;
@@ -47,6 +48,7 @@
             }
 
             .thy-tree-node-content {
+                width: 1px;
                 flex: 1;
                 display: flex;
                 align-items: center;
@@ -118,6 +120,7 @@
             flex: 1;
             text-align: right;
             display: none;
+            min-width: 45px;
 
             > a {
                 margin-right: 10px;
