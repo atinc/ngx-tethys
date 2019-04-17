@@ -36,6 +36,8 @@ export class ThyTreeNodeComponent implements OnDestroy {
 
     @Input() thyDraggable = false;
 
+    @Input() thyTitleTruncate = true;
+
     @Input() templateRef: TemplateRef<any>;
 
     @Input() emptyChildrenTemplateRef: TemplateRef<any>;
@@ -79,12 +81,15 @@ export class ThyTreeNodeComponent implements OnDestroy {
         public root: ThyTreeComponent,
         public thyTreeService: ThyTreeService,
         private ngZone: NgZone,
-        private cdr: ChangeDetectorRef,
+        private cdr: ChangeDetectorRef
     ) {
-        this.thyTreeService.statusChanged().pipe(
-            filter(data => data.node.key === this.node.key),
-            takeUntil(this.destroy$)).
-            subscribe(() => {
+        this.thyTreeService
+            .statusChanged()
+            .pipe(
+                filter(data => data.node.key === this.node.key),
+                takeUntil(this.destroy$)
+            )
+            .subscribe(() => {
                 this.markForCheck();
             });
     }

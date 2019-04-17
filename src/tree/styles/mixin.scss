@@ -1,0 +1,23 @@
+@mixin thy-tree-secondary() {
+    .thy-tree-node {
+        &-wrapper {
+            height: 42px;
+
+            .thy-tree-expand {
+                &-icon {
+                    transform: rotate(0);
+
+                    &::before {
+                        content: '\e771';
+                    }
+
+                    &.narrow {
+                        &::before {
+                            content: '\e772';
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -6,14 +6,14 @@ import {
     ViewEncapsulation,
     TemplateRef,
     OnInit,
+    OnChanges,
     EventEmitter,
     ContentChild,
-    ViewChild,
-    ViewContainerRef,
     ComponentFactoryResolver,
     HostBinding,
     NgZone,
-    forwardRef
+    forwardRef,
+    SimpleChanges
 } from '@angular/core';
 import { ThyTreeNodeData, ThyTreeEmitEvent, ThyTreeNode } from './tree.class';
 import { helpers } from '../util';
@@ -21,6 +21,11 @@ import { SortablejsOptions } from 'angular-sortablejs';
 import { ThyTreeService } from './tree.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { UpdateHostClassService } from '../shared/update-host-class.service';
+
+const treeTypeClassMap: any = {
+    secondary: ['thy-tree-secondary']
+};
 
 @Component({
     selector: 'thy-tree',
@@ -32,10 +37,11 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
             useExisting: forwardRef(() => ThyTreeComponent),
             multi: true
         },
-        ThyTreeService
+        ThyTreeService,
+        UpdateHostClassService
     ]
 })
-export class ThyTreeComponent implements ControlValueAccessor, OnInit {
+export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges {
     private _templateRef: TemplateRef<any>;
 
     private _emptyChildrenTemplateRef: TemplateRef<any>;
@@ -52,8 +58,8 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit {
             put: ['tree-node']
         },
         disabled: true,
-        ghostClass: 'thy-tree-item-ghost',
-        chosenClass: 'thy-tree-item-chosen',
+        ghostClass: 'thy-tree-node-ghost',
+        chosenClass: 'thy-tree-node-chosen',
         onStart: this._onDraggableStart.bind(this),
         onAdd: this._onDraggableAdd.bind(this),
         onUpdate: this._onDraggableUpdate.bind(this)
@@ -63,7 +69,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit {
 
     @Input()
     set thyNodes(value: ThyTreeNodeData[]) {
-        this.treeNodes = (value || []).map(node => new ThyTreeNode(node,null, this.thyTreeService));
+        this.treeNodes = (value || []).map(node => new ThyTreeNode(node, null, this.thyTreeService));
         this.thyTreeService.treeNodes = this.treeNodes;
     }
 
@@ -93,17 +99,15 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit {
 
     @Input() thyAsync = false;
 
-    @Output() thyOnClick: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<
-        ThyTreeEmitEvent
-    >();
+    @Input() thyType: string;
 
-    @Output() thyOnExpandChange: EventEmitter<
-        ThyTreeEmitEvent
-    > = new EventEmitter<ThyTreeEmitEvent>();
+    @Input() thyTitleTruncate = true;
 
-    @Output() thyOnDraggableChange: EventEmitter<
-        ThyTreeEmitEvent
-    > = new EventEmitter<ThyTreeEmitEvent>();
+    @Output() thyOnClick: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
+
+    @Output() thyOnExpandChange: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
+
+    @Output() thyOnDraggableChange: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
 
     @ContentChild('treeNodeTemplate')
     set templateRef(template: TemplateRef<any>) {
@@ -116,9 +120,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit {
         return this._templateRef;
     }
 
-    @ContentChild('emptyChildrenTemplate') emptyChildrenTemplate: TemplateRef<
-        any
-    >;
+    @ContentChild('emptyChildrenTemplate') emptyChildrenTemplate: TemplateRef<any>;
     set emptyChildrenTemplateRef(template: TemplateRef<any>) {
         if (template) {
             this._emptyChildrenTemplateRef = template;
@@ -138,13 +140,26 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit {
     private _onChange: (value: any) => void = (_: any) => {};
 
     constructor(
-        private componentFactoryResolver: ComponentFactoryResolver,
         private ngZone: NgZone,
-        public thyTreeService: ThyTreeService
+        public thyTreeService: ThyTreeService,
+        private elementRef: ElementRef,
+        private updateHostClassService: UpdateHostClassService
     ) {}
 
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.thyType && !changes.thyType.isFirstChange) {
+            this._setTreeType();
+        }
+    }
+
     ngOnInit(): void {
+        this.updateHostClassService.initializeElement(this.elementRef.nativeElement);
+        this._setTreeType();
         this._instanceSelectionModel();
+    }
+
+    private _setTreeType() {
+        this.updateHostClassService.addClass(treeTypeClassMap[this.thyType]);
     }
 
     private _instanceSelectionModel() {
@@ -165,10 +180,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit {
         return item.key || index;
     }
 
-    private _formatDraggableEvent(
-        event: any,
-        eventName: string
-    ): ThyTreeEmitEvent {
+    private _formatDraggableEvent(event: any, eventName: string): ThyTreeEmitEvent {
         const dragToElement: HTMLElement = event.to;
         const key = dragToElement.getAttribute('node-key');
         const targetNode = this.thyTreeService.getTreeNode(key);
@@ -191,10 +203,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit {
     }
 
     private _onDraggableUpdate(event: any) {
-        const draggableEvent = this._formatDraggableEvent(
-            event,
-            'draggableChange'
-        );
+        const draggableEvent = this._formatDraggableEvent(event, 'draggableChange');
         this.thyTreeService.resetSortedTreeNodes(this.treeNodes);
         this.ngZone.runTask(() => {
             this.thyOnDraggableChange.emit(draggableEvent);
@@ -202,10 +211,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit {
     }
 
     private _onDraggableAdd(event: any) {
-        const draggableEvent = this._formatDraggableEvent(
-            event,
-            'draggableChange'
-        );
+        const draggableEvent = this._formatDraggableEvent(event, 'draggableChange');
         this.thyTreeService.resetSortedTreeNodes(this.treeNodes);
         this.ngZone.runTask(() => {
             this.thyOnDraggableChange.emit(draggableEvent);
@@ -242,11 +248,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit {
         return this.thyTreeService.getExpandedNodes();
     }
 
-    public addTreeNode(
-        node: ThyTreeNodeData,
-        parent?: ThyTreeNode,
-        index = -1
-    ) {
+    public addTreeNode(node: ThyTreeNodeData, parent?: ThyTreeNode, index = -1) {
         if (parent) {
             parent.addChildren(node, index);
         } else {

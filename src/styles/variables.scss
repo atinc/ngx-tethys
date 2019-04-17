@@ -51,7 +51,8 @@ $link-icon-padding-right: 4px !default;
 $box-shadow: 0 0 24px rgba(0, 0, 0, 0.18) !default;
 $enable-shadows: false !default;
 // font
-$font-family-sans-serif: 'Helvetica Neue', 'Hiragino Sans GB', 'stheiti', 'Microsoft Yahei', '微软雅黑', tahoma, 'sans-serif' !default;
+$font-family-sans-serif: 'Helvetica Neue', 'Hiragino Sans GB', 'stheiti', 'Microsoft Yahei', '微软雅黑', tahoma,
+    'sans-serif' !default;
 $font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !default;
 $font-family-base: $font-family-sans-serif !default;
 $font-size-base: 0.875rem !default; // 14px
@@ -403,6 +404,7 @@ $slide-divider: $gray-100 !default;
 $slide-footer-padding: 15px 20px 0 !default;
 $slide-footer-height: 65px !default;
 //tree
+$tree-padding: 0 20px 0 10px;
 $tree-node-padding: 0 0 0 15px !default;
 $tree-node-wrapper-padding: 0 5px !default;
 $tree-node-wrapper-height: 44px !default;
