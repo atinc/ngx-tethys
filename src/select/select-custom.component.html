@@ -55,5 +55,22 @@
   (backdropClick)="close()"
   (detach)="close()"
 >
-  <select-container #selectContainer [listOfOptionComponent]="_listOfOptionComponent"></select-container>
+  <div class="thy-select-container">
+    <div class="thy-select-search" *ngIf="thyShowSearch">
+      <thy-input-search
+        thyAutofocus
+        name="search"
+        [(ngModel)]="searchText"
+        (ngModelChange)="onSearchFilter()"
+      ></thy-input-search>
+    </div>
+    <ng-container *ngIf="options.length > 0 || optionGroups.length > 0; else emptyPlaceholder">
+      <div class="thy-select-custom-options">
+        <ng-content></ng-content>
+      </div>
+    </ng-container>
+    <ng-template #emptyPlaceholder>
+      <div class="pl-4 pt-1 pb-1 text-placeholder">{{ _emptyStateText }}</div>
+    </ng-template>
+  </div>
 </ng-template>

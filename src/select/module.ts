@@ -5,9 +5,7 @@ import { ThySelectComponent } from './select.component';
 import { ThyInputModule } from '../input/module';
 import { ThySelectCustomComponent } from './select-custom.component';
 import { ThyOptionComponent } from './option.component';
-// import { ThyOptionListComponent } from './option-list.component';
-import { SelectContainerComponent } from './select-container.component';
-import { OptionItemComponent } from './option-item.component';
+import { ThySelectOptionGroupComponent } from './option-group.component';
 import { ThyLabelModule } from '../label/label.module';
 import { SelectPipes } from './select.pipe';
 import { OverlayModule } from '@angular/cdk/overlay';
@@ -18,10 +16,15 @@ import { OverlayModule } from '@angular/cdk/overlay';
         ThySelectComponent,
         ThySelectCustomComponent,
         ThyOptionComponent,
-        SelectContainerComponent,
-        OptionItemComponent,
+        ThySelectOptionGroupComponent,
         SelectPipes
     ],
-    exports: [ThySelectComponent, ThySelectCustomComponent, ThyOptionComponent, SelectPipes]
+    exports: [
+        ThySelectComponent,
+        ThySelectCustomComponent,
+        ThyOptionComponent,
+        ThySelectOptionGroupComponent,
+        SelectPipes
+    ]
 })
 export class ThySelectModule {}

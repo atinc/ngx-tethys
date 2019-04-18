@@ -36,6 +36,7 @@ import {
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { EXPANDED_DROPDOWN_POSITIONS } from '../core/overlay/overlay-opsition-map';
+import { ThySelectOptionGroupComponent } from './option-group.component';
 
 export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -66,6 +67,7 @@ const noop = () => {};
 })
 export class ThySelectCustomComponent
     implements ControlValueAccessor, OnInit, OnDestroy, AfterViewInit, AfterContentInit {
+    searchText: string;
     // 下拉单选时选择的值
     _innerValue: any;
 
@@ -112,7 +114,7 @@ export class ThySelectCustomComponent
     // private cascaderPositon = [...EXPANDED_DROPDOWN_POSITIONS];
     positions: ConnectionPositionPair[] = EXPANDED_DROPDOWN_POSITIONS;
 
-    _listOfOptionComponent: QueryList<ThyOptionComponent>;
+    // _listOfOptionComponent: QueryList<ThyOptionComponent>;
 
     /** The last measured value for the trigger's client bounding rect. */
     triggerRect: ClientRect;
@@ -168,11 +170,11 @@ export class ThySelectCustomComponent
         this._disabled = inputValueToBoolean(value);
     }
 
-    @ContentChildren(ThyOptionComponent)
-    set listOfOptionComponent(value: QueryList<ThyOptionComponent>) {
-        this._listOfOptionComponent = value;
-        this._setSelectedOptions();
-    }
+    // @ContentChildren(ThyOptionComponent)
+    // set listOfOptionComponent(value: QueryList<ThyOptionComponent>) {
+    //     this._listOfOptionComponent = value;
+    //     this._setSelectedOptions();
+    // }
 
     @ContentChild('selectedDisplay') selectedValueDisplayRef: TemplateRef<any>;
 
@@ -187,79 +189,83 @@ export class ThySelectCustomComponent
 
     selectedValueContext: any;
 
-    _setSelectedOptions() {
-        if (this._mode === 'multiple') {
-            if (this._innerValues && this._innerValues.length > 0) {
-                this._selectedOptions = this.findOptionComponents(item => {
-                    return this._innerValues.indexOf(item.thyValue) >= 0;
-                });
-                this._selectedOptions.forEach(item => {
-                    item.selected = true;
-                });
-            } else {
-                this._selectedOptions = [];
-            }
+    // _setSelectedOptions() {
+    //     if (this._mode === 'multiple') {
+    //         if (this._innerValues && this._innerValues.length > 0) {
+    //             this._selectedOptions = this.findOptionComponents(item => {
+    //                 return this._innerValues.indexOf(item.thyValue) >= 0;
+    //             });
+    //             this._selectedOptions.forEach(item => {
+    //                 item.selected = true;
+    //             });
+    //         } else {
+    //             this._selectedOptions = [];
+    //         }
 
-            this.selectedValueContext = {
-                $implicit: this._selectedOptions
-            };
-        } else {
-            // allow value is empty
-            if (isUndefinedOrNull(this._innerValue)) {
-                this._selectedOption = null;
-            } else {
-                this._selectedOption = this.findOneOptionComponent(item => {
-                    return item.thyValue === this._innerValue;
-                });
-            }
-            this.selectedValueContext = {
-                $implicit: this._selectedOption
-                    ? this._selectedOption.thyRawValue || this._selectedOption.thyValue
-                    : null
-            };
-        }
-    }
+    //         this.selectedValueContext = {
+    //             $implicit: this._selectedOptions
+    //         };
+    //     } else {
+    //         // allow value is empty
+    //         if (isUndefinedOrNull(this._innerValue)) {
+    //             this._selectedOption = null;
+    //         } else {
+    //             this._selectedOption = this.findOneOptionComponent(item => {
+    //                 return item.thyValue === this._innerValue;
+    //             });
+    //         }
+    //         this.selectedValueContext = {
+    //             $implicit: this._selectedOption
+    //                 ? this._selectedOption.thyRawValue || this._selectedOption.thyValue
+    //                 : null
+    //         };
+    //     }
+    // }
 
-    findOneOptionComponent(iterate: (option: ThyOptionComponent) => boolean): ThyOptionComponent {
-        let result: ThyOptionComponent;
-        this._listOfOptionComponent.forEach(item => {
-            if (result) {
-                return;
-            }
-            if (item.thyGroupLabel) {
-                if (item.listOfOptionComponent) {
-                    item.listOfOptionComponent.forEach(subItem => {
-                        if (iterate(subItem)) {
-                            result = subItem;
-                        }
-                    });
-                }
-            } else {
-                if (iterate(item)) {
-                    result = item;
-                }
-            }
-        });
-        return result;
-    }
+    // findOneOptionComponent(iterate: (option: ThyOptionComponent) => boolean): ThyOptionComponent {
+    //     let result: ThyOptionComponent;
+    //     this._listOfOptionComponent.forEach(item => {
+    //         if (result) {
+    //             return;
+    //         }
+    //         if (item.thyGroupLabel) {
+    //             if (item.listOfOptionComponent) {
+    //                 item.listOfOptionComponent.forEach(subItem => {
+    //                     if (iterate(subItem)) {
+    //                         result = subItem;
+    //                     }
+    //                 });
+    //             }
+    //         } else {
+    //             if (iterate(item)) {
+    //                 result = item;
+    //             }
+    //         }
+    //     });
+    //     return result;
+    // }
 
-    findOptionComponents(iterate: (option: ThyOptionComponent) => boolean): ThyOptionComponent[] {
-        const result: ThyOptionComponent[] = [];
-        this._listOfOptionComponent.forEach(item => {
-            if (item.thyGroupLabel) {
-                item.listOfOptionComponent.forEach(subItem => {
-                    if (iterate(subItem)) {
-                        result.push(subItem);
-                    }
-                });
-            } else {
-                if (iterate(item)) {
-                    result.push(item);
-                }
-            }
-        });
-        return result;
-    }
+    // findOptionComponents(iterate: (option: ThyOptionComponent) => boolean): ThyOptionComponent[] {
+    //     const result: ThyOptionComponent[] = [];
+    //     this._listOfOptionComponent.forEach(item => {
+    //         if (item.thyGroupLabel) {
+    //             item.listOfOptionComponent.forEach(subItem => {
+    //                 if (iterate(subItem)) {
+    //                     result.push(subItem);
+    //                 }
+    //             });
+    //         } else {
+    //             if (iterate(item)) {
+    //                 result.push(item);
+    //             }
+    //         }
+    //     });
+    //     return result;
+    // }
+
+    @ContentChildren(ThyOptionComponent, { descendants: true }) options: QueryList<ThyOptionComponent>;
+
+    @ContentChildren(ThySelectOptionGroupComponent) optionGroups: QueryList<ThySelectOptionGroupComponent>;
 
     constructor(
         private elementRef: ElementRef,
@@ -311,8 +317,8 @@ export class ThySelectCustomComponent
     }
 
     ngAfterContentInit(): void {
-        this._viewContentInitialized = true;
-        this._setSelectedOptions();
+        // this._viewContentInitialized = true;
+        // this._setSelectedOptions();
     }
 
     writeValue(value: any): void {
@@ -321,9 +327,9 @@ export class ThySelectCustomComponent
         } else {
             this._innerValue = value;
         }
-        if (this._viewContentInitialized) {
-            this._setSelectedOptions();
-        }
+        // if (this._viewContentInitialized) {
+        //     this._setSelectedOptions();
+        // }
     }
 
     registerOnChange(fn: any): void {
@@ -458,6 +464,8 @@ export class ThySelectCustomComponent
             this.changeDetectorRef.detectChanges();
         }
     }
+
+    onSearchFilter() {}
 
     ngOnDestroy() {
         this._destroy$.next();

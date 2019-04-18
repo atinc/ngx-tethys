@@ -35,70 +35,70 @@ export class SelectContainerComponent implements OnInit {
 
     ngOnInit() {}
 
-    selectedOption(option: ThyOptionComponent) {
-        if (option.thyGroupLabel || option.thyDisabled) {
-            return;
-        }
-        this.parent.selectItem(option);
-    }
+    // selectedOption(option: ThyOptionComponent) {
+    //     if (option.thyGroupLabel || option.thyDisabled) {
+    //         return;
+    //     }
+    //     this.parent.selectItem(option);
+    // }
 
-    findOptionComponents(iterate: (option: ThyOptionComponent) => boolean): ThyOptionComponent[] {
-        const result: ThyOptionComponent[] = [];
-        this._listOfOptionComponent.forEach(item => {
-            if (item.thyGroupLabel) {
-                const subOptions = item.filterOptionComponents(iterate);
-                if (subOptions.length > 0) {
-                    result.push(item);
-                }
-            } else {
-                if (iterate(item)) {
-                    result.push(item);
-                }
-            }
-        });
-        return result;
-    }
+    // findOptionComponents(iterate: (option: ThyOptionComponent) => boolean): ThyOptionComponent[] {
+    //     const result: ThyOptionComponent[] = [];
+    //     this._listOfOptionComponent.forEach(item => {
+    //         if (item.thyGroupLabel) {
+    //             const subOptions = item.filterOptionComponents(iterate);
+    //             if (subOptions.length > 0) {
+    //                 result.push(item);
+    //             }
+    //         } else {
+    //             if (iterate(item)) {
+    //                 result.push(item);
+    //             }
+    //         }
+    //     });
+    //     return result;
+    // }
 
-    onSearchFilter() {
-        if (this.parent.thyServerSearch) {
-            this.parent.thyOnSearch.emit(this.searchText);
-            this.isSearch = false;
-        } else {
-            const text = (this.searchText || '').toLowerCase();
-            if (!text) {
-                this.clearSearchText();
-                return;
-            }
-            this.isSearch = true;
-            if (text) {
-                if (this._listOfOptionComponent.length > 0) {
-                    this.showOptionComponents = this.findOptionComponents(item => {
-                        const _searchKey = item.thySearchKey ? item.thySearchKey : item.thyLabelText;
-                        if (_searchKey && _searchKey.toLowerCase().indexOf(text) >= 0) {
-                            return true;
-                        } else {
-                            return false;
-                        }
-                    });
-                } else {
-                    this.showOptionComponents = [];
-                }
-            }
-        }
-    }
+    // onSearchFilter() {
+    //     if (this.parent.thyServerSearch) {
+    //         this.parent.thyOnSearch.emit(this.searchText);
+    //         this.isSearch = false;
+    //     } else {
+    //         const text = (this.searchText || '').toLowerCase();
+    //         if (!text) {
+    //             this.clearSearchText();
+    //             return;
+    //         }
+    //         this.isSearch = true;
+    //         if (text) {
+    //             if (this._listOfOptionComponent.length > 0) {
+    //                 this.showOptionComponents = this.findOptionComponents(item => {
+    //                     const _searchKey = item.thySearchKey ? item.thySearchKey : item.thyLabelText;
+    //                     if (_searchKey && _searchKey.toLowerCase().indexOf(text) >= 0) {
+    //                         return true;
+    //                     } else {
+    //                         return false;
+    //                     }
+    //                 });
+    //             } else {
+    //                 this.showOptionComponents = [];
+    //             }
+    //         }
+    //     }
+    // }
 
-    clearSearchText() {
-        this.searchText = '';
-        this.isSearch = false;
-        this.showOptionComponents = this._listOfOptionComponent ? this._listOfOptionComponent.toArray() : [];
-        this.showOptionComponents.forEach(item => {
-            if (item.thyGroupLabel) {
-                item.resetFilterComponents();
-            }
-        });
-    }
+    // clearSearchText() {
+    //     this.searchText = '';
+    //     this.isSearch = false;
+    //     this.showOptionComponents = this._listOfOptionComponent ? this._listOfOptionComponent.toArray() : [];
+    //     this.showOptionComponents.forEach(item => {
+    //         if (item.thyGroupLabel) {
+    //             item.resetFilterComponents();
+    //         }
+    //     });
+    // }
 
-    ngOnDestroy() {
-        this.clearSearchText();
-    }
+    // ngOnDestroy() {
+    //     this.clearSearchText();
+    // }
 }

@@ -1,3 +1,9 @@
-<ng-template>
-    <ng-content></ng-content>
+<ng-container *ngIf="thyShowOptionCustom; else defaultOption">
+  <ng-content></ng-content>
+</ng-container>
+<ng-template #defaultOption>
+  <span class="ml-1">{{ thyLabelText }}</span>
+  <span class="text-light checked-icon">
+    <i class="wtf wtf-checked"></i>
+  </span>
 </ng-template>
