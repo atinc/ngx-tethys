@@ -1,3 +1,24 @@
+## [7.0.37](https://github.com/worktile/ngx-tethys/compare/7.0.36...7.0.37) (2019-04-18)
+
+
+### Bug Fixes
+
+* **form:** fix form-group-error horizontal state style error ([3425ed0](https://github.com/worktile/ngx-tethys/commit/3425ed0))
+* **tree:** fix tree `addTreeNode` can't find service bug ([ac9b791](https://github.com/worktile/ngx-tethys/commit/ac9b791))
+* `list` 拖动样式 ([a3df3da](https://github.com/worktile/ngx-tethys/commit/a3df3da))
+* `list` 拖动样式 ([0878418](https://github.com/worktile/ngx-tethys/commit/0878418))
+* 修改list拖动 ([93de6b3](https://github.com/worktile/ngx-tethys/commit/93de6b3))
+
+
+### Features
+
+* **dialog:** add size supper-lg and perfect dialog test cases ([a3b2ca3](https://github.com/worktile/ngx-tethys/commit/a3b2ca3))
+* `menu`、`tree`、`list` 拖动的样式 ([f1d16ee](https://github.com/worktile/ngx-tethys/commit/f1d16ee))
+* `menu`、`tree`、`list` 拖动的样式 ([3a08ed0](https://github.com/worktile/ngx-tethys/commit/3a08ed0))
+* `menu`、`tree`、`list` 拖动的样式 ([d77ef97](https://github.com/worktile/ngx-tethys/commit/d77ef97))
+
+
+
 ## [7.0.36](https://github.com/worktile/ngx-tethys/compare/7.0.35...7.0.36) (2019-04-11)
 
 
