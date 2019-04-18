@@ -12,8 +12,6 @@ interface Action {
 }
 
 export class Store<T extends object> implements Observer<T>, OnDestroy {
-    [key: string]: any;
-
     public state$: BehaviorSubject<T>;
 
     public apply_redux_tool = isDevMode();
@@ -111,7 +109,7 @@ export class Store<T extends object> implements Observer<T>, OnDestroy {
         if (helpers.isFunction(fn)) {
             this.next({
                 ...this.snapshot,
-                ...((fn as any)(this.snapshot))
+                ...(fn as any)(this.snapshot)
             });
         } else {
             this.next({
