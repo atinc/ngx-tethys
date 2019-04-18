@@ -303,8 +303,6 @@ export class ThySelectCustomComponent
             this._classNames.push(`thy-select-custom--multiple`);
         }
         this.updateHostClassService.updateClass(this._classNames);
-
-        console.log(this.positions);
     }
 
     ngAfterViewInit(): void {
