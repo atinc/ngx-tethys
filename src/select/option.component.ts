@@ -9,22 +9,37 @@ import {
     QueryList,
     ChangeDetectionStrategy,
     HostBinding,
-    HostListener
+    HostListener,
+    Optional,
+    Inject,
+    ElementRef,
+    InjectionToken
 } from '@angular/core';
+import { ThySelectCustomComponent } from './select-custom.component';
+
+export interface IThySelectOptionParentComponent {
+    // 选择，取消选择 option
+    toggleOption(option: ThyOptionComponent, event?: Event): void;
+    isSelected(option: ThyOptionComponent): boolean;
+}
+
+/**
+ * Injection token used to provide the parent component to options.
+ */
+export const THY_SELECT_OPTION_PARENT_COMPONENT = new InjectionToken<IThySelectOptionParentComponent>(
+    'THY_SELECT_OPTION_PARENT_COMPONENT'
+);
+
 @Component({
     selector: 'thy-option',
-    templateUrl: './option.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    templateUrl: './option.component.html'
 })
-export class ThyOptionComponent implements OnInit {
+export class ThyOptionComponent {
     @Input() thyValue: any;
 
-    // 原始值，用于自定义模板展示内容时回传的对象
     @Input() thyRawValue: any;
 
     @Input() thyLabelText: string;
-
-    @Input() thyDisabled: boolean;
 
     @Input() thyShowOptionCustom: boolean;
 
@@ -34,35 +49,22 @@ export class ThyOptionComponent implements OnInit {
 
     @ViewChild(TemplateRef) template: TemplateRef<any>;
 
-    // @ContentChildren(ThyOptionComponent) listOfOptionComponent: QueryList<ThyOptionComponent>;
+    @Input()
+    @HostBinding(`class.disabled`)
+    thyDisabled: boolean;
 
-    // showOptionComponents: ThyOptionComponent[];
+    @HostBinding(`class.active`)
+    get selected() {
+        return this.parent.isSelected(this);
+    }
 
-    selected = false;
+    constructor(
+        public element: ElementRef<HTMLElement>,
+        @Optional() @Inject(THY_SELECT_OPTION_PARENT_COMPONENT) public parent: IThySelectOptionParentComponent
+    ) {}
 
-    constructor() {}
-
-    ngOnInit() {}
-
-    @HostListener('click')
-    handleSelect() {}
-
-    // ngAfterViewInit() {
-    //     this.showOptionComponents = this.listOfOptionComponent ? this.listOfOptionComponent.toArray() : [];
-    // }
-
-    // filterOptionComponents(iterate: (option: ThyOptionComponent) => boolean): ThyOptionComponent[] {
-    //     const matchComponents: ThyOptionComponent[] = [];
-    //     this.listOfOptionComponent.forEach(item => {
-    //         if (!item.thyGroupLabel && iterate(item)) {
-    //             matchComponents.push(item);
-    //         }
-    //     });
-    //     this.showOptionComponents = matchComponents;
-    //     return matchComponents;
-    // }
-
-    // resetFilterComponents() {
-    //     this.showOptionComponents = this.listOfOptionComponent ? this.listOfOptionComponent.toArray() : [];
-    // }
+    @HostListener('click', ['$event'])
+    onClick(event: Event) {
+        this.parent.toggleOption(this, event);
+    }
 }

@@ -11,43 +11,51 @@
   [class.thy-select-selection]="!_mode"
   [ngClass]="_size ? 'form-control-' + _size : ''"
 >
-  <ng-container *ngIf="!_mode">
-    <span *ngIf="_selectedOption && !selectedValueDisplayRef">{{ _selectedOption.thyLabelText }}</span>
-    <ng-container *ngIf="_selectedOption && selectedValueDisplayRef">
-      <ng-container *ngTemplateOutlet="selectedValueDisplayRef; context: selectedValueContext"></ng-container>
+  <ng-container *ngIf="_mode !== 'multiple'; else multiple">
+    <ng-container *ngIf="selectionModel?.selected.length > 0; else placeHolderTmpl">
+      <ng-container *ngIf="selectedValueDisplayRef">
+        <ng-container *ngTemplateOutlet="selectedValueDisplayRef; context: selectedDisplayContext"></ng-container>
+      </ng-container>
+      <ng-container *ngIf="!selectedValueDisplayRef && selectionModel">
+        <span>{{ (selectionModel?.selected)[0].thyLabelText }}</span>
+      </ng-container>
+      <a
+        class="thy-select-remove remove-link"
+        href="javascript:;"
+        (click)="clearSelectValue($event)"
+        *ngIf="thyAllowClear"
+      >
+        <i class="wtf wtf-times-circle"></i>
+      </a>
     </ng-container>
-    <span class="text-placeholder d-inline-block" *ngIf="!_selectedOption">{{ thyPlaceHolder }}</span>
-    <a
-      class="thy-select-remove remove-link"
-      href="javascript:;"
-      (click)="clearSelectValue($event)"
-      *ngIf="thyAllowClear && _innerValue"
-    >
-      <i class="wtf wtf-times-circle"></i>
-    </a>
   </ng-container>
-  <div [ngClass]="{ 'multiple-value-wrapper': _selectedOptions?.length > 0 }" *ngIf="_mode === 'multiple'">
-    <span
-      class="mr-1"
-      [hidden]="_selectedOptions?.length === 0"
-      *ngFor="let item of _selectedOptions; index as i"
-      thyLabel="default"
-      thyAfterIcon="wtf-times"
-      (click)="remove($event, item, i)"
-    >
-      {{ item?.thyLabelText }}
-    </span>
-    <span class="text-placeholder d-inline-block" *ngIf="_selectedOptions?.length === 0">
+  <ng-template #multiple>
+    <div [ngClass]="{ 'multiple-value-wrapper': _selectedOptions?.length > 0 }">
+      <ng-container *ngIf="selectionModel?.selected.length > 0; else placeHolderTmpl">
+        <span
+          class="mr-1"
+          *ngFor="let item of selectionModel.selected; index as i"
+          thyLabel="default"
+          thyAfterIcon="wtf-times"
+          (click)="remove($event, item, i)"
+        >
+          {{ item.thyLabelText }}
+        </span>
+      </ng-container>
+    </div>
+  </ng-template>
+  <ng-template #placeHolderTmpl>
+    <span class="text-placeholder d-inline-block">
       {{ thyPlaceHolder }}
     </span>
-  </div>
+  </ng-template>
 </div>
 
 <ng-template
   cdk-connected-overlay
+  cdkConnectedOverlayLockPosition
   cdkConnectedOverlayHasBackdrop
   [cdkConnectedOverlayPositions]="positions"
-  (positionChange)="onPositionChange($event)"
   cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
   [cdkConnectedOverlayOrigin]="origin"
   [cdkConnectedOverlayOpen]="_expandOptions"
