@@ -5,16 +5,32 @@
   #trigger
   class="form-control form-control-custom"
   [class.disabled]="_disabled"
-  [class.thy-select-selection]="!_mode"
+  [class.thy-select-selection]="!thyMode"
   [ngClass]="_size ? 'form-control-' + _size : ''"
 >
-  <ng-container *ngIf="_mode !== 'multiple'; else multiple">
-    <ng-container *ngIf="selectionModel?.selected.length > 0; else placeHolderTmpl">
-      <ng-container *ngIf="selectedValueDisplayRef">
+  <ng-container [ngSwitch]="empty">
+    <span class="text-placeholder d-inline-block" *ngSwitchCase="true">
+      {{ thyPlaceHolder }}
+    </span>
+    <ng-container *ngSwitchCase="false" [ngSwitch]="!!selectedValueDisplayRef">
+      <ng-container *ngSwitchCase="true">
         <ng-container *ngTemplateOutlet="selectedValueDisplayRef; context: selectedDisplayContext"></ng-container>
       </ng-container>
-      <ng-container *ngIf="!selectedValueDisplayRef && selectionModel">
-        <span>{{ (selectionModel?.selected)[0].thyLabelText }}</span>
+      <ng-container *ngSwitchDefault [ngSwitch]="thyMode">
+        <ng-container *ngSwitchCase="'multiple'">
+          <span
+            class="mr-1"
+            *ngFor="let item of triggerValue; index as i"
+            thyLabel="default"
+            thyAfterIcon="wtf-times"
+            (click)="remove($event, item, i)"
+          >
+            {{ item.thyLabelText }}
+          </span>
+        </ng-container>
+        <ng-container *ngSwitchDefault>
+          <span>{{ triggerValue.thyLabelText }}</span>
+        </ng-container>
       </ng-container>
       <a
         class="thy-select-remove remove-link"
@@ -26,26 +42,6 @@
       </a>
     </ng-container>
   </ng-container>
-  <ng-template #multiple>
-    <div [ngClass]="{ 'multiple-value-wrapper': _selectedOptions?.length > 0 }">
-      <ng-container *ngIf="selectionModel?.selected.length > 0; else placeHolderTmpl">
-        <span
-          class="mr-1"
-          *ngFor="let item of selectionModel.selected; index as i"
-          thyLabel="default"
-          thyAfterIcon="wtf-times"
-          (click)="remove($event, item, i)"
-        >
-          {{ item.thyLabelText }}
-        </span>
-      </ng-container>
-    </div>
-  </ng-template>
-  <ng-template #placeHolderTmpl>
-    <span class="text-placeholder d-inline-block">
-      {{ thyPlaceHolder }}
-    </span>
-  </ng-template>
 </div>
 
 <ng-template

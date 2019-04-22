@@ -95,7 +95,7 @@ export class ThySelectCustomComponent
 
     public dropDownPosition = 'bottom';
 
-    selectionModel: SelectionModel<ThyOptionComponent>;
+    _selectionModel: SelectionModel<ThyOptionComponent>;
 
     positions: ConnectionPositionPair[] = EXPANDED_DROPDOWN_POSITIONS;
 
@@ -131,6 +131,10 @@ export class ThySelectCustomComponent
         this._mode = value;
     }
 
+    get thyMode(): SelectMode {
+        return this._mode;
+    }
+
     @Input()
     set thySize(value: InputSize) {
         this._size = value;
@@ -153,11 +157,43 @@ export class ThySelectCustomComponent
         this._disabled = inputValueToBoolean(value);
     }
 
+    /** Whether the select has a value. */
+    get empty(): boolean {
+        return !this._selectionModel || this._selectionModel.isEmpty();
+    }
+
+    /** The value displayed in the trigger. */
+    get triggerValue(): ThyOptionComponent | ThyOptionComponent[] {
+        if (this.empty) {
+            return null;
+        }
+        if (this.thyMode === 'multiple') {
+            return this._selectionModel.selected;
+        }
+        return this._selectionModel.selected[0];
+    }
+
+    get selectedDisplayContext(): any {
+        const selectedValues = this._selectionModel.selected;
+        if (selectedValues.length === 0) {
+            return null;
+        }
+        const context = selectedValues.map((option: ThyOptionComponent) => {
+            return option.thyRawValue || option.thyValue;
+        });
+        if (this.thyMode === 'multiple') {
+            return {
+                $implicit: context
+            };
+        } else {
+            return {
+                $implicit: context[0]
+            };
+        }
+    }
     @ContentChild('selectedDisplay') selectedValueDisplayRef: TemplateRef<any>;
 
     @ViewChild('trigger') trigger: ElementRef<any>;
-
-    selectedDisplayContext: any;
 
     @ContentChildren(ThyOptionComponent, { descendants: true }) options: QueryList<ThyOptionComponent>;
 
@@ -187,8 +223,7 @@ export class ThySelectCustomComponent
             });
         this._instanceSelectionModel();
         if (this._modalValue) {
-            this._resetSelectedOption(this._modalValue);
-            this._setSelectedValueContext();
+            this._setSelectedOption(this._modalValue);
         }
         if (this._size) {
             this._classNames.push(`thy-select-${this._size}`);
@@ -199,36 +234,20 @@ export class ThySelectCustomComponent
         this.updateHostClassService.updateClass(this._classNames);
     }
 
-    // ngAfterViewInit(): void {
-    //     // this._viewContentInitialized = true;
-    //     // this._setSelectedOptions();
-    // }
-
-    // ngAfterContentInit(): void {
-    //     // this._viewContentInitialized = true;
-    //     // this._setSelectedOptions();
-    // }
-
     writeValue(value: any): void {
         this._modalValue = value;
+        console.log(this._modalValue);
         if (this.options && this.options.length > 0) {
-            this._resetSelectedOption(this._modalValue);
-            this._setSelectedValueContext();
+            this._setSelectedOption(this._modalValue);
         }
-        // } else {
-        //     // this._innerValue = value;
-        // }
-        // if (this._viewContentInitialized) {
-        //     this._setSelectedOptions();
-        // }
     }
 
     get panelOpen(): boolean {
         return this._panelOpen;
     }
 
-    _resetSelectedOption(modalValue: any) {
-        this.selectionModel.clear();
+    _setSelectedOption(modalValue: any) {
+        this._selectionModel.clear();
         if (!modalValue) {
             return;
         }
@@ -239,7 +258,7 @@ export class ThySelectCustomComponent
                         return itemValue === option.thyValue;
                     });
                     if (index >= 0) {
-                        this.selectionModel.select(option);
+                        this._selectionModel.select(option);
                     }
                 });
             }
@@ -247,7 +266,9 @@ export class ThySelectCustomComponent
             const selectedOption = this.options.find(option => {
                 return option.thyValue === modalValue;
             });
-            this.selectionModel.select(selectedOption);
+            if (selectedOption) {
+                this._selectionModel.select(selectedOption);
+            }
         }
     }
 
@@ -259,13 +280,9 @@ export class ThySelectCustomComponent
         this.onTouchedCallback = fn;
     }
 
-    // valueOnChange(value: any) {
-    //     this.onChangeCallback(value);
-    // }
-
     private _emitModelValueChange() {
         if (this.options.length > 0) {
-            const selectedValues = this.selectionModel.selected;
+            const selectedValues = this._selectionModel.selected;
             const changeValue = selectedValues.map((option: ThyOptionComponent) => {
                 return option.thyValue;
             });
@@ -281,26 +298,6 @@ export class ThySelectCustomComponent
         }
     }
 
-    private _setSelectedValueContext() {
-        const selectedValues = this.selectionModel.selected;
-        if (selectedValues.length === 0) {
-            this.selectedDisplayContext = null;
-            return;
-        }
-        const context = selectedValues.map((option: ThyOptionComponent) => {
-            return option.thyRawValue || option.thyValue;
-        });
-        if (this._mode === 'multiple') {
-            this.selectedDisplayContext = {
-                $implicit: context
-            };
-        } else {
-            this.selectedDisplayContext = {
-                $implicit: context[0]
-            };
-        }
-    }
-
     remove(event: Event, item: ThyOptionComponent, index: number) {
         event.stopPropagation();
         this.toggleOption(item);
@@ -308,9 +305,8 @@ export class ThySelectCustomComponent
 
     clearSelectValue(event: Event) {
         event.stopPropagation();
-        this.selectionModel.clear();
+        this._selectionModel.clear();
         this._emitModelValueChange();
-        this._setSelectedValueContext();
     }
 
     /** Toggles the overlay panel open or closed. */
@@ -337,22 +333,21 @@ export class ThySelectCustomComponent
     onSearchFilter() {}
 
     private _instanceSelectionModel() {
-        this.selectionModel = new SelectionModel<ThyOptionComponent>(this._mode === 'multiple');
+        this._selectionModel = new SelectionModel<ThyOptionComponent>(this._mode === 'multiple');
     }
 
     toggleOption(option: ThyOptionComponent, event?: Event) {
         if (option && !option.thyDisabled) {
-            this.selectionModel.toggle(option);
-            if (this._mode !== 'multiple' && this.selectionModel.selected.length === 1) {
+            this._selectionModel.toggle(option);
+            if (this._mode !== 'multiple' && this._selectionModel.selected.length === 1) {
                 this.close();
             }
             this._emitModelValueChange();
-            this._setSelectedValueContext();
         }
     }
 
     isSelected(option: ThyOptionComponent): boolean {
-        return this.selectionModel.isSelected(option);
+        return this._selectionModel.isSelected(option);
     }
     ngOnDestroy() {
         this._destroy$.next();
