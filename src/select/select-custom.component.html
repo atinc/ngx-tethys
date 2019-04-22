@@ -1,6 +1,3 @@
-<ng-template #option>
-  <ng-content></ng-content>
-</ng-template>
 <div
   cdk-overlay-origin
   (click)="toggle($event)"
@@ -58,7 +55,7 @@
   [cdkConnectedOverlayPositions]="positions"
   cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
   [cdkConnectedOverlayOrigin]="origin"
-  [cdkConnectedOverlayOpen]="_expandOptions"
+  [cdkConnectedOverlayOpen]="panelOpen"
   [cdkConnectedOverlayMinWidth]="triggerRect?.width"
   (backdropClick)="close()"
   (detach)="close()"

@@ -114,7 +114,7 @@ export class ThySelectCustomComponent
     @HostBinding('class.thy-select') _isSelect = true;
 
     // 下拉选项是否展示
-    @HostBinding('class.menu-is-opened') _expandOptions = false;
+    @HostBinding('class.menu-is-opened') _panelOpen = false;
 
     @Output() thyOnSearch: EventEmitter<any> = new EventEmitter<any>();
 
@@ -166,7 +166,6 @@ export class ThySelectCustomComponent
     constructor(
         private elementRef: ElementRef,
         private updateHostClassService: UpdateHostClassService,
-        private thyPositioningService: ThyPositioningService,
         private renderer: Renderer2,
         private overlay: Overlay,
         private viewportRuler: ViewportRuler,
@@ -176,14 +175,13 @@ export class ThySelectCustomComponent
     }
 
     ngOnInit() {
-        this.triggerRect = this.trigger.nativeElement.getBoundingClientRect();
         this._scrollStrategy = this.overlay.scrollStrategies.reposition();
         this.viewportRuler
             .change()
             .pipe(takeUntil(this._destroy$))
             .subscribe(() => {
-                this.triggerRect = this.trigger.nativeElement.getBoundingClientRect();
-                if (this._expandOptions) {
+                if (this._panelOpen) {
+                    this.triggerRect = this.trigger.nativeElement.getBoundingClientRect();
                     this.changeDetectorRef.markForCheck();
                 }
             });
@@ -223,6 +221,10 @@ export class ThySelectCustomComponent
         // if (this._viewContentInitialized) {
         //     this._setSelectedOptions();
         // }
+    }
+
+    get panelOpen(): boolean {
+        return this._panelOpen;
     }
 
     _resetSelectedOption(modalValue: any) {
@@ -313,17 +315,22 @@ export class ThySelectCustomComponent
 
     /** Toggles the overlay panel open or closed. */
     toggle(): void {
-        // this._expandOptions ? this.close() : this.open();
-        if (this._disabled) {
+        this._panelOpen ? this.close() : this.open();
+    }
+
+    open(): void {
+        if (this._disabled || !this.options || !this.options.length || this._panelOpen) {
             return;
         }
-        this._expandOptions = !this._expandOptions;
+        this.triggerRect = this.trigger.nativeElement.getBoundingClientRect();
+        this._panelOpen = true;
     }
 
     /** Closes the overlay panel and focuses the host element. */
     close(): void {
-        if (this._expandOptions) {
-            this._expandOptions = false;
+        if (this._panelOpen) {
+            this._panelOpen = false;
+            this.changeDetectorRef.markForCheck();
         }
     }
 
