@@ -1,26 +1,27 @@
 import {
     Component,
     Input,
-    OnInit,
-    AfterViewInit,
     TemplateRef,
     ViewChild,
-    ContentChildren,
-    QueryList,
     ChangeDetectionStrategy,
     HostBinding,
     HostListener,
-    Optional,
-    Inject,
     ElementRef,
-    InjectionToken
+    InjectionToken,
+    ChangeDetectorRef,
+    EventEmitter,
+    OnDestroy,
+    Output,
+    Inject,
+    Optional
 } from '@angular/core';
-import { ThySelectCustomComponent } from './select-custom.component';
+export class OptionSelectionChange {
+    option: ThyOptionComponent;
+    selected: boolean;
+}
 
 export interface IThySelectOptionParentComponent {
-    // 选择，取消选择 option
-    toggleOption(option: ThyOptionComponent, event?: Event): void;
-    isSelected(option: ThyOptionComponent): boolean;
+    thyMode: 'multiple' | '';
 }
 
 /**
@@ -32,9 +33,11 @@ export const THY_SELECT_OPTION_PARENT_COMPONENT = new InjectionToken<IThySelectO
 
 @Component({
     selector: 'thy-option',
-    templateUrl: './option.component.html'
+    templateUrl: './option.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ThyOptionComponent {
+export class ThyOptionComponent implements OnDestroy {
+    private _selected = false;
     @Input() thyValue: any;
 
     @Input() thyRawValue: any;
@@ -53,10 +56,13 @@ export class ThyOptionComponent {
     @HostBinding(`class.disabled`)
     thyDisabled: boolean;
 
+    /** Whether or not the option is currently selected. */
     @HostBinding(`class.active`)
-    get selected() {
-        return this.parent.isSelected(this);
+    get selected(): boolean {
+        return this._selected;
     }
+
+    @Output() readonly selectionChange: EventEmitter<OptionSelectionChange> = new EventEmitter();
 
     constructor(
         public element: ElementRef<HTMLElement>,
@@ -65,6 +71,36 @@ export class ThyOptionComponent {
 
     @HostListener('click', ['$event'])
     onClick(event: Event) {
-        this.parent.toggleOption(this, event);
+        if (this.parent.thyMode === 'multiple') {
+            this._selected ? this.deselect() : this.select();
+        } else {
+            this.select();
+        }
     }
+
+    /** Selects the option. */
+    select(event?: Event): void {
+        if (!this.thyDisabled) {
+            if (!this._selected) {
+                this._selected = true;
+                this.selectionChange.emit({
+                    option: this,
+                    selected: this._selected
+                });
+            }
+        }
+    }
+
+    /** Deselects the option. */
+    deselect(): void {
+        if (this._selected) {
+            this._selected = false;
+            this.selectionChange.emit({
+                option: this,
+                selected: this._selected
+            });
+        }
+    }
+
+    ngOnDestroy() {}
 }

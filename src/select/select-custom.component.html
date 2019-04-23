@@ -20,7 +20,7 @@
         <ng-container *ngSwitchCase="'multiple'">
           <span
             class="mr-1"
-            *ngFor="let item of triggerValue; index as i"
+            *ngFor="let item of selected; index as i"
             thyLabel="default"
             thyAfterIcon="wtf-times"
             (click)="remove($event, item, i)"
@@ -29,7 +29,7 @@
           </span>
         </ng-container>
         <ng-container *ngSwitchDefault>
-          <span>{{ triggerValue.thyLabelText }}</span>
+          <span>{{ selected.thyLabelText }}</span>
         </ng-container>
       </ng-container>
       <a

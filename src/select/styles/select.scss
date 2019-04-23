@@ -81,29 +81,36 @@ select.form-control-md {
     display: block;
     width: 100%;
     position: relative;
-
     &:after {
         transition: transform 200ms;
     }
-
+    & .form-control-custom {
+        cursor: pointer;
+    }
+    & .form-control-custom.disabled {
+        cursor: default;
+    }
     // 打开状态
     &.menu-is-opened {
         .form-control-custom {
             border-color: $input-hover-border-color;
         }
-
         &:after {
             transform: rotate(180deg);
         }
     }
 
     .form-control {
-        cursor: pointer;
         .thy-label-default {
             color: $body-color !important;
 
             i.wtf-times {
                 color: $info;
+            }
+        }
+        &.disabled {
+            i.wtf-times {
+                cursor: default;
             }
         }
     }
