@@ -357,6 +357,7 @@ export class ThySelectCustomComponent
     }
 
     open(): void {
+        console.log(this.searchText);
         if (this._disabled || !this.options || !this.options.length || this._panelOpen) {
             return;
         }
@@ -372,7 +373,19 @@ export class ThySelectCustomComponent
         }
     }
 
-    onSearchFilter() {}
+    onSearchFilter() {
+        if (this.thyServerSearch) {
+            this.thyOnSearch.emit(this.searchText);
+        } else {
+            this.options.forEach(option => {
+                if (option.matchSearchText(this.searchText)) {
+                    option.showOption();
+                } else {
+                    option.hideOption();
+                }
+            });
+        }
+    }
 
     private _instanceSelectionModel() {
         this._selectionModel = new SelectionModel<ThyOptionComponent>(this._mode === 'multiple');

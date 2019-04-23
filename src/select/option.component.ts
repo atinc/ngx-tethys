@@ -20,6 +20,10 @@ export class OptionSelectionChange {
     selected: boolean;
 }
 
+export class OptionVisiableChange {
+    option: ThyOptionComponent;
+}
+
 export interface IThySelectOptionParentComponent {
     thyMode: 'multiple' | '';
 }
@@ -38,6 +42,7 @@ export const THY_SELECT_OPTION_PARENT_COMPONENT = new InjectionToken<IThySelectO
 })
 export class ThyOptionComponent implements OnDestroy {
     private _selected = false;
+    private _hidden = false;
     @Input() thyValue: any;
 
     @Input() thyRawValue: any;
@@ -56,6 +61,11 @@ export class ThyOptionComponent implements OnDestroy {
     @HostBinding(`class.disabled`)
     thyDisabled: boolean;
 
+    @HostBinding('class.hidden')
+    get hidden(): boolean {
+        return this._hidden;
+    }
+
     /** Whether or not the option is currently selected. */
     @HostBinding(`class.active`)
     get selected(): boolean {
@@ -63,6 +73,7 @@ export class ThyOptionComponent implements OnDestroy {
     }
 
     @Output() readonly selectionChange: EventEmitter<OptionSelectionChange> = new EventEmitter();
+    @Output() readonly visiableChange: EventEmitter<OptionVisiableChange> = new EventEmitter();
 
     constructor(
         public element: ElementRef<HTMLElement>,
@@ -99,6 +110,36 @@ export class ThyOptionComponent implements OnDestroy {
                 option: this,
                 selected: this._selected
             });
+        }
+    }
+
+    hideOption() {
+        if (!this._hidden) {
+            this._hidden = true;
+            this.visiableChange.emit({ option: this });
+        }
+    }
+
+    showOption() {
+        if (this._hidden) {
+            this._hidden = false;
+            this.visiableChange.emit({ option: this });
+        }
+    }
+
+    matchSearchText(searchText: string): boolean {
+        if (this.thySearchKey) {
+            if (this.thySearchKey.indexOf(searchText) >= 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            if (this.thyLabelText.indexOf(searchText) >= 0) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 

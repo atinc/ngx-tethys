@@ -161,6 +161,9 @@ select.form-control-md {
         .checked-icon {
             visibility: hidden;
         }
+        &.hidden {
+            display: none;
+        }
         // height: 40px;
         // color: $secondary;
         // cursor: pointer;
@@ -187,6 +190,9 @@ select.form-control-md {
     }
 
     .thy-option-item-group {
+        &.thy-select-option-group-hidden {
+            display: none;
+        }
         flex-direction: column;
         .group-name {
             width: 100%;
