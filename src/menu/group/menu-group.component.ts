@@ -2,6 +2,7 @@ import { Component, OnInit, HostBinding, Input, Output, EventEmitter, ElementRef
 import { ThyPopBoxService } from '../../pop-box';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { ComponentType } from '@angular/cdk/portal';
+import { ThyMenuComponent } from '../menu.component';
 
 @Component({
     selector: 'thy-menu-group, [thy-menu-group],[thyMenuGroup]',
