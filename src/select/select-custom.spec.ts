@@ -14,6 +14,7 @@ import { ThySelectComponent } from './select.component';
 import { ThyFormModule } from '../form';
 import { dispatchFakeEvent, dispatchKeyboardEvent } from '../core/testing/dispatcher-events';
 import { TAB, ESCAPE } from '../util/keycodes';
+import { typeInElement } from '../core/testing';
 
 describe('ThyCustomSelect', () => {
     let overlayContainer: OverlayContainer;
@@ -350,13 +351,131 @@ describe('ThyCustomSelect', () => {
 
     describe('search logic', () => {
         beforeEach(async(() => {
-            configureThyCustomSelectTestingModule([SelectWithSearchComponent]);
+            configureThyCustomSelectTestingModule([
+                SelectWithSearchComponent,
+                SelectWithSearchAndGroupComponent,
+                SelectWithSearchUseSearchKeyComponent,
+                SelectWithSearchAndServerSearchComponent
+            ]);
         }));
-        it('should show thy-input-search when set thyShowSearch', fakeAsync(() => {}));
-        it('should hide some options that can not be searched', fakeAsync(() => {}));
-        it('should show some options that can be searched', fakeAsync(() => {}));
-        it('should search option use thySearchKey', fakeAsync(() => {}));
-        it('should hide the thy-group when all options of the group is hidden', fakeAsync(() => {}));
+        it('should show thy-input-search when set thyShowSearch', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectWithSearchComponent);
+            fixture.detectChanges();
+
+            expect(fixture.componentInstance.select.thyShowSearch).toBe(false);
+
+            fixture.componentInstance.thyShowSearch = true;
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+
+            expect(fixture.componentInstance.select.thyShowSearch).toBe(true);
+            expect(overlayContainerElement.querySelector('thy-input-search')).not.toBeNull();
+        }));
+        it('should hide the options that can not be searched', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectWithSearchComponent);
+            fixture.detectChanges();
+            fixture.componentInstance.thyShowSearch = true;
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+
+            const input = overlayContainerElement.querySelector('input');
+
+            typeInElement('Steak', input);
+            fixture.detectChanges();
+            flush();
+
+            const options = fixture.componentInstance.select.options.toArray();
+
+            expect(options[0].hidden).toBe(false);
+            expect(options[1].hidden).toBe(true);
+            const optionNodes = overlayContainerElement.querySelectorAll('thy-option') as NodeListOf<HTMLElement>;
+            expect(optionNodes[0].classList).not.toContain('hidden');
+            expect(optionNodes[1].classList).toContain('hidden');
+
+            typeInElement('', input);
+            fixture.detectChanges();
+            flush();
+
+            expect(options[0].hidden).toBe(false);
+            expect(options[1].hidden).toBe(false);
+            expect(optionNodes[0].classList).not.toContain('hidden');
+            expect(optionNodes[1].classList).not.toContain('hidden');
+        }));
+        it('should search option use thySearchKey', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectWithSearchUseSearchKeyComponent);
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            fixture.detectChanges();
+            trigger.click();
+            fixture.detectChanges();
+
+            const input = overlayContainerElement.querySelector('input');
+
+            typeInElement('lrs', input);
+            fixture.detectChanges();
+            flush();
+
+            const options = fixture.componentInstance.select.options.toArray();
+            const optionNodes = overlayContainerElement.querySelectorAll('thy-option') as NodeListOf<HTMLElement>;
+
+            expect(options[1].hidden).toBe(false);
+            expect(optionNodes[1].classList).not.toContain('hidden');
+
+            typeInElement('other', input);
+            fixture.detectChanges();
+            flush();
+
+            expect(options[1].hidden).toBe(true);
+            expect(optionNodes[1].classList).toContain('hidden');
+        }));
+        // it('should hide the thy-group when all options of the group is hidden', fakeAsync(() => {
+        //     const fixture = TestBed.createComponent(SelectWithSearchAndGroupComponent);
+        //     const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+
+        //     fixture.detectChanges();
+        //     trigger.click();
+        //     fixture.detectChanges();
+
+        //     // const groups = fixture.componentInstance.select.optionGroups.toArray();
+        //     // const options = fixture.componentInstance.select.options.toArray();
+        //     const input = overlayContainerElement.querySelector('input');
+        //     console.log(input);
+        //     // fixture.detectChanges();
+        //     flush();
+        //     flush();
+
+        //     typeInElement('f', input);
+        //     flush();
+        //     flush();
+        //     // fixture.detectChanges();
+        //     // flush();
+
+        //     // expect(groups[0].hidden).toBe(false);
+        //     // expect(groups[1].hidden).toBe(true);
+
+        //     // typeInElement('cat2', input);
+        //     // fixture.detectChanges();
+        //     // flush();
+
+        //     // expect(groups[0].hidden).not.toBe(true);
+        //     // expect(groups[1].hidden).not.toBe(true);
+        // }));
+        it('should exec thyOnSearch when thyServerSearch is true', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectWithSearchAndServerSearchComponent);
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            fixture.detectChanges();
+            trigger.click();
+            fixture.detectChanges();
+
+            const spy = fixture.componentInstance.thyOnSearch;
+            const input = overlayContainerElement.querySelector('input');
+            typeInElement('milk', input);
+            fixture.detectChanges();
+            tick();
+
+            expect(spy).toHaveBeenCalledTimes(1);
+        }));
     });
 });
 
@@ -495,7 +614,7 @@ class SelectEarlyAccessSiblingComponent {}
     selector: 'select-with-search',
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-custom-select thyPlaceHolder="Food" thyShowSearch="true">
+            <thy-custom-select thyPlaceHolder="Food" [thyShowSearch]="thyShowSearch">
                 <thy-option
                     *ngFor="let food of foods"
                     [thyValue]="food.value"
@@ -518,8 +637,54 @@ class SelectWithSearchComponent {
         { value: 'pasta-6', viewValue: 'Pasta' },
         { value: 'sushi-7', viewValue: 'Sushi' }
     ];
+    thyShowSearch = false;
     control = new FormControl();
     isRequired: boolean;
+    @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
+    @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
+}
+
+@Component({
+    selector: 'select-with-search',
+    template: `
+        <form thyForm name="demoForm" #demoForm="ngForm">
+            <thy-custom-select thyPlaceHolder="team-members" [thyShowSearch]="thyShowSearch">
+                <thy-option
+                    *ngFor="let member of teamMembers"
+                    [thyValue]="member.id"
+                    [thyLabelText]="member.name"
+                    thySearchKey="{{ member.name }},{{ member.pin_yin }}"
+                >
+                </thy-option>
+            </thy-custom-select>
+        </form>
+    `
+})
+class SelectWithSearchUseSearchKeyComponent {
+    teamMembers: any[] = [
+        {
+            _id: 'sadfasdfasdfasfdasdfs5',
+            name: '公告',
+            pin_yin: 'gg'
+        },
+        {
+            _id: 'sadfasdfasdfasfdasdfs6',
+            name: '狼人杀',
+            pin_yin: 'lrs'
+        },
+        {
+            _id: 'sadfasdfasdfasfdasdfs7',
+            name: '前端',
+            pin_yin: 'qd'
+        },
+        {
+            _id: 'sadfasdfasdfasfdasdfs8',
+            name: '小菲',
+            pin_yin: 'xf'
+        }
+    ];
+    thyShowSearch = true;
+    control = new FormControl();
     @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
     @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
 }
@@ -528,7 +693,7 @@ class SelectWithSearchComponent {
     selector: 'select-with-group-search',
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-custom-select thyPlaceHolder="Pokemon" [formControl]="control">
+            <thy-custom-select thyPlaceHolder="Pokemon" [thyShowSearch]="true" [formControl]="control">
                 <thy-option-group *ngFor="let group of pokemonTypes" [thyGroupLabel]="group.name">
                     <ng-container *ngFor="let pokemon of group.pokemon">
                         <thy-option [thyValue]="pokemon.value" [thyLabelText]="pokemon.viewValue"></thy-option>
@@ -543,11 +708,55 @@ class SelectWithSearchAndGroupComponent {
     pokemonTypes = [
         {
             name: 'Grass',
-            pokemon: [{ value: 'bulbasaur-0', viewValue: 'Bulbasaur' }]
+            pokemon: [{ value: 'bulbasaur-0', viewValue: 'Bulbasaur' }, { value: 'cat-0', viewValue: 'Cat' }]
         },
         {
-            name: 'Grass',
-            pokemon: [{ value: 'bulbasaur-0', viewValue: 'Bulbasaur' }]
+            name: 'animals',
+            pokemon: [{ value: 'pet-0', viewValue: 'Pet' }, { value: 'monkey-0', viewValue: 'Monkey' }]
         }
     ];
+
+    @ViewChild(ThySelectCustomComponent)
+    select: ThySelectCustomComponent;
+}
+
+@Component({
+    selector: 'select-with-search',
+    template: `
+        <form thyForm name="demoForm" #demoForm="ngForm">
+            <thy-custom-select
+                thyPlaceHolder="Food"
+                name="foods"
+                [thyShowSearch]="thyShowSearch"
+                [thyServerSearch]="true"
+                (thyOnSearch)="thyOnSearch()"
+            >
+                <thy-option
+                    *ngFor="let food of foods"
+                    [thyValue]="food.value"
+                    [thyDisabled]="food.disabled"
+                    [thyLabelText]="food.viewValue"
+                >
+                </thy-option>
+            </thy-custom-select>
+        </form>
+    `
+})
+class SelectWithSearchAndServerSearchComponent {
+    foods: any[] = [
+        { value: 'steak-0', viewValue: 'Steak' },
+        { value: 'pizza-1', viewValue: 'Pizza' },
+        { value: 'tacos-2', viewValue: 'Tacos', disabled: true },
+        { value: 'sandwich-3', viewValue: 'Sandwich' },
+        { value: 'chips-4', viewValue: 'Chips' },
+        { value: 'eggs-5', viewValue: 'Eggs' },
+        { value: 'pasta-6', viewValue: 'Pasta' },
+        { value: 'sushi-7', viewValue: 'Sushi' }
+    ];
+    selected = this.foods[7];
+    thyShowSearch = true;
+    control = new FormControl();
+    @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
+    @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
+    thyOnSearch = jasmine.createSpy('thyServerSearch callback');
 }
