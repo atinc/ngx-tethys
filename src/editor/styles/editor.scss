@@ -4,26 +4,25 @@
 *brower : ie10+ chrome firefox safari opera
 */
 
-
 /***common color****/
 
-$layout-boder:$gray-210;
-$layout-bg:$white;
-$layout-shadow:rgba(0, 0, 0, 0.15);
-$layout-toolbar-bg:$white;
-$layout-toolbar-border:$gray-200;
-$layout-toolbar-icon-bg:$gray-300;
-$layout-toolbar-icon-color:$gray-800;
-$layout-toolbar-icon-border:$gray-400;
-$layout-toolbar-dividor-bg:$gray-400;
-$layout-toolbar-active-bg:$gray-200;
-$layout-code-content:$white;
-$layout-code-content-shadow:$gray-200;
-$layout-code-line:$gray-100;
-$layout-code-line-color:$gray-300;
-$layout-table-menu-bg:$gray-100;
-$layout-table-menu-hover:$gray-400;
-$text-placeholder:$gray-400;
+$layout-boder: $gray-210;
+$layout-bg: $white;
+$layout-shadow: rgba(0, 0, 0, 0.15);
+$layout-toolbar-bg: $white;
+$layout-toolbar-border: $gray-200;
+$layout-toolbar-icon-bg: $gray-300;
+$layout-toolbar-icon-color: $gray-800;
+$layout-toolbar-icon-border: $gray-400;
+$layout-toolbar-dividor-bg: $gray-400;
+$layout-toolbar-active-bg: $gray-200;
+$layout-code-content: $white;
+$layout-code-content-shadow: $gray-200;
+$layout-code-line: $gray-100;
+$layout-code-line-color: $gray-300;
+$layout-table-menu-bg: $gray-100;
+$layout-table-menu-hover: $gray-400;
+$text-placeholder: $gray-400;
 
 /***layout***/
 
@@ -161,7 +160,7 @@ $text-placeholder:$gray-400;
         -webkit-flex-direction: row;
         flex-basis: auto;
         &.height-auto {
-            flex: inherit!important;
+            flex: inherit !important;
         }
     }
     .thy-editor-container-code {
@@ -260,7 +259,6 @@ $text-placeholder:$gray-400;
         }
     }
     &-simple {
-        border: 1px $primary solid;
         min-height: 200px;
         border-radius: 3px;
         .thy-editor-toobar {
@@ -288,5 +286,8 @@ $text-placeholder:$gray-400;
                 min-height: 160px;
             }
         }
+    }
+    &-focus {
+        border: 1px $primary solid;
     }
 }
