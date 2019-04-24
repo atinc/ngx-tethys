@@ -5,18 +5,37 @@
     padding: 10px 0;
     transform: translateY(-10px);
 
-    .thy-menu-item-content {
-        // display: flex;
+    .thy-menu-item {
         padding: $menu-item-padding;
         min-height: $menu-height;
         align-items: center;
+
+        &.active .thy-menu-item-content {
+            background: rgba($primary, 0.1);
+
+            &:hover {
+                background: transparent;
+            }
+        }
+
+        .thy-menu-item-content {
+            margin: 0 -1000px;
+            padding: 0 1000px;
+        }
 
         &.cdk-drag .cdk-drag-handle,
         &.thy-sortable-item .thy-sortable-handle {
             position: absolute;
             left: 3px;
         }
+
+        &.thy-sortable-ghost,
+        &.cdk-drag-placeholder {
+            padding: 0 1000px;
+            margin: 0 -1000px;
+        }
     }
+
     .thy-menu-group {
         display: block;
 
@@ -38,7 +57,7 @@
             padding: $menu-group-header-padding;
 
             &:hover {
-                box-shadow: $menu-shadow;
+                @include item-box-shadow();
 
                 .thy-menu-group-title {
                     color: $gray-800;
@@ -80,18 +99,6 @@
 
         .thy-menu-group-body {
             margin-left: $menu-group-margin-left;
-
-            .thy-menu-item {
-                &.active {
-                    .thy-menu-item-icon {
-                        color: $primary;
-                    }
-
-                    .thy-menu-item-name {
-                        color: $primary;
-                    }
-                }
-            }
         }
 
         &.has-icon {
@@ -110,35 +117,54 @@
 
 .thy-menu-item {
     display: block;
-    text-decoration: none;
-    cursor: pointer;
-    overflow: hidden;
-    margin: 0 -1000px;
-    padding: 0 1000px;
-    display: flex;
-    min-height: $menu-height;
-    align-items: center;
 
     &:hover {
-        @include item-box-shadow();
         text-decoration: none;
+    }
+
+    .thy-menu-item-content {
+        display: flex;
+        min-height: $menu-height;
+        cursor: pointer;
+        overflow: hidden;
+        align-items: center;
+
+        &:hover {
+            @include item-box-shadow();
+
+            .thy-menu-item-name {
+                color: $gray-800;
+            }
+
+            .thy-menu-item-action {
+                visibility: visible;
+            }
+        }
+
+        .thy-menu-item-icon {
+            color: $gray-500;
+            padding: 0 8px 0 6px;
+        }
 
         .thy-menu-item-name {
-            color: $gray-800;
+            flex-grow: 1;
+            color: $gray-700;
+            font-size: $font-size-base;
+        }
+
+        .thy-menu-item-name-ellipsis {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
 
         .thy-menu-item-action {
-            visibility: visible;
+            visibility: hidden;
+            color: $gray-500;
         }
     }
 
-    &.active {
-        background: rgba($primary, 0.1);
-
-        &:hover {
-            background: transparent;
-        }
-
+    &.active .thy-menu-item-content {
         .thy-menu-item-icon {
             color: $primary;
         }
@@ -146,27 +172,5 @@
         .thy-menu-item-name {
             color: $primary;
         }
-    }
-
-    .thy-menu-item-icon {
-        color: $gray-500;
-        padding: 0 8px 0 6px;
-    }
-
-    .thy-menu-item-name {
-        flex-grow: 1;
-        color: $gray-700;
-        font-size: $font-size-base;
-    }
-
-    .thy-menu-item-name-ellipsis {
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-    }
-
-    .thy-menu-item-action {
-        visibility: hidden;
-        color: $gray-500;
     }
 }

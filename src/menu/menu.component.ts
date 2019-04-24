@@ -7,12 +7,7 @@ import { Component, OnInit, HostBinding, ElementRef } from '@angular/core';
 export class ThyMenuComponent implements OnInit {
     @HostBinding('class.thy-menu') isThyMenu = true;
 
-    // get thyMenuWidth() {
-    //     return this.el.nativeElement.clientWidth;
-    // }
-
-    constructor() // public el: ElementRef
-    {}
+    constructor() {}
 
     ngOnInit(): void {}
 }
