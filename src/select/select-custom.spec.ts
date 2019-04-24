@@ -347,6 +347,17 @@ describe('ThyCustomSelect', () => {
             }).not.toThrow();
         }));
     });
+
+    describe('search logic', () => {
+        beforeEach(async(() => {
+            configureThyCustomSelectTestingModule([SelectWithSearchComponent]);
+        }));
+        it('should show thy-input-search when set thyShowSearch', fakeAsync(() => {}));
+        it('should hide some options that can not be searched', fakeAsync(() => {}));
+        it('should show some options that can be searched', fakeAsync(() => {}));
+        it('should search option use thySearchKey', fakeAsync(() => {}));
+        it('should hide the thy-group when all options of the group is hidden', fakeAsync(() => {}));
+    });
 });
 
 @Component({
@@ -479,3 +490,64 @@ class BasicSelectInitiallyHiddenComponent {
     `
 })
 class SelectEarlyAccessSiblingComponent {}
+
+@Component({
+    selector: 'select-with-search',
+    template: `
+        <form thyForm name="demoForm" #demoForm="ngForm">
+            <thy-custom-select thyPlaceHolder="Food" thyShowSearch="true">
+                <thy-option
+                    *ngFor="let food of foods"
+                    [thyValue]="food.value"
+                    [thyDisabled]="food.disabled"
+                    [thyLabelText]="food.viewValue"
+                >
+                </thy-option>
+            </thy-custom-select>
+        </form>
+    `
+})
+class SelectWithSearchComponent {
+    foods: any[] = [
+        { value: 'steak-0', viewValue: 'Steak' },
+        { value: 'pizza-1', viewValue: 'Pizza' },
+        { value: 'tacos-2', viewValue: 'Tacos', disabled: true },
+        { value: 'sandwich-3', viewValue: 'Sandwich' },
+        { value: 'chips-4', viewValue: 'Chips' },
+        { value: 'eggs-5', viewValue: 'Eggs' },
+        { value: 'pasta-6', viewValue: 'Pasta' },
+        { value: 'sushi-7', viewValue: 'Sushi' }
+    ];
+    control = new FormControl();
+    isRequired: boolean;
+    @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
+    @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
+}
+
+@Component({
+    selector: 'select-with-group-search',
+    template: `
+        <form thyForm name="demoForm" #demoForm="ngForm">
+            <thy-custom-select thyPlaceHolder="Pokemon" [formControl]="control">
+                <thy-option-group *ngFor="let group of pokemonTypes" [thyGroupLabel]="group.name">
+                    <ng-container *ngFor="let pokemon of group.pokemon">
+                        <thy-option [thyValue]="pokemon.value" [thyLabelText]="pokemon.viewValue"></thy-option>
+                    </ng-container>
+                </thy-option-group>
+            </thy-custom-select>
+        </form>
+    `
+})
+class SelectWithSearchAndGroupComponent {
+    control = new FormControl();
+    pokemonTypes = [
+        {
+            name: 'Grass',
+            pokemon: [{ value: 'bulbasaur-0', viewValue: 'Bulbasaur' }]
+        },
+        {
+            name: 'Grass',
+            pokemon: [{ value: 'bulbasaur-0', viewValue: 'Bulbasaur' }]
+        }
+    ];
+}

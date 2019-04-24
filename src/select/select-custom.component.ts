@@ -357,7 +357,6 @@ export class ThySelectCustomComponent
     }
 
     open(): void {
-        console.log(this.searchText);
         if (this._disabled || !this.options || !this.options.length || this._panelOpen) {
             return;
         }
