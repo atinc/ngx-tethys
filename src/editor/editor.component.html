@@ -1,45 +1,134 @@
-<div class="thy-editor thy-editor-{{thyEditorService.options.type}} {{className}}">
-    <div class="thy-editor-toobar">
-        <div class="noselect">
-            <ul class="wtEditorToolBarUl">
-                <li class="wtEditorToolBarli" *ngFor="let item of thyEditorService.toolbars;" [ngClass]="{'active':item.id == 0 && thyEditorService.header_action}">
-                    <!-- <i *ngIf="item.type === 'custom'" title="{{item.title}}" class="{{item.className}} toolbar-icon" (click)="item.action($event,vm)"></i> -->
-                    <i *ngIf="item.type === 'headingFns'" title="{{item.title}}" class="{{item.className}} toolbar-icon" (click)="setHeaderLi(item.id)"></i>
-                    <div *ngIf="item.type === 'headingFns'" [hidden]="!thyEditorService.header_action" class="toolbar-menu" flag="h">
-                        <ul flag="h">
-                            <li *ngFor="let n of thyEditorService.headers" class="{{n.className}}" (click)="styleFn(n.name,$event)" flag="h">
-                                {{n.title}}
-                            </li>
-                        </ul>
-                    </div>
-
-                    <i *ngIf="item.type === 'styleFn'" title="{{item.title}}" class="{{item.className}} toolbar-icon" (click)="styleFn(item.name,$event)"></i>
-                    <i *ngIf="item.type === 'uploadImg'" title="{{item.title}}" thyFileSelect [thyMultiple]="thyEditorService.options.uploadImgMultiple" [thyAcceptType]="thyEditorService.options.uploadImgAcceptType" class="{{item.className}} toolbar-icon" (thyOnFileSelect)="selectFiles($event)"></i>
-                    <i *ngIf="item.type === 'tableFn'" title="{{item.title}}" class="{{item.className}} toolbar-icon" (click)="styleFn(item.name,$event)"></i>
-                    <div *ngIf="item.type === 'tableFn'" [hidden]="!thyEditorService.tableOptions.table_action" class="table-menu" flag="table" (mouseleave)="thyEditorService.setTable(1,1,false)">
-                        <ul flag="table">
-                            <li flag="table" *ngFor="let n of thyEditorService.tableOptions.tableMenu">
-                                <i *ngFor="let s of n" flag="table" (click)="insertTable()" (mouseenter)="thyEditorService.setTable(s[0],s[1],true)" [ngClass]="{'active':s[0]<=thyEditorService.tableOptions.tableActiveX && s[1] <= thyEditorService.tableOptions.tableActiveY}"></i>
-                            </li>
-                        </ul>
-                    </div>
-                    <i *ngIf="item.type === 'linkModule'" title="{{item.title}}" class="{{item.className}} toolbar-icon" (click)="selectModule($event)"></i>
-                    <i *ngIf="item.type === 'mathFn'" title="{{item.title}}" class="{{item.className}} toolbar-icon" (click)="styleFn(item.name,$event)"></i>
-                    <i *ngIf="item.type === 'flowchart'" title="{{item.title}}" class="{{item.className}} toolbar-icon" (click)="styleFn(item.name,$event)"></i>
-                    <i *ngIf="item.type === 'diagram'" title="{{item.title}}" class="{{item.className}} toolbar-icon" (click)="styleFn(item.name,$event)"></i>
-                    <i *ngIf="item.type === 'gantt'" title="{{item.title}}" class="{{item.className}} toolbar-icon" (click)="styleFn(item.name,$event)"></i>
-                    <i *ngIf="item.type === 'preview'" title="{{item.title}}" class="{{item.className}} toolbar-icon" (click)="togglePreview()"></i>
-                    <i *ngIf="item.type === 'divider'" class="divider"></i>
-                </li>
+<div #editorWrap class="thy-editor thy-editor-{{ thyEditorService.options.type }} {{ className }}">
+  <div class="thy-editor-toobar">
+    <div class="noselect">
+      <ul class="wtEditorToolBarUl">
+        <li
+          class="wtEditorToolBarli"
+          *ngFor="let item of thyEditorService.toolbars"
+          [ngClass]="{ active: item.id == 0 && thyEditorService.header_action }"
+        >
+          <!-- <i *ngIf="item.type === 'custom'" title="{{item.title}}" class="{{item.className}} toolbar-icon" (click)="item.action($event,vm)"></i> -->
+          <i
+            *ngIf="item.type === 'headingFns'"
+            title="{{ item.title }}"
+            class="{{ item.className }} toolbar-icon"
+            (click)="setHeaderLi(item.id)"
+          ></i>
+          <div
+            *ngIf="item.type === 'headingFns'"
+            [hidden]="!thyEditorService.header_action"
+            class="toolbar-menu"
+            flag="h"
+          >
+            <ul flag="h">
+              <li
+                *ngFor="let n of thyEditorService.headers"
+                class="{{ n.className }}"
+                (click)="styleFn(n.name, $event)"
+                flag="h"
+              >
+                {{ n.title }}
+              </li>
             </ul>
-        </div>
+          </div>
+
+          <i
+            *ngIf="item.type === 'styleFn'"
+            title="{{ item.title }}"
+            class="{{ item.className }} toolbar-icon"
+            (click)="styleFn(item.name, $event)"
+          ></i>
+          <i
+            *ngIf="item.type === 'uploadImg'"
+            title="{{ item.title }}"
+            thyFileSelect
+            [thyMultiple]="thyEditorService.options.uploadImgMultiple"
+            [thyAcceptType]="thyEditorService.options.uploadImgAcceptType"
+            class="{{ item.className }} toolbar-icon"
+            (thyOnFileSelect)="selectFiles($event)"
+          ></i>
+          <i
+            *ngIf="item.type === 'tableFn'"
+            title="{{ item.title }}"
+            class="{{ item.className }} toolbar-icon"
+            (click)="styleFn(item.name, $event)"
+          ></i>
+          <div
+            *ngIf="item.type === 'tableFn'"
+            [hidden]="!thyEditorService.tableOptions.table_action"
+            class="table-menu"
+            flag="table"
+            (mouseleave)="thyEditorService.setTable(1, 1, false)"
+          >
+            <ul flag="table">
+              <li flag="table" *ngFor="let n of thyEditorService.tableOptions.tableMenu">
+                <i
+                  *ngFor="let s of n"
+                  flag="table"
+                  (click)="insertTable()"
+                  (mouseenter)="thyEditorService.setTable(s[0], s[1], true)"
+                  [ngClass]="{
+                    active:
+                      s[0] <= thyEditorService.tableOptions.tableActiveX &&
+                      s[1] <= thyEditorService.tableOptions.tableActiveY
+                  }"
+                ></i>
+              </li>
+            </ul>
+          </div>
+          <i
+            *ngIf="item.type === 'linkModule'"
+            title="{{ item.title }}"
+            class="{{ item.className }} toolbar-icon"
+            (click)="selectModule($event)"
+          ></i>
+          <i
+            *ngIf="item.type === 'mathFn'"
+            title="{{ item.title }}"
+            class="{{ item.className }} toolbar-icon"
+            (click)="styleFn(item.name, $event)"
+          ></i>
+          <i
+            *ngIf="item.type === 'flowchart'"
+            title="{{ item.title }}"
+            class="{{ item.className }} toolbar-icon"
+            (click)="styleFn(item.name, $event)"
+          ></i>
+          <i
+            *ngIf="item.type === 'diagram'"
+            title="{{ item.title }}"
+            class="{{ item.className }} toolbar-icon"
+            (click)="styleFn(item.name, $event)"
+          ></i>
+          <i
+            *ngIf="item.type === 'gantt'"
+            title="{{ item.title }}"
+            class="{{ item.className }} toolbar-icon"
+            (click)="styleFn(item.name, $event)"
+          ></i>
+          <i
+            *ngIf="item.type === 'preview'"
+            title="{{ item.title }}"
+            class="{{ item.className }} toolbar-icon"
+            (click)="togglePreview()"
+          ></i>
+          <i *ngIf="item.type === 'divider'" class="divider"></i>
+        </li>
+      </ul>
     </div>
-    <div class="thy-editor-container">
-        <div class="thy-editor-container-code">
-            <textarea class="thy-editor-textarea" [(ngModel)]="model" (ngModelChange)="changeValue($event)" [placeholder]="thyEditorService.options.placeholder"></textarea>
-        </div>
-        <div class="thy-editor-container-preview" [hidden]="!thyEditorService.isPreview">
-            <article class="thy-editor-container-preview-body markdown-body" [thyMarkdownParser]="model"></article>
-        </div>
+  </div>
+  <div class="thy-editor-container">
+    <div class="thy-editor-container-code">
+      <textarea
+        class="thy-editor-textarea"
+        (blur)="blurEditor()"
+        [(ngModel)]="model"
+        (ngModelChange)="changeValue($event)"
+        [placeholder]="thyEditorService.options.placeholder"
+      ></textarea>
     </div>
+    <div class="thy-editor-container-preview" [hidden]="!thyEditorService.isPreview">
+      <article class="thy-editor-container-preview-body markdown-body" [thyMarkdownParser]="model"></article>
+    </div>
+  </div>
 </div>
