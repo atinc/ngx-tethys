@@ -50,6 +50,8 @@
 .cdk-drag-placeholder {
     color: transparent !important;
     background: $gray-200 !important;
+    // margin-left: -20px;
+    // padding-left: 20px;
 
     &:hover {
         box-shadow: none;
@@ -71,5 +73,5 @@
 }
 
 .cdk-drag-animating {
-    transition: transform 250ms cubic-bezier(0, 0, 1, 1);
+    transition: none; // transform 250ms cubic-bezier(0, 0, 1, 1);
 }
