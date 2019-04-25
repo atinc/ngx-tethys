@@ -1,0 +1,8 @@
+.thy-editable {
+    border: 1px solid transparent;
+    padding: $editable-padding-y $editable-padding-x;
+
+    &:hover {
+        border-color: $editable-border-color;
+    }
+}

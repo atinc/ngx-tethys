@@ -113,6 +113,7 @@ $dropdown-toggle-y-r: 0.938rem !default;
 $dropdown-toggle-split-y: 0.625rem !default;
 // Forms
 $input-padding-x: 0.875rem !default; // 输入框左右 padding 和 按钮大小不一致， bootstrap 是一致的
+$input-padding-y: $input-btn-padding-y !default;
 $input-padding-x-sm: $input-padding-x !default;
 $input-padding-x-lg: $input-padding-x !default;
 $input-padding-y-lg: 0.657rem !default;
@@ -462,3 +463,8 @@ $menu-item-padding: 0 20px !default;
 $menu-group-header-padding: 0 1020px !default;
 $menu-group-margin-left: 15px !default;
 $menu-divider-margin: 10px 20px !default;
+
+// editable
+$editable-border-color: $gray-200 !default;
+$editable-padding-y: $input-padding-y !default;
+$editable-padding-x: $input-padding-x !default;
