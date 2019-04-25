@@ -1,27 +1,77 @@
-<ng-template #option>
-    <ng-content></ng-content>
-</ng-template>
-<div class="form-control form-control-custom" [class.disabled]="_disabled" [class.thy-select-selection]="!_mode" [ngClass]="_size ? 'form-control-' + _size : ''" #selectMenuSetting (click)="dropDownMenuToggle($event, selectMenuSetting)">
-    <ng-container *ngIf="!_mode">
-        <span *ngIf="_selectedOption && !selectedValueDisplayRef">{{_selectedOption.thyLabelText}}</span>
-        <ng-container *ngIf="_selectedOption && selectedValueDisplayRef">
-            <ng-container *ngTemplateOutlet="selectedValueDisplayRef; context: selectedValueContext"></ng-container>
+<div
+  cdk-overlay-origin
+  (click)="toggle($event)"
+  #origin="cdkOverlayOrigin"
+  #trigger
+  class="form-control form-control-custom"
+  [class.disabled]="_disabled"
+  [class.thy-select-selection]="!thyMode"
+  [ngClass]="_size ? 'form-control-' + _size : ''"
+>
+  <ng-container [ngSwitch]="empty">
+    <span class="text-placeholder d-inline-block" *ngSwitchCase="true">
+      {{ thyPlaceHolder }}
+    </span>
+    <ng-container *ngSwitchCase="false" [ngSwitch]="!!selectedValueDisplayRef">
+      <ng-container *ngSwitchCase="true">
+        <ng-container *ngTemplateOutlet="selectedValueDisplayRef; context: selectedDisplayContext"></ng-container>
+      </ng-container>
+      <ng-container *ngSwitchDefault [ngSwitch]="thyMode">
+        <ng-container *ngSwitchCase="'multiple'">
+          <span
+            class="mr-1"
+            *ngFor="let item of selected; index as i"
+            thyLabel="default"
+            thyAfterIcon="wtf-times"
+            (click)="remove(item, $event)"
+          >
+            {{ item.thyLabelText }}
+          </span>
         </ng-container>
-        <span class="text-placeholder d-inline-block" *ngIf="!_selectedOption">{{thyPlaceHolder}}</span>
-        <a class="thy-select-remove remove-link" href="javascript:;" (click)="clearSelectValue($event)" *ngIf="thyAllowClear && _innerValue">
-            <i class="wtf wtf-times-circle"></i>
-        </a>
+        <ng-container *ngSwitchDefault>
+          <span>{{ selected.thyLabelText }}</span>
+        </ng-container>
+      </ng-container>
+      <a
+        class="thy-select-remove remove-link"
+        href="javascript:;"
+        (click)="clearSelectValue($event)"
+        *ngIf="thyAllowClear"
+      >
+        <i class="wtf wtf-times-circle"></i>
+      </a>
     </ng-container>
-    <div [ngClass]="{'multiple-value-wrapper': _selectedOptions?.length > 0}" *ngIf="_mode === 'multiple'">
-        <span class="mr-1" [hidden]="_selectedOptions?.length === 0" *ngFor="let item of _selectedOptions;index as i" thyLabel="default"
-            thyAfterIcon="wtf-times" (click)="remove($event, item, i)">
-            {{item?.thyLabelText}}
-        </span>
-        <span class="text-placeholder d-inline-block" *ngIf="_selectedOptions?.length === 0">
-            {{thyPlaceHolder}}
-        </span>
-
-    </div>
+  </ng-container>
 </div>
 
-<select-container *ngIf="_expandOptions" #selectContainer [listOfOptionComponent]="_listOfOptionComponent"></select-container>
+<ng-template
+  cdk-connected-overlay
+  cdkConnectedOverlayLockPosition
+  cdkConnectedOverlayHasBackdrop
+  [cdkConnectedOverlayPositions]="positions"
+  cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
+  [cdkConnectedOverlayOrigin]="origin"
+  [cdkConnectedOverlayOpen]="panelOpen"
+  [cdkConnectedOverlayMinWidth]="triggerRect?.width"
+  (backdropClick)="close()"
+  (detach)="close()"
+>
+  <div class="thy-select-container">
+    <div class="thy-select-search" *ngIf="thyShowSearch">
+      <thy-input-search
+        thyAutofocus
+        name="search"
+        [(ngModel)]="searchText"
+        (ngModelChange)="onSearchFilter()"
+      ></thy-input-search>
+    </div>
+    <ng-container *ngIf="options.length > 0 || optionGroups.length > 0; else emptyPlaceholder">
+      <div class="thy-select-custom-options">
+        <ng-content></ng-content>
+      </div>
+    </ng-container>
+    <ng-template #emptyPlaceholder>
+      <div class="pl-4 pt-1 pb-1 text-placeholder">{{ _emptyStateText }}</div>
+    </ng-template>
+  </div>
+</ng-template>

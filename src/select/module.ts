@@ -5,35 +5,26 @@ import { ThySelectComponent } from './select.component';
 import { ThyInputModule } from '../input/module';
 import { ThySelectCustomComponent } from './select-custom.component';
 import { ThyOptionComponent } from './option.component';
-// import { ThyOptionListComponent } from './option-list.component';
-import { SelectContainerComponent } from './select-container.component';
-import { OptionItemComponent } from './option-item.component';
+import { ThySelectOptionGroupComponent } from './option-group.component';
 import { ThyLabelModule } from '../label/label.module';
 import { SelectPipes } from './select.pipe';
-
+import { OverlayModule } from '@angular/cdk/overlay';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        FormsModule,
-        ThyInputModule,
-        ThyLabelModule
-    ],
+    imports: [CommonModule, FormsModule, ThyInputModule, ThyLabelModule, OverlayModule],
     declarations: [
         ThySelectComponent,
         ThySelectCustomComponent,
         ThyOptionComponent,
-        SelectContainerComponent,
-        OptionItemComponent,
+        ThySelectOptionGroupComponent,
         SelectPipes
     ],
     exports: [
         ThySelectComponent,
         ThySelectCustomComponent,
         ThyOptionComponent,
+        ThySelectOptionGroupComponent,
         SelectPipes
     ]
 })
-export class ThySelectModule {
-
-}
+export class ThySelectModule {}
