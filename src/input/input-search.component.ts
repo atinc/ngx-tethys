@@ -1,13 +1,20 @@
 import {
-    Component, HostBinding, Input, Output,
-    ContentChild, TemplateRef, ElementRef,
-    ViewEncapsulation, EventEmitter, forwardRef
+    Component,
+    HostBinding,
+    Input,
+    Output,
+    ContentChild,
+    TemplateRef,
+    ElementRef,
+    ViewEncapsulation,
+    EventEmitter,
+    forwardRef,
+    ChangeDetectorRef
 } from '@angular/core';
 import { ThyTranslate, UpdateHostClassService } from '../shared';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export type InputSearchTheme = 'ellipse' | '';
-
 
 export const CUSTOM_INPUT_SEARCH_CONTROL_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -15,20 +22,15 @@ export const CUSTOM_INPUT_SEARCH_CONTROL_VALUE_ACCESSOR: any = {
     multi: true
 };
 
-const noop = () => { };
+const noop = () => {};
 
 @Component({
     selector: 'thy-input-search',
     templateUrl: './input-search.component.html',
-    providers: [
-        UpdateHostClassService,
-        CUSTOM_INPUT_SEARCH_CONTROL_VALUE_ACCESSOR
-    ],
+    providers: [UpdateHostClassService, CUSTOM_INPUT_SEARCH_CONTROL_VALUE_ACCESSOR],
     encapsulation: ViewEncapsulation.None
 })
 export class ThyInputSearchComponent implements ControlValueAccessor {
-
-
     private onTouchedCallback: () => void = noop;
 
     private onChangeCallback: (_: any) => void = noop;
@@ -54,7 +56,6 @@ export class ThyInputSearchComponent implements ControlValueAccessor {
         }
     }
 
-
     @Input()
     set thySearchFocus(value: boolean) {
         this.autoFocus = value;
@@ -62,12 +63,11 @@ export class ThyInputSearchComponent implements ControlValueAccessor {
 
     @Output() clear: EventEmitter<Event> = new EventEmitter<Event>();
 
-    constructor() {
-
-    }
+    constructor(private cdr: ChangeDetectorRef) {}
 
     writeValue(value: any): void {
         this.searchText = value;
+        this.cdr.markForCheck();
     }
 
     registerOnChange(fn: any): void {
@@ -96,4 +96,3 @@ export class ThyInputSearchComponent implements ControlValueAccessor {
         this.clear.emit(event);
     }
 }
-
