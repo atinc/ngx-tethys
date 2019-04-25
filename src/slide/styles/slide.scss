@@ -82,6 +82,6 @@
     bottom: 0;
     right: 0;
     width: 350px;
-    height: calc(100vh - #{$layout-header-height} - #{$layout-header-height-sm} - #{$slide-header-height});
-    max-height: calc(100vh - #{$layout-header-height} - #{$layout-header-height-sm} - #{$slide-header-height});
+    height: calc(100vh - #{$layout-header-height} - #{$layout-header-height-sm});
+    max-height: calc(100vh - #{$layout-header-height} - #{$layout-header-height-sm});
 }
