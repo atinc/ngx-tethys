@@ -1,20 +1,8 @@
-import {
-    Component,
-    OnInit,
-    HostBinding,
-    Input,
-    Output,
-    EventEmitter,
-    ElementRef,
-    Renderer2,
-    ViewChild,
-    Optional,
-    SkipSelf
-} from '@angular/core';
+import { Component, OnInit, HostBinding, Input, Output, EventEmitter, ElementRef, ViewChild } from '@angular/core';
 import { ThyPopBoxService } from '../../pop-box';
-import { ElementDef } from '@angular/core/src/view';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { ComponentType } from '@angular/cdk/portal';
+import { ThyMenuComponent } from '../menu.component';
 
 @Component({
     selector: 'thy-menu-group, [thy-menu-group],[thyMenuGroup]',
@@ -94,22 +82,9 @@ export class ThyMenuGroupComponent implements OnInit {
         this._actionMenu = value;
     }
 
-    constructor(
-        private popBoxService: ThyPopBoxService,
-        private el: ElementRef,
-        private render: Renderer2,
-        @SkipSelf() @Optional() private parent: ThyMenuGroupComponent
-    ) {}
+    constructor(private popBoxService: ThyPopBoxService) {}
 
-    ngOnInit(): void {
-        if (this.parent) {
-            this.groupHeaderPaddingLeft = this.parent.showIcon
-                ? this.parent.groupHeaderPaddingLeft + 35
-                : this.parent.groupHeaderPaddingLeft + 15;
-        } else {
-            this.groupHeaderPaddingLeft = 20;
-        }
-    }
+    ngOnInit(): void {}
 
     collapseGroup(): void {
         this.isCollapsed = !this.isCollapsed;

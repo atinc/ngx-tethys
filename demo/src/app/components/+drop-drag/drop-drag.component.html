@@ -40,11 +40,11 @@
               <i thyMenuItemIcon class="wtf wtf-work-timeline"></i> <span thyMenuItemName> 项目1 </span>
               <i thyMenuItemAction [thyActionMenu]="menu1" class="wtf wtf-more-lg"></i>
             </div>
-            <div thyMenuItem href="javascript:;" cdkDrag>
+            <a thyMenuItem cdkDrag>
               <i class="wtf wtf-move" cdkDragHandle></i>
               <i thyMenuItemIcon class="wtf wtf-work-timeline"></i> <span thyMenuItemName> 项目2 </span>
               <i thyMenuItemAction [thyActionMenu]="menu1" class="wtf wtf-more-lg"></i>
-            </div>
+            </a>
             <div thyMenuItem href="javascript:;" cdkDrag>
               <i class="wtf wtf-move" cdkDragHandle></i>
               <i thyMenuItemIcon class="wtf wtf-work-timeline"></i> <span thyMenuItemName> 项目3 </span>
@@ -84,7 +84,7 @@
   </div>
 </section>
 
-<!-- <section>
+<section>
   <div class="header"><h2>sortable 拖动 menu</h2></div>
   <div class="body">
     <div class="thy-menu-demo">
@@ -102,35 +102,32 @@
                 *ngIf="!item.children"
                 [ngTemplateOutlet]="projectTemplate"
                 [ngTemplateOutletContext]="{ project: item }"
-              >
-              </div>
+              ></div>
               <div
                 *ngIf="item.children"
                 [ngTemplateOutlet]="projectGroupTemplate"
                 [ngTemplateOutletContext]="{ group: item }"
-              >
-              </div>
+              ></div>
             </ng-template>
 
             <ng-template #projectGroupTemplate let-group="group">
-              
-                <thy-menu-group [thyTitle]="group.name" #qq [thyExpand]="group.collapsed">
-                  <div
-                    [sortablejs]="group.children"
-                    class="project-group"
-                    [runInsideAngular]="true"
-                    [sortablejsOptions]="treeNodesSortableOptions"
-                  >
-                    <ng-container
-                      *ngFor="let item of group.children; trackBy: item?.id"
-                      [ngTemplateOutlet]="projectNavTemplate"
-                      [ngTemplateOutletContext]="{ item: item }"
-                    ></ng-container>
-                    <div class="thy-sortable-list-empty" *ngIf="group.children.length === 0">
-                      拖拽元素区域
-                    </div>
+              <thy-menu-group [thyTitle]="group.name" #qq [thyExpand]="group.collapsed">
+                <div
+                  [sortablejs]="group.children"
+                  class="project-group"
+                  [runInsideAngular]="true"
+                  [sortablejsOptions]="treeNodesSortableOptions"
+                >
+                  <ng-container
+                    *ngFor="let item of group.children; trackBy: item?.id"
+                    [ngTemplateOutlet]="projectNavTemplate"
+                    [ngTemplateOutletContext]="{ item: item }"
+                  ></ng-container>
+                  <div class="thy-sortable-list-empty" *ngIf="group.children.length === 0">
+                    拖拽元素区域
                   </div>
-                </thy-menu-group>
+                </div>
+              </thy-menu-group>
             </ng-template>
 
             <ng-template #projectTemplate let-project="project">
@@ -145,7 +142,7 @@
       </thy-menu>
     </div>
   </div>
-</section> -->
+</section>
 
 <section>
   <div class="header"><h2>sortable 拖动 tree</h2></div>

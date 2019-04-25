@@ -102,10 +102,13 @@ export class DropDragComponent implements OnInit {
     ];
 
     public treeNodesSortableOptions: SortablejsOptions = {
-        disabled: true,
+        group: {
+            name: 'project-nav'
+        },
+        animation: 250,
         ghostClass: 'thy-sortable-ghost',
         chosenClass: 'thy-tree-item-chosen',
-        handle: '.thy-sortable-handle',
+        // handle: '.thy-sortable-handle',
         filter: '.thy-sortable-disabled',
         draggable: 'thy-sortable-item',
         dragClass: '.thy-sortable-drag'

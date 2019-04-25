@@ -9,7 +9,8 @@ import {
     Output,
     EventEmitter,
     OnDestroy,
-    HostListener
+    HostListener,
+    ViewChild
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyEditorService, ThyEditorConfig } from './editor.service';
@@ -28,9 +29,12 @@ import { ThyEditorLinkModuleService } from './editor-linkmodule.service';
 })
 export class ThyEditorComponent implements OnInit, ControlValueAccessor, OnDestroy {
     public model: any;
+
     public options: ThyEditorConfig;
 
     @Input() config: ThyEditorConfig;
+
+    @ViewChild('editorWrap') editorWrap: ElementRef;
 
     public placeholder: string;
 
@@ -98,6 +102,35 @@ export class ThyEditorComponent implements OnInit, ControlValueAccessor, OnDestr
         }
     }
 
+    @HostListener('mouseenter', ['$event'])
+    mouseenter(e: any) {
+        this.thyEditorService.focusEditor();
+    }
+
+    @HostListener('mouseleave', ['$event'])
+    mouseleave(e: any) {
+        const isHasActive = this.hasParent(document.activeElement, this.editorWrap.nativeElement);
+        if (!isHasActive) {
+            this.thyEditorService.blurEditor();
+        }
+    }
+
+    hasParent(el: any, parent: any) {
+        let isHas = false;
+        if (!el || !parent) {
+            return isHas;
+        }
+        let p = el;
+        while (!isHas && p) {
+            if (p === parent) {
+                isHas = true;
+            } else {
+                p = p.parentNode;
+            }
+        }
+        return isHas;
+    }
+
     writeValue(value: any) {
         this.model = value;
         if (this.model) {
@@ -163,8 +196,15 @@ export class ThyEditorComponent implements OnInit, ControlValueAccessor, OnDestr
         this.thyEditorService.insertContent(str, this.changeValue.bind(this));
     }
 
+    blurEditor() {
+        const isHasActive = this.hasParent(document.activeElement, this.editorWrap.nativeElement);
+        if (!isHasActive) {
+            this.thyEditorService.blurEditor();
+        }
+    }
+
     ngOnInit(): void {
-        this.thyEditorService.initEditor(this.config, this.elementRef);
+        this.thyEditorService.initEditor(this.config, this.elementRef, this.editorWrap);
         this._thyFullClass = this.thyEditorService.options.isHeightFull;
     }
 
