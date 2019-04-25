@@ -1,49 +1,55 @@
 .d-flex-column-fill {
-  flex: auto;
-  display: flex;
-  flex-direction: column;
+    flex: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .d-flex-row-fill {
-  flex: auto;
-  display: flex;
-  flex-direction: row;
+    flex: auto;
+    display: flex;
+    flex-direction: row;
 }
 
 .cursor-pointer {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .thy-dot {
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
 }
 
 .thy-operation-links {
-   > button,
-  > a {
-    display: inline-block;
-    margin-right: $operation-link-margin-y;
+    > button,
+    > a {
+        display: inline-block;
+        margin-right: $operation-link-margin-y;
 
-    &:last-child {
-      margin-right: 0;
+        &:last-child {
+            margin-right: 0;
+        }
     }
-  }
 }
 
 // 比 light 更亮，但是还没有到达白色 #f3f3f3f3
-@include bg-variant(".bg-brighter", $gray-100);
+@include bg-variant('.bg-brighter', $gray-100);
 
 // text-placeholder #cacaca
-@include text-emphasis-variant(".text-placeholder", $gray-400);
-@include text-emphasis-variant(".text-body", $gray-800);
+@include text-emphasis-variant('.text-placeholder', $gray-400);
+@include text-emphasis-variant('.text-body', $gray-800);
 
 // font-size-{name}
-$font-sizes: ( base: $font-size-base, sm: $font-size-sm, md: $font-size-md, xs: $font-size-xs, lg: $font-size-lg );
+$font-sizes: (
+    base: $font-size-base,
+    sm: $font-size-sm,
+    md: $font-size-md,
+    xs: $font-size-xs,
+    lg: $font-size-lg
+);
 @each $name, $size in $font-sizes {
-  .font-size-#{$name} {
-    font-size: $size !important;
-  }
+    .font-size-#{$name} {
+        font-size: $size !important;
+    }
 }
