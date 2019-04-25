@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding, Input } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 
 @Component({
     selector: 'thy-menu-item,[thy-menu-item],[thyMenuItem]',
@@ -6,6 +6,8 @@ import { Component, OnInit, HostBinding, Input } from '@angular/core';
 })
 export class ThyMenuItemComponent implements OnInit {
     @HostBinding('class.thy-menu-item') isThyMenuItem = true;
+
+    constructor() {}
 
     ngOnInit(): void {}
 }

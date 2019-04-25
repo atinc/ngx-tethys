@@ -1,113 +1,155 @@
+@import './mixin.scss';
+
 .thy-tree {
-  display: block;
-  padding-bottom: 1rem;
-  .thy-tree-node {
     display: block;
-    padding: $tree-node-padding;
-    background-color: $white;
-    .thy-tree-node-wrapper {
-      display: flex;
-      cursor: pointer;
-      position: relative;
-      padding: $tree-node-wrapper-padding;
-      line-height: $tree-node-wrapper-height;
-      min-height: $tree-node-wrapper-line-height;
-      border-bottom: $tree-node-wrapper-border-bottom;
-      .thy-tree-expand {
-        width: 14px;
-        color: $gray-500;
-        position: relative;
-        top: 1px;
-        text-align: center;
-        display: inline-block;
-        .wtf-caret-down {
-          font-size: 14px;
-          transition: all 0.2s cubic-bezier(0.4, 0.1, 0.5, 1) 0.1s;
+    overflow: hidden;
+    position: relative;
+    padding: $tree-padding;
+    color: $gray-700;
+    transform: translateY(-10px);
+
+    &-node {
+        display: block;
+        padding: $tree-node-padding;
+
+        &-wrapper {
+            display: flex;
+            cursor: pointer;
+            align-items: center;
+            padding: $tree-node-wrapper-padding;
+            height: $tree-node-wrapper-height;
+            margin: 0 -1000px;
+            padding: 0 1000px;
+
+            .thy-tree-expand {
+                width: 14px;
+                font-size: 14px;
+                color: #cacaca;
+                text-align: center;
+                margin-right: 10px;
+
+                &-icon {
+                    display: inline-block;
+                    transform: rotate(0deg);
+                    transition: all 0.2s cubic-bezier(0.4, 0.1, 0.5, 1) 0.1s;
+
+                    &::before {
+                        content: '\e712';
+                    }
+
+                    &.narrow {
+                        transform: rotate(-45deg);
+                    }
+                }
+
+                &:hover {
+                    color: $gray-600;
+                }
+            }
+
+            .thy-tree-node-content {
+                width: 1px;
+                flex: 1;
+                display: flex;
+                align-items: center;
+
+                .thy-tree-node-icon {
+                    color: $gray-300;
+                    margin-right: 8px;
+                }
+
+                .thy-tree-node-title {
+                    flex: 1;
+
+                    &.truncate {
+                        @include text-truncate();
+                    }
+                }
+            }
+
+            &.hover,
+            &:hover {
+                @include item-box-shadow();
+            }
+
+            &.active {
+                background: rgba($primary, 0.1);
+                color: $primary;
+
+                .thy-tree-node-content {
+                    .thy-tree-node-icon {
+                        color: $primary;
+                    }
+                }
+            }
         }
-        .rotate-caret {
-          display: inline-block;
-          transform: rotate(-45deg);
-        }
-        &:hover {
-          color: $gray-600;
-        }
-      }
-      .thy-tree-node-content {
-        flex: 1;
-        display: flex;
-        align-items: center;
-        padding: 0 5px;
-        overflow: hidden;
-        .thy-tree-node-icon {
-          position: relative;
-          top: 1px;
-          display: inline-block;
-        }
-        .thy-tree-node-title {
-          padding: 0 5px;
-          // overflow: hidden;
-          // text-overflow: ellipsis;
-          // white-space: nowrap;
-        }
-        .thy-tree-node-edit {
-          padding: 0 5px;
-          width: 100%;
-        }
-      }
     }
-    .thy-tree-node-children {}
-  }
-  &.thy-tree-draggable {
-    .thy-tree-node {
-      .thy-tree-node-wrapper {
-        .thy-tree-node-draggable {
-          position: relative;
-          top: 1px;
-          color: $gray-500;
-          visibility: hidden;
+
+    &.thy-tree-draggable {
+        .thy-tree-node {
+            .thy-tree-node-wrapper {
+                .thy-tree-drag-icon {
+                    position: absolute;
+                    color: $gray-500;
+                    visibility: hidden;
+                    left: 4px;
+                }
+
+                &:hover {
+                    .thy-tree-drag-icon {
+                        visibility: visible;
+                    }
+                }
+            }
         }
-        &:hover {
-          .thy-tree-node-draggable {
-            visibility: visible;
-          }
-        }
-      }
     }
-  }
 }
 
 .thy-tree {
-  .thy-tree-node {
-    .thy-tree-node-content {
-      .thy-tree-node-title {
-        padding: 0 5px;
-      }
-      .thy-tree-node-actions {
-        flex: 1;
-        text-align: right;
-        display: none;
-        >a {
-          margin-right: 15px;
+    &-node {
+        &-title {
         }
-      }
-      &:hover {
-        .thy-tree-node-actions {
-          display: inline-block;
+
+        &-edit {
+            width: 100%;
+
+            input {
+                background-color: $white;
+            }
         }
-      }
+
+        &-actions {
+            text-align: right;
+            display: none;
+
+            > a {
+                margin-right: 10px;
+
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+        }
+
+        &-wrapper {
+            &.hover,
+            &:hover {
+                .thy-tree-node-actions {
+                    display: inline-block;
+                }
+            }
+        }
     }
-  }
+
+    &-empty-children-state {
+        width: 100%;
+        line-height: 50px;
+        padding: 0 30px;
+        background-color: #fafafa;
+        color: #aaa;
+    }
 }
 
-.thy-tree-item-chosen {
-  .thy-tree-node-item {
-    box-shadow: none !important;
-  }
-}
-
-.thy-tree-item-ghost {
-  .thy-tree-node-item {
-    color: #aaa !important;
-    background-color: #f3f3f3 !important;
-  }
+.thy-tree-secondary {
+    @include thy-tree-secondary();
 }

@@ -1,9 +1,9 @@
 <div class="thy-menu-group-header" (click)="collapseGroup()">
-    <i class="wtf wtf-caret-down thy-menu-group-arrow"></i>
-    <i *ngIf="showIcon" class="thy-menu-group-folder" [ngClass]="iconClass"></i>
-    <span class="thy-menu-group-title" [title]="thyTitle">{{thyTitle}}</span>
-    <i *ngIf="thyShowAction" class="thy-menu-group-more" [ngClass]="rightIconClass" (click)="onActionClick($event)"></i>
+  <i class="wtf wtf-caret-down thy-menu-group-arrow"></i>
+  <i *ngIf="showIcon" class="thy-menu-group-folder" [ngClass]="iconClass"></i>
+  <span class="thy-menu-group-title" [title]="thyTitle">{{ thyTitle }}</span>
+  <i *ngIf="thyShowAction" class="thy-menu-group-more" [ngClass]="rightIconClass" (click)="onActionClick($event)"></i>
 </div>
 <div class="thy-menu-group-body" #thyMenuGroup [@detailsContentAnimation]="isCollapsed">
-    <ng-content></ng-content>
+  <ng-content></ng-content>
 </div>

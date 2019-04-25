@@ -1,6 +1,6 @@
 ## Usage
 
-1. 导入 ThyStoreModule, 并使用 ThyStoreModule.forRoot 定义应用程序的 Stores
+1. 导入 ThyStoreModule, 并使用 ThyStoreModule.forRoot(定义应用程序的 Stores)
 
  ```
  import { ThyStoreModule } from 'ngx-tethys';
@@ -130,12 +130,12 @@ export class AppStateStore extends Store<AppState> {
 有时候为了方便在模版中直接使用某个状态, 可以把 Store 设置为公开, 然后在模版中通过 `store.snapshot.xxx` 表达式直接使用某个状态, 在用 snapshot 的时候注意:
 
 1. 尽量只在模版中使用;
-1. 在代码中使用时除非你确定此时一定是你需要的值, 且是一次性使用, 使用后数据变更不应该功能;
-1. 严谨直接修改 snapshot 中的数据.
+1. 在代码中使用时除非你确定此时一定是你需要的值, 且是一次性使用, 使用后数据变更不应该影响此功能;
+1. 严禁在 Store 外直接修改该 Store snapshot 中的数据.
 
 ### dispatch
 
-在过去的版本中, 通过使用 `store.dispatch('actionName', payload)` 的方式调用某个 Action 更新状态, 新版本直接调用 `store.action(payload)`.
+在过去的版本中, 通过使用 `store.dispatch('actionName', payload)` 的方式调用某个 Action 更新状态, 新版本直接调用 Action 方法 `store.action(payload)`.
 改成这样的优势:
 
 1. 不需要给每个 Action 取一个名字;
@@ -163,7 +163,7 @@ export class AppStateStore extends Store<AppState> {
 
 ### EntityStore
 
-> EntityStore 继承于 Store, 封装了一个配置管理页面的列表数据操作, 包括分页, add, update, remove
+> EntityStore 继承于 Store, 封装了一个配置管理页面的列表数据操作, 包括分页, add, update, remove, clear 等方法
 
 1. 定义状态和 Store 的时候继承 `EntityState<TEntity>` `EntityStore<EntityState<TEntity>, TEntity>`;
 2. 使用 `this.initialize(entities: TEntity[], pagination: PaginationInfo)` 初始化数据, 一般会在 `fetchXXX` 的 Action 获取到数据后调用;

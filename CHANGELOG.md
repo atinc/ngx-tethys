@@ -1,3 +1,67 @@
+## [7.0.37](https://github.com/worktile/ngx-tethys/compare/7.0.36...7.0.37) (2019-04-18)
+
+
+### Bug Fixes
+
+* **form:** fix form-group-error horizontal state style error ([3425ed0](https://github.com/worktile/ngx-tethys/commit/3425ed0))
+* **tree:** fix tree `addTreeNode` can't find service bug ([ac9b791](https://github.com/worktile/ngx-tethys/commit/ac9b791))
+* `list` 拖动样式 ([a3df3da](https://github.com/worktile/ngx-tethys/commit/a3df3da))
+* `list` 拖动样式 ([0878418](https://github.com/worktile/ngx-tethys/commit/0878418))
+* 修改list拖动 ([93de6b3](https://github.com/worktile/ngx-tethys/commit/93de6b3))
+
+
+### Features
+
+* **dialog:** add size supper-lg and perfect dialog test cases ([a3b2ca3](https://github.com/worktile/ngx-tethys/commit/a3b2ca3))
+* `menu`、`tree`、`list` 拖动的样式 ([f1d16ee](https://github.com/worktile/ngx-tethys/commit/f1d16ee))
+* `menu`、`tree`、`list` 拖动的样式 ([3a08ed0](https://github.com/worktile/ngx-tethys/commit/3a08ed0))
+* `menu`、`tree`、`list` 拖动的样式 ([d77ef97](https://github.com/worktile/ngx-tethys/commit/d77ef97))
+
+
+
+## [7.0.36](https://github.com/worktile/ngx-tethys/compare/7.0.35...7.0.36) (2019-04-11)
+
+
+### Bug Fixes
+
+* **slide:** del demo header attribute ([3ed3941](https://github.com/worktile/ngx-tethys/commit/3ed3941))
+* **slide:** del options property slide ([10f7b00](https://github.com/worktile/ngx-tethys/commit/10f7b00))
+* **slide:** fix slide z-index ([6341e01](https://github.com/worktile/ngx-tethys/commit/6341e01))
+* **slide:** 修改slide container 参数名称 ([52a50bb](https://github.com/worktile/ngx-tethys/commit/52a50bb))
+
+
+### Features
+
+* **slide:** slide container支持传入类名 ([765e9f1](https://github.com/worktile/ngx-tethys/commit/765e9f1))
+
+
+
+## [7.0.35](https://github.com/worktile/ngx-tethys/compare/7.0.33...7.0.35) (2019-04-11)
+
+
+### Bug Fixes
+
+* **select:** 去除select的arrow zindex值样式,修复slide组件无法覆盖select arrow的bug ([307bdb5](https://github.com/worktile/ngx-tethys/commit/307bdb5))
+* **slide:** del demo header attribute ([3ed3941](https://github.com/worktile/ngx-tethys/commit/3ed3941))
+* **slide:** del options property slide ([10f7b00](https://github.com/worktile/ngx-tethys/commit/10f7b00))
+* **slide:** fix slide z-index ([6341e01](https://github.com/worktile/ngx-tethys/commit/6341e01))
+* **slide:** 修改slide container 参数名称 ([52a50bb](https://github.com/worktile/ngx-tethys/commit/52a50bb))
+* **slide:** 修改slide组件的zIndex值,修复在某些组件和slide共存时,slide组件zIndex值过低的问题 ([f6441a9](https://github.com/worktile/ngx-tethys/commit/f6441a9))
+* **slide:** 修改slide组件的zIndex值,修复在某些组件和slide共存时,slide组件zIndex值过低的问题 ([7bb2d64](https://github.com/worktile/ngx-tethys/commit/7bb2d64))
+
+
+### Features
+
+* **slide:** slide container支持传入类名 ([765e9f1](https://github.com/worktile/ngx-tethys/commit/765e9f1))
+* **slide:** 新增slide-layout组件，组件包含header，body，footer三部分，由于更改了过去的布局方式，之前使用slide-header和slide-body的地方请负责相关模块的同学在组件内使用slide-layout包一下 ([ea12ed5](https://github.com/worktile/ngx-tethys/commit/ea12ed5))
+
+
+### Performance Improvements
+
+* **slide:** 去除onpush模式,修改了slide-header-main中自定义模板的名称,以防止和自定义模板头容易混淆 ([0d4bf69](https://github.com/worktile/ngx-tethys/commit/0d4bf69))
+
+
+
 ## [7.0.34](https://github.com/worktile/ngx-tethys/compare/7.0.33...7.0.34) (2019-04-04)
 
 ### Bug Fixes

@@ -1,16 +1,15 @@
 .thy-tree {
-  padding: 20px;
-  width: 400px;
-  line-height: 40px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
+    margin-top: 20px;
+    width: 400px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
 }
 
 .thy-tree {
-  .tree-node-edit {
-    padding: 0 5px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-  }
+    .tree-node-edit {
+        padding: 0 5px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+    }
 }

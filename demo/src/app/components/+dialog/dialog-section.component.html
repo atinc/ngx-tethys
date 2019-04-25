@@ -1,98 +1,115 @@
 <section>
-    <div class="header">
-        <h2>Dialog</h2>
+  <div class="header">
+    <h2>Dialog</h2>
+  </div>
+  <div class="body">
+    <form class="mb-2" thyForm thyLayout="inline">
+      <thy-form-group thyLabelText="Size:">
+        <thy-select name="seize" [(ngModel)]="config.size">
+          <option value="sm">小</option>
+          <option value="md">中</option>
+          <option value="lg">大</option>
+          <option value="max-lg">特大</option>
+          <option value="supper-lg">超级大</option>
+        </thy-select>
+      </thy-form-group>
+      <thy-form-group thyLabelText="">
+        <label thyCheckbox name="hasBackdrop" [(ngModel)]="config.hasBackdrop" thyLabelText="是否有背景幕布"></label>
+      </thy-form-group>
+      <thy-form-group thyLabelText="">
+        <label
+          thyCheckbox
+          name="backdropClosable"
+          [(ngModel)]="config.backdropClosable"
+          thyLabelText="点击幕布自动关闭"
+        ></label>
+      </thy-form-group>
+      <thy-form-group thyLabelText="">
+        <label
+          thyCheckbox
+          name="closeOnNavigation"
+          [(ngModel)]="config.closeOnNavigation"
+          thyLabelText="浏览器导航自动关闭"
+        ></label>
+      </thy-form-group>
+    </form>
+
+    <div class="demo-layout btn-pair mb-2">
+      <button thyButton="primary" (click)="openTemplateDialog(templateDialog)">
+        Open Dialog (template)
+      </button>
+      <button thyButton="primary" (click)="openComponentDialog()">
+        Open Dialog (component)
+      </button>
     </div>
-    <div class="body">
-        <form class="mb-2" thyForm thyLayout="inline">
-            <thy-form-group thyLabelText="Size:">
-                <thy-select name="seize" [(ngModel)]="config.size">
-                    <option value="sm">小</option>
-                    <option value="md">中</option>
-                    <option value="lg">大</option>
-                    <option value="max-lg">特大</option>
-                </thy-select>
-            </thy-form-group>
-            <thy-form-group thyLabelText="">
-                <label thyCheckbox name="hasBackdrop" [(ngModel)]="config.hasBackdrop" thyLabelText="是否有背景幕布"></label>
-            </thy-form-group>
-            <thy-form-group thyLabelText="">
-                <label thyCheckbox name="backdropClosable" [(ngModel)]="config.backdropClosable"
-                    thyLabelText="点击幕布自动关闭"></label>
-            </thy-form-group>
-            <thy-form-group thyLabelText="">
-                <label thyCheckbox name="closeOnNavigation" [(ngModel)]="config.closeOnNavigation"
-                    thyLabelText="浏览器导航自动关闭"></label>
-            </thy-form-group>
-        </form>
 
-        <div class="demo-layout btn-pair mb-2">
-            <button thyButton="primary" (click)="openTemplateDialog(templateDialog)">
-                Open Dialog (template)
-            </button>
-            <button thyButton="primary" (click)="openComponentDialog()">
-                Open Dialog (component)
-            </button>
-        </div>
+    <pre><code lang="typescript" [highlight]="exampleCode"></code></pre>
 
-        <pre><code lang="typescript" [highlight]="exampleCode"></code></pre>
+    <button thyButton="primary" (click)="openTemplateDialog(templateDialog)">
+      Open Dialog (template)
+    </button>
 
-        <button thyButton="primary" (click)="openTemplateDialog(templateDialog)">
-            Open Dialog (template)
-        </button>
-
-        <button thyButton="primary" (click)="openTemplateDialog(templateCustomerSelect)">
-            Open Custome Select Dialog (template)
-        </button>
-    </div>
+    <button thyButton="primary" (click)="openTemplateDialog(templateCustomerSelect)">
+      Open Custome Select Dialog (template)
+    </button>
+  </div>
 </section>
 <section>
-    <div class="header">
-        <h2>Confirm</h2>
-    </div>
-    <div class="body">
-        <button thyButton="primary" (click)="openConfirm()">Open Confirm</button>
-    </div>
+  <div class="header">
+    <h2>Confirm</h2>
+  </div>
+  <div class="body">
+    <button thyButton="primary" (click)="openConfirm()">Open Confirm</button>
+  </div>
 </section>
 
 <section>
-    <div class="header">
-        <h2>打开Tree测试组件</h2>
-    </div>
-    <div class="body">
-        <button thyButton="primary" (click)="openTreeDemo()">Open TreeDemo</button>
-    </div>
+  <div class="header">
+    <h2>打开Tree测试组件</h2>
+  </div>
+  <div class="body">
+    <button thyButton="primary" (click)="openTreeDemo()">Open TreeDemo</button>
+  </div>
 </section>
 
 <ng-template #templateDialog>
-    <thy-dialog-header thyTitle="Dialog Title"></thy-dialog-header>
-    <thy-dialog-body>template dialog body</thy-dialog-body>
-    <thy-dialog-footer thyShowBorderTop="true">
-        <button thyButton="primary" (click)="thyDialog.close()">确认</button>
-        <button thyButton="link-secondary" (click)="thyDialog.close()">
-            关闭
-        </button>
-    </thy-dialog-footer>
+  <thy-dialog-header thyTitle="Dialog Title"></thy-dialog-header>
+  <thy-dialog-body>template dialog body</thy-dialog-body>
+  <thy-dialog-footer thyShowBorderTop="true">
+    <button thyButton="primary" (click)="thyDialog.close()">确认</button>
+    <button thyButton="link-secondary" (click)="thyDialog.close()">
+      关闭
+    </button>
+  </thy-dialog-footer>
 </ng-template>
 
 <ng-template #templateCustomerSelect>
-    <thy-dialog-header thyTitle="Dialog Title"></thy-dialog-header>
-    <thy-dialog-body>template dialog body</thy-dialog-body>
-    <thy-dialog-body>
-        <thy-custom-select thySize="md" thyPlaceHolder="请选择" [(ngModel)]="selectedItem" [thyShowSearch]="true"
-            [thyAllowClear]="allowClear">
-            <thy-option *ngFor="let option of optionData"
-                thySearchKey="{{option?.name}},{{option?.display_name}},{{option?.pin_yin}}" [thyValue]="option"
-                [thyDisabled]="option.name === 'money'" [thyLabelText]="option.display_name">
-            </thy-option>
-        </thy-custom-select>
-    </thy-dialog-body>
-    <thy-dialog-footer thyShowBorderTop="true">
-        <button thyButton="primary" (click)="thyDialog.close()">确认</button>
-        <button thyButton="link-secondary" (click)="thyDialog.close()">
-            关闭
-        </button>
-    </thy-dialog-footer>
+  <thy-dialog-header thyTitle="Dialog Title"></thy-dialog-header>
+  <thy-dialog-body>template dialog body</thy-dialog-body>
+  <thy-dialog-body>
+    <thy-custom-select
+      thySize="md"
+      thyPlaceHolder="请选择"
+      [(ngModel)]="selectedItem"
+      [thyShowSearch]="true"
+      thyAllowClear="true"
+    >
+      <thy-option
+        *ngFor="let option of optionData"
+        thySearchKey="{{ option?.name }},{{ option?.display_name }},{{ option?.pin_yin }}"
+        [thyValue]="option"
+        [thyDisabled]="option.name === 'money'"
+        [thyLabelText]="option.display_name"
+      >
+      </thy-option>
+    </thy-custom-select>
+  </thy-dialog-body>
+  <thy-dialog-footer thyShowBorderTop="true">
+    <button thyButton="primary" (click)="thyDialog.close()">确认</button>
+    <button thyButton="link-secondary" (click)="thyDialog.close()">
+      关闭
+    </button>
+  </thy-dialog-footer>
 </ng-template>
-
 
 <api-parameters title="config 参数列表" [parameters]="apiParameters"></api-parameters>

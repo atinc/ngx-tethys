@@ -35,10 +35,9 @@ export class DemoTreeSectionComponent {
     public treeNodes: any[] = [
         {
             key: '01',
-            title: '北京',
-            icon: 'wtf wtf-drive-o',
+            title: '北京北京北京北京北京北京北京北京北京北京北京',
+            icon: 'wtf wtf-folder',
             origin: { type: 1 },
-            iconStyle: { color: 'red' },
             children: [
                 {
                     key: '01001',
@@ -68,7 +67,7 @@ export class DemoTreeSectionComponent {
             key: '02',
             title: 'root2',
             origin: { type: 1 },
-            icon: 'wtf wtf-drive-o',
+            icon: 'wtf wtf-folder',
             expanded: true,
             children: []
         }
@@ -81,11 +80,14 @@ export class DemoTreeSectionComponent {
     public addNode() {
         console.log(this.treeComponent.getSelectedNode());
 
-        this.treeComponent.addTreeNode({
-            key: '020011',
-            title: 'new',
-            edited: true
-        },this.treeComponent.getSelectedNode());
+        this.treeComponent.addTreeNode(
+            {
+                key: '020011',
+                title: 'new',
+                edited: true
+            },
+            this.treeComponent.getSelectedNode()
+        );
     }
 
     public deleteNode(node) {
