@@ -274,8 +274,6 @@ export class ThySelectCustomComponent
     }
 
     _initializeSelection() {
-        // Defer setting the value in order to avoid the "Expression
-        // has changed after it was checked" errors from Angular.
         Promise.resolve().then(() => {
             this._setSelecttionByModelValue(this._modalValue);
         });
@@ -334,24 +332,28 @@ export class ThySelectCustomComponent
         this.onChangeCallback(this._modalValue);
     }
 
-    remove(event: Event, item: ThyOptionComponent, index: number) {
-        event.stopPropagation();
+    remove(item: ThyOptionComponent, event?: Event) {
+        if (event) {
+            event.stopPropagation();
+        }
         if (this._disabled) {
             return;
         }
         item.deselect();
     }
 
-    clearSelectValue(event: Event) {
-        event.stopPropagation();
+    clearSelectValue(event?: Event) {
+        if (event) {
+            event.stopPropagation();
+        }
         if (this._disabled) {
             return;
         }
         this._selectionModel.clear();
+        this.changeDetectorRef.markForCheck();
         this._emitModelValueChange();
     }
 
-    /** Toggles the overlay panel open or closed. */
     toggle(): void {
         this._panelOpen ? this.close() : this.open();
     }
@@ -364,7 +366,6 @@ export class ThySelectCustomComponent
         this._panelOpen = true;
     }
 
-    /** Closes the overlay panel and focuses the host element. */
     close(): void {
         if (this._panelOpen) {
             this._panelOpen = false;
@@ -403,6 +404,7 @@ export class ThySelectCustomComponent
         if (wasSelected !== this._selectionModel.isSelected(option)) {
             this._emitModelValueChange();
         }
+        this.changeDetectorRef.markForCheck();
     }
 
     ngOnDestroy() {

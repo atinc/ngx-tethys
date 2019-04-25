@@ -1,4 +1,13 @@
-import { TestBed, async, ComponentFixture, fakeAsync, tick, inject, flush } from '@angular/core/testing';
+import {
+    TestBed,
+    async,
+    ComponentFixture,
+    fakeAsync,
+    tick,
+    inject,
+    flush,
+    discardPeriodicTasks
+} from '@angular/core/testing';
 import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Component, ViewChild, ViewChildren, QueryList, ElementRef } from '@angular/core';
 import { ThySelectModule } from './module';
@@ -54,10 +63,10 @@ describe('ThyCustomSelect', () => {
                 trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             }));
 
-            // it('should not throw when attempting to open too early', () => {
-            //     fixture = TestBed.createComponent(BasicSelectComponent);
-            //     expect(() => fixture.componentInstance.select.open()).not.toThrow();
-            // });
+            it('should not throw when attempting to open too early', () => {
+                fixture = TestBed.createComponent(BasicSelectComponent);
+                expect(() => fixture.componentInstance.select.open()).not.toThrow();
+            });
             it('should open the panel when trigger is clicked', fakeAsync(() => {
                 trigger.click();
                 fixture.detectChanges();
@@ -429,38 +438,35 @@ describe('ThyCustomSelect', () => {
             expect(options[1].hidden).toBe(true);
             expect(optionNodes[1].classList).toContain('hidden');
         }));
-        // it('should hide the thy-group when all options of the group is hidden', fakeAsync(() => {
-        //     const fixture = TestBed.createComponent(SelectWithSearchAndGroupComponent);
-        //     const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+        it('should hide the thy-group when all options of the group is hidden', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectWithSearchAndGroupComponent);
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
 
-        //     fixture.detectChanges();
-        //     trigger.click();
-        //     fixture.detectChanges();
+            fixture.detectChanges();
+            trigger.click();
+            fixture.detectChanges();
 
-        //     // const groups = fixture.componentInstance.select.optionGroups.toArray();
-        //     // const options = fixture.componentInstance.select.options.toArray();
-        //     const input = overlayContainerElement.querySelector('input');
-        //     console.log(input);
-        //     // fixture.detectChanges();
-        //     flush();
-        //     flush();
+            const groups = fixture.componentInstance.select.optionGroups.toArray();
+            const options = fixture.componentInstance.select.options.toArray();
+            const input = overlayContainerElement.querySelector('input');
+            typeInElement('Cat', input);
 
-        //     typeInElement('f', input);
-        //     flush();
-        //     flush();
-        //     // fixture.detectChanges();
-        //     // flush();
+            tick(1000);
+            fixture.detectChanges();
+            flush();
 
-        //     // expect(groups[0].hidden).toBe(false);
-        //     // expect(groups[1].hidden).toBe(true);
+            expect(groups[0].hidden).toBe(false);
+            expect(groups[1].hidden).toBe(true);
 
-        //     // typeInElement('cat2', input);
-        //     // fixture.detectChanges();
-        //     // flush();
+            typeInElement('cat2', input);
 
-        //     // expect(groups[0].hidden).not.toBe(true);
-        //     // expect(groups[1].hidden).not.toBe(true);
-        // }));
+            tick(1000);
+            fixture.detectChanges();
+            flush();
+
+            expect(groups[0].hidden).toBe(true);
+            expect(groups[1].hidden).toBe(true);
+        }));
         it('should exec thyOnSearch when thyServerSearch is true', fakeAsync(() => {
             const fixture = TestBed.createComponent(SelectWithSearchAndServerSearchComponent);
             const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
@@ -475,6 +481,27 @@ describe('ThyCustomSelect', () => {
             tick();
 
             expect(spy).toHaveBeenCalledTimes(1);
+        }));
+    });
+
+    describe('options change logic', () => {
+        beforeEach(async(() => {
+            configureThyCustomSelectTestingModule([SelectEimtOptionsChangesComponent]);
+        }));
+
+        it('should remove the thy-option when sourcedata change', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectEimtOptionsChangesComponent);
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            fixture.detectChanges();
+            trigger.click();
+            fixture.detectChanges();
+
+            expect(overlayContainerElement.textContent).toContain('Sushi');
+            fixture.componentInstance.foods.pop();
+
+            fixture.detectChanges();
+
+            expect(overlayContainerElement.textContent).not.toContain('Sushi');
         }));
     });
 });
@@ -759,4 +786,37 @@ class SelectWithSearchAndServerSearchComponent {
     @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
     @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
     thyOnSearch = jasmine.createSpy('thyServerSearch callback');
+}
+
+@Component({
+    selector: 'basic-select',
+    template: `
+        <form thyForm name="demoForm" #demoForm="ngForm">
+            <thy-custom-select thyPlaceHolder="Food" [formControl]="control" [required]="isRequired">
+                <thy-option
+                    *ngFor="let food of foods"
+                    [thyValue]="food.value"
+                    [thyDisabled]="food.disabled"
+                    [thyLabelText]="food.viewValue"
+                >
+                </thy-option>
+            </thy-custom-select>
+        </form>
+    `
+})
+class SelectEimtOptionsChangesComponent {
+    foods: any[] = [
+        { value: 'steak-0', viewValue: 'Steak' },
+        { value: 'pizza-1', viewValue: 'Pizza' },
+        { value: 'tacos-2', viewValue: 'Tacos', disabled: true },
+        { value: 'sandwich-3', viewValue: 'Sandwich' },
+        { value: 'chips-4', viewValue: 'Chips' },
+        { value: 'eggs-5', viewValue: 'Eggs' },
+        { value: 'pasta-6', viewValue: 'Pasta' },
+        { value: 'sushi-7', viewValue: 'Sushi' }
+    ];
+    control = new FormControl();
+    isRequired: boolean;
+    @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
+    @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
 }

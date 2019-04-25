@@ -36,15 +36,15 @@ export class ThySelectOptionGroupComponent implements OnDestroy, AfterContentIni
 
     _destroy$: Subject<any> = new Subject<any>();
 
-    optionVisiableChanges: Observable<OptionVisiableChange[]> = defer(() => {
+    optionVisiableChanges: Observable<OptionVisiableChange> = defer(() => {
         if (this.options) {
-            return combineLatest(...this.options.map(option => option.visiableChange));
+            return merge(...this.options.map(option => option.visiableChange));
         }
         return this._ngZone.onStable.asObservable().pipe(
             take(1),
             switchMap(() => this.optionVisiableChanges)
         );
-    }) as Observable<OptionVisiableChange[]>;
+    }) as Observable<OptionVisiableChange>;
 
     constructor(private _ngZone: NgZone) {}
 
@@ -61,17 +61,21 @@ export class ThySelectOptionGroupComponent implements OnDestroy, AfterContentIni
 
     _resetOptions() {
         const changedOrDestroyed$ = merge(this.options.changes, this._destroy$);
-        this.optionVisiableChanges
+        merge(...this.options.map(option => option.visiableChange))
             .pipe(
                 takeUntil(changedOrDestroyed$),
                 debounceTime(10),
-                map((data: OptionVisiableChange[]) => {
-                    for (let i = 0; i < data.length; i++) {
-                        if (!data[i].option.hidden) {
-                            return false;
+                map((data: OptionVisiableChange) => {
+                    const hasOption = this.options.find(option => {
+                        if (!option.hidden) {
+                            return true;
                         }
+                    });
+                    if (hasOption) {
+                        return false;
+                    } else {
+                        return true;
                     }
-                    return true;
                 })
             )
             .subscribe((data: boolean) => {

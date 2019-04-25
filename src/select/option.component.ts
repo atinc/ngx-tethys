@@ -77,7 +77,8 @@ export class ThyOptionComponent implements OnDestroy {
 
     constructor(
         public element: ElementRef<HTMLElement>,
-        @Optional() @Inject(THY_SELECT_OPTION_PARENT_COMPONENT) public parent: IThySelectOptionParentComponent
+        @Optional() @Inject(THY_SELECT_OPTION_PARENT_COMPONENT) public parent: IThySelectOptionParentComponent,
+        private cdr: ChangeDetectorRef
     ) {}
 
     @HostListener('click', ['$event'])
@@ -98,6 +99,7 @@ export class ThyOptionComponent implements OnDestroy {
                     option: this,
                     selected: this._selected
                 });
+                this.cdr.markForCheck();
             }
         }
     }
@@ -110,6 +112,7 @@ export class ThyOptionComponent implements OnDestroy {
                 option: this,
                 selected: this._selected
             });
+            this.cdr.markForCheck();
         }
     }
 
@@ -117,6 +120,7 @@ export class ThyOptionComponent implements OnDestroy {
         if (!this._hidden) {
             this._hidden = true;
             this.visiableChange.emit({ option: this });
+            this.cdr.markForCheck();
         }
     }
 
@@ -124,6 +128,7 @@ export class ThyOptionComponent implements OnDestroy {
         if (this._hidden) {
             this._hidden = false;
             this.visiableChange.emit({ option: this });
+            this.cdr.markForCheck();
         }
     }
 

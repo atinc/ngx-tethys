@@ -23,7 +23,7 @@
             *ngFor="let item of selected; index as i"
             thyLabel="default"
             thyAfterIcon="wtf-times"
-            (click)="remove($event, item, i)"
+            (click)="remove(item, $event)"
           >
             {{ item.thyLabelText }}
           </span>
