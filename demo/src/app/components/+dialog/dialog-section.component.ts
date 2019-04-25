@@ -1,6 +1,6 @@
-import { Component, OnDestroy, TemplateRef } from '@angular/core';
+import { Component, OnDestroy, TemplateRef, Renderer2 } from '@angular/core';
 import { ThyDialog, ThyDialogConfig, ThyDialogSizes } from '../../../../../src/dialog';
-import { helpers } from '../../../../../src/util';
+import { helpers, keycodes } from '../../../../../src/util';
 import { DemoDialogContentComponent } from './dialog-content.component';
 import { Subject, of, defer } from 'rxjs';
 import { takeUntil, delay, map } from 'rxjs/operators';
@@ -55,11 +55,15 @@ export class DemoDialogSectionComponent implements OnDestroy {
 
     selectedItem = this.optionData[0];
 
+    hasShowDialog = false;
+
+    unsubscribe: () => void;
+
     public thyPrimaryAction = (event: Event) => {
         return of(true).pipe(delay(1000));
     };
 
-    constructor(public thyDialog: ThyDialog) {
+    constructor(public thyDialog: ThyDialog, private renderer: Renderer2) {
         thyDialog
             .afterOpened()
             .pipe(takeUntil(this.ngUnsubscribe$))
@@ -67,6 +71,19 @@ export class DemoDialogSectionComponent implements OnDestroy {
                 console.log(dialog);
             });
         this.optionData = taskTypes;
+
+        this.unsubscribe = renderer.listen(document, 'keydown', (event: KeyboardEvent) => {
+            const isK = (event.ctrlKey || event.metaKey) && event.keyCode === keycodes.K;
+            if (!this.hasShowDialog && isK) {
+                this.openComponentDialog();
+            }
+        });
+        // document.addEventListener('keydown', (event: KeyboardEvent) => {
+        //     const isK = (event.ctrlKey || event.metaKey) && event.keyCode === keycodes.K;
+        //     if (!this.hasShowDialog && isK) {
+        //         this.openComponentDialog();
+        //     }
+        // });
     }
 
     openTemplateDialog(template: TemplateRef<any>) {
@@ -82,6 +99,7 @@ export class DemoDialogSectionComponent implements OnDestroy {
     }
 
     openComponentDialog() {
+        this.hasShowDialog = true;
         const dialogRef = this.thyDialog.open(
             DemoDialogContentComponent,
             Object.assign(
@@ -97,6 +115,7 @@ export class DemoDialogSectionComponent implements OnDestroy {
             console.log(`Dialog keydownEvents: ${event}`);
         });
         dialogRef.afterClosed().subscribe(result => {
+            this.hasShowDialog = false;
             console.log(`Dialog afterClosed result: ${result}`);
         });
     }
@@ -123,5 +142,8 @@ export class DemoDialogSectionComponent implements OnDestroy {
     ngOnDestroy(): void {
         this.ngUnsubscribe$.next();
         this.ngUnsubscribe$.complete();
+        if (this.unsubscribe) {
+            this.unsubscribe();
+        }
     }
 }
