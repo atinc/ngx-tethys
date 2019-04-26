@@ -165,6 +165,11 @@ export class ThySelectCustomComponent
         return this.thyMode === 'multiple' ? this._selectionModel.selected : this._selectionModel.selected[0];
     }
 
+    /** The currently selected option. */
+    get firstSelected(): ThyOptionComponent {
+        return this._selectionModel.selected[0];
+    }
+
     get selectedDisplayContext(): any {
         const selectedValues = this._selectionModel.selected;
         if (selectedValues.length === 0) {

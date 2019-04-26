@@ -1,6 +1,6 @@
 <div
   cdk-overlay-origin
-  (click)="toggle($event)"
+  (click)="toggle()"
   #origin="cdkOverlayOrigin"
   #trigger
   class="form-control form-control-custom"
@@ -29,7 +29,7 @@
           </span>
         </ng-container>
         <ng-container *ngSwitchDefault>
-          <span>{{ selected.thyLabelText }}</span>
+          <span>{{ firstSelected.thyLabelText }}</span>
         </ng-container>
       </ng-container>
       <a
