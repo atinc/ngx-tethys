@@ -116,7 +116,7 @@ describe('ThyCustomSelect', () => {
                 flush();
 
                 const pane = overlayContainerElement.querySelector('.cdk-overlay-pane') as HTMLElement;
-                expect(pane.style.minWidth).toBe('200px');
+                expect(pane.style.width).toBe('200px');
             }));
 
             it('should update the width of the panel on resize', fakeAsync(() => {
@@ -128,7 +128,7 @@ describe('ThyCustomSelect', () => {
 
                 const pane = overlayContainerElement.querySelector('.cdk-overlay-pane') as HTMLElement;
                 // tslint:disable-next-line:radix
-                const initialWidth = parseInt(pane.style.minWidth || '0');
+                const initialWidth = parseInt(pane.style.width || '0');
 
                 expect(initialWidth).toBeGreaterThan(0);
 
@@ -139,7 +139,7 @@ describe('ThyCustomSelect', () => {
                 fixture.detectChanges();
 
                 // tslint:disable-next-line:radix
-                expect(parseInt(pane.style.minWidth || '0')).toBeGreaterThan(initialWidth);
+                expect(parseInt(pane.style.width || '0')).toBeGreaterThan(initialWidth);
             }));
 
             it('should not attempt to open a select that does not have any options', fakeAsync(() => {
@@ -344,7 +344,7 @@ describe('ThyCustomSelect', () => {
             flush();
 
             const pane = overlayContainerElement.querySelector('.cdk-overlay-pane') as HTMLElement;
-            expect(pane.style.minWidth).toBe('200px');
+            expect(pane.style.width).toBe('200px');
         }));
     });
 
@@ -502,6 +502,40 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
 
             expect(overlayContainerElement.textContent).not.toContain('Sushi');
+        }));
+    });
+
+    describe('hover trigger action logic', () => {
+        beforeEach(async(() => {
+            configureThyCustomSelectTestingModule([SelectWithHoverTriggerComponent]);
+        }));
+        it('should open select when mouseover on select', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectWithHoverTriggerComponent);
+            fixture.detectChanges();
+            const select = fixture.debugElement.nativeElement.querySelector('thy-custom-select');
+            dispatchFakeEvent(select, 'mouseover');
+            fixture.detectChanges();
+            flush();
+
+            expect(fixture.componentInstance.select.panelOpen).toBe(true);
+            expect(overlayContainerElement.textContent).toContain('Pizza');
+        }));
+        it('shoule close select when mouse leave select-container', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectWithHoverTriggerComponent);
+            fixture.detectChanges();
+            const select = fixture.debugElement.nativeElement.querySelector('thy-custom-select');
+            dispatchFakeEvent(select, 'mouseover');
+            fixture.detectChanges();
+            flush();
+
+            const selectContainer = overlayContainerElement.querySelector('.thy-select-container');
+            dispatchFakeEvent(selectContainer, 'mouseleave');
+            fixture.detectChanges();
+
+            expect(fixture.componentInstance.select.panelOpen).toBe(false);
+            expect(overlayContainerElement.textContent).not.toContain('Pizza');
+
+            tick(1000);
         }));
     });
 });
@@ -819,4 +853,26 @@ class SelectEimtOptionsChangesComponent {
     isRequired: boolean;
     @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
     @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
+}
+
+@Component({
+    selector: 'select-hover',
+    template: `
+        <form thyForm name="demoForm" #demoForm="ngForm">
+            <thy-custom-select [formControl]="control" thyHoverTriggerAction="true">
+                <thy-option
+                    *ngFor="let food of foods"
+                    [thyValue]="food.value"
+                    [thyDisabled]="food.disabled"
+                    [thyLabelText]="food.viewValue"
+                >
+                </thy-option>
+            </thy-custom-select>
+        </form>
+    `
+})
+class SelectWithHoverTriggerComponent {
+    foods: any[] = [{ value: 'pizza-1', viewValue: 'Pizza' }];
+    control = new FormControl();
+    @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
 }

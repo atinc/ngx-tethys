@@ -56,7 +56,9 @@
   (backdropClick)="close()"
   (detach)="close()"
 >
-  <div class="thy-select-container">
+  <div class="thy-select-container" (mouseleave)="onSelectContainerMouseleave($event)">
+    <div class="trgger-top-leave-block"></div>
+    <div class="trgger-bottom-leave-block"></div>
     <div class="thy-select-search" *ngIf="thyShowSearch">
       <thy-input-search
         thyAutofocus

@@ -19,7 +19,8 @@ import {
     Inject,
     NgZone,
     AfterContentInit,
-    ChangeDetectionStrategy
+    ChangeDetectionStrategy,
+    HostListener
 } from '@angular/core';
 import { UpdateHostClassService } from '../shared/update-host-class.service';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
@@ -40,6 +41,8 @@ import { SelectionModel } from '@angular/cdk/collections';
 export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
 export type SelectMode = 'multiple' | '';
+
+export type ThyCustomSelectTriggerType = 'click' | 'hover';
 
 export interface OptionValue {
     thyLabelText?: string;
@@ -127,7 +130,7 @@ export class ThySelectCustomComponent
 
     @Input() thyServerSearch: boolean;
 
-    @Input() thyShowOptionMenu: boolean;
+    @Input() thyHoverTriggerAction: boolean;
 
     @Input()
     set thyMode(value: SelectMode) {
@@ -222,6 +225,25 @@ export class ThySelectCustomComponent
         private changeDetectorRef: ChangeDetectorRef
     ) {
         this.updateHostClassService.initializeElement(elementRef.nativeElement);
+    }
+
+    @HostListener('mouseover', ['$event'])
+    public trggleHover($event: Event) {
+        console.log('mouseover');
+        if (this.thyHoverTriggerAction) {
+            this.open();
+        }
+    }
+
+    onSelectContainerMouseleave(event: Event) {
+        console.log('leave');
+        if (event) {
+            event.preventDefault();
+        }
+        if (!this.thyHoverTriggerAction) {
+            return;
+        }
+        this.close();
     }
 
     writeValue(value: any): void {
