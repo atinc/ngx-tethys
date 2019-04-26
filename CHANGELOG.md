@@ -1,3 +1,17 @@
+## [7.0.39](https://github.com/worktile/ngx-tethys/compare/7.0.38...7.0.39) (2019-04-26)
+
+
+### Bug Fixes
+
+* **thy-custom-select:** auto width and open state ([2e0b42b](https://github.com/worktile/ngx-tethys/commit/2e0b42b))
+
+
+### Features
+
+* **thy-custom:** add hover trigger open ([afdae7f](https://github.com/worktile/ngx-tethys/commit/afdae7f))
+
+
+
 ## [7.0.38](https://github.com/worktile/ngx-tethys/compare/7.0.37...7.0.38) (2019-04-25)
 
 
