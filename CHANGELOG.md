@@ -1,5 +1,4 @@
 ## [7.0.39](https://github.com/worktile/ngx-tethys/compare/7.0.38...7.0.39) (2019-04-26)
-## [7.0.39](https://github.com/worktile/ngx-tethys/compare/7.0.38...7.0.39) (2019-04-26)
 
 
 ### Bug Fixes
