@@ -1,6 +1,6 @@
 <div
   cdk-overlay-origin
-  (click)="toggle($event)"
+  (click)="toggle()"
   #origin="cdkOverlayOrigin"
   #trigger
   class="form-control form-control-custom"
@@ -29,7 +29,7 @@
           </span>
         </ng-container>
         <ng-container *ngSwitchDefault>
-          <span>{{ selected.thyLabelText }}</span>
+          <span>{{ firstSelected.thyLabelText }}</span>
         </ng-container>
       </ng-container>
       <a
@@ -52,11 +52,13 @@
   cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
   [cdkConnectedOverlayOrigin]="origin"
   [cdkConnectedOverlayOpen]="panelOpen"
-  [cdkConnectedOverlayMinWidth]="triggerRect?.width"
+  [cdkConnectedOverlayWidth]="triggerRect?.width"
   (backdropClick)="close()"
   (detach)="close()"
 >
-  <div class="thy-select-container">
+  <div class="thy-select-container" (mouseleave)="onSelectContainerMouseleave($event)">
+    <div class="trgger-top-leave-block"></div>
+    <div class="trgger-bottom-leave-block"></div>
     <div class="thy-select-search" *ngIf="thyShowSearch">
       <thy-input-search
         thyAutofocus

@@ -145,6 +145,18 @@ select.form-control-md {
     border-radius: 0 0 4px 4px;
     z-index: 99;
     background: $white;
+    & .trgger-top-leave-block {
+        width: 100%;
+        height: 44px;
+        position: absolute;
+        top: -44px;
+    }
+    & .trgger-bottom-leave-block {
+        width: 100%;
+        height: 44px;
+        position: absolute;
+        bottom: -44px;
+    }
 }
 
 .thy-select-custom-options {
