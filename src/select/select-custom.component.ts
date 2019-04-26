@@ -111,8 +111,13 @@ export class ThySelectCustomComponent
 
     @HostBinding('class.thy-select') _isSelect = true;
 
+    _panelOpen = false;
+
     // 下拉选项是否展示
-    @HostBinding('class.menu-is-opened') _panelOpen = false;
+    @HostBinding('class.menu-is-opened')
+    get panelOpen(): boolean {
+        return this._panelOpen;
+    }
 
     @Output() thyOnSearch: EventEmitter<any> = new EventEmitter<any>();
 
@@ -261,10 +266,6 @@ export class ThySelectCustomComponent
                 this._resetOptions();
                 this._initializeSelection();
             });
-    }
-
-    get panelOpen(): boolean {
-        return this._panelOpen;
     }
 
     _resetOptions() {
