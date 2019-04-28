@@ -70,6 +70,7 @@
     <ng-container *ngIf="options.length > 0 || optionGroups.length > 0; else emptyPlaceholder">
       <div class="thy-select-custom-options">
         <ng-content></ng-content>
+        <thy-option *ngIf="options?.length === 0" [thyLabelText]="_emptyStateText"></thy-option>
       </div>
     </ng-container>
     <ng-template #emptyPlaceholder>

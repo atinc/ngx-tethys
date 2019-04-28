@@ -82,7 +82,7 @@ export class ThySelectCustomComponent
 
     _mode: SelectMode;
 
-    _emptyStateText: string;
+    _emptyStateText = '没有任何选项';
 
     _classNames: any = [];
 
@@ -385,7 +385,7 @@ export class ThySelectCustomComponent
     }
 
     open(): void {
-        if (this._disabled || !this.options || !this.options.length || this._panelOpen) {
+        if (this._disabled || !this.options || this._panelOpen) {
             return;
         }
         this.triggerRect = this.trigger.nativeElement.getBoundingClientRect();
