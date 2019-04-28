@@ -229,14 +229,12 @@ export class ThySelectCustomComponent
 
     @HostListener('mouseover', ['$event'])
     public trggleHover($event: Event) {
-        console.log('mouseover');
         if (this.thyHoverTriggerAction) {
             this.open();
         }
     }
 
     onSelectContainerMouseleave(event: Event) {
-        console.log('leave');
         if (event) {
             event.preventDefault();
         }
