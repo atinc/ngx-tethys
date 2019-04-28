@@ -7,6 +7,7 @@ import { takeUntil, delay, map } from 'rxjs/operators';
 import { apiParameters } from './api-parameters';
 import { taskTypes } from '../+select/mock-data';
 import { DemoTreeSectionComponent } from '../+tree/tree-section.component';
+import { mixinUnsubscribe, MixinBase } from '../../../../../src/core';
 
 const exampleCode = `
 import { DialogContentComponent } from './dialog-content.component';
@@ -37,8 +38,8 @@ export class DialogComponent {
     selector: 'demo-dialog-section',
     templateUrl: './dialog-section.component.html'
 })
-export class DemoDialogSectionComponent implements OnDestroy {
-    private ngUnsubscribe$ = new Subject();
+export class DemoDialogSectionComponent extends mixinUnsubscribe(MixinBase) implements OnDestroy {
+    // private ngUnsubscribe$ = new Subject();
 
     public exampleCode: string = exampleCode;
 
@@ -64,6 +65,7 @@ export class DemoDialogSectionComponent implements OnDestroy {
     };
 
     constructor(public thyDialog: ThyDialog, private renderer: Renderer2) {
+        super();
         thyDialog
             .afterOpened()
             .pipe(takeUntil(this.ngUnsubscribe$))
@@ -140,8 +142,7 @@ export class DemoDialogSectionComponent implements OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.ngUnsubscribe$.next();
-        this.ngUnsubscribe$.complete();
+        super.ngOnDestroy();
         if (this.unsubscribe) {
             this.unsubscribe();
         }

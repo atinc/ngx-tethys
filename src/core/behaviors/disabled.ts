@@ -7,9 +7,8 @@ export interface ThyCanDisable {
 
 export type ThyCanDisableCtor = Constructor<ThyCanDisable>;
 
-/** Mixin to augment a directive with a `disableRipple` property. */
-export function mixinDisabled<T extends Constructor<{}>>(base: T)
-    : ThyCanDisableCtor & T {
+/** Mixin to augment a directive with a `disable` property. */
+export function mixinDisabled<T extends Constructor<{}>>(base: T): ThyCanDisableCtor & T {
     return class extends base {
         private _thyDisabled = false;
 
@@ -21,7 +20,8 @@ export function mixinDisabled<T extends Constructor<{}>>(base: T)
             this._thyDisabled = inputValueToBoolean(value);
         }
 
-        constructor(...args: any[]) { super(...args); }
+        constructor(...args: any[]) {
+            super(...args);
+        }
     };
 }
-
