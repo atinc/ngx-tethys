@@ -57,8 +57,8 @@
   (detach)="close()"
 >
   <div class="thy-select-container" (mouseleave)="onSelectContainerMouseleave($event)">
-    <div class="trgger-top-leave-block"></div>
-    <div class="trgger-bottom-leave-block"></div>
+    <div class="trgger-top-leave-block" *ngIf="thyHoverTriggerAction"></div>
+    <div class="trgger-bottom-leave-block" *ngIf="thyHoverTriggerAction"></div>
     <div class="thy-select-search" *ngIf="thyShowSearch">
       <thy-input-search
         thyAutofocus
@@ -70,6 +70,7 @@
     <ng-container *ngIf="options.length > 0 || optionGroups.length > 0; else emptyPlaceholder">
       <div class="thy-select-custom-options">
         <ng-content></ng-content>
+        <thy-option *ngIf="options?.length === 0" [thyLabelText]="_emptyStateText"></thy-option>
       </div>
     </ng-container>
     <ng-template #emptyPlaceholder>

@@ -177,7 +177,10 @@
 </section>
 
 <section>
-  <div class="body">
+  <div class="header">
+    <h2>Hover 触发展开Select Options</h2>
+  </div>
+  <div class="body demo-select">
     <thy-custom-select
       [(ngModel)]="selectedItem"
       thyPlaceHolder="请选择"
@@ -187,6 +190,24 @@
       <thy-option *ngFor="let option of optionData" [thyValue]="option._id" [thyLabelText]="option.display_name">
       </thy-option>
     </thy-custom-select>
+  </div>
+</section>
+
+<section>
+  <div class="header">
+    <h2>空的Options</h2>
+  </div>
+  <div class="body demo-select">
+    <thy-custom-select [(ngModel)]="selectedItem"> </thy-custom-select>
+  </div>
+</section>
+
+<section>
+  <div class="header">
+    <h2>空的Options 设置thyEmptyStateText</h2>
+  </div>
+  <div class="body demo-select">
+    <thy-custom-select [(ngModel)]="selectedItem" [thyEmptyStateText]="'自定义提示'"> </thy-custom-select>
   </div>
 </section>
 

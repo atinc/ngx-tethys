@@ -142,14 +142,36 @@ describe('ThyCustomSelect', () => {
                 expect(parseInt(pane.style.width || '0')).toBeGreaterThan(initialWidth);
             }));
 
-            it('should not attempt to open a select that does not have any options', fakeAsync(() => {
+            it('should attempt to open a select that does not have any options', fakeAsync(() => {
                 fixture.componentInstance.foods = [];
                 fixture.detectChanges();
 
                 trigger.click();
                 fixture.detectChanges();
 
-                expect(fixture.componentInstance.select.panelOpen).toBe(false);
+                expect(fixture.componentInstance.select.panelOpen).toBe(true);
+
+                expect(fixture.componentInstance.select.options.length).toBe(0);
+            }));
+
+            it('should show default _emptyStateText when does not have any options', fakeAsync(() => {
+                fixture.componentInstance.foods = [];
+                fixture.detectChanges();
+
+                trigger.click();
+                fixture.detectChanges();
+
+                expect(overlayContainerElement.textContent).toContain('没有任何选项');
+            }));
+
+            it('should show thyEmptyStateText when assigin thyEmptyStateText property', fakeAsync(() => {
+                fixture.componentInstance.foods = [];
+                fixture.componentInstance.select.thyEmptyStateText = '无任何内容';
+                fixture.detectChanges();
+                trigger.click();
+                fixture.detectChanges();
+
+                expect(overlayContainerElement.textContent).toContain('无任何内容');
             }));
 
             it('should close the panel when escing out', fakeAsync(() => {
