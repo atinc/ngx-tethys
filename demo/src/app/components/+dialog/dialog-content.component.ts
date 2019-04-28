@@ -13,10 +13,9 @@ export class DemoDialogContentComponent implements OnInit {
 
     showMore = false;
 
-    constructor(
-        private thyDialogRef: ThyDialogRef<any>,
-        public thyDialog: ThyDialog
-    ) {}
+    allowClear = true;
+
+    constructor(private thyDialogRef: ThyDialogRef<any>, public thyDialog: ThyDialog) {}
 
     ngOnInit() {
         console.log(`ngOnInit get data: ${this.data}`);
