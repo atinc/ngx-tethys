@@ -1,8 +1,27 @@
-@mixin thy-tree-secondary() {
+@mixin thy-tree-default() {
     .thy-tree-node {
         &-wrapper {
-            height: 42px;
+            .thy-tree-expand {
+                &-icon {
+                    transform: rotate(0deg);
+                    transition: all 0.2s cubic-bezier(0.4, 0.1, 0.5, 1) 0.1s;
 
+                    &::before {
+                        content: '\e712';
+                    }
+
+                    &.collapse {
+                        transform: rotate(-45deg);
+                    }
+                }
+            }
+        }
+    }
+}
+
+@mixin thy-tree-especial() {
+    .thy-tree-node {
+        &-wrapper {
             .thy-tree-expand {
                 &-icon {
                     transform: rotate(0);
@@ -11,7 +30,7 @@
                         content: '\e771';
                     }
 
-                    &.narrow {
+                    &.collapse {
                         &::before {
                             content: '\e772';
                         }

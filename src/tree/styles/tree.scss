@@ -30,16 +30,6 @@
 
                 &-icon {
                     display: inline-block;
-                    transform: rotate(0deg);
-                    transition: all 0.2s cubic-bezier(0.4, 0.1, 0.5, 1) 0.1s;
-
-                    &::before {
-                        content: '\e712';
-                    }
-
-                    &.narrow {
-                        transform: rotate(-45deg);
-                    }
                 }
 
                 &:hover {
@@ -150,6 +140,18 @@
     }
 }
 
-.thy-tree-secondary {
-    @include thy-tree-secondary();
+.thy-tree-sm {
+    .thy-tree-node {
+        &-wrapper {
+            height: $tree-node-wrapper-sm-height;
+        }
+    }
+}
+
+.thy-tree-default {
+    @include thy-tree-default();
+}
+
+.thy-tree-especial {
+    @include thy-tree-especial();
 }
