@@ -1,18 +1,74 @@
 <div class="thy-transfer-list-header">
-    <span class="thy-transfer-list-header-title">{{title}}</span>
+  <span class="thy-transfer-list-header-title">{{ title }}</span>
 </div>
-<div class="thy-transfer-list-body">
-    <ul class="thy-transfer-list-content" [class.thy-transfer-drag]="!draggableOptions.disabled" [sortablejs]="items" [sortablejsOptions]="draggableOptions">
-        <ng-container *ngFor="let item of items;">
-            <li class="thy-transfer-list-content-item" [ngClass]="{'active' : item.checked}" (click)="onSelect(item)">
-                <ng-template *ngIf="template" [ngTemplateOutlet]="template" [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
-                <ng-container *ngIf="!template">
-                    <ng-container *ngIf="!draggableOptions.disabled">
-                        <i class="thy-transfer-drag-icon wtf wtf-move"></i>
-                    </ng-container>
-                    {{item.title}}
-                </ng-container>
-            </li>
+<div class="thy-transfer-list-body" cdkDropListGroup [cdkDropListGroupDisabled]="!draggable">
+  <ng-container *ngIf="canLock">
+    <div class="thy-transfer-list-group-name">锁定</div>
+    <div
+      class="thy-transfer-list-content"
+      cdkDropList
+      id="lock"
+      [cdkDropListData]="lockItems"
+      (cdkDropListDropped)="drop($event)"
+      [cdkDropListEnterPredicate]="lockListEnterPredicate"
+    >
+      <ng-container *ngIf="lockItems.length === 0" [ngTemplateOutlet]="emptyGroupTemplate"></ng-container>
+      <div
+        class="thy-transfer-list-content-item"
+        cdkDrag
+        [cdkDragData]="item"
+        *ngFor="let item of lockItems"
+        [ngClass]="{ active: item.checked }"
+        (click)="onSelect(item)"
+      >
+        <ng-template
+          *ngIf="template"
+          [ngTemplateOutlet]="template"
+          [ngTemplateOutletContext]="{ $implicit: item }"
+        ></ng-template>
+        <ng-container *ngIf="!template">
+          <ng-container *ngIf="draggable">
+            <i class="wtf wtf-move" cdkDragHandle></i>
+          </ng-container>
+          {{ item.title }}
         </ng-container>
-    </ul>
+      </div>
+    </div>
+    <div class="thy-transfer-list-group-name">未锁定</div>
+  </ng-container>
+  <div
+    class="thy-transfer-list-content"
+    cdkDropList
+    [cdkDropListDisabled]="!draggable"
+    id="unlock"
+    [cdkDropListData]="unlockItems"
+    (cdkDropListDropped)="drop($event)"
+  >
+    <ng-container *ngIf="unlockItems.length === 0" [ngTemplateOutlet]="emptyGroupTemplate"></ng-container>
+    <div
+      class="thy-transfer-list-content-item"
+      cdkDrag
+      [cdkDragData]="item"
+      *ngFor="let item of unlockItems"
+      [ngClass]="{ active: item.checked }"
+      (click)="onSelect(item)"
+    >
+      <ng-template
+        *ngIf="template"
+        [ngTemplateOutlet]="template"
+        [ngTemplateOutletContext]="{ $implicit: item }"
+      ></ng-template>
+      <ng-container *ngIf="!template">
+        <ng-container *ngIf="draggable">
+          <i class="wtf wtf-move" cdkDragHandle></i>
+        </ng-container>
+        {{ item.title }}
+      </ng-container>
+    </div>
+  </div>
 </div>
+<ng-template #emptyGroupTemplate>
+  <div class="cdk-drop-list-empty">
+    分组为空
+  </div>
+</ng-template>
