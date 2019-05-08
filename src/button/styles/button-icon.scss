@@ -1,4 +1,4 @@
-$btn-icon-circle-padding-lg: 14px;
+$btn-icon-circle-padding-lg: 13px;
 $btn-icon-circle-padding-base: 9px;
 $btn-icon-circle-padding-sm: 7px;
 $btn-icon-circle-padding-xs: 4px;
@@ -43,17 +43,20 @@ $btn-icon-circle-padding-xs: 4px;
         margin-left: 6px;
     }
     &.border-thick {
-        i,.wtf {
+        i,
+        .wtf {
             border-width: 2px;
         }
         &:not(:hover):not(.invalid).circle-solid {
-            i, .wtf {
+            i,
+            .wtf {
                 color: $btn-icon-thick-solid-color;
                 border-color: $btn-icon-thick-solid-color;
             }
         }
         &:not(:hover):not(.invalid).circle-dashed {
-            i, .wtf {
+            i,
+            .wtf {
                 color: $btn-icon-thick-dashed-color;
                 border-color: $btn-icon-thick-dashed-color;
             }
@@ -103,7 +106,7 @@ $btn-icon-circle-padding-xs: 4px;
 }
 
 .btn-icon-active {
-    color: $primary
+    color: $primary;
 }
 
 .btn-icon-xs {
