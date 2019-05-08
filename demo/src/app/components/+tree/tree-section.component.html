@@ -7,15 +7,17 @@
     <thy-tree
       #tree
       [thyNodes]="treeNodes"
-      [thyType]="'secondary'"
+      [thyType]="'especial'"
+      [thySize]="'sm'"
       [thyShowExpand]="isShowExpand"
       [thyDraggable]="true"
+      [thyTitleTruncate]="true"
       (thyOnDraggableChange)="draggableNode($event)"
     >
       <ng-template #treeNodeTemplate let-node>
         <i class="thy-tree-node-icon" [ngClass]="node.origin.icon" [ngStyle]="node.origin.iconStyle"></i>
         <ng-container *ngIf="!node.origin.edited">
-          <div class="thy-tree-node-title">{{ node.title }}</div>
+          <div class="thy-tree-node-title text-truncate">{{ node.title }}</div>
           <div class="thy-tree-node-actions">
             <a thyButtonIcon="wtf-edit-o" thySize="sm" href="javascript:;" (click)="node.origin.edited = true"></a>
             <a thyButtonIcon="wtf-trash-o" thySize="sm" href="javascript:;" (click)="deleteNode(node)"></a>
@@ -23,7 +25,7 @@
         </ng-container>
         <ng-container *ngIf="node.origin.edited">
           <div class="thy-tree-node-edit">
-            <input #title thyInput thySize="sm" thyAutofocus />
+            <input #title thyInput thySize="sm" thyAutofocus (blur)="node.origin.edited = !node.origin.edited" />
           </div>
         </ng-container>
       </ng-template>

@@ -1,19 +1,48 @@
 import {
-    Component, forwardRef, HostBinding, Input, Optional,
-    ElementRef, OnInit, HostListener, ContentChildren,
-    QueryList, AfterViewInit, Output, EventEmitter,
-    TemplateRef, ContentChild, AfterContentInit, ViewChild, Renderer2
+    Component,
+    forwardRef,
+    HostBinding,
+    Input,
+    ElementRef,
+    OnInit,
+    ContentChildren,
+    QueryList,
+    Output,
+    EventEmitter,
+    TemplateRef,
+    ContentChild,
+    ViewChild,
+    Renderer2,
+    OnDestroy,
+    ChangeDetectorRef,
+    InjectionToken,
+    Inject,
+    NgZone,
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    HostListener
 } from '@angular/core';
 import { UpdateHostClassService } from '../shared/update-host-class.service';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { ThyOptionComponent } from './option.component';
-import { ThyActionMenuSubItemDirective } from '../action-menu/action-menu.component';
-import { ThyPositioningService } from '../positioning/positioning.service';
-import { isUndefinedOrNull, inputValueToBoolean } from '../util/helpers';
+import {
+    ThyOptionComponent,
+    OptionSelectionChange,
+    THY_SELECT_OPTION_PARENT_COMPONENT,
+    IThySelectOptionParentComponent
+} from './option.component';
+import { inputValueToBoolean, isArray } from '../util/helpers';
+import { ScrollStrategy, Overlay, ViewportRuler, ConnectionPositionPair } from '@angular/cdk/overlay';
+import { takeUntil, startWith, take, switchMap, skip } from 'rxjs/operators';
+import { Subject, Observable, merge, defer, empty } from 'rxjs';
+import { EXPANDED_DROPDOWN_POSITIONS } from '../core/overlay/overlay-opsition-map';
+import { ThySelectOptionGroupComponent } from './option-group.component';
+import { SelectionModel } from '@angular/cdk/collections';
 
 export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
 export type SelectMode = 'multiple' | '';
+
+export type ThyCustomSelectTriggerType = 'click' | 'hover';
 
 export interface OptionValue {
     thyLabelText?: string;
@@ -23,30 +52,29 @@ export interface OptionValue {
     thySearchKey?: string;
 }
 
-const noop = () => {
-};
+const noop = () => {};
 
 @Component({
     selector: 'thy-custom-select',
     templateUrl: './select-custom.component.html',
+    exportAs: 'thyCustomSelect',
     providers: [
+        {
+            provide: THY_SELECT_OPTION_PARENT_COMPONENT,
+            useExisting: ThySelectCustomComponent
+        },
         {
             provide: NG_VALUE_ACCESSOR,
             useExisting: forwardRef(() => ThySelectCustomComponent),
             multi: true
         },
         UpdateHostClassService
-    ]
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, AfterViewInit, AfterContentInit {
-
-    _innerValue: any;
-
-    _selectedOption: ThyOptionComponent;
-
-    _innerValues: any[] = [];
-
-    _selectedOptions: ThyOptionComponent[] = [];
+export class ThySelectCustomComponent
+    implements ControlValueAccessor, IThySelectOptionParentComponent, OnInit, AfterContentInit, OnDestroy {
+    searchText: string;
 
     _disabled = false;
 
@@ -54,13 +82,29 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
 
     _mode: SelectMode;
 
-    _emptyStateText: string;
+    _emptyStateText = '没有任何选项';
 
     _classNames: any = [];
 
     _viewContentInitialized = false;
 
     _loadingDone = true;
+
+    _scrollStrategy: ScrollStrategy;
+
+    _modalValue: any;
+
+    public dropDownPosition = 'bottom';
+
+    _selectionModel: SelectionModel<ThyOptionComponent>;
+
+    positions: ConnectionPositionPair[] = EXPANDED_DROPDOWN_POSITIONS;
+
+    /** The last measured value for the trigger's client bounding rect. */
+    triggerRect: ClientRect;
+
+    /** Emits whenever the component is destroyed. */
+    private readonly _destroy$ = new Subject<void>();
 
     private onTouchedCallback: () => void = noop;
 
@@ -70,8 +114,13 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
 
     @HostBinding('class.thy-select') _isSelect = true;
 
-    // 菜单是否展开
-    @HostBinding('class.menu-is-opened') _expandOptions = false;
+    _panelOpen = false;
+
+    // 下拉选项是否展示
+    @HostBinding('class.menu-is-opened')
+    get panelOpen(): boolean {
+        return this._panelOpen;
+    }
 
     @Output() thyOnSearch: EventEmitter<any> = new EventEmitter<any>();
 
@@ -81,11 +130,15 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
 
     @Input() thyServerSearch: boolean;
 
-    @Input() thyShowOptionMenu: boolean;
+    @Input() thyHoverTriggerAction: boolean;
 
     @Input()
     set thyMode(value: SelectMode) {
         this._mode = value;
+    }
+
+    get thyMode(): SelectMode {
+        return this._mode;
     }
 
     @Input()
@@ -110,122 +163,106 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
         this._disabled = inputValueToBoolean(value);
     }
 
-    _listOfOptionComponent: QueryList<ThyOptionComponent>;
-
-    @ContentChildren(ThyOptionComponent)
-    set listOfOptionComponent(value: QueryList<ThyOptionComponent>) {
-        this._listOfOptionComponent = value;
-        this._setSelectedOptions();
+    /** Whether the select has a value. */
+    get empty(): boolean {
+        return !this._selectionModel || this._selectionModel.isEmpty();
     }
+
+    /** The currently selected option. */
+    get selected(): ThyOptionComponent | ThyOptionComponent[] {
+        return this.thyMode === 'multiple' ? this._selectionModel.selected : this._selectionModel.selected[0];
+    }
+
+    /** The currently selected option. */
+    get firstSelected(): ThyOptionComponent {
+        return this._selectionModel.selected[0];
+    }
+
+    get selectedDisplayContext(): any {
+        const selectedValues = this._selectionModel.selected;
+        if (selectedValues.length === 0) {
+            return null;
+        }
+        const context = selectedValues.map((option: ThyOptionComponent) => {
+            return option.thyRawValue || option.thyValue;
+        });
+        if (this.thyMode === 'multiple') {
+            return {
+                $implicit: context
+            };
+        } else {
+            return {
+                $implicit: context[0]
+            };
+        }
+    }
+
+    readonly optionSelectionChanges: Observable<OptionSelectionChange> = defer(() => {
+        if (this.options) {
+            return merge(...this.options.map(option => option.selectionChange));
+        }
+        return this._ngZone.onStable.asObservable().pipe(
+            take(1),
+            switchMap(() => this.optionSelectionChanges)
+        );
+    }) as Observable<OptionSelectionChange>;
 
     @ContentChild('selectedDisplay') selectedValueDisplayRef: TemplateRef<any>;
 
-    @ViewChild('selectMenuSetting') formControlElementRef: ElementRef<any>;
+    @ViewChild('trigger') trigger: ElementRef<any>;
 
-    @ViewChild('selectContainer')
-    set selectContainerWrapperElementRef(value: ElementRef<any>) {
-        if (value && value.nativeElement) {
-            this.autoCalculateMenuPosition(value.nativeElement);
-        }
-    }
+    @ContentChildren(ThyOptionComponent, { descendants: true }) options: QueryList<ThyOptionComponent>;
 
-    selectedValueContext: any;
-
-    _setSelectedOptions() {
-        if (this._mode === 'multiple') {
-            if (this._innerValues && this._innerValues.length > 0) {
-                this._selectedOptions = this.findOptionComponents((item) => {
-                    return this._innerValues.indexOf(item.thyValue) >= 0;
-                });
-                this._selectedOptions.forEach((item) => {
-                    item.selected = true;
-                });
-            } else {
-                this._selectedOptions = [];
-            }
-
-            this.selectedValueContext = {
-                $implicit: this._selectedOptions
-            };
-        } else {
-            // allow value is empty
-            if (isUndefinedOrNull(this._innerValue)) {
-                this._selectedOption = null;
-            } else {
-                this._selectedOption = this.findOneOptionComponent((item) => {
-                    return item.thyValue === this._innerValue;
-                });
-            }
-            this.selectedValueContext = {
-                $implicit: this._selectedOption ? (this._selectedOption.thyRawValue || this._selectedOption.thyValue) : null
-            };
-        }
-
-    }
-
-    findOneOptionComponent(iterate: (option: ThyOptionComponent) => boolean): ThyOptionComponent {
-        let result: ThyOptionComponent;
-        this._listOfOptionComponent.forEach((item) => {
-            if (result) {
-                return;
-            }
-            if (item.thyGroupLabel) {
-                if (item.listOfOptionComponent) {
-                    item.listOfOptionComponent.forEach((subItem) => {
-                        if (iterate(subItem)) {
-                            result = subItem;
-                        }
-                    });
-                }
-            } else {
-                if (iterate(item)) {
-                    result = item;
-                }
-            }
-        });
-        return result;
-    }
-
-    findOptionComponents(iterate: (option: ThyOptionComponent) => boolean): ThyOptionComponent[] {
-        const result: ThyOptionComponent[] = [];
-        this._listOfOptionComponent.forEach((item) => {
-            if (item.thyGroupLabel) {
-                item.listOfOptionComponent.forEach((subItem) => {
-                    if (iterate(subItem)) {
-                        result.push(subItem);
-                    }
-                });
-            } else {
-                if (iterate(item)) {
-                    result.push(item);
-                }
-            }
-        });
-        return result;
-    }
+    @ContentChildren(ThySelectOptionGroupComponent) optionGroups: QueryList<ThySelectOptionGroupComponent>;
 
     constructor(
+        private _ngZone: NgZone,
         private elementRef: ElementRef,
         private updateHostClassService: UpdateHostClassService,
-        private thyPositioningService: ThyPositioningService,
-        private renderer: Renderer2
+        private renderer: Renderer2,
+        private overlay: Overlay,
+        private viewportRuler: ViewportRuler,
+        private changeDetectorRef: ChangeDetectorRef
     ) {
         this.updateHostClassService.initializeElement(elementRef.nativeElement);
     }
 
-    @HostListener('document:click', ['$event'])
-    onDocumentClick(event: Event): void {
-        event.stopPropagation();
-        if (!this.elementRef.nativeElement.contains(event.target)) {
-            if (this.thyShowOptionMenu) {
-                this._expandOptions = true;
-            } else {
-                this._expandOptions = false;
-            }
+    @HostListener('mouseover', ['$event'])
+    public trggleHover($event: Event) {
+        if (this.thyHoverTriggerAction) {
+            this.open();
+        }
+    }
+
+    onSelectContainerMouseleave(event: Event) {
+        if (event) {
+            event.preventDefault();
+        }
+        if (!this.thyHoverTriggerAction) {
+            return;
+        }
+        this.close();
+    }
+
+    writeValue(value: any): void {
+        this._modalValue = value;
+        if (this.options && this.options.length > 0) {
+            this._setSelecttionByModelValue(this._modalValue);
         }
     }
 
     ngOnInit() {
+        this._scrollStrategy = this.overlay.scrollStrategies.reposition();
+        this.viewportRuler
+            .change()
+            .pipe(takeUntil(this._destroy$))
+            .subscribe(() => {
+                if (this._panelOpen) {
+                    this.triggerRect = this.trigger.nativeElement.getBoundingClientRect();
+                    this.changeDetectorRef.markForCheck();
+                }
+            });
+        this._instanceSelectionModel();
         if (this._size) {
             this._classNames.push(`thy-select-${this._size}`);
         }
@@ -235,25 +272,65 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
         this.updateHostClassService.updateClass(this._classNames);
     }
 
-    ngAfterViewInit(): void {
-        // this._viewContentInitialized = true;
-        // this._setSelectedOptions();
+    ngAfterContentInit() {
+        this._selectionModel.onChange.pipe(takeUntil(this._destroy$)).subscribe(event => {
+            event.added.forEach(option => option.select());
+            event.removed.forEach(option => option.deselect());
+        });
+        this.options.changes
+            .pipe(
+                startWith(null),
+                takeUntil(this._destroy$)
+            )
+            .subscribe(() => {
+                this._resetOptions();
+                this._initializeSelection();
+            });
     }
 
-    ngAfterContentInit(): void {
-        this._viewContentInitialized = true;
-        this._setSelectedOptions();
+    _resetOptions() {
+        const changedOrDestroyed$ = merge(this.options.changes, this._destroy$);
+
+        this.optionSelectionChanges.pipe(takeUntil(changedOrDestroyed$)).subscribe((event: OptionSelectionChange) => {
+            this._onSelect(event.option);
+            if (this.thyMode !== 'multiple' && this._panelOpen) {
+                this.close();
+            }
+        });
     }
 
-    writeValue(value: any): void {
+    _initializeSelection() {
+        Promise.resolve().then(() => {
+            this._setSelecttionByModelValue(this._modalValue);
+        });
+    }
+
+    _setSelecttionByModelValue(modalValue: any) {
+        this._selectionModel.clear();
+        if (!modalValue) {
+            this.changeDetectorRef.markForCheck();
+            return;
+        }
         if (this._mode === 'multiple') {
-            this._innerValues = value;
+            if (isArray(modalValue)) {
+                this.options.forEach(option => {
+                    const index = (modalValue as Array<any>).findIndex(itemValue => {
+                        return itemValue === option.thyValue;
+                    });
+                    if (index >= 0) {
+                        this._selectionModel.select(option);
+                    }
+                });
+            }
         } else {
-            this._innerValue = value;
+            const selectedOption = this.options.find(option => {
+                return option.thyValue === modalValue;
+            });
+            if (selectedOption) {
+                this._selectionModel.select(selectedOption);
+            }
         }
-        if (this._viewContentInitialized) {
-            this._setSelectedOptions();
-        }
+        this.changeDetectorRef.markForCheck();
     }
 
     registerOnChange(fn: any): void {
@@ -264,92 +341,100 @@ export class ThySelectCustomComponent implements ControlValueAccessor, OnInit, A
         this.onTouchedCallback = fn;
     }
 
-    valueOnChange(value: any) {
-        this.onChangeCallback(value);
+    private _emitModelValueChange() {
+        const selectedValues = this._selectionModel.selected;
+        const changeValue = selectedValues.map((option: ThyOptionComponent) => {
+            return option.thyValue;
+        });
+        if (this._mode === 'multiple') {
+            this._modalValue = changeValue;
+        } else {
+            if (changeValue.length === 0) {
+                this._modalValue = null;
+            } else {
+                this._modalValue = changeValue[0];
+            }
+        }
+        this.onChangeCallback(this._modalValue);
     }
 
-    setDisabledState(isDisabled: boolean): void {
-        this._disabled = inputValueToBoolean(isDisabled);
-    }
-
-    dropDownMenuToggle(event: Event, templateRef: any) {
+    remove(item: ThyOptionComponent, event?: Event) {
+        if (event) {
+            event.stopPropagation();
+        }
         if (this._disabled) {
             return;
         }
-        this._expandOptions = !this._expandOptions;
+        item.deselect();
     }
 
-    autoCalculateMenuPosition(targetElement: HTMLElement) {
-        if (this._expandOptions) {
-            const hostElement = this.formControlElementRef.nativeElement;
-            const targetElBCR = targetElement.getBoundingClientRect();
-            const hostOffset = this.thyPositioningService.offset(hostElement);
-            const hostPos = this.thyPositioningService.position(hostElement);
-            // 底部空间不够
-            if (targetElBCR.top + targetElBCR.height > document.documentElement.clientHeight) {
-                // 上方可以放下直接放上方，否则遮盖 form-control
-                if (targetElBCR.top - hostPos.height < targetElBCR.height) {
-                    targetElement.style.top = `${document.documentElement.clientHeight - targetElBCR.top - targetElBCR.height}px`;
-                } else {
-                    targetElement.style.bottom = `${(hostPos.height + 4)}px`;
-                }
-            }
+    clearSelectValue(event?: Event) {
+        if (event) {
+            event.stopPropagation();
+        }
+        if (this._disabled) {
+            return;
+        }
+        this._selectionModel.clear();
+        this.changeDetectorRef.markForCheck();
+        this._emitModelValueChange();
+    }
+
+    toggle(): void {
+        this._panelOpen ? this.close() : this.open();
+    }
+
+    open(): void {
+        if (this._disabled || !this.options || this._panelOpen) {
+            return;
+        }
+        this.triggerRect = this.trigger.nativeElement.getBoundingClientRect();
+        this._panelOpen = true;
+    }
+
+    close(): void {
+        if (this._panelOpen) {
+            this._panelOpen = false;
+            this.changeDetectorRef.markForCheck();
         }
     }
 
-    remove(event: Event, item: ThyOptionComponent, index: number) {
-        event.stopPropagation();
-        this._selectedOptions.splice(index, 1);
-        this._innerValues = this._selectedOptions.map((option) => {
-            return option.thyValue;
-        });
-        item.selected = false;
-        this.valueOnChange(this._innerValues);
-    }
-
-    selectItem(option: ThyOptionComponent) {
-        if (this._mode === 'multiple') {
-            if (this._selectedOptions.length > 0) {
-                const _index = this._selectedOptions.findIndex((item: any) => {
-                    return item.thyValue === option.thyValue;
-                });
-                if (_index === -1) {
-                    option.selected = true;
-                    this._selectedOptions.push(option);
-                } else {
-                    option.selected = false;
-                    this._selectedOptions.splice(_index, 1);
-                }
-            } else {
-                option.selected = true;
-                this._selectedOptions.push(option);
-            }
-            this._innerValues = this._selectedOptions.map((item) => {
-                return item.thyValue;
-            });
-            this.valueOnChange(this._innerValues);
-            this.selectedValueContext = {
-                $implicit: this._selectedOptions
-            };
+    onSearchFilter() {
+        if (this.thyServerSearch) {
+            this.thyOnSearch.emit(this.searchText);
         } else {
-            this._selectedOption = option;
-            this._innerValue = option.thyValue;
-            this._expandOptions = false;
-            this.valueOnChange(this._innerValue);
-            this.selectedValueContext = {
-                $implicit: this._selectedOption.thyRawValue || this._selectedOption.thyValue
-            };
+            this.options.forEach(option => {
+                if (option.matchSearchText(this.searchText)) {
+                    option.showOption();
+                } else {
+                    option.hideOption();
+                }
+            });
         }
-
     }
 
-    clearSelectValue(event: Event) {
-        event.stopPropagation();
-        this._selectedOption = null;
-        this._innerValue = null;
-        this.valueOnChange(this._innerValue);
-        this.selectedValueContext = {
-            $implicit: null
-        };
+    private _instanceSelectionModel() {
+        this._selectionModel = new SelectionModel<ThyOptionComponent>(this._mode === 'multiple');
+    }
+
+    _onSelect(option: ThyOptionComponent, event?: Event) {
+        const wasSelected = this._selectionModel.isSelected(option);
+
+        if (option.thyValue == null && this.thyMode !== 'multiple') {
+            option.deselect();
+            this._selectionModel.clear();
+        } else {
+            option.selected ? this._selectionModel.select(option) : this._selectionModel.deselect(option);
+        }
+
+        if (wasSelected !== this._selectionModel.isSelected(option)) {
+            this._emitModelValueChange();
+        }
+        this.changeDetectorRef.markForCheck();
+    }
+
+    ngOnDestroy() {
+        this._destroy$.next();
+        this._destroy$.complete();
     }
 }

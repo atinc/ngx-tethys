@@ -36,7 +36,7 @@ export class ThyTreeNodeComponent implements OnDestroy {
 
     @Input() thyDraggable = false;
 
-    @Input() thyTitleTruncate = true;
+    @Input() thyTitleTruncate: boolean;
 
     @Input() templateRef: TemplateRef<any>;
 

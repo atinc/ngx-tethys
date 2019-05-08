@@ -1,0 +1,17 @@
+.thy-editable {
+    display: block;
+    border: 1px solid transparent;
+    padding: $editable-padding-y $editable-padding-x;
+
+    @if $enable-rounded {
+        // Manually use the if/else instead of the mixin to account for iOS override
+        border-radius: $input-border-radius;
+    } @else {
+        // Otherwise undo the iOS default
+        border-radius: 0;
+    }
+
+    &:hover {
+        border-color: $editable-border-color;
+    }
+}

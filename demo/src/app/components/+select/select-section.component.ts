@@ -75,8 +75,8 @@ export class DemoSelectSectionComponent {
             default: 'false'
         },
         {
-            property: 'thyShowOptionMenu',
-            description: '是否默认展开下拉菜单',
+            property: 'thyHoverTriggerAction',
+            description: '是否启用Hover展开菜单',
             type: 'boolean',
             default: 'false'
         },

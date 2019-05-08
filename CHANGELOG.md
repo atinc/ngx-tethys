@@ -1,3 +1,34 @@
+## [7.0.40](https://github.com/worktile/ngx-tethys/compare/7.0.39...7.0.40) (2019-04-28)
+
+
+### Bug Fixes
+
+* fix trgger-block style ([7e76214](https://github.com/worktile/ngx-tethys/commit/7e76214))
+* hide hovertrigger block ([3f95ba6](https://github.com/worktile/ngx-tethys/commit/3f95ba6))
+* support thyEmptyStateText ([#227822](https://github.com/worktile/ngx-tethys/issues/227822)) ([32dec06](https://github.com/worktile/ngx-tethys/commit/32dec06))
+
+
+### Features
+
+* **tree:** tree support set type and size ([cd05bc7](https://github.com/worktile/ngx-tethys/commit/cd05bc7))
+* add MixinBase and loadingDone mixin to behaviors ([1b43f17](https://github.com/worktile/ngx-tethys/commit/1b43f17))
+
+
+
+## [7.0.39](https://github.com/worktile/ngx-tethys/compare/7.0.38...7.0.39) (2019-04-26)
+
+
+### Bug Fixes
+
+* **thy-custom-select:** auto width and open state ([2e0b42b](https://github.com/worktile/ngx-tethys/commit/2e0b42b))
+
+
+### Features
+
+* **thy-custom:** add hover trigger open ([afdae7f](https://github.com/worktile/ngx-tethys/commit/afdae7f))
+
+
+
 ## [7.0.38](https://github.com/worktile/ngx-tethys/compare/7.0.37...7.0.38) (2019-04-25)
 
 

@@ -1,65 +1,152 @@
 import {
-    Component, forwardRef, HostBinding,
-    Input, ElementRef, OnInit, AfterViewInit, Output, EventEmitter,
-    ViewChildren, TemplateRef, ViewChild, ContentChildren, QueryList
+    Component,
+    Input,
+    TemplateRef,
+    ViewChild,
+    ChangeDetectionStrategy,
+    HostBinding,
+    HostListener,
+    ElementRef,
+    InjectionToken,
+    ChangeDetectorRef,
+    EventEmitter,
+    OnDestroy,
+    Output,
+    Inject,
+    Optional
 } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { ThySelectCustomComponent } from './select-custom.component';
-import { ThyInputSearchComponent } from '../input/input-search.component';
+export class OptionSelectionChange {
+    option: ThyOptionComponent;
+    selected: boolean;
+}
+
+export class OptionVisiableChange {
+    option: ThyOptionComponent;
+}
+
+export interface IThySelectOptionParentComponent {
+    thyMode: 'multiple' | '';
+}
+
+/**
+ * Injection token used to provide the parent component to options.
+ */
+export const THY_SELECT_OPTION_PARENT_COMPONENT = new InjectionToken<IThySelectOptionParentComponent>(
+    'THY_SELECT_OPTION_PARENT_COMPONENT'
+);
 
 @Component({
-    selector: 'thy-option,thy-option-group',
-    templateUrl: './option.component.html'
+    selector: 'thy-option',
+    templateUrl: './option.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ThyOptionComponent implements OnInit, AfterViewInit {
-
-    @Input() thyGroupLabel: string;
-
+export class ThyOptionComponent implements OnDestroy {
+    private _selected = false;
+    private _hidden = false;
     @Input() thyValue: any;
 
-    // 原始值，用于自定义模板展示内容时回传的对象
     @Input() thyRawValue: any;
 
     @Input() thyLabelText: string;
-
-    @Input() thyDisabled: boolean;
 
     @Input() thyShowOptionCustom: boolean;
 
     @Input() thySearchKey: string;
 
+    @HostBinding('class.thy-option-item') _isOptionItem = true;
+
     @ViewChild(TemplateRef) template: TemplateRef<any>;
 
-    @ContentChildren(ThyOptionComponent) listOfOptionComponent: QueryList<ThyOptionComponent>;
+    @Input()
+    @HostBinding(`class.disabled`)
+    thyDisabled: boolean;
 
-    showOptionComponents: ThyOptionComponent[];
+    @HostBinding('class.hidden')
+    get hidden(): boolean {
+        return this._hidden;
+    }
 
-    selected = false;
+    /** Whether or not the option is currently selected. */
+    @HostBinding(`class.active`)
+    get selected(): boolean {
+        return this._selected;
+    }
+
+    @Output() readonly selectionChange: EventEmitter<OptionSelectionChange> = new EventEmitter();
+    @Output() readonly visiableChange: EventEmitter<OptionVisiableChange> = new EventEmitter();
 
     constructor(
-    ) {
+        public element: ElementRef<HTMLElement>,
+        @Optional() @Inject(THY_SELECT_OPTION_PARENT_COMPONENT) public parent: IThySelectOptionParentComponent,
+        private cdr: ChangeDetectorRef
+    ) {}
+
+    @HostListener('click', ['$event'])
+    onClick(event: Event) {
+        if (this.parent.thyMode === 'multiple') {
+            this._selected ? this.deselect() : this.select();
+        } else {
+            this.select();
+        }
     }
 
-    ngOnInit() {
-    }
-
-    ngAfterViewInit() {
-        this.showOptionComponents = this.listOfOptionComponent ? this.listOfOptionComponent.toArray() : [];
-    }
-
-    filterOptionComponents(iterate: (option: ThyOptionComponent) => boolean): ThyOptionComponent[] {
-        const matchComponents: ThyOptionComponent[] = [];
-        this.listOfOptionComponent.forEach((item) => {
-            if (!item.thyGroupLabel && iterate(item)) {
-                matchComponents.push(item);
+    /** Selects the option. */
+    select(event?: Event): void {
+        if (!this.thyDisabled) {
+            if (!this._selected) {
+                this._selected = true;
+                this.selectionChange.emit({
+                    option: this,
+                    selected: this._selected
+                });
+                this.cdr.markForCheck();
             }
-        });
-        this.showOptionComponents = matchComponents;
-        return matchComponents;
+        }
     }
 
-    resetFilterComponents() {
-        this.showOptionComponents = this.listOfOptionComponent ? this.listOfOptionComponent.toArray() : [];
+    /** Deselects the option. */
+    deselect(): void {
+        if (this._selected) {
+            this._selected = false;
+            this.selectionChange.emit({
+                option: this,
+                selected: this._selected
+            });
+            this.cdr.markForCheck();
+        }
     }
+
+    hideOption() {
+        if (!this._hidden) {
+            this._hidden = true;
+            this.visiableChange.emit({ option: this });
+            this.cdr.markForCheck();
+        }
+    }
+
+    showOption() {
+        if (this._hidden) {
+            this._hidden = false;
+            this.visiableChange.emit({ option: this });
+            this.cdr.markForCheck();
+        }
+    }
+
+    matchSearchText(searchText: string): boolean {
+        if (this.thySearchKey) {
+            if (this.thySearchKey.indexOf(searchText) >= 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            if (this.thyLabelText.indexOf(searchText) >= 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    ngOnDestroy() {}
 }
-
