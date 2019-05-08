@@ -1,86 +1,86 @@
 .thy-property-operation {
-  display: inline-flex;
-  align-items: center;
-  cursor: pointer;
-  position: relative;
-  padding-right: 20px;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    padding-right: 20px;
 
-  // .thy-operation-icon {
-  //     display: inline-flex;
-  // }
-  @include hover {
-    .btn-icon-circle.border-thick:not(:hover):not(.invalid).circle-dashed .wtf,
-    .btn-icon-circle.border-thick:not(:hover):not(.invalid).circle-dashed i {
-      color: $primary;
-      border-color: $primary;
+    // .thy-operation-icon {
+    //     display: inline-flex;
+    // }
+    @include hover {
+        .btn-icon-circle.border-thick:not(:hover):not(.invalid).circle-dashed .wtf,
+        .btn-icon-circle.border-thick:not(:hover):not(.invalid).circle-dashed i {
+            color: $primary;
+            border-color: $primary;
+        }
+
+        .thy-operation-content.only-has-tips > .thy-tips {
+            color: $primary;
+        }
+
+        .close-link {
+            visibility: visible;
+        }
     }
 
-    .thy-operation-content.only-has-tips > .thy-tips {
-      color: $primary;
+    .thy-operation-content {
+        margin-left: 10px;
+        position: relative;
+
+        &.only-has-tips {
+            display: flex;
+
+            .thy-tips {
+                display: flex;
+                align-items: center;
+                font-size: $font-size-base;
+            }
+        }
+
+        .thy-tips {
+            color: $gray-500;
+            font-size: $font-size-sm;
+        }
     }
 
     .close-link {
-      visibility: visible;
-    }
-  }
-
-  .thy-operation-content {
-    margin-left: 10px;
-    position: relative;
-
-    &.only-has-tips {
-      display: flex;
-
-      .thy-tips {
+        visibility: hidden;
+        padding-left: 20px;
         display: flex;
+        justify-items: center;
         align-items: center;
-        font-size: $font-size-base;
-      }
+        // position: absolute;
+        // visibility: hidden;
+        // top: 14px;
+        // right: -20px;
     }
-
-    .thy-tips {
-      color: $gray-500;
-      font-size: $font-size-sm;
-    }
-  }
-
-  .close-link {
-    visibility: hidden;
-    padding-left: 20px;
-    display: flex;
-    justify-items: center;
-    align-items: center;
-    // position: absolute;
-    // visibility: hidden;
-    // top: 14px;
-    // right: -20px;
-  }
 }
 
 .thy-property-operation-group {
-  display: flex;
+    display: flex;
 
-  .thy-property-operation {
-    flex-grow: 1;
+    .thy-property-operation {
+        flex-grow: 1;
 
-    &:not(:first-child) {
-      padding-left: 35px;
+        &:not(:first-child) {
+            padding-left: 35px;
+        }
+
+        &:not(:last-child) {
+            padding-right: 40px;
+        }
+        position: relative;
+
+        // &:not(:last-child):after {
+        //   content: " ";
+        //   display: block;
+        //   position: absolute;
+        //   top: 4px;
+        //   right: 0;
+        //   height: 90%;
+        //   width: 1px;
+        //   background: #eee;
+        // }
     }
-
-    &:not(:last-child) {
-      padding-right: 40px;
-    }
-    position: relative;
-
-    &:not(:last-child):after {
-      content: " ";
-      display: block;
-      position: absolute;
-      top: 4px;
-      right: 0;
-      height: 90%;
-      width: 1px;
-      background: #eee;
-    }
-  }
 }
