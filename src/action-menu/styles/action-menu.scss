@@ -61,7 +61,7 @@
         }
         .extend-icon {
             margin-left: auto;
-            color: $action-menu-item-extend-color
+            color: $action-menu-item-extend-color;
         }
         .action-menu-sub-item {
             display: none;
@@ -79,11 +79,11 @@
             cursor: not-allowed;
         }
         &:not(.action-menu-item--disabled):hover {
-            &>span:nth-child(1),
+            & > span:nth-child(1),
             .info {
                 margin-left: 10px;
             }
-            .action-menu-sub-item {
+            > .action-menu-sub-item {
                 display: block;
             }
         }

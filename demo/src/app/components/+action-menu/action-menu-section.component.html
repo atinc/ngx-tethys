@@ -1,105 +1,128 @@
 <section>
-    <div class="header">
-        <h2>默认</h2>
-    </div>
-    <div class="body">
-        <button [thyButton]="'primary'" [thyActionMenuToggle]="menu1">默认</button>
-        <button [thyButton]="'primary'" [thyActionMenuToggle]="menu1" disabled="disabled">禁用</button>
-        <button [thyButton]="'primary'" [thyActionMenuToggle]="menu1" [thyAction]="'contextmenu'">右键弹出</button>
-        <button [thyButton]="'primary'" [thyActionMenuToggle]="menu1" [thyPlacement]="'bottom right'">弹出位置</button>
-        <ng-template #menu1>
-            <thy-action-menu>
-                <a thyActionMenuItem thyDisabled="true" thyActionMenuItemActive="true" href="javascript:;" (click)="itemClick(1)">
-                    <span thyActionMenuItemIcon>
-                        <i class="wtf wtf-task-o"></i>
-                    </span>
-                    <span thyActionMenuItemName>有图标</span>
+  <div class="header">
+    <h2>默认</h2>
+  </div>
+  <div class="body">
+    <button [thyButton]="'primary'" [thyActionMenuToggle]="menu1">默认</button>
+    <button [thyButton]="'primary'" [thyActionMenuToggle]="menu1" disabled="disabled">禁用</button>
+    <button [thyButton]="'primary'" [thyActionMenuToggle]="menu1" [thyAction]="'contextmenu'">右键弹出</button>
+    <button [thyButton]="'primary'" [thyActionMenuToggle]="menu1" [thyPlacement]="'bottom right'">弹出位置</button>
+    <ng-template #menu1>
+      <thy-action-menu>
+        <a
+          thyActionMenuItem
+          thyDisabled="true"
+          thyActionMenuItemActive="true"
+          href="javascript:;"
+          (click)="itemClick(1)"
+        >
+          <span thyActionMenuItemIcon>
+            <i class="wtf wtf-task-o"></i>
+          </span>
+          <span thyActionMenuItemName>有图标</span>
+        </a>
+        <a thyActionMenuItem href="javascript:;" (click)="itemClick(2)">
+          <span thyActionMenuItemIcon>
+            <i class="wtf wtf-task-o"></i>
+          </span>
+          <span thyActionMenuItemName>有图标</span>
+          <span thyActionMenuItemExtendIcon>
+            <i class="wtf wtf-checked"></i>
+          </span>
+        </a>
+        <a thyActionMenuItem href="javascript:;" (click)="itemClick(3)">
+          <span thyActionMenuItemIcon>
+            <i class="wtf wtf-task-o"></i>
+          </span>
+          <span thyActionMenuItemName>禁用</span>
+        </a>
+        <thy-action-menu-divider></thy-action-menu-divider>
+        <a thyActionMenuItem href="javascript:;" (click)="itemClick(4)">
+          <span thyActionMenuItemIcon>
+            <i class="wtf wtf-task-o"></i>
+          </span>
+          <span thyActionMenuItemName>有图标</span>
+          <span thyActionMenuItemMeta>(默认排序)</span>
+          <div thyActionMenuItemInfo>默认排序下可拖拽移动任务；其他排序下只能显示，不可拖拽</div>
+        </a>
+        <a thyActionMenuItem href="javascript:;" (click)="itemClick(5)">
+          <span thyActionMenuItemIcon>
+            <i class="wtf wtf-task-o"></i>
+          </span>
+          <span thyActionMenuItemName>有图标</span>
+          <span thyActionMenuItemExtendIcon>
+            <i class="wtf wtf-angle-right"></i>
+          </span>
+          <div thyActionMenuSubItem>
+            <a thyActionMenuItem href="javascript:;" (click)="itemClick(21)">
+              <span thyActionMenuItemIcon>
+                <i class="wtf wtf-task-o"></i>
+              </span>
+              <span thyActionMenuItemName>子菜单1</span>
+              <span thyActionMenuItemExtendIcon>
+                <i class="wtf wtf-angle-right"></i>
+              </span>
+              <div thyActionMenuSubItem>
+                <a thyActionMenuItem href="javascript:;" (click)="itemClick(21)">
+                  <span thyActionMenuItemIcon>
+                    <i class="wtf wtf-task-o"></i>
+                  </span>
+                  <span thyActionMenuItemName>子菜单1</span>
                 </a>
-                <a thyActionMenuItem href="javascript:;" (click)="itemClick(2)">
-                    <span thyActionMenuItemIcon>
-                        <i class="wtf wtf-task-o"></i>
-                    </span>
-                    <span thyActionMenuItemName>有图标</span>
-                    <span thyActionMenuItemExtendIcon>
-                        <i class="wtf wtf-checked"></i>
-                    </span>
+                <a thyActionMenuItem href="javascript:;" (click)="itemClick(22)">
+                  <span thyActionMenuItemIcon>
+                    <i class="wtf wtf-task-o"></i>
+                  </span>
+                  <span thyActionMenuItemName>子菜单2子菜单2子菜单2子菜单2子菜单2子菜单2</span>
                 </a>
-                <a thyActionMenuItem href="javascript:;" (click)="itemClick(3)">
-                    <span thyActionMenuItemIcon>
-                        <i class="wtf wtf-task-o"></i>
-                    </span>
-                    <span thyActionMenuItemName>禁用</span>
-                </a>
-                <thy-action-menu-divider></thy-action-menu-divider>
-                <a thyActionMenuItem href="javascript:;" (click)="itemClick(4)">
-                    <span thyActionMenuItemIcon>
-                        <i class="wtf wtf-task-o"></i>
-                    </span>
-                    <span thyActionMenuItemName>有图标</span>
-                    <span thyActionMenuItemMeta>(默认排序)</span>
-                    <div thyActionMenuItemInfo>默认排序下可拖拽移动任务；其他排序下只能显示，不可拖拽</div>
-                </a>
-                <a thyActionMenuItem href="javascript:;" (click)="itemClick(5)">
-                    <span thyActionMenuItemIcon>
-                        <i class="wtf wtf-task-o"></i>
-                    </span>
-                    <span thyActionMenuItemName>有图标</span>
-                    <span thyActionMenuItemExtendIcon>
-                        <i class="wtf wtf-angle-right"></i>
-                    </span>
-                    <div thyActionMenuSubItem>
-                        <a thyActionMenuItem href="javascript:;" (click)="itemClick(21)">
-                            <span thyActionMenuItemIcon>
-                                <i class="wtf wtf-task-o"></i>
-                            </span>
-                            <span thyActionMenuItemName>子菜单1</span>
-                        </a>
-                        <a thyActionMenuItem href="javascript:;" (click)="itemClick(22)">
-                            <span thyActionMenuItemIcon>
-                                <i class="wtf wtf-task-o"></i>
-                            </span>
-                            <span thyActionMenuItemName>子菜单2子菜单2子菜单2子菜单2子菜单2子菜单2</span>
-                        </a>
-                    </div>
-                </a>
-                <a thyActionMenuItem href="javascript:;" (click)="itemClick(6)">
-                    <span thyActionMenuItemName>无图标元素无图标元素无图标元素无图标元素无图标元素无图标元素</span>
-                </a>
-            </thy-action-menu>
-        </ng-template>
-    </div>
+              </div>
+            </a>
+            <a thyActionMenuItem href="javascript:;" (click)="itemClick(22)">
+              <span thyActionMenuItemIcon>
+                <i class="wtf wtf-task-o"></i>
+              </span>
+              <span thyActionMenuItemName>子菜单2子菜单2子菜单2子菜单2子菜单2子菜单2</span>
+            </a>
+          </div>
+        </a>
+        <a thyActionMenuItem href="javascript:;" (click)="itemClick(6)">
+          <span thyActionMenuItemName>无图标元素无图标元素无图标元素无图标元素无图标元素无图标元素</span>
+        </a>
+      </thy-action-menu>
+    </ng-template>
+  </div>
 </section>
 
 <section>
-    <div class="header">
-        <h2>带分组</h2>
-    </div>
-    <div class="body">
-        <button [thyButton]="'primary'" [thyActionMenuToggle]="menu2">带分组</button>
-        <ng-template #menu2>
-            <thy-action-menu thyTheme="group">
-                <thy-action-menu-divider thyTitle="分组"></thy-action-menu-divider>
-                <a thyActionMenuItem href="javascript:;" (click)="itemClick(1)">
-                    <span thyActionMenuItemIcon>
-                        <i class="wtf wtf-task-o"></i>
-                    </span>
-                    <span thyActionMenuItemName>有图标</span>
-                </a>
-                <a thyActionMenuItem href="javascript:;" (click)="itemClick(1)">
-                    <span thyActionMenuItemIcon>
-                        <i class="wtf wtf-task-o"></i>
-                    </span>
-                    <span thyActionMenuItemName>有图标</span>
-                </a>
-                <thy-action-menu-divider thyTitle="分组"></thy-action-menu-divider>
-                <a thyActionMenuItem href="javascript:;" (click)="itemClick(1)">
-                    <span thyActionMenuItemIcon>
-                        <i class="wtf wtf-task-o"></i>
-                    </span>
-                    <span thyActionMenuItemName>有图标</span>
-                </a>
-            </thy-action-menu>
-        </ng-template>
-    </div>
+  <div class="header">
+    <h2>带分组</h2>
+  </div>
+  <div class="body">
+    <button [thyButton]="'primary'" [thyActionMenuToggle]="menu2">带分组</button>
+    <ng-template #menu2>
+      <thy-action-menu thyTheme="group">
+        <thy-action-menu-divider thyTitle="分组"></thy-action-menu-divider>
+        <a thyActionMenuItem href="javascript:;" (click)="itemClick(1)">
+          <span thyActionMenuItemIcon>
+            <i class="wtf wtf-task-o"></i>
+          </span>
+          <span thyActionMenuItemName>有图标</span>
+        </a>
+        <a thyActionMenuItem href="javascript:;" (click)="itemClick(1)">
+          <span thyActionMenuItemIcon>
+            <i class="wtf wtf-task-o"></i>
+          </span>
+          <span thyActionMenuItemName>有图标</span>
+        </a>
+        <thy-action-menu-divider thyTitle="分组"></thy-action-menu-divider>
+        <a thyActionMenuItem href="javascript:;" (click)="itemClick(1)">
+          <span thyActionMenuItemIcon>
+            <i class="wtf wtf-task-o"></i>
+          </span>
+          <span thyActionMenuItemName>有图标</span>
+        </a>
+      </thy-action-menu>
+    </ng-template>
+  </div>
 </section>
 <api-parameters [parameters]="apiParameters"></api-parameters>
