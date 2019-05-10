@@ -1,5 +1,8 @@
 import {
-    Component, Input, Output, ElementRef,
+    Component,
+    Input,
+    Output,
+    ElementRef,
     ViewEncapsulation,
     HostBinding,
     EventEmitter,
@@ -8,11 +11,18 @@ import {
     IterableDiffers,
     OnInit,
     OnDestroy,
-    DoCheck
+    DoCheck,
+    IterableChanges
 } from '@angular/core';
-import { ThyTransferModel, ThyTransferSelectEvent, ThyTransferItem, ThyTransferDragEvent } from './transfer.interface';
+import {
+    ThyTransferSelectEvent,
+    ThyTransferItem,
+    ThyTransferDragEvent,
+    InnerTransferDragEvent
+} from './transfer.interface';
 import { ThyTransferComponent } from './transfer.component';
 import { SortablejsOptions } from 'angular-sortablejs';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 @Component({
     selector: 'thy-transfer-list',
@@ -20,81 +30,133 @@ import { SortablejsOptions } from 'angular-sortablejs';
     encapsulation: ViewEncapsulation.None
 })
 export class ThyTransferListComponent implements OnInit, DoCheck {
+    public lockItems: ThyTransferItem[] = [];
 
-    public draggableOptions: SortablejsOptions = {
-        disabled: false,
-        onStart: this.onDragStart.bind(this),
-        onUpdate: this.onDragUpdate.bind(this)
-    };
+    public unlockItems: ThyTransferItem[] = [];
 
     private _dragModel: ThyTransferItem;
 
     private _diff: IterableDiffer<ThyTransferItem>;
 
+    private _lockDiff: IterableDiffer<ThyTransferItem>;
+
+    private _unlockDiff: IterableDiffer<ThyTransferItem>;
+
     @Input() title: string;
 
     @Input() items: ThyTransferItem[];
 
-    @Input()
-    set draggable(value: boolean) {
-        this.draggableOptions.disabled = !value;
-    }
+    @Input() draggable: boolean;
+
+    @Input() canLock: boolean;
+
+    @Input() maxLock: number;
 
     @Input() template: TemplateRef<any>;
 
-    @Output() draggableUpdate: EventEmitter<ThyTransferDragEvent> = new EventEmitter<ThyTransferDragEvent>();
+    @Output() draggableUpdate: EventEmitter<InnerTransferDragEvent> = new EventEmitter<InnerTransferDragEvent>();
 
     @Output() select: EventEmitter<ThyTransferSelectEvent> = new EventEmitter<ThyTransferSelectEvent>();
 
     @HostBinding('class') hostClass = 'thy-transfer-list';
 
-    constructor(
-        private root: ThyTransferComponent,
-        private differs: IterableDiffers
-    ) {
-
+    private _combineTransferData() {
+        if (this.canLock) {
+            this.lockItems = (this.items || []).filter(item => item.isLock);
+            this.unlockItems = (this.items || []).filter(item => !item.isLock);
+        } else {
+            this.unlockItems = this.items;
+        }
     }
 
+    constructor(private root: ThyTransferComponent, private differs: IterableDiffers) {}
+
     ngOnInit() {
+        this._combineTransferData();
+        if (this.canLock) {
+            this.lockItems = (this.items || []).filter(item => item.isLock);
+            this.unlockItems = (this.items || []).filter(item => !item.isLock);
+            this._lockDiff = this.differs.find(this.lockItems).create();
+            this._unlockDiff = this.differs.find(this.unlockItems).create();
+        } else {
+            this.unlockItems = this.items;
+            this._unlockDiff = this.differs.find(this.unlockItems).create();
+        }
         this._diff = this.differs.find(this.items).create();
+    }
+
+    private _afterChangeItems(changes: IterableChanges<ThyTransferItem>, items: ThyTransferItem[]) {
+        // 数据发生变化时，更改order值
+        changes.forEachAddedItem(record => {
+            record.item.order = record.currentIndex;
+        });
+        changes.forEachRemovedItem(() => {
+            items.forEach((item, index) => {
+                item.order = index;
+            });
+        });
+        changes.forEachMovedItem(() => {
+            items.forEach((item, index) => {
+                item.order = index;
+            });
+        });
     }
 
     ngDoCheck() {
         const changes = this._diff.diff(this.items);
         if (changes) {
-            // 数据发生变化时，更改order值
-            changes.forEachAddedItem((record) => {
-                record.item.order = record.currentIndex;
-            });
-            changes.forEachRemovedItem(() => {
-                this.items.forEach((item, index) => {
-                    item.order = index;
-                });
-            });
-            changes.forEachMovedItem(() => {
-                this.items.forEach((item, index) => {
-                    item.order = index;
-                });
-            });
+            this._afterChangeItems(changes, this.items);
+            this._combineTransferData();
+        }
+        if (this._lockDiff) {
+            const lockChanges = this._lockDiff.diff(this.lockItems);
+            if (lockChanges) {
+                this._afterChangeItems(lockChanges, this.lockItems);
+            }
+        }
+        const unlockChanges = this._unlockDiff.diff(this.unlockItems);
+        if (unlockChanges) {
+            this._afterChangeItems(unlockChanges, this.unlockItems);
         }
     }
 
-    onSelect(item: any) {
+    onSelect(item: ThyTransferItem) {
+        item.isLock = false;
         const event: ThyTransferSelectEvent = { item: item };
         this.select.emit(event);
     }
 
-    onDragStart(event: any) {
-        this._dragModel = this.items[event.oldIndex];
-    }
+    lockListEnterPredicate = () => {
+        return this.lockItems.length < this.maxLock;
+    };
 
-    onDragUpdate(event: any) {
+    drop(event: CdkDragDrop<ThyTransferItem[]>) {
+        if (event.previousContainer === event.container) {
+            moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+        } else {
+            transferArrayItem(
+                event.previousContainer.data,
+                event.container.data,
+                event.previousIndex,
+                event.currentIndex
+            );
+            (event.previousContainer.data || []).forEach(item => {
+                item.isLock = event.previousContainer.id === 'lock';
+            });
+
+            (event.container.data || []).forEach(item => {
+                item.isLock = event.container.id === 'lock';
+            });
+        }
         const dragEvent: ThyTransferDragEvent = {
-            model: this._dragModel,
-            models: this.items,
-            oldIndex: event.oldIndex,
-            newIndex: event.newIndex,
+            model: event.item.data,
+            models: event.container.data,
+            oldIndex: event.previousIndex,
+            newIndex: event.currentIndex
         };
-        this.draggableUpdate.emit(dragEvent);
+        this.draggableUpdate.emit({
+            dragEvent: dragEvent,
+            listData: { lock: this.lockItems, unlock: this.unlockItems }
+        });
     }
 }

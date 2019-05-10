@@ -3,21 +3,10 @@ import { CommonModule } from '@angular/common';
 import { ThyTransferComponent } from './transfer.component';
 import { ThyTransferListComponent } from './transfer-list.component';
 import { ThyButtonModule } from '../button/button.module';
-import { SortablejsModule } from 'angular-sortablejs/dist';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 @NgModule({
-    declarations: [
-        ThyTransferComponent,
-        ThyTransferListComponent
-    ],
-    imports: [
-        CommonModule,
-        ThyButtonModule,
-        SortablejsModule
-    ],
-    exports: [
-        ThyTransferComponent
-    ]
+    declarations: [ThyTransferComponent, ThyTransferListComponent],
+    imports: [CommonModule, ThyButtonModule, DragDropModule],
+    exports: [ThyTransferComponent]
 })
-export class ThyTransferModule {
-
-}
+export class ThyTransferModule {}

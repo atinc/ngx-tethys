@@ -7,7 +7,7 @@
       <i
         class="wtf thy-tree-expand-icon"
         *ngIf="(node.children && node.children.length > 0) || thyAsync || emptyChildrenTemplateRef"
-        [class.narrow]="!node.isExpanded"
+        [class.collapse]="!node.isExpanded"
       ></i>
     </ng-container>
   </span>

@@ -1,76 +1,84 @@
 .thy-transfer {
-  display: flex;
-  width: $transfer-width;
-  .thy-transfer-list {
     display: flex;
-    flex-flow: column;
-    flex: 1;
-    .thy-transfer-list-header {
-      padding: $transfer-list-header-padding;
-      width: 100%;
-      .thy-transfer-list-header-title {
-        color: $transfer-list-header-font-color;
-        font-size: $transfer-list-header-font-size;
-      }
-    }
-    .thy-transfer-list-body {
-      border: $transfer-list-border-width solid $transfer-list-border-color;
-      border-radius: $transfer-list-border-radius;
-      padding: $transfer-list-padding; // min-width: $transfer-list-width;
-      height: $transfer-list-height;
-      vertical-align: middle;
-      overflow-y: auto;
-    }
-    .thy-transfer-list-content {
-      padding: 0;
-      margin: 0;
-      .thy-transfer-list-content-item {
-        position: relative;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        padding: $transfer-list-item-padding;
-        line-height: $transfer-list-item-line-hight;
-        transition: all .3s;
-      }
-      & .active,
-      & .thy-transfer-list-content-item:hover {
-        cursor: pointer;
-        @include box-shadow(0px 0px 8px 2px $transfer-list-item-hover-color);
-      }
-    }
-  }
-  .thy-transfer-drag {
-    .thy-transfer-drag-icon {
-      position: absolute;
-      left: 5px;
-      display: none;
-    }
-    .thy-transfer-list-content-item {
-      @include hover {
-        cursor: move !important;
-        .thy-transfer-drag-icon {
-          display: inline-block;
+    width: $transfer-width;
+
+    .thy-transfer-list {
+        display: flex;
+        flex-flow: column;
+        flex: 1;
+
+        .thy-transfer-list-header {
+            padding: $transfer-list-header-padding;
+            width: 100%;
+
+            .thy-transfer-list-header-title {
+                color: $transfer-list-header-font-color;
+                font-size: $transfer-list-header-font-size;
+            }
         }
-      }
-    }
-  }
-  .thy-transfer-operation {
-    padding: $transfer-operation-padding;
-    display: flex;
-    align-items: center;
-    .thy-transfer-operation-body {
-      .operation-link {
-        display: block;
-        color: $transfer-operation-color;
-        &.rotate-left {
-          transform: rotate(180deg);
+
+        .thy-transfer-list-body {
+            border: $transfer-list-border-width solid $transfer-list-border-color;
+            border-radius: $transfer-list-border-radius;
+            padding: $transfer-list-padding; // min-width: $transfer-list-width;
+            height: $transfer-list-height;
+            vertical-align: middle;
+            overflow-y: auto;
+
+            .thy-transfer-list-group-name {
+                padding-left: 20px;
+                color: $gray-600;
+                line-height: 38px;
+            }
         }
-        .wtf {
-          display: inline-block;
-          font-size: $transfer-operation-font-size;
+
+        .thy-transfer-list-content {
+            .cdk-drop-list-empty {
+                padding-left: 20px;
+            }
+
+            & .active,
+            & .thy-transfer-list-content-item:hover {
+                cursor: pointer;
+                @include item-box-shadow();
+            }
         }
-      }
     }
-  }
+
+    .thy-transfer-operation {
+        padding: $transfer-operation-padding;
+        display: flex;
+        align-items: center;
+
+        .thy-transfer-operation-body {
+            .operation-link {
+                display: block;
+                color: $transfer-operation-color;
+
+                &.rotate-left {
+                    transform: rotate(180deg);
+                }
+
+                .wtf {
+                    display: inline-block;
+                    font-size: $transfer-operation-font-size;
+                }
+            }
+        }
+    }
+}
+
+.thy-transfer-list-content-item {
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: $transfer-list-item-padding;
+    line-height: $transfer-list-item-line-hight;
+    transition: all 0.3s;
+
+    .cdk-drag-handle {
+        position: absolute;
+        left: 0px;
+    }
 }

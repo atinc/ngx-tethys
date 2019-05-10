@@ -23,8 +23,13 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { UpdateHostClassService } from '../shared/update-host-class.service';
 
+type ThyTreeSize = 'sm' | '';
+
+type ThyTreeType = 'default' | 'especial';
+
 const treeTypeClassMap: any = {
-    secondary: ['thy-tree-secondary']
+    default: ['thy-tree-default'],
+    especial: ['thy-tree-especial']
 };
 
 @Component({
@@ -101,7 +106,9 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
 
     @Input() thyAsync = false;
 
-    @Input() thyType: string;
+    @Input() thyType: ThyTreeType = 'default';
+
+    @Input() thySize: ThyTreeSize;
 
     @Input() thyTitleTruncate = true;
 
@@ -157,11 +164,20 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
     ngOnInit(): void {
         this.updateHostClassService.initializeElement(this.elementRef.nativeElement);
         this._setTreeType();
+        this._setTreeSize();
         this._instanceSelectionModel();
     }
 
     private _setTreeType() {
-        this.updateHostClassService.addClass(treeTypeClassMap[this.thyType]);
+        if (this.thyType) {
+            this.updateHostClassService.addClass(treeTypeClassMap[this.thyType]);
+        }
+    }
+
+    private _setTreeSize() {
+        if (this.thySize) {
+            this.updateHostClassService.addClass(`thy-tree-${this.thySize}`);
+        }
     }
 
     private _instanceSelectionModel() {

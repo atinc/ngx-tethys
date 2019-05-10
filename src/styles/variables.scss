@@ -164,6 +164,7 @@ $zindex-pop-box: 1080 !default;
 $layout-header-background: rgba($gray-99, 0.97) !default;
 $layout-header-padding: 0 15px !default;
 $layout-header-height: 50px !default;
+$layout-header-prefix-icon-size: 18px !default;
 $layout-content-background: $gray-200 !default;
 $layout-content-padding: 15px 15px 15px 15px !default;
 $layout-sidebar-width: 240px !default;
@@ -435,6 +436,7 @@ $tree-node-wrapper-border-bottom: 1px solid $gray-200 !default;
 $tree-node-wrapper-active-border-color: rgba($primary, 0.3) !default;
 $tree-node-wrapper-active-background-color: rgba($primary, 0.1) !default;
 $tree-node-wrapper-hover-shadow: 0 2px 8px 1px rgba(0, 0, 0, 0.08) !default;
+$tree-node-wrapper-sm-height: 42px !default;
 // stepper
 $stepper-header: 70px !default;
 $stepper-padding: 0 50px !default;
