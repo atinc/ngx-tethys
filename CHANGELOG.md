@@ -1,3 +1,25 @@
+## [7.0.41](https://github.com/worktile/ngx-tethys/compare/7.0.39...7.0.41) (2019-05-08)
+
+
+### Bug Fixes
+
+* **button:** fix button icon lg size error ([29646a2](https://github.com/worktile/ngx-tethys/commit/29646a2))
+* fix trgger-block style ([7e76214](https://github.com/worktile/ngx-tethys/commit/7e76214))
+* hide hovertrigger block ([3f95ba6](https://github.com/worktile/ngx-tethys/commit/3f95ba6))
+* support thyEmptyStateText ([#227822](https://github.com/worktile/ngx-tethys/issues/227822)) ([32dec06](https://github.com/worktile/ngx-tethys/commit/32dec06))
+
+
+### Features
+
+* **font:** add two iconfonts is wtf-reopen-o and wtf-ignore-o ([7f2fe99](https://github.com/worktile/ngx-tethys/commit/7f2fe99))
+* **layout-header:** add layout header icon font size 18 ([5f48280](https://github.com/worktile/ngx-tethys/commit/5f48280))
+* **transfer:** support lock property ([4d93d6b](https://github.com/worktile/ngx-tethys/commit/4d93d6b))
+* label test ([9077b2f](https://github.com/worktile/ngx-tethys/commit/9077b2f))
+* **tree:** tree support set type and size ([cd05bc7](https://github.com/worktile/ngx-tethys/commit/cd05bc7))
+* add MixinBase and loadingDone mixin to behaviors ([1b43f17](https://github.com/worktile/ngx-tethys/commit/1b43f17))
+
+
+
 ## [7.0.40](https://github.com/worktile/ngx-tethys/compare/7.0.39...7.0.40) (2019-04-28)
 
 

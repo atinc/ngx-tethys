@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { ThyTransferData, ThyTransferItem } from '../../../../../src/transfer/transfer.interface';
+import { ThyTransferData, ThyTransferItem, ThyTransferDragEvent } from '../../../../../src/transfer/transfer.interface';
 import { TransferDirection } from '../../../../../src/public-api';
 @Component({
     selector: 'demo-transfer-section',
@@ -8,44 +8,60 @@ import { TransferDirection } from '../../../../../src/public-api';
     styleUrls: ['./transfer-section.component.scss']
 })
 export class DemoTransferSectionComponent {
+    public lockItems: ThyTransferItem[] = [];
 
-    public transferData: ThyTransferItem[] = [{
-        id: 1,
-        title: '第1条数据',
-        direction: TransferDirection.left
-    }, {
-        id: 2,
-        title: '第2条数据',
-        direction: TransferDirection.left
-    }, {
-        id: 3,
-        title: '第3条数据',
-        direction: TransferDirection.left
-    }, {
-        id: 4,
-        title: '第4条数据',
-        direction: TransferDirection.left
-    }, {
-        id: 5,
-        title: '第5条数据',
-        direction: TransferDirection.right
-    }, {
-        id: 6,
-        title: '第6条数据',
-        direction: TransferDirection.right
-    }, {
-        id: 7,
-        title: '第7条数据',
-        direction: TransferDirection.right
-    }, {
-        id: 8,
-        title: '第8条数据',
-        direction: TransferDirection.right
-    }, {
-        id: 9,
-        title: '第9条数据',
-        direction: TransferDirection.right
-    }];
+    public unlockItems: ThyTransferItem[] = [];
+
+    public maxLock = 2;
+
+    public transferData: ThyTransferItem[] = [
+        {
+            id: 1,
+            title: '第1条数据',
+            direction: TransferDirection.left
+        },
+        {
+            id: 2,
+            title: '第2条数据',
+            direction: TransferDirection.left
+        },
+        {
+            id: 3,
+            title: '第3条数据',
+            direction: TransferDirection.left
+        },
+        {
+            id: 4,
+            title: '第4条数据',
+            direction: TransferDirection.left
+        },
+        {
+            id: 5,
+            title: '第5条数据',
+            direction: TransferDirection.right
+        },
+        {
+            id: 6,
+            title: '第6条数据',
+            direction: TransferDirection.right
+        },
+        {
+            id: 7,
+            title: '第7条数据',
+            direction: TransferDirection.right
+        },
+        {
+            id: 8,
+            title: '第8条数据',
+            direction: TransferDirection.right
+        },
+        {
+            id: 9,
+            title: '第9条数据',
+            direction: TransferDirection.right,
+            isLock: true
+        }
+    ];
 
     public apiParameters = [
         {
@@ -107,15 +123,17 @@ export class DemoTransferSectionComponent {
         }
     ];
 
-    constructor() {
+    constructor() {}
 
-    }
-
-    onDragUpdate(event) {
+    onDragUpdate(event: ThyTransferDragEvent) {
+        this.lockItems = event.right.lock;
+        this.unlockItems = event.right.unlock;
         console.log(event);
     }
 
     onTransferChange(event) {
+        this.lockItems = event.right.lock;
+        this.unlockItems = event.right.unlock;
         console.log(event);
     }
 }

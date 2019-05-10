@@ -1,15 +1,29 @@
-<thy-transfer-list [items]="leftDataSource" [title]="leftTitle" [template]="templateRef" [draggable]="leftDraggable" (draggableUpdate)="onDragUpdate($event)"
-    (select)="onSelect('left' , $event)"></thy-transfer-list>
+<thy-transfer-list
+  [items]="leftDataSource"
+  [title]="leftTitle"
+  [template]="templateRef"
+  [draggable]="leftDraggable"
+  (draggableUpdate)="onDragUpdate('left', $event)"
+  (select)="onSelect('left', $event)"
+></thy-transfer-list>
 <div class="thy-transfer-operation">
-    <div class="thy-transfer-operation-body">
-        <a class="operation-link" href="javascript:;" (click)="onMove('right')">
-            <i class="wtf wtf-angle-right"></i>
-        </a>
-        <br>
-        <a class="operation-link rotate-left" href="javascript:;" (click)="onMove('left')">
-            <i class="wtf wtf-angle-right"></i>
-        </a>
-    </div>
+  <div class="thy-transfer-operation-body">
+    <a class="operation-link" href="javascript:;" (click)="onMove('right')">
+      <i class="wtf wtf-angle-right"></i>
+    </a>
+    <br />
+    <a class="operation-link rotate-left" href="javascript:;" (click)="onMove('left')">
+      <i class="wtf wtf-angle-right"></i>
+    </a>
+  </div>
 </div>
-<thy-transfer-list [items]="rightDataSource" [title]="rightTitle" [template]="templateRef" [draggable]="rightDraggable" (draggableUpdate)="onDragUpdate($event)"
-    (select)="onSelect('right' , $event)"></thy-transfer-list>
+<thy-transfer-list
+  [items]="rightDataSource"
+  [title]="rightTitle"
+  [template]="templateRef"
+  [draggable]="rightDraggable"
+  (draggableUpdate)="onDragUpdate('right', $event)"
+  [canLock]="thyRightCanLock"
+  [maxLock]="thyRightLockMax"
+  (select)="onSelect('right', $event)"
+></thy-transfer-list>

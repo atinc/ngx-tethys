@@ -1,4 +1,3 @@
-
 export interface ThyTransferData {
     source: ThyTransferModel;
     target: ThyTransferModel;
@@ -6,7 +5,7 @@ export interface ThyTransferData {
 
 export interface ThyTransferModel {
     title?: string;
-    data: | Array<any>;
+    data: Array<any>;
 }
 
 export interface ThyTransferItem {
@@ -15,6 +14,8 @@ export interface ThyTransferItem {
     order?: number;
     disabled?: boolean;
     checked?: boolean;
+    isLock?: boolean;
+    groupId?: string;
     [key: string]: any;
 }
 
@@ -22,11 +23,12 @@ export interface ThyTransferSelectEvent {
     item: ThyTransferItem;
 }
 
-
 export interface ThyTransferChangeEvent {
-    from: string;
-    to: string;
+    from?: string;
+    to?: string;
     items?: ThyTransferItem[];
+    left?: InnerTransferList;
+    right?: InnerTransferList;
 }
 
 export interface ThyTransferDragEvent {
@@ -34,4 +36,16 @@ export interface ThyTransferDragEvent {
     newIndex?: number;
     model?: ThyTransferItem;
     models?: ThyTransferItem[];
+    left?: InnerTransferList;
+    right?: InnerTransferList;
+}
+
+export interface InnerTransferDragEvent {
+    dragEvent?: ThyTransferDragEvent;
+    listData?: InnerTransferList;
+}
+
+export interface InnerTransferList {
+    lock?: ThyTransferItem[];
+    unlock?: ThyTransferItem[];
 }
