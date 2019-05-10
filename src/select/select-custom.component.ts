@@ -228,7 +228,7 @@ export class ThySelectCustomComponent
     }
 
     @HostListener('mouseover', ['$event'])
-    public trggleHover($event: Event) {
+    public triggerHover($event: Event) {
         if (this.thyHoverTriggerAction) {
             this.open();
         }
@@ -247,7 +247,7 @@ export class ThySelectCustomComponent
     writeValue(value: any): void {
         this._modalValue = value;
         if (this.options && this.options.length > 0) {
-            this._setSelecttionByModelValue(this._modalValue);
+            this._setSelectionByModelValue(this._modalValue);
         }
     }
 
@@ -301,11 +301,11 @@ export class ThySelectCustomComponent
 
     _initializeSelection() {
         Promise.resolve().then(() => {
-            this._setSelecttionByModelValue(this._modalValue);
+            this._setSelectionByModelValue(this._modalValue);
         });
     }
 
-    _setSelecttionByModelValue(modalValue: any) {
+    _setSelectionByModelValue(modalValue: any) {
         this._selectionModel.clear();
         if (!modalValue) {
             this.changeDetectorRef.markForCheck();

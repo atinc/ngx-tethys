@@ -20,7 +20,7 @@ export class OptionSelectionChange {
     selected: boolean;
 }
 
-export class OptionVisiableChange {
+export class OptionVisibleChange {
     option: ThyOptionComponent;
 }
 
@@ -73,7 +73,7 @@ export class ThyOptionComponent implements OnDestroy {
     }
 
     @Output() readonly selectionChange: EventEmitter<OptionSelectionChange> = new EventEmitter();
-    @Output() readonly visiableChange: EventEmitter<OptionVisiableChange> = new EventEmitter();
+    @Output() readonly visibleChange: EventEmitter<OptionVisibleChange> = new EventEmitter();
 
     constructor(
         public element: ElementRef<HTMLElement>,
@@ -119,7 +119,7 @@ export class ThyOptionComponent implements OnDestroy {
     hideOption() {
         if (!this._hidden) {
             this._hidden = true;
-            this.visiableChange.emit({ option: this });
+            this.visibleChange.emit({ option: this });
             this.cdr.markForCheck();
         }
     }
@@ -127,7 +127,7 @@ export class ThyOptionComponent implements OnDestroy {
     showOption() {
         if (this._hidden) {
             this._hidden = false;
-            this.visiableChange.emit({ option: this });
+            this.visibleChange.emit({ option: this });
             this.cdr.markForCheck();
         }
     }
