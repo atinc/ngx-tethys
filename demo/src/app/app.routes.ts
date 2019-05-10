@@ -47,6 +47,7 @@ import { DemoStoreSectionComponent } from './components/+store/store-section.com
 import { DemoMenuSectionComponent } from './components/+menu/menu-section.component';
 import { DropDragComponent } from './components/+drop-drag/drop-drag.component';
 import { DesignIntroductionComponent } from './design/introduction/introduction.component';
+import { DemoArrowSwitcherSectionComponent } from './components/+arrow-switcher/arrow-switcher-section.component';
 const appRoutes = [
     {
         path: '',
@@ -248,6 +249,10 @@ const appRoutes = [
     {
         path: 'cdk/dropdrag',
         component: DropDragComponent
+    },
+    {
+        path: 'components/arrow-switcher',
+        component: DemoArrowSwitcherSectionComponent
     }
 ];
 

@@ -1,0 +1,38 @@
+.thy-arrow-switcher {
+    display: flex;
+    align-items: center;
+    button {
+        width: 30px;
+        height: 30px;
+        background: $gray-200;
+        border-radius: 4px;
+        transition: none;
+        i {
+            vertical-align: middle;
+        }
+    }
+    button:disabled {
+        background: #fafafa;
+        color: $gray-300;
+    }
+    span {
+        min-width: 58px;
+        text-align: center;
+        padding: 0 10px;
+        color: $gray-600;
+    }
+
+    &.thy-arrow-switcher-small {
+        button {
+            width: 18px;
+            height: 18px;
+            i {
+                font-size: 1rem;
+                vertical-align: top;
+            }
+        }
+        span {
+            line-height: 18px;
+        }
+    }
+}

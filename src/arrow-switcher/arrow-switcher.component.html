@@ -1,0 +1,17 @@
+<button
+  thyButtonIcon="wtf-angle-left"
+  thySize="lg"
+  tooltip="上一条"
+  placement="bottom"
+  [disabled]="getPreviousDisabled()"
+  (click)="onPreviousClick()"
+></button>
+<span>{{ thyIndex + 1 }} / {{ thyTotal }}</span>
+<button
+  thyButtonIcon="wtf-angle-right"
+  thySize="lg"
+  tooltip="下一条"
+  placement="bottom"
+  [disabled]="getNextDisabled()"
+  (click)="onNextClick()"
+></button>

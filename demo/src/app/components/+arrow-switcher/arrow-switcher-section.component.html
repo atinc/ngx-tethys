@@ -1,0 +1,29 @@
+<section>
+  <div class="header">
+    <h2>上一条，下一条</h2>
+  </div>
+  <div class="body">
+    <thy-arrow-switcher
+      [thyIndex]="index"
+      [thyTotal]="totalCount"
+      (thyPreviousClick)="onPreviousClick($event)"
+      (thyNextClick)="onNextClick($event)"
+    ></thy-arrow-switcher>
+    <pre class="mt-1"><code lang="typescript" [highlight]="exampleCode"></code></pre>
+  </div>
+  <div class="header">
+    <h2>上一条，下一条(小)</h2>
+  </div>
+  <div class="body">
+    <thy-arrow-switcher
+      [thyIndex]="index"
+      thySize="sm"
+      [thyTotal]="totalCount"
+      (thyPreviousClick)="onPreviousClick($event)"
+      (thyNextClick)="onNextClick($event)"
+    ></thy-arrow-switcher>
+    <pre class="mt-1"><code lang="typescript" [highlight]="exampleCodeSm"></code></pre>
+  </div>
+</section>
+
+<api-parameters title="thy-arrow-switcher 参数列表" [parameters]="apiArrowSwitcherParameters"></api-parameters>

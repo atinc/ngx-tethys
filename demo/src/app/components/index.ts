@@ -1,7 +1,4 @@
-import {
-    DemoPopBoxSectionComponent,
-    PopBoxMenuDemoShowComponent
-} from './+pop-box/pop-box-section.component';
+import { DemoPopBoxSectionComponent, PopBoxMenuDemoShowComponent } from './+pop-box/pop-box-section.component';
 import { DemoButtonSectionComponent } from './+button/button-section.component';
 import { DemoRebootSectionComponent } from './+reboot/reboot-section.component';
 import { DemoTableSectionComponent } from './+table/table-section.component';
@@ -62,7 +59,7 @@ import { DemoStoreOtherSectionComponent } from './+store/store-other-section.com
 import { DemoMenuSectionComponent } from './+menu/menu-section.component';
 import { DemoMenuPopComponent } from './+menu/pop-menu.component';
 import { DropDragComponent } from './+drop-drag/drop-drag.component';
-
+import { DemoArrowSwitcherSectionComponent } from './+arrow-switcher/arrow-switcher-section.component';
 
 export const COMPONENTS = [
     DemoPopBoxSectionComponent,
@@ -129,7 +126,8 @@ export const COMPONENTS = [
     DemoBreadcrumbSectionComponent,
     DemoStoreSectionComponent,
     DropDragComponent,
-    DemoStoreOtherSectionComponent
+    DemoStoreOtherSectionComponent,
+    DemoArrowSwitcherSectionComponent
 ];
 
 export const ENTRY_COMPONENTS = [
@@ -143,8 +141,8 @@ export const ENTRY_COMPONENTS = [
     DemoAvatarHasBadgeSectionComponent,
     DemoAvatarRemoveSectionComponent,
 
-     DemoDialogContentComponent,
-     DemoStoreOtherSectionComponent,
+    DemoDialogContentComponent,
+    DemoStoreOtherSectionComponent,
 
-     DemoMenuPopComponent
+    DemoMenuPopComponent
 ];
