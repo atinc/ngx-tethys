@@ -1,17 +1,13 @@
 <button
   thyButtonIcon="wtf-angle-left"
-  thySize="lg"
-  tooltip="上一条"
-  placement="bottom"
+  title="上一条"
   [disabled]="getPreviousDisabled()"
-  (click)="onPreviousClick()"
+  (click)="onPreviousClick($event)"
 ></button>
 <span>{{ thyIndex + 1 }} / {{ thyTotal }}</span>
 <button
   thyButtonIcon="wtf-angle-right"
-  thySize="lg"
-  tooltip="下一条"
-  placement="bottom"
+  title="下一条"
   [disabled]="getNextDisabled()"
-  (click)="onNextClick()"
+  (click)="onNextClick($event)"
 ></button>
