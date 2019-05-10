@@ -18,8 +18,6 @@ import { DemoThyTranslate, thyValidatorConfigProvider } from './config';
 import { FormsModule } from '@angular/forms';
 import { ThyAvatarService } from '../../../src/public-api';
 import { CustomAvatarService } from './components/+avatar/custom-avatar.service';
-import { CustomEditorService } from './components/+editor/custom-editor.service';
-import { ThyMarkdownParserService } from '../../../src/directive';
 import { HighlightModule } from 'ngx-highlightjs';
 
 import xml from 'highlight.js/lib/languages/xml';
@@ -29,6 +27,11 @@ import { ThyStoreModule } from '../../../src/store/module';
 import { DriveStore } from './store/drive-store';
 import { TasksStore } from './store/tasks-store';
 import { DESIGN_COMPONENTS } from './design';
+import { ThyMarkdownParserService, ThyMarkdownPlanTextParserService } from '../../../src/markdown';
+import {
+    CustomMarkdownParserService,
+    CustomMarkdownPlanTextParserService
+} from './components/+markdown/custom-markdown.service';
 export function hljsLanguages() {
     return [{ name: 'typescript', func: typescript }, { name: 'scss', func: scss }, { name: 'xml', func: xml }];
 }
@@ -66,7 +69,11 @@ export function hljsLanguages() {
         },
         {
             provide: ThyMarkdownParserService,
-            useClass: CustomEditorService
+            useClass: CustomMarkdownParserService
+        },
+        {
+            provide: ThyMarkdownPlanTextParserService,
+            useClass: CustomMarkdownPlanTextParserService
         },
         thyValidatorConfigProvider
     ],

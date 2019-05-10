@@ -5,9 +5,9 @@ import { By } from '@angular/platform-browser';
 import { ThyEditorModule } from '../module';
 import { ThyEditorComponent } from '../editor.component';
 import { CommonModule } from '@angular/common';
-import { ThyDirectiveModule } from '../../directive';
 import { ThyUploaderModule } from '../../uploader';
 import { ThyEditorLinkModuleService, ThyDefaultEditorLinkModuleService } from '../editor-linkmodule.service';
+import { ThyMarkdownModule } from '../../markdown';
 
 describe('ThyEditor', () => {
     let fixture: ComponentFixture<ThyDemoEditorComponent>;
@@ -74,7 +74,7 @@ class ThyDemoEditorComponent {
 }
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ThyDirectiveModule, ThyUploaderModule, ThyEditorModule],
+    imports: [CommonModule, FormsModule, ThyMarkdownModule, ThyUploaderModule, ThyEditorModule],
     declarations: [ThyDemoEditorComponent],
     exports: [ThyDemoEditorComponent],
     providers: [
