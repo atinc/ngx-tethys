@@ -45,6 +45,7 @@ import { ThyCascaderModule } from './cascader';
 import { ThyDialogModule } from './dialog';
 import { ThyBreadcrumbModule } from './breadcrumb';
 import { ThyArrowSwitcherModule } from './arrow-switcher';
+import { ThyMarkdownModule } from './markdown';
 
 const IMPORT_EXPORT_MODULES = [
     BrowserAnimationsModule,
@@ -93,7 +94,8 @@ const IMPORT_EXPORT_MODULES = [
     ThyCascaderModule,
     ThyDialogModule,
     ThyBreadcrumbModule,
-    ThyArrowSwitcherModule
+    ThyArrowSwitcherModule,
+    ThyMarkdownModule
 ];
 
 @NgModule({

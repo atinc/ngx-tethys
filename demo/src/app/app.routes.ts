@@ -48,6 +48,7 @@ import { DemoMenuSectionComponent } from './components/+menu/menu-section.compon
 import { DropDragComponent } from './components/+drop-drag/drop-drag.component';
 import { DesignIntroductionComponent } from './design/introduction/introduction.component';
 import { DemoArrowSwitcherSectionComponent } from './components/+arrow-switcher/arrow-switcher-section.component';
+import { DemoMarkdownSectionComponent } from './components/+markdown/markdown-section.component';
 const appRoutes = [
     {
         path: '',
@@ -253,6 +254,10 @@ const appRoutes = [
     {
         path: 'components/arrow-switcher',
         component: DemoArrowSwitcherSectionComponent
+    },
+    {
+        path: 'components/markdown',
+        component: DemoMarkdownSectionComponent
     }
 ];
 

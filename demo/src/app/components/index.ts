@@ -60,6 +60,7 @@ import { DemoMenuSectionComponent } from './+menu/menu-section.component';
 import { DemoMenuPopComponent } from './+menu/pop-menu.component';
 import { DropDragComponent } from './+drop-drag/drop-drag.component';
 import { DemoArrowSwitcherSectionComponent } from './+arrow-switcher/arrow-switcher-section.component';
+import { DemoMarkdownSectionComponent } from './+markdown/markdown-section.component';
 
 export const COMPONENTS = [
     DemoPopBoxSectionComponent,
@@ -127,7 +128,9 @@ export const COMPONENTS = [
     DemoStoreSectionComponent,
     DropDragComponent,
     DemoStoreOtherSectionComponent,
-    DemoArrowSwitcherSectionComponent
+    DemoArrowSwitcherSectionComponent,
+
+    DemoMarkdownSectionComponent
 ];
 
 export const ENTRY_COMPONENTS = [

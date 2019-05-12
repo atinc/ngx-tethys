@@ -1,12 +1,11 @@
 import { Directive, ElementRef, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { thyEditorConstant } from '../../editor/editor.constant';
 import { ThyMarkdownParserService } from './thy-markdown-parser.service';
-import { $, liteMarked, mermaid, katex } from '../../typings';
+import { $, liteMarked, mermaid, katex } from '../typings';
 
 @Directive({
     selector: '[thyMarkdownParser]'
 })
-export class ThyMarkdownParserDirective implements OnInit {
+export class ThyMarkdownParser implements OnInit {
     public value: string;
 
     @Input()
@@ -221,6 +220,7 @@ export class ThyMarkdownParserDirective implements OnInit {
         this.initComponent();
         let _value = this.thyMarkdownParserService.filterHTML(this.value);
         _value = this.parseMarked(_value);
+        _value = this.thyMarkdownParserService.sanitizeHTML(_value);
         setTimeout(() => {
             this.parseMermaid();
         }, 100);
