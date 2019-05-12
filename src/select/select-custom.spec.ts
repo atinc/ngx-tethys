@@ -93,7 +93,7 @@ describe('ThyCustomSelect', () => {
                 expect(fixture.componentInstance.select.panelOpen).toBe(false);
             }));
 
-            it('shoulde close the panel when a click occurs outside the panel', fakeAsync(() => {
+            it('should close the panel when a click occurs outside the panel', fakeAsync(() => {
                 trigger.click();
                 fixture.detectChanges();
                 flush();
@@ -164,7 +164,7 @@ describe('ThyCustomSelect', () => {
                 expect(overlayContainerElement.textContent).toContain('没有任何选项');
             }));
 
-            it('should show thyEmptyStateText when assigin thyEmptyStateText property', fakeAsync(() => {
+            it('should show thyEmptyStateText when assign thyEmptyStateText property', fakeAsync(() => {
                 fixture.componentInstance.foods = [];
                 fixture.componentInstance.select.thyEmptyStateText = '无任何内容';
                 fixture.detectChanges();
@@ -174,7 +174,7 @@ describe('ThyCustomSelect', () => {
                 expect(overlayContainerElement.textContent).toContain('无任何内容');
             }));
 
-            it('should close the panel when escing out', fakeAsync(() => {
+            it('should close the panel when esceing out', fakeAsync(() => {
                 trigger.click();
                 fixture.detectChanges();
                 flush();
