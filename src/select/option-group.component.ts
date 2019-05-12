@@ -10,7 +10,7 @@ import {
     AfterContentInit
 } from '@angular/core';
 import { Observable, defer, Subject, merge, combineLatest } from 'rxjs';
-import { OptionVisiableChange, ThyOptionComponent } from './option.component';
+import { OptionVisibleChange, ThyOptionComponent } from './option.component';
 import { take, switchMap, startWith, takeUntil, reduce, debounceTime, map } from 'rxjs/operators';
 
 @Component({
@@ -36,15 +36,15 @@ export class ThySelectOptionGroupComponent implements OnDestroy, AfterContentIni
 
     _destroy$: Subject<any> = new Subject<any>();
 
-    optionVisiableChanges: Observable<OptionVisiableChange> = defer(() => {
+    optionVisibleChanges: Observable<OptionVisibleChange> = defer(() => {
         if (this.options) {
-            return merge(...this.options.map(option => option.visiableChange));
+            return merge(...this.options.map(option => option.visibleChange));
         }
         return this._ngZone.onStable.asObservable().pipe(
             take(1),
-            switchMap(() => this.optionVisiableChanges)
+            switchMap(() => this.optionVisibleChanges)
         );
-    }) as Observable<OptionVisiableChange>;
+    }) as Observable<OptionVisibleChange>;
 
     constructor(private _ngZone: NgZone) {}
 
@@ -61,11 +61,11 @@ export class ThySelectOptionGroupComponent implements OnDestroy, AfterContentIni
 
     _resetOptions() {
         const changedOrDestroyed$ = merge(this.options.changes, this._destroy$);
-        merge(...this.options.map(option => option.visiableChange))
+        merge(...this.options.map(option => option.visibleChange))
             .pipe(
                 takeUntil(changedOrDestroyed$),
                 debounceTime(10),
-                map((data: OptionVisiableChange) => {
+                map((data: OptionVisibleChange) => {
                     const hasOption = this.options.find(option => {
                         if (!option.hidden) {
                             return true;
