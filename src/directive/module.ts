@@ -6,8 +6,6 @@ import { ThyEnterDirective } from './thy-enter.directive';
 import { ThyCtrlEnterDirective } from './thy-ctrl-enter.directive';
 import { ThyShowDirective } from './thy-show';
 import { ThyStopPropagationDirective } from './thy-stop-propagation.directive';
-import { ThyMarkdownParserDirective } from './thy-markdown/thy-markdown-parser.directive';
-import { ThyMarkdownParserService, ThyDefaultMarkdownParserService } from './thy-markdown/thy-markdown-parser.service';
 import { ThyContextMenuDirective } from './thy-contextmenu.directive';
 
 @NgModule({
@@ -19,7 +17,6 @@ import { ThyContextMenuDirective } from './thy-contextmenu.directive';
         ThyCtrlEnterDirective,
         ThyShowDirective,
         ThyStopPropagationDirective,
-        ThyMarkdownParserDirective,
         ThyContextMenuDirective
     ],
     exports: [
@@ -30,16 +27,8 @@ import { ThyContextMenuDirective } from './thy-contextmenu.directive';
         ThyEnterDirective,
         ThyShowDirective,
         ThyStopPropagationDirective,
-        ThyMarkdownParserDirective,
         ThyContextMenuDirective
     ],
-    providers: [
-        {
-            provide: ThyMarkdownParserService,
-            useClass: ThyDefaultMarkdownParserService
-        }
-    ],
+    providers: []
 })
-export class ThyDirectiveModule {
-
-}
+export class ThyDirectiveModule {}
