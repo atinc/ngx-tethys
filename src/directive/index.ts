@@ -1,5 +1,4 @@
 export * from './module';
-export * from './thy-markdown/thy-markdown-parser.service';
 export * from './thy-autofocus.directive';
 export * from './thy-clo.directive';
 export * from './thy-ctrl-enter.directive';
