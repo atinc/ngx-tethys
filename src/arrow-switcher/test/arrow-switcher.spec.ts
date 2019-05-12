@@ -29,56 +29,21 @@ describe('ThyArrowSwitcher', () => {
 
     it('should have correct class', () => {
         fixture.detectChanges();
-        expect(arrowSwitcherComponent.classList.contains('thy-arrow-switcher')).toBe(true);
+        expect(arrowSwitcherComponent.nativeElement.classList.contains('thy-arrow-switcher')).toBe(true);
     });
 
     it('should have correct class when size is sm', () => {
-        arrowSwitcherComponent.size = `sm`;
+        testComponent.size = `sm`;
         fixture.detectChanges();
-        expect(arrowSwitcherComponent.classList.contains('thy-arrow-switcher-small')).toBe(true);
+        expect(arrowSwitcherComponent.nativeElement.classList.contains('thy-arrow-switcher-small')).toBe(true);
     });
 
-    // it('should be disabled when disabled is true', () => {
-    //     arrowSwitcherComponent.disabled = true;
-    //     const labelIcon = arrowSwitcherComponent.nativeElement.querySelector(`button`);
-    //     fixture.detectChanges();
-    //     expect(labelIcon.disabled.toBe(true));
-    // });
-
-    // it(`should call previousClick event`, () => {
-    //     const previousButton = arrowSwitcherComponent.nativeElement.children[0];
-    //     const previousClickSpy = (arrowSwitcherComponent.previousClick = jasmine.createSpy(`previous`));
-    //     let event: {index: number};
-    //     previousClickSpy.and.callFake(($event: {index: number}) => {
-    //         event = $event;
-    //     });
-
-    //     expect(previousClickSpy).not.toHaveBeenCalled();
-    //     expect(event).toBeFalsy();
-
-    //     previousButton.click();
-    //     fixture.detectChanges();
-
-    //     expect(previousClickSpy).toHaveBeenCalled();
-    //     expect(event).toBeTruthy();
-    // });
-    // it(`should call nextClick event`, () => {
-    //     const nextButton = arrowSwitcherComponent.nativeElement.children[2];
-    //     const nextClickSpy = (arrowSwitcherComponent.nextClick = jasmine.createSpy(`next`));
-    //     let event: {index: number};
-    //     nextClickSpy.and.callFake(($event: {index: number}) => {
-    //         event = $event;
-    //     });
-
-    //     expect(nextClickSpy).not.toHaveBeenCalled();
-    //     expect(event).toBeFalsy();
-
-    //     nextButton.click();
-    //     fixture.detectChanges();
-
-    //     expect(nextClickSpy).toHaveBeenCalled();
-    //     expect(event).toBeTruthy();
-    // });
+    it('should be disabled when disabled is true', () => {
+        testComponent.disabled = true;
+        const buttons = arrowSwitcherComponent.nativeElement.querySelector(`button`);
+        fixture.detectChanges();
+        expect(buttons.disabled).toBe(true);
+    });
 });
 
 @Component({
@@ -89,18 +54,16 @@ describe('ThyArrowSwitcher', () => {
             [thyTotal]="totalCount"
             [thySize]="size"
             [thyDisabled]="disabled"
-            (thyPreviousClick)="onPreviousClick($event)"
-            (thyNextClick)="onNextClick($event)"
+            (thyPreviousClick)="previousClick()"
+            (thyNextClick)="nextClick()"
         ></thy-arrow-switcher>
     `
 })
 class ThyDemoArrowSwitcherComponent {
-    index = 1;
+    index = 0;
     totalCount = 10;
     disabled = false;
     size = ``;
-    previousClick($event: { index: number }) {}
-    nextClick($event: { index: number }) {}
 }
 
 @NgModule({
