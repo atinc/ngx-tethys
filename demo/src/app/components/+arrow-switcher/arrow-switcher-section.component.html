@@ -17,8 +17,9 @@
   <div class="body">
     <thy-arrow-switcher
       [thyIndex]="index"
-      thySize="sm"
       [thyTotal]="totalCount"
+      thySize="sm"
+      [thyDisabled]="true"
       (thyPreviousClick)="onPreviousClick($event)"
       (thyNextClick)="onNextClick($event)"
     ></thy-arrow-switcher>

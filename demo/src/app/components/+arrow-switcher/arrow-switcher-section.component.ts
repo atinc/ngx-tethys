@@ -28,14 +28,32 @@ export class DemoArrowSwitcherSectionComponent implements OnInit {
     apiArrowSwitcherParameters = [
         {
             property: 'thyIndex',
-            description: '',
+            description: '当前条数的index',
             type: 'number',
             default: ''
         },
         {
             property: 'thyTotalCount',
-            description: '',
+            description: '总条数',
             type: 'number',
+            default: ''
+        },
+        {
+            property: 'thyDisabled',
+            description: '是否禁用按钮',
+            type: 'boolean',
+            default: 'false'
+        },
+        {
+            property: 'thyPreviousClick',
+            description: '点击上一条事件',
+            type: 'function',
+            default: ''
+        },
+        {
+            property: 'thyNextClick',
+            description: '点击下一条事件',
+            type: 'function',
             default: ''
         }
     ];
@@ -44,13 +62,11 @@ export class DemoArrowSwitcherSectionComponent implements OnInit {
 
     ngOnInit() {}
 
-    onPreviousClick(event: Event) {
-        this.index--;
-        console.log('点击上一条' + this.index);
+    onPreviousClick(event: { index: number }) {
+        console.log('点击上一条' + event.index);
     }
 
-    onNextClick(event: Event) {
-        this.index++;
-        console.log('点击下一条' + this.index);
+    onNextClick(event: { index: number }) {
+        console.log('点击下一条' + event.index);
     }
 }

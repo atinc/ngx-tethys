@@ -15,9 +15,15 @@ export class ThyArrowSwitcherComponent {
 
     @Input() thyTotal: number;
 
-    @Output() thyPreviousClick = new EventEmitter<Event>();
+    @Input() thyDisabled: boolean;
 
-    @Output() thyNextClick = new EventEmitter<Event>();
+    @Output() thyPreviousClick = new EventEmitter<{
+        index: number;
+    }>();
+
+    @Output() thyNextClick = new EventEmitter<{
+        index: number;
+    }>();
 
     @Input()
     set thySize(size: string) {
@@ -29,18 +35,20 @@ export class ThyArrowSwitcherComponent {
     constructor() {}
 
     getPreviousDisabled() {
-        return this.thyIndex <= 0;
+        return this.thyIndex <= 0 || this.thyDisabled;
     }
 
     getNextDisabled() {
-        return this.thyIndex >= this.thyTotal - 1;
+        return this.thyIndex >= this.thyTotal - 1 || this.thyDisabled;
     }
 
-    onPreviousClick(event: Event) {
-        this.thyPreviousClick.emit(event);
+    onPreviousClick() {
+        this.thyIndex--;
+        this.thyPreviousClick.emit({ index: this.thyIndex });
     }
 
-    onNextClick(event: Event) {
-        this.thyNextClick.emit(event);
+    onNextClick() {
+        this.thyIndex++;
+        this.thyNextClick.emit({ index: this.thyIndex });
     }
 }
