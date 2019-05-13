@@ -62,11 +62,11 @@ export class DemoArrowSwitcherSectionComponent implements OnInit {
 
     ngOnInit() {}
 
-    onPreviousClick(event: { index: number }) {
+    onPreviousClick(event: { index: number; event: Event }) {
         console.log('点击上一条' + event.index);
     }
 
-    onNextClick(event: { index: number }) {
+    onNextClick(event: { index: number; event: Event }) {
         console.log('点击下一条' + event.index);
     }
 }
