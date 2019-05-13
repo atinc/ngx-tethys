@@ -13,6 +13,10 @@ export class CustomMarkdownParserService extends ThyMarkdownParserService {
     filterHTML(html: string): string {
         return html + '-filter';
     }
+
+    sanitizeHTML(html: string) {
+        return html;
+    }
 }
 
 @Injectable()
