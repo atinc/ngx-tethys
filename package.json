@@ -12,7 +12,7 @@
     "build:theme:watch": "npm run build:theme && gulp build-theme:watch",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s --pkg src/package.json",
     "release": "node ./scripts/release.js",
-    "publish": "npm run build && cd ./built && npm publish && cd ..",
+    "pub": "npm run build && cd ./built && npm publish && cd ..",
     "ng": "ng",
     "start": "npm run build:theme && concurrently \"ng serve --port 8888\" \"gulp build-theme:watch\"",
     "build:demo": "npm run build:docs",
