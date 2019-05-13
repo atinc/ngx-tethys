@@ -21,11 +21,12 @@ pop-box-container {
         min-width: 240px;
         background: $white;
         box-shadow: $box-shadow;
-        margin-top: 4px; 
+        margin-top: 4px;
     }
     .pop-box-header {
         padding: 12px 20px;
         display: flex;
+        position: relative;
         flex-direction: row;
         border-bottom: solid 1px $pop-box-divider;
         background-color: transparent;
@@ -53,8 +54,10 @@ pop-box-container {
     }
     .pop-box-footer {
         display: flex;
+        position: relative;
         padding: $pop-box-footer-padding;
     }
 }
 
-@mixin pop-box {}
+@mixin pop-box {
+}
