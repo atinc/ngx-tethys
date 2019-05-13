@@ -10,7 +10,6 @@ import { flattenStyles } from '@angular/platform-browser/src/dom/dom_renderer';
     styleUrls: ['./pop-box-section.component.scss']
 })
 export class DemoPopBoxSectionComponent {
-
     apiParameters = [
         {
             property: 'target',
@@ -54,7 +53,7 @@ export class DemoPopBoxSectionComponent {
             description: '是否有 arrow，暂时未实现此功能',
             type: 'Boolean',
             default: 'false'
-        },
+        }
     ];
 
     public demoPlacement = 'bottom center';
@@ -96,7 +95,10 @@ export class DemoPopBoxSectionComponent {
 
         this.popBoxService.show(popBoxTemplate, {
             initialState: initialState,
-            target: templateRef.elementRef
+            target: templateRef.elementRef,
+            showMask: this.config.showMask,
+            insideAutoClose: this.config.insideAutoClose,
+            outsideAutoClose: this.config.outsideAutoClose
         });
     }
 
@@ -113,7 +115,7 @@ export class DemoPopBoxSectionComponent {
             placement: this.demoPlacement,
             position: {
                 top: $event.pageY,
-                left: $event.pageX,
+                left: $event.pageX
             },
             showMask: this.config.showMask
         });
@@ -130,13 +132,11 @@ export class DemoPopBoxSectionComponent {
     templateUrl: `./demo-pop-box-menu-show.component.html`
 })
 export class PopBoxMenuDemoShowComponent implements OnInit {
-
     title: string;
 
     step = 'menu';
 
-    constructor(public popBoxRef: PopBoxRef) {
-    }
+    constructor(public popBoxRef: PopBoxRef) {}
 
     ngOnInit() {
         console.log(this.title);
@@ -150,7 +150,6 @@ export class PopBoxMenuDemoShowComponent implements OnInit {
         setTimeout(() => {
             this.step = 'rename';
         });
-
     }
 
     close() {

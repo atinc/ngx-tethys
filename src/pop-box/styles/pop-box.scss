@@ -22,11 +22,11 @@ pop-box-container {
         background: $white;
         box-shadow: $box-shadow;
         margin-top: 4px;
+        position: relative;
     }
     .pop-box-header {
         padding: 12px 20px;
         display: flex;
-        position: relative;
         flex-direction: row;
         border-bottom: solid 1px $pop-box-divider;
         background-color: transparent;
@@ -54,7 +54,6 @@ pop-box-container {
     }
     .pop-box-footer {
         display: flex;
-        position: relative;
         padding: $pop-box-footer-padding;
     }
 }
