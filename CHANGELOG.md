@@ -1,3 +1,26 @@
+## [7.0.42](https://github.com/worktile/ngx-tethys/compare/7.0.41...7.0.42) (2019-05-13)
+
+
+### Bug Fixes
+
+* fix arrow switcher attr name ([b965fd5](https://github.com/worktile/ngx-tethys/commit/b965fd5))
+* fix arrow switcher test ([6c8bf79](https://github.com/worktile/ngx-tethys/commit/6c8bf79))
+* fix arrow switcher test ([40d5902](https://github.com/worktile/ngx-tethys/commit/40d5902))
+* fix arrow-switcher ([a419220](https://github.com/worktile/ngx-tethys/commit/a419220))
+* fix eventemitter arguments ([1f65e3f](https://github.com/worktile/ngx-tethys/commit/1f65e3f))
+* fix markdown build bug , change test.ts  context ([dda753c](https://github.com/worktile/ngx-tethys/commit/dda753c))
+* fix markdown export bug ([26fc888](https://github.com/worktile/ngx-tethys/commit/26fc888))
+* **action-menu:** fix action-menu   child items style bug ([93d54a8](https://github.com/worktile/ngx-tethys/commit/93d54a8))
+
+
+### Features
+
+* add arrow switcher test ([1d12101](https://github.com/worktile/ngx-tethys/commit/1d12101))
+* **markdown:** add ThyMarkdownModule and remove thyMarkdownParser path ([dd5645d](https://github.com/worktile/ngx-tethys/commit/dd5645d))
+* add arrow switcher ([19fb627](https://github.com/worktile/ngx-tethys/commit/19fb627))
+
+
+
 ## [7.0.41](https://github.com/worktile/ngx-tethys/compare/7.0.39...7.0.41) (2019-05-08)
 
 
