@@ -47,3 +47,4 @@ export * from './tree-select';
 export * from './uploader';
 export * from './util';
 export * from './version';
+export * from './markdown';
