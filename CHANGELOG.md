@@ -1,3 +1,12 @@
+## [7.0.43](https://github.com/worktile/ngx-tethys/compare/7.0.42...7.0.43) (2019-05-13)
+
+
+### Bug Fixes
+
+* public-api export arrow-switcher ([8b6a22b](https://github.com/worktile/ngx-tethys/commit/8b6a22b))
+
+
+
 ## [7.0.42](https://github.com/worktile/ngx-tethys/compare/7.0.41...7.0.42) (2019-05-13)
 
 
