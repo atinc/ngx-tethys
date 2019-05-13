@@ -44,6 +44,7 @@ export * from './switch';
 export * from './transfer';
 export * from './tree';
 export * from './tree-select';
+export * from './arrow-switcher';
 export * from './uploader';
 export * from './util';
 export * from './version';
