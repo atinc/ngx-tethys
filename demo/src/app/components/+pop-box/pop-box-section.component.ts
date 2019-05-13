@@ -96,6 +96,7 @@ export class DemoPopBoxSectionComponent {
         this.popBoxService.show(popBoxTemplate, {
             initialState: initialState,
             target: templateRef.elementRef,
+            placement: this.demoPlacement,
             showMask: this.config.showMask,
             insideAutoClose: this.config.insideAutoClose,
             outsideAutoClose: this.config.outsideAutoClose
