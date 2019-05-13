@@ -54,8 +54,8 @@ describe('ThyArrowSwitcher', () => {
             [thyTotal]="totalCount"
             [thySize]="size"
             [thyDisabled]="disabled"
-            (thyPreviousClick)="previousClick()"
-            (thyNextClick)="nextClick()"
+            (thyPrevious)="previousClick()"
+            (thyNext)="nextClick()"
         ></thy-arrow-switcher>
     `
 })

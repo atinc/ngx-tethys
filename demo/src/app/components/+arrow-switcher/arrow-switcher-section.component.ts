@@ -12,8 +12,8 @@ export class DemoArrowSwitcherSectionComponent implements OnInit {
     <thy-arrow-switcher
       [thyIndex]="index"
       [thyTotal]="totalCount"
-      (thyPreviousClick)="onPreviousClick($event)"
-      (thyNextClick)="onNextClick($event)"
+      (thyPrevious)="onPreviousClick($event)"
+      (thyNext)="onNextClick($event)"
     ></thy-arrow-switcher>
     `;
     exampleCodeSm = `
@@ -21,8 +21,8 @@ export class DemoArrowSwitcherSectionComponent implements OnInit {
       [thyIndex]="index"
       thySize="sm"
       [thyTotal]="totalCount"
-      (thyPreviousClick)="onPreviousClick($event)"
-      (thyNextClick)="onNextClick($event)"
+      (thyPrevious)="onPreviousClick($event)"
+      (thyNext)="onNextClick($event)"
     ></thy-arrow-switcher>`;
 
     apiArrowSwitcherParameters = [
@@ -45,13 +45,13 @@ export class DemoArrowSwitcherSectionComponent implements OnInit {
             default: 'false'
         },
         {
-            property: 'thyPreviousClick',
+            property: 'thyPrevious',
             description: '点击上一条事件',
             type: 'function',
             default: ''
         },
         {
-            property: 'thyNextClick',
+            property: 'thyNext',
             description: '点击下一条事件',
             type: 'function',
             default: ''

@@ -17,11 +17,11 @@ export class ThyArrowSwitcherComponent {
 
     @Input() thyDisabled: boolean;
 
-    @Output() thyPreviousClick = new EventEmitter<{
+    @Output() thyPrevious = new EventEmitter<{
         index: number;
     }>();
 
-    @Output() thyNextClick = new EventEmitter<{
+    @Output() thyNext = new EventEmitter<{
         index: number;
     }>();
 
@@ -44,11 +44,11 @@ export class ThyArrowSwitcherComponent {
 
     onPreviousClick() {
         this.thyIndex--;
-        this.thyPreviousClick.emit({ index: this.thyIndex });
+        this.thyPrevious.emit({ index: this.thyIndex });
     }
 
     onNextClick() {
         this.thyIndex++;
-        this.thyNextClick.emit({ index: this.thyIndex });
+        this.thyNext.emit({ index: this.thyIndex });
     }
 }

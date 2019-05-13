@@ -6,8 +6,8 @@
     <thy-arrow-switcher
       [thyIndex]="index"
       [thyTotal]="totalCount"
-      (thyPreviousClick)="onPreviousClick($event)"
-      (thyNextClick)="onNextClick($event)"
+      (thyPrevious)="onPreviousClick($event)"
+      (thyNext)="onNextClick($event)"
     ></thy-arrow-switcher>
     <pre class="mt-1"><code lang="typescript" [highlight]="exampleCode"></code></pre>
   </div>
@@ -20,8 +20,8 @@
       [thyTotal]="totalCount"
       thySize="sm"
       [thyDisabled]="true"
-      (thyPreviousClick)="onPreviousClick($event)"
-      (thyNextClick)="onNextClick($event)"
+      (thyPrevious)="onPreviousClick($event)"
+      (thyNext)="onNextClick($event)"
     ></thy-arrow-switcher>
     <pre class="mt-1"><code lang="typescript" [highlight]="exampleCodeSm"></code></pre>
   </div>
