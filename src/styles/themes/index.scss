@@ -1,9 +1,10 @@
 // variables
 @import '../variables.scss';
+// @import '../font-size.scss';
 // mixins
-@import "~bootstrap/scss/functions";
-@import "~bootstrap/scss/variables";
-@import "~bootstrap/scss/mixins";
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
 @import '../mixins/index.scss';
 
 // theme
@@ -19,10 +20,9 @@
 @import '../../property-operation/styles/theme.scss';
 @import '../../layout/styles/theme.scss';
 @import '../../select/styles/theme.scss';
-@import "../../list/styles/theme";
-@import "../../stepper/styles/theme.scss";
-@import "../../cascader/styles/theme.scss";
-@import "../../breadcrumb/styles/theme.scss";
-@import "../../input/styles/theme.scss";
-@import "../../menu/styles/theme.scss";
-
+@import '../../list/styles/theme';
+@import '../../stepper/styles/theme.scss';
+@import '../../cascader/styles/theme.scss';
+@import '../../breadcrumb/styles/theme.scss';
+@import '../../input/styles/theme.scss';
+@import '../../menu/styles/theme.scss';
