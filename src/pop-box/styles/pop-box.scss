@@ -21,7 +21,8 @@ pop-box-container {
         min-width: 240px;
         background: $white;
         box-shadow: $box-shadow;
-        margin-top: 4px; 
+        margin-top: 4px;
+        position: relative;
     }
     .pop-box-header {
         padding: 12px 20px;
@@ -57,4 +58,5 @@ pop-box-container {
     }
 }
 
-@mixin pop-box {}
+@mixin pop-box {
+}
