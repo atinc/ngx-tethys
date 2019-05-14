@@ -261,10 +261,10 @@ export class ThyMarkdownParser implements OnInit {
     }
 
     ngOnInit() {
-        const _emojiesSetting: any = this.thyMarkdownParserService.setEmoJies();
-        if (_emojiesSetting) {
+        const _emojisSetting: any = this.thyMarkdownParserService.setEmoJis();
+        if (_emojisSetting) {
             this.liteMarkedOptions.wtemoji = true;
-            this.liteMarkedOptions.wtemojiRender = _emojiesSetting;
+            this.liteMarkedOptions.wtemojiRender = _emojisSetting;
         }
         this.translateHTML();
     }
