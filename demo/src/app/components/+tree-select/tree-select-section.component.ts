@@ -1,4 +1,3 @@
-
 import { Component } from '@angular/core';
 import { tap, delay } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -8,30 +7,31 @@ import { ThyTreeSelectNode } from '../../../../../src/tree-select/tree-select.cl
 @Component({
     selector: 'demo-tree-select-section',
     templateUrl: './tree-select-section.component.html',
-    styleUrls: [
-        './tree-select-section.scss'
-    ]
+    styleUrls: ['./tree-select-section.scss']
 })
 export class DemoTreeSelectSectionComponent {
-
     nodes = treeSelectNodes;
 
     singleModel = {
         selectedValue: '010101',
         allowClear: false,
         disabled: false,
-        showWholeName: true,
+        showWholeName: true
     };
+
+    objSelectedValue = treeSelectNodes[0];
 
     multiModel = ['010101'];
 
-    asyncNodes = [{
-        key: '01',
-        title: 'root1',
-        level: 0,
-        children: [],
-        childCount: 2
-    }];
+    asyncNodes = [
+        {
+            key: '01',
+            title: 'root1',
+            level: 0,
+            children: [],
+            childCount: 2
+        }
+    ];
 
     asyncValue = '';
 
@@ -149,23 +149,25 @@ export class DemoTreeSelectSectionComponent {
         }
     ];
 
-    constructor(
-    ) { }
+    constructor() {}
 
     fetchNodeChildren(node: ThyTreeSelectNode) {
-        return of([{
-            key: '010101',
-            title: 'child11',
-            level: 2,
-            icon: 'wtf wtf-file-text',
-            children: []
-        }, {
-            key: '010102',
-            title: 'child12',
-            level: 2,
-            icon: 'wtf wtf-file-text',
-            children: []
-        }]);
+        return of([
+            {
+                key: '010101',
+                title: 'child11',
+                level: 2,
+                icon: 'wtf wtf-file-text',
+                children: []
+            },
+            {
+                key: '010102',
+                title: 'child12',
+                level: 2,
+                icon: 'wtf wtf-file-text',
+                children: []
+            }
+        ]);
     }
 
     hiddenNodeFn(node: ThyTreeSelectNode) {
@@ -175,5 +177,4 @@ export class DemoTreeSelectSectionComponent {
     disabledNodeFn(node: ThyTreeSelectNode) {
         return node.disable;
     }
-
 }

@@ -1,85 +1,182 @@
 <section>
-    <div class="header">
-        <h2>Tree Select 单选</h2>
-    </div>
-    <div class="body demo-select">
-        <label thyCheckbox [(ngModel)]="singleModel.allowClear" thyLabelText="是否支持清除选项"></label>
-        <label thyCheckbox [(ngModel)]="singleModel.disabled" thyLabelText="是否禁用树选择"></label>
-        <label thyCheckbox [(ngModel)]="singleModel.showWholeName" thyLabelText="是否支持显示所有父级节点名称"></label>
-        <br> Model: {{singleModel | json}}
-        <thy-tree-select [thyTreeNodes]="nodes" thyPrimaryKey="key" thyShowKey="title" [thyAllowClear]="singleModel.allowClear"
-            [thyDisable]="singleModel.disabled" thyHiddenNodeKey="hidden" thyDisableNodeKey="disabled" thyPlaceholder="请选择值"
-            [(ngModel)]="singleModel.selectedValue" [thyShowWholeName]="singleModel.showWholeName"></thy-tree-select>
-    </div>
+  <div class="header">
+    <h2>Tree Select 单选</h2>
+  </div>
+  <div class="body demo-select">
+    <label thyCheckbox [(ngModel)]="singleModel.allowClear" thyLabelText="是否支持清除选项"></label>
+    <label thyCheckbox [(ngModel)]="singleModel.disabled" thyLabelText="是否禁用树选择"></label>
+    <label thyCheckbox [(ngModel)]="singleModel.showWholeName" thyLabelText="是否支持显示所有父级节点名称"></label>
+    <br />
+    Model: {{ singleModel | json }}
+    <thy-tree-select
+      [thyTreeNodes]="nodes"
+      thyPrimaryKey="key"
+      thyShowKey="title"
+      [thyAllowClear]="singleModel.allowClear"
+      [thyDisable]="singleModel.disabled"
+      thyHiddenNodeKey="hidden"
+      thyDisableNodeKey="disabled"
+      thyPlaceholder="请选择值"
+      [(ngModel)]="singleModel.selectedValue"
+      [thyShowWholeName]="singleModel.showWholeName"
+    ></thy-tree-select>
+  </div>
 </section>
 
 <section>
-    <div class="header">
-        <h2>Tree Select 禁用、隐藏节点通过传入的 Function 判断</h2>
-    </div>
-    <div class="body demo-select">
-        <thy-tree-select [thyTreeNodes]="nodes" thyPrimaryKey="key" thyShowKey="title" [thyAllowClear]="singleModel.allowClear"
-            thyHiddenNodeFn="hiddenNodeFn" disabledNodeFn="disabled" thyPlaceholder="请选择值"
-            [(ngModel)]="singleModel.selectedValue"></thy-tree-select>
-    </div>
+  <div class="header">
+    <h2>Tree Select 禁用、隐藏节点通过传入的 Function 判断</h2>
+  </div>
+  <div class="body demo-select">
+    <thy-tree-select
+      [thyTreeNodes]="nodes"
+      thyPrimaryKey="key"
+      thyShowKey="title"
+      [thyAllowClear]="singleModel.allowClear"
+      thyHiddenNodeFn="hiddenNodeFn"
+      disabledNodeFn="disabled"
+      thyPlaceholder="请选择值"
+      [(ngModel)]="singleModel.selectedValue"
+    ></thy-tree-select>
+  </div>
 </section>
 
 <section>
-    <div class="header">
-        <h2>Tree Select 空的可选值</h2>
-    </div>
-    <div class="body demo-select">
-        <thy-tree-select [thyTreeNodes]="nodes" thyPrimaryKey="key" thyShowKey="title" thyPlaceholder="请选择值"
-            [(ngModel)]="singleModel.selectedValue" thyEmptyOptionsText="暂无可选值"></thy-tree-select>
-    </div>
+  <div class="header">
+    <h2>Tree Select 默认选中 设置对象</h2>
+  </div>
+  <div class="body demo-select">
+    <thy-tree-select
+      [thyTreeNodes]="nodes"
+      thyPrimaryKey="key"
+      thyShowKey="title"
+      [thyAllowClear]="singleModel.allowClear"
+      thyHiddenNodeFn="hiddenNodeFn"
+      disabledNodeFn="disabled"
+      thyPlaceholder="请选择值"
+      [(ngModel)]="objSelectedValue"
+    ></thy-tree-select>
+  </div>
 </section>
 
 <section>
-    <div class="header">
-        <h2>Tree Select 多选</h2>
-    </div>
-    <div class="body demo-select">
-        <br> Model: {{multiModel | json}}
-        <thy-tree-select [thyTreeNodes]="nodes" thyPrimaryKey="key" thyShowKey="title" thyMultiple='true'
-        thyPlaceholder="请选择值" [(ngModel)]="multiModel"></thy-tree-select>
-        <br>
-        <thy-tree-select [thyTreeNodes]="nodes" thyPrimaryKey="key" thyShowKey="title" thyMultiple='true'
-        thyDisable="true" thyPlaceholder="请选择值" [(ngModel)]="multiModel"></thy-tree-select>
-    </div>
+  <div class="header">
+    <h2>Tree Select 空的可选值</h2>
+  </div>
+  <div class="body demo-select">
+    <thy-tree-select
+      [thyTreeNodes]="nodes"
+      thyPrimaryKey="key"
+      thyShowKey="title"
+      thyPlaceholder="请选择值"
+      [(ngModel)]="singleModel.selectedValue"
+      thyEmptyOptionsText="暂无可选值"
+    ></thy-tree-select>
+  </div>
 </section>
 
 <section>
-    <div class="header">
-        <h2>Tree Select 异步获取节点的子节点</h2>
-    </div>
-    <div class="body demo-select">
-        <br> Model: {{asyncValue | json}}
-        <thy-tree-select [thyTreeNodes]="asyncNodes" thyPrimaryKey="key" thyShowKey="title" thyAsyncNode="true"
-            thyPlaceholder="请选择值" [thyShowWholeName]="singleModel.showWholeName" [(ngModel)]="asyncValue" [thyGetNodeChildren]="fetchNodeChildren" thyChildCountKey="childCount"></thy-tree-select>
-    </div>
+  <div class="header">
+    <h2>Tree Select 多选</h2>
+  </div>
+  <div class="body demo-select">
+    <br />
+    Model: {{ multiModel | json }}
+    <thy-tree-select
+      [thyTreeNodes]="nodes"
+      thyPrimaryKey="key"
+      thyShowKey="title"
+      thyMultiple="true"
+      thyPlaceholder="请选择值"
+      [(ngModel)]="multiModel"
+    ></thy-tree-select>
+    <br />
+    <thy-tree-select
+      [thyTreeNodes]="nodes"
+      thyPrimaryKey="key"
+      thyShowKey="title"
+      thyMultiple="true"
+      thyDisable="true"
+      thyPlaceholder="请选择值"
+      [(ngModel)]="multiModel"
+    ></thy-tree-select>
+  </div>
 </section>
 
 <section>
-    <div class="header">
-        <h2>Tree Select 大小</h2>
-    </div>
-    <div class="body demo-select">
-        <thy-tree-select [thyTreeNodes]="nodes" thySize="sm" thyPrimaryKey="key" thyShowKey="title" [thyAllowClear]="singleModel.allowClear"
-            thyHiddenNodeKey="hidden" thyDisableNodeKey="disabled" thyPlaceholder="请选择值"
-            [(ngModel)]="singleModel.selectedValue"></thy-tree-select>
-        <br>
-        <thy-tree-select [thyTreeNodes]="nodes" thySize="md" thyPrimaryKey="key" thyShowKey="title" [thyAllowClear]="singleModel.allowClear"
-            thyHiddenNodeKey="hidden" thyDisableNodeKey="disabled" thyPlaceholder="请选择值"
-            [(ngModel)]="singleModel.selectedValue"></thy-tree-select>
-        <br>
-        <thy-tree-select [thyTreeNodes]="nodes" thySize="" thyPrimaryKey="key" thyShowKey="title" [thyAllowClear]="singleModel.allowClear"
-            thyHiddenNodeKey="hidden" thyDisableNodeKey="disabled" thyPlaceholder="请选择值"
-            [(ngModel)]="singleModel.selectedValue"></thy-tree-select>
-        <br>
-        <thy-tree-select [thyTreeNodes]="nodes" thySize="lg" thyPrimaryKey="key" thyShowKey="title" [thyAllowClear]="singleModel.allowClear"
-            thyHiddenNodeKey="hidden" thyDisableNodeKey="disabled" thyPlaceholder="请选择值"
-            [(ngModel)]="singleModel.selectedValue"></thy-tree-select>
-    </div>
+  <div class="header">
+    <h2>Tree Select 异步获取节点的子节点</h2>
+  </div>
+  <div class="body demo-select">
+    <br />
+    Model: {{ asyncValue | json }}
+    <thy-tree-select
+      [thyTreeNodes]="asyncNodes"
+      thyPrimaryKey="key"
+      thyShowKey="title"
+      thyAsyncNode="true"
+      thyPlaceholder="请选择值"
+      [thyShowWholeName]="singleModel.showWholeName"
+      [(ngModel)]="asyncValue"
+      [thyGetNodeChildren]="fetchNodeChildren"
+      thyChildCountKey="childCount"
+    ></thy-tree-select>
+  </div>
+</section>
+
+<section>
+  <div class="header">
+    <h2>Tree Select 大小</h2>
+  </div>
+  <div class="body demo-select">
+    <thy-tree-select
+      [thyTreeNodes]="nodes"
+      thySize="sm"
+      thyPrimaryKey="key"
+      thyShowKey="title"
+      [thyAllowClear]="singleModel.allowClear"
+      thyHiddenNodeKey="hidden"
+      thyDisableNodeKey="disabled"
+      thyPlaceholder="请选择值"
+      [(ngModel)]="singleModel.selectedValue"
+    ></thy-tree-select>
+    <br />
+    <thy-tree-select
+      [thyTreeNodes]="nodes"
+      thySize="md"
+      thyPrimaryKey="key"
+      thyShowKey="title"
+      [thyAllowClear]="singleModel.allowClear"
+      thyHiddenNodeKey="hidden"
+      thyDisableNodeKey="disabled"
+      thyPlaceholder="请选择值"
+      [(ngModel)]="singleModel.selectedValue"
+    ></thy-tree-select>
+    <br />
+    <thy-tree-select
+      [thyTreeNodes]="nodes"
+      thySize=""
+      thyPrimaryKey="key"
+      thyShowKey="title"
+      [thyAllowClear]="singleModel.allowClear"
+      thyHiddenNodeKey="hidden"
+      thyDisableNodeKey="disabled"
+      thyPlaceholder="请选择值"
+      [(ngModel)]="singleModel.selectedValue"
+    ></thy-tree-select>
+    <br />
+    <thy-tree-select
+      [thyTreeNodes]="nodes"
+      thySize="lg"
+      thyPrimaryKey="key"
+      thyShowKey="title"
+      [thyAllowClear]="singleModel.allowClear"
+      thyHiddenNodeKey="hidden"
+      thyDisableNodeKey="disabled"
+      thyPlaceholder="请选择值"
+      [(ngModel)]="singleModel.selectedValue"
+    ></thy-tree-select>
+  </div>
 </section>
 
 <api-parameters title="thy-tree-select 参数列表" [parameters]="apiParameters"></api-parameters>
