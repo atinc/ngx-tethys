@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ThyArrowSwitcherEvent } from '../../../../../src/public-api';
 
 @Component({
     selector: 'arrow-switcher-section',
@@ -69,11 +70,11 @@ export class DemoArrowSwitcherSectionComponent implements OnInit {
 
     ngOnInit() {}
 
-    onPreviousClick(event: { index: number; event: Event }) {
+    onPreviousClick(event: ThyArrowSwitcherEvent) {
         console.log('点击上一条' + event.index);
     }
 
-    onNextClick(event: { index: number; event: Event }) {
+    onNextClick(event: ThyArrowSwitcherEvent) {
         console.log('点击下一条' + event.index);
     }
 }

@@ -11,6 +11,11 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
+export interface ThyArrowSwitcherEvent {
+    index: number;
+    event: Event;
+}
+
 @Component({
     selector: 'thy-arrow-switcher',
     templateUrl: './arrow-switcher.component.html',
@@ -30,15 +35,9 @@ export class ThyArrowSwitcherComponent implements OnInit, ControlValueAccessor {
 
     @Input() thyTotal: number;
 
-    @Output() thyPrevious = new EventEmitter<{
-        index: number;
-        event: Event;
-    }>();
+    @Output() thyPrevious = new EventEmitter<ThyArrowSwitcherEvent>();
 
-    @Output() thyNext = new EventEmitter<{
-        index: number;
-        event: Event;
-    }>();
+    @Output() thyNext = new EventEmitter<ThyArrowSwitcherEvent>();
 
     @Input()
     set thySize(size: string) {

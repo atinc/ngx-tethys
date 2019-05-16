@@ -1,19 +1,31 @@
+@mixin switcher-size($size) {
+    button {
+        width: $size;
+        height: $size;
+    }
+    span {
+        line-height: $size;
+    }
+}
+
 .thy-arrow-switcher {
     display: flex;
     align-items: center;
     button {
-        width: $arrow-switcher-btn-width;
-        height: $arrow-switcher-btn-width;
-        background: $gray-200;
+        background: $arrow-switcher-btn-bac;
         border-radius: $input-border-radius-xs;
         transition: none;
+        display: flex;
+        align-items: center;
         i {
-            vertical-align: middle;
+            flex: 1;
         }
     }
     button:disabled {
-        background: #fafafa;
-        color: $gray-300;
+        background: $arrow-switcher-btn-disabled-bac;
+        i {
+            color: $arrow-switcher-btn-disabled-color;
+        }
     }
     span {
         min-width: 58px;
@@ -22,16 +34,9 @@
         color: $gray-600;
     }
 
+    @include switcher-size($arrow-switcher-btn-size);
+
     &.thy-arrow-switcher-small {
-        button {
-            width: $arrow-switcher-sm-btn-width;
-            height: $arrow-switcher-sm-btn-width;
-            i {
-                vertical-align: top;
-            }
-        }
-        span {
-            line-height: $arrow-switcher-sm-btn-width;
-        }
+        @include switcher-size($arrow-switcher-sm-btn-size);
     }
 }
