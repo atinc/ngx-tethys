@@ -2,10 +2,10 @@
     display: flex;
     align-items: center;
     button {
-        width: 30px;
-        height: 30px;
+        width: $arrow-switcher-btn-width;
+        height: $arrow-switcher-btn-width;
         background: $gray-200;
-        border-radius: 4px;
+        border-radius: $input-border-radius-xs;
         transition: none;
         i {
             vertical-align: middle;
@@ -24,14 +24,14 @@
 
     &.thy-arrow-switcher-small {
         button {
-            width: 18px;
-            height: 18px;
+            width: $arrow-switcher-sm-btn-width;
+            height: $arrow-switcher-sm-btn-width;
             i {
                 vertical-align: top;
             }
         }
         span {
-            line-height: 18px;
+            line-height: $arrow-switcher-sm-btn-width;
         }
     }
 }
