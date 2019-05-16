@@ -25,16 +25,20 @@
     </a>
   </div>
   <div *ngIf="thyMultiple" [ngClass]="{ 'multiple-value-wrapper': selectedNodes?.length > 0 }">
-    <span
-      class="mr-1"
-      [hidden]="selectedNodes?.length === 0"
-      *ngFor="let node of selectedNodes; index as i"
-      thyLabel="default"
-      [thyAfterIcon]="'wtf-times'"
-      (click)="removeSelectedNode(node, $event)"
-      >{{ node[thyShowKey] }}
-    </span>
-    <span class="text-placeholder" *ngIf="selectedNodes?.length == 0">{{ thyPlaceholder }}</span>
+    <ng-container *ngIf="selectedNodes && selectedNodes.length > 0; else placeholder">
+      <span
+        class="mr-1"
+        *ngFor="let node of selectedNodes; index as i"
+        thyLabel="default"
+        [thyAfterIcon]="'wtf-times'"
+        (click)="removeSelectedNode(node, $event)"
+        >{{ node[thyShowKey] }}
+      </span>
+    </ng-container>
+
+    <ng-template #placeholder>
+      <span class="text-placeholder">{{ thyPlaceholder }}</span>
+    </ng-template>
   </div>
 </div>
 

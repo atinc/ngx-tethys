@@ -78,7 +78,7 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
 
     public selectedNode: ThyTreeSelectNode;
 
-    public selectedNodes: ThyTreeSelectNode[];
+    public selectedNodes: ThyTreeSelectNode[] = [];
 
     public flattenTreeNodes: ThyTreeSelectNode[] = [];
 
@@ -88,7 +88,7 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
 
     public positions: ConnectionPositionPair[] = [...EXPANDED_DROPDOWN_POSITIONS];
 
-    private isInit = true;
+    private initialled = false;
 
     public valueIsObject = false;
 
@@ -106,9 +106,9 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
     @Input()
     set thyTreeNodes(value: ThyTreeSelectNode[]) {
         this.treeNodes = value;
-        if (!this.isInit && this.treeNodes && this.treeNodes.length > 0) {
+        if (this.initialled) {
             this.flattenTreeNodes = this.flattenNodes(this.treeNodes, this.flattenTreeNodes, []);
-            this._dataLoadingDoneFn();
+            this.setSelectedNodes();
         }
     }
 
@@ -163,14 +163,11 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
 
     writeValue(value: any): void {
         this.selectedValue = value;
-        if (this.isInit) {
-            this.flattenTreeNodes = this.flattenNodes(this.treeNodes, this.flattenTreeNodes);
-            this.isInit = false;
-        }
+
         if (value) {
             this._getNgModelType();
-            this._dataLoadingDoneFn();
         }
+        this.setSelectedNodes();
     }
 
     registerOnChange(fn: any): void {
@@ -204,6 +201,9 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
     ngOnInit() {
         this.isMulti = this.thyMultiple;
         this.expandTreeSelectOptions = false;
+        this.flattenTreeNodes = this.flattenNodes(this.treeNodes, this.flattenTreeNodes, []);
+        this.setSelectedNodes();
+        this.initialled = true;
         this.init();
     }
 
@@ -272,12 +272,12 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
         }
     }
 
-    private _dataLoadingDoneFn() {
+    private setSelectedNodes() {
         if (this.selectedValue) {
             // 多选数据初始化
             if (this.thyMultiple) {
                 if (this.selectedValue.length > 0) {
-                    if (this.valueIsObject && this.selectedValue[0].keys().includes(this.thyPrimaryKey)) {
+                    if (this.valueIsObject && Object.keys(this.selectedValue[0]).indexOf(this.thyPrimaryKey) >= 0) {
                         this.selectedNodes = this.selectedValue.map((item: any) => {
                             return this._findTreeNode(item[this.thyPrimaryKey]);
                         });
@@ -297,6 +297,9 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
                     this.selectedNode = this._findTreeNode(this.selectedValue);
                 }
             }
+        } else {
+            this.selectedNodes = [];
+            this.selectedNode = null;
         }
     }
 
@@ -321,6 +324,7 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
         event.stopPropagation();
         this.selectedValue = null;
         this.selectedNode = null;
+        this.selectedNodes = [];
         this.onModelChange(this.selectedValue);
     }
 
