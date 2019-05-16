@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ThyArrowSwitcherEvent } from '../../../../../src/public-api';
 
 @Component({
     selector: 'arrow-switcher-section',
@@ -10,7 +11,7 @@ export class DemoArrowSwitcherSectionComponent implements OnInit {
 
     exampleCode = `
     <thy-arrow-switcher
-      [thyIndex]="index"
+      [(ngModel)]="index"
       [thyTotal]="totalCount"
       (thyPrevious)="onPreviousClick($event)"
       (thyNext)="onNextClick($event)"
@@ -18,8 +19,9 @@ export class DemoArrowSwitcherSectionComponent implements OnInit {
     `;
     exampleCodeSm = `
     <thy-arrow-switcher
-      [thyIndex]="index"
+      [(ngModel)]="index"
       thySize="sm"
+      [disabled]="true"
       [thyTotal]="totalCount"
       (thyPrevious)="onPreviousClick($event)"
       (thyNext)="onNextClick($event)"
@@ -27,8 +29,8 @@ export class DemoArrowSwitcherSectionComponent implements OnInit {
 
     apiArrowSwitcherParameters = [
         {
-            property: 'thyIndex',
-            description: '当前条数的index',
+            property: 'ngModel',
+            description: '双向绑定值，当前条数的index',
             type: 'number',
             default: ''
         },
@@ -39,7 +41,13 @@ export class DemoArrowSwitcherSectionComponent implements OnInit {
             default: ''
         },
         {
-            property: 'thyDisabled',
+            property: 'thySize',
+            description: '尺寸大小,默认尺寸为大号，取值为sm时展示小号',
+            type: 'string',
+            default: ''
+        },
+        {
+            property: 'disabled',
             description: '是否禁用按钮',
             type: 'boolean',
             default: 'false'
@@ -62,11 +70,11 @@ export class DemoArrowSwitcherSectionComponent implements OnInit {
 
     ngOnInit() {}
 
-    onPreviousClick(event: { index: number; event: Event }) {
+    onPreviousClick(event: ThyArrowSwitcherEvent) {
         console.log('点击上一条' + event.index);
     }
 
-    onNextClick(event: { index: number; event: Event }) {
+    onNextClick(event: ThyArrowSwitcherEvent) {
         console.log('点击下一条' + event.index);
     }
 }

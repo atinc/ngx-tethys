@@ -1,19 +1,31 @@
+@mixin switcher-size($size) {
+    button {
+        width: $size;
+        height: $size;
+    }
+    span {
+        line-height: $size;
+    }
+}
+
 .thy-arrow-switcher {
     display: flex;
     align-items: center;
     button {
-        width: 30px;
-        height: 30px;
-        background: $gray-200;
-        border-radius: 4px;
+        background: $arrow-switcher-btn-bac;
+        border-radius: $input-border-radius-xs;
         transition: none;
+        display: flex;
+        align-items: center;
         i {
-            vertical-align: middle;
+            flex: 1;
         }
     }
     button:disabled {
-        background: #fafafa;
-        color: $gray-300;
+        background: $arrow-switcher-btn-disabled-bac;
+        i {
+            color: $arrow-switcher-btn-disabled-color;
+        }
     }
     span {
         min-width: 58px;
@@ -22,16 +34,9 @@
         color: $gray-600;
     }
 
+    @include switcher-size($arrow-switcher-btn-size);
+
     &.thy-arrow-switcher-small {
-        button {
-            width: 18px;
-            height: 18px;
-            i {
-                vertical-align: top;
-            }
-        }
-        span {
-            line-height: 18px;
-        }
+        @include switcher-size($arrow-switcher-sm-btn-size);
     }
 }
