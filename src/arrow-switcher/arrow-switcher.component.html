@@ -1,3 +1,3 @@
-<button thyButtonIcon="wtf-angle-left" [disabled]="getPreviousDisabled()" (click)="onPreviousClick($event)"></button>
-<span>{{ thyIndex + 1 }} / {{ thyTotal }}</span>
-<button thyButtonIcon="wtf-angle-right" [disabled]="getNextDisabled()" (click)="onNextClick($event)"></button>
+<button thyButtonIcon="wtf-angle-left" [disabled]="previousDisabled" (click)="onPreviousClick($event)"></button>
+<span>{{ index + 1 }} / {{ thyTotal }}</span>
+<button thyButtonIcon="wtf-angle-right" [disabled]="nextDisabled" (click)="onNextClick($event)"></button>
