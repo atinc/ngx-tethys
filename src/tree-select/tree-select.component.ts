@@ -155,7 +155,7 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
 
     private _getNgModelType() {
         if (this.thyMultiple) {
-            this.valueIsObject = this.selectedValue[0] && isObject(this.selectedValue[0]);
+            this.valueIsObject = !this.selectedValue[0] || isObject(this.selectedValue[0]);
         } else {
             this.valueIsObject = isObject(this.selectedValue);
         }
