@@ -179,6 +179,22 @@
   </div>
 </section>
 
+<section>
+  <div class="header">
+    <h2>Tree Select ngModelChange</h2>
+  </div>
+  <div class="body demo-select">
+    <thy-tree-select
+      [thyTreeNodes]="newNodes"
+      thyPrimaryKey="key"
+      thyShowKey="title"
+      thyPlaceholder="请选择值"
+      (ngModelChange)="newNgModelChange($event)"
+      [(ngModel)]="newSelectedValue"
+    ></thy-tree-select>
+  </div>
+</section>
+
 <api-parameters title="thy-tree-select 参数列表" [parameters]="apiParameters"></api-parameters>
 
 <api-parameters title="ThyTreeSelectNode Info" [parameters]="classParameters"></api-parameters>

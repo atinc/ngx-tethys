@@ -12,6 +12,25 @@ import { ThyTreeSelectNode } from '../../../../../src/tree-select/tree-select.cl
 export class DemoTreeSelectSectionComponent {
     nodes = treeSelectNodes;
 
+    newNodes = [
+        {
+            key: '02',
+            title: 'root2',
+            level: 0,
+            icon: 'wtf wtf-drive-o',
+            children: []
+        },
+        {
+            key: '03',
+            title: 'root3',
+            level: 0,
+            icon: 'wtf wtf-drive-o',
+            children: []
+        }
+    ];
+
+    newSelectedValue = this.newNodes[0];
+
     singleModel = {
         selectedValue: '010101',
         allowClear: false,
@@ -176,5 +195,10 @@ export class DemoTreeSelectSectionComponent {
 
     disabledNodeFn(node: ThyTreeSelectNode) {
         return node.disable;
+    }
+
+    newNgModelChange(data) {
+        console.log(data);
+        console.log(this.newSelectedValue);
     }
 }
