@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ThyMarkdownParserService, ThyMarkdownPlanTextParserService } from '../../../../../src/markdown';
+import { htmlAstToRender3Ast } from '@angular/compiler/src/render3/r3_template_transform';
 
 @Injectable()
 export class CustomMarkdownParserService extends ThyMarkdownParserService {
-    setEmoJies(): {
+    setEmoJis(): {
         emojis: any[];
         getImageSrc: string;
         className: string;
@@ -21,7 +22,7 @@ export class CustomMarkdownParserService extends ThyMarkdownParserService {
 
 @Injectable()
 export class CustomMarkdownPlanTextParserService extends ThyMarkdownPlanTextParserService {
-    setEmoJies(): {
+    setEmoJis(): {
         emojis: any[];
         getImageSrc: string;
         className: string;

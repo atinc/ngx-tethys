@@ -75,10 +75,10 @@ export class ThyMarkdownPlanTextParser implements OnInit {
     }
 
     ngOnInit() {
-        const _emojiesSetting: any = this.thyMarkdownPlanTextParserService.setEmoJies();
-        if (_emojiesSetting) {
+        const _emojisSetting: any = this.thyMarkdownPlanTextParserService.setEmoJis();
+        if (_emojisSetting) {
             this.liteMarkedOptions.wtemoji = true;
-            this.liteMarkedOptions.wtemojiRender = _emojiesSetting;
+            this.liteMarkedOptions.wtemojiRender = _emojisSetting;
         }
         const _highLightWords = this.thyMarkdownPlanTextParserService.setHighLightWords();
         if (_highLightWords && _highLightWords instanceof Array) {
