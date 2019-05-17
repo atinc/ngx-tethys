@@ -37,23 +37,14 @@ describe('ThyArrowSwitcher', () => {
         fixture.detectChanges();
         expect(arrowSwitcherComponent.nativeElement.classList.contains('thy-arrow-switcher-small')).toBe(true);
     });
-
-    it('should be disabled when disabled is true', () => {
-        testComponent.disabled = true;
-        const buttons = arrowSwitcherComponent.nativeElement.querySelector(`button`);
-        fixture.detectChanges();
-        expect(buttons.disabled).toBe(true);
-    });
 });
 
 @Component({
     selector: 'thy-demo-arrow-switcher',
     template: `
         <thy-arrow-switcher
-            [thyIndex]="index"
             [thyTotal]="totalCount"
             [thySize]="size"
-            [thyDisabled]="disabled"
             (thyPrevious)="previousClick()"
             (thyNext)="nextClick()"
         ></thy-arrow-switcher>
