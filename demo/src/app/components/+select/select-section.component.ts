@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { tap, delay } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { of, timer } from 'rxjs';
 import { taskTypes } from './mock-data';
 
 @Component({
@@ -8,13 +8,15 @@ import { taskTypes } from './mock-data';
     templateUrl: './select-section.component.html',
     styleUrls: ['./select-section.scss']
 })
-export class DemoSelectSectionComponent {
+export class DemoSelectSectionComponent implements OnInit {
     model = {
         selectedValue: '',
         allowClear: false
     };
 
     allowClear = false;
+
+    page = 0;
 
     selectedItem1: any;
 
@@ -29,6 +31,8 @@ export class DemoSelectSectionComponent {
     showSearch = false;
 
     optionData = [];
+
+    loadMoreData = [];
 
     selectedItem = this.optionData[0];
 
@@ -173,7 +177,7 @@ export class DemoSelectSectionComponent {
         }
     ];
 
-    constructor() {
+    constructor(private cdr: ChangeDetectorRef) {
         this.selectedItem3 = '003';
         setTimeout(() => {
             this.optionData = taskTypes;
@@ -198,5 +202,69 @@ export class DemoSelectSectionComponent {
 
     clearSelected() {
         this.selectedItem4 = [];
+    }
+
+    onScrollToBottom($event: { callback: () => void }) {
+        this.page++;
+        this._fetchOptions().subscribe(() => {
+            $event.callback();
+        });
+    }
+
+    _fetchOptions() {
+        return timer(1000).pipe(
+            tap(() => {
+                switch (this.page) {
+                    case 1:
+                        this.loadMoreData = [
+                            { thyLabelText: '第一页', _id: '1' },
+                            { thyLabelText: '第一页', _id: '1' },
+                            { thyLabelText: '第一页', _id: '1' },
+                            { thyLabelText: '第一页', _id: '1' },
+                            { thyLabelText: '第一页', _id: '1' },
+                            { thyLabelText: '第一页', _id: '1' },
+                            { thyLabelText: '第一页', _id: '1' },
+                            { thyLabelText: '第一页', _id: '1' }
+                        ];
+                        break;
+                    case 2:
+                        this.loadMoreData = [
+                            ...this.loadMoreData,
+                            { thyLabelText: '第二页', _id: '2' },
+                            { thyLabelText: '第二页', _id: '2' },
+                            { thyLabelText: '第二页', _id: '2' },
+                            { thyLabelText: '第二页', _id: '2' },
+                            { thyLabelText: '第二页', _id: '2' },
+                            { thyLabelText: '第二页', _id: '2' },
+                            { thyLabelText: '第二页', _id: '2' },
+                            { thyLabelText: '第二页', _id: '2' }
+                        ];
+                        break;
+                    case 3:
+                        this.loadMoreData = [
+                            ...this.loadMoreData,
+                            { thyLabelText: '第三页', _id: '2' },
+                            { thyLabelText: '第三页', _id: '2' },
+                            { thyLabelText: '第三页', _id: '2' },
+                            { thyLabelText: '第三页', _id: '2' },
+                            { thyLabelText: '第三页', _id: '2' },
+                            { thyLabelText: '第三页', _id: '2' },
+                            { thyLabelText: '第三页', _id: '2' },
+                            { thyLabelText: '第三页', _id: '2' }
+                        ];
+                        break;
+                    default:
+                        break;
+                }
+                this.loadMoreData.forEach((item, index: number) => {
+                    item._id = item._id + index;
+                });
+            })
+        );
+    }
+
+    ngOnInit() {
+        this.page++;
+        this._fetchOptions().subscribe(() => {});
     }
 }
