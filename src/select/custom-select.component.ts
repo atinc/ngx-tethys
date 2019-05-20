@@ -34,11 +34,12 @@ import {
 import { inputValueToBoolean, isArray } from '../util/helpers';
 import { ScrollStrategy, Overlay, ViewportRuler, ConnectionPositionPair, ScrollDispatcher } from '@angular/cdk/overlay';
 import { CdkScrollable } from '@angular/cdk/scrolling';
-import { takeUntil, startWith, take, switchMap, skip } from 'rxjs/operators';
-import { Subject, Observable, merge, defer, empty } from 'rxjs';
+import { takeUntil, startWith, take, switchMap, skip, debounceTime } from 'rxjs/operators';
+import { Subject, Observable, merge, defer, empty, fromEvent, Subscription } from 'rxjs';
 import { EXPANDED_DROPDOWN_POSITIONS } from '../core/overlay/overlay-opsition-map';
 import { ThySelectOptionGroupComponent } from './option-group.component';
 import { SelectionModel } from '@angular/cdk/collections';
+import { ThyScrollDirective } from '../directive/thy-scroll.directive';
 
 export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -96,8 +97,6 @@ export class ThySelectCustomComponent
 
     _viewContentInitialized = false;
 
-    _loadingDone = true;
-
     _scrollStrategy: ScrollStrategy;
 
     _modalValue: any;
@@ -132,9 +131,7 @@ export class ThySelectCustomComponent
 
     @Output() thyOnSearch: EventEmitter<string> = new EventEmitter<string>();
 
-    @Output() thyOnScrollToBottom: EventEmitter<{ callback: () => void }> = new EventEmitter<{
-        callback: () => void;
-    }>();
+    @Output() thyOnScrollToBottom: EventEmitter<void> = new EventEmitter<void>();
 
     @Input() thyShowSearch: boolean;
 
@@ -143,8 +140,6 @@ export class ThySelectCustomComponent
     @Input() thyServerSearch: boolean;
 
     @Input() thyHoverTriggerAction: boolean;
-
-    @Input() thyScrollLoadMore: boolean;
 
     @Input()
     set thyMode(value: SelectMode) {
@@ -166,11 +161,6 @@ export class ThySelectCustomComponent
     }
 
     @Input() thyAllowClear = false;
-
-    @Input()
-    set thyLoadingDone(value: boolean) {
-        this._loadingDone = inputValueToBoolean(value);
-    }
 
     @Input()
     set thyDisabled(value: string) {
@@ -229,9 +219,6 @@ export class ThySelectCustomComponent
 
     @ContentChildren(ThySelectOptionGroupComponent) optionGroups: QueryList<ThySelectOptionGroupComponent>;
 
-    @ViewChild(CdkScrollable)
-    cdkScrollable: CdkScrollable;
-
     constructor(
         private _ngZone: NgZone,
         private elementRef: ElementRef,
@@ -288,30 +275,6 @@ export class ThySelectCustomComponent
             this._classNames.push(`thy-select-custom--multiple`);
         }
         this.updateHostClassService.updateClass(this._classNames);
-        if (this.thyScrollLoadMore) {
-            this.scrollDispatcher.scrolled().subscribe((_scrollable: CdkScrollable) => {
-                if (_scrollable !== this.cdkScrollable) {
-                    return;
-                }
-                console.log('scroll emit');
-                if (this._loadingDone) {
-                    const scroll = this.cdkScrollable.getElementRef().nativeElement.scrollTop,
-                        height = this.cdkScrollable.getElementRef().nativeElement.clientHeight,
-                        scrollHeight = this.cdkScrollable.getElementRef().nativeElement.scrollHeight;
-                    if (scroll + height >= scrollHeight) {
-                        this._ngZone.run(() => {
-                            this._loadingDone = false;
-                            this.thyOnScrollToBottom.emit({
-                                callback: () => {
-                                    this._loadingDone = true;
-                                    this.changeDetectorRef.markForCheck();
-                                }
-                            });
-                        });
-                    }
-                }
-            });
-        }
     }
 
     ngAfterContentInit() {
@@ -475,6 +438,39 @@ export class ThySelectCustomComponent
             this._emitModelValueChange();
         }
         this.changeDetectorRef.markForCheck();
+    }
+
+    private _bindOptionsContainerScroll() {
+        // if (!this._optionsContainer) {
+        //     return;
+        // }
+        // const height = this._optionsContainer.nativeElement.clientHeight,
+        //     scrollHeight = this._optionsContainer.nativeElement.scrollHeight;
+        // if (scrollHeight > height) {
+        //     this._ngZone.runOutsideAngular(
+        //         () =>
+        //             (this._optionsContainerScrollSubscription = fromEvent(
+        //                 this._optionsContainer.nativeElement,
+        //                 'scroll'
+        //             )
+        //                 .pipe(takeUntil(this._destroy$))
+        //                 .subscribe(this._optionsContainerScrolling))
+        //     );
+        // }
+        // this._thyScrollOptionsContainer.elementScrolled().subscribe(() => {
+        //     console.log(`11`);
+        // });
+    }
+
+    public optionsContainerScrolled(elementRef: ElementRef) {
+        const scroll = this.elementRef.nativeElement.scrollTop,
+            height = this.elementRef.nativeElement.clientHeight,
+            scrollHeight = this.elementRef.nativeElement.scrollHeight;
+        if (scroll + height + 10 >= scrollHeight) {
+            this._ngZone.run(() => {
+                this.thyOnScrollToBottom.emit();
+            });
+        }
     }
 
     ngOnDestroy() {

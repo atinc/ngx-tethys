@@ -10,9 +10,18 @@ import { ThyLabelModule } from '../label/label.module';
 import { SelectPipes } from './select.pipe';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { ThyLoadingModule } from '../loading';
+import { ThyDirectiveModule } from '../directive';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ThyInputModule, ThyLabelModule, OverlayModule, ThyLoadingModule],
+    imports: [
+        CommonModule,
+        FormsModule,
+        ThyInputModule,
+        ThyLabelModule,
+        OverlayModule,
+        ThyLoadingModule,
+        ThyDirectiveModule
+    ],
     declarations: [
         ThySelectComponent,
         ThySelectCustomComponent,

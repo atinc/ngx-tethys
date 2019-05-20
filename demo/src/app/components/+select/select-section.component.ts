@@ -34,6 +34,10 @@ export class DemoSelectSectionComponent implements OnInit {
 
     loadMoreData = [];
 
+    loading = false;
+
+    haveMore = true;
+
     selectedItem = this.optionData[0];
 
     public apiParameters = [
@@ -204,14 +208,17 @@ export class DemoSelectSectionComponent implements OnInit {
         this.selectedItem4 = [];
     }
 
-    onScrollToBottom($event: { callback: () => void }) {
-        this.page++;
-        this._fetchOptions().subscribe(() => {
-            $event.callback();
-        });
+    onScrollToBottom() {
+        if (!this.loading && this.haveMore) {
+            this.page++;
+            this._fetchOptions().subscribe(() => {
+                this.loading = false;
+            });
+        }
     }
 
     _fetchOptions() {
+        this.loading = true;
         return timer(1000).pipe(
             tap(() => {
                 switch (this.page) {
@@ -226,6 +233,7 @@ export class DemoSelectSectionComponent implements OnInit {
                             { thyLabelText: '第一页', _id: '1' },
                             { thyLabelText: '第一页', _id: '1' }
                         ];
+                        this.haveMore = true;
                         break;
                     case 2:
                         this.loadMoreData = [
@@ -239,6 +247,7 @@ export class DemoSelectSectionComponent implements OnInit {
                             { thyLabelText: '第二页', _id: '2' },
                             { thyLabelText: '第二页', _id: '2' }
                         ];
+                        this.haveMore = true;
                         break;
                     case 3:
                         this.loadMoreData = [
@@ -252,6 +261,7 @@ export class DemoSelectSectionComponent implements OnInit {
                             { thyLabelText: '第三页', _id: '2' },
                             { thyLabelText: '第三页', _id: '2' }
                         ];
+                        this.haveMore = false;
                         break;
                     default:
                         break;
@@ -265,6 +275,8 @@ export class DemoSelectSectionComponent implements OnInit {
 
     ngOnInit() {
         this.page++;
-        this._fetchOptions().subscribe(() => {});
+        this._fetchOptions().subscribe(() => {
+            this.loading = false;
+        });
     }
 }

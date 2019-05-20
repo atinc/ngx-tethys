@@ -198,9 +198,12 @@
     <h2>滚动加载</h2>
   </div>
   <div class="body demo-select">
-    <thy-custom-select [thyScrollLoadMore]="true" (thyOnScrollToBottom)="onScrollToBottom($event)">
+    <thy-custom-select (thyOnScrollToBottom)="onScrollToBottom()">
       <thy-option *ngFor="let option of loadMoreData" [thyValue]="option._id" [thyLabelText]="option.thyLabelText">
       </thy-option>
+      <div class="loading-more font-size-xs text-info" *ngIf="loading">
+        加载中...
+      </div>
     </thy-custom-select>
   </div>
 </section>

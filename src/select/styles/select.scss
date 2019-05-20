@@ -157,6 +157,11 @@ select.form-control-md {
     overflow-y: auto;
     padding: 10px 0;
 
+    .loading-more {
+        min-height: auto;
+        text-align: center;
+    }
+
     .thy-option-item-group {
         @include thy-option-common-layout();
     }

@@ -56,8 +56,7 @@
   (backdropClick)="close()"
   (detach)="close()"
 >
-  <!-- (mouseleave)="onSelectContainerMouseleave($event)" -->
-  <div class="thy-select-container">
+  <div class="thy-select-container" (mouseleave)="onSelectContainerMouseleave($event)">
     <div class="trigger-top-leave-block" *ngIf="thyHoverTriggerAction"></div>
     <div class="trigger-bottom-leave-block" *ngIf="thyHoverTriggerAction"></div>
     <div class="thy-select-search" *ngIf="thyShowSearch">
@@ -69,11 +68,9 @@
       ></thy-input-search>
     </div>
     <ng-container *ngIf="options.length > 0 || optionGroups.length > 0; else emptyPlaceholder">
-      <div class="thy-select-custom-options" cdkScrollable>
+      <div class="thy-select-custom-options" thyScroll (thyOnScrolled)="optionsContainerScrolled($event)">
         <ng-content></ng-content>
-        <thy-option *ngIf="options?.length === 0" [thyLabelText]="_emptyStateText"></thy-option>
       </div>
-      <p class="font-size-xs text-info text-align" *ngIf="!_loadingDone">加载中...</p>
     </ng-container>
     <ng-template #emptyPlaceholder>
       <div class="pl-4 pt-1 pb-1 text-placeholder">{{ _emptyStateText }}</div>
