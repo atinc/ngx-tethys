@@ -11,7 +11,7 @@ import {
 import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Component, ViewChild, ViewChildren, QueryList, ElementRef } from '@angular/core';
 import { ThySelectModule } from './module';
-import { ThySelectCustomComponent } from './select-custom.component';
+import { ThySelectCustomComponent } from './custom-select.component';
 import { ThyOptionComponent } from './option.component';
 import { By } from '@angular/platform-browser';
 import { UpdateHostClassService } from '../shared';
