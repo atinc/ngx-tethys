@@ -34,7 +34,6 @@ import { ThySelectModule } from './select';
 import { ThySlideModule } from './slide';
 import { ThyPropertyOperationModule } from './property-operation';
 import { ThyUploaderModule } from './uploader';
-import { ThyEditorModule } from './editor';
 import { ThyDateRangeModule } from './date-range';
 // import { ThyKeySelectModule } from './key-select';
 import { ThyListModule } from './list';
@@ -85,7 +84,6 @@ const IMPORT_EXPORT_MODULES = [
     ThySelectModule,
     ThyPropertyOperationModule,
     ThyUploaderModule,
-    ThyEditorModule,
     ThyDateRangeModule,
     // ThyKeySelectModule,
     ThyListModule,
