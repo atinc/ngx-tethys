@@ -28,7 +28,7 @@ import { DriveStore } from './store/drive-store';
 import { TasksStore } from './store/tasks-store';
 import { DESIGN_COMPONENTS } from './design';
 import { ThyMarkdownParserService, ThyMarkdownPlanTextParserService } from '../../../src/markdown';
-import { ThyEditorModule } from 'ngx-thy-editor';
+import { ThyEditorModule } from '@ngx-tethys/editor';
 import {
     CustomMarkdownParserService,
     CustomMarkdownPlanTextParserService
@@ -44,7 +44,9 @@ export function hljsLanguages() {
         BrowserModule,
         FormsModule,
         NgxTethysModule,
-        ThyEditorModule,
+        ThyEditorModule.forRoot({
+            pattern: 'rich'
+        }),
         RouterModule.forRoot(appRoutes, {
             useHash: true
         }),
