@@ -7,6 +7,7 @@
 * **progress:** add thy-progress module and releated components [#234877](https://github.com/worktile/ngx-tethys/issues/234877) ([55fe3d9](https://github.com/worktile/ngx-tethys/commit/55fe3d9))
 
 **BREAKING CHANGES**
+
 remove ThyEditorModule from ngx-tethys to @ngx-tethys/editor.
 need to add @ngx-tethys/editor to AppModule
 
