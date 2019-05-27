@@ -42,6 +42,7 @@ import { ThyStrengthModule } from './strength';
 import { ThyStepperModule } from './stepper';
 import { ThyCascaderModule } from './cascader';
 import { ThyDialogModule } from './dialog';
+import { ThyProgressModule } from './progress';
 import { ThyBreadcrumbModule } from './breadcrumb';
 import { ThyArrowSwitcherModule } from './arrow-switcher';
 import { ThyMarkdownModule } from './markdown';
@@ -91,6 +92,7 @@ const IMPORT_EXPORT_MODULES = [
     ThyStepperModule,
     ThyCascaderModule,
     ThyDialogModule,
+    ThyProgressModule,
     ThyBreadcrumbModule,
     ThyArrowSwitcherModule,
     ThyMarkdownModule
