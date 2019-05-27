@@ -1,3 +1,18 @@
+## [7.0.45](https://github.com/worktile/ngx-tethys/compare/7.0.44...7.0.45) (2019-05-24)
+
+
+### Bug Fixes
+
+* export datepicker directive ([94de877](https://github.com/worktile/ngx-tethys/commit/94de877))
+
+
+### Features
+
+* add thy-scroll directive and add test case ([eae9e6f](https://github.com/worktile/ngx-tethys/commit/eae9e6f))
+* **thy-custom-select:** support async load options([#231301](https://github.com/worktile/ngx-tethys/issues/231301)) ([79c8422](https://github.com/worktile/ngx-tethys/commit/79c8422))
+
+
+
 ## [7.0.44](https://github.com/worktile/ngx-tethys/compare/7.0.42...7.0.44) (2019-05-17)
 
 
