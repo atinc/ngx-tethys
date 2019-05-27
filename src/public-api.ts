@@ -16,7 +16,6 @@ export * from './datepicker-next';
 export * from './dialog';
 export * from './directive';
 export * from './dropdown';
-export * from './editor';
 export * from './empty';
 export * from './form';
 export * from './grid';

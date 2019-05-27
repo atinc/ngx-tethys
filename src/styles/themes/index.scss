@@ -1,9 +1,9 @@
 // variables
 @import '../variables.scss';
 // mixins
-@import "~bootstrap/scss/functions";
-@import "~bootstrap/scss/variables";
-@import "~bootstrap/scss/mixins";
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
 @import '../mixins/index.scss';
 
 // theme
@@ -11,7 +11,6 @@
 @import '../../button/styles/theme.scss';
 @import '../../card/styles/theme.scss';
 @import '../../datepicker/styles/theme.scss';
-@import '../../editor/styles/theme.scss';
 @import '../../form/styles/theme.scss';
 @import '../../nav/styles/theme.scss';
 @import '../../pagination/styles/theme.scss';
@@ -19,10 +18,9 @@
 @import '../../property-operation/styles/theme.scss';
 @import '../../layout/styles/theme.scss';
 @import '../../select/styles/theme.scss';
-@import "../../list/styles/theme";
-@import "../../stepper/styles/theme.scss";
-@import "../../cascader/styles/theme.scss";
-@import "../../breadcrumb/styles/theme.scss";
-@import "../../input/styles/theme.scss";
-@import "../../menu/styles/theme.scss";
-
+@import '../../list/styles/theme';
+@import '../../stepper/styles/theme.scss';
+@import '../../cascader/styles/theme.scss';
+@import '../../breadcrumb/styles/theme.scss';
+@import '../../input/styles/theme.scss';
+@import '../../menu/styles/theme.scss';
