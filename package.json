@@ -1,6 +1,6 @@
 {
   "name": "ngx-tethys",
-  "version": "7.0.45",
+  "version": "7.1.0",
   "license": "MIT",
   "scripts": {
     "build": "npm run build:ngm",
@@ -12,6 +12,7 @@
     "build:theme:watch": "npm run build:theme && gulp build-theme:watch",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s --pkg src/package.json",
     "release": "node ./scripts/release.js",
+    "release-next": "node ./scripts/release-next.js",
     "pub": "npm run build && cd ./built && npm publish && cd ..",
     "ng": "ng",
     "start": "npm run build:theme && concurrently \"ng serve --port 8888\" \"gulp build-theme:watch\"",
