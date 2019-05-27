@@ -44,7 +44,9 @@ export function hljsLanguages() {
         BrowserModule,
         FormsModule,
         NgxTethysModule,
-        ThyEditorModule,
+        ThyEditorModule.forRoot({
+            pattern: 'rich'
+        }),
         RouterModule.forRoot(appRoutes, {
             useHash: true
         }),
