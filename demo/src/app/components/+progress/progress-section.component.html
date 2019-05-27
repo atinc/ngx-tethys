@@ -1,52 +1,114 @@
 <section>
-    <div class="header">
-        <h2>Progress default</h2>
+  <div class="header">
+    <h2>Basic Progress</h2>
+  </div>
+  <div class="body">
+    <form thyForm thyLayout="inline">
+      <thy-form-group>
+        <thy-button-group thySize="sm" thyType="outline-primary">
+          <button thyButton (click)="decrease()">-</button>
+          <button thyButton (click)="increase()">+</button>
+        </thy-button-group>
+      </thy-form-group>
+      <thy-form-group thyLabelText="Max">
+        <input thyInput type="number" name="max" [(ngModel)]="max" placeholder="Max" />
+      </thy-form-group>
+      <thy-form-group thyLabelText="Size">
+        <thy-select name="size" [(ngModel)]="size">
+          <option value="md">中</option>
+          <option value="sm">小</option>
+          <option value="xs">特小</option>
+        </thy-select>
+      </thy-form-group>
+    </form>
+
+    <div class="demo-layout mt-2">
+      <thy-progress [thyValue]="value" [thyMax]="max" [thySize]="size">{{ value }}%</thy-progress>
+      <thy-progress class="mt-2" thyType="info" [thyValue]="value" [thySize]="size"></thy-progress>
+      <thy-progress class="mt-2" thyType="warning" [thyValue]="value" [thySize]="size"></thy-progress>
+      <thy-progress class="mt-2" thyType="success" [thyValue]="value" [thySize]="size"></thy-progress>
+      <thy-progress class="mt-2" thyType="danger" [thyValue]="value" [thySize]="size"></thy-progress>
     </div>
-    <div class="body">
-        <div class="demo-layout">
-            <progressbar [value]="22" type="success" [striped]="true">22%</progressbar>
-            <progressbar class="progress" [value]="stacked" [max]="100"></progressbar>
-            <br/>
-            <pre>
+
+    <pre class="mt-2"><code lang="typescript" [highlight]="basicCodeExample"></code></pre>
+  </div>
+</section>
+
+<section>
+  <div class="header">
+    <h2>Stacked Progress</h2>
+  </div>
+  <div class="body">
+    <button thyButton="outline-primary-square" (click)="randomStacked()">随机生成 Stacked 值</button>
+    <button thyButton="outline-primary-square" class="ml-2" (click)="randomCustomColorStacked()">
+      随机生成自定义颜色 Stacked 值
+    </button>
+    <div class="demo-layout mt-2">
+      <thy-progress [thyValue]="stacked"></thy-progress>
+    </div>
+    <pre class="mt-2"><code lang="typescript" [highlight]="stacked | json"></code></pre>
+  </div>
+</section>
+
+<api-parameters title="thy-progress 参数" [parameters]="apiParameters"></api-parameters>
+
+ngx-bootstrap
+<hr />
+
+<section>
+  <div class="header">
+    <h2>Progress default</h2>
+  </div>
+  <div class="body">
+    <div class="demo-layout">
+      <progressbar [value]="22" type="success" [striped]="true">22%</progressbar>
+      <br />
+      <br />
+      <progressbar class="progress" [value]="stacked" [max]="100"></progressbar>
+      <br />
+      <pre>
 &lt;progressbar class="progress" [value]="stacked" [max]="100">&lt;/progressbar>
-            </pre>
-        </div>
+            </pre
+      >
     </div>
+  </div>
 </section>
 
-<br/><br/>
+<br /><br />
 
 <section>
-    <div class="header">
-        <h2>Progress sm</h2>
-    </div>
-    <div class="body">
-        <div class="demo-layout">
-            <progressbar class="progress progress-sm" [value]="stacked" [max]="100"></progressbar>
-            <br/>
-            <br/>
-            <pre>
+  <div class="header">
+    <h2>Progress sm</h2>
+  </div>
+  <div class="body">
+    <div class="demo-layout">
+      <progressbar class="progress progress-sm" [value]="stacked" [max]="100"></progressbar>
+      <br />
+      <br />
+      <pre>
 &lt;progressbar class="progress progress-sm" [value]="stacked" [max]="100">&lt;/progressbar>
-            </pre>
-        </div>
+            </pre
+      >
     </div>
+  </div>
 </section>
 
 <section>
-    <div class="header">
-        <h2>Progress xs</h2>
-    </div>
-    <div class="body">
-        <div class="demo-layout">
-            <progressbar class="progress progress-xs" [value]="stacked" [max]="100"></progressbar>
-            <br/>
-            <br/>
-            <pre>
+  <div class="header">
+    <h2>Progress xs</h2>
+  </div>
+  <div class="body">
+    <div class="demo-layout">
+      <progressbar class="progress progress-xs" [value]="stacked" [max]="100"></progressbar>
+      <br />
+      <br />
+      <pre>
 &lt;progressbar class="progress progress-xs" [value]="stacked" [max]="100">&lt;/progressbar>
-            </pre>
-        </div>
+            </pre
+      >
     </div>
+  </div>
 </section>
 
-<br/>
+<br />
 <a target="blank" href="https://valor-software.com/ngx-bootstrap/#/progressbar">详细文档</a>

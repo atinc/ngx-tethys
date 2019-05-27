@@ -61,6 +61,7 @@ import { DemoMenuPopComponent } from './+menu/pop-menu.component';
 import { DropDragComponent } from './+drop-drag/drop-drag.component';
 import { DemoArrowSwitcherSectionComponent } from './+arrow-switcher/arrow-switcher-section.component';
 import { DemoMarkdownSectionComponent } from './+markdown/markdown-section.component';
+import { PROGRESS_COMPONENTS } from './+progress';
 
 export const COMPONENTS = [
     DemoPopBoxSectionComponent,
@@ -123,6 +124,8 @@ export const COMPONENTS = [
 
     DemoDialogSectionComponent,
     DemoDialogContentComponent,
+
+    ...PROGRESS_COMPONENTS,
 
     DemoBreadcrumbSectionComponent,
     DemoStoreSectionComponent,
