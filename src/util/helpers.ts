@@ -34,8 +34,7 @@ function baseGetTag(value: any) {
     const objectProto = Object.prototype;
     const hasOwnProperty = objectProto.hasOwnProperty;
     const toString = objectProto.toString;
-    const symToStringTag =
-        typeof Symbol !== 'undefined' ? Symbol.toStringTag : undefined;
+    const symToStringTag = typeof Symbol !== 'undefined' ? Symbol.toStringTag : undefined;
 
     if (value == null) {
         return value === undefined ? '[object Undefined]' : '[object Null]';
@@ -63,10 +62,7 @@ function baseGetTag(value: any) {
 }
 
 export function isNumber(value: any) {
-    return (
-        typeof value === 'number' ||
-        (isObjectLike(value) && baseGetTag(value) === '[object Number]')
-    );
+    return typeof value === 'number' || (isObjectLike(value) && baseGetTag(value) === '[object Number]');
 }
 
 export function isObject(value: any) {
@@ -127,11 +123,7 @@ export function set(object: any, path: string, value: any) {
 }
 
 export function isBoolean(value: any) {
-    return (
-        value === true ||
-        value === false ||
-        (isObjectLike(value) && baseGetTag(value) === '[object Boolean]')
-    );
+    return value === true || value === false || (isObjectLike(value) && baseGetTag(value) === '[object Boolean]');
 }
 
 export function fromArray(value: any): any[] {
@@ -147,15 +139,9 @@ export function htmlElementIsEmpty(element: HTMLElement) {
         const nodes = element.childNodes;
         for (let i = 0; i < nodes.length; i++) {
             const node = nodes[i];
-            if (
-                node.nodeType === Node.ELEMENT_NODE &&
-                (node as HTMLElement).outerHTML.toString().trim().length !== 0
-            ) {
+            if (node.nodeType === Node.ELEMENT_NODE && (node as HTMLElement).outerHTML.toString().trim().length !== 0) {
                 return false;
-            } else if (
-                node.nodeType === Node.TEXT_NODE &&
-                node.textContent.toString().trim().length !== 0
-            ) {
+            } else if (node.nodeType === Node.TEXT_NODE && node.textContent.toString().trim().length !== 0) {
                 return false;
             } else if (node.nodeType !== Node.COMMENT_NODE) {
                 return false;
@@ -165,20 +151,17 @@ export function htmlElementIsEmpty(element: HTMLElement) {
     return true;
 }
 
-export function hexToRgb(hexValue: any, alpha: number): string {
+export function hexToRgb(hexValue: string, alpha?: number): string {
     const rgx = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-    const hex = hexValue.replace(
-        rgx,
-        (m: any, r: any, g: any, b: any) => r + r + g + g + b + b
-    );
+    const hex = hexValue.replace(rgx, (m: any, r: any, g: any, b: any) => r + r + g + g + b + b);
     const rgb = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     const resultR = parseInt(rgb[1], 16);
     const resultG = parseInt(rgb[2], 16);
     const resultB = parseInt(rgb[3], 16);
     if (alpha) {
-        return `rgba(${resultR},${resultG},${resultB},${alpha})`;
+        return `rgba(${resultR}, ${resultG}, ${resultB}, ${alpha})`;
     } else {
-        return `rgb(${resultR},${resultG},${resultB})`;
+        return `rgb(${resultR}, ${resultG}, ${resultB})`;
     }
 }
 
@@ -192,4 +175,8 @@ export function formatDate(date: Date | number): number {
     } else {
         return parseInt(((date as Date).getTime() / 1000).toFixed(0), 10);
     }
+}
+
+export function clamp(value: number, min = 0, max = 100) {
+    return Math.max(min, Math.min(max, value));
 }

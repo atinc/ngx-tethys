@@ -34,7 +34,6 @@ import { ThySelectModule } from './select';
 import { ThySlideModule } from './slide';
 import { ThyPropertyOperationModule } from './property-operation';
 import { ThyUploaderModule } from './uploader';
-import { ThyEditorModule } from './editor';
 import { ThyDateRangeModule } from './date-range';
 // import { ThyKeySelectModule } from './key-select';
 import { ThyListModule } from './list';
@@ -43,6 +42,7 @@ import { ThyStrengthModule } from './strength';
 import { ThyStepperModule } from './stepper';
 import { ThyCascaderModule } from './cascader';
 import { ThyDialogModule } from './dialog';
+import { ThyProgressModule } from './progress';
 import { ThyBreadcrumbModule } from './breadcrumb';
 import { ThyArrowSwitcherModule } from './arrow-switcher';
 import { ThyMarkdownModule } from './markdown';
@@ -85,7 +85,6 @@ const IMPORT_EXPORT_MODULES = [
     ThySelectModule,
     ThyPropertyOperationModule,
     ThyUploaderModule,
-    ThyEditorModule,
     ThyDateRangeModule,
     // ThyKeySelectModule,
     ThyListModule,
@@ -93,6 +92,7 @@ const IMPORT_EXPORT_MODULES = [
     ThyStepperModule,
     ThyCascaderModule,
     ThyDialogModule,
+    ThyProgressModule,
     ThyBreadcrumbModule,
     ThyArrowSwitcherModule,
     ThyMarkdownModule

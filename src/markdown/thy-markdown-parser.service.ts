@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 export abstract class ThyMarkdownParserService {
-    abstract setEmoJies(): {
+    abstract setEmoJis(): {
         emojis: any[];
         getImageSrc: string;
         className: string;
@@ -14,7 +14,7 @@ export abstract class ThyMarkdownParserService {
 
 @Injectable()
 export class ThyDefaultMarkdownParserService extends ThyMarkdownParserService {
-    setEmoJies(): {
+    setEmoJis(): {
         emojis: any[];
         getImageSrc: string;
         className: string;
@@ -31,7 +31,7 @@ export class ThyDefaultMarkdownParserService extends ThyMarkdownParserService {
 }
 
 export abstract class ThyMarkdownPlanTextParserService {
-    abstract setEmoJies(): {
+    abstract setEmoJis(): {
         emojis: any[];
         getImageSrc: string;
         className: string;
@@ -44,7 +44,7 @@ export abstract class ThyMarkdownPlanTextParserService {
 
 @Injectable()
 export class ThyDefaultMarkdownPlanTextParserService extends ThyMarkdownPlanTextParserService {
-    setEmoJies(): {
+    setEmoJis(): {
         emojis: any[];
         getImageSrc: string;
         className: string;

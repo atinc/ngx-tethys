@@ -1,30 +1,82 @@
 <section>
-    <div class="header">
-        <h2>编辑器</h2>
-    </div>
-    <div class="body">
-        <div class="demo-layout">
-            <thy-editor [(ngModel)]="value" [config]="config"></thy-editor>
-            <br/>
-            <pre>
-&lt;thy-editor [(ngModel)]="value" [config]="config"&gt;&lt;/thy-editor&gt;
+  <div class="header">
+    <h2>编辑器-使用方法</h2>
+  </div>
+  <div class="body">
+    <div class="demo-layout">
+      <pre>
+            npm i @ngx-tethys/editor --save
+
+            npm i quill quill-emoji quill-image-resize quill-image-resize-module quill-mention highlight.js katex --save
+
+            (启动报错的话，删除node_module重新安装试试)
+
+            样式文件需要引入:
+            "./node_modules/quill/dist/quill.core.css",
+            "./node_modules/quill/dist/quill.bubble.css",
+            "./node_modules/quill/dist/quill.snow.css",
+            "./node_modules/quill-emoji/dist/quill-emoji.css",
+            "./node_modules/quill-mention/dist/quill.mention.min.css",
+            "./node_modules/highlight.js/styles/default.css",
+            "./node_modules/katex/dist/katex.css"
+
+            js文件需要引入:
+            "./node_modules/highlight.js/lib/highlight.js",
+            "./node_modules/katex/dist/katex.js",
+            "./node_modules/quill/dist/quill.min.js",
+            "marked.lite.js",
+            "mermaid.full.min.js",
+            "jquery.js"
+            使用：请看demo演示
+            <!-- import { ThyEditorModule } from '@ngx-tethys/editor'; -->
+            <!-- ThyEditorModule.forRoot({
+                pattern: 'rich'
+            }), -->
+            <!-- pattern: rich【富文本编辑器】 | markdown 【markdown编辑器】，默认markdown -->
             </pre>
-        </div>
     </div>
+  </div>
+</section>
+<section>
+  <div class="header">
+    <h2>Markdown编辑器-simple</h2>
+  </div>
+  <div class="body">
+    <div class="demo-layout">
+      <thy-editor [(ngModel)]="value" [config]="configMarkdownSimple"></thy-editor>
+    </div>
+  </div>
 </section>
 
+<section>
+  <div class="header">
+    <h2>Markdown编辑器-all</h2>
+  </div>
+  <div class="body">
+    <div class="demo-layout">
+      <thy-editor [(ngModel)]="value" [config]="configMarkdownAll"></thy-editor>
+    </div>
+  </div>
+</section>
 
 <section>
-    <div class="header">
-        <h2>解析器</h2>
+  <div class="header">
+    <h2>Rich编辑器-simple</h2>
+  </div>
+  <div class="body">
+    <div class="demo-layout">
+      <thy-editor [(ngModel)]="value" [config]="configRichSimple"></thy-editor>
     </div>
-    <div class="body">
-        <div class="demo-layout">
-            <div [thyMarkdownParser]="value"></div>
-            <br/>
-            <pre>
-&lt;div [thyMarkdownParser]="value"&gt;&lt;/div&gt;
-            </pre>
-        </div>
+  </div>
+</section>
+
+<section>
+  <div class="header">
+    <h2>Rich编辑器-all</h2>
+  </div>
+  <div class="body">
+    <div class="demo-layout">
+      <thy-editor [(ngModel)]="value" [config]="configRichAll"></thy-editor>
     </div>
+  </div>
 </section>

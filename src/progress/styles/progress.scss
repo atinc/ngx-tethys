@@ -7,6 +7,23 @@
     }
 }
 
+@mixin set-progress-size($height, $border-radius) {
+    height: $height;
+    .progress-bar {
+        border-radius: $border-radius;
+
+        &:after {
+            content: '';
+            display: block;
+            width: 3px;
+            height: $height;
+            background: $progress-split-color;
+            border-radius: $border-radius;
+            transform: scaleX(0.7) translateX(3px);
+        }
+    }
+}
+
 .progress {
     display: flex;
     height: $progress-height;
@@ -14,55 +31,28 @@
     font-size: $progress-font-size;
     background-color: $progress-bg;
     @include border-radius($progress-border-radius);
-    // @include box-shadow($progress-box-shadow);
-    &-sm {
-        height: $progress-height-sm;
-        .progress-bar {
-            border-radius: 0 3px 3px 0;
-            position: relative;
-            &:last-child {
-                &:after {
-                    display: none;
-                }
-            }
-            &:last-child {
-                border-right: 1px $progress-split-color solid;
-            }
-            &:after {
-                content: '';
-                display: block;
-                width: 3px;
-                height: $progress-height-sm;
-                background: $progress-split-color;
-                border-radius: 0 3px 3px 0;
-                transform: scaleX(0.7) translateX(3px);
-            }
+}
+
+// 只有 stacked 的时候才会出现 border-right 白色
+// 为了兼容之前的进度条组件，暂时没有去除 progress-bar 的 last-child border-right
+.progress-stacked {
+    .progress-bar {
+        &:last-child {
+            border-right: 1px $progress-split-color solid;
         }
     }
-    &-xs {
-        height: $progress-height-xs;
-        .progress-bar {
-            border-radius: 0 3px 3px 0;
-            position: relative;
-            &:last-child {
-                &:after {
-                    display: none;
-                }
-            }
-            &:last-child {
-                border-right: 1px $progress-split-color solid;
-            }
-            &:after {
-                content: '';
-                display: block;
-                width: 3px;
-                height: $progress-height-xs;
-                background: $progress-split-color;
-                border-radius: 0 3px 3px 0;
-                transform: scaleX(0.7) translateX(3px);
-            }
-        }
-    }
+}
+
+.progress-sm {
+    @include set-progress-size($progress-height-sm, 0 3px 3px 0);
+}
+
+.progress-xs {
+    @include set-progress-size($progress-height-xs, 0 3px 3px 0);
+}
+
+.progress-lg {
+    @include set-progress-size($progress-height-lg, 0 5px 5px 0);
 }
 
 .progress-bar {
@@ -76,7 +66,7 @@
     @include transition($progress-bar-transition);
     border-radius: 0 5px 5px 0;
     position: relative;
-    &[aria-valuenow="0"] {
+    &[aria-valuenow='0'] {
         &:after {
             display: none;
         }
@@ -86,6 +76,7 @@
             display: none;
         }
     }
+    // 暂时兼容保留
     &:last-child {
         border-right: 1px $progress-split-color solid;
     }
@@ -100,20 +91,19 @@
         border-radius: 0 5px 5px 0;
         transform: scaleX(0.5) translateX(6px);
     }
-    &.progress-bar-success {
-        background: $primary;
-    }
-    &.progress-bar-primary {
-        background: $primary;
-    }
-    &.progress-bar-warning {
-        background: $warning;
-    }
-    &.progress-bar-danger {
-        background: $danger;
-    }
-    &.progress-bar-default {
-        background: $gray-200;
+}
+
+$progress-types: (
+    primary: $primary,
+    success: $success,
+    warning: $warning,
+    danger: $warning,
+    default: $gray-200,
+    info: $info
+);
+@each $name, $color in $progress-types {
+    .progress-bar-#{$name} {
+        background: $color;
     }
 }
 

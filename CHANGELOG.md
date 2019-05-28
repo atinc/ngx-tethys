@@ -1,3 +1,57 @@
+# [7.1.0](https://github.com/worktile/ngx-tethys/compare/7.0.45...7.1.0) (2019-05-27)
+
+
+### Features
+
+* **editor:** update editor doc ([6dfb70d](https://github.com/worktile/ngx-tethys/commit/6dfb70d))
+* **progress:** add thy-progress module and releated components [#234877](https://github.com/worktile/ngx-tethys/issues/234877) ([55fe3d9](https://github.com/worktile/ngx-tethys/commit/55fe3d9))
+
+**BREAKING CHANGES**
+
+remove ThyEditorModule from ngx-tethys to @ngx-tethys/editor.
+need to add @ngx-tethys/editor to AppModule
+
+
+
+## [7.0.45](https://github.com/worktile/ngx-tethys/compare/7.0.44...7.0.45) (2019-05-24)
+
+
+### Bug Fixes
+
+* export datepicker directive ([94de877](https://github.com/worktile/ngx-tethys/commit/94de877))
+
+
+### Features
+
+* add thy-scroll directive and add test case ([eae9e6f](https://github.com/worktile/ngx-tethys/commit/eae9e6f))
+* **thy-custom-select:** support async load options([#231301](https://github.com/worktile/ngx-tethys/issues/231301)) ([79c8422](https://github.com/worktile/ngx-tethys/commit/79c8422))
+
+
+
+## [7.0.44](https://github.com/worktile/ngx-tethys/compare/7.0.42...7.0.44) (2019-05-17)
+
+
+### Bug Fixes
+
+* add ThyArrowSwitcherEvent ([968fb9b](https://github.com/worktile/ngx-tethys/commit/968fb9b))
+* fix arrow switcher thyIndex to ngModel ([69770fb](https://github.com/worktile/ngx-tethys/commit/69770fb))
+* **thy-tree-select:** fix layout 、ngModel([#232683](https://github.com/worktile/ngx-tethys/issues/232683)) ([2e61151](https://github.com/worktile/ngx-tethys/commit/2e61151))
+* public-api export arrow-switcher ([8b6a22b](https://github.com/worktile/ngx-tethys/commit/8b6a22b))
+* **markdown:** change abstract method name setEmoJies to setEmoJis ([e3e771f](https://github.com/worktile/ngx-tethys/commit/e3e771f))
+* **pop-box:** fix demo params ([91ce66a](https://github.com/worktile/ngx-tethys/commit/91ce66a))
+* **pop-box:** fix pop box click footer or header when mask is true ([84bd07b](https://github.com/worktile/ngx-tethys/commit/84bd07b))
+* **pop-box:** fix pop pop box ([70148d6](https://github.com/worktile/ngx-tethys/commit/70148d6))
+* **thy-tree-select:** fix init error ([038031d](https://github.com/worktile/ngx-tethys/commit/038031d))
+* **thy-tree-select:** fix ngModelType bug ([9b62bc5](https://github.com/worktile/ngx-tethys/commit/9b62bc5))
+* remove thy-select-container-wrapper class ([bca09d4](https://github.com/worktile/ngx-tethys/commit/bca09d4))
+
+
+### Features
+
+* add class.font-size-xlg [#232012](https://github.com/worktile/ngx-tethys/issues/232012) ([3a072b1](https://github.com/worktile/ngx-tethys/commit/3a072b1))
+
+
+
 ## [7.0.43](https://github.com/worktile/ngx-tethys/compare/7.0.42...7.0.43) (2019-05-13)
 
 

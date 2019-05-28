@@ -1,49 +1,59 @@
-<div cdkOverlayOrigin #origin="cdkOverlayOrigin" class="form-control form-control-custom" [class.thy-select-selection]="!thyMultiple" [ngClass]="thySize ? 'form-control-' + thySize : ''"
-    [class.disabled]="thyDisable" (click)="openSelectPop()">
-    <div *ngIf="!thyMultiple" class="thy-tree-select-selection-text">
-        <span *ngIf="selectedNode && !thyTreeSelectTriggerDisplayRef">{{getShowNodeName()}}</span>
-        <ng-container *ngIf="selectedNode && thyTreeSelectTriggerDisplayRef" [ngTemplateOutlet]="thyTreeSelectTriggerDisplayRef"
-            [ngTemplateOutletContext]="{$implicit:selectedNode}"></ng-container>
-        <span class="text-placeholder d-inline-block" *ngIf="!selectedNode">{{thyPlaceholder}}</span>
-        <a class="thy-select-remove remove-link" href="javascript:;" (click)="clearSelectedValue($event)" *ngIf="selectedNode && thyAllowClear">
-            <i class="wtf wtf-times-circle"></i>
-        </a>
-    </div>
-    <div *ngIf="thyMultiple" [ngClass]="{'multiple-value-wrapper': selectedNodes?.length > 0}">
-        <span class="mr-1" [hidden]="selectedNodes?.length === 0" *ngFor="let node of selectedNodes;index as i"
-            thyLabel="default" [thyAfterIcon]="'wtf-times'" (click)="removeSelectedNode(node,$event)">{{node[thyShowKey]}}
-        </span>
-        <span class="text-placeholder" *ngIf="selectedNodes?.length == 0">{{thyPlaceholder}}</span>
-    </div>
-</div>
-
-<ng-template cdkConnectedOverlay [cdkConnectedOverlayHasBackdrop]="false" [cdkConnectedOverlayPositions]="positions"
-    [cdkConnectedOverlayOrigin]="origin" [cdkConnectedOverlayWidth]="cdkConnectOverlayWidth" [cdkConnectedOverlayMinHeight]="100" [cdkConnectedOverlayHeight]="250"
-    [cdkConnectedOverlayOpen]="expandTreeSelectOptions" (backdropClick)="close()" (detach)="close();">
-    <div class="thy-select-custom">
-        <thy-tree-select-nodes class="thy-select-container-wrapper h-100"></thy-tree-select-nodes>
-    </div>
-</ng-template>
-
-
-
-<!-- <div (click)="openSelectPop($event)" class="form-control form-control-custom" [class.thy-select-selection]="!thyMultiple"
-    [ngClass]="thySize ? 'form-control-' + thySize : ''" [class.disabled]="thyDisable">
-    <ng-container *ngIf="!thyMultiple">
-        <span *ngIf="selectedNode && !thyTreeSelectTriggerDisplayRef">{{selectedNode[thyShowKey]}}</span>
-        <ng-container *ngIf="selectedNode && thyTreeSelectTriggerDisplayRef" [ngTemplateOutlet]="thyTreeSelectTriggerDisplayRef"
-            [ngTemplateOutletContext]="{$implicit:selectedNode}"></ng-container>
-        <span class="text-placeholder d-inline-block" *ngIf="!selectedNode">{{thyPlaceholder}}</span>
-        <a class="thy-select-remove remove-link" href="javascript:;" (click)="clearSelectedValue($event)" *ngIf="selectedNode && thyAllowClear">
-            <i class="wtf wtf-times-circle"></i>
-        </a>
+<div
+  cdkOverlayOrigin
+  #origin="cdkOverlayOrigin"
+  class="form-control form-control-custom"
+  [class.thy-select-selection]="!thyMultiple"
+  [ngClass]="thySize ? 'form-control-' + thySize : ''"
+  [class.disabled]="thyDisable"
+  (click)="openSelectPop()"
+>
+  <div *ngIf="!thyMultiple" class="thy-tree-select-selection-text">
+    <span *ngIf="selectedNode && !thyTreeSelectTriggerDisplayRef">{{ getShowNodeName() }}</span>
+    <ng-container
+      *ngIf="selectedNode && thyTreeSelectTriggerDisplayRef"
+      [ngTemplateOutlet]="thyTreeSelectTriggerDisplayRef"
+      [ngTemplateOutletContext]="{ $implicit: selectedNode }"
+    ></ng-container>
+    <span class="text-placeholder d-inline-block" *ngIf="!selectedNode">{{ thyPlaceholder }}</span>
+    <a
+      class="thy-select-remove remove-link"
+      href="javascript:;"
+      (click)="clearSelectedValue($event)"
+      *ngIf="selectedNode && thyAllowClear"
+    >
+      <i class="wtf wtf-times-circle"></i>
+    </a>
+  </div>
+  <div *ngIf="thyMultiple" [ngClass]="{ 'multiple-value-wrapper': selectedNodes?.length > 0 }">
+    <ng-container *ngIf="selectedNodes && selectedNodes.length > 0; else placeholder">
+      <span
+        class="mr-1"
+        *ngFor="let node of selectedNodes; index as i"
+        thyLabel="default"
+        [thyAfterIcon]="'wtf-times'"
+        (click)="removeSelectedNode(node, $event)"
+        >{{ node[thyShowKey] }}
+      </span>
     </ng-container>
-    <div *ngIf="thyMultiple" [ngClass]="{'multiple-value-wrapper': selectedNodes?.length > 0}">
-        <span class="mr-1" [hidden]="selectedNodes?.length === 0" *ngFor="let node of selectedNodes;index as i"
-            thyLabel="default" [thyAfterIcon]="'wtf-times'" (click)="removeSelectedNode(node,$event)">{{node[thyShowKey]}}
-        </span>
-        <span class="text-placeholder" *ngIf="selectedNodes?.length == 0">{{thyPlaceholder}}</span>
-    </div>
+
+    <ng-template #placeholder>
+      <span class="text-placeholder">{{ thyPlaceholder }}</span>
+    </ng-template>
+  </div>
 </div>
 
-<thy-tree-select-nodes class="thy-select-container-wrapper" *ngIf="expandTreeSelectOptions"></thy-tree-select-nodes> -->
+<ng-template
+  cdkConnectedOverlay
+  [cdkConnectedOverlayHasBackdrop]="false"
+  [cdkConnectedOverlayPositions]="positions"
+  [cdkConnectedOverlayOrigin]="origin"
+  [cdkConnectedOverlayWidth]="cdkConnectOverlayWidth"
+  [cdkConnectedOverlayMinHeight]="100"
+  [cdkConnectedOverlayOpen]="expandTreeSelectOptions"
+  (backdropClick)="close()"
+  (detach)="close()"
+>
+  <div class="thy-select-custom">
+    <thy-tree-select-nodes></thy-tree-select-nodes>
+  </div>
+</ng-template>
