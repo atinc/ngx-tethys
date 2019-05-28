@@ -310,7 +310,8 @@ $dialog-header-border-color: $gray-200 !default;
 
 $dialog-body-padding: 1.25rem 1.875rem 1.875rem 1.875rem !default;
 
-$dialog-footer-padding: 1.25rem 1.875rem 1.875rem 1.875rem !default;
+// $dialog-footer-padding: 1.25rem 1.875rem 1.875rem 1.875rem !default;
+$dialog-footer-padding: 0.625rem 1.875rem !default;
 $dialog-footer-border-width: 1px !default;
 $dialog-footer-border-color: $dialog-header-border-color !default;
 
@@ -475,6 +476,6 @@ $editable-padding-x: $input-padding-x !default;
 // arrow-switcher
 $arrow-switcher-btn-size: 30px !default;
 $arrow-switcher-sm-btn-size: 18px !default;
-$arrow-switcher-btn-bac: $gray-200;
-$arrow-switcher-btn-disabled-bac: #fafafa;
-$arrow-switcher-btn-disabled-color: $gray-300;
+$arrow-switcher-btn-bac: $gray-200 !default;
+$arrow-switcher-btn-disabled-bac: #fafafa !default;
+$arrow-switcher-btn-disabled-color: $gray-300 !default;
