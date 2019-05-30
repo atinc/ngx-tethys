@@ -1,27 +1,24 @@
 import {
     Component,
-    Input,
-    HostBinding,
     OnInit,
+    ChangeDetectionStrategy,
+    forwardRef,
+    Input,
     Output,
     EventEmitter,
-    forwardRef,
-    Provider,
+    ChangeDetectorRef,
+    HostBinding,
     ElementRef
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { ThyPaginationConfigModel, ThyPaginationChangedEvent } from './pagination.class';
+import { PaginationDefaultConfig, ThyPaginationConfig } from './pagination.config';
 import { UpdateHostClassService } from '../shared';
 
-export interface PageChangedEvent {
-    itemsPerPage: number;
-    page: number;
-}
+const noop = () => {};
 
-export type ThyPaginationMaxSize = 'xs' | 'sm' | 'md';
-
-export const PAGINATION_CONTROL_VALUE_ACCESSOR: Provider = {
+const CONTROL_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
-    /* tslint:disable-next-line: no-use-before-declare */
     useExisting: forwardRef(() => ThyPaginationComponent),
     multi: true
 };
@@ -29,182 +26,198 @@ export const PAGINATION_CONTROL_VALUE_ACCESSOR: Provider = {
 @Component({
     selector: 'thy-pagination',
     templateUrl: './pagination.component.html',
-    providers: [PAGINATION_CONTROL_VALUE_ACCESSOR, UpdateHostClassService]
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [CONTROL_VALUE_ACCESSOR, UpdateHostClassService]
 })
-export class ThyPaginationComponent implements ControlValueAccessor, OnInit {
-    /** === 以下选项 为兼容 ngx-bootstrap 用； === */
-    @Input() align: boolean;
-    @Input() maxSize: number;
-    @Input() boundaryLinks: boolean;
-    @Input() directionLinks: boolean;
-    @Input() firstText: string;
-    @Input() previousText: string;
-    @Input() nextText: string;
-    @Input() lastText: string;
-    @Input() rotate: boolean;
-    @Input() pageBtnClass: string;
-    /** ===   === */
-
-    @HostBinding('class.thy-pagination') _pagination = true;
-
-    @HostBinding('class.disabled')
-    @Input()
-    disabled: boolean;
-
-    @Input() thyJump: boolean;
-
-    @Input() thySize: ThyPaginationMaxSize;
-
-    protected _page = 1;
-    protected _itemsPerPage: number;
-    protected _totalItems: number;
-    protected _totalPages: number;
-    public reservedNum: number;
-    public pagerSize: number;
-    public inited = false;
-    public pagerCount: number;
-    private onTouchedCallback: () => void = function() {};
-    private onChangeCallback: (_: number) => void = function() {};
-
-    // tslint:disable-next-line:member-ordering
-    @Output() numPages: EventEmitter<number> = new EventEmitter<number>();
-
-    // tslint:disable-next-line:member-ordering
-    @Output()
-    pageChanged = new EventEmitter<PageChangedEvent>();
+export class ThyPaginationComponent implements OnInit, ControlValueAccessor {
+    public config: ThyPaginationConfigModel = Object.assign({}, PaginationDefaultConfig, this.paginationConfig.config);
 
     @Input()
-    get itemsPerPage(): number {
-        return this._itemsPerPage;
-    }
-
-    set itemsPerPage(v: number) {
-        this._itemsPerPage = v;
-        if (this.totalItems !== undefined) {
-            this.totalPages = this.calculateTotalPages();
+    set thyPageIndex(pageIndex: number) {
+        this.pageIndex = pageIndex;
+        if (this.initialized) {
+            this.setPageIndex(pageIndex);
         }
     }
 
     @Input()
-    get totalItems(): number {
-        return this._totalItems;
-    }
-
-    set totalItems(v: number) {
-        this._totalItems = v;
-        this.totalPages = this.calculateTotalPages();
-    }
-
-    @Input()
-    get totalPages(): number {
-        return this._totalPages;
-    }
-
-    set totalPages(v: number) {
-        this._totalPages = v;
-        this.numPages.emit(v);
-    }
-
-    @Input()
-    get page(): number {
-        return this._page;
-    }
-
-    set page(v: number) {
-        const _previous = this._page;
-        this._page = v > this.totalPages ? this.totalPages : v || 1;
-        this.onChangeCallback(v);
-
-        if (_previous === this._page || typeof _previous === 'undefined') {
-            return;
-        }
-
-        this.pageChanged.emit({
-            page: this._page,
-            itemsPerPage: this.itemsPerPage
-        });
-    }
-
-    writeValue(page: number) {
-        if (page !== this._page) {
-            this._page = page;
+    set thyPageSize(pageSize: number) {
+        this.pageSize = pageSize;
+        if (this.initialized) {
+            this.calculatePageCount();
+            this.initializePages(this.pageIndex, this.pageCount);
+            this.cdr.markForCheck();
         }
     }
 
-    registerOnChange(fn: any) {
-        this.onChangeCallback = fn;
+    @Input()
+    set thyTotal(total: number) {
+        this.total = total;
+        if (this.initialized) {
+            this.calculatePageCount();
+            this.initializePages(this.pageIndex, this.pageCount);
+            this.cdr.markForCheck();
+        }
     }
 
-    registerOnTouched(fn: any) {
-        this.onTouchedCallback = fn;
+    @Input('thyShowJumper')
+    set showJumper(value: boolean) {
+        this.config.showJumper = value;
     }
+
+    @Input('thySize')
+    set size(size: 'sm' | 'lg') {
+        this.updateHostClassService.addClass(`pagination-${size}`);
+    }
+
+    @Input('thyMaxCount')
+    set maxCount(value: number) {
+        this.config.maxCount = value;
+    }
+
+    @Input('thyMarginalCount') marginalCount = 2;
+
+    @Input('thyRangeCount') rangeCount = 7;
+
+    @Input('thyHideOnSinglePage') hideOnSinglePage: boolean;
+
+    @Output('thyPageChanged') pageChanged = new EventEmitter<ThyPaginationChangedEvent>();
+
+    public pages: { index?: number; text?: string; active?: boolean }[] = [];
+
+    public pageIndex = 1;
+
+    public pageSize: number;
+
+    public pageCount: number;
+
+    public total: number;
+
+    public firstIndex = 1;
+
+    public disabled = false;
+
+    public isHideOnSinglePage = false;
+
+    private onChangeCallback: (pageIndex: number) => void = noop;
+
+    private initialized = false;
+
+    @HostBinding('class.pagination') isPaginationClass = true;
 
     constructor(
+        private paginationConfig: ThyPaginationConfig,
         private updateHostClassService: UpdateHostClassService,
-        private elementRef: ElementRef
+        private elementRef: ElementRef,
+        private cdr: ChangeDetectorRef
     ) {
-        updateHostClassService.initializeElement(elementRef.nativeElement);
+        this.updateHostClassService.initializeElement(this.elementRef.nativeElement);
     }
 
     ngOnInit() {
-        this.itemsPerPage =
-            typeof this.itemsPerPage !== 'undefined' ? this.itemsPerPage : 20;
-
-        this.thySize =
-            typeof this.thySize !== 'undefined' ? this.thySize : 'md';
-
-        this._setSize(this.thySize);
-
-        this.thyJump =
-            typeof this.thyJump !== 'undefined' ? this.thyJump : true;
-
-        if (typeof this.totalPages === 'undefined') {
-            this.totalPages = this.calculateTotalPages();
-        }
-
-        this.inited = true;
+        this.calculatePageCount();
+        this.setPageIndex(this.pageIndex);
+        this.initialized = true;
     }
 
-    nextHandle(step: number): void {
+    private setPageIndex(pageIndex: number) {
+        this.pageIndex = pageIndex > this.pageCount ? this.pageCount : pageIndex || 1;
+        this.initializePages(this.pageIndex, this.pageCount);
+        this.cdr.markForCheck();
+    }
+
+    private calculatePageCount() {
+        const pageCount = this.pageSize < 1 ? 1 : Math.ceil(this.total / this.pageSize);
+        this.pageCount = Math.max(pageCount || 0, 1);
+    }
+
+    private makePage(index: number, text: string, active: boolean): { index: number; text: string; active: boolean } {
+        return { index, text, active };
+    }
+
+    private initializePages(pageIndex: number, pageCount: number) {
+        const marginalCount = this.marginalCount;
+        const rangeCount = this.rangeCount;
+        const maxCount = this.config.maxCount;
+        let pages = [];
+        const isMaxSized = pageCount > maxCount;
+        if (isMaxSized) {
+            const beforePages = [];
+            const afterPages = [];
+
+            // beforePages
+            for (let i = 1; i <= marginalCount; i++) {
+                beforePages.push(this.makePage(i, i.toString(), i === pageIndex));
+            }
+            if (pageIndex >= rangeCount) {
+                beforePages.push(this.makePage(pageIndex - rangeCount, '...', null));
+            }
+
+            // afterPages
+            if (pageCount - pageIndex >= rangeCount - 1) {
+                afterPages.push(this.makePage(pageIndex + rangeCount, '...', null));
+            }
+            for (let i = pageCount - marginalCount + 1; i <= pageCount; i++) {
+                afterPages.push(this.makePage(i, i.toString(), i === pageIndex));
+            }
+
+            // mainPages
+            let start = Math.max(marginalCount + 1, pageIndex - (rangeCount - 1) / 2);
+            let end = Math.min(pageIndex + (rangeCount - 1) / 2, pageCount - marginalCount);
+            if (pageIndex < rangeCount) {
+                end = rangeCount;
+            }
+            if (pageCount - pageIndex < rangeCount - 1) {
+                start = pageCount - (rangeCount - 1);
+            }
+            for (let i = start; i <= end; i++) {
+                pages.push({
+                    index: i,
+                    text: i.toString(),
+                    active: i === pageIndex
+                });
+            }
+            pages = [...beforePages, ...pages, ...afterPages];
+        } else {
+            for (let i = 1; i <= pageCount; i++) {
+                pages.push({
+                    index: i,
+                    text: i.toString(),
+                    active: i === pageIndex
+                });
+            }
+        }
+        this.pages = pages;
+    }
+
+    selectPage(pageIndex: number, event?: Event) {
         if (this.disabled) {
             return;
         }
-        const nextPage: number = this.page + step;
-        this.page =
-            nextPage < 1
-                ? 1
-                : nextPage > this.totalPages
-                ? this.totalPages
-                : nextPage;
+        this.setPageIndex(pageIndex);
+        this.onChangeCallback(pageIndex);
+        this.pageChanged.emit({ event, page: pageIndex, pageIndex });
     }
 
-    protected calculateTotalPages(): number {
-        const totalPages =
-            this.itemsPerPage < 1
-                ? 1
-                : Math.ceil(this.totalItems / this.itemsPerPage);
-        return Math.max(totalPages || 0, 1);
-    }
-
-    protected _setSize(v: ThyPaginationMaxSize) {
-        switch (v) {
-            case 'sm':
-                this.reservedNum = 1;
-                this.pagerSize = 5;
-                break;
-            case 'md':
-                this.reservedNum = 2;
-                this.pagerSize = 7;
-                break;
-            case 'xs':
-                this.thyJump =
-                    typeof this.thyJump !== 'undefined' ? this.thyJump : false;
-                this.reservedNum = 1;
-                this.pagerSize = 1;
-                this.updateHostClassService.updateClass([`thy-pagination-xs`]);
-                break;
+    jumpPage(input: HTMLInputElement, event?: Event) {
+        const pageIndex = +input.value;
+        if (Number.isInteger(pageIndex)) {
+            this.selectPage(pageIndex, event);
         }
+        input.value = '';
+    }
 
-        this.pagerCount = this.pagerSize + this.reservedNum * 2;
+    writeValue(pageIndex: number): void {
+        this.setPageIndex(pageIndex);
+    }
+
+    registerOnChange(fn: any): void {
+        this.onChangeCallback = fn;
+    }
+
+    registerOnTouched(fn: any): void {}
+
+    setDisabledState?(isDisabled: boolean): void {
+        this.disabled = isDisabled;
     }
 }

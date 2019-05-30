@@ -349,28 +349,7 @@ $notify-warning-icon-padding: 4px 5px 4px 4px !default;
 $notify-danger-icon-padding: 6px !default;
 $notify-title-color: $gray-800 !default;
 $notify-content-color: $gray-700 !default;
-// Pagination
-$pagination-padding-y: 5px !default;
-$pagination-padding-x: 10px !default;
-$pagination-padding-y-sm: 1px !default;
-$pagination-padding-x-sm: 5px !default;
-$pagination-padding-y-lg: 8px !default;
-$pagination-padding-x-lg: 16px !default;
-$pagination-line-height: 1.42 !default;
-$pagination-color: $link-color !default;
-$pagination-bg: $white !default;
-$pagination-border-width: 1px !default;
-$pagination-border-color: $gray-200 !default;
-$pagination-focus-box-shadow: none !default;
-$pagination-hover-color: $link-hover-color !default;
-$pagination-hover-bg: $white !default;
-$pagination-hover-border-color: $gray-200 !default;
-$pagination-active-color: $white !default;
-$pagination-active-bg: $primary !default;
-$pagination-active-border-color: $primary !default;
-$pagination-disabled-color: $gray-400 !default;
-$pagination-disabled-bg: $white !default;
-$pagination-disabled-border-color: $gray-200 !default;
+
 //close
 $close-font-size: $font-size-md !default;
 $close-font-weight: normal !default;
@@ -478,3 +457,60 @@ $arrow-switcher-sm-btn-size: 18px !default;
 $arrow-switcher-btn-bac: $gray-200;
 $arrow-switcher-btn-disabled-bac: #fafafa;
 $arrow-switcher-btn-disabled-color: $gray-300;
+
+// //pagination
+// $pagination-padding-y: .5rem !default;
+// $pagination-padding-x: .75rem !default;
+// $pagination-padding-y-sm: .25rem !default;
+// $pagination-padding-x-sm: .5rem !default;
+// $pagination-padding-y-lg: .75rem !default;
+// $pagination-padding-x-lg: 1.5rem !default;
+// $pagination-line-height: 1.25 !default;
+
+// $pagination-color: $link-color !default;
+// $pagination-bg: $white !default;
+// $pagination-border-width: $border-width !default;
+// $pagination-border-color: $gray-300 !default;
+
+// $pagination-focus-box-shadow: $input-btn-focus-box-shadow !default;
+// $pagination-focus-outline: 0 !default;
+
+// $pagination-hover-color: $link-hover-color !default;
+// $pagination-hover-bg: $gray-200 !default;
+// $pagination-hover-border-color: $gray-300 !default;
+
+// $pagination-active-color: $component-active-color !default;
+// $pagination-active-bg: $component-active-bg !default;
+// $pagination-active-border-color: $pagination-active-bg !default;
+
+// $pagination-disabled-color: $gray-600 !default;
+// $pagination-disabled-bg: $white !default;
+// $pagination-disabled-border-color: $gray-300 !default;
+
+$pagination-padding-y: 0.282rem !default;
+$pagination-padding-x: 0.757rem !default;
+$pagination-padding-y-sm: 3px !default;
+$pagination-padding-x-sm: 8px !default;
+$pagination-padding-y-lg: 0.282rem !default;
+$pagination-padding-x-lg: 0.757rem !default;
+$pagination-line-height: 1.42 !default;
+$pagination-color: $gray-500 !default;
+$pagination-font-size: 12px !default;
+$pagination-bg: $white !default;
+$pagination-border-width: 1px !default;
+$pagination-border-color: $gray-200 !default;
+$pagination-focus-box-shadow: none !default;
+$pagination-hover-color: $link-hover-color !default;
+$pagination-hover-bg: $white !default;
+$pagination-hover-border-color: $gray-200 !default;
+$pagination-active-color: $white !default;
+$pagination-active-bg: $primary !default;
+$pagination-active-border-color: $primary !default;
+$pagination-disabled-color: $gray-400 !default;
+$pagination-disabled-bg: $white !default;
+$pagination-disabled-border-color: $gray-200 !default;
+$pagination-total-pages-color: $gray-700;
+$pagination-jumper-margin: 0 12px !default;
+$pagination-jumper-input-width: 38px;
+$pagination-jumper-input-color: $gray-700;
+$pagination-jumper-button-color: $gray-700;

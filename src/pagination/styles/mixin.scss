@@ -1,23 +1,24 @@
 // Pagination
 
 @mixin pagination-size($padding-y, $padding-x, $font-size, $line-height, $border-radius) {
+    font-size: $font-size;
     .page-link {
-      padding: $padding-y $padding-x;
-      font-size: $font-size;
-      line-height: $line-height;
+        padding: $padding-y $padding-x;
+        @include font-size($font-size);
+        line-height: $line-height;
     }
-  
+
     .page-item {
-      &:first-child {
-        .page-link {
-          @include border-left-radius($border-radius);
+        &:first-child {
+            .page-link {
+                @include border-left-radius($border-radius);
+            }
         }
-      }
-      &:last-child {
-        .page-link {
-          @include border-right-radius($border-radius);
+
+        &:last-child {
+            .page-link {
+                @include border-right-radius($border-radius);
+            }
         }
-      }
     }
-  }
-  
+}
