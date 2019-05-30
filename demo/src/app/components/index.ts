@@ -61,6 +61,10 @@ import { DemoMenuPopComponent } from './+menu/pop-menu.component';
 import { DropDragComponent } from './+drop-drag/drop-drag.component';
 import { DemoArrowSwitcherSectionComponent } from './+arrow-switcher/arrow-switcher-section.component';
 import { DemoMarkdownSectionComponent } from './+markdown/markdown-section.component';
+import { PROGRESS_COMPONENTS } from './+progress';
+import { DemoTooltipSectionComponent } from './+tooltip/tooltip-section.component';
+import { DemoOverlaySectionComponent, CreateOverlayComponent } from './+overlay/overlay-section.component';
+import { TOOLTIP_COMPONENTS } from './+tooltip';
 
 export const COMPONENTS = [
     DemoPopBoxSectionComponent,
@@ -124,6 +128,13 @@ export const COMPONENTS = [
     DemoDialogSectionComponent,
     DemoDialogContentComponent,
 
+    DemoTooltipSectionComponent,
+    DemoOverlaySectionComponent,
+    CreateOverlayComponent,
+
+    ...PROGRESS_COMPONENTS,
+    ...TOOLTIP_COMPONENTS,
+
     DemoBreadcrumbSectionComponent,
     DemoStoreSectionComponent,
     DropDragComponent,
@@ -145,6 +156,7 @@ export const ENTRY_COMPONENTS = [
     DemoAvatarRemoveSectionComponent,
 
     DemoDialogContentComponent,
+    CreateOverlayComponent,
     DemoStoreOtherSectionComponent,
 
     DemoMenuPopComponent

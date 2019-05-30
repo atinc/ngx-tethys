@@ -14,7 +14,7 @@ npm install ngx-tethys --save
 
 ## Demo
 
-https://worktile.github.io/ngx-tethys
+https://atinc.github.io/ngx-tethys
 
 ## Usage
 

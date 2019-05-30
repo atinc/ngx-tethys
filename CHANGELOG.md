@@ -1,3 +1,18 @@
+# [7.1.0](https://github.com/worktile/ngx-tethys/compare/7.0.45...7.1.0) (2019-05-27)
+
+
+### Features
+
+* **editor:** update editor doc ([6dfb70d](https://github.com/worktile/ngx-tethys/commit/6dfb70d))
+* **progress:** add thy-progress module and releated components [#234877](https://github.com/worktile/ngx-tethys/issues/234877) ([55fe3d9](https://github.com/worktile/ngx-tethys/commit/55fe3d9))
+
+**BREAKING CHANGES**
+
+remove ThyEditorModule from ngx-tethys to @ngx-tethys/editor.
+need to add @ngx-tethys/editor to AppModule
+
+
+
 ## [7.0.45](https://github.com/worktile/ngx-tethys/compare/7.0.44...7.0.45) (2019-05-24)
 
 

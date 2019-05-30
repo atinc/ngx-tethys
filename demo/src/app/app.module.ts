@@ -2,7 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { NgxTethysModule } from '../../../src/public-api';
+import { OverlayModule } from '@angular/cdk/overlay';
+
+import { NgxTethysModule } from 'ngx-tethys';
 import { RouterModule } from '@angular/router';
 import { SortablejsModule } from 'angular-sortablejs';
 
@@ -28,6 +30,7 @@ import { DriveStore } from './store/drive-store';
 import { TasksStore } from './store/tasks-store';
 import { DESIGN_COMPONENTS } from './design';
 import { ThyMarkdownParserService, ThyMarkdownPlanTextParserService } from '../../../src/markdown';
+import { ThyEditorModule } from '@ngx-tethys/editor';
 import {
     CustomMarkdownParserService,
     CustomMarkdownPlanTextParserService
@@ -43,6 +46,9 @@ export function hljsLanguages() {
         BrowserModule,
         FormsModule,
         NgxTethysModule,
+        ThyEditorModule.forRoot({
+            pattern: 'rich'
+        }),
         RouterModule.forRoot(appRoutes, {
             useHash: true
         }),
@@ -56,7 +62,8 @@ export function hljsLanguages() {
             languages: hljsLanguages
         }),
         ThyStoreModule.forFeature([TasksStore, DriveStore]),
-        TextFieldModule
+        TextFieldModule,
+        OverlayModule
     ],
     providers: [
         {

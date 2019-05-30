@@ -1,7 +1,11 @@
 // gray color
 $white: #fff;
+// 直接使用 $gray-70 , $gray-99 会在将来的版本移除
 $gray-99: #fdfdfd !default; // 内容区域背景色
-$gray-100: #f3f3f3 !default; // 搜索框背景色，消息栏置顶色, 完成任务卡片颜色
+
+$gray-70: #fdfdfd !default; // 内容区域背景色，用于整个内容的背景色，sidebar 背景色
+$gray-80: #fafafa !default; // 选项鼠标移上去的背景色，主要用于表格 Hover 移上去的颜色 和表格的编号背景色,
+$gray-100: #f3f3f3 !default; // 搜索框背景色，消息栏置顶色, 完成任务卡片颜色， Popbox Menu 移上去的背景色
 $gray-200: #eee !default; // 模块左侧导航鼠标移上去的阴影, 次分割线，部分控件描边, 消息评论图标使用
 $gray-210: #e9e9e9 !default; //整块区域的背景色为 #f3f3f3 后，某个卡片模块的背景色，用于文件详情
 $gray-300: #ddd !default; // 主分割线, 进度条背景色，三级图标色
@@ -36,8 +40,13 @@ $light: $gray-300 !default;
 // $light : $gray-100;
 // $dark : $gray-800;
 // enable-gradients
-$enable-gradients: false;
-$enable-shadows: true;
+
+$border-radius: 0.25rem !default;
+$border-radius-lg: 0.3rem !default;
+$border-radius-sm: 0.2rem !default;
+
+$enable-gradients: false !default;
+$enable-shadows: true !default;
 // transition-duration
 $transitionDurationNormal: 200ms;
 // $transitionDurationLong: 300ms;
@@ -49,7 +58,7 @@ $link-hover-decoration: underline !default;
 $link-icon-padding-right: 4px !default;
 // box shadow
 $box-shadow: 0 0 24px rgba(0, 0, 0, 0.18) !default;
-$enable-shadows: false !default;
+
 // font
 $font-family-sans-serif: 'Helvetica Neue', 'Hiragino Sans GB', 'stheiti', 'Microsoft Yahei', '微软雅黑', tahoma,
     'sans-serif' !default;
@@ -392,6 +401,7 @@ $transfer-operation-font-size: $font-size-base * 2 !default;
 $transfer-operation-color: $gray-600 !default;
 //progress
 $progress-height: 10px !default;
+$progress-height-lg: 16px !default;
 $progress-height-sm: 6px !default;
 $progress-height-xs: 4px !default;
 $progress-bar-bg: $gray-200 !default;
@@ -458,35 +468,7 @@ $arrow-switcher-btn-bac: $gray-200;
 $arrow-switcher-btn-disabled-bac: #fafafa;
 $arrow-switcher-btn-disabled-color: $gray-300;
 
-// //pagination
-// $pagination-padding-y: .5rem !default;
-// $pagination-padding-x: .75rem !default;
-// $pagination-padding-y-sm: .25rem !default;
-// $pagination-padding-x-sm: .5rem !default;
-// $pagination-padding-y-lg: .75rem !default;
-// $pagination-padding-x-lg: 1.5rem !default;
-// $pagination-line-height: 1.25 !default;
-
-// $pagination-color: $link-color !default;
-// $pagination-bg: $white !default;
-// $pagination-border-width: $border-width !default;
-// $pagination-border-color: $gray-300 !default;
-
-// $pagination-focus-box-shadow: $input-btn-focus-box-shadow !default;
-// $pagination-focus-outline: 0 !default;
-
-// $pagination-hover-color: $link-hover-color !default;
-// $pagination-hover-bg: $gray-200 !default;
-// $pagination-hover-border-color: $gray-300 !default;
-
-// $pagination-active-color: $component-active-color !default;
-// $pagination-active-bg: $component-active-bg !default;
-// $pagination-active-border-color: $pagination-active-bg !default;
-
-// $pagination-disabled-color: $gray-600 !default;
-// $pagination-disabled-bg: $white !default;
-// $pagination-disabled-border-color: $gray-300 !default;
-
+// pagination
 $pagination-padding-y: 0.282rem !default;
 $pagination-padding-x: 0.757rem !default;
 $pagination-padding-y-sm: 3px !default;
@@ -514,3 +496,18 @@ $pagination-jumper-margin: 0 12px !default;
 $pagination-jumper-input-width: 38px;
 $pagination-jumper-input-color: $gray-700;
 $pagination-jumper-button-color: $gray-700;
+
+// tooltip
+$tooltip-font-size: $font-size-sm !default;
+$tooltip-max-width: 200px !default;
+$tooltip-color: $black !default;
+$tooltip-bg: $white !default;
+$tooltip-border-radius: $border-radius !default;
+$tooltip-opacity: 0.9 !default;
+$tooltip-padding-y: 0.25rem !default;
+$tooltip-padding-x: 0.75rem !default;
+$tooltip-margin: 0 !default;
+
+$tooltip-arrow-width: 0.8rem !default;
+$tooltip-arrow-height: 0.4rem !default;
+$tooltip-arrow-color: $tooltip-bg !default;

@@ -49,6 +49,8 @@ import { DropDragComponent } from './components/+drop-drag/drop-drag.component';
 import { DesignIntroductionComponent } from './design/introduction/introduction.component';
 import { DemoArrowSwitcherSectionComponent } from './components/+arrow-switcher/arrow-switcher-section.component';
 import { DemoMarkdownSectionComponent } from './components/+markdown/markdown-section.component';
+import { DemoTooltipSectionComponent } from './components/+tooltip/tooltip-section.component';
+import { DemoOverlaySectionComponent } from './components/+overlay/overlay-section.component';
 const appRoutes = [
     {
         path: '',
@@ -126,6 +128,14 @@ const appRoutes = [
     {
         path: 'components/dialog',
         component: DemoDialogSectionComponent
+    },
+    {
+        path: 'components/tooltip',
+        component: DemoTooltipSectionComponent
+    },
+    {
+        path: 'components/overlay',
+        component: DemoOverlaySectionComponent
     },
     {
         path: 'components/confirm',

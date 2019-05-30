@@ -40,6 +40,7 @@ import { EXPANDED_DROPDOWN_POSITIONS } from '../core/overlay/overlay-opsition-ma
 import { ThySelectOptionGroupComponent } from './option-group.component';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ThyScrollDirective } from '../directive/thy-scroll.directive';
+import { helpers } from '../util';
 
 export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -314,7 +315,7 @@ export class ThySelectCustomComponent
 
     _setSelectionByModelValue(modalValue: any) {
         this._selectionModel.clear();
-        if (!modalValue) {
+        if (helpers.isUndefinedOrNull(modalValue)) {
             this.changeDetectorRef.markForCheck();
             return;
         }
