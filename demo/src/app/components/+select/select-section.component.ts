@@ -18,6 +18,8 @@ export class DemoSelectSectionComponent implements OnInit {
 
     page = 0;
 
+    emptyModalValue = '';
+
     selectedItem1: any;
 
     selectedItem2: any;

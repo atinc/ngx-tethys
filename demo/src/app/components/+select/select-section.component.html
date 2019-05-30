@@ -151,48 +151,6 @@
     </div>
   </div>
 </section>
-
-<section>
-  <div class="header">
-    <h2>自定义 select多选</h2>
-  </div>
-  <div class="body demo-select">
-    NgModel: {{ selectedItem4 | json }}
-    <thy-custom-select [(ngModel)]="selectedItem4" thyMode="multiple" thyPlaceHolder="请选择">
-      <thy-option *ngFor="let option of optionData" [thyValue]="option._id" [thyLabelText]="option.display_name">
-      </thy-option>
-    </thy-custom-select>
-    <button class="mt-1" thyButton="danger" thySize="sm" (click)="clearSelected()">清除筛选</button>
-  </div>
-</section>
-
-<section>
-  <div class="body">
-    <button thyButton="primary" (click)="$event.preventDefault(); expand = !expand">点击显示 select</button>
-    <thy-custom-select *ngIf="expand" [(ngModel)]="selectedItem" thyPlaceHolder="请选择" [thyShowSearch]="true">
-      <thy-option *ngFor="let option of optionData" [thyValue]="option._id" [thyLabelText]="option.display_name">
-      </thy-option>
-    </thy-custom-select>
-  </div>
-</section>
-
-<!-- <section>
-  <div class="header">
-    <h2>Hover 触发展开Select Options</h2>
-  </div>
-  <div class="body demo-select">
-    <thy-custom-select
-      [(ngModel)]="selectedItem"
-      thyPlaceHolder="请选择"
-      [thyShowSearch]="true"
-      thyHoverTriggerAction="true"
-    >
-      <thy-option *ngFor="let option of optionData" [thyValue]="option._id" [thyLabelText]="option.display_name">
-      </thy-option>
-    </thy-custom-select>
-  </div>
-</section> -->
-
 <section>
   <div class="header">
     <h2>滚动加载</h2>
@@ -223,6 +181,17 @@
   </div>
   <div class="body demo-select">
     <thy-custom-select [(ngModel)]="selectedItem" [thyEmptyStateText]="'自定义提示'"> </thy-custom-select>
+  </div>
+</section>
+
+<section>
+  <div class="header">
+    <h2>ngModel 空字符串</h2>
+  </div>
+  <div class="body demo-select">
+    <thy-custom-select [(ngModel)]="emptyModalValue">
+      <thy-option [thyValue]="''" thyLabelText="所有"> </thy-option>
+    </thy-custom-select>
   </div>
 </section>
 
