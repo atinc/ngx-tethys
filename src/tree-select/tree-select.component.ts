@@ -29,11 +29,7 @@ import {
     CdkConnectedOverlay,
     ConnectionPositionPair
 } from '@angular/cdk/overlay';
-import {
-    DEFAULT_4_POSITIONS,
-    DEFAULT_DROPDOWN_POSITIONS,
-    EXPANDED_DROPDOWN_POSITIONS
-} from '../core/overlay/overlay-opsition-map';
+import { EXPANDED_DROPDOWN_POSITIONS } from '../core/overlay/overlay-opsition-map';
 import { ThyTreeNode } from '../tree/tree.class';
 
 import { $ } from '../typings';

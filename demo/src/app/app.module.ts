@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { OverlayModule } from '@angular/cdk/overlay';
+
 import { NgxTethysModule } from 'ngx-tethys';
 import { RouterModule } from '@angular/router';
 import { SortablejsModule } from 'angular-sortablejs';
@@ -60,7 +62,8 @@ export function hljsLanguages() {
             languages: hljsLanguages
         }),
         ThyStoreModule.forFeature([TasksStore, DriveStore]),
-        TextFieldModule
+        TextFieldModule,
+        OverlayModule
     ],
     providers: [
         {
