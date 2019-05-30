@@ -314,7 +314,7 @@ export class ThySelectCustomComponent
 
     _setSelectionByModelValue(modalValue: any) {
         this._selectionModel.clear();
-        if (!modalValue) {
+        if (modalValue === null || modalValue === undefined) {
             this.changeDetectorRef.markForCheck();
             return;
         }
