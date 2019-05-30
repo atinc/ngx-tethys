@@ -28,8 +28,8 @@ export interface PositioningOptions {
 
     // 直接传入位置，不用根据 attachment target 计算，右击菜单使用
     position?: {
-        top: number,
-        left: number
+        top: number;
+        left: number;
     };
 
     /** A string of the form 'vert-offset horiz-offset'
@@ -52,11 +52,7 @@ export const defaultPositioningOptions: PositioningOptions = {
 
 @Injectable()
 export class ThyPositioningService {
-
-    constructor(
-        private ngZone: NgZone
-    ) {
-    }
+    constructor(private ngZone: NgZone) {}
 
     static getHTMLElement(element: HTMLElement | ElementRef | string): HTMLElement {
         // it means that we got a selector
@@ -79,16 +75,12 @@ export class ThyPositioningService {
     ) {
         if (
             (!preferredPosition || preferredPosition === 'right') &&
-            targetElPosition.left + hostElPosition.left - targetElement.offsetWidth <
-            0
+            targetElPosition.left + hostElPosition.left - targetElement.offsetWidth < 0
         ) {
             return 'right';
         } else if (
             (!preferredPosition || preferredPosition === 'top') &&
-            targetElPosition.bottom +
-            hostElPosition.bottom +
-            targetElement.offsetHeight >
-            window.innerHeight
+            targetElPosition.bottom + hostElPosition.bottom + targetElement.offsetHeight > window.innerHeight
         ) {
             return 'top';
         } else if (
@@ -98,10 +90,7 @@ export class ThyPositioningService {
             return 'bottom';
         } else if (
             (!preferredPosition || preferredPosition === 'left') &&
-            targetElPosition.right +
-            hostElPosition.right +
-            targetElement.offsetWidth >
-            window.innerWidth
+            targetElPosition.right + hostElPosition.right + targetElement.offsetWidth > window.innerWidth
         ) {
             return 'left';
         }
@@ -121,8 +110,7 @@ export class ThyPositioningService {
     }
 
     private offsetParent(element: HTMLElement): HTMLElement {
-        let offsetParentEl =
-            <HTMLElement>element.offsetParent || document.documentElement;
+        let offsetParentEl = <HTMLElement>element.offsetParent || document.documentElement;
 
         while (
             offsetParentEl &&
@@ -157,9 +145,7 @@ export class ThyPositioningService {
                 targetElPosition.bottom = documentClientHeight - targetElPosition.height;
             }
         } else {
-            targetElPosition.top = attachElPosition.top +
-                attachElPosition.height / 2 -
-                targetElPosition.height / 2;
+            targetElPosition.top = attachElPosition.top + attachElPosition.height / 2 - targetElPosition.height / 2;
             // 顶部的内容被遮挡，牺牲居中，让顶部侧内容可见
             if (targetElPosition.top < 0) {
                 targetElPosition.top = offset;
@@ -180,7 +166,8 @@ export class ThyPositioningService {
     ): ClientRect {
         const documentClientWidth = document.documentElement.clientWidth;
         if (placementSecondary === PlacementTypes.right) {
-            targetElPosition.right = document.documentElement.clientWidth - attachElPosition.left - attachElPosition.width;
+            targetElPosition.right =
+                document.documentElement.clientWidth - attachElPosition.left - attachElPosition.width;
             targetElPosition.left = null;
             // 右对齐时，左侧的内容超过了整个屏幕的宽度, 为了可以看见全部内容，牺牲右对齐
             if (targetElPosition.right + targetElPosition.width > documentClientWidth) {
@@ -193,9 +180,7 @@ export class ThyPositioningService {
                 targetElPosition.left = documentClientWidth - targetElPosition.width - offset;
             }
         } else {
-            targetElPosition.left = attachElPosition.left +
-                attachElPosition.width / 2 -
-                targetElPosition.width / 2;
+            targetElPosition.left = attachElPosition.left + attachElPosition.width / 2 - targetElPosition.width / 2;
             // 左侧的内容被遮挡，牺牲居中，让左侧内容可见
             if (targetElPosition.left < 0) {
                 targetElPosition.left = offset;
@@ -222,7 +207,8 @@ export class ThyPositioningService {
             // 如果 Top 空间不够，则自动适应 Bottom Top 和 Bottom 空间都不够，默认为可视区域Top
             if (hostElPosition.originBottom - hostElPosition.height - targetElPosition.height < 0) {
                 if (documentClientHeight - hostElPosition.originBottom >= targetElPosition.height) {
-                    targetElPosition.bottom = targetElPosition.bottom - targetElPosition.height - hostElPosition.height - offset;
+                    targetElPosition.bottom =
+                        targetElPosition.bottom - targetElPosition.height - hostElPosition.height - offset;
                 } else {
                     targetElPosition.bottom = null;
                     targetElPosition.top = hostElPosition.top - hostElPosition.originTop;
@@ -233,7 +219,7 @@ export class ThyPositioningService {
             // 如果 Bottom 空间不够，则自动适应 Top，如果 Bottom 和 Top 空间都不够，默认为可视区域Top
             if (hostElPosition.originBottom + targetElPosition.height > documentClientHeight) {
                 const newTop = hostElPosition.top - targetElPosition.height - offset;
-                if (newTop > (hostElPosition.top - hostElPosition.originTop)) {
+                if (newTop > hostElPosition.top - hostElPosition.originTop) {
                     targetElPosition.top = newTop;
                 } else {
                     targetElPosition.top = hostElPosition.top - hostElPosition.originTop;
@@ -327,6 +313,12 @@ export class ThyPositioningService {
         return elOffset;
     }
 
+    /**
+     * 计算弹出层的位置
+     * @param hostElement 被追加的元素
+     * @param targetElement 弹出层内元素
+     * @param options 参数
+     */
     public calculatePosition(
         hostElement: HTMLElement,
         targetElement: HTMLElement,
@@ -345,9 +337,7 @@ export class ThyPositioningService {
                 height: 0
             };
         } else {
-            hostElPosition = appendToBody
-                ? this.offset(hostElement, false)
-                : this.position(hostElement, false);
+            hostElPosition = appendToBody ? this.offset(hostElement, false) : this.position(hostElement, false);
         }
 
         const targetElStyles = this.getAllStyles(targetElement);
@@ -380,11 +370,7 @@ export class ThyPositioningService {
                 placementSecondary
             );
             if (!newPlacementPrimary) {
-                newPlacementPrimary = this.autoPosition(
-                    targetElPosition,
-                    hostElPosition,
-                    targetElement
-                );
+                newPlacementPrimary = this.autoPosition(targetElPosition, hostElPosition, targetElement);
             }
             if (newPlacementPrimary) {
                 placementPrimary = newPlacementPrimary;
@@ -424,18 +410,13 @@ export class ThyPositioningService {
         return targetElPosition;
     }
 
-
     setPosition(options: PositioningOptions): void {
         const { attach, target } = options;
         const attachElement = ThyPositioningService.getHTMLElement(attach);
         const targetElement = ThyPositioningService.getHTMLElement(target);
         setTimeout(() => {
             this.ngZone.runOutsideAngular(() => {
-                const pos = this.calculatePosition(
-                    attachElement,
-                    targetElement,
-                    options
-                );
+                const pos = this.calculatePosition(attachElement, targetElement, options);
                 if (isNumber(pos.top)) {
                     targetElement.style.top = `${pos.top}px`;
                 } else if (isNumber(pos.bottom)) {
@@ -449,5 +430,4 @@ export class ThyPositioningService {
             });
         });
     }
-
 }

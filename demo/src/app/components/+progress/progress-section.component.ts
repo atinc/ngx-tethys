@@ -24,7 +24,7 @@ const allColors = [
 ];
 
 @Component({
-    selector: '',
+    selector: 'app-demo-progress-section',
     templateUrl: './progress-section.component.html'
 })
 export class DemoProgressSectionComponent implements OnInit {

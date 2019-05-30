@@ -14,6 +14,7 @@ export * from './core';
 export * from './datepicker';
 export * from './datepicker-next';
 export * from './dialog';
+export * from './tooltip';
 export * from './directive';
 export * from './dropdown';
 export * from './empty';

@@ -36,8 +36,13 @@ $light: $gray-300 !default;
 // $light : $gray-100;
 // $dark : $gray-800;
 // enable-gradients
-$enable-gradients: false;
-$enable-shadows: true;
+
+$border-radius: 0.25rem !default;
+$border-radius-lg: 0.3rem !default;
+$border-radius-sm: 0.2rem !default;
+
+$enable-gradients: false !default;
+$enable-shadows: true !default;
 // transition-duration
 $transitionDurationNormal: 200ms;
 // $transitionDurationLong: 300ms;
@@ -49,7 +54,7 @@ $link-hover-decoration: underline !default;
 $link-icon-padding-right: 4px !default;
 // box shadow
 $box-shadow: 0 0 24px rgba(0, 0, 0, 0.18) !default;
-$enable-shadows: false !default;
+
 // font
 $font-family-sans-serif: 'Helvetica Neue', 'Hiragino Sans GB', 'stheiti', 'Microsoft Yahei', '微软雅黑', tahoma,
     'sans-serif' !default;
@@ -479,3 +484,18 @@ $arrow-switcher-sm-btn-size: 18px !default;
 $arrow-switcher-btn-bac: $gray-200;
 $arrow-switcher-btn-disabled-bac: #fafafa;
 $arrow-switcher-btn-disabled-color: $gray-300;
+
+// tooltip
+$tooltip-font-size: $font-size-sm !default;
+$tooltip-max-width: 200px !default;
+$tooltip-color: $black !default;
+$tooltip-bg: $white !default;
+$tooltip-border-radius: $border-radius !default;
+$tooltip-opacity: 0.9 !default;
+$tooltip-padding-y: 0.25rem !default;
+$tooltip-padding-x: 0.75rem !default;
+$tooltip-margin: 0 !default;
+
+$tooltip-arrow-width: 0.8rem !default;
+$tooltip-arrow-height: 0.4rem !default;
+$tooltip-arrow-color: $tooltip-bg !default;
