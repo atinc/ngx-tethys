@@ -87,57 +87,9 @@ export const POSITION_MAP: { [key: string]: ConnectionPositionPair } = ({
     }
 } as {}) as { [key: string]: ConnectionPositionPair };
 
-export const DEFAULT_4_POSITIONS = _objectValues([
-    POSITION_MAP.top,
-    POSITION_MAP.right,
-    POSITION_MAP.bottom,
-    POSITION_MAP.left
-]);
-export const DEFAULT_DROPDOWN_POSITIONS = _objectValues([
-    POSITION_MAP.bottomLeft,
-    POSITION_MAP.topLeft
-]);
-
-export const DEFAULT_MENTION_POSITIONS = [
-    POSITION_MAP.bottomLeft,
-    {
-        originX: 'start',
-        originY: 'bottom',
-        overlayX: 'start',
-        overlayY: 'bottom'
-    }
-] as ConnectionPositionPair[];
-
-export const EXPANDED_DROPDOWN_POSITIONS = _objectValues([
+export const EXPANDED_DROPDOWN_POSITIONS = [
     POSITION_MAP.bottomLeft,
     POSITION_MAP.bottomRight,
     POSITION_MAP.topLeft,
     POSITION_MAP.topRight
-]);
-
-function arrayMap<T, S>(
-    array: T[],
-    iteratee: (item: T, index: number, arr: T[]) => S
-): S[] {
-    let index = -1;
-    const length = array == null ? 0 : array.length;
-    const result = Array(length);
-
-    while (++index < length) {
-        result[index] = iteratee(array[index], index, array);
-    }
-    return result;
-}
-
-function baseValues<T>(
-    object: { [key: string]: T } | T[],
-    props: string[]
-): T[] {
-    return arrayMap(props, key => {
-        return object[key];
-    });
-}
-
-function _objectValues<T>(object: { [key: string]: T } | T[]): T[] {
-    return object == null ? [] : baseValues(object, Object.keys(object));
-}
+];

@@ -36,7 +36,8 @@ export class ThyProgressComponent {
 
     @HostBinding(`class.progress`) isProgress = true;
 
-    @ViewChildren(ThyProgressBarComponent) set barsQueryList(value: QueryList<ThyProgressBarComponent>) {
+    @ViewChildren(ThyProgressBarComponent)
+    set barsQueryList(value: QueryList<ThyProgressBarComponent>) {
         this.bars = value.toArray();
     }
 
@@ -58,8 +59,7 @@ export class ThyProgressComponent {
         this.updateHostClassService.updateClass(size ? [`progress-${size}`] : []);
     }
 
-    @Input()
-    set thyMax(max: number) {
+    @Input() set thyMax(max: number) {
         this.max = max;
         this.bars.forEach(bar => {
             bar.recalculatePercentage();

@@ -1,0 +1,58 @@
+<section>
+  <div class="header">
+    <h2>Overlay</h2>
+  </div>
+  <div class="body">
+    <form thyForm thyLayout="inline">
+      <thy-form-group thyLabelText="originX">
+        <thy-select name="size" [(ngModel)]="connectionPosition.originX" name="originX">
+          <option *ngFor="let item of horizontalConnectionPositions" [value]="item">{{ item }}</option>
+        </thy-select>
+      </thy-form-group>
+      <thy-form-group thyLabelText="originY">
+        <thy-select name="size" [(ngModel)]="connectionPosition.originY" name="originY">
+          <option *ngFor="let item of verticalConnectionPositions" [value]="item">{{ item }}</option>
+        </thy-select>
+      </thy-form-group>
+
+      <thy-form-group thyLabelText="overlayX">
+        <thy-select name="size" [(ngModel)]="connectionPosition.overlayX" name="overlayX">
+          <option *ngFor="let item of horizontalConnectionPositions" [value]="item">{{ item }}</option>
+        </thy-select>
+      </thy-form-group>
+      <thy-form-group thyLabelText="overlayY">
+        <thy-select name="size" [(ngModel)]="connectionPosition.overlayY" name="overlayY">
+          <option *ngFor="let item of verticalConnectionPositions" [value]="item">{{ item }}</option>
+        </thy-select>
+      </thy-form-group>
+    </form>
+    <div class="btn-pair mt-2">
+      <button thyButton="primary" #btnOrigin (click)="toggleOverlay()">Open Overlay</button>
+      <button
+        thyButton="primary"
+        #btnCreateOrigin=""
+        (click)="createOverlay(createOverlayTemplate, btnCreateOrigin.elementRef.nativeElement)"
+      >
+        Create Overlay
+      </button>
+    </div>
+    <ng-template
+      cdkConnectedOverlay
+      [cdkConnectedOverlayOrigin]="btnOrigin"
+      [cdkConnectedOverlayOpen]="isOpened"
+      [cdkConnectedOverlayPositions]="[connectionPosition]"
+      [cdkConnectedOverlayOffsetX]="0"
+      [cdkConnectedOverlayOffsetY]="0"
+      [cdkConnectedOverlayWidth]="100"
+      [cdkConnectedOverlayHasBackdrop]="false"
+      [cdkConnectedOverlayPanelClass]="'custom-overlay-panel-class'"
+    >
+      <div class="overlay-content">Overlay Content</div>
+    </ng-template>
+    <ng-template #createOverlayTemplate>
+      <div class="overlay-content">Create Overlay Content</div>
+    </ng-template>
+
+    <pre class="mt-2"><code lang="typescript" [highlight]="connectionPosition | json"></code></pre>
+  </div>
+</section>
