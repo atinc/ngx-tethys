@@ -21,7 +21,12 @@ export const PaginationDefaultConfig: ThyPaginationConfigModel = {
     totalPagesFormat: '共{total}页'
 };
 export interface ThyPaginationConfig {
-    main: ThyPaginationConfigModel;
+    main?: ThyPaginationConfigModel;
 }
 
-export const THY_PAGINATION_CONFIG = new InjectionToken<ThyPaginationConfig>('THY_PAGINATION_CONFIG');
+export const THY_PAGINATION_CONFIG = new InjectionToken<ThyPaginationConfig>('THY_PAGINATION_CONFIG', {
+    providedIn: 'root',
+    factory: () => {
+        return {};
+    }
+});

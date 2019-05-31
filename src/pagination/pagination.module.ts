@@ -8,12 +8,6 @@ import { THY_PAGINATION_CONFIG } from './pagination.config';
 @NgModule({
     imports: [CommonModule, ThyDirectiveModule],
     exports: [ThyPaginationComponent],
-    declarations: [ThyPaginationComponent, PaginationTotalCountFormat],
-    providers: [
-        {
-            provide: THY_PAGINATION_CONFIG,
-            useValue: {}
-        }
-    ]
+    declarations: [ThyPaginationComponent, PaginationTotalCountFormat]
 })
 export class ThyPaginationModule {}
