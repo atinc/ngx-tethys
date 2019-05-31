@@ -4,7 +4,7 @@
       class="page-item"
       [class.disabled]="disabled"
       *ngIf="config.boundaryLinks && pageIndex !== firstIndex"
-      (click)="selectPage(firstIndex, $event)"
+      (click)="selectPage(firstIndex)"
     >
       <a class="page-link page-link-first" href="javascript:;">
         <ng-container *ngIf="config.firstText">{{ config.firstText }}</ng-container>
@@ -15,7 +15,7 @@
       class="page-item"
       [class.disabled]="disabled"
       *ngIf="config.directionLinks && pageIndex !== firstIndex"
-      (click)="selectPage(pageIndex - 1, $event)"
+      (click)="selectPage(pageIndex - 1)"
     >
       <a class="page-link  page-link-pre" href="javascript:;">
         <ng-container *ngIf="config.previousText">{{ config.previousText }}</ng-container>
@@ -27,7 +27,7 @@
       [class.active]="page.active"
       [class.disabled]="disabled"
       *ngFor="let page of pages"
-      (click)="selectPage(page.index, $event)"
+      (click)="selectPage(page.index)"
     >
       <a class="page-link" href="javascript:;">{{ page.text }}</a>
     </li>
@@ -35,7 +35,7 @@
       class="page-item page-item-next"
       [class.disabled]="disabled"
       *ngIf="config.directionLinks && pageIndex !== pageCount"
-      (click)="selectPage(pageIndex + 1, $event)"
+      (click)="selectPage(pageIndex + 1)"
     >
       <a class="page-link page-link-next" href="javascript:;">
         <ng-container *ngIf="config.nextText">{{ config.nextText }}</ng-container>
@@ -46,7 +46,7 @@
       class="page-item"
       [class.disabled]="disabled"
       *ngIf="config.boundaryLinks && pageIndex !== pageCount"
-      (click)="selectPage(pageCount, $event)"
+      (click)="selectPage(pageCount)"
     >
       <a class="page-link  page-link-last" href="javascript:;">
         <ng-container *ngIf="config.lastText">{{ config.lastText }}</ng-container>
@@ -57,12 +57,12 @@
   <ng-container *ngIf="config.totalPagesFormat">
     <div class="pagination-total" [innerHTML]="pageCount | paginationTotalPagesFormat: config.totalPagesFormat"></div>
   </ng-container>
-  <ng-container *ngIf="config.showJumper">
+  <ng-container *ngIf="config.showQuickJumper">
     <div class="pagination-jumper">
       <div class="pagination-jumper-input">
-        到 <input type="text" [disabled]="disabled" #jumperInput (thyEnter)="jumpPage(jumperInput, $event)" /> 页
+        到 <input type="text" [disabled]="disabled" #jumperInput (thyEnter)="jumpPage(jumperInput)" /> 页
       </div>
-      <button type="button" (click)="jumpPage(jumperInput, $event)" [disabled]="disabled">确定</button>
+      <button type="button" (click)="jumpPage(jumperInput)" [disabled]="disabled">确定</button>
     </div>
   </ng-container>
 </ng-container>

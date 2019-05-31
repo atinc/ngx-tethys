@@ -2,35 +2,32 @@ import {
     Component,
     OnInit,
     ChangeDetectionStrategy,
-    forwardRef,
     Input,
     Output,
     EventEmitter,
     ChangeDetectorRef,
     HostBinding,
-    ElementRef
+    ElementRef,
+    Optional,
+    Inject
 } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { ThyPaginationConfigModel, ThyPaginationChangedEvent } from './pagination.class';
-import { PaginationDefaultConfig, ThyPaginationConfig } from './pagination.config';
+import { ThyPaginationConfigModel } from './pagination.class';
+import {
+    PaginationDefaultConfig,
+    DEFAULT_RANGE_COUNT,
+    THY_PAGINATION_CONFIG,
+    ThyPaginationConfig
+} from './pagination.config';
 import { UpdateHostClassService } from '../shared';
-
-const noop = () => {};
-
-const CONTROL_VALUE_ACCESSOR = {
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => ThyPaginationComponent),
-    multi: true
-};
 
 @Component({
     selector: 'thy-pagination',
     templateUrl: './pagination.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [CONTROL_VALUE_ACCESSOR, UpdateHostClassService]
+    providers: [UpdateHostClassService]
 })
-export class ThyPaginationComponent implements OnInit, ControlValueAccessor {
-    public config: ThyPaginationConfigModel = Object.assign({}, PaginationDefaultConfig, this.paginationConfig.config);
+export class ThyPaginationComponent implements OnInit {
+    public config: ThyPaginationConfigModel = Object.assign({}, PaginationDefaultConfig, this.paginationConfig.main);
 
     @Input()
     set thyPageIndex(pageIndex: number) {
@@ -60,9 +57,11 @@ export class ThyPaginationComponent implements OnInit, ControlValueAccessor {
         }
     }
 
-    @Input('thyShowJumper')
-    set showJumper(value: boolean) {
-        this.config.showJumper = value;
+    @Input('thyDisabled') disabled = false;
+
+    @Input('thyShowQuickJumper')
+    set showQuickJumper(value: boolean) {
+        this.config.showQuickJumper = value;
     }
 
     @Input('thySize')
@@ -75,13 +74,23 @@ export class ThyPaginationComponent implements OnInit, ControlValueAccessor {
         this.config.maxCount = value;
     }
 
-    @Input('thyMarginalCount') marginalCount = 2;
+    @Input('thyMarginalCount') marginalCount: number;
 
-    @Input('thyRangeCount') rangeCount = 7;
+    @Input()
+    set thyRangeCount(value: number) {
+        if (Number.isInteger(value)) {
+            this.config.rangeCount = value;
+            if (this.initialized) {
+                this.setMarginalCount(value);
+            }
+        }
+    }
 
     @Input('thyHideOnSinglePage') hideOnSinglePage: boolean;
 
-    @Output('thyPageChanged') pageChanged = new EventEmitter<ThyPaginationChangedEvent>();
+    @Output('thyPageIndexChange') pageIndexChange = new EventEmitter<number>();
+
+    @Output('thyPageChanged') pageChanged = new EventEmitter<{ page: number }>();
 
     public pages: { index?: number; text?: string; active?: boolean }[] = [];
 
@@ -95,17 +104,15 @@ export class ThyPaginationComponent implements OnInit, ControlValueAccessor {
 
     public firstIndex = 1;
 
-    public disabled = false;
-
     public isHideOnSinglePage = false;
-
-    private onChangeCallback: (pageIndex: number) => void = noop;
 
     private initialized = false;
 
     @HostBinding('class.pagination') isPaginationClass = true;
 
     constructor(
+        @Optional()
+        @Inject(THY_PAGINATION_CONFIG)
         private paginationConfig: ThyPaginationConfig,
         private updateHostClassService: UpdateHostClassService,
         private elementRef: ElementRef,
@@ -115,9 +122,16 @@ export class ThyPaginationComponent implements OnInit, ControlValueAccessor {
     }
 
     ngOnInit() {
+        this.setMarginalCount(this.config.rangeCount);
         this.calculatePageCount();
         this.setPageIndex(this.pageIndex);
         this.initialized = true;
+    }
+
+    private setMarginalCount(range: number) {
+        if (!this.marginalCount) {
+            this.marginalCount = range < DEFAULT_RANGE_COUNT ? 1 : 2;
+        }
     }
 
     private setPageIndex(pageIndex: number) {
@@ -137,7 +151,7 @@ export class ThyPaginationComponent implements OnInit, ControlValueAccessor {
 
     private initializePages(pageIndex: number, pageCount: number) {
         const marginalCount = this.marginalCount;
-        const rangeCount = this.rangeCount;
+        const rangeCount = this.config.rangeCount;
         const maxCount = this.config.maxCount;
         let pages = [];
         const isMaxSized = pageCount > maxCount;
@@ -190,34 +204,25 @@ export class ThyPaginationComponent implements OnInit, ControlValueAccessor {
         this.pages = pages;
     }
 
-    selectPage(pageIndex: number, event?: Event) {
+    private pageChange(pageIndex: number) {
+        this.pageIndexChange.emit(pageIndex);
+        this.pageChanged.emit({ page: pageIndex });
+    }
+
+    selectPage(pageIndex: number) {
         if (this.disabled) {
             return;
         }
         this.setPageIndex(pageIndex);
-        this.onChangeCallback(pageIndex);
-        this.pageChanged.emit({ event, page: pageIndex, pageIndex });
+        this.pageChange(pageIndex);
     }
 
-    jumpPage(input: HTMLInputElement, event?: Event) {
+    jumpPage(input: HTMLInputElement) {
         const pageIndex = +input.value;
         if (Number.isInteger(pageIndex)) {
-            this.selectPage(pageIndex, event);
+            this.selectPage(pageIndex);
+            this.pageChange(pageIndex);
         }
         input.value = '';
-    }
-
-    writeValue(pageIndex: number): void {
-        this.setPageIndex(pageIndex);
-    }
-
-    registerOnChange(fn: any): void {
-        this.onChangeCallback = fn;
-    }
-
-    registerOnTouched(fn: any): void {}
-
-    setDisabledState?(isDisabled: boolean): void {
-        this.disabled = isDisabled;
     }
 }

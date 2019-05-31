@@ -6,8 +6,6 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./pagination.scss']
 })
 export class DemoPaginationComponent implements OnInit {
-    public page_ = 8;
-
     public pagination = {
         pageIndex: 1,
         pageSize: 20,
@@ -18,14 +16,8 @@ export class DemoPaginationComponent implements OnInit {
 
     public apiParameters = [
         {
-            property: '[(ngModel)]',
-            description: `双向绑定值,当前页数`,
-            type: 'Number',
-            default: '1'
-        },
-        {
-            property: '[thyPageIndex]',
-            description: `与ngModel作用相同`,
+            property: '[(thyPageIndex)]',
+            description: `设置当前页，支持双向绑定`,
             type: 'Number',
             default: '1'
         },
@@ -43,7 +35,7 @@ export class DemoPaginationComponent implements OnInit {
         },
         {
             property: '[thySize]',
-            description: `设置分页组件的大小 可选值：'sm' | 'md'`,
+            description: `设置分页组件的大小 可选值：'sm' | 'lg'`,
             type: 'String',
             default: '-'
         },
@@ -66,13 +58,13 @@ export class DemoPaginationComponent implements OnInit {
             default: '9'
         },
         {
-            property: '[disabled]',
+            property: '[thyDisabled]',
             description: `禁用`,
             type: 'Boolean',
             default: 'false'
         },
         {
-            property: '[thyShowJumper]',
+            property: '[thyShowQuickJumper]',
             description: `显示快速跳转`,
             type: 'Boolean',
             default: 'false'
@@ -85,8 +77,14 @@ export class DemoPaginationComponent implements OnInit {
         },
         {
             property: '(thyPageChanged)',
+            description: `与Bootstrap pagination 兼容，后续版本会进行删除，参数保持与 bootstrap 一致`,
+            type: 'ThyPaginationChangedEvent: { page }',
+            default: '-'
+        },
+        {
+            property: '(thyPageIndexChange)',
             description: `页码改变的回调`,
-            type: 'ThyPaginationChangedEvent: { event , page , pageIndex}',
+            type: 'ThyPaginationChangedEvent: number',
             default: '-'
         }
     ];
@@ -117,7 +115,7 @@ export class DemoPaginationComponent implements OnInit {
             default: '9'
         },
         {
-            property: 'showJumper',
+            property: 'showQuickJumper',
             description: `设置是否显示快速跳转`,
             type: 'Boolean',
             default: 'false'

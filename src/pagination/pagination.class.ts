@@ -3,7 +3,8 @@ export interface ThyPaginationConfigModel {
     directionLinks?: boolean;
     pageSize?: number;
     maxCount?: number;
-    showJumper?: boolean;
+    rangeCount?: number;
+    showQuickJumper?: boolean;
     firstText?: string;
     lastText?: string;
     previousText?: string;
