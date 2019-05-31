@@ -1,21 +1,13 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { PaginationModule, PaginationConfig } from 'ngx-bootstrap/pagination';
-import { ThyPaginationConfig } from './pagination.config';
 import { ThyPaginationComponent } from './pagination.component';
-import { ThyPaginationPagerComponent } from './pagination-pager.component';
-import { ThyPaginationJumpComponent } from './pagination-jump.component';
+import { CommonModule } from '@angular/common';
+import { PaginationTotalCountFormat } from './pagination.pipe';
+import { ThyDirectiveModule } from '../directive';
+import { THY_PAGINATION_CONFIG } from './pagination.config';
 
 @NgModule({
-    declarations: [ThyPaginationComponent, ThyPaginationPagerComponent, ThyPaginationJumpComponent],
-    imports: [CommonModule, FormsModule, PaginationModule.forRoot()],
-    exports: [PaginationModule, ThyPaginationComponent],
-    providers: [
-        {
-            provide: PaginationConfig,
-            useClass: ThyPaginationConfig
-        }
-    ]
+    imports: [CommonModule, ThyDirectiveModule],
+    exports: [ThyPaginationComponent],
+    declarations: [ThyPaginationComponent, PaginationTotalCountFormat]
 })
 export class ThyPaginationModule {}
