@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { ThyProgressTypes, ThyStackedValue } from './interfaces';
 import { UpdateHostClassService } from '../shared';
-import { THY_PROGRESS_COMPONENT, ThyProgressBarComponent } from './bar/progress-bar.component';
+import { THY_PROGRESS_COMPONENT, ThyProgressBarComponent, ThyParentProgress } from './bar/progress-bar.component';
 
 @Component({
     selector: 'thy-progress',
@@ -25,7 +25,7 @@ import { THY_PROGRESS_COMPONENT, ThyProgressBarComponent } from './bar/progress-
         }
     ]
 })
-export class ThyProgressComponent {
+export class ThyProgressComponent implements ThyParentProgress {
     value: number | ThyStackedValue[];
 
     bars: ThyProgressBarComponent[] = [];
