@@ -476,7 +476,9 @@ $editable-padding-x: $input-padding-x !default;
 
 // arrow-switcher
 $arrow-switcher-btn-size: 30px !default;
-$arrow-switcher-sm-btn-size: 18px !default;
+$arrow-switcher-sm-btn-size: 24px !default;
 $arrow-switcher-btn-bac: $gray-200 !default;
 $arrow-switcher-btn-disabled-bac: #fafafa !default;
 $arrow-switcher-btn-disabled-color: $gray-300 !default;
+$arrow-switcher-btn-hover-bac: $primary !default;
+$arrow-switcher-btn-hover-color: $white !default;
