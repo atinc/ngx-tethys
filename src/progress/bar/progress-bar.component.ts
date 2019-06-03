@@ -11,11 +11,11 @@ import {
 import { ThyProgressTypes } from '../interfaces';
 import { UpdateHostClassService } from '../../shared';
 
-export interface ThyProgressComponent {
+export interface ThyParentProgress {
     max: number;
     bars: ThyProgressBarComponent[];
 }
-export const THY_PROGRESS_COMPONENT = new InjectionToken<ThyProgressComponent>('THY_PROGRESS_COMPONENT');
+export const THY_PROGRESS_COMPONENT = new InjectionToken<ThyParentProgress>('THY_PROGRESS_COMPONENT');
 
 @Component({
     selector: 'thy-progress-bar',
@@ -54,7 +54,7 @@ export class ThyProgressBarComponent {
     constructor(
         private updateHostClassService: UpdateHostClassService,
         elementRef: ElementRef,
-        @Inject(THY_PROGRESS_COMPONENT) private progress: ThyProgressComponent
+        @Inject(THY_PROGRESS_COMPONENT) private progress: ThyParentProgress
     ) {
         updateHostClassService.initializeElement(elementRef.nativeElement);
     }
