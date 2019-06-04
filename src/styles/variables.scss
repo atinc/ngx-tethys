@@ -319,7 +319,8 @@ $dialog-header-border-color: $gray-200 !default;
 
 $dialog-body-padding: 1.25rem 1.875rem 1.875rem 1.875rem !default;
 
-$dialog-footer-padding: 1.25rem 1.875rem 1.875rem 1.875rem !default;
+// $dialog-footer-padding: 1.25rem 1.875rem 1.875rem 1.875rem !default;
+$dialog-footer-padding: 0.625rem 1.875rem !default;
 $dialog-footer-border-width: 1px !default;
 $dialog-footer-border-color: $dialog-header-border-color !default;
 
@@ -463,10 +464,12 @@ $editable-padding-x: $input-padding-x !default;
 
 // arrow-switcher
 $arrow-switcher-btn-size: 30px !default;
-$arrow-switcher-sm-btn-size: 18px !default;
-$arrow-switcher-btn-bac: $gray-200;
-$arrow-switcher-btn-disabled-bac: #fafafa;
-$arrow-switcher-btn-disabled-color: $gray-300;
+$arrow-switcher-sm-btn-size: 24px !default;
+$arrow-switcher-btn-bac: $gray-200 !default;
+$arrow-switcher-btn-disabled-bac: #fafafa !default;
+$arrow-switcher-btn-disabled-color: $gray-300 !default;
+$arrow-switcher-btn-hover-bac: $primary !default;
+$arrow-switcher-btn-hover-color: $white !default;
 
 // pagination
 $pagination-padding-y: 0.282rem !default;
@@ -500,7 +503,7 @@ $pagination-jumper-button-color: $gray-700;
 // tooltip
 $tooltip-font-size: $font-size-sm !default;
 $tooltip-max-width: 200px !default;
-$tooltip-color: $black !default;
+$tooltip-color: $gray-600 !default;
 $tooltip-bg: $white !default;
 $tooltip-border-radius: $border-radius !default;
 $tooltip-opacity: 0.9 !default;
