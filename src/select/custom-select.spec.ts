@@ -560,6 +560,24 @@ describe('ThyCustomSelect', () => {
             tick(1000);
         }));
     });
+
+    describe('when turning on disable logic', () => {
+        let trigger: HTMLElement;
+        beforeEach(async(() => {
+            configureThyCustomSelectTestingModule([SelectWithDisabledComponent]);
+        }));
+        it('when disabled logic', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectWithDisabledComponent);
+            fixture.detectChanges();
+            trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            console.log(trigger);
+            console.log(trigger.classList);
+            expect(trigger.classList).not.toContain('disabled');
+            fixture.componentInstance.isDisabled = true;
+            fixture.detectChanges();
+            expect(trigger.classList).toContain('disabled');
+        }));
+    });
 });
 
 @Component({
@@ -896,5 +914,28 @@ class SelectEimtOptionsChangesComponent {
 class SelectWithHoverTriggerComponent {
     foods: any[] = [{ value: 'pizza-1', viewValue: 'Pizza' }];
     control = new FormControl();
+    @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
+}
+
+@Component({
+    selector: 'select-disable',
+    template: `
+        <form thyForm name="demoForm" #demoForm="ngForm">
+            <thy-custom-select thyPlaceHolder="Food" name="foods" [thyServerSearch]="true" [thyDisabled]="isDisabled">
+                <thy-option *ngFor="let food of foods" [thyValue]="food.value" [thyLabelText]="food.viewValue">
+                </thy-option>
+            </thy-custom-select>
+        </form>
+    `
+})
+class SelectWithDisabledComponent {
+    foods: any[] = [
+        { value: 'steak-0', viewValue: 'Steak' },
+        { value: 'pizza-1', viewValue: 'Pizza' },
+        { value: 'tacos-2', viewValue: 'Tacos' }
+    ];
+    isDisabled: boolean;
+    control = new FormControl();
+
     @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
 }

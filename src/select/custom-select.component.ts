@@ -164,8 +164,11 @@ export class ThySelectCustomComponent
     @Input() thyAllowClear = false;
 
     @Input()
-    set thyDisabled(value: string) {
+    set thyDisabled(value: boolean) {
         this._disabled = inputValueToBoolean(value);
+    }
+    get thyDisabled(): boolean {
+        return this._disabled;
     }
 
     /** Whether the select has a value. */

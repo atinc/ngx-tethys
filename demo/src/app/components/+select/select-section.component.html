@@ -21,11 +21,13 @@
   <div class="body">
     <div class="demo-select">
       <label thyCheckbox [(ngModel)]="allowClear" thyLabelText="是否支持清除选项"></label>
+      <label thyCheckbox [(ngModel)]="_disabled" thyLabelText="是否禁用"></label>
       <thy-custom-select
         thySize="md"
         [thyShowSearch]="true"
         thyEmptyStateText="无匹配结果"
         [thyAllowClear]="allowClear"
+        [thyDisabled]="_disabled"
       >
         <thy-option thyValue="" thyLabelText="空"></thy-option>
         <thy-option
