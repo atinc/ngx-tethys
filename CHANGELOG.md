@@ -1,3 +1,25 @@
+# [7.2.0](https://github.com/worktile/ngx-tethys/compare/7.1.0...7.2.0) (2019-06-05)
+
+
+### Bug Fixes
+
+* **custom-select:** fix ngModel default empty value error ([d3cd5a8](https://github.com/worktile/ngx-tethys/commit/d3cd5a8))
+* **pagination:** fix pagination test ([61ac4e5](https://github.com/worktile/ngx-tethys/commit/61ac4e5))
+* **tooltip:** change style as design specification ([b240f95](https://github.com/worktile/ngx-tethys/commit/b240f95))
+
+
+### Features
+
+* **color:** change success color and add text-desc replace test-info ([9f9e267](https://github.com/worktile/ngx-tethys/commit/9f9e267))
+* **editor:** update editor and the way of editor style introduction ([641eca7](https://github.com/worktile/ngx-tethys/commit/641eca7))
+* **input:** change input-size-lg font-size and  input-padding-x [#237962](https://github.com/worktile/ngx-tethys/issues/237962) ([b5a9a8f](https://github.com/worktile/ngx-tethys/commit/b5a9a8f))
+* **pagination:**  perfect pagination ([faf2711](https://github.com/worktile/ngx-tethys/commit/faf2711))
+* **pagination:** add thy-pagination module ([ee6e7d1](https://github.com/worktile/ngx-tethys/commit/ee6e7d1))
+* **tooltip:** add tooltip directive and related test cases [#226375](https://github.com/worktile/ngx-tethys/issues/226375) ([19ef7a4](https://github.com/worktile/ngx-tethys/commit/19ef7a4))
+* **uploader:** add uploadBulk for batch upload files [#237400](https://github.com/worktile/ngx-tethys/issues/237400) ([8c1adad](https://github.com/worktile/ngx-tethys/commit/8c1adad))
+
+
+
 # [7.1.0](https://github.com/worktile/ngx-tethys/compare/7.0.45...7.1.0) (2019-05-27)
 
 
