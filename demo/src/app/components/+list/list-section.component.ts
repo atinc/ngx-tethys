@@ -66,7 +66,7 @@ export class DemoListComponent {
         },
         {
             property: 'thyIsShowUnderline',
-            description: '是否有下边框，默认值为true',
+            description: '是否有下边框，默认值为false',
             type: 'boolean',
             default: 'true'
         }

@@ -8,7 +8,7 @@ import { inputValueToBoolean } from '../util/helpers';
 export class ThyListItemComponent {
     @HostBinding(`class.thy-list-item`) _isListItem = true;
 
-    @HostBinding('class.thy-list-item-border-bottom') isShowUnderline = true;
+    @HostBinding('class.thy-list-item-border-bottom') isShowUnderline = false;
 
     @Input()
     set thyIsShowUnderline(value: boolean) {
