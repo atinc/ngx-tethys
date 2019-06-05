@@ -183,7 +183,8 @@
 
 .form-control-lg {
     padding: $input-padding-y-lg $input-padding-x-lg;
-    // font-size: $font-size-md;
+    // 最大的输入框字体是 24px
+    font-size: $font-size-xlg;
     line-height: $input-line-height-lg;
     @include border-radius($input-border-radius-lg);
 }
@@ -214,7 +215,6 @@
     @include border-radius($input-border-radius-md);
 }
 
-
 .form-control-active {
     color: $input-focus-color;
     background-color: $input-focus-bg;
@@ -222,12 +222,11 @@
     outline: 0;
     // Avoid using mixin so we can pass custom focus shadow properly
     @if $enable-shadows {
-      box-shadow: $input-box-shadow, $input-focus-box-shadow;
+        box-shadow: $input-box-shadow, $input-focus-box-shadow;
     } @else {
-      box-shadow: $input-focus-box-shadow;
+        box-shadow: $input-focus-box-shadow;
     }
 }
-
 
 // Form groups
 //
