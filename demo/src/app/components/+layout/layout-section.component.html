@@ -1,226 +1,194 @@
 <section>
-    <div class="header">
-        <h2>Layout</h2>
+  <div class="header">
+    <h2>Layout</h2>
+  </div>
+  <div class="body">
+    <div class="demo-layout">
+      <thy-layout>
+        <thy-header thyTitle="我是头部"> </thy-header>
+        <thy-content>
+          恩，我是 content
+        </thy-content>
+      </thy-layout>
     </div>
-    <div class="body">
-        <div class="demo-layout">
-            <thy-layout>
-                <thy-header thyTitle="我是头部"> </thy-header>
-                <thy-content>
-                    恩，我是 content
-                </thy-content>
-            </thy-layout>
-        </div>
-    </div>
+  </div>
 </section>
 
 <section>
-    <div class="header">
-        <h2>Layout</h2>
+  <div class="header">
+    <h2>Layout</h2>
+  </div>
+  <div class="body">
+    <div class="demo-layout">
+      <thy-layout>
+        <thy-sidebar thyWidth="240" thyIsDraggableWidth="true">
+          <div class="sidebar-header">
+            <span class="title cursor-pointer">侧边栏 <i class="wtf wtf-bell-lg-o text-desc"></i></span>
+            <button class="action" thyButtonIcon="wtf wtf-project-add-o" thyLight="true" thySize="lg"></button>
+          </div>
+          <div class="sidebar-content">
+            <div class="search-container">
+              <thy-input-search thyTheme="ellipse" placeholder="搜索项目名称"></thy-input-search>
+            </div>
+            <thy-menu>
+              <thy-menu-group thyTitle="工作" [thyExpand]="true" [thyShowAction]="true">
+                <a thyMenuItem href="javascript:;">
+                  <i thyMenuItemIcon class="wtf wtf-my"></i>
+                  <span thyMenuItemName> 我的工作 </span>
+                  <i thyMenuItemAction class="wtf wtf-more-lg"></i>
+                </a>
+
+                <a thyMenuItem class="active" href="javascript:;">
+                  <i thyMenuItemIcon class="wtf wtf-analytic-insight"></i>
+                  <span thyMenuItemName> 统计报表 </span>
+                  <i thyMenuItemAction class="wtf wtf-more-lg"></i>
+                </a>
+
+                <a thyMenuItem href="javascript:;">
+                  <i thyMenuItemIcon class="wtf wtf-work-workload"></i>
+                  <span thyMenuItemName> 工时视图 </span>
+                  <i thyMenuItemAction class="wtf wtf-more-lg"></i>
+                </a>
+                <a thyMenuItem href="javascript:;">
+                  <i thyMenuItemIcon class="wtf wtf-work-timeline"></i>
+                  <span thyMenuItemName> 时间视图 </span>
+                  <i thyMenuItemAction class="wtf wtf-more-lg"></i>
+                </a>
+                <thy-menu-group thyTitle="工作" [thyShowAction]="true" [thyShowIcon]="true">
+                  <a thyMenuItem href="javascript:;">
+                    <i thyMenuItemIcon class="wtf wtf-my"></i>
+                    <span thyMenuItemName> 我的工作 </span>
+                    <i thyMenuItemActionclass="wtf wtf-more-lg"></i>
+                  </a>
+
+                  <a thyMenuItem class="active" href="javascript:;">
+                    <i thyMenuItemIcon class="wtf wtf-analytic-insight"></i>
+                    <span thyMenuItemName> 统计报表 </span>
+                    <i thyMenuItemAction class="wtf wtf-more-lg"></i>
+                  </a>
+
+                  <thy-menu-group thyTitle="工作" [thyShowAction]="true">
+                    <a thyMenuItem href="javascript:;">
+                      <i thyMenuItemIcon class="wtf wtf-my"></i>
+                      <span thyMenuItemName> 我的工作 </span>
+                      <i thyMenuItemAction class="wtf wtf-more-lg"></i>
+                    </a>
+
+                    <a thyMenuItem class="active" href="javascript:;">
+                      <i thyMenuItemIcon class="wtf wtf-analytic-insight"></i>
+                      <span thyMenuItemName> 统计报表 </span>
+                      <i thyMenuItemAction class="wtf wtf-more-lg"></i>
+                    </a>
+
+                    <a thyMenuItem href="javascript:;">
+                      <i thyMenuItemIcon class="wtf wtf-work-workload"></i>
+                      <span thyMenuItemName> 工时视图 </span>
+                      <i thyMenuItemAction class="wtf wtf-more-lg"></i>
+                    </a>
+                    <a thyMenuItem href="javascript:;">
+                      <i thyMenuItemIcon class="wtf wtf-work-timeline"></i>
+                      <span thyMenuItemName> 时间视图 </span>
+                      <i thyMenuItemAction class="wtf wtf-more-lg"></i>
+                    </a>
+                  </thy-menu-group>
+
+                  <a thyMenuItem href="javascript:;">
+                    <i thyMenuItemIcon class="wtf wtf-work-workload"></i>
+                    <span thyMenuItemName> 工时视图 </span>
+                    <i thyMenuItemAction class="wtf wtf-more-lg"></i>
+                  </a>
+                  <a thyMenuItem href="javascript:;">
+                    <i thyMenuItemIcon class="wtf wtf-work-timeline"></i>
+                    <span thyMenuItemName> 时间视图 </span>
+                    <i thyMenuItemAction class="wtf wtf-more-lg"></i>
+                  </a>
+                </thy-menu-group>
+              </thy-menu-group>
+
+              <thy-menu-group thyTitle="项目" [thyExpand]="true" [thyShowAction]="true"></thy-menu-group>
+
+              <thy-menu-divider></thy-menu-divider>
+
+              <a thyMenuItem href="javascript:;">
+                <i thyMenuItemIcon class="wtf wtf-setting-o"></i>
+                <span thyMenuItemName> 配置中心 </span>
+                <i thyMenuItemAction class="wtf wtf-more-lg"></i>
+              </a>
+              <a thyMenuItem href="javascript:;">
+                <i thyMenuItemIcon class="wtf wtf-trash-o"></i>
+                <span thyMenuItemName> 回收站 </span>
+              </a>
+            </thy-menu>
+          </div>
+        </thy-sidebar>
+        <thy-layout>
+          <thy-header thyHasBorder="true">
+            <ng-template #headerTitle>
+              <i class="wtf wtf-setting-o prefix-icon"></i>
+              <a href="javascript:;">{{ title }}</a>
+            </ng-template>
+            <ng-template #headerContent>
+              <thy-nav thyType="primary" thyHorizontal="center">
+                <a
+                  href="javascript:;"
+                  thyNavLink
+                  [thyNavLinkActive]="activeMenu === 'kanban'"
+                  (click)="setActiveMenu('kanban')"
+                  >导航一</a
+                >
+                <a
+                  href="javascript:;"
+                  thyNavLink
+                  [thyNavLinkActive]="activeMenu === 'insight'"
+                  (click)="setActiveMenu('insight')"
+                  >导航二</a
+                >
+              </thy-nav>
+            </ng-template>
+            <ng-template #headerOperation>
+              操作区域
+            </ng-template>
+          </thy-header>
+          <thy-layout>
+            <thy-header *ngIf="activeMenu === 'kanban'" thySize="sm">
+              <ng-template #headerContent>
+                <thy-nav thyType="thirdly" thyHorizontal="left">
+                  <a href="javascript:;" thyNavLink thyNavLinkActive="true">导航一</a>
+                  <a href="javascript:;" thyNavLink>导航二</a>
+                  <a href="javascript:;" thyNavLink>导航三</a>
+                </thy-nav>
+              </ng-template>
+            </thy-header>
+            <thy-header
+              *ngIf="activeMenu === 'insight'"
+              thySize="sm"
+              thyTitle="恩，我是头部标题"
+              thyIcon="wtf-setting-o"
+            >
+              <ng-template #headerOperation>
+                <a href="javascript:;" class="">操作</a>
+              </ng-template>
+            </thy-header>
+            <thy-content>
+              <thy-content-section>
+                返回 > 标题
+              </thy-content-section>
+              <thy-content-main>
+                <thy-nav thyType="secondary" thyHorizontal="left">
+                  <a href="javascript:;" thyNavLink thyNavLinkActive="true">导航一</a>
+                  <a href="javascript:;" thyNavLink>导航二</a>
+                  <a href="javascript:;" thyNavLink>导航三</a>
+                </thy-nav>
+                <div>
+                  恩，我是 content
+                </div>
+              </thy-content-main>
+            </thy-content>
+          </thy-layout>
+        </thy-layout>
+      </thy-layout>
     </div>
-    <div class="body">
-        <div class="demo-layout">
-            <thy-layout>
-                <thy-layout>
-                    <thy-sidebar thyWidth="240" thyIsDraggableWidth="true">
-                        <div class="sidebar-header">
-                            <span class="title cursor-pointer">侧边栏 <i class="wtf wtf-bell-lg-o text-info"></i></span>
-                            <button
-                                class="action"
-                                thyButtonIcon="wtf wtf-project-add-o"
-                                thyLight="true"
-                                thySize="lg"
-                            ></button>
-                        </div>
-                        <div class="sidebar-content">
-                            <div class="search-container">
-                                <thy-input-search thyTheme="ellipse" placeholder="搜索项目名称"></thy-input-search>
-                            </div>
-                            <thy-menu>
-                                <thy-menu-group
-                                    thyTitle="工作"
-                                    [thyExpand]="true"
-                                    [thyShowAction]="true"
-
-                                >
-                                    <a thyMenuItem href="javascript:;">
-                                        <i thyMenuItemIcon class="wtf wtf-my"></i>
-                                        <span thyMenuItemName> 我的工作 </span>
-                                        <i thyMenuItemAction class="wtf wtf-more-lg"></i>
-                                    </a>
-
-                                    <a thyMenuItem class="active" href="javascript:;">
-                                        <i thyMenuItemIcon class="wtf wtf-analytic-insight"></i>
-                                        <span thyMenuItemName> 统计报表 </span>
-                                        <i thyMenuItemAction class="wtf wtf-more-lg"></i>
-                                    </a>
-
-                                    <a thyMenuItem href="javascript:;">
-                                        <i thyMenuItemIcon class="wtf wtf-work-workload"></i>
-                                        <span thyMenuItemName> 工时视图 </span>
-                                        <i thyMenuItemAction class="wtf wtf-more-lg"></i>
-                                    </a>
-                                    <a thyMenuItem href="javascript:;">
-                                        <i thyMenuItemIcon class="wtf wtf-work-timeline"></i>
-                                        <span thyMenuItemName> 时间视图 </span>
-                                        <i thyMenuItemAction  class="wtf wtf-more-lg"></i>
-                                    </a>
-                                    <thy-menu-group
-                                        thyTitle="工作"
-                                        [thyShowAction]="true"
-                                        [thyShowIcon]="true"
-                                    >
-                                        <a thyMenuItem href="javascript:;">
-                                            <i thyMenuItemIcon class="wtf wtf-my"></i>
-                                            <span thyMenuItemName> 我的工作 </span>
-                                            <i thyMenuItemActionclass="wtf wtf-more-lg"></i>
-                                        </a>
-
-                                        <a thyMenuItem class="active" href="javascript:;">
-                                            <i thyMenuItemIcon class="wtf wtf-analytic-insight"></i>
-                                            <span thyMenuItemName> 统计报表 </span>
-                                            <i thyMenuItemAction  class="wtf wtf-more-lg"></i>
-                                        </a>
-
-                                        <thy-menu-group thyTitle="工作" [thyShowAction]="true">
-                                            <a thyMenuItem href="javascript:;">
-                                                <i thyMenuItemIcon class="wtf wtf-my"></i>
-                                                <span thyMenuItemName> 我的工作 </span>
-                                                <i
-                                                    thyMenuItemAction
-                                                    class="wtf wtf-more-lg"
-                                                ></i>
-                                            </a>
-
-                                            <a thyMenuItem class="active" href="javascript:;">
-                                                <i thyMenuItemIcon class="wtf wtf-analytic-insight"></i>
-                                                <span thyMenuItemName> 统计报表 </span>
-                                                <i
-                                                    thyMenuItemAction
-                                                    class="wtf wtf-more-lg"
-                                                ></i>
-                                            </a>
-
-                                            <a thyMenuItem href="javascript:;">
-                                                <i thyMenuItemIcon class="wtf wtf-work-workload"></i>
-                                                <span thyMenuItemName> 工时视图 </span>
-                                                <i
-                                                    thyMenuItemAction
-                                                    class="wtf wtf-more-lg"
-                                                ></i>
-                                            </a>
-                                            <a thyMenuItem href="javascript:;">
-                                                <i thyMenuItemIcon class="wtf wtf-work-timeline"></i>
-                                                <span thyMenuItemName> 时间视图 </span>
-                                                <i
-                                                    thyMenuItemAction
-                                                    class="wtf wtf-more-lg"
-                                                ></i>
-                                            </a>
-                                        </thy-menu-group>
-
-                                        <a thyMenuItem href="javascript:;">
-                                            <i thyMenuItemIcon class="wtf wtf-work-workload"></i>
-                                            <span thyMenuItemName> 工时视图 </span>
-                                            <i thyMenuItemAction  class="wtf wtf-more-lg"></i>
-                                        </a>
-                                        <a thyMenuItem href="javascript:;">
-                                            <i thyMenuItemIcon class="wtf wtf-work-timeline"></i>
-                                            <span thyMenuItemName> 时间视图 </span>
-                                            <i thyMenuItemAction  class="wtf wtf-more-lg"></i>
-                                        </a>
-                                    </thy-menu-group>
-                                </thy-menu-group>
-
-                                <thy-menu-group
-                                    thyTitle="项目"
-                                    [thyExpand]="true"
-                                    [thyShowAction]="true"
-                                ></thy-menu-group>
-
-                                <thy-menu-divider></thy-menu-divider>
-
-                                <a thyMenuItem href="javascript:;">
-                                    <i thyMenuItemIcon class="wtf wtf-setting-o"></i>
-                                    <span thyMenuItemName> 配置中心 </span>
-                                    <i thyMenuItemAction class="wtf wtf-more-lg"></i>
-                                </a>
-                                <a thyMenuItem href="javascript:;">
-                                    <i thyMenuItemIcon class="wtf wtf-trash-o"></i>
-                                    <span thyMenuItemName> 回收站 </span>
-                                </a>
-                            </thy-menu>
-                        </div>
-                    </thy-sidebar>
-                    <thy-layout>
-                        <thy-header thyHasBorder="true">
-                            <ng-template #headerTitle>
-                                <i class="wtf wtf-setting-o prefix-icon"></i>
-                                <a href="javascript:;">{{ title }}</a>
-                            </ng-template>
-                            <ng-template #headerContent>
-                                <thy-nav thyType="primary" thyHorizontal="center">
-                                    <a
-                                        href="javascript:;"
-                                        thyNavLink
-                                        [thyNavLinkActive]="activeMenu === 'kanban'"
-                                        (click)="setActiveMenu('kanban')"
-                                        >导航一</a
-                                    >
-                                    <a
-                                        href="javascript:;"
-                                        thyNavLink
-                                        [thyNavLinkActive]="activeMenu === 'insight'"
-                                        (click)="setActiveMenu('insight')"
-                                        >导航二</a
-                                    >
-                                </thy-nav>
-                            </ng-template>
-                            <ng-template #headerOperation>
-                                操作区域
-                            </ng-template>
-                        </thy-header>
-                        <thy-layout>
-                            <thy-header *ngIf="activeMenu === 'kanban'" thySize="sm">
-                                <ng-template #headerContent>
-                                    <thy-nav thyType="thirdly" thyHorizontal="left">
-                                        <a href="javascript:;" thyNavLink thyNavLinkActive="true">导航一</a>
-                                        <a href="javascript:;" thyNavLink>导航二</a>
-                                        <a href="javascript:;" thyNavLink>导航三</a>
-                                    </thy-nav>
-                                </ng-template>
-                            </thy-header>
-                            <thy-header
-                                *ngIf="activeMenu === 'insight'"
-                                thySize="sm"
-                                thyTitle="恩，我是头部标题"
-                                thyIcon="wtf-setting-o"
-                            >
-                                <ng-template #headerOperation>
-                                    <a href="javascript:;" class="">操作</a>
-                                </ng-template>
-                            </thy-header>
-                            <thy-content>
-                                <thy-content-section>
-                                    返回 > 标题
-                                </thy-content-section>
-                                <thy-content-main>
-                                    <thy-nav thyType="secondary" thyHorizontal="left">
-                                        <a href="javascript:;" thyNavLink thyNavLinkActive="true">导航一</a>
-                                        <a href="javascript:;" thyNavLink>导航二</a>
-                                        <a href="javascript:;" thyNavLink>导航三</a>
-                                    </thy-nav>
-                                    <div>
-                                        恩，我是 content
-                                    </div>
-                                </thy-content-main>
-                            </thy-content>
-                        </thy-layout>
-                    </thy-layout>
-                </thy-layout>
-            </thy-layout>
-        </div>
-    </div>
+  </div>
 </section>
 <br />
 <br />
