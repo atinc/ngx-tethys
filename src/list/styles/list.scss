@@ -18,6 +18,10 @@
     }
 }
 
+.thy-list-item-border-bottom {
+    border-bottom: 1px solid #eeeeee;
+}
+
 .thy-multiple-selection-list {
     .thy-list-option {
         @include thy-multiple-option();

@@ -63,6 +63,12 @@ export class DemoListComponent {
                 '选项的 Value，可以是普通的 ID，也可以是对象，与 thy-selection-list 的 ngModel 和 thyUniqueKey 配合使用',
             type: 'any',
             default: 'null'
+        },
+        {
+            property: 'thyIsShowUnderline',
+            description: '是否有下边框，默认值为true',
+            type: 'boolean',
+            default: 'true'
         }
     ];
 

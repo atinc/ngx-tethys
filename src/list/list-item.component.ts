@@ -6,8 +6,14 @@ import { inputValueToBoolean } from '../util/helpers';
     template: '<ng-content></ng-content>'
 })
 export class ThyListItemComponent {
-
     @HostBinding(`class.thy-list-item`) _isListItem = true;
 
-    constructor() { }
+    @HostBinding('class.thy-list-item-border-bottom') isShowUnderline = true;
+
+    @Input()
+    set thyIsShowUnderline(value: boolean) {
+        this.isShowUnderline = value || this.isShowUnderline;
+    }
+
+    constructor() {}
 }
