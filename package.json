@@ -43,7 +43,6 @@
     "@angular/platform-browser": "^7.2.6",
     "@angular/platform-browser-dynamic": "^7.2.6",
     "@angular/router": "^7.2.6",
-    "@ngx-tethys/editor": "0.0.8",
     "@ngx-translate/core": "^10.0.1",
     "angular-sortablejs": "^2.5.2",
     "bootstrap": "^4.3.1",

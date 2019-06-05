@@ -41,7 +41,6 @@ import { DemoSlideSectionComponent } from './+slide/slide-section.component';
 import { DemoSlideContentComponent } from './+slide/slide-content.component';
 import { DemoPropertyOperationSectionComponent } from './+property-operation/property-operation-section.component';
 import { DemoUploaderSectionComponent } from './+uploader/uploader-section.component';
-import { DemoEditorSectionComponent } from './+editor/editor-section.component';
 import { DemoDateRangeSectionComponent } from './+date-range/date-range-section.component';
 import { DemoKeySelectSectionComponent } from './+key-select/key-select-section.component';
 import { DemoListComponent } from './+list/list-section.component';
@@ -117,7 +116,6 @@ export const COMPONENTS = [
     DemoSelectSectionComponent,
     DemoPropertyOperationSectionComponent,
     DemoUploaderSectionComponent,
-    DemoEditorSectionComponent,
     DemoDateRangeSectionComponent,
     DemoKeySelectSectionComponent,
     DemoListComponent,

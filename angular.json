@@ -28,22 +28,8 @@
                 "output": "/assets"
               }
             ],
-            "styles": [
-              "demo/src/styles.scss",
-              "./node_modules/quill/dist/quill.core.css",
-              "./node_modules/quill/dist/quill.bubble.css",
-              "./node_modules/quill/dist/quill.snow.css",
-              "./node_modules/quill-emoji/dist/quill-emoji.css",
-              "./node_modules/quill-mention/dist/quill.mention.min.css",
-              "./node_modules/highlight.js/styles/default.css",
-              "./node_modules/highlight.js/styles/github.css",
-              "./node_modules/katex/dist/katex.css"
-            ],
-            "scripts": [
-              "./node_modules/highlight.js/lib/highlight.js",
-              "./node_modules/katex/dist/katex.js",
-              "./node_modules/quill/dist/quill.min.js"
-            ]
+            "styles": ["demo/src/styles.scss"],
+            "scripts": []
           },
           "configurations": {
             "production": {
