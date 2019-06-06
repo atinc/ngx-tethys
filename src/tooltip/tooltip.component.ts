@@ -40,7 +40,7 @@ export class ThyTooltipComponent implements OnInit {
 
     private closeOnInteraction = false;
 
-    private visibility: ThyTooltipVisibility = 'initial';
+    visibility: ThyTooltipVisibility = 'initial';
 
     showTimeoutId: number | null | any;
 
