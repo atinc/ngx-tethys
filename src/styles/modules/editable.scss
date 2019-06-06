@@ -15,3 +15,8 @@
         border-color: $editable-border-color;
     }
 }
+
+.thy-editable-lg {
+    padding: $editable-padding-y-lg $editable-padding-x-lg;
+    font-size: $font-size-xlg;
+}

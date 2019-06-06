@@ -19,6 +19,9 @@
 * **uploader:** add uploadBulk for batch upload files [#237400](https://github.com/worktile/ngx-tethys/issues/237400) ([8c1adad](https://github.com/worktile/ngx-tethys/commit/8c1adad))
 
 
+**BREAKING CHANGES**
+- **style** add text-desc to replace text-info, will change info's color as #2dbcff in next version, need to change `text-info` to  `text-desc` globally when upgrade 7.2.0
+- **editor:** remove thyEditor from ngx-tethys, add @ngx-tethys/editor lib for editor, editor will support rich and markdown mode
 
 # [7.1.0](https://github.com/worktile/ngx-tethys/compare/7.0.45...7.1.0) (2019-05-27)
 

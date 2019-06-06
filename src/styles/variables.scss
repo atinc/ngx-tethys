@@ -140,6 +140,7 @@ $input-padding-x-md: $input-padding-x !default;
 $input-line-height-md: 1.5 !default;
 $input-border-radius-md: 0.25rem !default;
 $input-height-md: 32px !default;
+$input-height-lg: 44px !default;
 $input-focus-border-color: $primary !default;
 $input-btn-focus-box-shadow: none !default;
 $input-box-shadow: none !default;
@@ -463,6 +464,8 @@ $menu-divider-margin: 10px 20px !default;
 $editable-border-color: $gray-200 !default;
 $editable-padding-y: $input-padding-y !default;
 $editable-padding-x: $input-padding-x !default;
+$editable-padding-y-lg: $input-padding-y-lg !default;
+$editable-padding-x-lg: $input-padding-x-lg !default;
 
 // arrow-switcher
 $arrow-switcher-btn-size: 30px !default;
