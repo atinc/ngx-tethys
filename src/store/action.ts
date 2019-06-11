@@ -13,11 +13,7 @@ export interface DecoratorActionOptions {
  * Decorates a method with a action information.
  */
 export function Action(action?: DecoratorActionOptions | string) {
-    return function(
-        target: any,
-        name: string,
-        descriptor: TypedPropertyDescriptor<any>
-    ) {
+    return function(target: any, name: string, descriptor: TypedPropertyDescriptor<any>) {
         const meta = findAndCreateStoreMetadata(target);
 
         // default use function name as action type
@@ -35,9 +31,7 @@ export function Action(action?: DecoratorActionOptions | string) {
         const type = action.type;
 
         if (!action.type) {
-            throw new Error(
-                `Action ${action.type} is missing a static "type" property`
-            );
+            throw new Error(`Action ${action.type} is missing a static "type" property`);
         }
 
         const originalFn = descriptor.value;
@@ -47,9 +41,9 @@ export function Action(action?: DecoratorActionOptions | string) {
             type
         };
 
-        descriptor.value = function (...args: any[]) {
+        descriptor.value = function(...args: any[]) {
             ActionState.changeAction(`${target.constructor.name}-${name}`);
-            let result = originalFn.call(this, ...args, this.snapshot);
+            let result = originalFn.call(this, ...args);
             if (result instanceof Observable) {
                 result = result.pipe(shareReplay());
                 result.subscribe();
