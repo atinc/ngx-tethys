@@ -42,6 +42,8 @@ export class DemoSelectSectionComponent implements OnInit {
 
     selectedItem = this.optionData[0];
 
+    errorSelectedItem = {};
+
     public apiParameters = [
         {
             property: 'thySize',

@@ -19,7 +19,7 @@
       <ng-container *ngSwitchDefault [ngSwitch]="thyMode">
         <ng-container *ngSwitchCase="'multiple'">
           <span
-            class="mr-1"
+            class="d-inline-block mr-1"
             *ngFor="let item of selected; index as i"
             thyLabel="default"
             thyAfterIcon="wtf-times"
@@ -29,7 +29,7 @@
           </span>
         </ng-container>
         <ng-container *ngSwitchDefault>
-          <span>{{ firstSelected.thyLabelText }}</span>
+          <span class="d-inline-block">{{ firstSelected.thyLabelText }}</span>
         </ng-container>
       </ng-container>
       <a
