@@ -1,4 +1,5 @@
-.thy-list-option {
+.thy-list-option,
+.thy-list-item {
     @include thy-option-theme();
 }
 
