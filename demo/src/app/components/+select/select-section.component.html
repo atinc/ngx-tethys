@@ -35,6 +35,27 @@
 
 <section>
   <div class="header">
+    <h2>thyShowOptionCustom thyLabelText为空的情况</h2>
+  </div>
+  <div class="body">
+    <div class="demo-select">
+      <thy-custom-select [(ngModel)]="errorSelectedItem" thyPlaceHolder="" thySize="md" thyEmptyStateText="无匹配结果">
+        <thy-option
+          *ngFor="let option of optionData"
+          [thyValue]="option"
+          [thyDisabled]="option.name === 'money'"
+          [thyLabelText]="''"
+          thyShowOptionCustom="true"
+        >
+          {{ option.display_name }}
+        </thy-option>
+      </thy-custom-select>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="header">
     <h2>自定义 select</h2>
   </div>
   <div class="body">
