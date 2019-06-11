@@ -134,6 +134,8 @@ export class ThySelectCustomComponent
 
     @Output() thyOnScrollToBottom: EventEmitter<void> = new EventEmitter<void>();
 
+    @Output() thyOnExpandStatusChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+
     @Input() thyShowSearch: boolean;
 
     @Input() thyPlaceHolder: string;
@@ -398,11 +400,13 @@ export class ThySelectCustomComponent
         }
         this.triggerRect = this.trigger.nativeElement.getBoundingClientRect();
         this._panelOpen = true;
+        this.thyOnExpandStatusChange.emit(this._panelOpen);
     }
 
     close(): void {
         if (this._panelOpen) {
             this._panelOpen = false;
+            this.thyOnExpandStatusChange.emit(this._panelOpen);
             this.changeDetectorRef.markForCheck();
         }
     }
