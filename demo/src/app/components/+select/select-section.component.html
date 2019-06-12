@@ -115,6 +115,26 @@
           >
         </ng-template>
       </thy-custom-select>
+
+      <br />
+      自定义多选
+      <thy-custom-select
+        thyMode="multiple"
+        [(ngModel)]="selectedItem2"
+        thyPlaceHolder="请选择"
+        [thyAllowClear]="allowClear"
+      >
+        <thy-option thyValue="" thyLabelText="空"></thy-option>
+        <thy-option
+          *ngFor="let option of optionData"
+          thyShowOptionCustom="true"
+          [thyRawValue]="option"
+          [thyValue]="option.name"
+          [thyLabelText]="option.display_name"
+        >
+          <span> <i [class]="option?.icon" class="mr-1"></i> {{ option?.display_name }} </span>
+        </thy-option>
+      </thy-custom-select>
     </div>
   </div>
 </section>

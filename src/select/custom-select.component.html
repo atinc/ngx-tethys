@@ -56,7 +56,11 @@
   (backdropClick)="close()"
   (detach)="close()"
 >
-  <div class="thy-select-container" (mouseleave)="onSelectContainerMouseleave($event)">
+  <div
+    class="thy-select-container"
+    [ngClass]="{ 'thy-select-custom-multiple': thyMode === 'multiple' }"
+    (mouseleave)="onSelectContainerMouseleave($event)"
+  >
     <div class="trigger-top-leave-block" *ngIf="thyHoverTriggerAction"></div>
     <div class="trigger-bottom-leave-block" *ngIf="thyHoverTriggerAction"></div>
     <div class="thy-select-search" *ngIf="thyShowSearch">
