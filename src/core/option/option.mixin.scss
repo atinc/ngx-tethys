@@ -6,90 +6,94 @@
     position: relative;
 }
 
-@mixin thy-option ($color: $secondary) {
+@mixin thy-option($color: $secondary) {
     @include thy-option-common-layout();
     min-height: 40px;
     color: $color;
     cursor: pointer;
     outline-style: none;
     padding: {
-      left: 20px;
-      right: 20px;
+        left: 20px;
+        right: 20px;
     }
     // &:focus,
     &.hover,
     &:hover {
-      @include item-box-shadow();
-      color: $body-color;
-      &:not(.disabled).active {
-        color: $primary;
-        background: transparent;
-      }
+        // @include item-box-shadow();
+        background: $gray-80;
+        color: $body-color;
+        &:not(.disabled).active {
+            color: $primary;
+            background: transparent;
+        }
     }
     &:not(.disabled).active {
-        background: rgba($primary, .1);
+        background: rgba($primary, 0.1);
         color: $primary;
+        &:hover {
+            background: $gray-80;
+            color: $body-color;
+        }
     }
     &.disabled {
-      background: none;
-      color: $gray-400;
-      cursor: default; // not-allowed;
+        background: none;
+        color: $gray-400;
+        cursor: default; // not-allowed;
     }
-  
 }
 
-@mixin thy-option-theme ($color: $secondary) {
+@mixin thy-option-theme($color: $secondary) {
     color: $color;
     &.hover,
     &:hover {
-      &:not(.disabled).active {
-        color: $primary;
-      }
+        &:not(.disabled).active {
+            color: $primary;
+        }
     }
     &:not(.disabled).active {
-        background: rgba($primary, .1);
+        background: rgba($primary, 0.1);
         color: $primary;
-    } 
+    }
 }
 
 @mixin thy-multiple-option {
-  .checked-icon {
-    visibility: hidden;
-    position: absolute;
-    right: 20px;
-  }
-
-  &:hover {
     .checked-icon {
-      visibility: visible;
+        visibility: hidden;
+        position: absolute;
+        right: 20px;
     }
+
+    &:hover {
+        .checked-icon {
+            visibility: visible;
+        }
+        &:not(.disabled).active {
+            color: $body-color;
+        }
+    }
+
     &:not(.disabled).active {
-      color: $body-color;
+        background: none;
+        color: $body-color;
+        .checked-icon {
+            visibility: visible;
+            color: $primary !important;
+        }
     }
-  }
-
-  &:not(.disabled).active {
-    background: none;
-    color: $body-color;
-    .checked-icon {
-      visibility: visible;
-      color: $primary !important;
-    }
-  }
 }
 
 @mixin thy-multiple-option-theme {
-  &.hover,
-  &:hover {
+    &.hover,
+    &:hover {
+        &:not(.disabled).active {
+            color: $body-color;
+        }
+    }
     &:not(.disabled).active {
-      color: $body-color;
+        color: $body-color;
+        background: none;
+        .checked-icon {
+            color: $primary !important;
+        }
     }
-  }
-  &:not(.disabled).active {
-    color: $body-color;
-    background: none;
-    .checked-icon {
-      color: $primary !important;
-    }
-  }
 }
