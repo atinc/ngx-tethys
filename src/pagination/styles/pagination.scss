@@ -1,10 +1,8 @@
 .thy-pagination {
     display: flex;
-    align-items: center;
+    align-items: stretch;
     color: $pagination-color;
     font-size: $font-size-base;
-    height: 100%;
-
     &-pages {
         display: flex;
         margin: 0;
@@ -13,8 +11,10 @@
     }
 
     &-total {
-        margin-left: 4px;
+        display: flex;
+        align-items: center;
 
+        margin-left: 4px;
         span {
             color: $pagination-total-pages-color;
             margin: 0 2px;
@@ -22,11 +22,13 @@
     }
 
     &-jumper {
-        height: 100%;
-
+        display: flex;
+        align-items: center;
         &-input {
             height: 100%;
-            display: inline-block;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
             margin: $pagination-jumper-margin;
         }
 
@@ -34,8 +36,9 @@
         button {
             height: 100%;
             outline: none;
+            line-height: 1;
             border: $pagination-border-width solid $pagination-border-color;
-            @include border-left-radius($border-radius);
+            @include border-radius($border-radius);
         }
 
         input {
@@ -47,8 +50,6 @@
 
         button {
             color: $pagination-jumper-button-color;
-            margin-left: 4px;
-
             &:disabled {
                 color: $pagination-disabled-color;
             }
