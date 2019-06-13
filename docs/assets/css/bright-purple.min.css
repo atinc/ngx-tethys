@@ -950,22 +950,22 @@ input[type='radio']:after {
     border-bottom: 0;
     border-left: 4px solid #4e8afa;
 }
-.page-link {
+.thy-page-link {
     color: #aaa;
     background-color: #fff;
     border: 1px solid #eee;
 }
-.page-link:hover {
+.thy-page-link:hover {
     color: #4e8afa;
     background-color: #fff;
     border-color: #eee;
 }
-.page-item.active .page-link {
+.thy-page-item.active .page-link {
     color: #fff;
     background-color: #4e8afa;
     border-color: #4e8afa;
 }
-.page-item.disabled .page-link {
+.thy-page-item.disabled .page-link {
     color: #cacaca;
     background-color: #fff;
     border-color: #eee;
@@ -1005,19 +1005,19 @@ input[type='radio']:after {
 .thy-layout-header .layout-header-title .suffix-icon {
     color: #4e8afa;
 }
-.thy-select-custom .thy-select-custom-options .thy-option-item {
-    color: #666;
-}
-.thy-select-custom .thy-select-custom-options .thy-option-item.hover:not(.disabled).active,
-.thy-select-custom .thy-select-custom-options .thy-option-item:hover:not(.disabled).active {
-    color: #4e8afa;
-}
-.thy-select-custom .thy-select-custom-options .thy-option-item:not(.disabled).active {
-    background: rgba(78, 138, 250, 0.1);
-    color: #4e8afa;
-}
 .thy-select-custom.menu-is-opened .form-control-custom {
     border-color: #4e8afa;
+}
+.thy-select-custom-options .thy-option-item {
+    color: #666;
+}
+.thy-select-custom-options .thy-option-item.hover:not(.disabled).active,
+.thy-select-custom-options .thy-option-item:hover:not(.disabled).active {
+    color: #4e8afa;
+}
+.thy-select-custom-options .thy-option-item:not(.disabled).active {
+    background: rgba(78, 138, 250, 0.1);
+    color: #4e8afa;
 }
 .thy-select-custom--multiple .thy-select-custom-options .thy-option-item.hover:not(.disabled).active,
 .thy-select-custom--multiple .thy-select-custom-options .thy-option-item:hover:not(.disabled).active {
@@ -1030,13 +1030,17 @@ input[type='radio']:after {
 .thy-select-custom--multiple .thy-select-custom-options .thy-option-item:not(.disabled).active .checked-icon {
     color: #4e8afa !important;
 }
+.thy-list-item,
 .thy-list-option {
     color: #666;
 }
+.thy-list-item.hover:not(.disabled).active,
+.thy-list-item:hover:not(.disabled).active,
 .thy-list-option.hover:not(.disabled).active,
 .thy-list-option:hover:not(.disabled).active {
     color: #4e8afa;
 }
+.thy-list-item:not(.disabled).active,
 .thy-list-option:not(.disabled).active {
     background: rgba(78, 138, 250, 0.1);
     color: #4e8afa;
