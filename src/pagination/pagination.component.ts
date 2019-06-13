@@ -108,7 +108,7 @@ export class ThyPaginationComponent implements OnInit {
 
     private initialized = false;
 
-    @HostBinding('class.pagination') isPaginationClass = true;
+    @HostBinding('class.thy-pagination') isPaginationClass = true;
 
     constructor(
         @Optional()
