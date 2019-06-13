@@ -2,8 +2,8 @@
   <ul class="thy-pagination-pages">
     <li
       class="thy-page-item"
-      [class.disabled]="disabled"
-      *ngIf="config.boundaryLinks && pageIndex !== firstIndex"
+      [class.disabled]="disabled || pageIndex === firstIndex"
+      *ngIf="config.boundaryLinks"
       (click)="selectPage(firstIndex)"
     >
       <a class="thy-page-link thy-page-link-first" href="javascript:;">
@@ -13,8 +13,8 @@
     </li>
     <li
       class="thy-page-item"
-      [class.disabled]="disabled"
-      *ngIf="config.directionLinks && pageIndex !== firstIndex"
+      [class.disabled]="disabled || pageIndex === firstIndex"
+      *ngIf="config.directionLinks"
       (click)="selectPage(pageIndex - 1)"
     >
       <a class="thy-page-link  page-link-pre" href="javascript:;">
@@ -26,15 +26,15 @@
       class="thy-page-item"
       [class.active]="page.active"
       [class.disabled]="disabled"
-      *ngFor="let page of pages"
       (click)="selectPage(page.index)"
+      *ngFor="let page of pages"
     >
       <a class="thy-page-link" href="javascript:;">{{ page.text }}</a>
     </li>
     <li
-      class="thy-page-item thy-page-item-next"
-      [class.disabled]="disabled"
-      *ngIf="config.directionLinks && pageIndex !== pageCount"
+      class="thy-page-item page-item-next"
+      [class.disabled]="disabled || pageIndex === pageCount"
+      *ngIf="config.directionLinks"
       (click)="selectPage(pageIndex + 1)"
     >
       <a class="thy-page-link thy-page-link-next" href="javascript:;">
@@ -44,11 +44,11 @@
     </li>
     <li
       class="thy-page-item"
-      [class.disabled]="disabled"
-      *ngIf="config.boundaryLinks && pageIndex !== pageCount"
+      [class.disabled]="disabled || pageIndex === pageCount"
+      *ngIf="config.boundaryLinks"
       (click)="selectPage(pageCount)"
     >
-      <a class="thy-page-link  thy-page-link-last" href="javascript:;">
+      <a class="thy-page-link thy-page-link-last" href="javascript:;">
         <ng-container *ngIf="config.lastText">{{ config.lastText }}</ng-container>
         <ng-container *ngIf="config.lastIcon"><i class="wtf {{ config.lastIcon }}"></i></ng-container>
       </a>

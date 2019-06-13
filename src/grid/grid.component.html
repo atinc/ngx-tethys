@@ -107,11 +107,11 @@
 <div class="clearfix" *ngIf="pagination.total > pagination.size">
   <thy-pagination
     class="float-right"
-    [(thyPageIndex)]="pagination.index"
-    [thyShowQuickJumper]="false"
+    [thyPageIndex]="pagination.index"
     [thyTotal]="pagination.total"
     [thyPageSize]="pagination.size"
     (thyPageChanged)="onPageChange($event)"
+    (thyPageIndexChange)="onPageIndexChange($event)"
   ></thy-pagination>
 </div>
 <ng-template> <ng-content></ng-content> </ng-template>

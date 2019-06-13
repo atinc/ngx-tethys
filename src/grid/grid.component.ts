@@ -28,7 +28,11 @@ import {
     ThyGridEvent
 } from './grid.interface';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
-import { ThyGridColumnComponent, IThyGridColumnParentComponent, THY_GRID_COLUMN_PARENT_COMPONENT } from './grid-column.component';
+import {
+    ThyGridColumnComponent,
+    IThyGridColumnParentComponent,
+    THY_GRID_COLUMN_PARENT_COMPONENT
+} from './grid-column.component';
 import { SortablejsOptions } from 'angular-sortablejs';
 import { helpers } from '../util';
 
@@ -188,6 +192,8 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
     @Output() thyOnSwitchChange: EventEmitter<ThySwitchEvent> = new EventEmitter<ThySwitchEvent>();
 
     @Output() thyOnPageChange: EventEmitter<PageChangedEvent> = new EventEmitter<PageChangedEvent>();
+
+    @Output() thyOnPageIndexChange: EventEmitter<number> = new EventEmitter<number>();
 
     @Output() thyOnMultiSelectChange: EventEmitter<ThyMultiSelectEvent> = new EventEmitter<ThyMultiSelectEvent>();
 
@@ -350,6 +356,10 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
 
     public onPageChange(event: PageChangedEvent) {
         this.thyOnPageChange.emit(event);
+    }
+
+    public onPageIndexChange(event: number) {
+        this.thyOnPageIndexChange.emit(event);
     }
 
     public onCheckboxChange(row: any, column: ThyGridColumn) {
