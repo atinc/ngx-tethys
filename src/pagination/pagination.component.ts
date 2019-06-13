@@ -66,7 +66,7 @@ export class ThyPaginationComponent implements OnInit {
 
     @Input('thySize')
     set size(size: 'sm' | 'lg') {
-        this.updateHostClassService.addClass(`pagination-${size}`);
+        this.updateHostClassService.addClass(`thy-pagination-${size}`);
     }
 
     @Input('thyMaxCount')
@@ -108,7 +108,7 @@ export class ThyPaginationComponent implements OnInit {
 
     private initialized = false;
 
-    @HostBinding('class.pagination') isPaginationClass = true;
+    @HostBinding('class.thy-pagination') isPaginationClass = true;
 
     constructor(
         @Optional()
