@@ -74,7 +74,9 @@
 
 <ng-template #templateDialog>
   <thy-dialog-header thyTitle="Dialog Title"></thy-dialog-header>
-  <thy-dialog-body>template dialog body</thy-dialog-body>
+  <thy-dialog-body>
+    <span thyTooltip="This is dialog body">template dialog body</span>
+  </thy-dialog-body>
   <thy-dialog-footer thyShowBorderTop="true">
     <button thyButton="primary" (click)="thyDialog.close()">确认</button>
     <button thyButton="link-secondary" (click)="thyDialog.close()">

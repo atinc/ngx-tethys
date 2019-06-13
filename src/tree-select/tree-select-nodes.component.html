@@ -23,7 +23,7 @@
         *ngIf="!treeNodeIsHidden(node)"
       >
         <span
-          class="expand-tree-icon text-info"
+          class="expand-tree-icon text-desc"
           [class.invisible]="!(node.children?.length > 0 || (node[childCountKey] && node[childCountKey] > 0))"
           (click)="nodeExpandToggle($event, node)"
         >
@@ -58,7 +58,7 @@
     <thy-list-option [thyValue]="valueIsObject ? node : node[primaryKey]" [thyDisabled]="treeNodeIsDisable(node)"
         *ngFor="let node of nodes">
         <a class="thy-option-item" [ngStyle]="{'padding-left.px':10*node.level+5}" *ngIf="!treeNodeIsHidden(node)">
-            <span class="expand-tree-icon text-info hand" [class.invisible]="!(node.children?.length > 0 || node.childCount && node.childCount > 0)"
+            <span class="expand-tree-icon text-desc hand" [class.invisible]="!(node.children?.length > 0 || node.childCount && node.childCount > 0)"
                 (click)="nodeExpandToggle($event,node)">
                 <i class="wtf wtf-caret-down" [class.rotate-caret]="!treeNodeIsExpand(node)"></i>
             </span>

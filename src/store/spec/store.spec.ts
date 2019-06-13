@@ -51,9 +51,9 @@ describe('Store: Store', () => {
         }
 
         @Action()
-        public fetchMe(): Observable<UserInfo> {
+        public fetchMe(uid = '1'): Observable<UserInfo> {
             return of({
-                uid: '1',
+                uid: uid,
                 name: 'peter'
             }).pipe(
                 tap(user => {
@@ -194,5 +194,26 @@ describe('Store: Store', () => {
         appStore.loadMeDirectly({
             name: 'peter1'
         });
+    });
+
+    it('should get default value when directly call action', () => {
+        const appStore = new AppStateStore();
+        let timer = 0;
+        appStore
+            .select((state: AppState) => {
+                return state.me;
+            })
+            .subscribe(me => {
+                if (timer === 0) {
+                    expect(me).toBe(null);
+                } else if (timer === 1) {
+                    expect(me).toEqual({
+                        uid: '1',
+                        name: 'peter'
+                    });
+                }
+                timer++;
+            });
+        appStore.fetchMe();
     });
 });

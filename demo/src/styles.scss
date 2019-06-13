@@ -1,9 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 
 // @import '~bootstrap/scss/bootstrap';
-@import "../../src/styles/index.scss";
+@import '../../src/styles/index.scss';
 // @import './styles/wt-font.scss';
-@import "./assets/fonts/wtd/iconfont.css";
+@import './assets/fonts/wtd/iconfont.css';
 @import '~bootstrap/scss/nav';
 @import './app/app.component.scss';
 @import '~highlight.js/styles/dracula.css';
@@ -33,13 +33,22 @@ samp {
     font-family: 'Roboto Mono', monospace;
 }
 
-
-$demo-bg-dark:#ccc;
-$demo-bg-light: rgba(255, 255, 255, .2);
+$demo-bg-dark: #ccc;
+$demo-bg-light: rgba(255, 255, 255, 0.2);
 .demo-layout {
     padding: 15px;
     background-size: 25px 25px;
     background-color: $demo-bg-dark;
-    background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(.25, $demo-bg-light), color-stop(.25, transparent), color-stop(.5, transparent), color-stop(.5, $demo-bg-light), color-stop(.75, $demo-bg-light), color-stop(.75, transparent), to(transparent));
+    background-image: -webkit-gradient(
+        linear,
+        0 100%,
+        100% 0,
+        color-stop(0.25, $demo-bg-light),
+        color-stop(0.25, transparent),
+        color-stop(0.5, transparent),
+        color-stop(0.5, $demo-bg-light),
+        color-stop(0.75, $demo-bg-light),
+        color-stop(0.75, transparent),
+        to(transparent)
+    );
 }
-

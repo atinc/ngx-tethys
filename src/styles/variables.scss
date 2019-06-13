@@ -29,7 +29,7 @@ $body-color: $gray-800 !default;
 $primary: #22d7bb !default;
 $primary-active: #18bfa4;
 $secondary: $gray-700 !default;
-$success: #22d7bb !default;
+$success: #39ba5d !default; // 2dbcff
 $info: $gray-500 !default;
 $warning: #ffc442 !default;
 $danger: #ff5b57 !default;
@@ -122,11 +122,13 @@ $dropdown-toggle-y-l: 1.25rem !default;
 $dropdown-toggle-y-r: 0.938rem !default;
 $dropdown-toggle-split-y: 0.625rem !default;
 // Forms
-$input-padding-x: 0.875rem !default; // 输入框左右 padding 和 按钮大小不一致， bootstrap 是一致的
+// 输入框左右 padding 和 按钮大小不一致， bootstrap 是一致的
+// input-padding-x 之前是 0.875rem, 芳美说太大了，改成了 10px 大小
+$input-padding-x: 0.625rem !default;
 $input-padding-y: $input-btn-padding-y !default;
 $input-padding-x-sm: $input-padding-x !default;
 $input-padding-x-lg: $input-padding-x !default;
-$input-padding-y-lg: 0.657rem !default;
+$input-padding-y-lg: 0.188rem !default; //0.188rem 0.875rem
 $input-padding-y-xs: 0.125rem !default;
 $input-padding-x-xs: $input-padding-x !default;
 $input-line-height-xs: 1.5 !default;
@@ -138,6 +140,7 @@ $input-padding-x-md: $input-padding-x !default;
 $input-line-height-md: 1.5 !default;
 $input-border-radius-md: 0.25rem !default;
 $input-height-md: 32px !default;
+$input-height-lg: 44px !default;
 $input-focus-border-color: $primary !default;
 $input-btn-focus-box-shadow: none !default;
 $input-box-shadow: none !default;
@@ -319,7 +322,8 @@ $dialog-header-border-color: $gray-200 !default;
 
 $dialog-body-padding: 1.25rem 1.875rem 1.875rem 1.875rem !default;
 
-$dialog-footer-padding: 1.25rem 1.875rem 1.875rem 1.875rem !default;
+// $dialog-footer-padding: 1.25rem 1.875rem 1.875rem 1.875rem !default;
+$dialog-footer-padding: 0.625rem 1.875rem !default;
 $dialog-footer-border-width: 1px !default;
 $dialog-footer-border-color: $dialog-header-border-color !default;
 
@@ -460,13 +464,17 @@ $menu-divider-margin: 10px 20px !default;
 $editable-border-color: $gray-200 !default;
 $editable-padding-y: $input-padding-y !default;
 $editable-padding-x: $input-padding-x !default;
+$editable-padding-y-lg: $input-padding-y-lg !default;
+$editable-padding-x-lg: $input-padding-x-lg !default;
 
 // arrow-switcher
 $arrow-switcher-btn-size: 30px !default;
-$arrow-switcher-sm-btn-size: 18px !default;
-$arrow-switcher-btn-bac: $gray-200;
-$arrow-switcher-btn-disabled-bac: #fafafa;
-$arrow-switcher-btn-disabled-color: $gray-300;
+$arrow-switcher-sm-btn-size: 24px !default;
+$arrow-switcher-btn-bac: $gray-200 !default;
+$arrow-switcher-btn-disabled-bac: #fafafa !default;
+$arrow-switcher-btn-disabled-color: $gray-300 !default;
+$arrow-switcher-btn-hover-bac: $primary !default;
+$arrow-switcher-btn-hover-color: $white !default;
 
 // pagination
 $pagination-padding-y: 0.282rem !default;
@@ -500,7 +508,7 @@ $pagination-jumper-button-color: $gray-700;
 // tooltip
 $tooltip-font-size: $font-size-sm !default;
 $tooltip-max-width: 200px !default;
-$tooltip-color: $black !default;
+$tooltip-color: $gray-600 !default;
 $tooltip-bg: $white !default;
 $tooltip-border-radius: $border-radius !default;
 $tooltip-opacity: 0.9 !default;

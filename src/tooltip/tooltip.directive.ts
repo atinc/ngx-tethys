@@ -193,7 +193,9 @@ export class ThyTooltipDirective extends mixinUnsubscribe(MixinBase) implements 
             if (this.trigger === 'hover') {
                 let overlayElement: HTMLElement;
                 this.manualListeners
-                    .set('mouseenter', () => this.show())
+                    .set('mouseenter', () => {
+                        this.show();
+                    })
                     .set('mouseleave', (event: MouseEvent) => {
                         // element which mouse moved to
                         const toElement = event.toElement || event.relatedTarget;
@@ -204,9 +206,6 @@ export class ThyTooltipDirective extends mixinUnsubscribe(MixinBase) implements 
                                 .subscribe(() => {
                                     this.hide();
                                 });
-                            // overlayElement.addEventListener('mouseleave', () => {
-                            //     this.hide();
-                            // });
                         }
                         // if element which moved to is in overlayElement, don't hide tooltip
                         const toElementIsTooltip = overlayElement.contains(toElement as Element);
@@ -230,8 +229,11 @@ export class ThyTooltipDirective extends mixinUnsubscribe(MixinBase) implements 
                 // this.manualListeners.set('blur', () => this.hide());
             } else if (this.trigger === 'click') {
                 this.manualListeners.set('click', () => this.show());
+            } else {
+                throw new Error(`${this.trigger} is not support, only support hover | focus | click`);
             }
         } else {
+            // Reserve extensions for mobile in the future
             this.manualListeners.set('touchstart', () => this.show());
         }
 

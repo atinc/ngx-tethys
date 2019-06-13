@@ -9,34 +9,44 @@
 }
 
 .thy-arrow-switcher {
-    display: flex;
-    align-items: center;
-    button {
-        background: $arrow-switcher-btn-bac;
-        border-radius: $input-border-radius-xs;
-        transition: none;
+    display: inline-block;
+    .switcher-wrapper {
         display: flex;
         align-items: center;
-        i {
-            flex: 1;
+        button {
+            background: $arrow-switcher-btn-bac;
+            border-radius: $input-border-radius-xs;
+            transition: none;
+            display: flex;
+            align-items: center;
+            i {
+                flex: 1;
+            }
         }
-    }
-    button:disabled {
-        background: $arrow-switcher-btn-disabled-bac;
-        i {
-            color: $arrow-switcher-btn-disabled-color;
+        button:disabled {
+            background: $arrow-switcher-btn-disabled-bac;
+            pointer-events: none;
+            i {
+                color: $arrow-switcher-btn-disabled-color;
+            }
         }
-    }
-    span {
-        min-width: 58px;
-        text-align: center;
-        padding: 0 10px;
-        color: $gray-600;
-    }
+        button:hover {
+            background: $arrow-switcher-btn-hover-bac;
+            i {
+                color: $arrow-switcher-btn-hover-color;
+            }
+        }
+        span {
+            min-width: 58px;
+            text-align: center;
+            padding: 0 10px;
+            color: $gray-600;
+        }
 
-    @include switcher-size($arrow-switcher-btn-size);
+        @include switcher-size($arrow-switcher-btn-size);
 
-    &.thy-arrow-switcher-small {
-        @include switcher-size($arrow-switcher-sm-btn-size);
+        &.thy-arrow-switcher-small {
+            @include switcher-size($arrow-switcher-sm-btn-size);
+        }
     }
 }
