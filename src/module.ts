@@ -1,6 +1,7 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyButtonModule } from './button';
+import { ThyIconModule } from './icon';
 import { ThyLayoutModule } from './layout';
 import { ThyPopBoxModule } from './pop-box';
 import { ThyGridModule } from './grid';
@@ -52,6 +53,7 @@ const IMPORT_EXPORT_MODULES = [
     BrowserAnimationsModule,
     ThyLayoutModule,
     ThyButtonModule,
+    ThyIconModule,
     ThyPopBoxModule,
     ThyBadgeModule,
     ThyGridModule,
