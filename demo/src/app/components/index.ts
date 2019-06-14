@@ -64,11 +64,13 @@ import { PROGRESS_COMPONENTS } from './+progress';
 import { DemoTooltipSectionComponent } from './+tooltip/tooltip-section.component';
 import { DemoOverlaySectionComponent, CreateOverlayComponent } from './+overlay/overlay-section.component';
 import { TOOLTIP_COMPONENTS } from './+tooltip';
+import { DemoIconSectionComponent } from './+icon/icon-section.component';
 
 export const COMPONENTS = [
     DemoPopBoxSectionComponent,
     PopBoxMenuDemoShowComponent,
     DemoButtonSectionComponent,
+    DemoIconSectionComponent,
     DemoRebootSectionComponent,
     DemoTableSectionComponent,
     RebootSectionLinkComponent,
