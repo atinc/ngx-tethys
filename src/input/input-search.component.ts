@@ -31,7 +31,7 @@ const noop = () => {};
     encapsulation: ViewEncapsulation.None
 })
 export class ThyInputSearchComponent implements ControlValueAccessor {
-    private onTouchedCallback: () => void = noop;
+    public onTouchedCallback: () => void = noop;
 
     private onChangeCallback: (_: any) => void = noop;
 

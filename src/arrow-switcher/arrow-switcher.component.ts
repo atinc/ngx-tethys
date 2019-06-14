@@ -33,11 +33,19 @@ export class ThyArrowSwitcherComponent implements OnInit, ControlValueAccessor {
 
     @HostBinding('class.thy-arrow-switcher-small') _isSmallSize = false;
 
-    @Input() thyTotal: number;
+    total: number;
 
     @Output() thyPrevious = new EventEmitter<ThyArrowSwitcherEvent>();
 
     @Output() thyNext = new EventEmitter<ThyArrowSwitcherEvent>();
+
+    @Input()
+    set thyTotal(value: number) {
+        if (value) {
+            this.total = value;
+            this.getDisabled();
+        }
+    }
 
     @Input()
     set thySize(size: string) {
@@ -84,7 +92,7 @@ export class ThyArrowSwitcherComponent implements OnInit, ControlValueAccessor {
 
     getDisabled() {
         this.previousDisabled = this.index <= 0 || this.disabled;
-        this.nextDisabled = this.index >= this.thyTotal - 1 || this.disabled;
+        this.nextDisabled = this.index >= this.total - 1 || this.disabled;
     }
 
     onPreviousClick(event: Event) {
