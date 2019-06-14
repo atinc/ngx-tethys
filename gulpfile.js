@@ -9,7 +9,7 @@ const path = require('path');
 const _distDemoPath = 'demo/src/assets/css';
 const scssOptions = {
     includePaths: [`${__dirname}/node_modules`],
-    importer: function (url, prev, done) {
+    importer: function(url, prev, done) {
         // url is the path in import as is, which LibSass encountered.
         // prev is the previously resolved path.
         // done is an optional callback, either consume it or return value synchronously.
@@ -25,25 +25,27 @@ const scssOptions = {
                 file: url
             };
         }
-    },
+    }
 };
 
-gulp.task('build-theme', function () {
+const buildTheme = function() {
     let _themePath = './src/styles/themes/*.scss';
-    return gulp.src(_themePath)
+    return gulp
+        .src(_themePath)
         .pipe(gulpSass.sync(scssOptions).on('error', gulpSass.logError))
         .pipe(gulpCleanCSS())
-        .pipe(gulpRename(function (path) {
-            path.basename += ".min";
-            return path;
-        }))
+        .pipe(
+            gulpRename(function(path) {
+                path.basename += '.min';
+                return path;
+            })
+        )
         .pipe(gulp.dest(_distDemoPath));
-});
+};
 
-gulp.task('build-theme:watch', function () {
-    var watches = [
-        'src/**/styles/*.scss',
-        'src/styles/**/**.*'
-    ];
-    gulp.watch(watches, ['build-theme']);
+gulp.task('build-theme', buildTheme);
+
+gulp.task('build-theme:watch', function() {
+    var watches = ['src/**/styles/*.scss', 'src/styles/**/**.*'];
+    gulp.watch(watches, buildTheme);
 });
