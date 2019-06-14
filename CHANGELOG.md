@@ -1,3 +1,47 @@
+## [7.2.1](https://github.com/worktile/ngx-tethys/compare/7.2.0...7.2.1) (2019-06-13)
+
+
+### Bug Fixes
+
+* **arrowswitcher:** add set  thyTotal ([9285d13](https://github.com/worktile/ngx-tethys/commit/9285d13))
+* **grid:** grid support new pagination ([5b69e64](https://github.com/worktile/ngx-tethys/commit/5b69e64))
+* **input-search:** resolving out of focus change ngModel ([696b9aa](https://github.com/worktile/ngx-tethys/commit/696b9aa))
+* **option:** change option style for list and custom-select [#238704](https://github.com/worktile/ngx-tethys/issues/238704) ([3e5b65e](https://github.com/worktile/ngx-tethys/commit/3e5b65e))
+* **pagination:** change class name ([1920eaf](https://github.com/worktile/ngx-tethys/commit/1920eaf))
+* **pagination:** fix pages disorder error ([045dab8](https://github.com/worktile/ngx-tethys/commit/045dab8))
+* **pagination:** set pagination default showQuickJumper ([0ce69c0](https://github.com/worktile/ngx-tethys/commit/0ce69c0))
+* **pagination:** style repair ([c2bf095](https://github.com/worktile/ngx-tethys/commit/c2bf095))
+* **store:** remove latest snapshot args for Action [#238030](https://github.com/worktile/ngx-tethys/issues/238030) ([16941f0](https://github.com/worktile/ngx-tethys/commit/16941f0))
+
+
+### Features
+
+* **editable:** add thy-editable-lg and add breaking changes for 7.2.0 ([53f05d8](https://github.com/worktile/ngx-tethys/commit/53f05d8))
+
+
+
+## [7.2.1](https://github.com/worktile/ngx-tethys/compare/7.2.0...7.2.1) (2019-06-13)
+
+
+### Bug Fixes
+
+* **arrowswitcher:** add set  thyTotal ([9285d13](https://github.com/worktile/ngx-tethys/commit/9285d13))
+* **grid:** grid support new pagination ([5b69e64](https://github.com/worktile/ngx-tethys/commit/5b69e64))
+* **input-search:** resolving out of focus change ngModel ([696b9aa](https://github.com/worktile/ngx-tethys/commit/696b9aa))
+* **option:** change option style for list and custom-select [#238704](https://github.com/worktile/ngx-tethys/issues/238704) ([3e5b65e](https://github.com/worktile/ngx-tethys/commit/3e5b65e))
+* **pagination:** change class name ([1920eaf](https://github.com/worktile/ngx-tethys/commit/1920eaf))
+* **pagination:** fix pages disorder error ([045dab8](https://github.com/worktile/ngx-tethys/commit/045dab8))
+* **pagination:** set pagination default showQuickJumper ([0ce69c0](https://github.com/worktile/ngx-tethys/commit/0ce69c0))
+* **pagination:** style repair ([c2bf095](https://github.com/worktile/ngx-tethys/commit/c2bf095))
+* **store:** remove latest snapshot args for Action [#238030](https://github.com/worktile/ngx-tethys/issues/238030) ([16941f0](https://github.com/worktile/ngx-tethys/commit/16941f0))
+
+
+### Features
+
+* **editable:** add thy-editable-lg and add breaking changes for 7.2.0 ([53f05d8](https://github.com/worktile/ngx-tethys/commit/53f05d8))
+
+
+
 # [7.2.0](https://github.com/worktile/ngx-tethys/compare/7.1.0...7.2.0) (2019-06-05)
 
 

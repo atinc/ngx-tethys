@@ -50,6 +50,7 @@ import { DemoArrowSwitcherSectionComponent } from './components/+arrow-switcher/
 import { DemoMarkdownSectionComponent } from './components/+markdown/markdown-section.component';
 import { DemoTooltipSectionComponent } from './components/+tooltip/tooltip-section.component';
 import { DemoOverlaySectionComponent } from './components/+overlay/overlay-section.component';
+import { DemoIconSectionComponent } from './components/+icon/icon-section.component';
 const appRoutes = [
     {
         path: '',
@@ -61,8 +62,20 @@ const appRoutes = [
         component: DesignIntroductionComponent
     },
     {
+        path: 'global/dropdrag',
+        component: DropDragComponent
+    },
+    {
+        path: 'global/reboot',
+        component: DemoRebootSectionComponent
+    },
+    {
         path: 'components/button',
         component: DemoButtonSectionComponent
+    },
+    {
+        path: 'components/icon',
+        component: DemoIconSectionComponent
     },
     {
         path: 'components/dropdown',
@@ -71,10 +84,6 @@ const appRoutes = [
     {
         path: 'components/pob-box',
         component: DemoPopBoxSectionComponent
-    },
-    {
-        path: 'components/reboot',
-        component: DemoRebootSectionComponent
     },
     {
         path: 'components/table',
@@ -251,10 +260,6 @@ const appRoutes = [
     {
         path: 'components/store',
         component: DemoStoreSectionComponent
-    },
-    {
-        path: 'cdk/dropdrag',
-        component: DropDragComponent
     },
     {
         path: 'components/arrow-switcher',
