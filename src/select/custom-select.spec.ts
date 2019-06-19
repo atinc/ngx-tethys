@@ -50,7 +50,11 @@ describe('ThyCustomSelect', () => {
 
     describe('core', () => {
         beforeEach(async(() => {
-            configureThyCustomSelectTestingModule([BasicSelectComponent, SelectWithGroupsAndNgContainerComponent]);
+            configureThyCustomSelectTestingModule([
+                BasicSelectComponent,
+                SelectWithGroupsAndNgContainerComponent,
+                SelectWithExpandStatusComponent
+            ]);
         }));
 
         describe('overlay panel', () => {
@@ -283,6 +287,36 @@ describe('ThyCustomSelect', () => {
                 const optionInstances = fixture.componentInstance.options.toArray();
                 expect(optionInstances[1].selected).toBe(false);
                 expect(optionInstances[2].selected).toBe(false);
+            }));
+        });
+
+        describe('select expand status change', () => {
+            let fixture: ComponentFixture<SelectWithExpandStatusComponent>;
+            let trigger: HTMLElement;
+
+            beforeEach(fakeAsync(() => {
+                fixture = TestBed.createComponent(SelectWithExpandStatusComponent);
+                fixture.detectChanges();
+                trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            }));
+
+            it('should trigger thyOnExpandStatusChange event when open panel or close panel', fakeAsync(() => {
+                const spy = fixture.componentInstance.thyOnExpandStatusChange;
+                trigger.click();
+                fixture.detectChanges();
+                flush();
+
+                expect(spy).toHaveBeenCalledTimes(1);
+                expect(spy).toHaveBeenCalledWith(true);
+
+                const option = overlayContainerElement.querySelector('thy-option') as HTMLElement;
+                option.click();
+
+                fixture.detectChanges();
+                flush();
+
+                expect(spy).toHaveBeenCalledTimes(2);
+                expect(spy).toHaveBeenCalledWith(false);
             }));
         });
     });
@@ -560,6 +594,8 @@ describe('ThyCustomSelect', () => {
             tick(1000);
         }));
     });
+
+    describe('cselect expand status change', () => {});
 });
 
 @Component({
@@ -896,5 +932,32 @@ class SelectEimtOptionsChangesComponent {
 class SelectWithHoverTriggerComponent {
     foods: any[] = [{ value: 'pizza-1', viewValue: 'Pizza' }];
     control = new FormControl();
+    @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
+}
+
+@Component({
+    selector: 'select-expand-status',
+    template: `
+        <form thyForm name="demoForm" #demoForm="ngForm">
+            <thy-custom-select
+                [formControl]="control"
+                (thyOnExpandStatusChange)="thyOnExpandStatusChange($event)"
+                thyHoverTriggerAction="true"
+            >
+                <thy-option
+                    *ngFor="let food of foods"
+                    [thyValue]="food.value"
+                    [thyDisabled]="food.disabled"
+                    [thyLabelText]="food.viewValue"
+                >
+                </thy-option>
+            </thy-custom-select>
+        </form>
+    `
+})
+class SelectWithExpandStatusComponent {
+    foods: any[] = [{ value: 'pizza-1', viewValue: 'Pizza' }];
+    control = new FormControl();
+    thyOnExpandStatusChange = jasmine.createSpy('thyOnExpandStatusChange callback');
     @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
 }

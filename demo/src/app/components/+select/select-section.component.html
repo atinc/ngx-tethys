@@ -35,6 +35,27 @@
 
 <section>
   <div class="header">
+    <h2>thyShowOptionCustom thyLabelText为空的情况</h2>
+  </div>
+  <div class="body">
+    <div class="demo-select">
+      <thy-custom-select [(ngModel)]="errorSelectedItem" thyPlaceHolder="" thySize="md" thyEmptyStateText="无匹配结果">
+        <thy-option
+          *ngFor="let option of optionData"
+          [thyValue]="option"
+          [thyDisabled]="option.name === 'money'"
+          [thyLabelText]="''"
+          thyShowOptionCustom="true"
+        >
+          {{ option.display_name }}
+        </thy-option>
+      </thy-custom-select>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="header">
     <h2>自定义 select</h2>
   </div>
   <div class="body">
@@ -93,6 +114,26 @@
             <i [ngClass]="value?.icon" class="text-primary"></i>{{ value?.display_name }}</span
           >
         </ng-template>
+      </thy-custom-select>
+
+      <br />
+      自定义多选
+      <thy-custom-select
+        thyMode="multiple"
+        [(ngModel)]="selectedItem2"
+        thyPlaceHolder="请选择"
+        [thyAllowClear]="allowClear"
+      >
+        <thy-option thyValue="" thyLabelText="空"></thy-option>
+        <thy-option
+          *ngFor="let option of optionData"
+          thyShowOptionCustom="true"
+          [thyRawValue]="option"
+          [thyValue]="option.name"
+          [thyLabelText]="option.display_name"
+        >
+          <span> <i [class]="option?.icon" class="mr-1"></i> {{ option?.display_name }} </span>
+        </thy-option>
       </thy-custom-select>
     </div>
   </div>
