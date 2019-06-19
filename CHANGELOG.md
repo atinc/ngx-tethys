@@ -1,3 +1,22 @@
+## [7.2.2](https://github.com/worktile/ngx-tethys/compare/7.2.1...7.2.2) (2019-06-19)
+
+
+### Bug Fixes
+
+* **icon:** add thy-icon svg style [#237854](https://github.com/worktile/ngx-tethys/issues/237854) ([0044c8f](https://github.com/worktile/ngx-tethys/commit/0044c8f))
+* **slide:** fix slide z-index variable ([f2efb82](https://github.com/worktile/ngx-tethys/commit/f2efb82))
+* **thy-custom-select:** fix display error when labelText is empty string ([821e6f0](https://github.com/worktile/ngx-tethys/commit/821e6f0))
+* **thy-custom-select:** fix multiple mode style([#238795](https://github.com/worktile/ngx-tethys/issues/238795)) ([245e553](https://github.com/worktile/ngx-tethys/commit/245e553))
+
+
+### Features
+
+* **icon:** add thy-icon module support icon font and svg icon [#239663](https://github.com/worktile/ngx-tethys/issues/239663) ([27f05c3](https://github.com/worktile/ngx-tethys/commit/27f05c3))
+* **icon:** update icons and use svg icon [#237854](https://github.com/worktile/ngx-tethys/issues/237854) ([4c792d0](https://github.com/worktile/ngx-tethys/commit/4c792d0))
+* **thy-custom-select:** add thyOnExpandStatusChange event([#238101](https://github.com/worktile/ngx-tethys/issues/238101)) ([81e3633](https://github.com/worktile/ngx-tethys/commit/81e3633))
+
+
+
 ## [7.2.1](https://github.com/worktile/ngx-tethys/compare/7.2.0...7.2.1) (2019-06-13)
 
 
