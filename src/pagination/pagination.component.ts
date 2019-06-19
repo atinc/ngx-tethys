@@ -66,7 +66,7 @@ export class ThyPaginationComponent implements OnInit {
 
     @Input('thySize')
     set size(size: 'sm' | 'lg') {
-        this.updateHostClassService.addClass(`pagination-${size}`);
+        this.updateHostClassService.addClass(`thy-pagination-${size}`);
     }
 
     @Input('thyMaxCount')
@@ -108,7 +108,7 @@ export class ThyPaginationComponent implements OnInit {
 
     private initialized = false;
 
-    @HostBinding('class.pagination') isPaginationClass = true;
+    @HostBinding('class.thy-pagination') isPaginationClass = true;
 
     constructor(
         @Optional()
@@ -153,6 +153,7 @@ export class ThyPaginationComponent implements OnInit {
         const marginalCount = this.marginalCount;
         const rangeCount = this.config.rangeCount;
         const maxCount = this.config.maxCount;
+
         let pages = [];
         const isMaxSized = pageCount > maxCount;
         if (isMaxSized) {
@@ -163,12 +164,12 @@ export class ThyPaginationComponent implements OnInit {
             for (let i = 1; i <= marginalCount; i++) {
                 beforePages.push(this.makePage(i, i.toString(), i === pageIndex));
             }
-            if (pageIndex >= rangeCount) {
+            if (pageIndex - Math.ceil(rangeCount / 2) > this.firstIndex) {
                 beforePages.push(this.makePage(pageIndex - rangeCount, '...', null));
             }
 
             // afterPages
-            if (pageCount - pageIndex >= rangeCount - 1) {
+            if (pageIndex + Math.ceil(rangeCount / 2) < pageCount) {
                 afterPages.push(this.makePage(pageIndex + rangeCount, '...', null));
             }
             for (let i = pageCount - marginalCount + 1; i <= pageCount; i++) {
@@ -178,12 +179,13 @@ export class ThyPaginationComponent implements OnInit {
             // mainPages
             let start = Math.max(marginalCount + 1, pageIndex - (rangeCount - 1) / 2);
             let end = Math.min(pageIndex + (rangeCount - 1) / 2, pageCount - marginalCount);
-            if (pageIndex < rangeCount) {
+            if (pageIndex - 1 <= marginalCount) {
                 end = rangeCount;
             }
-            if (pageCount - pageIndex < rangeCount - 1) {
-                start = pageCount - (rangeCount - 1);
+            if (pageCount - pageIndex <= marginalCount) {
+                start = pageCount - rangeCount + 1;
             }
+
             for (let i = start; i <= end; i++) {
                 pages.push({
                     index: i,
@@ -210,7 +212,7 @@ export class ThyPaginationComponent implements OnInit {
     }
 
     selectPage(pageIndex: number) {
-        if (this.disabled) {
+        if (this.disabled || pageIndex === this.firstIndex - 1 || pageIndex === this.pageCount + 1) {
             return;
         }
         this.setPageIndex(pageIndex);

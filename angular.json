@@ -6,6 +6,14 @@
     "demo": {
       "root": "demo",
       "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss",
+          "spec": false,
+          "prefix": "demo",
+          "styleext": "scss"
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",

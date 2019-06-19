@@ -9,7 +9,7 @@ export const PaginationDefaultConfig: ThyPaginationConfigModel = {
     pageSize: 20,
     maxCount: 9,
     rangeCount: DEFAULT_RANGE_COUNT,
-    showQuickJumper: false,
+    showQuickJumper: true,
     firstText: '第一页',
     lastText: '最后一页',
     previousText: '上一页',
