@@ -1,5 +1,5 @@
 import { Injectable, Sanitizer, SecurityContext, inject, Inject } from '@angular/core';
-import { SafeResourceUrl } from '@angular/platform-browser';
+import { SafeResourceUrl, SafeHtml } from '@angular/platform-browser';
 import { Observable, of, forkJoin, throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { finalize, share, map, tap, catchError } from 'rxjs/operators';
@@ -38,6 +38,13 @@ export class ThyIconRegistry {
 
     private getIconNameNotFoundError(iconName: string): Error {
         return Error(`Unable to find icon with the name "${iconName}"`);
+    }
+
+    private getIconFailedToSanitizeLiteralError(literal: SafeHtml): Error {
+        return Error(
+            `The literal provided to MatIconRegistry was not trusted as safe HTML by ` +
+                `Angular's DomSanitizer. Attempted literal was "${literal}".`
+        );
     }
 
     private internalAddSvgIconSet(namespace: string, config: SvgIconConfig): this {
@@ -207,6 +214,7 @@ export class ThyIconRegistry {
             })
         );
     }
+
     private getSvgFromConfig(config: SvgIconConfig): Observable<SVGElement> {
         if (config.svgElement) {
             // We already have the SVG element for this icon, return a copy.
@@ -266,6 +274,11 @@ export class ThyIconRegistry {
         );
     }
 
+    private internalAddSvgIconConfig(namespace: string, iconName: string, config: SvgIconConfig): this {
+        this.svgIconConfigs.set(this.buildIconKey(namespace, iconName), config);
+        return this;
+    }
+
     buildIconKey(namespace: string, name: string) {
         return namespace + ':' + name;
     }
@@ -291,6 +304,51 @@ export class ThyIconRegistry {
 
     addSvgIconSet(url: SafeResourceUrl): this {
         return this.addSvgIconSetInNamespace('', url);
+    }
+
+    /**
+     * Registers an icon by URL in the specified namespace.
+     * @param namespace Namespace in which the icon should be registered.
+     * @param iconName Name under which the icon should be registered.
+     * @param url
+     */
+    addSvgIconInNamespace(namespace: string, iconName: string, url: SafeResourceUrl): this {
+        return this.internalAddSvgIconConfig(namespace, iconName, new SvgIconConfig(url));
+    }
+
+    /**
+     * Registers an icon by URL in the default namespace.
+     * @param iconName Name under which the icon should be registered.
+     * @param url
+     */
+    addSvgIcon(iconName: string, url: SafeResourceUrl): this {
+        return this.addSvgIconInNamespace('', iconName, url);
+    }
+
+    /**
+     * Registers an icon using an HTML string in the default namespace.
+     * @param iconName Name under which the icon should be registered.
+     * @param literal SVG source of the icon.
+     */
+    addSvgIconLiteral(iconName: string, literal: SafeHtml): this {
+        return this.addSvgIconLiteralInNamespace('', iconName, literal);
+    }
+
+    /**
+     * Registers an icon using an HTML string in the specified namespace.
+     * @param namespace Namespace in which the icon should be registered.
+     * @param iconName Name under which the icon should be registered.
+     * @param literal SVG source of the icon.
+     */
+    addSvgIconLiteralInNamespace(namespace: string, iconName: string, literal: SafeHtml): this {
+        const sanitizedLiteral = this.sanitizer.sanitize(SecurityContext.HTML, literal);
+
+        if (!sanitizedLiteral) {
+            throw this.getIconFailedToSanitizeLiteralError(literal);
+        }
+
+        const svgElement = this.createSvgElementForSingleIcon(sanitizedLiteral);
+        return this.internalAddSvgIconConfig(namespace, iconName, new SvgIconConfig(svgElement));
     }
 
     getDefaultFontSetClass() {
