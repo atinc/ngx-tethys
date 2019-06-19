@@ -216,14 +216,13 @@ export class ThyPaginationComponent implements OnInit {
             return;
         }
         this.setPageIndex(pageIndex);
-        this.pageChange(pageIndex);
+        this.pageChange(this.pageIndex);
     }
 
     jumpPage(input: HTMLInputElement) {
         const pageIndex = +input.value;
         if (Number.isInteger(pageIndex)) {
             this.selectPage(pageIndex);
-            this.pageChange(pageIndex);
         }
         input.value = '';
     }

@@ -177,4 +177,8 @@ export class DemoPaginationComponent implements OnInit {
     ];
 
     ngOnInit() {}
+
+    onPageChange(pageIndex: number) {
+        console.log(pageIndex);
+    }
 }
