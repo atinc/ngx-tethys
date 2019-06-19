@@ -65,6 +65,7 @@ import { DemoTooltipSectionComponent } from './+tooltip/tooltip-section.componen
 import { DemoOverlaySectionComponent, CreateOverlayComponent } from './+overlay/overlay-section.component';
 import { TOOLTIP_COMPONENTS } from './+tooltip';
 import { DemoIconSectionComponent } from './+icon/icon-section.component';
+import { ICON_COMPONENTS } from './+icon';
 
 export const COMPONENTS = [
     DemoPopBoxSectionComponent,
@@ -134,6 +135,7 @@ export const COMPONENTS = [
 
     ...PROGRESS_COMPONENTS,
     ...TOOLTIP_COMPONENTS,
+    ...ICON_COMPONENTS,
 
     DemoBreadcrumbSectionComponent,
     DemoStoreSectionComponent,
@@ -159,5 +161,9 @@ export const ENTRY_COMPONENTS = [
     CreateOverlayComponent,
     DemoStoreOtherSectionComponent,
 
-    DemoMenuPopComponent
+    DemoMenuPopComponent,
+
+    ...PROGRESS_COMPONENTS,
+    ...TOOLTIP_COMPONENTS,
+    ...ICON_COMPONENTS
 ];

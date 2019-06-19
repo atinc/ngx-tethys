@@ -1,11 +1,11 @@
 @font-face {
     font-family: 'Worktile-Icons';
-    src: url('./assets/fonts/Worktile-Icons.eot');
-    src: url('./assets/fonts/Worktile-Icons.eot?#iefix') format('eot'),
-        url('./assets/fonts/Worktile-Icons.woff2') format('woff2'),
-        url('./assets/fonts/Worktile-Icons.woff') format('woff'),
-        url('./assets/fonts/Worktile-Icons.ttf') format('truetype'),
-        url('./assets/fonts/Worktile-Icons.svg#Worktile-Icons') format('svg');
+    src: url('./assets/icons/fonts/Worktile-Icons.eot');
+    src: url('./assets/icons/fonts/Worktile-Icons.eot?#iefix') format('eot'),
+        url('./assets/icons/fonts/Worktile-Icons.woff2') format('woff2'),
+        url('./assets/icons/fonts/Worktile-Icons.woff') format('woff'),
+        url('./assets/icons/fonts/Worktile-Icons.ttf') format('truetype'),
+        url('./assets/icons/fonts/Worktile-Icons.svg#Worktile-Icons') format('svg');
 }
 
 @mixin wt-icon-styles {
@@ -42,587 +42,611 @@
     @if $filename == nodejs-fill {
         $char: '\E005';
     }
-    @if $filename == active {
+    @if $filename == bar-fill {
         $char: '\E006';
     }
-    @if $filename == archive {
+    @if $filename == doughnut-fill {
         $char: '\E007';
     }
-    @if $filename == connect {
+    @if $filename == trend {
         $char: '\E008';
     }
-    @if $filename == copy {
+    @if $filename == active {
         $char: '\E009';
     }
-    @if $filename == edit {
+    @if $filename == archive {
         $char: '\E00A';
     }
-    @if $filename == move-to-list {
+    @if $filename == connect-bold {
         $char: '\E00B';
     }
-    @if $filename == move {
+    @if $filename == connect {
         $char: '\E00C';
     }
-    @if $filename == settings-fill {
+    @if $filename == copy {
         $char: '\E00D';
     }
-    @if $filename == settings {
+    @if $filename == edit {
         $char: '\E00E';
     }
-    @if $filename == thumb-up {
+    @if $filename == move-to-list {
         $char: '\E00F';
     }
-    @if $filename == trash {
+    @if $filename == move {
         $char: '\E010';
     }
-    @if $filename == user-add-blod {
+    @if $filename == settings-fill {
         $char: '\E011';
     }
-    @if $filename == user-add {
+    @if $filename == settings {
         $char: '\E012';
     }
-    @if $filename == bar-fill {
+    @if $filename == thumb-up {
         $char: '\E013';
     }
-    @if $filename == doughnut-fill {
+    @if $filename == trash {
         $char: '\E014';
     }
-    @if $filename == trend {
+    @if $filename == user-add-bold {
         $char: '\E015';
     }
-    @if $filename == attachment-blod {
+    @if $filename == user-add {
         $char: '\E016';
     }
-    @if $filename == attachment {
+    @if $filename == attachment-bold {
         $char: '\E017';
     }
-    @if $filename == cloud-upload {
+    @if $filename == attachment {
         $char: '\E018';
     }
-    @if $filename == download {
+    @if $filename == cloud-upload {
         $char: '\E019';
     }
-    @if $filename == folder-blod {
+    @if $filename == download {
         $char: '\E01A';
     }
-    @if $filename == folder-expand {
+    @if $filename == folder-bold {
         $char: '\E01B';
     }
-    @if $filename == folder-fill {
+    @if $filename == folder-expand {
         $char: '\E01C';
     }
-    @if $filename == folder-fold {
+    @if $filename == folder-fill {
         $char: '\E01D';
     }
-    @if $filename == folder-open-fill {
+    @if $filename == folder-fold {
         $char: '\E01E';
     }
-    @if $filename == upload {
+    @if $filename == folder-open-fill {
         $char: '\E01F';
     }
-    @if $filename == align-center {
+    @if $filename == upload {
         $char: '\E020';
     }
-    @if $filename == align-justify {
+    @if $filename == angle-double-down {
         $char: '\E021';
     }
-    @if $filename == align-left {
+    @if $filename == angle-double-up {
         $char: '\E022';
     }
-    @if $filename == align-right {
+    @if $filename == angle-down {
         $char: '\E023';
     }
-    @if $filename == audio {
+    @if $filename == angle-left {
         $char: '\E024';
     }
-    @if $filename == authorship {
+    @if $filename == angle-right {
         $char: '\E025';
     }
-    @if $filename == background {
+    @if $filename == angle-up {
         $char: '\E026';
     }
-    @if $filename == blockquote {
+    @if $filename == arrow-down-bold {
         $char: '\E027';
     }
-    @if $filename == bold {
+    @if $filename == arrow-down {
         $char: '\E028';
     }
-    @if $filename == clean {
+    @if $filename == arrow-right-circle-fill {
         $char: '\E029';
     }
-    @if $filename == code {
+    @if $filename == arrow-right-up-bold {
         $char: '\E02A';
     }
-    @if $filename == color {
+    @if $filename == arrow-right-up-circle {
         $char: '\E02B';
     }
-    @if $filename == direction-ltr {
+    @if $filename == arrow-right-up-square-bold {
         $char: '\E02C';
     }
-    @if $filename == direction-rtl {
+    @if $filename == arrow-up-bold {
         $char: '\E02D';
     }
-    @if $filename == dropdown {
+    @if $filename == arrow-up {
         $char: '\E02E';
     }
-    @if $filename == embed {
+    @if $filename == caret-down {
         $char: '\E02F';
     }
-    @if $filename == float-center {
+    @if $filename == caret-right-down {
         $char: '\E030';
     }
-    @if $filename == float-full {
+    @if $filename == caret-right {
         $char: '\E031';
     }
-    @if $filename == float-left {
+    @if $filename == indent {
         $char: '\E032';
     }
-    @if $filename == float-right {
+    @if $filename == outdent {
         $char: '\E033';
     }
-    @if $filename == font {
+    @if $filename == align-center {
         $char: '\E034';
     }
-    @if $filename == formula {
+    @if $filename == align-justify {
         $char: '\E035';
     }
-    @if $filename == hashtag {
+    @if $filename == align-left {
         $char: '\E036';
     }
-    @if $filename == header-5 {
+    @if $filename == align-right {
         $char: '\E037';
     }
-    @if $filename == header-6 {
+    @if $filename == audio {
         $char: '\E038';
     }
-    @if $filename == header {
+    @if $filename == authorship {
         $char: '\E039';
     }
-    @if $filename == horizontal-rule {
+    @if $filename == background {
         $char: '\E03A';
     }
-    @if $filename == image {
+    @if $filename == blockquote {
         $char: '\E03B';
     }
-    @if $filename == italic {
+    @if $filename == bold {
         $char: '\E03C';
     }
-    @if $filename == link-insert {
+    @if $filename == clean {
         $char: '\E03D';
     }
-    @if $filename == list-bullet {
+    @if $filename == code {
         $char: '\E03E';
     }
-    @if $filename == list-check {
+    @if $filename == color {
         $char: '\E03F';
     }
-    @if $filename == list-ordered {
+    @if $filename == direction-ltr {
         $char: '\E040';
     }
-    @if $filename == map {
+    @if $filename == direction-rtl {
         $char: '\E041';
     }
-    @if $filename == redo {
+    @if $filename == dropdown {
         $char: '\E042';
     }
-    @if $filename == size-decrease {
+    @if $filename == embed {
         $char: '\E043';
     }
-    @if $filename == size-increase {
+    @if $filename == float-center {
         $char: '\E044';
     }
-    @if $filename == size {
+    @if $filename == float-full {
         $char: '\E045';
     }
-    @if $filename == spacing {
+    @if $filename == float-left {
         $char: '\E046';
     }
-    @if $filename == speech {
+    @if $filename == float-right {
         $char: '\E047';
     }
-    @if $filename == strike {
+    @if $filename == font {
         $char: '\E048';
     }
-    @if $filename == subscript {
+    @if $filename == formula {
         $char: '\E049';
     }
-    @if $filename == superscript {
+    @if $filename == hashtag {
         $char: '\E04A';
     }
-    @if $filename == table-border-all {
+    @if $filename == header-1 {
         $char: '\E04B';
     }
-    @if $filename == table-border-bottom {
+    @if $filename == header-2 {
         $char: '\E04C';
     }
-    @if $filename == table-border-left {
+    @if $filename == header-3 {
         $char: '\E04D';
     }
-    @if $filename == table-border-none {
+    @if $filename == header-4 {
         $char: '\E04E';
     }
-    @if $filename == table-border-outside {
+    @if $filename == header-5 {
         $char: '\E04F';
     }
-    @if $filename == table-border-right {
+    @if $filename == header-6 {
         $char: '\E050';
     }
-    @if $filename == table-border-top {
+    @if $filename == header {
         $char: '\E051';
     }
-    @if $filename == table-delete-cells {
+    @if $filename == horizontal-rule {
         $char: '\E052';
     }
-    @if $filename == table-delete-columns {
+    @if $filename == image {
         $char: '\E053';
     }
-    @if $filename == table-delete-rows {
+    @if $filename == italic {
         $char: '\E054';
     }
-    @if $filename == table-insert-cells {
+    @if $filename == link-insert {
         $char: '\E055';
     }
-    @if $filename == table-insert-columns {
+    @if $filename == list-bullet {
         $char: '\E056';
     }
-    @if $filename == table-insert-rows {
+    @if $filename == list-check {
         $char: '\E057';
     }
-    @if $filename == table-merge-cells {
+    @if $filename == list-ordered {
         $char: '\E058';
     }
-    @if $filename == table-unmerge-cells {
+    @if $filename == map {
         $char: '\E059';
     }
-    @if $filename == table {
+    @if $filename == redo {
         $char: '\E05A';
     }
-    @if $filename == underline {
+    @if $filename == size-decrease {
         $char: '\E05B';
     }
-    @if $filename == undo {
+    @if $filename == size-increase {
         $char: '\E05C';
     }
-    @if $filename == vertical-line {
+    @if $filename == size {
         $char: '\E05D';
     }
-    @if $filename == angle-double-down {
+    @if $filename == spacing {
         $char: '\E05E';
     }
-    @if $filename == angle-double-up {
+    @if $filename == speech {
         $char: '\E05F';
     }
-    @if $filename == angle-down {
+    @if $filename == strike {
         $char: '\E060';
     }
-    @if $filename == angle-left {
+    @if $filename == subscript {
         $char: '\E061';
     }
-    @if $filename == angle-right {
+    @if $filename == superscript {
         $char: '\E062';
     }
-    @if $filename == angle-up {
+    @if $filename == table-border-all {
         $char: '\E063';
     }
-    @if $filename == arrow-down-blod {
+    @if $filename == table-border-bottom {
         $char: '\E064';
     }
-    @if $filename == arrow-down {
+    @if $filename == table-border-left {
         $char: '\E065';
     }
-    @if $filename == arrow-right-circle-fill {
+    @if $filename == table-border-none {
         $char: '\E066';
     }
-    @if $filename == arrow-right-up-blod {
+    @if $filename == table-border-outside {
         $char: '\E067';
     }
-    @if $filename == arrow-right-up-circle {
+    @if $filename == table-border-right {
         $char: '\E068';
     }
-    @if $filename == arrow-right-up-square-blod {
+    @if $filename == table-border-top {
         $char: '\E069';
     }
-    @if $filename == arrow-up-blod {
+    @if $filename == table-delete-cells {
         $char: '\E06A';
     }
-    @if $filename == arrow-up {
+    @if $filename == table-delete-columns {
         $char: '\E06B';
     }
-    @if $filename == caret-down {
+    @if $filename == table-delete-rows {
         $char: '\E06C';
     }
-    @if $filename == caret-right-down {
+    @if $filename == table-insert-cells {
         $char: '\E06D';
     }
-    @if $filename == caret-right {
+    @if $filename == table-insert-columns {
         $char: '\E06E';
     }
-    @if $filename == indent {
+    @if $filename == table-insert-rows {
         $char: '\E06F';
     }
-    @if $filename == outdent {
+    @if $filename == table-merge-cells {
         $char: '\E070';
     }
-    @if $filename == alarm-clock {
+    @if $filename == table-unmerge-cells {
         $char: '\E071';
     }
-    @if $filename == bulb-blod {
+    @if $filename == table {
         $char: '\E072';
     }
-    @if $filename == calendar-check {
+    @if $filename == underline {
         $char: '\E073';
     }
-    @if $filename == calendar {
+    @if $filename == undo {
         $char: '\E074';
     }
-    @if $filename == clock-circle-moment-fill {
+    @if $filename == vertical-line {
         $char: '\E075';
     }
-    @if $filename == clock-circle-moment {
+    @if $filename == alarm-clock {
         $char: '\E076';
     }
-    @if $filename == clock-circle-open {
+    @if $filename == bulb-bold {
         $char: '\E077';
     }
-    @if $filename == clock-circle {
+    @if $filename == calendar-check {
         $char: '\E078';
     }
-    @if $filename == clock-point-blod {
+    @if $filename == calendar {
         $char: '\E079';
     }
-    @if $filename == comment {
+    @if $filename == clock-circle-moment-fill {
         $char: '\E07A';
     }
-    @if $filename == eye-invisible {
+    @if $filename == clock-circle-moment {
         $char: '\E07B';
     }
-    @if $filename == eye {
+    @if $filename == clock-circle-open {
         $char: '\E07C';
     }
-    @if $filename == filter {
+    @if $filename == clock-circle {
         $char: '\E07D';
     }
-    @if $filename == health-check {
+    @if $filename == clock-point-bold {
         $char: '\E07E';
     }
-    @if $filename == importance-blod {
+    @if $filename == comment {
         $char: '\E07F';
     }
-    @if $filename == importance {
+    @if $filename == eye-invisible {
         $char: '\E080';
     }
-    @if $filename == list-sample-blod {
+    @if $filename == eye {
         $char: '\E081';
     }
-    @if $filename == list {
+    @if $filename == filter {
         $char: '\E082';
     }
-    @if $filename == mention {
+    @if $filename == health-check {
         $char: '\E083';
     }
-    @if $filename == more-blod {
+    @if $filename == importance-bold {
         $char: '\E084';
     }
-    @if $filename == more-circle-fill {
+    @if $filename == importance {
         $char: '\E085';
     }
-    @if $filename == more-circle {
+    @if $filename == list-sample-bold {
         $char: '\E086';
     }
-    @if $filename == more {
+    @if $filename == list {
         $char: '\E087';
     }
-    @if $filename == number {
+    @if $filename == mention {
         $char: '\E088';
     }
-    @if $filename == pause-circle-fill {
+    @if $filename == more-bold {
         $char: '\E089';
     }
-    @if $filename == play-circle {
+    @if $filename == more-circle-fill {
         $char: '\E08A';
     }
-    @if $filename == records {
+    @if $filename == more-circle {
         $char: '\E08B';
     }
-    @if $filename == search {
+    @if $filename == more {
         $char: '\E08C';
     }
-    @if $filename == sitemap {
+    @if $filename == number {
         $char: '\E08D';
     }
-    @if $filename == smile {
+    @if $filename == pause-circle-fill {
         $char: '\E08E';
     }
-    @if $filename == sort {
+    @if $filename == play-circle {
         $char: '\E08F';
     }
-    @if $filename == tag-fill {
+    @if $filename == records {
         $char: '\E090';
     }
-    @if $filename == tag {
+    @if $filename == search {
         $char: '\E091';
     }
-    @if $filename == user-check-fill {
+    @if $filename == sitemap {
         $char: '\E092';
     }
-    @if $filename == user-group-fill {
+    @if $filename == smile {
         $char: '\E093';
     }
-    @if $filename == user-group {
+    @if $filename == sort {
         $char: '\E094';
     }
-    @if $filename == user-lock-fill {
+    @if $filename == tag-fill {
         $char: '\E095';
     }
-    @if $filename == user-participate-fill {
+    @if $filename == tag {
         $char: '\E096';
     }
-    @if $filename == user-readonly-fill {
+    @if $filename == user-check-fill {
         $char: '\E097';
     }
-    @if $filename == version-blod {
+    @if $filename == user-group-fill {
         $char: '\E098';
     }
-    @if $filename == version-circle {
+    @if $filename == user-group {
         $char: '\E099';
     }
-    @if $filename == version {
+    @if $filename == user-lock-fill {
         $char: '\E09A';
     }
-    @if $filename == vertical-view-lines {
+    @if $filename == user-participate-fill {
         $char: '\E09B';
     }
-    @if $filename == view-board {
+    @if $filename == user-readonly-fill {
         $char: '\E09C';
     }
-    @if $filename == view-tile {
+    @if $filename == version-bold {
         $char: '\E09D';
     }
-    @if $filename == branch {
+    @if $filename == version-circle {
         $char: '\E09E';
     }
-    @if $filename == bug-fill {
+    @if $filename == version {
         $char: '\E09F';
     }
-    @if $filename == bug {
+    @if $filename == vertical-view-lines {
         $char: '\E0A0';
     }
-    @if $filename == commit-list {
+    @if $filename == view-board {
         $char: '\E0A1';
     }
-    @if $filename == commit {
+    @if $filename == view-tile {
         $char: '\E0A2';
     }
-    @if $filename == epic-fill {
+    @if $filename == application-add {
         $char: '\E0A3';
     }
-    @if $filename == feature-fill {
+    @if $filename == application-fill {
         $char: '\E0A4';
     }
-    @if $filename == feature {
+    @if $filename == application {
         $char: '\E0A5';
     }
-    @if $filename == kanban-fill {
+    @if $filename == branch {
         $char: '\E0A6';
     }
-    @if $filename == pipeline-add-blod {
+    @if $filename == bug-fill {
         $char: '\E0A7';
     }
-    @if $filename == pipeline {
+    @if $filename == bug {
         $char: '\E0A8';
     }
-    @if $filename == repository {
+    @if $filename == commit-list {
         $char: '\E0A9';
     }
-    @if $filename == scrum-fill {
+    @if $filename == commit {
         $char: '\E0AA';
     }
-    @if $filename == task-fill {
+    @if $filename == epic-fill {
         $char: '\E0AB';
     }
-    @if $filename == task {
+    @if $filename == feature-fill {
         $char: '\E0AC';
     }
-    @if $filename == test-case-fill {
+    @if $filename == feature {
         $char: '\E0AD';
     }
-    @if $filename == test-case-type-blod {
+    @if $filename == kanban-fill {
         $char: '\E0AE';
     }
-    @if $filename == test-case {
+    @if $filename == pipeline-add-bold {
         $char: '\E0AF';
     }
-    @if $filename == test-lib-add-blod {
+    @if $filename == pipeline {
         $char: '\E0B0';
     }
-    @if $filename == test-lib {
+    @if $filename == repository {
         $char: '\E0B1';
     }
-    @if $filename == test {
+    @if $filename == scrum-fill {
         $char: '\E0B2';
     }
-    @if $filename == user-story-fill {
+    @if $filename == task-fill {
         $char: '\E0B3';
     }
-    @if $filename == user-story {
+    @if $filename == task {
         $char: '\E0B4';
     }
-    @if $filename == check-blod {
+    @if $filename == test-case-fill {
         $char: '\E0B5';
     }
-    @if $filename == check-circle {
+    @if $filename == test-case-type-bold {
         $char: '\E0B6';
     }
-    @if $filename == check-fill {
+    @if $filename == test-case {
         $char: '\E0B7';
     }
-    @if $filename == check {
+    @if $filename == test-lib-add-bold {
         $char: '\E0B8';
     }
-    @if $filename == close-blod {
+    @if $filename == test-lib {
         $char: '\E0B9';
     }
-    @if $filename == close-circle-fill {
+    @if $filename == test {
         $char: '\E0BA';
     }
-    @if $filename == close {
+    @if $filename == user-story-fill {
         $char: '\E0BB';
     }
-    @if $filename == exclamation-blod {
+    @if $filename == user-story {
         $char: '\E0BC';
     }
-    @if $filename == exclamation-double-blod {
+    @if $filename == check-bold {
         $char: '\E0BD';
     }
-    @if $filename == exclamation-three-blod {
+    @if $filename == check-circle {
         $char: '\E0BE';
     }
-    @if $filename == minus-blod {
+    @if $filename == check-fill {
         $char: '\E0BF';
     }
-    @if $filename == minus-circle-fill {
+    @if $filename == check {
         $char: '\E0C0';
     }
-    @if $filename == minus-circle {
+    @if $filename == close-bold {
         $char: '\E0C1';
     }
-    @if $filename == minus-square {
+    @if $filename == close-circle-fill {
         $char: '\E0C2';
     }
-    @if $filename == plus-blod {
+    @if $filename == close {
         $char: '\E0C3';
     }
-    @if $filename == plus-square {
+    @if $filename == exclamation-bold {
         $char: '\E0C4';
     }
-    @if $filename == plus {
+    @if $filename == exclamation-double-bold {
         $char: '\E0C5';
     }
-    @if $filename == question-circle-fill {
+    @if $filename == exclamation-three-bold {
         $char: '\E0C6';
     }
-    @if $filename == waring-fill {
+    @if $filename == minus-bold {
         $char: '\E0C7';
+    }
+    @if $filename == minus-circle-fill {
+        $char: '\E0C8';
+    }
+    @if $filename == minus-circle {
+        $char: '\E0C9';
+    }
+    @if $filename == minus-square {
+        $char: '\E0CA';
+    }
+    @if $filename == plus-bold {
+        $char: '\E0CB';
+    }
+    @if $filename == plus-square {
+        $char: '\E0CC';
+    }
+    @if $filename == plus {
+        $char: '\E0CD';
+    }
+    @if $filename == question-circle-fill {
+        $char: '\E0CE';
+    }
+    @if $filename == waring-fill {
+        $char: '\E0CF';
     }
 
     @return $char;
@@ -654,11 +678,23 @@
 .wt-icon-nodejs-fill {
     @include wt-icon(nodejs-fill);
 }
+.wt-icon-bar-fill {
+    @include wt-icon(bar-fill);
+}
+.wt-icon-doughnut-fill {
+    @include wt-icon(doughnut-fill);
+}
+.wt-icon-trend {
+    @include wt-icon(trend);
+}
 .wt-icon-active {
     @include wt-icon(active);
 }
 .wt-icon-archive {
     @include wt-icon(archive);
+}
+.wt-icon-connect-bold {
+    @include wt-icon(connect-bold);
 }
 .wt-icon-connect {
     @include wt-icon(connect);
@@ -687,23 +723,14 @@
 .wt-icon-trash {
     @include wt-icon(trash);
 }
-.wt-icon-user-add-blod {
-    @include wt-icon(user-add-blod);
+.wt-icon-user-add-bold {
+    @include wt-icon(user-add-bold);
 }
 .wt-icon-user-add {
     @include wt-icon(user-add);
 }
-.wt-icon-bar-fill {
-    @include wt-icon(bar-fill);
-}
-.wt-icon-doughnut-fill {
-    @include wt-icon(doughnut-fill);
-}
-.wt-icon-trend {
-    @include wt-icon(trend);
-}
-.wt-icon-attachment-blod {
-    @include wt-icon(attachment-blod);
+.wt-icon-attachment-bold {
+    @include wt-icon(attachment-bold);
 }
 .wt-icon-attachment {
     @include wt-icon(attachment);
@@ -714,8 +741,8 @@
 .wt-icon-download {
     @include wt-icon(download);
 }
-.wt-icon-folder-blod {
-    @include wt-icon(folder-blod);
+.wt-icon-folder-bold {
+    @include wt-icon(folder-bold);
 }
 .wt-icon-folder-expand {
     @include wt-icon(folder-expand);
@@ -731,6 +758,63 @@
 }
 .wt-icon-upload {
     @include wt-icon(upload);
+}
+.wt-icon-angle-double-down {
+    @include wt-icon(angle-double-down);
+}
+.wt-icon-angle-double-up {
+    @include wt-icon(angle-double-up);
+}
+.wt-icon-angle-down {
+    @include wt-icon(angle-down);
+}
+.wt-icon-angle-left {
+    @include wt-icon(angle-left);
+}
+.wt-icon-angle-right {
+    @include wt-icon(angle-right);
+}
+.wt-icon-angle-up {
+    @include wt-icon(angle-up);
+}
+.wt-icon-arrow-down-bold {
+    @include wt-icon(arrow-down-bold);
+}
+.wt-icon-arrow-down {
+    @include wt-icon(arrow-down);
+}
+.wt-icon-arrow-right-circle-fill {
+    @include wt-icon(arrow-right-circle-fill);
+}
+.wt-icon-arrow-right-up-bold {
+    @include wt-icon(arrow-right-up-bold);
+}
+.wt-icon-arrow-right-up-circle {
+    @include wt-icon(arrow-right-up-circle);
+}
+.wt-icon-arrow-right-up-square-bold {
+    @include wt-icon(arrow-right-up-square-bold);
+}
+.wt-icon-arrow-up-bold {
+    @include wt-icon(arrow-up-bold);
+}
+.wt-icon-arrow-up {
+    @include wt-icon(arrow-up);
+}
+.wt-icon-caret-down {
+    @include wt-icon(caret-down);
+}
+.wt-icon-caret-right-down {
+    @include wt-icon(caret-right-down);
+}
+.wt-icon-caret-right {
+    @include wt-icon(caret-right);
+}
+.wt-icon-indent {
+    @include wt-icon(indent);
+}
+.wt-icon-outdent {
+    @include wt-icon(outdent);
 }
 .wt-icon-align-center {
     @include wt-icon(align-center);
@@ -800,6 +884,18 @@
 }
 .wt-icon-hashtag {
     @include wt-icon(hashtag);
+}
+.wt-icon-header-1 {
+    @include wt-icon(header-1);
+}
+.wt-icon-header-2 {
+    @include wt-icon(header-2);
+}
+.wt-icon-header-3 {
+    @include wt-icon(header-3);
+}
+.wt-icon-header-4 {
+    @include wt-icon(header-4);
 }
 .wt-icon-header-5 {
     @include wt-icon(header-5);
@@ -918,68 +1014,11 @@
 .wt-icon-vertical-line {
     @include wt-icon(vertical-line);
 }
-.wt-icon-angle-double-down {
-    @include wt-icon(angle-double-down);
-}
-.wt-icon-angle-double-up {
-    @include wt-icon(angle-double-up);
-}
-.wt-icon-angle-down {
-    @include wt-icon(angle-down);
-}
-.wt-icon-angle-left {
-    @include wt-icon(angle-left);
-}
-.wt-icon-angle-right {
-    @include wt-icon(angle-right);
-}
-.wt-icon-angle-up {
-    @include wt-icon(angle-up);
-}
-.wt-icon-arrow-down-blod {
-    @include wt-icon(arrow-down-blod);
-}
-.wt-icon-arrow-down {
-    @include wt-icon(arrow-down);
-}
-.wt-icon-arrow-right-circle-fill {
-    @include wt-icon(arrow-right-circle-fill);
-}
-.wt-icon-arrow-right-up-blod {
-    @include wt-icon(arrow-right-up-blod);
-}
-.wt-icon-arrow-right-up-circle {
-    @include wt-icon(arrow-right-up-circle);
-}
-.wt-icon-arrow-right-up-square-blod {
-    @include wt-icon(arrow-right-up-square-blod);
-}
-.wt-icon-arrow-up-blod {
-    @include wt-icon(arrow-up-blod);
-}
-.wt-icon-arrow-up {
-    @include wt-icon(arrow-up);
-}
-.wt-icon-caret-down {
-    @include wt-icon(caret-down);
-}
-.wt-icon-caret-right-down {
-    @include wt-icon(caret-right-down);
-}
-.wt-icon-caret-right {
-    @include wt-icon(caret-right);
-}
-.wt-icon-indent {
-    @include wt-icon(indent);
-}
-.wt-icon-outdent {
-    @include wt-icon(outdent);
-}
 .wt-icon-alarm-clock {
     @include wt-icon(alarm-clock);
 }
-.wt-icon-bulb-blod {
-    @include wt-icon(bulb-blod);
+.wt-icon-bulb-bold {
+    @include wt-icon(bulb-bold);
 }
 .wt-icon-calendar-check {
     @include wt-icon(calendar-check);
@@ -999,8 +1038,8 @@
 .wt-icon-clock-circle {
     @include wt-icon(clock-circle);
 }
-.wt-icon-clock-point-blod {
-    @include wt-icon(clock-point-blod);
+.wt-icon-clock-point-bold {
+    @include wt-icon(clock-point-bold);
 }
 .wt-icon-comment {
     @include wt-icon(comment);
@@ -1017,14 +1056,14 @@
 .wt-icon-health-check {
     @include wt-icon(health-check);
 }
-.wt-icon-importance-blod {
-    @include wt-icon(importance-blod);
+.wt-icon-importance-bold {
+    @include wt-icon(importance-bold);
 }
 .wt-icon-importance {
     @include wt-icon(importance);
 }
-.wt-icon-list-sample-blod {
-    @include wt-icon(list-sample-blod);
+.wt-icon-list-sample-bold {
+    @include wt-icon(list-sample-bold);
 }
 .wt-icon-list {
     @include wt-icon(list);
@@ -1032,8 +1071,8 @@
 .wt-icon-mention {
     @include wt-icon(mention);
 }
-.wt-icon-more-blod {
-    @include wt-icon(more-blod);
+.wt-icon-more-bold {
+    @include wt-icon(more-bold);
 }
 .wt-icon-more-circle-fill {
     @include wt-icon(more-circle-fill);
@@ -1092,8 +1131,8 @@
 .wt-icon-user-readonly-fill {
     @include wt-icon(user-readonly-fill);
 }
-.wt-icon-version-blod {
-    @include wt-icon(version-blod);
+.wt-icon-version-bold {
+    @include wt-icon(version-bold);
 }
 .wt-icon-version-circle {
     @include wt-icon(version-circle);
@@ -1109,6 +1148,15 @@
 }
 .wt-icon-view-tile {
     @include wt-icon(view-tile);
+}
+.wt-icon-application-add {
+    @include wt-icon(application-add);
+}
+.wt-icon-application-fill {
+    @include wt-icon(application-fill);
+}
+.wt-icon-application {
+    @include wt-icon(application);
 }
 .wt-icon-branch {
     @include wt-icon(branch);
@@ -1137,8 +1185,8 @@
 .wt-icon-kanban-fill {
     @include wt-icon(kanban-fill);
 }
-.wt-icon-pipeline-add-blod {
-    @include wt-icon(pipeline-add-blod);
+.wt-icon-pipeline-add-bold {
+    @include wt-icon(pipeline-add-bold);
 }
 .wt-icon-pipeline {
     @include wt-icon(pipeline);
@@ -1158,14 +1206,14 @@
 .wt-icon-test-case-fill {
     @include wt-icon(test-case-fill);
 }
-.wt-icon-test-case-type-blod {
-    @include wt-icon(test-case-type-blod);
+.wt-icon-test-case-type-bold {
+    @include wt-icon(test-case-type-bold);
 }
 .wt-icon-test-case {
     @include wt-icon(test-case);
 }
-.wt-icon-test-lib-add-blod {
-    @include wt-icon(test-lib-add-blod);
+.wt-icon-test-lib-add-bold {
+    @include wt-icon(test-lib-add-bold);
 }
 .wt-icon-test-lib {
     @include wt-icon(test-lib);
@@ -1179,8 +1227,8 @@
 .wt-icon-user-story {
     @include wt-icon(user-story);
 }
-.wt-icon-check-blod {
-    @include wt-icon(check-blod);
+.wt-icon-check-bold {
+    @include wt-icon(check-bold);
 }
 .wt-icon-check-circle {
     @include wt-icon(check-circle);
@@ -1191,8 +1239,8 @@
 .wt-icon-check {
     @include wt-icon(check);
 }
-.wt-icon-close-blod {
-    @include wt-icon(close-blod);
+.wt-icon-close-bold {
+    @include wt-icon(close-bold);
 }
 .wt-icon-close-circle-fill {
     @include wt-icon(close-circle-fill);
@@ -1200,17 +1248,17 @@
 .wt-icon-close {
     @include wt-icon(close);
 }
-.wt-icon-exclamation-blod {
-    @include wt-icon(exclamation-blod);
+.wt-icon-exclamation-bold {
+    @include wt-icon(exclamation-bold);
 }
-.wt-icon-exclamation-double-blod {
-    @include wt-icon(exclamation-double-blod);
+.wt-icon-exclamation-double-bold {
+    @include wt-icon(exclamation-double-bold);
 }
-.wt-icon-exclamation-three-blod {
-    @include wt-icon(exclamation-three-blod);
+.wt-icon-exclamation-three-bold {
+    @include wt-icon(exclamation-three-bold);
 }
-.wt-icon-minus-blod {
-    @include wt-icon(minus-blod);
+.wt-icon-minus-bold {
+    @include wt-icon(minus-bold);
 }
 .wt-icon-minus-circle-fill {
     @include wt-icon(minus-circle-fill);
@@ -1221,8 +1269,8 @@
 .wt-icon-minus-square {
     @include wt-icon(minus-square);
 }
-.wt-icon-plus-blod {
-    @include wt-icon(plus-blod);
+.wt-icon-plus-bold {
+    @include wt-icon(plus-bold);
 }
 .wt-icon-plus-square {
     @include wt-icon(plus-square);
