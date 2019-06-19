@@ -17,7 +17,14 @@
     vertical-align: middle;
     user-select: none;
     border: $btn-border-width solid transparent;
-    @include button-size($btn-padding-y, $btn-padding-x, $font-size-base, $btn-line-height, $btn-border-radius, $btn-base-min-width);
+    @include button-size(
+        $btn-padding-y,
+        $btn-padding-x,
+        $font-size-base,
+        $btn-line-height,
+        $btn-border-radius,
+        $btn-base-min-width
+    );
     @include transition($btn-transition); // Share hover and focus styles
     @include hover-focus {
         text-decoration: none;
@@ -69,16 +76,14 @@ fieldset:disabled a.btn {
 //
 // Alternate buttons
 //
-@each $color,
-$value in $theme-colors {
+@each $color, $value in $theme-colors {
     .btn-#{$color} {
         @include button-variant($white, $white, $value, $value, $value, $value, $value, $value);
         @include button-hover-box-shadow($value);
     }
 }
 
-@each $color,
-$value in $theme-colors {
+@each $color, $value in $theme-colors {
     .btn-outline-#{$color} {
         @include button-outline-variant($value, $value, $white, $value, null, $value, null);
     }
@@ -97,19 +102,47 @@ $value in $theme-colors {
 // Button Sizes
 //
 .btn-lg {
-    @include button-size($btn-padding-y-lg, $btn-padding-x-lg, $font-size-lg, $btn-line-height-lg, $btn-border-radius-lg, $btn-lg-min-width);
+    @include button-size(
+        $btn-padding-y-lg,
+        $btn-padding-x-lg,
+        $font-size-lg,
+        $btn-line-height-lg,
+        $btn-border-radius-lg,
+        $btn-lg-min-width
+    );
 }
 
 .btn-md {
-    @include button-size($btn-padding-y-md, $btn-padding-x-md, $font-size-base, $btn-line-height, $btn-border-radius, $btn-md-min-width);
+    @include button-size(
+        $btn-padding-y-md,
+        $btn-padding-x-md,
+        $font-size-base,
+        $btn-line-height,
+        $btn-border-radius,
+        $btn-md-min-width
+    );
 }
 
 .btn-sm {
-    @include button-size($btn-padding-y-sm, $btn-padding-x-sm, $font-size-base, $btn-line-height-sm, $btn-border-radius-sm, $btn-sm-min-width);
+    @include button-size(
+        $btn-padding-y-sm,
+        $btn-padding-x-sm,
+        $font-size-base,
+        $btn-line-height-sm,
+        $btn-border-radius-sm,
+        $btn-sm-min-width
+    );
 }
 
 .btn-xs {
-    @include button-size($btn-padding-y-xs, $btn-padding-x-xs, $font-size-sm, $btn-line-height-sm, $btn-border-radius-xs, $btn-xs-min-width);
+    @include button-size(
+        $btn-padding-y-xs,
+        $btn-padding-x-xs,
+        $font-size-sm,
+        $btn-line-height-sm,
+        $btn-border-radius-xs,
+        $btn-xs-min-width
+    );
 }
 
 //
@@ -188,15 +221,15 @@ $value in $theme-colors {
 .btn-block {
     display: block;
     width: 100%; // Vertically space out multiple block buttons
-    +.btn-block {
+    + .btn-block {
         margin-top: $btn-block-spacing-y;
     }
 }
 
 // Specificity overrides
-input[type="submit"],
-input[type="reset"],
-input[type="button"] {
+input[type='submit'],
+input[type='reset'],
+input[type='button'] {
     &.btn-block {
         width: 100%;
     }
@@ -204,13 +237,16 @@ input[type="button"] {
 
 // 确认取消按钮成对出现
 .btn-pair {
-    .btn+.btn {
-        margin-left: 10px;
+    .btn + .btn {
+        margin-left: 20px;
+        &.btn-link {
+            margin-left: 10px;
+        }
     }
 }
 
 .btn-pair-sm {
-    .btn+.btn {
+    .btn + .btn {
         margin-left: 4px;
     }
 }
