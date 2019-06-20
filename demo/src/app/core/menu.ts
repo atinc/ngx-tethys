@@ -196,12 +196,12 @@ export const allMenus = [
                     { name: 'Overlay', zhName: '浮层', routePath: 'overlay' },
                     { name: 'Notify', zhName: '通知', routePath: 'notify' },
                     { name: 'PopBox', zhName: '弹出框', routePath: 'pob-box' },
-                    { name: 'Slide', zhName: '滑动弹出框', routePath: '<a routerLink=' },
-                    { name: 'Uploader', zhName: '上传', routePath: '<a routerLink=' },
-                    { name: 'Editor', zhName: '编辑器', routePath: '<a href=' },
-                    { name: 'Markdown', zhName: 'Markdown解析', routePath: '<a routerLink=' },
-                    { name: 'Key Select', zhName: '按键上下选择', routePath: '<a routerLink=' },
-                    { name: 'Strength', zhName: '强度', routePath: '<a routerLink=' }
+                    { name: 'Slide', zhName: '滑动弹出框', routePath: 'slide' },
+                    { name: 'Uploader', zhName: '上传', routePath: 'uploader' },
+                    // { name: 'Editor', zhName: '编辑器', routePath: 'markdown' },
+                    { name: 'Markdown', zhName: 'Markdown解析', routePath: 'markdown' },
+                    { name: 'Key Select', zhName: '按键上下选择', routePath: 'key-select' },
+                    { name: 'Strength', zhName: '强度', routePath: 'strength' }
                 ]
             }
         ]
