@@ -26,7 +26,7 @@
 <section class="mt-2">
   <div class="body icons-items-wrap">
     <div *ngFor="let category of glyphs">
-      <ng-container *ngIf="category.icons.length > 0">
+      <ng-container *ngIf="category?.icons?.length > 0">
         <span class="category-name text-desc">{{ category.text }} - {{ category.name }} </span>
         <div class="icon-items">
           <div class="icon-item" *ngFor="let icon of category.icons">
