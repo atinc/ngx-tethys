@@ -29,6 +29,7 @@
       [thyPageSize]="pagination.pageSize"
       [thyTotal]="pagination.total"
       [thyHideOnSinglePage]="true"
+      (thyPageIndexChange)="onPageChange($event)"
     ></thy-pagination>
   </div>
 </section>

@@ -38,7 +38,7 @@
     .thy-layout-content-section {
         display: block;
         // overflow: hidden;
-        border-radius: 3px;
+        border-radius: $layout-content-section-border-radius;
         background: $layout-content-section-background;
         margin-bottom: $layout-content-section-margin-bottom;
     }
@@ -71,12 +71,14 @@
         line-height: $layout-header-height;
         display: flex;
         flex-direction: row;
+
         .title {
             padding: 0px 0px 0px 10px;
             color: $body-color;
             font-size: $font-size-md;
             flex-grow: 1;
         }
+
         .action {
             padding: 0px 10px;
         }
@@ -86,6 +88,7 @@
         flex: auto;
         height: 100%;
         overflow: auto;
+
         .search-container {
             padding: 0 20px 10px 20px;
         }
