@@ -1,3 +1,4 @@
+import { ChangelogComponent } from './design/changelog/changelog.component';
 import { DemoButtonSectionComponent } from './components/+button/button-section.component';
 import { DemoPopBoxSectionComponent } from './components/+pop-box/pop-box-section.component';
 import { DemoRebootSectionComponent } from './components/+reboot/reboot-section.component';
@@ -62,12 +63,20 @@ const appRoutes = [
         component: DesignIntroductionComponent
     },
     {
-        path: 'global/dropdrag',
+        path: 'changelog',
+        component: ChangelogComponent
+    },
+    {
+        path: 'global/drop-drag',
         component: DropDragComponent
     },
     {
         path: 'global/reboot',
         component: DemoRebootSectionComponent
+    },
+    {
+        path: 'global/key-select',
+        component: DemoKeySelectSectionComponent
     },
     {
         path: 'components/button',
@@ -232,10 +241,6 @@ const appRoutes = [
     {
         path: 'components/uploader',
         component: DemoUploaderSectionComponent
-    },
-    {
-        path: 'components/key-select',
-        component: DemoKeySelectSectionComponent
     },
     {
         path: 'components/list',
