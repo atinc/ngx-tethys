@@ -5,7 +5,8 @@ $font-sizes: (
     md: $font-size-md,
     xs: $font-size-xs,
     lg: $font-size-lg,
-    xlg: $font-size-xlg
+    xlg: $font-size-xlg,
+    max-lg: $font-size-max-lg
 );
 @each $name, $size in $font-sizes {
     .font-size-#{$name} {

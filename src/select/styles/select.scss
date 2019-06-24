@@ -201,6 +201,14 @@ select.form-control-md {
     }
 }
 
+.thy-select-custom-multiple {
+    .thy-select-custom-options {
+        .thy-option-item {
+            @include thy-multiple-option();
+        }
+    }
+}
+
 .thy-select-remove {
     visibility: hidden;
     position: absolute;
