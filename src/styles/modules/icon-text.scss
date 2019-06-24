@@ -4,30 +4,28 @@
     position: relative;
     font-size: $font-size-base;
     padding-left: 26px;
-  
+
     i {
-      position: absolute;
-      top: -5px;
-      left: 0;
-      font-size: 20px;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        font-size: 20px;
+        transform: translateY(-50%);
     }
-  
+
     &-lg {
-      padding-left: 28px;
-  
-      i {
-        font-size: 24px;
-        top: -8px;
-      }
+        padding-left: 28px;
+
+        i {
+            font-size: 24px;
+        }
     }
-  
+
     &-sm {
-      padding-left: 25px;
-  
-      i {
-        font-size: 18px;
-        top: -4px;
-      }
+        padding-left: 25px;
+
+        i {
+            font-size: 18px;
+        }
     }
 }
-  
