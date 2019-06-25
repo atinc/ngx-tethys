@@ -20,7 +20,8 @@ import { SelectionModel } from '@angular/cdk/collections';
 import {
     ThyListOptionComponent,
     THY_OPTION_PARENT_COMPONENT,
-    IThyOptionParentComponent
+    IThyOptionParentComponent,
+    thyListLayout
 } from '../../core/option';
 import { keycodes, helpers, dom } from '../../util';
 import { inputValueToBoolean } from '../../util/helpers';
@@ -45,8 +46,8 @@ import { ScrollToService } from '../../core';
     ],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ThySelectionListComponent implements OnInit, OnDestroy, AfterContentInit, IThyOptionParentComponent, ControlValueAccessor {
-
+export class ThySelectionListComponent
+    implements OnInit, OnDestroy, AfterContentInit, IThyOptionParentComponent, ControlValueAccessor {
     private _keyManager: ActiveDescendantKeyManager<ThyListOptionComponent>;
 
     private _selectionChangesUnsubscribe$ = Subscription.EMPTY;
@@ -60,11 +61,15 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
 
     disabled: boolean;
 
+    layout: thyListLayout;
+
     @HostBinding(`class.thy-list`) _isList = true;
 
     @HostBinding(`class.thy-selection-list`) _isSelectionList = true;
 
     @HostBinding(`class.thy-multiple-selection-list`) multiple = true;
+
+    @HostBinding(`class.thy-grid-list`) isLayoutGrid = false;
 
     /** The option components contained within this selection-list. */
     @ContentChildren(ThyListOptionComponent) options: QueryList<ThyListOptionComponent>;
@@ -86,15 +91,21 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
 
     @Input() thyUniqueKey: string;
 
-    @Input() thyCompareWith: ((o1: any, o2: any) => boolean);
+    @Input() thyCompareWith: (o1: any, o2: any) => boolean;
+
+    @Input() set thyLayout(value: thyListLayout) {
+        this.layout = value;
+        this.isLayoutGrid = value === 'grid';
+    }
 
     /** Emits a change event whenever the selected state of an option changes. */
-    @Output() readonly thySelectionChange: EventEmitter<ThySelectionListChange> =
-        new EventEmitter<ThySelectionListChange>();
+    @Output() readonly thySelectionChange: EventEmitter<ThySelectionListChange> = new EventEmitter<
+        ThySelectionListChange
+    >();
 
-    private _onTouched: () => void = () => { };
+    private _onTouched: () => void = () => {};
 
-    private _onChange: (value: any) => void = (_: any) => { };
+    private _onChange: (value: any) => void = (_: any) => {};
 
     private _emitChangeEvent(option: ThyListOptionComponent, event: Event) {
         this.thySelectionChange.emit({
@@ -110,14 +121,14 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
         if (this.options) {
             let selectedValues = this.selectionModel.selected;
             if (this.thyUniqueKey) {
-                selectedValues = selectedValues.map((selectedValue) => {
-                    const selectedOption = this.options.find((option) => {
+                selectedValues = selectedValues.map(selectedValue => {
+                    const selectedOption = this.options.find(option => {
                         return option.thyValue[this.thyUniqueKey] === selectedValue;
                     });
                     if (selectedOption) {
                         return selectedOption.thyValue;
                     } else {
-                        return this._modelValues.find((value) => {
+                        return this._modelValues.find(value => {
                             return value[this.thyUniqueKey] === selectedValue;
                         });
                     }
@@ -219,17 +230,16 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
         }
     }
 
-    constructor(
-        private renderer: Renderer2,
-        private elementRef: ElementRef,
-        private ngZone: NgZone
-    ) {
-    }
+    constructor(private renderer: Renderer2, private elementRef: ElementRef, private ngZone: NgZone) {}
 
     ngOnInit() {
         const bindKeyEventElement = this._getElementBySelector(this.thyBindKeyEventContainer);
         this.ngZone.runOutsideAngular(() => {
-            this._bindKeyEventUnsubscribe = this.renderer.listen(bindKeyEventElement, 'keydown', this.onKeydown.bind(this));
+            this._bindKeyEventUnsubscribe = this.renderer.listen(
+                bindKeyEventElement,
+                'keydown',
+                this.onKeydown.bind(this)
+            );
         });
         this._instanceSelectionModel();
     }
@@ -243,7 +253,7 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
                 throw new Error(`single selection ngModel not be array.`);
             }
         }
-        const values = helpers.isArray(value) ? value : (value ? [value] : []);
+        const values = helpers.isArray(value) ? value : value ? [value] : [];
         this._modelValues = values;
         if (this.options) {
             this._setSelectionByValues(values);
@@ -284,8 +294,11 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
             default:
                 manager.onKeydown(event);
         }
-        if ((keyCode === keycodes.UP_ARROW || keyCode === keycodes.DOWN_ARROW) && event.shiftKey &&
-            manager.activeItemIndex !== previousFocusIndex) {
+        if (
+            (keyCode === keycodes.UP_ARROW || keyCode === keycodes.DOWN_ARROW) &&
+            event.shiftKey &&
+            manager.activeItemIndex !== previousFocusIndex
+        ) {
             this._toggleFocusedOption(event);
         }
     }

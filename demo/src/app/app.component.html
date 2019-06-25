@@ -12,7 +12,9 @@
       </div>
     </a>
     <ng-template #themeSelectPop>
-      <!-- <button [thyButton]="'primary'" thySize="sm" *ngFor="let theme of themesConstant" (click)="changeTheme(theme)">{{theme.name}}</button> -->
+      <button [thyButton]="'primary'" thySize="sm" *ngFor="let theme of themesConstant" (click)="changeTheme(theme)">
+        {{ theme.name }}
+      </button>
       <div class="theme-select-show-wrap">
         <a
           href="javascript:;"

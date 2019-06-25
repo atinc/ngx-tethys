@@ -8,3 +8,9 @@
         @include thy-multiple-option-theme();
     }
 }
+
+.thy-grid-list {
+    .thy-grid-option {
+        @include thy-grid-option-theme();
+    }
+}
