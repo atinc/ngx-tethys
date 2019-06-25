@@ -40,6 +40,7 @@ const INLINE_ICON_SET =
   </svg>
 `;
 
+const ICON_SVG_BASE_URL = `http://pic4us.com:8888/icons`;
 @Component({
     selector: 'demo-icon-section',
     templateUrl: './icon-section.component.html',
@@ -50,6 +51,18 @@ export class DemoIconSectionComponent implements OnInit {
         {
             property: 'thyIconName',
             description: `图标名称`,
+            type: 'String',
+            default: ''
+        },
+        {
+            property: 'thyIconType',
+            description: `图标类型，目前支持三种： Outlined, Filled, Two Tone, Two Tone 暂时还不完善，先不要使用`,
+            type: 'outline | fill | twotone',
+            default: 'outline'
+        },
+        {
+            property: 'thyTwotoneColor',
+            description: `twotone 类型的颜色值`,
             type: 'String',
             default: ''
         }
@@ -64,17 +77,30 @@ export class DemoIconSectionComponent implements OnInit {
     glyphs: any;
 
     constructor(iconRegistry: ThyIconRegistry, sanitizer: DomSanitizer, private http: HttpClient) {
+        const iconSvgUrl = `${ICON_SVG_BASE_URL}/assets/icons/defs/svg/sprite.defs.svg`;
+
         iconRegistry
             .addSvgIconSet(
-                sanitizer.bypassSecurityTrustResourceUrl('/assets/icons/defs/svg/sprite.defs.svg')
+                sanitizer.bypassSecurityTrustResourceUrl(iconSvgUrl)
                 // sanitizer.bypassSecurityTrustResourceUrl('/assets/icons/symbol/svg/sprite.symbol.svg')
             )
             .addSvgIcon('thumb-up', sanitizer.bypassSecurityTrustResourceUrl('/assets/icons/thumbup-icon.svg'))
-            .addSvgIconLiteral('bike', sanitizer.bypassSecurityTrustHtml(BIKE_ICON));
+            .addSvgIconLiteral('bike', sanitizer.bypassSecurityTrustHtml(BIKE_ICON))
+            .addSvgIconInNamespace(
+                'core',
+                'thumb-up',
+                sanitizer.bypassSecurityTrustResourceUrl('/assets/icons/thumbup-icon.svg')
+            )
+            .addSvgIconLiteralInNamespace('core', 'bike', sanitizer.bypassSecurityTrustHtml(BIKE_ICON))
+            .addSvgIconSetInNamespace(
+                'core',
+                sanitizer.bypassSecurityTrustResourceUrl('/assets/icons/core-icon-set.svg')
+            )
+            .addSvgIconSetLiteralInNamespace('core-inline', sanitizer.bypassSecurityTrustHtml(INLINE_ICON_SET));
     }
 
     ngOnInit(): void {
-        this.http.get(`/assets/icons/glyphs.json`).subscribe(response => {
+        this.http.get(`${ICON_SVG_BASE_URL}/assets/icons/glyphs.json`).subscribe(response => {
             this.glyphs = response;
         });
     }
