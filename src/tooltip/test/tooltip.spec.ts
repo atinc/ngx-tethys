@@ -12,6 +12,7 @@ import { containsElement } from '@angular/animations/browser/src/render/shared';
 
 const initialTooltipMessage = 'hello, this is tooltip message';
 const TOOLTIP_CLASS = `thy-tooltip`;
+const tooltipTemplateData = { text: 'hello world' };
 
 @Component({
     selector: 'thy-demo-tooltip-basic',
@@ -41,9 +42,40 @@ class ThyDemoTooltipBasicComponent {
     placement = 'top';
 }
 
+@Component({
+    selector: 'thy-demo-tooltip-template',
+    template: `
+        <button
+            [thyTooltip]="world"
+            [thyTooltipDisabled]="disabled"
+            [thyTooltipTemplateData]="message"
+            [thyTooltipPlacement]="placement"
+            [thyTooltipShowDelay]="showDelay"
+            [thyTooltipHideDelay]="hideDelay"
+            thyButton="primary"
+        >
+            Tooltip with Template
+        </button>
+        <ng-template #world let-data>{{ data.text }}</ng-template>
+    `
+})
+class ThyDemoTooltipTemplateComponent {
+    @ViewChild(ThyTooltipDirective) tooltip: ThyTooltipDirective;
+
+    message = tooltipTemplateData;
+
+    disabled = false;
+
+    showDelay = undefined;
+
+    hideDelay = undefined;
+
+    placement = 'top';
+}
+
 @NgModule({
     imports: [ThyTooltipModule],
-    declarations: [ThyDemoTooltipBasicComponent],
+    declarations: [ThyDemoTooltipBasicComponent, ThyDemoTooltipTemplateComponent],
     exports: []
 })
 export class TooltipTestModule {}
@@ -300,27 +332,157 @@ describe(`ThyTooltip`, () => {
             // fixture.detectChanges();
             // expect(overlayContainerElement.textContent).toContain(newMessage);
         }));
+    });
 
-        it('should allow extra classes to be set on the tooltip', fakeAsync(() => {
-            // assertTooltipInstance(tooltipDirective, false);
-            // tooltipDirective.show();
-            // tick(0); // Tick for the show delay (default is 0)
-            // fixture.detectChanges();
-            // // Make sure classes aren't prematurely added
-            // let tooltipElement = overlayContainerElement.querySelector('.mat-tooltip') as HTMLElement;
-            // expect(tooltipElement.classList).not.toContain('custom-one',
-            //   'Expected to not have the class before enabling matTooltipClass');
-            // expect(tooltipElement.classList).not.toContain('custom-two',
-            //   'Expected to not have the class before enabling matTooltipClass');
-            // // Enable the classes via ngClass syntax
-            // fixture.componentInstance.showTooltipClass = true;
-            // fixture.detectChanges();
-            // // Make sure classes are correctly added
-            // tooltipElement = overlayContainerElement.querySelector('.mat-tooltip') as HTMLElement;
-            // expect(tooltipElement.classList).toContain('custom-one',
-            //   'Expected to have the class after enabling matTooltipClass');
-            // expect(tooltipElement.classList).toContain('custom-two',
-            //   'Expected to have the class after enabling matTooltipClass');
+    describe(`template usage`, () => {
+        let fixture: ComponentFixture<ThyDemoTooltipTemplateComponent>;
+        let basicTestComponent: ThyDemoTooltipTemplateComponent;
+        // let tooltipDebugElement: DebugElement;
+        let tooltipDirective: ThyTooltipDirective;
+        let buttonDebugElement: DebugElement;
+        let buttonElement: HTMLElement;
+
+        function getTooltipVisible() {
+            return tooltipDirective['isTooltipVisible']();
+        }
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(ThyDemoTooltipTemplateComponent);
+            fixture.detectChanges();
+            basicTestComponent = fixture.debugElement.componentInstance;
+
+            buttonDebugElement = fixture.debugElement.query(By.css('button'));
+            buttonElement = buttonDebugElement.nativeElement;
+
+            tooltipDirective = buttonDebugElement.injector.get<ThyTooltipDirective>(ThyTooltipDirective);
+        });
+
+        it('should show and hide the tooltip', fakeAsync(() => {
+            assertTooltipInstance(tooltipDirective, false);
+            // fake mouseenter event
+            dispatchMouseEvent(buttonElement, 'mouseenter');
+
+            expect(getTooltipVisible()).toBe(false);
+            // Tick for the show delay (default is 200)
+            tick(200);
+            expect(getTooltipVisible()).toBe(true);
+            expect(overlayContainerElement.textContent).toEqual('');
+
+            fixture.detectChanges();
+
+            // wait till animation has finished
+            tick(100);
+
+            // Make sure tooltip is shown to the user and animation has finished
+            const tooltipElement = overlayContainerElement.querySelector(`.${TOOLTIP_CLASS}`) as HTMLElement;
+            expect(tooltipElement instanceof HTMLElement).toBe(true);
+            expect(tooltipElement.style.transform).toBe('scale(1)');
+
+            expect(overlayContainerElement.textContent).toContain(tooltipTemplateData.text);
+
+            const tooltipHideDelay = 100; // default hide delay is 100
+            // fake mouseleave event
+            dispatchMouseEvent(buttonElement, 'mouseleave');
+            expect(getTooltipVisible()).toBe(true);
+
+            tick(tooltipHideDelay);
+            fixture.detectChanges();
+            expect(getTooltipVisible()).toBe(false);
+            assertTooltipInstance(tooltipDirective, true);
+
+            // On animation complete, should expect that the tooltip has been detached.
+            flushMicrotasks();
+            assertTooltipInstance(tooltipDirective, false);
+        }));
+
+        it('should show without show delay', fakeAsync(() => {
+            assertTooltipInstance(tooltipDirective, false);
+
+            basicTestComponent.showDelay = 0;
+            fixture.detectChanges();
+
+            expect(getTooltipVisible()).toBe(false);
+            // fake mouseenter event
+            dispatchMouseEvent(buttonElement, 'mouseenter');
+            tick(0);
+            expect(getTooltipVisible()).toBe(true);
+            fixture.detectChanges();
+            expect(overlayContainerElement.textContent).toContain(tooltipTemplateData.text);
+        }));
+
+        // for test more fast, show tooltip directly call tooltip directive's show
+        // method without delay replace mock mouseenter event as belows
+        // because the above cases have been test mouseenter and delay
+
+        it('should be able to override the show and hide delays', fakeAsync(() => {
+            basicTestComponent.showDelay = 477;
+            basicTestComponent.hideDelay = 688;
+
+            fixture.detectChanges();
+            tooltipDirective.show();
+            tick();
+
+            expect(getTooltipVisible()).toBe(false);
+            tick(477);
+            expect(getTooltipVisible()).toBe(true);
+
+            tooltipDirective.hide();
+            fixture.detectChanges();
+            tick();
+
+            expect(getTooltipVisible()).toBe(true);
+            tick(688);
+            expect(getTooltipVisible()).toBe(false);
+        }));
+
+        it('should be able to override the default placement', fakeAsync(() => {
+            basicTestComponent.placement = 'left';
+            fixture.detectChanges();
+
+            expect(tooltipDirective.placement).toBe('left');
+            tooltipDirective.show(0);
+            tick(0);
+            fixture.detectChanges();
+            tick(200);
+
+            expect(overlayContainerElement.textContent).toContain(tooltipTemplateData.text);
+            const tooltipElement = overlayContainerElement.querySelector(`.${TOOLTIP_CLASS}`) as HTMLElement;
+            expect(tooltipElement.classList.contains('thy-tooltip-left')).toBe(true);
+        }));
+
+        it('should not show if disabled', fakeAsync(() => {
+            // Test that disabling the tooltip will not set the tooltip visible
+            basicTestComponent.disabled = true;
+            fixture.detectChanges();
+            tooltipDirective.show(0);
+            tick(0);
+            expect(getTooltipVisible()).toBe(false);
+
+            // Test to make sure setting disabled to false will show the tooltip
+            // Sanity check to make sure everything was correct before (detectChanges, tick)
+            basicTestComponent.disabled = false;
+            fixture.detectChanges();
+            tooltipDirective.show(0);
+            tick(0);
+            expect(getTooltipVisible()).toBe(true);
+        }));
+
+        it('should hide if disabled while tooltip is visible', fakeAsync(() => {
+            // Display the tooltip with a timeout before hiding.
+            tooltipDirective.show(0);
+            fixture.detectChanges();
+            tick(0);
+            expect(getTooltipVisible()).toBe(true);
+
+            // Set tooltip to be disabled and verify that the tooltip hides.
+            basicTestComponent.disabled = true;
+            fixture.detectChanges();
+            tick(0);
+            expect(getTooltipVisible()).toBe(false);
+        }));
+
+        it('should not show if hide is called before delay finishes', async(() => {
+            assertTooltipInstance(tooltipDirective, false);
         }));
     });
 });

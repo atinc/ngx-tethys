@@ -5,4 +5,5 @@ export interface ThyStackedValue {
     type?: string;
     color?: string;
     label?: string;
+    tooltip?: string;
 }

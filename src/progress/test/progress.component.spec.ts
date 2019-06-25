@@ -1,14 +1,20 @@
 import { NgModule, Component, DebugElement } from '@angular/core';
 import { ThyProgressModule } from '../progress.module';
-import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, inject, tick, flushMicrotasks, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { FocusMonitor } from '@angular/cdk/a11y';
+import { OverlayContainer } from '@angular/cdk/overlay';
 import { ThyProgressComponent } from '../progress.component';
 import { ThyProgressBarComponent } from '../bar/progress-bar.component';
 import { ThyProgressTypes, ThyStackedValue } from '../interfaces';
 import { hexToRgb } from '../../util/helpers';
+import { ThyTooltipModule, ThyTooltipDirective } from '../../tooltip';
+import { dispatchMouseEvent } from '../../core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 const PROGRESS_CLASS_NAME = 'progress';
 const PROGRESS_BAR_CLASS_NAME = 'progress-bar';
+const TOOLTIP_CLASS = `thy-tooltip`;
 
 @Component({
     selector: 'thy-demo-progress-basic',
@@ -38,6 +44,32 @@ class ThyDemoProgressStackedComponent {
         },
         {
             type: 'danger',
+            value: 60,
+            tooltip: 'hello world'
+        },
+        {
+            type: 'warning',
+            value: 100
+        }
+    ];
+    size: string;
+}
+
+@Component({
+    selector: 'thy-demo-progress-tooltip',
+    template: `
+        <thy-progress [thyValue]="value" [thyProgressTipsTemplate]="customProgressTooTip"></thy-progress>
+        <ng-template #customProgressTooTip let-item>type: {{ item.type }}-value: {{ item.value }}</ng-template>
+    `
+})
+class ThyDemoProgressTooltipTemplateComponent {
+    value: ThyStackedValue[] = [
+        {
+            type: 'success',
+            value: 40
+        },
+        {
+            type: 'danger',
             value: 60
         },
         {
@@ -48,9 +80,17 @@ class ThyDemoProgressStackedComponent {
     size: string;
 }
 
+function assertTooltipInstance(tooltip: ThyTooltipDirective, shouldExist: boolean): void {
+    expect(!!tooltip['tooltipInstance']).toBe(shouldExist);
+}
+
 @NgModule({
     imports: [ThyProgressModule],
-    declarations: [ThyDemoProgressBasicComponent, ThyDemoProgressStackedComponent],
+    declarations: [
+        ThyDemoProgressBasicComponent,
+        ThyDemoProgressStackedComponent,
+        ThyDemoProgressTooltipTemplateComponent
+    ],
     exports: [ThyDemoProgressBasicComponent]
 })
 export class ProgressTestModule {}
@@ -147,16 +187,31 @@ describe(`ThyProgressComponent`, () => {
         let progressBarComponents: DebugElement[];
         let progressElement: HTMLElement;
         let progressBarElements: HTMLElement[];
+        let progressBarElement: HTMLElement;
+        let progressTooltipBarElement: HTMLElement;
+        let overlayContainer: OverlayContainer;
+        let overlayContainerElement: HTMLElement;
+        let tooltipDirective: ThyTooltipDirective;
+
+        function getTooltipVisible() {
+            return tooltipDirective['isTooltipVisible']();
+        }
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
-                imports: [ThyProgressModule, ProgressTestModule],
+                imports: [ThyProgressModule, ProgressTestModule, NoopAnimationsModule],
                 providers: [
                     // { provide: Location, useClass: SpyLocation }
                 ]
             });
 
             TestBed.compileComponents();
+
+            inject([OverlayContainer, FocusMonitor], (oc: OverlayContainer, fm: FocusMonitor) => {
+                overlayContainer = oc;
+                overlayContainerElement = oc.getContainerElement();
+                // focusMonitor = fm;
+            })();
         }));
 
         beforeEach(() => {
@@ -185,6 +240,54 @@ describe(`ThyProgressComponent`, () => {
             expect(progressBarElements[1].style.width).toEqual('30%');
             expect(progressBarElements[2].style.width).toEqual('50%');
         });
+
+        it('should be have a tooltip in second progress bar', fakeAsync(() => {
+            fixture.detectChanges();
+            progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressBarComponent));
+            progressBarElements = progressBarComponents.map(item => item.nativeElement);
+            expect(progressBarElements.length).toBe(3);
+
+            progressBarElement = progressBarComponents[0].nativeElement;
+            progressTooltipBarElement = progressBarComponents[1].nativeElement;
+
+            const progressTooltipBarComponent = progressBarComponents[1];
+            const progressBarComponent = progressBarComponents[0];
+            tooltipDirective = progressBarComponent.injector.get<ThyTooltipDirective>(ThyTooltipDirective);
+
+            // fake mouseenter event
+            dispatchMouseEvent(progressBarElement, 'mouseenter');
+            tick(200);
+            expect(overlayContainerElement.textContent).toEqual('');
+            assertTooltipInstance(tooltipDirective, false);
+            dispatchMouseEvent(progressBarElement, 'mouseleave');
+            tick(100);
+            fixture.detectChanges();
+
+            tooltipDirective = progressTooltipBarComponent.injector.get<ThyTooltipDirective>(ThyTooltipDirective);
+            dispatchMouseEvent(progressTooltipBarElement, 'mouseenter');
+            expect(getTooltipVisible()).toBe(false);
+            tick(200);
+            expect(getTooltipVisible()).toBe(true);
+            expect(overlayContainerElement.textContent).toEqual('');
+            fixture.detectChanges();
+            const tooltip = stackedTestComponent.value[1].tooltip;
+            const tooltipElement = overlayContainerElement.querySelector(`.${TOOLTIP_CLASS}`) as HTMLElement;
+            expect(tooltipElement instanceof HTMLElement).toBe(true);
+            expect(tooltipElement.textContent).toEqual(` ${tooltip} `);
+            const tooltipHideDelay = 100; // default hide delay is 100
+            // fake mouseleave event
+            dispatchMouseEvent(progressTooltipBarElement, 'mouseleave');
+            expect(getTooltipVisible()).toBe(true);
+
+            tick(tooltipHideDelay);
+            fixture.detectChanges();
+            expect(getTooltipVisible()).toBe(false);
+            assertTooltipInstance(tooltipDirective, true);
+
+            // On animation complete, should expect that the tooltip has been detached.
+            flushMicrotasks();
+            assertTooltipInstance(tooltipDirective, false);
+        }));
 
         it('should be correct color by custom stacked value with color', () => {
             stackedTestComponent.value = [
@@ -219,5 +322,90 @@ describe(`ThyProgressComponent`, () => {
             expect(progressBarElements[1].style['background-color']).toEqual(hexToRgb('#66c060'));
             expect(progressBarElements[2].style['background-color']).toEqual(hexToRgb('#ffd234'));
         });
+    });
+
+    describe(`tooltipTemplate`, () => {
+        let fixture: ComponentFixture<ThyDemoProgressTooltipTemplateComponent>;
+        let toolTipTemplateTestComponent: ThyDemoProgressTooltipTemplateComponent;
+        let progressComponent: DebugElement;
+        let progressBarComponents: DebugElement[];
+        let progressElement: HTMLElement;
+        let tooltipDirective: ThyTooltipDirective;
+        let progressBarElements: HTMLElement[];
+        let progressBarElement: HTMLElement;
+        let overlayContainer: OverlayContainer;
+        let overlayContainerElement: HTMLElement;
+
+        function getTooltipVisible() {
+            return tooltipDirective['isTooltipVisible']();
+        }
+
+        beforeEach(fakeAsync(() => {
+            TestBed.configureTestingModule({
+                imports: [ThyProgressModule, ProgressTestModule, NoopAnimationsModule],
+                providers: [
+                    // { provide: Location, useClass: SpyLocation }
+                ]
+            });
+
+            TestBed.compileComponents();
+
+            inject([OverlayContainer, FocusMonitor], (oc: OverlayContainer, fm: FocusMonitor) => {
+                overlayContainer = oc;
+                overlayContainerElement = oc.getContainerElement();
+                // focusMonitor = fm;
+            })();
+        }));
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(ThyDemoProgressTooltipTemplateComponent);
+            toolTipTemplateTestComponent = fixture.debugElement.componentInstance;
+            progressComponent = fixture.debugElement.query(By.directive(ThyProgressComponent));
+            progressElement = progressComponent.nativeElement;
+            progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressBarComponent));
+        });
+
+        it('should be created progress component', () => {
+            expect(progressComponent).toBeTruthy();
+        });
+
+        it('should be created progress component', fakeAsync(() => {
+            fixture.detectChanges();
+            progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressBarComponent));
+            progressBarElements = progressBarComponents.map(item => item.nativeElement);
+            expect(progressBarElements.length).toBe(3);
+            progressBarElement = progressBarComponents[0].nativeElement;
+            const progressBarComponent = progressBarComponents[0];
+            tooltipDirective = progressBarComponent.injector.get<ThyTooltipDirective>(ThyTooltipDirective);
+            assertTooltipInstance(tooltipDirective, false);
+
+            // fake mouseenter event
+            dispatchMouseEvent(progressBarElement, 'mouseenter');
+            expect(getTooltipVisible()).toBe(false);
+            assertTooltipInstance(tooltipDirective, true);
+            tick(200);
+            expect(getTooltipVisible()).toBe(true);
+            expect(overlayContainerElement.textContent).toEqual('');
+            fixture.detectChanges();
+            const data = toolTipTemplateTestComponent.value[0];
+            const tooltipElement = overlayContainerElement.querySelector(`.${TOOLTIP_CLASS}`) as HTMLElement;
+            const text = `type: ${data.type}-value: ${data.value}`;
+
+            expect(tooltipElement instanceof HTMLElement).toBe(true);
+            expect(tooltipElement.textContent).toEqual(text);
+            const tooltipHideDelay = 100; // default hide delay is 100
+            // fake mouseleave event
+            dispatchMouseEvent(progressBarElement, 'mouseleave');
+            expect(getTooltipVisible()).toBe(true);
+
+            tick(tooltipHideDelay);
+            fixture.detectChanges();
+            expect(getTooltipVisible()).toBe(false);
+            assertTooltipInstance(tooltipDirective, true);
+
+            // On animation complete, should expect that the tooltip has been detached.
+            flushMicrotasks();
+            assertTooltipInstance(tooltipDirective, false);
+        }));
     });
 });

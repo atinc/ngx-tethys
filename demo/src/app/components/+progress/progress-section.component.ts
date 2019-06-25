@@ -36,6 +36,8 @@ export class DemoProgressSectionComponent implements OnInit {
 
     basicCodeExample = require('!!raw-loader!./basic/progress-basic-demo.component.html');
 
+    tooltipCodeExample = require('!!raw-loader!./template/template.component.html');
+
     apiParameters = apiParameters;
 
     stacked = [
@@ -97,7 +99,8 @@ export class DemoProgressSectionComponent implements OnInit {
             const value = Math.floor(Math.random() * 100 + 10);
             stacked.push({
                 value,
-                color: allColors[colorIndexes[i]]
+                color: allColors[colorIndexes[i]],
+                tooltip: value > 20 ? `value: ${value}` : null
             });
         }
         this.stacked = stacked;

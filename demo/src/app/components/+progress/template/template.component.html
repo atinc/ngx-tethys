@@ -1,0 +1,5 @@
+<thy-progress [thyValue]="stacked" [thyProgressTipsTemplate]="customProgressTooTip"></thy-progress>
+<ng-template #customProgressTooTip let-item>
+  <div>color: {{ item.color }}</div>
+  <div>value: {{ item.value }}</div>
+</ng-template>

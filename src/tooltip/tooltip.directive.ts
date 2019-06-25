@@ -75,6 +75,8 @@ export class ThyTooltipDirective extends mixinUnsubscribe(MixinBase) implements 
         }
     }
 
+    @Input('thyTooltipTemplateData') data: any;
+
     private detach() {
         if (this.overlayRef && this.overlayRef.hasAttached()) {
             this.overlayRef.detach();
@@ -139,6 +141,7 @@ export class ThyTooltipDirective extends mixinUnsubscribe(MixinBase) implements 
         // calculate the correct positioning based on the size of the text.
         if (this.tooltipInstance) {
             this.tooltipInstance.content = this.content;
+            this.tooltipInstance.data = this.data;
             this.tooltipInstance.markForCheck();
 
             this.ngZone.onMicrotaskEmpty
@@ -208,9 +211,11 @@ export class ThyTooltipDirective extends mixinUnsubscribe(MixinBase) implements 
                                 });
                         }
                         // if element which moved to is in overlayElement, don't hide tooltip
-                        const toElementIsTooltip = overlayElement.contains(toElement as Element);
-                        if (!toElementIsTooltip) {
-                            this.hide();
+                        if (overlayElement && overlayElement.contains) {
+                            const toElementIsTooltip = overlayElement.contains(toElement as Element);
+                            if (!toElementIsTooltip) {
+                                this.hide();
+                            }
                         }
                     });
             } else if (this.trigger === 'focus') {

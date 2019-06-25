@@ -6,7 +6,8 @@ import {
     ElementRef,
     ViewEncapsulation,
     ViewChildren,
-    QueryList
+    QueryList,
+    TemplateRef
 } from '@angular/core';
 import { ThyProgressTypes, ThyStackedValue } from './interfaces';
 import { UpdateHostClassService } from '../shared';
@@ -34,6 +35,8 @@ export class ThyProgressComponent implements ThyParentProgress {
 
     @HostBinding(`class.progress-stacked`) isStacked = false;
 
+    @HostBinding('class.cursor-pointer') isTooltip = false;
+
     @HostBinding(`class.progress`) isProgress = true;
 
     @ViewChildren(ThyProgressBarComponent)
@@ -42,6 +45,8 @@ export class ThyProgressComponent implements ThyParentProgress {
     }
 
     @Input() thyType: ThyProgressTypes;
+
+    @Input() thyProgressTipsTemplate: TemplateRef<HTMLElement>;
 
     @Input() set thyValue(value: number | ThyStackedValue[]) {
         this.isStacked = Array.isArray(value);

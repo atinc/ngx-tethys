@@ -50,6 +50,27 @@
   </div>
 </section>
 
+<section>
+  <div class="header">
+    <h2>Stacked Progress with tooltip</h2>
+  </div>
+  <div class="body">
+    <button thyButton="outline-primary-square" (click)="randomStacked()">随机生成 Stacked 值</button>
+    <button thyButton="outline-primary-square" class="ml-2" (click)="randomCustomColorStacked()">
+      随机生成自定义颜色 Stacked 值
+    </button>
+    <div class="demo-layout mt-2">
+      <thy-progress [thyValue]="stacked" [thyProgressTipsTemplate]="customProgressTooTip"></thy-progress>
+    </div>
+    <pre class="mt-2"><code lang="typescript" [highlight]="tooltipCodeExample"></code></pre>
+  </div>
+</section>
+
+<ng-template #customProgressTooTip let-item>
+  <div>color: {{ item.color }}</div>
+  <div>value: {{ item.value }}</div>
+</ng-template>
+
 <api-parameters title="thy-progress 参数" [parameters]="apiParameters"></api-parameters>
 
 ngx-bootstrap
