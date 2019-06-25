@@ -4,7 +4,7 @@ import { async, ComponentFixture, fakeAsync, TestBed, tick, flush } from '@angul
 import { ThyListModule } from '../list.module';
 import { By } from '@angular/platform-browser';
 import { ThyListOptionComponent } from '../../core/option';
-import { ThySelectionListComponent } from './selection-list';
+import { ThySelectionListComponent, thyListLayout } from './selection-list';
 
 export function createFakeEvent(type: string, canBubble = false, cancelable = true) {
     const event = document.createEvent('Event');
@@ -29,15 +29,14 @@ describe('MatSelectionList without forms', () => {
             TestBed.configureTestingModule({
                 imports: [ThyListModule],
                 declarations: [
-                    SelectionListWithListOptions,
+                    SelectionListWithListOptions
                     // SelectionListWithListDisabled,
                     // SelectionListWithOnlyOneOption
-                ],
+                ]
             });
 
             TestBed.compileComponents();
         }));
-
 
         beforeEach(async(() => {
             fixture = TestBed.createComponent(SelectionListWithListOptions);
@@ -65,30 +64,45 @@ describe('MatSelectionList without forms', () => {
 
             expect(fixture.componentInstance.onValueChange).toHaveBeenCalledTimes(1);
         });
+
+        it('should has class "thy-grid-list" when thyLayout is list', () => {
+            expect(selectionList.nativeElement.classList).not.toContain('thy-grid-list');
+            expect(listOptions[0].nativeElement.classList).toContain('thy-list-option');
+            expect(listOptions[0].nativeElement.classList).not.toContain('thy-grid-option');
+        });
+
+        it('should has class "thy-grid-list" when thyLayout is grid', () => {
+            const component = fixture.debugElement.componentInstance;
+            component.layout = 'grid';
+            fixture.detectChanges();
+            expect(selectionList.nativeElement.classList).toContain('thy-grid-list');
+            expect(listOptions[0].nativeElement.classList).toContain('thy-grid-option');
+        });
     });
 });
 
 @Component({
     template: `
-<thy-selection-list id="selection-list-1" (thySelectionChange)="onValueChange($event)">
-    <thy-list-option thyValue="inbox">
-        Inbox (disabled selection-option)
-    </thy-list-option>
-    <thy-list-option id="testSelect" class="test-native-focus" thyValue="starred">
-        Starred
-    </thy-list-option>
-    <thy-list-option thyValue="sent-mail">
-        Sent Mail
-    </thy-list-option>
-    <thy-list-option thyValue="drafts" *ngIf="showLastOption">
-        Drafts
-    </thy-list-option>
-</thy-selection-list>
-`
+        <thy-selection-list id="selection-list-1" [thyLayout]="layout" (thySelectionChange)="onValueChange($event)">
+            <thy-list-option thyValue="inbox">
+                Inbox (disabled selection-option)
+            </thy-list-option>
+            <thy-list-option id="testSelect" class="test-native-focus" thyValue="starred">
+                Starred
+            </thy-list-option>
+            <thy-list-option thyValue="sent-mail">
+                Sent Mail
+            </thy-list-option>
+            <thy-list-option thyValue="drafts" *ngIf="showLastOption">
+                Drafts
+            </thy-list-option>
+        </thy-selection-list>
+    `
 })
 class SelectionListWithListOptions {
     showLastOption = true;
 
-    onValueChange(_change: ThySelectionListChange) { }
-}
+    layout: thyListLayout = 'list';
 
+    onValueChange(_change: ThySelectionListChange) {}
+}
