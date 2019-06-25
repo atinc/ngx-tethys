@@ -1,4 +1,7 @@
 <ng-content></ng-content>
-<span class="text-light checked-icon" *ngIf="parentSelectionList.multiple">
-    <i class="wtf wtf-checked"></i>
+<span class="text-light checked-icon" *ngIf="parentSelectionList.multiple && !parentSelectionList.isLayoutGrid">
+  <i class="wtf wtf-checked"></i>
+</span>
+<span *ngIf="parentSelectionList.isLayoutGrid" class="checked-icon">
+  <i class="wtf wtf-accepted"></i>
 </span>

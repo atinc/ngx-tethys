@@ -1,16 +1,30 @@
 import {
-    Component, HostBinding, ContentChild, TemplateRef, ElementRef,
-    Input, Output, AfterContentInit, ViewChild, EventEmitter
+    AfterContentInit,
+    Component,
+    ContentChild,
+    ElementRef,
+    EventEmitter,
+    HostBinding,
+    Input,
+    OnInit,
+    Output,
+    TemplateRef,
+    ViewChild
 } from '@angular/core';
+import { UpdateHostClassService } from '../shared/update-host-class.service';
 import { ThyTranslate } from '../shared/translate';
 import { htmlElementIsEmpty, inputValueToBoolean } from '../util/helpers';
 
+export enum ThyPropertyOperationTypes {
+    danger = 'danger'
+}
+
 @Component({
     selector: 'thy-property-operation',
-    templateUrl: './property-operation.component.html'
+    templateUrl: './property-operation.component.html',
+    providers: [UpdateHostClassService]
 })
-export class ThyPropertyOperationComponent implements AfterContentInit {
-
+export class ThyPropertyOperationComponent implements OnInit, AfterContentInit {
     _labelText: string;
 
     _icon: string;
@@ -22,6 +36,8 @@ export class ThyPropertyOperationComponent implements AfterContentInit {
     _showClose = false;
 
     _initialized = false;
+
+    type: ThyPropertyOperationTypes;
 
     @Output() thyOnRemove = new EventEmitter();
 
@@ -59,7 +75,16 @@ export class ThyPropertyOperationComponent implements AfterContentInit {
         this._showClose = inputValueToBoolean(value);
     }
 
+    // 支持有值时，label不显示
     @Input() thyLabelHasValue = true;
+
+    @Input()
+    set thyType(value: ThyPropertyOperationTypes) {
+        this.type = value;
+        if (this._initialized) {
+            this.setTypeStyleClass();
+        }
+    }
 
     _setOnlyHasTips() {
         if (this._value) {
@@ -71,8 +96,24 @@ export class ThyPropertyOperationComponent implements AfterContentInit {
         }
     }
 
-    constructor(private thyTranslate: ThyTranslate) {
+    constructor(
+        private thyTranslate: ThyTranslate,
+        private updateHostClassService: UpdateHostClassService,
+        private elementRef: ElementRef
+    ) {}
 
+    ngOnInit() {
+        this.updateHostClassService.initializeElement(this.elementRef.nativeElement);
+        this.setTypeStyleClass();
+    }
+
+    private setTypeStyleClass() {
+        this.updateHostClassService.removeClass('thy-property-operation-danger');
+        switch (this.type) {
+            case ThyPropertyOperationTypes.danger:
+                this.updateHostClassService.addClass('thy-property-operation-danger');
+                break;
+        }
     }
 
     ngAfterContentInit() {

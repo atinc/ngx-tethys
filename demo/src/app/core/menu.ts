@@ -38,10 +38,7 @@ export const allMenus = [
             {
                 name: 'Interactions',
                 zhName: '交互',
-                children: [
-                    { name: 'Drop Drag', zhName: '拖拽', routePath: 'drop-drag' },
-                    { name: 'Key Select', zhName: '上下键选择', routePath: 'key-select' }
-                ]
+                children: [{ name: 'Drop Drag', zhName: '拖拽', routePath: 'drop-drag' }]
             }
         ]
     },
@@ -123,9 +120,9 @@ export const allMenus = [
                 zhName: '反馈',
                 children: [
                     { name: 'Alert', zhName: '警告框', routePath: 'alert' },
-                    { name: 'Confirm', zhName: '确认消息框', routePath: 'confirm' },
+                    { name: 'Confirm', zhName: '确认消息框', routePath: 'confirm', deprecated: true },
                     { name: 'Loading', zhName: '加载中', routePath: 'loading' },
-                    { name: 'Modal', zhName: '弹框', routePath: 'modal', isObsoleted: true },
+                    { name: 'Modal', zhName: '弹框', routePath: 'modal', deprecated: true },
                     { name: 'Dialog', zhName: '弹框', routePath: 'dialog', state: 'new' },
                     { name: 'Tooltip', zhName: '文字提示', routePath: 'tooltip' },
                     { name: 'Overlay', zhName: '浮层', routePath: 'overlay' },

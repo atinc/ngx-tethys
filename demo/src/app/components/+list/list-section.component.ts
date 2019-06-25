@@ -53,7 +53,8 @@ export class DemoListComponent {
         stopKeydownEvent: false,
         selectAll: false,
         defaultValues: [2, 3],
-        objectValues: []
+        objectValues: [],
+        isLayoutGrid: false
     };
 
     public apiOptionParameters = [
