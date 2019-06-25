@@ -3,8 +3,8 @@ import { ThySelectionListChange } from './selection.interface';
 import { async, ComponentFixture, fakeAsync, TestBed, tick, flush } from '@angular/core/testing';
 import { ThyListModule } from '../list.module';
 import { By } from '@angular/platform-browser';
-import { ThyListOptionComponent } from '../../core/option';
-import { ThySelectionListComponent, thyListLayout } from './selection-list';
+import { ThyListOptionComponent, thyListLayout } from '../../core/option';
+import { ThySelectionListComponent } from './selection-list';
 
 export function createFakeEvent(type: string, canBubble = false, cancelable = true) {
     const event = document.createEvent('Event');
@@ -21,7 +21,7 @@ export function createFakeEvent(type: string, canBubble = false, cancelable = tr
 
 describe('MatSelectionList without forms', () => {
     describe('with list option', () => {
-        let fixture: ComponentFixture<SelectionListWithListOptions>;
+        let fixture: ComponentFixture<SelectionListWithListOptionsComponent>;
         let listOptions: DebugElement[];
         let selectionList: DebugElement;
 
@@ -29,7 +29,7 @@ describe('MatSelectionList without forms', () => {
             TestBed.configureTestingModule({
                 imports: [ThyListModule],
                 declarations: [
-                    SelectionListWithListOptions
+                    SelectionListWithListOptionsComponent
                     // SelectionListWithListDisabled,
                     // SelectionListWithOnlyOneOption
                 ]
@@ -39,7 +39,7 @@ describe('MatSelectionList without forms', () => {
         }));
 
         beforeEach(async(() => {
-            fixture = TestBed.createComponent(SelectionListWithListOptions);
+            fixture = TestBed.createComponent(SelectionListWithListOptionsComponent);
             fixture.detectChanges();
 
             listOptions = fixture.debugElement.queryAll(By.directive(ThyListOptionComponent));
@@ -99,7 +99,7 @@ describe('MatSelectionList without forms', () => {
         </thy-selection-list>
     `
 })
-class SelectionListWithListOptions {
+class SelectionListWithListOptionsComponent {
     showLastOption = true;
 
     layout: thyListLayout = 'list';
