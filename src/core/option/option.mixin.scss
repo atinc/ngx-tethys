@@ -97,3 +97,58 @@
         }
     }
 }
+
+@mixin thy-grid-option {
+    @include thy-option-common-layout();
+    vertical-align: middle;
+    justify-content: center;
+    position: relative;
+    margin: 0 25px 25px 0;
+    width: 150px;
+    height: 120px;
+    background: $gray-80;
+    border-radius: 6px;
+    cursor: pointer;
+    outline-style: none;
+    .checked-icon {
+        visibility: hidden;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        height: 20px;
+        width: 20px;
+        line-height: 20px;
+        color: $white;
+        background: $primary;
+        border-radius: 50%;
+        text-align: center;
+    }
+
+    &:hover {
+        @include item-box-shadow($gray-200);
+    }
+
+    &.disabled {
+        box-shadow: none !important;
+        color: $gray-400;
+        cursor: default; // not-allowed;
+    }
+
+    &:not(.disabled).active {
+        background: rgba($primary, 0.1);
+        color: $body-color;
+        .checked-icon {
+            visibility: visible;
+        }
+    }
+}
+
+@mixin thy-grid-option-theme {
+    .checked-icon {
+        background: $primary;
+    }
+
+    &:not(.disabled).active {
+        background: rgba($primary, 0.1);
+    }
+}

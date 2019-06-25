@@ -16,8 +16,11 @@ import { inputValueToBoolean } from '../../util/helpers';
 
 let _uniqueIdCounter = 0;
 
+export type thyListLayout = 'list' | 'grid';
+
 export interface IThyOptionParentComponent {
     multiple?: boolean;
+    layout?: thyListLayout;
     // selectionModel: SelectionModel<ThyListOptionComponent>;
     // 选择，取消选择 option
     toggleOption(option: ThyListOptionComponent, event?: Event): void;
@@ -31,17 +34,22 @@ export interface IThyOptionParentComponent {
 /**
  * Injection token used to provide the parent component to options.
  */
-export const THY_OPTION_PARENT_COMPONENT =
-    new InjectionToken<IThyOptionParentComponent>('THY_OPTION_PARENT_COMPONENT');
-
+export const THY_OPTION_PARENT_COMPONENT = new InjectionToken<IThyOptionParentComponent>('THY_OPTION_PARENT_COMPONENT');
 
 @Component({
     selector: 'thy-list-option,[thy-list-option]',
     templateUrl: './list-option.component.html'
 })
 export class ThyListOptionComponent implements Highlightable {
+    @HostBinding(`class.thy-list-option`)
+    get _isListOption() {
+        return this.parentSelectionList.layout === 'list';
+    }
 
-    @HostBinding(`class.thy-list-option`) _isListOption = true;
+    @HostBinding(`class.thy-grid-option`)
+    get _parentLayout() {
+        return this.parentSelectionList.layout === 'grid';
+    }
 
     @HostBinding(`attr.role`) _role = 'option';
 
@@ -69,9 +77,7 @@ export class ThyListOptionComponent implements Highlightable {
         private changeDetector: ChangeDetectorRef,
         /** @docs-private */
         @Optional() @Inject(THY_OPTION_PARENT_COMPONENT) public parentSelectionList: IThyOptionParentComponent
-    ) {
-
-    }
+    ) {}
 
     @HostListener('click', ['$event'])
     onClick(event: Event) {
