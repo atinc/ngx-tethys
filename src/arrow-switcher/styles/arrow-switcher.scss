@@ -42,11 +42,10 @@
             padding: 0 10px;
             color: $gray-600;
         }
+    }
+    @include switcher-size($arrow-switcher-btn-size);
 
-        @include switcher-size($arrow-switcher-btn-size);
-
-        &.thy-arrow-switcher-small {
-            @include switcher-size($arrow-switcher-sm-btn-size);
-        }
+    &.thy-arrow-switcher-small {
+        @include switcher-size($arrow-switcher-sm-btn-size);
     }
 }
