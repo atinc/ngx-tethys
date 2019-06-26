@@ -1,32 +1,26 @@
 <ng-container *ngIf="isStacked; else general">
-  <ng-container *ngIf="thyProgressTipsTemplate; else generalTooltip">
-    <thy-progress-bar
-      *ngFor="let item of value"
-      [thyType]="item.type"
-      class="cursor-pointer"
-      [thyTooltip]="thyProgressTipsTemplate"
-      [thyTooltipTemplateData]="item"
-      [thyColor]="item.color"
-      [thyValue]="item.value"
-      >{{ item.label }}
-    </thy-progress-bar>
-  </ng-container>
-  <ng-template #generalTooltip>
-    <thy-progress-bar
-      *ngFor="let item of value"
-      [thyType]="item.type"
-      [ngClass]="{ 'cursor-pointer': item.tooltip }"
-      [thyTooltip]="item.tooltip"
-      [thyTooltipDisabled]="!item.tooltip"
-      [thyColor]="item.color"
-      [thyValue]="item.value"
-      >{{ item.label }}
-    </thy-progress-bar>
-  </ng-template>
+  <thy-progress-bar
+    *ngFor="let item of value"
+    [thyType]="item.type"
+    [ngClass]="{ 'cursor-pointer': item.tips || thyProgressTips }"
+    [thyTooltip]="item.tips || thyProgressTips"
+    [thyTooltipTemplateData]="item"
+    [thyTooltipDisabled]="!thyProgressTips && !item.tips"
+    [thyColor]="item.color"
+    [thyValue]="item.value"
+    >{{ item.label }}
+  </thy-progress-bar>
 </ng-container>
 
 <ng-template #general>
-  <thy-progress-bar [thyType]="thyType" [thyValue]="value">
+  <thy-progress-bar
+    [thyType]="thyType"
+    [ngClass]="{ 'cursor-pointer': thyProgressTips }"
+    [thyTooltip]="thyProgressTips"
+    [thyTooltipTemplateData]="value"
+    [thyTooltipDisabled]="!thyProgressTips"
+    [thyValue]="value"
+  >
     <ng-content></ng-content>
   </thy-progress-bar>
 </ng-template>

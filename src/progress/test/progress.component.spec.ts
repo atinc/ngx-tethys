@@ -1,4 +1,4 @@
-import { NgModule, Component, DebugElement } from '@angular/core';
+import { NgModule, Component, DebugElement, TemplateRef } from '@angular/core';
 import { ThyProgressModule } from '../progress.module';
 import { ComponentFixture, fakeAsync, TestBed, inject, tick, flushMicrotasks, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -15,19 +15,30 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 const PROGRESS_CLASS_NAME = 'progress';
 const PROGRESS_BAR_CLASS_NAME = 'progress-bar';
 const TOOLTIP_CLASS = `thy-tooltip`;
+const TOOLTIP_MESSAGE = 'this is a string tooltip';
+const TOOLTIP_TEMPLATE_MESSAGE = 'this is a template message';
 
 @Component({
     selector: 'thy-demo-progress-basic',
     template: `
-        <thy-progress [thyValue]="value" [thyType]="type" [thySize]="size">
+        <button (click)="changeTemplate(demo)">
+            Basic Usage
+        </button>
+        <thy-progress [thyValue]="value" [thyProgressTips]="tips" [thyType]="type" [thySize]="size">
             20%
         </thy-progress>
+        <ng-template #demo>{{ message }}</ng-template>
     `
 })
 class ThyDemoProgressBasicComponent {
     value = 20;
     type: ThyProgressTypes;
     size: string;
+    tips: string | TemplateRef<HTMLElement> = TOOLTIP_MESSAGE;
+    message = TOOLTIP_TEMPLATE_MESSAGE;
+    changeTemplate(templateRef: TemplateRef<HTMLElement>) {
+        this.tips = templateRef;
+    }
 }
 
 @Component({
@@ -45,7 +56,7 @@ class ThyDemoProgressStackedComponent {
         {
             type: 'danger',
             value: 60,
-            tooltip: 'hello world'
+            tips: 'hello world'
         },
         {
             type: 'warning',
@@ -58,7 +69,7 @@ class ThyDemoProgressStackedComponent {
 @Component({
     selector: 'thy-demo-progress-tooltip',
     template: `
-        <thy-progress [thyValue]="value" [thyProgressTipsTemplate]="customProgressTooTip"></thy-progress>
+        <thy-progress [thyValue]="value" [thyProgressTips]="customProgressTooTip"></thy-progress>
         <ng-template #customProgressTooTip let-item>type: {{ item.type }}-value: {{ item.value }}</ng-template>
     `
 })
@@ -103,15 +114,29 @@ describe(`ThyProgressComponent`, () => {
         let progressBarComponent: DebugElement;
         let progressElement: HTMLElement;
         let progressBarElement: HTMLElement;
+        let tooltipDirective: ThyTooltipDirective;
+        let overlayContainer: OverlayContainer;
+        let overlayContainerElement: HTMLElement;
+
+        function getTooltipVisible() {
+            return tooltipDirective['isTooltipVisible']();
+        }
+
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
-                imports: [ThyProgressModule, ProgressTestModule],
+                imports: [ThyProgressModule, ProgressTestModule, NoopAnimationsModule],
                 providers: [
                     // { provide: Location, useClass: SpyLocation }
                 ]
             });
 
             TestBed.compileComponents();
+
+            inject([OverlayContainer, FocusMonitor], (oc: OverlayContainer, fm: FocusMonitor) => {
+                overlayContainer = oc;
+                overlayContainerElement = oc.getContainerElement();
+                // focusMonitor = fm;
+            })();
         }));
 
         beforeEach(() => {
@@ -178,6 +203,75 @@ describe(`ThyProgressComponent`, () => {
             fixture.detectChanges();
             expect(progressBarElement.style.width).toEqual('30%');
         });
+
+        it('should be have a tooltip use string', fakeAsync(() => {
+            fixture.detectChanges();
+            progressBarComponent = fixture.debugElement.query(By.directive(ThyProgressBarComponent));
+            progressBarElement = progressBarComponent.nativeElement;
+
+            tooltipDirective = progressBarComponent.injector.get<ThyTooltipDirective>(ThyTooltipDirective);
+            assertTooltipInstance(tooltipDirective, false);
+            // fake mouseenter event
+            dispatchMouseEvent(progressBarElement, 'mouseenter');
+            expect(getTooltipVisible()).toBe(false);
+            assertTooltipInstance(tooltipDirective, true);
+            tick(200);
+            expect(getTooltipVisible()).toBe(true);
+            expect(overlayContainerElement.textContent).toEqual('');
+            fixture.detectChanges();
+            const tooltipElement = overlayContainerElement.querySelector(`.${TOOLTIP_CLASS}`) as HTMLElement;
+            expect(tooltipElement instanceof HTMLElement).toBe(true);
+            expect(tooltipElement.textContent.trim()).toEqual(TOOLTIP_MESSAGE);
+            const tooltipHideDelay = 100; // default hide delay is 100
+            // fake mouseleave event
+            dispatchMouseEvent(progressBarElement, 'mouseleave');
+            expect(getTooltipVisible()).toBe(true);
+
+            tick(tooltipHideDelay);
+            fixture.detectChanges();
+            expect(getTooltipVisible()).toBe(false);
+            assertTooltipInstance(tooltipDirective, true);
+
+            // On animation complete, should expect that the tooltip has been detached.
+            flushMicrotasks();
+            assertTooltipInstance(tooltipDirective, false);
+        }));
+
+        it('should be have a tooltip use string', fakeAsync(() => {
+            const buttonDebugElement = fixture.debugElement.query(By.css('button'));
+            const buttonElement = buttonDebugElement.nativeElement;
+            buttonElement.click();
+            fixture.detectChanges();
+            progressBarComponent = fixture.debugElement.query(By.directive(ThyProgressBarComponent));
+            progressBarElement = progressBarComponent.nativeElement;
+
+            tooltipDirective = progressBarComponent.injector.get<ThyTooltipDirective>(ThyTooltipDirective);
+            assertTooltipInstance(tooltipDirective, false);
+            // fake mouseenter event
+            dispatchMouseEvent(progressBarElement, 'mouseenter');
+            expect(getTooltipVisible()).toBe(false);
+            assertTooltipInstance(tooltipDirective, true);
+            tick(200);
+            expect(getTooltipVisible()).toBe(true);
+            expect(overlayContainerElement.textContent).toEqual('');
+            fixture.detectChanges();
+            const tooltipElement = overlayContainerElement.querySelector(`.${TOOLTIP_CLASS}`) as HTMLElement;
+            expect(tooltipElement instanceof HTMLElement).toBe(true);
+            expect(tooltipElement.textContent.trim()).toEqual(TOOLTIP_TEMPLATE_MESSAGE);
+            const tooltipHideDelay = 100; // default hide delay is 100
+            // fake mouseleave event
+            dispatchMouseEvent(progressBarElement, 'mouseleave');
+            expect(getTooltipVisible()).toBe(true);
+
+            tick(tooltipHideDelay);
+            fixture.detectChanges();
+            expect(getTooltipVisible()).toBe(false);
+            assertTooltipInstance(tooltipDirective, true);
+
+            // On animation complete, should expect that the tooltip has been detached.
+            flushMicrotasks();
+            assertTooltipInstance(tooltipDirective, false);
+        }));
     });
 
     describe(`stacked`, () => {
@@ -270,7 +364,7 @@ describe(`ThyProgressComponent`, () => {
             expect(getTooltipVisible()).toBe(true);
             expect(overlayContainerElement.textContent).toEqual('');
             fixture.detectChanges();
-            const tooltip = stackedTestComponent.value[1].tooltip;
+            const tooltip = stackedTestComponent.value[1].tips;
             const tooltipElement = overlayContainerElement.querySelector(`.${TOOLTIP_CLASS}`) as HTMLElement;
             expect(tooltipElement instanceof HTMLElement).toBe(true);
             expect(tooltipElement.textContent).toEqual(` ${tooltip} `);
@@ -369,7 +463,7 @@ describe(`ThyProgressComponent`, () => {
             expect(progressComponent).toBeTruthy();
         });
 
-        it('should be created progress component', fakeAsync(() => {
+        it('should be created progress tooltip component width component', fakeAsync(() => {
             fixture.detectChanges();
             progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressBarComponent));
             progressBarElements = progressBarComponents.map(item => item.nativeElement);

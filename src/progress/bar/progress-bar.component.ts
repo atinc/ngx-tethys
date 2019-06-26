@@ -6,7 +6,8 @@ import {
     ViewEncapsulation,
     InjectionToken,
     Inject,
-    Host
+    Host,
+    TemplateRef
 } from '@angular/core';
 import { ThyProgressTypes } from '../interfaces';
 import { UpdateHostClassService } from '../../shared';
@@ -33,6 +34,8 @@ export class ThyProgressBarComponent {
     @HostBinding('style.width.%') percent = 0;
 
     @HostBinding('style.background-color') color = '';
+
+    @Input() thyProgressTips: string | TemplateRef<HTMLElement>;
 
     @Input() set thyType(type: ThyProgressTypes) {
         // this.type = type;

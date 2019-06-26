@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { clamp } from '../../../../../src/util/helpers';
 import { apiParameters } from './api-parameters';
 
@@ -35,6 +35,8 @@ export class DemoProgressSectionComponent implements OnInit {
     size = 'md';
 
     basicCodeExample = require('!!raw-loader!./basic/progress-basic-demo.component.html');
+
+    stackedCodeExample = require('!!raw-loader!./stacked/progress-stacked-demo.component.html');
 
     tooltipCodeExample = require('!!raw-loader!./template/template.component.html');
 
@@ -92,7 +94,7 @@ export class DemoProgressSectionComponent implements OnInit {
         return result;
     }
 
-    randomCustomColorStacked() {
+    randomCustomColorStacked(templateRef?: TemplateRef<HTMLElement>) {
         const stacked = [];
         const colorIndexes = this.getUniqueIndexes(5, allColors.length);
         for (let i = 0; i < 5; i++) {
@@ -100,7 +102,7 @@ export class DemoProgressSectionComponent implements OnInit {
             stacked.push({
                 value,
                 color: allColors[colorIndexes[i]],
-                tooltip: value > 20 ? `value: ${value}` : null
+                tips: value > 30 ? `value: ${value}` : templateRef
             });
         }
         this.stacked = stacked;

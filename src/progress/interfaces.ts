@@ -1,3 +1,5 @@
+import { TemplateRef } from '@angular/core';
+
 export type ThyProgressTypes = 'primary' | 'success' | 'info' | 'warning' | 'danger';
 
 export interface ThyStackedValue {
@@ -5,5 +7,5 @@ export interface ThyStackedValue {
     type?: string;
     color?: string;
     label?: string;
-    tooltip?: string;
+    tips?: string | TemplateRef<HTMLElement>;
 }

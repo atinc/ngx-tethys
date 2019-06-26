@@ -25,7 +25,7 @@ export const apiParameters = [
         default: '100'
     },
     {
-        property: 'thyProgressTipsTemplate',
+        property: 'thyProgressTips',
         description: '鼠标移入progress bar时显示的tooltips模板',
         type: 'template',
         default: 'null'
