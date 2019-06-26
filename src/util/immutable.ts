@@ -1,10 +1,16 @@
-import { coerceArray, isFunction } from './helpers';
+import { coerceArray, isFunction, isUndefinedOrNull } from './helpers';
 import { Id } from '../typings';
 
 export interface EntityAddOptions {
     prepend?: boolean;
 
     afterId?: string;
+}
+
+export interface EntityMoveOptions {
+    afterId?: string;
+
+    toIndex?: number;
 }
 
 export interface ProducerOptions {
@@ -46,8 +52,7 @@ export class Producer<TEntity> {
                     }) + 1;
                 entities.splice(index, 0, ...addEntities);
                 this.entities = [...entities];
-            }
-            if (addOptions.prepend) {
+            } else if (addOptions.prepend) {
                 this.entities = [...addEntities, ...this.entities];
             }
         } else {
@@ -117,6 +122,45 @@ export class Producer<TEntity> {
             });
         }
         return this.entities;
+    }
+
+    /**
+     *
+     * Move one or more entities:
+     *
+     * @example
+     * produce([users]).move(5, {afterId: 2});
+     * produce([users]).move(5, {toIndex: 0});
+     */
+    move(id: Id, moveOptions?: EntityMoveOptions): TEntity[] {
+        const fromIndex = this.entities.findIndex(item => item[this.idKey] === id);
+        let toIndex = 0;
+        const newEntities = [...this.entities];
+
+        if (!id || fromIndex < 0) {
+            return [...this.entities];
+        }
+
+        if (moveOptions) {
+            if (!isUndefinedOrNull(moveOptions.afterId)) {
+                toIndex = this.entities.findIndex(item => item[this.idKey] === moveOptions.afterId);
+            } else if (moveOptions.toIndex) {
+                toIndex = moveOptions.toIndex;
+            }
+        }
+        toIndex = Math.max(0, Math.min(this.entities.length - 1, toIndex));
+        if (toIndex === fromIndex) {
+            return [...this.entities];
+        } else {
+            const target = this.entities[fromIndex];
+            const delta = toIndex < fromIndex ? -1 : 1;
+
+            for (let i = fromIndex; i !== toIndex; i += delta) {
+                newEntities[i] = newEntities[i + delta];
+            }
+            newEntities[toIndex] = target;
+            return [...newEntities];
+        }
     }
 }
 

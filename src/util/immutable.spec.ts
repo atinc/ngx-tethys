@@ -50,7 +50,7 @@ describe('immutable', () => {
             expect(result).toEqual([...initialUserEntities, ...addUserEntities]);
         });
 
-        it('should return 3 users when add one entity after { id: 1 }', () => {
+        it('should return 3 users when add one entity afterId = 1', () => {
             const addUserEntity = {
                 _id: '3',
                 name: 'user 3'
@@ -72,7 +72,7 @@ describe('immutable', () => {
             ]);
         });
 
-        it('should return 3 users when add one entity after { id: 2 }', () => {
+        it('should return 3 users when add one entity afterId = 2', () => {
             const addUserEntity = {
                 _id: '3',
                 name: 'user 3'
@@ -87,7 +87,7 @@ describe('immutable', () => {
             ]);
         });
 
-        it('should return 4 users when add 2 entities after { id: 1 }', () => {
+        it('should return 4 users when add 2 entities afterId = 1', () => {
             const addUserEntities = [
                 {
                     _id: '3',
@@ -112,7 +112,7 @@ describe('immutable', () => {
             ]);
         });
 
-        it('should return 4 users when add 2 entities after { id: 3 }', () => {
+        it('should return 4 users when add 2 entities afterId = 3', () => {
             const addUserEntities = [
                 {
                     _id: '3',
@@ -125,6 +125,56 @@ describe('immutable', () => {
             ];
             const result = produce(users).add(addUserEntities, { afterId: '3' });
             expect(result).toEqual([...addUserEntities, ...initialUserEntities]);
+        });
+
+        it('should return 4 users when add 2 entities afterId = 1 and prepend = true', () => {
+            const addUserEntities = [
+                {
+                    _id: '3',
+                    name: 'user 3'
+                },
+                {
+                    _id: '4',
+                    name: 'user 4'
+                }
+            ];
+            const result = produce(users).add(addUserEntities, { afterId: '1', prepend: true });
+            expect(result).toEqual([
+                {
+                    _id: '1',
+                    name: 'user 1'
+                },
+                ...addUserEntities,
+                {
+                    _id: '2',
+                    name: 'user 2'
+                }
+            ]);
+        });
+
+        it(`should return 4 users when add 2 entities afterId = '' and prepend = true`, () => {
+            const addUserEntities = [
+                {
+                    _id: '3',
+                    name: 'user 3'
+                },
+                {
+                    _id: '4',
+                    name: 'user 4'
+                }
+            ];
+            const result = produce(users).add(addUserEntities, { afterId: '', prepend: true });
+            expect(result).toEqual([
+                ...addUserEntities,
+                {
+                    _id: '1',
+                    name: 'user 1'
+                },
+                {
+                    _id: '2',
+                    name: 'user 2'
+                }
+            ]);
         });
     });
 
@@ -262,6 +312,98 @@ describe('immutable', () => {
                 _id: '1',
                 name: 'new 1 user'
             });
+        });
+    });
+
+    describe(`move`, () => {
+        let users: UserInfo[];
+        const initialUsers = [{ _id: '1', name: 'user 1' }, { _id: '2', name: 'user 2' }, { _id: '3', name: 'user 3' }];
+
+        beforeEach(() => {
+            users = initialUsers;
+        });
+
+        it(`should change position when id = '' `, () => {
+            const result = produce(users).move('');
+            expect(result).toEqual([...initialUsers]);
+        });
+
+        it(`should change position when id does not exist
+        `, () => {
+            const result = produce(users).move(100);
+            expect(result).toEqual([...initialUsers]);
+        });
+
+        it(`should change position when afterId = 3 `, () => {
+            const result = produce(users).move('2', { afterId: '3' });
+            expect(result).toEqual([
+                { _id: '1', name: 'user 1' },
+                { _id: '3', name: 'user 3' },
+                { _id: '2', name: 'user 2' }
+            ]);
+        });
+
+        it(`should change position when afterId = ''`, () => {
+            const result = produce(users).move('2', { afterId: '' });
+            expect(result).toEqual([
+                { _id: '2', name: 'user 2' },
+                { _id: '1', name: 'user 1' },
+                { _id: '3', name: 'user 3' }
+            ]);
+        });
+
+        it(`should change position when toIndex = 2`, () => {
+            const result = produce(users).move('2', { toIndex: 2 });
+            expect(result).toEqual([
+                { _id: '1', name: 'user 1' },
+                { _id: '3', name: 'user 3' },
+                { _id: '2', name: 'user 2' }
+            ]);
+        });
+
+        it(`should change position when toIndex = 4`, () => {
+            const result = produce(users).move('2', { toIndex: 4 });
+            expect(result).toEqual([
+                { _id: '1', name: 'user 1' },
+                { _id: '3', name: 'user 3' },
+                { _id: '2', name: 'user 2' }
+            ]);
+        });
+
+        it(`should change position when toIndex = 0`, () => {
+            const result = produce(users).move('2', { toIndex: 0 });
+            expect(result).toEqual([
+                { _id: '2', name: 'user 2' },
+                { _id: '1', name: 'user 1' },
+                { _id: '3', name: 'user 3' }
+            ]);
+        });
+
+        it(`should change position when toIndex = -1`, () => {
+            const result = produce(users).move('2', { toIndex: -1 });
+            expect(result).toEqual([
+                { _id: '2', name: 'user 2' },
+                { _id: '1', name: 'user 1' },
+                { _id: '3', name: 'user 3' }
+            ]);
+        });
+
+        it(`should change position when moveOptions is null`, () => {
+            const result = produce(users).move('2');
+            expect(result).toEqual([
+                { _id: '2', name: 'user 2' },
+                { _id: '1', name: 'user 1' },
+                { _id: '3', name: 'user 3' }
+            ]);
+        });
+
+        it(`should change position when moveOptions is  afterId = 3 and toIndex = 0`, () => {
+            const result = produce(users).move('2', { afterId: '3', toIndex: 2 });
+            expect(result).toEqual([
+                { _id: '1', name: 'user 1' },
+                { _id: '3', name: 'user 3' },
+                { _id: '2', name: 'user 2' }
+            ]);
         });
     });
 });
