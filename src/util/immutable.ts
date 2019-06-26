@@ -3,6 +3,8 @@ import { Id } from '../typings';
 
 export interface EntityAddOptions {
     prepend?: boolean;
+
+    afterId?: string;
 }
 
 export interface ProducerOptions {
@@ -28,14 +30,26 @@ export class Producer<TEntity> {
      * produce([users]).add(Entity);
      * produce([users]).add([Entity, Entity]);
      * produce([users]).add(Entity, { prepend: true });
+     * produce([users]).add(Entity, { afterId: '' });
      */
     add(entity: TEntity | TEntity[], addOptions?: EntityAddOptions): TEntity[] {
         const addEntities = coerceArray(entity);
         if (addEntities.length === 0) {
             return;
         }
-        if (addOptions && addOptions.prepend) {
-            this.entities = [...addEntities, ...this.entities];
+        if (addOptions && (addOptions.afterId || addOptions.prepend)) {
+            if (addOptions.afterId) {
+                const entities = [...this.entities];
+                const index =
+                    this.entities.findIndex(item => {
+                        return item[this.idKey] === addOptions.afterId;
+                    }) + 1;
+                entities.splice(index, 0, ...addEntities);
+                this.entities = [...entities];
+            }
+            if (addOptions.prepend) {
+                this.entities = [...addEntities, ...this.entities];
+            }
         } else {
             this.entities = [...this.entities, ...addEntities];
         }

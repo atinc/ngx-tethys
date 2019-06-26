@@ -49,6 +49,83 @@ describe('immutable', () => {
             const result = produce(users).add(addUserEntities);
             expect(result).toEqual([...initialUserEntities, ...addUserEntities]);
         });
+
+        it('should return 3 users when add one entity after { id: 1 }', () => {
+            const addUserEntity = {
+                _id: '3',
+                name: 'user 3'
+            };
+            const result = produce(users).add(addUserEntity, { afterId: '1' });
+            expect(result).toEqual([
+                {
+                    _id: '1',
+                    name: 'user 1'
+                },
+                {
+                    _id: '3',
+                    name: 'user 3'
+                },
+                {
+                    _id: '2',
+                    name: 'user 2'
+                }
+            ]);
+        });
+
+        it('should return 3 users when add one entity after { id: 2 }', () => {
+            const addUserEntity = {
+                _id: '3',
+                name: 'user 3'
+            };
+            const result = produce(users).add(addUserEntity, { afterId: '2' });
+            expect(result).toEqual([
+                ...initialUserEntities,
+                {
+                    _id: '3',
+                    name: 'user 3'
+                }
+            ]);
+        });
+
+        it('should return 4 users when add 2 entities after { id: 1 }', () => {
+            const addUserEntities = [
+                {
+                    _id: '3',
+                    name: 'user 3'
+                },
+                {
+                    _id: '4',
+                    name: 'user 4'
+                }
+            ];
+            const result = produce(users).add(addUserEntities, { afterId: '1' });
+            expect(result).toEqual([
+                {
+                    _id: '1',
+                    name: 'user 1'
+                },
+                ...addUserEntities,
+                {
+                    _id: '2',
+                    name: 'user 2'
+                }
+            ]);
+        });
+
+        it('should return 4 users when add 2 entities after { id: 3 }', () => {
+            const addUserEntities = [
+                {
+                    _id: '3',
+                    name: 'user 3'
+                },
+                {
+                    _id: '4',
+                    name: 'user 4'
+                }
+            ];
+            const result = produce(users).add(addUserEntities, { afterId: '3' });
+            expect(result).toEqual([...addUserEntities, ...initialUserEntities]);
+        });
     });
 
     describe('remove', () => {
