@@ -12,7 +12,7 @@ import { containsElement } from '@angular/animations/browser/src/render/shared';
 
 const initialTooltipMessage = 'hello, this is tooltip message';
 const TOOLTIP_CLASS = `thy-tooltip`;
-const tooltipTemplateData = { text: 'hello world' };
+const tooltipTemplateContext = { text: 'hello world' };
 
 @Component({
     selector: 'thy-demo-tooltip-basic',
@@ -48,7 +48,7 @@ class ThyDemoTooltipBasicComponent {
         <button
             [thyTooltip]="world"
             [thyTooltipDisabled]="disabled"
-            [thyTooltipTemplateData]="message"
+            [thyTooltipTemplateContext]="message"
             [thyTooltipPlacement]="placement"
             [thyTooltipShowDelay]="showDelay"
             [thyTooltipHideDelay]="hideDelay"
@@ -62,7 +62,7 @@ class ThyDemoTooltipBasicComponent {
 class ThyDemoTooltipTemplateComponent {
     @ViewChild(ThyTooltipDirective) tooltip: ThyTooltipDirective;
 
-    message = tooltipTemplateData;
+    message = tooltipTemplateContext;
 
     disabled = false;
 
@@ -378,7 +378,7 @@ describe(`ThyTooltip`, () => {
             expect(tooltipElement instanceof HTMLElement).toBe(true);
             expect(tooltipElement.style.transform).toBe('scale(1)');
 
-            expect(overlayContainerElement.textContent).toContain(tooltipTemplateData.text);
+            expect(overlayContainerElement.textContent).toContain(tooltipTemplateContext.text);
 
             const tooltipHideDelay = 100; // default hide delay is 100
             // fake mouseleave event
@@ -407,7 +407,7 @@ describe(`ThyTooltip`, () => {
             tick(0);
             expect(getTooltipVisible()).toBe(true);
             fixture.detectChanges();
-            expect(overlayContainerElement.textContent).toContain(tooltipTemplateData.text);
+            expect(overlayContainerElement.textContent).toContain(tooltipTemplateContext.text);
         }));
 
         // for test more fast, show tooltip directly call tooltip directive's show
@@ -445,7 +445,7 @@ describe(`ThyTooltip`, () => {
             fixture.detectChanges();
             tick(200);
 
-            expect(overlayContainerElement.textContent).toContain(tooltipTemplateData.text);
+            expect(overlayContainerElement.textContent).toContain(tooltipTemplateContext.text);
             const tooltipElement = overlayContainerElement.querySelector(`.${TOOLTIP_CLASS}`) as HTMLElement;
             expect(tooltipElement.classList.contains('thy-tooltip-left')).toBe(true);
         }));

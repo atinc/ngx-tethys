@@ -24,7 +24,7 @@ const TOOLTIP_TEMPLATE_MESSAGE = 'this is a template message';
         <button (click)="changeTemplate(demo)">
             Basic Usage
         </button>
-        <thy-progress [thyValue]="value" [thyProgressTips]="tips" [thyType]="type" [thySize]="size">
+        <thy-progress [thyValue]="value" [thyTips]="tips" [thyType]="type" [thySize]="size">
             20%
         </thy-progress>
         <ng-template #demo>{{ message }}</ng-template>
@@ -69,7 +69,7 @@ class ThyDemoProgressStackedComponent {
 @Component({
     selector: 'thy-demo-progress-tooltip',
     template: `
-        <thy-progress [thyValue]="value" [thyProgressTips]="customProgressTooTip"></thy-progress>
+        <thy-progress [thyValue]="value" [thyTips]="customProgressTooTip"></thy-progress>
         <ng-template #customProgressTooTip let-item>type: {{ item.type }}-value: {{ item.value }}</ng-template>
     `
 })

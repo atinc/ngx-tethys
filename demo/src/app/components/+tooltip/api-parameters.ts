@@ -42,7 +42,7 @@ export const apiParameters = [
         default: '100'
     },
     {
-        property: 'thyTooltipTemplateData',
+        property: 'thyTooltipTemplateContext',
         description: '传入template时，注入给template的数据',
         type: 'any',
         default: 'null'

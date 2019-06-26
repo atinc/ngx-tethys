@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
     selector: 'app-tooltip-template-data-demo',
     templateUrl: './tooltip-template-demo.component.html'
 })
-export class TooltipTemplateDataDemoComponent {
+export class TooltipTemplateContextDemoComponent {
     tooltipConfig = {
         trigger: 'hover',
         placement: 'top',

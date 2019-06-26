@@ -1,6 +1,7 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, AfterViewInit } from '@angular/core';
 import { clamp } from '../../../../../src/util/helpers';
 import { apiParameters } from './api-parameters';
+import { template } from '@angular/core/src/render3';
 
 const allColors = [
     '#22d7bb',
@@ -27,7 +28,9 @@ const allColors = [
     selector: 'app-demo-progress-section',
     templateUrl: './progress-section.component.html'
 })
-export class DemoProgressSectionComponent implements OnInit {
+export class DemoProgressSectionComponent implements OnInit, AfterViewInit {
+    @ViewChild('customProgressTips') templateTips: TemplateRef<HTMLElement>;
+
     value = 40;
 
     max = 100;
@@ -42,30 +45,7 @@ export class DemoProgressSectionComponent implements OnInit {
 
     apiParameters = apiParameters;
 
-    stacked = [
-        // {
-        //     type: 'info',
-        //     value: 20
-        // },
-        {
-            type: 'success',
-            value: 20
-        },
-        {
-            type: 'warning',
-            value: 20
-        },
-        {
-            type: 'danger',
-            value: 20
-        },
-        {
-            type: 'info',
-            value: 30,
-            color: '#7076fa',
-            label: 'custom color'
-        }
-    ];
+    stacked = [];
 
     constructor() {}
 
@@ -110,6 +90,32 @@ export class DemoProgressSectionComponent implements OnInit {
 
     ngOnInit() {
         // this.randomStacked();
+    }
+
+    ngAfterViewInit() {
+        this.stacked = [
+            {
+                type: 'success',
+                value: 20,
+                tips: 'tips'
+            },
+            {
+                type: 'warning',
+                value: 20,
+                tips: 'hey'
+            },
+            {
+                type: 'danger',
+                value: 20,
+                tips: this.templateTips
+            },
+            {
+                type: 'info',
+                value: 30,
+                color: '#7076fa',
+                label: 'custom color'
+            }
+        ];
     }
 
     increase() {

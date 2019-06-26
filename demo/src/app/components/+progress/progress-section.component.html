@@ -40,11 +40,7 @@
   </div>
   <div class="body">
     <button thyButton="outline-primary-square" (click)="randomStacked()">随机生成 Stacked 值</button>
-    <button
-      thyButton="outline-primary-square"
-      class="ml-2"
-      (click)="randomCustomColorStacked(customGeneralProgressTooTip)"
-    >
+    <button thyButton="outline-primary-square" class="ml-2" (click)="randomCustomColorStacked(customProgressTips)">
       随机生成自定义颜色 Stacked 值
     </button>
     <div class="demo-layout mt-2">
@@ -60,18 +56,14 @@
   </div>
   <div class="body">
     <button thyButton="outline-primary-square" (click)="randomStacked()">随机生成 Stacked 值</button>
-    <button
-      thyButton="outline-primary-square"
-      class="ml-2"
-      (click)="randomCustomColorStacked(customGeneralProgressTooTip)"
-    >
+    <button thyButton="outline-primary-square" class="ml-2" (click)="randomCustomColorStacked(customProgressTips)">
       随机生成自定义颜色 Stacked 值
     </button>
     <div class="demo-layout mt-2">
-      <thy-progress [thyValue]="stacked" [thyProgressTips]="customProgressTooTip"></thy-progress>
+      <thy-progress [thyValue]="stacked" [thyTips]="customProgressTooTip"></thy-progress>
       <thy-progress
         class="mt-2"
-        [thyProgressTips]="customGeneralProgressTooTip"
+        [thyTips]="customGeneralProgressTooTip"
         thyType="success"
         [thyValue]="value"
         [thySize]="size"
@@ -85,11 +77,11 @@
   <div>value is: {{ value }}</div>
 </ng-template>
 
+<ng-template #customProgressTips let-context>value is: {{ context.value }}</ng-template>
 <ng-template #customProgressTooTip let-item>
   <div>color: {{ item.color }}</div>
   <div>value: {{ item.value }}</div>
 </ng-template>
-
 <api-parameters title="thy-progress 参数" [parameters]="apiParameters"></api-parameters>
 
 ngx-bootstrap

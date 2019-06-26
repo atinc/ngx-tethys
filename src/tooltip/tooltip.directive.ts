@@ -75,7 +75,7 @@ export class ThyTooltipDirective extends mixinUnsubscribe(MixinBase) implements 
         }
     }
 
-    @Input('thyTooltipTemplateData') data: any;
+    @Input('thyTooltipTemplateContext') data: any;
 
     private detach() {
         if (this.overlayRef && this.overlayRef.hasAttached()) {

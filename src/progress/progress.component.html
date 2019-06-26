@@ -2,10 +2,10 @@
   <thy-progress-bar
     *ngFor="let item of value"
     [thyType]="item.type"
-    [ngClass]="{ 'cursor-pointer': item.tips || thyProgressTips }"
-    [thyTooltip]="item.tips || thyProgressTips"
-    [thyTooltipTemplateData]="item"
-    [thyTooltipDisabled]="!thyProgressTips && !item.tips"
+    [ngClass]="{ 'cursor-pointer': item.tips || thyTips }"
+    [thyTooltip]="item.tips || thyTips"
+    [thyTooltipTemplateContext]="item"
+    [thyTooltipDisabled]="!thyTips && !item.tips"
     [thyColor]="item.color"
     [thyValue]="item.value"
     >{{ item.label }}
@@ -15,10 +15,10 @@
 <ng-template #general>
   <thy-progress-bar
     [thyType]="thyType"
-    [ngClass]="{ 'cursor-pointer': thyProgressTips }"
-    [thyTooltip]="thyProgressTips"
-    [thyTooltipTemplateData]="value"
-    [thyTooltipDisabled]="!thyProgressTips"
+    [ngClass]="{ 'cursor-pointer': thyTips }"
+    [thyTooltip]="thyTips"
+    [thyTooltipTemplateContext]="value"
+    [thyTooltipDisabled]="!thyTips"
     [thyValue]="value"
   >
     <ng-content></ng-content>

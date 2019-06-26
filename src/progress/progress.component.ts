@@ -44,7 +44,7 @@ export class ThyProgressComponent implements ThyParentProgress {
 
     @Input() thyType: ThyProgressTypes;
 
-    @Input() thyProgressTips: string | TemplateRef<HTMLElement>;
+    @Input() thyTips: string | TemplateRef<HTMLElement>;
 
     @Input() set thyValue(value: number | ThyStackedValue[]) {
         this.isStacked = Array.isArray(value);

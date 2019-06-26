@@ -96,7 +96,7 @@
       <button
         [thyTooltip]="world"
         [thyTooltipTrigger]="tooltipConfig.trigger"
-        [thyTooltipTemplateData]="{ values: [1, 2, 3, 4] }"
+        [thyTooltipTemplateContext]="{ values: [1, 2, 3, 4] }"
         [thyTooltipPlacement]="tooltipConfig.placement"
         [thyTooltipDisabled]="tooltipConfig.disabled"
         thyButton="primary"
@@ -113,7 +113,7 @@
         </div>
       </ng-template>
     </div>
-    <pre class="mt-2"><code lang="typescript" [highlight]="templateDataCodeExample"></code></pre>
+    <pre class="mt-2"><code lang="typescript" [highlight]="TemplateContextCodeExample"></code></pre>
   </div>
 </section>
 

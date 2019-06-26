@@ -35,7 +35,7 @@ export class ThyProgressBarComponent {
 
     @HostBinding('style.background-color') color = '';
 
-    @Input() thyProgressTips: string | TemplateRef<HTMLElement>;
+    @Input() thyTips: string | TemplateRef<HTMLElement>;
 
     @Input() set thyType(type: ThyProgressTypes) {
         // this.type = type;
