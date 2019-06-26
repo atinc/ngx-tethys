@@ -16,11 +16,22 @@
 
 <section>
   <div class="header">
-    <h2>多选</h2>
+    <label
+      thyCheckbox
+      [(ngModel)]="multiple"
+      (ngModelChange)="multipleStatusChange($event)"
+      thyLabelText="多选"
+    ></label>
   </div>
   <div class="body">
     <div class="demo-select">
-      <thy-custom-select thyMode="multiple" thySize="md" thyEmptyStateText="无匹配结果">
+      <thy-custom-select
+        [(ngModel)]="thyModeValue"
+        [thyMode]="multiple"
+        thySize="md"
+        thyEmptyStateText="无匹配结果"
+        (ngModelChange)="ngModelChange($event)"
+      >
         <thy-option
           *ngFor="let option of optionData"
           [thyValue]="option"

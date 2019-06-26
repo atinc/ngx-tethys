@@ -16,6 +16,8 @@ export class DemoSelectSectionComponent implements OnInit {
 
     allowClear = false;
 
+    multiple = 'multiple';
+
     page = 0;
 
     emptyModalValue = '';
@@ -43,6 +45,8 @@ export class DemoSelectSectionComponent implements OnInit {
     selectedItem = this.optionData[0];
 
     errorSelectedItem = {};
+
+    thyModeValue: any = null;
 
     public apiParameters = [
         {
@@ -221,6 +225,10 @@ export class DemoSelectSectionComponent implements OnInit {
         }
     }
 
+    ngModelChange(data) {
+        console.log(data);
+    }
+
     _fetchOptions() {
         this.loading = true;
         return timer(1000).pipe(
@@ -275,6 +283,14 @@ export class DemoSelectSectionComponent implements OnInit {
                 });
             })
         );
+    }
+
+    multipleStatusChange(value: boolean) {
+        if (value) {
+            this.multiple = 'multiple';
+        } else {
+            this.multiple = '';
+        }
     }
 
     ngOnInit() {

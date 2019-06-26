@@ -11,7 +11,7 @@ import {
 import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Component, ViewChild, ViewChildren, QueryList, ElementRef } from '@angular/core';
 import { ThySelectModule } from './module';
-import { ThySelectCustomComponent } from './custom-select.component';
+import { ThySelectCustomComponent, SelectMode } from './custom-select.component';
 import { ThyOptionComponent } from './option.component';
 import { By } from '@angular/platform-browser';
 import { UpdateHostClassService } from '../shared';
@@ -576,7 +576,7 @@ describe('ThyCustomSelect', () => {
             expect(fixture.componentInstance.select.panelOpen).toBe(true);
             expect(overlayContainerElement.textContent).toContain('Pizza');
         }));
-        it('shoule close select when mouse leave select-container', fakeAsync(() => {
+        it('should close select when mouse leave select-container', fakeAsync(() => {
             const fixture = TestBed.createComponent(SelectWithHoverTriggerComponent);
             fixture.detectChanges();
             const select = fixture.debugElement.nativeElement.querySelector('thy-custom-select');
@@ -595,7 +595,180 @@ describe('ThyCustomSelect', () => {
         }));
     });
 
-    describe('cselect expand status change', () => {});
+    describe('thyMode logic', () => {
+        beforeEach(async(() => {
+            configureThyCustomSelectTestingModule([SelectWithThyModeComponent]);
+        }));
+        it('should not close the panel when an item is clicked and thyMode is multiple', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectWithThyModeComponent);
+            fixture.detectChanges();
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+
+            trigger.click();
+            fixture.detectChanges();
+            flush();
+
+            const option = overlayContainerElement.querySelector('thy-option') as HTMLElement;
+            option.click();
+            fixture.detectChanges();
+            flush();
+
+            expect(fixture.componentInstance.select.panelOpen).toBe(true);
+        }));
+
+        it('should close expand when thyMode change to empty', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectWithThyModeComponent);
+            fixture.detectChanges();
+            fixture.componentInstance.selectMode = '';
+            fixture.detectChanges();
+            flush();
+
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+            flush();
+
+            const option = overlayContainerElement.querySelector('thy-option') as HTMLElement;
+            option.click();
+            fixture.detectChanges();
+            flush();
+
+            expect(fixture.componentInstance.select.panelOpen).toBe(false);
+        }));
+
+        it('should clear selected status when thyMode change', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectWithThyModeComponent);
+            fixture.detectChanges();
+
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+            flush();
+
+            const optionComponents = fixture.componentInstance.options.toArray();
+            const options = overlayContainerElement.querySelectorAll('thy-option');
+
+            (options.item(0) as HTMLElement).click();
+            (options.item(1) as HTMLElement).click();
+
+            const backdrop = overlayContainerElement.querySelector('.cdk-overlay-backdrop') as HTMLElement;
+            backdrop.click();
+
+            fixture.detectChanges();
+            flush();
+
+            expect(optionComponents[0].selected).toBe(true);
+            expect(optionComponents[1].selected).toBe(true);
+
+            fixture.componentInstance.selectMode = '';
+            fixture.detectChanges();
+            flush();
+
+            expect(optionComponents[0].selected).toBe(false);
+            expect(optionComponents[1].selected).toBe(false);
+
+            trigger.click();
+            fixture.detectChanges();
+            flush();
+            (options.item(0) as HTMLElement).click();
+            expect(optionComponents[0].selected).toBe(true);
+
+            fixture.componentInstance.selectMode = 'multiple';
+            fixture.detectChanges();
+            flush();
+
+            expect(optionComponents[0].selected).toBe(false);
+        }));
+
+        it('should not clear status when the thyMode value is not change', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectWithThyModeComponent);
+            fixture.detectChanges();
+
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+            flush();
+
+            const optionComponents = fixture.componentInstance.options.toArray();
+            const options = overlayContainerElement.querySelectorAll('thy-option');
+
+            (options.item(0) as HTMLElement).click();
+            (options.item(1) as HTMLElement).click();
+
+            const backdrop = overlayContainerElement.querySelector('.cdk-overlay-backdrop') as HTMLElement;
+            backdrop.click();
+
+            fixture.detectChanges();
+            flush();
+
+            expect(optionComponents[0].selected).toBe(true);
+            expect(optionComponents[1].selected).toBe(true);
+
+            fixture.componentInstance.selectMode = 'multiple';
+            fixture.detectChanges();
+            flush();
+
+            expect(optionComponents[0].selected).toBe(true);
+            expect(optionComponents[1].selected).toBe(true);
+        }));
+
+        it('should apply default mode when thyMode change to empty', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectWithThyModeComponent);
+            fixture.detectChanges();
+            fixture.componentInstance.selectMode = '';
+            fixture.detectChanges();
+            flush();
+
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+            flush();
+
+            const options = overlayContainerElement.querySelectorAll('thy-option');
+            (options.item(0) as HTMLElement).click();
+            fixture.detectChanges();
+            flush();
+            const optionComponents = fixture.componentInstance.options.toArray();
+            expect(optionComponents[0].selected).toBe(true);
+            (options.item(1) as HTMLElement).click();
+            fixture.detectChanges();
+            flush();
+            expect(optionComponents[0].selected).toBe(false);
+            expect(optionComponents[1].selected).toBe(true);
+        }));
+
+        it('should apply multiple mode when thyMode change to multiple', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectWithThyModeComponent);
+            fixture.detectChanges();
+            fixture.componentInstance.selectMode = '';
+            fixture.detectChanges();
+            flush();
+
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+            flush();
+
+            const options = overlayContainerElement.querySelectorAll('thy-option');
+            (options.item(0) as HTMLElement).click();
+            fixture.detectChanges();
+            flush();
+
+            fixture.componentInstance.selectMode = 'multiple';
+            fixture.detectChanges();
+            flush();
+
+            const optionComponents = fixture.componentInstance.options.toArray();
+
+            (options.item(0) as HTMLElement).click();
+            (options.item(1) as HTMLElement).click();
+            fixture.detectChanges();
+            flush();
+
+            expect(optionComponents[0].selected).toBe(true);
+            expect(optionComponents[1].selected).toBe(true);
+        }));
+    });
 });
 
 @Component({
@@ -960,4 +1133,32 @@ class SelectWithExpandStatusComponent {
     control = new FormControl();
     thyOnExpandStatusChange = jasmine.createSpy('thyOnExpandStatusChange callback');
     @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
+}
+
+@Component({
+    template: `
+        <form thyForm name="demoForm" #demoForm="ngForm">
+            <thy-custom-select placeholder="Food" [(ngModel)]="selectedFoods" name="food" [thyMode]="selectMode">
+                <thy-option
+                    *ngFor="let food of foods"
+                    [thyValue]="food.value"
+                    [thyLabelText]="food.viewValue"
+                ></thy-option>
+            </thy-custom-select>
+        </form>
+    `
+})
+class SelectWithThyModeComponent {
+    foods: any[] = [
+        { value: ['steak-0', 'steak-1'], viewValue: 'Steak' },
+        { value: ['pizza-1', 'pizza-2'], viewValue: 'Pizza' },
+        { value: ['tacos-2', 'tacos-3'], viewValue: 'Tacos' }
+    ];
+
+    selectMode: SelectMode = 'multiple';
+
+    selectedFoods = null;
+
+    @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
+    @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
 }
