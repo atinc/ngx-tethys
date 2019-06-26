@@ -164,6 +164,9 @@ export class ThySelectCustomComponent
         this._emptyStateText = value;
     }
 
+    @Input()
+    thyEnableScrollLoad = false;
+
     @Input() thyAllowClear = false;
 
     @Input()
