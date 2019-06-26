@@ -1,64 +1,113 @@
 <section>
-    <div class="header">
-        <h2>属性操作</h2>
+  <div class="header">
+    <h2>属性操作</h2>
+  </div>
+  <div class="body">
+    <div class="">
+      <h4 class="mt-3">自定义icon区域</h4>
+      <thy-property-operation thyLabelText="负责人" class="mr-2">
+        <ng-template #operationIcon>
+          <button thyButtonIcon="wtf wtf-user-add-th-o" thyShape="circle-thick-dashed"></button>
+        </ng-template>
+      </thy-property-operation>
+      <thy-property-operation thyLabelText="负责人" class="mr-2">
+        <ng-template #operationIcon>
+          <thy-avatar
+            thySrc="9cb2637b-9f70-4d73-8c1d-24542b6ab4e1_80x80.png"
+            thyName="why520crazy"
+            thySize="38"
+          ></thy-avatar>
+        </ng-template>
+        why520crazy
+      </thy-property-operation>
+
+      <h4 class="mt-3">有值</h4>
+      <thy-property-operation
+        thyLabelText="截止时间"
+        thyShowClose=""
+        thyValue="2017-08-10"
+        thyIcon="wtf-begin-date-th-o"
+        class="mr-2"
+      ></thy-property-operation>
+
+      <h4 class="mt-3">与日期组件结合</h4>
+      <thy-property-operation
+        thyLabelText="截止时间"
+        [thyValue]="startDate"
+        thyIcon="wtf-due-date-th-o"
+        thyDatepicker=""
+        [(ngModel)]="startDate"
+        class="mr-2"
+      ></thy-property-operation>
+
+      <h4 class="mt-3">有值隐藏label</h4>
+      <thy-property-operation
+        thyLabelText="截止时间"
+        [thyLabelHasValue]="false"
+        thyShowClose=""
+        thyValue="2017-08-10"
+        thyIcon="wtf-begin-date-th-o"
+        class="mr-2"
+      ></thy-property-operation>
     </div>
-    <div class="body">
-        <div class="">
-            <thy-property-operation thyLabelText="负责人" class="mr-2">
-                <ng-template #operationIcon>
-                    <button thyButtonIcon="wtf wtf-user-add-th-o" thyShape="circle-thick-dashed"></button>
-                </ng-template>
-            </thy-property-operation>
-            <thy-property-operation thyLabelText="负责人" class="mr-2">
-                <ng-template #operationIcon>
-                    <thy-avatar thySrc="9cb2637b-9f70-4d73-8c1d-24542b6ab4e1_80x80.png" thyName="why520crazy" thySize="38"></thy-avatar>
-                </ng-template>
-                why520crazy
-            </thy-property-operation>
-            <thy-property-operation 
-                thyLabelText="截止时间" 
-                thyShowClose="" 
-                thyValue="2017-08-10"
-                thyIcon="wtf-begin-date-th-o" class="mr-2"></thy-property-operation>
-            <thy-property-operation 
-                thyLabelText="截止时间" 
-                [thyValue]="startDate" 
-                thyIcon="wtf-due-date-th-o" 
-                thyDatepicker=""
-                [(ngModel)]="startDate"
-                class="mr-2"></thy-property-operation>
-                <thy-property-operation 
-                thyLabelText="截止时间" 
-                [thyLabelHasValue]="false"
-                thyShowClose="" 
-                thyValue="2017-08-10"
-                thyIcon="wtf-begin-date-th-o" class="mr-2"></thy-property-operation>
-        </div>
-    </div>
+  </div>
 </section>
 
 <section>
-    <div class="header">
-        <h2>属性操作分组</h2>
+  <div class="header">
+    <h2>属性操作分组</h2>
+  </div>
+  <div class="body">
+    <div class="">
+      <thy-property-operation-group class="demo-property-operation-group">
+        <thy-property-operation thyLabelText="负责人" class="mr-2">
+          <ng-template #operationIcon>
+            <button thyButtonIcon="wtf wtf-user-add-th-o" thyShape="circle-thick-dashed"></button>
+          </ng-template>
+        </thy-property-operation>
+        <thy-property-operation thyLabelText="负责人" class="mr-2" thyShowClose="">
+          <ng-template #operationIcon>
+            <thy-avatar
+              thySrc="9cb2637b-9f70-4d73-8c1d-24542b6ab4e1_80x80.png"
+              thyName="why520crazy"
+              thySize="38"
+            ></thy-avatar>
+          </ng-template>
+          why520crazy
+        </thy-property-operation>
+        <thy-property-operation
+          thyLabelText="开始时间"
+          thyIcon="wtf-begin-date-th-o"
+          class="mr-2"
+        ></thy-property-operation>
+        <thy-property-operation
+          thyLabelText="截止时间"
+          thyValue="2018-10-10"
+          thyIcon="wtf-due-date-th-o"
+          class="mr-2"
+        ></thy-property-operation>
+      </thy-property-operation-group>
     </div>
-    <div class="body">
-        <div class="">
-            <thy-property-operation-group class="demo-property-operation-group">
-                <thy-property-operation thyLabelText="负责人" class="mr-2">
-                    <ng-template #operationIcon>
-                        <button thyButtonIcon="wtf wtf-user-add-th-o" thyShape="circle-thick-dashed"></button>
-                    </ng-template>
-                </thy-property-operation>
-                <thy-property-operation thyLabelText="负责人" class="mr-2" thyShowClose="">
-                    <ng-template #operationIcon>
-                        <thy-avatar thySrc="9cb2637b-9f70-4d73-8c1d-24542b6ab4e1_80x80.png" thyName="why520crazy" thySize="38"></thy-avatar>
-                    </ng-template>
-                    why520crazy
-                </thy-property-operation>
-                <thy-property-operation thyLabelText="开始时间" thyIcon="wtf-begin-date-th-o" class="mr-2"></thy-property-operation>
-                <thy-property-operation thyLabelText="截止时间" thyValue="2018-10-10" thyIcon="wtf-due-date-th-o" class="mr-2"></thy-property-operation>
-            </thy-property-operation-group>
+  </div>
+</section>
 
-        </div>
-    </div>
+<section>
+  <div class="header">
+    <h2>类型</h2>
+  </div>
+  <div class="body">
+    <div class="p-2">danger: 超过某个时间，截止时间变红</div>
+    <div class="pb-3">{{ dateTime | json }}</div>
+    <thy-property-operation
+      thyLabelText="截止时间"
+      [thyType]="dateTime.date > dueDateTimeStamp ? 'danger' : ''"
+      [thyValue]="dateTime.date | thyDatepickerFormat"
+      [thyShowClose]="dateTime.date"
+      (thyOnRemove)="removeDateTime()"
+      thyIcon="wtf-due-date-th-o"
+      thyDatepicker=""
+      [(ngModel)]="dateTime"
+      class="mr-2"
+    ></thy-property-operation>
+  </div>
 </section>
