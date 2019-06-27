@@ -12,6 +12,8 @@ import { UpdateHostClassService } from '../shared';
 import { ThyIconRegistry } from './icon-registry';
 import { take } from 'rxjs/operators';
 
+export const ThyIconClassPrefix = 'wt-icon--';
+
 @Component({
     selector: 'thy-icon',
     template: '<ng-content></ng-content>',
@@ -20,23 +22,46 @@ import { take } from 'rxjs/operators';
     providers: [UpdateHostClassService]
 })
 export class ThyIconComponent implements OnInit {
-    _iconName: string;
-
     @HostBinding(`class.thy-icon`) addIconClass = true;
 
     @Input('thyIconName')
-    set iconName(value: string) {
-        this._iconName = value;
+    set _iconName(value: string) {
+        this.updateClass(value);
+        this.iconName = value;
+        this.updateSVG();
     }
-    get iconName() {
-        return this._iconName;
+    get _iconName() {
+        return this.iconName;
     }
 
     @Input('thyIconSet') iconSet: string;
 
     @Input('thyTwotoneColor') twotoneColor: string;
 
-    private setSvgElement(svg: SVGElement) {
+    private iconName: string;
+
+    constructor(
+        private updateHostClassService: UpdateHostClassService,
+        private elementRef: ElementRef,
+        private iconRegistry: ThyIconRegistry
+    ) {
+        updateHostClassService.initializeElement(elementRef.nativeElement);
+    }
+
+    ngOnInit() {}
+
+    private updateSVG() {
+        const [namespace, iconName] = this.iconRegistry.splitIconName(this.iconName);
+        this.iconRegistry
+            .getSvgIcon(iconName, namespace)
+            .pipe(take(1))
+            .subscribe(
+                svg => this.drawSvgElement(svg),
+                (err: Error) => console.error(`Error retrieving icon: ${err.message}`)
+            );
+    }
+
+    private drawSvgElement(svg: SVGElement) {
         this.clearSvgElement();
 
         // Workaround for IE11 and Edge ignoring `style` tags inside dynamically-created SVGs.
@@ -104,41 +129,13 @@ export class ThyIconComponent implements OnInit {
         }
     }
 
-    constructor(
-        private updateHostClassService: UpdateHostClassService,
-        private elementRef: ElementRef,
-        private iconRegistry: ThyIconRegistry
-    ) {
-        updateHostClassService.initializeElement(elementRef.nativeElement);
+    private updateClass(newIconName: string) {
+        this.updateHostClassService
+            .removeClass(this.combineIconClass(this.iconName))
+            .addClass(this.combineIconClass(newIconName));
     }
 
-    updateClasses() {
-        const [namespace, iconName] = this.iconRegistry.splitIconName(this.iconName);
-        this.iconRegistry
-            .getSvgIcon(iconName, namespace)
-            .pipe(take(1))
-            .subscribe(
-                svg => this.setSvgElement(svg),
-                (err: Error) => console.error(`Error retrieving icon: ${err.message}`)
-            );
-        // if (this.iconName) {
-        //     const fontSetClass = this.iconSet
-        //         ? this.iconRegistry.getFontSetClassByAlias(this.iconSet)
-        //         : this.iconRegistry.getDefaultFontSetClass();
-        //     this.updateHostClassService.updateClass([fontSetClass, `${fontSetClass}-${this.iconName}`]);
-        // } else {
-        //     const [namespace, iconName] = this.iconRegistry.splitIconName(this.iconName);
-        //     this.iconRegistry
-        //         .getSvgIcon(iconName, namespace)
-        //         .pipe(take(1))
-        //         .subscribe(
-        //             svg => this.setSvgElement(svg),
-        //             (err: Error) => console.log(`Error retrieving icon: ${err.message}`)
-        //         );
-        // }
-    }
-
-    ngOnInit() {
-        this.updateClasses();
+    private combineIconClass(iconName: string) {
+        return ThyIconClassPrefix + iconName;
     }
 }
