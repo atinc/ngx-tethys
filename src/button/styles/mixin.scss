@@ -2,7 +2,16 @@
 //
 // Easily pump out default styles, as well as :hover, :focus, :active,
 // and disabled options for all buttons
-@mixin button-variant( $color, $hover-color, $background, $hover-background, $border, $hover-border: darken($border, 10%), $active-background: darken($background, 10%), $active-border: darken($border, 12.5%)) {
+@mixin button-variant(
+    $color,
+    $hover-color,
+    $background,
+    $hover-background,
+    $border,
+    $hover-border: darken($border, 10%),
+    $active-background: darken($background, 10%),
+    $active-border: darken($border, 12.5%)
+) {
     // color: color-yiq($background);
     color: $color;
     @include gradient-bg($background);
@@ -33,7 +42,7 @@
     }
     &:not(:disabled):not(.disabled):active,
     &:not(:disabled):not(.disabled).active,
-    .show>&.dropdown-toggle {
+    .show > &.dropdown-toggle {
         // color: color-yiq($active-background);
         // background-color: $active-background;
         // @if $enable-gradients {
@@ -52,7 +61,15 @@
     }
 }
 
-@mixin button-outline-variant($color, $border-color, $hover-color, $hover-background, $hover-border, $active-background, $active-border) {
+@mixin button-outline-variant(
+    $color,
+    $border-color,
+    $hover-color,
+    $hover-background,
+    $hover-border,
+    $active-background,
+    $active-border
+) {
     color: $color;
     background-color: transparent;
     background-image: none;
@@ -75,7 +92,7 @@
     }
     &:not(:disabled):not(.disabled):active,
     &:not(:disabled):not(.disabled).active,
-    .show>&.dropdown-toggle {
+    .show > &.dropdown-toggle {
         color: $hover-color;
         background-color: $active-background;
         border-color: $active-border;
@@ -101,8 +118,7 @@
     }
     @if $enable-rounded {
         border-radius: $border-radius;
-    }
-    @else {
+    } @else {
         border-radius: 0;
     }
     &.btn-link {
@@ -155,34 +171,40 @@
     }
 }
 
-
 @mixin btn-square-radius {
-  // 设置大小也不影响 border-radius
-  border-radius: $border-radius;
-  &.btn-lg, &.btn-md, &.btn-sm {
-      border-radius: $border-radius;
-  }
+    // 设置大小也不影响 border-radius
+    border-radius: $border-radius;
+    &.btn-lg,
+    &.btn-md,
+    &.btn-sm,
+    &.btn-xs {
+        border-radius: $border-radius;
+    }
 }
 
 @mixin btn-icon-circle-hover-variant($round-padding, $btn-icon-circle-font-size) {
     &.btn-icon-circle {
-        i,.wtf {
+        i,
+        .wtf {
             padding: $round-padding;
             font-size: $btn-icon-circle-font-size;
         }
         &.border-thick {
-            i,.wtf {
+            i,
+            .wtf {
                 padding: $round-padding - 1;
             }
             @include hover-focus {
-                i,.wtf {
+                i,
+                .wtf {
                     padding: $round-padding - 1;
                 }
             }
         }
         @include hover-focus {
-            i,.wtf {
-                border-width: 2px; 
+            i,
+            .wtf {
+                border-width: 2px;
                 // border: 2px solid $primary;
                 padding: $round-padding - 1;
             }
@@ -191,7 +213,8 @@
 }
 
 @mixin btn-icon-size-variant($font-size, $round-padding, $btn-icon-circle-font-size) {
-    i,.wtf {
+    i,
+    .wtf {
         font-size: $font-size;
     }
 
