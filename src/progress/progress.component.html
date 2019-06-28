@@ -1,11 +1,26 @@
 <ng-container *ngIf="isStacked; else general">
-  <thy-progress-bar *ngFor="let item of value" [thyType]="item.type" [thyColor]="item.color" [thyValue]="item.value">{{
-    item.label
-  }}</thy-progress-bar>
+  <thy-progress-bar
+    *ngFor="let item of value"
+    [thyType]="item.type"
+    [ngClass]="{ 'cursor-pointer': item.tips || thyTips }"
+    [thyTooltip]="item.tips || thyTips"
+    [thyTooltipTemplateContext]="item"
+    [thyTooltipDisabled]="!thyTips && !item.tips"
+    [thyColor]="item.color"
+    [thyValue]="item.value"
+    >{{ item.label }}
+  </thy-progress-bar>
 </ng-container>
 
 <ng-template #general>
-  <thy-progress-bar [thyType]="thyType" [thyValue]="value">
+  <thy-progress-bar
+    [thyType]="thyType"
+    [ngClass]="{ 'cursor-pointer': thyTips }"
+    [thyTooltip]="thyTips"
+    [thyTooltipTemplateContext]="value"
+    [thyTooltipDisabled]="!thyTips"
+    [thyValue]="value"
+  >
     <ng-content></ng-content>
   </thy-progress-bar>
 </ng-template>

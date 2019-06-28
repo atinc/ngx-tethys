@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, AfterViewInit } from '@angular/core';
 import { clamp } from '../../../../../src/util/helpers';
 import { apiParameters } from './api-parameters';
+import { template } from '@angular/core/src/render3';
 
 const allColors = [
     '#22d7bb',
@@ -27,7 +28,9 @@ const allColors = [
     selector: 'app-demo-progress-section',
     templateUrl: './progress-section.component.html'
 })
-export class DemoProgressSectionComponent implements OnInit {
+export class DemoProgressSectionComponent implements OnInit, AfterViewInit {
+    @ViewChild('customProgressTips') templateTips: TemplateRef<HTMLElement>;
+
     value = 40;
 
     max = 100;
@@ -36,32 +39,13 @@ export class DemoProgressSectionComponent implements OnInit {
 
     basicCodeExample = require('!!raw-loader!./basic/progress-basic-demo.component.html');
 
+    stackedCodeExample = require('!!raw-loader!./stacked/progress-stacked-demo.component.html');
+
+    tooltipCodeExample = require('!!raw-loader!./template/template.component.html');
+
     apiParameters = apiParameters;
 
-    stacked = [
-        // {
-        //     type: 'info',
-        //     value: 20
-        // },
-        {
-            type: 'success',
-            value: 20
-        },
-        {
-            type: 'warning',
-            value: 20
-        },
-        {
-            type: 'danger',
-            value: 20
-        },
-        {
-            type: 'info',
-            value: 30,
-            color: '#7076fa',
-            label: 'custom color'
-        }
-    ];
+    stacked = [];
 
     constructor() {}
 
@@ -90,14 +74,15 @@ export class DemoProgressSectionComponent implements OnInit {
         return result;
     }
 
-    randomCustomColorStacked() {
+    randomCustomColorStacked(templateRef?: TemplateRef<HTMLElement>) {
         const stacked = [];
         const colorIndexes = this.getUniqueIndexes(5, allColors.length);
         for (let i = 0; i < 5; i++) {
             const value = Math.floor(Math.random() * 100 + 10);
             stacked.push({
                 value,
-                color: allColors[colorIndexes[i]]
+                color: allColors[colorIndexes[i]],
+                tips: value > 30 ? `value: ${value}` : templateRef
             });
         }
         this.stacked = stacked;
@@ -105,6 +90,32 @@ export class DemoProgressSectionComponent implements OnInit {
 
     ngOnInit() {
         // this.randomStacked();
+    }
+
+    ngAfterViewInit() {
+        this.stacked = [
+            {
+                type: 'success',
+                value: 20,
+                tips: 'tips'
+            },
+            {
+                type: 'warning',
+                value: 20,
+                tips: 'hey'
+            },
+            {
+                type: 'danger',
+                value: 20,
+                tips: this.templateTips
+            },
+            {
+                type: 'info',
+                value: 30,
+                color: '#7076fa',
+                label: 'custom color'
+            }
+        ];
     }
 
     increase() {
