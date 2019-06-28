@@ -34,8 +34,8 @@ import {
 import { inputValueToBoolean, isArray } from '../util/helpers';
 import { ScrollStrategy, Overlay, ViewportRuler, ConnectionPositionPair, ScrollDispatcher } from '@angular/cdk/overlay';
 import { CdkScrollable } from '@angular/cdk/scrolling';
-import { takeUntil, startWith, take, switchMap, skip, debounceTime } from 'rxjs/operators';
-import { Subject, Observable, merge, defer, empty, fromEvent, Subscription } from 'rxjs';
+import { takeUntil, startWith, take, switchMap } from 'rxjs/operators';
+import { Subject, Observable, merge, defer } from 'rxjs';
 import { EXPANDED_DROPDOWN_POSITIONS } from '../core/overlay/overlay-opsition-map';
 import { ThySelectOptionGroupComponent } from './option-group.component';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -90,7 +90,7 @@ export class ThySelectCustomComponent
 
     _size: InputSize;
 
-    _mode: SelectMode;
+    _mode: SelectMode = '';
 
     _emptyStateText = '没有任何选项';
 
@@ -147,6 +147,7 @@ export class ThySelectCustomComponent
     @Input()
     set thyMode(value: SelectMode) {
         this._mode = value;
+        this._instanceSelectionModel();
     }
 
     get thyMode(): SelectMode {
@@ -162,6 +163,9 @@ export class ThySelectCustomComponent
     set thyEmptyStateText(value: string) {
         this._emptyStateText = value;
     }
+
+    @Input()
+    thyEnableScrollLoad = false;
 
     @Input() thyAllowClear = false;
 
@@ -270,7 +274,9 @@ export class ThySelectCustomComponent
                     this.changeDetectorRef.markForCheck();
                 }
             });
-        this._instanceSelectionModel();
+        if (!this._selectionModel) {
+            this._instanceSelectionModel();
+        }
         if (this._size) {
             this._classNames.push(`thy-select-${this._size}`);
         }
@@ -281,10 +287,6 @@ export class ThySelectCustomComponent
     }
 
     ngAfterContentInit() {
-        this._selectionModel.onChange.pipe(takeUntil(this._destroy$)).subscribe(event => {
-            event.added.forEach(option => option.select());
-            event.removed.forEach(option => option.deselect());
-        });
         this.options.changes
             .pipe(
                 startWith(null),
@@ -426,7 +428,14 @@ export class ThySelectCustomComponent
     }
 
     private _instanceSelectionModel() {
+        if (this._selectionModel) {
+            this._selectionModel.clear();
+        }
         this._selectionModel = new SelectionModel<ThyOptionComponent>(this._mode === 'multiple');
+        this._selectionModel.onChange.pipe(takeUntil(this._destroy$)).subscribe(event => {
+            event.added.forEach(option => option.select());
+            event.removed.forEach(option => option.deselect());
+        });
     }
 
     _onSelect(option: ThyOptionComponent, event?: Event) {

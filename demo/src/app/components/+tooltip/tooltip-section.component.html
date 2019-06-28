@@ -74,6 +74,7 @@
         [thyTooltip]="hello"
         [thyTooltipTrigger]="tooltipConfig.trigger"
         [thyTooltipPlacement]="tooltipConfig.placement"
+        [thyTooltipDisabled]="tooltipConfig.disabled"
         thyButton="primary"
       >
         Tooltip with Template
@@ -83,6 +84,36 @@
       </ng-template>
     </div>
     <pre class="mt-2"><code lang="typescript" [highlight]="templateCodeExample"></code></pre>
+  </div>
+</section>
+
+<section>
+  <div class="header">
+    <h2>Custom Template Tooltip with data</h2>
+  </div>
+  <div class="body">
+    <div class="mt-2">
+      <button
+        [thyTooltip]="world"
+        [thyTooltipTrigger]="tooltipConfig.trigger"
+        [thyTooltipTemplateContext]="{ values: [1, 2, 3, 4] }"
+        [thyTooltipPlacement]="tooltipConfig.placement"
+        [thyTooltipDisabled]="tooltipConfig.disabled"
+        thyButton="primary"
+      >
+        Tooltip with Template
+      </button>
+      <ng-template #world let-data>
+        <div>
+          <i class="wtf wtf-help-question-o"></i>
+          My custom tooltip message with template data
+          <div *ngFor="let item of data.values">
+            {{ item }}
+          </div>
+        </div>
+      </ng-template>
+    </div>
+    <pre class="mt-2"><code lang="typescript" [highlight]="TemplateContextCodeExample"></code></pre>
   </div>
 </section>
 
