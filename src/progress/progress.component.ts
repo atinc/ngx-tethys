@@ -6,7 +6,8 @@ import {
     ElementRef,
     ViewEncapsulation,
     ViewChildren,
-    QueryList
+    QueryList,
+    TemplateRef
 } from '@angular/core';
 import { ThyProgressTypes, ThyStackedValue } from './interfaces';
 import { UpdateHostClassService } from '../shared';
@@ -42,6 +43,8 @@ export class ThyProgressComponent implements ThyParentProgress {
     }
 
     @Input() thyType: ThyProgressTypes;
+
+    @Input() thyTips: string | TemplateRef<HTMLElement>;
 
     @Input() set thyValue(value: number | ThyStackedValue[]) {
         this.isStacked = Array.isArray(value);
