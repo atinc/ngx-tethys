@@ -40,5 +40,11 @@ export const apiParameters = [
         description: '隐藏提示内容延迟毫秒',
         type: 'number',
         default: '100'
+    },
+    {
+        property: 'thyTooltipTemplateContext',
+        description: '传入template时，注入给template的数据',
+        type: 'any',
+        default: 'null'
     }
 ];
