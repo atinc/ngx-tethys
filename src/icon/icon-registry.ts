@@ -26,7 +26,7 @@ export type IconMode = 'font' | 'svg';
     providedIn: 'root'
 })
 export class ThyIconRegistry {
-    private defaultFontSetClass = 'thy-icon';
+    private defaultFontSetClass = 'wt-icon';
     private internalIconMode: IconMode = 'svg';
     private svgIconConfigs = new Map<string, SvgIconConfig>();
     private svgIconSetConfigs = new Map<string, SvgIconConfig[]>();

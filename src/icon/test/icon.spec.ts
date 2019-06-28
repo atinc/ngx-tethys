@@ -17,7 +17,7 @@ describe('ThyIconComponent', () => {
     describe('test begin', () => {
         let fixture: ComponentFixture<TestBed2Component>;
         let componentInstance: TestBed2Component;
-        const iconSvgClassPrefix = 'thy-icon--';
+        const iconSvgClassPrefix = 'thy-icon-';
 
         beforeEach(async(() => {
             fixture = TestBed.createComponent(TestBed2Component);

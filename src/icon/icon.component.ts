@@ -27,6 +27,8 @@ const iconSuffixMap = {
 export class ThyIconComponent implements OnInit {
     private iconName: string;
 
+    @HostBinding('class.thy-icon') className = true;
+
     @Input('thyIconType') iconType: 'outline' | 'fill' | 'twotone' = 'outline';
 
     @Input('thyIconName')
@@ -50,9 +52,7 @@ export class ThyIconComponent implements OnInit {
         private elementRef: ElementRef,
         private iconRegistry: ThyIconRegistry
     ) {
-        updateHostClassService
-            .initializeElement(elementRef.nativeElement)
-            .addClass(this.iconRegistry.getDefaultFontSetClass());
+        updateHostClassService.initializeElement(elementRef.nativeElement);
     }
 
     ngOnInit() {}
@@ -159,7 +159,7 @@ export class ThyIconComponent implements OnInit {
     }
 
     private combineIconClassName(iconName = '') {
-        const thyIconClassPrefix = this.iconRegistry.getDefaultFontSetClass() + '--';
+        const thyIconClassPrefix = 'thy-icon-';
         return thyIconClassPrefix + this.buildIconNameByType(iconName).replace(':', '-');
     }
 
