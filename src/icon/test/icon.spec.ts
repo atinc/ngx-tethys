@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { async, TestBed, ComponentFixture } from '@angular/core/testing';
 import { ThyIconModule } from '../icon.module';
-import { ThyIconClassPrefix } from '../icon.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ThyIconRegistry } from '../icon-registry';
 
 describe('ThyIconComponent', () => {
     beforeEach(async(() => {
@@ -17,6 +17,7 @@ describe('ThyIconComponent', () => {
     describe('test begin', () => {
         let fixture: ComponentFixture<TestBed2Component>;
         let componentInstance: TestBed2Component;
+        const iconSvgClassPrefix = 'thy-icon--';
 
         beforeEach(async(() => {
             fixture = TestBed.createComponent(TestBed2Component);
@@ -26,21 +27,29 @@ describe('ThyIconComponent', () => {
 
         it('should has icon name class', () => {
             expect(
-                fixture.nativeElement.querySelector(`.${ThyIconClassPrefix}${componentInstance.thyIconName}`)
+                fixture.nativeElement.querySelector(`.${iconSvgClassPrefix}${componentInstance.thyIconName}`)
             ).toBeTruthy();
         });
 
         it('should has new icon name class', () => {
             expect(
-                fixture.nativeElement.querySelector(`.${ThyIconClassPrefix}${componentInstance.thyIconName}`)
+                fixture.nativeElement.querySelector(`.${iconSvgClassPrefix}${componentInstance.thyIconName}`)
             ).toBeTruthy();
         });
 
         it('should not be found old icon name class', () => {
             const oldIconName = componentInstance.thyIconName;
-            componentInstance.thyIconName = 'check';
+            componentInstance.thyIconName = 'close';
             fixture.detectChanges();
-            expect(fixture.nativeElement.querySelector(`.${ThyIconClassPrefix}${oldIconName}`)).toBeFalsy();
+            expect(fixture.nativeElement.querySelector(`.${iconSvgClassPrefix}${oldIconName}`)).toBeFalsy();
+        });
+
+        it('should set thyIconType fill have correct class', () => {
+            componentInstance.thyIconType = 'fill';
+            fixture.detectChanges();
+            expect(
+                fixture.nativeElement.querySelector(`.${iconSvgClassPrefix}${componentInstance.thyIconName}-fill`)
+            ).toBeFalsy();
         });
     });
 });
@@ -49,11 +58,13 @@ describe('ThyIconComponent', () => {
 
 @Component({
     template: `
-        <thy-icon [thyIconName]="thyIconName"></thy-icon>
+        <thy-icon [thyIconName]="thyIconName" [thyIconType]="thyIconType"></thy-icon>
     `
 })
 class TestBed2Component {
-    thyIconName = 'check-fill';
+    constructor(public iconRegistry: ThyIconRegistry) {}
+    thyIconName = 'check';
+    thyIconType = '';
 }
 
 //#endregion

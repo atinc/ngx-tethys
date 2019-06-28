@@ -12,7 +12,10 @@ import { UpdateHostClassService } from '../shared';
 import { ThyIconRegistry } from './icon-registry';
 import { take } from 'rxjs/operators';
 
-export const ThyIconClassPrefix = 'wt-icon--';
+const iconSuffixMap = {
+    fill: 'fill',
+    twotone: 'tt'
+};
 
 @Component({
     selector: 'thy-icon',
@@ -22,13 +25,17 @@ export const ThyIconClassPrefix = 'wt-icon--';
     providers: [UpdateHostClassService]
 })
 export class ThyIconComponent implements OnInit {
-    @HostBinding(`class.thy-icon`) addIconClass = true;
+    private iconName: string;
+
+    @Input('thyIconType') iconType: 'outline' | 'fill' | 'twotone' = 'outline';
 
     @Input('thyIconName')
     set _iconName(value: string) {
-        this.updateClass(value);
+        if (this.iconRegistry.iconMode === 'svg') {
+            this.svgModeUpdateClassName(value);
+        }
         this.iconName = value;
-        this.updateSVG();
+        this.updateClasses();
     }
     get _iconName() {
         return this.iconName;
@@ -38,30 +45,41 @@ export class ThyIconComponent implements OnInit {
 
     @Input('thyTwotoneColor') twotoneColor: string;
 
-    private iconName: string;
-
     constructor(
         private updateHostClassService: UpdateHostClassService,
         private elementRef: ElementRef,
         private iconRegistry: ThyIconRegistry
     ) {
-        updateHostClassService.initializeElement(elementRef.nativeElement);
+        updateHostClassService
+            .initializeElement(elementRef.nativeElement)
+            .addClass(this.iconRegistry.getDefaultFontSetClass());
     }
 
     ngOnInit() {}
 
-    private updateSVG() {
+    updateClasses() {
         const [namespace, iconName] = this.iconRegistry.splitIconName(this.iconName);
-        this.iconRegistry
-            .getSvgIcon(iconName, namespace)
-            .pipe(take(1))
-            .subscribe(
-                svg => this.drawSvgElement(svg),
-                (err: Error) => console.error(`Error retrieving icon: ${err.message}`)
-            );
+        if (iconName) {
+            if (this.iconRegistry.iconMode === 'svg') {
+                this.iconRegistry
+                    .getSvgIcon(this.buildIconNameByType(iconName), namespace)
+                    .pipe(take(1))
+                    .subscribe(
+                        svg => this.setSvgElement(svg),
+                        (error: Error) => console.error(`Error retrieving icon: ${error.message}`)
+                    );
+            } else {
+                const fontSetClass = this.iconSet
+                    ? this.iconRegistry.getFontSetClassByAlias(this.iconSet)
+                    : this.iconRegistry.getDefaultFontSetClass();
+                this.updateHostClassService.updateClass([fontSetClass, `${fontSetClass}-${this.iconName}`]);
+            }
+        }
     }
 
-    private drawSvgElement(svg: SVGElement) {
+    //#region svg element
+
+    private setSvgElement(svg: SVGElement) {
         this.clearSvgElement();
 
         // Workaround for IE11 and Edge ignoring `style` tags inside dynamically-created SVGs.
@@ -73,29 +91,21 @@ export class ThyIconComponent implements OnInit {
             styleTags[i].textContent += ' ';
         }
 
-        const allPaths = svg.querySelectorAll('path');
-        if (allPaths.length > 1) {
-            allPaths.forEach((child, index: number) => {
-                if (this.twotoneColor) {
-                    if (index === 1) {
-                        child.setAttribute('fill', this.twotoneColor);
-                    } else {
-                        child.setAttribute('fill', 'currentColor');
+        if (this.iconType === 'twotone') {
+            const allPaths = svg.querySelectorAll('path');
+            if (allPaths.length > 1) {
+                allPaths.forEach((child, index: number) => {
+                    if (this.twotoneColor) {
+                        if (index === 1) {
+                            child.setAttribute('fill', this.twotoneColor);
+                        } else {
+                            child.setAttribute('fill', 'currentColor');
+                        }
                     }
-                } else {
-                    if (index === 1) {
-                        child.setAttribute('fill', '#fff');
-                    } else {
-                        child.setAttribute('fill', 'currentColor');
-                    }
-                }
-
-                // if (child.getAttribute('fill') === 'secondaryColor') {
-                //     child.setAttribute('fill', 'currentColor');
-                // } else {
-                // }
-            });
+                });
+            }
         }
+
         // Note: we do this fix here, rather than the icon registry, because the
         // references have to point to the URL at the time that the icon was created.
         // if (this._location) {
@@ -129,13 +139,29 @@ export class ThyIconComponent implements OnInit {
         }
     }
 
-    private updateClass(newIconName: string) {
-        this.updateHostClassService
-            .removeClass(this.combineIconClass(this.iconName))
-            .addClass(this.combineIconClass(newIconName));
+    //#endregion
+
+    private buildIconNameByType(iconName: string) {
+        if (this.iconType && ['fill', 'twotone'].indexOf(this.iconType) >= 0) {
+            const suffix = iconSuffixMap[this.iconType];
+            return iconName.includes(`-${suffix}`) ? iconName : `${iconName}-${suffix}`;
+        } else {
+            return iconName;
+        }
     }
 
-    private combineIconClass(iconName: string) {
-        return ThyIconClassPrefix + iconName;
+    //#region svg mode class name
+
+    private svgModeUpdateClassName(newIconName: string) {
+        this.updateHostClassService
+            .removeClass(this.combineIconClassName(this.iconName))
+            .addClass(this.combineIconClassName(newIconName));
     }
+
+    private combineIconClassName(iconName = '') {
+        const thyIconClassPrefix = this.iconRegistry.getDefaultFontSetClass() + '--';
+        return thyIconClassPrefix + this.buildIconNameByType(iconName).replace(':', '-');
+    }
+
+    //#endregion
 }
