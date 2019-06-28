@@ -430,18 +430,12 @@ export class ThySelectCustomComponent
     private _instanceSelectionModel() {
         if (this._selectionModel) {
             this._selectionModel.clear();
-            this._selectionModel = new SelectionModel<ThyOptionComponent>(this._mode === 'multiple');
-            this._selectionModel.onChange.pipe(takeUntil(this._destroy$)).subscribe(event => {
-                event.added.forEach(option => option.select());
-                event.removed.forEach(option => option.deselect());
-            });
-        } else {
-            this._selectionModel = new SelectionModel<ThyOptionComponent>(this._mode === 'multiple');
-            this._selectionModel.onChange.pipe(takeUntil(this._destroy$)).subscribe(event => {
-                event.added.forEach(option => option.select());
-                event.removed.forEach(option => option.deselect());
-            });
         }
+        this._selectionModel = new SelectionModel<ThyOptionComponent>(this._mode === 'multiple');
+        this._selectionModel.onChange.pipe(takeUntil(this._destroy$)).subscribe(event => {
+            event.added.forEach(option => option.select());
+            event.removed.forEach(option => option.deselect());
+        });
     }
 
     _onSelect(option: ThyOptionComponent, event?: Event) {
