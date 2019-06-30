@@ -8,46 +8,52 @@
     margin-bottom: $alert-margin-bottom;
     border: $alert-border-width solid transparent;
     @include border-radius($alert-border-radius);
-  }
-  
-  // Headings for larger alerts
-  .thy-alert-heading {
+}
+
+// Headings for larger alerts
+.thy-alert-heading {
     // Specified to prevent conflicts of changing $headings-color
     color: inherit;
-  }
-  
-  // Provide class for links that match alerts
-  .thy-alert-link {
+}
+
+// Provide class for links that match alerts
+.thy-alert-link {
     font-weight: $alert-link-font-weight;
-  }
-  
-  
-  // Dismissible alerts
-  //
-  // Expand the right padding and account for the close button's positioning.
-  
-  .thy-alert-dismissible {
+}
+
+// Dismissible alerts
+//
+// Expand the right padding and account for the close button's positioning.
+
+.thy-alert-dismissible {
     padding-right: ($close-font-size + $alert-padding-x * 2);
-  
+
     // Adjust close link position
     .close {
-      position: absolute;
-      top: 0;
-      right: 0;
-      padding: $alert-padding-y $alert-padding-x;
-      color: inherit;
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: $alert-padding-y $alert-padding-x;
+        color: inherit;
     }
-  }
-  
-  
-  // Alternate styles
-  //
-  // Generate contextual modifier classes for colorizing the alert.
-  
-  @each $color, $value in $theme-colors {
-    .thy-alert-#{$color} {
-      @include thy-alert-variant(theme-color($color));
-    }
-  }
+}
 
-  
+// Alternate styles
+//
+// Generate contextual modifier classes for colorizing the alert.
+
+@each $color, $value in $theme-colors {
+    .thy-alert-#{$color} {
+        @include thy-alert-variant(theme-color($color));
+    }
+}
+
+// $thy-alert-week-colors: ();
+$thy-alert-week-colors: (
+    'primary-week': $primary
+);
+@each $key, $color in $thy-alert-week-colors {
+    .thy-alert-#{$key} {
+        @include thy-alert-week-variant($color);
+    }
+}

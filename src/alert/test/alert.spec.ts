@@ -71,6 +71,15 @@ describe('ThyAlert', () => {
         expect(iconElement.classList.contains('wtf-times-circle')).toBe(true);
     });
 
+    it('should have correct class when type is primary-week', () => {
+        testComponent.type = `primary-week`;
+        fixture.detectChanges();
+        const iconElement = alertElement.children[0];
+        expect(iconElement).toBeTruthy();
+        expect(alertElement.classList.contains('thy-alert-primary-week')).toBe(true);
+        expect(iconElement.classList.contains('wtf-help-question')).toBe(true);
+    });
+
     it('should have correct class when icon is available string', () => {
         testComponent.icon = `wtf-mission`;
         fixture.detectChanges();

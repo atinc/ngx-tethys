@@ -2,14 +2,15 @@ import { Component, Input, HostBinding, ViewChild, TemplateRef, OnInit } from '@
 import { inputValueToBoolean } from '../util/helpers';
 import { helpers } from '../util';
 import { Dictionary } from '../typings';
+
+type ThyAlertType = 'success' | 'warning' | 'danger' | 'info' | 'primary-week';
+
 @Component({
     selector: 'thy-alert',
     templateUrl: './alert.component.html'
 })
-
 export class ThyAlertComponent implements OnInit {
-
-    @Input() thyType = 'info';
+    @Input() thyType: ThyAlertType = 'info';
 
     @Input() thyMessage: string;
 
@@ -38,14 +39,14 @@ export class ThyAlertComponent implements OnInit {
         warning: 'wtf-unselected-o',
         danger: 'wtf-times-circle',
         info: 'wtf-task',
+        'primary-week': 'wtf-help-question'
     };
 
     private _showIcon = true;
 
     private _icon: string;
 
-    constructor() { }
+    constructor() {}
 
-    ngOnInit() {
-    }
+    ngOnInit() {}
 }
