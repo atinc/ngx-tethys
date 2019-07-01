@@ -33,7 +33,7 @@ export class ThyIconComponent implements OnInit {
 
     @Input('thyIconName')
     set iconName(value: string) {
-        this.iconName = value;
+        this._iconName = value;
         this.updateClasses();
     }
     get iconName() {
@@ -65,7 +65,9 @@ export class ThyIconComponent implements OnInit {
                         svg => this.setSvgElement(svg),
                         (error: Error) => console.error(`Error retrieving icon: ${error.message}`)
                     );
-                this.updateHostClassService.updateClass([`thy-icon-${namespace}-${iconName}`]);
+                this.updateHostClassService.updateClass([
+                    `thy-icon${namespace ? `-${namespace}` : ``}-${this.buildIconNameByType(iconName)}`
+                ]);
             } else {
                 const fontSetClass = this.iconSet
                     ? this.iconRegistry.getFontSetClassByAlias(this.iconSet)
