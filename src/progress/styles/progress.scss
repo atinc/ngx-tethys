@@ -7,19 +7,22 @@
     }
 }
 
-@mixin set-progress-size($height, $border-radius) {
+@mixin set-progress-size($height) {
     height: $height;
     .progress-bar {
-        border-radius: $border-radius;
+        @include border-radius(0 $height/2 $height/2 0);
 
         &:after {
             content: '';
+            position: absolute;
+            z-index: 1;
+            right: 0;
             display: block;
-            width: 3px;
-            height: $height;
+            width: $height / 2;
+            height: $height * 2;
             background: $progress-split-color;
-            border-radius: $border-radius;
-            transform: scaleX(0.7) translateX(3px);
+            @include border-radius(0 $height/2 $height/2 0);
+            transform: scaleY(0.5) translateX($height / 2);
         }
     }
 }
@@ -31,6 +34,7 @@
     font-size: $progress-font-size;
     background-color: $progress-bg;
     @include border-radius($progress-border-radius);
+    @include set-progress-size($progress-height);
 }
 
 // 只有 stacked 的时候才会出现 border-right 白色
@@ -44,15 +48,15 @@
 }
 
 .progress-sm {
-    @include set-progress-size($progress-height-sm, 0 3px 3px 0);
+    @include set-progress-size($progress-height-sm);
 }
 
 .progress-xs {
-    @include set-progress-size($progress-height-xs, 0 3px 3px 0);
+    @include set-progress-size($progress-height-xs);
 }
 
 .progress-lg {
-    @include set-progress-size($progress-height-lg, 0 5px 5px 0);
+    @include set-progress-size($progress-height-lg);
 }
 
 .progress-bar {
@@ -64,7 +68,6 @@
     text-align: center;
     background-color: $primary;
     @include transition($progress-bar-transition);
-    border-radius: 0 5px 5px 0;
     position: relative;
     &[aria-valuenow='0'] {
         &:after {
@@ -79,17 +82,6 @@
     // 暂时兼容保留
     &:last-child {
         border-right: 1px $progress-split-color solid;
-    }
-    &:after {
-        position: absolute;
-        content: '';
-        width: 5px;
-        right: 0;
-        z-index: 1;
-        height: $progress-height;
-        background: $progress-split-color;
-        border-radius: 0 5px 5px 0;
-        transform: scaleX(0.5) translateX(6px);
     }
 }
 
