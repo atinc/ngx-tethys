@@ -1,6 +1,6 @@
 <!-- <ng-template><ng-content></ng-content></ng-template> -->
-<div class="thy-alert thy-alert-{{thyType}}">
-    <span *ngIf="thyIcon" class="wtf mr-2" [ngClass]="thyIcon"></span>
-    <span *ngIf="thyMessage">{{thyMessage}}</span>
-    <!-- <ng-container [ngTemplateOutlet]="content"></ng-container> -->
+<div class="thy-alert thy-alert-{{ thyType }}">
+  <span *ngIf="thyIcon" class="wtf thy-alert-icon" [ngClass]="thyIcon"></span>
+  <span *ngIf="thyMessage">{{ thyMessage }}</span>
+  <!-- <ng-container [ngTemplateOutlet]="content"></ng-container> -->
 </div>

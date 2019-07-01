@@ -10,6 +10,10 @@
     @include border-radius($alert-border-radius);
 }
 
+.thy-alert-icon {
+    margin-right: 10px;
+}
+
 // Headings for larger alerts
 .thy-alert-heading {
     // Specified to prevent conflicts of changing $headings-color

@@ -8,7 +8,7 @@
     .alert-link {
         color: darken($color, 10%);
     }
-    .wtf {
+    .thy-alert-icon {
         color: $color;
     }
 }
@@ -18,7 +18,7 @@
     background: $white;
     border-color: $gray-200 $gray-200 $gray-200 $color;
     border-left-width: 2px;
-    .wtf {
+    .thy-alert-icon {
         color: $color;
     }
 }
