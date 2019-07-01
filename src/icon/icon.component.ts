@@ -25,22 +25,19 @@ const iconSuffixMap = {
     providers: [UpdateHostClassService]
 })
 export class ThyIconComponent implements OnInit {
-    private iconName: string;
+    private _iconName: string;
 
     @HostBinding('class.thy-icon') className = true;
 
     @Input('thyIconType') iconType: 'outline' | 'fill' | 'twotone' = 'outline';
 
     @Input('thyIconName')
-    set _iconName(value: string) {
-        if (this.iconRegistry.iconMode === 'svg') {
-            this.svgModeUpdateClassName(value);
-        }
+    set iconName(value: string) {
         this.iconName = value;
         this.updateClasses();
     }
-    get _iconName() {
-        return this.iconName;
+    get iconName() {
+        return this._iconName;
     }
 
     @Input('thyIconSet') iconSet: string;
@@ -68,6 +65,7 @@ export class ThyIconComponent implements OnInit {
                         svg => this.setSvgElement(svg),
                         (error: Error) => console.error(`Error retrieving icon: ${error.message}`)
                     );
+                this.updateHostClassService.updateClass([`thy-icon-${namespace}-${iconName}`]);
             } else {
                 const fontSetClass = this.iconSet
                     ? this.iconRegistry.getFontSetClassByAlias(this.iconSet)
@@ -149,19 +147,4 @@ export class ThyIconComponent implements OnInit {
             return iconName;
         }
     }
-
-    //#region svg mode class name
-
-    private svgModeUpdateClassName(newIconName: string) {
-        this.updateHostClassService
-            .removeClass(this.combineIconClassName(this.iconName))
-            .addClass(this.combineIconClassName(newIconName));
-    }
-
-    private combineIconClassName(iconName = '') {
-        const thyIconClassPrefix = 'thy-icon-';
-        return thyIconClassPrefix + this.buildIconNameByType(iconName).replace(':', '-');
-    }
-
-    //#endregion
 }
