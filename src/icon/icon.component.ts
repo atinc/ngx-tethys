@@ -12,6 +12,11 @@ import { UpdateHostClassService } from '../shared';
 import { ThyIconRegistry } from './icon-registry';
 import { take } from 'rxjs/operators';
 
+const iconSuffixMap = {
+    fill: 'fill',
+    twotone: 'tt'
+};
+
 @Component({
     selector: 'thy-icon',
     template: '<ng-content></ng-content>',
@@ -20,13 +25,16 @@ import { take } from 'rxjs/operators';
     providers: [UpdateHostClassService]
 })
 export class ThyIconComponent implements OnInit {
-    _iconName: string;
+    private _iconName: string;
 
-    @HostBinding(`class.thy-icon`) addIconClass = true;
+    @HostBinding('class.thy-icon') className = true;
+
+    @Input('thyIconType') iconType: 'outline' | 'fill' | 'twotone' = 'outline';
 
     @Input('thyIconName')
     set iconName(value: string) {
         this._iconName = value;
+        this.updateClasses();
     }
     get iconName() {
         return this._iconName;
@@ -35,6 +43,41 @@ export class ThyIconComponent implements OnInit {
     @Input('thyIconSet') iconSet: string;
 
     @Input('thyTwotoneColor') twotoneColor: string;
+
+    constructor(
+        private updateHostClassService: UpdateHostClassService,
+        private elementRef: ElementRef,
+        private iconRegistry: ThyIconRegistry
+    ) {
+        updateHostClassService.initializeElement(elementRef.nativeElement);
+    }
+
+    ngOnInit() {}
+
+    updateClasses() {
+        const [namespace, iconName] = this.iconRegistry.splitIconName(this.iconName);
+        if (iconName) {
+            if (this.iconRegistry.iconMode === 'svg') {
+                this.iconRegistry
+                    .getSvgIcon(this.buildIconNameByType(iconName), namespace)
+                    .pipe(take(1))
+                    .subscribe(
+                        svg => this.setSvgElement(svg),
+                        (error: Error) => console.error(`Error retrieving icon: ${error.message}`)
+                    );
+                this.updateHostClassService.updateClass([
+                    `thy-icon${namespace ? `-${namespace}` : ``}-${this.buildIconNameByType(iconName)}`
+                ]);
+            } else {
+                const fontSetClass = this.iconSet
+                    ? this.iconRegistry.getFontSetClassByAlias(this.iconSet)
+                    : this.iconRegistry.getDefaultFontSetClass();
+                this.updateHostClassService.updateClass([fontSetClass, `${fontSetClass}-${this.iconName}`]);
+            }
+        }
+    }
+
+    //#region svg element
 
     private setSvgElement(svg: SVGElement) {
         this.clearSvgElement();
@@ -48,29 +91,21 @@ export class ThyIconComponent implements OnInit {
             styleTags[i].textContent += ' ';
         }
 
-        const allPaths = svg.querySelectorAll('path');
-        if (allPaths.length > 1) {
-            allPaths.forEach((child, index: number) => {
-                if (this.twotoneColor) {
-                    if (index === 1) {
-                        child.setAttribute('fill', this.twotoneColor);
-                    } else {
-                        child.setAttribute('fill', 'currentColor');
+        if (this.iconType === 'twotone') {
+            const allPaths = svg.querySelectorAll('path');
+            if (allPaths.length > 1) {
+                allPaths.forEach((child, index: number) => {
+                    if (this.twotoneColor) {
+                        if (index === 1) {
+                            child.setAttribute('fill', this.twotoneColor);
+                        } else {
+                            child.setAttribute('fill', 'currentColor');
+                        }
                     }
-                } else {
-                    if (index === 1) {
-                        child.setAttribute('fill', '#fff');
-                    } else {
-                        child.setAttribute('fill', 'currentColor');
-                    }
-                }
-
-                // if (child.getAttribute('fill') === 'secondaryColor') {
-                //     child.setAttribute('fill', 'currentColor');
-                // } else {
-                // }
-            });
+                });
+            }
         }
+
         // Note: we do this fix here, rather than the icon registry, because the
         // references have to point to the URL at the time that the icon was created.
         // if (this._location) {
@@ -104,41 +139,14 @@ export class ThyIconComponent implements OnInit {
         }
     }
 
-    constructor(
-        private updateHostClassService: UpdateHostClassService,
-        private elementRef: ElementRef,
-        private iconRegistry: ThyIconRegistry
-    ) {
-        updateHostClassService.initializeElement(elementRef.nativeElement);
-    }
+    //#endregion
 
-    updateClasses() {
-        const [namespace, iconName] = this.iconRegistry.splitIconName(this.iconName);
-        this.iconRegistry
-            .getSvgIcon(iconName, namespace)
-            .pipe(take(1))
-            .subscribe(
-                svg => this.setSvgElement(svg),
-                (err: Error) => console.error(`Error retrieving icon: ${err.message}`)
-            );
-        // if (this.iconName) {
-        //     const fontSetClass = this.iconSet
-        //         ? this.iconRegistry.getFontSetClassByAlias(this.iconSet)
-        //         : this.iconRegistry.getDefaultFontSetClass();
-        //     this.updateHostClassService.updateClass([fontSetClass, `${fontSetClass}-${this.iconName}`]);
-        // } else {
-        //     const [namespace, iconName] = this.iconRegistry.splitIconName(this.iconName);
-        //     this.iconRegistry
-        //         .getSvgIcon(iconName, namespace)
-        //         .pipe(take(1))
-        //         .subscribe(
-        //             svg => this.setSvgElement(svg),
-        //             (err: Error) => console.log(`Error retrieving icon: ${err.message}`)
-        //         );
-        // }
-    }
-
-    ngOnInit() {
-        this.updateClasses();
+    private buildIconNameByType(iconName: string) {
+        if (this.iconType && ['fill', 'twotone'].indexOf(this.iconType) >= 0) {
+            const suffix = iconSuffixMap[this.iconType];
+            return iconName.includes(`-${suffix}`) ? iconName : `${iconName}-${suffix}`;
+        } else {
+            return iconName;
+        }
     }
 }

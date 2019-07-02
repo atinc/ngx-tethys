@@ -23,3 +23,11 @@
         @include thy-multiple-option();
     }
 }
+
+.thy-grid-list {
+    display: flex;
+    flex-wrap: wrap;
+    .thy-grid-option {
+        @include thy-grid-option();
+    }
+}

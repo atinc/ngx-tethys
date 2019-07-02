@@ -1019,15 +1019,15 @@ input[type='radio']:after {
     background: rgba(78, 138, 250, 0.1);
     color: #4e8afa;
 }
-.thy-select-custom--multiple .thy-select-custom-options .thy-option-item.hover:not(.disabled).active,
-.thy-select-custom--multiple .thy-select-custom-options .thy-option-item:hover:not(.disabled).active {
+.thy-select-custom-multiple .thy-select-custom-options .thy-option-item.hover:not(.disabled).active,
+.thy-select-custom-multiple .thy-select-custom-options .thy-option-item:hover:not(.disabled).active {
     color: #333;
 }
-.thy-select-custom--multiple .thy-select-custom-options .thy-option-item:not(.disabled).active {
+.thy-select-custom-multiple .thy-select-custom-options .thy-option-item:not(.disabled).active {
     color: #333;
     background: 0 0;
 }
-.thy-select-custom--multiple .thy-select-custom-options .thy-option-item:not(.disabled).active .checked-icon {
+.thy-select-custom-multiple .thy-select-custom-options .thy-option-item:not(.disabled).active .checked-icon {
     color: #4e8afa !important;
 }
 .thy-list-item,

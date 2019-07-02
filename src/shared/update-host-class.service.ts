@@ -15,6 +15,7 @@ export class UpdateHostClassService {
         } else {
             this._hostElement = element;
         }
+        return this;
     }
 
     updateClass(classNames: string[]) {
@@ -35,6 +36,7 @@ export class UpdateHostClassService {
             }
         });
         this._classNames = newClasses;
+        return this;
     }
 
     updateClassByMap(classMap: Dictionary<boolean>) {
@@ -49,9 +51,11 @@ export class UpdateHostClassService {
 
     addClass(className: string) {
         this.renderer.addClass(this._hostElement, className);
+        return this;
     }
 
     removeClass(className: string) {
         this.renderer.removeClass(this._hostElement, className);
+        return this;
     }
 }

@@ -16,6 +16,8 @@ export class DemoSelectSectionComponent implements OnInit {
 
     allowClear = false;
 
+    multiple = 'multiple';
+
     page = 0;
 
     emptyModalValue = '';
@@ -43,6 +45,8 @@ export class DemoSelectSectionComponent implements OnInit {
     selectedItem = this.optionData[0];
 
     errorSelectedItem = {};
+
+    thyModeValue: any = null;
 
     public apiParameters = [
         {
@@ -103,6 +107,22 @@ export class DemoSelectSectionComponent implements OnInit {
             description: '是否禁用，如果使用了 ngModel，也可以使用 disabled 属性',
             type: 'boolean',
             default: 'false'
+        },
+        {
+            property: 'thyEnableScrollLoad',
+            description: '滚动加载是否可用, 只能当这个参数可以，下面的thyOnScrollToBottom事件才会触发',
+            type: 'boolean',
+            default: 'false'
+        },
+        {
+            property: 'thyOnScrollToBottom',
+            description: 'output event: 下拉菜单滚动到底部事件，可以用这个事件实现滚动加载',
+            type: '()=>{}'
+        },
+        {
+            property: 'thyOnExpandStatusChange',
+            description: 'output event: 下拉菜单展开和这点状态事件',
+            type: '(openStatus: boolean)=>{}'
         }
     ];
 
@@ -221,6 +241,10 @@ export class DemoSelectSectionComponent implements OnInit {
         }
     }
 
+    ngModelChange(data) {
+        console.log(data);
+    }
+
     _fetchOptions() {
         this.loading = true;
         return timer(1000).pipe(
@@ -275,6 +299,14 @@ export class DemoSelectSectionComponent implements OnInit {
                 });
             })
         );
+    }
+
+    multipleStatusChange(value: boolean) {
+        if (value) {
+            this.multiple = 'multiple';
+        } else {
+            this.multiple = '';
+        }
     }
 
     ngOnInit() {

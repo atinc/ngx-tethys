@@ -23,5 +23,11 @@ export const apiParameters = [
             '最大值，主要提供计算百分比进度，当 thyValue 为 stacked 进度条时，自动累加数组中的 value 之和为 max',
         type: 'number',
         default: '100'
+    },
+    {
+        property: 'thyTips',
+        description: '鼠标移入progress bar时显示的tooltips模板',
+        type: 'template',
+        default: 'null'
     }
 ];

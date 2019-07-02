@@ -72,7 +72,12 @@
       ></thy-input-search>
     </div>
     <ng-container *ngIf="options.length > 0 || optionGroups.length > 0; else emptyPlaceholder">
-      <div class="thy-select-custom-options" thyScroll (thyOnScrolled)="optionsContainerScrolled($event)">
+      <div
+        class="thy-select-custom-options"
+        thyScroll
+        (thyOnScrolled)="optionsContainerScrolled($event)"
+        [thyEnable]="thyEnableScrollLoad"
+      >
         <ng-content></ng-content>
       </div>
     </ng-container>
@@ -81,3 +86,5 @@
     </ng-template>
   </div>
 </ng-template>
+
+<thy-icon thyIconName="angle-down"></thy-icon>

@@ -34,6 +34,8 @@ export class ThyTooltipComponent implements OnInit {
 
     _content: string | TemplateRef<HTMLElement>;
 
+    data: any;
+
     _placement: string;
 
     private readonly onHide: Subject<void> = new Subject();

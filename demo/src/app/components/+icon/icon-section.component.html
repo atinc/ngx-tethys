@@ -26,7 +26,7 @@
 <section class="mt-2">
   <div class="body icons-items-wrap">
     <div *ngFor="let category of glyphs">
-      <ng-container *ngIf="category.icons.length > 0">
+      <ng-container *ngIf="category?.icons?.length > 0">
         <span class="category-name text-desc">{{ category.text }} - {{ category.name }} </span>
         <div class="icon-items">
           <div class="icon-item" *ngFor="let icon of category.icons">
@@ -50,14 +50,20 @@
       <thy-icon thyIconName="play-circle" [ngClass]="fontSizeClass"></thy-icon>
       <thy-icon thyIconName="smile" [ngClass]="fontSizeClass"></thy-icon>
       <thy-icon thyIconName="check-circle" [ngClass]="fontSizeClass"></thy-icon>
-      <thy-icon thyIconName="pause-circle-fill" [ngClass]="fontSizeClass"></thy-icon>
-      <thy-icon thyIconName="more-circle-fill" [ngClass]="fontSizeClass"></thy-icon>
-      <thy-icon thyIconName="clock-circle-moment-fill" [ngClass]="fontSizeClass"></thy-icon>
-      <thy-icon thyIconName="user-check-fill" [ngClass]="fontSizeClass"></thy-icon>
-      <thy-icon thyIconName="user-group-fill" [ngClass]="fontSizeClass"></thy-icon>
-      <thy-icon thyIconName="waring-fill" [ngClass]="fontSizeClass"></thy-icon>
-      <thy-icon thyIconName="waring-fill" [ngClass]="fontSizeClass"></thy-icon>
-      <thy-icon thyIconName="check-fill" thyTwotoneColor="" [ngClass]="fontSizeClass"></thy-icon>
+      <thy-icon thyIconName="pause-circle" thyIconType="fill" [ngClass]="fontSizeClass"></thy-icon>
+      <thy-icon thyIconName="more-circle" thyIconType="fill" [ngClass]="fontSizeClass"></thy-icon>
+      <thy-icon thyIconName="clock-circle-moment" thyIconType="fill" [ngClass]="fontSizeClass"></thy-icon>
+      <thy-icon thyIconName="user-check" thyIconType="fill" [ngClass]="fontSizeClass"></thy-icon>
+      <thy-icon thyIconName="user-group" thyIconType="fill" [ngClass]="fontSizeClass"></thy-icon>
+      <thy-icon thyIconName="waring" thyIconType="fill" [ngClass]="fontSizeClass"></thy-icon>
+      <thy-icon thyIconName="check" [ngClass]="fontSizeClass"></thy-icon>
+      <thy-icon thyIconName="check" thyIconType="twotone" thyTwotoneColor="red" [ngClass]="fontSizeClass"></thy-icon>
+      <thy-icon
+        thyIconName="close-circle"
+        thyIconType="twotone"
+        thyTwotoneColor="red"
+        [ngClass]="fontSizeClass"
+      ></thy-icon>
     </div>
     <pre class="mt-2"><code lang="typescript" [highlight]="basicCodeExample"></code></pre>
   </div>
@@ -71,6 +77,10 @@
     <div class="demo-icons mt-2" [ngClass]="colorClass">
       <thy-icon thyIconName="thumb-up" [ngClass]="fontSizeClass"></thy-icon>
       <thy-icon thyIconName="bike" [ngClass]="fontSizeClass"></thy-icon>
+      <thy-icon thyIconName="core:thumb-up" [ngClass]="fontSizeClass"></thy-icon>
+      <thy-icon thyIconName="core:bike" [ngClass]="fontSizeClass"></thy-icon>
+      <thy-icon thyIconName="core:account-child" [ngClass]="fontSizeClass"></thy-icon>
+      <thy-icon thyIconName="core-inline:account-balance" [ngClass]="fontSizeClass"></thy-icon>
     </div>
     <!-- <pre class="mt-2"><code lang="typescript" [highlight]="basicCodeExample"></code></pre> -->
   </div>

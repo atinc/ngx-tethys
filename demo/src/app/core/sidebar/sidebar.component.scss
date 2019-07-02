@@ -5,12 +5,19 @@
     overflow: auto;
     .toc-section {
         .toc-section-head {
-            padding: 0 20px;
+            padding: 10px 20px;
             display: flex;
             align-items: center;
             color: #333333;
             font-size: 16px;
-            line-height: 50px;
+            a {
+                color: #333333;
+                text-decoration: none;
+                transition: all 200ms;
+                &:hover {
+                    color: #22d7bb;
+                }
+            }
             .mate {
                 margin-left: 6px;
                 padding-top: 3px;
@@ -31,19 +38,26 @@
             .toc-item {
                 a {
                     padding-left: 50px;
+                    padding-top: 7px;
+                    padding-bottom: 7px;
                     display: block;
                     width: 100%;
                     height: 100%;
-                    line-height: 40px;
                     color: rgba(0, 0, 0, 0.65);
                     text-decoration: none;
+                    transition: all 200ms;
                     span {
                         font-size: 12px;
-                        opacity: 0.67;
+                    }
+                    &:hover {
+                        color: #22d7bb;
                     }
                     &.active {
                         border-right: solid 2px #22d7bb;
                         background: #e8fbf8;
+                    }
+                    .deprecated {
+                        text-decoration: line-through;
                     }
                 }
             }

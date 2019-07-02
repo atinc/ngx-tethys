@@ -20,15 +20,21 @@ class SvgIconConfig {
     }
 }
 
+export type IconMode = 'font' | 'svg';
+
 @Injectable({
     providedIn: 'root'
 })
 export class ThyIconRegistry {
     private defaultFontSetClass = 'wt-icon';
-
+    private internalIconMode: IconMode = 'svg';
     private svgIconConfigs = new Map<string, SvgIconConfig>();
     private svgIconSetConfigs = new Map<string, SvgIconConfig[]>();
     private inProgressUrlFetches = new Map<string, Observable<string>>();
+
+    public get iconMode() {
+        return this.internalIconMode;
+    }
 
     constructor(
         private sanitizer: Sanitizer,
@@ -306,6 +312,21 @@ export class ThyIconRegistry {
         return this.addSvgIconSetInNamespace('', url);
     }
 
+    addSvgIconSetLiteralInNamespace(namespace: string, literal: SafeHtml): this {
+        const sanitizedLiteral = this.sanitizer.sanitize(SecurityContext.HTML, literal);
+
+        if (!sanitizedLiteral) {
+            throw this.getIconFailedToSanitizeLiteralError(literal);
+        }
+
+        const svgElement = this.svgElementFromString(sanitizedLiteral);
+        return this.internalAddSvgIconSet(namespace, new SvgIconConfig(svgElement));
+    }
+
+    addSvgIconSetLiteral(literal: SafeHtml): this {
+        return this.addSvgIconSetLiteralInNamespace('', literal);
+    }
+
     /**
      * Registers an icon by URL in the specified namespace.
      * @param namespace Namespace in which the icon should be registered.
@@ -376,5 +397,9 @@ export class ThyIconRegistry {
         }
 
         return throwError(this.getIconNameNotFoundError(key));
+    }
+
+    setIconMode(mode: IconMode) {
+        this.internalIconMode = mode;
     }
 }
