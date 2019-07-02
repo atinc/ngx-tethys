@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
     selector: 'demo-template',
     templateUrl: './template.component.html'
 })
-export class TemplateComponent implements OnInit {
+export class ProgressDemoTemplateComponent implements OnInit {
     stacked = [
         {
             value: 62,
