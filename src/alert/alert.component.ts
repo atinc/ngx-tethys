@@ -1,5 +1,4 @@
-import { Component, Input, HostBinding, ViewChild, TemplateRef, OnInit } from '@angular/core';
-import { inputValueToBoolean } from '../util/helpers';
+import { Component, Input, OnInit } from '@angular/core';
 import { helpers } from '../util';
 import { Dictionary } from '../typings';
 
@@ -35,11 +34,11 @@ export class ThyAlertComponent implements OnInit {
     // @ViewChild(TemplateRef) content: TemplateRef<any>;
 
     private _typeIcon: Dictionary<string> = {
-        success: 'wtf-completed-circle',
-        warning: 'wtf-unselected-o',
-        danger: 'wtf-times-circle',
-        info: 'wtf-task',
-        'primary-week': 'wtf-help-question'
+        success: 'check-circle-fill',
+        warning: 'waring-fill',
+        danger: 'close-circle-fill',
+        info: 'minus-circle-fill',
+        'primary-week': 'question-circle-fill'
     };
 
     private _showIcon = true;
