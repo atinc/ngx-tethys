@@ -1056,6 +1056,12 @@ input[type='radio']:after {
 .thy-multiple-selection-list .thy-list-option:not(.disabled).active .checked-icon {
     color: #febc20 !important;
 }
+.thy-grid-list .thy-grid-option .checked-icon {
+    background: #febc20;
+}
+.thy-grid-list .thy-grid-option:not(.disabled).active {
+    background: rgba(254, 188, 32, 0.1);
+}
 .thy-stepper .thy-stepper-header-container .thy-stepper-header.thy-stepper-header-active {
     color: #febc20;
 }
