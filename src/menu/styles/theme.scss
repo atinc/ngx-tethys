@@ -19,6 +19,15 @@
         .thy-menu-item-action {
             color: $gray-500;
         }
+        &.active .thy-menu-item-content {
+            .thy-menu-item-icon {
+                color: $primary;
+            }
+
+            .thy-menu-item-name {
+                color: $primary;
+            }
+        }
     }
     .thy-menu-group {
         .thy-menu-group-header {
