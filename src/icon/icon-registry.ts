@@ -32,7 +32,7 @@ export class ThyIconRegistry {
     private svgIconSetConfigs = new Map<string, SvgIconConfig[]>();
     private inProgressUrlFetches = new Map<string, Observable<string>>();
 
-    get iconMode() {
+    public get iconMode() {
         return this.internalIconMode;
     }
 
