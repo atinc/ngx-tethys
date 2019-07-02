@@ -10,19 +10,19 @@
 @mixin set-progress-size($height) {
     height: $height;
     .progress-bar {
-        @include border-radius(0 $height/2 $height/2 0);
+        overflow: hidden;
+        @include border-radius(0 $height $height 0);
 
-        &:after {
+        &:before {
             content: '';
             position: absolute;
             z-index: 1;
-            right: 0;
+            left: -$height * 2 + 3;
             display: block;
-            width: $height / 2;
+            width: $height * 2;
             height: $height * 2;
             background: $progress-split-color;
-            @include border-radius(0 $height/2 $height/2 0);
-            transform: scaleY(0.5) translateX($height / 2);
+            @include border-radius(0 $height * 2 $height * 2 0);
         }
     }
 }
@@ -33,7 +33,7 @@
     overflow: hidden; // force rounded corners by cropping it
     font-size: $progress-font-size;
     background-color: $progress-bg;
-    @include border-radius($progress-border-radius);
+    @include border-radius(100px);
     @include set-progress-size($progress-height);
 }
 
@@ -70,12 +70,12 @@
     @include transition($progress-bar-transition);
     position: relative;
     &[aria-valuenow='0'] {
-        &:after {
+        &:before {
             display: none;
         }
     }
-    &:last-child {
-        &:after {
+    &:first-child {
+        &:before {
             display: none;
         }
     }
