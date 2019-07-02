@@ -35,7 +35,7 @@ describe('ThyAlert', () => {
         const iconElement = alertElement.children[0];
         expect(iconElement).toBeTruthy();
         expect(alertElement.classList.contains('thy-alert-info')).toBe(true);
-        expect(iconElement.classList.contains('wtf-task')).toBe(true);
+        expect(iconElement.classList.contains('thy-icon-minus-circle-fill')).toBe(true);
     });
 
     it('should have correct text', () => {
@@ -50,7 +50,7 @@ describe('ThyAlert', () => {
         const iconElement = alertElement.children[0];
         expect(iconElement).toBeTruthy();
         expect(alertElement.classList.contains('thy-alert-success')).toBe(true);
-        expect(iconElement.classList.contains('wtf-completed-circle')).toBe(true);
+        expect(iconElement.classList.contains('thy-icon-check-circle-fill')).toBe(true);
     });
 
     it('should have correct class when type is warning', () => {
@@ -59,7 +59,7 @@ describe('ThyAlert', () => {
         const iconElement = alertElement.children[0];
         expect(iconElement).toBeTruthy();
         expect(alertElement.classList.contains('thy-alert-warning')).toBe(true);
-        expect(iconElement.classList.contains('wtf-unselected-o')).toBe(true);
+        expect(iconElement.classList.contains('thy-icon-waring-fill')).toBe(true);
     });
 
     it('should have correct class when type is danger', () => {
@@ -68,7 +68,16 @@ describe('ThyAlert', () => {
         const iconElement = alertElement.children[0];
         expect(iconElement).toBeTruthy();
         expect(alertElement.classList.contains('thy-alert-danger')).toBe(true);
-        expect(iconElement.classList.contains('wtf-times-circle')).toBe(true);
+        expect(iconElement.classList.contains('thy-icon-close-circle-fill')).toBe(true);
+    });
+
+    it('should have correct class when type is primary-week', () => {
+        testComponent.type = `primary-week`;
+        fixture.detectChanges();
+        const iconElement = alertElement.children[0];
+        expect(iconElement).toBeTruthy();
+        expect(alertElement.classList.contains('thy-alert-primary-week')).toBe(true);
+        expect(iconElement.classList.contains('thy-icon-question-circle-fill')).toBe(true);
     });
 
     it('should have correct class when icon is available string', () => {
@@ -76,7 +85,7 @@ describe('ThyAlert', () => {
         fixture.detectChanges();
         const iconElement = alertElement.children[0];
         expect(iconElement).toBeTruthy();
-        expect(iconElement.classList.contains('wtf-mission')).toBe(true);
+        expect(iconElement.classList.contains('thy-icon-wtf-mission')).toBe(true);
     });
 
     it('should have correct class when icon is null', () => {
@@ -101,7 +110,7 @@ describe('ThyAlert', () => {
         const childrenLen = alertElement.children.length;
         const iconElement = alertElement.children[0];
         expect(childrenLen).toBe(1);
-        expect(iconElement.classList.contains('wtf')).toBe(true);
+        expect(iconElement.classList.contains('thy-alert-icon')).toBe(true);
     });
 });
 

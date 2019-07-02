@@ -1,143 +1,237 @@
 <section>
-    <div class="header">
-        <h2>Input绑定</h2>
-    </div>
-    <div class="body">
-        <dl class="datepicker-section">
-            <dd class="mt-5">
-                <div>DatepickerTimeObject类型 - {{dateEntry|json}}</div>
-                <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
-                    <input type="text" readonly="readonly" thyDatepicker [(ngModel)]="dateEntry" [thyMinDate]="state.nowPreWeekDate" [thyMaxDate]="state.nowNextWeekDate" class="form-control" thyPlacement="top" thyAutoAdapt="true" placeholder="" />
-                </thy-form-group>
-            </dd>
-            <dd class="mt-5">
-                <div>DateTime类型 - {{dateEntry2|json}}</div>
-                <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
-                    <input type="text" readonly="readonly" thyDatepicker [(ngModel)]="dateEntry2" thyPlacement="top" class="form-control" placeholder="" />
-                </thy-form-group>
-            </dd>
-            <dd class="mt-5">
-                <div>可选时间 - {{dateEntryWithTime|json}}</div>
-                <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
-                    <input type="text" readonly="readonly" thyDatepicker [thyShowTime]="true" [(ngModel)]="dateEntryWithTime" class="form-control"
-                        placeholder="" />
-                </thy-form-group>
-            </dd>
-            <dd class="mt-5">
-                <div>必选时间 - {{dateEntryWithTime2|json}}</div>
-                <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
-                    <input type="text" readonly="readonly" thyDatepicker [(ngModel)]="dateEntryWithTime2" class="form-control" placeholder=""
-                    />
-                </thy-form-group>
-            </dd>
-            <dd class="mt-5">
-                <div>禁用 - </div>
-                <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
-                    <input type="text" readonly="readonly" thyDatepicker disabled [(ngModel)]="dateEntryDisable" class="form-control" placeholder=""
-                    />
-                </thy-form-group>
-            </dd>
-            <dd class="mt-5">
-                <div>空值 - {{dateNull|json}}</div>
-                <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
-                    <input type="text" readonly="readonly" thyDatepicker [thyShowTime]="true" [(ngModel)]="dateNull" class="form-control" placeholder="" />
-                </thy-form-group>
-            </dd>
-            <dd class="mt-5">
-                <div>空值 - {{dateNull2|json}}</div>
-                <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
-                    <input type="text" readonly="readonly" thyDatepicker [thyShowTime]="true" [(ngModel)]="dateNull2" class="form-control" placeholder="" />
-                </thy-form-group>
-            </dd>
-            <dd class="mt-5">
-                <div>空值 - {{dateNullObject|json}}</div>
-                <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
-                    <input type="text" readonly="readonly" thyDatepicker [thyShowTime]="true" [(ngModel)]="dateNullObject" class="form-control" placeholder="" />
-                </thy-form-group>
-            </dd>
-        </dl>
-        <button thyButton="primary" thySize="sm" (click)="datepickerTestNewValue()">改变值</button>
-        <button thyButton="primary" thySize="sm" (click)="datepickerTestNullValue()">空值</button>
-    </div>
+  <div class="header">
+    <h2>Input绑定</h2>
+  </div>
+  <div class="body">
+    <dl class="datepicker-section">
+      <dd class="mt-5">
+        <div>DatepickerTimeObject类型 - {{ dateEntry | json }}</div>
+        <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
+          <input
+            type="text"
+            readonly="readonly"
+            thyDatepicker
+            [(ngModel)]="dateEntry"
+            [thyMinDate]="state.nowPreWeekDate"
+            [thyMaxDate]="state.nowNextWeekDate"
+            class="form-control"
+            thyPlacement="top"
+            thyAutoAdapt="true"
+            placeholder=""
+          />
+        </thy-form-group>
+      </dd>
+      <dd class="mt-5">
+        <div>DateTime类型 - {{ dateEntry2 | json }}</div>
+        <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
+          <input
+            type="text"
+            readonly="readonly"
+            thyDatepicker
+            [(ngModel)]="dateEntry2"
+            thyPlacement="top"
+            class="form-control"
+            placeholder=""
+          />
+        </thy-form-group>
+      </dd>
+      <dd class="mt-5">
+        <div>可选时间 - {{ dateEntryWithTime | json }}</div>
+        <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
+          <input
+            type="text"
+            readonly="readonly"
+            thyDatepicker
+            [thyShowTime]="true"
+            [(ngModel)]="dateEntryWithTime"
+            class="form-control"
+            placeholder=""
+          />
+        </thy-form-group>
+      </dd>
+      <dd class="mt-5">
+        <div>必选时间 - {{ dateEntryWithTime2 | json }}</div>
+        <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
+          <input
+            type="text"
+            readonly="readonly"
+            thyDatepicker
+            [(ngModel)]="dateEntryWithTime2"
+            class="form-control"
+            placeholder=""
+          />
+        </thy-form-group>
+      </dd>
+      <dd class="mt-5">
+        <div>禁用 -</div>
+        <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
+          <input
+            type="text"
+            readonly="readonly"
+            thyDatepicker
+            disabled
+            [(ngModel)]="dateEntryDisable"
+            class="form-control"
+            placeholder=""
+          />
+        </thy-form-group>
+      </dd>
+      <dd class="mt-5">
+        <div>空值 - {{ dateNull | json }}</div>
+        <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
+          <input
+            type="text"
+            readonly="readonly"
+            thyDatepicker
+            [thyShowTime]="true"
+            [(ngModel)]="dateNull"
+            class="form-control"
+            placeholder=""
+          />
+        </thy-form-group>
+      </dd>
+      <dd class="mt-5">
+        <div>空值 - {{ dateNull2 | json }}</div>
+        <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
+          <input
+            type="text"
+            readonly="readonly"
+            thyDatepicker
+            [thyShowTime]="true"
+            [(ngModel)]="dateNull2"
+            class="form-control"
+            placeholder=""
+          />
+        </thy-form-group>
+      </dd>
+      <dd class="mt-5">
+        <div>空值 - {{ dateNullObject | json }}</div>
+        <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
+          <input
+            type="text"
+            readonly="readonly"
+            thyDatepicker
+            [thyShowTime]="true"
+            [(ngModel)]="dateNullObject"
+            class="form-control"
+            placeholder=""
+          />
+        </thy-form-group>
+      </dd>
+    </dl>
+    <button thyButton="primary" thySize="sm" (click)="datepickerTestNewValue()">改变值</button>
+    <button thyButton="primary" thySize="sm" (click)="datepickerTestNullValue()">空值</button>
+  </div>
 </section>
 
 <section>
-    <div class="header">
-        <h2>元素绑定</h2>
-    </div>
-    <div class="body">
-        <table>
-            <tr>
-                <td>
-                    绑定
-                </td>
-                <td>
-                    <a href="javascript:;" thyDatepicker [thyShowTime]="true" [(ngModel)]="elementDateEntry">
-                        <i class="wtf wtf-calendar-date"></i> {{elementDateEntry|thyDatepickerFormat}}
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td>禁用：</td>
-                <td>
-                    <a href="javascript:;" thyDatepicker [thyDisabled]="true" [(ngModel)]="elementDateEntry2">
-                        <i class="wtf wtf-calendar-date"></i> {{elementDateEntry2|thyDatepickerFormat}}
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-            </tr>
-        </table>
-    </div>
+  <div class="header">
+    <h2>元素绑定</h2>
+  </div>
+  <div class="body">
+    <table>
+      <tr>
+        <td>
+          绑定
+        </td>
+        <td>
+          <a href="javascript:;" thyDatepicker [thyShowTime]="true" [(ngModel)]="elementDateEntry">
+            <i class="wtf wtf-calendar-date"></i> {{ elementDateEntry | thyDatepickerFormat }}
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>禁用：</td>
+        <td>
+          <a href="javascript:;" thyDatepicker [thyDisabled]="true" [(ngModel)]="elementDateEntry2">
+            <i class="wtf wtf-calendar-date"></i> {{ elementDateEntry2 | thyDatepickerFormat }}
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+      </tr>
+    </table>
+  </div>
 </section>
 
 <section>
-    <div class="header">
-        <h2>日期区间</h2>
-    </div>
-    <div class="body">
-        <dl class="datepicker-section">
-            <dd class="mt-5">
-                <div>DaterangepickerTimeObject类型 - {{dateRangeObjectTimestamp|json}}</div>
-                <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
-                    <input type="text" readonly="readonly" thyDaterangepicker [(ngModel)]="dateRangeObjectTimestamp" class="form-control" placeholder=""
-                    />
-                </thy-form-group>
-            </dd>
-            <dd class="mt-5">
-                <div>DaterangepickerTime类型 - {{dateRangeTimestamp|json}}</div>
-                <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
-                    <input type="text" readonly="readonly" thyDaterangepicker [(ngModel)]="dateRangeTimestamp" class="form-control" placeholder=""
-                    />
-                </thy-form-group>
-            </dd>
-            <dd class="mt-5">
-                <div>空值 - {{dateRangeObjectTimestampNull|json}}</div>
-                <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
-                    <input type="text" readonly="readonly" thyDaterangepicker [(ngModel)]="dateRangeObjectTimestampNull" class="form-control" placeholder=""
-                    />
-                </thy-form-group>
-            </dd>
-            <dd class="mt-5">
-                <div>空值 - {{dateRangeTimestampNull|json}}</div>
-                <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
-                    <input type="text" readonly="readonly" thyDaterangepicker [(ngModel)]="dateRangeTimestampNull" class="form-control" placeholder=""
-                    />
-                </thy-form-group>
-            </dd>
-            <dd class="mt-5">
-                <div>空值 - {{dateRangeNull|json}}</div>
-                <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
-                    <input type="text" readonly="readonly" thyDaterangepicker [(ngModel)]="dateRangeNull" class="form-control" placeholder=""
-                    />
-                </thy-form-group>
-            </dd>
-        </dl>
-        <button thyButton="primary" thySize="sm" (click)="daterangepickerTestNewValue()">改变值</button>&nbsp;&nbsp;
-        <button thyButton="primary" thySize="sm" (click)="daterangepickerTestNullValue()">空值</button>
-    </div>
+  <div class="header">
+    <h2>日期区间</h2>
+  </div>
+  <div class="body">
+    <dl class="datepicker-section">
+      <dd class="mt-5">
+        <div>DaterangepickerTimeObject类型 - {{ dateRangeObjectTimestamp | json }}</div>
+        <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
+          <input
+            type="text"
+            readonly="readonly"
+            thyDaterangepicker
+            [(ngModel)]="dateRangeObjectTimestamp"
+            class="form-control"
+            placeholder=""
+          />
+        </thy-form-group>
+      </dd>
+      <dd class="mt-5">
+        <div>DaterangepickerTime类型 - {{ dateRangeTimestamp | json }}</div>
+        <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
+          <input
+            type="text"
+            readonly="readonly"
+            thyDaterangepicker
+            [(ngModel)]="dateRangeTimestamp"
+            class="form-control"
+            placeholder=""
+          />
+        </thy-form-group>
+      </dd>
+      <dd class="mt-5">
+        <div>空值 - {{ dateRangeObjectTimestampNull | json }}</div>
+        <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
+          <input
+            type="text"
+            readonly="readonly"
+            thyDaterangepicker
+            [(ngModel)]="dateRangeObjectTimestampNull"
+            class="form-control"
+            placeholder=""
+          />
+        </thy-form-group>
+      </dd>
+      <dd class="mt-5">
+        <div>空值 - {{ dateRangeTimestampNull | json }}</div>
+        <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
+          <input
+            type="text"
+            readonly="readonly"
+            thyDaterangepicker
+            [(ngModel)]="dateRangeTimestampNull"
+            class="form-control"
+            placeholder=""
+          />
+        </thy-form-group>
+      </dd>
+      <dd class="mt-5">
+        <div>空值 - {{ dateRangeNull | json }}</div>
+        <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'date'">
+          <input
+            type="text"
+            readonly="readonly"
+            thyDaterangepicker
+            [(ngModel)]="dateRangeNull"
+            disabled
+            class="form-control"
+            placeholder=""
+          />
+        </thy-form-group>
+      </dd>
+    </dl>
+    <button thyButton="primary" thySize="sm" (click)="daterangepickerTestNewValue()">改变值</button>&nbsp;&nbsp;
+    <button thyButton="primary" thySize="sm" (click)="daterangepickerTestNullValue()">空值</button>
+  </div>
 </section>
 
 <api-parameters [parameters]="apiParameters"></api-parameters>
