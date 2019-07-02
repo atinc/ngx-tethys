@@ -52,10 +52,6 @@
     }
 }
 
-// $thy-alert-week-colors: ();
-$thy-alert-week-colors: (
-    'primary-week': $primary
-);
 @each $key, $color in $thy-alert-week-colors {
     .thy-alert-#{$key} {
         @include thy-alert-week-variant($color);
