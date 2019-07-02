@@ -40,7 +40,8 @@ const INLINE_ICON_SET =
   </svg>
 `;
 
-const ICON_SVG_BASE_URL = `http://pic4us.com:8888/icons`;
+export const ICON_SVG_BASE_URL = `http://pic4us.com:8888/icons`;
+
 @Component({
     selector: 'demo-icon-section',
     templateUrl: './icon-section.component.html',
@@ -77,13 +78,7 @@ export class DemoIconSectionComponent implements OnInit {
     glyphs: any;
 
     constructor(iconRegistry: ThyIconRegistry, sanitizer: DomSanitizer, private http: HttpClient) {
-        const iconSvgUrl = `${ICON_SVG_BASE_URL}/assets/icons/defs/svg/sprite.defs.svg`;
-
         iconRegistry
-            .addSvgIconSet(
-                sanitizer.bypassSecurityTrustResourceUrl(iconSvgUrl)
-                // sanitizer.bypassSecurityTrustResourceUrl('/assets/icons/symbol/svg/sprite.symbol.svg')
-            )
             .addSvgIcon('thumb-up', sanitizer.bypassSecurityTrustResourceUrl('/assets/icons/thumbup-icon.svg'))
             .addSvgIconLiteral('bike', sanitizer.bypassSecurityTrustHtml(BIKE_ICON))
             .addSvgIconInNamespace(
