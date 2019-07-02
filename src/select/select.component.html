@@ -1,6 +1,12 @@
 <select thyInput [thySize]="_size" [disabled]="_disabled" [(ngModel)]="_innerValue" (ngModelChange)="ngModelChange()">
-    <ng-content></ng-content>
+  <ng-content></ng-content>
 </select>
-<a class="thy-select-remove remove-link" href="javascript:;" (click)="clearSelectValue($event)" *ngIf="thyAllowClear && _innerValue">
-    <i class="wtf wtf-times-circle"></i>
+<thy-icon thyIconName="angle-down"></thy-icon>
+<a
+  class="thy-select-remove remove-link"
+  href="javascript:;"
+  (click)="clearSelectValue($event)"
+  *ngIf="thyAllowClear && _innerValue"
+>
+  <i class="wtf wtf-times-circle"></i>
 </a>

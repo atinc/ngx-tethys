@@ -9,11 +9,11 @@ import {
     discardPeriodicTasks
 } from '@angular/core/testing';
 import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { Component, ViewChild, ViewChildren, QueryList, ElementRef } from '@angular/core';
+import { Component, ViewChild, ViewChildren, QueryList, ElementRef, Sanitizer, SecurityContext } from '@angular/core';
 import { ThySelectModule } from './module';
 import { ThySelectCustomComponent, SelectMode } from './custom-select.component';
 import { ThyOptionComponent } from './option.component';
-import { By } from '@angular/platform-browser';
+import { By, DomSanitizer } from '@angular/platform-browser';
 import { UpdateHostClassService } from '../shared';
 import { ThyPositioningService } from '../positioning/positioning.service';
 import { OverlayContainer, ViewportRuler } from '@angular/cdk/overlay';
@@ -24,6 +24,399 @@ import { ThyFormModule } from '../form';
 import { dispatchFakeEvent, dispatchKeyboardEvent } from '../core/testing/dispatcher-events';
 import { TAB, ESCAPE } from '../util/keycodes';
 import { typeInElement } from '../core/testing';
+import { ThyIconRegistry } from '../icon';
+
+@Component({
+    selector: 'basic-select',
+    template: `
+        <form thyForm name="demoForm" #demoForm="ngForm">
+            <thy-custom-select thyPlaceHolder="Food" [formControl]="control" [required]="isRequired">
+                <thy-option
+                    *ngFor="let food of foods"
+                    [thyValue]="food.value"
+                    [thyDisabled]="food.disabled"
+                    [thyLabelText]="food.viewValue"
+                >
+                </thy-option>
+            </thy-custom-select>
+        </form>
+    `
+})
+class BasicSelectComponent {
+    foods: any[] = [
+        { value: 'steak-0', viewValue: 'Steak' },
+        { value: 'pizza-1', viewValue: 'Pizza' },
+        { value: 'tacos-2', viewValue: 'Tacos', disabled: true },
+        { value: 'sandwich-3', viewValue: 'Sandwich' },
+        { value: 'chips-4', viewValue: 'Chips' },
+        { value: 'eggs-5', viewValue: 'Eggs' },
+        { value: 'pasta-6', viewValue: 'Pasta' },
+        { value: 'sushi-7', viewValue: 'Sushi' }
+    ];
+    control = new FormControl();
+    isRequired: boolean;
+    @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
+    @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
+}
+
+@Component({
+    selector: 'ng-model-select',
+    template: `
+        <form thyForm name="demoForm" #demoForm="ngForm">
+            <thy-custom-select thyPlaceHolder="Food" ngModel name="food" [thyDisabled]="isDisabled">
+                <thy-option *ngFor="let food of foods" [thyValue]="food.value" [thyLabelText]="food.viewValue">
+                </thy-option>
+            </thy-custom-select>
+        </form>
+    `
+})
+class NgModelSelectComponent {
+    foods: any[] = [
+        { value: 'steak-0', viewValue: 'Steak' },
+        { value: 'pizza-1', viewValue: 'Pizza' },
+        { value: 'tacos-2', viewValue: 'Tacos' }
+    ];
+    isDisabled: boolean;
+
+    @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
+    @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
+}
+
+@Component({
+    selector: 'select-with-groups',
+    template: `
+        <form thyForm name="demoForm" #demoForm="ngForm">
+            <thy-custom-select thyPlaceHolder="Pokemon" [formControl]="control">
+                <thy-option-group *ngFor="let group of pokemonTypes" [thyGroupLabel]="group.name">
+                    <ng-container *ngFor="let pokemon of group.pokemon">
+                        <thy-option [thyValue]="pokemon.value" [thyLabelText]="pokemon.viewValue"></thy-option>
+                    </ng-container>
+                </thy-option-group>
+            </thy-custom-select>
+        </form>
+    `
+})
+class SelectWithGroupsAndNgContainerComponent {
+    control = new FormControl();
+    pokemonTypes = [
+        {
+            name: 'Grass',
+            pokemon: [{ value: 'bulbasaur-0', viewValue: 'Bulbasaur' }]
+        }
+    ];
+}
+
+@Component({
+    template: `
+        <form thyForm name="demoForm" #demoForm="ngForm">
+            <thy-custom-select placeholder="Food" [(ngModel)]="selectedFoods" name="food">
+                <thy-option
+                    *ngFor="let food of foods"
+                    [thyValue]="food.value"
+                    [thyLabelText]="food.viewValue"
+                ></thy-option>
+            </thy-custom-select>
+        </form>
+    `
+})
+class SingleSelectWithPreselectedArrayValuesComponent {
+    foods: any[] = [
+        { value: ['steak-0', 'steak-1'], viewValue: 'Steak' },
+        { value: ['pizza-1', 'pizza-2'], viewValue: 'Pizza' },
+        { value: ['tacos-2', 'tacos-3'], viewValue: 'Tacos' }
+    ];
+
+    selectedFoods = this.foods[1].value;
+
+    @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
+    @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
+}
+
+@Component({
+    selector: 'basic-select-initially-hidden',
+    template: `
+        <form thyForm name="demoForm" #demoForm="ngForm">
+            <thy-custom-select [style.display]="isVisible ? 'block' : 'none'">
+                <thy-option thyValue="value" thyLabelText="There are no other options"></thy-option>
+            </thy-custom-select>
+        </form>
+    `
+})
+class BasicSelectInitiallyHiddenComponent {
+    isVisible = false;
+}
+
+@Component({
+    selector: 'select-early-sibling-access',
+    template: `
+        <form thyForm name="demoForm" #demoForm="ngForm">
+            <thy-custom-select #select="thyCustomSelect"></thy-custom-select>
+            <div *ngIf="select.selected"></div>
+        </form>
+    `
+})
+class SelectEarlyAccessSiblingComponent {}
+
+@Component({
+    selector: 'select-with-search',
+    template: `
+        <form thyForm name="demoForm" #demoForm="ngForm">
+            <thy-custom-select thyPlaceHolder="Food" [thyShowSearch]="thyShowSearch">
+                <thy-option
+                    *ngFor="let food of foods"
+                    [thyValue]="food.value"
+                    [thyDisabled]="food.disabled"
+                    [thyLabelText]="food.viewValue"
+                >
+                </thy-option>
+            </thy-custom-select>
+        </form>
+    `
+})
+class SelectWithSearchComponent {
+    foods: any[] = [
+        { value: 'steak-0', viewValue: 'Steak' },
+        { value: 'pizza-1', viewValue: 'Pizza' },
+        { value: 'tacos-2', viewValue: 'Tacos', disabled: true },
+        { value: 'sandwich-3', viewValue: 'Sandwich' },
+        { value: 'chips-4', viewValue: 'Chips' },
+        { value: 'eggs-5', viewValue: 'Eggs' },
+        { value: 'pasta-6', viewValue: 'Pasta' },
+        { value: 'sushi-7', viewValue: 'Sushi' }
+    ];
+    thyShowSearch = false;
+    control = new FormControl();
+    isRequired: boolean;
+    @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
+    @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
+}
+
+@Component({
+    selector: 'select-with-search',
+    template: `
+        <form thyForm name="demoForm" #demoForm="ngForm">
+            <thy-custom-select thyPlaceHolder="team-members" [thyShowSearch]="thyShowSearch">
+                <thy-option
+                    *ngFor="let member of teamMembers"
+                    [thyValue]="member.id"
+                    [thyLabelText]="member.name"
+                    thySearchKey="{{ member.name }},{{ member.pin_yin }}"
+                >
+                </thy-option>
+            </thy-custom-select>
+        </form>
+    `
+})
+class SelectWithSearchUseSearchKeyComponent {
+    teamMembers: any[] = [
+        {
+            _id: 'sadfasdfasdfasfdasdfs5',
+            name: '公告',
+            pin_yin: 'gg'
+        },
+        {
+            _id: 'sadfasdfasdfasfdasdfs6',
+            name: '狼人杀',
+            pin_yin: 'lrs'
+        },
+        {
+            _id: 'sadfasdfasdfasfdasdfs7',
+            name: '前端',
+            pin_yin: 'qd'
+        },
+        {
+            _id: 'sadfasdfasdfasfdasdfs8',
+            name: '小菲',
+            pin_yin: 'xf'
+        }
+    ];
+    thyShowSearch = true;
+    control = new FormControl();
+    @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
+    @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
+}
+
+@Component({
+    selector: 'select-with-group-search',
+    template: `
+        <form thyForm name="demoForm" #demoForm="ngForm">
+            <thy-custom-select thyPlaceHolder="Pokemon" [thyShowSearch]="true" [formControl]="control">
+                <thy-option-group *ngFor="let group of pokemonTypes" [thyGroupLabel]="group.name">
+                    <ng-container *ngFor="let pokemon of group.pokemon">
+                        <thy-option [thyValue]="pokemon.value" [thyLabelText]="pokemon.viewValue"></thy-option>
+                    </ng-container>
+                </thy-option-group>
+            </thy-custom-select>
+        </form>
+    `
+})
+class SelectWithSearchAndGroupComponent {
+    control = new FormControl();
+    pokemonTypes = [
+        {
+            name: 'Grass',
+            pokemon: [{ value: 'bulbasaur-0', viewValue: 'Bulbasaur' }, { value: 'cat-0', viewValue: 'Cat' }]
+        },
+        {
+            name: 'animals',
+            pokemon: [{ value: 'pet-0', viewValue: 'Pet' }, { value: 'monkey-0', viewValue: 'Monkey' }]
+        }
+    ];
+
+    @ViewChild(ThySelectCustomComponent)
+    select: ThySelectCustomComponent;
+}
+
+@Component({
+    selector: 'select-with-search',
+    template: `
+        <form thyForm name="demoForm" #demoForm="ngForm">
+            <thy-custom-select
+                thyPlaceHolder="Food"
+                name="foods"
+                [thyShowSearch]="thyShowSearch"
+                [thyServerSearch]="true"
+                (thyOnSearch)="thyOnSearch()"
+            >
+                <thy-option
+                    *ngFor="let food of foods"
+                    [thyValue]="food.value"
+                    [thyDisabled]="food.disabled"
+                    [thyLabelText]="food.viewValue"
+                >
+                </thy-option>
+            </thy-custom-select>
+        </form>
+    `
+})
+class SelectWithSearchAndServerSearchComponent {
+    foods: any[] = [
+        { value: 'steak-0', viewValue: 'Steak' },
+        { value: 'pizza-1', viewValue: 'Pizza' },
+        { value: 'tacos-2', viewValue: 'Tacos', disabled: true },
+        { value: 'sandwich-3', viewValue: 'Sandwich' },
+        { value: 'chips-4', viewValue: 'Chips' },
+        { value: 'eggs-5', viewValue: 'Eggs' },
+        { value: 'pasta-6', viewValue: 'Pasta' },
+        { value: 'sushi-7', viewValue: 'Sushi' }
+    ];
+    selected = this.foods[7];
+    thyShowSearch = true;
+    control = new FormControl();
+    @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
+    @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
+    thyOnSearch = jasmine.createSpy('thyServerSearch callback');
+}
+
+@Component({
+    selector: 'basic-select',
+    template: `
+        <form thyForm name="demoForm" #demoForm="ngForm">
+            <thy-custom-select thyPlaceHolder="Food" [formControl]="control" [required]="isRequired">
+                <thy-option
+                    *ngFor="let food of foods"
+                    [thyValue]="food.value"
+                    [thyDisabled]="food.disabled"
+                    [thyLabelText]="food.viewValue"
+                >
+                </thy-option>
+            </thy-custom-select>
+        </form>
+    `
+})
+class SelectEimtOptionsChangesComponent {
+    foods: any[] = [
+        { value: 'steak-0', viewValue: 'Steak' },
+        { value: 'pizza-1', viewValue: 'Pizza' },
+        { value: 'tacos-2', viewValue: 'Tacos', disabled: true },
+        { value: 'sandwich-3', viewValue: 'Sandwich' },
+        { value: 'chips-4', viewValue: 'Chips' },
+        { value: 'eggs-5', viewValue: 'Eggs' },
+        { value: 'pasta-6', viewValue: 'Pasta' },
+        { value: 'sushi-7', viewValue: 'Sushi' }
+    ];
+    control = new FormControl();
+    isRequired: boolean;
+    @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
+    @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
+}
+
+@Component({
+    selector: 'select-hover',
+    template: `
+        <form thyForm name="demoForm" #demoForm="ngForm">
+            <thy-custom-select [formControl]="control" thyHoverTriggerAction="true">
+                <thy-option
+                    *ngFor="let food of foods"
+                    [thyValue]="food.value"
+                    [thyDisabled]="food.disabled"
+                    [thyLabelText]="food.viewValue"
+                >
+                </thy-option>
+            </thy-custom-select>
+        </form>
+    `
+})
+class SelectWithHoverTriggerComponent {
+    foods: any[] = [{ value: 'pizza-1', viewValue: 'Pizza' }];
+    control = new FormControl();
+    @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
+}
+
+@Component({
+    selector: 'select-expand-status',
+    template: `
+        <form thyForm name="demoForm" #demoForm="ngForm">
+            <thy-custom-select
+                [formControl]="control"
+                (thyOnExpandStatusChange)="thyOnExpandStatusChange($event)"
+                thyHoverTriggerAction="true"
+            >
+                <thy-option
+                    *ngFor="let food of foods"
+                    [thyValue]="food.value"
+                    [thyDisabled]="food.disabled"
+                    [thyLabelText]="food.viewValue"
+                >
+                </thy-option>
+            </thy-custom-select>
+        </form>
+    `
+})
+class SelectWithExpandStatusComponent {
+    foods: any[] = [{ value: 'pizza-1', viewValue: 'Pizza' }];
+    control = new FormControl();
+    thyOnExpandStatusChange = jasmine.createSpy('thyOnExpandStatusChange callback');
+    @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
+}
+
+@Component({
+    template: `
+        <form thyForm name="demoForm" #demoForm="ngForm">
+            <thy-custom-select placeholder="Food" [(ngModel)]="selectedFoods" name="food" [thyMode]="selectMode">
+                <thy-option
+                    *ngFor="let food of foods"
+                    [thyValue]="food.value"
+                    [thyLabelText]="food.viewValue"
+                ></thy-option>
+            </thy-custom-select>
+        </form>
+    `
+})
+class SelectWithThyModeComponent {
+    foods: any[] = [
+        { value: ['steak-0', 'steak-1'], viewValue: 'Steak' },
+        { value: ['pizza-1', 'pizza-2'], viewValue: 'Pizza' },
+        { value: ['tacos-2', 'tacos-3'], viewValue: 'Tacos' }
+    ];
+
+    selectMode: SelectMode = 'multiple';
+
+    selectedFoods = null;
+
+    @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
+    @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
+}
 
 describe('ThyCustomSelect', () => {
     let overlayContainer: OverlayContainer;
@@ -34,14 +427,32 @@ describe('ThyCustomSelect', () => {
         TestBed.configureTestingModule({
             imports: [ThyFormModule, ThySelectModule, ReactiveFormsModule, FormsModule],
             declarations: declarations,
-            providers: [UpdateHostClassService, ThyPositioningService]
+            providers: [
+                UpdateHostClassService,
+                ThyPositioningService,
+                {
+                    provide: Sanitizer,
+                    useValue: {
+                        sanitize: (context: SecurityContext, html: string) => html
+                    }
+                }
+            ]
         }).compileComponents();
 
-        inject([OverlayContainer, Platform], (oc: OverlayContainer, p: Platform) => {
-            overlayContainer = oc;
-            overlayContainerElement = oc.getContainerElement();
-            platform = p;
-        })();
+        inject(
+            [OverlayContainer, Platform, ThyIconRegistry],
+            (oc: OverlayContainer, p: Platform, iconRegistry: ThyIconRegistry) => {
+                overlayContainer = oc;
+                overlayContainerElement = oc.getContainerElement();
+                platform = p;
+                iconRegistry.addSvgIconLiteral(
+                    'angle-down',
+                    `<svg viewBox="0 0 16 16" id="angle-down" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7.978 11.997l-.005.006L2.3 6.33l.83-.831 4.848 4.848L12.826 5.5l.83.83-5.673 5.673-.005-.006z"/>
+                    </svg>`
+                );
+            }
+        )();
     }
 
     afterEach(() => {
@@ -57,6 +468,28 @@ describe('ThyCustomSelect', () => {
             ]);
         }));
 
+        describe('basic class', () => {
+            let fixture: ComponentFixture<BasicSelectComponent>;
+            let selectElement: HTMLElement;
+
+            beforeEach(async(() => {
+                fixture = TestBed.createComponent(BasicSelectComponent);
+                fixture.detectChanges();
+                selectElement = fixture.debugElement.query(By.css('.thy-select-custom')).nativeElement;
+            }));
+
+            it('should get correct class', () => {
+                expect(selectElement).toBeTruthy();
+                expect(selectElement.classList.contains('thy-select')).toBeTruthy();
+            });
+
+            it('should get correct icon element', () => {
+                const iconElement = selectElement.querySelector('.thy-icon');
+                expect(iconElement).toBeTruthy();
+                expect(iconElement.classList.contains('thy-icon-angle-down')).toBeTruthy();
+            });
+        });
+
         describe('overlay panel', () => {
             let fixture: ComponentFixture<BasicSelectComponent>;
             let trigger: HTMLElement;
@@ -71,6 +504,7 @@ describe('ThyCustomSelect', () => {
                 fixture = TestBed.createComponent(BasicSelectComponent);
                 expect(() => fixture.componentInstance.select.open()).not.toThrow();
             });
+
             it('should open the panel when trigger is clicked', fakeAsync(() => {
                 trigger.click();
                 fixture.detectChanges();
@@ -770,395 +1204,3 @@ describe('ThyCustomSelect', () => {
         }));
     });
 });
-
-@Component({
-    selector: 'basic-select',
-    template: `
-        <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-custom-select thyPlaceHolder="Food" [formControl]="control" [required]="isRequired">
-                <thy-option
-                    *ngFor="let food of foods"
-                    [thyValue]="food.value"
-                    [thyDisabled]="food.disabled"
-                    [thyLabelText]="food.viewValue"
-                >
-                </thy-option>
-            </thy-custom-select>
-        </form>
-    `
-})
-class BasicSelectComponent {
-    foods: any[] = [
-        { value: 'steak-0', viewValue: 'Steak' },
-        { value: 'pizza-1', viewValue: 'Pizza' },
-        { value: 'tacos-2', viewValue: 'Tacos', disabled: true },
-        { value: 'sandwich-3', viewValue: 'Sandwich' },
-        { value: 'chips-4', viewValue: 'Chips' },
-        { value: 'eggs-5', viewValue: 'Eggs' },
-        { value: 'pasta-6', viewValue: 'Pasta' },
-        { value: 'sushi-7', viewValue: 'Sushi' }
-    ];
-    control = new FormControl();
-    isRequired: boolean;
-    @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
-    @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
-}
-
-@Component({
-    selector: 'ng-model-select',
-    template: `
-        <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-custom-select thyPlaceHolder="Food" ngModel name="food" [thyDisabled]="isDisabled">
-                <thy-option *ngFor="let food of foods" [thyValue]="food.value" [thyLabelText]="food.viewValue">
-                </thy-option>
-            </thy-custom-select>
-        </form>
-    `
-})
-class NgModelSelectComponent {
-    foods: any[] = [
-        { value: 'steak-0', viewValue: 'Steak' },
-        { value: 'pizza-1', viewValue: 'Pizza' },
-        { value: 'tacos-2', viewValue: 'Tacos' }
-    ];
-    isDisabled: boolean;
-
-    @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
-    @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
-}
-
-@Component({
-    selector: 'select-with-groups',
-    template: `
-        <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-custom-select thyPlaceHolder="Pokemon" [formControl]="control">
-                <thy-option-group *ngFor="let group of pokemonTypes" [thyGroupLabel]="group.name">
-                    <ng-container *ngFor="let pokemon of group.pokemon">
-                        <thy-option [thyValue]="pokemon.value" [thyLabelText]="pokemon.viewValue"></thy-option>
-                    </ng-container>
-                </thy-option-group>
-            </thy-custom-select>
-        </form>
-    `
-})
-class SelectWithGroupsAndNgContainerComponent {
-    control = new FormControl();
-    pokemonTypes = [
-        {
-            name: 'Grass',
-            pokemon: [{ value: 'bulbasaur-0', viewValue: 'Bulbasaur' }]
-        }
-    ];
-}
-
-@Component({
-    template: `
-        <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-custom-select placeholder="Food" [(ngModel)]="selectedFoods" name="food">
-                <thy-option
-                    *ngFor="let food of foods"
-                    [thyValue]="food.value"
-                    [thyLabelText]="food.viewValue"
-                ></thy-option>
-            </thy-custom-select>
-        </form>
-    `
-})
-class SingleSelectWithPreselectedArrayValuesComponent {
-    foods: any[] = [
-        { value: ['steak-0', 'steak-1'], viewValue: 'Steak' },
-        { value: ['pizza-1', 'pizza-2'], viewValue: 'Pizza' },
-        { value: ['tacos-2', 'tacos-3'], viewValue: 'Tacos' }
-    ];
-
-    selectedFoods = this.foods[1].value;
-
-    @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
-    @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
-}
-
-@Component({
-    selector: 'basic-select-initially-hidden',
-    template: `
-        <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-custom-select [style.display]="isVisible ? 'block' : 'none'">
-                <thy-option thyValue="value" thyLabelText="There are no other options"></thy-option>
-            </thy-custom-select>
-        </form>
-    `
-})
-class BasicSelectInitiallyHiddenComponent {
-    isVisible = false;
-}
-
-@Component({
-    selector: 'select-early-sibling-access',
-    template: `
-        <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-custom-select #select="thyCustomSelect"></thy-custom-select>
-            <div *ngIf="select.selected"></div>
-        </form>
-    `
-})
-class SelectEarlyAccessSiblingComponent {}
-
-@Component({
-    selector: 'select-with-search',
-    template: `
-        <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-custom-select thyPlaceHolder="Food" [thyShowSearch]="thyShowSearch">
-                <thy-option
-                    *ngFor="let food of foods"
-                    [thyValue]="food.value"
-                    [thyDisabled]="food.disabled"
-                    [thyLabelText]="food.viewValue"
-                >
-                </thy-option>
-            </thy-custom-select>
-        </form>
-    `
-})
-class SelectWithSearchComponent {
-    foods: any[] = [
-        { value: 'steak-0', viewValue: 'Steak' },
-        { value: 'pizza-1', viewValue: 'Pizza' },
-        { value: 'tacos-2', viewValue: 'Tacos', disabled: true },
-        { value: 'sandwich-3', viewValue: 'Sandwich' },
-        { value: 'chips-4', viewValue: 'Chips' },
-        { value: 'eggs-5', viewValue: 'Eggs' },
-        { value: 'pasta-6', viewValue: 'Pasta' },
-        { value: 'sushi-7', viewValue: 'Sushi' }
-    ];
-    thyShowSearch = false;
-    control = new FormControl();
-    isRequired: boolean;
-    @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
-    @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
-}
-
-@Component({
-    selector: 'select-with-search',
-    template: `
-        <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-custom-select thyPlaceHolder="team-members" [thyShowSearch]="thyShowSearch">
-                <thy-option
-                    *ngFor="let member of teamMembers"
-                    [thyValue]="member.id"
-                    [thyLabelText]="member.name"
-                    thySearchKey="{{ member.name }},{{ member.pin_yin }}"
-                >
-                </thy-option>
-            </thy-custom-select>
-        </form>
-    `
-})
-class SelectWithSearchUseSearchKeyComponent {
-    teamMembers: any[] = [
-        {
-            _id: 'sadfasdfasdfasfdasdfs5',
-            name: '公告',
-            pin_yin: 'gg'
-        },
-        {
-            _id: 'sadfasdfasdfasfdasdfs6',
-            name: '狼人杀',
-            pin_yin: 'lrs'
-        },
-        {
-            _id: 'sadfasdfasdfasfdasdfs7',
-            name: '前端',
-            pin_yin: 'qd'
-        },
-        {
-            _id: 'sadfasdfasdfasfdasdfs8',
-            name: '小菲',
-            pin_yin: 'xf'
-        }
-    ];
-    thyShowSearch = true;
-    control = new FormControl();
-    @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
-    @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
-}
-
-@Component({
-    selector: 'select-with-group-search',
-    template: `
-        <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-custom-select thyPlaceHolder="Pokemon" [thyShowSearch]="true" [formControl]="control">
-                <thy-option-group *ngFor="let group of pokemonTypes" [thyGroupLabel]="group.name">
-                    <ng-container *ngFor="let pokemon of group.pokemon">
-                        <thy-option [thyValue]="pokemon.value" [thyLabelText]="pokemon.viewValue"></thy-option>
-                    </ng-container>
-                </thy-option-group>
-            </thy-custom-select>
-        </form>
-    `
-})
-class SelectWithSearchAndGroupComponent {
-    control = new FormControl();
-    pokemonTypes = [
-        {
-            name: 'Grass',
-            pokemon: [{ value: 'bulbasaur-0', viewValue: 'Bulbasaur' }, { value: 'cat-0', viewValue: 'Cat' }]
-        },
-        {
-            name: 'animals',
-            pokemon: [{ value: 'pet-0', viewValue: 'Pet' }, { value: 'monkey-0', viewValue: 'Monkey' }]
-        }
-    ];
-
-    @ViewChild(ThySelectCustomComponent)
-    select: ThySelectCustomComponent;
-}
-
-@Component({
-    selector: 'select-with-search',
-    template: `
-        <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-custom-select
-                thyPlaceHolder="Food"
-                name="foods"
-                [thyShowSearch]="thyShowSearch"
-                [thyServerSearch]="true"
-                (thyOnSearch)="thyOnSearch()"
-            >
-                <thy-option
-                    *ngFor="let food of foods"
-                    [thyValue]="food.value"
-                    [thyDisabled]="food.disabled"
-                    [thyLabelText]="food.viewValue"
-                >
-                </thy-option>
-            </thy-custom-select>
-        </form>
-    `
-})
-class SelectWithSearchAndServerSearchComponent {
-    foods: any[] = [
-        { value: 'steak-0', viewValue: 'Steak' },
-        { value: 'pizza-1', viewValue: 'Pizza' },
-        { value: 'tacos-2', viewValue: 'Tacos', disabled: true },
-        { value: 'sandwich-3', viewValue: 'Sandwich' },
-        { value: 'chips-4', viewValue: 'Chips' },
-        { value: 'eggs-5', viewValue: 'Eggs' },
-        { value: 'pasta-6', viewValue: 'Pasta' },
-        { value: 'sushi-7', viewValue: 'Sushi' }
-    ];
-    selected = this.foods[7];
-    thyShowSearch = true;
-    control = new FormControl();
-    @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
-    @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
-    thyOnSearch = jasmine.createSpy('thyServerSearch callback');
-}
-
-@Component({
-    selector: 'basic-select',
-    template: `
-        <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-custom-select thyPlaceHolder="Food" [formControl]="control" [required]="isRequired">
-                <thy-option
-                    *ngFor="let food of foods"
-                    [thyValue]="food.value"
-                    [thyDisabled]="food.disabled"
-                    [thyLabelText]="food.viewValue"
-                >
-                </thy-option>
-            </thy-custom-select>
-        </form>
-    `
-})
-class SelectEimtOptionsChangesComponent {
-    foods: any[] = [
-        { value: 'steak-0', viewValue: 'Steak' },
-        { value: 'pizza-1', viewValue: 'Pizza' },
-        { value: 'tacos-2', viewValue: 'Tacos', disabled: true },
-        { value: 'sandwich-3', viewValue: 'Sandwich' },
-        { value: 'chips-4', viewValue: 'Chips' },
-        { value: 'eggs-5', viewValue: 'Eggs' },
-        { value: 'pasta-6', viewValue: 'Pasta' },
-        { value: 'sushi-7', viewValue: 'Sushi' }
-    ];
-    control = new FormControl();
-    isRequired: boolean;
-    @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
-    @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
-}
-
-@Component({
-    selector: 'select-hover',
-    template: `
-        <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-custom-select [formControl]="control" thyHoverTriggerAction="true">
-                <thy-option
-                    *ngFor="let food of foods"
-                    [thyValue]="food.value"
-                    [thyDisabled]="food.disabled"
-                    [thyLabelText]="food.viewValue"
-                >
-                </thy-option>
-            </thy-custom-select>
-        </form>
-    `
-})
-class SelectWithHoverTriggerComponent {
-    foods: any[] = [{ value: 'pizza-1', viewValue: 'Pizza' }];
-    control = new FormControl();
-    @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
-}
-
-@Component({
-    selector: 'select-expand-status',
-    template: `
-        <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-custom-select
-                [formControl]="control"
-                (thyOnExpandStatusChange)="thyOnExpandStatusChange($event)"
-                thyHoverTriggerAction="true"
-            >
-                <thy-option
-                    *ngFor="let food of foods"
-                    [thyValue]="food.value"
-                    [thyDisabled]="food.disabled"
-                    [thyLabelText]="food.viewValue"
-                >
-                </thy-option>
-            </thy-custom-select>
-        </form>
-    `
-})
-class SelectWithExpandStatusComponent {
-    foods: any[] = [{ value: 'pizza-1', viewValue: 'Pizza' }];
-    control = new FormControl();
-    thyOnExpandStatusChange = jasmine.createSpy('thyOnExpandStatusChange callback');
-    @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
-}
-
-@Component({
-    template: `
-        <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-custom-select placeholder="Food" [(ngModel)]="selectedFoods" name="food" [thyMode]="selectMode">
-                <thy-option
-                    *ngFor="let food of foods"
-                    [thyValue]="food.value"
-                    [thyLabelText]="food.viewValue"
-                ></thy-option>
-            </thy-custom-select>
-        </form>
-    `
-})
-class SelectWithThyModeComponent {
-    foods: any[] = [
-        { value: ['steak-0', 'steak-1'], viewValue: 'Steak' },
-        { value: ['pizza-1', 'pizza-2'], viewValue: 'Pizza' },
-        { value: ['tacos-2', 'tacos-3'], viewValue: 'Tacos' }
-    ];
-
-    selectMode: SelectMode = 'multiple';
-
-    selectedFoods = null;
-
-    @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
-    @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
-}
