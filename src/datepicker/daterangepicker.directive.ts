@@ -1,6 +1,17 @@
 import {
-    Directive, OnInit, ElementRef, Renderer2, ViewContainerRef,
-    Input, ComponentRef, Output, EventEmitter, forwardRef, OnChanges, AfterContentInit
+    Directive,
+    OnInit,
+    ElementRef,
+    Renderer2,
+    ViewContainerRef,
+    Input,
+    ComponentRef,
+    Output,
+    EventEmitter,
+    forwardRef,
+    OnChanges,
+    AfterContentInit,
+    HostBinding
 } from '@angular/core';
 import { ComponentLoaderFactory, ComponentLoader } from 'ngx-bootstrap/component-loader';
 import { DatepickerValueEntry, DatepickerValueShowTypesEnum, DatepickerFormatRules } from './i.datepicker';
@@ -24,7 +35,7 @@ const DATEPICKER_VALUE_ACCESSOR = {
 })
 export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, ControlValueAccessor {
     private _value: DatepickerValueEntry | number | Date | any;
-    private _showFormatRule: string;    // 日期格式化
+    private _showFormatRule: string; // 日期格式化
     private _onChange = Function.prototype;
     private _onTouched = Function.prototype;
     private _isAfterContentInit = false;
@@ -32,10 +43,10 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
     private _valueType: DatepickerValueShowTypesEnum;
     private _isFirstShowInputProperty = true;
     private store: {
-        originValue?: any,
-        originValueType?: any,
+        originValue?: any;
+        originValueType?: any;
         // originWithTime?: boolean,
-        value?: any,
+        value?: any;
         // withTime?: boolean,
     } = {};
     @Input() thyPlacement: 'top' | 'bottom' | 'left' | 'right' = 'bottom';
@@ -46,6 +57,10 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
     @Input() thyShowTime = false;
     @Input() thyFormat: string = null;
     // @Output() thyOnChange: EventEmitter<any> = new EventEmitter();
+    @HostBinding('class.cursor-pointer')
+    get isCursorPointerClass() {
+        return !this.thyDisabled;
+    }
 
     constructor(
         private _elementRef: ElementRef,
@@ -94,6 +109,10 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
         this._onTouched = fn;
     }
 
+    setDisabledState(isDisabled: boolean) {
+        this.thyDisabled = isDisabled;
+    }
+
     show() {
         if (this.thyDisabled) {
             return;
@@ -101,7 +120,8 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
 
         this.service.initLocale();
 
-        const dateRangeContainerRef = this._loader.attach(ThyDaterangepickerContainerComponent)
+        const dateRangeContainerRef = this._loader
+            .attach(ThyDaterangepickerContainerComponent)
             .to(this.thyContainer)
             .show({
                 hideLoader: () => {
@@ -156,9 +176,10 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
     }
 
     private _setInputProperty() {
-        let initialDate = this.service.dataPipe.transform(this.store.value[0], this._showFormatRule)
-            + ' ~ '
-            + this.service.dataPipe.transform(this.store.value[1], this._showFormatRule);
+        let initialDate =
+            this.service.dataPipe.transform(this.store.value[0], this._showFormatRule) +
+            ' ~ ' +
+            this.service.dataPipe.transform(this.store.value[1], this._showFormatRule);
 
         if (this.store.value[0] == null || this.store.value[1] == null) {
             initialDate = '';
@@ -195,11 +216,11 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
             case DatepickerValueShowTypesEnum.daterangepickerTimeObject:
                 result = {
                     begin: {
-                        date: this._formatBeginTime(this.store.value[0]),
+                        date: this._formatBeginTime(this.store.value[0])
                         // with_time: this.store.withTime
                     },
                     end: {
-                        date: this._formatEndTime(this.store.value[1]),
+                        date: this._formatEndTime(this.store.value[1])
                         // with_time: this.store.withTime
                     }
                 };
@@ -213,5 +234,4 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
         }
         this._onChange(result);
     }
-
 }
