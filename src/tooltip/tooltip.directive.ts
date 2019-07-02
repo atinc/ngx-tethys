@@ -278,10 +278,16 @@ export class ThyTooltipDirective extends mixinUnsubscribe(MixinBase) implements 
     }
 
     ngOnDestroy() {
+        if (this.overlayRef) {
+            this.overlayRef.dispose();
+            this.tooltipInstance = null;
+        }
+
         super.ngOnDestroy();
         this.manualListeners.forEach((listener, event) => {
             this.elementRef.nativeElement.removeEventListener(event, listener);
         });
         this.manualListeners.clear();
+        this.focusMonitor.stopMonitoring(this.elementRef);
     }
 }
