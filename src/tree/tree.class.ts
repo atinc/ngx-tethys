@@ -59,7 +59,7 @@ export class ThyTreeNode {
         this.key = node.key || null;
         this.children = [];
         this.parentNode = parent;
-        this.level = parent ? this.level + 1 : this.level;
+        this.level = parent ? parent.level + 1 : this.level;
         this.origin = node;
         this.isDisabled = node.disabled || false;
         this.isExpanded = node.expanded || false;

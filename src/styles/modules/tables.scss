@@ -77,6 +77,10 @@
     }
 }
 
+.table-fixed {
+    table-layout: fixed;
+}
+
 .table-hover {
     // @include table-hover-set-space-none();
     tbody tr {
@@ -103,6 +107,7 @@
 
         @include hover {
             cursor: move;
+
             td {
                 .table-draggable-icon {
                     display: block;

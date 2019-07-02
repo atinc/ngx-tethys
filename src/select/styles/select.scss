@@ -45,7 +45,12 @@ select.form-control-md {
     position: relative;
     display: block;
 
-    &:after {
+    // 字体被抛弃，使用最新的 svg icon
+    // &:after {
+    //     @include select-arrow-icon-font-variant();
+    // }
+
+    .thy-icon {
         @include select-arrow-variant();
     }
 
