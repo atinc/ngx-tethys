@@ -509,15 +509,16 @@ $pagination-jumper-input-color: $gray-700;
 $pagination-jumper-button-color: $gray-700;
 
 // tooltip
-$tooltip-font-size: $font-size-sm !default;
+$tooltip-font-size: $font-size-base !default;
 $tooltip-max-width: 200px !default;
-$tooltip-color: $gray-600 !default;
-$tooltip-bg: $white !default;
+$tooltip-color: $white !default;
+$tooltip-bg: rgba(0, 0, 0, 0.75) !default;
 $tooltip-border-radius: $border-radius !default;
 $tooltip-opacity: 0.9 !default;
-$tooltip-padding-y: 0.25rem !default;
+$tooltip-padding-y: 0.4rem !default;
 $tooltip-padding-x: 0.75rem !default;
 $tooltip-margin: 0 !default;
+$tooltip-margin-bottom: 6px !default;
 
 $tooltip-arrow-width: 0.8rem !default;
 $tooltip-arrow-height: 0.4rem !default;

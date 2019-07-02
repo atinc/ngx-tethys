@@ -6,7 +6,8 @@ import {
     HostBinding,
     ElementRef,
     TemplateRef,
-    OnInit
+    OnInit,
+    OnDestroy
 } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { AnimationEvent } from '@angular/animations';
@@ -15,6 +16,8 @@ import { ThyTooltipVisibility } from './interface';
 import { thyTooltipAnimations } from './tooltip-animations';
 import { UpdateHostClassService } from '../shared';
 import { coerceArray } from '../util/helpers';
+import { OverlayRef } from '@angular/cdk/overlay';
+import { FocusMonitor } from '@angular/cdk/a11y';
 
 @Component({
     selector: 'thy-tooltip',
@@ -29,7 +32,7 @@ import { coerceArray } from '../util/helpers';
     },
     providers: [UpdateHostClassService]
 })
-export class ThyTooltipComponent implements OnInit {
+export class ThyTooltipComponent implements OnInit, OnDestroy {
     @HostBinding(`class.thy-tooltip`) addTooltipContainerClass = true;
 
     _content: string | TemplateRef<HTMLElement>;
@@ -51,6 +54,10 @@ export class ThyTooltipComponent implements OnInit {
     tooltipClasses: string[] = [];
 
     isTemplateRef = false;
+
+    private manualListeners = new Map<string, EventListenerOrEventListenerObject>();
+    private overlayRef: OverlayRef;
+    private tooltipInstance: ThyTooltipComponent;
 
     get placement() {
         return this._placement;
@@ -86,7 +93,8 @@ export class ThyTooltipComponent implements OnInit {
     constructor(
         private changeDetectorRef: ChangeDetectorRef,
         private updateHostClassService: UpdateHostClassService,
-        elementRef: ElementRef<HTMLElement>
+        private elementRef: ElementRef<HTMLElement>,
+        private focusMonitor: FocusMonitor
     ) {
         this.updateHostClassService.initializeElement(elementRef);
     }
@@ -153,5 +161,18 @@ export class ThyTooltipComponent implements OnInit {
         this.tooltipClasses = coerceArray(classes);
         this.updateClasses();
         // this.markForCheck();
+    }
+
+    ngOnDestroy() {
+        if (this.overlayRef) {
+            this.overlayRef.dispose();
+            this.tooltipInstance = null;
+        }
+
+        this.manualListeners.forEach((listener, event) => {
+            this.elementRef.nativeElement.removeEventListener(event, listener);
+        });
+        this.manualListeners.clear();
+        this.focusMonitor.stopMonitoring(this.elementRef);
     }
 }
