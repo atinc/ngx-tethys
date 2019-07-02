@@ -11,6 +11,7 @@ import { SelectPipes } from './select.pipe';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { ThyLoadingModule } from '../loading';
 import { ThyDirectiveModule } from '../directive';
+import { ThyIconModule } from '../icon';
 
 @NgModule({
     imports: [
@@ -20,7 +21,8 @@ import { ThyDirectiveModule } from '../directive';
         ThyLabelModule,
         OverlayModule,
         ThyLoadingModule,
-        ThyDirectiveModule
+        ThyDirectiveModule,
+        ThyIconModule
     ],
     declarations: [
         ThySelectComponent,

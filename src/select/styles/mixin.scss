@@ -1,4 +1,4 @@
-@mixin select-arrow-variant() {
+@mixin select-arrow-icon-font-variant() {
     content: '\e6b8'; //"\f078";
     font: normal normal normal 14px/1 wtf;
     position: absolute;
@@ -10,11 +10,18 @@
     top: 50%;
     margin-top: -8px;
 }
-// @mixin select-arrow-bottom($bottom) {
-//   &:after {
-//     bottom: $bottom;
-//   }
-// }
+
+@mixin select-arrow-variant() {
+    position: absolute;
+    right: 12px;
+    font-size: $font-size-md;
+    pointer-events: none;
+    color: $gray-500;
+    z-index: 10;
+    top: 50%;
+    margin-top: -8px;
+}
+
 @mixin select-custom-variant($padding-x, $padding-y, $height, $font-size) {
     padding: $padding-y $padding-x;
     height: $height;
