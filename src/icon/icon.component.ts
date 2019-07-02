@@ -25,13 +25,16 @@ const iconSuffixMap = {
     providers: [UpdateHostClassService]
 })
 export class ThyIconComponent implements OnInit {
-    _iconName: string;
+    private _iconName: string;
 
-    @HostBinding(`class.thy-icon`) addIconClass = true;
+    @HostBinding('class.thy-icon') className = true;
+
+    @Input('thyIconType') iconType: 'outline' | 'fill' | 'twotone' = 'outline';
 
     @Input('thyIconName')
     set iconName(value: string) {
         this._iconName = value;
+        this.updateClasses();
     }
     get iconName() {
         return this._iconName;
@@ -39,9 +42,42 @@ export class ThyIconComponent implements OnInit {
 
     @Input('thyIconSet') iconSet: string;
 
-    @Input('thyIconType') iconType: 'outline' | 'fill' | 'twotone' = 'outline';
-
     @Input('thyTwotoneColor') twotoneColor: string;
+
+    constructor(
+        private updateHostClassService: UpdateHostClassService,
+        private elementRef: ElementRef,
+        private iconRegistry: ThyIconRegistry
+    ) {
+        updateHostClassService.initializeElement(elementRef.nativeElement);
+    }
+
+    ngOnInit() {}
+
+    updateClasses() {
+        const [namespace, iconName] = this.iconRegistry.splitIconName(this.iconName);
+        if (iconName) {
+            if (this.iconRegistry.iconMode === 'svg') {
+                this.iconRegistry
+                    .getSvgIcon(this.buildIconNameByType(iconName), namespace)
+                    .pipe(take(1))
+                    .subscribe(
+                        svg => this.setSvgElement(svg),
+                        (error: Error) => console.error(`Error retrieving icon: ${error.message}`)
+                    );
+                this.updateHostClassService.updateClass([
+                    `thy-icon${namespace ? `-${namespace}` : ``}-${this.buildIconNameByType(iconName)}`
+                ]);
+            } else {
+                const fontSetClass = this.iconSet
+                    ? this.iconRegistry.getFontSetClassByAlias(this.iconSet)
+                    : this.iconRegistry.getDefaultFontSetClass();
+                this.updateHostClassService.updateClass([fontSetClass, `${fontSetClass}-${this.iconName}`]);
+            }
+        }
+    }
+
+    //#region svg element
 
     private setSvgElement(svg: SVGElement) {
         this.clearSvgElement();
@@ -103,6 +139,8 @@ export class ThyIconComponent implements OnInit {
         }
     }
 
+    //#endregion
+
     private buildIconNameByType(iconName: string) {
         if (this.iconType && ['fill', 'twotone'].indexOf(this.iconType) >= 0) {
             const suffix = iconSuffixMap[this.iconType];
@@ -110,37 +148,5 @@ export class ThyIconComponent implements OnInit {
         } else {
             return iconName;
         }
-    }
-
-    constructor(
-        private updateHostClassService: UpdateHostClassService,
-        private elementRef: ElementRef,
-        private iconRegistry: ThyIconRegistry
-    ) {
-        updateHostClassService.initializeElement(elementRef.nativeElement);
-    }
-
-    updateClasses() {
-        const [namespace, iconName] = this.iconRegistry.splitIconName(this.iconName);
-        if (iconName) {
-            if (this.iconRegistry.iconMode === 'svg') {
-                this.iconRegistry
-                    .getSvgIcon(this.buildIconNameByType(iconName), namespace)
-                    .pipe(take(1))
-                    .subscribe(
-                        svg => this.setSvgElement(svg),
-                        (error: Error) => console.error(`Error retrieving icon: ${error.message}`)
-                    );
-            } else {
-                const fontSetClass = this.iconSet
-                    ? this.iconRegistry.getFontSetClassByAlias(this.iconSet)
-                    : this.iconRegistry.getDefaultFontSetClass();
-                this.updateHostClassService.updateClass([fontSetClass, `${fontSetClass}-${this.iconName}`]);
-            }
-        }
-    }
-
-    ngOnInit() {
-        this.updateClasses();
     }
 }
