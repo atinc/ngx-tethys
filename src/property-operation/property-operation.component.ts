@@ -15,9 +15,7 @@ import { UpdateHostClassService } from '../shared/update-host-class.service';
 import { ThyTranslate } from '../shared/translate';
 import { htmlElementIsEmpty, inputValueToBoolean } from '../util/helpers';
 
-export enum ThyPropertyOperationTypes {
-    danger = 'danger'
-}
+type ThyPropertyOperationTypes = 'primary' | 'success' | 'warning' | 'danger';
 
 @Component({
     selector: 'thy-property-operation',
@@ -25,19 +23,21 @@ export enum ThyPropertyOperationTypes {
     providers: [UpdateHostClassService]
 })
 export class ThyPropertyOperationComponent implements OnInit, AfterContentInit {
-    _labelText: string;
+    private initialized = false;
 
-    _icon: string;
+    labelText: string;
 
-    _value: string;
+    onlyHasTips = false;
 
-    _onlyHasTips = false;
-
-    _showClose = false;
-
-    _initialized = false;
+    showClose = false;
 
     type: ThyPropertyOperationTypes;
+
+    icon: string;
+
+    value: string;
+
+    labelHideWhenHasValue = false;
 
     @Output() thyOnRemove = new EventEmitter();
 
@@ -49,50 +49,62 @@ export class ThyPropertyOperationComponent implements OnInit, AfterContentInit {
 
     @Input()
     set thyLabelText(value: string) {
-        this._labelText = value;
+        this.labelText = value;
     }
 
     @Input()
     set thyValue(value: string) {
-        this._value = value;
-        if (this._initialized) {
-            this._setOnlyHasTips();
-        }
+        this.value = value;
+        this.setOnlyHasTips();
     }
 
     @Input()
-    set thyLabelTranslateKey(value: string) {
-        this._labelText = this.thyTranslate.instant(value);
+    set thyLabelTextTranslateKey(value: string) {
+        this.labelText = this.thyTranslate.instant(value);
     }
 
     @Input()
     set thyIcon(value: string) {
-        this._icon = value;
+        this.icon = value;
     }
 
     @Input()
     set thyShowClose(value: boolean) {
-        this._showClose = inputValueToBoolean(value);
+        this.showClose = inputValueToBoolean(value);
     }
 
     // 支持有值时，label不显示
-    @Input() thyLabelHasValue = true;
+    @Input() set thyLabelHasValue(value: boolean) {
+        this.labelHideWhenHasValue = !inputValueToBoolean(value);
+    }
+
+    @Input() set thyLabelHideWhenHasValue(value: boolean) {
+        this.labelHideWhenHasValue = inputValueToBoolean(value);
+    }
 
     @Input()
     set thyType(value: ThyPropertyOperationTypes) {
         this.type = value;
-        if (this._initialized) {
-            this.setTypeStyleClass();
-        }
+        this.setHostClass();
     }
 
-    _setOnlyHasTips() {
-        if (this._value) {
-            this._onlyHasTips = false;
+    private setHostClass(first = false) {
+        if (!this.initialized && !first) {
+            return;
+        }
+        this.updateHostClassService.updateClass(this.type ? [`thy-property-operation-${this.type}`] : []);
+    }
+
+    private setOnlyHasTips(first = false) {
+        if (!this.initialized && !first) {
+            return;
+        }
+        if (this.value) {
+            this.onlyHasTips = false;
         } else if (htmlElementIsEmpty(this.contentElement.nativeElement)) {
-            this._onlyHasTips = true;
+            this.onlyHasTips = true;
         } else {
-            this._onlyHasTips = false;
+            this.onlyHasTips = false;
         }
     }
 
@@ -104,21 +116,12 @@ export class ThyPropertyOperationComponent implements OnInit, AfterContentInit {
 
     ngOnInit() {
         this.updateHostClassService.initializeElement(this.elementRef.nativeElement);
-        this.setTypeStyleClass();
-    }
-
-    private setTypeStyleClass() {
-        this.updateHostClassService.removeClass('thy-property-operation-danger');
-        switch (this.type) {
-            case ThyPropertyOperationTypes.danger:
-                this.updateHostClassService.addClass('thy-property-operation-danger');
-                break;
-        }
+        this.setHostClass(true);
     }
 
     ngAfterContentInit() {
-        this._setOnlyHasTips();
-        this._initialized = true;
+        this.setOnlyHasTips(true);
+        this.initialized = true;
     }
 
     remove($event: Event) {

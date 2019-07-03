@@ -23,7 +23,7 @@ import { ThySelectComponent } from './select.component';
 import { ThyFormModule } from '../form';
 import { dispatchFakeEvent, dispatchKeyboardEvent } from '../core/testing/dispatcher-events';
 import { TAB, ESCAPE } from '../util/keycodes';
-import { typeInElement } from '../core/testing';
+import { typeInElement, injectDefaultSvgIconSet, bypassSanitizeProvider } from '../core/testing';
 import { ThyIconRegistry } from '../icon';
 
 @Component({
@@ -427,32 +427,16 @@ describe('ThyCustomSelect', () => {
         TestBed.configureTestingModule({
             imports: [ThyFormModule, ThySelectModule, ReactiveFormsModule, FormsModule],
             declarations: declarations,
-            providers: [
-                UpdateHostClassService,
-                ThyPositioningService,
-                {
-                    provide: Sanitizer,
-                    useValue: {
-                        sanitize: (context: SecurityContext, html: string) => html
-                    }
-                }
-            ]
+            providers: [UpdateHostClassService, ThyPositioningService, bypassSanitizeProvider]
         }).compileComponents();
 
-        inject(
-            [OverlayContainer, Platform, ThyIconRegistry],
-            (oc: OverlayContainer, p: Platform, iconRegistry: ThyIconRegistry) => {
-                overlayContainer = oc;
-                overlayContainerElement = oc.getContainerElement();
-                platform = p;
-                iconRegistry.addSvgIconLiteral(
-                    'angle-down',
-                    `<svg viewBox="0 0 16 16" id="angle-down" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M7.978 11.997l-.005.006L2.3 6.33l.83-.831 4.848 4.848L12.826 5.5l.83.83-5.673 5.673-.005-.006z"/>
-                    </svg>`
-                );
-            }
-        )();
+        inject([OverlayContainer, Platform], (oc: OverlayContainer, p: Platform) => {
+            overlayContainer = oc;
+            overlayContainerElement = oc.getContainerElement();
+            platform = p;
+        })();
+
+        injectDefaultSvgIconSet();
     }
 
     afterEach(() => {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { apiParameters } from './api-parameters';
 
 @Component({
     selector: 'property-operation-section',
@@ -14,6 +15,16 @@ export class DemoPropertyOperationSectionComponent implements OnInit {
     };
 
     dueDateTimeStamp = this.dateTime.date - 3600;
+
+    apiParameters = apiParameters;
+
+    basicCodeExample = require('!!raw-loader!./basic/basic.component.html');
+
+    showClose = false;
+
+    labelHideWhenHasValue = false;
+
+    type = '';
 
     constructor() {}
 

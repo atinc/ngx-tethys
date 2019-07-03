@@ -3,24 +3,41 @@ import { async, TestBed, ComponentFixture } from '@angular/core/testing';
 import { ThyIconModule } from '../icon.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ThyIconRegistry } from '../icon-registry';
+import { bypassSanitizeProvider, injectDefaultSvgIconSet } from '../../core/testing';
+
+//#region test component
+
+@Component({
+    template: `
+        <thy-icon [thyIconName]="thyIconName" [thyIconType]="thyIconType"></thy-icon>
+    `
+})
+class ThyIconBasicComponent {
+    constructor(public iconRegistry: ThyIconRegistry) {}
+    thyIconName = 'check';
+    thyIconType = '';
+}
+
+//#endregion
 
 describe('ThyIconComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [ThyIconModule, HttpClientModule],
-            declarations: [TestBed2Component]
+            declarations: [ThyIconBasicComponent],
+            providers: [bypassSanitizeProvider]
         });
-
         TestBed.compileComponents();
+        injectDefaultSvgIconSet();
     }));
 
     describe('test begin', () => {
-        let fixture: ComponentFixture<TestBed2Component>;
-        let componentInstance: TestBed2Component;
+        let fixture: ComponentFixture<ThyIconBasicComponent>;
+        let componentInstance: ThyIconBasicComponent;
         const iconSvgClassPrefix = 'thy-icon-';
 
         beforeEach(async(() => {
-            fixture = TestBed.createComponent(TestBed2Component);
+            fixture = TestBed.createComponent(ThyIconBasicComponent);
             componentInstance = fixture.debugElement.componentInstance;
             fixture.detectChanges();
         }));
@@ -53,18 +70,3 @@ describe('ThyIconComponent', () => {
         });
     });
 });
-
-//#region test component
-
-@Component({
-    template: `
-        <thy-icon [thyIconName]="thyIconName" [thyIconType]="thyIconType"></thy-icon>
-    `
-})
-class TestBed2Component {
-    constructor(public iconRegistry: ThyIconRegistry) {}
-    thyIconName = 'check';
-    thyIconType = '';
-}
-
-//#endregion
