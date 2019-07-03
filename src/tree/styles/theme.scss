@@ -1,0 +1,16 @@
+.thy-tree {
+    &-node {
+        &-wrapper {
+            &.active {
+                background: rgba($primary, 0.1);
+                color: $primary;
+
+                .thy-tree-node-content {
+                    .thy-tree-node-icon {
+                        color: $primary;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -10,7 +10,8 @@ import {
     EventEmitter,
     forwardRef,
     OnChanges,
-    AfterContentInit
+    AfterContentInit,
+    HostBinding
 } from '@angular/core';
 import { ComponentLoaderFactory, ComponentLoader } from 'ngx-bootstrap/component-loader';
 import { ThyDatepickerContainerComponent } from './datepicker-container.component';
@@ -64,6 +65,10 @@ export class ThyDatepickerDirective implements OnInit, AfterContentInit, Control
     @Input() thyMaxDate: Date | number;
     @Input() thyMinDate: Date | number;
     // @Output() thyOnChange: EventEmitter<any> = new EventEmitter();
+    @HostBinding('class.cursor-pointer')
+    get isCursorPointerClass() {
+        return !this.thyDisabled;
+    }
 
     constructor(
         public _config: ThyDatepickerConfig,
@@ -108,13 +113,17 @@ export class ThyDatepickerDirective implements OnInit, AfterContentInit, Control
         this._onTouched = fn;
     }
 
+    setDisabledState(isDisabled: boolean) {
+        this.thyDisabled = isDisabled;
+    }
+
     show() {
         if (this.thyDisabled) {
             return;
         }
 
         this.datepickerService.initLocale();
-       let a=  datepickerUtilConvertToDatepickerObject(this.thyMinDate)
+        let a = datepickerUtilConvertToDatepickerObject(this.thyMinDate);
         const dateContainerRef = this._loader
             .provide({ provide: ThyDatepickerConfig, useValue: this._config })
             .attach(ThyDatepickerContainerComponent)

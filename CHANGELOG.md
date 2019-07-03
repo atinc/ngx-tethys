@@ -1,3 +1,52 @@
+# [7.3.0](https://github.com/worktile/ngx-tethys/compare/7.2.2...7.3.0) (2019-07-02)
+
+
+### Bug Fixes
+
+* **card:** remove border radius ([bd46bf5](https://github.com/worktile/ngx-tethys/commit/bd46bf5))
+* **card:** remove border radius ([f694f14](https://github.com/worktile/ngx-tethys/commit/f694f14))
+* **component:** exports component ([fb94df3](https://github.com/worktile/ngx-tethys/commit/fb94df3))
+* **datepicker:** datepicker support pointer cursor ([134c0ba](https://github.com/worktile/ngx-tethys/commit/134c0ba))
+* **demo:** demo ui and routes ([688e1dc](https://github.com/worktile/ngx-tethys/commit/688e1dc))
+* **demo:** fix demo menu url error ([ab95d51](https://github.com/worktile/ngx-tethys/commit/ab95d51))
+* **docs:** update docs ([93d591c](https://github.com/worktile/ngx-tethys/commit/93d591c))
+* **docs:** update docs ([c1de2e6](https://github.com/worktile/ngx-tethys/commit/c1de2e6))
+* **grid:** change grid hover color ([3256172](https://github.com/worktile/ngx-tethys/commit/3256172))
+* **icon-text:** icon-text support line-height ([bef71de](https://github.com/worktile/ngx-tethys/commit/bef71de))
+* **layout:** layout section remove border radius ([70f3309](https://github.com/worktile/ngx-tethys/commit/70f3309))
+* **list:** replace isLayoutGrid with layout ([0e0e9a4](https://github.com/worktile/ngx-tethys/commit/0e0e9a4))
+* **pagination:** fix pageChange  multiple calls error ([79766f4](https://github.com/worktile/ngx-tethys/commit/79766f4))
+* **progress:** change demo component names ([0a1bee7](https://github.com/worktile/ngx-tethys/commit/0a1bee7))
+* **progress:** fix progress bar border radius [#240061](https://github.com/worktile/ngx-tethys/issues/240061) ([cdd0b29](https://github.com/worktile/ngx-tethys/commit/cdd0b29))
+* **thy-button:** fix square btn border-radius when thySize is xs ([162b083](https://github.com/worktile/ngx-tethys/commit/162b083))
+* **thy-custom-select:** fix thyMode action cant't dynamic change ([47c161e](https://github.com/worktile/ngx-tethys/commit/47c161e))
+* **tree:** fix node level not increase error ([662d495](https://github.com/worktile/ngx-tethys/commit/662d495))
+
+
+### Features
+
+* **alert:** [#238645](https://github.com/worktile/ngx-tethys/issues/238645) alert  添加提示类型 ([0515950](https://github.com/worktile/ngx-tethys/commit/0515950))
+* **alert:** [#238645](https://github.com/worktile/ngx-tethys/issues/238645) alert 添加提示类型 ([d6a2ebb](https://github.com/worktile/ngx-tethys/commit/d6a2ebb))
+* **alert:** [#238645](https://github.com/worktile/ngx-tethys/issues/238645) alert图标使用thyIcon ([6fea8b1](https://github.com/worktile/ngx-tethys/commit/6fea8b1))
+* **grid:** grid support  `table-fixed`  class ([58d7587](https://github.com/worktile/ngx-tethys/commit/58d7587))
+* **icon:** add test and add icon name class ([b829439](https://github.com/worktile/ngx-tethys/commit/b829439))
+* **icon:** add test and add icon name class ([#242517](https://github.com/worktile/ngx-tethys/issues/242517)) ([c3753c8](https://github.com/worktile/ngx-tethys/commit/c3753c8))
+* **icon:** add thyIconType for thyIcon component [#239663](https://github.com/worktile/ngx-tethys/issues/239663) ([62bcfff](https://github.com/worktile/ngx-tethys/commit/62bcfff))
+* **icon:** refactor code ([e8a4fe3](https://github.com/worktile/ngx-tethys/commit/e8a4fe3))
+* **icon:** refactor code ([b55ae06](https://github.com/worktile/ngx-tethys/commit/b55ae06))
+* **icon:** refactor code ([96d55a2](https://github.com/worktile/ngx-tethys/commit/96d55a2))
+* **immutable:** add function produce.move ([e6aa6b8](https://github.com/worktile/ngx-tethys/commit/e6aa6b8)), closes [#242119](https://github.com/worktile/ngx-tethys/issues/242119)
+* **progress:** add progress styles ([0e1a08f](https://github.com/worktile/ngx-tethys/commit/0e1a08f))
+* produce.add()中addOptions支持afterId [#242119](https://github.com/worktile/ngx-tethys/issues/242119) ([4a379df](https://github.com/worktile/ngx-tethys/commit/4a379df))
+* **progress:** change tips type is string or templateref ([45a8b4e](https://github.com/worktile/ngx-tethys/commit/45a8b4e))
+* **progress:** change variables and example [#240588](https://github.com/worktile/ngx-tethys/issues/240588) ([bc9d528](https://github.com/worktile/ngx-tethys/commit/bc9d528))
+* **progress:** support progress show tooltip [#236723](https://github.com/worktile/ngx-tethys/issues/236723) ([dec1646](https://github.com/worktile/ngx-tethys/commit/dec1646))
+* **property-operation:** add type input for red color value text ([6dc2914](https://github.com/worktile/ngx-tethys/commit/6dc2914))
+* **select:** support thyEnableScrollLoad and  improve api doc ([73dbd0a](https://github.com/worktile/ngx-tethys/commit/73dbd0a))
+* **selection-list:** thyLayout support 'list' ([993021f](https://github.com/worktile/ngx-tethys/commit/993021f)), closes [#240509](https://github.com/worktile/ngx-tethys/issues/240509)
+
+
+
 ## [7.2.2](https://github.com/worktile/ngx-tethys/compare/7.2.1...7.2.2) (2019-06-19)
 
 
