@@ -6,97 +6,97 @@
     "icons": [
       {
         "name": "angle-double-down",
-        "unicode": "E021",
+        "unicode": "E046",
         "color": "#888888"
       },
       {
         "name": "angle-double-up",
-        "unicode": "E022",
+        "unicode": "E047",
         "color": "#888888"
       },
       {
         "name": "angle-down",
-        "unicode": "E023",
+        "unicode": "E048",
         "color": "#888888"
       },
       {
         "name": "angle-left",
-        "unicode": "E024",
+        "unicode": "E049",
         "color": "#888888"
       },
       {
         "name": "angle-right",
-        "unicode": "E025",
+        "unicode": "E04A",
         "color": "#888888"
       },
       {
         "name": "angle-up",
-        "unicode": "E026",
+        "unicode": "E04B",
         "color": "#888888"
       },
       {
         "name": "arrow-down-bold",
-        "unicode": "E027",
-        "color": "#979797"
+        "unicode": "E04C",
+        "color": "#888888"
       },
       {
         "name": "arrow-down",
-        "unicode": "E028",
+        "unicode": "E04D",
         "color": "#888888"
       },
       {
         "name": "arrow-right-circle-fill",
-        "unicode": "E029",
+        "unicode": "E04E",
         "color": "#2DBCFF"
       },
       {
         "name": "arrow-right-up-bold",
-        "unicode": "E02A",
+        "unicode": "E04F",
         "color": "#F969AA"
       },
       {
         "name": "arrow-right-up-circle",
-        "unicode": "E02B",
+        "unicode": "E050",
         "color": "#F969AA"
       },
       {
         "name": "arrow-right-up-square-bold",
-        "unicode": "E02C",
-        "color": "#DDDDDD"
-      },
-      {
-        "name": "arrow-up-bold",
-        "unicode": "E02D",
+        "unicode": "E051",
         "color": "#979797"
       },
       {
+        "name": "arrow-up-bold",
+        "unicode": "E052",
+        "color": "#888888"
+      },
+      {
         "name": "arrow-up",
-        "unicode": "E02E",
+        "unicode": "E053",
         "color": "#888888"
       },
       {
         "name": "caret-down",
-        "unicode": "E02F",
+        "unicode": "E054",
         "color": "#AAAAAA"
       },
       {
         "name": "caret-right-down",
-        "unicode": "E030",
+        "unicode": "E055",
         "color": "#AAAAAA"
       },
       {
         "name": "caret-right",
-        "unicode": "E031",
+        "unicode": "E056",
         "color": "#AAAAAA"
       },
       {
         "name": "indent",
-        "unicode": "E032",
+        "unicode": "E057",
         "color": "#888888"
       },
       {
         "name": "outdent",
-        "unicode": "E033",
+        "unicode": "E058",
         "color": "#888888"
       }
     ]
@@ -107,227 +107,242 @@
     "icons": [
       {
         "name": "alarm-clock",
-        "unicode": "E076",
+        "unicode": "E09C",
         "color": "#888888"
       },
       {
         "name": "bulb-bold",
-        "unicode": "E077",
+        "unicode": "E09D",
         "color": "#DDDDDD"
       },
       {
         "name": "calendar-check",
-        "unicode": "E078",
+        "unicode": "E09E",
         "color": "#979797"
       },
       {
         "name": "calendar",
-        "unicode": "E079",
-        "color": "#979797"
+        "unicode": "E09F",
+        "color": "#888888"
       },
       {
         "name": "clock-circle-moment-fill",
-        "unicode": "E07A",
+        "unicode": "E0A0",
         "color": "#FFC442"
       },
       {
         "name": "clock-circle-moment",
-        "unicode": "E07B",
+        "unicode": "E0A1",
         "color": "#FCC542"
       },
       {
         "name": "clock-circle-open",
-        "unicode": "E07C",
+        "unicode": "E0A2",
         "color": "#979797"
       },
       {
         "name": "clock-circle",
-        "unicode": "E07D",
+        "unicode": "E0A3",
         "color": "#888888"
       },
       {
         "name": "clock-point-bold",
-        "unicode": "E07E",
+        "unicode": "E0A4",
         "color": "#FCC542"
       },
       {
         "name": "comment",
-        "unicode": "E07F",
+        "unicode": "E0A5",
+        "color": "#888888"
+      },
+      {
+        "name": "contacts-fill",
+        "unicode": "E0A6",
+        "color": "#888888"
+      },
+      {
+        "name": "contacts",
+        "unicode": "E0A7",
         "color": "#888888"
       },
       {
         "name": "eye-invisible",
-        "unicode": "E080",
+        "unicode": "E0A8",
         "color": "#888888"
       },
       {
         "name": "eye",
-        "unicode": "E081",
+        "unicode": "E0A9",
         "color": "#888888"
       },
       {
         "name": "filter",
-        "unicode": "E082",
+        "unicode": "E0AA",
         "color": "#888888"
       },
       {
         "name": "health-check",
-        "unicode": "E083",
+        "unicode": "E0AB",
         "color": "#979797"
       },
       {
         "name": "importance-bold",
-        "unicode": "E084",
+        "unicode": "E0AC",
         "color": "#888888"
       },
       {
         "name": "importance",
-        "unicode": "E085",
+        "unicode": "E0AD",
         "color": "#888888"
       },
       {
-        "name": "list-sample-bold",
-        "unicode": "E086",
+        "name": "list-sample-fill",
+        "unicode": "E0AE",
         "color": "#CACACA"
       },
       {
         "name": "list",
-        "unicode": "E087",
+        "unicode": "E0AF",
         "color": "#888888"
       },
       {
         "name": "mention",
-        "unicode": "E088",
+        "unicode": "E0B0",
         "color": "#979797"
       },
       {
         "name": "more-bold",
-        "unicode": "E089",
+        "unicode": "E0B1",
         "color": "#2DBCFF"
       },
       {
         "name": "more-circle-fill",
-        "unicode": "E08A",
+        "unicode": "E0B2",
         "color": "#2DBCFF"
       },
       {
         "name": "more-circle",
-        "unicode": "E08B",
+        "unicode": "E0B3",
         "color": "#2DBCFF"
       },
       {
         "name": "more",
-        "unicode": "E08C",
+        "unicode": "E0B4",
         "color": "#888888"
       },
       {
         "name": "number",
-        "unicode": "E08D",
+        "unicode": "E0B5",
         "color": "#22D7BB"
       },
       {
         "name": "pause-circle-fill",
-        "unicode": "E08E",
+        "unicode": "E0B6",
         "color": "#DDDDDD"
       },
       {
         "name": "play-circle",
-        "unicode": "E08F",
+        "unicode": "E0B7",
         "color": "#888888"
       },
       {
         "name": "records",
-        "unicode": "E090",
+        "unicode": "E0B8",
         "color": "#888888"
       },
       {
         "name": "search",
-        "unicode": "E091",
+        "unicode": "E0B9",
         "color": "#979797"
       },
       {
         "name": "sitemap",
-        "unicode": "E092",
+        "unicode": "E0BA",
         "color": "#888888"
       },
       {
         "name": "smile",
-        "unicode": "E093",
+        "unicode": "E0BB",
         "color": "#979797"
       },
       {
+        "name": "sort-tt",
+        "unicode": "E0BC",
+        "color": "#666666"
+      },
+      {
         "name": "sort",
-        "unicode": "E094",
+        "unicode": "E0BD",
         "color": "#888888"
       },
       {
         "name": "tag-fill",
-        "unicode": "E095",
+        "unicode": "E0BE",
         "color": "#888888"
       },
       {
         "name": "tag",
-        "unicode": "E096",
+        "unicode": "E0BF",
         "color": "#888888"
       },
       {
         "name": "user-check-fill",
-        "unicode": "E097",
+        "unicode": "E0C0",
         "color": "#22D7BB"
       },
       {
         "name": "user-group-fill",
-        "unicode": "E098",
+        "unicode": "E0C1",
         "color": "#DDDDDD"
       },
       {
         "name": "user-group",
-        "unicode": "E099",
+        "unicode": "E0C2",
         "color": "#2DBCFF"
       },
       {
         "name": "user-lock-fill",
-        "unicode": "E09A",
+        "unicode": "E0C3",
         "color": "#DDDDDD"
       },
       {
         "name": "user-participate-fill",
-        "unicode": "E09B",
+        "unicode": "E0C4",
         "color": "#22D7BB"
       },
       {
         "name": "user-readonly-fill",
-        "unicode": "E09C",
+        "unicode": "E0C5",
         "color": "#DDDDDD"
       },
       {
         "name": "version-bold",
-        "unicode": "E09D",
-        "color": "#CACACA"
+        "unicode": "E0C6",
+        "color": "#979797"
       },
       {
         "name": "version-circle",
-        "unicode": "E09E",
+        "unicode": "E0C7",
         "color": "#4E8AF9"
       },
       {
         "name": "version",
-        "unicode": "E09F",
+        "unicode": "E0C8",
         "color": "#9473FD"
       },
       {
         "name": "vertical-view-lines",
-        "unicode": "E0A0",
+        "unicode": "E0C9",
         "color": "#888888"
       },
       {
         "name": "view-board",
-        "unicode": "E0A1",
+        "unicode": "E0CA",
         "color": "#888888"
       },
       {
         "name": "view-tile",
-        "unicode": "E0A2",
+        "unicode": "E0CB",
         "color": "#888888"
       }
     ]
@@ -338,97 +353,117 @@
     "icons": [
       {
         "name": "check-bold",
-        "unicode": "E0BD",
+        "unicode": "E0E3",
         "color": "#22D7BB"
+      },
+      {
+        "name": "check-circle-fill",
+        "unicode": "E0E4",
+        "color": "#39BA5D"
+      },
+      {
+        "name": "check-circle-tt",
+        "unicode": "E0E5",
+        "color": "#666666"
       },
       {
         "name": "check-circle",
-        "unicode": "E0BE",
+        "unicode": "E0E6",
         "color": "#22D7BB"
       },
       {
-        "name": "check-fill",
-        "unicode": "E0BF",
-        "color": "#FFFFFF"
-      },
-      {
         "name": "check",
-        "unicode": "E0C0",
+        "unicode": "E0E7",
         "color": "#22D7BB"
       },
       {
         "name": "close-bold",
-        "unicode": "E0C1",
+        "unicode": "E0E8",
         "color": "#888888"
       },
       {
         "name": "close-circle-fill",
-        "unicode": "E0C2",
-        "color": "#FFFFFF"
+        "unicode": "E0E9",
+        "color": "#FF4540"
+      },
+      {
+        "name": "close-circle-tt",
+        "unicode": "E0EA",
+        "color": "#666666"
       },
       {
         "name": "close",
-        "unicode": "E0C3",
+        "unicode": "E0EB",
         "color": "#888888"
       },
       {
         "name": "exclamation-bold",
-        "unicode": "E0C4",
+        "unicode": "E0EC",
         "color": "#22D7BB"
       },
       {
         "name": "exclamation-double-bold",
-        "unicode": "E0C5",
+        "unicode": "E0ED",
         "color": "#FFA415"
       },
       {
         "name": "exclamation-three-bold",
-        "unicode": "E0C6",
+        "unicode": "E0EE",
         "color": "#FF4540"
       },
       {
         "name": "minus-bold",
-        "unicode": "E0C7",
+        "unicode": "E0EF",
         "color": "#FA5A55"
       },
       {
         "name": "minus-circle-fill",
-        "unicode": "E0C8",
+        "unicode": "E0F0",
         "color": "#DDDDDD"
       },
       {
         "name": "minus-circle",
-        "unicode": "E0C9",
+        "unicode": "E0F1",
         "color": "#FA5A55"
       },
       {
         "name": "minus-square",
-        "unicode": "E0CA",
+        "unicode": "E0F2",
         "color": "#888888"
       },
       {
         "name": "plus-bold",
-        "unicode": "E0CB",
+        "unicode": "E0F3",
         "color": "#888888"
       },
       {
         "name": "plus-square",
-        "unicode": "E0CC",
+        "unicode": "E0F4",
         "color": "#888888"
       },
       {
         "name": "plus",
-        "unicode": "E0CD",
+        "unicode": "E0F5",
+        "color": "#888888"
+      },
+      {
+        "name": "question-circle-bold",
+        "unicode": "E0F6",
         "color": "#888888"
       },
       {
         "name": "question-circle-fill",
-        "unicode": "E0CE",
+        "unicode": "E0F7",
         "color": "#FFA415"
       },
       {
+        "name": "question-circle",
+        "unicode": "E0F8",
+        "color": "#888888"
+      },
+      {
         "name": "waring-fill",
-        "unicode": "E0CF",
+        "unicode": "E0F9",
         "color": "#FFA415"
       }
     ]
@@ -439,72 +474,72 @@
     "icons": [
       {
         "name": "active",
-        "unicode": "E009",
+        "unicode": "E001",
         "color": "#888888"
       },
       {
         "name": "archive",
-        "unicode": "E00A",
+        "unicode": "E002",
         "color": "#888888"
       },
       {
         "name": "connect-bold",
-        "unicode": "E00B",
+        "unicode": "E003",
         "color": "#888888"
       },
       {
         "name": "connect",
-        "unicode": "E00C",
+        "unicode": "E004",
         "color": "#888888"
       },
       {
         "name": "copy",
-        "unicode": "E00D",
+        "unicode": "E005",
         "color": "#888888"
       },
       {
         "name": "edit",
-        "unicode": "E00E",
+        "unicode": "E006",
         "color": "#888888"
       },
       {
         "name": "move-to-list",
-        "unicode": "E00F",
+        "unicode": "E007",
         "color": "#888888"
       },
       {
         "name": "move",
-        "unicode": "E010",
+        "unicode": "E008",
         "color": "#979797"
       },
       {
         "name": "settings-fill",
-        "unicode": "E011",
+        "unicode": "E009",
         "color": "#22D7BB"
       },
       {
         "name": "settings",
-        "unicode": "E012",
+        "unicode": "E00A",
         "color": "#888888"
       },
       {
         "name": "thumb-up",
-        "unicode": "E013",
+        "unicode": "E00B",
         "color": "#888888"
       },
       {
         "name": "trash",
-        "unicode": "E014",
+        "unicode": "E00C",
         "color": "#888888"
       },
       {
         "name": "user-add-bold",
-        "unicode": "E015",
+        "unicode": "E00D",
         "color": "#888888"
       },
       {
         "name": "user-add",
-        "unicode": "E016",
+        "unicode": "E00E",
         "color": "#888888"
       }
     ]
@@ -515,17 +550,17 @@
     "icons": [
       {
         "name": "bar-fill",
-        "unicode": "E006",
+        "unicode": "E00F",
         "color": "#22D7BB"
       },
       {
         "name": "doughnut-fill",
-        "unicode": "E007",
+        "unicode": "E010",
         "color": "#22D7BB"
       },
       {
         "name": "trend",
-        "unicode": "E008",
+        "unicode": "E011",
         "color": "#888888"
       }
     ]
@@ -536,52 +571,52 @@
     "icons": [
       {
         "name": "attachment-bold",
-        "unicode": "E017",
-        "color": "#979797"
+        "unicode": "E03C",
+        "color": "#888888"
       },
       {
         "name": "attachment",
-        "unicode": "E018",
+        "unicode": "E03D",
         "color": "#888888"
       },
       {
         "name": "cloud-upload",
-        "unicode": "E019",
+        "unicode": "E03E",
         "color": "#888888"
       },
       {
         "name": "download",
-        "unicode": "E01A",
+        "unicode": "E03F",
         "color": "#979797"
       },
       {
         "name": "folder-bold",
-        "unicode": "E01B",
+        "unicode": "E040",
         "color": "#888888"
       },
       {
         "name": "folder-expand",
-        "unicode": "E01C",
+        "unicode": "E041",
         "color": "#888888"
       },
       {
         "name": "folder-fill",
-        "unicode": "E01D",
+        "unicode": "E042",
         "color": "#DDDDDD"
       },
       {
         "name": "folder-fold",
-        "unicode": "E01E",
+        "unicode": "E043",
         "color": "#888888"
       },
       {
         "name": "folder-open-fill",
-        "unicode": "E01F",
+        "unicode": "E044",
         "color": "#DDDDDD"
       },
       {
         "name": "upload",
-        "unicode": "E020",
+        "unicode": "E045",
         "color": "#979797"
       }
     ]
@@ -597,27 +632,212 @@
     "icons": [
       {
         "name": "android-fill",
-        "unicode": "E001",
+        "unicode": "E012",
         "color": "#99D75A"
       },
       {
+        "name": "app-agile-fill",
+        "unicode": "E013",
+        "color": "#888888"
+      },
+      {
+        "name": "app-agile",
+        "unicode": "E014",
+        "color": "#888888"
+      },
+      {
+        "name": "app-appraisal-fill",
+        "unicode": "E015",
+        "color": "#888888"
+      },
+      {
+        "name": "app-appraisal",
+        "unicode": "E016",
+        "color": "#888888"
+      },
+      {
+        "name": "app-approval-fill",
+        "unicode": "E017",
+        "color": "#888888"
+      },
+      {
+        "name": "app-approval",
+        "unicode": "E018",
+        "color": "#888888"
+      },
+      {
+        "name": "app-bulletin-fill",
+        "unicode": "E019",
+        "color": "#888888"
+      },
+      {
+        "name": "app-bulletin",
+        "unicode": "E01A",
+        "color": "#888888"
+      },
+      {
+        "name": "app-calendar-fill",
+        "unicode": "E01B",
+        "color": "#888888"
+      },
+      {
+        "name": "app-calendar",
+        "unicode": "E01C",
+        "color": "#888888"
+      },
+      {
+        "name": "app-crm-fill",
+        "unicode": "E01D",
+        "color": "#888888"
+      },
+      {
+        "name": "app-crm",
+        "unicode": "E01E",
+        "color": "#888888"
+      },
+      {
+        "name": "app-drive-fill",
+        "unicode": "E01F",
+        "color": "#888888"
+      },
+      {
+        "name": "app-drive",
+        "unicode": "E020",
+        "color": "#888888"
+      },
+      {
+        "name": "app-leave-fill",
+        "unicode": "E021",
+        "color": "#888888"
+      },
+      {
+        "name": "app-leave",
+        "unicode": "E022",
+        "color": "#888888"
+      },
+      {
+        "name": "app-message-fill",
+        "unicode": "E023",
+        "color": "#888888"
+      },
+      {
+        "name": "app-message",
+        "unicode": "E024",
+        "color": "#888888"
+      },
+      {
+        "name": "app-okr-fill",
+        "unicode": "E025",
+        "color": "#888888"
+      },
+      {
+        "name": "app-okr",
+        "unicode": "E026",
+        "color": "#888888"
+      },
+      {
+        "name": "app-pipeline-fill",
+        "unicode": "E027",
+        "color": "#888888"
+      },
+      {
+        "name": "app-pipeline",
+        "unicode": "E028",
+        "color": "#888888"
+      },
+      {
+        "name": "app-portal-fill",
+        "unicode": "E029",
+        "color": "#888888"
+      },
+      {
+        "name": "app-portal",
+        "unicode": "E02A",
+        "color": "#888888"
+      },
+      {
+        "name": "app-project-fill",
+        "unicode": "E02B",
+        "color": "#888888"
+      },
+      {
+        "name": "app-project",
+        "unicode": "E02C",
+        "color": "#888888"
+      },
+      {
+        "name": "app-report-fill",
+        "unicode": "E02D",
+        "color": "#888888"
+      },
+      {
+        "name": "app-report",
+        "unicode": "E02E",
+        "color": "#888888"
+      },
+      {
+        "name": "app-task-fill",
+        "unicode": "E02F",
+        "color": "#888888"
+      },
+      {
+        "name": "app-task",
+        "unicode": "E030",
+        "color": "#888888"
+      },
+      {
+        "name": "app-testhub-fill",
+        "unicode": "E031",
+        "color": "#888888"
+      },
+      {
+        "name": "app-testhub",
+        "unicode": "E032",
+        "color": "#888888"
+      },
+      {
+        "name": "app-tracking-fill",
+        "unicode": "E033",
+        "color": "#888888"
+      },
+      {
+        "name": "app-tracking",
+        "unicode": "E034",
+        "color": "#888888"
+      },
+      {
+        "name": "application-add",
+        "unicode": "E035",
+        "color": "#CACACA"
+      },
+      {
+        "name": "application-fill",
+        "unicode": "E036",
+        "color": "#888888"
+      },
+      {
+        "name": "application",
+        "unicode": "E037",
+        "color": "#888888"
+      },
+      {
         "name": "browser",
-        "unicode": "E002",
+        "unicode": "E038",
         "color": "#FF7747"
       },
       {
         "name": "ios-fill",
-        "unicode": "E003",
+        "unicode": "E039",
         "color": "#B9C7D0"
       },
       {
         "name": "mobile-mode",
-        "unicode": "E004",
+        "unicode": "E03A",
         "color": "#F969AA"
       },
       {
         "name": "nodejs-fill",
-        "unicode": "E005",
+        "unicode": "E03B",
         "color": "#669F64"
       }
     ]
@@ -627,133 +847,118 @@
     "text": "研发相关",
     "icons": [
       {
-        "name": "application-add",
-        "unicode": "E0A3",
-        "color": "#DDDDDD"
-      },
-      {
-        "name": "application-fill",
-        "unicode": "E0A4",
-        "color": "#22D7BB"
-      },
-      {
-        "name": "application",
-        "unicode": "E0A5",
-        "color": "#888888"
-      },
-      {
         "name": "branch",
-        "unicode": "E0A6",
+        "unicode": "E0CC",
         "color": "#888888"
       },
       {
         "name": "bug-fill",
-        "unicode": "E0A7",
+        "unicode": "E0CD",
         "color": "#F75A55"
       },
       {
         "name": "bug",
-        "unicode": "E0A8",
+        "unicode": "E0CE",
         "color": "#888888"
       },
       {
         "name": "commit-list",
-        "unicode": "E0A9",
+        "unicode": "E0CF",
         "color": "#888888"
       },
       {
         "name": "commit",
-        "unicode": "E0AA",
+        "unicode": "E0D0",
         "color": "#888888"
       },
       {
         "name": "epic-fill",
-        "unicode": "E0AB",
+        "unicode": "E0D1",
         "color": "#FF7747"
       },
       {
         "name": "feature-fill",
-        "unicode": "E0AC",
+        "unicode": "E0D2",
         "color": "#9473FD"
       },
       {
         "name": "feature",
-        "unicode": "E0AD",
+        "unicode": "E0D3",
         "color": "#888888"
       },
       {
         "name": "kanban-fill",
-        "unicode": "E0AE",
+        "unicode": "E0D4",
         "color": "#22D4B8"
       },
       {
         "name": "pipeline-add-bold",
-        "unicode": "E0AF",
-        "color": "#DDDDDD"
+        "unicode": "E0D5",
+        "color": "#CACACA"
       },
       {
         "name": "pipeline",
-        "unicode": "E0B0",
-        "color": "#DDDDDD"
+        "unicode": "E0D6",
+        "color": "#979797"
       },
       {
         "name": "repository",
-        "unicode": "E0B1",
+        "unicode": "E0D7",
         "color": "#888888"
       },
       {
         "name": "scrum-fill",
-        "unicode": "E0B2",
+        "unicode": "E0D8",
         "color": "#4C87F5"
       },
       {
         "name": "task-fill",
-        "unicode": "E0B3",
+        "unicode": "E0D9",
         "color": "#22D4B8"
       },
       {
         "name": "task",
-        "unicode": "E0B4",
+        "unicode": "E0DA",
         "color": "#888888"
       },
       {
         "name": "test-case-fill",
-        "unicode": "E0B5",
+        "unicode": "E0DB",
         "color": "#7076FA"
       },
       {
         "name": "test-case-type-bold",
-        "unicode": "E0B6",
+        "unicode": "E0DC",
         "color": "#888888"
       },
       {
         "name": "test-case",
-        "unicode": "E0B7",
+        "unicode": "E0DD",
         "color": "#22D7BB"
       },
       {
         "name": "test-lib-add-bold",
-        "unicode": "E0B8",
-        "color": "#DDDDDD"
+        "unicode": "E0DE",
+        "color": "#CACACA"
       },
       {
         "name": "test-lib",
-        "unicode": "E0B9",
+        "unicode": "E0DF",
         "color": "#22D7BB"
       },
       {
         "name": "test",
-        "unicode": "E0BA",
+        "unicode": "E0E0",
         "color": "#888888"
       },
       {
         "name": "user-story-fill",
-        "unicode": "E0BB",
+        "unicode": "E0E1",
         "color": "#2DBCFF"
       },
       {
         "name": "user-story",
-        "unicode": "E0BC",
+        "unicode": "E0E2",
         "color": "#888888"
       }
     ]
@@ -776,332 +981,337 @@
     "icons": [
       {
         "name": "align-center",
-        "unicode": "E034",
+        "unicode": "E059",
         "color": "#888888"
       },
       {
         "name": "align-justify",
-        "unicode": "E035",
-        "color": "#888888"
-      },
-      {
-        "name": "align-left",
-        "unicode": "E036",
-        "color": "#888888"
-      },
-      {
-        "name": "align-right",
-        "unicode": "E037",
-        "color": "#888888"
-      },
-      {
-        "name": "audio",
-        "unicode": "E038",
-        "color": "#888888"
-      },
-      {
-        "name": "authorship",
-        "unicode": "E039",
-        "color": "#888888"
-      },
-      {
-        "name": "background",
-        "unicode": "E03A",
-        "color": "#888888"
-      },
-      {
-        "name": "blockquote",
-        "unicode": "E03B",
-        "color": "#888888"
-      },
-      {
-        "name": "bold",
-        "unicode": "E03C",
-        "color": "#888888"
-      },
-      {
-        "name": "clean",
-        "unicode": "E03D",
-        "color": "#888888"
-      },
-      {
-        "name": "code",
-        "unicode": "E03E",
-        "color": "#888888"
-      },
-      {
-        "name": "color",
-        "unicode": "E03F",
-        "color": "#888888"
-      },
-      {
-        "name": "direction-ltr",
-        "unicode": "E040",
-        "color": "#888888"
-      },
-      {
-        "name": "direction-rtl",
-        "unicode": "E041",
-        "color": "#888888"
-      },
-      {
-        "name": "dropdown",
-        "unicode": "E042",
-        "color": "#888888"
-      },
-      {
-        "name": "embed",
-        "unicode": "E043",
-        "color": "#888888"
-      },
-      {
-        "name": "float-center",
-        "unicode": "E044",
-        "color": "#888888"
-      },
-      {
-        "name": "float-full",
-        "unicode": "E045",
-        "color": "#888888"
-      },
-      {
-        "name": "float-left",
-        "unicode": "E046",
-        "color": "#888888"
-      },
-      {
-        "name": "float-right",
-        "unicode": "E047",
-        "color": "#888888"
-      },
-      {
-        "name": "font",
-        "unicode": "E048",
-        "color": "#888888"
-      },
-      {
-        "name": "formula",
-        "unicode": "E049",
-        "color": "#888888"
-      },
-      {
-        "name": "hashtag",
-        "unicode": "E04A",
-        "color": "#888888"
-      },
-      {
-        "name": "header-1",
-        "unicode": "E04B",
-        "color": "#888888"
-      },
-      {
-        "name": "header-2",
-        "unicode": "E04C",
-        "color": "#888888"
-      },
-      {
-        "name": "header-3",
-        "unicode": "E04D",
-        "color": "#888888"
-      },
-      {
-        "name": "header-4",
-        "unicode": "E04E",
-        "color": "#888888"
-      },
-      {
-        "name": "header-5",
-        "unicode": "E04F",
-        "color": "#888888"
-      },
-      {
-        "name": "header-6",
-        "unicode": "E050",
-        "color": "#888888"
-      },
-      {
-        "name": "header",
-        "unicode": "E051",
-        "color": "#888888"
-      },
-      {
-        "name": "horizontal-rule",
-        "unicode": "E052",
-        "color": "#888888"
-      },
-      {
-        "name": "image",
-        "unicode": "E053",
-        "color": "#888888"
-      },
-      {
-        "name": "italic",
-        "unicode": "E054",
-        "color": "#888888"
-      },
-      {
-        "name": "link-insert",
-        "unicode": "E055",
-        "color": "#888888"
-      },
-      {
-        "name": "list-bullet",
-        "unicode": "E056",
-        "color": "#888888"
-      },
-      {
-        "name": "list-check",
-        "unicode": "E057",
-        "color": "#888888"
-      },
-      {
-        "name": "list-ordered",
-        "unicode": "E058",
-        "color": "#888888"
-      },
-      {
-        "name": "map",
-        "unicode": "E059",
-        "color": "#979797"
-      },
-      {
-        "name": "redo",
         "unicode": "E05A",
         "color": "#888888"
       },
       {
-        "name": "size-decrease",
+        "name": "align-left",
         "unicode": "E05B",
         "color": "#888888"
       },
       {
-        "name": "size-increase",
+        "name": "align-right",
         "unicode": "E05C",
         "color": "#888888"
       },
       {
-        "name": "size",
+        "name": "audio",
         "unicode": "E05D",
         "color": "#888888"
       },
       {
-        "name": "spacing",
+        "name": "authorship",
         "unicode": "E05E",
         "color": "#888888"
       },
       {
-        "name": "speech",
+        "name": "background",
         "unicode": "E05F",
         "color": "#888888"
       },
       {
-        "name": "strike",
+        "name": "blockquote",
         "unicode": "E060",
         "color": "#888888"
       },
       {
-        "name": "subscript",
+        "name": "bold",
         "unicode": "E061",
         "color": "#888888"
       },
       {
-        "name": "superscript",
+        "name": "clean",
         "unicode": "E062",
         "color": "#888888"
       },
       {
-        "name": "table-border-all",
+        "name": "code",
         "unicode": "E063",
-        "color": "#979797"
+        "color": "#888888"
       },
       {
-        "name": "table-border-bottom",
+        "name": "color",
         "unicode": "E064",
         "color": "#888888"
       },
       {
-        "name": "table-border-left",
+        "name": "direction-ltr",
         "unicode": "E065",
         "color": "#888888"
       },
       {
-        "name": "table-border-none",
+        "name": "direction-rtl",
         "unicode": "E066",
         "color": "#888888"
       },
       {
-        "name": "table-border-outside",
+        "name": "dropdown",
         "unicode": "E067",
         "color": "#888888"
       },
       {
-        "name": "table-border-right",
+        "name": "embed",
         "unicode": "E068",
         "color": "#888888"
       },
       {
-        "name": "table-border-top",
+        "name": "float-center",
         "unicode": "E069",
         "color": "#888888"
       },
       {
-        "name": "table-delete-cells",
+        "name": "float-full",
         "unicode": "E06A",
         "color": "#888888"
       },
       {
-        "name": "table-delete-columns",
+        "name": "float-left",
         "unicode": "E06B",
         "color": "#888888"
       },
       {
-        "name": "table-delete-rows",
+        "name": "float-right",
         "unicode": "E06C",
         "color": "#888888"
       },
       {
-        "name": "table-insert-cells",
+        "name": "font",
         "unicode": "E06D",
         "color": "#888888"
       },
       {
-        "name": "table-insert-columns",
+        "name": "formula",
         "unicode": "E06E",
         "color": "#888888"
       },
       {
-        "name": "table-insert-rows",
+        "name": "hashtag",
         "unicode": "E06F",
         "color": "#888888"
       },
       {
-        "name": "table-merge-cells",
+        "name": "header-1",
         "unicode": "E070",
         "color": "#888888"
       },
       {
-        "name": "table-unmerge-cells",
+        "name": "header-2",
         "unicode": "E071",
         "color": "#888888"
       },
       {
-        "name": "table",
+        "name": "header-3",
         "unicode": "E072",
         "color": "#888888"
       },
       {
-        "name": "underline",
+        "name": "header-4",
         "unicode": "E073",
         "color": "#888888"
       },
       {
-        "name": "undo",
+        "name": "header-5",
         "unicode": "E074",
         "color": "#888888"
       },
       {
-        "name": "vertical-line",
+        "name": "header-6",
         "unicode": "E075",
+        "color": "#888888"
+      },
+      {
+        "name": "header",
+        "unicode": "E076",
+        "color": "#888888"
+      },
+      {
+        "name": "horizontal-rule",
+        "unicode": "E077",
+        "color": "#888888"
+      },
+      {
+        "name": "image",
+        "unicode": "E078",
+        "color": "#888888"
+      },
+      {
+        "name": "italic",
+        "unicode": "E079",
+        "color": "#888888"
+      },
+      {
+        "name": "link-insert",
+        "unicode": "E07A",
+        "color": "#888888"
+      },
+      {
+        "name": "list-bullet",
+        "unicode": "E07B",
+        "color": "#888888"
+      },
+      {
+        "name": "list-check",
+        "unicode": "E07C",
+        "color": "#888888"
+      },
+      {
+        "name": "list-ordered",
+        "unicode": "E07D",
+        "color": "#888888"
+      },
+      {
+        "name": "map",
+        "unicode": "E07E",
+        "color": "#979797"
+      },
+      {
+        "name": "redo",
+        "unicode": "E07F",
+        "color": "#888888"
+      },
+      {
+        "name": "size-decrease",
+        "unicode": "E080",
+        "color": "#888888"
+      },
+      {
+        "name": "size-increase",
+        "unicode": "E081",
+        "color": "#888888"
+      },
+      {
+        "name": "size",
+        "unicode": "E082",
+        "color": "#888888"
+      },
+      {
+        "name": "spacing",
+        "unicode": "E083",
+        "color": "#888888"
+      },
+      {
+        "name": "speech",
+        "unicode": "E084",
+        "color": "#888888"
+      },
+      {
+        "name": "strike",
+        "unicode": "E085",
+        "color": "#888888"
+      },
+      {
+        "name": "subscript",
+        "unicode": "E086",
+        "color": "#888888"
+      },
+      {
+        "name": "superscript",
+        "unicode": "E087",
+        "color": "#888888"
+      },
+      {
+        "name": "table-border-all",
+        "unicode": "E088",
+        "color": "#979797"
+      },
+      {
+        "name": "table-border-bottom",
+        "unicode": "E089",
+        "color": "#888888"
+      },
+      {
+        "name": "table-border-left",
+        "unicode": "E08A",
+        "color": "#888888"
+      },
+      {
+        "name": "table-border-none",
+        "unicode": "E08B",
+        "color": "#888888"
+      },
+      {
+        "name": "table-border-outside",
+        "unicode": "E08C",
+        "color": "#888888"
+      },
+      {
+        "name": "table-border-right",
+        "unicode": "E08D",
+        "color": "#888888"
+      },
+      {
+        "name": "table-border-top",
+        "unicode": "E08E",
+        "color": "#888888"
+      },
+      {
+        "name": "table-delete-cells",
+        "unicode": "E08F",
+        "color": "#888888"
+      },
+      {
+        "name": "table-delete-columns",
+        "unicode": "E090",
+        "color": "#888888"
+      },
+      {
+        "name": "table-delete-rows",
+        "unicode": "E091",
+        "color": "#888888"
+      },
+      {
+        "name": "table-insert-cells",
+        "unicode": "E092",
+        "color": "#888888"
+      },
+      {
+        "name": "table-insert-columns",
+        "unicode": "E093",
+        "color": "#888888"
+      },
+      {
+        "name": "table-insert-rows",
+        "unicode": "E094",
+        "color": "#888888"
+      },
+      {
+        "name": "table-merge-cells",
+        "unicode": "E095",
+        "color": "#888888"
+      },
+      {
+        "name": "table-remove",
+        "unicode": "E096",
+        "color": "#888888"
+      },
+      {
+        "name": "table-unmerge-cells",
+        "unicode": "E097",
+        "color": "#888888"
+      },
+      {
+        "name": "table",
+        "unicode": "E098",
+        "color": "#888888"
+      },
+      {
+        "name": "underline",
+        "unicode": "E099",
+        "color": "#888888"
+      },
+      {
+        "name": "undo",
+        "unicode": "E09A",
+        "color": "#888888"
+      },
+      {
+        "name": "vertical-line",
+        "unicode": "E09B",
         "color": "#979797"
       }
     ]

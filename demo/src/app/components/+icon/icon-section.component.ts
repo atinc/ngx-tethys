@@ -41,6 +41,7 @@ const INLINE_ICON_SET =
 `;
 
 export const ICON_SVG_BASE_URL = `http://pic4us.com:8888/icons`;
+// export const ICON_SVG_BASE_URL = ``;
 
 @Component({
     selector: 'demo-icon-section',
