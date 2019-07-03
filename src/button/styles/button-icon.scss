@@ -7,7 +7,8 @@ $btn-icon-circle-padding-xs: 4px;
     padding: 0px;
     @extend .btn-link.btn-link-default;
     i,
-    .wtf {
+    .wtf,
+    .thy-icon {
         display: inline-block;
         line-height: 1;
         margin: 0px;
@@ -17,7 +18,7 @@ $btn-icon-circle-padding-xs: 4px;
         border: none;
         background: none;
     }
-    @include btn-icon-size-variant($font-size-md, $btn-icon-circle-padding-base, 18px);
+    @include btn-icon-size-variant($font-size-md, $btn-icon-circle-padding-base, 16px);
 }
 
 .btn-icon.btn-icon-danger-weak {
@@ -29,7 +30,8 @@ $btn-icon-circle-padding-xs: 4px;
         border: 0px;
     }
     i,
-    .wtf {
+    .wtf,
+    .thy-icon {
         transition: border 200ms, padding 200ms;
         color: $btn-icon-color;
         border-color: $btn-icon-color;
@@ -37,26 +39,29 @@ $btn-icon-circle-padding-xs: 4px;
         border-radius: 50%;
         line-height: 1;
         padding: 10px;
-        font-size: 18px;
+        // font-size: 18px;
     }
     span {
         margin-left: 6px;
     }
     &.border-thick {
         i,
-        .wtf {
+        .wtf,
+        .thy-icon {
             border-width: 2px;
         }
         &:not(:hover):not(.invalid).circle-solid {
             i,
-            .wtf {
+            .wtf,
+            .thy-icon {
                 color: $btn-icon-thick-solid-color;
                 border-color: $btn-icon-thick-solid-color;
             }
         }
         &:not(:hover):not(.invalid).circle-dashed {
             i,
-            .wtf {
+            .wtf,
+            .thy-icon {
                 color: $btn-icon-thick-dashed-color;
                 border-color: $btn-icon-thick-dashed-color;
             }
@@ -65,7 +70,8 @@ $btn-icon-circle-padding-xs: 4px;
     @include hover-focus {
         color: $primary;
         i,
-        .wtf {
+        .wtf,
+        .thy-icon {
             border-color: $primary;
             color: $primary;
             border-style: solid;
@@ -74,14 +80,16 @@ $btn-icon-circle-padding-xs: 4px;
     &.invalid {
         color: $danger;
         i,
-        .wtf {
+        .wtf,
+        .thy-icon {
             border-color: $danger;
             color: $danger;
         }
         &:hover,
         &:focus {
             i,
-            .wtf {
+            .wtf,
+            .thy-icon {
                 color: $primary;
                 border-color: $primary;
             }
@@ -89,13 +97,15 @@ $btn-icon-circle-padding-xs: 4px;
     }
     &:not(:hover).circle-dashed {
         i,
-        .wtf {
+        .wtf,
+        .thy-icon {
             border-style: dashed;
         }
     }
     &.circle-solid {
         i,
-        .wtf {
+        .wtf,
+        .thy-icon {
             border-style: solid;
         }
     }
