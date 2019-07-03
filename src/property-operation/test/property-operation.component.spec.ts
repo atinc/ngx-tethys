@@ -1,53 +1,10 @@
-import { Component } from '@angular/core';
-import { async, TestBed, ComponentFixture } from '@angular/core/testing';
+import { Component, DebugElement } from '@angular/core';
+import { async, TestBed, ComponentFixture, inject } from '@angular/core/testing';
 import { ThyPropertyOperationModule } from '../module';
-
-describe('ThyPropertyOperation', () => {
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            imports: [ThyPropertyOperationModule],
-            declarations: [TestBedComponent]
-        });
-
-        TestBed.compileComponents();
-    }));
-
-    describe('test begin', () => {
-        let fixture: ComponentFixture<TestBedComponent>;
-        let componentInstance: TestBedComponent;
-
-        beforeEach(async(() => {
-            fixture = TestBed.createComponent(TestBedComponent);
-            componentInstance = fixture.debugElement.componentInstance;
-            fixture.detectChanges();
-        }));
-
-        it('should set icon', () => {
-            expect(fixture.nativeElement.querySelector(`.${componentInstance.thyIcon}`)).toBeTruthy();
-        });
-
-        it('should set label text', () => {
-            expect(fixture.nativeElement.innerText).toContain(componentInstance.thyLabelText);
-        });
-
-        it('should set value', () => {
-            expect(fixture.nativeElement.innerText).toContain(componentInstance.thyValue);
-        });
-
-        it('should set show close button', () => {
-            expect(fixture.nativeElement.querySelector('.close-link')).toBeTruthy();
-        });
-
-        it('should set type danger', () => {
-            expect(fixture.nativeElement.querySelector('.thy-property-operation-danger')).toBeTruthy();
-        });
-
-        it('should callback on remove', () => {
-            fixture.nativeElement.querySelector('.close-link').click();
-            expect(componentInstance.thyValue).toBeNull();
-        });
-    });
-});
+import { By } from '@angular/platform-browser';
+import { ThyPropertyOperationComponent } from '../property-operation.component';
+import { ThyButtonIconComponent } from '../../button';
+import { injectDefaultSvgIconSet, bypassSanitizeProvider, defaultSvgHtml } from '../../core/testing';
 
 //#region test component
 
@@ -65,8 +22,8 @@ describe('ThyPropertyOperation', () => {
         </thy-property-operation>
     `
 })
-class TestBedComponent {
-    thyIcon = 'wtf-due-date-th-o';
+class PropertyOperationBasicComponent {
+    thyIcon = 'calendar-check';
 
     thyLabelText = '截止时间';
 
@@ -84,3 +41,71 @@ class TestBedComponent {
 }
 
 //#endregion
+
+describe('ThyPropertyOperation', () => {
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            imports: [ThyPropertyOperationModule],
+            declarations: [PropertyOperationBasicComponent],
+            providers: [bypassSanitizeProvider]
+        }).compileComponents();
+
+        injectDefaultSvgIconSet();
+    });
+
+    describe('test begin', () => {
+        let fixture: ComponentFixture<PropertyOperationBasicComponent>;
+        let componentInstance: PropertyOperationBasicComponent;
+        let propertyOperationDebugElement: DebugElement;
+        let propertyOperationElement: HTMLElement;
+
+        beforeEach(async(() => {
+            fixture = TestBed.createComponent(PropertyOperationBasicComponent);
+            componentInstance = fixture.debugElement.componentInstance;
+            propertyOperationDebugElement = fixture.debugElement.query(By.directive(ThyPropertyOperationComponent));
+            propertyOperationElement = propertyOperationDebugElement.nativeElement;
+            fixture.detectChanges();
+        }));
+
+        it('should get correct class', () => {
+            expect(propertyOperationDebugElement).toBeTruthy();
+            expect(propertyOperationElement).toBeTruthy();
+            expect(propertyOperationElement.classList.contains(`thy-property-operation`)).toBeTruthy();
+            const operationIconElement = propertyOperationElement.querySelector(`.thy-operation-icon`);
+            const operationContentElement = propertyOperationElement.querySelector(`.thy-operation-content`);
+            expect(operationIconElement).toBeTruthy();
+            expect(operationContentElement).toBeTruthy();
+
+            const btnIcon = fixture.debugElement.query(By.directive(ThyButtonIconComponent));
+            expect(btnIcon).toBeTruthy();
+            expect(btnIcon.nativeElement.classList.contains(`btn`)).toBeTruthy();
+            expect(btnIcon.nativeElement.classList.contains(`btn-icon`)).toBeTruthy();
+            expect(btnIcon.nativeElement.classList.contains(`btn-icon-circle`)).toBeTruthy();
+        });
+
+        it('should get correct value', () => {
+            expect(fixture.nativeElement.innerText).toContain(componentInstance.thyValue);
+        });
+
+        it('should get correct icon', () => {
+            // expect(fixture.nativeElement.querySelector(`.${componentInstance.thyIcon}`)).toBeTruthy();
+        });
+
+        it('should get correct label text', () => {
+            expect(fixture.nativeElement.innerText).toContain(componentInstance.thyLabelText);
+        });
+
+        it('should get close button link', () => {
+            expect(fixture.nativeElement.querySelector('.close-link')).toBeTruthy();
+        });
+
+        it('should get danger class when input type danger', () => {
+            expect(fixture.nativeElement.querySelector('.thy-property-operation-danger')).toBeTruthy();
+        });
+
+        it('should clear value on click remove', () => {
+            fixture.nativeElement.querySelector('.close-link').click();
+            expect(componentInstance.thyValue).toBeNull();
+        });
+    });
+});

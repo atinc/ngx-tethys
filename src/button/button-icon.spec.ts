@@ -6,6 +6,7 @@ import { ThyIconRegistry, ThyIconComponent } from '../icon';
 import { By } from '@angular/platform-browser';
 import { ThyButtonComponent } from './button.component';
 import { ThyButtonIconComponent } from './button-icon.component';
+import { injectDefaultSvgIconSet, bypassSanitizeProvider } from '../core/testing';
 
 @Component({
     selector: 'app-basic-button-icon',
@@ -22,25 +23,10 @@ describe(`button-icon`, () => {
         TestBed.configureTestingModule({
             imports: [ThyButtonModule],
             declarations: [BasicButtonIconComponent],
-            providers: [
-                UpdateHostClassService,
-                {
-                    provide: Sanitizer,
-                    useValue: {
-                        sanitize: (context: SecurityContext, html: string) => html
-                    }
-                }
-            ]
+            providers: [UpdateHostClassService, bypassSanitizeProvider]
         }).compileComponents();
 
-        inject([ThyIconRegistry], (iconRegistry: ThyIconRegistry) => {
-            iconRegistry.addSvgIconLiteral(
-                'inbox',
-                `<svg viewBox="0 0 16 16" id="inbox" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M7.978 11.997l-.005.006L2.3 6.33l.83-.831 4.848 4.848L12.826 5.5l.83.83-5.673 5.673-.005-.006z"/>
-                 </svg>`
-            );
-        });
+        injectDefaultSvgIconSet();
     });
 
     let fixture: ComponentFixture<BasicButtonIconComponent>;
