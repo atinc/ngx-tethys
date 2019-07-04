@@ -1,14 +1,29 @@
 <div class="thy-tree-node-wrapper thy-sortable-item" [class.active]="root.isSelected(node)" (click)="clickNode($event)">
-  <span *ngIf="thyDraggable" class="thy-tree-drag-icon">
-    <i class="wtf wtf wtf-move thy-sortable-handle"></i>
+  <span *ngIf="thyDraggable" class="thy-tree-drag-icon thy-sortable-handle">
+    <thy-icon thyIconName="drag"></thy-icon>
   </span>
   <span class="thy-tree-expand" (click)="expandNode($event)">
     <ng-container *ngIf="isShowExpand(node)">
-      <i
+      <ng-container *ngIf="(node.children && node.children.length > 0) || thyAsync || emptyChildrenTemplateRef">
+        <thy-icon
+          *ngIf="root.thyType === 'especial'; else defaultIcon"
+          class="thy-tree-expand-icon"
+          [thyIconName]="node.isExpanded ? 'minus-square' : 'plus-square'"
+        ></thy-icon>
+        <ng-template #defaultIcon>
+          <thy-icon
+            class="thy-tree-expand-icon"
+            [class.collapse]="!node.isExpanded"
+            thyIconName="caret-right-down"
+          ></thy-icon>
+        </ng-template>
+      </ng-container>
+
+      <!-- <i
         class="wtf thy-tree-expand-icon"
         *ngIf="(node.children && node.children.length > 0) || thyAsync || emptyChildrenTemplateRef"
         [class.collapse]="!node.isExpanded"
-      ></i>
+      ></i> -->
     </ng-container>
   </span>
   <span class="thy-tree-node-content">

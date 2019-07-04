@@ -12,13 +12,10 @@ import { ThyListModule } from '../list';
 import { ThyOptionModule } from '../core/option';
 import { FormsModule } from '@angular/forms';
 import { ThyLoadingModule } from '../loading';
+import { ThyIconModule } from '../icon';
 
 @NgModule({
-    declarations: [
-        ThyTreeComponent,
-        ThyTreeNodeComponent,
-        ThyTreeReplaceRegionComponent
-    ],
+    declarations: [ThyTreeComponent, ThyTreeNodeComponent, ThyTreeReplaceRegionComponent],
     imports: [
         CommonModule,
         ThyInputModule,
@@ -28,14 +25,11 @@ import { ThyLoadingModule } from '../loading';
         FormsModule,
         ThyListModule,
         ThyOptionModule,
-        ThyLoadingModule
+        ThyLoadingModule,
+        ThyIconModule
     ],
     entryComponents: [ThyTreeComponent],
-    exports: [
-        ThyTreeComponent,
-        ThyTreeNodeComponent,
-        ThyTreeReplaceRegionComponent
-    ],
+    exports: [ThyTreeComponent, ThyTreeNodeComponent, ThyTreeReplaceRegionComponent],
     providers: [ThyTreeService]
 })
 export class ThyTreeModule {}
