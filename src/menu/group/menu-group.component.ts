@@ -35,9 +35,9 @@ import { ThyMenuComponent } from '../menu.component';
 export class ThyMenuGroupComponent implements OnInit {
     public _actionMenu: ElementRef | ComponentType<any>;
 
-    public rightIconClass = 'wtf wtf-more-lg';
+    public rightIconClass = 'more';
 
-    public iconClass = 'wtf wtf-drive-o';
+    public iconClass = 'folder-bold';
 
     public groupHeaderPaddingLeft = 0;
 

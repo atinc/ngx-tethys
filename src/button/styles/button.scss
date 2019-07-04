@@ -5,11 +5,13 @@
 .btn {
     // 设置 icon 字体大小
     i,
-    .wtf {
+    .wtf,
+    .thy-icon {
         font-size: $font-size-base;
         line-height: 1rem;
         // @include button-icon-margin(0.375rem);
     }
+
     display: inline-block;
     font-weight: $btn-font-weight;
     text-align: center;
@@ -26,13 +28,16 @@
         $btn-base-min-width
     );
     @include transition($btn-transition); // Share hover and focus styles
+
     @include hover-focus {
         text-decoration: none;
     }
+
     &:focus,
     &.focus {
         outline: 0; // box-shadow: $btn-focus-box-shadow;
     }
+
     // Disabled comes first so active can properly restyle
     &.disabled,
     &:disabled {
@@ -41,10 +46,12 @@
         border-color: $btn-disabled-border-color; // opacity: $btn-disabled-opacity;
         @include box-shadow(none);
     }
+
     // Opinionated: add "hand" cursor to non-disabled .btn elements
     &:not(:disabled):not(.disabled) {
         cursor: pointer;
     }
+
     &:not(:disabled):not(.disabled):active,
     &:not(:disabled):not(.disabled).active {
         background-image: none;
@@ -53,6 +60,7 @@
         //     @include box-shadow($btn-focus-box-shadow, $btn-active-box-shadow);
         // }
     }
+
     &:not(:disabled):not(.disabled).loading {
         opacity: 0.65;
         pointer-events: none;
@@ -62,7 +70,8 @@
 // 有图标居右设置间距
 .btn.btn-has-icon {
     i,
-    .wtf {
+    .wtf,
+    .thy-icon {
         @include button-icon-margin(8px);
     }
 }
@@ -153,21 +162,25 @@ fieldset:disabled a.btn {
     font-weight: $font-weight-normal;
     color: $link-color;
     background-color: transparent;
+
     @include hover {
         color: $link-hover-color;
         text-decoration: $link-hover-decoration;
         background-color: transparent;
         border-color: transparent;
     }
+
     &:focus,
     &.focus {
         text-decoration: $link-hover-decoration;
         border-color: transparent;
         box-shadow: none;
     }
+
     &.disabled,
     &:disabled {
         background-color: transparent;
+
         @include hover-focus {
             color: $btn-link-disabled-color;
             text-decoration: none;
@@ -178,7 +191,9 @@ fieldset:disabled a.btn {
     &.disabled {
         color: $btn-link-disabled-color;
         border: none;
-    } // No need for an active state here
+    }
+
+    // No need for an active state here
 }
 
 // 去除按钮图标和按钮链接的最小宽度
@@ -221,6 +236,7 @@ fieldset:disabled a.btn {
 .btn-block {
     display: block;
     width: 100%; // Vertically space out multiple block buttons
+
     + .btn-block {
         margin-top: $btn-block-spacing-y;
     }
@@ -239,6 +255,7 @@ input[type='button'] {
 .btn-pair {
     .btn + .btn {
         margin-left: 20px;
+
         &.btn-link {
             margin-left: 10px;
         }

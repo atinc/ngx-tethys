@@ -1,36 +1,47 @@
-import { Component, Directive, Input, ElementRef, Renderer2, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+import {
+    Component,
+    Directive,
+    Input,
+    ElementRef,
+    Renderer2,
+    ViewEncapsulation,
+    ChangeDetectionStrategy
+} from '@angular/core';
 import { AfterContentInit, OnChanges, OnInit } from '@angular/core';
 import { inputValueToBoolean, isUndefined } from '../util/helpers';
 import { UpdateHostClassService } from '../shared';
 
-export type ThyButtonType = 'primary' | 'secondary' | 'outline-primary' | 'outline-default' | 'danger' | 'link' | 'link-secondary';
+export type ThyButtonType =
+    | 'primary'
+    | 'secondary'
+    | 'outline-primary'
+    | 'outline-default'
+    | 'danger'
+    | 'link'
+    | 'link-secondary';
 
 const btnTypeClassesMap: any = {
-    'primary': ['btn', 'btn-primary'],
-    'secondary': ['btn', 'btn-primary', 'btn-md'],
+    primary: ['btn', 'btn-primary'],
+    secondary: ['btn', 'btn-primary', 'btn-md'],
     'outline-primary': ['btn', 'btn-outline-primary'],
     'outline-default': ['btn', 'btn-outline-default'],
-    'danger': ['btn', 'btn-danger'],
-    'link': ['btn', 'btn-link'], // 链接按钮
-    'link-info': ['btn', 'btn-link', 'btn-link-info'],// 幽灵链接按钮
+    danger: ['btn', 'btn-danger'],
+    link: ['btn', 'btn-link'], // 链接按钮
+    'link-info': ['btn', 'btn-link', 'btn-link-info'], // 幽灵链接按钮
     'link-secondary': ['btn', 'btn-link', 'btn-link-info'], // 幽灵链接按钮
-    'link-danger-weak': ['btn', 'btn-link', 'btn-link-danger-weak'],// 幽灵危险按钮
+    'link-danger-weak': ['btn', 'btn-link', 'btn-link-danger-weak'], // 幽灵危险按钮
     'link-danger': ['btn', 'btn-link', 'btn-link-danger'], // 危险按钮
     'link-success': ['btn', 'btn-link', 'btn-link-success'] // 成功按钮
-
 };
 
 @Component({
     selector: '[thy-button],[thyButton]',
     templateUrl: './button.component.html',
-    providers: [
-        UpdateHostClassService
-    ],
+    providers: [UpdateHostClassService],
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyButtonComponent implements OnInit {
-
     private _nativeElement: any;
 
     private _initialized = false;
@@ -51,6 +62,8 @@ export class ThyButtonComponent implements OnInit {
     _isRadiusSquare = false;
 
     _iconClass: string[];
+
+    svgIconName: string;
 
     _setBtnType(value: ThyButtonType) {
         if (value) {
@@ -113,13 +126,18 @@ export class ThyButtonComponent implements OnInit {
     set thyIcon(icon: string) {
         this._icon = icon;
         if (this._icon) {
-            const classes = this._icon.split(' ');
-            if (classes.length === 1) {
-                classes.unshift('wtf');
+            if (icon.includes('wtf')) {
+                const classes = this._icon.split(' ');
+                if (classes.length === 1) {
+                    classes.unshift('wtf');
+                }
+                this._iconClass = classes;
+            } else {
+                this.svgIconName = icon;
             }
-            this._iconClass = classes;
         } else {
             this._iconClass = null;
+            this.svgIconName = null;
         }
     }
 

@@ -1,4 +1,14 @@
-import { Component, HostBinding, Input, OnInit, TemplateRef, Optional, ViewChild, ContentChild, ViewContainerRef } from '@angular/core';
+import {
+    Component,
+    HostBinding,
+    Input,
+    OnInit,
+    TemplateRef,
+    Optional,
+    ViewChild,
+    ContentChild,
+    ViewContainerRef
+} from '@angular/core';
 import { inputValueToBoolean } from '../util/helpers';
 @Component({
     selector: 'thy-header',
@@ -6,8 +16,9 @@ import { inputValueToBoolean } from '../util/helpers';
     templateUrl: './header.component.html'
 })
 export class ThyHeaderComponent implements OnInit {
-
     public iconClass: string;
+
+    public svgIconName: string;
 
     @HostBinding('class.thy-layout-header') thyLayoutHeaderClass = true;
 
@@ -22,7 +33,7 @@ export class ThyHeaderComponent implements OnInit {
 
     @Input('thySize')
     set thySize(value: string) {
-        this._thySizeSm = (value === 'sm');
+        this._thySizeSm = value === 'sm';
     }
 
     @Input() thyTitle: string;
@@ -32,9 +43,14 @@ export class ThyHeaderComponent implements OnInit {
     @Input('thyIcon')
     set thyIcon(value: string) {
         if (value) {
-            this.iconClass = `${this.thyIconPrefix} ${value}`;
+            if (value.includes('wtf')) {
+                this.iconClass = `${this.thyIconPrefix} ${value}`;
+            } else {
+                this.svgIconName = value;
+            }
         } else {
             this.iconClass = null;
+            this.svgIconName = null;
         }
     }
 
@@ -47,9 +63,7 @@ export class ThyHeaderComponent implements OnInit {
     @ContentChild('headerOperation')
     public operationTemplateRef: TemplateRef<any>;
 
-    constructor() {
-    }
+    constructor() {}
 
-    ngOnInit() {
-    }
+    ngOnInit() {}
 }

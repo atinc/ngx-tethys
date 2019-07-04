@@ -5,7 +5,7 @@
   <div class="body">
     <div class="demo-layout">
       <thy-layout>
-        <thy-header thyTitle="我是头部"> </thy-header>
+        <thy-header thyTitle="我是头部" thyIcon="settings"> </thy-header>
         <thy-content>
           恩，我是 content
         </thy-content>
@@ -159,12 +159,7 @@
                 </thy-nav>
               </ng-template>
             </thy-header>
-            <thy-header
-              *ngIf="activeMenu === 'insight'"
-              thySize="sm"
-              thyTitle="恩，我是头部标题"
-              thyIcon="wtf-setting-o"
-            >
+            <thy-header *ngIf="activeMenu === 'insight'" thySize="sm" thyTitle="恩，我是头部标题" thyIcon="settings">
               <ng-template #headerOperation>
                 <a href="javascript:;" class="">操作</a>
               </ng-template>
