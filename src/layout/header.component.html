@@ -1,10 +1,16 @@
 <div class="layout-header-title">
-    <ng-template [ngTemplateOutlet]="titleTemplateRef"></ng-template>
-    <ng-container *ngIf="!titleTemplateRef"><i *ngIf="iconClass" class="prefix-icon" [ngClass]="iconClass"></i><a href="javascript:;">{{thyTitle}}</a></ng-container>
+  <ng-template [ngTemplateOutlet]="titleTemplateRef"></ng-template>
+  <ng-container *ngIf="!titleTemplateRef">
+    <thy-icon *ngIf="svgIconName; else iconFont" class="prefix-icon" [thyIconName]="svgIconName"></thy-icon>
+    <ng-template #iconFont>
+      <i *ngIf="iconClass" class="prefix-icon" [ngClass]="iconClass"></i>
+    </ng-template>
+    <a href="javascript:;">{{ thyTitle }}</a></ng-container
+  >
 </div>
 <div class="layout-header-content">
-    <ng-template [ngTemplateOutlet]="contentTemplateRef"></ng-template>
+  <ng-template [ngTemplateOutlet]="contentTemplateRef"></ng-template>
 </div>
 <div class="layout-header-operation">
-    <ng-template [ngTemplateOutlet]="operationTemplateRef"></ng-template>
+  <ng-template [ngTemplateOutlet]="operationTemplateRef"></ng-template>
 </div>
