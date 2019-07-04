@@ -42,7 +42,7 @@
         &.collapsed {
             .thy-menu-group-header {
                 .thy-menu-group-arrow {
-                    transform: rotate(-45deg);
+                    transform: rotate(-45deg) translateY(1px);
                 }
             }
         }
@@ -72,9 +72,8 @@
                 transition: all 0.2s cubic-bezier(0.4, 0.1, 0.5, 1) 0.1s;
                 display: inline-block;
                 color: $gray-500;
-                font-size: $font-size-base;
+                font-size: $font-size-md;
                 width: 12px;
-                height: 19px;
             }
 
             .thy-menu-group-folder {
