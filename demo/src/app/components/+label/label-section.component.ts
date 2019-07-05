@@ -59,7 +59,7 @@ export class DemoLabelSectionComponent {
         },
         {
             name: '已完成',
-            icon: 'check-circle',
+            icon: 'wtf-completed',
             color: '#22d7bb'
         }
     ];

@@ -92,12 +92,12 @@ export class ThyLabelComponent {
         if (this._icon) {
             if (this._icon.includes('wtf')) {
                 const iconPrefix = this.thyIconPrefix || 'wtf';
-                this.afterIconClass = [iconPrefix, `${this._icon}`];
+                this.beforeIconClass = [iconPrefix, `${this._icon}`];
             } else {
                 this.beforeIconName = `${this._icon}`;
             }
         } else {
-            this.afterIconClass = null;
+            this.beforeIconClass = null;
             this.beforeIconName = null;
         }
     }
