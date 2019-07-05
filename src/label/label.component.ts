@@ -25,6 +25,9 @@ export class ThyLabelComponent {
 
     @HostBinding('class.thy-label--lg') _classNameLG = false;
 
+    // 字体前缀，默认 wtf
+    @Input() thyIconPrefix: string;
+
     @Input('thySize')
     set thySize(value: string) {
         this._classNameSM = value === 'sm';
@@ -44,9 +47,13 @@ export class ThyLabelComponent {
 
     private _icon: string;
 
-    public beforeIconName: any;
+    public beforeIconName: string;
 
-    public afterIconName: any;
+    public beforeIconClass: string[];
+
+    public afterIconName: string;
+
+    public afterIconClass: string[];
 
     public _color?: string;
 
@@ -83,8 +90,14 @@ export class ThyLabelComponent {
     set thyBeforeIcon(icon: string) {
         this._icon = icon;
         if (this._icon) {
-            this.beforeIconName = `${this._icon}`;
+            if (this._icon.includes('wtf')) {
+                const iconPrefix = this.thyIconPrefix || 'wtf';
+                this.afterIconClass = [iconPrefix, `${this._icon}`];
+            } else {
+                this.beforeIconName = `${this._icon}`;
+            }
         } else {
+            this.afterIconClass = null;
             this.beforeIconName = null;
         }
     }
@@ -93,8 +106,14 @@ export class ThyLabelComponent {
     set thyAfterIcon(icon: string) {
         this._icon = icon;
         if (this._icon) {
-            this.afterIconName = `${this._icon}`;
+            if (this._icon.includes('wtf')) {
+                const iconPrefix = this.thyIconPrefix || 'wtf';
+                this.afterIconClass = [iconPrefix, `${this._icon}`];
+            } else {
+                this.afterIconName = `${this._icon}`;
+            }
         } else {
+            this.afterIconClass = null;
             this.afterIconName = null;
         }
     }

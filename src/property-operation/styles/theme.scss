@@ -1,5 +1,7 @@
 .thy-property-operation {
     @include hover {
+        .btn-icon-circle.border-thick:not(:hover):not(.invalid).circle-dashed i,
+        .btn-icon-circle.border-thick:not(:hover):not(.invalid).circle-dashed .wtf,
         .btn-icon-circle.border-thick:not(:hover):not(.invalid).circle-dashed .thy-icon,
         .btn-icon-circle.border-thick:not(:hover):not(.invalid).circle-dashed thy-icon {
             color: $primary;

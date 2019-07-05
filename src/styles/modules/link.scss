@@ -7,7 +7,8 @@ a {
         color: $link-hover-color;
         text-decoration: $link-hover-decoration;
     }
-    .thy-icon {
+    .thy-icon,
+    .wtf {
         // font-size: $font-size-md;
         display: inline-block;
     }
@@ -32,7 +33,8 @@ a:not([href]):not([tabindex]) {
 
 // 带有图标的链接
 a.link-has-icon {
-    .thy-icon {
+    .thy-icon,
+    .wtf {
         padding-right: $link-icon-padding-right;
     }
 }

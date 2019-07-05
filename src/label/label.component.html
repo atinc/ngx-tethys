@@ -1,4 +1,5 @@
 <thy-icon class="mr-1" [thyIconName]="beforeIconName" [ngStyle]="{ color: _color }" *ngIf="beforeIconName"></thy-icon>
+<i class="mr-1" [ngClass]="beforeIconClass" [ngStyle]="{ color: _color }" *ngIf="beforeIconClass"></i>
 <ng-content></ng-content>
 <ng-content></ng-content>
 <thy-icon
@@ -8,3 +9,4 @@
   [ngStyle]="{ color: _color }"
   *ngIf="afterIconName"
 ></thy-icon>
+<i class="ml-1" [ngClass]="afterIconClass" *ngIf="afterIconClass" (click)="remove()"></i>
