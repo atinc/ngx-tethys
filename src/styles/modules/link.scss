@@ -7,7 +7,7 @@ a {
         color: $link-hover-color;
         text-decoration: $link-hover-decoration;
     }
-    .wtf {
+    .thy-icon {
         // font-size: $font-size-md;
         display: inline-block;
     }
@@ -32,14 +32,14 @@ a:not([href]):not([tabindex]) {
 
 // 带有图标的链接
 a.link-has-icon {
-    .wtf {
+    .thy-icon {
         padding-right: $link-icon-padding-right;
     }
 }
 
 a {
     &.link-primary {
-        @include link-variant($primary,  $link-decoration, $primary, $link-hover-decoration);
+        @include link-variant($primary, $link-decoration, $primary, $link-hover-decoration);
     }
     &.link-secondary {
         @include link-variant($info, none, $primary, none);
@@ -48,10 +48,10 @@ a {
         @include link-variant($info, none, $danger, none);
     }
     &.link-danger {
-        @include link-variant($danger,  $link-decoration, $danger, $link-hover-decoration);
+        @include link-variant($danger, $link-decoration, $danger, $link-hover-decoration);
     }
     &.link-success {
-        @include link-variant($success,  $link-decoration, $success, $link-hover-decoration);
+        @include link-variant($success, $link-decoration, $success, $link-hover-decoration);
     }
     &.link-sm {
         @include link-size($font-size-sm, $font-size-sm);

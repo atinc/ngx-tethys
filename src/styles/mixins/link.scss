@@ -9,7 +9,7 @@
 
 @mixin link-size($font-size: $font-size-base, $icon-font-size: $font-size-base) {
     font-size: $font-size;
-    .wtf {
+    .thy-icon {
         font-size: $icon-font-size;
     }
 }

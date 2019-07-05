@@ -12,14 +12,14 @@
 @mixin label-color-variant($color, $hover-color) {
     color: $color;
     &.label-has-hover {
-        i.wtf-times {
+        thy-icon.thy-icon-close {
             display: none;
         }
         &:focus,
         &:hover {
             color: $hover-color;
             cursor: pointer;
-            i.wtf-times {
+            thy-icon.thy-icon-close {
                 display: inline-block;
             }
         }
