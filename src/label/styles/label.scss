@@ -7,7 +7,7 @@
     border-radius: $label-border-radius;
     color: $white;
 
-    i {
+    thy-icon {
         // cursor: pointer;
         font-size: $font-size-sm;
     }
@@ -97,7 +97,7 @@
 }
 
 .thy-label-emboss-status {
-    i.wtf {
+    thy-icon.thy-icon {
         font-size: $font-size-base;
         margin-right: 6px;
     }

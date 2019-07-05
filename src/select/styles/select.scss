@@ -109,12 +109,12 @@ select.form-control-md {
         .thy-label-default {
             color: $body-color !important;
 
-            i.wtf-times {
+            thy-icon.thy-icon-close {
                 color: $info;
             }
         }
         &.disabled {
-            i.wtf-times {
+            thy-icon.thy-icon-close {
                 cursor: default;
             }
         }

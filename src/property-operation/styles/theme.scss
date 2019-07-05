@@ -1,13 +1,13 @@
 .thy-property-operation {
-  @include hover {
-    .btn-icon-circle.border-thick:not(:hover):not(.invalid).circle-dashed .wtf,
-    .btn-icon-circle.border-thick:not(:hover):not(.invalid).circle-dashed i {
-      color: $primary;
-      border-color: $primary;
-    }
+    @include hover {
+        .btn-icon-circle.border-thick:not(:hover):not(.invalid).circle-dashed .thy-icon,
+        .btn-icon-circle.border-thick:not(:hover):not(.invalid).circle-dashed thy-icon {
+            color: $primary;
+            border-color: $primary;
+        }
 
-    .thy-operation-content.only-has-tips > .thy-tips {
-      color: $primary;
+        .thy-operation-content.only-has-tips > .thy-tips {
+            color: $primary;
+        }
     }
-  }
 }
