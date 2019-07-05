@@ -5,20 +5,18 @@ import { helpers } from '../util';
 export type ThyLabelType = 'default' | 'primary' | 'success' | 'info' | 'warning' | 'danger';
 
 const labelTypeClassesMap: any = {
-    'default': ['thy-label', 'thy-label-default'],
-    'primary': ['thy-label', 'thy-label-primary'],
-    'success': ['thy-label', 'thy-label-success'],
-    'info': ['thy-label', 'thy-label-info'],
-    'warning': ['thy-label', 'thy-label-warning'],
-    'danger': ['thy-label', 'thy-label-danger']
+    default: ['thy-label', 'thy-label-default'],
+    primary: ['thy-label', 'thy-label-primary'],
+    success: ['thy-label', 'thy-label-success'],
+    info: ['thy-label', 'thy-label-info'],
+    warning: ['thy-label', 'thy-label-warning'],
+    danger: ['thy-label', 'thy-label-danger']
 };
-
 @Component({
     selector: '[thyLabel]',
     templateUrl: './label.component.html'
 })
 export class ThyLabelComponent {
-
     @HostBinding('class.label-has-hover') _thyHasHover = false;
 
     @HostBinding('class.thy-label--sm') _classNameSM = false;
@@ -29,9 +27,9 @@ export class ThyLabelComponent {
 
     @Input('thySize')
     set thySize(value: string) {
-        this._classNameSM = (value === 'sm');
-        this._classNameDM = (value === 'md');
-        this._classNameLG = (value === 'lg');
+        this._classNameSM = value === 'sm';
+        this._classNameDM = value === 'md';
+        this._classNameLG = value === 'lg';
     }
 
     private nativeElement: HTMLElement;
@@ -46,14 +44,13 @@ export class ThyLabelComponent {
 
     private _icon: string;
 
-    public beforeIconClass: any;
+    public beforeIconName: any;
 
-    public afterIconClass: any;
+    public afterIconName: any;
 
     public _color?: string;
 
     @Output() thyOnRemove: EventEmitter<any> = new EventEmitter<any>();
-
 
     constructor(private el: ElementRef, private renderer: Renderer2) {
         this.nativeElement = this.el.nativeElement;
@@ -82,17 +79,13 @@ export class ThyLabelComponent {
         this._setClassesByType();
     }
 
-    // 字体前缀，默认 wtf
-    @Input() thyIconPrefix: string;
-
     @Input()
     set thyBeforeIcon(icon: string) {
         this._icon = icon;
         if (this._icon) {
-            const iconPrefix = this.thyIconPrefix || 'wtf';
-            this.beforeIconClass = [iconPrefix, `${this._icon}`];
+            this.beforeIconName = `${this._icon}`;
         } else {
-            this.beforeIconClass = null;
+            this.beforeIconName = null;
         }
     }
 
@@ -100,10 +93,9 @@ export class ThyLabelComponent {
     set thyAfterIcon(icon: string) {
         this._icon = icon;
         if (this._icon) {
-            const iconPrefix = this.thyIconPrefix || 'wtf';
-            this.afterIconClass = [iconPrefix, `${this._icon}`];
+            this.afterIconName = `${this._icon}`;
         } else {
-            this.afterIconClass = null;
+            this.afterIconName = null;
         }
     }
 
@@ -124,7 +116,7 @@ export class ThyLabelComponent {
         });
         // add new classes
         this._typeClassNames = classNames;
-        this._typeClassNames.forEach((className) => {
+        this._typeClassNames.forEach(className => {
             this._addClass(className);
         });
     }
