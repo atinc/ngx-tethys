@@ -13,7 +13,8 @@ import {
     IterableChangeRecord,
     ContentChildren,
     QueryList,
-    OnDestroy
+    OnDestroy,
+    HostBinding
 } from '@angular/core';
 import { get, set, isString } from '../util/helpers';
 import {
@@ -70,7 +71,9 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
 
     public columns: ThyGridColumn[] = [];
 
-    public themeClass = themeMap['default'];
+    public theme = 'default';
+
+    public themeClass = themeMap[this.theme];
 
     public className = '';
 
@@ -120,6 +123,7 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
 
     @Input()
     set thyTheme(value: ThyGridTheme) {
+        this.theme = value;
         this.themeClass = themeMap[value];
     }
 
@@ -189,6 +193,10 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
         this.wholeRowSelect = value;
     }
 
+    @HostBinding('class.thy-grid-hover-display-operation')
+    @Input()
+    thyHoverDisplayOperation: boolean;
+
     @Output() thyOnSwitchChange: EventEmitter<ThySwitchEvent> = new EventEmitter<ThySwitchEvent>();
 
     @Output() thyOnPageChange: EventEmitter<PageChangedEvent> = new EventEmitter<PageChangedEvent>();
@@ -213,6 +221,8 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
             this._initializeDataModel();
         }
     }
+
+    @HostBinding('class.thy-grid') isGridClass = true;
 
     constructor(private _differs: IterableDiffers) {
         this._bindTrackFn();

@@ -22,11 +22,12 @@
             padding: 0 1000px;
 
             .thy-tree-expand {
-                width: 14px;
-                font-size: 14px;
+                width: 16px;
+                line-height: 16px;
                 color: #cacaca;
                 text-align: center;
-                margin-right: 10px;
+                margin-right: 8px;
+                display: inline-block;
 
                 &-icon {
                     display: inline-block;
@@ -59,7 +60,8 @@
 
             &.hover,
             &:hover {
-                @include item-box-shadow();
+                // @include item-box-shadow();
+                background-color: $gray-80;
             }
 
             &.active {
@@ -80,9 +82,10 @@
             .thy-tree-node-wrapper {
                 .thy-tree-drag-icon {
                     position: absolute;
+                    left: 4px;
+                    padding: 0;
                     color: $gray-500;
                     visibility: hidden;
-                    left: 4px;
                 }
 
                 &:hover {
@@ -153,5 +156,4 @@
 }
 
 .thy-tree-especial {
-    @include thy-tree-especial();
 }

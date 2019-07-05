@@ -170,6 +170,12 @@ export class DemoGridSectionComponent implements OnInit {
             default: 'false'
         },
         {
+            property: 'thyHoverDisplayOperation',
+            description: '开启Hover后显示操作',
+            type: 'Boolean',
+            default: 'false'
+        },
+        {
             property: 'thyWholeRowSelect',
             description: '设置开启选中当前行自动选中checkbox',
             type: 'Boolean',

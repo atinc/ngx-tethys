@@ -1,1 +1,5 @@
-<i [ngClass]="_iconClass" *ngIf="_iconClass"></i><ng-content></ng-content>
+<thy-icon *ngIf="svgIconName; else iconFont" [thyIconName]="svgIconName"></thy-icon>
+<ng-template #iconFont>
+  <i [ngClass]="_iconClass" *ngIf="_iconClass"></i>
+</ng-template>
+<ng-content></ng-content>

@@ -21,18 +21,6 @@
     border-radius: 50%;
 }
 
-.thy-operation-links {
-    > button,
-    > a {
-        display: inline-block;
-        margin-right: $operation-link-margin-y;
-
-        &:last-child {
-            margin-right: 0;
-        }
-    }
-}
-
 // 比 light 更亮，但是还没有到达白色 #f3f3f3f3
 @include bg-variant('.bg-brighter', $gray-100);
 

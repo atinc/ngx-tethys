@@ -10,13 +10,10 @@ import { ThyEmptyModule } from '../empty/empty.module';
 import { SortablejsModule } from 'angular-sortablejs';
 import { GridIsValidModelValuePipe } from './grid.pipe';
 import { ThyDirectiveModule } from '../directive';
+import { ThyIconModule } from '../icon/icon.module';
 
 @NgModule({
-    declarations: [
-        ThyGridComponent,
-        ThyGridColumnComponent,
-        GridIsValidModelValuePipe
-    ],
+    declarations: [ThyGridComponent, ThyGridColumnComponent, GridIsValidModelValuePipe],
     imports: [
         CommonModule,
         FormsModule,
@@ -25,7 +22,8 @@ import { ThyDirectiveModule } from '../directive';
         ThyLoadingModule,
         ThyEmptyModule,
         SortablejsModule,
-        ThyDirectiveModule
+        ThyDirectiveModule,
+        ThyIconModule
     ],
     exports: [ThyGridComponent, ThyGridColumnComponent]
 })

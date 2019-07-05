@@ -26,7 +26,7 @@
     >
       <td *ngFor="let column of columns; let j = index" [ngClass]="column.className" [width]="column.width">
         <ng-container *ngIf="j === 0 && draggable">
-          <i class="table-draggable-icon wtf wtf-move"></i>
+          <thy-icon class="table-draggable-icon" thyIconName="drag"></thy-icon>
         </ng-container>
         <!--template-->
         <ng-container *ngIf="isTemplateRef(column.templateRef)">
@@ -104,9 +104,12 @@
   </tbody>
 </table>
 <thy-loading [thyDone]="loadingDone" [thyTip]="loadingText"></thy-loading>
-<div class="clearfix" *ngIf="pagination.total > pagination.size">
+<div
+  *ngIf="pagination.total > pagination.size"
+  class="thy-grid-footer"
+  [class.thy-grid-footer-has-padding]="theme === 'default'"
+>
   <thy-pagination
-    class="float-right"
     [thyPageIndex]="pagination.index"
     [thyTotal]="pagination.total"
     [thyPageSize]="pagination.size"
