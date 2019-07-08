@@ -27,626 +27,752 @@
 @function wt-icon-char($filename) {
     $char: '';
 
-    @if $filename == android-fill {
+    @if $filename == active {
         $char: '\E001';
     }
-    @if $filename == browser {
+    @if $filename == archive {
         $char: '\E002';
     }
-    @if $filename == ios-fill {
+    @if $filename == connect-bold {
         $char: '\E003';
     }
-    @if $filename == mobile-mode {
+    @if $filename == connect {
         $char: '\E004';
     }
-    @if $filename == nodejs-fill {
+    @if $filename == copy {
         $char: '\E005';
     }
-    @if $filename == bar-fill {
+    @if $filename == edit {
         $char: '\E006';
     }
-    @if $filename == doughnut-fill {
+    @if $filename == move-to-list {
         $char: '\E007';
     }
-    @if $filename == trend {
+    @if $filename == move {
         $char: '\E008';
     }
-    @if $filename == active {
+    @if $filename == settings-fill {
         $char: '\E009';
     }
-    @if $filename == archive {
+    @if $filename == settings {
         $char: '\E00A';
     }
-    @if $filename == connect-bold {
+    @if $filename == thumb-up {
         $char: '\E00B';
     }
-    @if $filename == connect {
+    @if $filename == trash {
         $char: '\E00C';
     }
-    @if $filename == copy {
+    @if $filename == user-add-bold {
         $char: '\E00D';
     }
-    @if $filename == edit {
+    @if $filename == user-add {
         $char: '\E00E';
     }
-    @if $filename == move-to-list {
+    @if $filename == bar-fill {
         $char: '\E00F';
     }
-    @if $filename == move {
+    @if $filename == doughnut-fill {
         $char: '\E010';
     }
-    @if $filename == settings-fill {
+    @if $filename == trend {
         $char: '\E011';
     }
-    @if $filename == settings {
+    @if $filename == android-fill {
         $char: '\E012';
     }
-    @if $filename == thumb-up {
+    @if $filename == app-agile-fill {
         $char: '\E013';
     }
-    @if $filename == trash {
+    @if $filename == app-agile {
         $char: '\E014';
     }
-    @if $filename == user-add-bold {
+    @if $filename == app-appraisal-fill {
         $char: '\E015';
     }
-    @if $filename == user-add {
+    @if $filename == app-appraisal {
         $char: '\E016';
     }
-    @if $filename == attachment-bold {
+    @if $filename == app-approval-fill {
         $char: '\E017';
     }
-    @if $filename == attachment {
+    @if $filename == app-approval {
         $char: '\E018';
     }
-    @if $filename == cloud-upload {
+    @if $filename == app-bulletin-fill {
         $char: '\E019';
     }
-    @if $filename == download {
+    @if $filename == app-bulletin {
         $char: '\E01A';
     }
-    @if $filename == folder-bold {
+    @if $filename == app-calendar-fill {
         $char: '\E01B';
     }
-    @if $filename == folder-expand {
+    @if $filename == app-calendar {
         $char: '\E01C';
     }
-    @if $filename == folder-fill {
+    @if $filename == app-crm-fill {
         $char: '\E01D';
     }
-    @if $filename == folder-fold {
+    @if $filename == app-crm {
         $char: '\E01E';
     }
-    @if $filename == folder-open-fill {
+    @if $filename == app-drive-fill {
         $char: '\E01F';
     }
-    @if $filename == upload {
+    @if $filename == app-drive {
         $char: '\E020';
     }
-    @if $filename == angle-double-down {
+    @if $filename == app-leave-fill {
         $char: '\E021';
     }
-    @if $filename == angle-double-up {
+    @if $filename == app-leave {
         $char: '\E022';
     }
-    @if $filename == angle-down {
+    @if $filename == app-message-fill {
         $char: '\E023';
     }
-    @if $filename == angle-left {
+    @if $filename == app-message {
         $char: '\E024';
     }
-    @if $filename == angle-right {
+    @if $filename == app-okr-fill {
         $char: '\E025';
     }
-    @if $filename == angle-up {
+    @if $filename == app-okr {
         $char: '\E026';
     }
-    @if $filename == arrow-down-bold {
+    @if $filename == app-pipeline-fill {
         $char: '\E027';
     }
-    @if $filename == arrow-down {
+    @if $filename == app-pipeline {
         $char: '\E028';
     }
-    @if $filename == arrow-right-circle-fill {
+    @if $filename == app-portal-fill {
         $char: '\E029';
     }
-    @if $filename == arrow-right-up-bold {
+    @if $filename == app-portal {
         $char: '\E02A';
     }
-    @if $filename == arrow-right-up-circle {
+    @if $filename == app-project-fill {
         $char: '\E02B';
     }
-    @if $filename == arrow-right-up-square-bold {
+    @if $filename == app-project {
         $char: '\E02C';
     }
-    @if $filename == arrow-up-bold {
+    @if $filename == app-report-fill {
         $char: '\E02D';
     }
-    @if $filename == arrow-up {
+    @if $filename == app-report {
         $char: '\E02E';
     }
-    @if $filename == caret-down {
+    @if $filename == app-task-fill {
         $char: '\E02F';
     }
-    @if $filename == caret-right-down {
+    @if $filename == app-task {
         $char: '\E030';
     }
-    @if $filename == caret-right {
+    @if $filename == app-testhub-fill {
         $char: '\E031';
     }
-    @if $filename == indent {
+    @if $filename == app-testhub {
         $char: '\E032';
     }
-    @if $filename == outdent {
+    @if $filename == app-tracking-fill {
         $char: '\E033';
     }
-    @if $filename == align-center {
+    @if $filename == app-tracking {
         $char: '\E034';
     }
-    @if $filename == align-justify {
+    @if $filename == application-add {
         $char: '\E035';
     }
-    @if $filename == align-left {
+    @if $filename == application-fill {
         $char: '\E036';
     }
-    @if $filename == align-right {
+    @if $filename == application {
         $char: '\E037';
     }
-    @if $filename == audio {
+    @if $filename == browser {
         $char: '\E038';
     }
-    @if $filename == authorship {
+    @if $filename == ios-fill {
         $char: '\E039';
     }
-    @if $filename == background {
+    @if $filename == mobile-mode {
         $char: '\E03A';
     }
-    @if $filename == blockquote {
+    @if $filename == nodejs-fill {
         $char: '\E03B';
     }
-    @if $filename == bold {
+    @if $filename == attachment-bold {
         $char: '\E03C';
     }
-    @if $filename == clean {
+    @if $filename == attachment {
         $char: '\E03D';
     }
-    @if $filename == code {
+    @if $filename == cloud-upload {
         $char: '\E03E';
     }
-    @if $filename == color {
+    @if $filename == download {
         $char: '\E03F';
     }
-    @if $filename == direction-ltr {
+    @if $filename == folder-bold {
         $char: '\E040';
     }
-    @if $filename == direction-rtl {
+    @if $filename == folder-expand {
         $char: '\E041';
     }
-    @if $filename == dropdown {
+    @if $filename == folder-fill {
         $char: '\E042';
     }
-    @if $filename == embed {
+    @if $filename == folder-fold {
         $char: '\E043';
     }
-    @if $filename == float-center {
+    @if $filename == folder-open-fill {
         $char: '\E044';
     }
-    @if $filename == float-full {
+    @if $filename == upload {
         $char: '\E045';
     }
-    @if $filename == float-left {
+    @if $filename == angle-double-down {
         $char: '\E046';
     }
-    @if $filename == float-right {
+    @if $filename == angle-double-up {
         $char: '\E047';
     }
-    @if $filename == font {
+    @if $filename == angle-down {
         $char: '\E048';
     }
-    @if $filename == formula {
+    @if $filename == angle-left {
         $char: '\E049';
     }
-    @if $filename == hashtag {
+    @if $filename == angle-right {
         $char: '\E04A';
     }
-    @if $filename == header-1 {
+    @if $filename == angle-up {
         $char: '\E04B';
     }
-    @if $filename == header-2 {
+    @if $filename == arrow-down-bold {
         $char: '\E04C';
     }
-    @if $filename == header-3 {
+    @if $filename == arrow-down {
         $char: '\E04D';
     }
-    @if $filename == header-4 {
+    @if $filename == arrow-right-circle-fill {
         $char: '\E04E';
     }
-    @if $filename == header-5 {
+    @if $filename == arrow-right-up-bold {
         $char: '\E04F';
     }
-    @if $filename == header-6 {
+    @if $filename == arrow-right-up-circle {
         $char: '\E050';
     }
-    @if $filename == header {
+    @if $filename == arrow-right-up-square-bold {
         $char: '\E051';
     }
-    @if $filename == horizontal-rule {
+    @if $filename == arrow-up-bold {
         $char: '\E052';
     }
-    @if $filename == image {
+    @if $filename == arrow-up {
         $char: '\E053';
     }
-    @if $filename == italic {
+    @if $filename == caret-down {
         $char: '\E054';
     }
-    @if $filename == link-insert {
+    @if $filename == caret-right-down {
         $char: '\E055';
     }
-    @if $filename == list-bullet {
+    @if $filename == caret-right {
         $char: '\E056';
     }
-    @if $filename == list-check {
+    @if $filename == indent {
         $char: '\E057';
     }
-    @if $filename == list-ordered {
+    @if $filename == outdent {
         $char: '\E058';
     }
-    @if $filename == map {
+    @if $filename == align-center {
         $char: '\E059';
     }
-    @if $filename == redo {
+    @if $filename == align-justify {
         $char: '\E05A';
     }
-    @if $filename == size-decrease {
+    @if $filename == align-left {
         $char: '\E05B';
     }
-    @if $filename == size-increase {
+    @if $filename == align-right {
         $char: '\E05C';
     }
-    @if $filename == size {
+    @if $filename == audio {
         $char: '\E05D';
     }
-    @if $filename == spacing {
+    @if $filename == authorship {
         $char: '\E05E';
     }
-    @if $filename == speech {
+    @if $filename == background {
         $char: '\E05F';
     }
-    @if $filename == strike {
+    @if $filename == blockquote {
         $char: '\E060';
     }
-    @if $filename == subscript {
+    @if $filename == bold {
         $char: '\E061';
     }
-    @if $filename == superscript {
+    @if $filename == clean {
         $char: '\E062';
     }
-    @if $filename == table-border-all {
+    @if $filename == code {
         $char: '\E063';
     }
-    @if $filename == table-border-bottom {
+    @if $filename == color {
         $char: '\E064';
     }
-    @if $filename == table-border-left {
+    @if $filename == direction-ltr {
         $char: '\E065';
     }
-    @if $filename == table-border-none {
+    @if $filename == direction-rtl {
         $char: '\E066';
     }
-    @if $filename == table-border-outside {
+    @if $filename == dropdown {
         $char: '\E067';
     }
-    @if $filename == table-border-right {
+    @if $filename == embed {
         $char: '\E068';
     }
-    @if $filename == table-border-top {
+    @if $filename == float-center {
         $char: '\E069';
     }
-    @if $filename == table-delete-cells {
+    @if $filename == float-full {
         $char: '\E06A';
     }
-    @if $filename == table-delete-columns {
+    @if $filename == float-left {
         $char: '\E06B';
     }
-    @if $filename == table-delete-rows {
+    @if $filename == float-right {
         $char: '\E06C';
     }
-    @if $filename == table-insert-cells {
+    @if $filename == font {
         $char: '\E06D';
     }
-    @if $filename == table-insert-columns {
+    @if $filename == formula {
         $char: '\E06E';
     }
-    @if $filename == table-insert-rows {
+    @if $filename == hashtag {
         $char: '\E06F';
     }
-    @if $filename == table-merge-cells {
+    @if $filename == header-1 {
         $char: '\E070';
     }
-    @if $filename == table-unmerge-cells {
+    @if $filename == header-2 {
         $char: '\E071';
     }
-    @if $filename == table {
+    @if $filename == header-3 {
         $char: '\E072';
     }
-    @if $filename == underline {
+    @if $filename == header-4 {
         $char: '\E073';
     }
-    @if $filename == undo {
+    @if $filename == header-5 {
         $char: '\E074';
     }
-    @if $filename == vertical-line {
+    @if $filename == header-6 {
         $char: '\E075';
     }
-    @if $filename == alarm-clock {
+    @if $filename == header {
         $char: '\E076';
     }
-    @if $filename == bulb-bold {
+    @if $filename == horizontal-rule {
         $char: '\E077';
     }
-    @if $filename == calendar-check {
+    @if $filename == image {
         $char: '\E078';
     }
-    @if $filename == calendar {
+    @if $filename == italic {
         $char: '\E079';
     }
-    @if $filename == clock-circle-moment-fill {
+    @if $filename == link-insert {
         $char: '\E07A';
     }
-    @if $filename == clock-circle-moment {
+    @if $filename == list-bullet {
         $char: '\E07B';
     }
-    @if $filename == clock-circle-open {
+    @if $filename == list-check {
         $char: '\E07C';
     }
-    @if $filename == clock-circle {
+    @if $filename == list-ordered {
         $char: '\E07D';
     }
-    @if $filename == clock-point-bold {
+    @if $filename == map {
         $char: '\E07E';
     }
-    @if $filename == comment {
+    @if $filename == redo {
         $char: '\E07F';
     }
-    @if $filename == eye-invisible {
+    @if $filename == size-decrease {
         $char: '\E080';
     }
-    @if $filename == eye {
+    @if $filename == size-increase {
         $char: '\E081';
     }
-    @if $filename == filter {
+    @if $filename == size {
         $char: '\E082';
     }
-    @if $filename == health-check {
+    @if $filename == spacing {
         $char: '\E083';
     }
-    @if $filename == importance-bold {
+    @if $filename == speech {
         $char: '\E084';
     }
-    @if $filename == importance {
+    @if $filename == strike {
         $char: '\E085';
     }
-    @if $filename == list-sample-bold {
+    @if $filename == subscript {
         $char: '\E086';
     }
-    @if $filename == list {
+    @if $filename == superscript {
         $char: '\E087';
     }
-    @if $filename == mention {
+    @if $filename == table-border-all {
         $char: '\E088';
     }
-    @if $filename == more-bold {
+    @if $filename == table-border-bottom {
         $char: '\E089';
     }
-    @if $filename == more-circle-fill {
+    @if $filename == table-border-left {
         $char: '\E08A';
     }
-    @if $filename == more-circle {
+    @if $filename == table-border-none {
         $char: '\E08B';
     }
-    @if $filename == more {
+    @if $filename == table-border-outside {
         $char: '\E08C';
     }
-    @if $filename == number {
+    @if $filename == table-border-right {
         $char: '\E08D';
     }
-    @if $filename == pause-circle-fill {
+    @if $filename == table-border-top {
         $char: '\E08E';
     }
-    @if $filename == play-circle {
+    @if $filename == table-delete-cells {
         $char: '\E08F';
     }
-    @if $filename == records {
+    @if $filename == table-delete-columns {
         $char: '\E090';
     }
-    @if $filename == search {
+    @if $filename == table-delete-rows {
         $char: '\E091';
     }
-    @if $filename == sitemap {
+    @if $filename == table-insert-cells {
         $char: '\E092';
     }
-    @if $filename == smile {
+    @if $filename == table-insert-columns {
         $char: '\E093';
     }
-    @if $filename == sort {
+    @if $filename == table-insert-rows {
         $char: '\E094';
     }
-    @if $filename == tag-fill {
+    @if $filename == table-merge-cells {
         $char: '\E095';
     }
-    @if $filename == tag {
+    @if $filename == table-remove {
         $char: '\E096';
     }
-    @if $filename == user-check-fill {
+    @if $filename == table-unmerge-cells {
         $char: '\E097';
     }
-    @if $filename == user-group-fill {
+    @if $filename == table {
         $char: '\E098';
     }
-    @if $filename == user-group {
+    @if $filename == underline {
         $char: '\E099';
     }
-    @if $filename == user-lock-fill {
+    @if $filename == undo {
         $char: '\E09A';
     }
-    @if $filename == user-participate-fill {
+    @if $filename == vertical-line {
         $char: '\E09B';
     }
-    @if $filename == user-readonly-fill {
+    @if $filename == alarm-clock {
         $char: '\E09C';
     }
-    @if $filename == version-bold {
+    @if $filename == bulb-bold {
         $char: '\E09D';
     }
-    @if $filename == version-circle {
+    @if $filename == calendar-check {
         $char: '\E09E';
     }
-    @if $filename == version {
+    @if $filename == calendar {
         $char: '\E09F';
     }
-    @if $filename == vertical-view-lines {
+    @if $filename == clock-circle-moment-fill {
         $char: '\E0A0';
     }
-    @if $filename == view-board {
+    @if $filename == clock-circle-moment {
         $char: '\E0A1';
     }
-    @if $filename == view-tile {
+    @if $filename == clock-circle-open {
         $char: '\E0A2';
     }
-    @if $filename == application-add {
+    @if $filename == clock-circle {
         $char: '\E0A3';
     }
-    @if $filename == application-fill {
+    @if $filename == clock-point-bold {
         $char: '\E0A4';
     }
-    @if $filename == application {
+    @if $filename == comment {
         $char: '\E0A5';
     }
-    @if $filename == branch {
+    @if $filename == contacts-fill {
         $char: '\E0A6';
     }
-    @if $filename == bug-fill {
+    @if $filename == contacts {
         $char: '\E0A7';
     }
-    @if $filename == bug {
+    @if $filename == eye-invisible {
         $char: '\E0A8';
     }
-    @if $filename == commit-list {
+    @if $filename == eye {
         $char: '\E0A9';
     }
-    @if $filename == commit {
+    @if $filename == filter {
         $char: '\E0AA';
     }
-    @if $filename == epic-fill {
+    @if $filename == health-check {
         $char: '\E0AB';
     }
-    @if $filename == feature-fill {
+    @if $filename == importance-bold {
         $char: '\E0AC';
     }
-    @if $filename == feature {
+    @if $filename == importance {
         $char: '\E0AD';
     }
-    @if $filename == kanban-fill {
+    @if $filename == list-sample-fill {
         $char: '\E0AE';
     }
-    @if $filename == pipeline-add-bold {
+    @if $filename == list {
         $char: '\E0AF';
     }
-    @if $filename == pipeline {
+    @if $filename == mention {
         $char: '\E0B0';
     }
-    @if $filename == repository {
+    @if $filename == more-bold {
         $char: '\E0B1';
     }
-    @if $filename == scrum-fill {
+    @if $filename == more-circle-fill {
         $char: '\E0B2';
     }
-    @if $filename == task-fill {
+    @if $filename == more-circle {
         $char: '\E0B3';
     }
-    @if $filename == task {
+    @if $filename == more {
         $char: '\E0B4';
     }
-    @if $filename == test-case-fill {
+    @if $filename == number {
         $char: '\E0B5';
     }
-    @if $filename == test-case-type-bold {
+    @if $filename == pause-circle-fill {
         $char: '\E0B6';
     }
-    @if $filename == test-case {
+    @if $filename == play-circle {
         $char: '\E0B7';
     }
-    @if $filename == test-lib-add-bold {
+    @if $filename == records {
         $char: '\E0B8';
     }
-    @if $filename == test-lib {
+    @if $filename == search {
         $char: '\E0B9';
     }
-    @if $filename == test {
+    @if $filename == sitemap {
         $char: '\E0BA';
     }
-    @if $filename == user-story-fill {
+    @if $filename == smile {
         $char: '\E0BB';
     }
-    @if $filename == user-story {
+    @if $filename == sort-tt {
         $char: '\E0BC';
     }
-    @if $filename == check-bold {
+    @if $filename == sort {
         $char: '\E0BD';
     }
-    @if $filename == check-circle {
+    @if $filename == tag-fill {
         $char: '\E0BE';
     }
-    @if $filename == check-fill {
+    @if $filename == tag {
         $char: '\E0BF';
     }
-    @if $filename == check {
+    @if $filename == user-check-fill {
         $char: '\E0C0';
     }
-    @if $filename == close-bold {
+    @if $filename == user-group-fill {
         $char: '\E0C1';
     }
-    @if $filename == close-circle-fill {
+    @if $filename == user-group {
         $char: '\E0C2';
     }
-    @if $filename == close {
+    @if $filename == user-lock-fill {
         $char: '\E0C3';
     }
-    @if $filename == exclamation-bold {
+    @if $filename == user-participate-fill {
         $char: '\E0C4';
     }
-    @if $filename == exclamation-double-bold {
+    @if $filename == user-readonly-fill {
         $char: '\E0C5';
     }
-    @if $filename == exclamation-three-bold {
+    @if $filename == version-bold {
         $char: '\E0C6';
     }
-    @if $filename == minus-bold {
+    @if $filename == version-circle {
         $char: '\E0C7';
     }
-    @if $filename == minus-circle-fill {
+    @if $filename == version {
         $char: '\E0C8';
     }
-    @if $filename == minus-circle {
+    @if $filename == vertical-view-lines {
         $char: '\E0C9';
     }
-    @if $filename == minus-square {
+    @if $filename == view-board {
         $char: '\E0CA';
     }
-    @if $filename == plus-bold {
+    @if $filename == view-tile {
         $char: '\E0CB';
     }
-    @if $filename == plus-square {
+    @if $filename == branch {
         $char: '\E0CC';
     }
-    @if $filename == plus {
+    @if $filename == bug-fill {
         $char: '\E0CD';
     }
-    @if $filename == question-circle-fill {
+    @if $filename == bug {
         $char: '\E0CE';
     }
-    @if $filename == waring-fill {
+    @if $filename == commit-list {
         $char: '\E0CF';
+    }
+    @if $filename == commit {
+        $char: '\E0D0';
+    }
+    @if $filename == epic-fill {
+        $char: '\E0D1';
+    }
+    @if $filename == feature-fill {
+        $char: '\E0D2';
+    }
+    @if $filename == feature {
+        $char: '\E0D3';
+    }
+    @if $filename == kanban-fill {
+        $char: '\E0D4';
+    }
+    @if $filename == pipeline-add-bold {
+        $char: '\E0D5';
+    }
+    @if $filename == pipeline {
+        $char: '\E0D6';
+    }
+    @if $filename == repository {
+        $char: '\E0D7';
+    }
+    @if $filename == scrum-fill {
+        $char: '\E0D8';
+    }
+    @if $filename == task-fill {
+        $char: '\E0D9';
+    }
+    @if $filename == task {
+        $char: '\E0DA';
+    }
+    @if $filename == test-case-fill {
+        $char: '\E0DB';
+    }
+    @if $filename == test-case-type-bold {
+        $char: '\E0DC';
+    }
+    @if $filename == test-case {
+        $char: '\E0DD';
+    }
+    @if $filename == test-lib-add-bold {
+        $char: '\E0DE';
+    }
+    @if $filename == test-lib {
+        $char: '\E0DF';
+    }
+    @if $filename == test {
+        $char: '\E0E0';
+    }
+    @if $filename == user-story-fill {
+        $char: '\E0E1';
+    }
+    @if $filename == user-story {
+        $char: '\E0E2';
+    }
+    @if $filename == check-bold {
+        $char: '\E0E3';
+    }
+    @if $filename == check-circle-fill {
+        $char: '\E0E4';
+    }
+    @if $filename == check-circle-tt {
+        $char: '\E0E5';
+    }
+    @if $filename == check-circle {
+        $char: '\E0E6';
+    }
+    @if $filename == check {
+        $char: '\E0E7';
+    }
+    @if $filename == close-bold {
+        $char: '\E0E8';
+    }
+    @if $filename == close-circle-fill {
+        $char: '\E0E9';
+    }
+    @if $filename == close-circle-tt {
+        $char: '\E0EA';
+    }
+    @if $filename == close {
+        $char: '\E0EB';
+    }
+    @if $filename == exclamation-bold {
+        $char: '\E0EC';
+    }
+    @if $filename == exclamation-double-bold {
+        $char: '\E0ED';
+    }
+    @if $filename == exclamation-three-bold {
+        $char: '\E0EE';
+    }
+    @if $filename == minus-bold {
+        $char: '\E0EF';
+    }
+    @if $filename == minus-circle-fill {
+        $char: '\E0F0';
+    }
+    @if $filename == minus-circle {
+        $char: '\E0F1';
+    }
+    @if $filename == minus-square {
+        $char: '\E0F2';
+    }
+    @if $filename == plus-bold {
+        $char: '\E0F3';
+    }
+    @if $filename == plus-square {
+        $char: '\E0F4';
+    }
+    @if $filename == plus {
+        $char: '\E0F5';
+    }
+    @if $filename == question-circle-bold {
+        $char: '\E0F6';
+    }
+    @if $filename == question-circle-fill {
+        $char: '\E0F7';
+    }
+    @if $filename == question-circle {
+        $char: '\E0F8';
+    }
+    @if $filename == waring-fill {
+        $char: '\E0F9';
     }
 
     @return $char;
@@ -663,30 +789,6 @@
     }
 }
 
-.wt-icon-android-fill {
-    @include wt-icon(android-fill);
-}
-.wt-icon-browser {
-    @include wt-icon(browser);
-}
-.wt-icon-ios-fill {
-    @include wt-icon(ios-fill);
-}
-.wt-icon-mobile-mode {
-    @include wt-icon(mobile-mode);
-}
-.wt-icon-nodejs-fill {
-    @include wt-icon(nodejs-fill);
-}
-.wt-icon-bar-fill {
-    @include wt-icon(bar-fill);
-}
-.wt-icon-doughnut-fill {
-    @include wt-icon(doughnut-fill);
-}
-.wt-icon-trend {
-    @include wt-icon(trend);
-}
 .wt-icon-active {
     @include wt-icon(active);
 }
@@ -728,6 +830,141 @@
 }
 .wt-icon-user-add {
     @include wt-icon(user-add);
+}
+.wt-icon-bar-fill {
+    @include wt-icon(bar-fill);
+}
+.wt-icon-doughnut-fill {
+    @include wt-icon(doughnut-fill);
+}
+.wt-icon-trend {
+    @include wt-icon(trend);
+}
+.wt-icon-android-fill {
+    @include wt-icon(android-fill);
+}
+.wt-icon-app-agile-fill {
+    @include wt-icon(app-agile-fill);
+}
+.wt-icon-app-agile {
+    @include wt-icon(app-agile);
+}
+.wt-icon-app-appraisal-fill {
+    @include wt-icon(app-appraisal-fill);
+}
+.wt-icon-app-appraisal {
+    @include wt-icon(app-appraisal);
+}
+.wt-icon-app-approval-fill {
+    @include wt-icon(app-approval-fill);
+}
+.wt-icon-app-approval {
+    @include wt-icon(app-approval);
+}
+.wt-icon-app-bulletin-fill {
+    @include wt-icon(app-bulletin-fill);
+}
+.wt-icon-app-bulletin {
+    @include wt-icon(app-bulletin);
+}
+.wt-icon-app-calendar-fill {
+    @include wt-icon(app-calendar-fill);
+}
+.wt-icon-app-calendar {
+    @include wt-icon(app-calendar);
+}
+.wt-icon-app-crm-fill {
+    @include wt-icon(app-crm-fill);
+}
+.wt-icon-app-crm {
+    @include wt-icon(app-crm);
+}
+.wt-icon-app-drive-fill {
+    @include wt-icon(app-drive-fill);
+}
+.wt-icon-app-drive {
+    @include wt-icon(app-drive);
+}
+.wt-icon-app-leave-fill {
+    @include wt-icon(app-leave-fill);
+}
+.wt-icon-app-leave {
+    @include wt-icon(app-leave);
+}
+.wt-icon-app-message-fill {
+    @include wt-icon(app-message-fill);
+}
+.wt-icon-app-message {
+    @include wt-icon(app-message);
+}
+.wt-icon-app-okr-fill {
+    @include wt-icon(app-okr-fill);
+}
+.wt-icon-app-okr {
+    @include wt-icon(app-okr);
+}
+.wt-icon-app-pipeline-fill {
+    @include wt-icon(app-pipeline-fill);
+}
+.wt-icon-app-pipeline {
+    @include wt-icon(app-pipeline);
+}
+.wt-icon-app-portal-fill {
+    @include wt-icon(app-portal-fill);
+}
+.wt-icon-app-portal {
+    @include wt-icon(app-portal);
+}
+.wt-icon-app-project-fill {
+    @include wt-icon(app-project-fill);
+}
+.wt-icon-app-project {
+    @include wt-icon(app-project);
+}
+.wt-icon-app-report-fill {
+    @include wt-icon(app-report-fill);
+}
+.wt-icon-app-report {
+    @include wt-icon(app-report);
+}
+.wt-icon-app-task-fill {
+    @include wt-icon(app-task-fill);
+}
+.wt-icon-app-task {
+    @include wt-icon(app-task);
+}
+.wt-icon-app-testhub-fill {
+    @include wt-icon(app-testhub-fill);
+}
+.wt-icon-app-testhub {
+    @include wt-icon(app-testhub);
+}
+.wt-icon-app-tracking-fill {
+    @include wt-icon(app-tracking-fill);
+}
+.wt-icon-app-tracking {
+    @include wt-icon(app-tracking);
+}
+.wt-icon-application-add {
+    @include wt-icon(application-add);
+}
+.wt-icon-application-fill {
+    @include wt-icon(application-fill);
+}
+.wt-icon-application {
+    @include wt-icon(application);
+}
+.wt-icon-browser {
+    @include wt-icon(browser);
+}
+.wt-icon-ios-fill {
+    @include wt-icon(ios-fill);
+}
+.wt-icon-mobile-mode {
+    @include wt-icon(mobile-mode);
+}
+.wt-icon-nodejs-fill {
+    @include wt-icon(nodejs-fill);
 }
 .wt-icon-attachment-bold {
     @include wt-icon(attachment-bold);
@@ -999,6 +1236,9 @@
 .wt-icon-table-merge-cells {
     @include wt-icon(table-merge-cells);
 }
+.wt-icon-table-remove {
+    @include wt-icon(table-remove);
+}
 .wt-icon-table-unmerge-cells {
     @include wt-icon(table-unmerge-cells);
 }
@@ -1044,6 +1284,12 @@
 .wt-icon-comment {
     @include wt-icon(comment);
 }
+.wt-icon-contacts-fill {
+    @include wt-icon(contacts-fill);
+}
+.wt-icon-contacts {
+    @include wt-icon(contacts);
+}
 .wt-icon-eye-invisible {
     @include wt-icon(eye-invisible);
 }
@@ -1062,8 +1308,8 @@
 .wt-icon-importance {
     @include wt-icon(importance);
 }
-.wt-icon-list-sample-bold {
-    @include wt-icon(list-sample-bold);
+.wt-icon-list-sample-fill {
+    @include wt-icon(list-sample-fill);
 }
 .wt-icon-list {
     @include wt-icon(list);
@@ -1103,6 +1349,9 @@
 }
 .wt-icon-smile {
     @include wt-icon(smile);
+}
+.wt-icon-sort-tt {
+    @include wt-icon(sort-tt);
 }
 .wt-icon-sort {
     @include wt-icon(sort);
@@ -1148,15 +1397,6 @@
 }
 .wt-icon-view-tile {
     @include wt-icon(view-tile);
-}
-.wt-icon-application-add {
-    @include wt-icon(application-add);
-}
-.wt-icon-application-fill {
-    @include wt-icon(application-fill);
-}
-.wt-icon-application {
-    @include wt-icon(application);
 }
 .wt-icon-branch {
     @include wt-icon(branch);
@@ -1230,11 +1470,14 @@
 .wt-icon-check-bold {
     @include wt-icon(check-bold);
 }
+.wt-icon-check-circle-fill {
+    @include wt-icon(check-circle-fill);
+}
+.wt-icon-check-circle-tt {
+    @include wt-icon(check-circle-tt);
+}
 .wt-icon-check-circle {
     @include wt-icon(check-circle);
-}
-.wt-icon-check-fill {
-    @include wt-icon(check-fill);
 }
 .wt-icon-check {
     @include wt-icon(check);
@@ -1244,6 +1487,9 @@
 }
 .wt-icon-close-circle-fill {
     @include wt-icon(close-circle-fill);
+}
+.wt-icon-close-circle-tt {
+    @include wt-icon(close-circle-tt);
 }
 .wt-icon-close {
     @include wt-icon(close);
@@ -1278,8 +1524,14 @@
 .wt-icon-plus {
     @include wt-icon(plus);
 }
+.wt-icon-question-circle-bold {
+    @include wt-icon(question-circle-bold);
+}
 .wt-icon-question-circle-fill {
     @include wt-icon(question-circle-fill);
+}
+.wt-icon-question-circle {
+    @include wt-icon(question-circle);
 }
 .wt-icon-waring-fill {
     @include wt-icon(waring-fill);

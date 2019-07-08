@@ -912,7 +912,8 @@ input[type='radio']:after {
     color: #2dbcff;
     text-decoration: none;
 }
-.nav-secondary-divider .nav-link .wtf {
+.nav-secondary-divider .nav-link .thy-icon,
+.nav-secondary-divider .nav-link i {
     margin-right: 0.3125rem;
 }
 .nav-thirdly .nav-link {
@@ -937,7 +938,8 @@ input[type='radio']:after {
     color: #2dbcff;
     text-decoration: none;
 }
-.nav-thirdly .nav-link .wtf {
+.nav-thirdly .nav-link .thy-icon,
+.nav-thirdly .nav-link i {
     margin-right: 0.3125rem;
 }
 .thy-nav--vertical .nav-link {
@@ -982,8 +984,10 @@ input[type='radio']:after {
 .thy-switch-danger > .thy-switch-input:checked ~ .thy-switch-label {
     background: #ff5b57 !important;
 }
+.thy-property-operation:hover .btn-icon-circle.border-thick:not(:hover):not(.invalid).circle-dashed .thy-icon,
 .thy-property-operation:hover .btn-icon-circle.border-thick:not(:hover):not(.invalid).circle-dashed .wtf,
-.thy-property-operation:hover .btn-icon-circle.border-thick:not(:hover):not(.invalid).circle-dashed i {
+.thy-property-operation:hover .btn-icon-circle.border-thick:not(:hover):not(.invalid).circle-dashed i,
+.thy-property-operation:hover .btn-icon-circle.border-thick:not(:hover):not(.invalid).circle-dashed thy-icon {
     color: #2dbcff;
     border-color: #2dbcff;
 }
@@ -1127,6 +1131,12 @@ input[type='radio']:after {
 .thy-menu .thy-menu-item .thy-menu-item-action {
     color: #aaa;
 }
+.thy-menu .thy-menu-item.active .thy-menu-item-content .thy-menu-item-icon {
+    color: #2dbcff;
+}
+.thy-menu .thy-menu-item.active .thy-menu-item-content .thy-menu-item-name {
+    color: #2dbcff;
+}
 .thy-menu .thy-menu-group .thy-menu-group-header:hover {
     box-shadow: 0 0 8px 2px #eee;
 }
@@ -1153,4 +1163,20 @@ input[type='radio']:after {
 }
 .thy-menu .thy-menu-divider {
     border-top: solid 1px #eee;
+}
+.thy-alert-primary-week {
+    color: #888;
+    background: #fff;
+    border-color: #eee #eee #eee #2dbcff;
+    border-left-width: 2px;
+}
+.thy-alert-primary-week .thy-alert-icon {
+    color: #2dbcff;
+}
+.thy-tree-node-wrapper.active {
+    background: rgba(45, 188, 255, 0.1);
+    color: #2dbcff;
+}
+.thy-tree-node-wrapper.active .thy-tree-node-content .thy-tree-node-icon {
+    color: #2dbcff;
 }

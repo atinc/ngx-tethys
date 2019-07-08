@@ -1,3 +1,34 @@
+## [7.3.1](https://github.com/worktile/ngx-tethys/compare/7.3.0...7.3.1) (2019-07-08)
+
+
+### Bug Fixes
+
+* **icon:** fix icon style ([066a6a6](https://github.com/worktile/ngx-tethys/commit/066a6a6))
+* **label:** compatible icon font ([fd8abc9](https://github.com/worktile/ngx-tethys/commit/fd8abc9))
+* **lable:** change variable ([4d0e397](https://github.com/worktile/ngx-tethys/commit/4d0e397))
+* **thy-menu:** fix active can not change skin ([d54e131](https://github.com/worktile/ngx-tethys/commit/d54e131))
+* **thy-tree:** fix skin can not change ([79c48a5](https://github.com/worktile/ngx-tethys/commit/79c48a5))
+* **tooltip:** add ngOnDestroy  and change tooltip style ([1f53570](https://github.com/worktile/ngx-tethys/commit/1f53570))
+* fix arrow switcher icon and tooltip spacing ([ef28cdf](https://github.com/worktile/ngx-tethys/commit/ef28cdf))
+
+
+### Features
+
+* **button:** change thyButton support svg icon ([db85c96](https://github.com/worktile/ngx-tethys/commit/db85c96))
+* **button:** change thyButtonIcon support svg icon [#243057](https://github.com/worktile/ngx-tethys/issues/243057) ([77f38b1](https://github.com/worktile/ngx-tethys/commit/77f38b1))
+* **dialog:** change Dialog support svg icon ([a86d30f](https://github.com/worktile/ngx-tethys/commit/a86d30f))
+* **grid:** grid support `thyHoverDisplayOperation` and svg icon ([0612f09](https://github.com/worktile/ngx-tethys/commit/0612f09))
+* **icon-text:** support svg icon, and add xs size ([f5e7336](https://github.com/worktile/ngx-tethys/commit/f5e7336))
+* **label:** support label icon ([18f89cf](https://github.com/worktile/ngx-tethys/commit/18f89cf))
+* **label:** support label icon [#245262](https://github.com/worktile/ngx-tethys/issues/245262) ([40fe367](https://github.com/worktile/ngx-tethys/commit/40fe367))
+* **layout:** change thyLayout support svg icon ([ffebe20](https://github.com/worktile/ngx-tethys/commit/ffebe20))
+* **layout:** change thyLayout support svg icon ([3314a42](https://github.com/worktile/ngx-tethys/commit/3314a42))
+* **menu:** change thyMenu support svg icon ([e3be3d0](https://github.com/worktile/ngx-tethys/commit/e3be3d0))
+* **property-operation:** support thy-icon [#243057](https://github.com/worktile/ngx-tethys/issues/243057) ([c93d277](https://github.com/worktile/ngx-tethys/commit/c93d277))
+* **tree:** support svg icon and change hover styles ([0c6f0d7](https://github.com/worktile/ngx-tethys/commit/0c6f0d7))
+
+
+
 # [7.3.0](https://github.com/worktile/ngx-tethys/compare/7.2.2...7.3.0) (2019-07-02)
 
 
