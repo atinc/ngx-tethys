@@ -206,21 +206,29 @@
     <h2>按钮组</h2>
   </div>
   <div class="body">
-    <thy-button-group thySize="sm" thyType="outline-primary">
-      <button thyButton>Left</button>
-      <button thyButton>Middle</button>
+    <thy-button-group thySize="lg" thyType="outline-primary">
+      <button thyButton class="disabled">Left</button>
+      <button thyButton class="active">Middle</button>
       <button thyButton>Right</button>
     </thy-button-group>
     <br />
     <br />
-    <thy-button-group thySize="sm" thyType="outline-default">
-      <button thyButton="">Left</button>
-      <button thyButton="">Middle</button>
-      <button thyButton="">Right</button>
+    <thy-button-group thyType="outline-default">
+      <button thyButton="">年</button>
+      <button thyButton="">月</button>
+      <button thyButton="">日</button>
     </thy-button-group>
     <br />
     <br />
-    <thy-button-group thySize="sm" thyType="outline-default">
+    <thy-button-group thySize="sm" thyType="outline-default" thyClearMinWidth="true">
+      <button thyButton="" class="disabled">Left</button>
+      <button thyButton="" class="active">Middle</button>
+      <button thyButton="">Right</button>
+    </thy-button-group>
+
+    <br />
+    <br />
+    <thy-button-group thySize="xs" thyType="outline-default">
       <button thyButton="">年</button>
       <button thyButton="">月</button>
       <button thyButton="">日</button>
@@ -347,3 +355,4 @@
   title="thyButtonIcon, thy-button-icon 参数列表"
   [parameters]="apiThyButtonIconParameters"
 ></api-parameters>
+<api-parameters title="thy-button-group 参数列表" [parameters]="apiThyButtonGroupParameters"></api-parameters>

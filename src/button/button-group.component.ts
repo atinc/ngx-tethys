@@ -1,36 +1,39 @@
 import {
-    Component, HostBinding, Input,
-    ContentChild, TemplateRef, ElementRef,
+    Component,
+    HostBinding,
+    Input,
+    ContentChild,
+    TemplateRef,
+    ElementRef,
     ViewEncapsulation,
     OnInit
 } from '@angular/core';
 import { ThyTranslate, UpdateHostClassService } from '../shared';
 import { ThyButtonType } from '.';
+import { inputValueToBoolean } from '../util/helpers';
 
-export type buttonGroupSize = 'sm' | 'lg' | '';
+export type buttonGroupSize = 'sm' | 'lg' | 'xs' | '';
 
 export type buttonGroupType = 'outline-primary' | '';
 
 const buttonGroupSizeMap = {
     sm: ['btn-group-sm'],
-    lg: ['btn-group-lg']
+    lg: ['btn-group-lg'],
+    xs: ['btn-group-xs']
 };
 
 const buttonGroupTypeMap = {
     'outline-primary': ['btn-group-outline-primary'],
-    'outline-default': ['btn-group-outline-default'],
+    'outline-default': ['btn-group-outline-default']
 };
 
 @Component({
     selector: 'thy-button-group',
     template: '<ng-content></ng-content>',
-    providers: [
-        UpdateHostClassService
-    ],
+    providers: [UpdateHostClassService],
     encapsulation: ViewEncapsulation.None
 })
 export class ThyButtonGroupComponent implements OnInit {
-
     private _type: string;
 
     private _size: string;
@@ -45,12 +48,16 @@ export class ThyButtonGroupComponent implements OnInit {
         this._type = type;
     }
 
-    @HostBinding('class.btn-group') _isButtonGroup = true;
+    @Input()
+    set thyClearMinWidth(value: string) {
+        this.thyClearMinWidthClassName = inputValueToBoolean(value);
+    }
 
-    constructor(
-        private updateHostClassService: UpdateHostClassService,
-        private elementRef: ElementRef
-    ) {
+    @HostBinding('class.btn-group') _isButtonGroup = true;
+    @HostBinding(`class.btn-group-clear-min-width`)
+    thyClearMinWidthClassName = false;
+
+    constructor(private updateHostClassService: UpdateHostClassService, private elementRef: ElementRef) {
         this.updateHostClassService.initializeElement(elementRef.nativeElement);
     }
 
@@ -68,5 +75,4 @@ export class ThyButtonGroupComponent implements OnInit {
         }
         this.updateHostClassService.updateClass(classNames);
     }
-
 }

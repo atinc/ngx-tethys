@@ -6,7 +6,6 @@ import { ThyNotifyService } from '../../../../../src/notify/notify.service';
     styleUrls: ['./button-section.scss']
 })
 export class DemoButtonSectionComponent {
-
     apiThyButtonParameters = [
         {
             property: 'thyButton',
@@ -97,6 +96,27 @@ export class DemoButtonSectionComponent {
         }
     ];
 
+    apiThyButtonGroupParameters = [
+        {
+            property: 'thySize',
+            description: `大小，xs | sm | lg | ''`,
+            type: 'String'
+        },
+
+        {
+            property: 'thyType',
+            description: `outline-default, outline-primary,必填`,
+            type: 'String'
+        },
+
+        {
+            property: 'thyClearMinWidth',
+            description: `是否需要最小宽度，默认值为false`,
+            type: 'String',
+            default: 'false'
+        }
+    ];
+
     loading: Boolean = false;
 
     loadingSeconds = 0;
@@ -104,8 +124,7 @@ export class DemoButtonSectionComponent {
     outlineButtonTemplate = `<button thyButton="outline-default">预览</button>
 <button thyButton="outline-primary">新建文件夹</button>`;
 
-    constructor(private thyNotifyService: ThyNotifyService) {
-    }
+    constructor(private thyNotifyService: ThyNotifyService) {}
 
     startLoading() {
         console.log('click loading');
