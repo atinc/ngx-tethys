@@ -28,19 +28,19 @@ describe('ThyLabel', () => {
     function assertLabelBeforeIconClass(expectedIconClass?: string) {
         const labelBeforeIcon = labelComponent.nativeElement.children[0];
         expect(labelBeforeIcon).toBeTruthy();
-        expect(labelBeforeIcon.classList.contains(`wtf`)).toBe(true);
-        expect(labelBeforeIcon.classList.contains(expectedIconClass)).toBe(
+        expect(labelBeforeIcon.classList.contains(`thy-icon`)).toBe(true);
+        expect(labelBeforeIcon.classList.contains(`thy-icon-${expectedIconClass}`)).toBe(
             true,
-            `expectedIconClass is ${expectedIconClass}, but actual is ${labelBeforeIcon.classList}`
+            `expectedIconClass is thy-icon-${expectedIconClass}, but actual is ${labelBeforeIcon.classList}`
         );
     }
     function assertLabelAfterIconClass(expectedIconClass?: string) {
         const labelAfterIcon = labelComponent.nativeElement.children[1];
         expect(labelAfterIcon).toBeTruthy();
-        expect(labelAfterIcon.classList.contains(`wtf`)).toBe(true);
-        expect(labelAfterIcon.classList.contains(expectedIconClass)).toBe(
+        expect(labelAfterIcon.classList.contains(`thy-icon`)).toBe(true);
+        expect(labelAfterIcon.classList.contains(`thy-icon-${expectedIconClass}`)).toBe(
             true,
-            `expectedIconClass is ${expectedIconClass}, but actual is ${labelAfterIcon.classList}`
+            `expectedIconClass is thy-icon-${expectedIconClass}, but actual is ${labelAfterIcon.classList}`
         );
     }
 
@@ -48,23 +48,24 @@ describe('ThyLabel', () => {
         fixture.detectChanges();
         expect(labelComponent.nativeElement.classList.contains('thy-label')).toBe(true);
         expect(labelComponent.nativeElement.classList.contains('thy-label-default')).toBe(true);
-        assertLabelBeforeIconClass('wtf-th-plus');
-        assertLabelAfterIconClass('wtf-times');
+        assertLabelBeforeIconClass('plus');
+        assertLabelAfterIconClass('close');
     });
 
-    it('should have correct class when icon with wtf', () => {
-        basicTestComponent.thyBeforeIcon = `wtf wtf-folder1`;
-        basicTestComponent.thyAfterIcon = `wtf wtf-folder1`;
+    it('should have correct class when icon with thy-icon', () => {
+        const iconName = 'folder-bold';
+        basicTestComponent.thyBeforeIcon = iconName;
+        basicTestComponent.thyAfterIcon = iconName;
         fixture.detectChanges();
-        assertLabelBeforeIconClass(`wtf-folder1`);
-        assertLabelAfterIconClass(`wtf-folder1`);
+        assertLabelBeforeIconClass(iconName);
+        assertLabelAfterIconClass(iconName);
     });
 
     it('should have not icon element when icon is null', () => {
         basicTestComponent.thyBeforeIcon = ``;
         basicTestComponent.thyAfterIcon = ``;
         fixture.detectChanges();
-        const labelIcon = labelComponent.nativeElement.querySelector(`.wtf`);
+        const labelIcon = labelComponent.nativeElement.querySelector(`.thy-icon`);
         expect(labelIcon).toBeNull();
     });
 
@@ -127,8 +128,8 @@ describe('ThyLabel', () => {
 })
 class ThyDemoLabelBasicComponent {
     thyLabel = `default`;
-    thyBeforeIcon = `wtf-th-plus`;
-    thyAfterIcon = `wtf-times`;
+    thyBeforeIcon = `plus`;
+    thyAfterIcon = `close`;
     thyLabelColor = ``;
     thyHasHover = false;
 }
