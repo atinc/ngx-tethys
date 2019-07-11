@@ -50,7 +50,7 @@ describe('ThySlide', () => {
             expect(footers.every(footer => footer.nativeElement.classList.contains('thy-slide-footer'))).toBe(true);
         }));
 
-        it('should have corrent header title icon', fakeAsync(() => {
+        it('should have correct header title icon', fakeAsync(() => {
             fixture.detectChanges();
             const headerIconElement: DebugElement = fixture.debugElement.query(
                 By.css('.thy-slide-header-title .wtf-task-o')

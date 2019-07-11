@@ -1,14 +1,55 @@
 .thy-grid-modal-wrap {
     margin: 0 -30px;
     padding: 0 30px;
-    overflow-y:auto;
-    max-height:400px;
-    thy-grid{
-      .table{
-        margin-bottom: 0;
-      }
-      .pagination{
-        margin-bottom: 0;
-      }
+    overflow-y: auto;
+    max-height: 400px;
+
+    thy-grid {
+        .table {
+            margin-bottom: 0;
+        }
+
+        .pagination {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.thy-operation-links {
+    > button,
+    > a {
+        display: inline-block;
+        margin-right: $operation-link-margin-y;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}
+
+.thy-grid {
+    &.thy-grid-hover-display-operation {
+        .thy-operation-links {
+            opacity: 0;
+        }
+
+        table {
+            tr {
+                @include hover {
+                    .thy-operation-links {
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+    }
+
+    .thy-grid-footer {
+        display: flex;
+        justify-content: flex-end;
+
+        &.thy-grid-footer-has-padding {
+            padding: $grid-footer-padding;
+        }
     }
 }

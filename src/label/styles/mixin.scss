@@ -12,6 +12,7 @@
 @mixin label-color-variant($color, $hover-color) {
     color: $color;
     &.label-has-hover {
+        thy-icon.thy-icon-close,
         i.wtf-times {
             display: none;
         }
@@ -19,6 +20,7 @@
         &:hover {
             color: $hover-color;
             cursor: pointer;
+            thy-icon.thy-icon-close,
             i.wtf-times {
                 display: inline-block;
             }

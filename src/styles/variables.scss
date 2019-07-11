@@ -188,7 +188,7 @@ $zindex-pop-box: 1080 !default;
 $layout-header-background: rgba($gray-99, 0.97) !default;
 $layout-header-padding: 0 15px !default;
 $layout-header-height: 50px !default;
-$layout-header-prefix-icon-size: 18px !default;
+$layout-header-prefix-icon-size: 16px !default;
 $layout-content-background: $gray-200 !default;
 $layout-content-padding: 15px 15px 15px 15px !default;
 $layout-sidebar-width: 240px !default;
@@ -221,6 +221,8 @@ $table-bordered-head-color: $gray-700 !default;
 $table-draggable-icon-color: $gray-600 !default;
 $table-draggable-icon-left: 10px !default;
 $table-draggable-bordered-icon-padding-left: 30px !default;
+// grid
+$grid-footer-padding: 0 20px !default;
 // action-menu
 $action-menu-bg: $white !default;
 $action-menu-item-padding-x: 20px !default;
@@ -529,7 +531,7 @@ $tooltip-opacity: 0.9 !default;
 $tooltip-padding-y: 0.4rem !default;
 $tooltip-padding-x: 0.75rem !default;
 $tooltip-margin: 0 !default;
-$tooltip-margin-bottom: 6px !default;
+$tooltip-spacing: 6px !default;
 
 $tooltip-arrow-width: 0.8rem !default;
 $tooltip-arrow-height: 0.4rem !default;

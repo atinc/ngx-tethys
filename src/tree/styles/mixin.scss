@@ -6,34 +6,8 @@
                     transform: rotate(0deg);
                     transition: all 0.2s cubic-bezier(0.4, 0.1, 0.5, 1) 0.1s;
 
-                    &::before {
-                        content: '\e712';
-                    }
-
                     &.collapse {
-                        transform: rotate(-45deg);
-                    }
-                }
-            }
-        }
-    }
-}
-
-@mixin thy-tree-especial() {
-    .thy-tree-node {
-        &-wrapper {
-            .thy-tree-expand {
-                &-icon {
-                    transform: rotate(0);
-
-                    &::before {
-                        content: '\e771';
-                    }
-
-                    &.collapse {
-                        &::before {
-                            content: '\e772';
-                        }
+                        transform: rotate(-45deg) translateY(1px);
                     }
                 }
             }

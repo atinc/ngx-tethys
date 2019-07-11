@@ -1,31 +1,43 @@
-// size:24,20
 .icon-text {
     display: inline-block;
     position: relative;
     font-size: $font-size-base;
     padding-left: 26px;
 
-    i {
+    i,
+    thy-icon {
         position: absolute;
         top: 50%;
         left: 0;
         font-size: 20px;
-        transform: translateY(-50%);
+        transform: translateY(-53%);
     }
 
     &-lg {
         padding-left: 28px;
 
-        i {
+        i,
+        thy-icon {
             font-size: 24px;
         }
     }
 
     &-sm {
-        padding-left: 25px;
+        padding-left: 24px;
 
-        i {
+        i,
+        thy-icon {
             font-size: 18px;
+        }
+    }
+
+    &-xs {
+        padding-left: 18px;
+        font-size: 12px;
+
+        i,
+        thy-icon {
+            font-size: inherit;
         }
     }
 }

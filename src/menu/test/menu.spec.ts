@@ -14,17 +14,25 @@ import { PositioningService } from 'ngx-bootstrap/positioning';
 import { ThyPositioningService } from '../../positioning/positioning.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyMenuDividerComponent } from '../divider/menu-divider.component';
+import { ThyIconModule } from '../../icon/icon.module';
 
 @Component({
     selector: 'thy-demo-thy-menu',
     template: `
         <thy-menu>
-            <thy-menu-group thyTitle="工作" [thyExpand]="true" [thyShowAction]="true" [thyActionIcon]="'wtf wtf-my'">
+            <thy-menu-group
+                thyTitle="工作"
+                [thyExpand]="true"
+                [thyShowAction]="true"
+                [thyActionIcon]="'user-group-fill'"
+            >
                 <thy-menu-item>
-                    <thy-menu-item-icon class="noColorIcon"> <i class="wtf wtf-my"></i> </thy-menu-item-icon>
+                    <thy-menu-item-icon class="noColorIcon">
+                        <thy-icon thyIconName="user-group-fill"></thy-icon>
+                    </thy-menu-item-icon>
                     <thy-menu-item-name>我的工作</thy-menu-item-name>
                     <thy-menu-item-action (click)="click()" [thyActionMenu]="action">
-                        <i class="wtf wtf-more-lg"></i>
+                        <thy-icon thyIconName="more"></thy-icon>
                     </thy-menu-item-action>
                     <thy-menu-item-action
                         (click)="click()"
@@ -32,7 +40,7 @@ import { ThyMenuDividerComponent } from '../divider/menu-divider.component';
                         [thyStopPropagation]="true"
                         class="thyStopPropagation"
                     >
-                        <i class="wtf wtf-more-lg"></i>
+                        <thy-icon thyIconName="more"></thy-icon>
                     </thy-menu-item-action>
                     <thy-menu-item-action
                         (click)="click()"
@@ -40,13 +48,13 @@ import { ThyMenuDividerComponent } from '../divider/menu-divider.component';
                         [thyStopPropagation]="false"
                         class="nothyStopPropagation"
                     >
-                        <i class="wtf wtf-more-lg"></i>
+                        <thy-icon thyIconName="more"></thy-icon>
                     </thy-menu-item-action>
                 </thy-menu-item>
             </thy-menu-group>
             <thy-menu-item>
                 <thy-menu-item-icon class="hasColorIcon" thyColor="red">
-                    <i class="wtf wtf-setting-o"></i>
+                    <thy-icon thyIconName="settings"></thy-icon>
                 </thy-menu-item-icon>
                 <thy-menu-item-name [thyOverflowEllipsis]="false" class="thyOverflowEllipsis"
                     >配置中心</thy-menu-item-name
@@ -69,7 +77,7 @@ class ThyDemoMenuComponent {
 }
 
 @NgModule({
-    imports: [ThyMenuModule, BrowserAnimationsModule, ThyPopBoxModule],
+    imports: [ThyMenuModule, BrowserAnimationsModule, ThyPopBoxModule, ThyIconModule],
     declarations: [ThyDemoMenuComponent],
     exports: [ThyDemoMenuComponent],
     providers: [ThyPopBoxService, ComponentLoaderFactory, PositioningService, ThyPositioningService]

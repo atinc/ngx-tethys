@@ -12,6 +12,7 @@ import { ThyButtonModule } from '../button';
 import { THY_DIALOG_DEFAULT_OPTIONS_PROVIDER } from './dialog.config';
 import { ThyConfirmComponent } from './confirm/confirm.component';
 import { THY_CONFIRM_DEFAULT_OPTIONS_PROVIDER } from './confirm.config';
+import { ThyIconModule } from '../icon/icon.module';
 
 @NgModule({
     declarations: [
@@ -21,7 +22,7 @@ import { THY_CONFIRM_DEFAULT_OPTIONS_PROVIDER } from './confirm.config';
         DialogFooterComponent,
         ThyConfirmComponent
     ],
-    imports: [CommonModule, PortalModule, OverlayModule, ThyButtonModule],
+    imports: [CommonModule, PortalModule, OverlayModule, ThyButtonModule, ThyIconModule],
     providers: [ThyDialog, THY_DIALOG_DEFAULT_OPTIONS_PROVIDER, THY_CONFIRM_DEFAULT_OPTIONS_PROVIDER],
     entryComponents: [ThyDialogContainerComponent, ThyConfirmComponent],
     exports: [ThyDialogContainerComponent, DialogHeaderComponent, DialogBodyComponent, DialogFooterComponent]

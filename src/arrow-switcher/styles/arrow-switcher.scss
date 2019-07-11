@@ -19,20 +19,21 @@
             transition: none;
             display: flex;
             align-items: center;
-            i {
+            .thy-icon {
                 flex: 1;
+                font-size: $font-size-base;
             }
         }
         button:disabled {
             background: $arrow-switcher-btn-disabled-bac;
             pointer-events: none;
-            i {
+            .thy-icon {
                 color: $arrow-switcher-btn-disabled-color;
             }
         }
         button:hover {
             background: $arrow-switcher-btn-hover-bac;
-            i {
+            .thy-icon {
                 color: $arrow-switcher-btn-hover-color;
             }
         }
