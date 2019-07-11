@@ -23,11 +23,6 @@
         &.active {
             z-index: 1;
         }
-
-        &:disabled,
-        &.disabled {
-            border: 1px solid $gray-300 !important;
-        }
     }
 
     // Prevent double borders when buttons are next to each other

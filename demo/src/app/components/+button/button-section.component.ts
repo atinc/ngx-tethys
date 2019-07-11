@@ -99,8 +99,9 @@ export class DemoButtonSectionComponent {
     apiThyButtonGroupParameters = [
         {
             property: 'thySize',
-            description: `大小，xs | sm | lg | ''`,
-            type: 'String'
+            description: `大小，xs | sm | md | lg`,
+            type: 'String',
+            default: 'md'
         },
 
         {

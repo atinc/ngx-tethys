@@ -12,9 +12,9 @@ import { ThyTranslate, UpdateHostClassService } from '../shared';
 import { ThyButtonType } from '.';
 import { inputValueToBoolean } from '../util/helpers';
 
-export type buttonGroupSize = 'sm' | 'lg' | 'xs' | '';
+export type buttonGroupSize = 'sm' | 'lg' | 'xs' | 'md';
 
-export type buttonGroupType = 'outline-primary' | '';
+export type buttonGroupType = 'outline-primary' | 'outline-default';
 
 const buttonGroupSizeMap = {
     sm: ['btn-group-sm'],

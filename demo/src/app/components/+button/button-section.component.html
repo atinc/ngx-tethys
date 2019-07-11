@@ -100,18 +100,21 @@
     <button thyButton="success-square">成功按钮</button>
     <button thyButton="warning-square">警告按钮</button>
     <button thyButton="danger-square">危险按钮</button>
+    <button thyButton="primary-square" disabled>禁用按钮</button>
     <br />
     <br />
     <button thyButton="outline-primary-square">主要按钮</button>
     <button thyButton="outline-success-square">成功按钮</button>
     <button thyButton="outline-warning-square">警告按钮</button>
     <button thyButton="outline-danger-square">危险按钮</button>
+    <button thyButton="outline-primary-square" class="disabled">禁用按钮</button>
     <br />
     <br />
     <button thyButton="outline-primary-square" thySize="md">主要按钮</button>
     <button thyButton="outline-success-square" thySize="md">成功按钮</button>
     <button thyButton="outline-warning-square" thySize="md">警告按钮</button>
     <button thyButton="outline-danger-square" thySize="md">危险按钮</button>
+    <button thyButton="outline-primary-square" thySize="md" disabled>禁用按钮</button>
   </div>
 </section>
 
@@ -218,12 +221,20 @@
       <button thyButton="">月</button>
       <button thyButton="">日</button>
     </thy-button-group>
+
+    <br />
+    <br />
+    <thy-button-group thySize="sm" thyType="outline-default">
+      <button thyButton="" class="active">Left</button>
+      <button thyButton="" class="disabled">Middle</button>
+      <button thyButton="">Right</button>
+    </thy-button-group>
+
     <br />
     <br />
     <thy-button-group thySize="sm" thyType="outline-default" thyClearMinWidth="true">
-      <button thyButton="" class="disabled">Left</button>
-      <button thyButton="" class="active">Middle</button>
-      <button thyButton="">Right</button>
+      <button thyButtonIcon="doughnut-fill" class="active"></button>
+      <button thyButtonIcon="list-sample-fill"></button>
     </thy-button-group>
 
     <br />
