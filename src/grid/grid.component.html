@@ -1,4 +1,7 @@
 <table class="table" [ngClass]="[themeClass, className]" [class.table-draggable]="draggable">
+  <colgroup>
+    <col *ngFor="let column of columns" [width]="column.width" />
+  </colgroup>
   <thead>
     <tr>
       <th *ngFor="let column of columns" [ngClass]="column.headerClassName">
@@ -24,7 +27,7 @@
       (click)="onRowClick($event, row)"
       (thyContextMenu)="onRowContextMenu($event, row)"
     >
-      <td *ngFor="let column of columns; let j = index" [ngClass]="column.className" [width]="column.width">
+      <td *ngFor="let column of columns; let j = index" [ngClass]="column.className">
         <ng-container *ngIf="j === 0 && draggable">
           <thy-icon class="table-draggable-icon" thyIconName="drag"></thy-icon>
         </ng-container>
