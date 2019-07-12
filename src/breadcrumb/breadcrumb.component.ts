@@ -1,14 +1,9 @@
-import {
-    Component,
-    ChangeDetectionStrategy,
-    HostBinding,
-    Input
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, HostBinding, Input } from '@angular/core';
 
 @Component({
     selector: 'thy-breadcrumb',
     template:
-        '<div class="thy-breadcrumb-icon" *ngIf="iconClasses"><i [ngClass]="iconClasses"></i></div><ng-content></ng-content>',
+        '<div class="thy-breadcrumb-icon" *ngIf="iconName"><thy-icon [thyIconName]="iconName"></thy-icon></div><ng-content></ng-content>',
     exportAs: 'ThyBreadcrumb',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -17,32 +12,28 @@ export class ThyBreadcrumbComponent {
     @HostBinding(`class.separator-slash`) isSlash = false;
     @HostBinding(`class.separator-backslash`) isBackslash = false;
 
-    iconClasses: string[];
+    iconName: string;
 
     @Input()
     set thyIcon(icon: string) {
-        this.setIconClass(icon);
+        this.setIconName(icon);
     }
 
     @Input()
     set thySeparator(type: string) {
-        if (type === 'slash'){
+        if (type === 'slash') {
             this.isSlash = true;
-        };
-        if (type === 'backslash'){
+        }
+        if (type === 'backslash') {
             this.isBackslash = true;
-        };
+        }
     }
 
-    private setIconClass(icon: string) {
+    private setIconName(icon: string) {
         if (icon) {
-            const classes = icon.split(' ');
-            if (classes.length === 1) {
-                classes.unshift('wtf');
-            }
-            this.iconClasses = classes;
+            this.iconName = icon;
         } else {
-            this.iconClasses = null;
+            this.iconName = null;
         }
     }
 }

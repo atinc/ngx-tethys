@@ -8,7 +8,7 @@ import { apiBreadcrumbParameters } from './api-parameters';
 })
 export class DemoBreadcrumbSectionComponent implements OnInit {
     exampleCode = `
-<thy-breadcrumb thyIcon="wtf-folder">
+<thy-breadcrumb thyIcon="folder-fill">
     <thy-breadcrumb-item><span>首页</span></thy-breadcrumb-item>
     <thy-breadcrumb-item>
         <a href="javascript:;">产品研发部</a>
@@ -17,19 +17,19 @@ export class DemoBreadcrumbSectionComponent implements OnInit {
         <a href="javascript:;">架构</a>
     </thy-breadcrumb-item>
     <thy-breadcrumb-item>
-        <a href="javascript:;">基础 <i class="wtf wtf-angle-down"></i></a>
+        <a href="javascript:;">基础 <thy-icon thyIconName="angle-down"></thy-icon></a>
     </thy-breadcrumb-item>
 </thy-breadcrumb>
     `;
 
     exampleCode2 = `
-<thy-breadcrumb thyIcon="wtf-folder" thySeparator="slash">
+<thy-breadcrumb thyIcon="folder-fill" thySeparator="slash">
     ...
 </thy-breadcrumb>
     `;
 
     exampleCode3 = `
-<thy-breadcrumb thyIcon="wtf-folder" thySeparator="backslash">
+<thy-breadcrumb thySeparator="backslash">
     ...
 </thy-breadcrumb>
     `;

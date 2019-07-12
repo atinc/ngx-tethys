@@ -36,9 +36,9 @@
     &.disabled,
     &:disabled {
         &:hover {
-            @include button-disabled();
+            @include button-disabled($btn-disabled-border-color);
         }
-        @include button-disabled();
+        @include button-disabled($btn-disabled-border-color);
     }
     &:not(:disabled):not(.disabled):active,
     &:not(:disabled):not(.disabled).active,
@@ -86,9 +86,9 @@
     &.disabled,
     &:disabled {
         &:hover {
-            @include button-disabled();
+            @include button-disabled($btn-outline-disabled-border-color);
         }
-        @include button-disabled();
+        @include button-disabled($btn-outline-disabled-border-color);
     }
     &:not(:disabled):not(.disabled):active,
     &:not(:disabled):not(.disabled).active,
@@ -133,11 +133,12 @@
     }
 }
 
-@mixin button-disabled() {
+@mixin button-disabled($color) {
     color: $btn-disabled-color;
     background-color: $btn-disabled-bg-color;
-    border-color: $btn-disabled-border-color;
-    border: none;
+    border-color: $color;
+    // border-color: $btn-disabled-border-color;
+    // border: none;
     @include box-shadow(none);
 }
 
