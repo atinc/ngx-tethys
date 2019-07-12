@@ -1,16 +1,12 @@
-
 import { Component, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
     selector: 'demo-input-section',
     templateUrl: './input-section.component.html',
-    styleUrls: [
-        './input-section.scss'
-    ],
+    styleUrls: ['./input-section.scss'],
     encapsulation: ViewEncapsulation.None
 })
 export class DemoInputSectionComponent {
-
     model = {
         searchText: '文本1',
         input: '输入内容'
@@ -58,11 +54,16 @@ export class DemoInputSectionComponent {
             description: '大小, md, lg',
             type: 'String',
             default: 'md'
+        },
+        {
+            property: 'thyReadonly',
+            description: '是否为只读',
+            type: 'boolean',
+            default: 'false'
         }
     ];
 
-    constructor() {
-    }
+    constructor() {}
 
     enterInput() {
         console.log(`enter input`);

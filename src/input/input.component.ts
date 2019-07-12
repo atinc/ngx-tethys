@@ -59,7 +59,7 @@ export class ThyInputComponent implements ControlValueAccessor, AfterViewInit {
 
     @Input() thyLabelText: string;
 
-    @Input() readonly = false;
+    @Input() thyReadonly = false;
 
     @Output() focus: EventEmitter<Event> = new EventEmitter<Event>();
 

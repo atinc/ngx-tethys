@@ -1,16 +1,28 @@
 <div #prepend class="input-prepend" *ngIf="prependTemplate">
-    <ng-template *ngTemplateOutlet="prependTemplate"></ng-template>
+  <ng-template *ngTemplateOutlet="prependTemplate"></ng-template>
 </div>
-<span class="input-label input-label-{{thySize}}" [class.active]="showLabel">{{ thyLabelText }}</span>
-<input #input thyInput [thySize]="thySize" [thyAutofocus]="thyAutofocus" [type]="type" [placeholder]="placeholder"
-    [disabled]="disabled" [(ngModel)]="value" (ngModelChange)="onModelChange()" (focus)="onInputFocus($event)" (blur)="onInputBlur($event)">
+<span class="input-label input-label-{{ thySize }}" [class.active]="showLabel">{{ thyLabelText }}</span>
+<input
+  #input
+  thyInput
+  [thySize]="thySize"
+  [thyAutofocus]="thyAutofocus"
+  [type]="type"
+  [placeholder]="placeholder"
+  [disabled]="disabled"
+  [(ngModel)]="value"
+  (ngModelChange)="onModelChange()"
+  (focus)="onInputFocus($event)"
+  (blur)="onInputBlur($event)"
+  [readonly]="thyReadonly"
+/>
 <div #append class="input-append" *ngIf="appendTemplate">
-    <ng-template *ngTemplateOutlet="appendTemplate"></ng-template>
+  <ng-template *ngTemplateOutlet="appendTemplate"></ng-template>
 </div>
 
 <ng-template #eye>
-    <a href="javascript:;" class="link-secondary input-password-icon" (click)="togglePasswordType()">
-        <i *ngIf="isPassword(type)" href="javascript:;" class="wtf wtf-pwd-invisible"></i>
-        <i *ngIf="!isPassword(type)" href="javascript:;" class="wtf wtf-pwd-visible"></i>
-    </a>
+  <a href="javascript:;" class="link-secondary input-password-icon" (click)="togglePasswordType()">
+    <i *ngIf="isPassword(type)" href="javascript:;" class="wtf wtf-pwd-invisible"></i>
+    <i *ngIf="!isPassword(type)" href="javascript:;" class="wtf wtf-pwd-visible"></i>
+  </a>
 </ng-template>
