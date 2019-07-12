@@ -6,11 +6,8 @@
 
     i,
     thy-icon {
-        position: absolute;
-        top: 50%;
-        left: 0;
         font-size: 20px;
-        transform: translateY(-53%);
+        @include absolute-vertical-align-middle(true);
     }
 
     &-lg {
@@ -33,11 +30,11 @@
 
     &-xs {
         padding-left: 18px;
-        font-size: 12px;
+        font-size: $font-size-sm;
 
         i,
         thy-icon {
-            font-size: inherit;
+            font-size: $font-size-base;
         }
     }
 }
