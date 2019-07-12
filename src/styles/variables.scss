@@ -103,7 +103,8 @@ $btn-padding-y-xs: 2px !default;
 $btn-padding-x-xs: 15px !default;
 $btn-disabled-color: $gray-400 !default;
 $btn-disabled-bg-color: $gray-100 !default;
-$btn-disabled-border-color: $gray-300 !default;
+$btn-disabled-border-color: $gray-100 !default;
+$btn-outline-disabled-border-color: $gray-300 !default;
 $btn-link-color-default: $gray-500 !default;
 $btn-link-color-disabled: $gray-400 !default;
 $btn-icon-light-color: $gray-300 !default;
@@ -117,6 +118,16 @@ $btn-md-min-width: 70px !default;
 $btn-sm-min-width: 70px !default;
 $btn-xs-min-width: 60px !default;
 $btn-lg-min-width: 108px !default;
+// btn-group
+$btn-group-btn-padding-y-lg: $btn-padding-y-lg !default;
+$btn-group-btn-padding-y-md: $btn-padding-y-md !default;
+$btn-group-btn-padding-y-sm: $btn-padding-y-sm !default;
+$btn-group-btn-padding-y-xs: $btn-padding-y-xs !default;
+
+$btn-group-btn-padding-x-lg: 25px !default;
+$btn-group-btn-padding-x-md: 20px !default;
+$btn-group-btn-padding-x-sm: 15px !default;
+$btn-group-btn-padding-x-xs: 10px !default;
 // Dropdown
 $dropdown-toggle-y-l: 1.25rem !default;
 $dropdown-toggle-y-r: 0.938rem !default;
@@ -165,6 +176,7 @@ $input-ellipse-hover-focus-background-color: $white !default;
 $input-form-check-size: 1rem !default;
 $input-form-check-disable-color: $gray-400 !default;
 $input-form-check-border-color: $gray-300 !default;
+$form-label-color: $gray-800 !default;
 // PopBox
 $pop-box-divider: $gray-100 !default;
 $pop-box-bg-hover: $gray-100 !default;
