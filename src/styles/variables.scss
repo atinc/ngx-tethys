@@ -415,6 +415,8 @@ $progress-height-xs: 4px !default;
 $progress-bar-bg: $gray-200 !default;
 $progress-split-color: $white !default;
 //Slide
+$slide-dialog-bg: $white !default;
+$slide-height: calc(100vh - #{$layout-header-height} - #{$layout-header-height-sm}) !default;
 $slide-z-index: 900 !default;
 $slide-header-height: 45px !default;
 $slide-header-padding: 0.75rem 1.25rem !default;
