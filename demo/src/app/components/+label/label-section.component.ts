@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 @Component({
     selector: 'demo-label-section',
-    templateUrl: './label-section.component.html',
+    templateUrl: './label-section.component.html'
 })
 export class DemoLabelSectionComponent {
-
     public color?: string;
     public color1?: string;
 
@@ -47,36 +46,46 @@ export class DemoLabelSectionComponent {
         }
     ];
 
-    public statusLabels = [{
-        name: '未开始',
-        icon: 'wtf-pending',
-        color: '#fa5a55'
-    }, {
-        name: '进行中',
-        icon: 'wtf-processing',
-        color: '#ef7bde'
-    }, {
-        name: '已完成',
-        icon: 'wtf-completed',
-        color: '#22d7bb'
-    }];
+    public statusLabels = [
+        {
+            name: '未开始',
+            icon: 'minus-circle',
+            color: '#fa5a55'
+        },
+        {
+            name: '进行中',
+            icon: 'clock-circle-moment',
+            color: '#ef7bde'
+        },
+        {
+            name: '已完成',
+            icon: 'wtf-completed',
+            color: '#22d7bb'
+        }
+    ];
 
-    public relationLabels = [{
-        name: '阻塞',
-        color: '#ff5b57'
-    }, {
-        name: '被阻塞',
-        color: '#ff5b57'
-    }, {
-        name: '涉及',
-        color: '#ffc442'
-    }, {
-        name: '被涉及',
-        color: '#ffc442'
-    }, {
-        name: '重复',
-        color: '#22d7bb'
-    }];
+    public relationLabels = [
+        {
+            name: '阻塞',
+            color: '#ff5b57'
+        },
+        {
+            name: '被阻塞',
+            color: '#ff5b57'
+        },
+        {
+            name: '涉及',
+            color: '#ffc442'
+        },
+        {
+            name: '被涉及',
+            color: '#ffc442'
+        },
+        {
+            name: '重复',
+            color: '#22d7bb'
+        }
+    ];
 
     constructor() {
         this.color = '#7076fa';
@@ -94,5 +103,4 @@ export class DemoLabelSectionComponent {
     showMore() {
         alert('show more menu');
     }
-
 }

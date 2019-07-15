@@ -9,7 +9,6 @@
     // Allow breaking very long words so they don't overflow the tooltip's bounds
     word-wrap: break-word;
     // opacity: 0;
-    margin-bottom: $tooltip-margin-bottom;
 
     &.show {
         opacity: $tooltip-opacity;
@@ -31,6 +30,7 @@
 }
 
 .thy-tooltip-top {
+    margin-bottom: $tooltip-spacing;
     padding-bottom: $tooltip-arrow-height;
     .thy-tooltip-arrow {
         bottom: 0;
@@ -44,8 +44,8 @@
 }
 
 .thy-tooltip-right {
+    margin-left: $tooltip-spacing;
     padding: 0 $tooltip-arrow-height;
-
     .thy-tooltip-arrow {
         left: 0;
         width: $tooltip-arrow-height;
@@ -61,8 +61,8 @@
 }
 
 .thy-tooltip-bottom {
+    margin-top: $tooltip-spacing;
     padding-top: $tooltip-arrow-height;
-
     .thy-tooltip-arrow {
         top: 0;
         left: calc(100% / 2 - #{$tooltip-arrow-width / 2});
@@ -75,8 +75,8 @@
 }
 
 .thy-tooltip-left {
+    margin-right: $tooltip-spacing;
     padding: 0 $tooltip-arrow-height;
-
     .thy-tooltip-arrow {
         right: 0;
         width: $tooltip-arrow-height;
