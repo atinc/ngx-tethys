@@ -13,7 +13,7 @@
 
 .slide-dialog {
     position: fixed;
-    background-color: $white;
+    background-color: $slide-dialog-bg;
     overflow-y: auto;
     box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.04), 0 6px 30px 5px rgba(0, 0, 0, 0.08),
         0 8px 10px -5px rgba(0, 0, 0, 0.12);
@@ -82,6 +82,6 @@
     bottom: 0;
     right: 0;
     width: 350px;
-    height: calc(100vh - #{$layout-header-height} - #{$layout-header-height-sm});
-    max-height: calc(100vh - #{$layout-header-height} - #{$layout-header-height-sm});
+    height: $slide-height;
+    max-height: $slide-height;
 }
