@@ -82,16 +82,14 @@ a.link-secondary:hover {
 .btn-primary:disabled {
     color: #cacaca;
     background-color: #f3f3f3;
-    border-color: #ddd;
-    border: none;
+    border-color: #f3f3f3;
     box-shadow: none;
 }
 .btn-primary.disabled:hover,
 .btn-primary:disabled:hover {
     color: #cacaca;
     background-color: #f3f3f3;
-    border-color: #ddd;
-    border: none;
+    border-color: #f3f3f3;
     box-shadow: none;
 }
 .btn-primary:hover {
@@ -112,7 +110,6 @@ a.link-secondary:hover {
     color: #cacaca;
     background-color: #f3f3f3;
     border-color: #ddd;
-    border: none;
     box-shadow: none;
 }
 .btn-outline-primary.disabled:hover,
@@ -120,7 +117,6 @@ a.link-secondary:hover {
     color: #cacaca;
     background-color: #f3f3f3;
     border-color: #ddd;
-    border: none;
     box-shadow: none;
 }
 .btn-outline-primary:not(:disabled):not(.disabled).active,
@@ -144,7 +140,6 @@ a.link-secondary:hover {
     color: #cacaca;
     background-color: #f3f3f3;
     border-color: #ddd;
-    border: none;
     box-shadow: none;
 }
 .btn-outline-default.disabled:hover,
@@ -152,7 +147,6 @@ a.link-secondary:hover {
     color: #cacaca;
     background-color: #f3f3f3;
     border-color: #ddd;
-    border: none;
     box-shadow: none;
 }
 .btn-outline-default:not(:disabled):not(.disabled).active,
@@ -343,7 +337,6 @@ a.link-secondary:hover {
     color: #cacaca;
     background-color: #f3f3f3;
     border-color: #ddd;
-    border: none;
     box-shadow: none;
 }
 .btn-group-outline-primary > .btn.disabled:hover,
@@ -351,7 +344,6 @@ a.link-secondary:hover {
     color: #cacaca;
     background-color: #f3f3f3;
     border-color: #ddd;
-    border: none;
     box-shadow: none;
 }
 .btn-group-outline-primary > .btn:not(:disabled):not(.disabled).active,
@@ -375,7 +367,6 @@ a.link-secondary:hover {
     color: #cacaca;
     background-color: #f3f3f3;
     border-color: #ddd;
-    border: none;
     box-shadow: none;
 }
 .btn-group-outline-default > .btn.disabled:hover,
@@ -383,7 +374,6 @@ a.link-secondary:hover {
     color: #cacaca;
     background-color: #f3f3f3;
     border-color: #ddd;
-    border: none;
     box-shadow: none;
 }
 .btn-group-outline-default > .btn:not(:disabled):not(.disabled).active,

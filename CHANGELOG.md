@@ -1,3 +1,18 @@
+## <small>7.3.2 (2019-07-15)</small>
+
+* fix: clear hover when empty ([4682e56](https://github.com/worktile/ngx-tethys/commit/4682e56))
+* fix: clear hover when empty ([553edf5](https://github.com/worktile/ngx-tethys/commit/553edf5))
+* fix: title remove cursor ([38b6d5c](https://github.com/worktile/ngx-tethys/commit/38b6d5c))
+* fix(nav): modify nav icon spacing variable ([f03f591](https://github.com/worktile/ngx-tethys/commit/f03f591))
+* fix(slide): fix slide height variable ([fbd71c3](https://github.com/worktile/ngx-tethys/commit/fbd71c3))
+* build: remove changelog-p angular, beacuse it filter refactor commit ([9239c2c](https://github.com/worktile/ngx-tethys/commit/9239c2c))
+* style(form): change form label text color #247688 ([af79d22](https://github.com/worktile/ngx-tethys/commit/af79d22)), closes [#247688](https://github.com/worktile/ngx-tethys/issues/247688)
+* refactor(breadcrumb): use thy icon in breadcrumb ([6f262f6](https://github.com/worktile/ngx-tethys/commit/6f262f6))
+* refactor(button): change button group size ([131f5f3](https://github.com/worktile/ngx-tethys/commit/131f5f3))
+* refactor(button): change disabled button style #244362 ([4d865cf](https://github.com/worktile/ngx-tethys/commit/4d865cf)), closes [#244362](https://github.com/worktile/ngx-tethys/issues/244362)
+
+
+
 ## [7.3.1](https://github.com/worktile/ngx-tethys/compare/7.3.0...7.3.1) (2019-07-08)
 
 
