@@ -1,20 +1,20 @@
-@mixin set-close-link-variant($color:$gray-300, $hover-color: $primary) {
-  color: $color;
-  text-decoration: none;
-  cursor: pointer;
-  &:hover {
-    color: $hover-color;
+@mixin set-close-link-variant($color: $gray-300, $hover-color: $primary) {
+    color: $color;
     text-decoration: none;
-    opacity: 1;
-  }
-  &:active {
-    text-decoration: none;
-  }
+    cursor: pointer;
+    &:hover {
+        color: $hover-color;
+        text-decoration: none;
+        opacity: 1;
+    }
+    &:active {
+        text-decoration: none;
+    }
 }
 
 @mixin set-close-link-size($size: $font-size-base) {
-  font-size: $size;
-  i {
-    font-size: $size
-  }
+    font-size: $size !important;
+    i {
+        font-size: $size;
+    }
 }
