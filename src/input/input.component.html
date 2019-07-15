@@ -14,7 +14,7 @@
   (ngModelChange)="onModelChange()"
   (focus)="onInputFocus($event)"
   (blur)="onInputBlur($event)"
-  [readonly]="thyReadonly"
+  [readonly]="readonly"
 />
 <div #append class="input-append" *ngIf="appendTemplate">
   <ng-template *ngTemplateOutlet="appendTemplate"></ng-template>

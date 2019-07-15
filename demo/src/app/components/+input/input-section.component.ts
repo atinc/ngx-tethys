@@ -56,7 +56,7 @@ export class DemoInputSectionComponent {
             default: 'md'
         },
         {
-            property: 'thyReadonly',
+            property: 'readonly',
             description: '是否为只读',
             type: 'boolean',
             default: 'false'
