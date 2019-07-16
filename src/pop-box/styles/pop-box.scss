@@ -21,7 +21,7 @@ pop-box-container {
         min-width: 240px;
         background: $white;
         box-shadow: $box-shadow;
-        margin-top: 4px;
+        margin-top: $pop-box-top-margin;
         position: relative;
     }
     .pop-box-header {
