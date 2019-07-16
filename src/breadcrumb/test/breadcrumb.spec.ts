@@ -4,11 +4,12 @@ import { NgModule, Component, DebugElement } from '@angular/core';
 import { ThyBreadcrumbItemComponent } from '../breadcrumb-item.component';
 import { By } from '@angular/platform-browser';
 import { ThyBreadcrumbComponent } from '../breadcrumb.component';
+import { ThyIconModule } from './../../icon/icon.module';
 
 @Component({
     selector: 'thy-demo-breadcrumb-basic',
     template: `
-        <thy-breadcrumb [thyIcon]="thyIconClass" [thySeparator]="thySeparator">
+        <thy-breadcrumb [thyIcon]="thyIconName" [thySeparator]="thySeparator">
             <thy-breadcrumb-item><span>首页</span></thy-breadcrumb-item>
             <thy-breadcrumb-item>
                 <a href="javascript:;">产品研发部</a>
@@ -17,18 +18,18 @@ import { ThyBreadcrumbComponent } from '../breadcrumb.component';
                 <a href="javascript:;">架构</a>
             </thy-breadcrumb-item>
             <thy-breadcrumb-item>
-                <a href="javascript:;">基础 <i class="wtf wtf-angle-down"></i></a>
+                <a href="javascript:;">基础 <thy-icon thyIconName="angle-down"></thy-icon></a>
             </thy-breadcrumb-item>
         </thy-breadcrumb>
     `
 })
 class ThyDemoBreadcrumbBasicComponent {
-    thyIconClass = `wtf-folder`;
+    thyIconName = `folder-fill`;
     thySeparator = `slash`;
 }
 
 @NgModule({
-    imports: [ThyBreadcrumbModule],
+    imports: [ThyBreadcrumbModule, ThyIconModule],
     declarations: [ThyDemoBreadcrumbBasicComponent],
     exports: [ThyDemoBreadcrumbBasicComponent]
 })
@@ -42,7 +43,7 @@ describe('ThyBreadcrumb', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyBreadcrumbModule, BreadcrumbTestModule],
+            imports: [ThyBreadcrumbModule, BreadcrumbTestModule, ThyIconModule],
             providers: [
                 // { provide: Location, useClass: SpyLocation }
             ]
@@ -69,29 +70,29 @@ describe('ThyBreadcrumb', () => {
         expect(breadcrumbIcon.classList.contains(`thy-breadcrumb-icon`)).toBe(true);
         const iconElement = breadcrumbIcon.children[0];
         expect(iconElement).toBeTruthy();
-        expect(iconElement.classList.contains(`wtf`)).toBe(true);
-        expect(iconElement.classList.contains(expectedIconClass)).toBe(
+        expect(iconElement.classList.contains(`thy-icon`)).toBe(true);
+        expect(iconElement.classList.contains(`thy-icon-${expectedIconClass}`)).toBe(
             true,
-            `expectedIconClass is ${expectedIconClass}, but actual is ${iconElement.classList}`
+            `expectedIconClass is thy-icon-${expectedIconClass}, but actual is ${iconElement.classList}`
         );
     }
 
     it('should have correct class', () => {
         fixture.detectChanges();
         assertBreadcrumbComponentAndItemsClass();
-        assertBreadcrumbIconClass(`wtf-folder`);
+        assertBreadcrumbIconClass(`folder-fill`);
         expect(breadcrumbComponent.nativeElement.classList.contains('separator-slash')).toBe(true);
     });
 
-    it('should have correct class when icon with wtf', () => {
-        basicTestComponent.thyIconClass = `wtf wtf-folder1`;
+    it('should have correct class when change icon name', () => {
+        basicTestComponent.thyIconName = `folder-open-fill`;
         fixture.detectChanges();
         assertBreadcrumbComponentAndItemsClass();
-        assertBreadcrumbIconClass(`wtf-folder1`);
+        assertBreadcrumbIconClass(`folder-open-fill`);
     });
 
     it('should have not icon element when icon is null', () => {
-        basicTestComponent.thyIconClass = ``;
+        basicTestComponent.thyIconName = ``;
         fixture.detectChanges();
         const breadcrumbIcon = breadcrumbComponent.nativeElement.querySelector(`thy-breadcrumb-icon`);
         expect(breadcrumbIcon).toBeNull();
