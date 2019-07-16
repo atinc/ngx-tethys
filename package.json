@@ -10,7 +10,7 @@
     "build:ngm": "ngm build -p src --clean",
     "build:theme": "gulp build-theme",
     "build:theme:watch": "npm run build:theme && gulp build-theme:watch",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s --pkg src/package.json",
+    "changelog": "conventional-changelog -i CHANGELOG.md -s --pkg src/package.json",
     "release": "node ./scripts/release.js",
     "release-next": "node ./scripts/release-next.js",
     "pub-only": "cd ./built && npm publish && cd ..",
