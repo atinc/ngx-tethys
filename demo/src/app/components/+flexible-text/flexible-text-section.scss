@@ -1,0 +1,9 @@
+@import '../../../../../src/styles/variables.scss';
+
+.flexible-text-wrap {
+    margin-bottom: 50px;
+    .flexible-text-section {
+        margin-bottom: 20px;
+        max-width: 500px;
+    }
+}

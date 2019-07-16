@@ -1,0 +1,12 @@
+.flexible-text-container {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.custom-tooltip {
+    .thy-tooltip-content {
+        max-width: 300px;
+    }
+}

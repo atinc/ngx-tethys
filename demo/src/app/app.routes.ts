@@ -52,6 +52,7 @@ import { DemoMarkdownSectionComponent } from './components/+markdown/markdown-se
 import { DemoTooltipSectionComponent } from './components/+tooltip/tooltip-section.component';
 import { DemoOverlaySectionComponent } from './components/+overlay/overlay-section.component';
 import { DemoIconSectionComponent } from './components/+icon/icon-section.component';
+import { DemoFlexibleTextComponent } from './components/+flexible-text/flexible-text-section.component';
 const appRoutes = [
     {
         path: '',
@@ -273,6 +274,10 @@ const appRoutes = [
     {
         path: 'components/markdown',
         component: DemoMarkdownSectionComponent
+    },
+    {
+        path: 'components/flexible-text',
+        component: DemoFlexibleTextComponent
     }
 ];
 
