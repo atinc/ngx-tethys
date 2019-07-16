@@ -57,7 +57,6 @@
             line-height: 1.5;
             font-size: 12px;
             color: $info;
-            transition: margin-left 200ms;
         }
         .extend-icon {
             margin-left: auto;
@@ -80,9 +79,6 @@
         }
         &:not(.action-menu-item--disabled):hover {
             & > span:nth-child(1),
-            .info {
-                margin-left: 10px;
-            }
             > .action-menu-sub-item {
                 display: block;
             }
