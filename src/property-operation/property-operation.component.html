@@ -13,6 +13,6 @@
   <ng-container *ngIf="value">{{ value }}</ng-container>
   <div class="thy-tips" *ngIf="!value || (!labelHideWhenHasValue && value)">{{ labelText }}</div>
 </div>
-<span *ngIf="showClose" (click)="remove($event)" class="close-link close-link-danger close-link-sm">
-  <thy-icon thyIconName="close"></thy-icon>
+<span *ngIf="showClose" (click)="remove($event)" class="close-link close-link-danger">
+  <thy-icon thyIconName="close" class=" close-link-sm"></thy-icon>
 </span>
