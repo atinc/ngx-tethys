@@ -2,8 +2,13 @@ import { Component, ChangeDetectionStrategy, HostBinding, Input } from '@angular
 
 @Component({
     selector: 'thy-breadcrumb',
-    template:
-        '<div class="thy-breadcrumb-icon" *ngIf="iconName"><thy-icon [thyIconName]="iconName"></thy-icon></div><ng-content></ng-content>',
+    template: `
+        <div class="thy-breadcrumb-icon" *ngIf="svgIconName || iconClasses?.length">
+            <thy-icon *ngIf="svgIconName" [thyIconName]="svgIconName"></thy-icon>
+            <i *ngIf="iconClasses?.length" [ngClass]="iconClasses"></i>
+        </div>
+        <ng-content></ng-content>
+    `,
     exportAs: 'ThyBreadcrumb',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -12,11 +17,12 @@ export class ThyBreadcrumbComponent {
     @HostBinding(`class.separator-slash`) isSlash = false;
     @HostBinding(`class.separator-backslash`) isBackslash = false;
 
-    iconName: string;
+    iconClasses: string[];
+    svgIconName: string;
 
     @Input()
     set thyIcon(icon: string) {
-        this.setIconName(icon);
+        this.setIcon(icon);
     }
 
     @Input()
@@ -29,11 +35,20 @@ export class ThyBreadcrumbComponent {
         }
     }
 
-    private setIconName(icon: string) {
+    private setIcon(icon: string) {
         if (icon) {
-            this.iconName = icon;
+            if (icon.includes('wtf')) {
+                const classes = icon.split(' ');
+                if (classes.length === 1) {
+                    classes.unshift('wtf');
+                }
+                this.iconClasses = classes;
+            } else {
+                this.svgIconName = icon;
+            }
         } else {
-            this.iconName = null;
+            this.iconClasses = null;
+            this.svgIconName = null;
         }
     }
 }
