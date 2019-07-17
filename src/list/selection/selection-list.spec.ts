@@ -29,7 +29,8 @@ describe('MatSelectionList without forms', () => {
             TestBed.configureTestingModule({
                 imports: [ThyListModule],
                 declarations: [
-                    SelectionListWithListOptionsComponent
+                    SelectionListWithListOptionsComponent,
+                    SelectionListWithListOptionsDefaultComponent
                     // SelectionListWithListDisabled,
                     // SelectionListWithOnlyOneOption
                 ]
@@ -71,6 +72,16 @@ describe('MatSelectionList without forms', () => {
             expect(listOptions[0].nativeElement.classList).not.toContain('thy-grid-option');
         });
 
+        it('should has class "thy-grid-list" when thyLayout is null', () => {
+            const defaultFixture = TestBed.createComponent(SelectionListWithListOptionsDefaultComponent);
+            fixture.detectChanges();
+            const defaultListOptions = fixture.debugElement.queryAll(By.directive(ThyListOptionComponent));
+
+            expect(defaultFixture.nativeElement.classList).not.toContain('thy-grid-list');
+            expect(defaultListOptions[0].nativeElement.classList).toContain('thy-list-option');
+            expect(defaultListOptions[0].nativeElement.classList).not.toContain('thy-grid-option');
+        });
+
         it('should has class "thy-grid-list" when thyLayout is grid', () => {
             const component = fixture.debugElement.componentInstance;
             component.layout = 'grid';
@@ -104,5 +115,27 @@ class SelectionListWithListOptionsComponent {
 
     layout: thyListLayout = 'list';
 
+    onValueChange(_change: ThySelectionListChange) {}
+}
+
+@Component({
+    template: `
+        <thy-selection-list id="selection-list-1" (thySelectionChange)="onValueChange($event)">
+            <thy-list-option thyValue="inbox">
+                Inbox (disabled selection-option)
+            </thy-list-option>
+            <thy-list-option id="testSelect" class="test-native-focus" thyValue="starred">
+                Starred
+            </thy-list-option>
+            <thy-list-option thyValue="sent-mail">
+                Sent Mail
+            </thy-list-option>
+            <thy-list-option thyValue="drafts" *ngIf="showLastOption">
+                Drafts
+            </thy-list-option>
+        </thy-selection-list>
+    `
+})
+class SelectionListWithListOptionsDefaultComponent {
     onValueChange(_change: ThySelectionListChange) {}
 }

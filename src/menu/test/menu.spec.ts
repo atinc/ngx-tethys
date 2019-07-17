@@ -15,6 +15,7 @@ import { ThyPositioningService } from '../../positioning/positioning.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyMenuDividerComponent } from '../divider/menu-divider.component';
 import { ThyIconModule } from '../../icon/icon.module';
+import { injectDefaultSvgIconSet, bypassSanitizeProvider } from '../../core/testing/thy-icon';
 
 @Component({
     selector: 'thy-demo-thy-menu',
@@ -91,8 +92,9 @@ describe('ThyMenu', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [ThyMenuModule, ThyMenuTestModule],
-            providers: []
+            providers: [bypassSanitizeProvider]
         }).compileComponents();
+        injectDefaultSvgIconSet();
     }));
 
     beforeEach(() => {
