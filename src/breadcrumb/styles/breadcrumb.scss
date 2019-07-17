@@ -19,29 +19,42 @@
             a {
                 color: $breadcrumb-active-color;
             }
-            &::after {
+            .default-icon {
                 display: none;
             }
         }
-        &::after {
-            content: '\e739';
-            font: normal normal normal 14px/1 wtf;
+        .default-icon {
             margin-left: 5px;
             color: $breadcrumb-separator-color;
+            font-size: $font-size-base;
         }
     }
-}
-.thy-breadcrumb.separator-slash {
-    .thy-breadcrumb-item {
-        &::after {
-            content: '/';
+
+    &.separator-slash,
+    &.separator-backslash {
+        .thy-breadcrumb-item {
+            .default-icon {
+                display: none;
+            }
+            &::after {
+                content: '/';
+                font: normal normal normal 14px/1 wtf;
+                margin-left: 5px;
+                color: $breadcrumb-separator-color;
+            }
+            &:last-child {
+                &::after {
+                    display: none;
+                }
+            }
         }
     }
-}
-.thy-breadcrumb.separator-backslash {
-    .thy-breadcrumb-item {
-        &::after {
-            content: '\\';
+
+    &.separator-backslash {
+        .thy-breadcrumb-item {
+            &::after {
+                content: '\\';
+            }
         }
     }
 }
