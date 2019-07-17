@@ -61,7 +61,7 @@ export class ThySelectionListComponent
 
     disabled: boolean;
 
-    layout: thyListLayout;
+    layout: thyListLayout = 'list';
 
     @HostBinding(`class.thy-list`) _isList = true;
 
