@@ -3,9 +3,11 @@ import { Component, ChangeDetectionStrategy, HostBinding, Input } from '@angular
 @Component({
     selector: 'thy-breadcrumb',
     template: `
-        <div class="thy-breadcrumb-icon" *ngIf="svgIconName || iconClasses?.length">
-            <thy-icon *ngIf="svgIconName" [thyIconName]="svgIconName"></thy-icon>
-            <i *ngIf="iconClasses?.length" [ngClass]="iconClasses"></i>
+        <div class="thy-breadcrumb-icon" *ngIf="svgIconName || iconClasses">
+            <thy-icon *ngIf="svgIconName; else iconFont" [thyIconName]="svgIconName"></thy-icon>
+            <ng-template #iconFont>
+                <i [ngClass]="iconClasses" *ngIf="iconClasses"></i>
+            </ng-template>
         </div>
         <ng-content></ng-content>
     `,
