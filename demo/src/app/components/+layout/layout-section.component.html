@@ -3,14 +3,29 @@
     <h2>Layout</h2>
   </div>
   <div class="body">
-    <div class="demo-layout">
+    <div class="demo-layout d-flex-column-fill">
       <thy-layout>
-        <thy-header thyTitle="我是头部" thyIcon="settings"> </thy-header>
+        <thy-header thyTitle="我是头部" thyIcon="application-fill"> </thy-header>
+        <thy-content>
+          恩，我是 content
+        </thy-content>
+      </thy-layout>
+      <thy-layout>
+        <thy-header>
+          <ng-template #headerTitle>
+            <a class="prefix-icon" thyTooltip="返回首页" thyTooltipPlacement="bottom" href="javascript:;"
+              ><thy-icon thyIconName="house" thyIconType="fill"></thy-icon
+            ></a>
+            <thy-icon class="title-separator" thyIconName="angle-right"></thy-icon>
+            <a href="javascript:;" class="title-name">自定义头部<thy-icon thyIconName="angle-down"></thy-icon></a>
+          </ng-template>
+        </thy-header>
         <thy-content>
           恩，我是 content
         </thy-content>
       </thy-layout>
     </div>
+    <pre class="mt-2"><code lang="typescript" [highlight]="basicCodeExample"></code></pre>
   </div>
 </section>
 
@@ -124,8 +139,9 @@
         <thy-layout>
           <thy-header thyHasBorder="true">
             <ng-template #headerTitle>
-              <i class="wtf wtf-setting-o prefix-icon"></i>
-              <a href="javascript:;">{{ title }}</a>
+              <thy-icon class="prefix-icon" thyIconName="house" thyIconType="fill"></thy-icon>
+              <a href="javascript:;" class="title-name">{{ title }}<thy-icon thyIconName="angle-down"></thy-icon></a>
+              <!-- <span>{{ title }}</span> -->
             </ng-template>
             <ng-template #headerContent>
               <thy-nav thyType="primary" thyHorizontal="center">

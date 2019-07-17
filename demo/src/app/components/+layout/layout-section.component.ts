@@ -10,8 +10,7 @@ export class DemoLayoutSectionComponent {
 
     activeMenu = 'kanban';
 
-    public thyLayoutApiParameters = [
-    ];
+    public thyLayoutApiParameters = [];
 
     public thyLayoutSidebarApiParameters = [
         {
@@ -67,6 +66,7 @@ export class DemoLayoutSectionComponent {
         }
     ];
 
+    basicCodeExample = require('!!raw-loader!./basic/basic.component.html');
 
     constructor() {}
 
