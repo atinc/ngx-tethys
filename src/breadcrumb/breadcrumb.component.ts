@@ -6,7 +6,7 @@ import { Component, ChangeDetectionStrategy, HostBinding, Input } from '@angular
         <div class="thy-breadcrumb-icon" *ngIf="svgIconName || iconClasses">
             <thy-icon *ngIf="svgIconName; else iconFont" [thyIconName]="svgIconName"></thy-icon>
             <ng-template #iconFont>
-                <i [ngClass]="iconClasses" *ngIf="iconClasses"></i>
+                <i [ngClass]="iconClasses"></i>
             </ng-template>
         </div>
         <ng-content></ng-content>
