@@ -1,4 +1,4 @@
-import { Component, Input, TemplateRef, ContentChild, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { Component, Input, TemplateRef, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { ThyTooltipPlacement } from '../tooltip';
@@ -7,7 +7,7 @@ import { ThyTooltipPlacement } from '../tooltip';
     selector: 'thy-flexible-text',
     templateUrl: './flexible-text.component.html'
 })
-export class FlexibleTextComponent implements OnInit {
+export class ThyFlexibleTextComponent implements OnInit {
     tooltipContent: string | TemplateRef<HTMLElement>;
 
     placement: ThyTooltipPlacement = 'top';
