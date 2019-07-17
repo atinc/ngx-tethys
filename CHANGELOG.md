@@ -1,3 +1,23 @@
+## <small>7.3.3 (2019-07-17)</small>
+
+* fix: input readonly ([a802715](https://github.com/worktile/ngx-tethys/commit/a802715))
+* fix: name is readonly ([c04473a](https://github.com/worktile/ngx-tethys/commit/c04473a))
+* fix(action-menu): del action menu item hover transition animation#249049 ([bb48cbb](https://github.com/worktile/ngx-tethys/commit/bb48cbb)), closes [animation#249049](https://github.com/animation/issues/249049)
+* fix(breadcrumb): delete unexpected ngif ([5a9a0c7](https://github.com/worktile/ngx-tethys/commit/5a9a0c7))
+* fix(breadcrumb): use if else when more than one ngif ([2281908](https://github.com/worktile/ngx-tethys/commit/2281908))
+* fix(form): change form label text color #247688 ([5335257](https://github.com/worktile/ngx-tethys/commit/5335257)), closes [#247688](https://github.com/worktile/ngx-tethys/issues/247688)
+* fix(pbox): pbox margin-top ([f13154c](https://github.com/worktile/ngx-tethys/commit/f13154c))
+* fix(property-operation): icon size ([65f9b42](https://github.com/worktile/ngx-tethys/commit/65f9b42))
+* fix(select-item): modify select item hover background color #248506 ([ba48a60](https://github.com/worktile/ngx-tethys/commit/ba48a60)), closes [#248506](https://github.com/worktile/ngx-tethys/issues/248506)
+* refactor(layout): change title-name icon margin left to 6px #249416 ([2afd047](https://github.com/worktile/ngx-tethys/commit/2afd047)), closes [#249416](https://github.com/worktile/ngx-tethys/issues/249416)
+* test(layout): add some test cases for layout #249416 ([fea76c9](https://github.com/worktile/ngx-tethys/commit/fea76c9)), closes [#249416](https://github.com/worktile/ngx-tethys/issues/249416)
+* feat(breadcrumb): svg icon is compatible with wtf icon #249141 ([2815dbd](https://github.com/worktile/ngx-tethys/commit/2815dbd)), closes [#249141](https://github.com/worktile/ngx-tethys/issues/249141)
+* feat(icon): add icon position middle mixin ([20e4fdd](https://github.com/worktile/ngx-tethys/commit/20e4fdd))
+* feat(layout): change header support separator and icon link #249416 ([0d3cd75](https://github.com/worktile/ngx-tethys/commit/0d3cd75)), closes [#249416](https://github.com/worktile/ngx-tethys/issues/249416)
+* chore(release): upgrade to 7.3.2 ([5f08ad6](https://github.com/worktile/ngx-tethys/commit/5f08ad6))
+
+
+
 ## <small>7.3.2 (2019-07-15)</small>
 
 * fix: clear hover when empty ([4682e56](https://github.com/worktile/ngx-tethys/commit/4682e56))

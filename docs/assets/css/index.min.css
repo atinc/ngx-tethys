@@ -8,7 +8,6 @@ a.link-primary {
     color: #22d7bb;
     text-decoration: none;
 }
-a.link-primary:focus,
 a.link-primary:hover {
     color: #22d7bb;
     text-decoration: underline;
@@ -17,7 +16,6 @@ a.link-secondary {
     color: #aaa;
     text-decoration: none;
 }
-a.link-secondary:focus,
 a.link-secondary:hover {
     color: #22d7bb;
     text-decoration: none;
@@ -988,9 +986,8 @@ input[type='radio']:after {
     color: #333;
     text-decoration: none;
 }
-.thy-layout-header .layout-header-title a:focus,
 .thy-layout-header .layout-header-title a:hover {
-    color: #333;
+    color: #22d7bb;
     text-decoration: none;
 }
 .thy-layout-header .layout-header-title .prefix-icon {
@@ -1090,7 +1087,6 @@ input[type='radio']:after {
     color: #aaa;
     text-decoration: none;
 }
-.thy-breadcrumb .thy-breadcrumb-item a:focus,
 .thy-breadcrumb .thy-breadcrumb-item a:hover {
     color: #22d7bb;
     text-decoration: none;
