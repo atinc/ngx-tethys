@@ -116,6 +116,12 @@ export class DemoListComponent {
             description: '默认选择项，选择项可以是对象，也可以是唯一的 ID，一般和 Option 的 thyValue 对应',
             type: 'any　| any[]',
             default: 'null'
+        },
+        {
+            property: 'thyLayout',
+            description: '列表的展示方式',
+            type: 'list | grid',
+            default: 'list'
         }
     ];
 

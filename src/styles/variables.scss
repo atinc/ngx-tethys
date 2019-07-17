@@ -176,7 +176,7 @@ $input-ellipse-hover-focus-background-color: $white !default;
 $input-form-check-size: 1rem !default;
 $input-form-check-disable-color: $gray-400 !default;
 $input-form-check-border-color: $gray-300 !default;
-$form-label-color: $gray-800 !default;
+$form-label-color: $gray-700 !default;
 // PopBox
 $pop-box-divider: $gray-100 !default;
 $pop-box-bg-hover: $gray-100 !default;
@@ -184,6 +184,7 @@ $pop-box-text: $gray-700 !default;
 $pop-box-text-hover: $gray-900 !default;
 $pop-box-body-padding: 15px 20px !default;
 $pop-box-footer-padding: 15px 20px !default;
+$pop-box-top-margin: 3px !default;
 $zindex-pop-box: 1080 !default;
 // Layout
 $layout-header-background: rgba($gray-99, 0.97) !default;
