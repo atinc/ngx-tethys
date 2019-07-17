@@ -28,3 +28,8 @@
 @include text-emphasis-variant('.text-placeholder', $gray-400);
 @include text-emphasis-variant('.text-body', $gray-800);
 @include text-emphasis-variant('.text-desc', $gray-500);
+
+// 保证 wtf 图标和字体对齐
+.wtf {
+    vertical-align: -0.045em;
+}
