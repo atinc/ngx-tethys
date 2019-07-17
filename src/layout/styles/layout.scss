@@ -128,20 +128,20 @@
             @include link-variant($gray-800, none, $primary, none);
             &.prefix-icon {
                 &:hover {
-                    opacity: 0.85;
+                    opacity: $layout-header-icon-link-opacity;
                 }
             }
         }
 
         .title-separator {
-            color: $breadcrumb-separator-color;
+            color: $layout-header-separator-color;
             padding: 3px;
         }
 
         .title-name {
             padding: 5px;
             .thy-icon {
-                margin-left: 10px;
+                margin-left: 6px;
             }
         }
 

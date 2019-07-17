@@ -191,6 +191,9 @@ $layout-header-background: rgba($gray-99, 0.97) !default;
 $layout-header-padding: 0 15px !default;
 $layout-header-height: 50px !default;
 $layout-header-prefix-icon-size: 20px !default;
+$layout-header-separator-color: $gray-500 !default;
+$layout-header-icon-link-opacity: 0.85;
+
 $layout-content-background: $gray-200 !default;
 $layout-content-padding: 15px 15px 15px 15px !default;
 $layout-sidebar-width: 240px !default;
