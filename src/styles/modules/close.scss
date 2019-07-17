@@ -49,8 +49,8 @@ button.close {
 }
 
 .remove-link {
-    width: 13px;
-    height: 13px;
+    // width:13px;
+    // height: 13px;
     background: $white;
     border-radius: 50%;
     @include set-close-link-variant($gray-400, $danger);

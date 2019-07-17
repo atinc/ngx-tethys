@@ -216,12 +216,10 @@ select.form-control-md {
 
 .thy-select-remove {
     visibility: hidden;
-    position: absolute;
     right: 32px;
-    top: 50%;
-    margin-top: -11px;
     font-size: $font-size-base;
     z-index: 10;
+    @include absolute-vertical-align-middle(false);
 }
 
 .thy-select-custom--multiple {
