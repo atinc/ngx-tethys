@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, flush, fakeAsync, tick } from '@angular/core/testing';
 import { ThyFlexibleTextModule } from '../flexible-text.module';
 import { ThyFlexibleTextComponent } from '../flexible-text.component';
 import { Component, ViewChild } from '@angular/core';
@@ -21,6 +21,9 @@ import { ThyTooltipModule } from '../../tooltip';
             .flexible-text-section {
                 margin-bottom: 20px;
                 max-width: 500px;
+            }
+            .flexible-text-container {
+                width: 100%;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: nowrap;
@@ -56,13 +59,13 @@ describe('FlexibleTextComponent', () => {
         expect(component.isOverflow).toBe(false);
     });
 
-    it('should show the tooltip', () => {
+    it('should show the tooltip', fakeAsync(() => {
         const component = componentInstance.flexibleText;
         componentInstance.item.title = `周杰伦练琴辛酸史家长进游戏群控诉韩国一桑拿房起火伊斯兰堡会谈推迟游客夫妻美国被捕黄晓明否认拒演京东回应收集隐私救护
         车高速被堵沈祥福回应炮轰烟台回应广告牌美国奥罗周杰伦练琴辛酸史家长进游戏群控诉韩国一桑拿房起火伊斯兰堡会谈推迟游客夫妻美国被捕黄晓明否认拒演京东回应收集隐私救护
         车高速被堵沈祥福回应炮轰烟台回应广告牌美国奥罗`;
         fixture.detectChanges();
-        component.applyOverflow();
+        flush();
         expect(component.isOverflow).toBe(true);
-    });
+    }));
 });

@@ -1,23 +1,25 @@
-import { Component, Input, TemplateRef, ViewChild, ElementRef, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
+import { Component, Input, TemplateRef, ViewChild, ElementRef, OnInit, AfterContentChecked } from '@angular/core';
 import { ThyTooltipPlacement } from '../tooltip';
+import { isString } from '../util/helpers';
+import { helpers } from '../util';
 
 @Component({
-    selector: 'thy-flexible-text',
+    selector: 'thy-flexible-text,thyFlexibleText',
     templateUrl: './flexible-text.component.html'
 })
-export class ThyFlexibleTextComponent implements OnInit {
+export class ThyFlexibleTextComponent implements OnInit, AfterContentChecked {
     tooltipContent: string | TemplateRef<HTMLElement>;
 
     placement: ThyTooltipPlacement = 'top';
 
-    apply$: Subject<boolean> = new Subject<boolean>();
+    isTemplateRef = false;
+
+    isOverflow = false;
 
     @Input()
     set thyContent(value: string | TemplateRef<HTMLElement>) {
         this.tooltipContent = value;
-        this.apply$.next();
+        this.isTemplateRef = value instanceof TemplateRef;
     }
 
     @Input()
@@ -25,22 +27,27 @@ export class ThyFlexibleTextComponent implements OnInit {
         this.placement = value;
     }
 
-    isOverflow = false;
-
     @ViewChild('textContainer')
     textContainer: ElementRef<any>;
 
+    constructor() {}
+
     ngOnInit() {
-        this.apply$.pipe(debounceTime(1000)).subscribe(() => {
-            this.applyOverflow();
-        });
-        this.apply$.next();
+        console.log(this);
     }
 
     applyOverflow() {
-        const nativeElement = this.textContainer.nativeElement;
-        if (nativeElement.clientWidth < nativeElement.scrollWidth) {
+        if (this.isTemplateRef) {
             this.isOverflow = true;
+        } else {
+            const nativeElement = this.textContainer.nativeElement;
+            if (nativeElement.clientWidth < nativeElement.scrollWidth) {
+                this.isOverflow = true;
+            }
         }
+    }
+
+    ngAfterContentChecked() {
+        this.applyOverflow();
     }
 }
