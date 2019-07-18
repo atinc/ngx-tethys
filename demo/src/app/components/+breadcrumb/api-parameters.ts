@@ -1,7 +1,7 @@
 export const apiBreadcrumbParameters = [
     {
         property: 'thyIcon',
-        description: '面包屑的前缀展示图标，可以是iconName,如folder-fill',
+        description: '面包屑的前缀展示图标，可以是iconName或wtf图标,如folder-fill，wtf-angle-down',
         type: 'string',
         default: ''
     },
