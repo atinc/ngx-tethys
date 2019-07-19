@@ -56,7 +56,7 @@ export class ThyDialogRefInternal<T, TResult = any> implements ThyDialogRef<T, T
         // Emit when opening animation completes
         containerInstance.animationStateChanged
             .pipe(
-                filter(event => event.phaseName === 'done' && event.toState === 'enter'),
+                filter(event => event.phaseName === 'done' && event.toState === 'void'),
                 take(1)
             )
             .subscribe(() => {
