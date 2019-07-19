@@ -1,23 +1,23 @@
 import { Injectable, InjectionToken } from '@angular/core';
 import { ThyPaginationConfigModel } from './pagination.class';
 
-export const DEFAULT_RANGE_COUNT = 7;
+export const DEFAULT_RANGE_COUNT = 5;
 
 export const PaginationDefaultConfig: ThyPaginationConfigModel = {
     boundaryLinks: false,
     directionLinks: true,
     pageSize: 20,
-    maxCount: 9,
+    maxCount: 7,
     rangeCount: DEFAULT_RANGE_COUNT,
     showQuickJumper: true,
     firstText: '第一页',
     lastText: '最后一页',
-    previousText: '上一页',
-    nextText: '下一页',
+    previousText: '',
+    nextText: '',
     firstIcon: '',
     lastIcon: '',
-    previousIcon: '',
-    nextIcon: '',
+    previousIcon: 'angle-left',
+    nextIcon: 'angle-right',
     totalPagesFormat: '共{total}页'
 };
 export interface ThyPaginationConfig {

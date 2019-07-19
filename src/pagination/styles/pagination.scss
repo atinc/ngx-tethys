@@ -36,7 +36,7 @@
         button {
             height: 100%;
             outline: none;
-            line-height: 1;
+            padding-bottom: 1px;
             border: $pagination-border-width solid $pagination-border-color;
             @include border-radius($border-radius);
         }
