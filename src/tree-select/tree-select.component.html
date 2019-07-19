@@ -3,6 +3,7 @@
   #origin="cdkOverlayOrigin"
   class="form-control form-control-custom"
   [class.thy-select-selection]="!thyMultiple"
+  [class.thy-select-selection-allow-clear]="thyAllowClear"
   [ngClass]="thySize ? 'form-control-' + thySize : ''"
   [class.disabled]="thyDisable"
   (click)="openSelectPop()"
@@ -21,7 +22,7 @@
       (click)="clearSelectedValue($event)"
       *ngIf="selectedNode && thyAllowClear"
     >
-      <i class="wtf wtf-times-circle"></i>
+      <thy-icon class="remove-link-icon" thyIconName="close-circle-fill"></thy-icon>
     </a>
   </div>
   <div *ngIf="thyMultiple" [ngClass]="{ 'multiple-value-wrapper': selectedNodes?.length > 0 }">
