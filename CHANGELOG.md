@@ -31,8 +31,7 @@
 
 ## <small>7.3.2 (2019-07-15)</small>
 
-* fix: clear hover when empty ([4682e56](https://github.com/worktile/ngx-tethys/commit/4682e56))
-* fix: clear hover when empty ([553edf5](https://github.com/worktile/ngx-tethys/commit/553edf5))
+* fix: clear hover when empty ([4682e56](https://github.com/worktile/ngx-tethys/commit/4682e56) [553edf5](https://github.com/worktile/ngx-tethys/commit/553edf5))
 * fix: title remove cursor ([38b6d5c](https://github.com/worktile/ngx-tethys/commit/38b6d5c))
 * fix(nav): modify nav icon spacing variable ([f03f591](https://github.com/worktile/ngx-tethys/commit/f03f591))
 * fix(slide): fix slide height variable ([fbd71c3](https://github.com/worktile/ngx-tethys/commit/fbd71c3))

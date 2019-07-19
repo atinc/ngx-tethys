@@ -105,16 +105,17 @@ select.form-control-md {
         }
     }
 
+    // 不知道这个样式是干什么的，我觉得是不是可以删除了？？？？
     .form-control {
         .thy-label-default {
             color: $body-color !important;
 
-            thy-icon.thy-icon-close {
-                color: $info;
+            .thy-icon.thy-icon-close {
+                color: $gray-500;
             }
         }
         &.disabled {
-            thy-icon.thy-icon-close {
+            .thy-icon.thy-icon-close {
                 cursor: default;
             }
         }
