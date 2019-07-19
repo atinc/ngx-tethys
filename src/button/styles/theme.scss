@@ -17,7 +17,8 @@
         color: $link-hover-color;
     }
     &:focus,
-    &.focus {}
+    &.focus {
+    }
     &:disabled,
     &.disabled {
         color: $btn-link-disabled-color;
@@ -35,12 +36,12 @@
 
 // 默认显示灰色，鼠标移上去显示主色
 .btn-link.btn-link-primary-weak {
-    @include btn-link-variant($info, $primary, none);
+    @include btn-link-variant($gray-500, $primary, none);
 }
 
 // 默认显示灰色，鼠标移上去显示红色
 .btn-link.btn-link-danger-weak {
-    @include btn-link-variant($info, $danger, none);
+    @include btn-link-variant($gray-500, $danger, none);
 }
 
 // 默认显示灰色，鼠标移上去显示红色
@@ -69,7 +70,8 @@
 .btn-icon-circle {
     @include hover-focus {
         color: $primary;
-        i,.wtf {
+        i,
+        .wtf {
             border-color: $primary;
             color: $primary;
         }
@@ -78,19 +80,21 @@
     &.invalid {
         &:hover,
         &:focus {
-            i, .wtf {
+            i,
+            .wtf {
                 color: $primary;
                 border-color: $primary;
             }
         }
-      }
+    }
 }
 
 // 属性操作鼠标移上去  btn-icon-circle 样式的变化
 .thy-property-operation {
     &:hover {
         .btn-icon-circle {
-            i,.wtf {
+            i,
+            .wtf {
                 border-color: $primary;
                 color: $primary;
             }
@@ -98,13 +102,10 @@
     }
 }
 
-
-
-.btn-group-outline-primary > .btn { 
+.btn-group-outline-primary > .btn {
     @include button-outline-variant($primary, $primary, $white, $primary, null, $primary, null);
 }
 
-.btn-group-outline-default > .btn { 
+.btn-group-outline-default > .btn {
     @include button-outline-variant($gray-600, $gray-300, $primary, null, $primary, null, $primary);
 }
-  

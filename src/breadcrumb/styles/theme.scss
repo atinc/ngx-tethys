@@ -4,7 +4,7 @@
     }
     .thy-breadcrumb-item {
         a {
-            @include link-variant($info, none, $primary, none);
+            @include link-variant($breadcrumb-text-color, none, $primary, none);
         }
     }
 }

@@ -213,12 +213,12 @@ fieldset:disabled a.btn {
 
 // 默认显示灰色，鼠标移上去显示主色
 .btn-link.btn-link-primary-weak {
-    @include btn-link-variant($info, $primary, none);
+    @include btn-link-variant($gray-500, $primary, none);
 }
 
 // 默认显示灰色，鼠标移上去显示红色
 .btn-link.btn-link-danger-weak {
-    @include btn-link-variant($info, $danger, none);
+    @include btn-link-variant($gray-500, $danger, none);
 }
 
 // 默认显示灰色，鼠标移上去显示红色
