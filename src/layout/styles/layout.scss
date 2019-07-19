@@ -125,11 +125,28 @@
         color: $gray-800;
 
         a {
-            @include link-variant($gray-800, none, $gray-800, none);
+            @include link-variant($gray-800, none, $primary, none);
+            &.prefix-icon {
+                &:hover {
+                    opacity: $layout-header-icon-link-opacity;
+                }
+            }
+        }
+
+        .title-separator {
+            color: $layout-header-separator-color;
+            padding: 3px;
+        }
+
+        .title-name {
+            padding: 5px;
+            .thy-icon {
+                margin-left: 6px;
+            }
         }
 
         .prefix-icon {
-            margin-right: 10px;
+            padding: 5px;
             color: $primary;
             font-size: $layout-header-prefix-icon-size;
         }
