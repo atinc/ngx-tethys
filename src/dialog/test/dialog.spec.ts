@@ -141,9 +141,8 @@ describe('ThyDialog', () => {
         // callback should not be called before animation is complete
         expect(spy).not.toHaveBeenCalled();
 
-        // because click-positioner has setTimeout
-        // flushMicrotasks();
         flush();
+
         expect(spy).toHaveBeenCalledTimes(1);
     }));
 
@@ -696,7 +695,7 @@ describe('ThyDialog', () => {
             By.directive(ThyDialogContainerComponent)
         ).componentInstance;
 
-        expect(dialogContainer.animationState).toBe('enter');
+        expect(dialogContainer.animationState).toBe('void');
 
         dialogRef.close();
 
