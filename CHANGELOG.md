@@ -1,3 +1,14 @@
+## <small>7.3.4 (2019-07-19)</small>
+
+* feat(badge): supports thyColor to custom color ([443a4e1](https://github.com/worktile/ngx-tethys/commit/443a4e1))
+* fix(pagination): change default pre next icon#249965 ([6ce6e23](https://github.com/worktile/ngx-tethys/commit/6ce6e23)), closes [icon#249965](https://github.com/icon/issues/249965)
+* fix(tooltip): change padding y to fix tooltip content shake ([851dc02](https://github.com/worktile/ngx-tethys/commit/851dc02))
+* fix(tooltip): change tooltip box shadow ([21049fa](https://github.com/worktile/ngx-tethys/commit/21049fa))
+* fix(tooltip): remove  box-shadow ([e649b62](https://github.com/worktile/ngx-tethys/commit/e649b62))
+* docs(layout): change demo icon house to house-square ([b6222a9](https://github.com/worktile/ngx-tethys/commit/b6222a9))
+
+
+
 ## <small>7.3.3 (2019-07-17)</small>
 
 * fix: input readonly ([a802715](https://github.com/worktile/ngx-tethys/commit/a802715))
