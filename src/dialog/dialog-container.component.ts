@@ -113,7 +113,7 @@ export class ThyDialogContainerComponent {
         }
 
         if (this.focusTrap) {
-          this.focusTrap.destroy();
+            this.focusTrap.destroy();
         }
     }
 
