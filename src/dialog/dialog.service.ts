@@ -224,7 +224,7 @@ export class ThyDialog implements OnDestroy {
         return null;
     }
 
-    close(result?: any) {
+    close<T>(result?: T) {
         if (this.openedDialogs.length > 0) {
             const lastDialogRef = this.openedDialogs[this.openedDialogs.length - 1];
             if (lastDialogRef) {
