@@ -130,7 +130,7 @@ export class ThyPaginationComponent implements OnInit {
 
     private setMarginalCount(range: number) {
         if (!this.marginalCount) {
-            this.marginalCount = range < DEFAULT_RANGE_COUNT ? 1 : 2;
+            this.marginalCount = range <= DEFAULT_RANGE_COUNT ? 1 : 2;
         }
     }
 
