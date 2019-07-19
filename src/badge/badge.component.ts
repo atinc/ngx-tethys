@@ -7,11 +7,9 @@ const BadgeMutexSize = ['thy-badge-lg', 'thy-badge-sm'];
 
 @Component({
     selector: 'thy-badge,[thyBadge]',
-    templateUrl: './badge.component.html',
+    templateUrl: './badge.component.html'
 })
-
 export class ThyBadgeComponent implements OnInit {
-
     displayContent = '';
 
     badgeClassName = '';
@@ -31,39 +29,36 @@ export class ThyBadgeComponent implements OnInit {
         'thy-badge-warning': false,
         'thy-badge-secondary': false,
         'thy-badge-sup': true,
-        'thy-badge-multiple-words': false,
+        'thy-badge-multiple-words': false
     };
 
-    st:
-        {
-            value: number | string | any,
-            isValueOfString: boolean,
-            isSetValue: boolean,
-            isValueKeepShow: boolean,
-            max: {
-                is: boolean,
-                value: number
-            },
-            isElement: boolean,
-            isSup: boolean,
-            isShowBadge: boolean,
-        } = {
-            value: '',
-            isValueOfString: false,
-            isSetValue: false,
-            isValueKeepShow: false,
-            max: {
-                is: false,
-                value: null
-            },
-            isElement: false,
-            isSup: false,
-            isShowBadge: true,
+    st: {
+        value: number | string | any;
+        isValueOfString: boolean;
+        isSetValue: boolean;
+        isValueKeepShow: boolean;
+        max: {
+            is: boolean;
+            value: number;
         };
+        isElement: boolean;
+        isSup: boolean;
+        isShowBadge: boolean;
+    } = {
+        value: '',
+        isValueOfString: false,
+        isSetValue: false,
+        isValueKeepShow: false,
+        max: {
+            is: false,
+            value: null
+        },
+        isElement: false,
+        isSup: false,
+        isShowBadge: true
+    };
 
-    constructor(
-        private elementRef: ElementRef,
-    ) {
+    constructor(private elementRef: ElementRef) {
         this.nativeElement = this.elementRef.nativeElement;
         this.st.isElement = this.nativeElement.localName === 'thy-badge';
     }
@@ -74,11 +69,21 @@ export class ThyBadgeComponent implements OnInit {
     set thyType(value: string) {
         this.resetBadgeClassNameMap(BadgeMutexTheme);
         switch (value) {
-            case 'danger': this.badgeClassNameMap['thy-badge-danger'] = true; break;
-            case 'primary': this.badgeClassNameMap['thy-badge-primary'] = true; break;
-            case 'warning': this.badgeClassNameMap['thy-badge-warning'] = true; break;
-            case 'secondary': this.badgeClassNameMap['thy-badge-secondary'] = true; break;
-            default: this.badgeClassNameMap['thy-badge-danger'] = true; break;
+            case 'danger':
+                this.badgeClassNameMap['thy-badge-danger'] = true;
+                break;
+            case 'primary':
+                this.badgeClassNameMap['thy-badge-primary'] = true;
+                break;
+            case 'warning':
+                this.badgeClassNameMap['thy-badge-warning'] = true;
+                break;
+            case 'secondary':
+                this.badgeClassNameMap['thy-badge-secondary'] = true;
+                break;
+            default:
+                this.badgeClassNameMap['thy-badge-danger'] = true;
+                break;
         }
         if (this._initialized) {
             this.combineBadgeClassName();
@@ -120,8 +125,12 @@ export class ThyBadgeComponent implements OnInit {
     set thySize(value: string) {
         this.resetBadgeClassNameMap(BadgeMutexSize);
         switch (value) {
-            case 'lg': this.badgeClassNameMap['thy-badge-lg'] = true; break;
-            case 'sm': this.badgeClassNameMap['thy-badge-sm'] = true; break;
+            case 'lg':
+                this.badgeClassNameMap['thy-badge-lg'] = true;
+                break;
+            case 'sm':
+                this.badgeClassNameMap['thy-badge-sm'] = true;
+                break;
         }
         if (this._initialized) {
             this.combineBadgeClassName();
@@ -154,6 +163,8 @@ export class ThyBadgeComponent implements OnInit {
         }
     }
 
+    @Input() thyColor: string;
+
     ngOnInit() {
         this.st.isSup = this.nativeElement.childNodes.length > 1;
         this.combineBadgeClassName();
@@ -180,7 +191,7 @@ export class ThyBadgeComponent implements OnInit {
 
     private combineBadgeDisplayContent() {
         this.displayContent = this.st.value;
-        if (this.st.value && this.st.max.is && (this.st.value > this.st.max.value)) {
+        if (this.st.value && this.st.max.is && this.st.value > this.st.max.value) {
             this.displayContent = `${this.st.max.value}+`;
         }
 
@@ -192,7 +203,7 @@ export class ThyBadgeComponent implements OnInit {
     }
 
     private explorationValueLength() {
-        if (this.st.value && (this.st.value.toString().length > 1) && this.st.isSup) {
+        if (this.st.value && this.st.value.toString().length > 1 && this.st.isSup) {
             this.badgeClassNameMap['thy-badge-multiple-words'] = true;
         }
     }
@@ -206,6 +217,4 @@ export class ThyBadgeComponent implements OnInit {
             }
         }
     }
-
-
 }
