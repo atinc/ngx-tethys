@@ -70,11 +70,19 @@ describe('ThyBreadcrumb', () => {
         expect(breadcrumbIcon.classList.contains(`thy-breadcrumb-icon`)).toBe(true);
         const iconElement = breadcrumbIcon.children[0];
         expect(iconElement).toBeTruthy();
-        expect(iconElement.classList.contains(`thy-icon`)).toBe(true);
-        expect(iconElement.classList.contains(`thy-icon-${expectedIconClass}`)).toBe(
-            true,
-            `expectedIconClass is thy-icon-${expectedIconClass}, but actual is ${iconElement.classList}`
-        );
+        if (expectedIconClass.includes('wtf')) {
+            expect(iconElement.classList.contains(`wtf`)).toBe(true);
+            expect(iconElement.classList.contains(expectedIconClass)).toBe(
+                true,
+                `expectedIconClass is ${expectedIconClass}, but actual is ${iconElement.classList}`
+            );
+        } else {
+            expect(iconElement.classList.contains(`thy-icon`)).toBe(true);
+            expect(iconElement.classList.contains(`thy-icon-${expectedIconClass}`)).toBe(
+                true,
+                `expectedIconClass is thy-icon-${expectedIconClass}, but actual is ${iconElement.classList}`
+            );
+        }
     }
 
     it('should have correct class', () => {
@@ -89,6 +97,13 @@ describe('ThyBreadcrumb', () => {
         fixture.detectChanges();
         assertBreadcrumbComponentAndItemsClass();
         assertBreadcrumbIconClass(`folder-open-fill`);
+    });
+
+    it('should have correct class when icon with wtf', () => {
+        basicTestComponent.thyIconName = `wtf wtf-folder1`;
+        fixture.detectChanges();
+        assertBreadcrumbComponentAndItemsClass();
+        assertBreadcrumbIconClass(`wtf-folder1`);
     });
 
     it('should have not icon element when icon is null', () => {

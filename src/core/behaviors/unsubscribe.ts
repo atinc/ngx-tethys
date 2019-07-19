@@ -11,13 +11,19 @@ export function mixinUnsubscribe<T extends Constructor<{}>>(base: T): Constructo
     return class Mixin extends base {
         ngUnsubscribe$ = new Subject();
 
+        constructor(...args: any[]) {
+            super(...args);
+        }
+
+        ngUnsubscribeReinitialize() {
+            this.ngUnsubscribe$.next();
+            this.ngUnsubscribe$.complete();
+            this.ngUnsubscribe$ = new Subject();
+        }
+
         ngOnDestroy() {
             this.ngUnsubscribe$.next();
             this.ngUnsubscribe$.complete();
-        }
-
-        constructor(...args: any[]) {
-            super(...args);
         }
     };
 }
