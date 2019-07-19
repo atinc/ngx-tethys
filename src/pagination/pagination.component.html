@@ -8,7 +8,9 @@
     >
       <a class="thy-page-link thy-page-link-first" href="javascript:;">
         <ng-container *ngIf="config.firstText">{{ config.firstText }}</ng-container>
-        <ng-container *ngIf="config.firstIcon"><i class="wtf {{ config.firstIcon }}"></i></ng-container>
+        <ng-container *ngIf="config.firstIcon">
+          <thy-icon [thyIconName]="config.firstIcon"></thy-icon>
+        </ng-container>
       </a>
     </li>
     <li
@@ -19,7 +21,9 @@
     >
       <a class="thy-page-link  page-link-pre" href="javascript:;">
         <ng-container *ngIf="config.previousText">{{ config.previousText }}</ng-container>
-        <ng-container *ngIf="config.previousIcon"><i class="wtf {{ config.previousIcon }}"></i></ng-container>
+        <ng-container *ngIf="config.previousIcon">
+          <thy-icon [thyIconName]="config.previousIcon"></thy-icon>
+        </ng-container>
       </a>
     </li>
     <li
@@ -39,7 +43,9 @@
     >
       <a class="thy-page-link thy-page-link-next" href="javascript:;">
         <ng-container *ngIf="config.nextText">{{ config.nextText }}</ng-container>
-        <ng-container *ngIf="config.nextIcon"><i class="wtf {{ config.nextIcon }}"></i></ng-container>
+        <ng-container *ngIf="config.nextIcon">
+          <thy-icon [thyIconName]="config.nextIcon"></thy-icon>
+        </ng-container>
       </a>
     </li>
     <li
@@ -50,7 +56,9 @@
     >
       <a class="thy-page-link thy-page-link-last" href="javascript:;">
         <ng-container *ngIf="config.lastText">{{ config.lastText }}</ng-container>
-        <ng-container *ngIf="config.lastIcon"><i class="wtf {{ config.lastIcon }}"></i></ng-container>
+        <ng-container *ngIf="config.lastIcon">
+          <thy-icon [thyIconName]="config.lastIcon"></thy-icon>
+        </ng-container>
       </a>
     </li>
   </ul>
