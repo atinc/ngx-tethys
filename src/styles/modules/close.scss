@@ -49,10 +49,10 @@ button.close {
 }
 
 .remove-link {
-    // width:13px;
-    // height: 13px;
-    background: $white;
-    border-radius: 50%;
     @include set-close-link-variant($gray-400, $danger);
     @include set-close-link-size($font-size-base);
+    .remove-link-icon {
+        background: $white;
+        border-radius: 50%;
+    }
 }
