@@ -13,12 +13,11 @@ export type StoreInstanceMap = Map<string, Store<any>>; // Map key：string，va
  */
 export class RootStore implements OnDestroy {
     private static _rootStore: RootStore;
+    private connectSuccessed = false;
     /**
      * 数据流 数据是一个Map，k,v键值对，关键字->状态数据
      */
-    private readonly _containers = new BehaviorSubject<StoreInstanceMap>(
-        new Map<string, Store<any>>()
-    );
+    private readonly _containers = new BehaviorSubject<StoreInstanceMap>(new Map<string, Store<any>>());
     private _plugin: StorePlugin = getReduxDevToolsPlugin();
     private _combinedStateSubscription: Subscription = new Subscription();
     public static getSingletonRootStore() {
@@ -27,9 +26,9 @@ export class RootStore implements OnDestroy {
         }
         return this._rootStore;
     }
-    constructor(
-    ) {
+    constructor() {
         if (this._plugin.isConnectSuccessed()) {
+            this.connectSuccessed = true;
             this._assignCombinedState(); // 最终调用handleNewState
             console.log(`是否在Angular开发环境：${isDevMode()}, 初始化root-store`);
         }
@@ -65,8 +64,10 @@ export class RootStore implements OnDestroy {
     private _getCombinedState(containers: StoreInstanceMap) {
         return combineLatest(
             ...Array.from(containers.entries()).map(([containerName, container]) => {
-                return container.state$.pipe(map(state => ({ containerName, state })), tap((data) => {
-                }));
+                return container.state$.pipe(
+                    map(state => ({ containerName, state })),
+                    tap(data => {})
+                );
             })
         );
     }
@@ -82,11 +83,14 @@ export class RootStore implements OnDestroy {
      * @internal
      */
     registerStore(store: Store<any>) {
+        if (!this.connectSuccessed) {
+            return;
+        }
         const containers = new Map(this._containers.value);
         if (containers.has(store.getStoreInstanceId())) {
             throw new Error(
                 `Store: Store with duplicate instance ID found! ${store.getStoreInstanceId()}` +
-                ` is already registered. Please check your getStoreInstanceId() methods!`
+                    ` is already registered. Please check your getStoreInstanceId() methods!`
             );
         }
         containers.set(store.getStoreInstanceId(), store);
@@ -105,6 +109,9 @@ export class RootStore implements OnDestroy {
      * @internal
      */
     unregisterStore(store: Store<any>) {
+        if (!this.connectSuccessed) {
+            return;
+        }
         const containers = new Map(this._containers.value);
         containers.delete(store.getStoreInstanceId());
         this._containers.next(containers);
