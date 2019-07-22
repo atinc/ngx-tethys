@@ -48,6 +48,7 @@ import { ThyProgressModule } from './progress';
 import { ThyBreadcrumbModule } from './breadcrumb';
 import { ThyArrowSwitcherModule } from './arrow-switcher';
 import { ThyMarkdownModule } from './markdown';
+import { ThyFlexibleTextModule } from './flexible-text';
 
 const IMPORT_EXPORT_MODULES = [
     BrowserAnimationsModule,
@@ -99,7 +100,8 @@ const IMPORT_EXPORT_MODULES = [
     ThyProgressModule,
     ThyBreadcrumbModule,
     ThyArrowSwitcherModule,
-    ThyMarkdownModule
+    ThyMarkdownModule,
+    ThyFlexibleTextModule
 ];
 
 @NgModule({
