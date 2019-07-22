@@ -14,6 +14,7 @@ import { UpdateHostClassService } from '../shared';
 export type ThyButtonType =
     | 'primary'
     | 'secondary'
+    | 'info'
     | 'outline-primary'
     | 'outline-default'
     | 'danger'
@@ -23,12 +24,14 @@ export type ThyButtonType =
 const btnTypeClassesMap: any = {
     primary: ['btn', 'btn-primary'],
     secondary: ['btn', 'btn-primary', 'btn-md'],
+    info: ['btn', 'btn-info'],
+    waring: ['btn', 'btn-waring'],
+    danger: ['btn', 'btn-danger'],
     'outline-primary': ['btn', 'btn-outline-primary'],
     'outline-default': ['btn', 'btn-outline-default'],
-    danger: ['btn', 'btn-danger'],
     link: ['btn', 'btn-link'], // 链接按钮
     'link-info': ['btn', 'btn-link', 'btn-link-info'], // 幽灵链接按钮
-    'link-secondary': ['btn', 'btn-link', 'btn-link-info'], // 幽灵链接按钮
+    'link-secondary': ['btn', 'btn-link', 'btn-link-primary-weak'], // 幽灵链接按钮
     'link-danger-weak': ['btn', 'btn-link', 'btn-link-danger-weak'], // 幽灵危险按钮
     'link-danger': ['btn', 'btn-link', 'btn-link-danger'], // 危险按钮
     'link-success': ['btn', 'btn-link', 'btn-link-success'] // 成功按钮

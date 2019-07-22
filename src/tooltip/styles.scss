@@ -112,7 +112,7 @@
     color: $tooltip-color;
     text-align: center;
     background-color: $tooltip-bg;
-    box-shadow: 0 0 8px 2px $gray-200; // $box-shadow;
+    box-shadow: $tooltip-box-shadow; // $box-shadow;
 
     @include border-radius($tooltip-border-radius);
 }

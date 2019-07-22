@@ -12,7 +12,7 @@
         margin-right: 5px;
         color: $breadcrumb-text-color;
         a {
-            @include link-variant($info, none, $primary, none);
+            @include link-variant($breadcrumb-text-color, none, $primary, none);
         }
         &:last-child {
             color: $breadcrumb-active-color;
