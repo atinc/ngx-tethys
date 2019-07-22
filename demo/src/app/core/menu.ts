@@ -128,7 +128,8 @@ export const allMenus = [
                     { name: 'Overlay', zhName: '浮层', routePath: 'overlay' },
                     { name: 'Notify', zhName: '通知', routePath: 'notify' },
                     { name: 'PopBox', zhName: '弹出框', routePath: 'pob-box' },
-                    { name: 'Slide', zhName: '滑动弹出框', routePath: 'slide' }
+                    { name: 'Slide', zhName: '滑动弹出框', routePath: 'slide' },
+                    { name: 'FlexibleText', zhName: '文本提示', routePath: 'flexible-text' }
                 ]
             }
         ]
