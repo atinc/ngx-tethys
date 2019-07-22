@@ -67,6 +67,18 @@ export class DemoIconSectionComponent implements OnInit {
             description: `twotone 类型的颜色值`,
             type: 'String',
             default: ''
+        },
+        {
+            property: 'thyIconSet',
+            description: `使用字体图标库`,
+            type: 'String',
+            default: ''
+        },
+        {
+            property: 'thyIconRotate',
+            description: `顺时针旋转角度`,
+            type: 'Number',
+            default: '0'
         }
     ];
 

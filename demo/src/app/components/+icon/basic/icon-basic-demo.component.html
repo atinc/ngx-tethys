@@ -1,32 +1,38 @@
-<form thyForm thyLayout="inline">
-  <thy-form-group thyLabelText="Font Size">
-    <thy-select name="size" [(ngModel)]="fontSizeClass">
-      <option value="font-size-sm">font-size-sm 12px</option>
-      <option value="font-size-base">font-size-base 14px</option>
-      <option value="font-size-md">font-size-md 16px</option>
-      <option value="font-size-lg">font-size-lg 20px</option>
-      <option value="font-size-xlg">font-size-xlg 24px</option>
-      <option value="font-size-max-lg">font-size-max-lag 52px</option>
-    </thy-select>
-  </thy-form-group>
-  <thy-form-group thyLabelText="Icon Color">
-    <thy-select name="color" [(ngModel)]="colorClass">
-      <option value="text-body">text-body</option>
-      <option value="text-primary">primary</option>
-      <option value="text-success">success</option>
-      <option value="text-waring">waring</option>
-      <option value="text-danger">danger</option>
-      <option value="text-secondary">secondary #666</option>
-      <option value="text-muted">muted #888</option>
-      <option value="text-desc">muted #aaa</option>
-    </thy-select>
-  </thy-form-group>
-</form>
 <div class="demo-icons mt-2" [ngClass]="colorClass">
   <thy-icon thyIconName="settings" [ngClass]="fontSizeClass"></thy-icon>
   <thy-icon thyIconName="calendar-check" [ngClass]="fontSizeClass"></thy-icon>
   <thy-icon thyIconName="clock-circle-moment" [ngClass]="fontSizeClass"></thy-icon>
   <thy-icon thyIconName="play-circle" [ngClass]="fontSizeClass"></thy-icon>
   <thy-icon thyIconName="smile" [ngClass]="fontSizeClass"></thy-icon>
-  <thy-icon thyIconName="exclamation-three-blod" [ngClass]="fontSizeClass"></thy-icon>
+  <thy-icon thyIconName="check-circle" [ngClass]="fontSizeClass"></thy-icon>
+  <thy-icon thyIconName="pause-circle" thyIconType="fill" [ngClass]="fontSizeClass"></thy-icon>
+  <thy-icon thyIconName="more-circle" thyIconType="fill" [ngClass]="fontSizeClass"></thy-icon>
+  <thy-icon thyIconName="clock-circle-moment" thyIconType="fill" [ngClass]="fontSizeClass"></thy-icon>
+  <thy-icon thyIconName="user-check" thyIconType="fill" [ngClass]="fontSizeClass"></thy-icon>
+  <thy-icon thyIconName="user-group" thyIconType="fill" [ngClass]="fontSizeClass"></thy-icon>
+  <thy-icon thyIconName="waring" thyIconType="fill" [ngClass]="fontSizeClass"></thy-icon>
+  <thy-icon thyIconName="check" [ngClass]="fontSizeClass"></thy-icon>
+
+  <br />
+
+  <thy-icon
+    thyIconName="sort-tt"
+    thyIconType="twotone"
+    [thyTwotoneColor]="ttColor"
+    [ngClass]="fontSizeClass"
+    (click)="sortChange()"
+  >
+  </thy-icon>
+
+  <thy-icon thyIconName="close-circle-tt" thyIconType="twotone" thyTwotoneColor="red" [ngClass]="fontSizeClass">
+  </thy-icon>
+
+  <thy-icon
+    thyIconName="smile"
+    [ngClass]="fontSizeClass"
+    [thyIconRotate]="rotate"
+    thyTooltip="点击旋转"
+    (click)="rotate = rotate + 45"
+  >
+  </thy-icon>
 </div>

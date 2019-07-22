@@ -5,12 +5,15 @@ import {
     ViewEncapsulation,
     ElementRef,
     Input,
-    HostBinding
+    HostBinding,
+    Renderer2
 } from '@angular/core';
 
 import { UpdateHostClassService } from '../shared';
 import { ThyIconRegistry } from './icon-registry';
-import { take } from 'rxjs/operators';
+import { take, tap } from 'rxjs/operators';
+import { Subject, noop, BehaviorSubject } from 'rxjs';
+import { coerceArray } from '../util/helpers';
 
 const iconSuffixMap = {
     fill: 'fill',
@@ -25,36 +28,63 @@ const iconSuffixMap = {
     providers: [UpdateHostClassService]
 })
 export class ThyIconComponent implements OnInit {
-    private _iconName: string;
-
     @HostBinding('class.thy-icon') className = true;
+
+    private drawIcon$ = new BehaviorSubject(false);
+
+    private iconName: string;
+
+    private iconSet: string;
+
+    private iconRotate: number;
+
+    private iconTwotoneColor: string[];
 
     @Input('thyIconType') iconType: 'outline' | 'fill' | 'twotone' = 'outline';
 
-    @Input('thyIconName')
-    set iconName(value: string) {
-        this._iconName = value;
-        this.updateClasses();
-    }
-    get iconName() {
-        return this._iconName;
+    @Input()
+    set thyTwotoneColor(value: string) {
+        this.iconTwotoneColor = coerceArray(value);
+        this.drawIcon$.next(false);
     }
 
-    @Input('thyIconSet') iconSet: string;
+    @Input()
+    set thyIconName(value: string) {
+        this.iconName = value;
+        this.drawIcon$.next(false);
+    }
 
-    @Input('thyTwotoneColor') twotoneColor: string;
+    @Input()
+    set thyIconSet(value: string) {
+        this.iconSet = value;
+        this.drawIcon$.next(false);
+    }
+
+    @Input()
+    set thyIconRotate(value: number) {
+        this.iconRotate = value;
+        if (this.drawIcon$.getValue()) {
+            this.setStyleRotate();
+        }
+    }
 
     constructor(
         private updateHostClassService: UpdateHostClassService,
+        private render: Renderer2,
         private elementRef: ElementRef,
         private iconRegistry: ThyIconRegistry
     ) {
         updateHostClassService.initializeElement(elementRef.nativeElement);
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.drawIcon$.subscribe(() => {
+            this.updateClasses();
+        });
+        this.drawIcon$.next(true);
+    }
 
-    updateClasses() {
+    private updateClasses() {
         const [namespace, iconName] = this.iconRegistry.splitIconName(this.iconName);
         if (iconName) {
             if (this.iconRegistry.iconMode === 'svg') {
@@ -77,6 +107,16 @@ export class ThyIconComponent implements OnInit {
         }
     }
 
+    private setStyleRotate() {
+        if (this.iconRotate !== undefined) {
+            this.render.setStyle(
+                this.elementRef.nativeElement.querySelector('svg'),
+                'transform',
+                `rotate(${this.iconRotate}deg)`
+            );
+        }
+    }
+
     //#region svg element
 
     private setSvgElement(svg: SVGElement) {
@@ -95,11 +135,10 @@ export class ThyIconComponent implements OnInit {
             const allPaths = svg.querySelectorAll('path');
             if (allPaths.length > 1) {
                 allPaths.forEach((child, index: number) => {
-                    if (this.twotoneColor) {
-                        if (index === 1) {
-                            child.setAttribute('fill', this.twotoneColor);
-                        } else {
-                            child.setAttribute('fill', 'currentColor');
+                    if (this.iconTwotoneColor.length > 0) {
+                        const color = this.iconTwotoneColor[index] || this.iconTwotoneColor[0];
+                        if (color !== 'inherit') {
+                            child.setAttribute('fill', color);
                         }
                     }
                 });
@@ -116,6 +155,7 @@ export class ThyIconComponent implements OnInit {
         // }
 
         this.elementRef.nativeElement.appendChild(svg);
+        this.setStyleRotate();
     }
 
     private clearSvgElement() {
