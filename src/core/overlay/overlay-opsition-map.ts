@@ -93,3 +93,31 @@ export const EXPANDED_DROPDOWN_POSITIONS = [
     POSITION_MAP.topLeft,
     POSITION_MAP.topRight
 ];
+
+export function getFlexiblePosition(key: string): ConnectionPositionPair[] {
+    let reApply: ConnectionPositionPair[] = [];
+    switch (key) {
+        case 'top':
+            reApply = [POSITION_MAP['bottom']];
+            break;
+        case 'right':
+            reApply = [POSITION_MAP['left']];
+            break;
+        case 'bottom':
+            reApply = [POSITION_MAP['top']];
+            break;
+        case 'left':
+            reApply = [POSITION_MAP['right']];
+            break;
+    }
+    console.log(POSITION_MAP);
+    return [POSITION_MAP[key], ...reApply];
+}
+
+export function getKeyByPosition(position: ConnectionPositionPair) {
+    for (const key in POSITION_MAP) {
+        if (POSITION_MAP[key] === position) {
+            return key;
+        }
+    }
+}
