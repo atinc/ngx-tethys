@@ -15,7 +15,7 @@ export class DemoDialogContentComponent implements OnInit {
 
     allowClear = true;
 
-    @HostBinding(`class.thy-dialog-component`) addSidebarClass = true;
+    @HostBinding(`class.thy-dialog-component`) isDialogComponent = true;
 
     constructor(private thyDialogRef: ThyDialogRef<any>, public thyDialog: ThyDialog) {}
 
