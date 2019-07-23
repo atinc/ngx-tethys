@@ -1,4 +1,4 @@
-import { Component, TemplateRef, OnInit } from '@angular/core';
+import { Component, TemplateRef, OnInit, HostBinding } from '@angular/core';
 import { DateRangeItemInfo } from '../../../../../src/date-range/date-range.class';
 import { helpers } from '../../../../../src/util';
 import { ThyDialogRef, ThyDialog } from '../../../../../src/dialog';
@@ -14,6 +14,8 @@ export class DemoDialogContentComponent implements OnInit {
     showMore = false;
 
     allowClear = true;
+
+    @HostBinding(`class.thy-dialog-component`) addSidebarClass = true;
 
     constructor(private thyDialogRef: ThyDialogRef<any>, public thyDialog: ThyDialog) {}
 

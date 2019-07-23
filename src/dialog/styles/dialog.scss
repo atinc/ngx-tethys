@@ -125,3 +125,13 @@
     max-width: $dialog-supper-lg-max-width;
     max-height: $dialog-supper-lg-max-height;
 }
+
+// when dialog is component fix header and footer
+.thy-dialog-component {
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    .dialog-body {
+        overflow: auto;
+    }
+}
