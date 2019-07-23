@@ -125,8 +125,8 @@ export class ThyDialogContainerComponent {
                     containerElement.offsetTop}px 0px`;
                 containerElement.style['transform-origin'] = transformOrigin;
                 // 手动修改动画状态为从 void 到 enter, 开启动画
-                this.animationState = 'enter';
             }
+            this.animationState = 'enter';
         });
     }
 
