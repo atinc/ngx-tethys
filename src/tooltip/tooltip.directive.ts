@@ -171,7 +171,6 @@ export class ThyTooltipDirective extends mixinUnsubscribe(MixinBase) implements 
         position.withPositions(connectionPosition ? connectionPosition : getFlexiblePosition('top'));
         position.positionChanges.subscribe((positionChange: ConnectedOverlayPositionChange) => {
             const changedPlacement = getKeyByPosition(positionChange.connectionPair);
-            console.log(`positionChanges: ${changedPlacement}`);
             this.tooltipInstance.placement = changedPlacement;
         });
     }

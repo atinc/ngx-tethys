@@ -110,7 +110,6 @@ export function getFlexiblePosition(key: string): ConnectionPositionPair[] {
             reApply = [POSITION_MAP['right']];
             break;
     }
-    console.log(POSITION_MAP);
     return [POSITION_MAP[key], ...reApply];
 }
 
