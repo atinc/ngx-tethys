@@ -1,3 +1,21 @@
+## <small>7.3.5 (2019-07-23)</small>
+
+* fix: add component flexible-text ([b4a17a8](https://github.com/worktile/ngx-tethys/commit/b4a17a8))
+* fix: correct constructor.name can is undefine failture(#250980) ([6d6f2d6](https://github.com/worktile/ngx-tethys/commit/6d6f2d6)), closes [#250980](https://github.com/worktile/ngx-tethys/issues/250980)
+* fix: fix flexible-text test ([b73bc69](https://github.com/worktile/ngx-tethys/commit/b73bc69))
+* fix: flexible-text hide test ([03c70e6](https://github.com/worktile/ngx-tethys/commit/03c70e6))
+* fix: modify avatar and select removed icon style ([8b19df1](https://github.com/worktile/ngx-tethys/commit/8b19df1))
+* fix(color): change info color #2dbcff and success to #66c060 #237760 ([0512b4c](https://github.com/worktile/ngx-tethys/commit/0512b4c)), closes [#2](https://github.com/worktile/ngx-tethys/issues/2) [#66c060](https://github.com/worktile/ngx-tethys/issues/66c060) [#237760](https://github.com/worktile/ngx-tethys/issues/237760)
+* fix(dialog): set animation state enter after last click position #250111 ([8d2a0fb](https://github.com/worktile/ngx-tethys/commit/8d2a0fb)), closes [#250111](https://github.com/worktile/ngx-tethys/issues/250111)
+* fix(dialog): set animation state enter after last click position #250111 ([7e306bd](https://github.com/worktile/ngx-tethys/commit/7e306bd)), closes [#250111](https://github.com/worktile/ngx-tethys/issues/250111)
+* fix(flexible-text): fix flexible-text test(#247654) ([c393803](https://github.com/worktile/ngx-tethys/commit/c393803)), closes [#247654](https://github.com/worktile/ngx-tethys/issues/247654)
+* fix(tooltip): change tooltip arrow width ang height ([dfe8eb9](https://github.com/worktile/ngx-tethys/commit/dfe8eb9))
+* fix(tooltip): change tooltip-max-width to 350px ([8b54e8b](https://github.com/worktile/ngx-tethys/commit/8b54e8b))
+* feat: add component flexible-text(#247654) ([f23e605](https://github.com/worktile/ngx-tethys/commit/f23e605)), closes [#247654](https://github.com/worktile/ngx-tethys/issues/247654)
+* feat(flexible-text): add component: flexible-text (#247654) ([89127f0](https://github.com/worktile/ngx-tethys/commit/89127f0)), closes [#247654](https://github.com/worktile/ngx-tethys/issues/247654)
+
+
+
 ## <small>7.3.4 (2019-07-19)</small>
 
 * feat(badge): supports thyColor to custom color ([443a4e1](https://github.com/worktile/ngx-tethys/commit/443a4e1))
