@@ -23,10 +23,15 @@
             padding: 0 1000px;
         }
 
-        &.cdk-drag .cdk-drag-handle,
-        &.thy-sortable-item .thy-sortable-handle {
-            position: absolute;
-            left: 3px;
+        &.cdk-drag,
+        &.thy-sortable-item {
+            .cdk-drag-handle,
+            .thy-sortable-handle,
+            .wtf-move,
+            .thy-icon-drag {
+                position: absolute;
+                left: 3px;
+            }
         }
 
         &.thy-sortable-ghost,

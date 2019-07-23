@@ -11,10 +11,15 @@
     @include thy-option-common-layout();
     @include thy-option();
 
-    &.cdk-drag .cdk-drag-handle,
-    &.thy-sortable-item .thy-sortable-handle {
-        padding: 0px 5px 0 4px;
-        margin-left: -20px;
+    &.cdk-drag,
+    &.thy-sortable-item {
+        .cdk-drag-handle,
+        .thy-sortable-handle,
+        .wtf-move,
+        .thy-icon-drag {
+            padding: 0px 5px 0 4px;
+            margin-left: -20px;
+        }
     }
 }
 

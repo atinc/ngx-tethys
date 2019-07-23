@@ -30,11 +30,11 @@
   <div class="body">
     <thy-list cdkDropList (cdkDropListSorted)="sort($event)">
       <thy-list-item class="active" cdkDrag>
-        <i class="wtf wtf-move" cdkDragHandle></i>
+        <thy-icon thyIconName="drag"></thy-icon>
         Item 1
       </thy-list-item>
       <thy-list-item cdkDrag>
-        <i class="wtf wtf-move" cdkDragHandle></i>
+        <i class="wtf wtf-move"></i>
         Item 2
       </thy-list-item>
       <thy-list-item cdkDrag>
@@ -42,7 +42,7 @@
         Item 3
       </thy-list-item>
       <thy-list-item cdkDrag>
-        <i class="wtf wtf-move" cdkDragHandle></i>
+        <thy-icon thyIconName="drag" cdkDragHandle></thy-icon>
         <a href="javascripr:;">Item 4</a>
       </thy-list-item>
     </thy-list>
