@@ -1,19 +1,26 @@
 <section class="flexible-text-wrap">
+  <h2>组件使用方式</h2>
   <div class="flexible-text-section">
-    <thy-flexible-text [thyContent]="title1.text" [thyPlacement]="title1.placement">
+    <thy-flexible-text [thyTooltipContent]="title1.text">
       {{ title1.text }}
     </thy-flexible-text>
   </div>
-
   <div class="flexible-text-section">
-    <thy-flexible-text [thyContent]="title2.text" [thyPlacement]="title2.placement">
+    <thy-flexible-text [thyTooltipContent]="title2.text">
       {{ title2.text }}
     </thy-flexible-text>
   </div>
-
+  <h2>指令方式使用</h2>
   <div class="flexible-text-section">
-    <thy-flexible-text [thyContent]="template" [thyPlacement]="'right'">
-      tooltip 模板
+    <span thyFlexibleText [thyTooltipContent]="title1.text">{{ title1.text }}</span>
+  </div>
+  <div class="flexible-text-section">
+    <span thyFlexibleText [thyTooltipContent]="title2.text">{{ title2.text }}</span>
+  </div>
+  <h2>传递模板</h2>
+  <div class="flexible-text-section">
+    <thy-flexible-text [thyTooltipContent]="template" [thyTooltipPlacement]="'right'">
+      {{ title1.text }}
     </thy-flexible-text>
     <ng-template #template>
       <div class="group-tooltip">

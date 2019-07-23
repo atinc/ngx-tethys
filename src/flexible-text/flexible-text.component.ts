@@ -6,59 +6,40 @@ import {
     ElementRef,
     OnInit,
     AfterContentChecked,
-    AfterContentInit
+    AfterContentInit,
+    ViewContainerRef,
+    OnDestroy
 } from '@angular/core';
 import { ThyTooltipPlacement } from '../tooltip';
 import { isString } from '../util/helpers';
 import { helpers } from '../util';
 import { timer } from 'rxjs';
+import { FlexibleTextBase } from './flexible-text.base';
+import { TooltipService } from '../tooltip/tooltip.service';
+import { UpdateHostClassService } from '../shared/update-host-class.service';
 
 @Component({
     selector: 'thy-flexible-text,thyFlexibleText',
-    templateUrl: './flexible-text.component.html'
+    templateUrl: './flexible-text.component.html',
+    providers: [TooltipService, UpdateHostClassService]
 })
-export class ThyFlexibleTextComponent implements OnInit {
-    tooltipContent: string | TemplateRef<HTMLElement>;
-
-    placement: ThyTooltipPlacement = 'top';
-
-    isTemplateRef = false;
-
-    isOverflow = false;
-
-    @Input()
-    set thyContent(value: string | TemplateRef<HTMLElement>) {
-        this.tooltipContent = value;
-        this.isTemplateRef = value instanceof TemplateRef;
-        this.applyOverflow();
+export class ThyFlexibleTextComponent extends FlexibleTextBase implements OnInit, OnDestroy {
+    constructor(
+        private elementRef: ElementRef,
+        private viewContainerRef: ViewContainerRef,
+        public tooltipService: TooltipService,
+        private updateHostClassService: UpdateHostClassService
+    ) {
+        super(tooltipService);
     }
-
-    @Input()
-    set thyPlacement(value: ThyTooltipPlacement) {
-        this.placement = value;
-    }
-
-    @ViewChild('textContainer')
-    textContainer: ElementRef<any>;
-
-    constructor() {}
 
     ngOnInit() {
-        this.applyOverflow();
+        this.init(this.elementRef, this.viewContainerRef);
+        this.updateHostClassService.initializeElement(this.elementRef);
+        this.updateHostClassService.addClass('flexible-text-container');
     }
 
-    applyOverflow() {
-        timer().subscribe(() => {
-            if (this.isTemplateRef) {
-                this.isOverflow = true;
-            } else {
-                const nativeElement = this.textContainer.nativeElement;
-                if (nativeElement.clientWidth < nativeElement.scrollWidth) {
-                    this.isOverflow = true;
-                } else {
-                    this.isOverflow = false;
-                }
-            }
-        });
+    ngOnDestroy() {
+        this.tooltipService.detach();
     }
 }
