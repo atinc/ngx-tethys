@@ -1,3 +1,9 @@
+## <small>7.3.6 (2019-07-23)</small>
+
+* fix: change remove icon in avatar and select ([6a2780a](https://github.com/worktile/ngx-tethys/commit/6a2780a))
+* fix(thy-dialog): correct animation failture ([fb626f0](https://github.com/worktile/ngx-tethys/commit/fb626f0))
+
+
 ## <small>7.3.5 (2019-07-23)</small>
 
 * fix: add component flexible-text ([b4a17a8](https://github.com/worktile/ngx-tethys/commit/b4a17a8))
