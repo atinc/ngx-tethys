@@ -55,6 +55,9 @@ a {
     &.link-success {
         @include link-variant($success, $link-decoration, $success, $link-hover-decoration);
     }
+    &.link-major {
+        @include link-variant($gray-800, none, $primary, none);
+    }
     &.link-sm {
         @include link-size($font-size-sm, $font-size-sm);
     }
