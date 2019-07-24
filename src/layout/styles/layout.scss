@@ -149,6 +149,9 @@
             padding: 5px;
             color: $primary;
             font-size: $layout-header-prefix-icon-size;
+            .thy-icon {
+                font-size: $layout-header-prefix-icon-size;
+            }
         }
 
         .suffix-icon {
