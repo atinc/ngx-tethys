@@ -120,3 +120,10 @@ export function getKeyByPosition(position: ConnectionPositionPair) {
         }
     }
 }
+
+export function setPositionPanelClass(panelClassPrefix: string, positions: ConnectionPositionPair[]) {
+    return positions.map((position: ConnectionPositionPair) => {
+        const key = getKeyByPosition(position);
+        return { ...position, panelClass: `${panelClassPrefix}-${key}` };
+    });
+}

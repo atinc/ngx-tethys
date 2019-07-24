@@ -19,7 +19,7 @@ import { ThyTooltipOptions, DEFAULT_TOOLTIP_OPTIONS, ThyTooltipPosition, ThyTool
 import { inputValueToBoolean, isString } from '../util/helpers';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ThyTooltipComponent } from './tooltip.component';
-import { getFlexiblePosition, getKeyByPosition } from '../core/overlay/overlay-opsition-map';
+import { getFlexiblePosition, setPositionPanelClass } from '../core/overlay/overlay-opsition-map';
 import { fromEvent } from 'rxjs';
 import { FocusMonitor } from '@angular/cdk/a11y';
 
@@ -41,6 +41,8 @@ export class ThyTooltipDirective extends mixinUnsubscribe(MixinBase) implements 
     private tooltipClass: string | string[];
 
     content: string | TemplateRef<HTMLElement>;
+
+    panelClassPrefix = 'thy-tooltip';
 
     @Input('thyTooltip') set thyContent(value: string | TemplateRef<HTMLElement>) {
         this.content = value && isString(value) ? `${value}`.trim() : value;
@@ -167,12 +169,12 @@ export class ThyTooltipDirective extends mixinUnsubscribe(MixinBase) implements 
     /** Updates the position of the current tooltip. */
     private updatePosition() {
         const position = this.overlayRef.getConfig().positionStrategy as FlexibleConnectedPositionStrategy;
-        const connectionPosition = getFlexiblePosition(this.placement);
-        position.withPositions(connectionPosition ? connectionPosition : getFlexiblePosition('top'));
-        position.positionChanges.subscribe((positionChange: ConnectedOverlayPositionChange) => {
-            const changedPlacement = getKeyByPosition(positionChange.connectionPair);
-            this.tooltipInstance.placement = changedPlacement;
-        });
+        const connectionPosition = setPositionPanelClass(this.panelClassPrefix, getFlexiblePosition(this.placement));
+        position.withPositions(
+            connectionPosition
+                ? connectionPosition
+                : setPositionPanelClass(this.panelClassPrefix, getFlexiblePosition('top'))
+        );
     }
 
     private setTooltipClass(tooltipClass: string | string[]) {
@@ -265,7 +267,6 @@ export class ThyTooltipDirective extends mixinUnsubscribe(MixinBase) implements 
         this.detach();
         this.portal = this.portal || new ComponentPortal(ThyTooltipComponent, this.viewContainerRef);
         this.tooltipInstance = overlayRef.attach(this.portal).instance;
-        this.tooltipInstance.placement = this.placement;
         this.tooltipInstance
             .afterHidden()
             .pipe(takeUntil(this.ngUnsubscribe$))

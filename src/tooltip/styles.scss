@@ -33,7 +33,7 @@
     margin-bottom: $tooltip-spacing;
     padding-bottom: $tooltip-arrow-height;
     .thy-tooltip-arrow {
-        bottom: 0;
+        bottom: -$tooltip-arrow-height;
         left: calc(100% / 2 - #{$tooltip-arrow-width / 2});
         &::before {
             top: 0;
@@ -47,7 +47,7 @@
     margin-left: $tooltip-spacing;
     padding: 0 $tooltip-arrow-height;
     .thy-tooltip-arrow {
-        left: 0;
+        left: -$tooltip-arrow-height;
         width: $tooltip-arrow-height;
         height: $tooltip-arrow-width;
         top: calc(100% / 2 - #{$tooltip-arrow-width / 2});
@@ -64,7 +64,7 @@
     margin-top: $tooltip-spacing;
     padding-top: $tooltip-arrow-height;
     .thy-tooltip-arrow {
-        top: 0;
+        top: -$tooltip-arrow-height;
         left: calc(100% / 2 - #{$tooltip-arrow-width / 2});
         &::before {
             bottom: 0;
@@ -78,7 +78,7 @@
     margin-right: $tooltip-spacing;
     padding: 0 $tooltip-arrow-height;
     .thy-tooltip-arrow {
-        right: 0;
+        right: -$tooltip-arrow-height;
         width: $tooltip-arrow-height;
         height: $tooltip-arrow-width;
         top: calc(100% / 2 - #{$tooltip-arrow-width / 2});
