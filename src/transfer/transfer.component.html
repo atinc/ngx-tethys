@@ -1,11 +1,29 @@
 <thy-transfer-list
-  [items]="leftDataSource"
+  [items]="allDataSource"
   [title]="leftTitle"
-  [template]="templateRef"
-  [draggable]="leftDraggable"
+  [draggable]="thyLeftDraggable"
   (draggableUpdate)="onDragUpdate('left', $event)"
-  (select)="onSelect('left', $event)"
-></thy-transfer-list>
+  [template]="leftTemplateRef"
+>
+  <ng-template #leftTemplateRef let-item>
+    <div
+      (click)="onSelect(item.direction === 'left' ? 'left' : 'right', { item: item })"
+      class="d-flex flex-grow-1 align-items-center"
+    >
+      <ng-container *ngIf="thyLeftDraggable">
+        <thy-icon thyIconName="drag"></thy-icon>
+      </ng-container>
+      <div class="item-name">
+        <ng-template
+          [ngTemplateOutlet]="thyTransferListItem"
+          [ngTemplateOutletContext]="{ $implicit: item }"
+        ></ng-template>
+      </div>
+      <thy-icon *ngIf="item.direction === 'right'" class="text-primary" thyIconName="check"></thy-icon>
+    </div>
+  </ng-template>
+</thy-transfer-list>
+
 <div class="thy-transfer-operation">
   <div class="thy-transfer-operation-body">
     <a class="operation-link" href="javascript:;" (click)="onMove('right')">
@@ -17,13 +35,43 @@
     </a>
   </div>
 </div>
+
 <thy-transfer-list
   [items]="rightDataSource"
   [title]="rightTitle"
-  [template]="templateRef"
-  [draggable]="rightDraggable"
+  [draggable]="thyRightDraggable"
   (draggableUpdate)="onDragUpdate('right', $event)"
   [canLock]="thyRightCanLock"
   [maxLock]="thyRightLockMax"
-  (select)="onSelect('right', $event)"
-></thy-transfer-list>
+  [template]="rightTemplateRef"
+>
+  <ng-template #rightTemplateRef let-item>
+    <ng-container *ngIf="thyRightDraggable">
+      <thy-icon thyIconName="drag"></thy-icon>
+    </ng-container>
+    <div class="item-name">
+      <ng-template
+        [ngTemplateOutlet]="thyTransferListItem"
+        [ngTemplateOutletContext]="{ $implicit: item }"
+      ></ng-template>
+    </div>
+    <a
+      class="link-secondary"
+      *ngIf="item.direction === 'right' && !item.isFixed"
+      (click)="onSelect('right', { item: item })"
+    >
+      <thy-icon thyIconName="close"></thy-icon>
+    </a>
+  </ng-template>
+</thy-transfer-list>
+
+<ng-template #thyTransferListItem let-item>
+  <ng-template
+    *ngIf="templateRef"
+    [ngTemplateOutlet]="templateRef"
+    [ngTemplateOutletContext]="{ $implicit: item }"
+  ></ng-template>
+  <ng-container *ngIf="!templateRef">
+    {{ item.title }}
+  </ng-container>
+</ng-template>
