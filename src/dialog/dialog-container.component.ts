@@ -169,7 +169,7 @@ export class ThyDialogContainerComponent {
 
     /** Callback, invoked whenever an animation on the host completes. */
     onAnimationDone(event: AnimationEvent) {
-        if (event.toState === 'enter') {
+        if (event.toState === 'void') {
             this.trapFocus();
         } else if (event.toState === 'exit') {
             this.restoreFocus();
