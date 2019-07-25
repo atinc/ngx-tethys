@@ -123,6 +123,8 @@
     .layout-header-title {
         font-size: $font-size-md;
         color: $gray-800;
+        display: flex;
+        align-items: center;
 
         a {
             @include link-variant($gray-800, none, $primary, none);
