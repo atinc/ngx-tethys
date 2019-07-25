@@ -16,9 +16,10 @@ export class Store<T extends object> implements Observer<T>, OnDestroy {
 
     public apply_redux_tool = isDevMode();
 
-    private _defaultStoreInstanceId = `${this._getClassName()}`;
+    private _defaultStoreInstanceId: string;
 
     constructor(initialState: any) {
+        this._defaultStoreInstanceId = this._getClassName();
         this.state$ = new BehaviorSubject<T>(initialState);
         if (this.apply_redux_tool) {
             const _rootStore: RootStore = RootStore.getSingletonRootStore();
@@ -139,7 +140,7 @@ export class Store<T extends object> implements Observer<T>, OnDestroy {
     }
 
     private _getClassName(): string {
-        const name = this.constructor.name;
+        const name = this.constructor.name || /function (.+)\(/.exec(this.constructor + '')[1];
         if (this.apply_redux_tool) {
             const _rootStore: RootStore = RootStore.getSingletonRootStore();
             if (!_rootStore.existStoreInstanceId(name)) {
@@ -152,7 +153,7 @@ export class Store<T extends object> implements Observer<T>, OnDestroy {
                     break;
                 }
             }
-            return `${this.constructor.name}-${j}`;
+            return `${name}-${j}`;
         }
         return name;
     }

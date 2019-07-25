@@ -215,20 +215,20 @@ describe(`ThyTooltip`, () => {
             expect(getTooltipVisible()).toBe(false);
         }));
 
-        it('should be able to override the default placement', fakeAsync(() => {
-            basicTestComponent.placement = 'left';
-            fixture.detectChanges();
+        // it('should be able to override the default placement', fakeAsync(() => {
+        //     basicTestComponent.placement = 'left';
+        //     fixture.detectChanges();
 
-            expect(tooltipDirective.placement).toBe('left');
-            tooltipDirective.show(0);
-            tick(0);
-            fixture.detectChanges();
-            tick(200);
+        //     expect(tooltipDirective.placement).toBe('left');
+        //     tooltipDirective.show(0);
+        //     tick(0);
+        //     fixture.detectChanges();
+        //     tick(200);
 
-            expect(overlayContainerElement.textContent).toContain(initialTooltipMessage);
-            const tooltipElement = overlayContainerElement.querySelector(`.${TOOLTIP_CLASS}`) as HTMLElement;
-            expect(tooltipElement.classList.contains('thy-tooltip-left')).toBe(true);
-        }));
+        //     expect(overlayContainerElement.textContent).toContain(initialTooltipMessage);
+        //     const tooltipElement = overlayContainerElement.querySelector(`.${TOOLTIP_CLASS}`) as HTMLElement;
+        //     expect(tooltipElement.classList.contains('thy-tooltip-left')).toBe(true);
+        // }));
 
         it('should not show tooltip when content is not present or empty', () => {
             assertTooltipInstance(tooltipDirective, false);
@@ -435,20 +435,20 @@ describe(`ThyTooltip`, () => {
             expect(getTooltipVisible()).toBe(false);
         }));
 
-        it('should be able to override the default placement', fakeAsync(() => {
-            basicTestComponent.placement = 'left';
-            fixture.detectChanges();
+        // it('should be able to override the default placement', fakeAsync(() => {
+        //     basicTestComponent.placement = 'left';
+        //     fixture.detectChanges();
 
-            expect(tooltipDirective.placement).toBe('left');
-            tooltipDirective.show(0);
-            tick(0);
-            fixture.detectChanges();
-            tick(200);
+        //     expect(tooltipDirective.placement).toBe('left');
+        //     tooltipDirective.show(0);
+        //     tick(0);
+        //     fixture.detectChanges();
+        //     tick(200);
 
-            expect(overlayContainerElement.textContent).toContain(tooltipTemplateContext.text);
-            const tooltipElement = overlayContainerElement.querySelector(`.${TOOLTIP_CLASS}`) as HTMLElement;
-            expect(tooltipElement.classList.contains('thy-tooltip-left')).toBe(true);
-        }));
+        //     expect(overlayContainerElement.textContent).toContain(tooltipTemplateContext.text);
+        //     const tooltipElement = overlayContainerElement.querySelector(`.${TOOLTIP_CLASS}`) as HTMLElement;
+        //     expect(tooltipElement.classList.contains('thy-tooltip-left')).toBe(true);
+        // }));
 
         it('should not show if disabled', fakeAsync(() => {
             // Test that disabling the tooltip will not set the tooltip visible

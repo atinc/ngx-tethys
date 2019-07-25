@@ -1,6 +1,14 @@
-<img *ngIf="_src" [src]="_src | thyAvatarSrc: _size" class="avatar-avatar" [ngClass]="thyImgClass" alt="{{avatarName || ''}}" />
+<img
+  *ngIf="_src"
+  [src]="_src | thyAvatarSrc: _size"
+  class="avatar-avatar"
+  [ngClass]="thyImgClass"
+  alt="{{ avatarName || '' }}"
+/>
 <span *ngIf="!_src" class="avatar-default" [ngStyle]="avatarName | avatarBgColor">
-    <div>{{avatarName | avatarShortName}}</div>
+  <div>{{ avatarName | avatarShortName }}</div>
 </span>
-<div *ngIf="thyShowName" class="avatar-name">{{avatarName}}</div>
-<a *ngIf="_showRemove" (click)="remove($event)" href="javascript:;" class="remove-link avatar-remove"><i class="wtf wtf-times-circle"></i></a>
+<div *ngIf="thyShowName" class="avatar-name">{{ avatarName }}</div>
+<a *ngIf="_showRemove" (click)="remove($event)" href="javascript:;" class="remove-link avatar-remove"
+  ><thy-icon class="remove-link-icon" thyIconName="close-circle-bold-fill"></thy-icon
+></a>

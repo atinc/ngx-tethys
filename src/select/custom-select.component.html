@@ -6,6 +6,7 @@
   class="form-control form-control-custom"
   [class.disabled]="_disabled"
   [class.thy-select-selection]="!thyMode"
+  [class.thy-select-selection-allow-clear]="thyAllowClear"
   [ngClass]="_size ? 'form-control-' + _size : ''"
 >
   <ng-container [ngSwitch]="empty">
@@ -38,7 +39,7 @@
         (click)="clearSelectValue($event)"
         *ngIf="thyAllowClear"
       >
-        <i class="wtf wtf-times-circle"></i>
+        <thy-icon class="remove-link-icon" thyIconName="close-circle-bold-fill"></thy-icon>
       </a>
     </ng-container>
   </ng-container>

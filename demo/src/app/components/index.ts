@@ -66,6 +66,7 @@ import { DemoOverlaySectionComponent, CreateOverlayComponent } from './+overlay/
 import { TOOLTIP_COMPONENTS } from './+tooltip';
 import { DemoIconSectionComponent } from './+icon/icon-section.component';
 import { ICON_COMPONENTS } from './+icon';
+import { DemoFlexibleTextComponent } from './+flexible-text/flexible-text-section.component';
 
 export const COMPONENTS = [
     DemoPopBoxSectionComponent,
@@ -143,7 +144,8 @@ export const COMPONENTS = [
     DemoStoreOtherSectionComponent,
     DemoArrowSwitcherSectionComponent,
 
-    DemoMarkdownSectionComponent
+    DemoMarkdownSectionComponent,
+    DemoFlexibleTextComponent
 ];
 
 export const ENTRY_COMPONENTS = [

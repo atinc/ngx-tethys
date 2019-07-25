@@ -1,0 +1,38 @@
+<section class="flexible-text-wrap">
+  <h2>组件使用方式</h2>
+  <div class="flexible-text-section">
+    <thy-flexible-text [thyTooltipContent]="title1.text">
+      {{ title1.text }}
+    </thy-flexible-text>
+  </div>
+  <div class="flexible-text-section">
+    <thy-flexible-text [thyTooltipContent]="title2.text">
+      {{ title2.text }}
+    </thy-flexible-text>
+  </div>
+  <h2>指令方式使用</h2>
+  <div class="flexible-text-section">
+    <span thyFlexibleText [thyTooltipContent]="title1.text">{{ title1.text }}</span>
+  </div>
+  <div class="flexible-text-section">
+    <span thyFlexibleText [thyTooltipContent]="title2.text">{{ title2.text }}</span>
+  </div>
+  <h2>传递模板</h2>
+  <div class="flexible-text-section">
+    <thy-flexible-text [thyTooltipContent]="template" [thyTooltipPlacement]="'right'">
+      {{ title1.text }}
+    </thy-flexible-text>
+    <ng-template #template>
+      <div class="group-tooltip">
+        自定义模板
+      </div>
+      <ul class="group-tooltip-states">
+        <li class="completed"><i class="wtf wtf-completed-lg-o"></i> 3</li>
+        <li class="processing"><i class="wtf wtf-processing-lg-o"></i> 5</li>
+        <li class="pending"><i class="wtf wtf-pending-lg-o"></i> 1</li>
+      </ul>
+    </ng-template>
+  </div>
+</section>
+
+<api-parameters title="thyFlexibleText 参数列表" [parameters]="apiThyFlexibleTextParameters"></api-parameters>

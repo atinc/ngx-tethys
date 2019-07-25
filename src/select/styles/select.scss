@@ -50,7 +50,7 @@ select.form-control-md {
     //     @include select-arrow-icon-font-variant();
     // }
 
-    .thy-icon {
+    > .thy-icon {
         @include select-arrow-variant();
     }
 
@@ -125,7 +125,10 @@ select.form-control-md {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        padding-right: 50px;
+        padding-right: 28px;
+    }
+    .thy-select-selection-allow-clear {
+        padding-right: 45px;
     }
 }
 
@@ -217,9 +220,10 @@ select.form-control-md {
 
 .thy-select-remove {
     visibility: hidden;
-    right: 32px;
+    right: 30px;
     font-size: $font-size-base;
     z-index: 10;
+    background: $white;
     @include absolute-vertical-align-middle(false);
 }
 

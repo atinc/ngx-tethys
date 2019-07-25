@@ -13,4 +13,8 @@ a {
     &.link-secondary {
         @include link-variant($gray-500, none, $primary, none);
     }
+
+    &.link-major {
+        @include link-variant($gray-800, none, $primary, none);
+    }
 }

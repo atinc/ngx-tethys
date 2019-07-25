@@ -1,4 +1,11 @@
-<select thyInput [thySize]="_size" [disabled]="_disabled" [(ngModel)]="_innerValue" (ngModelChange)="ngModelChange()">
+<select
+  thyInput
+  [thySize]="_size"
+  [disabled]="_disabled"
+  [(ngModel)]="_innerValue"
+  (ngModelChange)="ngModelChange()"
+  [class.thy-select-selection-allow-clear]="thyAllowClear"
+>
   <ng-content></ng-content>
 </select>
 <thy-icon thyIconName="angle-down"></thy-icon>
@@ -8,5 +15,5 @@
   (click)="clearSelectValue($event)"
   *ngIf="thyAllowClear && _innerValue"
 >
-  <i class="wtf wtf-times-circle"></i>
+  <thy-icon class="remove-link-icon" thyIconName="close-circle-bold-fill"></thy-icon>
 </a>

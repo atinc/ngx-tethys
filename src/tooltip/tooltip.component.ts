@@ -36,8 +36,6 @@ export class ThyTooltipComponent implements OnInit {
 
     data: any;
 
-    _placement: string;
-
     private readonly onHide: Subject<void> = new Subject();
 
     private closeOnInteraction = false;
@@ -52,15 +50,6 @@ export class ThyTooltipComponent implements OnInit {
 
     isTemplateRef = false;
 
-    get placement() {
-        return this._placement;
-    }
-
-    set placement(value: string) {
-        this._placement = value;
-        this.updateClasses();
-    }
-
     get content() {
         return this._content;
     }
@@ -72,9 +61,6 @@ export class ThyTooltipComponent implements OnInit {
 
     private updateClasses() {
         let classes: string[] = [];
-        if (this.placement) {
-            classes.push(`thy-tooltip-${this.placement}`);
-        }
 
         if (this.tooltipClasses) {
             classes = classes.concat(this.tooltipClasses);
