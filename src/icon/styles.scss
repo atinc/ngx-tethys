@@ -15,6 +15,6 @@
         fill: currentColor;
         /* path 和 stroke 溢出 viewBox 部分在 IE 下会显示 normalize.css 中也包含这行 */
         overflow: hidden;
-        transition: all 200ms;
+        transition: transform 200ms;
     }
 }
