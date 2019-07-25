@@ -16,23 +16,23 @@
   <br />
 
   <thy-icon
-    thyIconName="sort-tt"
+    thyIconName="sort"
     thyIconType="twotone"
     [thyTwotoneColor]="ttColor"
+    [thyIconRotate]="rotate"
     [ngClass]="fontSizeClass"
-    (click)="sortChange()"
+    (click)="rotate = rotate + 180"
   >
   </thy-icon>
 
-  <thy-icon thyIconName="close-circle-tt" thyIconType="twotone" thyTwotoneColor="red" [ngClass]="fontSizeClass">
-  </thy-icon>
+  <button thyButton="primary" thySize="xs" (click)="changeColor()" class="ml-3 mr-3">改变双色icon颜色</button>
 
   <thy-icon
     thyIconName="smile"
     [ngClass]="fontSizeClass"
-    [thyIconRotate]="rotate"
+    [thyIconRotate]="rotate2"
     thyTooltip="点击旋转"
-    (click)="rotate = rotate + 45"
+    (click)="rotate2 = rotate2 + 45"
   >
   </thy-icon>
 </div>

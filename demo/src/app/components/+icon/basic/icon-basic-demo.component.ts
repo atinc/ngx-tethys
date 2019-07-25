@@ -9,11 +9,13 @@ export class IconBasicDemoComponent {
 
     fontSizeClass = 'font-size-xlg';
 
-    rotate = 90;
+    rotate = 0;
 
-    ttColor = ['inherit', '#22d7bb'];
+    rotate2 = 90;
 
-    sortChange() {
-        this.ttColor = [...this.ttColor.reverse()];
+    ttColor = '#22d7bb';
+
+    changeColor() {
+        this.ttColor = '#ff00ff';
     }
 }

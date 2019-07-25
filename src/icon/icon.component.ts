@@ -6,7 +6,9 @@ import {
     ElementRef,
     Input,
     HostBinding,
-    Renderer2
+    Renderer2,
+    SimpleChanges,
+    OnChanges
 } from '@angular/core';
 
 import { UpdateHostClassService } from '../shared';
@@ -27,46 +29,20 @@ const iconSuffixMap = {
     encapsulation: ViewEncapsulation.None,
     providers: [UpdateHostClassService]
 })
-export class ThyIconComponent implements OnInit {
+export class ThyIconComponent implements OnInit, OnChanges {
     @HostBinding('class.thy-icon') className = true;
 
-    private drawIcon$ = new BehaviorSubject(false);
-
-    private iconName: string;
-
-    private iconSet: string;
-
-    private iconRotate: number;
-
-    private iconTwotoneColor: string[];
+    private isInitialized = false;
 
     @Input('thyIconType') iconType: 'outline' | 'fill' | 'twotone' = 'outline';
 
-    @Input()
-    set thyTwotoneColor(value: string) {
-        this.iconTwotoneColor = coerceArray(value);
-        this.drawIcon$.next(false);
-    }
+    @Input('thyTwotoneColor') iconTwotoneColor: string;
 
-    @Input()
-    set thyIconName(value: string) {
-        this.iconName = value;
-        this.drawIcon$.next(false);
-    }
+    @Input('thyIconName') iconName: string;
 
-    @Input()
-    set thyIconSet(value: string) {
-        this.iconSet = value;
-        this.drawIcon$.next(false);
-    }
+    @Input('thyIconRotate') iconRotate: number;
 
-    @Input()
-    set thyIconRotate(value: number) {
-        this.iconRotate = value;
-        if (this.drawIcon$.getValue()) {
-            this.setStyleRotate();
-        }
-    }
+    @Input('thyIconSet') iconSet: string;
 
     constructor(
         private updateHostClassService: UpdateHostClassService,
@@ -78,10 +54,18 @@ export class ThyIconComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.drawIcon$.subscribe(() => {
-            this.updateClasses();
-        });
-        this.drawIcon$.next(true);
+        this.updateClasses();
+        this.isInitialized = true;
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        if (this.isInitialized) {
+            if (changes['iconName'] || changes['iconSet'] || changes['iconTwotoneColor'] || changes['iconType']) {
+                this.updateClasses();
+            } else if (changes['iconRotate']) {
+                this.setStyleRotate();
+            }
+        }
     }
 
     private updateClasses() {
@@ -135,11 +119,8 @@ export class ThyIconComponent implements OnInit {
             const allPaths = svg.querySelectorAll('path');
             if (allPaths.length > 1) {
                 allPaths.forEach((child, index: number) => {
-                    if (this.iconTwotoneColor.length > 0) {
-                        const color = this.iconTwotoneColor[index] || this.iconTwotoneColor[0];
-                        if (color !== 'inherit') {
-                            child.setAttribute('fill', color);
-                        }
+                    if (child.getAttribute('id').includes('secondary-color')) {
+                        child.setAttribute('fill', this.iconTwotoneColor);
                     }
                 });
             }
