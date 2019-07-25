@@ -1,0 +1,18 @@
+<section class="mb-3">
+  <h2>复制目标标签文字</h2>
+  <button thyButton="primary-square" [thyCopy]="target">复制</button>
+  <p #target>复制的是我</p>
+</section>
+
+<section class="mb-3">
+  <h2>复制当前标签传入文字</h2>
+  <button thyButton="primary-square" thyCopy [thyCopyContent]="'我是第二只猪'">复制</button>
+</section>
+
+<section class="mb-3">
+  <h2>复制input传入文字</h2>
+  <button thyButton="primary-square" [thyCopy]="target">复制</button>
+  <p>
+    <input #target />
+  </p>
+</section>
