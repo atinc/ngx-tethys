@@ -17,6 +17,12 @@
   <div class="flexible-text-section">
     <span thyFlexibleText [thyTooltipContent]="title2.text">{{ title2.text }}</span>
   </div>
+  <h2>动态修改内容</h2>
+  <button thyButton="primary" class="mr-4 mb-4" (click)="updateLargeTitle()">长内容</button>
+  <button thyButton="primary" class="mr-4 mb-4" (click)="updateLittleTitle()">短内容</button>
+  <div class="flexible-text-section">
+    <span thyFlexibleText thyTooltipContent="提示内容">{{ oldTitle }}</span>
+  </div>
   <h2>传递模板</h2>
   <div class="flexible-text-section">
     <thy-flexible-text [thyTooltipContent]="template" [thyTooltipPlacement]="'right'">
