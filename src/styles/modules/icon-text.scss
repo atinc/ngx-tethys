@@ -2,39 +2,73 @@
     display: inline-block;
     position: relative;
     font-size: $font-size-base;
-    padding-left: 26px;
+    * {
+        vertical-align: middle;
+    }
 
-    i,
     thy-icon {
+        display: inline-block;
+        margin-right: 0.25em;
+        width: 20px;
         font-size: 20px;
-        @include absolute-vertical-align-middle(true);
+        svg {
+            @include absolute-vertical-align-middle(true);
+        }
     }
 
     &-lg {
-        padding-left: 28px;
-
-        i,
         thy-icon {
+            width: 24px;
             font-size: 24px;
         }
     }
 
     &-sm {
-        padding-left: 24px;
-
-        i,
         thy-icon {
+            width: 16px;
+            font-size: 16px;
+        }
+    }
+
+    &-xs {
+        font-size: $font-size-sm;
+        thy-icon {
+            width: $font-size-sm;
+            font-size: $font-size-base;
+        }
+    }
+
+    // #region 旧 wtf 兼容处理
+    i {
+        display: inline-block;
+        margin-right: 0.25em;
+        width: 20px;
+        font-size: 20px;
+        &:before {
+            @include absolute-vertical-align-middle(true);
+        }
+    }
+
+    &-lg {
+        i {
+            width: 24px;
+            font-size: 24px;
+        }
+    }
+
+    &-sm {
+        i {
+            width: 18px;
             font-size: 18px;
         }
     }
 
     &-xs {
-        padding-left: 18px;
         font-size: $font-size-sm;
-
-        i,
-        thy-icon {
+        i {
+            width: $font-size-base;
             font-size: $font-size-base;
         }
     }
+    // #endregion
 }

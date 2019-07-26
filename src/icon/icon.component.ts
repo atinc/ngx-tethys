@@ -5,12 +5,17 @@ import {
     ViewEncapsulation,
     ElementRef,
     Input,
-    HostBinding
+    HostBinding,
+    Renderer2,
+    SimpleChanges,
+    OnChanges
 } from '@angular/core';
 
 import { UpdateHostClassService } from '../shared';
 import { ThyIconRegistry } from './icon-registry';
-import { take } from 'rxjs/operators';
+import { take, tap } from 'rxjs/operators';
+import { Subject, noop, BehaviorSubject } from 'rxjs';
+import { coerceArray, inputValueToBoolean } from '../util/helpers';
 
 const iconSuffixMap = {
     fill: 'fill',
@@ -24,37 +29,55 @@ const iconSuffixMap = {
     encapsulation: ViewEncapsulation.None,
     providers: [UpdateHostClassService]
 })
-export class ThyIconComponent implements OnInit {
-    private _iconName: string;
-
+export class ThyIconComponent implements OnInit, OnChanges {
     @HostBinding('class.thy-icon') className = true;
+
+    private isInitialized = false;
 
     @Input('thyIconType') iconType: 'outline' | 'fill' | 'twotone' = 'outline';
 
-    @Input('thyIconName')
-    set iconName(value: string) {
-        this._iconName = value;
-        this.updateClasses();
-    }
-    get iconName() {
-        return this._iconName;
-    }
+    @Input('thyTwotoneColor') iconTwotoneColor: string;
+
+    @Input('thyIconName') iconName: string;
+
+    @Input('thyIconRotate') iconRotate: number;
 
     @Input('thyIconSet') iconSet: string;
 
-    @Input('thyTwotoneColor') twotoneColor: string;
+    @Input('thyIconLegging') iconLegging: boolean;
 
     constructor(
         private updateHostClassService: UpdateHostClassService,
+        private render: Renderer2,
         private elementRef: ElementRef,
         private iconRegistry: ThyIconRegistry
     ) {
         updateHostClassService.initializeElement(elementRef.nativeElement);
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.updateClasses();
+        this.isInitialized = true;
+    }
 
-    updateClasses() {
+    ngOnChanges(changes: SimpleChanges) {
+        if (this.isInitialized) {
+            if (changes['iconName'] || changes['iconSet'] || changes['iconTwotoneColor'] || changes['iconType']) {
+                this.updateClasses();
+            } else if (changes['iconRotate']) {
+                this.setStyleRotate();
+            }
+        }
+        if (changes['iconLegging']) {
+            if (inputValueToBoolean(this.iconLegging)) {
+                this.updateHostClassService.addClass('thy-icon-legging');
+            } else {
+                this.updateHostClassService.removeClass('thy-icon-legging');
+            }
+        }
+    }
+
+    private updateClasses() {
         const [namespace, iconName] = this.iconRegistry.splitIconName(this.iconName);
         if (iconName) {
             if (this.iconRegistry.iconMode === 'svg') {
@@ -77,6 +100,16 @@ export class ThyIconComponent implements OnInit {
         }
     }
 
+    private setStyleRotate() {
+        if (this.iconRotate !== undefined) {
+            this.render.setStyle(
+                this.elementRef.nativeElement.querySelector('svg'),
+                'transform',
+                `rotate(${this.iconRotate}deg)`
+            );
+        }
+    }
+
     //#region svg element
 
     private setSvgElement(svg: SVGElement) {
@@ -95,12 +128,8 @@ export class ThyIconComponent implements OnInit {
             const allPaths = svg.querySelectorAll('path');
             if (allPaths.length > 1) {
                 allPaths.forEach((child, index: number) => {
-                    if (this.twotoneColor) {
-                        if (index === 1) {
-                            child.setAttribute('fill', this.twotoneColor);
-                        } else {
-                            child.setAttribute('fill', 'currentColor');
-                        }
+                    if (child.getAttribute('id').includes('secondary-color')) {
+                        child.setAttribute('fill', this.iconTwotoneColor);
                     }
                 });
             }
@@ -116,6 +145,7 @@ export class ThyIconComponent implements OnInit {
         // }
 
         this.elementRef.nativeElement.appendChild(svg);
+        this.setStyleRotate();
     }
 
     private clearSvgElement() {
