@@ -27,8 +27,7 @@
         &.thy-sortable-item {
             .cdk-drag-handle,
             .thy-sortable-handle,
-            .wtf-move,
-            .thy-icon-drag {
+            .drag-handle {
                 position: absolute;
                 left: 3px;
             }

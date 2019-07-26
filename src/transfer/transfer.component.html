@@ -11,7 +11,7 @@
       class="d-flex flex-grow-1 align-items-center"
     >
       <ng-container *ngIf="thyLeftDraggable">
-        <thy-icon thyIconName="drag"></thy-icon>
+        <thy-icon thyIconName="drag" class="drag-handle"></thy-icon>
       </ng-container>
       <div class="item-name">
         <ng-template
@@ -27,11 +27,11 @@
 <div class="thy-transfer-operation">
   <div class="thy-transfer-operation-body">
     <a class="operation-link" href="javascript:;" (click)="onMove('right')">
-      <i class="wtf wtf-angle-right"></i>
+      <thy-icon thyIconName="angle-right"></thy-icon>
     </a>
     <br />
     <a class="operation-link rotate-left" href="javascript:;" (click)="onMove('left')">
-      <i class="wtf wtf-angle-right"></i>
+      <thy-icon thyIconName="angle-left"></thy-icon>
     </a>
   </div>
 </div>
@@ -47,7 +47,7 @@
 >
   <ng-template #rightTemplateRef let-item>
     <ng-container *ngIf="thyRightDraggable">
-      <thy-icon thyIconName="drag"></thy-icon>
+      <thy-icon thyIconName="drag" class="drag-handle"></thy-icon>
     </ng-container>
     <div class="item-name">
       <ng-template

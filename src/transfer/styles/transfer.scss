@@ -58,12 +58,7 @@
                 display: block;
                 color: $transfer-operation-color;
 
-                &.rotate-left {
-                    transform: rotate(180deg);
-                }
-
-                .thy-icon,
-                .wtf {
+                .thy-icon {
                     display: inline-block;
                     font-size: $transfer-operation-font-size;
                 }
@@ -92,8 +87,7 @@
     }
 
     .cdk-drag-handle,
-    .wtf-move,
-    .thy-icon-drag {
+    .drag-handle {
         position: absolute;
         left: 0px;
     }
