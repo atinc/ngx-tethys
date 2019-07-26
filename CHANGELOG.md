@@ -40,52 +40,6 @@
 * chore(release): upgrade to 7.3.5 ([dbe9397](https://github.com/worktile/ngx-tethys/commit/dbe9397))
 * chore(release): upgrade to 7.3.6 ([aa52fc7](https://github.com/worktile/ngx-tethys/commit/aa52fc7))
 
-
-
-## <small>7.3.7 (2019-07-26)</small>
-
-* refactor: adjust drag style in list and transfer ([f3a3918](https://github.com/worktile/ngx-tethys/commit/f3a3918))
-* refactor(flexible-text): remove directive file;deprecated rxjs Subject ([f7670ed](https://github.com/worktile/ngx-tethys/commit/f7670ed))
-* refactor(icon-text): refactor icon-text ([a5689b9](https://github.com/worktile/ngx-tethys/commit/a5689b9))
-* refactor(list): replace wtf with thy-icon ([c309049](https://github.com/worktile/ngx-tethys/commit/c309049))
-* refactor(thy-flexible-text): add directive;refactor element(#247654) ([1699419](https://github.com/worktile/ngx-tethys/commit/1699419)), closes [#247654](https://github.com/worktile/ngx-tethys/issues/247654)
-* refactor(thy-tooltip): refactor tooltip component placement(#251211) ([5a20e21](https://github.com/worktile/ngx-tethys/commit/5a20e21)), closes [#251211](https://github.com/worktile/ngx-tethys/issues/251211)
-* feat: add component flexible-text(#247654) ([f23e605](https://github.com/worktile/ngx-tethys/commit/f23e605)), closes [#247654](https://github.com/worktile/ngx-tethys/issues/247654)
-* feat: support flexible placement;remove failture case(#251211) ([7b6313e](https://github.com/worktile/ngx-tethys/commit/7b6313e)), closes [#251211](https://github.com/worktile/ngx-tethys/issues/251211)
-* feat(drag): drag item line to move it around ([8a3172e](https://github.com/worktile/ngx-tethys/commit/8a3172e))
-* feat(flexible-text): add component: flexible-text (#247654) ([89127f0](https://github.com/worktile/ngx-tethys/commit/89127f0)), closes [#247654](https://github.com/worktile/ngx-tethys/issues/247654)
-* feat(link): add link-major style ([3e9be2e](https://github.com/worktile/ngx-tethys/commit/3e9be2e))
-* feat(link): add theme link-major ([1d42681](https://github.com/worktile/ngx-tethys/commit/1d42681))
-* feat(thy-icon): support legging ([a24bb57](https://github.com/worktile/ngx-tethys/commit/a24bb57))
-* feat(thy-icon): support two tone color ([938c6be](https://github.com/worktile/ngx-tethys/commit/938c6be))
-* feat(thy-icon): support two tone color, rotate ([8edfdc9](https://github.com/worktile/ngx-tethys/commit/8edfdc9))
-* feat(thy-icon): support two tone color, rotate\ ([ee6205d](https://github.com/worktile/ngx-tethys/commit/ee6205d))
-* feat(transfer): #251417 support fixed item and ([3e846a0](https://github.com/worktile/ngx-tethys/commit/3e846a0))
-* style(icon): change icon default size to `1rem` ([38d09f3](https://github.com/worktile/ngx-tethys/commit/38d09f3))
-* style(layout): change layout-header-title in center ([5d971c7](https://github.com/worktile/ngx-tethys/commit/5d971c7))
-* fix: add component flexible-text ([b4a17a8](https://github.com/worktile/ngx-tethys/commit/b4a17a8))
-* fix: change remove icon in avatar and select ([6a2780a](https://github.com/worktile/ngx-tethys/commit/6a2780a))
-* fix: correct constructor.name can is undefine failture(#250980) ([6d6f2d6](https://github.com/worktile/ngx-tethys/commit/6d6f2d6)), closes [#250980](https://github.com/worktile/ngx-tethys/issues/250980)
-* fix: fix demo show ([722ac34](https://github.com/worktile/ngx-tethys/commit/722ac34))
-* fix: fix flexible-text test ([b73bc69](https://github.com/worktile/ngx-tethys/commit/b73bc69))
-* fix: flexible-text hide test ([03c70e6](https://github.com/worktile/ngx-tethys/commit/03c70e6))
-* fix: modify avatar and select removed icon style ([8b19df1](https://github.com/worktile/ngx-tethys/commit/8b19df1))
-* fix: remove console log ([bf9bd01](https://github.com/worktile/ngx-tethys/commit/bf9bd01))
-* fix(color): change info color #2dbcff and success to #66c060 #237760 ([0512b4c](https://github.com/worktile/ngx-tethys/commit/0512b4c)), closes [#2](https://github.com/worktile/ngx-tethys/issues/2) [#66c060](https://github.com/worktile/ngx-tethys/issues/66c060) [#237760](https://github.com/worktile/ngx-tethys/issues/237760)
-* fix(dialog): set animation state enter after last click position #250111 ([7e306bd](https://github.com/worktile/ngx-tethys/commit/7e306bd)), closes [#250111](https://github.com/worktile/ngx-tethys/issues/250111)
-* fix(dialog): set animation state enter after last click position #250111 ([8d2a0fb](https://github.com/worktile/ngx-tethys/commit/8d2a0fb)), closes [#250111](https://github.com/worktile/ngx-tethys/issues/250111)
-* fix(dialog): trap focus after animation is void (#251580) ([87de8d1](https://github.com/worktile/ngx-tethys/commit/87de8d1)), closes [#251580](https://github.com/worktile/ngx-tethys/issues/251580)
-* fix(flexible-text): fix flexible-text test(#247654) ([c393803](https://github.com/worktile/ngx-tethys/commit/c393803)), closes [#247654](https://github.com/worktile/ngx-tethys/issues/247654)
-* fix(layout): fix header prefix-icon font-size to 20px ([687e978](https://github.com/worktile/ngx-tethys/commit/687e978))
-* fix(thy-dialog): correct animation failture ([fb626f0](https://github.com/worktile/ngx-tethys/commit/fb626f0))
-* fix(tooltip): change tooltip arrow width ang height ([dfe8eb9](https://github.com/worktile/ngx-tethys/commit/dfe8eb9))
-* fix(tooltip): change tooltip-max-width to 350px ([8b54e8b](https://github.com/worktile/ngx-tethys/commit/8b54e8b))
-* test(alert): fix alert tests #238645 ([bd84872](https://github.com/worktile/ngx-tethys/commit/bd84872)), closes [#238645](https://github.com/worktile/ngx-tethys/issues/238645)
-* chore(release): upgrade to 7.3.5 ([dbe9397](https://github.com/worktile/ngx-tethys/commit/dbe9397))
-* chore(release): upgrade to 7.3.6 ([aa52fc7](https://github.com/worktile/ngx-tethys/commit/aa52fc7))
-
-
-
 ## <small>7.3.6 (2019-07-23)</small>
 
 * fix: add component flexible-text ([b4a17a8](https://github.com/worktile/ngx-tethys/commit/b4a17a8))
