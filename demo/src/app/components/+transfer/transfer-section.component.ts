@@ -1,7 +1,12 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { ThyTransferData, ThyTransferItem, ThyTransferDragEvent } from '../../../../../src/transfer/transfer.interface';
-import { TransferDirection } from '../../../../../src/public-api';
+import {
+    ThyTransferData,
+    ThyTransferItem,
+    ThyTransferDragEvent,
+    TransferDirection
+} from '../../../../../src/transfer/transfer.interface';
+
 @Component({
     selector: 'demo-transfer-section',
     templateUrl: './transfer-section.component.html',
@@ -53,7 +58,8 @@ export class DemoTransferSectionComponent {
         {
             id: 8,
             title: '第8条数据',
-            direction: TransferDirection.right
+            direction: TransferDirection.right,
+            isFixed: true
         },
         {
             id: 9,

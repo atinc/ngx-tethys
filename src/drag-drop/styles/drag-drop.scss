@@ -20,14 +20,16 @@
 .cdk-drag {
     transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
     .thy-sortable-handle,
-    .cdk-drag-handle {
+    .cdk-drag-handle,
+    .drag-handle {
         visibility: hidden;
         padding: 0 15px 0 3px;
     }
 
     &:hover {
         .thy-sortable-handle,
-        .cdk-drag-handle {
+        .cdk-drag-handle,
+        .drag-handle {
             visibility: visible;
             color: $gray-600;
             cursor: move;
@@ -38,7 +40,8 @@
     .cdk-drag-disabled {
         &:hover {
             .thy-sortable-handle,
-            .cdk-drag-handle {
+            .cdk-drag-handle,
+            .drag-handle {
                 visibility: hidden;
             }
         }

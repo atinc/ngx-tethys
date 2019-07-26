@@ -417,11 +417,11 @@ $transfer-list-border-radius: 5px !default;
 $transfer-list-width: 270px !default;
 $transfer-list-height: 360px !default;
 $transfer-list-padding: 10px 0 !default;
-$transfer-list-item-padding: 0 20px !default;
+$transfer-list-item-padding: 0 15px 0 20px !default;
 $transfer-list-item-line-hight: 38px !default;
 $transfer-list-item-hover-color: $gray-200 !default;
 $transfer-operation-padding: 0 10px !default;
-$transfer-operation-font-size: $font-size-base * 2 !default;
+$transfer-operation-font-size: 22px !default;
 $transfer-operation-color: $gray-600 !default;
 //progress
 $progress-height: 10px !default;

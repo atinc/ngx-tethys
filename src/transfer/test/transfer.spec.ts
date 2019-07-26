@@ -5,12 +5,12 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of, Observable } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
 import { ThyTransferModule } from '../transfer.module';
-import { ThyTransferComponent, TransferDirection } from '../transfer.component';
-import { ThyTransferDragEvent, ThyTransferChangeEvent } from '../transfer.interface';
+import { ThyTransferComponent } from '../transfer.component';
+import { ThyTransferDragEvent, ThyTransferChangeEvent, TransferDirection } from '../transfer.interface';
 import { CdkDropListGroup } from '@angular/cdk/drag-drop';
 
 const COUNT = 9;
-const LEFTCOUNT = 4;
+const RIGHTCOUNT = 5;
 
 function buildDataList() {
     return [
@@ -135,12 +135,12 @@ describe('transfer', () => {
     it('should show correct title', () => {
         const leftTitle = (pageObject.leftList.querySelector('.thy-transfer-list-header-title') as any).innerText;
         const rightTitle = (pageObject.rightList.querySelector('.thy-transfer-list-header-title') as any).innerText;
-        expect(leftTitle).toBe('Source');
-        expect(rightTitle).toBe('Target');
+        expect(leftTitle).toBe(`Source · ${COUNT}`);
+        expect(rightTitle).toBe(`Target · ${RIGHTCOUNT}`);
     });
 
     it('should display correct [thyData]', () => {
-        pageObject.expectLeft(LEFTCOUNT).expectRight(COUNT - LEFTCOUNT);
+        pageObject.expectLeft(COUNT).expectRight(RIGHTCOUNT);
         const lockItems = dl
             .query(By.css('[id="lock"]'))
             .nativeElement.querySelectorAll('.thy-transfer-list-content-item');
@@ -149,18 +149,18 @@ describe('transfer', () => {
 
     it('should be from left to right', () => {
         pageObject
-            .expectLeft(LEFTCOUNT)
+            .expectLeft(COUNT)
             .transfer('right', 0)
-            .expectLeft(LEFTCOUNT - 1)
-            .expectRight(COUNT - LEFTCOUNT + 1);
+            .expectLeft(COUNT)
+            .expectRight(RIGHTCOUNT + 1);
     });
 
     it('should be from right to left', () => {
         pageObject
-            .expectRight(COUNT - LEFTCOUNT)
+            .expectRight(RIGHTCOUNT)
             .transfer('left', 0)
-            .expectRight(COUNT - LEFTCOUNT - 1)
-            .expectLeft(LEFTCOUNT + 1);
+            .expectRight(RIGHTCOUNT - 1)
+            .expectLeft(COUNT);
     });
 
     class TransferPageObject {
@@ -188,13 +188,18 @@ describe('transfer', () => {
             const items = (direction === 'left' ? this.leftList : this.rightList).querySelectorAll(
                 '.thy-transfer-list-content-item'
             );
-            (items[index] as HTMLElement).click();
+            if (direction === 'left') {
+                (items[index] as HTMLElement).querySelector('div').click();
+            } else {
+                (items[index] as HTMLElement).querySelector('a').click();
+            }
+
             fixture.detectChanges();
             return this;
         }
 
         expectLeft(count: number): this {
-            expect(instance.comp.leftDataSource.length).toBe(count);
+            expect(instance.comp.allDataSource.length).toBe(count);
             return this;
         }
 
