@@ -9,13 +9,14 @@ import { bypassSanitizeProvider, injectDefaultSvgIconSet } from '../../core/test
 
 @Component({
     template: `
-        <thy-icon [thyIconName]="thyIconName" [thyIconType]="thyIconType"></thy-icon>
+        <thy-icon [thyIconName]="thyIconName" [thyIconType]="thyIconType" [thyIconLegging]="thyIconLegging"></thy-icon>
     `
 })
 class ThyIconBasicComponent {
     constructor(public iconRegistry: ThyIconRegistry) {}
     thyIconName = 'check';
     thyIconType = '';
+    thyIconLegging = null;
 }
 
 //#endregion
@@ -65,8 +66,17 @@ describe('ThyIconComponent', () => {
             componentInstance.thyIconType = 'fill';
             fixture.detectChanges();
             expect(
-                fixture.nativeElement.querySelector(`.${iconSvgClassPrefix}${componentInstance.thyIconName}-fill`)
+                fixture.nativeElement.querySelector(`.${iconSvgClassPrefix}${componentInstance.thyIconName}`)
             ).toBeFalsy();
+            expect(
+                fixture.nativeElement.querySelector(`.${iconSvgClassPrefix}${componentInstance.thyIconName}-fill`)
+            ).toBeTruthy();
+        });
+
+        it('should set thyIconLegging be true have correct class', () => {
+            componentInstance.thyIconLegging = true;
+            fixture.detectChanges();
+            expect(fixture.nativeElement.querySelector(`.${iconSvgClassPrefix}legging`)).toBeTruthy();
         });
     });
 });
