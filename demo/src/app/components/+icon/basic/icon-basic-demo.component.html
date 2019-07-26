@@ -14,6 +14,7 @@
   <thy-icon thyIconName="check" [ngClass]="fontSizeClass"></thy-icon>
 
   <br />
+  <br />
 
   <thy-icon
     thyIconName="sort"
@@ -27,6 +28,10 @@
 
   <button thyButton="primary" thySize="xs" (click)="changeColor()" class="ml-3 mr-3">改变双色icon颜色</button>
 
+  <br />
+  <br />
+
+  点击图标旋转
   <thy-icon
     thyIconName="smile"
     [ngClass]="fontSizeClass"
@@ -35,4 +40,12 @@
     (click)="rotate2 = rotate2 + 45"
   >
   </thy-icon>
+
+  <br />
+  <br />
+
+  <span style="display:inline-block; padding:10px; background: lightblue;">
+    设置图标打底色
+    <thy-icon thyIconName="close-circle-bold-fill" thyIconLegging="true" [ngClass]="fontSizeClass"></thy-icon>
+  </span>
 </div>

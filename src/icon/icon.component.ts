@@ -15,7 +15,7 @@ import { UpdateHostClassService } from '../shared';
 import { ThyIconRegistry } from './icon-registry';
 import { take, tap } from 'rxjs/operators';
 import { Subject, noop, BehaviorSubject } from 'rxjs';
-import { coerceArray } from '../util/helpers';
+import { coerceArray, inputValueToBoolean } from '../util/helpers';
 
 const iconSuffixMap = {
     fill: 'fill',
@@ -44,6 +44,8 @@ export class ThyIconComponent implements OnInit, OnChanges {
 
     @Input('thyIconSet') iconSet: string;
 
+    @Input('thyIconLegging') iconLegging: boolean;
+
     constructor(
         private updateHostClassService: UpdateHostClassService,
         private render: Renderer2,
@@ -64,6 +66,13 @@ export class ThyIconComponent implements OnInit, OnChanges {
                 this.updateClasses();
             } else if (changes['iconRotate']) {
                 this.setStyleRotate();
+            }
+        }
+        if (changes['iconLegging']) {
+            if (inputValueToBoolean(this.iconLegging)) {
+                this.updateHostClassService.addClass('thy-icon-legging');
+            } else {
+                this.updateHostClassService.removeClass('thy-icon-legging');
             }
         }
     }

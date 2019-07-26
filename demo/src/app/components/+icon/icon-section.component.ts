@@ -79,6 +79,12 @@ export class DemoIconSectionComponent implements OnInit {
             description: `顺时针旋转角度`,
             type: 'Number',
             default: '0'
+        },
+        {
+            property: 'thyIconLegging',
+            description: `设置图标打底色`,
+            type: 'Boolean',
+            default: 'false'
         }
     ];
 
