@@ -1,11 +1,1 @@
-<div
-  #textContainer
-  [thyTooltip]="tooltipContent"
-  [thyTooltipPlacement]="placement"
-  class="flexible-text-container"
-  [thyTooltipDisabled]="!isOverflow"
->
-  <ng-content></ng-content>
-</div>
-
-<ng-template [ngTemplateOutlet] *ngIf="isTemplateRef"></ng-template>
+<ng-content></ng-content>
