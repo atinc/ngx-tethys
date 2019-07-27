@@ -96,7 +96,7 @@ export class ThyMenuGroupComponent implements OnInit {
         }
         if (this._actionMenu) {
             this.popBoxService.show(this._actionMenu, {
-                target: event.currentTarget,
+                target: event.currentTarget as HTMLElement,
                 insideAutoClose: true,
                 stopPropagation: true,
                 placement: 'bottom right'

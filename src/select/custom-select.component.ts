@@ -36,7 +36,7 @@ import { ScrollStrategy, Overlay, ViewportRuler, ConnectionPositionPair, ScrollD
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { takeUntil, startWith, take, switchMap } from 'rxjs/operators';
 import { Subject, Observable, merge, defer } from 'rxjs';
-import { EXPANDED_DROPDOWN_POSITIONS } from '../core/overlay/overlay-opsition-map';
+import { EXPANDED_DROPDOWN_POSITIONS } from '../core/overlay/overlay-position-map';
 import { ThySelectOptionGroupComponent } from './option-group.component';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ThyScrollDirective } from '../directive/thy-scroll.directive';
