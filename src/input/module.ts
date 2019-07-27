@@ -6,26 +6,11 @@ import { ThyInputGroupComponent } from './input-group.component';
 import { ThyInputSearchComponent } from './input-search.component';
 import { FormsModule } from '@angular/forms';
 import { ThyDirectiveModule } from '../directive';
+import { ThyIconModule } from '../icon';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        FormsModule,
-        ThyDirectiveModule
-    ],
-    declarations: [
-        ThyInputDirective,
-        ThyInputComponent,
-        ThyInputGroupComponent,
-        ThyInputSearchComponent
-    ],
-    exports: [
-        ThyInputDirective,
-        ThyInputComponent,
-        ThyInputGroupComponent,
-        ThyInputSearchComponent
-    ]
+    imports: [CommonModule, FormsModule, ThyDirectiveModule, ThyIconModule],
+    declarations: [ThyInputDirective, ThyInputComponent, ThyInputGroupComponent, ThyInputSearchComponent],
+    exports: [ThyInputDirective, ThyInputComponent, ThyInputGroupComponent, ThyInputSearchComponent]
 })
-export class ThyInputModule {
-
-}
+export class ThyInputModule {}

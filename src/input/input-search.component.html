@@ -1,4 +1,4 @@
-<i class="wtf wtf-search-o input-prefix-icon"></i>
+<thy-icon class="input-prefix-icon" thyIconName="search"></thy-icon>
 <input
   class="input-search-control"
   thyInput
@@ -11,5 +11,5 @@
   (blur)="onTouchedCallback()"
 />
 <a *ngIf="searchText" class="close input-suffix-icon" href="javascript:;" (click)="clearSearchText($event)">
-  <i class="wtf wtf-close"></i>
+  <thy-icon thyIconName="close"></thy-icon>
 </a>
