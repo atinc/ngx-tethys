@@ -7,7 +7,7 @@ import {
     OverlayRef
 } from '@angular/cdk/overlay';
 import { TemplatePortal, ComponentPortal } from '@angular/cdk/portal';
-import { POSITION_MAP } from '../../../../../src/core/overlay/overlay-opsition-map';
+import { POSITION_MAP } from '../../../../../src/core/overlay/overlay-position-map';
 import { take, takeUntil } from 'rxjs/operators';
 import { mixinUnsubscribe, MixinBase } from '../../../../../src/core';
 

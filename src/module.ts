@@ -4,6 +4,7 @@ import { ThyButtonModule } from './button';
 import { ThyIconModule } from './icon';
 import { ThyLayoutModule } from './layout';
 import { ThyPopBoxModule } from './pop-box';
+import { ThyPopoverModule } from './popover';
 import { ThyGridModule } from './grid';
 import { ThyAvatarModule } from './avatar';
 import { ThyBadgeModule } from './badge';
@@ -56,6 +57,7 @@ const IMPORT_EXPORT_MODULES = [
     ThyButtonModule,
     ThyIconModule,
     ThyPopBoxModule,
+    ThyPopoverModule,
     ThyBadgeModule,
     ThyGridModule,
     ThyAvatarModule,
