@@ -1,3 +1,10 @@
+export type Direction = 'left' | 'right';
+
+export enum TransferDirection {
+    left = 'left',
+    right = 'right'
+}
+
 export interface ThyTransferData {
     source: ThyTransferModel;
     target: ThyTransferModel;
@@ -10,12 +17,13 @@ export interface ThyTransferModel {
 
 export interface ThyTransferItem {
     title: string;
-    direction?: string;
+    direction?: Direction;
     order?: number;
     disabled?: boolean;
     checked?: boolean;
     isLock?: boolean;
     groupId?: string;
+    isFixed?: boolean;
     [key: string]: any;
 }
 

@@ -2,7 +2,6 @@ import {
     Component,
     Input,
     Output,
-    ElementRef,
     ViewEncapsulation,
     HostBinding,
     EventEmitter,
@@ -16,7 +15,9 @@ import {
     ThyTransferChangeEvent,
     ThyTransferSelectEvent,
     ThyTransferDragEvent,
-    InnerTransferDragEvent
+    InnerTransferDragEvent,
+    Direction,
+    TransferDirection
 } from './transfer.interface';
 
 @Component({
@@ -27,19 +28,17 @@ import {
 export class ThyTransferComponent implements OnInit {
     @HostBinding('class') hostClass = 'thy-transfer';
 
-    public leftDataSource: ThyTransferItem[];
+    public leftDataSource: ThyTransferItem[] = [];
 
-    public rightDataSource: ThyTransferItem[];
+    public rightDataSource: ThyTransferItem[] = [];
+
+    public allDataSource: ThyTransferItem[] = [];
 
     public leftTitle: string;
 
     public rightTitle: string;
 
-    public leftDraggable = false;
-
     public rightDraggable = false;
-
-    private _canMove: Function;
 
     private _autoMove = true;
 
@@ -60,26 +59,15 @@ export class ThyTransferComponent implements OnInit {
 
     @Input() thyRightLockMax: number;
 
+    // Currently not implemented, in order to support the selections move
     @Input()
     set thyAutoMove(value: boolean) {
         this._autoMove = value;
     }
 
-    // 暂时没有实现
-    @Input()
-    set thyCanMove(value: Function) {
-        this._canMove = value;
-    }
+    @Input() thyLeftDraggable: boolean;
 
-    @Input()
-    set thyLeftDraggable(value: boolean) {
-        this.leftDraggable = value;
-    }
-
-    @Input()
-    set thyRightDraggable(value: boolean) {
-        this.rightDraggable = value;
-    }
+    @Input() thyRightDraggable: boolean;
 
     @Output() thyDraggableUpdate: EventEmitter<ThyTransferDragEvent> = new EventEmitter<ThyTransferDragEvent>();
 
@@ -89,16 +77,22 @@ export class ThyTransferComponent implements OnInit {
 
     ngOnInit() {}
 
-    initializeTransferData(data: ThyTransferItem[]) {
-        this.leftDataSource = data.filter(item => {
-            return item.direction === TransferDirection.left;
-        });
-        this.rightDataSource = data.filter(item => {
-            return item.direction === TransferDirection.right;
+    initializeTransferData(data: ThyTransferItem[] = []) {
+        data.forEach(item => {
+            this.allDataSource.push(item);
+            if (item.direction === TransferDirection.left) {
+                this.leftDataSource.push(item);
+            }
+            if (item.direction === TransferDirection.right) {
+                this.rightDataSource.push(item);
+            }
         });
     }
 
-    onSelect(from: string, event: ThyTransferSelectEvent) {
+    onSelect(from: Direction, event: ThyTransferSelectEvent) {
+        if (event.item.isFixed) {
+            return;
+        }
         const to = from === TransferDirection.left ? TransferDirection.right : TransferDirection.left;
         event.item.checked = !event.item.checked;
         if (this._autoMove) {
@@ -106,13 +100,25 @@ export class ThyTransferComponent implements OnInit {
         }
     }
 
-    onMove(to: string) {
-        const from = to === TransferDirection.right ? TransferDirection.left : TransferDirection.right;
+    private groupListByIsLock(list: ThyTransferItem[] = []) {
+        const lock: ThyTransferItem[] = [],
+            unlock: ThyTransferItem[] = [];
+        list.forEach(item => {
+            if (item.isLock) {
+                lock.push(item);
+            } else {
+                unlock.push(item);
+            }
+        });
+        return { lock: lock, unlock: unlock };
+    }
+
+    onMove(to: Direction) {
         const fromDataSource = to === TransferDirection.right ? this.leftDataSource : this.rightDataSource;
         const toDataSource = to === TransferDirection.right ? this.rightDataSource : this.leftDataSource;
         const selections = fromDataSource.filter(item => item.checked);
         const changeEvent: ThyTransferChangeEvent = {
-            from: from,
+            from: to === TransferDirection.right ? TransferDirection.left : TransferDirection.right,
             to: to,
             items: [...selections]
         };
@@ -125,34 +131,18 @@ export class ThyTransferComponent implements OnInit {
         });
         this.thyChange.emit({
             ...changeEvent,
-            left: {
-                lock: this.leftDataSource.filter(item => item.isLock),
-                unlock: this.leftDataSource.filter(item => !item.isLock)
-            },
-            right: {
-                lock: this.rightDataSource.filter(item => item.isLock),
-                unlock: this.rightDataSource.filter(item => !item.isLock)
-            }
+            left: this.groupListByIsLock(this.leftDataSource),
+            right: this.groupListByIsLock(this.rightDataSource)
         });
     }
 
     onDragUpdate(direction: Direction, event: InnerTransferDragEvent) {
         const otherDirectionData = direction === TransferDirection.left ? this.rightDataSource : this.leftDataSource;
-        const otherListData = {
-            lock: otherDirectionData.filter(item => item.isLock),
-            unlock: otherDirectionData.filter(item => !item.isLock)
-        };
+        const otherListData = this.groupListByIsLock(otherDirectionData);
         this.thyDraggableUpdate.emit({
             ...event.dragEvent,
             left: direction === TransferDirection.left ? event.listData : otherListData,
             right: direction === TransferDirection.right ? event.listData : otherListData
         });
     }
-}
-
-type Direction = 'left' | 'right';
-
-export enum TransferDirection {
-    left = 'left',
-    right = 'right'
 }

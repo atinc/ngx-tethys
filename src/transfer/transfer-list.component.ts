@@ -34,8 +34,6 @@ export class ThyTransferListComponent implements OnInit, DoCheck {
 
     public unlockItems: ThyTransferItem[] = [];
 
-    private _dragModel: ThyTransferItem;
-
     private _diff: IterableDiffer<ThyTransferItem>;
 
     private _lockDiff: IterableDiffer<ThyTransferItem>;
@@ -56,33 +54,35 @@ export class ThyTransferListComponent implements OnInit, DoCheck {
 
     @Output() draggableUpdate: EventEmitter<InnerTransferDragEvent> = new EventEmitter<InnerTransferDragEvent>();
 
-    @Output() select: EventEmitter<ThyTransferSelectEvent> = new EventEmitter<ThyTransferSelectEvent>();
-
     @HostBinding('class') hostClass = 'thy-transfer-list';
-
-    private _combineTransferData() {
-        if (this.canLock) {
-            this.lockItems = (this.items || []).filter(item => item.isLock);
-            this.unlockItems = (this.items || []).filter(item => !item.isLock);
-        } else {
-            this.unlockItems = this.items;
-        }
-    }
 
     constructor(private root: ThyTransferComponent, private differs: IterableDiffers) {}
 
     ngOnInit() {
         this._combineTransferData();
         if (this.canLock) {
-            this.lockItems = (this.items || []).filter(item => item.isLock);
-            this.unlockItems = (this.items || []).filter(item => !item.isLock);
             this._lockDiff = this.differs.find(this.lockItems).create();
             this._unlockDiff = this.differs.find(this.unlockItems).create();
         } else {
-            this.unlockItems = this.items;
             this._unlockDiff = this.differs.find(this.unlockItems).create();
         }
         this._diff = this.differs.find(this.items).create();
+    }
+
+    private _combineTransferData() {
+        this.lockItems = [];
+        this.unlockItems = [];
+        if (this.canLock) {
+            (this.items || []).forEach(item => {
+                if (item.isLock) {
+                    this.lockItems.push(item);
+                } else {
+                    this.unlockItems.push(item);
+                }
+            });
+        } else {
+            this.unlockItems = this.items;
+        }
     }
 
     private _afterChangeItems(changes: IterableChanges<ThyTransferItem>, items: ThyTransferItem[]) {
@@ -118,12 +118,6 @@ export class ThyTransferListComponent implements OnInit, DoCheck {
         if (unlockChanges) {
             this._afterChangeItems(unlockChanges, this.unlockItems);
         }
-    }
-
-    onSelect(item: ThyTransferItem) {
-        item.isLock = false;
-        const event: ThyTransferSelectEvent = { item: item };
-        this.select.emit(event);
     }
 
     lockListEnterPredicate = () => {
