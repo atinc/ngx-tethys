@@ -2,7 +2,10 @@
   <ng-template *ngIf="headerTemplate; else default" [ngTemplateOutlet]="headerTemplate"></ng-template>
   <ng-template #default>
     <h3 class="thy-slide-header-title">
-      <i *ngIf="thyIcon" class="{{ thyIcon }}"></i>
+      <thy-icon *ngIf="!isIconFont && thyIcon; else iconFont" [thyIconName]="thyIcon"></thy-icon>
+      <ng-template #iconFont>
+        <i *ngIf="thyIcon" class="wft {{ thyIcon }}"></i>
+      </ng-template>
       {{ thyTitle }}
     </h3>
 
@@ -12,7 +15,7 @@
       </ng-container>
     </div>
     <button type="button" class="close" (click)="closeModal($event)">
-      <i class="wtf wtf-times"></i>
+      <thy-icon thyIconName="close"></thy-icon>
     </button>
   </ng-template>
 </ng-container>
