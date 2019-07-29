@@ -229,12 +229,13 @@ $table-draggable-bordered-icon-padding-left: 30px !default;
 // grid
 $grid-footer-padding: 0 20px !default;
 // action-menu
+$action-menu-max-height: 600px !default;
 $action-menu-bg: $white !default;
 $action-menu-item-padding-x: 20px !default;
 $action-menu-item-padding-y: 10px !default;
 $action-menu-item-color: $gray-700 !default;
 $action-menu-item-hover-color: $gray-800 !default;
-$action-menu-item-icon-color: $gray-600 !default;
+$action-menu-item-icon-color: $gray-500 !default;
 $action-menu-item-extend-color: $gray-400 !default;
 $action-menu-item-hover-bg: $gray-100 !default;
 $action-menu-divider-title-color: $gray-400 !default;
@@ -364,6 +365,8 @@ $card-title-info-color: $gray-500 !default;
 //Datepicker
 $datepicker-z-index: 1100 !default;
 // Notify
+$notify-width: 320px !default;
+$notify-padding: 20px !default;
 $notify-bg: $white !default;
 $notify-box-shadow: $box-shadow !default;
 $notify-close-color: $gray-400 !default;
@@ -372,16 +375,17 @@ $notify-success: $success !default;
 $notify-info: $info !default;
 $notify-warning: $warning !default;
 $notify-danger: $danger !default;
-$notify-success-icon-font-size: 23px !default;
-$notify-info-icon-font-size: 23px !default;
+$notify-success-icon-font-size: 18px !default;
+$notify-info-icon-font-size: 18px !default;
 $notify-warning-icon-font-size: 18px !default;
-$notify-danger-icon-font-size: 15px !default;
+$notify-danger-icon-font-size: 18px !default;
 $notify-success-icon-padding: 2px !default;
 $notify-info-icon-padding: 2px !default;
 $notify-warning-icon-padding: 4px 5px 4px 4px !default;
 $notify-danger-icon-padding: 6px !default;
 $notify-title-color: $gray-800 !default;
 $notify-content-color: $gray-700 !default;
+$notify-icon-padding-right: 15px !default;
 
 //close
 $close-font-size: $font-size-md !default;

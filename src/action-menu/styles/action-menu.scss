@@ -2,6 +2,8 @@
     padding: 5px 0;
     display: block;
     width: 240px;
+    max-height: $action-menu-max-height;
+    overflow-y: auto;
     background: $action-menu-bg;
     .action-menu-item {
         display: flex;

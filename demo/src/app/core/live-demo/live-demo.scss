@@ -1,0 +1,62 @@
+.live-demos {
+    display: block;
+    .live-demo-container {
+        &:not(:last-child) {
+            margin-bottom: 20px;
+        }
+    }
+}
+
+.live-demo-container {
+    display: flex;
+    background: #edf0f4; //$gray-100;
+    flex-direction: column;
+    padding: 10px 20px;
+    border-radius: 0.4rem;
+    // box-shadow: $box-shadow;
+    // background: $white;
+
+    .demo-header {
+        display: flex;
+        flex: auto;
+        .header-title {
+            flex: auto;
+            align-items: center;
+            .title {
+                font-size: $font-size-lg;
+            }
+        }
+
+        .header-actions {
+            .action {
+                display: inline-block;
+                .thy-icon {
+                    font-size: $font-size-lg;
+                }
+            }
+        }
+    }
+
+    .demo-body {
+        .btn {
+            border-radius: 4px !important;
+        }
+        .description {
+            border-bottom: 1px dashed $gray-300;
+            margin-bottom: 10px;
+            padding: 10px 0px;
+            p {
+                &:last-child {
+                    margin-bottom: 4px;
+                }
+            }
+        }
+        .code-example-container {
+            margin-top: 20px;
+            background: #282a36;
+            .thy-nav {
+                padding-left: 10px;
+            }
+        }
+    }
+}

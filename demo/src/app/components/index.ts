@@ -67,7 +67,13 @@ import { TOOLTIP_COMPONENTS } from './+tooltip';
 import { DemoIconSectionComponent } from './+icon/icon-section.component';
 import { ICON_COMPONENTS } from './+icon';
 import { DemoFlexibleTextComponent } from './+flexible-text/flexible-text-section.component';
-import { DemoPopoverSectionComponent, DemoPopoverBasicComponent, DemoPopoverContentComponent } from './+popover';
+import {
+    DemoPopoverSectionComponent,
+    DemoPopoverBasicComponent,
+    DemoPopoverContentComponent,
+    DemoPopoverDirectiveComponent,
+    DemoPopoverDirectiveContentComponent
+} from './+popover';
 
 export const COMPONENTS = [
     DemoPopBoxSectionComponent,
@@ -75,6 +81,8 @@ export const COMPONENTS = [
     DemoPopoverSectionComponent,
     DemoPopoverBasicComponent,
     DemoPopoverContentComponent,
+    DemoPopoverDirectiveComponent,
+    DemoPopoverDirectiveContentComponent,
 
     DemoButtonSectionComponent,
     DemoIconSectionComponent,
@@ -157,6 +165,9 @@ export const ENTRY_COMPONENTS = [
     PopBoxMenuDemoShowComponent,
     DemoPopoverBasicComponent,
     DemoPopoverContentComponent,
+    DemoPopoverDirectiveComponent,
+    DemoPopoverDirectiveContentComponent,
+
     RebootSectionLinkComponent,
     DemoModalContentComponent,
     DemoSlideContentComponent,
