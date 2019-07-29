@@ -34,7 +34,6 @@ $tooltip-un-center-arrow-offset: 16px;
 
 @mixin tooltip-top-bottom($placement, $main, $opposite) {
     .thy-tooltip-#{$placement} {
-        margin-#{$opposite}: $tooltip-spacing;
         padding-#{$opposite}: $tooltip-arrow-height;
 
         .thy-tooltip-arrow {
@@ -73,37 +72,46 @@ $tooltip-un-center-arrow-offset: 16px;
     right: $tooltip-un-center-arrow-offset;
 }
 
-.thy-tooltip-left {
-    margin-right: $tooltip-spacing;
-    padding: 0 $tooltip-arrow-height;
-    .thy-tooltip-arrow {
-        right: -$tooltip-arrow-height;
-        width: $tooltip-arrow-height;
-        height: $tooltip-arrow-width;
-        top: calc(100% / 2 - #{$tooltip-arrow-width / 2});
-        &::before {
-            left: 0;
-            border-width: ($tooltip-arrow-width / 2) 0 ($tooltip-arrow-width / 2) $tooltip-arrow-height;
-            border-left-color: $tooltip-arrow-color;
+@mixin tooltip-left-right($placement, $main, $opposite) {
+    .thy-tooltip-#{$placement} {
+        padding-#{$opposite}: $tooltip-arrow-height;
+
+        .thy-tooltip-arrow {
+            #{$opposite}: -$tooltip-arrow-height;
+            width: $tooltip-arrow-height;
+            height: $tooltip-arrow-width;
+            @content;
+            &::before {
+                #{$main}: 0;
+                @if $main == 'left' {
+                    border-width: ($tooltip-arrow-width / 2) 0 ($tooltip-arrow-width / 2) $tooltip-arrow-height;
+                } @else {
+                    border-width: ($tooltip-arrow-width / 2) $tooltip-arrow-height ($tooltip-arrow-width / 2) 0;
+                }
+                border-#{$main}-color: $tooltip-arrow-color;
+            }
         }
     }
 }
 
-.thy-tooltip-right {
-    margin-left: $tooltip-spacing;
-    padding: 0 $tooltip-arrow-height;
-    .thy-tooltip-arrow {
-        left: -$tooltip-arrow-height;
-        width: $tooltip-arrow-height;
-        height: $tooltip-arrow-width;
-        top: calc(100% / 2 - #{$tooltip-arrow-width / 2});
+@include tooltip-left-right('left', 'left', 'right') {
+    top: calc(100% / 2 - #{$tooltip-arrow-width / 2});
+}
+@include tooltip-left-right('leftTop', 'left', 'right') {
+    bottom: $tooltip-un-center-arrow-offset;
+}
+@include tooltip-left-right('leftBottom', 'left', 'right') {
+    top: $tooltip-un-center-arrow-offset;
+}
 
-        &::before {
-            right: 0;
-            border-width: ($tooltip-arrow-width / 2) $tooltip-arrow-height ($tooltip-arrow-width / 2) 0;
-            border-right-color: $tooltip-arrow-color;
-        }
-    }
+@include tooltip-left-right('right', 'right', 'left') {
+    top: calc(100% / 2 - #{$tooltip-arrow-width / 2});
+}
+@include tooltip-left-right('rightTop', 'right', 'left') {
+    bottom: $tooltip-un-center-arrow-offset;
+}
+@include tooltip-left-right('rightBottom', 'right', 'left') {
+    top: $tooltip-un-center-arrow-offset;
 }
 
 .thy-tooltip-auto {

@@ -46,5 +46,11 @@ export const apiParameters = [
         description: '传入template时，注入给template的数据',
         type: 'any',
         default: 'null'
+    },
+    {
+        property: 'thyTooltipOffset',
+        description: '偏移量',
+        type: 'number',
+        default: '4'
     }
 ];

@@ -10,6 +10,7 @@ export class TooltipTemplateDemoComponent {
         placement: 'top',
         disabled: false,
         showDelay: 200,
-        hideDelay: 100
+        hideDelay: 100,
+        offset: 4
     };
 }
