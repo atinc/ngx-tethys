@@ -129,6 +129,7 @@ $tooltip-un-center-arrow-offset: 16px;
     text-align: center;
     background-color: $tooltip-bg;
     box-shadow: $tooltip-box-shadow; // $box-shadow;
+    min-height: $tooltip-content-min-height;
 
     @include border-radius($tooltip-border-radius);
 }

@@ -9,17 +9,13 @@
     td {
         padding: $table-cell-padding;
         vertical-align: middle;
-        border-top: $table-border-width solid $table-border-color;
+        border-bottom: $table-border-width solid $table-border-color;
     }
 
     thead th {
         vertical-align: bottom;
         font-weight: 400;
         border-bottom: $table-border-width solid $table-border-color;
-    }
-
-    tbody + tbody {
-        border-top: $table-border-width solid $table-border-color;
     }
 
     .table {
@@ -50,7 +46,6 @@
     thead {
         th,
         td {
-            border-top: 0;
             color: $table-default-head-color;
         }
     }
@@ -83,7 +78,7 @@
 }
 
 .table-hover {
-    // @include table-hover-set-space-none();
+    @include table-hover-set-space-none();
     tbody tr {
         @include hover {
             cursor: pointer;

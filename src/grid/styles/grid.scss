@@ -30,14 +30,20 @@
 .thy-grid {
     &.thy-grid-hover-display-operation {
         .thy-operation-links {
-            opacity: 0;
+            a,
+            button {
+                visibility: hidden;
+            }
         }
 
         table {
             tr {
                 @include hover {
                     .thy-operation-links {
-                        opacity: 1;
+                        a,
+                        button {
+                            visibility: visible;
+                        }
                     }
                 }
             }

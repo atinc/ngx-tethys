@@ -57,11 +57,7 @@
             .operation-link {
                 display: block;
                 color: $transfer-operation-color;
-
-                .thy-icon {
-                    display: inline-block;
-                    font-size: $transfer-operation-font-size;
-                }
+                font-size: $transfer-operation-font-size;
             }
         }
     }
@@ -90,5 +86,9 @@
     .drag-handle {
         position: absolute;
         left: 0px;
+    }
+
+    .item-status {
+        font-size: 14px;
     }
 }
