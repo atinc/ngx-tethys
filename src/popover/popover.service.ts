@@ -23,7 +23,7 @@ import { ThyPopoverConfig, THY_POPOVER_DEFAULT_CONFIG } from './popover.config';
 import { ThyPopoverRef, ThyPopoverRefInternal } from './popover-ref';
 import { Directionality } from '@angular/cdk/bidi';
 import { of, Subject } from 'rxjs';
-import { POSITION_MAP, getConnectedPositionOffset, getFlexiblePositions } from '../core/overlay';
+import { getFlexiblePositions } from '../core/overlay';
 import { takeUntil } from 'rxjs/operators';
 
 @Injectable({
@@ -37,8 +37,8 @@ export class ThyPopover implements OnDestroy {
     private readonly ngUnsubscribe$ = new Subject();
 
     private buildPositionStrategy<TData>(config: ThyPopoverConfig<TData>): PositionStrategy {
-        const positionStrategy = this.overlay.position().flexibleConnectedTo(coerceElement(config.target));
-        const positions = getFlexiblePositions(config.placement, config.offset);
+        const positionStrategy = this.overlay.position().flexibleConnectedTo(coerceElement(config.origin));
+        const positions = getFlexiblePositions(config.placement, config.offset, 'thy-popover');
         positionStrategy.withPositions(positions);
 
         positionStrategy.positionChanges.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(change => {

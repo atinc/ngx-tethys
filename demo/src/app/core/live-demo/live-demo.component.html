@@ -1,0 +1,13 @@
+<div class="header">
+  <h2>{{ title }}</h2>
+  <div class="header-actions">
+    <a href="javascript:;" thyTooltip="展开代码" class="action link-secondary" (click)="toggleCodeExample()"
+      ><thy-icon thyIconName="code"></thy-icon
+    ></a>
+  </div>
+</div>
+<div class="body">
+  <div class="description" *ngIf="description" [thyMarkdownParser]="description"></div>
+  <ng-container *ngComponentOutlet="component"></ng-container>
+</div>
+<div></div>

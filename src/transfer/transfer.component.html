@@ -19,20 +19,16 @@
           [ngTemplateOutletContext]="{ $implicit: item }"
         ></ng-template>
       </div>
-      <thy-icon *ngIf="item.direction === 'right'" class="text-primary" thyIconName="check"></thy-icon>
+      <thy-icon *ngIf="item.direction === 'right'" class="text-primary item-status" thyIconName="check"></thy-icon>
     </div>
   </ng-template>
 </thy-transfer-list>
 
 <div class="thy-transfer-operation">
   <div class="thy-transfer-operation-body">
-    <a class="operation-link" href="javascript:;" (click)="onMove('right')">
-      <thy-icon thyIconName="angle-right"></thy-icon>
-    </a>
+    <thy-icon thyIconName="angle-right" class="operation-link"></thy-icon>
     <br />
-    <a class="operation-link rotate-left" href="javascript:;" (click)="onMove('left')">
-      <thy-icon thyIconName="angle-left"></thy-icon>
-    </a>
+    <thy-icon thyIconName="angle-left" class="operation-link"></thy-icon>
   </div>
 </div>
 
@@ -60,7 +56,7 @@
       *ngIf="item.direction === 'right' && !item.isFixed"
       (click)="onSelect('right', { item: item })"
     >
-      <thy-icon thyIconName="close"></thy-icon>
+      <thy-icon class="item-status" thyIconName="close"></thy-icon>
     </a>
   </ng-template>
 </thy-transfer-list>

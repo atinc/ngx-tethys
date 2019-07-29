@@ -17,7 +17,8 @@ export interface PopoverPosition {
 }
 
 export class ThyPopoverConfig<TData = any> {
-    target: ElementRef<any> | HTMLElement;
+    /** Origin Element, for overlay flexible connected to */
+    origin: ElementRef<any> | HTMLElement;
     viewContainerRef?: ViewContainerRef;
     initialState?: TData | null;
     placement?: ThyPlacement;
