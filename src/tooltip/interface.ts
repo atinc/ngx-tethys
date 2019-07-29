@@ -1,7 +1,5 @@
 export type ThyTooltipPosition = 'left' | 'right' | 'above' | 'below' | 'before' | 'after';
 
-export type ThyTooltipPlacement = 'bottom' | 'top' | 'left' | 'right';
-
 export type ThyTooltipVisibility = 'initial' | 'visible' | 'hidden';
 
 export interface ThyTooltipOptions {

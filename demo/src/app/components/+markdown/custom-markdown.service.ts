@@ -12,7 +12,7 @@ export class CustomMarkdownParserService extends ThyMarkdownParserService {
         return null;
     }
     filterHTML(html: string): string {
-        return html + '-filter';
+        return html;
     }
 
     sanitizeHTML(html: string) {
@@ -29,10 +29,12 @@ export class CustomMarkdownPlanTextParserService extends ThyMarkdownPlanTextPars
     } {
         return null;
     }
+
     setHighLightWords() {
         return [];
     }
+
     filterHTML(html: string): string {
-        return html + '-filter';
+        return html;
     }
 }

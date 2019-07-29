@@ -8,12 +8,12 @@ import {
     OnDestroy,
     AfterContentInit
 } from '@angular/core';
-import { ThyTooltipPlacement } from '../tooltip';
 import { timer, Subject, Subscription } from 'rxjs';
 import { TooltipService } from '../tooltip/tooltip.service';
 import { UpdateHostClassService } from '../shared/update-host-class.service';
 import { ContentObserver } from '@angular/cdk/observers';
 import { debounceTime } from 'rxjs/operators';
+import { ThyPlacement } from '../core/overlay';
 
 @Component({
     selector: 'thy-flexible-text,[thyFlexibleText]',
@@ -26,7 +26,7 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
 
     content: string | TemplateRef<HTMLElement>;
 
-    placement: ThyTooltipPlacement;
+    placement: ThyPlacement;
 
     subscription: Subscription | null = null;
 
@@ -39,7 +39,7 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
         }
     }
 
-    @Input('thyTooltipPlacement') set thyPlacement(value: ThyTooltipPlacement) {
+    @Input('thyTooltipPlacement') set thyPlacement(value: ThyPlacement) {
         this.placement = value;
         if (this.tooltipService.thyTooltipDirective) {
             this.tooltipService.thyTooltipDirective.placement = this.placement;
