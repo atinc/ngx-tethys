@@ -1,0 +1,9 @@
+<ng-container *ngIf="data">
+  <app-live-demo
+    *ngFor="let demo of data"
+    [title]="demo.title"
+    [description]="demo.description"
+    [component]="demo.component"
+    [codeExamples]="demo.codeExamples"
+  ></app-live-demo>
+</ng-container>
