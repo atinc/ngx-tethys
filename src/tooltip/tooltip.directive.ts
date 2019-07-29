@@ -19,7 +19,7 @@ import { ThyTooltipOptions, DEFAULT_TOOLTIP_OPTIONS } from './interface';
 import { inputValueToBoolean, isString } from '../util/helpers';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ThyTooltipComponent } from './tooltip.component';
-import { getFlexiblePositions, setPositionPanelClass, ThyPlacement } from '../core/overlay';
+import { getFlexiblePositions, ThyPlacement } from '../core/overlay';
 import { fromEvent } from 'rxjs';
 import { FocusMonitor } from '@angular/cdk/a11y';
 
@@ -169,12 +169,8 @@ export class ThyTooltipDirective extends mixinUnsubscribe(MixinBase) implements 
     /** Updates the position of the current tooltip. */
     private updatePosition() {
         const position = this.overlayRef.getConfig().positionStrategy as FlexibleConnectedPositionStrategy;
-        const connectionPosition = setPositionPanelClass(this.panelClassPrefix, getFlexiblePositions(this.placement));
-        position.withPositions(
-            connectionPosition
-                ? connectionPosition
-                : setPositionPanelClass(this.panelClassPrefix, getFlexiblePositions('top'))
-        );
+        const connectionPositions = getFlexiblePositions(this.placement, undefined, this.panelClassPrefix);
+        position.withPositions(connectionPositions);
     }
 
     private setTooltipClass(tooltipClass: string | string[]) {

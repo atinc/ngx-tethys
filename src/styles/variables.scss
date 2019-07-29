@@ -27,7 +27,7 @@ $rem-26px: 1.625rem;
 // color
 $body-color: $gray-800 !default;
 $primary: #22d7bb !default;
-$primary-active: #18bfa4;
+$primary-active: #18bfa4 !default;
 $secondary: $gray-700 !default;
 $success: #66c060 !default; // 2dbcff
 $info: #2dbcff !default;
@@ -89,13 +89,13 @@ $btn-border-radius-lg: 1.65rem !default;
 $btn-border-radius-sm: 1rem !default;
 $btn-border-radius-xs: 0.75rem !default;
 $btn-box-shadow: null !default;
-// $btn-padding-y: 0.469rem; //108*38px
-// $btn-padding-x: 2.438rem;
+// $btn-padding-y: 0.469rem !default; //108*38px
+$btn-padding-x: 1.25rem !default;
 $btn-padding-y-md: 0.407rem !default; // 100*36px 变种按钮大小
 $btn-padding-x-md: 22px !default; // 1.25rem !default;
 // $btn-line-height: $input-btn-line-height;
 $btn-padding-y-sm: 0.157rem !default; // 70*28px
-$btn-padding-x-sm: 20px !default;
+$btn-padding-x-sm: 15px !default;
 // $btn-line-height-sm: $input-btn-line-height-sm;
 $btn-padding-y-lg: 0.5rem !default;
 $btn-padding-x-lg: 2.215rem !default;
@@ -113,7 +113,7 @@ $btn-icon-color: $gray-400 !default; // #cacaca
 $btn-icon-thick-dashed-color: $gray-300 !default; // #ddd
 $btn-icon-thick-solid-color: $gray-400 !default; // #cacaca
 // min-width
-$btn-base-min-width: 106px !default;
+$btn-base-min-width: 97px !default;
 $btn-md-min-width: 70px !default;
 $btn-sm-min-width: 70px !default;
 $btn-xs-min-width: 60px !default;
@@ -423,7 +423,7 @@ $transfer-list-item-line-hight: 38px !default;
 $transfer-list-item-hover-color: $gray-200 !default;
 $transfer-operation-padding: 0 10px !default;
 $transfer-operation-font-size: 22px !default;
-$transfer-operation-color: $gray-600 !default;
+$transfer-operation-color: $gray-500 !default;
 //progress
 $progress-height: 10px !default;
 $progress-height-lg: 16px !default;
@@ -541,6 +541,7 @@ $tooltip-padding-x: 0.75rem !default;
 $tooltip-margin: 0 !default;
 $tooltip-spacing: 6px !default;
 $tooltip-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15) !default;
+$tooltip-content-min-height: 34px !default;
 
 $tooltip-arrow-width: 0.75rem !default;
 $tooltip-arrow-height: 0.375rem !default;

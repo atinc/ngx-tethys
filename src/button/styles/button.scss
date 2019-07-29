@@ -72,7 +72,15 @@
     i,
     .wtf,
     .thy-icon {
-        @include button-icon-margin(8px);
+        @include button-icon-margin(7px);
+    }
+    &.btn-sm,
+    &.btn-xs {
+        i,
+        .wtf,
+        .thy-icon {
+            @include button-icon-margin(5px);
+        }
     }
 }
 

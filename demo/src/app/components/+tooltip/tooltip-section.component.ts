@@ -20,7 +20,7 @@ export class DemoTooltipSectionComponent implements OnInit {
 
     templateCodeExample = require('!!raw-loader!./template/tooltip-template-demo.component.html');
 
-    TemplateContextCodeExample = require('!!raw-loader!./template-data/tooltip-template-demo.component.html');
+    templateContextCodeExample = require('!!raw-loader!./template-data/tooltip-template-demo.component.html');
 
     apiParameters = apiParameters;
 

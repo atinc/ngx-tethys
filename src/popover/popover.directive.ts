@@ -48,7 +48,7 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
 
     createOverlay(): OverlayRef {
         this.popoverRef = this.popover.open(this.content, {
-            target: this.elementRef.nativeElement,
+            origin: this.elementRef.nativeElement,
             hasBackdrop: this.trigger === 'click' || this.trigger === 'focus',
             viewContainerRef: this.viewContainerRef
         });
