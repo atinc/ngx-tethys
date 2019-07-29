@@ -17,41 +17,58 @@ const connectionFallbackPositionsMap: { [key: string]: ThyPlacement[] } = {
     rightBottom: ['right', 'rightTop', 'left', 'leftTop', 'leftBottom']
 };
 
-export function getFlexiblePosition(placement: ThyPlacement, offset?: number): ConnectionPositionPair {
-    return {
+export function buildConnectedPositionOffset(placement: ThyPlacement, offset: number): ConnectedPositionOffset {
+    const connectedPositionOffset: ConnectedPositionOffset = {};
+    if (placement.startsWith('top')) {
+        connectedPositionOffset.offsetY = -offset;
+    } else if (placement.startsWith('bottom')) {
+        connectedPositionOffset.offsetY = offset;
+    } else if (placement.startsWith('left')) {
+        connectedPositionOffset.offsetX = -offset;
+    } else if (placement.startsWith('right')) {
+        connectedPositionOffset.offsetX = offset;
+    } else {
+        // do nothings
+    }
+    return connectedPositionOffset;
+}
+
+export function buildConnectedPositionPair(
+    placement: ThyPlacement,
+    offset?: number,
+    panelClassPrefix?: string
+): ConnectionPositionPair {
+    const position: ConnectionPositionPair = {
         ...POSITION_MAP[placement],
-        ...(offset ? getConnectedPositionOffset(placement, offset) : null)
+        ...(offset ? buildConnectedPositionOffset(placement, offset) : null)
     };
+    if (panelClassPrefix) {
+        position.panelClass = `${panelClassPrefix}-${placement}`;
+    }
+    return position;
 }
 
 export function getFallbackPlacements(placement: ThyPlacement): ThyPlacement[] {
     return connectionFallbackPositionsMap[placement] || [];
 }
 
-export function getFlexiblePositions(placement: ThyPlacement, offset?: number): ConnectionPositionPair[] {
+/**
+ * get flexible positions by placement, return placement position and it's fallback connection position
+ * @example
+ * getFlexiblePositions('top', 10, 'thy-overlay')
+ * [{topPosition}, {topLeftPosition}, {topRightPosition}, {bottomPosition}, {bottomLeftPosition}, {bottomRightPosition},]
+ * @returns [ConnectionPositionPair]
+ */
+export function getFlexiblePositions(
+    placement: ThyPlacement,
+    offset?: number,
+    panelClassPrefix?: string
+): ConnectionPositionPair[] {
     const fallbackPlacements = getFallbackPlacements(placement);
 
     return [placement, ...fallbackPlacements].map(placementName => {
-        return getFlexiblePosition(placementName, offset);
+        return buildConnectedPositionPair(placementName, offset, panelClassPrefix);
     });
-    // switch (placement) {
-    //     case 'top':
-    //         fallbackPositions = [getFlexiblePosition('bottom', offset)];
-    //         break;
-    //     case 'topLeft':
-    //         fallbackPositions = [getFlexiblePosition('right', offset)];
-    //         break;
-    //     case 'right':
-    //         fallbackPositions = [getFlexiblePosition('left', offset)];
-    //         break;
-    //     case 'bottom':
-    //         fallbackPositions = [getFlexiblePosition('top', offset)];
-    //         break;
-    //     case 'left':
-    //         fallbackPositions = [getFlexiblePosition('right', offset)];
-    //         break;
-    // }
-    // return [getFlexiblePosition(placement, offset), ...fallbackPositions];
 }
 
 export function getPlacementByPosition(position: ConnectionPositionPair) {
@@ -61,27 +78,4 @@ export function getPlacementByPosition(position: ConnectionPositionPair) {
             return placement;
         }
     }
-}
-
-export function setPositionPanelClass(panelClassPrefix: string, positions: ConnectionPositionPair[]) {
-    return positions.map((position: ConnectionPositionPair) => {
-        const key = getPlacementByPosition(position);
-        return { ...position, panelClass: `${panelClassPrefix}-${key}` };
-    });
-}
-
-export function getConnectedPositionOffset(placement: ThyPlacement, offset: number): ConnectedPositionOffset {
-    const connectedPositionOffset: ConnectedPositionOffset = {};
-    if (placement.startsWith('top')) {
-        connectedPositionOffset.offsetY = -offset;
-    } else if (placement.startsWith('bottom')) {
-        connectedPositionOffset.offsetY = offset;
-    } else if (placement.startsWith('left')) {
-        connectedPositionOffset.offsetX = -offset;
-    } else if (placement.startsWith('right')) {
-        connectedPositionOffset.offsetY = offset;
-    } else {
-        // do nothings
-    }
-    return connectedPositionOffset;
 }
