@@ -33,6 +33,24 @@
         </thy-select>
       </thy-form-group>
 
+      <thy-form-group thyLabelText="Offset">
+        <thy-select name="size" [(ngModel)]="tooltipConfig.offset" (ngModelChange)="triggerChange()" name="offset">
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+        </thy-select>
+      </thy-form-group>
+
       <thy-form-group thyLabelText="Show Delay">
         <input thyInput type="number" [(ngModel)]="tooltipConfig.showDelay" name="showDelay" />
       </thy-form-group>
@@ -53,6 +71,7 @@
         [thyTooltipShowDelay]="tooltipConfig.showDelay"
         [thyTooltipHideDelay]="tooltipConfig.hideDelay"
         thyButton="primary"
+        [thyTooltipOffset]="tooltipConfig.offset"
       >
         Basic Demo
       </button>
@@ -64,6 +83,7 @@
         [thyTooltipDisabled]="tooltipConfig.disabled"
         [thyTooltipShowDelay]="tooltipConfig.showDelay"
         [thyTooltipHideDelay]="tooltipConfig.hideDelay"
+        [thyTooltipOffset]="tooltipConfig.offset"
       >
         Tooltip will show when mouse enter.
       </span>
@@ -83,6 +103,7 @@
         [thyTooltipTrigger]="tooltipConfig.trigger"
         [thyTooltipPlacement]="tooltipConfig.placement"
         [thyTooltipDisabled]="tooltipConfig.disabled"
+        [thyTooltipOffset]="tooltipConfig.offset"
         thyButton="primary"
       >
         Tooltip with Template
@@ -107,6 +128,7 @@
         [thyTooltipTemplateContext]="{ values: [1, 2, 3, 4] }"
         [thyTooltipPlacement]="tooltipConfig.placement"
         [thyTooltipDisabled]="tooltipConfig.disabled"
+        [thyTooltipOffset]="tooltipConfig.offset"
         thyButton="primary"
       >
         Tooltip with Template
