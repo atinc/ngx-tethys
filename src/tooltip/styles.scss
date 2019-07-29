@@ -29,16 +29,62 @@
     }
 }
 
-.thy-tooltip-top {
-    margin-bottom: $tooltip-spacing;
-    padding-bottom: $tooltip-arrow-height;
+// 不是居中的偏移量，比如 topLeft, arrow 居左的偏移量, topRight, arrow 居右的偏移量，
+$tooltip-un-center-arrow-offset: 16px;
+
+@mixin tooltip-top-bottom($placement, $main, $opposite) {
+    .thy-tooltip-#{$placement} {
+        margin-#{$opposite}: $tooltip-spacing;
+        padding-#{$opposite}: $tooltip-arrow-height;
+
+        .thy-tooltip-arrow {
+            #{$opposite}: -$tooltip-arrow-height;
+            @content;
+            &::before {
+                #{$main}: 0;
+                @if $main == 'top' {
+                    border-width: $tooltip-arrow-height ($tooltip-arrow-width / 2) 0;
+                } @else {
+                    border-width: 0 ($tooltip-arrow-width / 2) $tooltip-arrow-height;
+                }
+                border-#{$main}-color: $tooltip-arrow-color;
+            }
+        }
+    }
+}
+
+@include tooltip-top-bottom('top', 'top', 'bottom') {
+    left: calc(100% / 2 - #{$tooltip-arrow-width / 2});
+}
+@include tooltip-top-bottom('topLeft', 'top', 'bottom') {
+    left: $tooltip-un-center-arrow-offset;
+}
+@include tooltip-top-bottom('topRight', 'top', 'bottom') {
+    right: $tooltip-un-center-arrow-offset;
+}
+
+@include tooltip-top-bottom('bottom', 'bottom', 'top') {
+    left: calc(100% / 2 - #{$tooltip-arrow-width / 2});
+}
+@include tooltip-top-bottom('bottomLeft', 'bottom', 'top') {
+    left: $tooltip-un-center-arrow-offset;
+}
+@include tooltip-top-bottom('bottomRight', 'bottom', 'top') {
+    right: $tooltip-un-center-arrow-offset;
+}
+
+.thy-tooltip-left {
+    margin-right: $tooltip-spacing;
+    padding: 0 $tooltip-arrow-height;
     .thy-tooltip-arrow {
-        bottom: -$tooltip-arrow-height;
-        left: calc(100% / 2 - #{$tooltip-arrow-width / 2});
+        right: -$tooltip-arrow-height;
+        width: $tooltip-arrow-height;
+        height: $tooltip-arrow-width;
+        top: calc(100% / 2 - #{$tooltip-arrow-width / 2});
         &::before {
-            top: 0;
-            border-width: $tooltip-arrow-height ($tooltip-arrow-width / 2) 0;
-            border-top-color: $tooltip-arrow-color;
+            left: 0;
+            border-width: ($tooltip-arrow-width / 2) 0 ($tooltip-arrow-width / 2) $tooltip-arrow-height;
+            border-left-color: $tooltip-arrow-color;
         }
     }
 }
@@ -56,36 +102,6 @@
             right: 0;
             border-width: ($tooltip-arrow-width / 2) $tooltip-arrow-height ($tooltip-arrow-width / 2) 0;
             border-right-color: $tooltip-arrow-color;
-        }
-    }
-}
-
-.thy-tooltip-bottom {
-    margin-top: $tooltip-spacing;
-    padding-top: $tooltip-arrow-height;
-    .thy-tooltip-arrow {
-        top: -$tooltip-arrow-height;
-        left: calc(100% / 2 - #{$tooltip-arrow-width / 2});
-        &::before {
-            bottom: 0;
-            border-width: 0 ($tooltip-arrow-width / 2) $tooltip-arrow-height;
-            border-bottom-color: $tooltip-arrow-color;
-        }
-    }
-}
-
-.thy-tooltip-left {
-    margin-right: $tooltip-spacing;
-    padding: 0 $tooltip-arrow-height;
-    .thy-tooltip-arrow {
-        right: -$tooltip-arrow-height;
-        width: $tooltip-arrow-height;
-        height: $tooltip-arrow-width;
-        top: calc(100% / 2 - #{$tooltip-arrow-width / 2});
-        &::before {
-            left: 0;
-            border-width: ($tooltip-arrow-width / 2) 0 ($tooltip-arrow-width / 2) $tooltip-arrow-height;
-            border-left-color: $tooltip-arrow-color;
         }
     }
 }
