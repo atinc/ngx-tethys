@@ -16,6 +16,11 @@
     background: $white;
 }
 
+.thy-dialog-content {
+    @extend .d-flex-column-fill;
+    overflow: hidden;
+}
+
 // Dialog header
 // Top section of the modal w/ title and dismiss
 .dialog-header {
@@ -48,6 +53,7 @@
 
 .dialog-body {
     position: relative;
+    overflow: auto;
     flex: 1 1 auto;
     padding: $dialog-body-padding;
     display: block;
