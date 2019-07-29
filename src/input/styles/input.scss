@@ -149,7 +149,8 @@ $input-search-padding-y: $btn-padding-y-md; // 36px
 .form-control-feedback {
     position: absolute; // top: (2 * $input-padding-y + $input-line-height * $font-size-base - $input-line-height) / 2;
     top: 50%;
-    margin-top: -(($font-size-md * $input-line-height) / 2);
+    // margin-top: -(($font-size-md * $input-line-height) / 2);
+    transform: translateY(-50%);
     right: $input-padding-x;
     z-index: 2; // Ensure icon is above input groups
     display: block; // width: $input-hei;

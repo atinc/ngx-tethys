@@ -9,15 +9,13 @@ import { ThyInputModule } from '../input/module';
 import { ThyFormGroupFooterComponent } from './from-group-footer/form-group-footer.component';
 import { ThyFormGroupErrorComponent } from './form-group-error/form-group-error.component';
 import { ThyFormValidatorLoader } from './form-validator-loader';
-import {
-    ThyFormValidatorGlobalConfig,
-    THY_VALIDATOR_CONFIG
-} from './form.class';
+import { ThyFormValidatorGlobalConfig, THY_VALIDATOR_CONFIG } from './form.class';
 import { ThyUniqueCheckValidator, ThyMaxDirective, ThyMinDirective } from './validator';
 import { ThyAlertModule } from '../alert/alert.module';
+import { ThyIconModule } from '../icon/icon.module';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ThyInputModule, ThyAlertModule],
+    imports: [CommonModule, FormsModule, ThyInputModule, ThyAlertModule, ThyIconModule],
     declarations: [
         ThyFormDirective,
         ThyFormGroupComponent,
