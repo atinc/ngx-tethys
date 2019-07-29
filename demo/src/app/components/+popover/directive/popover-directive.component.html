@@ -15,15 +15,23 @@
       <option value="rightBottom">rightBottom</option>
     </thy-select>
   </thy-form-group>
+  <thy-form-group thyLabelText="Trigger">
+    <thy-select name="size" [(ngModel)]="trigger" name="trigger">
+      <option value="hover">hover</option>
+      <option value="focus">focus</option>
+      <option value="click">click</option>
+    </thy-select>
+  </thy-form-group>
 </form>
 <div class="btn-pair mt-2">
-  <button #componentTrigger thyButton="primary" (click)="openPopover(componentTrigger)">
+  <button thyButton="primary" [thyPopover]="contentComponent" [thyTrigger]="trigger" [thyPlacement]="placement">
     Use Component
   </button>
-  <button #templateTrigger thyButton="primary" (click)="openTemplatePopover(templateTrigger, template)">
+  <button thyButton="primary" [thyPopover]="template" [thyTrigger]="trigger" [thyPlacement]="placement">
     Use Template
   </button>
+
+  <ng-template #template>
+    恩，这是一个 Template
+  </ng-template>
 </div>
-<ng-template #template>
-  <p class="p-2">Hello, I am template content</p>
-</ng-template>
