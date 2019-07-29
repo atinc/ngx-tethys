@@ -10,9 +10,7 @@ import { TooltipService } from '../tooltip/tooltip.service';
 })
 export class ThyCopyDirective implements OnInit, OnDestroy {
     // 默认为点击标签，可传复制目标标签
-    @Input('thyCopy') targetElement: ElementRef | HTMLElement;
-
-    @Input('thyCopyContent') content: string;
+    @Input('thyCopy') thyCopy: string | ElementRef | HTMLElement;
 
     constructor(
         @Inject(DOCUMENT) private document: any,
@@ -22,26 +20,32 @@ export class ThyCopyDirective implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit() {
-        this.tooltipService.attach(this.elementRef, this.viewContainerRef, 'click');
+        this.tooltipService.attach(this.elementRef, this.viewContainerRef, 'hover');
         this.tooltipService.thyTooltipDirective.thyContent = '点击复制';
     }
 
+    private getContent(event: Event) {
+        if (typeof this.thyCopy === 'string') {
+            return this.thyCopy;
+        } else {
+            const target = this.thyCopy ? coerceElement(this.thyCopy) : event.target;
+            return target.value || target.textContent;
+        }
+    }
     @HostListener('click', ['$event'])
     public onClick(event: Event) {
-        const target = this.targetElement ? coerceElement(this.targetElement) : event.target;
         const input = this.document.createElement('input');
         this.document.body.appendChild(input);
-        input.value = this.content || target.value || target.textContent;
+        input.value = this.getContent(event);
         input.select();
-        if (this.document.execCommand && document.execCommand('copy', false, null)) {
+        try {
+            document.execCommand('copy', false, null);
             this.tooltipService.thyTooltipDirective.thyContent = '复制成功';
-        } else {
+        } catch (err) {
             this.tooltipService.thyTooltipDirective.thyContent = '复制失败';
+        } finally {
+            input.remove();
         }
-        input.remove();
-        setTimeout(() => {
-            this.tooltipService.thyTooltipDirective.hide();
-        }, 2000);
     }
 
     ngOnDestroy() {
