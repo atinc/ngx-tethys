@@ -54,6 +54,7 @@ import { DemoOverlaySectionComponent } from './components/+overlay/overlay-secti
 import { DemoIconSectionComponent } from './components/+icon/icon-section.component';
 import { DemoFlexibleTextComponent } from './components/+flexible-text/flexible-text-section.component';
 import { DemoCopySectionComponent } from './components/+copy/copy-section.component';
+import { DemoPopoverSectionComponent } from './components/+popover/popover-section.component';
 const appRoutes = [
     {
         path: '',
@@ -95,6 +96,10 @@ const appRoutes = [
     {
         path: 'components/pob-box',
         component: DemoPopBoxSectionComponent
+    },
+    {
+        path: 'components/popover',
+        component: DemoPopoverSectionComponent
     },
     {
         path: 'components/table',

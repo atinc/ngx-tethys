@@ -50,13 +50,23 @@ describe('ThySlide', () => {
             expect(footers.every(footer => footer.nativeElement.classList.contains('thy-slide-footer'))).toBe(true);
         }));
 
-        it('should have correct header title icon', fakeAsync(() => {
+        it('should have correct header title icon font', fakeAsync(() => {
             fixture.detectChanges();
             const headerIconElement: DebugElement = fixture.debugElement.query(
                 By.css('.thy-slide-header-title .wtf-task-o')
             );
 
             expect(headerIconElement.nativeElement.classList.contains(`wtf-task-o`)).toBe(true);
+        }));
+
+        it('should have correct header title svg icon', fakeAsync(() => {
+            fixture.componentInstance.iconName = 'close';
+            fixture.detectChanges();
+            const headerIconElement: DebugElement = fixture.debugElement.query(
+                By.css('.thy-slide-header-title .thy-icon')
+            );
+
+            expect(headerIconElement.nativeElement.classList.contains(`thy-icon`)).toBe(true);
         }));
 
         it('should have correct header main text', fakeAsync(() => {
@@ -115,7 +125,7 @@ describe('ThySlide', () => {
     selector: 'with-layout-view-component',
     template: `
         <thy-slide-layout>
-            <thy-slide-header [thyTitle]="'测试title'" thyIcon="wtf-task-o">
+            <thy-slide-header [thyTitle]="'测试title'" [thyIcon]="iconName">
                 <ng-template #thyHeaderOperate>
                     <a thyShape="circle-thick-dashed" class="header-main-custom" href="javascript:;">
                         自定义头部操作区
@@ -133,6 +143,8 @@ describe('ThySlide', () => {
 })
 class SlideLayoutTestComponent {
     public data: number;
+
+    public iconName = 'wtf-task-o';
 
     save() {
         this.data = 1;

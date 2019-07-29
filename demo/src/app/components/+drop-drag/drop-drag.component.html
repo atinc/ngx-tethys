@@ -3,19 +3,19 @@
   <div class="body">
     <thy-list cdkDropList (cdkDropListSorted)="sort($event)">
       <thy-list-item class="active" cdkDrag>
-        <i class="wtf wtf-move" cdkDragHandle></i>
+        <thy-icon thyIconName="drag" class="drag-handle"></thy-icon>
         Item 1
       </thy-list-item>
       <thy-list-item cdkDrag>
-        <i class="wtf wtf-move" cdkDragHandle></i>
+        <thy-icon thyIconName="drag" class="drag-handle" cdkDragHandle></thy-icon>
         Item 2
       </thy-list-item>
       <thy-list-item cdkDrag>
-        <i class="wtf wtf-move" cdkDragHandle></i>
+        <thy-icon thyIconName="drag" class="drag-handle"></thy-icon>
         Item 3
       </thy-list-item>
       <thy-list-item cdkDrag>
-        <i class="wtf wtf-move" cdkDragHandle></i>
+        <thy-icon thyIconName="drag" class="drag-handle"></thy-icon>
         <a href="javascripr:;">Item 4</a>
       </thy-list-item>
     </thy-list>
@@ -36,17 +36,17 @@
             (cdkDropListExited)="sort('exit')"
           >
             <div thyMenuItem class="active" href="javascript:;" cdkDrag (cdkDragMoved)="move('move')">
-              <i class="wtf wtf-move" cdkDragHandle></i>
+              <thy-icon thyIconName="drag" class="drag-handle"></thy-icon>
               <i thyMenuItemIcon class="wtf wtf-work-timeline"></i> <span thyMenuItemName> 项目1 </span>
               <i thyMenuItemAction [thyActionMenu]="menu1" class="wtf wtf-more-lg"></i>
             </div>
             <a thyMenuItem cdkDrag>
-              <i class="wtf wtf-move" cdkDragHandle></i>
+              <thy-icon thyIconName="drag" class="drag-handle"></thy-icon>
               <i thyMenuItemIcon class="wtf wtf-work-timeline"></i> <span thyMenuItemName> 项目2 </span>
               <i thyMenuItemAction [thyActionMenu]="menu1" class="wtf wtf-more-lg"></i>
             </a>
             <div thyMenuItem href="javascript:;" cdkDrag>
-              <i class="wtf wtf-move" cdkDragHandle></i>
+              <thy-icon thyIconName="drag" cdkDragHandle></thy-icon>
               <i thyMenuItemIcon class="wtf wtf-work-timeline"></i> <span thyMenuItemName> 项目3 </span>
               <i thyMenuItemAction [thyActionMenu]="menu1" class="wtf wtf-more-lg"></i>
             </div>
@@ -54,17 +54,17 @@
           <thy-menu-group thyTitle="项目分组" [thyExpand]="true" [thyShowAction]="true">
             <div cdkDropList (cdkDropListSorted)="sort($event)">
               <div thyMenuItem href="javascript:;" cdkDrag>
-                <i class="wtf wtf-move" cdkDragHandle></i>
+                <thy-icon thyIconName="drag" class="drag-handle"></thy-icon>
                 <i thyMenuItemIcon class="wtf wtf-work-timeline"></i> <span thyMenuItemName> 项目 </span>
                 <i thyMenuItemAction [thyActionMenu]="menu1" class="wtf wtf-more-lg"></i>
               </div>
               <div thyMenuItem href="javascript:;" cdkDrag>
-                <i class="wtf wtf-move" cdkDragHandle></i>
+                <thy-icon thyIconName="drag" class="drag-handle"></thy-icon>
                 <i thyMenuItemIcon class="wtf wtf-work-timeline"></i> <span thyMenuItemName> 项目2 </span>
                 <i thyMenuItemAction [thyActionMenu]="menu1" class="wtf wtf-more-lg"></i>
               </div>
               <div thyMenuItem href="javascript:;" cdkDrag>
-                <i class="wtf wtf-move" cdkDragHandle></i>
+                <thy-icon thyIconName="drag" cdkDragHandle></thy-icon>
                 <i thyMenuItemIcon class="wtf wtf-work-timeline"></i> <span thyMenuItemName> 项目3 </span>
                 <i thyMenuItemAction [thyActionMenu]="menu1" class="wtf wtf-more-lg"></i>
               </div>
@@ -132,7 +132,7 @@
 
             <ng-template #projectTemplate let-project="project">
               <div thyMenuItem href="javascript:;" class="thy-sortable-item">
-                <i class="wtf wtf-move thy-sortable-handle"></i>
+                <thy-icon thyIconName="drag" class="drag-handle"></thy-icon>
                 <i thyMenuItemIcon class="wtf wtf-work-timeline"></i> <span thyMenuItemName> {{ project.name }} </span>
                 <i thyMenuItemAction class="wtf wtf-more-lg"></i>
               </div>

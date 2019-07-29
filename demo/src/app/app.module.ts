@@ -36,12 +36,27 @@ import {
 } from './components/+markdown/custom-markdown.service';
 import { GlobalModule } from './global/global.module';
 import { SidebarComponent } from './core/sidebar/sidebar.component';
+import { LiveDemoComponent, LiveDemosComponent } from './core/live-demo/live-demo.component';
 export function hljsLanguages() {
-    return [{ name: 'typescript', func: typescript }, { name: 'scss', func: scss }, { name: 'xml', func: xml }];
+    return [
+        { name: 'typescript', func: typescript },
+        { name: 'ts', func: typescript },
+        { name: 'scss', func: scss },
+        { name: 'xml', func: xml },
+        { name: 'html', func: xml }
+    ];
 }
 
 @NgModule({
-    declarations: [AppComponent, ...COMPONENTS, ...DOCS_COMPONENTS, ...DESIGN_COMPONENTS, SidebarComponent],
+    declarations: [
+        AppComponent,
+        ...COMPONENTS,
+        ...DOCS_COMPONENTS,
+        ...DESIGN_COMPONENTS,
+        SidebarComponent,
+        LiveDemoComponent,
+        LiveDemosComponent
+    ],
     entryComponents: [...ENTRY_COMPONENTS],
     imports: [
         BrowserModule,

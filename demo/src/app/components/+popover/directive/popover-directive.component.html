@@ -1,0 +1,37 @@
+<form thyForm thyLayout="inline">
+  <thy-form-group thyLabelText="Placement">
+    <thy-select name="size" [(ngModel)]="placement" name="placement">
+      <option value="top">top</option>
+      <option value="topLeft">topLeft</option>
+      <option value="topRight">topRight</option>
+      <option value="bottom">bottom</option>
+      <option value="bottomLeft">bottomLeft</option>
+      <option value="bottomRight">bottomRight</option>
+      <option value="left">left</option>
+      <option value="leftTop">leftTop</option>
+      <option value="leftBottom">leftBottom</option>
+      <option value="right">right</option>
+      <option value="rightTop">rightTop</option>
+      <option value="rightBottom">rightBottom</option>
+    </thy-select>
+  </thy-form-group>
+  <thy-form-group thyLabelText="Trigger">
+    <thy-select name="size" [(ngModel)]="trigger" name="trigger">
+      <option value="hover">hover</option>
+      <option value="focus">focus</option>
+      <option value="click">click</option>
+    </thy-select>
+  </thy-form-group>
+</form>
+<div class="btn-pair mt-2">
+  <button thyButton="primary" [thyPopover]="contentComponent" [thyTrigger]="trigger" [thyPlacement]="placement">
+    Use Component
+  </button>
+  <button thyButton="primary" [thyPopover]="template" [thyTrigger]="trigger" [thyPlacement]="placement">
+    Use Template
+  </button>
+
+  <ng-template #template>
+    恩，这是一个 Template
+  </ng-template>
+</div>

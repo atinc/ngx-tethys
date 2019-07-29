@@ -3,6 +3,7 @@ import { ThyAlertModule } from '../alert.module';
 import { NgModule, Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ThyAlertComponent } from '../alert.component';
+import { bypassSanitizeProvider, injectDefaultSvgIconSet } from '../../core/testing/thy-icon';
 
 describe('ThyAlert', () => {
     let fixture: ComponentFixture<ThyDemoAlertComponent>;
@@ -13,9 +14,10 @@ describe('ThyAlert', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyAlertModule, AlertTestModule],
-            providers: []
+            providers: [bypassSanitizeProvider]
         });
         TestBed.compileComponents();
+        injectDefaultSvgIconSet();
     }));
 
     beforeEach(() => {
@@ -81,11 +83,11 @@ describe('ThyAlert', () => {
     });
 
     it('should have correct class when icon is available string', () => {
-        testComponent.icon = `wtf-mission`;
+        testComponent.icon = `calendar-check`;
         fixture.detectChanges();
         const iconElement = alertElement.children[0];
         expect(iconElement).toBeTruthy();
-        expect(iconElement.classList.contains('thy-icon-wtf-mission')).toBe(true);
+        expect(iconElement.classList.contains('thy-icon-calendar-check')).toBe(true);
     });
 
     it('should have correct class when icon is null', () => {
