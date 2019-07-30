@@ -339,7 +339,7 @@ $dialog-header-title-line-height: 1.5rem !default;
 $dialog-header-padding: 1.875rem !default;
 $dialog-header-border-width: 1px !default;
 $dialog-header-border-color: $gray-200 !default;
-
+$dialog-box-shadow: 0 0 24px rgba(0, 0, 0, 0.3) !default;
 $dialog-body-padding: 1.25rem 1.875rem 1.875rem 1.875rem !default;
 
 // $dialog-footer-padding: 1.25rem 1.875rem 1.875rem 1.875rem !default;
@@ -353,7 +353,7 @@ $dialog-lg: 800px !default;
 $dialog-md: 660px !default; //
 $dialog-sm: 400px !default; //
 $dialog-supper-lg-max-height: 1000px !default;
-$dialog-supper-lg-max-width: 1600px !default;
+$dialog-supper-lg-max-width: 1800px !default;
 $dialog-supper-lg-height: 94vh !default;
 $dialog-supper-lg-width: 94vw !default;
 
