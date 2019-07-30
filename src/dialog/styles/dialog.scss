@@ -14,6 +14,7 @@
     min-height: inherit;
     max-height: inherit;
     background: $white;
+    box-shadow: $dialog-box-shadow;
 }
 
 .thy-dialog-content {
@@ -113,6 +114,13 @@
     }
     .dialog-max-lg {
         width: $dialog-max-lg;
+    }
+    .dialog-full {
+        width: 100vw;
+        height: 100vh;
+        .thy-dialog-container {
+            border-radius: 0px;
+        }
     }
 }
 
