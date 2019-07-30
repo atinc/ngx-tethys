@@ -1,31 +1,49 @@
-<div class="thy-date-range" [ngClass]="{'thy-date-range-hidden-menu': hiddenMenu}">
-        <span href="javascript:;" class="btn btn-icon" (click)="previous()">
-            <i class="wtf wtf-angle-left"></i>
-        </span>
-        <span href="javascript:;" [thyActionMenuToggle]="dateMenu" class="thy-date-text" [ngClass]="{'not-down':!selectedDate}">
-            <ng-container *ngIf="selectedDate?.key === 'custom'">
-                {{selectedDate?.begin | thyDatepickerFormat}} ~ {{selectedDate?.end | thyDatepickerFormat}}
-            </ng-container>
-            <ng-container *ngIf="selectedDate?.key !== 'custom'">{{selectedDate?.text}}</ng-container>
-            <i *ngIf="!hiddenMenu" class="wtf wtf-angle-down thy-date-text-caret-down"></i>
-        </span>
-        <span href="javascript:;" class="btn btn-icon" (click)="next()">
-            <i class="wtf wtf-angle-right"></i>
-        </span>
+<div class="thy-date-range" [ngClass]="{ 'thy-date-range-hidden-menu': hiddenMenu }">
+  <span href="javascript:;" class="btn btn-icon" (click)="previous()">
+    <thy-icon thyIconName="angle-left"></thy-icon>
+  </span>
+  <span
+    href="javascript:;"
+    [thyActionMenuToggle]="dateMenu"
+    class="thy-date-text"
+    [ngClass]="{ 'not-down': !selectedDate }"
+  >
+    <ng-container *ngIf="selectedDate?.key === 'custom'">
+      {{ selectedDate?.begin | thyDatepickerFormat }} ~ {{ selectedDate?.end | thyDatepickerFormat }}
+    </ng-container>
+    <ng-container *ngIf="selectedDate?.key !== 'custom'">{{ selectedDate?.text }}</ng-container>
+    <thy-icon *ngIf="!hiddenMenu" class="thy-date-text-caret-down" thyIconName="angle-down"></thy-icon>
+  </span>
+  <span href="javascript:;" class="btn btn-icon" (click)="next()">
+    <thy-icon thyIconName="angle-right"></thy-icon>
+  </span>
 </div>
 
-<ng-template  #dateMenu >
-    <thy-action-menu *ngIf="!hiddenMenu">
+<ng-template #dateMenu>
+  <thy-action-menu *ngIf="!hiddenMenu">
+    <a
+      thyActionMenuItem
+      href="javascript:;"
+      *ngFor="let dateRange of optionalDateRange"
+      (click)="selectDateRange(dateRange)"
+    >
+      <span thyActionMenuItemName>{{ dateRange?.text }}</span>
+      <span thyActionMenuItemExtendIcon *ngIf="dateRange.key === selectedDate?.key">
+        <thy-icon class="text-primary" thyIconName="check"></thy-icon>
+      </span>
+    </a>
+    <thy-action-menu-divider></thy-action-menu-divider>
 
-        <a thyActionMenuItem href="javascript:;" *ngFor="let dateRange of optionalDateRange" (click)="selectDateRange(dateRange)">
-            <span thyActionMenuItemName>{{dateRange?.text}}</span>
-            <span thyActionMenuItemExtendIcon *ngIf="dateRange.key === selectedDate?.key">
-                <i class="wtf wtf-checked"></i>
-            </span>
-        </a>
-        <thy-action-menu-divider></thy-action-menu-divider>
-
-        <input type="text" readonly="readonly" thyDaterangepicker [(ngModel)]="selectedDateRange" (ngModelChange)="changeDate()"
-                class="action-menu-item thy-date-range-menu-item" placeholder="开始日期~结束日期"  name="setDate" thyStopPropagation/>
-    </thy-action-menu>
+    <input
+      type="text"
+      readonly="readonly"
+      thyDaterangepicker
+      [(ngModel)]="selectedDateRange"
+      (ngModelChange)="changeDate()"
+      class="action-menu-item thy-date-range-menu-item"
+      placeholder="开始日期~结束日期"
+      name="setDate"
+      thyStopPropagation
+    />
+  </thy-action-menu>
 </ng-template>

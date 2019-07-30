@@ -15,16 +15,17 @@ import { Platform } from '@angular/cdk/platform';
 import { takeUntil, take } from 'rxjs/operators';
 
 import { MixinBase, mixinUnsubscribe } from '../core/behaviors';
-import { ThyTooltipOptions, DEFAULT_TOOLTIP_OPTIONS, ThyTooltipPosition, ThyTooltipPlacement } from './interface';
+import { ThyTooltipOptions, DEFAULT_TOOLTIP_OPTIONS } from './interface';
 import { inputValueToBoolean, isString } from '../util/helpers';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ThyTooltipComponent } from './tooltip.component';
-import { getFlexiblePosition, setPositionPanelClass } from '../core/overlay/overlay-opsition-map';
+import { getFlexiblePositions, ThyPlacement } from '../core/overlay';
 import { fromEvent } from 'rxjs';
 import { FocusMonitor } from '@angular/cdk/a11y';
 
 const TOOLTIP_PANEL_CLASS = 'thy-tooltip-panel';
 const SCROLL_THROTTLE_MS = 20;
+const DEFAULT_OFFSET = 4;
 
 @Directive({
     selector: '[thyTooltip],[thy-tooltip]',
@@ -49,7 +50,7 @@ export class ThyTooltipDirective extends mixinUnsubscribe(MixinBase) implements 
     }
 
     // tslint:disable-next-line:no-input-rename
-    @Input('thyTooltipPlacement') placement: ThyTooltipPlacement = 'top';
+    @Input('thyTooltipPlacement') placement: ThyPlacement = 'top';
 
     @Input('thyTooltipClass')
     set thyTooltipClass(value: string | string[]) {
@@ -79,6 +80,8 @@ export class ThyTooltipDirective extends mixinUnsubscribe(MixinBase) implements 
     }
 
     @Input('thyTooltipTemplateContext') data: any;
+
+    @Input('thyTooltipOffset') tooltipOffset: number;
 
     private detach() {
         if (this.overlayRef && this.overlayRef.hasAttached()) {
@@ -169,12 +172,12 @@ export class ThyTooltipDirective extends mixinUnsubscribe(MixinBase) implements 
     /** Updates the position of the current tooltip. */
     private updatePosition() {
         const position = this.overlayRef.getConfig().positionStrategy as FlexibleConnectedPositionStrategy;
-        const connectionPosition = setPositionPanelClass(this.panelClassPrefix, getFlexiblePosition(this.placement));
-        position.withPositions(
-            connectionPosition
-                ? connectionPosition
-                : setPositionPanelClass(this.panelClassPrefix, getFlexiblePosition('top'))
+        const connectionPositions = getFlexiblePositions(
+            this.placement,
+            this.tooltipOffset || DEFAULT_OFFSET,
+            this.panelClassPrefix
         );
+        position.withPositions(connectionPositions);
     }
 
     private setTooltipClass(tooltipClass: string | string[]) {

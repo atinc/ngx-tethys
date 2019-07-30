@@ -1,0 +1,35 @@
+<div class="demo-layout btn-pair mb-2">
+  <button thyButton="primary" (click)="openTemplateDialog(templateCustomerSelect)">
+    Open Custom Select Dialog (template)
+  </button>
+  <button thyButton="primary" (click)="openTreeDemo()">Open TreeDemo</button>
+</div>
+
+<ng-template #templateCustomerSelect>
+  <thy-dialog-header thyTitle="Dialog Title"></thy-dialog-header>
+  <thy-dialog-body>template dialog body</thy-dialog-body>
+  <thy-dialog-body>
+    <thy-custom-select
+      thySize="md"
+      thyPlaceHolder="请选择"
+      [(ngModel)]="selectedItem"
+      [thyShowSearch]="true"
+      thyAllowClear="true"
+    >
+      <thy-option
+        *ngFor="let option of optionData"
+        thySearchKey="{{ option?.name }},{{ option?.display_name }},{{ option?.pin_yin }}"
+        [thyValue]="option"
+        [thyDisabled]="option.name === 'money'"
+        [thyLabelText]="option.display_name"
+      >
+      </thy-option>
+    </thy-custom-select>
+  </thy-dialog-body>
+  <thy-dialog-footer thyShowBorderTop="true">
+    <button thyButton="primary" (click)="thyDialog.close()">确认</button>
+    <button thyButton="link-secondary" (click)="thyDialog.close()">
+      关闭
+    </button>
+  </thy-dialog-footer>
+</ng-template>

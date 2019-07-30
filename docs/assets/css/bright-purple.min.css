@@ -20,6 +20,14 @@ a.link-secondary:hover {
     color: #4e8afa;
     text-decoration: none;
 }
+a.link-major {
+    color: #333;
+    text-decoration: none;
+}
+a.link-major:hover {
+    color: #4e8afa;
+    text-decoration: none;
+}
 .close {
     color: #ddd;
     text-decoration: none;

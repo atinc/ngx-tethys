@@ -7,6 +7,8 @@ import { timer } from 'rxjs';
     styleUrls: ['./flexible-text-section.scss']
 })
 export class DemoFlexibleTextComponent implements OnInit {
+    oldTitle = '最初是短文本。。。。';
+
     title1 = {
         text: `【内容超出，显示Tooltip】周杰伦练琴辛酸史家长进游戏群控诉韩国一桑拿房起火伊斯兰堡会谈推迟游客夫妻美国被捕黄晓明否认拒演京东回应收集隐私救护
 车高速被堵沈祥福回应炮轰烟台回应广告牌美国奥罗周杰伦练琴辛酸史家长进游戏群控诉韩国一桑拿房起火伊斯兰堡会谈推迟游客夫妻美国被捕黄晓明否认拒演京东回应收集隐私救护
@@ -44,11 +46,15 @@ export class DemoFlexibleTextComponent implements OnInit {
 
     constructor() {}
 
-    ngOnInit() {
-        timer(5000).subscribe(() => {
-            this.title2.text = `周杰伦练琴辛酸史家长进游戏群控诉韩国一桑拿房起火伊斯兰堡会谈推迟游客夫妻美国被捕黄晓明否认拒演京东回应收集隐私救护
-            车高速被堵沈祥福回应炮轰烟台回应广告牌美国奥罗周杰伦练琴辛酸史家长进游戏群控诉韩国一桑拿房起火伊斯兰堡会谈推迟游客夫妻美国被捕黄晓明否认拒演京东回应收集隐私救护
-            车高速被堵沈祥福回应炮轰烟台回应广告牌美国奥罗`;
-        });
+    ngOnInit() {}
+
+    updateLargeTitle() {
+        this.oldTitle = `周杰伦练琴辛酸史家长进游戏群控诉韩国一桑拿房起火伊斯兰堡会谈推迟游客夫妻美国被捕黄晓明否认拒演京东回应收集隐私救护
+        车高速被堵沈祥福回应炮轰烟台回应广告牌美国奥罗周杰伦练琴辛酸史家长进游戏群控诉韩国一桑拿房起火伊斯兰堡会谈推迟游客夫妻美国被捕黄晓明否认拒演京东回应收集隐私救护
+        车高速被堵沈祥福回应炮轰烟台回应广告牌美国奥罗`;
+    }
+
+    updateLittleTitle() {
+        this.oldTitle = `最初是短文本。。。。`;
     }
 }
