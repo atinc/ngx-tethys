@@ -2,6 +2,7 @@
     position: relative;
     display: inline-block;
     vertical-align: middle;
+    min-width: 6px;
 }
 
 .btn .thy-badge {
@@ -9,7 +10,7 @@
     top: -1px;
 }
 
-// #region 
+// #region
 .thy-badge {
     display: inline-block;
     font-size: $badge-font-size;

@@ -1,21 +1,16 @@
-
 import { Component, ElementRef } from '@angular/core';
 import { ThyNotifyService } from '../../../../../src/notify/notify.service';
 
 @Component({
     selector: 'demo-notify-section',
-    templateUrl: './notify-section.component.html',
+    templateUrl: './notify-section.component.html'
 })
 export class DemoNotifySectionComponent {
-
-
-    constructor(
-        private notifyService: ThyNotifyService
-    ) { }
+    constructor(private notifyService: ThyNotifyService) {}
 
     showDefault() {
         this.notifyService.show({
-            title: '添加项目成功！',
+            title: '添加项目成功！'
         });
     }
 
@@ -40,11 +35,11 @@ export class DemoNotifySectionComponent {
             type: 'error',
             title: '错误',
             content: '获取数据失败！',
-            detail: `chunk {main} main.js (main) 703 kB [initial] [rendered] ℹ ｢wdm｣: Compiled successfully.ℹ ｢wdm｣: Compiling... 
-            Date: 2018-04-20错误错误错误错误T08:57:23.362Z - Hash: d96e601a21c551b7c38a 
-            - Time: 11376ms 4 unchanged chunks chunk {main} main.js (main) 703 kB [initial] 
+            detail: `chunk {main} main.js (main) 703 kB [initial] [rendered] ℹ ｢wdm｣: Compiled successfully.ℹ ｢wdm｣: Compiling...
+            Date: 2018-04-20错误错误错误错误T08:57:23.362Z - Hash: d96e601a21c551b7c38a
+            - Time: 11376ms 4 unchanged chunks chunk {main} main.js (main) 703 kB [initial]
             [rendered]ℹ ｢wdm｣: Compiled successfully.`,
-            duration: 0,
+            duration: 0
         });
     }
 
@@ -52,8 +47,7 @@ export class DemoNotifySectionComponent {
         this.notifyService.show({
             type: 'error',
             title: '错误 ',
-            html: htmlRef,
+            html: htmlRef
         });
     }
-
 }

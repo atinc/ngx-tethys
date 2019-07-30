@@ -1,6 +1,8 @@
 <ng-container *ngIf="contentTemplateRef; else defaultTpl">
   <ng-container [ngTemplateOutlet]="contentTemplateRef"></ng-container>
-  <span *ngIf="feedbackIcon" class="form-control-feedback {{ feedbackIcon }}"></span>
+  <ng-container *ngIf="feedbackSvgIconName; else iconFont">
+    <thy-icon class="form-control-feedback" [thyIconName]="feedbackSvgIconName"></thy-icon>
+  </ng-container>
 </ng-container>
 <ng-template #defaultTpl>
   <label
@@ -14,7 +16,13 @@
   >
   <div [ngClass]="{ 'col-sm-10 col-form-control': isHorizontal, 'position-relative': !isHorizontal }">
     <ng-content></ng-content>
-    <span *ngIf="feedbackIcon" class="form-control-feedback {{ feedbackIcon }}"></span>
+    <ng-container *ngIf="feedbackSvgIconName; else iconFont">
+      <thy-icon class="form-control-feedback" [thyIconName]="feedbackSvgIconName"></thy-icon>
+    </ng-container>
     <span *ngIf="tips" class="form-text text-desc">{{ tips }}</span>
   </div>
+</ng-template>
+
+<ng-template #iconFont>
+  <span *ngIf="feedbackIcon" class="form-control-feedback {{ feedbackIcon }}"></span>
 </ng-template>

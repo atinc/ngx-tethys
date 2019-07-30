@@ -13,14 +13,15 @@ export class DemoTooltipSectionComponent implements OnInit {
         placement: 'top',
         disabled: false,
         showDelay: 200,
-        hideDelay: 100
+        hideDelay: 100,
+        offset: 4
     };
 
     basicCodeExample = require('!!raw-loader!./basic/tooltip-basic-demo.component.html');
 
     templateCodeExample = require('!!raw-loader!./template/tooltip-template-demo.component.html');
 
-    TemplateContextCodeExample = require('!!raw-loader!./template-data/tooltip-template-demo.component.html');
+    templateContextCodeExample = require('!!raw-loader!./template-data/tooltip-template-demo.component.html');
 
     apiParameters = apiParameters;
 

@@ -61,6 +61,7 @@ $input-search-padding-y: $btn-padding-y-md; // 36px
     width: 100%;
     .input-prefix-icon,
     .input-suffix-icon {
+        line-height: 1;
         position: absolute;
         z-index: 2;
         i {
@@ -69,15 +70,15 @@ $input-search-padding-y: $btn-padding-y-md; // 36px
     }
     .input-prefix-icon {
         left: $input-padding-x;
-        top: $input-search-padding-y;
+        top: calc((100% - 16px) / 2);
         color: $input-icon-color;
     }
     .input-suffix-icon {
         right: $input-padding-x;
-        top: $input-search-padding-y;
+        top: calc((100% - 16px) / 2);
     }
     .input-search-control {
-        padding: $input-search-padding-y ($input-padding-x + $input-padding-x + 0.5rem);
+        padding: $input-search-padding-y ($input-padding-x + $input-padding-x + 1rem);
         transition: none;
     }
     &.input-search-ellipse {
@@ -148,7 +149,8 @@ $input-search-padding-y: $btn-padding-y-md; // 36px
 .form-control-feedback {
     position: absolute; // top: (2 * $input-padding-y + $input-line-height * $font-size-base - $input-line-height) / 2;
     top: 50%;
-    margin-top: -(($font-size-md * $input-line-height) / 2);
+    // margin-top: -(($font-size-md * $input-line-height) / 2);
+    transform: translateY(-50%);
     right: $input-padding-x;
     z-index: 2; // Ensure icon is above input groups
     display: block; // width: $input-hei;
