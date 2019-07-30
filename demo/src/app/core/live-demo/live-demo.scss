@@ -9,7 +9,7 @@
 
 .live-demo-container {
     display: flex;
-    background: #edf0f4; //$gray-100;
+    background: #edf0f4;
     flex-direction: column;
     padding: 10px 20px;
     border-radius: 0.4rem;
@@ -19,6 +19,8 @@
     .demo-header {
         display: flex;
         flex: auto;
+        height: 40px;
+        line-height: 40px;
         .header-title {
             flex: auto;
             align-items: center;
