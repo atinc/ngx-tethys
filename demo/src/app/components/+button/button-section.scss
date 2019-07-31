@@ -1,5 +1,5 @@
 .demo-buttons {
-    .btn {
-        margin-right: 10px;
+    .btn + .btn {
+        margin-left: 10px;
     }
 }

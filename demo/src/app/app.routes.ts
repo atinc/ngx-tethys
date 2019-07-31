@@ -54,6 +54,7 @@ import { DemoOverlaySectionComponent } from './components/+overlay/overlay-secti
 import { DemoIconSectionComponent } from './components/+icon/icon-section.component';
 import { DemoFlexibleTextComponent } from './components/+flexible-text/flexible-text-section.component';
 import { DemoPopoverSectionComponent } from './components/+popover/popover-section.component';
+import { DemoVariablesSectionComponent } from './components/+variables';
 const appRoutes = [
     {
         path: '',
@@ -77,8 +78,8 @@ const appRoutes = [
         component: DemoRebootSectionComponent
     },
     {
-        path: 'global/key-select',
-        component: DemoKeySelectSectionComponent
+        path: 'global/variables',
+        component: DemoVariablesSectionComponent
     },
     {
         path: 'components/button',

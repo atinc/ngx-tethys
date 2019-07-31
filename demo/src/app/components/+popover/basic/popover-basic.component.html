@@ -16,12 +16,12 @@
     </thy-select>
   </thy-form-group>
 </form>
-<div class="btn-pair mt-2">
-  <button #componentTrigger thyButton="primary" (click)="openPopover(componentTrigger)">
-    Open Component Popover
+<div class="btn-pair mt-3">
+  <button #componentTrigger thyButton="secondary" thySize="md" (click)="openPopover(componentTrigger)">
+    Use Component
   </button>
-  <button #templateTrigger thyButton="primary" (click)="openTemplatePopover(templateTrigger, template)">
-    Open Template Popover
+  <button #templateTrigger thyButton="secondary" thySize="md" (click)="openTemplatePopover(templateTrigger, template)">
+    Use Template
   </button>
 </div>
 <ng-template #template>

@@ -25,6 +25,7 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 
 const TOOLTIP_PANEL_CLASS = 'thy-tooltip-panel';
 const SCROLL_THROTTLE_MS = 20;
+const DEFAULT_OFFSET = 4;
 
 @Directive({
     selector: '[thyTooltip],[thy-tooltip]',
@@ -79,6 +80,8 @@ export class ThyTooltipDirective extends mixinUnsubscribe(MixinBase) implements 
     }
 
     @Input('thyTooltipTemplateContext') data: any;
+
+    @Input('thyTooltipOffset') tooltipOffset: number;
 
     private detach() {
         if (this.overlayRef && this.overlayRef.hasAttached()) {
@@ -169,7 +172,11 @@ export class ThyTooltipDirective extends mixinUnsubscribe(MixinBase) implements 
     /** Updates the position of the current tooltip. */
     private updatePosition() {
         const position = this.overlayRef.getConfig().positionStrategy as FlexibleConnectedPositionStrategy;
-        const connectionPositions = getFlexiblePositions(this.placement, undefined, this.panelClassPrefix);
+        const connectionPositions = getFlexiblePositions(
+            this.placement,
+            this.tooltipOffset || DEFAULT_OFFSET,
+            this.panelClassPrefix
+        );
         position.withPositions(connectionPositions);
     }
 

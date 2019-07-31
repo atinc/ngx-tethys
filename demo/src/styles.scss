@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
 // @import '~bootstrap/scss/bootstrap';
+// $primary: #338FE5;
+
 @import '../../src/styles/index.scss';
 // @import './styles/wt-font.scss';
 @import './assets/fonts/wtd/iconfont.css';
@@ -8,7 +10,8 @@
 @import '~bootstrap/scss/nav';
 @import './app/app.component.scss';
 @import '~highlight.js/styles/dracula.css';
-@import './app/core/live-demo/live-demo.component.scss';
+@import './app/core/live-demo/live-demo.scss';
+@import './app/components/styles.scss';
 
 .header {
     margin-top: 10px;
