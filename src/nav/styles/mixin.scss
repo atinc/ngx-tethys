@@ -20,7 +20,8 @@
         @if $border-bottom {
             border-bottom: $border-bottom;
         }
-        i {
+        i,
+        .thy-icon {
             color: $hover-color;
         }
     } // Disabled state lightens text
