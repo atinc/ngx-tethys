@@ -76,7 +76,7 @@ $font-size-xlg: 1.5rem !default; // 24px
 $code-color: $danger !default;
 $code-font-size: 0.875rem !default;
 
-$input-btn-padding-y: 0.469rem !default;
+$input-btn-padding-y: 0.407rem !default; // 0.469rem 默认输入框从 38px 改成 36px
 $input-btn-padding-x: 1.625rem !default; // 1.313rem  !default;
 $input-btn-padding-y-sm: 0.25rem !default;
 $input-btn-padding-x-sm: 0.5rem !default;
@@ -91,7 +91,8 @@ $btn-border-radius-xs: 0.75rem !default;
 $btn-box-shadow: null !default;
 // $btn-padding-y: 0.469rem !default; //108*38px
 $btn-padding-x: 1.25rem !default;
-$btn-padding-y-md: 0.407rem !default; // 100*36px 变种按钮大小
+// md 按钮需要修改成 32px
+$btn-padding-y-md: 0.282rem !default; // 100*36px 变种按钮大小
 $btn-padding-x-md: 22px !default; // 1.25rem !default;
 // $btn-line-height: $input-btn-line-height;
 $btn-padding-y-sm: 0.157rem !default; // 70*28px

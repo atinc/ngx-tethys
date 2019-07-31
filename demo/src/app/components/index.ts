@@ -1,5 +1,4 @@
 import { DemoPopBoxSectionComponent, PopBoxMenuDemoShowComponent } from './+pop-box/pop-box-section.component';
-import { DemoButtonSectionComponent } from './+button/button-section.component';
 import { DemoRebootSectionComponent } from './+reboot/reboot-section.component';
 import { DemoTableSectionComponent } from './+table/table-section.component';
 import { DemoGridSectionComponent } from './+grid/grid-section.component';
@@ -73,8 +72,12 @@ import {
     DemoPopoverDirectiveContentComponent
 } from './+popover';
 import { DialogDemoModule } from './+dialog';
+import { DemoVariablesSectionComponent } from './+variables';
+import { DemoButtonModule } from './+button';
 
 export const COMPONENTS = [
+    DemoVariablesSectionComponent,
+
     DemoPopBoxSectionComponent,
     PopBoxMenuDemoShowComponent,
     DemoPopoverSectionComponent,
@@ -83,7 +86,6 @@ export const COMPONENTS = [
     DemoPopoverDirectiveComponent,
     DemoPopoverDirectiveContentComponent,
 
-    DemoButtonSectionComponent,
     DemoIconSectionComponent,
     DemoRebootSectionComponent,
     DemoTableSectionComponent,
@@ -183,4 +185,4 @@ export const ENTRY_COMPONENTS = [
     ...ICON_COMPONENTS
 ];
 
-export const DEMO_MODULES = [DialogDemoModule];
+export const DEMO_MODULES = [DialogDemoModule, DemoButtonModule];
