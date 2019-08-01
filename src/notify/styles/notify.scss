@@ -14,9 +14,10 @@
         box-shadow: $notify-box-shadow;
         .thy-notify-close {
             position: absolute;
-            right: $notify-padding;
+            right: $notify-padding - 4;
             top: $notify-padding;
             text-align: center;
+            width: $font-size-base * $notify-line-height;
             font-size: $font-size-base;
             color: $notify-close-color;
             text-decoration: none;
