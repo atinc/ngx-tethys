@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { DemoButtonSectionComponent } from './button-section.component';
-import { SharedModule } from 'app/shared.module';
+import { SharedModule } from '../../shared.module';
 import { DemoButtonBasicComponent } from './basic/button-basic.component';
 import { DemoButtonPairComponent } from './pair/button-pair.component';
 import { DemoButtonIconComponent } from './icon/button-icon.component';

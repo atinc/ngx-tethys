@@ -29,7 +29,7 @@ import {
     CustomMarkdownParserService,
     CustomMarkdownPlanTextParserService
 } from './components/+markdown/custom-markdown.service';
-import { GlobalModule } from './global/global.module';
+import { GLOBAL_MODULES } from './global';
 import { SidebarComponent } from './core/sidebar/sidebar.component';
 import { SharedModule } from './shared.module';
 
@@ -39,6 +39,7 @@ import { SharedModule } from './shared.module';
     imports: [
         SharedModule,
         ...DEMO_MODULES,
+        ...GLOBAL_MODULES,
         RouterModule.forRoot(appRoutes, {
             useHash: true
         }),
@@ -50,8 +51,7 @@ import { SharedModule } from './shared.module';
         SortablejsModule.forRoot({}),
         ThyStoreModule.forFeature([TasksStore, DriveStore]),
         TextFieldModule,
-        OverlayModule,
-        GlobalModule
+        OverlayModule
     ],
     providers: [
         {
