@@ -2,21 +2,21 @@
     font-family: PingFang-SC-Semibold;
     h1,
     h2 {
-        font-size: 20px;
+        font-size: $font-size-lg;
         margin-bottom: 1rem;
     }
     h3 {
-        font-size: 14px;
+        font-size: $font-size-base;
         margin-bottom: 1rem;
     }
     pre {
-        font-size: 14px;
+        font-size: $font-size-base;
         background: $gray-100;
         padding: 15px;
         border-radius: 2px;
     }
     em {
-        font-size: 14px;
+        font-size: $font-size-base;
         font-style: normal;
         color: $gray-500;
     }
