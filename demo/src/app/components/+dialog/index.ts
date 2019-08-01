@@ -2,7 +2,7 @@ import { DemoDialogBasicComponent } from './basic/dialog-basic.component';
 import { NgModule } from '@angular/core';
 import { DemoDialogSectionComponent } from './dialog-section.component';
 import { DemoDialogContentComponent } from './dialog-content.component';
-import { SharedModule } from 'app/shared.module';
+import { SharedModule } from '../../shared.module';
 import { DemoDialogConfirmComponent } from './confirm/confirm.component';
 import { DemoDialogInteractiveComponent } from './interactive/interactive.component';
 
