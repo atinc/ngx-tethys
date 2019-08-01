@@ -11,6 +11,7 @@ export class TooltipBasicDemoComponent {
         disabled: false,
         showDelay: 200,
         hideDelay: 100,
-        offset: 4
+        offset: 4,
+        thyTooltipPin: true
     };
 }

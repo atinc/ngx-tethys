@@ -1,4 +1,14 @@
-import { Directive, ElementRef, ViewContainerRef, NgZone, Input, OnInit, OnDestroy, TemplateRef } from '@angular/core';
+import {
+    Directive,
+    ElementRef,
+    ViewContainerRef,
+    NgZone,
+    Input,
+    OnInit,
+    OnDestroy,
+    TemplateRef,
+    Inject
+} from '@angular/core';
 import {
     Overlay,
     ScrollDispatcher,
@@ -22,10 +32,7 @@ import { ThyTooltipComponent } from './tooltip.component';
 import { getFlexiblePositions, ThyPlacement } from '../core/overlay';
 import { fromEvent } from 'rxjs';
 import { FocusMonitor } from '@angular/cdk/a11y';
-
-const TOOLTIP_PANEL_CLASS = 'thy-tooltip-panel';
-const SCROLL_THROTTLE_MS = 20;
-const DEFAULT_OFFSET = 4;
+import { THY_TOOLTIP_DEFAULT_CONFIG_TOKEN, ThyTooltipConfig } from './tooltip.config';
 
 @Directive({
     selector: '[thyTooltip],[thy-tooltip]',
@@ -83,6 +90,8 @@ export class ThyTooltipDirective extends mixinUnsubscribe(MixinBase) implements 
 
     @Input('thyTooltipOffset') tooltipOffset: number;
 
+    @Input('thyTooltipPin') tooltipPin: boolean;
+
     private detach() {
         if (this.overlayRef && this.overlayRef.hasAttached()) {
             this.overlayRef.detach();
@@ -121,7 +130,7 @@ export class ThyTooltipDirective extends mixinUnsubscribe(MixinBase) implements 
 
         this.overlayRef = this.overlay.create({
             positionStrategy: strategy,
-            panelClass: TOOLTIP_PANEL_CLASS,
+            panelClass: this.thyTooltipConfig.tooltipPanelClass,
             scrollStrategy: this.scrollStrategy,
             hasBackdrop: this.trigger === 'click',
             backdropClass: 'thy-tooltip-backdrop'
@@ -174,7 +183,7 @@ export class ThyTooltipDirective extends mixinUnsubscribe(MixinBase) implements 
         const position = this.overlayRef.getConfig().positionStrategy as FlexibleConnectedPositionStrategy;
         const connectionPositions = getFlexiblePositions(
             this.placement,
-            this.tooltipOffset || DEFAULT_OFFSET,
+            this.tooltipOffset || this.thyTooltipConfig.offset,
             this.panelClassPrefix
         );
         position.withPositions(connectionPositions);
@@ -193,11 +202,16 @@ export class ThyTooltipDirective extends mixinUnsubscribe(MixinBase) implements 
         private viewContainerRef: ViewContainerRef,
         private ngZone: NgZone,
         private platform: Platform,
-        private focusMonitor: FocusMonitor
+        private focusMonitor: FocusMonitor,
+        @Inject(THY_TOOLTIP_DEFAULT_CONFIG_TOKEN)
+        private thyTooltipConfig: ThyTooltipConfig
     ) {
         super();
+        this.tooltipPin = this.thyTooltipConfig.tooltipPin;
         this.options = DEFAULT_TOOLTIP_OPTIONS;
-        this.scrollStrategy = overlay.scrollStrategies.reposition({ scrollThrottle: SCROLL_THROTTLE_MS });
+        this.scrollStrategy = overlay.scrollStrategies.reposition({
+            scrollThrottle: this.thyTooltipConfig.scrollThrottleSeconds
+        });
     }
 
     ngOnInit() {
@@ -223,7 +237,7 @@ export class ThyTooltipDirective extends mixinUnsubscribe(MixinBase) implements 
                         // if element which moved to is in overlayElement, don't hide tooltip
                         if (overlayElement && overlayElement.contains) {
                             const toElementIsTooltip = overlayElement.contains(toElement as Element);
-                            if (!toElementIsTooltip) {
+                            if (!toElementIsTooltip || !this.tooltipPin) {
                                 this.hide();
                             }
                         }
