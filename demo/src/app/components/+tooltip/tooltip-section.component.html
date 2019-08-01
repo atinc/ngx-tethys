@@ -50,7 +50,8 @@
           <option value="20">20</option>
         </thy-select>
       </thy-form-group>
-
+    </form>
+    <form thyForm thyLayout="inline" style="margin-top: 15px;">
       <thy-form-group thyLabelText="Show Delay">
         <input thyInput type="number" [(ngModel)]="tooltipConfig.showDelay" name="showDelay" />
       </thy-form-group>
@@ -60,6 +61,9 @@
 
       <thy-form-group thyLabelText="">
         <label thyCheckbox thyLabelText="Disabled" [(ngModel)]="tooltipConfig.disabled" name="disabled"></label>
+      </thy-form-group>
+      <thy-form-group thyLabelText="">
+        <label thyCheckbox thyLabelText="tooltipPin" [(ngModel)]="tooltipConfig.thyTooltipPin" name="pin"></label>
       </thy-form-group>
     </form>
     <div class="mt-3" *ngIf="showTooltips">
@@ -72,6 +76,7 @@
         [thyTooltipHideDelay]="tooltipConfig.hideDelay"
         thyButton="primary"
         [thyTooltipOffset]="tooltipConfig.offset"
+        [thyTooltipPin]="tooltipConfig.thyTooltipPin"
       >
         Basic Demo
       </button>
@@ -84,6 +89,7 @@
         [thyTooltipShowDelay]="tooltipConfig.showDelay"
         [thyTooltipHideDelay]="tooltipConfig.hideDelay"
         [thyTooltipOffset]="tooltipConfig.offset"
+        [thyTooltipPin]="tooltipConfig.thyTooltipPin"
       >
         Tooltip will show when mouse enter.
       </span>
