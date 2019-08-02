@@ -1,3 +1,22 @@
+## <small>7.5.1 (2019-08-02)</small>
+
+* fix: export popover and flexible-text for build ngx-styx erros ([53948f5](https://github.com/worktile/ngx-tethys/commit/53948f5))
+* fix(action-menu): action-menu max ui ([6b2bca7](https://github.com/worktile/ngx-tethys/commit/6b2bca7))
+* fix(datepicker-range): ui ([652b816](https://github.com/worktile/ngx-tethys/commit/652b816))
+* fix(nav): fix focus nav thy icon style ([8a99c72](https://github.com/worktile/ngx-tethys/commit/8a99c72))
+* fix(nav): fix thy icon in nav style ([a783d61](https://github.com/worktile/ngx-tethys/commit/a783d61))
+* fix(notify): add link hover state ([0bff8ef](https://github.com/worktile/ngx-tethys/commit/0bff8ef))
+* fix(notify): adjust notify style ([3699f0e](https://github.com/worktile/ngx-tethys/commit/3699f0e))
+* fix(notify): del notify detail target blank ([c4c0b53](https://github.com/worktile/ngx-tethys/commit/c4c0b53))
+* fix(notify): del start host ([623f8c4](https://github.com/worktile/ngx-tethys/commit/623f8c4))
+* fix(popover): remove thy-popover-opened class when popover closed ([f7abd64](https://github.com/worktile/ngx-tethys/commit/f7abd64))
+* feat: support tooltipPin;add global config provider ([b872c1f](https://github.com/worktile/ngx-tethys/commit/b872c1f))
+* feat(button): change md from 36 to 32 and default 38 to 36 #253484 ([720d3c3](https://github.com/worktile/ngx-tethys/commit/720d3c3)), closes [#253484](https://github.com/worktile/ngx-tethys/issues/253484)
+* feat(dialog): add full size and box shadow #252859 ([3648cee](https://github.com/worktile/ngx-tethys/commit/3648cee)), closes [#252859](https://github.com/worktile/ngx-tethys/issues/252859)
+* docs: refactor global demo contains link, variables, reboot ([6155316](https://github.com/worktile/ngx-tethys/commit/6155316))
+
+
+
 ## 7.5.0 (2019-07-29)
 
 * feat: add component flexible-text(#247654) ([f23e605](https://github.com/worktile/ngx-tethys/commit/f23e605)), closes [#247654](https://github.com/worktile/ngx-tethys/issues/247654)
