@@ -93,12 +93,12 @@ $btn-box-shadow: null !default;
 $btn-padding-x: 1.25rem !default;
 // md 按钮需要修改成 32px
 $btn-padding-y-md: 0.282rem !default; // 100*36px 变种按钮大小
-$btn-padding-x-md: 22px !default; // 1.25rem !default;
+$btn-padding-x-md: 15px !default; // 1.25rem !default;
 // $btn-line-height: $input-btn-line-height;
 $btn-padding-y-sm: 0.157rem !default; // 70*28px
 $btn-padding-x-sm: 15px !default;
 // $btn-line-height-sm: $input-btn-line-height-sm;
-$btn-padding-y-lg: 0.5rem !default;
+$btn-padding-y-lg: 0.375rem !default;
 $btn-padding-x-lg: 2.215rem !default;
 $btn-padding-y-xs: 2px !default;
 $btn-padding-x-xs: 15px !default;
@@ -119,6 +119,7 @@ $btn-md-min-width: 70px !default;
 $btn-sm-min-width: 70px !default;
 $btn-xs-min-width: 60px !default;
 $btn-lg-min-width: 108px !default;
+
 // btn-group
 $btn-group-btn-padding-y-lg: $btn-padding-y-lg !default;
 $btn-group-btn-padding-y-md: $btn-padding-y-md !default;
