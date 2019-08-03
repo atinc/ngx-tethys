@@ -52,5 +52,11 @@ export const apiParameters = [
         description: '偏移量',
         type: 'number',
         default: '4'
+    },
+    {
+        property: 'thyTooltipPin',
+        description: 'hover触发方式下 鼠标移入Tooltip是否固定Tooltip',
+        type: 'boolean',
+        default: false
     }
 ];

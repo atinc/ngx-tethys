@@ -1,9 +1,6 @@
 import { DemoPopBoxSectionComponent, PopBoxMenuDemoShowComponent } from './+pop-box/pop-box-section.component';
-import { DemoButtonSectionComponent } from './+button/button-section.component';
-import { DemoRebootSectionComponent } from './+reboot/reboot-section.component';
 import { DemoTableSectionComponent } from './+table/table-section.component';
 import { DemoGridSectionComponent } from './+grid/grid-section.component';
-import { RebootSectionLinkComponent } from './+reboot/items/link.component';
 import { DemoWTDSectionLinkComponent } from './+wtd/wtd.component';
 import { DemoActionMenuSectionComponent } from './+action-menu/action-menu-section.component';
 import { DemoBadgeSectionComponent } from './+badge/badge-section.component';
@@ -73,6 +70,7 @@ import {
     DemoPopoverDirectiveContentComponent
 } from './+popover';
 import { DialogDemoModule } from './+dialog';
+import { DemoButtonModule } from './+button';
 
 export const COMPONENTS = [
     DemoPopBoxSectionComponent,
@@ -83,11 +81,8 @@ export const COMPONENTS = [
     DemoPopoverDirectiveComponent,
     DemoPopoverDirectiveContentComponent,
 
-    DemoButtonSectionComponent,
     DemoIconSectionComponent,
-    DemoRebootSectionComponent,
     DemoTableSectionComponent,
-    RebootSectionLinkComponent,
     DemoWTDSectionLinkComponent,
     DemoActionMenuSectionComponent,
     DemoBadgeSectionComponent,
@@ -164,7 +159,6 @@ export const ENTRY_COMPONENTS = [
     DemoPopoverDirectiveComponent,
     DemoPopoverDirectiveContentComponent,
 
-    RebootSectionLinkComponent,
     DemoModalContentComponent,
     DemoSlideContentComponent,
 
@@ -183,4 +177,4 @@ export const ENTRY_COMPONENTS = [
     ...ICON_COMPONENTS
 ];
 
-export const DEMO_MODULES = [DialogDemoModule];
+export const DEMO_MODULES = [DialogDemoModule, DemoButtonModule];
