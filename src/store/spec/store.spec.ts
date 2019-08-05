@@ -1,6 +1,6 @@
 import { Store, Action } from '../index';
 import { of, Observable } from 'rxjs';
-import { map, tap, skip } from 'rxjs/operators';
+import { map, tap, skip, reduce } from 'rxjs/operators';
 
 interface UserInfo {
     uid?: string;
@@ -215,5 +215,20 @@ describe('Store: Store', () => {
                 timer++;
             });
         appStore.fetchMe();
+    });
+
+    it('should recover initialState when call clearState action', () => {
+        const appStore = new AppStateStore();
+        let timer = 0;
+        appStore
+            .select(state => state.me)
+            .subscribe(me => {
+                if (timer === 2) {
+                    expect(me).toBe(null);
+                }
+                timer++;
+            });
+        appStore.fetchMe();
+        appStore.clearState();
     });
 });
