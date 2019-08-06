@@ -1,0 +1,29 @@
+.thy-typography {
+    h1,
+    h2 {
+        font-size: $font-size-lg;
+        margin: 46px 0 $rem-20px;
+    }
+    h1:first-child {
+        margin-top: 0;
+    }
+    h3 {
+        font-size: 14px;
+        margin-bottom: 1rem;
+    }
+    pre {
+        font-size: 14px;
+        color: $gray-700;
+        background: $gray-80;
+        padding: 15px;
+        border-radius: 2px;
+    }
+    em {
+        font-size: $font-size-base;
+        font-style: normal;
+        color: $gray-500;
+    }
+    p {
+        color: $gray-700;
+    }
+}

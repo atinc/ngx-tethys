@@ -56,6 +56,7 @@ import { DemoPopoverSectionComponent } from './components/+popover/popover-secti
 import { DemoVariablesSectionComponent } from './global/+variables';
 import { DemoLinkSectionComponent } from './global/+link';
 import { DemoRebootSectionComponent } from './global/+reboot';
+import { DemoTypographyComponent } from './components/+typography/typography.component';
 
 const appRoutes = [
     {
@@ -86,6 +87,10 @@ const appRoutes = [
     {
         path: 'global/link',
         component: DemoLinkSectionComponent
+    },
+    {
+        path: 'global/typography',
+        component: DemoTypographyComponent
     },
     {
         path: 'components/button',
