@@ -45,12 +45,13 @@
             flex: 1;
             .thy-notify-title {
                 padding-right: 24px;
-                margin-bottom: 4px;
+                margin-top: 1px;
                 font-size: $font-size-base;
                 color: $notify-title-color;
                 word-break: break-all;
             }
             .thy-notify-content {
+                margin-top: 4px;
                 .link-secondary {
                     &:hover {
                         text-decoration: underline;
