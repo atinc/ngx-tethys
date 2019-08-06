@@ -34,7 +34,7 @@ export const allMenus = [
                     { name: 'Variables', zhName: '变量', routePath: 'variables' },
                     { name: 'Reboot', zhName: '通用', routePath: 'reboot' },
                     { name: 'Link', zhName: '链接', routePath: 'link' },
-                    { name: 'Typography', zhName: '文本', routePath: 'typography' }
+                    { name: 'Typography', zhName: '排版', routePath: 'typography' }
                 ]
             },
             {
