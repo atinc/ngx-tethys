@@ -5,6 +5,7 @@ import { helpers } from '../util';
 import { RootStore } from './root-store';
 import { OnDestroy, isDevMode } from '@angular/core';
 import { ActionState } from './action-state';
+import { Action } from './action';
 
 interface Action {
     type: string;
@@ -12,6 +13,8 @@ interface Action {
 }
 
 export class Store<T extends object> implements Observer<T>, OnDestroy {
+    initialStateCache: any;
+
     public state$: BehaviorSubject<T>;
 
     public apply_redux_tool = isDevMode();
@@ -21,6 +24,7 @@ export class Store<T extends object> implements Observer<T>, OnDestroy {
     constructor(initialState: any) {
         this._defaultStoreInstanceId = this._getClassName();
         this.state$ = new BehaviorSubject<T>(initialState);
+        this.initialStateCache = { ...initialState };
         if (this.apply_redux_tool) {
             const _rootStore: RootStore = RootStore.getSingletonRootStore();
             ActionState.changeAction(`Add-${this._defaultStoreInstanceId}`);
@@ -122,6 +126,11 @@ export class Store<T extends object> implements Observer<T>, OnDestroy {
 
     getState(): T {
         return this.snapshot;
+    }
+
+    @Action()
+    clearState() {
+        this.setState(this.initialStateCache);
     }
 
     ngOnDestroy() {

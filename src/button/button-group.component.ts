@@ -18,6 +18,7 @@ export type buttonGroupType = 'outline-primary' | 'outline-default';
 
 const buttonGroupSizeMap = {
     sm: ['btn-group-sm'],
+    md: ['btn-group-md'],
     lg: ['btn-group-lg'],
     xs: ['btn-group-xs']
 };

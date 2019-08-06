@@ -14,7 +14,8 @@ export class DemoTooltipSectionComponent implements OnInit {
         disabled: false,
         showDelay: 200,
         hideDelay: 100,
-        offset: 4
+        offset: 4,
+        thyTooltipPin: true
     };
 
     basicCodeExample = require('!!raw-loader!./basic/tooltip-basic-demo.component.html');

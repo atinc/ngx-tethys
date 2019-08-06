@@ -148,26 +148,9 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 
 
-ngx-bootstrap/component-loader
-
 ngx-bootstrap/datepicker
 
-ngx-bootstrap/mini-ngrx
-
-ngx-bootstrap/modal
-
-ngx-bootstrap/positioning
-
-ngx-bootstrap/progressbar
-
 ngx-bootstrap/tabs
-
-ngx-bootstrap/timepicker
-
-ngx-bootstrap/utils
-
-ngx-highlightjs
-MIT
 
 ngx-tethys
 MIT
@@ -380,6 +363,25 @@ Apache-2.0
  
 
 
+undefined
+
+ngx-bootstrap/component-loader
+
+ngx-bootstrap/mini-ngrx
+
+ngx-bootstrap/modal
+
+ngx-bootstrap/positioning
+
+ngx-bootstrap/progressbar
+
+ngx-bootstrap/timepicker
+
+ngx-bootstrap/utils
+
+ngx-highlightjs
+MIT
+
 sortablejs
 MIT
 
@@ -465,6 +467,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
-
-
-undefined
