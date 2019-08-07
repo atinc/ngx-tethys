@@ -9,7 +9,6 @@
 .nav-link {
     display: block;
     text-align: center;
-    transform: translateY(1px);
     @include nav-link-variant($nav-link-color, $nav-link-hover-color, $nav-border-bottom);
 }
 
@@ -24,6 +23,7 @@
 .nav-secondary {
     border-bottom: 1px solid $nav-border-color;
     .nav-link {
+        transform: translateY(1px);
         @include nav-link-size($nav-link-secondary-padding-y $nav-link-secondary-padding-x, $nav-link-secondary-right);
     }
 }
@@ -31,15 +31,27 @@
 .nav-secondary-divider {
     border-bottom: 1px solid $nav-border-color;
     .nav-link {
-        @include nav-link-size($nav-link-secondary-padding-y $nav-link-secondary-padding-x, $nav-link-secondary-split-right);
-        @include nav-link-divider-variant($nav-link-hover-color, $nav-link-thirdly-split-line-height, $nav-link-secondary-split-right);
+        transform: translateY(1px);
+        @include nav-link-size(
+            $nav-link-secondary-padding-y $nav-link-secondary-padding-x,
+            $nav-link-secondary-split-right
+        );
+        @include nav-link-divider-variant(
+            $nav-link-hover-color,
+            $nav-link-thirdly-split-line-height,
+            $nav-link-secondary-split-right
+        );
     }
 }
 
 .nav-thirdly {
     .nav-link {
-        @include nav-link-size ($nav-link-thirdly-padding-y $nav-link-thirdly-padding-x, $nav-link-thirdly-right);
-        @include nav-link-divider-variant($nav-link-hover-color, $nav-link-thirdly-split-line-height, $nav-link-thirdly-right);
+        @include nav-link-size($nav-link-thirdly-padding-y $nav-link-thirdly-padding-x, $nav-link-thirdly-right);
+        @include nav-link-divider-variant(
+            $nav-link-hover-color,
+            $nav-link-thirdly-split-line-height,
+            $nav-link-thirdly-right
+        );
         @include clear-nav-link-bottom();
     }
 }
@@ -50,7 +62,7 @@
         margin-right: $nav-link-thirdly-right-sm;
         font-size: $font-size-sm;
         &:after {
-            top: calc(50% - #{$nav-link-thirdly-split-line-height-sm}/2);
+            top: calc(50% - #{$nav-link-thirdly-split-line-height-sm}/ 2);
             right: $nav-link-thirdly-right-sm/2 * -1;
             height: $nav-link-thirdly-split-line-height-sm;
         }
@@ -64,7 +76,8 @@
 .thy-layout-header .nav-primary {
     // 为了和字体大 2px 的标题在一条线上
     .nav-link {
-        padding: ($nav-link-primary-padding-y + 0.0625rem) $nav-link-primary-padding-x ($nav-link-primary-padding-y - 0.0625rem) $nav-link-primary-padding-x;
+        padding: ($nav-link-primary-padding-y + 0.0625rem) $nav-link-primary-padding-x
+            ($nav-link-primary-padding-y - 0.0625rem) $nav-link-primary-padding-x;
     }
 }
 
