@@ -71,8 +71,10 @@ import {
 } from './+popover';
 import { DialogDemoModule } from './+dialog';
 import { DemoButtonModule } from './+button';
+import { DemoTypographyComponent } from './+typography/typography.component';
 
 export const COMPONENTS = [
+    DemoTypographyComponent,
     DemoPopBoxSectionComponent,
     PopBoxMenuDemoShowComponent,
     DemoPopoverSectionComponent,
