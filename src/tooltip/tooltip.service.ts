@@ -7,12 +7,14 @@ import {
     OnInit,
     OnDestroy,
     TemplateRef,
-    Injectable
+    Injectable,
+    Inject
 } from '@angular/core';
 import { Overlay, ScrollDispatcher } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { ThyTooltipDirective } from './tooltip.directive';
+import { ThyTooltipConfig, THY_TOOLTIP_DEFAULT_CONFIG_TOKEN } from './tooltip.config';
 
 @Injectable()
 export class TooltipService {
@@ -23,7 +25,9 @@ export class TooltipService {
         private scrollDispatcher: ScrollDispatcher,
         private ngZone: NgZone,
         private platform: Platform,
-        private focusMonitor: FocusMonitor
+        private focusMonitor: FocusMonitor,
+        @Inject(THY_TOOLTIP_DEFAULT_CONFIG_TOKEN)
+        private thyTooltipConfig: ThyTooltipConfig
     ) {}
 
     attach(elementRef: ElementRef, viewContainerRef: ViewContainerRef, trigger?: 'hover' | 'focus' | 'click') {
@@ -34,7 +38,8 @@ export class TooltipService {
             viewContainerRef,
             this.ngZone,
             this.platform,
-            this.focusMonitor
+            this.focusMonitor,
+            this.thyTooltipConfig
         );
         if (trigger) {
             this.thyTooltipDirective.trigger = trigger;

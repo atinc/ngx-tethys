@@ -8,14 +8,13 @@
   <div class="thy-notify-main">
     <div class="thy-notify-title">{{ option.title }}</div>
     <div
+      *ngIf="option.detail && option.content"
       class="thy-notify-content"
       [ngClass]="{ 'thy-notify-content--extend': extendContentClass === true }"
       (click)="extendContent()"
     >
       {{ option.content }}
-      <a href="javascript:;" target="_blank" class="link-secondary" *ngIf="option.detail" (click)="showDetailToggle()"
-        >[详细]</a
-      >
+      <a href="javascript:;" class="link-secondary" *ngIf="option.detail" (click)="showDetailToggle()">[详细]</a>
     </div>
     <div class="thy-notify-detail" *ngIf="isShowDetail">{{ option.detail }}</div>
   </div>

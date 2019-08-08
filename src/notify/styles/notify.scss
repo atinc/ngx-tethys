@@ -14,9 +14,10 @@
         box-shadow: $notify-box-shadow;
         .thy-notify-close {
             position: absolute;
-            right: $notify-padding;
+            right: $notify-padding - 4;
             top: $notify-padding;
             text-align: center;
+            width: $font-size-base * $notify-line-height;
             font-size: $font-size-base;
             color: $notify-close-color;
             text-decoration: none;
@@ -44,13 +45,17 @@
             flex: 1;
             .thy-notify-title {
                 padding-right: 24px;
-                margin-bottom: 4px;
+                margin-top: 1px;
                 font-size: $font-size-base;
                 color: $notify-title-color;
                 word-break: break-all;
             }
             .thy-notify-content {
+                margin-top: 4px;
                 .link-secondary {
+                    &:hover {
+                        text-decoration: underline;
+                    }
                     font-size: $font-size-base;
                     color: $primary;
                 }
@@ -59,7 +64,7 @@
             .thy-notify-detail {
                 flex: 1;
                 font-size: $font-size-base;
-                color: $gray-600;
+                color: $gray-500;
                 word-break: break-all;
                 &--extend {
                     -webkit-line-clamp: initial;

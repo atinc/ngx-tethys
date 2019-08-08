@@ -9,7 +9,8 @@
 
 .live-demo-container {
     display: flex;
-    background: #edf0f4; //$gray-100;
+    background: #edf0f4;
+    // background: #fcfcfc;
     flex-direction: column;
     padding: 10px 20px;
     border-radius: 0.4rem;
@@ -19,6 +20,8 @@
     .demo-header {
         display: flex;
         flex: auto;
+        height: 40px;
+        line-height: 40px;
         .header-title {
             flex: auto;
             align-items: center;
@@ -38,9 +41,12 @@
     }
 
     .demo-body {
-        .btn {
-            border-radius: 4px !important;
-        }
+        // *:not(.demo-buttons) {
+        //     .btn {
+        //         border-radius: 4px !important;
+        //     }
+        // }
+
         .description {
             border-bottom: 1px dashed $gray-300;
             margin-bottom: 10px;
@@ -51,6 +57,7 @@
                 }
             }
         }
+
         .code-example-container {
             margin-top: 20px;
             background: #282a36;
@@ -58,5 +65,10 @@
                 padding-left: 10px;
             }
         }
+    }
+
+    .demo-card {
+        padding: 20px;
+        background: $white;
     }
 }

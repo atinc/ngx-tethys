@@ -1,6 +1,7 @@
 @mixin nav-link-variant($color, $hover-color, $border-bottom) {
     color: $color;
-    i {
+    > i,
+    > .thy-icon {
         color: $nav-link-icon-color;
     }
     &.active {
@@ -8,7 +9,8 @@
         @if $border-bottom {
             border-bottom: $border-bottom;
         }
-        i {
+        > i,
+        > .thy-icon {
             color: $hover-color;
         }
     }
@@ -18,7 +20,8 @@
         @if $border-bottom {
             border-bottom: $border-bottom;
         }
-        i {
+        > i,
+        > .thy-icon {
             color: $hover-color;
         }
     } // Disabled state lightens text

@@ -1,7 +1,6 @@
 import { ChangelogComponent } from './design/changelog/changelog.component';
 import { DemoButtonSectionComponent } from './components/+button/button-section.component';
 import { DemoPopBoxSectionComponent } from './components/+pop-box/pop-box-section.component';
-import { DemoRebootSectionComponent } from './components/+reboot/reboot-section.component';
 import { DemoTableSectionComponent } from './components/+table/table-section.component';
 import { DemoWTDSectionLinkComponent } from './components/+wtd/wtd.component';
 import { DemoBadgeSectionComponent } from './components/+badge/badge-section.component';
@@ -55,6 +54,11 @@ import { DemoIconSectionComponent } from './components/+icon/icon-section.compon
 import { DemoFlexibleTextComponent } from './components/+flexible-text/flexible-text-section.component';
 import { DemoCopySectionComponent } from './components/+copy/copy-section.component';
 import { DemoPopoverSectionComponent } from './components/+popover/popover-section.component';
+import { DemoVariablesSectionComponent } from './global/+variables';
+import { DemoLinkSectionComponent } from './global/+link';
+import { DemoRebootSectionComponent } from './global/+reboot';
+import { DemoTypographyComponent } from './components/+typography/typography.component';
+
 const appRoutes = [
     {
         path: '',
@@ -74,12 +78,20 @@ const appRoutes = [
         component: DropDragComponent
     },
     {
+        path: 'global/variables',
+        component: DemoVariablesSectionComponent
+    },
+    {
         path: 'global/reboot',
         component: DemoRebootSectionComponent
     },
     {
-        path: 'global/key-select',
-        component: DemoKeySelectSectionComponent
+        path: 'global/link',
+        component: DemoLinkSectionComponent
+    },
+    {
+        path: 'global/typography',
+        component: DemoTypographyComponent
     },
     {
         path: 'components/button',

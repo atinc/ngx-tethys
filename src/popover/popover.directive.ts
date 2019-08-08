@@ -63,6 +63,9 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
             placement: this.thyPlacement,
             offset: this.thyOffset
         });
+        this.popoverRef.afterClosed().subscribe(() => {
+            this.popoverOpened = false;
+        });
         return this.popoverRef.getOverlayRef();
     }
 
@@ -73,17 +76,10 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
         const overlayRef = this.createOverlay();
         this.overlayRef = overlayRef;
         this.popoverOpened = true;
-        // overlayRef.detach();
-        // this.popover.attach(overlayRef, this.content, {
-        //     target: this.elementRef.nativeElement,
-        //     hasBackdrop: this.trigger === 'click' || this.trigger === 'focus',
-        //     viewContainerRef: this.viewContainerRef
-        // });
     }
 
     hide(delay: number = 0) {
         this.popoverRef.close();
-        this.popoverOpened = false;
     }
 
     ngOnDestroy() {
