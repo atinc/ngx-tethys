@@ -8,6 +8,21 @@
             display: inline-block;
             transform: rotate(-45deg);
         }
+        .thy-option-item {
+            .thy-tree-select-node-icon {
+                color: $gray-300;
+            }
+            &.active {
+                .thy-tree-select-node-icon {
+                    color: $primary;
+                }
+            }
+            &.disabled {
+                .thy-tree-select-node-icon {
+                    color: $gray-400;
+                }
+            }
+        }
     }
 }
 .thy-tree-select-selection-text {

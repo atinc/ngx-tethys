@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ContentChild, TemplateRef } from '@angular/core';
 import { ThyTreeSelectComponent } from './tree-select.component';
 import { ThyTreeSelectNode } from './tree-select.class';
 
@@ -7,7 +7,6 @@ import { ThyTreeSelectNode } from './tree-select.class';
     templateUrl: './tree-select-nodes.component.html'
 })
 export class ThyTreeSelectNodesComponent implements OnInit {
-
     public treeNodes = this.parent.treeNodes;
 
     public primaryKey = this.parent.thyPrimaryKey;
@@ -22,11 +21,11 @@ export class ThyTreeSelectNodesComponent implements OnInit {
 
     public childCountKey = this.parent.thyChildCountKey;
 
-    constructor(
-        public parent: ThyTreeSelectComponent,
-    ) { }
+    public treeNodeTemplateRef = this.parent.treeNodeTemplateRef;
 
-    ngOnInit() { }
+    constructor(public parent: ThyTreeSelectComponent) {}
+
+    ngOnInit() {}
 
     treeNodeIsSelected(node: ThyTreeSelectNode) {
         if (this.parent.thyMultiple) {
@@ -65,10 +64,13 @@ export class ThyTreeSelectNodesComponent implements OnInit {
                 return item.parentValues.indexOf(node[this.primaryKey]) > -1;
             });
         } else {
-            isSelectedNodeParent = this.parent.selectedNode ?
-                this.parent.selectedNode.parentValues.indexOf(node[this.primaryKey]) > -1 : false;
+            isSelectedNodeParent = this.parent.selectedNode
+                ? this.parent.selectedNode.parentValues.indexOf(node[this.primaryKey]) > -1
+                : false;
         }
-        return node.expand || (Object.keys(node)).indexOf('expand') < 0 && isSelectedNodeParent;
+        const isExpand = node.expand || (Object.keys(node).indexOf('expand') < 0 && isSelectedNodeParent);
+        node.expand = isExpand;
+        return isExpand;
     }
 
     getNodeChildren(node: ThyTreeSelectNode) {
@@ -99,5 +101,4 @@ export class ThyTreeSelectNodesComponent implements OnInit {
             this.getNodeChildren(node);
         }
     }
-
 }
