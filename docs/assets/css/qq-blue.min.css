@@ -561,8 +561,8 @@ a.link-major:hover {
     table
     td
     span:before {
-    left: -4px;
-    right: -4px;
+    left: -2px;
+    right: -1px;
 }
 .thy-datepicker
     bs-datepicker-container
@@ -820,14 +820,16 @@ input[type='radio']:after {
 .nav-link {
     color: #888;
 }
-.nav-link i {
+.nav-link > .thy-icon,
+.nav-link > i {
     color: #aaa;
 }
 .nav-link.active {
     color: #2dbcff;
     border-bottom: 2px solid #2dbcff;
 }
-.nav-link.active i {
+.nav-link.active > .thy-icon,
+.nav-link.active > i {
     color: #2dbcff;
 }
 .nav-link:active,
@@ -837,9 +839,12 @@ input[type='radio']:after {
     text-decoration: none;
     border-bottom: 2px solid #2dbcff;
 }
-.nav-link:active i,
-.nav-link:focus i,
-.nav-link:hover i {
+.nav-link:active > .thy-icon,
+.nav-link:active > i,
+.nav-link:focus > .thy-icon,
+.nav-link:focus > i,
+.nav-link:hover > .thy-icon,
+.nav-link:hover > i {
     color: #2dbcff;
 }
 .nav-link.disabled {
@@ -854,14 +859,16 @@ input[type='radio']:after {
 .nav-primary .nav-link:last-child {
     margin-right: 0;
 }
-.nav-primary .nav-link i {
+.nav-primary .nav-link > .thy-icon,
+.nav-primary .nav-link > i {
     color: #aaa;
 }
 .nav-primary .nav-link.active {
     color: #2dbcff;
     border-bottom: 2px solid #2dbcff;
 }
-.nav-primary .nav-link.active i {
+.nav-primary .nav-link.active > .thy-icon,
+.nav-primary .nav-link.active > i {
     color: #2dbcff;
 }
 .nav-primary .nav-link:active,
@@ -871,9 +878,12 @@ input[type='radio']:after {
     text-decoration: none;
     border-bottom: 2px solid #2dbcff;
 }
-.nav-primary .nav-link:active i,
-.nav-primary .nav-link:focus i,
-.nav-primary .nav-link:hover i {
+.nav-primary .nav-link:active > .thy-icon,
+.nav-primary .nav-link:active > i,
+.nav-primary .nav-link:focus > .thy-icon,
+.nav-primary .nav-link:focus > i,
+.nav-primary .nav-link:hover > .thy-icon,
+.nav-primary .nav-link:hover > i {
     color: #2dbcff;
 }
 .nav-primary .nav-link.disabled {
