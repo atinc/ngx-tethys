@@ -15,15 +15,79 @@
         font-size: 14px;
         color: $gray-700;
         background: $gray-80;
-        padding: 15px;
+        padding: 20px;
         border-radius: 2px;
-    }
-    em {
-        font-size: $font-size-base;
-        font-style: normal;
-        color: $gray-500;
     }
     p {
         color: $gray-700;
+    }
+    blockquote {
+        border-left: 2px solid $gray-300;
+        color: $gray-600;
+        font-size: 14px;
+        margin-bottom: 5px;
+        margin-top: 5px;
+        padding-left: 10px;
+    }
+    &.thy-typography-markdown {
+        em {
+            font-size: $font-size-base;
+            font-style: normal;
+            color: $gray-500;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            th,
+            td {
+                border: 1px solid $gray-300;
+                padding: 8px;
+            }
+            thead {
+                th {
+                    background: $gray-80;
+                }
+            }
+        }
+    }
+
+    &.thy-typography-rich {
+        .ql-code-block-container {
+            background: $gray-80;
+            color: $gray-700;
+            padding: 20px;
+            border-radius: 2px;
+        }
+
+        ol {
+            color: $gray-700;
+            font-size: 14px;
+            padding-left: 0;
+            li {
+                list-style-position: inside;
+                &[data-list='bullet'] {
+                    list-style-type: disc;
+                }
+            }
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            td {
+                border: 1px solid $gray-300;
+                padding: 8px;
+            }
+            tbody {
+                tr {
+                    &:first-child {
+                        background: $gray-80;
+                    }
+                }
+            }
+        }
+
+        img {
+            max-width: 100%;
+        }
     }
 }
