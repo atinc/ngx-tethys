@@ -1,6 +1,6 @@
 {
   "name": "ngx-tethys",
-  "version": "7.5.2",
+  "version": "7.5.3",
   "license": "MIT",
   "scripts": {
     "build": "npm run build:ngm",
