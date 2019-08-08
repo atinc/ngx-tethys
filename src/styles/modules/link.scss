@@ -12,10 +12,6 @@ a {
         // font-size: $font-size-md;
         display: inline-block;
     }
-    // 新的 SVG 图标字体16px偏大, 所以改成14px, 之前的字体不变
-    .thy-icon {
-        font-size: $font-size-base;
-    }
 }
 
 // And undo these styles for placeholder links/named anchors (without href)
@@ -40,6 +36,10 @@ a.link-has-icon {
     .thy-icon,
     .wtf {
         padding-right: $link-icon-padding-right;
+    }
+    // 新的 SVG 图标字体16px偏大, 所以改成14px, 之前的字体不变
+    .thy-icon {
+        font-size: $font-size-base;
     }
 }
 
