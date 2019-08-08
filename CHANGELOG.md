@@ -1,3 +1,20 @@
+## <small>7.5.2 (2019-08-07)</small>
+
+* fix: pre code style ([41e36f9](https://github.com/worktile/ngx-tethys/commit/41e36f9))
+* fix: typography style ([8a0bbdc](https://github.com/worktile/ngx-tethys/commit/8a0bbdc))
+* fix: typography style ([d0257e2](https://github.com/worktile/ngx-tethys/commit/d0257e2))
+* fix: 文本改成排版 ([23e0058](https://github.com/worktile/ngx-tethys/commit/23e0058))
+* fix(agile): #255003 thy-nav下加button按钮，button的thy-icon颜色失效 ([c3ae8a2](https://github.com/worktile/ngx-tethys/commit/c3ae8a2)), closes [#255003](https://github.com/worktile/ngx-tethys/issues/255003)
+* fix(button): change button padding ([c1abbb0](https://github.com/worktile/ngx-tethys/commit/c1abbb0))
+* fix(dialog): change box shadow and backdrop shadow ([5aa67bb](https://github.com/worktile/ngx-tethys/commit/5aa67bb))
+* fix(link): move thy-icon font-size 14px to link-has-icon ([c26f617](https://github.com/worktile/ngx-tethys/commit/c26f617))
+* fix(notify): adjust title position #255598 ([14e0adb](https://github.com/worktile/ngx-tethys/commit/14e0adb)), closes [#255598](https://github.com/worktile/ngx-tethys/issues/255598)
+* feat: add demo ([88dbcb2](https://github.com/worktile/ngx-tethys/commit/88dbcb2))
+* feat(icon-text): icon padding ([1d9f230](https://github.com/worktile/ngx-tethys/commit/1d9f230))
+* feat(store): add clearState fn and add test case(#255027) ([7e55f00](https://github.com/worktile/ngx-tethys/commit/7e55f00)), closes [#255027](https://github.com/worktile/ngx-tethys/issues/255027)
+
+
+
 ## <small>7.5.1 (2019-08-02)</small>
 
 * fix: export popover and flexible-text for build ngx-styx erros ([53948f5](https://github.com/worktile/ngx-tethys/commit/53948f5))
