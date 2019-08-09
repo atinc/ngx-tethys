@@ -74,6 +74,7 @@ import {
 import { DialogDemoModule } from './+dialog';
 import { DemoVariablesSectionComponent } from './+variables';
 import { DemoButtonModule } from './+button';
+import { ComplexSelectSectionComponent } from './+select/complex-select/complex-select-section.component';
 
 export const COMPONENTS = [
     DemoVariablesSectionComponent,
@@ -156,7 +157,8 @@ export const COMPONENTS = [
     DemoArrowSwitcherSectionComponent,
 
     DemoMarkdownSectionComponent,
-    DemoFlexibleTextComponent
+    DemoFlexibleTextComponent,
+    ComplexSelectSectionComponent
 ];
 
 export const ENTRY_COMPONENTS = [

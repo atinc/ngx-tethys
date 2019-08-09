@@ -1,5 +1,11 @@
 <section>
   <div class="header">
+    <h2>复杂Select</h2>
+  </div>
+  <complex-select-section></complex-select-section>
+</section>
+<section>
+  <div class="header">
     <h2>Select</h2>
   </div>
   <div class="body demo-select">
@@ -145,6 +151,12 @@
         >
           <span> <i [class]="option?.icon" class="mr-1"></i> {{ option?.display_name }} </span>
         </thy-option>
+        <ng-template #selectedDisplay let-value>
+          <span *ngIf="!value">!!!空</span>
+          <span class="icon-text" *ngIf="value">
+            <i [ngClass]="value?.icon" class="text-primary"></i>{{ 'aaa' + value?.display_name }}</span
+          >
+        </ng-template>
       </thy-custom-select>
     </div>
   </div>
