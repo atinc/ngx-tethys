@@ -11,8 +11,8 @@ import {
 import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Component, ViewChild, ViewChildren, QueryList, ElementRef, Sanitizer, SecurityContext } from '@angular/core';
 import { ThySelectModule } from './module';
-import { ThySelectCustomComponent, SelectMode } from './custom-select.component';
-import { ThyOptionComponent } from './option.component';
+import { ThySelectCustomComponent, SelectMode } from './custom-select/custom-select.component';
+import { ThyOptionComponent } from './custom-select/option.component';
 import { By, DomSanitizer } from '@angular/platform-browser';
 import { UpdateHostClassService } from '../shared';
 import { ThyPositioningService } from '../positioning/positioning.service';
@@ -656,7 +656,9 @@ describe('ThyCustomSelect', () => {
 
                 expect(option.classList).toContain('active');
                 expect(fixture.componentInstance.options.first.selected).toEqual(true);
-                expect(fixture.componentInstance.select.selected).toBe(fixture.componentInstance.options.first);
+                expect(fixture.componentInstance.select._selectionModel.selected[0]).toBe(
+                    fixture.componentInstance.options.first
+                );
             }));
 
             it('should be able to select to an option using th ThyOptionComponent API', fakeAsync(() => {
@@ -672,7 +674,7 @@ describe('ThyCustomSelect', () => {
                 flush();
                 expect(optionNodes[1].classList).toContain('active');
                 expect(optionInstances[1].selected).toBe(true);
-                expect(fixture.componentInstance.select.selected).toBe(optionInstances[1]);
+                expect(fixture.componentInstance.select._selectionModel.selected[0]).toBe(optionInstances[1]);
             }));
 
             it('should deselect other options when one is selected', fakeAsync(() => {
@@ -853,7 +855,7 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
 
             expect(fixture.componentInstance.select.thyShowSearch).toBe(true);
-            expect(overlayContainerElement.querySelector('thy-input-search')).not.toBeNull();
+            expect(fixture.debugElement.query(By.css('.search-input-field'))).not.toBeNull();
         }));
         it('should hide the options that can not be searched', fakeAsync(() => {
             const fixture = TestBed.createComponent(SelectWithSearchComponent);
@@ -863,9 +865,10 @@ describe('ThyCustomSelect', () => {
             trigger.click();
             fixture.detectChanges();
 
-            const input = overlayContainerElement.querySelector('input');
+            const input = fixture.debugElement.query(By.css('.search-input-field')).nativeElement;
 
             typeInElement('Steak', input);
+            flush();
             fixture.detectChanges();
             flush();
 
@@ -888,12 +891,12 @@ describe('ThyCustomSelect', () => {
         }));
         it('should search option use thySearchKey', fakeAsync(() => {
             const fixture = TestBed.createComponent(SelectWithSearchUseSearchKeyComponent);
-            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             fixture.detectChanges();
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             trigger.click();
             fixture.detectChanges();
 
-            const input = overlayContainerElement.querySelector('input');
+            const input = fixture.debugElement.query(By.css('.search-input-field')).nativeElement;
 
             typeInElement('lrs', input);
             fixture.detectChanges();
@@ -914,15 +917,14 @@ describe('ThyCustomSelect', () => {
         }));
         it('should hide the thy-group when all options of the group is hidden', fakeAsync(() => {
             const fixture = TestBed.createComponent(SelectWithSearchAndGroupComponent);
-            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
-
             fixture.detectChanges();
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             trigger.click();
             fixture.detectChanges();
 
             const groups = fixture.componentInstance.select.optionGroups.toArray();
             const options = fixture.componentInstance.select.options.toArray();
-            const input = overlayContainerElement.querySelector('input');
+            const input = fixture.debugElement.query(By.css('.search-input-field')).nativeElement;
             typeInElement('Cat', input);
 
             tick(1000);
@@ -943,13 +945,14 @@ describe('ThyCustomSelect', () => {
         }));
         it('should exec thyOnSearch when thyServerSearch is true', fakeAsync(() => {
             const fixture = TestBed.createComponent(SelectWithSearchAndServerSearchComponent);
-            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             fixture.detectChanges();
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             trigger.click();
             fixture.detectChanges();
 
             const spy = fixture.componentInstance.thyOnSearch;
-            const input = overlayContainerElement.querySelector('input');
+            const input = fixture.debugElement.query(By.css('.search-input-field')).nativeElement;
+
             typeInElement('milk', input);
             fixture.detectChanges();
             tick();
@@ -965,8 +968,8 @@ describe('ThyCustomSelect', () => {
 
         it('should remove the thy-option when sourcedata change', fakeAsync(() => {
             const fixture = TestBed.createComponent(SelectEimtOptionsChangesComponent);
-            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             fixture.detectChanges();
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             trigger.click();
             fixture.detectChanges();
 
@@ -1002,7 +1005,7 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             flush();
 
-            const selectContainer = overlayContainerElement.querySelector('.thy-select-container');
+            const selectContainer = overlayContainerElement.querySelector('.thy-custom-select-dropdown');
             dispatchFakeEvent(selectContainer, 'mouseleave');
             fixture.detectChanges();
 
