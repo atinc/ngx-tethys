@@ -5,12 +5,12 @@ const animationBody = [
     // specifying the transform explicitly, causes IE both to blur the dialog content and
     // decimate the animation performance. Leaving it as `none` solves both issues. translate(-300px,-100px)
     state('void, exit', style({ opacity: 0, transform: 'scale(0.1)' })),
-    state('enter', style({ transform: 'none' })),
-    transition('* => enter', animate('100ms cubic-bezier(0, 0, 0.57, 1)', style({ transform: 'none', opacity: 1 }))),
-    transition(
-        '* => exit',
-        animate('150ms cubic-bezier(0.24, 0.18, 0.96, 0.52)', style({ transform: 'scale(0.3)', opacity: 0 }))
-    )
+    state('enter', style({ transform: 'none' }))
+    // transition('* => enter', animate('100ms cubic-bezier(0, 0, 0.57, 1)', style({ transform: 'none', opacity: 1 }))),
+    // transition(
+    //     '* => exit',
+    //     animate('150ms cubic-bezier(0.24, 0.18, 0.96, 0.52)', style({ transform: 'scale(0.3)', opacity: 0 }))
+    // )
 ];
 
 /**
