@@ -22,14 +22,24 @@
         (click)="selectTreeNode($event, node)"
         *ngIf="!treeNodeIsHidden(node)"
       >
+        <ng-template #treeSelectNode> </ng-template>
         <span
-          class="expand-tree-icon text-desc"
+          class="text-desc"
           [class.invisible]="!(node.children?.length > 0 || (node[childCountKey] && node[childCountKey] > 0))"
           (click)="nodeExpandToggle($event, node)"
         >
-          <i class="wtf wtf-caret-down" [class.rotate-caret]="!treeNodeIsExpand(node)"></i>
+          <thy-icon thyIconName="caret-right-down" [class.rotate-caret]="!treeNodeIsExpand(node)"></thy-icon>
         </span>
-        <span class="ml-1">{{ node[showKey] }}</span>
+        <span class="ml-1">
+          <ng-template
+            *ngIf="treeNodeTemplateRef; else defaultNodeText"
+            [ngTemplateOutlet]="treeNodeTemplateRef"
+            [ngTemplateOutletContext]="{ $implicit: node }"
+          ></ng-template>
+          <ng-template #defaultNodeText>
+            {{ node[showKey] }}
+          </ng-template>
+        </span>
         <span class="text-light checked-icon">
           <i class="wtf wtf-checked"></i>
         </span>

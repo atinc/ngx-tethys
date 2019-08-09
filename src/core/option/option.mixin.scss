@@ -16,7 +16,9 @@
         left: 20px;
         right: 35px;
     }
-    // &:focus,
+    .prefix-icon {
+        color: $gray-300;
+    }
     &.hover,
     &:hover {
         // @include item-box-shadow();
@@ -25,6 +27,9 @@
         &:not(.disabled).active {
             color: $primary;
             background: transparent;
+            .prefix-icon {
+                color: $gray-300;
+            }
         }
     }
     &:not(.disabled).active {
@@ -33,6 +38,9 @@
         &:hover {
             background: $gray-80;
             color: $body-color;
+        }
+        .prefix-icon {
+            color: $primary;
         }
     }
     &.disabled {

@@ -94,6 +94,9 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
     @ContentChild('thyTreeSelectTriggerDisplay')
     thyTreeSelectTriggerDisplayRef: TemplateRef<any>;
 
+    @ContentChild('treeNodeTemplate')
+    treeNodeTemplateRef: TemplateRef<any>;
+
     @ViewChild(CdkOverlayOrigin) cdkOverlayOrigin: CdkOverlayOrigin;
 
     @ViewChild(CdkConnectedOverlay) cdkConnectedOverlay: CdkConnectedOverlay;

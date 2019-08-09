@@ -6,7 +6,7 @@ $cdk-z-index-overlay: 1000;
 $cdk-z-index-overlay-backdrop: 1000;
 
 // Background color for all of the backdrops
-$cdk-overlay-dark-backdrop-background: rgba(0, 0, 0, 0.288);
+$cdk-overlay-dark-backdrop-background: rgba(0, 0, 0, 0.55) !default;
 
 // Default backdrop animation is based on the Material Design swift-ease-out.
 $backdrop-animation-duration: 400ms !default;
@@ -79,8 +79,7 @@ $backdrop-animation-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
         z-index: $cdk-z-index-overlay-backdrop;
         pointer-events: auto;
         -webkit-tap-highlight-color: transparent;
-        transition: opacity $backdrop-animation-duration
-            $backdrop-animation-timing-function;
+        transition: opacity $backdrop-animation-duration $backdrop-animation-timing-function;
         opacity: 0;
 
         &.cdk-overlay-backdrop-showing {

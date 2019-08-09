@@ -10,8 +10,7 @@
     > .btn {
         position: relative;
         flex: 0 1 auto;
-        padding: $btn-group-btn-padding-y-md $btn-group-btn-padding-x-md;
-        // min-width: unset;
+        padding: $btn-padding-y $btn-group-btn-padding-x-md;
 
         // Bring the hover, focused, and "active" buttons to the front to overlay
         // the borders properly
@@ -22,6 +21,13 @@
         &:active,
         &.active {
             z-index: 1;
+        }
+
+        i,
+        .wtf,
+        .thy-icon {
+            vertical-align: middle;
+            margin-top: -0.125rem;
         }
     }
 
@@ -80,6 +86,10 @@
 .btn-group-sm > .btn {
     @extend .btn-sm;
     padding: $btn-group-btn-padding-y-sm $btn-group-btn-padding-x-sm;
+}
+.btn-group-md > .btn {
+    @extend .btn-md;
+    padding: $btn-group-btn-padding-y-md $btn-group-btn-padding-x-md;
 }
 .btn-group-lg > .btn {
     @extend .btn-lg;
