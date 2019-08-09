@@ -26,7 +26,8 @@ import {
     Overlay,
     ScrollDispatcher,
     CdkScrollable,
-    CdkConnectedOverlay
+    CdkConnectedOverlay,
+    ConnectionPositionPair
 } from '@angular/cdk/overlay';
 import { getFlexiblePositions } from '../core/overlay';
 import { ThyTreeNode } from '../tree/tree.class';
@@ -81,7 +82,7 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
 
     // public scrollStrategy: ScrollStrategy;
 
-    public positions;
+    public positions: ConnectionPositionPair[];
 
     private initialled = false;
 
