@@ -23,7 +23,7 @@ import {
     HostListener,
     AfterContentChecked
 } from '@angular/core';
-import { UpdateHostClassService } from '../shared/update-host-class.service';
+import { UpdateHostClassService } from '../../shared/update-host-class.service';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import {
     ThyOptionComponent,
@@ -31,16 +31,23 @@ import {
     THY_SELECT_OPTION_PARENT_COMPONENT,
     IThySelectOptionParentComponent
 } from './option.component';
-import { inputValueToBoolean, isArray } from '../util/helpers';
-import { ScrollStrategy, Overlay, ViewportRuler, ConnectionPositionPair, ScrollDispatcher } from '@angular/cdk/overlay';
+import { inputValueToBoolean, isArray } from '../../util/helpers';
+import {
+    ScrollStrategy,
+    Overlay,
+    ViewportRuler,
+    ConnectionPositionPair,
+    ScrollDispatcher,
+    CdkConnectedOverlay
+} from '@angular/cdk/overlay';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { takeUntil, startWith, take, switchMap } from 'rxjs/operators';
-import { Subject, Observable, merge, defer } from 'rxjs';
-import { EXPANDED_DROPDOWN_POSITIONS } from '../core/overlay/overlay-position-map';
+import { Subject, Observable, merge, defer, Subscription } from 'rxjs';
+import { getFlexiblePositions, ThyPlacement } from '../../core/overlay';
 import { ThySelectOptionGroupComponent } from './option-group.component';
 import { SelectionModel } from '@angular/cdk/collections';
-import { ThyScrollDirective } from '../directive/thy-scroll.directive';
-import { helpers } from '../util';
+import { ThyScrollDirective } from '../../directive/thy-scroll.directive';
+import { helpers } from '../../util';
 
 export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -84,8 +91,6 @@ export class ThySelectCustomComponent
         AfterContentInit,
         AfterContentChecked,
         OnDestroy {
-    searchText: string;
-
     _disabled = false;
 
     _size: InputSize;
@@ -100,13 +105,21 @@ export class ThySelectCustomComponent
 
     _scrollStrategy: ScrollStrategy;
 
-    _modalValue: any;
+    _modalValue: any = null;
 
-    public dropDownPosition = 'bottom';
+    defaultOffset = 4;
 
-    _selectionModel: SelectionModel<ThyOptionComponent>;
+    defaultMultipleOffset = 10;
 
-    positions: ConnectionPositionPair[] = EXPANDED_DROPDOWN_POSITIONS;
+    dropDownClass: { [key: string]: boolean };
+
+    public dropDownPositions: ConnectionPositionPair[];
+
+    public _selectionModel: SelectionModel<ThyOptionComponent>;
+
+    selectionModelSubscription: Subscription;
+
+    @ViewChild(CdkConnectedOverlay) cdkConnectedOverlay: CdkConnectedOverlay;
 
     /** The last measured value for the trigger's client bounding rect. */
     triggerRect: ClientRect;
@@ -148,6 +161,8 @@ export class ThySelectCustomComponent
     set thyMode(value: SelectMode) {
         this._mode = value;
         this._instanceSelectionModel();
+        this.getPositions();
+        this.setDropDownClass();
     }
 
     get thyMode(): SelectMode {
@@ -172,21 +187,6 @@ export class ThySelectCustomComponent
     @Input()
     set thyDisabled(value: string) {
         this._disabled = inputValueToBoolean(value);
-    }
-
-    /** Whether the select has a value. */
-    get empty(): boolean {
-        return !this._selectionModel || this._selectionModel.isEmpty();
-    }
-
-    /** The currently selected option. */
-    get selected(): ThyOptionComponent | ThyOptionComponent[] {
-        return this.thyMode === 'multiple' ? this._selectionModel.selected : this._selectionModel.selected[0];
-    }
-
-    /** The currently selected option. */
-    get firstSelected(): ThyOptionComponent {
-        return this._selectionModel.selected[0];
     }
 
     get selectedDisplayContext(): any {
@@ -220,7 +220,7 @@ export class ThySelectCustomComponent
 
     @ContentChild('selectedDisplay') selectedValueDisplayRef: TemplateRef<any>;
 
-    @ViewChild('trigger') trigger: ElementRef<any>;
+    @ViewChild('trigger', { read: ElementRef }) trigger: ElementRef<any>;
 
     @ContentChildren(ThyOptionComponent, { descendants: true }) options: QueryList<ThyOptionComponent>;
 
@@ -264,6 +264,7 @@ export class ThySelectCustomComponent
     }
 
     ngOnInit() {
+        this.getPositions();
         this._scrollStrategy = this.overlay.scrollStrategies.reposition();
         this.viewportRuler
             .change()
@@ -280,10 +281,8 @@ export class ThySelectCustomComponent
         if (this._size) {
             this._classNames.push(`thy-select-${this._size}`);
         }
-        if (this._mode === 'multiple') {
-            this._classNames.push(`thy-select-custom--multiple`);
-        }
         this.updateHostClassService.updateClass(this._classNames);
+        this.setDropDownClass();
     }
 
     ngAfterContentInit() {
@@ -299,6 +298,26 @@ export class ThySelectCustomComponent
     }
 
     ngAfterContentChecked() {}
+
+    getPositions() {
+        this.dropDownPositions = getFlexiblePositions(
+            'bottom',
+            this.isMultiple() ? this.defaultMultipleOffset : this.defaultOffset
+        );
+    }
+
+    setDropDownClass() {
+        let modeClass = '';
+        if (this.isMultiple()) {
+            modeClass = `thy-custom-select-dropdown-${this._mode}`;
+        } else {
+            modeClass = `thy-custom-select-dropdown-single`;
+        }
+        this.dropDownClass = {
+            [`thy-custom-select-dropdown`]: true,
+            [modeClass]: true
+        };
+    }
 
     _resetOptions() {
         const changedOrDestroyed$ = merge(this.options.changes, this._destroy$);
@@ -318,10 +337,16 @@ export class ThySelectCustomComponent
     }
 
     _setSelectionByModelValue(modalValue: any) {
-        this._selectionModel.clear();
         if (helpers.isUndefinedOrNull(modalValue)) {
-            this.changeDetectorRef.markForCheck();
+            if (this._selectionModel.selected.length > 0) {
+                this._selectionModel.clear();
+                this.changeDetectorRef.markForCheck();
+            }
             return;
+        } else {
+            if (this._selectionModel.selected.length > 0) {
+                this._selectionModel.clear();
+            }
         }
         if (this._mode === 'multiple') {
             if (isArray(modalValue)) {
@@ -368,16 +393,15 @@ export class ThySelectCustomComponent
             }
         }
         this.onChangeCallback(this._modalValue);
+        this.updateCdkConnectedOverlayPositions();
     }
 
-    remove(item: ThyOptionComponent, event?: Event) {
-        if (event) {
-            event.stopPropagation();
-        }
+    remove($event: { item: ThyOptionComponent; $eventOrigin: Event }) {
+        $event.$eventOrigin.stopPropagation();
         if (this._disabled) {
             return;
         }
-        item.deselect();
+        $event.item.deselect();
     }
 
     clearSelectValue(event?: Event) {
@@ -413,18 +437,27 @@ export class ThySelectCustomComponent
         }
     }
 
-    onSearchFilter() {
+    onSearchFilter(searchText: string) {
         if (this.thyServerSearch) {
-            this.thyOnSearch.emit(this.searchText);
+            this.thyOnSearch.emit(searchText);
         } else {
             this.options.forEach(option => {
-                if (option.matchSearchText(this.searchText)) {
+                if (option.matchSearchText(searchText)) {
                     option.showOption();
                 } else {
                     option.hideOption();
                 }
             });
+            this.updateCdkConnectedOverlayPositions();
         }
+    }
+
+    public updateCdkConnectedOverlayPositions(): void {
+        setTimeout(() => {
+            if (this.cdkConnectedOverlay && this.cdkConnectedOverlay.overlayRef) {
+                this.cdkConnectedOverlay.overlayRef.updatePosition();
+            }
+        });
     }
 
     private _instanceSelectionModel() {
@@ -432,10 +465,20 @@ export class ThySelectCustomComponent
             this._selectionModel.clear();
         }
         this._selectionModel = new SelectionModel<ThyOptionComponent>(this._mode === 'multiple');
-        this._selectionModel.onChange.pipe(takeUntil(this._destroy$)).subscribe(event => {
-            event.added.forEach(option => option.select());
-            event.removed.forEach(option => option.deselect());
-        });
+        if (this.selectionModelSubscription) {
+            this.selectionModelSubscription.unsubscribe();
+            this.selectionModelSubscription = null;
+        }
+        this.selectionModelSubscription = this._selectionModel.onChange
+            .pipe(takeUntil(this._destroy$))
+            .subscribe(event => {
+                event.added.forEach(option => option.select());
+                event.removed.forEach(option => option.deselect());
+            });
+    }
+
+    private isMultiple(): boolean {
+        return this._mode === 'multiple';
     }
 
     _onSelect(option: ThyOptionComponent, event?: Event) {

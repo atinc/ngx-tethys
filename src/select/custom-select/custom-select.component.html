@@ -1,0 +1,47 @@
+<div
+  cdk-overlay-origin
+  thyCustomSelectTopControl
+  (click)="toggle()"
+  #origin="cdkOverlayOrigin"
+  #trigger
+  [thyPanelOpened]="panelOpen"
+  [thySelectedOptions]="_selectionModel.selected"
+  [thyIsMultiple]="thyMode === 'multiple'"
+  [thyShowSearch]="thyShowSearch"
+  [allowClear]="thyAllowClear"
+  [placeholder]="thyPlaceHolder"
+  [customDisplayTemplate]="selectedValueDisplayRef"
+  [thyDisabled]="_disabled"
+  (thyOnClear)="clearSelectValue($event)"
+  (thyOnRemove)="remove($event)"
+  (thyOnSearch)="onSearchFilter($event)"
+  [ngClass]="_size ? 'form-control-' + _size : ''"
+></div>
+
+<ng-template
+  cdk-connected-overlay
+  cdkConnectedOverlayHasBackdrop
+  cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
+  [cdkConnectedOverlayPositions]="dropDownPositions"
+  [cdkConnectedOverlayOrigin]="origin"
+  [cdkConnectedOverlayOpen]="panelOpen"
+  [cdkConnectedOverlayWidth]="triggerRect?.width"
+  (backdropClick)="close()"
+  (detach)="close()"
+>
+  <div [ngClass]="dropDownClass" (mouseleave)="onSelectContainerMouseleave($event)">
+    <ng-container *ngIf="options.length > 0 || optionGroups.length > 0; else emptyPlaceholder">
+      <div
+        class="thy-select-custom-options"
+        thyScroll
+        (thyOnScrolled)="optionsContainerScrolled($event)"
+        [thyEnable]="thyEnableScrollLoad"
+      >
+        <ng-content></ng-content>
+      </div>
+    </ng-container>
+    <ng-template #emptyPlaceholder>
+      <div class="pl-4 pt-1 pb-1 text-placeholder">{{ _emptyStateText }}</div>
+    </ng-template>
+  </div>
+</ng-template>
