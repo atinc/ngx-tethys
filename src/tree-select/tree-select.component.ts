@@ -26,10 +26,9 @@ import {
     Overlay,
     ScrollDispatcher,
     CdkScrollable,
-    CdkConnectedOverlay,
-    ConnectionPositionPair
+    CdkConnectedOverlay
 } from '@angular/cdk/overlay';
-import { EXPANDED_DROPDOWN_POSITIONS } from '../core/overlay/overlay-position-map';
+import { getFlexiblePositions } from '../core/overlay';
 import { ThyTreeNode } from '../tree/tree.class';
 
 import { $ } from '../typings';
@@ -82,7 +81,7 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
 
     // public scrollStrategy: ScrollStrategy;
 
-    public positions: ConnectionPositionPair[] = [...EXPANDED_DROPDOWN_POSITIONS];
+    public positions;
 
     private initialled = false;
 
@@ -195,6 +194,7 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
     }
 
     ngOnInit() {
+        this.positions = getFlexiblePositions('bottom', 4);
         this.isMulti = this.thyMultiple;
         this.expandTreeSelectOptions = false;
         this.flattenTreeNodes = this.flattenNodes(this.treeNodes, this.flattenTreeNodes, []);
