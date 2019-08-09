@@ -1,3 +1,12 @@
+## <small>7.5.4 (2019-08-09)</small>
+
+* fix(list): #256435 grid模式下hover阴影被遮挡 ([55f5b58](https://github.com/worktile/ngx-tethys/commit/55f5b58)), closes [#256435](https://github.com/worktile/ngx-tethys/issues/256435)
+* fix(popover): delete animation ([727a238](https://github.com/worktile/ngx-tethys/commit/727a238))
+* fix(tree-select): change prefix icon style #239673 ([c767705](https://github.com/worktile/ngx-tethys/commit/c767705)), closes [#239673](https://github.com/worktile/ngx-tethys/issues/239673)
+* feat(popover): support panel class and inside closable #256645 ([c9db78e](https://github.com/worktile/ngx-tethys/commit/c9db78e)), closes [#256645](https://github.com/worktile/ngx-tethys/issues/256645)
+
+
+
 ## <small>7.5.3 (2019-08-08)</small>
 
 * feat: add demo ([88dbcb2](https://github.com/worktile/ngx-tethys/commit/88dbcb2))
