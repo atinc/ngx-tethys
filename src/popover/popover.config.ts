@@ -26,8 +26,12 @@ export class ThyPopoverConfig<TData = any> {
     hasBackdrop?: boolean;
     /** Backdrop can been close */
     backdropClosable?: boolean;
+    /** Click inside can been close */
+    insideClosable?: boolean;
     /** Backdrop class*/
     backdropClass?: string | string[];
+    /** Custom class for the overlay panel */
+    panelClass?: string | string[];
     closeOnNavigation?: boolean;
     direction?: Directionality;
     position?: PopoverPosition;
@@ -56,6 +60,7 @@ export const THY_POPOVER_DEFAULT_CONFIG_PROVIDER = {
         offset: 4,
         backdropClosable: true,
         closeOnNavigation: true,
-        placement: 'bottom'
+        placement: 'bottom',
+        insideClosable: false
     }
 };
