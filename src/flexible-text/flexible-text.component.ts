@@ -28,9 +28,21 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
 
     placement: ThyPlacement;
 
+    containContainerClass = true;
+
     subscription: Subscription | null = null;
 
     @Input('thyTooltipTrigger') trigger: 'hover' | 'focus' | 'click';
+
+    @Input('thyContainContainerClass')
+    get thyContainContainerClass(): boolean {
+        return this.containContainerClass;
+    }
+
+    set thyContainContainerClass(value: boolean) {
+        this.containContainerClass = value;
+        this.updateContainerClass();
+    }
 
     @Input('thyTooltipContent') set thyContent(value: string | TemplateRef<HTMLElement>) {
         this.content = value;
@@ -52,12 +64,12 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
         public tooltipService: TooltipService,
         private updateHostClassService: UpdateHostClassService,
         private contentObserver: ContentObserver
-    ) {}
+    ) {
+        this.updateHostClassService.initializeElement(this.elementRef);
+    }
 
     ngOnInit() {
-        this.updateHostClassService.initializeElement(this.elementRef);
-        this.updateHostClassService.addClass('flexible-text-container');
-
+        this.updateContainerClass();
         this.tooltipService.attach(this.elementRef, this.viewContainerRef, this.trigger);
         if (this.placement) {
             this.tooltipService.thyTooltipDirective.placement = this.placement;
@@ -90,5 +102,13 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
             this.isOverflow = false;
         }
         this.tooltipService.thyTooltipDirective.thyTooltipDisabled = !this.isOverflow;
+    }
+
+    updateContainerClass() {
+        const flexibleTextClass = {
+            'text-truncate': true,
+            'flexible-text-container': this.thyContainContainerClass
+        };
+        this.updateHostClassService.updateClassByMap(flexibleTextClass);
     }
 }

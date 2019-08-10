@@ -1,28 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { timer } from 'rxjs';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { DemoFlexibleTextBasicComponent } from './basic/flexible-text-basic.component';
+import { LiveDemoCodeExample } from '../../core/live-demo/live-demo.component';
 
 @Component({
     selector: 'demo-flexible-text',
     templateUrl: './flexible-text-section.component.html',
-    styleUrls: ['./flexible-text-section.scss']
+    styleUrls: ['./flexible-text-section.scss'],
+    encapsulation: ViewEncapsulation.None
 })
 export class DemoFlexibleTextComponent implements OnInit {
-    oldTitle = '最初是短文本。。。。';
-
-    title1 = {
-        text: `【内容超出，显示Tooltip】周杰伦练琴辛酸史家长进游戏群控诉韩国一桑拿房起火伊斯兰堡会谈推迟游客夫妻美国被捕黄晓明否认拒演京东回应收集隐私救护
-车高速被堵沈祥福回应炮轰烟台回应广告牌美国奥罗周杰伦练琴辛酸史家长进游戏群控诉韩国一桑拿房起火伊斯兰堡会谈推迟游客夫妻美国被捕黄晓明否认拒演京东回应收集隐私救护
-车高速被堵沈祥福回应炮轰烟台回应广告牌美国奥罗`,
-        value: 0,
-        placement: 'bottom'
-    };
-
-    title2 = {
-        text: `标题未超出一定宽度，tooltip不提示全部内容`,
-        value: 1,
-        placement: 'top'
-    };
-
     public apiThyFlexibleTextParameters = [
         {
             property: 'thyTooltipContent',
@@ -41,20 +27,36 @@ export class DemoFlexibleTextComponent implements OnInit {
             description: '触发提示方式，hover, focus, click',
             type: 'string',
             default: 'hover'
+        },
+        {
+            property: 'thyContainContainerClass',
+            description: '是否包含容器类，设置为false避免对原有元素的布局产生影响',
+            type: 'boolean',
+            default: true
+        }
+    ];
+
+    liveDemos: LiveDemoCodeExample[] = [
+        {
+            title: '基本使用',
+            component: DemoFlexibleTextBasicComponent,
+            description: `两种使用方式：组件方式、指令方式。`,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'flexible-text-basic.component.html',
+                    content: require('!!raw-loader!./basic/flexible-text-basic.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'flexible-text-basic.component.ts',
+                    content: require('!!raw-loader!./basic/flexible-text-basic.component.ts')
+                }
+            ]
         }
     ];
 
     constructor() {}
 
     ngOnInit() {}
-
-    updateLargeTitle() {
-        this.oldTitle = `周杰伦练琴辛酸史家长进游戏群控诉韩国一桑拿房起火伊斯兰堡会谈推迟游客夫妻美国被捕黄晓明否认拒演京东回应收集隐私救护
-        车高速被堵沈祥福回应炮轰烟台回应广告牌美国奥罗周杰伦练琴辛酸史家长进游戏群控诉韩国一桑拿房起火伊斯兰堡会谈推迟游客夫妻美国被捕黄晓明否认拒演京东回应收集隐私救护
-        车高速被堵沈祥福回应炮轰烟台回应广告牌美国奥罗`;
-    }
-
-    updateLittleTitle() {
-        this.oldTitle = `最初是短文本。。。。`;
-    }
 }
