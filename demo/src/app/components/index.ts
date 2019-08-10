@@ -72,6 +72,7 @@ import {
 import { DialogDemoModule } from './+dialog';
 import { DemoButtonModule } from './+button';
 import { DemoTypographyComponent } from './+typography/typography.component';
+import { DemoPropertyOperationGroupComponent, DemoPropertyOperationBasicComponent } from './+property-operation';
 
 export const COMPONENTS = [
     DemoTypographyComponent,
@@ -140,6 +141,9 @@ export const COMPONENTS = [
     DemoOverlaySectionComponent,
     CreateOverlayComponent,
 
+    DemoPropertyOperationBasicComponent,
+    DemoPropertyOperationGroupComponent,
+
     ...PROGRESS_COMPONENTS,
     ...TOOLTIP_COMPONENTS,
     ...ICON_COMPONENTS,
@@ -173,6 +177,9 @@ export const ENTRY_COMPONENTS = [
     DemoStoreOtherSectionComponent,
 
     DemoMenuPopComponent,
+
+    DemoPropertyOperationBasicComponent,
+    DemoPropertyOperationGroupComponent,
 
     ...PROGRESS_COMPONENTS,
     ...TOOLTIP_COMPONENTS,
