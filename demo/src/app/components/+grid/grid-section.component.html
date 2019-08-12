@@ -1,13 +1,13 @@
 <section>
   <div class="header"><h2>Default Grid</h2></div>
   <div class="body">
+    <!-- [thyClickDisplayOperation]="true" -->
     <thy-grid
       [thyModel]="model"
       thyRowKey="id"
       [thyDraggable]="draggableOptions"
       [thyRowClassName]="gridRowClassName"
       [thyHoverDisplayOperation]="true"
-      [thyClickDisplayOperation]="true"
       (thyOnRowClick)="onRowClick($event)"
       [thyWholeRowSelect]="true"
       (thyOnMultiSelectChange)="onMultiSelectChange($event)"

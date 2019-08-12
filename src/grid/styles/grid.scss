@@ -48,10 +48,23 @@
                 }
             }
         }
+    }
 
-        &.thy-grid-click-display-operation {
+    .thy-grid-click-display-operation {
+        .thy-operation-links {
+            a,
+            button {
+                visibility: hidden;
+            }
+            .thy-click-display {
+                visibility: visible;
+            }
+        }
+
+        @include hover {
             .thy-operation-links {
-                .thy-click-display {
+                a,
+                button {
                     visibility: visible;
                 }
             }

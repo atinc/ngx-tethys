@@ -318,7 +318,7 @@ export class DemoGridSectionComponent implements OnInit {
 
     gridRowClassName(row, index) {
         if (row.id === 1) {
-            return 'table-draggable-ignore-item';
+            return 'table-draggable-ignore-item thy-grid-click-display-operation';
         }
     }
 
