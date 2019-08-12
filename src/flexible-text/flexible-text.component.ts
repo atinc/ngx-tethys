@@ -14,6 +14,7 @@ import { UpdateHostClassService } from '../shared/update-host-class.service';
 import { ContentObserver } from '@angular/cdk/observers';
 import { debounceTime } from 'rxjs/operators';
 import { ThyPlacement } from '../core/overlay';
+import { isUndefinedOrNull } from '../util/helpers';
 
 @Component({
     selector: 'thy-flexible-text,[thyFlexibleText]',
@@ -28,19 +29,19 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
 
     placement: ThyPlacement;
 
-    containContainerClass = true;
+    containerClass: string;
 
     subscription: Subscription | null = null;
 
     @Input('thyTooltipTrigger') trigger: 'hover' | 'focus' | 'click';
 
-    @Input('thyContainContainerClass')
-    get thyContainContainerClass(): boolean {
-        return this.containContainerClass;
+    @Input('thyContainerClass')
+    get thyContainerClass(): string {
+        return this.containerClass;
     }
 
-    set thyContainContainerClass(value: boolean) {
-        this.containContainerClass = value;
+    set thyContainerClass(value: string) {
+        this.containerClass = value;
         this.updateContainerClass();
     }
 
@@ -105,9 +106,10 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
     }
 
     updateContainerClass() {
+        const containerClass = isUndefinedOrNull(this.containerClass) ? 'flexible-text-container' : this.containerClass;
         const flexibleTextClass = {
             'text-truncate': true,
-            'flexible-text-container': this.thyContainContainerClass
+            [containerClass]: containerClass !== ''
         };
         this.updateHostClassService.updateClassByMap(flexibleTextClass);
     }

@@ -29,10 +29,10 @@ export class DemoFlexibleTextComponent implements OnInit {
             default: 'hover'
         },
         {
-            property: 'thyContainContainerClass',
-            description: '是否包含容器类，设置为false避免对原有元素的布局产生影响',
-            type: 'boolean',
-            default: true
+            property: 'thyContainerClass',
+            description: '自定义class类，如果不设置默认会包含flexible-text-contianer',
+            type: 'string',
+            default: undefined
         }
     ];
 

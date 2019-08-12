@@ -16,7 +16,7 @@ import { By } from '@angular/platform-browser';
             [thyTooltipContent]="tooltipContent"
             [thyTooltipPlacement]="placement"
             [thyTooltipTrigger]="trigger"
-            [thyContainContainerClass]="containContainerClass"
+            [thyContainerClass]="customContainerClass"
         >
             {{ content }}
         </thy-flexible-text>
@@ -43,7 +43,7 @@ class FlexibleTextTestComponent {
     placement = 'bottom';
     content = '默认内容。。。';
     trigger = 'click';
-    containContainerClass = true;
+    customContainerClass = null;
 }
 
 describe('FlexibleTextComponent', () => {
@@ -132,8 +132,13 @@ describe('FlexibleTextComponent', () => {
     it('should not contain flexible-text-container when thyContainContainerClass is false', fakeAsync(() => {
         const flexibleTextElement = fixture.debugElement.query(By.css('.flexible-text-section')).nativeElement;
         expect(flexibleTextElement.classList).toContain('flexible-text-container');
-        componentInstance.containContainerClass = false;
+        let custom = '';
+        componentInstance.customContainerClass = custom;
         fixture.detectChanges();
         expect(flexibleTextElement.classList).not.toContain('flexible-text-container');
+        custom = 'custom-container-class';
+        componentInstance.customContainerClass = custom;
+        fixture.detectChanges();
+        expect(flexibleTextElement.classList).toContain(custom);
     }));
 });
