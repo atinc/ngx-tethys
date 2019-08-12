@@ -50,14 +50,11 @@
         }
     }
 
-    .thy-grid-click-display-operation {
+    .thy-grid-item-hover-display-operation {
         .thy-operation-links {
             a,
             button {
                 visibility: hidden;
-            }
-            .thy-click-display {
-                visibility: visible;
             }
         }
 

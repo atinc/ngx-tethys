@@ -15,84 +15,96 @@ export class DemoGridSectionComponent implements OnInit {
             name: '张三',
             age: 0,
             checked: true,
-            desc: ''
+            desc: '',
+            is_favorite: 1
         },
         {
             id: 2,
             name: '李四',
             age: 10,
             checked: false,
-            desc: '这是一条测试数据'
+            desc: '这是一条测试数据',
+            is_favorite: 0
         },
         {
             id: 3,
             name: '王五',
             age: 10,
             checked: false,
-            desc: '这是一条测试数据'
+            desc: '这是一条测试数据',
+            is_favorite: 0
         },
         {
             id: 4,
             name: '张三2',
             age: 0,
             checked: true,
-            desc: ''
+            desc: '',
+            is_favorite: 0
         },
         {
             id: 5,
             name: '李四2',
             age: 10,
             checked: false,
-            desc: '这是一条测试数据'
+            desc: '这是一条测试数据',
+            is_favorite: 0
         },
         {
             id: 6,
             name: '王五2',
             age: 10,
             checked: false,
-            desc: '这是一条测试数据'
+            desc: '这是一条测试数据',
+            is_favorite: 1
         },
         {
             id: 7,
             name: '张三3',
             age: 0,
             checked: true,
-            desc: ''
+            desc: '',
+            is_favorite: 1
         },
         {
             id: 8,
             name: '李四3',
             age: 10,
             checked: false,
-            desc: '这是一条测试数据'
+            desc: '这是一条测试数据',
+            is_favorite: 1
         },
         {
             id: 9,
             name: '王五3',
             age: 10,
             checked: false,
-            desc: '这是一条测试数据'
+            desc: '这是一条测试数据',
+            is_favorite: 1
         },
         {
             id: 10,
             name: '张三4',
             age: 0,
             checked: true,
-            desc: ''
+            desc: '',
+            is_favorite: 1
         },
         {
             id: 11,
             name: '李四4',
             age: 10,
             checked: false,
-            desc: '这是一条测试数据'
+            desc: '这是一条测试数据',
+            is_favorite: 1
         },
         {
             id: 12,
             name: '王五4',
             age: 10,
             checked: false,
-            desc: '这是一条测试数据'
+            desc: '这是一条测试数据',
+            is_favorite: 1
         }
     ];
 
@@ -317,8 +329,8 @@ export class DemoGridSectionComponent implements OnInit {
     }
 
     gridRowClassName(row, index) {
-        if (row.id === 1) {
-            return 'table-draggable-ignore-item thy-grid-click-display-operation';
+        if (!(row.is_favorite === 1)) {
+            return 'table-draggable-ignore-item thy-grid-item-hover-display-operation';
         }
     }
 
@@ -352,10 +364,6 @@ export class DemoGridSectionComponent implements OnInit {
     }
 
     onFavorite(row) {
-        if (row.isFavorite) {
-            row.isFavorite = false;
-        } else {
-            row.isFavorite = true;
-        }
+        row.is_favorite = !!row.is_favorite ? 0 : 1;
     }
 }

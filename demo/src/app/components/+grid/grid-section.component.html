@@ -7,7 +7,7 @@
       thyRowKey="id"
       [thyDraggable]="draggableOptions"
       [thyRowClassName]="gridRowClassName"
-      [thyHoverDisplayOperation]="true"
+      [thyHoverDisplayOperation]="false"
       (thyOnRowClick)="onRowClick($event)"
       [thyWholeRowSelect]="true"
       (thyOnMultiSelectChange)="onMultiSelectChange($event)"
@@ -39,13 +39,7 @@
       </thy-grid-column>
       <thy-grid-column thyClassName="thy-operation-links text-center">
         <ng-template #cell let-row>
-          <a
-            href="javascript:;"
-            thyStopPropagation
-            (click)="onFavorite(row)"
-            [ngClass]="{ 'thy-click-display ': row.isFavorite }"
-            >置顶</a
-          >
+          <a href="javascript:;" thyStopPropagation (click)="onFavorite(row)">置顶</a>
         </ng-template>
       </thy-grid-column>
     </thy-grid>
