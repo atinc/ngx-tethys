@@ -22,7 +22,7 @@
     &.hover,
     &:hover {
         // @include item-box-shadow();
-        background: $gray-100;
+        background: $gray-80;
         color: $body-color;
         &:not(.disabled).active {
             color: $primary;
