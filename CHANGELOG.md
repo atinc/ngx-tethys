@@ -1,3 +1,12 @@
+## <small>7.5.5 (2019-08-12)</small>
+
+* fix(grid): #252531 fix sort style ([9a4640f](https://github.com/worktile/ngx-tethys/commit/9a4640f))
+* fix(property-operation): fix hover icon style and change demo  #256410 ([22c0ead](https://github.com/worktile/ngx-tethys/commit/22c0ead)), closes [#256410](https://github.com/worktile/ngx-tethys/issues/256410)
+* fix(transfer): fix repeated value when assign data ([36c68fb](https://github.com/worktile/ngx-tethys/commit/36c68fb))
+* fix(tree): fix covert tree node bug when key is empty string ([0cf1164](https://github.com/worktile/ngx-tethys/commit/0cf1164))
+
+
+
 ## <small>7.5.4 (2019-08-09)</small>
 
 * chore(release): upgrade to 7.5.4 ([2b6462e](https://github.com/worktile/ngx-tethys/commit/2b6462e))

@@ -88,6 +88,10 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
     public draggable = false;
 
     public draggableOptions: SortablejsOptions = {
+        draggable: '.thy-sortable-item',
+        ghostClass: 'thy-sortable-ghost',
+        chosenClass: 'thy-tree-item-chosen',
+        dragClass: 'thy-sortable-drag',
         disabled: true,
         onStart: this.onDraggableStart.bind(this),
         onUpdate: this.onDraggableUpdate.bind(this)
