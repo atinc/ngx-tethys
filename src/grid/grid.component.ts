@@ -197,6 +197,10 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
     @Input()
     thyHoverDisplayOperation: boolean;
 
+    @HostBinding('class.thy-grid-click-display-operation')
+    @Input()
+    thyClickDisplayOperation: boolean;
+
     @Output() thyOnSwitchChange: EventEmitter<ThySwitchEvent> = new EventEmitter<ThySwitchEvent>();
 
     @Output() thyOnPageChange: EventEmitter<PageChangedEvent> = new EventEmitter<PageChangedEvent>();

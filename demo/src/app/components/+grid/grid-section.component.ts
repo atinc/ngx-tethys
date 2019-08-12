@@ -350,4 +350,12 @@ export class DemoGridSectionComponent implements OnInit {
     onRowClick(event) {
         console.log(event);
     }
+
+    onFavorite(row) {
+        if (row.isFavorite) {
+            row.isFavorite = false;
+        } else {
+            row.isFavorite = true;
+        }
+    }
 }

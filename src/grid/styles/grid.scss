@@ -48,6 +48,14 @@
                 }
             }
         }
+
+        &.thy-grid-click-display-operation {
+            .thy-operation-links {
+                .thy-click-display {
+                    visibility: visible;
+                }
+            }
+        }
     }
 
     .thy-grid-footer {
