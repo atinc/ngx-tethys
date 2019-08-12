@@ -345,7 +345,7 @@ $dialog-box-shadow: 0 0 24px rgba(0, 0, 0, 0.25) !default;
 $dialog-body-padding: 1.25rem 1.875rem 1.875rem 1.875rem !default;
 
 // $dialog-footer-padding: 1.25rem 1.875rem 1.875rem 1.875rem !default;
-$dialog-footer-padding: 0.625rem 1.875rem !default;
+$dialog-footer-padding: 0.9375rem 1.875rem !default;
 $dialog-footer-border-width: 1px !default;
 $dialog-footer-border-color: $dialog-header-border-color !default;
 
@@ -395,6 +395,7 @@ $close-font-size: $font-size-md !default;
 $close-font-weight: normal !default;
 $close-color: $black !default;
 $close-text-shadow: 0 1px 0 $white !default;
+$close-text-color: $gray-300 !default;
 $empty-text-color: $gray-400 !default;
 $empty-icon-color: $gray-200 !default;
 $empty-text-size: $font-size-base !default;
