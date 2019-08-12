@@ -5,6 +5,7 @@ import { Component, ViewChild } from '@angular/core';
 import { ThyTooltipModule } from '../../tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MutationObserverFactory } from '@angular/cdk/observers';
+import { By } from '@angular/platform-browser';
 
 @Component({
     selector: 'thy-demo-flexible-text',
@@ -15,6 +16,7 @@ import { MutationObserverFactory } from '@angular/cdk/observers';
             [thyTooltipContent]="tooltipContent"
             [thyTooltipPlacement]="placement"
             [thyTooltipTrigger]="trigger"
+            [thyContainerClass]="customContainerClass"
         >
             {{ content }}
         </thy-flexible-text>
@@ -41,6 +43,7 @@ class FlexibleTextTestComponent {
     placement = 'bottom';
     content = '默认内容。。。';
     trigger = 'click';
+    customContainerClass = null;
 }
 
 describe('FlexibleTextComponent', () => {
@@ -124,5 +127,18 @@ describe('FlexibleTextComponent', () => {
     it('should apply trigger="click"', fakeAsync(() => {
         const component = componentInstance.flexibleText;
         expect(component.tooltipService.thyTooltipDirective.trigger).toBe('click');
+    }));
+
+    it('should not contain flexible-text-container when thyContainContainerClass is false', fakeAsync(() => {
+        const flexibleTextElement = fixture.debugElement.query(By.css('.flexible-text-section')).nativeElement;
+        expect(flexibleTextElement.classList).toContain('flexible-text-container');
+        let custom = '';
+        componentInstance.customContainerClass = custom;
+        fixture.detectChanges();
+        expect(flexibleTextElement.classList).not.toContain('flexible-text-container');
+        custom = 'custom-container-class';
+        componentInstance.customContainerClass = custom;
+        fixture.detectChanges();
+        expect(flexibleTextElement.classList).toContain(custom);
     }));
 });
