@@ -61,7 +61,7 @@
             padding: $menu-group-header-padding;
 
             &:hover {
-                background: $gray-80;
+                background: $gray-100;
 
                 .thy-menu-group-title {
                     color: $gray-800;
@@ -133,7 +133,7 @@
         align-items: center;
 
         &:hover {
-            background: $gray-80;
+            background: $gray-100;
 
             .thy-menu-item-name {
                 color: $gray-800;
