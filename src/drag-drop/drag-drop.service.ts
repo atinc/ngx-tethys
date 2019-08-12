@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
+import { ThyDragDirective } from './drag.directive';
 
-@Injectable()
-export class ThyDragDropService {
-    public item: any;
-    public previousIndex: number;
-    public previousContainer: any;
+@Injectable({ providedIn: 'root' })
+export class ThyDragDropService<T = any> {
+    public previousDrag: ThyDragDirective<T>;
     constructor() {}
 }
