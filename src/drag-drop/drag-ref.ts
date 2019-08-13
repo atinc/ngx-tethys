@@ -15,9 +15,9 @@ import { ThyDragDirective } from './drag.directive';
 import { IThyDropContainerDirective } from './drop-container.class';
 
 const dropPositionClass = {
-    [ThyDropPosition.in]: 'drag-position-in',
-    [ThyDropPosition.before]: 'drag-position-before',
-    [ThyDropPosition.after]: 'drag-position-after'
+    [ThyDropPosition.in]: 'thy-drop-position-in',
+    [ThyDropPosition.before]: 'thy-drop-position-before',
+    [ThyDropPosition.after]: 'thy-drop-position-after'
 };
 
 export class DragRef<T = any> {
@@ -28,8 +28,6 @@ export class DragRef<T = any> {
     private target: HTMLElement;
 
     private handles: ThyDragHandleDirective[];
-
-    private dropPosition: ThyDropPosition = null;
 
     private ngUnsubscribe$ = new Subject();
 
@@ -147,6 +145,16 @@ export class DragRef<T = any> {
         };
     }
 
+    private isContinueDragOver(event: ThyDragOverEvent, container: IThyDropContainerDirective<T>) {
+        if (event.item === event.previousItem && event.position === ThyDropPosition.in) {
+            return false;
+        }
+        if (container && container.beforeOver) {
+            return container.beforeOver(event);
+        }
+        return true;
+    }
+
     private dragOver(event: DragEvent) {
         event.stopPropagation();
         event.preventDefault();
@@ -160,20 +168,20 @@ export class DragRef<T = any> {
             position: dropPosition,
             ...this.getPreviousEventData()
         };
-        if (this.container.beforeOver && !this.container.beforeOver(dragOverEvent)) {
-        } else {
-            this.dragOverHandler(event, dropPosition);
+
+        if (this.isContinueDragOver(dragOverEvent, this.container)) {
+            this.dragOverHandler(dropPosition);
             this.overed.next(dragOverEvent);
         }
     }
 
-    private dragOverHandler(event: DragEvent, position: ThyDropPosition) {
+    private dragOverHandler(position: ThyDropPosition) {
         const element = this.contentElement || this.rootElement;
-        if (this.dropPosition !== position) {
+        if (this.dragDropService.dropPosition !== position) {
             this.clearDragPositionClass();
-            this.dropPosition = position;
-            element.classList.add(dropPositionClass[this.dropPosition]);
         }
+        element.classList.add(dropPositionClass[position]);
+        this.dragDropService.dropPosition = position;
     }
 
     private dragDrop(event: DragEvent) {
@@ -216,13 +224,17 @@ export class DragRef<T = any> {
     }
 
     private clearDragPositionClass(): void {
-        const classList = ['drag-position-in', 'drag-position-before', 'drag-position-after'];
-        (this.contentElement || this.rootElement).classList.remove(...classList);
+        const element = this.contentElement || this.rootElement;
+        for (const key in dropPositionClass) {
+            if (dropPositionClass[key]) {
+                element.classList.remove(dropPositionClass[key]);
+            }
+        }
     }
 
     private calcDropPosition(event: DragEvent): ThyDropPosition {
         const sideRange = 0.25;
-        const minGap = 3;
+        const minGap = 2;
         const { clientY } = event;
         const { top, bottom, height } = event.srcElement
             ? (event.srcElement as Element).getBoundingClientRect()

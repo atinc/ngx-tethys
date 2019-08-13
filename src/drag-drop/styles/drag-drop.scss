@@ -1,13 +1,11 @@
-.drag-position-in {
-    color: white;
-    background-color: $primary;
-    opacity: 0.5;
+.thy-drop-position-in {
+    border: $primary 2px solid;
 }
 
-.drag-position-before {
+.thy-drop-position-before {
     border-top: $primary 2px solid;
 }
 
-.drag-position-after {
+.thy-drop-position-after {
     border-bottom: $primary 2px solid;
 }

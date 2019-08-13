@@ -62,8 +62,6 @@ export class ThyDropContainerDirective<T = any> extends mixinUnsubscribe(MixinBa
     ngOnInit() {}
 
     ngAfterContentInit() {
-        console.log(this.draggables);
-
         this.draggables.changes
             .pipe(
                 startWith(null),
