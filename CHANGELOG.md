@@ -1,3 +1,25 @@
+## <small>7.5.5 (2019-08-12)</small>
+
+* fix(grid): #252531 fix sort style ([9a4640f](https://github.com/worktile/ngx-tethys/commit/9a4640f))
+* fix(property-operation): fix hover icon style and change demo  #256410 ([22c0ead](https://github.com/worktile/ngx-tethys/commit/22c0ead)), closes [#256410](https://github.com/worktile/ngx-tethys/issues/256410)
+* fix(transfer): fix repeated value when assign data ([36c68fb](https://github.com/worktile/ngx-tethys/commit/36c68fb))
+* fix(tree): fix covert tree node bug when key is empty string ([0cf1164](https://github.com/worktile/ngx-tethys/commit/0cf1164))
+
+
+
+## <small>7.5.4 (2019-08-09)</small>
+
+* chore(release): upgrade to 7.5.4 ([2b6462e](https://github.com/worktile/ngx-tethys/commit/2b6462e))
+* feat(dialog): dialog footer padding  modify(#257040) ([bfb04af](https://github.com/worktile/ngx-tethys/commit/bfb04af)), closes [#257040](https://github.com/worktile/ngx-tethys/issues/257040)
+* feat(popover): support panel class and inside closable #256645 ([c9db78e](https://github.com/worktile/ngx-tethys/commit/c9db78e)), closes [#256645](https://github.com/worktile/ngx-tethys/issues/256645)
+* fix(list): #256435 grid模式下hover阴影被遮挡 ([55f5b58](https://github.com/worktile/ngx-tethys/commit/55f5b58)), closes [#256435](https://github.com/worktile/ngx-tethys/issues/256435)
+* fix(popover): delete animation ([727a238](https://github.com/worktile/ngx-tethys/commit/727a238))
+* fix(popover): fix popover build ([e23d5af](https://github.com/worktile/ngx-tethys/commit/e23d5af))
+* fix(tree-select): change prefix icon style #239673 ([c767705](https://github.com/worktile/ngx-tethys/commit/c767705)), closes [#239673](https://github.com/worktile/ngx-tethys/issues/239673)
+
+
+
+
 ## <small>7.5.3 (2019-08-08)</small>
 
 * feat: add demo ([88dbcb2](https://github.com/worktile/ngx-tethys/commit/88dbcb2))

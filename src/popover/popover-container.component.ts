@@ -42,7 +42,7 @@ export class ThyPopoverContainerComponent {
     /** Emits when an animation state changes. */
     animationStateChanged = new EventEmitter<AnimationEvent>();
 
-    insideClicked = new EventEmitter<Event>();
+    insideClicked = new EventEmitter();
 
     constructor(
         private elementRef: ElementRef,
@@ -95,10 +95,10 @@ export class ThyPopoverContainerComponent {
         // this.changeDetectorRef.markForCheck();
     }
 
-    @HostListener('click', ['$event'])
+    @HostListener('click', [])
     onInsideClick() {
         if (this.config.insideClosable) {
-            this.insideClicked.emit(event);
+            this.insideClicked.emit();
         }
     }
 }
