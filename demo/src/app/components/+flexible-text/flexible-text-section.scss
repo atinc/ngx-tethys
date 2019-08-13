@@ -1,45 +1,7 @@
-@import '../../../../../src/styles/variables.scss';
-
-.flexible-text-wrap {
-    margin-bottom: 50px;
-    .flexible-text-section {
-        margin-bottom: 20px;
-        max-width: 500px;
-    }
+.demo-flexible {
+    width: 500px;
 }
-
-.group-tooltip {
-    margin-bottom: 5px;
-    min-width: 150px;
-    text-align: left;
-    color: $white;
-    font-size: $font-size-base;
-    padding-top: 5px;
-}
-
-.group-tooltip-states {
-    font-size: 12px;
-    display: flex;
-    flex-wrap: nowrap;
-    li {
-        display: flex;
-        align-items: center;
-        margin-left: 5px;
-        i {
-            transform: scale(0.8);
-            margin-right: 3px;
-        }
-        &:first-child {
-            margin-left: 0;
-        }
-        &.completed {
-            color: $primary;
-        }
-        &.processing {
-            color: $warning;
-        }
-        &.pending {
-            color: $gray-500;
-        }
-    }
+.custom-flexible-text-container {
+    width: 80%;
+    display: block;
 }
