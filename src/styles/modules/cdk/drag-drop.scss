@@ -1,0 +1,92 @@
+// 使用 `cdk` 的 `drag-drop` 时的样式
+// 添加在每个cdkDrag组件上的样式
+.thy-sortable-list,
+.cdk-drop-list {
+}
+
+.thy-sortable-list-empty,
+.cdk-drop-list-empty {
+    display: block;
+    line-height: 40px;
+    font-size: $font-size-sm;
+    color: $gray-500;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    background-color: $gray-100;
+}
+
+.thy-sortable-item,
+.cdk-drag {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+
+    .thy-sortable-handle,
+    .cdk-drag-handle {
+        visibility: hidden;
+        padding: 0 15px 0 3px;
+    }
+
+    &:hover {
+        .thy-sortable-handle,
+        .cdk-drag-handle,
+        .drag-handle {
+            visibility: hidden;
+            padding: 0 15px 0 3px;
+        }
+    }
+
+    .thy-sortable-disabled,
+    .cdk-drag-disabled {
+        &:hover {
+            .thy-sortable-handle,
+            .cdk-drag-handle,
+            .drag-handle {
+                visibility: visible;
+                color: $gray-600;
+                cursor: move;
+            }
+        }
+
+        .thy-sortable-disabled,
+        .cdk-drag-disabled {
+            &:hover {
+                .thy-sortable-handle,
+                .cdk-drag-handle,
+                .drag-handle {
+                    visibility: hidden;
+                }
+            }
+        }
+    }
+}
+
+// 拖入 cdkDropList 时要显示的元素，不是真正的元素。
+.thy-sortable-ghost,
+.cdk-drag-placeholder {
+    color: transparent !important;
+    background: $gray-200 !important;
+    // margin-left: -20px;
+    // padding-left: 20px;
+
+    &:hover {
+        box-shadow: none;
+    }
+
+    * {
+        color: transparent !important;
+        visibility: hidden;
+        box-shadow: none;
+    }
+}
+
+// 被拖动的元素样式
+.thy-sortable-drag,
+.cdk-drag-preview {
+    box-sizing: border-box;
+    @include item-box-shadow();
+    background: $white !important;
+}
+
+.cdk-drag-animating {
+    transition: none; // transform 250ms cubic-bezier(0, 0, 1, 1);
+}

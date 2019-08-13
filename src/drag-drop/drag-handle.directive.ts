@@ -1,8 +1,8 @@
-import { Directive, ElementRef, Inject, Optional, Input, OnDestroy } from '@angular/core';
+import { Directive, ElementRef, Input } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 @Directive({
-    selector: '[thyDragHandle]'
+    selector: 'thy-drag-handle,[thyDragHandle]'
 })
 export class ThyDragHandleDirective {
     private _disabled = false;
