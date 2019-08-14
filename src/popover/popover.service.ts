@@ -25,6 +25,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import { of, Subject } from 'rxjs';
 import { getFlexiblePositions } from '../core/overlay';
 import { takeUntil } from 'rxjs/operators';
+import { helpers } from '../util';
 
 @Injectable({
     providedIn: 'root'
@@ -51,12 +52,24 @@ export class ThyPopover implements OnDestroy {
         return positionStrategy;
     }
 
+    private buildOverlayPanelClasses(config: ThyPopoverConfig) {
+        let classes = [`cdk-overlay-pane`];
+        if (config.panelClass) {
+            if (helpers.isArray(config.panelClass)) {
+                classes = classes.concat(config.panelClass);
+            } else {
+                classes.push(config.panelClass as string);
+            }
+        }
+        return classes;
+    }
+
     private buildOverlayConfig<TData>(config: ThyPopoverConfig<TData>): OverlayConfig {
         const strategy = this.buildPositionStrategy(config);
         const overlayConfig = new OverlayConfig({
             positionStrategy: strategy,
             scrollStrategy: this.overlay.scrollStrategies.block(),
-            // panelClass: this.getOverlayPanelClasses(dialogConfig),
+            panelClass: this.buildOverlayPanelClasses(config),
             hasBackdrop: config.hasBackdrop,
             direction: config.direction,
             minWidth: config.minWidth,
@@ -110,7 +123,6 @@ export class ThyPopover implements OnDestroy {
         config: ThyPopoverConfig
     ): ThyPopoverRef<T, TResult> {
         const popoverRef = new ThyPopoverRefInternal<T, TResult>(overlayRef, popoverContainer);
-
         // When the popover backdrop is clicked, we want to close it.
         overlayRef.backdropClick().subscribe(() => {
             if (popoverRef.backdropClosable) {

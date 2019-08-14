@@ -8,7 +8,7 @@
   <div class="thy-notify-main">
     <div class="thy-notify-title">{{ option.title }}</div>
     <div
-      *ngIf="option.detail && option.content"
+      *ngIf="option.detail || option.content"
       class="thy-notify-content"
       [ngClass]="{ 'thy-notify-content--extend': extendContentClass === true }"
       (click)="extendContent()"

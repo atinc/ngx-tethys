@@ -23,7 +23,7 @@ export class DemoTransferSectionComponent {
         {
             id: 1,
             title: '第1条数据',
-            direction: TransferDirection.left
+            direction: TransferDirection.right
         },
         {
             id: 2,
@@ -48,7 +48,7 @@ export class DemoTransferSectionComponent {
         {
             id: 6,
             title: '第6条数据',
-            direction: TransferDirection.right
+            direction: TransferDirection.left
         },
         {
             id: 7,

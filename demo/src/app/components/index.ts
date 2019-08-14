@@ -62,6 +62,7 @@ import { TOOLTIP_COMPONENTS } from './+tooltip';
 import { DemoIconSectionComponent } from './+icon/icon-section.component';
 import { ICON_COMPONENTS } from './+icon';
 import { DemoFlexibleTextComponent } from './+flexible-text/flexible-text-section.component';
+import { DemoFlexibleTextBasicComponent } from './+flexible-text/basic/flexible-text-basic.component';
 import {
     DemoPopoverSectionComponent,
     DemoPopoverBasicComponent,
@@ -72,6 +73,7 @@ import {
 import { DialogDemoModule } from './+dialog';
 import { DemoButtonModule } from './+button';
 import { DemoTypographyComponent } from './+typography/typography.component';
+import { DemoPropertyOperationGroupComponent, DemoPropertyOperationBasicComponent } from './+property-operation';
 
 export const COMPONENTS = [
     DemoTypographyComponent,
@@ -140,6 +142,9 @@ export const COMPONENTS = [
     DemoOverlaySectionComponent,
     CreateOverlayComponent,
 
+    DemoPropertyOperationBasicComponent,
+    DemoPropertyOperationGroupComponent,
+
     ...PROGRESS_COMPONENTS,
     ...TOOLTIP_COMPONENTS,
     ...ICON_COMPONENTS,
@@ -151,7 +156,8 @@ export const COMPONENTS = [
     DemoArrowSwitcherSectionComponent,
 
     DemoMarkdownSectionComponent,
-    DemoFlexibleTextComponent
+    DemoFlexibleTextComponent,
+    DemoFlexibleTextBasicComponent
 ];
 
 export const ENTRY_COMPONENTS = [
@@ -174,9 +180,13 @@ export const ENTRY_COMPONENTS = [
 
     DemoMenuPopComponent,
 
+    DemoPropertyOperationBasicComponent,
+    DemoPropertyOperationGroupComponent,
+
     ...PROGRESS_COMPONENTS,
     ...TOOLTIP_COMPONENTS,
-    ...ICON_COMPONENTS
+    ...ICON_COMPONENTS,
+    DemoFlexibleTextBasicComponent
 ];
 
 export const DEMO_MODULES = [DialogDemoModule, DemoButtonModule];

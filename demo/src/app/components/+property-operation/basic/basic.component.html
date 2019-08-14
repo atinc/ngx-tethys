@@ -1,79 +1,83 @@
-<form thyForm thyLayout="inline">
-  <thy-form-group thyLabelText="Type: ">
-    <thy-select name="type" [(ngModel)]="type">
-      <option value="">default</option>
-      <option value="primary">primary</option>
-      <option value="success">success</option>
-      <option value="warning">warning</option>
-      <option value="danger">danger</option>
-    </thy-select>
-  </thy-form-group>
-  <thy-form-group thyLabelText="">
-    <label thyCheckbox thyLabelText="Show Close" [(ngModel)]="showClose" name="showClose"></label>
-  </thy-form-group>
-  <thy-form-group thyLabelText="">
-    <label
-      thyCheckbox
-      thyLabelText="Label hide when has value"
-      [(ngModel)]="labelHideWhenHasValue"
-      name="labelHideWhenHasValue"
-    ></label>
-  </thy-form-group>
-</form>
-<div class="mt-2">
-  <thy-property-operation
-    thyLabelText="截止时间"
-    [thyShowClose]="showClose"
-    [thyType]="type"
-    [thyLabelHideWhenHasValue]="labelHideWhenHasValue"
-    thyValue=""
-    thyIcon="calendar"
-    class="mr-2"
-  ></thy-property-operation>
+<div class="demo-card">
+  <form thyForm thyLayout="inline">
+    <thy-form-group thyLabelText="Type: ">
+      <thy-select name="type" [(ngModel)]="type">
+        <option value="">default</option>
+        <option value="primary">primary</option>
+        <option value="success">success</option>
+        <option value="warning">warning</option>
+        <option value="danger">danger</option>
+      </thy-select>
+    </thy-form-group>
+    <thy-form-group thyLabelText="">
+      <label thyCheckbox thyLabelText="Show Close" [(ngModel)]="showClose" name="showClose"></label>
+    </thy-form-group>
+    <thy-form-group thyLabelText="">
+      <label
+        thyCheckbox
+        thyLabelText="Label hide when has value"
+        [(ngModel)]="labelHideWhenHasValue"
+        name="labelHideWhenHasValue"
+      ></label>
+    </thy-form-group>
+  </form>
+  <div class="mt-2">
+    <thy-property-operation
+      thyLabelText="截止时间"
+      [thyShowClose]="showClose"
+      [thyType]="type"
+      [thyLabelHideWhenHasValue]="labelHideWhenHasValue"
+      thyValue=""
+      thyIcon="calendar"
+      class="mr-2"
+    ></thy-property-operation>
 
-  <thy-property-operation
-    thyLabelText="截止时间"
-    [thyShowClose]="showClose"
-    [thyType]="type"
-    [thyLabelHideWhenHasValue]="labelHideWhenHasValue"
-    thyValue="2017-08-10"
-    thyIcon="calendar"
-    class="mr-2"
-  ></thy-property-operation>
-  <h4 class="mt-3">自定义icon区域</h4>
-  <thy-property-operation thyLabelText="负责人" class="mr-2" [thyLabelHideWhenHasValue]="labelHideWhenHasValue">
-    <ng-template #operationIcon>
-      <button thyButtonIcon="user-add-bold" thyShape="circle-thick-dashed"></button>
-    </ng-template>
-  </thy-property-operation>
-  <thy-property-operation thyLabelText="负责人" class="mr-2" [thyLabelHideWhenHasValue]="labelHideWhenHasValue">
-    <ng-template #operationIcon>
-      <thy-avatar
-        thySrc="9cb2637b-9f70-4d73-8c1d-24542b6ab4e1_80x80.png"
-        thyName="why520crazy"
-        thySize="38"
-      ></thy-avatar>
-    </ng-template>
-    why520crazy
-  </thy-property-operation>
+    <thy-property-operation
+      thyLabelText="截止时间"
+      [thyShowClose]="showClose"
+      [thyType]="type"
+      [thyLabelHideWhenHasValue]="labelHideWhenHasValue"
+      thyValue="2017-08-10"
+      thyIcon="calendar"
+      class="mr-2"
+    ></thy-property-operation>
+    <h4 class="mt-3">自定义icon区域</h4>
+    <thy-property-operation thyLabelText="负责人" class="mr-2" [thyLabelHideWhenHasValue]="labelHideWhenHasValue">
+      <ng-template #operationIcon>
+        <button thyButtonIcon="user-add-bold" thyShape="circle-thick-dashed"></button>
+      </ng-template>
+    </thy-property-operation>
+    <thy-property-operation thyLabelText="负责人" class="mr-2" [thyLabelHideWhenHasValue]="labelHideWhenHasValue">
+      <ng-template #operationIcon>
+        <thy-avatar
+          thySrc="9cb2637b-9f70-4d73-8c1d-24542b6ab4e1_80x80.png"
+          thyName="why520crazy"
+          thySize="38"
+        ></thy-avatar>
+      </ng-template>
+      why520crazy
+    </thy-property-operation>
 
-  <h4 class="mt-3">与日期组件结合</h4>
-  <thy-property-operation
-    thyLabelText="截止时间"
-    [thyValue]="startDate"
-    thyIcon="calendar-check"
-    thyDatepicker=""
-    [(ngModel)]="startDate"
-    class="mr-2"
-  ></thy-property-operation>
+    <h4 class="mt-3">与日期组件结合</h4>
+    <thy-property-operation
+      thyLabelText="截止时间"
+      [thyValue]="startDate"
+      thyIcon="calendar-check"
+      thyDatepicker=""
+      [(ngModel)]="startDate"
+      [thyShowClose]="showClose"
+      class="mr-2"
+    ></thy-property-operation>
 
-  <h4 class="mt-3">有值隐藏label</h4>
-  <thy-property-operation
-    thyLabelText="截止时间"
-    [thyLabelHasValue]="false"
-    thyShowClose=""
-    thyValue="2017-08-10"
-    thyIcon="calendar"
-    class="mr-2"
-  ></thy-property-operation>
+    <h4 class="mt-3">有值隐藏label</h4>
+    <thy-property-operation
+      thyLabelText="截止时间"
+      [thyLabelHasValue]="false"
+      thyShowClose=""
+      thyValue="2017-08-10"
+      thyIcon="calendar"
+      [thyShowClose]="showClose"
+      class="mr-2"
+    ></thy-property-operation>
+  </div>
 </div>
