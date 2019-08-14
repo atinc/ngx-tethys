@@ -1,8 +1,9 @@
 <div class="demo-header">
   <div class="header-title">
-    <span class="title">{{ title }}</span>
+    <h4 class="title">{{ title }}</h4>
+    <p class="description" *ngIf="description" [thyMarkdownParser]="description"></p>
   </div>
-  <div class="header-actions">
+  <!-- <div class="header-actions">
     <a
       href="javascript:;"
       [thyTooltip]="showCodeExamples ? '折叠代码' : '展开代码'"
@@ -10,24 +11,37 @@
       (click)="toggleCodeExample()"
       ><thy-icon thyIconName="code"></thy-icon
     ></a>
-  </div>
+  </div> -->
 </div>
 <div class="demo-body">
-  <div class="description" *ngIf="description" [thyMarkdownParser]="description"></div>
-  <ng-container *ngComponentOutlet="component"></ng-container>
-  <div class="code-example-container" *ngIf="showCodeExamples && examples && examples.length > 0">
-    <thy-nav thyType="thirdly">
-      <a
-        href="javascript:;"
-        thyNavLink
-        [thyNavLinkActive]="currentCodeExample === codeExample"
-        *ngFor="let codeExample of examples"
-        (click)="selectCodeExample(codeExample)"
-        >{{ codeExample.name || codeExample.type }}</a
-      >
-    </thy-nav>
-    <pre
-      *ngIf="currentCodeExample"
-    ><code [lang]="currentCodeExample.type" [highlight]="currentCodeExample.content"></code></pre>
+  <div class="demo-box">
+    <ng-container *ngComponentOutlet="component"></ng-container>
+  </div>
+  <div
+    class="code-example-container"
+    [ngClass]="{ 'code-example-container-show': showCodeExamples && examples && examples.length > 0 }"
+  >
+    <div>
+      <thy-nav thyType="thirdly">
+        <a
+          href="javascript:;"
+          thyNavLink
+          [thyNavLinkActive]="currentCodeExample === codeExample"
+          *ngFor="let codeExample of examples"
+          (click)="selectCodeExample(codeExample)"
+          >{{ codeExample.name || codeExample.type }}</a
+        >
+      </thy-nav>
+      <pre
+        [hidden]="!currentCodeExample"
+      ><code [lang]="currentCodeExample.type" [highlight]="currentCodeExample.content"></code></pre>
+    </div>
+  </div>
+  <div class="demo-box-actions">
+    <!-- [thyTooltip]="showCodeExamples ? '折叠代码' : '展开代码'"
+      thyTooltipPlacement="bottom" -->
+    <a href="javascript:;" class="action link-secondary" (click)="toggleCodeExample()">
+      <thy-icon [thyIconName]="showCodeExamples ? 'close' : 'code'"></thy-icon
+    ></a>
   </div>
 </div>
