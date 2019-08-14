@@ -1,9 +1,6 @@
 import { DemoPopBoxSectionComponent, PopBoxMenuDemoShowComponent } from './+pop-box/pop-box-section.component';
-import { DemoButtonSectionComponent } from './+button/button-section.component';
-import { DemoRebootSectionComponent } from './+reboot/reboot-section.component';
 import { DemoTableSectionComponent } from './+table/table-section.component';
 import { DemoGridSectionComponent } from './+grid/grid-section.component';
-import { RebootSectionLinkComponent } from './+reboot/items/link.component';
 import { DemoWTDSectionLinkComponent } from './+wtd/wtd.component';
 import { DemoActionMenuSectionComponent } from './+action-menu/action-menu-section.component';
 import { DemoBadgeSectionComponent } from './+badge/badge-section.component';
@@ -49,8 +46,6 @@ import { DemoTreeSelectSectionComponent } from './+tree-select/tree-select-secti
 import { DemoStrengthComponent } from './+strength/strength-section.component';
 import { DemoStepperSectionComponent } from './+stepper/stepper-section.component';
 import { DemoCascaderSectionComponent } from './+cascader/cascader-section.component';
-import { DemoDialogSectionComponent } from './+dialog/dialog-section.component';
-import { DemoDialogContentComponent } from './+dialog/dialog-content.component';
 import { DemoBreadcrumbSectionComponent } from './+breadcrumb/breadcrumb-section.component';
 import { DemoStoreSectionComponent } from './+store/store-section.component';
 import { DemoStoreOtherSectionComponent } from './+store/store-other-section.component';
@@ -67,20 +62,31 @@ import { TOOLTIP_COMPONENTS } from './+tooltip';
 import { DemoIconSectionComponent } from './+icon/icon-section.component';
 import { ICON_COMPONENTS } from './+icon';
 import { DemoFlexibleTextComponent } from './+flexible-text/flexible-text-section.component';
-import { DemoPopoverSectionComponent, DemoPopoverBasicComponent, DemoPopoverContentComponent } from './+popover';
+import { DemoFlexibleTextBasicComponent } from './+flexible-text/basic/flexible-text-basic.component';
+import {
+    DemoPopoverSectionComponent,
+    DemoPopoverBasicComponent,
+    DemoPopoverContentComponent,
+    DemoPopoverDirectiveComponent,
+    DemoPopoverDirectiveContentComponent
+} from './+popover';
+import { DialogDemoModule } from './+dialog';
+import { DemoButtonModule } from './+button';
+import { DemoTypographyComponent } from './+typography/typography.component';
+import { DemoPropertyOperationGroupComponent, DemoPropertyOperationBasicComponent } from './+property-operation';
 
 export const COMPONENTS = [
+    DemoTypographyComponent,
     DemoPopBoxSectionComponent,
     PopBoxMenuDemoShowComponent,
     DemoPopoverSectionComponent,
     DemoPopoverBasicComponent,
     DemoPopoverContentComponent,
+    DemoPopoverDirectiveComponent,
+    DemoPopoverDirectiveContentComponent,
 
-    DemoButtonSectionComponent,
     DemoIconSectionComponent,
-    DemoRebootSectionComponent,
     DemoTableSectionComponent,
-    RebootSectionLinkComponent,
     DemoWTDSectionLinkComponent,
     DemoActionMenuSectionComponent,
     DemoBadgeSectionComponent,
@@ -132,12 +138,12 @@ export const COMPONENTS = [
     DemoStepperSectionComponent,
     DemoCascaderSectionComponent,
 
-    DemoDialogSectionComponent,
-    DemoDialogContentComponent,
-
     DemoTooltipSectionComponent,
     DemoOverlaySectionComponent,
     CreateOverlayComponent,
+
+    DemoPropertyOperationBasicComponent,
+    DemoPropertyOperationGroupComponent,
 
     ...PROGRESS_COMPONENTS,
     ...TOOLTIP_COMPONENTS,
@@ -150,14 +156,17 @@ export const COMPONENTS = [
     DemoArrowSwitcherSectionComponent,
 
     DemoMarkdownSectionComponent,
-    DemoFlexibleTextComponent
+    DemoFlexibleTextComponent,
+    DemoFlexibleTextBasicComponent
 ];
 
 export const ENTRY_COMPONENTS = [
     PopBoxMenuDemoShowComponent,
     DemoPopoverBasicComponent,
     DemoPopoverContentComponent,
-    RebootSectionLinkComponent,
+    DemoPopoverDirectiveComponent,
+    DemoPopoverDirectiveContentComponent,
+
     DemoModalContentComponent,
     DemoSlideContentComponent,
 
@@ -166,13 +175,18 @@ export const ENTRY_COMPONENTS = [
     DemoAvatarHasBadgeSectionComponent,
     DemoAvatarRemoveSectionComponent,
 
-    DemoDialogContentComponent,
     CreateOverlayComponent,
     DemoStoreOtherSectionComponent,
 
     DemoMenuPopComponent,
 
+    DemoPropertyOperationBasicComponent,
+    DemoPropertyOperationGroupComponent,
+
     ...PROGRESS_COMPONENTS,
     ...TOOLTIP_COMPONENTS,
-    ...ICON_COMPONENTS
+    ...ICON_COMPONENTS,
+    DemoFlexibleTextBasicComponent
 ];
+
+export const DEMO_MODULES = [DialogDemoModule, DemoButtonModule];

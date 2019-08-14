@@ -13,7 +13,9 @@ export class DemoTooltipSectionComponent implements OnInit {
         placement: 'top',
         disabled: false,
         showDelay: 200,
-        hideDelay: 100
+        hideDelay: 100,
+        offset: 4,
+        thyTooltipPin: true
     };
 
     basicCodeExample = require('!!raw-loader!./basic/tooltip-basic-demo.component.html');

@@ -112,6 +112,6 @@
 }
 
 .action-menu-height-limit {
-    max-height: 400px;
+    max-height: $action-menu-max-height;
     overflow-y: auto;
 }

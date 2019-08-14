@@ -24,10 +24,22 @@ export const apiPopoverConfigParameters = [
         default: 'true'
     },
     {
+        property: 'panelClass',
+        description: 'overlay panel 类名',
+        type: 'string | string[]',
+        default: ''
+    },
+    {
         property: 'backdropClosable',
         description: '点击幕布或者按ESC键是否自动关闭弹出框',
         type: 'boolean',
         default: 'true'
+    },
+    {
+        property: 'insideClosable',
+        description: '点击popover内部是否自动关闭弹出框',
+        type: 'boolean',
+        default: 'false'
     },
     {
         property: 'closeOnNavigation',

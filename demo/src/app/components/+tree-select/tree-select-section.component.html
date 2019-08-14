@@ -19,7 +19,12 @@
       thyPlaceholder="请选择值"
       [(ngModel)]="singleModel.selectedValue"
       [thyShowWholeName]="singleModel.showWholeName"
-    ></thy-tree-select>
+    >
+      <ng-template #treeNodeTemplate let-node>
+        <thy-icon class="prefix-icon" [thyIconName]="node.expand ? 'folder-open-fill' : 'folder-fill'"></thy-icon>
+        {{ node.title }}
+      </ng-template>
+    </thy-tree-select>
   </div>
 </section>
 

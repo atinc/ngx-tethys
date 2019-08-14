@@ -3,9 +3,9 @@
     z-index: 1110;
     top: 20px;
     right: 20px;
-    width: 330px;
+    width: $notify-width;
     .thy-notify {
-        padding: 16px;
+        padding: $notify-padding;
         margin-bottom: 10px;
         position: relative;
         display: flex;
@@ -13,19 +13,17 @@
         background: $notify-bg;
         box-shadow: $notify-box-shadow;
         .thy-notify-close {
-            padding-top: 2px;
             position: absolute;
-            right: 16px;
-            top: 10px;
-            width: 20px;
-            height: 20px;
+            right: $notify-padding - 4;
+            top: $notify-padding;
             text-align: center;
-            font-size: 12px;
+            width: $font-size-base * $notify-line-height;
+            font-size: $font-size-base;
             color: $notify-close-color;
             text-decoration: none;
             transition: color 200ms;
-            i {
-                font-size: 12px;
+            .thy-icon {
+                font-size: $font-size-base;
             }
             &:hover {
                 color: $gray-600;
@@ -47,15 +45,26 @@
             flex: 1;
             .thy-notify-title {
                 padding-right: 24px;
-                margin-bottom: 4px;
+                margin-top: 1px;
+                font-size: $font-size-base;
                 color: $notify-title-color;
                 word-break: break-all;
+            }
+            .thy-notify-content {
+                margin-top: 4px;
+                .link-secondary {
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                    font-size: $font-size-base;
+                    color: $primary;
+                }
             }
             .thy-notify-content,
             .thy-notify-detail {
                 flex: 1;
-                font-size: 12px;
-                color: $gray-700;
+                font-size: $font-size-base;
+                color: $gray-500;
                 word-break: break-all;
                 &--extend {
                     -webkit-line-clamp: initial;

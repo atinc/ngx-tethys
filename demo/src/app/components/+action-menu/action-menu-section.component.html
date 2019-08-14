@@ -17,29 +17,29 @@
           (click)="itemClick(1)"
         >
           <span thyActionMenuItemIcon>
-            <i class="wtf wtf-task-o"></i>
+            <thy-icon thyIconName="task"></thy-icon>
           </span>
           <span thyActionMenuItemName>有图标</span>
         </a>
         <a thyActionMenuItem href="javascript:;" (click)="itemClick(2)">
           <span thyActionMenuItemIcon>
-            <i class="wtf wtf-task-o"></i>
+            <thy-icon thyIconName="task"></thy-icon>
           </span>
           <span thyActionMenuItemName>有图标</span>
-          <span thyActionMenuItemExtendIcon>
-            <i class="wtf wtf-checked"></i>
+          <span thyActionMenuItemExtendIcon class="text-primary">
+            <thy-icon thyIconName="check"></thy-icon>
           </span>
         </a>
         <a thyActionMenuItem href="javascript:;" (click)="itemClick(3)">
           <span thyActionMenuItemIcon>
-            <i class="wtf wtf-task-o"></i>
+            <thy-icon thyIconName="task"></thy-icon>
           </span>
           <span thyActionMenuItemName>禁用</span>
         </a>
         <thy-action-menu-divider></thy-action-menu-divider>
         <a thyActionMenuItem href="javascript:;" (click)="itemClick(4)">
           <span thyActionMenuItemIcon>
-            <i class="wtf wtf-task-o"></i>
+            <thy-icon thyIconName="task"></thy-icon>
           </span>
           <span thyActionMenuItemName>有图标</span>
           <span thyActionMenuItemMeta>(默认排序)</span>
@@ -47,7 +47,7 @@
         </a>
         <a thyActionMenuItem href="javascript:;" (click)="itemClick(5)">
           <span thyActionMenuItemIcon>
-            <i class="wtf wtf-task-o"></i>
+            <thy-icon thyIconName="task"></thy-icon>
           </span>
           <span thyActionMenuItemName>有图标</span>
           <span thyActionMenuItemExtendIcon>
@@ -56,7 +56,7 @@
           <div thyActionMenuSubItem>
             <a thyActionMenuItem href="javascript:;" (click)="itemClick(21)">
               <span thyActionMenuItemIcon>
-                <i class="wtf wtf-task-o"></i>
+                <thy-icon thyIconName="task"></thy-icon>
               </span>
               <span thyActionMenuItemName>子菜单1</span>
               <span thyActionMenuItemExtendIcon>
@@ -65,13 +65,13 @@
               <div thyActionMenuSubItem>
                 <a thyActionMenuItem href="javascript:;" (click)="itemClick(21)">
                   <span thyActionMenuItemIcon>
-                    <i class="wtf wtf-task-o"></i>
+                    <thy-icon thyIconName="task"></thy-icon>
                   </span>
                   <span thyActionMenuItemName>子菜单1</span>
                 </a>
                 <a thyActionMenuItem href="javascript:;" (click)="itemClick(22)">
                   <span thyActionMenuItemIcon>
-                    <i class="wtf wtf-task-o"></i>
+                    <thy-icon thyIconName="task"></thy-icon>
                   </span>
                   <span thyActionMenuItemName>子菜单2子菜单2子菜单2子菜单2子菜单2子菜单2</span>
                 </a>
@@ -79,7 +79,7 @@
             </a>
             <a thyActionMenuItem href="javascript:;" (click)="itemClick(22)">
               <span thyActionMenuItemIcon>
-                <i class="wtf wtf-task-o"></i>
+                <thy-icon thyIconName="task"></thy-icon>
               </span>
               <span thyActionMenuItemName>子菜单2子菜单2子菜单2子菜单2子菜单2子菜单2</span>
             </a>
@@ -104,22 +104,43 @@
         <thy-action-menu-divider thyTitle="分组"></thy-action-menu-divider>
         <a thyActionMenuItem href="javascript:;" (click)="itemClick(1)">
           <span thyActionMenuItemIcon>
-            <i class="wtf wtf-task-o"></i>
+            <thy-icon thyIconName="task"></thy-icon>
           </span>
-          <span thyActionMenuItemName>有图标</span>
+          <span thyActionMenuItemName>有图标1</span>
         </a>
         <a thyActionMenuItem href="javascript:;" (click)="itemClick(1)">
           <span thyActionMenuItemIcon>
-            <i class="wtf wtf-task-o"></i>
+            <thy-icon thyIconName="task"></thy-icon>
           </span>
-          <span thyActionMenuItemName>有图标</span>
+          <span thyActionMenuItemName>有图标2</span>
+          <span thyActionMenuItemExtendIcon class="text-primary">
+            <thy-icon thyIconName="check"></thy-icon>
+          </span>
+        </a>
+        <a thyActionMenuItem href="javascript:;" (click)="itemClick(1)">
+          <span thyActionMenuItemIcon>
+            <thy-icon thyIconName="task"></thy-icon>
+          </span>
+          <span thyActionMenuItemName>有图标3</span>
         </a>
         <thy-action-menu-divider thyTitle="分组"></thy-action-menu-divider>
         <a thyActionMenuItem href="javascript:;" (click)="itemClick(1)">
           <span thyActionMenuItemIcon>
-            <i class="wtf wtf-task-o"></i>
+            <thy-icon thyIconName="task"></thy-icon>
           </span>
-          <span thyActionMenuItemName>有图标</span>
+          <span thyActionMenuItemName>有图标4</span>
+        </a>
+        <a thyActionMenuItem href="javascript:;" (click)="itemClick(1)">
+          <span thyActionMenuItemIcon>
+            <thy-icon thyIconName="task"></thy-icon>
+          </span>
+          <span thyActionMenuItemName>有图标5</span>
+        </a>
+        <a thyActionMenuItem href="javascript:;" (click)="itemClick(1)">
+          <span thyActionMenuItemIcon>
+            <thy-icon thyIconName="task"></thy-icon>
+          </span>
+          <span thyActionMenuItemName>有图标6</span>
         </a>
       </thy-action-menu>
     </ng-template>

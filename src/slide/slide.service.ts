@@ -1,9 +1,6 @@
 import { Injectable, TemplateRef, HostListener } from '@angular/core';
 import { ThySlideOption, thySlideOptionDefaults } from './slide-options.class';
-import {
-    ComponentLoaderFactory,
-    ComponentLoader
-} from 'ngx-bootstrap/component-loader';
+import { ComponentLoaderFactory, ComponentLoader } from 'ngx-bootstrap/component-loader';
 import { ThySlideContainerComponent } from './slide-container.component';
 import { ThySlideRef } from './slide-ref.service';
 
@@ -22,24 +19,16 @@ export class ThySlideService {
 
     constructor(private clf: ComponentLoaderFactory) {}
 
-    public show(
-        content: string | TemplateRef<any> | any,
-        config?: ThySlideOption
-    ) {
+    public show(content: string | TemplateRef<any> | any, config?: ThySlideOption) {
         this._isHide = false;
         setTimeout(() => {
             this._show(content, config);
         });
     }
 
-    private _show(
-        content: string | TemplateRef<any> | any,
-        config?: ThySlideOption
-    ) {
+    private _show(content: string | TemplateRef<any> | any, config?: ThySlideOption) {
         if (this.openedSlideRefs.length > 0) {
-            const openedSlideRef = this.openedSlideRefs[
-                this.openedSlideRefs.length - 1
-            ];
+            const openedSlideRef = this.openedSlideRefs[this.openedSlideRefs.length - 1];
             if (openedSlideRef && openedSlideRef.config) {
                 const oldKey = openedSlideRef.config.key;
                 const newKey = config && config.key;
@@ -52,11 +41,7 @@ export class ThySlideService {
 
         this._config = Object.assign({}, thySlideOptionDefaults, config);
 
-        this._slideLoader = this.clf.createLoader<ThySlideContainerComponent>(
-            null,
-            null,
-            null
-        );
+        this._slideLoader = this.clf.createLoader<ThySlideContainerComponent>(null, null, null);
 
         const thySlideRef = new ThySlideRef();
         thySlideRef.hide = () => {
@@ -86,19 +71,15 @@ export class ThySlideService {
     }
 
     private _hide() {
-        setTimeout(() => {
-            if (this.openedSlideRefs.length > 0) {
-                const openedSlideRef = this.openedSlideRefs[
-                    this.openedSlideRefs.length - 1
-                ];
-                if (openedSlideRef && openedSlideRef.thySlideRef) {
+        if (this.openedSlideRefs.length > 0) {
+            const openedSlideRef = this.openedSlideRefs[this.openedSlideRefs.length - 1];
+            if (openedSlideRef && openedSlideRef.thySlideRef) {
+                openedSlideRef.thySlideRef['instance'].flyInOut = 'void';
+                setTimeout(() => {
                     openedSlideRef.thySlideRef.hide();
-                    this.openedSlideRefs.splice(
-                        this.openedSlideRefs.length - 1,
-                        1
-                    );
-                }
+                    this.openedSlideRefs.splice(this.openedSlideRefs.length - 1, 1);
+                }, 200);
             }
-        }, 200);
+        }
     }
 }

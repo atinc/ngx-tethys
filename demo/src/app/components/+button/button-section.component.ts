@@ -1,9 +1,19 @@
 import { Component, TemplateRef } from '@angular/core';
 import { ThyNotifyService } from '../../../../../src/notify/notify.service';
+import { LiveDemoCodeExample } from '../../core/live-demo/live-demo.component';
+import { DemoButtonBasicComponent } from './basic/button-basic.component';
+import { DemoButtonPairComponent } from './pair/button-pair.component';
+import { DemoButtonLinkComponent } from './link/button-link.component';
+import { DemoButtonSizeComponent } from './size/button-size.component';
+import { DemoButtonOutlineComponent } from './outline/button-outline.component';
+import { DemoButtonSquareComponent } from './square/button-square.component';
+import { DemoButtonLoadingComponent } from './loading/button-loading.component';
+import { DemoButtonGroupComponent } from './group/button-group.component';
+import { DemoButtonIconComponent } from './icon/button-icon.component';
+
 @Component({
     selector: 'demo-button-section',
-    templateUrl: './button-section.component.html',
-    styleUrls: ['./button-section.scss']
+    templateUrl: './button-section.component.html'
 })
 export class DemoButtonSectionComponent {
     apiThyButtonParameters = [
@@ -118,31 +128,161 @@ export class DemoButtonSectionComponent {
         }
     ];
 
-    loading: Boolean = false;
+    liveDemos: LiveDemoCodeExample[] = [
+        {
+            title: '基本使用',
+            component: DemoButtonBasicComponent,
+            description: `按钮有四种类型：主按钮、信息按钮、警告按钮、危险按钮。主按钮在同一个操作区域最多出现一次。`,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'button-basic.component.html',
+                    content: require('!!raw-loader!./basic/button-basic.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'button-basic.component.ts',
+                    content: require('!!raw-loader!./basic/button-basic.component.ts')
+                }
+            ]
+        },
+        {
+            title: '按钮对',
+            description: `按钮对一般用于表单的确认, 取消, 同时也支持主按钮, 线框按钮, 按钮链接多个操作按钮在一起`,
+            component: DemoButtonPairComponent,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'button-pair.component.html',
+                    content: require('!!raw-loader!./pair/button-pair.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'button-pair.component.ts',
+                    content: require('!!raw-loader!./pair/button-pair.component.ts')
+                }
+            ]
+        },
+        {
+            title: '加载状态',
+            description: ``,
+            component: DemoButtonLoadingComponent,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'button-loading.component.html',
+                    content: require('!!raw-loader!./loading/button-loading.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'button-pair.component.ts',
+                    content: require('!!raw-loader!./loading/button-loading.component.ts')
+                }
+            ]
+        },
+        {
+            title: '线框按钮',
+            description: ``,
+            component: DemoButtonOutlineComponent,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'button-outline.component.html',
+                    content: require('!!raw-loader!./outline/button-outline.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'button-outline.component.ts',
+                    content: require('!!raw-loader!./outline/button-outline.component.ts')
+                }
+            ]
+        },
+        {
+            title: '方形按钮',
+            description: ``,
+            component: DemoButtonSquareComponent,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'button-square.component.html',
+                    content: require('!!raw-loader!./square/button-square.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'button-square.component.ts',
+                    content: require('!!raw-loader!./square/button-square.component.ts')
+                }
+            ]
+        },
+        {
+            title: '按钮链接',
+            description: ``,
+            component: DemoButtonLinkComponent,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'button-link.component.html',
+                    content: require('!!raw-loader!./link/button-link.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'button-link.component.ts',
+                    content: require('!!raw-loader!./link/button-link.component.ts')
+                }
+            ]
+        },
+        {
+            title: '按钮大小',
+            description: `按钮大小有4种, 分别为: xs = 24px, sm = 28px, md = 32px, default = 36px, lg = 44px，表单确认按钮为默认大小 36px, 以及页面的右上角操作，md 按钮主要用于头部导航操作区域。`,
+            component: DemoButtonSizeComponent,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'button-size.component.html',
+                    content: require('!!raw-loader!./size/button-size.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'button-size.component.ts',
+                    content: require('!!raw-loader!./size/button-size.component.ts')
+                }
+            ]
+        },
+        {
+            title: '按钮组',
+            description: ``,
+            component: DemoButtonGroupComponent,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'button-group.component.html',
+                    content: require('!!raw-loader!./group/button-group.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'button-group.component.ts',
+                    content: require('!!raw-loader!./group/button-group.component.ts')
+                }
+            ]
+        },
+        {
+            title: '图标按钮',
+            description: ``,
+            component: DemoButtonIconComponent,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'button-icon.component.html',
+                    content: require('!!raw-loader!./icon/button-icon.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'button-icon.component.ts',
+                    content: require('!!raw-loader!./icon/button-icon.component.ts')
+                }
+            ]
+        }
+    ];
 
-    loadingSeconds = 0;
-
-    outlineButtonTemplate = `<button thyButton="outline-default">预览</button>
-<button thyButton="outline-primary">新建文件夹</button>`;
-
-    constructor(private thyNotifyService: ThyNotifyService) {}
-
-    startLoading() {
-        console.log('click loading');
-        this.loading = true;
-        this.loadingSeconds = 3;
-
-        const interval = setInterval(() => {
-            if (this.loadingSeconds === 0) {
-                clearInterval(interval);
-                this.loading = false;
-            } else {
-                this.loadingSeconds = this.loadingSeconds - 1;
-            }
-        }, 1000);
-    }
-
-    ok() {
-        this.thyNotifyService.success('提示', '操作成功');
-    }
+    constructor() {}
 }

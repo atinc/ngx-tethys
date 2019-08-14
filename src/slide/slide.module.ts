@@ -10,6 +10,7 @@ import { ThySlideHeaderComponent } from './slide-header/slide-header.component';
 import { ThySlideBodyComponent } from './slide-body/slide-body.component';
 import { ThySlideBodySectionComponent } from './slide-body/slide-body-section.component';
 import { ThySlideFooterComponent } from './slide-footer/slide-footer.component';
+import { ThyIconModule } from '../icon';
 
 @NgModule({
     declarations: [
@@ -20,13 +21,8 @@ import { ThySlideFooterComponent } from './slide-footer/slide-footer.component';
         ThySlideBodySectionComponent,
         ThySlideFooterComponent
     ],
-    entryComponents: [
-        ThySlideContainerComponent
-    ],
-    imports: [
-        CommonModule,
-        ThySharedModule,
-    ],
+    entryComponents: [ThySlideContainerComponent],
+    imports: [CommonModule, ThySharedModule, ThyIconModule],
     exports: [
         ThySlideLayoutComponent,
         ThySlideHeaderComponent,
@@ -34,12 +30,6 @@ import { ThySlideFooterComponent } from './slide-footer/slide-footer.component';
         ThySlideBodySectionComponent,
         ThySlideFooterComponent
     ],
-    providers: [
-        ComponentLoaderFactory,
-        ThySlideService,
-        ThySlideRef
-    ]
+    providers: [ComponentLoaderFactory, ThySlideService, ThySlideRef]
 })
-export class ThySlideModule {
-
-}
+export class ThySlideModule {}

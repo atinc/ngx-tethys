@@ -9,8 +9,7 @@ import { RouterModule } from '@angular/router';
 import { SortablejsModule } from 'angular-sortablejs';
 
 import { AppComponent } from './app.component';
-import { COMPONENTS, ENTRY_COMPONENTS } from './components';
-import { DOCS_COMPONENTS } from './docs/index';
+import { COMPONENTS, ENTRY_COMPONENTS, DEMO_MODULES } from './components';
 import { appRoutes } from './app.routes';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { TabsModule } from 'ngx-bootstrap/tabs';
@@ -20,11 +19,7 @@ import { DemoThyTranslate, thyValidatorConfigProvider } from './config';
 import { FormsModule } from '@angular/forms';
 import { ThyAvatarService } from '../../../src/public-api';
 import { CustomAvatarService } from './components/+avatar/custom-avatar.service';
-import { HighlightModule } from 'ngx-highlightjs';
 
-import xml from 'highlight.js/lib/languages/xml';
-import scss from 'highlight.js/lib/languages/scss';
-import typescript from 'highlight.js/lib/languages/typescript';
 import { ThyStoreModule } from '../../../src/store/module';
 import { DriveStore } from './store/drive-store';
 import { TasksStore } from './store/tasks-store';
@@ -34,27 +29,17 @@ import {
     CustomMarkdownParserService,
     CustomMarkdownPlanTextParserService
 } from './components/+markdown/custom-markdown.service';
-import { GlobalModule } from './global/global.module';
+import { GLOBAL_MODULES } from './global';
 import { SidebarComponent } from './core/sidebar/sidebar.component';
-import { LiveDemoComponent } from './core/live-demo/live-demo.component';
-export function hljsLanguages() {
-    return [{ name: 'typescript', func: typescript }, { name: 'scss', func: scss }, { name: 'xml', func: xml }];
-}
+import { SharedModule } from './shared.module';
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        ...COMPONENTS,
-        ...DOCS_COMPONENTS,
-        ...DESIGN_COMPONENTS,
-        SidebarComponent,
-        LiveDemoComponent
-    ],
+    declarations: [AppComponent, ...COMPONENTS, ...DESIGN_COMPONENTS, SidebarComponent],
     entryComponents: [...ENTRY_COMPONENTS],
     imports: [
-        BrowserModule,
-        FormsModule,
-        NgxTethysModule,
+        SharedModule,
+        ...DEMO_MODULES,
+        ...GLOBAL_MODULES,
         RouterModule.forRoot(appRoutes, {
             useHash: true
         }),
@@ -64,13 +49,9 @@ export function hljsLanguages() {
         TabsModule.forRoot(),
         TranslateModule,
         SortablejsModule.forRoot({}),
-        HighlightModule.forRoot({
-            languages: hljsLanguages
-        }),
         ThyStoreModule.forFeature([TasksStore, DriveStore]),
         TextFieldModule,
-        OverlayModule,
-        GlobalModule
+        OverlayModule
     ],
     providers: [
         {

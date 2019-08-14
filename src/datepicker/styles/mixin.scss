@@ -3,11 +3,10 @@
         .bs-datepicker-body {
             table {
                 td {
-
                     span.selected,
                     &.selected span,
-                    span[class*="select-"]:after,
-                    &[class*="select-"] span:after {
+                    span[class*='select-']:after,
+                    &[class*='select-'] span:after {
                         background-color: $color;
                     }
 
@@ -114,8 +113,10 @@
                                     &:before {
                                         // top: 2px;
                                         // bottom: 2px;
-                                        left: -4px;
-                                        right: -4px;
+                                        // left: -4px;
+                                        // right: -4px;
+                                        left: -2px;
+                                        right: -1px;
                                     }
 
                                     &.select-start {
@@ -146,7 +147,7 @@
                 }
             }
 
-            .bs-datepicker-multiple+.bs-datepicker-multiple {
+            .bs-datepicker-multiple + .bs-datepicker-multiple {
                 margin-left: -10px;
             }
         }
@@ -211,7 +212,6 @@
             }
 
             .timepicker-warp {
-
                 // 时间input
                 .btn {
                     padding: 0;

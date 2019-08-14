@@ -1,13 +1,33 @@
-<div class="header">
-  <h2>{{ title }}</h2>
+<div class="demo-header">
+  <div class="header-title">
+    <span class="title">{{ title }}</span>
+  </div>
   <div class="header-actions">
-    <a href="javascript:;" thyTooltip="展开代码" class="action link-secondary" (click)="toggleCodeExample()"
+    <a
+      href="javascript:;"
+      [thyTooltip]="showCodeExamples ? '折叠代码' : '展开代码'"
+      class="action link-secondary"
+      (click)="toggleCodeExample()"
       ><thy-icon thyIconName="code"></thy-icon
     ></a>
   </div>
 </div>
-<div class="body">
+<div class="demo-body">
   <div class="description" *ngIf="description" [thyMarkdownParser]="description"></div>
   <ng-container *ngComponentOutlet="component"></ng-container>
+  <div class="code-example-container" *ngIf="showCodeExamples && examples && examples.length > 0">
+    <thy-nav thyType="thirdly">
+      <a
+        href="javascript:;"
+        thyNavLink
+        [thyNavLinkActive]="currentCodeExample === codeExample"
+        *ngFor="let codeExample of examples"
+        (click)="selectCodeExample(codeExample)"
+        >{{ codeExample.name || codeExample.type }}</a
+      >
+    </thy-nav>
+    <pre
+      *ngIf="currentCodeExample"
+    ><code [lang]="currentCodeExample.type" [highlight]="currentCodeExample.content"></code></pre>
+  </div>
 </div>
-<div></div>

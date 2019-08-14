@@ -6,11 +6,26 @@ import { ThySlideService } from '../slide.service';
     templateUrl: './slide-header.component.html'
 })
 export class ThySlideHeaderComponent implements OnInit {
+    isIconFont = false;
+
+    private _iconName = '';
+
     @HostBinding('class.thy-slide-header') slideLayoutHeader = true;
 
     @Input() thyTitle: string;
 
-    @Input() thyIcon: string;
+    @Input() set thyIcon(value: string) {
+        this._iconName = value;
+        if (value.includes('wtf')) {
+            this.isIconFont = true;
+        } else {
+            this.isIconFont = false;
+        }
+    }
+
+    get thyIcon() {
+        return this._iconName;
+    }
 
     @ContentChild('thyHeader') headerTemplate: TemplateRef<any>;
 
@@ -21,6 +36,7 @@ export class ThySlideHeaderComponent implements OnInit {
     ngOnInit() {}
 
     closeModal(event: Event) {
+        event.stopPropagation();
         this.thySlideService.hide();
     }
 }

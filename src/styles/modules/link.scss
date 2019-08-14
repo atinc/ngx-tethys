@@ -37,11 +37,18 @@ a.link-has-icon {
     .wtf {
         padding-right: $link-icon-padding-right;
     }
+    // 新的 SVG 图标字体16px偏大, 所以改成14px, 之前的字体不变
+    .thy-icon {
+        font-size: $font-size-base;
+    }
 }
 
 a {
     &.link-primary {
         @include link-variant($primary, $link-decoration, $primary, $link-hover-decoration);
+    }
+    &.link-info {
+        @include link-variant($info, $link-decoration, $info, $link-hover-decoration);
     }
     &.link-secondary {
         @include link-variant($gray-500, none, $primary, none);

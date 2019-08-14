@@ -65,6 +65,10 @@ export class ThyPopoverRefInternal<T, TResult = any> implements ThyPopoverRef<T,
                 this.overlayRef.dispose();
             });
 
+        containerInstance.insideClicked.subscribe(() => {
+            this.close();
+        });
+
         overlayRef.detachments().subscribe(() => {
             this._beforeClosed.next(this._result);
             this._beforeClosed.complete();

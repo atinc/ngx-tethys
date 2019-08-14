@@ -1,23 +1,29 @@
 <ng-container *ngIf="!option.html">
-    <a href="javascript:;" class="thy-notify-close">
-        <i class="wtf wtf-times" (click)="closeNotify()"></i>
-    </a>
-    <div [ngClass]="notifyIconType">
-        <i class="wtf" [ngClass]="notifyIconClass"></i>
+  <a href="javascript:;" class="thy-notify-close" (click)="closeNotify()">
+    <thy-icon thyIconName="close"></thy-icon>
+  </a>
+  <div [ngClass]="notifyIconType">
+    <thy-icon [thyIconName]="notifyIconName"></thy-icon>
+  </div>
+  <div class="thy-notify-main">
+    <div class="thy-notify-title">{{ option.title }}</div>
+    <div
+      *ngIf="option.detail || option.content"
+      class="thy-notify-content"
+      [ngClass]="{ 'thy-notify-content--extend': extendContentClass === true }"
+      (click)="extendContent()"
+    >
+      {{ option.content }}
+      <a href="javascript:;" class="link-secondary" *ngIf="option.detail" (click)="showDetailToggle()">[详细]</a>
     </div>
-    <div class="thy-notify-main">
-        <div class="thy-notify-title">{{option.title}}</div>
-        <div class="thy-notify-content" [ngClass]="{'thy-notify-content--extend':extendContentClass===true}" (click)="extendContent()">{{option.content}}
-            <a href="javascript:;" target="_blank" class="link-secondary" *ngIf="option.detail" (click)="showDetailToggle()">[详细]</a>
-        </div>
-        <div class="thy-notify-detail" *ngIf="isShowDetail">{{option.detail}}</div>
-    </div>
+    <div class="thy-notify-detail" *ngIf="isShowDetail">{{ option.detail }}</div>
+  </div>
 </ng-container>
 <ng-container *ngIf="option.html">
-    <a href="javascript:;" class="thy-notify-close">
-        <i class="wtf wtf-times" (click)="closeNotify()"></i>
-    </a>
-    <div class="thy-notify-main">
-        <template [ngTemplateOutlet]="option.html"></template>
-    </div>
+  <a href="javascript:;" class="thy-notify-close" (click)="closeNotify()">
+    <thy-icon thyIconName="close"></thy-icon>
+  </a>
+  <div class="thy-notify-main">
+    <template [ngTemplateOutlet]="option.html"></template>
+  </div>
 </ng-container>

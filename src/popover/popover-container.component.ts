@@ -1,4 +1,13 @@
-import { Component, ComponentRef, ViewChild, EmbeddedViewRef, Inject, ElementRef, EventEmitter } from '@angular/core';
+import {
+    Component,
+    ComponentRef,
+    ViewChild,
+    EmbeddedViewRef,
+    Inject,
+    ElementRef,
+    EventEmitter,
+    HostListener
+} from '@angular/core';
 import { ComponentPortal, TemplatePortal, CdkPortalOutlet } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
 import { AnimationEvent } from '@angular/animations';
@@ -32,6 +41,8 @@ export class ThyPopoverContainerComponent {
 
     /** Emits when an animation state changes. */
     animationStateChanged = new EventEmitter<AnimationEvent>();
+
+    insideClicked = new EventEmitter();
 
     constructor(
         private elementRef: ElementRef,
@@ -82,5 +93,12 @@ export class ThyPopoverContainerComponent {
         // Mark the container for check so it can react if the
         // view container is using OnPush change detection.
         // this.changeDetectorRef.markForCheck();
+    }
+
+    @HostListener('click', [])
+    onInsideClick() {
+        if (this.config.insideClosable) {
+            this.insideClicked.emit();
+        }
     }
 }

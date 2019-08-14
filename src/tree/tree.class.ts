@@ -56,7 +56,7 @@ export class ThyTreeNode {
 
     constructor(node: ThyTreeNodeData, parent: ThyTreeNode = null, service?: ThyTreeService) {
         this.title = node.title;
-        this.key = node.key || null;
+        this.key = node.key;
         this.children = [];
         this.parentNode = parent;
         this.level = parent ? parent.level + 1 : this.level;
