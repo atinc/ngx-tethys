@@ -36,6 +36,7 @@ export class ThySlideHeaderComponent implements OnInit {
     ngOnInit() {}
 
     closeModal(event: Event) {
+        event.stopPropagation();
         this.thySlideService.hide();
     }
 }

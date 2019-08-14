@@ -78,6 +78,9 @@ export class ThyTransferComponent implements OnInit {
     ngOnInit() {}
 
     initializeTransferData(data: ThyTransferItem[] = []) {
+        this.allDataSource = [];
+        this.leftDataSource = [];
+        this.rightDataSource = [];
         data.forEach(item => {
             this.allDataSource.push(item);
             if (item.direction === TransferDirection.left) {

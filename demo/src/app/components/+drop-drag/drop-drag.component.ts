@@ -110,8 +110,8 @@ export class DropDragComponent implements OnInit {
         chosenClass: 'thy-tree-item-chosen',
         // handle: '.thy-sortable-handle',
         filter: '.thy-sortable-disabled',
-        draggable: 'thy-sortable-item',
-        dragClass: '.thy-sortable-drag'
+        draggable: '.thy-sortable-item',
+        dragClass: 'thy-sortable-drag'
     };
 
     ngOnInit(): void {}
