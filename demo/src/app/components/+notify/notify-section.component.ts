@@ -10,7 +10,8 @@ export class DemoNotifySectionComponent {
 
     showDefault() {
         this.notifyService.show({
-            title: '添加项目成功！'
+            title: '添加项目成功！',
+            duration: 0
         });
     }
 
@@ -26,7 +27,7 @@ export class DemoNotifySectionComponent {
     showNotAutoClose() {
         this.notifyService.success(null, '创建项目成功！');
         this.notifyService.info(null, '你可以尝试创建一个项目。');
-        this.notifyService.warning(null, '删除项目后，项目将无法还原！');
+        this.notifyService.warning(null, '');
         this.notifyService.error(null, '删除项目失败！');
     }
 
