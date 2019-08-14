@@ -2,62 +2,52 @@ import { NgZone, ElementRef } from '@angular/core';
 import { coerceElement } from '@angular/cdk/coercion';
 import { Subject, fromEvent } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { ThyDragHandleDirective } from './drag-handle';
+import { ThyDragHandleDirective } from './drag-handle.directive';
+import { ThyDragDropService } from './drag-drop.service';
+import {
+    ThyDragStartEvent,
+    ThyDragEndEvent,
+    ThyDragOverEvent,
+    ThyDragDropEvent,
+    ThyDropPosition
+} from './drag-drop.class';
+import { ThyDragDirective } from './drag.directive';
+import { IThyDropContainerDirective } from './drop-container.class';
+import { coerceArray } from '../util/helpers';
 
-export enum DragDirection {
-    top = 'top',
-    center = 'center',
-    bottom = 'bottom',
-    none = ''
-}
-
-const dragSideRange = 0.25;
-
-const dragMinGap = 0;
-
-const defaultPreviewClass = 'thy-drag-preview';
-
-const coverClassMap = {
-    [DragDirection.center]: 'drag-cover',
-    [DragDirection.top]: 'drag-cover-gap-top',
-    [DragDirection.bottom]: 'drag-cover-gap-bottom'
+const dropPositionClass = {
+    [ThyDropPosition.in]: 'thy-drop-position-in',
+    [ThyDropPosition.before]: 'thy-drop-position-before',
+    [ThyDropPosition.after]: 'thy-drop-position-after'
 };
 
 export class DragRef<T = any> {
-    private _target: HTMLElement;
+    private rootElement: HTMLElement;
 
-    private _rootElement: HTMLElement;
+    private contentElement: HTMLElement;
 
-    private _handles: ThyDragHandleDirective[];
+    private target: HTMLElement;
 
-    private _previewClass: string[] = [defaultPreviewClass];
+    private handles: ThyDragHandleDirective[];
 
-    private _preview: HTMLElement;
+    private ngUnsubscribe$ = new Subject();
 
-    private _dropContainer: HTMLElement;
+    started = new Subject<ThyDragStartEvent>();
 
-    private _dragDragDirection = DragDirection.none;
+    ended = new Subject<ThyDragEndEvent>();
 
-    started = new Subject<DragEvent>();
+    overed = new Subject<ThyDragOverEvent>();
+
+    dropped = new Subject<ThyDragDropEvent>();
 
     entered = new Subject<DragEvent>();
 
-    overed = new Subject<DragEvent>();
-
     leaved = new Subject<DragEvent>();
-
-    dropped = new Subject<DragEvent>();
-
-    ended = new Subject<DragEvent>();
-
-    ngUnsubscribe$ = new Subject();
-
-    data: T;
 
     private _disabled = false;
 
     get disabled(): boolean {
-        return this._disabled;
+        return (this.container && this.container.disabled) || this._disabled;
     }
     set disabled(value: boolean) {
         this._disabled = value;
@@ -65,150 +55,204 @@ export class DragRef<T = any> {
 
     constructor(
         element: ElementRef<HTMLElement> | HTMLElement,
-        _drag: T,
-        private _document: any,
-        private _ngZone: NgZone
+        private drag: ThyDragDirective,
+        private container: IThyDropContainerDirective<T>,
+        private dragDropService: ThyDragDropService<T>,
+        private document: any,
+        private ngZone: NgZone
     ) {
-        this.data = _drag;
         this.withRootElement(element);
-    }
-
-    registerDragEvents() {
-        this._ngZone.runOutsideAngular(() => {
-            fromEvent(this._rootElement, 'dragstart')
-                .pipe(takeUntil(this.ngUnsubscribe$))
-                .subscribe(this.dragStart.bind(this));
-
-            fromEvent(this._rootElement, 'dragenter')
-                .pipe(takeUntil(this.ngUnsubscribe$))
-                .subscribe((event: DragEvent) => {
-                    this.entered.next(event);
-                });
-            fromEvent(this._rootElement, 'dragover')
-                .pipe(takeUntil(this.ngUnsubscribe$))
-                .subscribe(this.dragOver.bind(this));
-
-            fromEvent(this._rootElement, 'dragleave')
-                .pipe(takeUntil(this.ngUnsubscribe$))
-                .subscribe(this.dragLeave.bind(this));
-
-            fromEvent(this._rootElement, 'drop')
-                .pipe(takeUntil(this.ngUnsubscribe$))
-                .subscribe(this.dragDrop.bind(this));
-
-            fromEvent(this._rootElement, 'dragend')
-                .pipe(takeUntil(this.ngUnsubscribe$))
-                .subscribe((event: DragEvent) => {
-                    this.ended.next(event);
-                });
-
-            fromEvent(this._rootElement, 'mouseover')
-                .pipe(takeUntil(this.ngUnsubscribe$))
-                .subscribe((event: DragEvent) => {
-                    this._target = event.target as HTMLElement;
-                });
-        });
-    }
-
-    private dragStart(event: DragEvent) {
-        console.log(this.data['data']);
-        event.stopPropagation();
-        if (!this.isTriggerHandle()) {
-            event.preventDefault();
-            return false;
-        }
-        this.started.next(event);
-    }
-
-    private dragOver(event: DragEvent) {
-        console.log(this.data['data']);
-        event.preventDefault();
-        event.stopPropagation();
-        this.dragCoverHandler(event);
-        this.overed.next(event);
-    }
-
-    private dragLeave(event: DragEvent) {
-        console.log(this.data['data']);
-        event.stopPropagation();
-        this.clearDragCoverClass();
-        this.leaved.next(event);
-    }
-
-    private dragDrop(event: DragEvent) {
-        console.log(this.data['data']);
-        event.stopPropagation();
-        this.clearDragCoverClass();
-        this.dropped.next(event);
     }
 
     withRootElement(rootElement: ElementRef<HTMLElement> | HTMLElement): this {
         const element = coerceElement(rootElement);
-        this._rootElement = element;
-        this.registerDragEvents();
+        this.rootElement = element;
+        this.registerDragDropEvents();
         return this;
     }
 
-    withHandles(handles: ThyDragHandleDirective[]): this {
-        this._handles = handles;
+    withContentElement(contentElement: ElementRef<HTMLElement> | HTMLElement): this {
+        this.contentElement = coerceElement(contentElement);
         return this;
+    }
+
+    withHandles(handleOrHandles: ThyDragHandleDirective | ThyDragHandleDirective[]): this {
+        this.handles = coerceArray(handleOrHandles);
+        return this;
+    }
+
+    private registerDragDropEvents() {
+        const events = {
+            dragstart: this.dragStart,
+            dragover: this.dragOver,
+            dragend: this.dragEnd,
+            drop: this.dragDrop,
+            dragleave: this.dragLeave,
+            dragenter: (event: DragEvent) => {
+                this.entered.next(event);
+            },
+            mouseover: (event: MouseEvent) => {
+                this.target = event.target as HTMLElement;
+            }
+        };
+        this.ngZone.runOutsideAngular(() => {
+            for (const name in events) {
+                if (events.hasOwnProperty(name)) {
+                    fromEvent(this.rootElement, name)
+                        .pipe(takeUntil(this.ngUnsubscribe$))
+                        .subscribe(events[name].bind(this));
+                }
+            }
+        });
+    }
+
+    private dragStart(event: DragEvent) {
+        event.stopPropagation();
+        const dragStartEvent: ThyDragStartEvent = {
+            event: event,
+            item: this.drag.data,
+            containerItems: this.container.data,
+            currentIndex: this.container.data.indexOf(this.drag.data)
+        };
+        if (
+            this.disabled ||
+            !this.isTriggerHandle() ||
+            (this.container.beforeStart && !this.container.beforeStart(dragStartEvent))
+        ) {
+            event.preventDefault();
+            return false;
+        }
+        this.dragDropService.previousDrag = this.drag;
+        this.ngZone.run(() => {
+            this.started.next(dragStartEvent);
+        });
     }
 
     private isTriggerHandle() {
-        if (this._handles.length > 0) {
-            return !!this._handles.find(handle => !handle.disabled && handle.element.nativeElement === this._target);
+        if (this.handles && this.handles.length > 0) {
+            const targetHandle = this.handles.find(handle => {
+                return (
+                    !handle.disabled &&
+                    (handle.element.nativeElement === this.target || handle.element.nativeElement.contains(this.target))
+                );
+            });
+            return !!targetHandle;
         } else {
             return true;
         }
     }
 
-    private dragCoverHandler(event: DragEvent) {
+    private getPreviousEventData() {
+        const previousItem = this.dragDropService.previousDrag.data;
+        const previousContainerItems = this.dragDropService.previousDrag.container.data;
+        return {
+            previousItem: previousItem,
+            previousContainerItems: this.dragDropService.previousDrag.container.data,
+            previousIndex: previousContainerItems.indexOf(previousItem)
+        };
+    }
+
+    private isContinueDragOver(event: ThyDragOverEvent, container: IThyDropContainerDirective<T>) {
+        if (event.item === event.previousItem && event.position === ThyDropPosition.in) {
+            return false;
+        }
+        if (container && container.beforeOver) {
+            return container.beforeOver(event);
+        }
+        return true;
+    }
+
+    private dragOver(event: DragEvent) {
+        event.stopPropagation();
+        event.preventDefault();
+
         const dropPosition = this.calcDropPosition(event);
-        if (this._dragDragDirection !== dropPosition) {
-            this.clearDragCoverClass();
-            this._dragDragDirection = dropPosition;
-            this._rootElement.classList.add(coverClassMap[this._dragDragDirection]);
+        const dragOverEvent: ThyDragOverEvent<T> = {
+            event: event,
+            item: this.drag.data,
+            containerItems: this.drag.container.data,
+            currentIndex: this.container.data.indexOf(this.drag.data),
+            position: dropPosition,
+            ...this.getPreviousEventData()
+        };
+
+        if (this.isContinueDragOver(dragOverEvent, this.container)) {
+            this.dragOverHandler(dropPosition);
+            this.overed.next(dragOverEvent);
         }
     }
 
-    private clearDragCoverClass(): void {
-        const classList = ['drag-cover-gap-top', 'drag-cover-gap-bottom', 'drag-cover'];
-        this._rootElement.classList.remove(...classList);
+    private dragOverHandler(position: ThyDropPosition) {
+        const element = this.contentElement || this.rootElement;
+        if (this.dragDropService.dropPosition !== position) {
+            this.clearDragPositionClass();
+        }
+        element.classList.add(dropPositionClass[position]);
+        this.dragDropService.dropPosition = position;
     }
 
-    private createPreviewElement(event: DragEvent) {
-        // const preview = this._rootElement.cloneNode(true) as any;
-        // const computedStyles = window.getComputedStyle(this._rootElement);
-        // preview.classList.add(...this._previewClass);
-        // preview.style.position = 'absolute';
-        // preview.style.top = '-1000px';
-        // preview.style.left = '-1000px';
-        // preview.style.width = computedStyles.width;
-        // preview.style.height = computedStyles.height;
-        // document.body.appendChild(preview);
-        // event.dataTransfer.setDragImage(preview, 0, 0);
-        // this._preview = preview;
+    private dragDrop(event: DragEvent) {
+        event.stopPropagation();
+        this.clearDragPositionClass();
+        const dragDropEvent: ThyDragDropEvent<T> = {
+            event: event,
+            item: this.drag.data,
+            containerItems: this.drag.container.data,
+            currentIndex: this.container.data.indexOf(this.drag.data),
+            position: this.calcDropPosition(event),
+            ...this.getPreviousEventData()
+        };
+        if (
+            this.dragDropService.previousDrag === this.drag ||
+            (this.container.beforeDrop && !this.container.beforeDrop(dragDropEvent))
+        ) {
+            event.preventDefault();
+            return;
+        }
+        this.ngZone.run(() => {
+            this.dropped.next(dragDropEvent);
+        });
     }
 
-    private removePreviewElement() {
-        if (this._preview) {
-            this._document.body.removeChild(this._preview);
+    private dragEnd(event: DragEvent) {
+        this.ngZone.run(() => {
+            this.ended.next({
+                event: event,
+                item: this.drag.data,
+                containerItems: this.container.data
+            });
+        });
+    }
+
+    private dragLeave(event: DragEvent) {
+        event.stopPropagation();
+        this.clearDragPositionClass();
+        this.leaved.next(event);
+    }
+
+    private clearDragPositionClass(): void {
+        const element = this.contentElement || this.rootElement;
+        for (const key in dropPositionClass) {
+            if (dropPositionClass[key]) {
+                element.classList.remove(dropPositionClass[key]);
+            }
         }
     }
 
-    private calcDropPosition(event: DragEvent): any {
+    private calcDropPosition(event: DragEvent): ThyDropPosition {
+        const sideRange = 0.25;
+        const minGap = 2;
         const { clientY } = event;
-        // to fix firefox undefined
         const { top, bottom, height } = event.srcElement
             ? (event.srcElement as Element).getBoundingClientRect()
             : (event.target as Element).getBoundingClientRect();
-        const des = Math.max(height * dragSideRange, dragMinGap);
+        const des = Math.max(height * sideRange, minGap);
         if (clientY <= top + des) {
-            return -1;
+            return ThyDropPosition.before;
         } else if (clientY >= bottom - des) {
-            return 1;
+            return ThyDropPosition.after;
         }
-        return 0;
+        return ThyDropPosition.in;
     }
 
     dispose() {
