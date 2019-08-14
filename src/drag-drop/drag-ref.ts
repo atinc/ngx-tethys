@@ -13,6 +13,7 @@ import {
 } from './drag-drop.class';
 import { ThyDragDirective } from './drag.directive';
 import { IThyDropContainerDirective } from './drop-container.class';
+import { coerceArray } from '../util/helpers';
 
 const dropPositionClass = {
     [ThyDropPosition.in]: 'thy-drop-position-in',
@@ -75,8 +76,8 @@ export class DragRef<T = any> {
         return this;
     }
 
-    withHandles(handles: ThyDragHandleDirective[]): this {
-        this.handles = handles;
+    withHandles(handleOrHandles: ThyDragHandleDirective | ThyDragHandleDirective[]): this {
+        this.handles = coerceArray(handleOrHandles);
         return this;
     }
 
@@ -128,8 +129,14 @@ export class DragRef<T = any> {
     }
 
     private isTriggerHandle() {
-        if (this.handles.length > 0) {
-            return !!this.handles.find(handle => !handle.disabled && handle.element.nativeElement === this.target);
+        if (this.handles && this.handles.length > 0) {
+            const targetHandle = this.handles.find(handle => {
+                return (
+                    !handle.disabled &&
+                    (handle.element.nativeElement === this.target || handle.element.nativeElement.contains(this.target))
+                );
+            });
+            return !!targetHandle;
         } else {
             return true;
         }
