@@ -39,11 +39,6 @@ export class ThyDragDirective<T = any> extends mixinUnsubscribe(MixinBase) imple
         return this._disabled;
     }
 
-    @ContentChildren(ThyDragHandleDirective)
-    set dragHandles(handles: ThyDragHandleDirective[]) {
-        this.dragRef.withHandles(handles);
-    }
-
     public dragRef: DragRef<T>;
 
     constructor(
