@@ -1,5 +1,6 @@
-import { Directive, ElementRef, Input } from '@angular/core';
+import { Directive, ElementRef, Input, Optional } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { ThyDragDirective } from './drag.directive';
 
 @Directive({
     selector: 'thy-drag-handle,[thyDragHandle]'
@@ -15,5 +16,9 @@ export class ThyDragHandleDirective {
         this._disabled = coerceBooleanProperty(value);
     }
 
-    constructor(public element: ElementRef<HTMLElement>) {}
+    constructor(public element: ElementRef<HTMLElement>, @Optional() drag: ThyDragDirective) {
+        if (drag) {
+            drag.dragRef.withHandles(this);
+        }
+    }
 }
