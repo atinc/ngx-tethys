@@ -50,6 +50,24 @@
         }
     }
 
+    .thy-grid-item-hover-display-operation {
+        .thy-operation-links {
+            a,
+            button {
+                visibility: hidden;
+            }
+        }
+
+        @include hover {
+            .thy-operation-links {
+                a,
+                button {
+                    visibility: visible;
+                }
+            }
+        }
+    }
+
     .thy-grid-footer {
         display: flex;
         justify-content: flex-end;
