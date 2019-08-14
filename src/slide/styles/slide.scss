@@ -62,11 +62,11 @@
 
         .thy-slide-body-section {
             display: block;
-            padding: $slide-body-section-padding;
+            padding-top: $slide-body-section-padding;
 
-            &.thy-slide-body-section-divider:not(:last-child) {
-                border-bottom: 1px solid $slide-divider;
-            }
+            // &.thy-slide-body-section-divider:not(:last-child) {
+            //     border-bottom: 1px solid $slide-divider;
+            // }
         }
     }
 }

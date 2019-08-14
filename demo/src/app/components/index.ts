@@ -74,6 +74,7 @@ import { DialogDemoModule } from './+dialog';
 import { DemoButtonModule } from './+button';
 import { DemoTypographyComponent } from './+typography/typography.component';
 import { DemoPropertyOperationGroupComponent, DemoPropertyOperationBasicComponent } from './+property-operation';
+import { DemoTreeModule } from './+tree';
 
 export const COMPONENTS = [
     DemoTypographyComponent,
@@ -189,4 +190,4 @@ export const ENTRY_COMPONENTS = [
     DemoFlexibleTextBasicComponent
 ];
 
-export const DEMO_MODULES = [DialogDemoModule, DemoButtonModule];
+export const DEMO_MODULES = [DialogDemoModule, DemoButtonModule, DemoTreeModule];
