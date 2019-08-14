@@ -115,7 +115,8 @@
     width: 150px;
     height: 120px;
     background: $gray-80;
-    border-radius: 6px;
+    border-radius: 4px;
+    border: solid 1px $gray-200;
     cursor: pointer;
     outline-style: none;
     .checked-icon {
@@ -132,8 +133,9 @@
         text-align: center;
     }
 
-    &:hover {
-        @include item-box-shadow($gray-200);
+    &:not(.disabled):hover {
+        border: solid 1px $primary;
+        // @include item-box-shadow($gray-200);
     }
 
     &.disabled {
@@ -145,6 +147,7 @@
     &:not(.disabled).active {
         background: rgba($primary, 0.1);
         color: $body-color;
+        border: solid 1px $primary;
         .checked-icon {
             visibility: visible;
         }
@@ -156,7 +159,12 @@
         background: $primary;
     }
 
+    &:hover {
+        border: solid 1px $primary;
+    }
+
     &:not(.disabled).active {
         background: rgba($primary, 0.1);
+        border: solid 1px $primary;
     }
 }
