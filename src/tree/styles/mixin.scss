@@ -14,3 +14,56 @@
         }
     }
 }
+
+@mixin drop-left-right-virtual-border($left, $right) {
+    content: '';
+    width: 2px;
+    background-color: $primary;
+    position: absolute;
+    height: $tree-node-wrapper-height;
+    left: $left;
+    right: $right;
+}
+
+@mixin thy-tree-drag-drop {
+    .thy-tree {
+        &-node {
+            &-wrapper {
+                border: 2px solid transparent;
+            }
+
+            &-content {
+                border-top: 2px solid transparent;
+                border-bottom: 2px solid transparent;
+            }
+
+            .thy-drop-position-in {
+                border-color: $primary;
+
+                &::before {
+                    @include drop-left-right-virtual-border(0, initial);
+                }
+
+                &::after {
+                    @include drop-left-right-virtual-border(initial, 0);
+                }
+            }
+
+            .thy-drop-position-before {
+                border-top-color: transparent;
+
+                .thy-tree-node-content {
+                    border-top-color: $primary;
+                }
+            }
+
+            .thy-drop-position-after {
+                border-bottom-color: transparent;
+
+                .thy-tree-node-content {
+                    border-bottom-color: $primary;
+                }
+            }
+        }
+    }
+}
