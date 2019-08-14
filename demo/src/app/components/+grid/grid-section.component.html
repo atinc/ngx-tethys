@@ -3,7 +3,7 @@
   <div class="body">
     <!-- [thyClickDisplayOperation]="true" -->
     <thy-grid
-      [thyModel]="[]"
+      [thyModel]="model"
       thyRowKey="id"
       [thyDraggable]="draggableOptions"
       [thyRowClassName]="gridRowClassName"
@@ -52,7 +52,7 @@
   <div class="header"><h2>Bordered Grid</h2></div>
   <div class="body">
     <thy-grid
-      [thyModel]="[]"
+      [thyModel]="model"
       [thyLoadingDone]="loadingDone"
       thyLoadingText="测试加载"
       thyTheme="bordered"
