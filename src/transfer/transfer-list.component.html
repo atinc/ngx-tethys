@@ -4,7 +4,7 @@
 <div class="thy-transfer-list-body" cdkDropListGroup [cdkDropListGroupDisabled]="!draggable">
   <ng-container *ngIf="canLock">
     <div class="thy-transfer-list-group-name">锁定 (上限{{ maxLock }}个)</div>
-    <div
+    <thy-list
       class="thy-transfer-list-content"
       cdkDropList
       id="lock"
@@ -13,19 +13,20 @@
       [cdkDropListEnterPredicate]="lockListEnterPredicate"
     >
       <div class="cdk-drop-list-empty" *ngIf="lockItems.length === 0"></div>
-      <div
-        class="thy-transfer-list-content-item"
+      <thy-list-item
+        class="thy-transfer-list-content-item text-truncate"
         cdkDrag
         [cdkDragData]="item"
         *ngFor="let item of lockItems"
         [ngClass]="{ active: item.checked }"
       >
         <ng-template [ngTemplateOutlet]="template" [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
-      </div>
-    </div>
+      </thy-list-item>
+    </thy-list>
+
     <div class="thy-transfer-list-group-name">未锁定</div>
   </ng-container>
-  <div
+  <thy-list
     class="thy-transfer-list-content"
     cdkDropList
     [cdkDropListDisabled]="!draggable"
@@ -34,14 +35,14 @@
     (cdkDropListDropped)="drop($event)"
   >
     <div class="cdk-drop-list-empty" *ngIf="unlockItems.length === 0"></div>
-    <div
-      class="thy-transfer-list-content-item"
+    <thy-list-item
+      class="thy-transfer-list-content-item text-truncate"
       cdkDrag
       [cdkDragData]="item"
       *ngFor="let item of unlockItems"
       [ngClass]="{ active: item.checked }"
     >
       <ng-template [ngTemplateOutlet]="template" [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
-    </div>
-  </div>
+    </thy-list-item>
+  </thy-list>
 </div>

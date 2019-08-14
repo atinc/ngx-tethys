@@ -21,7 +21,7 @@
         .thy-transfer-list-body {
             border: $transfer-list-border-width solid $transfer-list-border-color;
             border-radius: $transfer-list-border-radius;
-            padding: $transfer-list-padding; // min-width: $transfer-list-width;
+            padding: $transfer-list-padding;
             height: $transfer-list-height;
             vertical-align: middle;
             overflow-y: auto;
@@ -34,16 +34,16 @@
         }
 
         .thy-transfer-list-content {
+            padding: 0;
             .cdk-drop-list-empty {
                 margin: -12px 0;
                 padding: 12px 20px;
                 background: $white;
             }
-
-            & .active,
-            & .thy-transfer-list-content-item:hover {
-                cursor: pointer;
-                @include item-box-shadow();
+            .thy-transfer-list-content-item {
+                padding-right: 15px;
+                height: $transfer-list-item-line-hight;
+                min-height: $transfer-list-item-line-hight;
             }
         }
     }
@@ -64,17 +64,6 @@
 }
 
 .thy-transfer-list-content-item {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    padding: $transfer-list-item-padding;
-    line-height: $transfer-list-item-line-hight;
-    transition: all 0.3s;
-
     .item-name {
         flex: 1;
         white-space: nowrap;
@@ -85,7 +74,6 @@
     .cdk-drag-handle,
     .drag-handle {
         position: absolute;
-        left: 0px;
     }
 
     .item-status {
