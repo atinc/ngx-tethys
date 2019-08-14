@@ -69,7 +69,7 @@ export class ThyTreeNodeComponent implements OnDestroy {
         return this.node.origin.iconStyle;
     }
 
-    private _showExpand: boolean | ((_: ThyTreeNodeData) => boolean);
+    private _showExpand: boolean | ((_: ThyTreeNode) => boolean);
 
     destroy$ = new Subject();
 
@@ -118,12 +118,8 @@ export class ThyTreeNodeComponent implements OnDestroy {
         }
     }
 
-    public isShowExpand(node: ThyTreeNodeData) {
-        if (helpers.isFunction(this._showExpand)) {
-            return (this._showExpand as Function)(node);
-        } else {
-            return this._showExpand;
-        }
+    public isShowExpand(node: ThyTreeNode) {
+        return this.root.isShowExpand(node);
     }
 
     ngOnDestroy(): void {
