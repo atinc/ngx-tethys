@@ -11,13 +11,13 @@
 }
 
 .thy-page-item {
-    &.active .page-link {
+    &.active .thy-page-link {
         color: $pagination-active-color;
         background-color: $pagination-active-bg;
         border-color: $pagination-active-border-color;
     }
 
-    &.disabled .page-link {
+    &.disabled .thy-page-link {
         color: $pagination-disabled-color;
         background-color: $pagination-disabled-bg;
         border-color: $pagination-disabled-border-color;

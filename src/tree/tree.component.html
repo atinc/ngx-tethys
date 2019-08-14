@@ -1,5 +1,14 @@
-<div [sortablejs]="treeNodes" [sortablejsOptions]="treeNodesSortableOptions" [attr.node-key]="''">
+<div
+  [thyDropContainer]="treeNodes"
+  [thyDropContainerDisabled]="!thyDraggable"
+  [thyBeforeDragStart]="thyBeforeDragStart"
+  [thyBeforeDragOver]="beforeDragOver"
+  [thyBeforeDragDrop]="thyBeforeDragDrop"
+  (thyDragStarted)="onDragStart($event)"
+  (thyDragDropped)="onDragDrop($event)"
+>
   <thy-tree-node
+    [thyDrag]="node"
     *ngFor="let node of treeNodes; trackBy: trackByFn; let i = index"
     [node]="node"
     [templateRef]="templateRef"
