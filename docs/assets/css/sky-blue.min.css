@@ -817,6 +817,15 @@ input[type='checkbox']:after,
 input[type='radio']:after {
     color: #6f76fa;
 }
+input[type='checkbox']:before {
+    background: #6f76fa;
+}
+input[type='checkbox']:after {
+    background: #6f76fa;
+}
+input[type='radio']:after {
+    background: #6f76fa;
+}
 .nav-link {
     color: #888;
 }
@@ -968,12 +977,12 @@ input[type='radio']:after {
     background-color: #fff;
     border-color: #eee;
 }
-.thy-page-item.active .page-link {
+.thy-page-item.active .thy-page-link {
     color: #fff;
     background-color: #6f76fa;
     border-color: #6f76fa;
 }
-.thy-page-item.disabled .page-link {
+.thy-page-item.disabled .thy-page-link {
     color: #cacaca;
     background-color: #fff;
     border-color: #eee;

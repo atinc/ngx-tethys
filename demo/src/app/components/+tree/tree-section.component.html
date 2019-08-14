@@ -1,3 +1,11 @@
+<ul class="thy-tree" thyDropContainer (thyDragDropped)="onDrop($event)">
+  <li class="thy-tree-node" thyDrag [thyDragData]="node" *ngFor="let node of treeNodes; let i = index">
+    <div class="thy-tree-node-wrapper" draggable="true">
+      <span thyDragHandle>&nbsp;&nbsp;●&nbsp;&nbsp;</span> {{ node.title }}
+    </div>
+  </li>
+</ul>
+
 <section>
   <div class="header">
     <h2>Tree（自定义模板）</h2>

@@ -36,6 +36,10 @@
             cursor: default !important;
             box-shadow: initial !important;
             background-color: transparent !important;
+
+            td {
+                border-bottom: 0;
+            }
         }
     }
 }
@@ -79,6 +83,7 @@
 
 .table-hover {
     @include table-hover-set-space-none();
+
     tbody tr {
         @include hover {
             cursor: pointer;
