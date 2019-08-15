@@ -15,20 +15,24 @@ input[type='checkbox'] {
     border: solid 1px $input-form-check-border-color;
 
     &:disabled {
+        &::before,
         &::after {
-            color: $input-form-check-disable-color;
+            background: $input-form-check-disable-color;
         }
     }
 
     &:checked {
         &:not(:disabled) {
             border-color: $primary;
-            color: $primary;
-        }
-
-        &:disabled {
+            &::before,
             &::after {
-                color: $input-form-check-disable-color;
+                background: $primary;
+            }
+        }
+        &:disabled {
+            &::before,
+            &::after {
+                background: $input-form-check-disable-color;
             }
         }
     }

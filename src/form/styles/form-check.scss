@@ -56,19 +56,24 @@ input[type='checkbox'] {
     }
 
     &:disabled {
+        &::before,
         &::after {
-            color: $input-form-check-disable-color;
+            background: $input-form-check-disable-color;
         }
     }
 
     &:checked {
         &:not(:disabled) {
             border-color: $primary;
-            color: $primary;
+            &::before,
+            &::after {
+                background: $primary;
+            }
         }
         &:disabled {
+            &::before,
             &::after {
-                color: $input-form-check-disable-color;
+                background: $input-form-check-disable-color;
             }
         }
     }
