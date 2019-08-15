@@ -1,69 +1,72 @@
 .thy-menu {
     .thy-menu-item {
+        &.active .thy-menu-item-content {
+            background: rgba($primary, 0.1);
+        }
+    }
+
+    .thy-menu-group {
+        .thy-menu-group-header {
+            &:hover {
+                background: $gray-100;
+
+                .thy-menu-group-title {
+                    color: $gray-800;
+                }
+            }
+
+            .thy-menu-group-arrow {
+                color: $gray-500;
+            }
+
+            .thy-menu-group-folder {
+                color: $gray-500;
+            }
+
+            .thy-menu-group-title {
+                color: $gray-700;
+            }
+
+            .thy-menu-group-more {
+                color: $gray-500;
+            }
+        }
+    }
+
+    .thy-menu-divider {
+        border-top: solid 1px $gray-200;
+    }
+}
+
+.thy-menu-item {
+    .thy-menu-item-content {
         &:hover {
-            box-shadow: $menu-shadow;
+            background: $gray-100;
+
             .thy-menu-item-name {
                 color: $gray-800;
             }
         }
-        &.active {
-            background: rgba($primary, 0.1);
-            border-right: 2px $primary solid;
-        }
+
         .thy-menu-item-icon {
             color: $gray-500;
         }
+
         .thy-menu-item-name {
             color: $gray-700;
         }
         .thy-menu-item-action {
             color: $gray-500;
         }
-        &.active .thy-menu-item-content {
-            .thy-menu-item-icon {
-                color: $primary;
-            }
+    }
 
-            .thy-menu-item-name {
-                color: $primary;
-            }
+    &.active .thy-menu-item-content {
+        .thy-menu-item-icon {
+            color: $primary;
         }
-    }
-    .thy-menu-group {
-        .thy-menu-group-header {
-            &:hover {
-                box-shadow: $menu-shadow;
-                .thy-menu-group-title {
-                    color: $gray-800;
-                }
-            }
-            .thy-menu-group-arrow {
-                color: $gray-500;
-            }
-            .thy-menu-group-folder {
-                color: $gray-500;
-            }
-            .thy-menu-group-title {
-                color: $gray-700;
-            }
-            .thy-menu-group-more {
-                color: $gray-500;
-            }
+
+        .thy-menu-item-name {
+            color: $primary;
         }
-        .thy-menu-group-body {
-            .thy-menu-item {
-                &.active {
-                    .thy-menu-item-icon {
-                        color: $primary;
-                    }
-                    .thy-menu-item-name {
-                        color: $primary;
-                    }
-                }
-            }
-        }
-    }
-    .thy-menu-divider {
-        border-top: solid 1px $gray-200;
     }
 }
