@@ -19,9 +19,9 @@ import { UpdateHostClassService } from '../shared/update-host-class.service';
 export class ThyNotifyComponent implements OnInit, OnDestroy {
     @HostBinding('@flyInOut') flyInOut = 'in';
 
-    option: ThyNotifyOption;
+    @HostBinding('class') className = '';
 
-    notifyIconType = {};
+    option: ThyNotifyOption;
 
     notifyIconName = '';
 
@@ -32,34 +32,15 @@ export class ThyNotifyComponent implements OnInit, OnDestroy {
     isShowDetail = false;
 
     @Input()
-    set thyOption(value: any) {
+    set thyOption(value: ThyNotifyOption) {
         this.option = value;
+        const type = value.type;
+        this.className = `thy-notify thy-notify-${type}`;
     }
 
-    constructor(
-        private notifyService: ThyNotifyService,
-        private updateHostClassService: UpdateHostClassService,
-        private elementRef: ElementRef
-    ) {
-        this.updateHostClassService.initializeElement(this.elementRef.nativeElement);
-    }
+    constructor(private notifyService: ThyNotifyService) {}
 
     ngOnInit() {
-        this.notifyIconType = {
-            'thy-notify-icon-success': this.option.type === 'success',
-            'thy-notify-icon-info': this.option.type === 'info',
-            'thy-notify-icon-warning': this.option.type === 'warning',
-            'thy-notify-icon-error': this.option.type === 'error'
-        };
-
-        const notifyType = {
-            ['thy-notify']: true,
-            ['thy-notify-success']: this.option.type === 'success',
-            ['thy-notify-info']: this.option.type === 'info',
-            ['thy-notify-warning']: this.option.type === 'warning',
-            ['thy-notify-error']: this.option.type === 'error'
-        };
-
         const iconName = {
             success: 'check-circle-fill',
             info: 'info-circle-fill',
@@ -68,9 +49,6 @@ export class ThyNotifyComponent implements OnInit, OnDestroy {
         };
 
         this.notifyIconName = iconName[this.option.type];
-        console.log(notifyType);
-        this.updateHostClassService.updateClassByMap(notifyType);
-
         this._creatCloseTimer();
     }
 

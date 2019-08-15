@@ -1,29 +1,28 @@
 .thy-notify-root {
     position: fixed;
-    z-index: 1110;
-    top: 20px;
-    right: 20px;
+    z-index: $notify-z-index;
+    top: $notify-spacing;
+    right: $notify-spacing;
     width: $notify-width;
-    .thy-notify-success {
-        border-left: 4px solid $success;
-    }
-    .thy-notify-info {
-        border-left: 4px solid $info;
-    }
-    .thy-notify-warning {
-        border-left: 4px solid $warning;
-    }
-    .thy-notify-error {
-        border-left: 4px solid $danger;
-    }
+
     .thy-notify {
         padding: $notify-padding;
-        margin-bottom: 10px;
+        margin-bottom: $notify-margin-bottom;
         position: relative;
         display: flex;
-        border-radius: 4px;
+        border-radius: $notify-border-radius-width;
         background: $notify-bg;
         box-shadow: $notify-box-shadow;
+
+        &-icon-container {
+            position: relative;
+            padding-right: $notify-icon-padding-right;
+            margin-top: 2px;
+            .thy-icon {
+                line-height: 1;
+                font-size: $notify-icon-font-size;
+            }
+        }
 
         &-close {
             position: absolute;
@@ -34,30 +33,16 @@
             font-size: $font-size-base;
             color: $notify-close-color;
             text-decoration: none;
-            transition: color 200ms;
-            .thy-icon {
-                font-size: $font-size-base;
-            }
+            transition: color $transitionDurationNormal;
             &:hover {
                 color: $gray-600;
             }
         }
-        &-icon-success {
-            @include thy-notify-icon($success, $notify-success-icon-padding, $notify-success-icon-font-size);
-        }
-        &-icon-info {
-            @include thy-notify-icon($info, $notify-info-icon-padding, $notify-info-icon-font-size);
-        }
-        &-icon-warning {
-            @include thy-notify-icon($warning, $notify-warning-icon-padding, $notify-warning-icon-font-size);
-        }
-        &-icon-error {
-            @include thy-notify-icon($danger, $notify-danger-icon-padding, $notify-danger-icon-font-size);
-        }
+
         &-main {
             flex: 1;
             .thy-notify-title {
-                padding-right: 24px;
+                padding-right: $font-size-base * $notify-line-height;
                 margin-top: 1px;
                 font-size: $font-size-base;
                 color: $notify-title-color;
@@ -77,12 +62,16 @@
             .thy-notify-detail {
                 flex: 1;
                 font-size: $font-size-base;
-                color: $gray-500;
+                color: $notify-content-color;
                 word-break: break-all;
                 &--extend {
                     -webkit-line-clamp: initial;
                 }
             }
         }
+    }
+
+    @each $state, $color in $notify-states {
+        @include thy-notify-state($state, $color);
     }
 }
