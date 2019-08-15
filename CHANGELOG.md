@@ -1,3 +1,12 @@
+## <small>7.5.7 (2019-08-14)</small>
+
+* chore: change demo ([ed72304](https://github.com/worktile/ngx-tethys/commit/ed72304))
+* feat(tree): new drag and drop(break-change: remove thyOnDraggableChange) ([591b4b7](https://github.com/worktile/ngx-tethys/commit/591b4b7))
+* fix(input): checkout and radio theme ([30bb44c](https://github.com/worktile/ngx-tethys/commit/30bb44c))
+* fix(slide): change slide body section padding ([6576ebc](https://github.com/worktile/ngx-tethys/commit/6576ebc))
+
+
+
 ## <small>7.5.6 (2019-08-14)</small>
 
 * fix: fix drag and dorp errors ([4bc83e5](https://github.com/worktile/ngx-tethys/commit/4bc83e5))
