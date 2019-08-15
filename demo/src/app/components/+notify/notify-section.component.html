@@ -1,27 +1,23 @@
-<section>
-    <div class="header">
-        <h2>Notify</h2>
-    </div>
-    <div class="body">
-        <button thyButton="primary" (click)="showDefault()">基本</button>
-        <br>
-        <br>
-        <button thyButton="primary" (click)="showHoverClose()">Hover也继续关闭</button>
-        <br>
-        <br>
-        <button thyButton="primary" (click)="showHasDetail()">带详情，且不自动关闭</button>
-        <br>
-        <br>
-        <button thyButton="primary" (click)="showNotAutoClose()">各种类型</button>
-        <br>
-        <br>
-        <button thyButton="primary" (click)="showWithHtml(notify)">HTML</button>
-        <ng-template #notify>
-            <h1>Worktile</h1>
-            <h2>Worktile</h2>
-            <h3>Worktile</h3>
-        </ng-template>
-        <br>
-        <br>
-    </div>
-</section>
+<app-live-demos [data]="liveDemos"></app-live-demos>
+<h1 class="mt-3">API</h1>
+<h5>ThyNotifyService</h5>
+<p class="mt-2">组件提供了一些服务方法，使用的方式和参数如下</p>
+<ul>
+  <li>
+    <code>ThyNotifyService.show(options)</code>
+  </li>
+  <li>
+    <code>ThyNotifyService.success(title, content, detail)</code>
+  </li>
+  <li>
+    <code>ThyNotifyService.info(title, content, detail)</code>
+  </li>
+  <li>
+    <code>ThyNotifyService.warning(title, content, detail)</code>
+  </li>
+  <li>
+    <code>ThyNotifyService.error(title, content, detail)</code>
+  </li>
+</ul>
+<api-parameters title="参数列表" [parameters]="apiThyNotifyMethodParameters"></api-parameters>
+<api-parameters title="options 支持设置的参数如下：" [parameters]="apiThyNotifyParameters"></api-parameters>

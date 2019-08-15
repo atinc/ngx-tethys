@@ -19,9 +19,9 @@
 .thy-sortable-item,
 .cdk-drag {
     transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-
     .thy-sortable-handle,
-    .cdk-drag-handle {
+    .cdk-drag-handle,
+    .drag-handle {
         visibility: hidden;
         padding: 0 15px 0 3px;
     }
@@ -30,8 +30,9 @@
         .thy-sortable-handle,
         .cdk-drag-handle,
         .drag-handle {
-            visibility: hidden;
-            padding: 0 15px 0 3px;
+            visibility: visible;
+            color: $gray-600;
+            cursor: move;
         }
     }
 
@@ -41,20 +42,7 @@
             .thy-sortable-handle,
             .cdk-drag-handle,
             .drag-handle {
-                visibility: visible;
-                color: $gray-600;
-                cursor: move;
-            }
-        }
-
-        .thy-sortable-disabled,
-        .cdk-drag-disabled {
-            &:hover {
-                .thy-sortable-handle,
-                .cdk-drag-handle,
-                .drag-handle {
-                    visibility: hidden;
-                }
+                visibility: hidden;
             }
         }
     }

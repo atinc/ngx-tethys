@@ -9,23 +9,17 @@ export class ThyTreeService implements OnDestroy {
 
     $statusChange = new Subject<ThyTreeFormatEmitEvent>();
 
-    constructor() { }
+    constructor() {}
 
-    private _getParallelTreeNodes(
-        nodes: ThyTreeNode[],
-        list: ThyTreeNode[] = []
-    ) {
-        nodes.forEach(node => {
+    private _getParallelTreeNodes(nodes: ThyTreeNode[], list: ThyTreeNode[] = []) {
+        (nodes || []).forEach(node => {
             list.push(node);
             this._getParallelTreeNodes(node.children || [], list);
         });
         return list;
     }
 
-    public resetSortedTreeNodes(
-        treeNodes: ThyTreeNode[],
-        parent?: ThyTreeNode
-    ) {
+    public resetSortedTreeNodes(treeNodes: ThyTreeNode[], parent?: ThyTreeNode) {
         treeNodes.forEach(node => {
             node.level = node.parentNode ? node.parentNode.level + 1 : 0;
             node.origin.children = node.children.map(n => n.origin);
@@ -45,9 +39,7 @@ export class ThyTreeService implements OnDestroy {
     }
 
     public deleteTreeNode(node: ThyTreeNode) {
-        const children = node.parentNode
-            ? node.parentNode.children
-            : this.treeNodes;
+        const children = node.parentNode ? node.parentNode.children : this.treeNodes;
         const index = children.findIndex(n => n.key === node.key);
         if (index > -1) {
             children.splice(index, 1);
@@ -63,7 +55,6 @@ export class ThyTreeService implements OnDestroy {
         this.$statusChange = null;
     }
 }
-
 
 export interface ThyTreeFormatEmitEvent {
     eventName: string;

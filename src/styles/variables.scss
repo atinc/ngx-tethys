@@ -368,27 +368,30 @@ $card-title-info-color: $gray-500 !default;
 $datepicker-z-index: 1100 !default;
 // Notify
 $notify-width: 320px !default;
+$notify-z-index: 1100 !default;
+$notify-spacing: 20px !default;
+$notify-margin-bottom: 10px !default;
 $notify-line-height: 1.5 !default;
 $notify-padding: 18px !default;
+$notify-border-radius-width: 4px !default;
 $notify-bg: $white !default;
-$notify-box-shadow: $box-shadow !default;
-$notify-close-color: $gray-400 !default;
-$notify-close-hover-color: $gray-600 !default;
 $notify-success: $success !default;
 $notify-info: $info !default;
 $notify-warning: $warning !default;
 $notify-danger: $danger !default;
-$notify-success-icon-font-size: 18px !default;
-$notify-info-icon-font-size: 18px !default;
-$notify-warning-icon-font-size: 18px !default;
-$notify-danger-icon-font-size: 18px !default;
-$notify-success-icon-padding: 2px !default;
-$notify-info-icon-padding: 2px !default;
-$notify-warning-icon-padding: 4px 5px 4px 4px !default;
-$notify-danger-icon-padding: 6px !default;
 $notify-title-color: $gray-800 !default;
-$notify-content-color: $gray-700 !default;
+$notify-icon-font-size: 18px !default;
+$notify-box-shadow: $box-shadow !default;
+$notify-content-color: $gray-500 !default;
+$notify-close-color: $gray-400 !default;
+$notify-close-hover-color: $gray-600 !default;
 $notify-icon-padding-right: 15px !default;
+$notify-states: (
+    'success': $notify-success,
+    'warning': $notify-warning,
+    'error': $notify-danger,
+    'info': $notify-info
+);
 
 //close
 $close-font-size: $font-size-md !default;
@@ -446,13 +449,13 @@ $slide-header-height: 45px !default;
 $slide-header-padding: 0.75rem 1.25rem !default;
 $slide-header-main-padding: 0 20px !default;
 $slide-body-content-padding: 0 1.25rem 0.75rem 1.25rem !default;
-$slide-body-section-padding: 20px 0 !default;
+$slide-body-section-padding: 20px !default;
 $slide-divider: $gray-100 !default;
 $slide-footer-padding: 15px 20px 0 !default;
 $slide-footer-height: 65px !default;
 //tree
 $tree-padding: 10px 20px 10px 10px;
-$tree-node-padding: 0 0 0 15px !default;
+$tree-node-padding: 0 0 0 25px !default;
 $tree-node-margin: 0 0 0 20px !default;
 $tree-node-wrapper-padding: 0 !default;
 $tree-node-wrapper-height: 44px !default;
@@ -559,3 +562,8 @@ $alert-padding-x: 1rem !default;
 $thy-alert-week-colors: (
     'primary-week': $primary
 );
+
+// list
+$list-grid-option-margin: 0 25px 25px 0 !default;
+$list-grid-option-width: 150px !default;
+$list-grid-option-height: 120px !default;

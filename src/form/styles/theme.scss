@@ -8,28 +8,31 @@
     @include set-input-hover-border($input-hover-border-color);
 }
 
-@include form-validation-state("invalid", $form-feedback-invalid-color);
+@include form-validation-state('invalid', $form-feedback-invalid-color);
 
-
-input[type="radio"],
-input[type="checkbox"] {
+input[type='radio'],
+input[type='checkbox'] {
     border: solid 1px $input-form-check-border-color;
 
     &:disabled {
+        &::before,
         &::after {
-            color: $input-form-check-disable-color;
+            background: $input-form-check-disable-color;
         }
     }
 
     &:checked {
         &:not(:disabled) {
             border-color: $primary;
-            color: $primary;
-        }
-
-        &:disabled {
+            &::before,
             &::after {
-                color: $input-form-check-disable-color;
+                background: $primary;
+            }
+        }
+        &:disabled {
+            &::before,
+            &::after {
+                background: $input-form-check-disable-color;
             }
         }
     }
@@ -42,5 +45,22 @@ input[type="checkbox"] {
 
     &:after {
         color: $primary;
+    }
+}
+
+// checkbox
+input[type='checkbox'] {
+    &:before {
+        background: $primary;
+    }
+    &:after {
+        background: $primary;
+    }
+}
+
+//radio
+input[type='radio'] {
+    &:after {
+        background: $primary;
     }
 }
