@@ -1,10 +1,10 @@
-@mixin thy-notify-icon($color, $padding, $fontSize) {
-    padding-right: $notify-icon-padding-right;
-    position: relative;
-    margin-top: 2px;
-    .thy-icon {
-        line-height: 1;
-        font-size: $fontSize;
-        color: $color;
+@mixin thy-notify-state($state, $color) {
+    .thy-notify-#{$state} {
+        border-left: $notify-border-radius-width solid $color;
+        .thy-notify-icon-container {
+            .thy-icon {
+                color: $color;
+            }
+        }
     }
 }
