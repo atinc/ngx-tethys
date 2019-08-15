@@ -45,7 +45,7 @@
 }
 
 .table-default {
-    @include table-set-padding-space();
+    // @include table-set-padding-space();
 
     thead {
         th,
@@ -64,6 +64,7 @@
 
     th,
     td {
+        padding: $table-bordered-padding;
         border: $table-border-width solid $table-border-color;
     }
 
