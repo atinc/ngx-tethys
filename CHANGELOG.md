@@ -10,7 +10,7 @@
 * **menu:** menu active color and hover background color ([c8daec6](https://github.com/worktile/ngx-tethys/commit/c8daec6))
 * **popover:** remove min-height ([332f761](https://github.com/worktile/ngx-tethys/commit/332f761))
 * **slide:** change slide body section padding ([6576ebc](https://github.com/worktile/ngx-tethys/commit/6576ebc))
-* **transfer:** fix dragDrop when list is empry ([7a931f5](https://github.com/worktile/ngx-tethys/commit/7a931f5))
+* **transfer:** fix dragDrop when list is empty ([7a931f5](https://github.com/worktile/ngx-tethys/commit/7a931f5))
 * **tree:** fix drag drop position error ([1f5a87a](https://github.com/worktile/ngx-tethys/commit/1f5a87a))
 
 
