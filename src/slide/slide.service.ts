@@ -11,6 +11,8 @@ export class ThySlideService {
         thySlideRef: ThySlideRef;
     }[] = [];
 
+    private openedSlideKeys: string[] = [];
+
     private _slideLoader: ComponentLoader<ThySlideContainerComponent>;
 
     private _config: ThySlideOption;
@@ -23,7 +25,7 @@ export class ThySlideService {
         this._isHide = false;
         setTimeout(() => {
             this._show(content, config);
-        });
+        }, 150);
     }
 
     private _show(content: string | TemplateRef<any> | any, config?: ThySlideOption) {
@@ -34,6 +36,9 @@ export class ThySlideService {
                 const newKey = config && config.key;
                 if (oldKey && newKey && oldKey === newKey) {
                     this.hide();
+                    return;
+                }
+                if (this.openedSlideKeys.indexOf(newKey) >= 0) {
                     return;
                 }
             }
@@ -63,6 +68,9 @@ export class ThySlideService {
             config: this._config,
             thySlideRef: this._slideLoader
         });
+        if (this._config.key) {
+            this.openedSlideKeys.push(this._config.key);
+        }
     }
 
     public hide() {
@@ -78,7 +86,11 @@ export class ThySlideService {
                 setTimeout(() => {
                     openedSlideRef.thySlideRef.hide();
                     this.openedSlideRefs.splice(this.openedSlideRefs.length - 1, 1);
-                }, 200);
+                    const index = this.openedSlideKeys.indexOf(openedSlideRef.config.key);
+                    if (index || index === 0) {
+                        this.openedSlideKeys.splice(index, 1);
+                    }
+                }, 100);
             }
         }
     }
