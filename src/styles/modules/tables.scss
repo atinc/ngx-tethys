@@ -36,12 +36,16 @@
             cursor: default !important;
             box-shadow: initial !important;
             background-color: transparent !important;
+
+            td {
+                border-bottom: 0;
+            }
         }
     }
 }
 
 .table-default {
-    @include table-set-padding-space();
+    // @include table-set-padding-space();
 
     thead {
         th,
@@ -60,6 +64,7 @@
 
     th,
     td {
+        padding: $table-bordered-padding;
         border: $table-border-width solid $table-border-color;
     }
 
@@ -79,6 +84,7 @@
 
 .table-hover {
     @include table-hover-set-space-none();
+
     tbody tr {
         @include hover {
             cursor: pointer;

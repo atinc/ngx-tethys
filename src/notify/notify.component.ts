@@ -1,11 +1,13 @@
-import { Component, Input, HostBinding, OnInit, HostListener, OnDestroy } from '@angular/core';
+import { Component, Input, HostBinding, OnInit, HostListener, OnDestroy, ElementRef } from '@angular/core';
 import { ThyNotifyOption } from './notify-option.interface';
 import { ThyNotifyService } from './notify.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { UpdateHostClassService } from '../shared/update-host-class.service';
 
 @Component({
     selector: 'thy-notify',
     templateUrl: './notify.component.html',
+    providers: [UpdateHostClassService],
     animations: [
         trigger('flyInOut', [
             state('in', style({ transform: 'translateX(0)', opacity: 1 })),
@@ -15,13 +17,11 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
     ]
 })
 export class ThyNotifyComponent implements OnInit, OnDestroy {
-    @HostBinding('class.thy-notify') className = true;
-
     @HostBinding('@flyInOut') flyInOut = 'in';
 
-    option: ThyNotifyOption;
+    @HostBinding('class') className = '';
 
-    notifyIconType = {};
+    option: ThyNotifyOption;
 
     notifyIconName = '';
 
@@ -32,20 +32,15 @@ export class ThyNotifyComponent implements OnInit, OnDestroy {
     isShowDetail = false;
 
     @Input()
-    set thyOption(value: any) {
+    set thyOption(value: ThyNotifyOption) {
         this.option = value;
+        const type = value.type;
+        this.className = `thy-notify thy-notify-${type}`;
     }
 
     constructor(private notifyService: ThyNotifyService) {}
 
     ngOnInit() {
-        this.notifyIconType = {
-            'thy-notify-icon-success': this.option.type === 'success',
-            'thy-notify-icon-info': this.option.type === 'info',
-            'thy-notify-icon-warning': this.option.type === 'warning',
-            'thy-notify-icon-error': this.option.type === 'error'
-        };
-
         const iconName = {
             success: 'check-circle-fill',
             info: 'info-circle-fill',
@@ -54,7 +49,6 @@ export class ThyNotifyComponent implements OnInit, OnDestroy {
         };
 
         this.notifyIconName = iconName[this.option.type];
-
         this._creatCloseTimer();
     }
 
