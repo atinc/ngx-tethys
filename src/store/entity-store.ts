@@ -1,6 +1,6 @@
 import { Store } from './store';
 import { Id, PaginationInfo } from './types';
-import { helpers } from '../util';
+import { helpers, produce } from '../util';
 import { Observable } from 'rxjs';
 
 export interface EntityStoreOptions {
@@ -20,10 +20,7 @@ export interface EntityState<TEntity> {
     [key: string]: any;
 }
 
-export class EntityStore<
-    TState extends EntityState<TEntity>,
-    TEntity
-> extends Store<TState> {
+export class EntityStore<TState extends EntityState<TEntity>, TEntity> extends Store<TState> {
     protected options: EntityStoreOptions;
 
     private resetPagination(pagination: PaginationInfo, count: number) {
@@ -31,6 +28,7 @@ export class EntityStore<
         // 向上取整 21 / 20 = 1.05 = 2 pageCount is 2
         const pageCount = Math.ceil(pagination.count / pagination.pageSize);
         pagination.pageCount = pageCount;
+        this.snapshot.pagination = { ...pagination };
     }
 
     private increasePagination(amount: number) {
@@ -94,21 +92,14 @@ export class EntityStore<
         if (addEntities.length === 0) {
             return;
         }
+
         const state = this.snapshot;
-        if (addOptions && addOptions.prepend) {
-            state.entities = [...addEntities, ...state.entities];
-        } else {
-            state.entities = [...state.entities, ...addEntities];
-        }
+        state.entities = produce(state.entities).add(addEntities, addOptions);
+
         if (state.pagination) {
             this.increasePagination(addEntities.length);
-            if (
-                addOptions &&
-                !addOptions.prepend &&
-                addOptions.autoGotoLastPage
-            ) {
-                state.pageIndex = state.pagination.pageIndex =
-                    state.pagination.pageCount;
+            if (addOptions && !addOptions.prepend && addOptions.autoGotoLastPage) {
+                state.pageIndex = state.pagination.pageIndex = state.pagination.pageCount;
             }
         }
         this.next(state);
@@ -134,10 +125,7 @@ export class EntityStore<
      *   name: 'New Name'
      * });
      */
-    update(
-        id: Id | Id[] | null,
-        newStateFn: ((entity: Readonly<TEntity>) => Partial<TEntity>)
-    ): void;
+    update(id: Id | Id[] | null, newStateFn: (entity: Readonly<TEntity>) => Partial<TEntity>): void;
     update(id: Id | Id[] | null, newState?: Partial<TEntity>): void;
     update(
         idsOrFn:
@@ -147,9 +135,7 @@ export class EntityStore<
             | Partial<TState>
             | ((state: Readonly<TState>) => Partial<TState>)
             | ((entity: Readonly<TEntity>) => boolean),
-        newStateOrFn?:
-            | ((entity: Readonly<TEntity>) => Partial<TEntity>)
-            | Partial<TEntity>
+        newStateOrFn?: ((entity: Readonly<TEntity>) => Partial<TEntity>) | Partial<TEntity>
     ): void {
         const ids = helpers.coerceArray(idsOrFn);
 
@@ -157,12 +143,12 @@ export class EntityStore<
         for (let i = 0; i < state.entities.length; i++) {
             const oldEntity = state.entities[i];
             if (ids.indexOf(oldEntity[this.options.idKey]) > -1) {
-                const newState = helpers.isFunction(newStateOrFn)
-                    ? (newStateOrFn as any)(oldEntity)
-                    : newStateOrFn;
+                const newState = helpers.isFunction(newStateOrFn) ? (newStateOrFn as any)(oldEntity) : newStateOrFn;
                 state.entities[i] = { ...(oldEntity as any), ...newState };
             }
         }
+        state.entities = [...state.entities];
+        this.next(state);
     }
 
     /**
@@ -176,21 +162,10 @@ export class EntityStore<
      */
     remove(id: Id | Id[]): void;
     remove(predicate: (entity: Readonly<TEntity>) => boolean): void;
-    remove(
-        idsOrFn?: Id | Id[] | ((entity: Readonly<TEntity>) => boolean)
-    ): void {
+    remove(idsOrFn?: Id | Id[] | ((entity: Readonly<TEntity>) => boolean)): void {
         const state = this.snapshot;
         const originalLength = state.entities.length;
-        if (helpers.isFunction(idsOrFn)) {
-            state.entities = state.entities.filter(entity => {
-                return !(idsOrFn as any)(entity);
-            });
-        } else {
-            const ids = helpers.coerceArray(idsOrFn);
-            state.entities = state.entities.filter(entity => {
-                return ids.indexOf(entity[this.options.idKey]) === -1;
-            });
-        }
+        state.entities = produce(state.entities).remove(idsOrFn);
         this.decreasePagination(originalLength - state.entities.length);
         this.next(state);
     }
