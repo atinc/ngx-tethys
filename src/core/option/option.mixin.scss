@@ -145,7 +145,7 @@ $option-disabled-color: $gray-400;
     margin: $list-grid-option-margin;
     width: $list-grid-option-width;
     height: $list-grid-option-height;
-    background: $gray-80;
+    background: $white;
     border-radius: $border-radius;
     border: solid 1px $gray-200;
     cursor: pointer;
@@ -180,6 +180,7 @@ $option-disabled-color: $gray-400;
 
             &.hover,
             &:hover {
+                background: $white;
                 border-color: $primary;
             }
         }
