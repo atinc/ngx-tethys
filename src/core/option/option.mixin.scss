@@ -93,6 +93,7 @@ $option-disabled-color: $gray-400;
             background: $option-hover-active-bg-color;
             .checked-icon {
                 visibility: visible;
+                color: $gray-300;
             }
         }
         &.active {
