@@ -90,9 +90,11 @@ describe('Store: EntityStore', () => {
                     name: 'user 4'
                 }
             ];
+            const originalEntities = userEntityStore.snapshot.entities;
             userEntityStore.add(addUserEntities);
             const state = userEntityStore.snapshot;
             expect(state.entities).toEqual([...initialUserEntities, ...addUserEntities]);
+            expect(originalEntities === state.entities).toEqual(false, 'new entities is immutable');
         });
 
         it('store add entities goto last page', () => {
@@ -114,6 +116,7 @@ describe('Store: EntityStore', () => {
                 });
             }
             const state = userEntityStore.snapshot;
+            const originalPagination = state.pagination;
             expect(state.pageIndex).toEqual(1);
             expect(state.pagination).toEqual({
                 pageIndex: 1,
@@ -131,6 +134,7 @@ describe('Store: EntityStore', () => {
                 pageSize: 10,
                 pageCount: 2
             });
+            expect(originalPagination === state.pagination).toEqual(false, 'new pagination is immutable');
         });
     });
 
@@ -152,6 +156,7 @@ describe('Store: EntityStore', () => {
 
         it(`remove by id`, () => {
             const state = userEntityStore.snapshot;
+            const originalEntities = state.entities;
             expect(state.pagination).toEqual({
                 pageCount: 1,
                 pageIndex: 1,
@@ -170,6 +175,7 @@ describe('Store: EntityStore', () => {
                     return item._id !== '1';
                 })
             );
+            expect(originalEntities === state.entities).toEqual(false, 'new state is immutable');
         });
 
         it(`remove by ids`, () => {
@@ -210,6 +216,7 @@ describe('Store: EntityStore', () => {
                 pageIndex: 1
             });
             const state = userEntityStore.snapshot;
+            const originalPagination = state.pagination;
             expect(state.pagination).toEqual({
                 pageCount: 2,
                 pageIndex: 1,
@@ -223,6 +230,7 @@ describe('Store: EntityStore', () => {
                 pageSize: 10,
                 count: 10
             });
+            expect(originalPagination === state.pagination).toEqual(false, 'new pagination is immutable');
         });
     });
 
@@ -238,6 +246,7 @@ describe('Store: EntityStore', () => {
         });
 
         it(`update by id`, () => {
+            const originalEntities = userEntityStore.snapshot.entities;
             userEntityStore.update('1', {
                 name: 'new 1 user'
             });
@@ -249,6 +258,7 @@ describe('Store: EntityStore', () => {
                 _id: '1',
                 name: 'new 1 user'
             });
+            expect(originalEntities === state.entities).toEqual(false, 'new state is immutable');
         });
 
         it(`update by ids`, () => {
