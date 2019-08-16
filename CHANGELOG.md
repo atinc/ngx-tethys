@@ -1,3 +1,19 @@
+## [7.5.9](https://github.com/worktile/ngx-tethys/compare/7.5.8...7.5.9) (2019-08-16)
+
+
+### Bug Fixes
+
+* **option-item:** change prefix icon color use in tree select ([8bcb595](https://github.com/worktile/ngx-tethys/commit/8bcb595))
+* **popover:** replace ComponentType from core/src render3 to cdk/portal ([ffc6acf](https://github.com/worktile/ngx-tethys/commit/ffc6acf))
+* **store:** should get immutable entities when curd entities [#259936](https://github.com/worktile/ngx-tethys/issues/259936) ([bd48c89](https://github.com/worktile/ngx-tethys/commit/bd48c89))
+
+
+### Features
+
+* **nav:** add icon nav component for icon actions nav [#259926](https://github.com/worktile/ngx-tethys/issues/259926) ([a841efa](https://github.com/worktile/ngx-tethys/commit/a841efa))
+
+
+
 ## [7.5.8](https://github.com/worktile/ngx-tethys/compare/7.5.6...7.5.8) (2019-08-15)
 
 
