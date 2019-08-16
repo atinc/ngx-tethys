@@ -19,8 +19,9 @@ $option-disabled-color: $gray-400;
         left: 20px;
         right: 20px;
     }
+    // use in tree-select
     .prefix-icon {
-        color: $gray-600;
+        color: $gray-300;
     }
 
     &:not(.disabled) {
@@ -36,6 +37,9 @@ $option-disabled-color: $gray-400;
             &:hover {
                 background: $option-hover-active-bg-color;
                 color: $body-color;
+                .prefix-icon {
+                    color: $gray-300;
+                }
             }
             .prefix-icon {
                 color: $primary;

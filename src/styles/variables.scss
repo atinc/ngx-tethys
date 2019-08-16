@@ -310,6 +310,13 @@ $nav-link-thirdly-right-sm: 40px !default;
 $nav-link-thirdly-split-line-height-sm: 11px !default;
 $nav-vertical-border-left: 4px solid $primary !default;
 $nav-vertical-border-left-empty: 4px solid transparent !default;
+
+$icon-nav-link-color: $gray-600 !default;
+$icon-nav-link-hover-color: $primary !default;
+$icon-nav-link-spacing: 15px !default;
+$icon-nav-link-secondary-color: $gray-400 !default;
+$icon-nav-link-secondary-spacing: 10px !default;
+
 // Modals
 // Padding applied to the modal body
 $modal-inner-padding: 1.25rem 1.875rem 1.875rem 1.875rem !default; //
