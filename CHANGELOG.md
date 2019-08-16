@@ -1,3 +1,27 @@
+## [7.5.8](https://github.com/worktile/ngx-tethys/compare/7.5.6...7.5.8) (2019-08-15)
+
+
+### Bug Fixes
+
+* **checkbox:** checkout disabled style ([50aa75c](https://github.com/worktile/ngx-tethys/commit/50aa75c))
+* **core:** change option hover bg color and refactor theme [#259681](https://github.com/worktile/ngx-tethys/issues/259681) ([3186f4d](https://github.com/worktile/ngx-tethys/commit/3186f4d))
+* **input:** checkout and radio theme ([30bb44c](https://github.com/worktile/ngx-tethys/commit/30bb44c))
+* **menu:** menu active color and hover background color ([60d69c5](https://github.com/worktile/ngx-tethys/commit/60d69c5))
+* **menu:** menu active color and hover background color ([c8daec6](https://github.com/worktile/ngx-tethys/commit/c8daec6))
+* **popover:** remove min-height ([332f761](https://github.com/worktile/ngx-tethys/commit/332f761))
+* **slide:** change slide body section padding ([6576ebc](https://github.com/worktile/ngx-tethys/commit/6576ebc))
+* **transfer:** fix dragDrop when list is empty ([7a931f5](https://github.com/worktile/ngx-tethys/commit/7a931f5))
+* **tree:** fix drag drop position error ([1f5a87a](https://github.com/worktile/ngx-tethys/commit/1f5a87a))
+
+
+### Features
+
+* **notify:** add notify border ([365d4af](https://github.com/worktile/ngx-tethys/commit/365d4af))
+* **table:** remove tr hover space for table ([11a5db1](https://github.com/worktile/ngx-tethys/commit/11a5db1))
+* **tree:** new drag and drop(break-change: remove thyOnDraggableChange) ([591b4b7](https://github.com/worktile/ngx-tethys/commit/591b4b7))
+
+
+
 ## <small>7.5.7 (2019-08-14)</small>
 
 * chore: change demo ([ed72304](https://github.com/worktile/ngx-tethys/commit/ed72304))
