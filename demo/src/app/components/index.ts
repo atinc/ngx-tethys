@@ -75,6 +75,7 @@ import { DemoNotifyModule } from './+notify';
 import { DemoTypographyComponent } from './+typography/typography.component';
 import { DemoPropertyOperationGroupComponent, DemoPropertyOperationBasicComponent } from './+property-operation';
 import { DemoTreeModule } from './+tree';
+import { DemoNavIconNavComponent } from './+nav/icon-nav/icon-nav.component';
 
 export const COMPONENTS = [
     DemoTypographyComponent,
@@ -102,6 +103,7 @@ export const COMPONENTS = [
     DemoLabelSectionComponent,
     DemoLayoutSectionComponent,
     DemoNavSectionComponent,
+    DemoNavIconNavComponent,
     DemoMenuSectionComponent,
     DemoMenuPopComponent,
     DemoModalSectionComponent,
@@ -179,7 +181,7 @@ export const ENTRY_COMPONENTS = [
     DemoStoreOtherSectionComponent,
 
     DemoMenuPopComponent,
-
+    DemoNavIconNavComponent,
     DemoPropertyOperationBasicComponent,
     DemoPropertyOperationGroupComponent,
 
