@@ -1,7 +1,6 @@
 import { Component, OnInit, TemplateRef, ViewChild, AfterViewInit } from '@angular/core';
 import { clamp } from '../../../../../src/util/helpers';
 import { apiParameters } from './api-parameters';
-import { template } from '@angular/core/src/render3';
 
 const allColors = [
     '#22d7bb',
