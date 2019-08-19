@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { ThyNavComponent } from './nav.component';
 import { ThyNavLinkDirective } from './nav-link.directive';
 import { ThyIconNavComponent } from './icon-nav/icon-nav.component';
-import { ThyIconNavLinkDirective } from './icon-nav/icon-nav-link.directive';
+import { ThyIconNavLinkComponent } from './icon-nav/icon-nav-link.directive';
+import { ThyIconModule } from '../icon';
 
 @NgModule({
-    declarations: [ThyNavComponent, ThyNavLinkDirective, ThyIconNavComponent, ThyIconNavLinkDirective],
-    imports: [CommonModule],
-    exports: [ThyNavComponent, ThyNavLinkDirective, ThyIconNavComponent, ThyIconNavLinkDirective]
+    declarations: [ThyNavComponent, ThyNavLinkDirective, ThyIconNavComponent, ThyIconNavLinkComponent],
+    imports: [CommonModule, ThyIconModule],
+    exports: [ThyNavComponent, ThyNavLinkDirective, ThyIconNavComponent, ThyIconNavLinkComponent]
 })
 export class ThyNavModule {}

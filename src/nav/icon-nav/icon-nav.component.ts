@@ -1,23 +1,50 @@
-import { Component, OnInit, HostBinding, Input, ElementRef } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    HostBinding,
+    Input,
+    ElementRef,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef
+} from '@angular/core';
 import { UpdateHostClassService } from '../../shared';
 
+type IconNavTypes = 'primary' | 'secondary' | '';
 @Component({
     selector: 'thy-icon-nav',
     templateUrl: './icon-nav.component.html',
-    providers: [UpdateHostClassService]
+    providers: [UpdateHostClassService],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyIconNavComponent implements OnInit {
+    private initialized = false;
+    type: IconNavTypes;
+
     @HostBinding(`class.thy-icon-nav`) isIconNav = true;
 
-    @Input() thyType: string;
+    @Input() set thyType(type: IconNavTypes) {
+        this.type = type;
+        this.updateClasses();
+        this.changeDetectorRef.markForCheck();
+    }
 
-    constructor(private updateHostClassService: UpdateHostClassService, elementRef: ElementRef<HTMLElement>) {
+    private updateClasses(bypassInitialized?: boolean) {
+        if (!bypassInitialized && !this.initialized) {
+            return;
+        }
+        this.updateHostClassService.updateClass(this.type ? [`thy-icon-nav-${this.type}`] : []);
+    }
+
+    constructor(
+        private updateHostClassService: UpdateHostClassService,
+        private changeDetectorRef: ChangeDetectorRef,
+        elementRef: ElementRef<HTMLElement>
+    ) {
         this.updateHostClassService.initializeElement(elementRef);
     }
 
     ngOnInit(): void {
-        if (this.thyType) {
-            this.updateHostClassService.updateClass([`thy-icon-nav-${this.thyType}`]);
-        }
+        this.initialized = true;
+        this.updateClasses(true);
     }
 }
