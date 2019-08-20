@@ -1,3 +1,19 @@
+## [7.5.10](https://github.com/worktile/ngx-tethys/compare/7.5.9...7.5.10) (2019-08-20)
+
+
+### Bug Fixes
+
+* **form:** prevent submit when element has 'contenteditable' attribute ([e6be89e](https://github.com/worktile/ngx-tethys/commit/e6be89e))
+* fix tree drag drop bug ([d8b9898](https://github.com/worktile/ngx-tethys/commit/d8b9898))
+
+
+### Features
+
+* **icon-nav:** add thyIconNavLinkIcon param and add test cases [#259926](https://github.com/worktile/ngx-tethys/issues/259926) ([4489b2d](https://github.com/worktile/ngx-tethys/commit/4489b2d))
+* **layout:** add isolated for sidebar, width support lg 300px [#260322](https://github.com/worktile/ngx-tethys/issues/260322) ([ab843a8](https://github.com/worktile/ngx-tethys/commit/ab843a8))
+
+
+
 ## [7.5.9](https://github.com/worktile/ngx-tethys/compare/7.5.8...7.5.9) (2019-08-16)
 
 
