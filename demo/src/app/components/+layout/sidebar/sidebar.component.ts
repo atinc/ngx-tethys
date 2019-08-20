@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DemoLayoutSidebarComponent implements OnInit {
     isolated = false;
+
     width = '';
 
     constructor() {}
