@@ -1,4 +1,4 @@
-.demo-title {
+.demo-main-title {
     margin: 20px 0 70px;
     h2 {
         font-size: 28px;
@@ -7,5 +7,32 @@
     p {
         font-size: 14px;
         color: $gray-600;
+    }
+}
+.demo-toc {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    right: 0;
+    > ul {
+        width: 130px;
+        position: sticky;
+        top: 10px;
+        // right: 15px;
+        padding: 0;
+        > li {
+            list-style: none;
+            margin-bottom: 8px;
+            a {
+                display: block;
+                color: $gray-500;
+                font-size: 12px;
+                line-height: 14px;
+                &:hover {
+                    color: $primary;
+                    text-decoration: none;
+                }
+            }
+        }
     }
 }
