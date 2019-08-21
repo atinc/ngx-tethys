@@ -1,20 +1,12 @@
-import {
-    Directive,
-    ElementRef,
-    Input,
-    OnInit,
-    Renderer2,
-    HostBinding,
-    OnDestroy,
-    NgZone
-} from '@angular/core';
+import { Directive, ElementRef, Input, OnInit, Renderer2, HostBinding, OnDestroy, NgZone } from '@angular/core';
 import { UpdateHostClassService } from '../shared';
 import { NgForm } from '@angular/forms';
 import { keycodes } from '../util';
 import { ThyFormLayout, ThyFormValidatorConfig } from './form.class';
 import { ThyFormValidatorService } from './form-validator.service';
+import { inputValueToBoolean } from '../util/helpers';
 
-// 1. submit 按 Enter 键提交, Textare 除外，需要按 Ctrl | Command + Enter 提交
+// 1. submit 按 Enter 键提交, Textare或包含[contenteditable]属性的元素 除外，需要按 Ctrl | Command + Enter 提交
 // 2. alwaysSubmit 不管是哪个元素 按 Enter 键都提交
 // 3. forbidSubmit Enter 键禁止提交
 // 默认 submit
@@ -66,9 +58,7 @@ export class ThyFormDirective implements OnInit, OnDestroy {
         private updateHostClassService: UpdateHostClassService,
         public validator: ThyFormValidatorService
     ) {
-        this.updateHostClassService.initializeElement(
-            this.elementRef.nativeElement
-        );
+        this.updateHostClassService.initializeElement(this.elementRef.nativeElement);
     }
 
     ngOnInit(): void {
@@ -104,12 +94,12 @@ export class ThyFormDirective implements OnInit, OnDestroy {
         const currentInput = document.activeElement;
         const key = $event.which || $event.keyCode;
         if (key === keycodes.ENTER && currentInput.tagName) {
-            if (
-                !this.thyEnterKeyMode ||
-                this.thyEnterKeyMode === ThyEnterKeyMode.submit
-            ) {
-                // TEXTAREA Ctrl + Enter 或者 Command + Enter 阻止默认行为并提交
-                if (currentInput.tagName === 'TEXTAREA') {
+            if (!this.thyEnterKeyMode || this.thyEnterKeyMode === ThyEnterKeyMode.submit) {
+                // TEXTAREA或包含[contenteditable]属性的元素 Ctrl + Enter 或者 Command + Enter 阻止默认行为并提交
+                if (
+                    currentInput.tagName === 'TEXTAREA' ||
+                    inputValueToBoolean(currentInput.getAttribute('contenteditable'))
+                ) {
                     if ($event.ctrlKey || $event.metaKey) {
                         $event.preventDefault();
                         this.submitRunInZone($event);

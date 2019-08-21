@@ -273,9 +273,12 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
                 const targetParent = event.item.parentNode;
                 const index = event.position === ThyDropPosition.before ? 0 : 1;
                 if (targetParent) {
-                    targetParent.addChildren(event.previousItem.origin, event.currentIndex + index);
+                    targetParent.addChildren(
+                        event.previousItem.origin,
+                        targetParent.children.indexOf(event.item) + index
+                    );
                 } else {
-                    this.treeNodes.splice(event.currentIndex + index, 0, event.previousItem);
+                    this.treeNodes.splice(this.treeNodes.indexOf(event.item) + index, 0, event.previousItem);
                 }
                 break;
         }

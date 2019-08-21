@@ -13,6 +13,7 @@ import {
 import { ThyLayoutComponent } from './layout.component';
 import { inputValueToBoolean } from '../util/helpers';
 
+const LG_WIDTH = 300;
 @Component({
     selector: 'thy-sidebar',
     preserveWhitespaces: false,
@@ -36,8 +37,13 @@ export class ThySidebarComponent implements OnInit {
 
     @HostBinding('style.width.px') thyLayoutSidebarWidth: number;
 
+    @HostBinding('class.thy-layout-sidebar-isolated') sidebarIsolated = false;
+
     @Input('thyWidth')
     set thyWidth(value: any) {
+        if (value === 'lg') {
+            value = LG_WIDTH;
+        }
         this.thyLayoutSidebarWidth = value;
         this.widthPassive = value;
     }
@@ -45,6 +51,11 @@ export class ThySidebarComponent implements OnInit {
     @Input('thyHasBorderRight')
     set thyHasBorderRight(value: string) {
         this.thyLayoutSidebarClearBorderRightClass = !inputValueToBoolean(value);
+    }
+
+    @Input('thyIsolated')
+    set thyIsolated(value: string) {
+        this.sidebarIsolated = inputValueToBoolean(value);
     }
 
     @Input('thyIsDraggableWidth')

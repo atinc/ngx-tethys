@@ -22,7 +22,6 @@ import { DemoAlertSectionComponent } from './+alert/alert-section.component';
 import { DemoPaginationComponent } from './+pagination/pagination.component';
 import { DemoConfirmSectionComponent } from './+confirm/confirm-section.component';
 import { DemoTreeSectionComponent } from './+tree/tree-section.component';
-import { DemoNotifySectionComponent } from './+notify/notify-section.component';
 import { DemoEmptySectionComponent } from './+empty/empty-section.component';
 import { DemoSwitchSectionComponent } from './+switch/switch-section.component';
 import { DemoTransferSectionComponent } from './+transfer/transfer-section.component';
@@ -72,9 +71,12 @@ import {
 } from './+popover';
 import { DialogDemoModule } from './+dialog';
 import { DemoButtonModule } from './+button';
+import { DemoNotifyModule } from './+notify';
 import { DemoTypographyComponent } from './+typography/typography.component';
 import { DemoPropertyOperationGroupComponent, DemoPropertyOperationBasicComponent } from './+property-operation';
 import { DemoTreeModule } from './+tree';
+import { DemoNavIconNavComponent } from './+nav/icon-nav/icon-nav.component';
+import { DemoLayoutModule } from './+layout';
 
 export const COMPONENTS = [
     DemoTypographyComponent,
@@ -101,8 +103,8 @@ export const COMPONENTS = [
 
     DemoLabelSectionComponent,
     DemoLayoutSectionComponent,
-    DemoNotifySectionComponent,
     DemoNavSectionComponent,
+    DemoNavIconNavComponent,
     DemoMenuSectionComponent,
     DemoMenuPopComponent,
     DemoModalSectionComponent,
@@ -180,7 +182,7 @@ export const ENTRY_COMPONENTS = [
     DemoStoreOtherSectionComponent,
 
     DemoMenuPopComponent,
-
+    DemoNavIconNavComponent,
     DemoPropertyOperationBasicComponent,
     DemoPropertyOperationGroupComponent,
 
@@ -190,4 +192,4 @@ export const ENTRY_COMPONENTS = [
     DemoFlexibleTextBasicComponent
 ];
 
-export const DEMO_MODULES = [DialogDemoModule, DemoButtonModule, DemoTreeModule];
+export const DEMO_MODULES = [DialogDemoModule, DemoButtonModule, DemoNotifyModule, DemoTreeModule, DemoLayoutModule];
