@@ -19,8 +19,9 @@ $option-disabled-color: $gray-400;
         left: 20px;
         right: 20px;
     }
+    // use in tree-select
     .prefix-icon {
-        color: $gray-600;
+        color: $gray-300;
     }
 
     &:not(.disabled) {
@@ -36,6 +37,9 @@ $option-disabled-color: $gray-400;
             &:hover {
                 background: $option-hover-active-bg-color;
                 color: $body-color;
+                .prefix-icon {
+                    color: $gray-300;
+                }
             }
             .prefix-icon {
                 color: $primary;
@@ -89,6 +93,7 @@ $option-disabled-color: $gray-400;
             background: $option-hover-active-bg-color;
             .checked-icon {
                 visibility: visible;
+                color: $gray-300;
             }
         }
         &.active {
@@ -141,7 +146,7 @@ $option-disabled-color: $gray-400;
     margin: $list-grid-option-margin;
     width: $list-grid-option-width;
     height: $list-grid-option-height;
-    background: $gray-80;
+    background: $white;
     border-radius: $border-radius;
     border: solid 1px $gray-200;
     cursor: pointer;
@@ -176,6 +181,7 @@ $option-disabled-color: $gray-400;
 
             &.hover,
             &:hover {
+                background: $white;
                 border-color: $primary;
             }
         }
