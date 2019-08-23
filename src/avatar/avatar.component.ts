@@ -70,6 +70,8 @@ export class ThyAvatarComponent implements OnInit {
 
     @Input() thyImgClass: string;
 
+    @Input() thyDisabled: boolean;
+
     private _setAvatarSize(size: number) {
         if (sizeArray.indexOf(size) > -1) {
             this._size = size;
