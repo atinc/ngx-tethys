@@ -1,42 +1,55 @@
 .thy-avatar {
-  display: inline-block;
-  position: relative;
+    display: inline-block;
+    position: relative;
 
-  &:hover {
-    text-decoration: none;
-    .avatar-remove {
-      visibility: visible;
+    &:hover {
+        text-decoration: none;
+        .avatar-remove {
+            visibility: visible;
+        }
     }
-  }
-  .avatar-default {
-    display: inline-block;
-    vertical-align: middle;
-    text-align: center;
-    overflow: hidden;
-    zoom: 1;
-    color: $white;
-    text-shadow: transparent 0 0 0;
-  }
-  .avatar-name {
-    margin-left: 5px;
-    display: inline-block;
-    max-width: 130px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    vertical-align: middle;
-  }
+    .avatar-default {
+        display: inline-block;
+        vertical-align: middle;
+        text-align: center;
+        overflow: hidden;
+        zoom: 1;
+        color: $white;
+        text-shadow: transparent 0 0 0;
+    }
+    .avatar-name {
+        margin-left: 5px;
+        display: inline-block;
+        max-width: 130px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        vertical-align: middle;
+    }
 
-  .avatar-remove {
-    position: absolute;
-    visibility: hidden;
-    top: -7px;
-    right: -5px;
-  }
+    .avatar-remove {
+        position: absolute;
+        visibility: hidden;
+        top: -7px;
+        right: -5px;
+    }
+    .thy-avatar-disabled {
+        position: absolute;
+        background-color: rgba($black, 0.3);
+        top: 0;
+        left: 0;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &-icon {
+            color: $gray-100;
+        }
+    }
 }
 
 @each $size, $value in $avatar-sizes {
-  .thy-avatar-#{$size} {
-    @include avatarSize($size, $value);
-  }
+    .thy-avatar-#{$size} {
+        @include avatarSize($size, $value);
+    }
 }
