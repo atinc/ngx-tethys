@@ -17,7 +17,6 @@ export class DemoTitleComponent implements OnInit {
 
     ngOnInit() {
         this.getTitleList();
-        console.log(this.titleList);
     }
 
     getTitleList() {
