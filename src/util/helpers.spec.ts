@@ -1,4 +1,4 @@
-import { clamp } from './helpers';
+import { clamp, keyBy, indexKeyBy } from './helpers';
 
 describe('#helper', () => {
     describe('#clamp', () => {
@@ -38,6 +38,25 @@ describe('#helper', () => {
     describe('#hexToRgb', () => {
         it('should be', () => {
             // hexToRgb('')
+        });
+    });
+
+    describe('#keyBy', () => {
+        it('should be get correct result keyBy id', () => {
+            const result = keyBy([{ id: 1, name: 'name 1' }], 'id');
+            expect(result).toEqual({
+                '1': { id: 1, name: 'name 1' }
+            });
+        });
+    });
+
+    describe('#indexKeyBy', () => {
+        it('should be get correct index dictionary keyBy id', () => {
+            const result = indexKeyBy([{ id: 1, name: 'name 1' }, { id: 2, name: 'name 2' }], 'id');
+            expect(result).toEqual({
+                '1': 0,
+                '2': 1
+            });
         });
     });
 });

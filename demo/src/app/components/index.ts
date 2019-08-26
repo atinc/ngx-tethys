@@ -10,6 +10,7 @@ import { DemoAvatarSizeSectionComponent } from './+avatar/size/size.component';
 import { DemoAvatarTypeSectionComponent } from './+avatar/type/avatar-type.component';
 import { DemoAvatarHasBadgeSectionComponent } from './+avatar/has-badge/has-badge.component';
 import { DemoAvatarRemoveSectionComponent } from './+avatar/remove/remove.component';
+import { DemoAvatarDisabledSectionComponent } from './+avatar/disabled/disabled.component';
 
 import { DemoLabelSectionComponent } from './+label/label-section.component';
 import { DemoLayoutSectionComponent } from './+layout/layout-section.component';
@@ -99,6 +100,7 @@ export const COMPONENTS = [
     DemoAvatarSizeSectionComponent,
     DemoAvatarTypeSectionComponent,
     DemoAvatarHasBadgeSectionComponent,
+    DemoAvatarDisabledSectionComponent,
     DemoAvatarRemoveSectionComponent,
 
     DemoLabelSectionComponent,
@@ -176,6 +178,7 @@ export const ENTRY_COMPONENTS = [
     DemoAvatarSizeSectionComponent,
     DemoAvatarTypeSectionComponent,
     DemoAvatarHasBadgeSectionComponent,
+    DemoAvatarDisabledSectionComponent,
     DemoAvatarRemoveSectionComponent,
 
     CreateOverlayComponent,
