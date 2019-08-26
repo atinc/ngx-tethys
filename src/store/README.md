@@ -215,16 +215,12 @@ export class AppStateStore extends Store<AppState> {
 为了更加方便的使用 `EntityStore`, 目前提供了 `References` 的支持，方便初始化，合并 References，为了保持之前的 entities 代码可用，`References` 相关的方法都是独立添加的
 - 构造函数的 Options 新增了 `referencesIdKeys` 设置每个 Reference 数组的 Id Key，默认是 `_id`，如果是成员列表需要配置 `uid`
 - initializeWithReferences(entities: TEntity[], references: TReferences, pagination?: PaginationInfo)  初始化 Entities 数据，同时传入 References
-- addWithReferences(entity: TEntity | TEntity[], references: Partial<TReferences>, addOptions?: EntityAddOptions)
-- updateWithReferences(idsOrFn: Id | Id[],newStateOrFn: ((entity: Readonly<TEntity>) => Partial<TEntity>) | Partial<TEntity>, references: TReferences): void
-- entitiesWithRefs$ 之前的 `entities$` 只返回 entity 列表，这个流会自动组合 `refs` 数据，组合数据需要实现 `OnCombineRefs<TEntity, TReferences> ` 接口，实现 `onCombineRefs(entity: TEntity, referencesIdMap: ReferencesIdDictionary<TReferences>, references?: TReferences): void;` 函数，组合每个 Entity 的 refs 对象
+- `addWithReferences(entity: TEntity | TEntity[], references: Partial<TReferences>, addOptions?: EntityAddOptions)`
+- `updateWithReferences(idsOrFn: Id | Id[], newStateOrFn: ((entity: Readonly<TEntity>) => Partial<TEntity>) | Partial<TEntity>, references: TReferences): void`
+- entitiesWithRefs$, 之前的 `entities$` 流只返回 entity 列表，这个 entitiesWithRefs$ 流会自动组合 `refs` 数据，组合数据需要实现 `OnCombineRefs<TEntity, TReferences> ` 接口，实现 `onCombineRefs(entity: TEntity, referencesIdMap: ReferencesIdDictionary<TReferences>, references?: TReferences): void;` 函数，组合每个 Entity 的 refs 对象
   ```
-  onCombineRefs(
-      entity: TaskInfo,
-      referencesIdMap: ReferencesIdDictionary<TaskReferences>,
-      references: TaskReferences
-      ) {
-          entity.refs.group = referencesIdMap.groups[entity.group_id];
-          entity.refs.created_by = referencesIdMap.users[entity.created_by];
-    }
+  onCombineRefs(entity: TaskInfo, referencesIdMap: ReferencesIdDictionary<TaskReferences>, references: TaskReferences) {
+      entity.refs.group = referencesIdMap.groups[entity.group_id];
+      entity.refs.created_by = referencesIdMap.users[entity.created_by];
+  }
   ```
