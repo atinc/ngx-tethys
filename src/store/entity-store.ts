@@ -1,57 +1,13 @@
 import { Store } from './store';
 import { Id, PaginationInfo } from './types';
 import { helpers, produce } from '../util';
-
-import {
-    mergeReferences,
-    ReferenceExtractAllowKeys,
-    ReferenceObjectExtract,
-    ReferenceExtractAllowNames,
-    buildReferencesKeyBy,
-    ArrayInferExtract,
-    ReferenceArrayExtractAllowKeys
-} from '../util/helpers';
+import { mergeReferences, buildReferencesKeyBy, ReferenceArrayExtractAllowKeys } from '../util/helpers';
 import { map } from 'rxjs/operators';
-
-export type ReferencesPropertyKey<T, TEntity> = {
-    [key in keyof ReferenceExtractAllowNames<T>]: keyof TEntity | Array<keyof TEntity>
-};
-
-export type PropertyKeyReferences<T, TEntity> = {
-    [key in keyof TEntity]?: {
-        referenceName: keyof ReferenceExtractAllowNames<T>;
-        refsName: string;
-    }
-};
-
-export type ReferencesIdKeyAndPropertyKeys<T, TEntity> = {
-    [key in keyof ReferenceExtractAllowNames<T>]: {
-        idKey?: keyof ReferenceObjectExtract<T>[key];
-        propertyKey?: keyof TEntity;
-    }
-};
-
-export type ReferenceIdMap<TReferences> = {
-    [key in keyof TReferences]?: { [key: string]: ArrayInferExtract<TReferences[key]> }
-};
-
-type s = ReferencesIdKeyAndPropertyKeys<
-    {
-        users: { uid: string; name: string }[];
-        info: { id: number; name: string };
-        departments: { dept: number }[];
-        ids: string[];
-        id: string;
-    },
-    { id: string; name: number }
->;
+import { ReferencesIdDictionary, OnCombineRefsFn } from './references';
 
 export interface EntityStoreOptions<TEntity = undefined, TReferences = undefined> {
     idKey?: string;
     referencesIdKeys?: ReferenceArrayExtractAllowKeys<TReferences>;
-    referencesPropertyKeys?: Partial<ReferencesPropertyKey<TReferences, TEntity>>;
-    propertyKeys?: PropertyKeyReferences<TReferences, TEntity>;
-    // referencesKeys?: Partial<ReferencesIdKeyAndPropertyKeys<TReferences, TEntity>>;
 }
 
 export interface EntityAddOptions {
@@ -67,10 +23,6 @@ export interface EntityState<TEntity, TReferences = undefined> {
     references?: TReferences;
 }
 
-export interface OnCombineRefs<TEntity, TReferences> {
-    onCombineRefs(entity: TEntity, referenceIdMap: ReferenceIdMap<TReferences>): void;
-}
-
 export class EntityStore<
     TState extends EntityState<TEntity, TReferences>,
     TEntity,
@@ -78,7 +30,7 @@ export class EntityStore<
 > extends Store<TState> {
     protected options: EntityStoreOptions<TEntity, TReferences>;
 
-    private internalReferencesIdMap: ReferenceIdMap<TReferences>;
+    private internalReferencesIdMap: ReferencesIdDictionary<TReferences>;
 
     get entities() {
         return this.snapshot.entities;
@@ -93,10 +45,6 @@ export class EntityStore<
             if (!entities) {
                 return entities;
             }
-            // let propertyKeys: string[] = [];
-            // if (this.options && this.options.propertyKeys) {
-            //     propertyKeys = Object.keys(this.options.propertyKeys);
-            // }
             return entities.map(entity => {
                 const newEntity = { ...entity };
 
@@ -104,25 +52,16 @@ export class EntityStore<
                     if (!newEntity['refs']) {
                         newEntity['refs'] = {};
                     }
-                    this.onCombineRefs(newEntity, this.internalReferencesIdMap);
+                    this.onCombineRefs(newEntity, this.internalReferencesIdMap, this.snapshot.references);
+                } else {
+                    throw new Error(`onCombineRefs is not `);
                 }
-                // propertyKeys.forEach(propertyKey => {
-                //     const propertyValue = entity[propertyKey];
-                //     if (propertyValue) {
-                //         const referenceName = this.options.propertyKeys[propertyKey].referenceName;
-                //         const refsName = this.options.propertyKeys[propertyKey].refsName;
-                //         const referenceIdMap = this.internalReferencesIdMap[referenceName];
-                //         if (referenceIdMap && referenceIdMap[propertyValue]) {
-                //             newEntity['refs'][refsName] = referenceIdMap[propertyValue];
-                //         }
-                //     }
-                // });
                 return newEntity;
             });
         })
     );
 
-    onCombineRefs(entity: TEntity, referenceIdMap: ReferenceIdMap<TReferences>) {}
+    onCombineRefs(entity: TEntity, referencesIdMap: ReferencesIdDictionary<TReferences>, references?: TReferences) {}
 
     private resetPagination(pagination: PaginationInfo, count: number) {
         pagination.count = count;
@@ -170,10 +109,25 @@ export class EntityStore<
      * Replace current collection with provided collection
      *
      * @example
-     * this.store.initialize([Entity, Entity]);
+     * this.store.initialize([Entity, Entity], pagination: PaginationInfo);
      *
      */
-    initialize(entities: TEntity[], pagination: PaginationInfo, references?: TReferences) {
+    initialize(entities: TEntity[], pagination?: PaginationInfo) {
+        const state = this.snapshot;
+        state.entities = entities || [];
+        state.pagination = pagination;
+        this.next(state);
+    }
+
+    /**
+     *
+     * Replace current collection with provided collection with references
+     *
+     * @example
+     * this.store.initializeWithReferences([Entity, Entity], references: TReferences, pagination: PaginationInfo);
+     *
+     */
+    initializeWithReferences(entities: TEntity[], references: TReferences, pagination?: PaginationInfo) {
         const state = this.snapshot;
         state.entities = entities || [];
         state.pagination = pagination;
@@ -183,14 +137,12 @@ export class EntityStore<
     }
 
     /**
-     * Add an entity or entities to the store.
-     *
-     * @example
-     * this.store.add(Entity);
-     * this.store.add([Entity, Entity]);
-     * this.store.add(Entity, { prepend: true });
+     * Add entity or entities for internal
+     * @param entity
+     * @param references
+     * @param addOptions
      */
-    add(entity: TEntity | TEntity[], addOptions?: EntityAddOptions, references?: Partial<TReferences>) {
+    private addInternal(entity: TEntity | TEntity[], references?: Partial<TReferences>, addOptions?: EntityAddOptions) {
         const addEntities = helpers.coerceArray(entity);
         if (addEntities.length === 0) {
             return;
@@ -202,7 +154,6 @@ export class EntityStore<
             mergeReferences(state.references, references, this.options.referencesIdKeys);
             this.buildReferencesIdMap();
         }
-
         if (state.pagination) {
             this.increasePagination(addEntities.length);
             if (addOptions && !addOptions.prepend && addOptions.autoGotoLastPage) {
@@ -213,39 +164,55 @@ export class EntityStore<
     }
 
     /**
+     * Add an entity or entities to the store.
+     *
+     * @example
+     * this.store.add(Entity);
+     * this.store.add([Entity, Entity]);
+     * this.store.add(Entity, { prepend: true });
+     */
+    add(entity: TEntity | TEntity[], addOptions?: EntityAddOptions) {
+        this.addInternal(entity, undefined, addOptions);
+    }
+
+    /**
+     * Add an entity or entities to the store with references.
+     *
+     * @example
+     * this.store.add(Entity);
+     * this.store.add([Entity, Entity]);
+     * this.store.add(Entity, { prepend: true });
+     */
+    addWithReferences(entity: TEntity | TEntity[], references: Partial<TReferences>, addOptions?: EntityAddOptions) {
+        this.addInternal(entity, references, addOptions);
+    }
+
+    /**
      *
      * Update an entity or entities in the store.
      *
      * @example
      * this.store.update(3, {
      *   name: 'New Name'
-     * });
+     * }, references);
      *
      *  this.store.update(3, entity => {
      *    return {
      *      ...entity,
      *      name: 'New Name'
      *    }
-     *  });
+     *  }, references);
      *
      * this.store.update([1,2,3], {
      *   name: 'New Name'
-     * });
+     * }, references);
      */
-    update(
-        id: Id | Id[] | null,
-        newStateFn: (entity: Readonly<TEntity>, references?: TReferences) => Partial<TEntity>
-    ): void;
-    update(id: Id | Id[] | null, newState?: Partial<TEntity>, references?: TReferences): void;
-    update(
-        idsOrFn:
-            | Id
-            | Id[]
-            | null
-            | Partial<TState>
-            | ((state: Readonly<TState>) => Partial<TState>)
-            | ((entity: Readonly<TEntity>) => boolean),
-        newStateOrFn?: ((entity: Readonly<TEntity>) => Partial<TEntity>) | Partial<TEntity>,
+    private updateInternal(
+        idsOrFn: Id | Id[] | null,
+        // | Partial<TState>
+        // | ((state: Readonly<TState>) => Partial<TState>)
+        // | ((entity: Readonly<TEntity>) => boolean),
+        newStateOrFn: ((entity: Readonly<TEntity>) => Partial<TEntity>) | Partial<TEntity>,
         references?: TReferences
     ): void {
         const ids = helpers.coerceArray(idsOrFn);
@@ -264,6 +231,61 @@ export class EntityStore<
             this.buildReferencesIdMap();
         }
         this.next(state);
+    }
+
+    /**
+     *
+     * Update an entity or entities in the store with references.
+     *
+     * @example
+     * this.store.update(3, {
+     *   name: 'New Name'
+     * }, references);
+     *
+     *  this.store.update(3, entity => {
+     *    return {
+     *      ...entity,
+     *      name: 'New Name'
+     *    }
+     *  }, references);
+     *
+     * this.store.update([1,2,3], {
+     *   name: 'New Name'
+     * }, references);
+     */
+    update(
+        idsOrFn: Id | Id[] | null,
+        newStateOrFn: ((entity: Readonly<TEntity>) => Partial<TEntity>) | Partial<TEntity>
+    ): void {
+        this.updateInternal(idsOrFn, newStateOrFn, undefined);
+    }
+
+    /**
+     *
+     * Update an entity or entities in the store with references.
+     *
+     * @example
+     * this.store.updateWithReferences(3, {
+     *   name: 'New Name'
+     * }, references);
+     *
+     *  this.store.updateWithReferences(3, entity => {
+     *    return {
+     *      ...entity,
+     *      name: 'New Name'
+     *    }
+     *  }, references);
+     *
+     * this.store.updateWithReferences([1,2,3], {
+     *   name: 'New Name'
+     * }, references);
+     */
+    updateWithReferences(
+        idsOrFn: Id | Id[] | null,
+        newStateOrFn: ((entity: Readonly<TEntity>) => Partial<TEntity>) | Partial<TEntity>,
+        references: TReferences
+    ): void {
+        this.updateInternal(idsOrFn, newStateOrFn, references);
     }
 
     /**

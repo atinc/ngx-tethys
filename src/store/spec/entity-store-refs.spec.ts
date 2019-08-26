@@ -1,4 +1,5 @@
-import { EntityStore, EntityState, EntityStoreOptions, ReferenceIdMap, OnCombineRefs } from '../entity-store';
+import { EntityStore, EntityState, EntityStoreOptions } from '../entity-store';
+import { OnCombineRefs, ReferencesIdDictionary } from '../references';
 
 describe('Store: EntityStore with refs', () => {
     interface UserInfo {
@@ -20,6 +21,7 @@ describe('Store: EntityStore with refs', () => {
         refs?: {
             group?: GroupInfo;
             created_by: UserInfo;
+            project?: { _id: string; name: string };
         };
     }
 
@@ -37,9 +39,13 @@ describe('Store: EntityStore with refs', () => {
             super(initialState, options);
         }
 
-        onCombineRefs(entity: TaskInfo, referenceIdMap: ReferenceIdMap<TaskReferences>) {
-            entity.refs.group = referenceIdMap.groups[entity.group_id];
-            entity.refs.created_by = referenceIdMap.users[entity.created_by];
+        onCombineRefs(
+            entity: TaskInfo,
+            referencesIdMap: ReferencesIdDictionary<TaskReferences>,
+            references: TaskReferences
+        ) {
+            entity.refs.group = referencesIdMap.groups[entity.group_id];
+            entity.refs.created_by = referencesIdMap.users[entity.created_by];
         }
     }
 
@@ -54,14 +60,14 @@ describe('Store: EntityStore with refs', () => {
 
     it('should get initial data when call store initialize', () => {
         const tasksStore = new TasksStore();
-        tasksStore.initialize(
+        tasksStore.initializeWithReferences(
             initialTasks,
+            { groups: initialGroups },
             {
                 pageIndex: 1,
                 pageSize: 20,
                 pageCount: 20
-            },
-            { groups: initialGroups }
+            }
         );
         const state = tasksStore.snapshot;
         expect(state.entities).toEqual([
@@ -77,7 +83,7 @@ describe('Store: EntityStore with refs', () => {
         expect(state.references).toEqual({ groups: initialGroups });
     });
 
-    it('should get', () => {
+    it('should get correct refs by entitiesWithRefs$', () => {
         const tasksStore = new TasksStore(
             {
                 entities: initialTasks,
@@ -92,22 +98,92 @@ describe('Store: EntityStore with refs', () => {
             {
                 referencesIdKeys: {
                     users: 'uid'
-                },
-                propertyKeys: {
-                    group_id: {
-                        referenceName: 'groups',
-                        refsName: 'group'
-                    },
-                    created_by: {
-                        referenceName: 'users',
-                        refsName: 'created_by'
-                    }
                 }
             }
         );
-        tasksStore.entitiesWithRefs$.subscribe(entities => {
-            console.log(JSON.stringify(entities));
-        });
+        const entitiesWithRefsSub = jasmine.createSpy('entitiesWithRefsSub');
+        tasksStore.entitiesWithRefs$.subscribe(entitiesWithRefsSub);
+        expect(entitiesWithRefsSub).toHaveBeenCalledTimes(1);
+        expect(entitiesWithRefsSub).toHaveBeenCalledWith([
+            {
+                _id: 'task-1',
+                title: 'task 1',
+                group_id: 'group-1',
+                created_by: '1',
+                refs: {
+                    group: { _id: 'group-1', name: 'group 1' },
+                    created_by: { uid: '1', name: 'user 1' }
+                }
+            },
+            {
+                _id: 'task-2',
+                title: 'task 2',
+                group_id: 'group-2',
+                created_by: '2',
+                refs: {
+                    group: { _id: 'group-2', name: 'group 2' },
+                    created_by: { uid: '2', name: 'user 2' }
+                }
+            }
+        ]);
+
+        expect(tasksStore.snapshot.references).toEqual({ groups: initialGroups, users: initialUsers });
+    });
+
+    it('should get correct refs with directly visit references by entitiesWithRefs$', () => {
+        const project = {
+            _id: `project-new-1`,
+            name: `project-new name 1`
+        };
+        const tasksStore = new TasksStore(
+            {
+                entities: initialTasks,
+                pageIndex: 0,
+                pagination: {
+                    pageIndex: 1,
+                    pageSize: 10,
+                    count: initialTasks.length
+                },
+                references: { project: project }
+            },
+            {
+                referencesIdKeys: {
+                    users: 'uid'
+                }
+            }
+        );
+
+        tasksStore.onCombineRefs = (
+            entity: TaskInfo,
+            referenceIdMap: ReferencesIdDictionary<TaskReferences>,
+            references: TaskReferences
+        ) => {
+            entity.refs.project = references.project;
+        };
+
+        const entitiesWithRefsSub = jasmine.createSpy('entitiesWithRefsSub');
+        tasksStore.entitiesWithRefs$.subscribe(entitiesWithRefsSub);
+        expect(entitiesWithRefsSub).toHaveBeenCalledTimes(1);
+        expect(entitiesWithRefsSub).toHaveBeenCalledWith([
+            {
+                _id: 'task-1',
+                title: 'task 1',
+                group_id: 'group-1',
+                created_by: '1',
+                refs: {
+                    project: project
+                }
+            },
+            {
+                _id: 'task-2',
+                title: 'task 2',
+                group_id: 'group-2',
+                created_by: '2',
+                refs: {
+                    project: project
+                }
+            }
+        ]);
     });
 
     describe('add', () => {
@@ -128,12 +204,6 @@ describe('Store: EntityStore with refs', () => {
                 {
                     referencesIdKeys: {
                         users: 'uid'
-                    },
-                    propertyKeys: {
-                        created_by: {
-                            referenceName: 'users',
-                            refsName: 'user'
-                        }
                     }
                 }
             );
@@ -149,7 +219,7 @@ describe('Store: EntityStore with refs', () => {
                 _id: 'group-3',
                 name: 'group-3 name'
             };
-            tasksStore.add(newTaskEntity, undefined, {
+            tasksStore.addWithReferences(newTaskEntity, {
                 groups: [newGroup]
             });
             const state = tasksStore.snapshot;
@@ -170,7 +240,7 @@ describe('Store: EntityStore with refs', () => {
                 _id: 'group-2',
                 name: 'group-2 new name'
             };
-            tasksStore.add(newTaskEntity, undefined, {
+            tasksStore.addWithReferences(newTaskEntity, {
                 groups: [newGroup]
             });
             const state = tasksStore.snapshot;
@@ -191,7 +261,7 @@ describe('Store: EntityStore with refs', () => {
                 uid: '1',
                 name: 'user 1 new name'
             };
-            tasksStore.add(newTaskEntity, undefined, {
+            tasksStore.addWithReferences(newTaskEntity, {
                 users: [newUser]
             });
             const state = tasksStore.snapshot;
@@ -226,7 +296,7 @@ describe('Store: EntityStore with refs', () => {
                 _id: 'group-3',
                 name: 'group-3 name'
             };
-            tasksStore.update(
+            tasksStore.updateWithReferences(
                 'task-1',
                 {
                     title: 'new 1 task',
