@@ -1,0 +1,11 @@
+<div class="demo-main-title" *ngIf="title">
+  <h2>{{ title }}</h2>
+  <p *ngIf="introduction">{{ introduction }}</p>
+</div>
+<div class="demo-toc">
+  <ul>
+    <li *ngFor="let v of titleList">
+      <a href="javascript:;" (click)="scrollTo(v)">{{ v.innerText }}</a>
+    </li>
+  </ul>
+</div>

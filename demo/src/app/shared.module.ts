@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { NgxTethysModule } from 'ngx-tethys';
 import { CommonModule } from '@angular/common';
 import { LiveDemoComponent, LiveDemosComponent } from './core/live-demo/live-demo.component';
+import { DemoTitleComponent } from './core/demo-title/demo-title.component';
 import { HighlightModule } from 'ngx-highlightjs';
 
 import xml from 'highlight.js/lib/languages/xml';
@@ -21,7 +22,7 @@ export function hljsLanguages() {
 }
 
 @NgModule({
-    declarations: [LiveDemoComponent, LiveDemosComponent, ...DOCS_COMPONENTS],
+    declarations: [DemoTitleComponent, LiveDemoComponent, LiveDemosComponent, ...DOCS_COMPONENTS],
     imports: [
         CommonModule,
         BrowserModule,
@@ -38,6 +39,7 @@ export function hljsLanguages() {
         NgxTethysModule,
         HighlightModule,
         LiveDemoComponent,
+        DemoTitleComponent,
         LiveDemosComponent,
         ...DOCS_COMPONENTS
     ]

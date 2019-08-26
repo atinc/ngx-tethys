@@ -1,13 +1,20 @@
-<section *ngIf="parameters">
-    <div class="header">
-        <h2>{{title}}</h2>
-    </div>
-    <div class="body">
-        <thy-grid [thyModel]='parameters' thyTheme="bordered" className="table-hover">
-            <thy-grid-column thyTitle="属性" thyModelKey="property" thyWidth="20%"></thy-grid-column>
-            <thy-grid-column thyTitle="说明" thyModelKey="description"></thy-grid-column>
-            <thy-grid-column thyTitle="类型" thyModelKey="type" thyWidth="20%"></thy-grid-column>
-            <thy-grid-column  thyTitle="默认值" thyModelKey="default" thyWidth="20%" thyClassName="text-center" thyDefaultText="----"></thy-grid-column>
-        </thy-grid>
-    </div>
+<section class="parameters" *ngIf="parameters">
+  <div class="parameters-header">
+    <h4 class="demo-title">{{ title }}</h4>
+  </div>
+  <div class="parameters-body">
+    <thy-grid [thyModel]="parameters" thyTheme="bordered" className="table-hover">
+      <thy-grid-column thyTitle="属性" thyModelKey="property" thyWidth="20%"></thy-grid-column>
+      <thy-grid-column thyTitle="说明" thyModelKey="description"></thy-grid-column>
+
+      <thy-grid-column thyTitle="类型" thyModelKey="type" thyClassName="text-center" thyWidth="15%"></thy-grid-column>
+      <thy-grid-column
+        thyTitle="默认值"
+        thyModelKey="default"
+        thyWidth="15%"
+        thyClassName="text-center"
+        thyDefaultText="----"
+      ></thy-grid-column>
+    </thy-grid>
+  </div>
 </section>
