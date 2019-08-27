@@ -115,6 +115,11 @@
     &--clear-border-right {
         border-right: none;
     }
+
+    &.thy-layout-sidebar-isolated {
+        margin-right: 10px;
+        border-right: none;
+    }
 }
 
 .thy-layout-header {

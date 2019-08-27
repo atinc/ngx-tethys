@@ -1,3 +1,40 @@
+## [7.5.11](https://github.com/worktile/ngx-tethys/compare/7.5.10...7.5.11) (2019-08-26)
+
+
+### Bug Fixes
+
+* **other:** add demo-title ([8fc9ea8](https://github.com/worktile/ngx-tethys/commit/8fc9ea8))
+* **other:** adjust layout ([1a9d09e](https://github.com/worktile/ngx-tethys/commit/1a9d09e))
+* **other:** demo layout adjustment ([1e2f606](https://github.com/worktile/ngx-tethys/commit/1e2f606))
+* **other:** remove log ([63ca549](https://github.com/worktile/ngx-tethys/commit/63ca549))
+* **other:** style adjustment ([eb36950](https://github.com/worktile/ngx-tethys/commit/eb36950))
+
+
+### Features
+
+* **avatar:** add a disabled style ([cd71b6c](https://github.com/worktile/ngx-tethys/commit/cd71b6c))
+* **store:** add references support for entity store [#260560](https://github.com/worktile/ngx-tethys/issues/260560) ([fea2e70](https://github.com/worktile/ngx-tethys/commit/fea2e70))
+* **utils:** add merge and build references dictionary methods [#260560](https://github.com/worktile/ngx-tethys/issues/260560) ([fc8afa2](https://github.com/worktile/ngx-tethys/commit/fc8afa2))
+* **utils:** add merge and build references dictionary methods [#260560](https://github.com/worktile/ngx-tethys/issues/260560) ([eb1e12f](https://github.com/worktile/ngx-tethys/commit/eb1e12f))
+
+
+
+## [7.5.10](https://github.com/worktile/ngx-tethys/compare/7.5.9...7.5.10) (2019-08-20)
+
+
+### Bug Fixes
+
+* **form:** prevent submit when element has 'contenteditable' attribute ([e6be89e](https://github.com/worktile/ngx-tethys/commit/e6be89e))
+* fix tree drag drop bug ([d8b9898](https://github.com/worktile/ngx-tethys/commit/d8b9898))
+
+
+### Features
+
+* **icon-nav:** add thyIconNavLinkIcon param and add test cases [#259926](https://github.com/worktile/ngx-tethys/issues/259926) ([4489b2d](https://github.com/worktile/ngx-tethys/commit/4489b2d))
+* **layout:** add isolated for sidebar, width support lg 300px [#260322](https://github.com/worktile/ngx-tethys/issues/260322) ([ab843a8](https://github.com/worktile/ngx-tethys/commit/ab843a8))
+
+
+
 ## [7.5.9](https://github.com/worktile/ngx-tethys/compare/7.5.8...7.5.9) (2019-08-16)
 
 

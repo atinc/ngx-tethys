@@ -10,6 +10,7 @@ import { DemoAvatarSizeSectionComponent } from './+avatar/size/size.component';
 import { DemoAvatarTypeSectionComponent } from './+avatar/type/avatar-type.component';
 import { DemoAvatarHasBadgeSectionComponent } from './+avatar/has-badge/has-badge.component';
 import { DemoAvatarRemoveSectionComponent } from './+avatar/remove/remove.component';
+import { DemoAvatarDisabledSectionComponent } from './+avatar/disabled/disabled.component';
 
 import { DemoLabelSectionComponent } from './+label/label-section.component';
 import { DemoLayoutSectionComponent } from './+layout/layout-section.component';
@@ -76,6 +77,7 @@ import { DemoTypographyComponent } from './+typography/typography.component';
 import { DemoPropertyOperationGroupComponent, DemoPropertyOperationBasicComponent } from './+property-operation';
 import { DemoTreeModule } from './+tree';
 import { DemoNavIconNavComponent } from './+nav/icon-nav/icon-nav.component';
+import { DemoLayoutModule } from './+layout';
 
 export const COMPONENTS = [
     DemoTypographyComponent,
@@ -98,6 +100,7 @@ export const COMPONENTS = [
     DemoAvatarSizeSectionComponent,
     DemoAvatarTypeSectionComponent,
     DemoAvatarHasBadgeSectionComponent,
+    DemoAvatarDisabledSectionComponent,
     DemoAvatarRemoveSectionComponent,
 
     DemoLabelSectionComponent,
@@ -175,6 +178,7 @@ export const ENTRY_COMPONENTS = [
     DemoAvatarSizeSectionComponent,
     DemoAvatarTypeSectionComponent,
     DemoAvatarHasBadgeSectionComponent,
+    DemoAvatarDisabledSectionComponent,
     DemoAvatarRemoveSectionComponent,
 
     CreateOverlayComponent,
@@ -191,4 +195,4 @@ export const ENTRY_COMPONENTS = [
     DemoFlexibleTextBasicComponent
 ];
 
-export const DEMO_MODULES = [DialogDemoModule, DemoButtonModule, DemoNotifyModule, DemoTreeModule];
+export const DEMO_MODULES = [DialogDemoModule, DemoButtonModule, DemoNotifyModule, DemoTreeModule, DemoLayoutModule];

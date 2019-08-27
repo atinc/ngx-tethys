@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { LiveDemoCodeExample } from '../../core/live-demo/live-demo.component';
+import { DemoLayoutBasicComponent } from './basic/basic.component';
+import { DemoLayoutFullComponent } from './full/full.component';
+import { DemoLayoutSidebarComponent } from './sidebar/sidebar.component';
 
 @Component({
     selector: 'demo-layout-section',
@@ -6,24 +10,26 @@ import { Component } from '@angular/core';
     styleUrls: ['./layout-section.scss']
 })
 export class DemoLayoutSectionComponent {
-    title = '头部标题';
-
-    activeMenu = 'kanban';
-
     public thyLayoutApiParameters = [];
 
     public thyLayoutSidebarApiParameters = [
         {
-            property: 'thyHasBorderRight',
-            description: '右侧有边框',
-            type: 'Boolean',
-            default: 'true'
+            property: 'thyWidth',
+            description: '宽度, 默认是 240px, 传入 lg 大小时宽度是300px',
+            type: 'number | "lg"',
+            default: ''
         },
         {
-            property: 'thyWidth',
-            description: '宽度',
-            type: 'number',
-            default: ''
+            property: 'thyIsolated',
+            description: '是否和右侧隔离, 当为 true 是距右侧会有 margin, 同时边宽会去掉',
+            type: 'boolean',
+            default: 'false'
+        },
+        {
+            property: 'thyHasBorderRight',
+            description: '右侧是否有边框',
+            type: 'boolean',
+            default: 'true'
         },
         {
             property: 'thyIsDraggableWidth',
@@ -66,11 +72,59 @@ export class DemoLayoutSectionComponent {
         }
     ];
 
-    basicCodeExample = require('!!raw-loader!./basic/basic.component.html');
+    liveDemos: LiveDemoCodeExample[] = [
+        {
+            title: '基本使用',
+            component: DemoLayoutBasicComponent,
+            description: ``,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'basic.component.html',
+                    content: require('!!raw-loader!./basic/basic.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'basic.component.ts',
+                    content: require('!!raw-loader!./basic/basic.component.ts')
+                }
+            ]
+        },
+        {
+            title: '完整使用',
+            component: DemoLayoutFullComponent,
+            description: ``,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'full.component.html',
+                    content: require('!!raw-loader!./full/full.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'full.component.ts',
+                    content: require('!!raw-loader!./full/full.component.ts')
+                }
+            ]
+        },
+        {
+            title: '侧边栏',
+            component: DemoLayoutSidebarComponent,
+            description: ``,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'sidebar.component.html',
+                    content: require('!!raw-loader!./sidebar/sidebar.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'sidebar.component.ts',
+                    content: require('!!raw-loader!./sidebar/sidebar.component.ts')
+                }
+            ]
+        }
+    ];
 
     constructor() {}
-
-    setActiveMenu(menu: string) {
-        this.activeMenu = menu;
-    }
 }
