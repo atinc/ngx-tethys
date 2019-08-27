@@ -198,5 +198,3 @@ export function indexKeyBy<T>(array: T[], key: T extends object ? keyof T : neve
     });
     return result;
 }
-
-export * from './references';

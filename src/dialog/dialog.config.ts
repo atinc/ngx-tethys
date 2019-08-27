@@ -33,7 +33,8 @@ export enum ThyDialogSizes {
     supperLg = 'supper-lg',
     maxLg = 'max-lg',
     md = 'md',
-    sm = 'sm'
+    sm = 'sm',
+    full = 'full'
 }
 
 /**

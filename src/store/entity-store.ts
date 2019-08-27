@@ -1,7 +1,7 @@
 import { Store } from './store';
 import { Id, PaginationInfo } from './types';
 import { helpers, produce } from '../util';
-import { mergeReferences, buildReferencesKeyBy, ReferenceArrayExtractAllowKeys } from '../util/helpers';
+import { mergeReferences, buildReferencesKeyBy, ReferenceArrayExtractAllowKeys } from '../util/references';
 import { map } from 'rxjs/operators';
 import { ReferencesIdDictionary, OnCombineRefsFn } from './references';
 
