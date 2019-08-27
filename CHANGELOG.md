@@ -1,3 +1,12 @@
+## [7.5.12](https://github.com/worktile/ngx-tethys/compare/7.5.11...7.5.12) (2019-08-27)
+
+
+### Bug Fixes
+
+* **dialog:** [#000](https://github.com/worktile/ngx-tethys/issues/000) dialog add eunm full/remove export referenes ([66eb78f](https://github.com/worktile/ngx-tethys/commit/66eb78f))
+
+
+
 ## [7.5.11](https://github.com/worktile/ngx-tethys/compare/7.5.10...7.5.11) (2019-08-26)
 
 
