@@ -302,7 +302,7 @@ export class EntityStore<
     remove(idsOrFn?: Id | Id[] | ((entity: Readonly<TEntity>) => boolean)): void {
         const state = this.snapshot;
         const originalLength = state.entities.length;
-        state.entities = produce(state.entities).remove(idsOrFn);
+        state.entities = produce(state.entities, this.options).remove(idsOrFn);
         this.decreasePagination(originalLength - state.entities.length);
         this.next(state);
     }
