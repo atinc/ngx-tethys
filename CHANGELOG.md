@@ -1,3 +1,12 @@
+## [7.5.13](https://github.com/worktile/ngx-tethys/compare/7.5.12...7.5.13) (2019-08-27)
+
+
+### Bug Fixes
+
+* **entity-store:** should remove by id when idKey is custom ([0985408](https://github.com/worktile/ngx-tethys/commit/0985408))
+
+
+
 ## [7.5.12](https://github.com/worktile/ngx-tethys/compare/7.5.11...7.5.12) (2019-08-27)
 
 
