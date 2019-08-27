@@ -1,4 +1,4 @@
-import { ArrayInferExtract } from '../util/helpers';
+import { ArrayInferExtract } from '../util/references';
 
 export type ReferencesIdDictionary<TReferences> = {
     [key in keyof TReferences]?: { [key: string]: ArrayInferExtract<TReferences[key]> }
