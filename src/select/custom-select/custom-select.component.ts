@@ -29,7 +29,9 @@ import {
     ThyOptionComponent,
     OptionSelectionChange,
     THY_SELECT_OPTION_PARENT_COMPONENT,
-    IThySelectOptionParentComponent
+    IThySelectOptionParentComponent,
+    _countGroupLabelsBeforeOption,
+    _getOptionScrollPosition
 } from './option.component';
 import { inputValueToBoolean, isArray } from '../../util/helpers';
 import {
@@ -48,6 +50,7 @@ import { ThySelectOptionGroupComponent } from './option-group.component';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ThyScrollDirective } from '../../directive/thy-scroll.directive';
 import { helpers } from '../../util';
+import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 
 export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -125,7 +128,7 @@ export class ThySelectCustomComponent
     triggerRect: ClientRect;
 
     /** Emits whenever the component is destroyed. */
-    private readonly _destroy$ = new Subject<void>();
+    private readonly destroy$ = new Subject<void>();
 
     private onTouchedCallback: () => void = noop;
 
@@ -136,6 +139,8 @@ export class ThySelectCustomComponent
     @HostBinding('class.thy-select') _isSelect = true;
 
     _panelOpen = false;
+
+    keyManager: ActiveDescendantKeyManager<ThyOptionComponent>;
 
     // 下拉选项是否展示
     @HostBinding('class.menu-is-opened')
@@ -222,6 +227,8 @@ export class ThySelectCustomComponent
 
     @ViewChild('trigger', { read: ElementRef }) trigger: ElementRef<any>;
 
+    @ViewChild('#panel', { read: ElementRef }) panel: ElementRef<any>;
+
     @ContentChildren(ThyOptionComponent, { descendants: true }) options: QueryList<ThyOptionComponent>;
 
     @ContentChildren(ThySelectOptionGroupComponent) optionGroups: QueryList<ThySelectOptionGroupComponent>;
@@ -268,7 +275,7 @@ export class ThySelectCustomComponent
         this._scrollStrategy = this.overlay.scrollStrategies.reposition();
         this.viewportRuler
             .change()
-            .pipe(takeUntil(this._destroy$))
+            .pipe(takeUntil(this.destroy$))
             .subscribe(() => {
                 if (this._panelOpen) {
                     this.triggerRect = this.trigger.nativeElement.getBoundingClientRect();
@@ -289,7 +296,7 @@ export class ThySelectCustomComponent
         this.options.changes
             .pipe(
                 startWith(null),
-                takeUntil(this._destroy$)
+                takeUntil(this.destroy$)
             )
             .subscribe(() => {
                 this._resetOptions();
@@ -320,7 +327,7 @@ export class ThySelectCustomComponent
     }
 
     _resetOptions() {
-        const changedOrDestroyed$ = merge(this.options.changes, this._destroy$);
+        const changedOrDestroyed$ = merge(this.options.changes, this.destroy$);
 
         this.optionSelectionChanges.pipe(takeUntil(changedOrDestroyed$)).subscribe((event: OptionSelectionChange) => {
             this._onSelect(event.option);
@@ -470,7 +477,7 @@ export class ThySelectCustomComponent
             this.selectionModelSubscription = null;
         }
         this.selectionModelSubscription = this._selectionModel.onChange
-            .pipe(takeUntil(this._destroy$))
+            .pipe(takeUntil(this.destroy$))
             .subscribe(event => {
                 event.added.forEach(option => option.select());
                 event.removed.forEach(option => option.deselect());
@@ -510,7 +517,7 @@ export class ThySelectCustomComponent
         //                 this._optionsContainer.nativeElement,
         //                 'scroll'
         //             )
-        //                 .pipe(takeUntil(this._destroy$))
+        //                 .pipe(takeUntil(this.destroy$))
         //                 .subscribe(this._optionsContainerScrolling))
         //     );
         // }
@@ -530,8 +537,42 @@ export class ThySelectCustomComponent
         }
     }
 
+    private initKeyManager() {
+        this.keyManager = new ActiveDescendantKeyManager<ThyOptionComponent>(this.options)
+            .withTypeAhead()
+            .withVerticalOrientation()
+            .withAllowedModifierKeys(['shiftKey']);
+
+        this.keyManager.tabOut.pipe(takeUntil(this.destroy$)).subscribe(() => {
+            // Restore focus to the trigger before closing. Ensures that the focus
+            // position won't be lost if the user got focus into the overlay.
+            //   this.focus();
+            this.close();
+        });
+        this.keyManager.change.pipe(takeUntil(this.destroy$)).subscribe(() => {
+            if (this._panelOpen && this.panel) {
+                this._scrollActiveOptionIntoView();
+            } else if (!this._panelOpen && !this.isMultiple() && this.keyManager.activeItem) {
+                this.keyManager.activeItem.setInactiveStyles();
+            }
+        });
+    }
+
+    /** Scrolls the active option into view. */
+    private _scrollActiveOptionIntoView(): void {
+        const activeOptionIndex = this.keyManager.activeItemIndex || 0;
+        const labelCount = _countGroupLabelsBeforeOption(activeOptionIndex, this.options, this.optionGroups);
+
+        // this.panel.nativeElement.scrollTop = _getOptionScrollPosition(
+        //     activeOptionIndex + labelCount,
+        //     this._getItemHeight(),
+        //     this.panel.nativeElement.scrollTop,
+        //     SELECT_PANEL_MAX_HEIGHT
+        // );
+    }
+
     ngOnDestroy() {
-        this._destroy$.next();
-        this._destroy$.complete();
+        this.destroy$.next();
+        this.destroy$.complete();
     }
 }

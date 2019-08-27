@@ -13,8 +13,11 @@ import {
     OnDestroy,
     Output,
     Inject,
-    Optional
+    Optional,
+    QueryList
 } from '@angular/core';
+import { Highlightable } from '@angular/cdk/a11y';
+import { ThyOptionGroupComponent } from '../..';
 export class OptionSelectionChange {
     option: ThyOptionComponent;
     selected: boolean;
@@ -35,12 +38,61 @@ export const THY_SELECT_OPTION_PARENT_COMPONENT = new InjectionToken<IThySelectO
     'THY_SELECT_OPTION_PARENT_COMPONENT'
 );
 
+export function _countGroupLabelsBeforeOption(
+    optionIndex: number,
+    options: QueryList<ThyOptionComponent>,
+    optionGroups: QueryList<ThyOptionGroupComponent>
+): number {
+    if (optionGroups.length) {
+        const optionsArray = options.toArray();
+        const groups = optionGroups.toArray();
+        let groupCounter = 0;
+
+        for (let i = 0; i < optionIndex + 1; i++) {
+            if (optionsArray[i].group && optionsArray[i].group === groups[groupCounter]) {
+                groupCounter++;
+            }
+        }
+
+        return groupCounter;
+    }
+
+    return 0;
+}
+
+/**
+ * Determines the position to which to scroll a panel in order for an option to be into view.
+ * @param optionIndex Index of the option to be scrolled into the view.
+ * @param optionHeight Height of the options.
+ * @param currentScrollPosition Current scroll position of the panel.
+ * @param panelHeight Height of the panel.
+ * @docs-private
+ */
+export function _getOptionScrollPosition(
+    optionIndex: number,
+    optionHeight: number,
+    currentScrollPosition: number,
+    panelHeight: number
+): number {
+    const optionOffset = optionIndex * optionHeight;
+
+    if (optionOffset < currentScrollPosition) {
+        return optionOffset;
+    }
+
+    if (optionOffset + optionHeight > currentScrollPosition + panelHeight) {
+        return Math.max(0, optionOffset - panelHeight + optionHeight);
+    }
+
+    return currentScrollPosition;
+}
+
 @Component({
     selector: 'thy-option',
     templateUrl: './option.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ThyOptionComponent implements OnDestroy {
+export class ThyOptionComponent implements OnDestroy, Highlightable {
     private _selected = false;
     private _hidden = false;
     @Input() thyValue: any;
@@ -61,6 +113,8 @@ export class ThyOptionComponent implements OnDestroy {
     @HostBinding(`class.disabled`)
     thyDisabled: boolean;
 
+    disabled?: boolean;
+
     @HostBinding('class.hidden')
     get hidden(): boolean {
         return this._hidden;
@@ -78,8 +132,14 @@ export class ThyOptionComponent implements OnDestroy {
     constructor(
         public element: ElementRef<HTMLElement>,
         @Optional() @Inject(THY_SELECT_OPTION_PARENT_COMPONENT) public parent: IThySelectOptionParentComponent,
+        @Optional() readonly group: ThyOptionGroupComponent,
         private cdr: ChangeDetectorRef
     ) {}
+
+    /** Gets the host DOM element. */
+    getHostElement(): HTMLElement {
+        return this.element.nativeElement;
+    }
 
     @HostListener('click', ['$event'])
     onClick(event: Event) {
@@ -146,6 +206,20 @@ export class ThyOptionComponent implements OnDestroy {
                 return false;
             }
         }
+    }
+
+    setActiveStyles(): void {
+        this.getHostElement().classList.add('hover');
+        this.cdr.markForCheck();
+    }
+
+    setInactiveStyles(): void {
+        this.getHostElement().classList.remove('hover');
+        this.cdr.markForCheck();
+    }
+
+    getLabel?(): string {
+        return this.thyLabelText || (this.getHostElement().textContent || '').trim();
     }
 
     ngOnDestroy() {}

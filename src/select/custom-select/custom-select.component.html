@@ -32,6 +32,7 @@
   <div [ngClass]="dropDownClass" (mouseleave)="onSelectContainerMouseleave($event)">
     <ng-container *ngIf="options.length > 0 || optionGroups.length > 0; else emptyPlaceholder">
       <div
+        #panel
         class="thy-select-custom-options"
         thyScroll
         (thyOnScrolled)="optionsContainerScrolled($event)"
