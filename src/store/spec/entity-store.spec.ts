@@ -44,15 +44,14 @@ describe('Store: EntityStore', () => {
     it('should get initialize data when call store initialize', () => {
         const taskEntityStore = new TasksEntityStore();
         taskEntityStore.initialize(initialTasks, {
-            pageIndex: 1,
+            pageIndex: 2,
             pageSize: 20,
             pageCount: 20
         });
         const state = taskEntityStore.snapshot;
         expect(state.entities).toEqual([{ _id: '1', name: 'task 1' }, { _id: '2', name: 'task 2' }]);
-        expect(state.pageIndex).toEqual(1);
         expect(state.pagination).toEqual({
-            pageIndex: 1,
+            pageIndex: 2,
             pageSize: 20,
             pageCount: 20
         });
@@ -68,8 +67,7 @@ describe('Store: EntityStore', () => {
                     pageIndex: 1,
                     pageSize: 10,
                     count: initialTasks.length
-                },
-                pageIndex: 1
+                }
             });
         });
 
@@ -121,8 +119,7 @@ describe('Store: EntityStore', () => {
                     pageSize: 10,
                     pageCount: 1,
                     count: initialTasks.length
-                },
-                pageIndex: 1
+                }
             });
             const addEntities = [];
             for (let index = 0; index < 9; index++) {
@@ -133,7 +130,6 @@ describe('Store: EntityStore', () => {
             }
             const state = tasksEntityStore.snapshot;
             const originalPagination = state.pagination;
-            expect(state.pageIndex).toEqual(1);
             expect(state.pagination).toEqual({
                 pageIndex: 1,
                 count: initialTasks.length,
@@ -143,7 +139,6 @@ describe('Store: EntityStore', () => {
             tasksEntityStore.add(addEntities, {
                 autoGotoLastPage: true
             });
-            expect(state.pageIndex).toEqual(2);
             expect(state.pagination).toEqual({
                 pageIndex: 2,
                 count: initialTasks.length + addEntities.length,
@@ -165,8 +160,7 @@ describe('Store: EntityStore', () => {
                     pageIndex: 1,
                     pageSize: 10,
                     count: 2
-                },
-                pageIndex: 1
+                }
             });
         });
 
@@ -228,8 +222,7 @@ describe('Store: EntityStore', () => {
                     pageIndex: 1,
                     pageSize: 10,
                     count: 11
-                },
-                pageIndex: 1
+                }
             });
             const state = tasksEntityStore.snapshot;
             const originalPagination = state.pagination;
@@ -266,8 +259,7 @@ describe('Store: EntityStore', () => {
         beforeEach(() => {
             tasksEntityStore = new TasksEntityStore({
                 entities: initialTasks,
-                pagination: null,
-                pageIndex: 1
+                pagination: null
             });
         });
 
@@ -335,6 +327,32 @@ describe('Store: EntityStore', () => {
                 { uid: 'user-1', name: 'new user1 name' },
                 { uid: 'user-2', name: 'user name-2' }
             ]);
+        });
+    });
+
+    describe('clear', () => {
+        it('should clear entities and pagination', () => {
+            const tasksEntityStore = new TasksEntityStore({
+                entities: initialTasks,
+                pagination: { pageIndex: 1, count: 100, pageSize: 20 }
+            });
+            expect(tasksEntityStore.snapshot.entities).toEqual(initialTasks);
+            expect(tasksEntityStore.snapshot.pagination).toEqual({ pageIndex: 1, count: 100, pageSize: 20 });
+            tasksEntityStore.clear();
+            expect(tasksEntityStore.snapshot.entities).toEqual([]);
+            expect(tasksEntityStore.snapshot.pagination).toEqual(null);
+        });
+
+        it('should clear pagination', () => {
+            const tasksEntityStore = new TasksEntityStore({
+                entities: initialTasks,
+                pagination: { pageIndex: 1, count: 100, pageSize: 20 }
+            });
+            expect(tasksEntityStore.snapshot.entities).toEqual(initialTasks);
+            expect(tasksEntityStore.snapshot.pagination).toEqual({ pageIndex: 1, count: 100, pageSize: 20 });
+            tasksEntityStore.clearPagination();
+            expect(tasksEntityStore.snapshot.entities).toEqual(initialTasks);
+            expect(tasksEntityStore.snapshot.pagination).toEqual(null);
         });
     });
 });
