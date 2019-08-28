@@ -53,7 +53,7 @@ export class EntityStore<
                     }
                     this['onCombineRefs'](newEntity, this.internalReferencesIdMap, this.snapshot.references);
                 } else {
-                    throw new Error(`onCombineRefs is not `);
+                    throw new Error(`onCombineRefs is not empty`);
                 }
                 return newEntity;
             });
