@@ -95,7 +95,9 @@ export class ThyPropertyOperationComponent implements OnInit, AfterContentInit {
         this.setHostClass();
     }
 
-    @Input('thyDisabled') disabled: boolean;
+    @HostBinding('class.thy-property-operation-disabled')
+    @Input('thyDisabled')
+    disabled: boolean;
 
     private setHostClass(first = false) {
         if (!this.initialized && !first) {
