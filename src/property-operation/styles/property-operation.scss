@@ -1,28 +1,29 @@
 .thy-property-operation {
     display: inline-flex;
     align-items: center;
-    cursor: pointer;
     position: relative;
     padding-right: 20px;
 
     // .thy-operation-icon {
     //     display: inline-flex;
     // }
-    @include hover {
-        .btn-icon-circle.border-thick:not(:hover):not(.invalid) i,
-        .btn-icon-circle.border-thick:not(:hover):not(.invalid) .wtf,
-        .btn-icon-circle.border-thick:not(:hover):not(.invalid) .thy-icon,
-        .btn-icon-circle.border-thick:not(:hover):not(.invalid) thy-icon {
-            color: $primary;
-            border-color: $primary;
-        }
+    &.cursor-pointer {
+        @include hover {
+            .btn-icon-circle.border-thick:not(:hover):not(.invalid) i,
+            .btn-icon-circle.border-thick:not(:hover):not(.invalid) .wtf,
+            .btn-icon-circle.border-thick:not(:hover):not(.invalid) .thy-icon,
+            .btn-icon-circle.border-thick:not(:hover):not(.invalid) thy-icon {
+                color: $primary;
+                border-color: $primary;
+            }
 
-        .thy-operation-content.only-has-tips > .thy-tips {
-            color: $primary;
-        }
+            .thy-operation-content.only-has-tips > .thy-tips {
+                color: $primary;
+            }
 
-        .close-link {
-            visibility: visible;
+            .close-link {
+                visibility: visible;
+            }
         }
     }
 

@@ -13,6 +13,9 @@
       <label thyCheckbox thyLabelText="Show Close" [(ngModel)]="showClose" name="showClose"></label>
     </thy-form-group>
     <thy-form-group thyLabelText="">
+      <label thyCheckbox thyLabelText="Disabled" [(ngModel)]="disabled" name="disabled"></label>
+    </thy-form-group>
+    <thy-form-group thyLabelText="">
       <label
         thyCheckbox
         thyLabelText="Label hide when has value"
@@ -25,6 +28,8 @@
     <thy-property-operation
       thyLabelText="截止时间"
       [thyShowClose]="showClose"
+      [thyDisabled]="disabled"
+      (thyClick)="sayHi()"
       [thyType]="type"
       [thyLabelHideWhenHasValue]="labelHideWhenHasValue"
       thyValue=""

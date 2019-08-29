@@ -18,6 +18,12 @@ export const apiParameters = [
         default: ''
     },
     {
+        property: 'thyType',
+        description: '属性类型, danger | primary | success | warning | null',
+        type: 'string',
+        default: 'null'
+    },
+    {
         property: 'thyIcon',
         description: '图标',
         type: 'string',
@@ -42,9 +48,21 @@ export const apiParameters = [
         default: 'false'
     },
     {
-        property: 'thyType',
-        description: '属性类型, danger | primary | success | warning | null',
-        type: 'string',
+        property: 'thyDisabled',
+        description: '禁用操作，添加后property operation中thyClick和thyOnRemove事件将会被禁用',
+        type: 'boolean',
+        default: 'false'
+    },
+    {
+        property: 'thyClick',
+        description: 'property operation的点击事件回调',
+        type: 'Function',
+        default: 'null'
+    },
+    {
+        property: 'thyOnRemove',
+        description: 'property operation点击移除图标时的事件回调，此函数只有在thyShowClose为true时才会发生',
+        type: 'Function',
         default: 'null'
     }
 ];

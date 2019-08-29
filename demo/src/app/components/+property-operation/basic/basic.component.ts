@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 export class DemoPropertyOperationBasicComponent implements OnInit {
     startDate: null;
 
+    disabled = false;
+
     dateTime = {
         date: Math.floor(new Date().valueOf() / 1000),
         with_time: false
@@ -29,5 +31,9 @@ export class DemoPropertyOperationBasicComponent implements OnInit {
             date: null,
             with_time: false
         };
+    }
+
+    sayHi() {
+        console.log('hi!');
     }
 }
