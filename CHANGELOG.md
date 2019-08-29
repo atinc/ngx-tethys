@@ -1,3 +1,24 @@
+## [7.5.14](https://github.com/worktile/ngx-tethys/compare/7.5.13...7.5.14) (2019-08-29)
+
+
+### Bug Fixes
+
+* **property-operation:** del theme cursor pointer ([341180c](https://github.com/worktile/ngx-tethys/commit/341180c))
+* fix button shake when change button is disabled ([74775ad](https://github.com/worktile/ngx-tethys/commit/74775ad))
+* **entity-store:** incorrect error message ([7512d0a](https://github.com/worktile/ngx-tethys/commit/7512d0a))
+* **entity-store:** remove pageIndex and add clearPagination [#261249](https://github.com/worktile/ngx-tethys/issues/261249) ([fd689ca](https://github.com/worktile/ngx-tethys/commit/fd689ca))
+* **property-operation:** change doc ([837f338](https://github.com/worktile/ngx-tethys/commit/837f338))
+* **property-operation:** del cursor pointer ([83f30e8](https://github.com/worktile/ngx-tethys/commit/83f30e8))
+* fix button shake when change button is disabled ([e2dadc9](https://github.com/worktile/ngx-tethys/commit/e2dadc9))
+* fix tree drag drop bug ([600e047](https://github.com/worktile/ngx-tethys/commit/600e047))
+
+
+### Features
+
+* **property-operation:** feat thyDisabled and thyClick[#261473](https://github.com/worktile/ngx-tethys/issues/261473) ([c6eb973](https://github.com/worktile/ngx-tethys/commit/c6eb973))
+
+
+
 ## [7.5.13](https://github.com/worktile/ngx-tethys/compare/7.5.12...7.5.13) (2019-08-27)
 
 
