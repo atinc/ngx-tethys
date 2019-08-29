@@ -74,7 +74,6 @@ describe('Store: EntityStore with refs', () => {
             { _id: 'task-1', title: 'task 1', group_id: 'group-1', created_by: '1' },
             { _id: 'task-2', title: 'task 2', group_id: 'group-2', created_by: '2' }
         ]);
-        expect(state.pageIndex).toEqual(1);
         expect(state.pagination).toEqual({
             pageIndex: 1,
             pageSize: 20,
@@ -87,7 +86,6 @@ describe('Store: EntityStore with refs', () => {
         const tasksStore = new TasksStore(
             {
                 entities: initialTasks,
-                pageIndex: 0,
                 pagination: {
                     pageIndex: 1,
                     pageSize: 10,
@@ -138,7 +136,6 @@ describe('Store: EntityStore with refs', () => {
         const tasksStore = new TasksStore(
             {
                 entities: initialTasks,
-                pageIndex: 0,
                 pagination: {
                     pageIndex: 1,
                     pageSize: 10,
@@ -198,7 +195,6 @@ describe('Store: EntityStore with refs', () => {
                         pageSize: 10,
                         count: initialTasks.length
                     },
-                    pageIndex: 1,
                     references: { groups: initialGroups, users: initialUsers }
                 },
                 {
@@ -281,7 +277,6 @@ describe('Store: EntityStore with refs', () => {
                 {
                     entities: initialTasks,
                     pagination: null,
-                    pageIndex: 1,
                     references: {
                         groups: initialGroups
                     }
@@ -318,6 +313,25 @@ describe('Store: EntityStore with refs', () => {
             });
             expect(state.references.groups).toEqual([...initialGroups, group3]);
             expect(originalEntities === state.entities).toEqual(false, 'new state is immutable');
+        });
+    });
+
+    describe('clear', () => {
+        it('should clear entities, references pagination', () => {
+            const tasksEntityStore = new TasksStore({
+                entities: initialTasks,
+                pagination: { pageIndex: 1, count: 100, pageSize: 20 },
+                references: {
+                    groups: initialGroups
+                }
+            });
+            expect(tasksEntityStore.snapshot.references).toEqual({
+                groups: initialGroups
+            });
+            tasksEntityStore.clear();
+            expect(tasksEntityStore.snapshot.entities).toEqual([]);
+            expect(tasksEntityStore.snapshot.pagination).toEqual(null);
+            expect(tasksEntityStore.snapshot.references).toEqual(null);
         });
     });
 });

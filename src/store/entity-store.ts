@@ -17,7 +17,6 @@ export interface EntityAddOptions {
 }
 
 export interface EntityState<TEntity, TReferences = undefined> {
-    pageIndex?: number;
     pagination?: PaginationInfo;
     entities: TEntity[];
     references?: TReferences;
@@ -48,20 +47,18 @@ export class EntityStore<
             return entities.map(entity => {
                 const newEntity = { ...entity };
 
-                if (this.onCombineRefs) {
+                if (this['onCombineRefs']) {
                     if (!newEntity['refs']) {
                         newEntity['refs'] = {};
                     }
-                    this.onCombineRefs(newEntity, this.internalReferencesIdMap, this.snapshot.references);
+                    this['onCombineRefs'](newEntity, this.internalReferencesIdMap, this.snapshot.references);
                 } else {
-                    throw new Error(`onCombineRefs is not `);
+                    throw new Error(`onCombineRefs is not empty`);
                 }
                 return newEntity;
             });
         })
     );
-
-    onCombineRefs(entity: TEntity, referencesIdMap: ReferencesIdDictionary<TReferences>, references?: TReferences) {}
 
     private resetPagination(pagination: PaginationInfo, count: number) {
         pagination.count = count;
@@ -94,7 +91,6 @@ export class EntityStore<
 
     constructor(
         initialState: EntityState<TEntity, TReferences> = {
-            pageIndex: 1,
             entities: [] as TEntity[]
         },
         options: EntityStoreOptions<TEntity, TReferences> = { idKey: '_id' }
@@ -157,7 +153,7 @@ export class EntityStore<
         if (state.pagination) {
             this.increasePagination(addEntities.length);
             if (addOptions && !addOptions.prepend && addOptions.autoGotoLastPage) {
-                state.pageIndex = state.pagination.pageIndex = state.pagination.pageCount;
+                state.pagination.pageIndex = state.pagination.pageCount;
             }
         }
         this.next(state);
@@ -311,10 +307,17 @@ export class EntityStore<
         return entity[this.options.idKey];
     }
 
+    clearPagination() {
+        const state = this.snapshot;
+        state.pagination = null;
+        this.next(state);
+    }
+
     clear() {
         const state = this.snapshot;
-        state.pageIndex = 1;
         state.entities = [];
         state.pagination = null;
+        state.references = null;
+        this.next(state);
     }
 }
