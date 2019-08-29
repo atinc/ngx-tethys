@@ -198,7 +198,7 @@ fieldset:disabled a.btn {
     &:disabled,
     &.disabled {
         color: $btn-link-disabled-color;
-        border: none;
+        border: $btn-border-width solid transparent;
     }
 
     // No need for an active state here
