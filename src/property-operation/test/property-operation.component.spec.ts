@@ -126,7 +126,7 @@ describe('ThyPropertyOperation', () => {
             fixture.detectChanges();
             propertyOperationElement.click();
             expect(fixture.nativeElement.querySelector('.close-link')).toBeNull();
-            expect(propertyOperationElement.classList.contains('cursor-pointer')).toBeFalsy();
+            expect(propertyOperationElement.classList.contains('thy-property-operation-disabled')).toBeTruthy();
         });
     });
 });

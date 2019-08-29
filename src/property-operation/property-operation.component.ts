@@ -46,6 +46,10 @@ export class ThyPropertyOperationComponent implements OnInit, AfterContentInit {
 
     @HostBinding('class.thy-property-operation') _isPropertyOperation = true;
 
+    @HostBinding('class.thy-property-operation-disabled') get isPropertyOperationDisabled() {
+        return this.disabled;
+    }
+
     @HostBinding('class.cursor-pointer') get hasDisabled() {
         return !this.disabled;
     }

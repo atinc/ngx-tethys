@@ -56,13 +56,13 @@ export const apiParameters = [
     {
         property: 'thyClick',
         description: 'property operation的点击事件回调',
-        type: 'Function',
+        type: 'EventEmitter<Event>',
         default: 'null'
     },
     {
         property: 'thyOnRemove',
         description: 'property operation点击移除图标时的事件回调，此函数只有在thyShowClose为true时才会发生',
-        type: 'Function',
+        type: 'EventEmitter',
         default: 'null'
     }
 ];

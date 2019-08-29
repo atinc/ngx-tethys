@@ -7,7 +7,7 @@
     // .thy-operation-icon {
     //     display: inline-flex;
     // }
-    &.cursor-pointer {
+    &.thy-property-operation-disabled {
         @include hover {
             .btn-icon-circle.border-thick:not(:hover):not(.invalid) i,
             .btn-icon-circle.border-thick:not(:hover):not(.invalid) .wtf,
