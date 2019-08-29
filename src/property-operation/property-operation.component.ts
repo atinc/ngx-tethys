@@ -50,10 +50,6 @@ export class ThyPropertyOperationComponent implements OnInit, AfterContentInit {
         return this.disabled;
     }
 
-    @HostBinding('class.cursor-pointer') get hasDisabled() {
-        return !this.disabled;
-    }
-
     @ContentChild('operationIcon') operationIcon: TemplateRef<any>;
 
     @ViewChild('contentElement') contentElement: ElementRef;

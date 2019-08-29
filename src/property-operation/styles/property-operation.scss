@@ -1,5 +1,6 @@
 .thy-property-operation {
     display: inline-flex;
+    cursor: pointer;
     align-items: center;
     position: relative;
     padding-right: 20px;
@@ -8,6 +9,9 @@
     //     display: inline-flex;
     // }
     &.thy-property-operation-disabled {
+        cursor: auto;
+    }
+    &:not(.thy-property-operation-disabled) {
         @include hover {
             .btn-icon-circle.border-thick:not(:hover):not(.invalid) i,
             .btn-icon-circle.border-thick:not(:hover):not(.invalid) .wtf,
