@@ -74,6 +74,7 @@
     .thy-icon {
         @include button-icon-margin(7px);
     }
+
     &.btn-sm,
     &.btn-xs {
         i,
@@ -198,6 +199,7 @@ fieldset:disabled a.btn {
     &:disabled,
     &.disabled {
         color: $btn-link-disabled-color;
+        border-color: transparent;
     }
 
     // No need for an active state here
