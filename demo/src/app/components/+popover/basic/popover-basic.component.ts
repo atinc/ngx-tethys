@@ -87,6 +87,7 @@ export class DemoPopoverContentComponent {}
 export class DemoPopoverBasicComponent extends mixinUnsubscribe(MixinBase) implements OnInit {
     placement: ThyPlacement = 'bottom';
     trigger = 'click';
+    hasBackdrop = true;
 
     constructor(private thyPopover: ThyPopover, private viewContainerRef: ViewContainerRef, private ngZone: NgZone) {
         super();
@@ -98,6 +99,7 @@ export class DemoPopoverBasicComponent extends mixinUnsubscribe(MixinBase) imple
         this.thyPopover.open(DemoPopoverContentComponent, {
             origin: element.elementRef,
             placement: this.placement,
+            hasBackdrop: this.hasBackdrop,
             panelClass: 'demo-popover',
             insideClosable: true
         });
@@ -106,6 +108,17 @@ export class DemoPopoverBasicComponent extends mixinUnsubscribe(MixinBase) imple
     openTemplatePopover(element: { elementRef: ElementRef }, template: TemplateRef<HTMLElement>) {
         this.thyPopover.open(template, {
             origin: element.elementRef,
+            hasBackdrop: this.hasBackdrop,
+            placement: this.placement,
+            panelClass: 'demo-popover'
+        });
+    }
+
+    openTemplatePopoverMultiple(element: { elementRef: ElementRef }, template: TemplateRef<HTMLElement>) {
+        this.thyPopover.open(template, {
+            origin: element.elementRef,
+            multiple: true,
+            hasBackdrop: this.hasBackdrop,
             placement: this.placement,
             panelClass: 'demo-popover'
         });

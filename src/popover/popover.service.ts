@@ -16,7 +16,7 @@ import {
     Inject,
     NgZone
 } from '@angular/core';
-import { coerceElement } from '@angular/cdk/coercion';
+import { coerceElement, coerceArray } from '@angular/cdk/coercion';
 import { PortalInjector, ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
 import { ThyPopoverContainerComponent } from './popover-container.component';
 import { ThyPopoverConfig, THY_POPOVER_DEFAULT_CONFIG } from './popover.config';
@@ -31,6 +31,14 @@ import { helpers } from '../util';
     providedIn: 'root'
 })
 export class ThyPopover implements OnDestroy {
+    private originInstancesMap = new Map<
+        ElementRef | HTMLElement,
+        {
+            config: ThyPopoverConfig;
+            popoverRef: ThyPopoverRef<any, any>;
+        }
+    >();
+
     private currentPopoverRef: ThyPopoverRef<any, any>;
 
     private readonly _afterOpened = new Subject<ThyPopoverRef<any>>();
@@ -160,6 +168,16 @@ export class ThyPopover implements OnDestroy {
         return popoverRef;
     }
 
+    private originElementAddActivatedClass(config: ThyPopoverConfig) {
+        const nativeElement: HTMLElement = (config.origin as ElementRef).nativeElement || config.origin;
+        nativeElement.classList.add(...coerceArray(config.originActivatedClass));
+    }
+
+    private originElementDeleteActivatedClass(config: ThyPopoverConfig) {
+        const nativeElement: HTMLElement = (config.origin as ElementRef).nativeElement || config.origin;
+        nativeElement.classList.remove(...coerceArray(config.originActivatedClass));
+    }
+
     constructor(
         private overlay: Overlay,
         private injector: Injector,
@@ -172,9 +190,24 @@ export class ThyPopover implements OnDestroy {
         componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
         config?: ThyPopoverConfig<TData>
     ): ThyPopoverRef<T, TResult> {
-        if (this.currentPopoverRef) {
-            this.currentPopoverRef.close();
+        let isHadOpenedNeedClose = false;
+        this.originInstancesMap.forEach((value, key) => {
+            if (value.config.multiple) {
+                if (key === config.origin) {
+                    value.popoverRef.close();
+                    isHadOpenedNeedClose = true;
+                }
+            } else {
+                if (key === config.origin) {
+                    isHadOpenedNeedClose = true;
+                }
+                value.popoverRef.close();
+            }
+        });
+        if (isHadOpenedNeedClose) {
+            return;
         }
+
         config = { ...this.defaultConfig, ...config };
         const overlayConfig = this.buildOverlayConfig(config);
         const overlayRef = this.overlay.create(overlayConfig);
@@ -190,6 +223,15 @@ export class ThyPopover implements OnDestroy {
 
         popoverRef.afterClosed().subscribe(() => {
             this.currentPopoverRef = null;
+            this.originElementDeleteActivatedClass(config);
+            this.originInstancesMap.delete(config.origin);
+        });
+
+        this.originElementAddActivatedClass(config);
+
+        this.originInstancesMap.set(config.origin, {
+            config,
+            popoverRef
         });
 
         this._afterOpened.next(popoverRef);
@@ -221,6 +263,15 @@ export class ThyPopover implements OnDestroy {
     // }
 
     close() {
+        if (this.currentPopoverRef) {
+            this.currentPopoverRef.close();
+        }
+    }
+
+    closeAll() {
+        this.originInstancesMap.forEach((value, key) => {
+            value.popoverRef.close();
+        });
         if (this.currentPopoverRef) {
             this.currentPopoverRef.close();
         }
