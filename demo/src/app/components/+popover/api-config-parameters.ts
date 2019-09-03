@@ -12,12 +12,6 @@ export const apiPopoverConfigParameters = [
         default: 'popover-origin-activated'
     },
     {
-        property: 'originActivatedClass',
-        description: '对弹出悬浮层位置计算的 Origin Element，Connected Element，设置',
-        type: 'string | string[]',
-        default: 'popover-origin-activated'
-    },
-    {
         property: 'multiple',
         description: `是否可以多次打开，唯一标识为origin`,
         type: 'boolean',
