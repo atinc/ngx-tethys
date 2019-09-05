@@ -38,7 +38,7 @@ export class ThyPopoverConfig<TData = any> {
     offset?: number;
     manualClosure?: boolean;
     preventAutoCloseLast?: boolean;
-    originActivatedClass?: string | string[];
+    originActiveClass?: string | string[];
     /** Min-width of the dialog. If a number is provided, pixel units are assumed. */
     minWidth?: number | string;
 
@@ -67,6 +67,6 @@ export const THY_POPOVER_DEFAULT_CONFIG_PROVIDER = {
         insideClosable: false,
         manualClosure: false,
         preventAutoCloseLast: false,
-        originActivatedClass: 'thy-popover-origin-active'
+        originActiveClass: 'thy-popover-origin-active'
     }
 };

@@ -87,7 +87,7 @@ export class PopoverManualClosureContentComponent {
     open2(origin, template) {
         this.popover.open(template, {
             origin,
-            originActivatedClass: 'activated-class',
+            originActiveClass: 'active-class',
             manualClosure: true
         });
     }
@@ -95,7 +95,7 @@ export class PopoverManualClosureContentComponent {
     open3(origin, template) {
         this.popover.open(template, {
             origin,
-            originActivatedClass: ['activated-class2', 'activated-class3']
+            originActiveClass: ['active-class2', 'active-class3']
         });
     }
 
@@ -267,15 +267,15 @@ describe(`thyPopover`, () => {
                 expect(document.querySelector('.thy-popover-origin-active')).toBeTruthy();
             });
 
-            it('origin add active className, originActivatedClass', () => {
+            it('origin add active className, originActiveClass', () => {
                 btnElement2.click();
-                expect(document.querySelector('.activated-class')).toBeTruthy();
+                expect(document.querySelector('.active-class')).toBeTruthy();
             });
 
-            it('origin add active className, originActivatedClass with Array', () => {
+            it('origin add active className, originActiveClass with Array', () => {
                 btnElement3.click();
-                expect(document.querySelector('.activated-class2')).toBeTruthy();
-                expect(document.querySelector('.activated-class3')).toBeTruthy();
+                expect(document.querySelector('.active-class2')).toBeTruthy();
+                expect(document.querySelector('.active-class3')).toBeTruthy();
             });
         });
     });

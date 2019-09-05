@@ -171,11 +171,11 @@ export class ThyPopover implements OnDestroy {
     }
 
     private originElementAddActivatedClass(config: ThyPopoverConfig) {
-        coerceElement<HTMLElement>(config.origin).classList.add(...coerceArray(config.originActivatedClass));
+        coerceElement<HTMLElement>(config.origin).classList.add(...coerceArray(config.originActiveClass));
     }
 
     private originElementDeleteActivatedClass(config: ThyPopoverConfig) {
-        coerceElement<HTMLElement>(config.origin).classList.remove(...coerceArray(config.originActivatedClass));
+        coerceElement<HTMLElement>(config.origin).classList.remove(...coerceArray(config.originActiveClass));
     }
 
     constructor(

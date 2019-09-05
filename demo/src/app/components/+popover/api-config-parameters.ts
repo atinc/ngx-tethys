@@ -6,7 +6,7 @@ export const apiPopoverConfigParameters = [
         default: ''
     },
     {
-        property: 'originActivatedClass',
+        property: 'originActiveClass',
         description: '对弹出悬浮层位置计算的 Origin Element，Connected Element 添加 class',
         type: 'string | string[]',
         default: 'thy-popover-origin-active'
