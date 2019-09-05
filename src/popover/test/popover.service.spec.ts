@@ -59,7 +59,7 @@ export class PopoverSimpleContentComponent {
 }
 
 @Component({
-    selector: 'popover-multiple-content-component',
+    selector: 'popover-manual-closure-content-component',
     template: `
         <a class="btn btn1" #btn1 (click)="open1(btn1, template1)">Open1</a>
         <ng-template #template1><div class="template1">template1</div></ng-template>
@@ -74,13 +74,13 @@ export class PopoverSimpleContentComponent {
         <ng-template #template4><div class="template4">template4</div></ng-template>
     `
 })
-export class PopoverMultipleContentComponent {
+export class PopoverManualClosureContentComponent {
     constructor(public popover: ThyPopover, public popoverInjector: Injector, public directionality: Directionality) {}
 
     open1(origin, template) {
         this.popover.open(template, {
             origin,
-            multiple: true
+            manualClosure: true
         });
     }
 
@@ -88,7 +88,7 @@ export class PopoverMultipleContentComponent {
         this.popover.open(template, {
             origin,
             originActivatedClass: 'activated-class',
-            multiple: true
+            manualClosure: true
         });
     }
 
@@ -111,7 +111,7 @@ const TEST_COMPONENTS = [
     PopoverSimpleContentComponent,
     WithViewContainerDirective,
     WithChildViewContainerComponent,
-    PopoverMultipleContentComponent
+    PopoverManualClosureContentComponent
 ];
 @NgModule({
     declarations: TEST_COMPONENTS,
@@ -188,17 +188,17 @@ describe(`thyPopover`, () => {
             assertPopoverSimpleContentComponent(overlayRef);
         });
 
-        describe('multiple', () => {
-            let viewContainerFixtureMultiple: ComponentFixture<PopoverMultipleContentComponent>;
+        describe('manualClosure', () => {
+            let viewContainerFixtureManualClosure: ComponentFixture<PopoverManualClosureContentComponent>;
             let btnElement1, btnElement2, btnElement3, btnElement4;
 
             beforeEach(() => {
-                viewContainerFixtureMultiple = TestBed.createComponent(PopoverMultipleContentComponent);
-                btnElement1 = viewContainerFixtureMultiple.nativeElement.querySelector('.btn1');
-                btnElement2 = viewContainerFixtureMultiple.nativeElement.querySelector('.btn2');
-                btnElement3 = viewContainerFixtureMultiple.nativeElement.querySelector('.btn3');
-                btnElement4 = viewContainerFixtureMultiple.nativeElement.querySelector('.btn4');
-                viewContainerFixtureMultiple.detectChanges();
+                viewContainerFixtureManualClosure = TestBed.createComponent(PopoverManualClosureContentComponent);
+                btnElement1 = viewContainerFixtureManualClosure.nativeElement.querySelector('.btn1');
+                btnElement2 = viewContainerFixtureManualClosure.nativeElement.querySelector('.btn2');
+                btnElement3 = viewContainerFixtureManualClosure.nativeElement.querySelector('.btn3');
+                btnElement4 = viewContainerFixtureManualClosure.nativeElement.querySelector('.btn4');
+                viewContainerFixtureManualClosure.detectChanges();
             });
 
             it('closeAll', fakeAsync(() => {
@@ -206,19 +206,43 @@ describe(`thyPopover`, () => {
                 btnElement3.click();
                 popover.closeAll();
                 tick(1000);
-                viewContainerFixtureMultiple.detectChanges();
+                viewContainerFixtureManualClosure.detectChanges();
                 expect(document.querySelector('.template1')).toBeFalsy();
                 expect(document.querySelector('.template3')).toBeFalsy();
             }));
 
-            it('multiple, open multiple times', () => {
+            it('closeLast', fakeAsync(() => {
+                btnElement1.click();
+                btnElement2.click();
+                btnElement3.click();
+                popover.closeLast();
+                tick(1000);
+                viewContainerFixtureManualClosure.detectChanges();
+                expect(document.querySelector('.template1')).toBeTruthy();
+                expect(document.querySelector('.template2')).toBeTruthy();
+                expect(document.querySelector('.template3')).toBeFalsy();
+            }));
+
+            it('closeLast 2', fakeAsync(() => {
+                btnElement1.click();
+                btnElement2.click();
+                btnElement3.click();
+                popover.closeLast(2);
+                tick(1000);
+                viewContainerFixtureManualClosure.detectChanges();
+                expect(document.querySelector('.template1')).toBeTruthy();
+                expect(document.querySelector('.template2')).toBeFalsy();
+                expect(document.querySelector('.template3')).toBeFalsy();
+            }));
+
+            it('manualClosure, open manualClosure times', () => {
                 btnElement1.click();
                 btnElement2.click();
                 expect(document.querySelector('.template1')).toBeTruthy();
                 expect(document.querySelector('.template2')).toBeTruthy();
             });
 
-            it('not multiple, open multiple times', fakeAsync(() => {
+            it('not manualClosure, open manualClosure times', fakeAsync(() => {
                 btnElement3.click();
                 btnElement4.click();
                 tick(1000);
@@ -226,7 +250,7 @@ describe(`thyPopover`, () => {
                 expect(document.querySelector('.template4')).toBeTruthy();
             }));
 
-            it('multiple and not multiple, mixed open', fakeAsync(() => {
+            it('manualClosure and not manualClosure, mixed open', fakeAsync(() => {
                 btnElement3.click();
                 expect(document.querySelector('.template3')).toBeTruthy();
                 btnElement1.click();
@@ -240,7 +264,7 @@ describe(`thyPopover`, () => {
 
             it('origin add active className, default', () => {
                 btnElement1.click();
-                expect(document.querySelector('.popover-origin-activated')).toBeTruthy();
+                expect(document.querySelector('.thy-popover-origin-active')).toBeTruthy();
             });
 
             it('origin add active className, originActivatedClass', () => {

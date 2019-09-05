@@ -114,10 +114,10 @@ export class DemoPopoverBasicComponent extends mixinUnsubscribe(MixinBase) imple
         });
     }
 
-    openTemplatePopoverMultiple(element: { elementRef: ElementRef }, template: TemplateRef<HTMLElement>) {
+    openTemplatePopoverManualClosure(element: { elementRef: ElementRef }, template: TemplateRef<HTMLElement>) {
         this.thyPopover.open(template, {
             origin: element.elementRef,
-            multiple: true,
+            manualClosure: true,
             hasBackdrop: this.hasBackdrop,
             placement: this.placement,
             panelClass: 'demo-popover'

@@ -12,8 +12,8 @@ export const apiPopoverConfigParameters = [
         default: 'popover-origin-activated'
     },
     {
-        property: 'multiple',
-        description: `是否可以多次打开，唯一标识为origin`,
+        property: 'manualClosure',
+        description: `是否只能手动关闭，唯一标识为origin`,
         type: 'boolean',
         default: 'false'
     },

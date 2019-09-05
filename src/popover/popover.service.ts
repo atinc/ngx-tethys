@@ -39,6 +39,8 @@ export class ThyPopover implements OnDestroy {
         }
     >();
 
+    private originInstancesSteps: Array<ElementRef | HTMLElement> = [];
+
     private currentPopoverRef: ThyPopoverRef<any, any>;
 
     private readonly _afterOpened = new Subject<ThyPopoverRef<any>>();
@@ -188,21 +190,22 @@ export class ThyPopover implements OnDestroy {
         componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
         config?: ThyPopoverConfig<TData>
     ): ThyPopoverRef<T, TResult> {
-        let isHadOpenedNeedClose = false;
+        let isOpenAgain = false;
         this.originInstancesMap.forEach((value, key) => {
-            if (value.config.multiple) {
+            if (value.config.manualClosure) {
                 if (key === config.origin) {
                     value.popoverRef.close();
-                    isHadOpenedNeedClose = true;
+                    isOpenAgain = true;
                 }
             } else {
                 if (key === config.origin) {
-                    isHadOpenedNeedClose = true;
+                    isOpenAgain = true;
                 }
                 value.popoverRef.close();
             }
         });
-        if (isHadOpenedNeedClose) {
+        if (isOpenAgain) {
+            // Open again will be close
             return;
         }
 
@@ -227,6 +230,8 @@ export class ThyPopover implements OnDestroy {
 
         this.originElementAddActivatedClass(config);
 
+        this.originInstancesSteps.push(config.origin);
+
         this.originInstancesMap.set(config.origin, {
             config,
             popoverRef
@@ -235,30 +240,6 @@ export class ThyPopover implements OnDestroy {
         this._afterOpened.next(popoverRef);
         return popoverRef;
     }
-
-    // attach<T, TData = any, TResult = any>(
-    //     overlayRef: OverlayRef,
-    //     componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
-    //     config?: ThyPopoverConfig<TData>
-    // ) {
-    //     config = { ...this.defaultConfig, ...config };
-    //     const popoverContainer = this.attachPopoverContainer(overlayRef, config);
-    //     const popoverRef = this.attachPopoverContent<T, TResult>(
-    //         componentOrTemplateRef,
-    //         popoverContainer,
-    //         overlayRef,
-    //         config
-    //     );
-
-    //     this.currentPopoverRef = popoverRef;
-
-    //     popoverRef.afterClosed().subscribe(() => {
-    //         this.currentPopoverRef = null;
-    //     });
-
-    //     this._afterOpened.next(popoverRef);
-    //     return popoverRef;
-    // }
 
     close() {
         if (this.currentPopoverRef) {
@@ -270,9 +251,20 @@ export class ThyPopover implements OnDestroy {
         this.originInstancesMap.forEach((value, key) => {
             value.popoverRef.close();
         });
-        if (this.currentPopoverRef) {
-            this.currentPopoverRef.close();
+    }
+
+    closeLast(stepLength: number = 1) {
+        let hadCloseAnyone = false;
+        while (stepLength > 0) {
+            const last = this.originInstancesSteps.pop();
+            const find = this.originInstancesMap.get(last);
+            if (find) {
+                find.popoverRef.close();
+                hadCloseAnyone = true;
+            }
+            stepLength--;
         }
+        return hadCloseAnyone;
     }
 
     ngOnDestroy() {
