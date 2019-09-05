@@ -2,7 +2,7 @@ import { Component, Injector, ViewContainerRef, ViewChild, Directive, NgModule }
 import { Location } from '@angular/common';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { SpyLocation } from '@angular/common/testing';
-import { TestBed, inject, ComponentFixture } from '@angular/core/testing';
+import { TestBed, inject, ComponentFixture, tick, fakeAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyPopoverModule } from '../module';
 import { ThyPopover } from '../popover.service';
@@ -58,11 +58,60 @@ export class PopoverSimpleContentComponent {
     ) {}
 }
 
+@Component({
+    selector: 'popover-manual-closure-content-component',
+    template: `
+        <a class="btn btn1" #btn1 (click)="open1(btn1, template1)">Open1</a>
+        <ng-template #template1><div class="template1">template1</div></ng-template>
+
+        <a class="btn btn2" #btn2 (click)="open2(btn2, template2)">Open2</a>
+        <ng-template #template2><div class="template2">template2</div></ng-template>
+
+        <a class="btn btn3" #btn3 (click)="open3(btn3, template3)">Open3</a>
+        <ng-template #template3><div class="template3">template3</div></ng-template>
+
+        <a class="btn btn4" #btn4 (click)="open4(btn4, template4)">Open4</a>
+        <ng-template #template4><div class="template4">template4</div></ng-template>
+    `
+})
+export class PopoverManualClosureContentComponent {
+    constructor(public popover: ThyPopover, public popoverInjector: Injector, public directionality: Directionality) {}
+
+    open1(origin, template) {
+        this.popover.open(template, {
+            origin,
+            manualClosure: true
+        });
+    }
+
+    open2(origin, template) {
+        this.popover.open(template, {
+            origin,
+            originActiveClass: 'active-class',
+            manualClosure: true
+        });
+    }
+
+    open3(origin, template) {
+        this.popover.open(template, {
+            origin,
+            originActiveClass: ['active-class2', 'active-class3']
+        });
+    }
+
+    open4(origin, template) {
+        this.popover.open(template, {
+            origin
+        });
+    }
+}
+
 const TEST_COMPONENTS = [
     PopoverBasicComponent,
     PopoverSimpleContentComponent,
     WithViewContainerDirective,
-    WithChildViewContainerComponent
+    WithChildViewContainerComponent,
+    PopoverManualClosureContentComponent
 ];
 @NgModule({
     declarations: TEST_COMPONENTS,
@@ -137,6 +186,97 @@ describe(`thyPopover`, () => {
                 origin: viewContainerFixture.componentInstance.openPopoverOrigin
             });
             assertPopoverSimpleContentComponent(overlayRef);
+        });
+
+        describe('manualClosure', () => {
+            let viewContainerFixtureManualClosure: ComponentFixture<PopoverManualClosureContentComponent>;
+            let btnElement1, btnElement2, btnElement3, btnElement4;
+
+            beforeEach(() => {
+                viewContainerFixtureManualClosure = TestBed.createComponent(PopoverManualClosureContentComponent);
+                btnElement1 = viewContainerFixtureManualClosure.nativeElement.querySelector('.btn1');
+                btnElement2 = viewContainerFixtureManualClosure.nativeElement.querySelector('.btn2');
+                btnElement3 = viewContainerFixtureManualClosure.nativeElement.querySelector('.btn3');
+                btnElement4 = viewContainerFixtureManualClosure.nativeElement.querySelector('.btn4');
+                viewContainerFixtureManualClosure.detectChanges();
+            });
+
+            it('closeAll', fakeAsync(() => {
+                btnElement1.click();
+                btnElement3.click();
+                popover.closeAll();
+                tick(1000);
+                viewContainerFixtureManualClosure.detectChanges();
+                expect(document.querySelector('.template1')).toBeFalsy();
+                expect(document.querySelector('.template3')).toBeFalsy();
+            }));
+
+            it('closeLast', fakeAsync(() => {
+                btnElement1.click();
+                btnElement2.click();
+                btnElement3.click();
+                popover.closeLast();
+                tick(1000);
+                viewContainerFixtureManualClosure.detectChanges();
+                expect(document.querySelector('.template1')).toBeTruthy();
+                expect(document.querySelector('.template2')).toBeTruthy();
+                expect(document.querySelector('.template3')).toBeFalsy();
+            }));
+
+            it('closeLast 2', fakeAsync(() => {
+                btnElement1.click();
+                btnElement2.click();
+                btnElement3.click();
+                popover.closeLast(2);
+                tick(1000);
+                viewContainerFixtureManualClosure.detectChanges();
+                expect(document.querySelector('.template1')).toBeTruthy();
+                expect(document.querySelector('.template2')).toBeFalsy();
+                expect(document.querySelector('.template3')).toBeFalsy();
+            }));
+
+            it('manualClosure, open manualClosure times', () => {
+                btnElement1.click();
+                btnElement2.click();
+                expect(document.querySelector('.template1')).toBeTruthy();
+                expect(document.querySelector('.template2')).toBeTruthy();
+            });
+
+            it('not manualClosure, open manualClosure times', fakeAsync(() => {
+                btnElement3.click();
+                btnElement4.click();
+                tick(1000);
+                expect(document.querySelector('.template3')).toBeFalsy();
+                expect(document.querySelector('.template4')).toBeTruthy();
+            }));
+
+            it('manualClosure and not manualClosure, mixed open', fakeAsync(() => {
+                btnElement3.click();
+                expect(document.querySelector('.template3')).toBeTruthy();
+                btnElement1.click();
+                tick(1000);
+                expect(document.querySelector('.template3')).toBeFalsy();
+                expect(document.querySelector('.template1')).toBeTruthy();
+                btnElement3.click();
+                tick(1000);
+                expect(document.querySelector('.template3')).toBeTruthy();
+            }));
+
+            it('origin add active className, default', () => {
+                btnElement1.click();
+                expect(document.querySelector('.thy-popover-origin-active')).toBeTruthy();
+            });
+
+            it('origin add active className, originActiveClass', () => {
+                btnElement2.click();
+                expect(document.querySelector('.active-class')).toBeTruthy();
+            });
+
+            it('origin add active className, originActiveClass with Array', () => {
+                btnElement3.click();
+                expect(document.querySelector('.active-class2')).toBeTruthy();
+                expect(document.querySelector('.active-class3')).toBeTruthy();
+            });
         });
     });
 });

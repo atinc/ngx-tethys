@@ -16,7 +16,7 @@ import {
     Inject,
     NgZone
 } from '@angular/core';
-import { coerceElement } from '@angular/cdk/coercion';
+import { coerceElement, coerceArray } from '@angular/cdk/coercion';
 import { PortalInjector, ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
 import { ThyPopoverContainerComponent } from './popover-container.component';
 import { ThyPopoverConfig, THY_POPOVER_DEFAULT_CONFIG } from './popover.config';
@@ -31,6 +31,16 @@ import { helpers } from '../util';
     providedIn: 'root'
 })
 export class ThyPopover implements OnDestroy {
+    private originInstancesMap = new Map<
+        ElementRef | HTMLElement,
+        {
+            config: ThyPopoverConfig;
+            popoverRef: ThyPopoverRef<any, any>;
+        }
+    >();
+
+    private originInstancesSteps: Array<ElementRef | HTMLElement> = [];
+
     private currentPopoverRef: ThyPopoverRef<any, any>;
 
     private readonly _afterOpened = new Subject<ThyPopoverRef<any>>();
@@ -160,6 +170,14 @@ export class ThyPopover implements OnDestroy {
         return popoverRef;
     }
 
+    private originElementAddActivatedClass(config: ThyPopoverConfig) {
+        coerceElement<HTMLElement>(config.origin).classList.add(...coerceArray(config.originActiveClass));
+    }
+
+    private originElementDeleteActivatedClass(config: ThyPopoverConfig) {
+        coerceElement<HTMLElement>(config.origin).classList.remove(...coerceArray(config.originActiveClass));
+    }
+
     constructor(
         private overlay: Overlay,
         private injector: Injector,
@@ -172,9 +190,25 @@ export class ThyPopover implements OnDestroy {
         componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
         config?: ThyPopoverConfig<TData>
     ): ThyPopoverRef<T, TResult> {
-        if (this.currentPopoverRef) {
-            this.currentPopoverRef.close();
+        let isOpenAgain = false;
+        this.originInstancesMap.forEach((value, key) => {
+            if (value.config.manualClosure) {
+                if (key === config.origin) {
+                    value.popoverRef.close();
+                    isOpenAgain = true;
+                }
+            } else {
+                if (key === config.origin) {
+                    isOpenAgain = true;
+                }
+                value.popoverRef.close();
+            }
+        });
+        if (isOpenAgain) {
+            // Open again will be close
+            return;
         }
+
         config = { ...this.defaultConfig, ...config };
         const overlayConfig = this.buildOverlayConfig(config);
         const overlayRef = this.overlay.create(overlayConfig);
@@ -190,40 +224,47 @@ export class ThyPopover implements OnDestroy {
 
         popoverRef.afterClosed().subscribe(() => {
             this.currentPopoverRef = null;
+            this.originElementDeleteActivatedClass(config);
+            this.originInstancesMap.delete(config.origin);
+        });
+
+        this.originElementAddActivatedClass(config);
+
+        this.originInstancesSteps.push(config.origin);
+
+        this.originInstancesMap.set(config.origin, {
+            config,
+            popoverRef
         });
 
         this._afterOpened.next(popoverRef);
         return popoverRef;
     }
 
-    // attach<T, TData = any, TResult = any>(
-    //     overlayRef: OverlayRef,
-    //     componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
-    //     config?: ThyPopoverConfig<TData>
-    // ) {
-    //     config = { ...this.defaultConfig, ...config };
-    //     const popoverContainer = this.attachPopoverContainer(overlayRef, config);
-    //     const popoverRef = this.attachPopoverContent<T, TResult>(
-    //         componentOrTemplateRef,
-    //         popoverContainer,
-    //         overlayRef,
-    //         config
-    //     );
-
-    //     this.currentPopoverRef = popoverRef;
-
-    //     popoverRef.afterClosed().subscribe(() => {
-    //         this.currentPopoverRef = null;
-    //     });
-
-    //     this._afterOpened.next(popoverRef);
-    //     return popoverRef;
-    // }
-
     close() {
         if (this.currentPopoverRef) {
             this.currentPopoverRef.close();
         }
+    }
+
+    closeAll() {
+        this.originInstancesMap.forEach((value, key) => {
+            value.popoverRef.close();
+        });
+    }
+
+    closeLast(stepLength: number = 1) {
+        let hadCloseAnyone = false;
+        while (stepLength > 0) {
+            const last = this.originInstancesSteps.pop();
+            const find = this.originInstancesMap.get(last);
+            if (find) {
+                find.popoverRef.close();
+                hadCloseAnyone = true;
+            }
+            stepLength--;
+        }
+        return hadCloseAnyone;
     }
 
     ngOnDestroy() {

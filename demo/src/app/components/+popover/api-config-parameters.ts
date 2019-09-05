@@ -6,10 +6,16 @@ export const apiPopoverConfigParameters = [
         default: ''
     },
     {
-        property: 'placement',
-        description: `弹出位置，'top' | 'topLeft' | 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight' | 'left' | 'leftTop' | 'leftBottom' | 'right' | 'rightTop' | 'rightBottom'`,
-        type: 'string',
-        default: 'bottom'
+        property: 'originActiveClass',
+        description: '对弹出悬浮层位置计算的 Origin Element，Connected Element 添加 class',
+        type: 'string | string[]',
+        default: 'thy-popover-origin-active'
+    },
+    {
+        property: 'manualClosure',
+        description: `是否只能手动关闭，唯一标识为origin`,
+        type: 'boolean',
+        default: 'false'
     },
     {
         property: 'initialState',
