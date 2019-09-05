@@ -12,7 +12,7 @@ export class ThySlideBodySectionComponent implements OnInit {
 
     @Input()
     set thyDividerBorder(value: string | boolean) {
-        this.hasDivider = inputValueToBoolean(value) === true;
+        this.hasDivider = inputValueToBoolean(value);
     }
 
     ngOnInit() {}
