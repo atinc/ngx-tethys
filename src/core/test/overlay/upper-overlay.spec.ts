@@ -25,7 +25,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import { CommonModule } from '@angular/common';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyClickPositioner } from '../../click-positioner';
-import { map } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
 const testDialogOptions: ThyUpperOverlayOptions = {
@@ -63,9 +63,9 @@ class TestDialogConfig<TData = any> extends ThyUpperOverlayConfig<TData> {
 export class TestDialogContainerComponent extends ThyUpperOverlayContainer {
     config: ThyUpperOverlayConfig;
 
-    animationOpeningDone: Observable<boolean>;
+    animationOpeningDone: Observable<AnimationEvent>;
 
-    animationClosingDone: Observable<boolean>;
+    animationClosingDone: Observable<AnimationEvent>;
 
     @ViewChild(CdkPortalOutlet)
     portalOutlet: CdkPortalOutlet;
@@ -75,20 +75,28 @@ export class TestDialogContainerComponent extends ThyUpperOverlayContainer {
     constructor(changeDetectorRef: ChangeDetectorRef) {
         super(testDialogOptions, changeDetectorRef);
         this.animationOpeningDone = this.animationStateChanged.pipe(
-            map((event: AnimationEvent) => {
+            filter((event: AnimationEvent) => {
                 return event.phaseName === 'done' && event.toState === 'void';
             })
         );
         this.animationClosingDone = this.animationStateChanged.pipe(
-            map((event: AnimationEvent) => {
+            filter((event: AnimationEvent) => {
                 return event.phaseName === 'done' && event.toState === 'exit';
             })
         );
     }
 }
 
-abstract class TestDialogRef<T = undefined, TResult = undefined> extends ThyUpperOverlayRef<T, TResult> {}
-class InternalTestDialogRef<T = undefined, TResult = undefined> extends ThyInternalUpperOverlayRef<T, TResult> {
+abstract class TestDialogRef<T = undefined, TResult = undefined> extends ThyUpperOverlayRef<
+    T,
+    TestDialogContainerComponent,
+    TResult
+> {}
+class InternalTestDialogRef<T = undefined, TResult = undefined> extends ThyInternalUpperOverlayRef<
+    T,
+    TestDialogContainerComponent,
+    TResult
+> {
     updatePosition(position?: ThyUpperOverlayPosition): this {
         return this.updateGlobalPosition(position);
     }
@@ -117,23 +125,10 @@ export class TestDialogService extends ThyUpperOverlayService<TestDialogConfig, 
     }
 
     protected buildOverlayConfig(config: TestDialogConfig): OverlayConfig {
-        const overlayConfig = new OverlayConfig({
-            positionStrategy: this.overlay.position().global(),
-            scrollStrategy: config.scrollStrategy || this.overlay.scrollStrategies.block(),
-            panelClass: this.getOverlayPanelClasses(config),
-            hasBackdrop: config.hasBackdrop,
-            direction: config.direction,
-            minWidth: config.minWidth,
-            minHeight: config.minHeight,
-            maxWidth: config.maxWidth,
-            maxHeight: config.maxHeight,
-            disposeOnNavigation: config.closeOnNavigation
-        });
-
-        if (config.backdropClass) {
-            overlayConfig.backdropClass = config.backdropClass;
-        }
-
+        const overlayConfig = this.buildBaseOverlayConfig(config);
+        overlayConfig.panelClass = this.getOverlayPanelClasses(config);
+        overlayConfig.positionStrategy = this.overlay.position().global();
+        overlayConfig.scrollStrategy = config.scrollStrategy || this.overlay.scrollStrategies.block();
         return overlayConfig;
     }
 

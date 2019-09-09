@@ -5,10 +5,11 @@ import { OverlayRef, PositionStrategy, GlobalPositionStrategy } from '@angular/c
 import { ThyUpperOverlayContainer } from './upper-overlay-container';
 import { ESCAPE } from '../../util/keycodes';
 
-export abstract class ThyUpperOverlayRef<T, TResult = any> {
-    componentInstance: T;
+export abstract class ThyUpperOverlayRef<T, TContainer extends ThyUpperOverlayContainer, TResult = any> {
     id: string;
+    componentInstance: T;
     backdropClosable: boolean;
+    containerInstance: TContainer;
     abstract close(dialogResult?: TResult): void;
     abstract afterOpened(): Observable<void>;
     abstract afterClosed(): Observable<TResult | undefined>;
@@ -18,12 +19,23 @@ export abstract class ThyUpperOverlayRef<T, TResult = any> {
     abstract updatePosition(position?: ThyUpperOverlayPosition): this;
 }
 
-// Counter for unique dialog ids.
-let uniqueId = 0;
+// Counter for unique overlay ids.
+const uniqueIdMap: { [key: string]: number } = {};
 
-export abstract class ThyInternalUpperOverlayRef<T, TResult = undefined> extends ThyUpperOverlayRef<T, TResult> {
-    id: string;
+function getUniqueId(name: string) {
+    if (uniqueIdMap[name] !== undefined) {
+        uniqueIdMap[name] = uniqueIdMap[name] + 1;
+    } else {
+        uniqueIdMap[name] = 0;
+    }
+    return uniqueIdMap[name];
+}
 
+export abstract class ThyInternalUpperOverlayRef<
+    T,
+    TContainer extends ThyUpperOverlayContainer,
+    TResult = undefined
+> extends ThyUpperOverlayRef<T, TContainer, TResult> {
     /** The instance of component opened into the dialog. */
     componentInstance: T;
 
@@ -43,20 +55,22 @@ export abstract class ThyInternalUpperOverlayRef<T, TResult = undefined> extends
     private _result: TResult | undefined;
 
     /** Fetches the position strategy object from the overlay ref. */
-    private getPositionStrategy(): PositionStrategy {
+    protected getPositionStrategy(): PositionStrategy {
         return this.overlayRef.getConfig().positionStrategy;
     }
 
     constructor(
         private options: ThyUpperOverlayOptions,
         private overlayRef: OverlayRef,
-        public containerInstance: ThyUpperOverlayContainer,
+        containerInstance: TContainer,
         private config: ThyUpperOverlayConfig
     ) {
         super();
+        this.containerInstance = containerInstance;
         // Pass the id along to the container.
-        containerInstance.id = `thy-${this.options.name}-${uniqueId++}`;
-
+        this.id = containerInstance.id = config.id
+            ? config.id
+            : `thy-${this.options.name}-${getUniqueId(this.options.name)}`;
         // Emit when opening animation completes
         containerInstance.animationOpeningDone.pipe(take(1)).subscribe(() => {
             this._afterOpened.next();
