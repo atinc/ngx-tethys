@@ -1,7 +1,6 @@
 import { ViewContainerRef, Injector, TemplateRef, EmbeddedViewRef, ComponentRef } from '@angular/core';
 import { Direction } from '@angular/cdk/bidi';
 import { Overlay, ComponentType, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
-import { ThyClickPositioner } from '../click-positioner';
 import { PortalInjector, ComponentPortal, TemplatePortal, CdkPortalOutlet } from '@angular/cdk/portal';
 import { Observable, Subject } from 'rxjs';
 import { ThyUpperOverlayConfig, ThyUpperOverlayOptions } from './upper-overlay.config';
@@ -24,28 +23,36 @@ export abstract class ThyUpperOverlayService<
         protected options: ThyUpperOverlayOptions, // component name, e.g: dialog | popover | slide
         protected overlay: Overlay,
         protected injector: Injector,
-        protected defaultConfig: TConfig,
-        protected clickPositioner: ThyClickPositioner
+        protected defaultConfig: TConfig
     ) {}
 
-    // build cdk overlay config by config
+    /** Build cdk overlay config by config */
     protected abstract buildOverlayConfig(config: TConfig): OverlayConfig;
 
+    /** Attach overlay container to overlay*/
     protected abstract attachUpperOverlayContainer(overlay: OverlayRef, config: TConfig): TContainer;
 
+    /** Create upper overlay ref by cdk overlay, container and config  */
     protected abstract createUpperOverlayRef<T>(
         overlayRef: OverlayRef,
         containerInstance: TContainer,
         config: TConfig
     ): ThyUpperOverlayRef<T, TContainer>;
 
+    /** Create injector for component content */
     protected abstract createInjector<T>(
         config: TConfig,
         overlayRef: ThyUpperOverlayRef<T, TContainer>,
         containerInstance: TContainer
     ): PortalInjector;
 
-    protected attachDialogContent<T, TResult>(
+    abstract open<T, TData = undefined, TResult = undefined>(
+        componentOrTemplateRef: ComponentTypeOrTemplateRef<T>,
+        config?: ThyUpperOverlayConfig<TData>
+    ): ThyUpperOverlayRef<T, TContainer, TResult>;
+
+    /** Attach component or template ref to overlay container */
+    protected attachUpperOverlayContent<T, TResult>(
         componentOrTemplateRef: ComponentTypeOrTemplateRef<T>,
         containerInstance: TContainer,
         overlayRef: OverlayRef,
@@ -121,7 +128,7 @@ export abstract class ThyUpperOverlayService<
     }
 
     protected openUpperOverlay<T, TResult = any>(
-        componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
+        componentOrTemplateRef: ComponentTypeOrTemplateRef<T>,
         config?: TConfig
     ): ThyUpperOverlayRef<T, TContainer, TResult> {
         config = { ...this.defaultConfig, ...config };
@@ -134,7 +141,7 @@ export abstract class ThyUpperOverlayService<
         const overlayRef = this.overlay.create(overlayConfig);
 
         const dialogContainer = this.attachUpperOverlayContainer(overlayRef, config);
-        const dialogRef = this.attachDialogContent<T, TResult>(
+        const dialogRef = this.attachUpperOverlayContent<T, TResult>(
             componentOrTemplateRef,
             dialogContainer,
             overlayRef,
@@ -142,16 +149,13 @@ export abstract class ThyUpperOverlayService<
         );
 
         this.openedOverlays.push(dialogRef);
-        dialogRef.afterClosed().subscribe(() => this.removeOpenedOverlay(dialogRef));
+        dialogRef.afterClosed().subscribe(() => {
+            this.removeOpenedOverlay(dialogRef);
+        });
         this._afterOpened.next(dialogRef);
 
         return dialogRef;
     }
-
-    abstract open<T, TData = undefined, TResult = undefined>(
-        componentOrTemplateRef: ComponentTypeOrTemplateRef<T>,
-        config?: ThyUpperOverlayConfig<TData>
-    ): ThyUpperOverlayRef<T, TContainer, TResult>;
 
     afterAllClosed() {
         return this._afterAllClosed;

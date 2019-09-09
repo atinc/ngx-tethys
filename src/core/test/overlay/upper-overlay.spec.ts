@@ -121,7 +121,7 @@ export class TestDialogService extends ThyUpperOverlayService<TestDialogConfig, 
     }
 
     constructor(overlay: Overlay, injector: Injector, clickPositioner: ThyClickPositioner) {
-        super(testDialogOptions, overlay, injector, {}, clickPositioner);
+        super(testDialogOptions, overlay, injector, {});
     }
 
     protected buildOverlayConfig(config: TestDialogConfig): OverlayConfig {

@@ -1,4 +1,4 @@
-import { Component, Injector, ViewContainerRef, ViewChild, Directive, NgModule } from '@angular/core';
+import { Component, Injector, ViewContainerRef, ViewChild, Directive, NgModule, TemplateRef } from '@angular/core';
 import { Location } from '@angular/common';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { SpyLocation } from '@angular/common/testing';
@@ -77,14 +77,14 @@ export class PopoverSimpleContentComponent {
 export class PopoverManualClosureContentComponent {
     constructor(public popover: ThyPopover, public popoverInjector: Injector, public directionality: Directionality) {}
 
-    open1(origin, template) {
+    open1(origin: HTMLElement, template: TemplateRef<HTMLElement>) {
         this.popover.open(template, {
             origin,
             manualClosure: true
         });
     }
 
-    open2(origin, template) {
+    open2(origin: HTMLElement, template: TemplateRef<HTMLElement>) {
         this.popover.open(template, {
             origin,
             originActiveClass: 'active-class',
@@ -92,14 +92,14 @@ export class PopoverManualClosureContentComponent {
         });
     }
 
-    open3(origin, template) {
+    open3(origin: HTMLElement, template: TemplateRef<HTMLElement>) {
         this.popover.open(template, {
             origin,
             originActiveClass: ['active-class2', 'active-class3']
         });
     }
 
-    open4(origin, template) {
+    open4(origin: HTMLElement, template: TemplateRef<HTMLElement>) {
         this.popover.open(template, {
             origin
         });
@@ -215,7 +215,7 @@ describe(`thyPopover`, () => {
                 btnElement1.click();
                 btnElement2.click();
                 btnElement3.click();
-                popover.closeLast();
+                popover.close();
                 tick(1000);
                 viewContainerFixtureManualClosure.detectChanges();
                 expect(document.querySelector('.template1')).toBeTruthy();
@@ -223,17 +223,17 @@ describe(`thyPopover`, () => {
                 expect(document.querySelector('.template3')).toBeFalsy();
             }));
 
-            it('closeLast 2', fakeAsync(() => {
-                btnElement1.click();
-                btnElement2.click();
-                btnElement3.click();
-                popover.closeLast(2);
-                tick(1000);
-                viewContainerFixtureManualClosure.detectChanges();
-                expect(document.querySelector('.template1')).toBeTruthy();
-                expect(document.querySelector('.template2')).toBeFalsy();
-                expect(document.querySelector('.template3')).toBeFalsy();
-            }));
+            // it('closeLast 2', fakeAsync(() => {
+            //     btnElement1.click();
+            //     btnElement2.click();
+            //     btnElement3.click();
+            //     popover.closeLast(2);
+            //     tick(1000);
+            //     viewContainerFixtureManualClosure.detectChanges();
+            //     expect(document.querySelector('.template1')).toBeTruthy();
+            //     expect(document.querySelector('.template2')).toBeFalsy();
+            //     expect(document.querySelector('.template3')).toBeFalsy();
+            // }));
 
             it('manualClosure, open manualClosure times', () => {
                 btnElement1.click();
@@ -264,6 +264,7 @@ describe(`thyPopover`, () => {
 
             it('origin add active className, default', () => {
                 btnElement1.click();
+                const element = getOverlayPaneElement();
                 expect(document.querySelector('.thy-popover-origin-active')).toBeTruthy();
             });
 

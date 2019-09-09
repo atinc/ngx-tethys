@@ -10,6 +10,7 @@ export abstract class ThyUpperOverlayRef<T, TContainer extends ThyUpperOverlayCo
     componentInstance: T;
     backdropClosable: boolean;
     containerInstance: TContainer;
+    abstract getOverlayRef(): OverlayRef;
     abstract close(dialogResult?: TResult): void;
     abstract afterOpened(): Observable<void>;
     abstract afterClosed(): Observable<TResult | undefined>;
@@ -61,9 +62,9 @@ export abstract class ThyInternalUpperOverlayRef<
 
     constructor(
         private options: ThyUpperOverlayOptions,
-        private overlayRef: OverlayRef,
+        protected overlayRef: OverlayRef,
         containerInstance: TContainer,
-        private config: ThyUpperOverlayConfig
+        protected config: ThyUpperOverlayConfig
     ) {
         super();
         this.containerInstance = containerInstance;
@@ -151,6 +152,11 @@ export abstract class ThyInternalUpperOverlayRef<
      */
     keydownEvents(): Observable<KeyboardEvent> {
         return this.overlayRef.keydownEvents();
+    }
+
+    /** Get overlay ref */
+    getOverlayRef() {
+        return this.overlayRef;
     }
 
     /**
