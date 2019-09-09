@@ -248,7 +248,7 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
     }
 
     ngOnDestroy() {
-        super.ngOnDestroy();
+        this.dispose();
         if (this.overlayRef) {
             this.tooltipInstance = null;
         }

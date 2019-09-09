@@ -111,7 +111,7 @@ export abstract class ThyOverlayDirectiveBase implements OnDestroy {
         this.manualListeners.forEach((listener, event) => element.addEventListener(event, listener));
     }
 
-    ngOnDestroy(): void {
+    dispose(): void {
         this.ngUnsubscribe$.next();
         this.ngUnsubscribe$.complete();
         if (this.overlayRef) {

@@ -83,6 +83,6 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
     }
 
     ngOnDestroy() {
-        super.ngOnDestroy();
+        this.dispose();
     }
 }
