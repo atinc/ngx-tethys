@@ -66,7 +66,7 @@ export abstract class ThyOverlayDirectiveBase implements OnDestroy {
                     })
                     .set('mouseleave', (event: MouseEvent) => {
                         // element which mouse moved to
-                        const toElement = event.toElement || event.relatedTarget;
+                        const toElement = event['toElement'] || event.relatedTarget;
                         if (this.overlayRef && !overlayElement) {
                             overlayElement = this.overlayRef.overlayElement;
                             fromEvent(overlayElement, 'mouseleave')
