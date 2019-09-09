@@ -14,11 +14,11 @@ export abstract class ThyUpperOverlayService<
     TConfig extends ThyUpperOverlayConfig,
     TContainer extends ThyUpperOverlayContainer
 > {
-    private openedOverlays: ThyUpperOverlayRef<any>[] = [];
+    private openedOverlays: ThyUpperOverlayRef<any, TContainer>[] = [];
 
     private readonly _afterAllClosed = new Subject<void>();
 
-    private readonly _afterOpened = new Subject<ThyUpperOverlayRef<any>>();
+    private readonly _afterOpened = new Subject<ThyUpperOverlayRef<any, TContainer>>();
 
     constructor(
         protected options: ThyUpperOverlayOptions, // component name, e.g: dialog | popover | slide
@@ -37,11 +37,11 @@ export abstract class ThyUpperOverlayService<
         overlayRef: OverlayRef,
         containerInstance: TContainer,
         config: TConfig
-    ): ThyUpperOverlayRef<T>;
+    ): ThyUpperOverlayRef<T, TContainer>;
 
     protected abstract createInjector<T>(
         config: TConfig,
-        overlayRef: ThyUpperOverlayRef<T>,
+        overlayRef: ThyUpperOverlayRef<T, TContainer>,
         containerInstance: TContainer
     ): PortalInjector;
 
@@ -50,7 +50,7 @@ export abstract class ThyUpperOverlayService<
         containerInstance: TContainer,
         overlayRef: OverlayRef,
         config: TConfig
-    ): ThyUpperOverlayRef<T, TResult> {
+    ): ThyUpperOverlayRef<T, TContainer, TResult> {
         // Create a reference to the dialog we're creating in order to give the user a handle
         // to modify and close it.
         const upperOverlayRef = this.createUpperOverlayRef<T>(overlayRef, containerInstance, config);
@@ -68,7 +68,7 @@ export abstract class ThyUpperOverlayService<
             containerInstance.attachTemplatePortal(
                 new TemplatePortal<T>(componentOrTemplateRef, null, <any>{
                     $implicit: config.initialState,
-                    upperOverlayRef
+                    [`${this.options.name}Ref`]: upperOverlayRef
                 })
             );
         } else {
@@ -85,7 +85,7 @@ export abstract class ThyUpperOverlayService<
         return upperOverlayRef;
     }
 
-    protected removeOpenedOverlay(upperOverlayRef: ThyUpperOverlayRef<any>) {
+    protected removeOpenedOverlay(upperOverlayRef: ThyUpperOverlayRef<any, TContainer>) {
         const index = this.openedOverlays.indexOf(upperOverlayRef);
 
         if (index > -1) {
@@ -97,14 +97,33 @@ export abstract class ThyUpperOverlayService<
         }
     }
 
-    protected getUpperOverlayById(id: string): ThyUpperOverlayRef<any> | undefined {
+    protected getUpperOverlayById(id: string): ThyUpperOverlayRef<any, TContainer> | undefined {
         return this.openedOverlays.find(overlay => overlay.id === id);
     }
 
-    protected openUpperOverlay<T, TData = undefined, TResult = undefined>(
+    protected buildBaseOverlayConfig(config: TConfig): OverlayConfig {
+        const overlayConfig = new OverlayConfig({
+            positionStrategy: this.overlay.position().global(),
+            hasBackdrop: config.hasBackdrop,
+            direction: config.direction,
+            minWidth: config.minWidth,
+            minHeight: config.minHeight,
+            maxWidth: config.maxWidth,
+            maxHeight: config.maxHeight,
+            disposeOnNavigation: config.closeOnNavigation
+        });
+
+        if (config.backdropClass) {
+            overlayConfig.backdropClass = config.backdropClass;
+        }
+
+        return overlayConfig;
+    }
+
+    protected openUpperOverlay<T, TResult = any>(
         componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
         config?: TConfig
-    ): ThyUpperOverlayRef<T, TResult> {
+    ): ThyUpperOverlayRef<T, TContainer, TResult> {
         config = { ...this.defaultConfig, ...config };
         if (config.id && this.getUpperOverlayById(config.id)) {
             throw Error(
@@ -132,7 +151,7 @@ export abstract class ThyUpperOverlayService<
     abstract open<T, TData = undefined, TResult = undefined>(
         componentOrTemplateRef: ComponentTypeOrTemplateRef<T>,
         config?: ThyUpperOverlayConfig<TData>
-    ): ThyUpperOverlayRef<T, TResult>;
+    ): ThyUpperOverlayRef<T, TContainer, TResult>;
 
     afterAllClosed() {
         return this._afterAllClosed;
@@ -140,5 +159,29 @@ export abstract class ThyUpperOverlayService<
 
     afterOpened() {
         return this._afterOpened;
+    }
+
+    close<T>(result?: T) {
+        if (this.openedOverlays.length > 0) {
+            const lastOverlayRef = this.openedOverlays[this.openedOverlays.length - 1];
+            if (lastOverlayRef) {
+                lastOverlayRef.close(result);
+            }
+        }
+    }
+
+    closeAll() {
+        let i = this.openedOverlays.length;
+        while (i--) {
+            // 不需要操作 openedOverlays, 因为 close 会触发 afterClosed 的订阅
+            // 触发订阅后会自动从 openedOverlays 中移除
+            this.openedOverlays[i].close();
+        }
+    }
+
+    dispose(): void {
+        this.closeAll();
+        this._afterAllClosed.complete();
+        this._afterOpened.complete();
     }
 }

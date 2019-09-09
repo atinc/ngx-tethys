@@ -23,12 +23,12 @@ export abstract class ThyUpperOverlayContainer {
     /**
      * Opening overlay animation done
      */
-    abstract animationOpeningDone: Observable<boolean>;
+    abstract animationOpeningDone: Observable<AnimationEvent>;
 
     /**
      * Closing overlay animation done
      */
-    abstract animationClosingDone: Observable<boolean>;
+    abstract animationClosingDone: Observable<AnimationEvent>;
 
     /** Before attach content(TemplatePortal or ComponentPortal) portal to portalOutlet*/
     abstract beforeAttachPortal(): void;
