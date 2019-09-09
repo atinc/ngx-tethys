@@ -13,8 +13,8 @@ import {
 } from '@angular/core';
 import { ThyDialog } from '../dialog.service';
 import { ThyDialogContainerComponent } from '../dialog-container.component';
-import { ThyDialogRefInternal } from '../dialog-ref';
 import { ThyTranslate } from '../../shared';
+import { ThyInternalDialogRef } from '../dialog-ref';
 
 @Component({
     selector: 'thy-dialog-header',
@@ -55,9 +55,7 @@ export class DialogHeaderComponent implements OnInit {
             // views cannot be given a custom injector. Instead, we look up the ThyDialogContainerComponent by
             // ID. This must occur in `onInit`, as the ID binding for the dialog container won't
             // be resolved at constructor time.
-            const dialogRef = this.dialog.getClosestDialog(
-                this.elementRef.nativeElement
-            ) as ThyDialogRefInternal<any>;
+            const dialogRef = this.dialog.getClosestDialog(this.elementRef.nativeElement) as ThyInternalDialogRef<any>;
             this.dialogContainer = dialogRef.containerInstance;
         }
 

@@ -13,7 +13,7 @@ export abstract class ThyDialogRef<T, TResult = any> extends ThyUpperOverlayRef<
     TResult
 > {}
 
-export class ThyDialogRefInternal<T, TResult = any> extends ThyInternalUpperOverlayRef<
+export class ThyInternalDialogRef<T, TResult = any> extends ThyInternalUpperOverlayRef<
     T,
     ThyDialogContainerComponent,
     TResult

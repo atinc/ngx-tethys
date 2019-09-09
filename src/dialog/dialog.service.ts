@@ -5,7 +5,7 @@ import { ComponentType, PortalInjector, ComponentPortal, TemplatePortal } from '
 import { ThyDialogConfig, ThyDialogSizes, THY_DIALOG_DEFAULT_OPTIONS } from './dialog.config';
 import { Overlay, OverlayConfig, OverlayRef, ScrollStrategy } from '@angular/cdk/overlay';
 import { ThyDialogContainerComponent } from './dialog-container.component';
-import { ThyDialogRef, ThyDialogRefInternal } from './dialog-ref';
+import { ThyDialogRef, ThyInternalDialogRef } from './dialog-ref';
 import { Directionality } from '@angular/cdk/bidi';
 import { helpers } from '../util';
 import { ThyClickPositioner } from '../core';
@@ -58,7 +58,7 @@ export class ThyDialog extends ThyUpperOverlayService<ThyDialogConfig, ThyDialog
         containerInstance: ThyDialogContainerComponent,
         config: ThyDialogConfig<any>
     ): ThyUpperOverlayRef<T, any> {
-        return new ThyDialogRefInternal(overlayRef, containerInstance, config);
+        return new ThyInternalDialogRef(overlayRef, containerInstance, config);
     }
 
     protected createInjector<T>(
@@ -91,7 +91,7 @@ export class ThyDialog extends ThyUpperOverlayService<ThyDialogConfig, ThyDialog
         defaultConfig: ThyDialogConfig,
         clickPositioner: ThyClickPositioner
     ) {
-        super(dialogUpperOverlayOptions, overlay, injector, defaultConfig, clickPositioner);
+        super(dialogUpperOverlayOptions, overlay, injector, defaultConfig);
         clickPositioner.initialize();
     }
 
@@ -100,7 +100,7 @@ export class ThyDialog extends ThyUpperOverlayService<ThyDialogConfig, ThyDialog
         config?: ThyDialogConfig<TData>
     ): ThyDialogRef<T, TResult> {
         const dialogRef = this.openUpperOverlay(componentOrTemplateRef, config);
-        const dialogRefInternal = dialogRef as ThyDialogRefInternal<T, TResult>;
+        const dialogRefInternal = dialogRef as ThyInternalDialogRef<T, TResult>;
         dialogRefInternal.updateSizeAndPosition(
             dialogRef.containerInstance.config.width,
             dialogRef.containerInstance.config.height,

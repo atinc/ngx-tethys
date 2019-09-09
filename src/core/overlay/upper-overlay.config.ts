@@ -34,7 +34,7 @@ export class ThyUpperOverlayConfig<TData = any> {
     hasBackdrop? = true;
 
     /** Custom class for the backdrop, */
-    backdropClass? = '';
+    backdropClass?: string | string[] = '';
 
     /** Whether the user can use escape or clicking on the backdrop to close the overlay. */
     backdropClosable? = true;

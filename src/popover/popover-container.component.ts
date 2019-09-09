@@ -6,7 +6,8 @@ import {
     Inject,
     ElementRef,
     EventEmitter,
-    HostListener
+    HostListener,
+    ChangeDetectorRef
 } from '@angular/core';
 import { ComponentPortal, TemplatePortal, CdkPortalOutlet } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
@@ -14,10 +15,10 @@ import { AnimationEvent } from '@angular/animations';
 
 import { ThyPopoverConfig } from './popover.config';
 import { thyPopoverAnimations } from './popover-animations';
-
-export function throwThyPopoverContentAlreadyAttachedError() {
-    throw Error('Attempting to attach popover content after content is already attached');
-}
+import { ThyUpperOverlayContainer } from '../core/overlay';
+import { popoverUpperOverlayOptions } from './popover.options';
+import { Observable } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 @Component({
     selector: 'thy-popover-container',
@@ -32,9 +33,9 @@ export function throwThyPopoverContentAlreadyAttachedError() {
         '(@popoverContainer.done)': 'onAnimationDone($event)'
     }
 })
-export class ThyPopoverContainerComponent {
+export class ThyPopoverContainerComponent extends ThyUpperOverlayContainer {
     @ViewChild(CdkPortalOutlet)
-    private portalOutlet: CdkPortalOutlet;
+    portalOutlet: CdkPortalOutlet;
 
     /** State of the popover animation. */
     animationState: 'void' | 'enter' | 'exit' = 'enter';
@@ -42,34 +43,31 @@ export class ThyPopoverContainerComponent {
     /** Emits when an animation state changes. */
     animationStateChanged = new EventEmitter<AnimationEvent>();
 
+    animationOpeningDone: Observable<AnimationEvent>;
+    animationClosingDone: Observable<AnimationEvent>;
+
     insideClicked = new EventEmitter();
+
+    beforeAttachPortal(): void {}
 
     constructor(
         private elementRef: ElementRef,
         @Inject(DOCUMENT) private document: any,
-        public config: ThyPopoverConfig
-    ) {}
+        public config: ThyPopoverConfig,
+        changeDetectorRef: ChangeDetectorRef
+    ) {
+        super(popoverUpperOverlayOptions, changeDetectorRef);
 
-    /**
-     * Attach a ComponentPortal as content to this popover container.
-     * @param portal Portal to be attached as the popover content.
-     */
-    attachComponentPortal<T>(portal: ComponentPortal<T>): ComponentRef<T> {
-        if (this.portalOutlet.hasAttached()) {
-            throwThyPopoverContentAlreadyAttachedError();
-        }
-        return this.portalOutlet.attachComponentPortal(portal);
-    }
-
-    /**
-     * Attach a TemplatePortal as content to this dialog container.
-     * @param portal Portal to be attached as the dialog content.
-     */
-    attachTemplatePortal<C>(portal: TemplatePortal<C>): EmbeddedViewRef<C> {
-        if (this.portalOutlet.hasAttached()) {
-            throwThyPopoverContentAlreadyAttachedError();
-        }
-        return this.portalOutlet.attachTemplatePortal(portal);
+        this.animationOpeningDone = this.animationStateChanged.pipe(
+            filter((event: AnimationEvent) => {
+                return event.phaseName === 'done' && event.toState === 'void';
+            })
+        );
+        this.animationClosingDone = this.animationStateChanged.pipe(
+            filter((event: AnimationEvent) => {
+                return event.phaseName === 'done' && event.toState === 'exit';
+            })
+        );
     }
 
     /** Callback, invoked whenever an animation on the host completes. */
