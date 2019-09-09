@@ -7,7 +7,7 @@ import { takeUntil } from 'rxjs/operators';
 
 export type ThyOverlayTrigger = 'hover' | 'focus' | 'click';
 
-export abstract class ThyOverlayDirectiveBase implements OnDestroy {
+export abstract class ThyOverlayDirectiveBase {
     protected elementRef: ElementRef;
     private initialized = false;
     /** Trigger Overlay */
