@@ -34,6 +34,7 @@ export abstract class ThyOverlayDirectiveBase implements OnDestroy {
     protected hidDelay? = 0;
     protected disabled = false;
 
+    abstract tooltipPin: boolean;
     /** create overlay, you can use popover service or overlay*/
     abstract createOverlay(): OverlayRef;
     abstract show(delay?: number): void;
@@ -78,7 +79,7 @@ export abstract class ThyOverlayDirectiveBase implements OnDestroy {
                         // if element which moved to is in overlayElement, don't hide tooltip
                         if (overlayElement && overlayElement.contains) {
                             const toElementIsTooltip = overlayElement.contains(toElement as Element);
-                            if (!toElementIsTooltip) {
+                            if (!toElementIsTooltip || !this.tooltipPin) {
                                 this.hide();
                             }
                         }

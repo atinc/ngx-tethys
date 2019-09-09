@@ -29,7 +29,7 @@ import { ThyTooltipOptions, DEFAULT_TOOLTIP_OPTIONS } from './interface';
 import { inputValueToBoolean, isString } from '../util/helpers';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ThyTooltipComponent } from './tooltip.component';
-import { getFlexiblePositions, ThyPlacement } from '../core/overlay';
+import { getFlexiblePositions, ThyPlacement, ThyOverlayDirectiveBase } from '../core/overlay';
 import { fromEvent } from 'rxjs';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { THY_TOOLTIP_DEFAULT_CONFIG_TOKEN, ThyTooltipConfig } from './tooltip.config';
@@ -38,14 +38,11 @@ import { THY_TOOLTIP_DEFAULT_CONFIG_TOKEN, ThyTooltipConfig } from './tooltip.co
     selector: '[thyTooltip],[thy-tooltip]',
     exportAs: 'thyTooltip'
 })
-export class ThyTooltipDirective extends mixinUnsubscribe(MixinBase) implements OnInit, OnDestroy {
-    private manualListeners = new Map<string, EventListenerOrEventListenerObject>();
+export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnInit, OnDestroy {
     private options: ThyTooltipOptions = DEFAULT_TOOLTIP_OPTIONS;
-    private overlayRef: OverlayRef;
     private tooltipInstance: ThyTooltipComponent;
     private portal: ComponentPortal<ThyTooltipComponent>;
     private scrollStrategy: ScrollStrategy;
-    private disabled = false;
     private tooltipClass: string | string[];
 
     content: string | TemplateRef<HTMLElement>;
@@ -101,7 +98,7 @@ export class ThyTooltipDirective extends mixinUnsubscribe(MixinBase) implements 
     }
 
     /** Create the overlay config and position strategy */
-    private createOverlay(): OverlayRef {
+    createOverlay(): OverlayRef {
         if (this.overlayRef) {
             return this.overlayRef;
         }
@@ -197,16 +194,17 @@ export class ThyTooltipDirective extends mixinUnsubscribe(MixinBase) implements 
 
     constructor(
         private overlay: Overlay,
-        private elementRef: ElementRef<HTMLElement>,
+        elementRef: ElementRef<HTMLElement>,
         private scrollDispatcher: ScrollDispatcher,
         private viewContainerRef: ViewContainerRef,
-        private ngZone: NgZone,
-        private platform: Platform,
-        private focusMonitor: FocusMonitor,
+        ngZone: NgZone,
+        platform: Platform,
+        focusMonitor: FocusMonitor,
         @Inject(THY_TOOLTIP_DEFAULT_CONFIG_TOKEN)
         private thyTooltipConfig: ThyTooltipConfig
     ) {
-        super();
+        super(elementRef, platform, focusMonitor, ngZone);
+
         this.tooltipPin = this.thyTooltipConfig.tooltipPin;
         this.options = DEFAULT_TOOLTIP_OPTIONS;
         this.scrollStrategy = overlay.scrollStrategies.reposition({
@@ -215,58 +213,7 @@ export class ThyTooltipDirective extends mixinUnsubscribe(MixinBase) implements 
     }
 
     ngOnInit() {
-        const element: HTMLElement = this.elementRef.nativeElement;
-        if (!this.platform.IOS && !this.platform.ANDROID) {
-            if (this.trigger === 'hover') {
-                let overlayElement: HTMLElement;
-                this.manualListeners
-                    .set('mouseenter', () => {
-                        this.show();
-                    })
-                    .set('mouseleave', (event: MouseEvent) => {
-                        // element which mouse moved to
-                        const toElement = event.toElement || event.relatedTarget;
-                        if (this.overlayRef && !overlayElement) {
-                            overlayElement = this.overlayRef.overlayElement;
-                            fromEvent(overlayElement, 'mouseleave')
-                                .pipe(takeUntil(this.ngUnsubscribe$))
-                                .subscribe(() => {
-                                    this.hide();
-                                });
-                        }
-                        // if element which moved to is in overlayElement, don't hide tooltip
-                        if (overlayElement && overlayElement.contains) {
-                            const toElementIsTooltip = overlayElement.contains(toElement as Element);
-                            if (!toElementIsTooltip || !this.tooltipPin) {
-                                this.hide();
-                            }
-                        }
-                    });
-            } else if (this.trigger === 'focus') {
-                this.focusMonitor
-                    .monitor(this.elementRef)
-                    .pipe(takeUntil(this.ngUnsubscribe$))
-                    .subscribe(origin => {
-                        // Note that the focus monitor runs outside the Angular zone.
-                        if (!origin) {
-                            this.ngZone.run(() => this.hide(0));
-                        } else if (origin === 'keyboard') {
-                            this.ngZone.run(() => this.show());
-                        }
-                    });
-                // this.manualListeners.set('focus', () => this.show());
-                // this.manualListeners.set('blur', () => this.hide());
-            } else if (this.trigger === 'click') {
-                this.manualListeners.set('click', () => this.show());
-            } else {
-                throw new Error(`${this.trigger} is not support, only support hover | focus | click`);
-            }
-        } else {
-            // Reserve extensions for mobile in the future
-            this.manualListeners.set('touchstart', () => this.show());
-        }
-
-        this.manualListeners.forEach((listener, event) => element.addEventListener(event, listener));
+        this.initialize();
     }
 
     /** Shows the tooltip after the delay in ms, defaults to tooltip-delay-show 200ms */
@@ -301,16 +248,9 @@ export class ThyTooltipDirective extends mixinUnsubscribe(MixinBase) implements 
     }
 
     ngOnDestroy() {
+        super.ngOnDestroy();
         if (this.overlayRef) {
-            this.overlayRef.dispose();
             this.tooltipInstance = null;
         }
-
-        super.ngOnDestroy();
-        this.manualListeners.forEach((listener, event) => {
-            this.elementRef.nativeElement.removeEventListener(event, listener);
-        });
-        this.manualListeners.clear();
-        this.focusMonitor.stopMonitoring(this.elementRef);
     }
 }

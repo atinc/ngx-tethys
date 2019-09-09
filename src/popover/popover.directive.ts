@@ -38,6 +38,8 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
 
     private popoverRef: ThyPopoverRef<any>;
 
+    tooltipPin = true;
+
     constructor(
         elementRef: ElementRef,
         platform: Platform,
