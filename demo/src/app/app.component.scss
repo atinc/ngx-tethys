@@ -85,7 +85,7 @@ body {
     height: calc(100vh - 50px);
     margin-top: 50px;
     background: transparent;
-    .thy-layout-sidebar {
+    > .thy-layout-sidebar {
         background: $white;
         padding-right: 1px;
         border-right: none;
