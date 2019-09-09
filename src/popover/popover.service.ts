@@ -138,7 +138,7 @@ export class ThyPopover extends ThyUpperOverlayService<ThyPopoverConfig, ThyPopo
         super(popoverUpperOverlayOptions, overlay, injector, defaultConfig);
     }
 
-    private closeLast(origin: HTMLElement) {
+    private ensureCloseClosest(origin: HTMLElement) {
         let closeAndEnd = false;
         this.originInstancesMap.forEach((value, key) => {
             if (value.config.manualClosure) {
@@ -163,7 +163,7 @@ export class ThyPopover extends ThyUpperOverlayService<ThyPopoverConfig, ThyPopo
         // 默认关闭之前的弹出框
         // 1. 当之前的 Popover 设置 manualClosure 为 true 时, 弹出其他 Popover 时不自动关闭 manualClosure 为 true 的 Popover
         // 2. 当前的 Origin 对应的 Popover 已经弹出，不管 manualClosure 设置为何，直接关闭并返回
-        if (this.closeLast(coerceElement(config.origin))) {
+        if (this.ensureCloseClosest(coerceElement(config.origin))) {
             return;
         }
 
