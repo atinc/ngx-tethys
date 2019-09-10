@@ -77,12 +77,12 @@ export class ThyPopoverContainerComponent extends ThyUpperOverlayContainer {
         // } else if (event.toState === 'exit') {
         //     this.restoreFocus();
         // }
-        // this.animationStateChanged.emit(event);
+        this.animationStateChanged.emit(event);
     }
 
     /** Callback, invoked when an animation on the host starts. */
     onAnimationStart(event: AnimationEvent) {
-        // this.animationStateChanged.emit(event);
+        this.animationStateChanged.emit(event);
     }
 
     startExitAnimation(): void {

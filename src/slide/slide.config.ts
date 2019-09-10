@@ -31,7 +31,7 @@ export const THY_SLIDE_DEFAULT_OPTIONS_PROVIDER = {
     provide: THY_SLIDE_DEFAULT_OPTIONS,
     useValue: {
         hasBackdrop: true,
-        backdropClass: '',
+        backdropClass: 'thy-slide-backdrop',
         backdropClosable: true,
         closeOnNavigation: true,
         autoFocus: true,

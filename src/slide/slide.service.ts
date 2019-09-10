@@ -100,7 +100,7 @@ export class ThySlideService extends ThyUpperOverlayService<ThySlideConfig, ThyS
         componentOrTemplateRef: ComponentTypeOrTemplateRef<T>,
         config?: ThySlideConfig
     ): ThyUpperOverlayRef<T, ThySlideContainerComponent, TResult> {
-        return this.openUpperOverlay(componentOrTemplateRef, config);
+        return this.open(componentOrTemplateRef, config);
     }
 
     ngOnDestroy() {
