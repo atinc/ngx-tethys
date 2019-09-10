@@ -54,14 +54,16 @@ export class ThySlideContainerComponent extends ThyUpperOverlayContainer {
         );
     }
 
-    beforeAttachPortal(): void {}
+    beforeAttachPortal(): void {
+        this.animationState = this.config.from;
+    }
 
     onAnimationDone(event: AnimationEvent) {
         this.animationStateChanged.emit(event);
     }
 
     onAnimationStart(event: AnimationEvent) {
-        this.animationState = this.config.from;
+        // this.animationState = this.config.from;
         this.animationStateChanged.emit(event);
     }
 }

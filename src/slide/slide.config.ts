@@ -10,10 +10,6 @@ export class ThySlideConfig extends ThyUpperOverlayConfig {
 
     class?: string;
 
-    hasBackdrop?: boolean;
-
-    initialState?: Object;
-
     containerClass?: string;
 }
 

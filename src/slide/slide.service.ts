@@ -4,7 +4,7 @@ import { OverlayConfig, OverlayRef, Overlay } from '@angular/cdk/overlay';
 import { PortalInjector, ComponentPortal } from '@angular/cdk/portal';
 import { ThyUpperOverlayService, ThyUpperOverlayRef, ComponentTypeOrTemplateRef } from '../core/overlay';
 import { ThySlideConfig, THY_SLIDE_DEFAULT_OPTIONS, slideUpperOverlayOptions } from './slide.config';
-import { ThySlideRef } from './slide-ref.service';
+import { ThySlideRef, ThyInternalSlideRef } from './slide-ref.service';
 import { Directionality } from '@angular/cdk/bidi';
 import { of } from 'rxjs';
 import { coerceArray } from '../util/helpers';
@@ -43,7 +43,7 @@ export class ThySlideService extends ThyUpperOverlayService<ThySlideConfig, ThyS
         containerInstance: ThySlideContainerComponent,
         config: ThySlideConfig
     ): ThyUpperOverlayRef<T, ThySlideContainerComponent, any> {
-        return new ThySlideRef(overlayRef, containerInstance, config);
+        return new ThyInternalSlideRef(overlayRef, containerInstance, config);
     }
 
     protected createInjector<T>(
@@ -88,18 +88,18 @@ export class ThySlideService extends ThyUpperOverlayService<ThySlideConfig, ThyS
     open<T, TData = undefined, TResult = undefined>(
         componentOrTemplateRef: ComponentTypeOrTemplateRef<T>,
         config?: ThySlideConfig
-    ): ThyUpperOverlayRef<T, ThySlideContainerComponent, TResult> {
+    ): ThySlideRef<T, TResult> {
         if (this.overlayIsOpened(config)) {
             return;
         }
         const popoverRef = this.openUpperOverlay(componentOrTemplateRef, config);
-        return popoverRef;
+        return popoverRef as ThySlideRef<T, TResult>;
     }
 
     show<T, TData = undefined, TResult = undefined>(
         componentOrTemplateRef: ComponentTypeOrTemplateRef<T>,
         config?: ThySlideConfig
-    ): ThyUpperOverlayRef<T, ThySlideContainerComponent, TResult> {
+    ): ThySlideRef<T, TResult> {
         return this.open(componentOrTemplateRef, config);
     }
 
