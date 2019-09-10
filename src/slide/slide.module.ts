@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ComponentLoaderFactory } from 'ngx-bootstrap/component-loader';
 import { ThySharedModule } from '../shared';
 import { ThySlideService } from './slide.service';
 import { ThySlideContainerComponent } from './slide-container.component';
@@ -11,6 +10,9 @@ import { ThySlideBodyComponent } from './slide-body/slide-body.component';
 import { ThySlideBodySectionComponent } from './slide-body/slide-body-section.component';
 import { ThySlideFooterComponent } from './slide-footer/slide-footer.component';
 import { ThyIconModule } from '../icon';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { PortalModule } from '@angular/cdk/portal';
+import { THY_SLIDE_DEFAULT_OPTIONS_PROVIDER } from './slide.config';
 
 @NgModule({
     declarations: [
@@ -22,7 +24,7 @@ import { ThyIconModule } from '../icon';
         ThySlideFooterComponent
     ],
     entryComponents: [ThySlideContainerComponent],
-    imports: [CommonModule, ThySharedModule, ThyIconModule],
+    imports: [CommonModule, ThySharedModule, ThyIconModule, OverlayModule, PortalModule],
     exports: [
         ThySlideLayoutComponent,
         ThySlideHeaderComponent,
@@ -30,6 +32,6 @@ import { ThyIconModule } from '../icon';
         ThySlideBodySectionComponent,
         ThySlideFooterComponent
     ],
-    providers: [ComponentLoaderFactory, ThySlideService, ThySlideRef]
+    providers: [ThySlideRef, ThySlideService, THY_SLIDE_DEFAULT_OPTIONS_PROVIDER]
 })
 export class ThySlideModule {}

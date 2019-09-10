@@ -1,70 +1,39 @@
-<ng-container *ngIf="slideType === 'slide-layout-3'">
-  <thy-slide-layout>
-    <thy-slide-header [thyTitle]="'筛选'" thyIcon="wtf-task-o"></thy-slide-header>
-    <thy-slide-body>
-      <thy-slide-body-section>
-        三栏式布局
-      </thy-slide-body-section>
-      <thy-slide-body-section>
-        <div>
-          筛选 body---{{ name }}
-          <button thyButton="primary" #btnTriggerPopBoxTemplate (click)="addPopBox(btnTriggerPopBoxTemplate, add)">
-            添加
-          </button>
-        </div>
-      </thy-slide-body-section>
-      <thy-slide-body-section>
-        <div>
-          筛选 body---{{ name }}
-          <button thyButton="primary" #btnTriggerPopBoxTemplate (click)="addPopBox(btnTriggerPopBoxTemplate, add)">
-            添加
-          </button>
-        </div>
-      </thy-slide-body-section>
-    </thy-slide-body>
-    <thy-slide-footer>
-      <button thyButton="primary-square" class="btn-block">确认</button>
-    </thy-slide-footer>
-  </thy-slide-layout>
-</ng-container>
-
-<ng-template #add>
-  <thy-pop-box-header>
-    <h5 class="pop-box-title">确认删除</h5>
-  </thy-pop-box-header>
-  <thy-pop-box-body>
-    <button thyButton="primary" #btnTriggerPopBoxTemplate1 (click)="addPopBox1(btnTriggerPopBoxTemplate1, popBox)">
-      添加
-    </button>
-  </thy-pop-box-body>
-</ng-template>
-
-<ng-template #popBox>
-  <thy-pop-box-header>
-    <h5 class="pop-box-title">确认删除</h5>
-  </thy-pop-box-header>
-  <thy-pop-box-body>
-    <a thyActionMenuItem thyActionMenuItemActive="true" href="javascript:;">
-      <span class="icon">
-        <i class="wtf wtf-task-o"></i>
-      </span>
-      <span>有图标</span>
-    </a>
-  </thy-pop-box-body>
-</ng-template>
-<ng-container *ngIf="slideType === 'slide-layout-2'">
-  <thy-slide-layout>
-    <thy-slide-header [thyTitle]="'自定义slide头-'">
-      <ng-template #thyHeaderOperate>
-        <a thyShape="circle-thick-dashed" href="javascript:;">
-          我是自定义头部操作区
-        </a>
-      </ng-template>
-    </thy-slide-header>
-    <thy-slide-body>
-      <thy-slide-body-section>
-        两栏式布局
-      </thy-slide-body-section>
-    </thy-slide-body>
-  </thy-slide-layout>
-</ng-container>
+<section>
+  <div class="header">
+    <h2>Slide</h2>
+  </div>
+  <div class="body">
+    <div class="w-50">
+      <form thyForm name="demoForm" #demoForm="ngForm">
+        <thy-form-group thyLabelText="进场方向">
+          <thy-select [(ngModel)]="thySlideFrom" name="thySlideFrom">
+            <option value="right">从右进场</option>
+            <option value="left">从左进场</option>
+            <option value="top">从上进场</option>
+            <option value="bottom">从下进场</option>
+          </thy-select>
+        </thy-form-group>
+        <thy-form-group thyLabelText="Slide 样式">
+          <thy-select [(ngModel)]="thySlideClass" name="thySlideClass">
+            <option value="thy-slide">用于类似视图筛选</option>
+            <option value="thy-slide-lg">用于类似任务搜索</option>
+          </thy-select>
+        </thy-form-group>
+        <thy-form-group thyLabelText="Slide 类型">
+          <thy-select [(ngModel)]="thySlideType" name="thySlideClass">
+            <option value="slide-layout-2">自定义头部+两栏式布局</option>
+            <option value="slide-layout-3">三栏式布局</option>
+          </thy-select>
+        </thy-form-group>
+        <thy-form-group thyLabelText="">
+          <label name="hasBackdrop" thyCheckbox [(ngModel)]="hasBackdrop" thyLabelText="弹出时，是否有幕布"></label>
+        </thy-form-group>
+      </form>
+    </div>
+    <div>
+      <button [thyButton]="'primary'" (click)="showSlide('key1')">show slide</button>
+      <button [thyButton]="'primary'" (click)="showSlide('key2')">show slide</button>
+    </div>
+  </div>
+</section>
+<section></section>
