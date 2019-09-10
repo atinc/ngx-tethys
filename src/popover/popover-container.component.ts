@@ -15,7 +15,7 @@ import { AnimationEvent } from '@angular/animations';
 
 import { ThyPopoverConfig } from './popover.config';
 import { thyPopoverAnimations } from './popover-animations';
-import { ThyUpperOverlayContainer } from '../core/overlay';
+import { ThyUpperOverlayContainer, ThyPlacement } from '../core/overlay';
 import { popoverUpperOverlayOptions } from './popover.options';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -38,7 +38,7 @@ export class ThyPopoverContainerComponent extends ThyUpperOverlayContainer {
     portalOutlet: CdkPortalOutlet;
 
     /** State of the popover animation. */
-    animationState: 'void' | 'enter' | 'exit' = 'enter';
+    animationState: 'void' | 'enter' | 'exit' | ThyPlacement = 'enter';
 
     /** Emits when an animation state changes. */
     animationStateChanged = new EventEmitter<AnimationEvent>();
@@ -58,14 +58,16 @@ export class ThyPopoverContainerComponent extends ThyUpperOverlayContainer {
     ) {
         super(popoverUpperOverlayOptions, changeDetectorRef);
 
+        this.animationState = this.config.placement;
+
         this.animationOpeningDone = this.animationStateChanged.pipe(
             filter((event: AnimationEvent) => {
-                return event.phaseName === 'done' && event.toState === 'void';
+                return event.phaseName === 'done' && event.toState === 'enter';
             })
         );
         this.animationClosingDone = this.animationStateChanged.pipe(
             filter((event: AnimationEvent) => {
-                return event.phaseName === 'done' && event.toState === 'exit';
+                return event.phaseName === 'done' && event.fromState === 'enter';
             })
         );
     }
@@ -77,16 +79,21 @@ export class ThyPopoverContainerComponent extends ThyUpperOverlayContainer {
         // } else if (event.toState === 'exit') {
         //     this.restoreFocus();
         // }
-        this.animationStateChanged.emit(event);
+        if (event.fromState !== 'void') {
+            this.animationStateChanged.emit(event);
+        }
     }
 
     /** Callback, invoked when an animation on the host starts. */
     onAnimationStart(event: AnimationEvent) {
+        if (event.fromState === 'void') {
+            this.animationState = 'enter';
+        }
         this.animationStateChanged.emit(event);
     }
 
     startExitAnimation(): void {
-        this.animationState = 'exit';
+        this.animationState = this.config.placement;
 
         // Mark the container for check so it can react if the
         // view container is using OnPush change detection.
