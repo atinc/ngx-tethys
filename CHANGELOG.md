@@ -1,3 +1,12 @@
+## [7.5.16](https://github.com/worktile/ngx-tethys/compare/7.5.15...7.5.16) (2019-09-11)
+
+
+### Features
+
+* **dialog:** add thySize for header, add pill style for close [#264303](https://github.com/worktile/ngx-tethys/issues/264303) ([e6a4856](https://github.com/worktile/ngx-tethys/commit/e6a4856))
+
+
+
 ## [7.5.15](https://github.com/worktile/ngx-tethys/compare/7.5.14...7.5.15) (2019-09-11)
 
 
