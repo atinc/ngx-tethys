@@ -8,7 +8,6 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ThyTooltipDirective } from '../tooltip.directive';
 import { dispatchMouseEvent } from '../../core/testing';
-import { containsElement } from '@angular/animations/browser/src/render/shared';
 
 const initialTooltipMessage = 'hello, this is tooltip message';
 const TOOLTIP_CLASS = `thy-tooltip`;
