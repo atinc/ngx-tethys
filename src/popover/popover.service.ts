@@ -160,10 +160,11 @@ export class ThyPopover extends ThyUpperOverlayService<ThyPopoverConfig, ThyPopo
         componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
         config?: ThyPopoverConfig<TData>
     ): ThyPopoverRef<T, TResult> {
+        const originElement = coerceElement(config.origin);
         // 默认关闭之前的弹出框
         // 1. 当之前的 Popover 设置 manualClosure 为 true 时, 弹出其他 Popover 时不自动关闭 manualClosure 为 true 的 Popover
         // 2. 当前的 Origin 对应的 Popover 已经弹出，不管 manualClosure 设置为何，直接关闭并返回
-        if (this.ensureCloseClosest(coerceElement(config.origin))) {
+        if (this.ensureCloseClosest(originElement)) {
             return;
         }
 
@@ -171,12 +172,12 @@ export class ThyPopover extends ThyUpperOverlayService<ThyPopoverConfig, ThyPopo
         config = popoverRef.containerInstance.config;
         popoverRef.afterClosed().subscribe(() => {
             this.originElementRemoveActiveClass(config);
-            this.originInstancesMap.delete(config.origin);
+            this.originInstancesMap.delete(originElement);
         });
 
         this.originElementAddActiveClass(config);
 
-        this.originInstancesMap.set(config.origin, {
+        this.originInstancesMap.set(originElement, {
             config,
             popoverRef
         });
