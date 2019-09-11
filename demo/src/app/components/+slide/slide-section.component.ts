@@ -1,19 +1,21 @@
 import { Component } from '@angular/core';
 import { DemoSlideContentComponent } from './slide-content.component';
 import { ThySlideService } from '../../../../../src/slide/slide.service';
+import { ThySlideFromTypes } from 'ngx-tethys/slide/slide.config';
+import { LiveDemoCodeExample } from 'app/core/live-demo/live-demo.component';
 
 @Component({
     selector: 'demo-slide-section',
     templateUrl: './slide-section.component.html'
 })
 export class DemoSlideSectionComponent {
-    public thySlideFrom = 'right';
+    public thySlideFrom: ThySlideFromTypes = 'right';
 
     public thySlideClass = 'thy-slide';
 
     public hasBackdrop = true;
 
-    public thySlideType: string = 'slide-layout-3';
+    public thySlideType = 'slide-layout-3';
 
     public apiThySlideParameters = [
         {
@@ -75,15 +77,35 @@ export class DemoSlideSectionComponent {
         }
     ];
 
-    constructor(private thySlideService: ThySlideService) {}
+    public liveDemos: LiveDemoCodeExample[] = [
+        {
+            title: 'slide 示例',
+            component: DemoSlideContentComponent,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'slide-example.component.html',
+                    content: require('!!raw-loader!./slide-example.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'slide-example.component.ts',
+                    content: require('!!raw-loader!./slide-example.component.ts')
+                }
+            ]
+        }
+    ];
 
-    showSlide(key) {
-        this.thySlideService.show(DemoSlideContentComponent, {
-            key: key,
+    constructor(private thySlideNewService: ThySlideService) {}
+
+    showSlide(key: string) {
+        this.thySlideNewService.open(DemoSlideContentComponent, {
+            id: key,
             from: this.thySlideFrom, // 'left','right','top','bottom'
             class: this.thySlideClass,
             hasBackdrop: this.hasBackdrop,
             containerClass: 'slide-container-class',
+            panelClass: this.thySlideClass,
             initialState: { name: 'slide', slideType: this.thySlideType }
         });
     }

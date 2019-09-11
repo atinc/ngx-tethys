@@ -7,3 +7,4 @@ export * from './slide-body/slide-body.component';
 export * from './slide-body/slide-body-section.component';
 export * from './slide-footer/slide-footer.component';
 export * from './slide-container.component';
+export * from './slide.config';
