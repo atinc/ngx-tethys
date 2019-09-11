@@ -103,6 +103,10 @@ export class ThySlideService extends ThyUpperOverlayService<ThySlideConfig, ThyS
         return this.open(componentOrTemplateRef, config);
     }
 
+    hide<T>(result?: T) {
+        this.close<T>(result);
+    }
+
     ngOnDestroy() {
         this.dispose();
     }
