@@ -87,7 +87,7 @@ export class ThySlideService extends ThyUpperOverlayService<ThySlideConfig, ThyS
 
     open<T, TData = undefined, TResult = undefined>(
         componentOrTemplateRef: ComponentTypeOrTemplateRef<T>,
-        config?: ThySlideConfig
+        config: ThySlideConfig
     ): ThySlideRef<T, TResult> {
         if (this.overlayIsOpened(config)) {
             return;
@@ -96,13 +96,24 @@ export class ThySlideService extends ThyUpperOverlayService<ThySlideConfig, ThyS
         return popoverRef as ThySlideRef<T, TResult>;
     }
 
+    /**
+     * please use open,
+     * @deprecated
+     * @param componentOrTemplateRef
+     * @param config
+     */
     show<T, TData = undefined, TResult = undefined>(
         componentOrTemplateRef: ComponentTypeOrTemplateRef<T>,
-        config?: ThySlideConfig
+        config: ThySlideConfig
     ): ThySlideRef<T, TResult> {
         return this.open(componentOrTemplateRef, config);
     }
 
+    /**
+     * please use close,
+     * @deprecated
+     * @param result
+     */
     hide<T>(result?: T) {
         this.close<T>(result);
     }
