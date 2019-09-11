@@ -1,85 +1,109 @@
-import { Injectable, TemplateRef, HostListener } from '@angular/core';
-import { ThySlideOption, thySlideOptionDefaults } from './slide-options.class';
-import { ComponentLoaderFactory, ComponentLoader } from 'ngx-bootstrap/component-loader';
+import { Injectable, Injector, Optional, Inject, OnDestroy } from '@angular/core';
 import { ThySlideContainerComponent } from './slide-container.component';
-import { ThySlideRef } from './slide-ref.service';
+import { OverlayConfig, OverlayRef, Overlay } from '@angular/cdk/overlay';
+import { PortalInjector, ComponentPortal } from '@angular/cdk/portal';
+import { ThyUpperOverlayService, ThyUpperOverlayRef, ComponentTypeOrTemplateRef } from '../core/overlay';
+import { ThySlideConfig, THY_SLIDE_DEFAULT_OPTIONS, slideUpperOverlayOptions } from './slide.config';
+import { ThySlideRef, ThyInternalSlideRef } from './slide-ref.service';
+import { Directionality } from '@angular/cdk/bidi';
+import { of } from 'rxjs';
+import { coerceArray } from '../util/helpers';
 
 @Injectable()
-export class ThySlideService {
-    private openedSlideRefs: {
-        config: ThySlideOption;
-        thySlideRef: ThySlideRef;
-    }[] = [];
-
-    private _slideLoader: ComponentLoader<ThySlideContainerComponent>;
-
-    private _config: ThySlideOption;
-
-    private _isHide = false;
-
-    constructor(private clf: ComponentLoaderFactory) {}
-
-    public show(content: string | TemplateRef<any> | any, config?: ThySlideOption) {
-        this._isHide = false;
-        setTimeout(() => {
-            this._show(content, config);
-        });
+export class ThySlideService extends ThyUpperOverlayService<ThySlideConfig, ThySlideContainerComponent>
+    implements OnDestroy {
+    private getOverlayPanelClasses(slideConfig: ThySlideConfig) {
+        const classes: string[] = ['slide'];
+        // 兼容之前的 class
+        if (slideConfig.class) {
+            return classes.concat(coerceArray(slideConfig.class));
+        }
+        if (slideConfig.panelClass) {
+            return classes.concat(coerceArray(slideConfig.panelClass));
+        }
+        return classes;
     }
 
-    private _show(content: string | TemplateRef<any> | any, config?: ThySlideOption) {
-        if (this.openedSlideRefs.length > 0) {
-            const openedSlideRef = this.openedSlideRefs[this.openedSlideRefs.length - 1];
-            if (openedSlideRef && openedSlideRef.config) {
-                const oldKey = openedSlideRef.config.key;
-                const newKey = config && config.key;
-                if (oldKey && newKey && oldKey === newKey) {
-                    this.hide();
-                    return;
-                }
-            }
-        }
+    protected buildOverlayConfig(config: ThySlideConfig): OverlayConfig {
+        const overlayConfig = this.buildBaseOverlayConfig(config);
+        overlayConfig.panelClass = this.getOverlayPanelClasses(config);
+        return overlayConfig;
+    }
 
-        this._config = Object.assign({}, thySlideOptionDefaults, config);
+    protected attachUpperOverlayContainer(overlay: OverlayRef, config: ThySlideConfig): ThySlideContainerComponent {
+        const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
+        const injector = new PortalInjector(userInjector || this.injector, new WeakMap([[ThySlideConfig, config]]));
+        const containerPortal = new ComponentPortal(ThySlideContainerComponent, config.viewContainerRef, injector);
+        const containerRef = overlay.attach<ThySlideContainerComponent>(containerPortal);
+        return containerRef.instance;
+    }
 
-        this._slideLoader = this.clf.createLoader<ThySlideContainerComponent>(null, null, null);
+    protected createUpperOverlayRef<T>(
+        overlayRef: OverlayRef,
+        containerInstance: ThySlideContainerComponent,
+        config: ThySlideConfig
+    ): ThyUpperOverlayRef<T, ThySlideContainerComponent, any> {
+        return new ThyInternalSlideRef(overlayRef, containerInstance, config);
+    }
 
-        const thySlideRef = new ThySlideRef();
-        thySlideRef.hide = () => {
-            this.hide();
-        };
-        thySlideRef.content = content || null;
-        this._slideLoader
-            .provide({ provide: ThySlideRef, useValue: thySlideRef })
-            .provide({ provide: ThySlideOption, useValue: this._config })
-            .attach(ThySlideContainerComponent)
-            .to('body')
-            .show({
-                content,
-                initialState: this._config.initialState,
-                thySlideRef: thySlideRef,
-                thySlideService: this
+    protected createInjector<T>(
+        config: ThySlideConfig,
+        overlayRef: ThyUpperOverlayRef<T, ThySlideContainerComponent, any>,
+        containerInstance: ThySlideContainerComponent
+    ): PortalInjector {
+        const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
+
+        const injectionTokens = new WeakMap<any, any>([
+            [ThySlideContainerComponent, containerInstance],
+            [ThySlideRef, overlayRef]
+        ]);
+
+        if (config.direction && (!userInjector || !userInjector.get<Directionality | null>(Directionality, null))) {
+            injectionTokens.set(Directionality, {
+                value: config.direction,
+                change: of()
             });
-        this.openedSlideRefs.push({
-            config: this._config,
-            thySlideRef: this._slideLoader
-        });
-    }
-
-    public hide() {
-        this._isHide = true;
-        this._hide();
-    }
-
-    private _hide() {
-        if (this.openedSlideRefs.length > 0) {
-            const openedSlideRef = this.openedSlideRefs[this.openedSlideRefs.length - 1];
-            if (openedSlideRef && openedSlideRef.thySlideRef) {
-                openedSlideRef.thySlideRef['instance'].flyInOut = 'void';
-                setTimeout(() => {
-                    openedSlideRef.thySlideRef.hide();
-                    this.openedSlideRefs.splice(this.openedSlideRefs.length - 1, 1);
-                }, 200);
-            }
         }
+
+        return new PortalInjector(userInjector || this.injector, injectionTokens);
+    }
+
+    private overlayIsOpened(config: ThySlideConfig) {
+        const overlayId = config.id || config.key;
+        const openedOverlay = this.getUpperOverlayById(overlayId);
+        this.close(openedOverlay);
+        return openedOverlay;
+    }
+
+    constructor(
+        overlay: Overlay,
+        injector: Injector,
+        @Optional()
+        @Inject(THY_SLIDE_DEFAULT_OPTIONS)
+        defaultConfig: ThySlideConfig
+    ) {
+        super(slideUpperOverlayOptions, overlay, injector, defaultConfig);
+    }
+
+    open<T, TData = undefined, TResult = undefined>(
+        componentOrTemplateRef: ComponentTypeOrTemplateRef<T>,
+        config?: ThySlideConfig
+    ): ThySlideRef<T, TResult> {
+        if (this.overlayIsOpened(config)) {
+            return;
+        }
+        const popoverRef = this.openUpperOverlay(componentOrTemplateRef, config);
+        return popoverRef as ThySlideRef<T, TResult>;
+    }
+
+    show<T, TData = undefined, TResult = undefined>(
+        componentOrTemplateRef: ComponentTypeOrTemplateRef<T>,
+        config?: ThySlideConfig
+    ): ThySlideRef<T, TResult> {
+        return this.open(componentOrTemplateRef, config);
+    }
+
+    ngOnDestroy() {
+        this.dispose();
     }
 }
