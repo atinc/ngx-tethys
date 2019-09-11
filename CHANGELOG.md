@@ -1,3 +1,28 @@
+## [7.5.15](https://github.com/worktile/ngx-tethys/compare/7.5.14...7.5.15) (2019-09-11)
+
+
+### Bug Fixes
+
+* fix button shake when change button is disabled ([28b2d11](https://github.com/worktile/ngx-tethys/commit/28b2d11))
+* **other:** solve the effect of style on layout ([51f154d](https://github.com/worktile/ngx-tethys/commit/51f154d))
+* **overlat-directive:** remove implements OnDescroty ([d553109](https://github.com/worktile/ngx-tethys/commit/d553109))
+* **popover:** should close when click origin again manualClosure as true ([e5b890c](https://github.com/worktile/ngx-tethys/commit/e5b890c))
+
+
+### Features
+
+* **core:** add upper overlay contains service, ref, config, container ([24794ac](https://github.com/worktile/ngx-tethys/commit/24794ac))
+* **popover:** popover support manualClosure ([0909b7b](https://github.com/worktile/ngx-tethys/commit/0909b7b))
+* **popover:** popover support manualClosure ([5ba7b56](https://github.com/worktile/ngx-tethys/commit/5ba7b56))
+* **popover:** popover support manualClosure ([8f036dd](https://github.com/worktile/ngx-tethys/commit/8f036dd))
+* **popover:** popover support multiple ([aa5ce9c](https://github.com/worktile/ngx-tethys/commit/aa5ce9c))
+* **slide:** slide section divider border ui input switch ([bb0357a](https://github.com/worktile/ngx-tethys/commit/bb0357a))
+* **slide:** slide section divider border ui input switch ([14f3da1](https://github.com/worktile/ngx-tethys/commit/14f3da1))
+* **slide:** slide section divider border ui input switch ([ee73560](https://github.com/worktile/ngx-tethys/commit/ee73560))
+* **slide:** slide section divider border ui input switch ([eedced0](https://github.com/worktile/ngx-tethys/commit/eedced0))
+
+
+
 ## [7.5.14](https://github.com/worktile/ngx-tethys/compare/7.5.13...7.5.14) (2019-08-29)
 
 
