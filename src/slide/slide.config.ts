@@ -4,13 +4,22 @@ import { InjectionToken } from '@angular/core';
 export type ThySlideFromTypes = 'left' | 'right' | 'top' | 'bottom' | 'void' | 'exit';
 
 export class ThySlideConfig extends ThyUpperOverlayConfig {
-    key?: string; // 尽量不要使用key,使用id,将要废弃
+    /**
+     * please use id
+     * @deprecated
+     */
+    key?: string;
 
+    /**
+     * set the direction when slide enter
+     */
     from?: ThySlideFromTypes;
 
+    /**
+     * please use panelClass
+     * @deprecated
+     */
     class?: string;
-
-    containerClass?: string;
 }
 
 export class ThySlideOption extends ThySlideConfig {}

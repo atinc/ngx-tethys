@@ -22,9 +22,7 @@ export class DemoSlideContentComponent {
         this.thySlideNewService.open(DemoSlideExampleComponent, {
             id: key,
             from: this.thySlideFrom, // 'left','right','top','bottom'
-            class: this.thySlideClass,
             hasBackdrop: this.hasBackdrop,
-            containerClass: 'slide-container-class',
             panelClass: this.thySlideClass,
             initialState: { name: 'slide', slideType: this.thySlideType }
         });
