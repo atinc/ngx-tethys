@@ -36,6 +36,7 @@ import { DemoRadioSectionComponent } from './+form-radio/radio-section.component
 import { DemoSelectSectionComponent } from './+select/select-section.component';
 import { DemoSlideSectionComponent } from './+slide/slide-section.component';
 import { DemoSlideContentComponent } from './+slide/slide-content.component';
+import { DemoSlideExampleComponent } from './+slide/slide-example.component';
 import { DemoPropertyOperationSectionComponent } from './+property-operation/property-operation-section.component';
 import { DemoUploaderSectionComponent } from './+uploader/uploader-section.component';
 import { DemoDateRangeSectionComponent } from './+date-range/date-range-section.component';
@@ -132,6 +133,7 @@ export const COMPONENTS = [
     DemoSelectSectionComponent,
     DemoSlideSectionComponent,
     DemoSlideContentComponent,
+    DemoSlideExampleComponent,
     DemoRadioSectionComponent,
     DemoSelectSectionComponent,
     DemoPropertyOperationSectionComponent,
@@ -174,6 +176,7 @@ export const ENTRY_COMPONENTS = [
 
     DemoModalContentComponent,
     DemoSlideContentComponent,
+    DemoSlideExampleComponent,
 
     DemoAvatarSizeSectionComponent,
     DemoAvatarTypeSectionComponent,
