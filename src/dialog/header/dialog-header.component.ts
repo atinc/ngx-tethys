@@ -23,12 +23,18 @@ import { ThyInternalDialogRef } from '../dialog-ref';
     exportAs: 'thyDialogHeader'
 })
 export class DialogHeaderComponent implements OnInit {
-    @HostBinding(`class.dialog-header`) _isDialogHeader = true;
+    @HostBinding(`class.dialog-header`) isDialogHeader = true;
+
+    @HostBinding(`class.dialog-header-lg`) isDialogHeaderLg = false;
 
     @ContentChild('dialogHeader')
     public headerTemplate: TemplateRef<any>;
 
     @Input() thyTitle: string;
+
+    @Input() set thySize(value: 'lg' | 'md') {
+        this.isDialogHeaderLg = value === 'lg';
+    }
 
     @Input()
     set thyTitleTranslationKey(key: string) {
@@ -56,7 +62,7 @@ export class DialogHeaderComponent implements OnInit {
             // ID. This must occur in `onInit`, as the ID binding for the dialog container won't
             // be resolved at constructor time.
             const dialogRef = this.dialog.getClosestDialog(this.elementRef.nativeElement) as ThyInternalDialogRef<any>;
-            this.dialogContainer = dialogRef.containerInstance;
+            this.dialogContainer = dialogRef ? dialogRef.containerInstance : null;
         }
 
         // change in next microtask avoid throw ExpressionChangedAfterItHasBeenCheckedError

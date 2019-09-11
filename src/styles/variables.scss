@@ -343,10 +343,13 @@ $modal-sm: 400px !default; //
 $modal-transition: transform 0.3s ease-out !default;
 
 // Dialog
+$dialog-close-pill-enabled: true;
 $dialog-border-radius: 4px !default;
 $dialog-header-height: 50px !default;
 $dialog-header-title-line-height: 1.5rem !default;
 $dialog-header-padding: 1.875rem !default;
+$dialog-header-padding-lg: 1.25rem !default;
+
 $dialog-header-border-width: 1px !default;
 $dialog-header-border-color: $gray-200 !default;
 $dialog-box-shadow: 0 0 24px rgba(0, 0, 0, 0.25) !default;
@@ -406,7 +409,7 @@ $close-font-size: $font-size-md !default;
 $close-font-weight: normal !default;
 $close-color: $black !default;
 $close-text-shadow: 0 1px 0 $white !default;
-$close-text-color: $gray-300 !default;
+$close-text-color: $gray-400 !default;
 $empty-text-color: $gray-400 !default;
 $empty-icon-color: $gray-200 !default;
 $empty-text-size: $font-size-base !default;
