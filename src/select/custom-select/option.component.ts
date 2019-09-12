@@ -17,7 +17,7 @@ import {
     QueryList
 } from '@angular/core';
 import { Highlightable } from '@angular/cdk/a11y';
-import { ThyOptionGroupComponent } from '../..';
+import { ThyOptionGroupComponent } from '../../core/option/option-group.component';
 export class OptionSelectionChange {
     option: ThyOptionComponent;
     selected: boolean;
