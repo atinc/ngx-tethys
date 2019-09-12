@@ -1,3 +1,12 @@
+## [7.5.17](https://github.com/worktile/ngx-tethys/compare/7.5.16...7.5.17) (2019-09-12)
+
+
+### Bug Fixes
+
+* **popover:** fix popover can not auto close when insideClosable is true ([16b78fa](https://github.com/worktile/ngx-tethys/commit/16b78fa))
+
+
+
 ## [7.5.16](https://github.com/worktile/ngx-tethys/compare/7.5.15...7.5.16) (2019-09-11)
 
 
