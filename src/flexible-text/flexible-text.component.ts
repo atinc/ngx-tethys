@@ -14,6 +14,7 @@ import { UpdateHostClassService } from '../shared/update-host-class.service';
 import { ContentObserver } from '@angular/cdk/observers';
 import { debounceTime } from 'rxjs/operators';
 import { ThyPlacement } from '../core/overlay';
+import { isUndefinedOrNull } from '../util/helpers';
 
 @Component({
     selector: 'thy-flexible-text,[thyFlexibleText]',
@@ -28,9 +29,21 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
 
     placement: ThyPlacement;
 
+    containerClass: string;
+
     subscription: Subscription | null = null;
 
     @Input('thyTooltipTrigger') trigger: 'hover' | 'focus' | 'click';
+
+    @Input('thyContainerClass')
+    get thyContainerClass(): string {
+        return this.containerClass;
+    }
+
+    set thyContainerClass(value: string) {
+        this.containerClass = value;
+        this.updateContainerClass();
+    }
 
     @Input('thyTooltipContent') set thyContent(value: string | TemplateRef<HTMLElement>) {
         this.content = value;
@@ -52,12 +65,12 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
         public tooltipService: TooltipService,
         private updateHostClassService: UpdateHostClassService,
         private contentObserver: ContentObserver
-    ) {}
+    ) {
+        this.updateHostClassService.initializeElement(this.elementRef);
+    }
 
     ngOnInit() {
-        this.updateHostClassService.initializeElement(this.elementRef);
-        this.updateHostClassService.addClass('flexible-text-container');
-
+        this.updateContainerClass();
         this.tooltipService.attach(this.elementRef, this.viewContainerRef, this.trigger);
         if (this.placement) {
             this.tooltipService.thyTooltipDirective.placement = this.placement;
@@ -90,5 +103,14 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
             this.isOverflow = false;
         }
         this.tooltipService.thyTooltipDirective.thyTooltipDisabled = !this.isOverflow;
+    }
+
+    updateContainerClass() {
+        const containerClass = isUndefinedOrNull(this.containerClass) ? 'flexible-text-container' : this.containerClass;
+        const flexibleTextClass = {
+            'text-truncate': true,
+            [containerClass]: containerClass !== ''
+        };
+        this.updateHostClassService.updateClassByMap(flexibleTextClass);
     }
 }

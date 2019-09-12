@@ -12,3 +12,6 @@
 <a *ngIf="_showRemove" (click)="remove($event)" href="javascript:;" class="remove-link avatar-remove"
   ><thy-icon class="remove-link-icon" thyIconName="close-circle-bold-fill"></thy-icon
 ></a>
+<div *ngIf="thyDisabled" class="thy-avatar-disabled">
+  <thy-icon class="thy-avatar-disabled-icon" thyIconName="ban"></thy-icon>
+</div>

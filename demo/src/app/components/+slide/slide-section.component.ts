@@ -1,24 +1,18 @@
 import { Component } from '@angular/core';
 import { DemoSlideContentComponent } from './slide-content.component';
 import { ThySlideService } from '../../../../../src/slide/slide.service';
+import { ThySlideFromTypes } from 'ngx-tethys/slide/slide.config';
+import { LiveDemoCodeExample } from 'app/core/live-demo/live-demo.component';
 
 @Component({
     selector: 'demo-slide-section',
     templateUrl: './slide-section.component.html'
 })
 export class DemoSlideSectionComponent {
-    public thySlideFrom = 'right';
-
-    public thySlideClass = 'thy-slide';
-
-    public hasBackdrop = true;
-
-    public thySlideType: string = 'slide-layout-3';
-
     public apiThySlideParameters = [
         {
-            property: 'key',
-            description: 'Slide 的唯一标识，相同 key 控制是否弹出 slide',
+            property: 'id',
+            description: 'Slide 的唯一标识，相同 id 控制是否弹出 slide',
             type: 'ElementRef | HTMLElement',
             default: 'null'
         },
@@ -29,7 +23,7 @@ export class DemoSlideSectionComponent {
             default: 'right'
         },
         {
-            property: 'class',
+            property: 'panelClass',
             description: 'slide 上的样式,可以控制 Slide 的 height,width,top,left...',
             type: 'string',
             default: 'thy-slide'
@@ -39,12 +33,6 @@ export class DemoSlideSectionComponent {
             description: 'slide 弹出时，是否有幕布.',
             type: 'boolean',
             default: 'true'
-        },
-        {
-            property: 'containerClass',
-            description: '自定义添加thySlideContainer的类名',
-            type: 'string',
-            default: 'null'
         }
     ];
 
@@ -75,16 +63,24 @@ export class DemoSlideSectionComponent {
         }
     ];
 
-    constructor(private thySlideService: ThySlideService) {}
+    public liveDemos: LiveDemoCodeExample[] = [
+        {
+            title: 'slide 示例',
+            component: DemoSlideContentComponent,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'slide-example.component.html',
+                    content: require('!!raw-loader!./slide-example.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'slide-example.component.ts',
+                    content: require('!!raw-loader!./slide-example.component.ts')
+                }
+            ]
+        }
+    ];
 
-    showSlide(key) {
-        this.thySlideService.show(DemoSlideContentComponent, {
-            key: key,
-            from: this.thySlideFrom, // 'left','right','top','bottom'
-            class: this.thySlideClass,
-            hasBackdrop: this.hasBackdrop,
-            containerClass: 'slide-container-class',
-            initialState: { name: 'slide', slideType: this.thySlideType }
-        });
-    }
+    constructor(private thySlideNewService: ThySlideService) {}
 }

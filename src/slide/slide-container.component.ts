@@ -1,85 +1,69 @@
-import { Component, HostListener, ElementRef, HostBinding, Renderer2, OnInit, Input } from '@angular/core';
-import { ThySlideRef } from './slide-ref.service';
-import { ThySlideOption } from './slide-options.class';
-import { trigger, state, style, transition, animate } from '@angular/animations';
-import { UpdateHostClassService } from '../shared';
+import { Component, ElementRef, HostBinding, ViewChild, Inject, ChangeDetectorRef } from '@angular/core';
+import { CdkPortalOutlet } from '@angular/cdk/portal';
+import { DOCUMENT } from '@angular/platform-browser';
+import { ThyUpperOverlayContainer } from '../core/overlay';
+import { Observable } from 'rxjs';
+import { AnimationEvent } from '@angular/animations';
+import { slideUpperOverlayOptions, ThySlideConfig, ThySlideFromTypes } from './slide.config';
+import { filter } from 'rxjs/operators';
+import { thySlideAnimations } from './slide-animations';
 
 @Component({
     selector: 'thy-slide-container',
     template: `
-        <div [class]="'slide-dialog' + (thySlideClass ? ' ' + thySlideClass : '')" [@flyInOut]="flyInOut">
-            <ng-container *ngIf="isShow"><ng-content></ng-content></ng-container>
-        </div>
+        <ng-template cdkPortalOutlet></ng-template>
     `,
-    providers: [UpdateHostClassService],
-    animations: [
-        trigger('flyInOut', [
-            state('left', style({ transform: '*' })),
-            state('right', style({ transform: '*' })),
-            state('top', style({ transform: '*' })),
-            state('bottom', style({ transform: '*' })),
-            transition('void => left', [style({ transform: 'translateX(-100%)' }), animate('0.2s ease-in')]),
-            transition('left => void', [animate('0.2s', style({ transform: 'translateX(-100%)' }))]),
-            transition('void => right', [style({ transform: 'translateX(100%)' }), animate('0.2s ease-in')]),
-            transition('right => void', [animate('0.2s', style({ transform: 'translateX(100%)' }))]),
-            transition('void => top', [style({ transform: 'translateY(-100%)' }), animate('0.2s ease-in')]),
-            transition('top => void', [animate('0.2s', style({ transform: 'translateY(-100%)' }))]),
-            transition('void => bottom', [style({ transform: 'translateY(100%)' }), animate('0.2s ease-in')]),
-            transition('bottom => void', [animate('0.2s', style({ transform: 'translateY(100%)' }))])
-        ])
-    ]
-})
-export class ThySlideContainerComponent implements OnInit {
-    @HostBinding('class.slide') slideClass = true;
-
-    private _nativeElement: any;
-
-    public flyInOut: string;
-
-    public thySlideClass: string;
-
-    public thycontainerClass: string;
-
-    public isShow = false;
-
-    public isHide: boolean;
-
-    thySlideService: any;
-
-    private _setClasses() {
-        if (this.thycontainerClass) {
-            const classNames: string[] = [this.thycontainerClass];
-            this.updateHostClassService.updateClass(classNames);
-        }
+    animations: [thySlideAnimations.slideContainer],
+    host: {
+        class: 'thy-slide-container',
+        tabindex: '-1',
+        '[attr.role]': `'slide'`,
+        '[@slideContainer]': 'animationState',
+        '(@slideContainer.start)': 'onAnimationStart($event)',
+        '(@slideContainer.done)': 'onAnimationDone($event)'
     }
+})
+export class ThySlideContainerComponent extends ThyUpperOverlayContainer {
+    @ViewChild(CdkPortalOutlet)
+    portalOutlet: CdkPortalOutlet;
+
+    animationOpeningDone: Observable<AnimationEvent>;
+
+    animationClosingDone: Observable<AnimationEvent>;
+
+    animationState: ThySlideFromTypes = 'void';
+
+    @HostBinding('class') slideClass = `thy-slide-container`;
 
     constructor(
-        private thySlideRef: ThySlideRef,
         private elementRef: ElementRef,
-        private thySlideOption: ThySlideOption,
-        private renderer: Renderer2,
-        private updateHostClassService: UpdateHostClassService
+        @Inject(DOCUMENT) private document: any,
+        public config: ThySlideConfig,
+        changeDetectorRef: ChangeDetectorRef
     ) {
-        this._nativeElement = this.elementRef.nativeElement;
-        this.updateHostClassService.initializeElement(this._nativeElement);
+        super(slideUpperOverlayOptions, changeDetectorRef);
+        this.animationOpeningDone = this.animationStateChanged.pipe(
+            filter((event: AnimationEvent) => {
+                return event.phaseName === 'done' && event.toState === 'void';
+            })
+        );
+        this.animationClosingDone = this.animationStateChanged.pipe(
+            filter((event: AnimationEvent) => {
+                return event.phaseName === 'done' && event.toState === 'exit';
+            })
+        );
     }
 
-    ngOnInit() {
-        this.slideClass = this.thySlideOption.hasBackdrop;
-        this.flyInOut = this.thySlideOption.from;
-        this.thySlideClass = this.thySlideOption.class;
-        this.thycontainerClass = this.thySlideOption.containerClass;
-        this._setClasses();
-        setTimeout(() => {
-            this.isShow = true;
-        }, 200);
+    beforeAttachPortal(): void {
+        this.animationState = this.config.from;
     }
 
-    @HostListener('click', ['$event'])
-    onClick(event: any): void {
-        if (this.thySlideService._isHide || event.target === this.elementRef.nativeElement) {
-            this.flyInOut = 'void';
-            this.thySlideRef.hide();
-        }
+    onAnimationDone(event: AnimationEvent) {
+        this.animationStateChanged.emit(event);
+    }
+
+    onAnimationStart(event: AnimationEvent) {
+        // this.animationState = this.config.from;
+        this.animationStateChanged.emit(event);
     }
 }

@@ -53,3 +53,4 @@ export * from './version';
 export * from './markdown';
 export * from './popover';
 export * from './flexible-text';
+export * from './drag-drop';

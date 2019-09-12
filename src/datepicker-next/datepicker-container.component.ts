@@ -9,10 +9,7 @@ import {
     Output,
     EventEmitter
 } from '@angular/core';
-import {
-    ThyDatepickerNextStore,
-    datepickerNextActions
-} from './datepicker-next.store';
+import { ThyDatepickerNextStore, datepickerNextActions } from './datepicker-next.store';
 import {
     ThyDatepickerNextEventsEnum,
     ThyDatepickerNextInfo,
@@ -45,8 +42,7 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
         }
     ]
 })
-export class ThyDatepickerNextContainerComponent
-    implements OnInit, OnDestroy, AfterContentInit, ControlValueAccessor {
+export class ThyDatepickerNextContainerComponent implements OnInit, OnDestroy, AfterContentInit, ControlValueAccessor {
     loadingDone = false;
 
     @HostBinding('class.thy-datepicker-next-container') styleClass = true;
@@ -112,12 +108,9 @@ export class ThyDatepickerNextContainerComponent
             .unsubscribe();
     }
 
-    @Input() thyModeType: DatepickerNextTimeModeType =
-        DatepickerNextTimeModeType.simply;
+    @Input() thyModeType: DatepickerNextTimeModeType = DatepickerNextTimeModeType.simply;
 
-    @Output() thyNgModelChange: EventEmitter<
-        DatepickerNextValueType
-    > = new EventEmitter<DatepickerNextValueType>();
+    @Output() thyNgModelChange: EventEmitter<DatepickerNextValueType> = new EventEmitter<DatepickerNextValueType>();
 
     private _isAfterContentInit = false;
 
@@ -148,10 +141,7 @@ export class ThyDatepickerNextContainerComponent
             timeComponentType: this.thyTimeType,
             operation: this.thyWithTime
         };
-        this.store.dispatch(
-            datepickerNextActions.changeViewFeatureConfig,
-            payload
-        );
+        this.store.dispatch(datepickerNextActions.changeViewFeatureConfig, payload);
     }
     //#endregion
 
@@ -218,8 +208,6 @@ export class ThyDatepickerNextContainerComponent
                 result = null;
                 break;
         }
-
-        console.log(result);
         const value$ = of<ValueOutRxPipeInterface>({
             value: result
         });

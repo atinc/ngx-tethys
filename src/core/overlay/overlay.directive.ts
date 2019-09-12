@@ -7,7 +7,7 @@ import { takeUntil } from 'rxjs/operators';
 
 export type ThyOverlayTrigger = 'hover' | 'focus' | 'click';
 
-export abstract class ThyOverlayDirectiveBase implements OnDestroy {
+export abstract class ThyOverlayDirectiveBase {
     protected elementRef: ElementRef;
     private initialized = false;
     /** Trigger Overlay */
@@ -34,6 +34,7 @@ export abstract class ThyOverlayDirectiveBase implements OnDestroy {
     protected hidDelay? = 0;
     protected disabled = false;
 
+    abstract tooltipPin: boolean;
     /** create overlay, you can use popover service or overlay*/
     abstract createOverlay(): OverlayRef;
     abstract show(delay?: number): void;
@@ -66,7 +67,7 @@ export abstract class ThyOverlayDirectiveBase implements OnDestroy {
                     })
                     .set('mouseleave', (event: MouseEvent) => {
                         // element which mouse moved to
-                        const toElement = event.toElement || event.relatedTarget;
+                        const toElement = event['toElement'] || event.relatedTarget;
                         if (this.overlayRef && !overlayElement) {
                             overlayElement = this.overlayRef.overlayElement;
                             fromEvent(overlayElement, 'mouseleave')
@@ -78,7 +79,7 @@ export abstract class ThyOverlayDirectiveBase implements OnDestroy {
                         // if element which moved to is in overlayElement, don't hide tooltip
                         if (overlayElement && overlayElement.contains) {
                             const toElementIsTooltip = overlayElement.contains(toElement as Element);
-                            if (!toElementIsTooltip) {
+                            if (!toElementIsTooltip || !this.tooltipPin) {
                                 this.hide();
                             }
                         }
@@ -110,7 +111,7 @@ export abstract class ThyOverlayDirectiveBase implements OnDestroy {
         this.manualListeners.forEach((listener, event) => element.addEventListener(event, listener));
     }
 
-    ngOnDestroy(): void {
+    dispose(): void {
         this.ngUnsubscribe$.next();
         this.ngUnsubscribe$.complete();
         if (this.overlayRef) {

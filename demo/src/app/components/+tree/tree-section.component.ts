@@ -35,7 +35,7 @@ export class DemoTreeSectionComponent {
     public treeNodes: any[] = [
         {
             key: '01',
-            title: '北京北京北京北京北京北京北京北京北京北京北京',
+            title: 'root1',
             icon: 'wtf wtf-folder',
             origin: { type: 1 },
             children: [
@@ -70,6 +70,22 @@ export class DemoTreeSectionComponent {
             icon: 'wtf wtf-folder',
             expanded: true,
             children: []
+        },
+        {
+            key: '03',
+            title: 'root3',
+            origin: { type: 1 },
+            icon: 'wtf wtf-folder',
+            expanded: true,
+            children: []
+        },
+        {
+            key: '04',
+            title: 'root4',
+            origin: { type: 1 },
+            icon: 'wtf wtf-folder',
+            expanded: true,
+            children: []
         }
     ];
 
@@ -99,7 +115,7 @@ export class DemoTreeSectionComponent {
     }
 
     public isShowExpand(node) {
-        return true;
+        return !!node.origin.origin && node.origin.origin.type === 1;
     }
 
     public loadTreeNodes(event: { node: ThyTreeNode }) {
@@ -141,5 +157,9 @@ export class DemoTreeSectionComponent {
                 icon: 'wtf wtf-file-text'
             }
         ]);
+    }
+
+    onDrop(event) {
+        console.log(event);
     }
 }

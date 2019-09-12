@@ -17,6 +17,10 @@ import { ThyDialogConfig } from './dialog.config';
 import { thyDialogAnimations } from './dialog-animations';
 import { ThyClickPositioner } from '../core';
 import { FocusTrapFactory, FocusTrap } from '@angular/cdk/a11y';
+import { ThyUpperOverlayContainer } from '../core/overlay';
+import { dialogUpperOverlayOptions } from './dialog.options';
+import { Observable } from 'rxjs';
+import { map, filter } from 'rxjs/operators';
 
 @Component({
     selector: 'thy-dialog-container',
@@ -41,9 +45,12 @@ import { FocusTrapFactory, FocusTrap } from '@angular/cdk/a11y';
         '(@dialogContainer.done)': 'onAnimationDone($event)'
     }
 })
-export class ThyDialogContainerComponent {
+export class ThyDialogContainerComponent extends ThyUpperOverlayContainer {
+    animationOpeningDone: Observable<AnimationEvent>;
+    animationClosingDone: Observable<AnimationEvent>;
+
     @ViewChild(CdkPortalOutlet)
-    private portalOutlet: CdkPortalOutlet;
+    portalOutlet: CdkPortalOutlet;
 
     @HostBinding(`attr.id`)
     id: string;
@@ -134,37 +141,26 @@ export class ThyDialogContainerComponent {
         private elementRef: ElementRef,
         @Inject(DOCUMENT) private document: any,
         public config: ThyDialogConfig,
-        private changeDetectorRef: ChangeDetectorRef,
+        changeDetectorRef: ChangeDetectorRef,
         private clickPositioner: ThyClickPositioner,
         private focusTrapFactory: FocusTrapFactory
-    ) {}
-
-    /**
-     * Attach a ComponentPortal as content to this dialog container.
-     * @param portal Portal to be attached as the dialog content.
-     */
-    attachComponentPortal<T>(portal: ComponentPortal<T>): ComponentRef<T> {
-        if (this.portalOutlet.hasAttached()) {
-            throwThyDialogContentAlreadyAttachedError();
-        }
-
-        this.setTransformOrigin();
-        this.savePreviouslyFocusedElement();
-        return this.portalOutlet.attachComponentPortal(portal);
+    ) {
+        super(dialogUpperOverlayOptions, changeDetectorRef);
+        this.animationOpeningDone = this.animationStateChanged.pipe(
+            filter((event: AnimationEvent) => {
+                return event.phaseName === 'done' && event.toState === 'void';
+            })
+        );
+        this.animationClosingDone = this.animationStateChanged.pipe(
+            filter((event: AnimationEvent) => {
+                return event.phaseName === 'done' && event.toState === 'exit';
+            })
+        );
     }
 
-    /**
-     * Attach a TemplatePortal as content to this dialog container.
-     * @param portal Portal to be attached as the dialog content.
-     */
-    attachTemplatePortal<C>(portal: TemplatePortal<C>): EmbeddedViewRef<C> {
-        if (this.portalOutlet.hasAttached()) {
-            throwThyDialogContentAlreadyAttachedError();
-        }
-
+    beforeAttachPortal(): void {
         this.setTransformOrigin();
         this.savePreviouslyFocusedElement();
-        return this.portalOutlet.attachTemplatePortal(portal);
     }
 
     /** Callback, invoked whenever an animation on the host completes. */
@@ -181,16 +177,4 @@ export class ThyDialogContainerComponent {
     onAnimationStart(event: AnimationEvent) {
         this.animationStateChanged.emit(event);
     }
-
-    startExitAnimation(): void {
-        this.animationState = 'exit';
-
-        // Mark the container for check so it can react if the
-        // view container is using OnPush change detection.
-        this.changeDetectorRef.markForCheck();
-    }
-}
-
-export function throwThyDialogContentAlreadyAttachedError() {
-    throw Error('Attempting to attach dialog content after content is already attached');
 }

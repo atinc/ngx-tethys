@@ -1,6 +1,6 @@
 import { Component, OnDestroy, TemplateRef, Renderer2 } from '@angular/core';
 import { ThyDialog, ThyDialogConfig, ThyDialogSizes } from '../../../../../src/dialog';
-import { apiParameters } from './api-parameters';
+import { apiParameters, headerApiParameters } from './api-parameters';
 import { mixinUnsubscribe, MixinBase } from '../../../../../src/core';
 import { LiveDemoCodeExample } from '../../core/live-demo/live-demo.component';
 import { DemoDialogBasicComponent } from './basic/dialog-basic.component';
@@ -13,6 +13,7 @@ import { DemoDialogInteractiveComponent } from './interactive/interactive.compon
 })
 export class DemoDialogSectionComponent extends mixinUnsubscribe(MixinBase) implements OnDestroy {
     public apiParameters = apiParameters;
+    headerApiParameters = headerApiParameters;
 
     liveDemos: LiveDemoCodeExample[] = [
         {

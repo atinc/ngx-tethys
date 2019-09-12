@@ -82,6 +82,15 @@ describe('ThySlide', () => {
             expect(bodyElement.children.every(child => child.nativeElement.innerText === '测试body')).toBe(true);
         }));
 
+        it('should have correct body content divider border', fakeAsync(() => {
+            fixture.componentInstance.thyDividerBorder = true;
+            fixture.detectChanges();
+            const bodySectionElement: DebugElement = fixture.debugElement.query(
+                By.css('.thy-slide-body-section-divider')
+            );
+            expect(bodySectionElement).toBeTruthy();
+        }));
+
         it('should hava correct footer content', fakeAsync(() => {
             fixture.detectChanges();
             const footerButton: DebugElement = fixture.debugElement.query(By.css('.thy-slide-footer .btn-block'));
@@ -133,7 +142,7 @@ describe('ThySlide', () => {
                 </ng-template>
             </thy-slide-header>
             <thy-slide-body>
-                <thy-slide-body-section>测试body</thy-slide-body-section>
+                <thy-slide-body-section [thyDividerBorder]="thyDividerBorder">测试body</thy-slide-body-section>
             </thy-slide-body>
             <thy-slide-footer>
                 <button thyButton="primary-square" (click)="save($event)" class="btn-block">确认</button>
@@ -145,6 +154,8 @@ class SlideLayoutTestComponent {
     public data: number;
 
     public iconName = 'wtf-task-o';
+
+    public thyDividerBorder = false;
 
     save() {
         this.data = 1;

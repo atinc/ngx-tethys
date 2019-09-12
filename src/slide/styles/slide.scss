@@ -1,23 +1,21 @@
-.slide {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: $slide-z-index;
-    display: block;
-    opacity: 1;
-    overflow-x: hidden;
-    overflow-y: auto;
+.thy-slide-backdrop {
+    background: none;
 }
 
-.slide-dialog {
-    position: fixed;
+.slide {
+    position: fixed !important;
+    display: block;
+    opacity: 1;
+}
+
+.thy-slide-container {
+    display: block;
+    width: 100%;
+    height: 100%;
     background-color: $slide-dialog-bg;
     overflow-y: auto;
     box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.04), 0 6px 30px 5px rgba(0, 0, 0, 0.08),
         0 8px 10px -5px rgba(0, 0, 0, 0.12);
-    z-index: $slide-z-index;
 
     .thy-slide-layout {
         display: flex;
@@ -62,7 +60,7 @@
 
         .thy-slide-body-section {
             display: block;
-            padding: $slide-body-section-padding;
+            padding-top: $slide-body-section-padding;
 
             &.thy-slide-body-section-divider:not(:last-child) {
                 border-bottom: 1px solid $slide-divider;

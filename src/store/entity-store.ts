@@ -1,10 +1,13 @@
 import { Store } from './store';
 import { Id, PaginationInfo } from './types';
-import { helpers } from '../util';
-import { Observable } from 'rxjs';
+import { helpers, produce } from '../util';
+import { mergeReferences, buildReferencesKeyBy, ReferenceArrayExtractAllowKeys } from '../util/references';
+import { map } from 'rxjs/operators';
+import { ReferencesIdDictionary, OnCombineRefsFn } from './references';
 
-export interface EntityStoreOptions {
-    idKey: string;
+export interface EntityStoreOptions<TEntity = undefined, TReferences = undefined> {
+    idKey?: string;
+    referencesIdKeys?: ReferenceArrayExtractAllowKeys<TReferences>;
 }
 
 export interface EntityAddOptions {
@@ -13,24 +16,56 @@ export interface EntityAddOptions {
     autoGotoLastPage?: boolean;
 }
 
-export interface EntityState<TEntity> {
-    pageIndex: number;
-    pagination: PaginationInfo;
+export interface EntityState<TEntity, TReferences = undefined> {
+    pagination?: PaginationInfo;
     entities: TEntity[];
-    [key: string]: any;
+    references?: TReferences;
 }
 
 export class EntityStore<
-    TState extends EntityState<TEntity>,
-    TEntity
+    TState extends EntityState<TEntity, TReferences>,
+    TEntity,
+    TReferences = undefined
 > extends Store<TState> {
-    protected options: EntityStoreOptions;
+    protected options: EntityStoreOptions<TEntity, TReferences>;
+
+    private internalReferencesIdMap: ReferencesIdDictionary<TReferences>;
+
+    get entities() {
+        return this.snapshot.entities;
+    }
+
+    entities$ = this.select(state => {
+        return state.entities;
+    });
+
+    entitiesWithRefs$ = this.entities$.pipe(
+        map(entities => {
+            if (!entities) {
+                return entities;
+            }
+            return entities.map(entity => {
+                const newEntity = { ...entity };
+
+                if (this['onCombineRefs']) {
+                    if (!newEntity['refs']) {
+                        newEntity['refs'] = {};
+                    }
+                    this['onCombineRefs'](newEntity, this.internalReferencesIdMap, this.snapshot.references);
+                } else {
+                    throw new Error(`onCombineRefs is not empty`);
+                }
+                return newEntity;
+            });
+        })
+    );
 
     private resetPagination(pagination: PaginationInfo, count: number) {
         pagination.count = count;
         // 向上取整 21 / 20 = 1.05 = 2 pageCount is 2
         const pageCount = Math.ceil(pagination.count / pagination.pageSize);
         pagination.pageCount = pageCount;
+        this.snapshot.pagination = { ...pagination };
     }
 
     private increasePagination(amount: number) {
@@ -45,25 +80,24 @@ export class EntityStore<
         }
     }
 
-    get entities() {
-        return this.snapshot.entities;
-    }
-
-    get entities$(): Observable<TEntity[]> {
-        return this.select((state: TState) => {
-            return state.entities;
-        });
+    private buildReferencesIdMap() {
+        if (this.snapshot.references) {
+            this.internalReferencesIdMap = buildReferencesKeyBy(
+                this.snapshot.references,
+                this.options.referencesIdKeys
+            );
+        }
     }
 
     constructor(
-        initialState = {
-            pageIndex: 1,
+        initialState: EntityState<TEntity, TReferences> = {
             entities: [] as TEntity[]
         },
-        options: EntityStoreOptions = { idKey: '_id' }
+        options: EntityStoreOptions<TEntity, TReferences> = { idKey: '_id' }
     ) {
         super(initialState);
         this.options = options;
+        this.buildReferencesIdMap();
     }
 
     /**
@@ -71,13 +105,57 @@ export class EntityStore<
      * Replace current collection with provided collection
      *
      * @example
-     * this.store.initialize([Entity, Entity]);
+     * this.store.initialize([Entity, Entity], pagination: PaginationInfo);
      *
      */
-    initialize(entities: TEntity[], pagination: PaginationInfo) {
+    initialize(entities: TEntity[], pagination?: PaginationInfo) {
         const state = this.snapshot;
         state.entities = entities || [];
         state.pagination = pagination;
+        this.next(state);
+    }
+
+    /**
+     *
+     * Replace current collection with provided collection with references
+     *
+     * @example
+     * this.store.initializeWithReferences([Entity, Entity], references: TReferences, pagination: PaginationInfo);
+     *
+     */
+    initializeWithReferences(entities: TEntity[], references: TReferences, pagination?: PaginationInfo) {
+        const state = this.snapshot;
+        state.entities = entities || [];
+        state.pagination = pagination;
+        state.references = references;
+        this.buildReferencesIdMap();
+        this.next(state);
+    }
+
+    /**
+     * Add entity or entities for internal
+     * @param entity
+     * @param references
+     * @param addOptions
+     */
+    private addInternal(entity: TEntity | TEntity[], references?: Partial<TReferences>, addOptions?: EntityAddOptions) {
+        const addEntities = helpers.coerceArray(entity);
+        if (addEntities.length === 0) {
+            return;
+        }
+
+        const state = this.snapshot;
+        state.entities = produce(state.entities).add(addEntities, addOptions);
+        if (state.references) {
+            mergeReferences(state.references, references, this.options.referencesIdKeys);
+            this.buildReferencesIdMap();
+        }
+        if (state.pagination) {
+            this.increasePagination(addEntities.length);
+            if (addOptions && !addOptions.prepend && addOptions.autoGotoLastPage) {
+                state.pagination.pageIndex = state.pagination.pageCount;
+            }
+        }
         this.next(state);
     }
 
@@ -90,28 +168,19 @@ export class EntityStore<
      * this.store.add(Entity, { prepend: true });
      */
     add(entity: TEntity | TEntity[], addOptions?: EntityAddOptions) {
-        const addEntities = helpers.coerceArray(entity);
-        if (addEntities.length === 0) {
-            return;
-        }
-        const state = this.snapshot;
-        if (addOptions && addOptions.prepend) {
-            state.entities = [...addEntities, ...state.entities];
-        } else {
-            state.entities = [...state.entities, ...addEntities];
-        }
-        if (state.pagination) {
-            this.increasePagination(addEntities.length);
-            if (
-                addOptions &&
-                !addOptions.prepend &&
-                addOptions.autoGotoLastPage
-            ) {
-                state.pageIndex = state.pagination.pageIndex =
-                    state.pagination.pageCount;
-            }
-        }
-        this.next(state);
+        this.addInternal(entity, undefined, addOptions);
+    }
+
+    /**
+     * Add an entity or entities to the store with references.
+     *
+     * @example
+     * this.store.add(Entity);
+     * this.store.add([Entity, Entity]);
+     * this.store.add(Entity, { prepend: true });
+     */
+    addWithReferences(entity: TEntity | TEntity[], references: Partial<TReferences>, addOptions?: EntityAddOptions) {
+        this.addInternal(entity, references, addOptions);
     }
 
     /**
@@ -121,35 +190,26 @@ export class EntityStore<
      * @example
      * this.store.update(3, {
      *   name: 'New Name'
-     * });
+     * }, references);
      *
      *  this.store.update(3, entity => {
      *    return {
      *      ...entity,
      *      name: 'New Name'
      *    }
-     *  });
+     *  }, references);
      *
      * this.store.update([1,2,3], {
      *   name: 'New Name'
-     * });
+     * }, references);
      */
-    update(
-        id: Id | Id[] | null,
-        newStateFn: ((entity: Readonly<TEntity>) => Partial<TEntity>)
-    ): void;
-    update(id: Id | Id[] | null, newState?: Partial<TEntity>): void;
-    update(
-        idsOrFn:
-            | Id
-            | Id[]
-            | null
-            | Partial<TState>
-            | ((state: Readonly<TState>) => Partial<TState>)
-            | ((entity: Readonly<TEntity>) => boolean),
-        newStateOrFn?:
-            | ((entity: Readonly<TEntity>) => Partial<TEntity>)
-            | Partial<TEntity>
+    private updateInternal(
+        idsOrFn: Id | Id[] | null,
+        // | Partial<TState>
+        // | ((state: Readonly<TState>) => Partial<TState>)
+        // | ((entity: Readonly<TEntity>) => boolean),
+        newStateOrFn: ((entity: Readonly<TEntity>) => Partial<TEntity>) | Partial<TEntity>,
+        references?: TReferences
     ): void {
         const ids = helpers.coerceArray(idsOrFn);
 
@@ -157,12 +217,71 @@ export class EntityStore<
         for (let i = 0; i < state.entities.length; i++) {
             const oldEntity = state.entities[i];
             if (ids.indexOf(oldEntity[this.options.idKey]) > -1) {
-                const newState = helpers.isFunction(newStateOrFn)
-                    ? (newStateOrFn as any)(oldEntity)
-                    : newStateOrFn;
+                const newState = helpers.isFunction(newStateOrFn) ? (newStateOrFn as any)(oldEntity) : newStateOrFn;
                 state.entities[i] = { ...(oldEntity as any), ...newState };
             }
         }
+        state.entities = [...state.entities];
+        if (state.references) {
+            mergeReferences(state.references, references, this.options.referencesIdKeys);
+            this.buildReferencesIdMap();
+        }
+        this.next(state);
+    }
+
+    /**
+     *
+     * Update an entity or entities in the store with references.
+     *
+     * @example
+     * this.store.update(3, {
+     *   name: 'New Name'
+     * }, references);
+     *
+     *  this.store.update(3, entity => {
+     *    return {
+     *      ...entity,
+     *      name: 'New Name'
+     *    }
+     *  }, references);
+     *
+     * this.store.update([1,2,3], {
+     *   name: 'New Name'
+     * }, references);
+     */
+    update(
+        idsOrFn: Id | Id[] | null,
+        newStateOrFn: ((entity: Readonly<TEntity>) => Partial<TEntity>) | Partial<TEntity>
+    ): void {
+        this.updateInternal(idsOrFn, newStateOrFn, undefined);
+    }
+
+    /**
+     *
+     * Update an entity or entities in the store with references.
+     *
+     * @example
+     * this.store.updateWithReferences(3, {
+     *   name: 'New Name'
+     * }, references);
+     *
+     *  this.store.updateWithReferences(3, entity => {
+     *    return {
+     *      ...entity,
+     *      name: 'New Name'
+     *    }
+     *  }, references);
+     *
+     * this.store.updateWithReferences([1,2,3], {
+     *   name: 'New Name'
+     * }, references);
+     */
+    updateWithReferences(
+        idsOrFn: Id | Id[] | null,
+        newStateOrFn: ((entity: Readonly<TEntity>) => Partial<TEntity>) | Partial<TEntity>,
+        references: TReferences
+    ): void {
+        this.updateInternal(idsOrFn, newStateOrFn, references);
     }
 
     /**
@@ -176,21 +295,10 @@ export class EntityStore<
      */
     remove(id: Id | Id[]): void;
     remove(predicate: (entity: Readonly<TEntity>) => boolean): void;
-    remove(
-        idsOrFn?: Id | Id[] | ((entity: Readonly<TEntity>) => boolean)
-    ): void {
+    remove(idsOrFn?: Id | Id[] | ((entity: Readonly<TEntity>) => boolean)): void {
         const state = this.snapshot;
         const originalLength = state.entities.length;
-        if (helpers.isFunction(idsOrFn)) {
-            state.entities = state.entities.filter(entity => {
-                return !(idsOrFn as any)(entity);
-            });
-        } else {
-            const ids = helpers.coerceArray(idsOrFn);
-            state.entities = state.entities.filter(entity => {
-                return ids.indexOf(entity[this.options.idKey]) === -1;
-            });
-        }
+        state.entities = produce(state.entities, this.options).remove(idsOrFn);
         this.decreasePagination(originalLength - state.entities.length);
         this.next(state);
     }
@@ -199,10 +307,17 @@ export class EntityStore<
         return entity[this.options.idKey];
     }
 
+    clearPagination() {
+        const state = this.snapshot;
+        state.pagination = null;
+        this.next(state);
+    }
+
     clear() {
         const state = this.snapshot;
-        state.pageIndex = 1;
         state.entities = [];
         state.pagination = null;
+        state.references = null;
+        this.next(state);
     }
 }

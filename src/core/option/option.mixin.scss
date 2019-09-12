@@ -1,3 +1,6 @@
+$option-hover-active-bg-color: $gray-100;
+$option-disabled-color: $gray-400;
+
 @mixin thy-option-common-layout {
     display: flex;
     align-items: center;
@@ -16,51 +19,64 @@
         left: 20px;
         right: 35px;
     }
+    // use in tree-select
     .prefix-icon {
         color: $gray-300;
     }
-    &.hover,
-    &:hover {
-        // @include item-box-shadow();
-        background: $gray-100;
-        color: $body-color;
-        &:not(.disabled).active {
+
+    &:not(.disabled) {
+        &.hover,
+        &:hover {
+            background: $option-hover-active-bg-color;
+            color: $body-color;
+        }
+        &.active {
+            background: rgba($primary, 0.1);
             color: $primary;
-            background: transparent;
+            &.hover,
+            &:hover {
+                background: $option-hover-active-bg-color;
+                color: $body-color;
+                .prefix-icon {
+                    color: $gray-300;
+                }
+            }
             .prefix-icon {
-                color: $gray-300;
+                color: $primary;
             }
         }
     }
-    &:not(.disabled).active {
-        background: rgba($primary, 0.1);
-        color: $primary;
-        &:hover {
-            background: $gray-80;
-            color: $body-color;
-        }
-        .prefix-icon {
-            color: $primary;
-        }
-    }
+
+    // 禁用状态没有背景色, 字体颜色为禁用
     &.disabled {
         background: none;
-        color: $gray-400;
+        color: $option-disabled-color;
         cursor: default; // not-allowed;
     }
 }
 
 @mixin thy-option-theme($color: $secondary) {
     color: $color;
-    &.hover,
-    &:hover {
-        &:not(.disabled).active {
-            color: $primary;
+
+    &:not(.disabled) {
+        &.hover,
+        &:hover {
+            background: $option-hover-active-bg-color;
+            color: $body-color;
         }
-    }
-    &:not(.disabled).active {
-        background: rgba($primary, 0.1);
-        color: $primary;
+
+        &.active {
+            background: rgba($primary, 0.1);
+            color: $primary;
+            &.hover,
+            &:hover {
+                background: $option-hover-active-bg-color;
+                color: $body-color;
+            }
+            .prefix-icon {
+                color: $primary;
+            }
+        }
     }
 }
 
@@ -71,37 +87,53 @@
         right: 20px;
     }
 
-    &:hover {
-        .checked-icon {
-            visibility: visible;
+    &:not(.disabled) {
+        &.hover,
+        &:hover {
+            background: $option-hover-active-bg-color;
+            .checked-icon {
+                visibility: visible;
+                color: $gray-300;
+            }
         }
-        &:not(.disabled).active {
+        &.active {
+            background: transparent;
             color: $body-color;
+            .checked-icon {
+                visibility: visible;
+                color: $primary;
+            }
+            &.hover,
+            &:hover {
+                background: $option-hover-active-bg-color;
+                color: $body-color;
+            }
         }
     }
 
-    &:not(.disabled).active {
+    &.disabled {
         background: none;
-        color: $body-color;
-        .checked-icon {
-            visibility: visible;
-            color: $primary !important;
-        }
+        color: $option-disabled-color;
     }
 }
 
 @mixin thy-multiple-option-theme {
-    &.hover,
-    &:hover {
-        &:not(.disabled).active {
-            color: $body-color;
+    &:not(.disabled) {
+        &.hover,
+        &:hover {
+            background: $option-hover-active-bg-color;
         }
-    }
-    &:not(.disabled).active {
-        color: $body-color;
-        background: none;
-        .checked-icon {
-            color: $primary !important;
+        &.active {
+            background: transparent;
+            color: $body-color;
+            .checked-icon {
+                color: $primary;
+            }
+            &.hover,
+            &:hover {
+                background: $option-hover-active-bg-color;
+                color: $body-color;
+            }
         }
     }
 }
@@ -111,11 +143,12 @@
     vertical-align: middle;
     justify-content: center;
     position: relative;
-    margin: 0 25px 25px 0;
-    width: 150px;
-    height: 120px;
-    background: $gray-80;
-    border-radius: 6px;
+    margin: $list-grid-option-margin;
+    width: $list-grid-option-width;
+    height: $list-grid-option-height;
+    background: $white;
+    border-radius: $border-radius;
+    border: solid 1px $gray-200;
     cursor: pointer;
     outline-style: none;
     .checked-icon {
@@ -132,22 +165,31 @@
         text-align: center;
     }
 
-    &:hover {
-        @include item-box-shadow($gray-200);
+    &:not(.disabled) {
+        &.hover,
+        &:hover {
+            border: solid 1px $primary;
+        }
+
+        &.active {
+            background: rgba($primary, 0.1);
+            color: $body-color;
+            border: solid 1px $primary;
+            .checked-icon {
+                visibility: visible;
+            }
+
+            &.hover,
+            &:hover {
+                background: $white;
+                border-color: $primary;
+            }
+        }
     }
 
     &.disabled {
-        box-shadow: none !important;
         color: $gray-400;
         cursor: default; // not-allowed;
-    }
-
-    &:not(.disabled).active {
-        background: rgba($primary, 0.1);
-        color: $body-color;
-        .checked-icon {
-            visibility: visible;
-        }
     }
 }
 
@@ -156,7 +198,20 @@
         background: $primary;
     }
 
-    &:not(.disabled).active {
-        background: rgba($primary, 0.1);
+    &:not(.disabled) {
+        &.hover,
+        &:hover {
+            border: solid 1px $primary;
+        }
+        &.active {
+            background: rgba($primary, 0.1);
+            color: $body-color;
+            border: solid 1px $primary;
+
+            &.hover,
+            &:hover {
+                border-color: $primary;
+            }
+        }
     }
 }

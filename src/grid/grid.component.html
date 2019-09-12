@@ -26,6 +26,7 @@
       (pointerdown)="draggableStopPropagation($event)"
       (click)="onRowClick($event, row)"
       (thyContextMenu)="onRowContextMenu($event, row)"
+      class="thy-sortable-item"
     >
       <td *ngFor="let column of columns; let j = index" [ngClass]="column.className">
         <ng-container *ngIf="j === 0 && draggable">

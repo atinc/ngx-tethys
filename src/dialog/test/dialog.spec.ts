@@ -18,7 +18,7 @@ import {
     DialogFullContentComponent
 } from './module';
 import { ESCAPE, A } from '../../util/keycodes';
-import { dispatchKeyboardEvent } from '../../core/testing';
+import { dispatchKeyboardEvent, bypassSanitizeProvider, injectDefaultSvgIconSet } from '../../core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyDialogContainerComponent } from '../dialog-container.component';
 import { ThyDialogSizes } from '../dialog.config';
@@ -37,6 +37,7 @@ describe('ThyDialog', () => {
         TestBed.configureTestingModule({
             imports: [ThyDialogModule, DialogTestModule],
             providers: [
+                bypassSanitizeProvider,
                 { provide: Location, useClass: SpyLocation }
                 // {
                 //     provide: ScrollDispatcher,
@@ -46,7 +47,7 @@ describe('ThyDialog', () => {
                 // }
             ]
         });
-
+        injectDefaultSvgIconSet();
         TestBed.compileComponents();
     }));
 

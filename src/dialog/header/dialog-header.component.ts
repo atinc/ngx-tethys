@@ -13,8 +13,8 @@ import {
 } from '@angular/core';
 import { ThyDialog } from '../dialog.service';
 import { ThyDialogContainerComponent } from '../dialog-container.component';
-import { ThyDialogRefInternal } from '../dialog-ref';
 import { ThyTranslate } from '../../shared';
+import { ThyInternalDialogRef } from '../dialog-ref';
 
 @Component({
     selector: 'thy-dialog-header',
@@ -23,12 +23,18 @@ import { ThyTranslate } from '../../shared';
     exportAs: 'thyDialogHeader'
 })
 export class DialogHeaderComponent implements OnInit {
-    @HostBinding(`class.dialog-header`) _isDialogHeader = true;
+    @HostBinding(`class.dialog-header`) isDialogHeader = true;
+
+    @HostBinding(`class.dialog-header-lg`) isDialogHeaderLg = false;
 
     @ContentChild('dialogHeader')
     public headerTemplate: TemplateRef<any>;
 
     @Input() thyTitle: string;
+
+    @Input() set thySize(value: 'lg' | 'md') {
+        this.isDialogHeaderLg = value === 'lg';
+    }
 
     @Input()
     set thyTitleTranslationKey(key: string) {
@@ -55,10 +61,8 @@ export class DialogHeaderComponent implements OnInit {
             // views cannot be given a custom injector. Instead, we look up the ThyDialogContainerComponent by
             // ID. This must occur in `onInit`, as the ID binding for the dialog container won't
             // be resolved at constructor time.
-            const dialogRef = this.dialog.getClosestDialog(
-                this.elementRef.nativeElement
-            ) as ThyDialogRefInternal<any>;
-            this.dialogContainer = dialogRef.containerInstance;
+            const dialogRef = this.dialog.getClosestDialog(this.elementRef.nativeElement) as ThyInternalDialogRef<any>;
+            this.dialogContainer = dialogRef ? dialogRef.containerInstance : null;
         }
 
         // change in next microtask avoid throw ExpressionChangedAfterItHasBeenCheckedError

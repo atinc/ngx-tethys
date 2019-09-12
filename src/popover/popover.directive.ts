@@ -11,13 +11,11 @@ import {
     HostBinding
 } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
-import { fromEvent, Subject } from 'rxjs';
 import { OverlayRef } from '@angular/cdk/overlay';
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { takeUntil } from 'rxjs/operators';
 import { ThyOverlayDirectiveBase, ThyOverlayTrigger, ThyPlacement } from '../core/overlay';
 import { ThyPopover } from './popover.service';
-import { ComponentType } from '@angular/core/src/render3';
+import { ComponentType } from '@angular/cdk/portal';
 import { ThyPopoverRef } from './popover-ref';
 
 @Directive({
@@ -39,6 +37,8 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
     @Input() thyConfig: ThyPlacement;
 
     private popoverRef: ThyPopoverRef<any>;
+
+    tooltipPin = true;
 
     constructor(
         elementRef: ElementRef,
@@ -83,6 +83,6 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
     }
 
     ngOnDestroy() {
-        super.ngOnDestroy();
+        this.dispose();
     }
 }

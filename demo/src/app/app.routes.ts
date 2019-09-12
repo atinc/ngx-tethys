@@ -16,7 +16,7 @@ import { DemoAlertSectionComponent } from './components/+alert/alert-section.com
 import { DemoPaginationComponent } from './components/+pagination/pagination.component';
 import { DemoActionMenuSectionComponent } from './components/+action-menu/action-menu-section.component';
 import { DemoConfirmSectionComponent } from './components/+confirm/confirm-section.component';
-import { DemoTreeSectionComponent } from './components/+tree/tree-section.component';
+import { DemoTreeSectionComponent } from './components/+tree/section.component';
 import { DemoNotifySectionComponent } from './components/+notify/notify-section.component';
 import { DemoEmptySectionComponent } from './components/+empty/empty-section.component';
 import { DemoSwitchSectionComponent } from './components/+switch/switch-section.component';

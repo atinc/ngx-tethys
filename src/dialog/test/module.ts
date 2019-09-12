@@ -88,7 +88,7 @@ export class WithTemplateRefComponent {
 
     @ViewChild(TemplateRef) templateRef: TemplateRef<any>;
 
-    setDialogRef(dialogRef: ThyDialogRef<any>): string {
+    setDialogRef(dialogRef: ThyDialogRef<WithTemplateRefComponent>): string {
         this.dialogRef = dialogRef;
         return '';
     }

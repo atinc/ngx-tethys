@@ -9,7 +9,8 @@ import {
     OnInit,
     Output,
     TemplateRef,
-    ViewChild
+    ViewChild,
+    HostListener
 } from '@angular/core';
 import { UpdateHostClassService } from '../shared/update-host-class.service';
 import { ThyTranslate } from '../shared/translate';
@@ -41,7 +42,13 @@ export class ThyPropertyOperationComponent implements OnInit, AfterContentInit {
 
     @Output() thyOnRemove = new EventEmitter();
 
+    @Output() thyClick = new EventEmitter<Event>();
+
     @HostBinding('class.thy-property-operation') _isPropertyOperation = true;
+
+    @HostBinding('class.thy-property-operation-disabled') get isPropertyOperationDisabled() {
+        return this.disabled;
+    }
 
     @ContentChild('operationIcon') operationIcon: TemplateRef<any>;
 
@@ -88,6 +95,10 @@ export class ThyPropertyOperationComponent implements OnInit, AfterContentInit {
         this.setHostClass();
     }
 
+    @HostBinding('class.thy-property-operation-disabled')
+    @Input('thyDisabled')
+    disabled: boolean;
+
     private setHostClass(first = false) {
         if (!this.initialized && !first) {
             return;
@@ -117,6 +128,13 @@ export class ThyPropertyOperationComponent implements OnInit, AfterContentInit {
     ngOnInit() {
         this.updateHostClassService.initializeElement(this.elementRef.nativeElement);
         this.setHostClass(true);
+    }
+
+    @HostListener('click', ['$event'])
+    onclick(event: Event) {
+        if (!this.disabled) {
+            this.thyClick.emit(event);
+        }
     }
 
     ngAfterContentInit() {

@@ -15,9 +15,11 @@ import { injectDefaultSvgIconSet, bypassSanitizeProvider, defaultSvgHtml } from 
             [thyLabelText]="thyLabelText"
             [thyType]="thyType"
             [thyValue]="thyValue"
+            [thyDisabled]="disabled"
             [thyLabelHasValue]="thyLabelHasValue"
             [thyShowClose]="thyShowClose"
             (thyOnRemove)="thyOnRemove()"
+            (thyClick)="thyOnclick()"
         >
         </thy-property-operation>
     `
@@ -29,6 +31,8 @@ class PropertyOperationBasicComponent {
 
     thyShowClose = true;
 
+    disabled = false;
+
     thyValue = '2012-12-21';
 
     thyType = 'danger';
@@ -37,6 +41,10 @@ class PropertyOperationBasicComponent {
 
     thyOnRemove() {
         this.thyValue = null;
+    }
+
+    thyOnclick() {
+        this.thyValue = 'hello world!';
     }
 }
 
@@ -106,6 +114,19 @@ describe('ThyPropertyOperation', () => {
         it('should clear value on click remove', () => {
             fixture.nativeElement.querySelector('.close-link').click();
             expect(componentInstance.thyValue).toBeNull();
+        });
+
+        it('should click property operation', () => {
+            propertyOperationElement.click();
+            expect(componentInstance.thyValue).toBe('hello world!');
+        });
+
+        it('should disable property operation', () => {
+            componentInstance.disabled = true;
+            fixture.detectChanges();
+            propertyOperationElement.click();
+            expect(fixture.nativeElement.querySelector('.close-link')).toBeNull();
+            expect(propertyOperationElement.classList.contains('thy-property-operation-disabled')).toBeTruthy();
         });
     });
 });
