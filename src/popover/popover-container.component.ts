@@ -7,7 +7,8 @@ import {
     ElementRef,
     EventEmitter,
     HostListener,
-    ChangeDetectorRef
+    ChangeDetectorRef,
+    HostBinding
 } from '@angular/core';
 import { ComponentPortal, TemplatePortal, CdkPortalOutlet } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
@@ -65,7 +66,7 @@ export class ThyPopoverContainerComponent extends ThyUpperOverlayContainer {
         );
         this.animationClosingDone = this.animationStateChanged.pipe(
             filter((event: AnimationEvent) => {
-                return event.phaseName === 'done' && event.toState === 'exit';
+                return event.phaseName === 'done' && event.toState === 'void';
             })
         );
     }
@@ -86,7 +87,7 @@ export class ThyPopoverContainerComponent extends ThyUpperOverlayContainer {
     }
 
     startExitAnimation(): void {
-        this.animationState = 'exit';
+        this.animationState = 'void';
 
         // Mark the container for check so it can react if the
         // view container is using OnPush change detection.
