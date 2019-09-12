@@ -42,3 +42,36 @@ export const apiParameters = [
         default: '85vh'
     }
 ];
+
+export const headerApiParameters = [
+    {
+        property: 'thyTitle',
+        description: '标题',
+        type: 'string',
+        default: ''
+    },
+    {
+        property: 'thyTitleTranslationKey',
+        description: '标题的多语言 Key',
+        type: 'string',
+        default: ''
+    },
+    {
+        property: 'thySize',
+        description: '大小，只有大的详情页场景会使用 lg, 左右 padding 缩小至 20px',
+        type: 'md | lg',
+        default: 'md'
+    },
+    {
+        property: '#dialogHeader',
+        description: '自定义头部模版',
+        type: 'ng-template',
+        default: ''
+    },
+    {
+        property: 'thyOnClose',
+        description: '关闭事件',
+        type: 'EventEmitter',
+        default: 'null'
+    }
+];

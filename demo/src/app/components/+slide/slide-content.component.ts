@@ -1,40 +1,30 @@
-
-import { Component, TemplateRef } from '@angular/core';
-import { ThyModalService, ThyPopBoxService } from '../../../../../src/public-api';
+import { Component } from '@angular/core';
+import { ThySlideService } from '../../../../../src/slide/slide.service';
+import { ThySlideFromTypes } from 'ngx-tethys/slide/slide.config';
+import { DemoSlideExampleComponent } from './slide-example.component';
 
 @Component({
     selector: 'demo-slide-content',
     templateUrl: './slide-content.component.html'
 })
 export class DemoSlideContentComponent {
-    public name: string;
+    public thySlideFrom: ThySlideFromTypes = 'right';
 
-    public slideType: string = '';
+    public thySlideClass = 'thy-slide';
 
-    constructor(public modalService: ThyModalService, public thyPopBoxService: ThyPopBoxService) {}
+    public hasBackdrop = true;
 
-    addModal(template: TemplateRef<any>, option?: object): void {
-        this.modalService.show(template, option);
-    }
+    public thySlideType = 'slide-layout-3';
 
-    addPopBox(templateRef: any, popBoxTemplate: any) {
-        this.thyPopBoxService.show(popBoxTemplate, {
-            target: templateRef.elementRef,
-            insideAutoClose: false,
-            outsideAutoClose: true,
-            showMask: true,
-            stopPropagation: true
+    constructor(private thySlideNewService: ThySlideService) {}
+
+    showSlide(key: string) {
+        this.thySlideNewService.open(DemoSlideExampleComponent, {
+            id: key,
+            from: this.thySlideFrom, // 'left','right','top','bottom'
+            hasBackdrop: this.hasBackdrop,
+            panelClass: this.thySlideClass,
+            initialState: { name: 'slide', slideType: this.thySlideType }
         });
     }
-
-    addPopBox1(templateRef: any, popBoxTemplate: any, config) {
-        this.thyPopBoxService.show(popBoxTemplate, {
-            target: templateRef.elementRef,
-            insideAutoClose: true,
-            outsideAutoClose: true,
-            showMask: true
-        });
-    }
-
-    itemClick() {}
 }

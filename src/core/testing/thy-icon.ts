@@ -15,6 +15,7 @@ export const defaultInlineIconSet = `
     <defs>
         <svg id="inbox"></svg>
         <svg id="close"></svg>
+        <svg id="close-bold"></svg>
         <svg id="calendar-check"></svg>
         <svg id="angle-down"></svg>
         <svg id="check"></svg>
