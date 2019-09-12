@@ -79,6 +79,7 @@ import { DemoPropertyOperationGroupComponent, DemoPropertyOperationBasicComponen
 import { DemoTreeModule } from './+tree';
 import { DemoNavIconNavComponent } from './+nav/icon-nav/icon-nav.component';
 import { DemoLayoutModule } from './+layout';
+import { ComplexSelectSectionComponent } from './+select/complex-select/complex-select-section.component';
 
 export const COMPONENTS = [
     DemoTypographyComponent,
@@ -164,7 +165,9 @@ export const COMPONENTS = [
 
     DemoMarkdownSectionComponent,
     DemoFlexibleTextComponent,
-    DemoFlexibleTextBasicComponent
+    DemoFlexibleTextBasicComponent,
+
+    ComplexSelectSectionComponent
 ];
 
 export const ENTRY_COMPONENTS = [
@@ -195,7 +198,9 @@ export const ENTRY_COMPONENTS = [
     ...PROGRESS_COMPONENTS,
     ...TOOLTIP_COMPONENTS,
     ...ICON_COMPONENTS,
-    DemoFlexibleTextBasicComponent
+    DemoFlexibleTextBasicComponent,
+
+    ComplexSelectSectionComponent
 ];
 
 export const DEMO_MODULES = [DialogDemoModule, DemoButtonModule, DemoNotifyModule, DemoTreeModule, DemoLayoutModule];
