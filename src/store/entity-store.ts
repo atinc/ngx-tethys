@@ -108,7 +108,7 @@ export class EntityStore<
      * this.store.initialize([Entity, Entity], pagination: PaginationInfo);
      *
      */
-    initialize(entities: TEntity[], pagination?: PaginationInfo) {
+    protected initialize(entities: TEntity[], pagination?: PaginationInfo) {
         const state = this.snapshot;
         state.entities = entities || [];
         state.pagination = pagination;
@@ -123,7 +123,7 @@ export class EntityStore<
      * this.store.initializeWithReferences([Entity, Entity], references: TReferences, pagination: PaginationInfo);
      *
      */
-    initializeWithReferences(entities: TEntity[], references: TReferences, pagination?: PaginationInfo) {
+    protected initializeWithReferences(entities: TEntity[], references: TReferences, pagination?: PaginationInfo) {
         const state = this.snapshot;
         state.entities = entities || [];
         state.pagination = pagination;
@@ -167,7 +167,7 @@ export class EntityStore<
      * this.store.add([Entity, Entity]);
      * this.store.add(Entity, { prepend: true });
      */
-    add(entity: TEntity | TEntity[], addOptions?: EntityAddOptions) {
+    protected add(entity: TEntity | TEntity[], addOptions?: EntityAddOptions) {
         this.addInternal(entity, undefined, addOptions);
     }
 
@@ -179,7 +179,11 @@ export class EntityStore<
      * this.store.add([Entity, Entity]);
      * this.store.add(Entity, { prepend: true });
      */
-    addWithReferences(entity: TEntity | TEntity[], references: Partial<TReferences>, addOptions?: EntityAddOptions) {
+    protected addWithReferences(
+        entity: TEntity | TEntity[],
+        references: Partial<TReferences>,
+        addOptions?: EntityAddOptions
+    ) {
         this.addInternal(entity, references, addOptions);
     }
 
@@ -249,7 +253,7 @@ export class EntityStore<
      *   name: 'New Name'
      * }, references);
      */
-    update(
+    protected update(
         idsOrFn: Id | Id[] | null,
         newStateOrFn: ((entity: Readonly<TEntity>) => Partial<TEntity>) | Partial<TEntity>
     ): void {
@@ -276,7 +280,7 @@ export class EntityStore<
      *   name: 'New Name'
      * }, references);
      */
-    updateWithReferences(
+    protected updateWithReferences(
         idsOrFn: Id | Id[] | null,
         newStateOrFn: ((entity: Readonly<TEntity>) => Partial<TEntity>) | Partial<TEntity>,
         references: TReferences
@@ -293,9 +297,9 @@ export class EntityStore<
      * this.store.remove([1,2,3]);
      * this.store.remove(entity => entity.id === 1);
      */
-    remove(id: Id | Id[]): void;
-    remove(predicate: (entity: Readonly<TEntity>) => boolean): void;
-    remove(idsOrFn?: Id | Id[] | ((entity: Readonly<TEntity>) => boolean)): void {
+    protected remove(id: Id | Id[]): void;
+    protected remove(predicate: (entity: Readonly<TEntity>) => boolean): void;
+    protected remove(idsOrFn?: Id | Id[] | ((entity: Readonly<TEntity>) => boolean)): void {
         const state = this.snapshot;
         const originalLength = state.entities.length;
         state.entities = produce(state.entities, this.options).remove(idsOrFn);
@@ -303,17 +307,17 @@ export class EntityStore<
         this.next(state);
     }
 
-    trackBy(_index: number, entity: TEntity) {
+    public trackBy(_index: number, entity: TEntity) {
         return entity[this.options.idKey];
     }
 
-    clearPagination() {
+    protected clearPagination() {
         const state = this.snapshot;
         state.pagination = null;
         this.next(state);
     }
 
-    clear() {
+    protected clear() {
         const state = this.snapshot;
         state.entities = [];
         state.pagination = null;
