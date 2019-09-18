@@ -11,16 +11,19 @@ import {
 import { ThySelectCommonModule } from '../module';
 import { injectDefaultSvgIconSet } from '../../testing/thy-icon';
 import { By } from '@angular/platform-browser';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ThyFormModule } from '../../../form';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { UpdateHostClassService } from '../../../shared/update-host-class.service';
 import { ThyIconModule } from '../../../icon/icon.module';
+import { ThySelectControlComponent } from './select-control.component';
+import { SelectOptionBase } from '../select-option/select-option-base';
 
 @Component({
     selector: 'basic-select-control',
     template: `
         <thy-select-control
+            [thyPlaceholder]="placeholder"
             [thyDisabled]="thyDisabled"
             [thyShowSearch]="thyShowSearch"
             [thySelectedOptions]="selectedOptions"
@@ -29,9 +32,15 @@ import { ThyIconModule } from '../../../icon/icon.module';
 })
 class BasicSelectControlComponent {
     placeholder = '选择你的值';
+
     thyDisabled = false;
+
     thyShowSearch = false;
+
     selectedOptions = [];
+
+    @ViewChild(ThySelectControlComponent)
+    selectControlComponent: ThySelectControlComponent;
 }
 
 describe('ThySelectControl', () => {
@@ -77,20 +86,29 @@ describe('ThySelectControl', () => {
             });
         });
 
-        // describe('disabled', () => {
-        //     let fixture: ComponentFixture<BasicSelectControlComponent>;
-        //     let selectElement: HTMLElement;
+        describe('placeholder', () => {
+            let fixture: ComponentFixture<BasicSelectControlComponent>;
+            let selectElement: HTMLElement;
 
-        //     beforeEach(async(() => {
-        //         fixture = TestBed.createComponent(BasicSelectControlComponent);
-        //         fixture.detectChanges();
-        //         selectElement = fixture.debugElement.query(By.css('.form-control')).nativeElement;
-        //     }));
+            beforeEach(async(() => {
+                fixture = TestBed.createComponent(BasicSelectControlComponent);
+                fixture.detectChanges();
+                selectElement = fixture.debugElement.query(By.css('.form-control')).nativeElement;
+            }));
 
-        //     it('should disabled ', () => {
-        //         expect(selectElement).toBeTruthy();
-        //         expect(selectElement.classList.contains('select-control')).toBeTruthy();
-        //     });
-        // });
+            it('should display custom placeholder value', () => {
+                const textPlaceholderElement: HTMLElement = fixture.debugElement.query(By.css('.text-placeholder'))
+                    .nativeElement;
+                expect(textPlaceholderElement.innerText).toEqual(fixture.componentInstance.placeholder);
+                expect(fixture.componentInstance.selectControlComponent.placeholderStyle.display).toEqual('block');
+            });
+
+            it('should hidden placeholder element when assign thySelectedOptions', () => {
+                const testBaseOption: SelectOptionBase = { thyLabelText: '', thyRawValue: {}, thyValue: '' };
+                fixture.componentInstance.selectedOptions = [testBaseOption];
+                fixture.detectChanges();
+                expect(fixture.componentInstance.selectControlComponent.placeholderStyle.display).toEqual('none');
+            });
+        });
     });
 });
