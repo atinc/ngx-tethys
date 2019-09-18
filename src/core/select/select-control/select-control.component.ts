@@ -109,7 +109,7 @@ export class ThySelectControlComponent implements OnInit {
     allowClear = false;
 
     @Input()
-    placeholder = '';
+    thyPlaceholder = '';
 
     @Output()
     thyOnSearch = new EventEmitter<string>();
@@ -142,7 +142,7 @@ export class ThySelectControlComponent implements OnInit {
         if (this.isSelectedValue) {
             placeholder = false;
         }
-        if (!this.placeholder) {
+        if (!this.thyPlaceholder) {
             placeholder = false;
         }
         if (this.isComposing || this.inputValue) {

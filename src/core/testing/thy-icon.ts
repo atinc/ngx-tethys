@@ -28,6 +28,7 @@ export const defaultInlineIconSet = `
         <svg id="question-circle-fill"></svg>
         <svg id="more-bold"></svg>
         <svg id="filter"></svg>
+        <svg id="close-circle-bold-fill"></svg>
     </defs>
   </svg>
 `;
