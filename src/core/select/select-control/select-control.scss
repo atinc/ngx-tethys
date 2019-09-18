@@ -1,4 +1,4 @@
-.custom-select-selection {
+.select-control {
     position: relative;
     min-height: $input-height;
     padding-right: 28px;
@@ -16,7 +16,7 @@
         border-width: 0;
         outline: 0;
     }
-    .custom-select-selection-rendered {
+    .select-control-rendered {
         position: relative;
         ul {
             width: 100%;
@@ -38,7 +38,7 @@
         .selected-value {
             position: absolute;
             left: 2px;
-            top: 7.5px;
+            top: 6px;
             user-select: none;
             pointer-events: none;
             width: 100%;
@@ -46,43 +46,43 @@
     }
     &.panel-is-opened {
         border-color: $primary;
-        .custom-select-selection-arrow {
+        .select-control-arrow {
             svg {
                 transform: rotate(180deg);
             }
         }
-        &.custom-select-selection-show-search {
+        &.select-control-show-search {
             .selected-value {
                 opacity: 0.4;
             }
         }
-        .custom-select-selection-search {
+        .select-control-search {
             display: block;
         }
     }
-    .custom-select-selection-arrow {
+    .select-control-arrow {
         @include select-arrow-variant();
     }
-    .custom-select-selection-clear {
+    .select-control-clear {
         display: none;
         right: 12px;
         z-index: 10;
         @include absolute-vertical-align-middle(false);
     }
     &:not(.disabled):hover {
-        .custom-select-selection-clear {
+        .select-control-clear {
             display: block;
         }
     }
-    .custom-select-selection-search {
+    .select-control-search {
         display: none;
     }
 }
-.custom-select-selection-multiple {
+.select-control-multiple {
     &.thy-select-show-search {
         cursor: text;
     }
-    .custom-select-selection-search {
+    .select-control-search {
         position: static;
         float: left;
         width: auto;

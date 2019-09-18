@@ -190,9 +190,9 @@ export class ThySelectControlComponent implements OnInit {
         const selectionClass = {
             [`form-control`]: true,
             [`form-control-custom`]: true,
-            [`custom-select-selection`]: true,
-            [`custom-select-selection-${modeType}`]: true,
-            [`custom-select-selection-show-search`]: this.showSearch,
+            [`select-control`]: true,
+            [`select-control-${modeType}`]: true,
+            [`select-control-show-search`]: this.showSearch,
             [`panel-is-opened`]: this.panelOpened,
             [`disabled`]: this.disabled
         };

@@ -18,6 +18,7 @@ import {
 } from '@angular/core';
 import { Highlightable } from '@angular/cdk/a11y';
 import { ThyOptionGroupComponent } from '../../core/option/option-group.component';
+import { SelectOptionBase } from '../../core/select/select-option/select-option-base';
 export class OptionSelectionChange {
     option: ThyOptionComponent;
     selected: boolean;
@@ -92,7 +93,7 @@ export function _getOptionScrollPosition(
     templateUrl: './option.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ThyOptionComponent implements OnDestroy, Highlightable {
+export class ThyOptionComponent extends SelectOptionBase implements OnDestroy, Highlightable {
     private _selected = false;
     private _hidden = false;
     @Input() thyValue: any;
@@ -134,7 +135,9 @@ export class ThyOptionComponent implements OnDestroy, Highlightable {
         @Optional() @Inject(THY_SELECT_OPTION_PARENT_COMPONENT) public parent: IThySelectOptionParentComponent,
         @Optional() readonly group: ThyOptionGroupComponent,
         private cdr: ChangeDetectorRef
-    ) {}
+    ) {
+        super();
+    }
 
     /** Gets the host DOM element. */
     getHostElement(): HTMLElement {
