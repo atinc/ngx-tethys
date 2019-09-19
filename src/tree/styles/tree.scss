@@ -57,6 +57,7 @@
 
                 .thy-tree-node-title {
                     flex: 1;
+                    line-height: 100%;
 
                     &.truncate {
                         @include text-truncate();
