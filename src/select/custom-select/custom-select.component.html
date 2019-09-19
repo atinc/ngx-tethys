@@ -9,13 +9,13 @@
   [thyIsMultiple]="thyMode === 'multiple'"
   [thyShowSearch]="thyShowSearch"
   [thyAllowClear]="thyAllowClear"
+  [thySize]="thySize"
   [thyPlaceholder]="thyPlaceHolder"
   [customDisplayTemplate]="selectedValueDisplayRef"
   [thyDisabled]="_disabled"
   (thyOnClear)="clearSelectValue($event)"
   (thyOnRemove)="remove($event)"
   (thyOnSearch)="onSearchFilter($event)"
-  [ngClass]="_size ? 'form-control-' + _size : ''"
 ></div>
 
 <ng-template

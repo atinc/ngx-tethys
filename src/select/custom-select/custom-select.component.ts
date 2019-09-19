@@ -51,8 +51,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { ThyScrollDirective } from '../../directive/thy-scroll.directive';
 import { helpers } from '../../util';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
-
-export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
+import { SelectControlSize } from '../../core';
 
 export type SelectMode = 'multiple' | '';
 
@@ -96,7 +95,7 @@ export class ThySelectCustomComponent
         OnDestroy {
     _disabled = false;
 
-    _size: InputSize;
+    _size: SelectControlSize;
 
     _mode: SelectMode = '';
 
@@ -175,7 +174,7 @@ export class ThySelectCustomComponent
     }
 
     @Input()
-    set thySize(value: InputSize) {
+    set thySize(value: SelectControlSize) {
         this._size = value;
     }
 

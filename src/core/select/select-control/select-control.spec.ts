@@ -16,7 +16,7 @@ import { ThyFormModule } from '../../../form';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { UpdateHostClassService } from '../../../shared/update-host-class.service';
 import { ThyIconModule } from '../../../icon/icon.module';
-import { ThySelectControlComponent } from './select-control.component';
+import { ThySelectControlComponent, SelectControlSize } from './select-control.component';
 import { SelectOptionBase } from '../select-option/select-option-base';
 
 @Component({
@@ -28,6 +28,7 @@ import { SelectOptionBase } from '../select-option/select-option-base';
             [thyShowSearch]="thyShowSearch"
             [thySelectedOptions]="selectedOptions"
             [thyAllowClear]="thyAllowClear"
+            [thySize]="thySize"
         ></thy-select-control>
     `
 })
@@ -41,6 +42,8 @@ class BasicSelectControlComponent {
     selectedOptions = [];
 
     thyAllowClear = true;
+
+    thySize = null;
 
     @ViewChild(ThySelectControlComponent)
     selectControlComponent: ThySelectControlComponent;
@@ -88,6 +91,15 @@ describe('ThySelectControl', () => {
                 fixture.componentInstance.thyShowSearch = true;
                 fixture.detectChanges();
                 expect(selectElement.classList.contains('select-control-show-search')).toBeTruthy();
+            });
+
+            it('should get size class when set thySize', () => {
+                const size: SelectControlSize = 'md';
+                expect(selectElement.classList.contains(`form-control-${size}`)).not.toBeTruthy();
+                fixture.componentInstance.thySize = size;
+                fixture.detectChanges();
+                selectElement = fixture.debugElement.query(By.css('.form-control')).nativeElement;
+                expect(selectElement.classList.contains(`form-control-${size}`)).toBeTruthy();
             });
         });
 

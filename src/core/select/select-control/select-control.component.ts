@@ -13,6 +13,8 @@ import {
 import { UpdateHostClassService } from '../../../shared';
 import { SelectOptionBase } from '../select-option/select-option-base';
 
+export type SelectControlSize = 'xs' | 'sm' | 'md' | 'lg' | '';
+
 @Component({
     selector: 'thy-select-control,[thySelectControl]',
     templateUrl: './select-control.component.html',
@@ -31,6 +33,8 @@ export class ThySelectControlComponent implements OnInit {
     showSearch = false;
 
     disabled = false;
+
+    size: SelectControlSize;
 
     selectedOptions: SelectOptionBase[];
 
@@ -51,7 +55,7 @@ export class ThySelectControlComponent implements OnInit {
                 this.setInputValue('');
             });
         }
-        this.setSelectionClass();
+        this.setSelectControlClass();
     }
 
     @Input()
@@ -61,7 +65,7 @@ export class ThySelectControlComponent implements OnInit {
 
     set thyIsMultiple(value: boolean) {
         this.isMultiple = value;
-        this.setSelectionClass();
+        this.setSelectControlClass();
     }
 
     @Input()
@@ -71,7 +75,7 @@ export class ThySelectControlComponent implements OnInit {
 
     set thyShowSearch(value: boolean) {
         this.showSearch = value;
-        this.setSelectionClass();
+        this.setSelectControlClass();
     }
 
     @Input()
@@ -99,7 +103,7 @@ export class ThySelectControlComponent implements OnInit {
 
     set thyDisabled(value: boolean) {
         this.disabled = value;
-        this.setSelectionClass();
+        this.setSelectControlClass();
     }
 
     @Input()
@@ -110,6 +114,16 @@ export class ThySelectControlComponent implements OnInit {
 
     @Input()
     thyPlaceholder = '';
+
+    @Input()
+    get thySize(): SelectControlSize {
+        return this.size;
+    }
+
+    set thySize(value: SelectControlSize) {
+        this.size = value;
+        this.setSelectControlClass();
+    }
 
     @Output()
     thyOnSearch = new EventEmitter<string>();
@@ -182,21 +196,23 @@ export class ThySelectControlComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.setSelectionClass();
+        this.setSelectControlClass();
     }
 
-    setSelectionClass() {
+    setSelectControlClass() {
         const modeType = this.isMultiple ? 'multiple' : 'single';
-        const selectionClass = {
+        const selectControlClass = {
             [`form-control`]: true,
+            [`form-control-${this.thySize}`]: !!this.thySize,
             [`form-control-custom`]: true,
             [`select-control`]: true,
+            [`select-control-size`]: true,
             [`select-control-${modeType}`]: true,
             [`select-control-show-search`]: this.showSearch,
             [`panel-is-opened`]: this.panelOpened,
             [`disabled`]: this.disabled
         };
-        this.updateHostClassService.updateClassByMap(selectionClass);
+        this.updateHostClassService.updateClassByMap(selectControlClass);
     }
 
     setInputValue(value: string) {
