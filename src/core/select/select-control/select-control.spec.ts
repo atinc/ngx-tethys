@@ -27,6 +27,7 @@ import { SelectOptionBase } from '../select-option/select-option-base';
             [thyDisabled]="thyDisabled"
             [thyShowSearch]="thyShowSearch"
             [thySelectedOptions]="selectedOptions"
+            [thyAllowClear]="thyAllowClear"
         ></thy-select-control>
     `
 })
@@ -38,6 +39,8 @@ class BasicSelectControlComponent {
     thyShowSearch = false;
 
     selectedOptions = [];
+
+    thyAllowClear = true;
 
     @ViewChild(ThySelectControlComponent)
     selectControlComponent: ThySelectControlComponent;
@@ -54,6 +57,8 @@ describe('ThySelectControl', () => {
         // injectDefaultSvgIconSet();
     }
     describe('core', () => {
+        const testBaseOption: SelectOptionBase = { thyLabelText: '', thyRawValue: {}, thyValue: '' };
+
         beforeEach(async(() => {
             configureThySelectControlTestingModule([BasicSelectControlComponent]);
         }));
@@ -104,10 +109,32 @@ describe('ThySelectControl', () => {
             });
 
             it('should hidden placeholder element when assign thySelectedOptions', () => {
-                const testBaseOption: SelectOptionBase = { thyLabelText: '', thyRawValue: {}, thyValue: '' };
                 fixture.componentInstance.selectedOptions = [testBaseOption];
                 fixture.detectChanges();
                 expect(fixture.componentInstance.selectControlComponent.placeholderStyle.display).toEqual('none');
+            });
+        });
+
+        describe('allowClear', () => {
+            let fixture: ComponentFixture<BasicSelectControlComponent>;
+            let selectElement: HTMLElement;
+
+            beforeEach(async(() => {
+                fixture = TestBed.createComponent(BasicSelectControlComponent);
+                fixture.detectChanges();
+                selectElement = fixture.debugElement.query(By.css('.form-control')).nativeElement;
+            }));
+
+            it('should render clear element when assign thyAllowClear to true', () => {
+                let clearElement = fixture.debugElement.query(By.css('.select-control-clear'));
+                expect(clearElement).not.toBeTruthy();
+
+                fixture.componentInstance.thyAllowClear = true;
+                fixture.componentInstance.selectedOptions = [testBaseOption];
+                fixture.detectChanges();
+
+                clearElement = fixture.debugElement.query(By.css('.select-control-clear')).nativeElement;
+                expect(clearElement).toBeTruthy();
             });
         });
     });

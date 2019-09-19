@@ -106,7 +106,7 @@ export class ThySelectControlComponent implements OnInit {
     customDisplayTemplate: TemplateRef<any>;
 
     @Input()
-    allowClear = false;
+    thyAllowClear = false;
 
     @Input()
     thyPlaceholder = '';
@@ -166,7 +166,7 @@ export class ThySelectControlComponent implements OnInit {
     }
 
     get showClearIcon(): boolean {
-        return this.allowClear && this.isSelectedValue && !this.panelOpened;
+        return this.thyAllowClear && this.isSelectedValue && !this.panelOpened;
     }
 
     get isSelectedValue(): boolean {
