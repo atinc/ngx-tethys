@@ -4,9 +4,20 @@
   </div>
   <div class="body">
     <button [thyButton]="'primary'" [thyActionMenuToggle]="menu1">默认</button>
+    <button [thyButton]="'primary'" [thyActionMenuToggle]="menuOnlyOne">只有一项</button>
     <button [thyButton]="'primary'" [thyActionMenuToggle]="menu1" disabled="disabled">禁用</button>
     <button [thyButton]="'primary'" [thyActionMenuToggle]="menu1" [thyAction]="'contextmenu'">右键弹出</button>
     <button [thyButton]="'primary'" [thyActionMenuToggle]="menu1" [thyPlacement]="'bottom right'">弹出位置</button>
+    <ng-template #menuOnlyOne>
+      <thy-action-menu>
+        <a thyActionMenuItem href="javascript:;" (click)="itemClick(1)">
+          <span thyActionMenuItemIcon>
+            <thy-icon thyIconName="task"></thy-icon>
+          </span>
+          <span thyActionMenuItemName>有图标</span>
+        </a>
+      </thy-action-menu>
+    </ng-template>
     <ng-template #menu1>
       <thy-action-menu>
         <a
