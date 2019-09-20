@@ -1,4 +1,4 @@
-import { Injectable, Injector, Optional, Inject, OnDestroy } from '@angular/core';
+import { Injectable, Injector, Optional, Inject, OnDestroy, ElementRef } from '@angular/core';
 import { ThySlideContainerComponent } from './slide-container.component';
 import { OverlayConfig, OverlayRef, Overlay } from '@angular/cdk/overlay';
 import { PortalInjector, ComponentPortal } from '@angular/cdk/portal';
@@ -8,10 +8,25 @@ import { ThySlideRef, ThyInternalSlideRef } from './slide-ref.service';
 import { Directionality } from '@angular/cdk/bidi';
 import { of } from 'rxjs';
 import { coerceArray } from '../util/helpers';
+import { coerceElement } from '@angular/cdk/coercion';
+import { helpers } from '../util';
 
 @Injectable()
 export class ThySlideService extends ThyUpperOverlayService<ThySlideConfig, ThySlideContainerComponent>
     implements OnDestroy {
+    private originElementAddActiveClass(config: ThySlideConfig) {
+        if (config.origin) {
+            const a = coerceElement<HTMLElement>(config.origin);
+            coerceElement<HTMLElement>(config.origin).classList.add(...coerceArray(config.originActiveClass));
+        }
+    }
+
+    private originElementRemoveActiveClass(config: ThySlideConfig) {
+        if (config.origin) {
+            coerceElement<HTMLElement>(config.origin).classList.remove(...coerceArray(config.originActiveClass));
+        }
+    }
+
     private getOverlayPanelClasses(slideConfig: ThySlideConfig) {
         const classes: string[] = ['slide'];
         // 兼容之前的 class
@@ -25,6 +40,7 @@ export class ThySlideService extends ThyUpperOverlayService<ThySlideConfig, ThyS
     }
 
     protected buildOverlayConfig(config: ThySlideConfig): OverlayConfig {
+        config.id = config.id || (config.key as string);
         const overlayConfig = this.buildBaseOverlayConfig(config);
         overlayConfig.panelClass = this.getOverlayPanelClasses(config);
         return overlayConfig;
@@ -93,6 +109,10 @@ export class ThySlideService extends ThyUpperOverlayService<ThySlideConfig, ThyS
             return;
         }
         const popoverRef = this.openUpperOverlay(componentOrTemplateRef, config);
+        this.originElementAddActiveClass(popoverRef.containerInstance.config);
+        popoverRef.afterClosed().subscribe(() => {
+            this.originElementRemoveActiveClass(popoverRef.containerInstance.config);
+        });
         return popoverRef as ThySlideRef<T, TResult>;
     }
 

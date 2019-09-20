@@ -1,20 +1,40 @@
 import { ThyUpperOverlayConfig, ThyUpperOverlayOptions } from '../core/overlay';
-import { InjectionToken } from '@angular/core';
+import { InjectionToken, ElementRef } from '@angular/core';
 
-export type ThySlideFromTypes = 'left' | 'right' | 'top' | 'bottom' | 'void' | 'exit';
+export type ThySlideFromTypes =
+    | 'left'
+    | 'right'
+    | 'top'
+    | 'bottom'
+    | 'void'
+    | 'exit'
+    | 'offsetLeft'
+    | 'offsetRight'
+    | 'offsetTop'
+    | 'offsetBottom';
 
 export class ThySlideConfig extends ThyUpperOverlayConfig {
+    /**
+     * Origin Element, for overlay flexible connected to
+     */
+    origin?: ElementRef<any> | HTMLElement | any;
+    /**
+     * set the direction when slide enter
+     */
+    from?: ThySlideFromTypes;
+    /**
+     * 从距离屏幕边缘 offset 出滑入滑出, 单位 px
+     */
+    offset?: number;
+    /**
+     * 加在出发 slide 弹出框弹出的元素上的样式，
+     */
+    originActiveClass?: string | string[];
     /**
      * please use id
      * @deprecated
      */
     key?: string;
-
-    /**
-     * set the direction when slide enter
-     */
-    from?: ThySlideFromTypes;
-
     /**
      * please use panelClass
      * @deprecated
@@ -44,6 +64,8 @@ export const THY_SLIDE_DEFAULT_OPTIONS_PROVIDER = {
         from: 'right',
         panelClass: 'thy-slide',
         containerClass: '',
-        role: 'slide'
+        role: 'slide',
+        offset: 0,
+        originActiveClass: 'active'
     }
 };
