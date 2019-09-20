@@ -4,29 +4,76 @@
     padding-right: 28px;
     &.form-control-custom {
         padding-top: 0;
-        padding-bottom: 5px;
+        padding-bottom: 0;
+    }
+    &.form-control-sm {
+        min-height: $input-height-sm;
+        .select-control-rendered {
+            margin-top: $input-padding-y-sm;
+            .text-placeholder,
+            .selected-value {
+                margin-bottom: $input-padding-y-sm;
+            }
+            .choice,
+            .select-control-search {
+                margin-bottom: $input-padding-y-sm;
+                height: 18px;
+                line-height: 18px;
+            }
+        }
+    }
+    &.form-control-md {
+        min-height: $input-height-md;
+        .select-control-rendered {
+            margin-top: $input-padding-y-md;
+            .text-placeholder,
+            .selected-value {
+                margin-bottom: $input-padding-y-md;
+            }
+            .choice,
+            .select-control-search {
+                margin-bottom: $input-padding-y-md;
+            }
+        }
+    }
+    &.form-control-lg {
+        min-height: $input-height-lg;
+        .select-control-rendered {
+            margin-top: $input-padding-y-lg;
+            .text-placeholder,
+            .selected-value {
+                margin-bottom: $input-padding-y-lg;
+            }
+            .choice,
+            .select-control-search {
+                margin-bottom: $input-padding-y-lg;
+                .choice-content {
+                    font-size: $font-size-lg !important;
+                    height: 36px;
+                    line-height: 36px;
+                }
+            }
+        }
     }
     .search-input-field {
-        margin-top: 5px;
         width: 100%;
         height: 100%;
-        height: 24px;
-        line-height: 1;
         background: 0 0;
         border-width: 0;
         outline: 0;
     }
     .select-control-rendered {
         position: relative;
+        margin-top: $input-padding-y;
+        .choice,
+        .select-control-search {
+            margin-bottom: $input-padding-y;
+        }
         ul {
             width: 100%;
             margin: 0;
             padding: 0;
             list-style: none;
-            li {
-                height: 1.5rem;
-                line-height: 1.5rem;
-            }
             &::after {
                 display: block;
                 clear: both;
@@ -38,10 +85,10 @@
         .selected-value {
             position: absolute;
             left: 2px;
-            top: 6px;
             user-select: none;
             pointer-events: none;
             width: 100%;
+            margin-bottom: $input-padding-y;
         }
     }
     &.panel-is-opened {
@@ -98,7 +145,6 @@
         float: left;
         max-width: 97%;
         margin-right: 6px;
-        margin-top: 5px;
         padding: 0 20px 0 10px;
         overflow: hidden;
         color: $gray-800;
@@ -106,6 +152,8 @@
         border-radius: $border-radius-sm;
         cursor: default;
         .choice-content {
+            height: 21px;
+            line-height: 21px;
             max-width: 100%;
         }
     }

@@ -1,0 +1,34 @@
+<div style="width: 600px;">
+  <h3 class="header">sm</h3>
+  <thy-custom-select [thyPlaceHolder]="placeholder" [thyMode]="thyMode" [thySize]="'sm'" [thyShowSearch]="true">
+    <thy-option
+      *ngFor="let option of listOfOption"
+      [thyValue]="option.value"
+      [thyLabelText]="option.label"
+    ></thy-option>
+  </thy-custom-select>
+  <h3 class="header">md</h3>
+  <thy-custom-select [thyPlaceHolder]="placeholder" [thyMode]="thyMode" thySize="md" [thyShowSearch]="true">
+    <thy-option
+      *ngFor="let option of listOfOption"
+      [thyValue]="option.value"
+      [thyLabelText]="option.label"
+    ></thy-option>
+  </thy-custom-select>
+  <h3 class="header">默认</h3>
+  <thy-custom-select [thyPlaceHolder]="placeholder" [thyMode]="thyMode" [thyShowSearch]="true">
+    <thy-option
+      *ngFor="let option of listOfOption"
+      [thyValue]="option.value"
+      [thyLabelText]="option.label"
+    ></thy-option>
+  </thy-custom-select>
+  <h3 class="header">lg</h3>
+  <thy-custom-select [thyPlaceHolder]="placeholder" [thyMode]="thyMode" thySize="lg" [thyShowSearch]="true">
+    <thy-option
+      *ngFor="let option of listOfOption"
+      [thyValue]="option.value"
+      [thyLabelText]="option.label"
+    ></thy-option>
+  </thy-custom-select>
+</div>

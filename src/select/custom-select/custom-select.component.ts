@@ -174,6 +174,9 @@ export class ThySelectCustomComponent
     }
 
     @Input()
+    get thySize(): SelectControlSize {
+        return this._size;
+    }
     set thySize(value: SelectControlSize) {
         this._size = value;
     }

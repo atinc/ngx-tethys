@@ -80,6 +80,7 @@ import { DemoTreeModule } from './+tree';
 import { DemoNavIconNavComponent } from './+nav/icon-nav/icon-nav.component';
 import { DemoLayoutModule } from './+layout';
 import { ComplexSelectSectionComponent } from './+select/complex-select/complex-select-section.component';
+import { SelectControlSizeSectionComponent } from './+select/select-control-size/select-control-section.component';
 
 export const COMPONENTS = [
     DemoTypographyComponent,
@@ -167,7 +168,8 @@ export const COMPONENTS = [
     DemoFlexibleTextComponent,
     DemoFlexibleTextBasicComponent,
 
-    ComplexSelectSectionComponent
+    ComplexSelectSectionComponent,
+    SelectControlSizeSectionComponent
 ];
 
 export const ENTRY_COMPONENTS = [

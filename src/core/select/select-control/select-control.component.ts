@@ -206,7 +206,6 @@ export class ThySelectControlComponent implements OnInit {
             [`form-control-${this.thySize}`]: !!this.thySize,
             [`form-control-custom`]: true,
             [`select-control`]: true,
-            [`select-control-size`]: true,
             [`select-control-${modeType}`]: true,
             [`select-control-show-search`]: this.showSearch,
             [`panel-is-opened`]: this.panelOpened,
