@@ -138,3 +138,8 @@ export interface ThyTreeDragDropEvent {
     targetNode?: ThyTreeNode;
     afterNode?: ThyTreeNode;
 }
+
+export class ThyTreeIcons {
+    expand?: string;
+    collapse?: string;
+}
