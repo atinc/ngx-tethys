@@ -303,9 +303,9 @@ export class EntityStore<
         this.next(state);
     }
 
-    trackBy(_index: number, entity: TEntity) {
+    trackBy = (_index: number, entity: TEntity) => {
         return entity[this.options.idKey];
-    }
+    };
 
     clearPagination() {
         const state = this.snapshot;
