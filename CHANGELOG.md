@@ -1,3 +1,43 @@
+## [7.5.19](https://github.com/worktile/ngx-tethys/compare/7.5.17...7.5.19) (2019-09-23)
+
+
+### Bug Fixes
+
+* fix custom-select active style and fix tree icon and text align ([9a719a6](https://github.com/worktile/ngx-tethys/commit/9a719a6))
+* **list:** not call toggleOption() [#265188](https://github.com/worktile/ngx-tethys/issues/265188) ([9fd2009](https://github.com/worktile/ngx-tethys/commit/9fd2009))
+* **nav:** icon should vertical center in item link ([59914a0](https://github.com/worktile/ngx-tethys/commit/59914a0))
+* **pagination:**  style fix ([7325178](https://github.com/worktile/ngx-tethys/commit/7325178))
+* **popover:** fix toState==enter in start animate ([5a9e689](https://github.com/worktile/ngx-tethys/commit/5a9e689))
+* **slide:** modify by review ([3721979](https://github.com/worktile/ngx-tethys/commit/3721979))
+
+
+### Features
+
+* **slide:** add .active to trigger,add animation ([615cd05](https://github.com/worktile/ngx-tethys/commit/615cd05))
+* **tree:** support customer expand icon [#264984](https://github.com/worktile/ngx-tethys/issues/264984) ([7975898](https://github.com/worktile/ngx-tethys/commit/7975898))
+
+
+
+## [7.5.18](https://github.com/worktile/ngx-tethys/compare/7.5.17...7.5.18) (2019-09-23)
+
+
+### Bug Fixes
+
+* fix custom-select active style and fix tree icon and text align ([9a719a6](https://github.com/worktile/ngx-tethys/commit/9a719a6))
+* **list:** not call toggleOption() [#265188](https://github.com/worktile/ngx-tethys/issues/265188) ([9fd2009](https://github.com/worktile/ngx-tethys/commit/9fd2009))
+* **nav:** icon should vertical center in item link ([59914a0](https://github.com/worktile/ngx-tethys/commit/59914a0))
+* **pagination:**  style fix ([7325178](https://github.com/worktile/ngx-tethys/commit/7325178))
+* **popover:** fix toState==enter in start animate ([5a9e689](https://github.com/worktile/ngx-tethys/commit/5a9e689))
+* **slide:** modify by review ([3721979](https://github.com/worktile/ngx-tethys/commit/3721979))
+
+
+### Features
+
+* **slide:** add .active to trigger,add animation ([615cd05](https://github.com/worktile/ngx-tethys/commit/615cd05))
+* **tree:** support customer expand icon [#264984](https://github.com/worktile/ngx-tethys/issues/264984) ([7975898](https://github.com/worktile/ngx-tethys/commit/7975898))
+
+
+
 ## [7.5.17](https://github.com/worktile/ngx-tethys/compare/7.5.16...7.5.17) (2019-09-12)
 
 

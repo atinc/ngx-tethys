@@ -10,6 +10,8 @@ const COMPONENTS = [DemoTreeSectionComponent, DemoTreeBasicComponent, DemoTreeIc
     declarations: [...COMPONENTS],
     entryComponents: [...COMPONENTS],
     imports: [SharedModule],
-    exports: [DemoTreeSectionComponent]
+    exports: [DemoTreeSectionComponent, DemoTreeBasicComponent]
 })
 export class DemoTreeModule {}
+
+export { DemoTreeSectionComponent };
