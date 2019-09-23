@@ -2,7 +2,7 @@ import { Component, TemplateRef } from '@angular/core';
 import { ThyDialog } from 'ngx-tethys';
 import { of } from 'rxjs';
 import { map, delay } from 'rxjs/operators';
-import { DemoTreeSectionComponent } from '../../+tree/tree-section.component';
+import { DemoTreeSectionComponent } from '../../+tree';
 import { taskTypes } from 'app/components/+select/mock-data';
 
 @Component({
