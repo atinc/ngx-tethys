@@ -18,6 +18,9 @@ export class ThyInternalPopoverRef<T, TResult = any>
     implements ThyPopoverRef<T, TResult> {
     constructor(overlayRef: OverlayRef, containerInstance: ThyPopoverContainerComponent, config: ThyPopoverConfig) {
         super(popoverUpperOverlayOptions, overlayRef, containerInstance, config);
+        containerInstance.insideClicked.subscribe(() => {
+            this.close();
+        });
     }
 
     /**

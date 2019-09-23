@@ -30,6 +30,12 @@
     "default": "default"
   },
   {
+    "property": "thyIcons",
+    "description": "设置不同 Tree 展开折叠的图标，`expand` 为展开状态的图标，`collapse` 为折叠状态的图标",
+    "type": "{ expand: string, collapse: string }",
+    "default": "{}"
+  },
+  {
     "property": "thySize",
     "description": "支持 `sm` | `default` 两种大小",
     "type": "string",

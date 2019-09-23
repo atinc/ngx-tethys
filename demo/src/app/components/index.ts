@@ -22,7 +22,6 @@ import { DemoLoadingSectionComponent } from './+loading/loading-section.componen
 import { DemoAlertSectionComponent } from './+alert/alert-section.component';
 import { DemoPaginationComponent } from './+pagination/pagination.component';
 import { DemoConfirmSectionComponent } from './+confirm/confirm-section.component';
-import { DemoTreeSectionComponent } from './+tree/tree-section.component';
 import { DemoEmptySectionComponent } from './+empty/empty-section.component';
 import { DemoSwitchSectionComponent } from './+switch/switch-section.component';
 import { DemoTransferSectionComponent } from './+transfer/transfer-section.component';
@@ -118,7 +117,6 @@ export const COMPONENTS = [
     DemoLoadingSectionComponent,
     DemoAlertSectionComponent,
     DemoPaginationComponent,
-    DemoTreeSectionComponent,
     DemoEmptySectionComponent,
     DemoSwitchSectionComponent,
     DemoTransferSectionComponent,

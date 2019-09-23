@@ -1,165 +1,165 @@
-import { Component, ViewChild, TemplateRef } from '@angular/core';
-import { OnInit } from '@angular/core';
-import { ThyTreeNode } from '../../../../../src/tree/tree.class';
-import { ThyTreeComponent } from '../../../../../src/tree/tree.component';
-import apiParameters from './api-parameters.json';
-import { ThyDialog } from '../../../../../src/dialog';
-@Component({
-    selector: 'demo-tree-section',
-    templateUrl: './tree-section.component.html',
-    styleUrls: ['./tree-section.component.scss']
-})
-export class DemoTreeSectionComponent {
-    @ViewChild('tree') treeComponent: ThyTreeComponent;
+// import { Component, ViewChild, TemplateRef } from '@angular/core';
+// import { OnInit } from '@angular/core';
+// import { ThyTreeNode } from '../../../../../src/tree/tree.class';
+// import { ThyTreeComponent } from '../../../../../src/tree/tree.component';
+// import apiParameters from './api-parameters.json';
+// import { ThyDialog } from '../../../../../src/dialog';
+// @Component({
+//     selector: 'demo-tree-section',
+//     templateUrl: './tree-section.component.html',
+//     styleUrls: ['./tree-section.component.scss']
+// })
+// export class DemoTreeSectionComponent {
+//     @ViewChild('tree') treeComponent: ThyTreeComponent;
 
-    public nodes: any = [
-        {
-            id: 1,
-            name: 'root1',
-            children: [{ id: 2, name: 'child1' }, { id: 3, name: 'child2' }]
-        },
-        {
-            id: 4,
-            name: 'root2',
-            children: [
-                { id: 5, name: 'child2.1' },
-                {
-                    id: 6,
-                    name: 'child2.2',
-                    children: [{ id: 7, name: 'subsub' }]
-                }
-            ]
-        }
-    ];
+//     public nodes: any = [
+//         {
+//             id: 1,
+//             name: 'root1',
+//             children: [{ id: 2, name: 'child1' }, { id: 3, name: 'child2' }]
+//         },
+//         {
+//             id: 4,
+//             name: 'root2',
+//             children: [
+//                 { id: 5, name: 'child2.1' },
+//                 {
+//                     id: 6,
+//                     name: 'child2.2',
+//                     children: [{ id: 7, name: 'subsub' }]
+//                 }
+//             ]
+//         }
+//     ];
 
-    public treeNodes: any[] = [
-        {
-            key: '01',
-            title: 'root1',
-            icon: 'wtf wtf-folder',
-            origin: { type: 1 },
-            children: [
-                {
-                    key: '01001',
-                    title: '海淀',
-                    icon: 'wtf wtf-file-text',
-                    children: [
-                        {
-                            key: '西二旗',
-                            title: '西二旗',
-                            icon: 'wtf wtf-file-text'
-                        },
-                        {
-                            key: '西三旗',
-                            title: '西三旗',
-                            icon: 'wtf wtf-file-text'
-                        }
-                    ]
-                },
-                {
-                    key: '01002',
-                    title: 'child2',
-                    icon: 'wtf wtf-file-text'
-                }
-            ]
-        },
-        {
-            key: '02',
-            title: 'root2',
-            origin: { type: 1 },
-            icon: 'wtf wtf-folder',
-            expanded: true,
-            children: []
-        },
-        {
-            key: '03',
-            title: 'root3',
-            origin: { type: 1 },
-            icon: 'wtf wtf-folder',
-            expanded: true,
-            children: []
-        },
-        {
-            key: '04',
-            title: 'root4',
-            origin: { type: 1 },
-            icon: 'wtf wtf-folder',
-            expanded: true,
-            children: []
-        }
-    ];
+//     public treeNodes: any[] = [
+//         {
+//             key: '01',
+//             title: 'root1',
+//             icon: 'wtf wtf-folder',
+//             origin: { type: 1 },
+//             children: [
+//                 {
+//                     key: '01001',
+//                     title: '海淀',
+//                     icon: 'wtf wtf-file-text',
+//                     children: [
+//                         {
+//                             key: '西二旗',
+//                             title: '西二旗',
+//                             icon: 'wtf wtf-file-text'
+//                         },
+//                         {
+//                             key: '西三旗',
+//                             title: '西三旗',
+//                             icon: 'wtf wtf-file-text'
+//                         }
+//                     ]
+//                 },
+//                 {
+//                     key: '01002',
+//                     title: 'child2',
+//                     icon: 'wtf wtf-file-text'
+//                 }
+//             ]
+//         },
+//         {
+//             key: '02',
+//             title: 'root2',
+//             origin: { type: 1 },
+//             icon: 'wtf wtf-folder',
+//             expanded: true,
+//             children: []
+//         },
+//         {
+//             key: '03',
+//             title: 'root3',
+//             origin: { type: 1 },
+//             icon: 'wtf wtf-folder',
+//             expanded: true,
+//             children: []
+//         },
+//         {
+//             key: '04',
+//             title: 'root4',
+//             origin: { type: 1 },
+//             icon: 'wtf wtf-folder',
+//             expanded: true,
+//             children: []
+//         }
+//     ];
 
-    public apiParameters = apiParameters;
+//     public apiParameters = apiParameters;
 
-    constructor(public thyDialog: ThyDialog) {}
+//     constructor(public thyDialog: ThyDialog) {}
 
-    public addNode() {
-        console.log(this.treeComponent.getSelectedNode());
+//     public addNode() {
+//         console.log(this.treeComponent.getSelectedNode());
 
-        this.treeComponent.addTreeNode(
-            {
-                key: '020011',
-                title: 'new',
-                edited: true
-            },
-            this.treeComponent.getSelectedNode()
-        );
-    }
+//         this.treeComponent.addTreeNode(
+//             {
+//                 key: '020011',
+//                 title: 'new',
+//                 edited: true
+//             },
+//             this.treeComponent.getSelectedNode()
+//         );
+//     }
 
-    public deleteNode(node) {
-        this.treeComponent.deleteTreeNode(node);
-    }
+//     public deleteNode(node) {
+//         this.treeComponent.deleteTreeNode(node);
+//     }
 
-    public isEditable(node: ThyTreeNode) {
-        return node.key === '02';
-    }
+//     public isEditable(node: ThyTreeNode) {
+//         return node.key === '02';
+//     }
 
-    public isShowExpand(node) {
-        return !!node.origin.origin && node.origin.origin.type === 1;
-    }
+//     public isShowExpand(node) {
+//         return !!node.origin.origin && node.origin.origin.type === 1;
+//     }
 
-    public loadTreeNodes(event: { node: ThyTreeNode }) {
-        event.node.setLoading(true);
-        setTimeout(() => {
-            event.node.addChildren([
-                {
-                    key: '08001001',
-                    title: '11111111111111',
-                    icon: 'wtf wtf-file-text'
-                },
-                {
-                    key: '080010002',
-                    title: '2222222222222222',
-                    icon: 'wtf wtf-file-text'
-                }
-            ]);
-        }, 3000);
-    }
+//     public loadTreeNodes(event: { node: ThyTreeNode }) {
+//         event.node.setLoading(true);
+//         setTimeout(() => {
+//             event.node.addChildren([
+//                 {
+//                     key: '08001001',
+//                     title: '11111111111111',
+//                     icon: 'wtf wtf-file-text'
+//                 },
+//                 {
+//                     key: '080010002',
+//                     title: '2222222222222222',
+//                     icon: 'wtf wtf-file-text'
+//                 }
+//             ]);
+//         }, 3000);
+//     }
 
-    public draggableNode(event) {
-        console.log(event);
-    }
+//     public draggableNode(event) {
+//         console.log(event);
+//     }
 
-    openDialogTree(template: TemplateRef<any>) {
-        this.thyDialog.open(template);
-    }
+//     openDialogTree(template: TemplateRef<any>) {
+//         this.thyDialog.open(template);
+//     }
 
-    public dialogLoadTreeNodes(event: { node: ThyTreeNode }) {
-        event.node.addChildren([
-            {
-                key: '08001001',
-                title: '11111111111111',
-                icon: 'wtf wtf-file-text'
-            },
-            {
-                key: '080010002',
-                title: '2222222222222222',
-                icon: 'wtf wtf-file-text'
-            }
-        ]);
-    }
+//     public dialogLoadTreeNodes(event: { node: ThyTreeNode }) {
+//         event.node.addChildren([
+//             {
+//                 key: '08001001',
+//                 title: '11111111111111',
+//                 icon: 'wtf wtf-file-text'
+//             },
+//             {
+//                 key: '080010002',
+//                 title: '2222222222222222',
+//                 icon: 'wtf wtf-file-text'
+//             }
+//         ]);
+//     }
 
-    onDrop(event) {
-        console.log(event);
-    }
-}
+//     onDrop(event) {
+//         console.log(event);
+//     }
+// }

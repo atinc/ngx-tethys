@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostBinding, ViewChild, Inject, ChangeDetectorRef } from '@angular/core';
+import { Component, ElementRef, HostBinding, ViewChild, Inject, ChangeDetectorRef, Renderer2 } from '@angular/core';
 import { CdkPortalOutlet } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/platform-browser';
 import { ThyUpperOverlayContainer } from '../core/overlay';
@@ -7,6 +7,7 @@ import { AnimationEvent } from '@angular/animations';
 import { slideUpperOverlayOptions, ThySlideConfig, ThySlideFromTypes } from './slide.config';
 import { filter } from 'rxjs/operators';
 import { thySlideAnimations } from './slide-animations';
+import { helpers } from '../util';
 
 @Component({
     selector: 'thy-slide-container',
@@ -39,12 +40,13 @@ export class ThySlideContainerComponent extends ThyUpperOverlayContainer {
         private elementRef: ElementRef,
         @Inject(DOCUMENT) private document: any,
         public config: ThySlideConfig,
-        changeDetectorRef: ChangeDetectorRef
+        changeDetectorRef: ChangeDetectorRef,
+        private renderer: Renderer2
     ) {
         super(slideUpperOverlayOptions, changeDetectorRef);
         this.animationOpeningDone = this.animationStateChanged.pipe(
             filter((event: AnimationEvent) => {
-                return event.phaseName === 'done' && event.toState === 'void';
+                return event.phaseName === 'done' && event.toState === this.animationState;
             })
         );
         this.animationClosingDone = this.animationStateChanged.pipe(
@@ -55,7 +57,12 @@ export class ThySlideContainerComponent extends ThyUpperOverlayContainer {
     }
 
     beforeAttachPortal(): void {
-        this.animationState = this.config.from;
+        if (this.config.offset) {
+            this.renderer.setStyle(this.elementRef.nativeElement, this.config.from, `${this.config.offset}px`);
+            this.animationState = helpers.camelCase(['offset', this.config.from]) as ThySlideFromTypes;
+        } else {
+            this.animationState = this.config.from;
+        }
     }
 
     onAnimationDone(event: AnimationEvent) {
@@ -63,7 +70,6 @@ export class ThySlideContainerComponent extends ThyUpperOverlayContainer {
     }
 
     onAnimationStart(event: AnimationEvent) {
-        // this.animationState = this.config.from;
         this.animationStateChanged.emit(event);
     }
 }

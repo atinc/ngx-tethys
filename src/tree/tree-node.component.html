@@ -11,9 +11,9 @@
     <ng-container *ngIf="isShowExpand(node)">
       <ng-container *ngIf="(node.children && node.children.length > 0) || thyAsync || emptyChildrenTemplateRef">
         <thy-icon
-          *ngIf="root.thyType === 'especial'; else defaultIcon"
+          *ngIf="root.thyIcons.expand && root.thyIcons.collapse; else defaultIcon"
           class="thy-tree-expand-icon"
-          [thyIconName]="node.isExpanded ? 'minus-square' : 'plus-square'"
+          [thyIconName]="node.isExpanded ? root.thyIcons.expand : root.thyIcons.collapse"
         ></thy-icon>
         <ng-template #defaultIcon>
           <thy-icon

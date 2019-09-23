@@ -12,9 +12,10 @@ import {
     ThyActionMenuItemInfoDirective,
     ThyActionMenuSubItemDirective,
     ThyActionMenuDividerTitleDirective,
-    ThyActionMenuItemActiveDirective,
+    ThyActionMenuItemActiveDirective
 } from './action-menu.component';
 import { ThyPopBoxModule } from '../pop-box';
+import { ThyPopoverModule } from '../popover';
 
 @NgModule({
     declarations: [
@@ -29,14 +30,10 @@ import { ThyPopBoxModule } from '../pop-box';
         ThyActionMenuItemInfoDirective,
         ThyActionMenuSubItemDirective,
         ThyActionMenuDividerTitleDirective,
-        ThyActionMenuItemActiveDirective,
+        ThyActionMenuItemActiveDirective
     ],
-    imports: [
-        CommonModule,
-        ThyPopBoxModule
-    ],
-    providers: [
-    ],
+    imports: [CommonModule, ThyPopoverModule],
+    providers: [],
     exports: [
         ThyActionMenuToggleDirective,
         ThyActionMenuComponent,
@@ -49,9 +46,7 @@ import { ThyPopBoxModule } from '../pop-box';
         ThyActionMenuItemInfoDirective,
         ThyActionMenuSubItemDirective,
         ThyActionMenuDividerTitleDirective,
-        ThyActionMenuItemActiveDirective,
+        ThyActionMenuItemActiveDirective
     ]
 })
-export class ThyActionMenuModule {
-
-}
+export class ThyActionMenuModule {}

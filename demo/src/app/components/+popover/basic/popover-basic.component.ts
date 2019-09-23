@@ -7,15 +7,6 @@ import {
     ChangeDetectionStrategy,
     ElementRef
 } from '@angular/core';
-import {
-    ConnectionPositionPair,
-    OriginConnectionPosition,
-    OverlayConnectionPosition,
-    Overlay,
-    OverlayRef
-} from '@angular/cdk/overlay';
-import { TemplatePortal, ComponentPortal } from '@angular/cdk/portal';
-import { take, takeUntil } from 'rxjs/operators';
 import { mixinUnsubscribe, MixinBase } from 'ngx-tethys/core';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { ThyPlacement } from 'ngx-tethys/core';
@@ -121,6 +112,17 @@ export class DemoPopoverBasicComponent extends mixinUnsubscribe(MixinBase) imple
             hasBackdrop: this.hasBackdrop,
             placement: this.placement,
             panelClass: 'demo-popover'
+        });
+    }
+
+    openTemplatePopoverIconNav(event: Event, template: TemplateRef<HTMLElement>) {
+        this.thyPopover.open(template, {
+            origin: event.currentTarget as HTMLElement,
+            manualClosure: true,
+            hasBackdrop: this.hasBackdrop,
+            placement: this.placement,
+            panelClass: 'demo-popover',
+            originActiveClass: 'active'
         });
     }
 }
