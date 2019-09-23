@@ -157,4 +157,24 @@
     </ng-template>
   </div>
 </section>
+
+<section>
+  <div class="header">
+    <h2>弹框打开后，origin 上添加激活样式</h2>
+  </div>
+  <div class="body">
+    <thy-icon-nav>
+      <a
+        href="javascript:;"
+        thyIconNavLink
+        thyIconNavLinkIcon="vertical-view-lines"
+        thyTooltip="视图"
+        thyTooltipPlacement="bottom"
+        [thyActionMenuToggle]="menu1"
+        [thyActionMenuToggle]="menu1"
+        thyOriginActiveClass="active"
+      ></a>
+    </thy-icon-nav>
+  </div>
+</section>
 <api-parameters [parameters]="apiParameters"></api-parameters>
