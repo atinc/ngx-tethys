@@ -7,6 +7,7 @@ import { AnimationEvent } from '@angular/animations';
 import { slideUpperOverlayOptions, ThySlideConfig, ThySlideFromTypes } from './slide.config';
 import { filter } from 'rxjs/operators';
 import { thySlideAnimations } from './slide-animations';
+import { helpers } from '../util';
 
 @Component({
     selector: 'thy-slide-container',
@@ -45,7 +46,7 @@ export class ThySlideContainerComponent extends ThyUpperOverlayContainer {
         super(slideUpperOverlayOptions, changeDetectorRef);
         this.animationOpeningDone = this.animationStateChanged.pipe(
             filter((event: AnimationEvent) => {
-                return event.phaseName === 'done' && event.toState === 'void';
+                return event.phaseName === 'done' && event.toState === this.animationState;
             })
         );
         this.animationClosingDone = this.animationStateChanged.pipe(
@@ -58,9 +59,7 @@ export class ThySlideContainerComponent extends ThyUpperOverlayContainer {
     beforeAttachPortal(): void {
         if (this.config.offset) {
             this.renderer.setStyle(this.elementRef.nativeElement, this.config.from, `${this.config.offset}px`);
-            this.animationState = `offset${this.config.from[0].toUpperCase()}${this.config.from.slice(
-                1
-            )}` as ThySlideFromTypes;
+            this.animationState = helpers.camelCase(['offset', this.config.from]) as ThySlideFromTypes;
         } else {
             this.animationState = this.config.from;
         }

@@ -66,6 +66,6 @@ export const THY_SLIDE_DEFAULT_OPTIONS_PROVIDER = {
         containerClass: '',
         role: 'slide',
         offset: 0,
-        originActiveClass: 'active'
+        originActiveClass: 'thy-slide-origin-active'
     }
 };
