@@ -28,13 +28,25 @@
         <thy-form-group thyLabelText="">
           <label name="hasBackdrop" thyCheckbox [(ngModel)]="hasBackdrop" thyLabelText="弹出时，是否有幕布"></label>
         </thy-form-group>
+        <thy-form-group thyLabelText="">
+          <label name="hasOffset" thyCheckbox [(ngModel)]="hasOffset" thyLabelText="弹出时，是否有偏移"></label>
+        </thy-form-group>
       </form>
     </div>
-    <div>
+    <div class="btn-pair">
       <button [thyButton]="'primary'" (click)="showSlide('key1')">show slide</button>
       <button [thyButton]="'primary'" (click)="showSlide('key2')">show slide</button>
+      <thy-icon-nav>
+        <a
+          href="javascript:;"
+          thyIconNavLink
+          thyIconNavLinkIcon="vertical-view-lines"
+          thyTooltip="视图"
+          thyTooltipPlacement="bottom"
+          (click)="showSlide('key3', $event)"
+        ></a>
+      </thy-icon-nav>
     </div>
   </div>
 </section>
 <section></section>
-
