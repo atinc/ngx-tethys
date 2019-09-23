@@ -3,7 +3,7 @@ import { ThyTreeModule } from '../tree.module';
 import { Component, ViewChild } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ThyTreeComponent } from '../tree.component';
-import { ThyTreeNodeData } from '../tree.class';
+import { ThyTreeNodeData, ThyTreeIcons } from '../tree.class';
 describe('ThyTreeComponent', () => {
     function configureThyTreeTestingModule(declarations: any[]) {
         TestBed.configureTestingModule({
@@ -70,6 +70,24 @@ describe('ThyTreeComponent', () => {
             expect(treeComponent.getRootNodes().length).toEqual(2);
         }));
     });
+
+    describe('test tree property', () => {
+        let treeElement: HTMLElement;
+        let fixture: ComponentFixture<TestTreeCustomizedIconComponent>;
+        beforeEach(async(() => {
+            configureThyTreeTestingModule([TestTreeCustomizedIconComponent]);
+            fixture = TestBed.createComponent(TestTreeCustomizedIconComponent);
+            fixture.detectChanges();
+            treeElement = fixture.debugElement.query(By.directive(ThyTreeComponent)).nativeElement;
+        }));
+
+        it('test customized icon', fakeAsync(() => {
+            fixture.detectChanges();
+            // customized template icon
+            expect(treeElement.querySelectorAll('thy-icon.thy-icon-angle-double-down').length).toEqual(1);
+            expect(treeElement.querySelectorAll('thy-icon.thy-icon-angle-double-up').length).toEqual(1);
+        }));
+    });
 });
 
 @Component({
@@ -118,4 +136,55 @@ class TestBasicTreeComponent {
             title: '上海'
         }
     ];
+}
+
+@Component({
+    template: `
+        <thy-tree
+            #tree
+            [thyNodes]="treeNodes"
+            [thyIcons]="treeIcons"
+            [thySize]="'sm'"
+            [thyTitleTruncate]="true"
+        ></thy-tree>
+    `
+})
+class TestTreeCustomizedIconComponent {
+    @ViewChild('tree') treeComponent: ThyTreeComponent;
+    public treeNodes: ThyTreeNodeData[] = [
+        {
+            key: '01',
+            title: '北京',
+            expanded: true,
+            children: [
+                {
+                    key: '01001',
+                    title: '海淀',
+                    children: [
+                        {
+                            key: '010101',
+                            title: '西二旗'
+                        },
+                        {
+                            key: '010102',
+                            title: '西三旗'
+                        }
+                    ]
+                },
+                {
+                    key: '01002',
+                    title: '昌平'
+                }
+            ]
+        },
+        {
+            key: '02',
+            title: '上海'
+        }
+    ];
+
+    public treeIcons: ThyTreeIcons = {
+        expand: 'angle-double-down',
+        collapse: 'angle-double-up'
+    };
 }
