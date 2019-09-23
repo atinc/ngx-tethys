@@ -1,3 +1,7 @@
+## [7.5.20](https://github.com/worktile/ngx-tethys/compare/7.5.19...7.5.20) (2019-09-23)
+
+
+
 ## [7.5.19](https://github.com/worktile/ngx-tethys/compare/7.5.17...7.5.19) (2019-09-23)
 
 
