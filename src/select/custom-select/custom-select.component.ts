@@ -173,8 +173,6 @@ export class ThySelectCustomComponent
 
     @Input() thyServerSearch: boolean;
 
-    @Input() thyHoverTriggerAction: boolean;
-
     @Input()
     set thyMode(value: SelectMode) {
         this.mode = value;
@@ -234,13 +232,6 @@ export class ThySelectCustomComponent
         @Attribute('tabindex') tabIndex: string
     ) {
         this.updateHostClassService.initializeElement(elementRef.nativeElement);
-    }
-
-    @HostListener('mouseover', ['$event'])
-    public triggerHover($event: Event) {
-        if (this.thyHoverTriggerAction) {
-            this.open();
-        }
     }
 
     @HostListener('keydown', ['$event'])

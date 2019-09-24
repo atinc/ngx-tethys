@@ -170,12 +170,6 @@ export class ThySelectControlComponent implements OnInit {
         return this.thySelectedOptions;
     }
 
-    // get customDisplayContext(): any {
-    //     return this.thySelectedOptions.length
-    //         ? this.thySelectedOptions[0].thyRawValue || this.thySelectedOptions[0].thyValue
-    //         : null;
-    // }
-
     get multipleSelectedValue(): any {
         return this.thySelectedOptions;
     }

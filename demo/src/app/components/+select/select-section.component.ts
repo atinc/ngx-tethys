@@ -91,12 +91,6 @@ export class DemoSelectSectionComponent implements OnInit {
             default: 'false'
         },
         {
-            property: 'thyHoverTriggerAction',
-            description: '是否启用Hover展开菜单',
-            type: 'boolean',
-            default: 'false'
-        },
-        {
             property: 'thyEmptyStateText',
             description: '数据为空时显示的提示文字',
             type: 'string',
