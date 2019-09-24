@@ -19,6 +19,7 @@ import {
 import { Highlightable } from '@angular/cdk/a11y';
 import { ThyOptionGroupComponent } from '../../core/option/option-group.component';
 import { SelectOptionBase } from '../../core/select/select-option/select-option-base';
+import { ENTER, SPACE, hasModifierKey } from '../../util/keycodes';
 export class OptionSelectionChange {
     option: ThyOptionComponent;
     selected: boolean;
@@ -39,7 +40,7 @@ export const THY_SELECT_OPTION_PARENT_COMPONENT = new InjectionToken<IThySelectO
     'THY_SELECT_OPTION_PARENT_COMPONENT'
 );
 
-export function _countGroupLabelsBeforeOption(
+export function countGroupLabelsBeforeOption(
     optionIndex: number,
     options: QueryList<ThyOptionComponent>,
     optionGroups: QueryList<ThyOptionGroupComponent>
@@ -69,20 +70,23 @@ export function _countGroupLabelsBeforeOption(
  * @param panelHeight Height of the panel.
  * @docs-private
  */
-export function _getOptionScrollPosition(
+export function getOptionScrollPosition(
     optionIndex: number,
+    labelCount: number,
     optionHeight: number,
+    groupHeight: number,
     currentScrollPosition: number,
-    panelHeight: number
+    panelHeight: number,
+    panelPaddingTop: number
 ): number {
-    const optionOffset = optionIndex * optionHeight;
+    const optionOffset = optionIndex * optionHeight + labelCount * groupHeight + panelPaddingTop;
 
     if (optionOffset < currentScrollPosition) {
-        return optionOffset;
+        return optionOffset - panelPaddingTop;
     }
 
     if (optionOffset + optionHeight > currentScrollPosition + panelHeight) {
-        return Math.max(0, optionOffset - panelHeight + optionHeight);
+        return Math.max(0, optionOffset - panelHeight + optionHeight + panelPaddingTop);
     }
 
     return currentScrollPosition;
@@ -114,11 +118,14 @@ export class ThyOptionComponent extends SelectOptionBase implements OnDestroy, H
     @HostBinding(`class.disabled`)
     thyDisabled: boolean;
 
-    disabled?: boolean;
-
     @HostBinding('class.hidden')
     get hidden(): boolean {
         return this._hidden;
+    }
+
+    @HostBinding('attr.tabindex')
+    get tabIndex(): string {
+        return this.thyDisabled ? '-1' : '0';
     }
 
     /** Whether or not the option is currently selected. */
@@ -150,6 +157,21 @@ export class ThyOptionComponent extends SelectOptionBase implements OnDestroy, H
             this._selected ? this.deselect() : this.select();
         } else {
             this.select();
+        }
+    }
+
+    @HostListener('keydown', ['$event'])
+    handleKeydown(event: KeyboardEvent): void {
+        console.log(`--handleKeydown: option--`);
+        if ((event.keyCode === ENTER || event.keyCode === SPACE) && !hasModifierKey(event)) {
+            if (this.selected) {
+                this.deselect();
+            } else {
+                this.select();
+            }
+
+            // Prevent the page from scrolling down and form submits.
+            event.preventDefault();
         }
     }
 

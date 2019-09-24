@@ -12,6 +12,7 @@ import {
 } from '@angular/core';
 import { UpdateHostClassService } from '../../../shared';
 import { SelectOptionBase } from '../select-option/select-option-base';
+import { isArray, isUndefinedOrNull } from '../../../util/helpers';
 
 export type SelectControlSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -36,7 +37,7 @@ export class ThySelectControlComponent implements OnInit {
 
     size: SelectControlSize;
 
-    selectedOptions: SelectOptionBase[];
+    selectedOptions: SelectOptionBase | SelectOptionBase[];
 
     @Input()
     get thyPanelOpened(): boolean {
@@ -79,11 +80,11 @@ export class ThySelectControlComponent implements OnInit {
     }
 
     @Input()
-    get thySelectedOptions(): SelectOptionBase[] {
+    get thySelectedOptions(): SelectOptionBase | SelectOptionBase[] {
         return this.selectedOptions;
     }
 
-    set thySelectedOptions(value: SelectOptionBase[]) {
+    set thySelectedOptions(value: SelectOptionBase | SelectOptionBase[]) {
         if (this.selectedOptions === value) {
             return;
         }
@@ -166,14 +167,14 @@ export class ThySelectControlComponent implements OnInit {
     }
 
     get selectedValue(): any {
-        return this.thySelectedOptions.length ? this.thySelectedOptions[0] : null;
+        return this.thySelectedOptions;
     }
 
-    get customDisplayContext(): any {
-        return this.thySelectedOptions.length
-            ? this.thySelectedOptions[0].thyRawValue || this.thySelectedOptions[0].thyValue
-            : null;
-    }
+    // get customDisplayContext(): any {
+    //     return this.thySelectedOptions.length
+    //         ? this.thySelectedOptions[0].thyRawValue || this.thySelectedOptions[0].thyValue
+    //         : null;
+    // }
 
     get multipleSelectedValue(): any {
         return this.thySelectedOptions;
@@ -184,7 +185,10 @@ export class ThySelectControlComponent implements OnInit {
     }
 
     get isSelectedValue(): boolean {
-        return (!this.isMultiple && this.selectedValue) || (this.isMultiple && this.multipleSelectedValue.length);
+        return (
+            (!this.isMultiple && !isUndefinedOrNull(this.thySelectedOptions)) ||
+            (this.isMultiple && <SelectOptionBase[]>this.thySelectedOptions).length > 0
+        );
     }
 
     constructor(
