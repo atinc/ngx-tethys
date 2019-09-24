@@ -12,9 +12,7 @@
 </ng-template>
 
 <div class="select-control-rendered">
-  <div class="text-placeholder text-truncate" [ngStyle]="placeholderStyle">
-    {{ thyPlaceholder }}
-  </div>
+  <div class="text-placeholder text-truncate" [ngStyle]="placeholderStyle">{{ thyPlaceholder }}</div>
   <ng-container *ngIf="isMultiple; else single">
     <ul>
       <li class="choice" *ngFor="let item of multipleSelectedValue; trackBy: trackValue">

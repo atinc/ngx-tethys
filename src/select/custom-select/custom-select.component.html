@@ -6,7 +6,7 @@
   #trigger
   [thyPanelOpened]="panelOpen"
   [thySelectedOptions]="selected"
-  [thyIsMultiple]="thyMode === 'multiple'"
+  [thyIsMultiple]="isMultiple"
   [thyShowSearch]="thyShowSearch"
   [thyAllowClear]="thyAllowClear"
   [thySize]="thySize"
@@ -30,20 +30,20 @@
   (backdropClick)="close()"
   (detach)="close()"
 >
-  <div [ngClass]="dropDownClass" (mouseleave)="onSelectContainerMouseleave($event)">
+  <div [ngClass]="dropDownClass">
     <ng-container *ngIf="options.length > 0 || optionGroups.length > 0; else emptyPlaceholder">
       <div
         #panel
         class="thy-select-custom-options"
         thyScroll
-        (thyOnScrolled)="optionsContainerScrolled($event)"
+        (thyOnScrolled)="onOptionsScrolled($event)"
         [thyEnable]="thyEnableScrollLoad"
       >
         <ng-content></ng-content>
       </div>
     </ng-container>
     <ng-template #emptyPlaceholder>
-      <div class="pl-4 pt-1 pb-1 text-placeholder">{{ _emptyStateText }}</div>
+      <div class="pl-4 pt-1 pb-1 text-placeholder">{{ emptyStateText }}</div>
     </ng-template>
   </div>
 </ng-template>

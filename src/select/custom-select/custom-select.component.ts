@@ -15,13 +15,10 @@ import {
     Renderer2,
     OnDestroy,
     ChangeDetectorRef,
-    InjectionToken,
-    Inject,
     NgZone,
     AfterContentInit,
     ChangeDetectionStrategy,
     HostListener,
-    AfterContentChecked,
     Attribute
 } from '@angular/core';
 import { UpdateHostClassService } from '../../shared/update-host-class.service';
@@ -43,13 +40,11 @@ import {
     ScrollDispatcher,
     CdkConnectedOverlay
 } from '@angular/cdk/overlay';
-import { CdkScrollable } from '@angular/cdk/scrolling';
 import { takeUntil, startWith, take, switchMap } from 'rxjs/operators';
 import { Subject, Observable, merge, defer, Subscription } from 'rxjs';
-import { getFlexiblePositions, ThyPlacement } from '../../core/overlay';
+import { getFlexiblePositions } from '../../core/overlay';
 import { ThySelectOptionGroupComponent } from './option-group.component';
 import { SelectionModel } from '@angular/cdk/collections';
-import { ThyScrollDirective } from '../../directive/thy-scroll.directive';
 import { helpers } from '../../util';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { SelectControlSize } from '../../core';
@@ -107,28 +102,20 @@ const noop = () => {};
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThySelectCustomComponent
-    implements
-        ControlValueAccessor,
-        IThySelectOptionParentComponent,
-        OnInit,
-        AfterContentInit,
-        AfterContentChecked,
-        OnDestroy {
+    implements ControlValueAccessor, IThySelectOptionParentComponent, OnInit, AfterContentInit, OnDestroy {
     disabled = false;
 
-    _size: SelectControlSize;
+    size: SelectControlSize;
 
-    _mode: SelectMode = '';
+    mode: SelectMode = '';
 
-    _emptyStateText = '没有任何选项';
+    emptyStateText = '没有任何选项';
 
-    _classNames: any = [];
+    scrollStrategy: ScrollStrategy;
 
-    _viewContentInitialized = false;
+    scrollTop = 0;
 
-    _scrollStrategy: ScrollStrategy;
-
-    _modalValue: any = null;
+    modalValue: any = null;
 
     defaultOffset = 4;
 
@@ -140,39 +127,36 @@ export class ThySelectCustomComponent
 
     public selectionModel: SelectionModel<ThyOptionComponent>;
 
-    selectionModelSubscription: Subscription;
+    public triggerRect: ClientRect;
 
-    @ViewChild(CdkConnectedOverlay) cdkConnectedOverlay: CdkConnectedOverlay;
+    private selectionModelSubscription: Subscription;
 
-    /** The last measured value for the trigger's client bounding rect. */
-    triggerRect: ClientRect;
-
-    /** Emits whenever the component is destroyed. */
     private readonly destroy$ = new Subject<void>();
 
     private onTouchedCallback: () => void = noop;
 
     private onChangeCallback: (_: any) => void = noop;
 
-    @HostBinding('class.thy-select-custom') _isSelectCustom = true;
+    readonly optionSelectionChanges: Observable<OptionSelectionChange> = defer(() => {
+        if (this.options) {
+            return merge(...this.options.map(option => option.selectionChange));
+        }
+        return this.ngZone.onStable.asObservable().pipe(
+            take(1),
+            switchMap(() => this.optionSelectionChanges)
+        );
+    }) as Observable<OptionSelectionChange>;
 
-    @HostBinding('class.thy-select') _isSelect = true;
+    @ViewChild(CdkConnectedOverlay) cdkConnectedOverlay: CdkConnectedOverlay;
 
-    _panelOpen = false;
+    @HostBinding('class.thy-select-custom') isSelectCustom = true;
 
-    private scrollTop = 0;
+    @HostBinding('class.thy-select') isSelect = true;
 
     keyManager: ActiveDescendantKeyManager<ThyOptionComponent>;
 
-    get selected(): ThyOptionComponent | ThyOptionComponent[] {
-        return this.isMultiple ? this.selectionModel.selected : this.selectionModel.selected[0];
-    }
-
-    // 下拉选项是否展示
     @HostBinding('class.menu-is-opened')
-    get panelOpen(): boolean {
-        return this._panelOpen;
-    }
+    panelOpen = false;
 
     @HostBinding('attr.tabindex')
     tabIndex = '0';
@@ -193,27 +177,27 @@ export class ThySelectCustomComponent
 
     @Input()
     set thyMode(value: SelectMode) {
-        this._mode = value;
-        this._instanceSelectionModel();
+        this.mode = value;
+        this.instanceSelectionModel();
         this.getPositions();
         this.setDropDownClass();
     }
 
     get thyMode(): SelectMode {
-        return this._mode;
+        return this.mode;
     }
 
     @Input()
     get thySize(): SelectControlSize {
-        return this._size;
+        return this.size;
     }
     set thySize(value: SelectControlSize) {
-        this._size = value;
+        this.size = value;
     }
 
     @Input()
     set thyEmptyStateText(value: string) {
-        this._emptyStateText = value;
+        this.emptyStateText = value;
     }
 
     @Input()
@@ -227,35 +211,6 @@ export class ThySelectCustomComponent
     }
 
     @Input() sortComparator: (a: ThyOptionComponent, b: ThyOptionComponent, options: ThyOptionComponent[]) => number;
-
-    get selectedDisplayContext(): any {
-        const selectedValues = this.selectionModel.selected;
-        if (selectedValues.length === 0) {
-            return null;
-        }
-        const context = selectedValues.map((option: ThyOptionComponent) => {
-            return option.thyRawValue || option.thyValue;
-        });
-        if (this.thyMode === 'multiple') {
-            return {
-                $implicit: context
-            };
-        } else {
-            return {
-                $implicit: context[0]
-            };
-        }
-    }
-
-    readonly optionSelectionChanges: Observable<OptionSelectionChange> = defer(() => {
-        if (this.options) {
-            return merge(...this.options.map(option => option.selectionChange));
-        }
-        return this.ngZone.onStable.asObservable().pipe(
-            take(1),
-            switchMap(() => this.optionSelectionChanges)
-        );
-    }) as Observable<OptionSelectionChange>;
 
     @ContentChild('selectedDisplay') selectedValueDisplayRef: TemplateRef<any>;
 
@@ -288,16 +243,6 @@ export class ThySelectCustomComponent
         }
     }
 
-    onSelectContainerMouseleave(event: Event) {
-        if (event) {
-            event.preventDefault();
-        }
-        if (!this.thyHoverTriggerAction) {
-            return;
-        }
-        this.close();
-    }
-
     @HostListener('keydown', ['$event'])
     handleKeydown(event: KeyboardEvent): void {
         if (!this.disabled) {
@@ -305,7 +250,246 @@ export class ThySelectCustomComponent
         }
     }
 
-    /** Handles keyboard events while the select is closed. */
+    writeValue(value: any): void {
+        this.modalValue = value;
+        if (this.options && this.options.length > 0) {
+            this.setSelectionByModelValue(this.modalValue);
+        }
+    }
+
+    registerOnChange(fn: any): void {
+        this.onChangeCallback = fn;
+    }
+
+    registerOnTouched(fn: any): void {
+        this.onTouchedCallback = fn;
+    }
+
+    ngOnInit() {
+        this.getPositions();
+        this.scrollStrategy = this.overlay.scrollStrategies.reposition();
+        this.viewportRuler
+            .change()
+            .pipe(takeUntil(this.destroy$))
+            .subscribe(() => {
+                if (this.panelOpen) {
+                    this.triggerRect = this.trigger.nativeElement.getBoundingClientRect();
+                    this.changeDetectorRef.markForCheck();
+                }
+            });
+        if (!this.selectionModel) {
+            this.instanceSelectionModel();
+        }
+        this.setDropDownClass();
+    }
+
+    ngAfterContentInit() {
+        this.initKeyManager();
+
+        this.options.changes
+            .pipe(
+                startWith(null),
+                takeUntil(this.destroy$)
+            )
+            .subscribe(() => {
+                this.resetOptions();
+                this.initializeSelection();
+            });
+    }
+
+    public onAttached(): void {
+        this.cdkConnectedOverlay.positionChange.pipe(take(1)).subscribe(() => {
+            if (this.panel) {
+                this.panel.nativeElement.scrollTop = this.scrollTop;
+                this.changeDetectorRef.detectChanges();
+            }
+        });
+    }
+
+    public onOptionsScrolled(elementRef: ElementRef) {
+        const scroll = this.elementRef.nativeElement.scrollTop,
+            height = this.elementRef.nativeElement.clientHeight,
+            scrollHeight = this.elementRef.nativeElement.scrollHeight;
+        if (scroll + height + 10 >= scrollHeight) {
+            this.ngZone.run(() => {
+                this.thyOnScrollToBottom.emit();
+            });
+        }
+    }
+
+    public focus(options?: FocusOptions): void {
+        this.elementRef.nativeElement.focus(options);
+    }
+
+    public onSearchFilter(searchText: string) {
+        if (this.thyServerSearch) {
+            this.thyOnSearch.emit(searchText);
+        } else {
+            this.options.forEach(option => {
+                if (option.matchSearchText(searchText)) {
+                    option.showOption();
+                } else {
+                    option.hideOption();
+                }
+            });
+            this.updateCdkConnectedOverlayPositions();
+        }
+    }
+
+    public remove($event: { item: ThyOptionComponent; $eventOrigin: Event }) {
+        $event.$eventOrigin.stopPropagation();
+        if (this.disabled) {
+            return;
+        }
+        $event.item.deselect();
+    }
+
+    public clearSelectValue(event?: Event) {
+        if (event) {
+            event.stopPropagation();
+        }
+        if (this.disabled) {
+            return;
+        }
+        this.selectionModel.clear();
+        this.changeDetectorRef.markForCheck();
+        this.emitModelValueChange();
+    }
+
+    public updateCdkConnectedOverlayPositions(): void {
+        setTimeout(() => {
+            if (this.cdkConnectedOverlay && this.cdkConnectedOverlay.overlayRef) {
+                this.cdkConnectedOverlay.overlayRef.updatePosition();
+            }
+        });
+    }
+
+    public get selected(): ThyOptionComponent | ThyOptionComponent[] {
+        return this.isMultiple ? this.selectionModel.selected : this.selectionModel.selected[0];
+    }
+
+    public get isMultiple(): boolean {
+        return this.mode === 'multiple';
+    }
+
+    public get empty(): boolean {
+        return !this.selectionModel || this.selectionModel.isEmpty();
+    }
+
+    public getItemCount(): number {
+        return this.options.length + this.optionGroups.length;
+    }
+
+    public toggle(): void {
+        this.panelOpen ? this.close() : this.open();
+    }
+
+    public open(): void {
+        if (this.disabled || !this.options || this.panelOpen) {
+            return;
+        }
+        this.triggerRect = this.trigger.nativeElement.getBoundingClientRect();
+        this.panelOpen = true;
+
+        let selectedOptionOffset = this.empty ? 0 : this.getOptionIndex(this.selectionModel.selected[0]);
+        selectedOptionOffset += countGroupLabelsBeforeOption(selectedOptionOffset, this.options, this.optionGroups);
+        this.scrollTop = this.calculateOverlayScroll(selectedOptionOffset);
+
+        this.highlightCorrectOption();
+        this.thyOnExpandStatusChange.emit(this.panelOpen);
+    }
+
+    public close(): void {
+        if (this.panelOpen) {
+            this.panelOpen = false;
+            this.thyOnExpandStatusChange.emit(this.panelOpen);
+            this.changeDetectorRef.markForCheck();
+        }
+    }
+
+    private emitModelValueChange() {
+        const selectedValues = this.selectionModel.selected;
+        const changeValue = selectedValues.map((option: ThyOptionComponent) => {
+            return option.thyValue;
+        });
+        if (this.isMultiple) {
+            this.modalValue = changeValue;
+        } else {
+            if (changeValue.length === 0) {
+                this.modalValue = null;
+            } else {
+                this.modalValue = changeValue[0];
+            }
+        }
+        this.onChangeCallback(this.modalValue);
+        this.updateCdkConnectedOverlayPositions();
+    }
+
+    private calculateOverlayScroll(selectedIndex: number): number {
+        const itemHeight = SELECT_OPTION_MAX_HEIGHT;
+        const optionOffsetFromScrollTop = itemHeight * selectedIndex;
+        const halfOptionHeight = itemHeight / 2;
+        const items = this.getItemCount();
+        const panelHeight = Math.min(items * itemHeight, SELECT_PANEL_MAX_HEIGHT);
+
+        const scrollContainerHeight = items * itemHeight;
+        const maxScroll = scrollContainerHeight - panelHeight;
+
+        const scrollBuffer = panelHeight / 2;
+        const optimalScrollPosition = optionOffsetFromScrollTop - scrollBuffer + halfOptionHeight;
+        return Math.min(Math.max(0, optimalScrollPosition), maxScroll);
+    }
+
+    private highlightCorrectOption(): void {
+        if (this.keyManager) {
+            if (this.empty) {
+                this.keyManager.setFirstItemActive();
+            } else {
+                this.keyManager.setActiveItem(this.selectionModel.selected[0]);
+            }
+        }
+    }
+
+    private getOptionIndex(option: ThyOptionComponent): number | undefined {
+        return this.options.reduce((result: number | undefined, current: ThyOptionComponent, index: number) => {
+            return result === undefined ? (option === current ? index : undefined) : result;
+        }, undefined);
+    }
+
+    private initKeyManager() {
+        this.keyManager = new ActiveDescendantKeyManager<ThyOptionComponent>(this.options)
+            .withTypeAhead()
+            .withVerticalOrientation()
+            .withAllowedModifierKeys(['shiftKey']);
+
+        this.keyManager.tabOut.pipe(takeUntil(this.destroy$)).subscribe(() => {
+            this.focus();
+            this.close();
+        });
+        this.keyManager.change.pipe(takeUntil(this.destroy$)).subscribe(() => {
+            if (this.panelOpen && this.panel) {
+                this.scrollActiveOptionIntoView();
+            } else if (!this.panelOpen && !this.isMultiple && this.keyManager.activeItem) {
+                this.keyManager.activeItem.setInactiveStyles();
+            }
+        });
+    }
+
+    private scrollActiveOptionIntoView(): void {
+        const activeOptionIndex = this.keyManager.activeItemIndex || 0;
+        const labelCount = countGroupLabelsBeforeOption(activeOptionIndex, this.options, this.optionGroups);
+
+        this.panel.nativeElement.scrollTop = getOptionScrollPosition(
+            activeOptionIndex,
+            labelCount,
+            SELECT_OPTION_MAX_HEIGHT,
+            SELECT_OPTION_GROUP_MAX_HEIGHT,
+            this.panel.nativeElement.scrollTop,
+            SELECT_PANEL_MAX_HEIGHT,
+            SELECT_PANEL_PADDING_TOP
+        );
+    }
+
     private handleClosedKeydown(event: KeyboardEvent): void {
         const keyCode = event.keyCode;
         const isArrowKey =
@@ -326,20 +510,9 @@ export class ThySelectCustomComponent
             } else {
                 manager.onKeydown(event);
             }
-
-            const selectedOption = this.selected;
-
-            // Since the value has changed, we need to announce it ourselves.
-            // @breaking-change 8.0.0 remove null check for _liveAnnouncer.
-            //   if (this._liveAnnouncer && selectedOption && previouslySelectedOption !== selectedOption) {
-            //     // We set a duration on the live announcement, because we want the live element to be
-            //     // cleared after a while so that users can't navigate to it using the arrow keys.
-            //     this._liveAnnouncer.announce((selectedOption as MatOption).viewValue, 10000);
-            //   }
         }
     }
 
-    /** Handles keyboard events when the selected is open. */
     private handleOpenKeydown(event: KeyboardEvent): void {
         const keyCode = event.keyCode;
         const isArrowKey = keyCode === DOWN_ARROW || keyCode === UP_ARROW;
@@ -385,62 +558,52 @@ export class ThySelectCustomComponent
         }
     }
 
-    writeValue(value: any): void {
-        this._modalValue = value;
-        if (this.options && this.options.length > 0) {
-            this.setSelectionByModelValue(this._modalValue);
-        }
-    }
-
-    ngOnInit() {
-        this.getPositions();
-        this._scrollStrategy = this.overlay.scrollStrategies.reposition();
-        this.viewportRuler
-            .change()
-            .pipe(takeUntil(this.destroy$))
-            .subscribe(() => {
-                if (this._panelOpen) {
-                    this.triggerRect = this.trigger.nativeElement.getBoundingClientRect();
-                    this.changeDetectorRef.markForCheck();
-                }
-            });
-        if (!this.selectionModel) {
-            this._instanceSelectionModel();
-        }
-        if (this._size) {
-            this._classNames.push(`thy-select-${this._size}`);
-        }
-        this.updateHostClassService.updateClass(this._classNames);
-        this.setDropDownClass();
-    }
-
-    ngAfterContentInit() {
-        this.initKeyManager();
-
-        this.options.changes
-            .pipe(
-                startWith(null),
-                takeUntil(this.destroy$)
-            )
-            .subscribe(() => {
-                this.resetOptions();
-                this.initializeSelection();
-            });
-    }
-
-    ngAfterContentChecked() {}
-
-    getPositions() {
+    private getPositions() {
         this.dropDownPositions = getFlexiblePositions(
             'bottom',
             this.isMultiple ? this.defaultMultipleOffset : this.defaultOffset
         );
     }
 
-    setDropDownClass() {
+    private instanceSelectionModel() {
+        if (this.selectionModel) {
+            this.selectionModel.clear();
+        }
+        this.selectionModel = new SelectionModel<ThyOptionComponent>(this.isMultiple);
+        if (this.selectionModelSubscription) {
+            this.selectionModelSubscription.unsubscribe();
+            this.selectionModelSubscription = null;
+        }
+        this.selectionModelSubscription = this.selectionModel.onChange
+            .pipe(takeUntil(this.destroy$))
+            .subscribe(event => {
+                event.added.forEach(option => option.select());
+                event.removed.forEach(option => option.deselect());
+            });
+    }
+
+    private resetOptions() {
+        const changedOrDestroyed$ = merge(this.options.changes, this.destroy$);
+
+        this.optionSelectionChanges.pipe(takeUntil(changedOrDestroyed$)).subscribe((event: OptionSelectionChange) => {
+            this.onSelect(event.option);
+            if (!this.isMultiple && this.panelOpen) {
+                this.close();
+                this.focus();
+            }
+        });
+    }
+
+    private initializeSelection() {
+        Promise.resolve().then(() => {
+            this.setSelectionByModelValue(this.modalValue);
+        });
+    }
+
+    private setDropDownClass() {
         let modeClass = '';
         if (this.isMultiple) {
-            modeClass = `thy-custom-select-dropdown-${this._mode}`;
+            modeClass = `thy-custom-select-dropdown-${this.mode}`;
         } else {
             modeClass = `thy-custom-select-dropdown-single`;
         }
@@ -450,25 +613,7 @@ export class ThySelectCustomComponent
         };
     }
 
-    resetOptions() {
-        const changedOrDestroyed$ = merge(this.options.changes, this.destroy$);
-
-        this.optionSelectionChanges.pipe(takeUntil(changedOrDestroyed$)).subscribe((event: OptionSelectionChange) => {
-            this.onSelect(event.option);
-            if (!this.isMultiple && this._panelOpen) {
-                this.close();
-                this.focus();
-            }
-        });
-    }
-
-    initializeSelection() {
-        Promise.resolve().then(() => {
-            this.setSelectionByModelValue(this._modalValue);
-        });
-    }
-
-    setSelectionByModelValue(modalValue: any) {
+    private setSelectionByModelValue(modalValue: any) {
         if (helpers.isUndefinedOrNull(modalValue)) {
             if (this.selectionModel.selected.length > 0) {
                 this.selectionModel.clear();
@@ -502,179 +647,7 @@ export class ThySelectCustomComponent
         this.changeDetectorRef.markForCheck();
     }
 
-    registerOnChange(fn: any): void {
-        this.onChangeCallback = fn;
-    }
-
-    registerOnTouched(fn: any): void {
-        this.onTouchedCallback = fn;
-    }
-
-    private emitModelValueChange() {
-        const selectedValues = this.selectionModel.selected;
-        const changeValue = selectedValues.map((option: ThyOptionComponent) => {
-            return option.thyValue;
-        });
-        if (this.isMultiple) {
-            this._modalValue = changeValue;
-        } else {
-            if (changeValue.length === 0) {
-                this._modalValue = null;
-            } else {
-                this._modalValue = changeValue[0];
-            }
-        }
-        this.onChangeCallback(this._modalValue);
-        this.updateCdkConnectedOverlayPositions();
-    }
-
-    remove($event: { item: ThyOptionComponent; $eventOrigin: Event }) {
-        $event.$eventOrigin.stopPropagation();
-        if (this.disabled) {
-            return;
-        }
-        $event.item.deselect();
-    }
-
-    clearSelectValue(event?: Event) {
-        if (event) {
-            event.stopPropagation();
-        }
-        if (this.disabled) {
-            return;
-        }
-        this.selectionModel.clear();
-        this.changeDetectorRef.markForCheck();
-        this.emitModelValueChange();
-    }
-
-    toggle(): void {
-        this._panelOpen ? this.close() : this.open();
-    }
-
-    open(): void {
-        if (this.disabled || !this.options || this._panelOpen) {
-            return;
-        }
-        this.triggerRect = this.trigger.nativeElement.getBoundingClientRect();
-        this._panelOpen = true;
-
-        let selectedOptionOffset = this.empty ? 0 : this.getOptionIndex(this.selectionModel.selected[0]);
-        selectedOptionOffset += countGroupLabelsBeforeOption(selectedOptionOffset, this.options, this.optionGroups);
-        this.scrollTop = this.calculateOverlayScroll(selectedOptionOffset);
-
-        this.highlightCorrectOption();
-        this.thyOnExpandStatusChange.emit(this._panelOpen);
-    }
-
-    close(): void {
-        if (this._panelOpen) {
-            this._panelOpen = false;
-            this.thyOnExpandStatusChange.emit(this._panelOpen);
-            this.changeDetectorRef.markForCheck();
-        }
-    }
-
-    private highlightCorrectOption(): void {
-        if (this.keyManager) {
-            if (this.empty) {
-                this.keyManager.setFirstItemActive();
-            } else {
-                this.keyManager.setActiveItem(this.selectionModel.selected[0]);
-            }
-        }
-    }
-
-    calculateOverlayScroll(selectedIndex: number): number {
-        const itemHeight = SELECT_OPTION_MAX_HEIGHT;
-        const optionOffsetFromScrollTop = itemHeight * selectedIndex;
-        const halfOptionHeight = itemHeight / 2;
-        const items = this.getItemCount();
-        const panelHeight = Math.min(items * itemHeight, SELECT_PANEL_MAX_HEIGHT);
-
-        const scrollContainerHeight = items * itemHeight;
-        // The farthest the panel can be scrolled before it hits the bottom
-        const maxScroll = scrollContainerHeight - panelHeight;
-
-        const scrollBuffer = panelHeight / 2;
-
-        // Starts at the optionOffsetFromScrollTop, which scrolls the option to the top of the
-        // scroll container, then subtracts the scroll buffer to scroll the option down to
-        // the center of the overlay panel. Half the option height must be re-added to the
-        // scrollTop so the option is centered based on its middle, not its top edge.
-        const optimalScrollPosition = optionOffsetFromScrollTop - scrollBuffer + halfOptionHeight;
-        return Math.min(Math.max(0, optimalScrollPosition), maxScroll);
-    }
-
-    private getOptionIndex(option: ThyOptionComponent): number | undefined {
-        return this.options.reduce((result: number | undefined, current: ThyOptionComponent, index: number) => {
-            return result === undefined ? (option === current ? index : undefined) : result;
-        }, undefined);
-    }
-
-    onSearchFilter(searchText: string) {
-        if (this.thyServerSearch) {
-            this.thyOnSearch.emit(searchText);
-        } else {
-            this.options.forEach(option => {
-                if (option.matchSearchText(searchText)) {
-                    option.showOption();
-                } else {
-                    option.hideOption();
-                }
-            });
-            this.updateCdkConnectedOverlayPositions();
-        }
-    }
-
-    public updateCdkConnectedOverlayPositions(): void {
-        setTimeout(() => {
-            if (this.cdkConnectedOverlay && this.cdkConnectedOverlay.overlayRef) {
-                this.cdkConnectedOverlay.overlayRef.updatePosition();
-            }
-        });
-    }
-
-    private _instanceSelectionModel() {
-        if (this.selectionModel) {
-            this.selectionModel.clear();
-        }
-        this.selectionModel = new SelectionModel<ThyOptionComponent>(this.isMultiple);
-        if (this.selectionModelSubscription) {
-            this.selectionModelSubscription.unsubscribe();
-            this.selectionModelSubscription = null;
-        }
-        this.selectionModelSubscription = this.selectionModel.onChange
-            .pipe(takeUntil(this.destroy$))
-            .subscribe(event => {
-                event.added.forEach(option => option.select());
-                event.removed.forEach(option => option.deselect());
-            });
-    }
-
-    /**
-     * Callback that is invoked when the overlay panel has been attached.
-     */
-    onAttached(): void {
-        this.cdkConnectedOverlay.positionChange.pipe(take(1)).subscribe(() => {
-            this.panel.nativeElement.scrollTop = this.scrollTop;
-            this.changeDetectorRef.detectChanges();
-        });
-    }
-
-    private get isMultiple(): boolean {
-        return this._mode === 'multiple';
-    }
-
-    get empty(): boolean {
-        return !this.selectionModel || this.selectionModel.isEmpty();
-    }
-
-    private getItemCount(): number {
-        return this.options.length + this.optionGroups.length;
-    }
-
-    onSelect(option: ThyOptionComponent, event?: Event) {
+    private onSelect(option: ThyOptionComponent, event?: Event) {
         const wasSelected = this.selectionModel.isSelected(option);
 
         if (option.thyValue == null && !this.isMultiple) {
@@ -687,14 +660,7 @@ export class ThySelectCustomComponent
 
             if (this.isMultiple) {
                 this.sortValues();
-
-                // if (isUserInput) {
-                // In case the user selected the option with their mouse, we
-                // want to restore focus back to the trigger, in order to
-                // prevent the select keyboard controls from clashing with
-                // the ones from `mat-option`.
                 this.focus();
-                // }
             }
         }
 
@@ -704,7 +670,6 @@ export class ThySelectCustomComponent
         this.changeDetectorRef.markForCheck();
     }
 
-    /** Sorts the selected values in the selected based on their order in the panel. */
     private sortValues() {
         if (this.isMultiple) {
             const options = this.options.toArray();
@@ -715,80 +680,6 @@ export class ThySelectCustomComponent
                     : options.indexOf(a) - options.indexOf(b);
             });
         }
-    }
-
-    private _bindOptionsContainerScroll() {
-        // if (!this._optionsContainer) {
-        //     return;
-        // }
-        // const height = this._optionsContainer.nativeElement.clientHeight,
-        //     scrollHeight = this._optionsContainer.nativeElement.scrollHeight;
-        // if (scrollHeight > height) {
-        //     this.ngZone.runOutsideAngular(
-        //         () =>
-        //             (this._optionsContainerScrollSubscription = fromEvent(
-        //                 this._optionsContainer.nativeElement,
-        //                 'scroll'
-        //             )
-        //                 .pipe(takeUntil(this.destroy$))
-        //                 .subscribe(this._optionsContainerScrolling))
-        //     );
-        // }
-        // this._thyScrollOptionsContainer.elementScrolled().subscribe(() => {
-        //     console.log(`11`);
-        // });
-    }
-
-    public optionsContainerScrolled(elementRef: ElementRef) {
-        const scroll = this.elementRef.nativeElement.scrollTop,
-            height = this.elementRef.nativeElement.clientHeight,
-            scrollHeight = this.elementRef.nativeElement.scrollHeight;
-        if (scroll + height + 10 >= scrollHeight) {
-            this.ngZone.run(() => {
-                this.thyOnScrollToBottom.emit();
-            });
-        }
-    }
-
-    private initKeyManager() {
-        this.keyManager = new ActiveDescendantKeyManager<ThyOptionComponent>(this.options)
-            .withTypeAhead()
-            .withVerticalOrientation()
-            .withAllowedModifierKeys(['shiftKey']);
-
-        this.keyManager.tabOut.pipe(takeUntil(this.destroy$)).subscribe(() => {
-            // Restore focus to the trigger before closing. Ensures that the focus
-            // position won't be lost if the user got focus into the overlay.
-            this.focus();
-            this.close();
-        });
-        this.keyManager.change.pipe(takeUntil(this.destroy$)).subscribe(() => {
-            if (this._panelOpen && this.panel) {
-                this.scrollActiveOptionIntoView();
-            } else if (!this._panelOpen && !this.isMultiple && this.keyManager.activeItem) {
-                this.keyManager.activeItem.setInactiveStyles();
-            }
-        });
-    }
-
-    /** Scrolls the active option into view. */
-    private scrollActiveOptionIntoView(): void {
-        const activeOptionIndex = this.keyManager.activeItemIndex || 0;
-        const labelCount = countGroupLabelsBeforeOption(activeOptionIndex, this.options, this.optionGroups);
-
-        this.panel.nativeElement.scrollTop = getOptionScrollPosition(
-            activeOptionIndex,
-            labelCount,
-            SELECT_OPTION_MAX_HEIGHT,
-            SELECT_OPTION_GROUP_MAX_HEIGHT,
-            this.panel.nativeElement.scrollTop,
-            SELECT_PANEL_MAX_HEIGHT,
-            SELECT_PANEL_PADDING_TOP
-        );
-    }
-
-    focus(options?: FocusOptions): void {
-        this.elementRef.nativeElement.focus(options);
     }
 
     ngOnDestroy() {

@@ -187,7 +187,7 @@ export class ThySelectControlComponent implements OnInit {
     get isSelectedValue(): boolean {
         return (
             (!this.isMultiple && !isUndefinedOrNull(this.thySelectedOptions)) ||
-            (this.isMultiple && <SelectOptionBase[]>this.thySelectedOptions).length > 0
+            (this.isMultiple && (<SelectOptionBase[]>this.thySelectedOptions).length > 0)
         );
     }
 

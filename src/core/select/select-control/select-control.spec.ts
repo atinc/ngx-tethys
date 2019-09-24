@@ -39,7 +39,7 @@ class BasicSelectControlComponent {
 
     thyShowSearch = false;
 
-    selectedOptions = [];
+    selectedOptions = null;
 
     thyAllowClear = true;
 
