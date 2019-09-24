@@ -1,11 +1,12 @@
 .thy-switch {
+    margin-bottom: $switch-margin-bottom;
     box-sizing: content-box;
     @include thy-switch($switch-width, $switch-height, 2);
 }
 
 .thy-switch-disabled {
     cursor: not-allowed;
-    opacity: .5;
+    opacity: 0.5;
 }
 
 .thy-switch-pill {
@@ -21,9 +22,15 @@
     }
 }
 
-$switch-theme: (( "primary": $primary, "info": $gray-400, "warning": $warning, "danger": $danger))!default;
-@each $color,
-$value in $switch-theme {
+$switch-theme: (
+    (
+        'primary': $primary,
+        'info': $gray-400,
+        'warning': $warning,
+        'danger': $danger
+    )
+) !default;
+@each $color, $value in $switch-theme {
     .thy-switch-#{$color} {
         @include thy-switch-variant($value);
     }
