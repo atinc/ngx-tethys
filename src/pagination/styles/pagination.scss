@@ -50,6 +50,10 @@
 
         button {
             color: $pagination-jumper-button-color;
+            background-color: $pagination-bg;
+            &:hover {
+                cursor: pointer;
+            }
             &:disabled {
                 color: $pagination-disabled-color;
             }
@@ -68,7 +72,7 @@
     border: $pagination-border-width solid $pagination-border-color;
 
     &:hover {
-        z-index: 2;
+        // z-index: 2;
         color: $pagination-hover-color;
         text-decoration: none;
         background-color: $pagination-hover-bg;
@@ -76,7 +80,7 @@
     }
 
     &:focus {
-        z-index: 2;
+        // z-index: 2;
         outline: $pagination-focus-outline;
         box-shadow: $pagination-focus-box-shadow;
     }

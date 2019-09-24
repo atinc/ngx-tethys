@@ -1,0 +1,24 @@
+<div class="demo-card">
+  <div class="p-3">
+    <label thyCheckbox thyInline="true" [(ngModel)]="draggable" thyLabelText="开启拖拽"></label>
+  </div>
+  <thy-tree
+    [thyIcons]="treeIcons"
+    [thyNodes]="treeNodes"
+    [thyDraggable]="draggable"
+    [thyShowExpand]="showExpand"
+    [thyBeforeDragDrop]="beforeDragDrop"
+    (thyOnDragDrop)="onDragDrop($event)"
+  >
+    <ng-template #treeNodeTemplate let-node="node" let-data="origin">
+      <thy-icon
+        *ngIf="data.type !== 'member'"
+        class="thy-tree-node-icon"
+        [thyIconName]="node?.isExpanded ? 'folder-open-fill' : 'folder-fill'"
+      ></thy-icon>
+      <div class="thy-tree-node-title text-truncate" thyFlexibleText [thyTooltipContent]="data?.name">
+        {{ data?.name }} <span class="text-desc ml-1">( {{ data.member_count || 0 }}人 )</span>
+      </div>
+    </ng-template>
+  </thy-tree>
+</div>

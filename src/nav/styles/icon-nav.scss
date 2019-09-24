@@ -4,6 +4,11 @@ $icon-nav-link-padding-y: 0.282rem;
 @mixin icon-nav-link-variant($color, $hover-color, $hover-bg-color) {
     color: $color;
     padding: $icon-nav-link-padding-y $icon-nav-link-padding-x;
+    // 解决图标不居中问题
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
 
     &.active {
         color: $hover-color;
@@ -34,9 +39,7 @@ $icon-nav-link-padding-y: 0.282rem;
 }
 
 .thy-icon-nav-link {
-    display: block;
-    text-align: center;
-    transition: opacity 0.3s ease-in-out;
+    transition: opacity 0.2s ease-in-out;
     @include icon-nav-link-variant($icon-nav-link-color, $icon-nav-link-hover-color, rgba($primary, 0.1));
 }
 

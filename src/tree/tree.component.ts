@@ -14,7 +14,7 @@ import {
     forwardRef,
     SimpleChanges
 } from '@angular/core';
-import { ThyTreeNodeData, ThyTreeEmitEvent, ThyTreeNode, ThyTreeDragDropEvent } from './tree.class';
+import { ThyTreeNodeData, ThyTreeEmitEvent, ThyTreeNode, ThyTreeDragDropEvent, ThyTreeIcons } from './tree.class';
 import { helpers } from '../util';
 import { SortablejsOptions } from 'angular-sortablejs';
 import { ThyTreeService } from './tree.service';
@@ -108,7 +108,21 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
 
     @Input() thyAsync = false;
 
-    @Input() thyType: ThyTreeType = 'default';
+    private _thyType: ThyTreeType;
+
+    @Input()
+    set thyType(type: ThyTreeType) {
+        this._thyType = type;
+        if (type === 'especial') {
+            this.thyIcons = { expand: 'minus-square', collapse: 'plus-square' };
+        }
+    }
+
+    get thyType() {
+        return this._thyType;
+    }
+
+    @Input() thyIcons: ThyTreeIcons = {};
 
     @Input() thySize: ThyTreeSize;
 

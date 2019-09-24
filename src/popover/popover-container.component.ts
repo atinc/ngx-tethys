@@ -60,7 +60,7 @@ export class ThyPopoverContainerComponent extends ThyUpperOverlayContainer {
 
         this.animationOpeningDone = this.animationStateChanged.pipe(
             filter((event: AnimationEvent) => {
-                return event.phaseName === 'done' && event.toState === 'void';
+                return event.phaseName === 'done' && event.toState === 'enter';
             })
         );
         this.animationClosingDone = this.animationStateChanged.pipe(

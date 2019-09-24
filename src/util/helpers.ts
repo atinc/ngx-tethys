@@ -198,3 +198,18 @@ export function indexKeyBy<T>(array: T[], key: T extends object ? keyof T : neve
     });
     return result;
 }
+
+function upperFirst(string: string): string {
+    return string.slice(0, 1).toUpperCase() + string.slice(1);
+}
+
+export function camelCase(values: string[]): string {
+    if (isArray(values)) {
+        return values.reduce((result, word, index) => {
+            word = word.toLowerCase();
+            return result + (index ? upperFirst(word) : word);
+        }, '');
+    } else {
+        return;
+    }
+}

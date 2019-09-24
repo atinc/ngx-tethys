@@ -42,6 +42,16 @@
   >
     Use Template 4 with manualClosure
   </button>
+  <thy-icon-nav>
+    <a
+      href="javascript:;"
+      thyIconNavLink
+      thyIconNavLinkIcon="vertical-view-lines"
+      thyTooltip="视图"
+      thyTooltipPlacement="bottom"
+      (click)="openTemplatePopoverIconNav($event, template)"
+    ></a>
+  </thy-icon-nav>
 </div>
 <ng-template #template>
   <p class="p-2">Hello, I am template content</p>

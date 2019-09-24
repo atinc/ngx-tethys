@@ -1,6 +1,8 @@
-import { Directive, Input, ElementRef, HostListener } from '@angular/core';
-import { ThyPopBoxService } from '../pop-box/pop-box.service';
+import { Directive, Input, HostListener, TemplateRef } from '@angular/core';
 import { inputValueToBoolean } from '../util/helpers';
+import { ThyPopover } from '../popover';
+import { ThyPlacement } from '../core';
+import { helpers } from '../util';
 
 export enum ActionEnum {
     click = 'click',
@@ -11,8 +13,7 @@ export enum ActionEnum {
     selector: '[thyActionMenuToggle]'
 })
 export class ThyActionMenuToggleDirective {
-
-    private _templateRef: ElementRef;
+    private _templateRef: TemplateRef<any>;
 
     private _placement: string;
 
@@ -23,7 +24,7 @@ export class ThyActionMenuToggleDirective {
     private _thyContainerClass = '';
 
     @Input()
-    set thyActionMenuToggle(value: ElementRef) {
+    set thyActionMenuToggle(value: TemplateRef<any>) {
         this._templateRef = value;
     }
 
@@ -47,9 +48,9 @@ export class ThyActionMenuToggleDirective {
         this._thyContainerClass = value;
     }
 
-    constructor(
-        private popBoxService: ThyPopBoxService
-    ) { }
+    @Input() thyOriginActiveClass: string | string[];
+
+    constructor(private thyPopover: ThyPopover) {}
 
     @HostListener('click', ['$event'])
     onClick(event: any): void {
@@ -72,12 +73,12 @@ export class ThyActionMenuToggleDirective {
             event.stopPropagation();
             // event.preventDefault();
         }
-        this.popBoxService.show(this._templateRef, {
-            target: event.currentTarget,
-            insideAutoClose: true,
-            stopPropagation: this._stopPropagation,
-            placement: this._placement || 'bottom left',
-            containerClass: this._thyContainerClass,
+        this.thyPopover.open(this._templateRef, {
+            origin: event.currentTarget,
+            insideClosable: true,
+            placement: this._placement ? (helpers.camelCase(this._placement.split(' ')) as ThyPlacement) : 'bottomLeft',
+            panelClass: this._thyContainerClass,
+            originActiveClass: this.thyOriginActiveClass
         });
     }
 }
