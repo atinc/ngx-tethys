@@ -17,9 +17,15 @@ import {
     QueryList
 } from '@angular/core';
 import { Highlightable } from '@angular/cdk/a11y';
-import { ThyOptionGroupComponent } from '../../core/option/option-group.component';
 import { SelectOptionBase } from '../../core/select/select-option/select-option-base';
 import { ENTER, SPACE, hasModifierKey } from '../../util/keycodes';
+import {
+    IThySelectOptionGroupComponent,
+    IThySelectOptionParentComponent,
+    THY_SELECT_OPTION_PARENT_COMPONENT,
+    THY_SELECT_OPTION_GROUP_COMPONENT
+} from './custom-select.component.token';
+
 export class OptionSelectionChange {
     option: ThyOptionComponent;
     selected: boolean;
@@ -27,69 +33,6 @@ export class OptionSelectionChange {
 
 export class OptionVisibleChange {
     option: ThyOptionComponent;
-}
-
-export interface IThySelectOptionParentComponent {
-    thyMode: 'multiple' | '';
-}
-
-/**
- * Injection token used to provide the parent component to options.
- */
-export const THY_SELECT_OPTION_PARENT_COMPONENT = new InjectionToken<IThySelectOptionParentComponent>(
-    'THY_SELECT_OPTION_PARENT_COMPONENT'
-);
-
-export function countGroupLabelsBeforeOption(
-    optionIndex: number,
-    options: QueryList<ThyOptionComponent>,
-    optionGroups: QueryList<ThyOptionGroupComponent>
-): number {
-    if (optionGroups.length) {
-        const optionsArray = options.toArray();
-        const groups = optionGroups.toArray();
-        let groupCounter = 0;
-
-        for (let i = 0; i < optionIndex + 1; i++) {
-            if (optionsArray[i].group && optionsArray[i].group === groups[groupCounter]) {
-                groupCounter++;
-            }
-        }
-
-        return groupCounter;
-    }
-
-    return 0;
-}
-
-/**
- * Determines the position to which to scroll a panel in order for an option to be into view.
- * @param optionIndex Index of the option to be scrolled into the view.
- * @param optionHeight Height of the options.
- * @param currentScrollPosition Current scroll position of the panel.
- * @param panelHeight Height of the panel.
- * @docs-private
- */
-export function getOptionScrollPosition(
-    optionIndex: number,
-    labelCount: number,
-    optionHeight: number,
-    groupHeight: number,
-    currentScrollPosition: number,
-    panelHeight: number,
-    panelPaddingTop: number
-): number {
-    const optionOffset = optionIndex * optionHeight + labelCount * groupHeight + panelPaddingTop;
-
-    if (optionOffset < currentScrollPosition) {
-        return optionOffset - panelPaddingTop;
-    }
-
-    if (optionOffset + optionHeight > currentScrollPosition + panelHeight) {
-        return Math.max(0, optionOffset - panelHeight + optionHeight + panelPaddingTop);
-    }
-
-    return currentScrollPosition;
 }
 
 @Component({
@@ -100,6 +43,7 @@ export function getOptionScrollPosition(
 export class ThyOptionComponent extends SelectOptionBase implements OnDestroy, Highlightable {
     private _selected = false;
     private _hidden = false;
+    private _disabled = false;
     @Input() thyValue: any;
 
     @Input() thyRawValue: any;
@@ -116,7 +60,17 @@ export class ThyOptionComponent extends SelectOptionBase implements OnDestroy, H
 
     @Input()
     @HostBinding(`class.disabled`)
-    thyDisabled: boolean;
+    set thyDisabled(value: boolean) {
+        this._disabled = value;
+    }
+
+    get thyDisabled(): boolean {
+        return this._disabled;
+    }
+
+    get disabled(): boolean {
+        return this.hidden || this._disabled;
+    }
 
     @HostBinding('class.hidden')
     get hidden(): boolean {
@@ -125,7 +79,7 @@ export class ThyOptionComponent extends SelectOptionBase implements OnDestroy, H
 
     @HostBinding('attr.tabindex')
     get tabIndex(): string {
-        return this.thyDisabled ? '-1' : '0';
+        return this.disabled ? '-1' : '0';
     }
 
     /** Whether or not the option is currently selected. */
@@ -140,7 +94,8 @@ export class ThyOptionComponent extends SelectOptionBase implements OnDestroy, H
     constructor(
         public element: ElementRef<HTMLElement>,
         @Optional() @Inject(THY_SELECT_OPTION_PARENT_COMPONENT) public parent: IThySelectOptionParentComponent,
-        @Optional() readonly group: ThyOptionGroupComponent,
+        @Optional() @Inject(THY_SELECT_OPTION_GROUP_COMPONENT) public group: IThySelectOptionGroupComponent,
+        // @Optional() readonly group: ThySelectOptionGroupComponent,
         private cdr: ChangeDetectorRef
     ) {
         super();
@@ -177,7 +132,7 @@ export class ThyOptionComponent extends SelectOptionBase implements OnDestroy, H
 
     /** Selects the option. */
     select(event?: Event): void {
-        if (!this.thyDisabled) {
+        if (!this.disabled) {
             if (!this._selected) {
                 this._selected = true;
                 this.selectionChange.emit({

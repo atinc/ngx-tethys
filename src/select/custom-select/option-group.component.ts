@@ -12,10 +12,17 @@ import {
 import { Observable, defer, Subject, merge, combineLatest } from 'rxjs';
 import { OptionVisibleChange, ThyOptionComponent } from './option.component';
 import { take, switchMap, startWith, takeUntil, reduce, debounceTime, map } from 'rxjs/operators';
+import { THY_SELECT_OPTION_GROUP_COMPONENT } from './custom-select.component.token';
 
 @Component({
     selector: 'thy-option-group',
-    templateUrl: './option-group.component.html'
+    templateUrl: './option-group.component.html',
+    providers: [
+        {
+            provide: THY_SELECT_OPTION_GROUP_COMPONENT,
+            useExisting: ThySelectOptionGroupComponent
+        }
+    ]
 })
 export class ThySelectOptionGroupComponent implements OnDestroy, AfterContentInit {
     _hidden = false;
