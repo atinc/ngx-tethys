@@ -51,7 +51,7 @@
 // #endregion
 // #region
 .thy-badge-danger {
-    @include set-badge-color($white, $danger);
+    @include set-badge-color($white, $badge-danger-color);
     &.thy-badge-hollow {
         background-color: transparent;
     }
