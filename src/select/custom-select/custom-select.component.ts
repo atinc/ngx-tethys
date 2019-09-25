@@ -466,7 +466,6 @@ export class ThySelectCustomComponent
 
     private scrollActiveOptionIntoView(): void {
         const activeOptionIndex = this.keyManager.activeItemIndex || 0;
-        console.log(activeOptionIndex);
         const labelCount = this.countGroupLabelsBeforeOption(activeOptionIndex, this.options, this.optionGroups);
         const beforeOptionCount = this.countOptionComponentBeforeOption(activeOptionIndex, this.options);
         this.panel.nativeElement.scrollTop = this.getOptionScrollPosition(
