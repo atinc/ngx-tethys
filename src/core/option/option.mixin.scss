@@ -1,5 +1,5 @@
-$option-hover-active-bg-color: $gray-100;
-$option-disabled-color: $gray-400;
+$option-hover-active-bg-color: $gray-100 !default;
+$option-disabled-color: $gray-400 !default;
 
 @mixin thy-option-common-layout {
     display: flex;
