@@ -202,7 +202,7 @@ export class ThySelectCustomComponent
         this.disabled = inputValueToBoolean(value);
     }
 
-    @Input() sortComparator: (a: ThyOptionComponent, b: ThyOptionComponent, options: ThyOptionComponent[]) => number;
+    @Input() thySortComparator: (a: ThyOptionComponent, b: ThyOptionComponent, options: ThyOptionComponent[]) => number;
 
     @ContentChild('selectedDisplay') selectedValueDisplayRef: TemplateRef<any>;
 
@@ -663,11 +663,11 @@ export class ThySelectCustomComponent
         if (this.isMultiple) {
             const options = this.options.toArray();
 
-            this.selectionModel.sort((a, b) => {
-                return this.sortComparator
-                    ? this.sortComparator(a, b, options)
-                    : options.indexOf(a) - options.indexOf(b);
-            });
+            if (this.thySortComparator) {
+                this.selectionModel.sort((a, b) => {
+                    return this.thySortComparator(a, b, options);
+                });
+            }
         }
     }
 

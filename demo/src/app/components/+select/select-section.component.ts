@@ -151,6 +151,12 @@ export class DemoSelectSectionComponent implements OnInit {
             description: '是否禁用',
             type: 'boolean',
             default: 'false'
+        },
+        {
+            property: 'thySortComparator',
+            description: '排序比较函数',
+            type: 'function',
+            default: undefined
         }
     ];
 
