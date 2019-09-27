@@ -103,7 +103,9 @@ export class ThySelectCustomComponent
 
     mode: SelectMode = '';
 
-    emptyStateText = '没有任何选项';
+    emptyStateText = '无任何选项';
+
+    emptySearchMessageText = '没有匹配到任何选项';
 
     scrollStrategy: ScrollStrategy;
 
@@ -193,6 +195,11 @@ export class ThySelectCustomComponent
     }
 
     @Input()
+    set thyEmptySearchMessageText(value: string) {
+        this.emptySearchMessageText = value;
+    }
+
+    @Input()
     thyEnableScrollLoad = false;
 
     @Input() thyAllowClear = false;
@@ -213,6 +220,10 @@ export class ThySelectCustomComponent
     @ContentChildren(ThyOptionComponent, { descendants: true }) options: QueryList<ThyOptionComponent>;
 
     @ContentChildren(ThySelectOptionGroupComponent) optionGroups: QueryList<ThySelectOptionGroupComponent>;
+
+    public get isShowEmptySearchResult(): boolean {
+        return !this.options.some(option => !option.hidden);
+    }
 
     constructor(
         private ngZone: NgZone,

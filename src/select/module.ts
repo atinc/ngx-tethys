@@ -13,6 +13,7 @@ import { ThyLoadingModule } from '../loading';
 import { ThyDirectiveModule } from '../directive';
 import { ThyIconModule } from '../icon';
 import { ThySelectCommonModule } from '../core';
+import { ThyEmptyModule } from '../empty/empty.module';
 
 @NgModule({
     imports: [
@@ -24,6 +25,7 @@ import { ThySelectCommonModule } from '../core';
         ThyLoadingModule,
         ThyDirectiveModule,
         ThyIconModule,
+        ThyEmptyModule,
         ThySelectCommonModule
     ],
     declarations: [

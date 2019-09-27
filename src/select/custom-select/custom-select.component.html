@@ -40,10 +40,14 @@
         [thyEnable]="thyEnableScrollLoad"
       >
         <ng-content></ng-content>
+        <ng-container *ngIf="isShowEmptySearchResult">
+          <thy-empty [thyMessage]="emptySearchMessageText"></thy-empty>
+        </ng-container>
       </div>
     </ng-container>
     <ng-template #emptyPlaceholder>
-      <div class="pl-4 pt-1 pb-1 text-placeholder">{{ emptyStateText }}</div>
+      <!-- <div class="pl-4 pt-1 pb-1 text-placeholder">{{ emptyStateText }}</div> -->
+      <thy-empty [thyMessage]="emptyStateText"></thy-empty>
     </ng-template>
   </div>
 </ng-template>
