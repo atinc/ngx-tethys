@@ -392,6 +392,42 @@ class SelectWithThyModeComponent {
     @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
 }
 
+@Component({
+    template: `
+        <form thyForm name="demoForm" #demoForm="ngForm">
+            <thy-custom-select
+                placeholder="Food"
+                [(ngModel)]="selectedFoods"
+                name="food"
+                [thyMode]="selectMode"
+                [thySortComparator]="thySortComparator"
+            >
+                <thy-option
+                    *ngFor="let food of foods"
+                    [thyValue]="food.value"
+                    [thyLabelText]="food.viewValue"
+                ></thy-option>
+            </thy-custom-select>
+        </form>
+    `
+})
+class SelectWithThySortComparatorComponent {
+    foods: any[] = [
+        { value: ['steak-0', 'steak-1'], viewValue: 'Steak' },
+        { value: ['pizza-1', 'pizza-2'], viewValue: 'Pizza' },
+        { value: ['tacos-2', 'tacos-3'], viewValue: 'Tacos' }
+    ];
+
+    selectMode: SelectMode = 'multiple';
+
+    thySortComparator;
+
+    selectedFoods = null;
+
+    @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
+    @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
+}
+
 describe('ThyCustomSelect', () => {
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
@@ -1132,6 +1168,56 @@ describe('ThyCustomSelect', () => {
 
             expect(optionComponents[0].selected).toBe(true);
             expect(optionComponents[1].selected).toBe(true);
+        }));
+    });
+
+    describe('thySortComparator', () => {
+        beforeEach(async(() => {
+            configureThyCustomSelectTestingModule([SelectWithThySortComparatorComponent]);
+        }));
+        it('should get list order by selected order', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectWithThySortComparatorComponent);
+            fixture.detectChanges();
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+            flush();
+
+            const options = overlayContainerElement.querySelectorAll('thy-option');
+            (options.item(1) as HTMLElement).click();
+            fixture.detectChanges();
+            flush();
+
+            (options.item(0) as HTMLElement).click();
+            fixture.detectChanges();
+            flush();
+
+            expect(fixture.componentInstance.selectedFoods[0]).toEqual(fixture.componentInstance.foods[1].value);
+            expect(fixture.componentInstance.selectedFoods[1]).toEqual(fixture.componentInstance.foods[0].value);
+        }));
+
+        it('should get list order by index in options', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectWithThySortComparatorComponent);
+            fixture.componentInstance.thySortComparator = (a, b, optionComponents) => {
+                return optionComponents.indexOf(a) - optionComponents.indexOf(b);
+            };
+            fixture.detectChanges();
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+            flush();
+
+            const options = overlayContainerElement.querySelectorAll('thy-option');
+            (options.item(1) as HTMLElement).click();
+            fixture.detectChanges();
+            flush();
+
+            (options.item(0) as HTMLElement).click();
+            fixture.detectChanges();
+            flush();
+
+            expect(fixture.componentInstance.selectedFoods[0]).toEqual(fixture.componentInstance.foods[0].value);
+            expect(fixture.componentInstance.selectedFoods[1]).toEqual(fixture.componentInstance.foods[1].value);
         }));
     });
 });
