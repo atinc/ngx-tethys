@@ -448,6 +448,7 @@ export class ThySelectCustomComponent
     private initKeyManager() {
         this.keyManager = new ActiveDescendantKeyManager<ThyOptionComponent>(this.options)
             .withTypeAhead()
+            .withWrap()
             .withVerticalOrientation()
             .withAllowedModifierKeys(['shiftKey']);
 
