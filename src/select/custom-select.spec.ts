@@ -595,18 +595,19 @@ describe('ThyCustomSelect', () => {
                 trigger.click();
                 fixture.detectChanges();
 
-                expect(overlayContainerElement.textContent).toContain('没有任何选项');
+                expect(overlayContainerElement.textContent).toContain(fixture.componentInstance.select.emptyStateText);
                 flush();
             }));
 
             it('should show thyEmptyStateText when assign thyEmptyStateText property', fakeAsync(() => {
+                const thyEmptyStateText = '无任何内容';
                 fixture.componentInstance.foods = [];
-                fixture.componentInstance.select.thyEmptyStateText = '无任何内容';
+                fixture.componentInstance.select.thyEmptyStateText = thyEmptyStateText;
                 fixture.detectChanges();
                 trigger.click();
                 fixture.detectChanges();
 
-                expect(overlayContainerElement.textContent).toContain('无任何内容');
+                expect(overlayContainerElement.textContent).toContain(thyEmptyStateText);
                 flush();
             }));
 
@@ -972,6 +973,27 @@ describe('ThyCustomSelect', () => {
             tick();
 
             expect(spy).toHaveBeenCalledTimes(1);
+        }));
+
+        it('should show emptySearchMessageText when do not match any option', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectWithSearchAndGroupComponent);
+            fixture.detectChanges();
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+
+            expect(overlayContainerElement.querySelector('thy-empty')).not.toBeTruthy();
+
+            const groups = fixture.componentInstance.select.optionGroups.toArray();
+            const input = fixture.debugElement.query(By.css('.search-input-field')).nativeElement;
+
+            typeInElement('cat2', input);
+
+            tick(1000);
+            fixture.detectChanges();
+            flush();
+
+            expect(overlayContainerElement.querySelector('thy-empty')).toBeTruthy();
         }));
     });
 
