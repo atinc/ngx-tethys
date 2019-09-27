@@ -167,7 +167,14 @@ export class ThyBadgeComponent implements OnInit {
         }
     }
 
-    @Input() thyColor: string;
+    /**
+     * @deprecated 替换为 thyBackgroundColor
+     */
+    @Input()
+    set thyColor(value: string) {
+        this.backgroundColor = value;
+        this.resetBadgeClassNameMap(BadgeMutexTheme);
+    }
 
     @Input()
     set thyTextColor(value: string) {
