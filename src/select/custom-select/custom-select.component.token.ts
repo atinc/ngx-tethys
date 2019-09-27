@@ -1,8 +1,8 @@
 import { InjectionToken } from '@angular/core';
 import { ThySelectOptionGroupComponent } from './option-group.component';
 
-export interface IThySelectOptionParentComponent {
-    thyMode: 'multiple' | '';
+export interface IThyCustomSelectComponent {
+    isMultiple: boolean;
 }
 
 export interface IThySelectOptionGroupComponent {
@@ -12,9 +12,7 @@ export interface IThySelectOptionGroupComponent {
 /**
  * Injection token used to provide the parent component to options.
  */
-export const THY_SELECT_OPTION_PARENT_COMPONENT = new InjectionToken<IThySelectOptionParentComponent>(
-    'THY_SELECT_OPTION_PARENT_COMPONENT'
-);
+export const THY_CUSTOM_SELECT_COMPONENT = new InjectionToken<IThyCustomSelectComponent>('THY_CUSTOM_SELECT_COMPONENT');
 
 /**
  * Injection token used to provide the parent component to options.

@@ -23,7 +23,7 @@ import {
 } from '@angular/core';
 import { UpdateHostClassService } from '../../shared/update-host-class.service';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { ThyOptionComponent, OptionSelectionChange } from './option.component';
+import { ThyOptionComponent, ThyOptionSelectionChangeEvent } from './option.component';
 import { inputValueToBoolean, isArray } from '../../util/helpers';
 import {
     ScrollStrategy,
@@ -53,7 +53,7 @@ import {
     END,
     A
 } from '../../util/keycodes';
-import { THY_SELECT_OPTION_PARENT_COMPONENT, IThySelectOptionParentComponent } from './custom-select.component.token';
+import { THY_CUSTOM_SELECT_COMPONENT, IThyCustomSelectComponent } from './custom-select.component.token';
 
 export type SelectMode = 'multiple' | '';
 
@@ -83,7 +83,7 @@ const noop = () => {};
     exportAs: 'thyCustomSelect',
     providers: [
         {
-            provide: THY_SELECT_OPTION_PARENT_COMPONENT,
+            provide: THY_CUSTOM_SELECT_COMPONENT,
             useExisting: ThySelectCustomComponent
         },
         {
@@ -96,7 +96,7 @@ const noop = () => {};
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThySelectCustomComponent
-    implements ControlValueAccessor, IThySelectOptionParentComponent, OnInit, AfterContentInit, OnDestroy {
+    implements ControlValueAccessor, IThyCustomSelectComponent, OnInit, AfterContentInit, OnDestroy {
     disabled = false;
 
     size: SelectControlSize;
@@ -131,7 +131,7 @@ export class ThySelectCustomComponent
 
     private onChangeCallback: (_: any) => void = noop;
 
-    readonly optionSelectionChanges: Observable<OptionSelectionChange> = defer(() => {
+    readonly optionSelectionChanges: Observable<ThyOptionSelectionChangeEvent> = defer(() => {
         if (this.options) {
             return merge(...this.options.map(option => option.selectionChange));
         }
@@ -139,7 +139,7 @@ export class ThySelectCustomComponent
             take(1),
             switchMap(() => this.optionSelectionChanges)
         );
-    }) as Observable<OptionSelectionChange>;
+    }) as Observable<ThyOptionSelectionChangeEvent>;
 
     @ViewChild(CdkConnectedOverlay) cdkConnectedOverlay: CdkConnectedOverlay;
 
@@ -392,6 +392,7 @@ export class ThySelectCustomComponent
         if (this.panelOpen) {
             this.panelOpen = false;
             this.thyOnExpandStatusChange.emit(this.panelOpen);
+            this.focus();
             this.changeDetectorRef.markForCheck();
         }
     }
@@ -460,7 +461,7 @@ export class ThySelectCustomComponent
             if (this.panelOpen && this.panel) {
                 this.scrollActiveOptionIntoView();
             } else if (!this.panelOpen && !this.isMultiple && this.keyManager.activeItem) {
-                this.keyManager.activeItem.setInactiveStyles();
+                this.keyManager.activeItem.selectViaInteraction();
             }
         });
     }
@@ -517,11 +518,7 @@ export class ThySelectCustomComponent
             this.close();
         } else if ((keyCode === ENTER || keyCode === SPACE) && manager.activeItem && !hasModifierKey(event)) {
             event.preventDefault();
-            if (manager.activeItem.selected) {
-                manager.activeItem.deselect();
-            } else {
-                manager.activeItem.select();
-            }
+            manager.activeItem.selectViaInteraction();
         } else if (this.isMultiple && keyCode === A && event.ctrlKey) {
             event.preventDefault();
             const hasDeselectedOptions = this.options.some(opt => !opt.disabled && !opt.selected);
@@ -543,7 +540,7 @@ export class ThySelectCustomComponent
                 manager.activeItem &&
                 manager.activeItemIndex !== previouslyFocusedIndex
             ) {
-                manager.activeItem.select();
+                manager.activeItem.selectViaInteraction();
             }
         }
     }
@@ -575,13 +572,15 @@ export class ThySelectCustomComponent
     private resetOptions() {
         const changedOrDestroyed$ = merge(this.options.changes, this.destroy$);
 
-        this.optionSelectionChanges.pipe(takeUntil(changedOrDestroyed$)).subscribe((event: OptionSelectionChange) => {
-            this.onSelect(event.option);
-            if (!this.isMultiple && this.panelOpen) {
-                this.close();
-                this.focus();
-            }
-        });
+        this.optionSelectionChanges
+            .pipe(takeUntil(changedOrDestroyed$))
+            .subscribe((event: ThyOptionSelectionChangeEvent) => {
+                this.onSelect(event.option, event.isUserInput);
+                if (event.isUserInput && !this.isMultiple && this.panelOpen) {
+                    this.close();
+                    this.focus();
+                }
+            });
     }
 
     private initializeSelection() {
@@ -637,20 +636,26 @@ export class ThySelectCustomComponent
         this.changeDetectorRef.markForCheck();
     }
 
-    private onSelect(option: ThyOptionComponent, event?: Event) {
+    private onSelect(option: ThyOptionComponent, isUserInput: boolean) {
         const wasSelected = this.selectionModel.isSelected(option);
 
         if (option.thyValue == null && !this.isMultiple) {
             option.deselect();
             this.selectionModel.clear();
         } else {
-            option.selected ? this.selectionModel.select(option) : this.selectionModel.deselect(option);
+            if (wasSelected !== option.selected) {
+                option.selected ? this.selectionModel.select(option) : this.selectionModel.deselect(option);
+            }
 
-            this.keyManager.setActiveItem(option);
+            if (isUserInput) {
+                this.keyManager.setActiveItem(option);
+            }
 
             if (this.isMultiple) {
                 this.sortValues();
-                this.focus();
+                if (isUserInput) {
+                    this.focus();
+                }
             }
         }
 

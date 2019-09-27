@@ -7,7 +7,6 @@ import {
     HostBinding,
     HostListener,
     ElementRef,
-    InjectionToken,
     ChangeDetectorRef,
     EventEmitter,
     OnDestroy,
@@ -21,17 +20,16 @@ import { SelectOptionBase } from '../../core/select/select-option/select-option-
 import { ENTER, SPACE, hasModifierKey } from '../../util/keycodes';
 import {
     IThySelectOptionGroupComponent,
-    IThySelectOptionParentComponent,
-    THY_SELECT_OPTION_PARENT_COMPONENT,
+    IThyCustomSelectComponent,
+    THY_CUSTOM_SELECT_COMPONENT,
     THY_SELECT_OPTION_GROUP_COMPONENT
 } from './custom-select.component.token';
 
-export class OptionSelectionChange {
-    option: ThyOptionComponent;
-    selected: boolean;
+export class ThyOptionSelectionChangeEvent {
+    constructor(public option: ThyOptionComponent, public isUserInput = false) {}
 }
 
-export class OptionVisibleChange {
+export class ThyOptionVisibleChangeEvent {
     option: ThyOptionComponent;
 }
 
@@ -44,6 +42,7 @@ export class ThyOptionComponent extends SelectOptionBase implements OnDestroy, H
     private _selected = false;
     private _hidden = false;
     private _disabled = false;
+
     @Input() thyValue: any;
 
     @Input() thyRawValue: any;
@@ -82,76 +81,62 @@ export class ThyOptionComponent extends SelectOptionBase implements OnDestroy, H
         return this.disabled ? '-1' : '0';
     }
 
-    /** Whether or not the option is currently selected. */
     @HostBinding(`class.active`)
     get selected(): boolean {
         return this._selected;
     }
 
-    @Output() readonly selectionChange: EventEmitter<OptionSelectionChange> = new EventEmitter();
-    @Output() readonly visibleChange: EventEmitter<OptionVisibleChange> = new EventEmitter();
+    @Output() readonly selectionChange: EventEmitter<ThyOptionSelectionChangeEvent> = new EventEmitter();
+    @Output() readonly visibleChange: EventEmitter<ThyOptionVisibleChangeEvent> = new EventEmitter();
 
     constructor(
         public element: ElementRef<HTMLElement>,
-        @Optional() @Inject(THY_SELECT_OPTION_PARENT_COMPONENT) public parent: IThySelectOptionParentComponent,
+        @Optional() @Inject(THY_CUSTOM_SELECT_COMPONENT) public parent: IThyCustomSelectComponent,
         @Optional() @Inject(THY_SELECT_OPTION_GROUP_COMPONENT) public group: IThySelectOptionGroupComponent,
-        // @Optional() readonly group: ThySelectOptionGroupComponent,
         private cdr: ChangeDetectorRef
     ) {
         super();
     }
 
-    /** Gets the host DOM element. */
     getHostElement(): HTMLElement {
         return this.element.nativeElement;
     }
 
     @HostListener('click', ['$event'])
     onClick(event: Event) {
-        if (this.parent.thyMode === 'multiple') {
-            this._selected ? this.deselect() : this.select();
-        } else {
-            this.select();
-        }
+        this.selectViaInteraction();
     }
 
     @HostListener('keydown', ['$event'])
     handleKeydown(event: KeyboardEvent): void {
-        console.log(`--handleKeydown: option--`);
         if ((event.keyCode === ENTER || event.keyCode === SPACE) && !hasModifierKey(event)) {
-            if (this.selected) {
-                this.deselect();
-            } else {
-                this.select();
-            }
-
-            // Prevent the page from scrolling down and form submits.
+            this.selectViaInteraction();
             event.preventDefault();
         }
     }
 
-    /** Selects the option. */
+    selectViaInteraction(): void {
+        if (!this.disabled) {
+            this._selected = this.parent.isMultiple ? !this._selected : true;
+            this.cdr.markForCheck();
+            this.emitSelectionChangeEvent(true);
+        }
+    }
+
     select(event?: Event): void {
         if (!this.disabled) {
             if (!this._selected) {
                 this._selected = true;
-                this.selectionChange.emit({
-                    option: this,
-                    selected: this._selected
-                });
+                this.emitSelectionChangeEvent();
                 this.cdr.markForCheck();
             }
         }
     }
 
-    /** Deselects the option. */
     deselect(): void {
         if (this._selected) {
             this._selected = false;
-            this.selectionChange.emit({
-                option: this,
-                selected: this._selected
-            });
+            this.emitSelectionChangeEvent();
             this.cdr.markForCheck();
         }
     }
@@ -200,6 +185,10 @@ export class ThyOptionComponent extends SelectOptionBase implements OnDestroy, H
 
     getLabel?(): string {
         return this.thyLabelText || (this.getHostElement().textContent || '').trim();
+    }
+
+    private emitSelectionChangeEvent(isUserInput = false): void {
+        this.selectionChange.emit(new ThyOptionSelectionChangeEvent(this, isUserInput));
     }
 
     ngOnDestroy() {}
