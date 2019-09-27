@@ -58,6 +58,10 @@ export class ThyBadgeComponent implements OnInit {
         isShowBadge: true
     };
 
+    public textColor: string;
+
+    public backgroundColor: string;
+
     constructor(private elementRef: ElementRef) {
         this.nativeElement = this.elementRef.nativeElement;
         this.st.isElement = this.nativeElement.localName === 'thy-badge';
@@ -165,12 +169,32 @@ export class ThyBadgeComponent implements OnInit {
 
     @Input() thyColor: string;
 
+    @Input()
+    set thyTextColor(value: string) {
+        this.textColor = value;
+    }
+
+    @Input()
+    set thyBackgroundColor(value: string) {
+        this.backgroundColor = value;
+        this.resetBadgeClassNameMap(BadgeMutexTheme);
+    }
+
     ngOnInit() {
-        this.st.isSup = this.nativeElement.childNodes.length > 1;
+        let childNodeCount = 0;
+        this.nativeElement.childNodes.forEach(n => {
+            if (!['#comment'].includes(n.nodeName)) {
+                childNodeCount++;
+            }
+        });
+        this.st.isSup = childNodeCount > 0;
+
         this.combineBadgeClassName();
+
         if (this.st.isSetValue) {
             this.combineBadgeDisplayContent();
         }
+
         this._initialized = true;
     }
 
