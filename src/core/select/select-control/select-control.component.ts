@@ -39,6 +39,8 @@ export class ThySelectControlComponent implements OnInit {
 
     selectedOptions: SelectOptionBase | SelectOptionBase[];
 
+    searchInputControlClass: { [key: string]: boolean };
+
     @Input()
     get thyPanelOpened(): boolean {
         return this.panelOpened;
@@ -210,6 +212,11 @@ export class ThySelectControlComponent implements OnInit {
             [`disabled`]: this.disabled
         };
         this.updateHostClassService.updateClassByMap(selectControlClass);
+        this.searchInputControlClass = {
+            [`form-control`]: true,
+            [`form-control-${this.thySize}`]: !!this.thySize,
+            [`search-input-field`]: true
+        };
     }
 
     setInputValue(value: string) {

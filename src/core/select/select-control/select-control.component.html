@@ -4,7 +4,7 @@
     (compositionstart)="isComposing = true"
     (compositionend)="isComposing = false"
     autocomplete="something-new"
-    class="search-input-field"
+    [ngClass]="searchInputControlClass"
     (input)="updateWidth()"
     [ngModel]="inputValue"
     (ngModelChange)="setInputValue($event)"
