@@ -18,7 +18,7 @@
   <ng-container *ngIf="isMultiple; else single">
     <ul>
       <li class="choice" *ngFor="let item of multipleSelectedValue; trackBy: trackValue">
-        <div class="choice-content text-truncate font-size-sm">
+        <div [ngClass]="choiceContentClass">
           <ng-template
             #customDisplay
             [ngTemplateOutlet]="customDisplayTemplate"

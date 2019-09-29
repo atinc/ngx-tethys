@@ -41,6 +41,8 @@ export class ThySelectControlComponent implements OnInit {
 
     searchInputControlClass: { [key: string]: boolean };
 
+    choiceContentClass: { [key: string]: boolean };
+
     @Input()
     get thyPanelOpened(): boolean {
         return this.panelOpened;
@@ -216,6 +218,12 @@ export class ThySelectControlComponent implements OnInit {
             [`form-control`]: true,
             [`form-control-${this.thySize}`]: !!this.thySize,
             [`search-input-field`]: true
+        };
+
+        this.choiceContentClass = {
+            [`choice-content`]: true,
+            [`text-truncate`]: true,
+            [`font-size-${this.thySize}`]: !!this.thySize
         };
     }
 

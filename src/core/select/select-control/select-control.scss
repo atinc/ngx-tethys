@@ -2,7 +2,6 @@
 
 .select-control {
     position: relative;
-    // min-height: $input-height;
     @include select-control-size($input-height, $input-padding-y);
     padding-right: 28px;
     &.form-control-custom {
@@ -14,6 +13,9 @@
     }
     &.form-control-md {
         @include select-control-size($input-height-md, $input-padding-y-md);
+        .choice-content {
+            font-size: $font-size-base !important;
+        }
     }
     &.form-control-lg {
         @include select-control-size($input-height-lg, $input-padding-y-lg);
@@ -21,7 +23,6 @@
             .choice,
             .select-control-search {
                 .choice-content {
-                    font-size: $font-size-lg !important;
                     height: 36px;
                     line-height: 36px;
                 }
@@ -68,9 +69,6 @@
                 opacity: 0.4;
             }
         }
-        // .select-control-search {
-        //     display: block;
-        // }
     }
     .select-control-arrow {
         @include select-arrow-variant();
