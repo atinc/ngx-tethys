@@ -1,50 +1,25 @@
+@import './mixin.scss';
+
 .select-control {
     position: relative;
-    min-height: $input-height;
+    // min-height: $input-height;
+    @include select-control-size($input-height, $input-padding-y);
     padding-right: 28px;
     &.form-control-custom {
         padding-top: 0;
         padding-bottom: 0;
     }
     &.form-control-sm {
-        min-height: $input-height-sm;
-        .select-control-rendered {
-            margin-top: $input-padding-y-sm;
-            .text-placeholder,
-            .selected-value {
-                margin-bottom: $input-padding-y-sm;
-            }
-            .choice,
-            .select-control-search {
-                margin-bottom: $input-padding-y-sm;
-            }
-        }
+        @include select-control-size($input-height-sm, $input-padding-y-sm);
     }
     &.form-control-md {
-        min-height: $input-height-md;
-        .select-control-rendered {
-            margin-top: $input-padding-y-md;
-            .text-placeholder,
-            .selected-value {
-                margin-bottom: $input-padding-y-md;
-            }
-            .choice,
-            .select-control-search {
-                margin-bottom: $input-padding-y-md;
-            }
-        }
+        @include select-control-size($input-height-md, $input-padding-y-md);
     }
     &.form-control-lg {
-        min-height: $input-height-lg;
+        @include select-control-size($input-height-lg, $input-padding-y-lg);
         .select-control-rendered {
-            margin-top: $input-padding-y-lg;
-            .text-placeholder,
-            .selected-value {
-                margin-bottom: $input-padding-y-lg;
-            }
             .choice,
             .select-control-search {
-                margin-bottom: $input-padding-y-lg;
                 .choice-content {
                     font-size: $font-size-lg !important;
                     height: 36px;
@@ -60,11 +35,6 @@
     }
     .select-control-rendered {
         position: relative;
-        margin-top: $input-padding-y;
-        .choice,
-        .select-control-search {
-            margin-bottom: $input-padding-y;
-        }
         ul {
             width: 100%;
             margin: 0;
@@ -84,7 +54,6 @@
             user-select: none;
             pointer-events: none;
             width: 100%;
-            margin-bottom: $input-padding-y;
         }
     }
     &.panel-is-opened {
@@ -99,9 +68,9 @@
                 opacity: 0.4;
             }
         }
-        .select-control-search {
-            display: block;
-        }
+        // .select-control-search {
+        //     display: block;
+        // }
     }
     .select-control-arrow {
         @include select-arrow-variant();
@@ -116,9 +85,6 @@
         .select-control-clear {
             display: block;
         }
-    }
-    .select-control-search {
-        display: none;
     }
 }
 .select-control-multiple {
@@ -148,8 +114,6 @@
         border-radius: $border-radius-sm;
         cursor: default;
         .choice-content {
-            height: 21px;
-            line-height: 21px;
             max-width: 100%;
         }
     }

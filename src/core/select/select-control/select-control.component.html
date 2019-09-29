@@ -12,7 +12,9 @@
 </ng-template>
 
 <div class="select-control-rendered">
-  <div class="text-placeholder text-truncate" [ngStyle]="placeholderStyle">{{ thyPlaceholder }}</div>
+  <div class="text-placeholder text-truncate" *ngIf="!isSelectedValue" [ngStyle]="placeholderStyle">
+    {{ thyPlaceholder }}
+  </div>
   <ng-container *ngIf="isMultiple; else single">
     <ul>
       <li class="choice" *ngFor="let item of multipleSelectedValue; trackBy: trackValue">
@@ -30,7 +32,7 @@
           <thy-icon thyIconName="close" class="font-size-sm"></thy-icon>
         </span>
       </li>
-      <li *ngIf="thyShowSearch" class="select-control-search">
+      <li class="select-control-search">
         <ng-template [ngTemplateOutlet]="inputTemplate"></ng-template>
       </li>
     </ul>
@@ -48,7 +50,7 @@
         </ng-container>
       </div>
     </ng-container>
-    <div *ngIf="thyShowSearch" class="select-control-search">
+    <div class="select-control-search">
       <ng-template [ngTemplateOutlet]="inputTemplate"></ng-template>
     </div>
   </ng-template>
