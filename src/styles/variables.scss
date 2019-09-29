@@ -253,6 +253,7 @@ $badge-pill-padding-x: 0.6em !default;
 $badge-pill-border-radius: 10rem !default;
 $badge-bg: $gray-200 !default; //#eee
 $badge-color: $gray-600 !default; //#888
+$badge-danger-color: #ff7461 !default;
 //label
 $label-size-padding: 5px 10px !default;
 $label-size-padding-sm: 4px 10px !default;
@@ -428,6 +429,7 @@ $switch-sm-width: 36px !default;
 $switch-sm-height: 20px !default;
 $switch-xs-width: 24px !default;
 $switch-xs-height: 16px !default;
+$switch-margin-bottom: 0 !default;
 //Transfer
 $transfer-width: 600px !default;
 $transfer-list-header-padding: 10px 0 !default;
