@@ -9,7 +9,7 @@ export class DemoLinkSectionComponent implements OnInit {
     liveDemos = [
         {
             title: '基本使用',
-            description: `链接分为主链接（默认链接）, 危险链接, 成功链接, 重要链接, 次链接, 危险弱链接`,
+            description: `链接分为主链接（默认链接）, 危险链接, 成功链接, 重要链接, 次链接, 危险弱链接, 警告链接, 弱警告链接`,
             component: DemoLinkBasicComponent,
             codeExamples: [
                 {
