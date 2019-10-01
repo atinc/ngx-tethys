@@ -12,10 +12,12 @@ import {
 } from '@angular/core';
 
 @Component({
-    selector: 'complex-select-section',
-    templateUrl: './complex-select-section.component.html'
+    selector: 'custom-select-basic',
+    templateUrl: './custom-select-basic.component.html'
 })
-export class ComplexSelectSectionComponent implements OnInit {
+export class CustomSelectBasicComponent implements OnInit {
+    thySize = '';
+
     thyMode = 'multiple';
 
     showSearch = false;

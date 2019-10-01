@@ -50,12 +50,12 @@ export class ThySelectControlComponent implements OnInit {
 
     set thyPanelOpened(value: boolean) {
         this.panelOpened = value;
-        if (this.panelOpened && this.inputElement) {
+        if (this.panelOpened && this.thyShowSearch) {
             Promise.resolve(null).then(() => {
                 this.inputElement.nativeElement.focus();
             });
         }
-        if (!this.panelOpened && this.inputElement) {
+        if (!this.panelOpened && this.thyShowSearch) {
             Promise.resolve(null).then(() => {
                 this.setInputValue('');
             });
@@ -93,7 +93,7 @@ export class ThySelectControlComponent implements OnInit {
             return;
         }
         this.selectedOptions = value;
-        if (this.panelOpened && this.inputElement) {
+        if (this.panelOpened && this.thyShowSearch) {
             Promise.resolve(null).then(() => {
                 this.setInputValue('');
             });
@@ -217,7 +217,8 @@ export class ThySelectControlComponent implements OnInit {
         this.searchInputControlClass = {
             [`form-control`]: true,
             [`form-control-${this.thySize}`]: !!this.thySize,
-            [`search-input-field`]: true
+            [`search-input-field`]: true,
+            [`hidden`]: !this.thyShowSearch
         };
 
         this.choiceContentClass = {
@@ -234,7 +235,7 @@ export class ThySelectControlComponent implements OnInit {
     }
 
     updateWidth() {
-        if (this.isMultiple && this.inputElement) {
+        if (this.isMultiple && this.thyShowSearch) {
             if (this.inputValue || this.isComposing) {
                 this.renderer.setStyle(
                     this.inputElement.nativeElement,

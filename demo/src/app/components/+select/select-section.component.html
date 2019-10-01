@@ -1,40 +1,12 @@
-<section>
-  <div class="header">
-    <h2>复杂Select</h2>
-  </div>
-  <complex-select-section></complex-select-section>
-</section>
-<section>
-  <div>
-    <h2 class="header">Select大小</h2>
-  </div>
-  <select-control-size-section></select-control-size-section>
-</section>
-<section>
-  <div class="header">
-    <h2>Select</h2>
-  </div>
-  <div class="body demo-select">
-    <label thyCheckbox [(ngModel)]="model.allowClear" thyLabelText="是否支持清除选项"></label>
-    <br />
-    Model: {{ model | json }}
-    <thy-select [(ngModel)]="model.selectedValue" (change)="change()" [thyAllowClear]="model.allowClear">
-      <option value="">请选择</option>
-      <option value="option1">选项1</option>
-      <option value="option2">选项2</option>
-    </thy-select>
-  </div>
-</section>
+<app-demo-title title="Select选择" introduction="包括自定义的custom-select、原生的select"></app-demo-title>
+
+<app-live-demos [data]="liveDemos"></app-live-demos>
+<api-parameters title="thy-custom-select 参数列表" [parameters]="apiParameters"></api-parameters>
+<api-parameters title="thy-option 参数列表" [parameters]="optionApiParameters"></api-parameters>
+<!-- 
 
 <section>
-  <div class="header">
-    <label
-      thyCheckbox
-      [(ngModel)]="multiple"
-      (ngModelChange)="multipleStatusChange($event)"
-      thyLabelText="多选"
-    ></label>
-  </div>
+
   <div class="body">
     <div class="demo-select">
       <thy-custom-select
@@ -285,4 +257,4 @@
 </section>
 
 <api-parameters title="thy-custom-select 参数列表" [parameters]="apiParameters"></api-parameters>
-<api-parameters title="thy-option 参数列表" [parameters]="optionApiParameters"></api-parameters>
+<api-parameters title="thy-option 参数列表" [parameters]="optionApiParameters"></api-parameters> -->

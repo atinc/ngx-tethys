@@ -33,6 +33,9 @@
         width: 100%;
         padding: 0;
         border: none;
+        &.hidden {
+            visibility: hidden;
+        }
     }
     .select-control-rendered {
         position: relative;

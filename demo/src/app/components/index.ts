@@ -78,8 +78,8 @@ import { DemoPropertyOperationGroupComponent, DemoPropertyOperationBasicComponen
 import { DemoTreeModule } from './+tree';
 import { DemoNavIconNavComponent } from './+nav/icon-nav/icon-nav.component';
 import { DemoLayoutModule } from './+layout';
-import { ComplexSelectSectionComponent } from './+select/complex-select/complex-select-section.component';
-import { SelectControlSizeSectionComponent } from './+select/select-control-size/select-control-section.component';
+import { CustomSelectBasicComponent } from './+select/basic/custom-select-basic.component';
+import { CustomSelectEmptyComponent } from './+select/empty/custom-select-empty.component';
 
 export const COMPONENTS = [
     DemoTypographyComponent,
@@ -166,8 +166,8 @@ export const COMPONENTS = [
     DemoFlexibleTextComponent,
     DemoFlexibleTextBasicComponent,
 
-    ComplexSelectSectionComponent,
-    SelectControlSizeSectionComponent
+    CustomSelectBasicComponent,
+    CustomSelectEmptyComponent
 ];
 
 export const ENTRY_COMPONENTS = [
@@ -200,7 +200,8 @@ export const ENTRY_COMPONENTS = [
     ...ICON_COMPONENTS,
     DemoFlexibleTextBasicComponent,
 
-    ComplexSelectSectionComponent
+    CustomSelectBasicComponent,
+    CustomSelectEmptyComponent
 ];
 
 export const DEMO_MODULES = [DialogDemoModule, DemoButtonModule, DemoNotifyModule, DemoTreeModule, DemoLayoutModule];

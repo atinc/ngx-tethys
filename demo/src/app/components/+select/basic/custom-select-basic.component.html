@@ -1,0 +1,33 @@
+<div>
+  <thy-form-group thyLabelText="大小">
+    <thy-select name="size" thySize="md" width="200px" [(ngModel)]="thySize">
+      <option value="sm">小</option>
+      <option value="sm">中</option>
+      <option value="">默认</option>
+      <option value="lg">大</option>
+    </thy-select>
+  </thy-form-group>
+  <thy-form-group thyLabelText="参数设置" thyLabelPaddingTopClear="true">
+    <label thyCheckbox [(ngModel)]="allowClear" thyLabelText="是否支持清除选项"></label>
+    <label thyCheckbox [(ngModel)]="showSearch" thyLabelText="允许搜索"></label>
+    <label thyCheckbox [(ngModel)]="disabled" thyLabelText="禁用"></label>
+    <label thyCheckbox [(ngModel)]="isMultiple" [(ngModel)]="name" thyLabelText="是否多选"></label>
+  </thy-form-group>
+
+  <thy-form-group thyLabelText="展示" thyLabelPaddingTopClear="true">
+    <thy-custom-select
+      [thyPlaceHolder]="placeholder"
+      [thyShowSearch]="showSearch"
+      [thyAllowClear]="allowClear"
+      [thyDisabled]="disabled"
+      [thyMode]="thyMode"
+      [thySize]="thySize"
+    >
+      <thy-option
+        *ngFor="let option of listOfOption"
+        [thyValue]="option.value"
+        [thyLabelText]="option.label"
+      ></thy-option>
+    </thy-custom-select>
+  </thy-form-group>
+</div>
