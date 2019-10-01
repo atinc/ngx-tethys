@@ -5,6 +5,10 @@ import { taskTypes } from './mock-data';
 import { LiveDemoCodeExample } from 'app/core/live-demo/live-demo.component';
 import { CustomSelectBasicComponent } from './basic/custom-select-basic.component';
 import { CustomSelectEmptyComponent } from './empty/custom-select-empty.component';
+import { CustomSelectDisplayComponent } from './display/custom-select-display.component';
+import { CustomSelectGroupComponent } from './group/custom-select-group.component';
+import { NativeSelectBasicComponent } from './native-select/native-select-basic.component';
+import { CustomSelectScrollComponent } from './scroll-load/custom-select-scroll.component';
 
 @Component({
     selector: 'demo-select-section',
@@ -458,6 +462,74 @@ export class DemoSelectSectionComponent implements OnInit {
                     type: 'ts',
                     name: 'custom-select-empty.component.ts',
                     content: require('!!raw-loader!./empty/custom-select-empty.component.ts')
+                }
+            ]
+        },
+        {
+            title: '自定义显示',
+            component: CustomSelectDisplayComponent,
+            description: `Custom-Select 自定义Option显示和选中的显示`,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'custom-select-display.component.html',
+                    content: require('!!raw-loader!./display/custom-select-display.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'custom-select-display.component.ts',
+                    content: require('!!raw-loader!./display/custom-select-display.component.ts')
+                }
+            ]
+        },
+        {
+            title: '滚动加载',
+            component: CustomSelectScrollComponent,
+            description: `展示Custom-Select支持滚动加载Option`,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'custom-select-scroll.component.html',
+                    content: require('!!raw-loader!./scroll-load/custom-select-scroll.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'custom-select-scroll.component.ts',
+                    content: require('!!raw-loader!./scroll-load/custom-select-scroll.component.ts')
+                }
+            ]
+        },
+        {
+            title: 'Option分组',
+            component: CustomSelectGroupComponent,
+            description: `Option分组展示以及分组下的搜索功能展示`,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'custom-select-group.component.html',
+                    content: require('!!raw-loader!./group/custom-select-group.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'custom-select-group.component.ts',
+                    content: require('!!raw-loader!./group/custom-select-group.component.ts')
+                }
+            ]
+        },
+        {
+            title: '默认select',
+            component: NativeSelectBasicComponent,
+            description: `展示默认Select组件，支持自定义大小`,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'native-select-basic.component.html',
+                    content: require('!!raw-loader!./native-select/native-select-basic.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'native-select-basic.component.ts',
+                    content: require('!!raw-loader!./native-select/native-select-basic.component.ts')
                 }
             ]
         }
