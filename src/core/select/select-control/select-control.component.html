@@ -8,6 +8,7 @@
     (input)="updateWidth()"
     [ngModel]="inputValue"
     (ngModelChange)="setInputValue($event)"
+    (keydown.backspace)="handleBackspace($event)"
     [disabled]="thyDisabled"
   />
 </ng-template>

@@ -234,6 +234,14 @@ export class ThySelectControlComponent implements OnInit {
         this.thyOnSearch.emit(this.inputValue);
     }
 
+    handleBackspace(event: Event) {
+        if (this.inputValue.length === 0 && this.selectedOptions instanceof Array) {
+            if (this.selectedOptions.length > 0) {
+                this.removeHandle(this.selectedOptions[this.selectedOptions.length - 1], event);
+            }
+        }
+    }
+
     updateWidth() {
         if (this.isMultiple && this.thyShowSearch) {
             if (this.inputValue || this.isComposing) {
