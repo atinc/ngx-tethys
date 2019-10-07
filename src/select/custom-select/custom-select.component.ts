@@ -221,8 +221,11 @@ export class ThySelectCustomComponent
 
     @ContentChildren(ThySelectOptionGroupComponent) optionGroups: QueryList<ThySelectOptionGroupComponent>;
 
-    public get isShowEmptySearchResult(): boolean {
-        return !this.options.some(option => !option.hidden);
+    @HostListener('keydown', ['$event'])
+    handleKeydown(event: KeyboardEvent): void {
+        if (!this.disabled) {
+            this.panelOpen ? this.handleOpenKeydown(event) : this.handleClosedKeydown(event);
+        }
     }
 
     constructor(
@@ -237,13 +240,6 @@ export class ThySelectCustomComponent
         @Attribute('tabindex') tabIndex: string
     ) {
         this.updateHostClassService.initializeElement(elementRef.nativeElement);
-    }
-
-    @HostListener('keydown', ['$event'])
-    handleKeydown(event: KeyboardEvent): void {
-        if (!this.disabled) {
-            this.panelOpen ? this.handleOpenKeydown(event) : this.handleClosedKeydown(event);
-        }
     }
 
     writeValue(value: any): void {
@@ -291,6 +287,10 @@ export class ThySelectCustomComponent
                 this.resetOptions();
                 this.initializeSelection();
             });
+    }
+
+    public get isShowEmptySearchResult(): boolean {
+        return !this.options.some(option => !option.hidden);
     }
 
     public onAttached(): void {
