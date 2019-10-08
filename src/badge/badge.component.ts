@@ -189,8 +189,8 @@ export class ThyBadgeComponent implements OnInit {
 
     ngOnInit() {
         let childNodeCount = 0;
-        this.nativeElement.childNodes.forEach(n => {
-            if (!['#comment'].includes(n.nodeName)) {
+        this.nativeElement.childNodes.forEach((n: HTMLElement) => {
+            if (['#comment'].indexOf(n.nodeName) < 0) {
                 childNodeCount++;
             }
         });
