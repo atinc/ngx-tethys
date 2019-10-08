@@ -1,3 +1,23 @@
+## [7.5.21](https://github.com/worktile/ngx-tethys/compare/7.5.20...7.5.21) (2019-10-08)
+
+
+### Bug Fixes
+
+* **badge:** change danger badge color [#265706](https://github.com/worktile/ngx-tethys/issues/265706) ([6dd3244](https://github.com/worktile/ngx-tethys/commit/6dd3244))
+* **entity-store:** fix trackBy 'this' error ([49d3080](https://github.com/worktile/ngx-tethys/commit/49d3080))
+* **slide:** add pill style for close [#266712](https://github.com/worktile/ngx-tethys/issues/266712) ([37c4fe3](https://github.com/worktile/ngx-tethys/commit/37c4fe3))
+
+
+### Features
+
+* **badage:** supports text backgroud color custome, and alone use agile ([d1f2743](https://github.com/worktile/ngx-tethys/commit/d1f2743))
+* **badage:** supports text backgroud color custome, and alone use agile ([7814417](https://github.com/worktile/ngx-tethys/commit/7814417))
+* **badage:** supports text backgroud color custome, and alone use agile ([741751d](https://github.com/worktile/ngx-tethys/commit/741751d))
+* **link:** add link-warning and link-warning-weak [#265951](https://github.com/worktile/ngx-tethys/issues/265951) ([dc233d7](https://github.com/worktile/ngx-tethys/commit/dc233d7))
+* **switch:** add $switch-margin-bottom to switch ([b3f3018](https://github.com/worktile/ngx-tethys/commit/b3f3018)), closes [#265585](https://github.com/worktile/ngx-tethys/issues/265585)
+
+
+
 ## [7.5.20](https://github.com/worktile/ngx-tethys/compare/7.5.19...7.5.20) (2019-09-23)
 
 
