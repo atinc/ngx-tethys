@@ -28,22 +28,39 @@
         .thy-slide-header {
             display: flex;
             flex-direction: row;
-            padding: $slide-header-padding;
+            padding: 0 $slide-header-padding;
             height: $slide-header-height;
             border-bottom: solid 1px $slide-divider;
             background-color: transparent;
             flex: 0 0 auto;
+            align-items: center;
 
             .thy-slide-header-title {
                 color: $gray-800;
                 font-size: $font-size-md;
                 line-height: 1.25rem;
                 font-weight: normal;
+                margin-bottom: 0;
             }
 
             .thy-slide-header-main {
                 flex: 1;
                 padding: $slide-header-main-padding;
+            }
+
+            .close {
+                outline: none;
+                @if $close-pill-enabled {
+                    padding: 3px 7px;
+                    margin-right: -7px;
+                    &:hover {
+                        background: rgba($primary, 0.1);
+                        border-radius: $border-radius;
+                    }
+                } @else {
+                    padding: 1rem $slide-header-padding;
+                    margin: (-$slide-header-padding) (-$slide-header-padding) (-$slide-header-padding) auto;
+                }
             }
         }
 
