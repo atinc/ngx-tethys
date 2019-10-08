@@ -45,7 +45,7 @@
 
     .close {
         outline: none;
-        @if $dialog-close-pill-enabled {
+        @if $close-pill-enabled {
             padding: 3px 7px;
             margin-right: -7px;
             &:hover {
