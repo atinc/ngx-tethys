@@ -104,7 +104,7 @@
     "semver": "^6.0.0",
     "standard-version": "^5.0.2",
     "ts-node": "~5.0.1",
-    "tslint": "~5.9.1",
+    "tslint": "~5.20.0",
     "typescript": "~3.2.4",
     "webpack": "^4.23.1"
   },
