@@ -40,7 +40,7 @@ import { ThySelectOptionGroupComponent } from './option-group.component';
 import { SelectionModel } from '@angular/cdk/collections';
 import { helpers } from '../../util';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
-import { SelectControlSize } from '../../core';
+import { SelectControlSize, ScrollToService } from '../../core';
 import {
     DOWN_ARROW,
     UP_ARROW,
@@ -296,8 +296,13 @@ export class ThySelectCustomComponent
     public onAttached(): void {
         this.cdkConnectedOverlay.positionChange.pipe(take(1)).subscribe(() => {
             if (this.panel) {
-                this.panel.nativeElement.scrollTop = this.scrollTop;
-                this.changeDetectorRef.detectChanges();
+                if (!this.empty) {
+                    ScrollToService.scrollToElement(
+                        this.selectionModel.selected[0].element.nativeElement,
+                        this.panel.nativeElement
+                    );
+                    this.changeDetectorRef.detectChanges();
+                }
             }
         });
     }
@@ -386,15 +391,6 @@ export class ThySelectCustomComponent
         }
         this.triggerRect = this.trigger.nativeElement.getBoundingClientRect();
         this.panelOpen = true;
-
-        let selectedOptionOffset = this.empty ? 0 : this.getOptionIndex(this.selectionModel.selected[0]);
-        selectedOptionOffset += this.countGroupLabelsBeforeOption(
-            selectedOptionOffset,
-            this.options,
-            this.optionGroups
-        );
-        this.scrollTop = this.calculateOverlayScroll(selectedOptionOffset);
-
         this.highlightCorrectOption();
         this.thyOnExpandStatusChange.emit(this.panelOpen);
     }
@@ -426,21 +422,6 @@ export class ThySelectCustomComponent
         this.updateCdkConnectedOverlayPositions();
     }
 
-    private calculateOverlayScroll(selectedIndex: number): number {
-        const itemHeight = SELECT_OPTION_MAX_HEIGHT;
-        const optionOffsetFromScrollTop = itemHeight * selectedIndex;
-        const halfOptionHeight = itemHeight / 2;
-        const items = this.getItemCount();
-        const panelHeight = Math.min(items * itemHeight, SELECT_PANEL_MAX_HEIGHT);
-
-        const scrollContainerHeight = items * itemHeight;
-        const maxScroll = scrollContainerHeight - panelHeight;
-
-        const scrollBuffer = panelHeight / 2;
-        const optimalScrollPosition = optionOffsetFromScrollTop - scrollBuffer + halfOptionHeight;
-        return Math.min(Math.max(0, optimalScrollPosition), maxScroll);
-    }
-
     private highlightCorrectOption(): void {
         if (this.keyManager) {
             if (this.empty) {
@@ -449,12 +430,6 @@ export class ThySelectCustomComponent
                 this.keyManager.setActiveItem(this.selectionModel.selected[0]);
             }
         }
-    }
-
-    private getOptionIndex(option: ThyOptionComponent): number | undefined {
-        return this.options.reduce((result: number | undefined, current: ThyOptionComponent, index: number) => {
-            return result === undefined ? (option === current ? index : undefined) : result;
-        }, undefined);
     }
 
     private initKeyManager() {
@@ -470,26 +445,14 @@ export class ThySelectCustomComponent
         });
         this.keyManager.change.pipe(takeUntil(this.destroy$)).subscribe(() => {
             if (this.panelOpen && this.panel) {
-                this.scrollActiveOptionIntoView();
+                ScrollToService.scrollToElement(
+                    this.keyManager.activeItem.element.nativeElement,
+                    this.panel.nativeElement
+                );
             } else if (!this.panelOpen && !this.isMultiple && this.keyManager.activeItem) {
                 this.keyManager.activeItem.selectViaInteraction();
             }
         });
-    }
-
-    private scrollActiveOptionIntoView(): void {
-        const activeOptionIndex = this.keyManager.activeItemIndex || 0;
-        const labelCount = this.countGroupLabelsBeforeOption(activeOptionIndex, this.options, this.optionGroups);
-        const beforeOptionCount = this.countOptionComponentBeforeOption(activeOptionIndex, this.options);
-        this.panel.nativeElement.scrollTop = this.getOptionScrollPosition(
-            beforeOptionCount,
-            labelCount,
-            SELECT_OPTION_MAX_HEIGHT,
-            SELECT_OPTION_GROUP_MAX_HEIGHT,
-            this.panel.nativeElement.scrollTop,
-            SELECT_PANEL_MAX_HEIGHT,
-            SELECT_PANEL_PADDING_TOP
-        );
     }
 
     private handleClosedKeydown(event: KeyboardEvent): void {
@@ -686,71 +649,6 @@ export class ThySelectCustomComponent
                 });
             }
         }
-    }
-
-    private countGroupLabelsBeforeOption(
-        optionIndex: number,
-        options: QueryList<ThyOptionComponent>,
-        optionGroups: QueryList<ThySelectOptionGroupComponent>
-    ): number {
-        if (optionGroups.length) {
-            const optionsArray = options.toArray();
-            const groups = optionGroups.toArray();
-            let groupCounter = 0;
-
-            for (let i = 0; i < optionIndex + 1; i++) {
-                if (
-                    optionsArray[i].group &&
-                    !optionsArray[i].group.hidden &&
-                    optionsArray[i].group === groups[groupCounter]
-                ) {
-                    groupCounter++;
-                }
-            }
-
-            return groupCounter;
-        }
-
-        return 0;
-    }
-
-    private countOptionComponentBeforeOption(optionIndex: number, options: QueryList<ThyOptionComponent>): number {
-        if (options.length) {
-            const optionsArray = options.toArray();
-            let optionCounter = 0;
-
-            for (let i = 0; i < optionIndex; i++) {
-                if (!optionsArray[i].hidden) {
-                    optionCounter++;
-                }
-            }
-
-            return optionCounter;
-        }
-
-        return 0;
-    }
-
-    private getOptionScrollPosition(
-        beforeOptionCount: number,
-        labelCount: number,
-        optionHeight: number,
-        groupHeight: number,
-        currentScrollPosition: number,
-        panelHeight: number,
-        panelPaddingTop: number
-    ): number {
-        const optionOffset = beforeOptionCount * optionHeight + labelCount * groupHeight + panelPaddingTop;
-
-        if (optionOffset < currentScrollPosition) {
-            return optionOffset - panelPaddingTop;
-        }
-
-        if (optionOffset + optionHeight > currentScrollPosition + panelHeight) {
-            return Math.max(0, optionOffset - panelHeight + optionHeight + panelPaddingTop);
-        }
-
-        return currentScrollPosition;
     }
 
     ngOnDestroy() {
