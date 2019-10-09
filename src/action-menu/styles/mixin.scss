@@ -1,0 +1,13 @@
+@mixin action-menu-item-type-hover($color) {
+    &:not(.action-menu-item--disabled).active,
+    &:not(.action-menu-item--disabled):hover {
+        background-color: $action-menu-item-hover-bg;
+        &:not(.info),
+        &:not(.action-menu-sub-item) {
+            color: $color;
+        }
+        & > .icon {
+            color: $color;
+        }
+    }
+}
