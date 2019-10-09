@@ -1,6 +1,5 @@
 import { Directive, HostBinding, Input, Component, HostListener, ViewEncapsulation, ElementRef } from '@angular/core';
 import { inputValueToBoolean } from '../util/helpers';
-import { UpdateHostClassService } from '../shared';
 
 export type ThyActionMenuTheme = 'default' | 'group';
 
@@ -33,8 +32,7 @@ export class ThyActionMenuComponent {
 }
 
 @Directive({
-    selector: '[thyActionMenuItem]',
-    providers: [UpdateHostClassService]
+    selector: '[thyActionMenuItem]'
 })
 export class ThyActionMenuItemDirective {
     @HostBinding('class.action-menu-item') className = true;
