@@ -121,11 +121,15 @@ export class ThyPopover extends ThyUpperOverlayService<ThyPopoverConfig, ThyPopo
     }
 
     private originElementAddActiveClass(config: ThyPopoverConfig) {
-        coerceElement<HTMLElement>(config.origin).classList.add(...coerceArray(config.originActiveClass));
+        if (config.originActiveClass) {
+            coerceElement<HTMLElement>(config.origin).classList.add(...coerceArray(config.originActiveClass));
+        }
     }
 
     private originElementRemoveActiveClass(config: ThyPopoverConfig) {
-        coerceElement<HTMLElement>(config.origin).classList.remove(...coerceArray(config.originActiveClass));
+        if (config.originActiveClass) {
+            coerceElement<HTMLElement>(config.origin).classList.remove(...coerceArray(config.originActiveClass));
+        }
     }
 
     constructor(
