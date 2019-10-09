@@ -1055,19 +1055,32 @@ input[type='radio']:after {
 .thy-select-custom-options .thy-option-item:not(.disabled).active .prefix-icon {
     color: #f7a3b7;
 }
-.thy-select-custom-multiple .thy-select-custom-options .thy-option-item:not(.disabled).hover,
-.thy-select-custom-multiple .thy-select-custom-options .thy-option-item:not(.disabled):hover {
+.thy-custom-select-dropdown.thy-custom-select-dropdown-multiple
+    .thy-select-custom-options
+    .thy-option-item:not(.disabled).hover,
+.thy-custom-select-dropdown.thy-custom-select-dropdown-multiple
+    .thy-select-custom-options
+    .thy-option-item:not(.disabled):hover {
     background: #f3f3f3;
 }
-.thy-select-custom-multiple .thy-select-custom-options .thy-option-item:not(.disabled).active {
+.thy-custom-select-dropdown.thy-custom-select-dropdown-multiple
+    .thy-select-custom-options
+    .thy-option-item:not(.disabled).active {
     background: 0 0;
     color: #333;
 }
-.thy-select-custom-multiple .thy-select-custom-options .thy-option-item:not(.disabled).active .checked-icon {
+.thy-custom-select-dropdown.thy-custom-select-dropdown-multiple
+    .thy-select-custom-options
+    .thy-option-item:not(.disabled).active
+    .checked-icon {
     color: #f7a3b7;
 }
-.thy-select-custom-multiple .thy-select-custom-options .thy-option-item:not(.disabled).active.hover,
-.thy-select-custom-multiple .thy-select-custom-options .thy-option-item:not(.disabled).active:hover {
+.thy-custom-select-dropdown.thy-custom-select-dropdown-multiple
+    .thy-select-custom-options
+    .thy-option-item:not(.disabled).active.hover,
+.thy-custom-select-dropdown.thy-custom-select-dropdown-multiple
+    .thy-select-custom-options
+    .thy-option-item:not(.disabled).active:hover {
     background: #f3f3f3;
     color: #333;
 }
