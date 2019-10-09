@@ -10,7 +10,7 @@
     <button [thyButton]="'primary'" [thyActionMenuToggle]="menu1" [thyPlacement]="'bottom right'">弹出位置</button>
     <ng-template #menuOnlyOne>
       <thy-action-menu>
-        <a thyActionMenuItem href="javascript:;" (click)="itemClick(1)">
+        <a thyActionMenuItem thyType="danger" href="javascript:;" (click)="itemClick(1)">
           <span thyActionMenuItemIcon>
             <thy-icon thyIconName="task"></thy-icon>
           </span>
@@ -32,7 +32,7 @@
           </span>
           <span thyActionMenuItemName>有图标</span>
         </a>
-        <a thyActionMenuItem href="javascript:;" (click)="itemClick(2)">
+        <a thyActionMenuItem thyType="success" href="javascript:;" (click)="itemClick(2)">
           <span thyActionMenuItemIcon>
             <thy-icon thyIconName="task"></thy-icon>
           </span>
@@ -56,7 +56,7 @@
           <span thyActionMenuItemMeta>(默认排序)</span>
           <div thyActionMenuItemInfo>默认排序下可拖拽移动任务；其他排序下只能显示，不可拖拽</div>
         </a>
-        <a thyActionMenuItem href="javascript:;" (click)="itemClick(5)">
+        <a thyActionMenuItem thyType="danger" href="javascript:;" (click)="itemClick(5)">
           <span thyActionMenuItemIcon>
             <thy-icon thyIconName="task"></thy-icon>
           </span>
@@ -65,7 +65,7 @@
             <i class="wtf wtf-angle-right"></i>
           </span>
           <div thyActionMenuSubItem>
-            <a thyActionMenuItem href="javascript:;" (click)="itemClick(21)">
+            <a thyActionMenuItem thyType="success" href="javascript:;" (click)="itemClick(21)">
               <span thyActionMenuItemIcon>
                 <thy-icon thyIconName="task"></thy-icon>
               </span>
@@ -74,7 +74,7 @@
                 <i class="wtf wtf-angle-right"></i>
               </span>
               <div thyActionMenuSubItem>
-                <a thyActionMenuItem href="javascript:;" (click)="itemClick(21)">
+                <a thyActionMenuItem thyType="danger" href="javascript:;" (click)="itemClick(21)">
                   <span thyActionMenuItemIcon>
                     <thy-icon thyIconName="task"></thy-icon>
                   </span>

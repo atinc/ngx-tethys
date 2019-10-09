@@ -16,7 +16,7 @@ $icon-nav-link-padding-y: 0.282rem;
         background: $hover-bg-color;
         border-radius: $border-radius;
     }
-    @include hover-focus-active {
+    @include hover {
         color: $hover-color;
         text-decoration: none;
         background: $hover-bg-color;
