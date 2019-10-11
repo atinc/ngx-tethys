@@ -1,11 +1,11 @@
 <ng-container *ngIf="thyShowOptionCustom; else defaultOption">
-  <ng-content></ng-content>
+  <span class="ml-1 text-truncate"><ng-content></ng-content></span>
   <span class="checked-icon">
     <i class="wtf wtf-checked"></i>
   </span>
 </ng-container>
 <ng-template #defaultOption>
-  <span class="ml-1">{{ thyLabelText }}</span>
+  <span class="ml-1 text-truncate">{{ thyLabelText }}</span>
   <span class="checked-icon">
     <i class="wtf wtf-checked"></i>
   </span>

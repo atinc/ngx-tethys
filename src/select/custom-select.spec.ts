@@ -11,8 +11,8 @@ import {
 import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Component, ViewChild, ViewChildren, QueryList, ElementRef, Sanitizer, SecurityContext } from '@angular/core';
 import { ThySelectModule } from './module';
-import { ThySelectCustomComponent, SelectMode } from './custom-select.component';
-import { ThyOptionComponent } from './option.component';
+import { ThySelectCustomComponent, SelectMode } from './custom-select/custom-select.component';
+import { ThyOptionComponent } from './custom-select/option.component';
 import { By, DomSanitizer } from '@angular/platform-browser';
 import { UpdateHostClassService } from '../shared';
 import { ThyPositioningService } from '../positioning/positioning.service';
@@ -342,36 +342,10 @@ class SelectEimtOptionsChangesComponent {
 }
 
 @Component({
-    selector: 'select-hover',
-    template: `
-        <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-custom-select [formControl]="control" thyHoverTriggerAction="true">
-                <thy-option
-                    *ngFor="let food of foods"
-                    [thyValue]="food.value"
-                    [thyDisabled]="food.disabled"
-                    [thyLabelText]="food.viewValue"
-                >
-                </thy-option>
-            </thy-custom-select>
-        </form>
-    `
-})
-class SelectWithHoverTriggerComponent {
-    foods: any[] = [{ value: 'pizza-1', viewValue: 'Pizza' }];
-    control = new FormControl();
-    @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
-}
-
-@Component({
     selector: 'select-expand-status',
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-custom-select
-                [formControl]="control"
-                (thyOnExpandStatusChange)="thyOnExpandStatusChange($event)"
-                thyHoverTriggerAction="true"
-            >
+            <thy-custom-select [formControl]="control" (thyOnExpandStatusChange)="thyOnExpandStatusChange($event)">
                 <thy-option
                     *ngFor="let food of foods"
                     [thyValue]="food.value"
@@ -411,6 +385,42 @@ class SelectWithThyModeComponent {
     ];
 
     selectMode: SelectMode = 'multiple';
+
+    selectedFoods = null;
+
+    @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
+    @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
+}
+
+@Component({
+    template: `
+        <form thyForm name="demoForm" #demoForm="ngForm">
+            <thy-custom-select
+                placeholder="Food"
+                [(ngModel)]="selectedFoods"
+                name="food"
+                [thyMode]="selectMode"
+                [thySortComparator]="thySortComparator"
+            >
+                <thy-option
+                    *ngFor="let food of foods"
+                    [thyValue]="food.value"
+                    [thyLabelText]="food.viewValue"
+                ></thy-option>
+            </thy-custom-select>
+        </form>
+    `
+})
+class SelectWithThySortComparatorComponent {
+    foods: any[] = [
+        { value: ['steak-0', 'steak-1'], viewValue: 'Steak' },
+        { value: ['pizza-1', 'pizza-2'], viewValue: 'Pizza' },
+        { value: ['tacos-2', 'tacos-3'], viewValue: 'Tacos' }
+    ];
+
+    selectMode: SelectMode = 'multiple';
+
+    thySortComparator;
 
     selectedFoods = null;
 
@@ -574,26 +584,31 @@ describe('ThyCustomSelect', () => {
                 expect(fixture.componentInstance.select.panelOpen).toBe(true);
 
                 expect(fixture.componentInstance.select.options.length).toBe(0);
+
+                flush();
             }));
 
-            it('should show default _emptyStateText when does not have any options', fakeAsync(() => {
+            it('should show default emptyStateText when does not have any options', fakeAsync(() => {
                 fixture.componentInstance.foods = [];
                 fixture.detectChanges();
 
                 trigger.click();
                 fixture.detectChanges();
 
-                expect(overlayContainerElement.textContent).toContain('没有任何选项');
+                expect(overlayContainerElement.textContent).toContain(fixture.componentInstance.select.emptyStateText);
+                flush();
             }));
 
             it('should show thyEmptyStateText when assign thyEmptyStateText property', fakeAsync(() => {
+                const thyEmptyStateText = '无任何内容';
                 fixture.componentInstance.foods = [];
-                fixture.componentInstance.select.thyEmptyStateText = '无任何内容';
+                fixture.componentInstance.select.thyEmptyStateText = thyEmptyStateText;
                 fixture.detectChanges();
                 trigger.click();
                 fixture.detectChanges();
 
-                expect(overlayContainerElement.textContent).toContain('无任何内容');
+                expect(overlayContainerElement.textContent).toContain(thyEmptyStateText);
+                flush();
             }));
 
             it('should close the panel when esceing out', fakeAsync(() => {
@@ -656,7 +671,9 @@ describe('ThyCustomSelect', () => {
 
                 expect(option.classList).toContain('active');
                 expect(fixture.componentInstance.options.first.selected).toEqual(true);
-                expect(fixture.componentInstance.select.selected).toBe(fixture.componentInstance.options.first);
+                expect(fixture.componentInstance.select.selectionModel.selected[0]).toBe(
+                    fixture.componentInstance.options.first
+                );
             }));
 
             it('should be able to select to an option using th ThyOptionComponent API', fakeAsync(() => {
@@ -672,7 +689,7 @@ describe('ThyCustomSelect', () => {
                 flush();
                 expect(optionNodes[1].classList).toContain('active');
                 expect(optionInstances[1].selected).toBe(true);
-                expect(fixture.componentInstance.select.selected).toBe(optionInstances[1]);
+                expect(fixture.componentInstance.select.selectionModel.selected[0]).toBe(optionInstances[1]);
             }));
 
             it('should deselect other options when one is selected', fakeAsync(() => {
@@ -853,7 +870,7 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
 
             expect(fixture.componentInstance.select.thyShowSearch).toBe(true);
-            expect(overlayContainerElement.querySelector('thy-input-search')).not.toBeNull();
+            expect(fixture.debugElement.query(By.css('.search-input-field'))).not.toBeNull();
         }));
         it('should hide the options that can not be searched', fakeAsync(() => {
             const fixture = TestBed.createComponent(SelectWithSearchComponent);
@@ -863,9 +880,10 @@ describe('ThyCustomSelect', () => {
             trigger.click();
             fixture.detectChanges();
 
-            const input = overlayContainerElement.querySelector('input');
+            const input = fixture.debugElement.query(By.css('.search-input-field')).nativeElement;
 
             typeInElement('Steak', input);
+            flush();
             fixture.detectChanges();
             flush();
 
@@ -888,12 +906,12 @@ describe('ThyCustomSelect', () => {
         }));
         it('should search option use thySearchKey', fakeAsync(() => {
             const fixture = TestBed.createComponent(SelectWithSearchUseSearchKeyComponent);
-            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             fixture.detectChanges();
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             trigger.click();
             fixture.detectChanges();
 
-            const input = overlayContainerElement.querySelector('input');
+            const input = fixture.debugElement.query(By.css('.search-input-field')).nativeElement;
 
             typeInElement('lrs', input);
             fixture.detectChanges();
@@ -914,15 +932,14 @@ describe('ThyCustomSelect', () => {
         }));
         it('should hide the thy-group when all options of the group is hidden', fakeAsync(() => {
             const fixture = TestBed.createComponent(SelectWithSearchAndGroupComponent);
-            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
-
             fixture.detectChanges();
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             trigger.click();
             fixture.detectChanges();
 
             const groups = fixture.componentInstance.select.optionGroups.toArray();
             const options = fixture.componentInstance.select.options.toArray();
-            const input = overlayContainerElement.querySelector('input');
+            const input = fixture.debugElement.query(By.css('.search-input-field')).nativeElement;
             typeInElement('Cat', input);
 
             tick(1000);
@@ -943,18 +960,40 @@ describe('ThyCustomSelect', () => {
         }));
         it('should exec thyOnSearch when thyServerSearch is true', fakeAsync(() => {
             const fixture = TestBed.createComponent(SelectWithSearchAndServerSearchComponent);
-            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             fixture.detectChanges();
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             trigger.click();
             fixture.detectChanges();
 
             const spy = fixture.componentInstance.thyOnSearch;
-            const input = overlayContainerElement.querySelector('input');
+            const input = fixture.debugElement.query(By.css('.search-input-field')).nativeElement;
+
             typeInElement('milk', input);
             fixture.detectChanges();
             tick();
 
             expect(spy).toHaveBeenCalledTimes(1);
+        }));
+
+        it('should show emptySearchMessageText when do not match any option', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectWithSearchAndGroupComponent);
+            fixture.detectChanges();
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+
+            expect(overlayContainerElement.querySelector('thy-empty')).not.toBeTruthy();
+
+            const groups = fixture.componentInstance.select.optionGroups.toArray();
+            const input = fixture.debugElement.query(By.css('.search-input-field')).nativeElement;
+
+            typeInElement('cat2', input);
+
+            tick(1000);
+            fixture.detectChanges();
+            flush();
+
+            expect(overlayContainerElement.querySelector('thy-empty')).toBeTruthy();
         }));
     });
 
@@ -965,8 +1004,8 @@ describe('ThyCustomSelect', () => {
 
         it('should remove the thy-option when sourcedata change', fakeAsync(() => {
             const fixture = TestBed.createComponent(SelectEimtOptionsChangesComponent);
-            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             fixture.detectChanges();
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             trigger.click();
             fixture.detectChanges();
 
@@ -976,40 +1015,6 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
 
             expect(overlayContainerElement.textContent).not.toContain('Sushi');
-        }));
-    });
-
-    describe('hover trigger action logic', () => {
-        beforeEach(async(() => {
-            configureThyCustomSelectTestingModule([SelectWithHoverTriggerComponent]);
-        }));
-        it('should open select when mouseover on select', fakeAsync(() => {
-            const fixture = TestBed.createComponent(SelectWithHoverTriggerComponent);
-            fixture.detectChanges();
-            const select = fixture.debugElement.nativeElement.querySelector('thy-custom-select');
-            dispatchFakeEvent(select, 'mouseover');
-            fixture.detectChanges();
-            flush();
-
-            expect(fixture.componentInstance.select.panelOpen).toBe(true);
-            expect(overlayContainerElement.textContent).toContain('Pizza');
-        }));
-        it('should close select when mouse leave select-container', fakeAsync(() => {
-            const fixture = TestBed.createComponent(SelectWithHoverTriggerComponent);
-            fixture.detectChanges();
-            const select = fixture.debugElement.nativeElement.querySelector('thy-custom-select');
-            dispatchFakeEvent(select, 'mouseover');
-            fixture.detectChanges();
-            flush();
-
-            const selectContainer = overlayContainerElement.querySelector('.thy-select-container');
-            dispatchFakeEvent(selectContainer, 'mouseleave');
-            fixture.detectChanges();
-
-            expect(fixture.componentInstance.select.panelOpen).toBe(false);
-            expect(overlayContainerElement.textContent).not.toContain('Pizza');
-
-            tick(1000);
         }));
     });
 
@@ -1185,6 +1190,56 @@ describe('ThyCustomSelect', () => {
 
             expect(optionComponents[0].selected).toBe(true);
             expect(optionComponents[1].selected).toBe(true);
+        }));
+    });
+
+    describe('thySortComparator', () => {
+        beforeEach(async(() => {
+            configureThyCustomSelectTestingModule([SelectWithThySortComparatorComponent]);
+        }));
+        it('should get list order by selected order', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectWithThySortComparatorComponent);
+            fixture.detectChanges();
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+            flush();
+
+            const options = overlayContainerElement.querySelectorAll('thy-option');
+            (options.item(1) as HTMLElement).click();
+            fixture.detectChanges();
+            flush();
+
+            (options.item(0) as HTMLElement).click();
+            fixture.detectChanges();
+            flush();
+
+            expect(fixture.componentInstance.selectedFoods[0]).toEqual(fixture.componentInstance.foods[1].value);
+            expect(fixture.componentInstance.selectedFoods[1]).toEqual(fixture.componentInstance.foods[0].value);
+        }));
+
+        it('should get list order by index in options', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectWithThySortComparatorComponent);
+            fixture.componentInstance.thySortComparator = (a, b, optionComponents) => {
+                return optionComponents.indexOf(a) - optionComponents.indexOf(b);
+            };
+            fixture.detectChanges();
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+            flush();
+
+            const options = overlayContainerElement.querySelectorAll('thy-option');
+            (options.item(1) as HTMLElement).click();
+            fixture.detectChanges();
+            flush();
+
+            (options.item(0) as HTMLElement).click();
+            fixture.detectChanges();
+            flush();
+
+            expect(fixture.componentInstance.selectedFoods[0]).toEqual(fixture.componentInstance.foods[0].value);
+            expect(fixture.componentInstance.selectedFoods[1]).toEqual(fixture.componentInstance.foods[1].value);
         }));
     });
 });

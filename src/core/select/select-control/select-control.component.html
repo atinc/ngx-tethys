@@ -1,0 +1,65 @@
+<ng-template #inputTemplate>
+  <input
+    #inputElement
+    (compositionstart)="isComposing = true"
+    (compositionend)="isComposing = false"
+    autocomplete="something-new"
+    [ngClass]="searchInputControlClass"
+    (input)="updateWidth()"
+    [ngModel]="inputValue"
+    (ngModelChange)="setInputValue($event)"
+    (keydown.backspace)="handleBackspace($event)"
+    [disabled]="thyDisabled"
+  />
+</ng-template>
+
+<div class="select-control-rendered">
+  <div class="text-placeholder text-truncate" *ngIf="!isSelectedValue" [ngStyle]="placeholderStyle">
+    {{ thyPlaceholder }}
+  </div>
+  <ng-container *ngIf="isMultiple; else single">
+    <ul>
+      <li class="choice" *ngFor="let item of multipleSelectedValue; trackBy: trackValue">
+        <div [ngClass]="choiceContentClass">
+          <ng-template
+            #customDisplay
+            [ngTemplateOutlet]="customDisplayTemplate"
+            [ngTemplateOutletContext]="{ $implicit: item.thyRawValue || item.thyValue }"
+          ></ng-template>
+          <ng-container *ngIf="!customDisplayTemplate; else customDisplay">
+            {{ item.thyLabelText }}
+          </ng-container>
+        </div>
+        <span class="choice-remove font-size-base" (click)="removeHandle(item, $event)">
+          <thy-icon thyIconName="close" class="font-size-sm"></thy-icon>
+        </span>
+      </li>
+      <li class="select-control-search">
+        <ng-template [ngTemplateOutlet]="inputTemplate"></ng-template>
+      </li>
+    </ul>
+  </ng-container>
+  <ng-template #single>
+    <ng-container *ngIf="isSelectedValue">
+      <div class="selected-value text-truncate" [ngStyle]="selectedValueStyle">
+        <ng-template
+          #customDisplay
+          [ngTemplateOutlet]="customDisplayTemplate"
+          [ngTemplateOutletContext]="{ $implicit: selectedValue.thyRawValue || selectedValue.thyValue }"
+        ></ng-template>
+        <ng-container *ngIf="!customDisplayTemplate; else customDisplay">
+          {{ selectedValue?.thyLabelText }}
+        </ng-container>
+      </div>
+    </ng-container>
+    <div class="select-control-search">
+      <ng-template [ngTemplateOutlet]="inputTemplate"></ng-template>
+    </div>
+  </ng-template>
+</div>
+<span class="select-control-arrow">
+  <thy-icon thyIconName="angle-down" class="font-size-base"></thy-icon>
+</span>
+<span class="select-control-clear remove-link" *ngIf="showClearIcon" (click)="clearHandle($event)">
+  <thy-icon class="remove-link-icon font-size-base" thyIconName="close-circle-bold-fill"></thy-icon>
+</span>

@@ -1,0 +1,39 @@
+.thy-select-custom {
+    display: block;
+    width: 100%;
+    position: relative;
+    outline: none;
+    &:focus {
+        .form-control {
+            border-color: $input-focus-border-color;
+        }
+    }
+    & .form-control-custom {
+        cursor: pointer;
+    }
+    & .form-control-custom.disabled {
+        cursor: default;
+    }
+}
+
+.thy-select-custom--multiple {
+    $has-value-margin-base: -0.03175rem;
+    $has-value-margin-md: -0.2815rem;
+    $thy-label-spacing: 0.3125rem;
+    .multiple-value-wrapper {
+        margin: {
+            top: $has-value-margin-base;
+            bottom: $has-value-margin-base - $thy-label-spacing;
+            right: 15px;
+        }
+        .thy-label {
+            margin-bottom: $thy-label-spacing;
+        }
+    }
+
+    .thy-select-custom-options {
+        .thy-option-item {
+            @include thy-multiple-option();
+        }
+    }
+}

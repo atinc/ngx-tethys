@@ -77,6 +77,12 @@ import { DemoPropertyOperationGroupComponent, DemoPropertyOperationBasicComponen
 import { DemoTreeModule } from './+tree';
 import { DemoNavIconNavComponent } from './+nav/icon-nav/icon-nav.component';
 import { DemoLayoutModule } from './+layout';
+import { CustomSelectBasicComponent } from './+select/basic/custom-select-basic.component';
+import { CustomSelectEmptyComponent } from './+select/empty/custom-select-empty.component';
+import { CustomSelectDisplayComponent } from './+select/display/custom-select-display.component';
+import { CustomSelectGroupComponent } from './+select/group/custom-select-group.component';
+import { NativeSelectBasicComponent } from './+select/native-select/native-select-basic.component';
+import { CustomSelectScrollComponent } from './+select/scroll-load/custom-select-scroll.component';
 
 import { DemoActionMenuModule } from './+action-menu';
 
@@ -162,7 +168,14 @@ export const COMPONENTS = [
 
     DemoMarkdownSectionComponent,
     DemoFlexibleTextComponent,
-    DemoFlexibleTextBasicComponent
+    DemoFlexibleTextBasicComponent,
+
+    CustomSelectBasicComponent,
+    CustomSelectEmptyComponent,
+    CustomSelectDisplayComponent,
+    CustomSelectGroupComponent,
+    NativeSelectBasicComponent,
+    CustomSelectScrollComponent
 ];
 
 export const ENTRY_COMPONENTS = [
@@ -193,7 +206,14 @@ export const ENTRY_COMPONENTS = [
     ...PROGRESS_COMPONENTS,
     ...TOOLTIP_COMPONENTS,
     ...ICON_COMPONENTS,
-    DemoFlexibleTextBasicComponent
+    DemoFlexibleTextBasicComponent,
+
+    CustomSelectBasicComponent,
+    CustomSelectEmptyComponent,
+    CustomSelectDisplayComponent,
+    CustomSelectGroupComponent,
+    NativeSelectBasicComponent,
+    CustomSelectScrollComponent
 ];
 
 export const DEMO_MODULES = [

@@ -3,15 +3,17 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ThySelectComponent } from './select.component';
 import { ThyInputModule } from '../input/module';
-import { ThySelectCustomComponent } from './custom-select.component';
-import { ThyOptionComponent } from './option.component';
-import { ThySelectOptionGroupComponent } from './option-group.component';
+import { ThySelectCustomComponent } from './custom-select/custom-select.component';
+import { ThyOptionComponent } from './custom-select/option.component';
+import { ThySelectOptionGroupComponent } from './custom-select/option-group.component';
 import { ThyLabelModule } from '../label/label.module';
 import { SelectPipes } from './select.pipe';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { ThyLoadingModule } from '../loading';
 import { ThyDirectiveModule } from '../directive';
 import { ThyIconModule } from '../icon';
+import { ThySelectCommonModule } from '../core';
+import { ThyEmptyModule } from '../empty/empty.module';
 
 @NgModule({
     imports: [
@@ -22,7 +24,9 @@ import { ThyIconModule } from '../icon';
         OverlayModule,
         ThyLoadingModule,
         ThyDirectiveModule,
-        ThyIconModule
+        ThyIconModule,
+        ThyEmptyModule,
+        ThySelectCommonModule
     ],
     declarations: [
         ThySelectComponent,
