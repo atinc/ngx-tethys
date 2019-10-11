@@ -30,17 +30,17 @@ $option-disabled-color: $gray-400 !default;
             background: $option-hover-active-bg-color;
             color: $body-color;
         }
-        &.hover,
-        &:hover {
-            background: $option-hover-active-bg-color;
-            color: $body-color;
-            .prefix-icon {
-                color: $gray-300;
-            }
-        }
         &.active {
             background: rgba($primary, 0.1);
             color: $primary;
+            &.hover,
+            &:hover {
+                background: $option-hover-active-bg-color;
+                color: $body-color;
+                .prefix-icon {
+                    color: $gray-300;
+                }
+            }
             .prefix-icon {
                 color: $primary;
             }
