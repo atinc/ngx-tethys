@@ -1,3 +1,22 @@
+## [7.5.22](https://github.com/worktile/ngx-tethys/compare/7.5.21...7.5.22) (2019-10-11)
+
+
+### Bug Fixes
+
+* **action-menu:** add action menu item test [#266822](https://github.com/worktile/ngx-tethys/issues/266822) ([398c017](https://github.com/worktile/ngx-tethys/commit/398c017))
+* fix tree-title 'g' letter be covered ([113292a](https://github.com/worktile/ngx-tethys/commit/113292a))
+* **action-menu:** place icon in the middle of the action menu item ([9d782b2](https://github.com/worktile/ngx-tethys/commit/9d782b2))
+* **popover:** add condition for add activeClass ([c200138](https://github.com/worktile/ngx-tethys/commit/c200138))
+
+
+### Features
+
+* **action-menu:** add thytype in action menu item [#266822](https://github.com/worktile/ngx-tethys/issues/266822) ([7414f42](https://github.com/worktile/ngx-tethys/commit/7414f42))
+* #[#266961](https://github.com/worktile/ngx-tethys/issues/266961) ngx-tethys】添加link-muted,颜色为[#888](https://github.com/worktile/ngx-tethys/issues/888) ([23ae350](https://github.com/worktile/ngx-tethys/commit/23ae350))
+* **breadcrumb:** chang icon and text color [#267177](https://github.com/worktile/ngx-tethys/issues/267177) ([65c1457](https://github.com/worktile/ngx-tethys/commit/65c1457)), closes [#888](https://github.com/worktile/ngx-tethys/issues/888)
+
+
+
 ## [7.5.21](https://github.com/worktile/ngx-tethys/compare/7.5.20...7.5.21) (2019-10-08)
 
 
