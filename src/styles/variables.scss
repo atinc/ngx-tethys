@@ -76,6 +76,9 @@ $font-size-xlg: 1.5rem !default; // 24px
 $code-color: $danger !default;
 $code-font-size: 0.875rem !default;
 
+// pill style for close(dialog,slide)
+$close-pill-enabled: true;
+
 $input-btn-padding-y: 0.407rem !default; // 0.469rem 默认输入框从 38px 改成 36px
 $input-btn-padding-x: 1.625rem !default; // 1.313rem  !default;
 $input-btn-padding-y-sm: 0.25rem !default;
@@ -344,7 +347,6 @@ $modal-sm: 400px !default; //
 $modal-transition: transform 0.3s ease-out !default;
 
 // Dialog
-$dialog-close-pill-enabled: true;
 $dialog-border-radius: 4px !default;
 $dialog-header-height: 50px !default;
 $dialog-header-title-line-height: 1.5rem !default;
@@ -459,7 +461,8 @@ $slide-dialog-bg: $white !default;
 $slide-height: calc(100vh - #{$layout-header-height} - #{$layout-header-height-sm}) !default;
 $slide-z-index: 900 !default;
 $slide-header-height: 45px !default;
-$slide-header-padding: 0.75rem 1.25rem !default;
+// $slide-header-padding: 0.75rem 1.25rem !default;
+$slide-header-padding: 1.25rem !default;
 $slide-header-main-padding: 0 20px !default;
 $slide-body-content-padding: 0 1.25rem 0.75rem 1.25rem !default;
 $slide-body-section-padding: 20px !default;
@@ -495,8 +498,9 @@ $scrollbar-thumb: $gray-300 !default;
 
 // breadcrumb
 
+$breadcrumb-icon-color: $gray-500 !default;
 $breadcrumb-separator-color: $gray-500 !default;
-$breadcrumb-text-color: $gray-500 !default;
+$breadcrumb-text-color: $gray-600 !default;
 $breadcrumb-active-color: $gray-800 !default;
 
 // thyMenu

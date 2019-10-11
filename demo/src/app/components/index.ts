@@ -2,7 +2,6 @@ import { DemoPopBoxSectionComponent, PopBoxMenuDemoShowComponent } from './+pop-
 import { DemoTableSectionComponent } from './+table/table-section.component';
 import { DemoGridSectionComponent } from './+grid/grid-section.component';
 import { DemoWTDSectionLinkComponent } from './+wtd/wtd.component';
-import { DemoActionMenuSectionComponent } from './+action-menu/action-menu-section.component';
 import { DemoBadgeSectionComponent } from './+badge/badge-section.component';
 
 import { DemoAvatarSectionComponent } from './+avatar/avatar-section.component';
@@ -85,6 +84,8 @@ import { CustomSelectGroupComponent } from './+select/group/custom-select-group.
 import { NativeSelectBasicComponent } from './+select/native-select/native-select-basic.component';
 import { CustomSelectScrollComponent } from './+select/scroll-load/custom-select-scroll.component';
 
+import { DemoActionMenuModule } from './+action-menu';
+
 export const COMPONENTS = [
     DemoTypographyComponent,
     DemoPopBoxSectionComponent,
@@ -98,7 +99,6 @@ export const COMPONENTS = [
     DemoIconSectionComponent,
     DemoTableSectionComponent,
     DemoWTDSectionLinkComponent,
-    DemoActionMenuSectionComponent,
     DemoBadgeSectionComponent,
     DemoGridSectionComponent,
 
@@ -216,4 +216,11 @@ export const ENTRY_COMPONENTS = [
     CustomSelectScrollComponent
 ];
 
-export const DEMO_MODULES = [DialogDemoModule, DemoButtonModule, DemoNotifyModule, DemoTreeModule, DemoLayoutModule];
+export const DEMO_MODULES = [
+    DialogDemoModule,
+    DemoButtonModule,
+    DemoNotifyModule,
+    DemoTreeModule,
+    DemoLayoutModule,
+    DemoActionMenuModule
+];

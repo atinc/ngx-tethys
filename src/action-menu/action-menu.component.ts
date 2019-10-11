@@ -1,16 +1,18 @@
-
-import { Directive, HostBinding, Input, Component, HostListener, ViewEncapsulation } from '@angular/core';
+import { Directive, HostBinding, Input, Component, HostListener, ViewEncapsulation, ElementRef } from '@angular/core';
 import { inputValueToBoolean } from '../util/helpers';
 
 export type ThyActionMenuTheme = 'default' | 'group';
 
+export type ThyActionMenuItemType = 'danger' | 'success';
+
 @Component({
     selector: 'thy-action-menu',
-    template: `<ng-content></ng-content>`,
+    template: `
+        <ng-content></ng-content>
+    `,
     encapsulation: ViewEncapsulation.None
 })
 export class ThyActionMenuComponent {
-
     @HostBinding('class.action-menu') className = true;
 
     @HostBinding('class.action-menu--group') themeClassName = false;
@@ -26,22 +28,29 @@ export class ThyActionMenuComponent {
         this.styleWidth = value;
     }
 
-
-    constructor() { }
+    constructor() {}
 }
 
 @Directive({
-    selector: '[thyActionMenuItem]',
+    selector: '[thyActionMenuItem]'
 })
 export class ThyActionMenuItemDirective {
-
     @HostBinding('class.action-menu-item') className = true;
 
     @HostBinding('class.action-menu-item--disabled') disabled = false;
 
+    @HostBinding('class.action-menu-item--danger') danger = false;
+
+    @HostBinding('class.action-menu-item--success') success = false;
+
     @Input()
     set thyDisabled(value: boolean) {
         this.disabled = inputValueToBoolean(value);
+    }
+
+    @Input()
+    set thyType(value: ThyActionMenuItemType) {
+        this[value] = true;
     }
 
     @HostListener('click', ['$event'])
@@ -52,80 +61,70 @@ export class ThyActionMenuItemDirective {
         }
     }
 
-    constructor() { }
+    constructor() {}
 }
 
 @Directive({
-    selector: '[thyActionMenuItemIcon]',
+    selector: '[thyActionMenuItemIcon]'
 })
 export class ThyActionMenuItemIconDirective {
-
     @HostBinding('class.icon') className = true;
 
-    constructor() { }
-
+    constructor() {}
 }
 
 @Directive({
-    selector: '[thyActionMenuItemName]',
+    selector: '[thyActionMenuItemName]'
 })
 export class ThyActionMenuItemNameDirective {
-
     @HostBinding('class.name') className = true;
 
-    constructor() { }
-
+    constructor() {}
 }
 
 @Directive({
-    selector: '[thyActionMenuItemMeta]',
+    selector: '[thyActionMenuItemMeta]'
 })
 export class ThyActionMenuItemMetaDirective {
-
     @HostBinding('class.meta') className = true;
 
-    constructor() { }
-
+    constructor() {}
 }
 
 @Directive({
-    selector: '[thyActionMenuItemInfo]',
+    selector: '[thyActionMenuItemInfo]'
 })
 export class ThyActionMenuItemInfoDirective {
-
     @HostBinding('class.info') className = true;
 
-    constructor() { }
-
+    constructor() {}
 }
 
 @Directive({
-    selector: '[thyActionMenuItemExtendIcon]',
+    selector: '[thyActionMenuItemExtendIcon]'
 })
 export class ThyActionMenuItemExtendIconDirective {
-
     @HostBinding('class.extend-icon') className = true;
 
-    constructor() { }
-
+    constructor() {}
 }
 
 @Directive({
-    selector: '[thyActionMenuSubItem]',
+    selector: '[thyActionMenuSubItem]'
 })
 export class ThyActionMenuSubItemDirective {
-
     @HostBinding('class.action-menu-sub-item') className = true;
 
-    constructor() { }
+    constructor() {}
 }
 
 @Component({
     selector: 'thy-action-menu-divider',
-    template: `<div class="action-menu-divider-title">{{title}}</div>`
+    template: `
+        <div class="action-menu-divider-title">{{ title }}</div>
+    `
 })
 export class ThyActionMenuDividerComponent {
-
     title: string;
 
     @HostBinding('class.action-menu-divider') className = true;
@@ -135,24 +134,22 @@ export class ThyActionMenuDividerComponent {
         this.title = value;
     }
 
-    constructor() { }
+    constructor() {}
 }
 
 @Directive({
-    selector: '[thyActionMenuDividerTitle]',
+    selector: '[thyActionMenuDividerTitle]'
 })
 export class ThyActionMenuDividerTitleDirective {
-
     @HostBinding('class.action-menu-divider-title') className = true;
 
-    constructor() { }
+    constructor() {}
 }
 
 @Directive({
-    selector: '[thyActionMenuItemActive]',
+    selector: '[thyActionMenuItemActive]'
 })
 export class ThyActionMenuItemActiveDirective {
-
     @HostBinding('class.active') _isActive = false;
 
     @Input()
@@ -160,6 +157,5 @@ export class ThyActionMenuItemActiveDirective {
         this._isActive = inputValueToBoolean(value);
     }
 
-    constructor() { }
-
+    constructor() {}
 }

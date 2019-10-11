@@ -1,6 +1,6 @@
 <ng-container *ngIf="slideType === 'slide-layout-3'">
   <thy-slide-layout>
-    <thy-slide-header [thyTitle]="'筛选'" thyIcon="wtf-task-o"></thy-slide-header>
+    <thy-slide-header [thyTitle]="'筛选'"></thy-slide-header>
     <thy-slide-body>
       <thy-slide-body-section>
         三栏式布局
@@ -46,7 +46,7 @@
   <thy-pop-box-body>
     <a thyActionMenuItem thyActionMenuItemActive="true" href="javascript:;">
       <span class="icon">
-        <i class="wtf wtf-task-o"></i>
+        <thy-icon thyIconName="task"></thy-icon>
       </span>
       <span>有图标</span>
     </a>

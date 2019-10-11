@@ -26,14 +26,7 @@
                 // }
             }
         }
-        span {
-            // &:not(.icon):not(.info):not(.meta):not(.extend-icon) {
-            //   flex: 1;
-            //   overflow: hidden;
-            //   text-overflow: ellipsis;
-            //   white-space: nowrap;
-            // }
-        }
+
         .icon {
             margin-right: 5px;
             color: $action-menu-item-icon-color;
@@ -83,6 +76,14 @@
             > .action-menu-sub-item {
                 display: block;
             }
+        }
+
+        &--danger {
+            @include action-menu-item-type-hover($danger);
+        }
+
+        &--success {
+            @include action-menu-item-type-hover($success);
         }
     }
     .action-menu-divider {
