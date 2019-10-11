@@ -28,6 +28,7 @@
         }
 
         .icon {
+            display: flex;
             margin-right: 5px;
             color: $action-menu-item-icon-color;
             transition: margin-left 200ms;
@@ -53,6 +54,7 @@
             color: $gray-500;
         }
         .extend-icon {
+            display: flex;
             margin-left: auto;
             color: $action-menu-item-extend-color;
         }
@@ -71,8 +73,8 @@
             pointer-events: none;
             cursor: not-allowed;
         }
+
         &:not(.action-menu-item--disabled):hover {
-            & > span:nth-child(1),
             > .action-menu-sub-item {
                 display: block;
             }
