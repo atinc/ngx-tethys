@@ -96,6 +96,10 @@
                 top: $card-divided-spacing-y;
                 bottom: $card-divided-spacing-y;
             }
+
+            &--sm {
+                padding-top: 10px;
+            }
         }
     }
 
