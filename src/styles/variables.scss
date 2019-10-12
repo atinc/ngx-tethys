@@ -378,6 +378,10 @@ $card-border-radius: 0 !default;
 $card-title-icon-color: $primary !default;
 $card-title-color: $gray-700 !default;
 $card-title-info-color: $gray-500 !default;
+$card-header-divider-color: $gray-200 !default;
+// divided 分割模式，头部和内容区域的上下间距
+$card-divided-spacing-y: 15px;
+
 //Datepicker
 $datepicker-z-index: 1100 !default;
 // Notify

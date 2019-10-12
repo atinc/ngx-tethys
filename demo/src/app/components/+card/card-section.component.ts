@@ -4,6 +4,7 @@ import { DemoCardBasicComponent } from './basic/basic.component';
 import { DemoCardCustomHeaderComponent } from './custom-header/custom-header.component';
 import { DemoCardContentScrollComponent } from './content-scroll/content-scroll.component';
 import { apiCardParameters, apiHeaderParameters, apiContentParameters } from './api-parameters';
+import { DemoCardDividedComponent } from './divided/divided.component';
 
 @Component({
     selector: 'demo-card-section',
@@ -67,6 +68,23 @@ export class DemoCardSectionComponent {
                     type: 'ts',
                     name: 'content-scroll.component.ts',
                     content: require('!!raw-loader!./content-scroll/content-scroll.component.ts')
+                }
+            ]
+        },
+        {
+            title: '分割模式',
+            component: DemoCardDividedComponent,
+            description: ``,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'divided.component.html',
+                    content: require('!!raw-loader!./divided/divided.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'divided.component.ts',
+                    content: require('!!raw-loader!./divided/divided.component.ts')
                 }
             ]
         }

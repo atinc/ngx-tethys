@@ -1,4 +1,14 @@
-import { Component, HostBinding, Input, OnInit, TemplateRef, Optional, ViewChild, ContentChild, ViewContainerRef } from '@angular/core';
+import {
+    Component,
+    HostBinding,
+    Input,
+    OnInit,
+    TemplateRef,
+    Optional,
+    ViewChild,
+    ContentChild,
+    ViewContainerRef
+} from '@angular/core';
 import { inputValueToBoolean } from '../util/helpers';
 @Component({
     selector: 'thy-card-header',
@@ -6,7 +16,6 @@ import { inputValueToBoolean } from '../util/helpers';
     templateUrl: './header.component.html'
 })
 export class ThyCardHeaderComponent implements OnInit {
-
     public iconClass: string;
 
     @HostBinding('class.thy-card-header') thyLayoutHeaderClass = true;
@@ -21,8 +30,8 @@ export class ThyCardHeaderComponent implements OnInit {
 
     @Input('thySize')
     set thySize(value: string) {
-        this._thySizeSm = (value === 'sm');
-        this._thySizeLg = (value === 'lg');
+        this._thySizeSm = value === 'sm';
+        this._thySizeLg = value === 'lg';
     }
 
     @ContentChild('headerTitle')
@@ -34,9 +43,7 @@ export class ThyCardHeaderComponent implements OnInit {
     @ContentChild('headerOperation')
     public operationTemplateRef: TemplateRef<any>;
 
-    constructor() {
-    }
+    constructor() {}
 
-    ngOnInit() {
-    }
+    ngOnInit() {}
 }
