@@ -1,3 +1,12 @@
+## [7.5.24](https://github.com/worktile/ngx-tethys/compare/7.5.23...7.5.24) (2019-10-12)
+
+
+### Bug Fixes
+
+* **card:** change padding-top as 10px when size is sm and divided mode ([e7c17dc](https://github.com/worktile/ngx-tethys/commit/e7c17dc))
+
+
+
 ## [7.5.23](https://github.com/worktile/ngx-tethys/compare/7.5.22...7.5.23) (2019-10-12)
 
 
