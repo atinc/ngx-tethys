@@ -40,7 +40,10 @@
         }
 
         &--lg {
-            padding-top: 20px;
+            padding: {
+                top: 15px;
+                bottom: 15px;
+            }
         }
     }
 
@@ -63,6 +66,36 @@
         &--sm {
             padding-top: 0px;
             padding-bottom: 10px;
+        }
+    }
+
+    // 分割的模式, 头底部出现分割线，标题前面的垂直分割符隐藏，上下间距变大
+    &--divided {
+        .thy-card-header {
+            position: relative;
+            padding: {
+                top: $card-divided-spacing-y;
+                bottom: $card-divided-spacing-y;
+            }
+            &::after {
+                position: absolute;
+                content: ' ';
+                bottom: 0;
+                height: 1px;
+                background-color: $card-header-divider-color;
+                left: 20px;
+                right: 20px;
+            }
+
+            .card-header-icon {
+                display: none;
+            }
+        }
+        .thy-card-content {
+            padding: {
+                top: $card-divided-spacing-y;
+                bottom: $card-divided-spacing-y;
+            }
         }
     }
 
