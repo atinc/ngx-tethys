@@ -28,6 +28,14 @@ a.link-major:hover {
     color: #2dbcff;
     text-decoration: none;
 }
+a.link-muted {
+    color: #888;
+    text-decoration: none;
+}
+a.link-muted:hover {
+    color: #2dbcff;
+    text-decoration: none;
+}
 .close {
     color: #ddd;
     text-decoration: none;
@@ -1055,19 +1063,32 @@ input[type='radio']:after {
 .thy-select-custom-options .thy-option-item:not(.disabled).active .prefix-icon {
     color: #2dbcff;
 }
-.thy-select-custom-multiple .thy-select-custom-options .thy-option-item:not(.disabled).hover,
-.thy-select-custom-multiple .thy-select-custom-options .thy-option-item:not(.disabled):hover {
+.thy-custom-select-dropdown.thy-custom-select-dropdown-multiple
+    .thy-select-custom-options
+    .thy-option-item:not(.disabled).hover,
+.thy-custom-select-dropdown.thy-custom-select-dropdown-multiple
+    .thy-select-custom-options
+    .thy-option-item:not(.disabled):hover {
     background: #f3f3f3;
 }
-.thy-select-custom-multiple .thy-select-custom-options .thy-option-item:not(.disabled).active {
+.thy-custom-select-dropdown.thy-custom-select-dropdown-multiple
+    .thy-select-custom-options
+    .thy-option-item:not(.disabled).active {
     background: 0 0;
     color: #333;
 }
-.thy-select-custom-multiple .thy-select-custom-options .thy-option-item:not(.disabled).active .checked-icon {
+.thy-custom-select-dropdown.thy-custom-select-dropdown-multiple
+    .thy-select-custom-options
+    .thy-option-item:not(.disabled).active
+    .checked-icon {
     color: #2dbcff;
 }
-.thy-select-custom-multiple .thy-select-custom-options .thy-option-item:not(.disabled).active.hover,
-.thy-select-custom-multiple .thy-select-custom-options .thy-option-item:not(.disabled).active:hover {
+.thy-custom-select-dropdown.thy-custom-select-dropdown-multiple
+    .thy-select-custom-options
+    .thy-option-item:not(.disabled).active.hover,
+.thy-custom-select-dropdown.thy-custom-select-dropdown-multiple
+    .thy-select-custom-options
+    .thy-option-item:not(.disabled).active:hover {
     background: #f3f3f3;
     color: #333;
 }
@@ -1157,11 +1178,8 @@ input[type='radio']:after {
 .thy-cascader-menu-item-active .thy-cascader-menu-item-loading-icon {
     color: #2dbcff;
 }
-.thy-breadcrumb .thy-breadcrumb-icon {
-    color: #2dbcff;
-}
 .thy-breadcrumb .thy-breadcrumb-item a {
-    color: #aaa;
+    color: #888;
     text-decoration: none;
 }
 .thy-breadcrumb .thy-breadcrumb-item a:hover {

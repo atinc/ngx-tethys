@@ -1,3 +1,36 @@
+## [7.5.23](https://github.com/worktile/ngx-tethys/compare/7.5.22...7.5.23) (2019-10-12)
+
+
+### Bug Fixes
+
+* **custom-select:** add complex-select demo ([8746026](https://github.com/worktile/ngx-tethys/commit/8746026))
+* **custom-select:** add focus border and add interaction select function ([ab744d1](https://github.com/worktile/ngx-tethys/commit/ab744d1))
+* **custom-select:** fix error ([bf27eb8](https://github.com/worktile/ngx-tethys/commit/bf27eb8))
+* provider ComplexSelectSelectionComponent ([d9f713a](https://github.com/worktile/ngx-tethys/commit/d9f713a))
+* **custom-select:** fix test case ([6a348a0](https://github.com/worktile/ngx-tethys/commit/6a348a0))
+* **custom-select:** remove clear btn test style ([830f7fb](https://github.com/worktile/ngx-tethys/commit/830f7fb))
+* **custom-select:** remove console log ([4891927](https://github.com/worktile/ngx-tethys/commit/4891927))
+* **custom-select:** remove text-light for checked-icon ([32899f3](https://github.com/worktile/ngx-tethys/commit/32899f3))
+* **option:** update padding-right from 20 to 35 ([28ffc4c](https://github.com/worktile/ngx-tethys/commit/28ffc4c))
+* **select-control:** fix disable input when set thyDisabled ([6ae1634](https://github.com/worktile/ngx-tethys/commit/6ae1634))
+* **tree-select:** add type for positions ([636a212](https://github.com/worktile/ngx-tethys/commit/636a212))
+* **tree-select:** update style class for custom-select ([a594d15](https://github.com/worktile/ngx-tethys/commit/a594d15))
+
+
+### Features
+
+* **card:** add divided mode, header has border, padding increas [#265857](https://github.com/worktile/ngx-tethys/issues/265857) ([86862a5](https://github.com/worktile/ngx-tethys/commit/86862a5))
+* **custom-select:** add custom-select-top-control and support search ([fc0c63c](https://github.com/worktile/ngx-tethys/commit/fc0c63c))
+* **custom-select:** add empty status component for search ([c632286](https://github.com/worktile/ngx-tethys/commit/c632286))
+* **custom-select:** apply withWrap in KeyManager(#[#265594](https://github.com/worktile/ngx-tethys/issues/265594)) ([19db2d2](https://github.com/worktile/ngx-tethys/commit/19db2d2))
+* **custom-select:** support shortcut operation ([62f344f](https://github.com/worktile/ngx-tethys/commit/62f344f))
+* **custom-select:** support thySortComparator sort selectionmodel ([332c46b](https://github.com/worktile/ngx-tethys/commit/332c46b))
+* **select-control:** add thySize param and add test case ([4f2de96](https://github.com/worktile/ngx-tethys/commit/4f2de96))
+* **select-control:** support backspace remove selected option ([c4599cd](https://github.com/worktile/ngx-tethys/commit/c4599cd))
+* **select-control:** support thySize ([8369206](https://github.com/worktile/ngx-tethys/commit/8369206))
+
+
+
 ## [7.5.22](https://github.com/worktile/ngx-tethys/compare/7.5.21...7.5.22) (2019-10-11)
 
 
