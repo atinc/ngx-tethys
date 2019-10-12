@@ -5,6 +5,8 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './divided.component.html'
 })
 export class DemoCardDividedComponent implements OnInit {
+    contentSize = '';
+
     constructor() {}
 
     ngOnInit(): void {}
