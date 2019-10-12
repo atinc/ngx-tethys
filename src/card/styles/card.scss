@@ -7,7 +7,7 @@
     border-radius: $card-border-radius;
 
     .thy-card-header {
-        padding: 10px 20px 0 20px;
+        padding: 10px 20px;
         display: flex;
         flex: 0 0 auto;
         align-items: center;
@@ -45,7 +45,7 @@
     }
 
     .thy-card-content {
-        padding: 20px;
+        padding: 10px 20px 20px 20px;
         flex: auto;
 
         &--alignment-title {
@@ -54,15 +54,14 @@
         }
 
         &--scroll {
-            margin-top: 10px;
-            padding-top: 10px;
+            // margin-top: 10px;
             padding-bottom: 0;
             overflow-y: auto;
             overflow-x: hidden;
         }
 
         &--sm {
-            padding-top: 10px;
+            padding-top: 0px;
             padding-bottom: 10px;
         }
     }

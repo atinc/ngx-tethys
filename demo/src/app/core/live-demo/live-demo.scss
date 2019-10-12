@@ -1,8 +1,11 @@
+$demo-bg-dark: #ccc;
+$demo-bg-light: rgba(255, 255, 255, 0.2);
+
 .live-demos {
     display: block;
     .live-demo-container {
         &:not(:last-child) {
-            margin-bottom: 100px;
+            margin-bottom: 40px;
         }
     }
 }
@@ -65,10 +68,6 @@
             transition: all 0.4s ease;
             background: #f8f8f8;
             border-left: 1px solid #eee;
-            border-right: 1px solid #eee;
-            > div {
-                // margin-top: -100%;
-            }
             .thy-nav {
                 padding-left: 10px;
             }
@@ -87,11 +86,30 @@
     }
 
     .demo-box {
-        padding: 42px 24px 50px;
+        padding: 20px 20px;
         border: 1px solid #eee;
         box-shadow: 0 0 10px -6px rgba(0, 0, 0, 0.1);
         border-radius: 5px 5px 0 0;
     }
+
+    .demo-inner-wrapper {
+        padding: 15px;
+        background-size: 25px 25px;
+        background-color: $demo-bg-dark;
+        background-image: -webkit-gradient(
+            linear,
+            0 100%,
+            100% 0,
+            color-stop(0.25, $demo-bg-light),
+            color-stop(0.25, transparent),
+            color-stop(0.5, transparent),
+            color-stop(0.5, $demo-bg-light),
+            color-stop(0.75, $demo-bg-light),
+            color-stop(0.75, transparent),
+            to(transparent)
+        );
+    }
+
     .demo-box-actions {
         // background: #eee;
         border-radius: 0 0 5px 5px;
