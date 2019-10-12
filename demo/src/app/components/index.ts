@@ -85,6 +85,7 @@ import { NativeSelectBasicComponent } from './+select/native-select/native-selec
 import { CustomSelectScrollComponent } from './+select/scroll-load/custom-select-scroll.component';
 
 import { DemoActionMenuModule } from './+action-menu';
+import { DemoCardModule } from './+card';
 
 export const COMPONENTS = [
     DemoTypographyComponent,
@@ -222,5 +223,6 @@ export const DEMO_MODULES = [
     DemoNotifyModule,
     DemoTreeModule,
     DemoLayoutModule,
-    DemoActionMenuModule
+    DemoActionMenuModule,
+    DemoCardModule
 ];
