@@ -376,7 +376,8 @@ $dialog-supper-lg-width: 94vw !default;
 // Card
 $card-border-radius: 0 !default;
 $card-title-icon-color: $primary !default;
-$card-title-color: $gray-700 !default;
+// change from $gray-700(#888) to $gray-800 (#333) by Terry required
+$card-title-color: $gray-800 !default;
 $card-title-info-color: $gray-500 !default;
 $card-header-divider-color: $gray-200 !default;
 // divided 分割模式，头部和内容区域的上下间距
