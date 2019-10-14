@@ -1,3 +1,12 @@
+## [7.5.26](https://github.com/worktile/ngx-tethys/compare/7.5.25...7.5.26) (2019-10-14)
+
+
+### Bug Fixes
+
+* delete nested span when show custom option ([d196d2a](https://github.com/worktile/ngx-tethys/commit/d196d2a))
+
+
+
 ## [7.5.25](https://github.com/worktile/ngx-tethys/compare/7.5.24...7.5.25) (2019-10-14)
 
 
