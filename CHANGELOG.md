@@ -1,3 +1,12 @@
+## [7.5.25](https://github.com/worktile/ngx-tethys/compare/7.5.24...7.5.25) (2019-10-14)
+
+
+### Bug Fixes
+
+* **card:** change header title color to [#333](https://github.com/worktile/ngx-tethys/issues/333),  fix DOCUMENT error by way ([af7d8c0](https://github.com/worktile/ngx-tethys/commit/af7d8c0))
+
+
+
 ## [7.5.24](https://github.com/worktile/ngx-tethys/compare/7.5.23...7.5.24) (2019-10-12)
 
 
