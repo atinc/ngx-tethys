@@ -276,8 +276,6 @@ export class ThySelectCustomComponent
     }
 
     ngAfterContentInit() {
-        this.initKeyManager();
-
         this.options.changes
             .pipe(
                 startWith(null),
@@ -286,6 +284,7 @@ export class ThySelectCustomComponent
             .subscribe(() => {
                 this.resetOptions();
                 this.initializeSelection();
+                this.initKeyManager();
             });
     }
 
