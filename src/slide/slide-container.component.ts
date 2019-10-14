@@ -1,6 +1,6 @@
 import { Component, ElementRef, HostBinding, ViewChild, Inject, ChangeDetectorRef, Renderer2 } from '@angular/core';
 import { CdkPortalOutlet } from '@angular/cdk/portal';
-import { DOCUMENT } from '@angular/platform-browser';
+import { DOCUMENT } from '@angular/common';
 import { ThyUpperOverlayContainer } from '../core/overlay';
 import { Observable } from 'rxjs';
 import { AnimationEvent } from '@angular/animations';
