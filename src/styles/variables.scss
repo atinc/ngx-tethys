@@ -122,6 +122,12 @@ $btn-md-min-width: 70px !default;
 $btn-sm-min-width: 70px !default;
 $btn-xs-min-width: 60px !default;
 $btn-lg-min-width: 108px !default;
+// font-size
+$btn-font-size-xs: $font-size-sm !default;
+$btn-font-size-sm: $font-size-base !default;
+$btn-font-size-md: $font-size-base !default;
+$btn-font-size-base: $font-size-base !default;
+$btn-font-size-lg: $font-size-lg !default;
 
 // btn-group
 $btn-group-btn-padding-y-lg: $btn-padding-y-lg !default;
