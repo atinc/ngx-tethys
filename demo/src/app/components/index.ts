@@ -61,11 +61,8 @@ import { TOOLTIP_COMPONENTS } from './+tooltip';
 import { DemoIconSectionComponent } from './+icon/icon-section.component';
 import { ICON_COMPONENTS } from './+icon';
 import { DemoFlexibleTextComponent } from './+flexible-text/flexible-text-section.component';
-<<<<<<< HEAD
 import { DemoCopySectionComponent } from './+copy/copy-section.component';
-=======
 import { DemoFlexibleTextBasicComponent } from './+flexible-text/basic/flexible-text-basic.component';
->>>>>>> 79f4a2d4a48de3679760264106da273cb102460d
 import {
     DemoPopoverSectionComponent,
     DemoPopoverBasicComponent,
@@ -92,11 +89,8 @@ import { DemoActionMenuModule } from './+action-menu';
 import { DemoCardModule } from './+card';
 
 export const COMPONENTS = [
-<<<<<<< HEAD
     DemoCopySectionComponent,
-=======
     DemoTypographyComponent,
->>>>>>> 79f4a2d4a48de3679760264106da273cb102460d
     DemoPopBoxSectionComponent,
     PopBoxMenuDemoShowComponent,
     DemoPopoverSectionComponent,
