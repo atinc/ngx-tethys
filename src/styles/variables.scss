@@ -140,6 +140,9 @@ $dropdown-toggle-split-y: 0.625rem !default;
 // Forms
 // 输入框左右 padding 和 按钮大小不一致， bootstrap 是一致的
 // input-padding-x 之前是 0.875rem, 芳美说太大了，改成了 10px 大小
+$input-font-size: $font-size-base !default;
+$input-font-size-sm: $font-size-sm !default;
+$input-font-size-lg: $font-size-xlg !default;
 $input-padding-x: 0.625rem !default;
 $input-padding-y: $input-btn-padding-y !default;
 $input-padding-x-sm: $input-padding-x !default;

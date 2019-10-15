@@ -8,7 +8,7 @@
     display: block;
     width: 100%;
     padding: $input-padding-y $input-padding-x;
-    font-size: $font-size-base;
+    font-size: $input-font-size;
     line-height: $input-line-height;
     color: $input-color;
     background-color: $input-bg;
@@ -59,6 +59,7 @@
         //   color: $input-disabled-color;
         // }
     }
+
     // Thy Custom readonly is not disabled-bg
     &[readonly] {
         // iOS fix for unreadable disabled content; see https://github.com/twbs/bootstrap/issues/11655.
@@ -170,7 +171,7 @@
 
 .form-control-sm {
     padding: $input-padding-y-sm $input-padding-x-sm;
-    font-size: $font-size-sm;
+    font-size: $input-font-size-sm;
     line-height: $input-line-height-sm;
     @include border-radius($input-border-radius-sm);
 }
@@ -184,7 +185,7 @@
 .form-control-lg {
     padding: $input-padding-y-lg $input-padding-x-lg;
     // 最大的输入框字体是 24px
-    font-size: $font-size-xlg;
+    font-size: $input-font-size-lg;
     line-height: $input-line-height-lg;
     @include border-radius($input-border-radius-lg);
 }
@@ -220,6 +221,7 @@
     background-color: $input-focus-bg;
     border-color: $input-focus-border-color;
     outline: 0;
+
     // Avoid using mixin so we can pass custom focus shadow properly
     @if $enable-shadows {
         box-shadow: $input-box-shadow, $input-focus-box-shadow;
@@ -354,6 +356,7 @@
             align-items: center;
             justify-content: center;
         }
+
         .custom-control-label {
             margin-bottom: 0;
         }
@@ -370,10 +373,12 @@
         position: relative;
         top: 3px;
     }
+
     &--after {
         &::before {
             content: none;
         }
+
         &::after {
             content: '*';
             color: $danger;
@@ -393,6 +398,7 @@
         margin-right: 0px;
         margin-left: 0px;
     }
+
     .form-group {
         &:last-child {
             margin-bottom: 0;
