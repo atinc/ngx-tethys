@@ -9,7 +9,7 @@ $option-disabled-color: $gray-400 !default;
     position: relative;
 }
 
-@mixin thy-option($color: $secondary) {
+@mixin thy-option($hover-active-bg-color: $gray-100, $color: $secondary) {
     @include thy-option-common-layout();
     min-height: 40px;
     color: $color;
@@ -27,7 +27,7 @@ $option-disabled-color: $gray-400 !default;
     &:not(.disabled) {
         &.hover,
         &:hover {
-            background: $option-hover-active-bg-color;
+            background: $hover-active-bg-color;
             color: $body-color;
         }
         &.active {
@@ -35,7 +35,7 @@ $option-disabled-color: $gray-400 !default;
             color: $primary;
             &.hover,
             &:hover {
-                background: $option-hover-active-bg-color;
+                background: $hover-active-bg-color;
                 color: $body-color;
                 .prefix-icon {
                     color: $gray-300;
@@ -55,13 +55,13 @@ $option-disabled-color: $gray-400 !default;
     }
 }
 
-@mixin thy-option-theme($color: $secondary) {
+@mixin thy-option-theme($hover-active-bg-color: $gray-100, $color: $secondary) {
     color: $color;
 
     &:not(.disabled) {
         &.hover,
         &:hover {
-            background: $option-hover-active-bg-color;
+            background: $hover-active-bg-color;
             color: $body-color;
         }
 
@@ -70,7 +70,7 @@ $option-disabled-color: $gray-400 !default;
             color: $primary;
             &.hover,
             &:hover {
-                background: $option-hover-active-bg-color;
+                background: $hover-active-bg-color;
                 color: $body-color;
             }
             .prefix-icon {
@@ -80,7 +80,7 @@ $option-disabled-color: $gray-400 !default;
     }
 }
 
-@mixin thy-multiple-option {
+@mixin thy-multiple-option($hover-active-bg-color: $gray-100) {
     .checked-icon {
         visibility: hidden;
         position: absolute;
@@ -90,7 +90,7 @@ $option-disabled-color: $gray-400 !default;
     &:not(.disabled) {
         &.hover,
         &:hover {
-            background: $option-hover-active-bg-color;
+            background: $hover-active-bg-color;
             .checked-icon {
                 visibility: visible;
                 color: $gray-300;
@@ -105,7 +105,7 @@ $option-disabled-color: $gray-400 !default;
             }
             &.hover,
             &:hover {
-                background: $option-hover-active-bg-color;
+                background: $hover-active-bg-color;
                 color: $body-color;
             }
         }
@@ -117,11 +117,11 @@ $option-disabled-color: $gray-400 !default;
     }
 }
 
-@mixin thy-multiple-option-theme {
+@mixin thy-multiple-option-theme($hover-active-bg-color: $gray-100) {
     &:not(.disabled) {
         &.hover,
         &:hover {
-            background: $option-hover-active-bg-color;
+            background: $hover-active-bg-color;
         }
         &.active {
             background: transparent;
@@ -131,7 +131,7 @@ $option-disabled-color: $gray-400 !default;
             }
             &.hover,
             &:hover {
-                background: $option-hover-active-bg-color;
+                background: $hover-active-bg-color;
                 color: $body-color;
             }
         }
