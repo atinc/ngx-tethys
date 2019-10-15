@@ -1,7 +1,4 @@
 .thy-breadcrumb {
-    .thy-breadcrumb-icon {
-        color: $primary;
-    }
     .thy-breadcrumb-item {
         a {
             @include link-variant($breadcrumb-text-color, none, $primary, none);

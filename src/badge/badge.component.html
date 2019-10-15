@@ -2,7 +2,8 @@
   <span
     *ngIf="st.isShowBadge"
     class="thy-badge {{ badgeClassName }}"
-    [ngStyle]="{ backgroundColor: thyColor, borderColor: thyColor }"
+    [style.color]="textColor"
+    [style.backgroundColor]="backgroundColor"
     >{{ displayContent }}</span
   >
 </ng-container>

@@ -57,6 +57,11 @@ export class DemoListComponent {
         isLayoutGrid: false
     };
 
+    selectionGridModel = {
+        multiple: true,
+        defaultValues: [2, 3]
+    };
+
     public apiOptionParameters = [
         {
             property: 'thyValue',

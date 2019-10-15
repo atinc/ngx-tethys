@@ -1,5 +1,6 @@
 import { helpers } from '../util';
 import { ThyTreeService } from './tree.service';
+import { ThyDragDropEvent } from '../drag-drop/drag-drop.class';
 
 export interface ThyTreeNodeData {
     key?: number | string;
@@ -56,7 +57,7 @@ export class ThyTreeNode {
 
     constructor(node: ThyTreeNodeData, parent: ThyTreeNode = null, service?: ThyTreeService) {
         this.title = node.title;
-        this.key = node.key || null;
+        this.key = node.key;
         this.children = [];
         this.parentNode = parent;
         this.level = parent ? parent.level + 1 : this.level;
@@ -100,9 +101,7 @@ export class ThyTreeNode {
     }
 
     public addChildren(children: ThyTreeNodeData | ThyTreeNodeData[], index: number = -1): void {
-        if (!helpers.isArray(children)) {
-            children = [children];
-        }
+        children = helpers.coerceArray(children);
         ((children as ThyTreeNodeData[]) || []).forEach((childNode: ThyTreeNodeData, i: number) => {
             if (index === -1) {
                 this.children.push(new ThyTreeNode(childNode, this));
@@ -130,4 +129,17 @@ export interface ThyTreeEmitEvent {
     dragNode?: ThyTreeNode;
 
     targetNode?: ThyTreeNode;
+}
+
+export interface ThyTreeDragDropEvent {
+    event?: ThyDragDropEvent;
+    currentIndex?: number;
+    dragNode?: ThyTreeNode;
+    targetNode?: ThyTreeNode;
+    afterNode?: ThyTreeNode;
+}
+
+export class ThyTreeIcons {
+    expand?: string;
+    collapse?: string;
 }

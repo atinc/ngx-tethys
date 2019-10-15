@@ -1,0 +1,16 @@
+version: 2
+jobs:
+    build:
+        working_directory: ~/ngx-tethys
+        docker:
+            - image: circleci/node:10-browsers
+        steps:
+            - checkout
+            - restore_cache:
+                  key: ngx-tethys-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - run: npm install
+            - save_cache:
+                  key: ngx-tethys-{{ .Branch }}-{{ checksum "package-lock.json" }}
+                  paths:
+                      - 'node_modules'
+            - run: npm run build && npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI

@@ -30,6 +30,7 @@ export class ThyFormGroupComponent implements OnInit {
     labelRequired = false;
     labelPaddingTopClear = false;
     feedbackIcon: string;
+    feedbackSvgIconName: string;
     tips: string;
 
     @HostBinding('class.row-fill') _rowFill = false;
@@ -70,7 +71,7 @@ export class ThyFormGroupComponent implements OnInit {
         if (internalIconMap[value]) {
             this.feedbackIcon = internalIconMap[value];
         } else {
-            this.feedbackIcon = value;
+            this.feedbackSvgIconName = value;
         }
     }
 
@@ -92,14 +93,9 @@ export class ThyFormGroupComponent implements OnInit {
     @ContentChild('formGroup')
     public contentTemplateRef: TemplateRef<any>;
 
-    constructor(
-        @Optional() private thyParentForm: ThyFormDirective,
-        private thyTranslate: ThyTranslate
-    ) {}
+    constructor(@Optional() private thyParentForm: ThyFormDirective, private thyTranslate: ThyTranslate) {}
 
     ngOnInit() {
-        this.isHorizontal = this.thyParentForm
-            ? this.thyParentForm.isHorizontal
-            : true;
+        this.isHorizontal = this.thyParentForm ? this.thyParentForm.isHorizontal : true;
     }
 }

@@ -1,0 +1,21 @@
+<form thyForm thyLayout="inline">
+  <thy-form-group thyLabelText="Content Size">
+    <thy-select name="contentSize" [(ngModel)]="contentSize">
+      <option value="">Default</option>
+      <option value="sm">sm</option>
+    </thy-select>
+  </thy-form-group>
+</form>
+<div class="demo-inner-wrapper mt-3">
+  <thy-card style="width: 240px" thyDivided="true">
+    <thy-card-header thyTitle="头部标题">
+      <ng-template #headerOperation>
+        <button thyButtonIcon="outdent"></button>
+      </ng-template>
+    </thy-card-header>
+    <thy-card-content [thySize]="contentSize">
+      我是 content<br />
+      我是 content<br />
+    </thy-card-content>
+  </thy-card>
+</div>

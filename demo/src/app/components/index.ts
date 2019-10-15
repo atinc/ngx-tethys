@@ -1,11 +1,7 @@
 import { DemoPopBoxSectionComponent, PopBoxMenuDemoShowComponent } from './+pop-box/pop-box-section.component';
-import { DemoButtonSectionComponent } from './+button/button-section.component';
-import { DemoRebootSectionComponent } from './+reboot/reboot-section.component';
 import { DemoTableSectionComponent } from './+table/table-section.component';
 import { DemoGridSectionComponent } from './+grid/grid-section.component';
-import { RebootSectionLinkComponent } from './+reboot/items/link.component';
 import { DemoWTDSectionLinkComponent } from './+wtd/wtd.component';
-import { DemoActionMenuSectionComponent } from './+action-menu/action-menu-section.component';
 import { DemoBadgeSectionComponent } from './+badge/badge-section.component';
 
 import { DemoAvatarSectionComponent } from './+avatar/avatar-section.component';
@@ -13,6 +9,7 @@ import { DemoAvatarSizeSectionComponent } from './+avatar/size/size.component';
 import { DemoAvatarTypeSectionComponent } from './+avatar/type/avatar-type.component';
 import { DemoAvatarHasBadgeSectionComponent } from './+avatar/has-badge/has-badge.component';
 import { DemoAvatarRemoveSectionComponent } from './+avatar/remove/remove.component';
+import { DemoAvatarDisabledSectionComponent } from './+avatar/disabled/disabled.component';
 
 import { DemoLabelSectionComponent } from './+label/label-section.component';
 import { DemoLayoutSectionComponent } from './+layout/layout-section.component';
@@ -24,8 +21,6 @@ import { DemoLoadingSectionComponent } from './+loading/loading-section.componen
 import { DemoAlertSectionComponent } from './+alert/alert-section.component';
 import { DemoPaginationComponent } from './+pagination/pagination.component';
 import { DemoConfirmSectionComponent } from './+confirm/confirm-section.component';
-import { DemoTreeSectionComponent } from './+tree/tree-section.component';
-import { DemoNotifySectionComponent } from './+notify/notify-section.component';
 import { DemoEmptySectionComponent } from './+empty/empty-section.component';
 import { DemoSwitchSectionComponent } from './+switch/switch-section.component';
 import { DemoTransferSectionComponent } from './+transfer/transfer-section.component';
@@ -39,6 +34,7 @@ import { DemoRadioSectionComponent } from './+form-radio/radio-section.component
 import { DemoSelectSectionComponent } from './+select/select-section.component';
 import { DemoSlideSectionComponent } from './+slide/slide-section.component';
 import { DemoSlideContentComponent } from './+slide/slide-content.component';
+import { DemoSlideExampleComponent } from './+slide/slide-example.component';
 import { DemoPropertyOperationSectionComponent } from './+property-operation/property-operation-section.component';
 import { DemoUploaderSectionComponent } from './+uploader/uploader-section.component';
 import { DemoDateRangeSectionComponent } from './+date-range/date-range-section.component';
@@ -49,8 +45,6 @@ import { DemoTreeSelectSectionComponent } from './+tree-select/tree-select-secti
 import { DemoStrengthComponent } from './+strength/strength-section.component';
 import { DemoStepperSectionComponent } from './+stepper/stepper-section.component';
 import { DemoCascaderSectionComponent } from './+cascader/cascader-section.component';
-import { DemoDialogSectionComponent } from './+dialog/dialog-section.component';
-import { DemoDialogContentComponent } from './+dialog/dialog-content.component';
 import { DemoBreadcrumbSectionComponent } from './+breadcrumb/breadcrumb-section.component';
 import { DemoStoreSectionComponent } from './+store/store-section.component';
 import { DemoStoreOtherSectionComponent } from './+store/store-other-section.component';
@@ -67,7 +61,11 @@ import { TOOLTIP_COMPONENTS } from './+tooltip';
 import { DemoIconSectionComponent } from './+icon/icon-section.component';
 import { ICON_COMPONENTS } from './+icon';
 import { DemoFlexibleTextComponent } from './+flexible-text/flexible-text-section.component';
+<<<<<<< HEAD
 import { DemoCopySectionComponent } from './+copy/copy-section.component';
+=======
+import { DemoFlexibleTextBasicComponent } from './+flexible-text/basic/flexible-text-basic.component';
+>>>>>>> 79f4a2d4a48de3679760264106da273cb102460d
 import {
     DemoPopoverSectionComponent,
     DemoPopoverBasicComponent,
@@ -75,9 +73,30 @@ import {
     DemoPopoverDirectiveComponent,
     DemoPopoverDirectiveContentComponent
 } from './+popover';
+import { DialogDemoModule } from './+dialog';
+import { DemoButtonModule } from './+button';
+import { DemoNotifyModule } from './+notify';
+import { DemoTypographyComponent } from './+typography/typography.component';
+import { DemoPropertyOperationGroupComponent, DemoPropertyOperationBasicComponent } from './+property-operation';
+import { DemoTreeModule } from './+tree';
+import { DemoNavIconNavComponent } from './+nav/icon-nav/icon-nav.component';
+import { DemoLayoutModule } from './+layout';
+import { CustomSelectBasicComponent } from './+select/basic/custom-select-basic.component';
+import { CustomSelectEmptyComponent } from './+select/empty/custom-select-empty.component';
+import { CustomSelectDisplayComponent } from './+select/display/custom-select-display.component';
+import { CustomSelectGroupComponent } from './+select/group/custom-select-group.component';
+import { NativeSelectBasicComponent } from './+select/native-select/native-select-basic.component';
+import { CustomSelectScrollComponent } from './+select/scroll-load/custom-select-scroll.component';
+
+import { DemoActionMenuModule } from './+action-menu';
+import { DemoCardModule } from './+card';
 
 export const COMPONENTS = [
+<<<<<<< HEAD
     DemoCopySectionComponent,
+=======
+    DemoTypographyComponent,
+>>>>>>> 79f4a2d4a48de3679760264106da273cb102460d
     DemoPopBoxSectionComponent,
     PopBoxMenuDemoShowComponent,
     DemoPopoverSectionComponent,
@@ -86,13 +105,9 @@ export const COMPONENTS = [
     DemoPopoverDirectiveComponent,
     DemoPopoverDirectiveContentComponent,
 
-    DemoButtonSectionComponent,
     DemoIconSectionComponent,
-    DemoRebootSectionComponent,
     DemoTableSectionComponent,
-    RebootSectionLinkComponent,
     DemoWTDSectionLinkComponent,
-    DemoActionMenuSectionComponent,
     DemoBadgeSectionComponent,
     DemoGridSectionComponent,
 
@@ -100,12 +115,13 @@ export const COMPONENTS = [
     DemoAvatarSizeSectionComponent,
     DemoAvatarTypeSectionComponent,
     DemoAvatarHasBadgeSectionComponent,
+    DemoAvatarDisabledSectionComponent,
     DemoAvatarRemoveSectionComponent,
 
     DemoLabelSectionComponent,
     DemoLayoutSectionComponent,
-    DemoNotifySectionComponent,
     DemoNavSectionComponent,
+    DemoNavIconNavComponent,
     DemoMenuSectionComponent,
     DemoMenuPopComponent,
     DemoModalSectionComponent,
@@ -116,7 +132,6 @@ export const COMPONENTS = [
     DemoLoadingSectionComponent,
     DemoAlertSectionComponent,
     DemoPaginationComponent,
-    DemoTreeSectionComponent,
     DemoEmptySectionComponent,
     DemoSwitchSectionComponent,
     DemoTransferSectionComponent,
@@ -131,6 +146,7 @@ export const COMPONENTS = [
     DemoSelectSectionComponent,
     DemoSlideSectionComponent,
     DemoSlideContentComponent,
+    DemoSlideExampleComponent,
     DemoRadioSectionComponent,
     DemoSelectSectionComponent,
     DemoPropertyOperationSectionComponent,
@@ -142,12 +158,12 @@ export const COMPONENTS = [
     DemoStepperSectionComponent,
     DemoCascaderSectionComponent,
 
-    DemoDialogSectionComponent,
-    DemoDialogContentComponent,
-
     DemoTooltipSectionComponent,
     DemoOverlaySectionComponent,
     CreateOverlayComponent,
+
+    DemoPropertyOperationBasicComponent,
+    DemoPropertyOperationGroupComponent,
 
     ...PROGRESS_COMPONENTS,
     ...TOOLTIP_COMPONENTS,
@@ -160,7 +176,15 @@ export const COMPONENTS = [
     DemoArrowSwitcherSectionComponent,
 
     DemoMarkdownSectionComponent,
-    DemoFlexibleTextComponent
+    DemoFlexibleTextComponent,
+    DemoFlexibleTextBasicComponent,
+
+    CustomSelectBasicComponent,
+    CustomSelectEmptyComponent,
+    CustomSelectDisplayComponent,
+    CustomSelectGroupComponent,
+    NativeSelectBasicComponent,
+    CustomSelectScrollComponent
 ];
 
 export const ENTRY_COMPONENTS = [
@@ -170,22 +194,43 @@ export const ENTRY_COMPONENTS = [
     DemoPopoverDirectiveComponent,
     DemoPopoverDirectiveContentComponent,
 
-    RebootSectionLinkComponent,
     DemoModalContentComponent,
     DemoSlideContentComponent,
+    DemoSlideExampleComponent,
 
     DemoAvatarSizeSectionComponent,
     DemoAvatarTypeSectionComponent,
     DemoAvatarHasBadgeSectionComponent,
+    DemoAvatarDisabledSectionComponent,
     DemoAvatarRemoveSectionComponent,
 
-    DemoDialogContentComponent,
     CreateOverlayComponent,
     DemoStoreOtherSectionComponent,
 
     DemoMenuPopComponent,
+    DemoNavIconNavComponent,
+    DemoPropertyOperationBasicComponent,
+    DemoPropertyOperationGroupComponent,
 
     ...PROGRESS_COMPONENTS,
     ...TOOLTIP_COMPONENTS,
-    ...ICON_COMPONENTS
+    ...ICON_COMPONENTS,
+    DemoFlexibleTextBasicComponent,
+
+    CustomSelectBasicComponent,
+    CustomSelectEmptyComponent,
+    CustomSelectDisplayComponent,
+    CustomSelectGroupComponent,
+    NativeSelectBasicComponent,
+    CustomSelectScrollComponent
+];
+
+export const DEMO_MODULES = [
+    DialogDemoModule,
+    DemoButtonModule,
+    DemoNotifyModule,
+    DemoTreeModule,
+    DemoLayoutModule,
+    DemoActionMenuModule,
+    DemoCardModule
 ];

@@ -1,6 +1,6 @@
 {
   "name": "ngx-tethys",
-  "version": "7.4.0",
+  "version": "7.5.26",
   "license": "MIT",
   "scripts": {
     "build": "npm run build:ngm",
@@ -10,7 +10,7 @@
     "build:ngm": "ngm build -p src --clean",
     "build:theme": "gulp build-theme",
     "build:theme:watch": "npm run build:theme && gulp build-theme:watch",
-    "changelog": "conventional-changelog -i CHANGELOG.md -s --pkg src/package.json",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s --pkg src/package.json",
     "release": "node ./scripts/release.js",
     "release-next": "node ./scripts/release-next.js",
     "pub-only": "cd ./built && npm publish && cd ..",
@@ -104,7 +104,7 @@
     "semver": "^6.0.0",
     "standard-version": "^5.0.2",
     "ts-node": "~5.0.1",
-    "tslint": "~5.9.1",
+    "tslint": "~5.20.0",
     "typescript": "~3.2.4",
     "webpack": "^4.23.1"
   },

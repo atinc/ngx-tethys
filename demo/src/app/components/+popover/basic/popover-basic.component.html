@@ -15,14 +15,43 @@
       <option value="rightBottom">rightBottom</option>
     </thy-select>
   </thy-form-group>
+  <thy-form-group>
+    <label thyCheckbox thyLabelText="hasBackdrop" [(ngModel)]="hasBackdrop" name="checkbox1"></label>
+  </thy-form-group>
 </form>
-<div class="btn-pair mt-2">
-  <button #componentTrigger thyButton="primary" (click)="openPopover(componentTrigger)">
-    Use Component
+<div class="btn-pair mt-3">
+  <button #componentTrigger thyButton="secondary" thySize="md" (click)="openPopover(componentTrigger)">
+    Use Component 1
   </button>
-  <button #templateTrigger thyButton="primary" (click)="openTemplatePopover(templateTrigger, template)">
-    Use Template
+  <button #templateTrigger thyButton="secondary" thySize="md" (click)="openTemplatePopover(templateTrigger, template)">
+    Use Template 2
   </button>
+  <button
+    #templateTrigger3
+    thyButton="secondary"
+    thySize="md"
+    (click)="openTemplatePopoverManualClosure(templateTrigger3, template)"
+  >
+    Use Template 3 with manualClosure
+  </button>
+  <button
+    #templateTrigger4
+    thyButton="secondary"
+    thySize="md"
+    (click)="openTemplatePopoverManualClosure(templateTrigger4, template)"
+  >
+    Use Template 4 with manualClosure
+  </button>
+  <thy-icon-nav>
+    <a
+      href="javascript:;"
+      thyIconNavLink
+      thyIconNavLinkIcon="vertical-view-lines"
+      thyTooltip="视图"
+      thyTooltipPlacement="bottom"
+      (click)="openTemplatePopoverIconNav($event, template)"
+    ></a>
+  </thy-icon-nav>
 </div>
 <ng-template #template>
   <p class="p-2">Hello, I am template content</p>

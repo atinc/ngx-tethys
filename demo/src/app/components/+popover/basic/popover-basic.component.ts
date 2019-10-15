@@ -7,15 +7,6 @@ import {
     ChangeDetectionStrategy,
     ElementRef
 } from '@angular/core';
-import {
-    ConnectionPositionPair,
-    OriginConnectionPosition,
-    OverlayConnectionPosition,
-    Overlay,
-    OverlayRef
-} from '@angular/cdk/overlay';
-import { TemplatePortal, ComponentPortal } from '@angular/cdk/portal';
-import { take, takeUntil } from 'rxjs/operators';
 import { mixinUnsubscribe, MixinBase } from 'ngx-tethys/core';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { ThyPlacement } from 'ngx-tethys/core';
@@ -87,6 +78,7 @@ export class DemoPopoverContentComponent {}
 export class DemoPopoverBasicComponent extends mixinUnsubscribe(MixinBase) implements OnInit {
     placement: ThyPlacement = 'bottom';
     trigger = 'click';
+    hasBackdrop = true;
 
     constructor(private thyPopover: ThyPopover, private viewContainerRef: ViewContainerRef, private ngZone: NgZone) {
         super();
@@ -97,14 +89,40 @@ export class DemoPopoverBasicComponent extends mixinUnsubscribe(MixinBase) imple
     openPopover(element: { elementRef: ElementRef }) {
         this.thyPopover.open(DemoPopoverContentComponent, {
             origin: element.elementRef,
-            placement: this.placement
+            placement: this.placement,
+            hasBackdrop: this.hasBackdrop,
+            panelClass: 'demo-popover',
+            insideClosable: true
         });
     }
 
     openTemplatePopover(element: { elementRef: ElementRef }, template: TemplateRef<HTMLElement>) {
         this.thyPopover.open(template, {
             origin: element.elementRef,
-            placement: this.placement
+            hasBackdrop: this.hasBackdrop,
+            placement: this.placement,
+            panelClass: 'demo-popover'
+        });
+    }
+
+    openTemplatePopoverManualClosure(element: { elementRef: ElementRef }, template: TemplateRef<HTMLElement>) {
+        this.thyPopover.open(template, {
+            origin: element.elementRef,
+            manualClosure: true,
+            hasBackdrop: this.hasBackdrop,
+            placement: this.placement,
+            panelClass: 'demo-popover'
+        });
+    }
+
+    openTemplatePopoverIconNav(event: Event, template: TemplateRef<HTMLElement>) {
+        this.thyPopover.open(template, {
+            origin: event.currentTarget as HTMLElement,
+            manualClosure: true,
+            hasBackdrop: this.hasBackdrop,
+            placement: this.placement,
+            panelClass: 'demo-popover',
+            originActiveClass: 'active'
         });
     }
 }

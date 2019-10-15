@@ -2,7 +2,16 @@
     padding-top: 25px;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
-    overflow: auto;
+    overflow-y: auto;
+    &::-webkit-scrollbar-thumb {
+        background-color: transparent;
+        transition: background-color 0.3s;
+    }
+    &:hover {
+        &::-webkit-scrollbar-thumb {
+            background: #ddd;
+        }
+    }
     .toc-section {
         .toc-section-head {
             padding: 10px 20px;

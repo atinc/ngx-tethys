@@ -18,6 +18,7 @@ export type buttonGroupType = 'outline-primary' | 'outline-default';
 
 const buttonGroupSizeMap = {
     sm: ['btn-group-sm'],
+    md: ['btn-group-md'],
     lg: ['btn-group-lg'],
     xs: ['btn-group-xs']
 };
@@ -34,18 +35,26 @@ const buttonGroupTypeMap = {
     encapsulation: ViewEncapsulation.None
 })
 export class ThyButtonGroupComponent implements OnInit {
-    private _type: string;
+    private initialized = false;
 
-    private _size: string;
+    private type: string;
+
+    private size: string;
 
     @Input()
     set thySize(size: buttonGroupSize) {
-        this._size = size;
+        this.size = size;
+        if (this.initialized) {
+            this.setClasses();
+        }
     }
 
     @Input()
     set thyType(type: ThyButtonType) {
-        this._type = type;
+        this.type = type;
+        if (this.initialized) {
+            this.setClasses();
+        }
     }
 
     @Input()
@@ -62,16 +71,17 @@ export class ThyButtonGroupComponent implements OnInit {
     }
 
     ngOnInit() {
-        this._setClasses();
+        this.setClasses();
+        this.initialized = true;
     }
 
-    private _setClasses() {
+    private setClasses() {
         let classNames: string[] = [];
-        if (buttonGroupTypeMap[this._type]) {
-            classNames = [...buttonGroupTypeMap[this._type]];
+        if (buttonGroupTypeMap[this.type]) {
+            classNames = [...buttonGroupTypeMap[this.type]];
         }
-        if (buttonGroupSizeMap[this._size]) {
-            classNames.push(buttonGroupSizeMap[this._size]);
+        if (buttonGroupSizeMap[this.size]) {
+            classNames.push(buttonGroupSizeMap[this.size]);
         }
         this.updateHostClassService.updateClass(classNames);
     }

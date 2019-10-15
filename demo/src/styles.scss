@@ -3,14 +3,18 @@
 // @import '~bootstrap/scss/bootstrap';
 // $primary: #338FE5;
 
+$demo-toc-width: 200px;
+
 @import '../../src/styles/index.scss';
-// @import './styles/wt-font.scss';
 @import './assets/fonts/wtd/iconfont.css';
 @import './assets/icons/fonts/icons.scss';
 @import '~bootstrap/scss/nav';
 @import './app/app.component.scss';
-@import '~highlight.js/styles/dracula.css';
+@import '~highlight.js/styles/github.css';
 @import './app/core/live-demo/live-demo.scss';
+@import './app/core/demo-title/demo-title.scss';
+@import './app/components/styles.scss';
+@import './app/docs/api-parameters/api-parameters.scss';
 
 .header {
     margin-top: 10px;

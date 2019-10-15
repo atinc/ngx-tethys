@@ -1,0 +1,52 @@
+<div
+  cdk-overlay-origin
+  thySelectControl
+  (click)="toggle()"
+  #origin="cdkOverlayOrigin"
+  #trigger
+  [thyPanelOpened]="panelOpen"
+  [thySelectedOptions]="selected"
+  [thyIsMultiple]="isMultiple"
+  [thyShowSearch]="thyShowSearch"
+  [thyAllowClear]="thyAllowClear"
+  [thySize]="thySize"
+  [thyPlaceholder]="thyPlaceHolder"
+  [customDisplayTemplate]="selectedValueDisplayRef"
+  [thyDisabled]="disabled"
+  (thyOnClear)="clearSelectValue($event)"
+  (thyOnRemove)="remove($event)"
+  (thyOnSearch)="onSearchFilter($event)"
+></div>
+
+<ng-template
+  cdk-connected-overlay
+  cdkConnectedOverlayHasBackdrop
+  cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
+  [cdkConnectedOverlayPositions]="dropDownPositions"
+  [cdkConnectedOverlayOrigin]="origin"
+  [cdkConnectedOverlayOpen]="panelOpen"
+  [cdkConnectedOverlayWidth]="triggerRect?.width"
+  (attach)="onAttached()"
+  (backdropClick)="close()"
+  (detach)="close()"
+>
+  <div [ngClass]="dropDownClass">
+    <ng-container *ngIf="options.length > 0 || optionGroups.length > 0; else emptyPlaceholder">
+      <div
+        #panel
+        class="thy-select-custom-options"
+        thyScroll
+        (thyOnScrolled)="onOptionsScrolled($event)"
+        [thyEnable]="thyEnableScrollLoad"
+      >
+        <ng-content></ng-content>
+        <ng-container *ngIf="isShowEmptySearchResult">
+          <thy-empty [thyMessage]="emptySearchMessageText"></thy-empty>
+        </ng-container>
+      </div>
+    </ng-container>
+    <ng-template #emptyPlaceholder>
+      <thy-empty [thyMessage]="emptyStateText"></thy-empty>
+    </ng-template>
+  </div>
+</ng-template>

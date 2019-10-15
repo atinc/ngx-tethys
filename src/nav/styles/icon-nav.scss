@@ -1,0 +1,65 @@
+$icon-nav-link-padding-x: 0.438rem;
+$icon-nav-link-padding-y: 0.282rem;
+
+@mixin icon-nav-link-variant($color, $hover-color, $hover-bg-color) {
+    color: $color;
+    padding: $icon-nav-link-padding-y $icon-nav-link-padding-x;
+    // 解决图标不居中问题
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+
+    &.active {
+        color: $hover-color;
+        text-decoration: none;
+        background: $hover-bg-color;
+        border-radius: $border-radius;
+    }
+    @include hover {
+        color: $hover-color;
+        text-decoration: none;
+        background: $hover-bg-color;
+        border-radius: $border-radius;
+    }
+
+    // Disabled state lightens text
+    &.disabled {
+        color: $nav-link-disabled-color;
+        border-bottom: none;
+    }
+}
+
+@mixin icon-nav-link-size($padding, $margin-right) {
+    padding: $padding;
+    margin-right: $margin-right;
+    &:last-child {
+        margin-right: 0;
+    }
+}
+
+.thy-icon-nav-link {
+    transition: opacity 0.2s ease-in-out;
+    @include icon-nav-link-variant($icon-nav-link-color, $icon-nav-link-hover-color, rgba($primary, 0.1));
+}
+
+.thy-icon-nav {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+    .thy-icon-nav-link {
+        @include icon-nav-link-size($icon-nav-link-padding-y $icon-nav-link-padding-x, $icon-nav-link-spacing);
+    }
+}
+
+.thy-icon-nav-secondary {
+    .thy-icon-nav-link {
+        @include icon-nav-link-size(
+            $icon-nav-link-padding-y $icon-nav-link-padding-x,
+            $icon-nav-link-secondary-spacing
+        );
+        @include icon-nav-link-variant($icon-nav-link-secondary-color, $icon-nav-link-hover-color, rgba($primary, 0.1));
+    }
+}

@@ -6,10 +6,16 @@ export const apiPopoverConfigParameters = [
         default: ''
     },
     {
-        property: 'placement',
-        description: `弹出位置，'top' | 'topLeft' | 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight' | 'left' | 'leftTop' | 'leftBottom' | 'right' | 'rightTop' | 'rightBottom'`,
-        type: 'string',
-        default: 'bottom'
+        property: 'originActiveClass',
+        description: '对弹出悬浮层位置计算的 Origin Element，Connected Element 添加 class',
+        type: 'string | string[]',
+        default: 'thy-popover-origin-active'
+    },
+    {
+        property: 'manualClosure',
+        description: `是否只能手动关闭，唯一标识为origin`,
+        type: 'boolean',
+        default: 'false'
     },
     {
         property: 'initialState',
@@ -24,10 +30,22 @@ export const apiPopoverConfigParameters = [
         default: 'true'
     },
     {
+        property: 'panelClass',
+        description: 'overlay panel 类名',
+        type: 'string | string[]',
+        default: ''
+    },
+    {
         property: 'backdropClosable',
         description: '点击幕布或者按ESC键是否自动关闭弹出框',
         type: 'boolean',
         default: 'true'
+    },
+    {
+        property: 'insideClosable',
+        description: '点击popover内部是否自动关闭弹出框',
+        type: 'boolean',
+        default: 'false'
     },
     {
         property: 'closeOnNavigation',

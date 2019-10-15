@@ -16,7 +16,7 @@
     font-size: $badge-font-size;
     font-weight: $badge-font-weight;
     line-height: 1;
-    vertical-align: middle;
+    vertical-align: 1px;
     padding: $badge-padding-y $badge-padding-x;
     @include border-radius($badge-border-radius);
 }
@@ -24,7 +24,7 @@
 .thy-badge-count {
     text-align: center;
     white-space: nowrap;
-    vertical-align: baseline;
+    // vertical-align: baseline;
     color: $badge-color;
     background-color: $badge-bg;
     @include set-badge-size($font-size-sm, 2px, 5px);
@@ -35,7 +35,7 @@
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    vertical-align: middle;
+    // vertical-align: middle;
 }
 
 .thy-badge-hollow {
@@ -43,7 +43,7 @@
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    vertical-align: middle;
+    // vertical-align: middle;
     border: solid 1px $badge-bg;
     background-color: transparent;
 }
@@ -51,7 +51,7 @@
 // #endregion
 // #region
 .thy-badge-danger {
-    @include set-badge-color($white, $danger);
+    @include set-badge-color($white, $badge-danger-color);
     &.thy-badge-hollow {
         background-color: transparent;
     }

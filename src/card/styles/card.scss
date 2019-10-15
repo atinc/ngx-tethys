@@ -7,7 +7,7 @@
     border-radius: $card-border-radius;
 
     .thy-card-header {
-        padding: 10px 20px 0 20px;
+        padding: 10px 20px;
         display: flex;
         flex: 0 0 auto;
         align-items: center;
@@ -40,12 +40,15 @@
         }
 
         &--lg {
-            padding-top: 20px;
+            padding: {
+                top: 15px;
+                bottom: 15px;
+            }
         }
     }
 
     .thy-card-content {
-        padding: 20px;
+        padding: 10px 20px 20px 20px;
         flex: auto;
 
         &--alignment-title {
@@ -54,16 +57,49 @@
         }
 
         &--scroll {
-            margin-top: 10px;
-            padding-top: 10px;
+            // margin-top: 10px;
             padding-bottom: 0;
             overflow-y: auto;
             overflow-x: hidden;
         }
 
         &--sm {
-            padding-top: 10px;
+            padding-top: 0px;
             padding-bottom: 10px;
+        }
+    }
+
+    // 分割的模式, 头底部出现分割线，标题前面的垂直分割符隐藏，上下间距变大
+    &--divided {
+        .thy-card-header {
+            position: relative;
+            padding: {
+                top: $card-divided-spacing-y;
+                bottom: $card-divided-spacing-y;
+            }
+            &::after {
+                position: absolute;
+                content: ' ';
+                bottom: 0;
+                height: 1px;
+                background-color: $card-header-divider-color;
+                left: 20px;
+                right: 20px;
+            }
+
+            .card-header-icon {
+                display: none;
+            }
+        }
+        .thy-card-content {
+            padding: {
+                top: $card-divided-spacing-y;
+                bottom: $card-divided-spacing-y;
+            }
+
+            &--sm {
+                padding-top: 10px;
+            }
         }
     }
 

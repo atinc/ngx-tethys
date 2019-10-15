@@ -13,6 +13,7 @@ import { ThyOptionModule } from '../core/option';
 import { FormsModule } from '@angular/forms';
 import { ThyLoadingModule } from '../loading';
 import { ThyIconModule } from '../icon';
+import { ThyDragDropModule } from '../drag-drop/module';
 
 @NgModule({
     declarations: [ThyTreeComponent, ThyTreeNodeComponent, ThyTreeReplaceRegionComponent],
@@ -26,7 +27,8 @@ import { ThyIconModule } from '../icon';
         ThyListModule,
         ThyOptionModule,
         ThyLoadingModule,
-        ThyIconModule
+        ThyIconModule,
+        ThyDragDropModule
     ],
     entryComponents: [ThyTreeComponent],
     exports: [ThyTreeComponent, ThyTreeNodeComponent, ThyTreeReplaceRegionComponent],

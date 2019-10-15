@@ -8,6 +8,10 @@
     color: $gray-700;
     transform: translateY(-10px);
 
+    > div > .thy-tree-node {
+        padding: 0 0 0 10px;
+    }
+
     &-node {
         display: block;
         padding: $tree-node-padding;
@@ -20,6 +24,7 @@
             height: $tree-node-wrapper-height;
             margin: 0 -1000px;
             padding: 0 1000px;
+            border: 2px solid transparent;
 
             .thy-tree-expand {
                 width: 16px;
@@ -43,6 +48,7 @@
                 flex: 1;
                 display: flex;
                 align-items: center;
+                height: $tree-node-wrapper-height;
 
                 .thy-tree-node-icon {
                     color: $gray-300;
@@ -51,7 +57,6 @@
 
                 .thy-tree-node-title {
                     flex: 1;
-
                     &.truncate {
                         @include text-truncate();
                     }
@@ -61,7 +66,7 @@
             &.hover,
             &:hover {
                 // @include item-box-shadow();
-                background-color: $gray-80;
+                background-color: $gray-100;
             }
 
             &.active {
@@ -157,3 +162,5 @@
 
 .thy-tree-especial {
 }
+
+@include thy-tree-drag-drop();

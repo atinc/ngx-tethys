@@ -37,11 +37,18 @@ a.link-has-icon {
     .wtf {
         padding-right: $link-icon-padding-right;
     }
+    // 新的 SVG 图标字体16px偏大, 所以改成14px, 之前的字体不变
+    .thy-icon {
+        font-size: $font-size-base;
+    }
 }
 
 a {
     &.link-primary {
         @include link-variant($primary, $link-decoration, $primary, $link-hover-decoration);
+    }
+    &.link-info {
+        @include link-variant($info, $link-decoration, $info, $link-hover-decoration);
     }
     &.link-secondary {
         @include link-variant($gray-500, none, $primary, none);
@@ -58,10 +65,19 @@ a {
     &.link-major {
         @include link-variant($gray-800, none, $primary, none);
     }
+    &.link-muted {
+        @include link-variant($gray-600, none, $primary, none);
+    }
     &.link-sm {
         @include link-size($font-size-sm, $font-size-sm);
     }
     &.link-body {
         @include link-variant($gray-800, none, $primary, none);
+    }
+    &.link-warning {
+        @include link-variant($warning, $link-decoration, $warning, $link-hover-decoration);
+    }
+    &.link-warning-weak {
+        @include link-variant($gray-500, none, $warning, none);
     }
 }

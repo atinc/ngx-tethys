@@ -1,4 +1,9 @@
-<div class="thy-tree-node-wrapper thy-sortable-item" [class.active]="root.isSelected(node)" (click)="clickNode($event)">
+<div
+  thyDragContent
+  class="thy-tree-node-wrapper thy-sortable-item"
+  [class.active]="root.isSelected(node)"
+  (click)="clickNode($event)"
+>
   <span *ngIf="thyDraggable" class="thy-tree-drag-icon thy-sortable-handle">
     <thy-icon thyIconName="drag"></thy-icon>
   </span>
@@ -6,9 +11,9 @@
     <ng-container *ngIf="isShowExpand(node)">
       <ng-container *ngIf="(node.children && node.children.length > 0) || thyAsync || emptyChildrenTemplateRef">
         <thy-icon
-          *ngIf="root.thyType === 'especial'; else defaultIcon"
+          *ngIf="root.thyIcons.expand && root.thyIcons.collapse; else defaultIcon"
           class="thy-tree-expand-icon"
-          [thyIconName]="node.isExpanded ? 'minus-square' : 'plus-square'"
+          [thyIconName]="node.isExpanded ? root.thyIcons.expand : root.thyIcons.collapse"
         ></thy-icon>
         <ng-template #defaultIcon>
           <thy-icon
@@ -20,10 +25,10 @@
       </ng-container>
 
       <!-- <i
-        class="wtf thy-tree-expand-icon"
-        *ngIf="(node.children && node.children.length > 0) || thyAsync || emptyChildrenTemplateRef"
-        [class.collapse]="!node.isExpanded"
-      ></i> -->
+      class="wtf thy-tree-expand-icon"
+      *ngIf="(node.children && node.children.length > 0) || thyAsync || emptyChildrenTemplateRef"
+      [class.collapse]="!node.isExpanded"
+    ></i> -->
     </ng-container>
   </span>
   <span class="thy-tree-node-content">
@@ -31,7 +36,9 @@
       <ng-container *ngIf="nodeIcon">
         <span class="thy-tree-node-icon"> <i [ngClass]="nodeIcon" [ngStyle]="nodeIconStyle"></i></span>
       </ng-container>
-      <span [title]="node.title" class="thy-tree-node-title" [class.truncate]="thyTitleTruncate">{{ node.title }}</span>
+      <span [title]="node.title" class="thy-tree-node-title" [class.truncate]="thyTitleTruncate">
+        {{ node.title }}</span
+      >
     </ng-container>
     <ng-container *ngIf="templateRef">
       <ng-template
@@ -44,9 +51,13 @@
 <div
   class="thy-tree-node-children"
   *ngIf="isShowExpand(node) && node.isExpanded"
-  [sortablejs]="node.children"
-  [sortablejsOptions]="root.treeNodesSortableOptions"
-  [attr.node-key]="node.key"
+  [thyDropContainer]="node.children"
+  [thyDropContainerDisabled]="!root.thyDraggable"
+  [thyBeforeDragStart]="root.thyBeforeDragStart"
+  [thyBeforeDragOver]="root.beforeDragOver"
+  [thyBeforeDragDrop]="root.thyBeforeDragDrop"
+  (thyDragDropped)="root.onDragDrop($event)"
+  (thyDragStarted)="root.onDragStart($event)"
 >
   <ng-template
     *ngIf="node.children.length === 0 && !node.isLoading"
@@ -55,6 +66,7 @@
   <thy-tree-node
     *ngFor="let node of node.children; trackBy: root.trackByFn; let i = index"
     [node]="node"
+    [thyDrag]="node"
     [templateRef]="templateRef"
     [emptyChildrenTemplateRef]="emptyChildrenTemplateRef"
     [thyAsync]="thyAsync"

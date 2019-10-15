@@ -81,8 +81,10 @@ export class ThyListOptionComponent implements Highlightable {
 
     @HostListener('click', ['$event'])
     onClick(event: Event) {
-        this.parentSelectionList.toggleOption(this, event);
-        this.parentSelectionList.setActiveOption(this);
+        if (this.parentSelectionList.multiple || !this.parentSelectionList.isSelected(this)) {
+            this.parentSelectionList.toggleOption(this, event);
+            this.parentSelectionList.setActiveOption(this);
+        }
     }
 
     // @HostListener('focus', ['$event'])

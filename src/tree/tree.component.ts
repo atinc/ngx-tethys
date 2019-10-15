@@ -9,19 +9,19 @@ import {
     OnChanges,
     EventEmitter,
     ContentChild,
-    ComponentFactoryResolver,
     HostBinding,
     NgZone,
     forwardRef,
     SimpleChanges
 } from '@angular/core';
-import { ThyTreeNodeData, ThyTreeEmitEvent, ThyTreeNode } from './tree.class';
+import { ThyTreeNodeData, ThyTreeEmitEvent, ThyTreeNode, ThyTreeDragDropEvent, ThyTreeIcons } from './tree.class';
 import { helpers } from '../util';
 import { SortablejsOptions } from 'angular-sortablejs';
 import { ThyTreeService } from './tree.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { UpdateHostClassService } from '../shared/update-host-class.service';
+import { ThyDragDropEvent, ThyDropPosition, ThyDragOverEvent, ThyDragStartEvent } from '../drag-drop/drag-drop.class';
 
 type ThyTreeSize = 'sm' | '';
 
@@ -53,24 +53,24 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
 
     private _draggable = false;
 
-    private _draggableNode: ThyTreeNode;
-
     public _selectionModel: SelectionModel<ThyTreeNode>;
 
-    public treeNodesSortableOptions: SortablejsOptions = {
-        group: {
-            name: 'tree-node',
-            put: ['tree-node']
-        },
-        disabled: true,
-        animation: 250,
-        ghostClass: 'thy-sortable-ghost',
-        handle: '.thy-sortable-handle',
-        dragClass: 'thy-sortable-drag',
-        onStart: this._onDraggableStart.bind(this),
-        onAdd: this._onDraggableAdd.bind(this),
-        onUpdate: this._onDraggableUpdate.bind(this)
-    };
+    // private _draggableNode: ThyTreeNode;
+
+    // public treeNodesSortableOptions: SortablejsOptions = {
+    //     group: {
+    //         name: 'tree-node',
+    //         put: ['tree-node']
+    //     },
+    //     disabled: true,
+    //     animation: 250,
+    //     ghostClass: 'thy-sortable-ghost',
+    //     handle: '.thy-sortable-handle',
+    //     dragClass: 'thy-sortable-drag',
+    //     onStart: this._onDraggableStart.bind(this),
+    //     onAdd: this._onDraggableAdd.bind(this),
+    //     onUpdate: this._onDraggableUpdate.bind(this)
+    // };
 
     public treeNodes: ThyTreeNode[];
 
@@ -80,7 +80,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
         this.thyTreeService.treeNodes = this.treeNodes;
     }
 
-    @Input() thyShowExpand = true;
+    @Input() thyShowExpand: boolean | ((_: ThyTreeNodeData) => boolean) = true;
 
     @HostBinding(`class.thy-multiple-selection-list`)
     @Input()
@@ -88,16 +88,18 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
 
     @Input()
     set thyDraggable(value: boolean | any) {
-        if (helpers.isBoolean(value)) {
-            this._draggable = value;
-            this.treeNodesSortableOptions.disabled = !value;
-        } else {
-            if (value) {
-                Object.assign(this.treeNodesSortableOptions, value);
-                this._draggable = !this.treeNodesSortableOptions.disabled;
-            }
-        }
+        this._draggable = value;
         this.thyTreeDraggableClass = this._draggable;
+
+        // if (helpers.isBoolean(value)) {
+        //     this._draggable = value;
+        //     this.treeNodesSortableOptions.disabled = !value;
+        // } else {
+        //     if (value) {
+        //         Object.assign(this.treeNodesSortableOptions, value);
+        //         this._draggable = !this.treeNodesSortableOptions.disabled;
+        //     }
+        // }
     }
 
     get thyDraggable() {
@@ -106,17 +108,35 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
 
     @Input() thyAsync = false;
 
-    @Input() thyType: ThyTreeType = 'default';
+    private _thyType: ThyTreeType;
+
+    @Input()
+    set thyType(type: ThyTreeType) {
+        this._thyType = type;
+        if (type === 'especial') {
+            this.thyIcons = { expand: 'minus-square', collapse: 'plus-square' };
+        }
+    }
+
+    get thyType() {
+        return this._thyType;
+    }
+
+    @Input() thyIcons: ThyTreeIcons = {};
 
     @Input() thySize: ThyTreeSize;
 
     @Input() thyTitleTruncate = true;
 
+    @Input() thyBeforeDragStart: (e: ThyDragStartEvent) => boolean;
+
+    @Input() thyBeforeDragDrop: (e: ThyDragDropEvent) => boolean;
+
     @Output() thyOnClick: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
 
     @Output() thyOnExpandChange: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
 
-    @Output() thyOnDraggableChange: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
+    @Output() thyOnDragDrop: EventEmitter<ThyTreeDragDropEvent> = new EventEmitter<ThyTreeDragDropEvent>();
 
     @ContentChild('treeNodeTemplate')
     set templateRef(template: TemplateRef<any>) {
@@ -144,15 +164,21 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
 
     @HostBinding('class.thy-tree-draggable') thyTreeDraggableClass = false;
 
+    beforeDragOver = (event: ThyDragOverEvent<ThyTreeNode>) => {
+        return (
+            this.isShowExpand(event.item) || (!this.isShowExpand(event.item) && event.position !== ThyDropPosition.in)
+        );
+    };
+
     private _onTouched: () => void = () => {};
 
     private _onChange: (value: any) => void = (_: any) => {};
 
     constructor(
         private ngZone: NgZone,
-        public thyTreeService: ThyTreeService,
         private elementRef: ElementRef,
-        private updateHostClassService: UpdateHostClassService
+        private updateHostClassService: UpdateHostClassService,
+        public thyTreeService: ThyTreeService
     ) {}
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -198,42 +224,107 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
         return item.key || index;
     }
 
-    private _formatDraggableEvent(event: any, eventName: string): ThyTreeEmitEvent {
-        const dragToElement: HTMLElement = event.to;
-        const key = dragToElement.getAttribute('node-key');
-        const targetNode = this.thyTreeService.getTreeNode(key);
-        return {
-            eventName,
-            dragNode: this._draggableNode,
-            targetNode: targetNode,
-            event: event
-        };
-    }
+    // private _formatDraggableEvent(event: any, eventName: string): ThyTreeEmitEvent {
+    //     const dragToElement: HTMLElement = event.to;
+    //     const key = dragToElement.getAttribute('node-key');
+    //     const targetNode = this.thyTreeService.getTreeNode(key);
+    //     return {
+    //         eventName,
+    //         dragNode: this._draggableNode,
+    //         targetNode: targetNode,
+    //         event: event
+    //     };
+    // }
 
-    private _onDraggableStart(event: any) {
-        const key = event.from.getAttribute('node-key');
-        if (key) {
-            const node = this.thyTreeService.getTreeNode(key);
-            this._draggableNode = node.children[event.oldIndex];
-        } else {
-            this._draggableNode = this.treeNodes[event.oldIndex];
+    // private _onDraggableStart(event: any) {
+    //     const key = event.from.getAttribute('node-key');
+    //     if (key) {
+    //         const node = this.thyTreeService.getTreeNode(key);
+    //         this._draggableNode = node.children[event.oldIndex];
+    //     } else {
+    //         this._draggableNode = this.treeNodes[event.oldIndex];
+    //     }
+    // }
+
+    // private _onDraggableUpdate(event: any) {
+    //     const draggableEvent = this._formatDraggableEvent(event, 'draggableChange');
+    //     this.thyTreeService.resetSortedTreeNodes(this.treeNodes);
+    //     this.ngZone.runTask(() => {
+    //         this.thyOnDraggableChange.emit(draggableEvent);
+    //     });
+    // }
+
+    // private _onDraggableAdd(event: any) {
+    //     const draggableEvent = this._formatDraggableEvent(event, 'draggableChange');
+    //     this.thyTreeService.resetSortedTreeNodes(this.treeNodes);
+    //     this.ngZone.runTask(() => {
+    //         this.thyOnDraggableChange.emit(draggableEvent);
+    //     });
+    // }
+
+    public onDragStart(event: ThyDragStartEvent<ThyTreeNode>) {
+        if (this.isShowExpand(event.item) && event.item.isExpanded) {
+            event.item.setExpanded(false);
         }
     }
 
-    private _onDraggableUpdate(event: any) {
-        const draggableEvent = this._formatDraggableEvent(event, 'draggableChange');
+    public onDragDrop(event: ThyDragDropEvent<ThyTreeNode>) {
+        if (!this.isShowExpand(event.item) && event.position === ThyDropPosition.in) {
+            return;
+        }
+        const parent = event.previousItem.parentNode;
+        if (parent) {
+            parent.children = parent.children.filter(item => item !== event.previousItem);
+        } else {
+            this.treeNodes = this.treeNodes.filter(item => item !== event.previousItem);
+        }
+        switch (event.position) {
+            case ThyDropPosition.in:
+                event.item.addChildren(event.previousItem.origin);
+                break;
+            case ThyDropPosition.after:
+            case ThyDropPosition.before:
+                const targetParent = event.item.parentNode;
+                const index = event.position === ThyDropPosition.before ? 0 : 1;
+                if (targetParent) {
+                    targetParent.addChildren(
+                        event.previousItem.origin,
+                        targetParent.children.indexOf(event.item) + index
+                    );
+                } else {
+                    this.treeNodes.splice(this.treeNodes.indexOf(event.item) + index, 0, event.previousItem);
+                }
+                break;
+        }
         this.thyTreeService.resetSortedTreeNodes(this.treeNodes);
-        this.ngZone.runTask(() => {
-            this.thyOnDraggableChange.emit(draggableEvent);
+
+        let afterNode = null;
+        let targetNode = null;
+        if (event.position === ThyDropPosition.before) {
+            afterNode = event.containerItems[event.currentIndex - 1];
+            targetNode = event.item.parentNode;
+        } else if (event.position === ThyDropPosition.after) {
+            afterNode = event.containerItems[event.currentIndex];
+            targetNode = event.item.parentNode;
+        } else {
+            afterNode = event.item.children[event.item.children.length - 2];
+            targetNode = event.item;
+        }
+        this.thyOnDragDrop.emit({
+            event,
+            currentIndex: event.currentIndex,
+            dragNode: event.previousItem,
+            targetNode: targetNode,
+            afterNode: afterNode
         });
     }
 
-    private _onDraggableAdd(event: any) {
-        const draggableEvent = this._formatDraggableEvent(event, 'draggableChange');
-        this.thyTreeService.resetSortedTreeNodes(this.treeNodes);
-        this.ngZone.runTask(() => {
-            this.thyOnDraggableChange.emit(draggableEvent);
-        });
+    public isShowExpand(node: ThyTreeNode) {
+        if (helpers.isFunction(this.thyShowExpand)) {
+            return (this.thyShowExpand as Function)(node);
+        } else {
+            return this.thyShowExpand;
+        }
     }
 
     writeValue(value: ThyTreeNodeData[]): void {

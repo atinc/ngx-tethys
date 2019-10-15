@@ -13,10 +13,10 @@ getTestBed().initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDyn
 const context = require.context('./', true, /\.spec\.ts$/);
 
 // And load the modules.
-const testcaseFilter = '';
+const testSpecFilter = '';
 context
     .keys()
     .filter(n => {
-        return n.includes(testcaseFilter);
+        return n.includes(testSpecFilter);
     })
     .map(context);

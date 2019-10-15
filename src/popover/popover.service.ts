@@ -16,25 +16,32 @@ import {
     Inject,
     NgZone
 } from '@angular/core';
-import { coerceElement } from '@angular/cdk/coercion';
+import { coerceElement, coerceArray } from '@angular/cdk/coercion';
 import { PortalInjector, ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
 import { ThyPopoverContainerComponent } from './popover-container.component';
 import { ThyPopoverConfig, THY_POPOVER_DEFAULT_CONFIG } from './popover.config';
-import { ThyPopoverRef, ThyPopoverRefInternal } from './popover-ref';
+import { ThyPopoverRef, ThyInternalPopoverRef } from './popover-ref';
 import { Directionality } from '@angular/cdk/bidi';
 import { of, Subject } from 'rxjs';
-import { getFlexiblePositions } from '../core/overlay';
+import { getFlexiblePositions, ThyUpperOverlayService, ThyUpperOverlayRef } from '../core/overlay';
 import { takeUntil } from 'rxjs/operators';
+import { helpers } from '../util';
+import { popoverUpperOverlayOptions } from './popover.options';
 
 @Injectable({
     providedIn: 'root'
 })
-export class ThyPopover implements OnDestroy {
-    private currentPopoverRef: ThyPopoverRef<any, any>;
-
-    private readonly _afterOpened = new Subject<ThyPopoverRef<any>>();
-
+export class ThyPopover extends ThyUpperOverlayService<ThyPopoverConfig, ThyPopoverContainerComponent>
+    implements OnDestroy {
     private readonly ngUnsubscribe$ = new Subject();
+
+    private originInstancesMap = new Map<
+        ElementRef | HTMLElement,
+        {
+            config: ThyPopoverConfig;
+            popoverRef: ThyPopoverRef<any, any>;
+        }
+    >();
 
     private buildPositionStrategy<TData>(config: ThyPopoverConfig<TData>): PositionStrategy {
         const positionStrategy = this.overlay.position().flexibleConnectedTo(coerceElement(config.origin));
@@ -51,29 +58,31 @@ export class ThyPopover implements OnDestroy {
         return positionStrategy;
     }
 
-    private buildOverlayConfig<TData>(config: ThyPopoverConfig<TData>): OverlayConfig {
-        const strategy = this.buildPositionStrategy(config);
-        const overlayConfig = new OverlayConfig({
-            positionStrategy: strategy,
-            scrollStrategy: this.overlay.scrollStrategies.block(),
-            // panelClass: this.getOverlayPanelClasses(dialogConfig),
-            hasBackdrop: config.hasBackdrop,
-            direction: config.direction,
-            minWidth: config.minWidth,
-            minHeight: config.minHeight,
-            maxWidth: config.maxWidth,
-            maxHeight: config.maxHeight,
-            disposeOnNavigation: config.closeOnNavigation
-        });
-
-        if (config.backdropClass) {
-            overlayConfig.backdropClass = config.backdropClass;
+    private buildOverlayPanelClasses(config: ThyPopoverConfig) {
+        let classes = [`cdk-overlay-pane`];
+        if (config.panelClass) {
+            if (helpers.isArray(config.panelClass)) {
+                classes = classes.concat(config.panelClass);
+            } else {
+                classes.push(config.panelClass as string);
+            }
         }
+        return classes;
+    }
 
+    protected buildOverlayConfig<TData>(config: ThyPopoverConfig<TData>): OverlayConfig {
+        const strategy = this.buildPositionStrategy(config);
+        const overlayConfig = this.buildBaseOverlayConfig(config);
+        overlayConfig.positionStrategy = strategy;
+        overlayConfig.scrollStrategy = this.overlay.scrollStrategies.block();
+        overlayConfig.panelClass = this.buildOverlayPanelClasses(config);
         return overlayConfig;
     }
 
-    private attachPopoverContainer(overlay: OverlayRef, config: ThyPopoverConfig): ThyPopoverContainerComponent {
+    protected attachUpperOverlayContainer(
+        overlay: OverlayRef,
+        config: ThyPopoverConfig<any>
+    ): ThyPopoverContainerComponent {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
         const injector = new PortalInjector(userInjector || this.injector, new WeakMap([[ThyPopoverConfig, config]]));
         const containerPortal = new ComponentPortal(ThyPopoverContainerComponent, config.viewContainerRef, injector);
@@ -81,7 +90,15 @@ export class ThyPopover implements OnDestroy {
         return containerRef.instance;
     }
 
-    private createInjector<T>(
+    protected createUpperOverlayRef<T>(
+        overlayRef: OverlayRef,
+        containerInstance: ThyPopoverContainerComponent,
+        config: ThyPopoverConfig<any>
+    ): ThyInternalPopoverRef<T> {
+        return new ThyInternalPopoverRef<T>(overlayRef, containerInstance, config);
+    }
+
+    protected createInjector<T>(
         config: ThyPopoverConfig,
         popoverRef: ThyPopoverRef<T>,
         popoverContainer: ThyPopoverContainerComponent
@@ -103,118 +120,76 @@ export class ThyPopover implements OnDestroy {
         return new PortalInjector(userInjector || this.injector, injectionTokens);
     }
 
-    private attachPopoverContent<T, TResult>(
-        componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
-        popoverContainer: ThyPopoverContainerComponent,
-        overlayRef: OverlayRef,
-        config: ThyPopoverConfig
-    ): ThyPopoverRef<T, TResult> {
-        const popoverRef = new ThyPopoverRefInternal<T, TResult>(overlayRef, popoverContainer);
-
-        // When the popover backdrop is clicked, we want to close it.
-        overlayRef.backdropClick().subscribe(() => {
-            if (popoverRef.backdropClosable) {
-                popoverRef.close();
-            }
-        });
-        overlayRef
-            .detachments()
-            .pipe()
-            .subscribe(() => {
-                if (overlayRef && overlayRef.hasAttached()) {
-                    overlayRef.detach();
-                }
-            });
-
-        if (componentOrTemplateRef instanceof TemplateRef) {
-            popoverContainer.attachTemplatePortal(
-                new TemplatePortal<T>(componentOrTemplateRef, null, <any>{
-                    $implicit: config.initialState,
-                    popoverRef
-                })
-            );
-        } else {
-            const injector = this.createInjector<T>(config, popoverRef, popoverContainer);
-            const contentRef = popoverContainer.attachComponentPortal<T>(
-                new ComponentPortal(componentOrTemplateRef, undefined, injector)
-            );
-            if (config.initialState) {
-                Object.assign(contentRef.instance, config.initialState);
-            }
-            popoverRef.componentInstance = contentRef.instance;
+    private originElementAddActiveClass(config: ThyPopoverConfig) {
+        if (config.originActiveClass) {
+            coerceElement<HTMLElement>(config.origin).classList.add(...coerceArray(config.originActiveClass));
         }
+    }
 
-        // dialogRef.updateSizeAndPosition(config.width, config.height, config.position);
-        return popoverRef;
+    private originElementRemoveActiveClass(config: ThyPopoverConfig) {
+        if (config.originActiveClass) {
+            coerceElement<HTMLElement>(config.origin).classList.remove(...coerceArray(config.originActiveClass));
+        }
     }
 
     constructor(
-        private overlay: Overlay,
-        private injector: Injector,
-        @Inject(THY_POPOVER_DEFAULT_CONFIG) private defaultConfig: ThyPopoverConfig,
+        overlay: Overlay,
+        injector: Injector,
+        @Inject(THY_POPOVER_DEFAULT_CONFIG) defaultConfig: ThyPopoverConfig,
         private scrollDispatcher: ScrollDispatcher,
         private ngZone: NgZone
-    ) {}
+    ) {
+        super(popoverUpperOverlayOptions, overlay, injector, defaultConfig);
+    }
+
+    private ensureCloseClosest(origin: HTMLElement) {
+        let closeAndEnd = false;
+        this.originInstancesMap.forEach((value, key) => {
+            if (value.config.manualClosure) {
+                if (key === origin) {
+                    value.popoverRef.close();
+                    closeAndEnd = true;
+                }
+            } else {
+                if (key === origin) {
+                    closeAndEnd = true;
+                }
+                value.popoverRef.close();
+            }
+        });
+        return closeAndEnd;
+    }
 
     open<T, TData = any, TResult = any>(
         componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
         config?: ThyPopoverConfig<TData>
     ): ThyPopoverRef<T, TResult> {
-        if (this.currentPopoverRef) {
-            this.currentPopoverRef.close();
+        const originElement = coerceElement(config.origin);
+        // 默认关闭之前的弹出框
+        // 1. 当之前的 Popover 设置 manualClosure 为 true 时, 弹出其他 Popover 时不自动关闭 manualClosure 为 true 的 Popover
+        // 2. 当前的 Origin 对应的 Popover 已经弹出，不管 manualClosure 设置为何，直接关闭并返回
+        if (this.ensureCloseClosest(originElement)) {
+            return;
         }
-        config = { ...this.defaultConfig, ...config };
-        const overlayConfig = this.buildOverlayConfig(config);
-        const overlayRef = this.overlay.create(overlayConfig);
-        const popoverContainer = this.attachPopoverContainer(overlayRef, config);
-        const popoverRef = this.attachPopoverContent<T, TResult>(
-            componentOrTemplateRef,
-            popoverContainer,
-            overlayRef,
-            config
-        );
 
-        this.currentPopoverRef = popoverRef;
-
+        const popoverRef = this.openUpperOverlay(componentOrTemplateRef, config);
+        config = popoverRef.containerInstance.config;
         popoverRef.afterClosed().subscribe(() => {
-            this.currentPopoverRef = null;
+            this.originElementRemoveActiveClass(config);
+            this.originInstancesMap.delete(originElement);
         });
 
-        this._afterOpened.next(popoverRef);
+        this.originElementAddActiveClass(config);
+
+        this.originInstancesMap.set(originElement, {
+            config,
+            popoverRef
+        });
+
         return popoverRef;
     }
 
-    // attach<T, TData = any, TResult = any>(
-    //     overlayRef: OverlayRef,
-    //     componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
-    //     config?: ThyPopoverConfig<TData>
-    // ) {
-    //     config = { ...this.defaultConfig, ...config };
-    //     const popoverContainer = this.attachPopoverContainer(overlayRef, config);
-    //     const popoverRef = this.attachPopoverContent<T, TResult>(
-    //         componentOrTemplateRef,
-    //         popoverContainer,
-    //         overlayRef,
-    //         config
-    //     );
-
-    //     this.currentPopoverRef = popoverRef;
-
-    //     popoverRef.afterClosed().subscribe(() => {
-    //         this.currentPopoverRef = null;
-    //     });
-
-    //     this._afterOpened.next(popoverRef);
-    //     return popoverRef;
-    // }
-
-    close() {
-        if (this.currentPopoverRef) {
-            this.currentPopoverRef.close();
-        }
-    }
-
     ngOnDestroy() {
-        this._afterOpened.complete();
+        this.dispose();
     }
 }

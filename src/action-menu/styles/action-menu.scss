@@ -1,9 +1,7 @@
 .action-menu {
-    padding: 5px 0;
+    padding: 10px 0;
     display: block;
     width: 240px;
-    max-height: $action-menu-max-height;
-    overflow-y: auto;
     background: $action-menu-bg;
     .action-menu-item {
         display: flex;
@@ -28,15 +26,9 @@
                 // }
             }
         }
-        span {
-            // &:not(.icon):not(.info):not(.meta):not(.extend-icon) {
-            //   flex: 1;
-            //   overflow: hidden;
-            //   text-overflow: ellipsis;
-            //   white-space: nowrap;
-            // }
-        }
+
         .icon {
+            display: flex;
             margin-right: 5px;
             color: $action-menu-item-icon-color;
             transition: margin-left 200ms;
@@ -62,6 +54,7 @@
             color: $gray-500;
         }
         .extend-icon {
+            display: flex;
             margin-left: auto;
             color: $action-menu-item-extend-color;
         }
@@ -80,15 +73,23 @@
             pointer-events: none;
             cursor: not-allowed;
         }
+
         &:not(.action-menu-item--disabled):hover {
-            & > span:nth-child(1),
             > .action-menu-sub-item {
                 display: block;
             }
         }
+
+        &--danger {
+            @include action-menu-item-type-hover($danger);
+        }
+
+        &--success {
+            @include action-menu-item-type-hover($success);
+        }
     }
     .action-menu-divider {
-        margin: 2px 20px;
+        margin: 10px 20px;
         display: block;
         border-top: solid 1px $action-menu-divider-border-color;
     }
@@ -114,6 +115,6 @@
 }
 
 .action-menu-height-limit {
-    max-height: 400px;
+    max-height: $action-menu-max-height;
     overflow-y: auto;
 }

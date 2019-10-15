@@ -1,16 +1,15 @@
-import { Component, ElementRef, TemplateRef, OnInit } from '@angular/core';
-import { ComponentExample } from '../../docs/model/component-example';
-import { ThyPopBoxService } from '../../../../../src/pop-box/pop-box.service';
-import { PopBoxRef } from '../../../../../src/pop-box/pop-box-ref.service';
+import { Component } from '@angular/core';
+import { LiveDemoCodeExample } from '../../core/live-demo/live-demo.component';
+import { DemoActionMenuBasicComponent } from './basic/basic.component';
+import { DemoActionMenuGroupComponent } from './group/group.component';
+import { DemoActionMenuItemComponent } from './item/item.component';
 
 @Component({
     selector: 'demo-action-menu-section',
-    templateUrl: './action-menu-section.component.html',
-    // styleUrls: ['./action-menu-section.component.scss']
+    templateUrl: './action-menu-section.component.html'
 })
 export class DemoActionMenuSectionComponent {
-
-    apiParameters = [
+    toggleApiParameters = [
         {
             property: 'thyActionMenuToggle',
             description: '',
@@ -20,21 +19,36 @@ export class DemoActionMenuSectionComponent {
         {
             property: 'thyAction',
             description: '触发事件',
-            type: 'String: \'click\' | \'contextmenu\'',
+            type: '"click" | "contextmenu"',
             default: 'click'
         },
         {
             property: 'thyStopPropagation',
             description: '阻止冒泡',
-            type: '',
+            type: 'boolean',
             default: 'false'
         },
         {
             property: 'thyPlacement',
             description: '菜单显示位置',
-            type: 'String',
+            type: 'string',
             default: 'bottom right'
         },
+        {
+            property: 'thyContainerClass',
+            description: 'overlay panel class',
+            type: 'string',
+            default: ''
+        },
+        {
+            property: 'thyOriginActiveClass',
+            description: '菜单打开时源元素class',
+            type: 'string | string[]',
+            default: ''
+        }
+    ];
+
+    menuApiParameters = [
         {
             property: 'thyWidth',
             description: '设置菜单宽度',
@@ -42,30 +56,87 @@ export class DemoActionMenuSectionComponent {
             default: '240px'
         },
         {
-            property: 'thy-action-menu',
-            description: '菜单',
-            type: '',
-            default: ''
-        },
+            property: 'thyTheme',
+            description: '菜单主题样式',
+            type: '"default" | "group"',
+            default: 'default'
+        }
+    ];
+
+    itemApiParameters = [
         {
             property: 'thyActionMenuItem',
             description: '菜单项',
-            type: 'String',
+            type: 'ElementRef',
             default: ''
         },
         {
             property: 'thyDisabled',
             description: '菜单项禁用',
             type: 'boolean',
+            default: 'false'
+        },
+        {
+            property: 'thyType',
+            description: '菜单项type',
+            type: '"danger" | "success"',
             default: ''
         }
     ];
 
-    constructor() {
+    liveDemos: LiveDemoCodeExample[] = [
+        {
+            title: '基本使用',
+            component: DemoActionMenuBasicComponent,
+            description: ``,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'basic.component.html',
+                    content: require('!!raw-loader!./basic/basic.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'basic.component.ts',
+                    content: require('!!raw-loader!./basic/basic.component.ts')
+                }
+            ]
+        },
+        {
+            title: '分组下拉菜单',
+            component: DemoActionMenuGroupComponent,
+            description: ``,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'group.component.html',
+                    content: require('!!raw-loader!./group/group.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'group.component.ts',
+                    content: require('!!raw-loader!./group/group.component.ts')
+                }
+            ]
+        },
+        {
+            title: '下拉菜单项',
+            component: DemoActionMenuItemComponent,
+            description: ``,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'item.component.html',
+                    content: require('!!raw-loader!./item/item.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'item.component.ts',
+                    content: require('!!raw-loader!./item/item.component.ts')
+                }
+            ]
+        }
+    ];
 
-    }
-
-    itemClick(value) {
-        console.log(value);
-    }
+    constructor() {}
 }

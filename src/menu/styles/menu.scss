@@ -12,10 +12,6 @@
 
         &.active .thy-menu-item-content {
             background: rgba($primary, 0.1);
-
-            &:hover {
-                background: transparent;
-            }
         }
 
         .thy-menu-item-content {
@@ -61,7 +57,7 @@
             padding: $menu-group-header-padding;
 
             &:hover {
-                @include item-box-shadow();
+                background: $gray-100;
 
                 .thy-menu-group-title {
                     color: $gray-800;
@@ -133,7 +129,7 @@
         align-items: center;
 
         &:hover {
-            @include item-box-shadow();
+            background: $gray-100 !important;
 
             .thy-menu-item-name {
                 color: $gray-800;

@@ -71,6 +71,7 @@ export class DemoPopoverSectionComponent extends mixinUnsubscribe(MixinBase) imp
             ]
         }
     ];
+
     constructor() {
         super();
     }

@@ -31,8 +31,10 @@ export const allMenus = [
                 name: 'Style',
                 zhName: '样式',
                 children: [
+                    { name: 'Variables', zhName: '变量', routePath: 'variables' },
                     { name: 'Reboot', zhName: '通用', routePath: 'reboot' },
-                    { name: 'Link', zhName: '链接', routePath: 'link' }
+                    { name: 'Link', zhName: '链接', routePath: 'link' },
+                    { name: 'Typography', zhName: '排版', routePath: 'typography' }
                 ]
             },
             {
@@ -128,7 +130,7 @@ export const allMenus = [
                     { name: 'Tooltip', zhName: '文字提示', routePath: 'tooltip' },
                     { name: 'Overlay', zhName: '浮层', routePath: 'overlay' },
                     { name: 'Popover', zhName: '悬浮层', routePath: 'popover', state: 'new' },
-                    { name: 'PopBox', zhName: '弹出框', routePath: 'pob-box' },
+                    { name: 'PopBox', zhName: '弹出框', routePath: 'pob-box', deprecated: true },
                     { name: 'Notify', zhName: '通知', routePath: 'notify' },
                     { name: 'Slide', zhName: '滑动弹出框', routePath: 'slide' },
                     { name: 'FlexibleText', zhName: '文本提示', routePath: 'flexible-text' }

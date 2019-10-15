@@ -180,3 +180,36 @@ export function formatDate(date: Date | number): number {
 export function clamp(value: number, min = 0, max = 100) {
     return Math.max(min, Math.min(max, value));
 }
+
+export function keyBy<T>(array: T[], key: T extends object ? keyof T : never): { [key: string]: T } {
+    const result: { [key: string]: T } = {};
+    array.forEach(item => {
+        const keyValue = item[key];
+        (result as any)[keyValue] = item;
+    });
+    return result;
+}
+
+export function indexKeyBy<T>(array: T[], key: T extends object ? keyof T : never): { [key: string]: number } {
+    const result: { [key: string]: number } = {};
+    array.forEach((item, index) => {
+        const keyValue = item[key];
+        (result as any)[keyValue] = index;
+    });
+    return result;
+}
+
+function upperFirst(string: string): string {
+    return string.slice(0, 1).toUpperCase() + string.slice(1);
+}
+
+export function camelCase(values: string[]): string {
+    if (isArray(values)) {
+        return values.reduce((result, word, index) => {
+            word = word.toLowerCase();
+            return result + (index ? upperFirst(word) : word);
+        }, '');
+    } else {
+        return;
+    }
+}

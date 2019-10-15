@@ -1,54 +1,94 @@
-
 import { Component } from '@angular/core';
+import { LiveDemoCodeExample } from '../../core/live-demo/live-demo.component';
+import { DemoCardBasicComponent } from './basic/basic.component';
+import { DemoCardCustomHeaderComponent } from './custom-header/custom-header.component';
+import { DemoCardContentScrollComponent } from './content-scroll/content-scroll.component';
+import { apiCardParameters, apiHeaderParameters, apiContentParameters } from './api-parameters';
+import { DemoCardDividedComponent } from './divided/divided.component';
 
 @Component({
     selector: 'demo-card-section',
-    templateUrl: './card-section.component.html',
+    templateUrl: './card-section.component.html'
 })
 export class DemoCardSectionComponent {
-
     title = '我的项目';
 
-    apiParameters = [
+    apiCardParameters = apiCardParameters;
+
+    apiHeaderParameters = apiHeaderParameters;
+
+    apiContentParameters = apiContentParameters;
+
+    liveDemos: LiveDemoCodeExample[] = [
         {
-            property: 'thyTitle',
-            description: '头部，标题',
-            type: '',
-            default: ''
+            title: '基本使用',
+            component: DemoCardBasicComponent,
+            description: ``,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'basic.component.html',
+                    content: require('!!raw-loader!./basic/basic.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'basic.component.ts',
+                    content: require('!!raw-loader!./basic/basic.component.ts')
+                }
+            ]
         },
         {
-            property: 'thyDescription',
-            description: '头部，附加信息',
-            type: '',
-            default: ''
+            title: '自定义头部',
+            component: DemoCardCustomHeaderComponent,
+            description: ``,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'custom-header.component.html',
+                    content: require('!!raw-loader!./custom-header/custom-header.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'custom-header.component.ts',
+                    content: require('!!raw-loader!./custom-header/custom-header.component.ts')
+                }
+            ]
         },
         {
-            property: 'thySize',
-            description: '头部',
-            type: '',
-            default: ''
+            title: '内容区域滚动',
+            component: DemoCardContentScrollComponent,
+            description: ``,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'custom-header.component.html',
+                    content: require('!!raw-loader!./content-scroll/content-scroll.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'content-scroll.component.ts',
+                    content: require('!!raw-loader!./content-scroll/content-scroll.component.ts')
+                }
+            ]
         },
         {
-            property: 'thyHasLeftRightPadding',
-            description: '内容区，是否有左右内边距',
-            type: '',
-            default: ''
-        },
-        {
-            property: 'thyScroll',
-            description: '内容区，滚动',
-            type: '',
-            default: ''
-        },
-        {
-            property: 'thyAlign',
-            description: '内容区，对齐头部文字',
-            type: '',
-            default: ''
-        },
+            title: '分割模式',
+            component: DemoCardDividedComponent,
+            description: ``,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'divided.component.html',
+                    content: require('!!raw-loader!./divided/divided.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'divided.component.ts',
+                    content: require('!!raw-loader!./divided/divided.component.ts')
+                }
+            ]
+        }
     ];
 
-    constructor() {
-    }
-
+    constructor() {}
 }
