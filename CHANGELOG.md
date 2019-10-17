@@ -1,3 +1,14 @@
+## [7.5.27](https://github.com/worktile/ngx-tethys/compare/7.5.25...7.5.27) (2019-10-17)
+
+
+### Bug Fixes
+
+* remove left style for selected-value ([c922c6d](https://github.com/worktile/ngx-tethys/commit/c922c6d))
+* **input:** add input size variables ([9470a2e](https://github.com/worktile/ngx-tethys/commit/9470a2e))
+* delete nested span when show custom option ([d196d2a](https://github.com/worktile/ngx-tethys/commit/d196d2a))
+
+
+
 ## [7.5.26](https://github.com/worktile/ngx-tethys/compare/7.5.25...7.5.26) (2019-10-14)
 
 
