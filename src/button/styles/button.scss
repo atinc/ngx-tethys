@@ -263,17 +263,17 @@ input[type='button'] {
 // 确认取消按钮成对出现
 .btn-pair {
     .btn + .btn {
-        margin-left: 20px;
+        margin-left: $btn-pair-child-margin-left;
 
         &.btn-link {
-            margin-left: 10px;
+            margin-left: $btn-pair-child-link-margin-left;
         }
     }
 }
 
 .btn-pair-sm {
     .btn + .btn {
-        margin-left: 4px;
+        margin-left: $btn-pair-sm-child-margin-left;
     }
 }
 
