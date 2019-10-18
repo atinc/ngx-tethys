@@ -122,6 +122,17 @@ $btn-md-min-width: 70px !default;
 $btn-sm-min-width: 70px !default;
 $btn-xs-min-width: 60px !default;
 $btn-lg-min-width: 108px !default;
+// font-size
+$btn-font-size-xs: $font-size-sm !default;
+$btn-font-size-sm: $font-size-base !default;
+$btn-font-size-md: $font-size-base !default;
+$btn-font-size-base: $font-size-base !default;
+$btn-font-size-lg: $font-size-lg !default;
+
+// btn-pair
+$btn-pair-child-margin-left: 20px !default;
+$btn-pair-child-link-margin-left: 10px !default;
+$btn-pair-sm-child-margin-left: 4px !default;
 
 // btn-group
 $btn-group-btn-padding-y-lg: $btn-padding-y-lg !default;
@@ -140,6 +151,9 @@ $dropdown-toggle-split-y: 0.625rem !default;
 // Forms
 // 输入框左右 padding 和 按钮大小不一致， bootstrap 是一致的
 // input-padding-x 之前是 0.875rem, 芳美说太大了，改成了 10px 大小
+$input-font-size: $font-size-base !default;
+$input-font-size-sm: $font-size-sm !default;
+$input-font-size-lg: $font-size-xlg !default;
 $input-padding-x: 0.625rem !default;
 $input-padding-y: $input-btn-padding-y !default;
 $input-padding-x-sm: $input-padding-x !default;

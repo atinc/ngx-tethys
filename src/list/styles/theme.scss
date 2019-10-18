@@ -1,11 +1,11 @@
 .thy-list-option,
 .thy-list-item {
-    @include thy-option-theme();
+    @include thy-option-theme($gray-80);
 }
 
 .thy-multiple-selection-list {
     .thy-list-option {
-        @include thy-multiple-option-theme();
+        @include thy-multiple-option-theme($gray-80);
     }
 }
 

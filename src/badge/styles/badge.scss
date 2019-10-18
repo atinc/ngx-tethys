@@ -27,7 +27,7 @@
     // vertical-align: baseline;
     color: $badge-color;
     background-color: $badge-bg;
-    @include set-badge-size($font-size-sm, 2px, 5px);
+    @include set-badge-size($font-size-sm, 2px, 0.3rem);
 }
 
 .thy-badge-dot {

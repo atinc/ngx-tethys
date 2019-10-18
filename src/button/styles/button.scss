@@ -22,7 +22,7 @@
     @include button-size(
         $btn-padding-y,
         $btn-padding-x,
-        $font-size-base,
+        $btn-font-size-base,
         $btn-line-height,
         $btn-border-radius,
         $btn-base-min-width
@@ -123,7 +123,7 @@ fieldset:disabled a.btn {
     @include button-size(
         $btn-padding-y-lg,
         $btn-padding-x-lg,
-        $font-size-lg,
+        $btn-font-size-lg,
         $btn-line-height-lg,
         $btn-border-radius-lg,
         $btn-lg-min-width
@@ -134,7 +134,7 @@ fieldset:disabled a.btn {
     @include button-size(
         $btn-padding-y-md,
         $btn-padding-x-md,
-        $font-size-base,
+        $btn-font-size-md,
         $btn-line-height,
         $btn-border-radius,
         $btn-md-min-width
@@ -145,7 +145,7 @@ fieldset:disabled a.btn {
     @include button-size(
         $btn-padding-y-sm,
         $btn-padding-x-sm,
-        $font-size-base,
+        $btn-font-size-sm,
         $btn-line-height-sm,
         $btn-border-radius-sm,
         $btn-sm-min-width
@@ -156,7 +156,7 @@ fieldset:disabled a.btn {
     @include button-size(
         $btn-padding-y-xs,
         $btn-padding-x-xs,
-        $font-size-sm,
+        $btn-font-size-xs,
         $btn-line-height-sm,
         $btn-border-radius-xs,
         $btn-xs-min-width
@@ -263,17 +263,17 @@ input[type='button'] {
 // 确认取消按钮成对出现
 .btn-pair {
     .btn + .btn {
-        margin-left: 20px;
+        margin-left: $btn-pair-child-margin-left;
 
         &.btn-link {
-            margin-left: 10px;
+            margin-left: $btn-pair-child-link-margin-left;
         }
     }
 }
 
 .btn-pair-sm {
     .btn + .btn {
-        margin-left: 4px;
+        margin-left: $btn-pair-sm-child-margin-left;
     }
 }
 
