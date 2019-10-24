@@ -14,9 +14,6 @@
 
     .thy-option-item {
         @include thy-option();
-        .checked-icon {
-            visibility: hidden;
-        }
         &.hidden {
             display: none;
         }
@@ -54,6 +51,16 @@
         .thy-select-custom-options {
             .thy-option-item {
                 @include thy-multiple-option();
+            }
+        }
+    }
+
+    &.thy-custom-select-dropdown-single {
+        .thy-select-custom-options {
+            .thy-option-item {
+                .checked-icon {
+                    display: none;
+                }
             }
         }
     }
