@@ -30,7 +30,7 @@
   (backdropClick)="close()"
   (detach)="close()"
 >
-  <div [ngClass]="dropDownClass">
+  <div [ngClass]="dropDownClass" (mouseenter)="dropDownMouseEnter($event)">
     <ng-container *ngIf="options.length > 0 || optionGroups.length > 0; else emptyPlaceholder">
       <div
         #panel
