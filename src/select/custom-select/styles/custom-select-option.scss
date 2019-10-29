@@ -1,4 +1,4 @@
-.thy-select-custom-options {
+.thy-custom-select-options {
     max-height: 300px;
     overflow-y: auto;
     padding: 10px 0;
@@ -64,12 +64,4 @@
             }
         }
     }
-}
-.thy-select-remove {
-    visibility: hidden;
-    right: 12px;
-    font-size: $font-size-base;
-    z-index: 11;
-    background: $white;
-    @include absolute-vertical-align-middle(false);
 }
