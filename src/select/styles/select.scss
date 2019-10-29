@@ -54,6 +54,15 @@ select.form-control-md {
         }
     }
 
+    .thy-select-remove {
+        visibility: hidden;
+        right: 12px;
+        font-size: $font-size-base;
+        z-index: 11;
+        background: $white;
+        @include absolute-vertical-align-middle(false);
+    }
+
     select {
         -webkit-appearance: none;
         -moz-appearance: none;
