@@ -20,7 +20,7 @@ export class ThyInputDirective implements OnInit {
 
     private autocomplete: boolean;
 
-    private isInitialized = false;
+    private initialized = false;
 
     @Input()
     set thySize(size: InputSize) {
@@ -34,7 +34,7 @@ export class ThyInputDirective implements OnInit {
     @Input()
     set thyAutocomplete(value: boolean) {
         this.autocomplete = inputValueToBoolean(value);
-        if (this.isInitialized) {
+        if (this.initialized) {
             this.setAutocomplete();
         }
     }
@@ -48,7 +48,7 @@ export class ThyInputDirective implements OnInit {
     }
 
     ngOnInit() {
-        this.isInitialized = true;
+        this.initialized = true;
         this.setAutocomplete();
     }
 
