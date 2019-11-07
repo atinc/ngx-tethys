@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { tap, delay } from 'rxjs/operators';
+import { delay } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { treeSelectNodes } from './mock-data';
 import { ThyTreeSelectNode } from '../../../../../src/tree-select/tree-select.class';
@@ -41,6 +41,10 @@ export class DemoTreeSelectSectionComponent {
     objSelectedValue = treeSelectNodes[0];
 
     multiModel = ['010101'];
+
+    emptyNodes = [];
+
+    emptyValue;
 
     asyncNodes = [
         {
@@ -186,7 +190,7 @@ export class DemoTreeSelectSectionComponent {
                 icon: 'wtf wtf-file-text',
                 children: []
             }
-        ]);
+        ]).pipe(delay(1000));
     }
 
     hiddenNodeFn(node: ThyTreeSelectNode) {
