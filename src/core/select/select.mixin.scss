@@ -1,0 +1,43 @@
+@mixin select-control-size($input-height, $input-padding-y) {
+    // min-height: $input-height;
+    .select-control-rendered {
+        margin-top: $input-padding-y;
+        .text-placeholder,
+        .selected-value {
+            margin-bottom: $input-padding-y;
+        }
+        .choice,
+        .select-control-search {
+            margin-bottom: $input-padding-y;
+        }
+    }
+}
+
+@mixin thy-select-options-dropdown {
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.14);
+    background: $white;
+    width: 100%;
+}
+
+@mixin thy-select-options-container {
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 10px 0;
+}
+
+$has-value-margin-base: -0.03175rem;
+$has-value-margin-md: -0.2815rem;
+$thy-label-spacing: 0.3125rem;
+
+@mixin thy-select-multiple-control {
+    .multiple-value-wrapper {
+        margin: {
+            top: $has-value-margin-base;
+            bottom: $has-value-margin-base - $thy-label-spacing;
+            right: 15px;
+        }
+        .thy-label {
+            margin-bottom: $thy-label-spacing;
+        }
+    }
+}
