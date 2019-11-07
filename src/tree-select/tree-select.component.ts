@@ -11,9 +11,7 @@ import {
     NgZone,
     HostListener,
     InjectionToken,
-    Inject,
-    Renderer2,
-    AfterViewInit
+    Renderer2
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ThyTreeSelectNode } from './tree-select.class';

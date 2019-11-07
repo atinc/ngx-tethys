@@ -1,7 +1,5 @@
 .thy-custom-select-options {
-    max-height: 300px;
-    overflow-y: auto;
-    padding: 10px 0;
+    @include thy-select-options-container();
 
     .loading-more {
         min-height: auto;
@@ -44,11 +42,9 @@
     }
 }
 .thy-custom-select-dropdown {
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.14);
-    background: $white;
-    width: 100%;
+    @include thy-select-options-dropdown();
     &.thy-custom-select-dropdown-multiple {
-        .thy-select-custom-options {
+        .thy-custom-select-options {
             .thy-option-item {
                 @include thy-multiple-option();
             }

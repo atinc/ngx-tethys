@@ -1,5 +1,3 @@
-@import './mixin.scss';
-
 .select-control {
     position: relative;
     @include select-control-size($input-height, $input-padding-y);
