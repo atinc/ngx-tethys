@@ -1,3 +1,14 @@
+## [7.5.28](https://github.com/worktile/ngx-tethys/compare/7.5.27...7.5.28) (2019-10-25)
+
+
+### Bug Fixes
+
+* **action-menu:** change spacing between icon and text ([0a8e68c](https://github.com/worktile/ngx-tethys/commit/0a8e68c))
+* **list:** update list-item bg to f3f3f3 ([9b1729f](https://github.com/worktile/ngx-tethys/commit/9b1729f))
+* **select:** fix option paddingRight from 35 to 20 ([fa7d1cd](https://github.com/worktile/ngx-tethys/commit/fa7d1cd)), closes [#INF-94](https://github.com/worktile/ngx-tethys/issues/INF-94)
+
+
+
 ## [7.5.27](https://github.com/worktile/ngx-tethys/compare/7.5.25...7.5.27) (2019-10-17)
 
 
