@@ -1,3 +1,22 @@
+## [7.5.29](https://github.com/worktile/ngx-tethys/compare/7.5.27...7.5.29) (2019-11-07)
+
+
+### Bug Fixes
+
+* **action-menu:** change spacing between icon and text ([0a8e68c](https://github.com/worktile/ngx-tethys/commit/0a8e68c))
+* **custom-select:** fix option active and hover conflict ([ed4d8b5](https://github.com/worktile/ngx-tethys/commit/ed4d8b5))
+* **list:** update list-item bg to f3f3f3 ([9b1729f](https://github.com/worktile/ngx-tethys/commit/9b1729f))
+* **select:** fix option paddingRight from 35 to 20 ([fa7d1cd](https://github.com/worktile/ngx-tethys/commit/fa7d1cd)), closes [#INF-94](https://github.com/worktile/ngx-tethys/issues/INF-94)
+* **tree:** set default tree type ([8d40d02](https://github.com/worktile/ngx-tethys/commit/8d40d02))
+* **tree-select:** modify style of single selection ([5694019](https://github.com/worktile/ngx-tethys/commit/5694019))
+
+
+### Features
+
+* **input:** input default autocomplete off (#INF-133,#AE-140) ([3cdb388](https://github.com/worktile/ngx-tethys/commit/3cdb388)), closes [#INF-133](https://github.com/worktile/ngx-tethys/issues/INF-133) [#AE-140](https://github.com/worktile/ngx-tethys/issues/AE-140)
+
+
+
 ## [7.5.28](https://github.com/worktile/ngx-tethys/compare/7.5.27...7.5.28) (2019-10-25)
 
 
