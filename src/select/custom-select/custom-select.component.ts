@@ -231,7 +231,7 @@ export class ThySelectCustomComponent
     @HostListener('document:click', ['$event'])
     onDocumentClick(event: Event) {
         event.stopPropagation();
-        if (!this.elementRef.nativeElement.contains(event.target)) {
+        if (!this.elementRef.nativeElement.contains(event.target) && this.panelOpen) {
             this.close();
         }
     }
@@ -322,7 +322,7 @@ export class ThySelectCustomComponent
         });
     }
 
-    public dropDownMouseEnter(event: MouseEvent) {
+    public dropDownMouseMove(event: MouseEvent) {
         if (this.keyManager.activeItem) {
             this.keyManager.setActiveItem(-1);
         }
