@@ -27,10 +27,23 @@ const defaultValues = {
 })
 class SkeletonBasicComponent {}
 
+@Component({
+    selector: 'demo-skeleton-custom-content',
+    template: `
+        <thy-skeleton>
+            <ng-template #content>
+                <svg:circle cx="30" cy="30" r="30" />
+                <svg:rect x="15" y="13" rx="4" ry="4" width="100" height="10" />
+            </ng-template>
+        </thy-skeleton>
+    `
+})
+class SkeletonCustomContentComponent {}
+
 describe('#skeleton', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [SkeletonBasicComponent],
+            declarations: [SkeletonBasicComponent, SkeletonCustomContentComponent],
             imports: [ThySkeletonModule, NoopAnimationsModule],
             providers: [
                 // { provide: Location, useClass: SpyLocation }
@@ -132,6 +145,27 @@ describe('#skeleton', () => {
                 fill: `url(${skeleton.thyBaseUrl}#${skeleton.idGradient})`
             });
             expect(skeleton.clipPath).toEqual(`url(${skeleton.thyBaseUrl}#${skeleton.idClip})`);
+        });
+    });
+
+    describe('custom-content', () => {
+        let fixture: ComponentFixture<SkeletonCustomContentComponent>;
+        let skeletonDebugElement: DebugElement;
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(SkeletonCustomContentComponent);
+            fixture.detectChanges();
+            skeletonDebugElement = fixture.debugElement.query(By.directive(ThySkeletonComponent));
+        });
+
+        it('should get custom content', () => {
+            const clipPathElement: HTMLElement = skeletonDebugElement.nativeElement.querySelector('clipPath');
+            expect(clipPathElement).toBeTruthy();
+            expect(
+                clipPathElement.innerHTML.includes(
+                    '<circle cx="30" cy="30" r="30"></circle><rect height="10" rx="4" ry="4" width="100" x="15" y="13"></rect>'
+                )
+            ).toBeTruthy();
         });
     });
 });
