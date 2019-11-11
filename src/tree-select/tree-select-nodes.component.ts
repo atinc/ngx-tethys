@@ -1,4 +1,4 @@
-import { Component, OnInit, ContentChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { ThyTreeSelectComponent } from './tree-select.component';
 import { ThyTreeSelectNode } from './tree-select.class';
 
@@ -7,6 +7,8 @@ import { ThyTreeSelectNode } from './tree-select.class';
     templateUrl: './tree-select-nodes.component.html'
 })
 export class ThyTreeSelectNodesComponent implements OnInit {
+    @HostBinding('class') class: string;
+
     public treeNodes = this.parent.treeNodes;
 
     public primaryKey = this.parent.thyPrimaryKey;
@@ -25,7 +27,11 @@ export class ThyTreeSelectNodesComponent implements OnInit {
 
     constructor(public parent: ThyTreeSelectComponent) {}
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.class = this.isMultiple
+            ? 'thy-tree-select-dropdown thy-tree-select-dropdown-multiple'
+            : 'thy-tree-select-dropdown';
+    }
 
     treeNodeIsSelected(node: ThyTreeSelectNode) {
         if (this.parent.thyMultiple) {

@@ -1100,7 +1100,7 @@ input[type='radio']:after {
 .thy-list-item:not(.disabled):hover,
 .thy-list-option:not(.disabled).hover,
 .thy-list-option:not(.disabled):hover {
-    background: #f3f3f3;
+    background: #fafafa;
     color: #333;
 }
 .thy-list-item:not(.disabled).active,
@@ -1112,7 +1112,7 @@ input[type='radio']:after {
 .thy-list-item:not(.disabled).active:hover,
 .thy-list-option:not(.disabled).active.hover,
 .thy-list-option:not(.disabled).active:hover {
-    background: #f3f3f3;
+    background: #fafafa;
     color: #333;
 }
 .thy-list-item:not(.disabled).active .prefix-icon,
@@ -1121,7 +1121,7 @@ input[type='radio']:after {
 }
 .thy-multiple-selection-list .thy-list-option:not(.disabled).hover,
 .thy-multiple-selection-list .thy-list-option:not(.disabled):hover {
-    background: #f3f3f3;
+    background: #fafafa;
 }
 .thy-multiple-selection-list .thy-list-option:not(.disabled).active {
     background: 0 0;
@@ -1132,7 +1132,7 @@ input[type='radio']:after {
 }
 .thy-multiple-selection-list .thy-list-option:not(.disabled).active.hover,
 .thy-multiple-selection-list .thy-list-option:not(.disabled).active:hover {
-    background: #f3f3f3;
+    background: #fafafa;
     color: #333;
 }
 .thy-grid-list .thy-grid-option .checked-icon {

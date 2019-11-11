@@ -179,7 +179,7 @@ export class ThySelectControlComponent implements OnInit {
     }
 
     get showClearIcon(): boolean {
-        return this.thyAllowClear && this.isSelectedValue && !this.panelOpened;
+        return this.thyAllowClear && this.isSelectedValue;
     }
 
     get isSelectedValue(): boolean {

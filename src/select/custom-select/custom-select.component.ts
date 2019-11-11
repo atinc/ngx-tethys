@@ -228,6 +228,14 @@ export class ThySelectCustomComponent
         }
     }
 
+    @HostListener('document:click', ['$event'])
+    onDocumentClick(event: Event) {
+        event.stopPropagation();
+        if (!this.elementRef.nativeElement.contains(event.target) && this.panelOpen) {
+            this.close();
+        }
+    }
+
     constructor(
         private ngZone: NgZone,
         private elementRef: ElementRef,
@@ -259,7 +267,7 @@ export class ThySelectCustomComponent
 
     ngOnInit() {
         this.getPositions();
-        this.scrollStrategy = this.overlay.scrollStrategies.reposition();
+        this.scrollStrategy = this.overlay.scrollStrategies.close();
         this.viewportRuler
             .change()
             .pipe(takeUntil(this.destroy$))
@@ -314,7 +322,7 @@ export class ThySelectCustomComponent
         });
     }
 
-    public dropDownMouseEnter(event: MouseEvent) {
+    public dropDownMouseMove(event: MouseEvent) {
         if (this.keyManager.activeItem) {
             this.keyManager.setActiveItem(-1);
         }
@@ -394,7 +402,8 @@ export class ThySelectCustomComponent
         return this.options.length + this.optionGroups.length;
     }
 
-    public toggle(): void {
+    public toggle(event: MouseEvent): void {
+        event.stopPropagation();
         this.panelOpen ? this.close() : this.open();
     }
 

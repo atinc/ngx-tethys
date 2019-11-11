@@ -1,9 +1,7 @@
-@import './mixin.scss';
-
 .select-control {
     position: relative;
     @include select-control-size($input-height, $input-padding-y);
-    padding-right: 28px;
+    padding-right: 23px;
     &.form-control-custom {
         padding-top: 0;
         padding-bottom: 0;
@@ -98,7 +96,7 @@
         max-width: 100%;
         padding: 0;
         .search-input-field {
-            width: 0.75em;
+            width: 1px;
             max-width: 100%;
         }
     }
