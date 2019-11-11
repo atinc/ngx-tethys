@@ -124,6 +124,7 @@ export const allMenus = [
                     { name: 'Alert', zhName: '警告框', routePath: 'alert' },
                     { name: 'Confirm', zhName: '确认消息框', routePath: 'confirm', deprecated: true },
                     { name: 'Loading', zhName: '加载中', routePath: 'loading' },
+                    { name: 'Skeleton', zhName: '骨架屏', routePath: 'skeleton' },
                     { name: 'Modal', zhName: '弹框', routePath: 'modal', deprecated: true },
                     { name: 'Dialog', zhName: '弹框', routePath: 'dialog', state: 'new' },
                     { name: 'Tooltip', zhName: '文字提示', routePath: 'tooltip' },

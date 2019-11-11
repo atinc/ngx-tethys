@@ -1,0 +1,18 @@
+import {
+    OnInit,
+    Component,
+    TemplateRef,
+    ViewContainerRef,
+    NgZone,
+    ChangeDetectionStrategy,
+    ElementRef
+} from '@angular/core';
+import { mixinUnsubscribe, MixinBase } from 'ngx-tethys/core';
+
+@Component({
+    selector: 'app-demo-skeleton-title',
+    templateUrl: './skeleton-title.component.html'
+})
+export class DemoSkeletonTitleComponent extends mixinUnsubscribe(MixinBase) implements OnInit {
+    ngOnInit(): void {}
+}

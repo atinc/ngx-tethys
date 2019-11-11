@@ -1,0 +1,69 @@
+<svg
+  *ngIf="!thyLoadingDone"
+  attr.viewBox="0 0 {{ thyViewBoxWidth }} {{ thyViewBoxHeight }}"
+  [attr.preserveAspectRatio]="thyPreserveAspectRatio"
+  [ngStyle]="thyStyle"
+  [attr.height]="thyHeight"
+  [attr.width]="thyWidth"
+>
+  <rect
+    [attr.clip-path]="clipPath"
+    [ngStyle]="fillStyle"
+    x="0"
+    y="0"
+    [attr.width]="thyWidth"
+    [attr.height]="thyHeight"
+  />
+
+  <defs>
+    <clipPath [attr.id]="idClip">
+      <ng-container *ngIf="contentTemplates">
+        <ng-container *ngFor="let content of contentTemplates">
+          <ng-container *ngTemplateOutlet="content"></ng-container>
+        </ng-container>
+      </ng-container>
+
+      <ng-container *ngIf="customTemplate">
+        <ng-container *ngTemplateOutlet="customTemplate"></ng-container>
+      </ng-container>
+    </clipPath>
+
+    <linearGradient [attr.id]="idGradient">
+      <stop offset="0%" [attr.stop-color]="thyPrimaryColor" [attr.stop-opacity]="thyPrimaryOpacity">
+        <ng-container *ngIf="thyAnimate">
+          <animate
+            attributeName="offset"
+            [attr.values]="animationValues[0]"
+            attr.dur="{{ thySpeed }}"
+            repeatCount="indefinite"
+          />
+        </ng-container>
+      </stop>
+
+      <stop offset="50%" [attr.stop-color]="thySecondaryColor" [attr.stop-opacity]="thySecondaryOpacity">
+        <ng-container *ngIf="thyAnimate">
+          <animate
+            attributeName="offset"
+            [attr.values]="animationValues[1]"
+            attr.dur="{{ thySpeed }}"
+            repeatCount="indefinite"
+          />
+        </ng-container>
+      </stop>
+
+      <stop offset="100%" [attr.stop-color]="thyPrimaryColor" [attr.stop-opacity]="thyPrimaryOpacity">
+        <ng-container *ngIf="thyAnimate">
+          <animate
+            attributeName="offset"
+            [attr.values]="animationValues[2]"
+            attr.dur="{{ thySpeed }}"
+            repeatCount="indefinite"
+          />
+        </ng-container>
+      </stop>
+    </linearGradient>
+  </defs>
+</svg>
+<ng-container *ngIf="thyLoadingDone">
+  <ng-content></ng-content>
+</ng-container>

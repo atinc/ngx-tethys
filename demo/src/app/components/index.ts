@@ -86,6 +86,7 @@ import { CustomSelectScrollComponent } from './+select/scroll-load/custom-select
 
 import { DemoActionMenuModule } from './+action-menu';
 import { DemoCardModule } from './+card';
+import { DemoSkeletonModule } from './+skeleton/module';
 
 export const COMPONENTS = [
     DemoTypographyComponent,
@@ -224,5 +225,6 @@ export const DEMO_MODULES = [
     DemoTreeModule,
     DemoLayoutModule,
     DemoActionMenuModule,
-    DemoCardModule
+    DemoCardModule,
+    DemoSkeletonModule
 ];
