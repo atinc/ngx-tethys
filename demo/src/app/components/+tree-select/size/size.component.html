@@ -1,0 +1,49 @@
+<div style="width:500px;">
+  <thy-tree-select
+    [thyTreeNodes]="nodes"
+    thySize="sm"
+    thyPrimaryKey="key"
+    thyShowKey="title"
+    [thyAllowClear]="singleModel.allowClear"
+    thyHiddenNodeKey="hidden"
+    thyDisableNodeKey="disabled"
+    thyPlaceholder="请选择值"
+    [(ngModel)]="singleModel.selectedValue"
+  ></thy-tree-select>
+  <br />
+  <thy-tree-select
+    [thyTreeNodes]="nodes"
+    thySize="md"
+    thyPrimaryKey="key"
+    thyShowKey="title"
+    [thyAllowClear]="singleModel.allowClear"
+    thyHiddenNodeKey="hidden"
+    thyDisableNodeKey="disabled"
+    thyPlaceholder="请选择值"
+    [(ngModel)]="singleModel.selectedValue"
+  ></thy-tree-select>
+  <br />
+  <thy-tree-select
+    [thyTreeNodes]="nodes"
+    thySize=""
+    thyPrimaryKey="key"
+    thyShowKey="title"
+    [thyAllowClear]="singleModel.allowClear"
+    thyHiddenNodeKey="hidden"
+    thyDisableNodeKey="disabled"
+    thyPlaceholder="请选择值"
+    [(ngModel)]="singleModel.selectedValue"
+  ></thy-tree-select>
+  <br />
+  <thy-tree-select
+    [thyTreeNodes]="nodes"
+    thySize="lg"
+    thyPrimaryKey="key"
+    thyShowKey="title"
+    [thyAllowClear]="singleModel.allowClear"
+    thyHiddenNodeKey="hidden"
+    thyDisableNodeKey="disabled"
+    thyPlaceholder="请选择值"
+    [(ngModel)]="singleModel.selectedValue"
+  ></thy-tree-select>
+</div>

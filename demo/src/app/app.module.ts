@@ -32,12 +32,14 @@ import {
 import { GLOBAL_MODULES } from './global';
 import { SidebarComponent } from './core/sidebar/sidebar.component';
 import { SharedModule } from './shared.module';
+import { DemoTreeSelectModule } from './components/+tree-select/module';
 
 @NgModule({
     declarations: [AppComponent, ...COMPONENTS, ...DESIGN_COMPONENTS, SidebarComponent],
     entryComponents: [...ENTRY_COMPONENTS],
     imports: [
         SharedModule,
+        DemoTreeSelectModule,
         ...DEMO_MODULES,
         ...GLOBAL_MODULES,
         RouterModule.forRoot(appRoutes, {
