@@ -11,7 +11,7 @@ const defaultValues = {
     width: '100%',
     height: '100%',
     thySpeed: 2,
-    thyPreserveAspectRatio: '',
+    thyPreserveAspectRatio: 'none',
     thyPrimaryColor: '#f0f0f0',
     thySecondaryColor: '#e0e0e0',
     thyPrimaryOpacity: 1,
@@ -40,10 +40,23 @@ class SkeletonBasicComponent {}
 })
 class SkeletonCustomContentComponent {}
 
+@Component({
+    selector: 'demo-skeleton-title-template',
+    template: `
+        <thy-skeleton>
+            <thy-skeleton-title-template [thyWidth]="width" [thyHeight]="height"> </thy-skeleton-title-template>
+        </thy-skeleton>
+    `
+})
+class SkeletonTitleComponent {
+    width: number;
+    height: number;
+}
+
 describe('#skeleton', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [SkeletonBasicComponent, SkeletonCustomContentComponent],
+            declarations: [SkeletonBasicComponent, SkeletonCustomContentComponent, SkeletonTitleComponent],
             imports: [ThySkeletonModule, NoopAnimationsModule],
             providers: [
                 // { provide: Location, useClass: SpyLocation }
@@ -165,6 +178,37 @@ describe('#skeleton', () => {
                 clipPathElement.innerHTML.includes(
                     '<circle cx="30" cy="30" r="30"></circle><rect height="10" rx="4" ry="4" width="100" x="15" y="13"></rect>'
                 )
+            ).toBeTruthy();
+        });
+    });
+
+    describe('title-template', () => {
+        let fixture: ComponentFixture<SkeletonTitleComponent>;
+        let skeletonDebugElement: DebugElement;
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(SkeletonTitleComponent);
+            fixture.detectChanges();
+            skeletonDebugElement = fixture.debugElement.query(By.directive(ThySkeletonComponent));
+        });
+
+        it('should get title template content', () => {
+            const clipPathElement: HTMLElement = skeletonDebugElement.nativeElement.querySelector('clipPath');
+            expect(clipPathElement).toBeTruthy();
+            expect(
+                clipPathElement.innerHTML.includes('<rect rx="4" ry="4" x="15" y="13" width="100" height="10"></rect>')
+            ).toBeTruthy();
+        });
+
+        it("should custom title content's width and height", () => {
+            fixture.componentInstance.width = 200;
+            fixture.componentInstance.height = 20;
+            fixture.detectChanges();
+            skeletonDebugElement = fixture.debugElement.query(By.directive(ThySkeletonComponent));
+            const clipPathElement: HTMLElement = skeletonDebugElement.nativeElement.querySelector('clipPath');
+            expect(clipPathElement).toBeTruthy();
+            expect(
+                clipPathElement.innerHTML.includes('<rect rx="4" ry="4" x="15" y="13" width="200" height="20"></rect>')
             ).toBeTruthy();
         });
     });

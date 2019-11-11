@@ -34,7 +34,7 @@ export class ThySkeletonComponent implements OnInit, OnChanges {
 
     @Input() thySpeed = 2;
 
-    @Input() thyPreserveAspectRatio = ''; // 'none'; // xMidYMid meet
+    @Input() thyPreserveAspectRatio = 'none'; // xMidYMid meet
 
     @Input() thyPrimaryColor = '#f0f0f0';
 

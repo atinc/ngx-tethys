@@ -1,68 +1,62 @@
 export const apiSkeletonParameters = [
     {
-        property: 'origin',
-        description: '弹出悬浮层位置计算的 Origin Element，Connected Element',
-        type: 'ElementRef | HTMLElement',
-        default: ''
+        property: 'thyWidth',
+        description: '宽度',
+        type: 'string | number',
+        default: '100%'
     },
     {
-        property: 'originActiveClass',
-        description: '对弹出悬浮层位置计算的 Origin Element，Connected Element 添加 class',
-        type: 'string | string[]',
-        default: 'thy-popover-origin-active'
+        property: 'thyHeight',
+        description: '高度',
+        type: 'string | number',
+        default: '100%'
     },
     {
-        property: 'manualClosure',
-        description: `是否只能手动关闭，唯一标识为origin`,
+        property: 'thyViewBoxWidth',
+        description: 'SVG viewBox 宽度',
+        type: 'string | number',
+        default: '400'
+    },
+    {
+        property: 'thyViewBoxHeight',
+        description: 'SVG viewBox 高度',
+        type: 'string | number',
+        default: '130'
+    },
+    {
+        property: 'thyAnimate',
+        description: '是否有动画',
+        type: 'boolean',
+        default: 'true'
+    },
+    {
+        property: 'thySpeed',
+        description: '动画速度',
+        type: 'number',
+        default: '2'
+    },
+    {
+        property: 'thyPreserveAspectRatio',
+        description: 'SVG preserveAspectRatio, none | xMidYMid meet',
+        type: 'string',
+        default: 'none'
+    },
+    {
+        property: 'thyPrimaryColor',
+        description: '主要颜色',
+        type: 'string',
+        default: '#f0f0f0'
+    },
+    {
+        property: 'thySecondaryColor',
+        description: '次要颜色',
+        type: 'string',
+        default: '#e0e0e0'
+    },
+    {
+        property: 'thyLoadingDone',
+        description: '是否加载完毕，加载完毕后隐藏骨架屏加载状态',
         type: 'boolean',
         default: 'false'
-    },
-    {
-        property: 'initialState',
-        description: '传入的初始化状态，弹出组件的变量会自动赋值，在 ngOnInit 生命周期钩子可以获取到，构造函数获取不到',
-        type: 'any',
-        default: 'null'
-    },
-    {
-        property: 'hasBackdrop',
-        description: '是否有幕布',
-        type: 'boolean',
-        default: 'true'
-    },
-    {
-        property: 'panelClass',
-        description: 'overlay panel 类名',
-        type: 'string | string[]',
-        default: ''
-    },
-    {
-        property: 'backdropClosable',
-        description: '点击幕布或者按ESC键是否自动关闭弹出框',
-        type: 'boolean',
-        default: 'true'
-    },
-    {
-        property: 'insideClosable',
-        description: '点击popover内部是否自动关闭弹出框',
-        type: 'boolean',
-        default: 'false'
-    },
-    {
-        property: 'closeOnNavigation',
-        description: '切换浏览器导航是否自动关闭弹出框',
-        type: 'boolean',
-        default: 'true'
-    },
-    {
-        property: 'viewContainerRef',
-        description: '当前的组件的 viewContainerRef, 指定后弹出的组件的父注入器为当前组件的注入器',
-        type: 'ViewContainerRef',
-        default: 'null'
-    },
-    {
-        property: 'maxHeigh',
-        description: '弹出框最大高度',
-        type: 'number | string',
-        default: ''
     }
 ];

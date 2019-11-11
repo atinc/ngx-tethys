@@ -1,3 +1,12 @@
+<form thyForm name="params" thyLayout="inline" class="mt-2">
+  <thy-form-group thyLabelText="Width">
+    <input thyInput name="width" [(ngModel)]="width" />
+  </thy-form-group>
+  <thy-form-group thyLabelText="Height">
+    <input thyInput name="height" [(ngModel)]="height" />
+  </thy-form-group>
+</form>
+
 <thy-skeleton class="skeleton-container">
-  <thy-skeleton-title-template></thy-skeleton-title-template>
+  <thy-skeleton-title-template [thyWidth]="width" [thyHeight]="height"></thy-skeleton-title-template>
 </thy-skeleton>

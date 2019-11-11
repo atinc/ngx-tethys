@@ -14,5 +14,9 @@ import { mixinUnsubscribe, MixinBase } from 'ngx-tethys/core';
     templateUrl: './skeleton-title.component.html'
 })
 export class DemoSkeletonTitleComponent extends mixinUnsubscribe(MixinBase) implements OnInit {
+    width = 100;
+
+    height = 10;
+
     ngOnInit(): void {}
 }

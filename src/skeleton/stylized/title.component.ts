@@ -5,7 +5,7 @@ import { ThySkeletonComponent } from '../skeleton.component';
     selector: 'thy-skeleton-title-template,[thySkeletonTitleTemplate]',
     template: `
         <ng-template #content>
-            <svg:rect x="15" y="13" rx="4" ry="4" [attr.width]="thyWidth" height="10" />
+            <svg:rect x="15" y="13" rx="4" ry="4" [attr.width]="width" [attr.height]="height" />
         </ng-template>
     `,
     exportAs: 'thySkeletonTitleTemplate'
@@ -13,7 +13,21 @@ import { ThySkeletonComponent } from '../skeleton.component';
 export class ThySkeletonTitleComponent implements OnInit {
     @ViewChild('content') contentTemplateRef: TemplateRef<any>;
 
-    @Input() thyWidth = 100;
+    width = 100;
+
+    height = 10;
+
+    @Input() set thyWidth(value: number) {
+        if (value) {
+            this.width = value;
+        }
+    }
+
+    @Input() set thyHeight(value: number) {
+        if (value) {
+            this.height = value;
+        }
+    }
 
     constructor(private skeletonComponent: ThySkeletonComponent) {}
 

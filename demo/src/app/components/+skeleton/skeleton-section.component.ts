@@ -9,6 +9,7 @@ import { DemoSkeletonCustomComponent } from './custom/skeleton-custom.component'
 import { DemoSkeletonTitleComponent } from './title/skeleton-title.component';
 import { DemoSkeletonAvatarComponent } from './avatar/skeleton-avatar.component';
 import { DemoSkeletonParagraphComponent } from './paragraph/skeleton-paragraph.component';
+import { apiSkeletonParameters } from './api-parameters';
 
 @Component({
     selector: 'app-demo-skeleton-section',
@@ -16,6 +17,8 @@ import { DemoSkeletonParagraphComponent } from './paragraph/skeleton-paragraph.c
     styleUrls: ['./skeleton-section.scss']
 })
 export class DemoSkeletonSectionComponent extends mixinUnsubscribe(MixinBase) implements OnInit {
+    apiSkeletonParameters = apiSkeletonParameters;
+
     liveDemos: LiveDemoCodeExample[] = [
         {
             title: 'Skeleton Paragraph',
