@@ -213,3 +213,9 @@ export function camelCase(values: string[]): string {
         return;
     }
 }
+
+export function generateRandomStr() {
+    return Math.random()
+        .toString(36)
+        .substring(2);
+}
