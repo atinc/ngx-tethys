@@ -1,0 +1,11 @@
+<thy-tree-select
+  style="width:500px;"
+  [thyTreeNodes]="nodes"
+  thyPrimaryKey="key"
+  thyShowKey="title"
+  [thyAllowClear]="singleModel.allowClear"
+  thyHiddenNodeFn="hiddenNodeFn"
+  disabledNodeFn="disabled"
+  thyPlaceholder="请选择值"
+  [(ngModel)]="singleModel.selectedValue"
+></thy-tree-select>
