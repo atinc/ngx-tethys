@@ -82,6 +82,7 @@ import { DemoTreeSelectSectionComponent } from './+tree-select/tree-select-secti
 import { DemoTypographyComponent } from './+typography/typography.component';
 import { DemoUploaderSectionComponent } from './+uploader/uploader-section.component';
 import { DemoWTDSectionLinkComponent } from './+wtd/wtd.component';
+import { DemoSkeletonModule } from './+skeleton';
 
 export const COMPONENTS = [
     DemoTypographyComponent,
@@ -220,5 +221,6 @@ export const DEMO_MODULES = [
     DemoTreeModule,
     DemoLayoutModule,
     DemoActionMenuModule,
-    DemoCardModule
+    DemoCardModule,
+    DemoSkeletonModule
 ];
