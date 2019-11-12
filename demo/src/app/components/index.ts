@@ -1,5 +1,4 @@
 import { DemoActionMenuModule } from './+action-menu';
-import { DemoAlertSectionComponent } from './+alert/alert-section.component';
 import { DemoArrowSwitcherSectionComponent } from './+arrow-switcher/arrow-switcher-section.component';
 import { DemoAvatarSectionComponent } from './+avatar/avatar-section.component';
 import { DemoAvatarDisabledSectionComponent } from './+avatar/disabled/disabled.component';
@@ -83,6 +82,7 @@ import { DemoTypographyComponent } from './+typography/typography.component';
 import { DemoUploaderSectionComponent } from './+uploader/uploader-section.component';
 import { DemoWTDSectionLinkComponent } from './+wtd/wtd.component';
 import { DemoSkeletonModule } from './+skeleton';
+import { DemoAlertModule } from './+alert/module';
 
 export const COMPONENTS = [
     DemoTypographyComponent,
@@ -119,7 +119,6 @@ export const COMPONENTS = [
     DemoModalContentComponent,
     DemoModalSectionComponent,
     DemoLoadingSectionComponent,
-    DemoAlertSectionComponent,
     DemoPaginationComponent,
     DemoEmptySectionComponent,
     DemoSwitchSectionComponent,
@@ -222,5 +221,6 @@ export const DEMO_MODULES = [
     DemoLayoutModule,
     DemoActionMenuModule,
     DemoCardModule,
-    DemoSkeletonModule
+    DemoSkeletonModule,
+    DemoAlertModule
 ];
