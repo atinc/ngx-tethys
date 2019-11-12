@@ -1,3 +1,20 @@
+# [7.6.0](https://github.com/worktile/ngx-tethys/compare/7.5.29...7.6.0) (2019-11-12)
+
+
+### Bug Fixes
+
+* **custom-select:** fix test case and stop close when muitiple is true ([2fe45a7](https://github.com/worktile/ngx-tethys/commit/2fe45a7))
+* **select-control:** fix change newlines when selected item is overflow ([65c33a3](https://github.com/worktile/ngx-tethys/commit/65c33a3))
+
+
+### Features
+
+* **custom-select:** support clear when panel is open ([4944088](https://github.com/worktile/ngx-tethys/commit/4944088))
+* add cdkScrollable for demo ([b1a8f9c](https://github.com/worktile/ngx-tethys/commit/b1a8f9c))
+* **skeleton:** add skeleton module contains thy-skeleton comp #INF-124 ([a49d883](https://github.com/worktile/ngx-tethys/commit/a49d883)), closes [#INF-124](https://github.com/worktile/ngx-tethys/issues/INF-124)
+
+
+
 ## [7.5.29](https://github.com/worktile/ngx-tethys/compare/7.5.27...7.5.29) (2019-11-07)
 
 
