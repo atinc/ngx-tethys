@@ -1,7 +1,7 @@
 <div
   cdk-overlay-origin
   thySelectControl
-  (click)="toggle()"
+  (click)="toggle($event)"
   #origin="cdkOverlayOrigin"
   #trigger
   [thyPanelOpened]="panelOpen"
@@ -20,17 +20,15 @@
 
 <ng-template
   cdk-connected-overlay
-  cdkConnectedOverlayHasBackdrop
   cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
   [cdkConnectedOverlayPositions]="dropDownPositions"
   [cdkConnectedOverlayOrigin]="origin"
   [cdkConnectedOverlayOpen]="panelOpen"
   [cdkConnectedOverlayWidth]="triggerRect?.width"
   (attach)="onAttached()"
-  (backdropClick)="close()"
   (detach)="close()"
 >
-  <div [ngClass]="dropDownClass" (mouseenter)="dropDownMouseEnter($event)">
+  <div thyStopPropagation [ngClass]="dropDownClass" (mousemove)="dropDownMouseMove($event)">
     <ng-container *ngIf="options.length > 0 || optionGroups.length > 0; else emptyPlaceholder">
       <div
         #panel
