@@ -82,6 +82,23 @@ describe('ThyAlert', () => {
         expect(iconElement.classList.contains('thy-icon-question-circle-fill')).toBe(true);
     });
 
+    it('should have correct class when type is danger-strong', () => {
+        testComponent.type = `danger-strong`;
+        fixture.detectChanges();
+        const iconElement = alertElement.children[0];
+        expect(iconElement).toBeTruthy();
+        expect(alertElement.classList.contains('thy-alert-danger-strong')).toBe(true);
+        expect(iconElement.classList.contains('thy-icon-waring')).toBe(true);
+    });
+
+    it('should have correct class when type is secondary-strong', () => {
+        testComponent.type = `secondary-strong`;
+        fixture.detectChanges();
+        const iconElement = alertElement.children[0];
+        expect(iconElement).toBeTruthy();
+        expect(alertElement.classList.contains('thy-alert-secondary-strong')).toBe(true);
+    });
+
     it('should have correct class when icon is available string', () => {
         testComponent.icon = `calendar-check`;
         fixture.detectChanges();

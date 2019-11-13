@@ -2,5 +2,8 @@
 <div class="thy-alert thy-alert-{{ thyType }}">
   <thy-icon *ngIf="thyIcon" class="thy-alert-icon" [thyIconName]="thyIcon"></thy-icon>
   <span *ngIf="thyMessage">{{ thyMessage }}</span>
+  <div class="btn-pair thy-alert-operation" *ngIf="alertOperation">
+    <ng-container [ngTemplateOutlet]="alertOperation"></ng-container>
+  </div>
   <!-- <ng-container [ngTemplateOutlet]="content"></ng-container> -->
 </div>

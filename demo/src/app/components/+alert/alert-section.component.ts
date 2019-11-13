@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { LiveDemoCodeExample } from '../../core/live-demo/live-demo.component';
 import { DemoAlertBasicComponent } from './basic/basic.component';
 import { DemoAlertIconComponent } from './icon/icon.component';
-import { DemoAlertBannerComponent } from './banner/banner.component';
+import { DemoAlertStrongComponent } from './strong/strong.component';
+import { DemoAlertWeakComponent } from './weak/weak.component';
 
 @Component({
     selector: 'demo-alert-section',
@@ -15,7 +16,7 @@ export class DemoAlertSectionComponent implements OnInit {
         {
             property: 'thyType',
             description: '置顶警告提示的类型',
-            type: `'success' | 'warning' | 'danger' | 'info' | 'primary-week'`,
+            type: `'success' | 'warning' | 'danger' | 'info' | 'primary-week' | 'danger-strong' | 'secondary-strong';`,
             default: 'info'
         },
         {
@@ -68,24 +69,41 @@ export class DemoAlertSectionComponent implements OnInit {
                     content: require('!!raw-loader!./icon/icon.component.ts')
                 }
             ]
+        },
+        {
+            title: '较弱的提示',
+            component: DemoAlertWeakComponent,
+            description: ``,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'weak.component.html',
+                    content: require('!!raw-loader!./weak/weak.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'weak.component.ts',
+                    content: require('!!raw-loader!./weak/weak.component.ts')
+                }
+            ]
+        },
+        {
+            title: '较强的提示',
+            component: DemoAlertStrongComponent,
+            description: `在页面中置顶显示`,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'strong.component.html',
+                    content: require('!!raw-loader!./strong/strong.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'strong.component.ts',
+                    content: require('!!raw-loader!./strong/strong.component.ts')
+                }
+            ]
         }
-        // {
-        //     title: '顶部',
-        //     component: DemoAlertBannerComponent,
-        //     description: `在页面中置顶显示`,
-        //     codeExamples: [
-        //         {
-        //             type: 'html',
-        //             name: 'banner.component.html',
-        //             content: require('!!raw-loader!./banner/banner.component.html')
-        //         },
-        //         {
-        //             type: 'ts',
-        //             name: 'banner.component.ts',
-        //             content: require('!!raw-loader!./banner/banner.component.ts')
-        //         }
-        //     ]
-        // }
     ];
 
     ngOnInit() {}
