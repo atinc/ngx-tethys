@@ -16,7 +16,7 @@ export class DemoAlertSectionComponent implements OnInit {
         {
             property: 'thyType',
             description: '置顶警告提示的类型',
-            type: `| 'success' | 'warning' | 'danger' | 'info' | 'secondary' | 'primary-week' | 'danger-strong' | 'danger-strong';`,
+            type: `'success' | 'warning' | 'danger' | 'info' | 'primary-week' | 'danger-strong' | 'secondary-strong';`,
             default: 'info'
         },
         {
