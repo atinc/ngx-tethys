@@ -46,6 +46,8 @@ export class ThyIconComponent implements OnInit, OnChanges {
 
     @Input('thyIconLegging') iconLegging: boolean;
 
+    @Input('thyIconLinearGradient') iconLinearGradient: boolean;
+
     constructor(
         private updateHostClassService: UpdateHostClassService,
         private render: Renderer2,
@@ -143,6 +145,10 @@ export class ThyIconComponent implements OnInit, OnChanges {
         //     this._cacheChildrenWithExternalReferences(svg);
         //     this._prependPathToReferences(path);
         // }
+        if (this.iconLinearGradient) {
+            this.redirectLinearGradientUrl(svg);
+            this.clearTitleElement(svg);
+        }
 
         this.elementRef.nativeElement.appendChild(svg);
         this.setStyleRotate();
@@ -178,5 +184,28 @@ export class ThyIconComponent implements OnInit, OnChanges {
         } else {
             return iconName;
         }
+    }
+
+    /**
+     * Support Safari SVG LinearGradient.
+     *
+     *
+     * @param svg
+     */
+    private redirectLinearGradientUrl(svg: SVGElement) {
+        const styleElements = svg.querySelectorAll('[style]');
+        styleElements.forEach((n: any) => {
+            console.log(n.style.cssText);
+            if (n.style.cssText.includes('url')) {
+                n.style.fill = n.style.fill.replace('url("', 'url("' + location.pathname);
+            }
+            if (n.style.cssText.includes('clip-path')) {
+                n.style.clipPath = n.style.clipPath.replace('url("', 'url("' + location.pathname);
+            }
+        });
+    }
+
+    private clearTitleElement(svg: SVGElement) {
+        svg.querySelector('title').remove();
     }
 }
