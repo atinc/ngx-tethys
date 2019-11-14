@@ -146,7 +146,7 @@ export class ThyIconComponent implements OnInit, OnChanges {
         //     this._prependPathToReferences(path);
         // }
         if (this.iconLinearGradient) {
-            this.redirectLinearGradientUrl(svg);
+            this.setBaseUrl(svg);
             this.clearTitleElement(svg);
         }
 
@@ -192,10 +192,9 @@ export class ThyIconComponent implements OnInit, OnChanges {
      *
      * @param svg
      */
-    private redirectLinearGradientUrl(svg: SVGElement) {
+    private setBaseUrl(svg: SVGElement) {
         const styleElements = svg.querySelectorAll('[style]');
         styleElements.forEach((n: any) => {
-            console.log(n.style.cssText);
             if (n.style.cssText.includes('url')) {
                 n.style.fill = n.style.fill.replace('url("', 'url("' + location.pathname);
             }
