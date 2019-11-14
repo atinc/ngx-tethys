@@ -11,7 +11,8 @@
         border: none !important;
         cursor: pointer;
     }
-    &-xs, &-sm {
+    &-xs,
+    &-sm {
         font-size: 0.75rem;
     }
     &-picker {
@@ -42,7 +43,7 @@
             font-size: 1rem;
             margin-top: -8px;
             line-height: 1;
-            transition: transform .2s;
+            transition: transform 0.2s;
             &-expand {
                 transform: rotate(180deg);
             }
@@ -55,13 +56,9 @@
             background: $white;
             top: 50%;
             font-size: 0.875rem;
-            color: $gray-500;
             margin-top: -7px;
             line-height: 1;
             transition: color 0.3s ease, opacity 0.15s ease;
-            &:hover {
-                color: $gray-700;
-            }
         }
         &:hover &-clear {
             opacity: 1;
@@ -123,14 +120,13 @@
         &-active:not(&-disabled) {
             &,
             &:hover {
-                background: rgba($primary, .1);
+                background: rgba($primary, 0.1);
                 color: $primary;
             }
-
         }
         &-disabled {
             &,
-            &:hover{
+            &:hover {
                 color: $gray-400;
                 cursor: default;
             }

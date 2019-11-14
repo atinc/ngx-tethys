@@ -423,7 +423,8 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
 
     private setClearClass(): void {
         this._clearCls = {
-            [`${this.prefixCls}-picker-clear`]: true
+            [`${this.prefixCls}-picker-clear`]: true,
+            [`remove-link`]: true
         };
     }
 
