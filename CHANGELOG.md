@@ -1,3 +1,18 @@
+## [7.6.3](https://github.com/worktile/ngx-tethys/compare/7.6.2...7.6.3) (2019-11-14)
+
+
+### Bug Fixes
+
+* **cascader:** fix clear style ([09e0080](https://github.com/worktile/ngx-tethys/commit/09e0080))
+
+
+### Features
+
+* **icon:** icon support safari ([ebbb53b](https://github.com/worktile/ngx-tethys/commit/ebbb53b))
+* **icon:** icon support safari ([4deda76](https://github.com/worktile/ngx-tethys/commit/4deda76))
+
+
+
 ## [7.6.2](https://github.com/worktile/ngx-tethys/compare/7.6.1...7.6.2) (2019-11-14)
 
 
