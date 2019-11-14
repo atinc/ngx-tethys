@@ -1,3 +1,18 @@
+## [7.6.1](https://github.com/worktile/ngx-tethys/compare/7.6.0...7.6.1) (2019-11-13)
+
+
+### Bug Fixes
+
+* **custom-select:** fix class name for options ([3ca5d26](https://github.com/worktile/ngx-tethys/commit/3ca5d26))
+* **custom-select:** remove checked-icon if ([f3b1040](https://github.com/worktile/ngx-tethys/commit/f3b1040))
+
+
+### Features
+
+* **alert:** add strong type of danger & secondary ([2b4ba88](https://github.com/worktile/ngx-tethys/commit/2b4ba88))
+
+
+
 # [7.6.0](https://github.com/worktile/ngx-tethys/compare/7.5.29...7.6.0) (2019-11-12)
 
 
