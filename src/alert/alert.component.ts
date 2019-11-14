@@ -1,8 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ContentChild, TemplateRef } from '@angular/core';
 import { helpers } from '../util';
 import { Dictionary } from '../typings';
 
-type ThyAlertType = 'success' | 'warning' | 'danger' | 'info' | 'primary-week';
+type ThyAlertType = 'success' | 'warning' | 'danger' | 'info' | 'primary-week' | 'danger-strong' | 'secondary-strong';
 
 @Component({
     selector: 'thy-alert',
@@ -31,6 +31,8 @@ export class ThyAlertComponent implements OnInit {
         }
     }
 
+    @ContentChild('operation') alertOperation: TemplateRef<any>;
+
     // @ViewChild(TemplateRef) content: TemplateRef<any>;
 
     private _typeIcon: Dictionary<string> = {
@@ -38,7 +40,8 @@ export class ThyAlertComponent implements OnInit {
         warning: 'waring-fill',
         danger: 'close-circle-fill',
         info: 'minus-circle-fill',
-        'primary-week': 'question-circle-fill'
+        'primary-week': 'question-circle-fill',
+        'danger-strong': 'waring'
     };
 
     private _showIcon = true;

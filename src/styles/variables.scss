@@ -598,6 +598,11 @@ $alert-padding-x: 1rem !default;
 $thy-alert-week-colors: (
     'primary-week': $primary
 );
+$thy-alert-strong-colors: (
+    'danger-strong': $danger,
+    'secondary-strong': $gray-200
+);
+$alert-operation-margin-left: 20px !default;
 
 // list
 $list-grid-option-margin: 0 25px 25px 0 !default;

@@ -108,7 +108,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
 
     @Input() thyAsync = false;
 
-    private _thyType: ThyTreeType;
+    private _thyType: ThyTreeType = 'default';
 
     @Input()
     set thyType(type: ThyTreeType) {

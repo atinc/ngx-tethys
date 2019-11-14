@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
-import { tap, delay } from 'rxjs/operators';
-import { of } from 'rxjs';
-import { treeSelectNodes } from './mock-data';
-import { ThyTreeSelectNode } from '../../../../../src/tree-select/tree-select.class';
+import { LiveDemoCodeExample } from '../../core/live-demo/live-demo.component';
+import { DemoTreeSelectBasicComponent } from './basic/basic.component';
+import { DemoTreeSelectSizeComponent } from './size/size.component';
+import { DemoTreeSelectEmptyComponent } from './empty/empty.component';
+import { DemoTreeSelectAsyncComponent } from './async/async.component';
+import { DemoTreeSelectMultipleComponent } from './multiple/multiple.component';
+import { DemoTreeSelectComplexComponent } from './complex/complex.component';
 
 @Component({
     selector: 'demo-tree-select-section',
@@ -10,49 +13,110 @@ import { ThyTreeSelectNode } from '../../../../../src/tree-select/tree-select.cl
     styleUrls: ['./tree-select-section.scss']
 })
 export class DemoTreeSelectSectionComponent {
-    nodes = treeSelectNodes;
-
-    newNodes = [
+    public liveDemos: LiveDemoCodeExample[] = [
         {
-            key: '02',
-            title: 'root2',
-            level: 0,
-            icon: 'wtf wtf-drive-o',
-            children: []
+            title: '基本使用',
+            component: DemoTreeSelectBasicComponent,
+            description: ``,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'basic.component.html',
+                    content: require('!!raw-loader!./basic/basic.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'basic.component.ts',
+                    content: require('!!raw-loader!./basic/basic.component.ts')
+                }
+            ]
         },
         {
-            key: '03',
-            title: 'root3',
-            level: 0,
-            icon: 'wtf wtf-drive-o',
-            children: []
-        }
-    ];
-
-    newSelectedValue = this.newNodes[0];
-
-    singleModel = {
-        selectedValue: '010101',
-        allowClear: false,
-        disabled: false,
-        showWholeName: true
-    };
-
-    objSelectedValue = treeSelectNodes[0];
-
-    multiModel = ['010101'];
-
-    asyncNodes = [
+            title: '复杂使用',
+            component: DemoTreeSelectComplexComponent,
+            description: `Tree Select 禁用、隐藏节点通过传入的 Function 判断`,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'complex.component.html',
+                    content: require('!!raw-loader!./complex/complex.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'basic.component.ts',
+                    content: require('!!raw-loader!./complex/complex.component.ts')
+                }
+            ]
+        },
         {
-            key: '01',
-            title: 'root1',
-            level: 0,
-            children: [],
-            childCount: 2
+            title: '多选',
+            component: DemoTreeSelectMultipleComponent,
+            description: `tree-select 多选`,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'multiple.component.html',
+                    content: require('!!raw-loader!./multiple/multiple.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'multiple.component.ts',
+                    content: require('!!raw-loader!./multiple/multiple.component.ts')
+                }
+            ]
+        },
+        {
+            title: '大小',
+            component: DemoTreeSelectSizeComponent,
+            description: ``,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'size.component.html',
+                    content: require('!!raw-loader!./size/size.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'size.component.ts',
+                    content: require('!!raw-loader!./size/size.component.ts')
+                }
+            ]
+        },
+        {
+            title: '可选值为空',
+            component: DemoTreeSelectEmptyComponent,
+            description: `tree-select 的可选值为空`,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'empty.component.html',
+                    content: require('!!raw-loader!./empty/empty.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'empty.component.ts',
+                    content: require('!!raw-loader!./empty/empty.component.ts')
+                }
+            ]
+        },
+        {
+            title: '异步获取可选值',
+            component: DemoTreeSelectAsyncComponent,
+            description: `tree-select 异步获取节点的子节点`,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'async.component.html',
+                    content: require('!!raw-loader!./async/async.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'async.component.ts',
+                    content: require('!!raw-loader!./async/async.component.ts')
+                }
+            ]
         }
     ];
-
-    asyncValue = '';
 
     public apiParameters = [
         {
@@ -169,36 +233,4 @@ export class DemoTreeSelectSectionComponent {
     ];
 
     constructor() {}
-
-    fetchNodeChildren(node: ThyTreeSelectNode) {
-        return of([
-            {
-                key: '010101',
-                title: 'child11',
-                level: 2,
-                icon: 'wtf wtf-file-text',
-                children: []
-            },
-            {
-                key: '010102',
-                title: 'child12',
-                level: 2,
-                icon: 'wtf wtf-file-text',
-                children: []
-            }
-        ]);
-    }
-
-    hiddenNodeFn(node: ThyTreeSelectNode) {
-        return node.hidden;
-    }
-
-    disabledNodeFn(node: ThyTreeSelectNode) {
-        return node.disable;
-    }
-
-    newNgModelChange(data) {
-        console.log(data);
-        console.log(this.newSelectedValue);
-    }
 }

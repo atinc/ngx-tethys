@@ -8,6 +8,10 @@
     margin-bottom: $alert-margin-bottom;
     border: $alert-border-width solid transparent;
     @include border-radius($alert-border-radius);
+
+    .thy-alert-operation {
+        margin-left: $alert-operation-margin-left;
+    }
 }
 
 .thy-alert-icon {
@@ -55,5 +59,21 @@
 @each $key, $color in $thy-alert-week-colors {
     .thy-alert-#{$key} {
         @include thy-alert-week-variant($color);
+    }
+}
+
+@each $key, $color in $thy-alert-strong-colors {
+    @if $key == 'secondary-strong' {
+        .thy-alert-#{$key} {
+            @include thy-alert-accent-variant($color, $gray-800);
+        }
+    } @else {
+        .thy-alert-#{$key} {
+            @include thy-alert-accent-variant(rgba($color, 0.9));
+            .thy-alert-operation .btn {
+                color: $white;
+                border-color: $white;
+            }
+        }
     }
 }

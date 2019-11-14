@@ -1,18 +1,15 @@
 import {
+    ChangeDetectorRef,
     Component,
+    EventEmitter,
+    forwardRef,
     HostBinding,
     Input,
     Output,
-    ContentChild,
-    TemplateRef,
-    ElementRef,
-    ViewEncapsulation,
-    EventEmitter,
-    forwardRef,
-    ChangeDetectorRef
+    ViewEncapsulation
 } from '@angular/core';
-import { ThyTranslate, UpdateHostClassService } from '../shared';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { UpdateHostClassService } from '../shared';
 
 export type InputSearchTheme = 'ellipse' | '';
 

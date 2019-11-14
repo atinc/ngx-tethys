@@ -6,7 +6,14 @@
     <div class="demo-form">
       <form thyForm name="demoForm" #demoForm="ngForm">
         <thy-form-group thyLabelText="用户名" thyLabelRequired thyTips="这是一个输入用户名的描述">
-          <input thyInput name="username" [(ngModel)]="model.name" required placeholder="请输入用户名" />
+          <input
+            thyInput
+            name="username"
+            [thyAutocomplete]="true"
+            [(ngModel)]="model.name"
+            required
+            placeholder="请输入用户名"
+          />
         </thy-form-group>
         <thy-form-group thyRowFill>
           <ng-template #formGroup>

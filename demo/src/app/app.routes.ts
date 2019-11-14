@@ -23,7 +23,7 @@ import { DemoSwitchSectionComponent } from './components/+switch/switch-section.
 import { DemoTransferSectionComponent } from './components/+transfer/transfer-section.component';
 import { DemoFormSectionComponent } from './components/+form/form-section.component';
 import { DemoDataPickerSectionComponent } from './components/+date-picker/date-picker-section.component';
-import { DemoInputSectionComponent } from './components/+input/input-section.component';
+import { InputSectionComponent } from './components/+input/input-section.component';
 import { DemoDropdownSectionComponent } from './components/+dropdown/dropdown-section.component';
 import { DemoProgressSectionComponent } from './components/+progress/progress-section.component';
 import { DemoCheckboxSectionComponent } from './components/+form-checkbox/checkbox-section.component';
@@ -57,6 +57,7 @@ import { DemoVariablesSectionComponent } from './global/+variables';
 import { DemoLinkSectionComponent } from './global/+link';
 import { DemoRebootSectionComponent } from './global/+reboot';
 import { DemoTypographyComponent } from './components/+typography/typography.component';
+import { DemoSkeletonSectionComponent } from './components/+skeleton';
 
 const appRoutes = [
     {
@@ -234,7 +235,7 @@ const appRoutes = [
     },
     {
         path: 'components/input',
-        component: DemoInputSectionComponent
+        component: InputSectionComponent
     },
     {
         path: 'components/checkbox',
@@ -295,6 +296,10 @@ const appRoutes = [
     {
         path: 'components/flexible-text',
         component: DemoFlexibleTextComponent
+    },
+    {
+        path: 'components/skeleton',
+        component: DemoSkeletonSectionComponent
     }
 ];
 

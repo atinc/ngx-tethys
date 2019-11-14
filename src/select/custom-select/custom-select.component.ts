@@ -228,6 +228,14 @@ export class ThySelectCustomComponent
         }
     }
 
+    @HostListener('document:click', ['$event'])
+    onDocumentClick(event: Event) {
+        event.stopPropagation();
+        if (!this.elementRef.nativeElement.contains(event.target) && this.panelOpen) {
+            this.close();
+        }
+    }
+
     constructor(
         private ngZone: NgZone,
         private elementRef: ElementRef,
@@ -259,7 +267,7 @@ export class ThySelectCustomComponent
 
     ngOnInit() {
         this.getPositions();
-        this.scrollStrategy = this.overlay.scrollStrategies.reposition();
+        this.scrollStrategy = this.overlay.scrollStrategies.close();
         this.viewportRuler
             .change()
             .pipe(takeUntil(this.destroy$))
@@ -295,15 +303,29 @@ export class ThySelectCustomComponent
     public onAttached(): void {
         this.cdkConnectedOverlay.positionChange.pipe(take(1)).subscribe(() => {
             if (this.panel) {
-                if (!this.empty) {
+                if (this.keyManager.activeItem) {
                     ScrollToService.scrollToElement(
-                        this.selectionModel.selected[0].element.nativeElement,
+                        this.keyManager.activeItem.element.nativeElement,
                         this.panel.nativeElement
                     );
                     this.changeDetectorRef.detectChanges();
+                } else {
+                    if (!this.empty) {
+                        ScrollToService.scrollToElement(
+                            this.selectionModel.selected[0].element.nativeElement,
+                            this.panel.nativeElement
+                        );
+                        this.changeDetectorRef.detectChanges();
+                    }
                 }
             }
         });
+    }
+
+    public dropDownMouseMove(event: MouseEvent) {
+        if (this.keyManager.activeItem) {
+            this.keyManager.setActiveItem(-1);
+        }
     }
 
     public onOptionsScrolled(elementRef: ElementRef) {
@@ -380,7 +402,8 @@ export class ThySelectCustomComponent
         return this.options.length + this.optionGroups.length;
     }
 
-    public toggle(): void {
+    public toggle(event: MouseEvent): void {
+        event.stopPropagation();
         this.panelOpen ? this.close() : this.open();
     }
 
@@ -423,10 +446,17 @@ export class ThySelectCustomComponent
 
     private highlightCorrectOption(): void {
         if (this.keyManager) {
-            if (this.empty) {
-                this.keyManager.setFirstItemActive();
+            if (this.isMultiple) {
+                if (this.keyManager.activeItem) {
+                    return;
+                }
+                if (this.empty) {
+                    this.keyManager.setFirstItemActive();
+                } else {
+                    this.keyManager.setActiveItem(this.selectionModel.selected[0]);
+                }
             } else {
-                this.keyManager.setActiveItem(this.selectionModel.selected[0]);
+                this.keyManager.setActiveItem(-1);
             }
         }
     }
@@ -444,10 +474,12 @@ export class ThySelectCustomComponent
         });
         this.keyManager.change.pipe(takeUntil(this.destroy$)).subscribe(() => {
             if (this.panelOpen && this.panel) {
-                ScrollToService.scrollToElement(
-                    this.keyManager.activeItem.element.nativeElement,
-                    this.panel.nativeElement
-                );
+                if (this.keyManager.activeItem) {
+                    ScrollToService.scrollToElement(
+                        this.keyManager.activeItem.element.nativeElement,
+                        this.panel.nativeElement
+                    );
+                }
             } else if (!this.panelOpen && !this.isMultiple && this.keyManager.activeItem) {
                 this.keyManager.activeItem.selectViaInteraction();
             }
@@ -489,8 +521,17 @@ export class ThySelectCustomComponent
             // Close the select on ALT + arrow key to match the native <select>
             event.preventDefault();
             this.close();
-        } else if ((keyCode === ENTER || keyCode === SPACE) && manager.activeItem && !hasModifierKey(event)) {
+        } else if (
+            (keyCode === ENTER || keyCode === SPACE) &&
+            (manager.activeItem || !this.empty) &&
+            !hasModifierKey(event)
+        ) {
             event.preventDefault();
+            if (!manager.activeItem) {
+                if (manager.activeItemIndex === -1 && !this.empty) {
+                    manager.setActiveItem(this.selectionModel.selected[0]);
+                }
+            }
             manager.activeItem.selectViaInteraction();
         } else if (this.isMultiple && keyCode === A && event.ctrlKey) {
             event.preventDefault();
@@ -502,6 +543,9 @@ export class ThySelectCustomComponent
                 }
             });
         } else {
+            if (manager.activeItemIndex === -1 && !this.empty) {
+                manager.setActiveItem(this.selectionModel.selected[0]);
+            }
             const previouslyFocusedIndex = manager.activeItemIndex;
 
             manager.onKeydown(event);

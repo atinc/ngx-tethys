@@ -9,7 +9,6 @@
 .thy-list-item {
     padding: 0.594rem 10px;
     @include thy-option-common-layout();
-    @include thy-option($gray-80);
 
     &.cdk-drag,
     &.thy-sortable-item {
@@ -22,9 +21,17 @@
     }
 }
 
+.thy-list-option {
+    @include thy-option();
+}
+
+.thy-list-item {
+    @include thy-option($gray-80);
+}
+
 .thy-multiple-selection-list {
     .thy-list-option {
-        @include thy-multiple-option($gray-80);
+        @include thy-multiple-option();
     }
 }
 

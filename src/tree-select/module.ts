@@ -7,9 +7,10 @@ import { ThyTreeSelectComponent } from './tree-select.component';
 import { ThyTreeSelectNodesComponent } from './tree-select-nodes.component';
 import { ThyListModule } from '../list/list.module';
 import { ThyIconModule } from '../icon';
+import { ThyEmptyModule } from '../empty';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, OverlayModule, ThyLabelModule, ThyListModule, ThyIconModule],
+    imports: [CommonModule, FormsModule, OverlayModule, ThyLabelModule, ThyListModule, ThyIconModule, ThyEmptyModule],
     declarations: [ThyTreeSelectComponent, ThyTreeSelectNodesComponent],
     exports: [ThyTreeSelectComponent, ThyTreeSelectNodesComponent]
 })
