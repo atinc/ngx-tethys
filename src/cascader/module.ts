@@ -5,15 +5,11 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { ThyInputModule } from '../input/module';
 import { ThyCascaderComponent } from './cascader.component';
 import { ThyCascaderOptionComponent } from './cascader-li.component';
+import { ThyIconModule } from '../icon';
 
 @NgModule({
-    imports: [ CommonModule, FormsModule, OverlayModule, ThyInputModule ],
-    declarations: [
-        ThyCascaderComponent, ThyCascaderOptionComponent
-    ],
-    exports: [
-        ThyCascaderComponent
-    ]
+    imports: [CommonModule, FormsModule, OverlayModule, ThyInputModule, ThyIconModule],
+    declarations: [ThyCascaderComponent, ThyCascaderOptionComponent],
+    exports: [ThyCascaderComponent]
 })
-export class ThyCascaderModule {
-}
+export class ThyCascaderModule {}
