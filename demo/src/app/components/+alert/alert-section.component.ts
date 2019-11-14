@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { LiveDemoCodeExample } from '../../core/live-demo/live-demo.component';
 import { DemoAlertBasicComponent } from './basic/basic.component';
 import { DemoAlertIconComponent } from './icon/icon.component';
-import { DemoAlertStrongComponent } from './strong/strong.component';
 import { DemoAlertWeakComponent } from './weak/weak.component';
+import { DemoAlertCloseComponent } from './close/close.component';
 
 @Component({
     selector: 'demo-alert-section',
@@ -88,19 +88,19 @@ export class DemoAlertSectionComponent implements OnInit {
             ]
         },
         {
-            title: '较强的提示',
-            component: DemoAlertStrongComponent,
-            description: `在页面中置顶显示`,
+            title: '可关闭的警告框',
+            component: DemoAlertCloseComponent,
+            description: `显示关闭按钮，点击可关闭警告框`,
             codeExamples: [
                 {
                     type: 'html',
-                    name: 'strong.component.html',
-                    content: require('!!raw-loader!./strong/strong.component.html')
+                    name: 'close.component.html',
+                    content: require('!!raw-loader!./close/close.component.html')
                 },
                 {
                     type: 'ts',
-                    name: 'strong.component.ts',
-                    content: require('!!raw-loader!./strong/strong.component.ts')
+                    name: 'close.component.ts',
+                    content: require('!!raw-loader!./close/close.component.ts')
                 }
             ]
         }

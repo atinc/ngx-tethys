@@ -1,14 +1,16 @@
-import { Component, Input, OnInit, ContentChild, TemplateRef } from '@angular/core';
+import { Component, Input, OnInit, ContentChild, TemplateRef, HostBinding } from '@angular/core';
 import { helpers } from '../util';
 import { Dictionary } from '../typings';
 
-type ThyAlertType = 'success' | 'warning' | 'danger' | 'info' | 'primary-week' | 'danger-strong' | 'secondary-strong';
+type ThyAlertType = 'success' | 'warning' | 'danger' | 'info' | 'primary-week';
 
 @Component({
     selector: 'thy-alert',
     templateUrl: './alert.component.html'
 })
 export class ThyAlertComponent implements OnInit {
+    @HostBinding('class') class: string;
+
     @Input() thyType: ThyAlertType = 'info';
 
     @Input() thyMessage: string;
@@ -31,6 +33,8 @@ export class ThyAlertComponent implements OnInit {
         }
     }
 
+    @Input() thyCloseable: boolean;
+
     @ContentChild('operation') alertOperation: TemplateRef<any>;
 
     // @ViewChild(TemplateRef) content: TemplateRef<any>;
@@ -40,8 +44,7 @@ export class ThyAlertComponent implements OnInit {
         warning: 'waring-fill',
         danger: 'close-circle-fill',
         info: 'minus-circle-fill',
-        'primary-week': 'question-circle-fill',
-        'danger-strong': 'waring'
+        'primary-week': 'question-circle-fill'
     };
 
     private _showIcon = true;
@@ -50,5 +53,11 @@ export class ThyAlertComponent implements OnInit {
 
     constructor() {}
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.class = `thy-alert thy-alert-${this.thyType}`;
+    }
+
+    closeAlert() {
+        this.class = `${this.class} thy-alert-hidden`;
+    }
 }

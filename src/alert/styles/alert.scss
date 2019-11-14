@@ -3,14 +3,52 @@
 //
 
 .thy-alert {
+    display: flex;
+    align-items: center;
     position: relative;
     padding: $alert-padding-y $alert-padding-x;
     margin-bottom: $alert-margin-bottom;
     border: $alert-border-width solid transparent;
     @include border-radius($alert-border-radius);
 
+    &.thy-alert-hidden {
+        display: none;
+    }
+
+    .thy-alert-content {
+        flex: 1;
+        display: flex;
+        align-items: center;
+    }
+
     .thy-alert-operation {
         margin-left: $alert-operation-margin-left;
+        .thy-alert-action {
+            margin: 0 10px;
+            position: relative;
+            &:first-child {
+                margin: 0 10px 0 0;
+            }
+            &:last-child {
+                margin: 0 0 0 10px;
+            }
+            &:not(:last-child):after {
+                content: '';
+                border-right: 1px solid #ddd;
+                width: 10px;
+                height: 13px;
+                position: absolute;
+                right: -10px;
+                top: 2px;
+            }
+        }
+    }
+
+    .thy-alert-close {
+        color: #cacaca;
+        &:hover {
+            color: #888;
+        }
     }
 }
 
@@ -59,21 +97,5 @@
 @each $key, $color in $thy-alert-week-colors {
     .thy-alert-#{$key} {
         @include thy-alert-week-variant($color);
-    }
-}
-
-@each $key, $color in $thy-alert-strong-colors {
-    @if $key == 'secondary-strong' {
-        .thy-alert-#{$key} {
-            @include thy-alert-accent-variant($color, $gray-800);
-        }
-    } @else {
-        .thy-alert-#{$key} {
-            @include thy-alert-accent-variant(rgba($color, 0.9));
-            .thy-alert-operation .btn {
-                color: $white;
-                border-color: $white;
-            }
-        }
     }
 }
