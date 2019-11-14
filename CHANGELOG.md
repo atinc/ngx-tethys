@@ -1,3 +1,12 @@
+## [7.6.2](https://github.com/worktile/ngx-tethys/compare/7.6.1...7.6.2) (2019-11-14)
+
+
+### Features
+
+* **alert:** support closeable & operationTemplate ([65252dc](https://github.com/worktile/ngx-tethys/commit/65252dc))
+
+
+
 ## [7.6.1](https://github.com/worktile/ngx-tethys/compare/7.6.0...7.6.1) (2019-11-13)
 
 
