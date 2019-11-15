@@ -1,6 +1,7 @@
 import { Directive, ElementRef, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ThyMarkdownParserService } from './thy-markdown-parser.service';
 import { $, liteMarked, mermaid, katex } from '../typings';
+import { inputValueToBoolean } from '../util/helpers';
 
 @Directive({
     selector: '[thyMarkdownParser]'
@@ -8,13 +9,7 @@ import { $, liteMarked, mermaid, katex } from '../typings';
 export class ThyMarkdownParserDirective implements OnInit {
     public value: string;
 
-    @Input()
-    set thyMarkdownParser(value: string) {
-        if (value) {
-            this.value = value;
-            this.translateHTML();
-        }
-    }
+    private bypassSecurityTrustHtml = false;
 
     private liteMarkedOptions: any = {
         gfm: true,
@@ -57,6 +52,18 @@ export class ThyMarkdownParserDirective implements OnInit {
         isDef: true,
         isImgPreview: true
     };
+
+    @Input()
+    set thyMarkdownParser(value: string) {
+        if (value) {
+            this.value = value;
+            this.translateHTML();
+        }
+    }
+
+    @Input() set thyBypassSecurityTrustHtml(value: boolean) {
+        this.bypassSecurityTrustHtml = inputValueToBoolean(value);
+    }
 
     constructor(private elementRef: ElementRef, private thyMarkdownParserService: ThyMarkdownParserService) {}
 
@@ -221,7 +228,9 @@ export class ThyMarkdownParserDirective implements OnInit {
         this.initComponent();
         let _value = this.thyMarkdownParserService.filterHTML(this.value);
         _value = this.parseMarked(_value);
-        _value = this.thyMarkdownParserService.sanitizeHTML(_value);
+        if (!this.bypassSecurityTrustHtml) {
+            _value = this.thyMarkdownParserService.sanitizeHTML(_value);
+        }
         setTimeout(() => {
             this.parseMermaid();
         }, 100);
