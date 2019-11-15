@@ -24,11 +24,8 @@ import { ThyStoreModule } from '../../../src/store/module';
 import { DriveStore } from './store/drive-store';
 import { TasksStore } from './store/tasks-store';
 import { DESIGN_COMPONENTS } from './design';
-import { ThyMarkdownParserService, ThyMarkdownPlanTextParserService } from '../../../src/markdown';
-import {
-    CustomMarkdownParserService,
-    CustomMarkdownPlanTextParserService
-} from './components/+markdown/custom-markdown.service';
+import { ThyMarkdownParserService } from '../../../src/markdown';
+import { CustomMarkdownParserService } from './components/+markdown/custom-markdown.service';
 import { GLOBAL_MODULES } from './global';
 import { SidebarComponent } from './core/sidebar/sidebar.component';
 import { SharedModule } from './shared.module';
@@ -67,10 +64,6 @@ import { DemoTreeSelectModule } from './components/+tree-select/module';
         {
             provide: ThyMarkdownParserService,
             useClass: CustomMarkdownParserService
-        },
-        {
-            provide: ThyMarkdownPlanTextParserService,
-            useClass: CustomMarkdownPlanTextParserService
         },
         thyValidatorConfigProvider
     ],

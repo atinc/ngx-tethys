@@ -1,25 +1,11 @@
 import { NgModule } from '@angular/core';
-import {
-    ThyMarkdownParserService,
-    ThyDefaultMarkdownParserService,
-    ThyMarkdownPlanTextParserService,
-    ThyDefaultMarkdownPlanTextParserService
-} from './thy-markdown-parser.service';
-import { ThyMarkdownParser } from './thy-markdown-parser.directive';
-import { ThyMarkdownPlanTextParser } from './thy-markdown-text-parser.directive';
+import { ThyMarkdownParserService } from './thy-markdown-parser.service';
+import { ThyMarkdownParserDirective } from './thy-markdown-parser.directive';
+import { ThyMarkdownPlanTextParserDirective } from './thy-markdown-text-parser.directive';
 
 @NgModule({
-    declarations: [ThyMarkdownParser, ThyMarkdownPlanTextParser],
-    exports: [ThyMarkdownParser, ThyMarkdownPlanTextParser],
-    providers: [
-        {
-            provide: ThyMarkdownParserService,
-            useClass: ThyDefaultMarkdownParserService
-        },
-        {
-            provide: ThyMarkdownPlanTextParserService,
-            useClass: ThyDefaultMarkdownPlanTextParserService
-        }
-    ]
+    declarations: [ThyMarkdownParserDirective, ThyMarkdownPlanTextParserDirective],
+    exports: [ThyMarkdownParserDirective, ThyMarkdownPlanTextParserDirective],
+    providers: [ThyMarkdownParserService]
 })
 export class ThyMarkdownModule {}

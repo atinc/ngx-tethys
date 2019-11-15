@@ -5,7 +5,7 @@ import { $, liteMarked, mermaid, katex } from '../typings';
 @Directive({
     selector: '[thyMarkdownParser]'
 })
-export class ThyMarkdownParser implements OnInit {
+export class ThyMarkdownParserDirective implements OnInit {
     public value: string;
 
     @Input()
@@ -195,6 +195,7 @@ export class ThyMarkdownParser implements OnInit {
         };
         liteMarked.setOptions(this.liteMarkedOptions);
     }
+
     initComponent() {
         // 初始化甘特图
         this.initGantt();
@@ -261,10 +262,10 @@ export class ThyMarkdownParser implements OnInit {
     }
 
     ngOnInit() {
-        const _emojisSetting: any = this.thyMarkdownParserService.setEmoJis();
-        if (_emojisSetting) {
+        const emojisRender = this.thyMarkdownParserService.getEmojisRender();
+        if (emojisRender) {
             this.liteMarkedOptions.wtemoji = true;
-            this.liteMarkedOptions.wtemojiRender = _emojisSetting;
+            this.liteMarkedOptions.wtemojiRender = emojisRender;
         }
         this.translateHTML();
     }
