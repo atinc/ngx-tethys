@@ -1,6 +1,15 @@
-import { Component, Injector, ViewContainerRef, ViewChild, Directive, NgModule, TemplateRef } from '@angular/core';
+import {
+    Component,
+    Injector,
+    ViewContainerRef,
+    ViewChild,
+    Directive,
+    NgModule,
+    TemplateRef,
+    OnInit
+} from '@angular/core';
 import { Location } from '@angular/common';
-import { OverlayContainer } from '@angular/cdk/overlay';
+import { OverlayContainer, Overlay, OverlayModule, ScrollStrategy } from '@angular/cdk/overlay';
 import { SpyLocation } from '@angular/common/testing';
 import { TestBed, inject, ComponentFixture, tick, fakeAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -72,10 +81,22 @@ export class PopoverSimpleContentComponent {
 
         <a class="btn btn4" #btn4 (click)="open4(btn4, template4)">Open4</a>
         <ng-template #template4><div class="template4">template4</div></ng-template>
+
+        <a class="btn btn5" #btn5 (click)="open5(btn5, template5)">Open4</a>
+        <ng-template #template5><div class="template5">template5</div></ng-template>
     `
 })
-export class PopoverManualClosureContentComponent {
-    constructor(public popover: ThyPopover, public popoverInjector: Injector, public directionality: Directionality) {}
+export class PopoverManualClosureContentComponent implements OnInit {
+    constructor(
+        public popover: ThyPopover,
+        public overlay: Overlay,
+        public popoverInjector: Injector,
+        public directionality: Directionality
+    ) {}
+
+    public popoverRef: ThyPopoverRef<any>;
+
+    public scrollStrategy: ScrollStrategy;
 
     open1(origin: HTMLElement, template: TemplateRef<HTMLElement>) {
         this.popover.open(template, {
@@ -104,6 +125,17 @@ export class PopoverManualClosureContentComponent {
             origin
         });
     }
+
+    open5(origin: HTMLElement, template: TemplateRef<HTMLElement>) {
+        this.popoverRef = this.popover.open(template, {
+            origin,
+            scrollStrategy: this.scrollStrategy
+        });
+    }
+
+    ngOnInit() {
+        this.scrollStrategy = this.overlay.scrollStrategies.reposition();
+    }
 }
 
 const TEST_COMPONENTS = [
@@ -116,7 +148,7 @@ const TEST_COMPONENTS = [
 @NgModule({
     declarations: TEST_COMPONENTS,
     entryComponents: [PopoverSimpleContentComponent, WithChildViewContainerComponent],
-    imports: [ThyPopoverModule, NoopAnimationsModule],
+    imports: [ThyPopoverModule, NoopAnimationsModule, OverlayModule],
     exports: TEST_COMPONENTS
 })
 class PopoverTestModule {}
@@ -190,7 +222,7 @@ describe(`thyPopover`, () => {
 
         describe('manualClosure', () => {
             let viewContainerFixtureManualClosure: ComponentFixture<PopoverManualClosureContentComponent>;
-            let btnElement1, btnElement2, btnElement3, btnElement4;
+            let btnElement1, btnElement2, btnElement3, btnElement4, btnElement5;
 
             beforeEach(() => {
                 viewContainerFixtureManualClosure = TestBed.createComponent(PopoverManualClosureContentComponent);
@@ -198,6 +230,7 @@ describe(`thyPopover`, () => {
                 btnElement2 = viewContainerFixtureManualClosure.nativeElement.querySelector('.btn2');
                 btnElement3 = viewContainerFixtureManualClosure.nativeElement.querySelector('.btn3');
                 btnElement4 = viewContainerFixtureManualClosure.nativeElement.querySelector('.btn4');
+                btnElement5 = viewContainerFixtureManualClosure.nativeElement.querySelector('.btn5');
                 viewContainerFixtureManualClosure.detectChanges();
             });
 
@@ -277,6 +310,14 @@ describe(`thyPopover`, () => {
                 btnElement3.click();
                 expect(document.querySelector('.active-class2')).toBeTruthy();
                 expect(document.querySelector('.active-class3')).toBeTruthy();
+            });
+
+            it('apply reposition scroll strategy', () => {
+                btnElement5.click();
+                expect(
+                    viewContainerFixtureManualClosure.componentInstance.popoverRef.getOverlayRef().getConfig()
+                        .scrollStrategy
+                ).toEqual(viewContainerFixtureManualClosure.componentInstance.scrollStrategy);
             });
         });
     });
