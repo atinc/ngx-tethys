@@ -1,3 +1,17 @@
+## [7.6.9](https://github.com/worktile/ngx-tethys/compare/7.6.7...7.6.9) (2019-11-20)
+
+
+### Bug Fixes
+
+* **util:** fix util  match dom error when IE ([2972cc9](https://github.com/worktile/ngx-tethys/commit/2972cc9))
+
+
+### Features
+
+* **popover:** popover config add scroll stragety ([1776ed3](https://github.com/worktile/ngx-tethys/commit/1776ed3))
+
+
+
 ## [7.6.8](https://github.com/worktile/ngx-tethys/compare/7.6.7...7.6.8) (2019-11-20)
 
 
