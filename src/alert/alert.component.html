@@ -1,9 +1,10 @@
-<!-- <ng-template><ng-content></ng-content></ng-template> -->
-<div class="thy-alert thy-alert-{{ thyType }}">
+<div class="thy-alert-content">
   <thy-icon *ngIf="thyIcon" class="thy-alert-icon" [thyIconName]="thyIcon"></thy-icon>
   <span *ngIf="thyMessage">{{ thyMessage }}</span>
-  <div class="btn-pair thy-alert-operation" *ngIf="alertOperation">
+  <div class="thy-alert-operation" *ngIf="alertOperation">
     <ng-container [ngTemplateOutlet]="alertOperation"></ng-container>
   </div>
-  <!-- <ng-container [ngTemplateOutlet]="content"></ng-container> -->
 </div>
+<a href="javascript:;" class="thy-alert-close" *ngIf="thyCloseable" (click)="closeAlert()">
+  <thy-icon thyIconName="close"></thy-icon>
+</a>

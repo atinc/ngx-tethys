@@ -1,3 +1,105 @@
+## [7.6.8](https://github.com/worktile/ngx-tethys/compare/7.6.7...7.6.8) (2019-11-20)
+
+
+### Features
+
+* **popover:** popover config add scroll stragety ([1776ed3](https://github.com/worktile/ngx-tethys/commit/1776ed3))
+
+
+
+## [7.6.7](https://github.com/worktile/ngx-tethys/compare/7.6.2...7.6.7) (2019-11-15)
+
+
+### Bug Fixes
+
+* **cascader:** fix clear style ([09e0080](https://github.com/worktile/ngx-tethys/commit/09e0080))
+* **markdown:** add thyBypassSecurityTrustHtml without sanitize ([8ffcfa0](https://github.com/worktile/ngx-tethys/commit/8ffcfa0))
+* **markdown:** use ng dom sanitizer sanitize html fix xss #CMN-477 ([67eefa3](https://github.com/worktile/ngx-tethys/commit/67eefa3)), closes [#CMN-477](https://github.com/worktile/ngx-tethys/issues/CMN-477)
+
+
+### Features
+
+* **avatar:** update avatar bg colors ([94ed242](https://github.com/worktile/ngx-tethys/commit/94ed242))
+* **icon:** icon support safari ([ebbb53b](https://github.com/worktile/ngx-tethys/commit/ebbb53b))
+* **icon:** icon support safari ([4deda76](https://github.com/worktile/ngx-tethys/commit/4deda76))
+
+
+
+## [7.6.6](https://github.com/worktile/ngx-tethys/compare/7.6.2...7.6.6) (2019-11-15)
+
+
+### Bug Fixes
+
+* **cascader:** fix clear style ([09e0080](https://github.com/worktile/ngx-tethys/commit/09e0080))
+* **markdown:** use ng dom sanitizer sanitize html fix xss #CMN-477 ([67eefa3](https://github.com/worktile/ngx-tethys/commit/67eefa3)), closes [#CMN-477](https://github.com/worktile/ngx-tethys/issues/CMN-477)
+
+
+### Features
+
+* **avatar:** update avatar bg colors ([94ed242](https://github.com/worktile/ngx-tethys/commit/94ed242))
+* **icon:** icon support safari ([ebbb53b](https://github.com/worktile/ngx-tethys/commit/ebbb53b))
+* **icon:** icon support safari ([4deda76](https://github.com/worktile/ngx-tethys/commit/4deda76))
+
+
+
+
+## [7.6.5](https://github.com/worktile/ngx-tethys/compare/7.6.2...7.6.5) (2019-11-15)
+
+
+### Bug Fixes
+
+* **cascader:** fix clear style ([09e0080](https://github.com/worktile/ngx-tethys/commit/09e0080))
+* **markdown:** use ng dom sanitizer sanitize html fix xss #CMN-477 ([67eefa3](https://github.com/worktile/ngx-tethys/commit/67eefa3)), closes [#CMN-477](https://github.com/worktile/ngx-tethys/issues/CMN-477)
+
+
+### Features
+
+* **avatar:** update avatar bg colors ([94ed242](https://github.com/worktile/ngx-tethys/commit/94ed242))
+* **icon:** icon support safari ([ebbb53b](https://github.com/worktile/ngx-tethys/commit/ebbb53b))
+* **icon:** icon support safari ([4deda76](https://github.com/worktile/ngx-tethys/commit/4deda76))
+
+
+
+## [7.6.4](https://github.com/worktile/ngx-tethys/compare/7.6.2...7.6.4) (2019-11-15)
+
+
+### Bug Fixes
+
+* **cascader:** fix clear style ([09e0080](https://github.com/worktile/ngx-tethys/commit/09e0080))
+
+
+### Features
+
+* **avatar:** update avatar bg colors ([94ed242](https://github.com/worktile/ngx-tethys/commit/94ed242))
+* **icon:** icon support safari ([ebbb53b](https://github.com/worktile/ngx-tethys/commit/ebbb53b))
+* **icon:** icon support safari ([4deda76](https://github.com/worktile/ngx-tethys/commit/4deda76))
+
+
+
+## [7.6.3](https://github.com/worktile/ngx-tethys/compare/7.6.2...7.6.3) (2019-11-14)
+
+
+### Bug Fixes
+
+* **cascader:** fix clear style ([09e0080](https://github.com/worktile/ngx-tethys/commit/09e0080))
+
+
+### Features
+
+* **icon:** icon support safari ([ebbb53b](https://github.com/worktile/ngx-tethys/commit/ebbb53b))
+* **icon:** icon support safari ([4deda76](https://github.com/worktile/ngx-tethys/commit/4deda76))
+
+
+
+## [7.6.2](https://github.com/worktile/ngx-tethys/compare/7.6.1...7.6.2) (2019-11-14)
+
+
+### Features
+
+* **alert:** support closeable & operationTemplate ([65252dc](https://github.com/worktile/ngx-tethys/commit/65252dc))
+
+
+
 ## [7.6.1](https://github.com/worktile/ngx-tethys/compare/7.6.0...7.6.1) (2019-11-13)
 
 

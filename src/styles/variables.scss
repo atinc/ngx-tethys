@@ -594,15 +594,11 @@ $tooltip-arrow-color: $tooltip-bg !default;
 
 // alert
 $alert-padding-y: 0.625rem !default;
-$alert-padding-x: 1rem !default;
+$alert-padding-x: 1.125rem !default;
 $thy-alert-week-colors: (
     'primary-week': $primary
 );
-$thy-alert-strong-colors: (
-    'danger-strong': $danger,
-    'secondary-strong': $gray-200
-);
-$alert-operation-margin-left: 20px !default;
+$alert-operation-margin-left: 40px !default;
 
 // list
 $list-grid-option-margin: 0 25px 25px 0 !default;

@@ -24,15 +24,3 @@
     border-left-width: 2px;
     @include thy-alert-inner($color);
 }
-
-@mixin thy-alert-accent-variant($bg, $color: $white) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: $color;
-    @include gradient-bg($bg);
-    border-radius: 0;
-    border: none;
-
-    @include thy-alert-inner($color);
-}

@@ -1299,6 +1299,12 @@ input[type='radio']:after {
     border-color: #eee #eee #eee #48525c;
     border-left-width: 2px;
 }
+.thy-alert-primary-week hr {
+    border-top-color: #3d454e;
+}
+.thy-alert-primary-week .alert-link {
+    color: #32393f;
+}
 .thy-alert-primary-week .thy-alert-icon {
     color: #48525c;
 }
