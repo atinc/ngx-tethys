@@ -2,12 +2,13 @@ import { ElementRef } from '@angular/core';
 import * as helpers from './helpers';
 
 const proto = Element.prototype;
-const vendor = proto.matches
-    || (proto as any).matchesSelector
-    || proto.webkitMatchesSelector
-    || (proto as any).mozMatchesSelector
-    || (proto as any).proto.msMatchesSelector
-    || (proto as any).oMatchesSelector;
+const vendor =
+    proto.matches ||
+    (proto as any).matchesSelector ||
+    proto.webkitMatchesSelector ||
+    (proto as any).mozMatchesSelector ||
+    (proto as any).msMatchesSelector ||
+    (proto as any).oMatchesSelector;
 
 /**
  * Match `el` to `selector`.
@@ -25,17 +26,21 @@ export function match(el: any, selector: string) {
     return false;
 }
 export function isDocument(element: any) {
-    return (typeof HTMLDocument !== 'undefined' && element instanceof HTMLDocument)
-        || (element.nodeType && element.nodeType === element.DOCUMENT_NODE);
+    return (
+        (typeof HTMLDocument !== 'undefined' && element instanceof HTMLDocument) ||
+        (element.nodeType && element.nodeType === element.DOCUMENT_NODE)
+    );
 }
 
 export function isElement(element: any) {
-    return (typeof HTMLElement !== 'undefined' && element instanceof HTMLElement)
-        || (element.nodeType && element.nodeType === element.ELEMENT_NODE);
+    return (
+        (typeof HTMLElement !== 'undefined' && element instanceof HTMLElement) ||
+        (element.nodeType && element.nodeType === element.ELEMENT_NODE)
+    );
 }
 
 export function getWindow(elem: any) {
-    return (elem != null && elem === elem.window) ? elem : elem.nodeType === 9 && elem.defaultView;
+    return elem != null && elem === elem.window ? elem : elem.nodeType === 9 && elem.defaultView;
 }
 
 export function getElementOffset(elem: HTMLElement) {
