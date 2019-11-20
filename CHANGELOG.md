@@ -1,3 +1,12 @@
+## [7.6.8](https://github.com/worktile/ngx-tethys/compare/7.6.7...7.6.8) (2019-11-20)
+
+
+### Features
+
+* **popover:** popover config add scroll stragety ([1776ed3](https://github.com/worktile/ngx-tethys/commit/1776ed3))
+
+
+
 ## [7.6.7](https://github.com/worktile/ngx-tethys/compare/7.6.2...7.6.7) (2019-11-15)
 
 
