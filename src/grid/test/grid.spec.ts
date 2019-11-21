@@ -16,6 +16,7 @@ import { ThyGridComponent } from '../grid.component';
             [thyRowClassName]="gridRowClassName"
             [thyLoadingDone]="isLoadingDone"
             [thyLoadingText]="loadingText"
+            [thyShowHeader]="isShowHeader"
             (thyOnRowClick)="onRowClick($event, row)"
             (thyOnMultiSelectChange)="onMultiSelectChange($event, row)"
             [thyPageIndex]="pagination.index"
@@ -96,6 +97,7 @@ class ThyDemoDefaultGridComponent {
         size: 3,
         total: 6
     };
+    isShowHeader = true;
     isDraggable = false;
     isRowSelect = false;
     gridClassName = 'class-name';
@@ -209,7 +211,7 @@ describe('ThyGrid', () => {
         expect(defaultElement.innerText.trim()).toEqual('-');
     });
 
-    it('width is 160 when thyWidth is 160', () => {
+    it('have checkbox when conlunm set thyType checkbox', () => {
         fixture.detectChanges();
         const inputElement = rows[1].querySelector('input');
         expect(inputElement.type).toEqual('checkbox');
@@ -278,6 +280,7 @@ describe('ThyGrid', () => {
         const paginationComponent = gridComponent.nativeElement.querySelector('thy-pagination');
         expect(paginationComponent === null).toBe(true);
     });
+
     it('should in second page when index is 2', () => {
         testComponent.pagination = {
             index: 2,
@@ -289,6 +292,19 @@ describe('ThyGrid', () => {
         const items = paginationComponent.querySelectorAll('li');
         expect(items[testComponent.pagination.index].classList.contains('active')).toBe(true);
         expect(items.length).toEqual(4);
+    });
+
+    it('have <thead> when set thyShowHeader true', () => {
+        fixture.detectChanges();
+        const thead = table.querySelector('thead');
+        expect(thead).toBeTruthy();
+    });
+
+    it('do not have <thead> when set thyShowHeader false', () => {
+        testComponent.isShowHeader = false;
+        fixture.detectChanges();
+        const thead = table.querySelector('thead');
+        expect(thead).toBeNull();
     });
 
     it('#onRowClick() should set #message to "onRowClick is ok"', () => {
