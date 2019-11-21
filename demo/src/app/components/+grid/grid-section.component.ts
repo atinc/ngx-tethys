@@ -228,6 +228,12 @@ export class DemoGridSectionComponent implements OnInit {
             description: '拖动修改事件',
             type: 'ThyGridDraggableEvent',
             default: ''
+        },
+        {
+            property: '(thyShowHeader)',
+            description: '是否显示header',
+            type: 'Boolean',
+            default: 'true'
         }
     ];
     public columnApiParams = [
