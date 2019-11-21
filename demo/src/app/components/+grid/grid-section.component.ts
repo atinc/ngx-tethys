@@ -194,6 +194,12 @@ export class DemoGridSectionComponent implements OnInit {
             default: 'false'
         },
         {
+            property: 'thyShowHeader',
+            description: '是否显示header',
+            type: 'Boolean',
+            default: 'true'
+        },
+        {
             property: '(thyOnRowClick)',
             description: 'Grid行点击事件',
             type: 'ThyGridRowEvent',
@@ -221,12 +227,6 @@ export class DemoGridSectionComponent implements OnInit {
             property: '(thyOnSwitchChange)',
             description: '切换组件回调事件',
             type: 'ThySwitchEvent',
-            default: ''
-        },
-        {
-            property: '(thyOnDraggableChange)',
-            description: '拖动修改事件',
-            type: 'ThyGridDraggableEvent',
             default: ''
         }
     ];
