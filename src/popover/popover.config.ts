@@ -1,6 +1,7 @@
 import { ElementRef, ViewContainerRef, InjectionToken } from '@angular/core';
 import { Directionality } from '@angular/cdk/bidi';
 import { ThyPlacement, ThyUpperOverlayConfig } from '../core/overlay';
+import { ScrollStrategy } from '@angular/cdk/overlay';
 
 export class ThyPopoverConfig<TData = any> extends ThyUpperOverlayConfig<TData> {
     /** Origin Element, for overlay flexible connected to */
@@ -20,6 +21,11 @@ export class ThyPopoverConfig<TData = any> extends ThyUpperOverlayConfig<TData> 
 
     /** Origin active class when popover is opened */
     originActiveClass?: string | string[];
+
+    /**
+     * 滚动策略
+     */
+    scrollStrategy?: ScrollStrategy;
 }
 
 export const THY_POPOVER_DEFAULT_CONFIG = new InjectionToken<ThyPopoverConfig>('thy-popover-default-config');

@@ -530,7 +530,7 @@ describe('ThyCustomSelect', () => {
                 fixture.detectChanges();
                 flush();
 
-                const backdrop = overlayContainerElement.querySelector('.cdk-overlay-backdrop') as HTMLElement;
+                const backdrop = fixture.debugElement.nativeElement.querySelector('form') as HTMLElement;
 
                 backdrop.click();
                 fixture.detectChanges();
@@ -1074,7 +1074,7 @@ describe('ThyCustomSelect', () => {
             (options.item(0) as HTMLElement).click();
             (options.item(1) as HTMLElement).click();
 
-            const backdrop = overlayContainerElement.querySelector('.cdk-overlay-backdrop') as HTMLElement;
+            const backdrop = fixture.debugElement.nativeElement.querySelector('form') as HTMLElement;
             backdrop.click();
 
             fixture.detectChanges();
@@ -1118,7 +1118,7 @@ describe('ThyCustomSelect', () => {
             (options.item(0) as HTMLElement).click();
             (options.item(1) as HTMLElement).click();
 
-            const backdrop = overlayContainerElement.querySelector('.cdk-overlay-backdrop') as HTMLElement;
+            const backdrop = fixture.debugElement.nativeElement.querySelector('form') as HTMLElement;
             backdrop.click();
 
             fixture.detectChanges();

@@ -2,7 +2,7 @@
   <colgroup>
     <col *ngFor="let column of columns" [width]="column.width" />
   </colgroup>
-  <thead>
+  <thead *ngIf="thyShowHeader">
     <tr>
       <th *ngFor="let column of columns" [ngClass]="column.headerClassName">
         <ng-container *ngIf="!column.headerTemplateRef">

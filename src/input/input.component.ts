@@ -1,21 +1,19 @@
 import {
+    AfterViewInit,
     Component,
+    ContentChild,
+    EventEmitter,
+    forwardRef,
     HostBinding,
     Input,
     Output,
-    ContentChild,
+    Renderer2,
     TemplateRef,
-    ElementRef,
-    ViewEncapsulation,
-    EventEmitter,
-    forwardRef,
     ViewChild,
-    OnInit,
-    AfterViewInit,
-    Renderer2
+    ViewEncapsulation
 } from '@angular/core';
-import { ThyTranslate, UpdateHostClassService } from '../shared';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { UpdateHostClassService } from '../shared';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -61,6 +59,11 @@ export class ThyInputComponent implements ControlValueAccessor, AfterViewInit {
 
     @Input() readonly = false;
 
+    @Input()
+    set thyAutocomplete(value: boolean) {
+        this.autocomplete = value;
+    }
+
     @Output() focus: EventEmitter<Event> = new EventEmitter<Event>();
 
     @Output() blur: EventEmitter<Event> = new EventEmitter<Event>();
@@ -76,6 +79,8 @@ export class ThyInputComponent implements ControlValueAccessor, AfterViewInit {
     public value: string;
 
     public disabled = false;
+
+    public autocomplete: boolean;
 
     public showLabel: boolean;
 

@@ -1,6 +1,10 @@
 <section class="parameters" *ngIf="parameters">
   <div class="parameters-header">
-    <h4 class="demo-title">{{ title }}</h4>
+    <h4 class="demo-title">
+      <span>{{ title }}</span>
+      <span *ngIf="showComponentLabel" thyLabel="outline" thySize="sm" thyLabelColor="#1890ff">Component</span>
+      <span *ngIf="showDirectiveLabel" thyLabel="outline" thySize="sm" thyLabelColor="#eb2f96">Directive</span>
+    </h4>
   </div>
   <div class="parameters-body">
     <thy-grid [thyModel]="parameters" thyTheme="bordered" className="table-hover">

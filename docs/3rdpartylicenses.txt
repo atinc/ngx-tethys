@@ -148,9 +148,23 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 
 
+ngx-bootstrap/component-loader
+
 ngx-bootstrap/datepicker
 
+ngx-bootstrap/mini-ngrx
+
+ngx-bootstrap/modal
+
+ngx-bootstrap/positioning
+
+ngx-bootstrap/progressbar
+
 ngx-bootstrap/tabs
+
+ngx-bootstrap/timepicker
+
+ngx-bootstrap/utils
 
 ngx-highlightjs
 MIT
@@ -159,6 +173,8 @@ ngx-tethys
 MIT
 Copyright (c) 2018 Worktile Inc. https://worktile.com
 
+
+undefined
 
 rxjs
 Apache-2.0
@@ -365,22 +381,6 @@ Apache-2.0
  limitations under the License.
  
 
-
-undefined
-
-ngx-bootstrap/component-loader
-
-ngx-bootstrap/mini-ngrx
-
-ngx-bootstrap/modal
-
-ngx-bootstrap/positioning
-
-ngx-bootstrap/progressbar
-
-ngx-bootstrap/timepicker
-
-ngx-bootstrap/utils
 
 sortablejs
 MIT

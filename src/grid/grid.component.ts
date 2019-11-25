@@ -197,6 +197,8 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
         this.wholeRowSelect = value;
     }
 
+    @Input() thyShowHeader = true;
+
     @HostBinding('class.thy-grid-hover-display-operation')
     @Input()
     thyHoverDisplayOperation: boolean;

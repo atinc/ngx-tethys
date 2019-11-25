@@ -1,54 +1,17 @@
-import { Injectable } from '@angular/core';
+import { Injectable, SecurityContext } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
-export abstract class ThyMarkdownParserService {
-    abstract setEmoJis(): {
-        emojis: any[];
-        getImageSrc: string;
-        className: string;
-    };
-
-    abstract filterHTML(html: string): string;
-
-    abstract sanitizeHTML(html: string): string;
+export interface EmojisRenderInfo {
+    emojis: any[];
+    getImageSrc: (emoji: string) => string;
+    className: string;
 }
 
 @Injectable()
-export class ThyDefaultMarkdownParserService extends ThyMarkdownParserService {
-    setEmoJis(): {
-        emojis: any[];
-        getImageSrc: string;
-        className: string;
-    } {
-        return null;
-    }
-    filterHTML(html: string): string {
-        return html;
-    }
+export class ThyMarkdownParserService {
+    constructor(protected sanitizer: DomSanitizer) {}
 
-    sanitizeHTML(html: string): string {
-        return html;
-    }
-}
-
-export abstract class ThyMarkdownPlanTextParserService {
-    abstract setEmoJis(): {
-        emojis: any[];
-        getImageSrc: string;
-        className: string;
-    };
-
-    abstract setHighLightWords(): string[];
-
-    abstract filterHTML(html: string): string;
-}
-
-@Injectable()
-export class ThyDefaultMarkdownPlanTextParserService extends ThyMarkdownPlanTextParserService {
-    setEmoJis(): {
-        emojis: any[];
-        getImageSrc: string;
-        className: string;
-    } {
+    getEmojisRender(): EmojisRenderInfo {
         return null;
     }
 
@@ -56,7 +19,11 @@ export class ThyDefaultMarkdownPlanTextParserService extends ThyMarkdownPlanText
         return [];
     }
 
-    filterHTML(html: string): string {
+    filterHTML(html: string) {
         return html;
+    }
+
+    sanitizeHTML(html: string) {
+        return this.sanitizer.sanitize(SecurityContext.HTML, html);
     }
 }

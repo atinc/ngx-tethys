@@ -1,11 +1,11 @@
 import { Directive, ElementRef, OnInit, Input } from '@angular/core';
-import { ThyMarkdownPlanTextParserService } from './thy-markdown-parser.service';
+import { ThyMarkdownParserService } from './thy-markdown-parser.service';
 import { liteMarked } from '../typings';
 
 @Directive({
     selector: '[thyMarkdownPlanText]'
 })
-export class ThyMarkdownPlanTextParser implements OnInit {
+export class ThyMarkdownPlanTextParserDirective implements OnInit {
     private value = '';
 
     private prefix = '';
@@ -62,25 +62,22 @@ export class ThyMarkdownPlanTextParser implements OnInit {
         }
     }
 
-    constructor(
-        private elementRef: ElementRef,
-        private thyMarkdownPlanTextParserService: ThyMarkdownPlanTextParserService
-    ) {}
+    constructor(private elementRef: ElementRef, private thyMarkdownParserService: ThyMarkdownParserService) {}
 
     translateHTML() {
         liteMarked.setOptions(this.liteMarkedOptions);
         let _value = liteMarked.toHTML(this.value, this.liteMarkedOptions.highLightWords);
-        _value = this.thyMarkdownPlanTextParserService.filterHTML(_value);
+        _value = this.thyMarkdownParserService.sanitizeHTML(_value);
         this.elementRef.nativeElement.innerHTML = _value;
     }
 
     ngOnInit() {
-        const _emojisSetting: any = this.thyMarkdownPlanTextParserService.setEmoJis();
-        if (_emojisSetting) {
+        const emojisRender = this.thyMarkdownParserService.getEmojisRender();
+        if (emojisRender) {
             this.liteMarkedOptions.wtemoji = true;
-            this.liteMarkedOptions.wtemojiRender = _emojisSetting;
+            this.liteMarkedOptions.wtemojiRender = emojisRender;
         }
-        const _highLightWords = this.thyMarkdownPlanTextParserService.setHighLightWords();
+        const _highLightWords = this.thyMarkdownParserService.setHighLightWords();
         if (_highLightWords && _highLightWords instanceof Array) {
             this.liteMarkedOptions.highLightWords = _highLightWords;
         }
