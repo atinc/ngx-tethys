@@ -15,13 +15,18 @@ import { coerceElement } from '@angular/cdk/coercion';
 import { DOCUMENT } from '@angular/common';
 import { TooltipService } from '../tooltip/tooltip.service';
 
+export interface ThyCopyEvent {
+    isSuccess: boolean;
+    event: Event;
+}
+
 @Directive({
     selector: '[thyCopy]',
     providers: [TooltipService]
 })
 export class ThyCopyDirective implements OnInit, OnDestroy {
     // 默认为点击标签，可传复制目标标签
-    @Output() thyCopy = new EventEmitter<{ isSuccess: boolean; event: Event }>();
+    @Output() thyCopy = new EventEmitter<ThyCopyEvent>();
 
     @Input('thyCopyContent') thyCopyContent: string | ElementRef | HTMLElement;
 
