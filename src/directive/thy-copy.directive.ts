@@ -1,4 +1,15 @@
-import { Directive, ElementRef, OnInit, HostListener, Input, Inject, ViewContainerRef, OnDestroy } from '@angular/core';
+import {
+    Directive,
+    ElementRef,
+    OnInit,
+    HostListener,
+    Input,
+    Inject,
+    ViewContainerRef,
+    OnDestroy,
+    Output,
+    EventEmitter
+} from '@angular/core';
 
 import { coerceElement } from '@angular/cdk/coercion';
 import { DOCUMENT } from '@angular/common';
@@ -10,7 +21,9 @@ import { TooltipService } from '../tooltip/tooltip.service';
 })
 export class ThyCopyDirective implements OnInit, OnDestroy {
     // 默认为点击标签，可传复制目标标签
-    @Input('thyCopy') thyCopy: string | ElementRef | HTMLElement;
+    @Output() thyCopy = new EventEmitter<{ isSuccess: boolean; event: Event }>();
+
+    @Input('thyCopyContent') thyCopyContent: string | ElementRef | HTMLElement;
 
     constructor(
         @Inject(DOCUMENT) private document: any,
@@ -25,10 +38,10 @@ export class ThyCopyDirective implements OnInit, OnDestroy {
     }
 
     private getContent(event: Event) {
-        if (typeof this.thyCopy === 'string') {
-            return this.thyCopy;
+        if (typeof this.thyCopyContent === 'string') {
+            return this.thyCopyContent;
         } else {
-            const target = this.thyCopy ? coerceElement(this.thyCopy) : event.target;
+            const target = this.thyCopyContent ? coerceElement(this.thyCopyContent) : event.target;
             return target.value || target.textContent;
         }
     }
@@ -40,9 +53,9 @@ export class ThyCopyDirective implements OnInit, OnDestroy {
         input.select();
         try {
             document.execCommand('copy', false, null);
-            this.tooltipService.thyTooltipDirective.thyContent = '复制成功';
+            this.thyCopy.emit({ isSuccess: true, event });
         } catch (err) {
-            this.tooltipService.thyTooltipDirective.thyContent = '复制失败';
+            this.thyCopy.emit({ isSuccess: false, event });
         } finally {
             input.remove();
         }

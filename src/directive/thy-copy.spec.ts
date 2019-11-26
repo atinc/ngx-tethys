@@ -3,83 +3,45 @@ import { ComponentFixture, async, TestBed, flush, fakeAsync, tick } from '@angul
 import { ThyDirectiveModule } from './module';
 import { ThyCopyDirective } from './thy-copy.directive';
 import { dispatchFakeEvent } from '../core/testing';
+import { By } from '@angular/platform-browser';
+import { ThyTooltipModule } from '../tooltip/tooltip.module';
 
 describe('thy-copy', () => {
-    let fixture: ComponentFixture<ThyCopyBasicComponent>;
-    let testBasicComponent: ThyCopyBasicComponent;
-    let testTargetComponent: ThyCopyBasicComponent;
-    let testInputComponent: ThyCopyBasicComponent;
+    let fixture: ComponentFixture<ThyCopyComponent>;
+    let testComponent: ThyCopyComponent;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [ThyDirectiveModule],
-            declarations: [ThyCopyBasicComponent]
+            imports: [ThyDirectiveModule, ThyTooltipModule],
+            declarations: [ThyCopyComponent]
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(ThyCopyBasicComponent);
-        testBasicComponent = fixture.componentInstance;
-    });
-
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            imports: [ThyDirectiveModule],
-            declarations: [ThyCopyTargetComponent]
-        }).compileComponents();
-    }));
-
-    beforeEach(() => {
-        fixture = TestBed.createComponent(ThyCopyTargetComponent);
-        testTargetComponent = fixture.componentInstance;
-    });
-
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            imports: [ThyDirectiveModule],
-            declarations: [ThyCopyInputComponent]
-        }).compileComponents();
-    }));
-
-    beforeEach(() => {
-        fixture = TestBed.createComponent(ThyCopyInputComponent);
-        testInputComponent = fixture.componentInstance;
+        fixture = TestBed.createComponent(ThyCopyComponent);
+        testComponent = fixture.componentInstance;
     });
 
     describe('copy listener', () => {
-        it('thyOnCopyed should be called', fakeAsync(() => {
-            const el = testBasicComponent;
+        it('thyCopy should be called', fakeAsync(() => {
+            const spy = testComponent.copy;
+            fixture.detectChanges();
+            const el = fixture.componentInstance.copyContainer.nativeElement;
+            dispatchFakeEvent(el, 'click');
+            fixture.detectChanges();
+            flush();
+
+            expect(spy).toHaveBeenCalledTimes(1);
         }));
     });
 });
-
 @Component({
     template: `
-        <button thyButton="primary-square" [thyCopy]="target">复制</button>
-        <p #target>复制的是我</p>
+        <p #copyContainer (thyCopy)="copy($event)" [thyCopyContent]="'我是一只猪猪'"></p>
     `
 })
-class ThyCopyTargetComponent implements OnInit {
+class ThyCopyComponent implements OnInit {
     ngOnInit() {}
-}
-
-@Component({
-    template: `
-        <button thyButton="primary-square" thyCopy [thyCopyContent]="'我是第二只猪'">复制</button>
-    `
-})
-class ThyCopyBasicComponent implements OnInit {
-    ngOnInit() {}
-}
-
-@Component({
-    template: `
-        <button thyButton="primary-square" [thyCopy]="target">复制</button>
-        <p>
-            <input #target [ngModel]="inputText" />
-        </p>
-    `
-})
-class ThyCopyInputComponent implements OnInit {
-    ngOnInit() {}
+    @ViewChild('copyContainer', { read: false }) copyContainer: ElementRef<Element>;
+    copy = jasmine.createSpy('thyCopy callback');
 }
