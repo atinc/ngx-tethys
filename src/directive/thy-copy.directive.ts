@@ -29,7 +29,7 @@ export class ThyCopyDirective implements OnInit, OnDestroy {
     // 默认为点击标签，可传复制目标标签
     @Output() thyCopy = new EventEmitter<ThyCopyEvent>();
 
-    @Input('thyCopyNotifyText') thyCopyNotifyText: string;
+    @Input('thyCopyNotifyText') thyCopyNotifyText = '复制成功';
 
     @Input('thyCopyContent') thyCopyContent: string | ElementRef | HTMLElement;
 
@@ -63,14 +63,10 @@ export class ThyCopyDirective implements OnInit, OnDestroy {
         try {
             document.execCommand('copy', false, null);
             this.thyCopy.emit({ isSuccess: true, event });
-            if (this.thyCopyNotifyText) {
-                this.notifyService.success(this.thyCopyNotifyText);
-            }
+            this.notifyService.success(this.thyCopyNotifyText);
         } catch (err) {
             this.thyCopy.emit({ isSuccess: false, event });
-            if (this.thyCopyNotifyText) {
-                this.notifyService.error('复制失败');
-            }
+            this.notifyService.error('复制失败');
         } finally {
             input.remove();
         }

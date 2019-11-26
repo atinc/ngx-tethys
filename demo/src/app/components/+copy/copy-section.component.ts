@@ -9,9 +9,9 @@ export class DemoCopySectionComponent {
     constructor(private notifyService: ThyNotifyService) {}
     copy(event: ThyCopyEvent) {
         if (event.isSuccess) {
-            this.notifyService.success('编号已成功复制到粘贴板');
+            console.log('复制成功啦');
         } else {
-            this.notifyService.error('复制失败');
+            console.log('复制失败啦');
         }
     }
 }
