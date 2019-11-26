@@ -14,6 +14,7 @@ import {
 import { coerceElement } from '@angular/cdk/coercion';
 import { DOCUMENT } from '@angular/common';
 import { TooltipService } from '../tooltip/tooltip.service';
+import { ThyNotifyService } from '../notify';
 
 export interface ThyCopyEvent {
     isSuccess: boolean;
@@ -28,13 +29,16 @@ export class ThyCopyDirective implements OnInit, OnDestroy {
     // 默认为点击标签，可传复制目标标签
     @Output() thyCopy = new EventEmitter<ThyCopyEvent>();
 
+    @Input('thyCopyNotifyText') thyCopyNotifyText: string;
+
     @Input('thyCopyContent') thyCopyContent: string | ElementRef | HTMLElement;
 
     constructor(
         @Inject(DOCUMENT) private document: any,
         private tooltipService: TooltipService,
         private elementRef: ElementRef<HTMLElement>,
-        private viewContainerRef: ViewContainerRef
+        private viewContainerRef: ViewContainerRef,
+        private notifyService: ThyNotifyService
     ) {}
 
     ngOnInit() {
@@ -59,8 +63,14 @@ export class ThyCopyDirective implements OnInit, OnDestroy {
         try {
             document.execCommand('copy', false, null);
             this.thyCopy.emit({ isSuccess: true, event });
+            if (this.thyCopyNotifyText) {
+                this.notifyService.success(this.thyCopyNotifyText);
+            }
         } catch (err) {
             this.thyCopy.emit({ isSuccess: false, event });
+            if (this.thyCopyNotifyText) {
+                this.notifyService.error('复制失败');
+            }
         } finally {
             input.remove();
         }
