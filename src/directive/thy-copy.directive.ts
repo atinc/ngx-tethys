@@ -23,7 +23,7 @@ export interface ThyCopyEvent {
 
 @Directive({
     selector: '[thyCopy]',
-    providers: [TooltipService]
+    providers: [TooltipService, ThyNotifyService]
 })
 export class ThyCopyDirective implements OnInit, OnDestroy {
     // 默认为点击标签，可传复制目标标签

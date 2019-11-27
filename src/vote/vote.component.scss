@@ -1,0 +1,38 @@
+.user-voice-vote {
+    display: flex;
+    flex-direction: column;
+    background-color: $gray-100;
+    opacity: 0.7;
+    align-items: center;
+    border-radius: 4px;
+
+    &:hover {
+        background: #73d897 !important;
+        color: $white !important;
+    }
+    &.has-voted {
+        background: rgba(115, 216, 151, 0.1);
+        color: #73d897;
+    }
+    &.size-sm {
+        width: 36px;
+        height: 36px;
+        padding: 4px;
+        line-height: 14px;
+        font-size: $font-size-sm;
+        .thy-icon {
+            font-size: $font-size-sm;
+        }
+    }
+
+    &.size-md {
+        width: 48px;
+        height: 48px;
+        padding: 6px;
+        line-height: 18px;
+        font-size: $font-size-md;
+        .thy-icon {
+            font-size: $font-size-md;
+        }
+    }
+}
