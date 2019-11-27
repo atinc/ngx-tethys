@@ -2,7 +2,15 @@ import { Component, Input, OnInit, ContentChild, TemplateRef, HostBinding } from
 import { helpers } from '../util';
 import { Dictionary } from '../typings';
 
-type ThyAlertType = 'success' | 'warning' | 'danger' | 'info' | 'primary-week';
+type ThyAlertType =
+    | 'success'
+    | 'warning'
+    | 'danger'
+    | 'info'
+    | 'primary-week'
+    | 'success-week'
+    | 'warning-week'
+    | 'danger-week';
 
 @Component({
     selector: 'thy-alert',
@@ -44,7 +52,10 @@ export class ThyAlertComponent implements OnInit {
         warning: 'waring-fill',
         danger: 'close-circle-fill',
         info: 'minus-circle-fill',
-        'primary-week': 'question-circle-fill'
+        'primary-week': 'question-circle-fill',
+        'success-week': 'check-circle-fill',
+        'warning-week': 'waring-fill',
+        'danger-week': 'close-circle-fill'
     };
 
     private _showIcon = true;
