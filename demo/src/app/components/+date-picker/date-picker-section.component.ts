@@ -13,6 +13,8 @@ export class DemoDataPickerSectionComponent implements OnInit {
         nowNextNextWeekDate: Math.floor(new Date().getTime() / 1000) + 90000 * 7 * 2
     };
 
+    defaultDate = Math.floor(new Date(2012, 11, 12).getTime() / 1000);
+
     //#region DatePicker
 
     dateEntry = {
@@ -100,6 +102,12 @@ export class DemoDataPickerSectionComponent implements OnInit {
             description: '格式化显示',
             type: 'String',
             default: 'yyyy-MM-dd'
+        },
+        {
+            property: 'thyDefaultDate',
+            description: '打开默认选择日期',
+            type: 'DatepickerValueEntry',
+            default: 'new Date()'
         },
         {
             property: 'thyDisabled',
