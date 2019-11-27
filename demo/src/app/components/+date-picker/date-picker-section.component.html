@@ -118,6 +118,21 @@
           />
         </thy-form-group>
       </dd>
+      <dd class="mt-5">
+        <div>thyDefaultDate 默认选择日期 2012-12-12</div>
+        <thy-form-group thyLabelText="日期：" [thyFeedbackIcon]="'calendar'">
+          <input
+            type="text"
+            readonly="readonly"
+            thyDatepicker
+            [thyShowTime]="true"
+            [(ngModel)]="dateNullObject"
+            [thyDefaultDate]="defaultDate"
+            class="form-control"
+            placeholder=""
+          />
+        </thy-form-group>
+      </dd>
     </dl>
     <button thyButton="primary" thySize="sm" (click)="datepickerTestNewValue()">改变值</button>
     <button thyButton="primary" thySize="sm" (click)="datepickerTestNullValue()">空值</button>
