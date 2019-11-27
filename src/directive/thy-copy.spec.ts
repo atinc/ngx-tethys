@@ -6,7 +6,6 @@ import { dispatchFakeEvent } from '../core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyTooltipModule } from '../tooltip/tooltip.module';
 import { ThyNotifyService, ThyNotifyModule } from '../notify';
-
 describe('thy-copy', () => {
     let fixture: ComponentFixture<ThyCopyComponent>;
     let testComponent: ThyCopyComponent;
@@ -14,7 +13,8 @@ describe('thy-copy', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [ThyDirectiveModule, ThyTooltipModule, ThyNotifyModule],
-            declarations: [ThyCopyComponent]
+            declarations: [ThyCopyComponent],
+            providers: [ThyNotifyService]
         }).compileComponents();
     }));
 
