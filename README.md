@@ -56,7 +56,7 @@ $ npm run start
 ## Release & Publish
 
 1. 获取主仓储 `ngx-tethys` 最新代码（如果是自己fork的项目，需要 `fetch` 远程仓储并且合并到本地分支 ）
-1. 执行 `npm run release` 输入新的版本号（`release` 命令会根据tag自动生成 `changelog`, 并且自动生成新的版本对应的分支）
+1. 执行 `npm run release-next` 输入新的版本号（`release-next` 命令会根据tag自动生成 `changelog`, 并且自动生成新的版本对应的分支）
 1. 提交 `Pull Request` 到主仓储 `ngx-tethys` `master` 分支，测试通过后合并 `Pull Request`，并且删除临时分支
 1. 本地切换到主仓储 `ngx-tethys/master` 分支，（如果是自己fork项目，则 `git checkout upstream/master`）
 1. 本地执行 `git pull` or `git fetch upstream` 同步远程更新
