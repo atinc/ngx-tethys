@@ -1,29 +1,25 @@
-import {
-    Directive,
-    OnInit,
-    ElementRef,
-    Renderer2,
-    ViewContainerRef,
-    Input,
-    ComponentRef,
-    Output,
-    EventEmitter,
-    forwardRef,
-    OnChanges,
-    AfterContentInit,
-    HostBinding
-} from '@angular/core';
-import { ComponentLoaderFactory, ComponentLoader } from 'ngx-bootstrap/component-loader';
-import { ThyDatepickerContainerComponent } from './datepicker-container.component';
-import { ThyDatepickerConfig } from './datepicker.config';
-import { DatepickerValueEntry, DatepickerValueShowTypesEnum } from './i.datepicker';
-import { ThyDatepickerService } from './datepicker.service';
 import { DatePipe, registerLocaleData } from '@angular/common';
 import localeZhHans from '@angular/common/locales/zh-Hans';
+import {
+    AfterContentInit,
+    Directive,
+    ElementRef,
+    forwardRef,
+    HostBinding,
+    Input,
+    OnInit,
+    Renderer2,
+    ViewContainerRef
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { isObject, isNumber, isDate, inputValueToBoolean } from '../util/helpers';
-import { datepickerUtilIdentificationValueType, datepickerUtilConvertToDatepickerObject } from './util';
-import { ThyPositioningService, PlacementTypes } from '../positioning/positioning.service';
+import { ComponentLoader, ComponentLoaderFactory } from 'ngx-bootstrap/component-loader';
+import { PlacementTypes, ThyPositioningService } from '../positioning/positioning.service';
+import { inputValueToBoolean } from '../util/helpers';
+import { ThyDatepickerContainerComponent } from './datepicker-container.component';
+import { ThyDatepickerConfig } from './datepicker.config';
+import { ThyDatepickerService } from './datepicker.service';
+import { DatepickerValueEntry, DatepickerValueShowTypesEnum } from './i.datepicker';
+import { datepickerUtilConvertToDatepickerObject, datepickerUtilIdentificationValueType } from './util';
 
 registerLocaleData(localeZhHans, 'zh-Hans');
 
@@ -64,6 +60,7 @@ export class ThyDatepickerDirective implements OnInit, AfterContentInit, Control
     @Input() thyFormat: string = null;
     @Input() thyMaxDate: Date | number;
     @Input() thyMinDate: Date | number;
+    @Input() thyDefaultDate: Date | number;
     // @Output() thyOnChange: EventEmitter<any> = new EventEmitter();
     @HostBinding('class.cursor-pointer')
     get isCursorPointerClass() {
@@ -137,6 +134,7 @@ export class ThyDatepickerDirective implements OnInit, AfterContentInit, Control
                     withTime: inputValueToBoolean(this.thyShowTime),
                     value: this._value,
                     valueRef: this._valueRef,
+                    defaultDate: datepickerUtilConvertToDatepickerObject(this.thyDefaultDate).date,
                     maxDate: datepickerUtilConvertToDatepickerObject(this.thyMaxDate).date,
                     minDate: datepickerUtilConvertToDatepickerObject(this.thyMinDate).date,
                     changeValue: (result: DatepickerValueEntry) => {

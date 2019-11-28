@@ -1092,36 +1092,91 @@ input[type='radio']:after {
     background: #f3f3f3;
     color: #333;
 }
-.thy-list-item,
 .thy-list-option {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    min-height: 40px;
     color: #666;
+    cursor: pointer;
+    outline-style: none;
+    padding-left: 20px;
+    padding-right: 20px;
 }
-.thy-list-item:not(.disabled).hover,
-.thy-list-item:not(.disabled):hover,
+.thy-list-option .prefix-icon {
+    color: #ddd;
+}
 .thy-list-option:not(.disabled).hover,
 .thy-list-option:not(.disabled):hover {
-    background: #fafafa;
+    background: #f3f3f3;
     color: #333;
 }
-.thy-list-item:not(.disabled).active,
 .thy-list-option:not(.disabled).active {
     background: rgba(72, 72, 72, 0.1);
     color: #484848;
 }
-.thy-list-item:not(.disabled).active.hover,
-.thy-list-item:not(.disabled).active:hover,
 .thy-list-option:not(.disabled).active.hover,
 .thy-list-option:not(.disabled).active:hover {
-    background: #fafafa;
+    background: #f3f3f3;
     color: #333;
 }
-.thy-list-item:not(.disabled).active .prefix-icon,
+.thy-list-option:not(.disabled).active.hover .prefix-icon,
+.thy-list-option:not(.disabled).active:hover .prefix-icon {
+    color: #ddd;
+}
 .thy-list-option:not(.disabled).active .prefix-icon {
     color: #484848;
 }
+.thy-list-option.disabled {
+    background: 0 0;
+    color: #cacaca;
+    cursor: default;
+}
+.thy-list-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    min-height: 40px;
+    color: #666;
+    cursor: pointer;
+    outline-style: none;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.thy-list-item .prefix-icon {
+    color: #ddd;
+}
+.thy-list-item:not(.disabled).hover,
+.thy-list-item:not(.disabled):hover {
+    background: #fafafa;
+    color: #333;
+}
+.thy-list-item:not(.disabled).active {
+    background: rgba(72, 72, 72, 0.1);
+    color: #484848;
+}
+.thy-list-item:not(.disabled).active.hover,
+.thy-list-item:not(.disabled).active:hover {
+    background: #fafafa;
+    color: #333;
+}
+.thy-list-item:not(.disabled).active.hover .prefix-icon,
+.thy-list-item:not(.disabled).active:hover .prefix-icon {
+    color: #ddd;
+}
+.thy-list-item:not(.disabled).active .prefix-icon {
+    color: #484848;
+}
+.thy-list-item.disabled {
+    background: 0 0;
+    color: #cacaca;
+    cursor: default;
+}
 .thy-multiple-selection-list .thy-list-option:not(.disabled).hover,
 .thy-multiple-selection-list .thy-list-option:not(.disabled):hover {
-    background: #fafafa;
+    background: #f3f3f3;
 }
 .thy-multiple-selection-list .thy-list-option:not(.disabled).active {
     background: 0 0;
@@ -1132,7 +1187,7 @@ input[type='radio']:after {
 }
 .thy-multiple-selection-list .thy-list-option:not(.disabled).active.hover,
 .thy-multiple-selection-list .thy-list-option:not(.disabled).active:hover {
-    background: #fafafa;
+    background: #f3f3f3;
     color: #333;
 }
 .thy-grid-list .thy-grid-option .checked-icon {
@@ -1244,8 +1299,59 @@ input[type='radio']:after {
     border-color: #eee #eee #eee #484848;
     border-left-width: 2px;
 }
+.thy-alert-primary-week hr {
+    border-top-color: #3b3b3b;
+}
+.thy-alert-primary-week .alert-link {
+    color: #2f2f2f;
+}
 .thy-alert-primary-week .thy-alert-icon {
     color: #484848;
+}
+.thy-alert-success-week {
+    color: #888;
+    background: #fff;
+    border-color: #eee #eee #eee #66c060;
+    border-left-width: 2px;
+}
+.thy-alert-success-week hr {
+    border-top-color: #54b94e;
+}
+.thy-alert-success-week .alert-link {
+    color: #4aaa43;
+}
+.thy-alert-success-week .thy-alert-icon {
+    color: #66c060;
+}
+.thy-alert-warning-week {
+    color: #888;
+    background: #fff;
+    border-color: #eee #eee #eee #ffc442;
+    border-left-width: 2px;
+}
+.thy-alert-warning-week hr {
+    border-top-color: #ffbc29;
+}
+.thy-alert-warning-week .alert-link {
+    color: #ffb40f;
+}
+.thy-alert-warning-week .thy-alert-icon {
+    color: #ffc442;
+}
+.thy-alert-danger-week {
+    color: #888;
+    background: #fff;
+    border-color: #eee #eee #eee #ff5b57;
+    border-left-width: 2px;
+}
+.thy-alert-danger-week hr {
+    border-top-color: #ff423e;
+}
+.thy-alert-danger-week .alert-link {
+    color: #ff2924;
+}
+.thy-alert-danger-week .thy-alert-icon {
+    color: #ff5b57;
 }
 .thy-tree-node-wrapper.active {
     background: rgba(72, 72, 72, 0.1);
