@@ -20,7 +20,7 @@ let _uniqueIdCounter = 0;
 
 export type thyListLayout = 'list' | 'grid';
 
-export type thyListOptionSize = 'sm' | 'md' | 'lg';
+type thySize = 'sm' | 'md' | 'lg';
 
 export interface IThyOptionParentComponent {
     multiple?: boolean;
@@ -64,7 +64,7 @@ export class ThyListOptionComponent implements Highlightable {
 
     @Input() thyValue: any;
 
-    @Input() set thyListOptionSize(size: thyListOptionSize) {
+    @Input() set thySize(size: thySize) {
         if (size) {
             this.setClasses(size);
         }
@@ -116,7 +116,7 @@ export class ThyListOptionComponent implements Highlightable {
         this.parentSelectionList.scrollIntoView(this);
     }
 
-    setClasses(size: thyListOptionSize) {
+    setClasses(size: thySize) {
         this.updateHostClassService.updateClass([`thy-grid-option-${size}`]);
     }
 

@@ -104,7 +104,7 @@ export class DemoListSectionComponent {
             default: 'null'
         },
         {
-            property: 'thyListOptionSize',
+            property: 'thySize',
             description: '选项的大小尺寸，默认值大小150*120',
             type: 'sm',
             default: 'null'
