@@ -1,3 +1,17 @@
+## [7.6.11](https://github.com/worktile/ngx-tethys/compare/7.6.10...7.6.11) (2019-11-28)
+
+
+### Bug Fixes
+
+* **list:** change size varible ([1639836](https://github.com/worktile/ngx-tethys/commit/1639836))
+
+
+### Features
+
+* **list:** support list sm size#INF-178 ([01b02a6](https://github.com/worktile/ngx-tethys/commit/01b02a6)), closes [size#INF-178](https://github.com/size/issues/INF-178)
+
+
+
 ## [7.6.10](https://github.com/worktile/ngx-tethys/compare/7.6.7...7.6.10) (2019-11-28)
 
 
