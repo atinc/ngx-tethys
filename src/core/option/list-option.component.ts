@@ -8,15 +8,19 @@ import {
     forwardRef,
     InjectionToken,
     HostListener,
-    Optional
+    Optional,
+    OnInit
 } from '@angular/core';
 import { FocusableOption, FocusOrigin, Highlightable } from '@angular/cdk/a11y';
 // import { SelectionModel } from '@angular/cdk/collections';
 import { inputValueToBoolean } from '../../util/helpers';
+import { UpdateHostClassService } from '../../shared';
 
 let _uniqueIdCounter = 0;
 
 export type thyListLayout = 'list' | 'grid';
+
+type thySize = 'sm' | 'md' | 'lg';
 
 export interface IThyOptionParentComponent {
     multiple?: boolean;
@@ -38,6 +42,7 @@ export const THY_OPTION_PARENT_COMPONENT = new InjectionToken<IThyOptionParentCo
 
 @Component({
     selector: 'thy-list-option,[thy-list-option]',
+    providers: [UpdateHostClassService],
     templateUrl: './list-option.component.html'
 })
 export class ThyListOptionComponent implements Highlightable {
@@ -59,6 +64,12 @@ export class ThyListOptionComponent implements Highlightable {
 
     @Input() thyValue: any;
 
+    @Input() set thySize(size: thySize) {
+        if (size) {
+            this.setClasses(size);
+        }
+    }
+
     @Input()
     set thyDisabled(value: boolean) {
         this.disabled = inputValueToBoolean(value);
@@ -75,9 +86,12 @@ export class ThyListOptionComponent implements Highlightable {
     constructor(
         public element: ElementRef<HTMLElement>,
         private changeDetector: ChangeDetectorRef,
+        private updateHostClassService: UpdateHostClassService,
         /** @docs-private */
         @Optional() @Inject(THY_OPTION_PARENT_COMPONENT) public parentSelectionList: IThyOptionParentComponent
-    ) {}
+    ) {
+        this.updateHostClassService.initializeElement(element.nativeElement);
+    }
 
     @HostListener('click', ['$event'])
     onClick(event: Event) {
@@ -100,6 +114,10 @@ export class ThyListOptionComponent implements Highlightable {
     setActiveStyles(): void {
         this.element.nativeElement.classList.add('hover');
         this.parentSelectionList.scrollIntoView(this);
+    }
+
+    setClasses(size: thySize) {
+        this.updateHostClassService.updateClass([`thy-grid-option-${size}`]);
     }
 
     setInactiveStyles(): void {

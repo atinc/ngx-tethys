@@ -39,7 +39,5 @@
     display: flex;
     flex-wrap: wrap;
     padding: 10px 0 0 10px;
-    .thy-grid-option {
-        @include thy-grid-option();
-    }
+    @include thy-grid-option();
 }

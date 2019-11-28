@@ -143,57 +143,66 @@ $option-disabled-color: $gray-400 !default;
 }
 
 @mixin thy-grid-option {
-    @include thy-option-common-layout();
-    vertical-align: middle;
-    justify-content: center;
-    position: relative;
-    margin: $list-grid-option-margin;
-    width: $list-grid-option-width;
-    height: $list-grid-option-height;
-    background: $white;
-    border-radius: $border-radius;
-    border: solid 1px $gray-200;
-    cursor: pointer;
-    outline-style: none;
-    .checked-icon {
-        visibility: hidden;
-        position: absolute;
-        right: 10px;
-        top: 10px;
-        height: 20px;
-        width: 20px;
-        line-height: 20px;
-        color: $white;
-        background: $primary;
-        border-radius: 50%;
-        text-align: center;
-    }
+    .thy-grid-option {
+        @include thy-option-common-layout();
+        vertical-align: middle;
+        justify-content: center;
+        position: relative;
+        margin: $list-grid-option-margin;
+        width: $list-grid-option-width;
+        height: $list-grid-option-height;
+        background: $white;
+        border-radius: $border-radius;
+        border: solid 1px $gray-200;
+        cursor: pointer;
+        outline-style: none;
 
-    &:not(.disabled) {
-        &.hover,
-        &:hover {
-            border: solid 1px $primary;
+        .checked-icon {
+            visibility: hidden;
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            height: 20px;
+            width: 20px;
+            line-height: 20px;
+            color: $white;
+            background: $primary;
+            border-radius: 50%;
+            text-align: center;
         }
 
-        &.active {
-            background: rgba($primary, 0.1);
-            color: $body-color;
-            border: solid 1px $primary;
-            .checked-icon {
-                visibility: visible;
-            }
-
+        &:not(.disabled) {
             &.hover,
             &:hover {
-                background: $white;
-                border-color: $primary;
+                border: solid 1px $primary;
             }
+
+            &.active {
+                background: rgba($primary, 0.1);
+                color: $body-color;
+                border: solid 1px $primary;
+                .checked-icon {
+                    visibility: visible;
+                }
+
+                &.hover,
+                &:hover {
+                    background: $white;
+                    border-color: $primary;
+                }
+            }
+        }
+
+        &.disabled {
+            color: $gray-400;
+            cursor: default; // not-allowed;
         }
     }
 
-    &.disabled {
-        color: $gray-400;
-        cursor: default; // not-allowed;
+    .thy-grid-option-sm {
+        width: $list-grid-option-sm;
+        height: $list-grid-option-sm;
+        margin: $list-grid-option-margin-sm;
     }
 }
 

@@ -1,0 +1,29 @@
+<div class="body selection-list-wrapper" #body>
+  <label thyCheckbox thyInline="true" [(ngModel)]="selectionGridModel.multiple" thyLabelText="是否是多选列表"></label>
+  <label
+    thyCheckbox
+    thyInline="true"
+    [(ngModel)]="selectionGridModel.sm"
+    (ngModelChange)="changGrid(selectionGridModel.sm)"
+    thyLabelText="sm尺寸"
+  ></label>
+  <thy-selection-list
+    [style.width]="'560px'"
+    [style.background]="'#fafafa'"
+    [(ngModel)]="selectionGridModel.defaultValues"
+    [thyBindKeyEventContainer]="body"
+    [thyBeforeKeydown]="thyBeforeKeydown"
+    [thyMultiple]="selectionGridModel.multiple"
+    [thyLayout]="'grid'"
+    (thySelectionChange)="selectionChange($event)"
+  >
+    <thy-list-option *ngFor="let item of items" [thyDisabled]="item.id === 2" [thyValue]="item?.id" [thySize]="size">
+      <div class="text-center">
+        <div>
+          <i class="wtf wtf wtf-type-demand text-success font-size-xlg"></i>
+        </div>
+        <div>{{ item.name }}</div>
+      </div>
+    </thy-list-option>
+  </thy-selection-list>
+</div>
