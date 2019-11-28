@@ -1,66 +1,99 @@
-import { Component, ViewEncapsulation, ChangeDetectionStrategy, ContentChild, ViewChild } from '@angular/core';
-import { ThySelectionListChange, ThySelectionListComponent } from '../../../../../src/list';
+import { Component, ViewEncapsulation } from '@angular/core';
+import { LiveDemoCodeExample } from '../../core/live-demo/live-demo.component';
+import { DemoListBasicComponent } from './basic/list-basic.component';
+import { DemoListDropComponent } from './list-drop/list-drop.component';
+import { DemoListGridComponent } from './list-grid/list-grid.component';
+import { DemoListSeniorComponent } from './list-senior/list-senior.component';
+import { DemoListObjectValueComponent } from './list-object-value/list-object-value.component';
 
 @Component({
     selector: 'demo-list-section',
     templateUrl: './list-section.component.html',
     encapsulation: ViewEncapsulation.None
 })
-export class DemoListComponent {
-    @ViewChild(ThySelectionListComponent) selectionList: ThySelectionListComponent;
-
-    searchText = '';
-
-    allItems = [
+export class DemoListSectionComponent {
+    liveDemos: LiveDemoCodeExample[] = [
         {
-            id: 1,
-            name: 'Item 1'
+            title: '基本使用',
+            component: DemoListBasicComponent,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'list-basic.component.html',
+                    content: require('!!raw-loader!./basic/list-basic.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'list-basic.component.ts',
+                    content: require('!!raw-loader!./basic/list-basic.component.ts')
+                }
+            ]
         },
         {
-            id: 2,
-            name: 'Item 2'
+            title: 'List排序',
+            component: DemoListDropComponent,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'list-drop.component.html',
+                    content: require('!!raw-loader!./list-drop/list-drop.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'list-drop.component.ts',
+                    content: require('!!raw-loader!./list-drop/list-drop.component.ts')
+                }
+            ]
         },
         {
-            id: 3,
-            name: 'Item 3'
+            title: 'Grid Section',
+            component: DemoListGridComponent,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'list-grid.component.html',
+                    content: require('!!raw-loader!./list-grid/list-grid.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'list-grid.component.ts',
+                    content: require('!!raw-loader!./list-grid/list-grid.component.ts')
+                }
+            ]
         },
         {
-            id: 4,
-            name: 'Item 4'
+            title: 'Selection List Value is Object',
+            component: DemoListObjectValueComponent,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'list-object-value.component.html',
+                    content: require('!!raw-loader!./list-object-value/list-object-value.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'list-object-value.component.ts',
+                    content: require('!!raw-loader!./list-object-value/list-object-value.component.ts')
+                }
+            ]
         },
         {
-            id: 5,
-            name: 'Item 5'
-        },
-        {
-            id: 6,
-            name: 'Item 6'
-        },
-        {
-            id: 7,
-            name: 'Item 7'
-        },
-        {
-            id: 1,
-            name: 'Item 1 Repeat'
+            title: 'Selection List',
+            component: DemoListSeniorComponent,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'list-senior.component.html',
+                    content: require('!!raw-loader!./list-senior/list-senior.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'list-senior.component.ts',
+                    content: require('!!raw-loader!./list-senior/list-senior.component.ts')
+                }
+            ]
         }
     ];
-
-    items: any[];
-
-    selectionModel = {
-        multiple: true,
-        stopKeydownEvent: false,
-        selectAll: false,
-        defaultValues: [2, 3],
-        objectValues: [],
-        isLayoutGrid: false
-    };
-
-    selectionGridModel = {
-        multiple: true,
-        defaultValues: [2, 3]
-    };
 
     public apiOptionParameters = [
         {
@@ -68,6 +101,12 @@ export class DemoListComponent {
             description:
                 '选项的 Value，可以是普通的 ID，也可以是对象，与 thy-selection-list 的 ngModel 和 thyUniqueKey 配合使用',
             type: 'any',
+            default: 'null'
+        },
+        {
+            property: 'thyListOptionSize',
+            description: '选项的大小尺寸，默认值大小150*120',
+            type: 'sm',
             default: 'null'
         }
     ];
@@ -130,46 +169,5 @@ export class DemoListComponent {
         }
     ];
 
-    thyBeforeKeydown = () => {
-        return !this.selectionModel.stopKeydownEvent;
-    };
-
-    constructor() {
-        setTimeout(() => {
-            this.items = this.allItems;
-            this.selectionModel.objectValues = [this.items[0]];
-        }, 1000);
-    }
-
-    selectionChange(event: ThySelectionListChange) {
-        console.log(event);
-    }
-
-    toggleSelectAll() {
-        if (this.selectionModel.selectAll) {
-            this.selectionList.selectAll();
-        } else {
-            this.selectionList.deselectAll();
-        }
-    }
-
-    enterSearch() {
-        this.items = this.allItems.filter(item => {
-            return !this.searchText || item.name.toLowerCase().includes(this.searchText.toLowerCase());
-        });
-    }
-
-    searchChange() {
-        if (this.searchText) {
-            this.selectionList.clearActiveItem();
-        }
-    }
-
-    clearSearch() {
-        this.items = this.allItems;
-    }
-
-    sort(event) {
-        const a = event;
-    }
+    constructor() {}
 }

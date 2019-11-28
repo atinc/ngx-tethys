@@ -1,0 +1,17 @@
+<div class="body selection-list-wrapper" #body1>
+  <thy-selection-list
+    [style.height]="'200px'"
+    [(ngModel)]="selectionModel.objectValues"
+    [thyBindKeyEventContainer]="body1"
+    [thyBeforeKeydown]="thyBeforeKeydown"
+    [thyMultiple]="selectionModel.multiple"
+    (thySelectionChange)="selectionChange($event)"
+    thyUniqueKey="id"
+  >
+    <thy-list-option *ngFor="let item of items" [thyValue]="item">
+      {{ item.name }}
+    </thy-list-option>
+  </thy-selection-list>
+  ngModel:
+  <pre><code>{{selectionModel.objectValues | json}}</code></pre>
+</div>
