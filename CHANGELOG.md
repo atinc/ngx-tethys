@@ -1,3 +1,18 @@
+## [7.6.12](https://github.com/worktile/ngx-tethys/compare/7.6.10...7.6.12) (2019-11-29)
+
+
+### Bug Fixes
+
+* **list:** change size varible ([1639836](https://github.com/worktile/ngx-tethys/commit/1639836))
+
+
+### Features
+
+* **list:** selection-list support thySize ([12e88d2](https://github.com/worktile/ngx-tethys/commit/12e88d2))
+* **list:** support list sm size#INF-178 ([01b02a6](https://github.com/worktile/ngx-tethys/commit/01b02a6)), closes [size#INF-178](https://github.com/size/issues/INF-178)
+
+
+
 ## [7.6.11](https://github.com/worktile/ngx-tethys/compare/7.6.10...7.6.11) (2019-11-28)
 
 
