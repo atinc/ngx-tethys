@@ -15,10 +15,12 @@ $option-disabled-color: $gray-400 !default;
     color: $color;
     cursor: pointer;
     outline-style: none;
+
     padding: {
         left: 20px;
         right: 20px;
     }
+
     // use in tree-select
     .prefix-icon {
         color: $gray-300;
@@ -30,17 +32,21 @@ $option-disabled-color: $gray-400 !default;
             background: $hover-active-bg-color;
             color: $body-color;
         }
+
         &.active {
             background: rgba($primary, 0.1);
             color: $primary;
+
             &.hover,
             &:hover {
                 background: $hover-active-bg-color;
                 color: $body-color;
+
                 .prefix-icon {
                     color: $gray-300;
                 }
             }
+
             .prefix-icon {
                 color: $primary;
             }
@@ -68,11 +74,13 @@ $option-disabled-color: $gray-400 !default;
         &.active {
             background: rgba($primary, 0.1);
             color: $primary;
+
             &.hover,
             &:hover {
                 background: $hover-active-bg-color;
                 color: $body-color;
             }
+
             .prefix-icon {
                 color: $primary;
             }
@@ -85,6 +93,7 @@ $option-disabled-color: $gray-400 !default;
         left: 20px;
         right: 35px;
     }
+
     .checked-icon {
         visibility: hidden;
         position: absolute;
@@ -95,18 +104,22 @@ $option-disabled-color: $gray-400 !default;
         &.hover,
         &:hover {
             background: $hover-active-bg-color;
+
             .checked-icon {
                 visibility: visible;
                 color: $gray-300;
             }
         }
+
         &.active {
             background: transparent;
             color: $body-color;
+
             .checked-icon {
                 visibility: visible;
                 color: $primary;
             }
+
             &.hover,
             &:hover {
                 background: $hover-active-bg-color;
@@ -127,12 +140,15 @@ $option-disabled-color: $gray-400 !default;
         &:hover {
             background: $hover-active-bg-color;
         }
+
         &.active {
             background: transparent;
             color: $body-color;
+
             .checked-icon {
                 color: $primary;
             }
+
             &.hover,
             &:hover {
                 background: $hover-active-bg-color;
@@ -145,6 +161,7 @@ $option-disabled-color: $gray-400 !default;
 @mixin thy-grid-option {
     .thy-grid-option {
         @include thy-option-common-layout();
+        flex-direction: column;
         vertical-align: middle;
         justify-content: center;
         position: relative;
@@ -181,6 +198,7 @@ $option-disabled-color: $gray-400 !default;
                 background: rgba($primary, 0.1);
                 color: $body-color;
                 border: solid 1px $primary;
+
                 .checked-icon {
                     visibility: visible;
                 }
@@ -196,13 +214,51 @@ $option-disabled-color: $gray-400 !default;
         &.disabled {
             color: $gray-400;
             cursor: default; // not-allowed;
+
+            &.active {
+                .checked-icon {
+                    visibility: visible;
+                    background: $gray-400;
+                }
+            }
+        }
+
+        .thy-grid-option-icon {
+            font-size: $list-grid-option-icon-size;
+        }
+
+        img.thy-grid-option-icon {
+            width: $list-grid-option-icon-size;
+        }
+
+        .thy-grid-option-name {
+            margin-top: $list-grid-option-name-margin-top;
         }
     }
+}
 
-    .thy-grid-option-sm {
+@mixin thy-grid-option-sm {
+    .thy-grid-option {
         width: $list-grid-option-sm;
         height: $list-grid-option-sm;
         margin: $list-grid-option-margin-sm;
+
+        .checked-icon {
+            right: 5px;
+            top: 5px;
+            height: 15px;
+            width: 15px;
+            line-height: 15px;
+
+            > .thy-icon,
+            .wtf {
+                font-size: 14px;
+            }
+        }
+
+        .thy-grid-option-name {
+            margin-top: $list-grid-option-sm-name-margin-top;
+        }
     }
 }
 
@@ -216,6 +272,7 @@ $option-disabled-color: $gray-400 !default;
         &:hover {
             border: solid 1px $primary;
         }
+
         &.active {
             background: rgba($primary, 0.1);
             color: $body-color;

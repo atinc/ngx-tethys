@@ -41,3 +41,7 @@
     padding: 10px 0 0 10px;
     @include thy-grid-option();
 }
+
+.thy-list-sm {
+    @include thy-grid-option-sm();
+}
