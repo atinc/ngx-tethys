@@ -29,7 +29,7 @@ export class ThyCopyDirective implements OnInit, OnDestroy {
     // 默认为点击标签，可传复制目标标签
     @Output() thyCopy = new EventEmitter<ThyCopyEvent>();
 
-    @Input('thyCopySuccessText') thyCopySuccessText = '复制成功';
+    @Input() thyCopySuccessText = '复制成功';
 
     @Input('thyCopyContent') thyCopyContent: string | ElementRef | HTMLElement;
 
