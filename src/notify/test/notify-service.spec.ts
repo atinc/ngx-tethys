@@ -52,8 +52,8 @@ describe('ThyNotify', () => {
             fixture.detectChanges();
         }));
 
-        function fetchNotifyNum(containerIndex = 0) {
-            const notifies = notifyContainer[containerIndex].querySelectorAll(`thy-notify`);
+        function fetchNotifyNum() {
+            const notifies = notifyContainer[0].querySelectorAll(`thy-notify`);
             return notifies.length;
         }
 
