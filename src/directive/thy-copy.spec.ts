@@ -32,6 +32,7 @@ describe('thy-copy', () => {
             fixture.detectChanges();
             tick(4500);
             expect(spy).toHaveBeenCalledTimes(1);
+            document.body.querySelectorAll(`thy-notify-container`)[0].remove();
         }));
     });
 });
