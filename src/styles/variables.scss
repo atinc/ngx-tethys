@@ -596,11 +596,19 @@ $tooltip-arrow-color: $tooltip-bg !default;
 $alert-padding-y: 0.625rem !default;
 $alert-padding-x: 1.125rem !default;
 $thy-alert-week-colors: (
-    'primary-week': $primary
-);
+    'primary-week': $primary,
+    'success-week': $success,
+    'warning-week': $warning,
+    'danger-week': $danger
+) !default;
 $alert-operation-margin-left: 40px !default;
 
 // list
 $list-grid-option-margin: 0 25px 25px 0 !default;
 $list-grid-option-width: 150px !default;
 $list-grid-option-height: 120px !default;
+$list-grid-option-sm: 95px !default;
+$list-grid-option-margin-sm: 0 10px 10px 0 !default;
+$list-grid-option-icon-size: 32px;
+$list-grid-option-name-margin-top: 15px;
+$list-grid-option-sm-name-margin-top: 7px;
