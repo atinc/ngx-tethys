@@ -30,8 +30,7 @@ describe('thy-copy', () => {
             const el = fixture.componentInstance.copyContainer.nativeElement;
             dispatchFakeEvent(el, 'click');
             fixture.detectChanges();
-            flush();
-
+            tick(4500);
             expect(spy).toHaveBeenCalledTimes(1);
         }));
     });
