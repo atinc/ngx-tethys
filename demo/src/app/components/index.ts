@@ -83,8 +83,10 @@ import { DemoUploaderSectionComponent } from './+uploader/uploader-section.compo
 import { DemoWTDSectionLinkComponent } from './+wtd/wtd.component';
 import { DemoSkeletonModule } from './+skeleton';
 import { DemoAlertModule } from './+alert/module';
+import { DemoCopySectionComponent } from './+copy/copy-section.component';
 
 export const COMPONENTS = [
+    DemoCopySectionComponent,
     DemoTypographyComponent,
     DemoPopBoxSectionComponent,
     PopBoxMenuDemoShowComponent,
