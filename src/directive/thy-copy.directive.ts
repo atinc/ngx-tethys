@@ -31,7 +31,7 @@ export class ThyCopyDirective implements OnInit, OnDestroy {
 
     @Input() thyCopySuccessText = '复制成功';
 
-    @Input('thyCopyContent') thyCopyContent: string | ElementRef | HTMLElement;
+    @Input() thyCopyContent: string | ElementRef | HTMLElement;
 
     constructor(
         @Inject(DOCUMENT) private document: any,
