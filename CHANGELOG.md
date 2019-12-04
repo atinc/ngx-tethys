@@ -1,3 +1,51 @@
+## [7.6.12](https://github.com/worktile/ngx-tethys/compare/7.6.10...7.6.12) (2019-11-29)
+
+
+### Bug Fixes
+
+* **list:** change size varible ([1639836](https://github.com/worktile/ngx-tethys/commit/1639836))
+
+
+### Features
+
+* **list:** selection-list support thySize ([12e88d2](https://github.com/worktile/ngx-tethys/commit/12e88d2))
+* **list:** support list sm size#INF-178 ([01b02a6](https://github.com/worktile/ngx-tethys/commit/01b02a6)), closes [size#INF-178](https://github.com/size/issues/INF-178)
+
+
+
+## [7.6.11](https://github.com/worktile/ngx-tethys/compare/7.6.10...7.6.11) (2019-11-28)
+
+
+### Bug Fixes
+
+* **list:** change size varible ([1639836](https://github.com/worktile/ngx-tethys/commit/1639836))
+
+
+### Features
+
+* **list:** support list sm size#INF-178 ([01b02a6](https://github.com/worktile/ngx-tethys/commit/01b02a6)), closes [size#INF-178](https://github.com/size/issues/INF-178)
+
+
+
+## [7.6.10](https://github.com/worktile/ngx-tethys/compare/7.6.7...7.6.10) (2019-11-28)
+
+
+### Bug Fixes
+
+* **gride-section:** remove () ([88c8cec](https://github.com/worktile/ngx-tethys/commit/88c8cec))
+* **util:** fix util  match dom error when IE ([2972cc9](https://github.com/worktile/ngx-tethys/commit/2972cc9))
+
+
+### Features
+
+* **alert:** add type, success-week and warning-week and danger-week ([9a8319e](https://github.com/worktile/ngx-tethys/commit/9a8319e))
+* **datepicker:** datepicker support default select value ([e0a4a1b](https://github.com/worktile/ngx-tethys/commit/e0a4a1b))
+* **grid:** add thyShowHeader to control thread show or hide ([64bea19](https://github.com/worktile/ngx-tethys/commit/64bea19))
+* **grid:** add thyShowHeader to control thread show or hide ([bbd1f85](https://github.com/worktile/ngx-tethys/commit/bbd1f85))
+* **popover:** popover config add scroll stragety ([1776ed3](https://github.com/worktile/ngx-tethys/commit/1776ed3))
+
+
+
 ## [7.6.9](https://github.com/worktile/ngx-tethys/compare/7.6.7...7.6.9) (2019-11-20)
 
 

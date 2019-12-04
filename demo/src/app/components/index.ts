@@ -17,6 +17,7 @@ import { DemoDataPickerSectionComponent } from './+date-picker/date-picker-secti
 import { DemoDateRangeSectionComponent } from './+date-range/date-range-section.component';
 import { DemoDatepickerNextSectionComponent } from './+datepicker-next/datepicker-next-section.component';
 import { DialogDemoModule } from './+dialog';
+import { DemoListModule } from './+list';
 import { DropDragComponent } from './+drop-drag/drop-drag.component';
 import { DemoDropdownSectionComponent } from './+dropdown/dropdown-section.component';
 import { DemoEmptySectionComponent } from './+empty/empty-section.component';
@@ -33,7 +34,6 @@ import { DemoKeySelectSectionComponent } from './+key-select/key-select-section.
 import { DemoLabelSectionComponent } from './+label/label-section.component';
 import { DemoLayoutModule } from './+layout';
 import { DemoLayoutSectionComponent } from './+layout/layout-section.component';
-import { DemoListComponent } from './+list/list-section.component';
 import { DemoLoadingSectionComponent } from './+loading/loading-section.component';
 import { DemoMarkdownSectionComponent } from './+markdown/markdown-section.component';
 import { DemoMenuSectionComponent } from './+menu/menu-section.component';
@@ -142,7 +142,6 @@ export const COMPONENTS = [
     DemoUploaderSectionComponent,
     DemoDateRangeSectionComponent,
     DemoKeySelectSectionComponent,
-    DemoListComponent,
     DemoTreeSelectSectionComponent,
     DemoStepperSectionComponent,
     DemoCascaderSectionComponent,
@@ -222,6 +221,7 @@ export const DEMO_MODULES = [
     DemoTreeModule,
     DemoLayoutModule,
     DemoActionMenuModule,
+    DemoListModule,
     DemoCardModule,
     DemoSkeletonModule,
     DemoAlertModule

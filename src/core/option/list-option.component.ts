@@ -8,19 +8,21 @@ import {
     forwardRef,
     InjectionToken,
     HostListener,
-    Optional
+    Optional,
+    OnInit
 } from '@angular/core';
 import { FocusableOption, FocusOrigin, Highlightable } from '@angular/cdk/a11y';
 // import { SelectionModel } from '@angular/cdk/collections';
 import { inputValueToBoolean } from '../../util/helpers';
+import { UpdateHostClassService } from '../../shared';
 
 let _uniqueIdCounter = 0;
 
-export type thyListLayout = 'list' | 'grid';
+export type ThyListLayout = 'list' | 'grid';
 
 export interface IThyOptionParentComponent {
     multiple?: boolean;
-    layout?: thyListLayout;
+    layout?: ThyListLayout;
     // selectionModel: SelectionModel<ThyListOptionComponent>;
     // 选择，取消选择 option
     toggleOption(option: ThyListOptionComponent, event?: Event): void;
@@ -38,6 +40,7 @@ export const THY_OPTION_PARENT_COMPONENT = new InjectionToken<IThyOptionParentCo
 
 @Component({
     selector: 'thy-list-option,[thy-list-option]',
+
     templateUrl: './list-option.component.html'
 })
 export class ThyListOptionComponent implements Highlightable {

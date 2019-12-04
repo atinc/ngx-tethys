@@ -21,7 +21,7 @@ import {
     ThyListOptionComponent,
     THY_OPTION_PARENT_COMPONENT,
     IThyOptionParentComponent,
-    thyListLayout
+    ThyListLayout
 } from '../../core/option';
 import { keycodes, helpers, dom } from '../../util';
 import { inputValueToBoolean } from '../../util/helpers';
@@ -29,11 +29,19 @@ import { Subscription, throwError } from 'rxjs';
 import { ThySelectionListChange } from './selection.interface';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ScrollToService } from '../../core';
+import { UpdateHostClassService } from '../../shared/update-host-class.service';
+
+export type ThyListSize = 'sm' | 'md' | 'lg';
+
+const listSizesMap = {
+    sm: 'thy-list-sm'
+};
 
 @Component({
     selector: 'thy-selection-list,[thy-selection-list]',
     template: '<ng-content></ng-content>',
     providers: [
+        UpdateHostClassService,
         {
             provide: THY_OPTION_PARENT_COMPONENT,
             useExisting: ThySelectionListComponent
@@ -61,7 +69,7 @@ export class ThySelectionListComponent
 
     disabled: boolean;
 
-    layout: thyListLayout = 'list';
+    layout: ThyListLayout = 'list';
 
     @HostBinding(`class.thy-list`) _isList = true;
 
@@ -93,9 +101,13 @@ export class ThySelectionListComponent
 
     @Input() thyCompareWith: (o1: any, o2: any) => boolean;
 
-    @Input() set thyLayout(value: thyListLayout) {
+    @Input() set thyLayout(value: ThyListLayout) {
         this.layout = value;
         this.isLayoutGrid = value === 'grid';
+    }
+
+    @Input() set thySize(value: ThyListSize) {
+        this._setListSize(value);
     }
 
     /** Emits a change event whenever the selected state of an option changes. */
@@ -230,7 +242,25 @@ export class ThySelectionListComponent
         }
     }
 
-    constructor(private renderer: Renderer2, private elementRef: ElementRef, private ngZone: NgZone) {}
+    private _setListSize(size: ThyListSize) {
+        for (const key in listSizesMap) {
+            if (listSizesMap.hasOwnProperty(key)) {
+                this.updateHostClassService.removeClass(listSizesMap[key]);
+            }
+        }
+        if (size) {
+            this.updateHostClassService.addClass(listSizesMap[size]);
+        }
+    }
+
+    constructor(
+        private renderer: Renderer2,
+        private elementRef: ElementRef,
+        private ngZone: NgZone,
+        private updateHostClassService: UpdateHostClassService
+    ) {
+        this.updateHostClassService.initializeElement(elementRef.nativeElement);
+    }
 
     ngOnInit() {
         const bindKeyEventElement = this._getElementBySelector(this.thyBindKeyEventContainer);

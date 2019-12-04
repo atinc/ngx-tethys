@@ -19,11 +19,10 @@ import { from } from 'rxjs';
     exports: [
         ThyStepperComponent,
         ThyStepComponent,
+        ThyStepHeaderComponent,
         ThyStepperNextDirective,
         ThyStepperPreviousDirective
     ],
     providers: []
 })
-export class ThyStepperModule {
-
-}
+export class ThyStepperModule {}

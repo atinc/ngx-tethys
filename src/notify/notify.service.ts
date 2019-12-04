@@ -1,8 +1,18 @@
-import { Injectable, TemplateRef } from '@angular/core';
+import {
+    Injectable,
+    TemplateRef,
+    ViewContainerRef,
+    Injector,
+    ApplicationRef,
+    ComponentFactoryResolver,
+    ComponentRef
+} from '@angular/core';
 import { ThyNotifyOption } from './notify-option.interface';
 import { ThyNotifyContainerComponent } from './notify.container.component';
-import { ComponentLoaderFactory, ComponentLoader } from 'ngx-bootstrap/component-loader';
+import { ComponentLoader } from 'ngx-bootstrap/component-loader';
 import { Subject } from 'rxjs';
+import { DomPortalOutlet, ComponentPortal } from '@angular/cdk/portal';
+import { TData } from '@angular/core/src/render3/interfaces/view';
 
 const NOTIFY_OPTION_DEFAULT = {
     duration: 4500,
@@ -12,7 +22,6 @@ const NOTIFY_OPTION_DEFAULT = {
 
 @Injectable()
 export class ThyNotifyService {
-
     notifyQueue$: Subject<any> = new Subject();
 
     private _notifyQueue: ThyNotifyOption[] = [];
@@ -21,12 +30,13 @@ export class ThyNotifyService {
 
     private _lastNotifyId = 0;
 
-    private _notifyLoader: ComponentLoader<ThyNotifyContainerComponent>;
-
+    private containerRef: ComponentRef<ThyNotifyContainerComponent>;
 
     constructor(
-        private clf: ComponentLoaderFactory
-    ) { }
+        private injector: Injector,
+        private componentFactoryResolver: ComponentFactoryResolver,
+        private appRef: ApplicationRef
+    ) {}
 
     show(option: ThyNotifyOption) {
         this._loadNotifyContainerComponent();
@@ -42,7 +52,7 @@ export class ThyNotifyService {
             type: 'success',
             title: title || '成功',
             content: content,
-            detail: detail,
+            detail: detail
         });
     }
 
@@ -51,7 +61,7 @@ export class ThyNotifyService {
             type: 'info',
             title: title || '提示',
             content: content,
-            detail: detail,
+            detail: detail
         });
     }
 
@@ -60,7 +70,7 @@ export class ThyNotifyService {
             type: 'warning',
             title: title || '警告',
             content: content,
-            detail: detail,
+            detail: detail
         });
     }
 
@@ -69,7 +79,7 @@ export class ThyNotifyService {
             type: 'error',
             title: title || '错误',
             content: content,
-            detail: detail,
+            detail: detail
         });
     }
 
@@ -81,29 +91,25 @@ export class ThyNotifyService {
     }
 
     private _loadNotifyContainerComponent() {
-        if (!this._notifyLoader) {
-            this._notifyLoader = this.clf.createLoader<ThyNotifyContainerComponent>(
-                null,
-                null,
-                null
+        if (!this.containerRef) {
+            const portalOutlet = new DomPortalOutlet(
+                document.body,
+                this.componentFactoryResolver,
+                this.appRef,
+                this.injector
             );
-            this._notifyLoader
-                .attach(ThyNotifyContainerComponent)
-                .to('body')
-                .show({
-                    initialState: {
-                        notifyQueue$: this.notifyQueue$
-                    }
-                });
+            const componentPortal = new ComponentPortal(ThyNotifyContainerComponent, null);
+            this.containerRef = portalOutlet.attachComponentPortal(componentPortal);
+            Object.assign(this.containerRef.instance, {
+                initialState: {
+                    notifyQueue$: this.notifyQueue$
+                }
+            });
+            this.containerRef.changeDetectorRef.detectChanges();
         }
     }
 
     private _formatOption(option: ThyNotifyOption) {
-        return Object.assign(
-            {},
-            NOTIFY_OPTION_DEFAULT,
-            { id: this._lastNotifyId++ },
-            option
-        );
+        return Object.assign({}, NOTIFY_OPTION_DEFAULT, { id: this._lastNotifyId++ }, option);
     }
 }
