@@ -114,7 +114,8 @@ export const allMenus = [
                     { name: 'Tree', zhName: '树', routePath: 'tree' },
                     { name: 'Stepper', zhName: '步骤条', routePath: 'stepper' },
                     { name: 'Progress', zhName: '进度条', routePath: 'progress' },
-                    { name: 'Markdown', zhName: 'markdown 解析', routePath: 'markdown' }
+                    { name: 'Markdown', zhName: 'markdown 解析', routePath: 'markdown' },
+                    { name: 'Result', zhName: '结果页', routePath: 'result' }
                 ]
             },
             {

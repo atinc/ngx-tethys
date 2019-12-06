@@ -53,6 +53,7 @@ import { ThyFlexibleTextModule } from './flexible-text';
 import { ThyDragDropModule } from './drag-drop/module';
 import { ThySelectCommonModule } from './core/select/module';
 import { ThySkeletonModule } from './skeleton';
+import { ThyResultModule } from './result';
 
 const IMPORT_EXPORT_MODULES = [
     BrowserAnimationsModule,
@@ -109,7 +110,8 @@ const IMPORT_EXPORT_MODULES = [
     ThyFlexibleTextModule,
     ThyDragDropModule,
     ThySelectCommonModule,
-    ThySkeletonModule
+    ThySkeletonModule,
+    ThyResultModule
 ];
 
 @NgModule({
