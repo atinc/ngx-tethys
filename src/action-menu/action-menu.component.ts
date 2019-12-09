@@ -3,7 +3,11 @@ import { inputValueToBoolean } from '../util/helpers';
 
 export type ThyActionMenuTheme = 'default' | 'group';
 
+export type ThyActionMenuGroupType = 'default' | 'label';
+
 export type ThyActionMenuItemType = 'danger' | 'success';
+
+export type ThyActionMenuDividerType = 'default' | 'crossing';
 
 @Component({
     selector: 'thy-action-menu',
@@ -17,11 +21,18 @@ export class ThyActionMenuComponent {
 
     @HostBinding('class.action-menu--group') themeClassName = false;
 
+    @HostBinding('class.action-menu--group-label') isLabelType = false;
+
     @HostBinding('style.width') styleWidth = '';
 
     @Input()
     set thyTheme(value: ThyActionMenuTheme) {
         this.themeClassName = value === 'group';
+    }
+
+    @Input()
+    set thyGroupType(value: ThyActionMenuGroupType) {
+        this.isLabelType = this.themeClassName && value === 'label';
     }
 
     @Input() set thyWidth(value: string) {
@@ -127,11 +138,20 @@ export class ThyActionMenuSubItemDirective {
 export class ThyActionMenuDividerComponent {
     title: string;
 
+    type: ThyActionMenuDividerType;
+
     @HostBinding('class.action-menu-divider') className = true;
+
+    @HostBinding('class.action-menu-divider-crossing') isCrossing = false;
 
     @Input()
     set thyTitle(value: string) {
         this.title = value;
+    }
+
+    @Input()
+    set thyType(value: ThyActionMenuDividerType) {
+        this.isCrossing = value === 'crossing';
     }
 
     constructor() {}

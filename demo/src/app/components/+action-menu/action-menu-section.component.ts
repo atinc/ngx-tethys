@@ -60,6 +60,12 @@ export class DemoActionMenuSectionComponent {
             description: '菜单主题样式',
             type: '"default" | "group"',
             default: 'default'
+        },
+        {
+            property: 'thyGroupType',
+            description: '菜单分组Type',
+            type: '"default" | "label"',
+            default: 'default'
         }
     ];
 
@@ -81,6 +87,21 @@ export class DemoActionMenuSectionComponent {
             description: '菜单项type',
             type: '"danger" | "success"',
             default: ''
+        }
+    ];
+
+    dividerApiParameters = [
+        {
+            property: 'thyTitle',
+            description: '分割线标题',
+            type: 'string',
+            default: ''
+        },
+        {
+            property: 'thyType',
+            description: '分割线类型',
+            type: '"default" | "crossing"',
+            default: 'default'
         }
     ];
 

@@ -92,9 +92,11 @@
         margin: 10px 20px;
         display: block;
         border-top: solid 1px $action-menu-divider-border-color;
+        &-crossing {
+            margin: 0;
+        }
     }
     &--group {
-        padding: 10px 0;
         width: 280px;
         .action-menu-item {
             padding: 12px 30px 12px 45px;
@@ -109,6 +111,20 @@
                 color: $action-menu-divider-title-color;
                 background: #ffffff;
                 transform: translateY(-50%);
+            }
+        }
+        &-label {
+            width: 240px;
+            .action-menu-item {
+                padding: $action-menu-item-padding-y $action-menu-item-padding-x;
+            }
+            .action-menu-divider {
+                margin: 5px 20px 0;
+                border: none;
+                .action-menu-divider-title {
+                    margin: 0;
+                    padding: 0;
+                }
             }
         }
     }
