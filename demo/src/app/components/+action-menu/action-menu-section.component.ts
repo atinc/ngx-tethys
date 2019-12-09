@@ -84,6 +84,30 @@ export class DemoActionMenuSectionComponent {
         }
     ];
 
+    dividerApiParameters = [
+        {
+            property: 'thyTitle',
+            description: '分割线标题',
+            type: 'string',
+            default: ''
+        },
+        {
+            property: 'thyType',
+            description: '分割线类型',
+            type: '"default" | "crossing"',
+            default: 'default'
+        }
+    ];
+
+    actionMenuGroupApiParameters = [
+        {
+            property: 'thyTitle',
+            description: '分组名称',
+            type: 'string',
+            default: ''
+        }
+    ];
+
     liveDemos: LiveDemoCodeExample[] = [
         {
             title: '基本使用',

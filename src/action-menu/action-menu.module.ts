@@ -12,7 +12,8 @@ import {
     ThyActionMenuItemInfoDirective,
     ThyActionMenuSubItemDirective,
     ThyActionMenuDividerTitleDirective,
-    ThyActionMenuItemActiveDirective
+    ThyActionMenuItemActiveDirective,
+    ThyActionMenuGroupComponent
 } from './action-menu.component';
 import { ThyPopBoxModule } from '../pop-box';
 import { ThyPopoverModule } from '../popover';
@@ -30,7 +31,8 @@ import { ThyPopoverModule } from '../popover';
         ThyActionMenuItemInfoDirective,
         ThyActionMenuSubItemDirective,
         ThyActionMenuDividerTitleDirective,
-        ThyActionMenuItemActiveDirective
+        ThyActionMenuItemActiveDirective,
+        ThyActionMenuGroupComponent
     ],
     imports: [CommonModule, ThyPopoverModule],
     providers: [],
@@ -46,7 +48,8 @@ import { ThyPopoverModule } from '../popover';
         ThyActionMenuItemInfoDirective,
         ThyActionMenuSubItemDirective,
         ThyActionMenuDividerTitleDirective,
-        ThyActionMenuItemActiveDirective
+        ThyActionMenuItemActiveDirective,
+        ThyActionMenuGroupComponent
     ]
 })
 export class ThyActionMenuModule {}
