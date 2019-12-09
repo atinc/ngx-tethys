@@ -99,6 +99,15 @@ export class DemoActionMenuSectionComponent {
         }
     ];
 
+    actionMenuGroupApiParameters = [
+        {
+            property: 'thyName',
+            description: '分组名称',
+            type: 'string',
+            default: ''
+        }
+    ];
+
     liveDemos: LiveDemoCodeExample[] = [
         {
             title: '基本使用',
