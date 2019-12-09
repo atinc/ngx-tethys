@@ -1,7 +1,7 @@
 .action-menu {
-    padding: 10px 0;
+    padding: $action-menu-padding-y 0;
     display: block;
-    width: 240px;
+    width: $action-menu-width;
     background: $action-menu-bg;
     .action-menu-item {
         display: flex;
@@ -89,7 +89,7 @@
         }
     }
     .action-menu-divider {
-        margin: 10px 20px;
+        margin: $action-menu-divider-margin-y $action-menu-divider-margin-x;
         display: block;
         border-top: solid 1px $action-menu-divider-border-color;
         &-crossing {
@@ -97,12 +97,12 @@
         }
     }
     &--group {
-        width: 280px;
+        width: $action-menu-group-width;
         .action-menu-item {
             padding: 12px 30px 12px 45px;
         }
         .action-menu-divider {
-            margin: 10px 30px 10px 30px;
+            margin: 10px 30px;
             transform: translateY(50%);
             .action-menu-divider-title {
                 display: inline-block;
@@ -114,7 +114,7 @@
             }
         }
         &-label {
-            width: 240px;
+            width: $action-menu-width;
             .action-menu-item {
                 padding: $action-menu-item-padding-y $action-menu-item-padding-x;
             }
