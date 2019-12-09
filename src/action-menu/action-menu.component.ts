@@ -3,8 +3,6 @@ import { inputValueToBoolean } from '../util/helpers';
 
 export type ThyActionMenuTheme = 'default' | 'group';
 
-export type ThyActionMenuGroupType = 'default' | 'label';
-
 export type ThyActionMenuItemType = 'danger' | 'success';
 
 export type ThyActionMenuDividerType = 'default' | 'crossing';
@@ -21,8 +19,6 @@ export class ThyActionMenuComponent {
 
     @HostBinding('class.action-menu--group') themeClassName = false;
 
-    @HostBinding('class.action-menu--group-label') isLabelType = false;
-
     @HostBinding('style.width') styleWidth = '';
 
     @Input()
@@ -30,13 +26,28 @@ export class ThyActionMenuComponent {
         this.themeClassName = value === 'group';
     }
 
-    @Input()
-    set thyGroupType(value: ThyActionMenuGroupType) {
-        this.isLabelType = this.themeClassName && value === 'label';
-    }
-
     @Input() set thyWidth(value: string) {
         this.styleWidth = value;
+    }
+
+    constructor() {}
+}
+
+@Component({
+    selector: 'thy-action-menu-group',
+    template: `
+        <div class="action-menu-group-name">{{ groupName }}</div>
+        <ng-content></ng-content>
+    `
+})
+export class ThyActionMenuGroupComponent {
+    groupName: string;
+
+    @HostBinding('class.action-menu-group') isGroup = true;
+
+    @Input()
+    set thyName(value: string) {
+        this.groupName = value;
     }
 
     constructor() {}

@@ -2,9 +2,11 @@ import { fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ThyActionMenuModule } from '../action-menu.module';
 import { NgModule, Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { ThyActionMenuComponent } from '../action-menu.component';
-import { ThyActionMenuDividerComponent } from '../action-menu.component';
-import { ThyActionMenuItemDirective } from '../action-menu.component';
+import {
+    ThyActionMenuComponent,
+    ThyActionMenuDividerComponent,
+    ThyActionMenuItemDirective
+} from '../action-menu.component';
 
 describe('ThyActionMenu', () => {
     let fixture: ComponentFixture<ThyDemoActionMenuComponent>;
@@ -55,13 +57,6 @@ describe('ThyActionMenu', () => {
         expect(actionMenuComponent.nativeElement.classList.contains('action-menu--group')).toBe(true);
     });
 
-    it('should have correct class when theme is group and groupType is label', () => {
-        testComponent.theme = `group`;
-        testComponent.groupType = `label`;
-        fixture.detectChanges();
-        expect(actionMenuComponent.nativeElement.classList.contains('action-menu--group-label')).toBe(true);
-    });
-
     it('should have correct class when dividerType is crossing', () => {
         testComponent.dividerType = `crossing`;
         fixture.detectChanges();
@@ -72,7 +67,7 @@ describe('ThyActionMenu', () => {
 @Component({
     selector: 'thy-demo-action-menu',
     template: `
-        <thy-action-menu [thyTheme]="theme" [thyGroupType]="groupType">
+        <thy-action-menu [thyTheme]="theme">
             <thy-action-menu-divider [thyType]="dividerType"></thy-action-menu-divider>
             <a thyActionMenuItem [thyType]="type" href="javascript:;"> </a>
             <a thyActionMenuItem [thyType]="type" href="javascript:;"> </a>
@@ -82,7 +77,6 @@ describe('ThyActionMenu', () => {
 class ThyDemoActionMenuComponent {
     type = ``;
     theme = ``;
-    groupType = ``;
     dividerType = ``;
 }
 

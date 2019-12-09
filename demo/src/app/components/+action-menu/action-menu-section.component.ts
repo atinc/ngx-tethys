@@ -60,12 +60,6 @@ export class DemoActionMenuSectionComponent {
             description: '菜单主题样式',
             type: '"default" | "group"',
             default: 'default'
-        },
-        {
-            property: 'thyGroupType',
-            description: '菜单分组Type',
-            type: '"default" | "label"',
-            default: 'default'
         }
     ];
 

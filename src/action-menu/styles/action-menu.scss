@@ -3,6 +3,12 @@
     display: block;
     width: $action-menu-width;
     background: $action-menu-bg;
+    .action-menu-group {
+        &-name {
+            padding: $action-menu-group-name-padding-y $action-menu-group-name-padding-x 0;
+            color: $action-menu-group-name-color;
+        }
+    }
     .action-menu-item {
         display: flex;
         flex-wrap: wrap;
@@ -111,20 +117,6 @@
                 color: $action-menu-divider-title-color;
                 background: #ffffff;
                 transform: translateY(-50%);
-            }
-        }
-        &-label {
-            width: $action-menu-width;
-            .action-menu-item {
-                padding: $action-menu-item-padding-y $action-menu-item-padding-x;
-            }
-            .action-menu-divider {
-                margin: 5px 20px 0;
-                border: none;
-                .action-menu-divider-title {
-                    margin: 0;
-                    padding: 0;
-                }
             }
         }
     }
