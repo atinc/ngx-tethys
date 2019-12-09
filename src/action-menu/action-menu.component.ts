@@ -36,18 +36,18 @@ export class ThyActionMenuComponent {
 @Component({
     selector: 'thy-action-menu-group',
     template: `
-        <div class="action-menu-group-name">{{ groupName }}</div>
+        <div class="action-menu-group-title">{{ groupTitle }}</div>
         <ng-content></ng-content>
     `
 })
 export class ThyActionMenuGroupComponent {
-    groupName: string;
+    groupTitle: string;
 
     @HostBinding('class.action-menu-group') isGroup = true;
 
     @Input()
-    set thyName(value: string) {
-        this.groupName = value;
+    set thyTitle(value: string) {
+        this.groupTitle = value;
     }
 
     constructor() {}

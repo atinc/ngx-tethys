@@ -4,7 +4,7 @@
     width: $action-menu-width;
     background: $action-menu-bg;
     .action-menu-group {
-        &-name {
+        &-title {
             margin: $action-menu-group-name-padding-y $action-menu-group-name-padding-x 0;
             color: $action-menu-group-name-color;
         }

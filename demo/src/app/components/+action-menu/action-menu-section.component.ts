@@ -101,7 +101,7 @@ export class DemoActionMenuSectionComponent {
 
     actionMenuGroupApiParameters = [
         {
-            property: 'thyName',
+            property: 'thyTitle',
             description: '分组名称',
             type: 'string',
             default: ''
