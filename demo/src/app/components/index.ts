@@ -85,8 +85,10 @@ import { DemoSkeletonModule } from './+skeleton';
 import { DemoAlertModule } from './+alert/module';
 import { DemoResultBasicComponent } from './+result/basic/basic.component';
 import { DemoResultSectionComponent } from './+result/result-section.component';
+import { DemoCopySectionComponent } from './+copy/copy-section.component';
 
 export const COMPONENTS = [
+    DemoCopySectionComponent,
     DemoTypographyComponent,
     DemoPopBoxSectionComponent,
     PopBoxMenuDemoShowComponent,

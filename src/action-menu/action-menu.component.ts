@@ -5,6 +5,8 @@ export type ThyActionMenuTheme = 'default' | 'group';
 
 export type ThyActionMenuItemType = 'danger' | 'success';
 
+export type ThyActionMenuDividerType = 'default' | 'crossing';
+
 @Component({
     selector: 'thy-action-menu',
     template: `
@@ -26,6 +28,26 @@ export class ThyActionMenuComponent {
 
     @Input() set thyWidth(value: string) {
         this.styleWidth = value;
+    }
+
+    constructor() {}
+}
+
+@Component({
+    selector: 'thy-action-menu-group',
+    template: `
+        <div class="action-menu-group-title">{{ groupTitle }}</div>
+        <ng-content></ng-content>
+    `
+})
+export class ThyActionMenuGroupComponent {
+    groupTitle: string;
+
+    @HostBinding('class.action-menu-group') isGroup = true;
+
+    @Input()
+    set thyTitle(value: string) {
+        this.groupTitle = value;
     }
 
     constructor() {}
@@ -127,11 +149,20 @@ export class ThyActionMenuSubItemDirective {
 export class ThyActionMenuDividerComponent {
     title: string;
 
+    type: ThyActionMenuDividerType;
+
     @HostBinding('class.action-menu-divider') className = true;
+
+    @HostBinding('class.action-menu-divider-crossing') isCrossing = false;
 
     @Input()
     set thyTitle(value: string) {
         this.title = value;
+    }
+
+    @Input()
+    set thyType(value: ThyActionMenuDividerType) {
+        this.isCrossing = value === 'crossing';
     }
 
     constructor() {}
