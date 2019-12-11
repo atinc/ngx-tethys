@@ -1,3 +1,38 @@
+## [7.6.13](https://github.com/worktile/ngx-tethys/compare/7.6.12...7.6.13) (2019-12-11)
+
+
+### Bug Fixes
+
+* add thycopy event ThyCopyEvent ([996d3d9](https://github.com/worktile/ngx-tethys/commit/996d3d9))
+* add thyCopyNotifyText to show notify ([aecaa65](https://github.com/worktile/ngx-tethys/commit/aecaa65))
+* add ThyNotifyService provider ([bcf583f](https://github.com/worktile/ngx-tethys/commit/bcf583f))
+* add ThyNotifyService provider ([e26c3bd](https://github.com/worktile/ngx-tethys/commit/e26c3bd))
+* copy input() name ([22d428d](https://github.com/worktile/ngx-tethys/commit/22d428d))
+* copy menu and input() name ([9b09891](https://github.com/worktile/ngx-tethys/commit/9b09891))
+* copy test tick 4500 wait notify ([60aeb26](https://github.com/worktile/ngx-tethys/commit/60aeb26))
+* copy test tick 4500 wait notify ([6063788](https://github.com/worktile/ngx-tethys/commit/6063788))
+* copy tooltips  click to hover ([107a7dc](https://github.com/worktile/ngx-tethys/commit/107a7dc))
+* default thyCopyText ([adaf5db](https://github.com/worktile/ngx-tethys/commit/adaf5db))
+* fix test ts ([972185c](https://github.com/worktile/ngx-tethys/commit/972185c))
+* remove parameter ([5a15c9f](https://github.com/worktile/ngx-tethys/commit/5a15c9f))
+* remove vote ([81ff6db](https://github.com/worktile/ngx-tethys/commit/81ff6db))
+* thy-copy test add ThyNotifyModule ([2564d65](https://github.com/worktile/ngx-tethys/commit/2564d65))
+* thyCopyNotifyText to thyCopySuccessText ([adce370](https://github.com/worktile/ngx-tethys/commit/adce370))
+* **action-menu:** add action menu variables in variables scss ([cf1aebc](https://github.com/worktile/ngx-tethys/commit/cf1aebc))
+* **action-menu:** add group api parameters ([71b6b3e](https://github.com/worktile/ngx-tethys/commit/71b6b3e))
+* **action-menu:** change styxName to styxTitle ([732059a](https://github.com/worktile/ngx-tethys/commit/732059a))
+
+
+### Features
+
+* copy ([f3f7ba3](https://github.com/worktile/ngx-tethys/commit/f3f7ba3))
+* **action-menu:** add group type and divider type #INF-194 ([57ede21](https://github.com/worktile/ngx-tethys/commit/57ede21)), closes [#INF-194](https://github.com/worktile/ngx-tethys/issues/INF-194)
+* **action-menu:** add thy-action-menu-group component ([9232118](https://github.com/worktile/ngx-tethys/commit/9232118))
+* **copy:** add ThyCopyDirective ([ecf3c71](https://github.com/worktile/ngx-tethys/commit/ecf3c71))
+* **thy-copy:** copy text when click ([e2b26bb](https://github.com/worktile/ngx-tethys/commit/e2b26bb))
+
+
+
 ## [7.6.12](https://github.com/worktile/ngx-tethys/compare/7.6.10...7.6.12) (2019-11-29)
 
 
