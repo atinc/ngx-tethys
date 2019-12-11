@@ -1,8 +1,11 @@
 <ng-container>
   <img *ngIf="thySrc; else svg" [src]="thySrc" />
 </ng-container>
-<div *ngIf="thyTitle" class="font-size-lg mt-3">{{ thyTitle }}</div>
-<div *ngIf="thySubtitle" class="text-muted">{{ thySubtitle }}</div>
+<div *ngIf="thyTitle" class="thy-result-title">{{ thyTitle }}</div>
+<div *ngIf="thySubtitle" class="thy-result-subtitle">{{ thySubtitle }}</div>
+<div class="thy-result-extra" *ngIf="extraTemplateRef">
+  <ng-template [ngTemplateOutlet]="extraTemplateRef"></ng-template>
+</div>
 <ng-template #svg>
   <ng-container>
     <svg

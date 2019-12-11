@@ -1,4 +1,18 @@
 .thy-result {
     display: block;
     text-align: center;
+    padding: $result-padding;
+    &-title {
+        font-size: $result-title-font-size;
+        margin-top: 1rem;
+    }
+    &-subtitle {
+        color: $result-subtitle-color;
+    }
+    &-extra {
+        margin-top: $result-extra-margin;
+        & > *:not(:last-child) {
+            margin-right: 8px;
+        }
+    }
 }

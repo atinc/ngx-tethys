@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding, Input } from '@angular/core';
+import { Component, OnInit, HostBinding, Input, TemplateRef, ContentChild } from '@angular/core';
 
 type ThyResultType = 'success' | 'warning' | 'fail';
 
@@ -7,13 +7,15 @@ type ThyResultType = 'success' | 'warning' | 'fail';
     templateUrl: './result.component.html'
 })
 export class ThyResultComponent implements OnInit {
-    @Input() thyType: ThyResultType = 'success';
+    @Input() thyType: ThyResultType;
 
     @Input() thyTitle: string;
 
     @Input() thySubtitle: string;
 
     @Input() thySrc: string;
+
+    @ContentChild('thyExtra') extraTemplateRef: TemplateRef<any>;
 
     @HostBinding('class.thy-result') className = true;
 
