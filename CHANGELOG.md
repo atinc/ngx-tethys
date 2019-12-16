@@ -1,3 +1,23 @@
+## [7.6.14](https://github.com/worktile/ngx-tethys/compare/7.6.12...7.6.14) (2019-12-16)
+
+
+### Bug Fixes
+
+* **dialog:** change dialog header title font-weight to 400 #INF-254 ([#453](https://github.com/worktile/ngx-tethys/issues/453)) ([8868a3c](https://github.com/worktile/ngx-tethys/commit/8868a3c)), closes [#INF-254](https://github.com/worktile/ngx-tethys/issues/INF-254) [#INF-254](https://github.com/worktile/ngx-tethys/issues/INF-254) [#INF-254](https://github.com/worktile/ngx-tethys/issues/INF-254)
+* **list:** change grid list option styles ([e0e6d33](https://github.com/worktile/ngx-tethys/commit/e0e6d33))
+* **markdown:** fix markdown new line#CMN-801 ([#455](https://github.com/worktile/ngx-tethys/issues/455)) ([eacab2d](https://github.com/worktile/ngx-tethys/commit/eacab2d)), closes [line#CMN-801](https://github.com/line/issues/CMN-801)
+* **stepper:** change step header line style ([23f58ac](https://github.com/worktile/ngx-tethys/commit/23f58ac))
+* default thyCopyText ([adaf5db](https://github.com/worktile/ngx-tethys/commit/adaf5db))
+* **stepper:** change step line color #CMN-810 ([176ae72](https://github.com/worktile/ngx-tethys/commit/176ae72)), closes [#CMN-810](https://github.com/worktile/ngx-tethys/issues/CMN-810)
+ 
+
+
+### Features
+
+* **result:** add result component ([#451](https://github.com/worktile/ngx-tethys/issues/451)) ([811c2b2](https://github.com/worktile/ngx-tethys/commit/811c2b2))
+
+
+
 ## [7.6.13](https://github.com/worktile/ngx-tethys/compare/7.6.12...7.6.13) (2019-12-11)
 
 
