@@ -21,15 +21,18 @@
         cursor: pointer;
         text-decoration: none;
         transition: background 200ms;
-        &:not(.action-menu-item--disabled).active,
+        &:not(.action-menu-item--disabled).active {
+            background-color: rgba($primary, 0.1);
+            &:not(.action-menu-sub-item) {
+                color: $action-menu-item-hover-color;
+            }
+        }
+
         &:not(.action-menu-item--disabled):hover {
             background-color: $action-menu-item-hover-bg;
             &:not(.info),
             &:not(.action-menu-sub-item) {
                 color: $action-menu-item-hover-color;
-                // .icon {
-                //     color: $action-menu-item-hover-color;
-                // }
             }
         }
 
