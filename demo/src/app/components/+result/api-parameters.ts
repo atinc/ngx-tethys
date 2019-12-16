@@ -14,7 +14,7 @@ export const apiParameters = [
     {
         property: 'thyStatus',
         description: 'result status',
-        type: '"success" | "warning" | "fail"',
+        type: '"success" | "warning" | "error"',
         default: ''
     },
     {

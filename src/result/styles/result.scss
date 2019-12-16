@@ -4,13 +4,14 @@
     padding: $result-padding;
     &-title {
         font-size: $result-title-font-size;
-        margin-top: 1rem;
+        margin-top: $result-title-margin-top;
     }
     &-subtitle {
         color: $result-subtitle-color;
+        margin-top: $result-subtitle-margin-top;
     }
     &-extra {
-        margin-top: $result-extra-margin;
+        margin-top: $result-extra-margin-top;
         & > *:not(:last-child) {
             margin-right: 8px;
         }
