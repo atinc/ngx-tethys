@@ -66,7 +66,7 @@
     justify-content: center;
     color: $progress-bar-color;
     text-align: center;
-    background-color: $primary;
+    background-color: $progress-bar-primary-bg;
     @include transition($progress-bar-transition);
     position: relative;
     &[aria-valuenow='0'] {
@@ -86,7 +86,7 @@
 }
 
 $progress-types: (
-    primary: $primary,
+    primary: $progress-bar-primary-bg,
     success: $success,
     warning: $warning,
     danger: $warning,

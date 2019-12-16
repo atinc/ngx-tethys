@@ -83,6 +83,8 @@ import { DemoUploaderSectionComponent } from './+uploader/uploader-section.compo
 import { DemoWTDSectionLinkComponent } from './+wtd/wtd.component';
 import { DemoSkeletonModule } from './+skeleton';
 import { DemoAlertModule } from './+alert/module';
+import { DemoResultBasicComponent } from './+result/basic/basic.component';
+import { DemoResultSectionComponent } from './+result/result-section.component';
 import { DemoCopySectionComponent } from './+copy/copy-section.component';
 
 export const COMPONENTS = [
@@ -172,7 +174,10 @@ export const COMPONENTS = [
     CustomSelectDisplayComponent,
     CustomSelectGroupComponent,
     NativeSelectBasicComponent,
-    CustomSelectScrollComponent
+    CustomSelectScrollComponent,
+
+    DemoResultBasicComponent,
+    DemoResultSectionComponent
 ];
 
 export const ENTRY_COMPONENTS = [
@@ -210,7 +215,9 @@ export const ENTRY_COMPONENTS = [
     CustomSelectDisplayComponent,
     CustomSelectGroupComponent,
     NativeSelectBasicComponent,
-    CustomSelectScrollComponent
+    CustomSelectScrollComponent,
+
+    DemoResultBasicComponent
 ];
 
 export const DEMO_MODULES = [

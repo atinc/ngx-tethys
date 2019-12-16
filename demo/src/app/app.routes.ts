@@ -59,6 +59,7 @@ import { DemoLinkSectionComponent } from './global/+link';
 import { DemoRebootSectionComponent } from './global/+reboot';
 import { DemoTypographyComponent } from './components/+typography/typography.component';
 import { DemoSkeletonSectionComponent } from './components/+skeleton';
+import { DemoResultSectionComponent } from './components/+result/result-section.component';
 
 const appRoutes = [
     {
@@ -305,6 +306,10 @@ const appRoutes = [
     {
         path: 'components/skeleton',
         component: DemoSkeletonSectionComponent
+    },
+    {
+        path: 'components/result',
+        component: DemoResultSectionComponent
     }
 ];
 
