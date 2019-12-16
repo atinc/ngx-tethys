@@ -1,19 +1,21 @@
 import { Component, OnInit, HostBinding, Input, TemplateRef, ContentChild } from '@angular/core';
 
-type ThyResultType = 'success' | 'warning' | 'fail';
+type ThyResultStatus = 'success' | 'warning' | 'error';
 
 @Component({
     selector: 'thy-result',
     templateUrl: './result.component.html'
 })
 export class ThyResultComponent implements OnInit {
-    @Input() thyType: ThyResultType;
+    @Input() thyStatus: ThyResultStatus;
 
     @Input() thyTitle: string;
 
     @Input() thySubtitle: string;
 
-    @Input() thySrc: string;
+    @Input() thyIcon: string;
+
+    @ContentChild('thyIcon') iconTemplateRef: TemplateRef<any>;
 
     @ContentChild('thyExtra') extraTemplateRef: TemplateRef<any>;
 
