@@ -621,6 +621,16 @@ $list-grid-option-margin-sm: 0 10px 10px 0 !default;
 $list-grid-option-icon-size: 32px;
 $list-grid-option-name-margin-top: 15px;
 $list-grid-option-sm-name-margin-top: 7px;
+
+// result
+$result-padding: 30px !default;
+$result-title-font-size: $font-size-xlg !default;
+$result-subtitle-color: $gray-600 !default;
+$result-extra-margin-top: 17px !default;
+$result-extra-item-margin: 6px !default;
+$result-title-margin-top: 30px !default;
+$result-subtitle-margin-top: 8px !default;
+
 // markdown
 $markdown-color-width: $rem-14px !default;
 $markdown-color-height: $rem-14px !default;
