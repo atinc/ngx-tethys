@@ -213,7 +213,8 @@ $option-disabled-color: $gray-400 !default;
 
         &.disabled {
             color: $gray-400;
-            cursor: default; // not-allowed;
+            cursor: not-allowed;
+            background-color: $gray-80;
 
             &.active {
                 .checked-icon {
