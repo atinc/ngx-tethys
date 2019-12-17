@@ -83,6 +83,7 @@ import { DemoUploaderSectionComponent } from './+uploader/uploader-section.compo
 import { DemoWTDSectionLinkComponent } from './+wtd/wtd.component';
 import { DemoSkeletonModule } from './+skeleton';
 import { DemoAlertModule } from './+alert/module';
+import { DemoVoteComponent } from './+vote/vote.component';
 
 export const COMPONENTS = [
     DemoTypographyComponent,
@@ -143,6 +144,7 @@ export const COMPONENTS = [
     DemoTreeSelectSectionComponent,
     DemoStepperSectionComponent,
     DemoCascaderSectionComponent,
+    DemoVoteComponent,
 
     DemoTooltipSectionComponent,
     DemoOverlaySectionComponent,
