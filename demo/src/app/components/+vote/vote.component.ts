@@ -53,7 +53,7 @@ export class DemoVoteComponent {
     [thyLayout]="'vertical'"
     [thyVoteCount]="vote_count"
     [thyHasVoted]="has_voted"
-    thyVoteSize="md"
+    thySize="md"
     (click)="toggleVote($event)"
   ></div>
     `;

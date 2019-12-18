@@ -2,7 +2,7 @@ import { OnInit, Component, Input, HostBinding, ElementRef } from '@angular/core
 import { inputValueToBoolean } from '../util/helpers';
 import { UpdateHostClassService } from '../shared';
 
-export type ThyVoteSizes = 'sm' | 'md';
+export type ThySizes = 'sm' | 'md';
 
 export type ThyType = 'primary' | 'success';
 
@@ -14,7 +14,7 @@ export type thyLayout = 'vertical' | 'horizontal';
     providers: [UpdateHostClassService]
 })
 export class ThyVoteComponent implements OnInit {
-    _size: ThyVoteSizes;
+    _size: ThySizes;
 
     _type: ThyType;
 
@@ -27,7 +27,7 @@ export class ThyVoteComponent implements OnInit {
     @HostBinding(`class.has-voted`) _hasVoted = true;
 
     @Input()
-    set thyVoteSize(value: ThyVoteSizes) {
+    set thySize(value: ThySizes) {
         this._size = value;
         if (this._initialized) {
             this._setClassesByType();

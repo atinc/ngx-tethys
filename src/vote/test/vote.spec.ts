@@ -41,7 +41,7 @@ describe('ThyVote', () => {
     });
 
     it('should have thy-vote-vertical and hy-vote-vertical-size-sm when thyLayout is vertical', () => {
-        basicTestComponent.thyLayout = `vertical`;
+        basicTestComponent.layout = `vertical`;
         fixture.detectChanges();
         expect(voteComponent.nativeElement.classList.contains('thy-vote')).toBe(true);
         expect(voteComponent.nativeElement.classList.contains('thy-vote-vertical')).toBe(true);
@@ -49,9 +49,9 @@ describe('ThyVote', () => {
         expect(voteComponent.nativeElement.classList.contains('thy-vote-horizontal')).toBe(false);
     });
 
-    it('should have thy-vote-vertical and hy-vote-vertical-size-sm when thyVoteSize is md', () => {
-        basicTestComponent.thyLayout = `vertical`;
-        basicTestComponent.thyVoteSize = `md`;
+    it('should have thy-vote-vertical and thy-vote-vertical-size-sm when thySize is md', () => {
+        basicTestComponent.layout = `vertical`;
+        basicTestComponent.size = `md`;
         fixture.detectChanges();
         expect(voteComponent.nativeElement.classList.contains('thy-vote')).toBe(true);
         expect(voteComponent.nativeElement.classList.contains('thy-vote-vertical')).toBe(true);
@@ -67,8 +67,8 @@ describe('ThyVote', () => {
             [thyVote]="thyVote"
             [thyVoteCount]="vote_count"
             [thyHasVoted]="has_voted"
-            [thyLayout]="thyLayout"
-            [thyVoteSize]="thyVoteSize"
+            [thyLayout]="layout"
+            [thySize]="size"
         ></div>
     `
 })
@@ -76,8 +76,8 @@ class ThyDemoVoteBasicComponent {
     vote_count = '10';
     hasVoted = true;
     thyVote = '';
-    thyLayout = '';
-    thyVoteSize = '';
+    layout = '';
+    size = '';
 }
 
 @NgModule({
