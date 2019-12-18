@@ -59,7 +59,8 @@ export const allMenus = [
                     { name: 'Cascader', zhName: '级联选择菜单', routePath: 'cascader' },
                     { name: 'Property Operation', zhName: '属性操作', routePath: 'property-operation' },
                     { name: 'Arrow-switcher', zhName: '上下条切换', routePath: 'arrow-switcher' },
-                    { name: 'Vote', zhName: '投票', routePath: 'vote' }
+                    { name: 'Vote', zhName: '投票', routePath: 'vote' },
+                    { name: 'Copy', zhName: '复制', routePath: 'copy' }
                 ]
             },
             {
@@ -115,7 +116,8 @@ export const allMenus = [
                     { name: 'Tree', zhName: '树', routePath: 'tree' },
                     { name: 'Stepper', zhName: '步骤条', routePath: 'stepper' },
                     { name: 'Progress', zhName: '进度条', routePath: 'progress' },
-                    { name: 'Markdown', zhName: 'markdown 解析', routePath: 'markdown' }
+                    { name: 'Markdown', zhName: 'markdown 解析', routePath: 'markdown' },
+                    { name: 'Result', zhName: '结果页', routePath: 'result' }
                 ]
             },
             {

@@ -2,12 +2,17 @@ import { fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ThyActionMenuModule } from '../action-menu.module';
 import { NgModule, Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { ThyActionMenuComponent } from '../action-menu.component';
+import {
+    ThyActionMenuComponent,
+    ThyActionMenuDividerComponent,
+    ThyActionMenuItemDirective
+} from '../action-menu.component';
 
 describe('ThyActionMenu', () => {
     let fixture: ComponentFixture<ThyDemoActionMenuComponent>;
     let testComponent: ThyDemoActionMenuComponent;
     let actionMenuComponent: DebugElement;
+    let actionMenuDividerComponent: DebugElement;
     let actionMenuItems: DebugElement[];
 
     beforeEach(fakeAsync(() => {
@@ -21,7 +26,8 @@ describe('ThyActionMenu', () => {
         fixture = TestBed.createComponent(ThyDemoActionMenuComponent);
         testComponent = fixture.debugElement.componentInstance;
         actionMenuComponent = fixture.debugElement.query(By.directive(ThyActionMenuComponent));
-        actionMenuItems = actionMenuComponent.queryAll(By.all());
+        actionMenuDividerComponent = fixture.debugElement.query(By.directive(ThyActionMenuDividerComponent));
+        actionMenuItems = actionMenuComponent.queryAll(By.directive(ThyActionMenuItemDirective));
     });
 
     it('should create', () => {
@@ -44,12 +50,25 @@ describe('ThyActionMenu', () => {
             true
         );
     });
+
+    it('should have correct class when theme is group', () => {
+        testComponent.theme = `group`;
+        fixture.detectChanges();
+        expect(actionMenuComponent.nativeElement.classList.contains('action-menu--group')).toBe(true);
+    });
+
+    it('should have correct class when dividerType is crossing', () => {
+        testComponent.dividerType = `crossing`;
+        fixture.detectChanges();
+        expect(actionMenuDividerComponent.nativeElement.classList.contains('action-menu-divider-crossing')).toBe(true);
+    });
 });
 
 @Component({
     selector: 'thy-demo-action-menu',
     template: `
-        <thy-action-menu>
+        <thy-action-menu [thyTheme]="theme">
+            <thy-action-menu-divider [thyType]="dividerType"></thy-action-menu-divider>
             <a thyActionMenuItem [thyType]="type" href="javascript:;"> </a>
             <a thyActionMenuItem [thyType]="type" href="javascript:;"> </a>
         </thy-action-menu>
@@ -57,6 +76,8 @@ describe('ThyActionMenu', () => {
 })
 class ThyDemoActionMenuComponent {
     type = ``;
+    theme = ``;
+    dividerType = ``;
 }
 
 @NgModule({

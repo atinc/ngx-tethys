@@ -1,63 +1,64 @@
-.thy-modal--has-footer{
-  .modal-body{
-    padding: $modal-has-footer-inner-padding;
-  }
+.thy-modal--has-footer {
+    .modal-body {
+        padding: $modal-has-footer-inner-padding;
+    }
 }
 .modal-header {
-  padding: 0 $modal-header-padding;
-  min-height: $modal-title-line-height;
-  align-items: center;
-  height: 50px;
-  h3 {
-    font-size: $font-size-md;
-    font-weight: 500;
-  }
-  .modal-info {
-    color: $gray-500;
-  }
-  .modal-back {
-    position: absolute;
-    line-height: 50px;
-    color: $gray-300;
-  }
-  .close {
-    outline: none;
-    padding: 1rem $modal-header-padding;
-    margin: (-$modal-header-padding) (-$modal-header-padding) (-$modal-header-padding) auto;
-  }
+    padding: 0 $modal-header-padding;
+    min-height: $modal-title-line-height;
+    align-items: center;
+    height: 50px;
+    h3 {
+        font-size: $font-size-md;
+        font-weight: 400;
+    }
+    .modal-info {
+        color: $gray-500;
+    }
+    .modal-back {
+        position: absolute;
+        line-height: 50px;
+        color: $gray-300;
+    }
+    .close {
+        outline: none;
+        padding: 1rem $modal-header-padding;
+        margin: (-$modal-header-padding) (-$modal-header-padding) (-$modal-header-padding) auto;
+    }
 
-  // .modal-close {
-  //   color: $gray-300;
-  //   line-height: 50px;
-  //   &:hover {
-  //     text-decoration: none;
-  //     color: $primary;
-  //   }
-  // }
+    // .modal-close {
+    //   color: $gray-300;
+    //   line-height: 50px;
+    //   &:hover {
+    //     text-decoration: none;
+    //     color: $primary;
+    //   }
+    // }
 }
 
 .modal-body {
-  &--lg {
-    padding: 20px 30px;
-  }
-  &--clear-padding-l {
-    padding-left: 0;
-  }
-  &--clear-padding-lr {
-    padding-left: 0;
-    padding-right: 0;
-  }
-  &--clear-padding {
-    padding: 0;
-  }
+    &--lg {
+        padding: 20px 30px;
+    }
+    &--clear-padding-l {
+        padding-left: 0;
+    }
+    &--clear-padding-lr {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    &--clear-padding {
+        padding: 0;
+    }
 }
 
 .modal-footer {
-  justify-content: flex-start;
-  border: 0;
+    justify-content: flex-start;
+    border: 0;
 }
 
 @include media-breakpoint-up(lg) {
-  .modal-blg { max-width: $modal-blg; }
+    .modal-blg {
+        max-width: $modal-blg;
+    }
 }
-

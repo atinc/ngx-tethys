@@ -1,0 +1,10 @@
+.thy-markdown-plan-text {
+    .msg-inline-color {
+        margin: 0 0 -1px 5px;
+        display: inline-block;
+        width: $markdown-color-width;
+        height: $markdown-color-height;
+        border: 1px solid $markdown-color-border-color;
+        border-radius: 3px;
+    }
+}

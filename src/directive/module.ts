@@ -8,6 +8,7 @@ import { ThyShowDirective } from './thy-show';
 import { ThyStopPropagationDirective } from './thy-stop-propagation.directive';
 import { ThyContextMenuDirective } from './thy-contextmenu.directive';
 import { ThyScrollDirective } from './thy-scroll.directive';
+import { ThyCopyDirective } from './thy-copy.directive';
 
 @NgModule({
     declarations: [
@@ -19,7 +20,8 @@ import { ThyScrollDirective } from './thy-scroll.directive';
         ThyShowDirective,
         ThyStopPropagationDirective,
         ThyContextMenuDirective,
-        ThyScrollDirective
+        ThyScrollDirective,
+        ThyCopyDirective
     ],
     exports: [
         ThyRowDirective,
@@ -30,7 +32,8 @@ import { ThyScrollDirective } from './thy-scroll.directive';
         ThyShowDirective,
         ThyStopPropagationDirective,
         ThyContextMenuDirective,
-        ThyScrollDirective
+        ThyScrollDirective,
+        ThyCopyDirective
     ],
     providers: []
 })

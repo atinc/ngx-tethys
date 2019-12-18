@@ -1,5 +1,6 @@
-import { OnInit, Component, Input, HostBinding, ElementRef, Renderer2 } from '@angular/core';
+import { OnInit, Component, Input, HostBinding, ElementRef } from '@angular/core';
 import { inputValueToBoolean } from '../util/helpers';
+import { UpdateHostClassService } from '../shared';
 
 export type ThyVoteSizes = 'sm' | 'md';
 
@@ -9,18 +10,17 @@ export type thyLayout = 'vertical' | 'horizontal';
 
 @Component({
     selector: 'thy-vote,[thyVote]',
-    templateUrl: './vote.component.html'
+    templateUrl: './vote.component.html',
+    providers: [UpdateHostClassService]
 })
 export class ThyVoteComponent implements OnInit {
-    private _nativeElement: any;
-
     _size: ThyVoteSizes;
 
     _type: ThyType;
 
     _layout: thyLayout;
 
-    _classNames: string[];
+    _initialized = false;
 
     @HostBinding(`class.thy-vote`) class = true;
 
@@ -29,19 +29,25 @@ export class ThyVoteComponent implements OnInit {
     @Input()
     set thyVoteSize(value: ThyVoteSizes) {
         this._size = value;
-        this._setClassesByType();
+        if (this._initialized) {
+            this._setClassesByType();
+        }
     }
 
     @Input()
     set thyVote(value: ThyType) {
         this._type = value;
-        this._setClassesByType();
+        if (this._initialized) {
+            this._setClassesByType();
+        }
     }
 
     @Input()
     set thyLayout(value: thyLayout) {
         this._layout = value;
-        this._setClassesByType();
+        if (this._initialized) {
+            this._setClassesByType();
+        }
     }
 
     @Input() thyVoteCount: number | string;
@@ -51,12 +57,13 @@ export class ThyVoteComponent implements OnInit {
         this._hasVoted = inputValueToBoolean(value);
     }
 
-    constructor(private elementRef: ElementRef, private renderer: Renderer2) {
-        this._nativeElement = this.elementRef.nativeElement;
+    constructor(private elementRef: ElementRef, private updateHostClassService: UpdateHostClassService) {
+        this.updateHostClassService.initializeElement(elementRef.nativeElement);
     }
 
     ngOnInit() {
         this._setClassesByType();
+        this._initialized = true;
     }
 
     _setClassesByType() {
@@ -73,14 +80,6 @@ export class ThyVoteComponent implements OnInit {
         className.push(`thy-vote-${this._type}`);
         className.push(`thy-vote-${this._layout}`);
         className.push(`thy-vote-${this._layout}-size-${this._size}`);
-
-        (this._classNames || []).forEach((value: string) => {
-            this.renderer.removeClass(this._nativeElement, value);
-        });
-
-        this._classNames = className;
-        this._classNames.forEach((value: string) => {
-            this.renderer.addClass(this._nativeElement, value);
-        });
+        this.updateHostClassService.updateClass(className);
     }
 }

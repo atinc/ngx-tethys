@@ -1,8 +1,14 @@
 .action-menu {
-    padding: 10px 0;
+    padding: $action-menu-padding-y 0;
     display: block;
-    width: 240px;
+    width: $action-menu-width;
     background: $action-menu-bg;
+    .action-menu-group {
+        &-title {
+            margin: $action-menu-group-name-padding-y $action-menu-group-name-padding-x 0;
+            color: $action-menu-group-name-color;
+        }
+    }
     .action-menu-item {
         display: flex;
         flex-wrap: wrap;
@@ -15,15 +21,18 @@
         cursor: pointer;
         text-decoration: none;
         transition: background 200ms;
-        &:not(.action-menu-item--disabled).active,
+        &:not(.action-menu-item--disabled).active {
+            background-color: rgba($primary, 0.1);
+            &:not(.action-menu-sub-item) {
+                color: $action-menu-item-hover-color;
+            }
+        }
+
         &:not(.action-menu-item--disabled):hover {
             background-color: $action-menu-item-hover-bg;
             &:not(.info),
             &:not(.action-menu-sub-item) {
                 color: $action-menu-item-hover-color;
-                // .icon {
-                //     color: $action-menu-item-hover-color;
-                // }
             }
         }
 
@@ -89,18 +98,20 @@
         }
     }
     .action-menu-divider {
-        margin: 10px 20px;
+        margin: $action-menu-divider-margin-y $action-menu-divider-margin-x;
         display: block;
         border-top: solid 1px $action-menu-divider-border-color;
+        &-crossing {
+            margin: 0;
+        }
     }
     &--group {
-        padding: 10px 0;
-        width: 280px;
+        width: $action-menu-group-width;
         .action-menu-item {
             padding: 12px 30px 12px 45px;
         }
         .action-menu-divider {
-            margin: 10px 30px 10px 30px;
+            margin: 10px 30px;
             transform: translateY(50%);
             .action-menu-divider-title {
                 display: inline-block;

@@ -1,4 +1,4 @@
-import { Directive, ElementRef, OnInit, Input } from '@angular/core';
+import { Directive, ElementRef, OnInit, Input, HostBinding } from '@angular/core';
 import { ThyMarkdownParserService } from './thy-markdown-parser.service';
 import { liteMarked } from '../typings';
 
@@ -61,6 +61,8 @@ export class ThyMarkdownPlanTextParserDirective implements OnInit {
             this.translateHTML();
         }
     }
+
+    @HostBinding('class.thy-markdown-plan-text') hasClass = true;
 
     constructor(private elementRef: ElementRef, private thyMarkdownParserService: ThyMarkdownParserService) {}
 
