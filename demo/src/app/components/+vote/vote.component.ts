@@ -14,14 +14,14 @@ export class DemoVoteComponent {
             default: 'primary'
         },
         {
-            property: 'thyVoteType',
+            property: 'thyLayout',
             description: '标签类型（horizontal、vertical)',
-            type: 'ThyVoteType',
+            type: 'thyLayout',
             default: 'horizontal'
         },
         {
             property: 'thySizs',
-            description: 'thyVoteType="vertical"支持"sm"和"md",thyVoteType="horizontal"支持"sm"',
+            description: 'thyLayout="vertical"支持"sm"和"md",thyLayout="horizontal"支持"sm"',
             type: 'String',
             default: 'sm'
         },
@@ -43,14 +43,14 @@ export class DemoVoteComponent {
   <thy-vote [thyVoteCount]="vote_count" [thyHasVoted]="has_voted" (click)="toggleVote($event)"></thy-vote>
   <div
     [thyVote]="'success'"
-    [thyVoteType]="'vertical'"
+    [thyLayout]="'vertical'"
     [thyVoteCount]="vote_count"
     [thyHasVoted]="has_voted"
     (click)="toggleVote($event)"
   ></div>
   <div
     [thyVote]="'success'"
-    [thyVoteType]="'vertical'"
+    [thyLayout]="'vertical'"
     [thyVoteCount]="vote_count"
     [thyHasVoted]="has_voted"
     thyVoteSize="md"

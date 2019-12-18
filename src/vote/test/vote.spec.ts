@@ -40,8 +40,8 @@ describe('ThyVote', () => {
         expect(voteComponent.nativeElement.classList.contains('thy-vote-success')).toBe(true);
     });
 
-    it('should have thy-vote-vertical and hy-vote-vertical-size-sm when thyVoteType is vertical', () => {
-        basicTestComponent.thyVoteType = `vertical`;
+    it('should have thy-vote-vertical and hy-vote-vertical-size-sm when thyLayout is vertical', () => {
+        basicTestComponent.thyLayout = `vertical`;
         fixture.detectChanges();
         expect(voteComponent.nativeElement.classList.contains('thy-vote')).toBe(true);
         expect(voteComponent.nativeElement.classList.contains('thy-vote-vertical')).toBe(true);
@@ -49,8 +49,8 @@ describe('ThyVote', () => {
         expect(voteComponent.nativeElement.classList.contains('thy-vote-horizontal')).toBe(false);
     });
 
-    it('should not have color and backgroundColor when thyVoteColor is null', () => {
-        basicTestComponent.thyVoteType = `vertical`;
+    it('should have thy-vote-vertical and hy-vote-vertical-size-sm when thyVoteSize is md', () => {
+        basicTestComponent.thyLayout = `vertical`;
         basicTestComponent.thyVoteSize = `md`;
         fixture.detectChanges();
         expect(voteComponent.nativeElement.classList.contains('thy-vote')).toBe(true);
@@ -67,7 +67,7 @@ describe('ThyVote', () => {
             [thyVote]="thyVote"
             [thyVoteCount]="vote_count"
             [thyHasVoted]="has_voted"
-            [thyVoteType]="thyVoteType"
+            [thyLayout]="thyLayout"
             [thyVoteSize]="thyVoteSize"
         ></div>
     `
@@ -76,7 +76,7 @@ class ThyDemoVoteBasicComponent {
     vote_count = '10';
     hasVoted = true;
     thyVote = '';
-    thyVoteType = '';
+    thyLayout = '';
     thyVoteSize = '';
 }
 

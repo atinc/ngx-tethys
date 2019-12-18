@@ -3,9 +3,9 @@ import { inputValueToBoolean } from '../util/helpers';
 
 export type ThyVoteSizes = 'sm' | 'md';
 
-export type ThyVote = 'primary' | 'success';
+export type ThyType = 'primary' | 'success';
 
-export type ThyVoteType = 'vertical' | 'horizontal';
+export type thyLayout = 'vertical' | 'horizontal';
 
 @Component({
     selector: 'thy-vote,[thyVote]',
@@ -16,9 +16,9 @@ export class ThyVoteComponent implements OnInit {
 
     _size: ThyVoteSizes;
 
-    _type: ThyVote;
+    _type: ThyType;
 
-    _voteType: ThyVoteType;
+    _layout: thyLayout;
 
     _classNames: string[];
 
@@ -33,14 +33,14 @@ export class ThyVoteComponent implements OnInit {
     }
 
     @Input()
-    set thyVote(value: ThyVote) {
+    set thyVote(value: ThyType) {
         this._type = value;
         this._setClassesByType();
     }
 
     @Input()
-    set thyVoteType(value: ThyVoteType) {
-        this._voteType = value;
+    set thyLayout(value: thyLayout) {
+        this._layout = value;
         this._setClassesByType();
     }
 
@@ -64,15 +64,15 @@ export class ThyVoteComponent implements OnInit {
         if (!this._type) {
             this._type = 'primary';
         }
-        if (!this._voteType) {
-            this._voteType = 'horizontal';
+        if (!this._layout) {
+            this._layout = 'horizontal';
         }
         if (!this._size) {
             this._size = 'sm';
         }
         className.push(`thy-vote-${this._type}`);
-        className.push(`thy-vote-${this._voteType}`);
-        className.push(`thy-vote-${this._voteType}-size-${this._size}`);
+        className.push(`thy-vote-${this._layout}`);
+        className.push(`thy-vote-${this._layout}-size-${this._size}`);
 
         (this._classNames || []).forEach((value: string) => {
             this.renderer.removeClass(this._nativeElement, value);

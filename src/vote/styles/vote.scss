@@ -8,6 +8,16 @@
         color: $color;
     }
 }
+@mixin vote-variant($width, $height, $padding, $fontSize, $iconSize) {
+    width: $width;
+    height: $height;
+    padding: $padding;
+    line-height: $fontSize;
+    font-size: $fontSize;
+    .thy-icon {
+        font-size: $iconSize;
+    }
+}
 
 .thy-vote {
     display: flex;
@@ -26,25 +36,23 @@
 }
 
 .thy-vote-vertical-size-sm {
-    width: 36px;
-    height: 36px;
-    padding: 5px;
-    line-height: $font-size-xs;
-    font-size: $font-size-xs;
-    .thy-icon {
-        font-size: $font-size-sm;
-    }
+    @include vote-variant(
+        $vote-layout-vertical-sm,
+        $vote-layout-vertical-sm,
+        $vote-layout-vertical-padding-sm,
+        $font-size-xs,
+        $font-size-sm
+    );
 }
 
 .thy-vote-vertical-size-md {
-    width: 48px;
-    height: 48px;
-    padding: 7px;
-    line-height: $font-size-base;
-    font-size: $font-size-base;
-    .thy-icon {
-        font-size: $font-size-md;
-    }
+    @include vote-variant(
+        $vote-layout-vertical-md,
+        $vote-layout-vertical-md,
+        $vote-layout-vertical-padding-md,
+        $font-size-base,
+        $font-size-md
+    );
 }
 
 .thy-vote-horizontal {
@@ -53,18 +61,17 @@
 }
 
 .thy-vote-horizontal-size-sm {
-    width: 50px;
-    height: 20px;
-    padding: 4px 7px;
-    line-height: $font-size-sm;
-    font-size: $font-size-sm;
-    .thy-icon {
-        font-size: $font-size-sm;
-    }
+    @include vote-variant(
+        $vote-layout-horizontal-with-sm,
+        $vote-layout-horizontal-height-sm,
+        $vote-layout-horizontal-padding-sm,
+        $font-size-sm,
+        $font-size-sm
+    );
 }
 
 .thy-vote-success {
-    @include vote-color-variant(#73d897);
+    @include vote-color-variant($success);
 }
 
 .thy-vote-primary {

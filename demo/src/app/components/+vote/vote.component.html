@@ -1,12 +1,12 @@
 <div>
-  <p>thyVote:primary / thyVoteType: horizontal</p>
+  <p>thyVote:primary / thyLayout: horizontal</p>
   <thy-vote class="mt-3" [thyVoteCount]="vote_count" [thyHasVoted]="has_voted" (click)="toggleVote($event)"></thy-vote>
 </div>
 <div class="mt-3">
-  <p>thyVote:success / thyVoteType: vertical</p>
+  <p>thyVote:success / thyLayout: vertical</p>
   <div
     [thyVote]="'success'"
-    [thyVoteType]="'vertical'"
+    [thyLayout]="'vertical'"
     [thyVoteCount]="vote_count"
     [thyHasVoted]="has_voted"
     (click)="toggleVote($event)"
@@ -14,7 +14,7 @@
   <div
     class="mt-3"
     [thyVote]="'success'"
-    [thyVoteType]="'vertical'"
+    [thyLayout]="'vertical'"
     [thyVoteCount]="vote_count"
     [thyHasVoted]="has_voted"
     thyVoteSize="md"
