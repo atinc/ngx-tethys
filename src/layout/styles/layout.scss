@@ -3,6 +3,7 @@
     flex-direction: column;
     flex: auto;
     height: 100%;
+    min-height: 0;
     background: $layout-content-background;
 
     &--has-sidebar {
