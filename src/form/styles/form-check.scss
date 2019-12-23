@@ -40,6 +40,26 @@
     }
 }
 
+.form-check-indeterminate {
+    input[type='checkbox'] {
+        border-color: $primary;
+        &::after {
+            width: 6px;
+            height: 6px;
+            background: $primary;
+            margin: auto;
+            opacity: 1;
+            transform: none;
+            position: absolute;
+            left: 4px;
+            top: 4px;
+        }
+        &::before {
+            display: none;
+        }
+    }
+}
+
 input[type='radio'],
 input[type='checkbox'] {
     margin-top: 2px;

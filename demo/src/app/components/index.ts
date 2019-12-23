@@ -83,6 +83,7 @@ import { DemoUploaderSectionComponent } from './+uploader/uploader-section.compo
 import { DemoWTDSectionLinkComponent } from './+wtd/wtd.component';
 import { DemoSkeletonModule } from './+skeleton';
 import { DemoAlertModule } from './+alert/module';
+import { DemoVoteComponent } from './+vote/vote.component';
 import { DemoResultBasicComponent } from './+result/basic/basic.component';
 import { DemoResultSectionComponent } from './+result/result-section.component';
 import { DemoCopySectionComponent } from './+copy/copy-section.component';
@@ -147,6 +148,7 @@ export const COMPONENTS = [
     DemoTreeSelectSectionComponent,
     DemoStepperSectionComponent,
     DemoCascaderSectionComponent,
+    DemoVoteComponent,
 
     DemoTooltipSectionComponent,
     DemoOverlaySectionComponent,

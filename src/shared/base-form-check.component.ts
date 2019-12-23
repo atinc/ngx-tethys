@@ -23,6 +23,8 @@ export class ThyFormCheckBaseComponent implements ControlValueAccessor {
 
     @HostBinding('class.form-check-checked') _isChecked = false;
 
+    @HostBinding('class.form-check-indeterminate') _isIndeterminate = false;
+
     @Input()
     set thyInline(value: boolean) {
         this._isFormCheckInline = inputValueToBoolean(value);
@@ -45,6 +47,11 @@ export class ThyFormCheckBaseComponent implements ControlValueAccessor {
     @Input()
     set thyDisabled(value: boolean) {
         this.setDisabledState(inputValueToBoolean(value));
+    }
+
+    @Input()
+    set thyIndeterminate(value: boolean) {
+        this._isIndeterminate = inputValueToBoolean(value);
     }
 
     writeValue(obj: boolean): void {

@@ -59,6 +59,7 @@ export const allMenus = [
                     { name: 'Cascader', zhName: '级联选择菜单', routePath: 'cascader' },
                     { name: 'Property Operation', zhName: '属性操作', routePath: 'property-operation' },
                     { name: 'Arrow-switcher', zhName: '上下条切换', routePath: 'arrow-switcher' },
+                    { name: 'Vote', zhName: '投票', routePath: 'vote' },
                     { name: 'Copy', zhName: '复制', routePath: 'copy' }
                 ]
             },

@@ -53,6 +53,7 @@ import { ThyFlexibleTextModule } from './flexible-text';
 import { ThyDragDropModule } from './drag-drop/module';
 import { ThySelectCommonModule } from './core/select/module';
 import { ThySkeletonModule } from './skeleton';
+import { ThyVoteModule } from './vote';
 import { ThyResultModule } from './result';
 
 const IMPORT_EXPORT_MODULES = [
@@ -111,6 +112,7 @@ const IMPORT_EXPORT_MODULES = [
     ThyDragDropModule,
     ThySelectCommonModule,
     ThySkeletonModule,
+    ThyVoteModule,
     ThyResultModule
 ];
 
