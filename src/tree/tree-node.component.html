@@ -23,15 +23,17 @@
           ></thy-icon>
         </ng-template>
       </ng-container>
-
-      <!-- <i
-      class="wtf thy-tree-expand-icon"
-      *ngIf="(node.children && node.children.length > 0) || thyAsync || emptyChildrenTemplateRef"
-      [class.collapse]="!node.isExpanded"
-    ></i> -->
     </ng-container>
   </span>
+
   <span class="thy-tree-node-content">
+    <input
+      *ngIf="thyCheckable"
+      class="thy-tree-node-check"
+      type="checkbox"
+      [checked]="node.isChecked === checkState.checked"
+      (click)="clickNodeCheck($event)"
+    />
     <ng-container *ngIf="!templateRef">
       <ng-container *ngIf="nodeIcon">
         <span class="thy-tree-node-icon"> <i [ngClass]="nodeIcon" [ngStyle]="nodeIconStyle"></i></span>
@@ -59,20 +61,16 @@
   (thyDragDropped)="root.onDragDrop($event)"
   (thyDragStarted)="root.onDragStart($event)"
 >
-  <ng-template
-    *ngIf="node.children.length === 0 && !node.isLoading"
-    [ngTemplateOutlet]="emptyChildrenTemplateRef"
-  ></ng-template>
   <thy-tree-node
     *ngFor="let node of node.children; trackBy: root.trackByFn; let i = index"
     [node]="node"
     [thyDrag]="node"
     [templateRef]="templateRef"
-    [emptyChildrenTemplateRef]="emptyChildrenTemplateRef"
     [thyAsync]="thyAsync"
     [thyShowExpand]="thyShowExpand"
     [thyMultiple]="thyMultiple"
     [thyDraggable]="thyDraggable"
+    [thyCheckable]="thyCheckable"
     [thyTitleTruncate]="thyTitleTruncate"
     (thyOnClick)="thyOnClick.emit($event)"
     (thyOnExpandChange)="thyOnExpandChange.emit($event)"

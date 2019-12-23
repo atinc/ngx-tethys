@@ -12,6 +12,8 @@ export class DemoTreeBasicComponent implements OnInit {
 
     draggable = true;
 
+    checkable = false;
+
     constructor() {}
 
     ngOnInit(): void {}

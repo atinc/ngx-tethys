@@ -5,11 +5,10 @@ import { inputValueToBoolean } from '../util/helpers';
 
 import { ThyFormCheckBaseComponent } from '../shared';
 
-const noop = () => {
-};
+const noop = () => {};
 
 @Component({
-    selector: '[thy-checkbox],[thyCheckbox]',
+    selector: 'thy-checkbox,[thy-checkbox],[thyCheckbox]',
     templateUrl: './checkbox.component.html',
     providers: [
         {
@@ -20,9 +19,7 @@ const noop = () => {
     ]
 })
 export class ThyCheckboxComponent extends ThyFormCheckBaseComponent {
-    constructor(
-        thyTranslate: ThyTranslate
-    ) {
+    constructor(thyTranslate: ThyTranslate) {
         super(thyTranslate);
     }
 }

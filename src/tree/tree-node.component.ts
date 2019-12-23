@@ -10,15 +10,13 @@ import {
     Output,
     EventEmitter,
     NgZone,
-    ViewChildren,
-    AfterViewInit,
     OnDestroy,
     ChangeDetectorRef
 } from '@angular/core';
 import { ThyTreeComponent } from './tree.component';
-import { ThyTreeNodeData, ThyTreeNode } from './tree.class';
+import { ThyTreeNodeData, TreeNodeCheckState, ThyTreeEmitEvent } from './tree.class';
+import { ThyTreeNode } from './tree-node.class';
 import { ThyTreeService } from './tree.service';
-import { helpers } from '../util';
 import { takeUntil, filter } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
@@ -36,6 +34,8 @@ export class ThyTreeNodeComponent implements OnDestroy {
 
     @Input() thyDraggable = false;
 
+    @Input() thyCheckable = false;
+
     @Input() thyTitleTruncate: boolean;
 
     @Input() templateRef: TemplateRef<any>;
@@ -51,9 +51,11 @@ export class ThyTreeNodeComponent implements OnDestroy {
         return this._showExpand;
     }
 
-    @Output() thyOnClick: EventEmitter<any> = new EventEmitter<any>();
+    @Output() thyOnClick: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
 
-    @Output() thyOnExpandChange: EventEmitter<any> = new EventEmitter<any>();
+    @Output() thyOnExpandChange: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
+
+    @Output() thyOnCheckBoxChange: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
 
     @ContentChild('childrenTree') childrenTreeTemplateRef: TemplateRef<any>;
 
@@ -72,6 +74,8 @@ export class ThyTreeNodeComponent implements OnDestroy {
     private _showExpand: boolean | ((_: ThyTreeNode) => boolean);
 
     destroy$ = new Subject();
+
+    checkState = TreeNodeCheckState;
 
     markForCheck(): void {
         this.cdr.markForCheck();
@@ -97,6 +101,16 @@ export class ThyTreeNodeComponent implements OnDestroy {
     public clickNode(event: Event) {
         this.root.toggleTreeNode(this.node);
         this.thyOnClick.emit({
+            eventName: 'click',
+            event: event,
+            node: this.node
+        });
+    }
+
+    public clickNodeCheck(event: Event) {
+        event.stopPropagation();
+        this.node.setChecked(this.node.isChecked === TreeNodeCheckState.unchecked ? true : false);
+        this.thyOnCheckBoxChange.emit({
             eventName: 'click',
             event: event,
             node: this.node
