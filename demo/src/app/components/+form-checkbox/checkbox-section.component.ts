@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { tap, delay } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { LiveDemoCodeExample } from '../../core/live-demo/live-demo.component';
+import { DemoCheckboxBasicComponent } from './basic/basic.component';
+import { DemoCheckboxIndeterminateComponent } from './indeterminate/indeterminate.component';
 
 @Component({
     selector: 'demo-checkbox-section',
@@ -46,23 +47,49 @@ export class DemoCheckboxSectionComponent {
         },
         {
             property: 'thyIndeterminate',
-            description: '设定全部 checkbox disable 状态 Set All checkbox disable status',
+            description:
+                '设置 indeterminate 状态，只负责样式控制 Set the indeterminate state, responsible only for style control',
             type: 'Boolean',
             default: 'false'
         }
     ];
 
-    model = {
-        checked1: true,
-        checked2: false,
-        checked3: false,
-        checkboxInline: false,
-        disabled: false
-    };
+    liveDemos: LiveDemoCodeExample[] = [
+        {
+            title: '基本使用',
+            component: DemoCheckboxBasicComponent,
+            description: ``,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'basic.component.html',
+                    content: require('!!raw-loader!./basic/basic.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'basic.component.ts',
+                    content: require('!!raw-loader!./basic/basic.component.ts')
+                }
+            ]
+        },
+        {
+            title: 'Indeterminate Checkbox',
+            component: DemoCheckboxIndeterminateComponent,
+            description: ``,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'indeterminate.component.html',
+                    content: require('!!raw-loader!./indeterminate/indeterminate.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'indeterminate.component.ts',
+                    content: require('!!raw-loader!./indeterminate/indeterminate.component.ts')
+                }
+            ]
+        }
+    ];
 
     constructor() {}
-
-    change() {
-        console.log(`model change as ${this.model.checked1}`);
-    }
 }
