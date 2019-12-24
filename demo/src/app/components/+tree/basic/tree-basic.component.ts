@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ContentChild, ViewChild } from '@angular/core';
 import * as data from './tree-mock.json';
-import { ThyTreeNode } from 'ngx-tethys';
+import { ThyTreeNode, ThyTreeComponent, ThyTreeEmitEvent } from 'ngx-tethys';
 import { ThyDragDropEvent, ThyDropPosition } from 'ngx-tethys/drag-drop/drag-drop.class.js';
 
 @Component({
@@ -10,9 +10,16 @@ import { ThyDragDropEvent, ThyDropPosition } from 'ngx-tethys/drag-drop/drag-dro
 export class DemoTreeBasicComponent implements OnInit {
     treeNodes = data.default;
 
-    draggable = true;
+    options = {
+        draggable: true,
+        checkable: false,
+        treeIcons: { expand: 'minus-square', collapse: 'plus-square' },
+        multiple: false
+    };
 
-    checkable = false;
+    dataText: any;
+
+    @ViewChild('tree') treeComponent: ThyTreeComponent;
 
     constructor() {}
 
@@ -20,6 +27,11 @@ export class DemoTreeBasicComponent implements OnInit {
 
     showExpand(node: ThyTreeNode) {
         return node.origin.type !== 'member';
+    }
+
+    onClick(event: ThyTreeEmitEvent) {
+        const selected = event.node;
+        this.dataText = selected ? { key: selected.key, title: selected.title } : {};
     }
 
     beforeDragDrop(event: ThyDragDropEvent<ThyTreeNode>) {
@@ -37,5 +49,54 @@ export class DemoTreeBasicComponent implements OnInit {
         } else {
             afterId = event.containerItems[event.currentIndex - 1].origin._id;
         }
+    }
+
+    getRootNodes() {
+        this.dataText = this.treeComponent.getRootNodes().map(n => {
+            return {
+                key: n.key,
+                title: n.title
+            };
+        });
+    }
+
+    getSelectedNode() {
+        const selected = this.treeComponent.getSelectedNode();
+        this.dataText = selected ? { key: selected.key, title: selected.title } : {};
+    }
+
+    getSelectedNodes() {
+        this.dataText = this.treeComponent.getSelectedNodes().map(n => {
+            return {
+                key: n.key,
+                title: n.title
+            };
+        });
+    }
+
+    getExpandedNodes() {
+        this.dataText = this.treeComponent.getExpandedNodes().map(n => {
+            return {
+                key: n.key,
+                title: n.title
+            };
+        });
+    }
+
+    getCheckedNodes() {
+        this.dataText = this.treeComponent.getCheckedNodes().map(n => {
+            return {
+                key: n.key,
+                title: n.title
+            };
+        });
+    }
+
+    expandAllNodes() {
+        this.treeComponent.expandAllNodes();
+    }
+
+    collapsedAllNodes() {
+        this.treeComponent.collapsedAllNodes();
     }
 }
