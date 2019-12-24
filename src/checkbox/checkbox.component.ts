@@ -5,8 +5,7 @@ import { inputValueToBoolean } from '../util/helpers';
 
 import { ThyFormCheckBaseComponent } from '../shared';
 
-const noop = () => {
-};
+const noop = () => {};
 
 @Component({
     selector: '[thy-checkbox],[thyCheckbox]',
@@ -20,9 +19,14 @@ const noop = () => {
     ]
 })
 export class ThyCheckboxComponent extends ThyFormCheckBaseComponent {
-    constructor(
-        thyTranslate: ThyTranslate
-    ) {
+    isIndeterminate = false;
+
+    @Input()
+    set thyIndeterminate(value: boolean) {
+        this.isIndeterminate = inputValueToBoolean(value);
+    }
+
+    constructor(thyTranslate: ThyTranslate) {
         super(thyTranslate);
     }
 }

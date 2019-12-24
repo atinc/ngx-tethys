@@ -23,7 +23,6 @@ import { DemoDropdownSectionComponent } from './+dropdown/dropdown-section.compo
 import { DemoEmptySectionComponent } from './+empty/empty-section.component';
 import { DemoFlexibleTextBasicComponent } from './+flexible-text/basic/flexible-text-basic.component';
 import { DemoFlexibleTextComponent } from './+flexible-text/flexible-text-section.component';
-import { DemoCheckboxSectionComponent } from './+form-checkbox/checkbox-section.component';
 import { DemoRadioSectionComponent } from './+form-radio/radio-section.component';
 import { DemoFormSectionComponent } from './+form/form-section.component';
 import { DemoGridSectionComponent } from './+grid/grid-section.component';
@@ -87,6 +86,7 @@ import { DemoVoteComponent } from './+vote/vote.component';
 import { DemoResultBasicComponent } from './+result/basic/basic.component';
 import { DemoResultSectionComponent } from './+result/result-section.component';
 import { DemoCopySectionComponent } from './+copy/copy-section.component';
+import { DemoCheckboxModule } from './+form-checkbox';
 
 export const COMPONENTS = [
     DemoCopySectionComponent,
@@ -134,7 +134,6 @@ export const COMPONENTS = [
     DemoDatepickerNextSectionComponent,
     DemoDropdownSectionComponent,
     DemoProgressSectionComponent,
-    DemoCheckboxSectionComponent,
     DemoSelectSectionComponent,
     DemoSlideSectionComponent,
     DemoSlideContentComponent,
@@ -233,5 +232,6 @@ export const DEMO_MODULES = [
     DemoListModule,
     DemoCardModule,
     DemoSkeletonModule,
-    DemoAlertModule
+    DemoAlertModule,
+    DemoCheckboxModule
 ];
