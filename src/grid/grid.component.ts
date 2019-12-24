@@ -275,7 +275,7 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
     }
 
     private _initialSelections(row: object, column: ThyGridColumn) {
-        if (column.selections && column.selections.length > 0) {
+        if (column.selections) {
             if (column.type === 'checkbox') {
                 row[column.key] = column.selections.includes(row[this.rowKey]);
                 this.onModelChange(row, column);
