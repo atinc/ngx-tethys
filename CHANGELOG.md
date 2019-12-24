@@ -1,3 +1,18 @@
+## [7.6.16](https://github.com/worktile/ngx-tethys/compare/7.6.14...7.6.16) (2019-12-24)
+
+
+### Bug Fixes
+
+* **layout:** fix can't scroll to bottom in chrom 79.0.x #INF-262 ([c70e380](https://github.com/worktile/ngx-tethys/commit/c70e380)), closes [#INF-262](https://github.com/worktile/ngx-tethys/issues/INF-262)
+
+
+### Features
+
+* **checbox:** add thyIndeterminate in checkbox #INF-269 ([20daea8](https://github.com/worktile/ngx-tethys/commit/20daea8)), closes [#INF-269](https://github.com/worktile/ngx-tethys/issues/INF-269)
+* **vote:** add vote component #INF-169 ([#458](https://github.com/worktile/ngx-tethys/issues/458)) ([62d77b3](https://github.com/worktile/ngx-tethys/commit/62d77b3)), closes [#INF-169](https://github.com/worktile/ngx-tethys/issues/INF-169) [#INF-169](https://github.com/worktile/ngx-tethys/issues/INF-169)
+
+
+
 ## [7.6.14](https://github.com/worktile/ngx-tethys/compare/7.6.12...7.6.14) (2019-12-16)
 
 
