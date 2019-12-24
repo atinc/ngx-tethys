@@ -102,6 +102,8 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
 
     @Input() thyTitleTruncate = true;
 
+    @Input() thySelectedKeys: string[];
+
     @Input() thyBeforeDragStart: (e: ThyDragStartEvent) => boolean;
 
     @Input() thyBeforeDragDrop: (e: ThyDragDropEvent) => boolean;
@@ -169,6 +171,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
         this._setTreeType();
         this._setTreeSize();
         this._instanceSelectionModel();
+        this._setDefaultSelectedKeys();
     }
 
     private _setTreeType() {
@@ -185,6 +188,12 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
 
     private _instanceSelectionModel() {
         this._selectionModel = new SelectionModel<any>(this.thyMultiple);
+    }
+
+    private _setDefaultSelectedKeys() {
+        (this.thySelectedKeys || []).forEach(key => {
+            this.selectTreeNode(this.thyTreeService.getTreeNode(key));
+        });
     }
 
     public isSelected(node: ThyTreeNode) {

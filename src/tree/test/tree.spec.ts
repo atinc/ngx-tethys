@@ -54,6 +54,11 @@ describe('ThyTreeComponent', () => {
             expect(treeElement.querySelector('.thy-tree-expand-icon').classList).toContain('thy-icon-plus-square');
         });
 
+        it('test set selectedKeys correctly', () => {
+            expect(treeComponent.getSelectedNodes().length).toEqual(1);
+            expect(treeComponent.getSelectedNode().title).toEqual('未分配部门');
+        });
+
         it(`test public function 'getRootNodes()`, () => {
             expect(treeComponent.getRootNodes().length).toEqual(2);
         });
@@ -66,7 +71,6 @@ describe('ThyTreeComponent', () => {
         });
 
         it(`test public function 'getSelectedNodes()`, () => {
-            expect(treeComponent.getSelectedNodes().length).toEqual(0);
             treeComponent.selectTreeNode(treeComponent.getRootNodes()[1]);
             fixture.detectChanges();
             expect(treeComponent.getSelectedNodes().length).toEqual(1);
@@ -158,6 +162,7 @@ describe('ThyTreeComponent', () => {
             [thyDraggable]="options.draggable"
             [thyCheckable]="options.checkable"
             [thyMultiple]="options.multiple"
+            [thySelectedKeys]="['000000000000000000000000']"
             [thyShowExpand]="true"
             [thyBeforeDragDrop]="beforeDragDrop"
             (thyOnDragDrop)="onEvent()"

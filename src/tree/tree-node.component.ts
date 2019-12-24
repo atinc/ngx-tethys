@@ -99,7 +99,11 @@ export class ThyTreeNodeComponent implements OnDestroy {
     }
 
     public clickNode(event: Event) {
-        this.root.toggleTreeNode(this.node);
+        if (!this.root.thyMultiple) {
+            this.root.selectTreeNode(this.node);
+        } else {
+            this.root.toggleTreeNode(this.node);
+        }
         this.thyOnClick.emit({
             eventName: 'click',
             event: event,
