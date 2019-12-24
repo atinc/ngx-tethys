@@ -1,3 +1,10 @@
-<input class="form-check-input" [checked]="_innerValue" (change)="change()" type="checkbox" [disabled]="_disabled" />
+<input
+  class="form-check-input"
+  [ngClass]="{ 'form-check-indeterminate': isIndeterminate }"
+  [checked]="_innerValue"
+  (change)="change()"
+  type="checkbox"
+  [disabled]="_disabled"
+/>
 <span class="form-check-label">{{ _labelText }}</span>
 <ng-content></ng-content>

@@ -19,6 +19,13 @@ const noop = () => {};
     ]
 })
 export class ThyCheckboxComponent extends ThyFormCheckBaseComponent {
+    isIndeterminate = false;
+
+    @Input()
+    set thyIndeterminate(value: boolean) {
+        this.isIndeterminate = inputValueToBoolean(value);
+    }
+
     constructor(thyTranslate: ThyTranslate) {
         super(thyTranslate);
     }
