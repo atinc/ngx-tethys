@@ -63,7 +63,7 @@ export class DemoVoteComponent {
 
     has_voted = true;
 
-    toggleVote() {
+    toggleVote($event) {
         this.has_voted = !this.has_voted;
     }
 }
