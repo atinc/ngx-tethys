@@ -55,7 +55,7 @@ export class ThyTreeNodeComponent implements OnDestroy {
 
     @Output() thyOnExpandChange: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
 
-    @Output() thyOnCheckBoxChange: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
+    @Output() thyOnCheckboxChange: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
 
     @ContentChild('childrenTree') childrenTreeTemplateRef: TemplateRef<any>;
 
@@ -110,8 +110,8 @@ export class ThyTreeNodeComponent implements OnDestroy {
     public clickNodeCheck(event: Event) {
         event.stopPropagation();
         this.node.setChecked(this.node.isChecked === TreeNodeCheckState.unchecked ? true : false);
-        this.thyOnCheckBoxChange.emit({
-            eventName: 'click',
+        this.thyOnCheckboxChange.emit({
+            eventName: 'checkboxChange',
             event: event,
             node: this.node
         });
@@ -120,7 +120,7 @@ export class ThyTreeNodeComponent implements OnDestroy {
     public expandNode(event: Event) {
         event.stopPropagation();
         this.node.setExpanded(!this.node.isExpanded);
-        if (this.node.isExpanded) {
+        if (this.thyShowExpand) {
             this.thyOnExpandChange.emit({
                 eventName: 'expand',
                 event: event,

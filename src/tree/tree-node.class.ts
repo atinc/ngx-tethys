@@ -70,30 +70,31 @@ export class ThyTreeNode<T = any> {
         }
     }
 
-    public setChecked(checked: boolean, propagate = true) {
+    public setChecked(checked: boolean, propagateUp = true, propagateDown = true) {
         this.isChecked = checked ? TreeNodeCheckState.checked : TreeNodeCheckState.unchecked;
-        if (propagate) {
-            if (this.children) {
-                this.children.forEach(node => {
-                    node.setChecked(checked, propagate);
-                });
-            }
+        if (propagateDown && this.children) {
+            this.children.forEach(node => {
+                node.setChecked(checked, false, true);
+            });
+        }
+        if (propagateUp) {
             this.setParentCheck();
         }
     }
 
     public setParentCheck() {
-        const node = this.parentNode;
-        if (node) {
-            const checkedNodes = node.children.filter(n => n.isChecked === TreeNodeCheckState.checked);
-            if (checkedNodes.length === node.children.length) {
-                node.isChecked = TreeNodeCheckState.checked;
-            } else if (checkedNodes.length === 0) {
-                node.isChecked = TreeNodeCheckState.unchecked;
+        const parent = this.parentNode;
+        if (parent) {
+            const checkedNodes = parent.children.filter(n => n.isChecked === TreeNodeCheckState.checked);
+            const unCheckedNodes = parent.children.filter(n => n.isChecked === TreeNodeCheckState.unchecked);
+            if (checkedNodes.length === parent.children.length) {
+                parent.isChecked = TreeNodeCheckState.checked;
+            } else if (unCheckedNodes.length === parent.children.length) {
+                parent.isChecked = TreeNodeCheckState.unchecked;
             } else {
-                node.isChecked = TreeNodeCheckState.indeterminate;
+                parent.isChecked = TreeNodeCheckState.indeterminate;
             }
-            node.setParentCheck();
+            parent.setParentCheck();
         }
     }
 

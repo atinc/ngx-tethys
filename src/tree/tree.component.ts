@@ -108,7 +108,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
 
     @Output() thyOnClick: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
 
-    @Output() thyOnCheckBoxChange: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
+    @Output() thyOnCheckboxChange: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
 
     @Output() thyOnExpandChange: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
 
@@ -155,8 +155,12 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
     ) {}
 
     ngOnChanges(changes: SimpleChanges): void {
-        if (changes.thyType && !changes.thyType.isFirstChange) {
+        if (changes.thyType && !changes.thyType.isFirstChange()) {
             this._setTreeType();
+        }
+
+        if (changes.thyMultiple && !changes.thyMultiple.isFirstChange()) {
+            this._instanceSelectionModel();
         }
     }
 
@@ -317,6 +321,16 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
             this._selectionModel.toggle(node);
         }
         this.thyTreeService.deleteTreeNode(node);
+    }
+
+    public expandAllNodes() {
+        const nodes = this.getRootNodes();
+        nodes.forEach(n => n.setExpanded(true, true));
+    }
+
+    public collapsedAllNodes() {
+        const nodes = this.getRootNodes();
+        nodes.forEach(n => n.setExpanded(false, true));
     }
 
     // endregion
