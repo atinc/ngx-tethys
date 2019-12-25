@@ -1308,6 +1308,51 @@ input[type='radio']:after {
 .thy-alert-primary-week .thy-alert-icon {
     color: #22d7bb;
 }
+.thy-alert-success-week {
+    color: #888;
+    background: #fff;
+    border-color: #eee #eee #eee #66c060;
+    border-left-width: 2px;
+}
+.thy-alert-success-week hr {
+    border-top-color: #54b94e;
+}
+.thy-alert-success-week .alert-link {
+    color: #4aaa43;
+}
+.thy-alert-success-week .thy-alert-icon {
+    color: #66c060;
+}
+.thy-alert-warning-week {
+    color: #888;
+    background: #fff;
+    border-color: #eee #eee #eee #ffc442;
+    border-left-width: 2px;
+}
+.thy-alert-warning-week hr {
+    border-top-color: #ffbc29;
+}
+.thy-alert-warning-week .alert-link {
+    color: #ffb40f;
+}
+.thy-alert-warning-week .thy-alert-icon {
+    color: #ffc442;
+}
+.thy-alert-danger-week {
+    color: #888;
+    background: #fff;
+    border-color: #eee #eee #eee #ff5b57;
+    border-left-width: 2px;
+}
+.thy-alert-danger-week hr {
+    border-top-color: #ff423e;
+}
+.thy-alert-danger-week .alert-link {
+    color: #ff2924;
+}
+.thy-alert-danger-week .thy-alert-icon {
+    color: #ff5b57;
+}
 .thy-tree-node-wrapper.active {
     background: rgba(34, 215, 187, 0.1);
     color: #22d7bb;

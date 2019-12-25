@@ -194,6 +194,12 @@ export class DemoGridSectionComponent implements OnInit {
             default: 'false'
         },
         {
+            property: 'thyShowHeader',
+            description: '是否显示header',
+            type: 'Boolean',
+            default: 'true'
+        },
+        {
             property: '(thyOnRowClick)',
             description: 'Grid行点击事件',
             type: 'ThyGridRowEvent',

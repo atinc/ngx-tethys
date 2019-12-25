@@ -15,11 +15,13 @@
     [emptyChildrenTemplateRef]="emptyChildrenTemplate"
     [thyAsync]="thyAsync"
     [thyDraggable]="thyDraggable"
+    [thyCheckable]="thyCheckable"
     [thyShowExpand]="thyShowExpand"
     [thyMultiple]="thyMultiple"
     [thyTitleTruncate]="thyTitleTruncate"
     (thyOnClick)="thyOnClick.emit($event)"
     (thyOnExpandChange)="thyOnExpandChange.emit($event)"
+    (thyOnCheckboxChange)="thyOnCheckboxChange.emit($event)"
   >
   </thy-tree-node>
 </div>

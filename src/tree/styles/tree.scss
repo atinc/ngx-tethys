@@ -55,8 +55,14 @@
                     margin-right: 8px;
                 }
 
+                .thy-tree-node-check {
+                    margin-top: 0;
+                    margin-right: 6px;
+                }
+
                 .thy-tree-node-title {
                     flex: 1;
+
                     &.truncate {
                         @include text-truncate();
                     }
@@ -158,9 +164,6 @@
 
 .thy-tree-default {
     @include thy-tree-default();
-}
-
-.thy-tree-especial {
 }
 
 @include thy-tree-drag-drop();

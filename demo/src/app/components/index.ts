@@ -17,12 +17,12 @@ import { DemoDataPickerSectionComponent } from './+date-picker/date-picker-secti
 import { DemoDateRangeSectionComponent } from './+date-range/date-range-section.component';
 import { DemoDatepickerNextSectionComponent } from './+datepicker-next/datepicker-next-section.component';
 import { DialogDemoModule } from './+dialog';
+import { DemoListModule } from './+list';
 import { DropDragComponent } from './+drop-drag/drop-drag.component';
 import { DemoDropdownSectionComponent } from './+dropdown/dropdown-section.component';
 import { DemoEmptySectionComponent } from './+empty/empty-section.component';
 import { DemoFlexibleTextBasicComponent } from './+flexible-text/basic/flexible-text-basic.component';
 import { DemoFlexibleTextComponent } from './+flexible-text/flexible-text-section.component';
-import { DemoCheckboxSectionComponent } from './+form-checkbox/checkbox-section.component';
 import { DemoRadioSectionComponent } from './+form-radio/radio-section.component';
 import { DemoFormSectionComponent } from './+form/form-section.component';
 import { DemoGridSectionComponent } from './+grid/grid-section.component';
@@ -33,7 +33,6 @@ import { DemoKeySelectSectionComponent } from './+key-select/key-select-section.
 import { DemoLabelSectionComponent } from './+label/label-section.component';
 import { DemoLayoutModule } from './+layout';
 import { DemoLayoutSectionComponent } from './+layout/layout-section.component';
-import { DemoListComponent } from './+list/list-section.component';
 import { DemoLoadingSectionComponent } from './+loading/loading-section.component';
 import { DemoMarkdownSectionComponent } from './+markdown/markdown-section.component';
 import { DemoMenuSectionComponent } from './+menu/menu-section.component';
@@ -83,8 +82,14 @@ import { DemoUploaderSectionComponent } from './+uploader/uploader-section.compo
 import { DemoWTDSectionLinkComponent } from './+wtd/wtd.component';
 import { DemoSkeletonModule } from './+skeleton';
 import { DemoAlertModule } from './+alert/module';
+import { DemoVoteComponent } from './+vote/vote.component';
+import { DemoResultBasicComponent } from './+result/basic/basic.component';
+import { DemoResultSectionComponent } from './+result/result-section.component';
+import { DemoCopySectionComponent } from './+copy/copy-section.component';
+import { DemoCheckboxModule } from './+form-checkbox';
 
 export const COMPONENTS = [
+    DemoCopySectionComponent,
     DemoTypographyComponent,
     DemoPopBoxSectionComponent,
     PopBoxMenuDemoShowComponent,
@@ -129,7 +134,6 @@ export const COMPONENTS = [
     DemoDatepickerNextSectionComponent,
     DemoDropdownSectionComponent,
     DemoProgressSectionComponent,
-    DemoCheckboxSectionComponent,
     DemoSelectSectionComponent,
     DemoSlideSectionComponent,
     DemoSlideContentComponent,
@@ -140,10 +144,10 @@ export const COMPONENTS = [
     DemoUploaderSectionComponent,
     DemoDateRangeSectionComponent,
     DemoKeySelectSectionComponent,
-    DemoListComponent,
     DemoTreeSelectSectionComponent,
     DemoStepperSectionComponent,
     DemoCascaderSectionComponent,
+    DemoVoteComponent,
 
     DemoTooltipSectionComponent,
     DemoOverlaySectionComponent,
@@ -171,7 +175,10 @@ export const COMPONENTS = [
     CustomSelectDisplayComponent,
     CustomSelectGroupComponent,
     NativeSelectBasicComponent,
-    CustomSelectScrollComponent
+    CustomSelectScrollComponent,
+
+    DemoResultBasicComponent,
+    DemoResultSectionComponent
 ];
 
 export const ENTRY_COMPONENTS = [
@@ -209,7 +216,9 @@ export const ENTRY_COMPONENTS = [
     CustomSelectDisplayComponent,
     CustomSelectGroupComponent,
     NativeSelectBasicComponent,
-    CustomSelectScrollComponent
+    CustomSelectScrollComponent,
+
+    DemoResultBasicComponent
 ];
 
 export const DEMO_MODULES = [
@@ -220,7 +229,9 @@ export const DEMO_MODULES = [
     DemoTreeModule,
     DemoLayoutModule,
     DemoActionMenuModule,
+    DemoListModule,
     DemoCardModule,
     DemoSkeletonModule,
-    DemoAlertModule
+    DemoAlertModule,
+    DemoCheckboxModule
 ];

@@ -1,0 +1,79 @@
+@mixin vote-color-variant($color) {
+    &:hover {
+        background: $color !important;
+        color: $white !important;
+    }
+    &.has-voted {
+        background: rgba($color, 0.1);
+        color: $color;
+    }
+}
+@mixin vote-variant($width, $height, $padding, $fontSize, $iconSize) {
+    width: $width;
+    height: $height;
+    padding: $padding;
+    line-height: $fontSize;
+    font-size: $fontSize;
+    .thy-icon {
+        font-size: $iconSize;
+    }
+}
+
+.thy-vote {
+    display: flex;
+    background-color: $gray-100;
+    color: $gray-600;
+    border-radius: 4px;
+    cursor: pointer;
+    .thy-icon {
+        display: block;
+    }
+}
+.thy-vote-vertical {
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.thy-vote-vertical-size-sm {
+    @include vote-variant(
+        $vote-layout-vertical-sm,
+        $vote-layout-vertical-sm,
+        $vote-layout-vertical-padding-sm,
+        $font-size-xs,
+        $font-size-sm
+    );
+}
+
+.thy-vote-vertical-size-md {
+    @include vote-variant(
+        $vote-layout-vertical-md,
+        $vote-layout-vertical-md,
+        $vote-layout-vertical-padding-md,
+        $font-size-base,
+        $font-size-md
+    );
+}
+
+.thy-vote-horizontal {
+    align-items: center;
+    justify-content: space-between;
+}
+
+.thy-vote-horizontal-size-sm {
+    @include vote-variant(
+        $vote-layout-horizontal-with-sm,
+        $vote-layout-horizontal-height-sm,
+        $vote-layout-horizontal-padding-sm,
+        $font-size-sm,
+        $font-size-sm
+    );
+}
+
+.thy-vote-success {
+    @include vote-color-variant($success);
+}
+
+.thy-vote-primary {
+    @include vote-color-variant($primary);
+}

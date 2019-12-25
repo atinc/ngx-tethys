@@ -74,7 +74,7 @@ export class ThyPopover extends ThyUpperOverlayService<ThyPopoverConfig, ThyPopo
         const strategy = this.buildPositionStrategy(config);
         const overlayConfig = this.buildBaseOverlayConfig(config);
         overlayConfig.positionStrategy = strategy;
-        overlayConfig.scrollStrategy = this.overlay.scrollStrategies.block();
+        overlayConfig.scrollStrategy = config.scrollStrategy || this.overlay.scrollStrategies.block();
         overlayConfig.panelClass = this.buildOverlayPanelClasses(config);
         return overlayConfig;
     }

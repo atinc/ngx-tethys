@@ -34,7 +34,7 @@ import { DemoPropertyOperationSectionComponent } from './components/+property-op
 import { DemoUploaderSectionComponent } from './components/+uploader/uploader-section.component';
 import { DemoDateRangeSectionComponent } from './components/+date-range/date-range-section.component';
 import { DemoKeySelectSectionComponent } from './components/+key-select/key-select-section.component';
-import { DemoListComponent } from './components/+list/list-section.component';
+import { DemoListSectionComponent } from './components/+list/list-section.component';
 import { DemoDatepickerNextSectionComponent } from './components/+datepicker-next/datepicker-next-section.component';
 import { DemoTreeSelectSectionComponent } from './components/+tree-select/tree-select-section.component';
 import { DemoStrengthComponent } from './components/+strength/strength-section.component';
@@ -52,12 +52,15 @@ import { DemoTooltipSectionComponent } from './components/+tooltip/tooltip-secti
 import { DemoOverlaySectionComponent } from './components/+overlay/overlay-section.component';
 import { DemoIconSectionComponent } from './components/+icon/icon-section.component';
 import { DemoFlexibleTextComponent } from './components/+flexible-text/flexible-text-section.component';
+import { DemoCopySectionComponent } from './components/+copy/copy-section.component';
 import { DemoPopoverSectionComponent } from './components/+popover/popover-section.component';
 import { DemoVariablesSectionComponent } from './global/+variables';
 import { DemoLinkSectionComponent } from './global/+link';
 import { DemoRebootSectionComponent } from './global/+reboot';
 import { DemoTypographyComponent } from './components/+typography/typography.component';
 import { DemoSkeletonSectionComponent } from './components/+skeleton';
+import { DemoVoteComponent } from './components/+vote/vote.component';
+import { DemoResultSectionComponent } from './components/+result/result-section.component';
 
 const appRoutes = [
     {
@@ -263,7 +266,7 @@ const appRoutes = [
     },
     {
         path: 'components/list',
-        component: DemoListComponent
+        component: DemoListSectionComponent
     },
     {
         path: 'components/tree-select',
@@ -290,6 +293,10 @@ const appRoutes = [
         component: DemoArrowSwitcherSectionComponent
     },
     {
+        path: 'components/copy',
+        component: DemoCopySectionComponent
+    },
+    {
         path: 'components/markdown',
         component: DemoMarkdownSectionComponent
     },
@@ -300,6 +307,14 @@ const appRoutes = [
     {
         path: 'components/skeleton',
         component: DemoSkeletonSectionComponent
+    },
+    {
+        path: 'components/vote',
+        component: DemoVoteComponent
+    },
+    {
+        path: 'components/result',
+        component: DemoResultSectionComponent
     }
 ];
 

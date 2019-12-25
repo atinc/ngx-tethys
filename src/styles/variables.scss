@@ -249,6 +249,9 @@ $table-draggable-bordered-icon-padding-left: 30px !default;
 // grid
 $grid-footer-padding: 0 20px !default;
 // action-menu
+$action-menu-width: 240px !default;
+$action-menu-group-width: 280px !default;
+$action-menu-padding-y: 10px;
 $action-menu-max-height: 400px !default;
 $action-menu-bg: $white !default;
 $action-menu-item-padding-x: 20px !default;
@@ -256,10 +259,15 @@ $action-menu-item-padding-y: 10px !default;
 $action-menu-item-color: $gray-700 !default;
 $action-menu-item-hover-color: $gray-800 !default;
 $action-menu-item-icon-color: $gray-500 !default;
-$action-menu-item-extend-color: $gray-400 !default;
+$action-menu-item-extend-color: $gray-500 !default;
 $action-menu-item-hover-bg: $gray-100 !default;
 $action-menu-divider-title-color: $gray-400 !default;
 $action-menu-divider-border-color: $gray-200 !default;
+$action-menu-divider-margin-y: 5px !default;
+$action-menu-divider-margin-x: 20px !default;
+$action-menu-group-name-color: $gray-400 !default;
+$action-menu-group-name-padding-y: 5px;
+$action-menu-group-name-padding-x: 20px;
 // badges
 $badge-font-size: 75% !default;
 $badge-font-weight: normal !default;
@@ -475,6 +483,7 @@ $progress-height-sm: 6px !default;
 $progress-height-xs: 4px !default;
 $progress-bar-bg: $gray-200 !default;
 $progress-split-color: $white !default;
+$progress-bar-primary-bg: #73d897;
 //Slide
 $slide-dialog-bg: $white !default;
 $slide-height: calc(100vh - #{$layout-header-height} - #{$layout-header-height-sm}) !default;
@@ -596,11 +605,42 @@ $tooltip-arrow-color: $tooltip-bg !default;
 $alert-padding-y: 0.625rem !default;
 $alert-padding-x: 1.125rem !default;
 $thy-alert-week-colors: (
-    'primary-week': $primary
-);
+    'primary-week': $primary,
+    'success-week': $success,
+    'warning-week': $warning,
+    'danger-week': $danger
+) !default;
 $alert-operation-margin-left: 40px !default;
 
 // list
 $list-grid-option-margin: 0 25px 25px 0 !default;
 $list-grid-option-width: 150px !default;
 $list-grid-option-height: 120px !default;
+$list-grid-option-sm: 95px !default;
+$list-grid-option-margin-sm: 0 10px 10px 0 !default;
+$list-grid-option-icon-size: 32px;
+$list-grid-option-name-margin-top: 15px;
+$list-grid-option-sm-name-margin-top: 7px;
+
+// vote
+$vote-layout-vertical-sm: 36px;
+$vote-layout-vertical-padding-sm: 5px;
+$vote-layout-vertical-md: 48px;
+$vote-layout-vertical-padding-md: 7px;
+$vote-layout-horizontal-with-sm: 50px;
+$vote-layout-horizontal-height-sm: 20px;
+$vote-layout-horizontal-padding-sm: 4px 7px;
+
+// result
+$result-padding: 30px !default;
+$result-title-font-size: $font-size-xlg !default;
+$result-subtitle-color: $gray-600 !default;
+$result-extra-margin-top: 17px !default;
+$result-extra-item-margin: 6px !default;
+$result-title-margin-top: 30px !default;
+$result-subtitle-margin-top: 8px !default;
+
+// markdown
+$markdown-color-width: $rem-14px !default;
+$markdown-color-height: $rem-14px !default;
+$markdown-color-border-color: $gray-200 !default;

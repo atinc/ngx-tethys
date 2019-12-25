@@ -1,3 +1,144 @@
+## [7.6.16](https://github.com/worktile/ngx-tethys/compare/7.6.14...7.6.16) (2019-12-24)
+
+
+### Bug Fixes
+
+* **layout:** fix can't scroll to bottom in chrom 79.0.x #INF-262 ([c70e380](https://github.com/worktile/ngx-tethys/commit/c70e380)), closes [#INF-262](https://github.com/worktile/ngx-tethys/issues/INF-262)
+
+
+### Features
+
+* **checbox:** add thyIndeterminate in checkbox #INF-269 ([20daea8](https://github.com/worktile/ngx-tethys/commit/20daea8)), closes [#INF-269](https://github.com/worktile/ngx-tethys/issues/INF-269)
+* **vote:** add vote component #INF-169 ([#458](https://github.com/worktile/ngx-tethys/issues/458)) ([62d77b3](https://github.com/worktile/ngx-tethys/commit/62d77b3)), closes [#INF-169](https://github.com/worktile/ngx-tethys/issues/INF-169) [#INF-169](https://github.com/worktile/ngx-tethys/issues/INF-169)
+
+
+
+## [7.6.14](https://github.com/worktile/ngx-tethys/compare/7.6.12...7.6.14) (2019-12-16)
+
+
+### Bug Fixes
+
+* **dialog:** change dialog header title font-weight to 400 #INF-254 ([#453](https://github.com/worktile/ngx-tethys/issues/453)) ([8868a3c](https://github.com/worktile/ngx-tethys/commit/8868a3c)), closes [#INF-254](https://github.com/worktile/ngx-tethys/issues/INF-254) [#INF-254](https://github.com/worktile/ngx-tethys/issues/INF-254) [#INF-254](https://github.com/worktile/ngx-tethys/issues/INF-254)
+* **list:** change grid list option styles ([e0e6d33](https://github.com/worktile/ngx-tethys/commit/e0e6d33))
+* **markdown:** fix markdown new line#CMN-801 ([#455](https://github.com/worktile/ngx-tethys/issues/455)) ([eacab2d](https://github.com/worktile/ngx-tethys/commit/eacab2d)), closes [line#CMN-801](https://github.com/line/issues/CMN-801)
+* **stepper:** change step header line style ([23f58ac](https://github.com/worktile/ngx-tethys/commit/23f58ac))
+* default thyCopyText ([adaf5db](https://github.com/worktile/ngx-tethys/commit/adaf5db))
+* **stepper:** change step line color #CMN-810 ([176ae72](https://github.com/worktile/ngx-tethys/commit/176ae72)), closes [#CMN-810](https://github.com/worktile/ngx-tethys/issues/CMN-810)
+ 
+
+
+### Features
+
+* **result:** add result component ([#451](https://github.com/worktile/ngx-tethys/issues/451)) ([811c2b2](https://github.com/worktile/ngx-tethys/commit/811c2b2))
+
+
+
+## [7.6.13](https://github.com/worktile/ngx-tethys/compare/7.6.12...7.6.13) (2019-12-11)
+
+
+### Bug Fixes
+
+* add thycopy event ThyCopyEvent ([996d3d9](https://github.com/worktile/ngx-tethys/commit/996d3d9))
+* add thyCopyNotifyText to show notify ([aecaa65](https://github.com/worktile/ngx-tethys/commit/aecaa65))
+* add ThyNotifyService provider ([bcf583f](https://github.com/worktile/ngx-tethys/commit/bcf583f))
+* add ThyNotifyService provider ([e26c3bd](https://github.com/worktile/ngx-tethys/commit/e26c3bd))
+* copy input() name ([22d428d](https://github.com/worktile/ngx-tethys/commit/22d428d))
+* copy menu and input() name ([9b09891](https://github.com/worktile/ngx-tethys/commit/9b09891))
+* copy test tick 4500 wait notify ([60aeb26](https://github.com/worktile/ngx-tethys/commit/60aeb26))
+* copy test tick 4500 wait notify ([6063788](https://github.com/worktile/ngx-tethys/commit/6063788))
+* copy tooltips  click to hover ([107a7dc](https://github.com/worktile/ngx-tethys/commit/107a7dc))
+* default thyCopyText ([adaf5db](https://github.com/worktile/ngx-tethys/commit/adaf5db))
+* fix test ts ([972185c](https://github.com/worktile/ngx-tethys/commit/972185c))
+* remove parameter ([5a15c9f](https://github.com/worktile/ngx-tethys/commit/5a15c9f))
+* remove vote ([81ff6db](https://github.com/worktile/ngx-tethys/commit/81ff6db))
+* thy-copy test add ThyNotifyModule ([2564d65](https://github.com/worktile/ngx-tethys/commit/2564d65))
+* thyCopyNotifyText to thyCopySuccessText ([adce370](https://github.com/worktile/ngx-tethys/commit/adce370))
+* **action-menu:** add action menu variables in variables scss ([cf1aebc](https://github.com/worktile/ngx-tethys/commit/cf1aebc))
+* **action-menu:** add group api parameters ([71b6b3e](https://github.com/worktile/ngx-tethys/commit/71b6b3e))
+* **action-menu:** change styxName to styxTitle ([732059a](https://github.com/worktile/ngx-tethys/commit/732059a))
+
+
+### Features
+
+* copy ([f3f7ba3](https://github.com/worktile/ngx-tethys/commit/f3f7ba3))
+* **action-menu:** add group type and divider type #INF-194 ([57ede21](https://github.com/worktile/ngx-tethys/commit/57ede21)), closes [#INF-194](https://github.com/worktile/ngx-tethys/issues/INF-194)
+* **action-menu:** add thy-action-menu-group component ([9232118](https://github.com/worktile/ngx-tethys/commit/9232118))
+* **copy:** add ThyCopyDirective ([ecf3c71](https://github.com/worktile/ngx-tethys/commit/ecf3c71))
+* **thy-copy:** copy text when click ([e2b26bb](https://github.com/worktile/ngx-tethys/commit/e2b26bb))
+
+
+
+## [7.6.12](https://github.com/worktile/ngx-tethys/compare/7.6.10...7.6.12) (2019-11-29)
+
+
+### Bug Fixes
+
+* **list:** change size varible ([1639836](https://github.com/worktile/ngx-tethys/commit/1639836))
+
+
+### Features
+
+* **list:** selection-list support thySize ([12e88d2](https://github.com/worktile/ngx-tethys/commit/12e88d2))
+* **list:** support list sm size#INF-178 ([01b02a6](https://github.com/worktile/ngx-tethys/commit/01b02a6)), closes [size#INF-178](https://github.com/size/issues/INF-178)
+
+
+
+## [7.6.11](https://github.com/worktile/ngx-tethys/compare/7.6.10...7.6.11) (2019-11-28)
+
+
+### Bug Fixes
+
+* **list:** change size varible ([1639836](https://github.com/worktile/ngx-tethys/commit/1639836))
+
+
+### Features
+
+* **list:** support list sm size#INF-178 ([01b02a6](https://github.com/worktile/ngx-tethys/commit/01b02a6)), closes [size#INF-178](https://github.com/size/issues/INF-178)
+
+
+
+## [7.6.10](https://github.com/worktile/ngx-tethys/compare/7.6.7...7.6.10) (2019-11-28)
+
+
+### Bug Fixes
+
+* **gride-section:** remove () ([88c8cec](https://github.com/worktile/ngx-tethys/commit/88c8cec))
+* **util:** fix util  match dom error when IE ([2972cc9](https://github.com/worktile/ngx-tethys/commit/2972cc9))
+
+
+### Features
+
+* **alert:** add type, success-week and warning-week and danger-week ([9a8319e](https://github.com/worktile/ngx-tethys/commit/9a8319e))
+* **datepicker:** datepicker support default select value ([e0a4a1b](https://github.com/worktile/ngx-tethys/commit/e0a4a1b))
+* **grid:** add thyShowHeader to control thread show or hide ([64bea19](https://github.com/worktile/ngx-tethys/commit/64bea19))
+* **grid:** add thyShowHeader to control thread show or hide ([bbd1f85](https://github.com/worktile/ngx-tethys/commit/bbd1f85))
+* **popover:** popover config add scroll stragety ([1776ed3](https://github.com/worktile/ngx-tethys/commit/1776ed3))
+
+
+
+## [7.6.9](https://github.com/worktile/ngx-tethys/compare/7.6.7...7.6.9) (2019-11-20)
+
+
+### Bug Fixes
+
+* **util:** fix util  match dom error when IE ([2972cc9](https://github.com/worktile/ngx-tethys/commit/2972cc9))
+
+
+### Features
+
+* **popover:** popover config add scroll stragety ([1776ed3](https://github.com/worktile/ngx-tethys/commit/1776ed3))
+
+
+
+## [7.6.8](https://github.com/worktile/ngx-tethys/compare/7.6.7...7.6.8) (2019-11-20)
+
+
+### Features
+
+* **popover:** popover config add scroll stragety ([1776ed3](https://github.com/worktile/ngx-tethys/commit/1776ed3))
+
+
+
 ## [7.6.7](https://github.com/worktile/ngx-tethys/compare/7.6.2...7.6.7) (2019-11-15)
 
 
