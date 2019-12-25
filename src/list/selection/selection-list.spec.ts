@@ -1,4 +1,4 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ViewChild } from '@angular/core';
 import { ThySelectionListChange } from './selection.interface';
 import { async, ComponentFixture, fakeAsync, TestBed, tick, flush } from '@angular/core/testing';
 import { ThyListModule } from '../list.module';
@@ -89,12 +89,29 @@ describe('MatSelectionList without forms', () => {
             expect(selectionList.nativeElement.classList).toContain('thy-grid-list');
             expect(listOptions[0].nativeElement.classList).toContain('thy-grid-option');
         });
+
+        it(`should hover first when thyFirstItemDefaultActive is true`, () => {
+            fixture.detectChanges();
+            expect(listOptions[0].nativeElement.classList).toContain('hover');
+        });
+
+        it(`should not hover first when thyFirstItemDefaultActive is false`, () => {
+            const defaultFixture = TestBed.createComponent(SelectionListWithListOptionsDefaultComponent);
+            defaultFixture.detectChanges();
+            const defaultListOptions = defaultFixture.debugElement.queryAll(By.directive(ThyListOptionComponent));
+            expect(defaultListOptions[0].nativeElement.classList).not.toContain('hover');
+        });
     });
 });
 
 @Component({
     template: `
-        <thy-selection-list id="selection-list-1" [thyLayout]="layout" (thySelectionChange)="onValueChange($event)">
+        <thy-selection-list
+            id="selection-list-1"
+            [thyLayout]="layout"
+            (thySelectionChange)="onValueChange($event)"
+            [thyFirstItemDefaultActive]="true"
+        >
             <thy-list-option thyValue="inbox">
                 Inbox (disabled selection-option)
             </thy-list-option>
@@ -120,7 +137,11 @@ class SelectionListWithListOptionsComponent {
 
 @Component({
     template: `
-        <thy-selection-list id="selection-list-1" (thySelectionChange)="onValueChange($event)">
+        <thy-selection-list
+            id="selection-list-1"
+            [thyFirstItemDefaultActive]="false"
+            (thySelectionChange)="onValueChange($event)"
+        >
             <thy-list-option thyValue="inbox">
                 Inbox (disabled selection-option)
             </thy-list-option>
@@ -130,12 +151,14 @@ class SelectionListWithListOptionsComponent {
             <thy-list-option thyValue="sent-mail">
                 Sent Mail
             </thy-list-option>
-            <thy-list-option thyValue="drafts" *ngIf="showLastOption">
+            <thy-list-option thyValue="drafts">
                 Drafts
             </thy-list-option>
         </thy-selection-list>
     `
 })
 class SelectionListWithListOptionsDefaultComponent {
+    @ViewChild(ThySelectionListComponent) thySelectionListComponent: ThySelectionListComponent;
+
     onValueChange(_change: ThySelectionListChange) {}
 }
