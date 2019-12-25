@@ -83,9 +83,7 @@ input[type='checkbox'] {
         border: 3px solid $primary;
         border-top: 0;
         border-left: 0;
-        transform: rotate(45deg) scale(0.6) translate(-50%, -50%);
         opacity: 0;
-        transition: all 0.1s cubic-bezier(0.71, -0.46, 0.88, 0.6);
         content: ' ';
         top: 4px;
         left: 1px;
@@ -94,6 +92,10 @@ input[type='checkbox'] {
     }
 
     &:checked {
+        &::after {
+            transform: rotate(45deg) scale(0.6) translate(-50%, -50%);
+            transition: all 0.1s cubic-bezier(0.71, -0.46, 0.88, 0.6);
+        }
         &:not(:disabled) {
             &::after {
                 border-color: $primary;
