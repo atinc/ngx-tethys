@@ -28,9 +28,9 @@ export function datepickerUtilIdentificationValueType(value: any): DatepickerVal
             res = DatepickerValueShowTypesEnum.datepickerNullValue;
         }
     } else if (isNumber(value)) {
-        if (value.toString().length <= 11) {
+        if (value.toString().length <= 10) {
             res = DatepickerValueShowTypesEnum.dateTime;
-        } else if (value.toString().length >= 13) {
+        } else if (value.toString().length === 13) {
             res = DatepickerValueShowTypesEnum.dateTimeLong;
         } else {
             res = DatepickerValueShowTypesEnum.nullValue;
