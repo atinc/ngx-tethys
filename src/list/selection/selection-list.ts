@@ -98,6 +98,8 @@ export class ThySelectionListComponent
         this.isLayoutGrid = value === 'grid';
     }
 
+    @Input() thyDefaultHover: boolean;
+
     /** Emits a change event whenever the selected state of an option changes. */
     @Output() readonly thySelectionChange: EventEmitter<ThySelectionListChange> = new EventEmitter<
         ThySelectionListChange
@@ -350,6 +352,14 @@ export class ThySelectionListComponent
 
     ngAfterContentInit(): void {
         this._initializeFocusKeyManager();
+        this.options.changes.subscribe(() => {
+            if (this.thyDefaultHover) {
+                if (!this._keyManager.activeItem || this.options.toArray().indexOf(this._keyManager.activeItem) < -1) {
+                    this._keyManager.setFirstItemActive();
+                }
+            }
+        });
+
         // if (this._tempValues) {
         //     this._setSelectionByValues(this._tempValues);
         //     this._tempValues = null;
