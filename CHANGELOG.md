@@ -1,3 +1,29 @@
+## [7.6.17](https://github.com/worktile/ngx-tethys/compare/7.6.14...7.6.17) (2019-12-25)
+
+
+### Bug Fixes
+
+* **checkbox:** change checkbox demo ([#463](https://github.com/worktile/ngx-tethys/issues/463)) ([ad576aa](https://github.com/worktile/ngx-tethys/commit/ad576aa))
+* **checkbox:** change checkbox transition ([#465](https://github.com/worktile/ngx-tethys/issues/465)) ([30d3e09](https://github.com/worktile/ngx-tethys/commit/30d3e09))
+* **grid:** fix grid set selections error when unselect ([0c18db3](https://github.com/worktile/ngx-tethys/commit/0c18db3))
+* **layout:** fix can't scroll to bottom in chrom 79.0.x #INF-262 ([c70e380](https://github.com/worktile/ngx-tethys/commit/c70e380)), closes [#INF-262](https://github.com/worktile/ngx-tethys/issues/INF-262)
+* **list:** change grid list option styles ([e0e6d33](https://github.com/worktile/ngx-tethys/commit/e0e6d33))
+* **stepper:** change step header line style ([23f58ac](https://github.com/worktile/ngx-tethys/commit/23f58ac))
+* **stepper:** change step line color #CMN-810 ([176ae72](https://github.com/worktile/ngx-tethys/commit/176ae72)), closes [#CMN-810](https://github.com/worktile/ngx-tethys/issues/CMN-810)
+* **tree:** fix check state error ([bd3cfa6](https://github.com/worktile/ngx-tethys/commit/bd3cfa6))
+* **tree:** fix set default key error when node is null ([88a1435](https://github.com/worktile/ngx-tethys/commit/88a1435))
+
+
+### Features
+
+* **checbox:** add thyIndeterminate in checkbox #INF-269 ([20daea8](https://github.com/worktile/ngx-tethys/commit/20daea8)), closes [#INF-269](https://github.com/worktile/ngx-tethys/issues/INF-269)
+* **tree:** support default selected keys prop ([02a0c03](https://github.com/worktile/ngx-tethys/commit/02a0c03))
+* **tree:** support tree node check ([88b2948](https://github.com/worktile/ngx-tethys/commit/88b2948))
+* **tree:** support tree node check ([#464](https://github.com/worktile/ngx-tethys/issues/464)) ([3a48a1a](https://github.com/worktile/ngx-tethys/commit/3a48a1a)), closes [#CMN-810](https://github.com/worktile/ngx-tethys/issues/CMN-810)
+* **vote:** add vote component #INF-169 ([#458](https://github.com/worktile/ngx-tethys/issues/458)) ([62d77b3](https://github.com/worktile/ngx-tethys/commit/62d77b3)), closes [#INF-169](https://github.com/worktile/ngx-tethys/issues/INF-169) [#INF-169](https://github.com/worktile/ngx-tethys/issues/INF-169)
+
+
+
 ## [7.6.16](https://github.com/worktile/ngx-tethys/compare/7.6.14...7.6.16) (2019-12-24)
 
 
