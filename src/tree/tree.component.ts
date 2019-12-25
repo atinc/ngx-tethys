@@ -192,7 +192,10 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
 
     private _setDefaultSelectedKeys() {
         (this.thySelectedKeys || []).forEach(key => {
-            this.selectTreeNode(this.thyTreeService.getTreeNode(key));
+            const node = this.thyTreeService.getTreeNode(key);
+            if (node) {
+                this.selectTreeNode(this.thyTreeService.getTreeNode(key));
+            }
         });
     }
 

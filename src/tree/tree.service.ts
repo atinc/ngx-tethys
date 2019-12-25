@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { TreeNodeCheckState } from './tree.class';
+import { ThyTreeNodeCheckState } from './tree.class';
 import { Subject } from 'rxjs';
 import { ThyTreeNode } from './tree-node.class';
 
@@ -40,7 +40,7 @@ export class ThyTreeService implements OnDestroy {
 
     public getCheckedNodes(): ThyTreeNode[] {
         const allNodes = this._getParallelTreeNodes(this.treeNodes);
-        return allNodes.filter(n => n.isChecked === TreeNodeCheckState.checked);
+        return allNodes.filter(n => n.isChecked === ThyTreeNodeCheckState.checked);
     }
 
     public deleteTreeNode(node: ThyTreeNode) {

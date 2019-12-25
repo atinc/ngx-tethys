@@ -14,7 +14,7 @@ import {
     ChangeDetectorRef
 } from '@angular/core';
 import { ThyTreeComponent } from './tree.component';
-import { ThyTreeNodeData, TreeNodeCheckState, ThyTreeEmitEvent } from './tree.class';
+import { ThyTreeNodeData, ThyTreeNodeCheckState, ThyTreeEmitEvent } from './tree.class';
 import { ThyTreeNode } from './tree-node.class';
 import { ThyTreeService } from './tree.service';
 import { takeUntil, filter } from 'rxjs/operators';
@@ -75,7 +75,7 @@ export class ThyTreeNodeComponent implements OnDestroy {
 
     destroy$ = new Subject();
 
-    checkState = TreeNodeCheckState;
+    checkState = ThyTreeNodeCheckState;
 
     markForCheck(): void {
         this.cdr.markForCheck();
@@ -113,7 +113,14 @@ export class ThyTreeNodeComponent implements OnDestroy {
 
     public clickNodeCheck(event: Event) {
         event.stopPropagation();
-        this.node.setChecked(this.node.isChecked === TreeNodeCheckState.unchecked ? true : false);
+        if (
+            this.node.isChecked === ThyTreeNodeCheckState.unchecked ||
+            this.node.isChecked === ThyTreeNodeCheckState.indeterminate
+        ) {
+            this.node.setChecked(true);
+        } else {
+            this.node.setChecked(false);
+        }
         this.thyOnCheckboxChange.emit({
             eventName: 'checkboxChange',
             event: event,

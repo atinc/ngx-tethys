@@ -1,4 +1,4 @@
-import { ThyTreeNodeData, TreeNodeCheckState } from './tree.class';
+import { ThyTreeNodeData, ThyTreeNodeCheckState } from './tree.class';
 import { ThyTreeService } from './tree.service';
 import { helpers } from '../util';
 
@@ -17,7 +17,7 @@ export class ThyTreeNode<T = any> {
 
     isExpanded: boolean;
 
-    isChecked: TreeNodeCheckState;
+    isChecked: ThyTreeNodeCheckState;
 
     isLoading: boolean;
 
@@ -42,7 +42,7 @@ export class ThyTreeNode<T = any> {
         this.origin = node;
         this.isDisabled = node.disabled || false;
         this.isExpanded = node.expanded || false;
-        this.isChecked = TreeNodeCheckState.unchecked;
+        this.isChecked = ThyTreeNodeCheckState.unchecked;
         this.isLoading = false;
         if (node.children) {
             node.children.forEach(childNode => {
@@ -71,7 +71,7 @@ export class ThyTreeNode<T = any> {
     }
 
     public setChecked(checked: boolean, propagateUp = true, propagateDown = true) {
-        this.isChecked = checked ? TreeNodeCheckState.checked : TreeNodeCheckState.unchecked;
+        this.isChecked = checked ? ThyTreeNodeCheckState.checked : ThyTreeNodeCheckState.unchecked;
         if (propagateDown && this.children) {
             this.children.forEach(node => {
                 node.setChecked(checked, false, true);
@@ -85,14 +85,14 @@ export class ThyTreeNode<T = any> {
     public setParentCheck() {
         const parent = this.parentNode;
         if (parent) {
-            const checkedNodes = parent.children.filter(n => n.isChecked === TreeNodeCheckState.checked);
-            const unCheckedNodes = parent.children.filter(n => n.isChecked === TreeNodeCheckState.unchecked);
+            const checkedNodes = parent.children.filter(n => n.isChecked === ThyTreeNodeCheckState.checked);
+            const unCheckedNodes = parent.children.filter(n => n.isChecked === ThyTreeNodeCheckState.unchecked);
             if (checkedNodes.length === parent.children.length) {
-                parent.isChecked = TreeNodeCheckState.checked;
+                parent.isChecked = ThyTreeNodeCheckState.checked;
             } else if (unCheckedNodes.length === parent.children.length) {
-                parent.isChecked = TreeNodeCheckState.unchecked;
+                parent.isChecked = ThyTreeNodeCheckState.unchecked;
             } else {
-                parent.isChecked = TreeNodeCheckState.indeterminate;
+                parent.isChecked = ThyTreeNodeCheckState.indeterminate;
             }
             parent.setParentCheck();
         }
