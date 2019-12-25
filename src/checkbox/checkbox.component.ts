@@ -8,7 +8,7 @@ import { ThyFormCheckBaseComponent } from '../shared';
 const noop = () => {};
 
 @Component({
-    selector: '[thy-checkbox],[thyCheckbox]',
+    selector: 'thy-checkbox,[thy-checkbox],[thyCheckbox]',
     templateUrl: './checkbox.component.html',
     providers: [
         {

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { LiveDemoCodeExample } from '../../core/live-demo/live-demo.component';
 import { DemoTreeBasicComponent } from './basic/tree-basic.component';
-import { DemoTreeIconsComponent } from './icons/tree-icons.component';
+import apiParameters from './apis/parameters.json';
+import functionParameters from './apis/component-function.json';
 
 @Component({
     selector: 'demo-tree-section',
@@ -25,25 +26,12 @@ export class DemoTreeSectionComponent {
                     content: require('!!raw-loader!./basic/tree-basic.component.ts')
                 }
             ]
-        },
-        {
-            title: '自定义Icons',
-            component: DemoTreeIconsComponent,
-            description: ``,
-            codeExamples: [
-                {
-                    type: 'html',
-                    name: 'tree-section.component.html',
-                    content: require('!!raw-loader!./tree-section.component.html')
-                },
-                {
-                    type: 'ts',
-                    name: 'tree-section.component.ts',
-                    content: require('!!raw-loader!./tree-section.component.ts')
-                }
-            ]
         }
     ];
+
+    apiParameters = apiParameters;
+
+    functionParameters = functionParameters;
 
     constructor() {}
 }

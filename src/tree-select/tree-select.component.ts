@@ -28,7 +28,7 @@ import {
     ConnectionPositionPair
 } from '@angular/cdk/overlay';
 import { getFlexiblePositions } from '../core/overlay';
-import { ThyTreeNode } from '../tree/tree.class';
+import { ThyTreeNode } from '../tree/tree-node.class';
 
 import { $ } from '../typings';
 

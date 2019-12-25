@@ -3,16 +3,19 @@ import { ThyTreeModule } from '../tree.module';
 import { Component, ViewChild } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ThyTreeComponent } from '../tree.component';
-import { ThyTreeNodeData, ThyTreeIcons } from '../tree.class';
+import { treeNodes } from './mock';
+import { ThyIconModule } from '../../icon';
+import { ThyFlexibleTextModule } from '../../flexible-text/flexible-text.module';
+
 describe('ThyTreeComponent', () => {
     function configureThyTreeTestingModule(declarations: any[]) {
         TestBed.configureTestingModule({
-            imports: [ThyTreeModule],
+            imports: [ThyTreeModule, ThyIconModule, ThyFlexibleTextModule],
             declarations: declarations
         }).compileComponents();
     }
     describe('basic tree', () => {
-        let treeInstance;
+        let treeInstance: TestBasicTreeComponent;
         let treeElement: HTMLElement;
         let component;
         let fixture: ComponentFixture<TestBasicTreeComponent>;
@@ -31,61 +34,118 @@ describe('ThyTreeComponent', () => {
             expect(component).toBeDefined();
         });
 
-        it('test set tree size', () => {
+        it('test set tree property correctly', () => {
             expect(treeElement.classList).toContain('thy-tree-sm');
-        });
-
-        it('test set tree type', () => {
             expect(treeElement.classList).toContain('thy-tree-especial');
-        });
-
-        it('test set title truncate', () => {
-            expect(treeElement.querySelector('.thy-tree-node-title').classList).toContain('truncate');
+            expect(treeElement.querySelector('.thy-tree-node-title').classList).toContain('text-truncate');
         });
 
         it('test set data correctly', () => {
             expect(treeComponent.getRootNodes().length).toEqual(2);
-        });
-
-        it('test set data correctly', () => {
             expect(treeComponent.treeNodes.length).toEqual(2);
         });
 
-        it('test public function', fakeAsync(() => {
+        it('test set icons correctly', () => {
+            treeInstance.options.treeIcons = { expand: 'minus-square', collapse: 'plus-square' };
+            fixture.detectChanges();
+            expect(treeElement.querySelector('.thy-tree-expand-icon').classList).toContain('thy-icon-minus-square');
+            (treeElement.querySelector('.thy-tree-expand-icon') as HTMLElement).click();
+            fixture.detectChanges();
+            expect(treeElement.querySelector('.thy-tree-expand-icon').classList).toContain('thy-icon-plus-square');
+        });
+
+        it('test set selectedKeys correctly', () => {
+            expect(treeComponent.getSelectedNodes().length).toEqual(1);
+            expect(treeComponent.getSelectedNode().title).toEqual('未分配部门');
+        });
+
+        it(`test public function 'getRootNodes()`, () => {
             expect(treeComponent.getRootNodes().length).toEqual(2);
+        });
+
+        it(`test public function 'getExpandedNodes()`, () => {
+            expect(treeComponent.getExpandedNodes().length).toEqual(0);
+            (treeElement.querySelector('.thy-tree-expand-icon') as HTMLElement).click();
+            fixture.detectChanges();
             expect(treeComponent.getExpandedNodes().length).toEqual(1);
-            expect(treeComponent.getExpandedNodes()[0].title).toEqual('北京');
+        });
+
+        it(`test public function 'getSelectedNodes()`, () => {
             treeComponent.selectTreeNode(treeComponent.getRootNodes()[1]);
             fixture.detectChanges();
-            tick(100);
             expect(treeComponent.getSelectedNodes().length).toEqual(1);
-            expect(treeComponent.getSelectedNode().title).toEqual('上海');
-            treeComponent.addTreeNode({ key: '03', title: '深圳' }, null);
-            treeComponent.addTreeNode({ key: '02001', title: '徐汇' }, treeComponent.getRootNodes()[1]);
+            expect(treeComponent.getSelectedNode().title).toEqual('未分配部门');
+        });
+
+        it(`test public function 'getCheckedNodes()`, () => {
+            const checkNodes = Array.from(treeElement.querySelectorAll('.thy-tree-node-check')) as HTMLElement[];
+            checkNodes[4].click();
+            checkNodes[5].click();
             fixture.detectChanges();
-            tick(100);
+            expect(treeComponent.getCheckedNodes().length).toEqual(2);
+        });
+
+        it(`test public function 'addTreeNode()`, () => {
+            treeComponent.addTreeNode(
+                {
+                    key: '000000000000000000001111',
+                    title: '新增部门'
+                },
+                null
+            );
+            treeComponent.addTreeNode({ key: 'child0001', title: '未分配部门Child' }, treeComponent.getRootNodes()[1]);
+            fixture.detectChanges();
             expect(treeComponent.getRootNodes().length).toEqual(3);
-            expect(treeComponent.getRootNodes()[1].children[0].title).toEqual('徐汇');
-            treeComponent.deleteTreeNode(treeComponent.getRootNodes()[2]);
-            expect(treeComponent.getRootNodes().length).toEqual(2);
-        }));
-    });
+            expect(treeComponent.getRootNodes()[1].children[0].title).toEqual('未分配部门Child');
+        });
 
-    describe('test tree property', () => {
-        let treeElement: HTMLElement;
-        let fixture: ComponentFixture<TestTreeCustomizedIconComponent>;
-        beforeEach(async(() => {
-            configureThyTreeTestingModule([TestTreeCustomizedIconComponent]);
-            fixture = TestBed.createComponent(TestTreeCustomizedIconComponent);
+        it(`test public function 'deleteTreeNode()`, () => {
+            treeComponent.deleteTreeNode(treeComponent.getRootNodes()[1]);
+            expect(treeComponent.getRootNodes().length).toEqual(1);
+        });
+
+        it(`test tree checked state`, () => {
+            const checkNodes = Array.from(treeElement.querySelectorAll('.thy-tree-node-check')) as HTMLElement[];
+            checkNodes[1].click();
             fixture.detectChanges();
-            treeElement = fixture.debugElement.query(By.directive(ThyTreeComponent)).nativeElement;
+            expect(treeComponent.getCheckedNodes().length).toEqual(7);
+            expect(treeElement.querySelectorAll('.form-check-indeterminate').length).toEqual(1);
+            treeComponent.treeNodes[0].children[0].children[0].children[0].setChecked(false, true);
+            fixture.detectChanges();
+            expect(treeElement.querySelectorAll('.form-check-indeterminate').length).toEqual(2);
+            expect(treeComponent.getCheckedNodes().length).toEqual(4);
+        });
+
+        it('test click event', fakeAsync(() => {
+            const clickSpy = spyOn(treeInstance, 'onEvent');
+            const targetNode = treeElement.querySelectorAll('.thy-tree-node-wrapper')[1] as HTMLElement;
+            targetNode.click();
+            fixture.detectChanges();
+            expect(clickSpy).toHaveBeenCalledTimes(1);
         }));
 
-        it('test customized icon', fakeAsync(() => {
+        it('test click event', fakeAsync(() => {
+            const clickSpy = spyOn(treeInstance, 'onEvent');
+            const targetNode = treeElement.querySelectorAll('.thy-tree-node-wrapper')[1] as HTMLElement;
+            targetNode.click();
             fixture.detectChanges();
-            // customized template icon
-            expect(treeElement.querySelectorAll('thy-icon.thy-icon-angle-double-down').length).toEqual(1);
-            expect(treeElement.querySelectorAll('thy-icon.thy-icon-angle-double-up').length).toEqual(1);
+            expect(clickSpy).toHaveBeenCalledTimes(1);
+        }));
+
+        it('test expand event', fakeAsync(() => {
+            const expandSpy = spyOn(treeInstance, 'onEvent');
+            const targetNode = treeElement.querySelectorAll('.thy-tree-expand')[0] as HTMLElement;
+            targetNode.click();
+            fixture.detectChanges();
+            expect(expandSpy).toHaveBeenCalledTimes(1);
+        }));
+
+        it('test checkboxChange event', fakeAsync(() => {
+            const checkChangeSpy = spyOn(treeInstance, 'onEvent');
+            const targetNode = treeElement.querySelectorAll('.thy-tree-node-check')[0] as HTMLElement;
+            targetNode.click();
+            fixture.detectChanges();
+            expect(checkChangeSpy).toHaveBeenCalledTimes(1);
         }));
     });
 });
@@ -96,95 +156,43 @@ describe('ThyTreeComponent', () => {
         <thy-tree
             #tree
             [thyNodes]="treeNodes"
-            [thyType]="'especial'"
             [thySize]="'sm'"
-            [thyTitleTruncate]="true"
-        ></thy-tree>
+            [thyIcons]="options.treeIcons"
+            [thyType]="'especial'"
+            [thyDraggable]="options.draggable"
+            [thyCheckable]="options.checkable"
+            [thyMultiple]="options.multiple"
+            [thySelectedKeys]="['000000000000000000000000']"
+            [thyShowExpand]="true"
+            [thyBeforeDragDrop]="beforeDragDrop"
+            (thyOnDragDrop)="onEvent()"
+            (thyOnClick)="onEvent()"
+            (thyOnCheckboxChange)="onEvent()"
+            (thyOnExpandChange)="onEvent()"
+        >
+            <ng-template #treeNodeTemplate let-node="node" let-data="origin">
+                <thy-icon
+                    *ngIf="data.type !== 'member'"
+                    class="thy-tree-node-icon"
+                    [thyIconName]="node?.isExpanded ? 'folder-open-fill' : 'folder-fill'"
+                ></thy-icon>
+                <div class="thy-tree-node-title text-truncate" thyFlexibleText [thyTooltipContent]="data?.name">
+                    {{ data?.name }} <span class="text-desc ml-1">( {{ data.member_count || 0 }}人 )</span>
+                </div>
+            </ng-template>
+        </thy-tree>
     `
 })
 class TestBasicTreeComponent {
     @ViewChild('tree') tree: ThyTreeComponent;
 
-    public treeNodes: ThyTreeNodeData[] = [
-        {
-            key: '01',
-            title: '北京',
-            expanded: true,
-            children: [
-                {
-                    key: '01001',
-                    title: '海淀',
-                    children: [
-                        {
-                            key: '010101',
-                            title: '西二旗'
-                        },
-                        {
-                            key: '010102',
-                            title: '西三旗'
-                        }
-                    ]
-                },
-                {
-                    key: '01002',
-                    title: '昌平'
-                }
-            ]
-        },
-        {
-            key: '02',
-            title: '上海'
-        }
-    ];
-}
+    treeNodes = treeNodes;
 
-@Component({
-    template: `
-        <thy-tree
-            #tree
-            [thyNodes]="treeNodes"
-            [thyIcons]="treeIcons"
-            [thySize]="'sm'"
-            [thyTitleTruncate]="true"
-        ></thy-tree>
-    `
-})
-class TestTreeCustomizedIconComponent {
-    @ViewChild('tree') treeComponent: ThyTreeComponent;
-    public treeNodes: ThyTreeNodeData[] = [
-        {
-            key: '01',
-            title: '北京',
-            expanded: true,
-            children: [
-                {
-                    key: '01001',
-                    title: '海淀',
-                    children: [
-                        {
-                            key: '010101',
-                            title: '西二旗'
-                        },
-                        {
-                            key: '010102',
-                            title: '西三旗'
-                        }
-                    ]
-                },
-                {
-                    key: '01002',
-                    title: '昌平'
-                }
-            ]
-        },
-        {
-            key: '02',
-            title: '上海'
-        }
-    ];
-
-    public treeIcons: ThyTreeIcons = {
-        expand: 'angle-double-down',
-        collapse: 'angle-double-up'
+    options: any = {
+        draggable: true,
+        checkable: true,
+        multiple: false
     };
+
+    onEvent() {}
 }
