@@ -28,7 +28,11 @@
       (thyContextMenu)="onRowContextMenu($event, row)"
       class="thy-sortable-item"
     >
-      <td *ngFor="let column of columns; let j = index" [ngClass]="column.className">
+      <td
+        *ngFor="let column of columns; let j = index"
+        [ngClass]="column.className"
+        [class.thy-grid-checkbox-column]="column.type === customType.checkbox"
+      >
         <ng-container *ngIf="j === 0 && draggable">
           <thy-icon class="table-draggable-icon" thyIconName="drag"></thy-icon>
         </ng-container>
