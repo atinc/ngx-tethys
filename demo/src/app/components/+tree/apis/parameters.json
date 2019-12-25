@@ -48,8 +48,33 @@
     "default": "false"
   },
   {
+    "property": "thyTitleTruncate",
+    "description": "设置节点名称是否需要超出截取",
+    "type": "boolean",
+    "default": "true"
+  },
+  {
+    "property": "thyBeforeDragStart",
+    "description": "拖拽之前的回调，函数返回false则阻止拖拽",
+    "type": " (e: ThyDragStartEvent) => boolean;",
+    "default": ""
+  },
+  {
+    "property": "thyBeforeDragDrop",
+    "description": "拖放到元素时回调，函数返回false则组织拖放到当前元素",
+    "type": " (e: ThyDragStartEvent) => boolean;",
+    "default": ""
+  },
+
+  {
     "property": "(thyOnClick)",
     "description": "设置子TreeNode点击事件",
+    "type": "ThyTreeEmitEvent",
+    "default": ""
+  },
+  {
+    "property": "(thyOnCheckboxChange)",
+    "description": "设置check选择事件",
     "type": "ThyTreeEmitEvent",
     "default": ""
   },
@@ -60,20 +85,14 @@
     "default": ""
   },
   {
-    "property": "(thyOnDraggableChange)",
-    "description": "设置Tree拖拽排序事件",
-    "type": "ThyTreeEmitEvent",
+    "property": "(thyOnDragDrop)",
+    "description": "设置Tree拖拽事件",
+    "type": "ThyTreeDragDropEvent",
     "default": ""
   },
   {
     "property": "#treeNodeTemplate",
     "description": "设置TreeNode的渲染模板",
-    "type": "TemplateRef",
-    "default": ""
-  },
-  {
-    "property": "#emptyChildrenTemplate",
-    "description": "设置子节点为空的情况下显示的空状态模板",
     "type": "TemplateRef",
     "default": ""
   }

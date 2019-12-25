@@ -1,0 +1,42 @@
+[
+  {
+    "property": "selectTreeNode(node: ThyTreeNode)",
+    "description": "选中节点",
+    "type": "void"
+  },
+  {
+    "property": "expandAllNodes()",
+    "description": "展开所有的节点",
+    "type": "void"
+  },
+  {
+    "property": "collapsedAllNodes()",
+    "description": "收起所有的节点",
+    "type": "void"
+  },
+  {
+    "property": "getRootNodes()",
+    "description": "获取所有的根节点",
+    "type": "ThyTreeNode[]"
+  },
+  {
+    "property": "getSelectedNode()",
+    "description": "获取选中的节点",
+    "type": "ThyTreeNode"
+  },
+  {
+    "property": "getSelectedNodes()",
+    "description": "获取所有选中的节点",
+    "type": "ThyTreeNode[]"
+  },
+  {
+    "property": "getExpandedNodes()",
+    "description": "获取所有展开的节点",
+    "type": "ThyTreeNode[]"
+  },
+  {
+    "property": "getCheckedNodes()",
+    "description": "获取所有Check选中的节点",
+    "type": "ThyTreeNode[]"
+  }
+]

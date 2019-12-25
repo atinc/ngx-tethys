@@ -109,7 +109,10 @@ export function daterangepickerUtilIdentificationValueType(value: any): Datepick
     }
 }
 
-export function daterangepickerUtilConvertToDaterangepickerObject(value: any, valueType?: DatepickerValueShowTypesEnum) {
+export function daterangepickerUtilConvertToDaterangepickerObject(
+    value: any,
+    valueType?: DatepickerValueShowTypesEnum
+) {
     const _valueType = valueType || daterangepickerUtilIdentificationValueType(value);
     let _value: any;
     switch (_valueType) {

@@ -30,16 +30,22 @@
             "member_count": 0,
             "children": [
               {
+                "key": "0000001",
+                "title": "张三",
                 "_id": "0000001",
                 "name": "张三",
                 "type": "member"
               },
               {
-                "_id": "0000001",
+                "key": "0000002",
+                "title": "李四",
+                "_id": "0000003",
                 "name": "李四",
                 "type": "member"
               },
               {
+                "key": "0000003",
+                "title": "王五",
                 "_id": "0000001",
                 "name": "王五",
                 "type": "member"
