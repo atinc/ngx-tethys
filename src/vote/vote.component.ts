@@ -55,6 +55,9 @@ export class ThyVoteComponent implements OnInit {
     @Input()
     set thyWeak(value: string | boolean) {
         this._isWeak = inputValueToBoolean(value);
+        if (this._initialized) {
+            this._setClassesByType();
+        }
     }
 
     @Input() thyVoteCount: number | string;
@@ -62,6 +65,9 @@ export class ThyVoteComponent implements OnInit {
     @Input()
     set thyHasVoted(value: boolean) {
         this._hasVoted = inputValueToBoolean(value);
+        if (this._initialized) {
+            this._setClassesByType();
+        }
     }
 
     constructor(private elementRef: ElementRef, private updateHostClassService: UpdateHostClassService) {
