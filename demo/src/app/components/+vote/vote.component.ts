@@ -39,6 +39,12 @@ export class DemoVoteComponent {
             description: '赞同的数量',
             type: 'number | string',
             default: ''
+        },
+        {
+            property: 'thyWeak',
+            description: '是否是弱化样式',
+            type: 'string | boolean',
+            default: 'false'
         }
     ];
     liveDemos: LiveDemoCodeExample[] = [
