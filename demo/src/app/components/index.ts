@@ -87,6 +87,8 @@ import { DemoResultBasicComponent } from './+result/basic/basic.component';
 import { DemoResultSectionComponent } from './+result/result-section.component';
 import { DemoCopySectionComponent } from './+copy/copy-section.component';
 import { DemoCheckboxModule } from './+form-checkbox';
+import { DemoVoteWeakComponent } from './+vote/weak/vote-weak.component';
+import { DemoVoteBasicComponent } from './+vote/basic/vote-basic.component';
 
 export const COMPONENTS = [
     DemoCopySectionComponent,
@@ -147,7 +149,10 @@ export const COMPONENTS = [
     DemoTreeSelectSectionComponent,
     DemoStepperSectionComponent,
     DemoCascaderSectionComponent,
+
     DemoVoteComponent,
+    DemoVoteWeakComponent,
+    DemoVoteBasicComponent,
 
     DemoTooltipSectionComponent,
     DemoOverlaySectionComponent,
@@ -218,7 +223,10 @@ export const ENTRY_COMPONENTS = [
     NativeSelectBasicComponent,
     CustomSelectScrollComponent,
 
-    DemoResultBasicComponent
+    DemoResultBasicComponent,
+
+    DemoVoteWeakComponent,
+    DemoVoteBasicComponent
 ];
 
 export const DEMO_MODULES = [

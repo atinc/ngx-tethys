@@ -20,6 +20,8 @@ export class ThyVoteComponent implements OnInit {
 
     _layout: thyLayout;
 
+    _isWeak = false;
+
     _initialized = false;
 
     @HostBinding(`class.thy-vote`) class = true;
@@ -50,6 +52,11 @@ export class ThyVoteComponent implements OnInit {
         }
     }
 
+    @Input()
+    set thyWeak(value: string | boolean) {
+        this._isWeak = inputValueToBoolean(value);
+    }
+
     @Input() thyVoteCount: number | string;
 
     @Input()
@@ -77,7 +84,11 @@ export class ThyVoteComponent implements OnInit {
         if (!this._size) {
             this._size = 'sm';
         }
-        className.push(`thy-vote-${this._type}`);
+        if (this._isWeak) {
+            className.push(`thy-vote-${this._type}-weak`);
+        } else {
+            className.push(`thy-vote-${this._type}`);
+        }
         className.push(`thy-vote-${this._layout}`);
         className.push(`thy-vote-${this._layout}-size-${this._size}`);
         this.updateHostClassService.updateClass(className);
