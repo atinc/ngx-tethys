@@ -11,11 +11,12 @@ import { injectDefaultSvgIconSet, bypassSanitizeProvider } from '../core/testing
 @Component({
     selector: 'app-basic-button-icon',
     template: `
-        <button [thyButtonIcon]="icon"></button>
+        <button [thyButtonIcon]="icon" [thyColor]="color"></button>
     `
 })
 class BasicButtonIconComponent {
     icon = 'inbox';
+    color = '#5DCFFF';
 }
 
 describe(`button-icon`, () => {
@@ -51,6 +52,18 @@ describe(`button-icon`, () => {
         expect(iconDebugElement.nativeElement).toBeTruthy();
         expect(iconDebugElement.nativeElement.classList.contains(`thy-icon`)).toBeTruthy();
         expect(iconDebugElement.nativeElement.classList.contains(`thy-icon-inbox`)).toBeTruthy();
+    });
+
+    it(`should have style color`, () => {
+        const iconDebugElement = thyButtonDebugElement.query(By.directive(ThyIconComponent));
+        expect(iconDebugElement).toBeTruthy();
+        expect(iconDebugElement.nativeElement.style.color === 'rgb(93, 207, 255)').toBe(true);
+        expect(iconDebugElement.nativeElement.style.borderColor === 'rgb(93, 207, 255)').toBe(true);
+
+        fixture.componentInstance.color = '';
+        fixture.detectChanges();
+        expect(iconDebugElement.nativeElement.style.color === '').toBe(true);
+        expect(iconDebugElement.nativeElement.style.borderColor === '').toBe(true);
     });
 
     it(`should get correct classes when use wtf icon`, () => {
