@@ -4,7 +4,7 @@ import { UpdateHostClassService } from '../shared';
 
 export type ThySizes = 'sm' | 'md';
 
-export type ThyType = 'primary' | 'success';
+export type ThyType = 'primary' | 'success' | 'primary-weak' | 'success-weak';
 
 export type thyLayout = 'vertical' | 'horizontal';
 
@@ -19,8 +19,6 @@ export class ThyVoteComponent implements OnInit {
     _type: ThyType;
 
     _layout: thyLayout;
-
-    _isWeak = false;
 
     _initialized = false;
 
@@ -47,14 +45,6 @@ export class ThyVoteComponent implements OnInit {
     @Input()
     set thyLayout(value: thyLayout) {
         this._layout = value;
-        if (this._initialized) {
-            this._setClassesByType();
-        }
-    }
-
-    @Input()
-    set thyWeak(value: string | boolean) {
-        this._isWeak = inputValueToBoolean(value);
         if (this._initialized) {
             this._setClassesByType();
         }
@@ -90,11 +80,7 @@ export class ThyVoteComponent implements OnInit {
         if (!this._size) {
             this._size = 'sm';
         }
-        if (this._isWeak) {
-            className.push(`thy-vote-${this._type}-weak`);
-        } else {
-            className.push(`thy-vote-${this._type}`);
-        }
+        className.push(`thy-vote-${this._type}`);
         className.push(`thy-vote-${this._layout}`);
         className.push(`thy-vote-${this._layout}-size-${this._size}`);
         this.updateHostClassService.updateClass(className);

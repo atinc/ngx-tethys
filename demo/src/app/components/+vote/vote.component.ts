@@ -11,7 +11,7 @@ export class DemoVoteComponent {
     public apiParameters = [
         {
             property: 'thyVote',
-            description: '标签类型（primary、success)',
+            description: '标签类型（primary、success、primary-weak、success-weak)',
             type: 'ThyVote',
             default: 'primary'
         },
@@ -39,12 +39,6 @@ export class DemoVoteComponent {
             description: '赞同的数量',
             type: 'number | string',
             default: ''
-        },
-        {
-            property: 'thyWeak',
-            description: '是否是弱化样式',
-            type: 'string | boolean',
-            default: 'false'
         }
     ];
     liveDemos: LiveDemoCodeExample[] = [

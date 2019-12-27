@@ -2,8 +2,8 @@
     background: rgba($color, 0.15);
     color: $color;
     &:hover {
-        background: rgba($color, 0.3) !important;
-        color: $color !important;
+        background: rgba($color, 0.2);
+        color: $color;
     }
     &.has-voted {
         background: $color;
@@ -14,12 +14,16 @@
     background-color: $gray-100;
     color: $gray-600;
     &:hover {
-        background: $color !important;
-        color: $white !important;
+        background: $color;
+        color: $white;
     }
     &.has-voted {
         background: rgba($color, 0.1);
         color: $color;
+        &:hover {
+            background: $color;
+            color: $white;
+        }
     }
 }
 @mixin vote-variant($height, $padding, $fontSize, $iconSize) {
