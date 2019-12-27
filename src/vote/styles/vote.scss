@@ -1,15 +1,32 @@
 @mixin vote-color-variant($color) {
+    background: rgba($color, 0.15);
+    color: $color;
     &:hover {
-        background: $color !important;
-        color: $white !important;
+        background: rgba($color, 0.2);
+        color: $color;
+    }
+    &.has-voted {
+        background: $color;
+        color: $white;
+    }
+}
+@mixin vote-color-variant-weak($color) {
+    background-color: $gray-100;
+    color: $gray-600;
+    &:hover {
+        background: $color;
+        color: $white;
     }
     &.has-voted {
         background: rgba($color, 0.1);
         color: $color;
+        &:hover {
+            background: $color;
+            color: $white;
+        }
     }
 }
-@mixin vote-variant($width, $height, $padding, $fontSize, $iconSize) {
-    width: $width;
+@mixin vote-variant($height, $padding, $fontSize, $iconSize) {
     height: $height;
     padding: $padding;
     line-height: $fontSize;
@@ -20,9 +37,7 @@
 }
 
 .thy-vote {
-    display: flex;
-    background-color: $gray-100;
-    color: $gray-600;
+    display: inline-flex;
     border-radius: 4px;
     cursor: pointer;
     .thy-icon {
@@ -36,33 +51,25 @@
 }
 
 .thy-vote-vertical-size-sm {
-    @include vote-variant(
-        $vote-layout-vertical-sm,
-        $vote-layout-vertical-sm,
-        $vote-layout-vertical-padding-sm,
-        $font-size-xs,
-        $font-size-sm
-    );
+    width: $vote-layout-vertical-sm;
+    @include vote-variant($vote-layout-vertical-sm, $vote-layout-vertical-padding-sm, $font-size-xs, $font-size-sm);
 }
 
 .thy-vote-vertical-size-md {
-    @include vote-variant(
-        $vote-layout-vertical-md,
-        $vote-layout-vertical-md,
-        $vote-layout-vertical-padding-md,
-        $font-size-base,
-        $font-size-md
-    );
+    width: $vote-layout-vertical-md;
+    @include vote-variant($vote-layout-vertical-md, $vote-layout-vertical-padding-md, $font-size-base, $font-size-md);
 }
 
 .thy-vote-horizontal {
     align-items: center;
     justify-content: space-between;
+    .thy-icon {
+        margin-right: 5px;
+    }
 }
 
 .thy-vote-horizontal-size-sm {
     @include vote-variant(
-        $vote-layout-horizontal-with-sm,
         $vote-layout-horizontal-height-sm,
         $vote-layout-horizontal-padding-sm,
         $font-size-sm,
@@ -76,4 +83,11 @@
 
 .thy-vote-primary {
     @include vote-color-variant($primary);
+}
+.thy-vote-success-weak {
+    @include vote-color-variant-weak($success);
+}
+
+.thy-vote-primary-weak {
+    @include vote-color-variant-weak($primary);
 }

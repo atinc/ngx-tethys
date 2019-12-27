@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { LiveDemoCodeExample } from 'app/core/live-demo/live-demo.component';
+import { DemoVoteBasicComponent } from './basic/vote-basic.component';
+import { DemoVoteWeakComponent } from './weak/vote-weak.component';
 
 @Component({
     selector: 'demo-vote',
@@ -9,7 +11,7 @@ export class DemoVoteComponent {
     public apiParameters = [
         {
             property: 'thyVote',
-            description: '标签类型（primary、success)',
+            description: '标签类型（primary、success、primary-weak、success-weak)',
             type: 'ThyVote',
             default: 'primary'
         },
@@ -21,7 +23,8 @@ export class DemoVoteComponent {
         },
         {
             property: 'thySizs',
-            description: 'thyLayout="vertical"支持"sm"和"md",thyLayout="horizontal"支持"sm"',
+            description:
+                'thyLayout="vertical"支持"sm"和"md",thyLayout="horizontal"支持"sm",只限制高度，宽度根据数字自适应',
             type: 'String',
             default: 'sm'
         },
@@ -38,28 +41,45 @@ export class DemoVoteComponent {
             default: ''
         }
     ];
-
-    exampleCode = `
-  <thy-vote [thyVoteCount]="vote_count" [thyHasVoted]="has_voted" (click)="toggleVote($event)"></thy-vote>
-  <div
-    [thyVote]="'success'"
-    [thyLayout]="'vertical'"
-    [thyVoteCount]="vote_count"
-    [thyHasVoted]="has_voted"
-    (click)="toggleVote($event)"
-  ></div>
-  <div
-    [thyVote]="'success'"
-    [thyLayout]="'vertical'"
-    [thyVoteCount]="vote_count"
-    [thyHasVoted]="has_voted"
-    thySize="md"
-    (click)="toggleVote($event)"
-  ></div>
-    `;
+    liveDemos: LiveDemoCodeExample[] = [
+        {
+            title: 'Vote Basic',
+            component: DemoVoteBasicComponent,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'vote-basic.component.html',
+                    content: require('!!raw-loader!./basic/vote-basic.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'vote-basic.component.ts',
+                    content: require('!!raw-loader!./basic/vote-basic.component.ts')
+                }
+            ]
+        },
+        {
+            title: 'Vote Weak',
+            component: DemoVoteWeakComponent,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'vote-weak.component.html',
+                    content: require('!!raw-loader!./weak/vote-weak.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'vote-weak.component.ts',
+                    content: require('!!raw-loader!./weak/vote-weak.component.ts')
+                }
+            ]
+        }
+    ];
     constructor() {}
 
     vote_count = 112;
+
+    vote_count1 = 5;
 
     has_voted = true;
 

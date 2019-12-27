@@ -4,7 +4,7 @@ import { UpdateHostClassService } from '../shared';
 
 export type ThySizes = 'sm' | 'md';
 
-export type ThyType = 'primary' | 'success';
+export type ThyType = 'primary' | 'success' | 'primary-weak' | 'success-weak';
 
 export type thyLayout = 'vertical' | 'horizontal';
 
@@ -55,6 +55,9 @@ export class ThyVoteComponent implements OnInit {
     @Input()
     set thyHasVoted(value: boolean) {
         this._hasVoted = inputValueToBoolean(value);
+        if (this._initialized) {
+            this._setClassesByType();
+        }
     }
 
     constructor(private elementRef: ElementRef, private updateHostClassService: UpdateHostClassService) {
