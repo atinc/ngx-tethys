@@ -1,3 +1,22 @@
+## [7.6.19](https://github.com/worktile/ngx-tethys/compare/7.6.17...7.6.19) (2019-12-27)
+
+
+### Bug Fixes
+
+* **button-icon:** button icon color test ([#476](https://github.com/worktile/ngx-tethys/issues/476)) ([c6cc1be](https://github.com/worktile/ngx-tethys/commit/c6cc1be))
+* **button-icon:** support color ([#472](https://github.com/worktile/ngx-tethys/issues/472)) ([d226bcd](https://github.com/worktile/ngx-tethys/commit/d226bcd))
+* **list:** modify key of defaultActive, add test ([c9c99a2](https://github.com/worktile/ngx-tethys/commit/c9c99a2))
+* **vote:** add weak to thytype ([#474](https://github.com/worktile/ngx-tethys/issues/474)) ([2ceb18e](https://github.com/worktile/ngx-tethys/commit/2ceb18e))
+* **vote:** support weak ([#470](https://github.com/worktile/ngx-tethys/issues/470)) ([2c7c471](https://github.com/worktile/ngx-tethys/commit/2c7c471))
+
+
+### Features
+
+* **list:** add thyDefaultHover to hover first ([8c2cd34](https://github.com/worktile/ngx-tethys/commit/8c2cd34))
+* **list:** add thyDefaultHover to hover first ([#466](https://github.com/worktile/ngx-tethys/issues/466)) ([230ebdf](https://github.com/worktile/ngx-tethys/commit/230ebdf))
+
+
+
 ## [7.6.18](https://github.com/worktile/ngx-tethys/compare/7.6.17...7.6.18) (2019-12-27)
 
 
