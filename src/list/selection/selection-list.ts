@@ -385,7 +385,7 @@ export class ThySelectionListComponent
         this._initializeFocusKeyManager();
         this.options.changes.pipe(startWith(true)).subscribe(() => {
             if (this.thyFirstItemDefaultActive) {
-                if (!this._keyManager.activeItem || this.options.toArray().indexOf(this._keyManager.activeItem) < -1) {
+                if (!this._keyManager.activeItem || this.options.toArray().indexOf(this._keyManager.activeItem) < 0) {
                     this._keyManager.setFirstItemActive();
                 }
             }
