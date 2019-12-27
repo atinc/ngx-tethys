@@ -85,6 +85,8 @@ export class ThyButtonIconComponent implements OnInit {
         this.setClasses();
     }
 
+    @Input() thyColor: string;
+
     // 字体前缀，默认 wtf
     @Input()
     set thyIcon(icon: string) {
