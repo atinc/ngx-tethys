@@ -7,7 +7,6 @@ import { By } from '@angular/platform-browser';
 import { ThyButtonComponent } from './button.component';
 import { ThyButtonIconComponent } from './button-icon.component';
 import { injectDefaultSvgIconSet, bypassSanitizeProvider } from '../core/testing';
-import { truncate } from 'fs';
 
 @Component({
     selector: 'app-basic-button-icon',
