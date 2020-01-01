@@ -44,18 +44,22 @@ export class ThyPopover extends ThyUpperOverlayService<ThyPopoverConfig, ThyPopo
     >();
 
     private buildPositionStrategy<TData>(config: ThyPopoverConfig<TData>): PositionStrategy {
-        const positionStrategy = this.overlay.position().flexibleConnectedTo(coerceElement(config.origin));
-        const positions = getFlexiblePositions(config.placement, config.offset, 'thy-popover');
-        positionStrategy.withPositions(positions);
-
-        positionStrategy.positionChanges.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(change => {
-            if (change.scrollableViewProperties.isOverlayClipped) {
-                // After position changes occur and the overlay is clipped by
-                // a parent scrollable then close the tooltip.
-                this.ngZone.run(() => this.close());
-            }
-        });
-        return positionStrategy;
+        if (config.position) {
+            const positionStrategy = this.overlay.position().global();
+            return positionStrategy;
+        } else {
+            const positionStrategy = this.overlay.position().flexibleConnectedTo(coerceElement(config.origin));
+            const positions = getFlexiblePositions(config.placement, config.offset, 'thy-popover');
+            positionStrategy.withPositions(positions);
+            positionStrategy.positionChanges.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(change => {
+                if (change.scrollableViewProperties.isOverlayClipped) {
+                    // After position changes occur and the overlay is clipped by
+                    // a parent scrollable then close the tooltip.
+                    this.ngZone.run(() => this.close());
+                }
+            });
+            return positionStrategy;
+        }
     }
 
     private buildOverlayPanelClasses(config: ThyPopoverConfig) {
@@ -180,7 +184,9 @@ export class ThyPopover extends ThyUpperOverlayService<ThyPopoverConfig, ThyPopo
         });
 
         this.originElementAddActiveClass(config);
-
+        if (config.position) {
+            popoverRef.updatePosition(config.position);
+        }
         this.originInstancesMap.set(originElement, {
             config,
             popoverRef

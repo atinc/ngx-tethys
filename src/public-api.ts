@@ -57,3 +57,4 @@ export * from './drag-drop';
 export * from './skeleton';
 export * from './vote';
 export * from './result';
+export * from './mention';

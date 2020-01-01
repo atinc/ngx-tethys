@@ -61,6 +61,7 @@ import { DemoTypographyComponent } from './components/+typography/typography.com
 import { DemoSkeletonSectionComponent } from './components/+skeleton';
 import { DemoVoteComponent } from './components/+vote/vote.component';
 import { DemoResultSectionComponent } from './components/+result/result-section.component';
+import { DemoMentionSectionComponent } from './components/+mention';
 
 const appRoutes = [
     {
@@ -315,6 +316,10 @@ const appRoutes = [
     {
         path: 'components/result',
         component: DemoResultSectionComponent
+    },
+    {
+        path: 'components/mention',
+        component: DemoMentionSectionComponent
     }
 ];
 

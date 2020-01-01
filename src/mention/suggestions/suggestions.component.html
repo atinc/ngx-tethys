@@ -1,0 +1,9 @@
+<thy-selection-list
+  thyBindKeyEventContainer="body"
+  thyFirstItemDefaultActive="true"
+  (thySelectionChange)="selectionChange($event)"
+>
+  <thy-list-option (click)="select(item)" *ngFor="let item of data" [thyValue]="item">
+    {{ item.name }}
+  </thy-list-option>
+</thy-selection-list>

@@ -100,7 +100,8 @@ export const allMenus = [
                     { name: 'Tree Select', zhName: '树选择', routePath: 'tree-select' },
                     { name: 'Strength', zhName: '强度', routePath: 'strength' },
                     { name: 'Uploader', zhName: '上传', routePath: 'uploader' },
-                    { name: 'Editor', zhName: '编辑器', routePath: 'editor' }
+                    { name: 'Editor', zhName: '编辑器', routePath: 'editor' },
+                    { name: 'Mention', zhName: '提及', routePath: 'mention' }
                 ]
             },
             {
