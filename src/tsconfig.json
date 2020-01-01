@@ -20,7 +20,7 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "lib": ["dom", "es6"],
-    "types": ["jasmine", "node", "dom-inputevent"]
+    "types": ["jasmine", "node"]
   },
   "exclude": ["node_modules"],
   "files": ["../scripts/typings.d.ts", "./public-api.ts", "./index.ts"],
