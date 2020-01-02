@@ -1,31 +1,16 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { Mention } from 'ngx-tethys/mention/interfaces';
 
-const PEOPLE_NAMES = [
-    'Jacob',
-    'Isabella',
-    'Ethan',
-    'Emma',
-    'Michael',
-    'Olivia',
-    'Alexander',
-    'Sophia',
-    'William',
-    'Ava',
-    'Joshua',
-    'Emily',
-    'Daniel',
-    'Madison'
-];
 @Component({
-    selector: 'app-demo-mention-basic',
-    templateUrl: './basic.component.html'
+    selector: 'app-demo-mention-content-editable',
+    templateUrl: './content-editable.component.html'
 })
-export class DemoMentionBasicComponent implements OnInit {
+export class DemoMentionContentEditableComponent implements OnInit {
     value = `This is text!`;
+
     @ViewChild('member') memberDisplayTemplateRef: TemplateRef<any>;
 
-    mentions: Mention<any>[];
+    mentions: Mention[];
 
     constructor() {}
 
@@ -42,14 +27,7 @@ export class DemoMentionBasicComponent implements OnInit {
                         name: 'lily',
                         display_name: 'Lily Li'
                     }
-                ].concat(
-                    PEOPLE_NAMES.map(name => {
-                        return {
-                            name: name,
-                            display_name: name
-                        };
-                    })
-                ),
+                ],
                 displayTemplateRef: this.memberDisplayTemplateRef
             },
             {
@@ -70,18 +48,6 @@ export class DemoMentionBasicComponent implements OnInit {
                 ],
                 insertTransform: (item: { name: string; identifier: string }) => {
                     return `#${item.identifier}`;
-                },
-                search: (term, items) => {
-                    if (term) {
-                        return items.filter(item => {
-                            return (
-                                item.identifier.toLowerCase().includes(term.toLowerCase()) ||
-                                item.name.toLowerCase().includes(term.toLowerCase())
-                            );
-                        });
-                    } else {
-                        return items;
-                    }
                 }
             },
             {

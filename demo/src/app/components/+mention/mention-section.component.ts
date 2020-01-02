@@ -1,14 +1,17 @@
 import { Component } from '@angular/core';
 import { LiveDemoCodeExample } from '../../core/live-demo/live-demo.component';
 
-import { apiMentionTriggerParameters } from './api-parameters';
+import { apiMentionParameters, apiMentionItemParameters } from './api-parameters';
 import { DemoMentionBasicComponent } from './basic/basic.component';
+import { DemoMentionContentEditableComponent } from './content-editable/content-editable.component';
 @Component({
     selector: 'demo-mention-section',
     templateUrl: './mention-section.component.html'
 })
 export class DemoMentionSectionComponent {
-    apiMentionTriggerParameters = apiMentionTriggerParameters;
+    apiMentionParameters = apiMentionParameters;
+
+    apiMentionItemParameters = apiMentionItemParameters;
 
     liveDemos: LiveDemoCodeExample[] = [
         {
@@ -25,6 +28,23 @@ export class DemoMentionSectionComponent {
                     type: 'ts',
                     name: 'basic.component.ts',
                     content: require('!!raw-loader!./basic/basic.component.ts')
+                }
+            ]
+        },
+        {
+            title: '提及 Content Editable',
+            component: DemoMentionContentEditableComponent,
+            description: ``,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'content-editable.component.html',
+                    content: require('!!raw-loader!./content-editable/content-editable.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'content-editable.component.ts',
+                    content: require('!!raw-loader!./content-editable/content-editable.component.ts')
                 }
             ]
         }

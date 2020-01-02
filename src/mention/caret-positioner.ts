@@ -59,9 +59,17 @@ const properties = [
 const isBrowser = typeof window !== 'undefined';
 const isFirefox = isBrowser && window['mozInnerScreenX'] != null;
 
+export type InputOrTextAreaElement = HTMLInputElement | HTMLTextAreaElement;
+export type AllElement = InputOrTextAreaElement | HTMLElement;
+
 export class CaretPositioner {
     // get caret coordinates in input or textarea
-    static getCaretCoordinates(element: HTMLInputElement, position: number, options?: CaretOptions): CaretCoordinates {
+    // copy from repo: https://github.com/component/textarea-caret-position
+    static getTextareaCaretCoordinates(
+        element: InputOrTextAreaElement,
+        position: number,
+        options?: CaretOptions
+    ): CaretCoordinates {
         if (!isBrowser) {
             throw new Error('textarea-caret-position#getCaretCoordinates should only be called in a browser');
         }
@@ -161,8 +169,55 @@ export class CaretPositioner {
         return coordinates;
     }
 
+    static getEditableCaretCoordinates(element: HTMLElement): CaretCoordinates {
+        if (window.getSelection().rangeCount) {
+            const range = window.getSelection().getRangeAt(0);
+            const rect = range.getBoundingClientRect();
+            // using the start or endcontainer is... uhm yeah... difficult...? :D
+            let height: string | number =
+                range.startContainer.nodeType === 1
+                    ? getComputedStyle(range.startContainer as Element).lineHeight
+                    : getComputedStyle(range.startContainer.parentNode as Element).lineHeight;
+            if (isNaN(height as any)) {
+                let node = range.startContainer as HTMLElement;
+                if (range.startContainer.nodeType !== 1) {
+                    node = node.parentNode as HTMLElement;
+                }
+                const current = node.style.lineHeight;
+                node.style.lineHeight = '1em';
+                height = parseInt(getComputedStyle(node).lineHeight, 10);
+                node.style.lineHeight = current != null ? current : '';
+                if (!node.getAttribute('style').length) {
+                    // clean up if empty
+                    node.removeAttribute('style');
+                }
+            }
+            const editableRect = element.getBoundingClientRect();
+            return {
+                top: rect.top - editableRect.top,
+                left: rect.left - editableRect.left,
+                height: height as number
+            };
+        } else {
+            return {
+                top: 0,
+                left: 0,
+                height: 0
+            };
+        }
+    }
+
+    static getCaretCoordinates(element: AllElement, position: number, options?: CaretOptions) {
+        const isInput = ['INPUT', 'TEXTAREA'].indexOf(element.nodeName) >= 0;
+        if (isInput) {
+            return this.getTextareaCaretCoordinates(element as InputOrTextAreaElement, position, options);
+        } else {
+            return this.getEditableCaretCoordinates(element);
+        }
+    }
+
     // get caret position in view window
-    static getCaretPosition(element: HTMLInputElement, position: number, options?: CaretOptions) {
+    static getCaretPosition(element: AllElement, position: number, options?: CaretOptions) {
         const coordinates = CaretPositioner.getCaretCoordinates(element, position, options);
         const elementOffset = getElementOffset(element);
         return {

@@ -97,3 +97,7 @@ export function getHTMLElementBySelector(selector: ElementSelector, defaultEleme
         return selector as HTMLElement;
     }
 }
+
+export function isInputOrTextarea(element: HTMLElement) {
+    return ['INPUT', 'TEXTAREA'].indexOf(element.nodeName) >= 0;
+}
