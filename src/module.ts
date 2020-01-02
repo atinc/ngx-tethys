@@ -55,6 +55,7 @@ import { ThySelectCommonModule } from './core/select/module';
 import { ThySkeletonModule } from './skeleton';
 import { ThyVoteModule } from './vote';
 import { ThyResultModule } from './result';
+import { ThyMentionModule } from './mention';
 
 const IMPORT_EXPORT_MODULES = [
     BrowserAnimationsModule,
@@ -113,7 +114,8 @@ const IMPORT_EXPORT_MODULES = [
     ThySelectCommonModule,
     ThySkeletonModule,
     ThyVoteModule,
-    ThyResultModule
+    ThyResultModule,
+    ThyMentionModule
 ];
 
 @NgModule({
