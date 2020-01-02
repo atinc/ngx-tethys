@@ -1,2 +1,3 @@
-<thy-icon thyIconName="thumb-up" [thyIconType]="_hasVoted ? 'fill' : ''"></thy-icon>
+<thy-icon *ngIf="_type !== 'emoji'" thyIconName="thumb-up" [thyIconType]="_hasVoted ? 'fill' : ''"></thy-icon>
+<img *ngIf="_type === 'emoji'" [src]="thySrc" />
 <div>{{ thyVoteCount }}</div>

@@ -2,7 +2,7 @@ import { Component, Sanitizer, SecurityContext, DebugElement } from '@angular/co
 import { TestBed, ComponentFixture, inject } from '@angular/core/testing';
 import { UpdateHostClassService } from '../shared';
 import { ThyButtonModule } from './button.module';
-import { ThyIconRegistry, ThyIconComponent } from '../icon';
+import { ThyIconComponent } from '../icon';
 import { By } from '@angular/platform-browser';
 import { ThyButtonComponent } from './button.component';
 import { ThyButtonIconComponent } from './button-icon.component';

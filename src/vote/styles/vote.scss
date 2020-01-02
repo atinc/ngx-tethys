@@ -26,14 +26,11 @@
         }
     }
 }
-@mixin vote-variant($height, $padding, $fontSize, $iconSize) {
+@mixin vote-variant($height, $padding, $fontSize) {
     height: $height;
     padding: $padding;
     line-height: $fontSize;
     font-size: $fontSize;
-    .thy-icon {
-        font-size: $iconSize;
-    }
 }
 
 .thy-vote {
@@ -52,29 +49,44 @@
 
 .thy-vote-vertical-size-sm {
     width: $vote-layout-vertical-sm;
-    @include vote-variant($vote-layout-vertical-sm, $vote-layout-vertical-padding-sm, $font-size-xs, $font-size-sm);
+    @include vote-variant($vote-layout-vertical-sm, $vote-layout-vertical-padding-sm, $font-size-xs);
+    .thy-icon {
+        font-size: $font-size-sm;
+    }
 }
 
 .thy-vote-vertical-size-md {
     width: $vote-layout-vertical-md;
-    @include vote-variant($vote-layout-vertical-md, $vote-layout-vertical-padding-md, $font-size-base, $font-size-md);
+    @include vote-variant($vote-layout-vertical-md, $vote-layout-vertical-padding-md, $font-size-base);
+    .thy-icon {
+        font-size: $font-size-md;
+    }
 }
 
 .thy-vote-horizontal {
     align-items: center;
     justify-content: space-between;
-    .thy-icon {
-        margin-right: 5px;
-    }
 }
 
 .thy-vote-horizontal-size-sm {
+    @include vote-variant($vote-layout-horizontal-height-sm, $vote-layout-horizontal-padding-sm, $font-size-sm);
+    .thy-icon {
+        margin-right: 5px;
+        font-size: $font-size-sm;
+    }
+}
+
+.thy-vote-horizontal-emoji-size-sm {
     @include vote-variant(
-        $vote-layout-horizontal-height-sm,
-        $vote-layout-horizontal-padding-sm,
-        $font-size-sm,
-        $font-size-sm
+        $vote-layout-horizontal-emoji-height-sm,
+        $vote-layout-horizontal-emoji-padding-sm,
+        $font-size-base
     );
+    img {
+        margin-right: 5px;
+        width: $font-size-md;
+        height: $font-size-md;
+    }
 }
 
 .thy-vote-success {
@@ -84,6 +96,16 @@
 .thy-vote-primary {
     @include vote-color-variant($primary);
 }
+
+.thy-vote-emoji {
+    border-radius: 12px;
+    color: $gray-700;
+    background: rgba($primary, 0.1);
+    &.has-voted {
+        color: $primary;
+    }
+}
+
 .thy-vote-success-weak {
     @include vote-color-variant-weak($success);
 }

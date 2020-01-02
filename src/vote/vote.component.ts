@@ -4,7 +4,7 @@ import { UpdateHostClassService } from '../shared';
 
 export type ThySizes = 'sm' | 'md';
 
-export type ThyType = 'primary' | 'success' | 'primary-weak' | 'success-weak';
+export type ThyType = 'primary' | 'success' | 'primary-weak' | 'success-weak' | 'emoji';
 
 export type thyLayout = 'vertical' | 'horizontal';
 
@@ -33,6 +33,8 @@ export class ThyVoteComponent implements OnInit {
             this._setClassesByType();
         }
     }
+
+    @Input() thySrc: string;
 
     @Input()
     set thyVote(value: ThyType) {
@@ -82,7 +84,12 @@ export class ThyVoteComponent implements OnInit {
         }
         className.push(`thy-vote-${this._type}`);
         className.push(`thy-vote-${this._layout}`);
-        className.push(`thy-vote-${this._layout}-size-${this._size}`);
+        if (this._type === 'emoji') {
+            className.push(`thy-vote-${this._layout}-emoji-size-${this._size}`);
+        } else {
+            className.push(`thy-vote-${this._layout}-size-${this._size}`);
+        }
+
         this.updateHostClassService.updateClass(className);
     }
 }
