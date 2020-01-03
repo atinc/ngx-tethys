@@ -1,22 +1,7 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { Mention } from 'ngx-tethys/mention/interfaces';
+import { PEOPLE_NAMES } from '../peoples-mock';
 
-const PEOPLE_NAMES = [
-    'Jacob',
-    'Isabella',
-    'Ethan',
-    'Emma',
-    'Michael',
-    'Olivia',
-    'Alexander',
-    'Sophia',
-    'William',
-    'Ava',
-    'Joshua',
-    'Emily',
-    'Daniel',
-    'Madison'
-];
 @Component({
     selector: 'app-demo-mention-basic',
     templateUrl: './basic.component.html'

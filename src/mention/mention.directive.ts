@@ -2,11 +2,8 @@ import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 import { Mention, MentionDefaultDataItem } from './interfaces';
 import { ThyPopover, ThyPopoverRef } from '../popover';
 import { ThyMentionSuggestionsComponent } from './suggestions/suggestions.component';
-import { Dictionary } from '../typings';
 import { CaretPositioner } from './caret-positioner';
-import { MentionAdapter, createMentionAdapter, SeekQueryResult } from './adapter';
-import { isEmpty } from '../util/helpers';
-
+import { MentionAdapter, createMentionAdapter, MatchedMention } from './adapter';
 const SUGGESTION_BACKDROP_CLASS = 'thy-mention-suggestions-backdrop';
 
 @Directive({
@@ -59,22 +56,23 @@ export class ThyMentionDirective implements OnInit {
     private lookup(event: Event) {
         const matched = this.adapter.lookup(event, this.mentions);
         if (matched) {
-            this.openSuggestions();
+            this.openSuggestions(matched);
         } else {
             this.closeSuggestions();
         }
     }
 
-    private openSuggestions() {
-        const data = this.filterData(this.adapter.matchedMention.query.term, this.adapter.matchedMention.mention);
-
-        if (!this.openedSuggestionsRef && !isEmpty(data)) {
+    private openSuggestions(matched: MatchedMention) {
+        if (!this.openedSuggestionsRef) {
             const inputElement = this.elementRef.nativeElement as HTMLInputElement;
             const position = CaretPositioner.getCaretPosition(inputElement, inputElement.selectionEnd);
             this.openedSuggestionsRef = this.thyPopover.open(ThyMentionSuggestionsComponent, {
                 origin: this.elementRef,
                 backdropClass: SUGGESTION_BACKDROP_CLASS,
-                position: position
+                position: position,
+                initialState: {
+                    mention: matched.mention
+                }
             });
             this.openedSuggestionsRef.afterClosed().subscribe(() => {
                 this.openedSuggestionsRef = null;
@@ -83,26 +81,10 @@ export class ThyMentionDirective implements OnInit {
                 this.adapter.insertMention(item);
                 this.openedSuggestionsRef.close();
             });
-            this.openedSuggestionsRef.componentInstance.displayTemplateRef = this.adapter.matchedMention.mention.displayTemplateRef;
         }
 
         if (this.openedSuggestionsRef) {
-            this.openedSuggestionsRef.componentInstance.data = data;
-        }
-    }
-
-    private filterData(term: string, mention: Mention<MentionDefaultDataItem>) {
-        const data = mention.data;
-        if (term) {
-            if (mention.search) {
-                return mention.search(term, data);
-            } else {
-                return data.filter(item => {
-                    return !item.name || item.name.toLowerCase().includes(term.toLowerCase());
-                });
-            }
-        } else {
-            return data;
+            this.openedSuggestionsRef.componentInstance.search(matched.query);
         }
     }
 

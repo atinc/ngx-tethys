@@ -4,6 +4,7 @@ import { LiveDemoCodeExample } from '../../core/live-demo/live-demo.component';
 import { apiMentionParameters, apiMentionItemParameters } from './api-parameters';
 import { DemoMentionBasicComponent } from './basic/basic.component';
 import { DemoMentionContentEditableComponent } from './content-editable/content-editable.component';
+import { DemoMentionRemoteComponent } from './remote/remote.component';
 @Component({
     selector: 'demo-mention-section',
     templateUrl: './mention-section.component.html'
@@ -28,6 +29,23 @@ export class DemoMentionSectionComponent {
                     type: 'ts',
                     name: 'basic.component.ts',
                     content: require('!!raw-loader!./basic/basic.component.ts')
+                }
+            ]
+        },
+        {
+            title: '提及 (支持远程搜索)',
+            component: DemoMentionRemoteComponent,
+            description: ``,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'remote.component.html',
+                    content: require('!!raw-loader!./remote/remote.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'basic.component.ts',
+                    content: require('!!raw-loader!./remote/remote.component.ts')
                 }
             ]
         },
