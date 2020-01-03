@@ -13,10 +13,7 @@ const SUGGESTION_BACKDROP_CLASS = 'thy-mention-suggestions-backdrop';
     selector: '[thyMention]'
 })
 export class ThyMentionDirective implements OnInit {
-    private triggers: string[] = [];
-    private mentionsMap: Dictionary<Mention<MentionDefaultDataItem>> = {};
-    private queryResult: SeekQueryResult;
-    private mentionAdapters: MentionAdapter[] = [];
+    private adapter: MentionAdapter = null;
 
     private openedSuggestionsRef: ThyPopoverRef<ThyMentionSuggestionsComponent>;
 
@@ -28,7 +25,6 @@ export class ThyMentionDirective implements OnInit {
         this._mentions = value;
         if (this.mentions) {
             this.mentions.forEach(mention => {
-                this.mentionAdapters.push(createMentionAdapter(this.elementRef.nativeElement, mention));
                 if (!mention.trigger) {
                     throw new Error(`mention trigger is required`);
                 }
@@ -37,6 +33,7 @@ export class ThyMentionDirective implements OnInit {
     }
 
     constructor(private elementRef: ElementRef<HTMLElement>, private thyPopover: ThyPopover) {
+        this.adapter = createMentionAdapter(elementRef.nativeElement);
         this.bindEvents();
     }
 
@@ -60,21 +57,16 @@ export class ThyMentionDirective implements OnInit {
     }
 
     private lookup(event: Event) {
-        for (const adapter of this.mentionAdapters) {
-            const query = adapter.seekQuery(event);
-            if (query && this.isEditable()) {
-                this.queryResult = query;
-                this.openSuggestions(adapter);
-                break;
-            }
-        }
-        if (!this.queryResult) {
+        const matched = this.adapter.lookup(event, this.mentions);
+        if (matched) {
+            this.openSuggestions();
+        } else {
             this.closeSuggestions();
         }
     }
 
-    private openSuggestions(adapter: MentionAdapter) {
-        const data = this.filterData(this.queryResult.term, adapter.mention);
+    private openSuggestions() {
+        const data = this.filterData(this.adapter.matchedMention.query.term, this.adapter.matchedMention.mention);
 
         if (!this.openedSuggestionsRef && !isEmpty(data)) {
             const inputElement = this.elementRef.nativeElement as HTMLInputElement;
@@ -88,10 +80,10 @@ export class ThyMentionDirective implements OnInit {
                 this.openedSuggestionsRef = null;
             });
             this.openedSuggestionsRef.componentInstance.suggestionSelect$.subscribe(item => {
-                adapter.insertMention(this.queryResult, item);
+                this.adapter.insertMention(item);
                 this.openedSuggestionsRef.close();
             });
-            this.openedSuggestionsRef.componentInstance.displayTemplateRef = adapter.mention.displayTemplateRef;
+            this.openedSuggestionsRef.componentInstance.displayTemplateRef = this.adapter.matchedMention.mention.displayTemplateRef;
         }
 
         if (this.openedSuggestionsRef) {
