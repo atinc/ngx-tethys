@@ -3,12 +3,12 @@ import { Mention } from '../interfaces';
 import { TextareaMentionAdapter } from './textarea.adapter';
 import { EditableMentionAdapter } from './editable.adapter';
 
-export function createMentionAdapter(element: HTMLElement, mention: Mention) {
+export function createMentionAdapter(element: HTMLElement) {
     if (isInputOrTextarea(element)) {
-        return new TextareaMentionAdapter(element, mention);
+        return new TextareaMentionAdapter(element);
     } else {
         element.contentEditable = 'true';
-        return new EditableMentionAdapter(element, mention);
+        return new EditableMentionAdapter(element);
     }
 }
 
