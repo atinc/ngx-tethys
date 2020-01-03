@@ -7,6 +7,7 @@ import { ThyCopyEvent } from 'ngx-tethys/directive/thy-copy.directive';
 })
 export class DemoCopySectionComponent {
     constructor(private notifyService: ThyNotifyService) {}
+
     copy(event: ThyCopyEvent) {
         if (event.isSuccess) {
             console.log('复制成功啦');
