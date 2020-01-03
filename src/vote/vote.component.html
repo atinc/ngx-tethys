@@ -1,2 +1,3 @@
-<thy-icon thyIconName="thumb-up" [thyIconType]="_hasVoted ? 'fill' : ''"></thy-icon>
+<thy-icon *ngIf="!voteIcon" [thyIconName]="thyIcon" [thyIconType]="_hasVoted ? 'fill' : ''"></thy-icon>
+<ng-container *ngIf="voteIcon" [ngTemplateOutlet]="voteIcon"></ng-container>
 <div>{{ thyVoteCount }}</div>

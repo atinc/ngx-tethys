@@ -9,6 +9,7 @@ export class DemoVoteWeakComponent {
     constructor() {}
 
     vote_count = 112;
+    vote_count1 = 76;
 
     has_voted = true;
 

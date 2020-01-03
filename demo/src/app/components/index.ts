@@ -89,6 +89,7 @@ import { DemoCopySectionComponent } from './+copy/copy-section.component';
 import { DemoCheckboxModule } from './+form-checkbox';
 import { DemoVoteWeakComponent } from './+vote/weak/vote-weak.component';
 import { DemoVoteBasicComponent } from './+vote/basic/vote-basic.component';
+import { DemoVoteIconComponent } from './+vote/icon/vote-icon.component';
 import { DemoMentionModule } from './+mention';
 
 export const COMPONENTS = [
@@ -154,6 +155,7 @@ export const COMPONENTS = [
     DemoVoteComponent,
     DemoVoteWeakComponent,
     DemoVoteBasicComponent,
+    DemoVoteIconComponent,
 
     DemoTooltipSectionComponent,
     DemoOverlaySectionComponent,
@@ -227,7 +229,8 @@ export const ENTRY_COMPONENTS = [
     DemoResultBasicComponent,
 
     DemoVoteWeakComponent,
-    DemoVoteBasicComponent
+    DemoVoteBasicComponent,
+    DemoVoteIconComponent
 ];
 
 export const DEMO_MODULES = [
