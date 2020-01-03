@@ -23,3 +23,11 @@
     <input #target2 />
   </p>
 </section>
+
+<section class="mb-3">
+  <h3>5复制textarea输入的文字</h3>
+  <button thyButton="primary-square" (thyCopy)="copy($event)" [thyCopyContent]="target3">复制</button>
+  <p>
+    <textarea #target3></textarea>
+  </p>
+</section>
