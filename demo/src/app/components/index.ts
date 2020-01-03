@@ -90,6 +90,7 @@ import { DemoCheckboxModule } from './+form-checkbox';
 import { DemoVoteWeakComponent } from './+vote/weak/vote-weak.component';
 import { DemoVoteBasicComponent } from './+vote/basic/vote-basic.component';
 import { DemoVoteIconComponent } from './+vote/icon/vote-icon.component';
+import { DemoMentionModule } from './+mention';
 
 export const COMPONENTS = [
     DemoCopySectionComponent,
@@ -244,5 +245,6 @@ export const DEMO_MODULES = [
     DemoCardModule,
     DemoSkeletonModule,
     DemoAlertModule,
-    DemoCheckboxModule
+    DemoCheckboxModule,
+    DemoMentionModule
 ];

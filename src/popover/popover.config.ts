@@ -1,7 +1,7 @@
 import { ElementRef, ViewContainerRef, InjectionToken } from '@angular/core';
 import { Directionality } from '@angular/cdk/bidi';
 import { ThyPlacement, ThyUpperOverlayConfig } from '../core/overlay';
-import { ScrollStrategy } from '@angular/cdk/overlay';
+import { ScrollStrategy, PositionStrategy } from '@angular/cdk/overlay';
 
 export class ThyPopoverConfig<TData = any> extends ThyUpperOverlayConfig<TData> {
     /** Origin Element, for overlay flexible connected to */
