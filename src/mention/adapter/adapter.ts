@@ -6,13 +6,15 @@ export interface SeekQueryResult {
     end: number;
 }
 
+export interface MatchedMention<T = MentionDefaultDataItem> {
+    query: SeekQueryResult;
+    mention: Mention<T>;
+}
+
 export abstract class MentionAdapter {
     inputor: HTMLElement;
 
-    matchedMention: {
-        query: SeekQueryResult;
-        mention: Mention;
-    };
+    matchedMention: MatchedMention;
 
     constructor(inputor: HTMLElement) {
         this.inputor = inputor;
