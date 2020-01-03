@@ -1,3 +1,19 @@
+## [7.6.21](https://github.com/worktile/ngx-tethys/compare/7.6.20...7.6.21) (2020-01-03)
+
+
+### Bug Fixes
+
+* export copy ([#484](https://github.com/worktile/ngx-tethys/issues/484)) ([6a3659a](https://github.com/worktile/ngx-tethys/commit/6a3659a))
+
+
+### Features
+
+* **mention:** add mention first ([#481](https://github.com/worktile/ngx-tethys/issues/481)) ([534c05c](https://github.com/worktile/ngx-tethys/commit/534c05c))
+* **mention:** support remote search ([#485](https://github.com/worktile/ngx-tethys/issues/485)) ([3e2cba1](https://github.com/worktile/ngx-tethys/commit/3e2cba1))
+* **vote:** support img vote ([#482](https://github.com/worktile/ngx-tethys/issues/482)) ([c0093f6](https://github.com/worktile/ngx-tethys/commit/c0093f6))
+
+
+
 ## [7.6.20](https://github.com/worktile/ngx-tethys/compare/7.6.19...7.6.20) (2019-12-30)
 
 
