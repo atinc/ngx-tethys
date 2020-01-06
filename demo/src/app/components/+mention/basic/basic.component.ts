@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
-import { Mention } from 'ngx-tethys/mention/interfaces';
+import { Mention, MentionSuggestionSelectEvent } from 'ngx-tethys/mention/interfaces';
 import { PEOPLE_NAMES } from '../peoples-mock';
 
 @Component({
@@ -87,5 +87,9 @@ export class DemoMentionBasicComponent implements OnInit {
                 }
             }
         ];
+    }
+
+    selectSuggestion(event: MentionSuggestionSelectEvent) {
+        console.log(event);
     }
 }

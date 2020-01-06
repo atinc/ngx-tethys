@@ -9,7 +9,7 @@ import { ThyEmptyModule } from '../empty';
 
 @NgModule({
     declarations: [ThyMentionDirective, ThyMentionSuggestionsComponent],
-    imports: [CommonModule, ThyPopoverModule, ThyListModule, ThyLoadingModule, ThyEmptyModule],
+    imports: [CommonModule, ThyPopoverModule, ThyListModule, ThyLoadingModule],
     exports: [ThyMentionDirective],
     providers: [],
     entryComponents: [ThyMentionSuggestionsComponent]

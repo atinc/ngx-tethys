@@ -5,6 +5,7 @@
     thyBindKeyEventContainer="body"
     thyMultiple="false"
     thyFirstItemDefaultActive="true"
+    [thyScrollContainer]="elementRef"
     (thySelectionChange)="selectionChange($event)"
   >
     <thy-list-option *ngFor="let item of data" [thyValue]="item">
@@ -18,5 +19,7 @@
   </thy-selection-list>
 </ng-container>
 <ng-template #empty>
-  <thy-empty [thyMessage]="mention?.emptyText" [thySize]="'md'"></thy-empty>
+  <div class="text-desc p-3">
+    {{ mention?.emptyText || '无匹配到数据' }}
+  </div>
 </ng-template>
