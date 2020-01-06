@@ -1,3 +1,13 @@
+## [7.6.22](https://github.com/worktile/ngx-tethys/compare/7.6.21...7.6.22) (2020-01-06)
+
+
+### Features
+
+* **mention:**  support popover class and select event ([0c4cf41](https://github.com/worktile/ngx-tethys/commit/0c4cf41))
+* **mention:** support popover class and select event ([#487](https://github.com/worktile/ngx-tethys/issues/487)) ([e236b2c](https://github.com/worktile/ngx-tethys/commit/e236b2c))
+
+
+
 ## [7.6.21](https://github.com/worktile/ngx-tethys/compare/7.6.20...7.6.21) (2020-01-03)
 
 
