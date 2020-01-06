@@ -1,5 +1,5 @@
-import { Directive, ElementRef, Input, OnInit } from '@angular/core';
-import { Mention, MentionDefaultDataItem } from './interfaces';
+import { Directive, ElementRef, Input, OnInit, EventEmitter, Output } from '@angular/core';
+import { Mention, MentionSuggestionSelectEvent } from './interfaces';
 import { ThyPopover, ThyPopoverRef } from '../popover';
 import { ThyMentionSuggestionsComponent } from './suggestions/suggestions.component';
 import { CaretPositioner } from './caret-positioner';
@@ -28,6 +28,8 @@ export class ThyMentionDirective implements OnInit {
             });
         }
     }
+
+    @Output('thySelectSuggestion') select = new EventEmitter<MentionSuggestionSelectEvent>();
 
     constructor(private elementRef: ElementRef<HTMLElement>, private thyPopover: ThyPopover) {
         this.adapter = createMentionAdapter(elementRef.nativeElement);
@@ -77,9 +79,10 @@ export class ThyMentionDirective implements OnInit {
             this.openedSuggestionsRef.afterClosed().subscribe(() => {
                 this.openedSuggestionsRef = null;
             });
-            this.openedSuggestionsRef.componentInstance.suggestionSelect$.subscribe(item => {
-                this.adapter.insertMention(item);
+            this.openedSuggestionsRef.componentInstance.suggestionSelect$.subscribe(event => {
+                this.adapter.insertMention(event.item);
                 this.openedSuggestionsRef.close();
+                this.select.emit(event);
             });
         }
 

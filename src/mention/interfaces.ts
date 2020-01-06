@@ -13,4 +13,10 @@ export interface Mention<T = any> {
     search?: (term: string, items?: T[]) => T[] | Observable<T[]>;
     displayTemplateRef?: TemplateRef<T>;
     emptyText?: string;
+    popoverClass?: string;
+}
+
+export interface MentionSuggestionSelectEvent<T = any> {
+    event: Event;
+    item: T;
 }

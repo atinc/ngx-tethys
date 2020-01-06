@@ -1,9 +1,9 @@
-import { Component, OnInit, TemplateRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostBinding, ElementRef } from '@angular/core';
 import { Subject, Observable, of } from 'rxjs';
 import { ThySelectionListChange } from '../../list';
-import { MentionDefaultDataItem, Mention } from '../interfaces';
+import { MentionDefaultDataItem, Mention, MentionSuggestionSelectEvent } from '../interfaces';
 import { debounceTime, switchMap, catchError } from 'rxjs/operators';
-import { MatchedMention, SeekQueryResult } from '../adapter/adapter';
+import { SeekQueryResult } from '../adapter/adapter';
 
 @Component({
     selector: 'thy-mention-suggestions',
@@ -14,7 +14,7 @@ export class ThyMentionSuggestionsComponent<TItem = MentionDefaultDataItem> impl
 
     mention: Mention<TItem>;
 
-    suggestionSelect$ = new Subject<TItem>();
+    suggestionSelect$ = new Subject<MentionSuggestionSelectEvent>();
 
     debounce = 150;
 
@@ -22,7 +22,9 @@ export class ThyMentionSuggestionsComponent<TItem = MentionDefaultDataItem> impl
 
     private search$ = new Subject<SeekQueryResult>();
 
-    constructor() {
+    @HostBinding('class.thy-mention-suggestions') suggestionsClass = true;
+
+    constructor(public elementRef: ElementRef<HTMLElement>) {
         this.search$
             .pipe(
                 switchMap(query => {
@@ -56,18 +58,25 @@ export class ThyMentionSuggestionsComponent<TItem = MentionDefaultDataItem> impl
         }
     }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        if (this.mention.popoverClass) {
+            this.elementRef.nativeElement.classList.add(this.mention.popoverClass);
+        }
+    }
 
     search(query: SeekQueryResult) {
         this.search$.next(query);
     }
 
-    select(item: TItem) {
-        this.suggestionSelect$.next(item);
+    select(item: TItem, event: Event) {
+        this.suggestionSelect$.next({
+            event,
+            item
+        });
     }
 
     selectionChange(event: ThySelectionListChange<TItem>) {
-        this.select(event.value);
+        this.select(event.value, event.event);
     }
 
     ngOnDestroy() {
