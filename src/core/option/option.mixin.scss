@@ -179,13 +179,11 @@ $option-disabled-color: $gray-400 !default;
             position: absolute;
             right: 10px;
             top: 10px;
-            height: 20px;
-            width: 20px;
-            line-height: 20px;
-            color: $white;
-            background: $primary;
-            border-radius: 50%;
+            color: $primary;
             text-align: center;
+            .thy-icon {
+                font-size: 20px;
+            }
         }
 
         &:not(.disabled) {
@@ -205,7 +203,7 @@ $option-disabled-color: $gray-400 !default;
 
                 &.hover,
                 &:hover {
-                    background: $white;
+                    // background: $white;
                     border-color: $primary;
                 }
             }
@@ -219,7 +217,7 @@ $option-disabled-color: $gray-400 !default;
             &.active {
                 .checked-icon {
                     visibility: visible;
-                    background: $gray-400;
+                    color: $gray-400;
                 }
             }
         }
