@@ -1,3 +1,17 @@
+## [7.6.23](https://github.com/worktile/ngx-tethys/compare/7.6.22...7.6.23) (2020-01-10)
+
+
+### Bug Fixes
+
+* **list:** replace icon ([#489](https://github.com/worktile/ngx-tethys/issues/489)) ([af14511](https://github.com/worktile/ngx-tethys/commit/af14511))
+
+
+### Features
+
+* **mention:** position self-adapte #INF-280 ([#490](https://github.com/worktile/ngx-tethys/issues/490)) ([9475b7d](https://github.com/worktile/ngx-tethys/commit/9475b7d)), closes [#INF-280](https://github.com/worktile/ngx-tethys/issues/INF-280)
+
+
+
 ## [7.6.22](https://github.com/worktile/ngx-tethys/compare/7.6.21...7.6.22) (2020-01-06)
 
 
