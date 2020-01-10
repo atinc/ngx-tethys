@@ -118,7 +118,7 @@ export class ThyDialog extends ThyUpperOverlayService<ThyDialogConfig, ThyDialog
     }
 
     getDialogById(id: string): ThyDialogRef<any> | undefined {
-        return this.getUpperOverlayById(id);
+        return this.getUpperOverlayById(id) as ThyDialogRef<any> | undefined;
     }
 
     /**

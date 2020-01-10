@@ -1,9 +1,10 @@
-import { Directive, ElementRef, Input, OnInit, EventEmitter, Output } from '@angular/core';
+import { Directive, ElementRef, Input, OnInit, EventEmitter, Output, NgZone } from '@angular/core';
 import { Mention, MentionSuggestionSelectEvent } from './interfaces';
 import { ThyPopover, ThyPopoverRef } from '../popover';
 import { ThyMentionSuggestionsComponent } from './suggestions/suggestions.component';
 import { CaretPositioner } from './caret-positioner';
 import { MentionAdapter, createMentionAdapter, MatchedMention } from './adapter';
+import { take } from 'rxjs/operators';
 const SUGGESTION_BACKDROP_CLASS = 'thy-mention-suggestions-backdrop';
 
 @Directive({
@@ -31,7 +32,7 @@ export class ThyMentionDirective implements OnInit {
 
     @Output('thySelectSuggestion') select = new EventEmitter<MentionSuggestionSelectEvent>();
 
-    constructor(private elementRef: ElementRef<HTMLElement>, private thyPopover: ThyPopover) {
+    constructor(private elementRef: ElementRef<HTMLElement>, private thyPopover: ThyPopover, private ngZone: NgZone) {
         this.adapter = createMentionAdapter(elementRef.nativeElement);
         this.bindEvents();
     }
@@ -67,11 +68,15 @@ export class ThyMentionDirective implements OnInit {
     private openSuggestions(matched: MatchedMention) {
         if (!this.openedSuggestionsRef) {
             const inputElement = this.elementRef.nativeElement as HTMLInputElement;
-            const position = CaretPositioner.getCaretPosition(inputElement, inputElement.selectionEnd);
+            const position = CaretPositioner.getCaretPosition(inputElement, matched.query.start);
             this.openedSuggestionsRef = this.thyPopover.open(ThyMentionSuggestionsComponent, {
                 origin: this.elementRef,
                 backdropClass: SUGGESTION_BACKDROP_CLASS,
-                position: position,
+                originPosition: {
+                    x: position.left,
+                    y: position.top
+                },
+                placement: 'bottomLeft',
                 initialState: {
                     mention: matched.mention
                 }
@@ -88,6 +93,9 @@ export class ThyMentionDirective implements OnInit {
 
         if (this.openedSuggestionsRef) {
             this.openedSuggestionsRef.componentInstance.search(matched.query);
+            this.ngZone.onStable.pipe(take(1)).subscribe(() => {
+                this.openedSuggestionsRef.updatePosition();
+            });
         }
     }
 

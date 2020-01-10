@@ -113,6 +113,12 @@ export class ThySelectionListComponent
         this._setListSize(value);
     }
 
+    private spaceEnabled = true;
+    /** Whether keydown space toggle focused option */
+    @Input() set thySpaceKeyEnabled(value: boolean) {
+        this.spaceEnabled = inputValueToBoolean(value);
+    }
+
     /** Emits a change event whenever the selected state of an option changes. */
     @Output() readonly thySelectionChange: EventEmitter<ThySelectionListChange> = new EventEmitter<
         ThySelectionListChange
@@ -320,6 +326,9 @@ export class ThySelectionListComponent
         switch (keyCode) {
             case keycodes.SPACE:
             case keycodes.ENTER:
+                if (keyCode === keycodes.SPACE && !this.spaceEnabled) {
+                    return;
+                }
                 this._toggleFocusedOption(event);
                 // Always prevent space from scrolling the page since the list has focus
                 event.preventDefault();

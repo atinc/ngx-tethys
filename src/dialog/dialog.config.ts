@@ -9,7 +9,7 @@
 import { ViewContainerRef, InjectionToken } from '@angular/core';
 import { Direction } from '@angular/cdk/bidi';
 import { ScrollStrategy } from '@angular/cdk/overlay';
-import { ThyUpperOverlayConfig } from '../core/overlay';
+import { ThyUpperOverlayConfig, ThyUpperOverlayPosition } from '../core/overlay';
 
 /** Valid ARIA roles for a dialog element. */
 export type ThyDialogRole = 'dialog' | 'alertdialog';
@@ -29,6 +29,9 @@ export enum ThyDialogSizes {
 export class ThyDialogConfig<TData = any> extends ThyUpperOverlayConfig<TData> {
     /** The ARIA role of the dialog element. */
     role?: ThyDialogRole = 'dialog';
+
+    /** Position overrides. */
+    position?: ThyUpperOverlayPosition;
 
     /** Dialog size md, lg, sm*/
     size?: ThyDialogSizes;
