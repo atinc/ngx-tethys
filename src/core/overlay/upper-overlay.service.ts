@@ -140,21 +140,21 @@ export abstract class ThyUpperOverlayService<
         const overlayConfig: OverlayConfig = this.buildOverlayConfig(config);
         const overlayRef = this.overlay.create(overlayConfig);
 
-        const dialogContainer = this.attachUpperOverlayContainer(overlayRef, config);
-        const dialogRef = this.attachUpperOverlayContent<T, TResult>(
+        const overlayContainer = this.attachUpperOverlayContainer(overlayRef, config);
+        const upperOverlayRef = this.attachUpperOverlayContent<T, TResult>(
             componentOrTemplateRef,
-            dialogContainer,
+            overlayContainer,
             overlayRef,
             config
         );
 
-        this.openedOverlays.push(dialogRef);
-        dialogRef.afterClosed().subscribe(() => {
-            this.removeOpenedOverlay(dialogRef);
+        this.openedOverlays.push(upperOverlayRef);
+        upperOverlayRef.afterClosed().subscribe(() => {
+            this.removeOpenedOverlay(upperOverlayRef);
         });
-        this._afterOpened.next(dialogRef);
+        this._afterOpened.next(upperOverlayRef);
 
-        return dialogRef;
+        return upperOverlayRef;
     }
 
     afterAllClosed() {
