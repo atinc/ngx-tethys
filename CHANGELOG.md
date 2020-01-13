@@ -1,3 +1,17 @@
+## [7.6.24](https://github.com/worktile/ngx-tethys/compare/7.6.23...7.6.24) (2020-01-13)
+
+
+### Bug Fixes
+
+* **vote:** vote background opacity to 0.1 ([#492](https://github.com/worktile/ngx-tethys/issues/492)) ([aa7375e](https://github.com/worktile/ngx-tethys/commit/aa7375e))
+
+
+### Features
+
+* **popover:** popover use new  FlexibleConnectedPositionStrategy ([cacc7a3](https://github.com/worktile/ngx-tethys/commit/cacc7a3))
+
+
+
 ## [7.6.23](https://github.com/worktile/ngx-tethys/compare/7.6.22...7.6.23) (2020-01-10)
 
 
