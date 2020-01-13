@@ -1,8 +1,8 @@
-import { OnInit, Component, Input, HostBinding, ElementRef } from '@angular/core';
+import { OnInit, Component, Input, HostBinding, ElementRef, TemplateRef, ContentChild } from '@angular/core';
 import { inputValueToBoolean } from '../util/helpers';
 import { UpdateHostClassService } from '../shared';
 
-export type ThySizes = 'sm' | 'md';
+export type ThySizes = 'default' | 'sm';
 
 export type ThyType = 'primary' | 'success' | 'primary-weak' | 'success-weak';
 
@@ -21,6 +21,8 @@ export class ThyVoteComponent implements OnInit {
     _layout: thyLayout;
 
     _initialized = false;
+
+    _isRound = false;
 
     @HostBinding(`class.thy-vote`) class = true;
 
@@ -43,6 +45,11 @@ export class ThyVoteComponent implements OnInit {
     }
 
     @Input()
+    set thyRound(value: boolean) {
+        this._isRound = inputValueToBoolean(value);
+    }
+
+    @Input()
     set thyLayout(value: thyLayout) {
         this._layout = value;
         if (this._initialized) {
@@ -52,6 +59,8 @@ export class ThyVoteComponent implements OnInit {
 
     @Input() thyVoteCount: number | string;
 
+    @Input() thyIcon = 'thumb-up';
+
     @Input()
     set thyHasVoted(value: boolean) {
         this._hasVoted = inputValueToBoolean(value);
@@ -59,6 +68,8 @@ export class ThyVoteComponent implements OnInit {
             this._setClassesByType();
         }
     }
+
+    @ContentChild('voteIcon') voteIcon: TemplateRef<any>;
 
     constructor(private elementRef: ElementRef, private updateHostClassService: UpdateHostClassService) {
         this.updateHostClassService.initializeElement(elementRef.nativeElement);
@@ -70,7 +81,7 @@ export class ThyVoteComponent implements OnInit {
     }
 
     _setClassesByType() {
-        const className = [];
+        const classNames = [];
         if (!this._type) {
             this._type = 'primary';
         }
@@ -78,11 +89,14 @@ export class ThyVoteComponent implements OnInit {
             this._layout = 'horizontal';
         }
         if (!this._size) {
-            this._size = 'sm';
+            this._size = 'default';
         }
-        className.push(`thy-vote-${this._type}`);
-        className.push(`thy-vote-${this._layout}`);
-        className.push(`thy-vote-${this._layout}-size-${this._size}`);
-        this.updateHostClassService.updateClass(className);
+        if (this._isRound) {
+            classNames.push('thy-vote-round');
+        }
+        classNames.push(`thy-vote-${this._type}`);
+        classNames.push(`thy-vote-${this._layout}`);
+        classNames.push(`thy-vote-${this._layout}-size-${this._size}`);
+        this.updateHostClassService.updateClass(classNames);
     }
 }

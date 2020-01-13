@@ -31,7 +31,8 @@ describe('ThyVote', () => {
         expect(voteComponent.nativeElement.classList.contains('thy-vote')).toBe(true);
         expect(voteComponent.nativeElement.classList.contains('thy-vote-primary')).toBe(true);
         expect(voteComponent.nativeElement.classList.contains('thy-vote-horizontal')).toBe(true);
-        expect(voteComponent.nativeElement.classList.contains('thy-vote-horizontal-size-sm')).toBe(true);
+        expect(voteComponent.nativeElement.classList.contains('thy-vote-round')).toBe(true);
+        expect(voteComponent.nativeElement.classList.contains('thy-vote-horizontal-size-default')).toBe(true);
     });
 
     it('should have thy-vote-success when thyVote is success', () => {
@@ -40,22 +41,28 @@ describe('ThyVote', () => {
         expect(voteComponent.nativeElement.classList.contains('thy-vote-success')).toBe(true);
     });
 
+    it('should have thy-vote-success when thyVote is success-weak', () => {
+        basicTestComponent.thyVote = 'success-weak';
+        fixture.detectChanges();
+        expect(voteComponent.nativeElement.classList.contains('thy-vote-success-weak')).toBe(true);
+    });
+
     it('should have thy-vote-vertical and hy-vote-vertical-size-sm when thyLayout is vertical', () => {
         basicTestComponent.layout = `vertical`;
         fixture.detectChanges();
         expect(voteComponent.nativeElement.classList.contains('thy-vote')).toBe(true);
         expect(voteComponent.nativeElement.classList.contains('thy-vote-vertical')).toBe(true);
-        expect(voteComponent.nativeElement.classList.contains('thy-vote-vertical-size-sm')).toBe(true);
+        expect(voteComponent.nativeElement.classList.contains('thy-vote-vertical-size-default')).toBe(true);
         expect(voteComponent.nativeElement.classList.contains('thy-vote-horizontal')).toBe(false);
     });
 
     it('should have thy-vote-vertical and thy-vote-vertical-size-sm when thySize is md', () => {
         basicTestComponent.layout = `vertical`;
-        basicTestComponent.size = `md`;
+        basicTestComponent.size = `sm`;
         fixture.detectChanges();
         expect(voteComponent.nativeElement.classList.contains('thy-vote')).toBe(true);
         expect(voteComponent.nativeElement.classList.contains('thy-vote-vertical')).toBe(true);
-        expect(voteComponent.nativeElement.classList.contains('thy-vote-vertical-size-md')).toBe(true);
+        expect(voteComponent.nativeElement.classList.contains('thy-vote-vertical-size-sm')).toBe(true);
         expect(voteComponent.nativeElement.classList.contains('thy-vote-horizontal')).toBe(false);
     });
 });
@@ -69,6 +76,7 @@ describe('ThyVote', () => {
             [thyHasVoted]="has_voted"
             [thyLayout]="layout"
             [thySize]="size"
+            [thyRound]="isRound"
         ></div>
     `
 })
@@ -78,6 +86,7 @@ class ThyDemoVoteBasicComponent {
     thyVote = '';
     layout = '';
     size = '';
+    isRound = true;
 }
 
 @NgModule({

@@ -7,6 +7,12 @@ export class ThyPopoverConfig<TData = any> extends ThyUpperOverlayConfig<TData> 
     /** Origin Element, for overlay flexible connected to */
     origin: ElementRef<any> | HTMLElement;
 
+    /** Origin point, default use origin's boundingClientRect*/
+    originPosition?: {
+        x: number;
+        y: number;
+    } & { width?: number; height?: number };
+
     /** Placement be relative to origin, topCenter, topLeft, topRight, bottomCenter, bottomLeft, bottomRight ...*/
     placement?: ThyPlacement;
 

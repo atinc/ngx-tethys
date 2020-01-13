@@ -1,3 +1,57 @@
+## [7.6.24](https://github.com/worktile/ngx-tethys/compare/7.6.23...7.6.24) (2020-01-13)
+
+
+### Bug Fixes
+
+* **vote:** vote background opacity to 0.1 ([#492](https://github.com/worktile/ngx-tethys/issues/492)) ([aa7375e](https://github.com/worktile/ngx-tethys/commit/aa7375e))
+
+
+### Features
+
+* **popover:** popover use new  FlexibleConnectedPositionStrategy ([cacc7a3](https://github.com/worktile/ngx-tethys/commit/cacc7a3))
+
+
+
+## [7.6.23](https://github.com/worktile/ngx-tethys/compare/7.6.22...7.6.23) (2020-01-10)
+
+
+### Bug Fixes
+
+* **list:** replace icon ([#489](https://github.com/worktile/ngx-tethys/issues/489)) ([af14511](https://github.com/worktile/ngx-tethys/commit/af14511))
+
+
+### Features
+
+* **mention:** position self-adapte #INF-280 ([#490](https://github.com/worktile/ngx-tethys/issues/490)) ([9475b7d](https://github.com/worktile/ngx-tethys/commit/9475b7d)), closes [#INF-280](https://github.com/worktile/ngx-tethys/issues/INF-280)
+
+
+
+## [7.6.22](https://github.com/worktile/ngx-tethys/compare/7.6.21...7.6.22) (2020-01-06)
+
+
+### Features
+
+* **mention:**  support popover class and select event ([0c4cf41](https://github.com/worktile/ngx-tethys/commit/0c4cf41))
+* **mention:** support popover class and select event ([#487](https://github.com/worktile/ngx-tethys/issues/487)) ([e236b2c](https://github.com/worktile/ngx-tethys/commit/e236b2c))
+
+
+
+## [7.6.21](https://github.com/worktile/ngx-tethys/compare/7.6.20...7.6.21) (2020-01-03)
+
+
+### Bug Fixes
+
+* export copy ([#484](https://github.com/worktile/ngx-tethys/issues/484)) ([6a3659a](https://github.com/worktile/ngx-tethys/commit/6a3659a))
+
+
+### Features
+
+* **mention:** add mention first ([#481](https://github.com/worktile/ngx-tethys/issues/481)) ([534c05c](https://github.com/worktile/ngx-tethys/commit/534c05c))
+* **mention:** support remote search ([#485](https://github.com/worktile/ngx-tethys/issues/485)) ([3e2cba1](https://github.com/worktile/ngx-tethys/commit/3e2cba1))
+* **vote:** support img vote ([#482](https://github.com/worktile/ngx-tethys/issues/482)) ([c0093f6](https://github.com/worktile/ngx-tethys/commit/c0093f6))
+
+
+
 ## [7.6.20](https://github.com/worktile/ngx-tethys/compare/7.6.19...7.6.20) (2019-12-30)
 
 

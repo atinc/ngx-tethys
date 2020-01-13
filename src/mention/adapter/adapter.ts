@@ -6,17 +6,36 @@ export interface SeekQueryResult {
     end: number;
 }
 
+export interface MatchedMention<T = MentionDefaultDataItem> {
+    query: SeekQueryResult;
+    mention: Mention<T>;
+}
+
 export abstract class MentionAdapter {
     inputor: HTMLElement;
 
-    mention: Mention;
+    matchedMention: MatchedMention;
 
-    constructor(inputor: HTMLElement, mention: Mention) {
+    constructor(inputor: HTMLElement) {
         this.inputor = inputor;
-        this.mention = mention;
     }
 
-    abstract seekQuery(event: Event): SeekQueryResult;
+    abstract seekQuery(event: Event, mention: Mention): SeekQueryResult;
 
-    abstract insertMention(query: SeekQueryResult, item: MentionDefaultDataItem): void;
+    abstract insertMention(item: MentionDefaultDataItem): void;
+
+    lookup(event: Event, mentions: Mention[]) {
+        this.matchedMention = null;
+        for (const mention of mentions) {
+            const query = this.seekQuery(event, mention);
+            if (query) {
+                this.matchedMention = {
+                    query: query,
+                    mention: mention
+                };
+                break;
+            }
+        }
+        return this.matchedMention;
+    }
 }

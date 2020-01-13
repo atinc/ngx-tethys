@@ -1,14 +1,26 @@
-<thy-selection-list
-  thyBindKeyEventContainer="body"
-  thyFirstItemDefaultActive="true"
-  (thySelectionChange)="selectionChange($event)"
->
-  <thy-list-option *ngFor="let item of data" [thyValue]="item">
-    <ng-container *ngIf="displayTemplateRef; else default">
-      <ng-template *ngTemplateOutlet="displayTemplateRef; context: { $implicit: item }"></ng-template>
-    </ng-container>
-    <ng-template #default>
-      {{ item['name'] || '' }}
-    </ng-template>
-  </thy-list-option>
-</thy-selection-list>
+<thy-loading [thyDone]="loadingDone"></thy-loading>
+<ng-container *ngIf="loadingDone">
+  <thy-selection-list
+    *ngIf="data?.length > 0; else empty"
+    thyBindKeyEventContainer="body"
+    thyMultiple="false"
+    thyFirstItemDefaultActive="true"
+    thySpaceKeyEnabled="false"
+    [thyScrollContainer]="elementRef"
+    (thySelectionChange)="selectionChange($event)"
+  >
+    <thy-list-option *ngFor="let item of data" [thyValue]="item">
+      <ng-container *ngIf="mention?.displayTemplateRef; else default">
+        <ng-template *ngTemplateOutlet="mention?.displayTemplateRef; context: { $implicit: item }"></ng-template>
+      </ng-container>
+      <ng-template #default>
+        {{ item['name'] || '' }}
+      </ng-template>
+    </thy-list-option>
+  </thy-selection-list>
+</ng-container>
+<ng-template #empty>
+  <div class="text-desc p-3">
+    {{ mention?.emptyText || '无匹配到数据' }}
+  </div>
+</ng-template>

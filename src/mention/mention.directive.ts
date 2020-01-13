@@ -1,22 +1,17 @@
-import { Directive, ElementRef, Input, OnInit } from '@angular/core';
-import { Mention, MentionDefaultDataItem } from './interfaces';
+import { Directive, ElementRef, Input, OnInit, EventEmitter, Output, NgZone } from '@angular/core';
+import { Mention, MentionSuggestionSelectEvent } from './interfaces';
 import { ThyPopover, ThyPopoverRef } from '../popover';
 import { ThyMentionSuggestionsComponent } from './suggestions/suggestions.component';
-import { Dictionary } from '../typings';
 import { CaretPositioner } from './caret-positioner';
-import { MentionAdapter, createMentionAdapter, SeekQueryResult } from './adapter';
-import { isEmpty } from '../util/helpers';
-
+import { MentionAdapter, createMentionAdapter, MatchedMention } from './adapter';
+import { take } from 'rxjs/operators';
 const SUGGESTION_BACKDROP_CLASS = 'thy-mention-suggestions-backdrop';
 
 @Directive({
     selector: '[thyMention]'
 })
 export class ThyMentionDirective implements OnInit {
-    private triggers: string[] = [];
-    private mentionsMap: Dictionary<Mention<MentionDefaultDataItem>> = {};
-    private queryResult: SeekQueryResult;
-    private mentionAdapters: MentionAdapter[] = [];
+    private adapter: MentionAdapter = null;
 
     private openedSuggestionsRef: ThyPopoverRef<ThyMentionSuggestionsComponent>;
 
@@ -28,7 +23,6 @@ export class ThyMentionDirective implements OnInit {
         this._mentions = value;
         if (this.mentions) {
             this.mentions.forEach(mention => {
-                this.mentionAdapters.push(createMentionAdapter(this.elementRef.nativeElement, mention));
                 if (!mention.trigger) {
                     throw new Error(`mention trigger is required`);
                 }
@@ -36,7 +30,10 @@ export class ThyMentionDirective implements OnInit {
         }
     }
 
-    constructor(private elementRef: ElementRef<HTMLElement>, private thyPopover: ThyPopover) {
+    @Output('thySelectSuggestion') select = new EventEmitter<MentionSuggestionSelectEvent>();
+
+    constructor(private elementRef: ElementRef<HTMLElement>, private thyPopover: ThyPopover, private ngZone: NgZone) {
+        this.adapter = createMentionAdapter(elementRef.nativeElement);
         this.bindEvents();
     }
 
@@ -60,57 +57,48 @@ export class ThyMentionDirective implements OnInit {
     }
 
     private lookup(event: Event) {
-        for (const adapter of this.mentionAdapters) {
-            const query = adapter.seekQuery(event);
-            if (query && this.isEditable()) {
-                this.queryResult = query;
-                this.openSuggestions(adapter);
-                break;
-            }
-        }
-        if (!this.queryResult) {
+        const matched = this.adapter.lookup(event, this.mentions);
+        if (matched) {
+            this.openSuggestions(matched);
+        } else {
             this.closeSuggestions();
         }
     }
 
-    private openSuggestions(adapter: MentionAdapter) {
-        const data = this.filterData(this.queryResult.term, adapter.mention);
-
-        if (!this.openedSuggestionsRef && !isEmpty(data)) {
+    private openSuggestions(matched: MatchedMention) {
+        if (!this.openedSuggestionsRef) {
             const inputElement = this.elementRef.nativeElement as HTMLInputElement;
-            const position = CaretPositioner.getCaretPosition(inputElement, inputElement.selectionEnd);
+            const position = CaretPositioner.getCaretPosition(inputElement, matched.query.start);
+            const fontSize = parseInt(getComputedStyle(this.elementRef.nativeElement).fontSize, 10);
             this.openedSuggestionsRef = this.thyPopover.open(ThyMentionSuggestionsComponent, {
                 origin: this.elementRef,
                 backdropClass: SUGGESTION_BACKDROP_CLASS,
-                position: position
+                originPosition: {
+                    x: position.left,
+                    y: position.top,
+                    width: fontSize,
+                    height: fontSize
+                },
+                placement: 'bottomLeft',
+                initialState: {
+                    mention: matched.mention
+                }
             });
             this.openedSuggestionsRef.afterClosed().subscribe(() => {
                 this.openedSuggestionsRef = null;
             });
-            this.openedSuggestionsRef.componentInstance.suggestionSelect$.subscribe(item => {
-                adapter.insertMention(this.queryResult, item);
+            this.openedSuggestionsRef.componentInstance.suggestionSelect$.subscribe(event => {
+                this.adapter.insertMention(event.item);
                 this.openedSuggestionsRef.close();
+                this.select.emit(event);
             });
-            this.openedSuggestionsRef.componentInstance.displayTemplateRef = adapter.mention.displayTemplateRef;
         }
 
         if (this.openedSuggestionsRef) {
-            this.openedSuggestionsRef.componentInstance.data = data;
-        }
-    }
-
-    private filterData(term: string, mention: Mention<MentionDefaultDataItem>) {
-        const data = mention.data;
-        if (term) {
-            if (mention.search) {
-                return mention.search(term, data);
-            } else {
-                return data.filter(item => {
-                    return !item.name || item.name.toLowerCase().includes(term.toLowerCase());
-                });
-            }
-        } else {
-            return data;
+            this.openedSuggestionsRef.componentInstance.search(matched.query);
+            this.ngZone.onStable.pipe(take(1)).subscribe(() => {
+                this.openedSuggestionsRef.updatePosition();
+            });
         }
     }
 

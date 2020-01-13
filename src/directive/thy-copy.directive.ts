@@ -56,10 +56,10 @@ export class ThyCopyDirective implements OnInit, OnDestroy {
     }
     @HostListener('click', ['$event'])
     public onClick(event: Event) {
-        const input = this.document.createElement('input');
-        this.document.body.appendChild(input);
-        input.value = this.getContent(event);
-        input.select();
+        const textarea = this.document.createElement('textarea');
+        this.document.body.appendChild(textarea);
+        textarea.value = this.getContent(event);
+        textarea.select();
         try {
             document.execCommand('copy', false, null);
             this.thyCopy.emit({ isSuccess: true, event });
@@ -68,7 +68,7 @@ export class ThyCopyDirective implements OnInit, OnDestroy {
             this.thyCopy.emit({ isSuccess: false, event });
             this.notifyService.error('复制失败');
         } finally {
-            input.remove();
+            textarea.remove();
         }
     }
 
