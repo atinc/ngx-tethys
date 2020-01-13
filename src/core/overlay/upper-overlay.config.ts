@@ -57,9 +57,6 @@ export class ThyUpperOverlayConfig<TData = any> {
     /** Max-height of the dialog. If a number is provided, pixel units are assumed. */
     maxHeight?: number | string;
 
-    /** Position overrides. */
-    position?: ThyUpperOverlayPosition;
-
     /** Data being injected into the child component. */
     initialState?: TData | null = null;
 

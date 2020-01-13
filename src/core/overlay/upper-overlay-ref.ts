@@ -163,8 +163,12 @@ export abstract class ThyInternalUpperOverlayRef<
      * Updates the overlay's position when is GlobalPositionStrategy
      * @param position New overlay position.
      */
-    protected updateGlobalPosition(position?: ThyUpperOverlayPosition): this {
+    updateGlobalPosition(position?: ThyUpperOverlayPosition): this {
         const strategy = this.getPositionStrategy() as GlobalPositionStrategy;
+
+        if (!(strategy instanceof GlobalPositionStrategy)) {
+            throw new Error(`current strategy is not GlobalPositionStrategy`);
+        }
 
         if (position && (position.left || position.right)) {
             position.left ? strategy.left(position.left) : strategy.right(position.right);

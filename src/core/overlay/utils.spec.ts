@@ -118,17 +118,17 @@ describe(`overlay`, () => {
     describe('getFlexiblePositions', () => {
         const connectionFallbackPositionsMap: { [key: string]: ThyPlacement[] } = {
             top: ['topLeft', 'topRight', 'bottom', 'bottomLeft', 'bottomRight'],
-            topLeft: ['top', 'topRight', 'bottom', 'bottomLeft', 'bottomRight'],
-            topRight: ['top', 'topLeft', 'bottom', 'bottomLeft', 'bottomRight'],
+            topLeft: ['top', 'topRight', 'bottomLeft', 'bottom', 'bottomRight'],
+            topRight: ['top', 'topLeft', 'bottomRight', 'bottom', 'bottomLeft'],
             bottom: ['bottomLeft', 'bottomRight', 'top', 'topLeft', 'topRight'],
-            bottomLeft: ['bottom', 'bottomRight', 'top', 'topLeft', 'topRight'],
-            bottomRight: ['bottom', 'bottomLeft', 'top', 'topLeft', 'topRight'],
+            bottomLeft: ['bottom', 'bottomRight', 'topLeft', 'top', 'topRight'],
+            bottomRight: ['bottom', 'bottomLeft', 'topRight', 'top', 'topLeft'],
             left: ['leftTop', 'leftBottom', 'right', 'rightTop', 'rightBottom'],
-            leftTop: ['left', 'leftBottom', 'right', 'rightTop', 'rightBottom'],
-            leftBottom: ['left', 'leftTop', 'right', 'rightTop', 'rightBottom'],
+            leftTop: ['left', 'leftBottom', 'rightTop', 'right', 'rightBottom'],
+            leftBottom: ['left', 'leftTop', 'rightBottom', 'right', 'rightTop'],
             right: ['rightTop', 'rightBottom', 'left', 'leftTop', 'leftBottom'],
-            rightTop: ['right', 'rightBottom', 'left', 'leftTop', 'leftBottom'],
-            rightBottom: ['right', 'rightTop', 'left', 'leftTop', 'leftBottom']
+            rightTop: ['right', 'rightBottom', 'leftTop', 'left', 'leftBottom'],
+            rightBottom: ['right', 'rightTop', 'leftBottom', 'left', 'leftTop']
         };
 
         it(`should get correct positions for top placement without offset`, () => {

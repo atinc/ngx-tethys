@@ -4,6 +4,12 @@ import { ThySlideContainerComponent } from './slide-container.component';
 import { OverlayRef } from '@angular/cdk/overlay';
 import { slideUpperOverlayOptions, ThySlideConfig } from './slide.config';
 
+export abstract class ThySlideRef<T, TResult = any> extends ThyUpperOverlayRef<
+    T,
+    ThySlideContainerComponent,
+    TResult
+> {}
+
 @Injectable()
 export class ThyInternalSlideRef<T = any, TResult = any>
     extends ThyInternalUpperOverlayRef<T, ThySlideContainerComponent, TResult>
@@ -16,9 +22,3 @@ export class ThyInternalSlideRef<T = any, TResult = any>
         return this.updateGlobalPosition(position);
     }
 }
-
-export abstract class ThySlideRef<T, TResult = any> extends ThyUpperOverlayRef<
-    T,
-    ThySlideContainerComponent,
-    TResult
-> {}
