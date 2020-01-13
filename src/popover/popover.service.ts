@@ -29,7 +29,7 @@ import { takeUntil } from 'rxjs/operators';
 import { helpers } from '../util';
 import { popoverUpperOverlayOptions } from './popover.options';
 import { ViewportRuler } from '@angular/cdk/scrolling';
-import { DOCUMENT } from '@angular/platform-browser';
+import { DOCUMENT } from '@angular/common';
 import { Platform } from '@angular/cdk/platform';
 import {
     FlexibleConnectedPositionStrategy,
