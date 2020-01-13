@@ -4,7 +4,8 @@ import {
     OverlayConfig,
     OverlayRef,
     PositionStrategy,
-    ScrollDispatcher
+    ScrollDispatcher,
+    OverlayContainer
 } from '@angular/cdk/overlay';
 import {
     TemplateRef,
@@ -27,7 +28,13 @@ import { getFlexiblePositions, ThyUpperOverlayService, ThyUpperOverlayRef } from
 import { takeUntil } from 'rxjs/operators';
 import { helpers } from '../util';
 import { popoverUpperOverlayOptions } from './popover.options';
-import { FlexibleConnectedPositionStrategyOrigin } from '@angular/cdk/overlay/typings/position/flexible-connected-position-strategy';
+import { ViewportRuler } from '@angular/cdk/scrolling';
+import { DOCUMENT } from '@angular/platform-browser';
+import { Platform } from '@angular/cdk/platform';
+import {
+    FlexibleConnectedPositionStrategy,
+    FlexibleConnectedPositionStrategyOrigin
+} from '../core/overlay/position/flexible-connected-position-strategy';
 
 @Injectable({
     providedIn: 'root'
@@ -48,7 +55,14 @@ export class ThyPopover extends ThyUpperOverlayService<ThyPopoverConfig, ThyPopo
         const origin: FlexibleConnectedPositionStrategyOrigin = config.originPosition
             ? config.originPosition
             : config.origin;
-        const positionStrategy = this.overlay.position().flexibleConnectedTo(origin);
+        // const positionStrategy = this.overlay.position().flexibleConnectedTo(origin);
+        const positionStrategy = new FlexibleConnectedPositionStrategy(
+            origin,
+            this._viewportRuler,
+            this._document,
+            this._platform,
+            this._overlayContainer
+        );
         const positions = getFlexiblePositions(config.placement, config.offset, 'thy-popover');
         positionStrategy.withPositions(positions);
         positionStrategy.positionChanges.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(change => {
@@ -140,7 +154,11 @@ export class ThyPopover extends ThyUpperOverlayService<ThyPopoverConfig, ThyPopo
         injector: Injector,
         @Inject(THY_POPOVER_DEFAULT_CONFIG) defaultConfig: ThyPopoverConfig,
         private scrollDispatcher: ScrollDispatcher,
-        private ngZone: NgZone
+        private ngZone: NgZone,
+        private _viewportRuler: ViewportRuler,
+        @Inject(DOCUMENT) private _document: any,
+        private _platform: Platform,
+        private _overlayContainer: OverlayContainer
     ) {
         super(popoverUpperOverlayOptions, overlay, injector, defaultConfig);
     }

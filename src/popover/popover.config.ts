@@ -11,7 +11,7 @@ export class ThyPopoverConfig<TData = any> extends ThyUpperOverlayConfig<TData> 
     originPosition?: {
         x: number;
         y: number;
-    };
+    } & { width?: number; height?: number };
 
     /** Placement be relative to origin, topCenter, topLeft, topRight, bottomCenter, bottomLeft, bottomRight ...*/
     placement?: ThyPlacement;
