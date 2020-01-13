@@ -69,12 +69,15 @@ export class ThyMentionDirective implements OnInit {
         if (!this.openedSuggestionsRef) {
             const inputElement = this.elementRef.nativeElement as HTMLInputElement;
             const position = CaretPositioner.getCaretPosition(inputElement, matched.query.start);
+            const fontSize = parseInt(getComputedStyle(this.elementRef.nativeElement).fontSize, 10);
             this.openedSuggestionsRef = this.thyPopover.open(ThyMentionSuggestionsComponent, {
                 origin: this.elementRef,
                 backdropClass: SUGGESTION_BACKDROP_CLASS,
                 originPosition: {
                     x: position.left,
-                    y: position.top
+                    y: position.top,
+                    width: fontSize,
+                    height: fontSize
                 },
                 placement: 'bottomLeft',
                 initialState: {

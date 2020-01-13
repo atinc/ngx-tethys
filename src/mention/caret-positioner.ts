@@ -221,7 +221,7 @@ export class CaretPositioner {
         const coordinates = CaretPositioner.getCaretCoordinates(element, position, options);
         const elementOffset = getElementOffset(element);
         return {
-            top: coordinates.top + elementOffset.top + coordinates.height,
+            top: coordinates.top + elementOffset.top,
             left: coordinates.left + elementOffset.left
         };
     }
