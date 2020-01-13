@@ -60,6 +60,45 @@ class BasicSelectComponent {
 }
 
 @Component({
+    selector: 'multiple-select',
+    template: `
+        <thy-custom-select class="foods" #Foods thyPlaceHolder="Food">
+            <thy-option
+                *ngFor="let food of foods"
+                [thyValue]="food.value"
+                [thyDisabled]="food.disabled"
+                [thyLabelText]="food.viewValue"
+            >
+            </thy-option>
+        </thy-custom-select>
+        <thy-custom-select class="vegetables" #Vegetables thyPlaceHolder="Vegetables">
+            <thy-option
+                *ngFor="let vegetable of vegetables"
+                [thyValue]="vegetable.value"
+                [thyLabelText]="vegetable.viewValue"
+            >
+            </thy-option>
+        </thy-custom-select>
+    `
+})
+class MultipleSelectComponent {
+    foods: any[] = [
+        { value: 'steak-0', viewValue: 'Steak' },
+        { value: 'pizza-1', viewValue: 'Pizza' },
+        { value: 'tacos-2', viewValue: 'Tacos', disabled: true },
+        { value: 'sandwich-3', viewValue: 'Sandwich' },
+        { value: 'chips-4', viewValue: 'Chips' },
+        { value: 'eggs-5', viewValue: 'Eggs' },
+        { value: 'pasta-6', viewValue: 'Pasta' },
+        { value: 'sushi-7', viewValue: 'Sushi' }
+    ];
+    vegetables: any[] = [{ value: 'potatoes', viewValue: 'Potatoes' }];
+
+    @ViewChild('Foods') foodsComponent: ThySelectCustomComponent;
+    @ViewChild('Vegetables') vegetablesComponent: ThySelectCustomComponent;
+}
+
+@Component({
     selector: 'ng-model-select',
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
@@ -458,7 +497,8 @@ describe('ThyCustomSelect', () => {
             configureThyCustomSelectTestingModule([
                 BasicSelectComponent,
                 SelectWithGroupsAndNgContainerComponent,
-                SelectWithExpandStatusComponent
+                SelectWithExpandStatusComponent,
+                MultipleSelectComponent
             ]);
         }));
 
@@ -638,6 +678,33 @@ describe('ThyCustomSelect', () => {
                     0,
                     'Expected at least one option to be rendered.'
                 );
+            }));
+        });
+
+        describe('close logic', () => {
+            let fixture: ComponentFixture<MultipleSelectComponent>;
+
+            beforeEach(fakeAsync(() => {
+                fixture = TestBed.createComponent(MultipleSelectComponent);
+                fixture.detectChanges();
+            }));
+
+            it('should close the panel when a click occurs on another select', fakeAsync(() => {
+                const foodsTrigger = fixture.debugElement.query(By.css('.foods .form-control-custom')).nativeElement;
+                const vegetablesTrigger = fixture.debugElement.query(By.css('.vegetables .form-control-custom'))
+                    .nativeElement;
+
+                foodsTrigger.click();
+                fixture.detectChanges();
+                flush();
+
+                expect(fixture.componentInstance.foodsComponent.panelOpen).toBe(true);
+
+                vegetablesTrigger.click();
+                fixture.detectChanges();
+                flush();
+
+                expect(fixture.componentInstance.foodsComponent.panelOpen).toBe(false);
             }));
         });
 

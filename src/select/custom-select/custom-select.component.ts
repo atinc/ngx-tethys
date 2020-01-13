@@ -403,7 +403,6 @@ export class ThySelectCustomComponent
     }
 
     public toggle(event: MouseEvent): void {
-        event.stopPropagation();
         this.panelOpen ? this.close() : this.open();
     }
 
