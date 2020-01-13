@@ -1,5 +1,5 @@
 @mixin vote-color-variant($color) {
-    background: rgba($color, 0.15);
+    background: rgba($color, 0.1);
     color: $color;
     &:hover {
         background: rgba($color, 0.2);
@@ -18,7 +18,7 @@
         color: $color;
     }
     &.has-voted {
-        background: rgba($color, 0.15);
+        background: rgba($color, 0.1);
         color: $color;
         &:hover {
             background: rgba($color, 0.2);
