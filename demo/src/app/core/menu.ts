@@ -90,6 +90,7 @@ export const allMenus = [
                     { name: 'Transfer', zhName: '穿梭框', routePath: 'transfer' },
                     { name: 'Switch', zhName: '开关', routePath: 'switch' },
                     { name: 'Form', zhName: '表单', routePath: 'form' },
+                    { name: 'DatePicker', zhName: '日期选择', routePath: 'date-picker', state: 'new' },
                     { name: 'DatePicker', zhName: '日期选择', routePath: 'datepicker' },
                     { name: 'DatepickerNext', zhName: '日期选择 NEXT', routePath: 'datepicker-next' },
                     { name: 'DateRange', zhName: '时间段选择', routePath: 'date-range' },

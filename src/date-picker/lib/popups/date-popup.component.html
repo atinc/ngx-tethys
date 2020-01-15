@@ -1,0 +1,71 @@
+<div class="{{ prefixCls }}-picker-container {{ className }}">
+  <div
+    class="{{ prefixCls }} {{ showWeek ? prefixCls + '-week-number' : '' }}
+     {{ isRange ? prefixCls + '-range' : '' }}"
+  >
+    <div class="{{ prefixCls }}-panel">
+      <div class="{{ prefixCls }}-date-panel">
+        <ng-container *ngIf="isRange; else tplSinglePart">
+          <!-- Range Selectors -->
+          <ng-container *ngTemplateOutlet="tplRangePart; context: { partType: 'left' }"></ng-container>
+          <ng-container *ngTemplateOutlet="tplRangePart; context: { partType: 'right' }"></ng-container>
+        </ng-container>
+
+        <ng-container *ngIf="!isRange">
+          <!-- Single ONLY -->
+          <ng-container *ngTemplateOutlet="tplFooter"></ng-container>
+        </ng-container>
+      </div>
+      <ng-container *ngIf="isRange">
+        <!-- Range ONLY -->
+        <ng-container *ngTemplateOutlet="tplFooter"></ng-container>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<ng-template #tplInnerPopup let-partType="partType">
+  <inner-popup
+    [showWeek]="showWeek"
+    [panelMode]="getPanelMode(partType)"
+    (panelModeChange)="onPanelModeChange($event, partType)"
+    [value]="getValueBySelector(partType)"
+    [disabledDate]="disabledDate"
+    [dateRender]="dateRender"
+    [selectedValue]="selectedValue"
+    [hoverValue]="hoverValue"
+    [enablePrev]="enablePrevNext('prev', partType)"
+    [enableNext]="enablePrevNext('next', partType)"
+    (dayHover)="onDayHover($event)"
+    (selectDate)="changeValueFromSelect($event)"
+    (headerChange)="onHeaderChange($event, partType)"
+  ></inner-popup>
+</ng-template>
+
+<ng-template #tplFooter>
+  <calendar-footer
+    [showTime]="showTime"
+    [mustShowTime]="mustShowTime"
+    [value]="value"
+    (showTimePickerChange)="onShowTimePickerChange($event)"
+    (selectTime)="onSelectTime($event)"
+    (clickOk)="onClickOk()"
+    (clickRemove)="onClickRemove()"
+  ></calendar-footer>
+</ng-template>
+
+<!-- Single ONLY -->
+<ng-template #tplSinglePart>
+  <div>
+    <ng-container *ngTemplateOutlet="tplInnerPopup"></ng-container>
+  </div>
+</ng-template>
+
+<!-- Range ONLY -->
+<ng-template #tplRangePart let-partType="partType">
+  <div class="{{ prefixCls }}-range-part {{ prefixCls }}-range-{{ partType }}">
+    <div style="outline: none;">
+      <ng-container *ngTemplateOutlet="tplInnerPopup; context: { partType: partType }"></ng-container>
+    </div>
+  </div>
+</ng-template>

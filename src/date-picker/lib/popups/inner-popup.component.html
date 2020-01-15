@@ -1,0 +1,22 @@
+<calendar-header
+  [(panelMode)]="panelMode"
+  (panelModeChange)="panelModeChange.emit($event)"
+  [(value)]="value"
+  (valueChange)="headerChange.emit($event)"
+  [enablePrev]="enablePrev"
+  [enableNext]="enableNext"
+></calendar-header>
+
+<div class="{{ prefixCls }}-body">
+  <date-table
+    [showWeek]="showWeek"
+    [value]="value"
+    (valueChange)="onSelectDate($event)"
+    showWeekNumber="false"
+    [disabledDate]="disabledDate"
+    [dateCellRender]="dateRender"
+    [selectedValue]="selectedValue"
+    [hoverValue]="hoverValue"
+    (dayHover)="dayHover.emit($event)"
+  ></date-table>
+</div>

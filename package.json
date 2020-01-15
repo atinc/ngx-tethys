@@ -50,6 +50,7 @@
     "china-division": "^2.1.1",
     "core-js": "^2.5.4",
     "highlight.js": "^9.13.1",
+    "date-fns": "^2.6.0",
     "natives": "^1.1.6",
     "ng-packagr": "^4.7.1",
     "ngx-bootstrap": "^4.2.0",

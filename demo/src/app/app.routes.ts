@@ -62,6 +62,7 @@ import { DemoSkeletonSectionComponent } from './components/+skeleton';
 import { DemoVoteComponent } from './components/+vote/vote.component';
 import { DemoResultSectionComponent } from './components/+result/result-section.component';
 import { DemoMentionSectionComponent } from './components/+mention';
+import { DemoDatePickerNextSectionComponent } from './components/+datepicker/datepicker-section.component';
 
 const appRoutes = [
     {
@@ -320,6 +321,10 @@ const appRoutes = [
     {
         path: 'components/mention',
         component: DemoMentionSectionComponent
+    },
+    {
+        path: 'components/date-picker',
+        component: DemoDatePickerNextSectionComponent
     }
 ];
 

@@ -1,0 +1,38 @@
+$thy-prefix: 'thy';
+$calendar-prefix-cls: 'thy-calendar';
+
+$text-color: $gray-800;
+$text-color-inverse: $white;
+$heading-color: $gray-800;
+
+// vertical padding for all form controls
+$control-padding-horizontal: 12px;
+$control-padding-horizontal-sm: 8px;
+
+// Border color
+$border-color-split: hsl(0, 0, 91); // split border inside a component
+$border-color-inverse: $white;
+$border-width-base: 1px;
+$border-style-base: solid;
+
+// Disabled states
+$disabled-color: $gray-500;
+$disabled-bg: $gray-100;
+
+$zindex-picker-panel: 10;
+$zindex-picker: 1050;
+
+$item-hover-bg: $gray-200;
+$primary-1: lighten($primary, 90%);
+$primary-2: lighten($primary, 80%);
+
+@import './mixin.scss';
+@import './picker.scss';
+@import './calendar.scss';
+@import './range-picker.scss';
+@import './month-panel.scss';
+@import './year-panel.scss';
+@import './decade-panel.scss';
+@import './month-picker.scss';
+@import './week-picker.scss';
+@import './time-picker.scss';

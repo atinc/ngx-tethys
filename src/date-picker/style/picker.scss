@@ -1,0 +1,68 @@
+.#{$calendar-prefix-cls}-picker-container {
+    z-index: $zindex-picker;
+}
+
+.#{$calendar-prefix-cls}-picker {
+    position: relative;
+    display: inline-block;
+    outline: none;
+    transition: opacity 0.3s;
+    width: 100%;
+
+    &-input {
+        outline: none;
+        cursor: pointer;
+
+        &.thy-input {
+            line-height: $line-height-base;
+        }
+    }
+
+    &-input.thy-input-sm {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    &-clear,
+    &-icon {
+        position: absolute;
+        top: 50%;
+        right: $control-padding-horizontal;
+        z-index: 1;
+        font-size: $font-size-md;
+        transition: all 0.3s;
+        user-select: none;
+        transform: translateY(-50%);
+    }
+
+    &-clear {
+        z-index: 2;
+        color: $disabled-color;
+        background: $input-bg;
+        cursor: pointer;
+        opacity: 0;
+        pointer-events: none;
+        &:hover {
+            color: $secondary;
+        }
+    }
+
+    &:hover &-clear {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    &-icon {
+        display: inline-block;
+        color: $disabled-color;
+    }
+
+    &-small &-clear,
+    &-small &-icon {
+        right: $control-padding-horizontal-sm;
+    }
+}
+
+.thy-popover-container .#{$calendar-prefix-cls} {
+    box-shadow: none;
+}

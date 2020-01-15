@@ -1,0 +1,16 @@
+<thy-button-group thySize="md" thyType="outline-default">
+  <button
+    thyButton
+    *ngFor="let size of btnSizes"
+    (click)="currentSize = size"
+    [ngClass]="{ active: size === currentSize }"
+  >
+    {{ size }}
+  </button>
+</thy-button-group>
+<br /><br />
+<thy-date-picker [thySize]="currentSize"></thy-date-picker>
+<br />
+<thy-month-picker [thySize]="currentSize" thyPlaceHolder="选择月份"></thy-month-picker>
+<br />
+<thy-range-picker [thySize]="currentSize"></thy-range-picker>
