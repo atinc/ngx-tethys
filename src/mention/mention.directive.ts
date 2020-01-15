@@ -96,9 +96,6 @@ export class ThyMentionDirective implements OnInit {
 
         if (this.openedSuggestionsRef) {
             this.openedSuggestionsRef.componentInstance.search(matched.query);
-            this.ngZone.onStable.pipe(take(1)).subscribe(() => {
-                this.openedSuggestionsRef.updatePosition();
-            });
         }
     }
 
