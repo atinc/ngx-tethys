@@ -1,0 +1,20 @@
+<div *ngIf="isShowTime || isCanTime" class="timepicker-section" (click)="$event.stopPropagation()">
+  <a href="javascript:;" *ngIf="isCanTime" class="link-has-icon" (click)="changeTimeShowMode('show')">
+    <thy-icon thyIconName="clock-circle"></thy-icon>设置时间
+  </a>
+  <timepicker
+    *ngIf="isShowTime"
+    class="timepicker-wrap"
+    [showMeridian]="false"
+    [ngModel]="value?.nativeDate"
+    (ngModelChange)="onSelectTime($event)"
+  ></timepicker>
+  <div class="timepicker-btn-wrap">
+    <button *ngIf="!isCanTime" class="timepicker-ok-btn" thyButton="primary" thySize="sm" (click)="onTimeOk()">
+      确定
+    </button>
+    <button class="timepicker-clear-btn" thyButton="link-secondary" thySize="sm" (click)="onClear()">
+      清除
+    </button>
+  </div>
+</div>

@@ -1,3 +1,6 @@
+import { TemplateRef } from '@angular/core';
+import { coerceBooleanProperty, coerceCssPixelValue, _isNumberValue } from '@angular/cdk/coercion';
+
 export function inputValueToBoolean(value: boolean | string): boolean {
     return value === '' || (value && value !== 'false');
 }
@@ -218,4 +221,64 @@ export function generateRandomStr() {
     return Math.random()
         .toString(36)
         .substring(2);
+}
+
+export function isNonEmptyString(value: any): boolean {
+    return typeof value === 'string' && value !== '';
+}
+
+export function isTemplateRef(value: any): boolean {
+    return value instanceof TemplateRef;
+}
+
+export function toBoolean(value: boolean | string): boolean {
+    return coerceBooleanProperty(value);
+}
+export type FunctionProp<T> = (...args: any[]) => T;
+export function toNumber(value: number | string): number;
+export function toNumber<D>(value: number | string, fallback: D): number | D;
+export function toNumber(value: number | string, fallbackValue: number = 0): number {
+    return _isNumberValue(value) ? Number(value) : fallbackValue;
+}
+
+export function toCssPixel(value: number | string): string {
+    return coerceCssPixelValue(value);
+}
+
+export function valueFunctionProp<T>(prop: FunctionProp<T>, ...args: any[]): T {
+    return typeof prop === 'function' ? prop(...args) : prop;
+}
+
+export function propDecoratorFactory<T, D>(
+    name: string,
+    fallback: (v: T) => D
+): (target: any, propName: string) => void {
+    function propDecorator(target: any, propName: string, originalDescriptor?: TypedPropertyDescriptor<any>): any {
+        const privatePropName = `$$__${propName}`;
+
+        if (Object.prototype.hasOwnProperty.call(target, privatePropName)) {
+            //   warn(`The prop "${privatePropName}" is already exist, it will be overrided by ${name} decorator.`);
+        }
+
+        Object.defineProperty(target, privatePropName, {
+            configurable: true,
+            writable: true
+        });
+
+        return {
+            get(): string {
+                return originalDescriptor && originalDescriptor.get
+                    ? originalDescriptor.get.bind(this)()
+                    : this[privatePropName];
+            },
+            set(value: T): void {
+                if (originalDescriptor && originalDescriptor.set) {
+                    originalDescriptor.set.bind(this)(fallback(value));
+                }
+                this[privatePropName] = fallback(value);
+            }
+        };
+    }
+
+    return propDecorator;
 }

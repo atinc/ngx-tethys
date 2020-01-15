@@ -1,0 +1,50 @@
+<div class="{{ prefixCls }}-header">
+  <div style="position: relative;">
+    <a *ngIf="enablePrev" class="{{ prefixCls }}-prev-year-btn" role="button" (click)="previousYear()" title="去年"></a>
+    <a
+      *ngIf="enablePrev"
+      class="{{ prefixCls }}-prev-month-btn"
+      role="button"
+      (click)="previousMonth()"
+      title="上月"
+    ></a>
+
+    <span class="{{ prefixCls }}-my-select">
+      <ng-container *ngFor="let selector of yearMonthDaySelectors">
+        <a
+          class="{{ selector.className }}"
+          role="button"
+          (click)="selector.onClick ? selector.onClick() : null"
+          title="{{ selector.title || null }}"
+        >
+          {{ selector.label }}
+        </a>
+      </ng-container>
+    </span>
+
+    <a *ngIf="enableNext" class="{{ prefixCls }}-next-month-btn" role="button" (click)="nextMonth()" title="下个月"></a>
+    <a *ngIf="enableNext" class="{{ prefixCls }}-next-year-btn" role="button" (click)="nextYear()" title="下一年"></a>
+  </div>
+
+  <ng-container [ngSwitch]="panelMode">
+    <ng-container *ngSwitchCase="'decade'">
+      <decade-panel [value]="value" (valueChange)="onChooseDecade($event)"></decade-panel>
+    </ng-container>
+    <ng-container *ngSwitchCase="'year'">
+      <year-panel
+        [value]="value"
+        [disabledDate]="disabledYear"
+        (valueChange)="onChooseYear($event)"
+        (decadePanelShow)="changePanel('decade')"
+      ></year-panel>
+    </ng-container>
+    <ng-container *ngSwitchCase="'month'">
+      <month-panel
+        [value]="value"
+        [disabledDate]="disabledMonth"
+        (valueChange)="onChooseMonth($event)"
+        (yearPanelShow)="changePanel('year')"
+      ></month-panel>
+    </ng-container>
+  </ng-container>
+</div>
