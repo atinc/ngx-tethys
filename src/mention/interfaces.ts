@@ -9,11 +9,13 @@ export interface Mention<T = any> {
     trigger: string;
     data: T[];
     limit?: number;
-    insertTransform?: (item: T) => string;
-    search?: (term: string, items?: T[]) => T[] | Observable<T[]>;
+    // content not found closed auto
+    autoClose?: boolean;
+    popoverClass?: string;
     displayTemplateRef?: TemplateRef<T>;
     emptyText?: string;
-    popoverClass?: string;
+    insertTransform?: (item: T) => string;
+    search?: (term: string, items?: T[]) => T[] | Observable<T[]>;
 }
 
 export interface MentionSuggestionSelectEvent<T = any> {
