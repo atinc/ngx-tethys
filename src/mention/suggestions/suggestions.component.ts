@@ -33,7 +33,7 @@ export class ThyMentionSuggestionsComponent<TItem = MentionDefaultDataItem> impl
         this.search$
             .pipe(
                 switchMap(query => {
-                    const data = this.filterData(query.term, this.mention);
+                    const data = this.mention.search(query.term, this.mention.data);
                     if (data instanceof Observable) {
                         this.loadingDone = false;
                         return (data as Observable<TItem[]>).pipe(debounceTime(this.debounce));
@@ -48,25 +48,17 @@ export class ThyMentionSuggestionsComponent<TItem = MentionDefaultDataItem> impl
             )
             .subscribe(data => {
                 this.loadingDone = true;
-                this.data = data;
+                this.data = data || [];
 
                 if (this.popoverRef) {
+                    if (this.mention.autoClose && this.data.length === 0) {
+                        this.popoverRef.close();
+                    }
                     this.ngZone.onStable.pipe(take(1)).subscribe(() => {
                         this.popoverRef.updatePosition();
                     });
                 }
             });
-    }
-
-    private filterData(term: string, mention: Mention<MentionDefaultDataItem>) {
-        const data = mention.data;
-        if (mention.search) {
-            return mention.search(term, data);
-        } else {
-            return data.filter(item => {
-                return !item.name || item.name.toLowerCase().includes(term.toLowerCase());
-            });
-        }
     }
 
     ngOnInit(): void {
