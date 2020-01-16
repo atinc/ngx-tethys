@@ -34,7 +34,7 @@ export const apiMentionItemParameters = [
     },
     {
         property: 'autoClose',
-        description: '设置未匹配到数据时是否自动关闭',
+        description: '设置未匹配到数据时是否自动关闭 ',
         type: 'boolean',
         default: 'true'
     },
