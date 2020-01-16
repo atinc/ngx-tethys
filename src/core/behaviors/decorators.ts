@@ -1,15 +1,15 @@
-import { coerceNumber, coerceBoolean, coerceCssPixel } from '../../util/helpers';
+import { coerceNumberValue, coerceBooleanProperty, coerceCssPixelValue } from '../../util/helpers';
 
 export function InputBoolean(): any {
-    return propDecoratorFactory('InputBoolean', coerceBoolean);
+    return propDecoratorFactory('InputBoolean', coerceBooleanProperty);
 }
 
 export function InputCssPixel(): any {
-    return propDecoratorFactory('InputCssPixel', coerceCssPixel);
+    return propDecoratorFactory('InputCssPixel', coerceCssPixelValue);
 }
 
 export function InputNumber(): any {
-    return propDecoratorFactory('InputNumber', coerceNumber);
+    return propDecoratorFactory('InputNumber', coerceNumberValue);
 }
 
 function propDecoratorFactory<T, D>(name: string, fallback: (v: T) => D): (target: any, propName: string) => void {

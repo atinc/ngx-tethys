@@ -14,7 +14,7 @@ import { fromEvent, Observable, Subject } from 'rxjs';
 import { debounceTime, mapTo, takeUntil, tap } from 'rxjs/operators';
 import { DatePopupComponent } from './lib/popups/date-popup.component';
 import { AbstractPickerComponent } from './abstract-picker.component';
-import { FunctionProp, coerceBoolean } from '../util/helpers';
+import { FunctionProp, coerceBooleanProperty } from '../util/helpers';
 import { PanelMode, CompatibleValue } from './standard-types';
 import { ThyPopover } from '../popover';
 
@@ -32,7 +32,7 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
         return this._showTime;
     }
     set thyShowTime(value: object | boolean) {
-        this._showTime = typeof value === 'object' ? value : coerceBoolean(value);
+        this._showTime = typeof value === 'object' ? value : coerceBooleanProperty(value);
     }
 
     @Input() thyMustShowTime = false;

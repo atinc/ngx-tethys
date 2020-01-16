@@ -1,8 +1,12 @@
 import { TemplateRef } from '@angular/core';
-import { coerceBooleanProperty, coerceCssPixelValue, _isNumberValue } from '@angular/cdk/coercion';
+import {
+    coerceBooleanProperty as coerceBoolean,
+    coerceCssPixelValue as coerceCssPixel,
+    _isNumberValue
+} from '@angular/cdk/coercion';
 
 export function inputValueToBoolean(value: boolean | string): boolean {
-    console.warn(`The method inputValueToBoolean will be deprecated, please use coerceBoolean instead.`);
+    console.warn(`The method inputValueToBoolean will be deprecated, please use coerceBooleanProperty instead.`);
     return value === '' || (value && value !== 'false');
 }
 
@@ -228,20 +232,20 @@ export function isTemplateRef(value: any): boolean {
     return value instanceof TemplateRef;
 }
 
-export function coerceBoolean(value: boolean | string): boolean {
-    return coerceBooleanProperty(value);
+export function coerceBooleanProperty(value: boolean | string): boolean {
+    return coerceBoolean(value);
 }
 
 export type FunctionProp<T> = (...args: any[]) => T;
 
-export function coerceNumber(value: number | string): number;
-export function coerceNumber<D>(value: number | string, fallback: D): number | D;
-export function coerceNumber(value: number | string, fallbackValue: number = 0): number {
+export function coerceNumberValue(value: number | string): number;
+export function coerceNumberValue<D>(value: number | string, fallback: D): number | D;
+export function coerceNumberValue(value: number | string, fallbackValue: number = 0): number {
     return _isNumberValue(value) ? Number(value) : fallbackValue;
 }
 
-export function coerceCssPixel(value: number | string): string {
-    return coerceCssPixelValue(value);
+export function coerceCssPixelValue(value: number | string): string {
+    return coerceCssPixel(value);
 }
 
 export function valueFunctionProp<T>(prop: FunctionProp<T>, ...args: any[]): T {

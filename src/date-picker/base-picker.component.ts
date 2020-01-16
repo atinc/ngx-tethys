@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 
 import { CandyDate } from '../util';
-import { coerceBoolean, FunctionProp } from '../util/helpers';
+import { coerceBooleanProperty, FunctionProp } from '../util/helpers';
 
 import { AbstractPickerComponent } from './abstract-picker.component';
 import { CompatibleDate, PanelMode, CompatibleValue } from './standard-types';
@@ -32,7 +32,7 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
         return this._showTime;
     }
     set thyShowTime(value: object | boolean) {
-        this._showTime = typeof value === 'object' ? value : coerceBoolean(value);
+        this._showTime = typeof value === 'object' ? value : coerceBooleanProperty(value);
     }
 
     @Input() thyMustShowTime = false;
