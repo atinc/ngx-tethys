@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges, TemplateRef } from '@angular/core';
 import { AbstractPickerComponent } from './abstract-picker.component';
 import { PanelMode, CompatibleValue } from './standard-types';
-import { CandyDate } from '../core';
+import { CandyDate } from '../util';
 
 @Component({
     template: ``

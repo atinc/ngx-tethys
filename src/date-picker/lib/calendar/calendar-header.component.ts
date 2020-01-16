@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 
 import { PanelMode } from '../../standard-types';
-import { CandyDate } from '../../../core';
+import { CandyDate } from '../../../util';
 import { DateHelperService, DateHelperByDatePipe } from '../../date-helper.service';
 
 @Component({

@@ -9,7 +9,7 @@ import {
     SimpleChanges,
     TemplateRef
 } from '@angular/core';
-import { CandyDate } from '../../../core';
+import { CandyDate } from '../../../util';
 import { valueFunctionProp, FunctionProp } from '../../../util/helpers';
 import { DateHelperService } from '../../date-helper.service';
 

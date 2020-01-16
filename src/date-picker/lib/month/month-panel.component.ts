@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
-import { CandyDate } from '../../../core';
+import { CandyDate } from '../../../util';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,

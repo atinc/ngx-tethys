@@ -7,7 +7,7 @@ import {
     Output,
     SimpleChanges
 } from '@angular/core';
-import { CandyDate } from '../../../core';
+import { CandyDate } from '../../../util';
 import { DateHelperService } from '../../date-helper.service';
 
 const MAX_ROW = 4;

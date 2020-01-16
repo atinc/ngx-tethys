@@ -12,7 +12,8 @@ import {
 import { ControlValueAccessor } from '@angular/forms';
 import { Subject } from 'rxjs';
 
-import { CandyDate, InputBoolean } from '../core';
+import { InputBoolean } from '../core';
+import { CandyDate } from '../util';
 
 import { ThyPickerComponent } from './picker.component';
 import { CompatibleDate, CompatibleValue, DisabledDateFn, DateEntry, RangeEntry } from './standard-types';
