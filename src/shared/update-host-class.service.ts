@@ -7,8 +7,6 @@ export class UpdateHostClassService {
 
     private _hostElement: HTMLElement;
 
-    private classMap = {};
-
     constructor(private renderer: Renderer2) {}
 
     initializeElement(element: HTMLElement | ElementRef<HTMLElement>) {
@@ -59,27 +57,5 @@ export class UpdateHostClassService {
     removeClass(className: string) {
         this.renderer.removeClass(this._hostElement, className);
         return this;
-    }
-
-    updateHostClass(el: HTMLElement, classMap: object): void {
-        this._removeClass(el, this.classMap);
-        this.classMap = { ...classMap };
-        this._addClass(el, this.classMap);
-    }
-
-    private _removeClass(el: HTMLElement, classMap: Dictionary<boolean>): void {
-        for (const i in classMap) {
-            if (classMap.hasOwnProperty(i)) {
-                this.renderer.removeClass(el, i);
-            }
-        }
-    }
-
-    private _addClass(el: HTMLElement, classMap: Dictionary<boolean>): void {
-        for (const i in classMap) {
-            if (classMap.hasOwnProperty(i) && classMap[i]) {
-                this.renderer.addClass(el, i);
-            }
-        }
     }
 }

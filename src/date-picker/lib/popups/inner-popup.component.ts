@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 
 import { DisabledDateFn, PanelMode, SupportTimeOptions } from '../../standard-types';
-import { CandyDate } from '../../../core';
+import { CandyDate } from '../../../util';
 import { FunctionProp } from '../../../util/helpers';
 
 @Component({

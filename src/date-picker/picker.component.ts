@@ -16,7 +16,7 @@ import {
     ViewChild,
     Renderer2
 } from '@angular/core';
-import { CandyDate } from '../core';
+import { CandyDate } from '../util';
 import { DateHelperService } from './date-helper.service';
 import { CompatibleValue } from './standard-types';
 import { getFlexiblePositions } from '../core/overlay';

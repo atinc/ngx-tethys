@@ -12,14 +12,14 @@ import {
 } from '@angular/core';
 
 import { FunctionProp } from '../../../util/helpers';
-import { CandyDate, sortRangeValue } from '../../../core';
+import { CandyDate, sortRangeValue } from '../../../util';
 
 import { CompatibleValue, DisabledDateFn, PanelMode, SupportTimeOptions } from '../../standard-types';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
-    selector: 'date-range-popup',
-    exportAs: 'dateRangePopup',
+    selector: 'date-popup',
+    exportAs: 'datePopup',
     templateUrl: './date-popup.component.html'
 })
 export class DatePopupComponent implements OnChanges, OnInit {
@@ -118,6 +118,10 @@ export class DatePopupComponent implements OnChanges, OnInit {
         if (this.isRange) {
             this.valueForRangeShow[this.getPartTypeIndex(partType)] = value;
             this.valueForRangeShow = this.normalizeRangeValue(this.valueForRangeShow); // Should always take care of start/end
+        } else {
+            if (this.showTimePicker) {
+                this.setValue(value);
+            }
         }
     }
 

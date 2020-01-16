@@ -13,7 +13,7 @@
   [size]="thySize"
   (openChange)="onOpenChange($event)"
 >
-  <date-range-popup
+  <date-popup
     *ngIf="realOpenState"
     [isRange]="isRange"
     [showWeek]="showWeek"
@@ -30,5 +30,5 @@
     [disabledDate]="thyDisabledDate"
     [className]="thyPanelClassName"
     (resultOk)="onResultOk()"
-  ></date-range-popup>
+  ></date-popup>
 </thy-picker>

@@ -1,5 +1,5 @@
 import { TemplateRef } from '@angular/core';
-import { CandyDate } from '../core';
+import { CandyDate } from '../util';
 
 export type DisabledDateFn = (d: Date) => boolean;
 

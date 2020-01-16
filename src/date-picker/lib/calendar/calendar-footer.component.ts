@@ -10,7 +10,7 @@ import {
     OnInit
 } from '@angular/core';
 
-import { CandyDate } from '../../../core';
+import { CandyDate } from '../../../util';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
