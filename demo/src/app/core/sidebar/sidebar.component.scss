@@ -3,6 +3,8 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     overflow-y: auto;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, Roboto, Microsoft YaHei, Source Han Sans SC,
+        Noto Sans CJK SC, Myriad Pro, Hiragino Sans, Yu Gothic, Lucida Grande, sans-serif;
     &::-webkit-scrollbar-thumb {
         background-color: transparent;
         transition: background-color 0.3s;
