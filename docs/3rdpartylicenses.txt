@@ -90,6 +90,14 @@ MIT
   0. You just DO WHAT THE FUCK YOU WANT TO.
 
 
+date-fns
+MIT
+# License
+
+date-fns is licensed under the [MIT license](http://kossnocorp.mit-license.org).
+Read more about MIT at [TLDRLegal](https://tldrlegal.com/license/mit-license).
+
+
 highlight.js
 BSD-3-Clause
 Copyright (c) 2006, Ivan Sagalaev
