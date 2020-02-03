@@ -31,6 +31,7 @@ import { getFlexiblePositions } from '../core/overlay';
 import { ThyTreeNode } from '../tree/tree-node.class';
 
 import { $ } from '../typings';
+import { take } from 'rxjs/operators';
 
 const MAT_SELECT_SCROLL_STRATEGY = new InjectionToken<() => ScrollStrategy>('MAT_SELECT_SCROLL_STRATEGY');
 
@@ -203,6 +204,15 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
         this.setSelectedNodes();
         this.initialled = true;
         this.init();
+    }
+
+    public setPosition() {
+        this.ngZone.onStable
+            .asObservable()
+            .pipe(take(1))
+            .subscribe(() => {
+                this.cdkConnectedOverlay.overlayRef.updatePosition();
+            });
     }
 
     private init() {
@@ -388,6 +398,7 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
                 this.flattenTreeNodes = [...this.flattenTreeNodes, ...otherNodes];
                 node.children = data;
             });
+            return result;
         }
     }
 }
