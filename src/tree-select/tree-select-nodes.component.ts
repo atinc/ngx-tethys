@@ -80,7 +80,7 @@ export class ThyTreeSelectNodesComponent implements OnInit {
     }
 
     getNodeChildren(node: ThyTreeSelectNode) {
-        this.parent.getNodeChildren(node);
+        return this.parent.getNodeChildren(node);
     }
 
     selectTreeNode(event: Event, node: ThyTreeSelectNode) {
@@ -104,7 +104,10 @@ export class ThyTreeSelectNodesComponent implements OnInit {
         }
 
         if (node.expand && this.parent.thyAsyncNode) {
-            this.getNodeChildren(node);
+            this.getNodeChildren(node).subscribe(() => {
+                this.parent.setPosition();
+            });
         }
+        this.parent.setPosition();
     }
 }
