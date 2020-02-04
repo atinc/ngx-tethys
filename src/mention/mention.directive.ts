@@ -1,11 +1,21 @@
 import { Directive, ElementRef, Input, OnInit, EventEmitter, Output, NgZone } from '@angular/core';
-import { Mention, MentionSuggestionSelectEvent } from './interfaces';
+import { Mention, MentionSuggestionSelectEvent, MentionDefaultDataItem } from './interfaces';
 import { ThyPopover, ThyPopoverRef } from '../popover';
 import { ThyMentionSuggestionsComponent } from './suggestions/suggestions.component';
 import { CaretPositioner } from './caret-positioner';
 import { MentionAdapter, createMentionAdapter, MatchedMention } from './adapter';
-import { take } from 'rxjs/operators';
+
 const SUGGESTION_BACKDROP_CLASS = 'thy-mention-suggestions-backdrop';
+
+const DEFAULT_MENTION_CONFIG: Partial<Mention> = {
+    autoClose: true,
+    emptyText: '无匹配数据，按空格完成输入',
+    search: (term: string, data: MentionDefaultDataItem[]) => {
+        return data.filter(item => {
+            return !item.name || item.name.toLowerCase().includes(term.toLowerCase());
+        });
+    }
+};
 
 @Directive({
     selector: '[thyMention]'
@@ -21,11 +31,12 @@ export class ThyMentionDirective implements OnInit {
     }
     @Input('thyMention') set mentions(value: Mention<any>[]) {
         this._mentions = value;
-        if (this.mentions) {
-            this.mentions.forEach(mention => {
+        if (this._mentions) {
+            this._mentions = this._mentions.map(mention => {
                 if (!mention.trigger) {
                     throw new Error(`mention trigger is required`);
                 }
+                return Object.assign({}, DEFAULT_MENTION_CONFIG, mention);
             });
         }
     }
@@ -96,9 +107,6 @@ export class ThyMentionDirective implements OnInit {
 
         if (this.openedSuggestionsRef) {
             this.openedSuggestionsRef.componentInstance.search(matched.query);
-            this.ngZone.onStable.pipe(take(1)).subscribe(() => {
-                this.openedSuggestionsRef.updatePosition();
-            });
         }
     }
 

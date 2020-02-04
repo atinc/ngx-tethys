@@ -46,7 +46,7 @@ export class TextareaMentionAdapter extends MentionAdapter {
             value.slice(this.matchedMention.query.end, value.length)
         ].join('');
         this.inputor.value = newValue;
-        this.focus(this.matchedMention.query.start + insertValue.length + 1);
+        this.focus(this.matchedMention.query.start + insertValue.length);
     }
 
     private getInsertValue(item: MentionDefaultDataItem) {

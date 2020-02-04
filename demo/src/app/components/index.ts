@@ -91,6 +91,7 @@ import { DemoVoteWeakComponent } from './+vote/weak/vote-weak.component';
 import { DemoVoteBasicComponent } from './+vote/basic/vote-basic.component';
 import { DemoVoteIconComponent } from './+vote/icon/vote-icon.component';
 import { DemoMentionModule } from './+mention';
+import { DemoDatePickerModule } from './+datepicker';
 
 export const COMPONENTS = [
     DemoCopySectionComponent,
@@ -246,5 +247,6 @@ export const DEMO_MODULES = [
     DemoSkeletonModule,
     DemoAlertModule,
     DemoCheckboxModule,
-    DemoMentionModule
+    DemoMentionModule,
+    DemoDatePickerModule
 ];

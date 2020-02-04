@@ -32,6 +32,7 @@ export class DemoMentionRemoteComponent implements OnInit {
                 data: members,
                 displayTemplateRef: this.memberDisplayTemplateRef,
                 emptyText: '无匹配的成员',
+                autoClose: false,
                 search: (term: string) => {
                     const result = members.filter(item => {
                         return (

@@ -1,0 +1,33 @@
+<thy-picker
+  [isRange]="false"
+  [value]="thyValue"
+  (valueChange)="onValueChange($event)"
+  [open]="thyOpen"
+  [disabled]="thyDisabled"
+  [format]="thyFormat"
+  [allowClear]="thyAllowClear"
+  [className]="thyOriginClassName"
+  [autoFocus]="thyAutoFocus"
+  [placeholder]="thyPlaceHolder"
+  [readonly]="thyReadonly"
+  [size]="thySize"
+  (openChange)="onOpenChange($event)"
+>
+  <div *ngIf="realOpenState">
+    <div class="thy-calendar-picker-container thy-calendar thy-calendar-month {{ thyPanelClassName }}">
+      <div class="thy-calendar-header-wrap">
+        <calendar-header
+          [disabledMonth]="thyDisabledDate"
+          [disabledYear]="thyDisabledDate"
+          [panelMode]="panelMode"
+          (panelModeChange)="onPanelModeChange($event)"
+          [value]="thyValue"
+          (chooseYear)="onChooseValue('year', $event)"
+          (chooseMonth)="onChooseValue('month', $event)"
+          [enablePrev]="true"
+          [enableNext]="true"
+        ></calendar-header>
+      </div>
+    </div>
+  </div>
+</thy-picker>

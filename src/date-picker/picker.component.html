@@ -1,0 +1,56 @@
+<span
+  cdkOverlayOrigin
+  #origin="cdkOverlayOrigin"
+  class="{{ prefixCls }}-picker {{ size ? prefixCls + '-picker-' + size : '' }} {{ className }}"
+  (click)="onClickInputBox()"
+>
+  <ng-container>
+    <input
+      #pickerInput
+      thyInput
+      class="form-control-{{ size }} form-control {{ prefixCls }}-picker-input"
+      [thySize]="size"
+      [class.thy-input-disabled]="disabled"
+      [disabled]="disabled"
+      readonly
+      value="{{ getReadableValue() }}"
+      placeholder="{{ getPlaceholder() }}"
+    />
+    <ng-container *ngTemplateOutlet="tplRightRest"></ng-container>
+  </ng-container>
+</span>
+
+<!-- Right operator icons -->
+<ng-template #tplRightRest>
+  <thy-icon
+    thyIconName="close-circle-bold-fill"
+    *ngIf="!disabled && !isEmptyValue(value) && allowClear"
+    class="{{ prefixCls }}-picker-clear"
+    (click)="onClickClear($event)"
+  ></thy-icon>
+  <span class="{{ prefixCls }}-picker-icon">
+    <thy-icon thyIconName="calendar"></thy-icon>
+  </span>
+</ng-template>
+
+<!-- Overlay -->
+<ng-template
+  cdkConnectedOverlay
+  [cdkConnectedOverlayOrigin]="origin"
+  [cdkConnectedOverlayOpen]="realOpenState"
+  [cdkConnectedOverlayHasBackdrop]="!isOpenHandledByUser()"
+  [cdkConnectedOverlayPositions]="overlayPositions"
+  cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
+  (positionChange)="onPositionChange($event)"
+  (backdropClick)="onClickBackdrop()"
+  (detach)="onOverlayDetach()"
+>
+  <div
+    style="position: relative;"
+    [style.left]="currentPositionX === 'start' ? '-2px' : '2px'"
+    [style.top]="currentPositionY === 'top' ? '-2px' : '2px'"
+  >
+    <!-- Compatible for overlay that not support offset dynamically and immediately -->
+    <ng-content></ng-content>
+  </div>
+</ng-template>

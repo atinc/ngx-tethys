@@ -25,7 +25,7 @@
       </ng-container>
       <ng-template #subGroupTemplate>
         <dl *ngFor="let subGroup of group.children">
-          <dd class="toc-item-group">{{ subGroup.name }}</dd>
+          <dd class="toc-item-group">{{ subGroup.zhName }}</dd>
           <dd class="toc-item" *ngFor="let item of subGroup.children">
             <a [routerLink]="[group.routePath, item.routePath]" routerLinkActive="active">
               <thy-badge thySize="sm" [thyContext]="item.state" class="pr-3" [class.deprecated]="item.deprecated">
