@@ -1,3 +1,20 @@
+## [7.6.26](https://github.com/worktile/ngx-tethys/compare/7.6.24...7.6.26) (2020-01-16)
+
+
+### Bug Fixes
+
+* fix select can not auto close when multiple select(#INF-300) ([7487e1f](https://github.com/worktile/ngx-tethys/commit/7487e1f)), closes [#INF-300](https://github.com/worktile/ngx-tethys/issues/INF-300)
+* **mention:** fix instert value in next line bug ([9056844](https://github.com/worktile/ngx-tethys/commit/9056844))
+* **mention:** fix popover position when data changed ([0651d3d](https://github.com/worktile/ngx-tethys/commit/0651d3d))
+* **popover:** fix DOCUMENT import error ([#496](https://github.com/worktile/ngx-tethys/issues/496)) ([1e15f6c](https://github.com/worktile/ngx-tethys/commit/1e15f6c))
+
+
+### Features
+
+* **mention:** mention support anto close ([9632c32](https://github.com/worktile/ngx-tethys/commit/9632c32))
+
+
+
 ## [7.6.25](https://github.com/worktile/ngx-tethys/compare/7.6.24...7.6.25) (2020-01-13)
 
 
