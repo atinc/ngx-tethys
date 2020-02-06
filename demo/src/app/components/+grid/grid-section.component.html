@@ -32,14 +32,16 @@
       <thy-grid-column thyTitle="" thyClassName="thy-operation-links">
         <ng-template #cell let-row>
           <a href="javascript:;">设置</a>
-          <a class="link-secondary" href="javascript:;">
+          <a class="link-secondary" href="javascript:;" (click)="deleteItem(row)">
             <i class="wtf wtf-trash-o"></i>
           </a>
         </ng-template>
       </thy-grid-column>
       <thy-grid-column thyClassName="thy-operation-links text-center">
         <ng-template #cell let-row>
-          <a href="javascript:;" thyStopPropagation (click)="onFavorite(row)">置顶</a>
+          <a href="javascript:;" id="{{ row.name }}" thyTooltip="置顶" thyStopPropagation (click)="onFavorite(row)"
+            >置顶</a
+          >
         </ng-template>
       </thy-grid-column>
     </thy-grid>

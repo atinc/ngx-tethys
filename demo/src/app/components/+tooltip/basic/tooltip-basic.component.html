@@ -1,0 +1,86 @@
+<form thyForm thyLayout="inline">
+  <thy-form-group thyLabelText="Trigger">
+    <thy-select name="size" [(ngModel)]="tooltipConfig.trigger" (ngModelChange)="triggerChange()" name="trigger">
+      <option value="hover">hover</option>
+      <option value="focus">focus</option>
+      <option value="click">click</option>
+    </thy-select>
+  </thy-form-group>
+  <thy-form-group thyLabelText="Placement">
+    <thy-select name="size" [(ngModel)]="tooltipConfig.placement" name="placement" (ngModelChange)="refreshTooltips()">
+      <option value="top">top</option>
+      <option value="topLeft">topLeft</option>
+      <option value="topRight">topRight</option>
+      <option value="bottom">bottom</option>
+      <option value="bottomLeft">bottomLeft</option>
+      <option value="bottomRight">bottomRight</option>
+      <option value="left">left</option>
+      <option value="leftTop">leftTop</option>
+      <option value="leftBottom">leftBottom</option>
+      <option value="right">right</option>
+      <option value="rightTop">rightTop</option>
+      <option value="rightBottom">rightBottom</option>
+    </thy-select>
+  </thy-form-group>
+
+  <thy-form-group thyLabelText="Offset">
+    <thy-select name="size" [(ngModel)]="tooltipConfig.offset" (ngModelChange)="triggerChange()" name="offset">
+      <option value="0">0</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+      <option value="15">15</option>
+      <option value="20">20</option>
+    </thy-select>
+  </thy-form-group>
+</form>
+<form thyForm thyLayout="inline" style="margin-top: 15px;">
+  <thy-form-group thyLabelText="Show Delay">
+    <input thyInput type="number" [(ngModel)]="tooltipConfig.showDelay" name="showDelay" />
+  </thy-form-group>
+  <thy-form-group thyLabelText="Hide Delay">
+    <input thyInput type="number" [(ngModel)]="tooltipConfig.hideDelay" name="hideDelay" />
+  </thy-form-group>
+
+  <thy-form-group thyLabelText="">
+    <label thyCheckbox thyLabelText="Disabled" [(ngModel)]="tooltipConfig.disabled" name="disabled"></label>
+  </thy-form-group>
+  <thy-form-group thyLabelText="">
+    <label thyCheckbox thyLabelText="tooltipPin" [(ngModel)]="tooltipConfig.thyTooltipPin" name="pin"></label>
+  </thy-form-group>
+</form>
+<div class="mt-3" *ngIf="showTooltips">
+  <button
+    thyTooltip="Hello, welcome to Worktile"
+    [thyTooltipTrigger]="tooltipConfig.trigger"
+    [thyTooltipPlacement]="tooltipConfig.placement"
+    [thyTooltipDisabled]="tooltipConfig.disabled"
+    [thyTooltipShowDelay]="tooltipConfig.showDelay"
+    [thyTooltipHideDelay]="tooltipConfig.hideDelay"
+    thyButton="primary"
+    [thyTooltipOffset]="tooltipConfig.offset"
+    [thyTooltipPin]="tooltipConfig.thyTooltipPin"
+  >
+    Basic Demo
+  </button>
+  <span
+    class="ml-2"
+    thyTooltip="Hello, welcome to Worktile"
+    [thyTooltipTrigger]="tooltipConfig.trigger"
+    [thyTooltipPlacement]="tooltipConfig.placement"
+    [thyTooltipDisabled]="tooltipConfig.disabled"
+    [thyTooltipShowDelay]="tooltipConfig.showDelay"
+    [thyTooltipHideDelay]="tooltipConfig.hideDelay"
+    [thyTooltipOffset]="tooltipConfig.offset"
+    [thyTooltipPin]="tooltipConfig.thyTooltipPin"
+  >
+    Tooltip will show when mouse enter.
+  </span>
+</div>
