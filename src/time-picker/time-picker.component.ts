@@ -37,7 +37,7 @@ import { ThyTimePickerStore } from './time-picker.store';
 export const TIMEPICKER_CONTROL_VALUE_ACCESSOR: StaticProvider = {
     provide: NG_VALUE_ACCESSOR,
     /* tslint:disable-next-line: no-use-before-declare */
-    useExisting: forwardRef(() => TimePickerComponent),
+    useExisting: forwardRef(() => ThyTimePickerComponent),
     multi: true
 };
 
@@ -47,7 +47,7 @@ export const TIMEPICKER_CONTROL_VALUE_ACCESSOR: StaticProvider = {
     providers: [TIMEPICKER_CONTROL_VALUE_ACCESSOR, ThyTimePickerStore],
     templateUrl: './time-picker.component.html'
 })
-export class TimePickerComponent
+export class ThyTimePickerComponent
     implements ControlValueAccessor, TimePickerComponentState, TimePickerControls, OnChanges, OnDestroy {
     /** hours change step */
     @Input() hourStep: number;
