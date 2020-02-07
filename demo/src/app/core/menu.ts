@@ -41,7 +41,7 @@ export const allMenus = [
                 name: 'Interactions',
                 zhName: '交互',
                 children: [
-                    { name: 'Drop Drag', zhName: '拖拽', routePath: 'drop-drag' },
+                    { name: 'DropDrag', zhName: '拖拽', routePath: 'drop-drag' },
                     { name: 'Copy', zhName: '复制', routePath: 'copy' }
                 ]
             }
@@ -77,7 +77,7 @@ export const allMenus = [
                     { name: 'Breadcrumb', zhName: '面包屑', routePath: 'breadcrumb' },
                     { name: 'ActionMenu', zhName: '下拉菜单', routePath: 'action-menu' },
                     { name: 'Dropdown', zhName: '下拉菜单', routePath: 'dropdown' },
-                    { name: 'Arrow-switcher', zhName: '上下条切换', routePath: 'arrow-switcher' },
+                    { name: 'ArrowSwitcher', zhName: '上下条切换', routePath: 'arrow-switcher' },
                     { name: 'Menu', zhName: '菜单', routePath: 'menu' }
                 ]
             },
@@ -92,17 +92,17 @@ export const allMenus = [
                     { name: 'DatePicker', zhName: '日期选择', routePath: 'date-picker', state: 'new' },
                     { name: 'Select', zhName: '下拉选择', routePath: 'select' },
 
-                    { name: 'Tree Select', zhName: '树选择', routePath: 'tree-select' },
+                    { name: 'TreeSelect', zhName: '树选择', routePath: 'tree-select' },
                     { name: 'Cascader', zhName: '级联选择菜单', routePath: 'cascader' },
 
-                    { name: 'Property Operation', zhName: '属性操作', routePath: 'property-operation' },
+                    { name: 'DateRange', zhName: '时间段选择', routePath: 'date-range' },
+                    { name: 'PropertyOperation', zhName: '属性操作', routePath: 'property-operation' },
                     { name: 'Transfer', zhName: '穿梭框', routePath: 'transfer' },
                     { name: 'Mention', zhName: '提及', routePath: 'mention' },
                     { name: 'Switch', zhName: '开关', routePath: 'switch' },
                     { name: 'Uploader', zhName: '上传', routePath: 'uploader' },
 
-                    { name: 'Datepicker', zhName: '日期选择', routePath: 'datepicker', deprecated: true },
-                    { name: 'DateRange', zhName: '时间段选择', routePath: 'date-range', deprecated: true }
+                    { name: 'Datepicker', zhName: '日期选择', routePath: 'datepicker', deprecated: true }
                 ]
             },
             {
