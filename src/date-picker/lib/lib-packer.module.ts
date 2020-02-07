@@ -15,10 +15,10 @@ import { DateTableComponent } from './date/date-table.component';
 import { DateTableCellComponent } from './date/date-table-cell.component';
 import { ThyButtonModule } from '../../button/button.module';
 import { ThyIconModule } from '../../icon/icon.module';
-import { TimepickerModule } from 'ngx-bootstrap/timepicker';
+import { ThyTimePickerModule } from '../../time-picker/time-picker.module';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ThyButtonModule, ThyIconModule, TimepickerModule.forRoot()],
+    imports: [CommonModule, FormsModule, ThyButtonModule, ThyIconModule, ThyTimePickerModule],
     exports: [
         CalendarHeaderComponent,
         CalendarFooterComponent,
