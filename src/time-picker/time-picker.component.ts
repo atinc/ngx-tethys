@@ -42,7 +42,7 @@ export const TIMEPICKER_CONTROL_VALUE_ACCESSOR: StaticProvider = {
 };
 
 @Component({
-    selector: 'time-picker',
+    selector: 'thy-time-picker',
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [TIMEPICKER_CONTROL_VALUE_ACCESSOR, ThyTimePickerStore],
     templateUrl: './time-picker.component.html'
@@ -92,11 +92,6 @@ export class ThyTimePickerComponent
     minutes: string;
     seconds: string;
     meridian: string;
-
-    /** @deprecated - please use `isEditable` instead */
-    get isSpinnersVisible(): boolean {
-        return this.showSpinners && !this.readonlyInput;
-    }
 
     get isEditable(): boolean {
         return !(this.readonlyInput || this.disabled);

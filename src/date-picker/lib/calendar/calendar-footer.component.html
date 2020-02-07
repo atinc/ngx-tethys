@@ -2,13 +2,13 @@
   <a href="javascript:;" *ngIf="isCanTime" class="link-has-icon" (click)="changeTimeShowMode('show')">
     <thy-icon thyIconName="clock-circle"></thy-icon>设置时间
   </a>
-  <time-picker
+  <thy-time-picker
     *ngIf="isShowTime"
     class="time-picker-wrap"
     [showMeridian]="false"
     [ngModel]="value?.nativeDate"
     (ngModelChange)="onSelectTime($event)"
-  ></time-picker>
+  ></thy-time-picker>
   <div class="time-picker-btn-wrap">
     <button *ngIf="!isCanTime" class="time-picker-ok-btn" thyButton="primary" thySize="sm" (click)="onTimeOk()">
       确定
