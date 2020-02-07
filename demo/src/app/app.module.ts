@@ -6,7 +6,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 
 import { NgxTethysModule } from 'ngx-tethys';
 import { RouterModule } from '@angular/router';
-import { SortablejsModule } from 'angular-sortablejs';
+import { SortablejsModule } from 'ngx-sortablejs';
 
 import { AppComponent } from './app.component';
 import { COMPONENTS, ENTRY_COMPONENTS, DEMO_MODULES } from './components';

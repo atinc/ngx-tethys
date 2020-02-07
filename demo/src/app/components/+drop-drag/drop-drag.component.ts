@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SortablejsOptions } from 'angular-sortablejs';
+import { SortablejsOptions } from 'ngx-sortablejs';
 
 @Component({
     selector: 'demo-drop-drag',

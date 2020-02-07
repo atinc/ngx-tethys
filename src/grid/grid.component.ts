@@ -34,7 +34,7 @@ import {
     IThyGridColumnParentComponent,
     THY_GRID_COLUMN_PARENT_COMPONENT
 } from './grid-column.component';
-import { SortablejsOptions } from 'angular-sortablejs';
+import { SortablejsOptions } from 'ngx-sortablejs';
 import { helpers } from '../util';
 
 export type ThyGridTheme = 'default' | 'bordered';
