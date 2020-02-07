@@ -72,8 +72,7 @@ import { DemoStoreSectionComponent } from './+store/store-section.component';
 import { DemoStrengthComponent } from './+strength/strength-section.component';
 import { DemoSwitchSectionComponent } from './+switch/switch-section.component';
 import { DemoTableSectionComponent } from './+table/table-section.component';
-import { TOOLTIP_COMPONENTS } from './+tooltip';
-import { DemoTooltipSectionComponent } from './+tooltip/tooltip-section.component';
+import { DemoTooltipModule } from './+tooltip';
 import { DemoTransferSectionComponent } from './+transfer/transfer-section.component';
 import { DemoTreeModule } from './+tree';
 import { DemoTreeSelectSectionComponent } from './+tree-select/tree-select-section.component';
@@ -158,7 +157,6 @@ export const COMPONENTS = [
     DemoVoteBasicComponent,
     DemoVoteIconComponent,
 
-    DemoTooltipSectionComponent,
     DemoOverlaySectionComponent,
     CreateOverlayComponent,
 
@@ -166,7 +164,6 @@ export const COMPONENTS = [
     DemoPropertyOperationGroupComponent,
 
     ...PROGRESS_COMPONENTS,
-    ...TOOLTIP_COMPONENTS,
     ...ICON_COMPONENTS,
 
     DemoBreadcrumbSectionComponent,
@@ -216,7 +213,6 @@ export const ENTRY_COMPONENTS = [
     DemoPropertyOperationGroupComponent,
 
     ...PROGRESS_COMPONENTS,
-    ...TOOLTIP_COMPONENTS,
     ...ICON_COMPONENTS,
     DemoFlexibleTextBasicComponent,
 
@@ -248,5 +244,6 @@ export const DEMO_MODULES = [
     DemoAlertModule,
     DemoCheckboxModule,
     DemoMentionModule,
-    DemoDatePickerModule
+    DemoDatePickerModule,
+    DemoTooltipModule
 ];

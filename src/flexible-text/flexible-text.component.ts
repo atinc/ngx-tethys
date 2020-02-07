@@ -48,7 +48,7 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
     @Input('thyTooltipContent') set thyContent(value: string | TemplateRef<HTMLElement>) {
         this.content = value;
         if (this.tooltipService.thyTooltipDirective) {
-            this.tooltipService.thyTooltipDirective.thyContent = this.content;
+            this.tooltipService.thyTooltipDirective.content = this.content;
         }
     }
 
@@ -75,7 +75,7 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
         if (this.placement) {
             this.tooltipService.thyTooltipDirective.placement = this.placement;
         }
-        this.tooltipService.thyTooltipDirective.thyContent = this.content;
+        this.tooltipService.thyTooltipDirective.content = this.content;
         this.tooltipService.thyTooltipDirective.thyTooltipDisabled = true;
     }
 

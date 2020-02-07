@@ -1,4 +1,4 @@
-import { NgModule, Component, DebugElement, ViewChild } from '@angular/core';
+import { NgModule, Component, DebugElement, ViewChild, ElementRef } from '@angular/core';
 import { ThyTooltipModule } from '../tooltip.module';
 import { ComponentFixture, fakeAsync, TestBed, inject, tick, flushMicrotasks, async } from '@angular/core/testing';
 import { OverlayContainer } from '@angular/cdk/overlay';
@@ -39,6 +39,8 @@ class ThyDemoTooltipBasicComponent {
     hideDelay = undefined;
 
     placement = 'top';
+
+    constructor(public elementRef: ElementRef<HTMLElement>) {}
 }
 
 @Component({
@@ -214,20 +216,25 @@ describe(`ThyTooltip`, () => {
             expect(getTooltipVisible()).toBe(false);
         }));
 
-        // it('should be able to override the default placement', fakeAsync(() => {
-        //     basicTestComponent.placement = 'left';
-        //     fixture.detectChanges();
+        it('should be able to override the default placement', fakeAsync(() => {
+            const originElement = basicTestComponent.elementRef.nativeElement;
 
-        //     expect(tooltipDirective.placement).toBe('left');
-        //     tooltipDirective.show(0);
-        //     tick(0);
-        //     fixture.detectChanges();
-        //     tick(200);
+            originElement.style.position = 'absolute';
+            originElement.style.top = '200px';
+            originElement.style.right = '20px';
 
-        //     expect(overlayContainerElement.textContent).toContain(initialTooltipMessage);
-        //     const tooltipElement = overlayContainerElement.querySelector(`.${TOOLTIP_CLASS}`) as HTMLElement;
-        //     expect(tooltipElement.classList.contains('thy-tooltip-left')).toBe(true);
-        // }));
+            basicTestComponent.placement = 'left';
+            fixture.detectChanges();
+            expect(tooltipDirective.placement).toBe('left');
+            tooltipDirective.show(0);
+            tick(0);
+            fixture.detectChanges();
+            tick(200);
+
+            expect(overlayContainerElement.textContent).toContain(initialTooltipMessage);
+            const tooltipPaneElement = overlayContainerElement.querySelector(`.thy-tooltip-panel`) as HTMLElement;
+            expect(tooltipPaneElement.classList.contains('thy-tooltip-left')).toBe(true);
+        }));
 
         it('should not show tooltip when content is not present or empty', () => {
             assertTooltipInstance(tooltipDirective, false);
@@ -292,44 +299,60 @@ describe(`ThyTooltip`, () => {
         it('should not show if hide is called before delay finishes', async(() => {
             assertTooltipInstance(tooltipDirective, false);
 
-            // const tooltipDelay = 1000;
+            const tooltipDelay = 1000;
 
-            // tooltipDirective.show(tooltipDelay);
-            // expect(tooltipDirective._isTooltipVisible()).toBe(false);
+            tooltipDirective.show(tooltipDelay);
+            expect(tooltipDirective.isTooltipVisible()).toBe(false);
 
-            // fixture.detectChanges();
-            // expect(overlayContainerElement.textContent).toContain('');
-            // tooltipDirective.hide();
+            fixture.detectChanges();
+            expect(overlayContainerElement.textContent).toContain('');
+            tooltipDirective.hide();
 
-            // fixture.whenStable().then(() => {
-            //   expect(tooltipDirective._isTooltipVisible()).toBe(false);
-            // });
+            fixture.whenStable().then(() => {
+                expect(tooltipDirective.isTooltipVisible()).toBe(false);
+            });
         }));
 
-        it('should be able to update the tooltip placement while open', fakeAsync(() => {
-            // tooltipDirective.position = 'below';
-            // tooltipDirective.show();
-            // tick();
-            // assertTooltipInstance(tooltipDirective, true);
-            // tooltipDirective.position = 'above';
-            // spyOn(tooltipDirective._overlayRef!, 'updatePosition').and.callThrough();
-            // fixture.detectChanges();
-            // tick();
-            // assertTooltipInstance(tooltipDirective, true);
-            // expect(tooltipDirective._overlayRef!.updatePosition).toHaveBeenCalled();
-        }));
+        // it('should be able to update the tooltip placement while open', fakeAsync(() => {
+        //     tooltipDirective.placement = 'bottom';
+        //     tooltipDirective.show();
+        //     tick();
+        //     assertTooltipInstance(tooltipDirective, true);
+        //     tooltipDirective.placement = 'top';
+        //     spyOn(tooltipDirective['overlayRef'], 'updatePosition').and.callThrough();
+        //     fixture.detectChanges();
+        //     tick();
+        //     assertTooltipInstance(tooltipDirective, true);
+        //     expect(tooltipDirective['overlayRef'].updatePosition).toHaveBeenCalled();
+        // }));
 
         it('should be able to modify the tooltip content', fakeAsync(() => {
-            // assertTooltipInstance(tooltipDirective, false);
-            // tooltipDirective.show();
-            // tick(0); // Tick for the show delay (default is 0)
-            // expect(tooltipDirective._tooltipInstance!._visibility).toBe('visible');
-            // fixture.detectChanges();
-            // expect(overlayContainerElement.textContent).toContain(initialTooltipMessage);
-            // const newMessage = 'new tooltip message';
-            // tooltipDirective.message = newMessage;
-            // fixture.detectChanges();
-            // expect(overlayContainerElement.textContent).toContain(newMessage);
+            assertTooltipInstance(tooltipDirective, false);
+            tooltipDirective.show();
+            tick(0); // Tick for the show delay (default is 0)
+            expect(tooltipDirective.tooltipInstance.visibility).toBe('visible');
+            fixture.detectChanges();
+            expect(overlayContainerElement.textContent).toContain(initialTooltipMessage);
+            const newMessage = 'new tooltip message';
+            tooltipDirective.content = newMessage;
+            fixture.detectChanges();
+            expect(overlayContainerElement.textContent).toContain(newMessage);
+        }));
+
+        it('should hide if origin has destroyed', fakeAsync(() => {
+            // Display the tooltip with a timeout before hiding.
+            tooltipDirective.show(0);
+            fixture.detectChanges();
+            tick(0);
+            expect(getTooltipVisible()).toBe(true);
+            expect(overlayContainerElement.textContent).toBeTruthy();
+
+            // Set tooltip to be disabled and verify that the tooltip hides.
+            basicTestComponent.tooltip.ngOnDestroy();
+            fixture.detectChanges();
+            tick(0);
+            expect(getTooltipVisible()).toBe(false);
+            expect(overlayContainerElement.textContent).toBeFalsy();
         }));
     });
 

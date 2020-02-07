@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'app-tooltip-template-data-demo',
-    templateUrl: './tooltip-template-demo.component.html'
+    templateUrl: './tooltip-template-data.component.html'
 })
-export class TooltipTemplateContextDemoComponent {
+export class TooltipTemplateDataDemoComponent {
     tooltipConfig = {
         trigger: 'hover',
         placement: 'top',
