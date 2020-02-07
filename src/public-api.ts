@@ -59,3 +59,4 @@ export * from './vote';
 export * from './result';
 export * from './mention';
 export * from './date-picker';
+export * from './time-picker';
