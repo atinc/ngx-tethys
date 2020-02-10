@@ -14,6 +14,7 @@
     "lodash": "*",
     "sortablejs": "*",
     "angular-sortablejs": "*",
-    "rxjs": "*"
+    "rxjs": "*",
+    "date-fns": "*"
   }
 }
