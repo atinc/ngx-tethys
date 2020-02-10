@@ -1,6 +1,6 @@
 {
   "name": "ngx-tethys",
-  "version": "7.6.26",
+  "version": "7.6.27",
   "license": "MIT",
   "scripts": {
     "build": "npm run build:ngm",
@@ -16,7 +16,7 @@
     "pub-only": "cd ./built && npm publish && cd ..",
     "pub": "npm run build && npm run pub-only",
     "ng": "ng",
-    "start": "npm run build:theme && concurrently \"ng serve --port 8888\" \"gulp build-theme:watch\"",
+    "start": "npm run build:theme && concurrently \"ng serve --port 8888 --disable-host-check\" \"gulp build-theme:watch\"",
     "build:demo": "npm run build:docs",
     "build:docs": "ng build demo --prod --extract-css --baseHref=/ngx-tethys/",
     "test": "ng test ngx-tethys",
@@ -55,7 +55,6 @@
     "ng-packagr": "^4.7.1",
     "ngx-bootstrap": "^4.2.0",
     "ngx-highlightjs": "^3.0.0",
-    "node-sass": "^4.12.0",
     "rxjs": "^6.4.0",
     "sortablejs": "^1.7.0",
     "tsickle": "^0.34.3",

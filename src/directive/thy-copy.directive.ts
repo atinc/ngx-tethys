@@ -43,7 +43,7 @@ export class ThyCopyDirective implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.tooltipService.attach(this.elementRef, this.viewContainerRef, 'hover');
-        this.tooltipService.thyTooltipDirective.thyContent = '点击复制';
+        this.tooltipService.thyTooltipDirective.content = '点击复制';
     }
 
     private getContent(event: Event) {
