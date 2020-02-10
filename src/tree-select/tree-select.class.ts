@@ -9,3 +9,5 @@ export interface ThyTreeSelectNode {
     disable?: boolean;
     isLoading?: boolean;
 }
+
+export type ThyTreeSelectType = 'default' | 'especial';
