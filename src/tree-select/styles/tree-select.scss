@@ -23,6 +23,11 @@
         .thy-option-item {
             @include thy-option();
         }
+
+        .thy-tree-select-option-icon {
+            padding-right: 5px;
+            color: $gray-500;
+        }
     }
 
     &.thy-tree-select-dropdown-multiple {
