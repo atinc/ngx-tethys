@@ -199,32 +199,24 @@ a.link-muted:hover {
 .btn-link.btn-link-info:disabled:hover {
     color: #cacaca;
 }
-.btn-icon,
 .btn-link.btn-link-default {
     color: #aaa;
     background-color: transparent;
 }
-.btn-icon:hover,
 .btn-link.btn-link-default:hover {
     color: #48525c;
     text-decoration: none;
 }
-.btn-icon:focus,
 .btn-link.btn-link-default.focus,
-.btn-link.btn-link-default:focus,
-.focus.btn-icon {
+.btn-link.btn-link-default:focus {
     text-decoration: none;
 }
-.btn-icon:disabled,
 .btn-link.btn-link-default.disabled,
-.btn-link.btn-link-default:disabled,
-.disabled.btn-icon {
+.btn-link.btn-link-default:disabled {
     color: #cacaca;
 }
-.btn-icon:disabled:hover,
 .btn-link.btn-link-default.disabled:hover,
-.btn-link.btn-link-default:disabled:hover,
-.disabled.btn-icon:hover {
+.btn-link.btn-link-default:disabled:hover {
     color: #cacaca;
 }
 .btn-link.btn-link-primary-weak {
@@ -305,6 +297,26 @@ a.link-muted:hover {
 }
 .btn-link.btn-link-success.disabled:hover,
 .btn-link.btn-link-success:disabled:hover {
+    color: #cacaca;
+}
+.btn-icon {
+    color: #aaa;
+    background-color: transparent;
+}
+.btn-icon:hover {
+    color: #48525c;
+    text-decoration: none;
+}
+.btn-icon.focus,
+.btn-icon:focus {
+    text-decoration: none;
+}
+.btn-icon.disabled,
+.btn-icon:disabled {
+    color: #cacaca;
+}
+.btn-icon.disabled:hover,
+.btn-icon:disabled:hover {
     color: #cacaca;
 }
 .btn-icon-light {
