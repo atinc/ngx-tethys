@@ -11,7 +11,9 @@
 
     &-input {
         outline: none;
-        cursor: pointer;
+        &:not(.thy-input-readonly) {
+            cursor: pointer;
+        }
 
         &.thy-input {
             line-height: $line-height-base;

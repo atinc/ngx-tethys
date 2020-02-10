@@ -30,7 +30,6 @@ import { inputValueToBoolean, isString } from '../util/helpers';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ThyTooltipComponent } from './tooltip.component';
 import { getFlexiblePositions, ThyPlacement, ThyOverlayDirectiveBase } from '../core/overlay';
-import { fromEvent } from 'rxjs';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { THY_TOOLTIP_DEFAULT_CONFIG_TOKEN, ThyTooltipConfig } from './tooltip.config';
 
@@ -40,17 +39,29 @@ import { THY_TOOLTIP_DEFAULT_CONFIG_TOKEN, ThyTooltipConfig } from './tooltip.co
 })
 export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnInit, OnDestroy {
     private options: ThyTooltipOptions = DEFAULT_TOOLTIP_OPTIONS;
-    private tooltipInstance: ThyTooltipComponent;
     private portal: ComponentPortal<ThyTooltipComponent>;
     private scrollStrategy: ScrollStrategy;
     private tooltipClass: string | string[];
 
-    content: string | TemplateRef<HTMLElement>;
+    tooltipInstance: ThyTooltipComponent;
 
     panelClassPrefix = 'thy-tooltip';
 
-    @Input('thyTooltip') set thyContent(value: string | TemplateRef<HTMLElement>) {
-        this.content = value && isString(value) ? `${value}`.trim() : value;
+    private _content: string | TemplateRef<HTMLElement>;
+
+    get content() {
+        return this._content;
+    }
+
+    @Input('thyTooltip') set content(value: string | TemplateRef<HTMLElement>) {
+        // If the content is not a string (e.g. number), convert it to a string and trim it.
+        this._content = value && isString(value) ? `${value}`.trim() : value;
+
+        if (!this._content && this.isTooltipVisible()) {
+            this.hide(0);
+        } else {
+            this.updateTooltipContent();
+        }
     }
 
     // tslint:disable-next-line:no-input-rename
@@ -171,7 +182,7 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
     }
 
     /** Returns true if the tooltip is currently visible to the user */
-    private isTooltipVisible(): boolean {
+    public isTooltipVisible(): boolean {
         return !!this.tooltipInstance && this.tooltipInstance.isVisible();
     }
 
@@ -204,7 +215,6 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
         private thyTooltipConfig: ThyTooltipConfig
     ) {
         super(elementRef, platform, focusMonitor, ngZone);
-
         this.tooltipPin = this.thyTooltipConfig.tooltipPin;
         this.options = DEFAULT_TOOLTIP_OPTIONS;
         this.scrollStrategy = overlay.scrollStrategies.reposition({
@@ -248,6 +258,7 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
     }
 
     ngOnDestroy() {
+        this.hide(0);
         this.dispose();
         if (this.overlayRef) {
             this.tooltipInstance = null;

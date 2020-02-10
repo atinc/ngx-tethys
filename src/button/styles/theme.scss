@@ -56,7 +56,7 @@
 // btn-icon theme
 
 .btn-icon {
-    @extend .btn-link.btn-link-default;
+    @include btn-link-variant($btn-link-color-default, $primary, none);
 }
 
 .btn-icon-light {

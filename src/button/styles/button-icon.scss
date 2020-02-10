@@ -5,7 +5,7 @@ $btn-icon-circle-padding-xs: 4px;
 
 .btn-icon {
     padding: 0px;
-    @extend .btn-link.btn-link-default;
+    @include btn-link-variant($btn-link-color-default, $primary, none);
     i,
     .wtf,
     .thy-icon {
@@ -22,7 +22,8 @@ $btn-icon-circle-padding-xs: 4px;
 }
 
 .btn-icon.btn-icon-danger-weak {
-    @extend .btn-link.btn-link-danger-weak;
+    @extend .btn-link;
+    @extend .btn-link-danger-weak;
 }
 
 .btn-icon-circle {
