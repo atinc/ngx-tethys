@@ -83,7 +83,7 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
 
     public positions: ConnectionPositionPair[];
 
-    public icons: { expand: string; collapse: string };
+    public icons: { expand: string; collapse: string } = { expand: 'caret-right-down', collapse: 'caret-right' };
 
     private initialled = false;
 
