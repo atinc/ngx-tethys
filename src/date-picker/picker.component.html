@@ -11,6 +11,7 @@
       class="form-control-{{ size }} form-control {{ prefixCls }}-picker-input"
       [thySize]="size"
       [class.thy-input-disabled]="disabled"
+      [class.thy-input-readonly]="readonly"
       [disabled]="disabled"
       readonly
       value="{{ getReadableValue() }}"
@@ -24,7 +25,7 @@
 <ng-template #tplRightRest>
   <thy-icon
     thyIconName="close-circle-bold-fill"
-    *ngIf="!disabled && !isEmptyValue(value) && allowClear"
+    *ngIf="!disabled && !isEmptyValue(value) && allowClear && !readonly"
     class="{{ prefixCls }}-picker-clear"
     (click)="onClickClear($event)"
   ></thy-icon>

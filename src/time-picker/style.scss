@@ -1,0 +1,24 @@
+.thy-chevron {
+    width: 7px;
+    height: 7px;
+    border-width: 2px 0px 0 2px;
+    border-color: $gray-700;
+    border-style: solid;
+    display: block;
+    position: relative;
+}
+
+.thy-chevron-up {
+    transform: rotate(45deg);
+    top: 2px;
+}
+
+.thy-chevron-down {
+    transform: rotate(-135deg);
+    top: -2px;
+}
+
+.thy-time-picker-field {
+    width: 50px;
+    padding: $input-padding-y-sm $input-padding-x-sm;
+}

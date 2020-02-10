@@ -4,6 +4,7 @@ import { DateEntry, RangeEntry } from './standard-types';
 
 const DATE_PICKER_REQUIRED_VALIDATOR: StaticProvider = {
     provide: NG_VALIDATORS,
+    // tslint:disable-next-line: no-use-before-declare
     useExisting: forwardRef(() => DatePickerRequiredValidator),
     multi: true
 };
@@ -36,6 +37,7 @@ export class DatePickerRequiredValidator implements Validator {
 
 const RANGE_PICKER_REQUIRED_VALIDATOR: StaticProvider = {
     provide: NG_VALIDATORS,
+    // tslint:disable-next-line: no-use-before-declare
     useExisting: forwardRef(() => RangePickerRequiredValidator),
     multi: true
 };

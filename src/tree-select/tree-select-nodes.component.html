@@ -15,17 +15,17 @@
         class="thy-option-item"
         [ngClass]="{ active: treeNodeIsSelected(node) }"
         [class.disabled]="treeNodeIsDisable(node)"
-        [ngStyle]="{ 'padding-left.px': 10 * node.level + 5 }"
+        [ngStyle]="{ 'padding-left.px': 20 * node.level + 5 }"
         (click)="selectTreeNode($event, node)"
         *ngIf="!treeNodeIsHidden(node)"
       >
         <ng-template #treeSelectNode> </ng-template>
         <span
-          class="text-desc"
+          class="thy-tree-select-option-icon"
           [class.invisible]="!(node.children?.length > 0 || (node[childCountKey] && node[childCountKey] > 0))"
           (click)="nodeExpandToggle($event, node)"
         >
-          <thy-icon thyIconName="caret-right-down" [class.rotate-caret]="!treeNodeIsExpand(node)"></thy-icon>
+          <thy-icon [thyIconName]="treeNodeIsExpand(node) ? parent.icons.expand : parent.icons.collapse"></thy-icon>
         </span>
         <span class="ml-1">
           <ng-template

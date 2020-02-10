@@ -14,7 +14,7 @@ import {
     Renderer2
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { ThyTreeSelectNode } from './tree-select.class';
+import { ThyTreeSelectNode, ThyTreeSelectType } from './tree-select.class';
 import { isObject, isArray } from '../util/helpers';
 import { Observable, of } from 'rxjs';
 import {
@@ -83,6 +83,8 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
 
     public positions: ConnectionPositionPair[];
 
+    public icons: { expand: string; collapse: string } = { expand: 'caret-right-down', collapse: 'caret-right' };
+
     private initialled = false;
 
     public valueIsObject = false;
@@ -135,6 +137,15 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
     @Input() thyAsyncNode = false;
 
     @Input() thyShowWholeName = false;
+
+    @Input()
+    set thyIconType(type: ThyTreeSelectType) {
+        if (type === 'especial') {
+            this.icons = { expand: 'minus-square', collapse: 'plus-square' };
+        } else {
+            this.icons = { expand: 'caret-right-down', collapse: 'caret-right' };
+        }
+    }
 
     @Input() thyHiddenNodeFn: (node: ThyTreeSelectNode) => boolean = (node: ThyTreeSelectNode) => node.hidden;
 
