@@ -22,8 +22,7 @@ $btn-icon-circle-padding-xs: 4px;
 }
 
 .btn-icon.btn-icon-danger-weak {
-    @extend .btn-link;
-    @extend .btn-link-danger-weak;
+    @include btn-link-variant($gray-500, $danger, none);
 }
 
 .btn-icon-circle {
