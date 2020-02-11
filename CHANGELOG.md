@@ -1,3 +1,27 @@
+## [7.6.29](https://github.com/worktile/ngx-tethys/compare/7.6.24...7.6.29) (2020-02-11)
+
+
+### Bug Fixes
+
+* fix select can not auto close when multiple select(#INF-300) ([7487e1f](https://github.com/worktile/ngx-tethys/commit/7487e1f)), closes [#INF-300](https://github.com/worktile/ngx-tethys/issues/INF-300)
+* **button:** fix >ng8 use ngx-tethys build [@extend](https://github.com/extend) .x.x error #INF-390 ([eccc944](https://github.com/worktile/ngx-tethys/commit/eccc944)), closes [#INF-390](https://github.com/worktile/ngx-tethys/issues/INF-390)
+* **button:** icon-danger-weak include btn-link-variant mixin ([#517](https://github.com/worktile/ngx-tethys/issues/517)) ([14e95d7](https://github.com/worktile/ngx-tethys/commit/14e95d7))
+* **mention:** fix instert value in next line bug ([9056844](https://github.com/worktile/ngx-tethys/commit/9056844))
+* **mention:** fix popover position when data changed ([0651d3d](https://github.com/worktile/ngx-tethys/commit/0651d3d))
+* **popover:** fix DOCUMENT import error ([#496](https://github.com/worktile/ngx-tethys/issues/496)) ([1e15f6c](https://github.com/worktile/ngx-tethys/commit/1e15f6c))
+* **tree-select:** remove min height  #AE-849 ([8539c41](https://github.com/worktile/ngx-tethys/commit/8539c41)), closes [#AE-849](https://github.com/worktile/ngx-tethys/issues/AE-849)
+* **uitl:** set entities default value when entities is undefinde ([#509](https://github.com/worktile/ngx-tethys/issues/509)) ([9d230bc](https://github.com/worktile/ngx-tethys/commit/9d230bc))
+
+
+### Features
+
+* **date-picker:** add thyDatePicker module (#INF-125) ([b11df46](https://github.com/worktile/ngx-tethys/commit/b11df46)), closes [#INF-125](https://github.com/worktile/ngx-tethys/issues/INF-125)
+* **mention:** mention support anto close ([9632c32](https://github.com/worktile/ngx-tethys/commit/9632c32))
+* **time-picker:** add thyTimePickerModule #INF-332 ([#512](https://github.com/worktile/ngx-tethys/issues/512)) ([c639e19](https://github.com/worktile/ngx-tethys/commit/c639e19)), closes [#INF-332](https://github.com/worktile/ngx-tethys/issues/INF-332) [#INF-332](https://github.com/worktile/ngx-tethys/issues/INF-332)
+* **tree-select:** support set icon type #AE-626 ([b86fd9c](https://github.com/worktile/ngx-tethys/commit/b86fd9c)), closes [#AE-626](https://github.com/worktile/ngx-tethys/issues/AE-626)
+
+
+
 ## [7.6.28](https://github.com/worktile/ngx-tethys/compare/7.6.24...7.6.28) (2020-02-10)
 
 

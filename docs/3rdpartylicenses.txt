@@ -90,6 +90,14 @@ MIT
   0. You just DO WHAT THE FUCK YOU WANT TO.
 
 
+date-fns
+MIT
+# License
+
+date-fns is licensed under the [MIT license](http://kossnocorp.mit-license.org).
+Read more about MIT at [TLDRLegal](https://tldrlegal.com/license/mit-license).
+
+
 highlight.js
 BSD-3-Clause
 Copyright (c) 2006, Ivan Sagalaev
@@ -148,16 +156,33 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 
 
+ngx-bootstrap/component-loader
+
 ngx-bootstrap/datepicker
 
 ngx-bootstrap/mini-ngrx
 
 ngx-bootstrap/modal
 
+ngx-bootstrap/positioning
+
+ngx-bootstrap/progressbar
+
+ngx-bootstrap/tabs
+
+ngx-bootstrap/timepicker
+
+ngx-bootstrap/utils
+
+ngx-highlightjs
+MIT
+
 ngx-tethys
 MIT
 Copyright (c) 2018 Worktile Inc. https://worktile.com
 
+
+undefined
 
 rxjs
 Apache-2.0
@@ -364,31 +389,6 @@ Apache-2.0
  limitations under the License.
  
 
-
-undefined
-
-date-fns
-MIT
-# License
-
-date-fns is licensed under the [MIT license](http://kossnocorp.mit-license.org).
-Read more about MIT at [TLDRLegal](https://tldrlegal.com/license/mit-license).
-
-
-ngx-bootstrap/component-loader
-
-ngx-bootstrap/positioning
-
-ngx-bootstrap/progressbar
-
-ngx-bootstrap/tabs
-
-ngx-bootstrap/timepicker
-
-ngx-bootstrap/utils
-
-ngx-highlightjs
-MIT
 
 sortablejs
 MIT
