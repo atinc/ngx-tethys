@@ -33,11 +33,11 @@ describe('#logger', () => {
 
         it(`should not log warn to the console again when the content is the same`, () => {
             expect(console.warn).toHaveBeenCalledTimes(0);
-            warnDeprecation('Spec warn has no expectations.');
+            warnDeprecation('Spec diff warn has no expectations.');
             expect(console.warn).toHaveBeenCalledTimes(1);
             expect(console.warn).toHaveBeenCalled();
 
-            warnDeprecation('Spec warn has no expectations.');
+            warnDeprecation('Spec diff warn has no expectations.');
             expect(console.warn).toHaveBeenCalledTimes(1);
         });
     });
@@ -52,11 +52,11 @@ describe('#logger', () => {
 
         it(`should not log warnDeprecation to the console again when the content is the same`, () => {
             expect(console.warn).toHaveBeenCalledTimes(0);
-            warnDeprecation('Spec warnDeprecation has no expectations.');
+            warnDeprecation('Spec diff warnDeprecation has no expectations.');
             expect(console.warn).toHaveBeenCalledTimes(1);
             expect(console.warn).toHaveBeenCalled();
 
-            warnDeprecation('Spec warnDeprecation has no expectations.');
+            warnDeprecation('Spec diff warnDeprecation has no expectations.');
             expect(console.warn).toHaveBeenCalledTimes(1);
         });
     });
