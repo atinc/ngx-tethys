@@ -4,9 +4,10 @@ import {
     coerceCssPixelValue as coerceCssPixel,
     _isNumberValue
 } from '@angular/cdk/coercion';
+import { warnDeprecation } from '../core/logger';
 
 export function inputValueToBoolean(value: boolean | string): boolean {
-    console.warn(`The method inputValueToBoolean will be deprecated, please use coerceBooleanProperty instead.`);
+    warnDeprecation(`The method inputValueToBoolean will be deprecated, please use coerceBooleanProperty instead.`);
     return value === '' || (value && value !== 'false');
 }
 
