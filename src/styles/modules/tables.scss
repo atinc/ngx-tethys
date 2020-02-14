@@ -108,7 +108,7 @@
         }
 
         @include hover {
-            cursor: move;
+            cursor: pointer;
 
             td {
                 .table-draggable-icon {
