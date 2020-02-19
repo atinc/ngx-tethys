@@ -122,7 +122,8 @@ export const allMenus = [
                     { name: 'Strength', zhName: '强度', routePath: 'strength' },
                     { name: 'Progress', zhName: '进度条', routePath: 'progress' },
                     { name: 'Vote', zhName: '投票', routePath: 'vote' },
-                    { name: 'Markdown', zhName: 'markdown 解析', routePath: 'markdown' }
+                    { name: 'Markdown', zhName: 'markdown 解析', routePath: 'markdown' },
+                    { name: 'Statistic', zhName: '数据统计', routePath: 'statistic' }
                 ]
             },
             {

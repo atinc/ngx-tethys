@@ -1,0 +1,52 @@
+@mixin statistic-card-color($color) {
+    background: rgba($color, 0.05);
+    color: $color;
+    border-color: $color;
+}
+.thy-statistic {
+    .thy-statistic-content {
+        line-height: 1.3;
+        &-prefix,
+        &-suffix {
+            display: inline-block;
+        }
+        &-prefix {
+            margin-right: 4px;
+        }
+        &-suffix {
+            margin-left: 4px;
+            font-size: 16px;
+        }
+    }
+
+    .thy-statistic-title {
+        font-size: $font-size-sm;
+        color: $gray-600;
+    }
+}
+.thy-statistic-card {
+    display: block;
+    border-radius: 3px;
+    border-left: 3px solid;
+    padding: 20px 40px;
+}
+
+.thy-statistic-primary {
+    @include statistic-card-color($primary);
+}
+
+.thy-statistic-success {
+    @include statistic-card-color($success);
+}
+
+.thy-statistic-warning {
+    @include statistic-card-color($warning);
+}
+
+.thy-statistic-danger {
+    @include statistic-card-color($danger);
+}
+
+.thy-statistic-info {
+    @include statistic-card-color($info);
+}

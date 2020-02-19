@@ -1,0 +1,12 @@
+<thy-statistic [thyValue]="33 | number" [thyTitle]="'人数'" [thySuffix]="'%'"></thy-statistic>
+
+<thy-statistic
+  [thyValue]="33 | number"
+  [thyTitle]="'人数'"
+  [thySuffix]="'%'"
+  [thyPrefixTemplate]="prefix"
+></thy-statistic>
+
+<ng-template #prefix>
+  <thy-icon thyIconName="star"></thy-icon>
+</ng-template>

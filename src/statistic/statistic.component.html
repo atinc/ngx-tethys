@@ -1,0 +1,20 @@
+<div class="thy-statistic-content">
+  <span *ngIf="thyPrefix || thyPrefixTemplate" class="thy-statistic-content-prefix">
+    <span *ngIf="thyPrefix">{{ thyPrefix }}</span>
+    <ng-container *ngIf="thyPrefixTemplate" [ngTemplateOutlet]="thyPrefixTemplate"></ng-container>
+  </span>
+
+  <span *ngIf="thyValue || thyValueTemplate" class="thy-statistic-content-value">
+    <span *ngIf="thyValue">{{ thyValue }}</span>
+    <ng-container *ngIf="thyValueTemplate" [ngTemplateOutlet]="thyValueTemplate"></ng-container>
+  </span>
+
+  <span *ngIf="thySuffix || thySuffixTemplate" class="thy-statistic-content-suffix">
+    <span *ngIf="thySuffix">{{ thySuffix }}</span>
+    <ng-container *ngIf="thySuffixTemplate" [ngTemplateOutlet]="thySuffixTemplate"></ng-container>
+  </span>
+</div>
+<div *ngIf="thyTitle || thyTitleTemplate" class="thy-statistic-title">
+  <span *ngIf="thyTitle">{{ thyTitle }}</span>
+  <ng-container [ngTemplateOutlet]="thyTitleTemplate"></ng-container>
+</div>

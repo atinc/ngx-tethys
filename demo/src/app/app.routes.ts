@@ -63,6 +63,7 @@ import { DemoVoteComponent } from './components/+vote/vote.component';
 import { DemoResultSectionComponent } from './components/+result/result-section.component';
 import { DemoMentionSectionComponent } from './components/+mention';
 import { DemoDatePickerNextSectionComponent } from './components/+datepicker/datepicker-section.component';
+import { DemoStatisticComponent } from './components/+statistic/statistic.component';
 
 const appRoutes = [
     {
@@ -325,6 +326,10 @@ const appRoutes = [
     {
         path: 'components/date-picker',
         component: DemoDatePickerNextSectionComponent
+    },
+    {
+        path: 'components/statistic',
+        component: DemoStatisticComponent
     }
 ];
 
