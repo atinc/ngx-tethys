@@ -56,6 +56,11 @@ export class ThyStatisticComponent implements OnInit {
         this.updateHostClassService.initializeElement(elementRef.nativeElement);
     }
 
+    ngOnInit() {
+        this._setClassesByType();
+        this._initialized = true;
+    }
+
     _setClassesByType() {
         const classNames = [];
         classNames.push(`thy-statistic-${this._type}`);
@@ -73,10 +78,5 @@ export class ThyStatisticComponent implements OnInit {
     hexToRgb(hex: string) {
         const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
         return result ? parseInt(result[1], 16) + ',' + parseInt(result[2], 16) + ',' + parseInt(result[3], 16) : null;
-    }
-
-    ngOnInit() {
-        this._setClassesByType();
-        this._initialized = true;
     }
 }
