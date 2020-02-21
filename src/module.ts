@@ -58,6 +58,7 @@ import { ThyResultModule } from './result';
 import { ThyMentionModule } from './mention';
 import { ThyDatePickerModule } from './date-picker';
 import { ThyTimePickerModule } from './time-picker';
+import { ThyStatisticModule } from './statistic';
 
 const IMPORT_EXPORT_MODULES = [
     BrowserAnimationsModule,
@@ -119,7 +120,8 @@ const IMPORT_EXPORT_MODULES = [
     ThyResultModule,
     ThyMentionModule,
     ThyDatePickerModule,
-    ThyTimePickerModule
+    ThyTimePickerModule,
+    ThyStatisticModule
 ];
 
 @NgModule({

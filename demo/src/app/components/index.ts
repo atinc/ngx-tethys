@@ -91,6 +91,9 @@ import { DemoVoteBasicComponent } from './+vote/basic/vote-basic.component';
 import { DemoVoteIconComponent } from './+vote/icon/vote-icon.component';
 import { DemoMentionModule } from './+mention';
 import { DemoDatePickerModule } from './+datepicker';
+import { DemoStatisticComponent } from './+statistic/statistic.component';
+import { DemoStatisticBasicComponent } from './+statistic/basic/statistic-basic.component';
+import { DemoStatisticCardComponent } from './+statistic/card/statistic-card.component';
 
 export const COMPONENTS = [
     DemoCopySectionComponent,
@@ -156,6 +159,10 @@ export const COMPONENTS = [
     DemoVoteWeakComponent,
     DemoVoteBasicComponent,
     DemoVoteIconComponent,
+
+    DemoStatisticComponent,
+    DemoStatisticBasicComponent,
+    DemoStatisticCardComponent,
 
     DemoOverlaySectionComponent,
     CreateOverlayComponent,
@@ -227,7 +234,10 @@ export const ENTRY_COMPONENTS = [
 
     DemoVoteWeakComponent,
     DemoVoteBasicComponent,
-    DemoVoteIconComponent
+    DemoVoteIconComponent,
+
+    DemoStatisticBasicComponent,
+    DemoStatisticCardComponent
 ];
 
 export const DEMO_MODULES = [
