@@ -69,16 +69,18 @@ export class ThyStatisticComponent implements OnInit {
 
     _setClassesByType() {
         const classNames = [];
-        if (this.thyColor && RegExp(/^#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})$/).test(this.thyColor)) {
-            this.renderer.setStyle(this.elementRef.nativeElement, 'color', this.thyColor);
-            this.renderer.setStyle(this.elementRef.nativeElement, 'border-color', this.thyColor);
-            this.renderer.setStyle(
-                this.elementRef.nativeElement,
-                'background-color',
-                this._shape === 'card' ? hexToRgb(this.thyColor, 0.05) : 'none'
-            );
-        } else {
-            classNames.push(`thy-statistic-${this.thyColor}`);
+        if (this.thyColor) {
+            if (RegExp(/^#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})$/).test(this.thyColor)) {
+                this.renderer.setStyle(this.elementRef.nativeElement, 'color', this.thyColor);
+                this.renderer.setStyle(this.elementRef.nativeElement, 'border-color', this.thyColor);
+                this.renderer.setStyle(
+                    this.elementRef.nativeElement,
+                    'background-color',
+                    this._shape === 'card' ? hexToRgb(this.thyColor, 0.05) : 'none'
+                );
+            } else {
+                classNames.push(`thy-statistic-${this.thyColor}`);
+            }
         }
         if (this._shape) {
             classNames.push(`thy-statistic-${this._shape}`);
