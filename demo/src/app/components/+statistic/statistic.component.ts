@@ -5,7 +5,8 @@ import { DemoStatisticCardComponent } from './card/statistic-card.component';
 
 @Component({
     selector: 'demo-statistic',
-    templateUrl: './statistic.component.html'
+    templateUrl: './statistic.component.html',
+    styleUrls: ['./statistic.component.scss']
 })
 export class DemoStatisticComponent {
     public apiParameters = [
@@ -31,14 +32,14 @@ export class DemoStatisticComponent {
         },
         {
             property: 'thyShape',
-            description: '形式（card）',
+            description: '形状（card）',
             type: 'card',
             default: ''
         },
         {
             property: 'thyValueStyle',
             description: '设置数值的样式',
-            type: 'string'
+            type: 'object'
         },
         {
             property: 'thySize',

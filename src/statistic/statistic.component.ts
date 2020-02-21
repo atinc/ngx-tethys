@@ -2,7 +2,7 @@ import { OnInit, Component, Input, HostBinding, ElementRef, TemplateRef, Content
 import { inputValueToBoolean, hexToRgb } from '../util/helpers';
 import { UpdateHostClassService } from '../shared';
 
-export type ThyType = 'primary' | 'success' | 'warning' | 'danger' | 'info';
+export type ThyColorType = 'primary' | 'success' | 'warning' | 'danger' | 'info';
 
 export type ThyShape = 'card';
 
@@ -25,16 +25,16 @@ export class ThyStatisticComponent implements OnInit {
     @Input() thyValueStyle = {};
 
     @Input() thyPrefix: string;
-    @Input() @ContentChild('thyPrefix') thyPrefixTemplate: TemplateRef<void>;
+    @Input() @ContentChild('prefix') thyPrefixTemplate: TemplateRef<void>;
 
     @Input() thySuffix: string;
-    @Input() @ContentChild('thySuffix') thySuffixTemplate: TemplateRef<void>;
+    @Input() @ContentChild('suffix') thySuffixTemplate: TemplateRef<void>;
 
     @Input() thyValue: number | string;
-    @Input() @ContentChild('thyValue') thyValueTemplate: TemplateRef<void>;
+    @Input() @ContentChild('value') thyValueTemplate: TemplateRef<void>;
 
     @Input() thyTitle: string;
-    @Input() @ContentChild('thyTitle') thyTitleTemplate: TemplateRef<void>;
+    @Input() @ContentChild('title') thyTitleTemplate: TemplateRef<void>;
 
     @Input()
     set thyShape(value: ThyShape) {
@@ -44,7 +44,7 @@ export class ThyStatisticComponent implements OnInit {
         }
     }
 
-    @Input() thyColor: string | ThyType;
+    @Input() thyColor: string | ThyColorType;
 
     @Input()
     set thySize(value: ThySizes) {
@@ -67,17 +67,21 @@ export class ThyStatisticComponent implements OnInit {
         this._initialized = true;
     }
 
+    setColor(color: string) {
+        this.renderer.setStyle(this.elementRef.nativeElement, 'color', color);
+        this.renderer.setStyle(this.elementRef.nativeElement, 'border-color', color);
+        this.renderer.setStyle(
+            this.elementRef.nativeElement,
+            'background-color',
+            this._shape === 'card' ? hexToRgb(color, 0.05) : 'none'
+        );
+    }
+
     _setClassesByType() {
         const classNames = [];
         if (this.thyColor) {
             if (RegExp(/^#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})$/).test(this.thyColor)) {
-                this.renderer.setStyle(this.elementRef.nativeElement, 'color', this.thyColor);
-                this.renderer.setStyle(this.elementRef.nativeElement, 'border-color', this.thyColor);
-                this.renderer.setStyle(
-                    this.elementRef.nativeElement,
-                    'background-color',
-                    this._shape === 'card' ? hexToRgb(this.thyColor, 0.05) : 'none'
-                );
+                this.setColor(this.thyColor);
             } else {
                 classNames.push(`thy-statistic-${this.thyColor}`);
             }
@@ -85,10 +89,10 @@ export class ThyStatisticComponent implements OnInit {
         if (this._shape) {
             classNames.push(`thy-statistic-${this._shape}`);
         }
-
-        if (this._size) {
-            classNames.push(`thy-statistic-${this._size}`);
+        if (!this._size) {
+            this._size = 'default';
         }
+        classNames.push(`thy-statistic-${this._size}`);
 
         this.renderer.setStyle(this.elementRef.nativeElement, 'font-size', this.thySize);
         this.updateHostClassService.updateClass(classNames);

@@ -1,7 +1,9 @@
-@mixin statistic-card-color($color) {
-    background: rgba($color, 0.05);
+@mixin statistic-color($color) {
     color: $color;
     border-color: $color;
+    &.thy-statistic-card {
+        background-color: rgba($color, 0.05);
+    }
 }
 
 @mixin statistic-size($size, $suffixSize, $titleSize) {
@@ -13,10 +15,10 @@
         font-size: $titleSize;
     }
 }
+
 .thy-statistic {
     .thy-statistic-content {
         line-height: 1.3;
-        @include statistic-size($statistic-size-default, $statistic-suffix-size-default, $statistic-title-size-default);
         &-prefix,
         &-suffix {
             display: inline-block;
@@ -34,6 +36,10 @@
         color: $gray-600;
     }
 }
+.thy-statistic-default {
+    @include statistic-size($statistic-size-default, $statistic-suffix-size-default, $statistic-title-size-default);
+}
+
 .thy-statistic-card {
     display: block;
     border-radius: 3px;
@@ -42,21 +48,21 @@
 }
 
 .thy-statistic-primary {
-    @include statistic-card-color($primary);
+    @include statistic-color($primary);
 }
 
 .thy-statistic-success {
-    @include statistic-card-color($success);
+    @include statistic-color($success);
 }
 
 .thy-statistic-warning {
-    @include statistic-card-color($warning);
+    @include statistic-color($warning);
 }
 
 .thy-statistic-danger {
-    @include statistic-card-color($danger);
+    @include statistic-color($danger);
 }
 
 .thy-statistic-info {
-    @include statistic-card-color($info);
+    @include statistic-color($info);
 }
