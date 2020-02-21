@@ -1,8 +1,33 @@
-<thy-statistic
-  [thyValue]="33 | number"
-  [thyTitle]="'人数'"
-  [thySuffix]="'%'"
-  [thyColor]="'#66c060'"
-  [thySize]="'50px'"
-  thyHasCard="true"
-></thy-statistic>
+<div class="statistic-container">
+  <thy-statistic
+    [thyValue]="33 | number"
+    [thyTitle]="'成功率'"
+    [thySuffix]="'%'"
+    [thyColor]="'primary'"
+    [thyShape]="'card'"
+  ></thy-statistic>
+
+  <thy-statistic
+    [thyValue]="45.5 | number"
+    [thyTitle]="'用例通过率'"
+    [thySuffix]="'%'"
+    [thyColor]="'#fa8b7c'"
+    [thyShape]="'card'"
+  ></thy-statistic>
+
+  <thy-statistic
+    [thyValue]="45.5 | number"
+    [thyTitle]="'价格'"
+    [thyColor]="'success'"
+    [thyShape]="'card'"
+    [thyPrefix]="'$'"
+  ></thy-statistic>
+
+  <thy-statistic
+    [thyValue]="50 | number"
+    [thyTitle]="'人数'"
+    [thySuffix]="'个'"
+    [thyColor]="'info'"
+    [thyShape]="'card'"
+  ></thy-statistic>
+</div>

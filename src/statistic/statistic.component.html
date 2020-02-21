@@ -1,4 +1,4 @@
-<div class="thy-statistic-content">
+<div class="thy-statistic-content" [ngStyle]="thyValueStyle">
   <span *ngIf="thyPrefix || thyPrefixTemplate" class="thy-statistic-content-prefix">
     <span *ngIf="thyPrefix">{{ thyPrefix }}</span>
     <ng-container *ngIf="thyPrefixTemplate" [ngTemplateOutlet]="thyPrefixTemplate"></ng-container>

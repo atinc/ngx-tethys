@@ -11,45 +11,65 @@ export class DemoStatisticComponent {
     public apiParameters = [
         {
             property: 'thyValue',
-            description: '统计数值',
+            description: '数值内容',
             type: 'number | string'
         },
         {
             property: 'thyPrefix',
-            description: '前缀',
+            description: '设置数值的前缀',
             type: 'string'
         },
         {
             property: 'thySuffix',
-            description: '后缀',
+            description: '设置数值的后缀',
             type: 'string'
         },
         {
             property: 'thyTitle',
-            description: '标题',
+            description: '数值的标题',
             type: 'string'
         },
         {
-            property: 'thyHasCard',
-            description: '是否有背景card',
-            type: 'boolean',
-            default: 'false'
+            property: 'thyShape',
+            description: '形式（card）',
+            type: 'card',
+            default: ''
         },
         {
-            property: 'thyColor',
-            description: '主题颜色',
+            property: 'thyValueStyle',
+            description: '设置数值的样式',
             type: 'string'
         },
         {
             property: 'thySize',
             description: '前缀和数值字体大小',
-            type: 'string',
-            default: '30px'
+            type: 'default',
+            default: 'default'
         },
         {
-            property: 'thyType',
-            description: '主题类型(primary | success | warning | danger | info)',
-            type: 'string'
+            property: 'thyColor',
+            description: '主题颜色(primary，#fa8b7c)',
+            type: 'primary | success | warning | danger | info 或 string'
+        },
+        {
+            property: 'thyValueTemplate',
+            description: '自定义数值展示',
+            type: 'TemplateRef'
+        },
+        {
+            property: 'thyPrefixTemplate',
+            description: '自定义数值前缀展示',
+            type: 'TemplateRef'
+        },
+        {
+            property: 'thySuffixTemplate',
+            description: '自定义数值后缀展示',
+            type: 'TemplateRef'
+        },
+        {
+            property: 'thyTitleTemplate',
+            description: '自定义数值标题展示',
+            type: 'TemplateRef'
         }
     ];
     liveDemos: LiveDemoCodeExample[] = [

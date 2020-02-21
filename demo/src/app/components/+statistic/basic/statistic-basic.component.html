@@ -1,12 +1,28 @@
-<thy-statistic [thyValue]="33 | number" [thyTitle]="'人数'" [thySuffix]="'%'"></thy-statistic>
+<div>
+  <thy-statistic [thyValue]="10 | number" [thyTitle]="'价值'" [thyPrefix]="'$'" [thyColor]="'#fa8b7c'"></thy-statistic>
+</div>
 
-<thy-statistic
-  [thyValue]="33 | number"
-  [thyTitle]="'人数'"
-  [thySuffix]="'%'"
-  [thyPrefixTemplate]="prefix"
-></thy-statistic>
+<div class="mt-3">
+  <thy-statistic
+    [thyValue]="'90'"
+    [thyTitle]="'测试覆盖率'"
+    [thySuffix]="'%'"
+    [thyColor]="'success'"
+    [thyPrefixTemplate]="prefix"
+  ></thy-statistic>
 
-<ng-template #prefix>
-  <thy-icon thyIconName="star"></thy-icon>
-</ng-template>
+  <ng-template #prefix>
+    <thy-icon thyIconName="star"></thy-icon>
+  </ng-template>
+</div>
+
+<div class="mt-3">
+  <thy-statistic
+    [thyValue]="40 | number"
+    [thyTitle]="'字的大小'"
+    [thySuffix]="'px'"
+    [thyValueStyle]="{ 'font-size': '40px' }"
+  >
+    <ng-template #thyPrefix> <thy-icon thyIconName="star"></thy-icon> </ng-template
+  ></thy-statistic>
+</div>
