@@ -126,7 +126,42 @@
           </thy-nav>
         </ng-template>
         <ng-template #headerOperation>
-          操作区域
+          <thy-nav thyType="thirdly" thyHorizontal="right">
+            <a thyNavLink href="javascript:;">
+              <thy-icon [thyIconName]="'edit'"></thy-icon>
+              编辑
+            </a>
+            <a thyNavLink href="javascript:;">
+              <thy-icon thyIconName="list"></thy-icon>
+            </a>
+          </thy-nav>
+        </ng-template>
+      </thy-header>
+      <thy-header thyHasBorder="true">
+        <ng-template #headerTitle> </ng-template>
+        <ng-template #headerContent>
+          <thy-breadcrumb thySeparator="slash" thyIcon="house" class="text-truncate" style="margin-right:30px;">
+            <thy-breadcrumb-item>
+              <a href="javascript:;">内容超区情况内容超区情况内容超区情况</a>
+            </thy-breadcrumb-item>
+            <thy-breadcrumb-item>
+              <a href="javascript:;">内容超区情况</a>
+            </thy-breadcrumb-item>
+            <thy-breadcrumb-item>
+              <a href="javascript:;">内容超区情况</a>
+            </thy-breadcrumb-item>
+          </thy-breadcrumb>
+        </ng-template>
+        <ng-template #headerOperation>
+          <thy-nav thyType="thirdly" thyHorizontal="right">
+            <a thyNavLink href="javascript:;">
+              <thy-icon [thyIconName]="'edit'"></thy-icon>
+              编辑
+            </a>
+            <a thyNavLink href="javascript:;">
+              <thy-icon thyIconName="list"></thy-icon>
+            </a>
+          </thy-nav>
         </ng-template>
       </thy-header>
       <thy-layout>
