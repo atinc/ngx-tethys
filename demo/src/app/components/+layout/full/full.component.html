@@ -123,10 +123,59 @@
               (click)="setActiveMenu('insight')"
               >导航二</a
             >
+            <a
+              href="javascript:;"
+              thyNavLink
+              [thyNavLinkActive]="activeMenu === 'kanban'"
+              (click)="setActiveMenu('kanban')"
+              >导航三</a
+            >
+            <a
+              href="javascript:;"
+              thyNavLink
+              [thyNavLinkActive]="activeMenu === 'insight'"
+              (click)="setActiveMenu('insight')"
+              >导航四</a
+            >
           </thy-nav>
         </ng-template>
         <ng-template #headerOperation>
-          操作区域
+          <thy-nav thyType="thirdly" thyHorizontal="right">
+            <a thyNavLink href="javascript:;">
+              <thy-icon [thyIconName]="'edit'"></thy-icon>
+              编辑
+            </a>
+            <a thyNavLink href="javascript:;">
+              <thy-icon thyIconName="list"></thy-icon>
+            </a>
+          </thy-nav>
+        </ng-template>
+      </thy-header>
+      <thy-header thyHasBorder="true">
+        <ng-template #headerTitle> </ng-template>
+        <ng-template #headerContent>
+          <thy-breadcrumb thySeparator="slash" thyIcon="house" class="text-truncate" style="margin-right:30px;">
+            <thy-breadcrumb-item>
+              <a href="javascript:;">是大法师的法师的发送到发送</a>
+            </thy-breadcrumb-item>
+            <thy-breadcrumb-item>
+              <a href="javascript:;">是大法师的法师的发送到</a>
+            </thy-breadcrumb-item>
+            <thy-breadcrumb-item>
+              <a href="javascript:;">是大法师是大法师是大法师</a>
+            </thy-breadcrumb-item>
+          </thy-breadcrumb>
+        </ng-template>
+        <ng-template #headerOperation>
+          <thy-nav thyType="thirdly" thyHorizontal="right">
+            <a thyNavLink href="javascript:;">
+              <thy-icon [thyIconName]="'edit'"></thy-icon>
+              编辑
+            </a>
+            <a thyNavLink href="javascript:;">
+              <thy-icon thyIconName="list"></thy-icon>
+            </a>
+          </thy-nav>
         </ng-template>
       </thy-header>
       <thy-layout>

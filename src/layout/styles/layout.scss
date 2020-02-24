@@ -131,6 +131,7 @@
         color: $gray-800;
         display: flex;
         align-items: center;
+        flex: 0 0 auto;
 
         a {
             @include link-variant($gray-800, none, $primary, none);
@@ -169,7 +170,14 @@
     }
 
     .layout-header-content {
-        flex: auto;
+        flex: 0 1 auto;
+        overflow: hidden;
+    }
+
+    .layout-header-operation {
+        display: flex;
+        align-items: center;
+        flex: 0 0 auto;
     }
 }
 
