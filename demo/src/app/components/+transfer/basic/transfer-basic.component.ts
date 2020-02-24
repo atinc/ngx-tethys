@@ -1,60 +1,11 @@
-import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
-import {
-    ThyTransferData,
-    ThyTransferItem,
-    ThyTransferDragEvent,
-    TransferDirection
-} from '../../../../../src/transfer/transfer.interface';
-import { Subject } from 'rxjs';
-import { ThySelectionListChange } from 'ngx-tethys';
-import { LiveDemoCodeExample } from '../../core/live-demo/live-demo.component';
-import { TransferBasicComponent } from './basic/transfer-basic.component';
-import { TransferTemplateComponent } from './template/transfer-template.component';
+import { Component, OnInit } from '@angular/core';
+import { TransferDirection, ThyTransferItem, ThyTransferDragEvent } from 'ngx-tethys';
 
 @Component({
-    selector: 'demo-transfer-section',
-    templateUrl: './transfer-section.component.html',
-    styleUrls: ['./transfer-section.component.scss']
+    selector: 'demo-transfer-basic',
+    templateUrl: './transfer-basic.component.html'
 })
-export class DemoTransferSectionComponent {
-    liveDemos: LiveDemoCodeExample[] = [
-        {
-            title: 'Basic',
-            component: TransferBasicComponent,
-            description: `基本使用`,
-            codeExamples: [
-                {
-                    type: 'html',
-                    name: 'transfer-basic.component.html',
-                    content: require('!!raw-loader!./basic/transfer-basic.component.html')
-                },
-                {
-                    type: 'ts',
-                    name: 'transfer-basic.component.ts',
-                    content: require('!!raw-loader!./basic/transfer-basic.component.ts')
-                }
-            ]
-        },
-        {
-            title: 'Template',
-            component: TransferTemplateComponent,
-            description: `使用template自定义列表`,
-            codeExamples: [
-                {
-                    type: 'html',
-                    name: 'transfer-template.component.html',
-                    content: require('!!raw-loader!./template/transfer-template.component.html')
-                },
-                {
-                    type: 'ts',
-                    name: 'transfer-template.component.ts',
-                    content: require('!!raw-loader!./template/transfer-template.component.ts')
-                }
-            ]
-        }
-    ];
-
+export class TransferBasicComponent implements OnInit {
     public lockItems: ThyTransferItem[] = [];
 
     public unlockItems: ThyTransferItem[] = [];
@@ -139,18 +90,6 @@ export class DemoTransferSectionComponent {
             default: ''
         },
         {
-            property: '#thyRenderLeftContentRef',
-            description: '设置自定义左侧内容模版',
-            type: 'TemplateRef',
-            default: ''
-        },
-        {
-            property: '#thyRenderRightContentRef',
-            description: '设置自定义右侧内容模版',
-            type: 'TemplateRef',
-            default: ''
-        },
-        {
             property: '(thyChange)',
             description: 'Transfer变化的回调事件',
             type: 'ThyTransferChangeEvent',
@@ -185,28 +124,9 @@ export class DemoTransferSectionComponent {
         }
     ];
 
-    public transferRenderContentParameters = [
-        {
-            property: 'items',
-            description: '分类后的数据',
-            type: 'ThyTransferItem',
-            default: '[]'
-        },
-        {
-            property: 'thySelectItem',
-            description: '选择item',
-            default: '(item: ThyTransferItem) => void'
-        },
-        {
-            property: 'thyUnSelectItem',
-            description: '取消选择item',
-            default: '(item: ThyTransferItem) => void'
-        }
-    ];
-
-    transferData2 = JSON.parse(JSON.stringify(this.transferData));
-
     constructor() {}
+
+    ngOnInit() {}
 
     onDragUpdate(event: ThyTransferDragEvent) {
         this.lockItems = event.right.lock;
@@ -220,12 +140,12 @@ export class DemoTransferSectionComponent {
         console.log(event);
     }
 
-    selectionChange(
+    select(
         item: ThyTransferItem,
         selectItem: (item: ThyTransferItem) => void,
-        unselectItem: (tem: ThyTransferItem) => void
+        unselectItem: (item: ThyTransferItem) => void
     ) {
-        if (item.direction === 'left') {
+        if (item.direction === TransferDirection.left) {
             selectItem(item);
         } else {
             unselectItem(item);

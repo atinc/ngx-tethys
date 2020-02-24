@@ -1,3 +1,4 @@
+import { Observable, isObservable } from 'rxjs';
 import {
     Component,
     Input,
@@ -48,6 +49,12 @@ export class ThyTransferComponent implements OnInit {
             this.initializeTransferData(value);
         }
     }
+
+    @Input() thyRenderLeftContentRef: TemplateRef<any>;
+
+    @Input() thyRenderRightContentRef: TemplateRef<any>;
+
+    // @Input() transferToRight
 
     @Input()
     set thyTitles(value: string[]) {
@@ -101,6 +108,14 @@ export class ThyTransferComponent implements OnInit {
         if (this._autoMove) {
             this.onMove(to);
         }
+    }
+
+    selectItem(event: ThyTransferSelectEvent) {
+        this.onSelect(TransferDirection.left, event);
+    }
+
+    unselectItem(event: ThyTransferSelectEvent) {
+        this.onSelect(TransferDirection.right, event);
     }
 
     private groupListByIsLock(list: ThyTransferItem[] = []) {

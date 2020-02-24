@@ -18,7 +18,8 @@ import {
     ThyTransferSelectEvent,
     ThyTransferItem,
     ThyTransferDragEvent,
-    InnerTransferDragEvent
+    InnerTransferDragEvent,
+    Direction
 } from './transfer.interface';
 import { ThyTransferComponent } from './transfer.component';
 import { SortablejsOptions } from 'angular-sortablejs';
@@ -52,7 +53,13 @@ export class ThyTransferListComponent implements OnInit, DoCheck {
 
     @Input() template: TemplateRef<any>;
 
+    @Input('thyRenderContentRef') contentRef: TemplateRef<any>;
+
     @Output() draggableUpdate: EventEmitter<InnerTransferDragEvent> = new EventEmitter<InnerTransferDragEvent>();
+
+    @Output() thySelectItem: EventEmitter<ThyTransferSelectEvent> = new EventEmitter<ThyTransferSelectEvent>();
+
+    @Output() thyUnSelectItem: EventEmitter<ThyTransferSelectEvent> = new EventEmitter<ThyTransferSelectEvent>();
 
     @HostBinding('class') hostClass = 'thy-transfer-list';
 
@@ -122,6 +129,14 @@ export class ThyTransferListComponent implements OnInit, DoCheck {
 
     lockListEnterPredicate = () => {
         return this.lockItems.length < this.maxLock;
+    };
+
+    selectItem = (item: ThyTransferItem) => {
+        this.thySelectItem.emit({ item });
+    };
+
+    unselectItem = (item: ThyTransferItem) => {
+        this.thyUnSelectItem.emit({ item });
     };
 
     drop(event: CdkDragDrop<ThyTransferItem[]>) {

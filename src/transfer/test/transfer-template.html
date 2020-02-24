@@ -1,0 +1,47 @@
+<thy-transfer
+  #comp
+  [thyData]="dataSource"
+  [thyRenderLeftContentRef]="left"
+  [thyRenderRightContentRef]="right"
+  [thyTitles]="titles"
+  (thyChange)="change($event)"
+>
+</thy-transfer>
+<ng-template #left let-items let-selectItem="thySelectItem" let-unselectItem="thyUnSelectItem">
+  <thy-selection-list [thyMultiple]="true" class="thy-transfer-list-content" thyUniqueKey="_id">
+    <thy-list-item
+      class="thy-transfer-list-content-item"
+      *ngFor="let item of items"
+      (click)="select(item, selectItem, unselectItem)"
+    >
+      <div class="d-flex flex-grow-1 align-items-center">
+        <div class="item-name">
+          <thy-icon thyIconName="scrum-fill"></thy-icon>
+          <span>
+            {{ item.title }}
+          </span>
+        </div>
+        <thy-icon *ngIf="item.direction === 'right'" class="item-status" thyIconName="check"></thy-icon>
+      </div>
+    </thy-list-item>
+  </thy-selection-list>
+</ng-template>
+<ng-template #right let-items let-selectItem="thySelectItem" let-unselectItem="thyUnSelectItem">
+  <thy-selection-list [thyMultiple]="true" class="thy-transfer-list-content" thyUniqueKey="_id">
+    <thy-list-item
+      class="thy-transfer-list-content-item"
+      *ngFor="let item of items"
+      (click)="select(item, selectItem, unselectItem)"
+    >
+      <div class="d-flex flex-grow-1 align-items-center">
+        <div class="item-name">
+          <thy-icon thyIconName="scrum-fill"></thy-icon>
+          <span>
+            {{ item.title }}
+          </span>
+        </div>
+        <thy-icon class="item-status" thyIconName="close"></thy-icon>
+      </div>
+    </thy-list-item>
+  </thy-selection-list>
+</ng-template>

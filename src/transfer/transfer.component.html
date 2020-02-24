@@ -2,8 +2,11 @@
   [items]="allDataSource"
   [title]="leftTitle"
   [draggable]="thyLeftDraggable"
+  [thyRenderContentRef]="thyRenderLeftContentRef"
   (draggableUpdate)="onDragUpdate('left', $event)"
   [template]="leftTemplateRef"
+  (thySelectItem)="selectItem($event)"
+  (thyUnSelectItem)="unselectItem($event)"
 >
   <ng-template #leftTemplateRef let-item>
     <div
@@ -40,6 +43,9 @@
   [canLock]="thyRightCanLock"
   [maxLock]="thyRightLockMax"
   [template]="rightTemplateRef"
+  [thyRenderContentRef]="thyRenderRightContentRef"
+  (thySelectItem)="selectItem($event)"
+  (thyUnSelectItem)="unselectItem($event)"
 >
   <ng-template #rightTemplateRef let-item>
     <ng-container *ngIf="thyRightDraggable">
