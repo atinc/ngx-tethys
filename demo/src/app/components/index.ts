@@ -73,7 +73,6 @@ import { DemoStrengthComponent } from './+strength/strength-section.component';
 import { DemoSwitchSectionComponent } from './+switch/switch-section.component';
 import { DemoTableSectionComponent } from './+table/table-section.component';
 import { DemoTooltipModule } from './+tooltip';
-import { DemoTransferSectionComponent } from './+transfer/transfer-section.component';
 import { DemoTreeModule } from './+tree';
 import { DemoTreeSelectSectionComponent } from './+tree-select/tree-select-section.component';
 import { DemoTypographyComponent } from './+typography/typography.component';
@@ -94,6 +93,7 @@ import { DemoDatePickerModule } from './+datepicker';
 import { DemoStatisticComponent } from './+statistic/statistic.component';
 import { DemoStatisticBasicComponent } from './+statistic/basic/statistic-basic.component';
 import { DemoStatisticCardComponent } from './+statistic/card/statistic-card.component';
+import { DemoTransferModule } from './+transfer/module';
 
 export const COMPONENTS = [
     DemoCopySectionComponent,
@@ -134,7 +134,6 @@ export const COMPONENTS = [
     DemoPaginationComponent,
     DemoEmptySectionComponent,
     DemoSwitchSectionComponent,
-    DemoTransferSectionComponent,
     DemoStrengthComponent,
     DemoFormSectionComponent,
     DemoDataPickerSectionComponent,
@@ -255,5 +254,6 @@ export const DEMO_MODULES = [
     DemoCheckboxModule,
     DemoMentionModule,
     DemoDatePickerModule,
-    DemoTooltipModule
+    DemoTooltipModule,
+    DemoTransferModule
 ];

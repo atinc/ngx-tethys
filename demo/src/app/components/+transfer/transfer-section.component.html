@@ -1,26 +1,6 @@
-<section>
-  <div class="header">
-    <h2>穿梭框</h2>
-  </div>
-  <div class="body">
-    <thy-transfer
-      [thyData]="transferData"
-      [thyTitles]="['数据源', '已选中']"
-      [thyRightDraggable]="true"
-      [thyRightCanLock]="true"
-      [thyRightLockMax]="maxLock"
-      (thyDraggableUpdate)="onDragUpdate($event)"
-      (thyChange)="onTransferChange($event)"
-    >
-    </thy-transfer>
-  </div>
-  <div class="my-2">
-    锁定：<span class="px-2" *ngFor="let item of lockItems">{{ item.title }}</span>
-  </div>
-  <div class="my-2">
-    未锁定：<span class="px-2" *ngFor="let item of unlockItems">{{ item.title }}</span>
-  </div>
-</section>
+<app-demo-title title="Transfer" introduction=""></app-demo-title>
+
+<app-live-demos [data]="liveDemos"></app-live-demos>
 
 <br />
 
@@ -29,3 +9,5 @@
 <br />
 
 <api-parameters [parameters]="transferItemParameters" title="TransferItem 属性说明"></api-parameters>
+
+<api-parameters [parameters]="transferRenderContentParameters" title="TransferRenderContent 属性说明"></api-parameters>
