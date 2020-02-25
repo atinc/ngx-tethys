@@ -82,6 +82,10 @@ export class ThyTransferComponent implements OnInit {
 
     @ContentChild('renderTemplate') templateRef: TemplateRef<any>;
 
+    @ContentChild('renderLeftContent') leftContentRef: TemplateRef<any>;
+
+    @ContentChild('renderRightContent') rightContentRef: TemplateRef<any>;
+
     ngOnInit() {}
 
     initializeTransferData(data: ThyTransferItem[] = []) {

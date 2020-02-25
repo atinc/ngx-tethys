@@ -139,13 +139,13 @@ export class DemoTransferSectionComponent {
             default: ''
         },
         {
-            property: '#thyRenderLeftContentRef',
+            property: '#renderLeftContent',
             description: '设置自定义左侧内容模版',
             type: 'TemplateRef',
             default: ''
         },
         {
-            property: '#thyRenderRightContentRef',
+            property: '#renderRightContent',
             description: '设置自定义右侧内容模版',
             type: 'TemplateRef',
             default: ''
@@ -193,12 +193,12 @@ export class DemoTransferSectionComponent {
             default: '[]'
         },
         {
-            property: 'thySelectItem',
+            property: 'onSelectItem',
             description: '选择item',
             default: '(item: ThyTransferItem) => void'
         },
         {
-            property: 'thyUnSelectItem',
+            property: 'onUnselectItem',
             description: '取消选择item',
             default: '(item: ThyTransferItem) => void'
         }

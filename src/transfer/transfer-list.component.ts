@@ -53,13 +53,13 @@ export class ThyTransferListComponent implements OnInit, DoCheck {
 
     @Input() template: TemplateRef<any>;
 
-    @Input('thyRenderContentRef') contentRef: TemplateRef<any>;
+    @Input('renderContentRef') contentRef: TemplateRef<any>;
 
     @Output() draggableUpdate: EventEmitter<InnerTransferDragEvent> = new EventEmitter<InnerTransferDragEvent>();
 
-    @Output() thySelectItem: EventEmitter<ThyTransferSelectEvent> = new EventEmitter<ThyTransferSelectEvent>();
+    @Output() onSelectItem: EventEmitter<ThyTransferSelectEvent> = new EventEmitter<ThyTransferSelectEvent>();
 
-    @Output() thyUnSelectItem: EventEmitter<ThyTransferSelectEvent> = new EventEmitter<ThyTransferSelectEvent>();
+    @Output() onUnselectItem: EventEmitter<ThyTransferSelectEvent> = new EventEmitter<ThyTransferSelectEvent>();
 
     @HostBinding('class') hostClass = 'thy-transfer-list';
 
@@ -132,11 +132,11 @@ export class ThyTransferListComponent implements OnInit, DoCheck {
     };
 
     selectItem = (item: ThyTransferItem) => {
-        this.thySelectItem.emit({ item });
+        this.onSelectItem.emit({ item });
     };
 
     unselectItem = (item: ThyTransferItem) => {
-        this.thyUnSelectItem.emit({ item });
+        this.onUnselectItem.emit({ item });
     };
 
     drop(event: CdkDragDrop<ThyTransferItem[]>) {
