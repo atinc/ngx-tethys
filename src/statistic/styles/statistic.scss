@@ -1,8 +1,8 @@
 @mixin statistic-color($color) {
     color: $color;
-    border-color: $color;
     &.thy-statistic-card {
         background-color: rgba($color, 0.05);
+        border-color: $color;
     }
 }
 
