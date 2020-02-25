@@ -72,7 +72,7 @@ describe('thy-statistic', () => {
         });
     });
 
-    describe('Thy-statistic-template', () => {
+    describe('thy-statistic-template', () => {
         let fixture: ComponentFixture<ThyDemoStatisticTemplateComponent1>;
         let templateTestComponent: ThyDemoStatisticTemplateComponent1;
         let statisticComponent;
@@ -118,7 +118,7 @@ describe('thy-statistic', () => {
         });
     });
 
-    describe('Thy-statistic-template2', () => {
+    describe('thy-statistic-template2', () => {
         let fixture: ComponentFixture<ThyDemoStatisticTemplateComponent2>;
         let templateTestComponent: ThyDemoStatisticTemplateComponent2;
         let statisticComponent;
