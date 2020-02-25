@@ -139,13 +139,13 @@ export class DemoTransferSectionComponent {
             default: ''
         },
         {
-            property: '#renderLeftContent',
+            property: '#renderLeftTemplate',
             description: '设置自定义左侧内容模版',
             type: 'TemplateRef',
             default: ''
         },
         {
-            property: '#renderRightContent',
+            property: '#renderRightTemplate',
             description: '设置自定义右侧内容模版',
             type: 'TemplateRef',
             default: ''

@@ -1,5 +1,5 @@
 <thy-transfer #comp [thyData]="dataSource" [thyTitles]="titles" (thyChange)="change($event)">
-  <ng-template #renderLeftContent let-items let-selectItem="onSelectItem" let-unselectItem="onUnselectItem">
+  <ng-template #renderLeftTemplate let-items let-selectItem="onSelectItem" let-unselectItem="onUnselectItem">
     <thy-selection-list [thyMultiple]="true" class="thy-transfer-list-content" thyUniqueKey="_id">
       <thy-list-item
         class="thy-transfer-list-content-item"
@@ -18,7 +18,7 @@
       </thy-list-item>
     </thy-selection-list>
   </ng-template>
-  <ng-template #renderRightContent let-items let-selectItem="onSelectItem" let-unselectItem="onUnselectItem">
+  <ng-template #renderRightTemplate let-items let-selectItem="onSelectItem" let-unselectItem="onUnselectItem">
     <thy-selection-list [thyMultiple]="true" class="thy-transfer-list-content" thyUniqueKey="_id">
       <thy-list-item
         class="thy-transfer-list-content-item"

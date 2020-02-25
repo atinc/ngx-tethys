@@ -50,9 +50,9 @@ export class ThyTransferComponent implements OnInit {
         }
     }
 
-    @Input() thyRenderLeftContentRef: TemplateRef<any>;
+    @Input() thyrenderLeftTemplateRef: TemplateRef<any>;
 
-    @Input() thyRenderRightContentRef: TemplateRef<any>;
+    @Input() thyrenderRightTemplateRef: TemplateRef<any>;
 
     // @Input() transferToRight
 
@@ -82,9 +82,9 @@ export class ThyTransferComponent implements OnInit {
 
     @ContentChild('renderTemplate') templateRef: TemplateRef<any>;
 
-    @ContentChild('renderLeftContent') leftContentRef: TemplateRef<any>;
+    @ContentChild('renderLeftTemplate') leftContentRef: TemplateRef<any>;
 
-    @ContentChild('renderRightContent') rightContentRef: TemplateRef<any>;
+    @ContentChild('renderRightTemplate') rightContentRef: TemplateRef<any>;
 
     ngOnInit() {}
 
