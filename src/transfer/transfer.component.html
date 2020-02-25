@@ -5,8 +5,8 @@
   [renderContentRef]="leftContentRef"
   (draggableUpdate)="onDragUpdate('left', $event)"
   [template]="leftTemplateRef"
-  (onSelectItem)="selectItem($event)"
-  (onUnselectItem)="unselectItem($event)"
+  (selectItem)="selectItem($event)"
+  (unselectItem)="unselectItem($event)"
 >
   <ng-template #leftTemplateRef let-item>
     <div
@@ -44,8 +44,8 @@
   [maxLock]="thyRightLockMax"
   [template]="rightTemplateRef"
   [renderContentRef]="rightContentRef"
-  (onSelectItem)="selectItem($event)"
-  (onUnselectItem)="unselectItem($event)"
+  (selectItem)="selectItem($event)"
+  (unselectItem)="unselectItem($event)"
 >
   <ng-template #rightTemplateRef let-item>
     <ng-container *ngIf="thyRightDraggable">
