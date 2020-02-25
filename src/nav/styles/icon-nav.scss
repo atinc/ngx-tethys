@@ -33,6 +33,9 @@ $icon-nav-link-padding-y: 0.282rem;
 @mixin icon-nav-link-size($padding, $margin-right) {
     padding: $padding;
     margin-right: $margin-right;
+    &.no-gap {
+        margin-right: 0;
+    }
     &:last-child {
         margin-right: 0;
     }

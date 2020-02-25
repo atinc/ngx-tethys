@@ -10,6 +10,8 @@ export class ThyIconNavLinkComponent {
 
     @HostBinding('class.thy-icon-nav-link') navLinkClass = true;
 
+    @HostBinding('class.no-gap') navLinkNoGap = false;
+
     icon: string;
 
     @Input()
@@ -20,5 +22,10 @@ export class ThyIconNavLinkComponent {
     @Input()
     set thyIconNavLinkActive(active: string) {
         this.navLinkActive = inputValueToBoolean(active);
+    }
+
+    @Input()
+    set thyIconNavLinkNoGap(active: string) {
+        this.navLinkNoGap = inputValueToBoolean(active);
     }
 }
