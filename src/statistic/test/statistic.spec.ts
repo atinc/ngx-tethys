@@ -10,7 +10,7 @@ describe('thy-statistic', () => {
         });
         TestBed.compileComponents();
     });
-    describe('Thy-statistic-basic', () => {
+    describe('thy-statistic-basic', () => {
         let fixture: ComponentFixture<ThyDemoStatisticBasicComponent>;
         let basicTestComponent: ThyDemoStatisticBasicComponent;
         let statisticComponent;
