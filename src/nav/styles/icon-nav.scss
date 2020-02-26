@@ -63,3 +63,13 @@ $icon-nav-link-padding-y: 0.282rem;
         @include icon-nav-link-variant($icon-nav-link-secondary-color, $icon-nav-link-hover-color, rgba($primary, 0.1));
     }
 }
+
+.thy-icon-nav-individual {
+    .thy-icon-nav-link {
+        @include icon-nav-link-size(
+            $icon-nav-link-padding-y $icon-nav-link-padding-x,
+            $icon-nav-link-individual-spacing
+        );
+        @include icon-nav-link-variant($icon-nav-link-secondary-color, $icon-nav-link-hover-color, rgba($primary, 0.1));
+    }
+}
