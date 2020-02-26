@@ -124,7 +124,7 @@
 
         &-actions {
             text-align: right;
-            display: none;
+            visibility: hidden;
 
             > a {
                 margin-right: 10px;
@@ -139,7 +139,7 @@
             &.hover,
             &:hover {
                 .thy-tree-node-actions {
-                    display: inline-block;
+                    visibility: visible;
                 }
             }
         }
