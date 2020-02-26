@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.6.30](https://github.com/atinc/ngx-tethys/compare/7.6.29...7.6.30) (2020-02-26)
+
+
+### Bug Fixes
+
+* **thy-header:** operation middle and content overflow hidden(#INF-440) ([9e51fe0](https://github.com/atinc/ngx-tethys/commit/9e51fe0c546c01ae0b65267b76f5b01662bd21f4)), closes [#INF-440](https://github.com/atinc/ngx-tethys/issues/INF-440)
+
+
+### Features
+
+* **core:** add logger contains warn and warnDeprecation ([4db84a8](https://github.com/atinc/ngx-tethys/commit/4db84a82483be1b3fcfc9923f7e8bdda4df8fcb9))
+* **thy-statistic:** add thy-statistic component ([#521](https://github.com/atinc/ngx-tethys/issues/521)) ([f53f3f0](https://github.com/atinc/ngx-tethys/commit/f53f3f0b782c7d790e42638d1dd8e99ab8d46f8d))
+* **transfer:** support render content ref #PLN-154#INF-416#INF-388# ([#525](https://github.com/atinc/ngx-tethys/issues/525)) ([aa1f8d8](https://github.com/atinc/ngx-tethys/commit/aa1f8d8f1d46e93bc68c0405f88e394d5c98992e)), closes [#PLN-154](https://github.com/atinc/ngx-tethys/issues/PLN-154) [#INF-416](https://github.com/atinc/ngx-tethys/issues/INF-416) [#INF-388](https://github.com/atinc/ngx-tethys/issues/INF-388) [#PLN-154](https://github.com/atinc/ngx-tethys/issues/PLN-154) [#INF-416](https://github.com/atinc/ngx-tethys/issues/INF-416) [#INF-388](https://github.com/atinc/ngx-tethys/issues/INF-388)
+
+
+
 <a name="7.6.29"></a>
 
 ## [7.6.29](https://github.com/atinc/ngx-tethys/compare/v7.6.24...v7.6.29) (2020-02-11)
