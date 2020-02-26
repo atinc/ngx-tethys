@@ -69,12 +69,10 @@ export class ThyStatisticComponent implements OnInit {
 
     setColor(color: string) {
         this.renderer.setStyle(this.elementRef.nativeElement, 'color', color);
-        this.renderer.setStyle(this.elementRef.nativeElement, 'border-color', color);
-        this.renderer.setStyle(
-            this.elementRef.nativeElement,
-            'background-color',
-            this._shape === 'card' ? hexToRgb(color, 0.05) : 'none'
-        );
+        if (this._shape === 'card') {
+            this.renderer.setStyle(this.elementRef.nativeElement, 'border-color', color);
+            this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', hexToRgb(color, 0.05));
+        }
     }
 
     _setClassesByType() {
