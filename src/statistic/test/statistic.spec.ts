@@ -63,7 +63,7 @@ describe('thy-statistic', () => {
             expect(statisticComponent.nativeElement.style.backgroundColor === 'rgba(250, 139, 124, 0.05)').toBe(true);
         });
 
-        it('should have thy-statistic-success when thyStatistic is success-weak', () => {
+        it('should have style when thyValueStyle set', () => {
             basicTestComponent.thyValueStyle = { 'font-size': '40px', color: '#666666' };
             fixture.detectChanges();
             const contentElement = statisticComponent.nativeElement.querySelector('.thy-statistic-content');
@@ -73,12 +73,12 @@ describe('thy-statistic', () => {
     });
 
     describe('thy-statistic-template', () => {
-        let fixture: ComponentFixture<ThyDemoStatisticTemplateComponent1>;
-        let templateTestComponent: ThyDemoStatisticTemplateComponent1;
+        let fixture: ComponentFixture<ThyDemoStatisticTemplateComponent>;
+        let templateTestComponent: ThyDemoStatisticTemplateComponent;
         let statisticComponent;
 
         beforeEach(() => {
-            fixture = TestBed.createComponent(ThyDemoStatisticTemplateComponent1);
+            fixture = TestBed.createComponent(ThyDemoStatisticTemplateComponent);
             templateTestComponent = fixture.debugElement.componentInstance;
             statisticComponent = fixture.debugElement.query(By.directive(ThyStatisticComponent));
         });
@@ -118,13 +118,13 @@ describe('thy-statistic', () => {
         });
     });
 
-    describe('thy-statistic-template2', () => {
-        let fixture: ComponentFixture<ThyDemoStatisticTemplateComponent2>;
-        let templateTestComponent: ThyDemoStatisticTemplateComponent2;
+    describe('thy-statistic-template-outside', () => {
+        let fixture: ComponentFixture<ThyDemoStatisticTemplateOutsideComponent>;
+        let templateTestComponent: ThyDemoStatisticTemplateOutsideComponent;
         let statisticComponent;
 
         beforeEach(() => {
-            fixture = TestBed.createComponent(ThyDemoStatisticTemplateComponent2);
+            fixture = TestBed.createComponent(ThyDemoStatisticTemplateOutsideComponent);
             templateTestComponent = fixture.debugElement.componentInstance;
             statisticComponent = fixture.debugElement.query(By.directive(ThyStatisticComponent));
         });
@@ -200,10 +200,10 @@ class ThyDemoStatisticBasicComponent {
         </thy-statistic>
     `
 })
-class ThyDemoStatisticTemplateComponent1 {}
+class ThyDemoStatisticTemplateComponent {}
 
 @Component({
-    selector: 'thy-demo-statistic-template2',
+    selector: 'thy-demo-statistic-template-outside',
     template: `
         <thy-statistic
             [thyPrefixTemplate]="prefix"
@@ -218,15 +218,19 @@ class ThyDemoStatisticTemplateComponent1 {}
         <ng-template #title>标题</ng-template>
     `
 })
-class ThyDemoStatisticTemplateComponent2 {}
+class ThyDemoStatisticTemplateOutsideComponent {}
 
 @NgModule({
     imports: [ThyStatisticModule],
     declarations: [
         ThyDemoStatisticBasicComponent,
-        ThyDemoStatisticTemplateComponent1,
-        ThyDemoStatisticTemplateComponent2
+        ThyDemoStatisticTemplateComponent,
+        ThyDemoStatisticTemplateOutsideComponent
     ],
-    exports: [ThyDemoStatisticBasicComponent, ThyDemoStatisticTemplateComponent1, ThyDemoStatisticTemplateComponent2]
+    exports: [
+        ThyDemoStatisticBasicComponent,
+        ThyDemoStatisticTemplateComponent,
+        ThyDemoStatisticTemplateOutsideComponent
+    ]
 })
 export class StatisticTestModule {}
