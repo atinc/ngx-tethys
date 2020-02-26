@@ -55,15 +55,27 @@ $ npm run start
 
 ## Release & Publish
 
-1. 获取主仓储 `ngx-tethys` 最新代码（如果是自己fork的项目，需要 `fetch` 远程仓储并且合并到本地分支 ）
-1. 执行 `npm run release-next` 输入新的版本号（`release-next` 命令会根据tag自动生成 `changelog`, 并且自动生成新的版本对应的分支）
-1. 提交 `Pull Request` 到主仓储 `ngx-tethys` `master` 分支，测试通过后合并 `Pull Request`，并且删除临时分支
-1. 本地切换到主仓储 `ngx-tethys/master` 分支，（如果是自己fork项目，则 `git checkout upstream/master`）
-1. 本地执行 `git pull` or `git fetch upstream` 同步远程更新
-1. 执行 `npm run pub` 发布新版本
-1. 在主仓储添加当前版本对应的新的 `tag`
+1. Run `npm run release` to release new version, this command will does the following: 
+    - Checkout to `master` and identifies current version and latest tag.
+    - Prompts for a new version to select.
+    - Create a release branch as `release-v1.0.0`
+    - Modifies package metadata (package.json, version.ts) to reflect new release and generate changelog
+    - Commits those changes to release branch.
+    - Pushes to the git remote.
 
-## Announcements
+    You can run `npm run release [patch|minor|major|2.0.0]` to skip the version selection prompt and increment the version by that keyword or specify version.
+1. Submit pull request from release branch to master
+1. Code review & merge pull request for release
+1. Run `npm run pub` to pub lib to npm, this command will does the following: 
+    - Fetch latest code and checkout to `master`
+    - Create tag for new version
+    - Pushes tags to git remote
+    - Auto run `npm run build` which build source output `built` folder
+    - Auto switch `built` folder and run `npm publish` to publish lib to npm
 
-1. 不建议使用 `barrel index`（开发新的组件模块时，最外层的 `module` 最好直接引用组件，不要通过 `index` 导出，再进行引用）
-1. 新增加组件模块，需要在 `public-api.ts` 文件中导出
+
+## Notes
+
+1. Don't use `barrel index` (should directly import specify component in module, don't import `index.ts`)
+1. Should exports component module in `public-api.ts`
+

@@ -12,7 +12,8 @@ export class DemoTreeSelectBasicComponent implements OnInit {
         selectedValue: '',
         allowClear: false,
         disabled: false,
-        showWholeName: true
+        showWholeName: true,
+        icon: true
     };
 
     constructor() {}

@@ -1,0 +1,14 @@
+<div class="demo-card">
+  <div
+    class="editable"
+    contenteditable="true"
+    placeholder="Mention people using @, using # to relate task, quick reply using /"
+    [thyMention]="mentions"
+  ></div>
+</div>
+
+<ng-template #member let-member>
+  <thy-avatar thySize="sm" [thyName]="member.display_name" [thyShowName]="true"></thy-avatar>
+  <span class="text-desc ml-2">({{ member.name }})</span>
+  <!-- {{member.display_name}} -  {{member.name}} -->
+</ng-template>

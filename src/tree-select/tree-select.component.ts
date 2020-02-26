@@ -14,7 +14,7 @@ import {
     Renderer2
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { ThyTreeSelectNode } from './tree-select.class';
+import { ThyTreeSelectNode, ThyTreeSelectType } from './tree-select.class';
 import { isObject, isArray } from '../util/helpers';
 import { Observable, of } from 'rxjs';
 import {
@@ -28,9 +28,10 @@ import {
     ConnectionPositionPair
 } from '@angular/cdk/overlay';
 import { getFlexiblePositions } from '../core/overlay';
-import { ThyTreeNode } from '../tree/tree.class';
+import { ThyTreeNode } from '../tree/tree-node.class';
 
 import { $ } from '../typings';
+import { take } from 'rxjs/operators';
 
 const MAT_SELECT_SCROLL_STRATEGY = new InjectionToken<() => ScrollStrategy>('MAT_SELECT_SCROLL_STRATEGY');
 
@@ -81,6 +82,8 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
     // public scrollStrategy: ScrollStrategy;
 
     public positions: ConnectionPositionPair[];
+
+    public icons: { expand: string; collapse: string } = { expand: 'caret-right-down', collapse: 'caret-right' };
 
     private initialled = false;
 
@@ -134,6 +137,15 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
     @Input() thyAsyncNode = false;
 
     @Input() thyShowWholeName = false;
+
+    @Input()
+    set thyIconType(type: ThyTreeSelectType) {
+        if (type === 'especial') {
+            this.icons = { expand: 'minus-square', collapse: 'plus-square' };
+        } else {
+            this.icons = { expand: 'caret-right-down', collapse: 'caret-right' };
+        }
+    }
 
     @Input() thyHiddenNodeFn: (node: ThyTreeSelectNode) => boolean = (node: ThyTreeSelectNode) => node.hidden;
 
@@ -203,6 +215,15 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
         this.setSelectedNodes();
         this.initialled = true;
         this.init();
+    }
+
+    public setPosition() {
+        this.ngZone.onStable
+            .asObservable()
+            .pipe(take(1))
+            .subscribe(() => {
+                this.cdkConnectedOverlay.overlayRef.updatePosition();
+            });
     }
 
     private init() {
@@ -388,6 +409,7 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
                 this.flattenTreeNodes = [...this.flattenTreeNodes, ...otherNodes];
                 node.children = data;
             });
+            return result;
         }
     }
 }

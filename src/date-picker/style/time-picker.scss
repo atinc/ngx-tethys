@@ -1,0 +1,37 @@
+.time-picker-section {
+    margin: 0 auto;
+    display: flex;
+    padding: 0 20px;
+    line-height: 50px;
+    border-top: solid 1px $gray-200;
+
+    time-picker {
+        margin: 10px 0;
+        line-height: 0;
+    }
+
+    .time-picker-wrap {
+        .btn {
+            padding: 0;
+        }
+    }
+
+    .time-picker-btn-wrap {
+        display: flex;
+        align-items: center;
+        flex: 1;
+        justify-content: flex-end;
+
+        .time-picker-ok-btn {
+            padding-left: 15px;
+            padding-right: 15px;
+            min-width: auto;
+        }
+
+        .time-picker-clear-btn {
+            margin-left: 5px;
+            padding-left: 5px;
+            padding-right: 0;
+        }
+    }
+}

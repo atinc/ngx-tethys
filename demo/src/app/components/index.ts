@@ -23,7 +23,6 @@ import { DemoDropdownSectionComponent } from './+dropdown/dropdown-section.compo
 import { DemoEmptySectionComponent } from './+empty/empty-section.component';
 import { DemoFlexibleTextBasicComponent } from './+flexible-text/basic/flexible-text-basic.component';
 import { DemoFlexibleTextComponent } from './+flexible-text/flexible-text-section.component';
-import { DemoCheckboxSectionComponent } from './+form-checkbox/checkbox-section.component';
 import { DemoRadioSectionComponent } from './+form-radio/radio-section.component';
 import { DemoFormSectionComponent } from './+form/form-section.component';
 import { DemoGridSectionComponent } from './+grid/grid-section.component';
@@ -73,9 +72,7 @@ import { DemoStoreSectionComponent } from './+store/store-section.component';
 import { DemoStrengthComponent } from './+strength/strength-section.component';
 import { DemoSwitchSectionComponent } from './+switch/switch-section.component';
 import { DemoTableSectionComponent } from './+table/table-section.component';
-import { TOOLTIP_COMPONENTS } from './+tooltip';
-import { DemoTooltipSectionComponent } from './+tooltip/tooltip-section.component';
-import { DemoTransferSectionComponent } from './+transfer/transfer-section.component';
+import { DemoTooltipModule } from './+tooltip';
 import { DemoTreeModule } from './+tree';
 import { DemoTreeSelectSectionComponent } from './+tree-select/tree-select-section.component';
 import { DemoTypographyComponent } from './+typography/typography.component';
@@ -87,6 +84,16 @@ import { DemoVoteComponent } from './+vote/vote.component';
 import { DemoResultBasicComponent } from './+result/basic/basic.component';
 import { DemoResultSectionComponent } from './+result/result-section.component';
 import { DemoCopySectionComponent } from './+copy/copy-section.component';
+import { DemoCheckboxModule } from './+form-checkbox';
+import { DemoVoteWeakComponent } from './+vote/weak/vote-weak.component';
+import { DemoVoteBasicComponent } from './+vote/basic/vote-basic.component';
+import { DemoVoteIconComponent } from './+vote/icon/vote-icon.component';
+import { DemoMentionModule } from './+mention';
+import { DemoDatePickerModule } from './+datepicker';
+import { DemoStatisticComponent } from './+statistic/statistic.component';
+import { DemoStatisticBasicComponent } from './+statistic/basic/statistic-basic.component';
+import { DemoStatisticCardComponent } from './+statistic/card/statistic-card.component';
+import { DemoTransferModule } from './+transfer/module';
 
 export const COMPONENTS = [
     DemoCopySectionComponent,
@@ -127,14 +134,12 @@ export const COMPONENTS = [
     DemoPaginationComponent,
     DemoEmptySectionComponent,
     DemoSwitchSectionComponent,
-    DemoTransferSectionComponent,
     DemoStrengthComponent,
     DemoFormSectionComponent,
     DemoDataPickerSectionComponent,
     DemoDatepickerNextSectionComponent,
     DemoDropdownSectionComponent,
     DemoProgressSectionComponent,
-    DemoCheckboxSectionComponent,
     DemoSelectSectionComponent,
     DemoSlideSectionComponent,
     DemoSlideContentComponent,
@@ -148,9 +153,16 @@ export const COMPONENTS = [
     DemoTreeSelectSectionComponent,
     DemoStepperSectionComponent,
     DemoCascaderSectionComponent,
-    DemoVoteComponent,
 
-    DemoTooltipSectionComponent,
+    DemoVoteComponent,
+    DemoVoteWeakComponent,
+    DemoVoteBasicComponent,
+    DemoVoteIconComponent,
+
+    DemoStatisticComponent,
+    DemoStatisticBasicComponent,
+    DemoStatisticCardComponent,
+
     DemoOverlaySectionComponent,
     CreateOverlayComponent,
 
@@ -158,7 +170,6 @@ export const COMPONENTS = [
     DemoPropertyOperationGroupComponent,
 
     ...PROGRESS_COMPONENTS,
-    ...TOOLTIP_COMPONENTS,
     ...ICON_COMPONENTS,
 
     DemoBreadcrumbSectionComponent,
@@ -208,7 +219,6 @@ export const ENTRY_COMPONENTS = [
     DemoPropertyOperationGroupComponent,
 
     ...PROGRESS_COMPONENTS,
-    ...TOOLTIP_COMPONENTS,
     ...ICON_COMPONENTS,
     DemoFlexibleTextBasicComponent,
 
@@ -219,7 +229,14 @@ export const ENTRY_COMPONENTS = [
     NativeSelectBasicComponent,
     CustomSelectScrollComponent,
 
-    DemoResultBasicComponent
+    DemoResultBasicComponent,
+
+    DemoVoteWeakComponent,
+    DemoVoteBasicComponent,
+    DemoVoteIconComponent,
+
+    DemoStatisticBasicComponent,
+    DemoStatisticCardComponent
 ];
 
 export const DEMO_MODULES = [
@@ -233,5 +250,10 @@ export const DEMO_MODULES = [
     DemoListModule,
     DemoCardModule,
     DemoSkeletonModule,
-    DemoAlertModule
+    DemoAlertModule,
+    DemoCheckboxModule,
+    DemoMentionModule,
+    DemoDatePickerModule,
+    DemoTooltipModule,
+    DemoTransferModule
 ];

@@ -30,6 +30,7 @@ import { ThySelectionListChange } from './selection.interface';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ScrollToService } from '../../core';
 import { UpdateHostClassService } from '../../shared/update-host-class.service';
+import { startWith } from 'rxjs/operators';
 
 export type ThyListSize = 'sm' | 'md' | 'lg';
 
@@ -106,8 +107,16 @@ export class ThySelectionListComponent
         this.isLayoutGrid = value === 'grid';
     }
 
+    @Input() thyFirstItemDefaultActive: boolean;
+
     @Input() set thySize(value: ThyListSize) {
         this._setListSize(value);
+    }
+
+    private spaceEnabled = true;
+    /** Whether keydown space toggle focused option */
+    @Input() set thySpaceKeyEnabled(value: boolean) {
+        this.spaceEnabled = inputValueToBoolean(value);
     }
 
     /** Emits a change event whenever the selected state of an option changes. */
@@ -317,6 +326,9 @@ export class ThySelectionListComponent
         switch (keyCode) {
             case keycodes.SPACE:
             case keycodes.ENTER:
+                if (keyCode === keycodes.SPACE && !this.spaceEnabled) {
+                    return;
+                }
                 this._toggleFocusedOption(event);
                 // Always prevent space from scrolling the page since the list has focus
                 event.preventDefault();
@@ -380,6 +392,14 @@ export class ThySelectionListComponent
 
     ngAfterContentInit(): void {
         this._initializeFocusKeyManager();
+        this.options.changes.pipe(startWith(true)).subscribe(() => {
+            if (this.thyFirstItemDefaultActive) {
+                if (!this._keyManager.activeItem || this.options.toArray().indexOf(this._keyManager.activeItem) < 0) {
+                    this._keyManager.setFirstItemActive();
+                }
+            }
+        });
+
         // if (this._tempValues) {
         //     this._setSelectionByValues(this._tempValues);
         //     this._tempValues = null;

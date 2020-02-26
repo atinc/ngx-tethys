@@ -11,9 +11,10 @@ import { CommonModule } from '@angular/common';
 
 import { ThyListOptionComponent } from './list-option.component';
 import { ThyOptionGroupComponent } from './option-group.component';
+import { ThyIconModule } from '../../icon';
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule, ThyIconModule],
     exports: [ThyListOptionComponent, ThyOptionGroupComponent],
     declarations: [ThyListOptionComponent, ThyOptionGroupComponent]
 })

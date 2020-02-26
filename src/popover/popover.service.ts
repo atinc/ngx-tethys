@@ -4,7 +4,8 @@ import {
     OverlayConfig,
     OverlayRef,
     PositionStrategy,
-    ScrollDispatcher
+    ScrollDispatcher,
+    OverlayContainer
 } from '@angular/cdk/overlay';
 import {
     TemplateRef,
@@ -27,6 +28,13 @@ import { getFlexiblePositions, ThyUpperOverlayService, ThyUpperOverlayRef } from
 import { takeUntil } from 'rxjs/operators';
 import { helpers } from '../util';
 import { popoverUpperOverlayOptions } from './popover.options';
+import { ViewportRuler } from '@angular/cdk/scrolling';
+import { DOCUMENT } from '@angular/common';
+import { Platform } from '@angular/cdk/platform';
+import {
+    FlexibleConnectedPositionStrategy,
+    FlexibleConnectedPositionStrategyOrigin
+} from '../core/overlay/position/flexible-connected-position-strategy';
 
 @Injectable({
     providedIn: 'root'
@@ -44,10 +52,20 @@ export class ThyPopover extends ThyUpperOverlayService<ThyPopoverConfig, ThyPopo
     >();
 
     private buildPositionStrategy<TData>(config: ThyPopoverConfig<TData>): PositionStrategy {
-        const positionStrategy = this.overlay.position().flexibleConnectedTo(coerceElement(config.origin));
+        const origin: FlexibleConnectedPositionStrategyOrigin = config.originPosition
+            ? config.originPosition
+            : config.origin;
+        // const positionStrategy = this.overlay.position().flexibleConnectedTo(origin);
+        const positionStrategy = new FlexibleConnectedPositionStrategy(
+            origin,
+            this._viewportRuler,
+            this._document,
+            this._platform,
+            this._overlayContainer
+        );
         const positions = getFlexiblePositions(config.placement, config.offset, 'thy-popover');
         positionStrategy.withPositions(positions);
-
+        positionStrategy.withGrowAfterOpen(true);
         positionStrategy.positionChanges.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(change => {
             if (change.scrollableViewProperties.isOverlayClipped) {
                 // After position changes occur and the overlay is clipped by
@@ -137,7 +155,11 @@ export class ThyPopover extends ThyUpperOverlayService<ThyPopoverConfig, ThyPopo
         injector: Injector,
         @Inject(THY_POPOVER_DEFAULT_CONFIG) defaultConfig: ThyPopoverConfig,
         private scrollDispatcher: ScrollDispatcher,
-        private ngZone: NgZone
+        private ngZone: NgZone,
+        private _viewportRuler: ViewportRuler,
+        @Inject(DOCUMENT) private _document: any,
+        private _platform: Platform,
+        private _overlayContainer: OverlayContainer
     ) {
         super(popoverUpperOverlayOptions, overlay, injector, defaultConfig);
     }
@@ -172,7 +194,7 @@ export class ThyPopover extends ThyUpperOverlayService<ThyPopoverConfig, ThyPopo
             return;
         }
 
-        const popoverRef = this.openUpperOverlay(componentOrTemplateRef, config);
+        const popoverRef = this.openUpperOverlay(componentOrTemplateRef, config) as ThyPopoverRef<T>;
         config = popoverRef.containerInstance.config;
         popoverRef.afterClosed().subscribe(() => {
             this.originElementRemoveActiveClass(config);
@@ -180,7 +202,6 @@ export class ThyPopover extends ThyUpperOverlayService<ThyPopoverConfig, ThyPopo
         });
 
         this.originElementAddActiveClass(config);
-
         this.originInstancesMap.set(originElement, {
             config,
             popoverRef

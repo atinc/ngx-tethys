@@ -1,0 +1,19 @@
+<table class="{{ prefixCls }}-month-panel-table" cellSpacing="0" role="grid">
+  <tbody class="{{ prefixCls }}-month-panel-tbody">
+    <tr *ngFor="let row of panelMonths; trackBy: trackYear" role="row">
+      <td
+        *ngFor="let monthCell of row; trackBy: trackPanelMonth"
+        role="gridcell"
+        title="{{ monthCell.title }}"
+        (click)="monthCell.disabled ? null : monthCell.onClick()"
+        [ngClass]="monthCell.classMap"
+      >
+        <ng-container [ngSwitch]="prefixCls">
+          <ng-container *ngSwitchCase="'thy-calendar'">
+            <a class="{{ prefixCls }}-month-panel-month">{{ monthCell.content }}</a>
+          </ng-container>
+        </ng-container>
+      </td>
+    </tr>
+  </tbody>
+</table>

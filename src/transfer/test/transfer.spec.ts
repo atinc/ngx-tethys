@@ -6,8 +6,15 @@ import { of, Observable } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
 import { ThyTransferModule } from '../transfer.module';
 import { ThyTransferComponent } from '../transfer.component';
-import { ThyTransferDragEvent, ThyTransferChangeEvent, TransferDirection } from '../transfer.interface';
+import {
+    ThyTransferDragEvent,
+    ThyTransferChangeEvent,
+    TransferDirection,
+    ThyTransferItem
+} from '../transfer.interface';
 import { CdkDropListGroup } from '@angular/cdk/drag-drop';
+import { ThyListModule } from '../../list/list.module';
+import { ThyIconModule } from '../../icon/icon.module';
 
 const COUNT = 9;
 const RIGHTCOUNT = 5;
@@ -103,16 +110,44 @@ class TestTransferCustomRenderComponent {
     dataSource: any[] = buildDataList();
 }
 
+@Component({
+    templateUrl: './transfer-template.html',
+    encapsulation: ViewEncapsulation.None
+})
+class TestTransferCustomRenderContentComponent {
+    @ViewChild('comp') comp: ThyTransferComponent;
+    dataSource: any[] = buildDataList();
+    titles = ['Source', 'Target'];
+
+    select(
+        item: ThyTransferItem,
+        selectItem: (item: ThyTransferItem) => void,
+        unselectItem: (item: ThyTransferItem) => void
+    ) {
+        if (item.direction === TransferDirection.left) {
+            selectItem(item);
+        } else {
+            unselectItem(item);
+        }
+    }
+}
+
 describe('transfer', () => {
-    let fixture: ComponentFixture<TestTransferComponent | TestTransferCustomRenderComponent>;
+    let fixture: ComponentFixture<
+        TestTransferComponent | TestTransferCustomRenderComponent | TestTransferCustomRenderContentComponent
+    >;
     let dl: DebugElement;
     let instance: TestTransferComponent;
     let pageObject: TransferPageObject;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, ThyTransferModule],
-            declarations: [TestTransferComponent, TestTransferCustomRenderComponent]
+            imports: [NoopAnimationsModule, ThyTransferModule, ThyListModule, ThyIconModule],
+            declarations: [
+                TestTransferComponent,
+                TestTransferCustomRenderComponent,
+                TestTransferCustomRenderContentComponent
+            ]
         }).compileComponents();
     }));
 
@@ -208,4 +243,35 @@ describe('transfer', () => {
             return this;
         }
     }
+
+    describe('use custom render content template', () => {
+        beforeEach(() => {
+            fixture = TestBed.createComponent(TestTransferCustomRenderContentComponent);
+            dl = fixture.debugElement;
+            instance = dl.componentInstance;
+            pageObject = new TransferPageObject();
+            fixture.detectChanges();
+        });
+
+        it('should render correct content in left and right', () => {
+            pageObject.expectLeft(COUNT).expectRight(RIGHTCOUNT);
+        });
+
+        it('should be select item from left to right', () => {
+            pageObject.checkItem('left', 0);
+            pageObject.expectLeft(COUNT).expectRight(RIGHTCOUNT + 1);
+        });
+
+        it('should remove item in left', () => {
+            pageObject.checkItem('left', 5);
+            pageObject.expectLeft(COUNT).expectRight(RIGHTCOUNT - 1);
+        });
+
+        it('should remove item in right', () => {
+            const items = pageObject.rightList.querySelectorAll('.thy-transfer-list-content-item');
+            (items[0] as HTMLElement).click();
+            fixture.detectChanges();
+            pageObject.expectLeft(COUNT).expectRight(RIGHTCOUNT - 1);
+        });
+    });
 });

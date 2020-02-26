@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { ThyLoadingModule } from '../loading';
 import { ThyIconModule } from '../icon';
 import { ThyDragDropModule } from '../drag-drop/module';
+import { ThyCheckboxModule } from '../checkbox';
 
 @NgModule({
     declarations: [ThyTreeComponent, ThyTreeNodeComponent, ThyTreeReplaceRegionComponent],
@@ -28,7 +29,8 @@ import { ThyDragDropModule } from '../drag-drop/module';
         ThyOptionModule,
         ThyLoadingModule,
         ThyIconModule,
-        ThyDragDropModule
+        ThyDragDropModule,
+        ThyCheckboxModule
     ],
     entryComponents: [ThyTreeComponent],
     exports: [ThyTreeComponent, ThyTreeNodeComponent, ThyTreeReplaceRegionComponent],

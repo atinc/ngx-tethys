@@ -244,7 +244,7 @@ $table-bordered-padding: 11px 15px !default;
 $table-bordered-bg: $gray-100 !default;
 $table-bordered-head-color: $gray-700 !default;
 $table-draggable-icon-color: $gray-600 !default;
-$table-draggable-icon-left: 10px !default;
+$table-draggable-icon-left: 0px !default;
 $table-draggable-bordered-icon-padding-left: 30px !default;
 // grid
 $grid-footer-padding: 0 20px !default;
@@ -624,12 +624,17 @@ $list-grid-option-sm-name-margin-top: 7px;
 
 // vote
 $vote-layout-vertical-sm: 36px;
+$vote-layout-vertical-default: 48px;
 $vote-layout-vertical-padding-sm: 5px;
-$vote-layout-vertical-md: 48px;
-$vote-layout-vertical-padding-md: 7px;
-$vote-layout-horizontal-with-sm: 50px;
-$vote-layout-horizontal-height-sm: 20px;
-$vote-layout-horizontal-padding-sm: 4px 7px;
+$vote-layout-vertical-padding-default: 7px;
+$vote-layout-vertical-icon-margin-bottom: 4px;
+$vote-layout-horizontal-padding: 4px 7px;
+$vote-layout-horizontal-icon-margin-right: 5px;
+
+// statistic
+$statistic-size-default: 30px;
+$statistic-suffix-size-default: $font-size-md;
+$statistic-title-size-default: $font-size-sm;
 
 // result
 $result-padding: 30px !default;
@@ -644,3 +649,7 @@ $result-subtitle-margin-top: 8px !default;
 $markdown-color-width: $rem-14px !default;
 $markdown-color-height: $rem-14px !default;
 $markdown-color-border-color: $gray-200 !default;
+
+// mention
+$mention-suggestions-width: 280px !default;
+$mention-suggestions-height: 315px !default;

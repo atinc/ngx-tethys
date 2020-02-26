@@ -28,6 +28,12 @@
 }
 
 .thy-grid {
+    display: block;
+
+    .thy-grid-checkbox-column {
+        line-height: initial;
+    }
+
     &.thy-grid-hover-display-operation {
         .thy-operation-links {
             a,

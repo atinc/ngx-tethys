@@ -6,6 +6,11 @@ import {
     ThyTransferDragEvent,
     TransferDirection
 } from '../../../../../src/transfer/transfer.interface';
+import { Subject } from 'rxjs';
+import { ThySelectionListChange } from 'ngx-tethys';
+import { LiveDemoCodeExample } from '../../core/live-demo/live-demo.component';
+import { TransferBasicComponent } from './basic/transfer-basic.component';
+import { TransferTemplateComponent } from './template/transfer-template.component';
 
 @Component({
     selector: 'demo-transfer-section',
@@ -13,11 +18,50 @@ import {
     styleUrls: ['./transfer-section.component.scss']
 })
 export class DemoTransferSectionComponent {
+    liveDemos: LiveDemoCodeExample[] = [
+        {
+            title: 'Basic',
+            component: TransferBasicComponent,
+            description: `基本使用`,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'transfer-basic.component.html',
+                    content: require('!!raw-loader!./basic/transfer-basic.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'transfer-basic.component.ts',
+                    content: require('!!raw-loader!./basic/transfer-basic.component.ts')
+                }
+            ]
+        },
+        {
+            title: 'Template',
+            component: TransferTemplateComponent,
+            description: `使用template自定义列表`,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'transfer-template.component.html',
+                    content: require('!!raw-loader!./template/transfer-template.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'transfer-template.component.ts',
+                    content: require('!!raw-loader!./template/transfer-template.component.ts')
+                }
+            ]
+        }
+    ];
+
     public lockItems: ThyTransferItem[] = [];
 
     public unlockItems: ThyTransferItem[] = [];
 
     public maxLock = 2;
+
+    public selectedLeft;
 
     public transferData: ThyTransferItem[] = [
         {
@@ -95,6 +139,18 @@ export class DemoTransferSectionComponent {
             default: ''
         },
         {
+            property: '#renderLeftTemplate',
+            description: '设置自定义左侧内容模版',
+            type: 'TemplateRef',
+            default: ''
+        },
+        {
+            property: '#renderRightTemplate',
+            description: '设置自定义右侧内容模版',
+            type: 'TemplateRef',
+            default: ''
+        },
+        {
             property: '(thyChange)',
             description: 'Transfer变化的回调事件',
             type: 'ThyTransferChangeEvent',
@@ -129,6 +185,27 @@ export class DemoTransferSectionComponent {
         }
     ];
 
+    public transferRenderContentParameters = [
+        {
+            property: 'items',
+            description: '分类后的数据',
+            type: 'ThyTransferItem',
+            default: '[]'
+        },
+        {
+            property: 'onSelectItem',
+            description: '选择item',
+            default: '(item: ThyTransferItem) => void'
+        },
+        {
+            property: 'onUnselectItem',
+            description: '取消选择item',
+            default: '(item: ThyTransferItem) => void'
+        }
+    ];
+
+    transferData2 = JSON.parse(JSON.stringify(this.transferData));
+
     constructor() {}
 
     onDragUpdate(event: ThyTransferDragEvent) {
@@ -141,5 +218,17 @@ export class DemoTransferSectionComponent {
         this.lockItems = event.right.lock;
         this.unlockItems = event.right.unlock;
         console.log(event);
+    }
+
+    selectionChange(
+        item: ThyTransferItem,
+        selectItem: (item: ThyTransferItem) => void,
+        unselectItem: (tem: ThyTransferItem) => void
+    ) {
+        if (item.direction === 'left') {
+            selectItem(item);
+        } else {
+            unselectItem(item);
+        }
     }
 }

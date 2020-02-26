@@ -1,5 +1,5 @@
 import { ESCAPE } from '@angular/cdk/keycodes';
-import { GlobalPositionStrategy, OverlayRef } from '@angular/cdk/overlay';
+import { GlobalPositionStrategy, OverlayRef, FlexibleConnectedPositionStrategy } from '@angular/cdk/overlay';
 import { Observable, Subject } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 import { ThyPopoverContainerComponent } from './popover-container.component';
@@ -27,7 +27,8 @@ export class ThyInternalPopoverRef<T, TResult = any>
      * Updates the popover's position.
      * @param position New popover position.
      */
-    updatePosition(position?: ThyUpperOverlayPosition): this {
-        return this.updateGlobalPosition(position);
+    updatePosition(): this {
+        this.overlayRef.updatePosition();
+        return this;
     }
 }

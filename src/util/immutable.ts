@@ -23,7 +23,7 @@ export class Producer<TEntity> {
     private entities: TEntity[];
 
     constructor(entities: TEntity[], options?: ProducerOptions) {
-        this.entities = entities;
+        this.entities = entities || [];
         if (options && options.idKey) {
             this.idKey = options.idKey;
         }

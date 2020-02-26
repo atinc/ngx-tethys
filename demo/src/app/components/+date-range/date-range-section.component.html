@@ -1,38 +1,53 @@
+<thy-alert
+  thyType="warning"
+  thyMessage="DateRange 已经被废弃，将在之后的版本中移除，请使用 DatePicker 代替"
+></thy-alert>
+
 <section>
-    <div class="header">
-        <h2>date-range 不设置dateRanges</h2>
+  <div class="header">
+    <h2>date-range 不设置dateRanges</h2>
+  </div>
+  <div class="body">
+    <div class="demo-layout">
+      <thy-date-range [(ngModel)]="date" name="setDateRange" (ngModelChange)="change()"></thy-date-range>
+      <span>{{ date | json }}</span>
     </div>
-    <div class="body">
-        <div class="demo-layout">
-            <thy-date-range [(ngModel)]="date" name="setDateRange" (ngModelChange)="change()"></thy-date-range>
-            <span>{{date|json}}</span>
-        </div>
-    </div>
+  </div>
 </section>
 
 <section>
-    <div class="header">
-        <h2>date-range 设置dateRanges</h2>
+  <div class="header">
+    <h2>date-range 设置dateRanges</h2>
+  </div>
+  <div class="body">
+    <div class="demo-layout">
+      <thy-date-range
+        [(ngModel)]="dateHasConfig"
+        name="setDateRangeHasConfig"
+        [dateRanges]="dateRanges"
+        (ngModelChange)="change()"
+      ></thy-date-range>
+      <span>{{ dateHasConfig | json }}</span>
     </div>
-    <div class="body">
-        <div class="demo-layout">
-            <thy-date-range [(ngModel)]="dateHasConfig" name="setDateRangeHasConfig" [dateRanges]="dateRanges" (ngModelChange)="change()"></thy-date-range>
-            <span>{{dateHasConfig|json}}</span>
-        </div>
-    </div>
+  </div>
 </section>
 
-
 <section>
-    <div class="header">
-        <h2>隐藏菜单</h2>
+  <div class="header">
+    <h2>隐藏菜单</h2>
+  </div>
+  <div class="body">
+    <div class="demo-layout">
+      <thy-date-range
+        [(ngModel)]="weekDate"
+        name="setDateRangeHasConfig"
+        [dateRanges]="weekDateRanges"
+        (ngModelChange)="change()"
+        [hiddenMenu]="true"
+      ></thy-date-range>
+      <span>{{ weekDate | json }}</span>
     </div>
-    <div class="body">
-        <div class="demo-layout">
-            <thy-date-range [(ngModel)]="weekDate" name="setDateRangeHasConfig" [dateRanges]="weekDateRanges" (ngModelChange)="change()" [hiddenMenu]="true"></thy-date-range>
-            <span>{{weekDate|json}}</span>
-        </div>
-    </div>
+  </div>
 </section>
 
 <api-parameters [parameters]="apiParameters"></api-parameters>

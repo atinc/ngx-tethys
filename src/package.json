@@ -1,9 +1,9 @@
 {
   "name": "ngx-tethys",
-  "version": "7.6.14",
+  "version": "7.6.29",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/worktile/ngx-tethys.git"
+    "url": "git+ssh://git@github.com/atinc/ngx-tethys.git"
   },
   "peerDependencies": {
     "@angular/common": "*",
@@ -14,6 +14,7 @@
     "lodash": "*",
     "sortablejs": "*",
     "angular-sortablejs": "*",
-    "rxjs": "*"
+    "rxjs": "*",
+    "date-fns": "*"
   }
 }
