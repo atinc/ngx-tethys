@@ -6,19 +6,26 @@
     [thyTitle]="'测试覆盖率'"
     [thySuffix]="'%'"
     [thyColor]="'success'"
-    [thyPrefixTemplate]="prefix"
+    [thyPrefixTemplate]="prefix1"
   ></thy-statistic>
 
-  <ng-template #prefix>
-    <thy-icon thyIconName="star"></thy-icon>
+  <ng-template #prefix1>
+    <thy-icon style="font-size: 30px" thyIconName="arrow-up"></thy-icon>
   </ng-template>
 
   <thy-statistic
     [thyValue]="40 | number"
     [thyTitle]="'字的大小'"
     [thySuffix]="'px'"
-    [thyValueStyle]="{ 'font-size': '40px' }"
+    [thyValueStyle]="{ 'font-size': '40px', color: '#666666' }"
   >
-    <ng-template #thyPrefix> <thy-icon thyIconName="star"></thy-icon> </ng-template
+    <ng-template #prefix> <thy-icon style="font-size: 30px" thyIconName="arrow-down"></thy-icon> </ng-template
   ></thy-statistic>
+
+  <thy-statistic>
+    <ng-template #value>value</ng-template>
+    <ng-template #prefix>前缀</ng-template>
+    <ng-template #suffix>后缀</ng-template>
+    <ng-template #title>标题</ng-template>
+  </thy-statistic>
 </div>
