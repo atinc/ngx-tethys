@@ -6,7 +6,8 @@ import {
     Directive,
     NgModule,
     TemplateRef,
-    OnInit
+    OnInit,
+    ElementRef
 } from '@angular/core';
 import { Location } from '@angular/common';
 import { OverlayContainer, Overlay, OverlayModule, ScrollStrategy } from '@angular/cdk/overlay';
@@ -138,12 +139,45 @@ export class PopoverManualClosureContentComponent implements OnInit {
     }
 }
 
+@Component({
+    selector: 'popover-manual-closure-content-component',
+    template: `
+        <button #outsetBtn>outset btn</button>
+        <a class="btn" #openBtn (click)="open(openBtn, template)">Open</a>
+        <ng-template #template><div class="template">template</div></ng-template>
+    `
+})
+export class PopoverOutsetClosableComponent {
+    constructor(
+        public popover: ThyPopover,
+        public overlay: Overlay,
+        public popoverInjector: Injector,
+        public directionality: Directionality
+    ) {}
+
+    public popoverRef: ThyPopoverRef<any>;
+
+    @ViewChild('outsetBtn')
+    outsetBtn: ElementRef<any>;
+
+    @ViewChild('openBtn')
+    openBtn: ElementRef<any>;
+
+    open(origin: HTMLElement, template: TemplateRef<HTMLElement>) {
+        this.popoverRef = this.popover.open(template, {
+            origin,
+            outsetClosable: true
+        });
+    }
+}
+
 const TEST_COMPONENTS = [
     PopoverBasicComponent,
     PopoverSimpleContentComponent,
     WithViewContainerDirective,
     WithChildViewContainerComponent,
-    PopoverManualClosureContentComponent
+    PopoverManualClosureContentComponent,
+    PopoverOutsetClosableComponent
 ];
 @NgModule({
     declarations: TEST_COMPONENTS,
@@ -319,6 +353,25 @@ describe(`thyPopover`, () => {
                         .scrollStrategy
                 ).toEqual(viewContainerFixtureManualClosure.componentInstance.scrollStrategy);
             });
+        });
+
+        describe('outsetClosable', () => {
+            let outsetClosableFixture: ComponentFixture<PopoverOutsetClosableComponent>;
+            let outsetClosableComponent: PopoverOutsetClosableComponent;
+            beforeEach(() => {
+                outsetClosableFixture = TestBed.createComponent(PopoverOutsetClosableComponent);
+                outsetClosableFixture.detectChanges();
+                outsetClosableComponent = outsetClosableFixture.componentInstance;
+            });
+
+            it('should close popover when click dom outset popovercontainer', fakeAsync(() => {
+                outsetClosableComponent.openBtn.nativeElement.click();
+                tick(1000);
+                expect(document.querySelector('.template')).toBeTruthy();
+                outsetClosableComponent.outsetBtn.nativeElement.click();
+                tick(1000);
+                expect(document.querySelector('.template')).not.toBeTruthy();
+            }));
         });
     });
 });
