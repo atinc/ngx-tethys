@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { UpdateHostClassService } from '../../shared';
 
-type IconNavTypes = 'primary' | 'secondary' | '';
+type IconNavTypes = 'primary' | 'secondary' | 'individual' | '';
 @Component({
     selector: 'thy-icon-nav',
     templateUrl: './icon-nav.component.html',
