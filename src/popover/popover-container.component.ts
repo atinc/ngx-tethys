@@ -7,7 +7,9 @@ import {
     ElementRef,
     EventEmitter,
     HostListener,
-    ChangeDetectorRef
+    ChangeDetectorRef,
+    OnInit,
+    AfterViewInit
 } from '@angular/core';
 import { ComponentPortal, TemplatePortal, CdkPortalOutlet } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
@@ -17,8 +19,8 @@ import { ThyPopoverConfig } from './popover.config';
 import { thyPopoverAnimations } from './popover-animations';
 import { ThyUpperOverlayContainer } from '../core/overlay';
 import { popoverUpperOverlayOptions } from './popover.options';
-import { Observable } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { Observable, fromEvent, timer } from 'rxjs';
+import { filter, takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'thy-popover-container',
@@ -33,7 +35,7 @@ import { filter } from 'rxjs/operators';
         '(@popoverContainer.done)': 'onAnimationDone($event)'
     }
 })
-export class ThyPopoverContainerComponent extends ThyUpperOverlayContainer {
+export class ThyPopoverContainerComponent extends ThyUpperOverlayContainer implements AfterViewInit {
     @ViewChild(CdkPortalOutlet)
     portalOutlet: CdkPortalOutlet;
 
@@ -47,6 +49,8 @@ export class ThyPopoverContainerComponent extends ThyUpperOverlayContainer {
     animationClosingDone: Observable<AnimationEvent>;
 
     insideClicked = new EventEmitter();
+
+    outsideClicked = new EventEmitter();
 
     beforeAttachPortal(): void {}
 
@@ -68,6 +72,20 @@ export class ThyPopoverContainerComponent extends ThyUpperOverlayContainer {
                 return event.phaseName === 'done' && event.toState === 'exit';
             })
         );
+    }
+
+    ngAfterViewInit() {
+        timer().subscribe(() => {
+            if (this.config.outsetClosable) {
+                fromEvent(document, 'click')
+                    .pipe(takeUntil(this.animationClosingDone))
+                    .subscribe((event: MouseEvent) => {
+                        if (!(event.target as HTMLElement).contains(this.elementRef.nativeElement)) {
+                            this.outsideClicked.emit();
+                        }
+                    });
+            }
+        });
     }
 
     /** Callback, invoked whenever an animation on the host completes. */

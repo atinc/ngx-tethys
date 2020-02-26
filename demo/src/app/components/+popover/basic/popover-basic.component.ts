@@ -96,6 +96,17 @@ export class DemoPopoverBasicComponent extends mixinUnsubscribe(MixinBase) imple
         });
     }
 
+    openPopoverOutsetClosable(element: { elementRef: ElementRef }) {
+        this.thyPopover.open(DemoPopoverContentComponent, {
+            origin: element.elementRef,
+            placement: this.placement,
+            hasBackdrop: false,
+            panelClass: 'demo-popover',
+            insideClosable: true,
+            outsetClosable: true
+        });
+    }
+
     openTemplatePopover(element: { elementRef: ElementRef }, template: TemplateRef<HTMLElement>) {
         this.thyPopover.open(template, {
             origin: element.elementRef,

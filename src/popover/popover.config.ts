@@ -32,6 +32,9 @@ export class ThyPopoverConfig<TData = any> extends ThyUpperOverlayConfig<TData> 
      * 滚动策略
      */
     scrollStrategy?: ScrollStrategy;
+
+    /** Click outside can been close */
+    outsetClosable?: boolean;
 }
 
 export const THY_POPOVER_DEFAULT_CONFIG = new InjectionToken<ThyPopoverConfig>('thy-popover-default-config');

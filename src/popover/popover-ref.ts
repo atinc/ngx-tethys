@@ -21,6 +21,9 @@ export class ThyInternalPopoverRef<T, TResult = any>
         containerInstance.insideClicked.subscribe(() => {
             this.close();
         });
+        containerInstance.outsideClicked.subscribe(() => {
+            this.close();
+        });
     }
 
     /**
