@@ -53,6 +53,16 @@
     ></a>
   </thy-icon-nav>
 </div>
+<div class="btn-pair mt-3">
+  <button
+    #componentTriggerOutsideClosable
+    thyButton="secondary"
+    thySize="md"
+    (click)="openPopoverOutsideClosable(componentTriggerOutsideClosable)"
+  >
+    outside closable
+  </button>
+</div>
 <ng-template #template>
   <p class="p-2">Hello, I am template content</p>
 </ng-template>
