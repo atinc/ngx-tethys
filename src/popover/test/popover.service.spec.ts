@@ -6,7 +6,8 @@ import {
     Directive,
     NgModule,
     TemplateRef,
-    OnInit
+    OnInit,
+    ElementRef
 } from '@angular/core';
 import { Location } from '@angular/common';
 import { OverlayContainer, Overlay, OverlayModule, ScrollStrategy } from '@angular/cdk/overlay';
@@ -138,12 +139,45 @@ export class PopoverManualClosureContentComponent implements OnInit {
     }
 }
 
+@Component({
+    selector: 'popover-outside-closable',
+    template: `
+        <button #outsideBtn>outside btn</button>
+        <a class="btn" #openBtn (click)="open(openBtn, template)">Open</a>
+        <ng-template #template><div class="template">template</div></ng-template>
+    `
+})
+export class PopoverOutsideClosableComponent {
+    constructor(
+        public popover: ThyPopover,
+        public overlay: Overlay,
+        public popoverInjector: Injector,
+        public directionality: Directionality
+    ) {}
+
+    public popoverRef: ThyPopoverRef<any>;
+
+    @ViewChild('outsideBtn')
+    outsideBtn: ElementRef<any>;
+
+    @ViewChild('openBtn')
+    openBtn: ElementRef<any>;
+
+    open(origin: HTMLElement, template: TemplateRef<HTMLElement>) {
+        this.popoverRef = this.popover.open(template, {
+            origin,
+            outsideClosable: true
+        });
+    }
+}
+
 const TEST_COMPONENTS = [
     PopoverBasicComponent,
     PopoverSimpleContentComponent,
     WithViewContainerDirective,
     WithChildViewContainerComponent,
-    PopoverManualClosureContentComponent
+    PopoverManualClosureContentComponent,
+    PopoverOutsideClosableComponent
 ];
 @NgModule({
     declarations: TEST_COMPONENTS,
@@ -319,6 +353,25 @@ describe(`thyPopover`, () => {
                         .scrollStrategy
                 ).toEqual(viewContainerFixtureManualClosure.componentInstance.scrollStrategy);
             });
+        });
+
+        describe('outsideClosable', () => {
+            let outsideClosableFixture: ComponentFixture<PopoverOutsideClosableComponent>;
+            let outsideClosableComponent: PopoverOutsideClosableComponent;
+            beforeEach(() => {
+                outsideClosableFixture = TestBed.createComponent(PopoverOutsideClosableComponent);
+                outsideClosableFixture.detectChanges();
+                outsideClosableComponent = outsideClosableFixture.componentInstance;
+            });
+
+            it('should close popover when click dom outside popovercontainer', fakeAsync(() => {
+                outsideClosableComponent.openBtn.nativeElement.click();
+                tick(1000);
+                expect(document.querySelector('.template')).toBeTruthy();
+                outsideClosableComponent.outsideBtn.nativeElement.click();
+                tick(1000);
+                expect(document.querySelector('.template')).not.toBeTruthy();
+            }));
         });
     });
 });

@@ -48,6 +48,12 @@ export const apiPopoverConfigParameters = [
         default: 'false'
     },
     {
+        property: 'outsideClosable',
+        description: '点击popover外部是否自动关闭弹出框',
+        type: 'boolean',
+        default: 'false'
+    },
+    {
         property: 'closeOnNavigation',
         description: '切换浏览器导航是否自动关闭弹出框',
         type: 'boolean',
