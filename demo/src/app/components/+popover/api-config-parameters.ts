@@ -37,7 +37,7 @@ export const apiPopoverConfigParameters = [
     },
     {
         property: 'backdropClosable',
-        description: '点击幕布或者按ESC键是否自动关闭弹出框',
+        description: '点击幕布或者按ESC键是否自动关闭弹出框，hasBackdrop=true时该参数起作用',
         type: 'boolean',
         default: 'true'
     },
@@ -49,7 +49,7 @@ export const apiPopoverConfigParameters = [
     },
     {
         property: 'outsideClosable',
-        description: '点击popover外部是否自动关闭弹出框',
+        description: '点击popover外部是否自动关闭弹出框，hasBackdrop=false时该参数起作用',
         type: 'boolean',
         default: 'false'
     },
