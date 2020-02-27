@@ -166,6 +166,7 @@ export class PopoverOutsideClosableComponent {
     open(origin: HTMLElement, template: TemplateRef<HTMLElement>) {
         this.popoverRef = this.popover.open(template, {
             origin,
+            hasBackdrop: false,
             outsideClosable: true
         });
     }

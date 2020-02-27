@@ -9,7 +9,8 @@ import {
     HostListener,
     ChangeDetectorRef,
     OnInit,
-    AfterViewInit
+    AfterViewInit,
+    NgZone
 } from '@angular/core';
 import { ComponentPortal, TemplatePortal, CdkPortalOutlet } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
@@ -21,6 +22,7 @@ import { ThyUpperOverlayContainer } from '../core/overlay';
 import { popoverUpperOverlayOptions } from './popover.options';
 import { Observable, fromEvent, timer } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
+import { ThyClickDispatcher } from '../core/event-dispatchers/click-dispatcher';
 
 @Component({
     selector: 'thy-popover-container',
@@ -58,7 +60,9 @@ export class ThyPopoverContainerComponent extends ThyUpperOverlayContainer imple
         private elementRef: ElementRef,
         @Inject(DOCUMENT) private document: any,
         public config: ThyPopoverConfig,
-        changeDetectorRef: ChangeDetectorRef
+        changeDetectorRef: ChangeDetectorRef,
+        private thyClickDispatcher: ThyClickDispatcher,
+        private ngZone: NgZone
     ) {
         super(popoverUpperOverlayOptions, changeDetectorRef);
 
@@ -75,17 +79,20 @@ export class ThyPopoverContainerComponent extends ThyUpperOverlayContainer imple
     }
 
     ngAfterViewInit() {
-        timer().subscribe(() => {
-            if (this.config.outsideClosable) {
-                fromEvent(document, 'click')
+        if (this.config.outsideClosable && !this.config.hasBackdrop) {
+            timer().subscribe(() => {
+                this.thyClickDispatcher
+                    .clicked()
                     .pipe(takeUntil(this.animationClosingDone))
                     .subscribe((event: MouseEvent) => {
                         if (!(event.target as HTMLElement).contains(this.elementRef.nativeElement)) {
-                            this.outsideClicked.emit();
+                            this.ngZone.run(() => {
+                                this.outsideClicked.emit();
+                            });
                         }
                     });
-            }
-        });
+            });
+        }
     }
 
     /** Callback, invoked whenever an animation on the host completes. */
