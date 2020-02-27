@@ -7,7 +7,8 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ThyTooltipDirective } from '../tooltip.directive';
-import { dispatchMouseEvent } from '../../core/testing';
+import { dispatchMouseEvent, dispatchTouchEvent } from '../../core/testing';
+import { Platform } from '@angular/cdk/platform';
 
 const initialTooltipMessage = 'hello, this is tooltip message';
 const TOOLTIP_CLASS = `thy-tooltip`;
@@ -84,10 +85,13 @@ export class TooltipTestModule {}
 describe(`ThyTooltip`, () => {
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
+    let platform: { IOS: boolean; isBrowser: boolean; ANDROID: boolean };
 
     beforeEach(fakeAsync(() => {
+        platform = { IOS: false, isBrowser: true, ANDROID: false };
         TestBed.configureTestingModule({
-            imports: [TooltipTestModule, NoopAnimationsModule]
+            imports: [TooltipTestModule, NoopAnimationsModule],
+            providers: [{ provide: Platform, useFactory: () => platform }]
         });
 
         TestBed.compileComponents();
@@ -110,6 +114,61 @@ describe(`ThyTooltip`, () => {
     function assertTooltipInstance(tooltip: ThyTooltipDirective, shouldExist: boolean): void {
         expect(!!tooltip['tooltipInstance']).toBe(shouldExist);
     }
+
+    describe(`touch usage`, () => {
+        let fixture: ComponentFixture<ThyDemoTooltipBasicComponent>;
+        let tooltipDirective: ThyTooltipDirective;
+        let buttonDebugElement: DebugElement;
+        let buttonElement: HTMLElement;
+
+        function getTooltipVisible() {
+            return tooltipDirective['isTooltipVisible']();
+        }
+
+        beforeEach(() => {
+            platform.ANDROID = true;
+            fixture = TestBed.createComponent(ThyDemoTooltipBasicComponent);
+            fixture.detectChanges();
+            buttonDebugElement = fixture.debugElement.query(By.css('button'));
+            buttonElement = buttonDebugElement.nativeElement;
+            tooltipDirective = buttonDebugElement.injector.get<ThyTooltipDirective>(ThyTooltipDirective);
+        });
+        it('should show the tooltip', fakeAsync(() => {
+            assertTooltipInstance(tooltipDirective, false);
+            dispatchTouchEvent(buttonElement, 'touchstart');
+            fixture.detectChanges();
+            tick(500); // Finish the animation.
+            expect(getTooltipVisible()).toBe(true);
+        }));
+
+        it('should not prevent the default action on touchstart', () => {
+            const event = dispatchTouchEvent(buttonElement, 'touchstart');
+            fixture.detectChanges();
+
+            expect(event.defaultPrevented).toBe(false);
+        });
+
+        it('should close on touchend with a delay', fakeAsync(() => {
+            dispatchTouchEvent(buttonElement, 'touchstart');
+            fixture.detectChanges();
+            tick(500); // Finish the animation.
+            assertTooltipInstance(tooltipDirective, true);
+            expect(getTooltipVisible()).toBe(true);
+
+            dispatchTouchEvent(buttonElement, 'touchend');
+            fixture.detectChanges();
+            tick(1000); // 2/3 through the delay
+            assertTooltipInstance(tooltipDirective, true);
+            expect(getTooltipVisible()).toBe(true);
+
+            tick(500); // Finish the delay.
+            fixture.detectChanges();
+            tick(500); // Finish the exit animation.
+
+            assertTooltipInstance(tooltipDirective, false);
+            expect(getTooltipVisible()).toBe(false);
+        }));
+    });
 
     describe(`basic usage`, () => {
         let fixture: ComponentFixture<ThyDemoTooltipBasicComponent>;

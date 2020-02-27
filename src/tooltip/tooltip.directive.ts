@@ -47,6 +47,8 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
 
     panelClassPrefix = 'thy-tooltip';
 
+    touchendHideDelay = this.options.touchendHideDelay;
+
     private _content: string | TemplateRef<HTMLElement>;
 
     get content() {

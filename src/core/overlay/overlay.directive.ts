@@ -32,6 +32,7 @@ export abstract class ThyOverlayDirectiveBase {
     protected ngZone: NgZone;
     protected showDelay? = 0;
     protected hidDelay? = 0;
+    protected touchendHideDelay? = 0;
     protected disabled = false;
 
     abstract tooltipPin: boolean;
@@ -104,8 +105,19 @@ export abstract class ThyOverlayDirectiveBase {
                 throw new Error(`${this.trigger} is not support, only support hover | focus | click`);
             }
         } else {
+            const touchendListener = () => {
+                // this.hide(this.touchendHideDelay);
+                setTimeout(() => {
+                    this.hide();
+                }, this.touchendHideDelay);
+            };
             // Reserve extensions for mobile in the future
-            this.manualListeners.set('touchstart', () => this.show());
+            this.manualListeners
+                .set('touchend', touchendListener)
+                .set('touchcancel', touchendListener)
+                .set('touchstart', () => {
+                    this.show();
+                });
         }
 
         this.manualListeners.forEach((listener, event) => element.addEventListener(event, listener));
