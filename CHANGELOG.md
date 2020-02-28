@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.6.31](https://github.com/atinc/ngx-tethys/compare/7.6.30...7.6.31) (2020-02-28)
+
+
+### Bug Fixes
+
+* revert thy-content style ([9c3995f](https://github.com/atinc/ngx-tethys/commit/9c3995f0f8e3efa6b3d8f6be9cd1dbe1bd9525ff))
+* **thy-menu:** keep active style when hover occurs ([3f7d21c](https://github.com/atinc/ngx-tethys/commit/3f7d21cbeccd35f7cdc23e1f1f04bcde7b9ddfb3))
+* **tootip:** hide after touch ([188e1ed](https://github.com/atinc/ngx-tethys/commit/188e1edee7b7ec1df0012bfe268cc30b256f8df2))
+
+
+### Features
+
+* **thy-icon-nav:** #INF-448 thyType 支持无间隔 ([6a8a7f3](https://github.com/atinc/ngx-tethys/commit/6a8a7f302bb5352bd17aaead3849c0b07cb37c54)), closes [#INF-448](https://github.com/atinc/ngx-tethys/issues/INF-448)
+* **thy-popover:** support outside closable(#INF-457) ([ea204d3](https://github.com/atinc/ngx-tethys/commit/ea204d3abae115c39df16e51b93fa56f5b03618d)), closes [#INF-457](https://github.com/atinc/ngx-tethys/issues/INF-457)
+
+
+
 ## [7.6.30](https://github.com/atinc/ngx-tethys/compare/7.6.29...7.6.30) (2020-02-26)
 
 
