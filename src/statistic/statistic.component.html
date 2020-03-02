@@ -1,3 +1,7 @@
+<ng-container
+  [ngTemplateOutlet]="title"
+  *ngIf="(thyTitle || thyTitleTemplate) && thyTitlePosition === 'top'"
+></ng-container>
 <div class="thy-statistic-content" [ngStyle]="thyValueStyle">
   <span *ngIf="thyPrefix || thyPrefixTemplate" class="thy-statistic-content-prefix">
     <span *ngIf="thyPrefix">{{ thyPrefix }}</span>
@@ -14,7 +18,14 @@
     <ng-container *ngIf="thySuffixTemplate" [ngTemplateOutlet]="thySuffixTemplate"></ng-container>
   </span>
 </div>
-<div *ngIf="thyTitle || thyTitleTemplate" class="thy-statistic-title">
-  <span *ngIf="thyTitle">{{ thyTitle }}</span>
-  <ng-container [ngTemplateOutlet]="thyTitleTemplate"></ng-container>
-</div>
+<ng-container
+  [ngTemplateOutlet]="title"
+  *ngIf="(thyTitle || thyTitleTemplate) && thyTitlePosition === 'bottom'"
+></ng-container>
+
+<ng-template #title>
+  <div class="thy-statistic-title">
+    <span *ngIf="thyTitle">{{ thyTitle }}</span>
+    <ng-container [ngTemplateOutlet]="thyTitleTemplate"></ng-container>
+  </div>
+</ng-template>

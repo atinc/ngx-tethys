@@ -7,6 +7,7 @@
     [thySuffix]="'%'"
     [thyColor]="'success'"
     [thyPrefixTemplate]="prefix1"
+    [thyTitlePosition]="'top'"
   ></thy-statistic>
 
   <ng-template #prefix1>
@@ -21,11 +22,4 @@
   >
     <ng-template #prefix> <thy-icon style="font-size: 30px" thyIconName="arrow-down"></thy-icon> </ng-template
   ></thy-statistic>
-
-  <thy-statistic>
-    <ng-template #value>value</ng-template>
-    <ng-template #prefix>前缀</ng-template>
-    <ng-template #suffix>后缀</ng-template>
-    <ng-template #title>标题</ng-template>
-  </thy-statistic>
 </div>

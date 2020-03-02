@@ -8,6 +8,8 @@ export type ThyShape = 'card';
 
 export type ThySizes = 'default';
 
+export type ThyTitlePosition = 'top' | 'bottom';
+
 @Component({
     selector: 'thy-statistic',
     templateUrl: './statistic.component.html',
@@ -36,6 +38,7 @@ export class ThyStatisticComponent implements OnInit {
     @Input() thyTitle: string;
     @Input() @ContentChild('title') thyTitleTemplate: TemplateRef<void>;
 
+    @Input() thyTitlePosition: ThyTitlePosition = 'bottom';
     @Input()
     set thyShape(value: ThyShape) {
         this._shape = value;
