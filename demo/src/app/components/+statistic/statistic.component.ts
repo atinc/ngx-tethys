@@ -31,6 +31,12 @@ export class DemoStatisticComponent {
             type: 'string'
         },
         {
+            property: 'thyTitlePosition',
+            description: '标题的位置',
+            type: 'top | bottom',
+            default: 'bottom'
+        },
+        {
             property: 'thyShape',
             description: '形状（card）',
             type: 'card',

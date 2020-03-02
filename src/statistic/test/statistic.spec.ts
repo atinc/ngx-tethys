@@ -40,6 +40,17 @@ describe('thy-statistic', () => {
             expect(statisticComponent.nativeElement.querySelector('.thy-statistic-content-suffix')).toBe(null);
         });
 
+        it('title should in bottom when thyTitlePosition set bottom', () => {
+            fixture.detectChanges();
+            expect(statisticComponent.nativeElement.children[1].classList.contains('thy-statistic-title')).toBe(true);
+        });
+
+        it('title should in top when thyTitlePosition set top', () => {
+            basicTestComponent.thyTitlePosition = 'top';
+            fixture.detectChanges();
+            expect(statisticComponent.nativeElement.children[0].classList.contains('thy-statistic-title')).toBe(true);
+        });
+
         it('should have thy-statistic-success when thyColor is success', () => {
             basicTestComponent.thyColor = 'success';
             fixture.detectChanges();
@@ -176,6 +187,7 @@ describe('thy-statistic', () => {
             [thyShape]="thyShape"
             [thySuffix]="thySuffix"
             [thyValueStyle]="thyValueStyle"
+            [thyTitlePosition]="thyTitlePosition"
         ></thy-statistic>
     `
 })
@@ -187,6 +199,7 @@ class ThyDemoStatisticBasicComponent {
     thyShape = undefined;
     thySuffix = undefined;
     thyValueStyle = undefined;
+    thyTitlePosition = 'bottom';
 }
 
 @Component({
