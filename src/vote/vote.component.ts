@@ -2,11 +2,11 @@ import { OnInit, Component, Input, HostBinding, ElementRef, TemplateRef, Content
 import { inputValueToBoolean } from '../util/helpers';
 import { UpdateHostClassService } from '../shared';
 
-export type ThySizes = 'default' | 'sm';
+export type ThyVoteSizes = 'default' | 'sm';
 
-export type ThyType = 'primary' | 'success' | 'primary-weak' | 'success-weak';
+export type ThyVoteType = 'primary' | 'success' | 'primary-weak' | 'success-weak';
 
-export type thyLayout = 'vertical' | 'horizontal';
+export type ThyVoteLayout = 'vertical' | 'horizontal';
 
 @Component({
     selector: 'thy-vote,[thyVote]',
@@ -14,11 +14,11 @@ export type thyLayout = 'vertical' | 'horizontal';
     providers: [UpdateHostClassService]
 })
 export class ThyVoteComponent implements OnInit {
-    _size: ThySizes;
+    _size: ThyVoteSizes;
 
-    _type: ThyType;
+    _type: ThyVoteType;
 
-    _layout: thyLayout;
+    _layout: ThyVoteLayout;
 
     _initialized = false;
 
@@ -29,7 +29,7 @@ export class ThyVoteComponent implements OnInit {
     @HostBinding(`class.has-voted`) _hasVoted = true;
 
     @Input()
-    set thySize(value: ThySizes) {
+    set thySize(value: ThyVoteSizes) {
         this._size = value;
         if (this._initialized) {
             this._setClassesByType();
@@ -37,7 +37,7 @@ export class ThyVoteComponent implements OnInit {
     }
 
     @Input()
-    set thyVote(value: ThyType) {
+    set thyVote(value: ThyVoteType) {
         this._type = value;
         if (this._initialized) {
             this._setClassesByType();
@@ -50,7 +50,7 @@ export class ThyVoteComponent implements OnInit {
     }
 
     @Input()
-    set thyLayout(value: thyLayout) {
+    set thyLayout(value: ThyVoteLayout) {
         this._layout = value;
         if (this._initialized) {
             this._setClassesByType();
