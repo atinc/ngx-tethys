@@ -84,6 +84,10 @@ const appRoutes = [
         component: DropDragComponent
     },
     {
+        path: 'global/copy',
+        component: DemoCopySectionComponent
+    },
+    {
         path: 'global/variables',
         component: DemoVariablesSectionComponent
     },
@@ -294,10 +298,6 @@ const appRoutes = [
     {
         path: 'components/arrow-switcher',
         component: DemoArrowSwitcherSectionComponent
-    },
-    {
-        path: 'components/copy',
-        component: DemoCopySectionComponent
     },
     {
         path: 'components/markdown',

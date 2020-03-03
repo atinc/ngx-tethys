@@ -2,13 +2,13 @@ import { OnInit, Component, Input, HostBinding, ElementRef, TemplateRef, Content
 import { inputValueToBoolean, hexToRgb } from '../util/helpers';
 import { UpdateHostClassService } from '../shared';
 
-export type ThyColorType = 'primary' | 'success' | 'warning' | 'danger' | 'info';
+export type ThyStatisticColorType = 'primary' | 'success' | 'warning' | 'danger' | 'info';
 
-export type ThyShape = 'card';
+export type ThyStatisticShape = 'card';
 
-export type ThySizes = 'default';
+export type ThyStatisticSizes = 'default';
 
-export type ThyTitlePosition = 'top' | 'bottom';
+export type ThyStatisticTitlePosition = 'top' | 'bottom';
 
 @Component({
     selector: 'thy-statistic',
@@ -16,11 +16,11 @@ export type ThyTitlePosition = 'top' | 'bottom';
     providers: [UpdateHostClassService]
 })
 export class ThyStatisticComponent implements OnInit {
-    _shape: ThyShape;
+    _shape: ThyStatisticShape;
 
     _initialized = false;
 
-    _size: ThySizes;
+    _size: ThyStatisticSizes;
 
     @HostBinding(`class.thy-statistic`) class = true;
 
@@ -38,19 +38,20 @@ export class ThyStatisticComponent implements OnInit {
     @Input() thyTitle: string;
     @Input() @ContentChild('title') thyTitleTemplate: TemplateRef<void>;
 
-    @Input() thyTitlePosition: ThyTitlePosition = 'bottom';
+    @Input() thyTitlePosition: ThyStatisticTitlePosition = 'bottom';
+
     @Input()
-    set thyShape(value: ThyShape) {
+    set thyShape(value: ThyStatisticShape) {
         this._shape = value;
         if (this._initialized) {
             this._setClassesByType();
         }
     }
 
-    @Input() thyColor: string | ThyColorType;
+    @Input() thyColor: string | ThyStatisticColorType;
 
     @Input()
-    set thySize(value: ThySizes) {
+    set thySize(value: ThyStatisticSizes) {
         this._size = value;
         if (this._initialized) {
             this._setClassesByType();
