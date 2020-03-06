@@ -15,12 +15,12 @@
     }
 }
 
-@mixin drop-left-right-virtual-border($left, $right) {
+@mixin drop-left-right-virtual-border($left, $right, $height) {
     content: '';
     width: 2px;
     background-color: $primary;
     position: absolute;
-    height: $tree-node-wrapper-height;
+    height: $height;
     left: $left;
     right: $right;
 }
@@ -41,11 +41,11 @@
                 border-color: $primary;
 
                 &::before {
-                    @include drop-left-right-virtual-border(0, initial);
+                    @include drop-left-right-virtual-border(0, initial, $tree-node-wrapper-height);
                 }
 
                 &::after {
-                    @include drop-left-right-virtual-border(initial, 0);
+                    @include drop-left-right-virtual-border(initial, 0, $tree-node-wrapper-height);
                 }
             }
 
@@ -62,6 +62,22 @@
 
                 .thy-tree-node-content {
                     border-bottom-color: $primary;
+                }
+            }
+        }
+
+        &-sm {
+            .thy-tree-node {
+                .thy-drop-position-in {
+                    border-color: $primary;
+
+                    &::before {
+                        @include drop-left-right-virtual-border(0, initial, $tree-node-wrapper-height-sm);
+                    }
+
+                    &::after {
+                        @include drop-left-right-virtual-border(initial, 0, $tree-node-wrapper-height-sm);
+                    }
                 }
             }
         }
