@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.6.32](https://github.com/atinc/ngx-tethys/compare/7.6.31...7.6.32) (2020-03-09)
+
+
+### Bug Fixes
+
+* **copy:** change demo url ([f2a7e59](https://github.com/atinc/ngx-tethys/commit/f2a7e59c2dcf0af2867915ea4006a7f5da3c5a64))
+* **nav:** set border width avoid to bounce when hover or active #INF-478 ([587c9c7](https://github.com/atinc/ngx-tethys/commit/587c9c7f76e72c9813bc589f71c079cf1752250a)), closes [#INF-478](https://github.com/atinc/ngx-tethys/issues/INF-478) [#INF-478](https://github.com/atinc/ngx-tethys/issues/INF-478) [#INF-478](https://github.com/atinc/ngx-tethys/issues/INF-478)
+* **statistic:** parametertype name add component name ([9786401](https://github.com/atinc/ngx-tethys/commit/9786401459e8bfa9d8ff59913571142c4a58c861))
+* **statistic:** show value when value is 0 ([0faeb63](https://github.com/atinc/ngx-tethys/commit/0faeb63054dc9065c7d483504a20c5592ed6824d))
+* **time-picker:** fix thy-time-picker style ([#538](https://github.com/atinc/ngx-tethys/issues/538)) ([61cafaa](https://github.com/atinc/ngx-tethys/commit/61cafaaca18bc12be94057ef6aace1d2cc338b17))
+* **tree:** fix tree border height when thyType is sm ([#542](https://github.com/atinc/ngx-tethys/issues/542)) ([b9f4a88](https://github.com/atinc/ngx-tethys/commit/b9f4a88cbe9953b6dec81a2a9f27e706f89dd5f2))
+* **vote:** parametertype name add component name ([930c841](https://github.com/atinc/ngx-tethys/commit/930c841980fe2f3aabcc0bfdb3951f81173dbaa8))
+
+
+### Features
+
+* **statistic:** support thyTitlePosition to set titlt position ([#539](https://github.com/atinc/ngx-tethys/issues/539)) ([e8d9502](https://github.com/atinc/ngx-tethys/commit/e8d9502e1381a51a833a5b571aa51a200cb4284f))
+
+
+
 ## [7.6.31](https://github.com/atinc/ngx-tethys/compare/7.6.30...7.6.31) (2020-02-28)
 
 
