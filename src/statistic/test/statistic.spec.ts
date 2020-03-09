@@ -81,6 +81,13 @@ describe('thy-statistic', () => {
             expect(contentElement.style.fontSize).toBe('40px');
             expect(contentElement.style.color).toBe('rgb(102, 102, 102)');
         });
+
+        it('should show value when value is 0', () => {
+            basicTestComponent.thyValue = 0;
+            fixture.detectChanges();
+            const valueElement = statisticComponent.nativeElement.querySelector('.thy-statistic-content-value');
+            expect(valueElement.textContent).toBe('0');
+        });
     });
 
     describe('thy-statistic-template', () => {
@@ -205,7 +212,7 @@ class ThyDemoStatisticBasicComponent {
 @Component({
     selector: 'thy-demo-statistic-template',
     template: `
-        <thy-statistic>
+        <thy-statistic [thyValue]="thyValue">
             <ng-template #value>value</ng-template>
             <ng-template #prefix>前缀</ng-template>
             <ng-template #suffix>后缀</ng-template>
@@ -213,7 +220,9 @@ class ThyDemoStatisticBasicComponent {
         </thy-statistic>
     `
 })
-class ThyDemoStatisticTemplateComponent {}
+class ThyDemoStatisticTemplateComponent {
+    thyValue = 80;
+}
 
 @Component({
     selector: 'thy-demo-statistic-template-outside',
