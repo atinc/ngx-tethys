@@ -4,12 +4,12 @@
     padding-left: 0;
     margin-bottom: 0;
     list-style: none;
-}
 
-.nav-link {
-    display: block;
-    text-align: center;
-    @include nav-link-variant($nav-link-color, $nav-link-hover-color, $nav-border-bottom);
+    .nav-link {
+        display: block;
+        text-align: center;
+        @include nav-link-variant($nav-link-color, $nav-link-hover-color, $nav-border-bottom);
+    }
 }
 
 .nav-primary {
@@ -87,6 +87,8 @@
         margin-right: 0;
         text-align: left;
         border-left: $nav-vertical-border-left-empty;
+        // set border width as 0
+        border-bottom-width: 0px;
         &.active,
         &:hover,
         &:focus,

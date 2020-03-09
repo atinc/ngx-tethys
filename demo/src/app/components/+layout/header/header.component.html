@@ -1,0 +1,30 @@
+<div class="demo-layout d-flex-column-fill">
+  <thy-layout>
+    <thy-header>
+      <ng-template #headerTitle>
+        <a class="prefix-icon" thyTooltip="返回首页" thyTooltipPlacement="bottom" href="javascript:;"
+          ><thy-icon thyIconName="house-square" thyIconType="fill"></thy-icon
+        ></a>
+        <thy-icon class="title-separator" thyIconName="angle-right"></thy-icon>
+        <a href="javascript:;" class="title-name">自定义头部<thy-icon thyIconName="angle-down"></thy-icon></a>
+      </ng-template>
+      <ng-template #headerContent>
+        <thy-nav thyType="primary" thyHorizontal="center">
+          <a href="javascript:;" thyNavLink [thyNavLinkActive]="'true'">导航一</a>
+          <a href="javascript:;" thyNavLink>导航二</a>
+        </thy-nav>
+      </ng-template>
+      <ng-template #headerOperation>
+        <thy-nav thyType="primary" thyHorizontal="right">
+          <a thyNavLink href="javascript:;">
+            <thy-icon [thyIconName]="'settings'"></thy-icon>
+            设置
+          </a>
+        </thy-nav>
+      </ng-template>
+    </thy-header>
+    <thy-content>
+      恩，我是 content
+    </thy-content>
+  </thy-layout>
+</div>

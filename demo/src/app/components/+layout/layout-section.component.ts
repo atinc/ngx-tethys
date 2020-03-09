@@ -3,6 +3,7 @@ import { LiveDemoCodeExample } from '../../core/live-demo/live-demo.component';
 import { DemoLayoutBasicComponent } from './basic/basic.component';
 import { DemoLayoutFullComponent } from './full/full.component';
 import { DemoLayoutSidebarComponent } from './sidebar/sidebar.component';
+import { DemoLayoutHeaderComponent } from './header/header.component';
 
 @Component({
     selector: 'demo-layout-section',
@@ -87,6 +88,23 @@ export class DemoLayoutSectionComponent {
                     type: 'ts',
                     name: 'basic.component.ts',
                     content: require('!!raw-loader!./basic/basic.component.ts')
+                }
+            ]
+        },
+        {
+            title: '头部',
+            component: DemoLayoutHeaderComponent,
+            description: ``,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'header.component.html',
+                    content: require('!!raw-loader!./header/header.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'header.component.ts',
+                    content: require('!!raw-loader!./header/header.component.ts')
                 }
             ]
         },
