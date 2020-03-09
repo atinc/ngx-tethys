@@ -63,7 +63,7 @@ $ npm run start
     - Commits those changes to release branch.
     - Pushes to the git remote.
 
-    You can run `npm run release [patch|minor|major|2.0.0]` to skip the version selection prompt and increment the version by that keyword or specify version.
+    You can run `npm run release -- [patch|minor|major|2.0.0]` to skip the version selection prompt and increment the version by that keyword or specify version.
 1. Submit pull request from release branch to master
 1. Code review & merge pull request for release
 1. Run `npm run pub` to pub lib to npm, this command will does the following: 
@@ -73,6 +73,10 @@ $ npm run start
     - Auto run `npm run build` which build source output `built` folder
     - Auto switch `built` folder and run `npm publish` to publish lib to npm
 
+
+`npm run release -- --dry-run` or `npm run pub -- --dry-run`
+
+running with the flag `--dry-run` allows you to see what commands would be run, without committing to git or updating files. (意思就是打印一下日志让你看看做了哪些步骤，但是并不会真的执行脚本，你可以放心的执行)
 
 ## Notes
 
