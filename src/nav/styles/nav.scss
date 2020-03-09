@@ -8,6 +8,13 @@
     .nav-link {
         display: block;
         text-align: center;
+        // fix nav link bounce when hover or active nav-link, see https://at.worktile.com/agile/items/5e5f0bf810ae8c0a4db1e53f
+        // the reason is layout-header-operation has { align-items: center} style
+        // set border width always regardless hover or active
+        border-bottom-style: solid;
+        border-bottom-width: $nav-border-width;
+        border-bottom-color: transparent;
+
         @include nav-link-variant($nav-link-color, $nav-link-hover-color, $nav-border-bottom);
     }
 }
