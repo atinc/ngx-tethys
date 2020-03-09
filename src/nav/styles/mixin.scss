@@ -4,6 +4,15 @@
     > .thy-icon {
         color: $nav-link-icon-color;
     }
+
+    // fix nav link bounce when hover or active nav-link, see https://at.worktile.com/agile/items/5e5f0bf810ae8c0a4db1e53f
+    // the reason is layout-header-operation has { align-items: center} style
+    // set border width always regardless hover or active
+    @if $border-bottom {
+        border-bottom: $border-bottom;
+        border-color: transparent;
+    }
+
     &.active {
         color: $hover-color;
         @if $border-bottom {
@@ -24,39 +33,13 @@
         > .thy-icon {
             color: $hover-color;
         }
-    } // Disabled state lightens text
+    }
+    // Disabled state lightens text
     &.disabled {
         color: $nav-link-disabled-color;
         border-bottom: none;
     }
 }
-
-// @mixin nav-link-variant-thirdly($nav-link-hover-color) {
-//   position: relative;
-//   &:after {
-//     display: block;
-//     position: absolute;
-//     width: 0;
-//     content: "";
-//     border-right: 1px solid #eee;
-//   }
-//   &:last-child {
-//     &:after {
-//       display: none;
-//     }
-//   }
-//   &.active {
-//     border-bottom: none;
-//   }
-//   @include hover-focus-active {
-//     color: $nav-link-hover-color;
-//     text-decoration: none;
-//     border-bottom: none;
-//   }
-//   .wtf {
-//     margin-right: 0.3125rem;
-//   }
-// }
 
 @mixin nav-link-size($padding, $margin-right) {
     padding: $padding;
