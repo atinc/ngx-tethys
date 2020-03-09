@@ -8,8 +8,8 @@
     <ng-container *ngIf="thyPrefixTemplate" [ngTemplateOutlet]="thyPrefixTemplate"></ng-container>
   </span>
 
-  <span *ngIf="thyValue || thyValueTemplate" class="thy-statistic-content-value">
-    <span *ngIf="thyValue">{{ thyValue }}</span>
+  <span class="thy-statistic-content-value">
+    <span *ngIf="!thyValueTemplate">{{ thyValue }}</span>
     <ng-container *ngIf="thyValueTemplate" [ngTemplateOutlet]="thyValueTemplate"></ng-container>
   </span>
 
