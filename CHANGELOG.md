@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.6.33](https://github.com/atinc/ngx-tethys/compare/7.6.32...7.6.33) (2020-03-12)
+
+
+### Bug Fixes
+
+* **nav:** nav-thirdly should always have no border-bottom #INF-497 ([#547](https://github.com/atinc/ngx-tethys/issues/547)) ([8c7e73c](https://github.com/atinc/ngx-tethys/commit/8c7e73cdf9e8ae2452557c152b2f8d51e2876327)), closes [#INF-497](https://github.com/atinc/ngx-tethys/issues/INF-497)
+
+
+
 ## [7.6.32](https://github.com/atinc/ngx-tethys/compare/7.6.31...7.6.32) (2020-03-09)
 
 
