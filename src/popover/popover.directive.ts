@@ -1,4 +1,3 @@
-import { ThyPopoverConfig } from './../../.tmp/popover/popover.config';
 import {
     Directive,
     ElementRef,
@@ -18,6 +17,7 @@ import { ThyOverlayDirectiveBase, ThyOverlayTrigger, ThyPlacement } from '../cor
 import { ThyPopover } from './popover.service';
 import { ComponentType } from '@angular/cdk/portal';
 import { ThyPopoverRef } from './popover-ref';
+import { ThyPopoverConfig } from './popover.config';
 
 @Directive({
     selector: '[thyPopover]'
