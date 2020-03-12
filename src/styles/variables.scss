@@ -64,6 +64,7 @@ $font-family-sans-serif: 'Helvetica Neue', 'Hiragino Sans GB', 'stheiti', 'Micro
     'sans-serif' !default;
 $font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !default;
 $font-family-base: $font-family-sans-serif !default;
+$font-family-statistics-number: $font-family-base !default;
 $font-size-base: 0.875rem !default; // 14px
 $font-size-lg: 1.25rem !default; // 20px
 $font-size-sm: 0.75rem !default; // 12px
@@ -637,7 +638,6 @@ $vote-layout-horizontal-icon-margin-right: 5px;
 $statistic-size-default: 30px;
 $statistic-suffix-size-default: $font-size-md;
 $statistic-title-size-default: $font-size-sm;
-$font-family-statistics-number: $font-family-base !default;
 
 // result
 $result-padding: 30px !default;
