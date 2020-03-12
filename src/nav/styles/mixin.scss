@@ -75,6 +75,7 @@
 }
 
 @mixin clear-nav-link-bottom {
+    border-bottom: none;
     &.active {
         border-bottom: none;
     }
