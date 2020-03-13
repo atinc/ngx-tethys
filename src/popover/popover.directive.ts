@@ -17,6 +17,7 @@ import { ThyOverlayDirectiveBase, ThyOverlayTrigger, ThyPlacement } from '../cor
 import { ThyPopover } from './popover.service';
 import { ComponentType } from '@angular/cdk/portal';
 import { ThyPopoverRef } from './popover-ref';
+import { ThyPopoverConfig } from './popover.config';
 
 @Directive({
     selector: '[thyPopover]'
@@ -34,7 +35,7 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
 
     @Input() thyOffset: number;
 
-    @Input() thyConfig: ThyPlacement;
+    @Input() thyConfig: ThyPopoverConfig;
 
     private popoverRef: ThyPopoverRef<any>;
 
@@ -56,13 +57,17 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
     }
 
     createOverlay(): OverlayRef {
-        this.popoverRef = this.popover.open(this.content, {
-            origin: this.elementRef.nativeElement,
-            hasBackdrop: this.trigger === 'click' || this.trigger === 'focus',
-            viewContainerRef: this.viewContainerRef,
-            placement: this.thyPlacement,
-            offset: this.thyOffset
-        });
+        const config = Object.assign(
+            {
+                origin: this.elementRef.nativeElement,
+                hasBackdrop: this.trigger === 'click' || this.trigger === 'focus',
+                viewContainerRef: this.viewContainerRef,
+                placement: this.thyPlacement,
+                offset: this.thyOffset
+            },
+            this.thyConfig
+        );
+        this.popoverRef = this.popover.open(this.content, config);
         this.popoverRef.afterClosed().subscribe(() => {
             this.popoverOpened = false;
         });
