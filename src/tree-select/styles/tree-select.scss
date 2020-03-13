@@ -1,3 +1,14 @@
+@mixin thy-tree-select-option() {
+    &:not(.disabled) {
+        &.hover,
+        &:hover {
+            .thy-tree-select-option-icon {
+                color: $gray-500;
+            }
+        }
+    }
+}
+
 .thy-tree-select-selection-text {
     @include text-truncate();
 }
@@ -14,19 +25,24 @@
         }
 
         .thy-tree-select-node {
-            .rotate-caret {
-                display: inline-block;
-                transform: rotate(-45deg);
+            .thy-tree-select-option-icon {
+                color: $gray-400;
+                .thy-icon-caret-right-down,
+                .thy-icon-caret-right {
+                    padding-right: 5px;
+                    font-size: $font-size-md;
+                }
+                .thy-icon-minus-square,
+                .thy-icon-plus-square {
+                    padding-right: 10px;
+                    font-size: $font-size-base;
+                }
             }
         }
 
         .thy-option-item {
             @include thy-option();
-        }
-
-        .thy-tree-select-option-icon {
-            padding-right: 5px;
-            color: $gray-500;
+            @include thy-tree-select-option();
         }
     }
 
@@ -34,6 +50,7 @@
         .thy-tree-select-options {
             .thy-option-item {
                 @include thy-multiple-option();
+                @include thy-tree-select-option();
             }
         }
     }
