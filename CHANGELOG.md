@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.6.34](https://github.com/atinc/ngx-tethys/compare/7.6.33...7.6.34) (2020-03-14)
+
+
+### Bug Fixes
+
+* **popover:** add thyConfig in popover ([a22897d](https://github.com/atinc/ngx-tethys/commit/a22897de87ded82e01ff1cca5af67a12fb51ff6a))
+* **popover:** fix ThyPopoverConfig import error ([e29c7e3](https://github.com/atinc/ngx-tethys/commit/e29c7e3ca82453c550992eebcdf4a4e06d0bf148))
+* **statistic:** set statistic number font-family ([#550](https://github.com/atinc/ngx-tethys/issues/550)) ([1207489](https://github.com/atinc/ngx-tethys/commit/120748973bf2ec79dd2b56fee6fca6e237e0d77a))
+
+
+
 ## [7.6.33](https://github.com/atinc/ngx-tethys/compare/7.6.32...7.6.33) (2020-03-12)
 
 
