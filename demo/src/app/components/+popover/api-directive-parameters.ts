@@ -22,7 +22,20 @@ export const apiPopoverParameters = [
         description: '弹出 Popover 的偏移量',
         type: 'number',
         default: '4'
+    },
+    {
+        property: 'thyShowDelay',
+        description: '打开延迟毫秒',
+        type: 'number',
+        default: '0'
+    },
+    {
+        property: 'thyHideDelay',
+        description: '关闭延迟毫秒',
+        type: 'number',
+        default: '0'
     }
+
     // {
     //     property: 'thyConfig',
     //     description: '传入的配置文件, 参考 Config 参数列表',
