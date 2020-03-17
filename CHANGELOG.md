@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.6.35](https://github.com/atinc/ngx-tethys/compare/7.6.34...7.6.35) (2020-03-17)
+
+
+### Bug Fixes
+
+* **statistic:** set title and suffix font-size to 14px ([834e06d](https://github.com/atinc/ngx-tethys/commit/834e06da2b8d34479d87d1d086740a10f77b6add))
+* **statistic:** set title and suffix font-size to 14px #INF-516 ([a81fe22](https://github.com/atinc/ngx-tethys/commit/a81fe22efbe2f1974fa32f802e5ecf501432e23f)), closes [#INF-516](https://github.com/atinc/ngx-tethys/issues/INF-516)
+* **tree-select:** set expand icon line-height:1 ([d12ba08](https://github.com/atinc/ngx-tethys/commit/d12ba0886fc9be5a51ff728611deee368091a282))
+
+
+### Features
+
+* **popover:** add thyShowDelay in popover directive #INF-511 ([#560](https://github.com/atinc/ngx-tethys/issues/560)) ([ecc0f65](https://github.com/atinc/ngx-tethys/commit/ecc0f656ea6c04669ab93a8e699a354d5f15e1c1)), closes [#INF-511](https://github.com/atinc/ngx-tethys/issues/INF-511)
+
+
+
 ## [7.6.34](https://github.com/atinc/ngx-tethys/compare/7.6.33...7.6.34) (2020-03-14)
 
 
