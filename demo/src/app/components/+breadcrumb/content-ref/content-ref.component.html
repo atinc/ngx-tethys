@@ -1,0 +1,11 @@
+<thy-breadcrumb [thyMax]="4" thyIcon="house">
+  <thy-breadcrumb-item *ngFor="let item of data">
+    <ng-template #contentRef>
+      <span>{{ item.name }}</span>
+    </ng-template>
+  </thy-breadcrumb-item>
+</thy-breadcrumb>
+<thy-button-group thyType="outline-default">
+  <button thyButton (click)="add()">add</button>
+  <button thyButton (click)="remove()">remove</button>
+</thy-button-group>
