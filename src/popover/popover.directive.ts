@@ -37,9 +37,17 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
 
     @Input() thyConfig: ThyPopoverConfig;
 
+    @Input('thyShowDelay') showDelay = 0;
+
+    @Input('thyHideDelay') hideDelay = 0;
+
     private popoverRef: ThyPopoverRef<any>;
 
     tooltipPin = true;
+
+    showTimeoutId: number | null | any;
+
+    hideTimeoutId: number | null | any;
 
     constructor(
         elementRef: ElementRef,
@@ -74,17 +82,34 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
         return this.popoverRef.getOverlayRef();
     }
 
-    show(delay: number = 0) {
+    show(delay: number = this.showDelay) {
+        if (this.hideTimeoutId) {
+            clearTimeout(this.hideTimeoutId);
+            this.hideTimeoutId = null;
+        }
+
         if (this.disabled || (this.overlayRef && this.overlayRef.hasAttached())) {
             return;
         }
-        const overlayRef = this.createOverlay();
-        this.overlayRef = overlayRef;
-        this.popoverOpened = true;
+
+        this.showTimeoutId = setTimeout(() => {
+            const overlayRef = this.createOverlay();
+            this.overlayRef = overlayRef;
+            this.popoverOpened = true;
+            this.showTimeoutId = null;
+        }, delay);
     }
 
-    hide(delay: number = 0) {
-        this.popoverRef.close();
+    hide(delay: number = this.hideDelay) {
+        if (this.showTimeoutId) {
+            clearTimeout(this.showTimeoutId);
+            this.showTimeoutId = null;
+        }
+
+        this.hideTimeoutId = setTimeout(() => {
+            this.popoverRef.close();
+            this.hideTimeoutId = null;
+        }, delay);
     }
 
     ngOnDestroy() {
