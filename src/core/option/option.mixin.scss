@@ -9,7 +9,7 @@ $option-disabled-color: $gray-400 !default;
     position: relative;
 }
 
-@mixin thy-option($hover-active-bg-color: $gray-100, $color: $secondary) {
+@mixin thy-option($hover-bg-color: $gray-100, $color: $secondary) {
     @include thy-option-common-layout();
     min-height: 40px;
     color: $color;
@@ -29,7 +29,7 @@ $option-disabled-color: $gray-400 !default;
     &:not(.disabled) {
         &.hover,
         &:hover {
-            background: $hover-active-bg-color;
+            background: $hover-bg-color;
             color: $body-color;
         }
 
@@ -37,15 +37,15 @@ $option-disabled-color: $gray-400 !default;
             background: rgba($primary, 0.1);
             color: $primary;
 
-            &.hover,
-            &:hover {
-                background: $hover-active-bg-color;
-                color: $body-color;
+            // &.hover,
+            // &:hover {
+            // background: $hover-bg-color;
+            // color: $body-color;
 
-                .prefix-icon {
-                    color: $gray-300;
-                }
-            }
+            // .prefix-icon {
+            //     color: $gray-300;
+            // }
+            // }
 
             .prefix-icon {
                 color: $primary;
@@ -61,13 +61,13 @@ $option-disabled-color: $gray-400 !default;
     }
 }
 
-@mixin thy-option-theme($hover-active-bg-color: $gray-100, $color: $secondary) {
+@mixin thy-option-theme($hover-bg-color: $gray-100, $color: $secondary) {
     color: $color;
 
     &:not(.disabled) {
         &.hover,
         &:hover {
-            background: $hover-active-bg-color;
+            background: $hover-bg-color;
             color: $body-color;
         }
 
@@ -75,11 +75,11 @@ $option-disabled-color: $gray-400 !default;
             background: rgba($primary, 0.1);
             color: $primary;
 
-            &.hover,
-            &:hover {
-                background: $hover-active-bg-color;
-                color: $body-color;
-            }
+            // &.hover,
+            // &:hover {
+            //     background: $hover-active-bg-color;
+            //     color: $body-color;
+            // }
 
             .prefix-icon {
                 color: $primary;

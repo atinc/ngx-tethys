@@ -83,7 +83,11 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
 
     public positions: ConnectionPositionPair[];
 
-    public icons: { expand: string; collapse: string } = { expand: 'caret-right-down', collapse: 'caret-right' };
+    public icons: { expand: string; collapse: string; gap?: number } = {
+        expand: 'caret-right-down',
+        collapse: 'caret-right',
+        gap: 15
+    };
 
     private initialled = false;
 
@@ -141,9 +145,9 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
     @Input()
     set thyIconType(type: ThyTreeSelectType) {
         if (type === 'especial') {
-            this.icons = { expand: 'minus-square', collapse: 'plus-square' };
+            this.icons = { expand: 'minus-square', collapse: 'plus-square', gap: 20 };
         } else {
-            this.icons = { expand: 'caret-right-down', collapse: 'caret-right' };
+            this.icons = { expand: 'caret-right-down', collapse: 'caret-right', gap: 15 };
         }
     }
 
