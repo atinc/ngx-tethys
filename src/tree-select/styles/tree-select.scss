@@ -27,6 +27,7 @@
         .thy-tree-select-node {
             .thy-tree-select-option-icon {
                 color: $gray-400;
+                line-height: 1;
                 &:hover {
                     cursor: pointer;
                 }
