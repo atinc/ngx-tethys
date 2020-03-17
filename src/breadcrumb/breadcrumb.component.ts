@@ -1,16 +1,24 @@
-import { Component, ChangeDetectionStrategy, HostBinding, Input } from '@angular/core';
-
+import {
+    Component,
+    ChangeDetectionStrategy,
+    HostBinding,
+    Input,
+    ContentChild,
+    QueryList,
+    OnInit,
+    AfterViewInit,
+    AfterContentInit,
+    ContentChildren,
+    ViewChild,
+    ElementRef,
+    EmbeddedViewRef
+} from '@angular/core';
+import { ThyBreadcrumbItemComponent } from './breadcrumb-item.component';
+import { ChangeDetectorRef } from '@angular/core';
+export const BREADCRUMB_SHOW_MAX = 5;
 @Component({
     selector: 'thy-breadcrumb',
-    template: `
-        <div class="thy-breadcrumb-icon" *ngIf="svgIconName || iconClasses">
-            <thy-icon *ngIf="svgIconName; else iconFont" [thyIconName]="svgIconName"></thy-icon>
-            <ng-template #iconFont>
-                <i [ngClass]="iconClasses"></i>
-            </ng-template>
-        </div>
-        <ng-content></ng-content>
-    `,
+    templateUrl: './breadcrumb.component.html',
     exportAs: 'ThyBreadcrumb',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -21,6 +29,23 @@ export class ThyBreadcrumbComponent {
 
     iconClasses: string[];
     svgIconName: string;
+
+    @Input('thyMax') max: number = BREADCRUMB_SHOW_MAX;
+
+    @ContentChildren(ThyBreadcrumbItemComponent) set breadcrumbItem(components: QueryList<ThyBreadcrumbItemComponent>) {
+        if (components) {
+            this.breadcrumbItems = components.map(component => {
+                return component;
+            });
+            this.initialContentChildren(this.breadcrumbItems);
+        }
+    }
+
+    breadcrumbItems: ThyBreadcrumbItemComponent[];
+
+    foldItems: ThyBreadcrumbItemComponent[] = [];
+
+    expandItems: ThyBreadcrumbItemComponent[] = [];
 
     @Input()
     set thyIcon(icon: string) {
@@ -52,5 +77,46 @@ export class ThyBreadcrumbComponent {
             this.iconClasses = null;
             this.svgIconName = null;
         }
+    }
+
+    constructor(private cdr: ChangeDetectorRef) {}
+
+    private initialContentChildren(components: ThyBreadcrumbItemComponent[]) {
+        let max = Number(this.max);
+        this.expandItems = [];
+        this.foldItems = [];
+
+        if (max < 0) {
+            max = BREADCRUMB_SHOW_MAX;
+        }
+
+        const length = components.length;
+        const foldCount = length - max;
+        const hasContentRef = this.hasContentRef(components);
+        if (hasContentRef) {
+            this.foldItems = [...this.foldItems, ...components];
+        }
+        components.forEach((component, index) => {
+            if (index >= foldCount) {
+                this.expandItems = [...this.expandItems, component];
+            } else {
+                if (!hasContentRef) {
+                    this.foldItems = [...this.foldItems, component];
+                }
+            }
+        });
+        this.cdr.detectChanges();
+    }
+
+    private hasContentRef(components: ThyBreadcrumbItemComponent[]) {
+        const contentRefs = components.filter(component => {
+            return component.contentRef;
+        });
+
+        return contentRefs.length === components.length;
+    }
+
+    trackBy(index: number) {
+        return index;
     }
 }
