@@ -15,7 +15,7 @@
         class="thy-option-item"
         [ngClass]="{ active: treeNodeIsSelected(node) }"
         [class.disabled]="treeNodeIsDisable(node)"
-        [ngStyle]="{ 'padding-left.px': 20 * node.level + 5 }"
+        [ngStyle]="{ 'padding-left.px': 20 * node.level + parent.icons.gap }"
         (click)="selectTreeNode($event, node)"
         *ngIf="!treeNodeIsHidden(node)"
       >
@@ -27,7 +27,7 @@
         >
           <thy-icon [thyIconName]="treeNodeIsExpand(node) ? parent.icons.expand : parent.icons.collapse"></thy-icon>
         </span>
-        <span class="ml-1">
+        <span class="">
           <ng-template
             *ngIf="treeNodeTemplateRef; else defaultNodeText"
             [ngTemplateOutlet]="treeNodeTemplateRef"

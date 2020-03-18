@@ -18,7 +18,10 @@
 
 .thy-statistic {
     .thy-statistic-content {
-        line-height: 1.3;
+        line-height: 1.5;
+        &-value {
+            font-family: $font-family-statistics-number;
+        }
         &-prefix,
         &-suffix {
             display: inline-block;

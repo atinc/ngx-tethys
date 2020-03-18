@@ -31,7 +31,7 @@ export abstract class ThyOverlayDirectiveBase {
     protected platform: Platform;
     protected ngZone: NgZone;
     protected showDelay? = 0;
-    protected hidDelay? = 0;
+    protected hideDelay? = 0;
     protected touchendHideDelay? = 0;
     protected disabled = false;
 
