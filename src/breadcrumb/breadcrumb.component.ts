@@ -89,18 +89,16 @@ export class ThyBreadcrumbComponent {
         if (max < 0) {
             max = BREADCRUMB_SHOW_MAX;
         }
-
-        const length = components.length;
-        const foldCount = length - max;
-        const hasContentRef = this.hasContentRef(components);
-        if (hasContentRef) {
-            this.foldItems = [...this.foldItems, ...components];
+        // if have content ref in breadcrumb item, show all item. else show folded item.
+        const showEveryItem = this.isShowEveryItem(components);
+        if (showEveryItem) {
+            this.foldItems = [...components];
         }
         components.forEach((component, index) => {
-            if (index >= foldCount) {
+            if (index >= components.length - max) {
                 this.expandItems = [...this.expandItems, component];
             } else {
-                if (!hasContentRef) {
+                if (!showEveryItem) {
                     this.foldItems = [...this.foldItems, component];
                 }
             }
@@ -108,12 +106,10 @@ export class ThyBreadcrumbComponent {
         this.cdr.detectChanges();
     }
 
-    private hasContentRef(components: ThyBreadcrumbItemComponent[]) {
-        const contentRefs = components.filter(component => {
+    private isShowEveryItem(components: ThyBreadcrumbItemComponent[]) {
+        return components.every(component => {
             return component.contentRef;
         });
-
-        return contentRefs.length === components.length;
     }
 
     trackBy(index: number) {

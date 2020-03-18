@@ -71,4 +71,9 @@
 .breadcrumb-fold-items {
     max-height: $breadcrumb-fold-items-height;
     overflow: auto;
+    .thy-breadcrumb-item {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
 }

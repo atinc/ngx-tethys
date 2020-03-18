@@ -52,4 +52,8 @@ export class BreadcrumbContentRefComponent implements OnInit {
             }
         ];
     }
+
+    empty() {
+        this.data = [];
+    }
 }
