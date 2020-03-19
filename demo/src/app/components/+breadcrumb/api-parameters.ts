@@ -12,7 +12,7 @@ export const apiBreadcrumbParameters = [
         default: ''
     },
     {
-        property: 'thyMax',
+        property: 'thyMaxItemCount',
         description: '最大展示面包屑的条数',
         type: 'number',
         default: '5'

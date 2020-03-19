@@ -30,7 +30,7 @@ export class ThyBreadcrumbComponent {
     iconClasses: string[];
     svgIconName: string;
 
-    @Input('thyMax') max: number = BREADCRUMB_SHOW_MAX;
+    @Input('thyMaxItemCount') max: number = BREADCRUMB_SHOW_MAX;
 
     @ContentChildren(ThyBreadcrumbItemComponent) set breadcrumbItem(components: QueryList<ThyBreadcrumbItemComponent>) {
         if (components) {

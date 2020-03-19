@@ -34,7 +34,7 @@ class ThyDemoBreadcrumbBasicComponent {
 @Component({
     selector: 'thy-demo-breadcrumb-content-ref',
     template: `
-        <thy-breadcrumb [thyMax]="max" [thyIcon]="thyIconName" [thySeparator]="thySeparator">
+        <thy-breadcrumb [thyMaxItemCount]="max" [thyIcon]="thyIconName" [thySeparator]="thySeparator">
             <ng-container *ngFor="let item of data">
                 <thy-breadcrumb-item>
                     <ng-template #contentRef>
