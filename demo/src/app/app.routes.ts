@@ -35,7 +35,6 @@ import { DemoUploaderSectionComponent } from './components/+uploader/uploader-se
 import { DemoDateRangeSectionComponent } from './components/+date-range/date-range-section.component';
 import { DemoKeySelectSectionComponent } from './components/+key-select/key-select-section.component';
 import { DemoListSectionComponent } from './components/+list/list-section.component';
-import { DemoDatepickerNextSectionComponent } from './components/+datepicker-next/datepicker-next-section.component';
 import { DemoTreeSelectSectionComponent } from './components/+tree-select/tree-select-section.component';
 import { DemoStrengthComponent } from './components/+strength/strength-section.component';
 import { DemoStepperSectionComponent } from './components/+stepper/stepper-section.component';
@@ -194,10 +193,6 @@ const appRoutes = [
     {
         path: 'components/datepicker',
         component: DemoDataPickerSectionComponent
-    },
-    {
-        path: 'components/datepicker-next',
-        component: DemoDatepickerNextSectionComponent
     },
     {
         path: 'components/date-range',

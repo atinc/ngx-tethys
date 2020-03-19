@@ -13,7 +13,6 @@ export * from './confirm';
 export * from './date-range';
 export * from './core';
 export * from './datepicker';
-export * from './datepicker-next';
 export * from './dialog';
 export * from './tooltip';
 export * from './directive';
