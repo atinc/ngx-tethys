@@ -45,10 +45,6 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
 
     tooltipPin = true;
 
-    showTimeoutId: number | null | any;
-
-    hideTimeoutId: number | null | any;
-
     constructor(
         elementRef: ElementRef,
         platform: Platform,
@@ -76,9 +72,11 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
             this.thyConfig
         );
         this.popoverRef = this.popover.open(this.content, config);
+
         this.popoverRef.afterClosed().subscribe(() => {
             this.popoverOpened = false;
         });
+
         return this.popoverRef.getOverlayRef();
     }
 
