@@ -50,6 +50,9 @@ export class DemoPopoverDirectiveComponent extends mixinUnsubscribe(MixinBase) i
     placement: ThyPlacement = 'bottom';
     trigger = 'hover';
 
+    showDelay = 1000;
+    hideDelay = 1000;
+
     config = {
         panelClass: 'demo-popover'
     };

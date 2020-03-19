@@ -89,6 +89,9 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
         if (this.disabled || (this.overlayRef && this.overlayRef.hasAttached())) {
             return;
         }
+        if (this.trigger !== 'hover') {
+            delay = 0;
+        }
 
         this.showTimeoutId = setTimeout(() => {
             const overlayRef = this.createOverlay();

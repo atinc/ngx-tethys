@@ -82,8 +82,12 @@ export abstract class ThyOverlayDirectiveBase {
 
                         // if showDelay is too long and mouseleave immediately, overlayRef is not exist, we should clearTimeout
                         if (!this.overlayRef) {
-                            clearTimeout(this.showTimeoutId);
-                            clearTimeout(this.hideTimeoutId);
+                            if (this.showTimeoutId) {
+                                clearTimeout(this.showTimeoutId);
+                            }
+                            if (this.hideTimeoutId) {
+                                clearTimeout(this.hideTimeoutId);
+                            }
                         }
 
                         // if element which moved to is in overlayElement, don't hide tooltip
