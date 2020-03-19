@@ -15,7 +15,6 @@ import { DemoCascaderSectionComponent } from './+cascader/cascader-section.compo
 import { DemoConfirmSectionComponent } from './+confirm/confirm-section.component';
 import { DemoDataPickerSectionComponent } from './+date-picker/date-picker-section.component';
 import { DemoDateRangeSectionComponent } from './+date-range/date-range-section.component';
-import { DemoDatepickerNextSectionComponent } from './+datepicker-next/datepicker-next-section.component';
 import { DialogDemoModule } from './+dialog';
 import { DemoListModule } from './+list';
 import { DropDragComponent } from './+drop-drag/drop-drag.component';
@@ -141,7 +140,6 @@ export const COMPONENTS = [
     DemoStrengthComponent,
     DemoFormSectionComponent,
     DemoDataPickerSectionComponent,
-    DemoDatepickerNextSectionComponent,
     DemoDropdownSectionComponent,
     DemoProgressSectionComponent,
     DemoSelectSectionComponent,
