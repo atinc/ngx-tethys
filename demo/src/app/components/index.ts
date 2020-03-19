@@ -94,6 +94,10 @@ import { DemoStatisticComponent } from './+statistic/statistic.component';
 import { DemoStatisticBasicComponent } from './+statistic/basic/statistic-basic.component';
 import { DemoStatisticCardComponent } from './+statistic/card/statistic-card.component';
 import { DemoTransferModule } from './+transfer/module';
+import { DemoBreadcrumbBasicComponent } from './+breadcrumb/basic/basic.component';
+import { DemoBreadcrumbSlashComponent } from './+breadcrumb/slash/slash.component';
+import { DemoBreadcrumbBackslashComponent } from './+breadcrumb/backslash/backslash.component';
+import { BreadcrumbContentRefComponent } from './+breadcrumb/content-ref/content-ref.component';
 
 export const COMPONENTS = [
     DemoCopySectionComponent,
@@ -173,6 +177,10 @@ export const COMPONENTS = [
     ...ICON_COMPONENTS,
 
     DemoBreadcrumbSectionComponent,
+    DemoBreadcrumbBasicComponent,
+    DemoBreadcrumbSlashComponent,
+    DemoBreadcrumbBackslashComponent,
+    BreadcrumbContentRefComponent,
     DemoStoreSectionComponent,
     DropDragComponent,
     DemoStoreOtherSectionComponent,
@@ -230,6 +238,11 @@ export const ENTRY_COMPONENTS = [
     CustomSelectScrollComponent,
 
     DemoResultBasicComponent,
+
+    DemoBreadcrumbBasicComponent,
+    DemoBreadcrumbSlashComponent,
+    DemoBreadcrumbBackslashComponent,
+    BreadcrumbContentRefComponent,
 
     DemoVoteWeakComponent,
     DemoVoteBasicComponent,
