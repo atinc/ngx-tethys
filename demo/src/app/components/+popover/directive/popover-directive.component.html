@@ -22,6 +22,13 @@
       <option value="click">click</option>
     </thy-select>
   </thy-form-group>
+
+  <thy-form-group thyLabelText="Show Delay">
+    <input thyInput type="number" [(ngModel)]="showDelay" name="showDelay" />
+  </thy-form-group>
+  <thy-form-group thyLabelText="Hide Delay">
+    <input thyInput type="number" [(ngModel)]="hideDelay" name="hideDelay" />
+  </thy-form-group>
 </form>
 <div class="btn-pair mt-3">
   <button thyButton="primary" [thyPopover]="contentComponent" [thyTrigger]="trigger" [thyPlacement]="placement">
@@ -33,7 +40,8 @@
     [thyTrigger]="trigger"
     [thyPlacement]="placement"
     [thyConfig]="config"
-    [thyShowDelay]="3000"
+    [thyShowDelay]="showDelay"
+    [thyHideDelay]="hideDelay"
   >
     Use Template
   </button>
