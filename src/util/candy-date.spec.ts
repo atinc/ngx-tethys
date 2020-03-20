@@ -76,6 +76,11 @@ describe('candy-date', () => {
         expect(date.isBeforeSecond(new CandyDate('2020-2-2 20:20:21'))).toBeTruthy();
     });
 
+    it('support static fromUnixTime', () => {
+        const unixTime = date.getUnixTime();
+        expect(CandyDate.fromUnixTime(unixTime).getUnixTime()).toBe(date.getUnixTime());
+    });
+
     it('should throw error while putting invalid date input', () => {
         const errorMessage =
             'The input date type is not supported expect Date | string | number | { date: number; with_time: 0 | 1}, actual {}';
