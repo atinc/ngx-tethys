@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.6.36](https://github.com/atinc/ngx-tethys/compare/7.6.35...7.6.36) (2020-03-19)
+
+
+### Bug Fixes
+
+* **popover:** add showTimeoutId and hideTimeoutId in base overlay ([#564](https://github.com/atinc/ngx-tethys/issues/564)) ([86fc5c9](https://github.com/atinc/ngx-tethys/commit/86fc5c9ff4fe1e8680468b5ca96e78e6b340940b))
+
+
+
 ## [7.6.35](https://github.com/atinc/ngx-tethys/compare/7.6.34...7.6.35) (2020-03-17)
 
 
