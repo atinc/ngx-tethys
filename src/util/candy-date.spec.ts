@@ -77,7 +77,7 @@ fdescribe('candy-date', () => {
     });
 
     it('support static fromUnixTime', () => {
-        const unixTime = 1580646020;
+        const unixTime = date.getUnixTime();
         expect(CandyDate.fromUnixTime(unixTime).getUnixTime()).toBe(date.getUnixTime());
     });
 
