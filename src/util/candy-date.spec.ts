@@ -1,6 +1,6 @@
 import { CandyDate } from './candy-date';
 
-describe('candy-date', () => {
+fdescribe('candy-date', () => {
     const date = new CandyDate('2020-2-2 20:20:20');
 
     it('support getTime', () => expect(date.getTime()).toBe(date.nativeDate.getTime()));
@@ -78,7 +78,7 @@ describe('candy-date', () => {
 
     it('support static fromUnixTime', () => {
         const unixTime = 1580646020;
-        expect(CandyDate.fromUnixTime(unixTime).nativeDate.getTime()).toBe(date.nativeDate.getTime());
+        expect(CandyDate.fromUnixTime(unixTime).getUnixTime()).toBe(date.getUnixTime());
     });
 
     it('should throw error while putting invalid date input', () => {
