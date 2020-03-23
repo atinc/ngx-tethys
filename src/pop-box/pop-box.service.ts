@@ -1,6 +1,12 @@
 import {
-    Injectable, Inject, ViewContainerRef, ComponentFactoryResolver,
-    EventEmitter, HostListener, ElementRef, NgZone
+    Injectable,
+    Inject,
+    ViewContainerRef,
+    ComponentFactoryResolver,
+    EventEmitter,
+    HostListener,
+    ElementRef,
+    NgZone
 } from '@angular/core';
 import { TemplateRef, RendererFactory2, Renderer2 } from '@angular/core';
 import { PopBoxRef } from './pop-box-ref.service';
@@ -8,14 +14,14 @@ import { ComponentLoader, ComponentLoaderFactory } from 'ngx-bootstrap/component
 import { PopBoxContainerComponent } from './pop-box-container.component';
 import { PopBoxOptions, popBoxConfigDefaults } from './pop-box-options.class';
 import { ThyPositioningService } from '../positioning/positioning.service';
+import { warnDeprecation } from '../core/logger';
 
 @Injectable()
 export class ThyPopBoxService {
-
     private _loaders: {
-        target: any,
-        loader: any,
-        config: PopBoxOptions
+        target: any;
+        loader: any;
+        config: PopBoxOptions;
     }[] = [];
 
     private _renderer: Renderer2;
@@ -32,12 +38,17 @@ export class ThyPopBoxService {
         this._renderer = rendererFactory.createRenderer(null, null);
     }
 
+    /**
+     * @deprecated The ThyPopBox will be deprecated, please use ThyPopover.
+     */
     show(content: string | TemplateRef<any> | any, config: PopBoxOptions): PopBoxRef {
+        warnDeprecation(`The ThyPopBox will be deprecated, please use ThyPopover.`);
+
         if (config.target && config.position) {
             throw new Error(`target and position only set one.`);
         }
         const target = config.target && (config.target.nativeElement || config.target);
-        const targetLoader = this._loaders.find((item) => {
+        const targetLoader = this._loaders.find(item => {
             return item.target === target;
         });
         if (targetLoader) {
@@ -53,11 +64,11 @@ export class ThyPopBoxService {
             target: target
         });
 
-        const loader = this._popBoxLoader = this.clf.createLoader<PopBoxContainerComponent>(
+        const loader = (this._popBoxLoader = this.clf.createLoader<PopBoxContainerComponent>(
             config.target,
             null,
             null
-        );
+        ));
 
         const popBoxRef = new PopBoxRef();
         const popBoxContainerRef = loader
@@ -93,15 +104,11 @@ export class ThyPopBoxService {
         return popBoxRef;
     }
 
-    private _hide(loader: {
-        target: any,
-        loader: any,
-        config: PopBoxOptions
-    }) {
+    private _hide(loader: { target: any; loader: any; config: PopBoxOptions }) {
         if (loader.config && loader.config.target) {
             this._renderer.removeClass(loader.config.target, loader.config.openedClass);
         }
-        this._loaders = this._loaders.filter((item) => {
+        this._loaders = this._loaders.filter(item => {
             return item.target !== loader.target;
         });
         this.ngZone.runOutsideAngular(() => {

@@ -5,19 +5,20 @@ import { ConfirmOption, ContentKeyParams } from './confirm-option.interface';
 import { ThyModalService } from '../modal/modal.service';
 import { ThyTranslate } from '../shared';
 import { isObject } from '../util/helpers';
-
+import { warnDeprecation } from '../core/logger';
 
 @Injectable()
 export class ThyConfirmService {
-
     private _option: ConfirmOption;
 
-    constructor(
-        private modalService: ThyModalService,
-        private translate: ThyTranslate,
-    ) { }
+    constructor(private modalService: ThyModalService, private translate: ThyTranslate) {}
 
+    /**
+     * @deprecated The ThyConfirm will be deprecated, please use ThyDialog.confirm.
+     */
     show(option: ConfirmOption) {
+        warnDeprecation(`The ThyConfirm will be deprecated, please use ThyDialog.confirm.`);
+
         this.modalService.show(ThyConfirmComponent, {
             initialState: this._formatOption(option)
         });
@@ -64,7 +65,7 @@ export class ThyConfirmService {
             buttons: {
                 confirm: {
                     text: this.translate.instant('common.OK'),
-                    loadingText: this.translate.instant('common.DELETING'),
+                    loadingText: this.translate.instant('common.DELETING')
                 },
                 decline: {}
             }
@@ -77,10 +78,20 @@ export class ThyConfirmService {
         };
         _res = Object.assign({}, _defaultOption, option);
         if (option.buttons && option.buttons.confirm) {
-            _res.buttons.confirm = Object.assign({}, _res.buttons.confirm, _defaultOption.buttons.confirm, option.buttons.confirm);
+            _res.buttons.confirm = Object.assign(
+                {},
+                _res.buttons.confirm,
+                _defaultOption.buttons.confirm,
+                option.buttons.confirm
+            );
         }
         if (option.buttons && option.buttons.decline) {
-            _res.buttons.decline = Object.assign({}, _res.buttons.decline, _defaultOption.buttons.decline, option.buttons.decline);
+            _res.buttons.decline = Object.assign(
+                {},
+                _res.buttons.decline,
+                _defaultOption.buttons.decline,
+                option.buttons.decline
+            );
         }
         return Object.assign({}, _defaultOption, option);
     }
