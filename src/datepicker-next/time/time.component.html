@@ -1,7 +1,0 @@
-<div class="time-text" *ngIf="!isEdit" (click)="behaviorEdit()">
-    <ng-container><i class="wtf wtf-timeline-o"></i> 设置时间</ng-container>
-</div>
-<div *ngIf="isEdit" #timeInput (click)="behaviorPopTimeSelect()">
-    <input thyInput thySize="md" name="time" thyAutofocus [(ngModel)]="timeText" (ngModelChange)="onTimeChange()"
-        placeholder="">
-</div>
