@@ -108,7 +108,9 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
         }
 
         this.hideTimeoutId = setTimeout(() => {
-            this.popoverRef.close();
+            if (this.popoverRef) {
+                this.popoverRef.close();
+            }
             this.hideTimeoutId = null;
         }, delay);
     }

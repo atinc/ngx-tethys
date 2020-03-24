@@ -9,7 +9,6 @@ import {
 } from '@angular/core';
 import { ThyNotifyOption } from './notify-option.interface';
 import { ThyNotifyContainerComponent } from './notify.container.component';
-import { ComponentLoader } from 'ngx-bootstrap/component-loader';
 import { Subject } from 'rxjs';
 import { DomPortalOutlet, ComponentPortal } from '@angular/cdk/portal';
 import { TData } from '@angular/core/src/render3/interfaces/view';

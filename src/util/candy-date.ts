@@ -2,6 +2,10 @@ import {
     differenceInCalendarDays,
     differenceInCalendarMonths,
     differenceInCalendarYears,
+    differenceInCalendarWeeks,
+    differenceInDays,
+    differenceInMonths,
+    differenceInYears,
     differenceInWeeks,
     differenceInHours,
     differenceInMinutes,
@@ -24,7 +28,8 @@ import {
     setMonth,
     getUnixTime,
     startOfDay,
-    endOfDay
+    endOfDay,
+    fromUnixTime
 } from 'date-fns';
 
 export interface IndexableObject {
@@ -64,6 +69,10 @@ export class CandyDate implements IndexableObject {
         } else {
             this.nativeDate = new Date();
         }
+    }
+
+    static fromUnixTime(unixTime: number): CandyDate {
+        return new CandyDate(fromUnixTime(unixTime));
     }
 
     calendarStart(options?: { weekStartsOn: WeekDayIndex | undefined }): CandyDate {
@@ -198,20 +207,20 @@ export class CandyDate implements IndexableObject {
         return this.isSame(date, 'second');
     }
 
-    compare(date: CandyDateType, grain: CandyDateCompareGrain = 'day', isBefore: boolean = true): boolean {
+    compare(date: CandyDateType, grain: CandyDateCompareGrain = 'day'): number {
         if (date === null) {
-            return false;
+            return NaN;
         }
         let fn;
         switch (grain) {
             case 'year':
-                fn = differenceInCalendarYears;
+                fn = differenceInYears;
                 break;
             case 'month':
-                fn = differenceInCalendarMonths;
+                fn = differenceInMonths;
                 break;
             case 'day':
-                fn = differenceInCalendarDays;
+                fn = differenceInDays;
                 break;
             case 'week':
                 fn = differenceInWeeks;
@@ -226,68 +235,151 @@ export class CandyDate implements IndexableObject {
                 fn = differenceInSeconds;
                 break;
             default:
+                fn = differenceInDays;
+                break;
+        }
+        return fn(this.nativeDate, this.toNativeDate(date));
+    }
+
+    private isBeforeOrAfter(
+        date: CandyDateType,
+        grain: CandyDateCompareGrain = 'day',
+        isBefore: boolean = true
+    ): boolean {
+        const number = this.compare(date, grain);
+        return isBefore ? number < 0 : number > 0;
+    }
+
+    compareInCalendar(date: CandyDateType, grain: CandyDateCompareGrain = 'day'): number {
+        if (date === null) {
+            return NaN;
+        }
+        let fn;
+        switch (grain) {
+            case 'year':
+                fn = differenceInCalendarYears;
+                break;
+            case 'month':
+                fn = differenceInCalendarMonths;
+                break;
+            case 'week':
+                fn = differenceInCalendarWeeks;
+                break;
+            case 'day':
+                fn = differenceInCalendarDays;
+                break;
+            case 'hour':
+                fn = differenceInHours;
+                break;
+            case 'minute':
+                fn = differenceInMinutes;
+                break;
+            case 'second':
+                fn = differenceInSeconds;
+                break;
+            default:
                 fn = differenceInCalendarDays;
                 break;
         }
-        return isBefore
-            ? fn(this.nativeDate, this.toNativeDate(date)) < 0
-            : fn(this.nativeDate, this.toNativeDate(date)) > 0;
+
+        return fn(this.nativeDate, this.toNativeDate(date));
+    }
+
+    private isBeforeOrAfterInCalendar(
+        date: CandyDateType,
+        grain: CandyDateCompareGrain = 'day',
+        isBefore: boolean = true
+    ): boolean {
+        const number = this.compareInCalendar(date, grain);
+        return isBefore ? number < 0 : number > 0;
+    }
+
+    isBeforeYearInCalendar(date: CandyDateType): boolean {
+        return this.isBeforeOrAfterInCalendar(date, 'year');
+    }
+
+    isBeforeMonthInCalendar(date: CandyDateType): boolean {
+        return this.isBeforeOrAfterInCalendar(date, 'month');
+    }
+
+    isBeforeWeekInCalendar(date: CandyDateType): boolean {
+        return this.isBeforeOrAfterInCalendar(date, 'week');
+    }
+
+    isBeforeDayInCalendar(date: CandyDateType): boolean {
+        return this.isBeforeOrAfterInCalendar(date, 'day');
     }
 
     isBeforeYear(date: CandyDateType): boolean {
-        return this.compare(date, 'year');
+        return this.isBeforeOrAfter(date, 'year');
     }
 
     isBeforeMonth(date: CandyDateType): boolean {
-        return this.compare(date, 'month');
+        return this.isBeforeOrAfter(date, 'month');
     }
 
     isBeforeWeek(date: CandyDateType): boolean {
-        return this.compare(date, 'week');
+        return this.isBeforeOrAfter(date, 'week');
     }
 
     isBeforeDay(date: CandyDateType): boolean {
-        return this.compare(date, 'day');
+        return this.isBeforeOrAfter(date, 'day');
     }
 
     isBeforeHour(date: CandyDateType): boolean {
-        return this.compare(date, 'hour');
+        return this.isBeforeOrAfter(date, 'hour');
     }
 
     isBeforeMinute(date: CandyDateType): boolean {
-        return this.compare(date, 'minute');
+        return this.isBeforeOrAfter(date, 'minute');
     }
 
     isBeforeSecond(date: CandyDateType): boolean {
-        return this.compare(date, 'second');
+        return this.isBeforeOrAfter(date, 'second');
+    }
+
+    isAfterYearInCalendar(date: CandyDateType): boolean {
+        return this.isBeforeOrAfterInCalendar(date, 'year', false);
+    }
+
+    isAfterMonthInCalendar(date: CandyDateType): boolean {
+        return this.isBeforeOrAfterInCalendar(date, 'month', false);
+    }
+
+    isAfterWeekInCalendar(date: CandyDateType): boolean {
+        return this.isBeforeOrAfterInCalendar(date, 'week', false);
+    }
+
+    isAfterDayInCalendar(date: CandyDateType): boolean {
+        return this.isBeforeOrAfterInCalendar(date, 'day', false);
     }
 
     isAfterYear(date: CandyDateType): boolean {
-        return this.compare(date, 'year', false);
+        return this.isBeforeOrAfter(date, 'year', false);
     }
 
     isAfterMonth(date: CandyDateType): boolean {
-        return this.compare(date, 'month', false);
+        return this.isBeforeOrAfter(date, 'month', false);
     }
 
     isAfterWeek(date: CandyDateType): boolean {
-        return this.compare(date, 'week', false);
+        return this.isBeforeOrAfter(date, 'week', false);
     }
 
     isAfterDay(date: CandyDateType): boolean {
-        return this.compare(date, 'day', false);
+        return this.isBeforeOrAfter(date, 'day', false);
     }
 
     isAfterHour(date: CandyDateType): boolean {
-        return this.compare(date, 'hour', false);
+        return this.isBeforeOrAfter(date, 'hour', false);
     }
 
     isAfterMinute(date: CandyDateType): boolean {
-        return this.compare(date, 'minute', false);
+        return this.isBeforeOrAfter(date, 'minute', false);
     }
 
     isAfterSecond(date: CandyDateType): boolean {
-        return this.compare(date, 'second', false);
+        return this.isBeforeOrAfter(date, 'second', false);
     }
 
     isToday(): boolean {
