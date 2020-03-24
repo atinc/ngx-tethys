@@ -1,6 +1,7 @@
 import { Injectable, TemplateRef, RendererFactory2, EventEmitter } from '@angular/core';
 import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 import { ComponentLoaderFactory } from 'ngx-bootstrap/component-loader';
+import { warnDeprecation } from '../core/logger';
 
 const modalConfigDefaults = {
     backdrop: true,
@@ -32,7 +33,12 @@ export class ThyModalService extends BsModalService {
         });
     }
 
+    /**
+     * @deprecated The ThyModal will be deprecated, please use ThyDialog.
+     */
     show(content: string | TemplateRef<any> | any, config?: ThyModalConfigInfo): BsModalRef {
+        warnDeprecation(`The ThyModal will be deprecated, please use ThyDialog.`);
+
         this.setModalConfig(config);
         const bsModalRef = this.modalService.show(content, this.modalConfig);
         this.bsModalRefs.push(bsModalRef);
