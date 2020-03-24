@@ -1,6 +1,6 @@
 <div class="demo-badge-section">
   <section>
-    <div class="header">标记 sup</div>
+    <div class="header font-size-lg mb-2">标记 sup</div>
     <div class="body">
       <div class="mb-3">
         <thy-badge [thyCount]="5">
@@ -56,7 +56,7 @@
   </section>
 
   <section>
-    <div class="header">独立使用</div>
+    <div class="header font-size-lg mb-2">独立使用</div>
     <div class="body">
       <div class="mb-3">
         <thy-badge [thyCount]="3"></thy-badge>
@@ -71,9 +71,9 @@
   </section>
 
   <section>
-    <div class="header">小红点 sup</div>
+    <div class="header font-size-lg mb-2">小红点 sup</div>
     <div class="body">
-      <thy-badge thyIsDot>
+      <thy-badge thyIsDot [thyCount]="100">
         <div class="square"></div>
       </thy-badge>
       <thy-badge thyIsDot [thyType]="badgeDotTheme">
@@ -84,10 +84,10 @@
   </section>
 
   <section>
-    <div class="header">状态点</div>
+    <div class="header font-size-lg mb-2">状态点</div>
     <div class="body">
       <div class="mb-3">
-        <thy-badge thyIsDot="true"></thy-badge>
+        <thy-badge [thyIsDot]="isdot"></thy-badge>
         <thy-badge thyIsDot="true" thyType="primary"></thy-badge>
         <thy-badge thyIsDot="true"></thy-badge>
         <thy-badge thyIsDot="true" thyType="warning"></thy-badge>
@@ -100,7 +100,7 @@
   </section>
 
   <section>
-    <div class="header">镂空点</div>
+    <div class="header font-size-lg mb-2">镂空点</div>
     <div class="body">
       <div class="mb-3">
         <thy-badge thyIsHollow="true"></thy-badge>
@@ -115,7 +115,7 @@
   </section>
 
   <section>
-    <div class="header">属性使用thyBadge</div>
+    <div class="header font-size-lg mb-2">使用指令thyBadge</div>
     <div class="body">
       <span thyBadge thyIsDot="true" class="mr-5">
         Worktile
@@ -130,9 +130,13 @@
   </section>
 
   <section>
-    <div class="header">thyTextColor & thyBackgroundColor 设置特殊颜色</div>
+    <div class="header font-size-lg mb-2">thyTextColor & thyBackgroundColor 设置特殊颜色</div>
     <div class="body">
       <span thyBadge [thyCount]="5" thyTextColor="#00ff00" thyBackgroundColor="#ff00ff"></span>
     </div>
   </section>
+</div>
+
+<div class="content-main">
+  <api-parameters title="参数列表" [parameters]="apiParameters"></api-parameters>
 </div>
