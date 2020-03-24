@@ -14,8 +14,6 @@ export class DemoBadgeSectionComponent implements OnInit {
 
     badgeCount = 0;
 
-    isdot = true;
-
     public apiParameters = [
         {
             property: 'thyType',
