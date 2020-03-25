@@ -93,7 +93,6 @@ export class TransferTemplateComponent implements OnInit {
     ) {
         if (event.selected) {
             this.selectRight = [...this.selectRight, event.value];
-            selectItem(event.value);
         }
     }
 

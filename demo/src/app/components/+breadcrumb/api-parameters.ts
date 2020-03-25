@@ -10,20 +10,5 @@ export const apiBreadcrumbParameters = [
         description: '面包屑的分隔符，不传值默认为">", thySeparator可选值为"slash","backslash"',
         type: 'string',
         default: ''
-    },
-    {
-        property: 'thyMaxItemCount',
-        description: '最大展示面包屑的条数',
-        type: 'number',
-        default: '5'
-    }
-];
-
-export const apiBreadcrumbItemParameters = [
-    {
-        property: 'contentRef',
-        description: '面包屑item中的模版，使用此模版可以实现当出现折叠面包屑时，折叠下拉展示所有的面包屑',
-        type: 'TemplateRef',
-        default: ''
     }
 ];
