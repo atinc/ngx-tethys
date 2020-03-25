@@ -10,15 +10,7 @@
 
     .thy-breadcrumb-item {
         margin-right: 5px;
-        display: flex;
         color: $breadcrumb-text-color;
-        & > :first-child {
-            display: inline-block;
-            max-width: 12em;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-        }
         a {
             @include link-variant($breadcrumb-text-color, none, $primary, none);
         }
@@ -33,7 +25,6 @@
         }
         .default-icon {
             margin-left: 5px;
-            line-height: 1.5;
             color: $breadcrumb-separator-color;
             font-size: $font-size-base;
         }
@@ -49,7 +40,6 @@
                 content: '/';
                 font: normal normal normal 14px/1 wtf;
                 margin-left: 5px;
-                line-height: 1.5;
                 color: $breadcrumb-separator-color;
             }
             &:last-child {
@@ -66,14 +56,5 @@
                 content: '\\';
             }
         }
-    }
-}
-.breadcrumb-fold-items {
-    max-height: $breadcrumb-fold-items-height;
-    overflow: auto;
-    .thy-breadcrumb-item {
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
     }
 }
