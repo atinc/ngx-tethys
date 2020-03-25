@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.6.38](https://github.com/atinc/ngx-tethys/compare/7.6.37...7.6.38) (2020-03-25)
+
+
+### Reverts
+
+* Revert " support fold breadcrumb item #INF-419 (#561)" (#575) ([1c84129](https://github.com/atinc/ngx-tethys/commit/1c8412916893c3c2acb45bdeb69ef26280085125)), closes [#INF-419](https://github.com/atinc/ngx-tethys/issues/INF-419) [#561](https://github.com/atinc/ngx-tethys/issues/561) [#575](https://github.com/atinc/ngx-tethys/issues/575)
+
+
+
 ## [7.6.37](https://github.com/atinc/ngx-tethys/compare/7.6.36...7.6.37) (2020-03-24)
 
 
