@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.6.37](https://github.com/atinc/ngx-tethys/compare/7.6.36...7.6.37) (2020-03-24)
+
+
+### Bug Fixes
+
+* **overlay:** add clearTimer in overlay directive ([#570](https://github.com/atinc/ngx-tethys/issues/570)) ([bb00e96](https://github.com/atinc/ngx-tethys/commit/bb00e960d2ffee2310053787827ab6c9e500b98c))
+* **popover:** fix popover close error ([4e97c74](https://github.com/atinc/ngx-tethys/commit/4e97c741d2a95e9e73bdfe3f82bedffb12616116))
+
+
+### Features
+
+* **util:** candy date add fromUnixTime and compare method #INF-529 ([8bff975](https://github.com/atinc/ngx-tethys/commit/8bff975e6b89490bc0c4460791059a8b6d73c4f6)), closes [#INF-529](https://github.com/atinc/ngx-tethys/issues/INF-529)
+
+
+
+## [7.6.36](https://github.com/atinc/ngx-tethys/compare/7.6.35...7.6.36) (2020-03-19)
+
+
+### Bug Fixes
+
+* **popover:** add showTimeoutId and hideTimeoutId in base overlay ([#564](https://github.com/atinc/ngx-tethys/issues/564)) ([86fc5c9](https://github.com/atinc/ngx-tethys/commit/86fc5c9ff4fe1e8680468b5ca96e78e6b340940b))
+
+
+
 ## [7.6.35](https://github.com/atinc/ngx-tethys/compare/7.6.34...7.6.35) (2020-03-17)
 
 

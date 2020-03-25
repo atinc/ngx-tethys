@@ -22,6 +22,7 @@ import { daterangepickerUtilIdentificationValueType, daterangepickerUtilConvertT
 import { ThyDaterangepickerContainerComponent } from './daterangepicker-container.component';
 import { ThyPositioningService } from '../positioning/positioning.service';
 import { ThyDaterangepickerConfig } from './daterangepicker.config';
+import { warnDeprecation } from '../core/logger';
 
 const DATEPICKER_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
@@ -78,7 +79,12 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
         );
     }
 
+    /**
+     * @deprecated The ThyDaterangepicker will be deprecated, please use ThyRangePicker.
+     */
     ngOnInit() {
+        warnDeprecation(`The ThyDaterangepicker will be deprecated, please use ThyRangePicker.`);
+
         this._loader.listen({
             outsideClick: this.thyOutsideClick,
             triggers: this.thyTriggers,

@@ -34,6 +34,8 @@ export abstract class ThyOverlayDirectiveBase {
     protected hideDelay? = 0;
     protected touchendHideDelay? = 0;
     protected disabled = false;
+    protected showTimeoutId: number | null | any;
+    protected hideTimeoutId: number | null | any;
 
     abstract tooltipPin: boolean;
     /** create overlay, you can use popover service or overlay*/
@@ -47,6 +49,15 @@ export abstract class ThyOverlayDirectiveBase {
         });
         this.manualListeners.clear();
         this.focusMonitor.stopMonitoring(this.elementRef);
+    }
+
+    private clearTimer() {
+        if (this.showTimeoutId) {
+            clearTimeout(this.showTimeoutId);
+        }
+        if (this.hideTimeoutId) {
+            clearTimeout(this.hideTimeoutId);
+        }
     }
 
     constructor(elementRef: ElementRef, platform: Platform, focusMonitor: FocusMonitor, ngZone: NgZone) {
@@ -77,12 +88,18 @@ export abstract class ThyOverlayDirectiveBase {
                                     this.hide();
                                 });
                         }
+
                         // if element which moved to is in overlayElement, don't hide tooltip
                         if (overlayElement && overlayElement.contains) {
                             const toElementIsTooltip = overlayElement.contains(toElement as Element);
                             if (!toElementIsTooltip || !this.tooltipPin) {
                                 this.hide();
                             }
+                        }
+
+                        // if showDelay is too long and mouseleave immediately, overlayRef is not exist, we should clearTimeout
+                        if (!this.overlayRef) {
+                            this.clearTimer();
                         }
                     });
             } else if (this.trigger === 'focus') {
@@ -130,5 +147,6 @@ export abstract class ThyOverlayDirectiveBase {
             this.overlayRef.dispose();
         }
         this.clearEventListeners();
+        this.clearTimer();
     }
 }

@@ -20,6 +20,7 @@ import { ThyDatepickerConfig } from './datepicker.config';
 import { ThyDatepickerService } from './datepicker.service';
 import { DatepickerValueEntry, DatepickerValueShowTypesEnum } from './i.datepicker';
 import { datepickerUtilConvertToDatepickerObject, datepickerUtilIdentificationValueType } from './util';
+import { warnDeprecation } from '../core/logger';
 
 registerLocaleData(localeZhHans, 'zh-Hans');
 
@@ -79,7 +80,12 @@ export class ThyDatepickerDirective implements OnInit, AfterContentInit, Control
         this._loader = cis.createLoader<ThyDatepickerContainerComponent>(_elementRef, _viewContainerRef, _renderer);
     }
 
+    /**
+     * @deprecated The ThyDatepicker will be deprecated, please use ThyDatePicker.
+     */
     ngOnInit() {
+        warnDeprecation(`The ThyDatepicker will be deprecated, please use ThyDatePicker.`);
+
         this._loader.listen({
             outsideClick: this.thyOutsideClick,
             triggers: this.thyTriggers,

@@ -45,10 +45,6 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
 
     tooltipPin = true;
 
-    showTimeoutId: number | null | any;
-
-    hideTimeoutId: number | null | any;
-
     constructor(
         elementRef: ElementRef,
         platform: Platform,
@@ -76,9 +72,11 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
             this.thyConfig
         );
         this.popoverRef = this.popover.open(this.content, config);
+
         this.popoverRef.afterClosed().subscribe(() => {
             this.popoverOpened = false;
         });
+
         return this.popoverRef.getOverlayRef();
     }
 
@@ -90,6 +88,9 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
 
         if (this.disabled || (this.overlayRef && this.overlayRef.hasAttached())) {
             return;
+        }
+        if (this.trigger !== 'hover') {
+            delay = 0;
         }
 
         this.showTimeoutId = setTimeout(() => {
@@ -107,7 +108,9 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
         }
 
         this.hideTimeoutId = setTimeout(() => {
-            this.popoverRef.close();
+            if (this.popoverRef) {
+                this.popoverRef.close();
+            }
             this.hideTimeoutId = null;
         }, delay);
     }
