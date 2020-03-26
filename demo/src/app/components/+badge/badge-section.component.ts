@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { DemoBadgeBasicComponent } from './demo/basic/basic.component';
+import { DemoBadgeIndependentUseComponent } from './demo/independent-use/independent-use.component';
+import { DemoBadgeStatePointComponent } from './demo/state-point/state-point.component';
+import { DemoBadgeSpecialComponent } from './demo/special/special.component';
 
 @Component({
     selector: 'demo-badge-section',
@@ -11,8 +15,6 @@ export class DemoBadgeSectionComponent implements OnInit {
     themes = ['danger', 'primary', 'warning', 'secondary'];
 
     nullValue;
-
-    badgeCount = 0;
 
     public apiParameters = [
         {
@@ -78,12 +80,83 @@ export class DemoBadgeSectionComponent implements OnInit {
         }
     ];
 
+    public liveDemos = [
+        {
+            title: '基本使用',
+            description:
+                '简单的不同类型的徽章显示，thyCount=0时默认不显示,可以使用thyKeepShow=true强制显示,可以展示最大值,也可以自定义传入显示内容',
+            component: DemoBadgeBasicComponent,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: `basic.component.html`,
+                    content: require(`!!raw-loader!./demo/basic/basic.component.html`)
+                },
+                {
+                    type: 'ts',
+                    name: `basic.component.ts`,
+                    content: require(`!!raw-loader!./demo/basic/basic.component.ts`)
+                }
+            ]
+        },
+        {
+            title: '独立使用',
+            description: `不包裹任何元素即是独立使用,可以通过thySize: sm | lg展示不同大小`,
+            component: DemoBadgeIndependentUseComponent,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: `independent-use.component.html`,
+                    content: require(`!!raw-loader!./demo/independent-use/independent-use.component.html`)
+                },
+                {
+                    type: 'ts',
+                    name: `independent-use.component.ts`,
+                    content: require(`!!raw-loader!./demo/independent-use/independent-use.component.ts`)
+                }
+            ]
+        },
+        {
+            title: '状态点',
+            description: `右上角展示小圆点,也可以单独展示`,
+            component: DemoBadgeStatePointComponent,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: `state-point.component.html`,
+                    content: require(`!!raw-loader!./demo/state-point/state-point.component.html`)
+                },
+                {
+                    type: 'ts',
+                    name: `state-point.component.ts`,
+                    content: require(`!!raw-loader!./demo/state-point/state-point.component.ts`)
+                }
+            ]
+        },
+        {
+            title: '指令使用,可以自定义设置字体颜色和背景色',
+            description: `自定义设置字体颜色和背景色`,
+            component: DemoBadgeSpecialComponent,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: `special.component.html`,
+                    content: require(`!!raw-loader!./demo/special/special.component.html`)
+                },
+                {
+                    type: 'ts',
+                    name: `state-point.component.ts`,
+                    content: require(`!!raw-loader!./demo/special/special.component.ts`)
+                }
+            ]
+        }
+    ];
+
     constructor() {}
 
     ngOnInit() {
         setInterval(() => {
             this.badgeDotTheme = this.themes[Math.floor(Math.random() * this.themes.length)];
-            this.badgeCount = Math.floor(Math.random() * 10);
         }, 2000);
     }
 }
