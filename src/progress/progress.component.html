@@ -14,6 +14,7 @@
 
 <ng-template #general>
   <thy-progress-bar
+    *ngIf="value"
     [thyType]="thyType"
     [ngClass]="{ 'cursor-pointer': thyTips }"
     [thyTooltip]="thyTips"
