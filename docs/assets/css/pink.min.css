@@ -855,37 +855,37 @@ input[type='checkbox']:after {
 input[type='radio']:after {
     background: #f7a3b7;
 }
-.nav-link {
+.thy-nav .nav-link {
     color: #888;
 }
-.nav-link > .thy-icon,
-.nav-link > i {
+.thy-nav .nav-link > .thy-icon,
+.thy-nav .nav-link > i {
     color: #aaa;
 }
-.nav-link.active {
+.thy-nav .nav-link.active {
     color: #f7a3b7;
     border-bottom: 2px solid #f7a3b7;
 }
-.nav-link.active > .thy-icon,
-.nav-link.active > i {
+.thy-nav .nav-link.active > .thy-icon,
+.thy-nav .nav-link.active > i {
     color: #f7a3b7;
 }
-.nav-link:active,
-.nav-link:focus,
-.nav-link:hover {
+.thy-nav .nav-link:active,
+.thy-nav .nav-link:focus,
+.thy-nav .nav-link:hover {
     color: #f7a3b7;
     text-decoration: none;
     border-bottom: 2px solid #f7a3b7;
 }
-.nav-link:active > .thy-icon,
-.nav-link:active > i,
-.nav-link:focus > .thy-icon,
-.nav-link:focus > i,
-.nav-link:hover > .thy-icon,
-.nav-link:hover > i {
+.thy-nav .nav-link:active > .thy-icon,
+.thy-nav .nav-link:active > i,
+.thy-nav .nav-link:focus > .thy-icon,
+.thy-nav .nav-link:focus > i,
+.thy-nav .nav-link:hover > .thy-icon,
+.thy-nav .nav-link:hover > i {
     color: #f7a3b7;
 }
-.nav-link.disabled {
+.thy-nav .nav-link.disabled {
     color: #ddd;
     border-bottom: none;
 }
@@ -1067,11 +1067,6 @@ input[type='radio']:after {
     background: rgba(247, 163, 183, 0.1);
     color: #f7a3b7;
 }
-.thy-select-custom-options .thy-option-item:not(.disabled).active.hover,
-.thy-select-custom-options .thy-option-item:not(.disabled).active:hover {
-    background: #f3f3f3;
-    color: #333;
-}
 .thy-select-custom-options .thy-option-item:not(.disabled).active .prefix-icon {
     color: #f7a3b7;
 }
@@ -1128,15 +1123,6 @@ input[type='radio']:after {
     background: rgba(247, 163, 183, 0.1);
     color: #f7a3b7;
 }
-.thy-list-option:not(.disabled).active.hover,
-.thy-list-option:not(.disabled).active:hover {
-    background: #f3f3f3;
-    color: #333;
-}
-.thy-list-option:not(.disabled).active.hover .prefix-icon,
-.thy-list-option:not(.disabled).active:hover .prefix-icon {
-    color: #ddd;
-}
 .thy-list-option:not(.disabled).active .prefix-icon {
     color: #f7a3b7;
 }
@@ -1168,15 +1154,6 @@ input[type='radio']:after {
 .thy-list-item:not(.disabled).active {
     background: rgba(247, 163, 183, 0.1);
     color: #f7a3b7;
-}
-.thy-list-item:not(.disabled).active.hover,
-.thy-list-item:not(.disabled).active:hover {
-    background: #fafafa;
-    color: #333;
-}
-.thy-list-item:not(.disabled).active.hover .prefix-icon,
-.thy-list-item:not(.disabled).active:hover .prefix-icon {
-    color: #ddd;
 }
 .thy-list-item:not(.disabled).active .prefix-icon {
     color: #f7a3b7;
