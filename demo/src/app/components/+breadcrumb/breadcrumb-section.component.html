@@ -1,3 +1,58 @@
-<app-live-demos [data]="liveDemos"></app-live-demos>
+<section>
+  <div class="header"><h2>面包屑（">" 默认分隔符）</h2></div>
+  <div class="body">
+    <thy-breadcrumb thyIcon="house">
+      <thy-breadcrumb-item><span>首页</span></thy-breadcrumb-item>
+      <thy-breadcrumb-item>
+        <a href="javascript:;">产品研发部</a>
+      </thy-breadcrumb-item>
+      <thy-breadcrumb-item>
+        <a href="javascript:;">架构</a>
+      </thy-breadcrumb-item>
+      <thy-breadcrumb-item>
+        <a href="javascript:;">基础 <thy-icon thyIconName="angle-down"></thy-icon></a>
+      </thy-breadcrumb-item>
+    </thy-breadcrumb>
+    <pre class="mt-1"><code lang="typescript" [highlight]="exampleCode"></code></pre>
+  </div>
+</section>
+
+<section>
+  <div class="header"><h2>面包屑（"/"分隔符）</h2></div>
+  <div class="body">
+    <thy-breadcrumb thyIcon="folder-fill" thySeparator="slash">
+      <thy-breadcrumb-item><span>首页</span></thy-breadcrumb-item>
+      <thy-breadcrumb-item>
+        <a href="javascript:;">产品研发部</a>
+      </thy-breadcrumb-item>
+      <thy-breadcrumb-item>
+        <a href="javascript:;">架构</a>
+      </thy-breadcrumb-item>
+      <thy-breadcrumb-item>
+        <a href="javascript:;">基础 <thy-icon thyIconName="angle-down"></thy-icon></a>
+      </thy-breadcrumb-item>
+    </thy-breadcrumb>
+    <pre class="mt-1"><code lang="typescript" [highlight]="exampleCode2"></code></pre>
+  </div>
+</section>
+
+<section>
+  <div class="header"><h2>面包屑（"\"分隔符）</h2></div>
+  <div class="body">
+    <thy-breadcrumb thySeparator="backslash">
+      <thy-breadcrumb-item><span>首页</span></thy-breadcrumb-item>
+      <thy-breadcrumb-item>
+        <a href="javascript:;">产品研发部</a>
+      </thy-breadcrumb-item>
+      <thy-breadcrumb-item>
+        <a href="javascript:;">架构</a>
+      </thy-breadcrumb-item>
+      <thy-breadcrumb-item>
+        <a href="javascript:;">基础</a>
+      </thy-breadcrumb-item>
+    </thy-breadcrumb>
+    <pre class="mt-1"><code lang="typescript" [highlight]="exampleCode3"></code></pre>
+  </div>
+</section>
+
 <api-parameters title="thy-breadcrumb 参数列表" [parameters]="apiBreadcrumbParameters"></api-parameters>
-<api-parameters title="thy-breadcrumb-item 参数列表" [parameters]="apiBreadcrumbItemParameters"></api-parameters>
