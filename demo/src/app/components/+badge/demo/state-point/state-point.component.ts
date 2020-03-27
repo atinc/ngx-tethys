@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'demo-badge-state-point',
-    templateUrl: 'state-point.component.html',
-    styleUrls: ['./state-point.scss']
+    templateUrl: 'state-point.component.html'
 })
 export class DemoBadgeStatePointComponent implements OnInit {
     badgeDotTheme;

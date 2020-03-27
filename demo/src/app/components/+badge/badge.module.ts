@@ -5,12 +5,16 @@ import { DemoBadgeBasicComponent } from './demo/basic/basic.component';
 import { DemoBadgeSectionComponent } from './badge-section.component';
 import { DemoBadgeStatePointComponent } from './demo/state-point/state-point.component';
 import { DemoBadgeSpecialComponent } from './demo/special/special.component';
+import { DemoBadgeOverflowComponent } from './demo/overflow/overflow.component';
+import { DemoBadgeTypeComponent } from './demo/type/type.component';
 
 const DemoComponents = [
     DemoBadgeIndependentUseComponent,
     DemoBadgeBasicComponent,
     DemoBadgeStatePointComponent,
-    DemoBadgeSpecialComponent
+    DemoBadgeSpecialComponent,
+    DemoBadgeOverflowComponent,
+    DemoBadgeTypeComponent
 ];
 
 @NgModule({

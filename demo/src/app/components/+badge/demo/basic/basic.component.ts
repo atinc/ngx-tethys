@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'demo-badge-basic',
-    templateUrl: 'basic.component.html',
-    styleUrls: ['./basic.scss']
+    templateUrl: 'basic.component.html'
 })
 export class DemoBadgeBasicComponent implements OnInit {
     badgeCount = 0;
