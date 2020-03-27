@@ -27,7 +27,7 @@
         >
           <thy-icon [thyIconName]="treeNodeIsExpand(node) ? parent.icons.expand : parent.icons.collapse"></thy-icon>
         </span>
-        <span class="">
+        <span class="thy-tree-select-option-text">
           <ng-template
             *ngIf="treeNodeTemplateRef; else defaultNodeText"
             [ngTemplateOutlet]="treeNodeTemplateRef"

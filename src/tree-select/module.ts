@@ -8,9 +8,19 @@ import { ThyTreeSelectNodesComponent } from './tree-select-nodes.component';
 import { ThyListModule } from '../list/list.module';
 import { ThyIconModule } from '../icon';
 import { ThyEmptyModule } from '../empty';
+import { ThySelectCommonModule } from '../core';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, OverlayModule, ThyLabelModule, ThyListModule, ThyIconModule, ThyEmptyModule],
+    imports: [
+        CommonModule,
+        FormsModule,
+        OverlayModule,
+        ThyLabelModule,
+        ThyListModule,
+        ThyIconModule,
+        ThyEmptyModule,
+        ThySelectCommonModule
+    ],
     declarations: [ThyTreeSelectComponent, ThyTreeSelectNodesComponent],
     exports: [ThyTreeSelectComponent, ThyTreeSelectNodesComponent]
 })

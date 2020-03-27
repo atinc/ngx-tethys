@@ -3,6 +3,7 @@
   <label thyCheckbox [(ngModel)]="singleModel.disabled" thyLabelText="是否禁用树选择"></label>
   <label thyCheckbox [(ngModel)]="singleModel.showWholeName" thyLabelText="是否支持显示所有父级节点名称"></label>
   <label thyCheckbox [(ngModel)]="singleModel.icon" thyLabelText="展开收起为箭头"></label>
+  <label thyCheckbox [(ngModel)]="singleModel.multi" thyLabelText="是否多选"></label>
   <br />
   Model: {{ singleModel | json }}
   <thy-tree-select
@@ -14,6 +15,7 @@
     thyHiddenNodeKey="hidden"
     thyDisableNodeKey="disabled"
     thyPlaceholder="请选择值"
+    [thyMultiple]="singleModel.multi"
     [(ngModel)]="singleModel.selectedValue"
     [thyShowWholeName]="singleModel.showWholeName"
     [thyIconType]="singleModel.icon ? 'default' : 'especial'"

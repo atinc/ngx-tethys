@@ -27,7 +27,6 @@
         .thy-tree-select-node {
             .thy-tree-select-option-icon {
                 color: $gray-400;
-                line-height: 1;
                 &:hover {
                     cursor: pointer;
                 }
@@ -41,6 +40,9 @@
                     padding-right: 10px;
                     font-size: $font-size-base;
                 }
+            }
+            .thy-tree-select-option-text {
+                @include text-truncate();
             }
         }
 
