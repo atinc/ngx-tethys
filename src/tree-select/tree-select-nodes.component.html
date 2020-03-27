@@ -25,7 +25,10 @@
           [class.invisible]="!(node.children?.length > 0 || (node[childCountKey] && node[childCountKey] > 0))"
           (click)="nodeExpandToggle($event, node)"
         >
-          <thy-icon [thyIconName]="treeNodeIsExpand(node) ? parent.icons.expand : parent.icons.collapse"></thy-icon>
+          <thy-icon
+            class="node-expand-icon"
+            [thyIconName]="treeNodeIsExpand(node) ? parent.icons.expand : parent.icons.collapse"
+          ></thy-icon>
         </span>
         <span class="thy-tree-select-option-text">
           <ng-template

@@ -1,3 +1,5 @@
+$thy-select-expand-icon-height: 21px;
+
 @mixin thy-tree-select-option() {
     &:not(.disabled) {
         &.hover,
@@ -26,9 +28,14 @@
 
         .thy-tree-select-node {
             .thy-tree-select-option-icon {
+                line-height: $thy-select-expand-icon-height;
+                height: $thy-select-expand-icon-height;
                 color: $gray-400;
                 &:hover {
                     cursor: pointer;
+                }
+                .node-expand-icon {
+                    line-height: $thy-select-expand-icon-height;
                 }
                 .thy-icon-caret-right-down,
                 .thy-icon-caret-right {
