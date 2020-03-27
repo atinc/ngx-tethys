@@ -33,6 +33,12 @@ export class DemoBreadcrumbSectionComponent implements OnInit {
     ...
 </thy-breadcrumb>
     `;
+
+    exampleCode4 = `
+<thy-breadcrumb thyNonCurrentStyle="true">
+    ...
+</thy-breadcrumb>
+    `;
     apiBreadcrumbParameters = apiBreadcrumbParameters;
     constructor() {}
 

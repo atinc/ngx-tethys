@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, HostBinding } from '@angular/core';
+import { Component, ChangeDetectionStrategy, HostBinding, Input } from '@angular/core';
 
 @Component({
     selector: 'thy-breadcrumb-item,[thyBreadcrumbItem]',
@@ -8,4 +8,10 @@ import { Component, ChangeDetectionStrategy, HostBinding } from '@angular/core';
 })
 export class ThyBreadcrumbItemComponent {
     @HostBinding(`class.thy-breadcrumb-item`) _isBreadcrumbItem = true;
+    @HostBinding(`class.non-current-path`) isNonCurrentPath = false;
+
+    @Input()
+    set thyNonCurrentStyle(value: boolean) {
+        this.isNonCurrentPath = value;
+    }
 }

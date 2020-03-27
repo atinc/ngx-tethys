@@ -57,4 +57,12 @@
             }
         }
     }
+
+    .non-current-path {
+        &:last-child {
+            a {
+                @include link-variant($breadcrumb-text-color, none, $primary, none);
+            }
+        }
+    }
 }

@@ -55,4 +55,23 @@
   </div>
 </section>
 
+<section>
+  <div class="header"><h2>面包屑（非当前路径样式）</h2></div>
+  <div class="body">
+    <thy-breadcrumb thySeparator="backslash">
+      <thy-breadcrumb-item><span>首页</span></thy-breadcrumb-item>
+      <thy-breadcrumb-item>
+        <a href="javascript:;">产品研发部</a>
+      </thy-breadcrumb-item>
+      <thy-breadcrumb-item>
+        <a href="javascript:;">架构</a>
+      </thy-breadcrumb-item>
+      <thy-breadcrumb-item thyNonCurrentStyle="true">
+        <a href="javascript:;">基础</a>
+      </thy-breadcrumb-item>
+    </thy-breadcrumb>
+    <pre class="mt-1"><code lang="typescript" [highlight]="exampleCode4"></code></pre>
+  </div>
+</section>
+
 <api-parameters title="thy-breadcrumb 参数列表" [parameters]="apiBreadcrumbParameters"></api-parameters>
