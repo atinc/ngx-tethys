@@ -10,34 +10,18 @@ import {
     ViewChild,
     NgZone,
     HostListener,
-    InjectionToken,
     Renderer2
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ThyTreeSelectNode, ThyTreeSelectType } from './tree-select.class';
 import { isObject, isArray } from '../util/helpers';
 import { Observable, of } from 'rxjs';
-import {
-    CdkOverlayOrigin,
-    ConnectedOverlayPositionChange,
-    ScrollStrategy,
-    Overlay,
-    ScrollDispatcher,
-    CdkScrollable,
-    CdkConnectedOverlay,
-    ConnectionPositionPair
-} from '@angular/cdk/overlay';
+import { CdkOverlayOrigin, CdkConnectedOverlay, ConnectionPositionPair } from '@angular/cdk/overlay';
 import { getFlexiblePositions } from '../core/overlay';
 import { ThyTreeNode } from '../tree/tree-node.class';
 
-import { $ } from '../typings';
 import { take } from 'rxjs/operators';
-
-const MAT_SELECT_SCROLL_STRATEGY = new InjectionToken<() => ScrollStrategy>('MAT_SELECT_SCROLL_STRATEGY');
-
-export function MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Overlay): ScrollStrategy {
-    return overlay.scrollStrategies.reposition();
-}
+import { produce } from '../util';
 
 type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -50,11 +34,6 @@ type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
             useExisting: forwardRef(() => ThyTreeSelectComponent),
             multi: true
         }
-        // {
-        //     provide: MAT_SELECT_SCROLL_STRATEGY,
-        //     deps: [Overlay],
-        //     useFactory: MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY
-        // }
     ]
 })
 export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
@@ -63,7 +42,7 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
     @HostBinding('class.thy-select') isTreeSelect = true;
 
     // 菜单是否展开
-    @HostBinding('class.menu-is-opened') expandTreeSelectOptions = true;
+    @HostBinding('class.menu-is-opened') expandTreeSelectOptions = false;
 
     @HostBinding('class.thy-select-custom--multiple') isMulti = false;
 
@@ -79,8 +58,6 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
 
     public cdkConnectOverlayWidth = 0;
 
-    // public scrollStrategy: ScrollStrategy;
-
     public positions: ConnectionPositionPair[];
 
     public icons: { expand: string; collapse: string; gap?: number } = {
@@ -93,10 +70,6 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
 
     public valueIsObject = false;
 
-    private parentNodes: any;
-
-    private cdkScrollables: CdkScrollable[] = [];
-
     @ContentChild('thyTreeSelectTriggerDisplay')
     thyTreeSelectTriggerDisplayRef: TemplateRef<any>;
 
@@ -106,6 +79,8 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
     @ViewChild(CdkOverlayOrigin) cdkOverlayOrigin: CdkOverlayOrigin;
 
     @ViewChild(CdkConnectedOverlay) cdkConnectedOverlay: CdkConnectedOverlay;
+
+    @ViewChild('customDisplayTemplate') customDisplayTemplate: TemplateRef<any>;
 
     @Input()
     set thyTreeNodes(value: ThyTreeSelectNode[]) {
@@ -129,6 +104,10 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
     @Input() thyDisable = false;
 
     @Input() thyPlaceholder = '请选择节点';
+
+    get placeholder() {
+        return this.thyPlaceholder;
+    }
 
     @Input() thySize: InputSize;
 
@@ -191,34 +170,27 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
         this.onModelTouch = fn;
     }
 
-    constructor(
-        public elementRef: ElementRef,
-        public renderer: Renderer2,
-        private ngZone: NgZone,
-        private overlay: Overlay,
-        // @Inject(MAT_SELECT_SCROLL_STRATEGY) scrollStrategy: any,
-        private scrollDispatcher: ScrollDispatcher
-    ) {
-        // this.scrollStrategy = this.overlay.scrollStrategies.reposition();
-    }
+    constructor(public elementRef: ElementRef, public renderer: Renderer2, private ngZone: NgZone) {}
 
     @HostListener('document:click', ['$event'])
     onDocumentClick(event: Event) {
         event.stopPropagation();
         if (!this.elementRef.nativeElement.contains(event.target) && this.expandTreeSelectOptions) {
             this.expandTreeSelectOptions = false;
-            this.deregisterInScrollDispatcher();
         }
     }
 
     ngOnInit() {
         this.positions = getFlexiblePositions('bottom', 4);
         this.isMulti = this.thyMultiple;
-        this.expandTreeSelectOptions = false;
         this.flattenTreeNodes = this.flattenNodes(this.treeNodes, this.flattenTreeNodes, []);
         this.setSelectedNodes();
         this.initialled = true;
         this.init();
+    }
+
+    get selectedValueObject() {
+        return this.thyMultiple ? this.selectedNodes : this.selectedNode;
     }
 
     public setPosition() {
@@ -232,29 +204,6 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
 
     private init() {
         this.cdkConnectOverlayWidth = this.cdkOverlayOrigin.elementRef.nativeElement.getBoundingClientRect().width;
-    }
-
-    private registerInScrollDispatcher() {
-        this.parentNodes = $(this.elementRef.nativeElement).parents();
-        for (let i = 0; i < this.parentNodes.length; i++) {
-            if (this.parentNodes[i]) {
-                if (this.parentNodes[i].scrollHeight > this.parentNodes[i].clientHeight) {
-                    const cdkScrollable: CdkScrollable = new CdkScrollable(
-                        { nativeElement: this.parentNodes[i] },
-                        this.scrollDispatcher,
-                        this.ngZone
-                    );
-                    this.cdkScrollables.push(cdkScrollable);
-                    this.scrollDispatcher.register(cdkScrollable);
-                }
-            }
-        }
-    }
-
-    private deregisterInScrollDispatcher() {
-        for (let i = 0; i < this.cdkScrollables.length; i++) {
-            this.scrollDispatcher.deregister(this.cdkScrollables[i]);
-        }
     }
 
     private flattenNodes(
@@ -332,17 +281,12 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
         }
         this.cdkConnectOverlayWidth = this.cdkOverlayOrigin.elementRef.nativeElement.getBoundingClientRect().width;
         this.expandTreeSelectOptions = !this.expandTreeSelectOptions;
-        if (this.expandTreeSelectOptions) {
-            this.registerInScrollDispatcher();
-        }
     }
 
     close() {
         this.expandTreeSelectOptions = false;
-        this.deregisterInScrollDispatcher();
     }
 
-    // 单选 thyMultiple = false 时，清除数据时调用
     clearSelectedValue(event: Event) {
         event.stopPropagation();
         this.selectedValue = null;
@@ -362,6 +306,10 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
         this.onModelChange(this.selectedValue);
     }
 
+    removeMultipleSelectedNode(event: { item: ThyTreeSelectNode; $event: Event }) {
+        this.removeSelectedNode(event.item, event.$event);
+    }
+
     // thyMultiple = true 时，移除数据时调用
     removeSelectedNode(node: ThyTreeSelectNode, event?: Event) {
         if (event) {
@@ -371,8 +319,8 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
             return;
         }
         if (this.thyMultiple) {
-            this.selectedNodes = this.selectedNodes.filter(item => {
-                return item[this.thyPrimaryKey] !== node[this.thyPrimaryKey];
+            this.selectedNodes = produce(this.selectedNodes).remove((item: ThyTreeSelectNode) => {
+                return item[this.thyPrimaryKey] === node[this.thyPrimaryKey];
             });
             this._changeSelectValue();
         }
@@ -382,7 +330,6 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
         if (!this.thyMultiple) {
             this.selectedNode = node;
             this.expandTreeSelectOptions = false;
-            this.deregisterInScrollDispatcher();
         } else {
             if (
                 this.selectedNodes.find(item => {
@@ -391,7 +338,7 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
             ) {
                 this.removeSelectedNode(node);
             } else {
-                this.selectedNodes.push(node);
+                this.selectedNodes = produce(this.selectedNodes).add(node);
             }
         }
         this._changeSelectValue();
