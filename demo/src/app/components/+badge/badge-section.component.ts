@@ -3,11 +3,13 @@ import { DemoBadgeBasicComponent } from './demo/basic/basic.component';
 import { DemoBadgeIndependentUseComponent } from './demo/independent-use/independent-use.component';
 import { DemoBadgeStatePointComponent } from './demo/state-point/state-point.component';
 import { DemoBadgeSpecialComponent } from './demo/special/special.component';
+import { DemoBadgeOverflowComponent } from './demo/overflow/overflow.component';
+import { DemoBadgeTypeComponent } from './demo/type/type.component';
 
 @Component({
     selector: 'demo-badge-section',
-    templateUrl: './badge-section.component.html',
-    styleUrls: ['./badge-section.component.scss']
+    templateUrl: './badge-section.component.html'
+    // styleUrls: ['./badge-section.component.scss']
 })
 export class DemoBadgeSectionComponent implements OnInit {
     badgeDotTheme;
@@ -83,8 +85,7 @@ export class DemoBadgeSectionComponent implements OnInit {
     public liveDemos = [
         {
             title: '基本使用',
-            description:
-                '简单的不同类型的徽章显示，thyCount=0时默认不显示,可以使用thyKeepShow=true强制显示,可以展示最大值,也可以自定义传入显示内容',
+            description: '简单的徽章展示，thyCount为0时默认不显示,可以使用thyKeepShow=true强制显示',
             component: DemoBadgeBasicComponent,
             codeExamples: [
                 {
@@ -100,8 +101,42 @@ export class DemoBadgeSectionComponent implements OnInit {
             ]
         },
         {
+            title: '封顶数字',
+            description: `超过 thyMaxCount 的会显示为 thyMaxCount+。`,
+            component: DemoBadgeOverflowComponent,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: `overflow.component.html`,
+                    content: require(`!!raw-loader!./demo/overflow/overflow.component.html`)
+                },
+                {
+                    type: 'ts',
+                    name: `overflow.component.ts`,
+                    content: require(`!!raw-loader!./demo/overflow/overflow.component.ts`)
+                }
+            ]
+        },
+        {
+            title: '类型展示',
+            description: `danger | primary | warning | secondary 四种基本类型, 默认thyType=danger, 也可以自定义字体颜色和背景色`,
+            component: DemoBadgeTypeComponent,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: `type.component.html`,
+                    content: require(`!!raw-loader!./demo/type/type.component.html`)
+                },
+                {
+                    type: 'ts',
+                    name: `type.component.ts`,
+                    content: require(`!!raw-loader!./demo/type/type.component.ts`)
+                }
+            ]
+        },
+        {
             title: '独立使用',
-            description: `不包裹任何元素即是独立使用,可以通过thySize: sm | lg展示不同大小`,
+            description: `不包裹任何元素即是独立使用，可自定样式展现`,
             component: DemoBadgeIndependentUseComponent,
             codeExamples: [
                 {
@@ -118,7 +153,7 @@ export class DemoBadgeSectionComponent implements OnInit {
         },
         {
             title: '状态点',
-            description: `右上角展示小圆点,也可以单独展示`,
+            description: `可以作为状态点单独展示,也可以在右上角展示小圆点`,
             component: DemoBadgeStatePointComponent,
             codeExamples: [
                 {
@@ -134,8 +169,8 @@ export class DemoBadgeSectionComponent implements OnInit {
             ]
         },
         {
-            title: '指令使用,可以自定义设置字体颜色和背景色',
-            description: `自定义设置字体颜色和背景色`,
+            title: '指令使用',
+            description: `thyBadge指令`,
             component: DemoBadgeSpecialComponent,
             codeExamples: [
                 {

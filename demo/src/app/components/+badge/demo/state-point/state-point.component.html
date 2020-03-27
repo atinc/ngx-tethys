@@ -1,33 +1,22 @@
-<div class="font-size-lg mb-2">小红点 sup</div>
-<div class="body mb-3">
-  <thy-badge thyIsDot class="mr-3">
-    <div class="square"></div>
-  </thy-badge>
-  <thy-badge thyIsDot [thyType]="badgeDotTheme">
-    <div class="square"></div>
-  </thy-badge>
-  颜色变化{{ badgeDotTheme }}
-</div>
+<thy-badge thyIsDot="true" thySize="sm"></thy-badge>
+<thy-badge thyIsDot="true" thyType="primary"></thy-badge>
+<thy-badge thyIsDot="true" thyType="warning" thySize="lg"></thy-badge>
+<thy-badge thyIsDot="true" thyType="secondary" thySize="lg"></thy-badge>
+<thy-badge thyIsDot="true" thyColor="#ff00ff" thySize="lg"></thy-badge>
 
-<div class="font-size-lg mb-2">状态点</div>
-<div class="body mb-3">
-  <thy-badge thyIsDot="true" class="mr-3"></thy-badge>
-  <thy-badge thyIsDot="true" thyType="primary" class="mr-3"></thy-badge>
-  <thy-badge thyIsDot="true" class="mr-3"></thy-badge>
-  <thy-badge thyIsDot="true" thyType="warning" class="mr-3"></thy-badge>
-  <thy-badge thyIsDot="true" thyColor="#ff00ff"></thy-badge>
-</div>
-<div class="mb-3">
-  <thy-badge thyIsDot="true" thySize="lg"></thy-badge>
-</div>
+<div class="mb-3"></div>
 
-<div class="font-size-lg mb-2">镂空点</div>
-<div class="body mb-3">
-  <thy-badge thyIsHollow="true" class="mr-3"></thy-badge>
-  <thy-badge thyIsHollow="true" thyType="primary" class="mr-3"></thy-badge>
-  <thy-badge thyIsHollow="true" thyType="warning" class="mr-3"></thy-badge>
-  <thy-badge thyIsHollow="true" thyType="secondary"></thy-badge>
-</div>
-<div class="mb-3">
-  <thy-badge thyIsHollow="true" thyType="secondary" thySize="lg"></thy-badge>
-</div>
+<thy-badge thyIsHollow="true" thySize="sm"></thy-badge>
+<thy-badge thyIsHollow="true" thyType="primary"></thy-badge>
+<thy-badge thyIsHollow="true" thyType="warning" thySize="lg"></thy-badge>
+<thy-badge thyIsHollow="true" thyType="secondary" thySize="lg"></thy-badge>
+<thy-badge thyIsHollow="true" thyType="#ff00ff" thySize="lg"></thy-badge>
+
+<div class="mb-3"></div>
+
+<thy-badge thyIsDot>
+  <div class="square"></div>
+</thy-badge>
+<thy-badge thyIsDot [thyType]="badgeDotTheme">
+  <div class="square"></div>
+</thy-badge>
