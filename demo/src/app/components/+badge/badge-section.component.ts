@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { DemoBadgeBasicComponent } from './demo/basic/basic.component';
 import { DemoBadgeIndependentUseComponent } from './demo/independent-use/independent-use.component';
 import { DemoBadgeStatePointComponent } from './demo/state-point/state-point.component';
@@ -12,6 +12,8 @@ import { DemoBadgeTypeComponent } from './demo/type/type.component';
     // styleUrls: ['./badge-section.component.scss']
 })
 export class DemoBadgeSectionComponent implements OnInit {
+    @HostBinding(`class.demo-badge-section`) className = true;
+
     badgeDotTheme;
 
     themes = ['danger', 'primary', 'warning', 'secondary'];
