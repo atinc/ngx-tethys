@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 @Component({
     selector: 'demo-badge-basic',
@@ -9,9 +9,5 @@ export class DemoBadgeBasicComponent implements OnInit {
 
     constructor() {}
 
-    ngOnInit() {
-        setInterval(() => {
-            this.badgeCount = Math.floor(Math.random() * 10);
-        }, 2000);
-    }
+    ngOnInit() {}
 }
