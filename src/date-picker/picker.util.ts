@@ -9,6 +9,9 @@ export function transformDateValue(
         return { value: null, withTime: false };
     }
     let withTime = false;
+    if (value && typeof value === 'number') {
+        value = convertDate(value);
+    }
     if (value && instanceOfDateEntry(value as DateEntry)) {
         const { date, with_time } = value as DateEntry;
         value = date ? convertDate(date) : null;
