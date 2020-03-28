@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.6.39](https://github.com/atinc/ngx-tethys/compare/7.6.38...7.6.39) (2020-03-28)
+
+
+### Bug Fixes
+
+* **progress:** fix progress bar style when value is 0 ([537063e](https://github.com/atinc/ngx-tethys/commit/537063e25033e39f6721a608cff4c862a8e95be8))
+
+
+
 ## [7.6.38](https://github.com/atinc/ngx-tethys/compare/7.6.37...7.6.38) (2020-03-25)
 
 
