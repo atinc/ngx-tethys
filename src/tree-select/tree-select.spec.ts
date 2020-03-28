@@ -405,8 +405,7 @@ describe('ThyTreeSelect', () => {
                 const fixture = TestBed.createComponent(PlaceHolderTreeSelectComponent);
                 fixture.detectChanges();
 
-                const treeSelectShowNode = fixture.debugElement.query(By.css('.thy-tree-select-selection-text'))
-                    .nativeElement;
+                const treeSelectShowNode = fixture.debugElement.query(By.css('.text-placeholder')).nativeElement;
                 expect(treeSelectShowNode.textContent).toContain('this is a placeholder');
             }));
 
@@ -429,7 +428,7 @@ describe('ThyTreeSelect', () => {
             it('should select item with multiple when item is clicked', fakeAsync(() => {
                 const fixture = TestBed.createComponent(BasicTreeSelectComponent);
                 fixture.detectChanges();
-                const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+                const trigger = fixture.debugElement.query(By.css('.thy-select-custom')).nativeElement.children[0];
                 trigger.click();
                 fixture.detectChanges();
                 flush();
@@ -440,7 +439,7 @@ describe('ThyTreeSelect', () => {
                 fixture.detectChanges();
                 flush();
 
-                const multipleWrapper = fixture.debugElement.query(By.css('.multiple-value-wrapper')).nativeElement;
+                const multipleWrapper = fixture.debugElement.query(By.css('.select-control-rendered')).nativeElement;
                 expect(multipleWrapper.textContent).toContain('root2');
             }));
         });
@@ -454,8 +453,7 @@ describe('ThyTreeSelect', () => {
             fixture.detectChanges();
 
             expect(fixture.componentInstance.treeSelect.selectedNode).toBe(null);
-            const treeSelectShowNode = fixture.debugElement.query(By.css('.thy-tree-select-selection-text'))
-                .nativeElement;
+            const treeSelectShowNode = fixture.debugElement.query(By.css('.select-control-rendered')).nativeElement;
 
             fixture.componentInstance.objSelectedValue =
                 fixture.componentInstance.nodes[fixture.componentInstance.nodes.length - 1];
@@ -485,7 +483,7 @@ describe('ThyTreeSelect', () => {
             fixture.detectChanges();
 
             expect(fixture.componentInstance.treeSelect.selectedNodes.length).toBe(2);
-            const multipleWrapper = fixture.debugElement.query(By.css('.multiple-value-wrapper')).nativeElement;
+            const multipleWrapper = fixture.debugElement.query(By.css('.select-control-rendered')).nativeElement;
             expect(multipleWrapper.textContent).toContain('root5');
             expect(multipleWrapper.textContent).toContain('root6');
         }));

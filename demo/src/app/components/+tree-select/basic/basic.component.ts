@@ -13,7 +13,8 @@ export class DemoTreeSelectBasicComponent implements OnInit {
         allowClear: false,
         disabled: false,
         showWholeName: true,
-        icon: true
+        icon: true,
+        multi: false
     };
 
     constructor() {}
