@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DemoDatePickerBasicComponent {
     date = { date: new Date(), with_time: 0 };
+    dateTime = 1234567890;
     dateRange = { begin: new Date(), end: new Date() };
 
     onChange(result: Date): void {

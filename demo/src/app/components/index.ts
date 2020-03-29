@@ -6,7 +6,6 @@ import { DemoAvatarHasBadgeSectionComponent } from './+avatar/has-badge/has-badg
 import { DemoAvatarRemoveSectionComponent } from './+avatar/remove/remove.component';
 import { DemoAvatarSizeSectionComponent } from './+avatar/size/size.component';
 import { DemoAvatarTypeSectionComponent } from './+avatar/type/avatar-type.component';
-import { DemoBadgeSectionComponent } from './+badge/badge-section.component';
 import { DemoBreadcrumbSectionComponent } from './+breadcrumb/breadcrumb-section.component';
 import { DemoButtonModule } from './+button';
 import { DemoCardModule } from './+card';
@@ -97,6 +96,8 @@ import { DemoNavFillComponent } from './+nav/fill/fill.component';
 import { DemoNavVerticalComponent } from './+nav/vertical/vertical.component';
 import { DemoNavHorizontalComponent } from './+nav/horizontal/horizontal.component';
 import { DemoNavTypeComponent } from './+nav/type/type.component';
+import { DemoBadgeModule } from './+badge/badge.module';
+
 
 export const COMPONENTS = [
     DemoCopySectionComponent,
@@ -112,7 +113,6 @@ export const COMPONENTS = [
     DemoIconSectionComponent,
     DemoTableSectionComponent,
     DemoWTDSectionLinkComponent,
-    DemoBadgeSectionComponent,
     DemoGridSectionComponent,
 
     DemoAvatarSectionComponent,
@@ -269,5 +269,6 @@ export const DEMO_MODULES = [
     DemoMentionModule,
     DemoDatePickerModule,
     DemoTooltipModule,
-    DemoTransferModule
+    DemoTransferModule,
+    DemoBadgeModule
 ];

@@ -47,6 +47,7 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
 
     protected destroyed$: Subject<void> = new Subject();
     protected isCustomPlaceHolder = false;
+    private onlyEmitDate = false;
 
     get realOpenState(): boolean {
         return this.picker.realOpenState;
@@ -136,7 +137,11 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
             if (this.thyValue) {
                 value.date = (this.thyValue as CandyDate).getUnixTime();
             }
-            this.onChangeFn(value);
+            if (this.onlyEmitDate) {
+                this.onChangeFn(value.date);
+            } else {
+                this.onChangeFn(value);
+            }
         }
         this.onTouchedFn();
     }
@@ -146,13 +151,14 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
         this.thyOpenChange.emit(open);
     }
 
-    onChangeFn: (val: CompatibleDate | DateEntry | RangeEntry | null) => void = () => void 0;
+    onChangeFn: (val: CompatibleDate | DateEntry | RangeEntry | number | null) => void = () => void 0;
     onTouchedFn: () => void = () => void 0;
 
     writeValue(originalValue: CompatibleDate): void {
         const { value, withTime } = transformDateValue(originalValue);
         this.setValue(value);
         this.setTimePickerState(withTime);
+        this.onlyEmitDate = typeof originalValue === 'number' || !originalValue;
         this.cdr.markForCheck();
     }
 
