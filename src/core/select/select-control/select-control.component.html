@@ -24,7 +24,7 @@
           <ng-template
             #customDisplay
             [ngTemplateOutlet]="customDisplayTemplate"
-            [ngTemplateOutletContext]="{ $implicit: item.thyRawValue || item.thyValue }"
+            [ngTemplateOutletContext]="{ $implicit: item.thyRawValue || item.thyValue || item }"
           ></ng-template>
           <ng-container *ngIf="!customDisplayTemplate; else customDisplay">
             {{ item.thyLabelText }}
@@ -45,7 +45,9 @@
         <ng-template
           #customDisplay
           [ngTemplateOutlet]="customDisplayTemplate"
-          [ngTemplateOutletContext]="{ $implicit: selectedValue.thyRawValue || selectedValue.thyValue }"
+          [ngTemplateOutletContext]="{
+            $implicit: selectedValue.thyRawValue || selectedValue.thyValue || selectedValue
+          }"
         ></ng-template>
         <ng-container *ngIf="!customDisplayTemplate; else customDisplay">
           {{ selectedValue?.thyLabelText }}

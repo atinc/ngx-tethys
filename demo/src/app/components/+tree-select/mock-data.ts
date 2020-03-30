@@ -1,19 +1,20 @@
 export const treeSelectNodes = [
     {
         key: '01',
-        title: 'root1',
+        title: '史诗1史诗1史诗1史诗1史诗1史诗1史诗1史诗1史诗1史诗1史诗1史诗1史诗1史诗1史诗1',
         level: 0,
         icon: 'wtf wtf-drive-o',
         children: [
             {
                 key: '0101',
-                title: 'child1',
+                title: '特性1特性1特性1特性1特性1特性1特性1特性1特性1特性1特性1特性1特性1特性1特性1特性1特性1特性1',
                 level: 1,
                 icon: 'wtf wtf-file-text',
                 children: [
                     {
                         key: '010101',
-                        title: 'child11',
+                        title:
+                            '用户故事1用户故事1用户故事1用户故事1用户故事1用户故事1用户故事1用户故事1用户故事1用户故事1用户故事1用户故事1',
                         disabled: 'true',
                         level: 2,
                         icon: 'wtf wtf-file-text',
@@ -23,7 +24,7 @@ export const treeSelectNodes = [
             },
             {
                 key: '0102',
-                title: 'child2',
+                title: '特性2特性2特性2特性2特性2特性2特性2特性2特性2特性2特性2特性2特性2特性2',
                 level: 1,
                 icon: 'wtf wtf-file-text',
                 children: []
