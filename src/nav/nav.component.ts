@@ -1,16 +1,8 @@
-import {
-    Component,
-    Directive,
-    ElementRef,
-    Renderer2,
-    Input,
-    HostBinding,
-    OnInit
-} from '@angular/core';
+import { Component, Directive, ElementRef, Renderer2, Input, HostBinding, OnInit } from '@angular/core';
 import { UpdateHostClassService } from '../shared';
 import { inputValueToBoolean } from '../util/helpers';
 
-export type ThyNavType = 'primary' | 'secondary' | 'thirdly';
+export type ThyNavType = 'primary' | 'secondary' | 'thirdly' | 'secondary-divider';
 export type ThyNavSize = '' | 'sm';
 export type ThyNavHorizontal = '' | 'left' | 'center' | 'right';
 
@@ -33,10 +25,10 @@ const navHorizontalClassesMap: any = {
 
 @Component({
     selector: 'thy-nav',
-    template: `<ng-content></ng-content>`,
-    providers: [
-        UpdateHostClassService
-    ]
+    template: `
+        <ng-content></ng-content>
+    `,
+    providers: [UpdateHostClassService]
 })
 export class ThyNavComponent implements OnInit {
     private _type: ThyNavType;
@@ -83,7 +75,7 @@ export class ThyNavComponent implements OnInit {
     @HostBinding('class.thy-nav--fill') _isFill = false;
 
     private _updateClasses() {
-        let classNames = [];
+        let classNames: string[] = [];
         if (navTypeClassesMap[this._type]) {
             classNames = [...navTypeClassesMap[this._type]];
         }
@@ -105,4 +97,3 @@ export class ThyNavComponent implements OnInit {
         this._updateClasses();
     }
 }
-

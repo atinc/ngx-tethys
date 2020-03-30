@@ -1,8 +1,26 @@
 export const apiIconNavParameters = [
     {
         property: 'thyType',
-        description: 'primary | secondary, primary 用于视图筛选过滤，secondary 用于详情页头部toolbar和评论图标',
+        description: 'primary | secondary | thirdly | secondary-divider',
         type: 'string',
+        default: ''
+    },
+    {
+        property: 'thyHorizontal',
+        description: '',
+        type: 'boolean',
+        default: ''
+    },
+    {
+        property: 'thyVertical',
+        description: '',
+        type: 'boolean',
+        default: ''
+    },
+    {
+        property: 'thyFill',
+        description: '',
+        type: 'boolean',
         default: ''
     }
 ];

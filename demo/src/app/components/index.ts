@@ -92,7 +92,12 @@ import { DemoStatisticComponent } from './+statistic/statistic.component';
 import { DemoStatisticBasicComponent } from './+statistic/basic/statistic-basic.component';
 import { DemoStatisticCardComponent } from './+statistic/card/statistic-card.component';
 import { DemoTransferModule } from './+transfer/module';
+import { DemoNavFillComponent } from './+nav/fill/fill.component';
+import { DemoNavVerticalComponent } from './+nav/vertical/vertical.component';
+import { DemoNavHorizontalComponent } from './+nav/horizontal/horizontal.component';
+import { DemoNavTypeComponent } from './+nav/type/type.component';
 import { DemoBadgeModule } from './+badge/badge.module';
+
 
 export const COMPONENTS = [
     DemoCopySectionComponent,
@@ -120,7 +125,13 @@ export const COMPONENTS = [
     DemoLabelSectionComponent,
     DemoLayoutSectionComponent,
     DemoNavSectionComponent,
+
     DemoNavIconNavComponent,
+    DemoNavFillComponent,
+    DemoNavVerticalComponent,
+    DemoNavHorizontalComponent,
+    DemoNavTypeComponent,
+
     DemoMenuSectionComponent,
     DemoMenuPopComponent,
     DemoModalSectionComponent,
@@ -211,7 +222,13 @@ export const ENTRY_COMPONENTS = [
     DemoStoreOtherSectionComponent,
 
     DemoMenuPopComponent,
+
     DemoNavIconNavComponent,
+    DemoNavFillComponent,
+    DemoNavVerticalComponent,
+    DemoNavHorizontalComponent,
+    DemoNavTypeComponent,
+
     DemoPropertyOperationBasicComponent,
     DemoPropertyOperationGroupComponent,
 
