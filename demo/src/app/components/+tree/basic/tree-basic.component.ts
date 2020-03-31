@@ -8,7 +8,9 @@ import { ThyDragDropEvent, ThyDropPosition } from 'ngx-tethys/drag-drop/drag-dro
     templateUrl: './tree-basic.component.html'
 })
 export class DemoTreeBasicComponent implements OnInit {
-    treeNodes = data.default;
+    treeNodes = JSON.parse(JSON.stringify(data.default));
+
+    addNodes = [];
 
     options = {
         draggable: true,
@@ -98,5 +100,14 @@ export class DemoTreeBasicComponent implements OnInit {
 
     collapsedAllNodes() {
         this.treeComponent.collapsedAllNodes();
+    }
+
+    add() {
+        this.treeNodes = JSON.parse(JSON.stringify(data.default));
+        this.addNodes.push({
+            key: new Date().getTime(),
+            title: '新增的部门 ' + this.addNodes.length
+        });
+        this.treeNodes[0].children = [...this.treeNodes[0].children, ...this.addNodes];
     }
 }

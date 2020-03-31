@@ -52,14 +52,18 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
 
     private _draggable = false;
 
+    private _expandedKeys: (string | number)[];
+
     public _selectionModel: SelectionModel<ThyTreeNode>;
 
     public treeNodes: ThyTreeNode[];
 
     @Input()
     set thyNodes(value: ThyTreeNodeData[]) {
+        this._expandedKeys = this.getExpandedNodes().map(node => node.key);
         this.treeNodes = (value || []).map(node => new ThyTreeNode(node, null, this.thyTreeService));
         this.thyTreeService.treeNodes = this.treeNodes;
+        this.thyTreeService.expandTreeNodes(this._expandedKeys);
     }
 
     @Input() thyShowExpand: boolean | ((_: ThyTreeNodeData) => boolean) = true;
