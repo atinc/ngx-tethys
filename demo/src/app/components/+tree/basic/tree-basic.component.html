@@ -60,6 +60,7 @@
   </div>
   <div class="demo-layout  mt-3 mt-3">
     <thy-content-section class="pt-3">
+      <a href="javascript:;" class="ml-3" thyButton="link" thyIcon="plus" (click)="add()">添加部门</a>
       <thy-tree
         #tree
         [thyNodes]="treeNodes"
@@ -79,7 +80,7 @@
             [thyIconName]="node?.isExpanded ? 'folder-open-fill' : 'folder-fill'"
           ></thy-icon>
           <div class="thy-tree-node-title text-truncate" thyFlexibleText [thyTooltipContent]="data?.name">
-            {{ data?.name }} <span class="text-desc ml-1">( {{ data.member_count || 0 }}人 )</span>
+            {{ data?.title }} <span class="text-desc ml-1">( {{ data.member_count || 0 }}人 )</span>
           </div>
         </ng-template>
       </thy-tree>
