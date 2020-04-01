@@ -13,6 +13,8 @@ export type ThySlideFromTypes =
     | 'offsetTop'
     | 'offsetBottom';
 
+export type ThySlideMode = 'over' | 'push' | 'side';
+
 export class ThySlideConfig extends ThyUpperOverlayConfig {
     /**
      * Origin Element, for overlay flexible connected to
@@ -27,9 +29,17 @@ export class ThySlideConfig extends ThyUpperOverlayConfig {
      */
     offset?: number;
     /**
-     * 加在出发 slide 弹出框弹出的元素上的样式，
+     * set class to trigger element.
      */
     originActiveClass?: string | string[];
+    /**
+     * set the drawerContainer by id、HTMLElement or ElementRef<HTMLElement>. e.g. drawerContainer = '#offset-host'
+     */
+    drawerContainer?: string | HTMLElement | ElementRef<HTMLElement>;
+    /**
+     * set the render way. one of 'over' or 'push'. Default is 'over'
+     */
+    mode?: ThySlideMode;
     /**
      * please use id
      * @deprecated
@@ -66,6 +76,8 @@ export const THY_SLIDE_DEFAULT_OPTIONS_PROVIDER = {
         containerClass: '',
         role: 'slide',
         offset: 0,
-        originActiveClass: 'thy-slide-origin-active'
+        originActiveClass: 'thy-slide-origin-active',
+        mode: 'over',
+        drawerContainer: '.thy-layout-content'
     }
 };

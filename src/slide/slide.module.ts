@@ -13,6 +13,7 @@ import { ThyIconModule } from '../icon';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { PortalModule } from '@angular/cdk/portal';
 import { THY_SLIDE_DEFAULT_OPTIONS_PROVIDER } from './slide.config';
+import { ThyDrawerContainerDirective } from './drawer/drawer-container.directive';
 
 @NgModule({
     declarations: [
@@ -21,7 +22,8 @@ import { THY_SLIDE_DEFAULT_OPTIONS_PROVIDER } from './slide.config';
         ThySlideHeaderComponent,
         ThySlideBodyComponent,
         ThySlideBodySectionComponent,
-        ThySlideFooterComponent
+        ThySlideFooterComponent,
+        ThyDrawerContainerDirective
     ],
     entryComponents: [ThySlideContainerComponent],
     imports: [CommonModule, ThySharedModule, ThyIconModule, OverlayModule, PortalModule],
@@ -30,7 +32,8 @@ import { THY_SLIDE_DEFAULT_OPTIONS_PROVIDER } from './slide.config';
         ThySlideHeaderComponent,
         ThySlideBodyComponent,
         ThySlideBodySectionComponent,
-        ThySlideFooterComponent
+        ThySlideFooterComponent,
+        ThyDrawerContainerDirective
     ],
     providers: [ThyInternalSlideRef, ThySlideService, THY_SLIDE_DEFAULT_OPTIONS_PROVIDER]
 })

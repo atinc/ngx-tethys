@@ -13,6 +13,13 @@
             <option value="bottom">从下进场</option>
           </thy-select>
         </thy-form-group>
+        <thy-form-group thyLabelText="进场方式">
+          <thy-select [(ngModel)]="thySlideMode" name="thySlideMode">
+            <option value="over">Over</option>
+            <option value="push">Push</option>
+            <option value="side">Side</option>
+          </thy-select>
+        </thy-form-group>
         <thy-form-group thyLabelText="Slide 样式">
           <thy-select [(ngModel)]="thySlideClass" name="thySlideClass">
             <option value="thy-slide">用于类似视图筛选</option>
@@ -20,7 +27,7 @@
           </thy-select>
         </thy-form-group>
         <thy-form-group thyLabelText="Slide 类型">
-          <thy-select [(ngModel)]="thySlideType" name="thySlideClass">
+          <thy-select [(ngModel)]="thySlideType" name="thySlideType">
             <option value="slide-layout-2">自定义头部+两栏式布局</option>
             <option value="slide-layout-3">三栏式布局</option>
           </thy-select>
@@ -34,8 +41,8 @@
       </form>
     </div>
     <div class="btn-pair">
-      <button [thyButton]="'primary'" (click)="showSlide('key1')">show slide</button>
-      <button [thyButton]="'primary'" (click)="showSlide('key2')">show slide</button>
+      <button [thyButton]="'primary'" (click)="showSlideById('key1')">show slide by id</button>
+      <button [thyButton]="'primary'" (click)="showSlideById('key2')">show slide</button>
       <thy-icon-nav>
         <a
           href="javascript:;"
@@ -43,7 +50,7 @@
           thyIconNavLinkIcon="vertical-view-lines"
           thyTooltip="视图"
           thyTooltipPlacement="bottom"
-          (click)="showSlide('key3', $event)"
+          (click)="showSlideByElementRef('key3', $event)"
         ></a>
       </thy-icon-nav>
     </div>

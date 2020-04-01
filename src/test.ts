@@ -13,7 +13,7 @@ getTestBed().initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDyn
 const context = require.context('./', true, /\.spec\.ts$/);
 
 // And load the modules.
-const testSpecFilter = 'tree';
+const testSpecFilter = '';
 context
     .keys()
     .filter(n => {

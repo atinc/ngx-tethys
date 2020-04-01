@@ -16,7 +16,6 @@ export class ThySlideService extends ThyUpperOverlayService<ThySlideConfig, ThyS
     implements OnDestroy {
     private originElementAddActiveClass(config: ThySlideConfig) {
         if (config.origin) {
-            const a = coerceElement<HTMLElement>(config.origin);
             coerceElement<HTMLElement>(config.origin).classList.add(...coerceArray(config.originActiveClass));
         }
     }
@@ -28,7 +27,7 @@ export class ThySlideService extends ThyUpperOverlayService<ThySlideConfig, ThyS
     }
 
     private getOverlayPanelClasses(slideConfig: ThySlideConfig) {
-        const classes: string[] = ['slide'];
+        const classes: string[] = ['thy-slide-overlay-pane', `thy-slide-${slideConfig.from}`];
         // 兼容之前的 class
         if (slideConfig.class) {
             return classes.concat(coerceArray(slideConfig.class));
