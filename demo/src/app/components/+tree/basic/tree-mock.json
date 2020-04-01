@@ -34,7 +34,8 @@
                 "title": "张三",
                 "_id": "0000001",
                 "name": "张三",
-                "type": "member"
+                "type": "member",
+                "disabled": true
               },
               {
                 "key": "0000002",

@@ -59,6 +59,10 @@ describe('ThyTreeComponent', () => {
             expect(treeComponent.getSelectedNode().title).toEqual('未分配部门');
         });
 
+        it('test tree node disabled state', () => {
+            expect(treeElement.querySelector(`.disabled`).innerHTML).toContain('未分配部门');
+        });
+
         it(`test public function 'getRootNodes()`, () => {
             expect(treeComponent.getRootNodes().length).toEqual(2);
         });

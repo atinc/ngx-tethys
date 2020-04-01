@@ -69,19 +69,27 @@
                 }
             }
 
-            &.hover,
-            &:hover {
-                // @include item-box-shadow();
-                background-color: $gray-100;
+            &.disabled {
+                background: none;
+                color: $gray-400;
+                cursor: default; // not-allowed;
             }
 
-            &.active {
-                background: rgba($primary, 0.1);
-                color: $primary;
+            &:not(.disabled) {
+                ƒ &.hover,
+                &:hover {
+                    // @include item-box-shadow();
+                    background-color: $gray-100;
+                }
 
-                .thy-tree-node-content {
-                    .thy-tree-node-icon {
-                        color: $primary;
+                &.active {
+                    background: rgba($primary, 0.1);
+                    color: $primary;
+
+                    .thy-tree-node-content {
+                        .thy-tree-node-icon {
+                            color: $primary;
+                        }
                     }
                 }
             }
@@ -99,9 +107,11 @@
                     visibility: hidden;
                 }
 
-                &:hover {
-                    .thy-tree-drag-icon {
-                        visibility: visible;
+                &:not(.disabled) {
+                    &:hover {
+                        .thy-tree-drag-icon {
+                            visibility: visible;
+                        }
                     }
                 }
             }

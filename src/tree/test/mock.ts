@@ -232,6 +232,7 @@ export const treeNodes = [
         _id: '000000000000000000000000',
         name: '未分配部门',
         parent_id: null,
-        children: []
+        children: [],
+        disabled: true
     }
 ];

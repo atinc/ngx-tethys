@@ -2,6 +2,7 @@
   thyDragContent
   class="thy-tree-node-wrapper thy-sortable-item"
   [class.active]="root.isSelected(node)"
+  [class.disabled]="node.isDisabled"
   (click)="clickNode($event)"
 >
   <span *ngIf="thyDraggable" class="thy-tree-drag-icon thy-sortable-handle">
@@ -29,10 +30,11 @@
   <span class="thy-tree-node-content">
     <input
       *ngIf="thyCheckable"
+      type="checkbox"
       class="thy-tree-node-check"
       [class.form-check-indeterminate]="node.isChecked === checkState.indeterminate"
-      type="checkbox"
       [checked]="node.isChecked === checkState.checked"
+      [disabled]="node.isDisabled"
       (click)="clickNodeCheck($event)"
     />
     <ng-container *ngIf="!templateRef">
