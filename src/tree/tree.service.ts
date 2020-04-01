@@ -29,7 +29,7 @@ export class ThyTreeService implements OnDestroy {
         });
     }
 
-    public getTreeNode(key: string) {
+    public getTreeNode(key: string | number) {
         const allNodes = this._getParallelTreeNodes(this.treeNodes);
         return allNodes.find(n => n.key === key);
     }
