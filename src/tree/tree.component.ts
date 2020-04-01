@@ -54,6 +54,8 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
 
     private _expandedKeys: (string | number)[];
 
+    private _selectedKeys: (string | number)[];
+
     public _selectionModel: SelectionModel<ThyTreeNode>;
 
     public treeNodes: ThyTreeNode[];
@@ -61,9 +63,11 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
     @Input()
     set thyNodes(value: ThyTreeNodeData[]) {
         this._expandedKeys = this.getExpandedNodes().map(node => node.key);
+        this._selectedKeys = this.getSelectedNodes().map(node => node.key);
         this.treeNodes = (value || []).map(node => new ThyTreeNode(node, null, this.thyTreeService));
         this.thyTreeService.treeNodes = this.treeNodes;
         this.thyTreeService.expandTreeNodes(this._expandedKeys);
+        this._selectTreeNodes(this._selectedKeys);
     }
 
     @Input() thyShowExpand: boolean | ((_: ThyTreeNodeData) => boolean) = true;
@@ -106,7 +110,9 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
 
     @Input() thyTitleTruncate = true;
 
-    @Input() thySelectedKeys: string[];
+    @Input() set thySelectedKeys(keys: string[]) {
+        this._selectedKeys = keys;
+    }
 
     @Input() thyBeforeDragStart: (e: ThyDragStartEvent) => boolean;
 
@@ -175,7 +181,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
         this._setTreeType();
         this._setTreeSize();
         this._instanceSelectionModel();
-        this._setDefaultSelectedKeys();
+        this._selectTreeNodes(this._selectedKeys);
     }
 
     private _setTreeType() {
@@ -194,8 +200,8 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
         this._selectionModel = new SelectionModel<any>(this.thyMultiple);
     }
 
-    private _setDefaultSelectedKeys() {
-        (this.thySelectedKeys || []).forEach(key => {
+    private _selectTreeNodes(keys: (string | number)[]) {
+        (keys || []).forEach(key => {
             const node = this.thyTreeService.getTreeNode(key);
             if (node) {
                 this.selectTreeNode(this.thyTreeService.getTreeNode(key));
@@ -305,11 +311,11 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
     }
 
     public getSelectedNode(): ThyTreeNode {
-        return this._selectionModel.selected[0];
+        return this._selectionModel ? this._selectionModel.selected[0] : null;
     }
 
     public getSelectedNodes(): ThyTreeNode[] {
-        return this._selectionModel.selected;
+        return this._selectionModel ? this._selectionModel.selected : [];
     }
 
     public getExpandedNodes(): ThyTreeNode[] {

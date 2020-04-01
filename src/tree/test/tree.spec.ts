@@ -73,6 +73,17 @@ describe('ThyTreeComponent', () => {
             expect(treeComponent.getExpandedNodes().length).toEqual(expandNodeCount);
         });
 
+        it('test selected status when tree nodes changed ', () => {
+            expect(treeComponent.getSelectedNodes().length).toEqual(1);
+            const node = treeComponent.treeNodes[0];
+            treeComponent.selectTreeNode(node);
+            // change tree nodes
+            treeInstance.addNode();
+            fixture.detectChanges();
+            expect(treeComponent.getSelectedNodes().length).toEqual(1);
+            expect(treeComponent.getSelectedNodes()[0].key).toEqual(node.key);
+        });
+
         it(`test public function 'getRootNodes()`, () => {
             expect(treeComponent.getRootNodes().length).toEqual(2);
         });
