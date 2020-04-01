@@ -76,7 +76,7 @@
             }
 
             &:not(.disabled) {
-                ƒ &.hover,
+                &.hover,
                 &:hover {
                     // @include item-box-shadow();
                     background-color: $gray-100;
