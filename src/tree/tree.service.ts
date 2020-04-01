@@ -2,6 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { ThyTreeNodeCheckState } from './tree.class';
 import { Subject } from 'rxjs';
 import { ThyTreeNode } from './tree-node.class';
+import { coerceArray } from '../util/helpers';
 
 @Injectable()
 export class ThyTreeService implements OnDestroy {
@@ -49,6 +50,16 @@ export class ThyTreeService implements OnDestroy {
         if (index > -1) {
             children.splice(index, 1);
         }
+    }
+
+    public expandTreeNodes(keyOrKeys: string | number | (string | number)[]) {
+        const keys = coerceArray(keyOrKeys);
+        const needExpandNodes = this._getParallelTreeNodes(this.treeNodes).filter(node => {
+            return keys.indexOf(node.key) > -1;
+        });
+        needExpandNodes.forEach(node => {
+            node.setExpanded(true);
+        });
     }
 
     public statusChanged() {

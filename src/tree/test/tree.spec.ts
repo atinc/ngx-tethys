@@ -63,15 +63,25 @@ describe('ThyTreeComponent', () => {
             expect(treeElement.querySelector(`.disabled`).innerHTML).toContain('未分配部门');
         });
 
+        it('test expand status when tree nodes changed ', () => {
+            expect(treeComponent.getExpandedNodes().length).toEqual(1);
+            treeComponent.expandAllNodes();
+            const expandNodeCount = treeComponent.getExpandedNodes().length;
+            // change tree nodes
+            treeInstance.addNode();
+            fixture.detectChanges();
+            expect(treeComponent.getExpandedNodes().length).toEqual(expandNodeCount);
+        });
+
         it(`test public function 'getRootNodes()`, () => {
             expect(treeComponent.getRootNodes().length).toEqual(2);
         });
 
         it(`test public function 'getExpandedNodes()`, () => {
-            expect(treeComponent.getExpandedNodes().length).toEqual(0);
+            expect(treeComponent.getExpandedNodes().length).toEqual(1);
             (treeElement.querySelector('.thy-tree-expand-icon') as HTMLElement).click();
             fixture.detectChanges();
-            expect(treeComponent.getExpandedNodes().length).toEqual(1);
+            expect(treeComponent.getExpandedNodes().length).toEqual(0);
         });
 
         it(`test public function 'getSelectedNodes()`, () => {
@@ -180,7 +190,7 @@ describe('ThyTreeComponent', () => {
                     class="thy-tree-node-icon"
                     [thyIconName]="node?.isExpanded ? 'folder-open-fill' : 'folder-fill'"
                 ></thy-icon>
-                <div class="thy-tree-node-title text-truncate" thyFlexibleText [thyTooltipContent]="data?.name">
+                <div class="thy-tree-node-title text-truncate" thyFlexibleText [thyTooltipContent]="data?.title">
                     {{ data?.name }} <span class="text-desc ml-1">( {{ data.member_count || 0 }}人 )</span>
                 </div>
             </ng-template>
@@ -190,7 +200,8 @@ describe('ThyTreeComponent', () => {
 class TestBasicTreeComponent {
     @ViewChild('tree') tree: ThyTreeComponent;
 
-    treeNodes = treeNodes;
+    // mock 不可变数据
+    treeNodes = JSON.parse(JSON.stringify(treeNodes));
 
     options: any = {
         draggable: true,
@@ -199,4 +210,16 @@ class TestBasicTreeComponent {
     };
 
     onEvent() {}
+
+    addNode() {
+        // mock 不可变数据
+        this.treeNodes = JSON.parse(JSON.stringify(treeNodes));
+        this.treeNodes[0].children = [
+            ...this.treeNodes[0].children,
+            {
+                key: new Date().getTime(),
+                title: '测试'
+            }
+        ];
+    }
 }
