@@ -81,5 +81,21 @@
         &.thy-grid-footer-has-padding {
             padding: $grid-footer-padding;
         }
+        &.thy-grid-footer-show-info {
+            align-items: center;
+            justify-content: space-between;
+
+            .pagination-info {
+                color: $gray-600;
+                font-size: $font-size-sm;
+
+                > div {
+                    display: inline-block;
+                }
+                .number {
+                    color: $gray-800;
+                }
+            }
+        }
     }
 }

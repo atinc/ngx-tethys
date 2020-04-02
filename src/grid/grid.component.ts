@@ -198,6 +198,7 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
     }
 
     @Input() thyShowHeader = true;
+    @Input() thyShowPageInfo = false;
 
     @HostBinding('class.thy-grid-hover-display-operation')
     @Input()

@@ -116,7 +116,22 @@
   *ngIf="pagination.total > pagination.size"
   class="thy-grid-footer"
   [class.thy-grid-footer-has-padding]="theme === 'default'"
+  [class.thy-grid-footer-show-info]="thyShowPageInfo"
 >
+  <div class="pagination-info" *ngIf="thyShowPageInfo">
+    <div class="mr-3">
+      第
+      <span class="number">
+        {{ (pagination.index - 1) * pagination.size + 1 }}-{{ pagination.index * pagination.size }}
+      </span>
+      条
+    </div>
+    <div>
+      共计
+      <span class="number">{{ pagination.total }}</span>
+      条
+    </div>
+  </div>
   <thy-pagination
     [thyPageIndex]="pagination.index"
     [thyTotal]="pagination.total"

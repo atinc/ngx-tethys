@@ -200,6 +200,12 @@ export class DemoGridSectionComponent implements OnInit {
             default: 'true'
         },
         {
+            property: 'thyShowPageInfo',
+            description: '是否显示分页左侧条目信息',
+            type: 'Boolean',
+            default: 'false'
+        },
+        {
             property: '(thyOnRowClick)',
             description: 'Grid行点击事件',
             type: 'ThyGridRowEvent',
@@ -358,6 +364,7 @@ export class DemoGridSectionComponent implements OnInit {
 
     onPageChange(event: any) {
         console.log(event);
+        this.pagination.index = event.page;
         this.model = this.cloneModel.slice((event.page - 1) * this.pagination.size, event.page * this.pagination.size);
     }
 
