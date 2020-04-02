@@ -283,10 +283,17 @@ describe('ThyGrid', () => {
         expect(paginationComponent === null).toBe(true);
     });
 
+    it('do not have pagination-info when set thyShowPageInfo true', () => {
+        testComponent.isShowPageInfo = true;
+        fixture.detectChanges();
+        const pageInfoComponent = gridComponent.nativeElement.querySelector('div.pagination-info');
+        expect(pageInfoComponent).toBeTruthy();
+    });
+
     it('do not have pagination-info when set thyShowPageInfo false', () => {
         testComponent.isShowPageInfo = false;
         fixture.detectChanges();
-        const pageInfoComponent = gridComponent.nativeElement.querySelector('pagination-info');
+        const pageInfoComponent = gridComponent.nativeElement.querySelector('div.pagination-info');
         expect(pageInfoComponent).toBeNull();
     });
 
