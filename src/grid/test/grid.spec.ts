@@ -22,6 +22,7 @@ import { ThyGridComponent } from '../grid.component';
             [thyPageIndex]="pagination.index"
             [thyPageSize]="pagination.size"
             [thyPageTotal]="pagination.total"
+            [thyShowPageInfo]="isShowPageInfo"
             (thyOnPageChange)="onPageChange($event)"
             (thyOnSwitchChange)="onSwitchChange($event)"
             (thyOnRowContextMenu)="onContextMenu($event)"
@@ -98,6 +99,7 @@ class ThyDemoDefaultGridComponent {
         total: 6
     };
     isShowHeader = true;
+    isShowPageInfo = true;
     isDraggable = false;
     isRowSelect = false;
     gridClassName = 'class-name';
@@ -279,6 +281,13 @@ describe('ThyGrid', () => {
         fixture.detectChanges();
         const paginationComponent = gridComponent.nativeElement.querySelector('thy-pagination');
         expect(paginationComponent === null).toBe(true);
+    });
+
+    it('do not have pagination-info when set thyShowPageInfo false', () => {
+        testComponent.isShowPageInfo = false;
+        fixture.detectChanges();
+        const pageInfoComponent = gridComponent.nativeElement.querySelector('pagination-info');
+        expect(pageInfoComponent).toBeNull();
     });
 
     it('should in second page when index is 2', () => {
