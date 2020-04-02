@@ -99,7 +99,7 @@ class ThyDemoDefaultGridComponent {
         total: 6
     };
     isShowHeader = true;
-    isShowPageInfo = true;
+    isShowPageInfo = false;
     isDraggable = false;
     isRowSelect = false;
     gridClassName = 'class-name';
@@ -132,7 +132,7 @@ class ThyDemoDefaultGridComponent {
 })
 export class GridTestModule {}
 
-describe('ThyGrid', () => {
+fdescribe('ThyGrid', () => {
     let fixture: ComponentFixture<ThyDemoDefaultGridComponent>;
     let testComponent: ThyDemoDefaultGridComponent;
     let gridComponent;
@@ -283,18 +283,11 @@ describe('ThyGrid', () => {
         expect(paginationComponent === null).toBe(true);
     });
 
-    it('do not have pagination-info when set thyShowPageInfo true', () => {
+    it('should have pagination info when set thyShowPageInfo true', () => {
         testComponent.isShowPageInfo = true;
         fixture.detectChanges();
         const pageInfoComponent = gridComponent.nativeElement.querySelector('div.pagination-info');
         expect(pageInfoComponent).toBeTruthy();
-    });
-
-    it('do not have pagination-info when set thyShowPageInfo false', () => {
-        testComponent.isShowPageInfo = false;
-        fixture.detectChanges();
-        const pageInfoComponent = gridComponent.nativeElement.querySelector('div.pagination-info');
-        expect(pageInfoComponent).toBeNull();
     });
 
     it('should in second page when index is 2', () => {
