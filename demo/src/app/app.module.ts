@@ -4,7 +4,7 @@ import { TextFieldModule } from '@angular/cdk/text-field';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { OverlayModule } from '@angular/cdk/overlay';
 
-import { NgxTethysModule } from 'ngx-tethys';
+import { NgxTethysModule, THY_SLIDE_DEFAULT_CONFIG } from 'ngx-tethys';
 import { RouterModule } from '@angular/router';
 import { SortablejsModule } from 'angular-sortablejs';
 
@@ -65,7 +65,13 @@ import { DemoTreeSelectModule } from './components/+tree-select/module';
             provide: ThyMarkdownParserService,
             useClass: CustomMarkdownParserService
         },
-        thyValidatorConfigProvider
+        thyValidatorConfigProvider,
+        {
+            provide: THY_SLIDE_DEFAULT_CONFIG,
+            useValue: {
+                drawerContainer: '.thy-layout-content'
+            }
+        }
     ],
     bootstrap: [AppComponent]
 })

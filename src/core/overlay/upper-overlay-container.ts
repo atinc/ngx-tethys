@@ -33,6 +33,9 @@ export abstract class ThyUpperOverlayContainer {
     /** Before attach content(TemplatePortal or ComponentPortal) portal to portalOutlet*/
     abstract beforeAttachPortal(): void;
 
+    /** Before detach content*/
+    beforeDetachPortal() {}
+
     constructor(private options: ThyUpperOverlayOptions, protected changeDetectorRef: ChangeDetectorRef) {}
 
     /**
@@ -66,6 +69,7 @@ export abstract class ThyUpperOverlayContainer {
         } else {
             // this.animationClosingDone.
         }
+        this.beforeDetachPortal();
 
         // Mark the container for check so it can react if the
         // view container is using OnPush change detection.

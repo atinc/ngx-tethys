@@ -488,7 +488,7 @@ $progress-bar-bg: $gray-200 !default;
 $progress-split-color: $white !default;
 $progress-bar-primary-bg: #73d897;
 //Slide
-$slide-dialog-bg: $white !default;
+$slide-bg: $white !default;
 $slide-height: calc(100vh - #{$layout-header-height} - #{$layout-header-height-sm}) !default;
 $slide-z-index: 900 !default;
 $slide-header-height: 45px !default;
@@ -500,6 +500,9 @@ $slide-body-section-padding: 20px !default;
 $slide-divider: $gray-200 !default;
 $slide-footer-padding: 15px 20px 0 !default;
 $slide-footer-height: 65px !default;
+$slide-border-color: $gray-200 !default;
+$slide-box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.04), 0 6px 30px 5px rgba(0, 0, 0, 0.08),
+    0 8px 10px -5px rgba(0, 0, 0, 0.12) !default;
 //tree
 $tree-padding: 10px 20px 10px 10px;
 $tree-node-padding: 0 0 0 25px !default;
