@@ -102,7 +102,8 @@
     &:not(&--group) {
         .action-menu-divider {
             &:first-child,
-            &:last-child {
+            &:last-child,
+            + .action-menu-divider {
                 display: none;
             }
         }
