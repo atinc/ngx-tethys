@@ -73,6 +73,7 @@
             left: 100%;
             top: 0;
             z-index: 1;
+            padding: 10px 0;
             width: 240px;
             background: $action-menu-bg;
             box-shadow: $box-shadow;
@@ -95,6 +96,15 @@
 
         &--success {
             @include action-menu-item-type-hover($success);
+        }
+    }
+
+    &:not(&--group) {
+        .action-menu-divider {
+            &:first-child,
+            &:last-child {
+                display: none;
+            }
         }
     }
     .action-menu-divider {
