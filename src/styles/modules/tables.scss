@@ -28,6 +28,9 @@
     td {
         padding: $table-cell-padding-sm;
     }
+    tbody tr {
+        height: auto;
+    }
 }
 
 .table {
