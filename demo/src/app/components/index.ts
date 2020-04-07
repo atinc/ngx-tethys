@@ -97,7 +97,7 @@ import { DemoNavVerticalComponent } from './+nav/vertical/vertical.component';
 import { DemoNavHorizontalComponent } from './+nav/horizontal/horizontal.component';
 import { DemoNavTypeComponent } from './+nav/type/type.component';
 import { DemoBadgeModule } from './+badge/badge.module';
-
+import { DemoAutocompleteModule } from './+autocomplete/module';
 
 export const COMPONENTS = [
     DemoCopySectionComponent,
@@ -270,5 +270,6 @@ export const DEMO_MODULES = [
     DemoDatePickerModule,
     DemoTooltipModule,
     DemoTransferModule,
-    DemoBadgeModule
+    DemoBadgeModule,
+    DemoAutocompleteModule
 ];
