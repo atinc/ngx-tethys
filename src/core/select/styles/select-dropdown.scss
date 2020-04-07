@@ -1,4 +1,4 @@
-.thy-custom-select-options {
+.thy-select-dropdown-options {
     @include thy-select-options-container();
 
     .loading-more {
@@ -41,18 +41,18 @@
         }
     }
 }
-.thy-custom-select-dropdown {
+.thy-select-dropdown {
     @include thy-select-options-dropdown();
-    &.thy-custom-select-dropdown-multiple {
-        .thy-custom-select-options {
+    &.thy-select-dropdown-multiple {
+        .thy-select-dropdown-options {
             .thy-option-item {
                 @include thy-multiple-option();
             }
         }
     }
 
-    &.thy-custom-select-dropdown-single {
-        .thy-custom-select-options {
+    &.thy-select-dropdown-single {
+        .thy-select-dropdown-options {
             .thy-option-item {
                 .checked-icon {
                     display: none;
