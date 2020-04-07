@@ -608,12 +608,12 @@ export class ThySelectCustomComponent
     private setDropDownClass() {
         let modeClass = '';
         if (this.isMultiple) {
-            modeClass = `thy-custom-select-dropdown-${this.mode}`;
+            modeClass = `thy-select-dropdown-${this.mode}`;
         } else {
-            modeClass = `thy-custom-select-dropdown-single`;
+            modeClass = `thy-select-dropdown-single`;
         }
         this.dropDownClass = {
-            [`thy-custom-select-dropdown`]: true,
+            [`thy-select-dropdown`]: true,
             [modeClass]: true
         };
     }
