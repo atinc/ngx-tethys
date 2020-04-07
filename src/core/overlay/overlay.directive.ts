@@ -37,7 +37,7 @@ export abstract class ThyOverlayDirectiveBase {
     protected showTimeoutId: number | null | any;
     protected hideTimeoutId: number | null | any;
 
-    abstract tooltipPin: boolean;
+    protected tooltipPin: boolean;
     /** create overlay, you can use popover service or overlay*/
     abstract createOverlay(): OverlayRef;
     abstract show(delay?: number): void;
@@ -110,7 +110,7 @@ export abstract class ThyOverlayDirectiveBase {
                         // Note that the focus monitor runs outside the Angular zone.
                         if (!origin) {
                             this.ngZone.run(() => this.hide(0));
-                        } else if (origin === 'keyboard') {
+                        } else {
                             this.ngZone.run(() => this.show());
                         }
                     });

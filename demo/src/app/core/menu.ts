@@ -102,7 +102,8 @@ export const allMenus = [
                     { name: 'Switch', zhName: '开关', routePath: 'switch' },
                     { name: 'Uploader', zhName: '上传', routePath: 'uploader' },
 
-                    { name: 'Datepicker', zhName: '日期选择', routePath: 'datepicker', deprecated: true }
+                    { name: 'Datepicker', zhName: '日期选择', routePath: 'datepicker', deprecated: true },
+                    { name: 'Autocomplete', zhName: '自动完成', routePath: 'autocomplete', state: 'new' }
                 ]
             },
             {
