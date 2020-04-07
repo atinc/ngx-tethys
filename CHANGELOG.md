@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.6.40](https://github.com/atinc/ngx-tethys/compare/7.6.39...7.6.40) (2020-04-02)
+
+
+### Bug Fixes
+
+* #INF-526 恢复修改badge-section ([0470bc7](https://github.com/atinc/ngx-tethys/commit/0470bc7284221d1f4ea9cfd9f49183b14e88b9c5)), closes [#INF-526](https://github.com/atinc/ngx-tethys/issues/INF-526)
+* #INF-526 恢复修改badge-section ([1e9e274](https://github.com/atinc/ngx-tethys/commit/1e9e274cf6497b9d17e398b288ce1935aaacafef)), closes [#INF-526](https://github.com/atinc/ngx-tethys/issues/INF-526)
+* **tree:** fix expand status when tree nodes changed #INFR-189 ([26634fd](https://github.com/atinc/ngx-tethys/commit/26634fd44052e9593ced81280eed684838df8fe4)), closes [#INFR-189](https://github.com/atinc/ngx-tethys/issues/INFR-189)
+* **tree:** sync last selecteds when data changed ([ccb5fbf](https://github.com/atinc/ngx-tethys/commit/ccb5fbf2b1d706f3152b8edc23155af934f9df6b))
+
+
+### Features
+
+* **date-picker:** ngModel support number and add directive validate ([2525d58](https://github.com/atinc/ngx-tethys/commit/2525d58ffff5b0abad5611b9593c2a9c6ce9073a))
+* #INF-526 add badge test and use docs ([3cd6c0b](https://github.com/atinc/ngx-tethys/commit/3cd6c0b3d9633526861089860d586ce6306ccb9e)), closes [#INF-526](https://github.com/atinc/ngx-tethys/issues/INF-526)
+* #INF-526 add badge use docs ([22df3fd](https://github.com/atinc/ngx-tethys/commit/22df3fd3c759f032eb5cca4b5e3523f5ad4f163f)), closes [#INF-526](https://github.com/atinc/ngx-tethys/issues/INF-526)
+* **tree:** tree node support disabled class ([#586](https://github.com/atinc/ngx-tethys/issues/586)) ([92db08b](https://github.com/atinc/ngx-tethys/commit/92db08b2a79a99fc41750efa7196f25d3176573c))
+
+
+
 ## [7.6.39](https://github.com/atinc/ngx-tethys/compare/7.6.38...7.6.39) (2020-03-28)
 
 
