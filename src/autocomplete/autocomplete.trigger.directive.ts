@@ -90,7 +90,7 @@ export class ThyAutocompleteTriggerDirective extends ThyOverlayDirectiveBase imp
         this.overlayRef = overlayRef;
         this.autocompleteOpened = true;
         this.autocompleteComponent.opened.emit();
-        this.autocompleteComponent.autocompleteOpened = true;
+        this.autocompleteComponent.open();
     }
 
     hide() {

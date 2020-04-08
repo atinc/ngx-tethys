@@ -152,6 +152,11 @@ export class ThyAutocompleteComponent extends mixinUnsubscribe(MixinBase)
         };
     }
 
+    open() {
+        this.autocompleteOpened = true;
+        this.changeDetectorRef.markForCheck();
+    }
+
     ngOnDestroy() {
         super.ngOnDestroy();
     }
