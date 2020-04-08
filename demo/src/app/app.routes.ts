@@ -64,6 +64,7 @@ import { DemoMentionSectionComponent } from './components/+mention';
 import { DemoDatePickerNextSectionComponent } from './components/+datepicker/datepicker-section.component';
 import { DemoStatisticComponent } from './components/+statistic/statistic.component';
 import { DemoAutocompleteSectionComponent } from './components/+autocomplete/autocomplete-section.component';
+import { DemoInputNumberSectionComponent } from './components/+input-number/input-number-section.component';
 
 const appRoutes = [
     {
@@ -242,6 +243,10 @@ const appRoutes = [
     {
         path: 'components/input',
         component: InputSectionComponent
+    },
+    {
+        path: 'components/input-number',
+        component: DemoInputNumberSectionComponent
     },
     {
         path: 'components/checkbox',

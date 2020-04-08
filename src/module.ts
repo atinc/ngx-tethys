@@ -1,6 +1,7 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyButtonModule } from './button';
+import { ThyInputNumberModule } from './input-number';
 import { ThyIconModule } from './icon';
 import { ThyLayoutModule } from './layout';
 import { ThyPopBoxModule } from './pop-box';
@@ -89,6 +90,7 @@ const IMPORT_EXPORT_MODULES = [
     ThyStrengthModule,
     ThyFormModule,
     ThyInputModule,
+    ThyInputNumberModule,
     ThyDropdownModule,
     ThyDirectiveModule,
     ProgressbarModule,

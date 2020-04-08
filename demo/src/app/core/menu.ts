@@ -87,6 +87,7 @@ export const allMenus = [
                 children: [
                     { name: 'Form', zhName: '表单', routePath: 'form' },
                     { name: 'Input', zhName: '输入框', routePath: 'input' },
+                    { name: 'InputNumber', zhName: '计数器', routePath: 'input-number' },
                     { name: 'Radio', zhName: '单选项', routePath: 'radio' },
                     { name: 'Checkbox', zhName: '多选项', routePath: 'checkbox' },
                     { name: 'DatePicker', zhName: '日期选择', routePath: 'date-picker', state: 'new' },
