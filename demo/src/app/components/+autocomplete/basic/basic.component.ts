@@ -8,12 +8,14 @@ import {
     Renderer2,
     Output,
     EventEmitter,
-    TemplateRef
+    TemplateRef,
+    ChangeDetectionStrategy
 } from '@angular/core';
 
 @Component({
     selector: 'demo-autocomplete-basic',
-    templateUrl: './basic.component.html'
+    templateUrl: './basic.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DemoAutocompleteBasicComponent implements OnInit {
     thySize = '';

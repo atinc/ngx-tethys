@@ -108,6 +108,7 @@ export class ThyAutocompleteContainerComponent extends ThyUpperOverlayContainer 
 
     startExitAnimation(): void {
         this.animationState = 'exit';
+        this.changeDetectorRef.markForCheck();
     }
 
     @HostListener('click', [])
