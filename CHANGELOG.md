@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.6.41](https://github.com/atinc/ngx-tethys/compare/7.6.40...7.6.41) (2020-04-08)
+
+
+### Bug Fixes
+
+* **autocomplete:** fix can not detect change when onpush ([93cf9ca](https://github.com/atinc/ngx-tethys/commit/93cf9cae5752f536b03e54c6b281800545dcaa46))
+
+
+### Features
+
+* **action-menu:** automation hidden first and last divider ([#596](https://github.com/atinc/ngx-tethys/issues/596)) ([b51257e](https://github.com/atinc/ngx-tethys/commit/b51257e9917effbfc47a790a6011e47a22cb388c))
+* **autocomplete:** add autocomplete component ([#600](https://github.com/atinc/ngx-tethys/issues/600)) ([c1a3a6c](https://github.com/atinc/ngx-tethys/commit/c1a3a6cbbb39a0ae4071fd706943e87e18f66e17))
+* **grid:** table-sm td height initial ([#599](https://github.com/atinc/ngx-tethys/issues/599)) ([6f920c4](https://github.com/atinc/ngx-tethys/commit/6f920c4113f273e187e929a4bc4ed57a171f9e49))
+
+
+
 ## [7.6.40](https://github.com/atinc/ngx-tethys/compare/7.6.39...7.6.40) (2020-04-02)
 
 
