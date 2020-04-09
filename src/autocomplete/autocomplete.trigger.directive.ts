@@ -21,7 +21,7 @@ import { ThyAutocompleteService } from './overlay/autocomplete.service';
 import { ThyAutocompleteRef } from './overlay/autocomplete-ref';
 import { ThyAutocompleteComponent } from './autocomplete.component';
 import { ThyAutoOptionComponent } from './option.component';
-import { DOCUMENT } from '@angular/platform-browser';
+import { DOCUMENT } from '@angular/common';
 
 @Directive({
     selector: 'input[thyAutocompleteTrigger]',
