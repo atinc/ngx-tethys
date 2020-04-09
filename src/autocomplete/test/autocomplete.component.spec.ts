@@ -20,11 +20,12 @@ import { ThyFormModule } from '../../form';
 import { dispatchFakeEvent, dispatchKeyboardEvent } from '../../core/testing/dispatcher-events';
 import { ESCAPE } from '../../util/keycodes';
 import { typeInElement, injectDefaultSvgIconSet, bypassSanitizeProvider } from '../../core/testing';
-import { ThyAutoOptionComponent } from '../option.component';
+import { ThyOptionComponent } from '../../core/option/option.component';
 import { ThyInputModule } from '../../input/module';
 import { CommonModule } from '@angular/common';
 import { ThyDirectiveModule } from '../../directive/module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ThyOptionModule } from '../../core';
 
 @Component({
     selector: 'basic-autocomplete',
@@ -34,24 +35,25 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
                 class="autocomplete-trigger"
                 thyInput
                 [(ngModel)]="value"
-                [thyAutofocus]="true"
                 [placeholder]="placeholder"
                 thyAutocompleteTrigger
                 [thyAutocomplete]="auto"
                 [thyAutocompleteWidth]="500"
                 (ngModelChange)="valueChange($event)"
             />
-            <thy-autocomplete #auto [emptyStateText]="'没有搜索到任何数据'">
-                <thy-autocomplete-option
+            <thy-autocomplete #auto [emptyStateText]="'没有搜索到任何数据'" (opened)="opened()">
+                <thy-option
                     *ngFor="let item of foods"
                     [thyLabelText]="item.viewValue"
                     [thyValue]="item.value"
-                ></thy-autocomplete-option>
+                ></thy-option>
             </thy-autocomplete>
         </div>
     `
 })
 class BasicSelectComponent {
+    openedSpy = jasmine.createSpy('opened event spy callback');
+
     foods: any[] = [
         { value: 'steak-0', viewValue: 'Steak' },
         { value: 'pizza-1', viewValue: 'Pizza' },
@@ -63,9 +65,13 @@ class BasicSelectComponent {
         { value: 'sushi-7', viewValue: 'Sushi' }
     ];
     @ViewChild(ThyAutocompleteComponent) autocomplete: ThyAutocompleteComponent;
-    @ViewChildren(ThyAutoOptionComponent) options: QueryList<ThyAutoOptionComponent>;
+    @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
+
+    opened() {
+        this.openedSpy();
+    }
 }
-describe('ThyAutocomplete', () => {
+fdescribe('ThyAutocomplete', () => {
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
     let platform: Platform;
@@ -80,7 +86,8 @@ describe('ThyAutocomplete', () => {
                 ThyInputModule,
                 ThyAutocompleteModule,
                 ReactiveFormsModule,
-                BrowserAnimationsModule
+                BrowserAnimationsModule,
+                ThyOptionModule
             ],
             declarations: declarations,
             providers: [UpdateHostClassService, bypassSanitizeProvider]
@@ -116,6 +123,7 @@ describe('ThyAutocomplete', () => {
             }));
 
             it('should open the select panel when trigger is clicked', fakeAsync(() => {
+                expect(fixture.componentInstance.autocomplete.autocompleteOpened).toBe(false);
                 trigger.click();
                 fixture.detectChanges();
                 tick(500);
@@ -126,6 +134,7 @@ describe('ThyAutocomplete', () => {
             }));
 
             it('should open the select panel when input content in trigger input', fakeAsync(() => {
+                expect(fixture.componentInstance.autocomplete.autocompleteOpened).toBe(false);
                 typeInElement('aa', trigger as HTMLInputElement);
                 fixture.detectChanges();
                 tick(500);
@@ -136,21 +145,17 @@ describe('ThyAutocomplete', () => {
             }));
 
             it('should emit opend event when autocomplete select open', fakeAsync(() => {
-                const openedSpy = jasmine.createSpy('opened event spy callback');
-                fixture.componentInstance.autocomplete.opened.subscribe(() => {
-                    openedSpy();
-                });
                 typeInElement('aa', trigger as HTMLInputElement);
                 fixture.detectChanges();
                 tick(500);
-                expect(openedSpy).toHaveBeenCalled();
+                expect(fixture.componentInstance.openedSpy).toHaveBeenCalled();
             }));
 
             it('should close the autocomplete panel when option is clicked', fakeAsync(() => {
                 trigger.click();
                 fixture.detectChanges();
                 tick(500);
-                const option = overlayContainerElement.querySelector('thy-autocomplete-option') as HTMLElement;
+                const option = overlayContainerElement.querySelector('thy-option') as HTMLElement;
                 option.click();
                 fixture.detectChanges();
                 flush();
@@ -168,7 +173,7 @@ describe('ThyAutocomplete', () => {
                 fixture.detectChanges();
                 tick(500);
                 expect(closedSpy).not.toHaveBeenCalled();
-                const option = overlayContainerElement.querySelector('thy-autocomplete-option') as HTMLElement;
+                const option = overlayContainerElement.querySelector('thy-option') as HTMLElement;
                 option.click();
                 fixture.detectChanges();
                 flush();
