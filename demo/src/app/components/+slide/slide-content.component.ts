@@ -1,8 +1,8 @@
-import { Component, ElementRef } from '@angular/core';
+import { Component, Optional, SkipSelf } from '@angular/core';
 import { ThySlideService } from '../../../../../src/slide/slide.service';
-import { ThySlideFromTypes } from 'ngx-tethys/slide/slide.config';
+import { ThyDrawerContainerDirective } from '../../../../../src/slide/drawer/drawer-container.directive';
+import { ThySlideFromTypes, ThySlideMode } from 'ngx-tethys/slide/slide.config';
 import { DemoSlideExampleComponent } from './slide-example.component';
-import { coerceElement } from '@angular/cdk/coercion';
 
 @Component({
     selector: 'demo-slide-content',
@@ -19,17 +19,40 @@ export class DemoSlideContentComponent {
 
     public hasOffset = false;
 
-    constructor(private thySlideNewService: ThySlideService) {}
+    public thySlideMode: ThySlideMode = 'over';
 
-    showSlide(key: string, originTrigger?: Event) {
+    constructor(
+        private thySlideNewService: ThySlideService,
+        @Optional() @SkipSelf() private thyDrawerContainer: ThyDrawerContainerDirective
+    ) {}
+
+    showSlideById(key: string, originTrigger?: Event) {
         this.thySlideNewService.open(DemoSlideExampleComponent, {
             key: key,
             from: this.thySlideFrom,
             hasBackdrop: this.hasBackdrop,
-            panelClass: this.thySlideClass,
+            panelClass: this.thySlideFrom === 'left' || this.thySlideFrom === 'right' ? 'thy-slide' : 'thy-slide-lg',
             offset: this.hasOffset ? 60 : 0,
             origin: originTrigger ? originTrigger.currentTarget : null,
-            initialState: { name: 'slide', slideType: this.thySlideType }
+            initialState: { name: 'slide', slideType: this.thySlideType },
+            mode: this.thySlideMode,
+            width: '300',
+            drawerContainer: '#demo-content'
+        });
+    }
+
+    showSlideByElementRef(key: string, originTrigger?: Event) {
+        this.thySlideNewService.open(DemoSlideExampleComponent, {
+            key: key,
+            from: this.thySlideFrom,
+            hasBackdrop: this.hasBackdrop,
+            panelClass: this.thySlideFrom === 'left' || this.thySlideFrom === 'right' ? 'thy-slide' : 'thy-slide-lg',
+            offset: this.hasOffset ? 60 : 0,
+            origin: originTrigger ? originTrigger.currentTarget : null,
+            initialState: { name: 'slide', slideType: this.thySlideType },
+            mode: this.thySlideMode,
+            width: '300',
+            drawerContainer: this.thyDrawerContainer.elementRef
         });
     }
 }
