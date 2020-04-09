@@ -36,7 +36,6 @@ export class DemoSlideContentComponent {
             origin: originTrigger ? originTrigger.currentTarget : null,
             initialState: { name: 'slide', slideType: this.thySlideType },
             mode: this.thySlideMode,
-            width: '300',
             drawerContainer: '#demo-content'
         });
     }

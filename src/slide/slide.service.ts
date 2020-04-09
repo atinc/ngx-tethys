@@ -45,8 +45,11 @@ export class ThySlideService extends ThyUpperOverlayService<ThySlideConfig, ThyS
 
     protected buildOverlayConfig(config: ThySlideConfig): OverlayConfig {
         config.id = config.id || (config.key as string);
-        const overlayConfig = this.buildBaseOverlayConfig(config);
-        overlayConfig.panelClass = this.getOverlayPanelClasses(config);
+        const overlayConfig = {
+            ...this.buildBaseOverlayConfig(config),
+            width: config.width,
+            panelClass: this.getOverlayPanelClasses(config)
+        };
         return overlayConfig;
     }
 
@@ -113,12 +116,12 @@ export class ThySlideService extends ThyUpperOverlayService<ThySlideConfig, ThyS
         if (this.overlayIsOpened(config)) {
             return;
         }
-        const popoverRef = this.openUpperOverlay(componentOrTemplateRef, config);
-        this.originElementAddActiveClass(popoverRef.containerInstance.config);
-        popoverRef.afterClosed().subscribe(() => {
-            this.originElementRemoveActiveClass(popoverRef.containerInstance.config);
+        const slideRef = this.openUpperOverlay(componentOrTemplateRef, config);
+        this.originElementAddActiveClass(slideRef.containerInstance.config);
+        slideRef.afterClosed().subscribe(() => {
+            this.originElementRemoveActiveClass(slideRef.containerInstance.config);
         });
-        return popoverRef as ThySlideRef<T, TResult>;
+        return slideRef as ThySlideRef<T, TResult>;
     }
 
     /**

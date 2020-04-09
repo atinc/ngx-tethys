@@ -143,6 +143,57 @@ describe('ThySlide', () => {
             const containerElement = getSlideContainerElement();
             expect(containerElement.classList).toContain('thy-slide-over');
         }));
+
+        it('should open a slide with width="300px" when width="300px"', fakeAsync(() => {
+            const querySelectorSpy = spyOn(document, 'querySelector');
+            querySelectorSpy.and.returnValue(null);
+
+            const slideRef = thySlideService.open(SlideLayoutTestComponent, {
+                id: '1',
+                from: 'right',
+                mode: 'push',
+                drawerContainer: '#demo-host',
+                width: '300px'
+            });
+            viewContainerFixture.detectChanges();
+            const panelElement = overlayContainerElement.querySelector('.thy-slide-overlay-pane') as HTMLElement;
+            expect(panelElement.style.width).toBe('300px');
+        }));
+
+        it('should open a slide with width="300px" when width="300px" and panelClass="thy-slide"', fakeAsync(() => {
+            const querySelectorSpy = spyOn(document, 'querySelector');
+            querySelectorSpy.and.returnValue(null);
+
+            const slideRef = thySlideService.open(SlideLayoutTestComponent, {
+                id: '1',
+                from: 'right',
+                mode: 'push',
+                drawerContainer: '#demo-host',
+                width: '300px',
+                panelClass: 'thy-slide'
+            });
+            viewContainerFixture.detectChanges();
+            expect(overlayContainerElement.querySelector('.thy-slide')).toBeTruthy();
+            const panelElement = overlayContainerElement.querySelector('.thy-slide-overlay-pane') as HTMLElement;
+            expect(panelElement.style.width).toBe('300px');
+        }));
+
+        it('should open a slide with width="350px" when width is null and panelClass="thy-slide"', fakeAsync(() => {
+            const querySelectorSpy = spyOn(document, 'querySelector');
+            querySelectorSpy.and.returnValue(null);
+
+            const slideRef = thySlideService.open(SlideLayoutTestComponent, {
+                id: '1',
+                from: 'right',
+                mode: 'push',
+                drawerContainer: '#demo-host',
+                panelClass: 'thy-slide'
+            });
+            viewContainerFixture.detectChanges();
+            expect(overlayContainerElement.querySelector('.thy-slide')).toBeTruthy();
+            const panelElement = overlayContainerElement.querySelector('.thy-slide-overlay-pane') as HTMLElement;
+            expect(panelElement.style.width).toBe('');
+        }));
     });
 
     describe('ThySlideLayout', () => {
