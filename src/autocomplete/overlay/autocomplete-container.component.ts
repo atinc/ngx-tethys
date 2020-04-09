@@ -81,7 +81,7 @@ export class ThyAutocompleteContainerComponent extends ThyUpperOverlayContainer 
 
     ngAfterViewInit() {
         if (this.config.outsideClosable && !this.config.hasBackdrop) {
-            timer().subscribe(() => {
+            timer(100).subscribe(() => {
                 this.thyClickDispatcher
                     .clicked()
                     .pipe(takeUntil(this.animationClosingDone))

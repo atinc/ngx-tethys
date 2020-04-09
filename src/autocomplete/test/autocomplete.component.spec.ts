@@ -20,11 +20,12 @@ import { ThyFormModule } from '../../form';
 import { dispatchFakeEvent, dispatchKeyboardEvent } from '../../core/testing/dispatcher-events';
 import { ESCAPE } from '../../util/keycodes';
 import { typeInElement, injectDefaultSvgIconSet, bypassSanitizeProvider } from '../../core/testing';
-import { ThyAutoOptionComponent } from '../option.component';
+import { ThyOptionComponent } from '../../core/option/option.component';
 import { ThyInputModule } from '../../input/module';
 import { CommonModule } from '@angular/common';
 import { ThyDirectiveModule } from '../../directive/module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ThyOptionModule } from '../../core';
 
 @Component({
     selector: 'basic-autocomplete',
@@ -42,11 +43,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
                 (ngModelChange)="valueChange($event)"
             />
             <thy-autocomplete #auto [emptyStateText]="'没有搜索到任何数据'">
-                <thy-autocomplete-option
+                <thy-option
                     *ngFor="let item of foods"
                     [thyLabelText]="item.viewValue"
                     [thyValue]="item.value"
-                ></thy-autocomplete-option>
+                ></thy-option>
             </thy-autocomplete>
         </div>
     `
@@ -63,7 +64,7 @@ class BasicSelectComponent {
         { value: 'sushi-7', viewValue: 'Sushi' }
     ];
     @ViewChild(ThyAutocompleteComponent) autocomplete: ThyAutocompleteComponent;
-    @ViewChildren(ThyAutoOptionComponent) options: QueryList<ThyAutoOptionComponent>;
+    @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
 }
 describe('ThyAutocomplete', () => {
     let overlayContainer: OverlayContainer;
@@ -80,7 +81,8 @@ describe('ThyAutocomplete', () => {
                 ThyInputModule,
                 ThyAutocompleteModule,
                 ReactiveFormsModule,
-                BrowserAnimationsModule
+                BrowserAnimationsModule,
+                ThyOptionModule
             ],
             declarations: declarations,
             providers: [UpdateHostClassService, bypassSanitizeProvider]
@@ -150,7 +152,7 @@ describe('ThyAutocomplete', () => {
                 trigger.click();
                 fixture.detectChanges();
                 tick(500);
-                const option = overlayContainerElement.querySelector('thy-autocomplete-option') as HTMLElement;
+                const option = overlayContainerElement.querySelector('thy-option') as HTMLElement;
                 option.click();
                 fixture.detectChanges();
                 flush();
@@ -168,7 +170,7 @@ describe('ThyAutocomplete', () => {
                 fixture.detectChanges();
                 tick(500);
                 expect(closedSpy).not.toHaveBeenCalled();
-                const option = overlayContainerElement.querySelector('thy-autocomplete-option') as HTMLElement;
+                const option = overlayContainerElement.querySelector('thy-option') as HTMLElement;
                 option.click();
                 fixture.detectChanges();
                 flush();

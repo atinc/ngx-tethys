@@ -1,3 +1,5 @@
 export * from './module';
 export * from './option-group.component';
-export * from './list-option.component';
+export * from './list-option/list-option.component';
+export * from './option.component';
+export * from './group/option-group.component';

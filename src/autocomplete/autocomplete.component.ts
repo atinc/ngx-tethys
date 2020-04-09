@@ -14,19 +14,26 @@ import {
     ChangeDetectorRef,
     Input
 } from '@angular/core';
-import { ThyAutoOptionComponent, ThyOptionSelectionChangeEvent } from './option.component';
+import { ThyOptionComponent, ThyOptionSelectionChangeEvent } from '../core/option/option.component';
 import { defer, merge, Observable, timer } from 'rxjs';
 import { take, switchMap, takeUntil, startWith } from 'rxjs/operators';
 import { MixinBase, mixinUnsubscribe } from '../core';
 import { SelectionModel } from '@angular/cdk/collections';
+import { THY_OPTION_PARENT_COMPONENT, IThyOptionParentComponent } from '../core/option/option.token';
 
 @Component({
     selector: 'thy-autocomplete',
     templateUrl: 'autocomplete.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: THY_OPTION_PARENT_COMPONENT,
+            useExisting: ThyAutocompleteComponent
+        }
+    ]
 })
 export class ThyAutocompleteComponent extends mixinUnsubscribe(MixinBase)
-    implements OnInit, AfterContentInit, OnDestroy {
+    implements IThyOptionParentComponent, OnInit, AfterContentInit, OnDestroy {
     dropDownClass: { [key: string]: boolean };
 
     isMultiple = false;
@@ -35,14 +42,14 @@ export class ThyAutocompleteComponent extends mixinUnsubscribe(MixinBase)
 
     isEmptyOptions = false;
 
-    selectionModel: SelectionModel<ThyAutoOptionComponent>;
+    selectionModel: SelectionModel<ThyOptionComponent>;
 
     autocompleteOpened = false;
 
     @ViewChild('content')
     contentTemplateRef: TemplateRef<any>;
 
-    @ContentChildren(ThyAutoOptionComponent, { descendants: true }) options: QueryList<ThyAutoOptionComponent>;
+    @ContentChildren(ThyOptionComponent, { descendants: true }) options: QueryList<ThyOptionComponent>;
 
     readonly optionSelectionChanges: Observable<ThyOptionSelectionChangeEvent> = defer(() => {
         if (this.options) {
@@ -57,7 +64,7 @@ export class ThyAutocompleteComponent extends mixinUnsubscribe(MixinBase)
     @Input()
     emptyStateText = '没有任何数据';
 
-    @Output() optionSelected: EventEmitter<ThyAutoOptionComponent> = new EventEmitter<ThyAutoOptionComponent>();
+    @Output() optionSelected: EventEmitter<ThyOptionComponent> = new EventEmitter<ThyOptionComponent>();
 
     @Output() readonly opened: EventEmitter<void> = new EventEmitter<void>();
 
@@ -103,14 +110,14 @@ export class ThyAutocompleteComponent extends mixinUnsubscribe(MixinBase)
         if (this.selectionModel) {
             this.selectionModel.clear();
         }
-        this.selectionModel = new SelectionModel<ThyAutoOptionComponent>(this.isMultiple);
+        this.selectionModel = new SelectionModel<ThyOptionComponent>(this.isMultiple);
         this.selectionModel.onChange.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(event => {
             event.added.forEach(option => option.select());
             event.removed.forEach(option => option.deselect());
         });
     }
 
-    private onSelect(option: ThyAutoOptionComponent, isUserInput: boolean) {
+    private onSelect(option: ThyOptionComponent, isUserInput: boolean) {
         const wasSelected = this.selectionModel.isSelected(option);
 
         if (option.thyValue == null && !this.isMultiple) {
