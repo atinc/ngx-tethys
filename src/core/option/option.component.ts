@@ -16,23 +16,29 @@ import {
     QueryList
 } from '@angular/core';
 import { Highlightable } from '@angular/cdk/a11y';
-import { SelectOptionBase } from '../core/select/select-option/select-option-base';
-import { ENTER, SPACE, hasModifierKey } from '../util/keycodes';
+import { SelectOptionBase } from './select-option-base';
+import { ENTER, SPACE, hasModifierKey } from '../../util/keycodes';
+import {
+    IThyOptionGroupComponent,
+    IThyOptionParentComponent,
+    THY_OPTION_GROUP_COMPONENT,
+    THY_OPTION_PARENT_COMPONENT
+} from './option.token';
 
 export class ThyOptionSelectionChangeEvent {
-    constructor(public option: ThyAutoOptionComponent, public isUserInput = false) {}
+    constructor(public option: ThyOptionComponent, public isUserInput = false) {}
 }
 
 export class ThyOptionVisibleChangeEvent {
-    option: ThyAutoOptionComponent;
+    option: ThyOptionComponent;
 }
 
 @Component({
-    selector: 'thy-autocomplete-option',
+    selector: 'thy-option',
     templateUrl: './option.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ThyAutoOptionComponent extends SelectOptionBase implements OnDestroy, Highlightable {
+export class ThyOptionComponent extends SelectOptionBase implements OnDestroy, Highlightable {
     private _selected = false;
     private _hidden = false;
     private _disabled = false;
@@ -83,7 +89,12 @@ export class ThyAutoOptionComponent extends SelectOptionBase implements OnDestro
     @Output() readonly selectionChange: EventEmitter<ThyOptionSelectionChangeEvent> = new EventEmitter();
     @Output() readonly visibleChange: EventEmitter<ThyOptionVisibleChangeEvent> = new EventEmitter();
 
-    constructor(public element: ElementRef<HTMLElement>, private cdr: ChangeDetectorRef) {
+    constructor(
+        public element: ElementRef<HTMLElement>,
+        @Optional() @Inject(THY_OPTION_PARENT_COMPONENT) public parent: IThyOptionParentComponent,
+        @Optional() @Inject(THY_OPTION_GROUP_COMPONENT) public group: IThyOptionGroupComponent,
+        private cdr: ChangeDetectorRef
+    ) {
         super();
     }
 
@@ -106,7 +117,7 @@ export class ThyAutoOptionComponent extends SelectOptionBase implements OnDestro
 
     selectViaInteraction(): void {
         if (!this.disabled) {
-            this._selected = true;
+            this._selected = this.parent.isMultiple ? !this._selected : true;
             this.cdr.markForCheck();
             this.emitSelectionChangeEvent(true);
         }

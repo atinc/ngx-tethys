@@ -9,16 +9,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ThyListOptionComponent } from './list-option.component';
+import { ThyListOptionComponent } from './list-option/list-option.component';
 import { ThyOptionGroupComponent } from './option-group.component';
 import { ThyIconModule } from '../../icon';
+import { ThyOptionComponent } from './option.component';
+import { ThySelectOptionGroupComponent } from './group/option-group.component';
 
 @NgModule({
     imports: [CommonModule, ThyIconModule],
-    exports: [ThyListOptionComponent, ThyOptionGroupComponent],
-    declarations: [ThyListOptionComponent, ThyOptionGroupComponent]
+    exports: [ThyListOptionComponent, ThyOptionGroupComponent, ThyOptionComponent, ThySelectOptionGroupComponent],
+    declarations: [ThyListOptionComponent, ThyOptionGroupComponent, ThyOptionComponent, ThySelectOptionGroupComponent]
 })
 export class ThyOptionModule {}
-
-export * from './list-option.component';
-export * from './option-group.component';
