@@ -10,16 +10,16 @@ import {
     AfterContentInit
 } from '@angular/core';
 import { Observable, defer, Subject, merge, combineLatest } from 'rxjs';
-import { ThyOptionVisibleChangeEvent, ThyOptionComponent } from './option.component';
+import { ThyOptionVisibleChangeEvent, ThyOptionComponent } from '../option.component';
 import { take, switchMap, startWith, takeUntil, reduce, debounceTime, map } from 'rxjs/operators';
-import { THY_SELECT_OPTION_GROUP_COMPONENT } from './custom-select.component.token';
+import { THY_OPTION_GROUP_COMPONENT } from '../option.token';
 
 @Component({
     selector: 'thy-option-group',
     templateUrl: './option-group.component.html',
     providers: [
         {
-            provide: THY_SELECT_OPTION_GROUP_COMPONENT,
+            provide: THY_OPTION_GROUP_COMPONENT,
             useExisting: ThySelectOptionGroupComponent
         }
     ]
