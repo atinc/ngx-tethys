@@ -29,7 +29,7 @@
         padding: $table-cell-padding-sm;
     }
     tbody tr {
-        height: initial;
+        height: $table-default-cell-height-sm;
     }
 }
 
