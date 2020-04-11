@@ -198,8 +198,8 @@ describe('ThySlide', () => {
             const querySelectorSpy = spyOn(document, 'querySelector');
             querySelectorSpy.and.returnValue(element as Element);
             getBoundingClientRect.and.returnValue({
-                top: '60px',
-                left: '60px'
+                top: 40,
+                left: 50
             });
 
             const slideRef = thySlideService.open(SlideLayoutTestComponent, {
@@ -212,6 +212,7 @@ describe('ThySlide', () => {
             expect(slideRef.componentInstance instanceof SlideLayoutTestComponent).toBe(true);
             const containerElement = getSlideContainerElement();
             expect((containerElement as HTMLElement).style.bottom).toBe('60px');
+            expect((containerElement as HTMLElement).style.left).toBe('50px');
         }));
 
         it('should has top: 60px when open slide from top offset=60, drawerContainer="#container" ', fakeAsync(() => {
@@ -220,8 +221,8 @@ describe('ThySlide', () => {
             const querySelectorSpy = spyOn(document, 'querySelector');
             querySelectorSpy.and.returnValue(element as Element);
             getBoundingClientRect.and.returnValue({
-                top: '60px',
-                left: '60px'
+                top: 40,
+                left: 50
             });
 
             const slideRef = thySlideService.open(SlideLayoutTestComponent, {
@@ -242,8 +243,8 @@ describe('ThySlide', () => {
             const querySelectorSpy = spyOn(document, 'querySelector');
             querySelectorSpy.and.returnValue(element as Element);
             getBoundingClientRect.and.returnValue({
-                top: '60px',
-                left: '60px'
+                top: 40,
+                left: 50
             });
 
             const slideRef = thySlideService.open(SlideLayoutTestComponent, {
@@ -264,8 +265,8 @@ describe('ThySlide', () => {
             const querySelectorSpy = spyOn(document, 'querySelector');
             querySelectorSpy.and.returnValue(element as Element);
             getBoundingClientRect.and.returnValue({
-                top: '60px',
-                left: '60px'
+                top: 40,
+                left: 50
             });
 
             const slideRef = thySlideService.open(SlideLayoutTestComponent, {
