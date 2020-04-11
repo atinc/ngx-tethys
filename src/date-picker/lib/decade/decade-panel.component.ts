@@ -7,7 +7,7 @@ import {
     Output,
     SimpleChanges
 } from '@angular/core';
-import { CandyDate } from '../../../util';
+import { TinyDate } from '../../../util';
 
 const MAX_ROW = 4;
 const MAX_COL = 3;
@@ -19,8 +19,8 @@ const MAX_COL = 3;
     templateUrl: 'decade-panel.component.html'
 })
 export class DecadePanelComponent implements OnChanges {
-    @Input() value: CandyDate;
-    @Output() readonly valueChange = new EventEmitter<CandyDate>();
+    @Input() value: TinyDate;
+    @Output() readonly valueChange = new EventEmitter<TinyDate>();
 
     get startYear(): number {
         return parseInt(`${this.value.getYear() / 100}`, 10) * 100;

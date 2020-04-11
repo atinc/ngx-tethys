@@ -115,7 +115,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Features
 
-* **util:** candy date add fromUnixTime and compare method #INF-529 ([8bff975](https://github.com/atinc/ngx-tethys/commit/8bff975e6b89490bc0c4460791059a8b6d73c4f6)), closes [#INF-529](https://github.com/atinc/ngx-tethys/issues/INF-529)
+* **util:** tiny date add fromUnixTime and compare method #INF-529 ([8bff975](https://github.com/atinc/ngx-tethys/commit/8bff975e6b89490bc0c4460791059a8b6d73c4f6)), closes [#INF-529](https://github.com/atinc/ngx-tethys/issues/INF-529)
 
 
 

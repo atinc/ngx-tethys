@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges, TemplateRef } from '@angular/core';
 import { AbstractPickerComponent } from './abstract-picker.component';
 import { PanelMode, CompatibleValue } from './standard-types';
-import { CandyDate } from '../util';
+import { TinyDate } from '../util';
 
 @Component({
     template: ``
@@ -9,7 +9,7 @@ import { CandyDate } from '../util';
 export class HeaderPickerComponent extends AbstractPickerComponent implements OnInit, OnChanges {
     @Input() thyPlaceHolder: string;
 
-    @Input() thyDefaultValue: CandyDate;
+    @Input() thyDefaultValue: TinyDate;
     @Input() thyFormat: string;
 
     endPanelMode: SupportHeaderPanel; // would rewrite by sub class

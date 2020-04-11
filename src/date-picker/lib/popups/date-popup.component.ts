@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 
 import { FunctionProp } from '../../../util/helpers';
-import { CandyDate, sortRangeValue } from '../../../util';
+import { TinyDate, sortRangeValue } from '../../../util';
 
 import { CompatibleValue, DisabledDateFn, PanelMode, SupportTimeOptions } from '../../standard-types';
 
@@ -44,9 +44,9 @@ export class DatePopupComponent implements OnChanges, OnInit {
     prefixCls = 'thy-calendar';
     showTimePicker = false;
     timeOptions: SupportTimeOptions | SupportTimeOptions[] | null;
-    valueForRangeShow: CandyDate[]; // Range ONLY
-    selectedValue: CandyDate[]; // Range ONLY
-    hoverValue: CandyDate[]; // Range ONLY
+    valueForRangeShow: TinyDate[]; // Range ONLY
+    selectedValue: TinyDate[]; // Range ONLY
+    hoverValue: TinyDate[]; // Range ONLY
     private partTypeMap: { [key: string]: number } = { left: 0, right: 1 };
 
     [property: string]: any;
@@ -70,8 +70,8 @@ export class DatePopupComponent implements OnChanges, OnInit {
             if (changes.value) {
                 // Re-initialize all related values
                 this.clearHoverValue();
-                this.selectedValue = this.value as CandyDate[];
-                this.valueForRangeShow = this.normalizeRangeValue(this.value as CandyDate[]);
+                this.selectedValue = this.value as TinyDate[];
+                this.valueForRangeShow = this.normalizeRangeValue(this.value as TinyDate[]);
             }
         }
     }
@@ -93,7 +93,7 @@ export class DatePopupComponent implements OnChanges, OnInit {
         this.valueChange.emit(this.value);
     }
 
-    onDayHover(value: CandyDate): void {
+    onDayHover(value: TinyDate): void {
         if (this.isRange && this.selectedValue[0] && !this.selectedValue[1]) {
             // When right value is selected, don't do hover
             const base = this.selectedValue[0]; // Use the left of selected value as the base to decide later hoverValue
@@ -114,7 +114,7 @@ export class DatePopupComponent implements OnChanges, OnInit {
         this.panelModeChange.emit(this.panelMode);
     }
 
-    onHeaderChange(value: CandyDate, partType?: RangePartType): void {
+    onHeaderChange(value: TinyDate, partType?: RangePartType): void {
         if (this.isRange) {
             this.valueForRangeShow[this.getPartTypeIndex(partType)] = value;
             this.valueForRangeShow = this.normalizeRangeValue(this.valueForRangeShow); // Should always take care of start/end
@@ -125,17 +125,17 @@ export class DatePopupComponent implements OnChanges, OnInit {
         }
     }
 
-    onSelectTime(value: CandyDate, partType?: RangePartType): void {
+    onSelectTime(value: TinyDate, partType?: RangePartType): void {
         if (this.isRange) {
             // TODO:range picker set time
         } else {
-            this.setValue(new CandyDate(value.nativeDate));
+            this.setValue(new TinyDate(value.nativeDate));
         }
     }
 
-    changeValueFromSelect(value: CandyDate): void {
+    changeValueFromSelect(value: TinyDate): void {
         if (this.isRange) {
-            const [left, right] = this.selectedValue as CandyDate[];
+            const [left, right] = this.selectedValue as TinyDate[];
 
             if ((!left && !right) || (left && right)) {
                 // If totally full or empty, clean up && re-assign left first
@@ -176,12 +176,12 @@ export class DatePopupComponent implements OnChanges, OnInit {
         }
     }
 
-    getValueBySelector(partType?: RangePartType): CandyDate {
+    getValueBySelector(partType?: RangePartType): TinyDate {
         if (this.isRange) {
             const valueShow = this.valueForRangeShow; // Use the real time value that without decorations when timepicker is shown up
-            return (valueShow as CandyDate[])[this.getPartTypeIndex(partType)];
+            return (valueShow as TinyDate[])[this.getPartTypeIndex(partType)];
         } else {
-            return this.value as CandyDate;
+            return this.value as TinyDate;
         }
     }
 
@@ -200,21 +200,21 @@ export class DatePopupComponent implements OnChanges, OnInit {
         }
     }
 
-    private normalizeRangeValue(value: CandyDate[]): CandyDate[] {
+    private normalizeRangeValue(value: TinyDate[]): TinyDate[] {
         const [start, end] = value;
-        const newStart = start || new CandyDate();
+        const newStart = start || new TinyDate();
         const newEnd = end && end.isSameMonth(newStart) ? end.addMonths(1) : end || newStart.addMonths(1);
         return [newStart, newEnd];
     }
 
     // Renew and set a range value to trigger sub-component's change detection
-    private setRangeValue(partType: RangePartType, value: CandyDate): void {
-        const ref = (this.selectedValue = this.cloneRangeDate(this.selectedValue as CandyDate[]));
+    private setRangeValue(partType: RangePartType, value: TinyDate): void {
+        const ref = (this.selectedValue = this.cloneRangeDate(this.selectedValue as TinyDate[]));
         ref[this.getPartTypeIndex(partType)] = value;
     }
 
-    private cloneRangeDate(value: CandyDate[]): CandyDate[] {
-        return [value[0] && value[0].clone(), value[1] && value[1].clone()] as CandyDate[];
+    private cloneRangeDate(value: TinyDate[]): TinyDate[] {
+        return [value[0] && value[0].clone(), value[1] && value[1].clone()] as TinyDate[];
     }
 
     private initialArray(key: string): void {
