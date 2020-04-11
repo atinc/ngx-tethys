@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.6.44](https://github.com/atinc/ngx-tethys/compare/7.6.43...7.6.44) (2020-04-11)
+
+
+### Bug Fixes
+
+* **tree:** origin tree data add checked prop ([2ec7fe1](https://github.com/atinc/ngx-tethys/commit/2ec7fe127872738c83b3d452c4d4a66ea605df32))
+
+
+### Features
+
+* **slide:** set slide width by config.width ([#605](https://github.com/atinc/ngx-tethys/issues/605)) ([cedf4f5](https://github.com/atinc/ngx-tethys/commit/cedf4f5caf2e15851d4ded2bd50a96896fa949c9)), closes [#INFR-236](https://github.com/atinc/ngx-tethys/issues/INFR-236)
+
+
+
 ## [7.6.43](https://github.com/atinc/ngx-tethys/compare/7.6.42...7.6.43) (2020-04-11)
 
 
