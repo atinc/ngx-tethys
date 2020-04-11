@@ -12,7 +12,7 @@ import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Component, ViewChild, ViewChildren, QueryList, ElementRef, Sanitizer, SecurityContext } from '@angular/core';
 import { ThySelectModule } from './module';
 import { ThySelectCustomComponent, SelectMode } from './custom-select/custom-select.component';
-import { ThyOptionComponent } from './custom-select/option.component';
+import { ThyOptionComponent } from '../core/option/option.component';
 import { By, DomSanitizer } from '@angular/platform-browser';
 import { UpdateHostClassService } from '../shared';
 import { ThyPositioningService } from '../positioning/positioning.service';
@@ -25,6 +25,7 @@ import { dispatchFakeEvent, dispatchKeyboardEvent } from '../core/testing/dispat
 import { TAB, ESCAPE } from '../util/keycodes';
 import { typeInElement, injectDefaultSvgIconSet, bypassSanitizeProvider } from '../core/testing';
 import { ThyIconRegistry } from '../icon';
+import { ThyOptionModule } from '../core/option/module';
 
 @Component({
     selector: 'basic-select',
@@ -474,7 +475,7 @@ describe('ThyCustomSelect', () => {
 
     function configureThyCustomSelectTestingModule(declarations: any[]) {
         TestBed.configureTestingModule({
-            imports: [ThyFormModule, ThySelectModule, ReactiveFormsModule, FormsModule],
+            imports: [ThyFormModule, ThyOptionModule, ThySelectModule, ReactiveFormsModule, FormsModule],
             declarations: declarations,
             providers: [UpdateHostClassService, ThyPositioningService, bypassSanitizeProvider]
         }).compileComponents();

@@ -27,9 +27,7 @@ import { helpers } from '../util';
         '(@slideContainer.done)': 'onAnimationDone($event)',
         '[style.width.px]': 'slideContainerStyles.width',
         '[style.height.px]': 'slideContainerStyles.height',
-        '[style.max-height.px]': 'slideContainerStyles.height',
-        '[style.top.px]': 'slideContainerStyles.top',
-        '[style.left.px]': 'slideContainerStyles.left'
+        '[style.max-height.px]': 'slideContainerStyles.height'
     }
 })
 export class ThySlideContainerComponent extends ThyUpperOverlayContainer implements OnDestroy {
@@ -42,7 +40,7 @@ export class ThySlideContainerComponent extends ThyUpperOverlayContainer impleme
 
     animationState: ThySlideFromTypes = 'void';
 
-    slideContainerStyles: { width?: number; height?: number; top?: number; left?: number } = {};
+    slideContainerStyles: { width?: number; height?: number } = {};
 
     private drawerContainerElement: HTMLElement;
 
@@ -127,15 +125,15 @@ export class ThySlideContainerComponent extends ThyUpperOverlayContainer impleme
         if (this.isLeftOrRight) {
             height = drawerContainerElementRect.height;
             top = drawerContainerElementRect.top;
+            this.renderer.setStyle(this.elementRef.nativeElement, 'top', top);
         } else {
             width = drawerContainerElementRect.width;
             left = drawerContainerElementRect.left;
+            this.renderer.setStyle(this.elementRef.nativeElement, 'left', left);
         }
         this.slideContainerStyles = {
             width: width,
-            height: height,
-            top: top,
-            left: left
+            height: height
         };
     }
 

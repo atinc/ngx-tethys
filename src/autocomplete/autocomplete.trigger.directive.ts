@@ -20,13 +20,14 @@ import { ThyOverlayDirectiveBase, ThyPlacement } from '../core/overlay';
 import { ThyAutocompleteService } from './overlay/autocomplete.service';
 import { ThyAutocompleteRef } from './overlay/autocomplete-ref';
 import { ThyAutocompleteComponent } from './autocomplete.component';
-import { ThyAutoOptionComponent } from './option.component';
-import { DOCUMENT } from '@angular/platform-browser';
+import { ThyOptionComponent } from '../core/option/option.component';
+import { DOCUMENT } from '@angular/common';
 
 @Directive({
     selector: 'input[thyAutocompleteTrigger]',
     host: {
-        '(input)': 'handleInput($event)'
+        '(input)': 'handleInput($event)',
+        '(focus)': 'onFocus($event)'
     }
 })
 export class ThyAutocompleteTriggerDirective extends ThyOverlayDirectiveBase implements OnInit, OnDestroy {
@@ -58,10 +59,16 @@ export class ThyAutocompleteTriggerDirective extends ThyOverlayDirectiveBase imp
     ngOnInit(): void {
         this.trigger = 'click';
         this.initialize();
-        this.autocompleteComponent.optionSelected.subscribe((option: ThyAutoOptionComponent) => {
+        this.autocompleteComponent.optionSelected.subscribe((option: ThyOptionComponent) => {
             this.hide();
             this.setValue(option.thyLabelText);
         });
+    }
+
+    onFocus(event: Event) {
+        if (this.canOpen() && document.activeElement === event.target) {
+            this.show();
+        }
     }
 
     createOverlay(): OverlayRef {

@@ -194,6 +194,142 @@ describe('ThySlide', () => {
             const panelElement = overlayContainerElement.querySelector('.thy-slide-overlay-pane') as HTMLElement;
             expect(panelElement.style.width).toBe('');
         }));
+
+        it('should has left: 60px when open slide from left offset=60', fakeAsync(() => {
+            const slideRef = thySlideService.open(SlideLayoutTestComponent, {
+                id: '1',
+                from: 'left',
+                offset: 60
+            });
+            viewContainerFixture.detectChanges();
+            expect(slideRef.componentInstance instanceof SlideLayoutTestComponent).toBe(true);
+            const containerElement = getSlideContainerElement();
+            expect((containerElement as HTMLElement).style.left).toBe('60px');
+        }));
+
+        it('should has right: 60px when open slide from right offset=60', fakeAsync(() => {
+            const slideRef = thySlideService.open(SlideLayoutTestComponent, {
+                id: '1',
+                from: 'right',
+                offset: 60
+            });
+            viewContainerFixture.detectChanges();
+            expect(slideRef.componentInstance instanceof SlideLayoutTestComponent).toBe(true);
+            const containerElement = getSlideContainerElement();
+            expect((containerElement as HTMLElement).style.right).toBe('60px');
+        }));
+
+        it('should has top: 60px when open slide from top offset=60', fakeAsync(() => {
+            const slideRef = thySlideService.open(SlideLayoutTestComponent, {
+                id: '1',
+                from: 'top',
+                offset: 60
+            });
+            viewContainerFixture.detectChanges();
+            expect(slideRef.componentInstance instanceof SlideLayoutTestComponent).toBe(true);
+            const containerElement = getSlideContainerElement();
+            expect((containerElement as HTMLElement).style.top).toBe('60px');
+        }));
+
+        it('should has bottom: 60px when open slide from bottom offset=60', fakeAsync(() => {
+            const slideRef = thySlideService.open(SlideLayoutTestComponent, {
+                id: '1',
+                from: 'bottom',
+                offset: 60
+            });
+            viewContainerFixture.detectChanges();
+            expect(slideRef.componentInstance instanceof SlideLayoutTestComponent).toBe(true);
+            const containerElement = getSlideContainerElement();
+            expect((containerElement as HTMLElement).style.bottom).toBe('60px');
+        }));
+
+        it('should has bottom: 60px when open slide from bottom offset=60, drawerContainer="#container" ', fakeAsync(() => {
+            const element = document.createElement('div');
+            const getBoundingClientRect = spyOn(element, 'getBoundingClientRect');
+            const querySelectorSpy = spyOn(document, 'querySelector');
+            querySelectorSpy.and.returnValue(element as Element);
+            getBoundingClientRect.and.returnValue({
+                top: '60px',
+                left: '60px'
+            });
+
+            const slideRef = thySlideService.open(SlideLayoutTestComponent, {
+                id: '1',
+                from: 'bottom',
+                offset: 60,
+                drawerContainer: '#container'
+            });
+            viewContainerFixture.detectChanges();
+            expect(slideRef.componentInstance instanceof SlideLayoutTestComponent).toBe(true);
+            const containerElement = getSlideContainerElement();
+            expect((containerElement as HTMLElement).style.bottom).toBe('60px');
+        }));
+
+        it('should has top: 60px when open slide from top offset=60, drawerContainer="#container" ', fakeAsync(() => {
+            const element = document.createElement('div');
+            const getBoundingClientRect = spyOn(element, 'getBoundingClientRect');
+            const querySelectorSpy = spyOn(document, 'querySelector');
+            querySelectorSpy.and.returnValue(element as Element);
+            getBoundingClientRect.and.returnValue({
+                top: '60px',
+                left: '60px'
+            });
+
+            const slideRef = thySlideService.open(SlideLayoutTestComponent, {
+                id: '1',
+                from: 'top',
+                offset: 60,
+                drawerContainer: '#container'
+            });
+            viewContainerFixture.detectChanges();
+            expect(slideRef.componentInstance instanceof SlideLayoutTestComponent).toBe(true);
+            const containerElement = getSlideContainerElement();
+            expect((containerElement as HTMLElement).style.top).toBe('60px');
+        }));
+
+        it('should has left: 60px when open slide from left offset=60, drawerContainer="#container" ', fakeAsync(() => {
+            const element = document.createElement('div');
+            const getBoundingClientRect = spyOn(element, 'getBoundingClientRect');
+            const querySelectorSpy = spyOn(document, 'querySelector');
+            querySelectorSpy.and.returnValue(element as Element);
+            getBoundingClientRect.and.returnValue({
+                top: '60px',
+                left: '60px'
+            });
+
+            const slideRef = thySlideService.open(SlideLayoutTestComponent, {
+                id: '1',
+                from: 'left',
+                offset: 60,
+                drawerContainer: '#container'
+            });
+            viewContainerFixture.detectChanges();
+            expect(slideRef.componentInstance instanceof SlideLayoutTestComponent).toBe(true);
+            const containerElement = getSlideContainerElement();
+            expect((containerElement as HTMLElement).style.left).toBe('60px');
+        }));
+
+        it('should has right: 60px when open slide from right offset=60, drawerContainer="#container" ', fakeAsync(() => {
+            const element = document.createElement('div');
+            const getBoundingClientRect = spyOn(element, 'getBoundingClientRect');
+            const querySelectorSpy = spyOn(document, 'querySelector');
+            querySelectorSpy.and.returnValue(element as Element);
+            getBoundingClientRect.and.returnValue({
+                top: '60px',
+                left: '60px'
+            });
+
+            const slideRef = thySlideService.open(SlideLayoutTestComponent, {
+                id: '1',
+                from: 'right',
+                offset: 60,
+                drawerContainer: '#container'
+            });
+            viewContainerFixture.detectChanges();
+            expect(slideRef.componentInstance instanceof SlideLayoutTestComponent).toBe(true);
+            const containerElement = getSlideContainerElement();
+            expect((containerElement as HTMLElement).style.right).toBe('60px');
+        }));
     });
 
     describe('ThySlideLayout', () => {

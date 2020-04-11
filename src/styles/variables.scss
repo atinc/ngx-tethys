@@ -227,7 +227,7 @@ $layout-content-section-background: $white !default;
 $layout-content-section-margin-bottom: 15px !default;
 // Tables
 $table-cell-padding: 12px 15px !default;
-$table-cell-padding-sm: 0.3rem !default;
+$table-sm-cell-padding: 0.3rem !default;
 $table-color: $gray-800;
 $table-bg: transparent !default;
 $table-accent-bg: rgba($black, 0.05) !default;
@@ -241,6 +241,7 @@ $table-head-bg: $gray-200 !default;
 $table-head-color: $gray-700 !default;
 $table-default-head-color: $gray-600 !default;
 $table-default-cell-height: 55px !default;
+$table-sm-cell-height: 44px !default;
 $table-bordered-padding: 11px 15px !default;
 $table-bordered-bg: $gray-100 !default;
 $table-bordered-head-color: $gray-700 !default;

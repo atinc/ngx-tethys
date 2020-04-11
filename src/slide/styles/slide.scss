@@ -8,7 +8,7 @@ $slide-border-color: $gray-200 !default;
     position: fixed !important;
     display: block;
     opacity: 1;
-    white-space: nowrap;
+    white-space: nowrap; // in order to not wrap when opening
     &.thy-slide-right {
         right: 0;
     }

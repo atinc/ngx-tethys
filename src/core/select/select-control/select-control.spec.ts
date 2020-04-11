@@ -17,7 +17,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { UpdateHostClassService } from '../../../shared/update-host-class.service';
 import { ThyIconModule } from '../../../icon/icon.module';
 import { ThySelectControlComponent, SelectControlSize } from './select-control.component';
-import { SelectOptionBase } from '../select-option/select-option-base';
+import { SelectOptionBase } from '../../option/select-option-base';
 
 @Component({
     selector: 'basic-select-control',

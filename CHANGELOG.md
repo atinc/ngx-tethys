@@ -2,6 +2,40 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.6.43](https://github.com/atinc/ngx-tethys/compare/7.6.42...7.6.43) (2020-04-11)
+
+
+### Bug Fixes
+
+* **slide:** fix slide offset ([#611](https://github.com/atinc/ngx-tethys/issues/611)) ([d62b3c3](https://github.com/atinc/ngx-tethys/commit/d62b3c3980068473368205e82e0c6786a9314d19))
+* modify group name font size(#INFR-262) ([4b1b1c1](https://github.com/atinc/ngx-tethys/commit/4b1b1c1aa29e9c4a641b492971fe5cf615cffc71)), closes [#INFR-262](https://github.com/atinc/ngx-tethys/issues/INFR-262)
+
+
+### Features
+
+* **grid:** add table-sm height ([#609](https://github.com/atinc/ngx-tethys/issues/609)) ([b840987](https://github.com/atinc/ngx-tethys/commit/b8409872ea031f0b6bd8a95a4688eb6d6b774eb6))
+
+
+
+## [7.6.42](https://github.com/atinc/ngx-tethys/compare/7.6.41...7.6.42) (2020-04-09)
+
+
+### Bug Fixes
+
+* fix DOCUMENT import error ([#604](https://github.com/atinc/ngx-tethys/issues/604)) ([e1cdfb5](https://github.com/atinc/ngx-tethys/commit/e1cdfb5db71aaee961eebd76574b7ac58754d654))
+
+
+### Features
+
+* **slide:** support mode='push'/'side'/'over' #INFR-183 ([9d16543](https://github.com/atinc/ngx-tethys/commit/9d165435384353ef8ef25c3e9f7efa897f32b994)), closes [#INFR-183](https://github.com/atinc/ngx-tethys/issues/INFR-183)
+
+
+### BREAKING CHANGES
+
+* **slide:** configure THY_SLIDE_DEFAULT_CONFIG contain drawerContainer globally
+
+
+
 ## [7.6.41](https://github.com/atinc/ngx-tethys/compare/7.6.40...7.6.41) (2020-04-08)
 
 
