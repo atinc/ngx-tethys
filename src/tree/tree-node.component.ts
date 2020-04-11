@@ -42,15 +42,6 @@ export class ThyTreeNodeComponent implements OnDestroy {
 
     @Input() emptyChildrenTemplateRef: TemplateRef<any>;
 
-    @Input()
-    set thyShowExpand(value: boolean | ((_: ThyTreeNodeData) => boolean)) {
-        this._showExpand = value;
-    }
-
-    get thyShowExpand() {
-        return this._showExpand;
-    }
-
     @Output() thyOnClick: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
 
     @Output() thyOnExpandChange: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
@@ -131,7 +122,7 @@ export class ThyTreeNodeComponent implements OnDestroy {
     public expandNode(event: Event) {
         event.stopPropagation();
         this.node.setExpanded(!this.node.isExpanded);
-        if (this.thyShowExpand) {
+        if (this.root.thyShowExpand) {
             this.thyOnExpandChange.emit({
                 eventName: 'expand',
                 event: event,

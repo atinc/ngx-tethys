@@ -26,6 +26,8 @@ export interface ThyTreeNodeData<T = any> {
 
     disabled?: boolean;
 
+    checked?: boolean;
+
     data?: T;
 
     [key: string]: any;
