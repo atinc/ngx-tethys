@@ -134,9 +134,9 @@
 
         &-actions {
             text-align: right;
-            display: none;
 
-            > a {
+            > * {
+                display: none;
                 margin-right: 10px;
 
                 &:last-child {
@@ -149,7 +149,9 @@
             &.hover,
             &:hover {
                 .thy-tree-node-actions {
-                    display: inline-block;
+                    > * {
+                        display: inline-block;
+                    }
                 }
             }
         }

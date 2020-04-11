@@ -70,7 +70,6 @@
     [thyDrag]="node"
     [templateRef]="templateRef"
     [thyAsync]="thyAsync"
-    [thyShowExpand]="thyShowExpand"
     [thyMultiple]="thyMultiple"
     [thyDraggable]="thyDraggable"
     [thyCheckable]="thyCheckable"
@@ -81,6 +80,6 @@
   >
   </thy-tree-node>
   <ng-container *ngIf="thyAsync">
-    <thy-loading [thyDone]="!node.isLoading"></thy-loading>
+    <thy-loading *ngIf="node.isLoading" [thyDone]="!node.isLoading"></thy-loading>
   </ng-container>
 </div>

@@ -1,0 +1,25 @@
+<div class="demo-card">
+  <div class="demo-layout  mt-3 mt-3">
+    <thy-content-section class="pt-3">
+      <thy-tree
+        #tree
+        [thyNodes]="treeNodes"
+        [thyAsync]="true"
+        [thyCheckable]="true"
+        [thyShowExpand]="showExpand"
+        (thyOnExpandChange)="onExpandChange($event)"
+      >
+        <ng-template #treeNodeTemplate let-node="node" let-data="origin">
+          <thy-icon
+            *ngIf="data.type !== 'member'"
+            class="thy-tree-node-icon"
+            [thyIconName]="node?.isExpanded ? 'folder-open-fill' : 'folder-fill'"
+          ></thy-icon>
+          <div class="thy-tree-node-title text-truncate" thyFlexibleText [thyTooltipContent]="data?.name">
+            {{ data?.title }} <span class="text-desc ml-1">( {{ data.member_count || 0 }}人 )</span>
+          </div>
+        </ng-template>
+      </thy-tree>
+    </thy-content-section>
+  </div>
+</div>
