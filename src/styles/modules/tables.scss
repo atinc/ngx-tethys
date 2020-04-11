@@ -26,7 +26,10 @@
 .table-sm {
     th,
     td {
-        padding: $table-cell-padding-sm;
+        padding: $table-sm-cell-padding;
+    }
+    tbody tr {
+        height: $table-sm-cell-height;
     }
 }
 

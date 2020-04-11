@@ -23,7 +23,7 @@ import {
 } from '@angular/core';
 import { UpdateHostClassService } from '../../shared/update-host-class.service';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { ThyOptionComponent, ThyOptionSelectionChangeEvent } from './option.component';
+import { ThyOptionComponent, ThyOptionSelectionChangeEvent } from '../../core/option/option.component';
 import { inputValueToBoolean, isArray } from '../../util/helpers';
 import {
     ScrollStrategy,
@@ -36,7 +36,7 @@ import {
 import { takeUntil, startWith, take, switchMap } from 'rxjs/operators';
 import { Subject, Observable, merge, defer, Subscription } from 'rxjs';
 import { getFlexiblePositions } from '../../core/overlay';
-import { ThySelectOptionGroupComponent } from './option-group.component';
+import { ThySelectOptionGroupComponent } from '../../core/option/group/option-group.component';
 import { SelectionModel } from '@angular/cdk/collections';
 import { helpers } from '../../util';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
@@ -53,7 +53,7 @@ import {
     END,
     A
 } from '../../util/keycodes';
-import { THY_CUSTOM_SELECT_COMPONENT, IThyCustomSelectComponent } from './custom-select.component.token';
+import { THY_OPTION_PARENT_COMPONENT, IThyOptionParentComponent } from '../../core/option/option.token';
 
 export type SelectMode = 'multiple' | '';
 
@@ -83,7 +83,7 @@ const noop = () => {};
     exportAs: 'thyCustomSelect',
     providers: [
         {
-            provide: THY_CUSTOM_SELECT_COMPONENT,
+            provide: THY_OPTION_PARENT_COMPONENT,
             useExisting: ThySelectCustomComponent
         },
         {
@@ -96,7 +96,7 @@ const noop = () => {};
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThySelectCustomComponent
-    implements ControlValueAccessor, IThyCustomSelectComponent, OnInit, AfterContentInit, OnDestroy {
+    implements ControlValueAccessor, IThyOptionParentComponent, OnInit, AfterContentInit, OnDestroy {
     disabled = false;
 
     size: SelectControlSize;
@@ -608,12 +608,12 @@ export class ThySelectCustomComponent
     private setDropDownClass() {
         let modeClass = '';
         if (this.isMultiple) {
-            modeClass = `thy-custom-select-dropdown-${this.mode}`;
+            modeClass = `thy-select-dropdown-${this.mode}`;
         } else {
-            modeClass = `thy-custom-select-dropdown-single`;
+            modeClass = `thy-select-dropdown-single`;
         }
         this.dropDownClass = {
-            [`thy-custom-select-dropdown`]: true,
+            [`thy-select-dropdown`]: true,
             [modeClass]: true
         };
     }

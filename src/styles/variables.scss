@@ -227,7 +227,7 @@ $layout-content-section-background: $white !default;
 $layout-content-section-margin-bottom: 15px !default;
 // Tables
 $table-cell-padding: 12px 15px !default;
-$table-cell-padding-sm: 0.3rem !default;
+$table-sm-cell-padding: 0.3rem !default;
 $table-color: $gray-800;
 $table-bg: transparent !default;
 $table-accent-bg: rgba($black, 0.05) !default;
@@ -241,6 +241,7 @@ $table-head-bg: $gray-200 !default;
 $table-head-color: $gray-700 !default;
 $table-default-head-color: $gray-600 !default;
 $table-default-cell-height: 55px !default;
+$table-sm-cell-height: 44px !default;
 $table-bordered-padding: 11px 15px !default;
 $table-bordered-bg: $gray-100 !default;
 $table-bordered-head-color: $gray-700 !default;
@@ -488,7 +489,7 @@ $progress-bar-bg: $gray-200 !default;
 $progress-split-color: $white !default;
 $progress-bar-primary-bg: #73d897;
 //Slide
-$slide-dialog-bg: $white !default;
+$slide-bg: $white !default;
 $slide-height: calc(100vh - #{$layout-header-height} - #{$layout-header-height-sm}) !default;
 $slide-z-index: 900 !default;
 $slide-header-height: 45px !default;
@@ -500,6 +501,9 @@ $slide-body-section-padding: 20px !default;
 $slide-divider: $gray-200 !default;
 $slide-footer-padding: 15px 20px 0 !default;
 $slide-footer-height: 65px !default;
+$slide-border-color: $gray-200 !default;
+$slide-box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.04), 0 6px 30px 5px rgba(0, 0, 0, 0.08),
+    0 8px 10px -5px rgba(0, 0, 0, 0.12) !default;
 //tree
 $tree-padding: 10px 20px 10px 10px;
 $tree-node-padding: 0 0 0 25px !default;

@@ -3,7 +3,12 @@ import { ThySlideContainerComponent } from './slide-container.component';
 import { OverlayConfig, OverlayRef, Overlay } from '@angular/cdk/overlay';
 import { PortalInjector, ComponentPortal } from '@angular/cdk/portal';
 import { ThyUpperOverlayService, ThyUpperOverlayRef, ComponentTypeOrTemplateRef } from '../core/overlay';
-import { ThySlideConfig, THY_SLIDE_DEFAULT_OPTIONS, slideUpperOverlayOptions } from './slide.config';
+import {
+    ThySlideConfig,
+    THY_SLIDE_DEFAULT_CONFIG,
+    slideUpperOverlayOptions,
+    slideDefaultConfigValue
+} from './slide.config';
 import { ThySlideRef, ThyInternalSlideRef } from './slide-ref.service';
 import { Directionality } from '@angular/cdk/bidi';
 import { of } from 'rxjs';
@@ -16,7 +21,6 @@ export class ThySlideService extends ThyUpperOverlayService<ThySlideConfig, ThyS
     implements OnDestroy {
     private originElementAddActiveClass(config: ThySlideConfig) {
         if (config.origin) {
-            const a = coerceElement<HTMLElement>(config.origin);
             coerceElement<HTMLElement>(config.origin).classList.add(...coerceArray(config.originActiveClass));
         }
     }
@@ -28,7 +32,7 @@ export class ThySlideService extends ThyUpperOverlayService<ThySlideConfig, ThyS
     }
 
     private getOverlayPanelClasses(slideConfig: ThySlideConfig) {
-        const classes: string[] = ['slide'];
+        const classes: string[] = ['thy-slide-overlay-pane', `thy-slide-${slideConfig.from}`];
         // 兼容之前的 class
         if (slideConfig.class) {
             return classes.concat(coerceArray(slideConfig.class));
@@ -95,10 +99,11 @@ export class ThySlideService extends ThyUpperOverlayService<ThySlideConfig, ThyS
         overlay: Overlay,
         injector: Injector,
         @Optional()
-        @Inject(THY_SLIDE_DEFAULT_OPTIONS)
+        @Inject(THY_SLIDE_DEFAULT_CONFIG)
         defaultConfig: ThySlideConfig
     ) {
-        super(slideUpperOverlayOptions, overlay, injector, defaultConfig);
+        const slideDefaultConfig = Object.assign({}, slideDefaultConfigValue, defaultConfig);
+        super(slideUpperOverlayOptions, overlay, injector, slideDefaultConfig);
     }
 
     open<T, TData = undefined, TResult = undefined>(

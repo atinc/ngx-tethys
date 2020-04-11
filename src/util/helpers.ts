@@ -1,4 +1,4 @@
-import { TemplateRef } from '@angular/core';
+import { TemplateRef, ElementRef } from '@angular/core';
 import {
     coerceBooleanProperty as coerceBoolean,
     coerceCssPixelValue as coerceCssPixel,
@@ -231,6 +231,14 @@ export function generateRandomStr() {
 
 export function isTemplateRef(value: any): boolean {
     return value instanceof TemplateRef;
+}
+
+export function isHTMLElement(value: any): boolean {
+    return value instanceof HTMLElement;
+}
+
+export function isElementRef(value: any): boolean {
+    return value instanceof ElementRef;
 }
 
 export function coerceBooleanProperty(value: boolean | string): boolean {

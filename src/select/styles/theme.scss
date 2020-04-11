@@ -4,20 +4,9 @@
             border-color: $input-hover-border-color;
         }
     }
-}
-
-.thy-select-custom-options {
-    .thy-option-item {
-        @include thy-option-theme();
-    }
-}
-
-.thy-custom-select-dropdown {
-    &.thy-custom-select-dropdown-multiple {
-        .thy-select-custom-options {
-            .thy-option-item {
-                @include thy-multiple-option-theme();
-            }
+    &:focus {
+        .form-control {
+            border-color: $input-focus-border-color;
         }
     }
 }
