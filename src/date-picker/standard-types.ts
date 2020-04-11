@@ -1,5 +1,5 @@
 import { TemplateRef } from '@angular/core';
-import { CandyDate } from '../util';
+import { TinyDate } from '../util';
 
 export type DisabledDateFn = (d: Date) => boolean;
 
@@ -7,7 +7,7 @@ export type DisabledTimePartial = 'start' | 'end';
 
 export type PanelMode = 'decade' | 'year' | 'month' | 'date';
 
-export type CompatibleValue = CandyDate[] | CandyDate;
+export type CompatibleValue = TinyDate[] | TinyDate;
 
 export type CompatibleDate = Date | Date[];
 

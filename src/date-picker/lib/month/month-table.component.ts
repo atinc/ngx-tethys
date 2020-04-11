@@ -7,7 +7,7 @@ import {
     Output,
     SimpleChanges
 } from '@angular/core';
-import { CandyDate } from '../../../util';
+import { TinyDate } from '../../../util';
 import { DateHelperService } from '../../date-helper.service';
 
 const MAX_ROW = 4;
@@ -20,9 +20,9 @@ const MAX_COL = 3;
     templateUrl: 'month-table.component.html'
 })
 export class MonthTableComponent implements OnChanges {
-    @Input() value: CandyDate = new CandyDate();
+    @Input() value: TinyDate = new TinyDate();
     @Input() prefixCls = 'thy-calendar';
-    @Output() readonly valueChange = new EventEmitter<CandyDate>();
+    @Output() readonly valueChange = new EventEmitter<TinyDate>();
 
     @Input() disabledDate: (date: Date) => boolean;
 
@@ -53,7 +53,7 @@ export class MonthTableComponent implements OnChanges {
     private makePanelMonths(): PanelMonthData[][] {
         const months: PanelMonthData[][] = [];
         const currentMonth = this.value.getMonth();
-        const today = new CandyDate();
+        const today = new TinyDate();
 
         let monthValue = 0;
         for (let rowIndex = 0; rowIndex < MAX_ROW; rowIndex++) {

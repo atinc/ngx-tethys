@@ -16,7 +16,7 @@ import {
     ViewChild,
     Renderer2
 } from '@angular/core';
-import { CandyDate } from '../util';
+import { TinyDate } from '../util';
 import { DateHelperService } from './date-helper.service';
 import { CompatibleValue } from './standard-types';
 import { getFlexiblePositions } from '../core/overlay';
@@ -40,8 +40,8 @@ export class ThyPickerComponent implements AfterViewInit {
     @Input() className: string;
     @Input() format: string;
     @Input() size: 'sm' | 'xs' | 'lg' | 'md';
-    @Input() value: CandyDate | CandyDate[] | null;
-    @Output() readonly valueChange = new EventEmitter<CandyDate | CandyDate[] | null>();
+    @Input() value: TinyDate | TinyDate[] | null;
+    @Output() readonly valueChange = new EventEmitter<TinyDate | TinyDate[] | null>();
     @Output() readonly openChange = new EventEmitter<boolean>(); // Emitted when overlay's open state change
 
     @ViewChild('origin') origin: CdkOverlayOrigin;
@@ -146,13 +146,13 @@ export class ThyPickerComponent implements AfterViewInit {
     }
 
     getReadableValue(): string | null {
-        let value: CandyDate;
+        let value: TinyDate;
         if (this.isRange) {
             const start = this.value[0] ? this.dateHelper.format(this.value[0].nativeDate, this.format) : '';
             const end = this.value[1] ? this.dateHelper.format(this.value[1].nativeDate, this.format) : '';
             return start && end ? `${start} ~ ${end}` : null;
         } else {
-            value = this.value as CandyDate;
+            value = this.value as TinyDate;
             return value ? this.dateHelper.format(value.nativeDate, this.format) : null;
         }
     }

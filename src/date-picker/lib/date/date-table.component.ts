@@ -9,7 +9,7 @@ import {
     SimpleChanges,
     TemplateRef
 } from '@angular/core';
-import { CandyDate } from '../../../util';
+import { TinyDate } from '../../../util';
 import { valueFunctionProp, FunctionProp } from '../../../util/helpers';
 import { DateHelperService } from '../../date-helper.service';
 
@@ -23,28 +23,28 @@ const DATE_COL_NUM = 7;
     templateUrl: 'date-table.component.html'
 })
 export class DateTableComponent implements OnChanges {
-    _value: CandyDate;
+    _value: TinyDate;
     headWeekDays: WeekDayLabel[];
     weekRows: WeekRow[];
 
     @Input() prefixCls = 'thy-calendar';
-    @Input() selectedValue: CandyDate[]; // Range ONLY
-    @Input() hoverValue: CandyDate[]; // Range ONLY
+    @Input() selectedValue: TinyDate[]; // Range ONLY
+    @Input() hoverValue: TinyDate[]; // Range ONLY
 
     @Input()
-    set value(date: CandyDate) {
+    set value(date: TinyDate) {
         this._value = date;
     }
 
-    get value(): CandyDate {
+    get value(): TinyDate {
         return this._value;
     }
 
     @Input() showWeek = false;
     @Input() disabledDate: (d: Date) => boolean;
     @Input() dateCellRender: FunctionProp<TemplateRef<Date> | string>;
-    @Output() readonly dayHover = new EventEmitter<CandyDate>(); // Emitted when hover on a day by mouse enter
-    @Output() readonly valueChange = new EventEmitter<CandyDate>();
+    @Output() readonly dayHover = new EventEmitter<TinyDate>(); // Emitted when hover on a day by mouse enter
+    @Output() readonly valueChange = new EventEmitter<TinyDate>();
 
     constructor(private dateHelper: DateHelperService) {}
 
@@ -60,27 +60,27 @@ export class DateTableComponent implements OnChanges {
 
     private isDateRealChange(change: SimpleChange): boolean {
         if (change) {
-            const previousValue: CandyDate | CandyDate[] = change.previousValue;
-            const currentValue: CandyDate | CandyDate[] = change.currentValue;
+            const previousValue: TinyDate | TinyDate[] = change.previousValue;
+            const currentValue: TinyDate | TinyDate[] = change.currentValue;
             if (Array.isArray(currentValue)) {
                 return (
                     !Array.isArray(previousValue) ||
                     currentValue.length !== previousValue.length ||
                     currentValue.some((value, index) => {
-                        const previousCandyDate = previousValue[index];
-                        return previousCandyDate instanceof CandyDate
-                            ? previousCandyDate.isSameDay(value)
-                            : previousCandyDate !== value;
+                        const previousTinyDate = previousValue[index];
+                        return previousTinyDate instanceof TinyDate
+                            ? previousTinyDate.isSameDay(value)
+                            : previousTinyDate !== value;
                     })
                 );
             } else {
-                return !this.isSameDate(previousValue as CandyDate, currentValue);
+                return !this.isSameDate(previousValue as TinyDate, currentValue);
             }
         }
         return false;
     }
 
-    private isSameDate(left: CandyDate, right: CandyDate): boolean {
+    private isSameDate(left: TinyDate, right: TinyDate): boolean {
         return (!left && !right) || (left && right && right.isSameDay(left));
     }
 
@@ -91,7 +91,7 @@ export class DateTableComponent implements OnChanges {
         }
     }
 
-    private changeValueFromInside(value: CandyDate): void {
+    private changeValueFromInside(value: TinyDate): void {
         // Only change date not change time
         const newValue = this.value
             .setYear(value.getYear())
@@ -244,7 +244,7 @@ export interface DateCell {
     isSelectedEndDate?: boolean;
     isInRange?: boolean;
     classMap?: object;
-    onClick(date: CandyDate): void;
+    onClick(date: TinyDate): void;
     onMouseEnter(): void;
 }
 

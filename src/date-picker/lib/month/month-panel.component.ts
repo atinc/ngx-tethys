@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
-import { CandyDate } from '../../../util';
+import { TinyDate } from '../../../util';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -8,10 +8,10 @@ import { CandyDate } from '../../../util';
     templateUrl: 'month-panel.component.html'
 })
 export class MonthPanelComponent {
-    @Input() value: CandyDate;
+    @Input() value: TinyDate;
     @Input() disabledDate: (date: Date) => boolean;
 
-    @Output() readonly valueChange = new EventEmitter<CandyDate>();
+    @Output() readonly valueChange = new EventEmitter<TinyDate>();
     @Output() readonly yearPanelShow = new EventEmitter<void>();
 
     prefixCls = 'thy-calendar-month-panel';
