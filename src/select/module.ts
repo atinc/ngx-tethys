@@ -4,15 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { ThySelectComponent } from './select.component';
 import { ThyInputModule } from '../input/module';
 import { ThySelectCustomComponent } from './custom-select/custom-select.component';
-import { ThyOptionComponent } from './custom-select/option.component';
-import { ThySelectOptionGroupComponent } from './custom-select/option-group.component';
 import { ThyLabelModule } from '../label/label.module';
-import { SelectPipes } from './select.pipe';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { ThyLoadingModule } from '../loading';
 import { ThyDirectiveModule } from '../directive';
 import { ThyIconModule } from '../icon';
-import { ThySelectCommonModule } from '../core';
+import { ThyOptionModule } from '../core/option/module';
+import { ThySelectCommonModule } from '../core/select/module';
 import { ThyEmptyModule } from '../empty/empty.module';
 
 @NgModule({
@@ -26,21 +24,10 @@ import { ThyEmptyModule } from '../empty/empty.module';
         ThyDirectiveModule,
         ThyIconModule,
         ThyEmptyModule,
-        ThySelectCommonModule
+        ThySelectCommonModule,
+        ThyOptionModule
     ],
-    declarations: [
-        ThySelectComponent,
-        ThySelectCustomComponent,
-        ThyOptionComponent,
-        ThySelectOptionGroupComponent,
-        SelectPipes
-    ],
-    exports: [
-        ThySelectComponent,
-        ThySelectCustomComponent,
-        ThyOptionComponent,
-        ThySelectOptionGroupComponent,
-        SelectPipes
-    ]
+    declarations: [ThySelectComponent, ThySelectCustomComponent],
+    exports: [ThySelectComponent, ThySelectCustomComponent]
 })
 export class ThySelectModule {}

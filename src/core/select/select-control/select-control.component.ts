@@ -11,7 +11,7 @@ import {
     ChangeDetectionStrategy
 } from '@angular/core';
 import { UpdateHostClassService } from '../../../shared';
-import { SelectOptionBase } from '../select-option/select-option-base';
+import { SelectOptionBase } from '../../option/select-option-base';
 import { isArray, isUndefinedOrNull } from '../../../util/helpers';
 
 export type SelectControlSize = 'xs' | 'sm' | 'md' | 'lg' | '';
