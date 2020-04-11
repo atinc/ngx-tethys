@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.6.43](https://github.com/atinc/ngx-tethys/compare/7.6.42...7.6.43) (2020-04-11)
+
+
+### Bug Fixes
+
+* **slide:** fix slide offset ([#611](https://github.com/atinc/ngx-tethys/issues/611)) ([d62b3c3](https://github.com/atinc/ngx-tethys/commit/d62b3c3980068473368205e82e0c6786a9314d19))
+* modify group name font size(#INFR-262) ([4b1b1c1](https://github.com/atinc/ngx-tethys/commit/4b1b1c1aa29e9c4a641b492971fe5cf615cffc71)), closes [#INFR-262](https://github.com/atinc/ngx-tethys/issues/INFR-262)
+
+
+### Features
+
+* **grid:** add table-sm height ([#609](https://github.com/atinc/ngx-tethys/issues/609)) ([b840987](https://github.com/atinc/ngx-tethys/commit/b8409872ea031f0b6bd8a95a4688eb6d6b774eb6))
+
+
+
 ## [7.6.42](https://github.com/atinc/ngx-tethys/compare/7.6.41...7.6.42) (2020-04-09)
 
 
