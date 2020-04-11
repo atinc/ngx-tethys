@@ -1,5 +1,5 @@
 import { Component, OnInit, ContentChild, ViewChild } from '@angular/core';
-import * as data from './tree-mock.json';
+import * as data from '../tree-mock.json';
 import { ThyTreeNode, ThyTreeComponent, ThyTreeEmitEvent } from 'ngx-tethys';
 import { ThyDragDropEvent, ThyDropPosition } from 'ngx-tethys/drag-drop/drag-drop.class.js';
 

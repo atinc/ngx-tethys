@@ -6,6 +6,14 @@ import { ThyTreeComponent } from '../tree.component';
 import { treeNodes } from './mock';
 import { ThyIconModule } from '../../icon';
 import { ThyFlexibleTextModule } from '../../flexible-text/flexible-text.module';
+import { ThyTreeNode } from '../tree-node.class';
+import { ThyTreeEmitEvent } from '../tree.class';
+
+const expandSelector = '.thy-tree-expand';
+const expandIconSelector = '.thy-tree-expand-icon';
+const treeNodeSelector = '.thy-tree-node';
+const loadingSelector = '.thy-loading';
+const treeNodeChildrenSelector = '.thy-tree-node-children';
 
 describe('ThyTreeComponent', () => {
     function configureThyTreeTestingModule(declarations: any[]) {
@@ -48,10 +56,10 @@ describe('ThyTreeComponent', () => {
         it('test set icons correctly', () => {
             treeInstance.options.treeIcons = { expand: 'minus-square', collapse: 'plus-square' };
             fixture.detectChanges();
-            expect(treeElement.querySelector('.thy-tree-expand-icon').classList).toContain('thy-icon-minus-square');
-            (treeElement.querySelector('.thy-tree-expand-icon') as HTMLElement).click();
+            expect(treeElement.querySelector(expandIconSelector).classList).toContain('thy-icon-minus-square');
+            (treeElement.querySelector(expandIconSelector) as HTMLElement).click();
             fixture.detectChanges();
-            expect(treeElement.querySelector('.thy-tree-expand-icon').classList).toContain('thy-icon-plus-square');
+            expect(treeElement.querySelector(expandIconSelector).classList).toContain('thy-icon-plus-square');
         });
 
         it('test set selectedKeys correctly', () => {
@@ -90,7 +98,7 @@ describe('ThyTreeComponent', () => {
 
         it(`test public function 'getExpandedNodes()`, () => {
             expect(treeComponent.getExpandedNodes().length).toEqual(1);
-            (treeElement.querySelector('.thy-tree-expand-icon') as HTMLElement).click();
+            (treeElement.querySelector(expandIconSelector) as HTMLElement).click();
             fixture.detectChanges();
             expect(treeComponent.getExpandedNodes().length).toEqual(0);
         });
@@ -159,7 +167,7 @@ describe('ThyTreeComponent', () => {
 
         it('test expand event', fakeAsync(() => {
             const expandSpy = spyOn(treeInstance, 'onEvent');
-            const targetNode = treeElement.querySelectorAll('.thy-tree-expand')[0] as HTMLElement;
+            const targetNode = treeElement.querySelectorAll(expandSelector)[0] as HTMLElement;
             targetNode.click();
             fixture.detectChanges();
             expect(expandSpy).toHaveBeenCalledTimes(1);
@@ -171,6 +179,43 @@ describe('ThyTreeComponent', () => {
             targetNode.click();
             fixture.detectChanges();
             expect(checkChangeSpy).toHaveBeenCalledTimes(1);
+        }));
+    });
+
+    describe('async tree', () => {
+        let treeInstance: TestAsyncTreeComponent;
+        let treeElement: HTMLElement;
+        let component;
+        let fixture: ComponentFixture<TestAsyncTreeComponent>;
+        let treeComponent: ThyTreeComponent;
+        beforeEach(async(() => {
+            configureThyTreeTestingModule([TestAsyncTreeComponent]);
+            fixture = TestBed.createComponent(TestAsyncTreeComponent);
+            component = fixture.componentInstance;
+            fixture.detectChanges();
+            treeInstance = fixture.debugElement.componentInstance;
+            treeComponent = fixture.debugElement.componentInstance.tree;
+            treeElement = fixture.debugElement.query(By.directive(ThyTreeComponent)).nativeElement;
+        }));
+
+        it('should create', () => {
+            expect(component).toBeDefined();
+        });
+
+        it('should show expand icon', () => {
+            expect(treeElement.querySelectorAll(expandIconSelector).length).toEqual(2);
+        });
+
+        it('should async load data', fakeAsync(() => {
+            const nodeElement = treeElement.querySelectorAll(treeNodeSelector)[0] as HTMLElement;
+            const expandElement = nodeElement.querySelector(expandSelector) as HTMLElement;
+            expandElement.click();
+            fixture.detectChanges();
+            expect(nodeElement.querySelector(loadingSelector)).toBeTruthy();
+            tick(100);
+            fixture.detectChanges();
+            expect(nodeElement.querySelector(loadingSelector)).toBeNull();
+            expect((nodeElement.querySelector(treeNodeChildrenSelector) as HTMLElement).children.length).toEqual(8);
         }));
     });
 });
@@ -232,5 +277,47 @@ class TestBasicTreeComponent {
                 title: '测试'
             }
         ];
+    }
+}
+
+@Component({
+    selector: 'test-async-tree',
+    template: `
+        <thy-tree
+            #tree
+            [thyNodes]="treeNodes"
+            [thyAsync]="true"
+            [thyCheckable]="true"
+            [thyShowExpand]="showExpand"
+            (thyOnExpandChange)="onExpandChange($event)"
+        >
+        </thy-tree>
+    `
+})
+export class TestAsyncTreeComponent {
+    mockData = treeNodes;
+
+    treeNodes = this.mockData.map(item => {
+        return { ...item, children: [], expanded: false };
+    });
+
+    @ViewChild('tree') treeComponent: ThyTreeComponent;
+
+    constructor() {}
+
+    showExpand(node: ThyTreeNode) {
+        return node.origin.type !== 'member';
+    }
+
+    onExpandChange(event: ThyTreeEmitEvent) {
+        setTimeout(() => {
+            if (event.node.getChildren().length === 0) {
+                const children = this.mockData.find(n => n.key === event.node.key).children;
+                children.forEach(node => {
+                    node.checked = event.node.origin.checked;
+                });
+                event.node.addChildren(children);
+            }
+        }, 100);
     }
 }
