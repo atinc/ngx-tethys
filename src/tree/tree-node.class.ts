@@ -42,7 +42,7 @@ export class ThyTreeNode<T = any> {
         this.origin = node;
         this.isDisabled = node.disabled || false;
         this.isExpanded = node.expanded || false;
-        this.isChecked = ThyTreeNodeCheckState.unchecked;
+        this.isChecked = node.checked ? ThyTreeNodeCheckState.checked : ThyTreeNodeCheckState.unchecked;
         this.isLoading = false;
         if (node.children) {
             node.children.forEach(childNode => {
@@ -72,6 +72,7 @@ export class ThyTreeNode<T = any> {
 
     public setChecked(checked: boolean, propagateUp = true, propagateDown = true) {
         this.isChecked = checked ? ThyTreeNodeCheckState.checked : ThyTreeNodeCheckState.unchecked;
+        this.origin.checked = checked;
         if (propagateDown && this.children) {
             this.children.forEach(node => {
                 node.setChecked(checked, false, true);
