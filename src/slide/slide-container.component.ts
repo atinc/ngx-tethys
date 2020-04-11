@@ -125,11 +125,11 @@ export class ThySlideContainerComponent extends ThyUpperOverlayContainer impleme
         if (this.isLeftOrRight) {
             height = drawerContainerElementRect.height;
             top = drawerContainerElementRect.top;
-            this.renderer.setStyle(this.elementRef.nativeElement, 'top', top);
+            this.renderer.setStyle(this.elementRef.nativeElement, 'top', `${top}px`);
         } else {
             width = drawerContainerElementRect.width;
             left = drawerContainerElementRect.left;
-            this.renderer.setStyle(this.elementRef.nativeElement, 'left', left);
+            this.renderer.setStyle(this.elementRef.nativeElement, 'left', `${left}px`);
         }
         this.slideContainerStyles = {
             width: width,
