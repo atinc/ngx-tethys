@@ -82,6 +82,10 @@
           <div class="thy-tree-node-title text-truncate" thyFlexibleText [thyTooltipContent]="data?.name">
             {{ data?.title }} <span class="text-desc ml-1">( {{ data.member_count || 0 }}人 )</span>
           </div>
+          <div class="thy-tree-node-actions">
+            <a thyButtonIcon="plus" thySize="sm" href="javascript:;"></a>
+            <a thyButtonIcon="more-bold" thySize="sm" href="javascript:;"></a>
+          </div>
         </ng-template>
       </thy-tree>
     </thy-content-section>
