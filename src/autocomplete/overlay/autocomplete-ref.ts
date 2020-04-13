@@ -19,12 +19,6 @@ export class ThyInternalAutocompleteRef<T, TResult = any>
         config: ThyAutocompleteConfig
     ) {
         super(autocompleteUpperOverlayOptions, overlayRef, containerInstance, config);
-        containerInstance.insideClicked.subscribe(() => {
-            this.close();
-        });
-        containerInstance.outsideClicked.subscribe(() => {
-            this.close();
-        });
     }
 
     /**
