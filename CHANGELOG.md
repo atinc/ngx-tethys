@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.6.45](https://github.com/atinc/ngx-tethys/compare/7.6.44...7.6.45) (2020-04-13)
+
+
+
 ## [7.6.44](https://github.com/atinc/ngx-tethys/compare/7.6.43...7.6.44) (2020-04-11)
 
 
