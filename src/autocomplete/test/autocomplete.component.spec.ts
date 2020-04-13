@@ -111,7 +111,7 @@ fdescribe('ThyAutocomplete', () => {
             configureThyCustomSelectTestingModule([BasicSelectComponent]);
         }));
 
-        describe('select panel', () => {
+        describe('panel', () => {
             let fixture: ComponentFixture<BasicSelectComponent>;
             let trigger: HTMLElement;
 
@@ -119,57 +119,56 @@ fdescribe('ThyAutocomplete', () => {
                 fixture = TestBed.createComponent(BasicSelectComponent);
                 fixture.detectChanges();
                 tick(100);
-                trigger = fixture.debugElement.query(By.css('.autocomplete-trigger')).nativeElement;
+                trigger = fixture.debugElement.query(By.css('input')).nativeElement;
             }));
 
-            it('should open the select panel when trigger is clicked', fakeAsync(() => {
-                expect(fixture.componentInstance.autocomplete.autocompleteOpened).toBe(false);
-                trigger.click();
+            it('should open the panel when trigger focused', fakeAsync(() => {
+                expect(fixture.componentInstance.autocomplete.isOpened).toBe(false);
+                dispatchFakeEvent(trigger, 'focusin');
                 fixture.detectChanges();
                 tick(500);
-                expect(fixture.componentInstance.autocomplete.autocompleteOpened).toBe(true);
+                expect(fixture.componentInstance.autocomplete.isOpened).toBe(true);
                 expect(overlayContainerElement.textContent).toContain('Steak');
                 expect(overlayContainerElement.textContent).toContain('Pizza');
                 expect(overlayContainerElement.textContent).toContain('Tacos');
             }));
 
-            it('should open the select panel when input content in trigger input', fakeAsync(() => {
-                expect(fixture.componentInstance.autocomplete.autocompleteOpened).toBe(false);
+            it('should open the panel when type char in trigger input', fakeAsync(() => {
+                expect(fixture.componentInstance.autocomplete.isOpened).toBe(false);
                 typeInElement('aa', trigger as HTMLInputElement);
                 fixture.detectChanges();
                 tick(500);
-                expect(fixture.componentInstance.autocomplete.autocompleteOpened).toBe(true);
+                expect(fixture.componentInstance.autocomplete.isOpened).toBe(true);
                 expect(overlayContainerElement.textContent).toContain('Steak');
                 expect(overlayContainerElement.textContent).toContain('Pizza');
                 expect(overlayContainerElement.textContent).toContain('Tacos');
             }));
 
-            it('should emit opend event when autocomplete select open', fakeAsync(() => {
-                typeInElement('aa', trigger as HTMLInputElement);
+            it('should emit opend event when the panel opened', fakeAsync(() => {
+                dispatchFakeEvent(trigger, 'focusin');
                 fixture.detectChanges();
                 tick(500);
                 expect(fixture.componentInstance.openedSpy).toHaveBeenCalled();
             }));
 
-            it('should close the autocomplete panel when option is clicked', fakeAsync(() => {
-                trigger.click();
+            it('should close the panel when option is clicked', fakeAsync(() => {
+                dispatchFakeEvent(trigger, 'focusin');
                 fixture.detectChanges();
                 tick(500);
                 const option = overlayContainerElement.querySelector('thy-option') as HTMLElement;
                 option.click();
                 fixture.detectChanges();
                 flush();
-
-                expect(fixture.componentInstance.autocomplete.autocompleteOpened).toBe(false);
+                expect(fixture.componentInstance.autocomplete.isOpened).toBe(false);
                 expect(overlayContainerElement.textContent).not.toContain('Steak');
             }));
 
-            it('should emit closed event when autocomplete panel close', fakeAsync(() => {
+            it('should emit closed event when the panel close', fakeAsync(() => {
                 const closedSpy = jasmine.createSpy('closed event spy callback');
                 fixture.componentInstance.autocomplete.closed.subscribe(() => {
                     closedSpy();
                 });
-                trigger.click();
+                dispatchFakeEvent(trigger, 'focusin');
                 fixture.detectChanges();
                 tick(500);
                 expect(closedSpy).not.toHaveBeenCalled();

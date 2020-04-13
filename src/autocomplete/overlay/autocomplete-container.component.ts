@@ -51,10 +51,6 @@ export class ThyAutocompleteContainerComponent extends ThyUpperOverlayContainer 
     animationOpeningDone: Observable<AnimationEvent>;
     animationClosingDone: Observable<AnimationEvent>;
 
-    insideClicked = new EventEmitter();
-
-    outsideClicked = new EventEmitter();
-
     beforeAttachPortal(): void {}
 
     constructor(
@@ -79,22 +75,7 @@ export class ThyAutocompleteContainerComponent extends ThyUpperOverlayContainer 
         );
     }
 
-    ngAfterViewInit() {
-        if (this.config.outsideClosable && !this.config.hasBackdrop) {
-            timer(100).subscribe(() => {
-                this.thyClickDispatcher
-                    .clicked()
-                    .pipe(takeUntil(this.animationClosingDone))
-                    .subscribe((event: MouseEvent) => {
-                        if (!(event.target as HTMLElement).contains(this.elementRef.nativeElement)) {
-                            this.ngZone.run(() => {
-                                this.outsideClicked.emit();
-                            });
-                        }
-                    });
-            });
-        }
-    }
+    ngAfterViewInit() {}
 
     /** Callback, invoked whenever an animation on the host completes. */
     onAnimationDone(event: AnimationEvent) {
@@ -109,12 +90,5 @@ export class ThyAutocompleteContainerComponent extends ThyUpperOverlayContainer 
     startExitAnimation(): void {
         this.animationState = 'exit';
         this.changeDetectorRef.markForCheck();
-    }
-
-    @HostListener('click', [])
-    onInsideClick() {
-        if (this.config.insideClosable) {
-            this.insideClicked.emit();
-        }
     }
 }

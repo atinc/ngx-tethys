@@ -11,6 +11,12 @@ export class DemoAutocompleteSectionComponent implements OnInit {
     //#region 参数说明
     public apiParameters = [
         {
+            property: 'autoActiveFirstOption',
+            description: '自动激活第一个选项',
+            type: 'EventEmitter<ThyAutocompleteActivatedEvent>',
+            default: 'false'
+        },
+        {
             property: 'selectionChange',
             description: 'output event: 选择项发生变化事件',
             type: 'EventEmitter<ThyAutoOptionComponent>'
@@ -24,6 +30,11 @@ export class DemoAutocompleteSectionComponent implements OnInit {
             property: 'closed',
             description: 'output event: 关闭事件',
             type: 'EventEmitter<void>'
+        },
+        {
+            property: 'optionActivated',
+            description: 'option activated event: 激活状态改变触发(Arrow Up/Down select)',
+            type: 'EventEmitter<ThyAutocompleteActivatedEvent>'
         }
     ];
 
@@ -32,6 +43,23 @@ export class DemoAutocompleteSectionComponent implements OnInit {
             property: 'thyAutocomplete',
             description: '传入trigger触发的autocomplete组件实例',
             type: 'ThyAutocompleteComponent'
+        },
+        {
+            property: 'thyOffset',
+            description: 'overlay的offset',
+            type: 'number',
+            default: '8'
+        },
+        {
+            property: 'thyAutocompleteWidth',
+            description: 'autocomplete组件的宽度，不设置宽度则与trigger保持一致',
+            type: 'number'
+        },
+        {
+            property: 'thyPlacement',
+            description: 'autocomplete显示位置',
+            type: 'number',
+            default: 'bottomLeft'
         }
     ];
 
