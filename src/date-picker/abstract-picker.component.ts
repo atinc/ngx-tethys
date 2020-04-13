@@ -13,7 +13,7 @@ import { ControlValueAccessor } from '@angular/forms';
 import { Subject } from 'rxjs';
 
 import { InputBoolean } from '../core';
-import { CandyDate } from '../util';
+import { TinyDate } from '../util';
 
 import { ThyPickerComponent } from './picker.component';
 import { CompatibleDate, CompatibleValue, DisabledDateFn, DateEntry, RangeEntry } from './standard-types';
@@ -58,14 +58,14 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
     }
 
     initDisabledDate(): void {
-        let minDate: CandyDate;
-        let maxDate: CandyDate;
+        let minDate: TinyDate;
+        let maxDate: TinyDate;
         let disabledDateFn: DisabledDateFn;
         if (this.thyMinDate) {
-            minDate = new CandyDate(this.thyMinDate);
+            minDate = new TinyDate(this.thyMinDate);
         }
         if (this.thyMaxDate) {
-            maxDate = new CandyDate(this.thyMaxDate);
+            maxDate = new TinyDate(this.thyMaxDate);
         }
         if (this.thyDisabledDate) {
             disabledDateFn = this.thyDisabledDate;
@@ -118,7 +118,7 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
             const vAsRange: any = this.thyValue;
             let value = { begin: null, end: null } as RangeEntry;
             if (vAsRange.length) {
-                const [begin, end] = vAsRange as CandyDate[];
+                const [begin, end] = vAsRange as TinyDate[];
                 if (this.thyAutoStartAndEnd) {
                     value = {
                         begin: begin.startOfDay().getUnixTime(),
@@ -135,7 +135,7 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
         } else {
             const value = { date: null, with_time: this.withTime ? 1 : 0 } as DateEntry;
             if (this.thyValue) {
-                value.date = (this.thyValue as CandyDate).getUnixTime();
+                value.date = (this.thyValue as TinyDate).getUnixTime();
             }
             if (this.onlyEmitDate) {
                 this.onChangeFn(value.date);
@@ -188,9 +188,9 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
 
     public setValue(value: CompatibleDate): void {
         if (this.isRange) {
-            (this.thyValue as any) = value ? (value as Date[]).map(val => new CandyDate(val)) : [];
+            (this.thyValue as any) = value ? (value as Date[]).map(val => new TinyDate(val)) : [];
         } else {
-            (this.thyValue as any) = value ? new CandyDate(value as Date) : null;
+            (this.thyValue as any) = value ? new TinyDate(value as Date) : null;
         }
     }
 }

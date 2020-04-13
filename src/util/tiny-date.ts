@@ -36,13 +36,13 @@ export interface IndexableObject {
     [key: string]: any;
 }
 
-export type CandyDateCompareGrain = 'year' | 'month' | 'week' | 'day' | 'hour' | 'minute' | 'second';
+export type TinyDateCompareGrain = 'year' | 'month' | 'week' | 'day' | 'hour' | 'minute' | 'second';
 
 export type WeekDayIndex = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
-export type CandyDateType = CandyDate | Date | null;
+export type TinyDateType = TinyDate | Date | null;
 
-export function sortRangeValue(rangeValue: CandyDate[]): CandyDate[] {
+export function sortRangeValue(rangeValue: TinyDate[]): TinyDate[] {
     if (Array.isArray(rangeValue)) {
         const [start, end] = rangeValue;
         return start && end && start.isAfterSecond(end) ? [end, start] : [start, end];
@@ -50,7 +50,7 @@ export function sortRangeValue(rangeValue: CandyDate[]): CandyDate[] {
     return rangeValue;
 }
 
-export class CandyDate implements IndexableObject {
+export class TinyDate implements IndexableObject {
     nativeDate: Date;
 
     constructor(date?: Date | string | number) {
@@ -71,12 +71,12 @@ export class CandyDate implements IndexableObject {
         }
     }
 
-    static fromUnixTime(unixTime: number): CandyDate {
-        return new CandyDate(fromUnixTime(unixTime));
+    static fromUnixTime(unixTime: number): TinyDate {
+        return new TinyDate(fromUnixTime(unixTime));
     }
 
-    calendarStart(options?: { weekStartsOn: WeekDayIndex | undefined }): CandyDate {
-        return new CandyDate(startOfWeek(startOfMonth(this.nativeDate), options));
+    calendarStart(options?: { weekStartsOn: WeekDayIndex | undefined }): TinyDate {
+        return new TinyDate(startOfWeek(startOfMonth(this.nativeDate), options));
     }
 
     getYear(): number {
@@ -115,47 +115,47 @@ export class CandyDate implements IndexableObject {
         return this.nativeDate.getMilliseconds();
     }
 
-    clone(): CandyDate {
-        return new CandyDate(new Date(this.nativeDate));
+    clone(): TinyDate {
+        return new TinyDate(new Date(this.nativeDate));
     }
 
-    setHms(hour: number, minute: number, second: number): CandyDate {
+    setHms(hour: number, minute: number, second: number): TinyDate {
         const date = new Date(this.nativeDate);
         date.setHours(hour, minute, second);
-        return new CandyDate(date);
+        return new TinyDate(date);
     }
 
-    setYear(year: number): CandyDate {
-        return new CandyDate(setYear(this.nativeDate, year));
+    setYear(year: number): TinyDate {
+        return new TinyDate(setYear(this.nativeDate, year));
     }
 
-    addYears(amount: number): CandyDate {
-        return new CandyDate(addYears(this.nativeDate, amount));
+    addYears(amount: number): TinyDate {
+        return new TinyDate(addYears(this.nativeDate, amount));
     }
 
-    setMonth(month: number): CandyDate {
-        return new CandyDate(setMonth(this.nativeDate, month));
+    setMonth(month: number): TinyDate {
+        return new TinyDate(setMonth(this.nativeDate, month));
     }
 
-    addMonths(amount: number): CandyDate {
-        return new CandyDate(addMonths(this.nativeDate, amount));
+    addMonths(amount: number): TinyDate {
+        return new TinyDate(addMonths(this.nativeDate, amount));
     }
 
-    setDay(day: number, options?: { weekStartsOn: WeekDayIndex }): CandyDate {
-        return new CandyDate(setDay(this.nativeDate, day, options));
+    setDay(day: number, options?: { weekStartsOn: WeekDayIndex }): TinyDate {
+        return new TinyDate(setDay(this.nativeDate, day, options));
     }
 
-    setDate(amount: number): CandyDate {
+    setDate(amount: number): TinyDate {
         const date = new Date(this.nativeDate);
         date.setDate(amount);
-        return new CandyDate(date);
+        return new TinyDate(date);
     }
 
-    addDays(amount: number): CandyDate {
+    addDays(amount: number): TinyDate {
         return this.setDate(this.getDate() + amount);
     }
 
-    isSame(date: CandyDateType, grain: CandyDateCompareGrain = 'day'): boolean {
+    isSame(date: TinyDateType, grain: TinyDateCompareGrain = 'day'): boolean {
         let fn;
         switch (grain) {
             case 'year':
@@ -183,31 +183,31 @@ export class CandyDate implements IndexableObject {
         return fn(this.nativeDate, this.toNativeDate(date));
     }
 
-    isSameYear(date: CandyDateType): boolean {
+    isSameYear(date: TinyDateType): boolean {
         return this.isSame(date, 'year');
     }
 
-    isSameMonth(date: CandyDateType): boolean {
+    isSameMonth(date: TinyDateType): boolean {
         return this.isSame(date, 'month');
     }
 
-    isSameDay(date: CandyDateType): boolean {
+    isSameDay(date: TinyDateType): boolean {
         return this.isSame(date, 'day');
     }
 
-    isSameHour(date: CandyDateType): boolean {
+    isSameHour(date: TinyDateType): boolean {
         return this.isSame(date, 'hour');
     }
 
-    isSameMinute(date: CandyDateType): boolean {
+    isSameMinute(date: TinyDateType): boolean {
         return this.isSame(date, 'minute');
     }
 
-    isSameSecond(date: CandyDateType): boolean {
+    isSameSecond(date: TinyDateType): boolean {
         return this.isSame(date, 'second');
     }
 
-    compare(date: CandyDateType, grain: CandyDateCompareGrain = 'day'): number {
+    compare(date: TinyDateType, grain: TinyDateCompareGrain = 'day'): number {
         if (date === null) {
             return NaN;
         }
@@ -242,15 +242,15 @@ export class CandyDate implements IndexableObject {
     }
 
     private isBeforeOrAfter(
-        date: CandyDateType,
-        grain: CandyDateCompareGrain = 'day',
+        date: TinyDateType,
+        grain: TinyDateCompareGrain = 'day',
         isBefore: boolean = true
     ): boolean {
         const number = this.compare(date, grain);
         return isBefore ? number < 0 : number > 0;
     }
 
-    compareInCalendar(date: CandyDateType, grain: CandyDateCompareGrain = 'day'): number {
+    compareInCalendar(date: TinyDateType, grain: TinyDateCompareGrain = 'day'): number {
         if (date === null) {
             return NaN;
         }
@@ -286,99 +286,99 @@ export class CandyDate implements IndexableObject {
     }
 
     private isBeforeOrAfterInCalendar(
-        date: CandyDateType,
-        grain: CandyDateCompareGrain = 'day',
+        date: TinyDateType,
+        grain: TinyDateCompareGrain = 'day',
         isBefore: boolean = true
     ): boolean {
         const number = this.compareInCalendar(date, grain);
         return isBefore ? number < 0 : number > 0;
     }
 
-    isBeforeYearInCalendar(date: CandyDateType): boolean {
+    isBeforeYearInCalendar(date: TinyDateType): boolean {
         return this.isBeforeOrAfterInCalendar(date, 'year');
     }
 
-    isBeforeMonthInCalendar(date: CandyDateType): boolean {
+    isBeforeMonthInCalendar(date: TinyDateType): boolean {
         return this.isBeforeOrAfterInCalendar(date, 'month');
     }
 
-    isBeforeWeekInCalendar(date: CandyDateType): boolean {
+    isBeforeWeekInCalendar(date: TinyDateType): boolean {
         return this.isBeforeOrAfterInCalendar(date, 'week');
     }
 
-    isBeforeDayInCalendar(date: CandyDateType): boolean {
+    isBeforeDayInCalendar(date: TinyDateType): boolean {
         return this.isBeforeOrAfterInCalendar(date, 'day');
     }
 
-    isBeforeYear(date: CandyDateType): boolean {
+    isBeforeYear(date: TinyDateType): boolean {
         return this.isBeforeOrAfter(date, 'year');
     }
 
-    isBeforeMonth(date: CandyDateType): boolean {
+    isBeforeMonth(date: TinyDateType): boolean {
         return this.isBeforeOrAfter(date, 'month');
     }
 
-    isBeforeWeek(date: CandyDateType): boolean {
+    isBeforeWeek(date: TinyDateType): boolean {
         return this.isBeforeOrAfter(date, 'week');
     }
 
-    isBeforeDay(date: CandyDateType): boolean {
+    isBeforeDay(date: TinyDateType): boolean {
         return this.isBeforeOrAfter(date, 'day');
     }
 
-    isBeforeHour(date: CandyDateType): boolean {
+    isBeforeHour(date: TinyDateType): boolean {
         return this.isBeforeOrAfter(date, 'hour');
     }
 
-    isBeforeMinute(date: CandyDateType): boolean {
+    isBeforeMinute(date: TinyDateType): boolean {
         return this.isBeforeOrAfter(date, 'minute');
     }
 
-    isBeforeSecond(date: CandyDateType): boolean {
+    isBeforeSecond(date: TinyDateType): boolean {
         return this.isBeforeOrAfter(date, 'second');
     }
 
-    isAfterYearInCalendar(date: CandyDateType): boolean {
+    isAfterYearInCalendar(date: TinyDateType): boolean {
         return this.isBeforeOrAfterInCalendar(date, 'year', false);
     }
 
-    isAfterMonthInCalendar(date: CandyDateType): boolean {
+    isAfterMonthInCalendar(date: TinyDateType): boolean {
         return this.isBeforeOrAfterInCalendar(date, 'month', false);
     }
 
-    isAfterWeekInCalendar(date: CandyDateType): boolean {
+    isAfterWeekInCalendar(date: TinyDateType): boolean {
         return this.isBeforeOrAfterInCalendar(date, 'week', false);
     }
 
-    isAfterDayInCalendar(date: CandyDateType): boolean {
+    isAfterDayInCalendar(date: TinyDateType): boolean {
         return this.isBeforeOrAfterInCalendar(date, 'day', false);
     }
 
-    isAfterYear(date: CandyDateType): boolean {
+    isAfterYear(date: TinyDateType): boolean {
         return this.isBeforeOrAfter(date, 'year', false);
     }
 
-    isAfterMonth(date: CandyDateType): boolean {
+    isAfterMonth(date: TinyDateType): boolean {
         return this.isBeforeOrAfter(date, 'month', false);
     }
 
-    isAfterWeek(date: CandyDateType): boolean {
+    isAfterWeek(date: TinyDateType): boolean {
         return this.isBeforeOrAfter(date, 'week', false);
     }
 
-    isAfterDay(date: CandyDateType): boolean {
+    isAfterDay(date: TinyDateType): boolean {
         return this.isBeforeOrAfter(date, 'day', false);
     }
 
-    isAfterHour(date: CandyDateType): boolean {
+    isAfterHour(date: TinyDateType): boolean {
         return this.isBeforeOrAfter(date, 'hour', false);
     }
 
-    isAfterMinute(date: CandyDateType): boolean {
+    isAfterMinute(date: TinyDateType): boolean {
         return this.isBeforeOrAfter(date, 'minute', false);
     }
 
-    isAfterSecond(date: CandyDateType): boolean {
+    isAfterSecond(date: TinyDateType): boolean {
         return this.isBeforeOrAfter(date, 'second', false);
     }
 
@@ -398,15 +398,15 @@ export class CandyDate implements IndexableObject {
         return getUnixTime(this.nativeDate);
     }
 
-    startOfDay(): CandyDate {
-        return new CandyDate(startOfDay(this.nativeDate));
+    startOfDay(): TinyDate {
+        return new TinyDate(startOfDay(this.nativeDate));
     }
 
-    endOfDay(): CandyDate {
-        return new CandyDate(endOfDay(this.nativeDate));
+    endOfDay(): TinyDate {
+        return new TinyDate(endOfDay(this.nativeDate));
     }
 
     private toNativeDate(date: any): Date {
-        return date instanceof CandyDate ? date.nativeDate : date;
+        return date instanceof TinyDate ? date.nativeDate : date;
     }
 }

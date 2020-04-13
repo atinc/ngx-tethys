@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ThyTransferItem, ThySelectionListChange } from 'ngx-tethys';
-import { ThyOptionSelectionChangeEvent } from '../../../../../../src/select/custom-select/option.component';
-import { TransferDirection } from '../../../../../../src/transfer/transfer.interface';
 
 @Component({
     selector: 'demo-transfer-template',

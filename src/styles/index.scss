@@ -44,7 +44,7 @@
 @import '../form/styles/forms';
 @import '../select/styles/select';
 @import '../select/custom-select/styles/custom-select';
-@import '../core/select/styles/select-dropdown';
+@import '../core/option/styles/select-dropdown';
 @import '../core/select/select-control/select-control.scss';
 @import '../progress/styles/progress.scss';
 @import '../slide/styles/slide.scss';
@@ -73,4 +73,4 @@
 @import '../date-picker/style/index.scss';
 @import '../time-picker/style.scss';
 @import '../statistic/styles/statistic.scss';
-// @import '../autocomplete/styles/style.scss';
+@import '../autocomplete/styles/style.scss';

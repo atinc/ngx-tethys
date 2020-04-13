@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 
 import { PanelMode } from '../../standard-types';
-import { CandyDate } from '../../../util';
+import { TinyDate } from '../../../util';
 import { DateHelperService, DateHelperByDatePipe } from '../../date-helper.service';
 
 @Component({
@@ -25,15 +25,15 @@ export class CalendarHeaderComponent implements OnInit, OnChanges {
     @Input() enableNext = true;
     @Input() disabledMonth: (date: Date) => boolean;
     @Input() disabledYear: (date: Date) => boolean;
-    @Input() value: CandyDate;
-    @Output() readonly valueChange = new EventEmitter<CandyDate>();
+    @Input() value: TinyDate;
+    @Output() readonly valueChange = new EventEmitter<TinyDate>();
 
     @Input() panelMode: PanelMode;
     @Output() readonly panelModeChange = new EventEmitter<PanelMode>();
 
-    @Output() readonly chooseDecade = new EventEmitter<CandyDate>();
-    @Output() readonly chooseYear = new EventEmitter<CandyDate>();
-    @Output() readonly chooseMonth = new EventEmitter<CandyDate>();
+    @Output() readonly chooseDecade = new EventEmitter<TinyDate>();
+    @Output() readonly chooseYear = new EventEmitter<TinyDate>();
+    @Output() readonly chooseMonth = new EventEmitter<TinyDate>();
 
     prefixCls = 'thy-calendar';
     yearMonthDaySelectors: YearMonthDaySelector[];
@@ -45,7 +45,7 @@ export class CalendarHeaderComponent implements OnInit, OnChanges {
 
     ngOnInit(): void {
         if (!this.value) {
-            this.value = new CandyDate();
+            this.value = new TinyDate();
         }
     }
 
@@ -71,25 +71,25 @@ export class CalendarHeaderComponent implements OnInit, OnChanges {
         this.gotoMonth(1);
     }
 
-    changePanel(mode: PanelMode, value?: CandyDate): void {
+    changePanel(mode: PanelMode, value?: TinyDate): void {
         this.panelModeChange.emit(mode);
         if (value) {
             this.changeValueFromInside(value);
         }
     }
 
-    onChooseDecade(value: CandyDate): void {
+    onChooseDecade(value: TinyDate): void {
         this.changePanel('year', value);
         this.chooseDecade.emit(value);
     }
 
-    onChooseYear(value: CandyDate): void {
+    onChooseYear(value: TinyDate): void {
         this.changePanel(this.yearToMonth ? 'month' : 'date', value);
         this.yearToMonth = false; // Clear
         this.chooseYear.emit(value);
     }
 
-    onChooseMonth(value: CandyDate): void {
+    onChooseMonth(value: TinyDate): void {
         this.changePanel('date', value);
         this.yearToMonth = false; // Clear
         this.chooseMonth.emit(value);
@@ -114,7 +114,7 @@ export class CalendarHeaderComponent implements OnInit, OnChanges {
         this.changeValueFromInside(this.value.addYears(amount));
     }
 
-    private changeValueFromInside(value: CandyDate): void {
+    private changeValueFromInside(value: TinyDate): void {
         if (this.value !== value) {
             this.value = value;
             this.valueChange.emit(this.value);

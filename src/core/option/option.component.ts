@@ -16,14 +16,14 @@ import {
     QueryList
 } from '@angular/core';
 import { Highlightable } from '@angular/cdk/a11y';
-import { SelectOptionBase } from '../../core/select/select-option/select-option-base';
+import { SelectOptionBase } from './select-option-base';
 import { ENTER, SPACE, hasModifierKey } from '../../util/keycodes';
 import {
-    IThySelectOptionGroupComponent,
-    IThyCustomSelectComponent,
-    THY_CUSTOM_SELECT_COMPONENT,
-    THY_SELECT_OPTION_GROUP_COMPONENT
-} from './custom-select.component.token';
+    IThyOptionGroupComponent,
+    IThyOptionParentComponent,
+    THY_OPTION_GROUP_COMPONENT,
+    THY_OPTION_PARENT_COMPONENT
+} from './option.token';
 
 export class ThyOptionSelectionChangeEvent {
     constructor(public option: ThyOptionComponent, public isUserInput = false) {}
@@ -91,8 +91,8 @@ export class ThyOptionComponent extends SelectOptionBase implements OnDestroy, H
 
     constructor(
         public element: ElementRef<HTMLElement>,
-        @Optional() @Inject(THY_CUSTOM_SELECT_COMPONENT) public parent: IThyCustomSelectComponent,
-        @Optional() @Inject(THY_SELECT_OPTION_GROUP_COMPONENT) public group: IThySelectOptionGroupComponent,
+        @Optional() @Inject(THY_OPTION_PARENT_COMPONENT) public parent: IThyOptionParentComponent,
+        @Optional() @Inject(THY_OPTION_GROUP_COMPONENT) public group: IThyOptionGroupComponent,
         private cdr: ChangeDetectorRef
     ) {
         super();

@@ -2,6 +2,74 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.6.45](https://github.com/atinc/ngx-tethys/compare/7.6.44...7.6.45) (2020-04-13)
+
+
+
+## [7.6.44](https://github.com/atinc/ngx-tethys/compare/7.6.43...7.6.44) (2020-04-11)
+
+
+### Bug Fixes
+
+* **tree:** origin tree data add checked prop ([2ec7fe1](https://github.com/atinc/ngx-tethys/commit/2ec7fe127872738c83b3d452c4d4a66ea605df32))
+
+
+### Features
+
+* **slide:** set slide width by config.width ([#605](https://github.com/atinc/ngx-tethys/issues/605)) ([cedf4f5](https://github.com/atinc/ngx-tethys/commit/cedf4f5caf2e15851d4ded2bd50a96896fa949c9)), closes [#INFR-236](https://github.com/atinc/ngx-tethys/issues/INFR-236)
+
+
+
+## [7.6.43](https://github.com/atinc/ngx-tethys/compare/7.6.42...7.6.43) (2020-04-11)
+
+
+### Bug Fixes
+
+* **slide:** fix slide offset ([#611](https://github.com/atinc/ngx-tethys/issues/611)) ([d62b3c3](https://github.com/atinc/ngx-tethys/commit/d62b3c3980068473368205e82e0c6786a9314d19))
+* modify group name font size(#INFR-262) ([4b1b1c1](https://github.com/atinc/ngx-tethys/commit/4b1b1c1aa29e9c4a641b492971fe5cf615cffc71)), closes [#INFR-262](https://github.com/atinc/ngx-tethys/issues/INFR-262)
+
+
+### Features
+
+* **grid:** add table-sm height ([#609](https://github.com/atinc/ngx-tethys/issues/609)) ([b840987](https://github.com/atinc/ngx-tethys/commit/b8409872ea031f0b6bd8a95a4688eb6d6b774eb6))
+
+
+
+## [7.6.42](https://github.com/atinc/ngx-tethys/compare/7.6.41...7.6.42) (2020-04-09)
+
+
+### Bug Fixes
+
+* fix DOCUMENT import error ([#604](https://github.com/atinc/ngx-tethys/issues/604)) ([e1cdfb5](https://github.com/atinc/ngx-tethys/commit/e1cdfb5db71aaee961eebd76574b7ac58754d654))
+
+
+### Features
+
+* **slide:** support mode='push'/'side'/'over' #INFR-183 ([9d16543](https://github.com/atinc/ngx-tethys/commit/9d165435384353ef8ef25c3e9f7efa897f32b994)), closes [#INFR-183](https://github.com/atinc/ngx-tethys/issues/INFR-183)
+
+
+### BREAKING CHANGES
+
+* **slide:** configure THY_SLIDE_DEFAULT_CONFIG contain drawerContainer globally
+
+
+
+## [7.6.41](https://github.com/atinc/ngx-tethys/compare/7.6.40...7.6.41) (2020-04-08)
+
+
+### Bug Fixes
+
+* **autocomplete:** fix can not detect change when onpush ([93cf9ca](https://github.com/atinc/ngx-tethys/commit/93cf9cae5752f536b03e54c6b281800545dcaa46))
+
+
+### Features
+
+* **action-menu:** automation hidden first and last divider ([#596](https://github.com/atinc/ngx-tethys/issues/596)) ([b51257e](https://github.com/atinc/ngx-tethys/commit/b51257e9917effbfc47a790a6011e47a22cb388c))
+* **autocomplete:** add autocomplete component ([#600](https://github.com/atinc/ngx-tethys/issues/600)) ([c1a3a6c](https://github.com/atinc/ngx-tethys/commit/c1a3a6cbbb39a0ae4071fd706943e87e18f66e17))
+* **grid:** table-sm td height initial ([#599](https://github.com/atinc/ngx-tethys/issues/599)) ([6f920c4](https://github.com/atinc/ngx-tethys/commit/6f920c4113f273e187e929a4bc4ed57a171f9e49))
+
+
+
 ## [7.6.40](https://github.com/atinc/ngx-tethys/compare/7.6.39...7.6.40) (2020-04-02)
 
 
@@ -51,7 +119,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Features
 
-* **util:** candy date add fromUnixTime and compare method #INF-529 ([8bff975](https://github.com/atinc/ngx-tethys/commit/8bff975e6b89490bc0c4460791059a8b6d73c4f6)), closes [#INF-529](https://github.com/atinc/ngx-tethys/issues/INF-529)
+* **util:** tiny date add fromUnixTime and compare method #INF-529 ([8bff975](https://github.com/atinc/ngx-tethys/commit/8bff975e6b89490bc0c4460791059a8b6d73c4f6)), closes [#INF-529](https://github.com/atinc/ngx-tethys/issues/INF-529)
 
 
 

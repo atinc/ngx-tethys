@@ -9,7 +9,7 @@ import {
     TemplateRef
 } from '@angular/core';
 
-import { CandyDate } from '../util';
+import { TinyDate } from '../util';
 import { coerceBooleanProperty, FunctionProp } from '../util/helpers';
 
 import { AbstractPickerComponent } from './abstract-picker.component';
@@ -76,7 +76,7 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
     }
 
     // Emit thyOnCalendarChange when select date by thy-range-picker
-    onCalendarChange(value: CandyDate[]): void {
+    onCalendarChange(value: TinyDate[]): void {
         if (this.isRange) {
             const rangeValue = value.map(x => x.nativeDate);
             this.thyOnCalendarChange.emit(rangeValue);
@@ -89,7 +89,7 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
 
     onResultOk(): void {
         if (this.isRange) {
-            const value = this.thyValue as CandyDate[];
+            const value = this.thyValue as TinyDate[];
             if (value.length) {
                 this.thyOnOk.emit([value[0].nativeDate, value[1].nativeDate]);
             } else {
@@ -97,7 +97,7 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
             }
         } else {
             if (this.thyValue) {
-                this.thyOnOk.emit((this.thyValue as CandyDate).nativeDate);
+                this.thyOnOk.emit((this.thyValue as TinyDate).nativeDate);
             } else {
                 this.thyOnOk.emit(null);
             }

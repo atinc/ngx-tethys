@@ -115,7 +115,7 @@ export class ThyPopoverContainerComponent extends ThyUpperOverlayContainer imple
 
         // Mark the container for check so it can react if the
         // view container is using OnPush change detection.
-        // this.changeDetectorRef.markForCheck();
+        this.changeDetectorRef.markForCheck();
     }
 
     @HostListener('click', [])

@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 
 import { DisabledDateFn, PanelMode, SupportTimeOptions } from '../../standard-types';
-import { CandyDate } from '../../../util';
+import { TinyDate } from '../../../util';
 import { FunctionProp } from '../../../util/helpers';
 
 @Component({
@@ -26,17 +26,17 @@ export class InnerPopupComponent implements OnChanges {
     @Input() enableNext: boolean;
     @Input() disabledDate: DisabledDateFn;
     @Input() dateRender: FunctionProp<TemplateRef<Date> | string>;
-    @Input() selectedValue: CandyDate[]; // Range ONLY
-    @Input() hoverValue: CandyDate[]; // Range ONLY
+    @Input() selectedValue: TinyDate[]; // Range ONLY
+    @Input() hoverValue: TinyDate[]; // Range ONLY
 
     @Input() panelMode: PanelMode;
     @Output() readonly panelModeChange = new EventEmitter<PanelMode>();
 
-    @Input() value: CandyDate;
+    @Input() value: TinyDate;
 
-    @Output() readonly headerChange = new EventEmitter<CandyDate>();
-    @Output() readonly selectDate = new EventEmitter<CandyDate>();
-    @Output() readonly dayHover = new EventEmitter<CandyDate>();
+    @Output() readonly headerChange = new EventEmitter<TinyDate>();
+    @Output() readonly selectDate = new EventEmitter<TinyDate>();
+    @Output() readonly dayHover = new EventEmitter<TinyDate>();
 
     prefixCls = 'thy-calendar';
 
@@ -44,13 +44,13 @@ export class InnerPopupComponent implements OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.value && !this.value) {
-            this.value = new CandyDate();
+            this.value = new TinyDate();
         }
     }
 
     // The value real changed to outside
-    onSelectDate(date: CandyDate | Date): void {
-        const value = date instanceof CandyDate ? date : new CandyDate(date);
+    onSelectDate(date: TinyDate | Date): void {
+        const value = date instanceof TinyDate ? date : new TinyDate(date);
         this.selectDate.emit(value);
     }
 }

@@ -63,6 +63,7 @@ import { DemoResultSectionComponent } from './components/+result/result-section.
 import { DemoMentionSectionComponent } from './components/+mention';
 import { DemoDatePickerNextSectionComponent } from './components/+datepicker/datepicker-section.component';
 import { DemoStatisticComponent } from './components/+statistic/statistic.component';
+import { DemoAutocompleteSectionComponent } from './components/+autocomplete/autocomplete-section.component';
 
 const appRoutes = [
     {
@@ -325,6 +326,10 @@ const appRoutes = [
     {
         path: 'components/statistic',
         component: DemoStatisticComponent
+    },
+    {
+        path: 'components/autocomplete',
+        component: DemoAutocompleteSectionComponent
     }
 ];
 

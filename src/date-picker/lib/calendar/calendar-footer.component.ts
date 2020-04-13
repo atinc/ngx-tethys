@@ -10,7 +10,7 @@ import {
     OnInit
 } from '@angular/core';
 
-import { CandyDate } from '../../../util';
+import { TinyDate } from '../../../util';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -21,8 +21,8 @@ import { CandyDate } from '../../../util';
 export class CalendarFooterComponent implements OnInit {
     @Input() showTime = false;
     @Input() mustShowTime = false;
-    @Input() value: CandyDate;
-    @Output() readonly selectTime = new EventEmitter<CandyDate>();
+    @Input() value: TinyDate;
+    @Output() readonly selectTime = new EventEmitter<TinyDate>();
     @Output() readonly clickOk = new EventEmitter<void>();
     @Output() readonly clickRemove = new EventEmitter<void>();
     @Output() readonly showTimePickerChange = new EventEmitter<boolean>();
@@ -33,12 +33,12 @@ export class CalendarFooterComponent implements OnInit {
     ngOnInit() {
         this._initTimeShowMode();
         if (!this.value) {
-            this.value = new CandyDate();
+            this.value = new TinyDate();
         }
     }
 
     onSelectTime(date: Date): void {
-        this.selectTime.emit(new CandyDate(date));
+        this.selectTime.emit(new TinyDate(date));
     }
 
     onTimeOk() {

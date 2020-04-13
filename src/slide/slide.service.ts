@@ -3,7 +3,12 @@ import { ThySlideContainerComponent } from './slide-container.component';
 import { OverlayConfig, OverlayRef, Overlay } from '@angular/cdk/overlay';
 import { PortalInjector, ComponentPortal } from '@angular/cdk/portal';
 import { ThyUpperOverlayService, ThyUpperOverlayRef, ComponentTypeOrTemplateRef } from '../core/overlay';
-import { ThySlideConfig, THY_SLIDE_DEFAULT_OPTIONS, slideUpperOverlayOptions } from './slide.config';
+import {
+    ThySlideConfig,
+    THY_SLIDE_DEFAULT_CONFIG,
+    slideUpperOverlayOptions,
+    slideDefaultConfigValue
+} from './slide.config';
 import { ThySlideRef, ThyInternalSlideRef } from './slide-ref.service';
 import { Directionality } from '@angular/cdk/bidi';
 import { of } from 'rxjs';
@@ -16,7 +21,6 @@ export class ThySlideService extends ThyUpperOverlayService<ThySlideConfig, ThyS
     implements OnDestroy {
     private originElementAddActiveClass(config: ThySlideConfig) {
         if (config.origin) {
-            const a = coerceElement<HTMLElement>(config.origin);
             coerceElement<HTMLElement>(config.origin).classList.add(...coerceArray(config.originActiveClass));
         }
     }
@@ -28,7 +32,7 @@ export class ThySlideService extends ThyUpperOverlayService<ThySlideConfig, ThyS
     }
 
     private getOverlayPanelClasses(slideConfig: ThySlideConfig) {
-        const classes: string[] = ['slide'];
+        const classes: string[] = ['thy-slide-overlay-pane', `thy-slide-${slideConfig.from}`];
         // 兼容之前的 class
         if (slideConfig.class) {
             return classes.concat(coerceArray(slideConfig.class));
@@ -41,8 +45,11 @@ export class ThySlideService extends ThyUpperOverlayService<ThySlideConfig, ThyS
 
     protected buildOverlayConfig(config: ThySlideConfig): OverlayConfig {
         config.id = config.id || (config.key as string);
-        const overlayConfig = this.buildBaseOverlayConfig(config);
-        overlayConfig.panelClass = this.getOverlayPanelClasses(config);
+        const overlayConfig = {
+            ...this.buildBaseOverlayConfig(config),
+            width: config.width,
+            panelClass: this.getOverlayPanelClasses(config)
+        };
         return overlayConfig;
     }
 
@@ -95,10 +102,11 @@ export class ThySlideService extends ThyUpperOverlayService<ThySlideConfig, ThyS
         overlay: Overlay,
         injector: Injector,
         @Optional()
-        @Inject(THY_SLIDE_DEFAULT_OPTIONS)
+        @Inject(THY_SLIDE_DEFAULT_CONFIG)
         defaultConfig: ThySlideConfig
     ) {
-        super(slideUpperOverlayOptions, overlay, injector, defaultConfig);
+        const slideDefaultConfig = Object.assign({}, slideDefaultConfigValue, defaultConfig);
+        super(slideUpperOverlayOptions, overlay, injector, slideDefaultConfig);
     }
 
     open<T, TData = undefined, TResult = undefined>(
@@ -108,12 +116,12 @@ export class ThySlideService extends ThyUpperOverlayService<ThySlideConfig, ThyS
         if (this.overlayIsOpened(config)) {
             return;
         }
-        const popoverRef = this.openUpperOverlay(componentOrTemplateRef, config);
-        this.originElementAddActiveClass(popoverRef.containerInstance.config);
-        popoverRef.afterClosed().subscribe(() => {
-            this.originElementRemoveActiveClass(popoverRef.containerInstance.config);
+        const slideRef = this.openUpperOverlay(componentOrTemplateRef, config);
+        this.originElementAddActiveClass(slideRef.containerInstance.config);
+        slideRef.afterClosed().subscribe(() => {
+            this.originElementRemoveActiveClass(slideRef.containerInstance.config);
         });
-        return popoverRef as ThySlideRef<T, TResult>;
+        return slideRef as ThySlideRef<T, TResult>;
     }
 
     /**
