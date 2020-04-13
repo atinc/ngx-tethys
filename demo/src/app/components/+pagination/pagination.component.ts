@@ -86,6 +86,12 @@ export class DemoPaginationComponent implements OnInit {
             description: `页码改变的回调`,
             type: 'ThyPaginationChangedEvent: number',
             default: '-'
+        },
+        {
+            property: '[thyShowTotal]',
+            description: `是否显示左侧total`,
+            type: 'Boolean | Template',
+            default: 'false'
         }
     ];
 

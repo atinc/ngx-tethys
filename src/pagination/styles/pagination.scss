@@ -1,8 +1,32 @@
 .thy-pagination {
+    width: 100%;
     display: flex;
-    align-items: stretch;
+    align-items: center;
+    justify-content: flex-end;
     color: $pagination-color;
     font-size: $font-size-base;
+
+    &-has-total {
+        justify-content: space-between;
+    }
+    &-total {
+        display: flex;
+        padding-right: 10px;
+        color: $gray-600;
+
+        > div {
+            display: inline-block;
+        }
+        .number {
+            color: $gray-800;
+        }
+    }
+
+    &-content {
+        display: flex;
+        align-items: stretch;
+    }
+
     &-pages {
         display: flex;
         margin: 0;
@@ -10,7 +34,7 @@
         @include border-radius();
     }
 
-    &-total {
+    &-count {
         display: flex;
         align-items: center;
 

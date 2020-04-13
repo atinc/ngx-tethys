@@ -9,7 +9,8 @@ import {
     HostBinding,
     ElementRef,
     Optional,
-    Inject
+    Inject,
+    TemplateRef
 } from '@angular/core';
 import { ThyPaginationConfigModel } from './pagination.class';
 import {
@@ -19,6 +20,7 @@ import {
     ThyPaginationConfig
 } from './pagination.config';
 import { UpdateHostClassService } from '../shared';
+import { isTemplateRef } from '../util/helpers';
 
 @Component({
     selector: 'thy-pagination',
@@ -27,6 +29,7 @@ import { UpdateHostClassService } from '../shared';
     providers: [UpdateHostClassService]
 })
 export class ThyPaginationComponent implements OnInit {
+    isTemplateRef = isTemplateRef;
     public config: ThyPaginationConfigModel = Object.assign({}, PaginationDefaultConfig, this.paginationConfig.main);
 
     @Input()
@@ -102,6 +105,8 @@ export class ThyPaginationComponent implements OnInit {
 
     public total: number;
 
+    public ranges = [0, 0];
+
     public firstIndex = 1;
 
     public isHideOnSinglePage = false;
@@ -109,6 +114,11 @@ export class ThyPaginationComponent implements OnInit {
     private initialized = false;
 
     @HostBinding('class.thy-pagination') isPaginationClass = true;
+
+    // 是否显示范围和total
+    @HostBinding('class.thy-pagination-has-total')
+    @Input('thyShowTotal')
+    showTotal: boolean | TemplateRef<{ $implicit: number; ranges: [number, number] }> = false;
 
     constructor(
         @Optional()
@@ -125,6 +135,7 @@ export class ThyPaginationComponent implements OnInit {
         this.setMarginalCount(this.config.rangeCount);
         this.calculatePageCount();
         this.setPageIndex(this.pageIndex);
+        this.ranges = [(this.pageIndex - 1) * this.pageSize + 1, this.pageIndex * this.pageSize];
         this.initialized = true;
     }
 
@@ -207,6 +218,7 @@ export class ThyPaginationComponent implements OnInit {
     }
 
     private pageChange(pageIndex: number) {
+        this.ranges = [(pageIndex - 1) * this.pageSize + 1, pageIndex * this.pageSize];
         this.pageIndexChange.emit(pageIndex);
         this.pageChanged.emit({ page: pageIndex });
     }
