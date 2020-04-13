@@ -29,6 +29,7 @@
       [thyPageSize]="pagination.pageSize"
       [thyTotal]="pagination.total"
       [thyHideOnSinglePage]="true"
+      [thyShowTotal]="true"
       (thyPageIndexChange)="onPageChange($event)"
     ></thy-pagination>
   </div>
@@ -39,11 +40,20 @@
     <h2>更多分页</h2>
   </div>
   <div class="body  mt-3">
-    <thy-pagination [(thyPageIndex)]="page" [thyPageSize]="20" [thyTotal]="200"></thy-pagination>
+    <thy-pagination
+      [(thyPageIndex)]="page"
+      [thyPageSize]="20"
+      [thyTotal]="200"
+      [thyShowTotal]="totalTemplate"
+    ></thy-pagination>
     <br />
     <thy-pagination [thyPageIndex]="10" [thyPageSize]="10" [thyTotal]="300"></thy-pagination>
   </div>
 </section>
+
+<ng-template #totalTemplate let-total
+  >共计 <span class="text-secondary">{{ total }}</span> 条</ng-template
+>
 
 <section>
   <div class="header">
@@ -100,10 +110,15 @@
       [thyPageSize]="20"
       [thyTotal]="200"
       [thySize]="'lg'"
+      [thyShowTotal]="rangeTemplate"
       [thyShowQuickJumper]="true"
     ></thy-pagination>
   </div>
 </section>
+
+<ng-template #rangeTemplate let-ranges="ranges" let-total
+  ><div>{{ ranges[0] }}-{{ ranges[1] }} of {{ total }}</div></ng-template
+>
 
 <section>
   <div class="header">

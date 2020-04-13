@@ -1,79 +1,97 @@
 <ng-container *ngIf="(hideOnSinglePage && total > pageSize) || !hideOnSinglePage">
-  <ul class="thy-pagination-pages">
-    <li
-      class="thy-page-item"
-      [class.disabled]="disabled || pageIndex === firstIndex"
-      *ngIf="config.boundaryLinks"
-      (click)="selectPage(firstIndex)"
-    >
-      <a class="thy-page-link thy-page-link-first" href="javascript:;">
-        <ng-container *ngIf="config.firstText">{{ config.firstText }}</ng-container>
-        <ng-container *ngIf="config.firstIcon">
-          <thy-icon [thyIconName]="config.firstIcon"></thy-icon>
-        </ng-container>
-      </a>
-    </li>
-    <li
-      class="thy-page-item"
-      [class.disabled]="disabled || pageIndex === firstIndex"
-      *ngIf="config.directionLinks"
-      (click)="selectPage(pageIndex - 1)"
-    >
-      <a class="thy-page-link  page-link-pre" href="javascript:;">
-        <ng-container *ngIf="config.previousText">{{ config.previousText }}</ng-container>
-        <ng-container *ngIf="config.previousIcon">
-          <thy-icon [thyIconName]="config.previousIcon"></thy-icon>
-        </ng-container>
-      </a>
-    </li>
-    <li
-      class="thy-page-item"
-      [class.active]="page.active"
-      [class.disabled]="disabled"
-      (click)="selectPage(page.index)"
-      *ngFor="let page of pages"
-    >
-      <a class="thy-page-link" href="javascript:;">{{ page.text }}</a>
-    </li>
-    <li
-      class="thy-page-item page-item-next"
-      [class.disabled]="disabled || pageIndex === pageCount"
-      *ngIf="config.directionLinks"
-      (click)="selectPage(pageIndex + 1)"
-    >
-      <a class="thy-page-link thy-page-link-next" href="javascript:;">
-        <ng-container *ngIf="config.nextText">{{ config.nextText }}</ng-container>
-        <ng-container *ngIf="config.nextIcon">
-          <thy-icon [thyIconName]="config.nextIcon"></thy-icon>
-        </ng-container>
-      </a>
-    </li>
-    <li
-      class="thy-page-item"
-      [class.disabled]="disabled || pageIndex === pageCount"
-      *ngIf="config.boundaryLinks"
-      (click)="selectPage(pageCount)"
-    >
-      <a class="thy-page-link thy-page-link-last" href="javascript:;">
-        <ng-container *ngIf="config.lastText">{{ config.lastText }}</ng-container>
-        <ng-container *ngIf="config.lastIcon">
-          <thy-icon [thyIconName]="config.lastIcon"></thy-icon>
-        </ng-container>
-      </a>
-    </li>
-  </ul>
-  <ng-container *ngIf="config.totalPagesFormat">
-    <div
-      class="thy-pagination-total"
-      [innerHTML]="pageCount | paginationTotalPagesFormat: config.totalPagesFormat"
-    ></div>
-  </ng-container>
-  <ng-container *ngIf="config.showQuickJumper">
-    <div class="thy-pagination-jumper">
-      <div class="thy-pagination-jumper-input">
-        到 <input type="text" [disabled]="disabled" #jumperInput (thyEnter)="jumpPage(jumperInput)" /> 页
+  <div class="thy-pagination-total" *ngIf="showTotal">
+    <ng-container *ngIf="!isTemplateRef(showTotal); else totalTemplate">
+      <div class="mr-3">
+        第<span class="number"> {{ ranges[0] }}-{{ ranges[1] }} </span>条
       </div>
-      <button type="button" (click)="jumpPage(jumperInput)" [disabled]="disabled">确定</button>
-    </div>
-  </ng-container>
+      <div>
+        共计<span class="number"> {{ total }} </span>条
+      </div>
+    </ng-container>
+    <ng-template #totalTemplate>
+      <ng-template
+        [ngTemplateOutlet]="showTotal"
+        [ngTemplateOutletContext]="{ $implicit: total, ranges: ranges }"
+      ></ng-template>
+    </ng-template>
+  </div>
+  <div class="thy-pagination-content">
+    <ul class="thy-pagination-pages">
+      <li
+        class="thy-page-item"
+        [class.disabled]="disabled || pageIndex === firstIndex"
+        *ngIf="config.boundaryLinks"
+        (click)="selectPage(firstIndex)"
+      >
+        <a class="thy-page-link thy-page-link-first" href="javascript:;">
+          <ng-container *ngIf="config.firstText">{{ config.firstText }}</ng-container>
+          <ng-container *ngIf="config.firstIcon">
+            <thy-icon [thyIconName]="config.firstIcon"></thy-icon>
+          </ng-container>
+        </a>
+      </li>
+      <li
+        class="thy-page-item"
+        [class.disabled]="disabled || pageIndex === firstIndex"
+        *ngIf="config.directionLinks"
+        (click)="selectPage(pageIndex - 1)"
+      >
+        <a class="thy-page-link  page-link-pre" href="javascript:;">
+          <ng-container *ngIf="config.previousText">{{ config.previousText }}</ng-container>
+          <ng-container *ngIf="config.previousIcon">
+            <thy-icon [thyIconName]="config.previousIcon"></thy-icon>
+          </ng-container>
+        </a>
+      </li>
+      <li
+        class="thy-page-item"
+        [class.active]="page.active"
+        [class.disabled]="disabled"
+        (click)="selectPage(page.index)"
+        *ngFor="let page of pages"
+      >
+        <a class="thy-page-link" href="javascript:;">{{ page.text }}</a>
+      </li>
+      <li
+        class="thy-page-item page-item-next"
+        [class.disabled]="disabled || pageIndex === pageCount"
+        *ngIf="config.directionLinks"
+        (click)="selectPage(pageIndex + 1)"
+      >
+        <a class="thy-page-link thy-page-link-next" href="javascript:;">
+          <ng-container *ngIf="config.nextText">{{ config.nextText }}</ng-container>
+          <ng-container *ngIf="config.nextIcon">
+            <thy-icon [thyIconName]="config.nextIcon"></thy-icon>
+          </ng-container>
+        </a>
+      </li>
+      <li
+        class="thy-page-item"
+        [class.disabled]="disabled || pageIndex === pageCount"
+        *ngIf="config.boundaryLinks"
+        (click)="selectPage(pageCount)"
+      >
+        <a class="thy-page-link thy-page-link-last" href="javascript:;">
+          <ng-container *ngIf="config.lastText">{{ config.lastText }}</ng-container>
+          <ng-container *ngIf="config.lastIcon">
+            <thy-icon [thyIconName]="config.lastIcon"></thy-icon>
+          </ng-container>
+        </a>
+      </li>
+    </ul>
+    <ng-container *ngIf="config.totalPagesFormat">
+      <div
+        class="thy-pagination-count"
+        [innerHTML]="pageCount | paginationTotalPagesFormat: config.totalPagesFormat"
+      ></div>
+    </ng-container>
+    <ng-container *ngIf="config.showQuickJumper">
+      <div class="thy-pagination-jumper">
+        <div class="thy-pagination-jumper-input">
+          到 <input type="text" [disabled]="disabled" #jumperInput (thyEnter)="jumpPage(jumperInput)" /> 页
+        </div>
+        <button type="button" (click)="jumpPage(jumperInput)" [disabled]="disabled">确定</button>
+      </div>
+    </ng-container>
+  </div>
 </ng-container>
