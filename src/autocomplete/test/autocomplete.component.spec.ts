@@ -71,7 +71,7 @@ class BasicSelectComponent {
         this.openedSpy();
     }
 }
-fdescribe('ThyAutocomplete', () => {
+describe('ThyAutocomplete', () => {
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
     let platform: Platform;
