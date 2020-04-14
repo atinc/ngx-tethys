@@ -1,8 +1,8 @@
-import { Directive, ElementRef, Input, OnInit, Renderer2, HostBinding, OnDestroy, NgZone } from '@angular/core';
+import { Directive, ElementRef, Input, OnInit, Renderer2, HostBinding, OnDestroy, NgZone, Inject } from '@angular/core';
 import { UpdateHostClassService } from '../shared';
 import { NgForm } from '@angular/forms';
 import { keycodes } from '../util';
-import { ThyFormLayout, ThyFormValidatorConfig } from './form.class';
+import { ThyFormLayout, ThyFormValidatorConfig, ThyFormConfig, THY_FORM_CONFIG } from './form.class';
 import { ThyFormValidatorService } from './form-validator.service';
 import { inputValueToBoolean } from '../util/helpers';
 
@@ -56,8 +56,10 @@ export class ThyFormDirective implements OnInit, OnDestroy {
         private renderer: Renderer2,
         private ngZone: NgZone,
         private updateHostClassService: UpdateHostClassService,
-        public validator: ThyFormValidatorService
+        public validator: ThyFormValidatorService,
+        @Inject(THY_FORM_CONFIG) private config: ThyFormConfig
     ) {
+        this.thyLayout = this.config.layout;
         this.updateHostClassService.initializeElement(this.elementRef.nativeElement);
     }
 
