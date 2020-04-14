@@ -22,6 +22,7 @@ import { ThyTreeNode } from '../tree/tree-node.class';
 
 import { take } from 'rxjs/operators';
 import { produce } from '../util';
+import { warnDeprecation } from '../core';
 
 type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -61,8 +62,8 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
     public positions: ConnectionPositionPair[];
 
     public icons: { expand: string; collapse: string; gap?: number } = {
-        expand: 'caret-right-down',
-        collapse: 'caret-right',
+        expand: 'angle-down',
+        collapse: 'angle-right',
         gap: 15
     };
 
@@ -123,11 +124,12 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
 
     @Input()
     set thyIconType(type: ThyTreeSelectType) {
-        if (type === 'especial') {
-            this.icons = { expand: 'minus-square', collapse: 'plus-square', gap: 20 };
-        } else {
-            this.icons = { expand: 'caret-right-down', collapse: 'caret-right', gap: 15 };
-        }
+        warnDeprecation('This parameter has been deprecation');
+        // if (type === 'especial') {
+        //     this.icons = { expand: 'minus-square', collapse: 'plus-square', gap: 20 };
+        // } else {
+        //     this.icons = { expand: 'caret-right-down', collapse: 'caret-right', gap: 15 };
+        // }
     }
 
     @Input() thyHiddenNodeFn: (node: ThyTreeSelectNode) => boolean = (node: ThyTreeSelectNode) => node.hidden;
