@@ -8,29 +8,24 @@ import { FormsModule } from '@angular/forms';
 import { THY_FORM_CONFIG } from '../form.class';
 
 @Component({
-    selector: 'test-bed-form-directive',
+    selector: 'thy-demo-form-directive',
     template: `
         <form thyForm [thyLayout]="thyLayout"></form>
     `
 })
-export class FormBasicTestDirectiveComponent {
+export class ThyDemoFormDirectiveComponent {
     thyLayout = '';
 }
-@NgModule({
-    imports: [ThyFormModule, FormsModule, ThyLayoutModule],
-    declarations: [FormBasicTestDirectiveComponent],
-    exports: []
-})
-export class FormDirectiveTestModule {}
 
 describe('form basic directive', () => {
-    let fixture: ComponentFixture<FormBasicTestDirectiveComponent>;
-    let basicTestComponent: FormBasicTestDirectiveComponent;
+    let fixture: ComponentFixture<ThyDemoFormDirectiveComponent>;
+    let basicTestComponent: ThyDemoFormDirectiveComponent;
     let debugElement: DebugElement;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [FormDirectiveTestModule],
+            declarations: [ThyDemoFormDirectiveComponent],
+            imports: [ThyFormModule, FormsModule, ThyLayoutModule],
             providers: []
         });
 
@@ -38,7 +33,7 @@ describe('form basic directive', () => {
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(FormBasicTestDirectiveComponent);
+        fixture = TestBed.createComponent(ThyDemoFormDirectiveComponent);
         basicTestComponent = fixture.debugElement.componentInstance;
         debugElement = fixture.debugElement.query(By.directive(ThyFormDirective));
     });
@@ -68,13 +63,14 @@ describe('form basic directive', () => {
 });
 
 describe('form directive global config', () => {
-    let fixture: ComponentFixture<FormBasicTestDirectiveComponent>;
-    let basicTestComponent: FormBasicTestDirectiveComponent;
+    let fixture: ComponentFixture<ThyDemoFormDirectiveComponent>;
+    let basicTestComponent: ThyDemoFormDirectiveComponent;
     let debugElement: DebugElement;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [FormDirectiveTestModule],
+            imports: [ThyFormModule, FormsModule, ThyLayoutModule],
+            declarations: [ThyDemoFormDirectiveComponent],
             providers: [
                 {
                     provide: THY_FORM_CONFIG,
@@ -89,7 +85,7 @@ describe('form directive global config', () => {
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(FormBasicTestDirectiveComponent);
+        fixture = TestBed.createComponent(ThyDemoFormDirectiveComponent);
         basicTestComponent = fixture.debugElement.componentInstance;
         debugElement = fixture.debugElement.query(By.directive(ThyFormDirective));
     });
