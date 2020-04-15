@@ -407,73 +407,23 @@
         <thy-form-group thyLabelText="Textarea">
           <textarea class="form-control" rows="3"></textarea>
         </thy-form-group>
-        <thy-form-group thyLabelText="输入框大小">
-          <input thyInput thySize="lg" placeholder=".form-control-lg" />
-          <br />
-          <input thyInput placeholder="Default input" /> <br />
-          <input thyInput thySize="md" placeholder=".form-control-md" />
-          <br />
-          <input thyInput thySize="sm" placeholder=".form-control-sm" />
-          <br />
-          <input thyInput thySize="xs" placeholder=".form-control-xs" />
-          <br />
-        </thy-form-group>
-        <thy-form-group>
-          <ng-template #formGroup>
-            <label class="col-sm-2 col-form-label pr-0">开始时间</label>
-            <div class="col-sm-4 col-form-control">
-              <thy-input-group>
-                <input
-                  type="text"
-                  class="form-control pbox-trigger"
-                  name="deadline_at"
-                  readonly="readonly"
-                  placeholder=""
-                  value="7月17日"
-                />
-                <ng-template #append>
-                  <span class="input-group-text">
-                    <thy-icon thyIconName="calendar"></thy-icon>
-                  </span>
-                  <span class="input-group-text"> $ </span>
-                </ng-template>
-              </thy-input-group>
-            </div>
-            <label class="col-sm-2 col-form-label">结束时间</label>
-            <div class="col-sm-4 has-feedback col-form-control">
-              <input type="email" class="form-control" placeholder="结束时间" />
-              <thy-icon class="form-control-feedback" thyIconName="calendar"></thy-icon>
-            </div>
-          </ng-template>
-        </thy-form-group>
-        <thy-form-group>
-          <ng-template #formGroup>
-            <label class="col-sm-2 col-form-label pr-0">开始时间</label>
-            <div class="col-sm-4 col-form-control">
-              <thy-input-group>
-                <input
-                  type="text"
-                  class="form-control pbox-trigger"
-                  name="deadline_at"
-                  readonly="readonly"
-                  placeholder=""
-                  value="7月17日"
-                />
-                <ng-template #append>
-                  <span class="input-group-text">
-                    <thy-icon thyIconName="calendar"></thy-icon>
-                  </span>
-                  <span class="input-group-text"> $ </span>
-                </ng-template>
-              </thy-input-group>
-            </div>
-            <label class="col-sm-2 col-form-label">结束时间</label>
-            <div class="col-sm-4 has-feedback col-form-control">
-              <input type="email" class="form-control" placeholder="结束时间" />
-              <thy-icon class="form-control-feedback" thyIconName="calendar"></thy-icon>
-            </div>
-          </ng-template>
-        </thy-form-group>
+        <thy-form-group-footer>
+          <button [thyButton]="'primary'" (thyFormSubmit)="save(demoVerticalForm)">
+            保存
+          </button>
+          <button [thyButton]="'link-secondary'" (click)="demoVerticalThyForm.validator.reset()">
+            重置
+          </button>
+          <button
+            [thyButton]="'primary'"
+            (click)="demoVerticalThyForm.validator.setElementErrorMessage('power', '这是一个自定义的错误')"
+          >
+            设置选择1错误信息
+          </button>
+          <button [thyButton]="'primary'" (click)="demoVerticalThyForm.validator.addError('这是一条Form错误')">
+            添加一条Form错误
+          </button>
+        </thy-form-group-footer>
       </form>
     </div>
   </div>

@@ -22,7 +22,7 @@ export enum ThyEnterKeyMode {
     exportAs: 'thyForm'
 })
 export class ThyFormDirective implements OnInit, OnDestroy {
-    private _layout: ThyFormLayout = 'horizontal';
+    private _layout: ThyFormLayout;
 
     @Input()
     set thyLayout(value: ThyFormLayout) {
@@ -59,7 +59,6 @@ export class ThyFormDirective implements OnInit, OnDestroy {
         public validator: ThyFormValidatorService,
         @Inject(THY_FORM_CONFIG) private config: ThyFormConfig
     ) {
-        this.thyLayout = this.config.layout;
         this.updateHostClassService.initializeElement(this.elementRef.nativeElement);
     }
 
@@ -71,11 +70,18 @@ export class ThyFormDirective implements OnInit, OnDestroy {
                 this.onKeydown.bind(this)
             );
         });
+        this.setFromConfig();
         this.updateHostClassService.updateClassByMap({
             'thy-form': true,
             [`thy-form-${this.thyLayout}`]: true
         });
         this.validator.initialize(this.ngForm, this.elementRef.nativeElement);
+    }
+
+    private setFromConfig() {
+        if (!this._layout) {
+            this._layout = this.config.layout;
+        }
     }
 
     submit($event: any) {
