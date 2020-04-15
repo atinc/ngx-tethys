@@ -131,8 +131,7 @@ export class DemoFormSectionComponent {
         },
         {
             property: 'thyFeedbackIcon',
-            description:
-                '反馈图标，比如日期输入框显示日期的图标，常用输入 date 表示时间 wtf wtf-schedule-o',
+            description: '反馈图标，比如日期输入框显示日期的图标，常用输入 date 表示时间 wtf wtf-schedule-o',
             type: 'String',
             default: ''
         },
@@ -190,7 +189,7 @@ export class DemoFormSectionComponent {
     checkUserName = (value: string) => {
         console.log(`remote checkUserName`);
         return of(value === 'why520crazy');
-    }
+    };
 
     constructor(private thyModalService: ThyModalService) {
         setTimeout(() => {
