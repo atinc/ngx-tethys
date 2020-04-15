@@ -1,8 +1,8 @@
-import { Directive, ElementRef, Input, OnInit, Renderer2, HostBinding, OnDestroy, NgZone } from '@angular/core';
+import { Directive, ElementRef, Input, OnInit, Renderer2, HostBinding, OnDestroy, NgZone, Inject } from '@angular/core';
 import { UpdateHostClassService } from '../shared';
 import { NgForm } from '@angular/forms';
 import { keycodes } from '../util';
-import { ThyFormLayout, ThyFormValidatorConfig } from './form.class';
+import { ThyFormLayout, ThyFormValidatorConfig, ThyFormConfig, THY_FORM_CONFIG } from './form.class';
 import { ThyFormValidatorService } from './form-validator.service';
 import { inputValueToBoolean } from '../util/helpers';
 
@@ -22,7 +22,7 @@ export enum ThyEnterKeyMode {
     exportAs: 'thyForm'
 })
 export class ThyFormDirective implements OnInit, OnDestroy {
-    private _layout: ThyFormLayout = 'horizontal';
+    private _layout: ThyFormLayout;
 
     @Input()
     set thyLayout(value: ThyFormLayout) {
@@ -56,7 +56,8 @@ export class ThyFormDirective implements OnInit, OnDestroy {
         private renderer: Renderer2,
         private ngZone: NgZone,
         private updateHostClassService: UpdateHostClassService,
-        public validator: ThyFormValidatorService
+        public validator: ThyFormValidatorService,
+        @Inject(THY_FORM_CONFIG) private config: ThyFormConfig
     ) {
         this.updateHostClassService.initializeElement(this.elementRef.nativeElement);
     }
@@ -69,11 +70,18 @@ export class ThyFormDirective implements OnInit, OnDestroy {
                 this.onKeydown.bind(this)
             );
         });
+        this.setLayout();
         this.updateHostClassService.updateClassByMap({
             'thy-form': true,
             [`thy-form-${this.thyLayout}`]: true
         });
         this.validator.initialize(this.ngForm, this.elementRef.nativeElement);
+    }
+
+    private setLayout() {
+        if (!this._layout) {
+            this._layout = this.config.layout;
+        }
     }
 
     submit($event: any) {
