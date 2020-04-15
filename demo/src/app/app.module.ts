@@ -30,6 +30,7 @@ import { GLOBAL_MODULES } from './global';
 import { SidebarComponent } from './core/sidebar/sidebar.component';
 import { SharedModule } from './shared.module';
 import { DemoTreeSelectModule } from './components/+tree-select/module';
+import { thyFormConfigProvider } from './config/form.config';
 
 @NgModule({
     declarations: [AppComponent, ...COMPONENTS, ...DESIGN_COMPONENTS, SidebarComponent],
@@ -66,6 +67,7 @@ import { DemoTreeSelectModule } from './components/+tree-select/module';
             useClass: CustomMarkdownParserService
         },
         thyValidatorConfigProvider,
+        thyFormConfigProvider,
         {
             provide: THY_SLIDE_DEFAULT_CONFIG,
             useValue: {
