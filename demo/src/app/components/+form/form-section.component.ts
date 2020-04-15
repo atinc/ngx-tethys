@@ -1,67 +1,7 @@
 import { Component, ViewEncapsulation, TemplateRef } from '@angular/core';
-import { ThyModalService } from '../../../../../src/public-api';
-import { of } from 'rxjs';
-
-const options = [
-    {
-        value: 'zhejiang',
-        label: 'Zhejiang',
-        children: [
-            {
-                value: 'hangzhou',
-                label: 'Hangzhou',
-                children: [
-                    {
-                        value: 'xihu',
-                        label: 'West Lake',
-                        isLeaf: true
-                    }
-                ]
-            },
-            {
-                value: 'ningbo',
-                label: 'Ningbo',
-                isLeaf: true
-            }
-        ]
-    },
-    {
-        value: 'jiangsu',
-        label: 'Jiangsu',
-        children: [
-            {
-                value: 'nanjing',
-                label: 'Nanjing',
-                disabled: true,
-                children: [
-                    {
-                        value: 'zhonghuamen',
-                        label: 'Zhong Hua Men',
-                        isLeaf: true
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        value: 'henan',
-        label: 'Henan',
-        disabled: true,
-        children: [
-            {
-                value: 'zhengzhou',
-                label: 'Zhengzhou',
-                children: [
-                    {
-                        value: 'zhoukou',
-                        label: 'Zoukou',
-                        isLeaf: true
-                    }
-                ]
-            }
-        ]
-    }
-];
+import { LiveDemoCodeExample } from '../../core/live-demo/live-demo.component';
+import { DemoFormBasicComponent } from './basic/form-basic.component';
+import { DemoFormModalComponent } from './modal/form-modal.component';
 
 @Component({
     selector: 'demo-form-section',
@@ -71,14 +11,6 @@ const options = [
     encapsulation: ViewEncapsulation.None
 })
 export class DemoFormSectionComponent {
-    submitSuccess = false;
-
-    showDescProperty = false;
-    public thyOptions = options;
-
-    /** ngModel value */
-    public values: any[] = null;
-
     public apiThyFormParameters = [
         {
             property: 'thyForm',
@@ -161,54 +93,42 @@ export class DemoFormSectionComponent {
         }
     ];
 
-    model: any = {
-        select: 1,
-        checkbox: 0,
-        group: 1
-    };
-
-    options = [
+    liveDemos: LiveDemoCodeExample[] = [
         {
-            _id: 1,
-            value: '选项1'
+            title: '基本使用',
+            component: DemoFormBasicComponent,
+            description: ``,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'form-basic.component.html',
+                    content: require('!!raw-loader!./basic/form-basic.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'form-basic.component.ts',
+                    content: require('!!raw-loader!./basic/form-basic.component.ts')
+                }
+            ]
         },
         {
-            _id: 2,
-            value: '选项2'
+            title: 'Modal Form',
+            description: ``,
+            component: DemoFormModalComponent,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'button-pair.component.html',
+                    content: require('!!raw-loader!./modal/form-modal.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'button-pair.component.ts',
+                    content: require('!!raw-loader!./modal/form-modal.component.ts')
+                }
+            ]
         }
     ];
 
-    validatorConfig = {
-        validationMessages: {
-            username: {
-                required: '重写用户名不能为空错误信息'
-            }
-        }
-    };
-
-    checkUserName = (value: string) => {
-        console.log(`remote checkUserName`);
-        return of(value === 'why520crazy');
-    };
-
-    constructor(private thyModalService: ThyModalService) {
-        setTimeout(() => {
-            this.showDescProperty = true;
-        }, 300);
-    }
-
-    save(form: any) {
-        console.log(`submit success!`);
-        this.submitSuccess = true;
-    }
-
-    openFormModal(template: TemplateRef<any>) {
-        this.thyModalService.show(template);
-    }
-
-    modalFormSubmit() {
-        console.log(`modal form submit success!`);
-    }
-
-    onChanges(event: Event) {}
+    constructor() {}
 }
