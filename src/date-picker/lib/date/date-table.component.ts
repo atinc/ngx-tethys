@@ -102,7 +102,7 @@ export class DateTableComponent implements OnChanges {
 
     private makeHeadWeekDays(): WeekDayLabel[] {
         const weekDays: WeekDayLabel[] = [];
-        const start = this.value.calendarStart({ weekStartsOn: 0 });
+        const start = this.value.calendarStart({ weekStartsOn: this.dateHelper.getFirstDayOfWeek() });
         for (let colIndex = 0; colIndex < DATE_COL_NUM; colIndex++) {
             const day = start.addDays(colIndex);
             weekDays[colIndex] = {
