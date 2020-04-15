@@ -24,7 +24,7 @@ export class DateHelperByDatePipe extends DateHelperService {
     }
 
     getFirstDayOfWeek(): WeekDayIndex {
-        return 1;
+        return 0;
     }
 
     format(date: Date | null, formatStr: string): string {
