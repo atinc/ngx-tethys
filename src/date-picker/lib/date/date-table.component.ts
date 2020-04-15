@@ -122,7 +122,7 @@ export class DateTableComponent implements OnChanges {
 
     private makeWeekRows(): WeekRow[] {
         const weekRows: WeekRow[] = [];
-        const firstDayOfMonth = this.value.calendarStart({ weekStartsOn: 1 });
+        const firstDayOfMonth = this.value.calendarStart({ weekStartsOn: this.dateHelper.getFirstDayOfWeek() });
 
         for (let week = 0; week < DATE_ROW_NUM; week++) {
             const weekStart = firstDayOfMonth.addDays(week * 7);
