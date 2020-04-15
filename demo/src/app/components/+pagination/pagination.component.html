@@ -116,8 +116,8 @@
   </div>
 </section>
 
-<ng-template #rangeTemplate let-ranges="ranges" let-total
-  ><div>{{ ranges[0] }}-{{ ranges[1] }} of {{ total }}</div></ng-template
+<ng-template #rangeTemplate let-range="range" let-total
+  ><div>{{ range.from }}-{{ range.to }} of {{ total }}</div></ng-template
 >
 
 <section>
