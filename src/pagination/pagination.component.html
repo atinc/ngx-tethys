@@ -2,7 +2,7 @@
   <div class="thy-pagination-total" *ngIf="showTotal">
     <ng-container *ngIf="!isTemplateRef(showTotal); else totalTemplate">
       <div class="mr-3">
-        第<span class="number"> {{ ranges[0] }}-{{ ranges[1] }} </span>条
+        第<span class="number"> {{ range.from }}-{{ range.to }} </span>条
       </div>
       <div>
         共计<span class="number"> {{ total }} </span>条
@@ -11,7 +11,7 @@
     <ng-template #totalTemplate>
       <ng-template
         [ngTemplateOutlet]="showTotal"
-        [ngTemplateOutletContext]="{ $implicit: total, ranges: ranges }"
+        [ngTemplateOutletContext]="{ $implicit: total, range: range }"
       ></ng-template>
     </ng-template>
   </div>
