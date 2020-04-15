@@ -70,7 +70,7 @@ export class ThyFormDirective implements OnInit, OnDestroy {
                 this.onKeydown.bind(this)
             );
         });
-        this.setFromConfig();
+        this.setLayout();
         this.updateHostClassService.updateClassByMap({
             'thy-form': true,
             [`thy-form-${this.thyLayout}`]: true
@@ -78,7 +78,7 @@ export class ThyFormDirective implements OnInit, OnDestroy {
         this.validator.initialize(this.ngForm, this.elementRef.nativeElement);
     }
 
-    private setFromConfig() {
+    private setLayout() {
         if (!this._layout) {
             this._layout = this.config.layout;
         }
