@@ -4,8 +4,13 @@
   </div>
   <div class="body">
     <div class="demo-form">
-      <form thyForm name="demoForm" #demoForm="ngForm">
-        <thy-form-group thyLabelText="用户名" thyLabelRequired thyTips="这是一个输入用户名的描述">
+      <form thyForm name="demoForm" #demoForm="ngForm" thyLayout="horizontal">
+        <thy-form-group
+          thyLabelText="用户名"
+          thyLayout="horizontal"
+          thyLabelRequired
+          thyTips="这是一个输入用户名的描述"
+        >
           <input
             thyInput
             name="username"
