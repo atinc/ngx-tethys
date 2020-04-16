@@ -2,7 +2,6 @@
   <label thyCheckbox [(ngModel)]="singleModel.allowClear" thyLabelText="是否支持清除选项"></label>
   <label thyCheckbox [(ngModel)]="singleModel.disabled" thyLabelText="是否禁用树选择"></label>
   <label thyCheckbox [(ngModel)]="singleModel.showWholeName" thyLabelText="是否支持显示所有父级节点名称"></label>
-  <label thyCheckbox [(ngModel)]="singleModel.icon" thyLabelText="展开收起为箭头"></label>
   <label thyCheckbox [(ngModel)]="singleModel.multi" thyLabelText="是否多选"></label>
   <br />
   Model: {{ singleModel | json }}
@@ -18,7 +17,6 @@
     [thyMultiple]="singleModel.multi"
     [(ngModel)]="singleModel.selectedValue"
     [thyShowWholeName]="singleModel.showWholeName"
-    [thyIconType]="singleModel.icon ? 'default' : 'especial'"
   >
     <ng-template #treeNodeTemplate let-node>
       <thy-icon class="prefix-icon" [thyIconName]="node.expand ? 'folder-open-fill' : 'folder-fill'"></thy-icon>

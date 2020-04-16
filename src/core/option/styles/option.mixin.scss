@@ -24,6 +24,7 @@ $option-disabled-color: $gray-400 !default;
     // use in tree-select
     .prefix-icon {
         color: $gray-300;
+        vertical-align: -1px;
     }
 
     &:not(.disabled) {
