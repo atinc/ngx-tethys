@@ -1,6 +1,6 @@
 import { fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ThyGridModule } from '../grid.module';
-import { NgModule, Component } from '@angular/core';
+import { NgModule, Component, TemplateRef, ViewChild } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ThyGridComponent } from '../grid.component';
 @Component({
@@ -46,6 +46,7 @@ import { ThyGridComponent } from '../grid.component';
                 </ng-template>
             </thy-grid-column>
         </thy-grid>
+        <ng-template #total let-total>共{{ total }}条</ng-template>
     `
 })
 class ThyDemoDefaultGridComponent {
@@ -106,6 +107,10 @@ class ThyDemoDefaultGridComponent {
     theme = 'default';
     isLoadingDone = true;
     loadingText = 'loading now';
+
+    showTotal = false;
+    @ViewChild('total') totalTemplate: TemplateRef<any>;
+
     onRowClick() {
         return 'onRowClick is ok';
     }
@@ -292,6 +297,30 @@ describe('ThyGrid', () => {
         const items = paginationComponent.querySelectorAll('li');
         expect(items[testComponent.pagination.index].classList.contains('active')).toBe(true);
         expect(items.length).toEqual(4);
+    });
+
+    it('should have page-total when total is bigger than size and showTotal is true', () => {
+        testComponent.pagination = {
+            index: 1,
+            size: 10,
+            total: 30
+        };
+        testComponent.showTotal = true;
+        fixture.detectChanges();
+        const paginationComponent = gridComponent.nativeElement.querySelector('thy-pagination');
+        expect(paginationComponent).toBeTruthy();
+    });
+
+    it('should have page-total when total is bigger than size and showTotal is template', () => {
+        testComponent.pagination = {
+            index: 1,
+            size: 10,
+            total: 50
+        };
+        testComponent.showTotal = gridComponent.totalTemplate;
+        fixture.detectChanges();
+        const paginationComponent = gridComponent.nativeElement.querySelector('thy-pagination');
+        expect(paginationComponent).toBeTruthy();
     });
 
     it('have <thead> when set thyShowHeader true', () => {
