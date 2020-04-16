@@ -123,7 +123,7 @@ export class ThySlideContainerComponent extends ThyUpperOverlayContainer impleme
         }
     }
 
-    private getSlideContainerStyles() {
+    private setSlideContainerStyles() {
         let width, height, top, left;
         const drawerContainerElementRect = (this.drawerContainerElement || document.body).getBoundingClientRect();
         if (this.isLeftOrRight) {
@@ -149,7 +149,7 @@ export class ThySlideContainerComponent extends ThyUpperOverlayContainer impleme
                 takeUntil(this.ngUnsubscribe$)
             )
             .subscribe(() => {
-                this.getSlideContainerStyles();
+                this.setSlideContainerStyles();
             });
     }
 
