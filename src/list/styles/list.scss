@@ -3,6 +3,11 @@
     overflow: auto;
     flex: 1 1 auto;
     padding: 2px 0px;
+    &-split {
+        .thy-list-item {
+            border-bottom: 1px solid $gray-200;
+        }
+    }
 }
 
 .thy-list-option,
@@ -44,4 +49,23 @@
 
 .thy-list-sm {
     @include thy-grid-option-sm();
+}
+
+.thy-list-item-meta {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    padding: 15px 0;
+    .thy-list-item-meta-content {
+        flex: 1;
+        margin-left: 20px;
+        .thy-list-item-meta-title {
+            font-size: 18px;
+            color: $gray-800;
+        }
+        .thy-list-item-meta-description {
+            margin-top: 10px;
+            color: $gray-600;
+        }
+    }
 }
