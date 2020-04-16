@@ -1,6 +1,5 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { of } from 'rxjs';
-import { ThyModalService } from '../../../../../../src/modal';
 
 const options = [
     {
@@ -64,22 +63,28 @@ const options = [
 ];
 
 @Component({
-    selector: 'app-demo-form-basic',
-    templateUrl: './form-basic.component.html'
+    selector: 'app-demo-form-vertical',
+    templateUrl: './form-vertical.component.html'
 })
-export class DemoFormBasicComponent implements OnInit {
+export class DemoFormVerticalComponent implements OnInit {
     submitSuccess = false;
 
-    showDescProperty = false;
-    public thyOptions = options;
+    thyOptions = options;
 
-    /** ngModel value */
-    public values: any[] = null;
+    values: any[] = null;
 
     model: any = {
         select: 1,
         checkbox: 0,
         group: 1
+    };
+
+    validatorConfig = {
+        validationMessages: {
+            username: {
+                required: '重写用户名不能为空错误信息'
+            }
+        }
     };
 
     options = [
@@ -93,20 +98,14 @@ export class DemoFormBasicComponent implements OnInit {
         }
     ];
 
-    validatorConfig = {
-        validationMessages: {
-            username: {
-                required: '重写用户名不能为空错误信息'
-            }
-        }
-    };
+    showDescProperty = false;
 
     checkUserName = (value: string) => {
         console.log(`remote checkUserName`);
         return of(value === 'why520crazy');
     };
 
-    constructor(private thyModalService: ThyModalService) {
+    constructor() {
         setTimeout(() => {
             this.showDescProperty = true;
         }, 300);
