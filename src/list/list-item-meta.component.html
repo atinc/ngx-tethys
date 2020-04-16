@@ -1,0 +1,13 @@
+<div class="thy-list-item-meta-avatar">
+  <ng-container *ngIf="thyAvatar; else avatarTemplateRef">
+    <thy-avatar [thySrc]="thyAvatar"></thy-avatar>
+  </ng-container>
+</div>
+<div class="thy-list-item-meta-content">
+  <div class="thy-list-item-meta-title">
+    <ng-container *ngIf="thyTitle; else titleTemplateRef">{{ thyTitle }}</ng-container>
+  </div>
+  <div class="thy-list-item-meta-description">
+    <ng-container *ngIf="thyDescription; else descriptionTemplateRef">{{ thyDescription }}</ng-container>
+  </div>
+</div>
