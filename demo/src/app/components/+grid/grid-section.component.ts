@@ -176,6 +176,12 @@ export class DemoGridSectionComponent implements OnInit {
             default: ''
         },
         {
+            property: 'thyShowTotal',
+            description: `是否显示左侧total`,
+            type: 'Boolean | Template',
+            default: 'false'
+        },
+        {
             property: 'thyDraggable',
             description: '开启Grid拖拽',
             type: 'Boolean',
