@@ -1,7 +1,9 @@
 import { Component, ViewEncapsulation, TemplateRef } from '@angular/core';
 import { LiveDemoCodeExample } from '../../core/live-demo/live-demo.component';
-import { DemoFormBasicComponent } from './basic/form-basic.component';
 import { DemoFormModalComponent } from './modal/form-modal.component';
+import { DemoFormHorizontalComponent } from './basic/horizontal/form-horizontal.component';
+import { DemoFormVerticalComponent } from './basic/vertical/form-vertical.component';
+import { DemoFormInlineComponent } from './basic/inline/form-inline.component';
 
 @Component({
     selector: 'demo-form-section',
@@ -95,19 +97,53 @@ export class DemoFormSectionComponent {
 
     liveDemos: LiveDemoCodeExample[] = [
         {
-            title: '基本使用',
-            component: DemoFormBasicComponent,
-            description: ``,
+            title: 'From horizontal(默认 横向)',
+            component: DemoFormHorizontalComponent,
+            description: `横向排布`,
             codeExamples: [
                 {
                     type: 'html',
-                    name: 'form-basic.component.html',
-                    content: require('!!raw-loader!./basic/form-basic.component.html')
+                    name: 'form-horizontal.component.html',
+                    content: require('!!raw-loader!./basic/horizontal/form-horizontal.component.html')
                 },
                 {
                     type: 'ts',
-                    name: 'form-basic.component.ts',
-                    content: require('!!raw-loader!./basic/form-basic.component.ts')
+                    name: 'form-horizontal.component.ts',
+                    content: require('!!raw-loader!./basic/horizontal/form-horizontal.component.ts')
+                }
+            ]
+        },
+        {
+            title: 'From vertical(垂直)',
+            component: DemoFormVerticalComponent,
+            description: `垂直排布`,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'form-vertical.component.html',
+                    content: require('!!raw-loader!./basic/vertical/form-vertical.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'form-vertical.component.ts',
+                    content: require('!!raw-loader!./basic/vertical/form-vertical.component.ts')
+                }
+            ]
+        },
+        {
+            title: 'From inline(线性)',
+            component: DemoFormInlineComponent,
+            description: `垂直排布`,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'form-inline.component.html',
+                    content: require('!!raw-loader!./basic/inline/form-inline.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'form-inline.component.ts',
+                    content: require('!!raw-loader!./basic/inline/form-inline.component.ts')
                 }
             ]
         },
