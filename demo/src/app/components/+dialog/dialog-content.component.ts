@@ -1,8 +1,9 @@
-import { Component, TemplateRef, OnInit, HostBinding } from '@angular/core';
+import { Component, TemplateRef, OnInit, HostBinding, Input } from '@angular/core';
 import { DateRangeItemInfo } from '../../../../../src/date-range/date-range.class';
 import { helpers } from '../../../../../src/util';
 import { ThyDialogRef, ThyDialog } from '../../../../../src/dialog';
 import { debug } from 'util';
+import { ThyDialogFooterAlign } from '../../../../../src/dialog/dialog.config';
 
 @Component({
     selector: 'demo-dialog-content',
@@ -10,6 +11,8 @@ import { debug } from 'util';
 })
 export class DemoDialogContentComponent implements OnInit {
     @HostBinding(`class.thy-dialog-content`) addFillColumn = true;
+
+    @Input() align: ThyDialogFooterAlign;
 
     data: string;
 

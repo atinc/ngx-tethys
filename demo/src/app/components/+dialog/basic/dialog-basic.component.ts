@@ -3,6 +3,7 @@ import { mixinUnsubscribe, ThyDialogConfig, MixinBase, ThyDialogSizes, ThyDialog
 import { DemoDialogContentComponent } from '../dialog-content.component';
 import { taskTypes } from '../../../components/+select/mock-data';
 import { takeUntil } from 'rxjs/operators';
+import { ThyDialogLayoutConfig } from '../../../../../../src/dialog/dialog.config';
 
 @Component({
     selector: 'app-demo-dialog-basic',
@@ -16,6 +17,10 @@ export class DemoDialogBasicComponent extends mixinUnsubscribe(MixinBase) implem
         hasBackdrop: true,
         backdropClosable: true,
         closeOnNavigation: true
+    };
+
+    public layoutConfig = {
+        align: 'left'
     };
 
     unsubscribe: () => void;
@@ -57,7 +62,8 @@ export class DemoDialogBasicComponent extends mixinUnsubscribe(MixinBase) implem
             Object.assign(
                 {
                     initialState: {
-                        data: `This is Pass Data`
+                        data: `This is Pass Data`,
+                        align: this.layoutConfig.align
                     }
                 },
                 this.config
