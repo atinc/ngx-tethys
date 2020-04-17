@@ -114,8 +114,8 @@ export class DemoListSectionComponent {
 
     public apiListParameters = [
         {
-            property: 'thyBordered',
-            description: 'list下的item是否展示边框',
+            property: 'thySplit',
+            description: 'list是否展示分割线',
             type: 'Boolean',
             default: 'false'
         }
