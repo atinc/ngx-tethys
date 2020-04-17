@@ -1,0 +1,19 @@
+.thy-row {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: 0;
+    margin-left: 0;
+    height: auto;
+    zoom: 1;
+    box-sizing: border-box;
+}
+
+@for $i from 1 through 24 {
+    .thy-col-#{$i} {
+        display: block;
+        box-sizing: border-box;
+        width: 0;
+        flex-basis: percentage($i / 24);
+    }
+}

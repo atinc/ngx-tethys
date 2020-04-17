@@ -64,6 +64,7 @@ import { DemoMentionSectionComponent } from './components/+mention';
 import { DemoDatePickerNextSectionComponent } from './components/+datepicker/datepicker-section.component';
 import { DemoStatisticComponent } from './components/+statistic/statistic.component';
 import { DemoAutocompleteSectionComponent } from './components/+autocomplete/autocomplete-section.component';
+import { DemoRasterSectionComponent } from './components/+raster/raster-section.component';
 
 const appRoutes = [
     {
@@ -102,6 +103,10 @@ const appRoutes = [
     {
         path: 'global/typography',
         component: DemoTypographyComponent
+    },
+    {
+        path: 'global/raster',
+        component: DemoRasterSectionComponent
     },
     {
         path: 'components/button',
