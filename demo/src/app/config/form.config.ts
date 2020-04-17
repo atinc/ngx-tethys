@@ -1,7 +1,8 @@
-import { THY_FORM_CONFIG } from '../../../../src/form';
+import { THY_FORM_CONFIG, ThyFormConfig } from '../../../../src/form';
 
-export const thyFormConfig = {
-    layout: 'vertical'
+export const thyFormConfig: ThyFormConfig = {
+    layout: 'vertical',
+    footerAlign: 'left'
 };
 
 export const thyFormConfigProvider = {
