@@ -37,6 +37,10 @@ export class ThyFormDirective implements OnInit, OnDestroy {
         return this._layout === 'horizontal';
     }
 
+    get isVertical() {
+        return this._layout === 'vertical';
+    }
+
     @Input() thyEnterKeyMode: ThyEnterKeyMode;
 
     @Input()
