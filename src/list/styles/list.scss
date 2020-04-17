@@ -3,9 +3,9 @@
     overflow: auto;
     flex: 1 1 auto;
     padding: 2px 0px;
-    &-split {
+    &-bordered {
         .thy-list-item {
-            border-bottom: 1px solid $gray-200;
+            border-bottom: $thy-list-item-border-bottom;
         }
     }
 }
@@ -55,16 +55,16 @@
     display: flex;
     flex: 1;
     align-items: center;
-    padding: 15px 0;
+    padding: $list-item-meta-padding;
     .thy-list-item-meta-content {
         flex: 1;
-        margin-left: 20px;
+        margin-left: $thy-list-item-meta-content-margin-left;
         .thy-list-item-meta-title {
-            font-size: 18px;
+            font-size: $thy-list-item-meta-title-font-size;
             color: $gray-800;
         }
         .thy-list-item-meta-description {
-            margin-top: 10px;
+            margin-top: $thy-list-item-meta-description-margin-top;
             color: $gray-600;
         }
     }
