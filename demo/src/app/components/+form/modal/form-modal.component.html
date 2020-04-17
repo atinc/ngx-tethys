@@ -1,34 +1,29 @@
-<section>
-  <div class="header">
-    <h2>Modal Form</h2>
-  </div>
-  <div class="body">
-    <button thyButton="primary" (click)="openFormModal(template)">
-      弹出 Modal Form
-    </button>
+<div class="body">
+  <button thyButton="primary" (click)="openFormModal(template)">
+    弹出 Modal Form
+  </button>
 
-    <ng-template #template>
-      <thy-modal-header [thyTitle]="'标题'"></thy-modal-header>
-      <thy-modal-body>
-        <form thyForm name="modalForm">
-          <thy-form-group thyRowFill>
-            <ng-template #formGroup>
-              <input thyInput name="project" [(ngModel)]="model.projectName" required placeholder="请输入项目名" />
-            </ng-template>
-          </thy-form-group>
-          <thy-form-group thyLabelText="用户名">
-            <input thyInput name="username" [(ngModel)]="model.username" required placeholder="请输入用户名" />
-          </thy-form-group>
-          <thy-form-group>
-            <div class="btn-pair">
-              <button thyButton="primary" (thyFormSubmit)="modalFormSubmit()">
-                提交
-              </button>
-              <button thyButton="link-secondary">取消</button>
-            </div>
-          </thy-form-group>
-        </form>
-      </thy-modal-body>
-    </ng-template>
-  </div>
-</section>
+  <ng-template #template>
+    <thy-modal-header [thyTitle]="'标题'"></thy-modal-header>
+    <thy-modal-body>
+      <form thyForm name="modalForm">
+        <thy-form-group thyRowFill>
+          <ng-template #formGroup>
+            <input thyInput name="project" [(ngModel)]="model.projectName" required placeholder="请输入项目名" />
+          </ng-template>
+        </thy-form-group>
+        <thy-form-group thyLabelText="用户名">
+          <input thyInput name="username" [(ngModel)]="model.username" required placeholder="请输入用户名" />
+        </thy-form-group>
+        <thy-form-group>
+          <div class="btn-pair">
+            <button thyButton="primary" (thyFormSubmit)="modalFormSubmit()">
+              提交
+            </button>
+            <button thyButton="link-secondary">取消</button>
+          </div>
+        </thy-form-group>
+      </form>
+    </thy-modal-body>
+  </ng-template>
+</div>
