@@ -98,6 +98,7 @@ import { DemoNavHorizontalComponent } from './+nav/horizontal/horizontal.compone
 import { DemoNavTypeComponent } from './+nav/type/type.component';
 import { DemoBadgeModule } from './+badge/badge.module';
 import { DemoAutocompleteModule } from './+autocomplete/module';
+import { DemoRasterModule } from './+raster';
 
 export const COMPONENTS = [
     DemoCopySectionComponent,
@@ -254,6 +255,7 @@ export const ENTRY_COMPONENTS = [
 ];
 
 export const DEMO_MODULES = [
+    DemoRasterModule,
     DialogDemoModule,
     DemoButtonModule,
     DemoNotifyModule,
