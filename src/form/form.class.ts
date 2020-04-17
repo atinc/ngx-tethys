@@ -3,6 +3,8 @@ import { InjectionToken } from '@angular/core';
 
 export type ThyFormLayout = 'horizontal' | 'vertical' | 'inline';
 
+export type ThyFormGroupFooterAlign = 'left' | 'right' | 'center';
+
 export declare type ThyFormValidationMessages = Dictionary<Dictionary<string>>;
 
 export interface ThyFormValidatorConfig {
@@ -16,6 +18,7 @@ export interface ThyFormValidatorGlobalConfig extends ThyFormValidatorConfig {
 
 export interface ThyFormConfig {
     layout?: ThyFormLayout;
+    footerAlign?: ThyFormGroupFooterAlign;
 }
 
 export const THY_VALIDATOR_CONFIG = new InjectionToken<ThyFormValidatorGlobalConfig>('VALIDATION_CONFIG');
@@ -24,5 +27,5 @@ export const THY_FORM_CONFIG = new InjectionToken<ThyFormConfig>('THY_FORM_CONFI
 
 export const THY_FORM_CONFIG_PROVIDER = {
     provide: THY_FORM_CONFIG,
-    useValue: { layout: 'horizontal' }
+    useValue: { layout: 'horizontal', footerAlign: 'left' }
 };
