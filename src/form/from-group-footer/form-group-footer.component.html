@@ -1,5 +1,9 @@
-
-
-<div [ngClass]="{'col-sm-10 offset-sm-2 col-form-control': isHorizontal}" class="btn-pair">
+<div [ngClass]="footerClassMap">
+  <div class="btn-pair form-footer-actions">
     <ng-content></ng-content>
+  </div>
+
+  <div class="form-footer-description" *ngIf="description">
+    <ng-container [ngTemplateOutlet]="description"></ng-container>
+  </div>
 </div>

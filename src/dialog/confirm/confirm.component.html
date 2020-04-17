@@ -11,11 +11,18 @@
     <p [innerHTML]="content"></p>
   </div>
   <div class="form-group">
-    <div class="btn-pair">
-      <button [thyButton]="okType" (click)="confirm()" [thyLoading]="loading" [thyLoadingText]="okLoadingText">
+    <div class="btn-pair text-right">
+      <button thyButton="link-secondary" thySize="md" (click)="close()">{{ cancelText }}</button>
+      <button
+        [thyButton]="okType"
+        thySquare="true"
+        thySize="md"
+        (click)="confirm()"
+        [thyLoading]="loading"
+        [thyLoadingText]="okLoadingText"
+      >
         确认
       </button>
-      <button thyButton="link-secondary" (click)="close()">{{ cancelText }}</button>
     </div>
   </div>
 </thy-dialog-body>
