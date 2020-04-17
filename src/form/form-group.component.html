@@ -6,10 +6,11 @@
 </ng-container>
 <ng-template #defaultTpl>
   <label
-    class="form-label"
+    class="form-label "
     [ngClass]="{
       'col-sm-2 col-form-label': isHorizontal,
       'label-required': labelRequired,
+      'label-required--after': labelRequired && isVertical,
       'pt-0': labelPaddingTopClear
     }"
     >{{ labelText }}</label

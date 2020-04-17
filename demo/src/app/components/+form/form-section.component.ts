@@ -1,67 +1,9 @@
 import { Component, ViewEncapsulation, TemplateRef } from '@angular/core';
-import { ThyModalService } from '../../../../../src/public-api';
-import { of } from 'rxjs';
-
-const options = [
-    {
-        value: 'zhejiang',
-        label: 'Zhejiang',
-        children: [
-            {
-                value: 'hangzhou',
-                label: 'Hangzhou',
-                children: [
-                    {
-                        value: 'xihu',
-                        label: 'West Lake',
-                        isLeaf: true
-                    }
-                ]
-            },
-            {
-                value: 'ningbo',
-                label: 'Ningbo',
-                isLeaf: true
-            }
-        ]
-    },
-    {
-        value: 'jiangsu',
-        label: 'Jiangsu',
-        children: [
-            {
-                value: 'nanjing',
-                label: 'Nanjing',
-                disabled: true,
-                children: [
-                    {
-                        value: 'zhonghuamen',
-                        label: 'Zhong Hua Men',
-                        isLeaf: true
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        value: 'henan',
-        label: 'Henan',
-        disabled: true,
-        children: [
-            {
-                value: 'zhengzhou',
-                label: 'Zhengzhou',
-                children: [
-                    {
-                        value: 'zhoukou',
-                        label: 'Zoukou',
-                        isLeaf: true
-                    }
-                ]
-            }
-        ]
-    }
-];
+import { LiveDemoCodeExample } from '../../core/live-demo/live-demo.component';
+import { DemoFormModalComponent } from './modal/form-modal.component';
+import { DemoFormHorizontalComponent } from './basic/horizontal/form-horizontal.component';
+import { DemoFormVerticalComponent } from './basic/vertical/form-vertical.component';
+import { DemoFormInlineComponent } from './basic/inline/form-inline.component';
 
 @Component({
     selector: 'demo-form-section',
@@ -71,14 +13,6 @@ const options = [
     encapsulation: ViewEncapsulation.None
 })
 export class DemoFormSectionComponent {
-    submitSuccess = false;
-
-    showDescProperty = false;
-    public thyOptions = options;
-
-    /** ngModel value */
-    public values: any[] = null;
-
     public apiThyFormParameters = [
         {
             property: 'thyForm',
@@ -131,8 +65,7 @@ export class DemoFormSectionComponent {
         },
         {
             property: 'thyFeedbackIcon',
-            description:
-                '反馈图标，比如日期输入框显示日期的图标，常用输入 date 表示时间 wtf wtf-schedule-o',
+            description: '反馈图标，比如日期输入框显示日期的图标，常用输入 date 表示时间 wtf wtf-schedule-o',
             type: 'String',
             default: ''
         },
@@ -162,54 +95,76 @@ export class DemoFormSectionComponent {
         }
     ];
 
-    model: any = {
-        select: 1,
-        checkbox: 0,
-        group: 1
-    };
-
-    options = [
+    liveDemos: LiveDemoCodeExample[] = [
         {
-            _id: 1,
-            value: '选项1'
+            title: 'From horizontal(默认 横向)',
+            component: DemoFormHorizontalComponent,
+            description: `横向排布`,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'form-horizontal.component.html',
+                    content: require('!!raw-loader!./basic/horizontal/form-horizontal.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'form-horizontal.component.ts',
+                    content: require('!!raw-loader!./basic/horizontal/form-horizontal.component.ts')
+                }
+            ]
         },
         {
-            _id: 2,
-            value: '选项2'
+            title: 'From vertical(垂直)',
+            component: DemoFormVerticalComponent,
+            description: `垂直排布`,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'form-vertical.component.html',
+                    content: require('!!raw-loader!./basic/vertical/form-vertical.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'form-vertical.component.ts',
+                    content: require('!!raw-loader!./basic/vertical/form-vertical.component.ts')
+                }
+            ]
+        },
+        {
+            title: 'From inline(线性)',
+            component: DemoFormInlineComponent,
+            description: `垂直排布`,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'form-inline.component.html',
+                    content: require('!!raw-loader!./basic/inline/form-inline.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'form-inline.component.ts',
+                    content: require('!!raw-loader!./basic/inline/form-inline.component.ts')
+                }
+            ]
+        },
+        {
+            title: 'Modal Form',
+            description: ``,
+            component: DemoFormModalComponent,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'button-pair.component.html',
+                    content: require('!!raw-loader!./modal/form-modal.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'button-pair.component.ts',
+                    content: require('!!raw-loader!./modal/form-modal.component.ts')
+                }
+            ]
         }
     ];
 
-    validatorConfig = {
-        validationMessages: {
-            username: {
-                required: '重写用户名不能为空错误信息'
-            }
-        }
-    };
-
-    checkUserName = (value: string) => {
-        console.log(`remote checkUserName`);
-        return of(value === 'why520crazy');
-    }
-
-    constructor(private thyModalService: ThyModalService) {
-        setTimeout(() => {
-            this.showDescProperty = true;
-        }, 300);
-    }
-
-    save(form: any) {
-        console.log(`submit success!`);
-        this.submitSuccess = true;
-    }
-
-    openFormModal(template: TemplateRef<any>) {
-        this.thyModalService.show(template);
-    }
-
-    modalFormSubmit() {
-        console.log(`modal form submit success!`);
-    }
-
-    onChanges(event: Event) {}
+    constructor() {}
 }

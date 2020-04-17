@@ -6,8 +6,14 @@ import { inputValueToBoolean } from '../util/helpers';
     template: '<ng-content></ng-content>'
 })
 export class ThyListComponent {
+    @Input('thyBordered')
+    set thyBordered(value: boolean) {
+        this._bordered = inputValueToBoolean(value);
+    }
+
+    @HostBinding(`class.thy-list-bordered`) _bordered = false;
 
     @HostBinding(`class.thy-list`) _isList = true;
 
-    constructor() { }
+    constructor() {}
 }

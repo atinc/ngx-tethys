@@ -1,5 +1,5 @@
-import { TestBed, ComponentFixture, fakeAsync, flushMicrotasks, inject, flush, tick } from '@angular/core/testing';
-import { NgModule, Component, DebugElement, ViewContainerRef } from '@angular/core';
+import { TestBed, ComponentFixture, fakeAsync, inject, flush, tick } from '@angular/core/testing';
+import { NgModule, Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
 import { ThySlideService, ThySlideModule, ThySlideRef, ThySlideContainerComponent } from '../index';
@@ -8,7 +8,7 @@ import { ThySlideHeaderComponent } from '../slide-header/slide-header.component'
 import { ThySlideBodyComponent } from '../slide-body/slide-body.component';
 import { ThySlideBodySectionComponent } from '../slide-body/slide-body-section.component';
 import { ThySlideFooterComponent } from '../slide-footer/slide-footer.component';
-import { OverlayContainer } from '@angular/cdk/overlay';
+import { OverlayContainer, ViewportRuler } from '@angular/cdk/overlay';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('ThySlide', () => {
@@ -17,6 +17,7 @@ describe('ThySlide', () => {
         let overlayContainer: OverlayContainer;
         let overlayContainerElement: HTMLElement;
         let viewContainerFixture: ComponentFixture<SlideLayoutTestComponent>;
+        let viewportRuler: ViewportRuler;
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
@@ -28,10 +29,11 @@ describe('ThySlide', () => {
         }));
 
         beforeEach(inject(
-            [ThySlideService, OverlayContainer],
-            (_thySlideService: ThySlideService, _overlayContainer: OverlayContainer) => {
+            [ThySlideService, OverlayContainer, ViewportRuler],
+            (_thySlideService: ThySlideService, _overlayContainer: OverlayContainer, _viewportRuler: ViewportRuler) => {
                 thySlideService = _thySlideService;
                 overlayContainer = _overlayContainer;
+                viewportRuler = _viewportRuler;
                 overlayContainerElement = _overlayContainer.getContainerElement();
             }
         ));
@@ -330,6 +332,86 @@ describe('ThySlide', () => {
             expect(slideRef.componentInstance instanceof SlideLayoutTestComponent).toBe(true);
             const containerElement = getSlideContainerElement();
             expect((containerElement as HTMLElement).style.right).toBe('60px');
+        }));
+
+        it('should change height when the window is resized', fakeAsync(() => {
+            const element = document.createElement('div');
+            const getBoundingClientRect = spyOn(element, 'getBoundingClientRect');
+            const querySelectorSpy = spyOn(document, 'querySelector');
+            querySelectorSpy.and.returnValue(element as Element);
+            getBoundingClientRect.and.returnValues(
+                {
+                    height: 10,
+                    width: 20,
+                    top: 30,
+                    left: 40
+                },
+                {
+                    height: 50,
+                    width: 60,
+                    top: 70,
+                    left: 80
+                }
+            );
+
+            const slideRef = thySlideService.open(SlideLayoutTestComponent, {
+                id: '1',
+                from: 'right',
+                drawerContainer: '#container'
+            });
+            viewContainerFixture.detectChanges();
+            expect(slideRef.componentInstance instanceof SlideLayoutTestComponent).toBe(true);
+            let containerElement = getSlideContainerElement();
+            expect((containerElement as HTMLElement).style.height).toBe('10px');
+            expect((containerElement as HTMLElement).style.top).toBe('30px');
+
+            const event = new Event('resize');
+            window.dispatchEvent(event);
+            tick(100);
+            viewContainerFixture.detectChanges();
+            containerElement = getSlideContainerElement();
+            expect((containerElement as HTMLElement).style.height).toBe('50px');
+            expect((containerElement as HTMLElement).style.top).toBe('70px');
+        }));
+
+        it('should change width when the window is resized', fakeAsync(() => {
+            const element = document.createElement('div');
+            const getBoundingClientRect = spyOn(element, 'getBoundingClientRect');
+            const querySelectorSpy = spyOn(document, 'querySelector');
+            querySelectorSpy.and.returnValue(element as Element);
+            getBoundingClientRect.and.returnValues(
+                {
+                    height: 10,
+                    width: 20,
+                    top: 30,
+                    left: 40
+                },
+                {
+                    height: 50,
+                    width: 60,
+                    top: 70,
+                    left: 80
+                }
+            );
+
+            const slideRef = thySlideService.open(SlideLayoutTestComponent, {
+                id: '1',
+                from: 'top',
+                drawerContainer: '#container'
+            });
+            viewContainerFixture.detectChanges();
+            expect(slideRef.componentInstance instanceof SlideLayoutTestComponent).toBe(true);
+            let containerElement = getSlideContainerElement();
+            expect((containerElement as HTMLElement).style.width).toBe('20px');
+            expect((containerElement as HTMLElement).style.left).toBe('40px');
+
+            const event = new Event('resize');
+            window.dispatchEvent(event);
+            tick(100);
+            viewContainerFixture.detectChanges();
+            containerElement = getSlideContainerElement();
+            expect((containerElement as HTMLElement).style.width).toBe('60px');
+            expect((containerElement as HTMLElement).style.left).toBe('80px');
         }));
     });
 
