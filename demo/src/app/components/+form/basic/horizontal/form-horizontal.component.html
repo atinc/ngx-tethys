@@ -1,149 +1,125 @@
-<section>
-  <div class="header">
-    <h2>Form 默认(horizontal)</h2>
-  </div>
-  <div class="body">
-    <div class="demo-form">
-      <form thyForm name="demoForm" #demoForm="ngForm" thyLayout="horizontal">
-        <thy-form-group
-          thyLabelText="用户名"
-          thyLayout="horizontal"
-          thyLabelRequired
-          thyTips="这是一个输入用户名的描述"
-        >
-          <input
-            thyInput
-            name="username"
-            [thyAutocomplete]="true"
-            [(ngModel)]="model.name"
-            required
-            placeholder="请输入用户名"
-          />
-        </thy-form-group>
-        <thy-form-group thyRowFill>
-          <ng-template #formGroup>
-            <input thyInput name="displayName" [(ngModel)]="model.display_name" placeholder="请输入姓名" />
-          </ng-template>
-        </thy-form-group>
-        <thy-form-group thyLabelText="选择">
-          <thy-select required [(ngModel)]="model.select" name="power">
-            <option value="">---请选择---</option>
-            <option *ngFor="let option of options" [value]="option._id">{{ option.value }}</option>
-          </thy-select>
-        </thy-form-group>
-        <thy-form-group thyLabelText="Cascader选择">
-          <thy-cascader
-            name="cascader"
-            required
-            [thyOptions]="thyOptions"
-            [(ngModel)]="values"
-            (ngModelChange)="onChanges($event)"
-            thyPlaceHolder="自定义PlaceHolder"
-            style="width:200px;"
-          >
-          </thy-cascader>
-        </thy-form-group>
-        <thy-form-group thyLabelText="Textarea">
-          <textarea class="form-control" rows="3"></textarea>
-        </thy-form-group>
-        <thy-form-group>
-          <ng-template #formGroup>
-            <label class="col-sm-2 col-form-label pr-0">开始时间</label>
-            <div class="col-sm-4 col-form-control">
-              <thy-input-group>
-                <input
-                  type="text"
-                  class="form-control pbox-trigger"
-                  name="deadline_at"
-                  readonly="readonly"
-                  placeholder=""
-                  value="7月17日"
-                />
-                <ng-template #append>
-                  <span class="input-group-text">
-                    <thy-icon thyIconName="calendar"></thy-icon>
-                  </span>
-                  <span class="input-group-text"> $ </span>
-                </ng-template>
-              </thy-input-group>
-            </div>
-            <label class="col-sm-2 col-form-label">结束时间</label>
-            <div class="col-sm-4 has-feedback col-form-control">
-              <input type="email" class="form-control" placeholder="结束时间" />
-              <thy-icon class="form-control-feedback" thyIconName="calendar"></thy-icon>
-            </div>
-          </ng-template>
-        </thy-form-group>
-        <thy-form-group>
-          <ng-template #formGroup>
-            <label class="col-sm-2 col-form-label pr-0">开始时间</label>
-            <div class="col-sm-4 col-form-control">
-              <thy-date-picker [(ngModel)]="date" (ngModelChange)="onChange($event)"></thy-date-picker>
-            </div>
-            <label class="col-sm-2 col-form-label">结束时间</label>
-            <div class="col-sm-4 has-feedback col-form-control">
-              <thy-date-picker [(ngModel)]="date" (ngModelChange)="onChange($event)"></thy-date-picker>
-            </div>
-          </ng-template>
-        </thy-form-group>
-
-        <thy-form-group thyLabelText="时间" [thyFeedbackIcon]="'calendar'">
+<form thyForm name="demoForm" #demoForm="ngForm" thyLayout="horizontal">
+  <thy-form-group thyLabelText="用户名" thyLayout="horizontal" thyLabelRequired thyTips="这是一个输入用户名的描述">
+    <input
+      thyInput
+      name="username"
+      [thyAutocomplete]="true"
+      [(ngModel)]="model.name"
+      required
+      placeholder="请输入用户名"
+    />
+  </thy-form-group>
+  <thy-form-group thyRowFill>
+    <ng-template #formGroup>
+      <input thyInput name="displayName" [(ngModel)]="model.display_name" placeholder="请输入姓名" />
+    </ng-template>
+  </thy-form-group>
+  <thy-form-group thyLabelText="选择">
+    <thy-select required [(ngModel)]="model.select" name="power">
+      <option value="">---请选择---</option>
+      <option *ngFor="let option of options" [value]="option._id">{{ option.value }}</option>
+    </thy-select>
+  </thy-form-group>
+  <thy-form-group thyLabelText="Cascader选择">
+    <thy-cascader
+      name="cascader"
+      required
+      [thyOptions]="thyOptions"
+      [(ngModel)]="values"
+      (ngModelChange)="onChanges($event)"
+      thyPlaceHolder="自定义PlaceHolder"
+      style="width:200px;"
+    >
+    </thy-cascader>
+  </thy-form-group>
+  <thy-form-group thyLabelText="Textarea">
+    <textarea class="form-control" rows="3"></textarea>
+  </thy-form-group>
+  <thy-form-group>
+    <ng-template #formGroup>
+      <label class="col-sm-2 col-form-label pr-0">开始时间</label>
+      <div class="col-sm-4 col-form-control">
+        <thy-input-group>
           <input
             type="text"
-            disabled=""
+            class="form-control pbox-trigger"
+            name="deadline_at"
             readonly="readonly"
-            value="2017-12-12"
-            class="form-control"
-            placeholder="error"
+            placeholder=""
+            value="7月17日"
           />
-        </thy-form-group>
-        <thy-form-group thyLabelText="静态输入框">
-          <input type="text" readonly class="form-control-plaintext" value="email@example.com" />
-        </thy-form-group>
-        <thy-form-group thyLabelText="静态链接">
-          <a readonly href="javascript:;" class="form-control-plaintext">添加选择项</a>
-        </thy-form-group>
-        <thy-form-group thyLabelText="多选框" thyLabelPaddingTopClear="true">
-          <label thyCheckbox thyLabelText="选择项1" [(ngModel)]="model.checkbox" name="checkbox1"></label>
-          <label thyCheckbox thyLabelText="选择项2"> </label>
-          <label thyCheckbox thyLabelText="禁用的选择项" thyDisabled=""> </label>
-          <label thyCheckbox thyLabelText="禁用的选择项" thyDisabled=""> </label>
-        </thy-form-group>
-        <thy-form-group thyLabelText="单选框">
-          <label thyRadio thyLabelText="选择项1"></label>
-          <label thyRadio thyLabelText="选择项2"></label>
-          <label thyRadio checked thyLabelText="禁用的选择项" thyDisabled=""></label>
-          <label
-            thyRadio
-            thyLabelText="Disabled Radio"
-            name="radio22"
-            [(ngModel)]="model.checkbox2"
-            [disabled]="'true'"
-          ></label>
-        </thy-form-group>
-        <thy-form-group thyLabelText="单选框">
-          <thy-radio-group name="group1" [(ngModel)]="model.group" thyLayout="flex" required>
-            <label thyRadioButton thyLabelText="选项1" thyValue="1"></label>
-            <label thyRadioButton thyLabelText="选项1" thyValue="2"></label>
-            <label thyRadioButton thyLabelText="选项1" thyValue="3"></label>
-            <label thyRadioButton thyLabelText="选项1" thyValue="1"></label>
-            <label thyRadioButton thyLabelText="选项2" thyValue="5"></label>
-            <label thyRadioButton thyLabelText="选项2" thyValue="6"></label>
-          </thy-radio-group>
-        </thy-form-group>
-        <thy-form-group *ngIf="submitSuccess">
-          <div class="text text-success">提交成功!</div>
-        </thy-form-group>
-        <thy-form-group-footer>
-          <button [thyButton]="'primary'" (thyFormSubmit)="save(demoForm)">
-            保存
-          </button>
-          <button [thyButton]="'link-secondary'">取消</button>
-          <ng-template #description>
-            <span class="text-desc">这是一条描述</span>
+          <ng-template #append>
+            <span class="input-group-text">
+              <thy-icon thyIconName="calendar"></thy-icon>
+            </span>
+            <span class="input-group-text"> $ </span>
           </ng-template>
-        </thy-form-group-footer>
-      </form>
-    </div>
-  </div>
-</section>
+        </thy-input-group>
+      </div>
+      <label class="col-sm-2 col-form-label">结束时间</label>
+      <div class="col-sm-4 has-feedback col-form-control">
+        <input type="email" class="form-control" placeholder="结束时间" />
+        <thy-icon class="form-control-feedback" thyIconName="calendar"></thy-icon>
+      </div>
+    </ng-template>
+  </thy-form-group>
+  <thy-form-group>
+    <ng-template #formGroup>
+      <label class="col-sm-2 col-form-label pr-0">开始时间</label>
+      <div class="col-sm-4 col-form-control">
+        <thy-date-picker name="startTime" [(ngModel)]="date" (ngModelChange)="onChange($event)"></thy-date-picker>
+      </div>
+      <label class="col-sm-2 col-form-label">结束时间</label>
+      <div class="col-sm-4 has-feedback col-form-control">
+        <thy-date-picker name="endTime" [(ngModel)]="date" (ngModelChange)="onChange($event)"></thy-date-picker>
+      </div>
+    </ng-template>
+  </thy-form-group>
+
+  <thy-form-group thyLabelText="时间" [thyFeedbackIcon]="'calendar'">
+    <input type="text" disabled="" readonly="readonly" value="2017-12-12" class="form-control" placeholder="error" />
+  </thy-form-group>
+  <thy-form-group thyLabelText="静态输入框">
+    <input type="text" readonly class="form-control-plaintext" value="email@example.com" />
+  </thy-form-group>
+  <thy-form-group thyLabelText="静态链接">
+    <a readonly href="javascript:;" class="form-control-plaintext">添加选择项</a>
+  </thy-form-group>
+  <thy-form-group thyLabelText="多选框" thyLabelPaddingTopClear="true">
+    <label thyCheckbox thyLabelText="选择项1" [(ngModel)]="model.checkbox" name="checkbox1"></label>
+    <label thyCheckbox thyLabelText="选择项2"> </label>
+    <label thyCheckbox thyLabelText="禁用的选择项" thyDisabled=""> </label>
+    <label thyCheckbox thyLabelText="禁用的选择项" thyDisabled=""> </label>
+  </thy-form-group>
+  <thy-form-group thyLabelText="单选框">
+    <label thyRadio thyLabelText="选择项1"></label>
+    <label thyRadio thyLabelText="选择项2"></label>
+    <label thyRadio checked thyLabelText="禁用的选择项" thyDisabled=""></label>
+    <label
+      thyRadio
+      thyLabelText="Disabled Radio"
+      name="radio22"
+      [(ngModel)]="model.checkbox2"
+      [disabled]="'true'"
+    ></label>
+  </thy-form-group>
+  <thy-form-group thyLabelText="单选框">
+    <thy-radio-group name="group1" [(ngModel)]="model.group" thyLayout="flex" required>
+      <label thyRadioButton thyLabelText="选项1" thyValue="1"></label>
+      <label thyRadioButton thyLabelText="选项1" thyValue="2"></label>
+      <label thyRadioButton thyLabelText="选项1" thyValue="3"></label>
+      <label thyRadioButton thyLabelText="选项1" thyValue="1"></label>
+      <label thyRadioButton thyLabelText="选项2" thyValue="5"></label>
+      <label thyRadioButton thyLabelText="选项2" thyValue="6"></label>
+    </thy-radio-group>
+  </thy-form-group>
+  <thy-form-group *ngIf="submitSuccess">
+    <div class="text text-success">提交成功!</div>
+  </thy-form-group>
+  <thy-form-group-footer>
+    <button [thyButton]="'primary'" (thyFormSubmit)="save(demoForm)">
+      保存
+    </button>
+    <button [thyButton]="'link-secondary'">取消</button>
+  </thy-form-group-footer>
+</form>

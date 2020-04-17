@@ -1,32 +1,27 @@
-<section>
-  <div class="header">
-    <h2>Form vertical</h2>
-  </div>
-  <div class="body demo-form">
-    <form
-      thyForm
-      [thyFormValidatorConfig]="validatorConfig"
-      thyLayout="vertical"
-      #demoVerticalThyForm="thyForm"
-      #demoVerticalForm="ngForm"
-    >
-      <thy-form-group thyLabelText="用户名" thyLabelRequired thyTips="这是一个输入用户名的描述">
-        <input
-          thyInput
-          name="username"
-          [(ngModel)]="model.name"
-          [thyUniqueCheck]="checkUserName"
-          required
-          thy-required-message=""
-          [ngModelOptions]="{ updateOn: 'blur' }"
-          maxlength="50"
-          placeholder="请输入用户名"
-        />
-      </thy-form-group>
+<form
+  thyForm
+  [thyFormValidatorConfig]="validatorConfig"
+  thyLayout="vertical"
+  #demoVerticalThyForm="thyForm"
+  #demoVerticalForm="ngForm"
+>
+  <thy-form-group thyLabelText="用户名" thyLabelRequired thyTips="这是一个输入用户名的描述">
+    <input
+      thyInput
+      name="username"
+      [(ngModel)]="model.name"
+      [thyUniqueCheck]="checkUserName"
+      required
+      thy-required-message=""
+      [ngModelOptions]="{ updateOn: 'blur' }"
+      maxlength="50"
+      placeholder="请输入用户名"
+    />
+  </thy-form-group>
 
-      <thy-form-group thyLabelText="邮箱" thyLabelRequired thyTips="">
-        <input thyInput email name="email" [(ngModel)]="model.email" required minlength="5" placeholder="请输入邮箱" />
-      </thy-form-group>
+  <thy-form-group thyLabelText="邮箱" thyLabelRequired thyTips="">
+    <input thyInput email name="email" [(ngModel)]="model.email" required minlength="5" placeholder="请输入邮箱" />
+  </thy-form-group>
 
   <thy-form-group thyLabelText="数字" thyLabelRequired thyTips="">
     <input
@@ -117,7 +112,7 @@
     </thy-radio-group>
   </thy-form-group>
   <thy-form-group-error></thy-form-group-error>
-  <thy-form-group-footer thyAlign="right">
+  <thy-form-group-footer>
     <button [thyButton]="'primary'" (thyFormSubmit)="save(demoVerticalForm)">
       保存
     </button>
@@ -133,9 +128,6 @@
     <button [thyButton]="'primary'" (click)="demoVerticalThyForm.validator.addError('这是一条Form错误')">
       添加一条Form错误
     </button>
-    <ng-template #description>
-      <span class="text-desc">这是一条描述</span>
-    </ng-template>
   </thy-form-group-footer>
 </form>
 <!-- {{demoVerticalThyForm.validator._controls | json}} -->
@@ -160,5 +152,3 @@
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             -->
-  </div>
-</section>
