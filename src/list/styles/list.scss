@@ -3,6 +3,11 @@
     overflow: auto;
     flex: 1 1 auto;
     padding: 2px 0px;
+    &-bordered {
+        .thy-list-item {
+            border-bottom: $thy-list-item-border-bottom;
+        }
+    }
 }
 
 .thy-list-option,
@@ -44,4 +49,23 @@
 
 .thy-list-sm {
     @include thy-grid-option-sm();
+}
+
+.thy-list-item-meta {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    padding: $list-item-meta-padding;
+    .thy-list-item-meta-content {
+        flex: 1;
+        margin-left: $thy-list-item-meta-content-margin-left;
+        .thy-list-item-meta-title {
+            font-size: $thy-list-item-meta-title-font-size;
+            color: $gray-800;
+        }
+        .thy-list-item-meta-description {
+            margin-top: $thy-list-item-meta-description-margin-top;
+            color: $gray-600;
+        }
+    }
 }

@@ -629,6 +629,13 @@ $list-grid-option-icon-size: 32px;
 $list-grid-option-name-margin-top: 15px;
 $list-grid-option-sm-name-margin-top: 7px;
 
+// list-item-meta
+$thy-list-item-border-bottom: 1px solid $gray-200 !default;
+$list-item-meta-padding: 15px 0 !default;
+$thy-list-item-meta-content-margin-left: 20px !default;
+$thy-list-item-meta-title-font-size: 18px !default;
+$thy-list-item-meta-description-margin-top: 10px !default;
+
 // vote
 $vote-layout-vertical-sm: 36px;
 $vote-layout-vertical-default: 48px;

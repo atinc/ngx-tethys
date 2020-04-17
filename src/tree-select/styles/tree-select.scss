@@ -49,6 +49,7 @@ $thy-select-expand-icon-height: 21px;
                 }
             }
             .thy-tree-select-option-text {
+                margin-left: 6px;
                 @include text-truncate();
             }
         }

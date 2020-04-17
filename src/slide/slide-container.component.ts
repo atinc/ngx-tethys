@@ -2,12 +2,13 @@ import { Component, ElementRef, ViewChild, Inject, ChangeDetectorRef, Renderer2,
 import { CdkPortalOutlet } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
 import { ThyUpperOverlayContainer } from '../core/overlay';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { AnimationEvent } from '@angular/animations';
 import { slideUpperOverlayOptions, ThySlideConfig, ThySlideFromTypes } from './slide.config';
-import { filter } from 'rxjs/operators';
+import { filter, map, takeUntil, startWith } from 'rxjs/operators';
 import { thySlideAnimations } from './slide-animations';
 import { helpers } from '../util';
+import { ViewportRuler } from '@angular/cdk/overlay';
 
 @Component({
     selector: 'thy-slide-container',
@@ -43,6 +44,8 @@ export class ThySlideContainerComponent extends ThyUpperOverlayContainer impleme
     slideContainerStyles: { width?: number; height?: number } = {};
 
     private drawerContainerElement: HTMLElement;
+
+    private ngUnsubscribe$ = new Subject();
 
     get isPush() {
         return this.config.mode === 'push' && !!this.drawerContainerElement;
@@ -88,7 +91,8 @@ export class ThySlideContainerComponent extends ThyUpperOverlayContainer impleme
         @Inject(DOCUMENT) private document: any,
         public config: ThySlideConfig,
         changeDetectorRef: ChangeDetectorRef,
-        private renderer: Renderer2
+        private renderer: Renderer2,
+        private viewportRuler: ViewportRuler
     ) {
         super(slideUpperOverlayOptions, changeDetectorRef);
         this.animationOpeningDone = this.animationStateChanged.pipe(
@@ -102,7 +106,7 @@ export class ThySlideContainerComponent extends ThyUpperOverlayContainer impleme
             })
         );
         this.setDrawerContainerElement();
-        this.getSlideContainerStyles();
+        this.checkContainerWithinViewport();
         this.addDrawerContainerElementClass();
     }
 
@@ -119,7 +123,7 @@ export class ThySlideContainerComponent extends ThyUpperOverlayContainer impleme
         }
     }
 
-    private getSlideContainerStyles() {
+    private setSlideContainerStyles() {
         let width, height, top, left;
         const drawerContainerElementRect = (this.drawerContainerElement || document.body).getBoundingClientRect();
         if (this.isLeftOrRight) {
@@ -135,6 +139,18 @@ export class ThySlideContainerComponent extends ThyUpperOverlayContainer impleme
             width: width,
             height: height
         };
+    }
+
+    private checkContainerWithinViewport() {
+        this.viewportRuler
+            .change(100)
+            .pipe(
+                startWith(null),
+                takeUntil(this.ngUnsubscribe$)
+            )
+            .subscribe(() => {
+                this.setSlideContainerStyles();
+            });
     }
 
     private addDrawerContainerElementClass() {
@@ -189,5 +205,7 @@ export class ThySlideContainerComponent extends ThyUpperOverlayContainer impleme
 
     ngOnDestroy() {
         this.removeDrawerContainerElementClass();
+        this.ngUnsubscribe$.next();
+        this.ngUnsubscribe$.complete();
     }
 }
