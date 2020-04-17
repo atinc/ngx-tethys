@@ -56,3 +56,18 @@ export const THY_DIALOG_DEFAULT_OPTIONS_PROVIDER = {
         restoreFocus: true
     }
 };
+
+export type ThyDialogFooterAlign = 'left' | 'right' | 'center';
+
+export class ThyDialogLayoutConfig {
+    footerAlign?: ThyDialogFooterAlign;
+}
+
+export const THY_DIALOG_LAYOUT_CONFIG = new InjectionToken<ThyDialogLayoutConfig>('thy-dialog-layout-config');
+
+export const THY_DIALOG_LAYOUT_CONFIG_PROVIDER = {
+    provide: THY_DIALOG_LAYOUT_CONFIG,
+    useValue: {
+        footerAlign: 'left'
+    }
+};
