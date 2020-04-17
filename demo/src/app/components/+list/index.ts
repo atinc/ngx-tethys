@@ -7,6 +7,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { DemoListGridComponent } from './list-grid/list-grid.component';
 import { DemoListSeniorComponent } from './list-senior/list-senior.component';
 import { DemoListObjectValueComponent } from './list-object-value/list-object-value.component';
+import { DemoListItemMetaComponent } from './list-item-meta/meta.component';
 
 @NgModule({
     declarations: [
@@ -15,7 +16,8 @@ import { DemoListObjectValueComponent } from './list-object-value/list-object-va
         DemoListDropComponent,
         DemoListGridComponent,
         DemoListSeniorComponent,
-        DemoListObjectValueComponent
+        DemoListObjectValueComponent,
+        DemoListItemMetaComponent
     ],
     entryComponents: [
         DemoListSectionComponent,
@@ -23,7 +25,8 @@ import { DemoListObjectValueComponent } from './list-object-value/list-object-va
         DemoListDropComponent,
         DemoListGridComponent,
         DemoListSeniorComponent,
-        DemoListObjectValueComponent
+        DemoListObjectValueComponent,
+        DemoListItemMetaComponent
     ],
     imports: [SharedModule, DragDropModule],
     exports: [DemoListSectionComponent]

@@ -11,7 +11,7 @@ export class ThyListComponent {
         this._bordered = inputValueToBoolean(value);
     }
 
-    @HostBinding(`class.thy-list-split`) _bordered = false;
+    @HostBinding(`class.thy-list-bordered`) _bordered = false;
 
     @HostBinding(`class.thy-list`) _isList = true;
 
