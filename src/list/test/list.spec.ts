@@ -24,7 +24,7 @@ describe('list', () => {
             it(`[${value}]`, () => {
                 fixture.componentInstance.thySplit = value;
                 fixture.detectChanges();
-                expect(listElement.classList.contains('thy-list-bordered')).toBe(value);
+                expect(listElement.classList.contains('thy-list-split')).toBe(value);
             });
         }
     });
@@ -45,7 +45,7 @@ describe('list', () => {
 
 @Component({
     template: `
-        <thy-list [thySplit]="thySplit" id="item-string">
+        <thy-list [thySplit]="thySplit">
             <thy-list-item>
                 <thy-list-item-meta
                     thyTitle="Google Analytics"
