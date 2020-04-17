@@ -441,6 +441,19 @@
 .thy-form-vertical {
     .form-group {
         display: block;
+        .label-required {
+            &::before {
+                content: none;
+            }
+
+            &::after {
+                content: '*';
+                color: $danger;
+                margin-left: 3px;
+                position: relative;
+                top: 3px;
+            }
+        }
     }
 }
 
