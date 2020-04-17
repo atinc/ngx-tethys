@@ -5,24 +5,18 @@ import { ThyListItemComponent } from './list-item.component';
 import { ThySelectionListComponent } from './selection/selection-list';
 // import { ThyListOptionComponent } from './option/option';
 import { ThyOptionModule } from '../core/option';
+import { ThyListItemMetaComponent } from './list-item-meta.component';
+import { ThyAvatarModule } from '../avatar';
 
 @NgModule({
-    declarations: [
-        ThyListComponent,
-        ThyListItemComponent,
-        ThySelectionListComponent
-    ],
-    imports: [
-        CommonModule,
-        ThyOptionModule
-    ],
+    declarations: [ThyListComponent, ThyListItemComponent, ThySelectionListComponent, ThyListItemMetaComponent],
+    imports: [CommonModule, ThyOptionModule, ThyAvatarModule],
     exports: [
         ThyListComponent,
         ThyListItemComponent,
         ThySelectionListComponent,
+        ThyListItemMetaComponent,
         ThyOptionModule
     ]
 })
-export class ThyListModule {
-
-}
+export class ThyListModule {}

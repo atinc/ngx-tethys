@@ -5,6 +5,7 @@ import { DemoListDropComponent } from './list-drop/list-drop.component';
 import { DemoListGridComponent } from './list-grid/list-grid.component';
 import { DemoListSeniorComponent } from './list-senior/list-senior.component';
 import { DemoListObjectValueComponent } from './list-object-value/list-object-value.component';
+import { DemoListItemMetaComponent } from './list-item-meta/meta.component';
 
 @Component({
     selector: 'demo-list-section',
@@ -92,6 +93,31 @@ export class DemoListSectionComponent {
                     content: require('!!raw-loader!./list-senior/list-senior.component.ts')
                 }
             ]
+        },
+        {
+            title: 'List Item Meta',
+            component: DemoListItemMetaComponent,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'meta.component.html',
+                    content: require('!!raw-loader!./list-item-meta/meta.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'meta.component.ts',
+                    content: require('!!raw-loader!./list-item-meta/meta.component.ts')
+                }
+            ]
+        }
+    ];
+
+    public apiListParameters = [
+        {
+            property: 'thyBordered',
+            description: 'list下的item是否展示边框',
+            type: 'Boolean',
+            default: 'false'
         }
     ];
 
