@@ -1,15 +1,8 @@
-import {
-    Component,
-    OnInit,
-    OnDestroy,
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    NgZone,
-    Inject
-} from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, Inject, Input } from '@angular/core';
 import { ThyDialogRef } from '../dialog-ref';
 import { ThyConfirmConfig, THY_CONFIRM_DEFAULT_OPTIONS } from '../confirm.config';
 import { finalize } from 'rxjs/operators';
+import { ThyFormGroupFooterAlign } from '../../form';
 
 @Component({
     selector: 'thy-confirm-default',
@@ -19,7 +12,7 @@ import { finalize } from 'rxjs/operators';
 export class ThyConfirmComponent implements OnInit, OnDestroy {
     loading: boolean;
 
-    options: ThyConfirmConfig;
+    @Input() options: ThyConfirmConfig;
 
     public title: string;
 
@@ -32,6 +25,8 @@ export class ThyConfirmComponent implements OnInit, OnDestroy {
     public cancelText: string;
 
     public okLoadingText: string;
+
+    public footerAlign: ThyFormGroupFooterAlign;
 
     constructor(
         private dialogRef: ThyDialogRef<ThyConfirmComponent>,
@@ -48,6 +43,7 @@ export class ThyConfirmComponent implements OnInit, OnDestroy {
             this.cancelText = this.options.cancelText || this.defaultConfig.cancelText;
             this.okLoadingText = this.options.okLoadingText || this.okText;
             this.options.okLoadingText = this.options.okLoadingText || this.options.okText;
+            this.footerAlign = this.options.footerAlign || this.defaultConfig.footerAlign;
         }
     }
 
