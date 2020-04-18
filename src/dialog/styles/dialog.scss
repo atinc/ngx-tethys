@@ -167,3 +167,19 @@
     max-width: $dialog-supper-lg-max-width;
     max-height: $dialog-supper-lg-max-height;
 }
+
+.thy-confirm-footer {
+    display: flex;
+    .thy-confirm-cancel {
+        margin-right: $btn-dialog-confirm-cancel;
+    }
+    &.thy-confirm-footer-left {
+        flex-direction: row;
+    }
+    &.thy-confirm-footer-left {
+        justify-content: center;
+    }
+    &.thy-confirm-footer-right {
+        flex-direction: row-reverse;
+    }
+}

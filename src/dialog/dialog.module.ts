@@ -14,6 +14,8 @@ import { ThyConfirmComponent } from './confirm/confirm.component';
 import { THY_CONFIRM_DEFAULT_OPTIONS_PROVIDER } from './confirm.config';
 import { ThyIconModule } from '../icon/icon.module';
 import { ThySharedModule } from '../shared';
+import { ThyFormModule } from '../form';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [
@@ -23,7 +25,16 @@ import { ThySharedModule } from '../shared';
         DialogFooterComponent,
         ThyConfirmComponent
     ],
-    imports: [CommonModule, ThySharedModule, PortalModule, OverlayModule, ThyButtonModule, ThyIconModule],
+    imports: [
+        CommonModule,
+        ThySharedModule,
+        PortalModule,
+        OverlayModule,
+        ThyButtonModule,
+        ThyIconModule,
+        ThyFormModule,
+        FormsModule
+    ],
     providers: [
         ThyDialog,
         THY_DIALOG_DEFAULT_OPTIONS_PROVIDER,
