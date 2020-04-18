@@ -23,7 +23,6 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
 
     @Input() thyDateRender: FunctionProp<TemplateRef<Date> | string>;
     @Input() thyMode: PanelMode | PanelMode[];
-
     @Output() readonly thyOnPanelChange = new EventEmitter<PanelMode | PanelMode[]>();
     @Output() readonly thyOnCalendarChange = new EventEmitter<Date[]>();
 
