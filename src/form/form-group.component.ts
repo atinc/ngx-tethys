@@ -32,7 +32,6 @@ export class ThyFormGroupComponent implements OnInit {
     feedbackIcon: string;
     feedbackSvgIconName: string;
     tips: string;
-    isVertical: boolean;
 
     @HostBinding('class.row-fill') _rowFill = false;
 
@@ -98,6 +97,5 @@ export class ThyFormGroupComponent implements OnInit {
 
     ngOnInit() {
         this.isHorizontal = this.thyParentForm ? this.thyParentForm.isHorizontal : true;
-        this.isVertical = this.thyParentForm ? this.thyParentForm.isVertical : false;
     }
 }

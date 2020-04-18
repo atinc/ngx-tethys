@@ -17,7 +17,7 @@ import { TinyDate } from '../util';
 
 import { ThyPickerComponent } from './picker.component';
 import { CompatibleDate, CompatibleValue, DisabledDateFn, DateEntry, RangeEntry } from './standard-types';
-import { transformDateValue } from './picker.util';
+import { transformDateValue, makeValue } from './picker.util';
 
 export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDestroy, ControlValueAccessor {
     thyValue: CompatibleValue | null;
@@ -26,8 +26,8 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
     @Input() @InputBoolean() thyDisabled = false;
     @Input() @InputBoolean() thyOpen: boolean;
     @Input() thyDisabledDate: (d: Date) => boolean;
-    @Input() thyMinDate: Date;
-    @Input() thyMaxDate: Date;
+    @Input() thyMinDate: Date | number;
+    @Input() thyMaxDate: Date | number;
     @Input() thyPlaceHolder: string | string[];
     @Input() @InputBoolean() thyReadonly: boolean;
     @Input() thyOriginClassName: string;
@@ -36,6 +36,7 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
     @Input() thyFormat: string;
     // tslint:disable-next-line: max-line-length
     @Input() thyAutoStartAndEnd = false; // only for range picker, Whether to automatically take the beginning and ending unixTime of the day
+    @Input() thyDefaultPickerValue: CompatibleDate | number | null = null;
 
     @Output() readonly thyOpenChange = new EventEmitter<boolean>();
 
@@ -57,40 +58,11 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
         this.thyValue = this.isRange ? [] : null;
     }
 
-    initDisabledDate(): void {
-        let minDate: TinyDate;
-        let maxDate: TinyDate;
-        let disabledDateFn: DisabledDateFn;
-        if (this.thyMinDate) {
-            minDate = new TinyDate(this.thyMinDate);
-        }
-        if (this.thyMaxDate) {
-            maxDate = new TinyDate(this.thyMaxDate);
-        }
-        if (this.thyDisabledDate) {
-            disabledDateFn = this.thyDisabledDate;
-        }
-        this.thyDisabledDate = d => {
-            let expression = false;
-            if (minDate) {
-                expression = d < minDate.nativeDate;
-            }
-            if (maxDate && !expression) {
-                expression = d > maxDate.nativeDate;
-            }
-            if (disabledDateFn && typeof disabledDateFn === 'function' && !expression) {
-                expression = disabledDateFn(d);
-            }
-            return expression;
-        };
-    }
-
     constructor(public cdr: ChangeDetectorRef) {}
 
     ngOnInit(): void {
         this.setDefaultPlaceHolder();
         this.initValue();
-        this.initDisabledDate();
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -187,10 +159,6 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
     }
 
     public setValue(value: CompatibleDate): void {
-        if (this.isRange) {
-            (this.thyValue as any) = value ? (value as Date[]).map(val => new TinyDate(val)) : [];
-        } else {
-            (this.thyValue as any) = value ? new TinyDate(value as Date) : null;
-        }
+        this.thyValue = makeValue(value, this.isRange);
     }
 }
