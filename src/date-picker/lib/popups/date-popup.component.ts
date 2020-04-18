@@ -14,7 +14,8 @@ import {
 import { FunctionProp } from '../../../util/helpers';
 import { TinyDate, sortRangeValue } from '../../../util';
 
-import { CompatibleValue, DisabledDateFn, PanelMode, SupportTimeOptions } from '../../standard-types';
+import { CompatibleValue, DisabledDateFn, PanelMode, SupportTimeOptions, CompatibleDate } from '../../standard-types';
+import { transformDateValue, hasValue, makeValue } from '../../picker.util';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -28,6 +29,8 @@ export class DatePopupComponent implements OnChanges, OnInit {
 
     @Input() format: string;
     @Input() disabledDate: DisabledDateFn;
+    @Input() minDate: Date | number;
+    @Input() maxDate: Date | number;
     @Input() showToday: boolean;
     @Input() showTime: SupportTimeOptions | boolean;
     @Input() mustShowTime: boolean;
@@ -35,6 +38,7 @@ export class DatePopupComponent implements OnChanges, OnInit {
     @Input() className: string;
     @Input() panelMode: PanelMode | PanelMode[];
     @Input() value: CompatibleValue;
+    @Input() defaultPickerValue: CompatibleDate | number;
 
     @Output() readonly panelModeChange = new EventEmitter<PanelMode | PanelMode[]>();
     @Output() readonly calendarChange = new EventEmitter<CompatibleValue>();
@@ -63,17 +67,58 @@ export class DatePopupComponent implements OnChanges, OnInit {
         if (this.isRange) {
             ['panelMode', 'selectedValue', 'hoverValue'].forEach(prop => this.initialArray(prop));
         }
+        if (this.defaultPickerValue && !hasValue(this.value)) {
+            const { value } = transformDateValue(this.defaultPickerValue);
+            this.value = makeValue(value, this.isRange);
+            if (this.isRange) {
+                this.reInitializeRangeRelatedValue();
+            }
+        }
+        this.initDisabledDate();
     }
 
     ngOnChanges(changes: SimpleChanges): void {
         if (this.isRange) {
             if (changes.value) {
-                // Re-initialize all related values
-                this.clearHoverValue();
-                this.selectedValue = this.value as TinyDate[];
-                this.valueForRangeShow = this.normalizeRangeValue(this.value as TinyDate[]);
+                this.reInitializeRangeRelatedValue();
             }
         }
+    }
+
+    reInitializeRangeRelatedValue() {
+        this.clearHoverValue();
+        this.selectedValue = this.value as TinyDate[];
+        this.valueForRangeShow = this.normalizeRangeValue(this.value as TinyDate[]);
+    }
+
+    initDisabledDate(): void {
+        let minDate: TinyDate;
+        let maxDate: TinyDate;
+        let disabledDateFn: DisabledDateFn;
+        if (this.minDate) {
+            const { value } = transformDateValue(this.minDate);
+            minDate = new TinyDate(value as Date);
+        }
+        if (this.maxDate) {
+            const { value } = transformDateValue(this.maxDate);
+            maxDate = new TinyDate(value as Date);
+        }
+        if (this.disabledDate) {
+            disabledDateFn = this.disabledDate;
+        }
+        this.disabledDate = d => {
+            let expression = false;
+            if (minDate) {
+                expression = d < minDate.nativeDate;
+            }
+            if (maxDate && !expression) {
+                expression = d > maxDate.nativeDate;
+            }
+            if (disabledDateFn && typeof disabledDateFn === 'function' && !expression) {
+                expression = disabledDateFn(d);
+            }
+            return expression;
+        };
     }
 
     onShowTimePickerChange(show: boolean): void {
