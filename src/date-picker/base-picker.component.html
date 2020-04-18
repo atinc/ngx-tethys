@@ -18,6 +18,7 @@
     [isRange]="isRange"
     [showWeek]="showWeek"
     [panelMode]="thyMode"
+    [defaultPickerValue]="thyDefaultPickerValue"
     (panelModeChange)="thyOnPanelChange.emit($event)"
     (showTimePickerChange)="onShowTimePickerChange($event)"
     [value]="thyValue"
@@ -28,6 +29,8 @@
     [format]="thyFormat"
     [dateRender]="thyDateRender"
     [disabledDate]="thyDisabledDate"
+    [minDate]="thyMinDate"
+    [maxDate]="thyMaxDate"
     [className]="thyPanelClassName"
     (resultOk)="onResultOk()"
   ></date-popup>

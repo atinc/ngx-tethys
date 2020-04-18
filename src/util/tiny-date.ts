@@ -2,10 +2,6 @@ import {
     differenceInCalendarDays,
     differenceInCalendarMonths,
     differenceInCalendarYears,
-    differenceInCalendarWeeks,
-    differenceInDays,
-    differenceInMonths,
-    differenceInYears,
     differenceInWeeks,
     differenceInHours,
     differenceInMinutes,
@@ -207,20 +203,20 @@ export class TinyDate implements IndexableObject {
         return this.isSame(date, 'second');
     }
 
-    compare(date: TinyDateType, grain: TinyDateCompareGrain = 'day'): number {
+    compare(date: TinyDateType, grain: TinyDateCompareGrain = 'day', isBefore: boolean = true): boolean {
         if (date === null) {
-            return NaN;
+            return false;
         }
         let fn;
         switch (grain) {
             case 'year':
-                fn = differenceInYears;
+                fn = differenceInCalendarYears;
                 break;
             case 'month':
-                fn = differenceInMonths;
+                fn = differenceInCalendarMonths;
                 break;
             case 'day':
-                fn = differenceInDays;
+                fn = differenceInCalendarDays;
                 break;
             case 'week':
                 fn = differenceInWeeks;
@@ -235,151 +231,68 @@ export class TinyDate implements IndexableObject {
                 fn = differenceInSeconds;
                 break;
             default:
-                fn = differenceInDays;
-                break;
-        }
-        return fn(this.nativeDate, this.toNativeDate(date));
-    }
-
-    private isBeforeOrAfter(
-        date: TinyDateType,
-        grain: TinyDateCompareGrain = 'day',
-        isBefore: boolean = true
-    ): boolean {
-        const number = this.compare(date, grain);
-        return isBefore ? number < 0 : number > 0;
-    }
-
-    compareInCalendar(date: TinyDateType, grain: TinyDateCompareGrain = 'day'): number {
-        if (date === null) {
-            return NaN;
-        }
-        let fn;
-        switch (grain) {
-            case 'year':
-                fn = differenceInCalendarYears;
-                break;
-            case 'month':
-                fn = differenceInCalendarMonths;
-                break;
-            case 'week':
-                fn = differenceInCalendarWeeks;
-                break;
-            case 'day':
-                fn = differenceInCalendarDays;
-                break;
-            case 'hour':
-                fn = differenceInHours;
-                break;
-            case 'minute':
-                fn = differenceInMinutes;
-                break;
-            case 'second':
-                fn = differenceInSeconds;
-                break;
-            default:
                 fn = differenceInCalendarDays;
                 break;
         }
-
-        return fn(this.nativeDate, this.toNativeDate(date));
-    }
-
-    private isBeforeOrAfterInCalendar(
-        date: TinyDateType,
-        grain: TinyDateCompareGrain = 'day',
-        isBefore: boolean = true
-    ): boolean {
-        const number = this.compareInCalendar(date, grain);
-        return isBefore ? number < 0 : number > 0;
-    }
-
-    isBeforeYearInCalendar(date: TinyDateType): boolean {
-        return this.isBeforeOrAfterInCalendar(date, 'year');
-    }
-
-    isBeforeMonthInCalendar(date: TinyDateType): boolean {
-        return this.isBeforeOrAfterInCalendar(date, 'month');
-    }
-
-    isBeforeWeekInCalendar(date: TinyDateType): boolean {
-        return this.isBeforeOrAfterInCalendar(date, 'week');
-    }
-
-    isBeforeDayInCalendar(date: TinyDateType): boolean {
-        return this.isBeforeOrAfterInCalendar(date, 'day');
+        return isBefore
+            ? fn(this.nativeDate, this.toNativeDate(date)) < 0
+            : fn(this.nativeDate, this.toNativeDate(date)) > 0;
     }
 
     isBeforeYear(date: TinyDateType): boolean {
-        return this.isBeforeOrAfter(date, 'year');
+        return this.compare(date, 'year');
     }
 
     isBeforeMonth(date: TinyDateType): boolean {
-        return this.isBeforeOrAfter(date, 'month');
+        return this.compare(date, 'month');
     }
 
     isBeforeWeek(date: TinyDateType): boolean {
-        return this.isBeforeOrAfter(date, 'week');
+        return this.compare(date, 'week');
     }
 
     isBeforeDay(date: TinyDateType): boolean {
-        return this.isBeforeOrAfter(date, 'day');
+        return this.compare(date, 'day');
     }
 
     isBeforeHour(date: TinyDateType): boolean {
-        return this.isBeforeOrAfter(date, 'hour');
+        return this.compare(date, 'hour');
     }
 
     isBeforeMinute(date: TinyDateType): boolean {
-        return this.isBeforeOrAfter(date, 'minute');
+        return this.compare(date, 'minute');
     }
 
     isBeforeSecond(date: TinyDateType): boolean {
-        return this.isBeforeOrAfter(date, 'second');
-    }
-
-    isAfterYearInCalendar(date: TinyDateType): boolean {
-        return this.isBeforeOrAfterInCalendar(date, 'year', false);
-    }
-
-    isAfterMonthInCalendar(date: TinyDateType): boolean {
-        return this.isBeforeOrAfterInCalendar(date, 'month', false);
-    }
-
-    isAfterWeekInCalendar(date: TinyDateType): boolean {
-        return this.isBeforeOrAfterInCalendar(date, 'week', false);
-    }
-
-    isAfterDayInCalendar(date: TinyDateType): boolean {
-        return this.isBeforeOrAfterInCalendar(date, 'day', false);
+        return this.compare(date, 'second');
     }
 
     isAfterYear(date: TinyDateType): boolean {
-        return this.isBeforeOrAfter(date, 'year', false);
+        return this.compare(date, 'year', false);
     }
 
     isAfterMonth(date: TinyDateType): boolean {
-        return this.isBeforeOrAfter(date, 'month', false);
+        return this.compare(date, 'month', false);
     }
 
     isAfterWeek(date: TinyDateType): boolean {
-        return this.isBeforeOrAfter(date, 'week', false);
+        return this.compare(date, 'week', false);
     }
 
     isAfterDay(date: TinyDateType): boolean {
-        return this.isBeforeOrAfter(date, 'day', false);
+        return this.compare(date, 'day', false);
     }
 
     isAfterHour(date: TinyDateType): boolean {
-        return this.isBeforeOrAfter(date, 'hour', false);
+        return this.compare(date, 'hour', false);
     }
 
     isAfterMinute(date: TinyDateType): boolean {
-        return this.isBeforeOrAfter(date, 'minute', false);
+        return this.compare(date, 'minute', false);
     }
 
     isAfterSecond(date: TinyDateType): boolean {
-        return this.isBeforeOrAfter(date, 'second', false);
+        return this.compare(date, 'second', false);
     }
 
     isToday(): boolean {
