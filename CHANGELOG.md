@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.7.1](https://github.com/atinc/ngx-tethys/compare/7.7.0...7.7.1) (2020-04-18)
+
+
+### Features
+
+* **confirm:** add set algin;use FormGroupFooter ([#646](https://github.com/atinc/ngx-tethys/issues/646)) ([253fc67](https://github.com/atinc/ngx-tethys/commit/253fc67ff98d8e7f4f6b3721f1e7854cba8441e0))
+* **date-picker:** support default picker value ([#642](https://github.com/atinc/ngx-tethys/issues/642)) ([7790a7d](https://github.com/atinc/ngx-tethys/commit/7790a7d1343b9ac38da77ece0b83db2056d932bf))
+
+
+### Reverts
+
+* **util:** revert tiny date method about compare ([#643](https://github.com/atinc/ngx-tethys/issues/643)) ([412fd98](https://github.com/atinc/ngx-tethys/commit/412fd98a5f664973ff5f5d10874bbfd3eba5b005))
+
+
+
 # [7.7.0](https://github.com/atinc/ngx-tethys/compare/7.6.45...7.7.0) (2020-04-17)
 
 
