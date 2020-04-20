@@ -11,28 +11,34 @@ export class DemoAutocompleteSectionComponent implements OnInit {
     //#region 参数说明
     public apiParameters = [
         {
-            property: 'autoActiveFirstOption',
+            property: 'thyEmptyText',
+            description: '空选项时的文本',
+            type: 'string',
+            default: '没有任何数据'
+        },
+        {
+            property: 'thyAutoActiveFirstOption',
             description: '自动激活第一个选项',
             type: 'EventEmitter<ThyAutocompleteActivatedEvent>',
             default: 'false'
         },
         {
-            property: 'selectionChange',
-            description: 'output event: 选择项发生变化事件',
-            type: 'EventEmitter<ThyAutoOptionComponent>'
+            property: 'thyOptionSelected',
+            description: 'output event: option选择事件',
+            type: 'EventEmitter<ThyOptionSelectionChangeEvent>'
         },
         {
-            property: 'opened',
+            property: 'thyOpened',
             description: 'output event: 打开事件',
             type: 'EventEmitter<void>'
         },
         {
-            property: 'closed',
+            property: 'thyClosed',
             description: 'output event: 关闭事件',
             type: 'EventEmitter<void>'
         },
         {
-            property: 'optionActivated',
+            property: 'thyOptionActivated',
             description: 'option activated event: 激活状态改变触发(Arrow Up/Down select)',
             type: 'EventEmitter<ThyAutocompleteActivatedEvent>'
         }

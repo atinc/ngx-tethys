@@ -81,27 +81,27 @@ export class ThyAutocompleteComponent extends mixinUnsubscribe(MixinBase)
     }) as Observable<ThyOptionSelectionChangeEvent>;
 
     @Input()
-    emptyStateText = '没有任何数据';
+    thyEmptyText = '没有任何数据';
 
     @Input()
-    get autoActiveFirstOption(): boolean {
+    get thyAutoActiveFirstOption(): boolean {
         return this._autoActiveFirstOption;
     }
-    set autoActiveFirstOption(value: boolean) {
+    set thyAutoActiveFirstOption(value: boolean) {
         this._autoActiveFirstOption = coerceBooleanProperty(value);
     }
     private _autoActiveFirstOption: boolean;
 
-    @Output() optionSelected: EventEmitter<ThyOptionSelectionChangeEvent> = new EventEmitter<
+    @Output() thyOptionSelected: EventEmitter<ThyOptionSelectionChangeEvent> = new EventEmitter<
         ThyOptionSelectionChangeEvent
     >();
 
-    @Output() readonly opened: EventEmitter<void> = new EventEmitter<void>();
+    @Output() readonly thyOpened: EventEmitter<void> = new EventEmitter<void>();
 
-    @Output() readonly closed: EventEmitter<void> = new EventEmitter<void>();
+    @Output() readonly thyClosed: EventEmitter<void> = new EventEmitter<void>();
 
     /** Emits whenever an option is activated using the keyboard. */
-    @Output() readonly optionActivated: EventEmitter<ThyAutocompleteActivatedEvent> = new EventEmitter<
+    @Output() readonly thyOptionActivated: EventEmitter<ThyAutocompleteActivatedEvent> = new EventEmitter<
         ThyAutocompleteActivatedEvent
     >();
 
@@ -134,19 +134,19 @@ export class ThyAutocompleteComponent extends mixinUnsubscribe(MixinBase)
         const changedOrDestroyed$ = merge(this.options.changes, this.ngUnsubscribe$);
         this.keyManager = new ActiveDescendantKeyManager<ThyOptionComponent>(this.options).withWrap();
         this.keyManager.change.pipe(takeUntil(changedOrDestroyed$)).subscribe(index => {
-            this.optionActivated.emit({ source: this, option: this.options.toArray()[index] || null });
+            this.thyOptionActivated.emit({ source: this, option: this.options.toArray()[index] || null });
         });
     }
 
     open() {
         this.isOpened = true;
         this.changeDetectorRef.markForCheck();
-        this.opened.emit();
+        this.thyOpened.emit();
     }
 
     close() {
         this.isOpened = false;
-        this.closed.emit();
+        this.thyClosed.emit();
     }
 
     private resetOptions() {
@@ -194,7 +194,7 @@ export class ThyAutocompleteComponent extends mixinUnsubscribe(MixinBase)
         }
 
         if (wasSelected !== this.selectionModel.isSelected(option)) {
-            this.optionSelected.emit(new ThyOptionSelectionChangeEvent(option, false));
+            this.thyOptionSelected.emit(new ThyOptionSelectionChangeEvent(option, false));
         }
         this.changeDetectorRef.markForCheck();
     }
