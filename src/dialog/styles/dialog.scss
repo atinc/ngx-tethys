@@ -81,7 +81,6 @@
 // Footer (for actions)
 .dialog-footer {
     display: flex;
-    justify-content: flex-start;
     border: 0;
     align-items: center; // vertically center
     padding: $dialog-footer-padding;
@@ -90,12 +89,28 @@
         border-top: $dialog-footer-border-width solid $dialog-footer-border-color;
     }
 
-    // Easily place margin between footer elements
-    > :not(:first-child) {
-        margin-left: 0.25rem;
+    .dialog-footer-description {
+        flex: 1;
+        @include text-truncate();
     }
-    > :not(:last-child) {
-        margin-right: 0.25rem;
+
+    &.dialog-footer-actions-align-left {
+        flex-direction: row;
+        .dialog-footer-description {
+            margin-left: 30px;
+        }
+    }
+    &.dialog-footer-actions-align-center {
+        justify-content: center;
+        .dialog-footer-description {
+            margin-left: 30px;
+        }
+    }
+    &.dialog-footer-actions-align-right {
+        flex-direction: row-reverse;
+        .dialog-footer-description {
+            margin-right: 30px;
+        }
     }
 }
 
@@ -151,4 +166,20 @@
     height: $dialog-supper-lg-height;
     max-width: $dialog-supper-lg-max-width;
     max-height: $dialog-supper-lg-max-height;
+}
+
+.thy-confirm-footer {
+    display: flex;
+    .thy-confirm-cancel {
+        margin-right: $btn-dialog-confirm-cancel;
+    }
+    &.thy-confirm-footer-left {
+        flex-direction: row;
+    }
+    &.thy-confirm-footer-center {
+        justify-content: center;
+    }
+    &.thy-confirm-footer-right {
+        flex-direction: row-reverse;
+    }
 }

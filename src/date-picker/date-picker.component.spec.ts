@@ -204,6 +204,18 @@ describe('ThyDatePickerComponent', () => {
             expect(getSelectedDayCell().textContent.trim()).toBe('11');
         }));
 
+        it('should support thyDefaultPickerValue', fakeAsync(() => {
+            fixtureInstance.thyDefaultPickerValue = new Date('2021-10-10');
+            fixture.detectChanges();
+            dispatchMouseEvent(getPickerTriggerWrapper(), 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(getSelectedDayCell().textContent.trim()).toBe('10');
+            expect(queryFromOverlay('.thy-calendar-year-select').textContent.includes('2021')).toBeTruthy();
+            expect(queryFromOverlay('.thy-calendar-month-select').textContent.includes('10')).toBeTruthy();
+        }));
+
         it('should support thyOnChange', fakeAsync(() => {
             fixtureInstance.thyValue = new Date('2018-11-11');
             const thyOnChange = spyOn(fixtureInstance, 'thyOnChange');
@@ -535,6 +547,7 @@ describe('ThyDatePickerComponent', () => {
                 [thyDisabledDate]="thyDisabledDate"
                 [thyPlaceHolder]="thyPlaceHolder"
                 [thyPanelClassName]="thyPanelClassName"
+                [thyDefaultPickerValue]="thyDefaultPickerValue"
                 [thySize]="thySize"
                 (thyOpenChange)="thyOpenChange($event)"
                 [ngModel]="thyValue"
@@ -575,6 +588,7 @@ class ThyTestDatePickerComponent {
     thyPanelClassName: string;
     thySize: string;
     thyValue: Date | null;
+    thyDefaultPickerValue: Date | number;
     thyDateRender: any;
     thyShowTime: boolean | object = false;
     thyMode: string;

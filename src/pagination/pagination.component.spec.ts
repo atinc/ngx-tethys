@@ -25,7 +25,7 @@ class ThyPaginationBasicComponent implements OnInit {
         total: 50
     };
 
-    showTotal: boolean | TemplateRef<{ $implicit: number; ranges: [number, number] }> = false;
+    showTotal: boolean | TemplateRef<{ $implicit: number; range: { from: number; to: number } }> = false;
     @ViewChild('total') totalTemplate: TemplateRef<any>;
 
     constructor() {}

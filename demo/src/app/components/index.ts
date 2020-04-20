@@ -22,7 +22,6 @@ import { DemoEmptySectionComponent } from './+empty/empty-section.component';
 import { DemoFlexibleTextBasicComponent } from './+flexible-text/basic/flexible-text-basic.component';
 import { DemoFlexibleTextComponent } from './+flexible-text/flexible-text-section.component';
 import { DemoRadioSectionComponent } from './+form-radio/radio-section.component';
-import { DemoFormSectionComponent } from './+form/form-section.component';
 import { DemoGridSectionComponent } from './+grid/grid-section.component';
 import { ICON_COMPONENTS } from './+icon';
 import { DemoIconSectionComponent } from './+icon/icon-section.component';
@@ -98,6 +97,8 @@ import { DemoNavHorizontalComponent } from './+nav/horizontal/horizontal.compone
 import { DemoNavTypeComponent } from './+nav/type/type.component';
 import { DemoBadgeModule } from './+badge/badge.module';
 import { DemoAutocompleteModule } from './+autocomplete/module';
+import { DemoRasterModule } from './+raster';
+import { DemoFormModule } from './+form';
 
 export const COMPONENTS = [
     DemoCopySectionComponent,
@@ -144,7 +145,6 @@ export const COMPONENTS = [
     DemoEmptySectionComponent,
     DemoSwitchSectionComponent,
     DemoStrengthComponent,
-    DemoFormSectionComponent,
     DemoDataPickerSectionComponent,
     DemoDropdownSectionComponent,
     DemoProgressSectionComponent,
@@ -254,6 +254,7 @@ export const ENTRY_COMPONENTS = [
 ];
 
 export const DEMO_MODULES = [
+    DemoRasterModule,
     DialogDemoModule,
     DemoButtonModule,
     DemoNotifyModule,
@@ -271,5 +272,6 @@ export const DEMO_MODULES = [
     DemoTooltipModule,
     DemoTransferModule,
     DemoBadgeModule,
-    DemoAutocompleteModule
+    DemoAutocompleteModule,
+    DemoFormModule
 ];

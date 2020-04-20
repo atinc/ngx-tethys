@@ -2,6 +2,50 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.7.1](https://github.com/atinc/ngx-tethys/compare/7.7.0...7.7.1) (2020-04-18)
+
+
+### Features
+
+* **confirm:** add set algin;use FormGroupFooter ([#646](https://github.com/atinc/ngx-tethys/issues/646)) ([253fc67](https://github.com/atinc/ngx-tethys/commit/253fc67ff98d8e7f4f6b3721f1e7854cba8441e0))
+* **date-picker:** support default picker value ([#642](https://github.com/atinc/ngx-tethys/issues/642)) ([7790a7d](https://github.com/atinc/ngx-tethys/commit/7790a7d1343b9ac38da77ece0b83db2056d932bf))
+
+
+### Reverts
+
+* **util:** revert tiny date method about compare ([#643](https://github.com/atinc/ngx-tethys/issues/643)) ([412fd98](https://github.com/atinc/ngx-tethys/commit/412fd98a5f664973ff5f5d10874bbfd3eba5b005))
+
+
+
+# [7.7.0](https://github.com/atinc/ngx-tethys/compare/7.6.45...7.7.0) (2020-04-17)
+
+
+### Bug Fixes
+
+* **date-picker:** the date does not match the week #THB-587 ([58d45a4](https://github.com/atinc/ngx-tethys/commit/58d45a43fa16d847dc35a18ff825d565fff5257b)), closes [#THB-587](https://github.com/atinc/ngx-tethys/issues/THB-587)
+* **pagination:** range param type ([20491e7](https://github.com/atinc/ngx-tethys/commit/20491e7a4b0ce26eb2282f067cfc6a26c66d875e))
+* **property-operation:**  disabled event when  set disabled is true ([3a2b75c](https://github.com/atinc/ngx-tethys/commit/3a2b75c5c2afb5a1a1379d6c5f012c77bc0536e9))
+* **slide:** set slide height when container change ([ff58979](https://github.com/atinc/ngx-tethys/commit/ff58979d7d87d91a1446437d1d9e17d40059504d)), closes [#INFR-282](https://github.com/atinc/ngx-tethys/issues/INFR-282)
+* **thy-list:** change thyBordered to thySplit ([#639](https://github.com/atinc/ngx-tethys/issues/639)) ([a2f23dd](https://github.com/atinc/ngx-tethys/commit/a2f23ddceefdea0da50552fbdf0f955ea106cad8))
+* **thy-list:** perfect demo and add test ([5cddf7c](https://github.com/atinc/ngx-tethys/commit/5cddf7cfbae88b1128648d5c6c2ae36cc8eaf283))
+
+
+### Features
+
+* **confirm:** set confirm button on the right ([#628](https://github.com/atinc/ngx-tethys/issues/628)) ([4d4a0eb](https://github.com/atinc/ngx-tethys/commit/4d4a0eb22ab3e317c8be225676112bcbe854911f))
+* **dialog-footer:** add actionsAlign ([#637](https://github.com/atinc/ngx-tethys/issues/637)) ([94bf16b](https://github.com/atinc/ngx-tethys/commit/94bf16bb8c8d22d46023b0fe043a8913cabc2e11))
+* **form:** #INFR-268 form new demo ([c2670ba](https://github.com/atinc/ngx-tethys/commit/c2670ba32db6b19117f402449b3a08013e9ce15f)), closes [#INFR-268](https://github.com/atinc/ngx-tethys/issues/INFR-268)
+* **form-group:** #INFR-270 label required display position ([#632](https://github.com/atinc/ngx-tethys/issues/632)) ([2a61671](https://github.com/atinc/ngx-tethys/commit/2a61671e53a542b3f55d4f76efd3ebd4b40098bc)), closes [#INFR-270](https://github.com/atinc/ngx-tethys/issues/INFR-270)
+* **form-group-footer:** add setting actions align ([#635](https://github.com/atinc/ngx-tethys/issues/635)) ([60094b4](https://github.com/atinc/ngx-tethys/commit/60094b425ccfe7c9f68e45e94e2e3e47706b1053))
+* **grid:** add pagination total and test ([#626](https://github.com/atinc/ngx-tethys/issues/626)) ([7626785](https://github.com/atinc/ngx-tethys/commit/762678560eba42988f7c74175f1f2bb24ef80d8c))
+* **list:** add thy-list-item-beta ([02184e7](https://github.com/atinc/ngx-tethys/commit/02184e7e229caee02b1e137d686b4d162e14b30a))
+* **pagination:** thy-pagination add total and test ([#620](https://github.com/atinc/ngx-tethys/issues/620)) ([d8babe2](https://github.com/atinc/ngx-tethys/commit/d8babe21c7ea4ec1cf38ce34d686aa03cd4967b8))
+* **raster:** add raster, first commit ([#638](https://github.com/atinc/ngx-tethys/issues/638)) ([0918c6e](https://github.com/atinc/ngx-tethys/commit/0918c6e088af175c6af614e147ab1a5e08bb8384))
+* **tree-select:** replace expand icon ([#623](https://github.com/atinc/ngx-tethys/issues/623)) ([2cf874a](https://github.com/atinc/ngx-tethys/commit/2cf874ad6005fba5e52dec52e40c6237d376696c))
+* #INFR-268 global form layout config ([#625](https://github.com/atinc/ngx-tethys/issues/625)) ([d4b33c8](https://github.com/atinc/ngx-tethys/commit/d4b33c8a90776b4446bd39df9c7ce55ab97c3def)), closes [#INFR-268](https://github.com/atinc/ngx-tethys/issues/INFR-268) [#INFR-268](https://github.com/atinc/ngx-tethys/issues/INFR-268)
+
+
+
 ## [7.6.45](https://github.com/atinc/ngx-tethys/compare/7.6.44...7.6.45) (2020-04-13)
 
 

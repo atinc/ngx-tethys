@@ -404,11 +404,56 @@
             margin-bottom: 0;
         }
     }
+
+    .form-group-footer {
+        display: flex;
+        align-items: center;
+
+        .form-footer-description {
+            flex: 1;
+            @include text-truncate();
+        }
+
+        &.form-group-footer-align-left {
+            flex-direction: row;
+            .form-footer-description {
+                margin-left: 30px;
+                text-align: right;
+            }
+        }
+        &.form-group-footer-align-center {
+            justify-content: center;
+            .form-footer-description {
+                margin-left: 30px;
+                text-align: right;
+            }
+        }
+        &.form-group-footer-align-right {
+            flex-direction: row-reverse;
+            .form-footer-description {
+                margin-right: 30px;
+                text-align: left;
+            }
+        }
+    }
 }
 
 .thy-form-vertical {
     .form-group {
         display: block;
+        .label-required {
+            &::before {
+                content: none;
+            }
+
+            &::after {
+                content: '*';
+                color: $danger;
+                margin-left: 3px;
+                position: relative;
+                top: 0px;
+            }
+        }
     }
 }
 

@@ -1,1 +1,11 @@
+<form class="mb-2" thyForm thyLayout="inline">
+  <thy-form-group thyLabelText="footer align:">
+    <thy-select name="align" [(ngModel)]="align">
+      <option value="left">靠左侧</option>
+      <option value="center">居中</option>
+      <option value="right">靠右侧</option>
+    </thy-select>
+  </thy-form-group>
+</form>
+
 <button thyButton="primary" (click)="openConfirm()">Open Confirm</button>

@@ -80,11 +80,6 @@
   </thy-custom-select>
 </div>
 
-<div class="dialog-footer">
-  <button thyButton="primary" (click)="ok()">确认</button>
-  <button thyButton="link-secondary" (click)="close()">取消</button>
-</div>
-
 <ng-template #subDialog>
   <div class="dialog-header">
     <h3 class="dialog-title">Sub Dialog Title</h3>
@@ -107,3 +102,8 @@
     </button>
   </div>
 </ng-template>
+
+<thy-dialog-footer [thyAlign]="align">
+  <button thyButton="primary" (click)="ok()">确认</button>
+  <button thyButton="link-secondary" (click)="close()">取消</button>
+</thy-dialog-footer>

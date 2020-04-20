@@ -105,7 +105,7 @@ export class ThyPaginationComponent implements OnInit {
 
     public total: number;
 
-    public ranges = [0, 0];
+    public range = { from: 0, to: 0 };
 
     public firstIndex = 1;
 
@@ -118,7 +118,7 @@ export class ThyPaginationComponent implements OnInit {
     // 是否显示范围和total
     @HostBinding('class.thy-pagination-has-total')
     @Input('thyShowTotal')
-    showTotal: boolean | TemplateRef<{ $implicit: number; ranges: [number, number] }> = false;
+    showTotal: boolean | TemplateRef<{ $implicit: number; range: { from: number; to: number } }> = false;
 
     constructor(
         @Optional()
@@ -135,7 +135,10 @@ export class ThyPaginationComponent implements OnInit {
         this.setMarginalCount(this.config.rangeCount);
         this.calculatePageCount();
         this.setPageIndex(this.pageIndex);
-        this.ranges = [(this.pageIndex - 1) * this.pageSize + 1, this.pageIndex * this.pageSize];
+        this.range = {
+            from: (this.pageIndex - 1) * this.pageSize + 1,
+            to: this.pageIndex * this.pageSize
+        };
         this.initialized = true;
     }
 
@@ -218,7 +221,10 @@ export class ThyPaginationComponent implements OnInit {
     }
 
     private pageChange(pageIndex: number) {
-        this.ranges = [(pageIndex - 1) * this.pageSize + 1, pageIndex * this.pageSize];
+        this.range = {
+            from: (pageIndex - 1) * this.pageSize + 1,
+            to: pageIndex * this.pageSize
+        };
         this.pageIndexChange.emit(pageIndex);
         this.pageChanged.emit({ page: pageIndex });
     }

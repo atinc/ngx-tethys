@@ -30,6 +30,8 @@ import { GLOBAL_MODULES } from './global';
 import { SidebarComponent } from './core/sidebar/sidebar.component';
 import { SharedModule } from './shared.module';
 import { DemoTreeSelectModule } from './components/+tree-select/module';
+import { thyFormConfigProvider } from './config/form.config';
+import { THY_DIALOG_LAYOUT_CONFIG } from '../../../src/dialog/dialog.config';
 
 @NgModule({
     declarations: [AppComponent, ...COMPONENTS, ...DESIGN_COMPONENTS, SidebarComponent],
@@ -66,10 +68,17 @@ import { DemoTreeSelectModule } from './components/+tree-select/module';
             useClass: CustomMarkdownParserService
         },
         thyValidatorConfigProvider,
+        thyFormConfigProvider,
         {
             provide: THY_SLIDE_DEFAULT_CONFIG,
             useValue: {
                 drawerContainer: '.thy-layout-content'
+            }
+        },
+        {
+            provide: THY_DIALOG_LAYOUT_CONFIG,
+            useValue: {
+                footerAlign: 'left'
             }
         }
     ],

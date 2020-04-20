@@ -269,6 +269,9 @@ input[type='button'] {
             margin-left: $btn-pair-child-link-margin-left;
         }
     }
+    .btn-link + .btn {
+        margin-left: $btn-pair-child-link-margin-left;
+    }
 }
 
 .btn-pair-sm {
