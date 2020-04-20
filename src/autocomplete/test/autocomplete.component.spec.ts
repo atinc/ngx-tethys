@@ -41,7 +41,7 @@ import { ThyOptionModule } from '../../core';
                 [thyAutocompleteWidth]="500"
                 (ngModelChange)="valueChange($event)"
             />
-            <thy-autocomplete #auto [emptyStateText]="'没有搜索到任何数据'" (opened)="opened()">
+            <thy-autocomplete #auto [thyEmptyText]="'没有搜索到任何数据'" (thyOpened)="opened()">
                 <thy-option
                     *ngFor="let item of foods"
                     [thyLabelText]="item.viewValue"
@@ -165,7 +165,7 @@ describe('ThyAutocomplete', () => {
 
             it('should emit closed event when the panel close', fakeAsync(() => {
                 const closedSpy = jasmine.createSpy('closed event spy callback');
-                fixture.componentInstance.autocomplete.closed.subscribe(() => {
+                fixture.componentInstance.autocomplete.thyClosed.subscribe(() => {
                     closedSpy();
                 });
                 dispatchFakeEvent(trigger, 'focusin');
