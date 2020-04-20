@@ -38,6 +38,12 @@
       <option value="right">靠右侧</option>
     </thy-select>
   </thy-form-group>
+  <thy-form-group thyLabelText="footer has divider:">
+    <thy-select name="divider" [(ngModel)]="layoutConfig.divider">
+      <option value="true">有分割线</option>
+      <option value="false">无分割线</option>
+    </thy-select>
+  </thy-form-group>
 </form>
 
 <div class="demo-layout btn-pair mb-2">
@@ -70,7 +76,7 @@
     <p>template dialog body</p>
     <p>template dialog body</p>
   </thy-dialog-body>
-  <thy-dialog-footer thyShowBorderTop="true" [thyAlign]="layoutConfig.align">
+  <thy-dialog-footer [thyShowBorderTop]="layoutConfig.divider" [thyAlign]="layoutConfig.align">
     <button thyButton="primary" (click)="thyDialog.close()">确认</button>
     <button thyButton="link-secondary" (click)="thyDialog.close()">
       关闭

@@ -14,6 +14,8 @@ export class DemoDialogContentComponent implements OnInit {
 
     @Input() align: ThyDialogFooterAlign;
 
+    @Input() divider: ThyDialogFooterAlign;
+
     data: string;
 
     showMore = false;
