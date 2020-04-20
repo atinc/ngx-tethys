@@ -9,11 +9,11 @@ import { InputBoolean } from '../core';
 export class ThyListComponent {
     @Input()
     @InputBoolean()
-    set thySplit(value: boolean) {
-        this._isSplit = value;
+    set thyDivided(value: boolean) {
+        this._isDivided = value;
     }
 
-    @HostBinding(`class.thy-list-split`) _isSplit = false;
+    @HostBinding(`class.thy-list-divided`) _isDivided = false;
 
     @HostBinding(`class.thy-list`) _isList = true;
 
