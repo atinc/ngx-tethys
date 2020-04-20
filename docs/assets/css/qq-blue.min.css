@@ -1055,46 +1055,43 @@ input[type='radio']:after {
 .thy-select-custom.menu-is-opened .form-control-custom {
     border-color: #2dbcff;
 }
-.thy-select-custom-options .thy-option-item {
+.thy-select-custom:focus .form-control {
+    border-color: #2dbcff;
+}
+.thy-select-dropdown-options .thy-option-item {
     color: #666;
 }
-.thy-select-custom-options .thy-option-item:not(.disabled).hover,
-.thy-select-custom-options .thy-option-item:not(.disabled):hover {
+.thy-select-dropdown-options .thy-option-item:not(.disabled).hover,
+.thy-select-dropdown-options .thy-option-item:not(.disabled):hover {
     background: #f3f3f3;
     color: #333;
 }
-.thy-select-custom-options .thy-option-item:not(.disabled).active {
+.thy-select-dropdown-options .thy-option-item:not(.disabled).active {
     background: rgba(45, 188, 255, 0.1);
     color: #2dbcff;
 }
-.thy-select-custom-options .thy-option-item:not(.disabled).active .prefix-icon {
+.thy-select-dropdown-options .thy-option-item:not(.disabled).active .prefix-icon {
     color: #2dbcff;
 }
-.thy-custom-select-dropdown.thy-custom-select-dropdown-multiple
-    .thy-select-custom-options
-    .thy-option-item:not(.disabled).hover,
-.thy-custom-select-dropdown.thy-custom-select-dropdown-multiple
-    .thy-select-custom-options
-    .thy-option-item:not(.disabled):hover {
+.thy-select-dropdown.thy-select-dropdown-multiple .thy-select-dropdown-options .thy-option-item:not(.disabled).hover,
+.thy-select-dropdown.thy-select-dropdown-multiple .thy-select-dropdown-options .thy-option-item:not(.disabled):hover {
     background: #f3f3f3;
 }
-.thy-custom-select-dropdown.thy-custom-select-dropdown-multiple
-    .thy-select-custom-options
-    .thy-option-item:not(.disabled).active {
+.thy-select-dropdown.thy-select-dropdown-multiple .thy-select-dropdown-options .thy-option-item:not(.disabled).active {
     background: 0 0;
     color: #333;
 }
-.thy-custom-select-dropdown.thy-custom-select-dropdown-multiple
-    .thy-select-custom-options
+.thy-select-dropdown.thy-select-dropdown-multiple
+    .thy-select-dropdown-options
     .thy-option-item:not(.disabled).active
     .checked-icon {
     color: #2dbcff;
 }
-.thy-custom-select-dropdown.thy-custom-select-dropdown-multiple
-    .thy-select-custom-options
+.thy-select-dropdown.thy-select-dropdown-multiple
+    .thy-select-dropdown-options
     .thy-option-item:not(.disabled).active.hover,
-.thy-custom-select-dropdown.thy-custom-select-dropdown-multiple
-    .thy-select-custom-options
+.thy-select-dropdown.thy-select-dropdown-multiple
+    .thy-select-dropdown-options
     .thy-option-item:not(.disabled).active:hover {
     background: #f3f3f3;
     color: #333;
@@ -1113,6 +1110,7 @@ input[type='radio']:after {
 }
 .thy-list-option .prefix-icon {
     color: #ddd;
+    vertical-align: -1px;
 }
 .thy-list-option:not(.disabled).hover,
 .thy-list-option:not(.disabled):hover {
@@ -1145,6 +1143,7 @@ input[type='radio']:after {
 }
 .thy-list-item .prefix-icon {
     color: #ddd;
+    vertical-align: -1px;
 }
 .thy-list-item:not(.disabled).hover,
 .thy-list-item:not(.disabled):hover {

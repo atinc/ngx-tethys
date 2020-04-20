@@ -34,8 +34,7 @@ export const allMenus = [
                     { name: 'Variables', zhName: '变量', routePath: 'variables' },
                     { name: 'Reboot', zhName: '通用', routePath: 'reboot' },
                     { name: 'Link', zhName: '链接', routePath: 'link' },
-                    { name: 'Typography', zhName: '排版', routePath: 'typography' },
-                    { name: 'Raster', zhName: '栅格', routePath: 'raster' }
+                    { name: 'Typography', zhName: '排版', routePath: 'typography' }
                 ]
             },
             {
@@ -66,6 +65,7 @@ export const allMenus = [
                 zhName: '布局',
                 children: [
                     { name: 'Layout', zhName: '布局', routePath: 'layout' },
+                    { name: 'Raster', zhName: '栅格', routePath: 'raster' },
                     { name: 'Card', zhName: '卡片', routePath: 'card' },
                     { name: 'Stepper', zhName: '步骤条', routePath: 'stepper' }
                 ]

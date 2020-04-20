@@ -64,7 +64,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
 
     get panelClosingActions(): Observable<ThyOptionSelectionChangeEvent | null> {
         return merge(
-            this.autocompleteComponent.optionSelected,
+            this.autocompleteComponent.thyOptionSelected,
             this.autocompleteComponent.keyManager.tabOut.pipe(filter(() => this.panelOpened)),
             this.closeKeyEventStream,
             this.getOutsideClickStream(),
@@ -256,7 +256,9 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
     }
 
     private resetActiveItem(): void {
-        this.autocompleteComponent.keyManager.setActiveItem(this.autocompleteComponent.autoActiveFirstOption ? 0 : -1);
+        this.autocompleteComponent.keyManager.setActiveItem(
+            this.autocompleteComponent.thyAutoActiveFirstOption ? 0 : -1
+        );
     }
 
     private destroyPanel(): void {

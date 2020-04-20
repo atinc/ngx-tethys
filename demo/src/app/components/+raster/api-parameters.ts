@@ -1,4 +1,11 @@
-export const rowApiParameters = [];
+export const rowApiParameters = [
+    {
+        property: 'thyGutter',
+        description: '栅格间隔',
+        type: 'number',
+        default: ''
+    }
+];
 
 export const colApiParameters = [
     {

@@ -20,6 +20,7 @@ export * from './dropdown';
 export * from './empty';
 export * from './form';
 export * from './grid';
+export * from './raster';
 export * from './input';
 export * from './label';
 export * from './layout';
