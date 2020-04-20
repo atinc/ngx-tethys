@@ -19,12 +19,12 @@ describe('list', () => {
         fixture.detectChanges();
     });
 
-    describe('#thySplit', () => {
+    describe('divided-list', () => {
         for (const value of [true, false]) {
             it(`[${value}]`, () => {
-                fixture.componentInstance.thySplit = value;
+                fixture.componentInstance.divided = value;
                 fixture.detectChanges();
-                expect(listElement.classList.contains('thy-list-split')).toBe(value);
+                expect(listElement.classList.contains('thy-list-divided')).toBe(value);
             });
         }
     });
@@ -45,7 +45,7 @@ describe('list', () => {
 
 @Component({
     template: `
-        <thy-list [thySplit]="thySplit">
+        <thy-list [thyDivided]="divided">
             <thy-list-item>
                 <thy-list-item-meta
                     thyTitle="Google Analytics"
@@ -65,5 +65,5 @@ describe('list', () => {
     `
 })
 class TestListComponent {
-    thySplit = false;
+    divided = false;
 }
