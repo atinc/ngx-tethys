@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.7.2](https://github.com/atinc/ngx-tethys/compare/7.7.1...7.7.2) (2020-04-20)
+
+
+### Bug Fixes
+
+* **list:** change thySplit to thyDivided ([3533d00](https://github.com/atinc/ngx-tethys/commit/3533d006715f92a09009972ddc3b11d21ec80702))
+
+
+### Features
+
+* **dialog:** support set footerDivider in global ([#651](https://github.com/atinc/ngx-tethys/issues/651)) ([1119b55](https://github.com/atinc/ngx-tethys/commit/1119b556161f0b1ef32f2f3624c544e915f61096))
+* **raster:** supports raster gutter ([3b16b5e](https://github.com/atinc/ngx-tethys/commit/3b16b5ea0043d3bc2554fd1c97b6faabad42f84d))
+* modify autocomplete parameters name(#INFR-327) ([#649](https://github.com/atinc/ngx-tethys/issues/649)) ([81a6b7b](https://github.com/atinc/ngx-tethys/commit/81a6b7b9f5b2591c04c312b0a7c49bb7226c0729)), closes [#INFR-327](https://github.com/atinc/ngx-tethys/issues/INFR-327)
+
+
+
 ## [7.7.1](https://github.com/atinc/ngx-tethys/compare/7.7.0...7.7.1) (2020-04-18)
 
 
