@@ -121,27 +121,27 @@
         <label thyRadioButton thyLabelText="选项2" thyValue="6"></label>
       </thy-radio-group>
     </thy-form-group>
-
-    <thy-form-group-error thyCol [thySpan]="24"></thy-form-group-error>
-
-    <thy-form-group-footer thyCol [thySpan]="24">
-      <button [thyButton]="'primary'" (thyFormSubmit)="save(demoVerticalForm)">
-        保存
-      </button>
-      <button [thyButton]="'link-secondary'" (click)="demoVerticalThyForm.validator.reset()">
-        重置
-      </button>
-      <button
-        [thyButton]="'primary'"
-        (click)="demoVerticalThyForm.validator.setElementErrorMessage('power', '这是一个自定义的错误')"
-      >
-        设置选择1错误信息
-      </button>
-      <button [thyButton]="'primary'" (click)="demoVerticalThyForm.validator.addError('这是一条Form错误')">
-        添加一条Form错误
-      </button>
-    </thy-form-group-footer>
   </div>
+
+  <thy-form-group-error></thy-form-group-error>
+
+  <thy-form-group-footer>
+    <button [thyButton]="'primary'" (thyFormSubmit)="save(demoVerticalForm)">
+      保存
+    </button>
+    <button [thyButton]="'link-secondary'" (click)="demoVerticalThyForm.validator.reset()">
+      重置
+    </button>
+    <button
+      [thyButton]="'primary'"
+      (click)="demoVerticalThyForm.validator.setElementErrorMessage('power', '这是一个自定义的错误')"
+    >
+      设置选择1错误信息
+    </button>
+    <button [thyButton]="'primary'" (click)="demoVerticalThyForm.validator.addError('这是一条Form错误')">
+      添加一条Form错误
+    </button>
+  </thy-form-group-footer>
 </form>
 
 <!-- {{demoVerticalThyForm.validator._controls | json}} -->
