@@ -1,7 +1,8 @@
-import { Component, Input, HostBinding, ContentChild, TemplateRef, Inject, OnInit, ElementRef } from '@angular/core';
-import { inputValueToBoolean } from '../../util/helpers';
+import { Component, Input, ContentChild, TemplateRef, Inject, OnInit, ElementRef } from '@angular/core';
+import { coerceBooleanProperty } from '../../util/helpers';
 import { THY_DIALOG_LAYOUT_CONFIG, ThyDialogLayoutConfig, ThyDialogFooterAlign } from '../dialog.config';
 import { UpdateHostClassService } from '../../shared';
+import { warnDeprecation } from '../../core';
 
 @Component({
     selector: 'thy-dialog-footer',
@@ -11,19 +12,24 @@ import { UpdateHostClassService } from '../../shared';
     providers: [UpdateHostClassService]
 })
 export class DialogFooterComponent implements OnInit {
-    @HostBinding(`class.dialog-footer`) _isDialogFooter = true;
-
-    @HostBinding(`class.dialog-footer-border-top`)
-    showBorderTop = false;
-
     @ContentChild('description') description: TemplateRef<any>;
 
+    /**
+     * @deprecated thyShowBorderTop will be deprecated, please use thyDivided.
+     */
     @Input()
     set thyShowBorderTop(value: string) {
-        this.showBorderTop = inputValueToBoolean(value);
+        warnDeprecation(`thyShowBorderTop will be deprecated, please use thyDivided.`);
+        this.divided = coerceBooleanProperty(value);
+    }
+
+    @Input() set thyDivided(value: boolean) {
+        this.divided = coerceBooleanProperty(value);
     }
 
     @Input() thyAlign: ThyDialogFooterAlign;
+
+    private divided: boolean;
 
     private get align() {
         return !!this.thyAlign ? this.thyAlign : this.dialogLayoutConfig.footerAlign;
@@ -35,9 +41,14 @@ export class DialogFooterComponent implements OnInit {
         private elementRef: ElementRef
     ) {
         this.updateHostClassService.initializeElement(this.elementRef.nativeElement);
+        this.divided = this.dialogLayoutConfig.footerDivided;
     }
 
     ngOnInit() {
-        this.updateHostClassService.addClass(`dialog-footer-actions-align-${this.align}`);
+        this.updateHostClassService.updateClassByMap({
+            'dialog-footer': true,
+            [`dialog-footer-actions-align-${this.align}`]: true,
+            'dialog-footer-border-top': this.divided
+        });
     }
 }

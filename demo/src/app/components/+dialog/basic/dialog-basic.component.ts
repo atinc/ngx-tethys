@@ -20,7 +20,8 @@ export class DemoDialogBasicComponent extends mixinUnsubscribe(MixinBase) implem
     };
 
     public layoutConfig = {
-        align: 'left'
+        align: 'left',
+        divider: true
     };
 
     unsubscribe: () => void;
@@ -63,7 +64,8 @@ export class DemoDialogBasicComponent extends mixinUnsubscribe(MixinBase) implem
                 {
                     initialState: {
                         data: `This is Pass Data`,
-                        align: this.layoutConfig.align
+                        align: this.layoutConfig.align,
+                        divider: this.layoutConfig.divider
                     }
                 },
                 this.config

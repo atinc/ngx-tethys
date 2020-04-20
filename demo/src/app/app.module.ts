@@ -78,7 +78,8 @@ import { THY_DIALOG_LAYOUT_CONFIG } from '../../../src/dialog/dialog.config';
         {
             provide: THY_DIALOG_LAYOUT_CONFIG,
             useValue: {
-                footerAlign: 'left'
+                footerAlign: 'left',
+                footerDivided: false
             }
         }
     ],
