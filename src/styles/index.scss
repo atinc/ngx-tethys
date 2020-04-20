@@ -17,8 +17,6 @@
 // @import "~bootstrap/scss/forms";
 // @import "~bootstrap/scss/input-group";
 
-@import '../directive/raster/thy-raster.scss';
-
 @import '../button/styles/button';
 @import '../button/styles/button-group';
 @import '../alert/styles/alert';
@@ -54,6 +52,7 @@
 @import '../property-operation/styles/property-operation.scss';
 @import '../strength/styles/strength.scss';
 @import '../grid/styles/grid';
+@import '../raster/styles/grid.scss';
 @import '../date-range/styles/date-range.scss';
 @import '../list/styles/list.scss';
 @import '../tree-select/styles/tree-select.scss';

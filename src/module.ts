@@ -6,6 +6,7 @@ import { ThyLayoutModule } from './layout';
 import { ThyPopBoxModule } from './pop-box';
 import { ThyPopoverModule } from './popover';
 import { ThyGridModule } from './grid';
+import { ThyRasterModule } from './raster';
 import { ThyAvatarModule } from './avatar';
 import { ThyBadgeModule } from './badge';
 import { ThyLabelModule } from './label';
@@ -69,6 +70,7 @@ const IMPORT_EXPORT_MODULES = [
     ThyPopoverModule,
     ThyBadgeModule,
     ThyGridModule,
+    ThyRasterModule,
     ThyAvatarModule,
     ThyLabelModule,
     ThyNavModule,

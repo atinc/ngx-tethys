@@ -2,16 +2,17 @@
     .thy-row + .thy-row {
         margin-top: 16px;
     }
-    .thy-col {
+    .demo-col-section {
         min-height: 50px;
         line-height: 50px;
         padding: 5px 0;
         color: #fff;
         text-align: center;
-        border: solid 1px #fff;
         border-radius: 0;
         background: #00a0e9;
-        &:nth-child(2n + 1) {
+    }
+    .thy-col:nth-child(2n + 1) {
+        .demo-col-section {
             background: #00a0e9b3;
         }
     }

@@ -161,6 +161,10 @@ const appRoutes = [
         component: DemoLayoutSectionComponent
     },
     {
+        path: 'components/raster',
+        component: DemoRasterSectionComponent
+    },
+    {
         path: 'components/empty',
         component: DemoEmptySectionComponent
     },
