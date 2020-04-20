@@ -114,7 +114,7 @@ export class DemoListSectionComponent {
 
     public apiListParameters = [
         {
-            property: 'thySplit',
+            property: 'thyDivided',
             description: 'list是否展示分割线',
             type: 'Boolean',
             default: 'false'
