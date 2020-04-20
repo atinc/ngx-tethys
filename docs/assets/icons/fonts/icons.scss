@@ -1,0 +1,1538 @@
+@font-face {
+    font-family: 'Worktile-Icons';
+    src: url('./assets/icons/fonts/Worktile-Icons.eot');
+    src: url('./assets/icons/fonts/Worktile-Icons.eot?#iefix') format('eot'),
+        url('./assets/icons/fonts/Worktile-Icons.woff2') format('woff2'),
+        url('./assets/icons/fonts/Worktile-Icons.woff') format('woff'),
+        url('./assets/icons/fonts/Worktile-Icons.ttf') format('truetype'),
+        url('./assets/icons/fonts/Worktile-Icons.svg#Worktile-Icons') format('svg');
+}
+
+@mixin wt-icon-styles {
+    font-family: 'Worktile-Icons';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    // speak: none; // only necessary if not using the private unicode range (firstGlyph option)
+    text-decoration: none;
+    text-transform: none;
+}
+
+%wt-icon {
+    @include wt-icon-styles;
+}
+
+@function wt-icon-char($filename) {
+    $char: '';
+
+    @if $filename == active {
+        $char: '\E001';
+    }
+    @if $filename == archive {
+        $char: '\E002';
+    }
+    @if $filename == connect-bold {
+        $char: '\E003';
+    }
+    @if $filename == connect {
+        $char: '\E004';
+    }
+    @if $filename == copy {
+        $char: '\E005';
+    }
+    @if $filename == edit {
+        $char: '\E006';
+    }
+    @if $filename == move-to-list {
+        $char: '\E007';
+    }
+    @if $filename == move {
+        $char: '\E008';
+    }
+    @if $filename == settings-fill {
+        $char: '\E009';
+    }
+    @if $filename == settings {
+        $char: '\E00A';
+    }
+    @if $filename == thumb-up {
+        $char: '\E00B';
+    }
+    @if $filename == trash {
+        $char: '\E00C';
+    }
+    @if $filename == user-add-bold {
+        $char: '\E00D';
+    }
+    @if $filename == user-add {
+        $char: '\E00E';
+    }
+    @if $filename == bar-fill {
+        $char: '\E00F';
+    }
+    @if $filename == doughnut-fill {
+        $char: '\E010';
+    }
+    @if $filename == trend {
+        $char: '\E011';
+    }
+    @if $filename == android-fill {
+        $char: '\E012';
+    }
+    @if $filename == app-agile-fill {
+        $char: '\E013';
+    }
+    @if $filename == app-agile {
+        $char: '\E014';
+    }
+    @if $filename == app-appraisal-fill {
+        $char: '\E015';
+    }
+    @if $filename == app-appraisal {
+        $char: '\E016';
+    }
+    @if $filename == app-approval-fill {
+        $char: '\E017';
+    }
+    @if $filename == app-approval {
+        $char: '\E018';
+    }
+    @if $filename == app-bulletin-fill {
+        $char: '\E019';
+    }
+    @if $filename == app-bulletin {
+        $char: '\E01A';
+    }
+    @if $filename == app-calendar-fill {
+        $char: '\E01B';
+    }
+    @if $filename == app-calendar {
+        $char: '\E01C';
+    }
+    @if $filename == app-crm-fill {
+        $char: '\E01D';
+    }
+    @if $filename == app-crm {
+        $char: '\E01E';
+    }
+    @if $filename == app-drive-fill {
+        $char: '\E01F';
+    }
+    @if $filename == app-drive {
+        $char: '\E020';
+    }
+    @if $filename == app-leave-fill {
+        $char: '\E021';
+    }
+    @if $filename == app-leave {
+        $char: '\E022';
+    }
+    @if $filename == app-message-fill {
+        $char: '\E023';
+    }
+    @if $filename == app-message {
+        $char: '\E024';
+    }
+    @if $filename == app-okr-fill {
+        $char: '\E025';
+    }
+    @if $filename == app-okr {
+        $char: '\E026';
+    }
+    @if $filename == app-pipeline-fill {
+        $char: '\E027';
+    }
+    @if $filename == app-pipeline {
+        $char: '\E028';
+    }
+    @if $filename == app-portal-fill {
+        $char: '\E029';
+    }
+    @if $filename == app-portal {
+        $char: '\E02A';
+    }
+    @if $filename == app-project-fill {
+        $char: '\E02B';
+    }
+    @if $filename == app-project {
+        $char: '\E02C';
+    }
+    @if $filename == app-report-fill {
+        $char: '\E02D';
+    }
+    @if $filename == app-report {
+        $char: '\E02E';
+    }
+    @if $filename == app-task-fill {
+        $char: '\E02F';
+    }
+    @if $filename == app-task {
+        $char: '\E030';
+    }
+    @if $filename == app-testhub-fill {
+        $char: '\E031';
+    }
+    @if $filename == app-testhub {
+        $char: '\E032';
+    }
+    @if $filename == app-tracking-fill {
+        $char: '\E033';
+    }
+    @if $filename == app-tracking {
+        $char: '\E034';
+    }
+    @if $filename == application-add {
+        $char: '\E035';
+    }
+    @if $filename == application-fill {
+        $char: '\E036';
+    }
+    @if $filename == application {
+        $char: '\E037';
+    }
+    @if $filename == browser {
+        $char: '\E038';
+    }
+    @if $filename == ios-fill {
+        $char: '\E039';
+    }
+    @if $filename == mobile-mode {
+        $char: '\E03A';
+    }
+    @if $filename == nodejs-fill {
+        $char: '\E03B';
+    }
+    @if $filename == attachment-bold {
+        $char: '\E03C';
+    }
+    @if $filename == attachment {
+        $char: '\E03D';
+    }
+    @if $filename == cloud-upload {
+        $char: '\E03E';
+    }
+    @if $filename == download {
+        $char: '\E03F';
+    }
+    @if $filename == folder-bold {
+        $char: '\E040';
+    }
+    @if $filename == folder-expand {
+        $char: '\E041';
+    }
+    @if $filename == folder-fill {
+        $char: '\E042';
+    }
+    @if $filename == folder-fold {
+        $char: '\E043';
+    }
+    @if $filename == folder-open-fill {
+        $char: '\E044';
+    }
+    @if $filename == upload {
+        $char: '\E045';
+    }
+    @if $filename == angle-double-down {
+        $char: '\E046';
+    }
+    @if $filename == angle-double-up {
+        $char: '\E047';
+    }
+    @if $filename == angle-down {
+        $char: '\E048';
+    }
+    @if $filename == angle-left {
+        $char: '\E049';
+    }
+    @if $filename == angle-right {
+        $char: '\E04A';
+    }
+    @if $filename == angle-up {
+        $char: '\E04B';
+    }
+    @if $filename == arrow-down-bold {
+        $char: '\E04C';
+    }
+    @if $filename == arrow-down {
+        $char: '\E04D';
+    }
+    @if $filename == arrow-right-circle-fill {
+        $char: '\E04E';
+    }
+    @if $filename == arrow-right-up-bold {
+        $char: '\E04F';
+    }
+    @if $filename == arrow-right-up-circle {
+        $char: '\E050';
+    }
+    @if $filename == arrow-right-up-square-bold {
+        $char: '\E051';
+    }
+    @if $filename == arrow-up-bold {
+        $char: '\E052';
+    }
+    @if $filename == arrow-up {
+        $char: '\E053';
+    }
+    @if $filename == caret-down {
+        $char: '\E054';
+    }
+    @if $filename == caret-right-down {
+        $char: '\E055';
+    }
+    @if $filename == caret-right {
+        $char: '\E056';
+    }
+    @if $filename == indent {
+        $char: '\E057';
+    }
+    @if $filename == outdent {
+        $char: '\E058';
+    }
+    @if $filename == align-center {
+        $char: '\E059';
+    }
+    @if $filename == align-justify {
+        $char: '\E05A';
+    }
+    @if $filename == align-left {
+        $char: '\E05B';
+    }
+    @if $filename == align-right {
+        $char: '\E05C';
+    }
+    @if $filename == audio {
+        $char: '\E05D';
+    }
+    @if $filename == authorship {
+        $char: '\E05E';
+    }
+    @if $filename == background {
+        $char: '\E05F';
+    }
+    @if $filename == blockquote {
+        $char: '\E060';
+    }
+    @if $filename == bold {
+        $char: '\E061';
+    }
+    @if $filename == clean {
+        $char: '\E062';
+    }
+    @if $filename == code {
+        $char: '\E063';
+    }
+    @if $filename == color {
+        $char: '\E064';
+    }
+    @if $filename == direction-ltr {
+        $char: '\E065';
+    }
+    @if $filename == direction-rtl {
+        $char: '\E066';
+    }
+    @if $filename == dropdown {
+        $char: '\E067';
+    }
+    @if $filename == embed {
+        $char: '\E068';
+    }
+    @if $filename == float-center {
+        $char: '\E069';
+    }
+    @if $filename == float-full {
+        $char: '\E06A';
+    }
+    @if $filename == float-left {
+        $char: '\E06B';
+    }
+    @if $filename == float-right {
+        $char: '\E06C';
+    }
+    @if $filename == font {
+        $char: '\E06D';
+    }
+    @if $filename == formula {
+        $char: '\E06E';
+    }
+    @if $filename == hashtag {
+        $char: '\E06F';
+    }
+    @if $filename == header-1 {
+        $char: '\E070';
+    }
+    @if $filename == header-2 {
+        $char: '\E071';
+    }
+    @if $filename == header-3 {
+        $char: '\E072';
+    }
+    @if $filename == header-4 {
+        $char: '\E073';
+    }
+    @if $filename == header-5 {
+        $char: '\E074';
+    }
+    @if $filename == header-6 {
+        $char: '\E075';
+    }
+    @if $filename == header {
+        $char: '\E076';
+    }
+    @if $filename == horizontal-rule {
+        $char: '\E077';
+    }
+    @if $filename == image {
+        $char: '\E078';
+    }
+    @if $filename == italic {
+        $char: '\E079';
+    }
+    @if $filename == link-insert {
+        $char: '\E07A';
+    }
+    @if $filename == list-bullet {
+        $char: '\E07B';
+    }
+    @if $filename == list-check {
+        $char: '\E07C';
+    }
+    @if $filename == list-ordered {
+        $char: '\E07D';
+    }
+    @if $filename == map {
+        $char: '\E07E';
+    }
+    @if $filename == redo {
+        $char: '\E07F';
+    }
+    @if $filename == size-decrease {
+        $char: '\E080';
+    }
+    @if $filename == size-increase {
+        $char: '\E081';
+    }
+    @if $filename == size {
+        $char: '\E082';
+    }
+    @if $filename == spacing {
+        $char: '\E083';
+    }
+    @if $filename == speech {
+        $char: '\E084';
+    }
+    @if $filename == strike {
+        $char: '\E085';
+    }
+    @if $filename == subscript {
+        $char: '\E086';
+    }
+    @if $filename == superscript {
+        $char: '\E087';
+    }
+    @if $filename == table-border-all {
+        $char: '\E088';
+    }
+    @if $filename == table-border-bottom {
+        $char: '\E089';
+    }
+    @if $filename == table-border-left {
+        $char: '\E08A';
+    }
+    @if $filename == table-border-none {
+        $char: '\E08B';
+    }
+    @if $filename == table-border-outside {
+        $char: '\E08C';
+    }
+    @if $filename == table-border-right {
+        $char: '\E08D';
+    }
+    @if $filename == table-border-top {
+        $char: '\E08E';
+    }
+    @if $filename == table-delete-cells {
+        $char: '\E08F';
+    }
+    @if $filename == table-delete-columns {
+        $char: '\E090';
+    }
+    @if $filename == table-delete-rows {
+        $char: '\E091';
+    }
+    @if $filename == table-insert-cells {
+        $char: '\E092';
+    }
+    @if $filename == table-insert-columns {
+        $char: '\E093';
+    }
+    @if $filename == table-insert-rows {
+        $char: '\E094';
+    }
+    @if $filename == table-merge-cells {
+        $char: '\E095';
+    }
+    @if $filename == table-remove {
+        $char: '\E096';
+    }
+    @if $filename == table-unmerge-cells {
+        $char: '\E097';
+    }
+    @if $filename == table {
+        $char: '\E098';
+    }
+    @if $filename == underline {
+        $char: '\E099';
+    }
+    @if $filename == undo {
+        $char: '\E09A';
+    }
+    @if $filename == vertical-line {
+        $char: '\E09B';
+    }
+    @if $filename == alarm-clock {
+        $char: '\E09C';
+    }
+    @if $filename == bulb-bold {
+        $char: '\E09D';
+    }
+    @if $filename == calendar-check {
+        $char: '\E09E';
+    }
+    @if $filename == calendar {
+        $char: '\E09F';
+    }
+    @if $filename == clock-circle-moment-fill {
+        $char: '\E0A0';
+    }
+    @if $filename == clock-circle-moment {
+        $char: '\E0A1';
+    }
+    @if $filename == clock-circle-open {
+        $char: '\E0A2';
+    }
+    @if $filename == clock-circle {
+        $char: '\E0A3';
+    }
+    @if $filename == clock-point-bold {
+        $char: '\E0A4';
+    }
+    @if $filename == comment {
+        $char: '\E0A5';
+    }
+    @if $filename == contacts-fill {
+        $char: '\E0A6';
+    }
+    @if $filename == contacts {
+        $char: '\E0A7';
+    }
+    @if $filename == eye-invisible {
+        $char: '\E0A8';
+    }
+    @if $filename == eye {
+        $char: '\E0A9';
+    }
+    @if $filename == filter {
+        $char: '\E0AA';
+    }
+    @if $filename == health-check {
+        $char: '\E0AB';
+    }
+    @if $filename == importance-bold {
+        $char: '\E0AC';
+    }
+    @if $filename == importance {
+        $char: '\E0AD';
+    }
+    @if $filename == list-sample-fill {
+        $char: '\E0AE';
+    }
+    @if $filename == list {
+        $char: '\E0AF';
+    }
+    @if $filename == mention {
+        $char: '\E0B0';
+    }
+    @if $filename == more-bold {
+        $char: '\E0B1';
+    }
+    @if $filename == more-circle-fill {
+        $char: '\E0B2';
+    }
+    @if $filename == more-circle {
+        $char: '\E0B3';
+    }
+    @if $filename == more {
+        $char: '\E0B4';
+    }
+    @if $filename == number {
+        $char: '\E0B5';
+    }
+    @if $filename == pause-circle-fill {
+        $char: '\E0B6';
+    }
+    @if $filename == play-circle {
+        $char: '\E0B7';
+    }
+    @if $filename == records {
+        $char: '\E0B8';
+    }
+    @if $filename == search {
+        $char: '\E0B9';
+    }
+    @if $filename == sitemap {
+        $char: '\E0BA';
+    }
+    @if $filename == smile {
+        $char: '\E0BB';
+    }
+    @if $filename == sort-tt {
+        $char: '\E0BC';
+    }
+    @if $filename == sort {
+        $char: '\E0BD';
+    }
+    @if $filename == tag-fill {
+        $char: '\E0BE';
+    }
+    @if $filename == tag {
+        $char: '\E0BF';
+    }
+    @if $filename == user-check-fill {
+        $char: '\E0C0';
+    }
+    @if $filename == user-group-fill {
+        $char: '\E0C1';
+    }
+    @if $filename == user-group {
+        $char: '\E0C2';
+    }
+    @if $filename == user-lock-fill {
+        $char: '\E0C3';
+    }
+    @if $filename == user-participate-fill {
+        $char: '\E0C4';
+    }
+    @if $filename == user-readonly-fill {
+        $char: '\E0C5';
+    }
+    @if $filename == version-bold {
+        $char: '\E0C6';
+    }
+    @if $filename == version-circle {
+        $char: '\E0C7';
+    }
+    @if $filename == version {
+        $char: '\E0C8';
+    }
+    @if $filename == vertical-view-lines {
+        $char: '\E0C9';
+    }
+    @if $filename == view-board {
+        $char: '\E0CA';
+    }
+    @if $filename == view-tile {
+        $char: '\E0CB';
+    }
+    @if $filename == branch {
+        $char: '\E0CC';
+    }
+    @if $filename == bug-fill {
+        $char: '\E0CD';
+    }
+    @if $filename == bug {
+        $char: '\E0CE';
+    }
+    @if $filename == commit-list {
+        $char: '\E0CF';
+    }
+    @if $filename == commit {
+        $char: '\E0D0';
+    }
+    @if $filename == epic-fill {
+        $char: '\E0D1';
+    }
+    @if $filename == feature-fill {
+        $char: '\E0D2';
+    }
+    @if $filename == feature {
+        $char: '\E0D3';
+    }
+    @if $filename == kanban-fill {
+        $char: '\E0D4';
+    }
+    @if $filename == pipeline-add-bold {
+        $char: '\E0D5';
+    }
+    @if $filename == pipeline {
+        $char: '\E0D6';
+    }
+    @if $filename == repository {
+        $char: '\E0D7';
+    }
+    @if $filename == scrum-fill {
+        $char: '\E0D8';
+    }
+    @if $filename == task-fill {
+        $char: '\E0D9';
+    }
+    @if $filename == task {
+        $char: '\E0DA';
+    }
+    @if $filename == test-case-fill {
+        $char: '\E0DB';
+    }
+    @if $filename == test-case-type-bold {
+        $char: '\E0DC';
+    }
+    @if $filename == test-case {
+        $char: '\E0DD';
+    }
+    @if $filename == test-lib-add-bold {
+        $char: '\E0DE';
+    }
+    @if $filename == test-lib {
+        $char: '\E0DF';
+    }
+    @if $filename == test {
+        $char: '\E0E0';
+    }
+    @if $filename == user-story-fill {
+        $char: '\E0E1';
+    }
+    @if $filename == user-story {
+        $char: '\E0E2';
+    }
+    @if $filename == check-bold {
+        $char: '\E0E3';
+    }
+    @if $filename == check-circle-fill {
+        $char: '\E0E4';
+    }
+    @if $filename == check-circle-tt {
+        $char: '\E0E5';
+    }
+    @if $filename == check-circle {
+        $char: '\E0E6';
+    }
+    @if $filename == check {
+        $char: '\E0E7';
+    }
+    @if $filename == close-bold {
+        $char: '\E0E8';
+    }
+    @if $filename == close-circle-fill {
+        $char: '\E0E9';
+    }
+    @if $filename == close-circle-tt {
+        $char: '\E0EA';
+    }
+    @if $filename == close {
+        $char: '\E0EB';
+    }
+    @if $filename == exclamation-bold {
+        $char: '\E0EC';
+    }
+    @if $filename == exclamation-double-bold {
+        $char: '\E0ED';
+    }
+    @if $filename == exclamation-three-bold {
+        $char: '\E0EE';
+    }
+    @if $filename == minus-bold {
+        $char: '\E0EF';
+    }
+    @if $filename == minus-circle-fill {
+        $char: '\E0F0';
+    }
+    @if $filename == minus-circle {
+        $char: '\E0F1';
+    }
+    @if $filename == minus-square {
+        $char: '\E0F2';
+    }
+    @if $filename == plus-bold {
+        $char: '\E0F3';
+    }
+    @if $filename == plus-square {
+        $char: '\E0F4';
+    }
+    @if $filename == plus {
+        $char: '\E0F5';
+    }
+    @if $filename == question-circle-bold {
+        $char: '\E0F6';
+    }
+    @if $filename == question-circle-fill {
+        $char: '\E0F7';
+    }
+    @if $filename == question-circle {
+        $char: '\E0F8';
+    }
+    @if $filename == waring-fill {
+        $char: '\E0F9';
+    }
+
+    @return $char;
+}
+
+@mixin wt-icon($filename, $insert: before, $extend: true) {
+    &:#{$insert} {
+        @if $extend {
+            @extend %wt-icon;
+        } @else {
+            @include wt-icon-styles;
+        }
+        content: wt-icon-char($filename);
+    }
+}
+
+.wt-icon-active {
+    @include wt-icon(active);
+}
+.wt-icon-archive {
+    @include wt-icon(archive);
+}
+.wt-icon-connect-bold {
+    @include wt-icon(connect-bold);
+}
+.wt-icon-connect {
+    @include wt-icon(connect);
+}
+.wt-icon-copy {
+    @include wt-icon(copy);
+}
+.wt-icon-edit {
+    @include wt-icon(edit);
+}
+.wt-icon-move-to-list {
+    @include wt-icon(move-to-list);
+}
+.wt-icon-move {
+    @include wt-icon(move);
+}
+.wt-icon-settings-fill {
+    @include wt-icon(settings-fill);
+}
+.wt-icon-settings {
+    @include wt-icon(settings);
+}
+.wt-icon-thumb-up {
+    @include wt-icon(thumb-up);
+}
+.wt-icon-trash {
+    @include wt-icon(trash);
+}
+.wt-icon-user-add-bold {
+    @include wt-icon(user-add-bold);
+}
+.wt-icon-user-add {
+    @include wt-icon(user-add);
+}
+.wt-icon-bar-fill {
+    @include wt-icon(bar-fill);
+}
+.wt-icon-doughnut-fill {
+    @include wt-icon(doughnut-fill);
+}
+.wt-icon-trend {
+    @include wt-icon(trend);
+}
+.wt-icon-android-fill {
+    @include wt-icon(android-fill);
+}
+.wt-icon-app-agile-fill {
+    @include wt-icon(app-agile-fill);
+}
+.wt-icon-app-agile {
+    @include wt-icon(app-agile);
+}
+.wt-icon-app-appraisal-fill {
+    @include wt-icon(app-appraisal-fill);
+}
+.wt-icon-app-appraisal {
+    @include wt-icon(app-appraisal);
+}
+.wt-icon-app-approval-fill {
+    @include wt-icon(app-approval-fill);
+}
+.wt-icon-app-approval {
+    @include wt-icon(app-approval);
+}
+.wt-icon-app-bulletin-fill {
+    @include wt-icon(app-bulletin-fill);
+}
+.wt-icon-app-bulletin {
+    @include wt-icon(app-bulletin);
+}
+.wt-icon-app-calendar-fill {
+    @include wt-icon(app-calendar-fill);
+}
+.wt-icon-app-calendar {
+    @include wt-icon(app-calendar);
+}
+.wt-icon-app-crm-fill {
+    @include wt-icon(app-crm-fill);
+}
+.wt-icon-app-crm {
+    @include wt-icon(app-crm);
+}
+.wt-icon-app-drive-fill {
+    @include wt-icon(app-drive-fill);
+}
+.wt-icon-app-drive {
+    @include wt-icon(app-drive);
+}
+.wt-icon-app-leave-fill {
+    @include wt-icon(app-leave-fill);
+}
+.wt-icon-app-leave {
+    @include wt-icon(app-leave);
+}
+.wt-icon-app-message-fill {
+    @include wt-icon(app-message-fill);
+}
+.wt-icon-app-message {
+    @include wt-icon(app-message);
+}
+.wt-icon-app-okr-fill {
+    @include wt-icon(app-okr-fill);
+}
+.wt-icon-app-okr {
+    @include wt-icon(app-okr);
+}
+.wt-icon-app-pipeline-fill {
+    @include wt-icon(app-pipeline-fill);
+}
+.wt-icon-app-pipeline {
+    @include wt-icon(app-pipeline);
+}
+.wt-icon-app-portal-fill {
+    @include wt-icon(app-portal-fill);
+}
+.wt-icon-app-portal {
+    @include wt-icon(app-portal);
+}
+.wt-icon-app-project-fill {
+    @include wt-icon(app-project-fill);
+}
+.wt-icon-app-project {
+    @include wt-icon(app-project);
+}
+.wt-icon-app-report-fill {
+    @include wt-icon(app-report-fill);
+}
+.wt-icon-app-report {
+    @include wt-icon(app-report);
+}
+.wt-icon-app-task-fill {
+    @include wt-icon(app-task-fill);
+}
+.wt-icon-app-task {
+    @include wt-icon(app-task);
+}
+.wt-icon-app-testhub-fill {
+    @include wt-icon(app-testhub-fill);
+}
+.wt-icon-app-testhub {
+    @include wt-icon(app-testhub);
+}
+.wt-icon-app-tracking-fill {
+    @include wt-icon(app-tracking-fill);
+}
+.wt-icon-app-tracking {
+    @include wt-icon(app-tracking);
+}
+.wt-icon-application-add {
+    @include wt-icon(application-add);
+}
+.wt-icon-application-fill {
+    @include wt-icon(application-fill);
+}
+.wt-icon-application {
+    @include wt-icon(application);
+}
+.wt-icon-browser {
+    @include wt-icon(browser);
+}
+.wt-icon-ios-fill {
+    @include wt-icon(ios-fill);
+}
+.wt-icon-mobile-mode {
+    @include wt-icon(mobile-mode);
+}
+.wt-icon-nodejs-fill {
+    @include wt-icon(nodejs-fill);
+}
+.wt-icon-attachment-bold {
+    @include wt-icon(attachment-bold);
+}
+.wt-icon-attachment {
+    @include wt-icon(attachment);
+}
+.wt-icon-cloud-upload {
+    @include wt-icon(cloud-upload);
+}
+.wt-icon-download {
+    @include wt-icon(download);
+}
+.wt-icon-folder-bold {
+    @include wt-icon(folder-bold);
+}
+.wt-icon-folder-expand {
+    @include wt-icon(folder-expand);
+}
+.wt-icon-folder-fill {
+    @include wt-icon(folder-fill);
+}
+.wt-icon-folder-fold {
+    @include wt-icon(folder-fold);
+}
+.wt-icon-folder-open-fill {
+    @include wt-icon(folder-open-fill);
+}
+.wt-icon-upload {
+    @include wt-icon(upload);
+}
+.wt-icon-angle-double-down {
+    @include wt-icon(angle-double-down);
+}
+.wt-icon-angle-double-up {
+    @include wt-icon(angle-double-up);
+}
+.wt-icon-angle-down {
+    @include wt-icon(angle-down);
+}
+.wt-icon-angle-left {
+    @include wt-icon(angle-left);
+}
+.wt-icon-angle-right {
+    @include wt-icon(angle-right);
+}
+.wt-icon-angle-up {
+    @include wt-icon(angle-up);
+}
+.wt-icon-arrow-down-bold {
+    @include wt-icon(arrow-down-bold);
+}
+.wt-icon-arrow-down {
+    @include wt-icon(arrow-down);
+}
+.wt-icon-arrow-right-circle-fill {
+    @include wt-icon(arrow-right-circle-fill);
+}
+.wt-icon-arrow-right-up-bold {
+    @include wt-icon(arrow-right-up-bold);
+}
+.wt-icon-arrow-right-up-circle {
+    @include wt-icon(arrow-right-up-circle);
+}
+.wt-icon-arrow-right-up-square-bold {
+    @include wt-icon(arrow-right-up-square-bold);
+}
+.wt-icon-arrow-up-bold {
+    @include wt-icon(arrow-up-bold);
+}
+.wt-icon-arrow-up {
+    @include wt-icon(arrow-up);
+}
+.wt-icon-caret-down {
+    @include wt-icon(caret-down);
+}
+.wt-icon-caret-right-down {
+    @include wt-icon(caret-right-down);
+}
+.wt-icon-caret-right {
+    @include wt-icon(caret-right);
+}
+.wt-icon-indent {
+    @include wt-icon(indent);
+}
+.wt-icon-outdent {
+    @include wt-icon(outdent);
+}
+.wt-icon-align-center {
+    @include wt-icon(align-center);
+}
+.wt-icon-align-justify {
+    @include wt-icon(align-justify);
+}
+.wt-icon-align-left {
+    @include wt-icon(align-left);
+}
+.wt-icon-align-right {
+    @include wt-icon(align-right);
+}
+.wt-icon-audio {
+    @include wt-icon(audio);
+}
+.wt-icon-authorship {
+    @include wt-icon(authorship);
+}
+.wt-icon-background {
+    @include wt-icon(background);
+}
+.wt-icon-blockquote {
+    @include wt-icon(blockquote);
+}
+.wt-icon-bold {
+    @include wt-icon(bold);
+}
+.wt-icon-clean {
+    @include wt-icon(clean);
+}
+.wt-icon-code {
+    @include wt-icon(code);
+}
+.wt-icon-color {
+    @include wt-icon(color);
+}
+.wt-icon-direction-ltr {
+    @include wt-icon(direction-ltr);
+}
+.wt-icon-direction-rtl {
+    @include wt-icon(direction-rtl);
+}
+.wt-icon-dropdown {
+    @include wt-icon(dropdown);
+}
+.wt-icon-embed {
+    @include wt-icon(embed);
+}
+.wt-icon-float-center {
+    @include wt-icon(float-center);
+}
+.wt-icon-float-full {
+    @include wt-icon(float-full);
+}
+.wt-icon-float-left {
+    @include wt-icon(float-left);
+}
+.wt-icon-float-right {
+    @include wt-icon(float-right);
+}
+.wt-icon-font {
+    @include wt-icon(font);
+}
+.wt-icon-formula {
+    @include wt-icon(formula);
+}
+.wt-icon-hashtag {
+    @include wt-icon(hashtag);
+}
+.wt-icon-header-1 {
+    @include wt-icon(header-1);
+}
+.wt-icon-header-2 {
+    @include wt-icon(header-2);
+}
+.wt-icon-header-3 {
+    @include wt-icon(header-3);
+}
+.wt-icon-header-4 {
+    @include wt-icon(header-4);
+}
+.wt-icon-header-5 {
+    @include wt-icon(header-5);
+}
+.wt-icon-header-6 {
+    @include wt-icon(header-6);
+}
+.wt-icon-header {
+    @include wt-icon(header);
+}
+.wt-icon-horizontal-rule {
+    @include wt-icon(horizontal-rule);
+}
+.wt-icon-image {
+    @include wt-icon(image);
+}
+.wt-icon-italic {
+    @include wt-icon(italic);
+}
+.wt-icon-link-insert {
+    @include wt-icon(link-insert);
+}
+.wt-icon-list-bullet {
+    @include wt-icon(list-bullet);
+}
+.wt-icon-list-check {
+    @include wt-icon(list-check);
+}
+.wt-icon-list-ordered {
+    @include wt-icon(list-ordered);
+}
+.wt-icon-map {
+    @include wt-icon(map);
+}
+.wt-icon-redo {
+    @include wt-icon(redo);
+}
+.wt-icon-size-decrease {
+    @include wt-icon(size-decrease);
+}
+.wt-icon-size-increase {
+    @include wt-icon(size-increase);
+}
+.wt-icon-size {
+    @include wt-icon(size);
+}
+.wt-icon-spacing {
+    @include wt-icon(spacing);
+}
+.wt-icon-speech {
+    @include wt-icon(speech);
+}
+.wt-icon-strike {
+    @include wt-icon(strike);
+}
+.wt-icon-subscript {
+    @include wt-icon(subscript);
+}
+.wt-icon-superscript {
+    @include wt-icon(superscript);
+}
+.wt-icon-table-border-all {
+    @include wt-icon(table-border-all);
+}
+.wt-icon-table-border-bottom {
+    @include wt-icon(table-border-bottom);
+}
+.wt-icon-table-border-left {
+    @include wt-icon(table-border-left);
+}
+.wt-icon-table-border-none {
+    @include wt-icon(table-border-none);
+}
+.wt-icon-table-border-outside {
+    @include wt-icon(table-border-outside);
+}
+.wt-icon-table-border-right {
+    @include wt-icon(table-border-right);
+}
+.wt-icon-table-border-top {
+    @include wt-icon(table-border-top);
+}
+.wt-icon-table-delete-cells {
+    @include wt-icon(table-delete-cells);
+}
+.wt-icon-table-delete-columns {
+    @include wt-icon(table-delete-columns);
+}
+.wt-icon-table-delete-rows {
+    @include wt-icon(table-delete-rows);
+}
+.wt-icon-table-insert-cells {
+    @include wt-icon(table-insert-cells);
+}
+.wt-icon-table-insert-columns {
+    @include wt-icon(table-insert-columns);
+}
+.wt-icon-table-insert-rows {
+    @include wt-icon(table-insert-rows);
+}
+.wt-icon-table-merge-cells {
+    @include wt-icon(table-merge-cells);
+}
+.wt-icon-table-remove {
+    @include wt-icon(table-remove);
+}
+.wt-icon-table-unmerge-cells {
+    @include wt-icon(table-unmerge-cells);
+}
+.wt-icon-table {
+    @include wt-icon(table);
+}
+.wt-icon-underline {
+    @include wt-icon(underline);
+}
+.wt-icon-undo {
+    @include wt-icon(undo);
+}
+.wt-icon-vertical-line {
+    @include wt-icon(vertical-line);
+}
+.wt-icon-alarm-clock {
+    @include wt-icon(alarm-clock);
+}
+.wt-icon-bulb-bold {
+    @include wt-icon(bulb-bold);
+}
+.wt-icon-calendar-check {
+    @include wt-icon(calendar-check);
+}
+.wt-icon-calendar {
+    @include wt-icon(calendar);
+}
+.wt-icon-clock-circle-moment-fill {
+    @include wt-icon(clock-circle-moment-fill);
+}
+.wt-icon-clock-circle-moment {
+    @include wt-icon(clock-circle-moment);
+}
+.wt-icon-clock-circle-open {
+    @include wt-icon(clock-circle-open);
+}
+.wt-icon-clock-circle {
+    @include wt-icon(clock-circle);
+}
+.wt-icon-clock-point-bold {
+    @include wt-icon(clock-point-bold);
+}
+.wt-icon-comment {
+    @include wt-icon(comment);
+}
+.wt-icon-contacts-fill {
+    @include wt-icon(contacts-fill);
+}
+.wt-icon-contacts {
+    @include wt-icon(contacts);
+}
+.wt-icon-eye-invisible {
+    @include wt-icon(eye-invisible);
+}
+.wt-icon-eye {
+    @include wt-icon(eye);
+}
+.wt-icon-filter {
+    @include wt-icon(filter);
+}
+.wt-icon-health-check {
+    @include wt-icon(health-check);
+}
+.wt-icon-importance-bold {
+    @include wt-icon(importance-bold);
+}
+.wt-icon-importance {
+    @include wt-icon(importance);
+}
+.wt-icon-list-sample-fill {
+    @include wt-icon(list-sample-fill);
+}
+.wt-icon-list {
+    @include wt-icon(list);
+}
+.wt-icon-mention {
+    @include wt-icon(mention);
+}
+.wt-icon-more-bold {
+    @include wt-icon(more-bold);
+}
+.wt-icon-more-circle-fill {
+    @include wt-icon(more-circle-fill);
+}
+.wt-icon-more-circle {
+    @include wt-icon(more-circle);
+}
+.wt-icon-more {
+    @include wt-icon(more);
+}
+.wt-icon-number {
+    @include wt-icon(number);
+}
+.wt-icon-pause-circle-fill {
+    @include wt-icon(pause-circle-fill);
+}
+.wt-icon-play-circle {
+    @include wt-icon(play-circle);
+}
+.wt-icon-records {
+    @include wt-icon(records);
+}
+.wt-icon-search {
+    @include wt-icon(search);
+}
+.wt-icon-sitemap {
+    @include wt-icon(sitemap);
+}
+.wt-icon-smile {
+    @include wt-icon(smile);
+}
+.wt-icon-sort-tt {
+    @include wt-icon(sort-tt);
+}
+.wt-icon-sort {
+    @include wt-icon(sort);
+}
+.wt-icon-tag-fill {
+    @include wt-icon(tag-fill);
+}
+.wt-icon-tag {
+    @include wt-icon(tag);
+}
+.wt-icon-user-check-fill {
+    @include wt-icon(user-check-fill);
+}
+.wt-icon-user-group-fill {
+    @include wt-icon(user-group-fill);
+}
+.wt-icon-user-group {
+    @include wt-icon(user-group);
+}
+.wt-icon-user-lock-fill {
+    @include wt-icon(user-lock-fill);
+}
+.wt-icon-user-participate-fill {
+    @include wt-icon(user-participate-fill);
+}
+.wt-icon-user-readonly-fill {
+    @include wt-icon(user-readonly-fill);
+}
+.wt-icon-version-bold {
+    @include wt-icon(version-bold);
+}
+.wt-icon-version-circle {
+    @include wt-icon(version-circle);
+}
+.wt-icon-version {
+    @include wt-icon(version);
+}
+.wt-icon-vertical-view-lines {
+    @include wt-icon(vertical-view-lines);
+}
+.wt-icon-view-board {
+    @include wt-icon(view-board);
+}
+.wt-icon-view-tile {
+    @include wt-icon(view-tile);
+}
+.wt-icon-branch {
+    @include wt-icon(branch);
+}
+.wt-icon-bug-fill {
+    @include wt-icon(bug-fill);
+}
+.wt-icon-bug {
+    @include wt-icon(bug);
+}
+.wt-icon-commit-list {
+    @include wt-icon(commit-list);
+}
+.wt-icon-commit {
+    @include wt-icon(commit);
+}
+.wt-icon-epic-fill {
+    @include wt-icon(epic-fill);
+}
+.wt-icon-feature-fill {
+    @include wt-icon(feature-fill);
+}
+.wt-icon-feature {
+    @include wt-icon(feature);
+}
+.wt-icon-kanban-fill {
+    @include wt-icon(kanban-fill);
+}
+.wt-icon-pipeline-add-bold {
+    @include wt-icon(pipeline-add-bold);
+}
+.wt-icon-pipeline {
+    @include wt-icon(pipeline);
+}
+.wt-icon-repository {
+    @include wt-icon(repository);
+}
+.wt-icon-scrum-fill {
+    @include wt-icon(scrum-fill);
+}
+.wt-icon-task-fill {
+    @include wt-icon(task-fill);
+}
+.wt-icon-task {
+    @include wt-icon(task);
+}
+.wt-icon-test-case-fill {
+    @include wt-icon(test-case-fill);
+}
+.wt-icon-test-case-type-bold {
+    @include wt-icon(test-case-type-bold);
+}
+.wt-icon-test-case {
+    @include wt-icon(test-case);
+}
+.wt-icon-test-lib-add-bold {
+    @include wt-icon(test-lib-add-bold);
+}
+.wt-icon-test-lib {
+    @include wt-icon(test-lib);
+}
+.wt-icon-test {
+    @include wt-icon(test);
+}
+.wt-icon-user-story-fill {
+    @include wt-icon(user-story-fill);
+}
+.wt-icon-user-story {
+    @include wt-icon(user-story);
+}
+.wt-icon-check-bold {
+    @include wt-icon(check-bold);
+}
+.wt-icon-check-circle-fill {
+    @include wt-icon(check-circle-fill);
+}
+.wt-icon-check-circle-tt {
+    @include wt-icon(check-circle-tt);
+}
+.wt-icon-check-circle {
+    @include wt-icon(check-circle);
+}
+.wt-icon-check {
+    @include wt-icon(check);
+}
+.wt-icon-close-bold {
+    @include wt-icon(close-bold);
+}
+.wt-icon-close-circle-fill {
+    @include wt-icon(close-circle-fill);
+}
+.wt-icon-close-circle-tt {
+    @include wt-icon(close-circle-tt);
+}
+.wt-icon-close {
+    @include wt-icon(close);
+}
+.wt-icon-exclamation-bold {
+    @include wt-icon(exclamation-bold);
+}
+.wt-icon-exclamation-double-bold {
+    @include wt-icon(exclamation-double-bold);
+}
+.wt-icon-exclamation-three-bold {
+    @include wt-icon(exclamation-three-bold);
+}
+.wt-icon-minus-bold {
+    @include wt-icon(minus-bold);
+}
+.wt-icon-minus-circle-fill {
+    @include wt-icon(minus-circle-fill);
+}
+.wt-icon-minus-circle {
+    @include wt-icon(minus-circle);
+}
+.wt-icon-minus-square {
+    @include wt-icon(minus-square);
+}
+.wt-icon-plus-bold {
+    @include wt-icon(plus-bold);
+}
+.wt-icon-plus-square {
+    @include wt-icon(plus-square);
+}
+.wt-icon-plus {
+    @include wt-icon(plus);
+}
+.wt-icon-question-circle-bold {
+    @include wt-icon(question-circle-bold);
+}
+.wt-icon-question-circle-fill {
+    @include wt-icon(question-circle-fill);
+}
+.wt-icon-question-circle {
+    @include wt-icon(question-circle);
+}
+.wt-icon-waring-fill {
+    @include wt-icon(waring-fill);
+}
