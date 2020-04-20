@@ -5,131 +5,145 @@
   #demoVerticalThyForm="thyForm"
   #demoVerticalForm="ngForm"
 >
-  <thy-form-group thyLabelText="用户名" thyLabelRequired thyTips="这是一个输入用户名的描述">
-    <input
-      thyInput
-      name="username"
-      [(ngModel)]="model.name"
-      [thyUniqueCheck]="checkUserName"
-      required
-      thy-required-message=""
-      [ngModelOptions]="{ updateOn: 'blur' }"
-      maxlength="50"
-      placeholder="请输入用户名"
-    />
-  </thy-form-group>
+  <div thyRow [thyGutter]="30">
+    <thy-form-group thyCol thyLabelText="用户名" thyLabelRequired thyTips="这是一个输入用户名的描述">
+      <input
+        thyInput
+        name="username"
+        [(ngModel)]="model.name"
+        [thyUniqueCheck]="checkUserName"
+        required
+        thy-required-message=""
+        [ngModelOptions]="{ updateOn: 'blur' }"
+        maxlength="50"
+        placeholder="请输入用户名"
+      />
+    </thy-form-group>
 
-  <thy-form-group thyLabelText="邮箱" thyLabelRequired thyTips="">
-    <input thyInput email name="email" [(ngModel)]="model.email" required minlength="5" placeholder="请输入邮箱" />
-  </thy-form-group>
+    <thy-form-group thyCol [thySpan]="12" thyLabelText="邮箱" thyLabelRequired thyTips="">
+      <input thyInput email name="email" [(ngModel)]="model.email" required minlength="5" placeholder="请输入邮箱" />
+    </thy-form-group>
 
-  <thy-form-group thyLabelText="数字" thyLabelRequired thyTips="">
-    <input
-      thyInput
-      number
-      name="number"
-      [(ngModel)]="model.number"
-      required
-      min="10"
-      placeholder="请输入大于10的数子"
-    />
-  </thy-form-group>
-  <thy-form-group thyLabelText="正则验证" thyLabelRequired thyTips="">
-    <input
-      thyInput
-      name="pattern"
-      [pattern]="'[a-zA-Z0-9_-]{0,19}[^\\d]{1}'"
-      [(ngModel)]="model.pattern"
-      required
-      maxlength="20"
-      placeholder="英文字母或数字或下划线或连接线皆可,最后一位不能为数字"
-    />
-  </thy-form-group>
-  <thy-form-group thyLabelText="时间" [thyFeedbackIcon]="'calendar'">
-    <input type="text" disabled="" readonly="readonly" value="2017-12-12" class="form-control" placeholder="error" />
-  </thy-form-group>
-  <thy-form-group thyLabelText="Cascader选择">
-    <thy-cascader
-      name="cascader"
-      required
-      [thyOptions]="thyOptions"
-      [(ngModel)]="values"
-      (ngModelChange)="onChanges($event)"
-      thyPlaceHolder="自定义PlaceHolder"
-      style="width:200px;"
-    >
-    </thy-cascader>
-  </thy-form-group>
-  <thy-form-group thyLabelText="选择1">
-    <thy-select required [(ngModel)]="model.select2" name="power">
-      <option value="">---请选择---</option>
-      <option *ngFor="let option of options" [value]="option._id">{{ option.value }}</option>
-    </thy-select>
-  </thy-form-group>
-  <thy-form-group thyLabelText="选择2">
-    <thy-custom-select required="" name="select2" [(ngModel)]="model.select3" thyEmptyStateText="无匹配结果">
-      <thy-option thyValue="" thyLabelText="空"></thy-option>
-      <thy-option thyValue="1" thyLabelText="选项1"></thy-option>
-      <thy-option thyValue="2" thyLabelText="选项2"></thy-option>
-    </thy-custom-select>
-  </thy-form-group>
-  <thy-form-group thyLabelText="描述" *ngIf="showDescProperty">
-    <textarea
-      class="form-control"
-      required
-      [(ngModel)]="model.desc"
-      name="desc"
-      rows="3"
-      placeholder="请输入描述"
-    ></textarea>
-  </thy-form-group>
-  <thy-form-group thyLabelText="多选框" thyLabelPaddingTopClear="true">
-    <label thyCheckbox thyLabelText="选择项1" [(ngModel)]="model.checkbox" name="checkbox1"></label>
-    <label thyCheckbox thyLabelText="选择项2"> </label>
-    <label thyCheckbox thyLabelText="禁用的选择项" thyDisabled=""> </label>
-    <label thyCheckbox thyLabelText="禁用的选择项" thyDisabled=""> </label>
-  </thy-form-group>
-  <thy-form-group thyLabelText="单选框">
-    <label thyRadio thyLabelText="选择项1"></label>
-    <label thyRadio thyLabelText="选择项2"></label>
-    <label thyRadio checked thyLabelText="禁用的选择项" thyDisabled=""></label>
-    <label
-      thyRadio
-      thyLabelText="Disabled Radio"
-      name="radio22"
-      [(ngModel)]="model.checkbox2"
-      [disabled]="'true'"
-    ></label>
-  </thy-form-group>
-  <thy-form-group thyLabelText="单选框">
-    <thy-radio-group name="group1" [(ngModel)]="model.group" thyLayout="flex" required>
-      <label thyRadioButton thyLabelText="选项1" thyValue="1"></label>
-      <label thyRadioButton thyLabelText="选项1" thyValue="2"></label>
-      <label thyRadioButton thyLabelText="选项1" thyValue="3"></label>
-      <label thyRadioButton thyLabelText="选项1" thyValue="1"></label>
-      <label thyRadioButton thyLabelText="选项2" thyValue="5"></label>
-      <label thyRadioButton thyLabelText="选项2" thyValue="6"></label>
-    </thy-radio-group>
-  </thy-form-group>
-  <thy-form-group-error></thy-form-group-error>
-  <thy-form-group-footer>
-    <button [thyButton]="'primary'" (thyFormSubmit)="save(demoVerticalForm)">
-      保存
-    </button>
-    <button [thyButton]="'link-secondary'" (click)="demoVerticalThyForm.validator.reset()">
-      重置
-    </button>
-    <button
-      [thyButton]="'primary'"
-      (click)="demoVerticalThyForm.validator.setElementErrorMessage('power', '这是一个自定义的错误')"
-    >
-      设置选择1错误信息
-    </button>
-    <button [thyButton]="'primary'" (click)="demoVerticalThyForm.validator.addError('这是一条Form错误')">
-      添加一条Form错误
-    </button>
-  </thy-form-group-footer>
+    <thy-form-group thyCol [thySpan]="12" thyLabelText="数字" thyLabelRequired thyTips="">
+      <input
+        thyInput
+        number
+        name="number"
+        [(ngModel)]="model.number"
+        required
+        min="10"
+        placeholder="请输入大于10的数子"
+      />
+    </thy-form-group>
+
+    <thy-form-group thyCol [thySpan]="12" thyLabelText="正则验证" thyLabelRequired thyTips="">
+      <input
+        thyInput
+        name="pattern"
+        [pattern]="'[a-zA-Z0-9_-]{0,19}[^\\d]{1}'"
+        [(ngModel)]="model.pattern"
+        required
+        maxlength="20"
+        placeholder="英文字母或数字或下划线或连接线皆可,最后一位不能为数字"
+      />
+    </thy-form-group>
+
+    <thy-form-group thyCol [thySpan]="12" thyLabelText="时间" [thyFeedbackIcon]="'calendar'">
+      <input type="text" disabled="" readonly="readonly" value="2017-12-12" class="form-control" placeholder="error" />
+    </thy-form-group>
+
+    <thy-form-group thyCol [thySpan]="12" thyLabelText="Cascader选择">
+      <thy-cascader
+        name="cascader"
+        required
+        [thyOptions]="thyOptions"
+        [(ngModel)]="values"
+        (ngModelChange)="onChanges($event)"
+        thyPlaceHolder="自定义PlaceHolder"
+        style="width:200px;"
+      >
+      </thy-cascader>
+    </thy-form-group>
+
+    <thy-form-group thyCol [thySpan]="12" thyLabelText="选择1">
+      <thy-select required [(ngModel)]="model.select2" name="power">
+        <option value="">---请选择---</option>
+        <option *ngFor="let option of options" [value]="option._id">{{ option.value }}</option>
+      </thy-select>
+    </thy-form-group>
+
+    <thy-form-group thyCol [thySpan]="12" thyLabelText="选择2">
+      <thy-custom-select required="" name="select2" [(ngModel)]="model.select3" thyEmptyStateText="无匹配结果">
+        <thy-option thyValue="" thyLabelText="空"></thy-option>
+        <thy-option thyValue="1" thyLabelText="选项1"></thy-option>
+        <thy-option thyValue="2" thyLabelText="选项2"></thy-option>
+      </thy-custom-select>
+    </thy-form-group>
+
+    <thy-form-group thyCol [thySpan]="24" thyLabelText="描述" *ngIf="showDescProperty">
+      <textarea
+        class="form-control"
+        required
+        [(ngModel)]="model.desc"
+        name="desc"
+        rows="3"
+        placeholder="请输入描述"
+      ></textarea>
+    </thy-form-group>
+
+    <thy-form-group thyCol [thySpan]="12" thyLabelText="多选框" thyLabelPaddingTopClear="true">
+      <label thyCheckbox thyLabelText="选择项1" [(ngModel)]="model.checkbox" name="checkbox1"></label>
+      <label thyCheckbox thyLabelText="选择项2"> </label>
+      <label thyCheckbox thyLabelText="禁用的选择项" thyDisabled=""> </label>
+      <label thyCheckbox thyLabelText="禁用的选择项" thyDisabled=""> </label>
+    </thy-form-group>
+
+    <thy-form-group thyCol [thySpan]="12" thyLabelText="单选框">
+      <label thyRadio thyLabelText="选择项1"></label>
+      <label thyRadio thyLabelText="选择项2"></label>
+      <label thyRadio checked thyLabelText="禁用的选择项" thyDisabled=""></label>
+      <label
+        thyRadio
+        thyLabelText="Disabled Radio"
+        name="radio22"
+        [(ngModel)]="model.checkbox2"
+        [disabled]="'true'"
+      ></label>
+    </thy-form-group>
+
+    <thy-form-group thyCol [thySpan]="12" thyLabelText="单选框">
+      <thy-radio-group name="group1" [(ngModel)]="model.group" thyLayout="flex" required>
+        <label thyRadioButton thyLabelText="选项1" thyValue="1"></label>
+        <label thyRadioButton thyLabelText="选项1" thyValue="2"></label>
+        <label thyRadioButton thyLabelText="选项1" thyValue="3"></label>
+        <label thyRadioButton thyLabelText="选项1" thyValue="1"></label>
+        <label thyRadioButton thyLabelText="选项2" thyValue="5"></label>
+        <label thyRadioButton thyLabelText="选项2" thyValue="6"></label>
+      </thy-radio-group>
+    </thy-form-group>
+
+    <thy-form-group-error thyCol [thySpan]="24"></thy-form-group-error>
+
+    <thy-form-group-footer thyCol [thySpan]="24">
+      <button [thyButton]="'primary'" (thyFormSubmit)="save(demoVerticalForm)">
+        保存
+      </button>
+      <button [thyButton]="'link-secondary'" (click)="demoVerticalThyForm.validator.reset()">
+        重置
+      </button>
+      <button
+        [thyButton]="'primary'"
+        (click)="demoVerticalThyForm.validator.setElementErrorMessage('power', '这是一个自定义的错误')"
+      >
+        设置选择1错误信息
+      </button>
+      <button [thyButton]="'primary'" (click)="demoVerticalThyForm.validator.addError('这是一条Form错误')">
+        添加一条Form错误
+      </button>
+    </thy-form-group-footer>
+  </div>
 </form>
+
 <!-- {{demoVerticalThyForm.validator._controls | json}} -->
 <!--
                 <br>
