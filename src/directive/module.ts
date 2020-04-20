@@ -1,6 +1,4 @@
 import { NgModule } from '@angular/core';
-import { ThyRowDirective } from './raster/thy-row.directive';
-import { ThyColDirective } from './raster/thy-col.directive';
 import { ThyAutofocusDirective } from './thy-autofocus.directive';
 import { ThyEnterDirective } from './thy-enter.directive';
 import { ThyCtrlEnterDirective } from './thy-ctrl-enter.directive';
@@ -12,8 +10,6 @@ import { ThyCopyDirective } from './thy-copy.directive';
 
 @NgModule({
     declarations: [
-        ThyRowDirective,
-        ThyColDirective,
         ThyAutofocusDirective,
         ThyEnterDirective,
         ThyCtrlEnterDirective,
@@ -24,8 +20,6 @@ import { ThyCopyDirective } from './thy-copy.directive';
         ThyCopyDirective
     ],
     exports: [
-        ThyRowDirective,
-        ThyColDirective,
         ThyCtrlEnterDirective,
         ThyAutofocusDirective,
         ThyEnterDirective,
