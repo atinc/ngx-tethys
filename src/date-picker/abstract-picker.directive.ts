@@ -59,7 +59,10 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
                 dateRender: this.thyDateRender,
                 disabledDate: this.thyDisabledDate,
                 placeholder: this.thyPlaceHolder,
-                className: this.thyPanelClassName
+                className: this.thyPanelClassName,
+                defaultPickerValue: this.thyDefaultPickerValue,
+                minDate: this.thyMinDate,
+                maxDate: this.thyMaxDate
             },
             placement: 'bottomLeft'
         });
