@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.7.3](https://github.com/atinc/ngx-tethys/compare/7.7.2...7.7.3) (2020-04-21)
+
+
+### Bug Fixes
+
+* **date-picker:** repair directive does not pass parameters ([#652](https://github.com/atinc/ngx-tethys/issues/652)) ([1e15536](https://github.com/atinc/ngx-tethys/commit/1e155362477cede352480fbd022fb12c8025a586))
+
+
+
 ## [7.7.2](https://github.com/atinc/ngx-tethys/compare/7.7.1...7.7.2) (2020-04-20)
 
 
