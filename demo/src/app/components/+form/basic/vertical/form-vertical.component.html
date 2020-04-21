@@ -6,7 +6,7 @@
   #demoVerticalForm="ngForm"
 >
   <div thyRow [thyGutter]="30">
-    <thy-form-group thyCol thyLabelText="用户名" thyLabelRequired thyTips="这是一个输入用户名的描述">
+    <thy-form-group thyCol [thySpan]="24" thyLabelText="用户名" thyLabelRequired thyTips="这是一个输入用户名的描述">
       <input
         thyInput
         name="username"
@@ -121,48 +121,25 @@
         <label thyRadioButton thyLabelText="选项2" thyValue="6"></label>
       </thy-radio-group>
     </thy-form-group>
+
+    <thy-form-group-error thyCol [thySpan]="24"></thy-form-group-error>
+
+    <thy-form-group-footer thyCol [thySpan]="24">
+      <button [thyButton]="'primary'" (thyFormSubmit)="save(demoVerticalForm)">
+        保存
+      </button>
+      <button [thyButton]="'link-secondary'" (click)="demoVerticalThyForm.validator.reset()">
+        重置
+      </button>
+      <button
+        [thyButton]="'primary'"
+        (click)="demoVerticalThyForm.validator.setElementErrorMessage('power', '这是一个自定义的错误')"
+      >
+        设置选择1错误信息
+      </button>
+      <button [thyButton]="'primary'" (click)="demoVerticalThyForm.validator.addError('这是一条Form错误')">
+        添加一条Form错误
+      </button>
+    </thy-form-group-footer>
   </div>
-
-  <thy-form-group-error></thy-form-group-error>
-
-  <thy-form-group-footer>
-    <button [thyButton]="'primary'" (thyFormSubmit)="save(demoVerticalForm)">
-      保存
-    </button>
-    <button [thyButton]="'link-secondary'" (click)="demoVerticalThyForm.validator.reset()">
-      重置
-    </button>
-    <button
-      [thyButton]="'primary'"
-      (click)="demoVerticalThyForm.validator.setElementErrorMessage('power', '这是一个自定义的错误')"
-    >
-      设置选择1错误信息
-    </button>
-    <button [thyButton]="'primary'" (click)="demoVerticalThyForm.validator.addError('这是一条Form错误')">
-      添加一条Form错误
-    </button>
-  </thy-form-group-footer>
 </form>
-
-<!-- {{demoVerticalThyForm.validator._controls | json}} -->
-<!--
-                <br>
-                <br>
-                <form>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                            placeholder="Enter email">
-                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                    </div>
-                    <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-            -->
