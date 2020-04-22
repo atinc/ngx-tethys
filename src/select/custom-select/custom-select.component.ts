@@ -364,7 +364,13 @@ export class ThySelectCustomComponent
         if (this.disabled) {
             return;
         }
-        $event.item.deselect();
+        if (!this.options.find(option => option === $event.item)) {
+            $event.item.deselect();
+            // fix option unselect can not emit changes;
+            this.onSelect($event.item, true);
+        } else {
+            $event.item.deselect();
+        }
     }
 
     public clearSelectValue(event?: Event) {
