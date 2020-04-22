@@ -30,9 +30,10 @@ $thy-select-expand-icon-height: 21px;
             .thy-tree-select-option-icon {
                 line-height: $thy-select-expand-icon-height;
                 height: $thy-select-expand-icon-height;
-                color: $gray-400;
+                color: $gray-500;
                 &:hover {
                     cursor: pointer;
+                    color: $gray-600;
                 }
                 .node-expand-icon {
                     line-height: $thy-select-expand-icon-height;
