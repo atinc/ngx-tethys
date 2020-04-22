@@ -34,7 +34,7 @@ import {
     CdkConnectedOverlay
 } from '@angular/cdk/overlay';
 import { takeUntil, startWith, take, switchMap } from 'rxjs/operators';
-import { Subject, Observable, merge, defer, Subscription } from 'rxjs';
+import { Subject, Observable, merge, defer, Subscription, timer } from 'rxjs';
 import { getFlexiblePositions } from '../../core/overlay';
 import { ThySelectOptionGroupComponent } from '../../core/option/group/option-group.component';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -293,6 +293,7 @@ export class ThySelectCustomComponent
                 this.resetOptions();
                 this.initializeSelection();
                 this.initKeyManager();
+                this.changeDetectorRef.markForCheck();
             });
     }
 
@@ -625,18 +626,16 @@ export class ThySelectCustomComponent
                 this.changeDetectorRef.markForCheck();
             }
             return;
-        } else {
-            if (this.selectionModel.selected.length > 0) {
-                this.selectionModel.clear();
-            }
         }
         if (this.isMultiple) {
             if (isArray(modalValue)) {
-                this.options.forEach(option => {
-                    const index = (modalValue as Array<any>).findIndex(itemValue => {
-                        return itemValue === option.thyValue;
-                    });
-                    if (index >= 0) {
+                const selected = [...this.selectionModel.selected];
+                this.selectionModel.clear();
+                (modalValue as Array<any>).forEach(itemValue => {
+                    const option =
+                        this.options.find(_option => _option.thyValue === itemValue) ||
+                        selected.find(_option => _option.thyValue === itemValue);
+                    if (option) {
                         this.selectionModel.select(option);
                     }
                 });
