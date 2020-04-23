@@ -1,9 +1,20 @@
 <thy-avatar thyName="路晓贝" class="mr-2" [thyShowName]="true"></thy-avatar>
 <thy-avatar thyName="luxiaobei" [thyShowName]="false"></thy-avatar>
 <button thyButton="primary-square" thySize="sm" (click)="toggleSrcTransform()">切换图片路径</button>
-<span class="text-danger ml-2">avatarSrc</span>: {{avatarSrc}}
-<br>
-<br>
+<span class="text-danger ml-2">avatarSrc</span>: {{ avatarSrc }}
+<br />
+<br />
 <thy-avatar [thySrc]="avatarSrc" class="mr-2" thyName="路晓贝"></thy-avatar>
 <thy-avatar [thySrc]="avatarSrc" class="mr-2"></thy-avatar>
 <thy-avatar [thySrc]="avatarSrc" class="mr-2" thyName="路晓贝" [thyShowName]="true"></thy-avatar>
+
+<br />
+<br />
+<button thyButton="primary-square" thySize="sm" (click)="toggleNameTransform()">切换名称展示</button>
+<br />
+<thy-avatar
+  [thySrc]="avatarSrc"
+  [thyName]="isFromQywx ? 'LuXiaoBei' : '路晓贝（默认展示）'"
+  thyShowName="true"
+></thy-avatar>
+<span *ngIf="isFromQywx">open-data(微信展示)</span>
