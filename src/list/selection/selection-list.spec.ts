@@ -19,7 +19,7 @@ export function createFakeEvent(type: string, canBubble = false, cancelable = tr
 //     dispatchKeyboardEvent,
 // } from '@angular/cdk/testing';
 
-describe('MatSelectionList without forms', () => {
+describe('ThySelectionList without forms', () => {
     describe('with list option', () => {
         let fixture: ComponentFixture<SelectionListWithListOptionsComponent>;
         let listOptions: DebugElement[];
@@ -42,12 +42,12 @@ describe('MatSelectionList without forms', () => {
         beforeEach(async(() => {
             fixture = TestBed.createComponent(SelectionListWithListOptionsComponent);
             fixture.detectChanges();
-
             listOptions = fixture.debugElement.queryAll(By.directive(ThyListOptionComponent));
             selectionList = fixture.debugElement.query(By.directive(ThySelectionListComponent));
         }));
 
         it('should be able to set a value on a list option', () => {
+            fixture.detectChanges();
             const optionValues = ['inbox', 'starred', 'sent-mail', 'drafts'];
 
             optionValues.forEach((optionValue, index) => {
@@ -56,6 +56,7 @@ describe('MatSelectionList without forms', () => {
         });
 
         it('should emit a selectionChange event if an option got clicked', () => {
+            fixture.detectChanges();
             spyOn(fixture.componentInstance, 'onValueChange');
 
             expect(fixture.componentInstance.onValueChange).toHaveBeenCalledTimes(0);
@@ -67,6 +68,7 @@ describe('MatSelectionList without forms', () => {
         });
 
         it('should has class "thy-grid-list" when thyLayout is list', () => {
+            fixture.detectChanges();
             expect(selectionList.nativeElement.classList).not.toContain('thy-grid-list');
             expect(listOptions[0].nativeElement.classList).toContain('thy-list-option');
             expect(listOptions[0].nativeElement.classList).not.toContain('thy-grid-option');
@@ -91,12 +93,31 @@ describe('MatSelectionList without forms', () => {
         });
 
         it(`should hover first when thyFirstItemDefaultActive is true`, () => {
-            fixture.detectChanges();
-            expect(listOptions[0].nativeElement.classList).toContain('hover');
+            const selectionFixture = TestBed.createComponent(SelectionListWithListOptionsComponent);
+            selectionFixture.debugElement.componentInstance.firstItemDefaultActive = true;
+            const selectionListOptions = selectionFixture.debugElement.queryAll(By.directive(ThyListOptionComponent));
+            selectionFixture.detectChanges();
+            expect(selectionListOptions[0].nativeElement.classList).toContain('hover');
         });
 
         it(`should not hover first when thyFirstItemDefaultActive is false`, () => {
+            const component = fixture.debugElement.componentInstance;
+            component.firstItemDefaultActive = false;
+            fixture.detectChanges();
+            expect(listOptions[0].nativeElement.classList).not.toContain('hover');
+        });
+
+        it(`should hover first when thyAutoActiveFirstItem is true`, () => {
             const defaultFixture = TestBed.createComponent(SelectionListWithListOptionsDefaultComponent);
+            defaultFixture.componentInstance.autoActiveFirstItem = true;
+            defaultFixture.detectChanges();
+            const defaultListOptions = defaultFixture.debugElement.queryAll(By.directive(ThyListOptionComponent));
+            expect(defaultListOptions[0].nativeElement.classList).toContain('hover');
+        });
+
+        it(`should not hover first when thyAutoActiveFirstItem is false`, () => {
+            const defaultFixture = TestBed.createComponent(SelectionListWithListOptionsDefaultComponent);
+            defaultFixture.componentInstance.autoActiveFirstItem = false;
             defaultFixture.detectChanges();
             const defaultListOptions = defaultFixture.debugElement.queryAll(By.directive(ThyListOptionComponent));
             expect(defaultListOptions[0].nativeElement.classList).not.toContain('hover');
@@ -110,7 +131,7 @@ describe('MatSelectionList without forms', () => {
             id="selection-list-1"
             [thyLayout]="layout"
             (thySelectionChange)="onValueChange($event)"
-            [thyFirstItemDefaultActive]="true"
+            [thyFirstItemDefaultActive]="firstItemDefaultActive"
         >
             <thy-list-option thyValue="inbox">
                 Inbox (disabled selection-option)
@@ -132,6 +153,8 @@ class SelectionListWithListOptionsComponent {
 
     layout: ThyListLayout = 'list';
 
+    firstItemDefaultActive = false;
+
     onValueChange(_change: ThySelectionListChange) {}
 }
 
@@ -139,7 +162,7 @@ class SelectionListWithListOptionsComponent {
     template: `
         <thy-selection-list
             id="selection-list-1"
-            [thyFirstItemDefaultActive]="false"
+            [thyAutoActiveFirstItem]="autoActiveFirstItem"
             (thySelectionChange)="onValueChange($event)"
         >
             <thy-list-option thyValue="inbox">
@@ -159,6 +182,8 @@ class SelectionListWithListOptionsComponent {
 })
 class SelectionListWithListOptionsDefaultComponent {
     @ViewChild(ThySelectionListComponent) thySelectionListComponent: ThySelectionListComponent;
+
+    autoActiveFirstItem = false;
 
     onValueChange(_change: ThySelectionListChange) {}
 }
