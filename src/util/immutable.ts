@@ -41,7 +41,7 @@ export class Producer<TEntity> {
     add(entity: TEntity | TEntity[], addOptions?: EntityAddOptions): TEntity[] {
         const addEntities = coerceArray(entity);
         if (addEntities.length === 0) {
-            return;
+            return this.entities;
         }
         if (addOptions && (addOptions.afterId || addOptions.prepend)) {
             if (addOptions.afterId) {

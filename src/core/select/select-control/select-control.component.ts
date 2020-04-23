@@ -94,9 +94,6 @@ export class ThySelectControlComponent implements OnInit {
         }
         this.selectedOptions = value;
         if (this.panelOpened && this.thyShowSearch) {
-            Promise.resolve(null).then(() => {
-                this.setInputValue('');
-            });
             this.inputElement.nativeElement.focus();
         }
     }
@@ -229,9 +226,11 @@ export class ThySelectControlComponent implements OnInit {
     }
 
     setInputValue(value: string) {
-        this.inputValue = value;
-        this.updateWidth();
-        this.thyOnSearch.emit(this.inputValue);
+        if (value !== this.inputValue) {
+            this.inputValue = value;
+            this.updateWidth();
+            this.thyOnSearch.emit(this.inputValue);
+        }
     }
 
     handleBackspace(event: Event) {

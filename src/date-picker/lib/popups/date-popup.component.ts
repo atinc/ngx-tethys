@@ -109,10 +109,10 @@ export class DatePopupComponent implements OnChanges, OnInit {
         this.disabledDate = d => {
             let expression = false;
             if (minDate) {
-                expression = d < minDate.nativeDate;
+                expression = d < minDate.startOfDay().nativeDate;
             }
             if (maxDate && !expression) {
-                expression = d > maxDate.nativeDate;
+                expression = d > maxDate.endOfDay().nativeDate;
             }
             if (disabledDateFn && typeof disabledDateFn === 'function' && !expression) {
                 expression = disabledDateFn(d);

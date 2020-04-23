@@ -8,7 +8,7 @@ podTemplate(label: label, cloud: 'kubernetes',
     volumes: [
         hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock'),
         hostPathVolume(mountPath: '/root/.npm', hostPath: '/data/cache/.npm'),
-        hostPathVolume(mountPath: '/tmp/cache', hostPath: '/tmp/cache/wt-ngx-tethys')
+        hostPathVolume(mountPath: '/tmp/cache', hostPath: '/data/cache/wt-ngx-tethys')
     ]
 ) {
     node(label) {

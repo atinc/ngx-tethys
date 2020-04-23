@@ -96,6 +96,7 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
     }
 
     ngAfterViewInit(): void {
+        this.setDefaultTimePickerState();
         this.initActionSubscribe();
     }
 
@@ -105,11 +106,23 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
     }
 
     onValueChange(value: CompatibleValue): void {
+        this.restoreTimePickerState(value);
         super.onValueChange(value);
 
         this.closeOverlay();
     }
 
+    // Displays the time directly when the time must be displayed by default
+    setDefaultTimePickerState() {
+        this.withTime = this.thyMustShowTime;
+    }
+
+    // Restore after clearing time to select whether the original picker time is displayed or not
+    restoreTimePickerState(value: CompatibleValue | null) {
+        if (!value) {
+            this.withTime = this.thyMustShowTime || this.originWithTime;
+        }
+    }
     onShowTimePickerChange(show: boolean): void {
         this.withTime = show;
     }
