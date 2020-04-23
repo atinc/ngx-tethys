@@ -5,6 +5,8 @@ import { DemoAvatarHasBadgeSectionComponent } from './has-badge/has-badge.compon
 import { DemoAvatarRemoveSectionComponent } from './remove/remove.component';
 import { LiveDemoCodeExample } from 'app/core/live-demo/live-demo.component';
 import { DemoAvatarDisabledSectionComponent } from './disabled/disabled.component';
+import { DemoAvatarNameDefaultComponent } from './name/default-name.component';
+import { DemoAvatarNameCustomComponent } from './name/custom-name.component';
 
 @Component({
     selector: 'demo-avatar-section',
@@ -13,6 +15,30 @@ import { DemoAvatarDisabledSectionComponent } from './disabled/disabled.componen
 })
 export class DemoAvatarSectionComponent implements OnInit {
     public liveDemos: LiveDemoCodeExample[] = [
+        {
+            title: '自定义头像名称',
+            component: DemoAvatarNameCustomComponent,
+            description: ``,
+            codeExamples: [
+                {
+                    type: 'ts',
+                    name: 'custom-name.component.ts',
+                    content: require('!!raw-loader!./name/custom-name.component.ts')
+                }
+            ]
+        },
+        {
+            title: '默认头像名称',
+            component: DemoAvatarNameDefaultComponent,
+            description: ``,
+            codeExamples: [
+                {
+                    type: 'ts',
+                    name: 'default-name.component.ts',
+                    content: require('!!raw-loader!./name/default-name.component.ts')
+                }
+            ]
+        },
         {
             title: '头像类型',
             component: DemoAvatarTypeSectionComponent,

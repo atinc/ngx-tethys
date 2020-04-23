@@ -8,6 +8,8 @@ import { DemoBadgeSectionComponent } from './+badge/badge-section.component';
 import { DemoAvatarSectionComponent } from './+avatar/avatar-section.component';
 import { DemoAvatarSizeSectionComponent } from './+avatar/size/size.component';
 import { DemoAvatarTypeSectionComponent } from './+avatar/type/avatar-type.component';
+import { DemoAvatarNameDefaultComponent } from './+avatar/name/default-name.component';
+import { DemoAvatarNameCustomComponent } from './+avatar/name/custom-name.component';
 import { DemoAvatarHasBadgeSectionComponent } from './+avatar/has-badge/has-badge.component';
 import { DemoAvatarRemoveSectionComponent } from './+avatar/remove/remove.component';
 import { DemoAvatarDisabledSectionComponent } from './+avatar/disabled/disabled.component';
@@ -99,6 +101,8 @@ export const COMPONENTS = [
     DemoAvatarSectionComponent,
     DemoAvatarSizeSectionComponent,
     DemoAvatarTypeSectionComponent,
+    DemoAvatarNameDefaultComponent,
+    DemoAvatarNameCustomComponent,
     DemoAvatarHasBadgeSectionComponent,
     DemoAvatarDisabledSectionComponent,
     DemoAvatarRemoveSectionComponent,
@@ -177,6 +181,8 @@ export const ENTRY_COMPONENTS = [
 
     DemoAvatarSizeSectionComponent,
     DemoAvatarTypeSectionComponent,
+    DemoAvatarNameDefaultComponent,
+    DemoAvatarNameCustomComponent,
     DemoAvatarHasBadgeSectionComponent,
     DemoAvatarDisabledSectionComponent,
     DemoAvatarRemoveSectionComponent,
