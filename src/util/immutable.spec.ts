@@ -15,6 +15,12 @@ describe('immutable', () => {
             users = initialUserEntities;
         });
 
+        it('should return 2 users when add []', () => {
+            const addUserEntity = [];
+            const result = produce(users).add(addUserEntity);
+            expect(result).toEqual([...initialUserEntities]);
+        });
+
         it('should return 3 users when add one entity', () => {
             const addUserEntity = {
                 _id: '3',
