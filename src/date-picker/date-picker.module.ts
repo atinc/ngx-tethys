@@ -15,7 +15,7 @@ import { ThyPickerComponent } from './picker.component';
 import { ThyIconModule } from '../icon/icon.module';
 import { ThyInputModule } from '../input/module';
 import { DatePickerRequiredValidator, RangePickerRequiredValidator } from './picker.validators';
-import { ThyDatePickerFormatPipe } from './picker.pipes';
+import { ThyDatePickerFormatPipe, ThyDatePickerFormatStringPipe } from './picker.pipes';
 import { ThyDatePickerDirective } from './date-picker.directive';
 import { ThyRangePickerDirective } from './range-picker.directive';
 import { DatePopupComponent } from './lib/popups/date-popup.component';
@@ -32,6 +32,7 @@ import { ThyPopoverModule } from '../popover';
         DatePickerRequiredValidator,
         RangePickerRequiredValidator,
         ThyDatePickerFormatPipe,
+        ThyDatePickerFormatStringPipe,
         ThyDatePickerDirective,
         ThyRangePickerDirective
     ],
@@ -47,6 +48,7 @@ import { ThyPopoverModule } from '../popover';
         DatePickerRequiredValidator,
         RangePickerRequiredValidator,
         ThyDatePickerFormatPipe,
+        ThyDatePickerFormatStringPipe,
         ThyDatePickerDirective,
         ThyRangePickerDirective
     ],

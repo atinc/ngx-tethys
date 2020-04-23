@@ -12,11 +12,11 @@ import { TinyDate } from '../util/tiny-date';
 
 export function transformDateValue(
     value: CompatibleDate | number | DateEntry | RangeEntry
-): { value: CompatibleDate; withTime: boolean } {
+): { value: CompatibleDate; withTime?: boolean } {
     if (!value) {
-        return { value: null, withTime: false };
+        return { value: null };
     }
-    let withTime = false;
+    let withTime;
     if (value && typeof value === 'number') {
         value = convertDate(value);
     }

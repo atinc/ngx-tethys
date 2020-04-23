@@ -19,6 +19,7 @@
   thyIcon="calendar-check"
   thyDatePicker
   [(ngModel)]="dateTime"
+  (ngModelChange)="onChange($event)"
   [thyShowTime]="true"
 ></thy-property-operation>
 <thy-property-operation

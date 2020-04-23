@@ -60,18 +60,22 @@ describe('ThyPickerDirective', () => {
             expect(queryFromOverlay('.thy-calendar-month-select').textContent.includes('10')).toBeTruthy();
         }));
         it('should support thyMaxDate', fakeAsync(() => {
-            fixtureInstance.thyValue = new Date('2021-10-1');
+            fixtureInstance.thyValue = new Date('2021-10-10 10:00');
             fixtureInstance.thyMaxDate = new Date('2021-10-10');
             fixture.detectChanges();
             openPickerByClickTrigger();
+            const selectedCell = getSelectedDayCell();
+            expect(selectedCell.classList.contains('thy-calendar-disabled-cell')).toBeFalsy();
             const disabledCell = queryFromOverlay('tbody.thy-calendar-tbody td.thy-calendar-disabled-cell');
             expect(disabledCell.textContent.trim()).toBe('11');
         }));
         it('should support thyMinDate', fakeAsync(() => {
-            fixtureInstance.thyValue = new Date('2021-10-11');
+            fixtureInstance.thyValue = new Date('2021-10-11 11:00');
             fixtureInstance.thyMinDate = new Date('2021-10-11');
             fixture.detectChanges();
             openPickerByClickTrigger();
+            const selectedCell = getSelectedDayCell();
+            expect(selectedCell.classList.contains('thy-calendar-disabled-cell')).toBeFalsy();
             const previousCell = getSelectedDayCell().previousElementSibling;
             expect(previousCell.classList.contains('thy-calendar-disabled-cell')).toBeTruthy();
         }));

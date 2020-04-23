@@ -391,6 +391,50 @@ describe('ThyDatePickerComponent', () => {
     describe('specified date picker testing', () => {
         beforeEach(() => (fixtureInstance.useSuite = 1));
 
+        it('should restore origin value when clean current value', fakeAsync(() => {
+            const initial = { date: null, with_time: 0 } as DateEntry;
+            fixtureInstance.thyValue = initial;
+            fixtureInstance.thyShowTime = true;
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            dispatchMouseEvent(getSetTimeButton(), 'click');
+            fixture.detectChanges();
+            tick(500);
+            dispatchMouseEvent(getConfirmButton(), 'click');
+            fixture.detectChanges();
+            tick(500);
+            dispatchMouseEvent(getPickerTriggerWrapper(), 'click');
+            fixture.detectChanges();
+            tick(500);
+            dispatchMouseEvent(getClearButton(), 'click');
+            fixture.detectChanges();
+            tick(500);
+            expect(fixtureInstance.thyValue).toBe(initial);
+        }));
+
+        it('should use format rule yyyy-MM-dd when with_time is 0', fakeAsync(() => {
+            const initial = { date: 1587629556, with_time: 0 } as DateEntry;
+            fixtureInstance.thyValue = initial;
+            fixtureInstance.thyShowTime = true;
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            dispatchMouseEvent(getSelectedDayCell(), 'click');
+            fixture.detectChanges();
+            tick(500);
+            expect(getPickerTrigger().value).toBe('2020-04-23');
+        }));
+
+        it('should use format rule yyyy-MM-dd HH:mm when with_time is 1', fakeAsync(() => {
+            const initial = { date: 1587629556, with_time: 1 } as DateEntry;
+            fixtureInstance.thyValue = initial;
+            fixtureInstance.thyShowTime = true;
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            fixture.detectChanges();
+            tick(500);
+            expect(getPickerTrigger().value).toBe('2020-04-23 16:12');
+        }));
+
         it('should support thyDateRender', fakeAsync(() => {
             fixtureInstance.thyDateRender = fixtureInstance.tplDateRender;
             fixture.detectChanges();
@@ -523,6 +567,18 @@ describe('ThyDatePickerComponent', () => {
         return queryFromOverlay('tbody.thy-calendar-tbody td.thy-calendar-cell') as HTMLElement;
     }
 
+    function getSetTimeButton(): HTMLElement {
+        return queryFromOverlay('calendar-footer .time-picker-set-btn') as HTMLElement;
+    }
+
+    function getConfirmButton(): HTMLElement {
+        return queryFromOverlay('calendar-footer .time-picker-ok-btn') as HTMLElement;
+    }
+
+    function getClearButton(): HTMLElement {
+        return queryFromOverlay('calendar-footer .time-picker-clear-btn') as HTMLElement;
+    }
+
     function queryFromOverlay(selector: string): HTMLElement {
         return overlayContainerElement.querySelector(selector) as HTMLElement;
     }
@@ -587,7 +643,7 @@ class ThyTestDatePickerComponent {
     thyPlaceHolder: string;
     thyPanelClassName: string;
     thySize: string;
-    thyValue: Date | null;
+    thyValue: Date | null | DateEntry;
     thyDefaultPickerValue: Date | number;
     thyDateRender: any;
     thyShowTime: boolean | object = false;
