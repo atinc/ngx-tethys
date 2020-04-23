@@ -13,7 +13,6 @@ export class CustomAvatarService extends ThyAvatarService {
     }
 
     avatarNameTransform(name: string): string | SafeHtml {
-        // return this.domSanitizer.bypassSecurityTrustHtml(`<strong>${name}</strong>`);
         return name;
     }
 }

@@ -3,14 +3,14 @@
   [src]="_src | thyAvatarSrc: _size"
   class="avatar-avatar"
   [ngClass]="thyImgClass"
-  alt="{{ _name || '' }}"
+  alt="{{ avatarName || '' }}"
 />
-<span *ngIf="!_src" class="avatar-default" [ngStyle]="_name | avatarBgColor">
-  <div>{{ _name | avatarShortName }}</div>
+<span *ngIf="!_src" class="avatar-default" [ngStyle]="avatarName | avatarBgColor">
+  <div>{{ avatarName | avatarShortName }}</div>
 </span>
 <ng-container *ngIf="thyShowName">
-  <div *ngIf="avatarName" class="avatar-name">{{ avatarName }}</div>
-  <div *ngIf="customAvatarName" class="avatar-name" [innerHtml]="customAvatarName"></div>
+  <div *ngIf="!avatarNameSafeHtml" class="avatar-name">{{ avatarName }}</div>
+  <div *ngIf="avatarNameSafeHtml" class="avatar-name" [innerHtml]="avatarNameSafeHtml"></div>
 </ng-container>
 <a *ngIf="_showRemove" (click)="remove($event)" href="javascript:;" class="remove-link avatar-remove"
   ><thy-icon class="remove-link-icon" thyIconName="close-circle-bold-fill"></thy-icon
