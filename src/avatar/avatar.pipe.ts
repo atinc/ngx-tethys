@@ -32,28 +32,49 @@ export class AvatarBgColorPipe implements PipeTransform {
         if (!name) {
             return;
         }
-        const colors = ['#2cccda', '#2dbcff', '#4e8af9', '#7076fa', '#9473fd', '#ef7ede', '#99d75a', '#66c060', '#39ba5d'];
+        const colors = [
+            '#2cccda',
+            '#2dbcff',
+            '#4e8af9',
+            '#7076fa',
+            '#9473fd',
+            '#ef7ede',
+            '#99d75a',
+            '#66c060',
+            '#39ba5d'
+        ];
         const nameArray: string[] = name.split('');
-        const code: number = name && name.length > 0 ? nameArray.reduce(function (result, item) {
-            result.value += item.charCodeAt(0);
-            return result;
-        }, { value: 0 }).value : 0;
+        const code: number =
+            name && name.length > 0
+                ? nameArray.reduce(
+                      function(result, item) {
+                          result.value += item.charCodeAt(0);
+                          return result;
+                      },
+                      { value: 0 }
+                  ).value
+                : 0;
         return {
-            'background-color': colors[(code % 9)]
+            'background-color': colors[code % 9]
         };
     }
 }
 
 @Pipe({ name: 'thyAvatarSrc' })
 export class AvatarSrcPipe implements PipeTransform {
-    constructor(private thyAvatarService: ThyAvatarService) { }
+    constructor(private thyAvatarService: ThyAvatarService) {}
     transform(src: string, size: number) {
         return this.thyAvatarService.avatarSrcTransform(src, size);
     }
 }
 
-export const AvatarPipes = [
-    AvatarShortNamePipe,
-    AvatarBgColorPipe,
-    AvatarSrcPipe
-];
+@Pipe({ name: 'thyAvatarName' })
+export class AvatarNamePipe implements PipeTransform {
+    constructor(private thyAvatarService: ThyAvatarService) {}
+
+    transform(name: string) {
+        return this.thyAvatarService.avatarNameTransform(name);
+    }
+}
+
+export const AvatarPipes = [AvatarShortNamePipe, AvatarBgColorPipe, AvatarSrcPipe, AvatarNamePipe];
