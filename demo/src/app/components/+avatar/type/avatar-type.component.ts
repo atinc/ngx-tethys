@@ -31,16 +31,16 @@ export class DemoAvatarTypeSectionComponent {
         }
     }
 
-    toggleNameTransform() {
-        this.isCustom = !this.isCustom;
-        if (this.isCustom) {
-            this.thyAvatarService.avatarNameTransform = (name: string) => {
-                return this.domSanitizer.bypassSecurityTrustHtml(`<strong>${name}</strong>`);
-            };
-        } else {
-            this.thyAvatarService.avatarNameTransform = (name: string) => {
-                return name;
-            };
-        }
-    }
+    // toggleNameTransform() {
+    //     this.isCustom = !this.isCustom;
+    //     if (this.isCustom) {
+    //         this.thyAvatarService.avatarNameTransform = (name: string) => {
+    //             return this.domSanitizer.bypassSecurityTrustHtml(`<strong>${name}</strong>`);
+    //         };
+    //     } else {
+    //         this.thyAvatarService.avatarNameTransform = (name: string) => {
+    //             return name;
+    //         };
+    //     }
+    // }
 }
