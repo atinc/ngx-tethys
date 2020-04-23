@@ -38,7 +38,7 @@ export class ThyAvatarComponent implements OnInit {
 
     public avatarSrc: string;
     public avatarName?: string;
-    public customAvatarName: SafeHtml;
+    public avatarNameSafeHtml?: SafeHtml;
 
     @HostBinding('class.thy-avatar') _isAvatar = true;
 
@@ -53,8 +53,8 @@ export class ThyAvatarComponent implements OnInit {
 
     @Input()
     set thyName(value: string) {
-        this._name = value;
-        this._setAvatarName();
+        // this._name = value;
+        this._setAvatarName(value);
     }
 
     @Input()
@@ -93,12 +93,13 @@ export class ThyAvatarComponent implements OnInit {
         }
     }
 
-    private _setAvatarName() {
-        const name = this.thyAvatarService.avatarNameTransform(this._name);
+    private _setAvatarName(value: string) {
+        const name = this.thyAvatarService.avatarNameTransform(value);
         if (helpers.isString(name)) {
-            this.avatarName = this._name;
+            this.avatarName = name as string;
         } else {
-            this.customAvatarName = name;
+            this.avatarName = value;
+            this.avatarNameSafeHtml = name;
         }
     }
 
