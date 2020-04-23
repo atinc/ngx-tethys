@@ -352,7 +352,14 @@ class SelectWithSearchAndServerSearchComponent {
     selector: 'basic-select',
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-custom-select thyPlaceHolder="Food" [formControl]="control" [required]="isRequired">
+            <thy-custom-select
+                thyPlaceHolder="Food"
+                [thyMode]="'multiple'"
+                style="width:500px"
+                [(ngModel)]="selectedValue"
+                [formControl]="control"
+                [required]="isRequired"
+            >
                 <thy-option
                     *ngFor="let food of foods"
                     [thyValue]="food.value"
@@ -375,6 +382,7 @@ class SelectEimtOptionsChangesComponent {
         { value: 'pasta-6', viewValue: 'Pasta' },
         { value: 'sushi-7', viewValue: 'Sushi' }
     ];
+    selectedValue = ['sushi-7'];
     control = new FormControl();
     isRequired: boolean;
     @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
@@ -1083,6 +1091,21 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
 
             expect(overlayContainerElement.textContent).not.toContain('Sushi');
+        }));
+
+        it('should keep selected option when thy-option is removed', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectEimtOptionsChangesComponent);
+            fixture.detectChanges();
+            flush();
+            fixture.detectChanges();
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+
+            expect(trigger.textContent).toContain('Sushi');
+            fixture.componentInstance.foods.pop();
+            fixture.detectChanges();
+            flush();
+            fixture.detectChanges();
+            expect(trigger.textContent).toContain('Sushi');
         }));
     });
 
