@@ -68,4 +68,13 @@ export class AvatarSrcPipe implements PipeTransform {
     }
 }
 
-export const AvatarPipes = [AvatarShortNamePipe, AvatarBgColorPipe, AvatarSrcPipe];
+@Pipe({ name: 'thyAvatarName' })
+export class AvatarNamePipe implements PipeTransform {
+    constructor(private thyAvatarService: ThyAvatarService) {}
+
+    transform(name: string) {
+        return this.thyAvatarService.avatarNameTransform(name);
+    }
+}
+
+export const AvatarPipes = [AvatarShortNamePipe, AvatarBgColorPipe, AvatarSrcPipe, AvatarNamePipe];
