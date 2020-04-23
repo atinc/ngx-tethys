@@ -57,6 +57,7 @@ import { CustomSelectBasicComponent } from './+select/basic/custom-select-basic.
 import { CustomSelectDisplayComponent } from './+select/display/custom-select-display.component';
 import { CustomSelectEmptyComponent } from './+select/empty/custom-select-empty.component';
 import { CustomSelectGroupComponent } from './+select/group/custom-select-group.component';
+import { CustomSelectServerSearchComponent } from './+select/server-search/server-search.component';
 import { NativeSelectBasicComponent } from './+select/native-select/native-select-basic.component';
 import { CustomSelectScrollComponent } from './+select/scroll-load/custom-select-scroll.component';
 import { DemoSelectSectionComponent } from './+select/select-section.component';
@@ -194,6 +195,7 @@ export const COMPONENTS = [
     CustomSelectEmptyComponent,
     CustomSelectDisplayComponent,
     CustomSelectGroupComponent,
+    CustomSelectServerSearchComponent,
     NativeSelectBasicComponent,
     CustomSelectScrollComponent,
 
@@ -240,6 +242,7 @@ export const ENTRY_COMPONENTS = [
     CustomSelectEmptyComponent,
     CustomSelectDisplayComponent,
     CustomSelectGroupComponent,
+    CustomSelectServerSearchComponent,
     NativeSelectBasicComponent,
     CustomSelectScrollComponent,
 
