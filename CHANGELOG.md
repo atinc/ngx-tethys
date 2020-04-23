@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.7.4](https://github.com/atinc/ngx-tethys/compare/7.7.3...7.7.4) (2020-04-23)
+
+
+### Bug Fixes
+
+* **tree-select:** modify expand icon color ([#657](https://github.com/atinc/ngx-tethys/issues/657)) ([163565b](https://github.com/atinc/ngx-tethys/commit/163565bf211d4801f0a222dd0a1107b81d2bf29c))
+
+
+
 ## [7.7.3](https://github.com/atinc/ngx-tethys/compare/7.7.2...7.7.3) (2020-04-21)
 
 
