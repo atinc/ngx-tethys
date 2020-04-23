@@ -9,7 +9,7 @@ import { By } from '@angular/platform-browser';
 
 import { ThyDatePickerModule } from './date-picker.module';
 import { dispatchMouseEvent, dispatchKeyboardEvent } from '../core/testing';
-import { isSameDay } from 'date-fns';
+import { isSameDay, format } from 'date-fns';
 import { DateEntry } from './standard-types';
 import { convertDate } from './picker.util';
 
@@ -421,7 +421,7 @@ describe('ThyDatePickerComponent', () => {
             dispatchMouseEvent(getSelectedDayCell(), 'click');
             fixture.detectChanges();
             tick(500);
-            expect(getPickerTrigger().value).toBe('2020-04-23');
+            expect(getPickerTrigger().value).toBe(format(new Date(1587629556000), 'yyyy-MM-dd'));
         }));
 
         it('should use format rule yyyy-MM-dd HH:mm when with_time is 1', fakeAsync(() => {
@@ -432,7 +432,7 @@ describe('ThyDatePickerComponent', () => {
             openPickerByClickTrigger();
             fixture.detectChanges();
             tick(500);
-            expect(getPickerTrigger().value).toBe('2020-04-23 16:12');
+            expect(getPickerTrigger().value).toBe(format(new Date(1587629556000), 'yyyy-MM-dd HH:mm'));
         }));
 
         it('should support thyDateRender', fakeAsync(() => {
