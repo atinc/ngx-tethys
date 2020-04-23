@@ -28,9 +28,7 @@ class WxAvatarNameComponent implements OnInit {
 
     ngOnInit() {
         this.thyAvatarService.avatarNameTransform = (name: string) => {
-            return this.domSanitizer.bypassSecurityTrustHtml(
-                `<ww-open-data type="userName" openid="${name}"></ww-open-data>`
-            );
+            return this.domSanitizer.bypassSecurityTrustHtml(`<code>${name}</code>`);
         };
     }
 }
@@ -57,11 +55,10 @@ describe('ThyAvatarComponent', () => {
         it('should show the avatarName default', () => {
             const component = componentInstance.thyName;
             expect(fixture.nativeElement.querySelector(`.avatar-name`).innerText).toEqual(component);
-            expect(fixture.nativeElement.querySelector(`ww-open-data`)).toBeFalsy();
         });
     });
 
-    describe('wechat avatarName', () => {
+    describe('custom avatarName', () => {
         let fixture: ComponentFixture<WxAvatarNameComponent>;
         let componentInstance: WxAvatarNameComponent;
 
@@ -71,10 +68,9 @@ describe('ThyAvatarComponent', () => {
             fixture.detectChanges();
         }));
 
-        it('should show the avatarName from wechat', () => {
-            expect(componentInstance.thyName).toBeTruthy();
-            expect(fixture.nativeElement.querySelector(`.avatar-name`).innerText).toBeFalsy(componentInstance.thyName);
-            expect(fixture.nativeElement.querySelector(`ww-open-data`)).toBeTruthy();
+        it('should show the custom avatarName', () => {
+            const component = fixture.nativeElement.querySelector(`.avatar-name`);
+            expect(component).toBeTruthy(`<code>${componentInstance.thyName}</code>`);
         });
     });
 });

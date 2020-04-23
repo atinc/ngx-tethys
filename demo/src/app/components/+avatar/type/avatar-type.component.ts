@@ -3,7 +3,7 @@ import { ThyAvatarService } from '../../../../../../src/public-api';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
-    selector: 'demo-avatar-size-section',
+    selector: 'demo-avatar-type-section',
     templateUrl: './avatar-type.component.html'
 })
 export class DemoAvatarTypeSectionComponent {
@@ -11,11 +11,11 @@ export class DemoAvatarTypeSectionComponent {
 
     isFullPath = false;
 
-    isFromQywx = false;
-
     originalTransform: (src: string, size: number) => string;
 
-    constructor(private thyAvatarService: ThyAvatarService, private domSanitizer: DomSanitizer) {}
+    isCustom = false;
+
+    constructor(public thyAvatarService: ThyAvatarService, private domSanitizer: DomSanitizer) {}
 
     toggleSrcTransform() {
         this.isFullPath = !this.isFullPath;
@@ -32,15 +32,11 @@ export class DemoAvatarTypeSectionComponent {
     }
 
     toggleNameTransform() {
-        this.isFromQywx = !this.isFromQywx;
-        if (this.isFromQywx) {
+        this.isCustom = !this.isCustom;
+        if (this.isCustom) {
             this.thyAvatarService.avatarNameTransform = (name: string) => {
-                // 来自企业微信团队的成员
-                return this.domSanitizer.bypassSecurityTrustHtml(
-                    `<ww-open-data type="userName" openid="${name}"></ww-open-data>`
-                );
+                return this.domSanitizer.bypassSecurityTrustHtml(`<strong>${name}</strong>`);
             };
-            console.log(`<ww-open-data type="userName" openid="${name}"></ww-open-data>`);
         } else {
             this.thyAvatarService.avatarNameTransform = (name: string) => {
                 return name;
