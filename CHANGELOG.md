@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.7.5](https://github.com/atinc/ngx-tethys/compare/7.7.4...7.7.5) (2020-04-23)
+
+
+### Bug Fixes
+
+* **date-picker:** add format string pipe and fix minDate logic ([#663](https://github.com/atinc/ngx-tethys/issues/663)) ([a7b4eb7](https://github.com/atinc/ngx-tethys/commit/a7b4eb7a842db77db8e65c6f3113d94cdcb69f6c))
+* **immutable:** return origin value when add [] ([5e2b83e](https://github.com/atinc/ngx-tethys/commit/5e2b83e3051607bdfee4fbd10265320c3e94f349))
+
+
+### Features
+
+* **list:** add autoActiveFirstItem to hover first ([#661](https://github.com/atinc/ngx-tethys/issues/661)) ([b09ab25](https://github.com/atinc/ngx-tethys/commit/b09ab252a561ebef174b859cc852f3f4fbc434f2))
+
+
+
 ## [7.7.4](https://github.com/atinc/ngx-tethys/compare/7.7.3...7.7.4) (2020-04-23)
 
 
