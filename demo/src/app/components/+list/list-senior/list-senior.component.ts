@@ -30,19 +30,19 @@ export class DemoListSeniorComponent implements OnInit {
         },
         {
             id: 5,
-            name: 'Item 5'
+            name: 'Items 5'
         },
         {
             id: 6,
-            name: 'Item 6'
+            name: 'Items 6'
         },
         {
             id: 7,
-            name: 'Item 7'
+            name: 'Items 7'
         },
         {
             id: 1,
-            name: 'Item 1 Repeat'
+            name: 'Items 1 Repeat'
         }
     ];
 

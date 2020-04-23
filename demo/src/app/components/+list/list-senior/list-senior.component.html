@@ -31,7 +31,7 @@
     [thyMultiple]="selectionModel.multiple"
     [thyLayout]="selectionModel.isLayoutGrid ? 'grid' : 'list'"
     (thySelectionChange)="selectionChange($event)"
-    thyFirstItemDefaultActive="true"
+    [thyAutoActiveFirstItem]="true"
   >
     <thy-list-option *ngFor="let item of items" [thyDisabled]="item.id === 2" [thyValue]="item?.id">
       <div class="text-center" *ngIf="selectionModel.isLayoutGrid">

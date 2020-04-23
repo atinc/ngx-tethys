@@ -24,11 +24,11 @@ import {
     ThyListLayout
 } from '../../core/option';
 import { keycodes, helpers, dom } from '../../util';
-import { inputValueToBoolean } from '../../util/helpers';
+import { inputValueToBoolean, coerceBooleanProperty } from '../../util/helpers';
 import { Subscription, throwError } from 'rxjs';
 import { ThySelectionListChange } from './selection.interface';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { ScrollToService } from '../../core';
+import { ScrollToService, InputBoolean, warnDeprecation } from '../../core';
 import { UpdateHostClassService } from '../../shared/update-host-class.service';
 import { startWith } from 'rxjs/operators';
 
@@ -107,7 +107,17 @@ export class ThySelectionListComponent
         this.isLayoutGrid = value === 'grid';
     }
 
-    @Input() thyFirstItemDefaultActive: boolean;
+    /**
+     * @deprecated thyFirstItemDefaultActive will be deprecated, please use thyAutoActiveFirstItem
+     */
+    @Input() set thyFirstItemDefaultActive(value: boolean) {
+        warnDeprecation(`thyFirstItemDefaultActive will be deprecated, please use thyAutoActiveFirstItem.`);
+        this.autoActiveFirstItem = coerceBooleanProperty(value);
+    }
+
+    @Input() set thyAutoActiveFirstItem(value: boolean) {
+        this.autoActiveFirstItem = coerceBooleanProperty(value);
+    }
 
     @Input() set thySize(value: ThyListSize) {
         this._setListSize(value);
@@ -123,6 +133,8 @@ export class ThySelectionListComponent
     @Output() readonly thySelectionChange: EventEmitter<ThySelectionListChange> = new EventEmitter<
         ThySelectionListChange
     >();
+
+    private autoActiveFirstItem: boolean;
 
     private _onTouched: () => void = () => {};
 
@@ -393,7 +405,7 @@ export class ThySelectionListComponent
     ngAfterContentInit(): void {
         this._initializeFocusKeyManager();
         this.options.changes.pipe(startWith(true)).subscribe(() => {
-            if (this.thyFirstItemDefaultActive) {
+            if (this.autoActiveFirstItem) {
                 if (!this._keyManager.activeItem || this.options.toArray().indexOf(this._keyManager.activeItem) < 0) {
                     this._keyManager.setFirstItemActive();
                 }
