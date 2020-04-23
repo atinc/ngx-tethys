@@ -111,7 +111,7 @@ export class DemoAvatarSectionComponent implements OnInit {
         {
             property: 'thyName',
             description:
-                '人员名称（来自企业微信的人员名称，需要通过自定义服务 ThyAvatarService，重写 avatarNameTransform 方法去实现转换）',
+                '人员名称（可设置自定义名称，需通过自定义服务 ThyAvatarService，重写 avatarNameTransform 方法去实现转换）',
             type: 'string',
             default: ''
         },
