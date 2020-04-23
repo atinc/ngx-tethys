@@ -5,12 +5,13 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './datepicker-time.component.html'
 })
 export class DemoDatePickerTimeComponent {
-    dateTime: {
-        date: null;
-        with_time: 0;
+    dateTime = {
+        date: null,
+        with_time: 1
     };
 
     onChange(result: Date): void {
         console.log('Selected Time: ', result);
+        console.log(this.dateTime);
     }
 }

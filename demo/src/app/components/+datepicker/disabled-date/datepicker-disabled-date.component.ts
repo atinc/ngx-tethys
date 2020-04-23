@@ -8,7 +8,7 @@ import { differenceInCalendarDays } from 'date-fns';
 export class DemoDatePickerDisabledDateComponent {
     today = new Date();
 
-    defaultPickerValue = [new Date('2020-01-12'), new Date('2020-02-23')];
+    defaultPickerValue = [new Date('2020-01-12'), new Date('2020-02-20')];
 
     minDate = new Date('2020-01-11');
 

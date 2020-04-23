@@ -56,9 +56,9 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
     }
 
     onValueChange(value: CompatibleValue): void {
+        this.restoreTimePickerState(value);
         super.onValueChange(value);
 
-        this.restoreTimePickerState(value);
         this.closeOverlay();
     }
 
@@ -70,7 +70,7 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
     // Restore after clearing time to select whether the original picker time is displayed or not
     restoreTimePickerState(value: CompatibleValue | null) {
         if (!value) {
-            this.withTime = this.thyMustShowTime;
+            this.withTime = this.thyMustShowTime || this.originWithTime;
         }
     }
 

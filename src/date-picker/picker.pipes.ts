@@ -21,3 +21,14 @@ export class ThyDatePickerFormatPipe implements PipeTransform {
         }
     }
 }
+
+@Pipe({ name: 'thyDatePickerFormatString' })
+export class ThyDatePickerFormatStringPipe implements PipeTransform {
+    constructor(private dateHelper: DateHelperService) {}
+
+    transform(originalValue: CompatibleDate | DateEntry | RangeEntry): string {
+        const { withTime } = transformDateValue(originalValue);
+
+        return withTime ? 'yyyy-MM-dd HH:mm' : 'yyyy-MM-dd';
+    }
+}
