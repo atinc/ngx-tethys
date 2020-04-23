@@ -12,9 +12,4 @@
 <br />
 <button thyButton="primary-square" thySize="sm" (click)="toggleNameTransform()">切换名称展示</button>
 <br />
-<thy-avatar
-  [thySrc]="avatarSrc"
-  [thyName]="isFromQywx ? 'LuXiaoBei' : '路晓贝（默认展示）'"
-  thyShowName="true"
-></thy-avatar>
-<span *ngIf="isFromQywx">open-data(微信展示)</span>
+<thy-avatar [thySrc]="avatarSrc" thyName="路晓贝" thyShowName="true"></thy-avatar>
