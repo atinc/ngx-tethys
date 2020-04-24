@@ -6,6 +6,8 @@ import { DemoAvatarHasBadgeSectionComponent } from './+avatar/has-badge/has-badg
 import { DemoAvatarRemoveSectionComponent } from './+avatar/remove/remove.component';
 import { DemoAvatarSizeSectionComponent } from './+avatar/size/size.component';
 import { DemoAvatarTypeSectionComponent } from './+avatar/type/avatar-type.component';
+import { DemoAvatarNameDefaultComponent } from './+avatar/name/default-name.component';
+import { DemoAvatarNameCustomComponent } from './+avatar/name/custom-name.component';
 import { DemoBreadcrumbSectionComponent } from './+breadcrumb/breadcrumb-section.component';
 import { DemoButtonModule } from './+button';
 import { DemoCardModule } from './+card';
@@ -120,6 +122,8 @@ export const COMPONENTS = [
     DemoAvatarSectionComponent,
     DemoAvatarSizeSectionComponent,
     DemoAvatarTypeSectionComponent,
+    DemoAvatarNameDefaultComponent,
+    DemoAvatarNameCustomComponent,
     DemoAvatarHasBadgeSectionComponent,
     DemoAvatarDisabledSectionComponent,
     DemoAvatarRemoveSectionComponent,
@@ -216,6 +220,8 @@ export const ENTRY_COMPONENTS = [
 
     DemoAvatarSizeSectionComponent,
     DemoAvatarTypeSectionComponent,
+    DemoAvatarNameDefaultComponent,
+    DemoAvatarNameCustomComponent,
     DemoAvatarHasBadgeSectionComponent,
     DemoAvatarDisabledSectionComponent,
     DemoAvatarRemoveSectionComponent,

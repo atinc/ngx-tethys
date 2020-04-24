@@ -11,6 +11,8 @@ import {
 import { isNumber, inputValueToBoolean } from '../util/helpers';
 import { UpdateHostClassService } from '../shared/update-host-class.service';
 import { ThyAvatarService } from './avatar.service';
+import { helpers } from '../util';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 const sizeArray = [22, 24, 30, 38, 48, 68, 110, 160];
 const sizeMap = {
@@ -36,6 +38,7 @@ export class ThyAvatarComponent implements OnInit {
 
     public avatarSrc: string;
     public avatarName?: string;
+    public avatarNameSafeHtml?: SafeHtml;
 
     @HostBinding('class.thy-avatar') _isAvatar = true;
 
@@ -50,8 +53,8 @@ export class ThyAvatarComponent implements OnInit {
 
     @Input()
     set thyName(value: string) {
-        this._name = value;
-        this._setAvatarName();
+        // this._name = value;
+        this._setAvatarName(value);
     }
 
     @Input()
@@ -90,14 +93,21 @@ export class ThyAvatarComponent implements OnInit {
         }
     }
 
-    private _setAvatarName() {
-        this.avatarName = this._name;
+    private _setAvatarName(value: string) {
+        const name = this.thyAvatarService.nameTransform(value);
+        if (helpers.isString(name)) {
+            this.avatarName = name as string;
+        } else {
+            this.avatarName = value;
+            this.avatarNameSafeHtml = name;
+        }
     }
 
     constructor(
         private updateHostClassService: UpdateHostClassService,
         private elementRef: ElementRef,
-        private thyAvatarService: ThyAvatarService
+        private thyAvatarService: ThyAvatarService,
+        private domSanitizer: DomSanitizer
     ) {
         updateHostClassService.initializeElement(elementRef.nativeElement);
     }

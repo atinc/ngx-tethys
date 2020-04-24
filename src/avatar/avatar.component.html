@@ -8,7 +8,10 @@
 <span *ngIf="!_src" class="avatar-default" [ngStyle]="avatarName | avatarBgColor">
   <div>{{ avatarName | avatarShortName }}</div>
 </span>
-<div *ngIf="thyShowName" class="avatar-name">{{ avatarName }}</div>
+<ng-container *ngIf="thyShowName">
+  <div *ngIf="!avatarNameSafeHtml" class="avatar-name">{{ avatarName }}</div>
+  <div *ngIf="avatarNameSafeHtml" class="avatar-name" [innerHtml]="avatarNameSafeHtml"></div>
+</ng-container>
 <a *ngIf="_showRemove" (click)="remove($event)" href="javascript:;" class="remove-link avatar-remove"
   ><thy-icon class="remove-link-icon" thyIconName="close-circle-bold-fill"></thy-icon
 ></a>
