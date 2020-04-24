@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ThyAvatarService } from '../../../../../../src/public-api';
-import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
     selector: 'demo-avatar-type-section',
@@ -15,7 +14,7 @@ export class DemoAvatarTypeSectionComponent {
 
     isCustom = false;
 
-    constructor(public thyAvatarService: ThyAvatarService, private domSanitizer: DomSanitizer) {}
+    constructor(public thyAvatarService: ThyAvatarService) {}
 
     toggleSrcTransform() {
         this.isFullPath = !this.isFullPath;
@@ -30,17 +29,4 @@ export class DemoAvatarTypeSectionComponent {
             this.thyAvatarService.avatarSrcTransform = this.originalTransform;
         }
     }
-
-    // toggleNameTransform() {
-    //     this.isCustom = !this.isCustom;
-    //     if (this.isCustom) {
-    //         this.thyAvatarService.avatarNameTransform = (name: string) => {
-    //             return this.domSanitizer.bypassSecurityTrustHtml(`<strong>${name}</strong>`);
-    //         };
-    //     } else {
-    //         this.thyAvatarService.avatarNameTransform = (name: string) => {
-    //             return name;
-    //         };
-    //     }
-    // }
 }

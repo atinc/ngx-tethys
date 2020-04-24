@@ -12,7 +12,7 @@ export class DemoAvatarNameDefaultComponent implements OnInit {
     constructor(private thyAvatarService: ThyAvatarService) {}
 
     ngOnInit() {
-        this.thyAvatarService.avatarNameTransform = (name: string) => {
+        this.thyAvatarService.nameTransform = (name: string) => {
             return name;
         };
     }
