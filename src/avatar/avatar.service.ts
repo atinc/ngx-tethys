@@ -6,7 +6,7 @@ export abstract class ThyAvatarService {
 
     abstract avatarSrcTransform(src: string, size: number): string;
 
-    abstract avatarNameTransform(name: string): string | SafeHtml;
+    abstract nameTransform(name: string): string | SafeHtml;
 }
 
 @Injectable()
@@ -15,7 +15,7 @@ export class ThyDefaultAvatarService extends ThyAvatarService {
         return src;
     }
 
-    avatarNameTransform(name: string): string | SafeHtml {
+    nameTransform(name: string): string | SafeHtml {
         return name;
     }
 }

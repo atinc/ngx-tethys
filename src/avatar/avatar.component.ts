@@ -94,7 +94,7 @@ export class ThyAvatarComponent implements OnInit {
     }
 
     private _setAvatarName(value: string) {
-        const name = this.thyAvatarService.avatarNameTransform(value);
+        const name = this.thyAvatarService.nameTransform(value);
         if (helpers.isString(name)) {
             this.avatarName = name as string;
         } else {

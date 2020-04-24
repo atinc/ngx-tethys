@@ -21,13 +21,13 @@ class AvatarBasicComponent implements OnInit {
         <thy-avatar [thyShowName]="true" [thyName]="thyName"></thy-avatar>
     `
 })
-class WxAvatarNameComponent implements OnInit {
+class CustomAvatarNameComponent implements OnInit {
     thyName = 'LiLin';
 
     constructor(private thyAvatarService: ThyAvatarService, private domSanitizer: DomSanitizer) {}
 
     ngOnInit() {
-        this.thyAvatarService.avatarNameTransform = (name: string) => {
+        this.thyAvatarService.nameTransform = (name: string) => {
             return this.domSanitizer.bypassSecurityTrustHtml(`<code>${name}</code>`);
         };
     }
@@ -37,7 +37,7 @@ describe('ThyAvatarComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ThyAvatarModule],
-            declarations: [AvatarBasicComponent, WxAvatarNameComponent]
+            declarations: [AvatarBasicComponent, CustomAvatarNameComponent]
         });
         TestBed.compileComponents();
     });
@@ -59,11 +59,11 @@ describe('ThyAvatarComponent', () => {
     });
 
     describe('custom avatarName', () => {
-        let fixture: ComponentFixture<WxAvatarNameComponent>;
-        let componentInstance: WxAvatarNameComponent;
+        let fixture: ComponentFixture<CustomAvatarNameComponent>;
+        let componentInstance: CustomAvatarNameComponent;
 
         beforeEach(async(() => {
-            fixture = TestBed.createComponent(WxAvatarNameComponent);
+            fixture = TestBed.createComponent(CustomAvatarNameComponent);
             componentInstance = fixture.debugElement.componentInstance;
             fixture.detectChanges();
         }));

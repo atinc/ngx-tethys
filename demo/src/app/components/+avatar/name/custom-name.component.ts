@@ -13,7 +13,7 @@ export class DemoAvatarNameCustomComponent implements OnInit {
     constructor(private thyAvatarService: ThyAvatarService, private domSanitizer: DomSanitizer) {}
 
     ngOnInit() {
-        this.thyAvatarService.avatarNameTransform = (name: string) => {
+        this.thyAvatarService.nameTransform = (name: string) => {
             return this.domSanitizer.bypassSecurityTrustHtml(`<code>${name}</code>`);
         };
     }

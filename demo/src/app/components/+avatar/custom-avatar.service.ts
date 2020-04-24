@@ -12,7 +12,7 @@ export class CustomAvatarService extends ThyAvatarService {
         return `https://s3.cn-north-1.amazonaws.com.cn/lcavatar/${src}`;
     }
 
-    avatarNameTransform(name: string): string | SafeHtml {
+    nameTransform(name: string): string | SafeHtml {
         return name;
     }
 }
