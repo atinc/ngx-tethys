@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.7.6](https://github.com/atinc/ngx-tethys/compare/7.7.5...7.7.6) (2020-04-24)
+
+
+### Bug Fixes
+
+* **radio:** #AE-1777 radio margin bottom ([#668](https://github.com/atinc/ngx-tethys/issues/668)) ([e000624](https://github.com/atinc/ngx-tethys/commit/e000624b8bd9e1dae04a0f72ffd6bd49a72fac20)), closes [#AE-1777](https://github.com/atinc/ngx-tethys/issues/AE-1777) [#AE-1777](https://github.com/atinc/ngx-tethys/issues/AE-1777) [#AE-1777](https://github.com/atinc/ngx-tethys/issues/AE-1777)
+
+
+### Features
+
+* **avatar:** add nameTransform to avatar service for custom name transform #INFR-350 ([b7e8523](https://github.com/atinc/ngx-tethys/commit/b7e8523729ea93c45f24b0b6d2129d1fe3a226de)), closes [#INFR-350](https://github.com/atinc/ngx-tethys/issues/INFR-350)
+
+
+
 ## [7.7.5](https://github.com/atinc/ngx-tethys/compare/7.7.4...7.7.5) (2020-04-23)
 
 
