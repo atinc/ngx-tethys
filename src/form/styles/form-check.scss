@@ -8,6 +8,9 @@
     padding-left: $form-check-input-gutter;
     padding-bottom: 4px;
     margin-bottom: 0; // Override default `<label>` bottom margin
+    &:last-child {
+        padding-bottom: 0;
+    }
 }
 
 .form-check-input {
