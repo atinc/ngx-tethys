@@ -1,3 +1,12 @@
+## [7.5.14-1](https://github.com/worktile/ngx-tethys/compare/7.5.13...7.5.14-1) (2020-04-24)
+
+
+### Features
+
+* **avatar:** avatar组件增加 avatarNameTransform (#INFR-350) ([58ca7fb](https://github.com/worktile/ngx-tethys/commit/58ca7fbb7e6192034903c93f33f708426ea5b02d)), closes [#INFR-350](https://github.com/worktile/ngx-tethys/issues/INFR-350)
+
+
+
 ## [7.5.13](https://github.com/worktile/ngx-tethys/compare/7.5.12...7.5.13) (2019-08-27)
 
 
