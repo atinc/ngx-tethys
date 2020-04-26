@@ -67,11 +67,37 @@
     <ng-template #formGroup>
       <label class="col-sm-2 col-form-label pr-0">开始时间</label>
       <div class="col-sm-4 col-form-control">
-        <thy-date-picker name="startTime" [(ngModel)]="date" (ngModelChange)="onChange($event)"></thy-date-picker>
+        <thy-date-picker
+          name="startTime"
+          required
+          [(ngModel)]="date"
+          (ngModelChange)="onChange($event)"
+        ></thy-date-picker>
       </div>
       <label class="col-sm-2 col-form-label">结束时间</label>
       <div class="col-sm-4 has-feedback col-form-control">
         <thy-date-picker name="endTime" [(ngModel)]="date" (ngModelChange)="onChange($event)"></thy-date-picker>
+      </div>
+    </ng-template>
+  </thy-form-group>
+  <thy-form-group>
+    <ng-template #formGroup>
+      <label class="col-sm-2 col-form-label pr-0">时间</label>
+      <div class="col-sm-4 col-form-control">
+        <thy-date-picker
+          name="time"
+          required
+          [(ngModel)]="dateNull"
+          (ngModelChange)="onChange($event)"
+        ></thy-date-picker>
+      </div>
+      <label class="col-sm-2 col-form-label">时间区间</label>
+      <div class="col-sm-4 has-feedback col-form-control">
+        <thy-range-picker
+          name="rangeTime"
+          [(ngModel)]="dateRange"
+          (ngModelChange)="onChange($event)"
+        ></thy-range-picker>
       </div>
     </ng-template>
   </thy-form-group>

@@ -92,6 +92,10 @@ export class DemoFormHorizontalComponent implements OnInit {
 
     date = { date: new Date(), with_time: 0 };
 
+    dateNull = null;
+
+    dateRange = null;
+
     constructor() {}
 
     ngOnInit(): void {}

@@ -9,7 +9,7 @@ import { By } from '@angular/platform-browser';
 
 import { ThyDatePickerModule } from './date-picker.module';
 import { dispatchMouseEvent, dispatchKeyboardEvent } from '../core/testing';
-import { isSameDay, format } from 'date-fns';
+import { isSameDay, format, getUnixTime } from 'date-fns';
 import { DateEntry } from './standard-types';
 import { convertDate } from './picker.util';
 
@@ -435,6 +435,20 @@ describe('ThyDatePickerComponent', () => {
             expect(getPickerTrigger().value).toBe(format(new Date(1587629556000), 'yyyy-MM-dd HH:mm'));
         }));
 
+        it('should emit value type is same with incoming value type', fakeAsync(() => {
+            const initial = null;
+            fixtureInstance.thyValue = initial;
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+
+            const thyOnChange = spyOn(fixtureInstance, 'thyOnChange');
+            dispatchMouseEvent(getSelectedDayCell(), 'click');
+            const unixTime = getUnixTime(new Date());
+            fixture.detectChanges();
+            tick(500);
+            expect(thyOnChange).toHaveBeenCalledWith(unixTime);
+        }));
+
         it('should support thyDateRender', fakeAsync(() => {
             fixtureInstance.thyDateRender = fixtureInstance.tplDateRender;
             fixture.detectChanges();
@@ -643,7 +657,7 @@ class ThyTestDatePickerComponent {
     thyPlaceHolder: string;
     thyPanelClassName: string;
     thySize: string;
-    thyValue: Date | null | DateEntry;
+    thyValue: Date | null | DateEntry | number;
     thyDefaultPickerValue: Date | number;
     thyDateRender: any;
     thyShowTime: boolean | object = false;
