@@ -435,17 +435,16 @@ describe('ThyDatePickerComponent', () => {
         }));
 
         it('should emit value type is same with incoming value type', fakeAsync(() => {
-            const initial = null;
+            const initial = 1587629556;
             fixtureInstance.thyValue = initial;
             fixture.detectChanges();
             openPickerByClickTrigger();
 
             const thyOnChange = spyOn(fixtureInstance, 'thyOnChange');
             dispatchMouseEvent(getSelectedDayCell(), 'click');
-            const unixTime = getUnixTime(new Date());
             fixture.detectChanges();
             tick(500);
-            expect(thyOnChange).toHaveBeenCalledWith(unixTime);
+            expect(thyOnChange).toHaveBeenCalledWith(initial);
         }));
 
         it('should support thyDateRender', fakeAsync(() => {
