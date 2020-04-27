@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.7.7](https://github.com/atinc/ngx-tethys/compare/7.7.6...7.7.7) (2020-04-27)
+
+
+### Bug Fixes
+
+* **date-picker:** fix value empty validate #INFR-388 ([#673](https://github.com/atinc/ngx-tethys/issues/673)) ([2011802](https://github.com/atinc/ngx-tethys/commit/20118022e69d8e7cbd709676edf6c5d7c7af2f0b)), closes [#INFR-388](https://github.com/atinc/ngx-tethys/issues/INFR-388) [#INFR-388](https://github.com/atinc/ngx-tethys/issues/INFR-388)
+
+
+
 ## [7.7.6](https://github.com/atinc/ngx-tethys/compare/7.7.5...7.7.6) (2020-04-24)
 
 
