@@ -1,6 +1,6 @@
 import { Directive, Input, StaticProvider, forwardRef } from '@angular/core';
 import { NG_VALIDATORS, AbstractControl, ValidationErrors, Validator } from '@angular/forms';
-import { DateEntry, RangeEntry } from './standard-types';
+import { DateEntry, RangeEntry, instanceOfDateEntry, instanceOfRangeEntry } from './standard-types';
 
 const DATE_PICKER_REQUIRED_VALIDATOR: StaticProvider = {
     provide: NG_VALIDATORS,
@@ -69,9 +69,9 @@ export class RangePickerRequiredValidator implements Validator {
 }
 
 function isEmptyInputRangeValue(value: RangeEntry): boolean {
-    return value == null || value.begin == null || value.end == null;
+    return value == null || (instanceOfRangeEntry(value) && (value.begin == null || value.end == null));
 }
 
 function isEmptyInputDateValue(value: DateEntry): boolean {
-    return value == null || value.date == null;
+    return value == null || (instanceOfDateEntry(value) && value.date == null);
 }

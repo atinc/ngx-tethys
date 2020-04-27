@@ -9,7 +9,7 @@ import { By } from '@angular/platform-browser';
 
 import { ThyDatePickerModule } from './date-picker.module';
 import { dispatchMouseEvent, dispatchKeyboardEvent } from '../core/testing';
-import { isSameDay, format } from 'date-fns';
+import { isSameDay, format, getUnixTime, fromUnixTime } from 'date-fns';
 import { DateEntry } from './standard-types';
 import { convertDate } from './picker.util';
 
@@ -113,7 +113,7 @@ describe('ThyDatePickerComponent', () => {
             debugElement.query(clearBtnSelector).nativeElement.click();
             fixture.detectChanges();
             expect(fixtureInstance.thyValue).toBe(initial);
-            expect(thyOnChange).toHaveBeenCalledWith({ date: null, with_time: 0 });
+            expect(thyOnChange).toHaveBeenCalledWith(null);
             expect(debugElement.query(clearBtnSelector)).toBeFalsy();
         }));
 
@@ -234,9 +234,8 @@ describe('ThyDatePickerComponent', () => {
             fixture.detectChanges();
             expect(thyOnChange).toHaveBeenCalled();
             expect(thyOnCalendarChange).not.toHaveBeenCalled();
-            const result = (thyOnChange.calls.allArgs()[0] as DateEntry[])[0];
-            const date = convertDate(result.date);
-            expect(date.getDate()).toBe(+cellText);
+            const result = (thyOnChange.calls.allArgs()[0] as number[])[0];
+            expect(fromUnixTime(result).getDate()).toBe(+cellText);
         }));
     });
 
@@ -435,6 +434,20 @@ describe('ThyDatePickerComponent', () => {
             expect(getPickerTrigger().value).toBe(format(new Date(1587629556000), 'yyyy-MM-dd HH:mm'));
         }));
 
+        it('should emit value type is same with incoming value type', fakeAsync(() => {
+            const initial = null;
+            fixtureInstance.thyValue = initial;
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+
+            const thyOnChange = spyOn(fixtureInstance, 'thyOnChange');
+            dispatchMouseEvent(getSelectedDayCell(), 'click');
+            const unixTime = getUnixTime(new Date());
+            fixture.detectChanges();
+            tick(500);
+            expect(thyOnChange).toHaveBeenCalledWith(unixTime);
+        }));
+
         it('should support thyDateRender', fakeAsync(() => {
             fixtureInstance.thyDateRender = fixtureInstance.tplDateRender;
             fixture.detectChanges();
@@ -538,9 +551,8 @@ describe('ThyDatePickerComponent', () => {
             const cellText = cell.textContent.trim();
             dispatchMouseEvent(cell, 'click');
             fixture.detectChanges();
-            const result = (fixtureInstance.modelValue as unknown) as DateEntry;
-            const date = convertDate(result.date);
-            expect(date.getDate()).toBe(+cellText);
+            const result = (fixtureInstance.modelValue as unknown) as number;
+            expect(fromUnixTime(result).getDate()).toBe(+cellText);
         }));
     });
 
@@ -643,7 +655,7 @@ class ThyTestDatePickerComponent {
     thyPlaceHolder: string;
     thyPanelClassName: string;
     thySize: string;
-    thyValue: Date | null | DateEntry;
+    thyValue: Date | null | DateEntry | number;
     thyDefaultPickerValue: Date | number;
     thyDateRender: any;
     thyShowTime: boolean | object = false;
