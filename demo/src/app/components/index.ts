@@ -42,7 +42,7 @@ import { DemoNavIconNavComponent } from './+nav/icon-nav/icon-nav.component';
 import { DemoNavSectionComponent } from './+nav/nav-section.component';
 import { DemoNotifyModule } from './+notify';
 import { CreateOverlayComponent, DemoOverlaySectionComponent } from './+overlay/overlay-section.component';
-import { DemoPaginationComponent } from './+pagination/pagination.component';
+import { DemoPaginationModule } from './+pagination';
 import { DemoPopBoxSectionComponent, PopBoxMenuDemoShowComponent } from './+pop-box/pop-box-section.component';
 import {
     DemoPopoverBasicComponent,
@@ -146,7 +146,6 @@ export const COMPONENTS = [
     DemoModalContentComponent,
     DemoModalSectionComponent,
     DemoLoadingSectionComponent,
-    DemoPaginationComponent,
     DemoEmptySectionComponent,
     DemoSwitchSectionComponent,
     DemoStrengthComponent,
@@ -282,5 +281,6 @@ export const DEMO_MODULES = [
     DemoTransferModule,
     DemoBadgeModule,
     DemoAutocompleteModule,
-    DemoFormModule
+    DemoFormModule,
+    DemoPaginationModule
 ];
