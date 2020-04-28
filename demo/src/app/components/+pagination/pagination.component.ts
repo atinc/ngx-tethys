@@ -1,19 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-
+import { LiveDemoCodeExample } from '../../core/live-demo/live-demo.component';
+import { DemoPaginationBasicComponent } from './basic/pagination-basic.component';
+import { DemoPaginationMoreComponent } from './more/pagination-more.component';
+import { DemoPaginationJumperComponent } from './jumper/pagination-jumper.component';
+import { DemoPaginationRangeComponent } from './range/pagination-range.component';
+import { DemoPaginationSizeComponent } from './size/pagination-size.component';
+import { DemoPaginationShowTotalComponent } from './show-total/pagination-show-total.component';
 @Component({
     selector: 'demo-pagination',
     templateUrl: './pagination.component.html',
     styleUrls: ['./pagination.scss']
 })
 export class DemoPaginationComponent implements OnInit {
-    public pagination = {
-        pageIndex: 1,
-        pageSize: 20,
-        total: 100
-    };
-
-    public page = 3;
-
     public apiParameters = [
         {
             property: '[(thyPageIndex)]',
@@ -182,9 +180,110 @@ export class DemoPaginationComponent implements OnInit {
         }
     ];
 
-    ngOnInit() {}
+    liveDemos: LiveDemoCodeExample[] = [
+        {
+            title: '基础分页',
+            component: DemoPaginationBasicComponent,
+            description: '',
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'pagination-basic.component.html',
+                    content: require('!!raw-loader!./basic/pagination-basic.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'pagination-basic.component.ts',
+                    content: require('!!raw-loader!./basic/pagination-basic.component.ts')
+                }
+            ]
+        },
+        {
+            title: '更多分页',
+            component: DemoPaginationMoreComponent,
+            description: '',
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'pagination-more.component.html',
+                    content: require('!!raw-loader!./more/pagination-more.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'pagination-more.component.ts',
+                    content: require('!!raw-loader!./more/pagination-more.component.ts')
+                }
+            ]
+        },
+        {
+            title: '显示跳转',
+            component: DemoPaginationJumperComponent,
+            description: '',
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'pagination-jumper.component.html',
+                    content: require('!!raw-loader!./jumper/pagination-jumper.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'pagination-jumper.component.ts',
+                    content: require('!!raw-loader!./jumper/pagination-jumper.component.ts')
+                }
+            ]
+        },
+        {
+            title: '设置不同范围',
+            component: DemoPaginationRangeComponent,
+            description: '',
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'pagination-range.component.html',
+                    content: require('!!raw-loader!./range/pagination-range.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'pagination-range.component.ts',
+                    content: require('!!raw-loader!./range/pagination-range.component.ts')
+                }
+            ]
+        },
+        {
+            title: '设置大小',
+            component: DemoPaginationSizeComponent,
+            description: '',
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'pagination-size.component.html',
+                    content: require('!!raw-loader!./size/pagination-size.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'pagination-size.component.ts',
+                    content: require('!!raw-loader!./size/pagination-size.component.ts')
+                }
+            ]
+        },
+        {
+            title: '设置是否显示左侧total',
+            component: DemoPaginationShowTotalComponent,
+            description: '',
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'pagination-show-total.component.html',
+                    content: require('!!raw-loader!./show-total/pagination-show-total.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'pagination-show-total.component.ts',
+                    content: require('!!raw-loader!./show-total/pagination-show-total.component.ts')
+                }
+            ]
+        }
+    ];
 
-    onPageChange(pageIndex: number) {
-        console.log(pageIndex);
-    }
+    ngOnInit() {}
 }
