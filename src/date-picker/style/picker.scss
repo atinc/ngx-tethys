@@ -8,6 +8,13 @@
     outline: none;
     transition: opacity 0.3s;
     width: 100%;
+    cursor: pointer;
+
+    &:hover {
+        .form-control {
+            border-color: $primary;
+        }
+    }
 
     &-input {
         outline: none;
@@ -31,22 +38,18 @@
         top: 50%;
         right: $control-padding-horizontal;
         z-index: 1;
-        font-size: $font-size-md;
         transition: all 0.3s;
         user-select: none;
         transform: translateY(-50%);
+        display: inline-flex;
     }
 
     &-clear {
         z-index: 2;
-        color: $disabled-color;
         background: $input-bg;
         cursor: pointer;
         opacity: 0;
         pointer-events: none;
-        &:hover {
-            color: $secondary;
-        }
     }
 
     &:hover &-clear {
@@ -55,8 +58,7 @@
     }
 
     &-icon {
-        display: inline-block;
-        color: $disabled-color;
+        color: $gray-400;
     }
 
     &-small &-clear,

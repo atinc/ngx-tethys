@@ -32,7 +32,7 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
     @Input() @InputBoolean() thyReadonly: boolean;
     @Input() thyOriginClassName: string;
     @Input() thyPanelClassName: string;
-    @Input() thySize: 'lg' | 'md' | 'sm' | 'xs';
+    @Input() thySize: 'lg' | 'md' | 'sm' | 'xs' | 'default' = 'default';
     @Input() thyFormat: string;
     // tslint:disable-next-line: max-line-length
     @Input() thyAutoStartAndEnd = false; // only for range picker, Whether to automatically take the beginning and ending unixTime of the day
