@@ -1,114 +1,50 @@
-import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
-import { PageChangedEvent } from 'ngx-bootstrap/pagination/pagination.component';
-import { ThyMultiSelectEvent, ThyGridRowEvent } from 'ngx-tethys';
-
+import { Component, OnInit } from '@angular/core';
+import { LiveDemoCodeExample } from '../../core/live-demo/live-demo.component';
+import { DemoGridDefaultComponent } from './default/grid-default.component';
+import { DemoGridBorderedComponent } from './bordered/grid-bordered.component';
 @Component({
     selector: 'demo-grid-section',
     templateUrl: './grid-section.component.html'
 })
 export class DemoGridSectionComponent implements OnInit {
-    public cloneModel: any[];
-    public model = [
+    liveDemos: LiveDemoCodeExample[] = [
         {
-            id: '11',
-            name: '张三',
-            age: 0,
-            checked: true,
-            desc: '',
-            is_favorite: 1
+            title: 'Default Grid',
+            component: DemoGridDefaultComponent,
+            description: 'thyTheme="default"',
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'grid-default.component.html',
+                    content: require('!!raw-loader!./default/grid-default.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'grid-default.component.ts',
+                    content: require('!!raw-loader!./default/grid-default.component.ts')
+                }
+            ]
         },
         {
-            id: '22',
-            name: '李四',
-            age: 10,
-            checked: false,
-            desc: '这是一条测试数据',
-            is_favorite: 0
-        },
-        {
-            id: '3',
-            name: '王五',
-            age: 10,
-            checked: false,
-            desc: '这是一条测试数据',
-            is_favorite: 0
-        },
-        {
-            id: '4',
-            name: '张三2',
-            age: 0,
-            checked: true,
-            desc: '',
-            is_favorite: 0
-        },
-        {
-            id: '5',
-            name: '李四2',
-            age: 10,
-            checked: false,
-            desc: '这是一条测试数据',
-            is_favorite: 0
-        },
-        {
-            id: '6',
-            name: '王五2',
-            age: 10,
-            checked: false,
-            desc: '这是一条测试数据',
-            is_favorite: 1
-        },
-        {
-            id: '7',
-            name: '张三3',
-            age: 0,
-            checked: true,
-            desc: '',
-            is_favorite: 1
-        },
-        {
-            id: '8',
-            name: '李四3',
-            age: 10,
-            checked: false,
-            desc: '这是一条测试数据',
-            is_favorite: 1
-        },
-        {
-            id: '9',
-            name: '王五3',
-            age: 10,
-            checked: false,
-            desc: '这是一条测试数据',
-            is_favorite: 1
-        },
-        {
-            id: '10',
-            name: '张三4',
-            age: 0,
-            checked: true,
-            desc: '',
-            is_favorite: 1
-        },
-        {
-            id: '11',
-            name: '李四4',
-            age: 10,
-            checked: false,
-            desc: '这是一条测试数据',
-            is_favorite: 1
-        },
-        {
-            id: '12',
-            name: '王五4',
-            age: 10,
-            checked: false,
-            desc: '这是一条测试数据',
-            is_favorite: 1
+            title: 'Bordered Grid',
+            component: DemoGridBorderedComponent,
+            description: 'thyTheme="bordered"',
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'grid-bordered.component.html',
+                    content: require('!!raw-loader!./bordered/grid-bordered.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'grid-bordered.component.ts',
+                    content: require('!!raw-loader!./bordered/grid-bordered.component.ts')
+                }
+            ]
         }
     ];
 
-    public gridApiParams = [
+    gridApiParams = [
         {
             property: 'thyModel',
             description: 'Grid 数据源',
@@ -243,7 +179,7 @@ export class DemoGridSectionComponent implements OnInit {
         }
     ];
 
-    public columnApiParams = [
+    columnApiParams = [
         {
             property: 'thyModelKey',
             description: '设置数据属性Key',
@@ -301,101 +237,5 @@ export class DemoGridSectionComponent implements OnInit {
         }
     ];
 
-    public selections = [];
-
-    public pagination = {
-        index: 1,
-        size: 10,
-        total: 12
-    };
-
-    public abc = true;
-
-    public loadingDone = false;
-
-    public draggableOptions = {
-        disabled: false,
-        onMove: event => {
-            console.log('onMove');
-            return event.related.className.indexOf('table-draggable-ignore-item') === -1;
-        },
-        filter: '.table-draggable-ignore-item'
-    };
-
-    ngOnInit() {
-        setTimeout(() => {
-            this.loadingDone = true;
-        }, 3000);
-        this.cloneModel = this.model;
-        this.model = this.cloneModel.slice(0, this.pagination.index * this.pagination.size);
-        this.sortModel();
-    }
-
-    sortModel() {
-        const favoriteItems = this.model.filter(item => {
-            return item.is_favorite;
-        });
-        const unfavoriteItems = this.model.filter(item => {
-            return !item.is_favorite;
-        });
-        this.model = [...favoriteItems, ...unfavoriteItems];
-    }
-
-    onMultiSelectChange(event: ThyMultiSelectEvent) {
-        if (!this.selections.includes(event.row)) {
-            this.selections.push(event.row);
-        } else {
-            this.selections = this.selections.filter(item => item.id !== event.row.id);
-        }
-        this.selections = [...this.selections];
-        console.log(event);
-        console.log(this.selections);
-    }
-
-    gridRowClassName(row: any, index: number) {
-        if (!row.is_favorite) {
-            return 'table-draggable-ignore-item thy-grid-item-hover-display-operation';
-        }
-    }
-
-    onRadioSelectChange(event: any) {
-        console.log(event);
-    }
-
-    onPageChange(event: any) {
-        console.log(event);
-        this.model = this.cloneModel.slice((event.page - 1) * this.pagination.size, event.page * this.pagination.size);
-    }
-
-    onSwitchChange(event: any) {
-        setTimeout(() => {
-            event.row.checked = false;
-            event.refresh();
-        }, 2000);
-    }
-
-    onDraggableUpdate(event) {
-        console.log(event);
-    }
-
-    onContextMenu(event) {
-        console.log(event);
-        alert('右键');
-    }
-
-    onRowClick(event: ThyGridRowEvent) {
-        console.log(event);
-    }
-
-    onFavorite(row: any) {
-        row.is_favorite = !!row.is_favorite ? 0 : 1;
-        this.sortModel();
-        // const index = this.model.indexOf(row);
-        // this.model = [...this.model.slice(0, index), ...this.model.slice(index + 1, this.model.length), row];
-    }
-
-    deleteItem(row: any) {
-        const index = this.model.indexOf(row);
-        this.model.splice(index, 1);
-    }
+    ngOnInit() {}
 }

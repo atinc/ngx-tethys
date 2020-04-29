@@ -24,7 +24,7 @@ import { DemoEmptySectionComponent } from './+empty/empty-section.component';
 import { DemoFlexibleTextBasicComponent } from './+flexible-text/basic/flexible-text-basic.component';
 import { DemoFlexibleTextComponent } from './+flexible-text/flexible-text-section.component';
 import { DemoRadioSectionComponent } from './+form-radio/radio-section.component';
-import { DemoGridSectionComponent } from './+grid/grid-section.component';
+import { DemoGridModule } from './+grid/index';
 import { ICON_COMPONENTS } from './+icon';
 import { DemoIconSectionComponent } from './+icon/icon-section.component';
 import { DemoInputModule } from './+input/module';
@@ -117,7 +117,6 @@ export const COMPONENTS = [
     DemoIconSectionComponent,
     DemoTableSectionComponent,
     DemoWTDSectionLinkComponent,
-    DemoGridSectionComponent,
 
     DemoAvatarSectionComponent,
     DemoAvatarSizeSectionComponent,
@@ -282,5 +281,6 @@ export const DEMO_MODULES = [
     DemoBadgeModule,
     DemoAutocompleteModule,
     DemoFormModule,
-    DemoPaginationModule
+    DemoPaginationModule,
+    DemoGridModule
 ];
