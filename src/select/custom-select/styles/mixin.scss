@@ -13,7 +13,7 @@
     right: 12px;
     font-size: $font-size-md;
     pointer-events: none;
-    color: $gray-500;
+    color: $gray-400;
     z-index: 10;
     @include absolute-vertical-align-middle(false);
 }

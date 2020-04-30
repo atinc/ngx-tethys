@@ -7,4 +7,5 @@ import { Component, OnInit } from '@angular/core';
 export class DemoDatePickerFormatComponent {
     dateFormat = 'yyyy/MM/dd';
     monthFormat = 'yyyy/MM';
+    date = null;
 }

@@ -56,3 +56,17 @@ button.close {
         border-radius: 50%;
     }
 }
+
+$removeLinkSizes: (
+    'xs': $font-size-sm,
+    'sm': $font-size-base,
+    'md': $font-size-base,
+    'default': $font-size-base,
+    'lg': $font-size-md
+);
+
+@each $size, $value in $removeLinkSizes {
+    .remove-link-#{$size} {
+        @include set-close-link-size($value);
+    }
+}

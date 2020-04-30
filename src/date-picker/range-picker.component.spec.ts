@@ -74,7 +74,7 @@ describe('ThyRangePickerComponent', () => {
         }));
 
         it('should support thyAllowClear and work properly', fakeAsync(() => {
-            const clearBtnSelector = By.css('thy-picker thy-icon.thy-calendar-picker-clear');
+            const clearBtnSelector = By.css('thy-picker .thy-calendar-picker-clear .thy-icon');
             const initial = (fixtureInstance.modelValue = { begin: new Date(), end: new Date() });
             fixtureInstance.thyAllowClear = false;
             fixture.detectChanges();

@@ -36,6 +36,12 @@ export const apiParameters = [
         default: '-'
     },
     {
+        property: 'thyDefaultPickerValue',
+        description: '面板默认日期',
+        type: 'Date | {date: number, with_time: 0 | 1} | number | string',
+        default: '-'
+    },
+    {
         property: 'thySize',
         description: '输入框大小，xs | sm | md | lg | default',
         type: 'xs | sm | md | lg | default',
