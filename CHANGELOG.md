@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.7.8](https://github.com/atinc/ngx-tethys/compare/7.7.7...7.7.8) (2020-04-30)
+
+
+### Features
+
+* **core:** add createWarnDeprecation for logger #INFR-399 ([#678](https://github.com/atinc/ngx-tethys/issues/678)) ([9265980](https://github.com/atinc/ngx-tethys/commit/92659802864f2efd9d8606b0172f444ba46d5d84)), closes [#INFR-399](https://github.com/atinc/ngx-tethys/issues/INFR-399)
+
+
+
 ## [7.7.7](https://github.com/atinc/ngx-tethys/compare/7.7.6...7.7.7) (2020-04-27)
 
 
