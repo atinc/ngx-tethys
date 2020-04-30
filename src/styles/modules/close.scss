@@ -67,10 +67,6 @@ $removeLinkSizes: (
 
 @each $size, $value in $removeLinkSizes {
     .remove-link-#{$size} {
-        @include set-close-link-variant($gray-400, $danger);
-        @include set-close-link-size($value);
-    }
-    .corresponding-icon-#{$size} {
         @include set-close-link-size($value);
     }
 }
