@@ -20,17 +20,18 @@ type ThyAlertType =
 export class ThyAlertComponent implements OnInit {
     @HostBinding('class') class: string;
 
-    isTemplateRef: boolean;
+    messageTemplate: TemplateRef<HTMLElement>;
+
+    messageText: string;
 
     @Input() thyType: ThyAlertType = 'info';
 
     @Input() set thyMessage(value: string | TemplateRef<HTMLElement>) {
-        this.isTemplateRef = value instanceof TemplateRef;
-        this.message = value;
-    }
-
-    get thyMessage() {
-        return this.message;
+        if (value instanceof TemplateRef) {
+            this.messageTemplate = value;
+        } else {
+            this.messageText = value;
+        }
     }
 
     @Input()
