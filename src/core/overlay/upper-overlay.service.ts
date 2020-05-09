@@ -113,6 +113,8 @@ export abstract class ThyUpperOverlayService<
             positionStrategy: this.overlay.position().global(),
             hasBackdrop: config.hasBackdrop,
             direction: config.direction,
+            width: config.width,
+            height: config.height,
             minWidth: config.minWidth,
             minHeight: config.minHeight,
             maxWidth: config.maxWidth,
