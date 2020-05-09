@@ -5,12 +5,14 @@ import { DemoAlertIconComponent } from './icon/icon.component';
 import { DemoAlertWeakComponent } from './weak/weak.component';
 import { DemoAlertCloseComponent } from './close/close.component';
 import { SharedModule } from 'app/shared.module';
+import { DemoAlertMessageTemplateComponent } from './message-template/message-template.component';
 
 const components = [
     DemoAlertSectionComponent,
     DemoAlertBasicComponent,
     DemoAlertIconComponent,
     DemoAlertWeakComponent,
+    DemoAlertMessageTemplateComponent,
     DemoAlertCloseComponent
 ];
 
