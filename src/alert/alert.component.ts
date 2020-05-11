@@ -73,8 +73,6 @@ export class ThyAlertComponent implements OnInit {
 
     private _icon: string;
 
-    private message: string | TemplateRef<HTMLElement>;
-
     constructor() {}
 
     ngOnInit() {
