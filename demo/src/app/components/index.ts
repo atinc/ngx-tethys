@@ -24,7 +24,7 @@ import { DemoEmptySectionComponent } from './+empty/empty-section.component';
 import { DemoFlexibleTextBasicComponent } from './+flexible-text/basic/flexible-text-basic.component';
 import { DemoFlexibleTextComponent } from './+flexible-text/flexible-text-section.component';
 import { DemoRadioSectionComponent } from './+form-radio/radio-section.component';
-import { DemoGridSectionComponent } from './+grid/grid-section.component';
+import { DemoGridModule } from './+grid/index';
 import { ICON_COMPONENTS } from './+icon';
 import { DemoIconSectionComponent } from './+icon/icon-section.component';
 import { DemoInputModule } from './+input/module';
@@ -42,7 +42,7 @@ import { DemoNavIconNavComponent } from './+nav/icon-nav/icon-nav.component';
 import { DemoNavSectionComponent } from './+nav/nav-section.component';
 import { DemoNotifyModule } from './+notify';
 import { CreateOverlayComponent, DemoOverlaySectionComponent } from './+overlay/overlay-section.component';
-import { DemoPaginationComponent } from './+pagination/pagination.component';
+import { DemoPaginationModule } from './+pagination';
 import { DemoPopBoxSectionComponent, PopBoxMenuDemoShowComponent } from './+pop-box/pop-box-section.component';
 import {
     DemoPopoverBasicComponent,
@@ -117,7 +117,6 @@ export const COMPONENTS = [
     DemoIconSectionComponent,
     DemoTableSectionComponent,
     DemoWTDSectionLinkComponent,
-    DemoGridSectionComponent,
 
     DemoAvatarSectionComponent,
     DemoAvatarSizeSectionComponent,
@@ -146,7 +145,6 @@ export const COMPONENTS = [
     DemoModalContentComponent,
     DemoModalSectionComponent,
     DemoLoadingSectionComponent,
-    DemoPaginationComponent,
     DemoEmptySectionComponent,
     DemoSwitchSectionComponent,
     DemoStrengthComponent,
@@ -282,5 +280,7 @@ export const DEMO_MODULES = [
     DemoTransferModule,
     DemoBadgeModule,
     DemoAutocompleteModule,
-    DemoFormModule
+    DemoFormModule,
+    DemoPaginationModule,
+    DemoGridModule
 ];

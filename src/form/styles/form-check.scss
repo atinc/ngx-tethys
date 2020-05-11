@@ -6,8 +6,12 @@
     display: flex;
     justify-items: center;
     padding-left: $form-check-input-gutter;
-    padding-bottom: 4px;
+    padding-bottom: 8px;
     margin-bottom: 0; // Override default `<label>` bottom margin
+    &:last-child {
+        padding-bottom: 0;
+        margin-bottom: -2px;
+    }
 }
 
 .form-check-input {

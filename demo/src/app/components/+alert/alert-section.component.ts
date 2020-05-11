@@ -4,6 +4,7 @@ import { DemoAlertBasicComponent } from './basic/basic.component';
 import { DemoAlertIconComponent } from './icon/icon.component';
 import { DemoAlertWeakComponent } from './weak/weak.component';
 import { DemoAlertCloseComponent } from './close/close.component';
+import { DemoAlertMessageTemplateComponent } from './message-template/message-template.component';
 
 @Component({
     selector: 'demo-alert-section',
@@ -50,6 +51,22 @@ export class DemoAlertSectionComponent implements OnInit {
                     type: 'ts',
                     name: 'basic.component.ts',
                     content: require('!!raw-loader!./basic/basic.component.ts')
+                }
+            ]
+        },
+        {
+            title: '自定义message',
+            component: DemoAlertMessageTemplateComponent,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'message-template.component.html',
+                    content: require('!!raw-loader!./message-template/message-template.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'message-template.component.ts',
+                    content: require('!!raw-loader!./message-template/message-template.component.ts')
                 }
             ]
         },

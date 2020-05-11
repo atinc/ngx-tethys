@@ -39,7 +39,7 @@ export class ThyPickerComponent implements AfterViewInit {
     @Input() autoFocus: boolean;
     @Input() className: string;
     @Input() format: string;
-    @Input() size: 'sm' | 'xs' | 'lg' | 'md';
+    @Input() size: 'sm' | 'xs' | 'lg' | 'md' | 'default';
     @Input() value: TinyDate | TinyDate[] | null;
     @Output() readonly valueChange = new EventEmitter<TinyDate | TinyDate[] | null>();
     @Output() readonly openChange = new EventEmitter<boolean>(); // Emitted when overlay's open state change

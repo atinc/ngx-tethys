@@ -1,0 +1,42 @@
+<thy-grid
+  [thyModel]="model"
+  thyRowKey="id"
+  [thyDraggable]="draggableOptions"
+  [thyRowClassName]="gridRowClassName"
+  [thyHoverDisplayOperation]="false"
+  (thyOnRowClick)="onRowClick($event)"
+  [thyWholeRowSelect]="true"
+  (thyOnMultiSelectChange)="onMultiSelectChange($event)"
+  [thyPageIndex]="pagination.index"
+  [thyPageSize]="pagination.size"
+  [thyPageTotal]="pagination.total"
+  [thyShowTotal]="true"
+  (thyOnPageChange)="onPageChange($event)"
+  (thyOnSwitchChange)="onSwitchChange($event)"
+  (thyOnRowContextMenu)="onContextMenu($event)"
+>
+  <thy-grid-column thyModelKey="checked" thyType="checkbox" [thySelections]="selections">
+    <ng-template #header>
+      <span class="text-primary"
+        >选择<a href="javascript:;"><i class="wtf wtf-angle-down"></i></a
+      ></span>
+    </ng-template>
+  </thy-grid-column>
+  <thy-grid-column thyTitle="姓名" thyModelKey="name"></thy-grid-column>
+  <thy-grid-column thyTitle="年龄" thyModelKey="age"></thy-grid-column>
+  <thy-grid-column thyTitle="备注" thyModelKey="desc" thyDefaultText="-"></thy-grid-column>
+  <thy-grid-column thyTitle="默认" thyModelKey="checked" thyType="switch"></thy-grid-column>
+  <thy-grid-column thyTitle="" thyClassName="thy-operation-links">
+    <ng-template #cell let-row>
+      <a href="javascript:;">设置</a>
+      <a class="link-secondary" href="javascript:;" (click)="deleteItem(row)">
+        <i class="wtf wtf-trash-o"></i>
+      </a>
+    </ng-template>
+  </thy-grid-column>
+  <thy-grid-column thyClassName="thy-operation-links text-center">
+    <ng-template #cell let-row>
+      <a href="javascript:;" id="{{ row.name }}" thyTooltip="置顶" thyStopPropagation (click)="onFavorite(row)">置顶</a>
+    </ng-template>
+  </thy-grid-column>
+</thy-grid>

@@ -2,6 +2,38 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.7.8](https://github.com/atinc/ngx-tethys/compare/7.7.7...7.7.8) (2020-04-30)
+
+
+### Features
+
+* **core:** add createWarnDeprecation for logger #INFR-399 ([#678](https://github.com/atinc/ngx-tethys/issues/678)) ([9265980](https://github.com/atinc/ngx-tethys/commit/92659802864f2efd9d8606b0172f444ba46d5d84)), closes [#INFR-399](https://github.com/atinc/ngx-tethys/issues/INFR-399)
+
+
+
+## [7.7.7](https://github.com/atinc/ngx-tethys/compare/7.7.6...7.7.7) (2020-04-27)
+
+
+### Bug Fixes
+
+* **date-picker:** fix value empty validate #INFR-388 ([#673](https://github.com/atinc/ngx-tethys/issues/673)) ([2011802](https://github.com/atinc/ngx-tethys/commit/20118022e69d8e7cbd709676edf6c5d7c7af2f0b)), closes [#INFR-388](https://github.com/atinc/ngx-tethys/issues/INFR-388) [#INFR-388](https://github.com/atinc/ngx-tethys/issues/INFR-388)
+
+
+
+## [7.7.6](https://github.com/atinc/ngx-tethys/compare/7.7.5...7.7.6) (2020-04-24)
+
+
+### Bug Fixes
+
+* **radio:** #AE-1777 radio margin bottom ([#668](https://github.com/atinc/ngx-tethys/issues/668)) ([e000624](https://github.com/atinc/ngx-tethys/commit/e000624b8bd9e1dae04a0f72ffd6bd49a72fac20)), closes [#AE-1777](https://github.com/atinc/ngx-tethys/issues/AE-1777) [#AE-1777](https://github.com/atinc/ngx-tethys/issues/AE-1777) [#AE-1777](https://github.com/atinc/ngx-tethys/issues/AE-1777)
+
+
+### Features
+
+* **avatar:** add nameTransform to avatar service for custom name transform #INFR-350 ([b7e8523](https://github.com/atinc/ngx-tethys/commit/b7e8523729ea93c45f24b0b6d2129d1fe3a226de)), closes [#INFR-350](https://github.com/atinc/ngx-tethys/issues/INFR-350)
+
+
+
 ## [7.7.5](https://github.com/atinc/ngx-tethys/compare/7.7.4...7.7.5) (2020-04-23)
 
 

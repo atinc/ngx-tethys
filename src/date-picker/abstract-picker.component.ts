@@ -32,7 +32,7 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
     @Input() @InputBoolean() thyReadonly: boolean;
     @Input() thyOriginClassName: string;
     @Input() thyPanelClassName: string;
-    @Input() thySize: 'lg' | 'md' | 'sm' | 'xs';
+    @Input() thySize: 'lg' | 'md' | 'sm' | 'xs' | 'default' = 'default';
     @Input() thyFormat: string;
     // tslint:disable-next-line: max-line-length
     @Input() thyAutoStartAndEnd = false; // only for range picker, Whether to automatically take the beginning and ending unixTime of the day
@@ -142,7 +142,7 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
         const { value, withTime } = transformDateValue(originalValue);
         this.setValue(value);
         this.setTimePickerState(withTime);
-        this.onlyEmitDate = typeof withTime === undefined;
+        this.onlyEmitDate = typeof withTime === 'undefined';
         this.originWithTime = withTime;
         this.setFormatRule();
         this.cdr.markForCheck();
