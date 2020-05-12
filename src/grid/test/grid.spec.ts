@@ -3,6 +3,10 @@ import { ThyGridModule } from '../grid.module';
 import { NgModule, Component, TemplateRef, ViewChild } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ThyGridComponent } from '../grid.component';
+
+const SizeMap = {
+    sm: 'table-sm'
+};
 @Component({
     selector: 'thy-demo-default-grid',
     template: `
@@ -10,6 +14,7 @@ import { ThyGridComponent } from '../grid.component';
             [thyModel]="model"
             thyRowKey="id"
             [thyTheme]="theme"
+            [thySize]="size"
             [thyWholeRowSelect]="isRowSelect"
             [thyDraggable]="isDraggable"
             [thyClassName]="gridClassName"
@@ -107,6 +112,8 @@ class ThyDemoDefaultGridComponent {
     theme = 'default';
     isLoadingDone = true;
     loadingText = 'loading now';
+    size = 'sm';
+    className = '';
 
     showTotal = false;
     @ViewChild('total') totalTemplate: TemplateRef<any>;
@@ -258,6 +265,13 @@ describe('ThyGrid', () => {
         fixture.detectChanges();
         expect(table.classList.contains('table')).toBe(true);
         expect(table.classList.contains('table-bordered')).toBe(true);
+    });
+
+    it('should have correct class when thySize is sm', () => {
+        testComponent.gridClassName = SizeMap[testComponent.size];
+        fixture.detectChanges();
+        expect(table.classList.contains('table')).toBe(true);
+        expect(table.classList.contains('table-sm')).toBe(true);
     });
 
     it('should have thy-empty component when model is []', () => {

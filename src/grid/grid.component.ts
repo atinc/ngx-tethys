@@ -44,6 +44,10 @@ const themeMap = {
     bordered: 'table-bordered'
 };
 
+const SizeMap = {
+    sm: 'table-sm'
+};
+
 const customType = {
     index: 'index',
     checkbox: 'checkbox',
@@ -129,6 +133,11 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
     set thyTheme(value: ThyGridTheme) {
         this.theme = value;
         this.themeClass = themeMap[value];
+    }
+
+    @Input()
+    set thySize(value: string) {
+        this.className = SizeMap[value] || ' ';
     }
 
     @Input()
