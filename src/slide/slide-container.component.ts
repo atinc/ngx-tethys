@@ -204,6 +204,7 @@ export class ThySlideContainerComponent extends ThyUpperOverlayContainer impleme
     }
 
     ngOnDestroy() {
+        super.destroy();
         this.removeDrawerContainerElementClass();
         this.ngUnsubscribe$.next();
         this.ngUnsubscribe$.complete();

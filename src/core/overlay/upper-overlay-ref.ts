@@ -87,6 +87,16 @@ export abstract class ThyInternalUpperOverlayRef<
             }
         });
 
+        // Dispose overlay when container after destroy
+        containerInstance.containerDestroy.pipe(take(1)).subscribe(() => {
+            if (this.options.disposeWhenClose) {
+                // component element has not been deleted when the component destroy, so use promise wait for component element destroyed
+                Promise.resolve().then(() => {
+                    this.overlayRef.dispose();
+                });
+            }
+        });
+
         overlayRef.detachments().subscribe(() => {
             this._beforeClosed.next(this._result);
             this._beforeClosed.complete();

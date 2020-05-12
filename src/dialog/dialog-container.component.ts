@@ -8,7 +8,8 @@ import {
     Inject,
     EventEmitter,
     ChangeDetectorRef,
-    HostBinding
+    HostBinding,
+    OnDestroy
 } from '@angular/core';
 import { ComponentPortal, CdkPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
@@ -45,7 +46,7 @@ import { map, filter } from 'rxjs/operators';
         '(@dialogContainer.done)': 'onAnimationDone($event)'
     }
 })
-export class ThyDialogContainerComponent extends ThyUpperOverlayContainer {
+export class ThyDialogContainerComponent extends ThyUpperOverlayContainer implements OnDestroy {
     animationOpeningDone: Observable<AnimationEvent>;
     animationClosingDone: Observable<AnimationEvent>;
 
@@ -176,5 +177,9 @@ export class ThyDialogContainerComponent extends ThyUpperOverlayContainer {
     /** Callback, invoked when an animation on the host starts. */
     onAnimationStart(event: AnimationEvent) {
         this.animationStateChanged.emit(event);
+    }
+
+    ngOnDestroy() {
+        super.destroy();
     }
 }
