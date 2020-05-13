@@ -1,4 +1,5 @@
-<table class="table" [ngClass]="[themeClass, className]" [class.table-draggable]="draggable">
+<!-- <table class="table" [ngClass]="[themeClass, className, sizeClass]" [class.table-draggable]="draggable"> -->
+<table class="table" [ngClass]="['table-' + theme, 'table-' + size, className]" [class.table-draggable]="draggable">
   <colgroup>
     <col *ngFor="let column of columns" [width]="column.width" />
   </colgroup>

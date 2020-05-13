@@ -113,9 +113,8 @@ class ThyDemoDefaultGridComponent {
     isLoadingDone = true;
     loadingText = 'loading now';
     size = 'sm';
-    className = '';
-
     showTotal = false;
+
     @ViewChild('total') totalTemplate: TemplateRef<any>;
 
     onRowClick() {
@@ -267,9 +266,31 @@ describe('ThyGrid', () => {
         expect(table.classList.contains('table-bordered')).toBe(true);
     });
 
-    it('should have correct class when thySize is sm', () => {
-        testComponent.gridClassName = SizeMap[testComponent.size];
+    it('should have correct class when thySize is default', () => {
+        testComponent.size = '';
         fixture.detectChanges();
+        expect(table.classList.contains('table')).toBe(true);
+        expect(table.classList.contains('table-default')).toBe(true);
+    });
+
+    it('should have correct class when thySize is sm', () => {
+        testComponent.size = 'sm';
+        fixture.detectChanges();
+        expect(table.classList.contains('table')).toBe(true);
+        expect(table.classList.contains('table-sm')).toBe(true);
+    });
+
+    it('should have correct class when className is class-name', () => {
+        testComponent.gridClassName = 'class-name';
+        fixture.detectChanges();
+        expect(table.classList.contains('class-name')).toBe(true);
+    });
+
+    it('should have correct class when className is class-name,thySize is sm', () => {
+        testComponent.gridClassName = 'class-name';
+        testComponent.size = 'sm';
+        fixture.detectChanges();
+        expect(table.classList.contains('class-name')).toBe(true);
         expect(table.classList.contains('table')).toBe(true);
         expect(table.classList.contains('table-sm')).toBe(true);
     });
