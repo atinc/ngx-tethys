@@ -64,6 +64,12 @@ export class DemoGridSectionComponent implements OnInit {
             default: 'default'
         },
         {
+            property: 'thySize',
+            description: '设置Grid的行高，可选值为[default , sm], 设置sm时行高为44px',
+            type: 'String',
+            default: 'default'
+        },
+        {
             property: 'thyClassName',
             description: '设置Grid中使用的Table的Class',
             type: 'String',
