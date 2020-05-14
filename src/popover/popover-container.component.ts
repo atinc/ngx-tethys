@@ -10,7 +10,8 @@ import {
     ChangeDetectorRef,
     OnInit,
     AfterViewInit,
-    NgZone
+    NgZone,
+    OnDestroy
 } from '@angular/core';
 import { ComponentPortal, TemplatePortal, CdkPortalOutlet } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
@@ -37,7 +38,7 @@ import { ThyClickDispatcher } from '../core/event-dispatchers/click-dispatcher';
         '(@popoverContainer.done)': 'onAnimationDone($event)'
     }
 })
-export class ThyPopoverContainerComponent extends ThyUpperOverlayContainer implements AfterViewInit {
+export class ThyPopoverContainerComponent extends ThyUpperOverlayContainer implements AfterViewInit, OnDestroy {
     @ViewChild(CdkPortalOutlet)
     portalOutlet: CdkPortalOutlet;
 
@@ -123,5 +124,9 @@ export class ThyPopoverContainerComponent extends ThyUpperOverlayContainer imple
         if (this.config.insideClosable) {
             this.insideClicked.emit();
         }
+    }
+
+    ngOnDestroy() {
+        super.destroy();
     }
 }
