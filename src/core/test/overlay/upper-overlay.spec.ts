@@ -1,4 +1,13 @@
-import { ViewChild, Component, ChangeDetectorRef, Injectable, NgModule, Injector } from '@angular/core';
+import {
+    ViewChild,
+    Component,
+    ChangeDetectorRef,
+    Injectable,
+    NgModule,
+    Injector,
+    OnDestroy,
+    ViewContainerRef
+} from '@angular/core';
 import { Observable } from 'rxjs';
 import { CdkPortalOutlet, PortalInjector, ComponentPortal, PortalModule } from '@angular/cdk/portal';
 import { AnimationEvent } from '@angular/animations';
@@ -10,7 +19,7 @@ import {
     OverlayModule,
     Overlay
 } from '@angular/cdk/overlay';
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed, inject, flush, fakeAsync, tick } from '@angular/core/testing';
 
 import { ThyUpperOverlayService, ComponentTypeOrTemplateRef } from '../../overlay/upper-overlay.service';
 import {
@@ -21,12 +30,15 @@ import {
 import { ThyUpperOverlayContainer } from '../../overlay/upper-overlay-container';
 import { ThyUpperOverlayRef, ThyInternalUpperOverlayRef } from '../../overlay/upper-overlay-ref';
 import { helpers } from '../../../util';
-import { Directionality } from '@angular/cdk/bidi';
 import { CommonModule } from '@angular/common';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyClickPositioner } from '../../click-positioner';
 import { map, filter } from 'rxjs/operators';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { ThyDialog } from '../../../dialog';
+
+const overlayWrapperClass = '.cdk-global-overlay-wrapper';
+const dialogPaneClass = '.dialog-overlay-pane';
 
 const testDialogOptions: ThyUpperOverlayOptions = {
     name: 'test-dialog',
@@ -60,7 +72,7 @@ class TestDialogConfig<TData = any> extends ThyUpperOverlayConfig<TData> {
         // '(@dialogContainer.done)': 'onAnimationDone($event)'
     }
 })
-export class TestDialogContainerComponent extends ThyUpperOverlayContainer {
+export class TestDialogContainerComponent extends ThyUpperOverlayContainer implements OnDestroy {
     config: ThyUpperOverlayConfig;
 
     animationOpeningDone: Observable<AnimationEvent>;
@@ -84,6 +96,10 @@ export class TestDialogContainerComponent extends ThyUpperOverlayContainer {
                 return event.phaseName === 'done' && event.toState === 'exit';
             })
         );
+    }
+
+    ngOnDestroy() {
+        super.destroy();
     }
 }
 
@@ -188,6 +204,20 @@ class TestDialogBasicContentComponent {
     constructor(public testDialogRef: TestDialogRef<TestDialogBasicContentComponent>) {}
 }
 
+@Component({
+    selector: 'test-dialog-view-container',
+    template: 'Hello Test Dialog'
+})
+class TestDialogViewContainerComponent {
+    constructor(private dialog: TestDialogService, private viewContainerRef: ViewContainerRef) {}
+
+    open() {
+        this.dialog.open(TestDialogBasicContentComponent, {
+            viewContainerRef: this.viewContainerRef
+        });
+    }
+}
+
 describe('upper-overlay', () => {
     let dialog: TestDialogService;
     let overlayContainer: OverlayContainer;
@@ -196,12 +226,12 @@ describe('upper-overlay', () => {
     beforeEach(async () => {
         TestBed.configureTestingModule({
             imports: [TestDialogModule, NoopAnimationsModule],
-            declarations: [TestDialogBasicContentComponent],
+            declarations: [TestDialogBasicContentComponent, TestDialogViewContainerComponent],
             providers: []
         });
         TestBed.overrideModule(BrowserDynamicTestingModule, {
             set: {
-                entryComponents: [TestDialogBasicContentComponent]
+                entryComponents: [TestDialogBasicContentComponent, TestDialogViewContainerComponent]
             }
         });
 
@@ -228,4 +258,16 @@ describe('upper-overlay', () => {
         expect(dialogRef.componentInstance instanceof TestDialogBasicContentComponent).toBe(true);
         expect(dialogRef.componentInstance.testDialogRef).toBe(dialogRef);
     });
+
+    it(`should destroy overlay when dialog opened with viewContainerRef`, fakeAsync(() => {
+        const fixture = TestBed.createComponent(TestDialogViewContainerComponent);
+        const component = fixture.componentInstance;
+        component.open();
+        expect(overlayContainerElement.querySelector(overlayWrapperClass)).toBeTruthy();
+        expect(overlayContainerElement.querySelector(dialogPaneClass)).toBeTruthy();
+        fixture.destroy();
+        flush();
+        expect(overlayContainerElement.querySelector(overlayWrapperClass)).not.toBeTruthy();
+        expect(overlayContainerElement.querySelector(dialogPaneClass)).not.toBeTruthy();
+    }));
 });

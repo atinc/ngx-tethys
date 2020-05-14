@@ -39,10 +39,7 @@ import { helpers } from '../util';
 
 export type ThyGridTheme = 'default' | 'bordered';
 
-const themeMap = {
-    default: 'table-default',
-    bordered: 'table-bordered'
-};
+export type ThyGridSize = 'default' | 'sm';
 
 const customType = {
     index: 'index',
@@ -71,11 +68,11 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
 
     public columns: ThyGridColumn[] = [];
 
-    public theme = 'default';
-
-    public themeClass = themeMap[this.theme];
+    public theme: ThyGridTheme = 'default';
 
     public className = '';
+
+    public size: ThyGridSize = 'default';
 
     public rowClassName: string | Function;
 
@@ -127,8 +124,12 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
 
     @Input()
     set thyTheme(value: ThyGridTheme) {
-        this.theme = value;
-        this.themeClass = themeMap[value];
+        this.theme = value || this.theme;
+    }
+
+    @Input()
+    set thySize(value: ThyGridSize) {
+        this.size = value || this.size;
     }
 
     @Input()
