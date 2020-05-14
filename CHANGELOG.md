@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.7.9](https://github.com/atinc/ngx-tethys/compare/7.7.8...7.7.9) (2020-05-14)
+
+
+### Bug Fixes
+
+* #INFR-436 ([#684](https://github.com/atinc/ngx-tethys/issues/684)) ([8a2119c](https://github.com/atinc/ngx-tethys/commit/8a2119cb062207b3ec61c7ddc9d5b96618249551)), closes [#INFR-436](https://github.com/atinc/ngx-tethys/issues/INFR-436)
+* **autocomplete:** update delay time(#WIK-1176) ([#687](https://github.com/atinc/ngx-tethys/issues/687)) ([86b091b](https://github.com/atinc/ngx-tethys/commit/86b091b4705badcb0bce0514ad7c9f6214e38bd4)), closes [#WIK-1176](https://github.com/atinc/ngx-tethys/issues/WIK-1176)
+* **date-picker:** fix clear date icon style (#POR-1208) ([ba41902](https://github.com/atinc/ngx-tethys/commit/ba419021340cec65facc3d77eaeda56622100a44)), closes [#POR-1208](https://github.com/atinc/ngx-tethys/issues/POR-1208)
+* **overlay:** fix overlay not dispose when viewContainerRef destroyed ([#685](https://github.com/atinc/ngx-tethys/issues/685)) ([0f3dbdd](https://github.com/atinc/ngx-tethys/commit/0f3dbdd96360292aa0a35c7501a74d8711feec26))
+* **popover:** config width ([#683](https://github.com/atinc/ngx-tethys/issues/683)) ([670aeeb](https://github.com/atinc/ngx-tethys/commit/670aeeb0569e37c13ccc374080611b787693f0d6))
+
+
+### Features
+
+* **grid:** #INFR-441 add thySize(default | sm) to thy-grid ([3852953](https://github.com/atinc/ngx-tethys/commit/385295341623ec016734e77c65522ec7f2c7ab19)), closes [#INFR-441](https://github.com/atinc/ngx-tethys/issues/INFR-441)
+* **thy-alert:** support message is template type#INFR-430 ([a38bdea](https://github.com/atinc/ngx-tethys/commit/a38bdeaff2dae212a9c3e18abcef7f750e6da392)), closes [type#INFR-430](https://github.com/type/issues/INFR-430)
+
+
+
 ## [7.7.8](https://github.com/atinc/ngx-tethys/compare/7.7.7...7.7.8) (2020-04-30)
 
 
