@@ -1,6 +1,6 @@
 import { CdkPortalOutlet, TemplatePortal, ComponentPortal } from '@angular/cdk/portal';
 import { EmbeddedViewRef, ComponentRef, EventEmitter, ChangeDetectorRef } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { ThyUpperOverlayOptions, ThyUpperOverlayConfig } from './upper-overlay.config';
 import { AnimationEvent } from '@angular/animations';
 
@@ -14,6 +14,8 @@ export abstract class ThyUpperOverlayContainer {
     animationState: string;
 
     animationStateChanged = new EventEmitter<AnimationEvent>();
+
+    containerDestroy = new Subject<void>();
 
     abstract config: ThyUpperOverlayConfig;
 
@@ -74,5 +76,9 @@ export abstract class ThyUpperOverlayContainer {
         // Mark the container for check so it can react if the
         // view container is using OnPush change detection.
         this.changeDetectorRef.markForCheck();
+    }
+
+    destroy() {
+        this.containerDestroy.next();
     }
 }
