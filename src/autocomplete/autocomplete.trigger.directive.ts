@@ -188,7 +188,11 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
      * stream every time the option list changes.
      */
     private subscribeToClosingActions(): Subscription {
-        const firstStable = this.ngZone.onStable.asObservable().pipe(take(1));
+        // delay 1000ms to prevent document click to emit at once;
+        const firstStable = this.ngZone.onStable.asObservable().pipe(
+            take(1),
+            delay(1000)
+        );
         const optionChanges = this.autocompleteComponent.options.changes.pipe(
             // Defer emitting to the stream until the next tick, because changing
             // bindings in here will cause "changed after checked" errors.
