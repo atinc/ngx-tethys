@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, ContentChild, TemplateRef, HostBinding } from '@angular/core';
 import { helpers } from '../util';
 import { Dictionary } from '../typings';
+import { isTemplateRef } from '../util/helpers';
 
 type ThyAlertType =
     | 'success'
@@ -19,9 +20,19 @@ type ThyAlertType =
 export class ThyAlertComponent implements OnInit {
     @HostBinding('class') class: string;
 
+    messageTemplate: TemplateRef<HTMLElement>;
+
+    messageText: string;
+
     @Input() thyType: ThyAlertType = 'info';
 
-    @Input() thyMessage: string;
+    @Input() set thyMessage(value: string | TemplateRef<HTMLElement>) {
+        if (value instanceof TemplateRef) {
+            this.messageTemplate = value;
+        } else {
+            this.messageText = value;
+        }
+    }
 
     @Input()
     set thyIcon(value: boolean | string) {

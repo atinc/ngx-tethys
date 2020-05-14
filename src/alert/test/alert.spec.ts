@@ -1,6 +1,6 @@
 import { fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ThyAlertModule } from '../alert.module';
-import { NgModule, Component } from '@angular/core';
+import { NgModule, Component, ViewChild, TemplateRef } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ThyAlertComponent } from '../alert.component';
 import { bypassSanitizeProvider, injectDefaultSvgIconSet } from '../../core/testing/thy-icon';
@@ -117,6 +117,12 @@ describe('ThyAlert', () => {
         expect(iconElement.classList.contains('thy-alert-icon')).toBe(true);
     });
 
+    it('should have correct element when message is template', () => {
+        testComponent.message = testComponent.messageRef;
+        fixture.detectChanges();
+        expect(fixture.debugElement.query(By.css('.message'))).toBeTruthy();
+    });
+
     it('should have close element when thyCloseable is true', () => {
         testComponent.close = true;
         fixture.detectChanges();
@@ -151,13 +157,19 @@ describe('ThyAlert', () => {
                 <a href="javascript:;" thyAlertActionItem class="link-danger">彻底删除</a>
             </ng-template>
         </thy-alert>
+        <ng-template #messageTemplateRef>
+            <div class="message">
+                hello world
+            </div>
+        </ng-template>
     `
 })
 class ThyDemoAlertComponent {
     type = `info`;
-    message = `this is a message`;
+    message: string | TemplateRef<HTMLElement> = `this is a message`;
     icon: string | boolean = true;
     close = false;
+    @ViewChild('messageTemplateRef') messageRef: TemplateRef<HTMLElement>;
 }
 
 @NgModule({

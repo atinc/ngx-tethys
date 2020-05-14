@@ -1,6 +1,9 @@
 <div class="thy-alert-content">
   <thy-icon *ngIf="thyIcon" class="thy-alert-icon" [thyIconName]="thyIcon"></thy-icon>
-  <span *ngIf="thyMessage">{{ thyMessage }}</span>
+  <ng-container *ngIf="messageTemplate">
+    <ng-template *ngTemplateOutlet="messageTemplate"></ng-template>
+  </ng-container>
+  <span *ngIf="messageText">{{ messageText }}</span>
   <div class="thy-alert-operation" *ngIf="alertOperation">
     <ng-container [ngTemplateOutlet]="alertOperation"></ng-container>
   </div>
