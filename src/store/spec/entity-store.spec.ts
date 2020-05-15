@@ -30,6 +30,7 @@ describe('Store: EntityStore', () => {
             });
         }
     }
+
     const initialUsers = [{ uid: 'user-1', name: 'user name-1' }, { uid: 'user-2', name: 'user name-2' }];
 
     it('should get store default value', () => {
@@ -353,6 +354,33 @@ describe('Store: EntityStore', () => {
             tasksEntityStore.clearPagination();
             expect(tasksEntityStore.snapshot.entities).toEqual(initialTasks);
             expect(tasksEntityStore.snapshot.pagination).toEqual(null);
+        });
+    });
+
+    describe('constructor', () => {
+        it('should merge default options', () => {
+            const store = new TasksEntityStore(
+                {
+                    entities: initialTasks
+                },
+                {}
+            );
+            expect(store['options']).toEqual({
+                idKey: '_id'
+            });
+        });
+
+        it('should throw error when idKey is undefined', () => {
+            expect(() => {
+                return new TasksEntityStore(
+                    {
+                        entities: initialTasks
+                    },
+                    {
+                        idKey: undefined
+                    }
+                );
+            }).toThrowError('idKey is required in EntityStore');
         });
     });
 });

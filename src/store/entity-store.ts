@@ -5,7 +5,7 @@ import { mergeReferences, buildReferencesKeyBy, ReferenceArrayExtractAllowKeys }
 import { map } from 'rxjs/operators';
 import { ReferencesIdDictionary, OnCombineRefsFn } from './references';
 
-export interface EntityStoreOptions<TEntity = undefined, TReferences = undefined> {
+export interface EntityStoreOptions<TEntity = unknown, TReferences = unknown> {
     idKey?: string;
     referencesIdKeys?: ReferenceArrayExtractAllowKeys<TReferences>;
 }
@@ -16,7 +16,7 @@ export interface EntityAddOptions {
     autoGotoLastPage?: boolean;
 }
 
-export interface EntityState<TEntity, TReferences = undefined> {
+export interface EntityState<TEntity, TReferences = unknown> {
     pagination?: PaginationInfo;
     entities: TEntity[];
     references?: TReferences;
@@ -25,7 +25,7 @@ export interface EntityState<TEntity, TReferences = undefined> {
 export class EntityStore<
     TState extends EntityState<TEntity, TReferences>,
     TEntity,
-    TReferences = undefined
+    TReferences = unknown
 > extends Store<TState> {
     protected options: EntityStoreOptions<TEntity, TReferences>;
 
@@ -96,7 +96,10 @@ export class EntityStore<
         options: EntityStoreOptions<TEntity, TReferences> = { idKey: '_id' }
     ) {
         super(initialState);
-        this.options = options;
+        this.options = { idKey: '_id', ...options };
+        if (!this.options.idKey) {
+            throw new Error(`idKey is required in EntityStore`);
+        }
         this.buildReferencesIdMap();
     }
 
