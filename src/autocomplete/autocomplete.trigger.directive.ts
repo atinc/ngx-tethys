@@ -177,9 +177,13 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
             this.panelOpened = false;
             this.autocompleteComponent.close();
         });
-        this.autocompleteRef.afterOpened().subscribe(() => {
-            this.closingActionsSubscription = this.subscribeToClosingActions();
-        });
+        // delay 200ms to prevent emit document click rightnow
+        this.autocompleteRef
+            .afterOpened()
+            .pipe(delay(200))
+            .subscribe(() => {
+                this.closingActionsSubscription = this.subscribeToClosingActions();
+            });
         return this.autocompleteRef.getOverlayRef();
     }
 
@@ -188,11 +192,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
      * stream every time the option list changes.
      */
     private subscribeToClosingActions(): Subscription {
-        // delay 200ms to prevent document click to emit at once;
-        const firstStable = this.ngZone.onStable.asObservable().pipe(
-            take(1),
-            delay(200)
-        );
+        const firstStable = this.ngZone.onStable.asObservable().pipe(take(1));
         const optionChanges = this.autocompleteComponent.options.changes.pipe(
             // Defer emitting to the stream until the next tick, because changing
             // bindings in here will cause "changed after checked" errors.
