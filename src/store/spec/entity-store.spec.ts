@@ -370,17 +370,22 @@ describe('Store: EntityStore', () => {
             });
         });
 
-        it('should throw error when idKey is undefined', () => {
-            expect(() => {
-                return new TasksEntityStore(
-                    {
-                        entities: initialTasks
-                    },
-                    {
-                        idKey: undefined
-                    }
-                );
-            }).toThrowError('idKey is required in EntityStore');
+        it('should throw error when idKey is empty', () => {
+            const assertIdKeyError = function(idKeyValue: string) {
+                expect(() => {
+                    return new TasksEntityStore(
+                        {
+                            entities: initialTasks
+                        },
+                        {
+                            idKey: idKeyValue
+                        }
+                    );
+                }).toThrowError('idKey is required in EntityStore');
+            };
+            assertIdKeyError(undefined);
+            assertIdKeyError(null);
+            assertIdKeyError('');
         });
     });
 });
