@@ -54,7 +54,6 @@ describe('input directive', () => {
     it('thySize xs', () => {
         basicTestComponent.thySize = 'xs';
         fixture.detectChanges();
-        console.log(debugElement.nativeElement.classList.contains('form-control-xs'));
         expect(debugElement.nativeElement.classList.contains('form-control-xs')).toBe(true);
     });
 
