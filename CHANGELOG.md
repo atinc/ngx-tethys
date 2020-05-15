@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.7.10](https://github.com/atinc/ngx-tethys/compare/7.7.9...7.7.10) (2020-05-15)
+
+
+### Bug Fixes
+
+* add delay on afterOpend ([#690](https://github.com/atinc/ngx-tethys/issues/690)) ([264f34d](https://github.com/atinc/ngx-tethys/commit/264f34ddcf9a18130e7b29fa524b4bf9654c705f))
+* complete test for idKey is undefined null and empty str #INFR-450 ([e08795e](https://github.com/atinc/ngx-tethys/commit/e08795e39f3b00c2fdb9a3cd5585cf3a77d16184)), closes [#INFR-450](https://github.com/atinc/ngx-tethys/issues/INFR-450)
+
+
+### Features
+
+* **store:** merge default options throw error idKey id empty #INFR-450 ([d6a00f4](https://github.com/atinc/ngx-tethys/commit/d6a00f4ccdb6f18cb17774d0d12a80cfdf729727)), closes [#INFR-450](https://github.com/atinc/ngx-tethys/issues/INFR-450)
+
+
+
 ## [7.7.9](https://github.com/atinc/ngx-tethys/compare/7.7.8...7.7.9) (2020-05-14)
 
 
