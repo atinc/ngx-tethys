@@ -15,6 +15,8 @@ $icon-nav-link-padding-y: 0.282rem;
         text-decoration: none;
         background: $hover-bg-color;
         border-radius: $border-radius;
+        // 统一所有操作active状态下，标签展示
+        visibility: visible !important;
     }
     @include hover {
         color: $hover-color;
