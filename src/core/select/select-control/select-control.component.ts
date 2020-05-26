@@ -89,11 +89,24 @@ export class ThySelectControlComponent implements OnInit {
     }
 
     set thySelectedOptions(value: SelectOptionBase | SelectOptionBase[]) {
-        if (this.selectedOptions === value) {
-            return;
+        let sameValue = false;
+        const oldValue = this.selectedOptions;
+        if (this.isMultiple) {
+            if (oldValue instanceof Array && value instanceof Array && oldValue.length === value.length) {
+                sameValue = value.every((option, index) => option.thyValue === oldValue[index].thyValue);
+            }
+        } else {
+            if (oldValue && value) {
+                sameValue = (oldValue as SelectOptionBase).thyValue === (value as SelectOptionBase).thyValue;
+            }
         }
         this.selectedOptions = value;
         if (this.panelOpened && this.thyShowSearch) {
+            if (!sameValue) {
+                Promise.resolve(null).then(() => {
+                    this.setInputValue('');
+                });
+            }
             this.inputElement.nativeElement.focus();
         }
     }
@@ -233,7 +246,10 @@ export class ThySelectControlComponent implements OnInit {
         }
     }
 
-    handleBackspace(event: Event) {
+    handleBackspace(event: KeyboardEvent & { isComposing: boolean }) {
+        if (event.isComposing) {
+            return;
+        }
         if (this.inputValue.length === 0 && this.selectedOptions instanceof Array) {
             if (this.selectedOptions.length > 0) {
                 this.removeHandle(this.selectedOptions[this.selectedOptions.length - 1], event);

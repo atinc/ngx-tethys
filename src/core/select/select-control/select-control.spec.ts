@@ -29,6 +29,8 @@ import { SelectOptionBase } from '../../option/select-option-base';
             [thySelectedOptions]="selectedOptions"
             [thyAllowClear]="thyAllowClear"
             [thySize]="thySize"
+            [thyIsMultiple]="thyIsMultiple"
+            [thyPanelOpened]="thyPanelOpened"
         ></thy-select-control>
     `
 })
@@ -44,6 +46,10 @@ class BasicSelectControlComponent {
     thyAllowClear = true;
 
     thySize = null;
+
+    thyIsMultiple = false;
+
+    thyPanelOpened = false;
 
     @ViewChild(ThySelectControlComponent)
     selectControlComponent: ThySelectControlComponent;
@@ -148,6 +154,54 @@ describe('ThySelectControl', () => {
                 clearElement = fixture.debugElement.query(By.css('.select-control-clear')).nativeElement;
                 expect(clearElement).toBeTruthy();
             });
+        });
+
+        describe('selected options', () => {
+            let fixture: ComponentFixture<BasicSelectControlComponent>;
+            let selectElement: HTMLElement;
+
+            beforeEach(async(() => {
+                fixture = TestBed.createComponent(BasicSelectControlComponent);
+                fixture.detectChanges();
+                selectElement = fixture.debugElement.query(By.css('.form-control')).nativeElement;
+            }));
+
+            it('should clear input value when selected change', fakeAsync(() => {
+                fixture.componentInstance.thyShowSearch = true;
+                fixture.componentInstance.thyPanelOpened = true;
+                fixture.detectChanges();
+                flush();
+                fixture.detectChanges();
+                const typeValue = 'test';
+                fixture.componentInstance.selectControlComponent.inputValue = typeValue;
+                fixture.detectChanges();
+
+                const selectedOption1: SelectOptionBase = { thyLabelText: '', thyRawValue: {}, thyValue: '1' };
+                fixture.componentInstance.selectedOptions = selectedOption1;
+                fixture.detectChanges();
+                flush();
+                expect(fixture.componentInstance.selectControlComponent.inputValue).toEqual('');
+            }));
+
+            it('should not clear input value when selected reset', fakeAsync(() => {
+                fixture.componentInstance.thyShowSearch = true;
+                fixture.componentInstance.thyPanelOpened = true;
+                fixture.detectChanges();
+                flush();
+                fixture.detectChanges();
+
+                const selectedOption1: SelectOptionBase = { thyLabelText: '', thyRawValue: {}, thyValue: '1' };
+                fixture.componentInstance.selectedOptions = selectedOption1;
+                fixture.detectChanges();
+                flush();
+                const typeValue = 'test';
+                fixture.componentInstance.selectControlComponent.inputValue = typeValue;
+                fixture.detectChanges();
+                fixture.componentInstance.selectedOptions = { ...selectedOption1 };
+                fixture.detectChanges();
+                flush();
+                expect(fixture.componentInstance.selectControlComponent.inputValue).toEqual(typeValue);
+            }));
         });
     });
 });
