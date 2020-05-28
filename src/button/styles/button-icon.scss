@@ -18,7 +18,7 @@ $btn-icon-circle-padding-xs: 4px;
         border: none;
         background: none;
     }
-    @include btn-icon-size-variant($font-size-md, $btn-icon-circle-padding-base, 16px);
+    @include btn-icon-size-variant($font-size-md, $btn-icon-circle-padding-base, 16px, $input-btn-height);
 }
 
 .btn-icon.btn-icon-danger-weak {
@@ -120,15 +120,15 @@ $btn-icon-circle-padding-xs: 4px;
 }
 
 .btn-icon-xs {
-    @include btn-icon-size-variant($font-size-base, $btn-icon-circle-padding-xs, $font-size-base);
+    @include btn-icon-size-variant($font-size-base, $btn-icon-circle-padding-xs, $font-size-base, $input-btn-height-xs);
 }
 
 .btn-icon-sm {
-    @include btn-icon-size-variant($font-size-base, $btn-icon-circle-padding-sm, $font-size-base);
+    @include btn-icon-size-variant($font-size-base, $btn-icon-circle-padding-sm, $font-size-base, $input-btn-height-md - 2);
 }
 
 .btn-icon-lg {
-    @include btn-icon-size-variant($font-size-lg, $btn-icon-circle-padding-lg, $font-size-lg);
+    @include btn-icon-size-variant($font-size-lg, $btn-icon-circle-padding-lg, $font-size-lg, $input-btn-height-lg);
 }
 
 // 属性操作鼠标移上去  btn-icon-circle 样式的变化
