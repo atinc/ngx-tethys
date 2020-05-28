@@ -339,17 +339,17 @@ $label-danger-bg: $danger !default;
 //avatar
 $avatar-sizes: () !default;
 $avatar-sizes: map-merge(
-  (
-    22: 12,
-    24: 12,
-    30: 12,
-    38: 12,
-    48: 14,
-    68: 16,
-    110: 45,
-    160: 50
-  ),
-  $avatar-sizes
+    (
+        22: 12,
+        24: 12,
+        30: 12,
+        38: 12,
+        48: 14,
+        68: 16,
+        110: 45,
+        160: 50
+    ),
+    $avatar-sizes
 );
 // Navs
 $nav-link-disabled-color: $gray-300 !default;
@@ -475,10 +475,10 @@ $notify-close-color: $gray-400 !default;
 $notify-close-hover-color: $gray-600 !default;
 $notify-icon-padding-right: 15px !default;
 $notify-states: (
-  'success': $notify-success,
-  'warning': $notify-warning,
-  'error': $notify-danger,
-  'info': $notify-info
+    'success': $notify-success,
+    'warning': $notify-warning,
+    'error': $notify-danger,
+    'info': $notify-info
 );
 
 //close
@@ -654,10 +654,10 @@ $tooltip-arrow-color: $tooltip-bg !default;
 $alert-padding-y: 0.625rem !default;
 $alert-padding-x: 1.125rem !default;
 $thy-alert-week-colors: (
-  'primary-week': $primary,
-  'success-week': $success,
-  'warning-week': $warning,
-  'danger-week': $danger
+    'primary-week': $primary,
+    'success-week': $success,
+    'warning-week': $warning,
+    'danger-week': $danger
 ) !default;
 $alert-operation-margin-left: 40px !default;
 

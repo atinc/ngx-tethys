@@ -4,153 +4,153 @@ $btn-icon-circle-padding-sm: 7px;
 $btn-icon-circle-padding-xs: 4px;
 
 .btn-icon {
-  padding: 0px;
-  @include btn-link-variant($btn-link-color-default, $primary, none);
-  i,
-  .wtf,
-  .thy-icon {
-    display: inline-block;
-    line-height: 1;
-    margin: 0px;
-  }
-  &:disabled,
-  &.disabled {
-    border: none;
-    background: none;
-  }
-  @include btn-icon-size-variant($font-size-md, $btn-icon-circle-padding-base, 16px, $input-btn-height);
+    padding: 0px;
+    @include btn-link-variant($btn-link-color-default, $primary, none);
+    i,
+    .wtf,
+    .thy-icon {
+        display: inline-block;
+        line-height: 1;
+        margin: 0px;
+    }
+    &:disabled,
+    &.disabled {
+        border: none;
+        background: none;
+    }
+    @include btn-icon-size-variant($font-size-md, $btn-icon-circle-padding-base, 16px, $input-btn-height);
 }
 
 .btn-icon.btn-icon-danger-weak {
-  @include btn-link-variant($gray-500, $danger, none);
+    @include btn-link-variant($gray-500, $danger, none);
 }
 
 .btn-icon-circle {
-  &.btn {
-    border: 0px;
-  }
-  i,
-  .wtf,
-  .thy-icon {
-    transition: border 200ms, padding 200ms;
-    color: $btn-icon-color;
-    border-color: $btn-icon-color;
-    border-width: 1px;
-    border-radius: 50%;
-    line-height: 1;
-    padding: 10px;
-    // font-size: 18px;
-  }
-  span {
-    margin-left: 6px;
-  }
-  &.border-thick {
+    &.btn {
+        border: 0px;
+    }
     i,
     .wtf,
     .thy-icon {
-      border-width: 2px;
+        transition: border 200ms, padding 200ms;
+        color: $btn-icon-color;
+        border-color: $btn-icon-color;
+        border-width: 1px;
+        border-radius: 50%;
+        line-height: 1;
+        padding: 10px;
+        // font-size: 18px;
     }
-    &:not(:hover):not(.invalid).circle-solid {
-      i,
-      .wtf,
-      .thy-icon {
-        color: $btn-icon-thick-solid-color;
-        border-color: $btn-icon-thick-solid-color;
-      }
+    span {
+        margin-left: 6px;
     }
-    &:not(:hover):not(.invalid).circle-dashed {
-      i,
-      .wtf,
-      .thy-icon {
-        color: $btn-icon-thick-dashed-color;
-        border-color: $btn-icon-thick-dashed-color;
-      }
+    &.border-thick {
+        i,
+        .wtf,
+        .thy-icon {
+            border-width: 2px;
+        }
+        &:not(:hover):not(.invalid).circle-solid {
+            i,
+            .wtf,
+            .thy-icon {
+                color: $btn-icon-thick-solid-color;
+                border-color: $btn-icon-thick-solid-color;
+            }
+        }
+        &:not(:hover):not(.invalid).circle-dashed {
+            i,
+            .wtf,
+            .thy-icon {
+                color: $btn-icon-thick-dashed-color;
+                border-color: $btn-icon-thick-dashed-color;
+            }
+        }
     }
-  }
-  @include hover-focus {
-    color: $primary;
-    i,
-    .wtf,
-    .thy-icon {
-      border-color: $primary;
-      color: $primary;
-      border-style: solid;
-    }
-  }
-  &.invalid {
-    color: $danger;
-    i,
-    .wtf,
-    .thy-icon {
-      border-color: $danger;
-      color: $danger;
-    }
-    &:hover,
-    &:focus {
-      i,
-      .wtf,
-      .thy-icon {
+    @include hover-focus {
         color: $primary;
-        border-color: $primary;
-      }
+        i,
+        .wtf,
+        .thy-icon {
+            border-color: $primary;
+            color: $primary;
+            border-style: solid;
+        }
     }
-  }
-  &:not(:hover).circle-dashed {
-    i,
-    .wtf,
-    .thy-icon {
-      border-style: dashed;
+    &.invalid {
+        color: $danger;
+        i,
+        .wtf,
+        .thy-icon {
+            border-color: $danger;
+            color: $danger;
+        }
+        &:hover,
+        &:focus {
+            i,
+            .wtf,
+            .thy-icon {
+                color: $primary;
+                border-color: $primary;
+            }
+        }
     }
-  }
-  &.circle-solid {
-    i,
-    .wtf,
-    .thy-icon {
-      border-style: solid;
+    &:not(:hover).circle-dashed {
+        i,
+        .wtf,
+        .thy-icon {
+            border-style: dashed;
+        }
     }
-  }
+    &.circle-solid {
+        i,
+        .wtf,
+        .thy-icon {
+            border-style: solid;
+        }
+    }
 }
 
 .btn-icon-light {
-  color: $btn-icon-light-color;
+    color: $btn-icon-light-color;
 }
 
 .btn-icon-active {
-  color: $primary;
+    color: $primary;
 }
 
 .btn-icon-xs {
-  @include btn-icon-size-variant($font-size-base, $btn-icon-circle-padding-xs, $font-size-base, $input-btn-height-xs);
+    @include btn-icon-size-variant($font-size-base, $btn-icon-circle-padding-xs, $font-size-base, $input-btn-height-xs);
 }
 
 .btn-icon-sm {
-  @include btn-icon-size-variant($font-size-base, $btn-icon-circle-padding-sm, $font-size-base, $input-btn-height-md - 2);
+    @include btn-icon-size-variant($font-size-base, $btn-icon-circle-padding-sm, $font-size-base, $input-btn-height-md - 2);
 }
 
 .btn-icon-lg {
-  @include btn-icon-size-variant($font-size-lg, $btn-icon-circle-padding-lg, $font-size-lg, $input-btn-height-lg);
+    @include btn-icon-size-variant($font-size-lg, $btn-icon-circle-padding-lg, $font-size-lg, $input-btn-height-lg);
 }
 
 // 属性操作鼠标移上去  btn-icon-circle 样式的变化
 .thy-property-operation {
-  &:hover {
-    .btn-icon-circle {
-      i,
-      .wtf {
-        border: 2px solid $primary;
-        padding: $btn-icon-circle-padding-base - 1px;
-        color: $primary;
-      }
-      &.border-thick {
-        i,
-        .wtf {
-          padding: $btn-icon-circle-padding-base - 1px;
+    &:hover {
+        .btn-icon-circle {
+            i,
+            .wtf {
+                border: 2px solid $primary;
+                padding: $btn-icon-circle-padding-base - 1px;
+                color: $primary;
+            }
+            &.border-thick {
+                i,
+                .wtf {
+                    padding: $btn-icon-circle-padding-base - 1px;
+                }
+                i,
+                .wtf {
+                    padding: $btn-icon-circle-padding-base - 1px;
+                }
+            }
         }
-        i,
-        .wtf {
-          padding: $btn-icon-circle-padding-base - 1px;
-        }
-      }
     }
-  }
 }
