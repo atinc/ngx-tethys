@@ -1,6 +1,9 @@
-# ngx-tethys [![Build Status](https://api.travis-ci.org/atinc/ngx-tethys.svg?branch=master)](https://travis-ci.org/atinc/ngx-tethys)
+# ngx-tethys [![CircleCI](https://circleci.com/gh/atinc/ngx-tethys.svg?style=shield)](https://circleci.com/gh/atinc/ngx-tethys)
 
 >An UI components based on Worktile Design and Angular.
+
+## Notes:
+**This repo is only public, it's a long way from the open source, not recommended in production environment. we do not promise that there will be no breaking changes, use only in worktile.**
 
 # Getting Started
 
@@ -11,10 +14,6 @@ Install ngx-tethys from npm
 ```
 npm install ngx-tethys --save
 ```
-
-## Demo
-
-https://atinc.github.io/ngx-tethys
 
 ## Usage
 
@@ -47,7 +46,7 @@ export class AppModule {
 ## Development
 
 ```
-$ git clone git@github.com:worktile/ngx-tethys.git
+$ git clone git@github.com:atinc/ngx-tethys.git
 $ cd ngx-tethys
 $ npm install
 $ npm run start
