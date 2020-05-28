@@ -39,7 +39,7 @@ import { helpers } from '../util';
 
 export type ThyGridTheme = 'default' | 'bordered';
 
-export type ThyGridSize = 'default' | 'sm';
+export type ThyGridSize = 'sm';
 
 const customType = {
     index: 'index',
@@ -72,7 +72,7 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
 
     public className = '';
 
-    public size: ThyGridSize = 'default';
+    public size: ThyGridSize;
 
     public rowClassName: string | Function;
 
