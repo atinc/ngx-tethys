@@ -29,17 +29,13 @@ import {
     ThyGridEvent
 } from './grid.interface';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
-import {
-    ThyGridColumnComponent,
-    IThyGridColumnParentComponent,
-    THY_GRID_COLUMN_PARENT_COMPONENT
-} from './grid-column.component';
+import { ThyGridColumnComponent, IThyGridColumnParentComponent, THY_GRID_COLUMN_PARENT_COMPONENT } from './grid-column.component';
 import { SortablejsOptions } from 'angular-sortablejs';
 import { helpers } from '../util';
 
 export type ThyGridTheme = 'default' | 'bordered';
 
-export type ThyGridSize = 'sm';
+export type ThyGridSize = 'default' | 'sm';
 
 const customType = {
     index: 'index',
@@ -72,7 +68,7 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
 
     public className = '';
 
-    public size: ThyGridSize;
+    public size: ThyGridSize = 'default';
 
     public rowClassName: string | Function;
 
@@ -198,6 +194,11 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
         this.wholeRowSelect = value;
     }
 
+    @Input()
+    set thyTableTopSpace(value: string) {
+        this.tableTopSpace = value;
+    }
+
     @Input() thyShowHeader = true;
 
     @Input('thyShowTotal') showTotal = false;
@@ -232,6 +233,8 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
     }
 
     @HostBinding('class.thy-grid') isGridClass = true;
+
+    @HostBinding('style.padding-top') tableTopSpace = '';
 
     constructor(private _differs: IterableDiffers) {
         this._bindTrackFn();

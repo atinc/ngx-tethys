@@ -64,6 +64,12 @@ export class DemoGridSectionComponent implements OnInit {
             default: 'default'
         },
         {
+            property: 'thyTableTopSpace',
+            description: '设置Grid距离上方元素的padding-top',
+            type: 'String',
+            default: ''
+        },
+        {
             property: 'thySize',
             description: '设置Grid的行高，可选值为[default , sm], 设置sm时行高为44px',
             type: 'String',

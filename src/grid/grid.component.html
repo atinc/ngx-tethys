@@ -1,18 +1,15 @@
-<table class="table" [ngClass]="['table-' + theme, 'table-' + size, className]" [class.table-draggable]="draggable">
+<table class="table" [ngClass]="['table-' + theme]" [class.table-sm]="size === 'sm'" [class.table-draggable]="draggable">
   <colgroup>
     <col *ngFor="let column of columns" [width]="column.width" />
   </colgroup>
   <thead *ngIf="thyShowHeader">
     <tr>
-      <th *ngFor="let column of columns" [ngClass]="column.headerClassName">
+      <th *ngFor="let column of columns" [ngClass]="column.headerClassName" [style.padding-top]="tableTopSpace + 'px'">
         <ng-container *ngIf="!column.headerTemplateRef">
           {{ column.title }}
         </ng-container>
         <ng-container *ngIf="column.headerTemplateRef">
-          <ng-template
-            [ngTemplateOutlet]="column.headerTemplateRef"
-            [ngTemplateOutletContext]="{ $implicit: column }"
-          ></ng-template>
+          <ng-template [ngTemplateOutlet]="column.headerTemplateRef" [ngTemplateOutletContext]="{ $implicit: column }"></ng-template>
         </ng-container>
       </th>
     </tr>
@@ -38,10 +35,7 @@
         </ng-container>
         <!--template-->
         <ng-container *ngIf="isTemplateRef(column.templateRef)">
-          <ng-template
-            [ngTemplateOutlet]="column.templateRef"
-            [ngTemplateOutletContext]="{ $implicit: row }"
-          ></ng-template>
+          <ng-template [ngTemplateOutlet]="column.templateRef" [ngTemplateOutletContext]="{ $implicit: row }"></ng-template>
         </ng-container>
         <!--not template-->
         <ng-container *ngIf="!isTemplateRef(column.templateRef)">
@@ -112,11 +106,7 @@
   </tbody>
 </table>
 <thy-loading [thyDone]="loadingDone" [thyTip]="loadingText"></thy-loading>
-<div
-  *ngIf="pagination.total > pagination.size"
-  class="thy-grid-footer"
-  [class.thy-grid-footer-has-padding]="theme === 'default'"
->
+<div *ngIf="pagination.total > pagination.size" class="thy-grid-footer" [class.thy-grid-footer-has-padding]="theme === 'default'">
   <thy-pagination
     [thyPageIndex]="pagination.index"
     [thyTotal]="pagination.total"

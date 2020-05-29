@@ -7,29 +7,13 @@
 
     th,
     td {
-        padding: $table-cell-padding;
+        padding: $table-default-cell-padding;
         vertical-align: middle;
-        border-bottom: $table-border-width solid $table-border-color;
-    }
-
-    thead th {
-        vertical-align: bottom;
-        font-weight: 400;
         border-bottom: $table-border-width solid $table-border-color;
     }
 
     .table {
         background-color: $body-bg;
-    }
-}
-
-.table-sm {
-    th,
-    td {
-        padding: $table-sm-cell-padding;
-    }
-    tbody tr {
-        height: $table-sm-cell-height;
     }
 }
 
@@ -50,15 +34,22 @@
 .table-default {
     // @include table-set-padding-space();
 
-    thead {
-        th,
-        td {
-            color: $table-default-head-color;
-        }
-    }
-
     tr {
         height: $table-default-cell-height;
+    }
+
+    thead {
+        tr {
+            height: $table-default-header-cell-height;
+        }
+        th,
+        td {
+            vertical-align: bottom;
+            font-weight: 400;
+            border-bottom: $table-border-width solid $table-border-color;
+            color: $table-default-head-color;
+            padding-bottom: $table-default-header-cell-padding-bottom;
+        }
     }
 }
 
@@ -67,17 +58,28 @@
 
     th,
     td {
-        padding: $table-bordered-padding;
+        // padding: $table-bordered-padding;
         border: $table-border-width solid $table-border-color;
+    }
+
+    tr {
+        height: $table-bordered-cell-height;
     }
 
     thead {
         th,
         td {
             text-align: center;
+            vertical-align: middle;
             color: $table-bordered-head-color;
             background-color: $table-bordered-bg;
         }
+    }
+}
+
+.table-sm {
+    tr {
+        height: $table-sm-cell-height;
     }
 }
 
