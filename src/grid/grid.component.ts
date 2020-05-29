@@ -475,12 +475,26 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
         }
     }
 
+    private _refreshColumns() {
+        const components = this._listOfColumnComponents ? this._listOfColumnComponents.toArray() : [];
+        const _columns = components.map(component => {
+            return {
+                width: component.width,
+                className: component.className
+            };
+        });
+
+        this.columns.forEach((n, i) => {
+            Object.assign(n, _columns[i]);
+        });
+    }
+
     ngOnInit() {
         this.viewportRuler
             .change(200)
             .pipe(takeUntil(this.ngUnsubscribe$))
             .subscribe(() => {
-                this._initializeColumns();
+                this._refreshColumns();
             });
     }
 
