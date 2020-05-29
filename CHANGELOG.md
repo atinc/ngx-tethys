@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [7.8.0](https://github.com/atinc/ngx-tethys/compare/7.7.11...7.8.0) (2020-05-29)
+
+
+### Features
+
+* **styles:** change global font-family and set input-btn line-height as 1.47 for center vertically #INFR-395 ([0123054](https://github.com/atinc/ngx-tethys/commit/0123054172f0e9b3d94a737f7858c5a3bfac29a0)), closes [#INFR-395](https://github.com/atinc/ngx-tethys/issues/INFR-395)
+
+
+
 ## [7.7.11](https://github.com/atinc/ngx-tethys/compare/7.7.10...7.7.11) (2020-05-28)
 
 
