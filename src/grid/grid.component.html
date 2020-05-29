@@ -4,7 +4,7 @@
   </colgroup>
   <thead *ngIf="thyShowHeader">
     <tr>
-      <th *ngFor="let column of columns" [ngClass]="column.headerClassName" [style.padding-top]="tableTopSpace + 'px'">
+      <th *ngFor="let column of columns" [ngClass]="column.headerClassName">
         <ng-container *ngIf="!column.headerTemplateRef">
           {{ column.title }}
         </ng-container>
