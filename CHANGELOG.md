@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.8.2](https://github.com/atinc/ngx-tethys/compare/7.8.1...7.8.2) (2020-06-01)
+
+
+### Bug Fixes
+
+* **nav:** change layout header nav line-height and $icon-vertical-align for icon text vertical center #INFR-536 ([43c5de4](https://github.com/atinc/ngx-tethys/commit/43c5de41ee56d0ffbf6225fbfa8a6c4b0cb5374d)), closes [#INFR-536](https://github.com/atinc/ngx-tethys/issues/INFR-536)
+
+
+
 ## [7.8.1](https://github.com/atinc/ngx-tethys/compare/7.8.0...7.8.1) (2020-06-01)
 
 
