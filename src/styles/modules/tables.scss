@@ -83,6 +83,15 @@
     }
 }
 
+.table-default-sm-bottom-padding {
+    thead {
+        th,
+        td {
+            padding-bottom: $table-default-header-sm-cell-padding-bottom;
+        }
+    }
+}
+
 .table-fixed {
     table-layout: fixed;
 }
