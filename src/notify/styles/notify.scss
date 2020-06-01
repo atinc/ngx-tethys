@@ -33,7 +33,7 @@
             font-size: $font-size-base;
             color: $notify-close-color;
             text-decoration: none;
-            transition: color $transitionDurationNormal;
+            transition: color $transition-duration-normal;
             &:hover {
                 color: $gray-600;
             }

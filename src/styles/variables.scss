@@ -52,9 +52,9 @@ $font-size-lg: 1.25rem !default; // 20px
 $font-size-sm: 0.75rem !default; // 12px
 
 // line-height
-$line-height-base: 1.5 !default;
-$line-height-lg: 1.5 !default;
-$line-height-sm: 1.5 !default;
+$line-height-base: 1.5715 !default;
+$line-height-lg: 1.5715 !default;
+$line-height-sm: 1.5715 !default;
 
 $border-radius: 0.25rem !default;
 $border-radius-lg: 0.3rem !default;
@@ -63,7 +63,7 @@ $border-radius-sm: 0.2rem !default;
 $enable-gradients: false !default;
 $enable-shadows: true !default;
 // transition-duration
-$transitionDurationNormal: 200ms;
+$transition-duration-normal: 200ms !default;
 
 // link
 $link-color: $primary !default;
@@ -73,6 +73,9 @@ $link-hover-decoration: underline !default;
 $link-icon-padding-right: 4px !default;
 // box shadow
 $box-shadow: 0 0 24px rgba(0, 0, 0, 0.18) !default;
+
+// icon
+$icon-vertical-align: -0.157em !default;
 
 // 扩展
 $font-size-md: 1rem !default; // 16px
@@ -300,7 +303,7 @@ $action-menu-padding-y: 10px;
 $action-menu-max-height: 400px !default;
 $action-menu-bg: $white !default;
 $action-menu-item-padding-x: 20px !default;
-$action-menu-item-padding-y: 10px !default;
+$action-menu-item-padding-y: 9px !default;
 $action-menu-item-color: $gray-700 !default;
 $action-menu-item-hover-color: $gray-800 !default;
 $action-menu-item-icon-color: $gray-500 !default;
@@ -364,15 +367,15 @@ $nav-divider-color: $gray-200 !default;
 $nav-border-width: 2px !default;
 $nav-border-bottom: $nav-border-width solid $primary !default;
 $nav-border-left: $nav-border-width solid $primary !default;
-$nav-link-primary-padding-y: 0.844rem !default;
+$nav-link-primary-padding-y: 0.813rem !default; // 高度 50px
 $nav-link-primary-padding-x: 1rem !default;
 $nav-link-primary-right: 20px !default;
 $nav-link-primary-min-width: 80px !default;
-$nav-link-secondary-padding-y: 0.4375rem !default;
+$nav-link-secondary-padding-y: 0.407rem !default; // 高度 38px
 $nav-link-secondary-padding-x: 0rem !default;
 $nav-link-secondary-right: 40px !default;
 $nav-link-secondary-split-right: 60px !default;
-$nav-link-thirdly-padding-y: 0.532rem !default;
+$nav-link-thirdly-padding-y: 0.5rem !default; // 高度 38px
 $nav-link-thirdly-padding-x: 0rem !default;
 $nav-link-thirdly-right: 40px !default;
 $nav-link-thirdly-split-line-height: 15px !default;
@@ -664,6 +667,7 @@ $thy-alert-week-colors: (
 $alert-operation-margin-left: 40px !default;
 
 // list
+$list-item-padding: 0.554rem 10px !default;
 $list-grid-option-margin: 0 25px 25px 0 !default;
 $list-grid-option-width: 150px !default;
 $list-grid-option-height: 120px !default;

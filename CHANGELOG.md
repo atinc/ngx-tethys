@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.8.1](https://github.com/atinc/ngx-tethys/compare/7.8.0...7.8.1) (2020-06-01)
+
+
+### Features
+
+* **styles:** change global line-height from 1.5 to 1.5715 #INFR-536 ([9cdf393](https://github.com/atinc/ngx-tethys/commit/9cdf393493a3a436fc5e55e92c3fb9f0e88dcf49)), closes [#INFR-536](https://github.com/atinc/ngx-tethys/issues/INFR-536)
+
+
+
 # [7.8.0](https://github.com/atinc/ngx-tethys/compare/7.7.11...7.8.0) (2020-05-29)
 
 
