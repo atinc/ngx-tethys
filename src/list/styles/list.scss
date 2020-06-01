@@ -12,7 +12,7 @@
 
 .thy-list-option,
 .thy-list-item {
-    padding: 0.594rem 10px;
+    padding: $list-item-padding;
     @include thy-option-common-layout();
 
     &.cdk-drag,
