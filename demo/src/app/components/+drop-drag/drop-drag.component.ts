@@ -111,7 +111,13 @@ export class DropDragComponent implements OnInit {
         // handle: '.thy-sortable-handle',
         filter: '.thy-sortable-disabled',
         draggable: '.thy-sortable-item',
-        dragClass: 'thy-sortable-drag'
+        dragClass: 'thy-sortable-drag',
+        onStart: (event: any) => {
+            $('body').addClass('thy-dragging-body');
+        },
+        onEnd: () => {
+            $('body').removeClass('thy-dragging-body');
+        }
     };
 
     ngOnInit(): void {}

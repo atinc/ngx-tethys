@@ -34,6 +34,11 @@
                 "glob": "**/*",
                 "input": "demo/src/assets",
                 "output": "/assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@tethys/icons/defs",
+                "output": "/assets/icons/defs/"
               }
             ],
             "styles": ["demo/src/styles.scss"],

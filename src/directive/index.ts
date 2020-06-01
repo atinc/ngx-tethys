@@ -6,3 +6,4 @@ export * from './thy-show';
 export * from './thy-stop-propagation.directive';
 export * from './thy-scroll.directive';
 export * from './thy-copy.directive';
+export * from './thy-drag-drop.directive';

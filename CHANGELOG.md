@@ -2,6 +2,48 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.8.2](https://github.com/atinc/ngx-tethys/compare/7.8.1...7.8.2) (2020-06-01)
+
+
+### Bug Fixes
+
+* **nav:** change layout header nav line-height and $icon-vertical-align for icon text vertical center #INFR-536 ([43c5de4](https://github.com/atinc/ngx-tethys/commit/43c5de41ee56d0ffbf6225fbfa8a6c4b0cb5374d)), closes [#INFR-536](https://github.com/atinc/ngx-tethys/issues/INFR-536)
+
+
+
+## [7.8.1](https://github.com/atinc/ngx-tethys/compare/7.8.0...7.8.1) (2020-06-01)
+
+
+### Features
+
+* **styles:** change global line-height from 1.5 to 1.5715 #INFR-536 ([9cdf393](https://github.com/atinc/ngx-tethys/commit/9cdf393493a3a436fc5e55e92c3fb9f0e88dcf49)), closes [#INFR-536](https://github.com/atinc/ngx-tethys/issues/INFR-536)
+
+
+
+# [7.8.0](https://github.com/atinc/ngx-tethys/compare/7.7.11...7.8.0) (2020-05-29)
+
+
+### Features
+
+* **styles:** change global font-family and set input-btn line-height as 1.47 for center vertically #INFR-395 ([0123054](https://github.com/atinc/ngx-tethys/commit/0123054172f0e9b3d94a737f7858c5a3bfac29a0)), closes [#INFR-395](https://github.com/atinc/ngx-tethys/issues/INFR-395)
+
+
+
+## [7.7.11](https://github.com/atinc/ngx-tethys/compare/7.7.10...7.7.11) (2020-05-28)
+
+
+### Bug Fixes
+
+* **grid:** #INFR-521 先修复头部高度不对问题 ([ec62554](https://github.com/atinc/ngx-tethys/commit/ec6255483ee1f471ad2e35b2a407eb87f4b16652)), closes [#INFR-521](https://github.com/atinc/ngx-tethys/issues/INFR-521)
+* **select:** fix select-control can not clear search text #INFR-511 ([1228c86](https://github.com/atinc/ngx-tethys/commit/1228c86e617c792c4ef774613f39917cbccaca5f)), closes [#INFR-511](https://github.com/atinc/ngx-tethys/issues/INFR-511)
+
+
+### Features
+
+* **icon-nav:** show all icon nav when active#INFR-451 ([9be5955](https://github.com/atinc/ngx-tethys/commit/9be5955b9eb86cc9e6c1aeb630fea4b413c4e726)), closes [active#INFR-451](https://github.com/active/issues/INFR-451)
+
+
+
 ## [7.7.10](https://github.com/atinc/ngx-tethys/compare/7.7.9...7.7.10) (2020-05-15)
 
 
