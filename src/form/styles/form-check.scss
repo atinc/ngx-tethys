@@ -53,7 +53,7 @@ input[type='checkbox'] {
     height: $input-form-check-size;
     border: solid 1px $input-form-check-border-color;
     cursor: pointer;
-    transition: border $transitionDurationNormal;
+    transition: border $transition-duration-normal;
 
     &:not(.form-check-input) {
         position: relative;
@@ -167,7 +167,7 @@ input[type='radio'] {
     margin-left: 10px;
     cursor: pointer;
     color: $input-label-color;
-    transition: color $transitionDurationNormal;
+    transition: color $transition-duration-normal;
     user-select: none;
     // .form-check-inline & {
     //   margin-left: 5px;
