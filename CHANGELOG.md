@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.8.3](https://github.com/atinc/ngx-tethys/compare/7.8.2...7.8.3) (2020-06-01)
+
+
+### Bug Fixes
+
+* **grid:** add viewportRuler refresh column with ([de27123](https://github.com/atinc/ngx-tethys/commit/de27123e609830fc7d198303a7a27ef19d5d847f))
+* **grid:** add viewportRuler refresh column with ([949c953](https://github.com/atinc/ngx-tethys/commit/949c9533f8277f9f65e07b934ff4a91809906e38))
+* **icon:** set default $icon-vertical-align as -0.18em #INFR-536 ([9f80f88](https://github.com/atinc/ngx-tethys/commit/9f80f88026ce9e38fb612b484425296edd6d96d7)), closes [#INFR-536](https://github.com/atinc/ngx-tethys/issues/INFR-536)
+
+
+
 ## [7.8.2](https://github.com/atinc/ngx-tethys/compare/7.8.1...7.8.2) (2020-06-01)
 
 
