@@ -1,8 +1,3 @@
-$btn-icon-circle-padding-lg: 13px;
-$btn-icon-circle-padding-base: 9px;
-$btn-icon-circle-padding-sm: 7px;
-$btn-icon-circle-padding-xs: 4px;
-
 .btn-icon {
     padding: 0px;
     @include btn-link-variant($btn-link-color-default, $primary, none);
@@ -18,7 +13,7 @@ $btn-icon-circle-padding-xs: 4px;
         border: none;
         background: none;
     }
-    @include btn-icon-size-variant($font-size-md, $btn-icon-circle-padding-base, 16px, $input-btn-height);
+    @include btn-icon-size-variant($font-size-md, $btn-icon-circle-padding-base, $font-size-md, $input-btn-height);
 }
 
 .btn-icon.btn-icon-danger-weak {
@@ -32,19 +27,21 @@ $btn-icon-circle-padding-xs: 4px;
     i,
     .wtf,
     .thy-icon {
-        transition: border 200ms, padding 200ms;
         color: $btn-icon-color;
         border-color: $btn-icon-color;
         border-width: 1px;
         border-radius: 50%;
         line-height: 1;
-        padding: 10px;
-        // font-size: 18px;
-        // 圆形按钮的时候去掉 vertical-align， 否则 thy-icon 的图标不在圆形圈中间
-        svg {
-            vertical-align: 0em;
-        }
     }
+
+    .thy-icon {
+        transition: border 200ms, padding 200ms;
+    }
+
+    .wtf {
+        vertical-align: initial;
+    }
+
     span {
         margin-left: 6px;
     }
@@ -142,17 +139,17 @@ $btn-icon-circle-padding-xs: 4px;
             i,
             .wtf {
                 border: 2px solid $primary;
-                padding: $btn-icon-circle-padding-base - 1px;
+                padding: $btn-icon-circle-padding-base - $btn-icon-circle-padding-difference;
                 color: $primary;
             }
             &.border-thick {
                 i,
                 .wtf {
-                    padding: $btn-icon-circle-padding-base - 1px;
+                    padding: $btn-icon-circle-padding-base - $btn-icon-circle-padding-difference;
                 }
                 i,
                 .wtf {
-                    padding: $btn-icon-circle-padding-base - 1px;
+                    padding: $btn-icon-circle-padding-base - $btn-icon-circle-padding-difference;
                 }
             }
         }

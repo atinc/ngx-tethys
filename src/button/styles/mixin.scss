@@ -189,12 +189,12 @@
             i,
             .wtf,
             .thy-icon {
-                padding: $round-padding - 1;
+                padding: $round-padding - $btn-icon-circle-padding-difference;
             }
             @include hover-focus {
                 i,
                 .wtf {
-                    padding: $round-padding - 1;
+                    padding: $round-padding - $btn-icon-circle-padding-difference;
                 }
             }
         }
@@ -203,8 +203,7 @@
             .wtf,
             .thy-icon {
                 border-width: 2px;
-                // border: 2px solid $primary;
-                padding: $round-padding - 1;
+                padding: $round-padding - $btn-icon-circle-padding-difference;
             }
         }
     }
