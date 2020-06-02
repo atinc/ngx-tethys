@@ -75,7 +75,7 @@ $link-icon-padding-right: 4px !default;
 $box-shadow: 0 0 24px rgba(0, 0, 0, 0.18) !default;
 
 // icon
-$icon-vertical-align: -0.18em !default;
+$icon-vertical-align: -0.16em !default;
 
 // 扩展
 $font-size-md: 1rem !default; // 16px
@@ -149,6 +149,15 @@ $btn-link-disabled-color: $gray-400 !default;
 $btn-icon-color: $gray-400 !default; // #cacaca
 $btn-icon-thick-dashed-color: $gray-300 !default; // #ddd
 $btn-icon-thick-solid-color: $gray-400 !default; // #cacaca
+// $btn-icon-circle-padding-lg: 0.8125rem;
+// $btn-icon-circle-padding-base: 0.563rem;
+// $btn-icon-circle-padding-sm: 0.4375rem;
+// $btn-icon-circle-padding-xs: 0.25rem;
+$btn-icon-circle-padding-lg: 13px;
+$btn-icon-circle-padding-base: 8px;
+$btn-icon-circle-padding-sm: 7px;
+$btn-icon-circle-padding-xs: 4px;
+$btn-icon-circle-padding-difference: 1;
 
 // min-width
 $btn-base-min-width: 97px !default;
