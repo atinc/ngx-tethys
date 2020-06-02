@@ -33,6 +33,7 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { ThyGridColumnComponent, IThyGridColumnParentComponent, THY_GRID_COLUMN_PARENT_COMPONENT } from './grid-column.component';
 import { SortablejsOptions } from 'angular-sortablejs';
 import { helpers } from '../util';
+import { $ } from '../typings';
 import { ViewportRuler } from '@angular/cdk/overlay';
 import { takeUntil } from 'rxjs/operators';
 import { mixinUnsubscribe, MixinBase } from '../core';
@@ -91,7 +92,8 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
         dragClass: 'thy-sortable-drag',
         disabled: true,
         onStart: this.onDraggableStart.bind(this),
-        onUpdate: this.onDraggableUpdate.bind(this)
+        onUpdate: this.onDraggableUpdate.bind(this),
+        onEnd: this.onDraggableEnd.bind(this)
     };
 
     public selectedRadioRow: any = null;
@@ -422,6 +424,7 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
     }
 
     public onDraggableStart(event: any) {
+        $('body').addClass('thy-dragging-body');
         this._draggableModel = this.model[event.oldIndex];
         const switchEvent: ThyGridDraggableEvent = {};
     }
@@ -434,6 +437,10 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
             newIndex: event.newIndex
         };
         this.thyOnDraggableChange.emit(dragEvent);
+    }
+
+    private onDraggableEnd() {
+        $('body').removeClass('thy-dragging-body');
     }
 
     public onRowClick(event: Event, row: any) {
