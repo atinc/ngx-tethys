@@ -7,7 +7,7 @@
 
     th,
     td {
-        padding: $table-default-cell-padding;
+        padding: $table-default-header-cell-padding;
         vertical-align: middle;
         border-bottom: $table-border-width solid $table-border-color;
     }
@@ -32,23 +32,26 @@
 }
 
 .table-default {
-    // @include table-set-padding-space();
+    @include table-theme(
+        $table-default-header-cell-height,
+        left,
+        bottom,
+        400,
+        $table-border-width,
+        transparent,
+        $table-border-color,
+        $table-default-head-color,
+        $table-default-header-cell-padding-bottom,
+        $table-default-cell-height
+    );
 
-    tr {
-        height: $table-default-cell-height;
-    }
-
-    thead {
-        tr {
-            height: $table-default-header-cell-height;
-        }
-        th,
-        td {
-            vertical-align: bottom;
-            font-weight: 400;
-            border-bottom: $table-border-width solid $table-border-color;
-            color: $table-default-head-color;
-            padding-bottom: $table-default-header-cell-padding-bottom;
+    &.table-sm {
+        @include table-sm(0, $table-sm-cell-height);
+        thead {
+            th,
+            td {
+                padding-bottom: $table-default-header-sm-cell-padding-bottom;
+            }
         }
     }
 }
@@ -62,25 +65,22 @@
         border: $table-border-width solid $table-border-color;
     }
 
-    tr {
-        height: $table-bordered-cell-height;
-    }
-
-    thead {
-        th,
-        td {
-            text-align: center;
-            vertical-align: middle;
-            color: $table-bordered-head-color;
-            background-color: $table-bordered-bg;
-        }
-    }
+    @include table-theme(
+        $table-bordered-cell-height,
+        center,
+        middle,
+        400,
+        $table-border-width,
+        $table-bordered-bg,
+        $table-border-color,
+        $table-bordered-head-color,
+        0,
+        $table-bordered-cell-height
+    );
 }
 
 .table-sm {
-    tr {
-        height: $table-sm-cell-height;
-    }
+    @include table-sm($table-sm-cell-height, $table-sm-cell-height);
 }
 
 .table-default-sm-bottom-padding {

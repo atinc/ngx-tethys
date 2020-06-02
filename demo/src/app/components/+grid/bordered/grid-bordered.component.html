@@ -2,13 +2,8 @@
   <option value="sm">小</option>
   <option value="default">默认</option>
 </thy-select>
-<thy-select name="paddingTop" thySize="md" style="width:200px;" [(ngModel)]="TopSpace">
-  <option value="10px">10px</option>
-  <option value="20px">20px</option>
-</thy-select>
 <thy-grid
   [thyModel]="model"
-  [thyTableTopSpace]="TopSpace"
   [thySize]="size"
   [thyLoadingDone]="loadingDone"
   thyLoadingText="加载中"

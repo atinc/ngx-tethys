@@ -1,10 +1,4 @@
-<table
-  class="table"
-  [ngClass]="['table-' + theme, className]"
-  [class.table-sm]="size === 'sm'"
-  [class.table-draggable]="draggable"
-  [class.table-default-sm-bottom-padding]="size === 'sm' && theme === 'default'"
->
+<table #table class="table" [ngClass]="[className]" [class.table-draggable]="draggable">
   <colgroup>
     <col *ngFor="let column of columns" [width]="column.width" />
   </colgroup>

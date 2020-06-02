@@ -108,8 +108,6 @@ export class DemoGridBorderedComponent implements OnInit {
 
     public size = 'default';
 
-    public TopSpace: number;
-
     ngOnInit() {
         setTimeout(() => {
             this.loadingDone = true;

@@ -14,7 +14,8 @@ import {
     ContentChildren,
     QueryList,
     OnDestroy,
-    HostBinding
+    HostBinding,
+    ViewChild
 } from '@angular/core';
 import { get, set, isString } from '../util/helpers';
 import {
@@ -32,10 +33,21 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { ThyGridColumnComponent, IThyGridColumnParentComponent, THY_GRID_COLUMN_PARENT_COMPONENT } from './grid-column.component';
 import { SortablejsOptions } from 'angular-sortablejs';
 import { helpers } from '../util';
+import { UpdateHostClassService } from '../shared';
+import { ElementRef } from '@angular/core';
 
 export type ThyGridTheme = 'default' | 'bordered';
 
-export type ThyGridSize = 'default' | 'sm';
+export type ThyGridSize = 'sm';
+
+const gridThemeMap = {
+    default: 'table-default',
+    bordered: 'table-bordered'
+};
+
+const gridSizeMap = {
+    sm: 'table-sm'
+};
 
 const customType = {
     index: 'index',
@@ -51,7 +63,8 @@ const customType = {
         {
             provide: THY_GRID_COLUMN_PARENT_COMPONENT,
             useExisting: ThyGridComponent
-        }
+        },
+        UpdateHostClassService
     ],
     encapsulation: ViewEncapsulation.None
 })
@@ -68,7 +81,7 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
 
     public className = '';
 
-    public size: ThyGridSize = 'default';
+    public size: ThyGridSize;
 
     public rowClassName: string | Function;
 
@@ -106,6 +119,10 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
 
     private _listOfColumnComponents: QueryList<ThyGridColumnComponent>;
 
+    private initialized = false;
+
+    @ViewChild('table') tableElementRef: ElementRef<any>;
+
     @Input()
     set thyModel(value: any) {
         this.model = value || [];
@@ -121,11 +138,13 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
     @Input()
     set thyTheme(value: ThyGridTheme) {
         this.theme = value || this.theme;
+        this._setClass();
     }
 
     @Input()
     set thySize(value: ThyGridSize) {
         this.size = value || this.size;
+        this._setClass();
     }
 
     @Input()
@@ -194,11 +213,6 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
         this.wholeRowSelect = value;
     }
 
-    @Input()
-    set thyTableTopSpace(value: string) {
-        this.tableTopSpace = value;
-    }
-
     @Input() thyShowHeader = true;
 
     @Input('thyShowTotal') showTotal = false;
@@ -234,10 +248,9 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
 
     @HostBinding('class.thy-grid') isGridClass = true;
 
-    @HostBinding('style.padding-top') tableTopSpace = '';
-
-    constructor(private _differs: IterableDiffers) {
+    constructor(private _differs: IterableDiffers, private updateHostClassService: UpdateHostClassService, private elementRef: ElementRef) {
         this._bindTrackFn();
+        // this.updateHostClassService.initializeElement(this.elementRef.nativeElement.firstChild);
     }
 
     private _getSelectionKeys(selections: any) {
@@ -335,6 +348,23 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
             if (this._filter) {
             }
         }
+    }
+
+    private _setClass(first = false) {
+        if (!first && !this.initialized) {
+            return;
+        }
+        const classNames: string[] = [];
+        if (gridSizeMap[this.size]) {
+            classNames.push(gridSizeMap[this.size]);
+        }
+        if (gridThemeMap[this.theme]) {
+            classNames.push(gridThemeMap[this.theme]);
+        }
+        if (gridSizeMap[this.size] === gridSizeMap['sm'] && gridThemeMap[this.theme] === gridThemeMap['default']) {
+            classNames.push('table-default-sm-bottom-padding');
+        }
+        this.updateHostClassService.updateClass(classNames);
     }
 
     public updateColumnSelections(key: string, selections: any): void {
@@ -477,7 +507,11 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
         }
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.updateHostClassService.initializeElement(this.tableElementRef.nativeElement);
+        this._setClass(true);
+        this.initialized = true;
+    }
 
     ngDoCheck() {
         const changes = this._diff.diff(this.model);
