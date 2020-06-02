@@ -53,7 +53,7 @@ $font-size-sm: 0.75rem !default; // 12px
 
 // line-height
 $line-height-base: 1.5715 !default;
-$line-height-lg: 1.5715 !default;
+$line-height-lg: 1.5 !default;
 $line-height-sm: 1.5715 !default;
 
 $border-radius: 0.25rem !default;
@@ -75,7 +75,7 @@ $link-icon-padding-right: 4px !default;
 $box-shadow: 0 0 24px rgba(0, 0, 0, 0.18) !default;
 
 // icon
-$icon-vertical-align: -0.157em !default;
+$icon-vertical-align: -0.18em !default;
 
 // 扩展
 $font-size-md: 1rem !default; // 16px
@@ -99,17 +99,17 @@ $input-btn-height-md: 32px !default;
 $input-btn-height-sm: 28px !default;
 $input-btn-height-xs: 24px !default;
 
-$input-btn-line-height: 1.47 !default;
-$input-btn-line-height-md: 1.47 !default;
-$input-btn-line-height-sm: 1.47 !default;
+$input-btn-line-height: $line-height-base !default;
+$input-btn-line-height-md: $line-height-base !default;
+$input-btn-line-height-sm: $line-height-base !default;
 $input-btn-line-height-lg: $line-height-lg !default;
 
 $input-btn-padding-x: 1.625rem !default;
-$input-btn-padding-y: 0.438rem !default; // 36px
+$input-btn-padding-y: 0.375rem !default; // 36px
 $input-btn-padding-x-md: 1rem !default;
-$input-btn-padding-y-md: 0.313rem !default; // 32px
+$input-btn-padding-y-md: 0.25rem !default; // 32px
 $input-btn-padding-x-sm: 0.5rem !default;
-$input-btn-padding-y-sm: 0.282rem !default;
+$input-btn-padding-y-sm: 0.25rem !default;
 $input-btn-padding-x-lg: 1rem !default;
 $input-btn-padding-y-lg: 0.656rem !default;
 
@@ -131,11 +131,11 @@ $btn-padding-y: $input-btn-padding-y !default; //108*38px
 $btn-padding-x: 1.25rem !default;
 $btn-padding-y-md: $input-btn-padding-y-md !default;
 $btn-padding-x-md: 15px !default; // 1.25rem !default;
-$btn-padding-y-sm: 0.188rem !default; // 70*28px
+$btn-padding-y-sm: 0.125rem !default; // 70*28px
 $btn-padding-x-sm: 15px !default;
 $btn-padding-y-lg: 0.375rem !default;
 $btn-padding-x-lg: 2.215rem !default;
-$btn-padding-y-xs: 0.157rem !default;
+$btn-padding-y-xs: 0.125rem !default;
 $btn-padding-x-xs: 15px !default;
 
 $btn-disabled-color: $gray-400 !default;
@@ -199,9 +199,9 @@ $input-padding-y-md: $input-btn-padding-y-md !default;
 $input-padding-x-sm: $input-padding-x-fixed !default;
 $input-padding-y-sm: $input-btn-padding-y-sm !default;
 $input-padding-x-lg: $input-padding-x-fixed !default;
-$input-padding-y-lg: 0.188rem !default; // 0.188rem 0.875rem
+$input-padding-y-lg: 0.188rem !default;
 $input-padding-x-xs: $input-padding-x-fixed !default;
-$input-padding-y-xs: 0.157rem !default;
+$input-padding-y-xs: 0.125rem !default;
 // input border-radius
 $input-border-radius-xs: 0.25rem !default;
 $input-border-radius-md: 0.25rem !default;
@@ -376,7 +376,7 @@ $nav-link-primary-padding-y: 0.813rem !default; // 高度 50px
 $nav-link-primary-padding-x: 1rem !default;
 $nav-link-primary-right: 20px !default;
 $nav-link-primary-min-width: 80px !default;
-$nav-link-secondary-padding-y: 0.407rem !default; // 高度 38px
+$nav-link-secondary-padding-y: 0.438rem !default; // 高度 38px
 $nav-link-secondary-padding-x: 0rem !default;
 $nav-link-secondary-right: 40px !default;
 $nav-link-secondary-split-right: 60px !default;

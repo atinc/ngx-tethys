@@ -40,6 +40,10 @@ $btn-icon-circle-padding-xs: 4px;
         line-height: 1;
         padding: 10px;
         // font-size: 18px;
+        // 圆形按钮的时候去掉 vertical-align， 否则 thy-icon 的图标不在圆形圈中间
+        svg {
+            vertical-align: 0em;
+        }
     }
     span {
         margin-left: 6px;
