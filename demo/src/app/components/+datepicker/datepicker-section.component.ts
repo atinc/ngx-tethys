@@ -10,6 +10,7 @@ import { DemoDatePickerDirectiveComponent } from './directive/datepicker-directi
 import { DemoDatePickerReadonlyComponent } from './readonly/datepicker-readonly.component';
 import { DemoDatePickerDefaultPickerValueComponent } from './default-picker-value/datepicker-default-picker-value.component';
 import { apiParameters, apiDatePickerParameters, apiRangePickerParameters } from './api-parameters';
+import { DemoDatePickerSuffixIconComponent } from './suffix-icon/datepicker-suffix-icon.component';
 
 @Component({
     encapsulation: ViewEncapsulation.None,
@@ -121,6 +122,23 @@ export class DemoDatePickerNextSectionComponent {
                     type: 'ts',
                     name: 'datepicker-default-picker-value.component.ts',
                     content: require('!!raw-loader!./default-picker-value/datepicker-default-picker-value.component.ts')
+                }
+            ]
+        },
+        {
+            title: '自定义的后缀图标',
+            component: DemoDatePickerSuffixIconComponent,
+            description: ``,
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'datepicker-suffix-icon.component.html',
+                    content: require('!!raw-loader!./suffix-icon/datepicker-suffix-icon.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'datepicker-suffix-icon.component.ts',
+                    content: require('!!raw-loader!./suffix-icon/datepicker-suffix-icon.component.ts')
                 }
             ]
         },

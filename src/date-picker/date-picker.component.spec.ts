@@ -169,6 +169,14 @@ describe('ThyDatePickerComponent', () => {
             expect(getPickerTrigger().classList.contains('form-control-lg')).toBeTruthy();
         });
 
+        it('should support thySuffixIcon', () => {
+            fixture.detectChanges();
+            expect(getPickerTriggerWrapper().querySelector('.thy-icon-angry')).toBeNull();
+            fixtureInstance.thySuffixIcon = 'angry';
+            fixture.detectChanges();
+            expect(getPickerTriggerWrapper().querySelector('.thy-icon-angry')).toBeTruthy();
+        });
+
         it('should support thyOpenChange', () => {
             const thyOpenChange = spyOn(fixtureInstance, 'thyOpenChange');
             fixture.detectChanges();
@@ -294,17 +302,13 @@ describe('ThyDatePickerComponent', () => {
             tick(500);
             fixture.detectChanges();
             expect(queryFromOverlay('.thy-calendar-header .thy-calendar-month-panel')).toBeDefined();
-            expect(
-                queryFromOverlay('.thy-calendar-month-panel-year-select-content').textContent.indexOf('2018') > -1
-            ).toBeTruthy();
+            expect(queryFromOverlay('.thy-calendar-month-panel-year-select-content').textContent.indexOf('2018') > -1).toBeTruthy();
             // Goto previous year
             dispatchMouseEvent(queryFromOverlay('.thy-calendar-month-panel-prev-year-btn'), 'click');
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
-            expect(
-                queryFromOverlay('.thy-calendar-month-panel-year-select-content').textContent.indexOf('2017') > -1
-            ).toBeTruthy();
+            expect(queryFromOverlay('.thy-calendar-month-panel-year-select-content').textContent.indexOf('2017') > -1).toBeTruthy();
             // Goto next year * 2
             dispatchMouseEvent(queryFromOverlay('.thy-calendar-month-panel-next-year-btn'), 'click');
             fixture.detectChanges();
@@ -314,9 +318,7 @@ describe('ThyDatePickerComponent', () => {
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
-            expect(
-                queryFromOverlay('.thy-calendar-month-panel-year-select-content').textContent.indexOf('2019') > -1
-            ).toBeTruthy();
+            expect(queryFromOverlay('.thy-calendar-month-panel-year-select-content').textContent.indexOf('2019') > -1).toBeTruthy();
             // Click to choose a year to change panel
             dispatchMouseEvent(queryFromOverlay('td.thy-calendar-month-panel-selected-cell'), 'click');
             fixture.detectChanges();
@@ -500,9 +502,7 @@ describe('ThyDatePickerComponent', () => {
             fixtureInstance.thyMode = 'month';
             fixture.detectChanges();
             openPickerByClickTrigger();
-            expect(
-                overlayContainerElement.querySelector('.thy-calendar-header .thy-calendar-month-panel')
-            ).toBeDefined();
+            expect(overlayContainerElement.querySelector('.thy-calendar-header .thy-calendar-month-panel')).toBeDefined();
         }));
 
         it('should support thyOnPanelChange', fakeAsync(() => {
@@ -511,10 +511,7 @@ describe('ThyDatePickerComponent', () => {
             openPickerByClickTrigger();
 
             // Click header to month panel
-            dispatchMouseEvent(
-                overlayContainerElement.querySelector('.thy-calendar-header .thy-calendar-month-select'),
-                'click'
-            );
+            dispatchMouseEvent(overlayContainerElement.querySelector('.thy-calendar-header .thy-calendar-month-select'), 'click');
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
@@ -558,8 +555,7 @@ describe('ThyDatePickerComponent', () => {
     ////////////
 
     function getPickerTrigger(): HTMLInputElement {
-        return debugElement.query(By.css('thy-picker input.thy-calendar-picker-input'))
-            .nativeElement as HTMLInputElement;
+        return debugElement.query(By.css('thy-picker input.thy-calendar-picker-input')).nativeElement as HTMLInputElement;
     }
 
     function getPickerTriggerWrapper(): HTMLInputElement {
@@ -616,6 +612,7 @@ describe('ThyDatePickerComponent', () => {
                 [thyPanelClassName]="thyPanelClassName"
                 [thyDefaultPickerValue]="thyDefaultPickerValue"
                 [thySize]="thySize"
+                [thySuffixIcon]="thySuffixIcon"
                 (thyOpenChange)="thyOpenChange($event)"
                 [ngModel]="thyValue"
                 (ngModelChange)="thyOnChange($event)"
@@ -632,11 +629,7 @@ describe('ThyDatePickerComponent', () => {
 
             <!-- Suite 2 -->
             <!-- use another picker to avoid thyOpen's side-effects because thyOpen act as "true" if used -->
-            <thy-date-picker
-                *ngSwitchCase="2"
-                [thyOpen]="thyOpen"
-                (thyOpenChange)="thyOpenChange($event)"
-            ></thy-date-picker>
+            <thy-date-picker *ngSwitchCase="2" [thyOpen]="thyOpen" (thyOpenChange)="thyOpenChange($event)"></thy-date-picker>
 
             <!-- Suite 3 -->
             <thy-date-picker *ngSwitchCase="3" thyOpen [(ngModel)]="modelValue"></thy-date-picker>
@@ -654,6 +647,7 @@ class ThyTestDatePickerComponent {
     thyPlaceHolder: string;
     thyPanelClassName: string;
     thySize: string;
+    thySuffixIcon: string;
     thyValue: Date | null | DateEntry | number;
     thyDefaultPickerValue: Date | number;
     thyDateRender: any;
