@@ -15,7 +15,6 @@ const SizeMap = {
             thyRowKey="id"
             [thyTheme]="theme"
             [thySize]="size"
-            [thyTableTopSpace]="topSpace"
             [thyWholeRowSelect]="isRowSelect"
             [thyDraggable]="isDraggable"
             [thyClassName]="gridClassName"
@@ -115,7 +114,6 @@ class ThyDemoDefaultGridComponent {
     loadingText = 'loading now';
     size = 'sm';
     showTotal = false;
-    topSpace = '10px';
 
     @ViewChild('total') totalTemplate: TemplateRef<any>;
 
@@ -235,12 +233,6 @@ describe('ThyGrid', () => {
         fixture.detectChanges();
         const switchComponent = rows[1].querySelector('thy-switch');
         expect(switchComponent).toBeTruthy();
-    });
-
-    it('should grid have style padding-top=20px when thyTableTopSpace is 20px', () => {
-        testComponent.topSpace = '20px';
-        fixture.detectChanges();
-        expect(fixture.debugElement.query(By.css('thy-grid')).styles['padding-top']).toEqual('20px');
     });
 
     // it('should thy-switch disadled when thyDisabled is true', () => {
