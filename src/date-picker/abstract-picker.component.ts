@@ -1,14 +1,4 @@
-import {
-    ChangeDetectorRef,
-    EventEmitter,
-    Input,
-    OnChanges,
-    OnDestroy,
-    OnInit,
-    Output,
-    SimpleChanges,
-    ViewChild
-} from '@angular/core';
+import { ChangeDetectorRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { Subject } from 'rxjs';
 
@@ -37,6 +27,7 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
     // tslint:disable-next-line: max-line-length
     @Input() thyAutoStartAndEnd = false; // only for range picker, Whether to automatically take the beginning and ending unixTime of the day
     @Input() thyDefaultPickerValue: CompatibleDate | number | null = null;
+    @Input() thySuffixIcon = 'calendar';
 
     @Output() readonly thyOpenChange = new EventEmitter<boolean>();
 
@@ -67,11 +58,7 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if (
-            changes.thyPlaceHolder &&
-            changes.thyPlaceHolder.firstChange &&
-            typeof this.thyPlaceHolder !== 'undefined'
-        ) {
+        if (changes.thyPlaceHolder && changes.thyPlaceHolder.firstChange && typeof this.thyPlaceHolder !== 'undefined') {
             this.isCustomPlaceHolder = true;
         }
     }
