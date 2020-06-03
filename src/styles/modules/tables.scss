@@ -7,29 +7,13 @@
 
     th,
     td {
-        padding: $table-cell-padding;
+        padding: $table-default-header-cell-padding;
         vertical-align: middle;
-        border-bottom: $table-border-width solid $table-border-color;
-    }
-
-    thead th {
-        vertical-align: bottom;
-        font-weight: 400;
         border-bottom: $table-border-width solid $table-border-color;
     }
 
     .table {
         background-color: $body-bg;
-    }
-}
-
-.table-sm {
-    th,
-    td {
-        padding: $table-sm-cell-padding;
-    }
-    tbody tr {
-        height: $table-sm-cell-height;
     }
 }
 
@@ -48,17 +32,27 @@
 }
 
 .table-default {
-    // @include table-set-padding-space();
+    @include table-theme(
+        $table-default-header-cell-height,
+        left,
+        bottom,
+        400,
+        $table-border-width,
+        transparent,
+        $table-border-color,
+        $table-default-head-color,
+        $table-default-header-cell-padding-bottom,
+        $table-default-cell-height
+    );
 
-    thead {
-        th,
-        td {
-            color: $table-default-head-color;
+    &.table-sm {
+        @include table-sm(0, $table-sm-cell-height);
+        thead {
+            th,
+            td {
+                padding-bottom: $table-default-header-sm-cell-padding-bottom;
+            }
         }
-    }
-
-    tr {
-        height: $table-default-cell-height;
     }
 }
 
@@ -67,16 +61,33 @@
 
     th,
     td {
-        padding: $table-bordered-padding;
+        // padding: $table-bordered-padding;
         border: $table-border-width solid $table-border-color;
     }
 
+    @include table-theme(
+        $table-bordered-cell-height,
+        center,
+        middle,
+        400,
+        $table-border-width,
+        $table-bordered-bg,
+        $table-border-color,
+        $table-bordered-head-color,
+        0,
+        $table-bordered-cell-height
+    );
+}
+
+.table-sm {
+    @include table-sm($table-sm-cell-height, $table-sm-cell-height);
+}
+
+.table-default-sm-bottom-padding {
     thead {
         th,
         td {
-            text-align: center;
-            color: $table-bordered-head-color;
-            background-color: $table-bordered-bg;
+            padding-bottom: $table-default-header-sm-cell-padding-bottom;
         }
     }
 }

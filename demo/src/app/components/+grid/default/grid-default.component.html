@@ -1,7 +1,11 @@
+<thy-select name="size" thySize="md" style="width:200px;" [(ngModel)]="size">
+  <option value="sm">小</option>
+  <option value="default">默认</option>
+</thy-select>
 <thy-grid
   [thyModel]="model"
   thyRowKey="id"
-  [thySize]="'sm'"
+  [thySize]="size"
   [thyDraggable]="draggableOptions"
   [thyRowClassName]="gridRowClassName"
   [thyHoverDisplayOperation]="false"

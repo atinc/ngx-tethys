@@ -107,6 +107,8 @@ export class DemoGridDefaultComponent implements OnInit {
         }
     ];
 
+    public size = 'default';
+
     public selections = [];
 
     public pagination = {

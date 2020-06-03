@@ -106,6 +106,8 @@ export class DemoGridBorderedComponent implements OnInit {
 
     public loadingDone = false;
 
+    public size = 'default';
+
     ngOnInit() {
         setTimeout(() => {
             this.loadingDone = true;
