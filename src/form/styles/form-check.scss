@@ -13,8 +13,8 @@
 
 .form-check-input {
     position: absolute;
-    margin-top: 0.3rem;
-    margin-left: -1.25rem;
+    margin-top: $form-check-input-margin-t;
+    margin-left: -$form-check-input-margin-l;
 
     &:disabled ~ .form-check-label {
         color: $input-form-check-disable-color;
@@ -33,12 +33,12 @@
     -ms-flex-align: center;
     align-items: center;
     padding-left: 0;
-    margin-right: 0.75rem;
+    margin-right: $form-check-inline-margin-r;
     // Undo .form-check-input defaults and add some `margin-right`.
     .form-check-input {
         position: relative;
         margin-top: 0;
-        margin-right: 0.3125rem;
+        margin-right: $form-check-inline-input-margin-r;
         margin-left: 0;
     }
 }
