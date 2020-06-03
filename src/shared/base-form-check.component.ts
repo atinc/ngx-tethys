@@ -23,6 +23,10 @@ export class ThyFormCheckBaseComponent implements ControlValueAccessor {
 
     @HostBinding('class.form-check-checked') _isChecked = false;
 
+    @HostBinding('class.form-check-inline-no-label-text') get _isNoText() {
+        return this._isFormCheckInline && !this._labelText;
+    }
+
     @Input()
     set thyInline(value: boolean) {
         this._isFormCheckInline = inputValueToBoolean(value);

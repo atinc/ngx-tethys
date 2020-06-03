@@ -25,6 +25,10 @@
     thyLabelText="选项3"
     [disabled]="model.disabled"
   ></label>
+  <div class="d-flex">
+    <label thyCheckbox [thyInline]="model.checkboxInline" [(ngModel)]="model.checked4" [disabled]="model.disabled"></label>
+    <div>选项4</div>
+  </div>
 
   <div>
     Model :

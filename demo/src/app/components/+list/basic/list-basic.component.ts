@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './list-basic.component.html'
 })
 export class DemoListBasicComponent implements OnInit {
+    checked4: string;
     constructor() {}
 
     ngOnInit() {}

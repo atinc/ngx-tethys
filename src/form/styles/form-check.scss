@@ -181,3 +181,12 @@ input[type='radio'] {
 .form-check-checked > .form-check-label {
     color: $input-label-checked-color;
 }
+
+.form-check-no-label-text {
+    position: relative;
+    vertical-align: text-bottom;
+}
+
+.form-check-inline-no-label-text {
+    margin-right: 0;
+}
