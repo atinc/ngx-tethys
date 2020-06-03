@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.8.4](https://github.com/atinc/ngx-tethys/compare/7.8.3...7.8.4) (2020-06-03)
+
+
+### Bug Fixes
+
+* **button:** fix button icon hover beat and extract variables ([918ad74](https://github.com/atinc/ngx-tethys/commit/918ad7402ca845c74781176230b75ad07e0ab1d4))
+
+
+### Features
+
+* **date-picker:** support thySuffixIcon ([cbbfb8b](https://github.com/atinc/ngx-tethys/commit/cbbfb8b506fd6b581478db00f86aec724b2cdb59))
+* **drag:** update cursor when dragging ([#712](https://github.com/atinc/ngx-tethys/issues/712)) ([e520985](https://github.com/atinc/ngx-tethys/commit/e5209855d1462724c2cffbef318980a83fbcb191))
+
+
+
 ## [7.8.3](https://github.com/atinc/ngx-tethys/compare/7.8.2...7.8.3) (2020-06-01)
 
 
