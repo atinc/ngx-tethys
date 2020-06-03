@@ -159,3 +159,72 @@
         }
     }
 }
+
+@mixin table-theme(
+    $thead-tr-height,
+    $thead-text-align,
+    $thead-vertical-align,
+    $thead-font-weight,
+    $thead-border-bottom-width,
+    $thead-bg,
+    $thead-border-color,
+    $thead-color,
+    $thead-padding-bottom,
+    $tr-height
+) {
+    tr {
+        height: $tr-height;
+    }
+    @include table-set-header(
+        $thead-tr-height,
+        $thead-text-align,
+        $thead-vertical-align,
+        $thead-font-weight,
+        $thead-border-bottom-width,
+        $thead-bg,
+        $thead-border-color,
+        $thead-color,
+        $thead-padding-bottom
+    );
+}
+
+@mixin table-set-header(
+    $thead-tr-height,
+    $thead-text-align,
+    $thead-vertical-align,
+    $thead-font-weight,
+    $thead-border-bottom-width,
+    $thead-bg,
+    $thead-border-color,
+    $thead-color,
+    $thead-padding-bottom
+) {
+    thead {
+        tr {
+            height: $thead-tr-height;
+        }
+        th,
+        td {
+            text-align: $thead-text-align;
+            vertical-align: $thead-vertical-align;
+            background-color: $thead-bg;
+            font-weight: $thead-font-weight;
+            border-bottom: $thead-border-bottom-width solid $thead-border-color;
+            color: $thead-color;
+            padding-bottom: $thead-padding-bottom;
+        }
+    }
+}
+
+@mixin table-sm($table-thead-tr-height, $table-tr-height) {
+    thead {
+        tr {
+            height: $table-thead-tr-height;
+        }
+    }
+    tbody {
+        tr {
+            height: $table-tr-height;
+        }
+    }
+}
