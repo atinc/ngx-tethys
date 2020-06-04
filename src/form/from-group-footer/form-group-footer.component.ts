@@ -12,7 +12,7 @@ export class ThyFormGroupFooterComponent implements OnInit {
 
     @HostBinding('class.row') isHorizontal = true;
 
-    @ContentChild('description', /* TODO: add static flag */ {}) description: TemplateRef<any>;
+    @ContentChild('description', { static: true }) description: TemplateRef<any>;
 
     @Input() thyAlign: ThyFormGroupFooterAlign;
 

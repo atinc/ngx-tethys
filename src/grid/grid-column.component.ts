@@ -61,11 +61,11 @@ export class ThyGridColumnComponent implements OnInit {
 
     @Input() thyDefaultText = '';
 
-    @ContentChild('header', /* TODO: add static flag */ {}) headerTemplateRef: TemplateRef<any>;
+    @ContentChild('header', { static: true }) headerTemplateRef: TemplateRef<any>;
 
-    @ContentChild('cell', /* TODO: add static flag */ {}) cellTemplateRef: TemplateRef<any>;
+    @ContentChild('cell', { static: true }) cellTemplateRef: TemplateRef<any>;
 
-    @ContentChild(TemplateRef, /* TODO: add static flag */ {})
+    @ContentChild(TemplateRef, { static: true })
     set templateRef(value: TemplateRef<any>) {
         if (value) {
             if (!this.headerTemplateRef && !this.cellTemplateRef) {

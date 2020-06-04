@@ -392,8 +392,8 @@ describe('ThyRangePickerComponent', () => {
 })
 class ThyTestRangePickerComponent {
     useSuite: 1 | 2 | 3;
-    @ViewChild('tplDateRender', /* TODO: add static flag */ {}) tplDateRender: TemplateRef<Date>;
-    @ViewChild('tplExtraFooter', /* TODO: add static flag */ {}) tplExtraFooter: TemplateRef<void>;
+    @ViewChild('tplDateRender', { static: true }) tplDateRender: TemplateRef<Date>;
+    @ViewChild('tplExtraFooter', { static: true }) tplExtraFooter: TemplateRef<void>;
 
     thyAllowClear: boolean;
     thyDisabled: boolean;

@@ -59,7 +59,7 @@ export class TestDialogContainerComponent extends ThyUpperOverlayContainer imple
 
     animationClosingDone: Observable<AnimationEvent>;
 
-    @ViewChild(CdkPortalOutlet, /* TODO: add static flag */ {})
+    @ViewChild(CdkPortalOutlet, { static: true })
     portalOutlet: CdkPortalOutlet;
 
     beforeAttachPortal(): void {}

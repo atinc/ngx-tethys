@@ -51,7 +51,7 @@ class BasicSelectComponent {
         { value: 'pasta-6', viewValue: 'Pasta' },
         { value: 'sushi-7', viewValue: 'Sushi' }
     ];
-    @ViewChild(ThyAutocompleteComponent, /* TODO: add static flag */ {}) autocomplete: ThyAutocompleteComponent;
+    @ViewChild(ThyAutocompleteComponent, { static: true }) autocomplete: ThyAutocompleteComponent;
     @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
 
     opened() {

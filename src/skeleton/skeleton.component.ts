@@ -54,7 +54,7 @@ export class ThySkeletonComponent implements OnInit, OnChanges {
 
     @Input() thyLoadingDone = false;
 
-    @ContentChild('content', /* TODO: add static flag */ {})
+    @ContentChild('content', { static: true })
     customTemplate: TemplateRef<any>;
 
     contentTemplates: TemplateRef<any>[] = [];

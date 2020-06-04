@@ -55,12 +55,12 @@ import { injectDefaultSvgIconSet, bypassSanitizeProvider } from '../../core/test
     `
 })
 class ThyDemoMenuComponent {
-    @ViewChild(ThyMenuDividerComponent, /* TODO: add static flag */ {}) divider: ThyMenuDividerComponent;
-    @ViewChild(ThyMenuGroupComponent, /* TODO: add static flag */ {}) group: ThyMenuGroupComponent;
-    @ViewChild(ThyMenuItemComponent, /* TODO: add static flag */ {}) item: ThyMenuItemComponent;
-    @ViewChild(ThyMenuItemIconComponent, /* TODO: add static flag */ {}) icon: ThyMenuItemIconComponent;
-    @ViewChild(ThyMenuItemActionComponent, /* TODO: add static flag */ {}) action: ThyMenuItemActionComponent;
-    @ViewChild(ThyMenuItemNameComponent, /* TODO: add static flag */ {}) name: ThyMenuItemNameComponent;
+    @ViewChild(ThyMenuDividerComponent, { static: true }) divider: ThyMenuDividerComponent;
+    @ViewChild(ThyMenuGroupComponent, { static: true }) group: ThyMenuGroupComponent;
+    @ViewChild(ThyMenuItemComponent, { static: true }) item: ThyMenuItemComponent;
+    @ViewChild(ThyMenuItemIconComponent, { static: true }) icon: ThyMenuItemIconComponent;
+    @ViewChild(ThyMenuItemActionComponent, { static: true }) action: ThyMenuItemActionComponent;
+    @ViewChild(ThyMenuItemNameComponent, { static: true }) name: ThyMenuItemNameComponent;
 
     click() {}
 }

@@ -7,7 +7,7 @@ import { ThyModalService } from './modal.service';
     templateUrl: './modal-header.component.html'
 })
 export class ModalHeaderComponent implements OnInit {
-    @ContentChild(TemplateRef, /* TODO: add static flag */ {})
+    @ContentChild(TemplateRef, { static: true })
     public headerTemplate: TemplateRef<any>;
 
     public isTemplateRef: boolean;

@@ -82,7 +82,7 @@ function buildDataList() {
     encapsulation: ViewEncapsulation.None
 })
 class TestTransferComponent {
-    @ViewChild('comp', /* TODO: add static flag */ {}) comp: ThyTransferComponent;
+    @ViewChild('comp', { static: true }) comp: ThyTransferComponent;
     dataSource: any[] = buildDataList();
     titles = ['Source', 'Target'];
 
@@ -101,7 +101,7 @@ class TestTransferComponent {
     `
 })
 class TestTransferCustomRenderComponent {
-    @ViewChild('comp', /* TODO: add static flag */ {}) comp: ThyTransferComponent;
+    @ViewChild('comp', { static: true }) comp: ThyTransferComponent;
     dataSource: any[] = buildDataList();
 }
 
@@ -110,7 +110,7 @@ class TestTransferCustomRenderComponent {
     encapsulation: ViewEncapsulation.None
 })
 class TestTransferCustomRenderContentComponent {
-    @ViewChild('comp', /* TODO: add static flag */ {}) comp: ThyTransferComponent;
+    @ViewChild('comp', { static: true }) comp: ThyTransferComponent;
     dataSource: any[] = buildDataList();
     titles = ['Source', 'Target'];
 

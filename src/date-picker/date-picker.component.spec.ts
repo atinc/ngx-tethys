@@ -638,7 +638,7 @@ describe('ThyDatePickerComponent', () => {
 })
 class ThyTestDatePickerComponent {
     useSuite: 1 | 2 | 3;
-    @ViewChild('tplDateRender', /* TODO: add static flag */ {}) tplDateRender: TemplateRef<Date>;
+    @ViewChild('tplDateRender', { static: true }) tplDateRender: TemplateRef<Date>;
     // --- Suite 1
     thyAllowClear: boolean;
     thyAutoFocus: boolean;

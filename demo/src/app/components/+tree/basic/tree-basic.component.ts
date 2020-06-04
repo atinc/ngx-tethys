@@ -1,14 +1,14 @@
 import { Component, OnInit, ContentChild, ViewChild } from '@angular/core';
 import * as data from '../tree-mock.json';
 import { ThyTreeNode, ThyTreeComponent, ThyTreeEmitEvent } from 'ngx-tethys';
-import { ThyDragDropEvent, ThyDropPosition } from 'ngx-tethys/drag-drop/drag-drop.class.js';
+import { ThyDragDropEvent, ThyDropPosition } from 'ngx-tethys/drag-drop';
 
 @Component({
     selector: 'app-demo-tree-basic',
     templateUrl: './tree-basic.component.html'
 })
 export class DemoTreeBasicComponent implements OnInit {
-    treeNodes = JSON.parse(JSON.stringify(data.default));
+    treeNodes = JSON.parse(JSON.stringify(data));
 
     addNodes = [];
 
@@ -102,7 +102,7 @@ export class DemoTreeBasicComponent implements OnInit {
     }
 
     add() {
-        this.treeNodes = JSON.parse(JSON.stringify(data.default));
+        this.treeNodes = JSON.parse(JSON.stringify(data));
         this.addNodes.push({
             key: new Date().getTime(),
             title: '新增的部门 ' + this.addNodes.length

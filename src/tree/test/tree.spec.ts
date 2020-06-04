@@ -254,7 +254,7 @@ describe('ThyTreeComponent', () => {
     `
 })
 class TestBasicTreeComponent {
-    @ViewChild('tree', /* TODO: add static flag */ {}) tree: ThyTreeComponent;
+    @ViewChild('tree', { static: true }) tree: ThyTreeComponent;
 
     // mock 不可变数据
     treeNodes = JSON.parse(JSON.stringify(treeNodes));
@@ -301,7 +301,7 @@ export class TestAsyncTreeComponent {
         return { ...item, children: [], expanded: false };
     });
 
-    @ViewChild('tree', /* TODO: add static flag */ {}) treeComponent: ThyTreeComponent;
+    @ViewChild('tree', { static: true }) treeComponent: ThyTreeComponent;
 
     constructor() {}
 

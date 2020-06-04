@@ -33,10 +33,10 @@ class WithViewContainerDirective {
     `
 })
 class WithChildViewContainerComponent {
-    @ViewChild(WithViewContainerDirective, /* TODO: add static flag */ {})
+    @ViewChild(WithViewContainerDirective, { static: true })
     childWithViewContainer: WithViewContainerDirective;
 
-    @ViewChild('openPopoverOrigin', /* TODO: add static flag */ {})
+    @ViewChild('openPopoverOrigin', { static: true })
     openPopoverOrigin: HTMLElement;
 
     get childViewContainer() {
@@ -147,10 +147,10 @@ export class PopoverOutsideClosableComponent {
 
     public popoverRef: ThyPopoverRef<any>;
 
-    @ViewChild('outsideBtn', /* TODO: add static flag */ {})
+    @ViewChild('outsideBtn', { static: true })
     outsideBtn: ElementRef<any>;
 
-    @ViewChild('openBtn', /* TODO: add static flag */ {})
+    @ViewChild('openBtn', { static: true })
     openBtn: ElementRef<any>;
 
     open(origin: HTMLElement, template: TemplateRef<HTMLElement>) {
