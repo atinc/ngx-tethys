@@ -84,12 +84,12 @@ describe('thy-scroll', () => {
     ]
 })
 class ThyScrollViewportComponent implements OnInit {
-    @ViewChild(ThyScrollDirective, /* TODO: add static flag */ { read: false }) thyScrollDirective: ThyScrollDirective;
-    @ViewChild('scrollContainer', /* TODO: add static flag */ { read: false }) scrollContainer: ElementRef<Element>;
-    @ViewChild('firstRowStart', /* TODO: add static flag */ { read: false }) firstRowStart: ElementRef<Element>;
-    @ViewChild('firstRowEnd', /* TODO: add static flag */ { read: false }) firstRowEnd: ElementRef<Element>;
-    @ViewChild('lastRowStart', /* TODO: add static flag */ { read: false }) lastRowStart: ElementRef<Element>;
-    @ViewChild('lastRowEnd', /* TODO: add static flag */ { read: false }) lastRowEnd: ElementRef<Element>;
+    @ViewChild(ThyScrollDirective, { static: true, read: false }) thyScrollDirective: ThyScrollDirective;
+    @ViewChild('scrollContainer', { static: true, read: false }) scrollContainer: ElementRef<Element>;
+    @ViewChild('firstRowStart', { static: true, read: false }) firstRowStart: ElementRef<Element>;
+    @ViewChild('firstRowEnd', { static: true, read: false }) firstRowEnd: ElementRef<Element>;
+    @ViewChild('lastRowStart', { static: true, read: false }) lastRowStart: ElementRef<Element>;
+    @ViewChild('lastRowEnd', { static: true, read: false }) lastRowEnd: ElementRef<Element>;
     thyScrolled = jasmine.createSpy('thyScrolled callback');
     thyEnable = true;
 

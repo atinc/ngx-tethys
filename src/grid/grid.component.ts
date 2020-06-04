@@ -127,7 +127,7 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
 
     private initialized = false;
 
-    @ViewChild('table') tableElementRef: ElementRef<any>;
+    @ViewChild('table', { static: true }) tableElementRef: ElementRef<any>;
 
     @Input()
     set thyModel(value: any) {
@@ -541,7 +541,7 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
         this.updateHostClassService.initializeElement(this.tableElementRef.nativeElement);
         this._setClass(true);
         this.initialized = true;
-      
+
         merge(this.viewportRuler.change(200), of(null).pipe(delay(200)))
             .pipe(takeUntil(this.ngUnsubscribe$))
             .subscribe(() => {
