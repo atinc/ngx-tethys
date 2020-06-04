@@ -1,41 +1,44 @@
-
 import { Component } from '@angular/core';
 import { tap, delay } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 @Component({
     selector: 'demo-radio-section',
-    templateUrl: './radio-section.component.html',
+    templateUrl: './radio-section.component.html'
 })
 export class DemoRadioSectionComponent {
-
     apiParameters = [
         {
             property: 'thyInline',
             description: '同一行展示',
             type: 'Boolean',
             default: 'false'
-        }, {
+        },
+        {
             property: 'thyLabelText',
             description: 'Checkbox Label 文本',
             type: 'String',
             default: ''
-        }, {
+        },
+        {
             property: 'thyLabelTextTranslateKey',
             description: 'Checkbox Label 文本 多语言 key',
             type: 'String',
             default: ''
-        }, {
+        },
+        {
             property: 'thyDisabled',
             description: '禁用',
             type: 'Boolean',
             default: 'false'
-        }, {
+        },
+        {
             property: 'ngModel',
             description: '表单双向绑定的值',
             type: 'Boolean',
             default: ''
-        }, {
+        },
+        {
             property: 'disabled',
             description: '是否禁用，当和 ngModel 配置使用才会有效，如果单独设置禁用使用  thyDisabled',
             type: 'Boolean',
@@ -55,17 +58,20 @@ export class DemoRadioSectionComponent {
             description: '双向绑定值，指定选中的 Radio 的 thyValue 的值',
             type: 'String',
             default: ''
-        }, {
+        },
+        {
             property: 'ngModelChange',
             description: '值发生改变回调函数',
             type: 'String',
             default: ''
-        }, {
+        },
+        {
             property: 'thyDisabled',
             description: '禁用',
             type: 'Boolean',
             default: 'false'
-        }, {
+        },
+        {
             property: 'disabled',
             description: '是否禁用，当和 ngModel 配置使用才会有效，如果单独设置禁用使用  thyDisabled',
             type: 'Boolean',
@@ -73,12 +79,11 @@ export class DemoRadioSectionComponent {
         }
     ];
 
-
-
     model = {
         checked1: true,
         checked2: false,
         checked3: false,
+        checked4: false,
         checkboxInline: false,
         disabled: false,
         groupDisabled: false
@@ -86,8 +91,7 @@ export class DemoRadioSectionComponent {
 
     modelGroup = '1';
 
-    constructor(
-    ) { }
+    constructor() {}
 
     change() {
         console.log(`model change as ${this.model.checked1}`);
