@@ -32,8 +32,11 @@
 }
 
 .table-default {
-    @include table-theme(
-        $table-default-header-cell-height,
+    tr {
+        height: $table-default-cell-height;
+    }
+    @include table-set-header(
+        $table-default-header-height,
         left,
         bottom,
         400,
@@ -41,16 +44,15 @@
         transparent,
         $table-border-color,
         $table-default-head-color,
-        $table-default-header-cell-padding-bottom,
-        $table-default-cell-height
+        $table-default-header-bottom
     );
 
     &.table-sm {
-        @include table-sm(0, $table-sm-cell-height);
+        @include table-size(0, $table-sm-cell-height);
         thead {
             th,
             td {
-                padding-bottom: $table-default-header-sm-cell-padding-bottom;
+                padding-bottom: $table-default-sm-header-bottom;
             }
         }
     }
@@ -58,6 +60,9 @@
 
 .table-bordered {
     border: $table-border-width solid $table-border-color;
+    tr {
+        height: $table-bordered-cell-height;
+    }
 
     th,
     td {
@@ -65,7 +70,7 @@
         border: $table-border-width solid $table-border-color;
     }
 
-    @include table-theme(
+    @include table-set-header(
         $table-bordered-cell-height,
         center,
         middle,
@@ -74,23 +79,22 @@
         $table-bordered-bg,
         $table-border-color,
         $table-bordered-head-color,
-        0,
-        $table-bordered-cell-height
+        0
     );
 }
 
 .table-sm {
-    @include table-sm($table-sm-cell-height, $table-sm-cell-height);
+    @include table-size($table-sm-cell-height, $table-sm-cell-height);
 }
 
-.table-default-sm-bottom-padding {
-    thead {
-        th,
-        td {
-            padding-bottom: $table-default-header-sm-cell-padding-bottom;
-        }
-    }
-}
+// .table-default-sm-bottom-padding {
+//     thead {
+//         th,
+//         td {
+//             padding-bottom: $table-default-sm-header-bottom;
+//         }
+//     }
+// }
 
 .table-fixed {
     table-layout: fixed;

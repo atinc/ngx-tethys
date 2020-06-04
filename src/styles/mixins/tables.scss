@@ -160,34 +160,6 @@
     }
 }
 
-@mixin table-theme(
-    $thead-tr-height,
-    $thead-text-align,
-    $thead-vertical-align,
-    $thead-font-weight,
-    $thead-border-bottom-width,
-    $thead-bg,
-    $thead-border-color,
-    $thead-color,
-    $thead-padding-bottom,
-    $tr-height
-) {
-    tr {
-        height: $tr-height;
-    }
-    @include table-set-header(
-        $thead-tr-height,
-        $thead-text-align,
-        $thead-vertical-align,
-        $thead-font-weight,
-        $thead-border-bottom-width,
-        $thead-bg,
-        $thead-border-color,
-        $thead-color,
-        $thead-padding-bottom
-    );
-}
-
 @mixin table-set-header(
     $thead-tr-height,
     $thead-text-align,
@@ -216,7 +188,7 @@
     }
 }
 
-@mixin table-sm($table-thead-tr-height, $table-tr-height) {
+@mixin table-size($table-thead-tr-height, $table-tr-height) {
     thead {
         tr {
             height: $table-thead-tr-height;
