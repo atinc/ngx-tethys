@@ -10,6 +10,7 @@ export class DemoCheckboxBasicComponent implements OnInit {
         checked2: false,
         checked3: false,
         checked4: false,
+        checked5: false,
         checkboxInline: false,
         disabled: false
     };
