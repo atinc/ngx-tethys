@@ -15,7 +15,8 @@ import {
     QueryList,
     OnDestroy,
     HostBinding,
-    ElementRef
+    ElementRef,
+    ViewChild
 } from '@angular/core';
 import { get, set, isString } from '../util/helpers';
 import {
@@ -35,12 +36,23 @@ import { SortablejsOptions } from 'ngx-sortablejs';
 import { helpers } from '../util';
 import { $ } from '../typings';
 import { ViewportRuler } from '@angular/cdk/overlay';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, delay } from 'rxjs/operators';
 import { mixinUnsubscribe, MixinBase } from '../core';
+import { UpdateHostClassService } from '../shared';
+import { of, merge } from 'rxjs';
 
 export type ThyGridTheme = 'default' | 'bordered';
 
 export type ThyGridSize = 'sm';
+
+const gridThemeMap = {
+    default: 'table-default',
+    bordered: 'table-bordered'
+};
+
+const gridSizeMap = {
+    sm: 'table-sm'
+};
 
 const customType = {
     index: 'index',
@@ -56,7 +68,8 @@ const customType = {
         {
             provide: THY_GRID_COLUMN_PARENT_COMPONENT,
             useExisting: ThyGridComponent
-        }
+        },
+        UpdateHostClassService
     ],
     encapsulation: ViewEncapsulation.None
 })
@@ -112,6 +125,10 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
 
     private _listOfColumnComponents: QueryList<ThyGridColumnComponent>;
 
+    private initialized = false;
+
+    @ViewChild('table') tableElementRef: ElementRef<any>;
+
     @Input()
     set thyModel(value: any) {
         this.model = value || [];
@@ -127,11 +144,13 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
     @Input()
     set thyTheme(value: ThyGridTheme) {
         this.theme = value || this.theme;
+        this._setClass();
     }
 
     @Input()
     set thySize(value: ThyGridSize) {
         this.size = value || this.size;
+        this._setClass();
     }
 
     @Input()
@@ -235,7 +254,12 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
 
     @HostBinding('class.thy-grid') isGridClass = true;
 
-    constructor(private _differs: IterableDiffers, public elementRef: ElementRef, private viewportRuler: ViewportRuler) {
+    constructor(
+        private _differs: IterableDiffers,
+        public elementRef: ElementRef,
+        private viewportRuler: ViewportRuler,
+        private updateHostClassService: UpdateHostClassService
+    ) {
         super();
         this._bindTrackFn();
     }
@@ -328,6 +352,23 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
                 }
             }
         });
+    }
+
+    private _setClass(first = false) {
+        if (!first && !this.initialized) {
+            return;
+        }
+        const classNames: string[] = [];
+        if (gridSizeMap[this.size]) {
+            classNames.push(gridSizeMap[this.size]);
+        }
+        if (gridThemeMap[this.theme]) {
+            classNames.push(gridThemeMap[this.theme]);
+        }
+        if (gridSizeMap[this.size] === gridSizeMap['sm'] && gridThemeMap[this.theme] === gridThemeMap['default']) {
+            classNames.push('table-default-sm-bottom-padding');
+        }
+        this.updateHostClassService.updateClass(classNames);
     }
 
     private _filterModel() {
@@ -497,8 +538,11 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
     }
 
     ngOnInit() {
-        this.viewportRuler
-            .change(200)
+        this.updateHostClassService.initializeElement(this.tableElementRef.nativeElement);
+        this._setClass(true);
+        this.initialized = true;
+      
+        merge(this.viewportRuler.change(200), of(null).pipe(delay(200)))
             .pipe(takeUntil(this.ngUnsubscribe$))
             .subscribe(() => {
                 this._refreshColumns();

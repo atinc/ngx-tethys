@@ -280,6 +280,15 @@ describe('ThyGrid', () => {
         expect(table.classList.contains('table-sm')).toBe(true);
     });
 
+    it('should have correct class when thySize is sm and thyTheme is default', () => {
+        testComponent.size = 'sm';
+        testComponent.theme = 'default';
+        fixture.detectChanges();
+        expect(table.classList.contains('table')).toBe(true);
+        expect(table.classList.contains('table-sm')).toBe(true);
+        expect(table.classList.contains('table-default-sm-bottom-padding')).toBe(true);
+    });
+
     it('should have correct class when className is class-name', () => {
         testComponent.gridClassName = 'class-name';
         fixture.detectChanges();

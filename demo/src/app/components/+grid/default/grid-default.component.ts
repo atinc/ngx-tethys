@@ -124,6 +124,8 @@ export class DemoGridDefaultComponent implements OnInit {
         filter: '.table-draggable-ignore-item'
     };
 
+    public size = 'default';
+
     ngOnInit() {
         this.cloneModel = this.model;
         this.model = this.cloneModel.slice(0, this.pagination.index * this.pagination.size);
