@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.0.0-alpha.0"></a>
+# [8.0.0-alpha.0](https://github.com/atinc/ngx-tethys/compare/7.8.5...8.0.0-alpha.0) (2020-06-04)
+
+
+### Features
+
+* bump angular to 8.2.14 ([#725](https://github.com/atinc/ngx-tethys/issues/725)) ([95f832b](https://github.com/atinc/ngx-tethys/commit/95f832b))
+
+
+
 ## [7.8.5](https://github.com/atinc/ngx-tethys/compare/7.8.4...7.8.5) (2020-06-04)
 
 
