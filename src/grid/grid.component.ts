@@ -36,9 +36,10 @@ import { SortablejsOptions } from 'angular-sortablejs';
 import { helpers } from '../util';
 import { $ } from '../typings';
 import { ViewportRuler } from '@angular/cdk/overlay';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, delay } from 'rxjs/operators';
 import { mixinUnsubscribe, MixinBase } from '../core';
 import { UpdateHostClassService } from '../shared';
+import { of, merge } from 'rxjs';
 
 export type ThyGridTheme = 'default' | 'bordered';
 
@@ -540,8 +541,8 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
         this.updateHostClassService.initializeElement(this.tableElementRef.nativeElement);
         this._setClass(true);
         this.initialized = true;
-        this.viewportRuler
-            .change(200)
+      
+        merge(this.viewportRuler.change(200), of(null).pipe(delay(200)))
             .pipe(takeUntil(this.ngUnsubscribe$))
             .subscribe(() => {
                 this._refreshColumns();
