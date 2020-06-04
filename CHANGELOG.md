@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.8.6](https://github.com/atinc/ngx-tethys/compare/7.8.4...7.8.6) (2020-06-04)
+
+
+### Features
+
+* **checkbox:** #INFR-538 checkbox style ([#719](https://github.com/atinc/ngx-tethys/issues/719)) ([91d91cb](https://github.com/atinc/ngx-tethys/commit/91d91cbfd39ecec8710322367d2a6aba83058c6e)), closes [#INFR-538](https://github.com/atinc/ngx-tethys/issues/INFR-538) [#INFR-538](https://github.com/atinc/ngx-tethys/issues/INFR-538)
+* **grid:** #INFR-520 grid size and theme style ([#720](https://github.com/atinc/ngx-tethys/issues/720)) ([882945f](https://github.com/atinc/ngx-tethys/commit/882945f94b87537d6489e6739e640bbdd56c221f)), closes [#INFR-520](https://github.com/atinc/ngx-tethys/issues/INFR-520) [#INFR-520](https://github.com/atinc/ngx-tethys/issues/INFR-520)
+
+
+
 ## [7.8.5](https://github.com/atinc/ngx-tethys/compare/7.8.4...7.8.5) (2020-06-04)
 
 
