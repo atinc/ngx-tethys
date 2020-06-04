@@ -40,9 +40,9 @@ export class ThyPickerComponent implements AfterViewInit {
     @Output() readonly valueChange = new EventEmitter<TinyDate | TinyDate[] | null>();
     @Output() readonly openChange = new EventEmitter<boolean>(); // Emitted when overlay's open state change
 
-    @ViewChild('origin') origin: CdkOverlayOrigin;
-    @ViewChild(CdkConnectedOverlay) cdkConnectedOverlay: CdkConnectedOverlay;
-    @ViewChild('pickerInput') pickerInput: ElementRef;
+    @ViewChild('origin', { static: true }) origin: CdkOverlayOrigin;
+    @ViewChild(CdkConnectedOverlay, { static: true }) cdkConnectedOverlay: CdkConnectedOverlay;
+    @ViewChild('pickerInput', { static: true }) pickerInput: ElementRef;
 
     prefixCls = 'thy-calendar';
     animationOpenState = false;

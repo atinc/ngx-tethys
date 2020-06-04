@@ -28,7 +28,7 @@ const allColors = [
     templateUrl: './progress-section.component.html'
 })
 export class DemoProgressSectionComponent implements OnInit, AfterViewInit {
-    @ViewChild('customProgressTips') templateTips: TemplateRef<HTMLElement>;
+    @ViewChild('customProgressTips', { static: true }) templateTips: TemplateRef<HTMLElement>;
 
     value = 40;
 

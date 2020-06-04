@@ -6,8 +6,7 @@ import { ModalComponent } from './modal.component';
     templateUrl: './modal-footer.component.html'
 })
 export class ModalFooterComponent implements OnInit {
-
-    @ContentChild('thyModalFooterTemplate')
+    @ContentChild('thyModalFooterTemplate', { static: true })
     public footerTemplate: TemplateRef<any>;
 
     public isTemplateRef: boolean;
@@ -32,9 +31,7 @@ export class ModalFooterComponent implements OnInit {
 
     @Input() thySaveText: string;
 
-    constructor(
-        private modalComponent: ModalComponent
-    ) { }
+    constructor(private modalComponent: ModalComponent) {}
 
     ngOnInit() {
         this.isTemplateRef = this.footerTemplate instanceof TemplateRef;

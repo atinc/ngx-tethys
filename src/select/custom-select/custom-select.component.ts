@@ -41,18 +41,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { helpers } from '../../util';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { SelectControlSize, ScrollToService } from '../../core';
-import {
-    DOWN_ARROW,
-    UP_ARROW,
-    LEFT_ARROW,
-    RIGHT_ARROW,
-    ENTER,
-    SPACE,
-    hasModifierKey,
-    HOME,
-    END,
-    A
-} from '../../util/keycodes';
+import { DOWN_ARROW, UP_ARROW, LEFT_ARROW, RIGHT_ARROW, ENTER, SPACE, hasModifierKey, HOME, END, A } from '../../util/keycodes';
 import { THY_OPTION_PARENT_COMPONENT, IThyOptionParentComponent } from '../../core/option/option.token';
 
 export type SelectMode = 'multiple' | '';
@@ -95,8 +84,7 @@ const noop = () => {};
     ],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ThySelectCustomComponent
-    implements ControlValueAccessor, IThyOptionParentComponent, OnInit, AfterContentInit, OnDestroy {
+export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptionParentComponent, OnInit, AfterContentInit, OnDestroy {
     disabled = false;
 
     size: SelectControlSize;
@@ -143,7 +131,7 @@ export class ThySelectCustomComponent
         );
     }) as Observable<ThyOptionSelectionChangeEvent>;
 
-    @ViewChild(CdkConnectedOverlay) cdkConnectedOverlay: CdkConnectedOverlay;
+    @ViewChild(CdkConnectedOverlay, { static: true }) cdkConnectedOverlay: CdkConnectedOverlay;
 
     @HostBinding('class.thy-select-custom') isSelectCustom = true;
 
@@ -211,11 +199,11 @@ export class ThySelectCustomComponent
 
     @Input() thySortComparator: (a: ThyOptionComponent, b: ThyOptionComponent, options: ThyOptionComponent[]) => number;
 
-    @ContentChild('selectedDisplay') selectedValueDisplayRef: TemplateRef<any>;
+    @ContentChild('selectedDisplay', { static: true }) selectedValueDisplayRef: TemplateRef<any>;
 
-    @ViewChild('trigger', { read: ElementRef }) trigger: ElementRef<any>;
+    @ViewChild('trigger', { read: ElementRef, static: true }) trigger: ElementRef<any>;
 
-    @ViewChild('panel', { read: ElementRef }) panel: ElementRef<any>;
+    @ViewChild('panel', { read: ElementRef, static: false }) panel: ElementRef<any>;
 
     @ContentChildren(ThyOptionComponent, { descendants: true }) options: QueryList<ThyOptionComponent>;
 
@@ -284,17 +272,12 @@ export class ThySelectCustomComponent
     }
 
     ngAfterContentInit() {
-        this.options.changes
-            .pipe(
-                startWith(null),
-                takeUntil(this.destroy$)
-            )
-            .subscribe(() => {
-                this.resetOptions();
-                this.initializeSelection();
-                this.initKeyManager();
-                this.changeDetectorRef.markForCheck();
-            });
+        this.options.changes.pipe(startWith(null), takeUntil(this.destroy$)).subscribe(() => {
+            this.resetOptions();
+            this.initializeSelection();
+            this.initKeyManager();
+            this.changeDetectorRef.markForCheck();
+        });
     }
 
     public get isShowEmptySearchResult(): boolean {
@@ -305,17 +288,11 @@ export class ThySelectCustomComponent
         this.cdkConnectedOverlay.positionChange.pipe(take(1)).subscribe(() => {
             if (this.panel) {
                 if (this.keyManager.activeItem) {
-                    ScrollToService.scrollToElement(
-                        this.keyManager.activeItem.element.nativeElement,
-                        this.panel.nativeElement
-                    );
+                    ScrollToService.scrollToElement(this.keyManager.activeItem.element.nativeElement, this.panel.nativeElement);
                     this.changeDetectorRef.detectChanges();
                 } else {
                     if (!this.empty) {
-                        ScrollToService.scrollToElement(
-                            this.selectionModel.selected[0].element.nativeElement,
-                            this.panel.nativeElement
-                        );
+                        ScrollToService.scrollToElement(this.selectionModel.selected[0].element.nativeElement, this.panel.nativeElement);
                         this.changeDetectorRef.detectChanges();
                     }
                 }
@@ -481,10 +458,7 @@ export class ThySelectCustomComponent
         this.keyManager.change.pipe(takeUntil(this.destroy$)).subscribe(() => {
             if (this.panelOpen && this.panel) {
                 if (this.keyManager.activeItem) {
-                    ScrollToService.scrollToElement(
-                        this.keyManager.activeItem.element.nativeElement,
-                        this.panel.nativeElement
-                    );
+                    ScrollToService.scrollToElement(this.keyManager.activeItem.element.nativeElement, this.panel.nativeElement);
                 }
             } else if (!this.panelOpen && !this.isMultiple && this.keyManager.activeItem) {
                 this.keyManager.activeItem.selectViaInteraction();
@@ -494,8 +468,7 @@ export class ThySelectCustomComponent
 
     private handleClosedKeydown(event: KeyboardEvent): void {
         const keyCode = event.keyCode;
-        const isArrowKey =
-            keyCode === DOWN_ARROW || keyCode === UP_ARROW || keyCode === LEFT_ARROW || keyCode === RIGHT_ARROW;
+        const isArrowKey = keyCode === DOWN_ARROW || keyCode === UP_ARROW || keyCode === LEFT_ARROW || keyCode === RIGHT_ARROW;
         const isOpenKey = keyCode === ENTER || keyCode === SPACE;
         const manager = this.keyManager;
 
@@ -527,11 +500,7 @@ export class ThySelectCustomComponent
             // Close the select on ALT + arrow key to match the native <select>
             event.preventDefault();
             this.close();
-        } else if (
-            (keyCode === ENTER || keyCode === SPACE) &&
-            (manager.activeItem || !this.empty) &&
-            !hasModifierKey(event)
-        ) {
+        } else if ((keyCode === ENTER || keyCode === SPACE) && (manager.activeItem || !this.empty) && !hasModifierKey(event)) {
             event.preventDefault();
             if (!manager.activeItem) {
                 if (manager.activeItemIndex === -1 && !this.empty) {
@@ -569,10 +538,7 @@ export class ThySelectCustomComponent
     }
 
     private getPositions() {
-        this.dropDownPositions = getFlexiblePositions(
-            'bottom',
-            this.isMultiple ? this.defaultMultipleOffset : this.defaultOffset
-        );
+        this.dropDownPositions = getFlexiblePositions('bottom', this.isMultiple ? this.defaultMultipleOffset : this.defaultOffset);
     }
 
     private instanceSelectionModel() {
@@ -584,26 +550,22 @@ export class ThySelectCustomComponent
             this.selectionModelSubscription.unsubscribe();
             this.selectionModelSubscription = null;
         }
-        this.selectionModelSubscription = this.selectionModel.onChange
-            .pipe(takeUntil(this.destroy$))
-            .subscribe(event => {
-                event.added.forEach(option => option.select());
-                event.removed.forEach(option => option.deselect());
-            });
+        this.selectionModelSubscription = this.selectionModel.onChange.pipe(takeUntil(this.destroy$)).subscribe(event => {
+            event.added.forEach(option => option.select());
+            event.removed.forEach(option => option.deselect());
+        });
     }
 
     private resetOptions() {
         const changedOrDestroyed$ = merge(this.options.changes, this.destroy$);
 
-        this.optionSelectionChanges
-            .pipe(takeUntil(changedOrDestroyed$))
-            .subscribe((event: ThyOptionSelectionChangeEvent) => {
-                this.onSelect(event.option, event.isUserInput);
-                if (event.isUserInput && !this.isMultiple && this.panelOpen) {
-                    this.close();
-                    this.focus();
-                }
-            });
+        this.optionSelectionChanges.pipe(takeUntil(changedOrDestroyed$)).subscribe((event: ThyOptionSelectionChangeEvent) => {
+            this.onSelect(event.option, event.isUserInput);
+            if (event.isUserInput && !this.isMultiple && this.panelOpen) {
+                this.close();
+                this.focus();
+            }
+        });
     }
 
     private initializeSelection() {

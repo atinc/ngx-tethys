@@ -51,13 +51,7 @@ describe('thy-scroll', () => {
 
 @Component({
     template: `
-        <div
-            #scrollContainer
-            class="scroll-container"
-            thyScroll
-            (thyOnScrolled)="thyScrolled($event)"
-            [thyEnable]="thyEnable"
-        >
+        <div #scrollContainer class="scroll-container" thyScroll (thyOnScrolled)="thyScrolled($event)" [thyEnable]="thyEnable">
             <div class="row">
                 <div #firstRowStart class="cell"></div>
                 <div #firstRowEnd class="cell"></div>
@@ -90,12 +84,12 @@ describe('thy-scroll', () => {
     ]
 })
 class ThyScrollViewportComponent implements OnInit {
-    @ViewChild(ThyScrollDirective, { read: false }) thyScrollDirective: ThyScrollDirective;
-    @ViewChild('scrollContainer', { read: false }) scrollContainer: ElementRef<Element>;
-    @ViewChild('firstRowStart', { read: false }) firstRowStart: ElementRef<Element>;
-    @ViewChild('firstRowEnd', { read: false }) firstRowEnd: ElementRef<Element>;
-    @ViewChild('lastRowStart', { read: false }) lastRowStart: ElementRef<Element>;
-    @ViewChild('lastRowEnd', { read: false }) lastRowEnd: ElementRef<Element>;
+    @ViewChild(ThyScrollDirective, { static: true, read: false }) thyScrollDirective: ThyScrollDirective;
+    @ViewChild('scrollContainer', { static: true, read: false }) scrollContainer: ElementRef<Element>;
+    @ViewChild('firstRowStart', { static: true, read: false }) firstRowStart: ElementRef<Element>;
+    @ViewChild('firstRowEnd', { static: true, read: false }) firstRowEnd: ElementRef<Element>;
+    @ViewChild('lastRowStart', { static: true, read: false }) lastRowStart: ElementRef<Element>;
+    @ViewChild('lastRowEnd', { static: true, read: false }) lastRowEnd: ElementRef<Element>;
     thyScrolled = jasmine.createSpy('thyScrolled callback');
     thyEnable = true;
 

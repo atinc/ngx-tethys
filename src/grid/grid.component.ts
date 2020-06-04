@@ -32,7 +32,7 @@ import {
 } from './grid.interface';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { ThyGridColumnComponent, IThyGridColumnParentComponent, THY_GRID_COLUMN_PARENT_COMPONENT } from './grid-column.component';
-import { SortablejsOptions } from 'angular-sortablejs';
+import { SortablejsOptions } from 'ngx-sortablejs';
 import { helpers } from '../util';
 import { $ } from '../typings';
 import { ViewportRuler } from '@angular/cdk/overlay';
@@ -127,7 +127,7 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
 
     private initialized = false;
 
-    @ViewChild('table') tableElementRef: ElementRef<any>;
+    @ViewChild('table', { static: true }) tableElementRef: ElementRef<any>;
 
     @Input()
     set thyModel(value: any) {
@@ -541,7 +541,7 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
         this.updateHostClassService.initializeElement(this.tableElementRef.nativeElement);
         this._setClass(true);
         this.initialized = true;
-      
+
         merge(this.viewportRuler.change(200), of(null).pipe(delay(200)))
             .pipe(takeUntil(this.ngUnsubscribe$))
             .subscribe(() => {

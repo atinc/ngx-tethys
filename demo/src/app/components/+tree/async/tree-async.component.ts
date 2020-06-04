@@ -7,13 +7,13 @@ import { ThyTreeNode, ThyTreeComponent, ThyTreeEmitEvent, ThyTreeNodeData } from
     templateUrl: './tree-async.component.html'
 })
 export class DemoTreeAsyncComponent implements OnInit {
-    mockData = data.default as ThyTreeNodeData[];
+    mockData = data as ThyTreeNodeData[];
 
     treeNodes = this.mockData.map(item => {
         return { ...item, children: [], expanded: false };
     });
 
-    @ViewChild('tree') treeComponent: ThyTreeComponent;
+    @ViewChild('tree', { static: true }) treeComponent: ThyTreeComponent;
 
     constructor() {}
 

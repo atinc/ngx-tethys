@@ -42,7 +42,7 @@ class BasicSelectControlComponent {
 
     thyPanelOpened = false;
 
-    @ViewChild(ThySelectControlComponent)
+    @ViewChild(ThySelectControlComponent, { static: true })
     selectControlComponent: ThySelectControlComponent;
 }
 

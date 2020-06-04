@@ -1,24 +1,6 @@
-import {
-    TestBed,
-    async,
-    ComponentFixture,
-    fakeAsync,
-    tick,
-    inject,
-    flush,
-    discardPeriodicTasks
-} from '@angular/core/testing';
+import { TestBed, async, ComponentFixture, fakeAsync, tick, inject, flush, discardPeriodicTasks } from '@angular/core/testing';
 import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
-import {
-    Component,
-    ViewChild,
-    ViewChildren,
-    QueryList,
-    ElementRef,
-    Sanitizer,
-    SecurityContext,
-    DebugElement
-} from '@angular/core';
+import { Component, ViewChild, ViewChildren, QueryList, ElementRef, Sanitizer, SecurityContext, DebugElement } from '@angular/core';
 import { ThyTreeSelectModule } from './module';
 import { By } from '@angular/platform-browser';
 import { UpdateHostClassService } from '../shared';
@@ -128,7 +110,7 @@ class BasicTreeSelectComponent {
 
     thyPlaceholder = '';
 
-    @ViewChild('treeSelect')
+    @ViewChild('treeSelect', { static: true })
     treeSelect: ThyTreeSelectComponent;
 }
 
@@ -227,7 +209,7 @@ class PlaceHolderTreeSelectComponent {
 
     thyPlaceholder = 'this is a placeholder';
 
-    @ViewChild('treeSelect')
+    @ViewChild('treeSelect', { static: true })
     treeSelect: ThyTreeSelectComponent;
 }
 
@@ -323,7 +305,7 @@ class NgModelTreeSelectComponent {
 
     multiple = false;
 
-    @ViewChild('treeSelect')
+    @ViewChild('treeSelect', { static: true })
     treeSelect: ThyTreeSelectComponent;
 }
 
@@ -348,20 +330,17 @@ describe('ThyTreeSelect', () => {
             ]
         }).compileComponents();
 
-        inject(
-            [OverlayContainer, Platform, ThyIconRegistry],
-            (oc: OverlayContainer, p: Platform, iconRegistry: ThyIconRegistry) => {
-                overlayContainer = oc;
-                overlayContainerElement = oc.getContainerElement();
-                platform = p;
-                iconRegistry.addSvgIconLiteral(
-                    'angle-down',
-                    `<svg viewBox="0 0 16 16" id="angle-down" xmlns="http://www.w3.org/2000/svg">
+        inject([OverlayContainer, Platform, ThyIconRegistry], (oc: OverlayContainer, p: Platform, iconRegistry: ThyIconRegistry) => {
+            overlayContainer = oc;
+            overlayContainerElement = oc.getContainerElement();
+            platform = p;
+            iconRegistry.addSvgIconLiteral(
+                'angle-down',
+                `<svg viewBox="0 0 16 16" id="angle-down" xmlns="http://www.w3.org/2000/svg">
                     <path d="M7.978 11.997l-.005.006L2.3 6.33l.83-.831 4.848 4.848L12.826 5.5l.83.83-5.673 5.673-.005-.006z"/>
                 </svg>`
-                );
-            }
-        )();
+            );
+        })();
     }
 
     afterEach(() => {
@@ -455,8 +434,7 @@ describe('ThyTreeSelect', () => {
             expect(fixture.componentInstance.treeSelect.selectedNode).toBe(null);
             const treeSelectShowNode = fixture.debugElement.query(By.css('.select-control-rendered')).nativeElement;
 
-            fixture.componentInstance.objSelectedValue =
-                fixture.componentInstance.nodes[fixture.componentInstance.nodes.length - 1];
+            fixture.componentInstance.objSelectedValue = fixture.componentInstance.nodes[fixture.componentInstance.nodes.length - 1];
             fixture.detectChanges();
             flush();
             fixture.detectChanges();

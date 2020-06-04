@@ -1,17 +1,8 @@
-import {
-    Injectable,
-    TemplateRef,
-    ViewContainerRef,
-    Injector,
-    ApplicationRef,
-    ComponentFactoryResolver,
-    ComponentRef
-} from '@angular/core';
+import { Injectable, TemplateRef, ViewContainerRef, Injector, ApplicationRef, ComponentFactoryResolver, ComponentRef } from '@angular/core';
 import { ThyNotifyOption } from './notify-option.interface';
 import { ThyNotifyContainerComponent } from './notify.container.component';
 import { Subject } from 'rxjs';
 import { DomPortalOutlet, ComponentPortal } from '@angular/cdk/portal';
-import { TData } from '@angular/core/src/render3/interfaces/view';
 
 const NOTIFY_OPTION_DEFAULT = {
     duration: 4500,
@@ -31,11 +22,7 @@ export class ThyNotifyService {
 
     private containerRef: ComponentRef<ThyNotifyContainerComponent>;
 
-    constructor(
-        private injector: Injector,
-        private componentFactoryResolver: ComponentFactoryResolver,
-        private appRef: ApplicationRef
-    ) {}
+    constructor(private injector: Injector, private componentFactoryResolver: ComponentFactoryResolver, private appRef: ApplicationRef) {}
 
     show(option: ThyNotifyOption) {
         this._loadNotifyContainerComponent();
@@ -91,12 +78,7 @@ export class ThyNotifyService {
 
     private _loadNotifyContainerComponent() {
         if (!this.containerRef) {
-            const portalOutlet = new DomPortalOutlet(
-                document.body,
-                this.componentFactoryResolver,
-                this.appRef,
-                this.injector
-            );
+            const portalOutlet = new DomPortalOutlet(document.body, this.componentFactoryResolver, this.appRef, this.injector);
             const componentPortal = new ComponentPortal(ThyNotifyContainerComponent, null);
             this.containerRef = portalOutlet.attachComponentPortal(componentPortal);
             Object.assign(this.containerRef.instance, {

@@ -1,14 +1,4 @@
-import {
-    Component,
-    Injector,
-    ViewContainerRef,
-    ViewChild,
-    Directive,
-    NgModule,
-    TemplateRef,
-    OnInit,
-    ElementRef
-} from '@angular/core';
+import { Component, Injector, ViewContainerRef, ViewChild, Directive, NgModule, TemplateRef, OnInit, ElementRef } from '@angular/core';
 import { Location } from '@angular/common';
 import { OverlayContainer, Overlay, OverlayModule, ScrollStrategy } from '@angular/cdk/overlay';
 import { SpyLocation } from '@angular/common/testing';
@@ -43,10 +33,10 @@ class WithViewContainerDirective {
     `
 })
 class WithChildViewContainerComponent {
-    @ViewChild(WithViewContainerDirective, {})
+    @ViewChild(WithViewContainerDirective, { static: true })
     childWithViewContainer: WithViewContainerDirective;
 
-    @ViewChild('openPopoverOrigin')
+    @ViewChild('openPopoverOrigin', { static: true })
     openPopoverOrigin: HTMLElement;
 
     get childViewContainer() {
@@ -157,10 +147,10 @@ export class PopoverOutsideClosableComponent {
 
     public popoverRef: ThyPopoverRef<any>;
 
-    @ViewChild('outsideBtn')
+    @ViewChild('outsideBtn', { static: true })
     outsideBtn: ElementRef<any>;
 
-    @ViewChild('openBtn')
+    @ViewChild('openBtn', { static: true })
     openBtn: ElementRef<any>;
 
     open(origin: HTMLElement, template: TemplateRef<HTMLElement>) {
@@ -349,10 +339,9 @@ describe(`thyPopover`, () => {
 
             it('apply reposition scroll strategy', () => {
                 btnElement5.click();
-                expect(
-                    viewContainerFixtureManualClosure.componentInstance.popoverRef.getOverlayRef().getConfig()
-                        .scrollStrategy
-                ).toEqual(viewContainerFixtureManualClosure.componentInstance.scrollStrategy);
+                expect(viewContainerFixtureManualClosure.componentInstance.popoverRef.getOverlayRef().getConfig().scrollStrategy).toEqual(
+                    viewContainerFixtureManualClosure.componentInstance.scrollStrategy
+                );
             });
         });
 

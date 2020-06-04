@@ -27,7 +27,7 @@ export class ThyFileSelectComponent implements OnInit, OnDestroy {
 
     @Output() thyOnFileSelect = new EventEmitter();
 
-    @ViewChild('fileInput') fileInput: ElementRef<HTMLInputElement>;
+    @ViewChild('fileInput', { static: true }) fileInput: ElementRef<HTMLInputElement>;
 
     @Input()
     set thyMultiple(value: boolean) {
@@ -63,11 +63,7 @@ export class ThyFileSelectComponent implements OnInit, OnDestroy {
 
     _isInputTypeFile() {
         const nativeElement = this.elementRef.nativeElement;
-        return (
-            nativeElement.tagName.toLowerCase() === 'input' &&
-            nativeElement.type &&
-            nativeElement.type.toLowerCase() === 'file'
-        );
+        return nativeElement.tagName.toLowerCase() === 'input' && nativeElement.type && nativeElement.type.toLowerCase() === 'file';
     }
 
     selectFile($event: Event) {

@@ -126,7 +126,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
 
     @Output() thyOnDragDrop: EventEmitter<ThyTreeDragDropEvent> = new EventEmitter<ThyTreeDragDropEvent>();
 
-    @ContentChild('treeNodeTemplate')
+    @ContentChild('treeNodeTemplate', { static: true })
     set templateRef(template: TemplateRef<any>) {
         if (template) {
             this._templateRef = template;
@@ -137,7 +137,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
         return this._templateRef;
     }
 
-    @ContentChild('emptyChildrenTemplate') emptyChildrenTemplate: TemplateRef<any>;
+    @ContentChild('emptyChildrenTemplate', { static: true }) emptyChildrenTemplate: TemplateRef<any>;
     set emptyChildrenTemplateRef(template: TemplateRef<any>) {
         if (template) {
             this._emptyChildrenTemplateRef = template;
@@ -151,9 +151,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
     @HostBinding('class.thy-tree') thyTreeClass = true;
 
     beforeDragOver = (event: ThyDragOverEvent<ThyTreeNode>) => {
-        return (
-            this.isShowExpand(event.item) || (!this.isShowExpand(event.item) && event.position !== ThyDropPosition.in)
-        );
+        return this.isShowExpand(event.item) || (!this.isShowExpand(event.item) && event.position !== ThyDropPosition.in);
     };
 
     private _onTouched: () => void = () => {};
@@ -248,10 +246,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
                 const targetParent = event.item.parentNode;
                 const index = event.position === ThyDropPosition.before ? 0 : 1;
                 if (targetParent) {
-                    targetParent.addChildren(
-                        event.previousItem.origin,
-                        targetParent.children.indexOf(event.item) + index
-                    );
+                    targetParent.addChildren(event.previousItem.origin, targetParent.children.indexOf(event.item) + index);
                 } else {
                     this.treeNodes.splice(this.treeNodes.indexOf(event.item) + index, 0, event.previousItem);
                 }

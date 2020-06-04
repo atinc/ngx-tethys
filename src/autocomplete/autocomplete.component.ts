@@ -61,11 +61,11 @@ export class ThyAutocompleteComponent extends mixinUnsubscribe(MixinBase)
     /** Manages active item in option list based on key events. */
     keyManager: ActiveDescendantKeyManager<ThyOptionComponent>;
 
-    @ViewChild('contentTemplate')
+    @ViewChild('contentTemplate', { static: true })
     contentTemplateRef: TemplateRef<any>;
 
     // scroll element container
-    @ViewChild('panel')
+    @ViewChild('panel', { static: false })
     optionsContainer: ElementRef<any>;
 
     @ContentChildren(ThyOptionComponent, { descendants: true }) options: QueryList<ThyOptionComponent>;
@@ -92,18 +92,14 @@ export class ThyAutocompleteComponent extends mixinUnsubscribe(MixinBase)
     }
     private _autoActiveFirstOption: boolean;
 
-    @Output() thyOptionSelected: EventEmitter<ThyOptionSelectionChangeEvent> = new EventEmitter<
-        ThyOptionSelectionChangeEvent
-    >();
+    @Output() thyOptionSelected: EventEmitter<ThyOptionSelectionChangeEvent> = new EventEmitter<ThyOptionSelectionChangeEvent>();
 
     @Output() readonly thyOpened: EventEmitter<void> = new EventEmitter<void>();
 
     @Output() readonly thyClosed: EventEmitter<void> = new EventEmitter<void>();
 
     /** Emits whenever an option is activated using the keyboard. */
-    @Output() readonly thyOptionActivated: EventEmitter<ThyAutocompleteActivatedEvent> = new EventEmitter<
-        ThyAutocompleteActivatedEvent
-    >();
+    @Output() readonly thyOptionActivated: EventEmitter<ThyAutocompleteActivatedEvent> = new EventEmitter<ThyAutocompleteActivatedEvent>();
 
     constructor(private ngZone: NgZone, private changeDetectorRef: ChangeDetectorRef) {
         super();
@@ -115,19 +111,14 @@ export class ThyAutocompleteComponent extends mixinUnsubscribe(MixinBase)
     }
 
     ngAfterContentInit() {
-        this.options.changes
-            .pipe(
-                startWith(null),
-                takeUntil(this.ngUnsubscribe$)
-            )
-            .subscribe(() => {
-                this.resetOptions();
-                timer().subscribe(() => {
-                    this.isEmptyOptions = this.options.length <= 0;
-                    this.changeDetectorRef.detectChanges();
-                });
-                this.initKeyManager();
+        this.options.changes.pipe(startWith(null), takeUntil(this.ngUnsubscribe$)).subscribe(() => {
+            this.resetOptions();
+            timer().subscribe(() => {
+                this.isEmptyOptions = this.options.length <= 0;
+                this.changeDetectorRef.detectChanges();
             });
+            this.initKeyManager();
+        });
     }
 
     initKeyManager() {
@@ -152,11 +143,9 @@ export class ThyAutocompleteComponent extends mixinUnsubscribe(MixinBase)
     private resetOptions() {
         const changedOrDestroyed$ = merge(this.options.changes, this.ngUnsubscribe$);
 
-        this.optionSelectionChanges
-            .pipe(takeUntil(changedOrDestroyed$))
-            .subscribe((event: ThyOptionSelectionChangeEvent) => {
-                this.onSelect(event.option, event.isUserInput);
-            });
+        this.optionSelectionChanges.pipe(takeUntil(changedOrDestroyed$)).subscribe((event: ThyOptionSelectionChangeEvent) => {
+            this.onSelect(event.option, event.isUserInput);
+        });
     }
 
     private instanceSelectionModel() {

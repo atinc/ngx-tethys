@@ -22,7 +22,7 @@ export class ThySkeletonBulletListComponent implements OnInit {
 
     items: BulletListItem[] = [];
 
-    @ViewChild('content') contentTemplateRef: TemplateRef<any>;
+    @ViewChild('content', { static: true }) contentTemplateRef: TemplateRef<any>;
 
     constructor(private skeletonComponent: ThySkeletonComponent) {}
 

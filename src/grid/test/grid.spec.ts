@@ -115,7 +115,7 @@ class ThyDemoDefaultGridComponent {
     size = 'sm';
     showTotal = false;
 
-    @ViewChild('total') totalTemplate: TemplateRef<any>;
+    @ViewChild('total', { static: true }) totalTemplate: TemplateRef<any>;
 
     onRowClick() {
         return 'onRowClick is ok';

@@ -20,7 +20,7 @@ export const allMenus = [
         name: 'Changelog',
         zhName: '更新日志',
         routePath: 'changelog',
-        state: q.default.version
+        state: q.version
     },
     {
         name: 'Global',

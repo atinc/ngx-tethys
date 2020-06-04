@@ -2,7 +2,6 @@ import { Component, ElementRef, TemplateRef, OnInit, HostListener } from '@angul
 import { ComponentExample } from '../../docs/model/component-example';
 import { ThyPopBoxService } from '../../../../../src/pop-box/pop-box.service';
 import { PopBoxRef } from '../../../../../src/pop-box/pop-box-ref.service';
-import { flattenStyles } from '@angular/platform-browser/src/dom/dom_renderer';
 
 @Component({
     selector: 'demo-pop-box-section',

@@ -1,15 +1,5 @@
 import { Observable, isObservable } from 'rxjs';
-import {
-    Component,
-    Input,
-    Output,
-    ViewEncapsulation,
-    HostBinding,
-    EventEmitter,
-    ContentChild,
-    TemplateRef,
-    OnInit
-} from '@angular/core';
+import { Component, Input, Output, ViewEncapsulation, HostBinding, EventEmitter, ContentChild, TemplateRef, OnInit } from '@angular/core';
 
 import {
     ThyTransferItem,
@@ -80,11 +70,11 @@ export class ThyTransferComponent implements OnInit {
 
     @Output() thyChange: EventEmitter<ThyTransferChangeEvent> = new EventEmitter<ThyTransferChangeEvent>();
 
-    @ContentChild('renderTemplate') templateRef: TemplateRef<any>;
+    @ContentChild('renderTemplate', { static: true }) templateRef: TemplateRef<any>;
 
-    @ContentChild('renderLeftTemplate') leftContentRef: TemplateRef<any>;
+    @ContentChild('renderLeftTemplate', { static: true }) leftContentRef: TemplateRef<any>;
 
-    @ContentChild('renderRightTemplate') rightContentRef: TemplateRef<any>;
+    @ContentChild('renderRightTemplate', { static: true }) rightContentRef: TemplateRef<any>;
 
     ngOnInit() {}
 
