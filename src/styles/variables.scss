@@ -307,6 +307,11 @@ $table-bordered-head-color: $gray-700 !default;
 $table-draggable-icon-color: $gray-600 !default;
 $table-draggable-icon-left: 0px !default;
 $table-draggable-bordered-icon-padding-left: 30px !default;
+$table-default-header-cell-padding: 0 15px !default;
+$table-default-header-bottom: 12px !default;
+$table-default-sm-header-bottom: 8px !default;
+$table-default-header-height: inherit !default;
+$table-bordered-cell-height: 50px !default;
 // grid
 $grid-footer-padding: 0 20px !default;
 // action-menu
