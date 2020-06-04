@@ -21,12 +21,7 @@ import { injectDefaultSvgIconSet, bypassSanitizeProvider } from '../../core/test
     selector: 'thy-demo-thy-menu',
     template: `
         <thy-menu>
-            <thy-menu-group
-                thyTitle="工作"
-                [thyExpand]="true"
-                [thyShowAction]="true"
-                [thyActionIcon]="'user-group-fill'"
-            >
+            <thy-menu-group thyTitle="工作" [thyExpand]="true" [thyShowAction]="true" [thyActionIcon]="'user-group-fill'">
                 <thy-menu-item>
                     <thy-menu-item-icon class="noColorIcon">
                         <thy-icon thyIconName="user-group-fill"></thy-icon>
@@ -35,12 +30,7 @@ import { injectDefaultSvgIconSet, bypassSanitizeProvider } from '../../core/test
                     <thy-menu-item-action (click)="click()" [thyActionMenu]="action">
                         <thy-icon thyIconName="more"></thy-icon>
                     </thy-menu-item-action>
-                    <thy-menu-item-action
-                        (click)="click()"
-                        [thyActionMenu]="action"
-                        [thyStopPropagation]="true"
-                        class="thyStopPropagation"
-                    >
+                    <thy-menu-item-action (click)="click()" [thyActionMenu]="action" [thyStopPropagation]="true" class="thyStopPropagation">
                         <thy-icon thyIconName="more"></thy-icon>
                     </thy-menu-item-action>
                     <thy-menu-item-action
@@ -57,9 +47,7 @@ import { injectDefaultSvgIconSet, bypassSanitizeProvider } from '../../core/test
                 <thy-menu-item-icon class="hasColorIcon" thyColor="red">
                     <thy-icon thyIconName="settings"></thy-icon>
                 </thy-menu-item-icon>
-                <thy-menu-item-name [thyOverflowEllipsis]="false" class="thyOverflowEllipsis"
-                    >配置中心</thy-menu-item-name
-                >
+                <thy-menu-item-name [thyOverflowEllipsis]="false" class="thyOverflowEllipsis">配置中心</thy-menu-item-name>
             </thy-menu-item>
             <thy-menu-divider></thy-menu-divider>
         </thy-menu>
@@ -67,12 +55,12 @@ import { injectDefaultSvgIconSet, bypassSanitizeProvider } from '../../core/test
     `
 })
 class ThyDemoMenuComponent {
-    @ViewChild(ThyMenuDividerComponent) divider: ThyMenuDividerComponent;
-    @ViewChild(ThyMenuGroupComponent) group: ThyMenuGroupComponent;
-    @ViewChild(ThyMenuItemComponent) item: ThyMenuItemComponent;
-    @ViewChild(ThyMenuItemIconComponent) icon: ThyMenuItemIconComponent;
-    @ViewChild(ThyMenuItemActionComponent) action: ThyMenuItemActionComponent;
-    @ViewChild(ThyMenuItemNameComponent) name: ThyMenuItemNameComponent;
+    @ViewChild(ThyMenuDividerComponent, /* TODO: add static flag */ {}) divider: ThyMenuDividerComponent;
+    @ViewChild(ThyMenuGroupComponent, /* TODO: add static flag */ {}) group: ThyMenuGroupComponent;
+    @ViewChild(ThyMenuItemComponent, /* TODO: add static flag */ {}) item: ThyMenuItemComponent;
+    @ViewChild(ThyMenuItemIconComponent, /* TODO: add static flag */ {}) icon: ThyMenuItemIconComponent;
+    @ViewChild(ThyMenuItemActionComponent, /* TODO: add static flag */ {}) action: ThyMenuItemActionComponent;
+    @ViewChild(ThyMenuItemNameComponent, /* TODO: add static flag */ {}) name: ThyMenuItemNameComponent;
 
     click() {}
 }

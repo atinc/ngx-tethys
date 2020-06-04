@@ -43,6 +43,6 @@ describe('thy-copy', () => {
 })
 class ThyCopyComponent implements OnInit {
     ngOnInit() {}
-    @ViewChild('copyContainer', { read: false }) copyContainer: ElementRef<Element>;
+    @ViewChild('copyContainer', /* TODO: add static flag */ { read: false }) copyContainer: ElementRef<Element>;
     copy = jasmine.createSpy('thyCopy callback');
 }

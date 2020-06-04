@@ -1,14 +1,4 @@
-import {
-    Component,
-    HostBinding,
-    Input,
-    OnInit,
-    TemplateRef,
-    Optional,
-    ViewChild,
-    ContentChild,
-    ViewContainerRef
-} from '@angular/core';
+import { Component, HostBinding, Input, OnInit, TemplateRef, Optional, ViewChild, ContentChild, ViewContainerRef } from '@angular/core';
 import { inputValueToBoolean } from '../util/helpers';
 @Component({
     selector: 'thy-header',
@@ -54,13 +44,13 @@ export class ThyHeaderComponent implements OnInit {
         }
     }
 
-    @ContentChild('headerTitle')
+    @ContentChild('headerTitle', /* TODO: add static flag */ {})
     public titleTemplateRef: TemplateRef<any>;
 
-    @ContentChild('headerContent')
+    @ContentChild('headerContent', /* TODO: add static flag */ {})
     public contentTemplateRef: TemplateRef<any>;
 
-    @ContentChild('headerOperation')
+    @ContentChild('headerOperation', /* TODO: add static flag */ {})
     public operationTemplateRef: TemplateRef<any>;
 
     constructor() {}

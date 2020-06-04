@@ -8,7 +8,7 @@ import { Mention } from 'ngx-tethys/mention/interfaces';
 export class DemoMentionContentEditableComponent implements OnInit {
     value = `This is text!`;
 
-    @ViewChild('member') memberDisplayTemplateRef: TemplateRef<any>;
+    @ViewChild('member', { static: true }) memberDisplayTemplateRef: TemplateRef<any>;
 
     mentions: Mention[];
 

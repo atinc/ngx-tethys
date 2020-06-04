@@ -31,7 +31,7 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
 
     @Output() readonly thyOpenChange = new EventEmitter<boolean>();
 
-    @ViewChild(ThyPickerComponent) public picker: ThyPickerComponent;
+    @ViewChild(ThyPickerComponent, { static: false }) public picker: ThyPickerComponent;
 
     isRange = false;
 

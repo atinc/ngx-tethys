@@ -10,7 +10,7 @@ import { ThySkeletonComponent } from '../skeleton.component';
     `
 })
 export class ThySkeletonAvatarComponent implements OnInit {
-    @ViewChild('content') contentTemplateRef: TemplateRef<any>;
+    @ViewChild('content', { static: true }) contentTemplateRef: TemplateRef<any>;
 
     constructor(private skeletonComponent: ThySkeletonComponent) {}
 

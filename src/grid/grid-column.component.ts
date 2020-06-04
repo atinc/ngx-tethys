@@ -11,12 +11,7 @@ import {
     Optional,
     Inject
 } from '@angular/core';
-import {
-    AfterContentInit,
-    OnInit,
-    OnChanges,
-    SimpleChanges
-} from '@angular/core';
+import { AfterContentInit, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { inputValueToBoolean, isUndefined } from '../util/helpers';
 import { ThyGridComponent } from './grid.component';
 import { ThyGridColumn } from './grid.interface';
@@ -28,9 +23,7 @@ export interface IThyGridColumnParentComponent {
 /**
  * Injection token used to provide the parent component to options.
  */
-export const THY_GRID_COLUMN_PARENT_COMPONENT = new InjectionToken<
-    IThyGridColumnParentComponent
->('THY_GRID_COLUMN_PARENT_COMPONENT');
+export const THY_GRID_COLUMN_PARENT_COMPONENT = new InjectionToken<IThyGridColumnParentComponent>('THY_GRID_COLUMN_PARENT_COMPONENT');
 
 @Component({
     selector: 'thy-grid-column',
@@ -68,11 +61,11 @@ export class ThyGridColumnComponent implements OnInit {
 
     @Input() thyDefaultText = '';
 
-    @ContentChild('header') headerTemplateRef: TemplateRef<any>;
+    @ContentChild('header', /* TODO: add static flag */ {}) headerTemplateRef: TemplateRef<any>;
 
-    @ContentChild('cell') cellTemplateRef: TemplateRef<any>;
+    @ContentChild('cell', /* TODO: add static flag */ {}) cellTemplateRef: TemplateRef<any>;
 
-    @ContentChild(TemplateRef)
+    @ContentChild(TemplateRef, /* TODO: add static flag */ {})
     set templateRef(value: TemplateRef<any>) {
         if (value) {
             if (!this.headerTemplateRef && !this.cellTemplateRef) {

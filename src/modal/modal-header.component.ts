@@ -7,16 +7,12 @@ import { ThyModalService } from './modal.service';
     templateUrl: './modal-header.component.html'
 })
 export class ModalHeaderComponent implements OnInit {
-
-    @ContentChild(TemplateRef)
+    @ContentChild(TemplateRef, /* TODO: add static flag */ {})
     public headerTemplate: TemplateRef<any>;
 
     public isTemplateRef: boolean;
 
-    constructor(
-        private bsModalService: BsModalService,
-        private thyModalService: ThyModalService
-    ) { }
+    constructor(private bsModalService: BsModalService, private thyModalService: ThyModalService) {}
 
     @Input() thyTitle: string;
 

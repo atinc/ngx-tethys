@@ -14,7 +14,7 @@ import { ThySkeletonComponent } from '../skeleton.component';
     exportAs: 'thySkeletonParagraphTemplate'
 })
 export class ThySkeletonParagraphComponent implements OnInit {
-    @ViewChild('content') contentTemplateRef: TemplateRef<any>;
+    @ViewChild('content', { static: true }) contentTemplateRef: TemplateRef<any>;
 
     constructor(private skeletonComponent: ThySkeletonComponent) {}
 

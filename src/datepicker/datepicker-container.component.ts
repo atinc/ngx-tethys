@@ -18,15 +18,10 @@ export class ThyDatepickerContainerComponent implements OnInit {
     isCanTime = false;
     isMeridian = false;
 
-    @ViewChild('dpContainer')
+    @ViewChild('dpContainer', { static: true })
     private _dpContainerRef: any;
 
-    constructor(
-        private _config: BsDatepickerConfig,
-        _elementRef: ElementRef,
-        _renderer: Renderer2,
-        _viewContainerRef: ViewContainerRef
-    ) {
+    constructor(private _config: BsDatepickerConfig, _elementRef: ElementRef, _renderer: Renderer2, _viewContainerRef: ViewContainerRef) {
         this._config.containerClass = 'theme-ngx';
         this._config.showWeekNumbers = false;
     }

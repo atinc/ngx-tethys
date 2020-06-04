@@ -12,7 +12,7 @@ import { warnDeprecation } from '../../core';
     providers: [UpdateHostClassService]
 })
 export class DialogFooterComponent implements OnInit {
-    @ContentChild('description') description: TemplateRef<any>;
+    @ContentChild('description', /* TODO: add static flag */ {}) description: TemplateRef<any>;
 
     /**
      * @deprecated thyShowBorderTop will be deprecated, please use thyDivided.

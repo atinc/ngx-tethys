@@ -13,7 +13,7 @@ export class DemoTreeAsyncComponent implements OnInit {
         return { ...item, children: [], expanded: false };
     });
 
-    @ViewChild('tree') treeComponent: ThyTreeComponent;
+    @ViewChild('tree', { static: true }) treeComponent: ThyTreeComponent;
 
     constructor() {}
 

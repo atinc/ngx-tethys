@@ -1,14 +1,4 @@
-import {
-    Component,
-    HostBinding,
-    Input,
-    OnInit,
-    TemplateRef,
-    Optional,
-    ViewChild,
-    ContentChild,
-    ViewContainerRef
-} from '@angular/core';
+import { Component, HostBinding, Input, OnInit, TemplateRef, Optional, ViewChild, ContentChild, ViewContainerRef } from '@angular/core';
 import { inputValueToBoolean } from '../util/helpers';
 @Component({
     selector: 'thy-card-header',
@@ -34,13 +24,13 @@ export class ThyCardHeaderComponent implements OnInit {
         this._thySizeLg = value === 'lg';
     }
 
-    @ContentChild('headerTitle')
+    @ContentChild('headerTitle', /* TODO: add static flag */ {})
     public titleTemplateRef: TemplateRef<any>;
 
-    @ContentChild('headerDescription')
+    @ContentChild('headerDescription', /* TODO: add static flag */ {})
     public descriptionTemplateRef: TemplateRef<any>;
 
-    @ContentChild('headerOperation')
+    @ContentChild('headerOperation', /* TODO: add static flag */ {})
     public operationTemplateRef: TemplateRef<any>;
 
     constructor() {}

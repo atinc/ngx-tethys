@@ -21,7 +21,7 @@ export class DemoTreeBasicComponent implements OnInit {
 
     dataText: any;
 
-    @ViewChild('tree') treeComponent: ThyTreeComponent;
+    @ViewChild('tree', { static: true }) treeComponent: ThyTreeComponent;
 
     constructor() {}
 
@@ -43,8 +43,7 @@ export class DemoTreeBasicComponent implements OnInit {
     onDragDrop(event: ThyDragDropEvent<ThyTreeNode>) {
         let afterId: string;
         const suiteId: string = event.previousItem.origin._id;
-        const parenId: string =
-            event.position === ThyDropPosition.in ? event.item.origin._id : event.item.parentNode.origin._id;
+        const parenId: string = event.position === ThyDropPosition.in ? event.item.origin._id : event.item.parentNode.origin._id;
         const newIndex = event.currentIndex;
         if (newIndex === 0) {
             afterId = '';

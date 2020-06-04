@@ -19,7 +19,7 @@ type Member = typeof members[0];
 })
 export class DemoMentionRemoteComponent implements OnInit {
     value = `This is remote mention!`;
-    @ViewChild('member') memberDisplayTemplateRef: TemplateRef<any>;
+    @ViewChild('member', { static: true }) memberDisplayTemplateRef: TemplateRef<any>;
 
     mentions: Mention<any>[];
 

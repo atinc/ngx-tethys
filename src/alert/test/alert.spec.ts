@@ -169,7 +169,7 @@ class ThyDemoAlertComponent {
     message: string | TemplateRef<HTMLElement> = `this is a message`;
     icon: string | boolean = true;
     close = false;
-    @ViewChild('messageTemplateRef') messageRef: TemplateRef<HTMLElement>;
+    @ViewChild('messageTemplateRef', /* TODO: add static flag */ {}) messageRef: TemplateRef<HTMLElement>;
 }
 
 @NgModule({

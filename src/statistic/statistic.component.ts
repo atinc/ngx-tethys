@@ -27,16 +27,16 @@ export class ThyStatisticComponent implements OnInit {
     @Input() thyValueStyle = {};
 
     @Input() thyPrefix: string;
-    @Input() @ContentChild('prefix') thyPrefixTemplate: TemplateRef<void>;
+    @Input() @ContentChild('prefix', /* TODO: add static flag */ {}) thyPrefixTemplate: TemplateRef<void>;
 
     @Input() thySuffix: string;
-    @Input() @ContentChild('suffix') thySuffixTemplate: TemplateRef<void>;
+    @Input() @ContentChild('suffix', /* TODO: add static flag */ {}) thySuffixTemplate: TemplateRef<void>;
 
     @Input() thyValue: number | string;
-    @Input() @ContentChild('value') thyValueTemplate: TemplateRef<void>;
+    @Input() @ContentChild('value', /* TODO: add static flag */ {}) thyValueTemplate: TemplateRef<void>;
 
     @Input() thyTitle: string;
-    @Input() @ContentChild('title') thyTitleTemplate: TemplateRef<void>;
+    @Input() @ContentChild('title', /* TODO: add static flag */ {}) thyTitleTemplate: TemplateRef<void>;
 
     @Input() thyTitlePosition: ThyStatisticTitlePosition = 'bottom';
 
@@ -58,11 +58,7 @@ export class ThyStatisticComponent implements OnInit {
         }
     }
 
-    constructor(
-        private elementRef: ElementRef,
-        private updateHostClassService: UpdateHostClassService,
-        private renderer: Renderer2
-    ) {
+    constructor(private elementRef: ElementRef, private updateHostClassService: UpdateHostClassService, private renderer: Renderer2) {
         this.updateHostClassService.initializeElement(elementRef.nativeElement);
     }
 

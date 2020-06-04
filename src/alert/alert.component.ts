@@ -3,15 +3,7 @@ import { helpers } from '../util';
 import { Dictionary } from '../typings';
 import { isTemplateRef } from '../util/helpers';
 
-type ThyAlertType =
-    | 'success'
-    | 'warning'
-    | 'danger'
-    | 'info'
-    | 'primary-week'
-    | 'success-week'
-    | 'warning-week'
-    | 'danger-week';
+type ThyAlertType = 'success' | 'warning' | 'danger' | 'info' | 'primary-week' | 'success-week' | 'warning-week' | 'danger-week';
 
 @Component({
     selector: 'thy-alert',
@@ -54,7 +46,7 @@ export class ThyAlertComponent implements OnInit {
 
     @Input() thyCloseable: boolean;
 
-    @ContentChild('operation') alertOperation: TemplateRef<any>;
+    @ContentChild('operation', /* TODO: add static flag */ {}) alertOperation: TemplateRef<any>;
 
     // @ViewChild(TemplateRef) content: TemplateRef<any>;
 

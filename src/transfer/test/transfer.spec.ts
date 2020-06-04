@@ -6,12 +6,7 @@ import { of, Observable } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
 import { ThyTransferModule } from '../transfer.module';
 import { ThyTransferComponent } from '../transfer.component';
-import {
-    ThyTransferDragEvent,
-    ThyTransferChangeEvent,
-    TransferDirection,
-    ThyTransferItem
-} from '../transfer.interface';
+import { ThyTransferDragEvent, ThyTransferChangeEvent, TransferDirection, ThyTransferItem } from '../transfer.interface';
 import { CdkDropListGroup } from '@angular/cdk/drag-drop';
 import { ThyListModule } from '../../list/list.module';
 import { ThyIconModule } from '../../icon/icon.module';
@@ -87,7 +82,7 @@ function buildDataList() {
     encapsulation: ViewEncapsulation.None
 })
 class TestTransferComponent {
-    @ViewChild('comp') comp: ThyTransferComponent;
+    @ViewChild('comp', /* TODO: add static flag */ {}) comp: ThyTransferComponent;
     dataSource: any[] = buildDataList();
     titles = ['Source', 'Target'];
 
@@ -106,7 +101,7 @@ class TestTransferComponent {
     `
 })
 class TestTransferCustomRenderComponent {
-    @ViewChild('comp') comp: ThyTransferComponent;
+    @ViewChild('comp', /* TODO: add static flag */ {}) comp: ThyTransferComponent;
     dataSource: any[] = buildDataList();
 }
 
@@ -115,15 +110,11 @@ class TestTransferCustomRenderComponent {
     encapsulation: ViewEncapsulation.None
 })
 class TestTransferCustomRenderContentComponent {
-    @ViewChild('comp') comp: ThyTransferComponent;
+    @ViewChild('comp', /* TODO: add static flag */ {}) comp: ThyTransferComponent;
     dataSource: any[] = buildDataList();
     titles = ['Source', 'Target'];
 
-    select(
-        item: ThyTransferItem,
-        selectItem: (item: ThyTransferItem) => void,
-        unselectItem: (item: ThyTransferItem) => void
-    ) {
+    select(item: ThyTransferItem, selectItem: (item: ThyTransferItem) => void, unselectItem: (item: ThyTransferItem) => void) {
         if (item.direction === TransferDirection.left) {
             selectItem(item);
         } else {
@@ -133,9 +124,7 @@ class TestTransferCustomRenderContentComponent {
 }
 
 describe('transfer', () => {
-    let fixture: ComponentFixture<
-        TestTransferComponent | TestTransferCustomRenderComponent | TestTransferCustomRenderContentComponent
-    >;
+    let fixture: ComponentFixture<TestTransferComponent | TestTransferCustomRenderComponent | TestTransferCustomRenderContentComponent>;
     let dl: DebugElement;
     let instance: TestTransferComponent;
     let pageObject: TransferPageObject;
@@ -143,11 +132,7 @@ describe('transfer', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule, ThyTransferModule, ThyListModule, ThyIconModule],
-            declarations: [
-                TestTransferComponent,
-                TestTransferCustomRenderComponent,
-                TestTransferCustomRenderContentComponent
-            ]
+            declarations: [TestTransferComponent, TestTransferCustomRenderComponent, TestTransferCustomRenderContentComponent]
         }).compileComponents();
     }));
 
@@ -161,9 +146,7 @@ describe('transfer', () => {
 
     it('should have class thy-transfer', () => {
         expect(
-            fixture.debugElement
-                .query(By.directive(ThyTransferComponent))
-                .nativeElement.classList.contains('thy-transfer')
+            fixture.debugElement.query(By.directive(ThyTransferComponent)).nativeElement.classList.contains('thy-transfer')
         ).toBeTruthy();
     });
 
@@ -176,9 +159,7 @@ describe('transfer', () => {
 
     it('should display correct [thyData]', () => {
         pageObject.expectLeft(COUNT).expectRight(RIGHTCOUNT);
-        const lockItems = dl
-            .query(By.css('[id="lock"]'))
-            .nativeElement.querySelectorAll('.thy-transfer-list-content-item');
+        const lockItems = dl.query(By.css('[id="lock"]')).nativeElement.querySelectorAll('.thy-transfer-list-content-item');
         expect(lockItems.length).toBe(1);
     });
 
@@ -220,9 +201,7 @@ describe('transfer', () => {
         }
 
         checkItem(direction: 'left' | 'right', index: number): this {
-            const items = (direction === 'left' ? this.leftList : this.rightList).querySelectorAll(
-                '.thy-transfer-list-content-item'
-            );
+            const items = (direction === 'left' ? this.leftList : this.rightList).querySelectorAll('.thy-transfer-list-content-item');
             if (direction === 'left') {
                 (items[index] as HTMLElement).querySelector('div').click();
             } else {

@@ -116,7 +116,7 @@ describe('ThyPickerDirective', () => {
     `
 })
 class ThyTestPickerDirective {
-    @ViewChild(ThyDatePickerDirective, { read: false }) thyDatePickerDirective: ThyDatePickerDirective;
+    @ViewChild(ThyDatePickerDirective, /* TODO: add static flag */ { read: false }) thyDatePickerDirective: ThyDatePickerDirective;
 
     thyPlaceHolder: string;
     thyPanelClassName: string;
