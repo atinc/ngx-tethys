@@ -8,7 +8,7 @@ const UPLOAD_URL = `http://www.mocky.io/v2/5cf52b1f2f0000c02c4f072f?mocky-delay=
     templateUrl: './uploader-section.component.html'
 })
 export class DemoUploaderSectionComponent {
-    @ViewChild('file1') file1: ElementRef<HTMLInputElement>;
+    @ViewChild('file1', { static: true }) file1: ElementRef<HTMLInputElement>;
 
     demoType = '1';
 

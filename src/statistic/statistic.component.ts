@@ -27,16 +27,16 @@ export class ThyStatisticComponent implements OnInit {
     @Input() thyValueStyle = {};
 
     @Input() thyPrefix: string;
-    @Input() @ContentChild('prefix') thyPrefixTemplate: TemplateRef<void>;
+    @Input() @ContentChild('prefix', { static: true }) thyPrefixTemplate: TemplateRef<void>;
 
     @Input() thySuffix: string;
-    @Input() @ContentChild('suffix') thySuffixTemplate: TemplateRef<void>;
+    @Input() @ContentChild('suffix', { static: true }) thySuffixTemplate: TemplateRef<void>;
 
     @Input() thyValue: number | string;
-    @Input() @ContentChild('value') thyValueTemplate: TemplateRef<void>;
+    @Input() @ContentChild('value', { static: true }) thyValueTemplate: TemplateRef<void>;
 
     @Input() thyTitle: string;
-    @Input() @ContentChild('title') thyTitleTemplate: TemplateRef<void>;
+    @Input() @ContentChild('title', { static: true }) thyTitleTemplate: TemplateRef<void>;
 
     @Input() thyTitlePosition: ThyStatisticTitlePosition = 'bottom';
 
@@ -58,11 +58,7 @@ export class ThyStatisticComponent implements OnInit {
         }
     }
 
-    constructor(
-        private elementRef: ElementRef,
-        private updateHostClassService: UpdateHostClassService,
-        private renderer: Renderer2
-    ) {
+    constructor(private elementRef: ElementRef, private updateHostClassService: UpdateHostClassService, private renderer: Renderer2) {
         this.updateHostClassService.initializeElement(elementRef.nativeElement);
     }
 

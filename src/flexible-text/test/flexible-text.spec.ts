@@ -38,7 +38,7 @@ import { By } from '@angular/platform-browser';
     ]
 })
 class FlexibleTextTestComponent {
-    @ViewChild('FlexibleText') flexibleText: ThyFlexibleTextComponent;
+    @ViewChild('FlexibleText', { static: true }) flexibleText: ThyFlexibleTextComponent;
     tooltipContent = '默认内容。。。';
     placement = 'bottom';
     content = '默认内容。。。';

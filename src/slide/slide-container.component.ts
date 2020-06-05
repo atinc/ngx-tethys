@@ -32,7 +32,7 @@ import { ViewportRuler } from '@angular/cdk/overlay';
     }
 })
 export class ThySlideContainerComponent extends ThyUpperOverlayContainer implements OnDestroy {
-    @ViewChild(CdkPortalOutlet)
+    @ViewChild(CdkPortalOutlet, { static: true })
     portalOutlet: CdkPortalOutlet;
 
     animationOpeningDone: Observable<AnimationEvent>;
@@ -112,8 +112,7 @@ export class ThySlideContainerComponent extends ThyUpperOverlayContainer impleme
 
     private setDrawerContainerElement() {
         if (typeof this.config.drawerContainer === 'string') {
-            this.drawerContainerElement =
-                this.config.drawerContainer && document.querySelector(this.config.drawerContainer);
+            this.drawerContainerElement = this.config.drawerContainer && document.querySelector(this.config.drawerContainer);
         }
         if (this.config.drawerContainer instanceof ElementRef) {
             this.drawerContainerElement = this.config.drawerContainer.nativeElement;
@@ -144,10 +143,7 @@ export class ThySlideContainerComponent extends ThyUpperOverlayContainer impleme
     private checkContainerWithinViewport() {
         this.viewportRuler
             .change(100)
-            .pipe(
-                startWith(null),
-                takeUntil(this.ngUnsubscribe$)
-            )
+            .pipe(startWith(null), takeUntil(this.ngUnsubscribe$))
             .subscribe(() => {
                 this.setSlideContainerStyles();
             });

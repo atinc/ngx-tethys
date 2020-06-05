@@ -50,9 +50,9 @@ export class ThyPropertyOperationComponent implements OnInit, AfterContentInit {
         return this.disabled;
     }
 
-    @ContentChild('operationIcon') operationIcon: TemplateRef<any>;
+    @ContentChild('operationIcon', { static: true }) operationIcon: TemplateRef<any>;
 
-    @ViewChild('contentElement') contentElement: ElementRef;
+    @ViewChild('contentElement', { static: true }) contentElement: ElementRef;
 
     @Input()
     set thyLabelText(value: string) {

@@ -5,32 +5,28 @@ import { NgxTethysModule } from 'ngx-tethys';
 import { CommonModule } from '@angular/common';
 import { LiveDemoComponent, LiveDemosComponent } from './core/live-demo/live-demo.component';
 import { DemoTitleComponent } from './core/demo-title/demo-title.component';
-import { HighlightModule } from 'ngx-highlightjs';
+import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
-import xml from 'highlight.js/lib/languages/xml';
-import scss from 'highlight.js/lib/languages/scss';
-import typescript from 'highlight.js/lib/languages/typescript';
 import { DOCS_COMPONENTS } from './docs';
-export function hljsLanguages() {
-    return [
-        { name: 'typescript', func: typescript },
-        { name: 'ts', func: typescript },
-        { name: 'scss', func: scss },
-        { name: 'xml', func: xml },
-        { name: 'html', func: xml }
-    ];
+
+export function getHighlightLanguages() {
+    return {
+        typescript: () => import('highlight.js/lib/languages/typescript'),
+        css: () => import('highlight.js/lib/languages/css'),
+        xml: () => import('highlight.js/lib/languages/xml')
+    };
 }
 
 @NgModule({
     declarations: [DemoTitleComponent, LiveDemoComponent, LiveDemosComponent, ...DOCS_COMPONENTS],
-    imports: [
-        CommonModule,
-        BrowserModule,
-        FormsModule,
-        NgxTethysModule,
-        HighlightModule.forRoot({
-            languages: hljsLanguages
-        })
+    imports: [CommonModule, BrowserModule, FormsModule, NgxTethysModule, HighlightModule],
+    providers: [
+        {
+            provide: HIGHLIGHT_OPTIONS,
+            useValue: {
+                languages: getHighlightLanguages()
+            }
+        }
     ],
     exports: [
         CommonModule,

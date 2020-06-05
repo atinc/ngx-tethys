@@ -39,7 +39,7 @@ import { ThyClickDispatcher } from '../../core/event-dispatchers/click-dispatche
     }
 })
 export class ThyAutocompleteContainerComponent extends ThyUpperOverlayContainer implements AfterViewInit {
-    @ViewChild(CdkPortalOutlet)
+    @ViewChild(CdkPortalOutlet, { static: true })
     portalOutlet: CdkPortalOutlet;
 
     /** State of the autocomplete animation. */

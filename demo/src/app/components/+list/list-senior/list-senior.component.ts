@@ -7,7 +7,7 @@ import { ThySelectionListComponent, ThySelectionListChange } from 'ngx-tethys';
     styles: []
 })
 export class DemoListSeniorComponent implements OnInit {
-    @ViewChild(ThySelectionListComponent) selectionList: ThySelectionListComponent;
+    @ViewChild(ThySelectionListComponent, { static: true }) selectionList: ThySelectionListComponent;
 
     searchText = '';
 

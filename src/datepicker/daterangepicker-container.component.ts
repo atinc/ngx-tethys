@@ -15,7 +15,7 @@ export class ThyDaterangepickerContainerComponent implements OnInit {
     value: Date[];
     isMeridian = false;
 
-    @ViewChild('dpContainer')
+    @ViewChild('dpContainer', { static: true })
     private _dpContainerRef: any;
 
     constructor(

@@ -1,13 +1,4 @@
-import {
-    Component,
-    HostBinding,
-    Optional,
-    Input,
-    ViewEncapsulation,
-    ContentChild,
-    OnInit,
-    ChangeDetectionStrategy
-} from '@angular/core';
+import { Component, HostBinding, Optional, Input, ViewEncapsulation, ContentChild, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThyFormDirective } from './form.directive';
 import { inputValueToBoolean } from '../util/helpers';
 import { TemplateRef } from '@angular/core';
@@ -90,7 +81,7 @@ export class ThyFormGroupComponent implements OnInit {
         this._rowFill = inputValueToBoolean(value);
     }
 
-    @ContentChild('formGroup')
+    @ContentChild('formGroup', { static: true })
     public contentTemplateRef: TemplateRef<any>;
 
     constructor(@Optional() private thyParentForm: ThyFormDirective, private thyTranslate: ThyTranslate) {}

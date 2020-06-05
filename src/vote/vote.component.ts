@@ -69,7 +69,7 @@ export class ThyVoteComponent implements OnInit {
         }
     }
 
-    @ContentChild('voteIcon') voteIcon: TemplateRef<any>;
+    @ContentChild('voteIcon', { static: true }) voteIcon: TemplateRef<any>;
 
     constructor(private elementRef: ElementRef, private updateHostClassService: UpdateHostClassService) {
         this.updateHostClassService.initializeElement(elementRef.nativeElement);

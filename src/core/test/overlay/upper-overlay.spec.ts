@@ -1,32 +1,12 @@
-import {
-    ViewChild,
-    Component,
-    ChangeDetectorRef,
-    Injectable,
-    NgModule,
-    Injector,
-    OnDestroy,
-    ViewContainerRef
-} from '@angular/core';
+import { ViewChild, Component, ChangeDetectorRef, Injectable, NgModule, Injector, OnDestroy, ViewContainerRef } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CdkPortalOutlet, PortalInjector, ComponentPortal, PortalModule } from '@angular/cdk/portal';
 import { AnimationEvent } from '@angular/animations';
-import {
-    OverlayConfig,
-    OverlayRef,
-    ScrollStrategy,
-    OverlayContainer,
-    OverlayModule,
-    Overlay
-} from '@angular/cdk/overlay';
+import { OverlayConfig, OverlayRef, ScrollStrategy, OverlayContainer, OverlayModule, Overlay } from '@angular/cdk/overlay';
 import { TestBed, inject, flush, fakeAsync, tick } from '@angular/core/testing';
 
 import { ThyUpperOverlayService, ComponentTypeOrTemplateRef } from '../../overlay/upper-overlay.service';
-import {
-    ThyUpperOverlayConfig,
-    ThyUpperOverlayOptions,
-    ThyUpperOverlayPosition
-} from '../../overlay/upper-overlay.config';
+import { ThyUpperOverlayConfig, ThyUpperOverlayOptions, ThyUpperOverlayPosition } from '../../overlay/upper-overlay.config';
 import { ThyUpperOverlayContainer } from '../../overlay/upper-overlay-container';
 import { ThyUpperOverlayRef, ThyInternalUpperOverlayRef } from '../../overlay/upper-overlay-ref';
 import { helpers } from '../../../util';
@@ -79,7 +59,7 @@ export class TestDialogContainerComponent extends ThyUpperOverlayContainer imple
 
     animationClosingDone: Observable<AnimationEvent>;
 
-    @ViewChild(CdkPortalOutlet)
+    @ViewChild(CdkPortalOutlet, { static: true })
     portalOutlet: CdkPortalOutlet;
 
     beforeAttachPortal(): void {}
@@ -103,11 +83,7 @@ export class TestDialogContainerComponent extends ThyUpperOverlayContainer imple
     }
 }
 
-abstract class TestDialogRef<T = undefined, TResult = undefined> extends ThyUpperOverlayRef<
-    T,
-    TestDialogContainerComponent,
-    TResult
-> {}
+abstract class TestDialogRef<T = undefined, TResult = undefined> extends ThyUpperOverlayRef<T, TestDialogContainerComponent, TResult> {}
 class InternalTestDialogRef<T = undefined, TResult = undefined> extends ThyInternalUpperOverlayRef<
     T,
     TestDialogContainerComponent,
@@ -238,15 +214,12 @@ describe('upper-overlay', () => {
         TestBed.compileComponents();
     });
 
-    beforeEach(inject(
-        [TestDialogService, OverlayContainer],
-        (_dialog: TestDialogService, _overlayContainer: OverlayContainer) => {
-            dialog = _dialog;
-            // mockLocation = _location as SpyLocation;
-            overlayContainer = _overlayContainer;
-            overlayContainerElement = _overlayContainer.getContainerElement();
-        }
-    ));
+    beforeEach(inject([TestDialogService, OverlayContainer], (_dialog: TestDialogService, _overlayContainer: OverlayContainer) => {
+        dialog = _dialog;
+        // mockLocation = _location as SpyLocation;
+        overlayContainer = _overlayContainer;
+        overlayContainerElement = _overlayContainer.getContainerElement();
+    }));
 
     afterEach(() => {
         overlayContainer.ngOnDestroy();
