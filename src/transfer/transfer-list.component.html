@@ -8,6 +8,7 @@
       <thy-list
         class="thy-transfer-list-content"
         cdkDropList
+        thyDragDrop
         id="lock"
         [cdkDropListData]="lockItems"
         (cdkDropListDropped)="drop($event)"
@@ -30,6 +31,7 @@
     <thy-list
       class="thy-transfer-list-content"
       cdkDropList
+      thyDragDrop
       [cdkDropListDisabled]="!draggable"
       id="unlock"
       [cdkDropListData]="unlockItems"
