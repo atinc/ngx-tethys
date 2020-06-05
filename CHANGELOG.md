@@ -10,7 +10,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 * bump angular to 8.2.14 ([#725](https://github.com/atinc/ngx-tethys/issues/725)) ([95f832b](https://github.com/atinc/ngx-tethys/commit/95f832b))
 
-upgrade to 8.0.0-alpha.0 should need replace "angular-cropperjs": "^1.0.1" to "ngx-sortablejs": "^3.1.4"
+upgrade to 8.0.0-alpha.0 need replace "angular-sortablejs": "^1.0.1" to "ngx-sortablejs": "^3.1.4"
 
 ## [7.8.5](https://github.com/atinc/ngx-tethys/compare/7.8.4...7.8.5) (2020-06-04)
 
