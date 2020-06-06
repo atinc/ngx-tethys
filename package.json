@@ -1,6 +1,6 @@
 {
   "name": "ngx-tethys",
-  "version": "7.8.5",
+  "version": "7.8.6",
   "license": "MIT",
   "scripts": {
     "build": "npm run build:ngm",
@@ -74,9 +74,9 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^8.9.5",
     "@types/webpack": "^4.1.3",
-    "@worktile-devkit/pm": "^1.0.0-beta.18",
-    "@worktile-devkit/config": "^1.0.0-beta.18",
-    "@worktile-devkit/commitlint-config": "^1.0.0-beta.18",
+    "@worktile-devkit/pm": "^1.0.0-beta.19",
+    "@worktile-devkit/config": "^1.0.0-beta.19",
+    "@worktile-devkit/commitlint-config": "^1.0.0-beta.19",
     "@worktile/devkit": "^0.3.3",
     "chalk": "^2.4.2",
     "codelyzer": "~4.5.0",
