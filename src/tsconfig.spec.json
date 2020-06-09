@@ -4,7 +4,11 @@
     "outDir": "../out-tsc/spec",
     "baseUrl": "./",
     "module": "commonjs",
-    "types": ["jasmine", "node"]
+    "types": ["jasmine", "node"],
+    "paths": {
+      "ngx-tethys": ["./public-api"],
+      "ngx-tethys/*": ["./*"]
+    }
   },
   "files": ["test.ts", "polyfills.ts"],
   "include": ["**/*.ts", "**/*.d.ts"]
