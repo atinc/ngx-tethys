@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.0.0"></a>
+# [8.0.0](https://github.com/atinc/ngx-tethys/compare/8.0.0-alpha.0...8.0.0) (2020-06-09)
+
+
+### Bug Fixes
+
+* **transfer:** change cursor when dragging ([fc2ff5c](https://github.com/atinc/ngx-tethys/commit/fc2ff5c)), closes [#INFR-569](https://github.com/atinc/ngx-tethys/issues/INFR-569)
+
+
+
 <a name="8.0.0-alpha.0"></a>
 # [8.0.0-alpha.0](https://github.com/atinc/ngx-tethys/compare/7.8.5...8.0.0-alpha.0) (2020-06-04)
 
