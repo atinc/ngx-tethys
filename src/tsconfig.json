@@ -22,7 +22,7 @@
     "lib": ["dom", "es6"],
     "types": ["jasmine", "node"]
   },
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules", "examples"],
   "files": ["../scripts/typings.d.ts", "./public-api.ts", "./index.ts"],
   "angularCompilerOptions": {
     "genDir": "../temp/factories",
