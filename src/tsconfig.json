@@ -20,7 +20,11 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "lib": ["dom", "es6"],
-    "types": ["jasmine", "node"]
+    "types": ["jasmine", "node"],
+    "paths": {
+      "ngx-tethys": ["./public-api"],
+      "ngx-tethys/*": ["./*"]
+    }
   },
   "exclude": ["node_modules"],
   "files": ["../scripts/typings.d.ts", "./public-api.ts", "./index.ts"],

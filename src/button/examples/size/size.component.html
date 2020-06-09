@@ -1,0 +1,31 @@
+<div class="demo-card">
+  <thy-button-group thySize="md" thyType="outline-default">
+    <button thyButton *ngFor="let size of btnSizes" (click)="currentSize = size" [ngClass]="{ active: size === currentSize }">
+      {{ size.name }} - {{ size.height }}px
+    </button>
+  </thy-button-group>
+  <div class="demo-buttons mt-4">
+    <button thyButton="primary" [thySize]="currentSize.name">确定</button>
+    <button thyButton="info" [thySize]="currentSize.name">信息按钮</button>
+    <button thyButton="warning" [thySize]="currentSize.name">警告按钮</button>
+    <button thyButton="danger" [thySize]="currentSize.name">删除</button>
+  </div>
+  <div class="demo-buttons mt-2">
+    <button thyButton="outline-primary" [thySize]="currentSize.name">确定</button>
+    <button thyButton="outline-info" [thySize]="currentSize.name">信息按钮</button>
+    <button thyButton="outline-warning" [thySize]="currentSize.name">警告按钮</button>
+    <button thyButton="outline-danger" [thySize]="currentSize.name">删除</button>
+  </div>
+  <div class="demo-buttons mt-2">
+    <button thyButton="primary-square" [thySize]="currentSize.name">确定</button>
+    <button thyButton="info-square" [thySize]="currentSize.name">信息按钮</button>
+    <button thyButton="warning-square" [thySize]="currentSize.name">警告按钮</button>
+    <button thyButton="danger-square" [thySize]="currentSize.name">删除</button>
+  </div>
+  <div class="demo-buttons mt-2">
+    <button thyButton="outline-primary-square" [thySize]="currentSize.name">确定</button>
+    <button thyButton="outline-info-square" [thySize]="currentSize.name">信息按钮</button>
+    <button thyButton="outline-warning-square" [thySize]="currentSize.name">警告按钮</button>
+    <button thyButton="outline-danger-square" [thySize]="currentSize.name">删除</button>
+  </div>
+</div>
