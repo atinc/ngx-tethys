@@ -188,6 +188,12 @@ $btn-group-btn-padding-x-md: 20px !default;
 $btn-group-btn-padding-x-sm: 15px !default;
 $btn-group-btn-padding-x-xs: 10px !default;
 
+$btn-group-btn-dropdown-padding-x: 0.801rem !default;
+$btn-group-btn-dropdown-padding-x-lg: 0.938rem !default;
+$btn-group-btn-dropdown-padding-x-md: 0.676rem !default;
+$btn-group-btn-dropdown-padding-x-sm: 0.551rem !default;
+$btn-group-btn-dropdown-padding-x-xs: 0.5rem !default;
+
 // Forms
 // 输入框左右 padding 和 按钮大小不一致， bootstrap 是一致的
 // input-padding-x 之前是 0.875rem, 芳美说太大了，改成了 10px 大小
