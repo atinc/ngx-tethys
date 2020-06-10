@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.0.1"></a>
+## [8.0.1](https://github.com/atinc/ngx-tethys/compare/8.0.0...8.0.1) (2020-06-10)
+
+
+### Bug Fixes
+
+* **dropdown:** split use new style#INFR-563 ([e3758ca](https://github.com/atinc/ngx-tethys/commit/e3758ca)), closes [style#INFR-563](https://github.com/style/issues/INFR-563)
+* **raster:** fix incorrect util import #INFR-608 ([#738](https://github.com/atinc/ngx-tethys/issues/738)) ([22cd137](https://github.com/atinc/ngx-tethys/commit/22cd137)), closes [#INFR-608](https://github.com/atinc/ngx-tethys/issues/INFR-608)
+* **statistic:** separate @Input for @ContentChild for upgrade ng9 #INFR-607 ([#739](https://github.com/atinc/ngx-tethys/issues/739)) ([3962f72](https://github.com/atinc/ngx-tethys/commit/3962f72)), closes [#INFR-607](https://github.com/atinc/ngx-tethys/issues/INFR-607)
+
+
+### Features
+
+* **select:** enter key stopPropagation on custom-select #INFR-530 ([712deb4](https://github.com/atinc/ngx-tethys/commit/712deb4)), closes [#INFR-530](https://github.com/atinc/ngx-tethys/issues/INFR-530)
+
+
+
 <a name="8.0.0"></a>
 # [8.0.0](https://github.com/atinc/ngx-tethys/compare/8.0.0-alpha.0...8.0.0) (2020-06-09)
 
