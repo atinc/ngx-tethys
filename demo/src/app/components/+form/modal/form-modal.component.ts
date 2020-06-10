@@ -1,5 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ThyModalService } from '../../../../../../src/modal';
+import { ThyDialog } from 'ngx-tethys';
 
 @Component({
     selector: 'app-demo-form-modal',
@@ -8,14 +9,24 @@ import { ThyModalService } from '../../../../../../src/modal';
 export class DemoFormModalComponent implements OnInit {
     model: any = {
         projectName: 'project name',
-        username: 'user name'
+        username: 'user name',
+        role: '1'
     };
-    constructor(private thyModalService: ThyModalService) {}
+
+    validatorConfig = {
+        validationMessages: {
+            name: {
+                required: '不能为空'
+            }
+        }
+    };
+
+    constructor(public thyDialog: ThyDialog) {}
 
     ngOnInit(): void {}
 
-    openFormModal(template: TemplateRef<any>) {
-        this.thyModalService.show(template);
+    openFormDialog(template: TemplateRef<any>) {
+        this.thyDialog.open(template);
     }
 
     modalFormSubmit() {
