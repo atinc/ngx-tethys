@@ -224,6 +224,9 @@ export class ThySelectCustomComponent
     @HostListener('keydown', ['$event'])
     handleKeydown(event: KeyboardEvent): void {
         if (!this.disabled) {
+            if (event.keyCode === ENTER) {
+                event.stopPropagation();
+            }
             this.panelOpen ? this.handleOpenKeydown(event) : this.handleClosedKeydown(event);
         }
     }
