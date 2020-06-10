@@ -1,7 +1,7 @@
 <section>
   <div class="header"><h2>cdk 拖动 list</h2></div>
   <div class="body">
-    <thy-list cdkDropList (cdkDropListSorted)="sort($event)">
+    <thy-list cdkDropList thyDragDrop (cdkDropListSorted)="sort($event)">
       <thy-list-item class="active" cdkDrag>
         <thy-icon thyIconName="drag" class="drag-handle"></thy-icon>
         Item 1
@@ -30,6 +30,7 @@
         <thy-menu-group thyTitle="项目" [thyExpand]="true" [thyShowAction]="true">
           <div
             cdkDropList
+            thyDragDrop
             (cdkDropListSorted)="sort($event)"
             (cdkDropListDropped)="sort('drop')"
             (cdkDropListEntered)="sort('enter')"
@@ -52,7 +53,7 @@
             </div>
           </div>
           <thy-menu-group thyTitle="项目分组" [thyExpand]="true" [thyShowAction]="true">
-            <div cdkDropList (cdkDropListSorted)="sort($event)">
+            <div cdkDropList thyDragDrop (cdkDropListSorted)="sort($event)">
               <div thyMenuItem href="javascript:;" cdkDrag>
                 <thy-icon thyIconName="drag" class="drag-handle"></thy-icon>
                 <i thyMenuItemIcon class="wtf wtf-work-timeline"></i> <span thyMenuItemName> 项目 </span>

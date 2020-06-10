@@ -10,6 +10,7 @@ import { DemoDatePickerDisabledComponent } from './disabled/datepicker-disabled.
 import { DemoDatePickerDirectiveComponent } from './directive/datepicker-directive.component';
 import { DemoDatePickerReadonlyComponent } from './readonly/datepicker-readonly.component';
 import { DemoDatePickerDefaultPickerValueComponent } from './default-picker-value/datepicker-default-picker-value.component';
+import { DemoDatePickerSuffixIconComponent } from './suffix-icon/datepicker-suffix-icon.component';
 
 @NgModule({
     declarations: [
@@ -22,7 +23,8 @@ import { DemoDatePickerDefaultPickerValueComponent } from './default-picker-valu
         DemoDatePickerDisabledComponent,
         DemoDatePickerDirectiveComponent,
         DemoDatePickerReadonlyComponent,
-        DemoDatePickerDefaultPickerValueComponent
+        DemoDatePickerDefaultPickerValueComponent,
+        DemoDatePickerSuffixIconComponent
     ],
     entryComponents: [
         DemoDatePickerBasicComponent,
@@ -33,7 +35,8 @@ import { DemoDatePickerDefaultPickerValueComponent } from './default-picker-valu
         DemoDatePickerDisabledComponent,
         DemoDatePickerDirectiveComponent,
         DemoDatePickerReadonlyComponent,
-        DemoDatePickerDefaultPickerValueComponent
+        DemoDatePickerDefaultPickerValueComponent,
+        DemoDatePickerSuffixIconComponent
     ],
     imports: [SharedModule],
     exports: [DemoDatePickerNextSectionComponent]

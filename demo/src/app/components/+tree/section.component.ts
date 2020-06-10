@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { LiveDemoCodeExample } from '../../core/live-demo/live-demo.component';
 import { DemoTreeBasicComponent } from './basic/tree-basic.component';
-import apiParameters from './apis/parameters.json';
-import functionParameters from './apis/component-function.json';
+import * as apiParameters from './apis/parameters.json';
+import * as functionParameters from './apis/component-function.json';
 import { DemoTreeAsyncComponent } from './async/tree-async.component';
 
 @Component({

@@ -181,7 +181,7 @@ class SelectionListWithListOptionsComponent {
     `
 })
 class SelectionListWithListOptionsDefaultComponent {
-    @ViewChild(ThySelectionListComponent) thySelectionListComponent: ThySelectionListComponent;
+    @ViewChild(ThySelectionListComponent, { static: true }) thySelectionListComponent: ThySelectionListComponent;
 
     autoActiveFirstItem = false;
 

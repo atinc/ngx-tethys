@@ -32,7 +32,6 @@
         .drag-handle {
             visibility: visible;
             color: $gray-600;
-            cursor: move;
         }
     }
 
@@ -77,4 +76,8 @@
 
 .cdk-drag-animating {
     transition: none; // transform 250ms cubic-bezier(0, 0, 1, 1);
+}
+
+.thy-dragging-body * {
+    cursor: grabbing !important;
 }

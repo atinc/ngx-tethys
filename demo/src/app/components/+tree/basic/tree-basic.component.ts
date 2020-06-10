@@ -1,14 +1,14 @@
 import { Component, OnInit, ContentChild, ViewChild } from '@angular/core';
 import * as data from '../tree-mock.json';
 import { ThyTreeNode, ThyTreeComponent, ThyTreeEmitEvent } from 'ngx-tethys';
-import { ThyDragDropEvent, ThyDropPosition } from 'ngx-tethys/drag-drop/drag-drop.class.js';
+import { ThyDragDropEvent, ThyDropPosition } from 'ngx-tethys/drag-drop';
 
 @Component({
     selector: 'app-demo-tree-basic',
     templateUrl: './tree-basic.component.html'
 })
 export class DemoTreeBasicComponent implements OnInit {
-    treeNodes = JSON.parse(JSON.stringify(data.default));
+    treeNodes = JSON.parse(JSON.stringify(data));
 
     addNodes = [];
 
@@ -21,7 +21,7 @@ export class DemoTreeBasicComponent implements OnInit {
 
     dataText: any;
 
-    @ViewChild('tree') treeComponent: ThyTreeComponent;
+    @ViewChild('tree', { static: true }) treeComponent: ThyTreeComponent;
 
     constructor() {}
 
@@ -43,8 +43,7 @@ export class DemoTreeBasicComponent implements OnInit {
     onDragDrop(event: ThyDragDropEvent<ThyTreeNode>) {
         let afterId: string;
         const suiteId: string = event.previousItem.origin._id;
-        const parenId: string =
-            event.position === ThyDropPosition.in ? event.item.origin._id : event.item.parentNode.origin._id;
+        const parenId: string = event.position === ThyDropPosition.in ? event.item.origin._id : event.item.parentNode.origin._id;
         const newIndex = event.currentIndex;
         if (newIndex === 0) {
             afterId = '';
@@ -103,7 +102,7 @@ export class DemoTreeBasicComponent implements OnInit {
     }
 
     add() {
-        this.treeNodes = JSON.parse(JSON.stringify(data.default));
+        this.treeNodes = JSON.parse(JSON.stringify(data));
         this.addNodes.push({
             key: new Date().getTime(),
             title: '新增的部门 ' + this.addNodes.length

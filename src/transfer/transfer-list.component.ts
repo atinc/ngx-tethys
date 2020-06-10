@@ -14,15 +14,9 @@ import {
     DoCheck,
     IterableChanges
 } from '@angular/core';
-import {
-    ThyTransferSelectEvent,
-    ThyTransferItem,
-    ThyTransferDragEvent,
-    InnerTransferDragEvent,
-    Direction
-} from './transfer.interface';
+import { ThyTransferSelectEvent, ThyTransferItem, ThyTransferDragEvent, InnerTransferDragEvent, Direction } from './transfer.interface';
 import { ThyTransferComponent } from './transfer.component';
-import { SortablejsOptions } from 'angular-sortablejs';
+import { SortablejsOptions } from 'ngx-sortablejs';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 @Component({
@@ -143,12 +137,7 @@ export class ThyTransferListComponent implements OnInit, DoCheck {
         if (event.previousContainer === event.container) {
             moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
         } else {
-            transferArrayItem(
-                event.previousContainer.data,
-                event.container.data,
-                event.previousIndex,
-                event.currentIndex
-            );
+            transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
             (event.previousContainer.data || []).forEach(item => {
                 item.isLock = event.previousContainer.id === 'lock';
             });

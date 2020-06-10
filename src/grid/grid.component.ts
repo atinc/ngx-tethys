@@ -14,7 +14,9 @@ import {
     ContentChildren,
     QueryList,
     OnDestroy,
-    HostBinding
+    HostBinding,
+    ElementRef,
+    ViewChild
 } from '@angular/core';
 import { get, set, isString } from '../util/helpers';
 import {
@@ -29,17 +31,28 @@ import {
     ThyGridEvent
 } from './grid.interface';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
-import {
-    ThyGridColumnComponent,
-    IThyGridColumnParentComponent,
-    THY_GRID_COLUMN_PARENT_COMPONENT
-} from './grid-column.component';
-import { SortablejsOptions } from 'angular-sortablejs';
+import { ThyGridColumnComponent, IThyGridColumnParentComponent, THY_GRID_COLUMN_PARENT_COMPONENT } from './grid-column.component';
+import { SortablejsOptions } from 'ngx-sortablejs';
 import { helpers } from '../util';
+import { $ } from '../typings';
+import { ViewportRuler } from '@angular/cdk/overlay';
+import { takeUntil, delay } from 'rxjs/operators';
+import { mixinUnsubscribe, MixinBase } from '../core';
+import { UpdateHostClassService } from '../shared';
+import { of, merge } from 'rxjs';
 
 export type ThyGridTheme = 'default' | 'bordered';
 
-export type ThyGridSize = 'default' | 'sm';
+export type ThyGridSize = 'sm';
+
+const gridThemeMap = {
+    default: 'table-default',
+    bordered: 'table-bordered'
+};
+
+const gridSizeMap = {
+    sm: 'table-sm'
+};
 
 const customType = {
     index: 'index',
@@ -55,11 +68,12 @@ const customType = {
         {
             provide: THY_GRID_COLUMN_PARENT_COMPONENT,
             useExisting: ThyGridComponent
-        }
+        },
+        UpdateHostClassService
     ],
     encapsulation: ViewEncapsulation.None
 })
-export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridColumnParentComponent {
+export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnInit, OnDestroy, DoCheck, IThyGridColumnParentComponent {
     public customType = customType;
 
     public model: object[] = [];
@@ -72,7 +86,7 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
 
     public className = '';
 
-    public size: ThyGridSize = 'default';
+    public size: ThyGridSize;
 
     public rowClassName: string | Function;
 
@@ -91,7 +105,8 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
         dragClass: 'thy-sortable-drag',
         disabled: true,
         onStart: this.onDraggableStart.bind(this),
-        onUpdate: this.onDraggableUpdate.bind(this)
+        onUpdate: this.onDraggableUpdate.bind(this),
+        onEnd: this.onDraggableEnd.bind(this)
     };
 
     public selectedRadioRow: any = null;
@@ -110,6 +125,10 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
 
     private _listOfColumnComponents: QueryList<ThyGridColumnComponent>;
 
+    private initialized = false;
+
+    @ViewChild('table', { static: true }) tableElementRef: ElementRef<any>;
+
     @Input()
     set thyModel(value: any) {
         this.model = value || [];
@@ -125,11 +144,13 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
     @Input()
     set thyTheme(value: ThyGridTheme) {
         this.theme = value || this.theme;
+        this._setClass();
     }
 
     @Input()
     set thySize(value: ThyGridSize) {
         this.size = value || this.size;
+        this._setClass();
     }
 
     @Input()
@@ -233,7 +254,13 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
 
     @HostBinding('class.thy-grid') isGridClass = true;
 
-    constructor(private _differs: IterableDiffers) {
+    constructor(
+        private _differs: IterableDiffers,
+        public elementRef: ElementRef,
+        private viewportRuler: ViewportRuler,
+        private updateHostClassService: UpdateHostClassService
+    ) {
+        super();
         this._bindTrackFn();
     }
 
@@ -325,6 +352,23 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
                 }
             }
         });
+    }
+
+    private _setClass(first = false) {
+        if (!first && !this.initialized) {
+            return;
+        }
+        const classNames: string[] = [];
+        if (gridSizeMap[this.size]) {
+            classNames.push(gridSizeMap[this.size]);
+        }
+        if (gridThemeMap[this.theme]) {
+            classNames.push(gridThemeMap[this.theme]);
+        }
+        if (gridSizeMap[this.size] === gridSizeMap['sm'] && gridThemeMap[this.theme] === gridThemeMap['default']) {
+            classNames.push('table-default-sm-bottom-padding');
+        }
+        this.updateHostClassService.updateClass(classNames);
     }
 
     private _filterModel() {
@@ -421,6 +465,7 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
     }
 
     public onDraggableStart(event: any) {
+        $('body').addClass('thy-dragging-body');
         this._draggableModel = this.model[event.oldIndex];
         const switchEvent: ThyGridDraggableEvent = {};
     }
@@ -433,6 +478,10 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
             newIndex: event.newIndex
         };
         this.thyOnDraggableChange.emit(dragEvent);
+    }
+
+    private onDraggableEnd() {
+        $('body').removeClass('thy-dragging-body');
     }
 
     public onRowClick(event: Event, row: any) {
@@ -474,7 +523,31 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
         }
     }
 
-    ngOnInit() {}
+    private _refreshColumns() {
+        const components = this._listOfColumnComponents ? this._listOfColumnComponents.toArray() : [];
+        const _columns = components.map(component => {
+            return {
+                width: component.width,
+                className: component.className
+            };
+        });
+
+        this.columns.forEach((n, i) => {
+            Object.assign(n, _columns[i]);
+        });
+    }
+
+    ngOnInit() {
+        this.updateHostClassService.initializeElement(this.tableElementRef.nativeElement);
+        this._setClass(true);
+        this.initialized = true;
+
+        merge(this.viewportRuler.change(200), of(null).pipe(delay(200)))
+            .pipe(takeUntil(this.ngUnsubscribe$))
+            .subscribe(() => {
+                this._refreshColumns();
+            });
+    }
 
     ngDoCheck() {
         const changes = this._diff.diff(this.model);
@@ -482,6 +555,7 @@ export class ThyGridComponent implements OnInit, OnDestroy, DoCheck, IThyGridCol
     }
 
     ngOnDestroy() {
+        super.ngOnDestroy();
         this._destroyInvalidAttribute();
     }
 }

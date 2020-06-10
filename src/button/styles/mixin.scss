@@ -61,15 +61,7 @@
     }
 }
 
-@mixin button-outline-variant(
-    $color,
-    $border-color,
-    $hover-color,
-    $hover-background,
-    $hover-border,
-    $active-background,
-    $active-border
-) {
+@mixin button-outline-variant($color, $border-color, $hover-color, $hover-background, $hover-border, $active-background, $active-border) {
     color: $color;
     background-color: transparent;
     background-image: none;
@@ -183,24 +175,26 @@
     }
 }
 
-@mixin btn-icon-circle-hover-variant($round-padding, $btn-icon-circle-font-size) {
+@mixin btn-icon-circle-hover-variant($round-padding, $btn-icon-circle-font-size, $diameter) {
     &.btn-icon-circle {
         i,
         .wtf,
         .thy-icon {
             padding: $round-padding;
             font-size: $btn-icon-circle-font-size;
+            width: $diameter;
+            height: $diameter;
         }
         &.border-thick {
             i,
             .wtf,
             .thy-icon {
-                padding: $round-padding - 1;
+                padding: $round-padding - $btn-icon-circle-padding-difference;
             }
             @include hover-focus {
                 i,
                 .wtf {
-                    padding: $round-padding - 1;
+                    padding: $round-padding - $btn-icon-circle-padding-difference;
                 }
             }
         }
@@ -209,19 +203,18 @@
             .wtf,
             .thy-icon {
                 border-width: 2px;
-                // border: 2px solid $primary;
-                padding: $round-padding - 1;
+                padding: $round-padding - $btn-icon-circle-padding-difference;
             }
         }
     }
 }
 
-@mixin btn-icon-size-variant($font-size, $round-padding, $btn-icon-circle-font-size) {
+@mixin btn-icon-size-variant($font-size, $round-padding, $btn-icon-circle-font-size, $diameter) {
     i,
     .wtf,
     .thy-icon {
         font-size: $font-size;
     }
 
-    @include btn-icon-circle-hover-variant($round-padding, $btn-icon-circle-font-size);
+    @include btn-icon-circle-hover-variant($round-padding, $btn-icon-circle-font-size, $diameter);
 }

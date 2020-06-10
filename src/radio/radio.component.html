@@ -1,3 +1,11 @@
-<input class="form-check-input" [checked]="_isChecked" (change)="change()" type="radio" [disabled]="_disabled" [attr.name]="name">
-<span class="form-check-label">{{_labelText}}</span>
+<input
+  class="form-check-input"
+  [checked]="_isChecked"
+  (change)="change()"
+  type="radio"
+  [disabled]="_disabled"
+  [attr.name]="name"
+  [ngClass]="{ 'form-check-no-label-text': !_labelText }"
+/>
+<span class="form-check-label" *ngIf="_labelText">{{ _labelText }}</span>
 <ng-content></ng-content>

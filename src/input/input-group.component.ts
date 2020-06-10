@@ -1,27 +1,20 @@
-import {
-    Component, HostBinding, Input,
-    ContentChild, TemplateRef, ElementRef,
-    ViewEncapsulation
-} from '@angular/core';
+import { Component, HostBinding, Input, ContentChild, TemplateRef, ElementRef, ViewEncapsulation } from '@angular/core';
 import { ThyTranslate, UpdateHostClassService } from '../shared';
 
 export type InputGroupSize = 'sm' | 'lg' | '';
 
 const inputGroupSizeMap = {
-    'sm': ['input-group-sm'],
-    'lg': ['input-group-lg']
+    sm: ['input-group-sm'],
+    lg: ['input-group-lg']
 };
 
 @Component({
     selector: 'thy-input-group',
     templateUrl: './input-group.component.html',
-    providers: [
-        UpdateHostClassService
-    ],
+    providers: [UpdateHostClassService],
     encapsulation: ViewEncapsulation.None
 })
 export class ThyInputGroupComponent {
-
     public appendText: string;
 
     public prependText: string;
@@ -61,9 +54,9 @@ export class ThyInputGroupComponent {
         }
     }
 
-    @ContentChild('append') appendTemplate: TemplateRef<any>;
+    @ContentChild('append', { static: true }) appendTemplate: TemplateRef<any>;
 
-    @ContentChild('prepend') prependTemplate: TemplateRef<any>;
+    @ContentChild('prepend', { static: true }) prependTemplate: TemplateRef<any>;
 
     constructor(
         private thyTranslate: ThyTranslate,

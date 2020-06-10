@@ -230,9 +230,9 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
 
     @Output() thyClear = new EventEmitter<void>();
 
-    @ViewChild('input') input: ElementRef;
+    @ViewChild('input', { static: false }) input: ElementRef;
 
-    @ViewChild('menu') menu: ElementRef;
+    @ViewChild('menu', { static: false }) menu: ElementRef;
 
     ngOnInit(): void {
         this.setClassMap();
@@ -665,11 +665,7 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
         return values;
     }
 
-    constructor(
-        private cdr: ChangeDetectorRef,
-        private elementRef: ElementRef,
-        private updateHostClassService: UpdateHostClassService
-    ) {
+    constructor(private cdr: ChangeDetectorRef, private elementRef: ElementRef, private updateHostClassService: UpdateHostClassService) {
         updateHostClassService.initializeElement(elementRef.nativeElement);
     }
 }

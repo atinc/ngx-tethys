@@ -7,6 +7,7 @@ import { ThyStopPropagationDirective } from './thy-stop-propagation.directive';
 import { ThyContextMenuDirective } from './thy-contextmenu.directive';
 import { ThyScrollDirective } from './thy-scroll.directive';
 import { ThyCopyDirective } from './thy-copy.directive';
+import { ThyDragDropDirective } from './thy-drag-drop.directive';
 
 @NgModule({
     declarations: [
@@ -17,7 +18,8 @@ import { ThyCopyDirective } from './thy-copy.directive';
         ThyStopPropagationDirective,
         ThyContextMenuDirective,
         ThyScrollDirective,
-        ThyCopyDirective
+        ThyCopyDirective,
+        ThyDragDropDirective
     ],
     exports: [
         ThyCtrlEnterDirective,
@@ -27,7 +29,8 @@ import { ThyCopyDirective } from './thy-copy.directive';
         ThyStopPropagationDirective,
         ThyContextMenuDirective,
         ThyScrollDirective,
-        ThyCopyDirective
+        ThyCopyDirective,
+        ThyDragDropDirective
     ],
     providers: []
 })

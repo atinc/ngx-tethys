@@ -1,9 +1,4 @@
-import {
-    CdkConnectedOverlay,
-    CdkOverlayOrigin,
-    ConnectedOverlayPositionChange,
-    ConnectionPositionPair
-} from '@angular/cdk/overlay';
+import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectedOverlayPositionChange, ConnectionPositionPair } from '@angular/cdk/overlay';
 import {
     AfterViewInit,
     ChangeDetectionStrategy,
@@ -41,12 +36,13 @@ export class ThyPickerComponent implements AfterViewInit {
     @Input() format: string;
     @Input() size: 'sm' | 'xs' | 'lg' | 'md' | 'default';
     @Input() value: TinyDate | TinyDate[] | null;
+    @Input() suffixIcon: string;
     @Output() readonly valueChange = new EventEmitter<TinyDate | TinyDate[] | null>();
     @Output() readonly openChange = new EventEmitter<boolean>(); // Emitted when overlay's open state change
 
-    @ViewChild('origin') origin: CdkOverlayOrigin;
-    @ViewChild(CdkConnectedOverlay) cdkConnectedOverlay: CdkConnectedOverlay;
-    @ViewChild('pickerInput') pickerInput: ElementRef;
+    @ViewChild('origin', { static: true }) origin: CdkOverlayOrigin;
+    @ViewChild(CdkConnectedOverlay, { static: true }) cdkConnectedOverlay: CdkConnectedOverlay;
+    @ViewChild('pickerInput', { static: true }) pickerInput: ElementRef;
 
     prefixCls = 'thy-calendar';
     animationOpenState = false;
@@ -158,8 +154,6 @@ export class ThyPickerComponent implements AfterViewInit {
     }
 
     getPlaceholder(): string {
-        return this.isRange && this.placeholder
-            ? (this.placeholder as string[]).join(' ~ ')
-            : (this.placeholder as string);
+        return this.isRange && this.placeholder ? (this.placeholder as string[]).join(' ~ ') : (this.placeholder as string);
     }
 }

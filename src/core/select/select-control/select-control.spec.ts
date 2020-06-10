@@ -1,13 +1,4 @@
-import {
-    TestBed,
-    async,
-    ComponentFixture,
-    fakeAsync,
-    tick,
-    inject,
-    flush,
-    discardPeriodicTasks
-} from '@angular/core/testing';
+import { TestBed, async, ComponentFixture, fakeAsync, tick, inject, flush, discardPeriodicTasks } from '@angular/core/testing';
 import { ThySelectCommonModule } from '../module';
 import { injectDefaultSvgIconSet } from '../../testing/thy-icon';
 import { By } from '@angular/platform-browser';
@@ -51,7 +42,7 @@ class BasicSelectControlComponent {
 
     thyPanelOpened = false;
 
-    @ViewChild(ThySelectControlComponent)
+    @ViewChild(ThySelectControlComponent, { static: true })
     selectControlComponent: ThySelectControlComponent;
 }
 
@@ -120,8 +111,7 @@ describe('ThySelectControl', () => {
             }));
 
             it('should display custom placeholder value', () => {
-                const textPlaceholderElement: HTMLElement = fixture.debugElement.query(By.css('.text-placeholder'))
-                    .nativeElement;
+                const textPlaceholderElement: HTMLElement = fixture.debugElement.query(By.css('.text-placeholder')).nativeElement;
                 expect(textPlaceholderElement.innerText).toEqual(fixture.componentInstance.placeholder);
                 expect(fixture.componentInstance.selectControlComponent.placeholderStyle.display).toEqual('block');
             });

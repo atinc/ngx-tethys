@@ -48,9 +48,9 @@ export class ThyTreeNodeComponent implements OnDestroy {
 
     @Output() thyOnCheckboxChange: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
 
-    @ContentChild('childrenTree') childrenTreeTemplateRef: TemplateRef<any>;
+    @ContentChild('childrenTree', { static: true }) childrenTreeTemplateRef: TemplateRef<any>;
 
-    @ViewChild('title') titleInputElementRef: ElementRef<HTMLInputElement>;
+    @ViewChild('title', { static: false }) titleInputElementRef: ElementRef<HTMLInputElement>;
 
     @HostBinding('class.thy-tree-node') thyTreeNodeClass = true;
 
@@ -104,10 +104,7 @@ export class ThyTreeNodeComponent implements OnDestroy {
 
     public clickNodeCheck(event: Event) {
         event.stopPropagation();
-        if (
-            this.node.isChecked === ThyTreeNodeCheckState.unchecked ||
-            this.node.isChecked === ThyTreeNodeCheckState.indeterminate
-        ) {
+        if (this.node.isChecked === ThyTreeNodeCheckState.unchecked || this.node.isChecked === ThyTreeNodeCheckState.indeterminate) {
             this.node.setChecked(true);
         } else {
             this.node.setChecked(false);

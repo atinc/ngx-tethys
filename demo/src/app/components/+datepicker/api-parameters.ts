@@ -48,6 +48,12 @@ export const apiParameters = [
         default: 'default'
     },
     {
+        property: 'thySuffixIcon',
+        description: '自定义的后缀图标',
+        type: 'string',
+        default: 'calendar'
+    },
+    {
         property: 'thyOriginClassName',
         description: '选择器 className',
         type: 'string',

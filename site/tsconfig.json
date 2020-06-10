@@ -1,0 +1,9 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "ngx-tethys": ["../src/public-api"],
+      "ngx-tethys/*": ["../src/*"]
+    }
+  }
+}

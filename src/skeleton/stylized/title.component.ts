@@ -11,7 +11,7 @@ import { ThySkeletonComponent } from '../skeleton.component';
     exportAs: 'thySkeletonTitleTemplate'
 })
 export class ThySkeletonTitleComponent implements OnInit {
-    @ViewChild('content') contentTemplateRef: TemplateRef<any>;
+    @ViewChild('content', { static: true }) contentTemplateRef: TemplateRef<any>;
 
     width = 100;
 

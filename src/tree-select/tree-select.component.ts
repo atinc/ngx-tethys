@@ -71,17 +71,17 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
 
     public valueIsObject = false;
 
-    @ContentChild('thyTreeSelectTriggerDisplay')
+    @ContentChild('thyTreeSelectTriggerDisplay', { static: true })
     thyTreeSelectTriggerDisplayRef: TemplateRef<any>;
 
-    @ContentChild('treeNodeTemplate')
+    @ContentChild('treeNodeTemplate', { static: true })
     treeNodeTemplateRef: TemplateRef<any>;
 
-    @ViewChild(CdkOverlayOrigin) cdkOverlayOrigin: CdkOverlayOrigin;
+    @ViewChild(CdkOverlayOrigin, { static: true }) cdkOverlayOrigin: CdkOverlayOrigin;
 
-    @ViewChild(CdkConnectedOverlay) cdkConnectedOverlay: CdkConnectedOverlay;
+    @ViewChild(CdkConnectedOverlay, { static: true }) cdkConnectedOverlay: CdkConnectedOverlay;
 
-    @ViewChild('customDisplayTemplate') customDisplayTemplate: TemplateRef<any>;
+    @ViewChild('customDisplayTemplate', { static: true }) customDisplayTemplate: TemplateRef<any>;
 
     @Input()
     set thyTreeNodes(value: ThyTreeSelectNode[]) {
@@ -136,9 +136,7 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
 
     @Input() thyDisableNodeFn: (node: ThyTreeSelectNode) => boolean = (node: ThyTreeSelectNode) => node.disable;
 
-    @Input() thyGetNodeChildren: (node: ThyTreeSelectNode) => Observable<ThyTreeSelectNode> = (
-        node: ThyTreeSelectNode
-    ) => of([]);
+    @Input() thyGetNodeChildren: (node: ThyTreeSelectNode) => Observable<ThyTreeSelectNode> = (node: ThyTreeSelectNode) => of([]);
 
     // TODO: 是否可以取消选中的node
     // @Input() thyUnRemoveSelectedNodeFn: Function;
@@ -219,10 +217,7 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
             item.parentValues = parentPrimaryValue;
             item.level = item.parentValues.length;
             if (item.children && isArray(item.children)) {
-                const nodeLeafs = this.flattenNodes(item.children, resultNodes, [
-                    ...parentPrimaryValue,
-                    item[this.thyPrimaryKey]
-                ]);
+                const nodeLeafs = this.flattenNodes(item.children, resultNodes, [...parentPrimaryValue, item[this.thyPrimaryKey]]);
                 nodesLeafs = [...nodesLeafs, ...nodeLeafs];
             }
         });
@@ -350,10 +345,7 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
         const result = this.thyGetNodeChildren(node);
         if (result && result.subscribe) {
             result.pipe().subscribe((data: ThyTreeSelectNode[]) => {
-                const nodes = this.flattenNodes(data, this.flattenTreeNodes, [
-                    ...node.parentValues,
-                    node[this.thyPrimaryKey]
-                ]);
+                const nodes = this.flattenNodes(data, this.flattenTreeNodes, [...node.parentValues, node[this.thyPrimaryKey]]);
                 const otherNodes = nodes.filter((item: ThyTreeNode) => {
                     return !this.flattenTreeNodes.find(hasItem => {
                         return hasItem[this.thyPrimaryKey] === item[this.thyPrimaryKey];

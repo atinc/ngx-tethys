@@ -8,7 +8,7 @@ import { PEOPLE_NAMES } from '../peoples-mock';
 })
 export class DemoMentionBasicComponent implements OnInit {
     value = `This is text!`;
-    @ViewChild('member') memberDisplayTemplateRef: TemplateRef<any>;
+    @ViewChild('member', { static: true }) memberDisplayTemplateRef: TemplateRef<any>;
 
     mentions: Mention<any>[];
 

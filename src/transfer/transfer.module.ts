@@ -6,9 +6,10 @@ import { ThyButtonModule } from '../button/button.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ThyIconModule } from '../icon';
 import { ThyListModule } from '../list';
+import { ThyDirectiveModule } from '../directive';
 @NgModule({
     declarations: [ThyTransferComponent, ThyTransferListComponent],
-    imports: [CommonModule, ThyButtonModule, DragDropModule, ThyIconModule, ThyListModule],
+    imports: [CommonModule, ThyButtonModule, DragDropModule, ThyIconModule, ThyListModule, ThyDirectiveModule],
     exports: [ThyTransferComponent]
 })
 export class ThyTransferModule {}

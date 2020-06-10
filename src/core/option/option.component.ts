@@ -55,7 +55,7 @@ export class ThyOptionComponent extends SelectOptionBase implements OnDestroy, H
 
     @HostBinding('class.thy-option-item') _isOptionItem = true;
 
-    @ViewChild(TemplateRef) template: TemplateRef<any>;
+    @ViewChild(TemplateRef, { static: true }) template: TemplateRef<any>;
 
     @Input()
     @HostBinding(`class.disabled`)

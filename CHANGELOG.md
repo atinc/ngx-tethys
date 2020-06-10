@@ -2,6 +2,105 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.0.0"></a>
+# [8.0.0](https://github.com/atinc/ngx-tethys/compare/8.0.0-alpha.0...8.0.0) (2020-06-09)
+
+
+### Bug Fixes
+
+* **transfer:** change cursor when dragging ([fc2ff5c](https://github.com/atinc/ngx-tethys/commit/fc2ff5c)), closes [#INFR-569](https://github.com/atinc/ngx-tethys/issues/INFR-569)
+
+
+
+<a name="8.0.0-alpha.0"></a>
+# [8.0.0-alpha.0](https://github.com/atinc/ngx-tethys/compare/7.8.5...8.0.0-alpha.0) (2020-06-04)
+
+
+### Features
+
+* bump angular to 8.2.14 ([#725](https://github.com/atinc/ngx-tethys/issues/725)) ([95f832b](https://github.com/atinc/ngx-tethys/commit/95f832b))
+
+upgrade to 8.0.0-alpha.0 need replace "angular-sortablejs": "^1.0.1" to "ngx-sortablejs": "^3.1.4"
+
+## [7.8.5](https://github.com/atinc/ngx-tethys/compare/7.8.4...7.8.5) (2020-06-04)
+
+
+### Features
+
+* **checkbox:** #INFR-538 checkbox style ([#719](https://github.com/atinc/ngx-tethys/issues/719)) ([91d91cb](https://github.com/atinc/ngx-tethys/commit/91d91cbfd39ecec8710322367d2a6aba83058c6e)), closes [#INFR-538](https://github.com/atinc/ngx-tethys/issues/INFR-538) [#INFR-538](https://github.com/atinc/ngx-tethys/issues/INFR-538)
+* **grid:** #INFR-520 grid size and theme style ([#720](https://github.com/atinc/ngx-tethys/issues/720)) ([882945f](https://github.com/atinc/ngx-tethys/commit/882945f94b87537d6489e6739e640bbdd56c221f)), closes [#INFR-520](https://github.com/atinc/ngx-tethys/issues/INFR-520) [#INFR-520](https://github.com/atinc/ngx-tethys/issues/INFR-520)
+
+
+
+## [7.8.4](https://github.com/atinc/ngx-tethys/compare/7.8.3...7.8.4) (2020-06-03)
+
+
+### Bug Fixes
+
+* **button:** fix button icon hover beat and extract variables ([918ad74](https://github.com/atinc/ngx-tethys/commit/918ad7402ca845c74781176230b75ad07e0ab1d4))
+
+
+### Features
+
+* **date-picker:** support thySuffixIcon ([cbbfb8b](https://github.com/atinc/ngx-tethys/commit/cbbfb8b506fd6b581478db00f86aec724b2cdb59))
+* **drag:** update cursor when dragging ([#712](https://github.com/atinc/ngx-tethys/issues/712)) ([e520985](https://github.com/atinc/ngx-tethys/commit/e5209855d1462724c2cffbef318980a83fbcb191))
+
+
+
+## [7.8.3](https://github.com/atinc/ngx-tethys/compare/7.8.2...7.8.3) (2020-06-01)
+
+
+### Bug Fixes
+
+* **button:** remove svg vertical-align for thy-icon vertical center in btn-icon-circle ([dd3df79](https://github.com/atinc/ngx-tethys/commit/dd3df79bd86b0792223c6b7a455b1931b66ab3bf))
+* **grid:** add viewportRuler refresh column with ([de27123](https://github.com/atinc/ngx-tethys/commit/de27123e609830fc7d198303a7a27ef19d5d847f))
+* **grid:** add viewportRuler refresh column with ([949c953](https://github.com/atinc/ngx-tethys/commit/949c9533f8277f9f65e07b934ff4a91809906e38))
+* **icon:** set default $icon-vertical-align as -0.18em #INFR-536 ([9f80f88](https://github.com/atinc/ngx-tethys/commit/9f80f88026ce9e38fb612b484425296edd6d96d7)), closes [#INFR-536](https://github.com/atinc/ngx-tethys/issues/INFR-536)
+
+
+
+## [7.8.2](https://github.com/atinc/ngx-tethys/compare/7.8.1...7.8.2) (2020-06-01)
+
+
+### Bug Fixes
+
+* **nav:** change layout header nav line-height and $icon-vertical-align for icon text vertical center #INFR-536 ([43c5de4](https://github.com/atinc/ngx-tethys/commit/43c5de41ee56d0ffbf6225fbfa8a6c4b0cb5374d)), closes [#INFR-536](https://github.com/atinc/ngx-tethys/issues/INFR-536)
+
+
+
+## [7.8.1](https://github.com/atinc/ngx-tethys/compare/7.8.0...7.8.1) (2020-06-01)
+
+
+### Features
+
+* **styles:** change global line-height from 1.5 to 1.5715 #INFR-536 ([9cdf393](https://github.com/atinc/ngx-tethys/commit/9cdf393493a3a436fc5e55e92c3fb9f0e88dcf49)), closes [#INFR-536](https://github.com/atinc/ngx-tethys/issues/INFR-536)
+
+
+
+# [7.8.0](https://github.com/atinc/ngx-tethys/compare/7.7.11...7.8.0) (2020-05-29)
+
+
+### Features
+
+* **styles:** change global font-family and set input-btn line-height as 1.47 for center vertically #INFR-395 ([0123054](https://github.com/atinc/ngx-tethys/commit/0123054172f0e9b3d94a737f7858c5a3bfac29a0)), closes [#INFR-395](https://github.com/atinc/ngx-tethys/issues/INFR-395)
+
+
+
+## [7.7.11](https://github.com/atinc/ngx-tethys/compare/7.7.10...7.7.11) (2020-05-28)
+
+
+### Bug Fixes
+
+* **grid:** #INFR-521 先修复头部高度不对问题 ([ec62554](https://github.com/atinc/ngx-tethys/commit/ec6255483ee1f471ad2e35b2a407eb87f4b16652)), closes [#INFR-521](https://github.com/atinc/ngx-tethys/issues/INFR-521)
+* **select:** fix select-control can not clear search text #INFR-511 ([1228c86](https://github.com/atinc/ngx-tethys/commit/1228c86e617c792c4ef774613f39917cbccaca5f)), closes [#INFR-511](https://github.com/atinc/ngx-tethys/issues/INFR-511)
+
+
+### Features
+
+* **icon-nav:** show all icon nav when active#INFR-451 ([9be5955](https://github.com/atinc/ngx-tethys/commit/9be5955b9eb86cc9e6c1aeb630fea4b413c4e726)), closes [active#INFR-451](https://github.com/active/issues/INFR-451)
+
+
+
 ## [7.7.10](https://github.com/atinc/ngx-tethys/compare/7.7.9...7.7.10) (2020-05-15)
 
 

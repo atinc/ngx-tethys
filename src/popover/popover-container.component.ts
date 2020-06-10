@@ -39,7 +39,7 @@ import { ThyClickDispatcher } from '../core/event-dispatchers/click-dispatcher';
     }
 })
 export class ThyPopoverContainerComponent extends ThyUpperOverlayContainer implements AfterViewInit, OnDestroy {
-    @ViewChild(CdkPortalOutlet)
+    @ViewChild(CdkPortalOutlet, { static: true })
     portalOutlet: CdkPortalOutlet;
 
     /** State of the popover animation. */

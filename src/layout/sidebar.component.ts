@@ -1,15 +1,4 @@
-import {
-    Component,
-    HostBinding,
-    Host,
-    Optional,
-    OnInit,
-    Input,
-    ViewChild,
-    Renderer2,
-    ElementRef,
-    NgZone
-} from '@angular/core';
+import { Component, HostBinding, Host, Optional, OnInit, Input, ViewChild, Renderer2, ElementRef, NgZone } from '@angular/core';
 import { ThyLayoutComponent } from './layout.component';
 import { inputValueToBoolean } from '../util/helpers';
 
@@ -65,7 +54,7 @@ export class ThySidebarComponent implements OnInit {
         }
     }
 
-    @ViewChild('dragRef') dragRef: any;
+    @ViewChild('dragRef', { static: true }) dragRef: any;
 
     dragStartedX: number;
 
@@ -85,11 +74,7 @@ export class ThySidebarComponent implements OnInit {
         this.ngZone.runOutsideAngular(() => {
             setTimeout(() => {
                 this.widthPassive = this.elementRef.nativeElement.clientWidth;
-                this.renderer.setStyle(
-                    this.dragRef.nativeElement,
-                    'left',
-                    this.numberConvertToFloor(this.widthPassive) + 'px'
-                );
+                this.renderer.setStyle(this.dragRef.nativeElement, 'left', this.numberConvertToFloor(this.widthPassive) + 'px');
             }, 0);
         });
     }

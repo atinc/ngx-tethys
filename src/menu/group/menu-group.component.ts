@@ -41,7 +41,7 @@ export class ThyMenuGroupComponent implements OnInit {
 
     public groupHeaderPaddingLeft = 0;
 
-    @ViewChild('thyMenuGroup') _thyMenuGroup: ElementRef;
+    @ViewChild('thyMenuGroup', { static: true }) _thyMenuGroup: ElementRef;
 
     @HostBinding('class.thy-menu-group') isThyMenuGroup = true;
 

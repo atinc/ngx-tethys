@@ -3,21 +3,18 @@
 // Indent the labels to position radios/checkboxes as hanging controls.
 
 .form-check {
-    display: flex;
-    justify-items: center;
-    padding-left: $form-check-input-gutter;
-    padding-bottom: 8px;
-    margin-bottom: 0; // Override default `<label>` bottom margin
-    &:last-child {
-        padding-bottom: 0;
-        margin-bottom: -2px;
+    position: relative;
+    display: block;
+    padding-left: 1.25rem;
+    &:last-of-type {
+        margin-bottom: 0;
     }
 }
 
 .form-check-input {
-    position: relative;
-    margin-top: $form-check-input-margin-y;
-    margin-left: -$form-check-input-gutter;
+    position: absolute;
+    margin-top: $form-check-input-margin-t;
+    margin-left: -$form-check-input-margin-l;
 
     &:disabled ~ .form-check-label {
         color: $input-form-check-disable-color;
@@ -29,31 +26,36 @@
 }
 
 .form-check-inline {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
     display: inline-flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
-    padding-left: 0; // Override base .form-check
-    margin-right: $form-check-inline-margin-x;
-
+    padding-left: 0;
+    margin-right: $form-check-inline-margin-r;
     // Undo .form-check-input defaults and add some `margin-right`.
     .form-check-input {
-        // position: static;
         position: relative;
-        margin-top: -1px;
-        // margin-right: $form-check-inline-input-margin-x;
+        margin-top: 0;
+        margin-right: $form-check-inline-input-margin-r;
         margin-left: 0;
     }
 }
 
 input[type='radio'],
 input[type='checkbox'] {
-    margin-top: 2px;
+    margin-top: 3px;
     -webkit-appearance: none;
     appearance: none;
     width: $input-form-check-size;
     height: $input-form-check-size;
     border: solid 1px $input-form-check-border-color;
     cursor: pointer;
-    transition: border $transitionDurationNormal;
+    transition: border $transition-duration-normal;
+
+    box-sizing: border-box;
+    padding: 0;
 
     &:not(.form-check-input) {
         position: relative;
@@ -163,18 +165,28 @@ input[type='radio'] {
 }
 
 .form-check-label {
-    // padding-left: 5px;
-    margin-left: 10px;
+    margin-left: 6px;
     cursor: pointer;
     color: $input-label-color;
-    transition: color $transitionDurationNormal;
+    transition: color $transition-duration-normal;
     user-select: none;
-    // .form-check-inline & {
-    //   margin-left: 5px;
-    // }
+    .form-check-inline & {
+        margin-left: 5px;
+    }
+
+    margin-bottom: 0;
 }
 
 // checked style
 .form-check-checked > .form-check-label {
     color: $input-label-checked-color;
+}
+
+.form-check-no-label-text {
+    position: relative;
+    vertical-align: text-bottom;
+}
+
+.form-check-inline-no-label-text {
+    margin-right: 0;
 }

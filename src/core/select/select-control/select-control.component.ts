@@ -149,7 +149,7 @@ export class ThySelectControlComponent implements OnInit {
     @Output()
     public thyOnClear = new EventEmitter<Event>();
 
-    @ViewChild('inputElement')
+    @ViewChild('inputElement', { static: false })
     inputElement: ElementRef;
 
     get selectedValueStyle(): { [key: string]: string } {
@@ -199,11 +199,7 @@ export class ThySelectControlComponent implements OnInit {
         );
     }
 
-    constructor(
-        private renderer: Renderer2,
-        private element: ElementRef<any>,
-        private updateHostClassService: UpdateHostClassService
-    ) {
+    constructor(private renderer: Renderer2, private element: ElementRef<any>, private updateHostClassService: UpdateHostClassService) {
         this.updateHostClassService.initializeElement(this.element.nativeElement);
     }
 
@@ -260,11 +256,7 @@ export class ThySelectControlComponent implements OnInit {
     updateWidth() {
         if (this.isMultiple && this.thyShowSearch) {
             if (this.inputValue || this.isComposing) {
-                this.renderer.setStyle(
-                    this.inputElement.nativeElement,
-                    'width',
-                    `${this.inputElement.nativeElement.scrollWidth}px`
-                );
+                this.renderer.setStyle(this.inputElement.nativeElement, 'width', `${this.inputElement.nativeElement.scrollWidth}px`);
             } else {
                 this.renderer.removeStyle(this.inputElement.nativeElement, 'width');
             }

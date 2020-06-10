@@ -11,7 +11,7 @@ export const THY_STEPPER_COMPONENT = new InjectionToken<IThyStepperComponent>('T
     templateUrl: './step.component.html'
 })
 export class ThyStepComponent {
-    @ViewChild(TemplateRef) content: TemplateRef<any>;
+    @ViewChild(TemplateRef, { static: true }) content: TemplateRef<any>;
 
     @Input() label: string;
 

@@ -66,7 +66,7 @@ export class WithViewContainerDirective {
     `
 })
 export class WithChildViewContainerComponent {
-    @ViewChild(WithViewContainerDirective)
+    @ViewChild(WithViewContainerDirective, { static: true })
     childWithViewContainer: WithViewContainerDirective;
 
     get childViewContainer() {
@@ -86,7 +86,7 @@ export class WithTemplateRefComponent {
     localValue: string;
     dialogRef: ThyDialogRef<any>;
 
-    @ViewChild(TemplateRef) templateRef: TemplateRef<any>;
+    @ViewChild(TemplateRef, { static: true }) templateRef: TemplateRef<any>;
 
     setDialogRef(dialogRef: ThyDialogRef<WithTemplateRefComponent>): string {
         this.dialogRef = dialogRef;

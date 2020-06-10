@@ -68,11 +68,11 @@ export class ThyInputComponent implements ControlValueAccessor, AfterViewInit {
 
     @Output() blur: EventEmitter<Event> = new EventEmitter<Event>();
 
-    @ContentChild('append') appendTemplate: TemplateRef<any>;
+    @ContentChild('append', { static: true }) appendTemplate: TemplateRef<any>;
 
-    @ContentChild('prepend') prependTemplate: TemplateRef<any>;
+    @ContentChild('prepend', { static: true }) prependTemplate: TemplateRef<any>;
 
-    @ViewChild('eye') eyeTemplate: TemplateRef<any>;
+    @ViewChild('eye', { static: true }) eyeTemplate: TemplateRef<any>;
 
     public _type = 'text';
 

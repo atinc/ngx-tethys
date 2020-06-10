@@ -1,13 +1,4 @@
-import {
-    TestBed,
-    async,
-    ComponentFixture,
-    fakeAsync,
-    tick,
-    inject,
-    flush,
-    discardPeriodicTasks
-} from '@angular/core/testing';
+import { TestBed, async, ComponentFixture, fakeAsync, tick, inject, flush, discardPeriodicTasks } from '@angular/core/testing';
 import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Component, ViewChild, ViewChildren, QueryList, ElementRef, Sanitizer, SecurityContext } from '@angular/core';
 import { ThyAutocompleteModule } from '../module';
@@ -42,11 +33,7 @@ import { ThyOptionModule } from '../../core';
                 (ngModelChange)="valueChange($event)"
             />
             <thy-autocomplete #auto [thyEmptyText]="'没有搜索到任何数据'" (thyOpened)="opened()">
-                <thy-option
-                    *ngFor="let item of foods"
-                    [thyLabelText]="item.viewValue"
-                    [thyValue]="item.value"
-                ></thy-option>
+                <thy-option *ngFor="let item of foods" [thyLabelText]="item.viewValue" [thyValue]="item.value"></thy-option>
             </thy-autocomplete>
         </div>
     `
@@ -64,7 +51,7 @@ class BasicSelectComponent {
         { value: 'pasta-6', viewValue: 'Pasta' },
         { value: 'sushi-7', viewValue: 'Sushi' }
     ];
-    @ViewChild(ThyAutocompleteComponent) autocomplete: ThyAutocompleteComponent;
+    @ViewChild(ThyAutocompleteComponent, { static: true }) autocomplete: ThyAutocompleteComponent;
     @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
 
     opened() {

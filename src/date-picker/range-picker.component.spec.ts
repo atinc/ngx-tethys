@@ -148,9 +148,7 @@ describe('ThyRangePickerComponent', () => {
             fixture.detectChanges();
             tick();
             fixture.detectChanges();
-            const disabledCell = queryFromOverlay(
-                '.thy-calendar-range-left tbody.thy-calendar-tbody td.thy-calendar-disabled-cell'
-            );
+            const disabledCell = queryFromOverlay('.thy-calendar-range-left tbody.thy-calendar-tbody td.thy-calendar-disabled-cell');
             expect(disabledCell.textContent.trim()).toBe('15');
         }));
 
@@ -167,6 +165,14 @@ describe('ThyRangePickerComponent', () => {
             fixtureInstance.thySize = 'lg';
             fixture.detectChanges();
             expect(getPickerTrigger().classList.contains('form-control-lg')).toBeTruthy();
+        });
+
+        it('should support thySuffixIcon', () => {
+            fixture.detectChanges();
+            expect(getPickerTriggerWrapper().querySelector('.thy-icon-angry')).toBeNull();
+            fixtureInstance.thySuffixIcon = 'angry';
+            fixture.detectChanges();
+            expect(getPickerTriggerWrapper().querySelector('.thy-icon-angry')).toBeTruthy();
         });
 
         it('should support thyOpenChange', fakeAsync(() => {
@@ -253,31 +259,23 @@ describe('ThyRangePickerComponent', () => {
             // Click previous year button
             dispatchMouseEvent(queryFromOverlay('.thy-calendar-range-left .thy-calendar-prev-year-btn'), 'click');
             fixture.detectChanges();
-            expect(
-                queryFromOverlay('.thy-calendar-range-left .thy-calendar-year-select').textContent.indexOf('2017') > -1
-            ).toBeTruthy();
+            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-year-select').textContent.indexOf('2017') > -1).toBeTruthy();
             // Click next year button * 2
             dispatchMouseEvent(queryFromOverlay('.thy-calendar-range-left .thy-calendar-next-year-btn'), 'click');
             fixture.detectChanges();
             dispatchMouseEvent(queryFromOverlay('.thy-calendar-range-left .thy-calendar-next-year-btn'), 'click');
             fixture.detectChanges();
-            expect(
-                queryFromOverlay('.thy-calendar-range-left .thy-calendar-year-select').textContent.indexOf('2019') > -1
-            ).toBeTruthy();
+            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-year-select').textContent.indexOf('2019') > -1).toBeTruthy();
             // Click previous month button
             dispatchMouseEvent(queryFromOverlay('.thy-calendar-range-left .thy-calendar-prev-month-btn'), 'click');
             fixture.detectChanges();
-            expect(
-                queryFromOverlay('.thy-calendar-range-left .thy-calendar-month-select').textContent.indexOf('5') > -1
-            ).toBeTruthy();
+            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-month-select').textContent.indexOf('5') > -1).toBeTruthy();
             // Click next month button * 2
             dispatchMouseEvent(queryFromOverlay('.thy-calendar-range-left .thy-calendar-next-month-btn'), 'click');
             fixture.detectChanges();
             dispatchMouseEvent(queryFromOverlay('.thy-calendar-range-left .thy-calendar-next-month-btn'), 'click');
             fixture.detectChanges();
-            expect(
-                queryFromOverlay('.thy-calendar-range-left .thy-calendar-month-select').textContent.indexOf('7') > -1
-            ).toBeTruthy();
+            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-month-select').textContent.indexOf('7') > -1).toBeTruthy();
         }));
     }); // /panel switch and move forward/afterward
 
@@ -341,15 +339,11 @@ describe('ThyRangePickerComponent', () => {
     }
 
     function getFirstSelectedDayCell(): HTMLElement {
-        return queryFromOverlay(
-            '.thy-calendar-range-left tbody.thy-calendar-tbody td.thy-calendar-selected-day'
-        ) as HTMLElement;
+        return queryFromOverlay('.thy-calendar-range-left tbody.thy-calendar-tbody td.thy-calendar-selected-day') as HTMLElement;
     }
 
     function getFirstCell(partial: 'left' | 'right'): HTMLElement {
-        return queryFromOverlay(
-            `.thy-calendar-range-${partial} tbody.thy-calendar-tbody td.thy-calendar-cell`
-        ) as HTMLElement;
+        return queryFromOverlay(`.thy-calendar-range-${partial} tbody.thy-calendar-tbody td.thy-calendar-cell`) as HTMLElement;
     }
 
     function queryFromOverlay(selector: string): HTMLElement {
@@ -376,6 +370,7 @@ describe('ThyRangePickerComponent', () => {
                 [thyPlaceHolder]="thyPlaceHolder"
                 [thyPanelClassName]="thyPanelClassName"
                 [thySize]="thySize"
+                [thySuffixIcon]="thySuffixIcon"
                 (thyOpenChange)="thyOpenChange($event)"
                 [(ngModel)]="modelValue"
                 (ngModelChange)="modelValueChange($event)"
@@ -397,8 +392,8 @@ describe('ThyRangePickerComponent', () => {
 })
 class ThyTestRangePickerComponent {
     useSuite: 1 | 2 | 3;
-    @ViewChild('tplDateRender') tplDateRender: TemplateRef<Date>;
-    @ViewChild('tplExtraFooter') tplExtraFooter: TemplateRef<void>;
+    @ViewChild('tplDateRender', { static: true }) tplDateRender: TemplateRef<Date>;
+    @ViewChild('tplExtraFooter', { static: true }) tplExtraFooter: TemplateRef<void>;
 
     thyAllowClear: boolean;
     thyDisabled: boolean;
@@ -406,6 +401,7 @@ class ThyTestRangePickerComponent {
     thyPlaceHolder: string[];
     thyPanelClassName: string;
     thySize: string;
+    thySuffixIcon: string;
     modelValue: RangeEntry;
     thyOpen: boolean;
     thyOpenChange(): void {}

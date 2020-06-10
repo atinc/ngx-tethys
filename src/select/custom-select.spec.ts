@@ -1,13 +1,4 @@
-import {
-    TestBed,
-    async,
-    ComponentFixture,
-    fakeAsync,
-    tick,
-    inject,
-    flush,
-    discardPeriodicTasks
-} from '@angular/core/testing';
+import { TestBed, async, ComponentFixture, fakeAsync, tick, inject, flush, discardPeriodicTasks } from '@angular/core/testing';
 import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Component, ViewChild, ViewChildren, QueryList, ElementRef, Sanitizer, SecurityContext } from '@angular/core';
 import { ThySelectModule } from './module';
@@ -56,7 +47,7 @@ class BasicSelectComponent {
     ];
     control = new FormControl();
     isRequired: boolean;
-    @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
+    @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
     @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
 }
 
@@ -64,20 +55,11 @@ class BasicSelectComponent {
     selector: 'multiple-select',
     template: `
         <thy-custom-select class="foods" #Foods thyPlaceHolder="Food">
-            <thy-option
-                *ngFor="let food of foods"
-                [thyValue]="food.value"
-                [thyDisabled]="food.disabled"
-                [thyLabelText]="food.viewValue"
-            >
+            <thy-option *ngFor="let food of foods" [thyValue]="food.value" [thyDisabled]="food.disabled" [thyLabelText]="food.viewValue">
             </thy-option>
         </thy-custom-select>
         <thy-custom-select class="vegetables" #Vegetables thyPlaceHolder="Vegetables">
-            <thy-option
-                *ngFor="let vegetable of vegetables"
-                [thyValue]="vegetable.value"
-                [thyLabelText]="vegetable.viewValue"
-            >
+            <thy-option *ngFor="let vegetable of vegetables" [thyValue]="vegetable.value" [thyLabelText]="vegetable.viewValue">
             </thy-option>
         </thy-custom-select>
     `
@@ -95,8 +77,8 @@ class MultipleSelectComponent {
     ];
     vegetables: any[] = [{ value: 'potatoes', viewValue: 'Potatoes' }];
 
-    @ViewChild('Foods') foodsComponent: ThySelectCustomComponent;
-    @ViewChild('Vegetables') vegetablesComponent: ThySelectCustomComponent;
+    @ViewChild('Foods', { static: true }) foodsComponent: ThySelectCustomComponent;
+    @ViewChild('Vegetables', { static: true }) vegetablesComponent: ThySelectCustomComponent;
 }
 
 @Component({
@@ -104,8 +86,7 @@ class MultipleSelectComponent {
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
             <thy-custom-select thyPlaceHolder="Food" ngModel name="food" [thyDisabled]="isDisabled">
-                <thy-option *ngFor="let food of foods" [thyValue]="food.value" [thyLabelText]="food.viewValue">
-                </thy-option>
+                <thy-option *ngFor="let food of foods" [thyValue]="food.value" [thyLabelText]="food.viewValue"> </thy-option>
             </thy-custom-select>
         </form>
     `
@@ -118,7 +99,7 @@ class NgModelSelectComponent {
     ];
     isDisabled: boolean;
 
-    @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
+    @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
     @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
 }
 
@@ -150,11 +131,7 @@ class SelectWithGroupsAndNgContainerComponent {
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
             <thy-custom-select placeholder="Food" [(ngModel)]="selectedFoods" name="food">
-                <thy-option
-                    *ngFor="let food of foods"
-                    [thyValue]="food.value"
-                    [thyLabelText]="food.viewValue"
-                ></thy-option>
+                <thy-option *ngFor="let food of foods" [thyValue]="food.value" [thyLabelText]="food.viewValue"></thy-option>
             </thy-custom-select>
         </form>
     `
@@ -168,7 +145,7 @@ class SingleSelectWithPreselectedArrayValuesComponent {
 
     selectedFoods = this.foods[1].value;
 
-    @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
+    @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
     @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
 }
 
@@ -227,7 +204,7 @@ class SelectWithSearchComponent {
     thyShowSearch = false;
     control = new FormControl();
     isRequired: boolean;
-    @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
+    @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
     @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
 }
 
@@ -272,7 +249,7 @@ class SelectWithSearchUseSearchKeyComponent {
     ];
     thyShowSearch = true;
     control = new FormControl();
-    @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
+    @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
     @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
 }
 
@@ -295,15 +272,21 @@ class SelectWithSearchAndGroupComponent {
     pokemonTypes = [
         {
             name: 'Grass',
-            pokemon: [{ value: 'bulbasaur-0', viewValue: 'Bulbasaur' }, { value: 'cat-0', viewValue: 'Cat' }]
+            pokemon: [
+                { value: 'bulbasaur-0', viewValue: 'Bulbasaur' },
+                { value: 'cat-0', viewValue: 'Cat' }
+            ]
         },
         {
             name: 'animals',
-            pokemon: [{ value: 'pet-0', viewValue: 'Pet' }, { value: 'monkey-0', viewValue: 'Monkey' }]
+            pokemon: [
+                { value: 'pet-0', viewValue: 'Pet' },
+                { value: 'monkey-0', viewValue: 'Monkey' }
+            ]
         }
     ];
 
-    @ViewChild(ThySelectCustomComponent)
+    @ViewChild(ThySelectCustomComponent, { static: true })
     select: ThySelectCustomComponent;
 }
 
@@ -343,7 +326,7 @@ class SelectWithSearchAndServerSearchComponent {
     selected = this.foods[7];
     thyShowSearch = true;
     control = new FormControl();
-    @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
+    @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
     @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
     thyOnSearch = jasmine.createSpy('thyServerSearch callback');
 }
@@ -385,7 +368,7 @@ class SelectEimtOptionsChangesComponent {
     selectedValue = ['sushi-7'];
     control = new FormControl();
     isRequired: boolean;
-    @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
+    @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
     @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
 }
 
@@ -409,18 +392,14 @@ class SelectWithExpandStatusComponent {
     foods: any[] = [{ value: 'pizza-1', viewValue: 'Pizza' }];
     control = new FormControl();
     thyOnExpandStatusChange = jasmine.createSpy('thyOnExpandStatusChange callback');
-    @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
+    @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
 }
 
 @Component({
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
             <thy-custom-select placeholder="Food" [(ngModel)]="selectedFoods" name="food" [thyMode]="selectMode">
-                <thy-option
-                    *ngFor="let food of foods"
-                    [thyValue]="food.value"
-                    [thyLabelText]="food.viewValue"
-                ></thy-option>
+                <thy-option *ngFor="let food of foods" [thyValue]="food.value" [thyLabelText]="food.viewValue"></thy-option>
             </thy-custom-select>
         </form>
     `
@@ -436,7 +415,7 @@ class SelectWithThyModeComponent {
 
     selectedFoods = null;
 
-    @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
+    @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
     @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
 }
 
@@ -450,11 +429,7 @@ class SelectWithThyModeComponent {
                 [thyMode]="selectMode"
                 [thySortComparator]="thySortComparator"
             >
-                <thy-option
-                    *ngFor="let food of foods"
-                    [thyValue]="food.value"
-                    [thyLabelText]="food.viewValue"
-                ></thy-option>
+                <thy-option *ngFor="let food of foods" [thyValue]="food.value" [thyLabelText]="food.viewValue"></thy-option>
             </thy-custom-select>
         </form>
     `
@@ -472,7 +447,7 @@ class SelectWithThySortComparatorComponent {
 
     selectedFoods = null;
 
-    @ViewChild(ThySelectCustomComponent) select: ThySelectCustomComponent;
+    @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
     @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
 }
 
@@ -700,8 +675,7 @@ describe('ThyCustomSelect', () => {
 
             it('should close the panel when a click occurs on another select', fakeAsync(() => {
                 const foodsTrigger = fixture.debugElement.query(By.css('.foods .form-control-custom')).nativeElement;
-                const vegetablesTrigger = fixture.debugElement.query(By.css('.vegetables .form-control-custom'))
-                    .nativeElement;
+                const vegetablesTrigger = fixture.debugElement.query(By.css('.vegetables .form-control-custom')).nativeElement;
 
                 foodsTrigger.click();
                 fixture.detectChanges();
@@ -747,9 +721,7 @@ describe('ThyCustomSelect', () => {
 
                 expect(option.classList).toContain('active');
                 expect(fixture.componentInstance.options.first.selected).toEqual(true);
-                expect(fixture.componentInstance.select.selectionModel.selected[0]).toBe(
-                    fixture.componentInstance.options.first
-                );
+                expect(fixture.componentInstance.select.selectionModel.selected[0]).toBe(fixture.componentInstance.options.first);
             }));
 
             it('should be able to select to an option using th ThyOptionComponent API', fakeAsync(() => {
@@ -852,10 +824,7 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
 
             expect(overlayContainerElement.textContent).toEqual('', `Expected select panel to stay closed.`);
-            expect(fixture.componentInstance.select.panelOpen).toBe(
-                false,
-                `Expected select panelOpen property to stay false.`
-            );
+            expect(fixture.componentInstance.select.panelOpen).toBe(false, `Expected select panelOpen property to stay false.`);
 
             fixture.componentInstance.isDisabled = false;
             fixture.detectChanges();
@@ -866,20 +835,13 @@ describe('ThyCustomSelect', () => {
             trigger.click();
             fixture.detectChanges();
 
-            expect(overlayContainerElement.textContent).toContain(
-                'Steak',
-                `Expected select panel to open normally on re-enabled control`
-            );
-            expect(fixture.componentInstance.select.panelOpen).toBe(
-                true,
-                `Expected select panelOpen property to become true.`
-            );
+            expect(overlayContainerElement.textContent).toContain('Steak', `Expected select panel to open normally on re-enabled control`);
+            expect(fixture.componentInstance.select.panelOpen).toBe(true, `Expected select panelOpen property to become true.`);
         }));
     });
 
     describe('with preselected array values', () => {
-        beforeEach(async(() =>
-            configureThyCustomSelectTestingModule([SingleSelectWithPreselectedArrayValuesComponent])));
+        beforeEach(async(() => configureThyCustomSelectTestingModule([SingleSelectWithPreselectedArrayValuesComponent])));
 
         it('should be able to preselect an array value in single-selection mode', fakeAsync(() => {
             const fixture = TestBed.createComponent(SingleSelectWithPreselectedArrayValuesComponent);
