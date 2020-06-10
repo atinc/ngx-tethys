@@ -17,12 +17,12 @@ import { By, DomSanitizer } from '@angular/platform-browser';
 import { UpdateHostClassService } from '../shared';
 import { ThyPositioningService } from '../positioning/positioning.service';
 import { OverlayContainer, ViewportRuler } from '@angular/cdk/overlay';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, fromEvent } from 'rxjs';
 import { Platform } from '@angular/cdk/platform';
 import { ThySelectComponent } from './select.component';
 import { ThyFormModule } from '../form';
 import { dispatchFakeEvent, dispatchKeyboardEvent } from '../core/testing/dispatcher-events';
-import { TAB, ESCAPE } from '../util/keycodes';
+import { TAB, ESCAPE, DOWN_ARROW, ENTER } from '../util/keycodes';
 import { typeInElement, injectDefaultSvgIconSet, bypassSanitizeProvider } from '../core/testing';
 import { ThyIconRegistry } from '../icon';
 import { ThyOptionModule } from '../core/option/module';
@@ -1331,6 +1331,41 @@ describe('ThyCustomSelect', () => {
 
             expect(fixture.componentInstance.selectedFoods[0]).toEqual(fixture.componentInstance.foods[0].value);
             expect(fixture.componentInstance.selectedFoods[1]).toEqual(fixture.componentInstance.foods[1].value);
+        }));
+    });
+
+    describe('shortcuts', () => {
+        beforeEach(async(() => {
+            configureThyCustomSelectTestingModule([BasicSelectComponent]);
+        }));
+        it('should stopPropagation when press enter on custom-select', fakeAsync(() => {
+            const fixture = TestBed.createComponent(BasicSelectComponent);
+            fixture.detectChanges();
+
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+            flush();
+
+            // expect(fixture.componentInstance.select.panelOpen).toBe(true);
+
+            dispatchKeyboardEvent(trigger, 'keydown', DOWN_ARROW);
+            fixture.detectChanges();
+            flush();
+
+            expect(fixture.componentInstance.select.keyManager.activeItem).toEqual(
+                fixture.componentInstance.select.options.toArray()[0]
+            );
+            const spy = jasmine.createSpy('keydown spy');
+            fromEvent(fixture.debugElement.nativeElement, 'keydown').subscribe(() => {
+                spy();
+            });
+
+            dispatchKeyboardEvent(trigger, 'keydown', ENTER);
+            fixture.detectChanges();
+            flush();
+
+            expect(spy).not.toHaveBeenCalled();
         }));
     });
 });
