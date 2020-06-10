@@ -104,35 +104,25 @@ describe('thy-statistic', () => {
         it('prefix template', () => {
             fixture.detectChanges();
             expect(
-                fixture.debugElement
-                    .query(By.css('.thy-statistic-content-prefix'))
-                    .nativeElement.innerText.includes('前缀')
+                fixture.debugElement.query(By.css('.thy-statistic-content-prefix')).nativeElement.innerText.includes('前缀')
             ).toBeTruthy();
         });
 
         it('value template', () => {
             fixture.detectChanges();
-            expect(
-                fixture.debugElement
-                    .query(By.css('.thy-statistic-content-value'))
-                    .nativeElement.innerText.includes('value')
-            ).toBe(true);
+            expect(fixture.debugElement.query(By.css('.thy-statistic-content-value')).nativeElement.innerText.includes('value')).toBe(true);
         });
 
         it('suffix template', () => {
             fixture.detectChanges();
             expect(
-                fixture.debugElement
-                    .query(By.css('.thy-statistic-content-suffix'))
-                    .nativeElement.innerText.includes('后缀')
+                fixture.debugElement.query(By.css('.thy-statistic-content-suffix')).nativeElement.innerText.includes('后缀')
             ).toBeTruthy();
         });
 
         it('title template', () => {
             fixture.detectChanges();
-            expect(
-                fixture.debugElement.query(By.css('.thy-statistic-title')).nativeElement.innerText.includes('标题')
-            ).toBe(true);
+            expect(fixture.debugElement.query(By.css('.thy-statistic-title')).nativeElement.innerText.includes('标题')).toBe(true);
         });
     });
 
@@ -150,35 +140,25 @@ describe('thy-statistic', () => {
         it('prefix template', () => {
             fixture.detectChanges();
             expect(
-                fixture.debugElement
-                    .query(By.css('.thy-statistic-content-prefix'))
-                    .nativeElement.innerText.includes('前缀')
+                fixture.debugElement.query(By.css('.thy-statistic-content-prefix')).nativeElement.innerText.includes('前缀')
             ).toBeTruthy();
         });
 
         it('value template', () => {
             fixture.detectChanges();
-            expect(
-                fixture.debugElement
-                    .query(By.css('.thy-statistic-content-value'))
-                    .nativeElement.innerText.includes('value')
-            ).toBe(true);
+            expect(fixture.debugElement.query(By.css('.thy-statistic-content-value')).nativeElement.innerText.includes('value')).toBe(true);
         });
 
         it('suffix template', () => {
             fixture.detectChanges();
             expect(
-                fixture.debugElement
-                    .query(By.css('.thy-statistic-content-suffix'))
-                    .nativeElement.innerText.includes('后缀')
+                fixture.debugElement.query(By.css('.thy-statistic-content-suffix')).nativeElement.innerText.includes('后缀')
             ).toBeTruthy();
         });
 
         it('title template', () => {
             fixture.detectChanges();
-            expect(
-                fixture.debugElement.query(By.css('.thy-statistic-title')).nativeElement.innerText.includes('标题')
-            ).toBe(true);
+            expect(fixture.debugElement.query(By.css('.thy-statistic-title')).nativeElement.innerText.includes('标题')).toBe(true);
         });
     });
 });
@@ -227,12 +207,7 @@ class ThyDemoStatisticTemplateComponent {
 @Component({
     selector: 'thy-demo-statistic-template-outside',
     template: `
-        <thy-statistic
-            [thyPrefixTemplate]="prefix"
-            [thyValueTemplate]="value"
-            [thySuffixTemplate]="suffix"
-            [thyTitleTemplate]="title"
-        >
+        <thy-statistic [thyPrefixTemplate]="prefix" [thyValueTemplate]="value" [thySuffixTemplate]="suffix" [thyTitleTemplate]="title">
         </thy-statistic>
         <ng-template #value>value</ng-template>
         <ng-template #prefix>前缀</ng-template>
@@ -244,15 +219,7 @@ class ThyDemoStatisticTemplateOutsideComponent {}
 
 @NgModule({
     imports: [ThyStatisticModule],
-    declarations: [
-        ThyDemoStatisticBasicComponent,
-        ThyDemoStatisticTemplateComponent,
-        ThyDemoStatisticTemplateOutsideComponent
-    ],
-    exports: [
-        ThyDemoStatisticBasicComponent,
-        ThyDemoStatisticTemplateComponent,
-        ThyDemoStatisticTemplateOutsideComponent
-    ]
+    declarations: [ThyDemoStatisticBasicComponent, ThyDemoStatisticTemplateComponent, ThyDemoStatisticTemplateOutsideComponent],
+    exports: [ThyDemoStatisticBasicComponent, ThyDemoStatisticTemplateComponent, ThyDemoStatisticTemplateOutsideComponent]
 })
 export class StatisticTestModule {}
