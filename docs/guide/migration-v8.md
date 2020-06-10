@@ -19,4 +19,4 @@ order: 10
 - 去除 `angular-sortablejs` 依赖，新增 `"ngx-sortablejs": "^3.1.4"`
 
 ## 升级 ngx-tethys
-- 修改 ngx-tethys 版本为 8.0.0-alpha.0
+- 修改 `ngx-tethys` 版本为 `8.0.0`
