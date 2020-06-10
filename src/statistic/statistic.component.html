@@ -1,31 +1,25 @@
-<ng-container
-  [ngTemplateOutlet]="title"
-  *ngIf="(thyTitle || thyTitleTemplate) && thyTitlePosition === 'top'"
-></ng-container>
+<ng-container [ngTemplateOutlet]="title" *ngIf="(thyTitle || titleTemplate) && thyTitlePosition === 'top'"></ng-container>
 <div class="thy-statistic-content" [ngStyle]="thyValueStyle">
-  <span *ngIf="thyPrefix || thyPrefixTemplate" class="thy-statistic-content-prefix">
+  <span *ngIf="thyPrefix || prefixTemplate" class="thy-statistic-content-prefix">
     <span *ngIf="thyPrefix">{{ thyPrefix }}</span>
-    <ng-container *ngIf="thyPrefixTemplate" [ngTemplateOutlet]="thyPrefixTemplate"></ng-container>
+    <ng-container *ngIf="prefixTemplate" [ngTemplateOutlet]="prefixTemplate"></ng-container>
   </span>
 
   <span class="thy-statistic-content-value">
-    <span *ngIf="!thyValueTemplate">{{ thyValue }}</span>
-    <ng-container *ngIf="thyValueTemplate" [ngTemplateOutlet]="thyValueTemplate"></ng-container>
+    <span *ngIf="!valueTemplate">{{ thyValue }}</span>
+    <ng-container *ngIf="valueTemplate" [ngTemplateOutlet]="valueTemplate"></ng-container>
   </span>
 
-  <span *ngIf="thySuffix || thySuffixTemplate" class="thy-statistic-content-suffix">
+  <span *ngIf="thySuffix || suffixTemplate" class="thy-statistic-content-suffix">
     <span *ngIf="thySuffix">{{ thySuffix }}</span>
-    <ng-container *ngIf="thySuffixTemplate" [ngTemplateOutlet]="thySuffixTemplate"></ng-container>
+    <ng-container *ngIf="suffixTemplate" [ngTemplateOutlet]="suffixTemplate"></ng-container>
   </span>
 </div>
-<ng-container
-  [ngTemplateOutlet]="title"
-  *ngIf="(thyTitle || thyTitleTemplate) && thyTitlePosition === 'bottom'"
-></ng-container>
+<ng-container [ngTemplateOutlet]="title" *ngIf="(thyTitle || titleTemplate) && thyTitlePosition === 'bottom'"></ng-container>
 
 <ng-template #title>
   <div class="thy-statistic-title">
     <span *ngIf="thyTitle">{{ thyTitle }}</span>
-    <ng-container [ngTemplateOutlet]="thyTitleTemplate"></ng-container>
+    <ng-container [ngTemplateOutlet]="titleTemplate"></ng-container>
   </div>
 </ng-template>
