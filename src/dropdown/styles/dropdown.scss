@@ -1,22 +1,57 @@
 .thy-dropdown-toggle {
-  // Generate the caret automatically
-  @include caret;
-  &.btn {
-    padding-left: $dropdown-toggle-y-l;
-    padding-right: $dropdown-toggle-y-r;
-  }
-  &::after {
-    margin-left: 1.25rem;
-  }
+    // Generate the caret automatically
+    @include caret;
+    &.btn {
+        padding-left: $dropdown-toggle-y-l;
+        padding-right: $dropdown-toggle-y-r;
+    }
+    &::after {
+        margin-left: 1.25rem;
+    }
 }
 
 .thy-dropdown-toggle-split {
-  &.btn {
-    padding-right: $dropdown-toggle-split-y;
-    padding-left: $dropdown-toggle-split-y;
-    min-width: inherit;
-  }
-  &::after {
-    margin-left: 0;
-  }
+    &.btn {
+        &::before {
+            position: absolute;
+            content: '';
+            width: $btn-border-width;
+            height: 100%;
+            top: 0;
+            left: 0px;
+            background: rgba($white, 0.3);
+        }
+        min-width: inherit;
+    }
+    &::after {
+        margin-left: 0;
+    }
+}
+.btn-group > .btn {
+    &.thy-dropdown-toggle-split {
+        padding: $btn-padding-y $btn-group-btn-dropdown-padding-x;
+    }
+}
+.btn-group-xs > .btn {
+    &.thy-dropdown-toggle-split {
+        padding: $btn-group-btn-padding-y-xs $btn-group-btn-dropdown-padding-x-xs;
+    }
+}
+
+.btn-group-sm > .btn {
+    &.thy-dropdown-toggle-split {
+        padding: $btn-group-btn-padding-y-sm $btn-group-btn-dropdown-padding-x-sm;
+    }
+}
+
+.btn-group-md > .btn {
+    &.thy-dropdown-toggle-split {
+        padding: $btn-group-btn-padding-y-md $btn-group-btn-dropdown-padding-x-md;
+    }
+}
+
+.btn-group-lg > .btn {
+    &.thy-dropdown-toggle-split {
+        padding: $btn-group-btn-padding-y-lg $btn-group-btn-dropdown-padding-x-lg;
+    }
 }
