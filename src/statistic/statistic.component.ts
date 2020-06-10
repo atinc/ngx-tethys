@@ -22,25 +22,57 @@ export class ThyStatisticComponent implements OnInit {
 
     _size: ThyStatisticSizes;
 
+    prefixTemplate: TemplateRef<void>;
+
+    suffixTemplate: TemplateRef<void>;
+
+    valueTemplate: TemplateRef<void>;
+
+    titleTemplate: TemplateRef<void>;
+
     @HostBinding(`class.thy-statistic`) class = true;
 
     @Input() thyValueStyle = {};
 
     @Input() thyPrefix: string;
 
-    @ContentChild('prefix', { static: true }) thyPrefixTemplate: TemplateRef<void>;
+    @ContentChild('prefix', { static: true }) set prefix(value: TemplateRef<void>) {
+        this.prefixTemplate = value;
+    }
 
-    @Input() thySuffix: string;
-
-    @ContentChild('suffix', { static: true }) thySuffixTemplate: TemplateRef<void>;
+    @Input() set thyPrefixTemplate(value: TemplateRef<void>) {
+        this.prefixTemplate = value;
+    }
 
     @Input() thyValue: number | string;
 
-    @ContentChild('value', { static: true }) thyValueTemplate: TemplateRef<void>;
+    @ContentChild('value', { static: true }) set value(value: TemplateRef<void>) {
+        this.valueTemplate = value;
+    }
+
+    @Input() set thyValueTemplate(value: TemplateRef<void>) {
+        this.valueTemplate = value;
+    }
 
     @Input() thyTitle: string;
 
-    @ContentChild('title', { static: true }) thyTitleTemplate: TemplateRef<void>;
+    @ContentChild('title', { static: true }) set title(value: TemplateRef<void>) {
+        this.titleTemplate = value;
+    }
+
+    @Input() set thyTitleTemplate(value: TemplateRef<void>) {
+        this.titleTemplate = value;
+    }
+
+    @Input() thySuffix: string;
+
+    @ContentChild('suffix', { static: true }) set suffix(value: TemplateRef<void>) {
+        this.suffixTemplate = value;
+    }
+
+    @Input() set thySuffixTemplate(value: TemplateRef<void>) {
+        this.suffixTemplate = value;
+    }
 
     @Input() thyTitlePosition: ThyStatisticTitlePosition = 'bottom';
 
