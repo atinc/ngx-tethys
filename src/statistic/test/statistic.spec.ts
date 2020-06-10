@@ -3,7 +3,7 @@ import { ThyStatisticModule } from '../statistic.module';
 import { NgModule, Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ThyStatisticComponent } from '../statistic.component';
-fdescribe('thy-statistic', () => {
+describe('thy-statistic', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [StatisticTestModule]
