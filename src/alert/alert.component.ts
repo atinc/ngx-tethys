@@ -46,7 +46,7 @@ export class ThyAlertComponent implements OnInit {
 
     @Input() thyCloseable: boolean;
 
-    @ContentChild('operation', { static: true }) alertOperation: TemplateRef<any>;
+    @ContentChild('operation', { static: false }) alertOperation: TemplateRef<any>;
 
     // @ViewChild(TemplateRef) content: TemplateRef<any>;
 

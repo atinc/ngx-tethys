@@ -13,13 +13,13 @@ export class ThyListItemMetaComponent {
 
     @Input() thyDescription: string;
 
-    @ContentChild('metaAvatar', { static: true })
+    @ContentChild('metaAvatar', { static: false })
     public avatarTemplateRef: TemplateRef<any>;
 
-    @ContentChild('metaTitle', { static: true })
+    @ContentChild('metaTitle', { static: false })
     public titleTemplateRef: TemplateRef<any>;
 
-    @ContentChild('metaDescription', { static: true })
+    @ContentChild('metaDescription', { static: false })
     public descriptionTemplateRef: TemplateRef<any>;
 
     @HostBinding('class') className = `thy-list-item-meta`;
