@@ -9,6 +9,7 @@ import { ThyButtonSquareExampleComponent } from './square/square.component';
 import { ThyButtonLoadingExampleComponent } from './loading/loading.component';
 import { ThyButtonGroupExampleComponent } from './group/group.component';
 import { ThyButtonModule } from 'ngx-tethys/button';
+import { CommonModule } from '@angular/common';
 
 const COMPONENTS = [
     ThyButtonBasicExampleComponent,
@@ -25,7 +26,7 @@ const COMPONENTS = [
 @NgModule({
     declarations: [...COMPONENTS],
     entryComponents: [...COMPONENTS],
-    imports: [ThyButtonModule],
+    imports: [CommonModule, ThyButtonModule],
     exports: [...COMPONENTS]
 })
 export class ThyButtonExamplesModule {}

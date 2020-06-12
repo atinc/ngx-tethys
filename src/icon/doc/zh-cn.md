@@ -1,7 +1,6 @@
 ---
 category: general
-title: 图标
+title: Icon
+subtitle: 图标
 order: 2
 ---
-
-图标

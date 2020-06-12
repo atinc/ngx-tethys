@@ -1,2 +1,25 @@
-/* You can add global styles to this file, and also import other style files */
+// docgeni
+$dg-primary: #673ab7;
 @import '~@docgeni/template/styles/index.scss';
+
+.dg-sidebar,
+.dg-navbar {
+    a {
+        &:hover {
+            text-decoration: none;
+        }
+    }
+}
+.dg-menus {
+    .menu-item {
+        padding: 9px 30px;
+    }
+}
+
+// ngx-tethys
+$primary: #348fe4;
+$font-family-statistics-number: 'Statistic-Number';
+
+@import './assets/fonts/wtd/iconfont.css';
+@import '../../src/styles/index.scss';
+@import './styles/index.scss';
