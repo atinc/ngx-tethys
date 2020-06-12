@@ -44,13 +44,13 @@ export class ThyHeaderComponent implements OnInit {
         }
     }
 
-    @ContentChild('headerTitle', { static: true })
+    @ContentChild('headerTitle', { static: false })
     public titleTemplateRef: TemplateRef<any>;
 
-    @ContentChild('headerContent', { static: true })
+    @ContentChild('headerContent', { static: false })
     public contentTemplateRef: TemplateRef<any>;
 
-    @ContentChild('headerOperation', { static: true })
+    @ContentChild('headerOperation', { static: false })
     public operationTemplateRef: TemplateRef<any>;
 
     constructor() {}

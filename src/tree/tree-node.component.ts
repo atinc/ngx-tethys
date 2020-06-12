@@ -48,7 +48,7 @@ export class ThyTreeNodeComponent implements OnDestroy {
 
     @Output() thyOnCheckboxChange: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
 
-    @ContentChild('childrenTree', { static: true }) childrenTreeTemplateRef: TemplateRef<any>;
+    @ContentChild('childrenTree', { static: false }) childrenTreeTemplateRef: TemplateRef<any>;
 
     @ViewChild('title', { static: false }) titleInputElementRef: ElementRef<HTMLInputElement>;
 
