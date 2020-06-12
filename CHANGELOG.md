@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.0.2"></a>
+## [8.0.2](https://github.com/atinc/ngx-tethys/compare/8.0.1...8.0.2) (2020-06-12)
+
+
+### Bug Fixes
+
+* **property-operation:** have mouse when set disabled ([4d2971c](https://github.com/atinc/ngx-tethys/commit/4d2971c))
+
+
+
 <a name="8.0.1"></a>
 ## [8.0.1](https://github.com/atinc/ngx-tethys/compare/8.0.0...8.0.1) (2020-06-10)
 
