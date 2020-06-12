@@ -9,7 +9,7 @@
     //     display: inline-flex;
     // }
     &.thy-property-operation-disabled {
-        cursor: none;
+        cursor: default;
     }
     &:not(.thy-property-operation-disabled) {
         @include hover {
