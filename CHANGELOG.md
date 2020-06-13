@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.8.7](https://github.com/atinc/ngx-tethys/compare/7.8.6...7.8.7) (2020-06-13)
+
+
+### Bug Fixes
+
+* **raster:** fix incorrect util import #INFR-608 ([#738](https://github.com/atinc/ngx-tethys/issues/738)) ([5196f17](https://github.com/atinc/ngx-tethys/commit/5196f17e912c80bff1224aaf279cccde4817927d)), closes [#INFR-608](https://github.com/atinc/ngx-tethys/issues/INFR-608)
+
+
+### Features
+
+* **select:** enter key stopPropagation on custom-select #INFR-530 ([#737](https://github.com/atinc/ngx-tethys/issues/737)) ([2f00f3e](https://github.com/atinc/ngx-tethys/commit/2f00f3e2903706736be59068a110cdc71ebbf1b1)), closes [#INFR-530](https://github.com/atinc/ngx-tethys/issues/INFR-530) [#INFR-530](https://github.com/atinc/ngx-tethys/issues/INFR-530)
+
+
+
 ## [7.8.6](https://github.com/atinc/ngx-tethys/compare/7.8.5...7.8.6) (2020-06-06)
 
 
