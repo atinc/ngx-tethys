@@ -70,11 +70,11 @@ export class ThyTransferComponent implements OnInit {
 
     @Output() thyChange: EventEmitter<ThyTransferChangeEvent> = new EventEmitter<ThyTransferChangeEvent>();
 
-    @ContentChild('renderTemplate', { static: true }) templateRef: TemplateRef<any>;
+    @ContentChild('renderTemplate', { static: false }) templateRef: TemplateRef<any>;
 
-    @ContentChild('renderLeftTemplate', { static: true }) leftContentRef: TemplateRef<any>;
+    @ContentChild('renderLeftTemplate', { static: false }) leftContentRef: TemplateRef<any>;
 
-    @ContentChild('renderRightTemplate', { static: true }) rightContentRef: TemplateRef<any>;
+    @ContentChild('renderRightTemplate', { static: false }) rightContentRef: TemplateRef<any>;
 
     ngOnInit() {}
 

@@ -3,12 +3,11 @@ module.exports = {
     heads: [],
     mode: 'site',
     title: 'NgxTethys',
-    heading: 'Doc Generator',
-    description: 'A modern documentation generator for doc and Angular Lib',
     docsPath: './docs',
-    sitePath: 'site',
+    siteProjectName: 'site',
     output: 'dist/docs-site',
     repoUrl: 'https://github.com/docgeni/docgeni',
+    logoUrl: 'https://cdn.worktile.com/open-sources/ngx-tethys/logos/tethys.png',
     navs: [
         null,
         {
@@ -108,6 +107,12 @@ module.exports = {
                     }
                 }
             ]
+        }
+    ],
+    locales: [
+        {
+            key: 'zh-cn',
+            name: 'ZH'
         }
     ]
 };

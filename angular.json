@@ -167,7 +167,15 @@
             "polyfills": "site/src/polyfills.ts",
             "tsConfig": "site/tsconfig.app.json",
             "aot": false,
-            "assets": ["site/src/favicon.ico", "site/src/assets"],
+            "assets": [
+              "site/src/favicon.ico",
+              "site/src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@tethys/icons/defs",
+                "output": "/assets/icons/defs/"
+              }
+            ],
             "styles": ["site/src/styles.scss"],
             "scripts": []
           },
@@ -206,7 +214,9 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "site:build"
+            "browserTarget": "site:build",
+            "port": 8888,
+            "disableHostCheck": true
           },
           "configurations": {
             "production": {

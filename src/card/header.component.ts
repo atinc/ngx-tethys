@@ -24,13 +24,13 @@ export class ThyCardHeaderComponent implements OnInit {
         this._thySizeLg = value === 'lg';
     }
 
-    @ContentChild('headerTitle', { static: true })
+    @ContentChild('headerTitle', { static: false })
     public titleTemplateRef: TemplateRef<any>;
 
-    @ContentChild('headerDescription', { static: true })
+    @ContentChild('headerDescription', { static: false })
     public descriptionTemplateRef: TemplateRef<any>;
 
-    @ContentChild('headerOperation', { static: true })
+    @ContentChild('headerOperation', { static: false })
     public operationTemplateRef: TemplateRef<any>;
 
     constructor() {}
