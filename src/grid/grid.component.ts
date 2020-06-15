@@ -16,9 +16,10 @@ import {
     OnDestroy,
     HostBinding,
     ElementRef,
-    ViewChild
+    ViewChild,
+    Inject
 } from '@angular/core';
-import { get, set, isString } from '../util/helpers';
+import { get, set, isString, inputValueToBoolean } from '../util/helpers';
 import {
     ThyGridColumn,
     ThyMultiSelectEvent,
@@ -32,14 +33,13 @@ import {
 } from './grid.interface';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { ThyGridColumnComponent, IThyGridColumnParentComponent, THY_GRID_COLUMN_PARENT_COMPONENT } from './grid-column.component';
-import { SortablejsOptions } from 'ngx-sortablejs';
-import { helpers } from '../util';
-import { $ } from '../typings';
 import { ViewportRuler } from '@angular/cdk/overlay';
 import { takeUntil, delay } from 'rxjs/operators';
 import { mixinUnsubscribe, MixinBase } from '../core';
 import { UpdateHostClassService } from '../shared';
 import { of, merge } from 'rxjs';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { DOCUMENT } from '@angular/common';
 
 export type ThyGridTheme = 'default' | 'bordered';
 
@@ -97,17 +97,6 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
     public emptyOptions: ThyGridEmptyOptions = {};
 
     public draggable = false;
-
-    public draggableOptions: SortablejsOptions = {
-        draggable: '.thy-sortable-item',
-        ghostClass: 'thy-sortable-ghost',
-        chosenClass: 'thy-tree-item-chosen',
-        dragClass: 'thy-sortable-drag',
-        disabled: true,
-        onStart: this.onDraggableStart.bind(this),
-        onUpdate: this.onDraggableUpdate.bind(this),
-        onEnd: this.onDraggableEnd.bind(this)
-    };
 
     public selectedRadioRow: any = null;
 
@@ -179,16 +168,8 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
     }
 
     @Input()
-    set thyDraggable(value: boolean | any) {
-        if (helpers.isBoolean(value)) {
-            this.draggable = value;
-            this.draggableOptions.disabled = !value;
-        } else {
-            if (value) {
-                Object.assign(this.draggableOptions, value);
-                this.draggable = !this.draggableOptions.disabled;
-            }
-        }
+    set thyDraggable(value: boolean) {
+        this.draggable = inputValueToBoolean(value);
     }
 
     @Input()
@@ -255,10 +236,11 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
     @HostBinding('class.thy-grid') isGridClass = true;
 
     constructor(
-        private _differs: IterableDiffers,
         public elementRef: ElementRef,
+        private _differs: IterableDiffers,
         private viewportRuler: ViewportRuler,
-        private updateHostClassService: UpdateHostClassService
+        private updateHostClassService: UpdateHostClassService,
+        @Inject(DOCUMENT) private document: any
     ) {
         super();
         this._bindTrackFn();
@@ -464,24 +446,24 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
         this.thyOnSwitchChange.emit(switchEvent);
     }
 
-    public onDraggableStart(event: any) {
-        $('body').addClass('thy-dragging-body');
-        this._draggableModel = this.model[event.oldIndex];
-        const switchEvent: ThyGridDraggableEvent = {};
+    onDragStarted() {
+        setTimeout(() => {
+            const preview = this.document.getElementsByClassName('cdk-drag-preview')[0];
+            if (preview) {
+                preview.classList.add('thy-grid-drag-preview');
+            }
+        });
     }
 
-    public onDraggableUpdate(event: any) {
+    onDragDropped(event: CdkDragDrop<unknown>) {
         const dragEvent: ThyGridDraggableEvent = {
-            model: this._draggableModel,
+            model: event.item,
             models: this.model,
-            oldIndex: event.oldIndex,
-            newIndex: event.newIndex
+            oldIndex: event.previousIndex,
+            newIndex: event.currentIndex
         };
+        moveItemInArray(this.model, event.previousIndex, event.currentIndex);
         this.thyOnDraggableChange.emit(dragEvent);
-    }
-
-    private onDraggableEnd() {
-        $('body').removeClass('thy-dragging-body');
     }
 
     public onRowClick(event: Event, row: any) {
@@ -516,9 +498,8 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
         this.thyOnRowContextMenu.emit(contextMenuEvent);
     }
 
-    // 临时处理Sortable禁用后某些事件还生效的问题
     public draggableStopPropagation(event: Event) {
-        if (this.draggableOptions.disabled) {
+        if (!this.draggable) {
             event.stopPropagation();
         }
     }

@@ -6,7 +6,6 @@ import { ThyTreeReplaceRegionComponent } from './tree-replace-region.component';
 import { ThyInputModule } from '../input';
 import { ThyButtonModule } from '../button';
 import { ThyDirectiveModule } from '../directive';
-import { SortablejsModule } from 'ngx-sortablejs';
 import { ThyTreeService } from './tree.service';
 import { ThyListModule } from '../list';
 import { ThyOptionModule } from '../core/option';
@@ -23,7 +22,6 @@ import { ThyCheckboxModule } from '../checkbox';
         ThyInputModule,
         ThyButtonModule,
         ThyDirectiveModule,
-        SortablejsModule,
         FormsModule,
         ThyListModule,
         ThyOptionModule,

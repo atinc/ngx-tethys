@@ -7,10 +7,10 @@ import { ThyPaginationModule } from '../pagination/pagination.module';
 import { ThySwitchModule } from '../switch/switch.module';
 import { ThyLoadingModule } from '../loading/loading.module';
 import { ThyEmptyModule } from '../empty/empty.module';
-import { SortablejsModule } from 'ngx-sortablejs';
 import { GridIsValidModelValuePipe } from './grid.pipe';
 import { ThyDirectiveModule } from '../directive';
 import { ThyIconModule } from '../icon/icon.module';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
     declarations: [ThyGridComponent, ThyGridColumnComponent, GridIsValidModelValuePipe],
@@ -21,9 +21,9 @@ import { ThyIconModule } from '../icon/icon.module';
         ThySwitchModule,
         ThyLoadingModule,
         ThyEmptyModule,
-        SortablejsModule,
         ThyDirectiveModule,
-        ThyIconModule
+        ThyIconModule,
+        DragDropModule
     ],
     exports: [ThyGridComponent, ThyGridColumnComponent]
 })
