@@ -16,7 +16,6 @@ import {
 } from '@angular/core';
 import { ThyTransferSelectEvent, ThyTransferItem, ThyTransferDragEvent, InnerTransferDragEvent, Direction } from './transfer.interface';
 import { ThyTransferComponent } from './transfer.component';
-import { SortablejsOptions } from 'ngx-sortablejs';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 @Component({

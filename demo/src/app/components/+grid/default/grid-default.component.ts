@@ -115,15 +115,6 @@ export class DemoGridDefaultComponent implements OnInit {
         total: 12
     };
 
-    public draggableOptions = {
-        disabled: false,
-        onMove: event => {
-            console.log('onMove');
-            return event.related.className.indexOf('table-draggable-ignore-item') === -1;
-        },
-        filter: '.table-draggable-ignore-item'
-    };
-
     public size = 'default';
 
     ngOnInit() {

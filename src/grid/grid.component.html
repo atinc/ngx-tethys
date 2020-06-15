@@ -14,16 +14,19 @@
       </th>
     </tr>
   </thead>
-  <tbody *ngIf="loadingDone" [sortablejs]="model" [sortablejsOptions]="draggableOptions">
+  <tbody *ngIf="loadingDone" thyDragDrop cdkDropList [cdkDropListDisabled]="!draggable" (cdkDropListDropped)="onDragDropped($event)">
     <tr
+      class="thy-sortable-item"
       *ngFor="let row of model; let i = index; trackBy: trackByFn"
+      cdkDrag
+      [cdkDragData]="row"
+      (cdkDragStarted)="onDragStarted()"
       [ngClass]="renderRowClassName(row, i)"
       (mousedown)="draggableStopPropagation($event)"
       (touchstart)="draggableStopPropagation($event)"
       (pointerdown)="draggableStopPropagation($event)"
       (click)="onRowClick($event, row)"
       (thyContextMenu)="onRowContextMenu($event, row)"
-      class="thy-sortable-item"
     >
       <td
         *ngFor="let column of columns; let j = index"
@@ -41,7 +44,7 @@
         <ng-container *ngIf="!isTemplateRef(column.templateRef)">
           <!-- default -->
           <ng-container *ngIf="column.model && !column.type">
-            <ng-container *ngIf="(getModelValue(row, column.model) | isValidModelValue); else default">
+            <ng-container *ngIf="getModelValue(row, column.model) | isValidModelValue; else default">
               {{ getModelValue(row, column.model) }}
             </ng-container>
             <ng-template #default>
@@ -116,4 +119,4 @@
     (thyPageIndexChange)="onPageIndexChange($event)"
   ></thy-pagination>
 </div>
-<ng-template> <ng-content></ng-content> </ng-template>
+<ng-template><ng-content></ng-content></ng-template>

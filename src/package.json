@@ -12,8 +12,6 @@
     "@angular/forms": "*",
     "@angular/cdk": "*",
     "lodash": "*",
-    "sortablejs": "*",
-    "ngx-sortablejs": "*",
     "rxjs": "*",
     "date-fns": "*"
   }

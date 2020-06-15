@@ -83,3 +83,12 @@
         }
     }
 }
+
+.thy-grid-drag-preview {
+    display: table;
+
+    td {
+        display: table-cell;
+        vertical-align: middle;
+    }
+}
