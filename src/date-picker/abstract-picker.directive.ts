@@ -75,12 +75,14 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
     }
 
     closeOverlay(): void {
-        this.thyPopover.close();
+        if (!this.thyOpen) {
+            this.thyPopover.close();
+        }
     }
 
     initActionSubscribe(): void {
         this.$click.pipe(debounceTime(50), takeUntil(this.destroy$)).subscribe(() => {
-            if (!this.thyDisabled && !this.thyReadonly) {
+            if ((!this.thyDisabled && !this.thyReadonly && this.thyOpen === undefined) || this.thyOpen) {
                 this.openOverlay();
             }
         });

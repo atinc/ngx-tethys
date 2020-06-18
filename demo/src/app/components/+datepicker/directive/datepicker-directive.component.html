@@ -29,3 +29,11 @@
   thyRangePicker
   [(ngModel)]="dateRange"
 ></thy-property-operation>
+<thy-property-operation
+  thyLabelText="开始时间"
+  [thyValue]="date | thyDatePickerFormat"
+  thyIcon="calendar-check"
+  thyDatePicker
+  [disabled]="true"
+  [(ngModel)]="date"
+></thy-property-operation>
