@@ -11,3 +11,11 @@
         }
     }
 }
+
+@mixin action-menu-item-hover-sub-item-display($display: block) {
+    &:not(.action-menu-item--disabled):hover {
+        > .action-menu-sub-item {
+            display: $display;
+        }
+    }
+}

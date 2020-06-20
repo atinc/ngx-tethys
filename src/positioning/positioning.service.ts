@@ -50,7 +50,9 @@ export const defaultPositioningOptions: PositioningOptions = {
     placement: 'bottom center'
 };
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class ThyPositioningService {
     constructor(private ngZone: NgZone) {}
 
@@ -67,12 +69,7 @@ export class ThyPositioningService {
         return element as HTMLElement;
     }
 
-    private autoPosition(
-        targetElPosition: ClientRect,
-        hostElPosition: ClientRect,
-        targetElement: HTMLElement,
-        preferredPosition?: string
-    ) {
+    private autoPosition(targetElPosition: ClientRect, hostElPosition: ClientRect, targetElement: HTMLElement, preferredPosition?: string) {
         if (
             (!preferredPosition || preferredPosition === 'right') &&
             targetElPosition.left + hostElPosition.left - targetElement.offsetWidth < 0
@@ -112,11 +109,7 @@ export class ThyPositioningService {
     private offsetParent(element: HTMLElement): HTMLElement {
         let offsetParentEl = <HTMLElement>element.offsetParent || document.documentElement;
 
-        while (
-            offsetParentEl &&
-            offsetParentEl !== document.documentElement &&
-            this.isStaticPositioned(offsetParentEl)
-        ) {
+        while (offsetParentEl && offsetParentEl !== document.documentElement && this.isStaticPositioned(offsetParentEl)) {
             offsetParentEl = <HTMLElement>offsetParentEl.offsetParent;
         }
 
@@ -166,8 +159,7 @@ export class ThyPositioningService {
     ): ClientRect {
         const documentClientWidth = document.documentElement.clientWidth;
         if (placementSecondary === PlacementTypes.right) {
-            targetElPosition.right =
-                document.documentElement.clientWidth - attachElPosition.left - attachElPosition.width;
+            targetElPosition.right = document.documentElement.clientWidth - attachElPosition.left - attachElPosition.width;
             targetElPosition.left = null;
             // 右对齐时，左侧的内容超过了整个屏幕的宽度, 为了可以看见全部内容，牺牲右对齐
             if (targetElPosition.right + targetElPosition.width > documentClientWidth) {
@@ -207,8 +199,7 @@ export class ThyPositioningService {
             // 如果 Top 空间不够，则自动适应 Bottom Top 和 Bottom 空间都不够，默认为可视区域Top
             if (hostElPosition.originBottom - hostElPosition.height - targetElPosition.height < 0) {
                 if (documentClientHeight - hostElPosition.originBottom >= targetElPosition.height) {
-                    targetElPosition.bottom =
-                        targetElPosition.bottom - targetElPosition.height - hostElPosition.height - offset;
+                    targetElPosition.bottom = targetElPosition.bottom - targetElPosition.height - hostElPosition.height - offset;
                 } else {
                     targetElPosition.bottom = null;
                     targetElPosition.top = hostElPosition.top - hostElPosition.originTop;
@@ -319,11 +310,7 @@ export class ThyPositioningService {
      * @param targetElement 弹出层内元素
      * @param options 参数
      */
-    public calculatePosition(
-        hostElement: HTMLElement,
-        targetElement: HTMLElement,
-        options: PositioningOptions
-    ): ClientRect {
+    public calculatePosition(hostElement: HTMLElement, targetElement: HTMLElement, options: PositioningOptions): ClientRect {
         const { placement, appendToBody, offset, position, autoAdapt } = options;
         let hostElPosition: NewClientRect = null;
         // 外部传入已经算好的位置, 需要设置 hostElPosition 宽度和高度为 0，不计算位置，主要使用于右击弹出位置计算
@@ -363,12 +350,7 @@ export class ThyPositioningService {
         };
 
         if (placementPrimary === 'auto') {
-            let newPlacementPrimary = this.autoPosition(
-                targetElPosition,
-                hostElPosition,
-                targetElement,
-                placementSecondary
-            );
+            let newPlacementPrimary = this.autoPosition(targetElPosition, hostElPosition, targetElement, placementSecondary);
             if (!newPlacementPrimary) {
                 newPlacementPrimary = this.autoPosition(targetElPosition, hostElPosition, targetElement);
             }
