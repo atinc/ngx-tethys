@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.0.4"></a>
+## [8.0.4](https://github.com/atinc/ngx-tethys/compare/8.0.3...8.0.4) (2020-06-20)
+
+
+### Features
+
+* **action-menu:** support direction on thyActionMenuSubItem directive #INFR-314 ([7f78032](https://github.com/atinc/ngx-tethys/commit/7f78032)), closes [#INFR-314](https://github.com/atinc/ngx-tethys/issues/INFR-314)
+
+
+
 <a name="8.0.3"></a>
 ## [8.0.3](https://github.com/atinc/ngx-tethys/compare/8.0.2...8.0.3) (2020-06-13)
 
