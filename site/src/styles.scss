@@ -11,9 +11,30 @@ $dg-primary: #673ab7;
         }
     }
 }
-.dg-menus {
-    .menu-item {
-        padding: 9px 30px;
+.dg-label {
+    display: inline-flex;
+    margin-bottom: 0px;
+}
+
+.dg-doc-viewer {
+    .dg-component-viewer {
+        .dg-component-api {
+            .dg-api-properties-table {
+                .dg-api-properties-header-row {
+                    .dg-api-properties-name-th {
+                        width: 100px;
+                    }
+                    .dg-api-properties-type-th {
+                        min-width: 80px;
+                        width: auto;
+                    }
+
+                    .dg-api-properties-default-th {
+                        width: 80px;
+                    }
+                }
+            }
+        }
     }
 }
 
