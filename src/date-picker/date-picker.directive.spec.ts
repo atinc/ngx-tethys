@@ -79,6 +79,24 @@ describe('ThyPickerDirective', () => {
             const previousCell = getSelectedDayCell().previousElementSibling;
             expect(previousCell.classList.contains('thy-calendar-disabled-cell')).toBeTruthy();
         }));
+
+        it('should support thyDisabled', fakeAsync(() => {
+            // fixtureInstance.thyAllowClear = true;
+            fixtureInstance.thyValue = new Date();
+
+            fixtureInstance.thyDisabled = true;
+            fixture.detectChanges();
+            flush();
+            fixture.detectChanges();
+            expect(debugElement.query(By.css('thy-picker .thy-input-disabled'))).toBeDefined();
+            expect(debugElement.query(By.css('thy-picker thy-icon.thy-calendar-picker-clear'))).toBeNull();
+
+            fixtureInstance.thyDisabled = false;
+            tick(500);
+            fixture.detectChanges();
+            expect(debugElement.query(By.css('thy-picker .thy-input-disabled'))).toBeNull();
+            expect(debugElement.query(By.css('thy-picker thy-icon.thy-calendar-picker-clear'))).toBeDefined();
+        }));
     });
 
     function getPickerTriggerWrapper() {
@@ -108,6 +126,7 @@ describe('ThyPickerDirective', () => {
             thyLabelText="开始时间"
             thyIcon="calendar-check"
             thyDatePicker
+            [thyDisabled]="thyDisabled"
             [(ngModel)]="thyValue"
             [thyMinDate]="thyMinDate"
             [thyMaxDate]="thyMaxDate"
@@ -127,6 +146,7 @@ class ThyTestPickerDirective {
     thyDateRender: any;
     thyShowTime: boolean | object = false;
     thyMode: string;
+    thyDisabled: boolean;
     thyOnChange(): void {}
     thyOnCalendarChange(): void {}
     thyOpenChange(): void {}
