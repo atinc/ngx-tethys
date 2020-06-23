@@ -1,31 +1,15 @@
-import {
-    Component,
-    Directive,
-    Input,
-    ElementRef,
-    Renderer2,
-    ViewEncapsulation,
-    ChangeDetectionStrategy
-} from '@angular/core';
+import { Component, Directive, Input, ElementRef, Renderer2, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { AfterContentInit, OnChanges, OnInit } from '@angular/core';
 import { inputValueToBoolean, isUndefined } from '../util/helpers';
 import { UpdateHostClassService } from '../shared';
 
-export type ThyButtonType =
-    | 'primary'
-    | 'secondary'
-    | 'info'
-    | 'outline-primary'
-    | 'outline-default'
-    | 'danger'
-    | 'link'
-    | 'link-secondary';
+export type ThyButtonType = 'primary' | 'secondary' | 'info' | 'outline-primary' | 'outline-default' | 'danger' | 'link' | 'link-secondary';
 
 const btnTypeClassesMap: any = {
     primary: ['btn', 'btn-primary'],
     secondary: ['btn', 'btn-primary', 'btn-md'],
     info: ['btn', 'btn-info'],
-    waring: ['btn', 'btn-waring'],
+    warning: ['btn', 'btn-warning'],
     danger: ['btn', 'btn-danger'],
     'outline-primary': ['btn', 'btn-outline-primary'],
     'outline-default': ['btn', 'btn-outline-default'],
@@ -192,11 +176,7 @@ export class ThyButtonComponent implements OnInit {
         this.updateHostClassService.updateClass(classNames);
     }
 
-    constructor(
-        private elementRef: ElementRef,
-        private renderer: Renderer2,
-        private updateHostClassService: UpdateHostClassService
-    ) {
+    constructor(private elementRef: ElementRef, private renderer: Renderer2, private updateHostClassService: UpdateHostClassService) {
         this._nativeElement = this.elementRef.nativeElement;
         this.updateHostClassService.initializeElement(this._nativeElement);
     }

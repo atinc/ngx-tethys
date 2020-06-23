@@ -4,18 +4,19 @@ import { ThyActionMenuToggleDirective } from './action-menu-toggle.component';
 import {
     ThyActionMenuComponent,
     ThyActionMenuDividerComponent,
+    ThyActionMenuDividerTitleDirective,
+    ThyActionMenuGroupComponent
+} from './action-menu.component';
+import {
     ThyActionMenuItemDirective,
     ThyActionMenuItemIconDirective,
     ThyActionMenuItemNameDirective,
     ThyActionMenuItemExtendIconDirective,
     ThyActionMenuItemMetaDirective,
     ThyActionMenuItemInfoDirective,
-    ThyActionMenuSubItemDirective,
-    ThyActionMenuDividerTitleDirective,
-    ThyActionMenuItemActiveDirective,
-    ThyActionMenuGroupComponent
-} from './action-menu.component';
-import { ThyPopBoxModule } from '../pop-box';
+    ThyActionMenuItemActiveDirective
+} from './action-menu-item.directive';
+import { ThyActionMenuSubItemDirective } from './action-menu-sub-item.directive';
 import { ThyPopoverModule } from '../popover';
 
 @NgModule({

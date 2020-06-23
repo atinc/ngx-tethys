@@ -2,7 +2,7 @@
   <template [ngTemplateOutlet]="headerTemplate"></template>
 </ng-container>
 <ng-template #defaultHeader>
-  <h3 class="dialog-title"><thy-icon [thyIconName]="thyIcon"></thy-icon> {{ thyTitle }}</h3>
+  <h3 class="dialog-title"><thy-icon [thyIconName]="thyIcon"></thy-icon>{{ thyTitle }}</h3>
   <button type="button" class="close" (click)="close($event)">
     <thy-icon thyIconName="close-bold"></thy-icon>
   </button>

@@ -71,7 +71,6 @@ export class ThyActionMenuToggleDirective {
     private _show(event: any) {
         if (this._stopPropagation) {
             event.stopPropagation();
-            // event.preventDefault();
         }
         this.thyPopover.open(this._templateRef, {
             origin: event.currentTarget,
