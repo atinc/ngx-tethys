@@ -1,7 +1,8 @@
-import { Component, TemplateRef, Sanitizer, OnInit } from '@angular/core';
-import { ThyIconRegistry } from '../../../../../src/icon';
-import { DomSanitizer } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
+
+import { ThyIconRegistry } from '../../../../../src/icon';
 
 const BIKE_ICON =
     `
@@ -82,7 +83,7 @@ export class DemoIconSectionComponent implements OnInit {
         },
         {
             property: 'thyIconLegging',
-            description: `设置图标打底色`,
+            description: `图标在有色背景上使用`,
             type: 'Boolean',
             default: 'false'
         }
@@ -100,16 +101,9 @@ export class DemoIconSectionComponent implements OnInit {
         iconRegistry
             .addSvgIcon('thumb-up', sanitizer.bypassSecurityTrustResourceUrl('/assets/icons/thumbup-icon.svg'))
             .addSvgIconLiteral('bike', sanitizer.bypassSecurityTrustHtml(BIKE_ICON))
-            .addSvgIconInNamespace(
-                'core',
-                'thumb-up',
-                sanitizer.bypassSecurityTrustResourceUrl('/assets/icons/thumbup-icon.svg')
-            )
+            .addSvgIconInNamespace('core', 'thumb-up', sanitizer.bypassSecurityTrustResourceUrl('/assets/icons/thumbup-icon.svg'))
             .addSvgIconLiteralInNamespace('core', 'bike', sanitizer.bypassSecurityTrustHtml(BIKE_ICON))
-            .addSvgIconSetInNamespace(
-                'core',
-                sanitizer.bypassSecurityTrustResourceUrl('/assets/icons/core-icon-set.svg')
-            )
+            .addSvgIconSetInNamespace('core', sanitizer.bypassSecurityTrustResourceUrl('/assets/icons/core-icon-set.svg'))
             .addSvgIconSetLiteralInNamespace('core-inline', sanitizer.bypassSecurityTrustHtml(INLINE_ICON_SET));
     }
 
