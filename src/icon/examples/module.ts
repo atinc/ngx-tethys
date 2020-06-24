@@ -1,13 +1,25 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ThyIconBasicExampleComponent } from './basic/basic.component';
 import { ThyIconModule } from 'ngx-tethys/icon';
 
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+
+import { ThyIconBasicExampleComponent } from './basic/basic.component';
+import { ThyIconLeggingExampleComponent } from './legging/legging.component';
+import { ThyIconRotateExampleComponent } from './rotate/rotate.component';
+import { ThyIconTwotoneExampleComponent } from './twotone/twotone.component';
+
+const COMPONENTS = [
+    ThyIconBasicExampleComponent,
+    ThyIconLeggingExampleComponent,
+    ThyIconRotateExampleComponent,
+    ThyIconTwotoneExampleComponent
+];
+
 @NgModule({
-    declarations: [ThyIconBasicExampleComponent],
+    declarations: [...COMPONENTS],
+    entryComponents: [...COMPONENTS],
     imports: [CommonModule, ThyIconModule],
-    exports: [ThyIconBasicExampleComponent],
-    entryComponents: [ThyIconBasicExampleComponent],
+    exports: [...COMPONENTS],
     providers: []
 })
 export class ThyIconExamplesModule {}
