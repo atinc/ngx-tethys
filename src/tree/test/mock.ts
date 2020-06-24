@@ -13,7 +13,7 @@ export const treeNodes = [
                 expanded: false,
                 _id: '5d4e5b365fadf30311c3d889',
                 name: '产品部',
-                short_code: null,
+                short_code: '',
                 parent_id: '111111111111111111111111',
                 position: 65536,
                 member_count: 1,
@@ -24,7 +24,7 @@ export const treeNodes = [
                         expanded: false,
                         _id: '5d51536887367c0f92fe6fa6',
                         name: '产品A组',
-                        short_code: null,
+                        short_code: '',
                         parent_id: '5d4e5b365fadf30311c3d889',
                         position: 983040,
                         member_count: 0,
@@ -231,8 +231,8 @@ export const treeNodes = [
         expanded: false,
         _id: '000000000000000000000000',
         name: '未分配部门',
-        parent_id: null,
-        children: [],
+        parent_id: '',
+        children: [] as Array<any>,
         disabled: true
     }
 ];
