@@ -66,9 +66,7 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
             },
             placement: 'bottomLeft'
         });
-        componentInstance.valueChange
-            .pipe(takeUntil(this.destroy$))
-            .subscribe((event: CompatibleValue) => this.onValueChange(event));
+        componentInstance.valueChange.pipe(takeUntil(this.destroy$)).subscribe((event: CompatibleValue) => this.onValueChange(event));
         componentInstance.showTimePickerChange
             .pipe(takeUntil(this.destroy$))
             .subscribe((event: boolean) => this.onShowTimePickerChange(event));
@@ -81,14 +79,11 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
     }
 
     initActionSubscribe(): void {
-        this.$click
-            .pipe(
-                debounceTime(50),
-                takeUntil(this.destroy$)
-            )
-            .subscribe(() => {
+        this.$click.pipe(debounceTime(50), takeUntil(this.destroy$)).subscribe(() => {
+            if (!this.thyDisabled && !this.thyReadonly) {
                 this.openOverlay();
-            });
+            }
+        });
     }
 
     constructor(public elementRef: ElementRef, public cdr: ChangeDetectorRef, private thyPopover: ThyPopover) {
