@@ -12,7 +12,7 @@ export class ThyVoteIconExampleComponent {
 
     has_voted = true;
 
-    toggleVote($event) {
+    toggleVote(event: Event) {
         this.has_voted = !this.has_voted;
     }
 }
