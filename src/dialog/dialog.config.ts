@@ -1,15 +1,7 @@
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-import { ViewContainerRef, InjectionToken } from '@angular/core';
-import { Direction } from '@angular/cdk/bidi';
+import { InjectionToken } from '@angular/core';
 import { ScrollStrategy } from '@angular/cdk/overlay';
 import { ThyUpperOverlayConfig, ThyUpperOverlayPosition } from '../core/overlay';
+import { NgxTethysModule } from 'ngx-tethys';
 
 /** Valid ARIA roles for a dialog element. */
 export type ThyDialogRole = 'dialog' | 'alertdialog';

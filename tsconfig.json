@@ -1,7 +1,6 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
     "downlevelIteration": true,
     "importHelpers": true,
     "outDir": "./dist/out-tsc",
@@ -22,5 +21,5 @@
     "skipTemplateCodegen": true,
     "fullTemplateTypeCheck": true
   },
-  "files": ["./scripts/typings.d.ts", "./src/index.ts"]
+  "files": ["./src/typings.d.ts", "./src/index.ts"]
 }

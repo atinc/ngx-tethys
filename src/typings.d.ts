@@ -9,9 +9,9 @@ declare const ENV: string;
 declare const PR: any;
 
 declare module jasmine {
-  interface Matchers<T> {
-    toHaveCssClass(expected: any): boolean;
-  }
+    interface Matchers<T> {
+        toHaveCssClass(expected: any): boolean;
+    }
 }
 
 declare const mermaid: any;
@@ -22,4 +22,3 @@ declare const katex: any;
 declare interface Dictionary<T> {
     [key: string]: T;
 }
-
