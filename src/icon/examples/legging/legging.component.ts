@@ -4,4 +4,6 @@ import { Component } from '@angular/core';
     selector: 'app-icon-legging-example',
     templateUrl: './legging.component.html'
 })
-export class ThyIconLeggingExampleComponent {}
+export class ThyIconLeggingExampleComponent {
+    fontSizeClass = 'font-size-xlg';
+}
