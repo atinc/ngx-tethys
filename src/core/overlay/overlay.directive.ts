@@ -3,7 +3,7 @@ import { OverlayRef } from '@angular/cdk/overlay';
 import { Subject, fromEvent } from 'rxjs';
 import { Platform } from '@angular/cdk/platform';
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, take } from 'rxjs/operators';
 
 export type ThyOverlayTrigger = 'hover' | 'focus' | 'click';
 
@@ -72,29 +72,23 @@ export abstract class ThyOverlayDirectiveBase {
         const element: HTMLElement = this.elementRef.nativeElement;
         if (!this.platform.IOS && !this.platform.ANDROID) {
             if (this.trigger === 'hover') {
-                let overlayElement: HTMLElement;
                 this.manualListeners
                     .set('mouseenter', () => {
                         this.show();
                     })
                     .set('mouseleave', (event: MouseEvent) => {
                         // element which mouse moved to
+                        const overlayElement: HTMLElement = this.overlayRef && this.overlayRef.overlayElement;
                         const toElement = event['toElement'] || event.relatedTarget;
-                        if (this.overlayRef && !overlayElement) {
-                            overlayElement = this.overlayRef.overlayElement;
+                        // if element which moved to is in overlayElement, don't hide tooltip
+                        if (overlayElement && overlayElement.contains && overlayElement.contains(toElement as Element) && this.tooltipPin) {
                             fromEvent(overlayElement, 'mouseleave')
-                                .pipe(takeUntil(this.ngUnsubscribe$))
+                                .pipe(take(1))
                                 .subscribe(() => {
                                     this.hide();
                                 });
-                        }
-
-                        // if element which moved to is in overlayElement, don't hide tooltip
-                        if (overlayElement && overlayElement.contains) {
-                            const toElementIsTooltip = overlayElement.contains(toElement as Element);
-                            if (!toElementIsTooltip || !this.tooltipPin) {
-                                this.hide();
-                            }
+                        } else {
+                            this.hide();
                         }
 
                         // if showDelay is too long and mouseleave immediately, overlayRef is not exist, we should clearTimeout
