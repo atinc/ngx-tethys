@@ -1,4 +1,4 @@
-export function createMouseEvent(type: string, x = 0, y = 0, button = 0) {
+export function createMouseEvent(type: string, x = 0, y = 0, button = 0, relatedTarget?: HTMLElement) {
     const event = document.createEvent('MouseEvent');
 
     event.initMouseEvent(
@@ -16,7 +16,7 @@ export function createMouseEvent(type: string, x = 0, y = 0, button = 0) {
         false /* shiftKey */,
         false /* metaKey */,
         button /* button */,
-        null /* relatedTarget */
+        relatedTarget /* relatedTarget */
     );
 
     // `initMouseEvent` doesn't allow us to pass the `buttons` and
@@ -47,12 +47,7 @@ export function createTouchEvent(type: string, pageX = 0, pageY = 0) {
 }
 
 /** Dispatches a keydown event from an element. */
-export function createKeyboardEvent(
-    type: string,
-    keyCode: number,
-    target?: Element,
-    key?: string
-) {
+export function createKeyboardEvent(type: string, keyCode: number, target?: Element, key?: string) {
     const event = document.createEvent('KeyboardEvent') as any;
     const originalPreventDefault = event.preventDefault;
 
@@ -81,11 +76,7 @@ export function createKeyboardEvent(
 }
 
 /** Creates a fake event object with any desired event type. */
-export function createFakeEvent(
-    type: string,
-    canBubble = false,
-    cancelable = true
-) {
+export function createFakeEvent(type: string, canBubble = false, cancelable = true) {
     const event = document.createEvent('Event');
     event.initEvent(type, canBubble, cancelable);
     return event;
