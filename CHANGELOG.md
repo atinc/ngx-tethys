@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.0.6"></a>
+## [8.0.6](https://github.com/atinc/ngx-tethys/compare/8.0.5...8.0.6) (2020-06-29)
+
+
+### Features
+
+* **breadcrumb:** support breadcrumb example#INFR-704 ([229cd4b](https://github.com/atinc/ngx-tethys/commit/229cd4b)), closes [example#INFR-704](https://github.com/example/issues/INFR-704)
+
+
+
 <a name="8.0.5"></a>
 ## [8.0.5](https://github.com/atinc/ngx-tethys/compare/8.0.4...8.0.5) (2020-06-29)
 
