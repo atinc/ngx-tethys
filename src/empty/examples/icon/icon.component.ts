@@ -1,0 +1,9 @@
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'app-empty-icon-example',
+    templateUrl: './icon.component.html'
+})
+export class ThyEmptyIconExampleComponent {
+    constructor() {}
+}
