@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.0.5"></a>
+## [8.0.5](https://github.com/atinc/ngx-tethys/compare/8.0.4...8.0.5) (2020-06-29)
+
+
+### Bug Fixes
+
+* **dialog:** remove spaces in dialog header ([4d03da6](https://github.com/atinc/ngx-tethys/commit/4d03da6))
+* **form:** fix scss build error Top-level selectors may not contain the parent selector "&"  #INFR-758 ([a53d8b6](https://github.com/atinc/ngx-tethys/commit/a53d8b6)), closes [#INFR-758](https://github.com/atinc/ngx-tethys/issues/INFR-758)
+
+
+### Features
+
+* **date-picker:** #INFR-690 date-picker disabled ([#752](https://github.com/atinc/ngx-tethys/issues/752)) ([07c3e2a](https://github.com/atinc/ngx-tethys/commit/07c3e2a)), closes [#INFR-690](https://github.com/atinc/ngx-tethys/issues/INFR-690) [#INFR-690](https://github.com/atinc/ngx-tethys/issues/INFR-690)
+* **progress:** add progress example#INFR-725 ([028a1d9](https://github.com/atinc/ngx-tethys/commit/028a1d9)), closes [example#INFR-725](https://github.com/example/issues/INFR-725)
+
+
+
 <a name="8.0.4"></a>
 ## [8.0.4](https://github.com/atinc/ngx-tethys/compare/8.0.3...8.0.4) (2020-06-20)
 
