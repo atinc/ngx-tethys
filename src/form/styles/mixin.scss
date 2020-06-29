@@ -58,7 +58,7 @@
     }
 
     // custom select
-    &.is-#{$state} {
+    .is-#{$state} {
         .form-control {
             border-color: $color !important;
             &:hover {
