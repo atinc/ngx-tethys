@@ -1,4 +1,4 @@
-import { ThyDialogModule, ThyDialogRef } from '..';
+import { ThyDialogModule, ThyDialogRef } from '../';
 import {
     NgModule,
     ViewChild,
