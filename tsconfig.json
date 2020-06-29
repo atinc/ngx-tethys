@@ -3,7 +3,8 @@
   "compilerOptions": {
     "downlevelIteration": true,
     "importHelpers": true,
-    "outDir": "./dist/out-tsc",
+    "outDir": "../dist/out-tsc",
+    "baseUrl": "./",
     "sourceMap": true,
     "declaration": false,
     "module": "esnext",
@@ -21,5 +22,5 @@
     "skipTemplateCodegen": true,
     "fullTemplateTypeCheck": true
   },
-  "files": ["./src/typings.d.ts", "./src/index.ts"]
+  "files": ["./src/typings/index.d.ts", "./src/public-api.ts"]
 }

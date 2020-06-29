@@ -1,5 +1,5 @@
 import { Store } from './store';
-import { Inject, SkipSelf, Optional, OnDestroy, isDevMode } from '@angular/core';
+import { Inject, SkipSelf, Optional, OnDestroy, isDevMode, Injectable } from '@angular/core';
 import { Subscription, combineLatest } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
@@ -11,6 +11,7 @@ export type StoreInstanceMap = Map<string, Store<any>>; // Map key：string，va
 /**
  * @internal
  */
+// @dynamic
 export class RootStore implements OnDestroy {
     private static _rootStore: RootStore;
     private connectSuccessed = false;
@@ -20,12 +21,14 @@ export class RootStore implements OnDestroy {
     private readonly _containers = new BehaviorSubject<StoreInstanceMap>(new Map<string, Store<any>>());
     private _plugin: StorePlugin = getReduxDevToolsPlugin();
     private _combinedStateSubscription: Subscription = new Subscription();
+
     public static getSingletonRootStore() {
         if (!this._rootStore) {
             this._rootStore = new RootStore();
         }
         return this._rootStore;
     }
+
     constructor() {
         if (this._plugin.isConnectSuccessed()) {
             this.connectSuccessed = true;

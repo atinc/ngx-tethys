@@ -34,7 +34,7 @@ export * from './pagination';
 export * from './pop-box';
 export * from './positioning';
 export * from './property-operation';
-export * from './progress/index';
+export * from './progress';
 export * from './radio';
 export * from './select';
 export * from './shared';
