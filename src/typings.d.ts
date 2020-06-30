@@ -19,6 +19,14 @@ declare const liteMarked: any;
 declare const $: any;
 declare const katex: any;
 
-declare interface Dictionary<T> {
+export declare interface Dictionary<T> {
     [key: string]: T;
+}
+
+export declare interface NumericDictionary<T> {
+    [index: number]: T;
+}
+
+export declare interface Id {
+    toString(): string;
 }

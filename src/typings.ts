@@ -13,6 +13,6 @@ export declare interface NumericDictionary<T> {
     [index: number]: T;
 }
 
-export interface Id {
+export declare interface Id {
     toString(): string;
 }

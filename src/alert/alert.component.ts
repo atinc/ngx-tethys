@@ -1,8 +1,6 @@
 import { Component, Input, OnInit, ContentChild, TemplateRef, HostBinding } from '@angular/core';
 import { helpers } from '../util';
 import { Dictionary } from '../typings';
-import { isTemplateRef } from '../util/helpers';
-
 type ThyAlertType = 'success' | 'warning' | 'danger' | 'info' | 'primary-week' | 'success-week' | 'warning-week' | 'danger-week';
 
 @Component({

@@ -28,8 +28,8 @@
     }
   },
   "exclude": ["node_modules", "./**/*.spec.ts"],
-  "include": ["./**/*.ts", "./public-api.ts", "./index.ts", "./typings.d.ts"],
-  "files": ["./typings.d.ts", "./public-api.ts", "./index.ts"],
+  "include": ["./**/*.ts", "./public-api.ts", "./typings.d.ts"],
+  "files": ["./typings.d.ts", "./public-api.ts"],
   "angularCompilerOptions": {
     "genDir": "../temp/factories",
     "strictMetadataEmit": false,
