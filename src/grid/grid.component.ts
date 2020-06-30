@@ -17,9 +17,10 @@ import {
     HostBinding,
     ElementRef,
     ViewChild,
-    Inject
+    Inject,
+    ContentChild
 } from '@angular/core';
-import { get, set, isString, inputValueToBoolean } from '../util/helpers';
+import { get, set, isString, inputValueToBoolean, keyBy } from '../util/helpers';
 import {
     ThyGridColumn,
     ThyMultiSelectEvent,
@@ -29,7 +30,8 @@ import {
     ThySwitchEvent,
     ThyGridDraggableEvent,
     ThyGridRowEvent,
-    ThyGridEvent
+    ThyGridEvent,
+    ThyGridGroup
 } from './grid.interface';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { ThyGridColumnComponent, IThyGridColumnParentComponent, THY_GRID_COLUMN_PARENT_COMPONENT } from './grid-column.component';
@@ -40,8 +42,11 @@ import { UpdateHostClassService } from '../shared';
 import { of, merge } from 'rxjs';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { DOCUMENT } from '@angular/common';
+import { group } from 'console';
 
 export type ThyGridTheme = 'default' | 'bordered';
+
+export type ThyGridMode = 'list' | 'group';
 
 export type ThyGridSize = 'sm';
 
@@ -78,7 +83,13 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
 
     public model: object[] = [];
 
+    public groups: ThyGridGroup[] = [];
+
     public rowKey = '_id';
+
+    public groupBy = '_id';
+
+    public mode: ThyGridMode = 'list';
 
     public columns: ThyGridColumn[] = [];
 
@@ -119,15 +130,29 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
     @ViewChild('table', { static: true }) tableElementRef: ElementRef<any>;
 
     @Input()
-    set thyModel(value: any) {
-        this.model = value || [];
-        this._diff = this._differs.find(this.model).create();
-        this._initializeDataModel();
+    set thyMode(value: ThyGridMode) {
+        this.mode = value || this.mode;
+    }
+
+    @Input()
+    set thyGroupBy(value: string) {
+        this.groupBy = value || this.groupBy;
     }
 
     @Input()
     set thyRowKey(value: any) {
         this.rowKey = value || this.rowKey;
+    }
+
+    @Input()
+    set thyModel(value: any) {
+        this.model = value || [];
+        this._diff = this._differs.find(this.model).create();
+        this._initializeDataModel();
+
+        if (this.mode === 'group') {
+            this.buildGroups();
+        }
     }
 
     @Input()
@@ -223,6 +248,8 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
     @Output() thyOnRowClick: EventEmitter<ThyGridRowEvent> = new EventEmitter<ThyGridRowEvent>();
 
     @Output() thyOnRowContextMenu: EventEmitter<ThyGridEvent> = new EventEmitter<ThyGridEvent>();
+
+    @ContentChild('group', { static: true }) groupTemplate: TemplateRef<any>;
 
     @ContentChildren(ThyGridColumnComponent)
     set listOfColumnComponents(components: QueryList<ThyGridColumnComponent>) {
@@ -518,6 +545,23 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
         });
     }
 
+    private buildGroups() {
+        const groupIds: string[] = [];
+        this.model.forEach(row => {
+            const idIndex = groupIds.indexOf(row[this.groupBy]);
+            if (idIndex >= 0) {
+                this.groups[idIndex].rows.push(row);
+            } else {
+                groupIds.push(row[this.groupBy]);
+                this.groups.push({ id: row[this.groupBy], expand: true, rows: [row] });
+            }
+        });
+    }
+
+    public expandGroup(gridGroup: ThyGridGroup) {
+        gridGroup.expand = !gridGroup.expand;
+    }
+
     ngOnInit() {
         this.updateHostClassService.initializeElement(this.tableElementRef.nativeElement);
         this._setClass(true);
@@ -531,8 +575,10 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
     }
 
     ngDoCheck() {
-        const changes = this._diff.diff(this.model);
-        this._applyDiffChanges(changes);
+        if (this._diff) {
+            const changes = this._diff.diff(this.model);
+            this._applyDiffChanges(changes);
+        }
     }
 
     ngOnDestroy() {

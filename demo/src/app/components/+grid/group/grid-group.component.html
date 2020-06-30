@@ -1,0 +1,19 @@
+<thy-select name="size" thySize="md" style="width:200px;" [(ngModel)]="size">
+  <option value="sm">小</option>
+  <option value="default">默认</option>
+</thy-select>
+<thy-grid
+  [thySize]="size"
+  [thyModel]="model"
+  thyRowKey="id"
+  thyGroupBy="group_id"
+  thyMode="group"
+  thyRowClassName="thy-grid-item-hover-display-operation"
+  [thyHoverDisplayOperation]="false"
+  (thyOnRowClick)="onRowClick($event)"
+>
+  <ng-template #group let-group>{{ groupsMap[group.id]?.title }}</ng-template>
+  <thy-grid-column thyTitle="姓名" thyModelKey="name"></thy-grid-column>
+  <thy-grid-column thyTitle="年龄" thyModelKey="age"></thy-grid-column>
+  <thy-grid-column thyTitle="备注" thyModelKey="desc" thyDefaultText="-"></thy-grid-column>
+</thy-grid>
