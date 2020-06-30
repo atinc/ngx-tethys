@@ -13,6 +13,8 @@ const SizeMap = {
         <thy-grid
             [thyModel]="model"
             thyRowKey="id"
+            thyGroupBy="group_id"
+            [thyMode]="mode"
             [thyTheme]="theme"
             [thySize]="size"
             [thyWholeRowSelect]="isRowSelect"
@@ -31,6 +33,7 @@ const SizeMap = {
             (thyOnSwitchChange)="onSwitchChange($event)"
             (thyOnRowContextMenu)="onContextMenu($event)"
         >
+            <ng-template #group let-group>{{ group.id }}</ng-template>
             <thy-grid-column thyModelKey="selected" thyType="checkbox" [thySelections]="selections">
                 <ng-template #header>
                     <span class="text-primary"
@@ -57,12 +60,14 @@ const SizeMap = {
 class ThyDemoDefaultGridComponent {
     model = [
         {
+            group_id: '11',
             id: 1,
             name: '张三',
             age: '',
             checked: true
         },
         {
+            group_id: '11',
             id: 2,
             name: '李四',
             age: 10,
@@ -70,6 +75,7 @@ class ThyDemoDefaultGridComponent {
             desc: '这是一条测试数据'
         },
         {
+            group_id: '11',
             id: 3,
             name: '王五',
             age: 10,
@@ -77,21 +83,24 @@ class ThyDemoDefaultGridComponent {
             desc: '这是一条测试数据'
         },
         {
-            id: 1,
+            group_id: '22',
+            id: 4,
             name: '张三2',
             age: 0,
             checked: true,
             desc: ''
         },
         {
-            id: 2,
+            group_id: '22',
+            id: 5,
             name: '李四2',
             age: 10,
             checked: false,
             desc: '这是一条测试数据'
         },
         {
-            id: 3,
+            group_id: '22',
+            id: 6,
             name: '王五2',
             age: 10,
             checked: false,
@@ -114,6 +123,8 @@ class ThyDemoDefaultGridComponent {
     loadingText = 'loading now';
     size = 'sm';
     showTotal = false;
+
+    mode = 'list';
 
     @ViewChild('total', { static: true }) totalTemplate: TemplateRef<any>;
 
@@ -378,6 +389,19 @@ describe('ThyGrid', () => {
         fixture.detectChanges();
         const thead = table.querySelector('thead');
         expect(thead).toBeNull();
+    });
+
+    it('should has correct class and when mode is group', () => {
+        testComponent.mode = 'group';
+        fixture.detectChanges();
+        expect(table.classList.contains('table-group')).toBe(true);
+    });
+
+    it('should has group element when mode is group', () => {
+        testComponent.mode = 'group';
+        fixture.detectChanges();
+        const groups = table.querySelector('.thy-grid-group');
+        expect(groups).toBeTruthy();
     });
 
     it('#onRowClick() should set #message to "onRowClick is ok"', () => {

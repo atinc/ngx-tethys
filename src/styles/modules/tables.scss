@@ -180,3 +180,9 @@
         }
     }
 }
+
+.table-group {
+    td:first-child {
+        padding-left: $table-group-first-cell-padding-left;
+    }
+}
