@@ -30,8 +30,11 @@
             </ng-container>
           </td>
         </tr>
-        <ng-container *ngIf="group.rows?.length && group.expand">
-          <ng-template [ngTemplateOutlet]="gridList" [ngTemplateOutletContext]="{ $implicit: group.rows, model: group.rows }"></ng-template>
+        <ng-container *ngIf="group.children?.length && group.expand">
+          <ng-template
+            [ngTemplateOutlet]="gridList"
+            [ngTemplateOutletContext]="{ $implicit: group.children, model: group.children }"
+          ></ng-template>
         </ng-container>
       </ng-container>
     </ng-container>

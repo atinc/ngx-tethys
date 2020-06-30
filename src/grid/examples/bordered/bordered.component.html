@@ -1,0 +1,29 @@
+<thy-select name="size" thySize="md" style="width:200px;" [(ngModel)]="size">
+  <option value="sm">小</option>
+  <option value="default">默认</option>
+</thy-select>
+<thy-grid
+  [thyModel]="model"
+  [thySize]="size"
+  [thyLoadingDone]="loadingDone"
+  thyLoadingText="加载中"
+  thyTheme="bordered"
+  thyRowKey="id"
+  thyClassName="table-hover"
+  [thyWholeRowSelect]="true"
+  (thyOnRadioSelectChange)="onRadioSelectChange($event)"
+>
+  <thy-grid-column thyTitle="编号" thyType="index"></thy-grid-column>
+  <thy-grid-column thyTitle="选择" thyType="radio"></thy-grid-column>
+  <thy-grid-column *ngIf="true" thyTitle="姓名" thyModelKey="name"></thy-grid-column>
+  <thy-grid-column thyTitle="年龄" thyModelKey="age"></thy-grid-column>
+  <thy-grid-column thyTitle="备注" thyModelKey="desc"></thy-grid-column>
+  <thy-grid-column thyTitle="操作" thyClassName="thy-operation-links text-center">
+    <ng-template #cell let-row>
+      <a href="javascript:;" (click)="setItem(row)">设置</a>
+      <a class="link-secondary" href="javascript:;" (click)="deleteItem(row)">
+        <i class="wtf wtf-trash-o"></i>
+      </a>
+    </ng-template>
+  </thy-grid-column>
+</thy-grid>

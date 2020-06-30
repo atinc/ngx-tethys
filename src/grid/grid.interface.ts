@@ -48,12 +48,6 @@ export interface ThyRadioSelectEvent {
     row: any;
 }
 
-export interface ThyGridGroup {
-    id?: string;
-    expand?: boolean;
-    rows?: object[];
-}
-
 export interface ThySwitchEvent extends ThyGridEvent {
     refresh?: Function;
 }
