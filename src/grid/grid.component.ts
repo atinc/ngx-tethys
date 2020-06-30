@@ -30,8 +30,7 @@ import {
     ThySwitchEvent,
     ThyGridDraggableEvent,
     ThyGridRowEvent,
-    ThyGridEvent,
-    ThyGridGroup
+    ThyGridEvent
 } from './grid.interface';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { ThyGridColumnComponent, IThyGridColumnParentComponent, THY_GRID_COLUMN_PARENT_COMPONENT } from './grid-column.component';
@@ -42,13 +41,18 @@ import { UpdateHostClassService } from '../shared';
 import { of, merge } from 'rxjs';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { DOCUMENT } from '@angular/common';
-import { group } from 'console';
 
 export type ThyGridTheme = 'default' | 'bordered';
 
 export type ThyGridMode = 'list' | 'group';
 
 export type ThyGridSize = 'sm';
+
+interface ThyGridGroup {
+    id?: string;
+    expand?: boolean;
+    children?: object[];
+}
 
 const gridThemeMap = {
     default: 'table-default',
@@ -87,7 +91,7 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
 
     public rowKey = '_id';
 
-    public groupBy = '_id';
+    public groupBy: string;
 
     public mode: ThyGridMode = 'list';
 
@@ -136,7 +140,7 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
 
     @Input()
     set thyGroupBy(value: string) {
-        this.groupBy = value || this.groupBy;
+        this.groupBy = value;
     }
 
     @Input()
@@ -550,10 +554,10 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
         this.model.forEach(row => {
             const idIndex = groupIds.indexOf(row[this.groupBy]);
             if (idIndex >= 0) {
-                this.groups[idIndex].rows.push(row);
+                this.groups[idIndex].children.push(row);
             } else {
                 groupIds.push(row[this.groupBy]);
-                this.groups.push({ id: row[this.groupBy], expand: true, rows: [row] });
+                this.groups.push({ id: row[this.groupBy], expand: true, children: [row] });
             }
         });
     }
