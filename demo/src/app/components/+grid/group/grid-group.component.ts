@@ -140,11 +140,7 @@ export class DemoGridGroupComponent implements OnInit {
 
     public size = 'default';
 
-    public groupsMap: any;
-
-    ngOnInit() {
-        this.groupsMap = helpers.keyBy(this.groups, 'id');
-    }
+    ngOnInit() {}
 
     onRowClick(event: ThyGridRowEvent) {
         console.log(event);

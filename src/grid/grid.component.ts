@@ -48,10 +48,11 @@ export type ThyGridMode = 'list' | 'group';
 
 export type ThyGridSize = 'sm';
 
-interface ThyGridGroup {
+interface ThyGridGroup<T = unknown> {
     id?: string;
     expand?: boolean;
     children?: object[];
+    origin?: T;
 }
 
 const gridThemeMap = {
@@ -153,9 +154,16 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
         this.model = value || [];
         this._diff = this._differs.find(this.model).create();
         this._initializeDataModel();
+    }
 
+    @Input()
+    set thyGroups(value: any) {
+        const originGroupsMap = keyBy(value, this.rowKey);
         if (this.mode === 'group') {
             this.buildGroups();
+            this.groups.forEach(group => {
+                group.origin = originGroupsMap[group.id];
+            });
         }
     }
 

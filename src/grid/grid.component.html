@@ -26,7 +26,10 @@
               [thyIconName]="group.expand ? 'angle-down' : 'angle-right'"
             ></thy-icon>
             <ng-container *ngIf="groupTemplate">
-              <ng-template [ngTemplateOutlet]="groupTemplate" [ngTemplateOutletContext]="{ $implicit: group }"></ng-template>
+              <ng-template
+                [ngTemplateOutlet]="groupTemplate"
+                [ngTemplateOutletContext]="{ $implicit: group.origin, group: group.origin }"
+              ></ng-template>
             </ng-container>
           </td>
         </tr>
