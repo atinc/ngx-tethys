@@ -298,7 +298,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
         this._onTouched = fn;
     }
 
-    // region 公开出去函数
+    // region Public Functions
 
     public selectTreeNode(node: ThyTreeNode) {
         this._selectionModel.select(node);
@@ -306,6 +306,10 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
 
     public getRootNodes(): ThyTreeNode[] {
         return this.treeNodes;
+    }
+
+    public getTreeNode(key: string) {
+        return this.thyTreeService.getTreeNode(key);
     }
 
     public getSelectedNode(): ThyTreeNode {
