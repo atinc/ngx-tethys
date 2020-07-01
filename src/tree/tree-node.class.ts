@@ -70,37 +70,16 @@ export class ThyTreeNode<T = any> {
         }
     }
 
-    public setChecked(checked: boolean, propagateUp = true, propagateDown = true) {
-        this.isChecked = checked ? ThyTreeNodeCheckState.checked : ThyTreeNodeCheckState.unchecked;
-        this.origin.checked = checked;
-        if (propagateDown && this.children) {
-            this.children.forEach(node => {
-                node.setChecked(checked, false, true);
-            });
-        }
-        if (propagateUp) {
-            this.setParentCheck();
-        }
-    }
-
-    public setParentCheck() {
-        const parent = this.parentNode;
-        if (parent) {
-            const checkedNodes = parent.children.filter(n => n.isChecked === ThyTreeNodeCheckState.checked);
-            const unCheckedNodes = parent.children.filter(n => n.isChecked === ThyTreeNodeCheckState.unchecked);
-            if (checkedNodes.length === parent.children.length) {
-                parent.isChecked = ThyTreeNodeCheckState.checked;
-            } else if (unCheckedNodes.length === parent.children.length) {
-                parent.isChecked = ThyTreeNodeCheckState.unchecked;
-            } else {
-                parent.isChecked = ThyTreeNodeCheckState.indeterminate;
-            }
-            parent.setParentCheck();
-        }
-    }
-
     public setLoading(loading: boolean): void {
         this.isLoading = loading;
+    }
+
+    public setChecked(checked: boolean, propagateUp = true, propagateDown = true) {
+        this.treeService.setNodeChecked(this, checked, propagateUp, propagateDown);
+    }
+
+    public syncNodeCheckState() {
+        this.treeService.syncNodeCheckState(this);
     }
 
     public getParentNode(): ThyTreeNode {

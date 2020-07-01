@@ -17,11 +17,7 @@
           [thyIconName]="node.isExpanded ? root.thyIcons.expand : root.thyIcons.collapse"
         ></thy-icon>
         <ng-template #defaultIcon>
-          <thy-icon
-            class="thy-tree-expand-icon"
-            [class.collapse]="!node.isExpanded"
-            thyIconName="caret-right-down"
-          ></thy-icon>
+          <thy-icon class="thy-tree-expand-icon" [class.collapse]="!node.isExpanded" thyIconName="caret-right-down"></thy-icon>
         </ng-template>
       </ng-container>
     </ng-container>
@@ -41,14 +37,12 @@
       <ng-container *ngIf="nodeIcon">
         <span class="thy-tree-node-icon"> <i [ngClass]="nodeIcon" [ngStyle]="nodeIconStyle"></i></span>
       </ng-container>
-      <span [title]="node.title" class="thy-tree-node-title" [class.truncate]="thyTitleTruncate">
-        {{ node.title }}</span
-      >
+      <span [title]="node.title" class="thy-tree-node-title" [class.truncate]="thyTitleTruncate"> {{ node.title }}</span>
     </ng-container>
     <ng-container *ngIf="templateRef">
       <ng-template
         [ngTemplateOutlet]="templateRef"
-        [ngTemplateOutletContext]="{ $implicit: node, origin: node?.origin }"
+        [ngTemplateOutletContext]="{ $implicit: node, node: node, origin: node?.origin }"
       ></ng-template>
     </ng-container>
   </span>

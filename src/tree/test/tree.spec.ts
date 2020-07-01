@@ -7,7 +7,7 @@ import { treeNodes } from './mock';
 import { ThyIconModule } from '../../icon';
 import { ThyFlexibleTextModule } from '../../flexible-text/flexible-text.module';
 import { ThyTreeNode } from '../tree-node.class';
-import { ThyTreeEmitEvent } from '../tree.class';
+import { ThyTreeEmitEvent, ThyTreeNodeCheckState } from '../tree.class';
 
 const expandSelector = '.thy-tree-expand';
 const expandIconSelector = '.thy-tree-expand-icon';
@@ -22,6 +22,7 @@ describe('ThyTreeComponent', () => {
             declarations: declarations
         }).compileComponents();
     }
+
     describe('basic tree', () => {
         let treeInstance: TestBasicTreeComponent;
         let treeElement: HTMLElement;
@@ -149,6 +150,20 @@ describe('ThyTreeComponent', () => {
             expect(treeComponent.getCheckedNodes().length).toEqual(4);
         });
 
+        it(`test tree check state resolve`, () => {
+            const checkStateResolveSpy = jasmine.createSpy();
+            fixture.componentInstance.options.checkStateResolve = node => {
+                checkStateResolveSpy();
+            };
+            fixture.detectChanges();
+            const checkNodes = Array.from(treeElement.querySelectorAll('.thy-tree-node-check')) as HTMLInputElement[];
+            checkNodes[1].click();
+            fixture.detectChanges();
+            expect(treeComponent.getCheckedNodes().length).toEqual(7);
+            expect(checkStateResolveSpy).toHaveBeenCalled();
+            expect(checkNodes[0].checked).toEqual(false);
+        });
+
         it('test click event', fakeAsync(() => {
             const clickSpy = spyOn(treeInstance, 'onEvent');
             const targetNode = treeElement.querySelectorAll('.thy-tree-node-wrapper')[1] as HTMLElement;
@@ -231,6 +246,7 @@ describe('ThyTreeComponent', () => {
             [thyType]="'especial'"
             [thyDraggable]="options.draggable"
             [thyCheckable]="options.checkable"
+            [thyCheckStateResolve]="options.checkStateResolve"
             [thyMultiple]="options.multiple"
             [thySelectedKeys]="['000000000000000000000000']"
             [thyShowExpand]="true"
@@ -306,7 +322,7 @@ export class TestAsyncTreeComponent {
     constructor() {}
 
     showExpand(node: ThyTreeNode) {
-        return node.origin.type !== 'member';
+        return node.origin.type !== undefined;
     }
 
     onExpandChange(event: ThyTreeEmitEvent) {
