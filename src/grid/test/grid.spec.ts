@@ -15,6 +15,7 @@ const SizeMap = {
             thyRowKey="id"
             thyGroupBy="group_id"
             [thyMode]="mode"
+            [thyGroups]="groups"
             [thyTheme]="theme"
             [thySize]="size"
             [thyWholeRowSelect]="isRowSelect"
@@ -58,6 +59,16 @@ const SizeMap = {
     `
 })
 class ThyDemoDefaultGridComponent {
+    groups = [
+        {
+            id: '11',
+            title: '分组1'
+        },
+        {
+            id: '22',
+            title: '分组2'
+        }
+    ];
     model = [
         {
             group_id: '11',
