@@ -4,9 +4,23 @@ import { Subject } from 'rxjs';
 import { ThyTreeNode } from './tree-node.class';
 import { coerceArray } from '../util/helpers';
 
+function checkStateResolve(node: ThyTreeNode) {
+    const checkedNodes = node.children.filter(n => n.isChecked === ThyTreeNodeCheckState.checked);
+    const unCheckedNodes = node.children.filter(n => n.isChecked === ThyTreeNodeCheckState.unchecked);
+    if (checkedNodes.length === node.children.length) {
+        return ThyTreeNodeCheckState.checked;
+    } else if (unCheckedNodes.length === node.children.length) {
+        return ThyTreeNodeCheckState.unchecked;
+    } else {
+        return ThyTreeNodeCheckState.indeterminate;
+    }
+}
+
 @Injectable()
 export class ThyTreeService implements OnDestroy {
     public treeNodes: ThyTreeNode[];
+
+    private checkStateResolve: (node: ThyTreeNode) => ThyTreeNodeCheckState = checkStateResolve;
 
     $statusChange = new Subject<ThyTreeFormatEmitEvent>();
 
@@ -18,6 +32,10 @@ export class ThyTreeService implements OnDestroy {
             this._getParallelTreeNodes(node.children || [], list);
         });
         return list;
+    }
+
+    setCheckStateResolve(resolve: (node: ThyTreeNode) => ThyTreeNodeCheckState = checkStateResolve) {
+        this.checkStateResolve = resolve;
     }
 
     public resetSortedTreeNodes(treeNodes: ThyTreeNode[], parent?: ThyTreeNode) {
@@ -64,6 +82,27 @@ export class ThyTreeService implements OnDestroy {
 
     public statusChanged() {
         return this.$statusChange.asObservable();
+    }
+
+    // 设置节点选中状态
+    public setNodeChecked(node: ThyTreeNode, checked: boolean, propagateUp = true, propagateDown = true) {
+        node.isChecked = checked ? ThyTreeNodeCheckState.checked : ThyTreeNodeCheckState.unchecked;
+        node.origin.checked = checked;
+        if (propagateDown && node.children) {
+            node.children.forEach(subNode => {
+                this.setNodeChecked(subNode, checked, false, true);
+            });
+        }
+        if (propagateUp) {
+            this.syncNodeCheckState(node.parentNode);
+        }
+    }
+
+    public syncNodeCheckState(node: ThyTreeNode) {
+        if (node) {
+            node.isChecked = this.checkStateResolve(node);
+            this.syncNodeCheckState(node.parentNode);
+        }
     }
 
     ngOnDestroy(): void {

@@ -13,7 +13,7 @@ import {
     forwardRef,
     SimpleChanges
 } from '@angular/core';
-import { ThyTreeNodeData, ThyTreeEmitEvent, ThyTreeDragDropEvent, ThyTreeIcons } from './tree.class';
+import { ThyTreeNodeData, ThyTreeEmitEvent, ThyTreeDragDropEvent, ThyTreeIcons, ThyTreeNodeCheckState } from './tree.class';
 import { helpers } from '../util';
 import { ThyTreeService } from './tree.service';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -87,6 +87,10 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
     }
 
     @Input() thyCheckable: boolean;
+
+    @Input() set thyCheckStateResolve(resolve: (node: ThyTreeNode) => ThyTreeNodeCheckState) {
+        this.thyTreeService.setCheckStateResolve(resolve);
+    }
 
     @Input() thyAsync = false;
 
@@ -168,7 +172,6 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
         if (changes.thyType && !changes.thyType.isFirstChange()) {
             this._setTreeType();
         }
-
         if (changes.thyMultiple && !changes.thyMultiple.isFirstChange()) {
             this._instanceSelectionModel();
         }
