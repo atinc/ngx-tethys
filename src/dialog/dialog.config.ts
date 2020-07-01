@@ -1,7 +1,6 @@
 import { InjectionToken } from '@angular/core';
 import { ScrollStrategy } from '@angular/cdk/overlay';
 import { ThyUpperOverlayConfig, ThyUpperOverlayPosition } from '../core/overlay';
-import { NgxTethysModule } from 'ngx-tethys';
 
 /** Valid ARIA roles for a dialog element. */
 export type ThyDialogRole = 'dialog' | 'alertdialog';
