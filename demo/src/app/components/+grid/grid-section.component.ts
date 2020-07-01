@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LiveDemoCodeExample } from '../../core/live-demo/live-demo.component';
 import { DemoGridDefaultComponent } from './default/grid-default.component';
 import { DemoGridBorderedComponent } from './bordered/grid-bordered.component';
+import { DemoGridGroupComponent } from './group/grid-group.component';
 @Component({
     selector: 'demo-grid-section',
     templateUrl: './grid-section.component.html'
@@ -41,6 +42,23 @@ export class DemoGridSectionComponent implements OnInit {
                     content: require('!!raw-loader!./bordered/grid-bordered.component.ts')
                 }
             ]
+        },
+        {
+            title: 'Group Grid',
+            component: DemoGridGroupComponent,
+            description: 'thyTheme="default"',
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'grid-group.component.html',
+                    content: require('!!raw-loader!./group/grid-group.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'grid-group.component.ts',
+                    content: require('!!raw-loader!./group/grid-group.component.ts')
+                }
+            ]
         }
     ];
 
@@ -57,6 +75,8 @@ export class DemoGridSectionComponent implements OnInit {
             type: 'String',
             default: '_id'
         },
+        { property: 'thyMode', description: 'Grid 展示方式，分组或列表', type: 'list | group', default: 'list' },
+        { property: 'thyGroupBy', description: 'Grid分组展示时分组key ', type: 'string', default: '' },
         {
             property: 'thyTheme',
             description: '设置Grid的显示风格 可选值 [default , bordered]',

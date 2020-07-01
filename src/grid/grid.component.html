@@ -1,4 +1,4 @@
-<table #table class="table" [ngClass]="[className]" [class.table-draggable]="draggable">
+<table #table class="table" [ngClass]="[className]" [class.table-draggable]="draggable" [class.table-group]="mode === 'group'">
   <colgroup>
     <col *ngFor="let column of columns" [width]="column.width" />
   </colgroup>
@@ -15,82 +15,115 @@
     </tr>
   </thead>
   <tbody *ngIf="loadingDone" thyDragDrop cdkDropList [cdkDropListDisabled]="!draggable" (cdkDropListDropped)="onDragDropped($event)">
-    <tr
-      class="thy-sortable-item"
-      *ngFor="let row of model; let i = index; trackBy: trackByFn"
-      cdkDrag
-      [cdkDragData]="row"
-      (cdkDragStarted)="onDragStarted()"
-      [ngClass]="renderRowClassName(row, i)"
-      (mousedown)="draggableStopPropagation($event)"
-      (touchstart)="draggableStopPropagation($event)"
-      (pointerdown)="draggableStopPropagation($event)"
-      (click)="onRowClick($event, row)"
-      (thyContextMenu)="onRowContextMenu($event, row)"
-    >
-      <td
-        *ngFor="let column of columns; let j = index"
-        [ngClass]="column.className"
-        [class.thy-grid-checkbox-column]="column.type === customType.checkbox"
-      >
-        <ng-container *ngIf="j === 0 && draggable">
-          <thy-icon class="table-draggable-icon" thyIconName="drag"></thy-icon>
-        </ng-container>
-        <!--template-->
-        <ng-container *ngIf="isTemplateRef(column.templateRef)">
-          <ng-template [ngTemplateOutlet]="column.templateRef" [ngTemplateOutletContext]="{ $implicit: row }"></ng-template>
-        </ng-container>
-        <!--not template-->
-        <ng-container *ngIf="!isTemplateRef(column.templateRef)">
-          <!-- default -->
-          <ng-container *ngIf="column.model && !column.type">
-            <ng-container *ngIf="getModelValue(row, column.model) | isValidModelValue; else default">
-              {{ getModelValue(row, column.model) }}
+    <!-- group -->
+    <ng-container *ngIf="mode === 'group'">
+      <ng-container *ngFor="let group of groups">
+        <tr class="thy-grid-group">
+          <td [attr.colspan]="columns.length">
+            <thy-icon
+              class="expand-icon"
+              (click)="expandGroup(group)"
+              [thyIconName]="group.expand ? 'angle-down' : 'angle-right'"
+            ></thy-icon>
+            <ng-container *ngIf="groupTemplate">
+              <ng-template
+                [ngTemplateOutlet]="groupTemplate"
+                [ngTemplateOutletContext]="{ $implicit: group.origin, group: group.origin }"
+              ></ng-template>
             </ng-container>
-            <ng-template #default>
-              <div class="text-desc">
-                {{ column.defaultText }}
-              </div>
-            </ng-template>
-          </ng-container>
-          <!-- index -->
-          <ng-container *ngIf="column.type === customType.index">
-            {{ i + 1 }}
-          </ng-container>
-          <!-- checkbox -->
-          <ng-container *ngIf="column.type === customType.checkbox">
-            <input
-              type="checkbox"
-              [(ngModel)]="row[column.key]"
-              (ngModelChange)="onCheckboxChange(row, column)"
-              (click)="onStopPropagation($event)"
-              [disabled]="column.disabled"
-            />
-          </ng-container>
-          <!-- radio -->
-          <ng-container *ngIf="column.type === customType.radio">
-            <input
-              type="radio"
-              [(ngModel)]="selectedRadioRow"
-              [value]="row"
-              [disabled]="column.disabled"
-              (click)="onStopPropagation($event)"
-              (change)="onRadioSelectChange($event, row)"
-            />
-          </ng-container>
-          <!-- switch -->
-          <ng-container *ngIf="column.type === customType.switch">
-            <thy-switch
-              [(ngModel)]="row[column.key]"
-              (ngModelChange)="onModelChange(row, column)"
-              [disabled]="column.disabled"
-              (thyChange)="onSwitchChange($event, row, column)"
-            ></thy-switch>
-          </ng-container>
+          </td>
+        </tr>
+        <ng-container *ngIf="group.children?.length && group.expand">
+          <ng-template
+            [ngTemplateOutlet]="gridList"
+            [ngTemplateOutletContext]="{ $implicit: group.children, model: group.children }"
+          ></ng-template>
         </ng-container>
-      </td>
-    </tr>
-    <tr *ngIf="model && model.length === 0" class="clear-hover">
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="mode === 'list'">
+      <ng-template [ngTemplateOutlet]="gridList" [ngTemplateOutletContext]="{ $implicit: model }"></ng-template>
+    </ng-container>
+
+    <ng-template #gridList let-model>
+      <tr
+        class="thy-sortable-item"
+        *ngFor="let row of model; let i = index; trackBy: trackByFn"
+        cdkDrag
+        [cdkDragData]="row"
+        (cdkDragStarted)="onDragStarted()"
+        [ngClass]="renderRowClassName(row, i)"
+        (mousedown)="draggableStopPropagation($event)"
+        (touchstart)="draggableStopPropagation($event)"
+        (pointerdown)="draggableStopPropagation($event)"
+        (click)="onRowClick($event, row)"
+        (thyContextMenu)="onRowContextMenu($event, row)"
+      >
+        <td
+          *ngFor="let column of columns; let j = index"
+          [ngClass]="column.className"
+          [class.thy-grid-checkbox-column]="column.type === customType.checkbox"
+        >
+          <ng-container *ngIf="j === 0 && draggable">
+            <thy-icon class="table-draggable-icon" thyIconName="drag"></thy-icon>
+          </ng-container>
+          <!--template-->
+          <ng-container *ngIf="isTemplateRef(column.templateRef)">
+            <ng-template [ngTemplateOutlet]="column.templateRef" [ngTemplateOutletContext]="{ $implicit: row }"></ng-template>
+          </ng-container>
+          <!--not template-->
+          <ng-container *ngIf="!isTemplateRef(column.templateRef)">
+            <!-- default -->
+            <ng-container *ngIf="column.model && !column.type">
+              <ng-container *ngIf="getModelValue(row, column.model) | isValidModelValue; else default">
+                {{ getModelValue(row, column.model) }}
+              </ng-container>
+              <ng-template #default>
+                <div class="text-desc">
+                  {{ column.defaultText }}
+                </div>
+              </ng-template>
+            </ng-container>
+            <!-- index -->
+            <ng-container *ngIf="column.type === customType.index">
+              {{ i + 1 }}
+            </ng-container>
+            <!-- checkbox -->
+            <ng-container *ngIf="column.type === customType.checkbox">
+              <input
+                type="checkbox"
+                [(ngModel)]="row[column.key]"
+                (ngModelChange)="onCheckboxChange(row, column)"
+                (click)="onStopPropagation($event)"
+                [disabled]="column.disabled"
+              />
+            </ng-container>
+            <!-- radio -->
+            <ng-container *ngIf="column.type === customType.radio">
+              <input
+                type="radio"
+                [(ngModel)]="selectedRadioRow"
+                [value]="row"
+                [disabled]="column.disabled"
+                (click)="onStopPropagation($event)"
+                (change)="onRadioSelectChange($event, row)"
+              />
+            </ng-container>
+            <!-- switch -->
+            <ng-container *ngIf="column.type === customType.switch">
+              <thy-switch
+                [(ngModel)]="row[column.key]"
+                (ngModelChange)="onModelChange(row, column)"
+                [disabled]="column.disabled"
+                (thyChange)="onSwitchChange($event, row, column)"
+              ></thy-switch>
+            </ng-container>
+          </ng-container>
+        </td>
+      </tr>
+    </ng-template>
+
+    <tr *ngIf="model.length === 0" class="clear-hover">
       <td [colSpan]="columns.length" height="280px">
         <thy-empty
           [thyMessage]="emptyOptions.message"

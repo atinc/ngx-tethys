@@ -17,9 +17,10 @@ import {
     HostBinding,
     ElementRef,
     ViewChild,
-    Inject
+    Inject,
+    ContentChild
 } from '@angular/core';
-import { get, set, isString, inputValueToBoolean } from '../util/helpers';
+import { get, set, isString, inputValueToBoolean, keyBy } from '../util/helpers';
 import {
     ThyGridColumn,
     ThyMultiSelectEvent,
@@ -43,7 +44,16 @@ import { DOCUMENT } from '@angular/common';
 
 export type ThyGridTheme = 'default' | 'bordered';
 
+export type ThyGridMode = 'list' | 'group';
+
 export type ThyGridSize = 'sm';
+
+interface ThyGridGroup<T = unknown> {
+    id?: string;
+    expand?: boolean;
+    children?: object[];
+    origin?: T;
+}
 
 const gridThemeMap = {
     default: 'table-default',
@@ -78,7 +88,13 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
 
     public model: object[] = [];
 
+    public groups: ThyGridGroup[] = [];
+
     public rowKey = '_id';
+
+    public groupBy: string;
+
+    public mode: ThyGridMode = 'list';
 
     public columns: ThyGridColumn[] = [];
 
@@ -119,6 +135,21 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
     @ViewChild('table', { static: true }) tableElementRef: ElementRef<any>;
 
     @Input()
+    set thyMode(value: ThyGridMode) {
+        this.mode = value || this.mode;
+    }
+
+    @Input()
+    set thyGroupBy(value: string) {
+        this.groupBy = value;
+    }
+
+    @Input()
+    set thyRowKey(value: any) {
+        this.rowKey = value || this.rowKey;
+    }
+
+    @Input()
     set thyModel(value: any) {
         this.model = value || [];
         this._diff = this._differs.find(this.model).create();
@@ -126,8 +157,14 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
     }
 
     @Input()
-    set thyRowKey(value: any) {
-        this.rowKey = value || this.rowKey;
+    set thyGroups(value: any) {
+        const originGroupsMap = keyBy(value, this.rowKey);
+        if (this.mode === 'group') {
+            this.buildGroups();
+            this.groups.forEach(group => {
+                group.origin = originGroupsMap[group.id];
+            });
+        }
     }
 
     @Input()
@@ -223,6 +260,8 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
     @Output() thyOnRowClick: EventEmitter<ThyGridRowEvent> = new EventEmitter<ThyGridRowEvent>();
 
     @Output() thyOnRowContextMenu: EventEmitter<ThyGridEvent> = new EventEmitter<ThyGridEvent>();
+
+    @ContentChild('group', { static: true }) groupTemplate: TemplateRef<any>;
 
     @ContentChildren(ThyGridColumnComponent)
     set listOfColumnComponents(components: QueryList<ThyGridColumnComponent>) {
@@ -518,6 +557,23 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
         });
     }
 
+    private buildGroups() {
+        const groupIds: string[] = [];
+        this.model.forEach(row => {
+            const idIndex = groupIds.indexOf(row[this.groupBy]);
+            if (idIndex >= 0) {
+                this.groups[idIndex].children.push(row);
+            } else {
+                groupIds.push(row[this.groupBy]);
+                this.groups.push({ id: row[this.groupBy], expand: true, children: [row] });
+            }
+        });
+    }
+
+    public expandGroup(gridGroup: ThyGridGroup) {
+        gridGroup.expand = !gridGroup.expand;
+    }
+
     ngOnInit() {
         this.updateHostClassService.initializeElement(this.tableElementRef.nativeElement);
         this._setClass(true);
@@ -531,8 +587,10 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
     }
 
     ngDoCheck() {
-        const changes = this._diff.diff(this.model);
-        this._applyDiffChanges(changes);
+        if (this._diff) {
+            const changes = this._diff.diff(this.model);
+            this._applyDiffChanges(changes);
+        }
     }
 
     ngOnDestroy() {

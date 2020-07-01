@@ -30,6 +30,17 @@
 .thy-grid {
     display: block;
 
+    .thy-grid-group {
+        td {
+            padding: 0;
+        }
+        .expand-icon {
+            cursor: pointer;
+            color: $gray-500;
+            margin-right: 5px;
+        }
+    }
+
     .thy-grid-checkbox-column {
         line-height: initial;
     }
