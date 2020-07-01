@@ -1,0 +1,6 @@
+<p>
+  选择状态联动策略：默认情况如果子节点全部全中，父节点也会被选中，如果需要自定义节点状态更新计算方式，可以通过 [thyCheckStateResolve]
+  参数自定义
+</p>
+
+<thy-tree #tree [thyNodes]="treeNodes" [thyCheckable]="true" [thyCheckStateResolve]="checkStateResolve"></thy-tree>
