@@ -322,7 +322,7 @@ export class TestAsyncTreeComponent {
     constructor() {}
 
     showExpand(node: ThyTreeNode) {
-        return node.origin.type !== undefined;
+        return node.origin.type !== 'member';
     }
 
     onExpandChange(event: ThyTreeEmitEvent) {
