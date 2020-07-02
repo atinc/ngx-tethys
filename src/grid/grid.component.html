@@ -20,17 +20,19 @@
       <ng-container *ngFor="let group of groups">
         <tr class="thy-grid-group">
           <td [attr.colspan]="columns.length">
-            <thy-icon
-              class="expand-icon"
-              (click)="expandGroup(group)"
-              [thyIconName]="group.expand ? 'angle-down' : 'angle-right'"
-            ></thy-icon>
-            <ng-container *ngIf="groupTemplate">
-              <ng-template
-                [ngTemplateOutlet]="groupTemplate"
-                [ngTemplateOutletContext]="{ $implicit: group.origin, group: group.origin }"
-              ></ng-template>
-            </ng-container>
+            <div class="thy-grid-group-container">
+              <thy-icon
+                class="expand-icon"
+                (click)="expandGroup(group)"
+                [thyIconName]="group.expand ? 'angle-down' : 'angle-right'"
+              ></thy-icon>
+              <ng-container *ngIf="groupTemplate">
+                <ng-template
+                  [ngTemplateOutlet]="groupTemplate"
+                  [ngTemplateOutletContext]="{ $implicit: group.origin, group: group.origin }"
+                ></ng-template>
+              </ng-container>
+            </div>
           </td>
         </tr>
         <ng-container *ngIf="group.children?.length && group.expand">
@@ -123,7 +125,7 @@
       </tr>
     </ng-template>
 
-    <tr *ngIf="model.length === 0" class="clear-hover">
+    <tr *ngIf="model.length === 0 && groups.length === 0" class="clear-hover">
       <td [colSpan]="columns.length" height="280px">
         <thy-empty
           [thyMessage]="emptyOptions.message"

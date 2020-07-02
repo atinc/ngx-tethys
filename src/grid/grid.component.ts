@@ -150,20 +150,20 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
     }
 
     @Input()
+    set thyGroups(value: any) {
+        if (this.mode === 'group') {
+            this.buildGroups(value);
+        }
+    }
+
+    @Input()
     set thyModel(value: any) {
         this.model = value || [];
         this._diff = this._differs.find(this.model).create();
         this._initializeDataModel();
-    }
 
-    @Input()
-    set thyGroups(value: any) {
-        const originGroupsMap = keyBy(value, this.rowKey);
         if (this.mode === 'group') {
-            this.buildGroups();
-            this.groups.forEach(group => {
-                group.origin = originGroupsMap[group.id];
-            });
+            this.buildModel();
         }
     }
 
@@ -557,15 +557,22 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
         });
     }
 
-    private buildGroups() {
-        const groupIds: string[] = [];
+    private buildGroups(originGroups: any) {
+        const collapsedIds = this.groups.filter(group => !group.expand).map(group => group.id);
+        this.groups = [];
+        originGroups.forEach((origin: any) => {
+            const group: ThyGridGroup = { id: origin[this.rowKey], children: [], origin };
+            group.expand = !collapsedIds.includes(group.id);
+            this.groups.push(group);
+        });
+    }
+
+    private buildModel() {
+        const groupsMap = keyBy(this.groups, 'id');
         this.model.forEach(row => {
-            const idIndex = groupIds.indexOf(row[this.groupBy]);
-            if (idIndex >= 0) {
-                this.groups[idIndex].children.push(row);
-            } else {
-                groupIds.push(row[this.groupBy]);
-                this.groups.push({ id: row[this.groupBy], expand: true, children: [row] });
+            const group = groupsMap[row[this.groupBy]];
+            if (group) {
+                group.children.push(row);
             }
         });
     }

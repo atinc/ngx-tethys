@@ -34,10 +34,14 @@
         td {
             padding: 0;
         }
-        .expand-icon {
-            cursor: pointer;
-            color: $gray-500;
-            margin-right: 5px;
+        .thy-grid-group-container {
+            display: flex;
+            align-items: center;
+            .expand-icon {
+                cursor: pointer;
+                color: $gray-500;
+                margin-right: 5px;
+            }
         }
     }
 
