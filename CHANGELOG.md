@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.0.7"></a>
+## [8.0.7](https://github.com/atinc/ngx-tethys/compare/8.0.6...8.0.7) (2020-07-02)
+
+
+### Bug Fixes
+
+* **grid:** change build group ([bc95d2d](https://github.com/atinc/ngx-tethys/commit/bc95d2d))
+* **grid:** fix test error ([b9f270e](https://github.com/atinc/ngx-tethys/commit/b9f270e))
+
+
+### Features
+
+* **grid:** add group in grid #INFR-744 ([5ffe22f](https://github.com/atinc/ngx-tethys/commit/5ffe22f)), closes [#INFR-744](https://github.com/atinc/ngx-tethys/issues/INFR-744)
+* **grid:** add next docs for grid #INFR-740 ([7249a55](https://github.com/atinc/ngx-tethys/commit/7249a55)), closes [#INFR-740](https://github.com/atinc/ngx-tethys/issues/INFR-740)
+* **grid:** add thyGroups in grid ([84cc2f5](https://github.com/atinc/ngx-tethys/commit/84cc2f5))
+* **tree:** add public function getTreeNode ([48526a0](https://github.com/atinc/ngx-tethys/commit/48526a0))
+* **tree:** support set check state resolve ([d5f6a7c](https://github.com/atinc/ngx-tethys/commit/d5f6a7c))
+
+
+
 <a name="8.0.6"></a>
 ## [8.0.6](https://github.com/atinc/ngx-tethys/compare/8.0.5...8.0.6) (2020-06-29)
 
