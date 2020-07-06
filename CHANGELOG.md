@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.0.8"></a>
+## [8.0.8](https://github.com/atinc/ngx-tethys/compare/8.0.7...8.0.8) (2020-07-06)
+
+
+### Features
+
+* **checkbox:** checkbox radio disabled style ([#777](https://github.com/atinc/ngx-tethys/issues/777)) ([f86cb90](https://github.com/atinc/ngx-tethys/commit/f86cb90))
+
+
+
 <a name="8.0.7"></a>
 ## [8.0.7](https://github.com/atinc/ngx-tethys/compare/8.0.6...8.0.7) (2020-07-02)
 
