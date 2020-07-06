@@ -62,3 +62,5 @@ export * from './date-picker';
 export * from './time-picker';
 export * from './statistic';
 export * from './autocomplete';
+export * from './affix';
+export * from './anchor';

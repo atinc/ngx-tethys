@@ -16,3 +16,15 @@ export declare interface NumericDictionary<T> {
 export declare interface Id {
     toString(): string;
 }
+
+export interface IndexableObject {
+    [key: string]: any;
+}
+
+export interface SimpleRect {
+    top: number;
+    left: number;
+    width?: number;
+    height?: number;
+    bottom?: number;
+}
