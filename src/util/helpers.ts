@@ -1,10 +1,7 @@
 import { TemplateRef, ElementRef } from '@angular/core';
-import {
-    coerceBooleanProperty as coerceBoolean,
-    coerceCssPixelValue as coerceCssPixel,
-    _isNumberValue
-} from '@angular/cdk/coercion';
+import { coerceBooleanProperty as coerceBoolean, coerceCssPixelValue as coerceCssPixel, _isNumberValue } from '@angular/cdk/coercion';
 import { warnDeprecation } from '../core/logger';
+import { IndexableObject } from '../typings';
 
 export function inputValueToBoolean(value: boolean | string): boolean {
     warnDeprecation(`The method inputValueToBoolean will be deprecated, please use coerceBooleanProperty instead.`);
@@ -259,4 +256,36 @@ export function coerceCssPixelValue(value: number | string): string {
 
 export function valueFunctionProp<T>(prop: FunctionProp<T>, ...args: any[]): T {
     return typeof prop === 'function' ? prop(...args) : prop;
+}
+
+export function shallowEqual(objA?: IndexableObject, objB?: IndexableObject): boolean {
+    if (objA === objB) {
+        return true;
+    }
+
+    if (typeof objA !== 'object' || !objA || typeof objB !== 'object' || !objB) {
+        return false;
+    }
+
+    const keysA = Object.keys(objA);
+    const keysB = Object.keys(objB);
+
+    if (keysA.length !== keysB.length) {
+        return false;
+    }
+
+    const bHasOwnProperty = Object.prototype.hasOwnProperty.bind(objB);
+
+    // tslint:disable-next-line:prefer-for-of
+    for (let idx = 0; idx < keysA.length; idx++) {
+        const key = keysA[idx];
+        if (!bHasOwnProperty(key)) {
+            return false;
+        }
+        if (objA[key] !== objB[key]) {
+            return false;
+        }
+    }
+
+    return true;
 }

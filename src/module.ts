@@ -60,6 +60,8 @@ import { ThyDatePickerModule } from './date-picker';
 import { ThyTimePickerModule } from './time-picker';
 import { ThyStatisticModule } from './statistic';
 import { ThyAutocompleteModule } from './autocomplete/module';
+import { ThyAnchorModule } from './anchor/anchor.module';
+import { ThyAffixModule } from './affix';
 
 const IMPORT_EXPORT_MODULES = [
     BrowserAnimationsModule,
@@ -123,7 +125,9 @@ const IMPORT_EXPORT_MODULES = [
     ThyDatePickerModule,
     ThyTimePickerModule,
     ThyStatisticModule,
-    ThyAutocompleteModule
+    ThyAutocompleteModule,
+    ThyAnchorModule,
+    ThyAffixModule
 ];
 
 @NgModule({
