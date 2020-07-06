@@ -1,5 +1,6 @@
 import { ElementRef } from '@angular/core';
 import * as helpers from './helpers';
+import { SimpleRect } from '../typings';
 
 const proto = Element.prototype;
 const vendor =
@@ -73,6 +74,30 @@ export function getElementOffset(elem: HTMLElement) {
     return rect;
 }
 
+export function getOffset(element: HTMLElement, container: HTMLElement | Window): { left: number; top: number } | null {
+    if (!element || !element.getClientRects().length) {
+        return null;
+    }
+    const rect = element.getBoundingClientRect();
+
+    if (rect.width || rect.height) {
+        if (container === window) {
+            const documentElement = element.ownerDocument!.documentElement!;
+            return {
+                top: rect.top - documentElement.clientTop,
+                left: rect.left - documentElement.clientLeft
+            };
+        }
+        const containerRect = (container as HTMLElement).getBoundingClientRect();
+        return {
+            top: rect.top - containerRect.top,
+            left: rect.left - containerRect.left
+        };
+    }
+
+    return rect;
+}
+
 export function getElementOuterHeight(element: any) {
     const _element = element.documentElement ? element.documentElement : element;
     let height = _element.clientHeight;
@@ -100,4 +125,31 @@ export function getHTMLElementBySelector(selector: ElementSelector, defaultEleme
 
 export function isInputOrTextarea(element: HTMLElement) {
     return ['INPUT', 'TEXTAREA'].indexOf(element.nodeName) >= 0;
+}
+
+export function isWindow(container: Element | Window): container is Window {
+    return typeof window !== 'undefined' && container === window;
+}
+
+export function getContainerRect(container: Element | Window): SimpleRect {
+    return !isWindow(container)
+        ? container.getBoundingClientRect()
+        : {
+              top: 0,
+              left: 0,
+              bottom: 0
+          };
+}
+
+export function getStyleAsText(styles?: any): string {
+    if (!styles) {
+        return '';
+    }
+
+    return Object.keys(styles)
+        .map(key => {
+            const val = styles[key];
+            return `${key}:${typeof val === 'string' ? val : val + 'px'}`;
+        })
+        .join(';');
 }
