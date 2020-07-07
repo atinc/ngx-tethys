@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+
 import { LiveDemoCodeExample } from '../../core/live-demo/live-demo.component';
 import { DemoAlertBasicComponent } from './basic/basic.component';
-import { DemoAlertIconComponent } from './icon/icon.component';
-import { DemoAlertWeakComponent } from './weak/weak.component';
 import { DemoAlertCloseComponent } from './close/close.component';
+import { DemoAlertIconComponent } from './icon/icon.component';
 import { DemoAlertMessageTemplateComponent } from './message-template/message-template.component';
+import { DemoAlertWeakComponent } from './weak/weak.component';
 
 @Component({
     selector: 'demo-alert-section',

@@ -66,7 +66,8 @@ module.exports = {
                 'tree-select',
                 'uploader',
                 'util',
-                'vote'
+                'vote',
+                'anchor'
             ]
         ]
     }
