@@ -1,0 +1,19 @@
+.app-back-top-target-example-container {
+    .long-div {
+        height: 300px;
+        overflow-y: scroll;
+        background-image: url(//zos.alipayobjects.com/rmsportal/RmjwQiJorKyobvI.jpg);
+    }
+
+    .long-div-inner {
+        height: 1500px;
+    }
+
+    .long-div .ant-back-top {
+        right: 150px;
+    }
+
+    strong {
+        color: rgba(64, 64, 64, 0.6);
+    }
+}
