@@ -1,9 +1,11 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { NgxTethysModule } from 'ngx-tethys';
-import { ThyDialogBasicContentComponent } from './basic/dialog-content.component';
+
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
 import { ThyDialogBasicExampleComponent } from './basic/basic.component';
+import { ThyDialogBasicContentComponent } from './basic/dialog-content.component';
 import { ThyDialogConfirmExampleComponent } from './confirm/confirm.component';
 
 const COMPONENTS = [ThyDialogBasicExampleComponent, ThyDialogBasicContentComponent, ThyDialogConfirmExampleComponent];
