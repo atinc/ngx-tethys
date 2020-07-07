@@ -2,6 +2,8 @@ Scroll down to see the bottom-right
 <strong> gray </strong>
 button.
 <div class="long-div" #divTarget>
-  <div class="long-div-inner"></div>
+  <p *ngFor="let item of demos">
+    this is a demo
+  </p>
   <thy-back-top [thyContainer]="divTarget"></thy-back-top>
 </div>

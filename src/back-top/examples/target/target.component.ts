@@ -6,7 +6,13 @@ import { Component, OnInit, HostBinding } from '@angular/core';
     styleUrls: ['./target.scss']
 })
 export class ThyBackTopTargetExampleComponent implements OnInit {
+    demos: number[] = [];
+
     constructor() {}
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        for (let index = 0; index < 20; index++) {
+            this.demos.push(index);
+        }
+    }
 }
