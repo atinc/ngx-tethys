@@ -1,0 +1,13 @@
+---
+category: general
+title: BackTop
+subtitle: 回到顶部
+order: 10
+---
+
+返回页面顶部的操作按钮。
+
+## 何时使用
+
+当页面内容区域比较长时；
+当用户需要频繁返回顶部查看相关内容时。

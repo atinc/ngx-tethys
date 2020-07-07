@@ -1,0 +1,20 @@
+.app-back-top-custom-example-custom {
+    .ant-back-top {
+        bottom: 100px;
+    }
+
+    .ant-back-top-inner {
+        height: 40px;
+        width: 40px;
+        line-height: 40px;
+        border-radius: 4px;
+        background-color: #1088e9;
+        color: $white;
+        text-align: center;
+        font-size: 20px;
+    }
+
+    strong {
+        color: #1088e9;
+    }
+}
