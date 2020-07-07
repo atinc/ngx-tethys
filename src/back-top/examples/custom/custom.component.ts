@@ -1,12 +1,11 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'app-back-top-custom-example',
-    templateUrl: './custom.component.html'
+    templateUrl: './custom.component.html',
+    styleUrls: ['./custom.scss']
 })
 export class ThyBackTopCustomExampleComponent implements OnInit {
-    @HostBinding('class.app-back-top-custom-example-custom') classNames = true;
-
     constructor() {}
 
     ngOnInit(): void {}
