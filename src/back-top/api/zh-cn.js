@@ -17,7 +17,7 @@ module.exports = [
                 default: '400'
             },
             {
-                name: 'thyTarget',
+                name: 'thyContainer',
                 description: `设置需要监听其滚动事件的元素，值为一个返回对应 DOM 元素的函数`,
                 type: 'string | Element',
                 default: 'window'

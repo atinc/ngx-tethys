@@ -1,19 +1,17 @@
-.app-back-top-target-example-container {
-    .long-div {
-        height: 300px;
-        overflow-y: scroll;
-        background-image: url(//zos.alipayobjects.com/rmsportal/RmjwQiJorKyobvI.jpg);
-    }
+:host ::ng-deep .long-div {
+    height: 300px;
+    overflow-y: scroll;
+    background-image: url(//zos.alipayobjects.com/rmsportal/RmjwQiJorKyobvI.jpg);
+}
 
-    .long-div-inner {
-        height: 1500px;
-    }
+:host ::ng-deep .long-div-inner {
+    height: 1500px;
+}
 
-    .long-div .ant-back-top {
-        right: 150px;
-    }
+:host ::ng-deep .long-div .thy-back-top {
+    right: 150px;
+}
 
-    strong {
-        color: rgba(64, 64, 64, 0.6);
-    }
+:host ::ng-deep strong {
+    color: rgba(64, 64, 64, 0.6);
 }

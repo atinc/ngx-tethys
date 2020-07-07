@@ -34,7 +34,7 @@ export class ThyBackTopComponent implements OnInit, OnDestroy, OnChanges {
 
     @Input() thyVisibilityHeight = 400;
 
-    @Input() thyTarget?: string | HTMLElement;
+    @Input() thyContainer?: string | HTMLElement;
 
     @Output() readonly thyClick: EventEmitter<boolean> = new EventEmitter();
 
@@ -46,7 +46,6 @@ export class ThyBackTopComponent implements OnInit, OnDestroy, OnChanges {
 
     constructor(
         @Inject(DOCUMENT) private doc: any,
-        // public nzConfigService: NzConfigService,
         private scrollSrv: ThyScrollService,
         private platform: Platform,
         private cd: ChangeDetectorRef,
@@ -93,9 +92,9 @@ export class ThyBackTopComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     ngOnChanges(changes: any): void {
-        const { thyTarget } = changes;
-        if (thyTarget) {
-            this.target = typeof this.thyTarget === 'string' ? this.doc.querySelector(this.thyTarget) : this.thyTarget;
+        const { thyContainer } = changes;
+        if (thyContainer) {
+            this.target = typeof this.thyContainer === 'string' ? this.doc.querySelector(this.thyContainer) : this.thyContainer;
             this.registerScrollEvent();
         }
     }

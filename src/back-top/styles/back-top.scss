@@ -1,5 +1,5 @@
 .thy-back-top-container {
-    .ant-back-top {
+    .thy-back-top {
         box-sizing: border-box;
         margin: 0;
         padding: 0;
@@ -18,7 +18,7 @@
         cursor: pointer;
     }
 
-    .ant-back-top-content {
+    .thy-back-top-content {
         width: 40px;
         height: 40px;
         overflow: hidden;
@@ -29,7 +29,7 @@
         transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
     }
 
-    .ant-back-top-icon {
+    .thy-back-top-icon {
         width: 14px;
         height: 16px;
         margin: 12px auto;
