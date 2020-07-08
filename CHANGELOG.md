@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.1.0"></a>
+# [8.1.0](https://github.com/atinc/ngx-tethys/compare/8.0.8...8.1.0) (2020-07-08)
+
+
+### Bug Fixes
+
+* **property-operation:** fix property disabled can click#INFR-790 ([99545e0](https://github.com/atinc/ngx-tethys/commit/99545e0)), closes [click#INFR-790](https://github.com/click/issues/INFR-790)
+
+
+### Features
+
+* #INFR-759 backTop ([f5e54d5](https://github.com/atinc/ngx-tethys/commit/f5e54d5)), closes [#INFR-759](https://github.com/atinc/ngx-tethys/issues/INFR-759)
+* **alert:** #INFR-653 add alert document ([8937460](https://github.com/atinc/ngx-tethys/commit/8937460)), closes [#INFR-653](https://github.com/atinc/ngx-tethys/issues/INFR-653)
+* **anchor:** fix build error ([5db1322](https://github.com/atinc/ngx-tethys/commit/5db1322))
+* **anchor:** init anchor link affix #INFR-760 ([00f8588](https://github.com/atinc/ngx-tethys/commit/00f8588)), closes [#INFR-760](https://github.com/atinc/ngx-tethys/issues/INFR-760)
+
+
+
 <a name="8.0.8"></a>
 ## [8.0.8](https://github.com/atinc/ngx-tethys/compare/8.0.7...8.0.8) (2020-07-06)
 
