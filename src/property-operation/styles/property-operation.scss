@@ -10,6 +10,7 @@
     // }
     &.thy-property-operation-disabled {
         cursor: default;
+        pointer-events: none;
     }
     &:not(.thy-property-operation-disabled) {
         @include hover {
