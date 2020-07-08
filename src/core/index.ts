@@ -6,3 +6,6 @@ export * from './option';
 export * from './overlay/interface';
 export * from './select';
 export * from './logger';
+export * from './request-animation';
+export * from './scroll';
+export * from './animation';

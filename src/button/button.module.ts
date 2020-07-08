@@ -1,9 +1,10 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ThyButtonComponent } from './button.component';
-import { ThyButtonIconComponent } from './button-icon.component';
-import { ThyButtonGroupComponent } from './button-group.component';
+import { NgModule } from '@angular/core';
+
 import { ThyIconModule } from '../icon';
+import { ThyButtonGroupComponent } from './button-group.component';
+import { ThyButtonIconComponent } from './button-icon.component';
+import { ThyButtonComponent } from './button.component';
 
 @NgModule({
     declarations: [ThyButtonComponent, ThyButtonIconComponent, ThyButtonGroupComponent],
