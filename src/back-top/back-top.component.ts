@@ -46,7 +46,7 @@ export class ThyBackTopComponent implements OnInit, OnDestroy, OnChanges {
 
     constructor(
         @Inject(DOCUMENT) private doc: any,
-        private scrollSrv: ThyScrollService,
+        private thyScrollService: ThyScrollService,
         private platform: Platform,
         private cd: ChangeDetectorRef,
         private zone: NgZone
@@ -57,7 +57,7 @@ export class ThyBackTopComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     clickBackTop(): void {
-        this.scrollSrv.scrollTo(this.getTarget(), 0);
+        this.thyScrollService.scrollTo(this.getTarget(), 0);
         this.thyClick.emit(true);
     }
 
@@ -66,7 +66,7 @@ export class ThyBackTopComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     private handleScroll(): void {
-        if (this.visible === this.scrollSrv.getScroll(this.getTarget()) > this.thyVisibilityHeight) {
+        if (this.visible === this.thyScrollService.getScroll(this.getTarget()) > this.thyVisibilityHeight) {
             return;
         }
         this.visible = !this.visible;
