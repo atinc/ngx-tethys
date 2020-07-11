@@ -1,0 +1,8 @@
+<div class="thy-back-top" (click)="clickBackTop()" @fadeMotion *ngIf="visible">
+  <ng-template #defaultContent>
+    <div class="thy-back-top-content">
+      <div class="thy-back-top-icon"></div>
+    </div>
+  </ng-template>
+  <ng-template [ngTemplateOutlet]="thyTemplate || defaultContent"></ng-template>
+</div>
