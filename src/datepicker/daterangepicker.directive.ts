@@ -57,6 +57,9 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
     @Input() thyDisabled = false;
     @Input() thyShowTime = false;
     @Input() thyFormat: string = null;
+    @Input() thyCustomValue = '';
+    @Input() thyMinDate: Date;
+    @Input() thyMaxDate: Date;
     // @Output() thyOnChange: EventEmitter<any> = new EventEmitter();
     @HostBinding('class.cursor-pointer')
     get isCursorPointerClass() {
@@ -72,11 +75,7 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
         private thyPositioningService: ThyPositioningService,
         private _config: ThyDaterangepickerConfig
     ) {
-        this._loader = cis.createLoader<ThyDaterangepickerContainerComponent>(
-            _elementRef,
-            _viewContainerRef,
-            _renderer
-        );
+        this._loader = cis.createLoader<ThyDaterangepickerContainerComponent>(_elementRef, _viewContainerRef, _renderer);
     }
 
     /**
@@ -136,6 +135,8 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
                 initialState: {
                     store: this.store,
                     value: this._value,
+                    minDate: this.thyMinDate,
+                    maxDate: this.thyMaxDate,
                     // withTime: inputValueToBoolean(this.thyShowTime),
                     changeValue: (result: DatepickerValueEntry) => {
                         this._initFormatRule();
@@ -191,7 +192,7 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
             initialDate = '';
         }
 
-        this._renderer.setProperty(this._elementRef.nativeElement, 'value', initialDate);
+        this._renderer.setProperty(this._elementRef.nativeElement, 'value', this.thyCustomValue ? this.thyCustomValue : initialDate);
     }
 
     private _formatBeginTime(begin?: Date): number {

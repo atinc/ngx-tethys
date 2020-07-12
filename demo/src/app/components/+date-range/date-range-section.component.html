@@ -1,7 +1,4 @@
-<thy-alert
-  thyType="warning"
-  thyMessage="DateRange 已经被废弃，将在之后的版本中移除，请使用 DatePicker 代替"
-></thy-alert>
+<thy-alert thyType="warning" thyMessage="DateRange 已经被废弃，将在之后的版本中移除，请使用 DatePicker 代替"></thy-alert>
 
 <section>
   <div class="header">
@@ -34,6 +31,61 @@
 
 <section>
   <div class="header">
+    <h2>date-range 设置dateRanges 并且显示 date</h2>
+  </div>
+  <div class="body">
+    <div class="demo-layout">
+      <thy-date-range
+        [(ngModel)]="dateHasShowDateConfig"
+        name="setDateRangeHasConfig"
+        [dateRanges]="dateRanges"
+        (ngModelChange)="change()"
+        [thyShowDateValue]="true"
+      ></thy-date-range>
+      <span>{{ dateHasShowDateConfig | json }}</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="header">
+    <h2>自定义日期选择展示文本</h2>
+  </div>
+  <div class="body">
+    <div class="demo-layout">
+      <thy-date-range
+        [(ngModel)]="dateHasCustomValue"
+        name="setDateRangeHasConfig"
+        [dateRanges]="dateRanges"
+        (ngModelChange)="change()"
+        thyCustomValue="自定义"
+      ></thy-date-range>
+      <span>{{ dateHasCustomValue | json }}</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="header">
+    <h2>设置最大/最小可选时间</h2>
+  </div>
+  <div class="body">
+    <div class="demo-layout">
+      <thy-date-range
+        [(ngModel)]="dateHasMaxMinDate"
+        name="setDateHasMaxMinDate"
+        [dateRanges]="dateRanges"
+        (ngModelChange)="change()"
+        thyCustomValue="自定义"
+        [thyMinDate]="minDate"
+        [thyMaxDate]="maxDate"
+      ></thy-date-range>
+      <span>{{ dateHasMaxMinDate | json }}</span>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="header">
     <h2>隐藏菜单</h2>
   </div>
   <div class="body">
@@ -43,7 +95,7 @@
         name="setDateRangeHasConfig"
         [dateRanges]="weekDateRanges"
         (ngModelChange)="change()"
-        [hiddenMenu]="true"
+        [thyHiddenMenu]="true"
       ></thy-date-range>
       <span>{{ weekDate | json }}</span>
     </div>

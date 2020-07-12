@@ -14,6 +14,8 @@ export class ThyDaterangepickerContainerComponent implements OnInit {
     hideLoader: Function;
     value: Date[];
     isMeridian = false;
+    maxDate: Date;
+    minDate: Date;
 
     @ViewChild('dpContainer', { static: true })
     private _dpContainerRef: any;
@@ -52,6 +54,8 @@ export class ThyDaterangepickerContainerComponent implements OnInit {
         this.value = this.store.value;
         this._dpContainerRef._effects.init(this._dpContainerRef._store);
         this._dpContainerRef._effects.setRangeValue(this.value);
+        this._dpContainerRef._effects.setMinDate(this.initialState.minDate);
+        this._dpContainerRef._effects.setMaxDate(this.initialState.maxDate);
         this._dpContainerRef.valueChange.pipe(skip(1)).subscribe((result: [Date]) => {
             this._sendChangeValueEvent(result);
         });

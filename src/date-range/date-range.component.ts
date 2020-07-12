@@ -17,34 +17,36 @@ const INPUT_CONTROL_VALUE_ACCESSOR: any = {
     providers: [INPUT_CONTROL_VALUE_ACCESSOR]
 })
 export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
-
-    private _currentDayTime: any = new Date((new Date()).getFullYear(), (new Date()).getMonth(), (new Date()).getDate());
+    private _currentDayTime: any = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
 
     public selectedDate?: DateRangeItemInfo;
 
-    public optionalDateRange: DateRangeItemInfo[] = [{
-        key: 'week',
-        text: '本周',
-        begin: helpers.formatDate(this._currentDayTime) - (this._currentDayTime.getDay() - 1) * allDayTimestamp,
-        end: helpers.formatDate(this._currentDayTime) + (7 - this._currentDayTime.getDay()) * allDayTimestamp,
-        timestamp: {
-            interval: 7,
-            unit: 'day'
+    public optionalDateRange: DateRangeItemInfo[] = [
+        {
+            key: 'week',
+            text: '本周',
+            begin: helpers.formatDate(this._currentDayTime) - (this._currentDayTime.getDay() - 1) * allDayTimestamp,
+            end: helpers.formatDate(this._currentDayTime) + (7 - this._currentDayTime.getDay()) * allDayTimestamp,
+            timestamp: {
+                interval: 7,
+                unit: 'day'
+            }
+        },
+        {
+            key: 'month',
+            text: '本月',
+            begin: helpers.formatDate(new Date(new Date().getFullYear(), new Date().getMonth(), 1)),
+            end: helpers.formatDate(new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0)),
+            timestamp: {
+                interval: 1,
+                unit: 'month'
+            }
         }
-    }, {
-        key: 'month',
-        text: '本月',
-        begin: helpers.formatDate(new Date((new Date()).getFullYear(), (new Date()).getMonth(), 1)),
-        end: helpers.formatDate(new Date((new Date()).getFullYear(), (new Date()).getMonth() + 1, 0)),
-        timestamp: {
-            interval: 1,
-            unit: 'month'
-        }
-    }];
+    ];
 
     public selectedDateRange: {
-        begin: { date: number },
-        end: { date: number }
+        begin: { date: number };
+        end: { date: number };
     };
 
     @Input()
@@ -52,17 +54,21 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
         this.optionalDateRange = value.length > 0 ? value : this.optionalDateRange;
     }
 
-    @Input() hiddenMenu: Boolean = false;
+    @Input() thyHiddenMenu: Boolean = false;
 
-    constructor() { }
+    @Input() thyShowDateValue: Boolean = false;
 
-    public onModelChange: Function = () => {
+    @Input() thyCustomValue = '';
 
-    }
+    @Input() thyMinDate: Date;
 
-    public onModelTouched: Function = () => {
+    @Input() thyMaxDate: Date;
 
-    }
+    constructor() {}
+
+    public onModelChange: Function = () => {};
+
+    public onModelTouched: Function = () => {};
 
     writeValue(value: any): void {
         if (value) {
@@ -82,8 +88,7 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
         this.onModelTouched = fn;
     }
 
-    ngOnInit() {
-    }
+    ngOnInit() {}
 
     private _setSelectedDateRange() {
         this.selectedDateRange = {
@@ -92,7 +97,7 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
         };
     }
 
-    private _getNewDate(fullDate: Date, timestamp: { year?: number, month?: number, day?: number } = {}) {
+    private _getNewDate(fullDate: Date, timestamp: { year?: number; month?: number; day?: number } = {}) {
         const newYear = fullDate.getFullYear() + (timestamp.year || 0);
         const newMonth = fullDate.getMonth() + (timestamp.month || 0);
         const newDate = fullDate.getDate() + (timestamp.day || 0);
@@ -181,9 +186,8 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
         this.selectedDate = {
             begin: this.selectedDateRange.begin.date,
             end: this.selectedDateRange.end.date,
-            key: 'custom',
+            key: 'custom'
         };
         this.onModelChange(this.selectedDate);
     }
-
 }

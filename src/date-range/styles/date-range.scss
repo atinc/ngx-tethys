@@ -11,18 +11,20 @@
         position: relative;
 
         .thy-date-text-caret-down {
-            display: none;
+            display: inline-block;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: $gray-700;
+        }
+        &.active {
+            .thy-date-text-caret-down {
+                top: 25%;
+                transform: rotate(180deg);
+            }
         }
         &:hover {
             cursor: pointer;
-
-            .thy-date-text-caret-down {
-                display: inline-block;
-                position: absolute;
-                top: 50%;
-                transform: translateY(-50%);
-                color: $gray-700;
-            }
         }
     }
 }
@@ -33,7 +35,7 @@
     &:hover {
         padding-left: 30px;
     }
-    &:focus{
+    &:focus {
         outline: none;
     }
 }

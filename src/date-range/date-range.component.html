@@ -1,18 +1,19 @@
-<div class="thy-date-range" [ngClass]="{ 'thy-date-range-hidden-menu': hiddenMenu }">
+<div class="thy-date-range" [ngClass]="{ 'thy-date-range-hidden-menu': thyHiddenMenu }">
   <span href="javascript:;" class="btn btn-icon" (click)="previous()">
     <thy-icon thyIconName="angle-left"></thy-icon>
   </span>
   <span
     href="javascript:;"
     [thyActionMenuToggle]="dateMenu"
+    thyOriginActiveClass="active"
     class="thy-date-text"
     [ngClass]="{ 'not-down': !selectedDate }"
   >
-    <ng-container *ngIf="selectedDate?.key === 'custom'">
+    <ng-container *ngIf="selectedDate?.key === 'custom' || thyShowDateValue">
       {{ selectedDate?.begin | thyDatepickerFormat }} ~ {{ selectedDate?.end | thyDatepickerFormat }}
     </ng-container>
-    <ng-container *ngIf="selectedDate?.key !== 'custom'">{{ selectedDate?.text }}</ng-container>
-    <thy-icon *ngIf="!hiddenMenu" class="thy-date-text-caret-down" thyIconName="angle-down"></thy-icon>
+    <ng-container *ngIf="selectedDate?.key !== 'custom' && !thyShowDateValue">{{ selectedDate?.text }}</ng-container>
+    <thy-icon *ngIf="!thyHiddenMenu" class="thy-date-text-caret-down ml-1" thyIconName="angle-down"></thy-icon>
   </span>
   <span href="javascript:;" class="btn btn-icon" (click)="next()">
     <thy-icon thyIconName="angle-right"></thy-icon>
@@ -20,19 +21,14 @@
 </div>
 
 <ng-template #dateMenu>
-  <thy-action-menu *ngIf="!hiddenMenu">
-    <a
-      thyActionMenuItem
-      href="javascript:;"
-      *ngFor="let dateRange of optionalDateRange"
-      (click)="selectDateRange(dateRange)"
-    >
+  <thy-action-menu *ngIf="!thyHiddenMenu" class="thy-date-range-action-menu-container">
+    <a thyActionMenuItem href="javascript:;" *ngFor="let dateRange of optionalDateRange" (click)="selectDateRange(dateRange)">
       <span thyActionMenuItemName>{{ dateRange?.text }}</span>
       <span thyActionMenuItemExtendIcon *ngIf="dateRange.key === selectedDate?.key">
         <thy-icon class="text-primary" thyIconName="check"></thy-icon>
       </span>
     </a>
-    <thy-action-menu-divider></thy-action-menu-divider>
+    <!-- <thy-action-menu-divider></thy-action-menu-divider> -->
 
     <input
       type="text"
@@ -40,6 +36,9 @@
       thyDaterangepicker
       [(ngModel)]="selectedDateRange"
       (ngModelChange)="changeDate()"
+      [thyCustomValue]="thyCustomValue"
+      [thyMinDate]="thyMinDate"
+      [thyMaxDate]="thyMaxDate"
       class="action-menu-item thy-date-range-menu-item"
       placeholder="开始日期~结束日期"
       name="setDate"
