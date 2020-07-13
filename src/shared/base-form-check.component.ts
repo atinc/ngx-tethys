@@ -1,10 +1,11 @@
 import { ControlValueAccessor } from '@angular/forms';
-import { HostBinding, Input, ChangeDetectorRef } from '@angular/core';
+import { HostBinding, Input, ChangeDetectorRef, Directive } from '@angular/core';
 import { inputValueToBoolean } from '../util/helpers';
 import { ThyTranslate } from './translate';
 
 const noop = () => {};
 
+@Directive()
 export class ThyFormCheckBaseComponent implements ControlValueAccessor {
     // The internal data model
     _innerValue: boolean = null;

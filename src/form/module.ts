@@ -9,12 +9,7 @@ import { ThyInputModule } from '../input/module';
 import { ThyFormGroupFooterComponent } from './from-group-footer/form-group-footer.component';
 import { ThyFormGroupErrorComponent } from './form-group-error/form-group-error.component';
 import { ThyFormValidatorLoader } from './form-validator-loader';
-import {
-    ThyFormValidatorGlobalConfig,
-    THY_VALIDATOR_CONFIG,
-    THY_FORM_CONFIG,
-    THY_FORM_CONFIG_PROVIDER
-} from './form.class';
+import { ThyFormValidatorGlobalConfig, THY_VALIDATOR_CONFIG, THY_FORM_CONFIG, THY_FORM_CONFIG_PROVIDER } from './form.class';
 import { ThyUniqueCheckValidator, ThyMaxDirective, ThyMinDirective } from './validator';
 import { ThyAlertModule } from '../alert/alert.module';
 import { ThyIconModule } from '../icon/icon.module';
@@ -46,7 +41,7 @@ import { ThyIconModule } from '../icon/icon.module';
     providers: [ThyFormValidatorLoader, THY_FORM_CONFIG_PROVIDER]
 })
 export class ThyFormModule {
-    static forRoot(config: ThyFormValidatorGlobalConfig): ModuleWithProviders {
+    static forRoot(config: ThyFormValidatorGlobalConfig): ModuleWithProviders<ThyFormModule> {
         return {
             ngModule: ThyFormModule,
             providers: [

@@ -1,4 +1,15 @@
-import { ChangeDetectorRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import {
+    ChangeDetectorRef,
+    EventEmitter,
+    Input,
+    OnChanges,
+    OnDestroy,
+    OnInit,
+    Output,
+    SimpleChanges,
+    ViewChild,
+    Directive
+} from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { Subject } from 'rxjs';
 
@@ -9,6 +20,7 @@ import { ThyPickerComponent } from './picker.component';
 import { CompatibleDate, CompatibleValue, DisabledDateFn, DateEntry, RangeEntry } from './standard-types';
 import { transformDateValue, makeValue } from './picker.util';
 
+@Directive()
 export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDestroy, ControlValueAccessor {
     thyValue: CompatibleValue | null;
     @Input() @InputBoolean() thyAllowClear = true;

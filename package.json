@@ -39,15 +39,15 @@
     "Angular 2+"
   ],
   "dependencies": {
-    "@angular/animations": "^8.2.14",
+    "@angular/animations": "^9.1.12",
     "@angular/cdk": "^8.2.3",
-    "@angular/common": "^8.2.14",
-    "@angular/compiler": "^8.2.14",
-    "@angular/core": "^8.2.14",
-    "@angular/forms": "^8.2.14",
-    "@angular/platform-browser": "^8.2.14",
-    "@angular/platform-browser-dynamic": "^8.2.14",
-    "@angular/router": "^8.2.14",
+    "@angular/common": "^9.1.12",
+    "@angular/compiler": "^9.1.12",
+    "@angular/core": "^9.1.12",
+    "@angular/forms": "^9.1.12",
+    "@angular/platform-browser": "^9.1.12",
+    "@angular/platform-browser-dynamic": "^9.1.12",
+    "@angular/router": "^9.1.12",
     "@ngx-translate/core": "^10.0.1",
     "ngx-sortablejs": "^3.1.4",
     "bootstrap": "4.5.0",
@@ -63,14 +63,14 @@
     "sortablejs": "^1.7.0",
     "tsickle": "^0.37.0",
     "tslib": "^1.9.0",
-    "zone.js": "~0.9.1"
+    "zone.js": "~0.10.3"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.803.25",
     "@angular-devkit/build-ng-packagr": "~0.803.25",
     "@angular/cli": "~8.3.26",
-    "@angular/compiler-cli": "^8.2.14",
-    "@angular/language-service": "^8.2.14",
+    "@angular/compiler-cli": "^9.1.12",
+    "@angular/language-service": "^9.1.12",
     "@commitlint/cli": "^7.5.2",
     "@commitlint/config-conventional": "^7.5.0",
     "@docgeni/cli": "0.5.3",
@@ -118,7 +118,7 @@
     "semver": "^6.0.0",
     "ts-node": "~5.0.1",
     "tslint": "~5.20.0",
-    "typescript": "~3.5.3",
+    "typescript": "~3.8.3",
     "webpack": "^4.23.1"
   },
   "ngPackage": {

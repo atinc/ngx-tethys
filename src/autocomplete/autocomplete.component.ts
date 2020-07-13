@@ -65,7 +65,7 @@ export class ThyAutocompleteComponent extends mixinUnsubscribe(MixinBase)
     contentTemplateRef: TemplateRef<any>;
 
     // scroll element container
-    @ViewChild('panel', { static: false })
+    @ViewChild('panel')
     optionsContainer: ElementRef<any>;
 
     @ContentChildren(ThyOptionComponent, { descendants: true }) options: QueryList<ThyOptionComponent>;

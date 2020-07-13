@@ -27,9 +27,9 @@ export class ThySlideHeaderComponent implements OnInit {
         return this._iconName;
     }
 
-    @ContentChild('thyHeader', { static: false }) headerTemplate: TemplateRef<any>;
+    @ContentChild('thyHeader') headerTemplate: TemplateRef<any>;
 
-    @ContentChild('thyHeaderOperate', { static: false }) headerOperateTemplate: TemplateRef<any>;
+    @ContentChild('thyHeaderOperate') headerOperateTemplate: TemplateRef<any>;
 
     constructor(private thySlideService: ThySlideService) {}
 

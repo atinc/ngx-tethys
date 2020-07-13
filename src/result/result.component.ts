@@ -15,9 +15,9 @@ export class ThyResultComponent implements OnInit {
 
     @Input() thyIcon: string;
 
-    @ContentChild('thyIcon', { static: false }) iconTemplateRef: TemplateRef<any>;
+    @ContentChild('thyIcon') iconTemplateRef: TemplateRef<any>;
 
-    @ContentChild('thyExtra', { static: false }) extraTemplateRef: TemplateRef<any>;
+    @ContentChild('thyExtra') extraTemplateRef: TemplateRef<any>;
 
     @HostBinding('class.thy-result') className = true;
 

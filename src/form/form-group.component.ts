@@ -81,7 +81,7 @@ export class ThyFormGroupComponent implements OnInit {
         this._rowFill = inputValueToBoolean(value);
     }
 
-    @ContentChild('formGroup', { static: false })
+    @ContentChild('formGroup')
     public contentTemplateRef: TemplateRef<any>;
 
     constructor(@Optional() private thyParentForm: ThyFormDirective, private thyTranslate: ThyTranslate) {}

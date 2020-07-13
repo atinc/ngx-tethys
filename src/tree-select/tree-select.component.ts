@@ -71,10 +71,10 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
 
     public valueIsObject = false;
 
-    @ContentChild('thyTreeSelectTriggerDisplay', { static: false })
+    @ContentChild('thyTreeSelectTriggerDisplay')
     thyTreeSelectTriggerDisplayRef: TemplateRef<any>;
 
-    @ContentChild('treeNodeTemplate', { static: false })
+    @ContentChild('treeNodeTemplate')
     treeNodeTemplateRef: TemplateRef<any>;
 
     @ViewChild(CdkOverlayOrigin, { static: true }) cdkOverlayOrigin: CdkOverlayOrigin;

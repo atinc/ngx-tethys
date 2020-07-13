@@ -50,7 +50,7 @@ export class ThyPropertyOperationComponent implements OnInit, AfterContentInit {
         return this.disabled;
     }
 
-    @ContentChild('operationIcon', { static: false }) operationIcon: TemplateRef<any>;
+    @ContentChild('operationIcon') operationIcon: TemplateRef<any>;
 
     @ViewChild('contentElement', { static: true }) contentElement: ElementRef;
 

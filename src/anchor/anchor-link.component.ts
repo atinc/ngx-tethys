@@ -44,7 +44,7 @@ export class ThyAnchorLinkComponent implements OnInit, OnDestroy {
         }
     }
 
-    @ContentChild('thyTemplate', { static: false }) thyTemplate!: TemplateRef<void>;
+    @ContentChild('thyTemplate') thyTemplate!: TemplateRef<void>;
     @ViewChild('linkTitle', { static: true }) linkTitle!: ElementRef<HTMLAnchorElement>;
 
     constructor(
