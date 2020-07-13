@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
+
 import { SharedModule } from '../../shared.module';
-import { DemoNotifySectionComponent } from './notify-section.component';
 import { DemoNotifyBasicComponent } from './basic/notify-basic.component';
-import { DemoNotifyHoverComponent } from './hover/notify-hover.component';
-import { DemoNotifyDetailComponent } from './detail/notify-detail.component';
 import { DemoNotifyCustomHtmlComponent } from './custom-html/notify-custom-html.component';
+import { DemoNotifyDetailComponent } from './detail/notify-detail.component';
+import { DemoNotifyHoverComponent } from './hover/notify-hover.component';
+import { DemoNotifySectionComponent } from './notify-section.component';
 
 @NgModule({
     declarations: [

@@ -1,10 +1,11 @@
-import { Component, ElementRef } from '@angular/core';
+import { Component } from '@angular/core';
+
 import { ThyNotifyService } from '../../../../../src/notify/notify.service';
 import { LiveDemoCodeExample } from '../../core/live-demo/live-demo.component';
 import { DemoNotifyBasicComponent } from './basic/notify-basic.component';
-import { DemoNotifyHoverComponent } from './hover/notify-hover.component';
 import { DemoNotifyCustomHtmlComponent } from './custom-html/notify-custom-html.component';
 import { DemoNotifyDetailComponent } from './detail/notify-detail.component';
+import { DemoNotifyHoverComponent } from './hover/notify-hover.component';
 
 @Component({
     selector: 'demo-notify-section',
