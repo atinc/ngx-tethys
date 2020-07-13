@@ -17,9 +17,9 @@ export class DemoDateRangeSectionComponent {
 
     public dateHasMaxMinDate: DateRangeItemInfo;
 
-    public minDate = new Date('2020-01-01');
+    public minDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 7);
 
-    public maxDate = new Date();
+    public maxDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 7);
 
     weekDate;
 
