@@ -25,31 +25,20 @@ $anchor-border-width: 2px;
             background-color: $nav-border-color;
             content: ' ';
         }
-        &-ball {
+        &-full {
             position: absolute;
-            left: 50%;
-            display: none;
-            width: 8px;
-            height: 8px;
-            border: 2px solid $primary;
-            border-radius: 8px;
-            transform: translateX(-50%);
+            border-left: $anchor-border-width solid $primary;
             transition: top 0.3s ease-in-out;
-            &.visible {
-                display: inline-block;
-            }
         }
     }
 
-    &.hidden &-ink &-ink-ball {
-        display: none;
-    }
-
     &-link {
-        padding: 7px 0 7px 16px;
+        padding-left: 16px;
         display: block;
 
         &-title {
+            padding-top: 7px;
+            padding-bottom: 7px;
             position: relative;
             display: block;
             margin-bottom: 6px;
@@ -69,10 +58,5 @@ $anchor-border-width: 2px;
         &-active > &-title {
             color: $primary;
         }
-    }
-
-    &-link &-link {
-        padding-top: 5px;
-        padding-bottom: 5px;
     }
 }
