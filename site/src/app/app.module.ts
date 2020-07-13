@@ -1,4 +1,14 @@
-import { DocgeniTemplateModule, CONFIG_TOKEN, routes, RootComponent, initializeDocgeniSite, GlobalContext } from '@docgeni/template';
+import {
+    DocgeniTemplateModule,
+    CONFIG_TOKEN,
+    routes,
+    RootComponent,
+    initializeDocgeniSite,
+    GlobalContext,
+    NavigationService,
+    PageTitleService,
+    CopierService
+} from '@docgeni/template';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { config } from './content/config';
 import { RouterModule } from '@angular/router';
@@ -12,6 +22,10 @@ import { NgxTethysModule } from 'ngx-tethys';
     declarations: [AppComponent],
     imports: [DocgeniTemplateModule, RouterModule.forRoot(routes), NgxTethysModule, ...EXAMPLE_MODULES],
     providers: [
+        GlobalContext,
+        NavigationService,
+        PageTitleService,
+        CopierService,
         { provide: APP_INITIALIZER, useFactory: initializeDocgeniSite, deps: [GlobalContext], multi: true },
         LIB_EXAMPLE_LOADER_PROVIDER,
         {
