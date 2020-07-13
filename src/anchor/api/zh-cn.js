@@ -5,6 +5,12 @@ module.exports = [
         description: '锚点组件',
         properties: [
             {
+                name: 'thyAffix',
+                description: `固定模式`,
+                type: 'boolean',
+                default: 'true'
+            },
+            {
                 name: 'thyBounds',
                 description: `锚点区域边界，单位：px`,
                 type: 'number',
@@ -15,12 +21,6 @@ module.exports = [
                 description: `缓冲的偏移量阈值`,
                 type: 'number',
                 default: '-'
-            },
-            {
-                name: 'thyShowInkInFixed',
-                description: `固定模式是否显示小圆点`,
-                type: 'boolean',
-                default: 'true'
             },
             {
                 name: 'thyContainer',
