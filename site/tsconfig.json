@@ -6,5 +6,8 @@
       "ngx-tethys": ["../src/public-api"],
       "ngx-tethys/*": ["../src/*"]
     }
+  },
+  "angularCompilerOptions": {
+    "skipLibCheck": true
   }
 }
