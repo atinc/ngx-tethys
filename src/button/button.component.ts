@@ -1,6 +1,6 @@
 import { Component, Directive, Input, ElementRef, Renderer2, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { AfterContentInit, OnChanges, OnInit } from '@angular/core';
-import { inputValueToBoolean, isUndefined } from '../util/helpers';
+import { coerceBooleanProperty, isUndefined } from '../util/helpers';
 import { UpdateHostClassService } from '../shared';
 
 export type ThyButtonType = 'primary' | 'secondary' | 'info' | 'outline-primary' | 'outline-default' | 'danger' | 'link' | 'link-secondary';
@@ -79,7 +79,7 @@ export class ThyButtonComponent implements OnInit {
 
     @Input()
     set thyLoading(value: boolean) {
-        const newLoading = inputValueToBoolean(value);
+        const newLoading = coerceBooleanProperty(value);
         // from false to true
         if (!this._loading && newLoading) {
             this._loading = newLoading;
@@ -130,7 +130,7 @@ export class ThyButtonComponent implements OnInit {
 
     @Input()
     set thySquare(value: boolean) {
-        this._isRadiusSquare = inputValueToBoolean(value);
+        this._isRadiusSquare = coerceBooleanProperty(value);
     }
 
     private _setLoadingStatus() {

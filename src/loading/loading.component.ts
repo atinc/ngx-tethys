@@ -1,5 +1,5 @@
 import { Component, Input, HostBinding, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { inputValueToBoolean } from '../util/helpers';
+import { coerceBooleanProperty } from '../util/helpers';
 
 @Component({
     selector: 'thy-loading',
@@ -15,7 +15,7 @@ export class ThyLoadingComponent {
 
     @Input()
     set thyDone(value: boolean | string) {
-        this.isDone = inputValueToBoolean(value);
+        this.isDone = coerceBooleanProperty(value);
         this.changeDetectorRef.markForCheck();
     }
 
@@ -28,7 +28,7 @@ export class ThyLoadingComponent {
     // 不传或穿false,没有遮罩层，加载完成出现内容
     @Input()
     set thyIsMask(value: boolean | string) {
-        this.isMask = inputValueToBoolean(value);
+        this.isMask = coerceBooleanProperty(value);
         this.changeDetectorRef.markForCheck();
     }
 

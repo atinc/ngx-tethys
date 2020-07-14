@@ -1,5 +1,5 @@
 import { Component, Input, HostBinding, ViewEncapsulation } from '@angular/core';
-import { inputValueToBoolean } from '../../util/helpers';
+import { coerceBooleanProperty } from '../../util/helpers';
 
 @Component({
     selector: 'thy-pop-box-footer',
@@ -7,13 +7,12 @@ import { inputValueToBoolean } from '../../util/helpers';
     encapsulation: ViewEncapsulation.None
 })
 export class ThyPopBoxFooter {
-
     @HostBinding('class.pop-box-footer') isPopBoxFooter = true;
 
     @HostBinding('class.no-padding-top') _hasNoPaddingTop = true;
 
     @Input()
     set thyNoPaddingTop(value: boolean) {
-        this._hasNoPaddingTop = inputValueToBoolean(value);
+        this._hasNoPaddingTop = coerceBooleanProperty(value);
     }
 }

@@ -12,7 +12,7 @@ import {
     Inject
 } from '@angular/core';
 import { AfterContentInit, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import { inputValueToBoolean, isUndefined } from '../util/helpers';
+import { coerceBooleanProperty, isUndefined } from '../util/helpers';
 import { ThyGridComponent } from './grid.component';
 import { ThyGridColumn } from './grid.interface';
 

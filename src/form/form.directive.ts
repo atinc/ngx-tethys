@@ -4,7 +4,7 @@ import { NgForm } from '@angular/forms';
 import { keycodes } from '../util';
 import { ThyFormLayout, ThyFormValidatorConfig, ThyFormConfig, THY_FORM_CONFIG } from './form.class';
 import { ThyFormValidatorService } from './form-validator.service';
-import { inputValueToBoolean } from '../util/helpers';
+import { coerceBooleanProperty } from '../util/helpers';
 
 // 1. submit 按 Enter 键提交, Textare或包含[contenteditable]属性的元素 除外，需要按 Ctrl | Command + Enter 提交
 // 2. alwaysSubmit 不管是哪个元素 按 Enter 键都提交
@@ -64,11 +64,7 @@ export class ThyFormDirective implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.ngZone.runOutsideAngular(() => {
-            this._unsubscribe = this.renderer.listen(
-                this.elementRef.nativeElement,
-                'keydown',
-                this.onKeydown.bind(this)
-            );
+            this._unsubscribe = this.renderer.listen(this.elementRef.nativeElement, 'keydown', this.onKeydown.bind(this));
         });
         this.setLayout();
         this.updateHostClassService.updateClassByMap({
@@ -104,10 +100,7 @@ export class ThyFormDirective implements OnInit, OnDestroy {
         if (key === keycodes.ENTER && currentInput.tagName) {
             if (!this.thyEnterKeyMode || this.thyEnterKeyMode === ThyEnterKeyMode.submit) {
                 // TEXTAREA或包含[contenteditable]属性的元素 Ctrl + Enter 或者 Command + Enter 阻止默认行为并提交
-                if (
-                    currentInput.tagName === 'TEXTAREA' ||
-                    inputValueToBoolean(currentInput.getAttribute('contenteditable'))
-                ) {
+                if (currentInput.tagName === 'TEXTAREA' || coerceBooleanProperty(currentInput.getAttribute('contenteditable'))) {
                     if ($event.ctrlKey || $event.metaKey) {
                         $event.preventDefault();
                         this.submitRunInZone($event);

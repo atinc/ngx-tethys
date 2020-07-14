@@ -1,15 +1,6 @@
-import {
-    Component,
-    Directive,
-    HostBinding,
-    Input,
-    ElementRef,
-    Renderer2,
-    ViewEncapsulation,
-    ChangeDetectionStrategy
-} from '@angular/core';
+import { Component, Directive, HostBinding, Input, ElementRef, Renderer2, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { AfterContentInit, OnChanges, OnInit } from '@angular/core';
-import { inputValueToBoolean, isUndefined } from '../util/helpers';
+import { coerceBooleanProperty, isUndefined } from '../util/helpers';
 import { UpdateHostClassService } from '../shared';
 
 export type IconShape = '' | 'dashed' | 'solid';
@@ -106,12 +97,12 @@ export class ThyButtonIconComponent implements OnInit {
 
     @Input()
     set thyLight(value: boolean) {
-        this._isLighted = inputValueToBoolean(value);
+        this._isLighted = coerceBooleanProperty(value);
     }
 
     @Input()
     set thyActive(value: boolean) {
-        this._isActive = inputValueToBoolean(value);
+        this._isActive = coerceBooleanProperty(value);
     }
 
     @Input()

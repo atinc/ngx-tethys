@@ -1,5 +1,5 @@
 import { Component, Input, HostBinding, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { inputValueToBoolean } from '../util/helpers';
+import { coerceBooleanProperty } from '../util/helpers';
 
 const BadgeMutexType = ['thy-badge-count', 'thy-badge-dot', 'thy-badge-hollow'];
 const BadgeMutexTheme = ['thy-badge-primary', 'thy-badge-warning', 'thy-badge-danger', 'thy-badge-secondary'];
@@ -144,7 +144,7 @@ export class ThyBadgeComponent implements OnInit {
     @Input()
     set thyIsDot(value: boolean) {
         this.resetBadgeClassNameMap(BadgeMutexType);
-        this.badgeClassNameMap['thy-badge-dot'] = inputValueToBoolean(value);
+        this.badgeClassNameMap['thy-badge-dot'] = coerceBooleanProperty(value);
         if (this._initialized) {
             this.combineBadgeClassName();
         }
@@ -153,7 +153,7 @@ export class ThyBadgeComponent implements OnInit {
     @Input()
     set thyIsHollow(value: boolean) {
         this.resetBadgeClassNameMap(BadgeMutexType);
-        this.badgeClassNameMap['thy-badge-hollow'] = inputValueToBoolean(value);
+        this.badgeClassNameMap['thy-badge-hollow'] = coerceBooleanProperty(value);
         if (this._initialized) {
             this.combineBadgeClassName();
         }
@@ -161,7 +161,7 @@ export class ThyBadgeComponent implements OnInit {
 
     @Input()
     set thyKeepShow(value: boolean) {
-        this.st.isValueKeepShow = inputValueToBoolean(value);
+        this.st.isValueKeepShow = coerceBooleanProperty(value);
         if (this._initialized) {
             this.combineBadgeDisplayContent();
         }

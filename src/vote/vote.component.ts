@@ -1,5 +1,5 @@
 import { OnInit, Component, Input, HostBinding, ElementRef, TemplateRef, ContentChild } from '@angular/core';
-import { inputValueToBoolean } from '../util/helpers';
+import { coerceBooleanProperty } from '../util/helpers';
 import { UpdateHostClassService } from '../shared';
 
 export type ThyVoteSizes = 'default' | 'sm';
@@ -46,7 +46,7 @@ export class ThyVoteComponent implements OnInit {
 
     @Input()
     set thyRound(value: boolean) {
-        this._isRound = inputValueToBoolean(value);
+        this._isRound = coerceBooleanProperty(value);
     }
 
     @Input()
@@ -63,7 +63,7 @@ export class ThyVoteComponent implements OnInit {
 
     @Input()
     set thyHasVoted(value: boolean) {
-        this._hasVoted = inputValueToBoolean(value);
+        this._hasVoted = coerceBooleanProperty(value);
         if (this._initialized) {
             this._setClassesByType();
         }

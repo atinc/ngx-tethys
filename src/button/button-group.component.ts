@@ -1,16 +1,7 @@
-import {
-    Component,
-    HostBinding,
-    Input,
-    ContentChild,
-    TemplateRef,
-    ElementRef,
-    ViewEncapsulation,
-    OnInit
-} from '@angular/core';
+import { Component, HostBinding, Input, ContentChild, TemplateRef, ElementRef, ViewEncapsulation, OnInit } from '@angular/core';
 import { ThyTranslate, UpdateHostClassService } from '../shared';
 import { ThyButtonType } from '.';
-import { inputValueToBoolean } from '../util/helpers';
+import { coerceBooleanProperty } from '../util/helpers';
 
 export type buttonGroupSize = 'sm' | 'lg' | 'xs' | 'md';
 
@@ -59,7 +50,7 @@ export class ThyButtonGroupComponent implements OnInit {
 
     @Input()
     set thyClearMinWidth(value: string) {
-        this.thyClearMinWidthClassName = inputValueToBoolean(value);
+        this.thyClearMinWidthClassName = coerceBooleanProperty(value);
     }
 
     @HostBinding('class.btn-group') _isButtonGroup = true;

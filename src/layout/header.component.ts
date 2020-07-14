@@ -1,5 +1,5 @@
 import { Component, HostBinding, Input, OnInit, TemplateRef, Optional, ViewChild, ContentChild, ViewContainerRef } from '@angular/core';
-import { inputValueToBoolean } from '../util/helpers';
+import { coerceBooleanProperty } from '../util/helpers';
 @Component({
     selector: 'thy-header',
     preserveWhitespaces: false,
@@ -18,7 +18,7 @@ export class ThyHeaderComponent implements OnInit {
 
     @Input('thyHasBorder')
     set thyHasBorder(value: string) {
-        this._thyHasBorder = inputValueToBoolean(value);
+        this._thyHasBorder = coerceBooleanProperty(value);
     }
 
     @Input('thySize')

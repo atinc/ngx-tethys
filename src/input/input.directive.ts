@@ -1,6 +1,6 @@
 import { Directive, ElementRef, HostBinding, Input, OnInit, Renderer2 } from '@angular/core';
 import { UpdateHostClassService } from '../shared';
-import { inputValueToBoolean } from '../util/helpers';
+import { coerceBooleanProperty } from '../util/helpers';
 
 export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -33,17 +33,13 @@ export class ThyInputDirective implements OnInit {
 
     @Input()
     set thyAutocomplete(value: boolean) {
-        this.autocomplete = inputValueToBoolean(value);
+        this.autocomplete = coerceBooleanProperty(value);
         if (this.initialized) {
             this.setAutocomplete();
         }
     }
 
-    constructor(
-        private updateHostClassService: UpdateHostClassService,
-        private elementRef: ElementRef,
-        private render: Renderer2
-    ) {
+    constructor(private updateHostClassService: UpdateHostClassService, private elementRef: ElementRef, private render: Renderer2) {
         this.updateHostClassService.initializeElement(elementRef.nativeElement);
     }
 

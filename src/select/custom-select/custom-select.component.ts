@@ -24,7 +24,7 @@ import {
 import { UpdateHostClassService } from '../../shared/update-host-class.service';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ThyOptionComponent, ThyOptionSelectionChangeEvent } from '../../core/option/option.component';
-import { inputValueToBoolean, isArray } from '../../util/helpers';
+import { coerceBooleanProperty, isArray } from '../../util/helpers';
 import {
     ScrollStrategy,
     Overlay,
@@ -194,7 +194,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
 
     @Input()
     set thyDisabled(value: string) {
-        this.disabled = inputValueToBoolean(value);
+        this.disabled = coerceBooleanProperty(value);
     }
 
     @Input() thySortComparator: (a: ThyOptionComponent, b: ThyOptionComponent, options: ThyOptionComponent[]) => number;

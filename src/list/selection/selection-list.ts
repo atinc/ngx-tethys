@@ -17,14 +17,9 @@ import {
 } from '@angular/core';
 import { FocusKeyManager, ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
-import {
-    ThyListOptionComponent,
-    THY_OPTION_PARENT_COMPONENT,
-    IThyOptionParentComponent,
-    ThyListLayout
-} from '../../core/option';
+import { ThyListOptionComponent, THY_OPTION_PARENT_COMPONENT, IThyOptionParentComponent, ThyListLayout } from '../../core/option';
 import { keycodes, helpers, dom } from '../../util';
-import { inputValueToBoolean, coerceBooleanProperty } from '../../util/helpers';
+import { coerceBooleanProperty } from '../../util/helpers';
 import { Subscription, throwError } from 'rxjs';
 import { ThySelectionListChange } from './selection.interface';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
@@ -55,8 +50,7 @@ const listSizesMap = {
     ],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ThySelectionListComponent
-    implements OnInit, OnDestroy, AfterContentInit, IThyOptionParentComponent, ControlValueAccessor {
+export class ThySelectionListComponent implements OnInit, OnDestroy, AfterContentInit, IThyOptionParentComponent, ControlValueAccessor {
     private _keyManager: ActiveDescendantKeyManager<ThyListOptionComponent>;
 
     private _selectionChangesUnsubscribe$ = Subscription.EMPTY;
@@ -86,7 +80,7 @@ export class ThySelectionListComponent
     @Input()
     set thyMultiple(value: any) {
         const previousValue = this.multiple;
-        this.multiple = inputValueToBoolean(value);
+        this.multiple = coerceBooleanProperty(value);
         if (previousValue !== this.multiple) {
             this._instanceSelectionModel();
         }
@@ -126,13 +120,11 @@ export class ThySelectionListComponent
     private spaceEnabled = true;
     /** Whether keydown space toggle focused option */
     @Input() set thySpaceKeyEnabled(value: boolean) {
-        this.spaceEnabled = inputValueToBoolean(value);
+        this.spaceEnabled = coerceBooleanProperty(value);
     }
 
     /** Emits a change event whenever the selected state of an option changes. */
-    @Output() readonly thySelectionChange: EventEmitter<ThySelectionListChange> = new EventEmitter<
-        ThySelectionListChange
-    >();
+    @Output() readonly thySelectionChange: EventEmitter<ThySelectionListChange> = new EventEmitter<ThySelectionListChange>();
 
     private autoActiveFirstItem: boolean;
 
@@ -286,11 +278,7 @@ export class ThySelectionListComponent
     ngOnInit() {
         const bindKeyEventElement = this._getElementBySelector(this.thyBindKeyEventContainer);
         this.ngZone.runOutsideAngular(() => {
-            this._bindKeyEventUnsubscribe = this.renderer.listen(
-                bindKeyEventElement,
-                'keydown',
-                this.onKeydown.bind(this)
-            );
+            this._bindKeyEventUnsubscribe = this.renderer.listen(bindKeyEventElement, 'keydown', this.onKeydown.bind(this));
         });
         this._instanceSelectionModel();
     }

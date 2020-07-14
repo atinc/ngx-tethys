@@ -1,14 +1,4 @@
-import {
-    Directive,
-    ElementRef,
-    ViewContainerRef,
-    NgZone,
-    Input,
-    OnInit,
-    OnDestroy,
-    TemplateRef,
-    Inject
-} from '@angular/core';
+import { Directive, ElementRef, ViewContainerRef, NgZone, Input, OnInit, OnDestroy, TemplateRef, Inject } from '@angular/core';
 import {
     Overlay,
     ScrollDispatcher,
@@ -26,7 +16,7 @@ import { takeUntil, take } from 'rxjs/operators';
 
 import { MixinBase, mixinUnsubscribe } from '../core/behaviors';
 import { ThyTooltipOptions, DEFAULT_TOOLTIP_OPTIONS } from './interface';
-import { inputValueToBoolean, isString } from '../util/helpers';
+import { coerceBooleanProperty, isString } from '../util/helpers';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ThyTooltipComponent } from './tooltip.component';
 import { getFlexiblePositions, ThyPlacement, ThyOverlayDirectiveBase } from '../core/overlay';
@@ -89,7 +79,7 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
     /** Disables the display of the tooltip. */
     @Input('thyTooltipDisabled')
     set thyTooltipDisabled(value: boolean) {
-        this.disabled = inputValueToBoolean(value);
+        this.disabled = coerceBooleanProperty(value);
         // If tooltip is disabled, hide immediately.
         if (this.disabled) {
             this.hide(0);
@@ -171,10 +161,7 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
 
             this.ngZone.onMicrotaskEmpty
                 .asObservable()
-                .pipe(
-                    take(1),
-                    takeUntil(this.ngUnsubscribe$)
-                )
+                .pipe(take(1), takeUntil(this.ngUnsubscribe$))
                 .subscribe(() => {
                     if (this.tooltipInstance) {
                         this.overlayRef.updatePosition();

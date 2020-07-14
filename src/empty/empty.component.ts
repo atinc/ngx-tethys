@@ -1,25 +1,25 @@
 import { Component, HostBinding, TemplateRef, ElementRef, Input, OnInit, AfterViewInit, Renderer2, NgZone } from '@angular/core';
 import { ThyTranslate } from '../shared';
 import { ThyEmptyConfig } from './empty.config';
-import { inputValueToBoolean } from '../util/helpers';
+import { coerceBooleanProperty } from '../util/helpers';
 
 const sizeClassMap: any = {
-    'lg': ['empty-state', 'empty-state--lg'],
-    'md': ['empty-state'],
-    'sm': ['empty-state', 'empty-state--sm']
+    lg: ['empty-state', 'empty-state--lg'],
+    md: ['empty-state'],
+    sm: ['empty-state', 'empty-state--sm']
 };
 const sizeMap: any = {
-    'lg': {
+    lg: {
         height: 164, // 空提示的高度
-        offsetTop: 30,// 空提示图标和大小之间的空白距离，需要除去，否则会不居中
-        defaultMarginTop: 120// 不自动计算默认的 top 距离
+        offsetTop: 30, // 空提示图标和大小之间的空白距离，需要除去，否则会不居中
+        defaultMarginTop: 120 // 不自动计算默认的 top 距离
     },
-    'md': {
+    md: {
         height: 91,
         offsetTop: 20,
         defaultMarginTop: 10
     },
-    'sm': {
+    sm: {
         height: 50,
         offsetTop: 10,
         defaultMarginTop: 0
@@ -31,7 +31,6 @@ const sizeMap: any = {
     templateUrl: './empty.component.html'
 })
 export class ThyEmptyComponent implements OnInit, AfterViewInit {
-
     @HostBinding('class') sizeClass = sizeClassMap['md'].join(' ');
 
     // 显示的文本，优先级 100 最高
@@ -84,7 +83,7 @@ export class ThyEmptyComponent implements OnInit, AfterViewInit {
 
     _calculatePosition() {
         const sizeOptions = sizeMap[this.thySize || 'md'];
-        const topAuto = inputValueToBoolean(this.thyTopAuto);
+        const topAuto = coerceBooleanProperty(this.thyTopAuto);
         let marginTop = null;
         if (topAuto) {
             // 选择参考父容器居中
@@ -116,12 +115,9 @@ export class ThyEmptyComponent implements OnInit, AfterViewInit {
         private elementRef: ElementRef,
         private renderer: Renderer2,
         private ngZone: NgZone
-    ) {
+    ) {}
 
-    }
-
-    ngOnInit() {
-    }
+    ngOnInit() {}
 
     ngAfterViewInit() {
         this.ngZone.runOutsideAngular(() => {
@@ -129,7 +125,5 @@ export class ThyEmptyComponent implements OnInit, AfterViewInit {
                 this._calculatePosition();
             }, 50);
         });
-
     }
-
 }

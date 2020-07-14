@@ -1,5 +1,5 @@
 import { Directive, Renderer2, Input, HostListener, ElementRef, OnInit, OnDestroy } from '@angular/core';
-import { inputValueToBoolean } from '../util/helpers';
+import { coerceBooleanProperty } from '../util/helpers';
 
 /**
  * 将来会移动到 thy 组件库中
@@ -8,8 +8,6 @@ import { inputValueToBoolean } from '../util/helpers';
     selector: '[thyStopPropagation]'
 })
 export class ThyStopPropagationDirective implements OnInit, OnDestroy {
-
-
     private _listener: () => void;
 
     private _eventName = 'click';
@@ -19,9 +17,7 @@ export class ThyStopPropagationDirective implements OnInit, OnDestroy {
         this._eventName = value || 'click';
     }
 
-    constructor(private _elementRef: ElementRef, private _renderer: Renderer2) {
-
-    }
+    constructor(private _elementRef: ElementRef, private _renderer: Renderer2) {}
 
     ngOnInit() {
         this._listener = this._renderer.listen(this._elementRef.nativeElement, this._eventName, ($event: Event) => {
@@ -34,5 +30,4 @@ export class ThyStopPropagationDirective implements OnInit, OnDestroy {
             this._listener();
         }
     }
-
 }
