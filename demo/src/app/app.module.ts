@@ -32,11 +32,14 @@ import { SharedModule } from './shared.module';
 import { DemoTreeSelectModule } from './components/+tree-select/module';
 import { thyFormConfigProvider } from './config/form.config';
 import { THY_DIALOG_LAYOUT_CONFIG } from '../../../src/dialog/dialog.config';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
     declarations: [AppComponent, ...COMPONENTS, ...DESIGN_COMPONENTS, SidebarComponent],
     entryComponents: [...ENTRY_COMPONENTS],
     imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
         SharedModule,
         DemoTreeSelectModule,
         ...DEMO_MODULES,

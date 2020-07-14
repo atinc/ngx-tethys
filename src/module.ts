@@ -1,7 +1,6 @@
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ThyActionMenuModule } from './action-menu';
 import { ThyAffixModule } from './affix';
@@ -67,7 +66,6 @@ import { ThyUploaderModule } from './uploader';
 import { ThyVoteModule } from './vote';
 
 const IMPORT_EXPORT_MODULES = [
-    BrowserAnimationsModule,
     ThyLayoutModule,
     ThyButtonModule,
     ThyBackTopModule,
