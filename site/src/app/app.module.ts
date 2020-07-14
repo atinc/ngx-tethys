@@ -17,11 +17,22 @@ import { EXAMPLE_MODULES } from './content/example-modules';
 import './content/navigations.json';
 import { AppComponent } from './app.component';
 import { NgxTethysModule } from 'ngx-tethys';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
     declarations: [AppComponent],
-    imports: [DocgeniTemplateModule, RouterModule.forRoot(routes), NgxTethysModule, ...EXAMPLE_MODULES],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        DocgeniTemplateModule,
+        RouterModule.forRoot(routes),
+        NgxTethysModule,
+        ...EXAMPLE_MODULES
+    ],
     providers: [
+        BrowserModule,
+        BrowserAnimationsModule,
         GlobalContext,
         NavigationService,
         PageTitleService,
