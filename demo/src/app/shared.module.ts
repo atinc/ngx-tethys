@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { NgxTethysModule } from 'ngx-tethys';
 import { CommonModule } from '@angular/common';
@@ -19,7 +20,7 @@ export function getHighlightLanguages() {
 
 @NgModule({
     declarations: [DemoTitleComponent, LiveDemoComponent, LiveDemosComponent, ...DOCS_COMPONENTS],
-    imports: [CommonModule, BrowserModule, FormsModule, NgxTethysModule, HighlightModule],
+    imports: [CommonModule, BrowserAnimationsModule, BrowserModule, FormsModule, NgxTethysModule, HighlightModule],
     providers: [
         {
             provide: HIGHLIGHT_OPTIONS,

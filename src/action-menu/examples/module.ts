@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { NgxTethysModule } from 'ngx-tethys';
+import { NgxTethysModule, ThyFormModule, ThyIconModule, ThyActionMenuModule, ThyButtonModule, ThySelectModule } from 'ngx-tethys';
 import { ThyActionMenuBasicExampleComponent } from './basic/basic.component';
 import { ThyActionMenuGroupExampleComponent } from './group/group.component';
 import { ThyActionMenuItemTypeExampleComponent } from './item-type/item-type.component';
@@ -16,7 +16,7 @@ const COMPONENTS = [
 
 @NgModule({
     declarations: COMPONENTS,
-    imports: [CommonModule, FormsModule, NgxTethysModule],
+    imports: [CommonModule, FormsModule, ThySelectModule, ThyIconModule, ThyFormModule, ThyButtonModule, ThyActionMenuModule],
     entryComponents: COMPONENTS,
     exports: COMPONENTS,
     providers: []
