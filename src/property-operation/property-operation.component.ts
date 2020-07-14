@@ -14,7 +14,7 @@ import {
 } from '@angular/core';
 import { UpdateHostClassService } from '../shared/update-host-class.service';
 import { ThyTranslate } from '../shared/translate';
-import { htmlElementIsEmpty, inputValueToBoolean } from '../util/helpers';
+import { htmlElementIsEmpty, coerceBooleanProperty } from '../util/helpers';
 
 type ThyPropertyOperationTypes = 'primary' | 'success' | 'warning' | 'danger';
 
@@ -77,16 +77,16 @@ export class ThyPropertyOperationComponent implements OnInit, AfterContentInit {
 
     @Input()
     set thyShowClose(value: boolean) {
-        this.showClose = inputValueToBoolean(value);
+        this.showClose = coerceBooleanProperty(value);
     }
 
     // 支持有值时，label不显示
     @Input() set thyLabelHasValue(value: boolean) {
-        this.labelHideWhenHasValue = !inputValueToBoolean(value);
+        this.labelHideWhenHasValue = !coerceBooleanProperty(value);
     }
 
     @Input() set thyLabelHideWhenHasValue(value: boolean) {
-        this.labelHideWhenHasValue = inputValueToBoolean(value);
+        this.labelHideWhenHasValue = coerceBooleanProperty(value);
     }
 
     @Input()

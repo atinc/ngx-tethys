@@ -15,7 +15,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ConnectedOverlayPositionChange, ConnectionPositionPair } from '@angular/cdk/overlay';
 import { EXPANDED_DROPDOWN_POSITIONS } from '../core/overlay/overlay-position-map';
 import { UpdateHostClassService } from '../shared/update-host-class.service';
-import { inputValueToBoolean } from '../util/helpers';
+import { coerceBooleanProperty } from '../util/helpers';
 
 function toArray<T>(value: T | T[]): T[] {
     let ret: T[];
@@ -147,7 +147,7 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
 
     @Input()
     set thyChangeOnSelect(value: boolean) {
-        this.changeOnSelect = inputValueToBoolean(value);
+        this.changeOnSelect = coerceBooleanProperty(value);
     }
 
     get thyChangeOnSelect(): boolean {
@@ -156,7 +156,7 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
 
     @Input()
     set thyShowInput(value: boolean) {
-        this.showInput = inputValueToBoolean(value);
+        this.showInput = coerceBooleanProperty(value);
     }
 
     get thyShowInput(): boolean {

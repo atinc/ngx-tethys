@@ -1,15 +1,14 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
-import { inputValueToBoolean } from '../util/helpers';
+import { coerceBooleanProperty } from '../util/helpers';
 
 @Component({
     selector: 'thy-card-content',
     preserveWhitespaces: false,
     template: `
-    <ng-content></ng-content>
+        <ng-content></ng-content>
     `
 })
 export class ThyCardContentComponent implements OnInit {
-
     @HostBinding('class.thy-card-content') thyCardContentClass = true;
 
     @HostBinding('class.thy-card-content--alignment-title') alignmentClass = false;
@@ -23,16 +22,15 @@ export class ThyCardContentComponent implements OnInit {
 
     @Input('thyScroll')
     set thyScroll(value: any) {
-        this.scrollClassName = inputValueToBoolean(value);
+        this.scrollClassName = coerceBooleanProperty(value);
     }
 
     @HostBinding('class.thy-card-content--sm') _thySizeSm = false;
 
     @Input('thySize')
     set thySize(value: string) {
-        this._thySizeSm = (value === 'sm');
+        this._thySizeSm = value === 'sm';
     }
 
-    ngOnInit() {
-    }
+    ngOnInit() {}
 }

@@ -1,7 +1,7 @@
 import { Directive, ElementRef, OnInit, NgZone, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 import { Subject, Observable, Observer, fromEvent, Subscription } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
-import { inputValueToBoolean } from '../util/helpers';
+import { coerceBooleanProperty } from '../util/helpers';
 
 @Directive({
     selector: '[thyScroll]'
@@ -22,7 +22,7 @@ export class ThyScrollDirective implements OnInit, OnDestroy {
 
     @Input()
     set thyEnable(value: boolean) {
-        this._enable = inputValueToBoolean(value);
+        this._enable = coerceBooleanProperty(value);
         if (this._initialled) {
             if (this._enable && this._subscription === null) {
                 this._subscription = this._elementScrolled.subscribe(() => this.thyOnScrolled.emit(this.elementRef));

@@ -1,5 +1,5 @@
 import { Directive, HostBinding, Input, Component, HostListener, ViewEncapsulation, ElementRef, OnInit } from '@angular/core';
-import { inputValueToBoolean } from '../util/helpers';
+import { coerceBooleanProperty } from '../util/helpers';
 import { fromEvent } from 'rxjs';
 import { debounceTime, shareReplay } from 'rxjs/operators';
 import { UpdateHostClassService } from '../shared';
@@ -21,7 +21,7 @@ export class ThyActionMenuItemDirective implements OnInit {
 
     @Input()
     set thyDisabled(value: boolean) {
-        this.disabled = inputValueToBoolean(value);
+        this.disabled = coerceBooleanProperty(value);
     }
 
     @Input()
@@ -113,7 +113,7 @@ export class ThyActionMenuItemActiveDirective {
 
     @Input()
     set thyActionMenuItemActive(value: boolean) {
-        this._isActive = inputValueToBoolean(value);
+        this._isActive = coerceBooleanProperty(value);
     }
 
     constructor() {}

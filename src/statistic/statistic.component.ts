@@ -1,5 +1,5 @@
 import { OnInit, Component, Input, HostBinding, ElementRef, TemplateRef, ContentChild, Renderer2 } from '@angular/core';
-import { inputValueToBoolean, hexToRgb } from '../util/helpers';
+import { coerceBooleanProperty, hexToRgb } from '../util/helpers';
 import { UpdateHostClassService } from '../shared';
 
 export type ThyStatisticColorType = 'primary' | 'success' | 'warning' | 'danger' | 'info';

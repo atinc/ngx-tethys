@@ -1,5 +1,5 @@
 import { Component, Input, HostBinding, ChangeDetectionStrategy, TemplateRef, ContentChild } from '@angular/core';
-import { inputValueToBoolean } from '../util/helpers';
+import { coerceBooleanProperty } from '../util/helpers';
 
 @Component({
     selector: 'thy-list-item-meta,[thy-list-item-meta]',

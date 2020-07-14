@@ -1,5 +1,5 @@
 import { Directive, Input, ElementRef } from '@angular/core';
-import { inputValueToBoolean } from '../util/helpers';
+import { coerceBooleanProperty } from '../util/helpers';
 
 @Directive({
     selector: 'input[thyAutofocus],textarea[thyAutofocus]'
@@ -10,13 +10,13 @@ export class ThyAutofocusDirective {
 
     @Input()
     set thyAutoSelect(value: boolean) {
-        this._autoSelect = inputValueToBoolean(value);
+        this._autoSelect = coerceBooleanProperty(value);
     }
 
     // auto focus current element
     @Input()
     set thyAutofocus(value: boolean | string) {
-        if (inputValueToBoolean(value) !== false) {
+        if (coerceBooleanProperty(value) !== false) {
             setTimeout(() => {
                 this.elementRef.nativeElement.focus();
                 if (this._autoSelect && this.elementRef.nativeElement.select) {

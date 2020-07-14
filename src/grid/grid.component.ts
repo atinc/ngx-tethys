@@ -20,7 +20,7 @@ import {
     Inject,
     ContentChild
 } from '@angular/core';
-import { get, set, isString, inputValueToBoolean, keyBy } from '../util/helpers';
+import { get, set, isString, coerceBooleanProperty, keyBy } from '../util/helpers';
 import {
     ThyGridColumn,
     ThyMultiSelectEvent,
@@ -206,7 +206,7 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
 
     @Input()
     set thyDraggable(value: boolean) {
-        this.draggable = inputValueToBoolean(value);
+        this.draggable = coerceBooleanProperty(value);
     }
 
     @Input()

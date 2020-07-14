@@ -1,5 +1,5 @@
 import { Component, HostBinding, Input } from '@angular/core';
-import { inputValueToBoolean } from '../util/helpers';
+import { coerceBooleanProperty } from '../util/helpers';
 
 @Component({
     selector: 'thy-card',
@@ -16,11 +16,11 @@ export class ThyCardComponent {
 
     @Input('thyHasLeftRightPadding')
     set thyHasLeftRightPadding(value: any) {
-        this.clearLeftRightPadding = !inputValueToBoolean(value);
+        this.clearLeftRightPadding = !coerceBooleanProperty(value);
     }
 
     @Input('thyDivided')
     set thyDivided(value: boolean) {
-        this._thyDivided = inputValueToBoolean(value);
+        this._thyDivided = coerceBooleanProperty(value);
     }
 }

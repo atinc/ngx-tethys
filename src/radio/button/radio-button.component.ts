@@ -1,18 +1,9 @@
-import {
-    Component,
-    forwardRef,
-    OnInit,
-    HostBinding,
-    HostListener,
-    Input,
-    Optional,
-    ChangeDetectorRef
-} from '@angular/core';
+import { Component, forwardRef, OnInit, HostBinding, HostListener, Input, Optional, ChangeDetectorRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyTranslate } from '../../shared';
 import { ThyFormCheckBaseComponent } from '../../shared';
 import { ThyRadioGroupComponent } from './../group/radio-group.component';
-import { inputValueToBoolean } from '../../util/helpers';
+import { coerceBooleanProperty } from '../../util/helpers';
 import { ThyRadioComponent } from '../radio.component';
 
 @Component({
@@ -29,7 +20,7 @@ export class ThyRadioButtonComponent extends ThyRadioComponent implements OnInit
 
     set thyChecked(value: boolean) {
         this.isActive = !!value;
-        this.writeValue(inputValueToBoolean(value));
+        this.writeValue(coerceBooleanProperty(value));
     }
 
     constructor(

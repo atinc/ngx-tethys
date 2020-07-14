@@ -11,7 +11,7 @@ import {
     HostListener,
     EventEmitter
 } from '@angular/core';
-import { inputValueToBoolean, isArray, isString } from '../util/helpers';
+import { coerceBooleanProperty, isArray, isString } from '../util/helpers';
 import { mimeTypeConvert } from './util';
 
 @Component({
@@ -31,7 +31,7 @@ export class ThyFileSelectComponent implements OnInit, OnDestroy {
 
     @Input()
     set thyMultiple(value: boolean) {
-        this._multiple = inputValueToBoolean(value);
+        this._multiple = coerceBooleanProperty(value);
         if (this._multiple) {
             this.fileInput.nativeElement.setAttribute('multiple', '');
         } else {
@@ -41,7 +41,7 @@ export class ThyFileSelectComponent implements OnInit, OnDestroy {
 
     @Input()
     set thyAcceptFolder(value: boolean) {
-        this._acceptFolder = inputValueToBoolean(value);
+        this._acceptFolder = coerceBooleanProperty(value);
         if (this._acceptFolder) {
             this.fileInput.nativeElement.setAttribute('webkitdirectory', '');
         } else {

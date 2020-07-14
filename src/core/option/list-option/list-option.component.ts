@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { FocusableOption, FocusOrigin, Highlightable } from '@angular/cdk/a11y';
 // import { SelectionModel } from '@angular/cdk/collections';
-import { inputValueToBoolean } from '../../../util/helpers';
+import { coerceBooleanProperty } from '../../../util/helpers';
 import { UpdateHostClassService } from '../../../shared';
 
 let _uniqueIdCounter = 0;
@@ -64,7 +64,7 @@ export class ThyListOptionComponent implements Highlightable {
 
     @Input()
     set thyDisabled(value: boolean) {
-        this.disabled = inputValueToBoolean(value);
+        this.disabled = coerceBooleanProperty(value);
     }
 
     @HostBinding(`class.disabled`) disabled?: boolean;

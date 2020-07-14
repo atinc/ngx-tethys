@@ -17,7 +17,7 @@ import { ComponentLoaderFactory, ComponentLoader } from 'ngx-bootstrap/component
 import { DatepickerValueEntry, DatepickerValueShowTypesEnum, DatepickerFormatRules } from './i.datepicker';
 import { ThyDatepickerService } from './datepicker.service';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { isObject, isNumber, isDate, inputValueToBoolean } from '../util/helpers';
+import { isObject, isNumber, isDate, coerceBooleanProperty } from '../util/helpers';
 import { daterangepickerUtilIdentificationValueType, daterangepickerUtilConvertToDaterangepickerObject } from './util';
 import { ThyDaterangepickerContainerComponent } from './daterangepicker-container.component';
 import { ThyPositioningService } from '../positioning/positioning.service';
@@ -72,11 +72,7 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
         private thyPositioningService: ThyPositioningService,
         private _config: ThyDaterangepickerConfig
     ) {
-        this._loader = cis.createLoader<ThyDaterangepickerContainerComponent>(
-            _elementRef,
-            _viewContainerRef,
-            _renderer
-        );
+        this._loader = cis.createLoader<ThyDaterangepickerContainerComponent>(_elementRef, _viewContainerRef, _renderer);
     }
 
     /**
@@ -136,7 +132,7 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
                 initialState: {
                     store: this.store,
                     value: this._value,
-                    // withTime: inputValueToBoolean(this.thyShowTime),
+                    // withTime: coerceBooleanProperty(this.thyShowTime),
                     changeValue: (result: DatepickerValueEntry) => {
                         this._initFormatRule();
                         this._setInputProperty();
@@ -164,7 +160,7 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
         this.store.originValue = value;
         this.store.originValueType = daterangepickerUtilIdentificationValueType(value);
         // this.store.originWithTime = value && value.begin && value.begin.with_time;
-        // this.store.withTime = inputValueToBoolean(this.thyShowTime);
+        // this.store.withTime = coerceBooleanProperty(this.thyShowTime);
         this.store.value = daterangepickerUtilConvertToDaterangepickerObject(value);
     }
 

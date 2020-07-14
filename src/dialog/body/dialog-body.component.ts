@@ -10,7 +10,7 @@ import {
     ChangeDetectionStrategy
 } from '@angular/core';
 import { ThyDialog } from '../dialog.service';
-import { inputValueToBoolean } from '../../util/helpers';
+import { coerceBooleanProperty } from '../../util/helpers';
 
 @Component({
     selector: 'thy-dialog-body',
@@ -26,7 +26,7 @@ export class DialogBodyComponent implements OnInit {
 
     @Input()
     set thyClearPadding(value: string) {
-        this.thyClearPaddingClassName = inputValueToBoolean(value);
+        this.thyClearPaddingClassName = coerceBooleanProperty(value);
     }
 
     constructor(private dialog: ThyDialog) {}

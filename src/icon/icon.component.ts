@@ -15,7 +15,7 @@ import { UpdateHostClassService } from '../shared';
 import { ThyIconRegistry } from './icon-registry';
 import { take, tap } from 'rxjs/operators';
 import { Subject, noop, BehaviorSubject } from 'rxjs';
-import { coerceArray, inputValueToBoolean } from '../util/helpers';
+import { coerceArray, coerceBooleanProperty } from '../util/helpers';
 
 const iconSuffixMap = {
     fill: 'fill',
@@ -71,7 +71,7 @@ export class ThyIconComponent implements OnInit, OnChanges {
             }
         }
         if (changes['iconLegging']) {
-            if (inputValueToBoolean(this.iconLegging)) {
+            if (coerceBooleanProperty(this.iconLegging)) {
                 this.updateHostClassService.addClass('thy-icon-legging');
             } else {
                 this.updateHostClassService.removeClass('thy-icon-legging');
@@ -104,11 +104,7 @@ export class ThyIconComponent implements OnInit, OnChanges {
 
     private setStyleRotate() {
         if (this.iconRotate !== undefined) {
-            this.render.setStyle(
-                this.elementRef.nativeElement.querySelector('svg'),
-                'transform',
-                `rotate(${this.iconRotate}deg)`
-            );
+            this.render.setStyle(this.elementRef.nativeElement.querySelector('svg'), 'transform', `rotate(${this.iconRotate}deg)`);
         }
     }
 

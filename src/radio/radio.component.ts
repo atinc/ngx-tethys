@@ -14,7 +14,7 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ThyTranslate } from '../shared';
 import { ThyFormCheckBaseComponent } from '../shared';
 import { ThyRadioGroupComponent } from './group/radio-group.component';
-import { inputValueToBoolean } from '../util/helpers';
+import { coerceBooleanProperty } from '../util/helpers';
 
 @Component({
     selector: '[thy-radio],[thyRadio]',
@@ -34,7 +34,7 @@ export class ThyRadioComponent extends ThyFormCheckBaseComponent implements OnIn
     @Input() thyValue: string;
 
     set thyChecked(value: boolean) {
-        this.writeValue(inputValueToBoolean(value));
+        this.writeValue(coerceBooleanProperty(value));
         this.changeDetectorRef.markForCheck();
     }
 

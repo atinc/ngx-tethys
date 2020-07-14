@@ -1,7 +1,7 @@
 // import { Component, forwardRef, HostBinding, Input, ElementRef } from '@angular/core';
 // import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 // import { ThyTranslate } from '../shared';
-// import { inputValueToBoolean } from '../util/helpers';
+// import { coerceBooleanProperty } from '../util/helpers';
 
 // const noop = () => {
 // };
@@ -34,10 +34,9 @@
 
 //     @HostBinding('class.form-check-group') _isFormCheckGroup = true;
 
-
 //     @Input()
 //     set thyCheckboxInline(value: boolean) {
-//         this._isFormCheckInline = inputValueToBoolean(value);
+//         this._isFormCheckInline = coerceBooleanProperty(value);
 //     }
 
 //     @Input()

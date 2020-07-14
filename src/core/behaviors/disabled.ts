@@ -1,5 +1,5 @@
 import { Constructor } from './constructor';
-import { inputValueToBoolean } from '../../util/helpers';
+import { coerceBooleanProperty } from '../../util/helpers';
 
 export interface ThyCanDisable {
     thyDisabled: boolean;
@@ -17,7 +17,7 @@ export function mixinDisabled<T extends Constructor<{}>>(base: T): ThyCanDisable
         }
 
         set thyDisabled(value: any) {
-            this._thyDisabled = inputValueToBoolean(value);
+            this._thyDisabled = coerceBooleanProperty(value);
         }
 
         constructor(...args: any[]) {
