@@ -2,7 +2,7 @@ module.exports = [
     {
         type: 'component',
         name: 'thy-back-top',
-        description: '有默认样式，距离底部 50px，可覆盖。 自定义样式宽高不大于 40px * 40px。',
+        description: '有默认样式，距离底部 50px，可覆盖。 自定义样式宽高不大于 36px * 36px。',
         properties: [
             {
                 name: 'thyTemplate',
