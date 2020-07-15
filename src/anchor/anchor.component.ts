@@ -204,8 +204,8 @@ export class ThyAnchorComponent implements OnDestroy, AfterViewInit, OnChanges {
         const targetScrollTop = containerScrollTop + elementOffsetTop - (this.thyOffsetTop || 0);
         this.scrollService.scrollTo(this.getContainer(), targetScrollTop, undefined, () => {
             this.animating = false;
-            this.handleActive(linkComponent);
         });
+        this.handleActive(linkComponent);
         this.thyClick.emit(linkComponent);
     }
 
