@@ -1,5 +1,5 @@
 ---
-category: general
+category: other
 title: BackTop
 subtitle: 回到顶部
 order: 10
