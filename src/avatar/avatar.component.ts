@@ -1,14 +1,5 @@
-import {
-    Component,
-    Input,
-    Output,
-    EventEmitter,
-    ElementRef,
-    HostBinding,
-    OnInit,
-    ChangeDetectionStrategy
-} from '@angular/core';
-import { isNumber, inputValueToBoolean } from '../util/helpers';
+import { Component, Input, Output, EventEmitter, ElementRef, HostBinding, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { isNumber, coerceBooleanProperty } from '../util/helpers';
 import { UpdateHostClassService } from '../shared/update-host-class.service';
 import { ThyAvatarService } from './avatar.service';
 import { helpers } from '../util';
@@ -68,7 +59,7 @@ export class ThyAvatarComponent implements OnInit {
 
     @Input()
     set thyShowRemove(value: boolean) {
-        this._showRemove = inputValueToBoolean(value);
+        this._showRemove = coerceBooleanProperty(value);
     }
 
     @Input() thyImgClass: string;

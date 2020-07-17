@@ -1,6 +1,6 @@
 import { ControlValueAccessor } from '@angular/forms';
 import { HostBinding, Input, ChangeDetectorRef } from '@angular/core';
-import { inputValueToBoolean } from '../util/helpers';
+import { coerceBooleanProperty } from '../util/helpers';
 import { ThyTranslate } from './translate';
 
 const noop = () => {};
@@ -29,7 +29,7 @@ export class ThyFormCheckBaseComponent implements ControlValueAccessor {
 
     @Input()
     set thyInline(value: boolean) {
-        this._isFormCheckInline = inputValueToBoolean(value);
+        this._isFormCheckInline = coerceBooleanProperty(value);
     }
 
     @Input()
@@ -48,7 +48,7 @@ export class ThyFormCheckBaseComponent implements ControlValueAccessor {
 
     @Input()
     set thyDisabled(value: boolean) {
-        this.setDisabledState(inputValueToBoolean(value));
+        this.setDisabledState(coerceBooleanProperty(value));
     }
 
     writeValue(obj: boolean): void {

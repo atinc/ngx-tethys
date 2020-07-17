@@ -1,5 +1,4 @@
 import { Platform } from '@angular/cdk/platform';
-import { DOCUMENT } from '@angular/common';
 import {
     AfterViewInit,
     ChangeDetectionStrategy,
@@ -24,6 +23,7 @@ import { takeUntil, throttleTime } from 'rxjs/operators';
 import { ThyAnchorLinkComponent } from './anchor-link.component';
 import { getOffset } from './../util/dom';
 import { ThyScrollService } from '../core/scroll';
+import { DOCUMENT } from '@angular/common';
 
 interface Section {
     linkComponent: ThyAnchorLinkComponent;
@@ -42,9 +42,9 @@ const sharpMatcherRegx = /#([^#]+)$/;
         </thy-affix>
         <ng-template #content>
             <div class="thy-anchor-wrapper" [ngStyle]="wrapperStyle">
-                <div class="thy-anchor" [ngClass]="{ hidden: thyAffix && !thyShowInkInFixed }">
+                <div class="thy-anchor">
                     <div class="thy-anchor-ink">
-                        <div class="thy-anchor-ink-ball" #ink></div>
+                        <div class="thy-anchor-ink-full" #ink></div>
                     </div>
                     <ng-content></ng-content>
                 </div>
@@ -58,9 +58,6 @@ export class ThyAnchorComponent implements OnDestroy, AfterViewInit, OnChanges {
     @ViewChild('ink', { static: false }) private ink!: ElementRef;
 
     @Input() thyAffix = true;
-
-    @Input()
-    thyShowInkInFixed = true;
 
     @Input()
     thyBounds = 5;
@@ -85,7 +82,7 @@ export class ThyAnchorComponent implements OnDestroy, AfterViewInit, OnChanges {
     private handleScrollTimeoutID = -1;
 
     constructor(
-        @Inject(DOCUMENT) private document: Document,
+        @Inject(DOCUMENT) private document: any,
         private cdr: ChangeDetectorRef,
         private platform: Platform,
         private zone: NgZone,
@@ -175,7 +172,9 @@ export class ThyAnchorComponent implements OnDestroy, AfterViewInit, OnChanges {
         this.clearActive();
         linkComponent.setActive();
         const linkNode = linkComponent.getLinkTitleElement();
-        this.ink.nativeElement.style.top = `${linkNode.offsetTop + linkNode.clientHeight / 2 - 4.5}px`;
+
+        this.ink.nativeElement.style.top = `${linkNode.offsetTop}px`;
+        this.ink.nativeElement.style.height = `${linkNode.clientHeight}px`;
         this.visible = true;
         this.setVisible();
         this.thyScroll.emit(linkComponent);
@@ -194,7 +193,7 @@ export class ThyAnchorComponent implements OnDestroy, AfterViewInit, OnChanges {
     }
 
     handleScrollTo(linkComponent: ThyAnchorLinkComponent): void {
-        const linkElement = this.document.querySelector<HTMLElement>(linkComponent.thyHref);
+        const linkElement: HTMLElement = this.document.querySelector(linkComponent.thyHref);
         if (!linkElement) {
             return;
         }
@@ -205,8 +204,8 @@ export class ThyAnchorComponent implements OnDestroy, AfterViewInit, OnChanges {
         const targetScrollTop = containerScrollTop + elementOffsetTop - (this.thyOffsetTop || 0);
         this.scrollService.scrollTo(this.getContainer(), targetScrollTop, undefined, () => {
             this.animating = false;
-            this.handleActive(linkComponent);
         });
+        this.handleActive(linkComponent);
         this.thyClick.emit(linkComponent);
     }
 
@@ -219,7 +218,7 @@ export class ThyAnchorComponent implements OnDestroy, AfterViewInit, OnChanges {
         }
         if (thyContainer) {
             const container = this.thyContainer || this.thyTarget;
-            this.container = typeof container === 'string' ? this.document.querySelector<HTMLElement>(container) : container;
+            this.container = typeof container === 'string' ? this.document.querySelector(container) : container;
             this.registerScrollEvent();
         }
     }

@@ -1,5 +1,5 @@
 import { Component, ElementRef, Renderer2, Input, Output, EventEmitter, HostBinding } from '@angular/core';
-import { inputValueToBoolean } from '../util/helpers';
+import { coerceBooleanProperty } from '../util/helpers';
 import { helpers } from '../util';
 
 export type ThyLabelType = 'default' | 'primary' | 'success' | 'info' | 'warning' | 'danger';
@@ -65,7 +65,7 @@ export class ThyLabelComponent {
 
     @Input('thyHasHover')
     set thyHasHover(value: string) {
-        this._thyHasHover = inputValueToBoolean(value);
+        this._thyHasHover = coerceBooleanProperty(value);
     }
 
     @Input()

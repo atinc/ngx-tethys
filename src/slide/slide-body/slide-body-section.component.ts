@@ -1,5 +1,5 @@
 import { Component, ContentChild, TemplateRef, Input, Output, OnInit, HostBinding } from '@angular/core';
-import { inputValueToBoolean } from '../../util/helpers';
+import { coerceBooleanProperty } from '../../util/helpers';
 
 @Component({
     selector: 'thy-slide-body-section',
@@ -12,7 +12,7 @@ export class ThySlideBodySectionComponent implements OnInit {
 
     @Input()
     set thyDividerBorder(value: string | boolean) {
-        this.hasDivider = inputValueToBoolean(value);
+        this.hasDivider = coerceBooleanProperty(value);
     }
 
     ngOnInit() {}

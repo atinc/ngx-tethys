@@ -1,7 +1,7 @@
 import { Component, forwardRef, HostBinding, HostListener, Input, ElementRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ThyTranslate } from '../shared';
-import { inputValueToBoolean } from '../util/helpers';
+import { coerceBooleanProperty } from '../util/helpers';
 
 import { ThyFormCheckBaseComponent } from '../shared';
 
@@ -23,7 +23,7 @@ export class ThyCheckboxComponent extends ThyFormCheckBaseComponent {
 
     @Input()
     set thyIndeterminate(value: boolean) {
-        this.isIndeterminate = inputValueToBoolean(value);
+        this.isIndeterminate = coerceBooleanProperty(value);
     }
 
     constructor(thyTranslate: ThyTranslate) {

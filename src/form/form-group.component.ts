@@ -1,6 +1,6 @@
 import { Component, HostBinding, Optional, Input, ViewEncapsulation, ContentChild, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThyFormDirective } from './form.directive';
-import { inputValueToBoolean } from '../util/helpers';
+import { coerceBooleanProperty } from '../util/helpers';
 import { TemplateRef } from '@angular/core';
 import { ThyTranslate } from '../shared';
 import { ThyFormLayout } from './form.class';
@@ -48,12 +48,12 @@ export class ThyFormGroupComponent implements OnInit {
 
     @Input()
     set thyLabelRequired(value: string) {
-        this.labelRequired = inputValueToBoolean(value);
+        this.labelRequired = coerceBooleanProperty(value);
     }
 
     @Input()
     set thyLabelPaddingTopClear(value: string) {
-        this.labelPaddingTopClear = inputValueToBoolean(value);
+        this.labelPaddingTopClear = coerceBooleanProperty(value);
     }
 
     @Input()
@@ -78,7 +78,7 @@ export class ThyFormGroupComponent implements OnInit {
 
     @Input()
     set thyRowFill(value: boolean) {
-        this._rowFill = inputValueToBoolean(value);
+        this._rowFill = coerceBooleanProperty(value);
     }
 
     @ContentChild('formGroup', { static: false })

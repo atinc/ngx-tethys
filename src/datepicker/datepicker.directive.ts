@@ -14,7 +14,7 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ComponentLoader, ComponentLoaderFactory } from 'ngx-bootstrap/component-loader';
 import { PlacementTypes, ThyPositioningService } from '../positioning/positioning.service';
-import { inputValueToBoolean } from '../util/helpers';
+import { coerceBooleanProperty } from '../util/helpers';
 import { ThyDatepickerContainerComponent } from './datepicker-container.component';
 import { ThyDatepickerConfig } from './datepicker.config';
 import { ThyDatepickerService } from './datepicker.service';
@@ -137,7 +137,7 @@ export class ThyDatepickerDirective implements OnInit, AfterContentInit, Control
                     this.hide();
                 },
                 initialState: {
-                    withTime: inputValueToBoolean(this.thyShowTime),
+                    withTime: coerceBooleanProperty(this.thyShowTime),
                     value: this._value,
                     valueRef: this._valueRef,
                     defaultDate: datepickerUtilConvertToDatepickerObject(this.thyDefaultDate).date,

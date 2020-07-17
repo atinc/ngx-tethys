@@ -61,7 +61,7 @@ export class ThyAffixComponent implements AfterViewInit, OnChanges, OnDestroy {
     private offsetChanged$ = new ReplaySubject(1);
     private destroy$ = new Subject<void>();
     private timeout?: number;
-    private document: Document;
+    private document: any;
 
     private get container(): Element | Window {
         const el = this.thyContainer;
@@ -70,7 +70,7 @@ export class ThyAffixComponent implements AfterViewInit, OnChanges, OnDestroy {
 
     constructor(
         el: ElementRef,
-        @Inject(DOCUMENT) document: Document,
+        @Inject(DOCUMENT) document: any,
         private scrollService: ThyScrollService,
         private ngZone: NgZone,
         private platform: Platform,

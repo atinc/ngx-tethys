@@ -1,19 +1,12 @@
-import {
-    Directive,
-    HostBinding,
-    Optional,
-    Input,
-    ViewEncapsulation
-} from '@angular/core';
+import { Directive, HostBinding, Optional, Input, ViewEncapsulation } from '@angular/core';
 import { ThyFormDirective } from './form.directive';
-import { inputValueToBoolean } from '../util/helpers';
+import { coerceBooleanProperty } from '../util/helpers';
 import { ThyTranslate } from '../shared';
 
 @Directive({
     selector: '[thyFormGroupLabel]'
 })
 export class ThyFormGroupLabelDirective {
-
     public labelText: string;
 
     @HostBinding('class.label-required') labelRequired = false;
@@ -32,12 +25,8 @@ export class ThyFormGroupLabelDirective {
 
     @Input()
     set thyLabelRequired(value: string) {
-        this.labelRequired = inputValueToBoolean(value);
+        this.labelRequired = coerceBooleanProperty(value);
     }
 
-    constructor(
-        private thyTranslate: ThyTranslate
-    ) {
-
-    }
+    constructor(private thyTranslate: ThyTranslate) {}
 }

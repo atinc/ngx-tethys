@@ -1,7 +1,7 @@
 import { Directive, ElementRef, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ThyMarkdownParserService } from './thy-markdown-parser.service';
 import { $, liteMarked, mermaid, katex } from '../typings';
-import { inputValueToBoolean } from '../util/helpers';
+import { coerceBooleanProperty } from '../util/helpers';
 
 @Directive({
     selector: '[thyMarkdownParser]'
@@ -62,7 +62,7 @@ export class ThyMarkdownParserDirective implements OnInit {
     }
 
     @Input() set thyBypassSecurityTrustHtml(value: boolean) {
-        this.bypassSecurityTrustHtml = inputValueToBoolean(value);
+        this.bypassSecurityTrustHtml = coerceBooleanProperty(value);
     }
 
     constructor(private elementRef: ElementRef, private thyMarkdownParserService: ThyMarkdownParserService) {}
@@ -170,11 +170,7 @@ export class ThyMarkdownParserDirective implements OnInit {
                     }
                 });
                 return '<div data-line="' + line_number + '">' + tex + '</div>';
-            } else if (
-                firstLine === 'gantt' ||
-                firstLine === 'sequenceDiagram' ||
-                firstLine.match(/^graph (?:TB|BT|RL|LR|TD);?$/)
-            ) {
+            } else if (firstLine === 'gantt' || firstLine === 'sequenceDiagram' || firstLine.match(/^graph (?:TB|BT|RL|LR|TD);?$/)) {
                 // mermaid
                 if (firstLine === 'sequenceDiagram') {
                     code += '\n'; // 如果末尾没有空行，则语法错误

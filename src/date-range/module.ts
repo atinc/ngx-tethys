@@ -7,6 +7,7 @@ import { ThyActionMenuModule } from '../action-menu/action-menu.module';
 import { ThyDatepickerModule } from '../datepicker/datepicker.module';
 import { ThyDirectiveModule } from '../directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ThyDatePickerModule } from '../date-picker/date-picker.module';
 @NgModule({
     imports: [
         CommonModule,
@@ -15,7 +16,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         ThyDatepickerModule,
         ThyDirectiveModule,
         ThyIconModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        ThyDatePickerModule
     ],
     declarations: [ThyDateRangeComponent],
     exports: [ThyDateRangeComponent]

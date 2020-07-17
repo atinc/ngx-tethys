@@ -1,5 +1,5 @@
 import { Component, Input, HostBinding } from '@angular/core';
-import { inputValueToBoolean } from '../util/helpers';
+import { coerceBooleanProperty } from '../util/helpers';
 import { InputBoolean } from '../core';
 
 @Component({

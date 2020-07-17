@@ -1,5 +1,5 @@
 import { Component, Directive, ElementRef, Renderer2, Input, HostBinding, ChangeDetectorRef } from '@angular/core';
-import { inputValueToBoolean } from '../../util/helpers';
+import { coerceBooleanProperty } from '../../util/helpers';
 
 @Component({
     selector: '[thyIconNavLink]',
@@ -19,6 +19,6 @@ export class ThyIconNavLinkComponent {
 
     @Input()
     set thyIconNavLinkActive(active: string) {
-        this.navLinkActive = inputValueToBoolean(active);
+        this.navLinkActive = coerceBooleanProperty(active);
     }
 }

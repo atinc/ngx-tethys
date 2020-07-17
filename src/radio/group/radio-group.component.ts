@@ -3,7 +3,7 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ThyRadioComponent } from '../radio.component';
 import { ThyRadioButtonComponent } from '../button/radio-button.component';
 import { UpdateHostClassService } from '../../shared';
-import { inputValueToBoolean } from '../../util/helpers';
+import { coerceBooleanProperty } from '../../util/helpers';
 
 const buttonGroupSizeMap = {
     sm: ['btn-group-sm'],

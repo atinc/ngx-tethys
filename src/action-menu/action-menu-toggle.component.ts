@@ -1,5 +1,5 @@
 import { Directive, Input, HostListener, TemplateRef } from '@angular/core';
-import { inputValueToBoolean } from '../util/helpers';
+import { coerceBooleanProperty } from '../util/helpers';
 import { ThyPopover } from '../popover';
 import { ThyPlacement } from '../core';
 import { helpers } from '../util';
@@ -40,7 +40,7 @@ export class ThyActionMenuToggleDirective {
 
     @Input()
     set thyStopPropagation(value: boolean) {
-        this._stopPropagation = inputValueToBoolean(value);
+        this._stopPropagation = coerceBooleanProperty(value);
     }
 
     @Input()

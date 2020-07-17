@@ -1,12 +1,11 @@
 import { Component, forwardRef, HostBinding, Input, ElementRef, OnInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { UpdateHostClassService } from '../shared/update-host-class.service';
-import { inputValueToBoolean } from '../util/helpers';
+import { coerceBooleanProperty } from '../util/helpers';
 
 export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
-const noop = () => {
-};
+const noop = () => {};
 
 @Component({
     selector: 'thy-select',
@@ -21,7 +20,6 @@ const noop = () => {
     ]
 })
 export class ThySelectComponent implements ControlValueAccessor, OnInit {
-
     // The internal data model
     _innerValue: any = null;
     _disabled = false;
@@ -59,10 +57,7 @@ export class ThySelectComponent implements ControlValueAccessor, OnInit {
         this._disabled = isDisabled;
     }
 
-    constructor(
-        private elementRef: ElementRef,
-        private updateHostClassService: UpdateHostClassService
-    ) {
+    constructor(private elementRef: ElementRef, private updateHostClassService: UpdateHostClassService) {
         this.updateHostClassService.initializeElement(elementRef.nativeElement);
     }
 
@@ -80,5 +75,4 @@ export class ThySelectComponent implements ControlValueAccessor, OnInit {
         this._innerValue = '';
         this.onChangeCallback(this._innerValue);
     }
-
 }

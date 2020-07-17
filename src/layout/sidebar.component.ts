@@ -1,6 +1,6 @@
 import { Component, HostBinding, Host, Optional, OnInit, Input, ViewChild, Renderer2, ElementRef, NgZone } from '@angular/core';
 import { ThyLayoutComponent } from './layout.component';
-import { inputValueToBoolean } from '../util/helpers';
+import { coerceBooleanProperty } from '../util/helpers';
 
 const LG_WIDTH = 300;
 @Component({
@@ -39,17 +39,17 @@ export class ThySidebarComponent implements OnInit {
 
     @Input('thyHasBorderRight')
     set thyHasBorderRight(value: string) {
-        this.thyLayoutSidebarClearBorderRightClass = !inputValueToBoolean(value);
+        this.thyLayoutSidebarClearBorderRightClass = !coerceBooleanProperty(value);
     }
 
     @Input('thyIsolated')
     set thyIsolated(value: string) {
-        this.sidebarIsolated = inputValueToBoolean(value);
+        this.sidebarIsolated = coerceBooleanProperty(value);
     }
 
     @Input('thyIsDraggableWidth')
     set thyIsDraggableWidth(value: any) {
-        if (inputValueToBoolean(value)) {
+        if (coerceBooleanProperty(value)) {
             this.renderer.setStyle(this.dragRef.nativeElement, 'pointer-events', 'all');
         }
     }
