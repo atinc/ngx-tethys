@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'app-demo-affix-on-change',
+    selector: 'thy-affix-on-change-example',
     template: `
         <thy-affix [thyOffsetTop]="120" (thyChange)="onChange($event)">
             <button thyButton>

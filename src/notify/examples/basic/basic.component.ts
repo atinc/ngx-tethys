@@ -3,7 +3,7 @@ import { ThyNotifyService } from 'ngx-tethys';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'app-notify-basic-example',
+    selector: 'thy-notify-basic-example',
     templateUrl: './basic.component.html'
 })
 export class ThyNotifyBasicExampleComponent implements OnInit {

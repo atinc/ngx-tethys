@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'app-avatar-disabled-example',
+    selector: 'thy-avatar-disabled-example',
     templateUrl: './disabled.component.html'
 })
 export class ThyAvatarDisabledExampleComponent {

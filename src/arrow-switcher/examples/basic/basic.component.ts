@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ThyArrowSwitcherEvent } from 'ngx-tethys/arrow-switcher';
 
 @Component({
-    selector: 'app-arrow-switcher-basic-example',
+    selector: 'thy-arrow-switcher-basic-example',
     templateUrl: './basic.component.html'
 })
 export class ThyArrowSwitcherBasicExampleComponent implements OnInit {

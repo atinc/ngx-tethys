@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'app-anchor-static-example',
+    selector: 'thy-anchor-static-example',
     template: `
         <div class="demo-card">
             <thy-anchor thyAffix="false" [thyOffsetTop]="60">

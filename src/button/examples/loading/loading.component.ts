@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'app-button-loading-example',
+    selector: 'thy-button-loading-example',
     templateUrl: './loading.component.html'
 })
 export class ThyButtonLoadingExampleComponent implements OnInit {

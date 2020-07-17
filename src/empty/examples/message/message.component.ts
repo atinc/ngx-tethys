@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'app-empty-message-example',
+    selector: 'thy-empty-message-example',
     templateUrl: './message.component.html'
 })
 export class ThyEmptyMessageExampleComponent {

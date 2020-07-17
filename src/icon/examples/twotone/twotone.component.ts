@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'app-icon-twotone-example',
+    selector: 'thy-icon-twotone-example',
     templateUrl: './twotone.component.html'
 })
 export class ThyIconTwotoneExampleComponent {

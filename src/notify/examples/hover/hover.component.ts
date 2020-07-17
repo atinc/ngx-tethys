@@ -3,7 +3,7 @@ import { ThyNotifyService } from 'ngx-tethys';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'app-notify-hover-example',
+    selector: 'thy-notify-hover-example',
     templateUrl: './hover.component.html'
 })
 export class ThyNotifyHoverExampleComponent implements OnInit {

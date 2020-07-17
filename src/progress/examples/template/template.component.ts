@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'app-progress-template',
+    selector: 'thy-progress-template',
     templateUrl: './template.component.html'
 })
 export class ThyProgressTemplateExampleComponent implements OnInit {

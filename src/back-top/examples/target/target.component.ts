@@ -1,7 +1,7 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 
 @Component({
-    selector: 'app-back-top-target-example',
+    selector: 'thy-back-top-target-example',
     templateUrl: './target.component.html',
     styleUrls: ['./target.scss']
 })
