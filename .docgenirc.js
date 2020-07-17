@@ -22,7 +22,7 @@ module.exports = {
         },
         {
             title: 'Legacy Docs',
-            path: 'https://lib.worktile.live/ngx-tethys/legacy/',
+            path: 'http://lib.worktile.live/ngx-tethys/legacy/',
             isExternal: true
         },
         {
