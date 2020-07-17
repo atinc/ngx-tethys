@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'app-switch-basic-example',
+    selector: 'thy-switch-basic-example',
     templateUrl: './basic.component.html'
 })
 export class ThySwitchBasicExampleComponent implements OnInit {

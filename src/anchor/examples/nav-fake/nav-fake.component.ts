@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'app-anchor-nav-fake-example',
+    selector: 'thy-anchor-nav-fake-example',
     templateUrl: './nav-fake.component.html'
 })
 export class ThyAnchorNavFakeExampleComponent implements OnInit {

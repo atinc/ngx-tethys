@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'app-avatar-has-badge-example',
+    selector: 'thy-avatar-has-badge-example',
     templateUrl: './has-badge.component.html'
 })
 export class ThyAvatarHasBadgeExampleComponent {

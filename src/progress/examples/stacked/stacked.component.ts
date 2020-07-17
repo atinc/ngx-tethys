@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'app-progress-stacked-example',
+    selector: 'thy-progress-stacked-example',
     templateUrl: './stacked.component.html'
 })
 export class ThyProgressStackedExampleComponent {

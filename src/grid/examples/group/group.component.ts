@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ThyMultiSelectEvent, ThyGridRowEvent, helpers } from 'ngx-tethys';
 
 @Component({
-    selector: 'app-grid-group-example',
+    selector: 'thy-grid-group-example',
     templateUrl: './group.component.html'
 })
 export class ThyGridGroupExampleComponent implements OnInit {

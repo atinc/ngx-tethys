@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'app-avatar-remove-example',
+    selector: 'thy-avatar-remove-example',
     templateUrl: './remove.component.html'
 })
 export class ThyAvatarRemoveExampleComponent {

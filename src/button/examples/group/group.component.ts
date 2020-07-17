@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'app-button-group-example',
+    selector: 'thy-button-group-example',
     templateUrl: './group.component.html'
 })
 export class ThyButtonGroupExampleComponent implements OnInit {

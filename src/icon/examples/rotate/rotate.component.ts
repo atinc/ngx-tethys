@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'app-icon-rotate-example',
+    selector: 'thy-icon-rotate-example',
     templateUrl: './rotate.component.html'
 })
 export class ThyIconRotateExampleComponent {
