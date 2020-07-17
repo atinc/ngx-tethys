@@ -21,6 +21,11 @@ module.exports = {
             }
         },
         {
+            title: 'Legacy Docs',
+            path: 'https://lib.worktile.live/ngx-tethys/legacy/',
+            isExternal: true
+        },
+        {
             title: 'GitHub',
             path: 'https://github.com/atinc/ngx-tethys',
             isExternal: true
