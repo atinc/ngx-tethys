@@ -23,13 +23,13 @@ module.exports = [
             },
             {
                 name: 'thyVertical',
-                description: `垂直布局`,
+                description: `是否为上下垂直布局`,
                 type: 'boolean',
                 default: 'false'
             },
             {
                 name: 'thyFill',
-                description: '是否填充正航',
+                description: '是否填充整行',
                 type: 'boolean',
                 default: 'false'
             }
@@ -53,36 +53,18 @@ module.exports = [
         properties: [
             {
                 name: 'thyType',
-                description: 'primary | secondary | thirdly | secondary-divider',
                 type: 'string',
-                default: ''
-            },
-            {
-                name: 'thyHorizontal',
-                description: '',
-                type: 'boolean',
-                default: ''
-            },
-            {
-                name: 'thyVertical',
-                description: '',
-                type: 'boolean',
-                default: ''
-            },
-            {
-                name: 'thyFill',
-                description: '',
-                type: 'boolean',
-                default: ''
+                default: 'primary',
+                description: `图标导航类型，'primary' | 'secondary' | 'individual' | ''`
             }
         ]
     },
     {
-        type: 'component',
-        name: 'thy-icon-nav',
+        type: 'directive',
+        name: 'thyIconNavLink',
         properties: [
             {
-                name: 'thyIconNavLinkActive',
+                name: 'thyIconNavLinkIcon',
                 description: '是否 Active 状态',
                 type: 'boolean',
                 default: 'false'
