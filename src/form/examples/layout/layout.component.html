@@ -1,0 +1,22 @@
+<div class="mb-4">
+  Form Layout:
+  <thy-button-group thySize="md" thyType="outline-default">
+    <button thyButton *ngFor="let layout of layouts" (click)="updateLayout(layout)" [ngClass]="{ active: layout === currentLayout }">
+      {{ layout.text }}
+    </button>
+  </thy-button-group>
+</div>
+
+<form *ngIf="showForm" thyForm name="demoForm" #demoForm="ngForm" [thyLayout]="currentLayout?.value">
+  <thy-form-group thyLabelText="用户名" thyLabelRequired>
+    <input thyInput name="username" required placeholder="请输入用户名" />
+  </thy-form-group>
+  <thy-form-group thyLabelText="密码" thyLabelRequired>
+    <input thyInput type="password" name="password" required placeholder="请输入密码" />
+  </thy-form-group>
+  <thy-form-group-footer>
+    <button [thyButton]="'primary'">
+      登录
+    </button>
+  </thy-form-group-footer>
+</form>
