@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'app-switch-size-example',
+    selector: 'thy-switch-size-example',
     templateUrl: './size.component.html'
 })
 export class ThySwitchSizeExampleComponent implements OnInit {

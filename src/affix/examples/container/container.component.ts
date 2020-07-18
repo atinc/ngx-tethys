@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'app-demo-affix-container',
+    selector: 'thy-demo-affix-container-example',
     template: `
         <div class="scrollable-container" #container>
             <div class="background">

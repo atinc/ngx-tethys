@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'app-empty-top-example',
+    selector: 'thy-empty-top-example',
     templateUrl: './top.component.html'
 })
 export class ThyEmptyTopExampleComponent {

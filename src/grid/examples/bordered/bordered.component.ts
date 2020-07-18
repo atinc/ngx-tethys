@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'app-grid-bordered-example',
+    selector: 'thy-grid-bordered-example',
     templateUrl: './bordered.component.html'
 })
 export class ThyGridBorderedExampleComponent implements OnInit {

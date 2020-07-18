@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'app-back-top-custom-example',
+    selector: 'thy-back-top-custom-example',
     templateUrl: './custom.component.html',
     styleUrls: ['./custom.scss']
 })

@@ -1,5 +1,5 @@
 ---
-category: general
+category: feedback
 title: Notify
 subtitle: 通知
 order: 10

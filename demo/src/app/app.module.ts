@@ -45,7 +45,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         ...DEMO_MODULES,
         ...GLOBAL_MODULES,
         RouterModule.forRoot(appRoutes, {
-            useHash: true
+            useHash: false
         }),
         ModalModule.forRoot(),
         DragDropModule,

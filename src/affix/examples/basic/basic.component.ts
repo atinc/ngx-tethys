@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'app-affix-basic-example',
+    selector: 'thy-affix-basic-example',
     templateUrl: './basic.component.html'
 })
 export class ThyAffixBasicExampleComponent implements OnInit {

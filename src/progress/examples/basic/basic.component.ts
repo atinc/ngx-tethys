@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'app-progress-basic-example',
+    selector: 'thy-progress-basic-example',
     templateUrl: './basic.component.html'
 })
 export class ThyProgressBasicExampleComponent {

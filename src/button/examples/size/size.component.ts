@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'app-button-size-example',
+    selector: 'thy-button-size-example',
     templateUrl: './size.component.html'
 })
 export class ThyButtonSizeExampleComponent implements OnInit {

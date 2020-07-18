@@ -1,0 +1,17 @@
+<form thyForm name="demoForm" [thyFormValidatorConfig]="validateConfig" #demoForm="thyForm">
+  <thy-form-group thyLabelText="用户名" thyLabelRequired>
+    <input thyInput name="username" [(ngModel)]="model.name" required placeholder="请输入用户名" />
+  </thy-form-group>
+  <thy-form-group thyLabelText="邮箱地址" thyLabelRequired>
+    <input thyInput name="email" email type="email" [(ngModel)]="model.email" required placeholder="请输入邮箱地址" />
+  </thy-form-group>
+  <thy-form-group thyLabelText="密码" thyLabelRequired>
+    <input thyInput type="password" name="password" [(ngModel)]="model.password" required placeholder="请输入密码" />
+  </thy-form-group>
+  <thy-form-group-footer>
+    <button [thyButton]="'primary'" thyLoadingText="确定" (thyFormSubmit)="submit()">
+      登录
+    </button>
+    <button [thyButton]="'link-secondary'" (click)="reset(demoForm)">重置</button>
+  </thy-form-group-footer>
+</form>

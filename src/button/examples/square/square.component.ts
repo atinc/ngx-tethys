@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'app-button-square-example',
+    selector: 'thy-button-square-example',
     templateUrl: './square.component.html'
 })
 export class ThyButtonSquareExampleComponent implements OnInit {
