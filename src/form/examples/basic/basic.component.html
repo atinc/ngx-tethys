@@ -6,7 +6,7 @@
     <input thyInput type="password" name="password" [(ngModel)]="model.password" required placeholder="请输入密码" />
   </thy-form-group>
   <thy-form-group-footer>
-    <button [thyButton]="'primary'" [thyLoading]="saving" thyLoadingText="登录中" (thyFormSubmit)="login(demoForm)">
+    <button [thyButton]="'primary'" [thyLoading]="saving" thyLoadingText="登录中" (thyFormSubmit)="login()">
       登录
     </button>
     <button [thyButton]="'link-secondary'" (click)="cancel()">取消</button>
