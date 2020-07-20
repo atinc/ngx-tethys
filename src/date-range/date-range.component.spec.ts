@@ -1,20 +1,17 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
-import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
-import { ComponentFixture, fakeAsync, inject, TestBed, tick, flush } from '@angular/core/testing';
+import { Component, DebugElement } from '@angular/core';
+import { ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ThyDatepickerModule } from '../datepicker/datepicker.module';
-import { dispatchMouseEvent, typeInElement } from '../core/testing';
-import { isSameDay, fromUnixTime } from 'date-fns';
-// import { RangeEntry } from './standard-types';
+import { dispatchMouseEvent } from '../core/testing';
 import { DateRangeItemInfo } from './date-range.class';
 import { helpers } from '../util';
 import { DateHelperByDatePipe } from '../date-picker/date-helper.service';
-import { transformDateValue } from '../date-picker/picker.util';
 import { ThyDateRangeModule } from './module';
-import { O_CREAT } from 'constants';
+import { getUnixTime, startOfQuarter, endOfQuarter, setMonth, getMonth, startOfMonth, endOfMonth } from 'date-fns';
+
 registerLocaleData(zh);
 
 describe('ThyTestDateRangeComponent', () => {
@@ -53,7 +50,7 @@ describe('ThyTestDateRangeComponent', () => {
         beforeEach(() => (fixtureInstance.useSuite = 1));
         it('should open by click and close by click at outside', fakeAsync(() => {
             fixture.detectChanges();
-            dispatchMouseEvent(getPickerTriggerWrapper(), 'click');
+            dispatchMouseEvent(getPickerTriggerElement(), 'click');
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
@@ -67,19 +64,25 @@ describe('ThyTestDateRangeComponent', () => {
         it('should not open by click when thyHiddenMenu is true', fakeAsync(() => {
             fixtureInstance.hiddenMenu = true;
             fixture.detectChanges();
-            dispatchMouseEvent(getPickerTriggerWrapper(), 'click');
+            dispatchMouseEvent(getPickerTriggerElement(), 'click');
             fixture.detectChanges();
             tick(500);
-            expect(getPickerContainer().querySelector('thy-popover-container').childElementCount).toEqual(0);
+            expect(overlayContainerElement.childElementCount).toEqual(0);
         }));
 
-        it('should have active class in .thy-date-text element when click this element', fakeAsync(() => {
+        it('should have thy-date-rage-text-active class in .thy-date-range-text element when click this element', fakeAsync(() => {
             fixture.detectChanges();
-            dispatchMouseEvent(getPickerTriggerWrapper(), 'click');
+            dispatchMouseEvent(getPickerTriggerElement(), 'click');
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
-            expect(debugElement.query(By.css('.thy-date-range .active'))).not.toBeNull();
+            expect(debugElement.query(By.css('.thy-date-range-container .thy-date-range-text-active'))).not.toBeNull();
+        }));
+
+        it('hidden left and right arrow when thyHiddenSwitchRangeIcon is true', fakeAsync(() => {
+            fixtureInstance.hiddenSwitchRangeIcon = true;
+            fixture.detectChanges();
+            expect(debugElement.queryAll(By.css('.thy-date-range-container .btn-icon')).length).toEqual(0);
         }));
 
         it('should show yyyy-MM-dd ~ yyyy-MM-dd ', () => {
@@ -90,27 +93,45 @@ describe('ThyTestDateRangeComponent', () => {
             const formatStr = 'yyyy-MM-dd';
             const dateHelper = new DateHelperByDatePipe();
             const value = [dateHelper.format(prevDate, formatStr), dateHelper.format(curDate, formatStr)].join(' ~ ');
-            expect(getPickerTriggerWrapper().innerText).toEqual(value);
+            expect(getPickerTriggerElement().innerText).toEqual(value);
         });
 
         it('should show customValue property value when customValue is not empty string', fakeAsync(() => {
             const text = '自定义日期选择入口';
             fixtureInstance.customValue = text;
             fixture.detectChanges();
-            dispatchMouseEvent(getPickerTriggerWrapper(), 'click');
+            dispatchMouseEvent(getPickerTriggerElement(), 'click');
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
-            expect(
-                (getPickerContainer()
-                    .querySelector('thy-popover-container')
-                    .querySelector('.thy-date-range-menu-item') as HTMLInputElement).value
-            ).toEqual(text);
+            const lastActionMenuItem = getPickerContainer()
+                .querySelector('thy-popover-container')
+                .querySelector('.thy-date-range-action-menu-container').lastChild;
+            expect((lastActionMenuItem as HTMLElement).innerText).toEqual(text);
         }));
     });
 
-    function getPickerTriggerWrapper(): HTMLInputElement {
-        return debugElement.query(By.css('.thy-date-text')).nativeElement as HTMLInputElement;
+    describe('action api test', () => {
+        beforeEach(() => (fixtureInstance.useSuite = 2));
+        it('should show customDateRanges second text when choose second option', fakeAsync(() => {
+            const value = fixtureInstance.customDateRanges[1].text;
+            fixture.detectChanges();
+            dispatchMouseEvent(getPickerTriggerElement(), 'click');
+            tick(500);
+            fixture.detectChanges();
+            const secondOptional = getPickerContainer()
+                .querySelector('thy-popover-container')
+                .querySelector('.thy-date-range-action-menu-container')
+                .querySelectorAll('.action-menu-item')[1];
+            dispatchMouseEvent(secondOptional, 'click');
+            tick(500);
+            fixture.detectChanges();
+            expect(getPickerTriggerElement().innerText).toEqual(value);
+        }));
+    });
+
+    function getPickerTriggerElement(): HTMLInputElement {
+        return debugElement.query(By.css('.thy-date-range-text')).nativeElement as HTMLInputElement;
     }
 
     function getPickerContainer(): HTMLElement {
@@ -125,44 +146,32 @@ describe('ThyTestDateRangeComponent', () => {
 @Component({
     template: `
         <ng-container [ngSwitch]="useSuite">
-            <!-- Suite 1 -->
+            <!-- Suite 1 for test general Api -->
             <thy-date-range
                 *ngSwitchCase="1"
+                name="generalProperties"
                 [thyHiddenMenu]="hiddenMenu"
                 [thyShowDateValue]="showDateValue"
+                [thyHiddenSwitchRangeIcon]="hiddenSwitchRangeIcon"
                 [thyCustomValue]="customValue"
-                [thyMinDate]="minDate"
-                [thyMaxDate]="maxDate"
-                [(ngModel)]="dateTestModel"
-                name="setTestDate"
                 [dateRanges]="dateRanges"
-                (ngModelChange)="change()"
+                [(ngModel)]="selectedDate"
             ></thy-date-range>
-            <ng-template #tplDateRender let-current>
-                <div [class.test-first-day]="current.getDate() === 1">{{ current.getDate() }}</div>
-            </ng-template>
 
             <!-- Suite 2 -->
-            <!-- use default dateRanges -->
             <thy-date-range
                 *ngSwitchCase="2"
-                [thyShowDateValue]="showDateValue"
-                [thyCustomValue]="customValue"
-                [thyMinDate]="minDate"
-                [thyMaxDate]="maxDate"
-                [(ngModel)]="dateTestModel"
-                name="setTestDate"
-                (ngModelChange)="change()"
+                name="setCustomDateRanges"
+                [dateRanges]="customDateRanges"
+                [(ngModel)]="selectedDate"
             ></thy-date-range>
         </ng-container>
     `
 })
 class ThyTestDateRangeComponent {
     useSuite: 1 | 2 | 3;
-    @ViewChild('tplDateRender', { static: true }) tplDateRender: TemplateRef<Date>;
-    @ViewChild('tplExtraFooter', { static: true }) tplExtraFooter: TemplateRef<void>;
 
-    // dateRanges(value: DateRangeItemInfo[])
+    selectedDate: DateRangeItemInfo;
 
     dateRanges: DateRangeItemInfo[] = [
         {
@@ -177,17 +186,34 @@ class ThyTestDateRangeComponent {
         }
     ];
 
+    customDateRanges: DateRangeItemInfo[] = [
+        {
+            key: 'lastThreeMonths',
+            text: '最近三个月',
+            begin: getUnixTime(startOfMonth(setMonth(new Date(), getMonth(new Date()) - 2))),
+            end: getUnixTime(endOfMonth(new Date())),
+            timestamp: {
+                interval: 3,
+                unit: 'month'
+            }
+        },
+        {
+            key: 'season',
+            text: '本季度',
+            begin: getUnixTime(startOfQuarter(new Date())),
+            end: getUnixTime(endOfQuarter(new Date())),
+            timestamp: {
+                interval: 3,
+                unit: 'month'
+            }
+        }
+    ];
+
     hiddenMenu = false;
 
-    showDateValue: Boolean = false;
+    showDateValue = false;
+
+    hiddenSwitchRangeIcon = false;
 
     customValue = '';
-
-    minDate: Date;
-
-    maxDate: Date;
-
-    dateTestModel: DateRangeItemInfo;
-
-    change(): void {}
 }

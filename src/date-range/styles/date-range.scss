@@ -1,30 +1,38 @@
-.thy-date-range {
-    &.thy-date-range-hidden-menu {
-        .thy-date-text {
-            &:hover {
-                cursor: default;
-            }
-        }
-    }
-    .thy-date-text {
-        padding: 5px 15px;
-        position: relative;
+@mixin activeColor {
+    color: $primary;
+}
 
-        .thy-date-text-caret-down {
+.thy-date-range-container {
+    display: flex;
+    align-items: center;
+    .thy-date-range-text {
+        padding: 0 15px;
+        position: relative;
+        .thy-date-range-text-caret-down {
             display: inline-block;
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
+            transform: rotate(0);
+            transition: transform 0.6s;
             color: $gray-700;
         }
-        &.active {
-            .thy-date-text-caret-down {
-                top: 25%;
+
+        &.thy-date-range-text-active {
+            @include activeColor();
+            .thy-date-range-text-caret-down {
+                @include activeColor();
                 transform: rotate(180deg);
+                transition: transform 0.6s;
             }
         }
         &:hover {
             cursor: pointer;
+            @include activeColor();
+            &.thy-date-range-disabled {
+                cursor: default;
+                color: $gray-800;
+            }
+            .thy-date-range-text-caret-down {
+                @include activeColor();
+            }
         }
     }
 }

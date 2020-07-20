@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DateRangeItemInfo } from '../../../../../src/date-range/date-range.class';
 import { helpers } from '../../../../../src/util';
-
+import { getUnixTime, startOfQuarter, endOfQuarter, setMonth, getMonth, startOfMonth, endOfMonth } from 'date-fns';
 @Component({
     selector: 'demo-date-range-section',
     templateUrl: './date-range-section.component.html'
@@ -21,20 +21,26 @@ export class DemoDateRangeSectionComponent {
 
     public maxDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 7);
 
-    weekDate;
+    public weekDate: DateRangeItemInfo;
 
     public apiParameters = [
         {
-            property: 'thyShowDateValue',
-            description: '显示 YYYY-MM-DD ~ YYYY-MM-DD 格式的日期',
-            type: 'Boolean',
+            property: 'thyHiddenSwitchRangeIcon',
+            description: '隐藏左右切换时间段的 icon',
+            type: 'boolean',
             default: 'false'
         },
         {
-            property: 'thyCustomValue',
+            property: 'thyFormatDateValue',
+            description: '显示 YYYY-MM-DD ~ YYYY-MM-DD 格式的日期',
+            type: 'boolean',
+            default: 'false'
+        },
+        {
+            property: 'thyCustomTextValue',
             description: '自定义日期选择的展示文字',
-            type: 'String',
-            default: ''
+            type: 'string',
+            default: '自定义'
         },
         {
             property: 'thyMinDate',
@@ -55,10 +61,10 @@ export class DemoDateRangeSectionComponent {
             default: ''
         },
         {
-            property: 'dateRanges',
+            property: 'thyOptionalDateRanges',
             description: '可选值列表项',
             type: 'DateRangeItemInfo[]',
-            default: ''
+            default: '[{...}]'
         },
         {
             property: 'ngModelChange',
@@ -68,16 +74,22 @@ export class DemoDateRangeSectionComponent {
         }
     ];
 
-    private _allDayTimestamp = 24 * 60 * 60 * 1000;
-
-    private _currentDayTime: any = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
-
     public dateRanges: DateRangeItemInfo[] = [
         {
-            key: '3month',
-            text: '近三个月',
-            begin: helpers.formatDate(new Date(new Date().getFullYear(), new Date().getMonth() - 2, 1)),
-            end: helpers.formatDate(new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0)),
+            key: 'season',
+            text: '本季度',
+            begin: getUnixTime(startOfQuarter(new Date())),
+            end: getUnixTime(endOfQuarter(new Date())),
+            timestamp: {
+                interval: 3,
+                unit: 'month'
+            }
+        },
+        {
+            key: 'lastThreeMonths',
+            text: '最近三个月',
+            begin: getUnixTime(startOfMonth(setMonth(new Date(), getMonth(new Date()) - 2))),
+            end: getUnixTime(endOfMonth(new Date())),
             timestamp: {
                 interval: 3,
                 unit: 'month'

@@ -1,23 +1,40 @@
-<thy-alert thyType="warning" thyMessage="DateRange 已经被废弃，将在之后的版本中移除，请使用 DatePicker 代替"></thy-alert>
+<app-demo-title title="预设及自定义时间范围选择" introduction="通过下拉菜单选择时间段"></app-demo-title>
 
 <section>
   <div class="header">
-    <h2>date-range 不设置dateRanges</h2>
+    <h3>不设置dateRanges,使用默认数据展示。</h3>
   </div>
   <div class="body">
-    <div class="demo-layout">
-      <thy-date-range [(ngModel)]="date" name="setDateRange" (ngModelChange)="change()"></thy-date-range>
+    <div class="demo-box">
+      <thy-date-range [(ngModel)]="date" name="defaultDateRange" (ngModelChange)="change()"></thy-date-range>
       <span>{{ date | json }}</span>
     </div>
   </div>
 </section>
 
 <section>
-  <div class="header">
-    <h2>date-range 设置dateRanges</h2>
-  </div>
+  <h3 class="header">
+    隐藏左右切换时间段的 icon
+  </h3>
   <div class="body">
-    <div class="demo-layout">
+    <div class="demo-box">
+      <thy-date-range
+        [(ngModel)]="date"
+        name="hiddenSwitchRangeIcon"
+        (ngModelChange)="change()"
+        [thyHiddenSwitchRangeIcon]="true"
+      ></thy-date-range>
+    </div>
+    <span>{{ date | json }}</span>
+  </div>
+</section>
+
+<section>
+  <h3 class="header">
+    设置 dateRanges
+  </h3>
+  <div class="body">
+    <div class="demo-box">
       <thy-date-range
         [(ngModel)]="dateHasConfig"
         name="setDateRangeHasConfig"
@@ -30,17 +47,17 @@
 </section>
 
 <section>
-  <div class="header">
-    <h2>date-range 设置dateRanges 并且显示 date</h2>
-  </div>
+  <h3 class="header">
+    选择之后显示 YYYY-MM-DD 格式的日期
+  </h3>
   <div class="body">
-    <div class="demo-layout">
+    <div class="demo-box">
       <thy-date-range
         [(ngModel)]="dateHasShowDateConfig"
         name="setDateRangeHasConfig"
         [dateRanges]="dateRanges"
         (ngModelChange)="change()"
-        [thyShowDateValue]="true"
+        [thyFormatDateValue]="true"
       ></thy-date-range>
       <span>{{ dateHasShowDateConfig | json }}</span>
     </div>
@@ -48,17 +65,17 @@
 </section>
 
 <section>
-  <div class="header">
-    <h2>自定义日期选择展示文本</h2>
-  </div>
+  <h3 class="header">
+    自定义日期选择展示文本
+  </h3>
   <div class="body">
-    <div class="demo-layout">
+    <div class="demo-box">
       <thy-date-range
         [(ngModel)]="dateHasCustomValue"
         name="setDateRangeHasConfig"
         [dateRanges]="dateRanges"
         (ngModelChange)="change()"
-        thyCustomValue="自定义"
+        thyCustomTextValue="自定义选择文本值"
       ></thy-date-range>
       <span>{{ dateHasCustomValue | json }}</span>
     </div>
@@ -67,15 +84,15 @@
 
 <section>
   <div class="header">
-    <h2>设置最大/最小可选时间</h2>
+    <h3>设置最大/最小可选时间</h3>
   </div>
   <div class="body">
-    <div class="demo-layout">
+    <div class="demo-box">
       <thy-date-range
         [(ngModel)]="dateHasMaxMinDate"
         name="setDateHasMaxMinDate"
         (ngModelChange)="change()"
-        thyCustomValue="自定义"
+        thyCustomTextValue="自定义"
         [thyMinDate]="minDate"
         [thyMaxDate]="maxDate"
       ></thy-date-range>
@@ -85,10 +102,10 @@
 </section>
 <section>
   <div class="header">
-    <h2>隐藏菜单</h2>
+    <h3>隐藏菜单</h3>
   </div>
   <div class="body">
-    <div class="demo-layout">
+    <div class="demo-box">
       <thy-date-range
         [(ngModel)]="weekDate"
         name="setDateRangeHasConfig"
