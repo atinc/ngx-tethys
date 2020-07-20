@@ -85,17 +85,6 @@ describe('ThyTestDateRangeComponent', () => {
             expect(debugElement.queryAll(By.css('.thy-date-range-container .btn-icon')).length).toEqual(0);
         }));
 
-        it('should show yyyy-MM-dd ~ yyyy-MM-dd ', () => {
-            fixtureInstance.showDateValue = true;
-            fixture.detectChanges();
-            const prevDate = new Date(new Date().getFullYear(), new Date().getMonth() - 2, 1);
-            const curDate = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0);
-            const formatStr = 'yyyy-MM-dd';
-            const dateHelper = new DateHelperByDatePipe();
-            const value = [dateHelper.format(prevDate, formatStr), dateHelper.format(curDate, formatStr)].join(' ~ ');
-            expect(getPickerTriggerElement().innerText).toEqual(value);
-        });
-
         it('should show customValue property value when customValue is not empty string', fakeAsync(() => {
             const text = '自定义日期选择入口';
             fixtureInstance.customValue = text;
@@ -151,10 +140,9 @@ describe('ThyTestDateRangeComponent', () => {
                 *ngSwitchCase="1"
                 name="generalProperties"
                 [thyHiddenMenu]="hiddenMenu"
-                [thyShowDateValue]="showDateValue"
-                [thyHiddenSwitchRangeIcon]="hiddenSwitchRangeIcon"
-                [thyCustomValue]="customValue"
-                [dateRanges]="dateRanges"
+                [thyDisabledSwitch]="hiddenSwitchRangeIcon"
+                [thyCustomTextValue]="customValue"
+                [thyOptionalDateRanges]="dateRanges"
                 [(ngModel)]="selectedDate"
             ></thy-date-range>
 
@@ -162,7 +150,7 @@ describe('ThyTestDateRangeComponent', () => {
             <thy-date-range
                 *ngSwitchCase="2"
                 name="setCustomDateRanges"
-                [dateRanges]="customDateRanges"
+                [thyOptionalDateRanges]="customDateRanges"
                 [(ngModel)]="selectedDate"
             ></thy-date-range>
         </ng-container>
@@ -210,8 +198,6 @@ class ThyTestDateRangeComponent {
     ];
 
     hiddenMenu = false;
-
-    showDateValue = false;
 
     hiddenSwitchRangeIcon = false;
 
