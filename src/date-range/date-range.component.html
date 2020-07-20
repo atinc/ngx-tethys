@@ -1,5 +1,5 @@
 <div class="thy-date-range-container">
-  <ng-container *ngIf="!thyHiddenSwitchRangeIcon">
+  <ng-container *ngIf="!thyDisabledSwitch">
     <span href="javascript:;" class="btn btn-icon" (click)="previous()">
       <thy-icon thyIconName="angle-left"></thy-icon>
     </span>
@@ -10,13 +10,13 @@
     class="thy-date-range-text"
     [ngClass]="{ 'thy-date-range-disabled': thyHiddenMenu }"
   >
-    <ng-container *ngIf="selectedDate?.key === 'custom' || thyFormatDateValue">
+    <ng-container *ngIf="selectedDate?.key === 'custom'">
       {{ selectedDate?.begin | thyDatePickerFormat }} ~ {{ selectedDate?.end | thyDatePickerFormat }}
     </ng-container>
-    <ng-container *ngIf="selectedDate?.key !== 'custom' && !thyFormatDateValue">{{ selectedDate?.text }}</ng-container>
+    <ng-container *ngIf="selectedDate?.key !== 'custom'">{{ selectedDate?.text }}</ng-container>
     <thy-icon *ngIf="!thyHiddenMenu" class="thy-date-range-text-caret-down ml-2" thyIconName="angle-down"></thy-icon>
   </span>
-  <ng-container *ngIf="!thyHiddenSwitchRangeIcon">
+  <ng-container *ngIf="!thyDisabledSwitch">
     <span href="javascript:;" class="btn btn-icon" (click)="next()">
       <thy-icon thyIconName="angle-right"></thy-icon>
     </span>

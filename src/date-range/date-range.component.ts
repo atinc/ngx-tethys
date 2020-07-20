@@ -27,15 +27,13 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
 
     @Input() thyHiddenMenu = false;
 
-    @Input() thyFormatDateValue = false;
+    @Input() thyDisabledSwitch = false;
 
     @Input() thyCustomTextValue = '自定义';
 
-    @Input() thyMinDate: Date;
+    @Input() thyMinDate: Date | number;
 
-    @Input() thyMaxDate: Date;
-
-    @Input() thyHiddenSwitchRangeIcon = false;
+    @Input() thyMaxDate: Date | number;
 
     private customKey = 'custom';
 
@@ -203,7 +201,7 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
             manualClosure: true,
             originActiveClass: 'thy-date-range-text-active',
             initialState: {
-                thyHiddenMenu: this.thyHiddenMenu,
+                hiddenMenu: this.thyHiddenMenu,
                 optionalDateRanges: this.optionalDateRanges,
                 selectedDate: this.selectedDate,
                 minDate: this.thyMinDate,

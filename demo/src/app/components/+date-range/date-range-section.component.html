@@ -18,12 +18,7 @@
   </h3>
   <div class="body">
     <div class="demo-box">
-      <thy-date-range
-        [(ngModel)]="date"
-        name="hiddenSwitchRangeIcon"
-        (ngModelChange)="change()"
-        [thyHiddenSwitchRangeIcon]="true"
-      ></thy-date-range>
+      <thy-date-range [(ngModel)]="date" name="disabledSwitch" (ngModelChange)="change()" [thyDisabledSwitch]="true"></thy-date-range>
     </div>
     <span>{{ date | json }}</span>
   </div>
@@ -31,35 +26,17 @@
 
 <section>
   <h3 class="header">
-    设置 dateRanges
+    设置 thyOptionalDateRanges
   </h3>
   <div class="body">
     <div class="demo-box">
       <thy-date-range
         [(ngModel)]="dateHasConfig"
         name="setDateRangeHasConfig"
-        [dateRanges]="dateRanges"
+        [thyOptionalDateRanges]="dateRanges"
         (ngModelChange)="change()"
       ></thy-date-range>
       <span>{{ dateHasConfig | json }}</span>
-    </div>
-  </div>
-</section>
-
-<section>
-  <h3 class="header">
-    选择之后显示 YYYY-MM-DD 格式的日期
-  </h3>
-  <div class="body">
-    <div class="demo-box">
-      <thy-date-range
-        [(ngModel)]="dateHasShowDateConfig"
-        name="setDateRangeHasConfig"
-        [dateRanges]="dateRanges"
-        (ngModelChange)="change()"
-        [thyFormatDateValue]="true"
-      ></thy-date-range>
-      <span>{{ dateHasShowDateConfig | json }}</span>
     </div>
   </div>
 </section>
@@ -73,7 +50,7 @@
       <thy-date-range
         [(ngModel)]="dateHasCustomValue"
         name="setDateRangeHasConfig"
-        [dateRanges]="dateRanges"
+        [thyOptionalDateRanges]="dateRanges"
         (ngModelChange)="change()"
         thyCustomTextValue="自定义选择文本值"
       ></thy-date-range>
@@ -109,7 +86,7 @@
       <thy-date-range
         [(ngModel)]="weekDate"
         name="setDateRangeHasConfig"
-        [dateRanges]="weekDateRanges"
+        [thyOptionalDateRanges]="weekDateRanges"
         (ngModelChange)="change()"
         [thyHiddenMenu]="true"
       ></thy-date-range>

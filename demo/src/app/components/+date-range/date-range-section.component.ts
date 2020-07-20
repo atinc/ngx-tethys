@@ -25,14 +25,8 @@ export class DemoDateRangeSectionComponent {
 
     public apiParameters = [
         {
-            property: 'thyHiddenSwitchRangeIcon',
+            property: 'thyDisabledSwitch',
             description: '隐藏左右切换时间段的 icon',
-            type: 'boolean',
-            default: 'false'
-        },
-        {
-            property: 'thyFormatDateValue',
-            description: '显示 YYYY-MM-DD ~ YYYY-MM-DD 格式的日期',
             type: 'boolean',
             default: 'false'
         },

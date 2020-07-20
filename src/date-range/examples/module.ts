@@ -4,8 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgxTethysModule } from 'ngx-tethys';
 import { ThyDateRangeHiddenMenuExampleComponent } from './hidden-menu/hidden-menu.component';
-import { ThyDateRangeHiddenSwitchIconExampleComponent } from './hidden-switch-icon/hidden-switch-icon.component';
-import { ThyDateRangeFormatSelectedValueExampleComponent } from './format-selected-value/format-selected-value.component';
+import { ThyDateRangeDisabledSwitchIconExampleComponent } from './disabled-switch-icon/disabled-switch-icon.component';
 import { ThyDateRangeCustomTextValueExampleComponent } from './custom-text-value/custom-text-value.component';
 import { ThyDateRangeMinAndMaxDateExampleComponent } from './min-and-max-date/min-and-max-date.component';
 import { ThyDateRangeOptionalDateRangesExampleComponent } from './optional-date-ranges/optional-date-ranges.component';
@@ -13,8 +12,7 @@ import { ThyDateRangeOptionalDateRangesExampleComponent } from './optional-date-
 const COMPONENTS = [
     ThyDateRangeBasicExampleComponent,
     ThyDateRangeHiddenMenuExampleComponent,
-    ThyDateRangeHiddenSwitchIconExampleComponent,
-    ThyDateRangeFormatSelectedValueExampleComponent,
+    ThyDateRangeDisabledSwitchIconExampleComponent,
     ThyDateRangeCustomTextValueExampleComponent,
     ThyDateRangeMinAndMaxDateExampleComponent,
     ThyDateRangeOptionalDateRangesExampleComponent

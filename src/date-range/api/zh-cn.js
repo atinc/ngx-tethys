@@ -11,7 +11,7 @@ module.exports = [
                 default: 'false'
             },
             {
-                name: 'thyHiddenSwitchRangeIcon',
+                name: 'thyDisabledSwitch',
                 description: '隐藏左右切换时间段的 icon',
                 type: 'boolean',
                 default: 'false'
@@ -21,12 +21,6 @@ module.exports = [
                 description: '自定义日期选择的展示文字',
                 type: 'string',
                 default: '自定义'
-            },
-            {
-                name: 'thyFormatDateValue',
-                description: '显示 YYYY-MM-DD ~ YYYY-MM-DD 格式的日期',
-                type: 'boolean',
-                default: 'false'
             },
             {
                 name: 'thyMinDate',
@@ -44,7 +38,13 @@ module.exports = [
                 name: 'thyOptionalDateRanges',
                 description: '可选值列表项',
                 type: 'DateRangeItemInfo[]',
-                default: '[{...}]'
+                default: 'DateRangeItemInfo[]'
+            },
+            {
+                name: 'ngModel',
+                description: '绑定的日期值',
+                type: 'DateRangeItemInfo',
+                default: ''
             }
         ]
     }

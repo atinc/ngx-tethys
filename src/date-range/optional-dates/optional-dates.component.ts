@@ -6,13 +6,17 @@ import { DateRangeItemInfo } from '../date-range.class';
     templateUrl: './optional-dates.component.html'
 })
 export class OptionalDateRangesComponent implements OnInit {
-    @Input() thyHiddenMenu = false;
+    HiddenMenu = false;
 
-    @Input() optionalDateRanges: DateRangeItemInfo[];
+    optionalDateRanges: DateRangeItemInfo[];
 
-    @Input() customValue = '自定义';
+    customValue = '自定义';
 
-    @Input() customKey: string;
+    customKey: string;
+
+    minDate: number | Date;
+
+    maxDate: number | Date;
 
     selectedDateRange: (date: DateRangeItemInfo) => void;
 
