@@ -28,7 +28,7 @@
     }
   },
   "exclude": ["node_modules", "./**/*.spec.ts"],
-  "include": ["./**/*.ts", "./public-api.ts", "./typings.d.ts"],
+  "include": ["./**/*.ts", "./public-api.ts", "./typings.d.ts", "typography/examples/color/.component.ts"],
   "files": ["./typings.d.ts", "./public-api.ts"],
   "angularCompilerOptions": {
     "genDir": "../temp/factories",
