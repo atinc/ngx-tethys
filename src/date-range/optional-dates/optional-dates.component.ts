@@ -6,7 +6,7 @@ import { DateRangeItemInfo } from '../date-range.class';
     templateUrl: './optional-dates.component.html'
 })
 export class OptionalDateRangesComponent implements OnInit {
-    HiddenMenu = false;
+    hiddenMenu = false;
 
     optionalDateRanges: DateRangeItemInfo[];
 
