@@ -30,9 +30,8 @@ const nodes = [
     },
     {
         key: '000003',
-        title: '000003（不可拖入）',
+        title: '000003',
         draggable: true,
-        disabled: true,
         children: []
     },
     {
@@ -68,8 +67,8 @@ export class ThyDragDropBasicExampleComponent implements OnInit {
 
     ngOnInit() {}
 
-    beforeDragStart = (event: ThyDragStartEvent) => {
-        return event;
+    beforeDragStart = (event: ThyDragStartEvent<DragDropNode>) => {
+        return event.item.draggable;
     };
 
     beforeDragOver = () => {
