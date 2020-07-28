@@ -1,8 +1,11 @@
-import { Component, forwardRef, OnInit, Input } from '@angular/core';
+import { Component, forwardRef, OnInit, Input, SimpleChanges } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { DateRangeItemInfo } from './date-range.class';
 import { helpers } from '../util';
+import { ThyPopover } from '../popover';
+import { OptionalDateRangesComponent } from './optional-dates/optional-dates.component';
 
+import { getUnixTime, startOfISOWeek, endOfISOWeek, endOfMonth, startOfMonth, addDays, addMonths, addYears } from 'date-fns';
 const allDayTimestamp = 24 * 60 * 60;
 
 const INPUT_CONTROL_VALUE_ACCESSOR: any = {
@@ -17,58 +20,64 @@ const INPUT_CONTROL_VALUE_ACCESSOR: any = {
     providers: [INPUT_CONTROL_VALUE_ACCESSOR]
 })
 export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
+    @Input()
+    set thyOptionalDateRanges(value: DateRangeItemInfo[]) {
+        this.optionalDateRanges = value.length > 0 ? value : this.optionalDateRanges;
+    }
 
-    private _currentDayTime: any = new Date((new Date()).getFullYear(), (new Date()).getMonth(), (new Date()).getDate());
+    @Input() thyHiddenMenu = false;
+
+    @Input() thyDisabledSwitch = false;
+
+    @Input() thyCustomTextValue = '自定义';
+
+    @Input() thyMinDate: Date | number;
+
+    @Input() thyMaxDate: Date | number;
+
+    private customKey = 'custom';
 
     public selectedDate?: DateRangeItemInfo;
 
-    public optionalDateRange: DateRangeItemInfo[] = [{
-        key: 'week',
-        text: '本周',
-        begin: helpers.formatDate(this._currentDayTime) - (this._currentDayTime.getDay() - 1) * allDayTimestamp,
-        end: helpers.formatDate(this._currentDayTime) + (7 - this._currentDayTime.getDay()) * allDayTimestamp,
-        timestamp: {
-            interval: 7,
-            unit: 'day'
+    public optionalDateRanges: DateRangeItemInfo[] = [
+        {
+            key: 'week',
+            text: '本周',
+            begin: getUnixTime(startOfISOWeek(new Date())),
+            end: getUnixTime(endOfISOWeek(new Date())),
+            timestamp: {
+                interval: 7,
+                unit: 'day'
+            }
+        },
+        {
+            key: 'month',
+            text: '本月',
+            begin: getUnixTime(startOfMonth(new Date())),
+            end: getUnixTime(endOfMonth(new Date())),
+            timestamp: {
+                interval: 1,
+                unit: 'month'
+            }
         }
-    }, {
-        key: 'month',
-        text: '本月',
-        begin: helpers.formatDate(new Date((new Date()).getFullYear(), (new Date()).getMonth(), 1)),
-        end: helpers.formatDate(new Date((new Date()).getFullYear(), (new Date()).getMonth() + 1, 0)),
-        timestamp: {
-            interval: 1,
-            unit: 'month'
-        }
-    }];
+    ];
 
     public selectedDateRange: {
-        begin: { date: number },
-        end: { date: number }
+        begin: number;
+        end: number;
     };
 
-    @Input()
-    set dateRanges(value: DateRangeItemInfo[]) {
-        this.optionalDateRange = value.length > 0 ? value : this.optionalDateRange;
-    }
+    public onModelChange: Function = () => {};
 
-    @Input() hiddenMenu: Boolean = false;
+    public onModelTouched: Function = () => {};
 
-    constructor() { }
-
-    public onModelChange: Function = () => {
-
-    }
-
-    public onModelTouched: Function = () => {
-
-    }
+    constructor(private thyPopover: ThyPopover) {}
 
     writeValue(value: any): void {
         if (value) {
             this.selectedDate = value;
-        } else if (this.optionalDateRange.length > 0) {
-            this.selectedDate = this.optionalDateRange[0];
+        } else if (this.optionalDateRanges.length > 0) {
+            this.selectedDate = this.optionalDateRanges[0];
             this.onModelChange(this.selectedDate);
         }
         this._setSelectedDateRange();
@@ -82,17 +91,16 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
         this.onModelTouched = fn;
     }
 
-    ngOnInit() {
-    }
+    ngOnInit() {}
 
     private _setSelectedDateRange() {
         this.selectedDateRange = {
-            begin: { date: this.selectedDate.begin },
-            end: { date: this.selectedDate.end }
+            begin: this.selectedDate.begin,
+            end: this.selectedDate.end
         };
     }
 
-    private _getNewDate(fullDate: Date, timestamp: { year?: number, month?: number, day?: number } = {}) {
+    private _getNewDate(fullDate: Date, timestamp: { year?: number; month?: number; day?: number } = {}) {
         const newYear = fullDate.getFullYear() + (timestamp.year || 0);
         const newMonth = fullDate.getMonth() + (timestamp.month || 0);
         const newDate = fullDate.getDate() + (timestamp.day || 0);
@@ -104,56 +112,66 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
         if (this.selectedDate.timestamp) {
             const beginDate = new Date(this.selectedDate.begin * 1000);
             const endDate = new Date(this.selectedDate.end * 1000);
+            const interval = this.selectedDate.timestamp.interval;
+
             if (this.selectedDate.timestamp.unit === 'day') {
                 if (type === 'previous') {
                     return {
-                        begin: this._getNewDate(beginDate, { day: -this.selectedDate.timestamp.interval }),
-                        end: this._getNewDate(beginDate, { day: -1 }),
-                        key: 'custom'
+                        begin: getUnixTime(addDays(beginDate, -1 * interval)),
+                        end: getUnixTime(addDays(endDate, -1 * interval)),
+                        key: this.customKey
                     };
                 } else {
                     return {
-                        begin: this._getNewDate(endDate, { day: 1 }),
-                        end: this._getNewDate(endDate, { day: this.selectedDate.timestamp.interval }),
-                        key: 'custom'
+                        begin: getUnixTime(addDays(beginDate, 1 * interval)),
+                        end: getUnixTime(addDays(endDate, 1 * interval)),
+                        key: this.customKey
                     };
                 }
             } else if (this.selectedDate.timestamp.unit === 'month') {
                 if (type === 'previous') {
                     return {
-                        begin: this._getNewDate(beginDate, { month: -this.selectedDate.timestamp.interval }),
-                        end: this._getNewDate(endDate, { month: -this.selectedDate.timestamp.interval + 1, day: -endDate.getDate() }),
-                        key: 'custom'
+                        begin: getUnixTime(addMonths(beginDate, -1 * interval)),
+                        end: getUnixTime(addMonths(endDate, -1 * interval)),
+                        key: this.customKey
                     };
                 } else {
                     return {
-                        begin: this._getNewDate(beginDate, { month: this.selectedDate.timestamp.interval }),
-                        end: this._getNewDate(endDate, { month: this.selectedDate.timestamp.interval + 1, day: -endDate.getDate() }),
-                        key: 'custom'
+                        begin: getUnixTime(addMonths(beginDate, 1 * interval)),
+                        end: getUnixTime(addMonths(endDate, 1 * interval)),
+                        key: this.customKey
                     };
                 }
             } else if (this.selectedDate.timestamp.unit === 'year') {
                 if (type === 'previous') {
                     return {
-                        begin: this._getNewDate(beginDate, { year: -this.selectedDate.timestamp.interval }),
-                        end: this._getNewDate(endDate, { year: -this.selectedDate.timestamp.interval }),
-                        key: 'custom'
+                        begin: getUnixTime(addYears(beginDate, -1 * interval)),
+                        end: getUnixTime(addYears(endDate, -1 * interval)),
+                        key: this.customKey
                     };
                 } else {
                     return {
-                        begin: this._getNewDate(beginDate, { year: this.selectedDate.timestamp.interval }),
-                        end: this._getNewDate(endDate, { year: this.selectedDate.timestamp.interval }),
-                        key: 'custom'
+                        begin: getUnixTime(addYears(beginDate, 1 * interval)),
+                        end: getUnixTime(addYears(endDate, 1 * interval)),
+                        key: this.customKey
                     };
                 }
             }
         } else {
             const interval: number = this.selectedDate.end - this.selectedDate.begin + allDayTimestamp;
-            return {
-                begin: this.selectedDate.begin - interval,
-                end: this.selectedDate.end - interval,
-                key: 'custom'
-            };
+            if (type === 'previous') {
+                return {
+                    begin: this.selectedDate.begin - interval,
+                    end: this.selectedDate.end - interval,
+                    key: this.customKey
+                };
+            } else {
+                return {
+                    begin: this.selectedDate.begin + interval,
+                    end: this.selectedDate.end + interval,
+                    key: this.customKey
+                };
+            }
         }
     }
 
@@ -171,19 +189,30 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
         this._setPreviousOrNextDate('next');
     }
 
-    public selectDateRange(dateRange: DateRangeItemInfo) {
-        this.selectedDate = dateRange;
-        this._setSelectedDateRange();
-        this.onModelChange(this.selectedDate);
+    public openOptionalDateRangesMenu(event: Event) {
+        if (this.thyHiddenMenu) {
+            return;
+        }
+        this.thyPopover.open(OptionalDateRangesComponent, {
+            origin: event.currentTarget as HTMLElement,
+            hasBackdrop: true,
+            backdropClass: 'thy-overlay-transparent-backdrop',
+            offset: 0,
+            manualClosure: true,
+            originActiveClass: 'thy-date-range-text-active',
+            initialState: {
+                hiddenMenu: this.thyHiddenMenu,
+                optionalDateRanges: this.optionalDateRanges,
+                selectedDate: this.selectedDate,
+                minDate: this.thyMinDate,
+                maxDate: this.thyMaxDate,
+                customValue: this.thyCustomTextValue,
+                customKey: this.customKey,
+                selectedDateRange: (dateRange: DateRangeItemInfo) => {
+                    this.onModelChange(dateRange);
+                    this.selectedDate = dateRange;
+                }
+            }
+        });
     }
-
-    public changeDate() {
-        this.selectedDate = {
-            begin: this.selectedDateRange.begin.date,
-            end: this.selectedDateRange.end.date,
-            key: 'custom',
-        };
-        this.onModelChange(this.selectedDate);
-    }
-
 }
