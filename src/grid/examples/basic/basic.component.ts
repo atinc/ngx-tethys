@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyMultiSelectEvent, ThyGridRowEvent } from 'ngx-tethys';
+import { ThyMultiSelectEvent, ThyGridRowEvent, ThyGridSize, ThyGridTheme } from 'ngx-tethys';
 
 @Component({
     selector: 'thy-grid-basic-example',
@@ -7,6 +7,10 @@ import { ThyMultiSelectEvent, ThyGridRowEvent } from 'ngx-tethys';
 })
 export class ThyGridBasicExampleComponent implements OnInit {
     public cloneModel: any[];
+
+    public size: ThyGridSize = 'default';
+
+    public theme: ThyGridTheme = 'default';
 
     public model = [
         {
@@ -115,8 +119,6 @@ export class ThyGridBasicExampleComponent implements OnInit {
         total: 12
     };
 
-    public size = 'default';
-
     ngOnInit() {
         this.cloneModel = this.model;
         this.model = this.cloneModel.slice(0, this.pagination.index * this.pagination.size);
@@ -142,12 +144,6 @@ export class ThyGridBasicExampleComponent implements OnInit {
         this.selections = [...this.selections];
         console.log(event);
         console.log(this.selections);
-    }
-
-    gridRowClassName(row: any, index: number) {
-        if (!row.is_favorite) {
-            return 'table-draggable-ignore-item thy-grid-item-hover-display-operation';
-        }
     }
 
     onRadioSelectChange(event: any) {
