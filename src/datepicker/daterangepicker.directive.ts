@@ -57,6 +57,9 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
     @Input() thyDisabled = false;
     @Input() thyShowTime = false;
     @Input() thyFormat: string = null;
+    @Input() thyCustomValue = '';
+    @Input() thyMinDate: Date;
+    @Input() thyMaxDate: Date;
     // @Output() thyOnChange: EventEmitter<any> = new EventEmitter();
     @HostBinding('class.cursor-pointer')
     get isCursorPointerClass() {
@@ -187,7 +190,7 @@ export class ThyDaterangepickerDirective implements OnInit, AfterContentInit, Co
             initialDate = '';
         }
 
-        this._renderer.setProperty(this._elementRef.nativeElement, 'value', initialDate);
+        this._renderer.setProperty(this._elementRef.nativeElement, 'value', this.thyCustomValue ? this.thyCustomValue : initialDate);
     }
 
     private _formatBeginTime(begin?: Date): number {
