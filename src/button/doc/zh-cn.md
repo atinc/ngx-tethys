@@ -2,7 +2,6 @@
 category: general
 title: Button
 subtitle: 按钮
-order: 10
 ---
 
 ## 按钮组件
