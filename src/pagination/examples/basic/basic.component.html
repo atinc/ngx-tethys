@@ -1,0 +1,17 @@
+<div thyRow [thyGutter]="200" class="pagination-flex">
+  <div thyCol [thySpan]="8">
+    <div class="demo-col-section">当前页码：<input thyInput [(ngModel)]="pagination.pageIndex" placeholder="当前页码" /></div>
+  </div>
+  <div thyCol [thySpan]="8">
+    <div class="demo-col-section">当前每页数量：<input thyInput [(ngModel)]="pagination.pageSize" placeholder="每页数量" /></div>
+  </div>
+  <div thyCol [thySpan]="8">
+    <div class="demo-col-section">总页数：<input thyInput [(ngModel)]="pagination.total" placeholder="总页数" /></div>
+  </div>
+</div>
+<thy-pagination
+  [(thyPageIndex)]="pagination.pageIndex"
+  [thyPageSize]="pagination.pageSize"
+  [thyTotal]="pagination.total"
+  [thyShowQuickJumper]="false"
+></thy-pagination>
