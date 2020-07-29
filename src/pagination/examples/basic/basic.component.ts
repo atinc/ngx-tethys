@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'thy-pagination-base-example',
-    templateUrl: './base.component.html',
-    styleUrls: ['./base.component.css']
+    selector: 'thy-pagination-basic-example',
+    templateUrl: './basic.component.html'
 })
-export class ThyPaginationBaseExampleComponent implements OnInit {
+export class ThyPaginationBasicExampleComponent implements OnInit {
     public pagination = {
         pageIndex: 1,
         pageSize: 20,
