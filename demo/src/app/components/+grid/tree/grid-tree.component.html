@@ -1,10 +1,4 @@
-<thy-grid
-  [thyModel]="model"
-  thyRowKey="id"
-  thyMode="tree"
-  thyRowChildrenKey="items"
-  thyRowClassName="thy-grid-item-hover-display-operation"
->
+<thy-grid [thyModel]="model" thyRowKey="id" thyMode="tree" thyChildrenKey="items" thyRowClassName="thy-grid-item-hover-display-operation">
   <thy-grid-column thyTitle="姓名">
     <ng-template #cell let-row>
       <span>{{ row?.name }}</span>

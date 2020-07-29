@@ -115,7 +115,7 @@ module.exports = [
                 default: '20'
             },
             {
-                name: 'thyRowChildrenKey',
+                name: 'thyChildrenKey',
                 description: '设置Tree树状数据对象中的子节点 key',
                 type: 'String',
                 default: 'children'

@@ -72,7 +72,7 @@
           <!--template-->
           <ng-container *ngIf="isTemplateRef(column.templateRef)">
             <thy-icon
-              class="cursor-pointer"
+              class="thy-tree-expand cursor-pointer"
               *ngIf="mode === 'tree' && j === 0"
               [thyIconName]="isExpanded(row) ? 'angle-down' : 'angle-right'"
               [style.visibility]="showExpand(row) ? 'visible' : 'hidden'"
@@ -87,7 +87,7 @@
             <!-- default -->
             <ng-container *ngIf="column.model && !column.type">
               <thy-icon
-                class="cursor-pointer"
+                class="thy-tree-expand cursor-pointer"
                 *ngIf="mode === 'tree' && j === 0"
                 [thyIconName]="isExpanded(row) ? 'angle-down' : 'angle-right'"
                 [style.visibility]="showExpand(row) ? 'visible' : 'hidden'"
@@ -147,7 +147,7 @@
 
       <ng-container *ngIf="mode === 'tree' && isExpanded(row)">
         <ng-template
-          *ngFor="let child of row[thyRowChildrenKey]; trackBy: trackByFn; let j = index"
+          *ngFor="let child of row[thyChildrenKey]; trackBy: trackByFn; let j = index"
           [ngTemplateOutlet]="trTemplate"
           [ngTemplateOutletContext]="{ row: child, index: j, level: level + 1 }"
         ></ng-template>
