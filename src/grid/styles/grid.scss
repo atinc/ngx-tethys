@@ -31,6 +31,11 @@
     display: block;
 
     .thy-grid-group {
+        &:hover {
+            cursor: pointer;
+            background-color: $table-hover-color;
+        }
+
         td {
             padding: 0;
         }
@@ -38,7 +43,6 @@
             display: flex;
             align-items: center;
             .expand-icon {
-                cursor: pointer;
                 color: $gray-500;
                 margin-right: 5px;
             }

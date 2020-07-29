@@ -46,7 +46,7 @@ export type ThyGridTheme = 'default' | 'bordered';
 
 export type ThyGridMode = 'list' | 'group';
 
-export type ThyGridSize = 'sm';
+export type ThyGridSize = 'default' | 'sm';
 
 interface ThyGridGroup<T = unknown> {
     id?: string;
@@ -102,7 +102,7 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
 
     public className = '';
 
-    public size: ThyGridSize;
+    public size: ThyGridSize = 'default';
 
     public rowClassName: string | Function;
 

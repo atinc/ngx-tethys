@@ -18,7 +18,7 @@ export const apiParameters = [
         default: ''
     },
     {
-        property: 'thySrc',
+        property: 'thyIcon',
         description: 'result icon url',
         type: 'string',
         default: ''
