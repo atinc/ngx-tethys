@@ -1,0 +1,19 @@
+<p><code>thyDropdownSplit</code> 与 <code>thy-button-group</code> 一同使用，达成分列式下拉菜单的效果。</p>
+<thy-button-group>
+  <button thyButton="primary" thyIcon="plus-circle">分列式下拉菜单</button>
+  <button thyDropdownSplit thyButton="primary" [thyActionMenuToggle]="menuList"></button>
+</thy-button-group>
+<thy-button-group>
+  <button thyButton="primary-square" thyIcon="wtf-upload">分列式下拉菜单</button>
+  <button thyButton="primary-square" thyDropdownSplit [thyActionMenuToggle]="menuList"></button>
+</thy-button-group>
+<ng-template #menuList>
+  <thy-action-menu>
+    <a thyActionMenuItem href="javascript:;">
+      <span>Dropdown link</span>
+    </a>
+    <a thyActionMenuItem href="javascript:;">
+      <span>Dropdown link</span>
+    </a>
+  </thy-action-menu>
+</ng-template>

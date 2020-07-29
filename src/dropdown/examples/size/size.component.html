@@ -1,0 +1,24 @@
+<thy-button-group class="mb-3" thySize="md" thyType="outline-default">
+  <button
+    thyButton
+    *ngFor="let size of datePickerSizes"
+    (click)="activeSize = size.identifier"
+    [ngClass]="{ active: size.identifier === activeSize }"
+  >
+    {{ size.identifier }} - {{ size.value }}
+  </button>
+</thy-button-group>
+<br />
+<button thyDropdown thyButton="outline-default" [thySize]="activeSize" thyIcon="wtf-upload" [thyActionMenuToggle]="menuList">
+  可调整大小的下拉菜单
+</button>
+<ng-template #menuList>
+  <thy-action-menu>
+    <a thyActionMenuItem href="javascript:;">
+      <span>Dropdown link</span>
+    </a>
+    <a thyActionMenuItem href="javascript:;">
+      <span>Dropdown link</span>
+    </a>
+  </thy-action-menu>
+</ng-template>
