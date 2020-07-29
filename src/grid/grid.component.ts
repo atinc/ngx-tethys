@@ -45,7 +45,7 @@ import { DOCUMENT } from '@angular/common';
 
 export type ThyGridTheme = 'default' | 'bordered';
 
-export type ThyGridMode = 'list' | 'group';
+export type ThyGridMode = 'list' | 'group' | 'tree';
 
 export type ThyGridSize = 'default' | 'sm';
 
