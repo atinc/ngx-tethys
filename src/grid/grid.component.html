@@ -18,14 +18,10 @@
     <!-- group -->
     <ng-container *ngIf="mode === 'group'">
       <ng-container *ngFor="let group of groups">
-        <tr class="thy-grid-group">
+        <tr class="thy-grid-group" (click)="expandGroup(group)">
           <td [attr.colspan]="columns.length">
             <div class="thy-grid-group-container">
-              <thy-icon
-                class="expand-icon"
-                (click)="expandGroup(group)"
-                [thyIconName]="group.expand ? 'angle-down' : 'angle-right'"
-              ></thy-icon>
+              <thy-icon class="expand-icon" [thyIconName]="group.expand ? 'angle-down' : 'angle-right'"></thy-icon>
               <ng-container *ngIf="groupTemplate">
                 <ng-template
                   [ngTemplateOutlet]="groupTemplate"
