@@ -85,7 +85,7 @@ module.exports = [
         ]
     },
     {
-        type: 'component',
+        type: 'service',
         name: 'PaginationConfig 参数列表',
         description: '分页配置参数，需要一个初始化的默认值，用于设置分页的具体样式和分页首次加载后的默认显示',
         properties: [
