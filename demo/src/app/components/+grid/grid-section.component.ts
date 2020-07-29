@@ -3,6 +3,8 @@ import { LiveDemoCodeExample } from '../../core/live-demo/live-demo.component';
 import { DemoGridDefaultComponent } from './default/grid-default.component';
 import { DemoGridBorderedComponent } from './bordered/grid-bordered.component';
 import { DemoGridGroupComponent } from './group/grid-group.component';
+import { DemoGridTreeComponent } from './tree/grid-tree.component';
+
 @Component({
     selector: 'demo-grid-section',
     templateUrl: './grid-section.component.html'
@@ -59,6 +61,23 @@ export class DemoGridSectionComponent implements OnInit {
                     content: require('!!raw-loader!./group/grid-group.component.ts')
                 }
             ]
+        },
+        {
+            title: 'Tree Grid',
+            component: DemoGridTreeComponent,
+            description: 'thyTheme="default"',
+            codeExamples: [
+                {
+                    type: 'html',
+                    name: 'grid-tree.component.html',
+                    content: require('!!raw-loader!./tree/grid-tree.component.html')
+                },
+                {
+                    type: 'ts',
+                    name: 'grid-tree.component.ts',
+                    content: require('!!raw-loader!./tree/grid-tree.component.ts')
+                }
+            ]
         }
     ];
 
@@ -75,7 +94,7 @@ export class DemoGridSectionComponent implements OnInit {
             type: 'String',
             default: '_id'
         },
-        { property: 'thyMode', description: 'Grid 展示方式，分组或列表', type: 'list | group', default: 'list' },
+        { property: 'thyMode', description: 'Grid 展示方式，分组或列表', type: 'list | group | tree', default: 'list' },
         { property: 'thyGroupBy', description: 'Grid分组展示时分组key ', type: 'string', default: '' },
         {
             property: 'thyTheme',
@@ -166,6 +185,18 @@ export class DemoGridSectionComponent implements OnInit {
             description: '是否显示header',
             type: 'Boolean',
             default: 'true'
+        },
+        {
+            property: 'thyIndent',
+            description: '设置Tree树状数据展示时的缩进',
+            type: 'Number',
+            default: '20'
+        },
+        {
+            property: 'thyRowChildrenKey',
+            description: '设置Tree树状数据对象中的子节点 key',
+            type: 'String',
+            default: 'children'
         },
         {
             property: '(thyOnRowClick)',

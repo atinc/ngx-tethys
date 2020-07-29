@@ -2,6 +2,7 @@
   <colgroup>
     <col *ngFor="let column of columns" [width]="column.width" />
   </colgroup>
+
   <thead *ngIf="thyShowHeader">
     <tr>
       <th *ngFor="let column of columns" [ngClass]="column.headerClassName">
@@ -14,6 +15,7 @@
       </th>
     </tr>
   </thead>
+
   <tbody *ngIf="loadingDone" thyDragDrop cdkDropList [cdkDropListDisabled]="!draggable" (cdkDropListDropped)="onDragDropped($event)">
     <!-- group -->
     <ng-container *ngIf="mode === 'group'">
@@ -32,21 +34,22 @@
           </td>
         </tr>
         <ng-container *ngIf="group.children?.length && group.expand">
-          <ng-template
-            [ngTemplateOutlet]="gridList"
-            [ngTemplateOutletContext]="{ $implicit: group.children, model: group.children }"
-          ></ng-template>
+          <ng-container *ngFor="let row of group.children; trackBy: trackByFn; let i = index">
+            <ng-template [ngTemplateOutlet]="trTemplate" [ngTemplateOutletContext]="{ row: row, index: i, level: 0 }"></ng-template>
+          </ng-container>
         </ng-container>
       </ng-container>
     </ng-container>
-    <ng-container *ngIf="mode === 'list'">
-      <ng-template [ngTemplateOutlet]="gridList" [ngTemplateOutletContext]="{ $implicit: model }"></ng-template>
+
+    <ng-container *ngIf="['list', 'tree'].includes(mode)">
+      <ng-container *ngFor="let row of model; trackBy: trackByFn; let i = index">
+        <ng-template [ngTemplateOutlet]="trTemplate" [ngTemplateOutletContext]="{ row: row, index: i, level: 0 }"></ng-template>
+      </ng-container>
     </ng-container>
 
-    <ng-template #gridList let-model>
+    <ng-template #trTemplate let-row="row" let-i="index" let-level="level">
       <tr
         class="thy-sortable-item"
-        *ngFor="let row of model; let i = index; trackBy: trackByFn"
         cdkDrag
         [cdkDragData]="row"
         (cdkDragStarted)="onDragStarted()"
@@ -65,14 +68,32 @@
           <ng-container *ngIf="j === 0 && draggable">
             <thy-icon class="table-draggable-icon" thyIconName="drag"></thy-icon>
           </ng-container>
+
           <!--template-->
           <ng-container *ngIf="isTemplateRef(column.templateRef)">
+            <thy-icon
+              class="cursor-pointer"
+              *ngIf="mode === 'tree' && j === 0"
+              [thyIconName]="isExpanded(row) ? 'angle-down' : 'angle-right'"
+              [style.visibility]="showExpand(row) ? 'visible' : 'hidden'"
+              [style.marginLeft]="indentCompute(row, level, j)"
+              (click)="expandChildren($event, row)"
+            ></thy-icon>
             <ng-template [ngTemplateOutlet]="column.templateRef" [ngTemplateOutletContext]="{ $implicit: row }"></ng-template>
           </ng-container>
+
           <!--not template-->
           <ng-container *ngIf="!isTemplateRef(column.templateRef)">
             <!-- default -->
             <ng-container *ngIf="column.model && !column.type">
+              <thy-icon
+                class="cursor-pointer"
+                *ngIf="mode === 'tree' && j === 0"
+                [thyIconName]="isExpanded(row) ? 'angle-down' : 'angle-right'"
+                [style.visibility]="showExpand(row) ? 'visible' : 'hidden'"
+                [style.marginLeft]="indentCompute(row, level, j)"
+                (click)="expandChildren($event, row)"
+              ></thy-icon>
               <ng-container *ngIf="getModelValue(row, column.model) | isValidModelValue; else default">
                 {{ getModelValue(row, column.model) }}
               </ng-container>
@@ -82,10 +103,12 @@
                 </div>
               </ng-template>
             </ng-container>
+
             <!-- index -->
             <ng-container *ngIf="column.type === customType.index">
               {{ i + 1 }}
             </ng-container>
+
             <!-- checkbox -->
             <ng-container *ngIf="column.type === customType.checkbox">
               <input
@@ -96,6 +119,7 @@
                 [disabled]="column.disabled"
               />
             </ng-container>
+
             <!-- radio -->
             <ng-container *ngIf="column.type === customType.radio">
               <input
@@ -107,6 +131,7 @@
                 (change)="onRadioSelectChange($event, row)"
               />
             </ng-container>
+
             <!-- switch -->
             <ng-container *ngIf="column.type === customType.switch">
               <thy-switch
@@ -119,6 +144,14 @@
           </ng-container>
         </td>
       </tr>
+
+      <ng-container *ngIf="mode === 'tree' && isExpanded(row)">
+        <ng-template
+          *ngFor="let child of row[thyRowChildrenKey]; trackBy: trackByFn; let j = index"
+          [ngTemplateOutlet]="trTemplate"
+          [ngTemplateOutletContext]="{ row: child, index: j, level: level + 1 }"
+        ></ng-template>
+      </ng-container>
     </ng-template>
 
     <tr *ngIf="model.length === 0 && groups.length === 0" class="clear-hover">
@@ -139,8 +172,10 @@
     </tr>
   </tbody>
 </table>
+
 <thy-loading [thyDone]="loadingDone" [thyTip]="loadingText"></thy-loading>
-<div *ngIf="pagination.total > pagination.size" class="thy-grid-footer" [class.thy-grid-footer-has-padding]="theme === 'default'">
+
+<div class="thy-grid-footer" *ngIf="pagination.total > pagination.size" [class.thy-grid-footer-has-padding]="theme === 'default'">
   <thy-pagination
     [thyPageIndex]="pagination.index"
     [thyTotal]="pagination.total"
@@ -150,4 +185,7 @@
     (thyPageIndexChange)="onPageIndexChange($event)"
   ></thy-pagination>
 </div>
-<ng-template><ng-content></ng-content></ng-template>
+
+<ng-template>
+  <ng-content></ng-content>
+</ng-template>

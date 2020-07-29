@@ -20,6 +20,7 @@ import {
     Inject,
     ContentChild
 } from '@angular/core';
+import { Dictionary } from 'ngx-tethys/typings';
 import { get, set, isString, coerceBooleanProperty, keyBy } from '../util/helpers';
 import {
     ThyGridColumn,
@@ -241,6 +242,10 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
 
     @Input('thyShowTotal') showTotal = false;
 
+    @Input() thyIndent = 20;
+
+    @Input() thyRowChildrenKey = 'children';
+
     @HostBinding('class.thy-grid-hover-display-operation')
     @Input()
     thyHoverDisplayOperation: boolean;
@@ -273,6 +278,9 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
     }
 
     @HostBinding('class.thy-grid') isGridClass = true;
+
+    // 数据的折叠展开状态
+    public expandStatusMap: Dictionary<boolean> = {};
 
     constructor(
         public elementRef: ElementRef,
@@ -483,6 +491,29 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
             }
         };
         this.thyOnSwitchChange.emit(switchEvent);
+    }
+
+    showExpand(row: any) {
+        return row[this.thyRowChildrenKey] && row[this.thyRowChildrenKey].length > 0;
+    }
+
+    isExpanded(row: any) {
+        return this.expandStatusMap[row[this.rowKey]];
+    }
+
+    indentCompute(row: any, level: number, index: number) {
+        const defaultPaddingLeft = `${this.thyIndent}px`;
+        const paddingLeft = this.showExpand(row) ? `${level * this.thyIndent}px` : `${level * this.thyIndent}px`;
+        return index === 0 ? paddingLeft : defaultPaddingLeft;
+    }
+
+    expandChildren(event: Event, row: any) {
+        event.stopPropagation();
+        if (this.isExpanded(row)) {
+            this.expandStatusMap[row[this.rowKey]] = false;
+        } else {
+            this.expandStatusMap[row[this.rowKey]] = true;
+        }
     }
 
     onDragStarted() {
