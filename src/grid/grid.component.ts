@@ -244,7 +244,7 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
 
     @Input() thyIndent = 20;
 
-    @Input() thyRowChildrenKey = 'children';
+    @Input() thyChildrenKey = 'children';
 
     @HostBinding('class.thy-grid-hover-display-operation')
     @Input()
@@ -494,7 +494,7 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
     }
 
     showExpand(row: any) {
-        return row[this.thyRowChildrenKey] && row[this.thyRowChildrenKey].length > 0;
+        return row[this.thyChildrenKey] && row[this.thyChildrenKey].length > 0;
     }
 
     isExpanded(row: any) {

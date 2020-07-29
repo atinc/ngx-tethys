@@ -193,7 +193,7 @@ export class DemoGridSectionComponent implements OnInit {
             default: '20'
         },
         {
-            property: 'thyRowChildrenKey',
+            property: 'thyChildrenKey',
             description: '设置Tree树状数据对象中的子节点 key',
             type: 'String',
             default: 'children'
