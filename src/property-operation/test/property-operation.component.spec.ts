@@ -5,6 +5,7 @@ import { By } from '@angular/platform-browser';
 import { ThyPropertyOperationComponent } from '../property-operation.component';
 import { ThyButtonIconComponent } from '../../button';
 import { injectDefaultSvgIconSet, bypassSanitizeProvider, defaultSvgHtml } from '../../core/testing';
+import { active } from 'sortablejs';
 
 //#region test component
 
@@ -15,6 +16,7 @@ import { injectDefaultSvgIconSet, bypassSanitizeProvider, defaultSvgHtml } from 
             [thyLabelText]="thyLabelText"
             [thyType]="thyType"
             [thyValue]="thyValue"
+            [ngClass]="{ active: active }"
             [thyDisabled]="disabled"
             [thyLabelHasValue]="thyLabelHasValue"
             [thyShowClose]="thyShowClose"
@@ -32,6 +34,8 @@ class PropertyOperationBasicComponent {
     thyShowClose = true;
 
     disabled = false;
+
+    active = false;
 
     thyValue = '2012-12-21';
 
@@ -89,6 +93,12 @@ describe('ThyPropertyOperation', () => {
             expect(btnIcon.nativeElement.classList.contains(`btn`)).toBeTruthy();
             expect(btnIcon.nativeElement.classList.contains(`btn-icon`)).toBeTruthy();
             expect(btnIcon.nativeElement.classList.contains(`btn-icon-circle`)).toBeTruthy();
+        });
+
+        it('should add correct active class name', () => {
+            componentInstance.active = true;
+            fixture.detectChanges();
+            expect(propertyOperationElement.classList.contains(`active`)).toBeTruthy();
         });
 
         it('should get correct value', () => {
