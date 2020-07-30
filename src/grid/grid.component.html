@@ -41,7 +41,7 @@
       </ng-container>
     </ng-container>
 
-    <ng-container *ngIf="['list', 'tree'].includes(mode)">
+    <ng-container *ngIf="mode === 'list' || mode === 'tree'">
       <ng-container *ngFor="let row of model; trackBy: trackByFn; let i = index">
         <ng-template [ngTemplateOutlet]="trTemplate" [ngTemplateOutletContext]="{ row: row, index: i, level: 0 }"></ng-template>
       </ng-container>
