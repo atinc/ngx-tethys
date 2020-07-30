@@ -2,134 +2,35 @@
   <thy-menu>
     <thy-menu-group thyTitle="工作" [thyExpand]="true" [thyShowAction]="true" (thyOnActionClick)="openActionMenu($event, menu)">
       <a thyMenuItem href="javascript:;">
-        <i thyMenuItemIcon class="wtf wtf-my"></i> <span thyMenuItemName> 我的工作 </span>
-        <i thyMenuItemAction class="wtf wtf-more-lg"></i>
+        <span thyMenuItemIcon>
+          <thy-icon thyIconName="user-check-fill"></thy-icon>
+        </span>
+        <span thyMenuItemName> 我的工作 </span>
+        <span thyMenuItemAction>
+          <thy-icon thyIconName="more"></thy-icon>
+        </span>
       </a>
 
       <a thyMenuItem class="active" href="javascript:;">
-        <i thyMenuItemIcon class="wtf wtf-analytic-insight"></i> <span thyMenuItemName> 统计报表 </span>
-        <i thyMenuItemAction class="wtf wtf-more-lg"></i>
+        <span thyMenuItemIcon><thy-icon thyIconName="pie-fill"></thy-icon></span>
+        <span thyMenuItemName> 统计报表 </span>
+        <span thyMenuItemAction><thy-icon thyIconName="more"></thy-icon></span>
       </a>
-
-      <a thyMenuItem href="javascript:;">
-        <i thyMenuItemIcon class="wtf wtf-work-workload"></i> <span thyMenuItemName> 工时视图 </span>
-        <i thyMenuItemAction class="wtf wtf-more-lg"></i>
-      </a>
-      <a thyMenuItem href="javascript:;">
-        <i thyMenuItemIcon class="wtf wtf-work-timeline"></i> <span thyMenuItemName> 时间视图 </span>
-        <i thyMenuItemAction class="wtf wtf-more-lg"></i>
-      </a>
-      <thy-menu-group thyTitle="工作" [thyShowAction]="true" [thyShowIcon]="true">
-        <a thyMenuItem href="javascript:;">
-          <i thyMenuItemIcon class="wtf wtf-my"></i> <span thyMenuItemName> 我的工作 </span>
-          <i thyMenuItemAction class="wtf wtf-more-lg"></i>
-        </a>
-
-        <a thyMenuItem class="active" href="javascript:;">
-          <i thyMenuItemIcon class="wtf wtf-analytic-insight"></i> <span thyMenuItemName> 统计报表 </span>
-          <i thyMenuItemAction class="wtf wtf-more-lg"></i>
-        </a>
-
-        <thy-menu-group thyTitle="工作" [thyShowAction]="true">
-          <a thyMenuItem href="javascript:;">
-            <i thyMenuItemIcon class="wtf wtf-my"></i> <span thyMenuItemName> 我的工作 </span>
-            <i thyMenuItemAction class="wtf wtf-more-lg"></i>
-          </a>
-
-          <a thyMenuItem class="active" href="javascript:;">
-            <i thyMenuItemIcon class="wtf wtf-analytic-insight"></i> <span thyMenuItemName> 统计报表 </span>
-            <i thyMenuItemAction class="wtf wtf-more-lg"></i>
-          </a>
-
-          <a thyMenuItem href="javascript:;">
-            <i thyMenuItemIcon class="wtf wtf-work-workload"></i> <span thyMenuItemName> 工时视图 </span>
-            <i thyMenuItemAction class="wtf wtf-more-lg"></i>
-          </a>
-          <a thyMenuItem href="javascript:;">
-            <i thyMenuItemIcon class="wtf wtf-work-timeline"></i> <span thyMenuItemName> 时间视图 </span>
-            <i thyMenuItemAction class="wtf wtf-more-lg"></i>
-          </a>
-          <thy-menu-group thyTitle="工作1" [thyShowAction]="true">
-            <a thyMenuItem href="javascript:;">
-              <i thyMenuItemIcon class="wtf wtf-my"></i> <span thyMenuItemName> 我的工作 </span>
-              <i thyMenuItemAction class="wtf wtf-more-lg"></i>
-            </a>
-
-            <a thyMenuItem class="active" href="javascript:;">
-              <i thyMenuItemIcon class="wtf wtf-analytic-insight"></i> <span thyMenuItemName> 统计报表 </span>
-              <i thyMenuItemAction class="wtf wtf-more-lg"></i>
-            </a>
-
-            <a thyMenuItem href="javascript:;">
-              <i thyMenuItemIcon class="wtf wtf-work-workload"></i> <span thyMenuItemName> 工时视图 </span>
-              <i thyMenuItemAction class="wtf wtf-more-lg"></i>
-            </a>
-            <a thyMenuItem href="javascript:;">
-              <i thyMenuItemIcon class="wtf wtf-work-timeline"></i> <span thyMenuItemName> 时间视图 </span>
-              <i thyMenuItemAction class="wtf wtf-more-lg"></i>
-            </a>
-            <thy-menu-group thyTitle="工作" [thyShowAction]="true">
-              <a thyMenuItem href="javascript:;">
-                <i thyMenuItemIcon class="wtf wtf-my"></i> <span thyMenuItemName> 我的工作 </span>
-                <i thyMenuItemAction class="wtf wtf-more-lg"></i>
-              </a>
-
-              <a thyMenuItem class="active" href="javascript:;">
-                <i thyMenuItemIcon class="wtf wtf-analytic-insight"></i> <span thyMenuItemName> 统计报表 </span>
-                <i thyMenuItemAction class="wtf wtf-more-lg"></i>
-              </a>
-
-              <a thyMenuItem href="javascript:;">
-                <i thyMenuItemIcon class="wtf wtf-work-workload"></i> <span thyMenuItemName> 工时视图 </span>
-                <i thyMenuItemAction class="wtf wtf-more-lg"></i>
-              </a>
-              <a thyMenuItem href="javascript:;">
-                <i thyMenuItemIcon class="wtf wtf-work-timeline"></i> <span thyMenuItemName> 时间视图 </span>
-                <i thyMenuItemAction class="wtf wtf-more-lg"></i>
-              </a>
-            </thy-menu-group>
-          </thy-menu-group>
-        </thy-menu-group>
-
-        <a thyMenuItem href="javascript:;">
-          <i thyMenuItemIcon class="wtf wtf-work-workload"></i> <span thyMenuItemName> 工时视图 </span>
-          <i thyMenuItemAction class="wtf wtf-more-lg"></i>
-        </a>
-        <a thyMenuItem href="javascript:;">
-          <i thyMenuItemIcon class="wtf wtf-work-timeline"></i> <span thyMenuItemName> 时间视图 </span>
-          <i thyMenuItemAction class="wtf wtf-more-lg"></i>
-        </a>
-      </thy-menu-group>
     </thy-menu-group>
 
     <thy-menu-group thyTitle="项目" [thyExpand]="true" [thyShowAction]="true" (thyOnActionClick)="openActionMenu($event, menu)">
       <div thyMenuItem href="javascript:;">
-        <i thyMenuItemIcon class="wtf wtf-work-timeline"></i> <span thyMenuItemName> 项目1 </span>
-        <i thyMenuItemAction class="wtf wtf-more-lg"></i>
+        <span thyMenuItemIcon><thy-icon thyIconName="app-project"></thy-icon></span> <span thyMenuItemName> 项目1 </span>
+        <span thyMenuItemAction><thy-icon thyIconName="more"></thy-icon></span>
       </div>
       <div thyMenuItem href="javascript:;">
-        <i thyMenuItemIcon class="wtf wtf-work-timeline"></i> <span thyMenuItemName> 项目2 </span>
-        <i thyMenuItemAction class="wtf wtf-more-lg"></i>
+        <span thyMenuItemIcon><thy-icon thyIconName="app-project"></thy-icon></span> <span thyMenuItemName> 项目2 </span>
+        <span thyMenuItemAction><thy-icon thyIconName="more"></thy-icon></span>
       </div>
       <div thyMenuItem href="javascript:;">
-        <i thyMenuItemIcon class="wtf wtf-work-timeline"></i> <span thyMenuItemName> 项目3 </span>
-        <i thyMenuItemAction class="wtf wtf-more-lg"></i>
+        <span thyMenuItemIcon><thy-icon thyIconName="app-project"></thy-icon></span> <span thyMenuItemName> 项目3 </span>
+        <span thyMenuItemAction><thy-icon thyIconName="more"></thy-icon></span>
       </div>
-
-      <thy-menu-group thyTitle="项目分组" [thyExpand]="true" [thyShowAction]="true" (thyOnActionClick)="openActionMenu($event, menu)">
-        <div thyMenuItem href="javascript:;">
-          <i thyMenuItemIcon class="wtf wtf-work-timeline"></i> <span thyMenuItemName> 项目 </span>
-          <i thyMenuItemAction class="wtf wtf-more-lg"></i>
-        </div>
-        <div thyMenuItem href="javascript:;">
-          <i thyMenuItemIcon class="wtf wtf-work-timeline"></i> <span thyMenuItemName> 项目2 </span>
-          <i thyMenuItemAction class="wtf wtf-more-lg"></i>
-        </div>
-        <div thyMenuItem href="javascript:;">
-          <i thyMenuItemIcon class="wtf wtf-work-timeline"></i> <span thyMenuItemName> 项目3 </span>
-          <i thyMenuItemAction class="wtf wtf-more-lg"></i>
-        </div>
-      </thy-menu-group>
     </thy-menu-group>
   </thy-menu>
 </div>
