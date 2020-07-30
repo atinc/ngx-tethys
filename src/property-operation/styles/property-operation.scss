@@ -79,6 +79,21 @@
     &-danger {
         color: $danger;
     }
+    &.active {
+        .thy-operation-icon {
+            .btn-icon-circle {
+                &.border-thick {
+                    .thy-icon {
+                        color: $primary;
+                        border-color: $primary;
+                    }
+                }
+            }
+        }
+        .thy-tips {
+            color: $primary;
+        }
+    }
 }
 
 .thy-property-operation-group {
