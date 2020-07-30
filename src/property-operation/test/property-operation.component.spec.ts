@@ -18,6 +18,7 @@ import { active } from 'sortablejs';
             [thyValue]="thyValue"
             [ngClass]="{ active: active }"
             [thyDisabled]="disabled"
+            [thyActive]="active"
             [thyLabelHasValue]="thyLabelHasValue"
             [thyShowClose]="thyShowClose"
             (thyOnRemove)="thyOnRemove()"
@@ -95,10 +96,14 @@ describe('ThyPropertyOperation', () => {
             expect(btnIcon.nativeElement.classList.contains(`btn-icon-circle`)).toBeTruthy();
         });
 
-        it('should add correct active class name', () => {
+        it('should active property operation', () => {
             componentInstance.active = true;
             fixture.detectChanges();
-            expect(propertyOperationElement.classList.contains(`active`)).toBeTruthy();
+            expect(propertyOperationElement.classList.contains(`thy-property-operation-active`)).toBeTruthy();
+
+            componentInstance.active = false;
+            fixture.detectChanges();
+            expect(propertyOperationElement.classList.contains(`thy-property-operation-active`)).not.toBeTruthy();
         });
 
         it('should get correct value', () => {

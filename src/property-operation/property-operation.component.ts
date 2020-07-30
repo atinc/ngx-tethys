@@ -46,10 +46,6 @@ export class ThyPropertyOperationComponent implements OnInit, AfterContentInit {
 
     @HostBinding('class.thy-property-operation') _isPropertyOperation = true;
 
-    @HostBinding('class.thy-property-operation-disabled') get isPropertyOperationDisabled() {
-        return this.disabled;
-    }
-
     @ContentChild('operationIcon', { static: false }) operationIcon: TemplateRef<any>;
 
     @ViewChild('contentElement', { static: true }) contentElement: ElementRef;
@@ -94,6 +90,10 @@ export class ThyPropertyOperationComponent implements OnInit, AfterContentInit {
         this.type = value;
         this.setHostClass();
     }
+
+    @HostBinding('class.thy-property-operation-active')
+    @Input('thyActive')
+    active: boolean;
 
     @HostBinding('class.thy-property-operation-disabled')
     @Input('thyDisabled')
