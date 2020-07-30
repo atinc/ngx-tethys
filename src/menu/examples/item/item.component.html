@@ -1,0 +1,28 @@
+<div class="demo-menu-container">
+  <thy-menu>
+    <a thyMenuItem href="javascript:;">
+      <span thyMenuItemIcon>
+        <thy-icon thyIconName="user-check-fill"></thy-icon>
+      </span>
+      <span thyMenuItemName> 我的工作 </span>
+      <span thyMenuItemAction [thyActionMenu]="menu">
+        <thy-icon thyIconName="more"></thy-icon>
+      </span>
+    </a>
+
+    <a thyMenuItem href="javascript:;">
+      <span thyMenuItemIcon><thy-icon thyIconName="settings"></thy-icon></span> <span thyMenuItemName> 配置中心 </span>
+    </a>
+    <a thyMenuItem href="javascript:;">
+      <span thyMenuItemIcon thyColor="#ff5b57"><thy-icon thyIconName="trash"></thy-icon></span> <span thyMenuItemName> 回收站 </span>
+    </a>
+  </thy-menu>
+</div>
+<ng-template #menu>
+  <thy-action-menu>
+    <a thyActionMenuItem thyDisabled="true" thyActionMenuItemActive="true" href="javascript:;">
+      <span thyActionMenuItemIcon> <thy-icon thyIconName="edit"></thy-icon> </span>
+      <span thyActionMenuItemName>编辑</span>
+    </a>
+  </thy-action-menu>
+</ng-template>
