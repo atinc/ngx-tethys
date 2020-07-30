@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.1.3"></a>
+## [8.1.3](https://github.com/atinc/ngx-tethys/compare/8.1.2...8.1.3) (2020-07-30)
+
+
+### Bug Fixes
+
+* **back-top:** export back-top component ([#820](https://github.com/atinc/ngx-tethys/issues/820)) ([81579d5](https://github.com/atinc/ngx-tethys/commit/81579d5))
+
+
+
 <a name="8.1.2"></a>
 ## [8.1.2](https://github.com/atinc/ngx-tethys/compare/8.1.0...8.1.2) (2020-07-30)
 
