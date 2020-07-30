@@ -2,6 +2,42 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.1.3"></a>
+## [8.1.3](https://github.com/atinc/ngx-tethys/compare/8.1.2...8.1.3) (2020-07-30)
+
+
+### Bug Fixes
+
+* **back-top:** export back-top component ([#820](https://github.com/atinc/ngx-tethys/issues/820)) ([81579d5](https://github.com/atinc/ngx-tethys/commit/81579d5))
+
+
+
+<a name="8.1.2"></a>
+## [8.1.2](https://github.com/atinc/ngx-tethys/compare/8.1.0...8.1.2) (2020-07-30)
+
+
+### Bug Fixes
+
+* **anchor:** modify transition time and call handleActive before animation #INFR-816 ([a4fd90f](https://github.com/atinc/ngx-tethys/commit/a4fd90f)), closes [#INFR-816](https://github.com/atinc/ngx-tethys/issues/INFR-816)
+* **grid:** add grid examples #INFR-740 ([b27e799](https://github.com/atinc/ngx-tethys/commit/b27e799)), closes [#INFR-740](https://github.com/atinc/ngx-tethys/issues/INFR-740)
+* **grid:** repair file import exception and judgment optimization ([ab6a0bc](https://github.com/atinc/ngx-tethys/commit/ab6a0bc))
+* **pagination:** fix basic css error ([#811](https://github.com/atinc/ngx-tethys/issues/811)) ([039a367](https://github.com/atinc/ngx-tethys/commit/039a367))
+* prepare upgrade ng 9.x, remove BrowserAnimationsModule in component module #INFR-762 ([e0051c2](https://github.com/atinc/ngx-tethys/commit/e0051c2)), closes [#INFR-762](https://github.com/atinc/ngx-tethys/issues/INFR-762)
+
+
+### Features
+
+* **anchor:** replace ball style with full #INFR-781 ([#790](https://github.com/atinc/ngx-tethys/issues/790)) ([8499b0e](https://github.com/atinc/ngx-tethys/commit/8499b0e)), closes [#INFR-781](https://github.com/atinc/ngx-tethys/issues/INFR-781)
+* **date-range:** modify date-range and add test and new doc ([#803](https://github.com/atinc/ngx-tethys/issues/803)) ([4caa382](https://github.com/atinc/ngx-tethys/commit/4caa382))
+* **dropdown:** add dropdown doc #INFR-705 ([#810](https://github.com/atinc/ngx-tethys/issues/810)) ([7e55079](https://github.com/atinc/ngx-tethys/commit/7e55079)), closes [#INFR-705](https://github.com/atinc/ngx-tethys/issues/INFR-705) [#INFR-705](https://github.com/atinc/ngx-tethys/issues/INFR-705)
+* **grid:** add grid model type ([95faa7b](https://github.com/atinc/ngx-tethys/commit/95faa7b))
+* **grid:** increase tree type data display ([4d205ca](https://github.com/atinc/ngx-tethys/commit/4d205ca))
+* **grid:** modify parameters and add test files ([2f5741c](https://github.com/atinc/ngx-tethys/commit/2f5741c))
+* #INFR-729 add notify doc ([#788](https://github.com/atinc/ngx-tethys/issues/788)) ([998f671](https://github.com/atinc/ngx-tethys/commit/998f671)), closes [#INFR-729](https://github.com/atinc/ngx-tethys/issues/INFR-729)
+* #INFR-815 back top worktile design ([04573a6](https://github.com/atinc/ngx-tethys/commit/04573a6)), closes [#INFR-815](https://github.com/atinc/ngx-tethys/issues/INFR-815)
+
+
+
 <a name="8.1.0"></a>
 # [8.1.0](https://github.com/atinc/ngx-tethys/compare/8.0.8...8.1.0) (2020-07-08)
 

@@ -1,0 +1,8 @@
+<p>通过 <code>thyInline</code> 控制选项是行内样式还是块级样式。</p>
+<div class="mb-2">
+  <label thyCheckbox thyInline="true" [(ngModel)]="inlineStatus" thyLabelText="Toggle inline"></label>
+</div>
+
+<label thyRadio thyLabelText="选项一" [thyInline]="inlineStatus"></label>
+<label thyRadio thyLabelText="选项二" [thyInline]="inlineStatus"></label>
+<label thyRadio thyLabelText="选项三" [thyInline]="inlineStatus"></label>

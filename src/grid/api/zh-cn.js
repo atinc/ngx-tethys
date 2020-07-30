@@ -16,7 +16,7 @@ module.exports = [
                 type: 'String',
                 default: '_id'
             },
-            { name: 'thyMode', description: 'Grid 展示方式，分组或列表', type: 'list | group', default: 'list' },
+            { name: 'thyMode', description: 'Grid 展示方式，分组或列表', type: 'list | group | tree', default: 'list' },
             { name: 'thyGroupBy', description: 'Grid分组展示时分组key ', type: 'string', default: '' },
             {
                 name: 'thyTheme',
@@ -107,6 +107,18 @@ module.exports = [
                 description: '是否显示header',
                 type: 'Boolean',
                 default: 'true'
+            },
+            {
+                name: 'thyIndent',
+                description: '设置Tree树状数据展示时的缩进',
+                type: 'Number',
+                default: '20'
+            },
+            {
+                name: 'thyChildrenKey',
+                description: '设置Tree树状数据对象中的子节点 key',
+                type: 'String',
+                default: 'children'
             },
             {
                 name: '(thyOnRowClick)',
