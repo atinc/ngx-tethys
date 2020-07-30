@@ -1,7 +1,7 @@
 module.exports = [
     {
         type: 'component',
-        name: 'thyGrid',
+        name: 'thy-grid',
         description: 'Grid 列表',
         properties: [
             {
@@ -148,7 +148,7 @@ module.exports = [
     },
     {
         type: 'component',
-        name: 'ThyGridColumn',
+        name: 'thy-grid-column',
         description: 'Grid Column',
         properties: [
             {
