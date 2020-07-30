@@ -20,7 +20,7 @@ import {
     Inject,
     ContentChild
 } from '@angular/core';
-import { Dictionary } from 'ngx-tethys/typings';
+import { Dictionary } from '../typings';
 import { get, set, isString, coerceBooleanProperty, keyBy } from '../util/helpers';
 import {
     ThyGridColumn,
