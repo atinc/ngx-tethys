@@ -99,11 +99,11 @@ describe('ThyPropertyOperation', () => {
         it('should active property operation', () => {
             componentInstance.active = true;
             fixture.detectChanges();
-            expect(propertyOperationElement.classList.contains(`thy-property-operation-active`)).toBeTruthy();
+            expect(propertyOperationElement.classList.contains(`active`)).toBeTruthy();
 
             componentInstance.active = false;
             fixture.detectChanges();
-            expect(propertyOperationElement.classList.contains(`thy-property-operation-active`)).not.toBeTruthy();
+            expect(propertyOperationElement.classList.contains(`active`)).not.toBeTruthy();
         });
 
         it('should get correct value', () => {

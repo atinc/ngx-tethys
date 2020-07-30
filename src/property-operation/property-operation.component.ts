@@ -91,7 +91,7 @@ export class ThyPropertyOperationComponent implements OnInit, AfterContentInit {
         this.setHostClass();
     }
 
-    @HostBinding('class.thy-property-operation-active')
+    @HostBinding('class.active')
     @Input('thyActive')
     active: boolean;
 
