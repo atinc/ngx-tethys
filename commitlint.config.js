@@ -67,7 +67,8 @@ module.exports = {
                 'uploader',
                 'util',
                 'vote',
-                'anchor'
+                'anchor',
+                'back-top'
             ]
         ]
     }
