@@ -87,7 +87,7 @@ $code-color: $danger !default;
 $code-font-size: 0.875rem !default;
 
 // pill style for close(dialog,slide)
-$close-pill-enabled: true;
+$close-pill-enabled: true !default;
 
 // ---input-btn 输入框和按钮复用的变量---
 
