@@ -4,12 +4,6 @@ module.exports = [
         name: 'thy-progress',
         description: '用于进度条的展示',
         properties: [
-            // {
-            //     name: 'thyType',
-            //     description: '进度条类型， info, success, warning, danger, primary',
-            //     type: 'ThyProgressTypes | string',
-            //     default: 'primary'
-            // },
             {
                 name: 'thyValue',
                 description: '数值内容',

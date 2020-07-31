@@ -1,0 +1,29 @@
+<form thyForm thyLayout="inline">
+  <thy-form-group thyLabelText="Header Size">
+    <thy-select name="headerSize" [(ngModel)]="headerSize">
+      <option value="">Default</option>
+      <option value="lg">lg</option>
+      <option value="sm">sm</option>
+    </thy-select>
+  </thy-form-group>
+  <thy-form-group thyLabelText="Content Size">
+    <thy-select name="contentSize" [(ngModel)]="contentSize">
+      <option value="">Default</option>
+      <option value="sm">sm</option>
+    </thy-select>
+  </thy-form-group>
+  <thy-form-group>
+    <label thyCheckbox name="hasLeftRightPadding" [(ngModel)]="hasLeftRightPadding" thyLabelText="左右是否显示 Padding"></label>
+  </thy-form-group>
+  <thy-form-group>
+    <label thyCheckbox name="contentAlignTitle" [(ngModel)]="contentAlignTitle" thyLabelText="内容对齐头部文字"></label>
+  </thy-form-group>
+</form>
+<div class="demo-inner-wrapper demo-layout-backdrop mt-3">
+  <thy-card [thyHasLeftRightPadding]="hasLeftRightPadding">
+    <thy-card-header thyTitle="头部标题" thyDescription="(共10人)" [thySize]="headerSize"> </thy-card-header>
+    <thy-card-content [thySize]="contentSize" [thyAlign]="contentAlignTitle ? 'title' : ''">
+      我是 content
+    </thy-card-content>
+  </thy-card>
+</div>

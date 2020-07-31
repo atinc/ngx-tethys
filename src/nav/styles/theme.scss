@@ -18,21 +18,14 @@
 .nav-secondary-divider {
     border-bottom: 1px solid $nav-border-color;
     .nav-link {
-        @include nav-link-divider-variant(
-            $nav-link-hover-color,
-            $nav-link-thirdly-split-line-height,
-            $nav-link-secondary-split-right
-        );
+        @include nav-link-divider-variant($nav-link-hover-color, $nav-link-thirdly-split-line-height, $nav-link-secondary-split-right);
     }
 }
 
 .nav-thirdly {
     .nav-link {
-        @include nav-link-divider-variant(
-            $nav-link-hover-color,
-            $nav-link-thirdly-split-line-height,
-            $nav-link-thirdly-right
-        );
+        @include nav-link-divider-variant($nav-link-hover-color, $nav-link-thirdly-split-line-height, $nav-link-thirdly-right);
+        @include clear-nav-link-bottom();
     }
 }
 

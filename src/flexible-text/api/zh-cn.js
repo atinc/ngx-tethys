@@ -7,13 +7,13 @@ module.exports = [
             {
                 name: 'thyTooltipContent',
                 description: '需要展示的全部内容',
-                type: 'String | TemplateRef',
-                default: 'String'
+                type: 'string | TemplateRef',
+                default: ''
             },
             {
                 name: 'thyTooltipPlacement',
                 description: 'tooltip 的提示位置，top | bottom | left | right',
-                type: 'String',
+                type: 'string',
                 default: 'top'
             },
             {
