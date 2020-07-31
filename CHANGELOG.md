@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.1.4"></a>
+## [8.1.4](https://github.com/atinc/ngx-tethys/compare/8.1.3...8.1.4) (2020-07-31)
+
+
+### Bug Fixes
+
+* **menu:** change wtf to thy-icon in menu docs ([04974da](https://github.com/atinc/ngx-tethys/commit/04974da))
+* **nav:** 修复thirdly 三级导航换肤后样式问题(#INFR-849) ([c5e6691](https://github.com/atinc/ngx-tethys/commit/c5e6691)), closes [#INFR-849](https://github.com/atinc/ngx-tethys/issues/INFR-849)
+* **property-operation:** add active style #THB-1398 ([#815](https://github.com/atinc/ngx-tethys/issues/815)) ([f168809](https://github.com/atinc/ngx-tethys/commit/f168809)), closes [#THB-1398](https://github.com/atinc/ngx-tethys/issues/THB-1398) [#THB-1398](https://github.com/atinc/ngx-tethys/issues/THB-1398) [#THB-1398](https://github.com/atinc/ngx-tethys/issues/THB-1398)
+
+
+### Features
+
+* **card:** add card #INFR-741 ([a287c68](https://github.com/atinc/ngx-tethys/commit/a287c68)), closes [#INFR-741](https://github.com/atinc/ngx-tethys/issues/INFR-741)
+* **radio:** add radio doc #INFR-650 ([#819](https://github.com/atinc/ngx-tethys/issues/819)) ([3fc5674](https://github.com/atinc/ngx-tethys/commit/3fc5674)), closes [#INFR-650](https://github.com/atinc/ngx-tethys/issues/INFR-650)
+
+
+
 <a name="8.1.3"></a>
 ## [8.1.3](https://github.com/atinc/ngx-tethys/compare/8.1.2...8.1.3) (2020-07-30)
 
