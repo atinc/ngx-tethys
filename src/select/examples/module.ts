@@ -10,11 +10,18 @@ import { ThySelectBasicExampleComponent } from './basic/basic.component';
 import { ThySelectCustomBasicExampleComponent } from './custom-basic/custom-basic.component';
 import { ThySelectEmptyExampleComponent } from './empty/empty.component';
 import { ThySelectDisplayExampleComponent } from './display/display.component';
+import { ThySelectScrollLoadExampleComponent } from './scroll-load/scroll-load.component';
+import { ThySelectGroupExampleComponent } from './group/group.component';
+import { ThySelectServerSearchExampleComponent } from './server-search/server-search.component';
+
 const COMPONENTS = [
     ThySelectBasicExampleComponent,
     ThySelectCustomBasicExampleComponent,
     ThySelectEmptyExampleComponent,
-    ThySelectDisplayExampleComponent
+    ThySelectDisplayExampleComponent,
+    ThySelectScrollLoadExampleComponent,
+    ThySelectGroupExampleComponent,
+    ThySelectServerSearchExampleComponent
 ];
 
 @NgModule({

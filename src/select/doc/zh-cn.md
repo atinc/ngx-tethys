@@ -13,7 +13,7 @@ order: 1
  - 支持滚动加载
  - 支持Options分组
  - 支持服务端搜索
-简单示例：
+ 
 <example name="thy-select-custom-basic-example" />
 
 ## 原生select
