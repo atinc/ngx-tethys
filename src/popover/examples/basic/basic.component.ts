@@ -17,9 +17,9 @@ export class ThyPopoverBasicExampleComponent implements OnInit {
 
     ngOnInit(): void {}
 
-    openPopover(element: { elementRef: ElementRef }) {
+    openPopover(event: Event) {
         this.thyPopover.open(ThyPopoverBasicContentComponent, {
-            origin: element.elementRef,
+            origin: event.currentTarget as HTMLElement,
             placement: this.placement,
             hasBackdrop: this.hasBackdrop,
             panelClass: 'demo-popover',
@@ -27,9 +27,9 @@ export class ThyPopoverBasicExampleComponent implements OnInit {
         });
     }
 
-    openPopoverOutsideClosable(element: { elementRef: ElementRef }) {
+    openPopoverOutsideClosable(event: Event) {
         this.thyPopover.open(ThyPopoverBasicContentComponent, {
-            origin: element.elementRef,
+            origin: event.currentTarget as HTMLElement,
             placement: this.placement,
             hasBackdrop: false,
             panelClass: 'demo-popover',
@@ -38,18 +38,18 @@ export class ThyPopoverBasicExampleComponent implements OnInit {
         });
     }
 
-    openTemplatePopover(element: { elementRef: ElementRef }, template: TemplateRef<HTMLElement>) {
+    openTemplatePopover(event: Event, template: TemplateRef<HTMLElement>) {
         this.thyPopover.open(template, {
-            origin: element.elementRef,
+            origin: event.currentTarget as HTMLElement,
             hasBackdrop: this.hasBackdrop,
             placement: this.placement,
             panelClass: 'demo-popover'
         });
     }
 
-    openTemplatePopoverWidth(element: { elementRef: ElementRef }, template: TemplateRef<HTMLElement>) {
+    openTemplatePopoverWidth(event: Event, template: TemplateRef<HTMLElement>) {
         this.thyPopover.open(template, {
-            origin: element.elementRef,
+            origin: event.currentTarget as HTMLElement,
             hasBackdrop: this.hasBackdrop,
             placement: this.placement,
             panelClass: 'demo-popover',
@@ -57,9 +57,9 @@ export class ThyPopoverBasicExampleComponent implements OnInit {
         });
     }
 
-    openTemplatePopoverManualClosure(element: { elementRef: ElementRef }, template: TemplateRef<HTMLElement>) {
+    openTemplatePopoverManualClosure(event: Event, template: TemplateRef<HTMLElement>) {
         this.thyPopover.open(template, {
-            origin: element.elementRef,
+            origin: event.currentTarget as HTMLElement,
             manualClosure: true,
             hasBackdrop: this.hasBackdrop,
             placement: this.placement,

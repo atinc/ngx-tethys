@@ -20,19 +20,19 @@
   </thy-form-group>
 </form>
 <div class="btn-pair mt-3">
-  <button #componentTrigger thyButton="secondary" thySize="md" (click)="openPopover(componentTrigger)">
+  <button thyButton="secondary" thySize="md" (click)="openPopover($event)">
     Use Component 1
   </button>
-  <button #templateTrigger thyButton="secondary" thySize="md" (click)="openTemplatePopover(templateTrigger, template)">
+  <button thyButton="secondary" thySize="md" (click)="openTemplatePopover($event, template)">
     Use Template 2
   </button>
-  <button #templateWidth thyButton="secondary" thySize="md" (click)="openTemplatePopoverWidth(templateWidth, template)">
+  <button thyButton="secondary" thySize="md" (click)="openTemplatePopoverWidth($event, template)">
     Use Template 3
   </button>
-  <button #templateTrigger3 thyButton="secondary" thySize="md" (click)="openTemplatePopoverManualClosure(templateTrigger3, template)">
+  <button thyButton="secondary" thySize="md" (click)="openTemplatePopoverManualClosure($event, template)">
     Use Template 3 with manualClosure
   </button>
-  <button #templateTrigger4 thyButton="secondary" thySize="md" (click)="openTemplatePopoverManualClosure(templateTrigger4, template)">
+  <button thyButton="secondary" thySize="md" (click)="openTemplatePopoverManualClosure($event, template)">
     Use Template 4 with manualClosure
   </button>
   <thy-icon-nav>
@@ -47,12 +47,7 @@
   </thy-icon-nav>
 </div>
 <div class="btn-pair mt-3">
-  <button
-    #componentTriggerOutsideClosable
-    thyButton="secondary"
-    thySize="md"
-    (click)="openPopoverOutsideClosable(componentTriggerOutsideClosable)"
-  >
+  <button thyButton="secondary" thySize="md" (click)="openPopoverOutsideClosable($event)">
     outside closable
   </button>
 </div>
