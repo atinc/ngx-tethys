@@ -1,0 +1,57 @@
+<div class="demo-card">
+  <div class="mt-2">
+    <thy-property-operation
+      thyLabelText="截止时间"
+      [thyShowClose]="showClose"
+      [thyDisabled]="disabled"
+      [thyType]="type"
+      [thyLabelHideWhenHasValue]="labelHideWhenHasValue"
+      thyValue=""
+      thyIcon="calendar"
+      class="mr-2"
+    ></thy-property-operation>
+
+    <thy-property-operation
+      thyLabelText="截止时间"
+      [thyShowClose]="showClose"
+      thyType="danger"
+      [thyLabelHideWhenHasValue]="labelHideWhenHasValue"
+      thyValue="2017-08-10"
+      thyIcon="calendar"
+      class="mr-2"
+    ></thy-property-operation>
+
+    <thy-property-operation
+      thyLabelText="截止时间"
+      [thyLabelHasValue]="false"
+      thyShowClose=""
+      thyValue="2017-08-10"
+      thyIcon="calendar"
+      [thyShowClose]="showClose"
+      class="mr-2"
+    ></thy-property-operation>
+
+    <thy-property-operation
+      thyLabelText="截止时间"
+      [thyLabelHasValue]="false"
+      thyValue=""
+      thyIcon="calendar"
+      [thyShowClose]="showClose"
+      class="mr-2"
+      thyActive="true"
+    ></thy-property-operation>
+
+    <thy-property-operation thyLabelText="负责人" class="mr-2" [thyLabelHideWhenHasValue]="labelHideWhenHasValue">
+      <ng-template #operationIcon>
+        <button thyButtonIcon="user-add-bold" thyShape="circle-thick-dashed"></button>
+      </ng-template>
+    </thy-property-operation>
+
+    <thy-property-operation thyLabelText="负责人" class="mr-2" [thyLabelHideWhenHasValue]="labelHideWhenHasValue">
+      <ng-template #operationIcon>
+        <thy-avatar [thySrc]="avatarSrc" thyName="why520crazy" thySize="38"></thy-avatar>
+      </ng-template>
+      why520crazy
+    </thy-property-operation>
+  </div>
+</div>
