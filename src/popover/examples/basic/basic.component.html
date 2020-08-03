@@ -1,0 +1,61 @@
+<form thyForm thyLayout="inline">
+  <thy-form-group thyLabelText="Placement">
+    <thy-select name="size" [(ngModel)]="placement" name="placement">
+      <option value="top">top</option>
+      <option value="topLeft">topLeft</option>
+      <option value="topRight">topRight</option>
+      <option value="bottom">bottom</option>
+      <option value="bottomLeft">bottomLeft</option>
+      <option value="bottomRight">bottomRight</option>
+      <option value="left">left</option>
+      <option value="leftTop">leftTop</option>
+      <option value="leftBottom">leftBottom</option>
+      <option value="right">right</option>
+      <option value="rightTop">rightTop</option>
+      <option value="rightBottom">rightBottom</option>
+    </thy-select>
+  </thy-form-group>
+  <thy-form-group>
+    <label thyCheckbox thyLabelText="hasBackdrop" [(ngModel)]="hasBackdrop" name="checkbox1"></label>
+  </thy-form-group>
+</form>
+<div class="btn-pair mt-3">
+  <button #componentTrigger thyButton="secondary" thySize="md" (click)="openPopover(componentTrigger)">
+    Use Component 1
+  </button>
+  <button #templateTrigger thyButton="secondary" thySize="md" (click)="openTemplatePopover(templateTrigger, template)">
+    Use Template 2
+  </button>
+  <button #templateWidth thyButton="secondary" thySize="md" (click)="openTemplatePopoverWidth(templateWidth, template)">
+    Use Template 3
+  </button>
+  <button #templateTrigger3 thyButton="secondary" thySize="md" (click)="openTemplatePopoverManualClosure(templateTrigger3, template)">
+    Use Template 3 with manualClosure
+  </button>
+  <button #templateTrigger4 thyButton="secondary" thySize="md" (click)="openTemplatePopoverManualClosure(templateTrigger4, template)">
+    Use Template 4 with manualClosure
+  </button>
+  <thy-icon-nav>
+    <a
+      href="javascript:;"
+      thyIconNavLink
+      thyIconNavLinkIcon="vertical-view-lines"
+      thyTooltip="视图"
+      thyTooltipPlacement="bottom"
+      (click)="openTemplatePopoverIconNav($event, template)"
+    ></a>
+  </thy-icon-nav>
+</div>
+<div class="btn-pair mt-3">
+  <button
+    #componentTriggerOutsideClosable
+    thyButton="secondary"
+    thySize="md"
+    (click)="openPopoverOutsideClosable(componentTriggerOutsideClosable)"
+  >
+    outside closable
+  </button>
+</div>
+<ng-template #template>
+  <p class="p-2">Hello, I am template content</p>
+</ng-template>
