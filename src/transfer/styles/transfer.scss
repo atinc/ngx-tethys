@@ -65,11 +65,23 @@
 }
 
 .thy-transfer-list-content-item {
+    .list-item-content {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        flex-grow: 1;
+    }
     .item-name {
         flex: 1;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        .flexible-text-container {
+            display: block;
+        }
+    }
+    .un-select-item {
+        margin-right: 14px;
     }
 
     .cdk-drag-handle,
