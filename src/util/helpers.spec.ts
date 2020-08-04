@@ -66,13 +66,9 @@ describe('#helper', () => {
         });
     });
 
-    fdescribe('#coerceBooleanProperty', () => {
+    describe('#coerceBooleanProperty', () => {
         it('should return false when assign 0', () => {
             const result = coerceBooleanProperty(0);
-            expect(result).toEqual(false);
-        });
-        it(`should return false when assign '0'`, () => {
-            const result = coerceBooleanProperty('0');
             expect(result).toEqual(false);
         });
         it(`should return false when assign undefined`, () => {
@@ -91,9 +87,13 @@ describe('#helper', () => {
             const result = coerceBooleanProperty('false');
             expect(result).toEqual(false);
         });
-        it(`should return false when assign ''`, () => {
+        it(`should return true when assign ''`, () => {
             const result = coerceBooleanProperty('');
-            expect(result).toEqual(false);
+            expect(result).toEqual(true);
+        });
+        it(`should return true when assign '0'`, () => {
+            const result = coerceBooleanProperty('0');
+            expect(result).toEqual(true);
         });
         it(`should return true when assign true`, () => {
             const result = coerceBooleanProperty(true);

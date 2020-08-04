@@ -239,7 +239,7 @@ export function isElementRef(value: any): boolean {
 }
 
 export function coerceBooleanProperty(value: boolean | string | number): boolean {
-    if (value && value !== 'false' && value !== '0') {
+    if (value === '' || (value && value !== 'false')) {
         return true;
     } else {
         return false;
