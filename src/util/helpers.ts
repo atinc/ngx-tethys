@@ -238,8 +238,12 @@ export function isElementRef(value: any): boolean {
     return value instanceof ElementRef;
 }
 
-export function coerceBooleanProperty(value: boolean | string): boolean {
-    return coerceBoolean(value);
+export function coerceBooleanProperty(value: boolean | string | number): boolean {
+    if (value && value !== 'false' && value !== '0') {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 export type FunctionProp<T> = (...args: any[]) => T;

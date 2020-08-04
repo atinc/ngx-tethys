@@ -1,4 +1,4 @@
-import { clamp, keyBy, indexKeyBy } from './helpers';
+import { clamp, keyBy, indexKeyBy, coerceBooleanProperty } from './helpers';
 
 describe('#helper', () => {
     describe('#clamp', () => {
@@ -52,11 +52,60 @@ describe('#helper', () => {
 
     describe('#indexKeyBy', () => {
         it('should be get correct index dictionary keyBy id', () => {
-            const result = indexKeyBy([{ id: 1, name: 'name 1' }, { id: 2, name: 'name 2' }], 'id');
+            const result = indexKeyBy(
+                [
+                    { id: 1, name: 'name 1' },
+                    { id: 2, name: 'name 2' }
+                ],
+                'id'
+            );
             expect(result).toEqual({
                 '1': 0,
                 '2': 1
             });
+        });
+    });
+
+    fdescribe('#coerceBooleanProperty', () => {
+        it('should return false when assign 0', () => {
+            const result = coerceBooleanProperty(0);
+            expect(result).toEqual(false);
+        });
+        it(`should return false when assign '0'`, () => {
+            const result = coerceBooleanProperty('0');
+            expect(result).toEqual(false);
+        });
+        it(`should return false when assign undefined`, () => {
+            const result = coerceBooleanProperty(undefined);
+            expect(result).toEqual(false);
+        });
+        it(`should return false when assign null`, () => {
+            const result = coerceBooleanProperty(null);
+            expect(result).toEqual(false);
+        });
+        it(`should return false when assign false`, () => {
+            const result = coerceBooleanProperty(false);
+            expect(result).toEqual(false);
+        });
+        it(`should return false when assign 'false'`, () => {
+            const result = coerceBooleanProperty('false');
+            expect(result).toEqual(false);
+        });
+        it(`should return false when assign ''`, () => {
+            const result = coerceBooleanProperty('');
+            expect(result).toEqual(false);
+        });
+        it(`should return true when assign true`, () => {
+            const result = coerceBooleanProperty(true);
+            expect(result).toEqual(true);
+        });
+        it(`should return true when assign 1`, () => {
+            const result = coerceBooleanProperty(1);
+            expect(result).toEqual(true);
+        });
+        it(`should return true when assign 'xx'`, () => {
+            const result = coerceBooleanProperty('xx');
+            expect(result).toEqual(true);
         });
     });
 });
