@@ -66,7 +66,7 @@ describe('#helper', () => {
         });
     });
 
-    fdescribe('#coerceBooleanProperty', () => {
+    describe('#coerceBooleanProperty', () => {
         it('should return false when assign 0', () => {
             const result = coerceBooleanProperty(0);
             expect(result).toEqual(false);
