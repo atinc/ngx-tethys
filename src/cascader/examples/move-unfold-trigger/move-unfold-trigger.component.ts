@@ -44,7 +44,5 @@ export class ThyCascaderMoveUnfoldTriggerExampleComponent implements OnInit {
         ];
     }
 
-    public onChanges(values: any): void {
-        console.log(values);
-    }
+    public onChanges(values: any): void {}
 }

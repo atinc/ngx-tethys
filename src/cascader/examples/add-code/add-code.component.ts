@@ -95,12 +95,7 @@ export class ThyCascaderAddCodeExampleComponent implements OnInit {
         this.thyCustomerOptions = customerOptions;
     }
 
-    public onChanges(values: any): void {
-        console.log(values);
-    }
+    public onChanges(values: any): void {}
 
-    public handleAreaClick($event, label, selectedOptions) {
-        console.log(label);
-        console.log(selectedOptions);
-    }
+    public handleAreaClick($event: any, label: any, selectedOptions: any) {}
 }
