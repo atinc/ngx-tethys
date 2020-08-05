@@ -47,7 +47,6 @@ const customerOptions = [
 ];
 
 import options from './cascader-address-options';
-import { stringify } from 'querystring';
 
 @Component({
     selector: 'demo-confirm-section',
@@ -75,7 +74,6 @@ export class DemoCascaderSectionComponent implements OnInit {
         // let's set nzOptions in a asynchronous way
         setTimeout(() => {
             this.thyOptions = options;
-            console.log(JSON.stringify(this.thyOptions));
             this.thyCustomerOptions = customerOptions;
         }, 100);
     }
