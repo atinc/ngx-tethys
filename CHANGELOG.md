@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.1.5"></a>
+## [8.1.5](https://github.com/atinc/ngx-tethys/compare/8.1.4...8.1.5) (2020-08-05)
+
+
+### Bug Fixes
+
+* **date-range:** remove BrowserAnimationsModule imports and fix test #INFR-865 ([#837](https://github.com/atinc/ngx-tethys/issues/837)) ([8b80bf6](https://github.com/atinc/ngx-tethys/commit/8b80bf6)), closes [#INFR-865](https://github.com/atinc/ngx-tethys/issues/INFR-865)
+* **grid:** optimize tree expand icon style ([ee89b24](https://github.com/atinc/ngx-tethys/commit/ee89b24))
+* fix scss variables name ([ea6844d](https://github.com/atinc/ngx-tethys/commit/ea6844d))
+* **anchor:** fix anchor style #INFR-855 ([75433d4](https://github.com/atinc/ngx-tethys/commit/75433d4)), closes [#INFR-855](https://github.com/atinc/ngx-tethys/issues/INFR-855)
+
+
+### Features
+
+* **select:** add select docs #INFR-711 ([3467740](https://github.com/atinc/ngx-tethys/commit/3467740)), closes [#INFR-711](https://github.com/atinc/ngx-tethys/issues/INFR-711)
+* **util:** correct coerceBooleanProperty logic ([#836](https://github.com/atinc/ngx-tethys/issues/836)) ([dbea768](https://github.com/atinc/ngx-tethys/commit/dbea768))
+* **util:** correct coerceBooleanProperty logic #INFR-857 ([9dd2b20](https://github.com/atinc/ngx-tethys/commit/9dd2b20)), closes [#INFR-857](https://github.com/atinc/ngx-tethys/issues/INFR-857)
+
+
+
 <a name="8.1.4"></a>
 ## [8.1.4](https://github.com/atinc/ngx-tethys/compare/8.1.3...8.1.4) (2020-07-31)
 
