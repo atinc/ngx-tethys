@@ -5,19 +5,10 @@ import { FormsModule } from '@angular/forms';
 import { ThyDateRangeComponent } from './date-range.component';
 import { ThyActionMenuModule } from '../action-menu/action-menu.module';
 import { ThyDirectiveModule } from '../directive';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyDatePickerModule } from '../date-picker/date-picker.module';
 import { OptionalDateRangesComponent } from './optional-dates/optional-dates.component';
 @NgModule({
-    imports: [
-        CommonModule,
-        FormsModule,
-        ThyActionMenuModule,
-        ThyDirectiveModule,
-        ThyIconModule,
-        BrowserAnimationsModule,
-        ThyDatePickerModule
-    ],
+    imports: [CommonModule, FormsModule, ThyActionMenuModule, ThyDirectiveModule, ThyIconModule, ThyDatePickerModule],
     declarations: [ThyDateRangeComponent, OptionalDateRangesComponent],
     exports: [ThyDateRangeComponent],
     entryComponents: [OptionalDateRangesComponent]

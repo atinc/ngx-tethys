@@ -1,3 +1,4 @@
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
@@ -23,7 +24,7 @@ describe('ThyTestDateRangeComponent', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [FormsModule, ThyDateRangeModule],
+            imports: [FormsModule, ThyDateRangeModule, NoopAnimationsModule],
             providers: [],
             declarations: [ThyTestDateRangeComponent]
         });
