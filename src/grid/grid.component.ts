@@ -501,9 +501,20 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
         return this.expandStatusMap[row[this.rowKey]];
     }
 
-    indentComputed(level: number) {
+    iconIndentComputed(level: number) {
         if (this.mode === 'tree') {
             return level * this.thyIndent;
+        }
+    }
+
+    tdIndentComputed(index: number, level: number) {
+        if (this.mode === 'tree' && index === 0) {
+            return {
+                position: 'relative',
+                paddingLeft: `${(level + 1) * this.thyIndent}px`
+            };
+        } else {
+            return null;
         }
     }
 
