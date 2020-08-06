@@ -64,6 +64,8 @@
           *ngFor="let column of columns; let j = index"
           [ngClass]="column.className"
           [class.thy-grid-checkbox-column]="column.type === customType.checkbox"
+          [style.position]="'relative'"
+          [style.paddingLeft.px]="indentComputed(level + 1)"
         >
           <ng-container *ngIf="j === 0 && draggable">
             <thy-icon class="table-draggable-icon" thyIconName="drag"></thy-icon>
@@ -72,11 +74,11 @@
           <!--template-->
           <ng-container *ngIf="isTemplateRef(column.templateRef)">
             <thy-icon
-              class="expand-icon cursor-pointer"
+              class="tree-expand-icon cursor-pointer"
               *ngIf="mode === 'tree' && j === 0"
               [thyIconName]="isExpanded(row) ? 'angle-down' : 'angle-right'"
               [style.visibility]="showExpand(row) ? 'visible' : 'hidden'"
-              [style.marginLeft]="indentCompute(row, level, j)"
+              [style.left.px]="indentComputed(level)"
               (click)="expandChildren($event, row)"
             ></thy-icon>
             <ng-template [ngTemplateOutlet]="column.templateRef" [ngTemplateOutletContext]="{ $implicit: row }"></ng-template>
@@ -87,11 +89,11 @@
             <!-- default -->
             <ng-container *ngIf="column.model && !column.type">
               <thy-icon
-                class="expand-icon cursor-pointer"
+                class="tree-expand-icon cursor-pointer"
                 *ngIf="mode === 'tree' && j === 0"
                 [thyIconName]="isExpanded(row) ? 'angle-down' : 'angle-right'"
                 [style.visibility]="showExpand(row) ? 'visible' : 'hidden'"
-                [style.marginLeft]="indentCompute(row, level, j)"
+                [style.marginLeft]="indentComputed(level)"
                 (click)="expandChildren($event, row)"
               ></thy-icon>
               <ng-container *ngIf="getModelValue(row, column.model) | isValidModelValue; else default">
