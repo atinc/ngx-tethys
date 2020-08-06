@@ -1,0 +1,67 @@
+<form thyForm name="widthHeight" thyLayout="inline">
+  <thy-form-group thyLabelText="thyWidth">
+    <input thyInput name="width" [(ngModel)]="params.width" />
+  </thy-form-group>
+  <thy-form-group thyLabelText="thyHeight">
+    <input thyInput name="height" [(ngModel)]="params.height" />
+  </thy-form-group>
+</form>
+
+<form thyForm name="viewBoxWidthHeight" thyLayout="inline" style="margin:10px 0">
+  <thy-form-group thyLabelText="thyViewBoxWidth">
+    <input thyInput name="viewBoxWidth" [(ngModel)]="params.viewBoxWidth" />
+  </thy-form-group>
+  <thy-form-group thyLabelText="thyViewBoxHeight">
+    <input thyInput name="viewBoxHeight" [(ngModel)]="params.viewBoxHeight" />
+  </thy-form-group>
+  <thy-form-group thyLabelText="thyPreserveAspectRatio">
+    <thy-select name="thyPreserveAspectRatio" [(ngModel)]="params.preserveAspectRatio">
+      <option value="none">none</option>
+
+      <option value="xMidYMin meet">xMidYMin meet</option>
+      <option value="xMidYMid meet">xMidYMid meet</option>
+      <option value="xMidYMax meet">xMidYMax meet</option>
+
+      <option value="xMinYMin meet">xMinYMin meet</option>
+      <option value="xMinYMid meet">xMinYMid meet</option>
+      <option value="xMinYMax meet">xMinYMax meet</option>
+
+      <option value="xMaxYMin meet">xMaxYMin meet</option>
+      <option value="xMaxYMid meet">xMaxYMid meet</option>
+      <option value="xMaxYMax meet">xMaxYMax meet</option>
+
+      <option value="xMidYMin slice">xMidYMin slice</option>
+      <option value="xMidYMid slice">xMidYMid slice</option>
+      <option value="xMidYMax slice">xMidYMax slice</option>
+
+      <option value="xMinYMin slice">xMinYMin slice</option>
+      <option value="xMinYMid slice">xMinYMid slice</option>
+      <option value="xMinYMax slice">xMinYMax slice</option>
+
+      <option value="xMaxYMin slice">xMaxYMin slice</option>
+      <option value="xMaxYMid slice">xMaxYMid slice</option>
+      <option value="xMaxYMax slice">xMaxYMax slice</option>
+    </thy-select>
+  </thy-form-group>
+</form>
+
+<form thyForm name="color" thyLayout="inline" class="mt-2">
+  <thy-form-group thyLabelText="thyPrimaryColor">
+    <input thyInput name="primaryColor" [(ngModel)]="params.primaryColor" />
+  </thy-form-group>
+  <thy-form-group thyLabelText="thySecondaryColor">
+    <input thyInput name="secondaryColor" [(ngModel)]="params.secondaryColor" />
+  </thy-form-group>
+</form>
+<thy-skeleton
+  class="skeleton-container mt-2"
+  [thyWidth]="params.width"
+  [thyHeight]="params.height"
+  [thyViewBoxWidth]="params.viewBoxWidth"
+  [thyViewBoxHeight]="params.viewBoxHeight"
+  [thyPrimaryColor]="params.primaryColor"
+  [thySecondaryColor]="params.secondaryColor"
+  [thyPreserveAspectRatio]="params.preserveAspectRatio"
+>
+  <thy-skeleton-paragraph-template></thy-skeleton-paragraph-template>
+</thy-skeleton>
