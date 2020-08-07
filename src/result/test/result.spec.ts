@@ -56,7 +56,7 @@ describe('ThyResult', () => {
 @Component({
     selector: 'thy-result-demo',
     template: `
-        <thy-result [thyStatus]="status" [thyTitle]="title" [thySubtitle]="subtitle">
+        <thy-result>
             <ng-template #thyTitle>
                 <div class="custom-title">自定义Title</div>
             </ng-template>
