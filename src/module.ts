@@ -25,6 +25,7 @@ import { ThyDialogModule } from './dialog';
 import { ThyDirectiveModule } from './directive';
 import { ThyDragDropModule } from './drag-drop/module';
 import { ThyDropdownModule } from './dropdown';
+import { ThyCopyModule } from './copy';
 import { ThyEmptyModule } from './empty';
 import { ThyFlexibleTextModule } from './flexible-text';
 import { ThyFormModule } from './form';
@@ -96,6 +97,7 @@ const IMPORT_EXPORT_MODULES = [
     ThyFormModule,
     ThyInputModule,
     ThyDropdownModule,
+    ThyCopyModule,
     ThyDirectiveModule,
     ProgressbarModule,
     ThyCheckboxModule,
