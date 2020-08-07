@@ -10,10 +10,13 @@ import {
     Renderer2,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    NgZone,
+    OnInit
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { UpdateHostClassService } from '../shared';
+import { take } from 'rxjs/operators';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -31,24 +34,14 @@ const password = 'password';
     providers: [UpdateHostClassService, CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
     encapsulation: ViewEncapsulation.None
 })
-export class ThyInputComponent implements ControlValueAccessor, AfterViewInit {
+export class ThyInputComponent implements ControlValueAccessor, OnInit {
     @Input() placeholder = '';
 
     @Input() thySize: string;
 
     @Input() thyAutofocus = false;
 
-    @Input()
-    set type(value: string) {
-        this._type = value;
-        if (this.isPassword(value)) {
-            this.appendTemplate = this.eyeTemplate;
-        }
-    }
-
-    get type() {
-        return this._type;
-    }
+    @Input() type: string;
 
     @Input()
     set thyType(value: string) {
@@ -94,9 +87,15 @@ export class ThyInputComponent implements ControlValueAccessor, AfterViewInit {
 
     @HostBinding('class.form-control-active') _isFocus = false;
 
-    constructor(private renderer: Renderer2) {}
+    constructor(private ngZone: NgZone) {}
 
-    ngAfterViewInit() {}
+    ngOnInit() {
+        this.ngZone.onStable.pipe(take(1)).subscribe(() => {
+            if (this.isPassword(this.type)) {
+                this.appendTemplate = this.eyeTemplate;
+            }
+        });
+    }
 
     writeValue(value: any): void {
         this.value = value;
