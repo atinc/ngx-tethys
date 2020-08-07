@@ -9,6 +9,7 @@ module.exports = {
                 'alert',
                 'arrow-switcher',
                 'core',
+                'copy',
                 'autocomplete',
                 'avatar',
                 'badge',

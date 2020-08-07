@@ -1,0 +1,17 @@
+<section class="mb-3">
+  <button thyButton="primary-square" (thyCopy)="copy($event)" thyCopyContent="复制的文本">
+    复制
+  </button>
+</section>
+<hr />
+<section class="mb-3">
+  <button thyButton="primary-square" (thyCopy)="copy($event)" [thyCopyContent]="target1">复制</button>
+  <p #target1>我是p标签，点击button复制的是我的文本</p>
+</section>
+<hr />
+
+<section class="mb-3">
+  <h5>复制input输入的文字</h5>
+  <input #target2 style="margin-right: 15px;" />
+  <button thyButton="primary-square" (thyCopy)="copy($event)" [thyCopyContent]="target2" thySize="md">复制</button>
+</section>
