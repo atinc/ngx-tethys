@@ -23,7 +23,7 @@
 
 <ng-template #eye>
   <a href="javascript:;" class="link-secondary input-password-icon" (click)="togglePasswordType()">
-    <i *ngIf="isPassword(type)" href="javascript:;" class="wtf wtf-pwd-invisible"></i>
-    <i *ngIf="!isPassword(type)" href="javascript:;" class="wtf wtf-pwd-visible"></i>
+    <thy-icon *ngIf="isPassword(type)" thyIconName="eye"></thy-icon>
+    <thy-icon *ngIf="!isPassword(type)" thyIconName="eye-invisible"></thy-icon>
   </a>
 </ng-template>
