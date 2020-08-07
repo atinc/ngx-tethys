@@ -19,6 +19,10 @@ export class ThyResultComponent implements OnInit {
 
     @ContentChild('thyExtra', { static: false }) extraTemplateRef: TemplateRef<any>;
 
+    @ContentChild('thyTitle', { static: false }) titleTemplateRef: TemplateRef<any>;
+
+    @ContentChild('thySubtitle', { static: false }) subtitleTemplateRef: TemplateRef<any>;
+
     @HostBinding('class.thy-result') className = true;
 
     constructor() {}

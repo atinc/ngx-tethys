@@ -1,4 +1,10 @@
-<thy-result thyStatus="success" thyTitle="支付成功" thySubtitle="恭喜您！订单支付已成功">
+<thy-result thyStatus="success">
+  <ng-template #thyTitle>
+    自定义Title
+  </ng-template>
+  <ng-template #thySubtitle>
+    自定义subtitle
+  </ng-template>
   <ng-template #thyExtra>
     <button thyButton="primary-square">关闭</button>
     <button thyButton="outline-primary-square">查看详情</button>
