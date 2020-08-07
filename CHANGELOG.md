@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.1.7"></a>
+## [8.1.7](https://github.com/atinc/ngx-tethys/compare/8.1.6...8.1.7) (2020-08-07)
+
+
+### Features
+
+* **list:** add list document and fix date-range functional #INFR-743 ([#843](https://github.com/atinc/ngx-tethys/issues/843)) ([0a03195](https://github.com/atinc/ngx-tethys/commit/0a03195)), closes [#INFR-743](https://github.com/atinc/ngx-tethys/issues/INFR-743)
+
+
+
 <a name="8.1.6"></a>
 ## [8.1.6](https://github.com/atinc/ngx-tethys/compare/8.1.5...8.1.6) (2020-08-06)
 
