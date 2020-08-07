@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DateRangeItemInfo } from '../date-range.class';
+import { ThyPopover } from '../../popover';
 
 @Component({
     selector: 'date-range-optional',
@@ -22,13 +23,14 @@ export class OptionalDateRangesComponent implements OnInit {
 
     selectedDate: DateRangeItemInfo;
 
-    constructor() {}
+    constructor(private thyPopover: ThyPopover) {}
 
     ngOnInit() {}
 
     _selectDateRange(dateRange: DateRangeItemInfo) {
         this.selectedDate = dateRange;
         this.selectedDateRange(dateRange);
+        this.thyPopover.close();
     }
 
     _selectedCustomDate(date: DateRangeItemInfo) {
