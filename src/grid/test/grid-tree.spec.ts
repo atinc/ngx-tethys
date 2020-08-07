@@ -134,7 +134,7 @@ describe('ThyGrid', () => {
         expect(rows.length).toEqual(testComponent.model.length + 1);
 
         const secondRowColumnItem = rows[1].querySelectorAll('td');
-        const expandElement = secondRowColumnItem[0].querySelector('.thy-tree-expand');
+        const expandElement = secondRowColumnItem[0].querySelector('.tree-expand-icon');
         dispatchFakeEvent(expandElement, 'click');
         fixture.detectChanges();
         tick(100);
@@ -151,7 +151,7 @@ describe('ThyGrid', () => {
         fixture.detectChanges();
 
         const secondRowColumnItem = gridComponent.nativeElement.querySelectorAll('tr')[1].querySelectorAll('td');
-        const expandElement = secondRowColumnItem[0].querySelector('.thy-tree-expand');
+        const expandElement = secondRowColumnItem[0].querySelector('.tree-expand-icon');
         dispatchFakeEvent(expandElement, 'click');
         fixture.detectChanges();
         tick(100);
@@ -159,7 +159,7 @@ describe('ThyGrid', () => {
         const twoExpandElement = gridComponent.nativeElement
             .querySelectorAll('tr')[2]
             .querySelectorAll('td')[0]
-            .querySelector('.thy-tree-expand');
+            .querySelector('.tree-expand-icon');
         dispatchFakeEvent(twoExpandElement, 'click');
         fixture.detectChanges();
         tick(100);

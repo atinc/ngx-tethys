@@ -42,11 +42,20 @@
         .thy-grid-group-container {
             display: flex;
             align-items: center;
+
             .expand-icon {
                 color: $gray-500;
                 margin-right: 5px;
             }
         }
+    }
+
+    .tree-expand-icon {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        margin-top: -8px;
+        color: $gray-500;
     }
 
     .thy-grid-checkbox-column {

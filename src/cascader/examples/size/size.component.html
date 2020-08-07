@@ -1,0 +1,14 @@
+<thy-cascader [thyOptions]="areaCode" (ngModelChange)="onChanges($event)" thyPlaceHolder="自定义PlaceHolder" [thySize]="'lg'">
+</thy-cascader>
+
+<thy-cascader
+  [thyOptions]="areaCode"
+  [(ngModel)]="values"
+  (ngModelChange)="onChanges($event)"
+  thyPlaceHolder="自定义PlaceHolder"
+  [thySize]="'sm'"
+>
+</thy-cascader>
+
+<thy-cascader [thyOptions]="areaCode" (ngModelChange)="onChanges($event)" thyPlaceHolder="自定义PlaceHolder" [thySize]="'xs'">
+</thy-cascader>
