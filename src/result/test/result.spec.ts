@@ -24,29 +24,29 @@ describe('ThyResult', () => {
         thyResultComponent = fixture.debugElement.query(By.directive(ThyResultComponent));
     });
 
-    it('it should create', () => {
+    it('should create', () => {
         expect(thyResultComponent).toBeTruthy();
     });
 
-    it('it should has custom icon ', () => {
+    it('should has custom icon ', () => {
         fixture.detectChanges();
         const customIconElement = thyResultComponent.nativeElement.querySelector('.result-icon .custom-icon');
         expect(customIconElement).toBeTruthy();
     });
 
-    it('it should has extra content', () => {
+    it('should has extra content', () => {
         fixture.detectChanges();
         const extraElement = thyResultComponent.nativeElement.querySelector('.thy-result-extra');
         expect(extraElement).toBeTruthy();
     });
 
-    it('it should has custom title ', () => {
+    it('should has custom title ', () => {
         fixture.detectChanges();
         const customTitleElement = thyResultComponent.nativeElement.querySelector('.thy-result-title .custom-title');
         expect(customTitleElement).toBeTruthy();
     });
 
-    it('it should has custom subtitle ', () => {
+    it('should has custom subtitle ', () => {
         fixture.detectChanges();
         const customSubtitleElement = thyResultComponent.nativeElement.querySelector('.thy-result-subtitle .custom-subtitle');
         expect(customSubtitleElement).toBeTruthy();
