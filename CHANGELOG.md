@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.1.8"></a>
+## [8.1.8](https://github.com/atinc/ngx-tethys/compare/8.1.7...8.1.8) (2020-08-08)
+
+
+### Bug Fixes
+
+* **result:** add result test ([9529c71](https://github.com/atinc/ngx-tethys/commit/9529c71))
+* **result:** delete it ([a4cdaf6](https://github.com/atinc/ngx-tethys/commit/a4cdaf6))
+* **result:** delete wrong title and subtitle ([bb02c1a](https://github.com/atinc/ngx-tethys/commit/bb02c1a))
+
+
+### Features
+
+* **result:** support custom title and subtitle #INFR-887 ([fa5759e](https://github.com/atinc/ngx-tethys/commit/fa5759e)), closes [#INFR-887](https://github.com/atinc/ngx-tethys/issues/INFR-887)
+* **strength:** add strength document #INFR-724 ([#856](https://github.com/atinc/ngx-tethys/issues/856)) ([51a9538](https://github.com/atinc/ngx-tethys/commit/51a9538)), closes [#INFR-724](https://github.com/atinc/ngx-tethys/issues/INFR-724) [#INFR-724](https://github.com/atinc/ngx-tethys/issues/INFR-724)
+* **tree-select:** add tree select document #INFR-712 ([aacd110](https://github.com/atinc/ngx-tethys/commit/aacd110)), closes [#INFR-712](https://github.com/atinc/ngx-tethys/issues/INFR-712)
+
+
+
 <a name="8.1.7"></a>
 ## [8.1.7](https://github.com/atinc/ngx-tethys/compare/8.1.6...8.1.7) (2020-08-07)
 
