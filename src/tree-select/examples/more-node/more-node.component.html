@@ -1,0 +1,34 @@
+<thy-tree-select
+  [thyTreeNodes]="treeSelectNodes"
+  thyPrimaryKey="key"
+  thyShowKey="title"
+  thyPlaceholder="请选择树选择的值"
+  [thyAllowClear]="moreSetting.isAllowClear"
+  [thyDisable]="moreSetting.isDisabled"
+  [thyMultiple]="moreSetting.isMultiple"
+  thyHiddenNodeKey="hidden"
+  thyDisableNodeKey="disabled"
+  [(ngModel)]="moreSetting.selectedValue"
+>
+  <ng-template #treeNodeTemplate let-node>
+    <thy-icon class="prefix-icon" [thyIconName]="node.expand ? 'folder-open-fill' : 'folder-fill'"></thy-icon>
+    {{ node.title }}
+  </ng-template>
+</thy-tree-select>
+<h6 class="my-3">是否可以清除选择：</h6>
+<p>
+  通过改变 <code>thyAllowClear </code> 的值来支持清除已选项:
+  <thy-switch [(ngModel)]="moreSetting.isAllowClear"></thy-switch>
+</p>
+
+<h6 class="my-3">是否支持禁用 treeSelect：</h6>
+<p>
+  改变 <code>thyDisable </code> 的值来禁用 tree select:
+  <thy-switch [(ngModel)]="moreSetting.isDisabled"></thy-switch>
+</p>
+
+<h6 class="my-3">是否支持多选：</h6>
+<p>
+  改变 <code>thyMultiple </code> 的值:
+  <thy-switch [(ngModel)]="moreSetting.isMultiple"></thy-switch>
+</p>
