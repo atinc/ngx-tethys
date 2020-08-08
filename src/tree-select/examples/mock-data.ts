@@ -1,4 +1,6 @@
-export const basicTreeSelectData = [
+import { ThyTreeSelectNode } from './tree-select.class';
+
+export const basicTreeSelectData: ThyTreeSelectNode[] = [
     {
         _id: 'epic-001',
         name: '史诗',
@@ -31,7 +33,7 @@ export const basicTreeSelectData = [
     }
 ];
 
-export const moreOptionTreeSelectData = [
+export const moreOptionTreeSelectData: ThyTreeSelectNode[] = [
     {
         key: 'parent-001',
         title: 'parent-1',
@@ -85,7 +87,7 @@ export const moreOptionTreeSelectData = [
     }
 ];
 
-export const hiddenOptionTreeSelectData = [
+export const hiddenOptionTreeSelectData: ThyTreeSelectNode[] = [
     {
         key: 'parent-001',
         title: 'parent-1',
@@ -142,7 +144,7 @@ export const hiddenOptionTreeSelectData = [
     }
 ];
 
-export const disabledOptionTreeSelectData = [
+export const disabledOptionTreeSelectData: ThyTreeSelectNode[] = [
     {
         key: 'parent-001',
         title: 'parent-1',
