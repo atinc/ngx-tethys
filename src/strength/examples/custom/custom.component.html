@@ -1,4 +1,3 @@
-<!-- <ng-container *ngIf="currentTextType === 'default'; else custom"> -->
 <thy-strength
   [(ngModel)]="strength"
   [titleKey]="text[currentTextType].title"
@@ -7,17 +6,6 @@
   [averageKey]="text[currentTextType].averageKey"
   [lowKey]="text[currentTextType].lowKey"
 ></thy-strength>
-<!-- </ng-container> -->
-<!-- <ng-template #custom>
-  <thy-strength
-    [(ngModel)]="strength"
-    [titleKey]="text[currentTextType].title"
-    [highestKey]="text[currentTextType].highestKey"
-    [highKey]="text[currentTextType].highKey"
-    [averageKey]="text[currentTextType].averageKey"
-    [lowKey]="text[currentTextType].lowKey"
-  ></thy-strength>
-</ng-template> -->
 <h6>切换程度值：</h6>
 <thy-button-group thySize="md" thyType="outline-default" class="my-3">
   <button thyButton *ngFor="let curStrength of strengths" (click)="strength = curStrength" [ngClass]="{ active: strength === curStrength }">
