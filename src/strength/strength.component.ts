@@ -1,10 +1,4 @@
-import {
-    Component,
-    OnInit,
-    forwardRef,
-    HostBinding,
-    Input
-} from '@angular/core';
+import { Component, OnInit, forwardRef, HostBinding, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ThyTranslate } from '../shared/translate';
 
@@ -52,7 +46,7 @@ export class ThyStrengthComponent implements OnInit, ControlValueAccessor {
 
     strength: ThyStrengthEnum;
 
-    strengthMap = strengthMap;
+    strengthMap = JSON.parse(JSON.stringify(strengthMap));
 
     @Input()
     set titleKey(value: string) {
@@ -60,27 +54,19 @@ export class ThyStrengthComponent implements OnInit, ControlValueAccessor {
     }
     @Input()
     set highestKey(value: string) {
-        this.strengthMap[ThyStrengthEnum.highest].text = this.translate.instant(
-            value
-        );
+        this.strengthMap[ThyStrengthEnum.highest].text = this.translate.instant(value);
     }
     @Input()
     set highKey(value: string) {
-        this.strengthMap[ThyStrengthEnum.high].text = this.translate.instant(
-            value
-        );
+        this.strengthMap[ThyStrengthEnum.high].text = this.translate.instant(value);
     }
     @Input()
     set averageKey(value: string) {
-        this.strengthMap[ThyStrengthEnum.average].text = this.translate.instant(
-            value
-        );
+        this.strengthMap[ThyStrengthEnum.average].text = this.translate.instant(value);
     }
     @Input()
     set lowKey(value: string) {
-        this.strengthMap[ThyStrengthEnum.low].text = this.translate.instant(
-            value
-        );
+        this.strengthMap[ThyStrengthEnum.low].text = this.translate.instant(value);
     }
 
     private _onChange = Function.prototype;
