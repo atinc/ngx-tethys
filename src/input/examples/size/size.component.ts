@@ -1,0 +1,17 @@
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+    selector: 'thy-input-size-example',
+    templateUrl: './size.component.html'
+})
+export class ThyInputSizeExampleComponent implements OnInit {
+    public value;
+
+    constructor() {}
+
+    ngOnInit() {}
+
+    public enter() {
+        console.log('enter', this.value);
+    }
+}
