@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ThyNotifyService } from 'ngx-tethys';
-import { ThyCopyEvent } from 'ngx-tethys/directive/thy-copy.directive';
+import { ThyCopyEvent } from 'ngx-tethys/copy/copy.directive';
 @Component({
     selector: 'demo-copy-section',
     templateUrl: './copy-section.component.html'
