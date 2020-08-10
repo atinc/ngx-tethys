@@ -38,6 +38,8 @@ export class ThyBackTopComponent implements OnInit, OnDestroy, OnChanges {
 
     @Output() readonly thyClick: EventEmitter<boolean> = new EventEmitter();
 
+    @Output() public visibleChange: EventEmitter<boolean> = new EventEmitter();
+
     public visible = false;
 
     private scrollListenerDestroy$ = new Subject();
@@ -70,6 +72,7 @@ export class ThyBackTopComponent implements OnInit, OnDestroy, OnChanges {
             return;
         }
         this.visible = !this.visible;
+        this.visibleChange.emit(this.visible);
         this.cd.detectChanges();
     }
 
@@ -99,3 +102,4 @@ export class ThyBackTopComponent implements OnInit, OnDestroy, OnChanges {
         }
     }
 }
+
