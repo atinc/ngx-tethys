@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.1.9"></a>
+## [8.1.9](https://github.com/atinc/ngx-tethys/compare/8.1.8...8.1.9) (2020-08-10)
+
+
+### Features
+
+* **back-top:** add visibility output event #INFR-895 ([76f9321](https://github.com/atinc/ngx-tethys/commit/76f9321)), closes [#INFR-895](https://github.com/atinc/ngx-tethys/issues/INFR-895)
+
+
+
 <a name="8.1.8"></a>
 ## [8.1.8](https://github.com/atinc/ngx-tethys/compare/8.1.7...8.1.8) (2020-08-08)
 
