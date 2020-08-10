@@ -1,0 +1,44 @@
+<p class="font-size-xs">
+  · 常规的五种类型：<code>Default</code>、<code>Primary</code>、<code>Success</code>、<code>Info</code>、<code>Warning</code>
+</p>
+<span class="mr-1" thyLabel="default">Default</span>
+<span class="mr-1" thyLabel="primary">Primary</span>
+<span class="mr-1" thyLabel="success">Success</span>
+<span class="mr-1" thyLabel="info">Info</span>
+<span class="mr-1" thyLabel="warning">Warning</span>
+
+<hr />
+
+<p class="font-size-xs">
+  · 特殊类型 emboss：<code>emboss-default</code>、<code>emboss-primary</code>、<code>emboss-warning</code>、<code>emboss-danger</code>
+</p>
+<span class="mr-1" thyLabel="emboss-default">emboss-default</span>
+<span class="mr-1" thyLabel="emboss-primary">emboss-primary</span>
+<span class="mr-1" thyLabel="emboss-warning">emboss-warning</span>
+<span class="mr-1" thyLabel="emboss-danger">emboss-danger</span>
+
+<hr />
+<p class="font-size-xs">· 特殊类型<code>outline</code>，用于描述任务间的关联关系，不可修改文案及颜色</p>
+<span *ngFor="let status of relationLabels" class="mr-3" thyLabel="outline" [thyLabelColor]="status.color">{{ status.name }}</span>
+
+<hr />
+
+<p class="font-size-xs">· 标签的颜色自定义，eg：<code>#7076fa</code>覆盖</p>
+<span class="mr-1" thyLabel [thyLabelColor]="color">Danger</span>
+<span class="mr-1" thyLabel="emboss-default" [thyLabelColor]="''">emboss-primary</span>
+<span class="mr-1" thyLabel="emboss-default" [thyLabelColor]="color">emboss-primary</span>
+
+<hr />
+
+<p class="font-size-xs">
+  · 标签上的操作：鼠标划过<code>thyHasHover</code>、移除操作<code>thyOnRemove</code>、前置图标<code>thyBeforeIcon</code>、后置图标<code
+    >thyAfterIcon</code
+  >
+</p>
+<span class="mr-1" thyLabel="default" thyHasHover="true" thyBeforeIcon="plus" (click)="add()">添加标签</span>
+<span class="mr-1" thyLabel="primary" thyHasHover="true" thyAfterIcon="close" (thyOnRemove)="remove()">
+  重要不紧急
+</span>
+<span class="mr-1" thyLabel="default" thyHasHover="true" (click)="showMore()">…</span>
+<br />
+<span thyLabel="default" thyAfterIcon="close" (thyOnRemove)="remove()">default</span>
