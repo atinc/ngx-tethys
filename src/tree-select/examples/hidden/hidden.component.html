@@ -1,0 +1,45 @@
+<thy-tree-select
+  [thyTreeNodes]="treeSelectNodes"
+  thyPrimaryKey="key"
+  thyShowKey="title"
+  thyPlaceholder="请选择树选择的值"
+  thyHiddenNodeKey="hidden"
+  thyDisableNodeKey="disabled"
+  [(ngModel)]="selectedValue"
+>
+  <ng-template #treeNodeTemplate let-node>
+    <thy-icon class="prefix-icon" [thyIconName]="node.expand ? 'folder-open-fill' : 'folder-fill'"></thy-icon>
+    {{ node.title }}
+  </ng-template>
+</thy-tree-select>
+
+<h6 class="my-3">通过设置数据的相关值来隐藏节点</h6>
+<p>
+  设置 <code>thyHiddenNodeKey </code>的值为要隐藏的 key 值（或者使用默认值 <code>hidden </code>），修改 <code>thyTreeNodes </code> 中相关
+  key 值为 <code>true</code>:
+  <thy-switch [(ngModel)]="isHidden" (ngModelChange)="hiddenNode()"></thy-switch>
+</p>
+
+<thy-tree-select
+  [thyTreeNodes]="treeSelectNodes"
+  thyPrimaryKey="key"
+  thyShowKey="title"
+  thyPlaceholder="请选择树选择的值"
+  thyHiddenNodeKey=""
+  [thyHiddenNodeFn]="hiddenNodeFn"
+  thyDisableNodeKey="disabled"
+  [(ngModel)]="selectedValue"
+>
+  <ng-template #treeNodeTemplate let-node>
+    <thy-icon class="prefix-icon" [thyIconName]="node.expand ? 'folder-open-fill' : 'folder-fill'"></thy-icon>
+    {{ node.title }}
+  </ng-template>
+</thy-tree-select>
+<h6 class="my-3">通过设置 <code>thyHiddenNodeFn </code>来隐藏节点：</h6>
+<p>
+  函数的返回值为要隐藏的节点的 key。
+</p>
+<p>
+  注意，由于 <code>thyHiddenNodeFn </code>的优先级小于 <code>thyHiddenNodeKey </code>并且 <code>thyHiddenNodeKey </code>有默认值，所以在使用
+  <code>thyHiddenNodeFn </code> 时，需要将 <code>thyHiddenNodeKey </code> 设置为假值。
+</p>
