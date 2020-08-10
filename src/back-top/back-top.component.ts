@@ -52,7 +52,7 @@ export class ThyBackTopComponent implements OnInit, OnDestroy, OnChanges {
         private platform: Platform,
         private cdr: ChangeDetectorRef,
         private zone: NgZone
-    ) {}
+    ) { }
 
     ngOnInit(): void {
         this.registerScrollEvent();
@@ -72,8 +72,10 @@ export class ThyBackTopComponent implements OnInit, OnDestroy, OnChanges {
             return;
         }
         this.visible = !this.visible;
-        this.visibleChange.emit(this.visible);
         this.cdr.detectChanges();
+        this.zone.run(() => {
+            this.visibleChange.emit(this.visible);
+        });
     }
 
     private registerScrollEvent(): void {
