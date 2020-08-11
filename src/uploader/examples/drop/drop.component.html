@@ -1,0 +1,16 @@
+<div class="header">
+  <h2 draggable="true">拖拽上传</h2>
+</div>
+<div class="body">
+  <div class="demo-file-drop" thyFileDrop thyFileDropClassName="drop-over2" (thyOnDrop)="onDrop($event)">
+    <div class="drop-text">释放上传</div>
+  </div>
+  <div *ngFor="let queueFile of queueFiles">
+    <div style="margin: 5px 0;">
+      {{ queueFile.fileName }} speed: {{ queueFile.progress.speedHuman }}, estimatedTime - {{ queueFile.progress.estimatedTimeHuman }}
+    </div>
+    <thy-progress class="progress" thyType="success" [thyValue]="queueFile.progress.percentage" [thyMax]="100"
+      >{{ queueFile.progress.percentage }}%</thy-progress
+    >
+  </div>
+</div>
