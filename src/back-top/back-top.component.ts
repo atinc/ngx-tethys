@@ -38,6 +38,8 @@ export class ThyBackTopComponent implements OnInit, OnDestroy, OnChanges {
 
     @Output() readonly thyClick: EventEmitter<boolean> = new EventEmitter();
 
+    @Output() public visibleChange: EventEmitter<boolean> = new EventEmitter();
+
     public visible = false;
 
     private scrollListenerDestroy$ = new Subject();
@@ -48,9 +50,9 @@ export class ThyBackTopComponent implements OnInit, OnDestroy, OnChanges {
         @Inject(DOCUMENT) private doc: any,
         private thyScrollService: ThyScrollService,
         private platform: Platform,
-        private cd: ChangeDetectorRef,
+        private cdr: ChangeDetectorRef,
         private zone: NgZone
-    ) {}
+    ) { }
 
     ngOnInit(): void {
         this.registerScrollEvent();
@@ -70,7 +72,10 @@ export class ThyBackTopComponent implements OnInit, OnDestroy, OnChanges {
             return;
         }
         this.visible = !this.visible;
-        this.cd.detectChanges();
+        this.cdr.detectChanges();
+        this.zone.run(() => {
+            this.visibleChange.emit(this.visible);
+        });
     }
 
     private registerScrollEvent(): void {
@@ -99,3 +104,4 @@ export class ThyBackTopComponent implements OnInit, OnDestroy, OnChanges {
         }
     }
 }
+

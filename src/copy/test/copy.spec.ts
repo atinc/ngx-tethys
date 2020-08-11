@@ -1,19 +1,18 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ComponentFixture, async, TestBed, flush, fakeAsync, tick } from '@angular/core/testing';
-import { ThyDirectiveModule } from './module';
-import { ThyCopyDirective } from './thy-copy.directive';
-import { dispatchFakeEvent } from '../core/testing';
-import { By } from '@angular/platform-browser';
-import { ThyTooltipModule } from '../tooltip/tooltip.module';
-import { ThyNotifyService, ThyNotifyModule } from '../notify';
+import { dispatchFakeEvent } from '../../core/testing';
+import { ThyCopyDirective } from '../copy.directive';
+import { ThyTooltipModule } from '../../tooltip/tooltip.module';
+import { ThyNotifyService, ThyNotifyModule } from '../../notify';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 describe('thy-copy', () => {
     let fixture: ComponentFixture<ThyCopyComponent>;
     let testComponent: ThyCopyComponent;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [ThyDirectiveModule, ThyTooltipModule, ThyNotifyModule],
-            declarations: [ThyCopyComponent],
+            imports: [ThyTooltipModule, ThyNotifyModule, NoopAnimationsModule],
+            declarations: [ThyCopyComponent, ThyCopyDirective],
             providers: [ThyNotifyService]
         }).compileComponents();
     }));
@@ -38,7 +37,7 @@ describe('thy-copy', () => {
 });
 @Component({
     template: `
-        <p #copyContainer (thyCopy)="copy($event)" [thyCopyContent]="'我是一只猪猪'"></p>
+        <p #copyContainer (thyCopy)="copy($event)" thyCopyContent="我是一只猪猪">点击</p>
     `
 })
 class ThyCopyComponent implements OnInit {

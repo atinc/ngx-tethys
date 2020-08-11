@@ -1,0 +1,20 @@
+<button
+  [thyTooltip]="world"
+  [thyTooltipTrigger]="tooltipConfig.trigger"
+  [thyTooltipTemplateContext]="{ values: ['这是数据1', '这是数据2', '这是数据3', '这是数据4'] }"
+  [thyTooltipPlacement]="tooltipConfig.placement"
+  [thyTooltipDisabled]="tooltipConfig.disabled"
+  [thyTooltipOffset]="tooltipConfig.offset"
+  thyButton="primary"
+>
+  Tooltip内带有数据的模板
+</button>
+<ng-template #world let-data>
+  <div>
+    <i class="wtf wtf-help-question-o"></i>
+    My custom tooltip message with template data
+    <div *ngFor="let item of data.values">
+      {{ item }}
+    </div>
+  </div>
+</ng-template>
