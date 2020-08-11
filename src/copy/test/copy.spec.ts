@@ -4,14 +4,14 @@ import { dispatchFakeEvent } from '../../core/testing';
 import { ThyCopyDirective } from '../copy.directive';
 import { ThyTooltipModule } from '../../tooltip/tooltip.module';
 import { ThyNotifyService, ThyNotifyModule } from '../../notify';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 describe('thy-copy', () => {
     let fixture: ComponentFixture<ThyCopyComponent>;
     let testComponent: ThyCopyComponent;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [ThyTooltipModule, ThyNotifyModule],
+            imports: [ThyTooltipModule, ThyNotifyModule, NoopAnimationsModule],
             declarations: [ThyCopyComponent, ThyCopyDirective],
             providers: [ThyNotifyService]
         }).compileComponents();
