@@ -38,6 +38,7 @@ describe('thy-anchor', () => {
             expect(debugElement.query(By.css('.thy-anchor'))).toBeTruthy();
             expect(debugElement.query(By.css(`[href="#${id}"]`))).toBeTruthy();
         }));
+
         it('should scroll to associated anchor when click thy-link', fakeAsync(() => {
             const staticLink: HTMLElement = debugElement.query(By.css(`[href="#${id}"]`)).nativeElement;
             const targetAnchor: HTMLElement = debugElement.query(By.css(`[id="${id}"]`)).nativeElement;
@@ -48,6 +49,7 @@ describe('thy-anchor', () => {
             const scrollTop = scrollService.getScroll();
             expect(scrollTop).toEqual(top);
         }));
+
         it('should active associated thy-link when scrolling to anchor', (done: () => void) => {
             const targetAnchor: HTMLElement = debugElement.query(By.css(`[id="${id}"]`)).nativeElement;
             targetAnchor.scrollIntoView();
