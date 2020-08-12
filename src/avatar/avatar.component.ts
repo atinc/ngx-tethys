@@ -5,15 +5,16 @@ import { ThyAvatarService } from './avatar.service';
 import { helpers } from '../util';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
-const sizeArray = [22, 24, 30, 38, 48, 68, 110, 160];
+const sizeArray = [22, 24, 28, 32, 36, 48, 68, 110, 160];
 const sizeMap = {
+    xxs: 22,
     xs: 24,
-    sm: 30,
-    md: 38,
+    sm: 32,
+    md: 36,
     lg: 48
 };
 
-const DEFAULT_SIZE = 38;
+const DEFAULT_SIZE = 36;
 
 @Component({
     selector: 'thy-avatar',

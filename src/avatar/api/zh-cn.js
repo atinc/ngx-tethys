@@ -37,7 +37,7 @@ module.exports = [
             },
             {
                 name: 'thySize',
-                description: '头像大小，可选择  xs, sm, md, lg, 68, 110, 160,  xs: 24px, sm: 28px, md: 36px, lg: 48px',
+                description: '头像大小，可选择 22, 24, 28, 32, 36, 48, 68, 110, 160 | xxs(22px), xs(24px), sm(32px), md(36px), lg(48px)',
                 type: 'number | string',
                 default: 'md'
             },

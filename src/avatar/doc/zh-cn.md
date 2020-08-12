@@ -22,7 +22,7 @@ order: 1
 <example name="thy-avatar-name-example" inline />
 
 ## 大小
-头像固定的字符串大小为：`xs`、`sm`、`md`、`lg`，对应的大小为：`24px`、`28px`、`36px`、`48px`，除此之外还支持 `68px`, `110px`, `160px`， size 设置为 `md` 和 `36` 是等价的，推荐使用 `md`。
+头像固定的字符串大小为： `xxs`、`xs`、`sm`、`md`、`lg`，对应的大小为：`22px`、`24px`、`32px`、`36px`、`48px`，除此之外还支持 `28px`, `68px`, `110px`, `160px`， size 设置为 `md` 和 `36` 是等价的，推荐使用 `md`。
 
 <example name="thy-avatar-size-example" />
 
