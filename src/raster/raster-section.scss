@@ -1,0 +1,19 @@
+.rester-section {
+    .thy-row + .thy-row {
+        margin-top: 16px;
+    }
+    .demo-col-section {
+        min-height: 50px;
+        line-height: 50px;
+        padding: 5px 0;
+        color: #fff;
+        text-align: center;
+        border-radius: 0;
+        background: #00a0e9;
+    }
+    .thy-col:nth-child(2n + 1) {
+        .demo-col-section {
+            background: #00a0e9b3;
+        }
+    }
+}
