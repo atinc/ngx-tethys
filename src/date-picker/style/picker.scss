@@ -9,6 +9,9 @@
     transition: opacity 0.3s;
     width: 100%;
     cursor: pointer;
+    .form-control {
+        padding-right: $input-padding-x + $font-size-md;
+    }
 
     &:hover {
         .form-control {
