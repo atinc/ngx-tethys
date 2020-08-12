@@ -27,6 +27,12 @@ module.exports = [
                 description: `点击按钮的回调函数`,
                 type: 'EventEmitter<boolean>',
                 default: 'window'
+            },
+            {
+                name: 'visibleChange',
+                description: `监听按钮显示状态的回调函数`,
+                type: 'EventEmitter<boolean>',
+                default: 'window'
             }
         ]
     }
