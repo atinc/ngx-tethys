@@ -59,7 +59,7 @@ export class DemoAvatarSectionComponent implements OnInit {
         {
             title: '头像大小',
             component: DemoAvatarSizeSectionComponent,
-            description: `可选择 22, 24, 30, 38, 48, 68, 110, 160 或者 sm(30pz) xs(24px) lg(48px)`,
+            description: `可选择 22, 24, 28, 32, 36, 48, 68, 110, 160 或者 xxs(22px) xs(24px) sm(32px) md(36px) lg(48px)`,
             codeExamples: [
                 {
                     type: 'html',
@@ -136,8 +136,7 @@ export class DemoAvatarSectionComponent implements OnInit {
         },
         {
             property: 'thyName',
-            description:
-                '人员名称（可设置自定义名称，需通过自定义服务 ThyAvatarService，重写 nameTransform 方法去实现转换）',
+            description: '人员名称（可设置自定义名称，需通过自定义服务 ThyAvatarService，重写 nameTransform 方法去实现转换）',
             type: 'string',
             default: ''
         },
@@ -161,9 +160,9 @@ export class DemoAvatarSectionComponent implements OnInit {
         },
         {
             property: 'thySize',
-            description: '头像大小，可选择  22, 24, 30, 38, 48, 68, 110, 160, sm: 30px, xs: 24px lg: 48',
+            description: '头像大小，可选择  22, 24, 28, 32, 36, 48, 68, 110, 160, xxs(22px) xs(24px), sm(32px), md(36px), lg(48px)',
             type: 'Number | String',
-            default: '38'
+            default: '36'
         },
         {
             property: 'thyDisabled',

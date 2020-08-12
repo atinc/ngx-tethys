@@ -16,12 +16,7 @@
       <label thyCheckbox thyLabelText="Disabled" [(ngModel)]="disabled" name="disabled"></label>
     </thy-form-group>
     <thy-form-group thyLabelText="">
-      <label
-        thyCheckbox
-        thyLabelText="Label hide when has value"
-        [(ngModel)]="labelHideWhenHasValue"
-        name="labelHideWhenHasValue"
-      ></label>
+      <label thyCheckbox thyLabelText="Label hide when has value" [(ngModel)]="labelHideWhenHasValue" name="labelHideWhenHasValue"></label>
     </thy-form-group>
   </form>
   <div class="mt-2">
@@ -54,11 +49,7 @@
     </thy-property-operation>
     <thy-property-operation thyLabelText="负责人" class="mr-2" [thyLabelHideWhenHasValue]="labelHideWhenHasValue">
       <ng-template #operationIcon>
-        <thy-avatar
-          thySrc="9cb2637b-9f70-4d73-8c1d-24542b6ab4e1_80x80.png"
-          thyName="why520crazy"
-          thySize="38"
-        ></thy-avatar>
+        <thy-avatar thySrc="9cb2637b-9f70-4d73-8c1d-24542b6ab4e1_80x80.png" thyName="why520crazy" thySize="md"></thy-avatar>
       </ng-template>
       why520crazy
     </thy-property-operation>
