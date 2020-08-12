@@ -144,6 +144,25 @@ describe('Component:thy-back-top', () => {
         });
     });
 
+    describe('(visibleChange)', () => {
+        describe('when visible change', () => {
+            it(`emit visible change when scroll is at ${defaultVisibilityHeight}`, fakeAsync(() => {
+                const visibleChangeSpy = jasmine.createSpy('visibleHide');
+                component.visibleChange.subscribe((returnValue: boolean) => {
+                    visibleChangeSpy(returnValue);
+                });
+                componentObject.scrollTo(window, defaultVisibilityHeight + 1);
+                tick(100);
+                fixture.detectChanges();
+                expect(visibleChangeSpy).toHaveBeenCalledWith(true);
+                componentObject.scrollTo(window, defaultVisibilityHeight - 1);
+                tick(100);
+                fixture.detectChanges();
+                expect(visibleChangeSpy).toHaveBeenCalledWith(false);
+            }));
+        });
+    });
+
     describe('[thyContainer]', () => {
         let fakeTarget: HTMLElement;
         beforeEach(fakeAsync(() => {
