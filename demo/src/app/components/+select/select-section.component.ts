@@ -85,7 +85,7 @@ export class DemoSelectSectionComponent implements OnInit {
         },
         {
             property: 'thyOnExpandStatusChange',
-            description: 'output event: 下拉菜单展开和这点状态事件',
+            description: 'output event: 下拉菜单展开和折叠状态事件',
             type: '(openStatus: boolean)=>{}'
         }
     ];
