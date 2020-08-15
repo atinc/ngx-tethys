@@ -1,6 +1,6 @@
 import { TestBed, async, ComponentFixture, fakeAsync, tick, inject, flush, discardPeriodicTasks } from '@angular/core/testing';
 import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { Component, ViewChild, ViewChildren, QueryList, ElementRef, Sanitizer, SecurityContext } from '@angular/core';
+import { Component, ViewChild, ViewChildren, QueryList, ElementRef, Sanitizer, SecurityContext, TemplateRef } from '@angular/core';
 import { ThySelectModule } from './module';
 import { ThySelectCustomComponent, SelectMode } from './custom-select/custom-select.component';
 import { ThyOptionComponent } from '../core/option/option.component';
@@ -30,6 +30,9 @@ import { ThyOptionModule } from '../core/option/module';
                     [thyLabelText]="food.viewValue"
                 >
                 </thy-option>
+                <ng-template #footer>
+                    <div class="thy-custom-select-footer"></div>
+                </ng-template>
             </thy-custom-select>
         </form>
     `
@@ -49,6 +52,9 @@ class BasicSelectComponent {
     isRequired: boolean;
     @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
     @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
+
+    @ViewChild('footer', { static: true, read: TemplateRef })
+    footerTemplate: TemplateRef<any>;
 }
 
 @Component({
@@ -662,6 +668,34 @@ describe('ThyCustomSelect', () => {
                     0,
                     'Expected at least one option to be rendered.'
                 );
+            }));
+        });
+
+        describe('thyFooterTemplate', () => {
+            let fixture: ComponentFixture<BasicSelectComponent>;
+            let trigger: HTMLElement;
+
+            beforeEach(fakeAsync(() => {
+                fixture = TestBed.createComponent(BasicSelectComponent);
+                fixture.detectChanges();
+                trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            }));
+
+            fit('should not show thyFooterTemplate', fakeAsync(() => {
+                trigger.click();
+                fixture.detectChanges();
+                flush();
+                const footerElement = overlayContainer.getContainerElement().querySelector('.thy-custom-select-footer');
+                expect(footerElement).toBeNull();
+            }));
+
+            fit('should not show thyFooterTemplate when thyFooterTemplate had been assign', fakeAsync(() => {
+                fixture.componentInstance.select.thyFooterTemplate = fixture.componentInstance.footerTemplate;
+                trigger.click();
+                fixture.detectChanges();
+                flush();
+                const footerElement = overlayContainer.getContainerElement().querySelector('.thy-custom-select-footer');
+                expect(footerElement).toBeTruthy();
             }));
         });
 
@@ -1315,9 +1349,7 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             flush();
 
-            expect(fixture.componentInstance.select.keyManager.activeItem).toEqual(
-                fixture.componentInstance.select.options.toArray()[0]
-            );
+            expect(fixture.componentInstance.select.keyManager.activeItem).toEqual(fixture.componentInstance.select.options.toArray()[0]);
             const spy = jasmine.createSpy('keydown spy');
             fromEvent(fixture.debugElement.nativeElement, 'keydown').subscribe(() => {
                 spy();

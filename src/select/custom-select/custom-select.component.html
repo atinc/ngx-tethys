@@ -42,6 +42,7 @@
           <thy-empty [thyMessage]="emptySearchMessageText"></thy-empty>
         </ng-container>
       </div>
+      <ng-template *ngIf="thyFooterTemplate" [ngTemplateOutlet]="thyFooterTemplate"></ng-template>
     </ng-container>
     <ng-template #emptyPlaceholder>
       <thy-empty [thyMessage]="emptyStateText"></thy-empty>

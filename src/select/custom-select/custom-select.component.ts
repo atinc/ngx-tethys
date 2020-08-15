@@ -199,6 +199,9 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
 
     @Input() thySortComparator: (a: ThyOptionComponent, b: ThyOptionComponent, options: ThyOptionComponent[]) => number;
 
+    @Input()
+    thyFooterTemplate: TemplateRef<any>;
+
     @ContentChild('selectedDisplay', { static: false }) selectedValueDisplayRef: TemplateRef<any>;
 
     @ViewChild('trigger', { read: ElementRef, static: true }) trigger: ElementRef<any>;
