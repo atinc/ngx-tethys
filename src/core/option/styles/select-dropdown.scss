@@ -60,11 +60,11 @@
         }
     }
     .thy-custom-select-footer {
+        display: flex;
         height: 41px;
         line-height: 40px;
         color: $primary;
         cursor: pointer;
-        outline-style: none;
         border-top: solid 1px $gray-200;
         padding: {
             left: 20px;

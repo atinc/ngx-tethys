@@ -7,8 +7,6 @@
 >
   <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.label"></thy-option>
   <ng-template #footer>
-    <div class="thy-custom-select-footer">
-      <span>更多页面</span>
-    </div>
+    <a class="flex-grow-1">更多页面</a>
   </ng-template>
 </thy-custom-select>

@@ -76,6 +76,11 @@ module.exports = [
                 name: 'thyFooterTemplate',
                 description: 'Footer模板，默认值为空不显示Footer',
                 type: 'TemplateRef<any>'
+            },
+            {
+                name: 'thyFooterClass',
+                description: '自定义Footer模板容器Class',
+                default: 'thy-custom-select-footer'
             }
         ]
     },
