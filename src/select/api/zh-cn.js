@@ -71,6 +71,16 @@ module.exports = [
                 name: 'thyOnExpandStatusChange',
                 description: 'output event: 下拉菜单展开和折叠状态事件',
                 type: '(openStatus: boolean)=>{}'
+            },
+            {
+                name: 'thyFooterTemplate',
+                description: 'Footer模板，默认值为空不显示Footer',
+                type: 'TemplateRef<any>'
+            },
+            {
+                name: 'thyFooterClass',
+                description: '自定义Footer模板容器Class',
+                default: 'thy-custom-select-footer'
             }
         ]
     },
