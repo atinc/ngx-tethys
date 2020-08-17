@@ -31,7 +31,7 @@ import { ThyOptionModule } from '../core/option/module';
                 >
                 </thy-option>
                 <ng-template #footer>
-                    <div class="thy-custom-select-footer"></div>
+                    <a>更多</a>
                 </ng-template>
             </thy-custom-select>
         </form>
@@ -681,7 +681,7 @@ describe('ThyCustomSelect', () => {
                 trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             }));
 
-            fit('should not show thyFooterTemplate', fakeAsync(() => {
+            it('should not show thyFooterTemplate', fakeAsync(() => {
                 trigger.click();
                 fixture.detectChanges();
                 flush();
@@ -689,12 +689,23 @@ describe('ThyCustomSelect', () => {
                 expect(footerElement).toBeNull();
             }));
 
-            fit('should not show thyFooterTemplate when thyFooterTemplate had been assign', fakeAsync(() => {
+            it('should show thyFooterTemplate when thyFooterTemplate had been assign', fakeAsync(() => {
                 fixture.componentInstance.select.thyFooterTemplate = fixture.componentInstance.footerTemplate;
                 trigger.click();
                 fixture.detectChanges();
                 flush();
                 const footerElement = overlayContainer.getContainerElement().querySelector('.thy-custom-select-footer');
+                expect(footerElement).toBeTruthy();
+            }));
+
+            it('should show thyFooterTemplate with custom-footer-class when thyFooterTemplate had been assign', fakeAsync(() => {
+                const footerClass = 'custom-footer-class';
+                fixture.componentInstance.select.thyFooterTemplate = fixture.componentInstance.footerTemplate;
+                fixture.componentInstance.select.thyFooterClass = footerClass;
+                trigger.click();
+                fixture.detectChanges();
+                flush();
+                const footerElement = overlayContainer.getContainerElement().querySelector(`.${footerClass}`);
                 expect(footerElement).toBeTruthy();
             }));
         });
