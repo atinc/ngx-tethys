@@ -671,7 +671,7 @@ describe('ThyCustomSelect', () => {
             }));
         });
 
-        describe('thyFooterTemplate', () => {
+        describe('thyFooter', () => {
             let fixture: ComponentFixture<BasicSelectComponent>;
             let trigger: HTMLElement;
 
