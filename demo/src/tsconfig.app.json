@@ -10,5 +10,8 @@
       "ngx-tethys/*": ["../../src/*"]
     }
   },
+  "angularCompilerOptions": {
+    "skipLibCheck": true
+  },
   "exclude": ["test.ts", "**/*.spec.ts"]
 }
