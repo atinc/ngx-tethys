@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.1.10"></a>
+## [8.1.10](https://github.com/atinc/ngx-tethys/compare/8.1.9...8.1.10) (2020-08-18)
+
+
+### Bug Fixes
+
+* justify footer template location #INFR-933 ([afddfc2](https://github.com/atinc/ngx-tethys/commit/afddfc2)), closes [#INFR-933](https://github.com/atinc/ngx-tethys/issues/INFR-933)
+* **copy:** change test file #INFR-898 ([4f06ed7](https://github.com/atinc/ngx-tethys/commit/4f06ed7)), closes [#INFR-898](https://github.com/atinc/ngx-tethys/issues/INFR-898)
+* **copy:** delete copy directive from copy directive folder #INFR-898 ([8daee09](https://github.com/atinc/ngx-tethys/commit/8daee09)), closes [#INFR-898](https://github.com/atinc/ngx-tethys/issues/INFR-898)
+* **date-picker:** add padding-right to show icon when placeholder is too long #THB-1495 ([d3128e6](https://github.com/atinc/ngx-tethys/commit/d3128e6)), closes [#THB-1495](https://github.com/atinc/ngx-tethys/issues/THB-1495)
+* **input:** add placeholder text-overflow style #INFR-892 ([5cef68d](https://github.com/atinc/ngx-tethys/commit/5cef68d)), closes [#INFR-892](https://github.com/atinc/ngx-tethys/issues/INFR-892)
+* **input:** add placeholder text-overflow style #INFR-892 ([fe7c6f7](https://github.com/atinc/ngx-tethys/commit/fe7c6f7)), closes [#INFR-892](https://github.com/atinc/ngx-tethys/issues/INFR-892)
+
+
+### Features
+
+* **add-top:** add back-top spec and doc #wh/add-back-top-spec ([#869](https://github.com/atinc/ngx-tethys/issues/869)) ([7bd7f8f](https://github.com/atinc/ngx-tethys/commit/7bd7f8f))
+* **select:** support thyFooterTemplate #INFR-933 ([#877](https://github.com/atinc/ngx-tethys/issues/877)) ([0c3db00](https://github.com/atinc/ngx-tethys/commit/0c3db00)), closes [#INFR-933](https://github.com/atinc/ngx-tethys/issues/INFR-933)
+
+
+
 <a name="8.1.9"></a>
 ## [8.1.9](https://github.com/atinc/ngx-tethys/compare/8.1.8...8.1.9) (2020-08-10)
 
