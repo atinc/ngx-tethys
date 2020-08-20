@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.1.11"></a>
+## [8.1.11](https://github.com/atinc/ngx-tethys/compare/8.1.10...8.1.11) (2020-08-20)
+
+
+### Bug Fixes
+
+* **flexible-text:** fix IFC white space #INFR-953 ([122ff60](https://github.com/atinc/ngx-tethys/commit/122ff60)), closes [#INFR-953](https://github.com/atinc/ngx-tethys/issues/INFR-953)
+
+
+
 <a name="8.1.10"></a>
 ## [8.1.10](https://github.com/atinc/ngx-tethys/compare/8.1.9...8.1.10) (2020-08-18)
 
