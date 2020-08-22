@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.1.12"></a>
+## [8.1.12](https://github.com/atinc/ngx-tethys/compare/8.1.11...8.1.12) (2020-08-22)
+
+
+### Bug Fixes
+
+* **copy:** export copy directive ([#884](https://github.com/atinc/ngx-tethys/issues/884)) ([dbd5d6f](https://github.com/atinc/ngx-tethys/commit/dbd5d6f))
+
+
+
 <a name="8.1.11"></a>
 ## [8.1.11](https://github.com/atinc/ngx-tethys/compare/8.1.10...8.1.11) (2020-08-20)
 
