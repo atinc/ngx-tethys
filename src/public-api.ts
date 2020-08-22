@@ -65,3 +65,4 @@ export * from './autocomplete';
 export * from './affix';
 export * from './anchor';
 export * from './back-top';
+export * from './copy';
