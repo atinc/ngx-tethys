@@ -6,15 +6,16 @@ import { helpers } from '../util';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 const sizeArray = [22, 24, 28, 32, 36, 48, 68, 110, 160];
-const sizeMap = {
+
+const DEFAULT_SIZE = 36;
+
+export const thyAvatarSizeMap = {
     xxs: 22,
     xs: 24,
     sm: 32,
     md: 36,
     lg: 48
 };
-
-const DEFAULT_SIZE = 36;
 
 @Component({
     selector: 'thy-avatar',
@@ -51,8 +52,8 @@ export class ThyAvatarComponent implements OnInit {
 
     @Input()
     set thySize(value: number | string) {
-        if (sizeMap[value]) {
-            this._setAvatarSize(sizeMap[value]);
+        if (thyAvatarSizeMap[value]) {
+            this._setAvatarSize(thyAvatarSizeMap[value]);
         } else {
             this._setAvatarSize((value as number) * 1);
         }
