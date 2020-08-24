@@ -30,7 +30,7 @@ class ThyPaginationExampleComponent {
     pageIndexChange = jasmine.createSpy('pageIndexChange callback');
 }
 
-fdescribe('ThyPagination', () => {
+describe('ThyPagination', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ThyPaginationModule],
