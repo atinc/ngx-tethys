@@ -38,6 +38,11 @@ $dg-primary: #4150b3;
     }
 }
 
+.dg-layout .content {
+    display: block;
+    overflow-y: auto;
+}
+
 // ngx-tethys
 $primary: #348fe4;
 $font-family-statistics-number: 'Statistic-Number';
