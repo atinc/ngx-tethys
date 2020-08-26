@@ -1,0 +1,44 @@
+<thy-property-operation
+  class="w-100 mb-3"
+  thyLabelText="开始时间"
+  [thyValue]="date | thyDatePickerFormat"
+  thyIcon="calendar-check"
+  thyDatePicker
+  [(ngModel)]="date"
+></thy-property-operation>
+<thy-property-operation
+  class="w-100 mb-3"
+  thyLabelText="截止时间"
+  [thyValue]="time | thyDatePickerFormat"
+  thyIcon="calendar-check"
+  thyDatePicker
+  [(ngModel)]="time"
+  [thyShowTime]="true"
+></thy-property-operation>
+<thy-property-operation
+  class="w-100 mb-3"
+  thyLabelText="时间"
+  [thyValue]="dateTime | thyDatePickerFormat"
+  thyIcon="calendar-check"
+  thyDatePicker
+  [(ngModel)]="dateTime"
+  (ngModelChange)="onChange($event)"
+  [thyShowTime]="true"
+></thy-property-operation>
+<thy-property-operation
+  class="w-100 mb-3"
+  thyLabelText="时间区间"
+  [thyValue]="dateRange | thyDatePickerFormat"
+  thyIcon="calendar-check"
+  thyRangePicker
+  [(ngModel)]="dateRange"
+></thy-property-operation>
+<thy-property-operation
+  class="w-100 mb-3"
+  thyLabelText="开始时间"
+  [thyValue]="date | thyDatePickerFormat"
+  thyIcon="calendar-check"
+  thyDatePicker
+  thyDisabled="true"
+  [(ngModel)]="date"
+></thy-property-operation>
