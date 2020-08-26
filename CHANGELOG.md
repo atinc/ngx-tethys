@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.1.13"></a>
+## [8.1.13](https://github.com/atinc/ngx-tethys/compare/8.1.12...8.1.13) (2020-08-26)
+
+
+### Bug Fixes
+
+* **avatar:** export avatar size variable for tethys ([381b852](https://github.com/atinc/ngx-tethys/commit/381b852))
+* **avatar:** take the nearest size and complementary test #INFR-966 ([1d03aeb](https://github.com/atinc/ngx-tethys/commit/1d03aeb)), closes [#INFR-966](https://github.com/atinc/ngx-tethys/issues/INFR-966)
+
+
+
 <a name="8.1.12"></a>
 ## [8.1.12](https://github.com/atinc/ngx-tethys/compare/8.1.11...8.1.12) (2020-08-22)
 

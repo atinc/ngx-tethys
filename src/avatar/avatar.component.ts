@@ -71,11 +71,33 @@ export class ThyAvatarComponent implements OnInit {
     private _setAvatarSize(size: number) {
         if (sizeArray.indexOf(size) > -1) {
             this._size = size;
-        } else if (size > sizeArray[sizeArray.length - 1]) {
-            this._size = sizeArray[sizeArray.length - 1];
         } else {
-            this._size = DEFAULT_SIZE;
+            this._size = this.findClosestSize(sizeArray, size);
         }
+    }
+
+    private findClosestSize(sizes: number[], value: number): number {
+        let left = 0,
+            right = sizes.length - 1,
+            middle: number,
+            result: number;
+
+        while (left <= right) {
+            middle = Math.floor((left + right) / 2);
+            if (right - left <= 1) {
+                result = sizes[right];
+                break;
+            }
+            result = sizes[middle];
+            if (result === value) {
+                return value;
+            } else if (result > value) {
+                right = middle;
+            } else {
+                left = middle;
+            }
+        }
+        return value - sizes[left] < sizes[right] - value ? sizes[left] : sizes[right];
     }
 
     private _setAvatarSrc(src: string) {
