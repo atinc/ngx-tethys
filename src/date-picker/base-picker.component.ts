@@ -1,13 +1,4 @@
-import {
-    ChangeDetectorRef,
-    Component,
-    EventEmitter,
-    Input,
-    OnChanges,
-    OnInit,
-    Output,
-    TemplateRef
-} from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, TemplateRef } from '@angular/core';
 
 import { TinyDate } from '../util';
 import { coerceBooleanProperty, FunctionProp } from '../util/helpers';
@@ -49,7 +40,7 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
             if (this.showWeek) {
                 this.thyFormat = 'yyyy-ww';
             } else {
-                this.thyFormat = this.thyShowTime ? 'yyyy-MM-dd HH:mm:ss' : 'yyyy-MM-dd';
+                this.thyFormat = this.thyShowTime ? 'yyyy-MM-dd HH:mm' : 'yyyy-MM-dd';
             }
         }
         this.setDefaultTimePickerState();

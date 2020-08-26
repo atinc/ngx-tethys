@@ -108,11 +108,14 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
     }
 
     setFormatRule() {
-        if (this.withTime) {
-            this.thyFormat = 'yyyy-MM-dd HH:mm';
-        } else {
-            if (!this.onlyEmitDate) {
-                this.thyFormat = 'yyyy-MM-dd';
+        console.log(this.thyFormat);
+        if (!this.thyFormat) {
+            if (this.withTime) {
+                this.thyFormat = 'yyyy-MM-dd HH:mm';
+            } else {
+                if (!this.onlyEmitDate) {
+                    this.thyFormat = 'yyyy-MM-dd';
+                }
             }
         }
     }
