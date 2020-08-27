@@ -5,9 +5,12 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './format.component.html'
 })
 export class ThyDatePickerFormatExampleComponent implements OnInit {
-    dateFormat = 'yyyy/MM/dd';
     monthFormat = 'yyyy/MM';
-    date = null;
+    date = new Date();
+
+    formatTypes = ['yyyy/MM/dd', 'yyyy-MM-dd'];
+
+    currentFormat = 'yyyy/MM/dd';
 
     constructor() {}
 
