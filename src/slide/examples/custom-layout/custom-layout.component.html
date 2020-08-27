@@ -1,0 +1,24 @@
+<div [class.demo-layout-backdrop]="slideType !== 'slide'">
+  <ng-container>
+    <thy-slide-layout>
+      <thy-slide-header [thyTitle]="'标题'">
+        <ng-template #thyHeaderOperate>
+          <a thyShape="circle-thick-dashed" href="javascript:;">
+            我是自定义头部操作区
+          </a>
+        </ng-template>
+      </thy-slide-header>
+      <thy-slide-body>
+        <thy-slide-body-section>
+          两栏式布局
+        </thy-slide-body-section>
+        <thy-slide-body-section>
+          两栏式布局
+        </thy-slide-body-section>
+        <thy-slide-body-section>
+          两栏式布局
+        </thy-slide-body-section>
+      </thy-slide-body>
+    </thy-slide-layout>
+  </ng-container>
+</div>
