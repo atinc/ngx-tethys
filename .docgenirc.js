@@ -4,7 +4,7 @@ module.exports = {
     docsPath: './docs',
     siteProjectName: 'site',
     output: 'dist/docs-site',
-    repoUrl: 'https://github.com/docgeni/docgeni',
+    repoUrl: 'https://github.com/atinc/ngx-tethys',
     logoUrl: 'https://cdn.worktile.com/open-sources/ngx-tethys/logos/tethys.png',
     navs: [
         null,
