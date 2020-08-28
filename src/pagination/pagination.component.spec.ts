@@ -1,5 +1,5 @@
 import { fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, OnInit, NgModule, DebugElement, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, NgModule, DebugElement, TemplateRef, ViewChild, QueryList } from '@angular/core';
 import { ThyPaginationComponent } from './pagination.component';
 import { ThyPaginationModule } from './pagination.module';
 import { By } from '@angular/platform-browser';
@@ -48,7 +48,7 @@ class ThyPaginationBasicComponent implements OnInit {
 })
 export class ThyPaginationTestModule {}
 
-describe('ThyPagination', () => {
+fdescribe('ThyPagination', () => {
     let basicTestComponent: ThyPaginationBasicComponent;
     let fixture: ComponentFixture<ThyPaginationBasicComponent>;
     let pageComponent: DebugElement;
@@ -82,5 +82,13 @@ describe('ThyPagination', () => {
         fixture.detectChanges();
         const paginationLeft = pageComponent.nativeElement.querySelector('div.thy-pagination-total');
         expect(paginationLeft).toBeTruthy();
+    });
+    it('should pagination total and show ellipsis', () => {
+        basicTestComponent.pagination.total = 1000;
+        basicTestComponent.pagination.index = 6;
+        fixture.detectChanges();
+        const list = pageComponent.nativeElement.querySelector('.thy-pagination-pages').children;
+        expect((list[2].querySelector('.thy-page-link') as HTMLElement).innerText).toEqual('...');
+        expect((list[8].querySelector('.thy-page-link') as HTMLElement).innerText).toEqual('...');
     });
 });
