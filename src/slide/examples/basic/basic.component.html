@@ -1,0 +1,39 @@
+<section>
+  <div class="header">
+    <h2>Slide</h2>
+  </div>
+  <div class="body">
+    <form class="mb-2" thyForm name="demoForm" #demoForm="ngForm" thyLayout="inline">
+      <thy-form-group thyLabelText="进场方向">
+        <thy-select [(ngModel)]="thySlideFrom" name="thySlideFrom">
+          <option value="right">从右进场</option>
+          <option value="left">从左进场</option>
+          <option value="top">从上进场</option>
+          <option value="bottom">从下进场</option>
+        </thy-select>
+      </thy-form-group>
+      <thy-form-group thyLabelText="进场方式">
+        <thy-select [(ngModel)]="thySlideMode" name="thySlideMode">
+          <option value="over">Over</option>
+          <option value="push">Push</option>
+          <option value="side">Side</option>
+        </thy-select>
+      </thy-form-group>
+      <thy-form-group thyLabelText="">
+        <label name="hasBackdrop" thyCheckbox [(ngModel)]="hasBackdrop" thyLabelText="弹出时，是否有幕布"></label>
+      </thy-form-group>
+    </form>
+    <form class="mb-2" thyForm name="demoForm" #demoForm="ngForm" thyLayout="inline">
+      <thy-form-group thyLabelText="弹出偏移数量">
+        <input thyInput type="number" [(ngModel)]="hasOffset" name="hasOffset" placeholder="弹出偏移数量" />
+      </thy-form-group>
+      <thy-form-group thyLabelText="">
+        <label name="hasDrawerContainer" thyCheckbox [(ngModel)]="hasDrawerContainer" thyLabelText="是否传入drawerContainer"></label>
+      </thy-form-group>
+    </form>
+    <div class="btn-pair">
+      <button [thyButton]="'primary'" (click)="showSlideById('key1')">show slide</button>
+    </div>
+  </div>
+</section>
+<section></section>
