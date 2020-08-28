@@ -1,7 +1,5 @@
 module.exports = {
-    baseHref: '/',
-    heads: [],
-    mode: 'site',
+    mode: 'full',
     title: 'NgxTethys',
     docsPath: './docs',
     siteProjectName: 'site',
