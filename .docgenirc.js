@@ -1,12 +1,10 @@
 module.exports = {
-    baseHref: '/',
-    heads: [],
-    mode: 'site',
+    mode: 'full',
     title: 'NgxTethys',
     docsPath: './docs',
     siteProjectName: 'site',
     output: 'dist/docs-site',
-    repoUrl: 'https://github.com/docgeni/docgeni',
+    repoUrl: 'https://github.com/atinc/ngx-tethys',
     logoUrl: 'https://cdn.worktile.com/open-sources/ngx-tethys/logos/tethys.png',
     navs: [
         null,

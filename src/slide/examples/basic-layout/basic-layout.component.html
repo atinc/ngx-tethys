@@ -1,0 +1,50 @@
+<div [class.demo-layout-backdrop]="slideType !== 'slide'" class="slide-basic-layout">
+  <ng-container>
+    <thy-slide-layout>
+      <thy-slide-header [thyTitle]="'标题'"></thy-slide-header>
+      <thy-slide-body>
+        <thy-slide-body-section>
+          三栏式布局
+        </thy-slide-body-section>
+        <thy-slide-body-section>
+          <div>
+            <button thyButton="primary" #btnTriggerPopBoxTemplate (click)="addPopOver($event, add)">
+              添加
+            </button>
+          </div>
+        </thy-slide-body-section>
+        <thy-slide-body-section>
+          <div>
+            <button thyButton="primary" #btnTriggerPopBoxTemplate (click)="addPopOver($event, popBox)">
+              添加
+            </button>
+          </div>
+        </thy-slide-body-section>
+      </thy-slide-body>
+      <thy-slide-footer>
+        <button thyButton="primary-square" class="btn">确认</button>
+      </thy-slide-footer>
+    </thy-slide-layout>
+  </ng-container>
+</div>
+
+<ng-template #add>
+  <div class="p-2">确认删除</div>
+  <div class="p-2">
+    <button thyButton="primary" thySize="sm">
+      确定
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #popBox>
+  <div class="p-2">确认删除</div>
+  <thy-action-menu>
+    <a thyActionMenuItem thyActionMenuItemActive="true" href="javascript:;">
+      <span class="icon">
+        <thy-icon thyIconName="task"></thy-icon>
+      </span>
+      <span>有图标</span>
+    </a>
+  </thy-action-menu>
+</ng-template>
