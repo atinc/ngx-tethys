@@ -208,6 +208,9 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
     @Input()
     set thyDraggable(value: boolean) {
         this.draggable = coerceBooleanProperty(value);
+        if (this.mode !== 'list' && this.draggable) {
+            throw new Error('Only list mode sorting is supported');
+        }
     }
 
     @Input()
