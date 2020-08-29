@@ -68,7 +68,7 @@ describe('ThyDatePickerComponent', () => {
             fixture.detectChanges();
             openPickerByClickTrigger();
 
-            queryFromOverlay('.cdk-overlay-backdrop'), 'click';
+            dispatchMouseEvent(queryFromOverlay('.cdk-overlay-backdrop'), 'click');
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
