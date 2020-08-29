@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.1.14"></a>
+## [8.1.14](https://github.com/atinc/ngx-tethys/compare/8.1.13...8.1.14) (2020-08-29)
+
+
+### Bug Fixes
+
+* **date-picker:** fix thyformat can not set when initial value is null #INFR-833 ([#892](https://github.com/atinc/ngx-tethys/issues/892)) ([dce678a](https://github.com/atinc/ngx-tethys/commit/dce678a)), closes [#INFR-833](https://github.com/atinc/ngx-tethys/issues/INFR-833) [#INFR-833](https://github.com/atinc/ngx-tethys/issues/INFR-833)
+* **grid:** solve the sorting disorder bug caused by using ngTemplateOutlet #INFR-994 ([#894](https://github.com/atinc/ngx-tethys/issues/894)) ([204b197](https://github.com/atinc/ngx-tethys/commit/204b197)), closes [#INFR-994](https://github.com/atinc/ngx-tethys/issues/INFR-994) [#INFR-994](https://github.com/atinc/ngx-tethys/issues/INFR-994)
+
+
+
 <a name="8.1.13"></a>
 ## [8.1.13](https://github.com/atinc/ngx-tethys/compare/8.1.12...8.1.13) (2020-08-26)
 
