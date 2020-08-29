@@ -416,7 +416,6 @@ describe('ThyDatePickerComponent', () => {
         it('should use format rule yyyy-MM-dd when with_time is 0', fakeAsync(() => {
             const initial = { date: 1587629556, with_time: 0 } as DateEntry;
             fixtureInstance.thyValue = initial;
-            fixtureInstance.thyShowTime = true;
             fixture.detectChanges();
             openPickerByClickTrigger();
             dispatchMouseEvent(getSelectedDayCell(), 'click');
@@ -434,6 +433,22 @@ describe('ThyDatePickerComponent', () => {
             fixture.detectChanges();
             tick(500);
             expect(getPickerTrigger().value).toBe(format(new Date(1587629556000), 'yyyy-MM-dd HH:mm'));
+        }));
+
+        it('should use format rule yyyy年MM月dd日 HH:mm when initial value is empty', fakeAsync(() => {
+            const formatValue = 'yyyy年MM月dd日 HH:mm';
+            const changeValue = 1587629556;
+            fixtureInstance.thyValue = null;
+            fixtureInstance.thyFormat = formatValue;
+            fixture.detectChanges();
+            tick(500);
+            fixtureInstance.thyValue = changeValue;
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            fixtureInstance.thyValue = changeValue;
+            fixture.detectChanges();
+            tick(500);
+            expect(getPickerTrigger().value).toBe(format(new Date(changeValue * 1000), formatValue));
         }));
 
         it('should emit value type is same with incoming value type', fakeAsync(() => {
@@ -612,6 +627,7 @@ describe('ThyDatePickerComponent', () => {
                 [thyPanelClassName]="thyPanelClassName"
                 [thyDefaultPickerValue]="thyDefaultPickerValue"
                 [thySize]="thySize"
+                [thyFormat]="thyFormat"
                 [thySuffixIcon]="thySuffixIcon"
                 (thyOpenChange)="thyOpenChange($event)"
                 [ngModel]="thyValue"
@@ -648,6 +664,7 @@ class ThyTestDatePickerComponent {
     thyPanelClassName: string;
     thySize: string;
     thySuffixIcon: string;
+    thyFormat: string;
     thyValue: Date | null | DateEntry | number;
     thyDefaultPickerValue: Date | number;
     thyDateRender: any;
