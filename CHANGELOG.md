@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.1.15"></a>
+## [8.1.15](https://github.com/atinc/ngx-tethys/compare/8.1.14...8.1.15) (2020-08-31)
+
+
+### Bug Fixes
+
+* **grid:** fix index column is 'NaN' bug ([a38a690](https://github.com/atinc/ngx-tethys/commit/a38a690))
+
+
+
 <a name="8.1.14"></a>
 ## [8.1.14](https://github.com/atinc/ngx-tethys/compare/8.1.13...8.1.14) (2020-08-29)
 
