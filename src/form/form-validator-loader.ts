@@ -1,9 +1,5 @@
 import { InjectionToken, Inject, Injectable, Optional } from '@angular/core';
-import {
-    ThyFormValidatorGlobalConfig,
-    ThyFormValidationMessages,
-    THY_VALIDATOR_CONFIG
-} from './form.class';
+import { ThyFormValidatorGlobalConfig, ThyFormValidationMessages, THY_VALIDATOR_CONFIG } from './form.class';
 import { Dictionary } from '../typings';
 import { ValidationErrors } from '@angular/forms';
 import { helpers } from '../util';
@@ -25,7 +21,7 @@ const globalValidationMessages = {
     minlength: '该选项输入值长度不能小于{minlength}',
     thyUniqueCheck: '输入值已经存在，请重新输入',
     email: '输入邮件的格式不正确',
-    repeat: '两次输入不一致',
+    confirm: '两次输入不一致',
     pattern: '该选项输入格式不正确',
     number: '必须输入数字',
     url: '输入URL格式不正确',
@@ -38,10 +34,7 @@ export class ThyFormValidatorLoader {
     private config: ThyFormValidatorGlobalConfig;
 
     private _getDefaultValidationMessage(key: string) {
-        if (
-            this.config.globalValidationMessages &&
-            this.config.globalValidationMessages[key]
-        ) {
+        if (this.config.globalValidationMessages && this.config.globalValidationMessages[key]) {
             return this.config.globalValidationMessages[key];
         } else {
             return globalValidationMessages[key];
@@ -60,10 +53,7 @@ export class ThyFormValidatorLoader {
     }
 
     getErrorMessage(name: string, key: string) {
-        if (
-            this.validationMessages[name] &&
-            this.validationMessages[name][key]
-        ) {
+        if (this.validationMessages[name] && this.validationMessages[name][key]) {
             return this.validationMessages[name][key];
         } else {
             return this._getDefaultValidationMessage(key);
@@ -94,9 +84,7 @@ export class ThyFormValidatorLoader {
 
     defaultRemoveError(element: HTMLElement) {
         if (element && element.parentElement) {
-            const invalidFeedback = element.parentElement.querySelector(
-                '.invalid-feedback'
-            );
+            const invalidFeedback = element.parentElement.querySelector('.invalid-feedback');
             element.parentElement.removeChild(invalidFeedback);
         }
     }

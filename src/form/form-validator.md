@@ -9,12 +9,12 @@
 
 ### ThyFormValidatorGlobalConfig 配置
 
-名称| 类型 | 备注 
----| --- | --- 
-showError|  `boolean \| (element: HTMLElement, errorMessages: string[]) => void` | 显示错误方法，默认为 true，以 bootstrap 的方式提示错误
-removeError|  `boolean \| (element: HTMLElement) => void` | 移除错误，一般和 showError 匹配使用
-globalValidationMessages | `Dictionary<string>` | 全局默认显示错误信息的配置
-validationMessages | `Dictionary<Dictionary<string>>` | 每个字段的验证提示信息配置
+| 名称                     | 类型                                                                 | 备注                                                   |
+|--------------------------|----------------------------------------------------------------------|--------------------------------------------------------|
+| showError                | `boolean \| (element: HTMLElement, errorMessages: string[]) => void` | 显示错误方法，默认为 true，以 bootstrap 的方式提示错误 |
+| removeError              | `boolean \| (element: HTMLElement) => void`                          | 移除错误，一般和 showError 匹配使用                    |
+| globalValidationMessages | `Dictionary<string>`                                                 | 全局默认显示错误信息的配置                             |
+| validationMessages       | `Dictionary<Dictionary<string>>`                                     | 每个字段的验证提示信息配置                             |
 
 示例：
 
@@ -28,7 +28,7 @@ validationMessages | `Dictionary<Dictionary<string>>` | 每个字段的验证提
         minlength: '该选项输入值长度不能小于{minlength}',
         thyUniqueCheck: '输入值已经存在，请重新输入',
         email: '输入邮件的格式不正确',
-        repeat: '两次输入不一致',
+        confirm: '两次输入不一致',
         pattern: '该选项输入格式不正确',
         number: '必须输入数字',
         url: '输入URL格式不正确',
