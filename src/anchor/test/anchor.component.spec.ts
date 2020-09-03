@@ -51,7 +51,8 @@ describe('thy-anchor', () => {
         }));
 
         it('should active associated thy-link when scrolling to anchor', (done: () => void) => {
-            const targetAnchor: HTMLElement = debugElement.query(By.css(`[id="${id}"]`)).nativeElement;
+            const container: HTMLElement = debugElement.query(By.css(`.demo-card`)).nativeElement;
+            const targetAnchor: HTMLElement = container.querySelector(`#${id}`);
             targetAnchor.scrollIntoView();
             fixture.detectChanges();
             setTimeout(() => {
@@ -65,8 +66,9 @@ describe('thy-anchor', () => {
 
 @Component({
     template: `
+        <h1 id="components-anchor-demo-basic" style="position: absolute;top:1000px;">outside</h1>
         <div class="demo-card">
-            <thy-anchor #anchor [thyOffsetTop]="thyOffsetTop">
+            <thy-anchor #anchor [thyOffsetTop]="thyOffsetTop" thyContainer=".demo-card">
                 <thy-link thyHref="#components-anchor-demo-basic" thyTitle="Basic demo"></thy-link>
                 <thy-link thyHref="#components-anchor-demo-static" thyTitle="Static demo"></thy-link>
                 <thy-link thyHref="#API" thyTitle="API">

@@ -131,6 +131,7 @@ export class ThyAnchorComponent implements OnDestroy, AfterViewInit, OnChanges {
         if (typeof document === 'undefined' || this.animating) {
             return;
         }
+        const container: HTMLElement = this.container instanceof HTMLElement ? this.container : this.document;
 
         const sections: Section[] = [];
         const scope = (this.thyOffsetTop || 0) + this.thyBounds;
@@ -139,7 +140,7 @@ export class ThyAnchorComponent implements OnDestroy, AfterViewInit, OnChanges {
             if (!sharpLinkMatch) {
                 return;
             }
-            const target = this.document.getElementById(sharpLinkMatch[1]);
+            const target = container.querySelector(`#${sharpLinkMatch[1]}`) as HTMLElement;
             if (target) {
                 const top = getOffset(target, this.getContainer()).top;
                 if (top < scope) {
@@ -216,7 +217,7 @@ export class ThyAnchorComponent implements OnDestroy, AfterViewInit, OnChanges {
                 'max-height': `calc(100vh - ${this.thyOffsetTop}px)`
             };
         }
-        if (thyContainer) {
+        if (thyContainer && this.thyContainer) {
             const container = this.thyContainer || this.thyTarget;
             this.container = typeof container === 'string' ? this.document.querySelector(container) : container;
             this.registerScrollEvent();
