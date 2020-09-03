@@ -25,7 +25,7 @@ const COMPONENTS = [
     declarations: COMPONENTS,
     entryComponents: COMPONENTS,
     imports: [CommonModule, FormsModule, NgxTethysModule],
-    exports: [],
+    exports: COMPONENTS,
     providers: COMPONENTS
 })
 export class ThyFormExamplesModule {}

@@ -29,7 +29,5 @@ export class ThyFormConfirmExampleComponent implements OnInit {
 
     submit() {}
 
-    confirmPassword() {
-        console.log('confirm');
-    }
+    confirmPassword() {}
 }
