@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.1.16"></a>
+## [8.1.16](https://github.com/atinc/ngx-tethys/compare/8.1.15...8.1.16) (2020-09-03)
+
+
+### Bug Fixes
+
+* **anchor:** support query element by id in contianer #INFR-1024 ([#900](https://github.com/atinc/ngx-tethys/issues/900)) ([6f09446](https://github.com/atinc/ngx-tethys/commit/6f09446)), closes [#INFR-1024](https://github.com/atinc/ngx-tethys/issues/INFR-1024)
+
+
+
 <a name="8.1.15"></a>
 ## [8.1.15](https://github.com/atinc/ngx-tethys/compare/8.1.14...8.1.15) (2020-08-31)
 
