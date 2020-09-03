@@ -8,7 +8,7 @@ import { By } from '@angular/platform-browser';
 import { dispatchFakeEvent } from '../../core/testing';
 import { getOffset } from '../../util/dom';
 
-fdescribe('thy-anchor', () => {
+describe('thy-anchor', () => {
     describe('default', () => {
         let fixture: ComponentFixture<TestAnchorComponent>;
         let debugElement: DebugElement;
