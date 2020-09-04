@@ -1,0 +1,23 @@
+<form thyForm name="demoForm" [thyFormValidatorConfig]="validateConfig" #demoForm="thyForm">
+  <thy-form-group thyLabelText="密码" thyLabelRequired>
+    <input thyInput type="password" name="passowrd" [(ngModel)]="model.password" required placeholder="请输入密码" />
+  </thy-form-group>
+
+  <thy-form-group thyLabelText="再次确认密码" thyLabelRequired>
+    <input
+      thyInput
+      type="password"
+      name="confirm"
+      [(ngModel)]="model.confirm"
+      [confirm]="model.password"
+      required
+      placeholder="再次确认密码"
+    />
+  </thy-form-group>
+
+  <thy-form-group-footer>
+    <button [thyButton]="'primary'" [thyLoadingText]="''" (thyFormSubmit)="confirmPassword()">
+      确认密码
+    </button>
+  </thy-form-group-footer>
+</form>
