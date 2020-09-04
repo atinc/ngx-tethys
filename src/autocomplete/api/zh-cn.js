@@ -23,7 +23,7 @@ module.exports = [
         name: 'thyAutocompleteTrigger',
         properties: [
             {
-                name: 'thyAutocomplete',
+                name: 'thyAutocompleteComponent',
                 description: '传入trigger触发的autocomplete组件实例',
                 type: 'ThyAutocompleteComponent',
                 default: ''

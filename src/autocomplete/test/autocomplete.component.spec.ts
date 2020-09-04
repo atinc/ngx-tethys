@@ -28,7 +28,7 @@ import { ThyOptionModule } from '../../core';
                 [(ngModel)]="value"
                 [placeholder]="placeholder"
                 thyAutocompleteTrigger
-                [thyAutocomplete]="auto"
+                [thyAutocompleteComponent]="auto"
                 [thyAutocompleteWidth]="500"
                 (ngModelChange)="valueChange($event)"
             />
