@@ -25,6 +25,7 @@ import { Subject, Observable, merge, fromEvent, of, Subscription } from 'rxjs';
 import { ESCAPE, UP_ARROW, ENTER, DOWN_ARROW, TAB } from '../util/keycodes';
 import { filter, map, take, tap, delay, switchMap } from 'rxjs/operators';
 import { ScrollToService } from '../core/scroll-to.service';
+import { warnDeprecation } from '../core/logger/logger';
 
 @Directive({
     selector: 'input[thyAutocompleteTrigger], textarea[thyAutocompleteTrigger]',
@@ -44,9 +45,24 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
 
     private closingActionsSubscription: Subscription;
 
+    private _autocompleteComponent: ThyAutocompleteComponent;
+
     @HostBinding(`class.thy-autocomplete-opened`) panelOpened = false;
 
-    @Input('thyAutocomplete') autocompleteComponent: ThyAutocompleteComponent;
+    @Input('thyAutocompleteComponent')
+    set autocompleteComponent(data: ThyAutocompleteComponent) {
+        this._autocompleteComponent = data;
+    }
+
+    @Input('thyAutocomplete')
+    set autocomplete(data: ThyAutocompleteComponent) {
+        warnDeprecation(`The property thyAutocomplete will be deprecated, please use thyAutocompleteComponent instead.`);
+        this._autocompleteComponent = data;
+    }
+
+    get autocompleteComponent() {
+        return this._autocompleteComponent;
+    }
 
     @Input() thyOffset = 8;
 
@@ -243,7 +259,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
                     this.panelOpened &&
                     clickTarget !== this.elementRef.nativeElement &&
                     (!formField || !formField.contains(clickTarget)) &&
-                    (!!this.overlayRef && !this.overlayRef.overlayElement.contains(clickTarget))
+                    !!this.overlayRef && !this.overlayRef.overlayElement.contains(clickTarget)
                 );
             })
         );
@@ -260,9 +276,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
     }
 
     private resetActiveItem(): void {
-        this.autocompleteComponent.keyManager.setActiveItem(
-            this.autocompleteComponent.thyAutoActiveFirstOption ? 0 : -1
-        );
+        this.autocompleteComponent.keyManager.setActiveItem(this.autocompleteComponent.thyAutoActiveFirstOption ? 0 : -1);
     }
 
     private destroyPanel(): void {
