@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.1.17"></a>
+## [8.1.17](https://github.com/atinc/ngx-tethys/compare/8.1.16...8.1.17) (2020-09-04)
+
+
+### Bug Fixes
+
+* **util:** add more fn in tiny date and export date-fns #INFR-1026 ([3cbec67](https://github.com/atinc/ngx-tethys/commit/3cbec67)), closes [#INFR-1026](https://github.com/atinc/ngx-tethys/issues/INFR-1026)
+
+
+### Features
+
+* **autocomplete:** use thyAutocompleteComponent replaec thyAutocomplete #INFR-1027 ([36a8484](https://github.com/atinc/ngx-tethys/commit/36a8484)), closes [#INFR-1027](https://github.com/atinc/ngx-tethys/issues/INFR-1027)
+
+
+
 <a name="8.1.16"></a>
 ## [8.1.16](https://github.com/atinc/ngx-tethys/compare/8.1.15...8.1.16) (2020-09-03)
 
