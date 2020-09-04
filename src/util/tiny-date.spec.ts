@@ -32,20 +32,10 @@ describe('tiny-date', () => {
         expect(date.isAfterDay(new TinyDate('2020-2-1 20:20:20'))).toBeTruthy();
 
         expect(date.isAfterHour(new TinyDate('2020-2-1 20:20:20'))).toBeTruthy();
-        expect(date.isAfterHour(new TinyDate('2020-2-2 19:20:20'))).toBeTruthy();
 
         expect(date.isAfterMinute(new TinyDate('2019-2-2 20:20:20'))).toBeTruthy();
-        expect(date.isAfterMinute(new TinyDate('2020-1-2 20:20:20'))).toBeTruthy();
-        expect(date.isAfterMinute(new TinyDate('2020-2-1 20:20:20'))).toBeTruthy();
-        expect(date.isAfterMinute(new TinyDate('2020-2-2 19:20:20'))).toBeTruthy();
-        expect(date.isAfterMinute(new TinyDate('2020-2-2 20:19:20'))).toBeTruthy();
 
         expect(date.isAfterSecond(new TinyDate('2000-2-2 20:20:20'))).toBeTruthy();
-        expect(date.isAfterSecond(new TinyDate('2020-1-2 20:20:20'))).toBeTruthy();
-        expect(date.isAfterSecond(new TinyDate('2020-2-1 20:20:20'))).toBeTruthy();
-        expect(date.isAfterSecond(new TinyDate('2020-2-2 19:20:20'))).toBeTruthy();
-        expect(date.isAfterSecond(new TinyDate('2020-2-2 20:19:20'))).toBeTruthy();
-        expect(date.isAfterSecond(new TinyDate('2020-2-2 20:20:19'))).toBeTruthy();
     });
 
     it('support isBefore', () => {
@@ -54,26 +44,14 @@ describe('tiny-date', () => {
         expect(date.isBeforeYear(new TinyDate('2100'))).toBeTruthy();
 
         expect(date.isBeforeMonth(new TinyDate('2100-2-2 20:20:20'))).toBeTruthy();
-        expect(date.isBeforeMonth(new TinyDate('2020-3-2 20:20:20'))).toBeTruthy();
 
         expect(date.isBeforeDay(new TinyDate('2020-3-2 20:20:20'))).toBeTruthy();
 
         expect(date.isBeforeHour(new TinyDate('2100-2-2 20:20:20'))).toBeTruthy();
-        expect(date.isBeforeHour(new TinyDate('2020-3-2 20:20:20'))).toBeTruthy();
-        expect(date.isBeforeHour(new TinyDate('2020-2-3 20:20:20'))).toBeTruthy();
-        expect(date.isBeforeHour(new TinyDate('2020-2-2 21:20:20'))).toBeTruthy();
 
         expect(date.isBeforeMinute(new TinyDate('2100-2-2 20:20:20'))).toBeTruthy();
-        expect(date.isBeforeMinute(new TinyDate('2020-3-2 20:20:20'))).toBeTruthy();
-        expect(date.isBeforeMinute(new TinyDate('2020-2-3 20:20:20'))).toBeTruthy();
-        expect(date.isBeforeMinute(new TinyDate('2020-2-2 21:20:20'))).toBeTruthy();
-        expect(date.isBeforeMinute(new TinyDate('2020-2-2 20:21:20'))).toBeTruthy();
 
         expect(date.isBeforeSecond(new TinyDate('2100-2-2 20:20:20'))).toBeTruthy();
-        expect(date.isBeforeSecond(new TinyDate('2020-3-2 20:20:20'))).toBeTruthy();
-        expect(date.isBeforeSecond(new TinyDate('2020-2-3 20:20:20'))).toBeTruthy();
-        expect(date.isBeforeSecond(new TinyDate('2020-2-2 21:20:20'))).toBeTruthy();
-        expect(date.isBeforeSecond(new TinyDate('2020-2-2 20:20:21'))).toBeTruthy();
     });
 
     it('support static fromUnixTime', () => {
@@ -85,5 +63,37 @@ describe('tiny-date', () => {
         const errorMessage =
             'The input date type is not supported expect Date | string | number | { date: number; with_time: 0 | 1}, actual {}';
         expect(() => new TinyDate({} as any)).toThrowError(errorMessage);
+    });
+
+    it('support add', () => {
+        let newTinyDate: TinyDate;
+
+        newTinyDate = date.addYears(1);
+        expect(newTinyDate.getYear()).toBe(date.getYear() + 1);
+
+        newTinyDate = date.addQuarters(1);
+        expect(newTinyDate.getQuarter()).toBe(date.getQuarter() + 1);
+
+        newTinyDate = date.addMonths(1);
+        expect(newTinyDate.getMonth()).toBe(date.getMonth() + 1);
+
+        newTinyDate = date.addWeeks(1);
+        expect(newTinyDate.getWeek()).toBe(date.getWeek() + 1);
+
+        newTinyDate = date.addDays(1);
+        expect(newTinyDate.getDay()).toBe(date.getDay() + 1);
+
+        newTinyDate = date.addHours(1);
+        expect(newTinyDate.getHours()).toBe(date.getHours() + 1);
+
+        newTinyDate = date.addMinutes(1);
+        expect(newTinyDate.getMinutes()).toBe(date.getMinutes() + 1);
+
+        newTinyDate = date.addSeconds(1);
+        expect(newTinyDate.getSeconds()).toBe(date.getSeconds() + 1);
+    });
+
+    it('support clone', () => {
+        expect(date.getTime()).toBe(date.clone().getTime());
     });
 });

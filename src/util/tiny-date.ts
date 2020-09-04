@@ -25,14 +25,78 @@ import {
     getUnixTime,
     startOfDay,
     endOfDay,
-    fromUnixTime
+    fromUnixTime,
+    isWeekend,
+    getWeek,
+    getDaysInMonth,
+    addSeconds,
+    addMinutes,
+    addHours,
+    addWeeks,
+    addQuarters,
+    startOfQuarter,
+    startOfYear,
+    endOfWeek,
+    endOfMonth,
+    endOfQuarter,
+    endOfYear,
+    format,
+    getQuarter,
+    addDays
+} from 'date-fns';
+
+export {
+    differenceInCalendarDays,
+    differenceInCalendarMonths,
+    differenceInCalendarYears,
+    differenceInWeeks,
+    differenceInHours,
+    differenceInMinutes,
+    differenceInSeconds,
+    isSameDay,
+    isSameHour,
+    isSameMinute,
+    isSameMonth,
+    isSameSecond,
+    isSameYear,
+    isToday,
+    isTomorrow,
+    isValid,
+    setYear,
+    startOfMonth,
+    startOfWeek,
+    addMonths,
+    addYears,
+    setDay,
+    setMonth,
+    getUnixTime,
+    startOfDay,
+    endOfDay,
+    fromUnixTime,
+    isWeekend,
+    getWeek,
+    getDaysInMonth,
+    addSeconds,
+    addMinutes,
+    addHours,
+    addWeeks,
+    addQuarters,
+    startOfQuarter,
+    startOfYear,
+    endOfWeek,
+    endOfMonth,
+    endOfQuarter,
+    endOfYear,
+    format,
+    getQuarter,
+    addDays
 } from 'date-fns';
 
 export interface IndexableObject {
     [key: string]: any;
 }
 
-export type TinyDateCompareGrain = 'year' | 'month' | 'week' | 'day' | 'hour' | 'minute' | 'second';
+export type TinyDateCompareGrain = 'year' | 'quarter' | 'month' | 'week' | 'day' | 'hour' | 'minute' | 'second';
 
 export type WeekDayIndex = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
@@ -71,28 +135,33 @@ export class TinyDate implements IndexableObject {
         return new TinyDate(fromUnixTime(unixTime));
     }
 
-    calendarStart(options?: { weekStartsOn: WeekDayIndex | undefined }): TinyDate {
-        return new TinyDate(startOfWeek(startOfMonth(this.nativeDate), options));
-    }
-
-    getYear(): number {
-        return this.nativeDate.getFullYear();
-    }
-
-    getMonth(): number {
-        return this.nativeDate.getMonth();
-    }
-
-    getDay(): number {
-        return this.nativeDate.getDay();
-    }
-
+    // get
     getTime(): number {
         return this.nativeDate.getTime();
     }
 
     getDate(): number {
         return this.nativeDate.getDate();
+    }
+
+    getYear(): number {
+        return this.nativeDate.getFullYear();
+    }
+
+    getQuarter(): number {
+        return getQuarter(this.nativeDate);
+    }
+
+    getMonth(): number {
+        return this.nativeDate.getMonth();
+    }
+
+    getWeek(options: { locale?: Locale; weekStartsOn?: WeekDayIndex } = { weekStartsOn: 1 }): number {
+        return getWeek(this.nativeDate, options);
+    }
+
+    getDay(): number {
+        return this.nativeDate.getDay();
     }
 
     getHours(): number {
@@ -111,8 +180,19 @@ export class TinyDate implements IndexableObject {
         return this.nativeDate.getMilliseconds();
     }
 
-    clone(): TinyDate {
-        return new TinyDate(new Date(this.nativeDate));
+    getDaysInMonth() {
+        return getDaysInMonth(this.nativeDate);
+    }
+
+    getDaysInQuarter() {
+        return differenceInCalendarDays(this.endOfQuarter().addSeconds(1).nativeDate, this.startOfQuarter().nativeDate);
+    }
+
+    // set
+    setDate(amount: number): TinyDate {
+        const date = new Date(this.nativeDate);
+        date.setDate(amount);
+        return new TinyDate(date);
     }
 
     setHms(hour: number, minute: number, second: number): TinyDate {
@@ -125,31 +205,47 @@ export class TinyDate implements IndexableObject {
         return new TinyDate(setYear(this.nativeDate, year));
     }
 
-    addYears(amount: number): TinyDate {
-        return new TinyDate(addYears(this.nativeDate, amount));
-    }
-
     setMonth(month: number): TinyDate {
         return new TinyDate(setMonth(this.nativeDate, month));
-    }
-
-    addMonths(amount: number): TinyDate {
-        return new TinyDate(addMonths(this.nativeDate, amount));
     }
 
     setDay(day: number, options?: { weekStartsOn: WeekDayIndex }): TinyDate {
         return new TinyDate(setDay(this.nativeDate, day, options));
     }
 
-    setDate(amount: number): TinyDate {
-        const date = new Date(this.nativeDate);
-        date.setDate(amount);
-        return new TinyDate(date);
+    // add
+    addYears(amount: number): TinyDate {
+        return new TinyDate(addYears(this.nativeDate, amount));
+    }
+
+    addQuarters(amount: number): TinyDate {
+        return new TinyDate(addQuarters(this.nativeDate, amount));
+    }
+
+    addMonths(amount: number): TinyDate {
+        return new TinyDate(addMonths(this.nativeDate, amount));
+    }
+
+    addWeeks(amount: number): TinyDate {
+        return new TinyDate(addWeeks(this.nativeDate, amount));
     }
 
     addDays(amount: number): TinyDate {
-        return this.setDate(this.getDate() + amount);
+        return new TinyDate(addDays(this.nativeDate, amount));
     }
+    addHours(amount: number): TinyDate {
+        return new TinyDate(addHours(this.nativeDate, amount));
+    }
+
+    addSeconds(amount: number): TinyDate {
+        return new TinyDate(addSeconds(this.nativeDate, amount));
+    }
+
+    addMinutes(amount: number): TinyDate {
+        return new TinyDate(addMinutes(this.nativeDate, amount));
+    }
+
+    // isSame
 
     isSame(date: TinyDateType, grain: TinyDateCompareGrain = 'day'): boolean {
         let fn;
@@ -203,42 +299,7 @@ export class TinyDate implements IndexableObject {
         return this.isSame(date, 'second');
     }
 
-    compare(date: TinyDateType, grain: TinyDateCompareGrain = 'day', isBefore: boolean = true): boolean {
-        if (date === null) {
-            return false;
-        }
-        let fn;
-        switch (grain) {
-            case 'year':
-                fn = differenceInCalendarYears;
-                break;
-            case 'month':
-                fn = differenceInCalendarMonths;
-                break;
-            case 'day':
-                fn = differenceInCalendarDays;
-                break;
-            case 'week':
-                fn = differenceInWeeks;
-                break;
-            case 'hour':
-                fn = differenceInHours;
-                break;
-            case 'minute':
-                fn = differenceInMinutes;
-                break;
-            case 'second':
-                fn = differenceInSeconds;
-                break;
-            default:
-                fn = differenceInCalendarDays;
-                break;
-        }
-        return isBefore
-            ? fn(this.nativeDate, this.toNativeDate(date)) < 0
-            : fn(this.nativeDate, this.toNativeDate(date)) > 0;
-    }
-
+    // isBefore and isAfter
     isBeforeYear(date: TinyDateType): boolean {
         return this.compare(date, 'year');
     }
@@ -295,6 +356,11 @@ export class TinyDate implements IndexableObject {
         return this.compare(date, 'second', false);
     }
 
+    // is
+    isWeekend() {
+        return isWeekend(this.nativeDate);
+    }
+
     isToday(): boolean {
         return isToday(this.nativeDate);
     }
@@ -307,16 +373,105 @@ export class TinyDate implements IndexableObject {
         return isValid(this.nativeDate);
     }
 
-    getUnixTime(): number {
-        return getUnixTime(this.nativeDate);
+    // startOf and endOf
+    startOfYear(): TinyDate {
+        return new TinyDate(startOfYear(this.nativeDate));
+    }
+
+    startOfQuarter(): TinyDate {
+        return new TinyDate(startOfQuarter(this.nativeDate));
+    }
+
+    startOfMonth(): TinyDate {
+        return new TinyDate(startOfMonth(this.nativeDate));
+    }
+
+    startOfWeek(options?: { locale?: Locale; weekStartsOn?: WeekDayIndex }): TinyDate {
+        return new TinyDate(startOfWeek(this.nativeDate, options));
     }
 
     startOfDay(): TinyDate {
         return new TinyDate(startOfDay(this.nativeDate));
     }
 
+    endOfYear(): TinyDate {
+        return new TinyDate(endOfYear(this.nativeDate));
+    }
+
+    endOfQuarter(): TinyDate {
+        return new TinyDate(endOfQuarter(this.nativeDate));
+    }
+
+    endOfMonth(): TinyDate {
+        return new TinyDate(endOfMonth(this.nativeDate));
+    }
+
+    endOfWeek(options?: { locale?: Locale; weekStartsOn?: WeekDayIndex }): TinyDate {
+        return new TinyDate(endOfWeek(this.nativeDate, options));
+    }
+
     endOfDay(): TinyDate {
         return new TinyDate(endOfDay(this.nativeDate));
+    }
+
+    // other
+    format(
+        mat: string,
+        options?: {
+            locale?: Locale;
+            weekStartsOn?: WeekDayIndex;
+            firstWeekContainsDate?: number;
+            useAdditionalWeekYearTokens?: boolean;
+            useAdditionalDayOfYearTokens?: boolean;
+        }
+    ) {
+        return format(this.nativeDate, mat, options);
+    }
+
+    calendarStart(options?: { weekStartsOn: WeekDayIndex | undefined }): TinyDate {
+        return new TinyDate(startOfWeek(startOfMonth(this.nativeDate), options));
+    }
+
+    clone(): TinyDate {
+        return new TinyDate(new Date(this.nativeDate));
+    }
+
+    getUnixTime(): number {
+        return getUnixTime(this.nativeDate);
+    }
+
+    compare(date: TinyDateType, grain: TinyDateCompareGrain = 'day', isBefore: boolean = true): boolean {
+        if (date === null) {
+            return false;
+        }
+        let fn;
+        switch (grain) {
+            case 'year':
+                fn = differenceInCalendarYears;
+                break;
+            case 'month':
+                fn = differenceInCalendarMonths;
+                break;
+            case 'day':
+                fn = differenceInCalendarDays;
+                break;
+            case 'week':
+                fn = differenceInWeeks;
+                break;
+            case 'hour':
+                fn = differenceInHours;
+                break;
+            case 'minute':
+                fn = differenceInMinutes;
+                break;
+            case 'second':
+                fn = differenceInSeconds;
+                break;
+            default:
+                fn = differenceInCalendarDays;
+                break;
+        }
+        return isBefore ? fn(this.nativeDate, this.toNativeDate(date)) < 0 : fn(this.nativeDate, this.toNativeDate(date)) > 0;
     }
 
     private toNativeDate(date: any): Date {
