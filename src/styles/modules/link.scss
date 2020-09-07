@@ -80,4 +80,9 @@ a {
     &.link-warning-weak {
         @include link-variant($gray-500, none, $warning, none);
     }
+
+    &.disabled {
+        @include link-variant($gray-400, none, $gray-400, none);
+        pointer-events: none;
+    }
 }

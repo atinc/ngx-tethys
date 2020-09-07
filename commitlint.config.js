@@ -35,6 +35,7 @@ module.exports = {
                 'input',
                 'label',
                 'layout',
+                'link',
                 'list',
                 'loading',
                 'markdown',
