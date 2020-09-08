@@ -58,6 +58,7 @@ import { ThyStatisticModule } from './statistic';
 import { ThyStepperModule } from './stepper';
 import { ThyStrengthModule } from './strength';
 import { ThySwitchModule } from './switch';
+import { ThyTimeLineModule } from './timeline';
 import { ThyTimePickerModule } from './time-picker';
 import { ThyTooltipModule } from './tooltip';
 import { ThyTransferModule } from './transfer';
@@ -127,6 +128,7 @@ const IMPORT_EXPORT_MODULES = [
     ThyResultModule,
     ThyMentionModule,
     ThyDatePickerModule,
+    ThyTimeLineModule,
     ThyTimePickerModule,
     ThyStatisticModule,
     ThyAutocompleteModule,

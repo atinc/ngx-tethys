@@ -1,0 +1,23 @@
+<ng-template #template>
+  <div
+    class="thy-timeline-item"
+    [class.thy-timeline-item-last]="_isLast && _reverse"
+    [class.thy-timeline-item-first]="_isFirst && _reverse"
+    [class.thy-timeline-item-right]="(thyPosition || _position) === 'right'"
+    [class.thy-timeline-item-left]="(thyPosition || _position) === 'left'"
+  >
+    <div class="thy-timeline-item-tail"></div>
+    <div
+      class="thy-timeline-item-dot"
+      [ngClass]="[_color ? 'thy-timeline-item-dot-' + _color : '', thyDot ? 'thy-timeline-item-dot-custom' : '']"
+    >
+      <ng-template *ngIf="thyDot" [ngTemplateOutlet]="thyDot"></ng-template>
+    </div>
+    <div class="thy-timeline-item-content">
+      <ng-content></ng-content>
+    </div>
+    <div class="thy-timeline-item-content-other-side">
+      <ng-template *ngIf="thyOtherSideTemplate" [ngTemplateOutlet]="thyOtherSideTemplate"></ng-template>
+    </div>
+  </div>
+</ng-template>

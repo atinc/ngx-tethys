@@ -1,0 +1,32 @@
+<div>
+  <form class="mb-2" thyForm name="demoForm" #demoForm="ngForm" thyLayout="inline">
+    <thy-form-group thyLabelText="节点颜色">
+      <thy-select [(ngModel)]="thyColor" name="thyColor">
+        <option value="primary">蓝色</option>
+        <option value="success">绿色</option>
+        <option value="warning">黄色</option>
+        <option value="danger">红色</option>
+        <option value="info">灰色</option>
+      </thy-select>
+    </thy-form-group>
+    <thy-form-group thyLabelText="时间轴位置">
+      <thy-select [(ngModel)]="thyMode" name="thyMode">
+        <option value="right">居右</option>
+        <option value="left">居左</option>
+        <option value="center">居中</option>
+      </thy-select>
+    </thy-form-group>
+    <button thyButton (click)="thyReverse = !thyReverse">排序</button>
+  </form>
+  <thy-timeline [thyMode]="thyMode" [thyReverse]="thyReverse">
+    <thy-timeline-item [thyColor]="thyColor">111</thy-timeline-item>
+    <thy-timeline-item [thyColor]="thyColor">
+      <thy-avatar [thyShowName]="true" thyName="拥有者嗷嗷" thySize="xs"></thy-avatar>
+    </thy-timeline-item>
+    <thy-timeline-item [thyColor]="thyColor">
+      Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae
+      ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</thy-timeline-item
+    >
+    <thy-timeline-item [thyColor]="thyColor"><button thySize="sm" thyButton>啦啦啦</button> </thy-timeline-item>
+  </thy-timeline>
+</div>
