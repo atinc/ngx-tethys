@@ -1,0 +1,32 @@
+<thy-header>
+  <ng-template #headerOperation>
+    <button thyButton="primary" (click)="addWorkItem()">新增工作项</button>
+  </ng-template>
+</thy-header>
+<thy-grid
+  thyTheme="bordered"
+  [thyModel]="workItemsStore.entitiesWithRefs$ | async"
+  [thyPageIndex]="workItemsStore.snapshot.pagination?.pageIndex + 1"
+  [thyPageSize]="workItemsStore.snapshot.pagination?.pageSize"
+  [thyPageTotal]="workItemsStore.snapshot.pagination?.count"
+>
+  <thy-grid-column thyTitle="编号" thyModelKey="identifier"> </thy-grid-column>
+  <thy-grid-column thyTitle="标题" thyModelKey="title"> </thy-grid-column>
+  <thy-grid-column thyTitle="项目" thyModelKey="project.name"> </thy-grid-column>
+  <thy-grid-column thyTitle="状态" thyModelKey="state.name"> </thy-grid-column>
+  <thy-grid-column thyTitle="创建人" thyWidth="200">
+    <ng-template #cell let-row>
+      <thy-avatar [thyName]="row?.created_member?.display_name" [thyShowName]="true"></thy-avatar>
+    </ng-template>
+  </thy-grid-column>
+  <thy-grid-column thyTitle="创建时间" thyWidth="200">
+    <ng-template #cell let-row>
+      {{ row.created_at * 1000 | date }}
+    </ng-template>
+  </thy-grid-column>
+  <thy-grid-column thyTitle="操作" thyWidth="100" thyClassName="thy-operation-links text-center">
+    <ng-template #cell let-row>
+      <a thyButtonIcon="trash" thyTheme="danger-weak" href="javascript:;" (click)="deleteWorkItem(row._id)" thyTooltip="删除"></a>
+    </ng-template>
+  </thy-grid-column>
+</thy-grid>
