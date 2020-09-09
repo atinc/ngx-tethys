@@ -71,7 +71,8 @@ module.exports = {
                 'util',
                 'vote',
                 'anchor',
-                'back-top'
+                'back-top',
+                'timeline'
             ]
         ]
     }

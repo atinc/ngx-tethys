@@ -9,7 +9,7 @@ export class ThyTimelineBasicExampleComponent {
 
     public thyMode = 'left';
 
-    public thyReverse = false;
+    public thyReverse = 'sequence';
 
     constructor() {}
 }

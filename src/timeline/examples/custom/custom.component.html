@@ -7,10 +7,15 @@
         <option value="center">居中</option>
       </thy-select>
     </thy-form-group>
-    <button thyButton (click)="thyReverse = !thyReverse">排序</button>
+    <thy-form-group thyLabelText="排序">
+      <thy-select [(ngModel)]="thyReverse" name="thyReverse">
+        <option value="sequence">正序</option>
+        <option value="reverse">倒序</option>
+      </thy-select>
+    </thy-form-group>
   </form>
-  <thy-timeline [thyMode]="thyMode" [thyReverse]="thyReverse">
-    <thy-timeline-item [thyColor]="thyColor"> 111</thy-timeline-item>
+  <thy-timeline [thyMode]="thyMode" [thyReverse]="thyReverse === 'reverse'">
+    <thy-timeline-item [thyColor]="thyColor">111</thy-timeline-item>
     <thy-timeline-item [thyColor]="thyColor">
       <thy-avatar [thyShowName]="true" thyName="拥有者嗷嗷" thySize="xs"></thy-avatar>
 

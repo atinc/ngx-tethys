@@ -1,7 +1,7 @@
 module.exports = [
     {
         type: 'component',
-        name: 'Thy-Timeline',
+        name: 'thy-timeline',
         description: '时间轴',
         properties: [
             {
@@ -20,12 +20,12 @@ module.exports = [
     },
     {
         type: 'component',
-        name: 'Thy-Timeline-item 参数列表',
+        name: 'thy-timeline-item 参数列表',
         description: '设置时间轴的节点',
         properties: [
             {
                 name: 'thyColor',
-                description: 'Timeline 指定圆圈颜色 primary | success | warning | danger',
+                description: '指定圆圈颜色 primary | success | warning | danger',
                 type: 'string',
                 default: 'primary'
             },

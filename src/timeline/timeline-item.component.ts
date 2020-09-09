@@ -12,7 +12,6 @@ import {
     SimpleChanges
 } from '@angular/core';
 import { thyTimeMode, thyTimeModes } from './timeline.component';
-import { TimelineService } from './timeline.service';
 
 export type thyColor = 'primary' | 'success' | 'warning' | 'danger';
 
@@ -22,23 +21,23 @@ export type thyColor = 'primary' | 'success' | 'warning' | 'danger';
     templateUrl: './timeline-item.component.html',
     exportAs: 'ThyTimelineItem'
 })
-export class ThyTimelineItemComponent implements OnInit, OnChanges {
+export class ThyTimelineItemComponent implements OnInit {
     @ViewChild('template', { static: false }) template: TemplateRef<void>;
 
-    _color: thyColor = 'primary';
+    public color: thyColor = 'primary';
 
-    _isLast = false;
+    public isLast = false;
 
-    _isFirst = false;
+    public isFirst = false;
 
-    _position: thyTimeMode;
+    public position: thyTimeMode;
 
-    _reverse: Boolean = false;
+    public reverse: Boolean = false;
 
     @Input()
     set thyColor(value: thyColor) {
         if (value) {
-            this._color = value;
+            this.color = value;
         }
     }
 
@@ -48,11 +47,7 @@ export class ThyTimelineItemComponent implements OnInit, OnChanges {
 
     @ContentChild('thyOtherSideTemplate', { static: false }) thyOtherSideTemplate: TemplateRef<any>;
 
-    constructor(private cdr: ChangeDetectorRef, private timelineService: TimelineService) {}
-
-    ngOnChanges(changes: SimpleChanges): void {
-        this.timelineService.markForCheck();
-    }
+    constructor(private cdr: ChangeDetectorRef) {}
 
     detectChanges(): void {
         this.cdr.detectChanges();
