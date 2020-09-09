@@ -4,13 +4,21 @@ import { of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { workItemResponseData, addWorkItemResponseData } from '../work-items.mock';
 
-export type WorkItemInfo = any;
-
 export type WorkItemStateInfo = any;
 
 export type MemberInfo = any;
 
 export type ProjectInfo = any;
+
+export interface WorkItemInfo {
+    _id: string;
+    title: string;
+    state_id: string;
+    created_at: number;
+    refs?: {
+        state?: WorkItemsState;
+    };
+}
 
 export interface WorkItemsReferences {
     projects: ProjectInfo[];
@@ -26,13 +34,13 @@ export interface WorkItemsState extends EntityState<WorkItemInfo, WorkItemsRefer
 export class WorkItemsStore extends EntityStore<WorkItemsState, WorkItemInfo, WorkItemsReferences>
     implements OnCombineRefs<WorkItemInfo, WorkItemsReferences> {
     constructor() {
-        super(undefined, { referencesIdKeys: { members: 'uid' } });
+        super(undefined);
     }
 
     onCombineRefs(entity: WorkItemInfo, referencesIdMap: ReferencesIdDictionary<WorkItemsReferences>, references?: WorkItemsReferences) {
-        entity.state = referencesIdMap.states[entity.state_id];
-        entity.project = referencesIdMap.projects[entity.project_id];
-        entity.created_member = referencesIdMap.members[entity.created_by];
+        entity.refs = {
+            state: referencesIdMap.states[entity.state_id]
+        };
     }
 
     @Action()

@@ -12,11 +12,6 @@
 >
   <thy-grid-column thyTitle="编号" thyModelKey="identifier"> </thy-grid-column>
   <thy-grid-column thyTitle="标题" thyModelKey="title"> </thy-grid-column>
-  <thy-grid-column thyTitle="故事点">
-    <ng-template #cell let-row>
-      {{ row.properties.story_points || 0 }}
-    </ng-template>
-  </thy-grid-column>
   <thy-grid-column thyTitle="创建时间" thyWidth="200">
     <ng-template #cell let-row>
       {{ row.created_at * 1000 | date }}

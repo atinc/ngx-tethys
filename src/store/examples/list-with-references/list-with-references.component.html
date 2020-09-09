@@ -12,13 +12,7 @@
 >
   <thy-grid-column thyTitle="编号" thyModelKey="identifier"> </thy-grid-column>
   <thy-grid-column thyTitle="标题" thyModelKey="title"> </thy-grid-column>
-  <thy-grid-column thyTitle="项目" thyModelKey="project.name"> </thy-grid-column>
-  <thy-grid-column thyTitle="状态" thyModelKey="state.name"> </thy-grid-column>
-  <thy-grid-column thyTitle="创建人" thyWidth="200">
-    <ng-template #cell let-row>
-      <thy-avatar [thyName]="row?.created_member?.display_name" [thyShowName]="true"></thy-avatar>
-    </ng-template>
-  </thy-grid-column>
+  <thy-grid-column thyTitle="状态" thyModelKey="refs.state.name"> </thy-grid-column>
   <thy-grid-column thyTitle="创建时间" thyWidth="200">
     <ng-template #cell let-row>
       {{ row.created_at * 1000 | date }}
