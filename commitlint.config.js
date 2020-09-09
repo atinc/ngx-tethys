@@ -56,6 +56,7 @@ module.exports = {
                 'shared',
                 'skeleton',
                 'slide',
+                'slider',
                 'statistic',
                 'stepper',
                 'store',
