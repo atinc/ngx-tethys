@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DateRangeItemInfo } from '../../../date-range/date-range.class';
 
 @Component({
     selector: 'thy-date-picker-directive-example',
@@ -16,7 +17,7 @@ export class ThyDatePickerDirectiveExampleComponent implements OnInit {
         date: 1253498754,
         with_time: 0
     };
-    dateRange = [];
+    dateRange: DateRangeItemInfo[] = [];
 
     constructor() {}
 
