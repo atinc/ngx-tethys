@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DateRangeItemInfo } from '../../../date-range/date-range.class';
+import { DateRangeItemInfo } from 'ngx-tethys/date-range';
 
 @Component({
     selector: 'thy-date-picker-directive-example',
