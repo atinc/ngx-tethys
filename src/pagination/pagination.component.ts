@@ -13,12 +13,7 @@ import {
     TemplateRef
 } from '@angular/core';
 import { ThyPaginationConfigModel } from './pagination.class';
-import {
-    PaginationDefaultConfig,
-    DEFAULT_RANGE_COUNT,
-    THY_PAGINATION_CONFIG,
-    ThyPaginationConfig
-} from './pagination.config';
+import { PaginationDefaultConfig, DEFAULT_RANGE_COUNT, THY_PAGINATION_CONFIG, ThyPaginationConfig } from './pagination.config';
 import { UpdateHostClassService } from '../shared';
 import { isTemplateRef } from '../util/helpers';
 
@@ -204,7 +199,7 @@ export class ThyPaginationComponent implements OnInit {
                 pages.push({
                     index: i,
                     text: i.toString(),
-                    active: i === pageIndex
+                    active: i === +pageIndex
                 });
             }
             pages = [...beforePages, ...pages, ...afterPages];
@@ -213,7 +208,7 @@ export class ThyPaginationComponent implements OnInit {
                 pages.push({
                     index: i,
                     text: i.toString(),
-                    active: i === pageIndex
+                    active: i === +pageIndex
                 });
             }
         }
