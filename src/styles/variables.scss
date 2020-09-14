@@ -456,6 +456,8 @@ $dialog-header-border-color: $gray-200 !default;
 $dialog-box-shadow: 0 0 24px rgba(0, 0, 0, 0.25) !default;
 $dialog-body-padding: 1.25rem 1.875rem 1.875rem 1.875rem !default;
 
+// 文字最大宽度 = 总宽度 - 左右 padding - marginLeft - 按钮盒子宽度
+$dialog-footer-words-max-width: calc(100% - 1.875rem * 2 + 30px - 157px) !default;
 // $dialog-footer-padding: 1.25rem 1.875rem 1.875rem 1.875rem !default;
 $dialog-footer-padding: 0.9375rem 1.875rem !default;
 $dialog-footer-border-width: 1px !default;

@@ -106,7 +106,7 @@
         .dialog-footer-description {
             flex: none;
             margin-left: 30px;
-            max-width: 410px;
+            max-width: $dialog-footer-words-max-width;
             text-align: left;
         }
     }
