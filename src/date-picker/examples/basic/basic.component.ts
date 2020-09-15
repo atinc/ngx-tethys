@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DateEntry } from 'ngx-tethys/date-picker';
 
 @Component({
     selector: 'thy-date-picker-basic-example',
@@ -6,9 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ThyDatePickerBasicExampleComponent implements OnInit {
     dateShowTime = {
-        date: '',
+        date: 0,
         with_time: 1
-    };
+    } as DateEntry;
+
     date = { date: new Date(), with_time: 0 };
     dateTime = 1234567890;
     dateRange = { begin: new Date(), end: new Date() };

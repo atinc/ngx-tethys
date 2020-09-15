@@ -1,23 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { DateRangeItemInfo } from 'ngx-tethys/date-range';
+import { DateEntry, RangeEntry } from 'ngx-tethys/date-picker';
 
 @Component({
     selector: 'thy-date-picker-directive-example',
     templateUrl: './directive.component.html'
 })
 export class ThyDatePickerDirectiveExampleComponent implements OnInit {
-    date = new Date();
+    date = { date: new Date(), with_time: 1 } as DateEntry;
 
     time = {
         date: 1234567890,
         with_time: 1
-    };
+    } as DateEntry;
 
     dateTime = {
         date: 1253498754,
         with_time: 0
-    };
-    dateRange: DateRangeItemInfo[] = [];
+    } as DateEntry;
+    dateRange: Date[] = [];
 
     constructor() {}
 
