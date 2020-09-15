@@ -103,11 +103,12 @@
     }
     &.dialog-footer-actions-align-center {
         justify-content: center;
+        .dialog-footer-actions {
+            display: flex;
+        }
         .dialog-footer-description {
-            flex: none;
             margin-left: 30px;
-            max-width: $dialog-footer-words-max-width;
-            text-align: left;
+            flex: unset;
         }
     }
     &.dialog-footer-actions-align-right {
