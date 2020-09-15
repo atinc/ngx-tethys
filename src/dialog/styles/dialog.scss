@@ -97,18 +97,24 @@
     &.dialog-footer-actions-align-left {
         flex-direction: row;
         .dialog-footer-description {
+            text-align: right;
             margin-left: 30px;
         }
     }
     &.dialog-footer-actions-align-center {
         justify-content: center;
+        .dialog-footer-actions {
+            display: flex;
+        }
         .dialog-footer-description {
             margin-left: 30px;
+            flex: unset;
         }
     }
     &.dialog-footer-actions-align-right {
         flex-direction: row-reverse;
         .dialog-footer-description {
+            text-align: left;
             margin-right: 30px;
         }
     }
