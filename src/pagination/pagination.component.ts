@@ -145,6 +145,10 @@ export class ThyPaginationComponent implements OnInit {
 
     private setPageIndex(pageIndex: number) {
         this.pageIndex = pageIndex > this.pageCount ? this.pageCount : pageIndex || 1;
+        this.range = {
+            from: (this.pageIndex - 1) * this.pageSize + 1,
+            to: this.pageIndex * this.pageSize
+        };
         this.initializePages(this.pageIndex, this.pageCount);
         this.cdr.markForCheck();
     }
@@ -216,10 +220,6 @@ export class ThyPaginationComponent implements OnInit {
     }
 
     private pageChange(pageIndex: number) {
-        this.range = {
-            from: (pageIndex - 1) * this.pageSize + 1,
-            to: pageIndex * this.pageSize
-        };
         this.pageIndexChange.emit(pageIndex);
         this.pageChanged.emit({ page: pageIndex });
     }
