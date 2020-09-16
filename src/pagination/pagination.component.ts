@@ -130,10 +130,6 @@ export class ThyPaginationComponent implements OnInit {
         this.setMarginalCount(this.config.rangeCount);
         this.calculatePageCount();
         this.setPageIndex(this.pageIndex);
-        this.range = {
-            from: (this.pageIndex - 1) * this.pageSize + 1,
-            to: this.pageIndex * this.pageSize
-        };
         this.initialized = true;
     }
 
