@@ -13,12 +13,7 @@ import {
     TemplateRef
 } from '@angular/core';
 import { ThyPaginationConfigModel } from './pagination.class';
-import {
-    PaginationDefaultConfig,
-    DEFAULT_RANGE_COUNT,
-    THY_PAGINATION_CONFIG,
-    ThyPaginationConfig
-} from './pagination.config';
+import { PaginationDefaultConfig, DEFAULT_RANGE_COUNT, THY_PAGINATION_CONFIG, ThyPaginationConfig } from './pagination.config';
 import { UpdateHostClassService } from '../shared';
 import { isTemplateRef } from '../util/helpers';
 
@@ -135,10 +130,6 @@ export class ThyPaginationComponent implements OnInit {
         this.setMarginalCount(this.config.rangeCount);
         this.calculatePageCount();
         this.setPageIndex(this.pageIndex);
-        this.range = {
-            from: (this.pageIndex - 1) * this.pageSize + 1,
-            to: this.pageIndex * this.pageSize
-        };
         this.initialized = true;
     }
 
@@ -150,6 +141,10 @@ export class ThyPaginationComponent implements OnInit {
 
     private setPageIndex(pageIndex: number) {
         this.pageIndex = pageIndex > this.pageCount ? this.pageCount : pageIndex || 1;
+        this.range = {
+            from: (this.pageIndex - 1) * this.pageSize + 1,
+            to: this.pageIndex * this.pageSize
+        };
         this.initializePages(this.pageIndex, this.pageCount);
         this.cdr.markForCheck();
     }
@@ -204,7 +199,7 @@ export class ThyPaginationComponent implements OnInit {
                 pages.push({
                     index: i,
                     text: i.toString(),
-                    active: i === pageIndex
+                    active: i === +pageIndex
                 });
             }
             pages = [...beforePages, ...pages, ...afterPages];
@@ -213,7 +208,7 @@ export class ThyPaginationComponent implements OnInit {
                 pages.push({
                     index: i,
                     text: i.toString(),
-                    active: i === pageIndex
+                    active: i === +pageIndex
                 });
             }
         }
@@ -221,10 +216,6 @@ export class ThyPaginationComponent implements OnInit {
     }
 
     private pageChange(pageIndex: number) {
-        this.range = {
-            from: (pageIndex - 1) * this.pageSize + 1,
-            to: pageIndex * this.pageSize
-        };
         this.pageIndexChange.emit(pageIndex);
         this.pageChanged.emit({ page: pageIndex });
     }
