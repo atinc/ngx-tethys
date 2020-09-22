@@ -103,7 +103,7 @@ describe('ThyPagination', () => {
         expect(list.length).toEqual(9);
     });
 
-    fit('should show range change after thyPageIndex set different', () => {
+    it('should show range change after thyPageIndex set different', () => {
         const pageSize = 20;
 
         basicTestComponent.showTotal = true;
@@ -139,7 +139,7 @@ describe('ThyPagination', () => {
         expect((list[list.length - 2].querySelector('.thy-page-link') as HTMLElement).innerHTML).toEqual(pageLength.toString());
     });
 
-    fit('should active thy-page-item when thyPageIndex set right', () => {
+    it('should active thy-page-item when thyPageIndex set right', () => {
         basicTestComponent.pagination.index = 2;
         fixture.detectChanges();
         const paginationContent = pageComponent.nativeElement.querySelector('div.thy-pagination-content');
