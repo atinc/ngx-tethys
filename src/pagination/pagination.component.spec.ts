@@ -102,6 +102,30 @@ describe('ThyPagination', () => {
         fixture.detectChanges();
         expect(list.length).toEqual(9);
     });
+
+    it('should show range change after thyPageIndex set different', () => {
+        const pageSize = 20;
+
+        basicTestComponent.showTotal = true;
+        basicTestComponent.pagination = {
+            index: 1,
+            size: pageSize,
+            total: 100
+        };
+        fixture.detectChanges();
+        const paginationLeft = pageComponent.nativeElement.querySelector('div.thy-pagination-total');
+        const rangeEle = paginationLeft.querySelector('.number');
+        let testValue = (rangeEle as HTMLElement).innerText.trim();
+        let expectValue = (basicTestComponent.pagination.index - 1) * pageSize + 1 + '-' + basicTestComponent.pagination.index * pageSize;
+        expect(testValue).toEqual(expectValue);
+
+        basicTestComponent.pagination.index = 3;
+        fixture.detectChanges();
+        testValue = (rangeEle as HTMLElement).innerText.trim();
+        expectValue = (basicTestComponent.pagination.index - 1) * pageSize + 1 + '-' + basicTestComponent.pagination.index * pageSize;
+        expect(testValue).toEqual(expectValue);
+    });
+
     it('should show page total', () => {
         const pagination = {
             index: 1,
@@ -113,5 +137,23 @@ describe('ThyPagination', () => {
         const list = pageComponent.nativeElement.querySelector('.thy-pagination-pages').children;
         const pageLength = pagination.total / pagination.size;
         expect((list[list.length - 2].querySelector('.thy-page-link') as HTMLElement).innerHTML).toEqual(pageLength.toString());
+    });
+
+    it('should active thy-page-item when thyPageIndex set right', () => {
+        basicTestComponent.pagination.index = 2;
+        fixture.detectChanges();
+        const paginationContent = pageComponent.nativeElement.querySelector('div.thy-pagination-content');
+        let pageIndexEle = paginationContent.querySelector('.thy-page-item.active .thy-page-link');
+        expect((pageIndexEle as HTMLElement).innerHTML).toEqual('2');
+
+        basicTestComponent.pagination.index = 3;
+        fixture.detectChanges();
+        pageIndexEle = paginationContent.querySelector('.thy-page-item.active .thy-page-link');
+        expect((pageIndexEle as HTMLElement).innerHTML).toEqual('3');
+
+        basicTestComponent.pagination.index = 4;
+        fixture.detectChanges();
+        pageIndexEle = paginationContent.querySelector('.thy-page-item.active .thy-page-link');
+        expect((pageIndexEle as HTMLElement).innerHTML).toEqual('4');
     });
 });
