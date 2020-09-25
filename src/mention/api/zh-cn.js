@@ -10,6 +10,12 @@ module.exports = [
                 default: ''
             },
             {
+                name: 'thyPopoverConfig',
+                description: `Popover弹出层参数配置`,
+                type: 'ThyPopoverConfig',
+                default: ''
+            },
+            {
                 name: 'thySelectSuggestion',
                 description: `选择后的回调函数`,
                 type: 'MentionSuggestionSelectEvent',

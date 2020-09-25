@@ -62,6 +62,10 @@ export class ThyMentionBasicExampleComponent implements OnInit {
 
     mentions: Mention<any>[];
 
+    popoverConfig = {
+        panelClass: 'mention-popover-panel'
+    };
+
     constructor() {}
 
     ngOnInit(): void {

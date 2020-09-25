@@ -3,6 +3,7 @@
     placeholder="Mention people using @, using # to relate task, quick reply using /"
     thyInput
     [thyMention]="mentions"
+    [thyPopoverConfig]="popoverConfig"
     (thySelectSuggestion)="selectSuggestion($event)"
     [(ngModel)]="value"
   ></textarea>
