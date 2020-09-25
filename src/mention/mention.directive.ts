@@ -1,11 +1,16 @@
 import { Directive, ElementRef, Input, OnInit, EventEmitter, Output, NgZone } from '@angular/core';
 import { Mention, MentionSuggestionSelectEvent, MentionDefaultDataItem } from './interfaces';
-import { ThyPopover, ThyPopoverRef } from '../popover';
+import { ThyPopover, ThyPopoverRef, ThyPopoverConfig } from '../popover';
 import { ThyMentionSuggestionsComponent } from './suggestions/suggestions.component';
 import { CaretPositioner } from './caret-positioner';
 import { MentionAdapter, createMentionAdapter, MatchedMention } from './adapter';
 
 const SUGGESTION_BACKDROP_CLASS = 'thy-mention-suggestions-backdrop';
+
+const POPOVER_DEFAULT_CONFIG = {
+    backdropClass: SUGGESTION_BACKDROP_CLASS,
+    placement: 'bottomLeft'
+};
 
 const DEFAULT_MENTION_CONFIG: Partial<Mention> = {
     autoClose: true,
@@ -41,7 +46,10 @@ export class ThyMentionDirective implements OnInit {
         }
     }
 
-    @Output('thySelectSuggestion') select = new EventEmitter<MentionSuggestionSelectEvent>();
+    @Input('thyPopoverConfig') popoverConfig: ThyPopoverConfig;
+
+    @Output('thySelectSuggestion')
+    select = new EventEmitter<MentionSuggestionSelectEvent>();
 
     constructor(private elementRef: ElementRef<HTMLElement>, private thyPopover: ThyPopover, private ngZone: NgZone) {
         this.adapter = createMentionAdapter(elementRef.nativeElement);
@@ -81,20 +89,21 @@ export class ThyMentionDirective implements OnInit {
             const inputElement = this.elementRef.nativeElement as HTMLInputElement;
             const position = CaretPositioner.getCaretPosition(inputElement, matched.query.start);
             const fontSize = parseInt(getComputedStyle(this.elementRef.nativeElement).fontSize, 10);
-            this.openedSuggestionsRef = this.thyPopover.open(ThyMentionSuggestionsComponent, {
-                origin: this.elementRef,
-                backdropClass: SUGGESTION_BACKDROP_CLASS,
-                originPosition: {
-                    x: position.left,
-                    y: position.top,
-                    width: fontSize,
-                    height: fontSize
-                },
-                placement: 'bottomLeft',
-                initialState: {
-                    mention: matched.mention
-                }
-            });
+            this.openedSuggestionsRef = this.thyPopover.open(
+                ThyMentionSuggestionsComponent,
+                Object.assign({}, POPOVER_DEFAULT_CONFIG, this.popoverConfig, {
+                    origin: this.elementRef,
+                    originPosition: {
+                        x: position.left,
+                        y: position.top,
+                        width: fontSize,
+                        height: fontSize
+                    },
+                    initialState: {
+                        mention: matched.mention
+                    }
+                })
+            );
             this.openedSuggestionsRef.afterClosed().subscribe(() => {
                 this.openedSuggestionsRef = null;
             });
