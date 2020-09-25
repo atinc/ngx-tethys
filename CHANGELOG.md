@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.1.18"></a>
+## [8.1.18](https://github.com/atinc/ngx-tethys/compare/8.1.17...8.1.18) (2020-09-25)
+
+
+### Bug Fixes
+
+* **dialog:** dialog footer words position when align set #INFR-860 ([#911](https://github.com/atinc/ngx-tethys/issues/911)) ([33bbb37](https://github.com/atinc/ngx-tethys/commit/33bbb37)), closes [#INFR-860](https://github.com/atinc/ngx-tethys/issues/INFR-860) [#INFR-860](https://github.com/atinc/ngx-tethys/issues/INFR-860) [#INFR-860](https://github.com/atinc/ngx-tethys/issues/INFR-860) [#INFR-860](https://github.com/atinc/ngx-tethys/issues/INFR-860) [#INFR-860](https://github.com/atinc/ngx-tethys/issues/INFR-860)
+* **pagination:** words bug when pageIndex set #INFR-811 ([#912](https://github.com/atinc/ngx-tethys/issues/912)) ([e25c83e](https://github.com/atinc/ngx-tethys/commit/e25c83e)), closes [#INFR-811](https://github.com/atinc/ngx-tethys/issues/INFR-811) [#INFR-811](https://github.com/atinc/ngx-tethys/issues/INFR-811) [#INFR-811](https://github.com/atinc/ngx-tethys/issues/INFR-811) [#INFR-811](https://github.com/atinc/ngx-tethys/issues/INFR-811)
+
+
+### Features
+
+* **mention:** add open suggestion popover config ([a188980](https://github.com/atinc/ngx-tethys/commit/a188980))
+
+
+
 <a name="8.1.17"></a>
 ## [8.1.17](https://github.com/atinc/ngx-tethys/compare/8.1.16...8.1.17) (2020-09-04)
 
