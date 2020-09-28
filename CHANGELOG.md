@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.1.19"></a>
+## [8.1.19](https://github.com/atinc/ngx-tethys/compare/8.1.18...8.1.19) (2020-09-28)
+
+
+### Bug Fixes
+
+* **anchor:** resolve anchor move error ([#917](https://github.com/atinc/ngx-tethys/issues/917)) ([15abbc9](https://github.com/atinc/ngx-tethys/commit/15abbc9))
+
+
+
 <a name="8.1.18"></a>
 ## [8.1.18](https://github.com/atinc/ngx-tethys/compare/8.1.17...8.1.18) (2020-09-25)
 
