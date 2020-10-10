@@ -133,7 +133,7 @@
             "main": "src/test.ts",
             "polyfills": "src/polyfills.ts",
             "codeCoverage": true,
-            "codeCoverageExclude": ["/src/core/testing/**/*"],
+            "codeCoverageExclude": ["/src/core/testing/**/*", "/src/modal/**/*", "/src/confirm/**/*", "/src/pop-box/**/*"],
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "karma.conf.js"
           }

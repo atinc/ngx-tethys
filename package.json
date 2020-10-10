@@ -27,6 +27,7 @@
     "build:docs:next": "docgeni build --skip-site && ng build site --prod --extract-css --baseHref=/ngx-tethys/",
     "test": "ng test ngx-tethys",
     "lint": "ng lint",
+    "pretty": "pretty-quick --staged",
     "e2e": "ng e2e",
     "serve-demo": "http-server docs -p 8888 -g &"
   },
@@ -105,7 +106,7 @@
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~4.0.0",
     "karma-chrome-launcher": "~2.2.0",
-    "karma-coverage-istanbul-reporter": "~2.0.1",
+    "karma-coverage-istanbul-reporter": "~3.0.3",
     "karma-jasmine": "~1.1.2",
     "karma-jasmine-html-reporter": "^0.2.2",
     "ngm-cli": "^1.0.4",
