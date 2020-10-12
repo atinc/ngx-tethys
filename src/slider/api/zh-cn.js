@@ -1,7 +1,7 @@
 module.exports = [
     {
         type: 'component',
-        name: 'Thy-slider 参数列表',
+        name: 'thy-slider 参数列表',
         description: '用于滑动输入区间值等',
         properties: [
             {
@@ -38,6 +38,13 @@ module.exports = [
                 name: 'ngModel',
                 description: '双向绑定的值',
                 type: 'number',
+                default: ''
+            },
+            {
+                name: 'ngModelChange',
+                description:
+                    '当 slider 的值发生改变时，会触发 ngModelChange 事件，并把改变后的值作为参数传入。如果要获取移动结束后的事件回调，请使用 thyDragEnded。',
+                type: 'Event',
                 default: ''
             },
             {

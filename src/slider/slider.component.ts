@@ -12,12 +12,14 @@ import {
     ViewChild,
     ElementRef,
     HostBinding,
-    Output
+    Output,
+    NgZone
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Observable, Subscription, fromEvent } from 'rxjs';
 import { clamp } from '../util/helpers';
 import { tap, pluck, map, distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { InputBoolean } from '../core';
 
 @Component({
     selector: 'thy-slider',
@@ -31,7 +33,19 @@ import { tap, pluck, map, distinctUntilChanged, takeUntil } from 'rxjs/operators
     ]
 })
 export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges, ControlValueAccessor {
-    @ViewChild('slider', { static: true }) slider: ElementRef;
+    @HostBinding('class.slider-vertical')
+    @Input()
+    @InputBoolean()
+    thyVertical = false;
+
+    @HostBinding('class.slider-disabled')
+    @Input()
+    @InputBoolean()
+    thyDisabled = false;
+
+    @HostBinding('class.thy-slider') _thySlider = true;
+
+    @HostBinding('class.cursor-pointer') _pointer = true;
 
     @ViewChild('sliderRail', { static: true }) sliderRail: ElementRef;
 
@@ -44,10 +58,6 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
     @Input() thyMin = 0;
 
     @Input() thyStep = 1;
-
-    @Input() thyDisabled = false;
-
-    @Input() thyVertical = false;
 
     @Output() thyDragEnded = new EventEmitter<{ value: number }>();
 
@@ -69,7 +79,7 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
 
     private onTouchedCallback = (v: any) => {};
 
-    constructor(private cdr: ChangeDetectorRef) {}
+    constructor(private cdr: ChangeDetectorRef, private ngZone: NgZone, private ref: ElementRef) {}
 
     ngOnInit() {
         this.verificationValues();
@@ -221,27 +231,34 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
     private registerMouseEventsListeners() {
         const orientField = this.thyVertical ? 'pageY' : 'pageX';
 
-        this.dragStartListener = fromEvent(this.slider.nativeElement, 'mousedown').pipe(
-            tap((e: Event) => {
-                e.stopPropagation();
-                e.preventDefault();
-            }),
-            pluck<Event, number>(orientField),
-            map((position: number) => this.mousePositionToAdaptiveValue(position))
-        );
+        this.dragStartListener = this.ngZone.runOutsideAngular(() => {
+            return fromEvent(this.ref.nativeElement, 'mousedown').pipe(
+                tap((e: Event) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                }),
+                pluck<Event, number>(orientField),
+                map((position: number) => this.mousePositionToAdaptiveValue(position))
+            );
+        });
 
-        this.dragEndListener = fromEvent(document, 'mouseup');
-        this.dragMoveListener = fromEvent(document, 'mousemove').pipe(
-            tap((e: Event) => {
-                e.stopPropagation();
-                e.preventDefault();
-            }),
-            pluck<Event, number>(orientField),
-            distinctUntilChanged(),
-            map((position: number) => this.mousePositionToAdaptiveValue(position)),
-            distinctUntilChanged(),
-            takeUntil(this.dragEndListener)
-        );
+        this.dragEndListener = this.ngZone.runOutsideAngular(() => {
+            return fromEvent(document, 'mouseup');
+        });
+
+        this.dragMoveListener = this.ngZone.runOutsideAngular(() => {
+            return fromEvent(document, 'mousemove').pipe(
+                tap((e: Event) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                }),
+                pluck<Event, number>(orientField),
+                distinctUntilChanged(),
+                map((position: number) => this.mousePositionToAdaptiveValue(position)),
+                distinctUntilChanged(),
+                takeUntil(this.dragEndListener)
+            );
+        });
     }
 
     private mousePositionToAdaptiveValue(position: number): number {
@@ -253,8 +270,8 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
     }
 
     private getSliderPagePosition(): number {
-        const rect = this.slider.nativeElement.getBoundingClientRect();
-        const window = this.slider.nativeElement.ownerDocument.defaultView;
+        const rect = this.ref.nativeElement.getBoundingClientRect();
+        const window = this.ref.nativeElement.ownerDocument.defaultView;
         const orientFields: string[] = this.thyVertical ? ['top', 'pageYOffset'] : ['left', 'pageXOffset'];
         return rect[orientFields[0]] + window[orientFields[1]];
     }
@@ -278,6 +295,7 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
         }
         return clamp(this.thyMin, value, this.thyMax);
     }
+
     private getDecimals(value: number): number {
         const valueString = value.toString();
         const integerLength = valueString.indexOf('.') + 1;
