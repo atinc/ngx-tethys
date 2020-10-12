@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.1.20"></a>
+## [8.1.20](https://github.com/atinc/ngx-tethys/compare/8.1.19...8.1.20) (2020-10-12)
+
+
+### Bug Fixes
+
+* **slider:** export slider component for public-api ([a98b1c4](https://github.com/atinc/ngx-tethys/commit/a98b1c4))
+
+
+### Features
+
+* **slider:** add slider component #INFR-837 ([#909](https://github.com/atinc/ngx-tethys/issues/909)) ([f60fe07](https://github.com/atinc/ngx-tethys/commit/f60fe07)), closes [#INFR-837](https://github.com/atinc/ngx-tethys/issues/INFR-837)
+
+
+
 <a name="8.1.19"></a>
 ## [8.1.19](https://github.com/atinc/ngx-tethys/compare/8.1.18...8.1.19) (2020-09-28)
 
