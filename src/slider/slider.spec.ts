@@ -98,7 +98,7 @@ describe('ThyTestSliderComponent', () => {
             const value = 50;
             fixtureInstance.value = value;
             fixture.detectChanges();
-            const containerClassList = debugElement.query(By.css('.thy-slider-container')).nativeElement.classList;
+            const containerClassList = debugElement.query(By.css('.thy-slider')).nativeElement.classList;
 
             expect(containerClassList).toContain('slider-disabled');
             const pointerElement = getSliderPointerElement();
@@ -115,7 +115,7 @@ describe('ThyTestSliderComponent', () => {
         it('slider should be vertical when thyVertical is true', () => {
             fixtureInstance.vertical = true;
             fixture.detectChanges();
-            const classList = debugElement.query(By.css('.thy-slider-container')).nativeElement.classList;
+            const classList = debugElement.query(By.css('.thy-slider')).nativeElement.classList;
 
             expect(classList).toContain('slider-vertical');
         });
