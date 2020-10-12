@@ -65,7 +65,7 @@ import { ThyTreeSelectModule } from './tree-select';
 import { ThyTreeModule } from './tree/tree.module';
 import { ThyUploaderModule } from './uploader';
 import { ThyVoteModule } from './vote';
-import { ThySliderModule } from './slider/module';
+import { ThySliderModule } from './slider/slider.module';
 
 const IMPORT_EXPORT_MODULES = [
     ThyLayoutModule,
