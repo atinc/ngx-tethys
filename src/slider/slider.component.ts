@@ -59,7 +59,7 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
 
     @Input() thyStep = 1;
 
-    @Output() thyDragEnded = new EventEmitter<{ value: number }>();
+    @Output() thyAfterChange = new EventEmitter<{ value: number }>();
 
     public value: number;
 
@@ -218,7 +218,7 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
     private mouseStopMoving(): void {
         this.pointerController(false);
         this.cdr.markForCheck();
-        this.thyDragEnded.emit({ value: this.value });
+        this.thyAfterChange.emit({ value: this.value });
     }
 
     private pointerController(movable: boolean) {

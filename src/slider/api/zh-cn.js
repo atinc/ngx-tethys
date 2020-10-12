@@ -43,12 +43,12 @@ module.exports = [
             {
                 name: 'ngModelChange',
                 description:
-                    '当 slider 的值发生改变时，会触发 ngModelChange 事件，并把改变后的值作为参数传入。如果要获取移动结束后的事件回调，请使用 thyDragEnded。',
+                    '当 slider 的值发生改变时，会触发 ngModelChange 事件，并把改变后的值作为参数传入。如果要获取移动结束后的事件回调，请使用 thyAfterChange',
                 type: 'Event',
                 default: ''
             },
             {
-                name: 'thyDragEnded',
+                name: 'thyAfterChange',
                 description: '移动结束后的回调,参数为当前值。',
                 type: 'Event',
                 default: ''

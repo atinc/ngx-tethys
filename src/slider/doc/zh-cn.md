@@ -22,9 +22,9 @@ subtitle: 滑动输入条
 <example name="thy-slider-input-value-example" />  
 
 ## 修改值后的回调
-如果我们想要在修改完值之后再执行一些自定义操作，那我们可以通过 `onDragEnded` 来进行自定义操作：
+如果我们想要在修改完值之后再执行一些自定义操作，那我们可以通过 `thyAfterChange` 来进行自定义操作：
 ```html
-<thy-slider (thyDragEnded)="dragEnded($event)"></thy-slider>
+<thy-slider (thyAfterChange)="dragEnded($event)"></thy-slider>
 ```
 
 <example name="thy-slider-drag-end-callback-example" />  
