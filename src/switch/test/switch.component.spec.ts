@@ -22,6 +22,7 @@ describe('switch component', () => {
     let testComponent: SwitchTestComponent;
     let switchDebugComponent: DebugElement;
     let switchElement;
+    let labelNode;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -37,6 +38,7 @@ describe('switch component', () => {
         testComponent = fixture.debugElement.componentInstance;
         switchDebugComponent = fixture.debugElement.query(By.directive(ThySwitchComponent));
         switchElement = switchDebugComponent.nativeElement;
+        labelNode = switchElement.children[0];
     });
 
     it('should creat', () => {
@@ -45,69 +47,58 @@ describe('switch component', () => {
         expect(switchElement).toBeTruthy();
     });
 
-    // 开关大小  'sm' | 'lg'
-    it('should have correct class when size is lg', () => {
-        testComponent.size = `lg`;
-        fixture.detectChanges();
-        const labelElement = switchElement.children[0];
-        expect(labelElement.classList.contains('thy-switch-lg')).toBe(true);
+    it('should create correct DOM structure', () => {
+        expect(switchElement.children.length).toEqual(1);
+        expect(labelNode.nodeName).toEqual('LABEL');
+        expect(labelNode.nodeType).toEqual(1);
+        expect(labelNode.className).toEqual('thy-switch');
+        expect(labelNode.childElementCount).toEqual(3);
+
+        const inputNode = labelNode.childNodes[0];
+        expect(inputNode.nodeName).toEqual('INPUT');
+        expect(inputNode.nodeType).toEqual(1);
+        expect(inputNode.classList.contains('thy-switch-input')).toBe(true);
+
+        const typeNode = inputNode.attributes['type'];
+        expect(typeNode.nodeName).toEqual('type');
+        expect(typeNode.nodeType).toEqual(2);
+        expect(typeNode.nodeValue).toEqual('checkbox');
+
+        const spanNode1 = labelNode.childNodes[1];
+        expect(spanNode1.nodeName).toEqual('SPAN');
+        expect(spanNode1.nodeType).toEqual(1);
+        expect(spanNode1.classList.contains('thy-switch-label')).toBe(true);
+
+        const spanNode2 = labelNode.childNodes[2];
+        expect(spanNode2.nodeName).toEqual('SPAN');
+        expect(spanNode2.nodeType).toEqual(1);
+        expect(spanNode2.classList.contains('thy-switch-handle')).toBe(true);
     });
 
-    it('should have correct class when size is sm', () => {
-        testComponent.size = `sm`;
-        fixture.detectChanges();
-        const labelElement = switchElement.children[0];
-        expect(labelElement.classList.contains('thy-switch-sm')).toBe(true);
+    it('should have correct class when it has size', () => {
+        const sizes: string[] = ['lg', 'sm'];
+        sizes.forEach((size: string) => {
+            testComponent.size = size;
+            fixture.detectChanges();
+            expect(labelNode.classList.contains(`thy-switch-${size}`)).toBe(true);
+        });
     });
 
-    // 开关类型  'primary' |'info' | 'warning' | 'danger'
-    it('should have correct class when type is primary', () => {
-        testComponent.type = `primary`;
-        fixture.detectChanges();
-        const labelElement = switchElement.children[0];
-        expect(labelElement.classList.contains('thy-switch-primary')).toBe(true);
+    it('should have correct class when it has type', () => {
+        const types: string[] = ['primary', 'info', 'warning', 'danger'];
+        types.forEach((type: string) => {
+            testComponent.type = type;
+            fixture.detectChanges();
+            expect(labelNode.classList.contains(`thy-switch-${type}`)).toBe(true);
+        });
     });
 
-    it('should have correct class when type is info', () => {
-        testComponent.type = `info`;
-        fixture.detectChanges();
-        const labelElement = switchElement.children[0];
-        expect(labelElement.classList.contains('thy-switch-info')).toBe(true);
-    });
-
-    it('should have correct class when type is warning', () => {
-        testComponent.type = `warning`;
-        fixture.detectChanges();
-        const labelElement = switchElement.children[0];
-        expect(labelElement.classList.contains('thy-switch-warning')).toBe(true);
-    });
-
-    it('should have correct class when type is danger', () => {
-        testComponent.type = `danger`;
-        fixture.detectChanges();
-        const labelElement = switchElement.children[0];
-        expect(labelElement.classList.contains('thy-switch-danger')).toBe(true);
-    });
-
-    it('should have correct class when type is ``', () => {
-        testComponent.type = ``;
-        fixture.detectChanges();
-        const labelElement = switchElement.children[0];
-        expect(labelElement.classList.contains('thy-switch-primary')).toBe(true);
-    });
-
-    // 开关的禁用状态
-    it('should have correct class when isDisabled is false', () => {
-        testComponent.isDisabled = false;
-        fixture.detectChanges();
-        const labelElement = switchElement.children[0];
-        expect(labelElement.classList.contains('thy-switch-disabled')).toBe(false);
-    });
-
-    it('should have correct class when isDisabled is true', () => {
-        testComponent.isDisabled = true;
-        fixture.detectChanges();
-        const labelElement = switchElement.children[0];
-        expect(labelElement.classList.contains('thy-switch-disabled')).toBe(true);
+    it('should have correct class when it‘s isDisabled has changed', () => {
+        const disables: boolean[] = [false, true];
+        disables.forEach((disable: boolean) => {
+            testComponent.isDisabled = disable;
+            fixture.detectChanges();
+            expect(labelNode.classList.contains('thy-switch-disabled')).toBe(disable);
+        });
     });
 });
