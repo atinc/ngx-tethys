@@ -28,6 +28,8 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor, OnChang
 
     public sizeArray: string[] = ['lg', '', 'sm'];
 
+    private initialized = false;
+
     @ViewChild('switch', { static: true }) switchElementRef: ElementRef;
 
     @Input()
@@ -36,6 +38,9 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor, OnChang
             value = 'primary';
         }
         this.type = value;
+        if (this.initialized) {
+            this.setClassNames();
+        }
     }
 
     @Input()
@@ -44,6 +49,9 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor, OnChang
             value = '';
         }
         this.size = value;
+        if (this.initialized) {
+            this.setClassNames();
+        }
     }
 
     @Input() thyDisabled: boolean;
@@ -54,6 +62,7 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor, OnChang
 
     ngOnInit() {
         this.setClassNames();
+        this.initialized = true;
     }
 
     ngOnChanges(changes: SimpleChanges) {
