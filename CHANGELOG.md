@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.1.21"></a>
+## [8.1.21](https://github.com/atinc/ngx-tethys/compare/8.1.20...8.1.21) (2020-10-15)
+
+
+### Bug Fixes
+
+* update spacing for multiple  #INFR-1076 ([3c06044](https://github.com/atinc/ngx-tethys/commit/3c06044)), closes [#INFR-1076](https://github.com/atinc/ngx-tethys/issues/INFR-1076)
+
+
+### Features
+
+* **select:** add loading state to select #INFR-1073 ([f2ff42b](https://github.com/atinc/ngx-tethys/commit/f2ff42b)), closes [#INFR-1073](https://github.com/atinc/ngx-tethys/issues/INFR-1073)
+
+
+
 <a name="8.1.20"></a>
 ## [8.1.20](https://github.com/atinc/ngx-tethys/compare/8.1.19...8.1.20) (2020-10-12)
 
