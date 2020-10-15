@@ -157,6 +157,8 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
 
     @Input() thyServerSearch: boolean;
 
+    @Input() thyLoadState = true;
+
     @Input()
     set thyMode(value: SelectMode) {
         this.mode = value;
