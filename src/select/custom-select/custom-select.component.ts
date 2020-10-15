@@ -103,8 +103,6 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
 
     defaultOffset = 4;
 
-    defaultMultipleOffset = 10;
-
     dropDownClass: { [key: string]: boolean };
 
     public dropDownPositions: ConnectionPositionPair[];
@@ -549,7 +547,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
     }
 
     private getPositions() {
-        this.dropDownPositions = getFlexiblePositions('bottom', this.isMultiple ? this.defaultMultipleOffset : this.defaultOffset);
+        this.dropDownPositions = getFlexiblePositions('bottom', this.defaultOffset);
     }
 
     private instanceSelectionModel() {
