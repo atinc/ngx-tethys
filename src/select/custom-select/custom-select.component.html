@@ -38,15 +38,15 @@
         [thyEnable]="thyEnableScrollLoad"
       >
         <ng-content></ng-content>
-        <ng-container *ngIf="isShowEmptySearchResult">
+        <ng-container *ngIf="isHiddenOptions">
           <thy-loading [thyDone]="thyLoadState" thySize="sm"></thy-loading>
-          <thy-empty  *ngIf="thyLoadState" [thyMessage]="emptySearchMessageText"></thy-empty>
+          <thy-empty *ngIf="thyLoadState" [thyMessage]="emptySearchMessageText"></thy-empty>
         </ng-container>
       </div>
     </ng-container>
     <ng-template #emptyPlaceholder>
       <thy-loading [thyDone]="thyLoadState" thySize="sm"></thy-loading>
-      <thy-empty  *ngIf="thyLoadState" [thyMessage]="emptyStateText"></thy-empty>
+      <thy-empty *ngIf="thyLoadState" [thyMessage]="emptyStateText"></thy-empty>
     </ng-template>
     <div *ngIf="thyFooterTemplate" [class]="thyFooterClass ? thyFooterClass : 'thy-custom-select-footer'">
       <ng-template *ngIf="thyFooterTemplate" [ngTemplateOutlet]="thyFooterTemplate"></ng-template>
