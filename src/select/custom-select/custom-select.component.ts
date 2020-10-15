@@ -291,8 +291,8 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
         });
     }
 
-    public get isShowEmptySearchResult(): boolean {
-        return !this.options.some(option => !option.hidden);
+    public get isHiddenOptions(): boolean {
+        return this.options.toArray().every(option => option.hidden);
     }
 
     public onAttached(): void {
