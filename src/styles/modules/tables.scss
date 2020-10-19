@@ -117,11 +117,17 @@
         td {
             position: relative;
 
+            &:first-child {
+                padding-left: $table-draggable-first-td-padding-left;
+            }
+
             .table-draggable-icon {
                 position: absolute;
                 display: none;
                 color: $table-draggable-icon-color;
                 left: $table-draggable-icon-left;
+                top: 50%;
+                transform: translateY(-50%);
             }
         }
 
@@ -131,7 +137,6 @@
             td {
                 .table-draggable-icon {
                     display: block;
-                    transform: translateY(2px);
                 }
             }
         }
