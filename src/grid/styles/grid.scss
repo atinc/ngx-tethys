@@ -118,5 +118,9 @@
     td {
         display: table-cell;
         vertical-align: middle;
+        padding-left: $table-draggable-first-td-padding-left;
+        .table-draggable-icon {
+            display: none;
+        }
     }
 }
