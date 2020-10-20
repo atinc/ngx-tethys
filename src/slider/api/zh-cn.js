@@ -14,7 +14,7 @@ module.exports = [
                 name: 'thyMin',
                 description: 'slider 的最小值',
                 type: 'number',
-                default: 0
+                default: '0'
             },
             {
                 name: 'thyStep',
@@ -33,6 +33,18 @@ module.exports = [
                 description: '切换 slider 为纵轴模式',
                 type: 'boolean',
                 default: 'false'
+            },
+            {
+                name: 'thyType',
+                description: '切换 slider 的主题类型，支持',
+                type: 'primary | success | info | warning | danger',
+                default: 'success'
+            },
+            {
+                name: 'thyColor',
+                description: '通过变量设置 slider 的颜色',
+                type: 'string',
+                default: ''
             },
             {
                 name: 'ngModel',

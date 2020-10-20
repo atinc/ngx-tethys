@@ -20,6 +20,9 @@ import { Observable, Subscription, fromEvent } from 'rxjs';
 import { clamp } from '../util/helpers';
 import { tap, pluck, map, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { InputBoolean } from '../core';
+import { UpdateHostClassService } from '../shared';
+
+export type ThySliderType = 'primary' | 'success' | 'info' | 'warning' | 'danger';
 
 @Component({
     selector: 'thy-slider',
@@ -29,7 +32,8 @@ import { InputBoolean } from '../core';
             provide: NG_VALUE_ACCESSOR,
             useExisting: forwardRef(() => ThySliderComponent),
             multi: true
-        }
+        },
+        UpdateHostClassService
     ]
 })
 export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges, ControlValueAccessor {
@@ -59,6 +63,12 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
 
     @Input() thyStep = 1;
 
+    @Input() set thyType(type: ThySliderType) {
+        this.updateHostClassService.updateClass(type ? [`thy-slider-${type}`] : []);
+    }
+
+    @Input() thyColor: string;
+
     @Output() thyAfterChange = new EventEmitter<{ value: number }>();
 
     public value: number;
@@ -79,7 +89,14 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
 
     private onTouchedCallback = (v: any) => {};
 
-    constructor(private cdr: ChangeDetectorRef, private ngZone: NgZone, private ref: ElementRef) {}
+    constructor(
+        private cdr: ChangeDetectorRef,
+        private ngZone: NgZone,
+        private ref: ElementRef,
+        private updateHostClassService: UpdateHostClassService
+    ) {
+        updateHostClassService.initializeElement(ref.nativeElement);
+    }
 
     ngOnInit() {
         this.verificationValues();
@@ -127,7 +144,7 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
     private verificationStepValue() {
         if (this.thyStep <= 0 || !!!this.thyStep) {
             throw new Error('step value must be greater than 0.');
-        } else if ((this.thyMax - this.thyMin) % this.thyStep) {
+        } else if (Number.isInteger(this.thyStep) && (this.thyMax - this.thyMin) % this.thyStep) {
             throw new Error('(max -min) must be divisible by step.');
         }
     }
@@ -152,7 +169,7 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
         if (!this.valueMustBeValid(value)) {
             return this.thyMin;
         }
-        return clamp(this.thyMin, value, this.thyMax);
+        return clamp(value, this.thyMin, this.thyMax);
     }
 
     private valueMustBeValid(value: number): boolean {
@@ -211,7 +228,7 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
     }
 
     private mouseMoving(value: number) {
-        this.setValue(value);
+        this.setValue(this.ensureValueInRange(value));
         this.cdr.markForCheck();
     }
 
@@ -283,17 +300,20 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
     }
 
     private convertPointerPositionToRatio(pointerPosition: number, startPosition: number, totalLength: number) {
-        return clamp(0, (pointerPosition - startPosition) / totalLength, 1);
+        return clamp((pointerPosition - startPosition) / totalLength, 0, 1);
     }
 
     private ratioToValue(ratio: number) {
         let value = (this.thyMax - this.thyMin) * ratio + this.thyMin;
         const step = this.thyStep;
-
-        if (step > 0) {
+        if (ratio === 0) {
+            value = this.thyMin;
+        } else if (ratio === 1) {
+            value = this.thyMax;
+        } else {
             value = Math.round(value / step) * step;
         }
-        return clamp(this.thyMin, value, this.thyMax);
+        return clamp(value, this.thyMin, this.thyMax);
     }
 
     private getDecimals(value: number): number {

@@ -1,0 +1,20 @@
+<div class="configuration-area">
+  <div class="config-content">
+    <p>value</p>
+    <input thyInput [(ngModel)]="value" />
+  </div>
+  <div class="config-content">
+    <p>Max Value</p>
+    <input thyInput [(ngModel)]="max" />
+  </div>
+  <div class="config-content">
+    <p>Min Value</p>
+    <input thyInput [(ngModel)]="min" />
+  </div>
+  <div class="config-content">
+    <p>Step</p>
+    <input thyInput [(ngModel)]="step" />
+  </div>
+</div>
+
+<thy-slider [thyMax]="max" [thyMin]="min" [thyStep]="step" [(ngModel)]="value"></thy-slider>

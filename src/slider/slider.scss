@@ -1,3 +1,16 @@
+@mixin slider-type($color) {
+    .thy-slider-rail {
+        background-color: $gray-200;
+        .thy-slider-track {
+            background-color: $color;
+        }
+        .thy-slider-pointer {
+            border-color: $color;
+            background-color: $white;
+        }
+    }
+}
+
 .thy-slider {
     width: 100%;
     padding: 5px;
@@ -13,7 +26,6 @@
             position: absolute;
             height: 5px;
             border-radius: 5px;
-            background-color: $success;
         }
         .thy-slider-pointer {
             position: absolute;
@@ -22,7 +34,8 @@
             width: 14px;
             height: 14px;
             border-radius: 50%;
-            border: 2px solid $success;
+            border-width: 2px;
+            border-style: solid;
             background-color: $white;
         }
     }
@@ -54,5 +67,22 @@
                 border-color: $gray-100;
             }
         }
+    }
+
+    &.thy-slider-primary {
+        @include slider-type($primary);
+    }
+    &,
+    &.thy-slider-success {
+        @include slider-type($success);
+    }
+    &.thy-slider-info {
+        @include slider-type($info);
+    }
+    &.thy-slider-warning {
+        @include slider-type($warning);
+    }
+    &.thy-slider-danger {
+        @include slider-type($danger);
     }
 }
