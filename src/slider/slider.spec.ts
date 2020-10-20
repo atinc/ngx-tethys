@@ -15,6 +15,8 @@ import { By } from '@angular/platform-browser';
                 [thyDisabled]="disabled"
                 [thyVertical]="vertical"
                 [(ngModel)]="value"
+                [thyType]="type"
+                [thyColor]="color"
             ></thy-slider>
         </div>
     `,
@@ -34,6 +36,8 @@ class ThyTestSliderComponent {
     step = 1;
     disabled = false;
     vertical = false;
+    type = '';
+    color = '';
 }
 
 describe('ThyTestSliderComponent', () => {
@@ -118,6 +122,24 @@ describe('ThyTestSliderComponent', () => {
             const classList = debugElement.query(By.css('.thy-slider')).nativeElement.classList;
 
             expect(classList).toContain('slider-vertical');
+        });
+
+        it('slider should be warning color when thyType is warning', () => {
+            const type = 'warning';
+            fixtureInstance.type = type;
+            fixture.detectChanges();
+            const classList = debugElement.query(By.css('.thy-slider')).nativeElement.classList;
+
+            expect(classList).toContain(`thy-slider-${type}`);
+        });
+
+        it('slider track should show custom color when thyColor is custom color', () => {
+            const customColor = 'red';
+            fixtureInstance.color = customColor;
+            fixture.detectChanges();
+            const color = debugElement.query(By.css('.thy-slider-track')).nativeElement.style.backgroundColor;
+
+            expect(color).toEqual(customColor);
         });
     });
 
