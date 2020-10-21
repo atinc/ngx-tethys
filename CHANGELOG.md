@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.1.22"></a>
+## [8.1.22](https://github.com/atinc/ngx-tethys/compare/8.1.21...8.1.22) (2020-10-21)
+
+
+### Bug Fixes
+
+* **grid:** fix grid row drag style #INFR-1146 ([09ea73f](https://github.com/atinc/ngx-tethys/commit/09ea73f)), closes [#INFR-1146](https://github.com/atinc/ngx-tethys/issues/INFR-1146)
+* **slider:** add thyType and thyColor to change slider color #INFR-1147 ([0098536](https://github.com/atinc/ngx-tethys/commit/0098536)), closes [#INFR-1147](https://github.com/atinc/ngx-tethys/issues/INFR-1147)
+
+
+
 <a name="8.1.21"></a>
 ## [8.1.21](https://github.com/atinc/ngx-tethys/compare/8.1.20...8.1.21) (2020-10-15)
 
