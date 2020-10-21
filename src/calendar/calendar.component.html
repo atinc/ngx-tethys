@@ -1,0 +1,31 @@
+<!-- <thy-calendar-header
+  [fullscreen]="thyFullscreen"
+  [currentDate]="currentDate"
+  [(mode)]="thyMode"
+  (modeChange)="onModeChange($event)"
+  (yearChange)="onYearSelect($event)"
+  (monthChange)="onMonthSelect($event)"
+>
+</thy-calendar-header> -->
+
+<div class="thy-calendar-panel">
+  <div class="thy-calendar-{{ thyMode === 'month' ? 'date' : 'month' }}-panel">
+    <div class="thy-calendar-body">
+      <ng-container *ngIf="thyMode === 'month'; then monthModeTable; else yearModeTable"></ng-container>
+    </div>
+  </div>
+</div>
+<ng-template #monthModeTable>
+  <!--  TODO(@wenqi73) [cellRender] [fullCellRender] -->
+  <date-table
+    [prefixCls]="prefixCls"
+    [value]="currentDate"
+    [disabledDate]="thyDisabledDate"
+    (valueChange)="onDateSelect($event)"
+  ></date-table>
+</ng-template>
+
+<!--  TODO(@wenqi73) [cellRender] [fullCellRender] -->
+<ng-template #yearModeTable>
+  <month-table [value]="currentDate" (valueChange)="onDateSelect($event)"></month-table>
+</ng-template>

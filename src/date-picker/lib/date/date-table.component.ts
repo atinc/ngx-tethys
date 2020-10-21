@@ -68,9 +68,7 @@ export class DateTableComponent implements OnChanges {
                     currentValue.length !== previousValue.length ||
                     currentValue.some((value, index) => {
                         const previousTinyDate = previousValue[index];
-                        return previousTinyDate instanceof TinyDate
-                            ? previousTinyDate.isSameDay(value)
-                            : previousTinyDate !== value;
+                        return previousTinyDate instanceof TinyDate ? previousTinyDate.isSameDay(value) : previousTinyDate !== value;
                     })
                 );
             } else {
@@ -236,6 +234,7 @@ export interface DateCell {
     label: string;
     title: string;
     dateCellRender: TemplateRef<Date> | string;
+    fullCellRender?: TemplateRef<Date> | string;
     content: string;
     isSelected?: boolean;
     isToday?: boolean;
