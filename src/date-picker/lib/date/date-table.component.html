@@ -5,7 +5,8 @@
         <span class="{{ prefixCls }}-column-header-inner">x</span>
       </th>
       <th *ngFor="let cell of headWeekDays" role="columnheader" title="{{ cell.short }}" class="{{ prefixCls }}-column-header">
-        <span class="{{ prefixCls }}-column-header-inner">{{ cell.veryShort }}</span>
+        <span *ngIf="prefixCls === 'thy-calendar'" class="{{ prefixCls }}-column-header-inner">{{ cell.veryShort }}</span>
+        <span *ngIf="prefixCls === 'thy-calendar-full'" class="{{ prefixCls }}-column-header-inner">周{{ cell.veryShort }}</span>
       </th>
     </tr>
   </thead>

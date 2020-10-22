@@ -1,4 +1,4 @@
-import { Component, ContentChild, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
+import { Component, ContentChild, EventEmitter, HostBinding, Input, OnInit, Output, TemplateRef } from '@angular/core';
 import { TinyDate } from '../util/tiny-date';
 
 @Component({
@@ -6,6 +6,8 @@ import { TinyDate } from '../util/tiny-date';
     templateUrl: './calendar-header.component.html'
 })
 export class ThyCalendarHeaderComponent implements OnInit {
+    @HostBinding('class.thy-calendar-header-container') className = true;
+
     @Input() mode: 'month' | 'year' = 'month';
 
     @Input() fullscreen = true;

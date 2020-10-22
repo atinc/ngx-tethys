@@ -16,16 +16,16 @@
   </div>
 </div>
 <ng-template #monthModeTable>
-  <!--  TODO(@wenqi73) [cellRender] [fullCellRender] -->
   <date-table
     [prefixCls]="prefixCls"
     [value]="currentDate"
+    [selectedValue]="currentDate"
+    [dateCellRender]="dateCell"
     [disabledDate]="thyDisabledDate"
     (valueChange)="onDateSelect($event)"
   ></date-table>
 </ng-template>
 
-<!--  TODO(@wenqi73) [cellRender] [fullCellRender] -->
 <ng-template #yearModeTable>
   <month-table [value]="currentDate" (valueChange)="onDateSelect($event)"></month-table>
 </ng-template>

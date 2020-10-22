@@ -1,1 +1,22 @@
-<thy-calendar-header></thy-calendar-header> <thy-calendar></thy-calendar>
+<thy-calendar-header></thy-calendar-header>
+<thy-calendar [(ngModel)]="date">
+  <ul *thyDateCell="let date" class="events">
+    <ng-container [ngSwitch]="date.getDate()">
+      <ng-container *ngSwitchCase="8">
+        <li *ngFor="let item of listDataMap.eight">
+          {{ item.content }}
+        </li>
+      </ng-container>
+      <ng-container *ngSwitchCase="10">
+        <li *ngFor="let item of listDataMap.ten">
+          {{ item.content }}
+        </li>
+      </ng-container>
+      <ng-container *ngSwitchCase="11">
+        <li *ngFor="let item of listDataMap.eleven">
+          {{ item.content }}
+        </li>
+      </ng-container>
+    </ng-container>
+  </ul>
+</thy-calendar>

@@ -35,7 +35,7 @@ type CalendarDateTemplate = TemplateRef<{ $implicit: Date }>;
     providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => ThyCalendarComponent), multi: true }]
 })
 export class ThyCalendarComponent implements OnInit, OnChanges {
-    @HostBinding('class.thy-calendar') className = true;
+    @HostBinding('class.thy-calendar-container') className = true;
 
     @HostBinding('class.thy-calendar-full') className1 = true;
 
