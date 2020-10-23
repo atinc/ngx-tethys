@@ -1,12 +1,8 @@
-<!-- <thy-calendar-header
-  [fullscreen]="thyFullscreen"
-  [currentDate]="currentDate"
-  [(mode)]="thyMode"
-  (modeChange)="onModeChange($event)"
-  (yearChange)="onYearSelect($event)"
+<thy-calendar-header
+  [operationRender]="headerOperation"
   (monthChange)="onMonthSelect($event)"
->
-</thy-calendar-header> -->
+  (yearChange)="onYearSelect($event)"
+></thy-calendar-header>
 
 <div class="thy-calendar-panel">
   <div class="thy-calendar-{{ thyMode === 'month' ? 'date' : 'month' }}-panel">

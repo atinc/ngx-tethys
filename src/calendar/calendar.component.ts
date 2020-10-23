@@ -21,7 +21,8 @@ import {
     ThyDateCellDirective as DateCell,
     ThyDateFullCellDirective as DateFullCell,
     ThyMonthCellDirective as MonthCell,
-    ThyMonthFullCellDirective as MonthFullCell
+    ThyMonthFullCellDirective as MonthFullCell,
+    ThyCalendarHeaderOperationDirective as HeaderOperation
 } from './calendar-cells';
 
 export type CalendarMode = 'month' | 'year';
@@ -77,6 +78,12 @@ export class ThyCalendarComponent implements OnInit, OnChanges {
     @ContentChild(MonthFullCell, { static: false, read: TemplateRef }) thyMonthFullCellChild?: CalendarDateTemplate;
     get monthFullCell(): CalendarDateTemplate {
         return (this.thyMonthFullCell || this.thyMonthFullCellChild)!;
+    }
+
+    @Input() thyCalendarHeaderOperation?: CalendarDateTemplate;
+    @ContentChild(HeaderOperation, { static: false, read: TemplateRef }) thyCalendarHeaderOperationChild?: CalendarDateTemplate;
+    get headerOperation(): CalendarDateTemplate {
+        return (this.thyCalendarHeaderOperation || this.thyCalendarHeaderOperationChild)!;
     }
 
     @Input() @InputBoolean() thyFullscreen = true;

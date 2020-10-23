@@ -5,20 +5,39 @@ import { ThyDirectiveModule } from '../directive';
 import { ThyIconModule } from '../icon';
 import { ThyCalendarHeaderComponent } from './calendar-header.component';
 import { ThyCalendarComponent } from './calendar.component';
-import { ThyDateCellDirective, ThyDateFullCellDirective, ThyMonthCellDirective, ThyMonthFullCellDirective } from './calendar-cells';
+import {
+    ThyCalendarHeaderOperationDirective,
+    ThyDateCellDirective,
+    ThyDateFullCellDirective,
+    ThyMonthCellDirective,
+    ThyMonthFullCellDirective
+} from './calendar-cells';
 import { LibPackerModule } from '../date-picker/lib/lib-packer.module';
 import { ThySelectModule } from '../select/module';
 import { ThyRadioModule } from '../radio/module';
+import { ThyButtonModule } from 'ngx-tethys';
+import { ThyDateRangeModule } from '../date-range/module';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ThyDirectiveModule, ThyIconModule, LibPackerModule, ThySelectModule, ThyRadioModule],
+    imports: [
+        CommonModule,
+        FormsModule,
+        ThyDirectiveModule,
+        ThyIconModule,
+        LibPackerModule,
+        ThySelectModule,
+        ThyRadioModule,
+        ThyButtonModule,
+        ThyDateRangeModule
+    ],
     declarations: [
         ThyCalendarHeaderComponent,
         ThyCalendarComponent,
         ThyDateCellDirective,
         ThyDateFullCellDirective,
         ThyMonthCellDirective,
-        ThyMonthFullCellDirective
+        ThyMonthFullCellDirective,
+        ThyCalendarHeaderOperationDirective
     ],
     exports: [
         ThyCalendarHeaderComponent,
@@ -26,7 +45,8 @@ import { ThyRadioModule } from '../radio/module';
         ThyDateCellDirective,
         ThyDateFullCellDirective,
         ThyMonthCellDirective,
-        ThyMonthFullCellDirective
+        ThyMonthFullCellDirective,
+        ThyCalendarHeaderOperationDirective
     ]
 })
 export class ThyCalendarModule {}

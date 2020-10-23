@@ -1,3 +1,15 @@
-<div class="thy-calendar-full-header">
-  <a thyDatePicker thyMode="month" thyShowTime="true" href="javascript:;" class="link-secondary mr-3">次链接</a>
+<div class="thy-calendar-full-header-left">
+  <thy-date-range
+    class="select-date-range"
+    [(ngModel)]="date"
+    [thyHiddenMenu]="true"
+    [thyOptionalDateRanges]="dateRanges"
+    (ngModelChange)="onChangeRange($event)"
+  ></thy-date-range>
+  <button *ngIf="markMonth !== currentMonth" thyButton="outline-default-square" thySize="md" (click)="backToday()">今天</button>
+</div>
+<div class="thy-calendar-full-header-right">
+  <ng-container *ngTemplateOutlet="$any(operationRender); context: { $implicit: operationRender }">
+    <span>{{ operationRender | json }}</span>
+  </ng-container>
 </div>

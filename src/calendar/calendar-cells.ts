@@ -23,3 +23,9 @@ export class ThyDateFullCellDirective {}
     exportAs: 'thyMonthFullCell'
 })
 export class ThyMonthFullCellDirective {}
+
+@Directive({
+    selector: '[thyCalendarHeaderOperation]',
+    exportAs: 'thyCalendarHeaderOperation'
+})
+export class ThyCalendarHeaderOperationDirective {}
