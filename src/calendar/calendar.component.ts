@@ -16,6 +16,7 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { InputBoolean } from '../core';
+import { DateRangeItemInfo } from '../date-range';
 import { TinyDate } from '../util';
 import {
     ThyDateCellDirective as DateCell,
@@ -55,6 +56,8 @@ export class ThyCalendarComponent implements OnInit, OnChanges {
     @Output() thySelectChange: EventEmitter<Date> = new EventEmitter();
 
     @Output() thyValueChange: EventEmitter<Date> = new EventEmitter();
+
+    @Output() thyDateRangeChange: EventEmitter<DateRangeItemInfo> = new EventEmitter();
 
     @Input() thyDateCell?: CalendarDateTemplate;
     @ContentChild(DateCell, { static: false, read: TemplateRef }) thyDateCellChild?: CalendarDateTemplate;
@@ -119,6 +122,10 @@ export class ThyCalendarComponent implements OnInit, OnChanges {
         // Only currentDate is enough in calendar
         // this.value = date;
         this.updateDate(date);
+    }
+
+    onDateRangeSelect(date: DateRangeItemInfo) {
+        this.thyDateRangeChange.emit(date);
     }
 
     writeValue(value: Date | null): void {
