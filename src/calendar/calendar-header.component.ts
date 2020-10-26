@@ -28,6 +28,8 @@ export class ThyCalendarHeaderComponent implements OnInit {
 
     @Output() readonly monthChange: EventEmitter<number> = new EventEmitter();
 
+    @Output() readonly dateRangeChange: EventEmitter<DateRangeItemInfo> = new EventEmitter();
+
     public dateRanges: DateRangeItemInfo[] = [
         {
             key: 'month',
@@ -73,6 +75,7 @@ export class ThyCalendarHeaderComponent implements OnInit {
     onChangeRange(dateRange: DateRangeItemInfo) {
         this.onChangeYear(dateRange);
         this.onChangeMonth(dateRange);
+        this.dateRangeChange.emit(dateRange);
     }
 
     backToday() {
