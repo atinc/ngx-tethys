@@ -15,7 +15,7 @@ import {
 import { LibPackerModule } from '../date-picker/lib/lib-packer.module';
 import { ThySelectModule } from '../select/module';
 import { ThyRadioModule } from '../radio/module';
-import { ThyButtonModule } from 'ngx-tethys';
+import { ThyButtonModule } from '../button/button.module';
 import { ThyDateRangeModule } from '../date-range/module';
 
 @NgModule({
