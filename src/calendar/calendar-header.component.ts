@@ -1,8 +1,8 @@
-import { Component, ContentChild, EventEmitter, HostBinding, Input, OnInit, Output, TemplateRef } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, HostBinding, Input, OnInit, Output, TemplateRef } from '@angular/core';
 import { DateRangeItemInfo } from '../date-range/date-range.class';
 import { FunctionProp } from '../util/helpers';
 import { endOfMonth, getUnixTime, startOfMonth, TinyDate } from '../util/tiny-date';
-import { getMonth, setMonth, getTime, fromUnixTime } from 'date-fns';
+import { fromUnixTime, getMonth } from 'date-fns';
 
 @Component({
     selector: 'thy-calendar-header',
@@ -15,7 +15,10 @@ export class ThyCalendarHeaderComponent implements OnInit {
 
     // @Input() fullscreen = true;
 
-    // @Input() currentDate = new TinyDate();
+    @Input()
+    set currentDate(value: TinyDate) {
+        this.setDate(value);
+    }
 
     @Input() operationRender: FunctionProp<TemplateRef<any>>;
 
@@ -44,14 +47,16 @@ export class ThyCalendarHeaderComponent implements OnInit {
 
     public currentMonth: number;
 
-    constructor() {}
+    private _currentDate: TinyDate;
+
+    constructor(private cdr: ChangeDetectorRef) {}
 
     ngOnInit(): void {
         this.initialMarkMonth();
     }
 
     initialMarkMonth() {
-        this.markMonth = fromUnixTime(getUnixTime(startOfMonth(new Date()))).getMonth();
+        this.markMonth = getMonth(new Date());
     }
 
     onChangeMonth(month: DateRangeItemInfo) {
@@ -72,7 +77,24 @@ export class ThyCalendarHeaderComponent implements OnInit {
 
     backToday() {
         this.currentMonth = this.markMonth;
-        this.date = this.dateRanges[0];
+        this.date = { ...this.dateRanges[0] };
         this.onChangeRange(this.date);
+        this.cdr.detectChanges();
+    }
+
+    setDate(value: TinyDate) {
+        if (value.getMonth() !== getMonth(new Date())) {
+            this._currentDate = value;
+            const dateRange = {
+                ...this.dateRanges[0],
+                key: 'custom',
+                begin: getUnixTime(startOfMonth(this._currentDate.nativeDate)),
+                end: getUnixTime(endOfMonth(this._currentDate.nativeDate))
+            };
+            this.date = dateRange;
+            this.onChangeRange(dateRange);
+        } else {
+            this.backToday();
+        }
     }
 }

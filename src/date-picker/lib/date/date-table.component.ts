@@ -147,6 +147,7 @@ export class DateTableComponent implements OnChanges {
                     dateCellRender: valueFunctionProp(this.dateCellRender, date),
                     content: `${date.getDate()}`,
                     onClick: () => this.changeValueFromInside(date),
+                    // 暂时用不到鼠标事件的交互,在html这种删除了
                     onMouseEnter: () => this.dayHover.emit(date)
                 };
 
