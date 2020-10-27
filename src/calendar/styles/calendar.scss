@@ -2,7 +2,7 @@ $calendar-full-prefix-cls: 'thy-calendar-full';
 
 .#{$calendar-full-prefix-cls} {
     display: block;
-    padding: 9px;
+    padding: 9px 9px 13px 9px;
     .#{$calendar-full-prefix-cls}-table {
         table-layout: fixed;
         width: 100%;
@@ -60,7 +60,7 @@ $calendar-full-prefix-cls: 'thy-calendar-full';
 .#{$calendar-full-prefix-cls}-header-container {
     align-items: center;
     display: flex;
-    min-height: 32px;
+    min-height: 33px;
     padding: 0 12px;
 
     .#{$calendar-full-prefix-cls}-header-left {
