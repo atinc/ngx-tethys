@@ -18,12 +18,28 @@ $calendar-full-prefix-cls: 'thy-calendar-full';
         }
 
         .#{$calendar-full-prefix-cls}-selected-day {
-            background: $gray-80;
+            // background: $gray-80;
+        }
+
+        .#{$calendar-full-prefix-cls}-date-value-text {
+        }
+
+        .#{$calendar-full-prefix-cls}-today {
+            .#{$calendar-full-prefix-cls}-date-value-today-text {
+                width: 24px;
+                height: 24px;
+                background: #ff9f73;
+                display: inline-block;
+                text-align: center;
+                line-height: 24px;
+                border-radius: 50%;
+                color: $white;
+            }
         }
 
         .#{$calendar-full-prefix-cls}-column-header,
         .#{$calendar-full-prefix-cls}-cell .#{$calendar-full-prefix-cls}-date-value {
-            padding: 12px 0 12px 16px;
+            padding: 10px;
         }
 
         .#{$calendar-full-prefix-cls}-last-month-cell,

@@ -20,7 +20,11 @@
         <ng-container *ngTemplateOutlet="$any(cell.fullCellRender); context: { $implicit: cell.value }"> </ng-container>
       </ng-container>
       <ng-template #defaultCell>
-        <div class="{{ prefixCls }}-date-value">{{ cell.content }}</div>
+        <div class="{{ prefixCls }}-date-value">
+          <span class="{{ prefixCls }}-date-value-today-text">
+            <span class="{{ prefixCls }}-date-value-text">{{ cell.content }}</span>
+          </span>
+        </div>
         <div class="{{ prefixCls }}-date-content">
           <ng-container *ngTemplateOutlet="$any(cell.dateCellRender); context: { $implicit: cell.value }"> </ng-container>
         </div>
