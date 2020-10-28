@@ -169,7 +169,7 @@
     $thead-bg,
     $thead-border-color,
     $thead-color,
-    $thead-padding-bottom
+    $thead-padding
 ) {
     thead {
         tr {
@@ -183,7 +183,7 @@
             font-weight: $thead-font-weight;
             border-bottom: $thead-border-bottom-width solid $thead-border-color;
             color: $thead-color;
-            padding-bottom: $thead-padding-bottom;
+            padding: $thead-padding;
         }
     }
 }
