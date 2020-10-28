@@ -44,7 +44,7 @@
         transparent,
         $table-border-color,
         $table-default-head-color,
-        $table-default-header-bottom
+        $table-default-header-padding
     );
 
     &.table-sm {
@@ -52,7 +52,7 @@
         thead {
             th,
             td {
-                padding-bottom: $table-default-sm-header-bottom;
+                padding: $table-default-sm-header-padding;
             }
         }
     }
@@ -86,15 +86,6 @@
 .table-sm {
     @include table-size($table-sm-cell-height, $table-sm-cell-height);
 }
-
-// .table-default-sm-bottom-padding {
-//     thead {
-//         th,
-//         td {
-//             padding-bottom: $table-default-sm-header-bottom;
-//         }
-//     }
-// }
 
 .table-fixed {
     table-layout: fixed;
