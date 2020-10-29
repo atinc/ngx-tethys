@@ -104,6 +104,12 @@
 }
 
 .table-draggable {
+    thead tr {
+        th:first-child {
+            padding-left: $table-draggable-first-td-padding-left;
+        }
+    }
+
     tbody tr {
         td {
             position: relative;
