@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, Renderer2, Output, EventEmitter, HostBinding, Input, NgZone, OnDestroy } from '@angular/core';
 import { mimeTypeConvert } from './util';
 import { fromEvent, Subject } from 'rxjs';
-import { takeUntil, filter, map, mapTo, tap, debounceTime, auditTime } from 'rxjs/operators';
+import { takeUntil, filter, map, mapTo, tap, debounceTime, auditTime, catchError, retry } from 'rxjs/operators';
 
 @Component({
     selector: '[thyFileDrop]',
@@ -81,6 +81,13 @@ export class ThyFileDropComponent implements OnInit, OnDestroy {
                     }),
                     filter(event => event.dataTransfer.files && event.dataTransfer.files.length > 0),
                     filter(this.checkRejectFolderAndHtmlElement.bind(this)),
+                    catchError(error => {
+                        this.ngZone.run(() => {
+                            this._backToDefaultState();
+                            this._toggleDropOverClassName();
+                        });
+                        return [];
+                    }),
                     filter(this.checkOptionAcceptType.bind(this))
                 )
                 .subscribe((event: any) => {
@@ -107,11 +114,23 @@ export class ThyFileDropComponent implements OnInit, OnDestroy {
         let res = true;
         for (let index = 0; index < items.length; index++) {
             const element = items[index];
-            if (element.kind !== 'file' || element.type === '') {
+            const _entry = this._getAsEntry(element);
+            if (_entry && !_entry.isFile) {
                 res = false;
+                throw new Error(`file extensions not support`);
             }
         }
         return res;
+    }
+
+    private _getAsEntry(item: any) {
+        let entry;
+        if (item.getAsEntry) {
+            entry = item.getAsEntry();
+        } else if (item.webkitGetAsEntry) {
+            entry = item.webkitGetAsEntry();
+        }
+        return entry;
     }
 
     private checkOptionAcceptType(event: any) {
