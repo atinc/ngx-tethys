@@ -12,6 +12,12 @@ module.exports = [
                 default: ''
             },
             {
+                name: 'thySize',
+                description: '大小有sm、default、md、lg，对应大小为：20px、22px、24px、26px, 默认为 default',
+                type: 'String',
+                default: ''
+            },
+            {
                 name: 'thyLabelType',
                 description: '状态标签（state、pill）',
                 type: 'String',

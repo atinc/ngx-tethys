@@ -68,9 +68,7 @@ export class DateTableComponent implements OnChanges {
                     currentValue.length !== previousValue.length ||
                     currentValue.some((value, index) => {
                         const previousTinyDate = previousValue[index];
-                        return previousTinyDate instanceof TinyDate
-                            ? previousTinyDate.isSameDay(value)
-                            : previousTinyDate !== value;
+                        return previousTinyDate instanceof TinyDate ? previousTinyDate.isSameDay(value) : previousTinyDate !== value;
                     })
                 );
             } else {
@@ -149,6 +147,7 @@ export class DateTableComponent implements OnChanges {
                     dateCellRender: valueFunctionProp(this.dateCellRender, date),
                     content: `${date.getDate()}`,
                     onClick: () => this.changeValueFromInside(date),
+                    // 暂时用不到鼠标事件的交互,在html这种删除了
                     onMouseEnter: () => this.dayHover.emit(date)
                 };
 
@@ -236,6 +235,7 @@ export interface DateCell {
     label: string;
     title: string;
     dateCellRender: TemplateRef<Date> | string;
+    fullCellRender?: TemplateRef<Date> | string;
     content: string;
     isSelected?: boolean;
     isToday?: boolean;
