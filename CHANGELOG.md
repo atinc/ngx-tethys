@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.1.23"></a>
+## [8.1.23](https://github.com/atinc/ngx-tethys/compare/8.1.22...8.1.23) (2020-10-29)
+
+
+### Bug Fixes
+
+* **uploader:** 部分文件如key、rar等格式的文件拖拽上传失败(#INFR-1176) ([#935](https://github.com/atinc/ngx-tethys/issues/935)) ([840a8f9](https://github.com/atinc/ngx-tethys/commit/840a8f9)), closes [#INFR-1176](https://github.com/atinc/ngx-tethys/issues/INFR-1176)
+
+
+### Features
+
+* **calendar:** #INFR-1149 calendar API ([#932](https://github.com/atinc/ngx-tethys/issues/932)) ([a3caec3](https://github.com/atinc/ngx-tethys/commit/a3caec3)), closes [#INFR-1149](https://github.com/atinc/ngx-tethys/issues/INFR-1149) [#INFR-1149](https://github.com/atinc/ngx-tethys/issues/INFR-1149)
+
+
+
 <a name="8.1.22"></a>
 ## [8.1.22](https://github.com/atinc/ngx-tethys/compare/8.1.21...8.1.22) (2020-10-21)
 
