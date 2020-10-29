@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./basic.component.scss']
 })
 export class ThyCalendarBasicExampleComponent implements OnInit {
-    date = new Date(2012, 11, 21);
+    // date = new Date(2012, 11, 21);
 
     listDataMap = {
         eight: [

@@ -3,9 +3,21 @@ $calendar-full-prefix-cls: 'thy-calendar-full';
 .#{$calendar-full-prefix-cls} {
     display: block;
     padding: 9px 9px 13px 9px;
+    height: 100%;
+
+    .thy-calendar-panel {
+        height: calc(100% - 33px);
+        .thy-calendar-date-panel {
+            height: 100%;
+            .thy-calendar-body {
+                height: 100%;
+            }
+        }
+    }
     .#{$calendar-full-prefix-cls}-table {
         table-layout: fixed;
         width: 100%;
+        height: 100%;
         thead {
             font-size: 14px;
             color: $gray-500;
