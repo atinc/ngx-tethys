@@ -1,4 +1,4 @@
-import { Component, forwardRef, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, forwardRef, OnInit, Input, SimpleChanges, ChangeDetectorRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { DateRangeItemInfo } from './date-range.class';
 import { helpers } from '../util';
@@ -71,7 +71,7 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
 
     public onModelTouched: Function = () => {};
 
-    constructor(private thyPopover: ThyPopover) {}
+    constructor(private thyPopover: ThyPopover, private cdr: ChangeDetectorRef) {}
 
     writeValue(value: any): void {
         if (value) {
@@ -81,6 +81,7 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
             this.onModelChange(this.selectedDate);
         }
         this._setSelectedDateRange();
+        this.cdr.detectChanges();
     }
 
     registerOnChange(fn: any): void {

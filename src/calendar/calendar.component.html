@@ -1,0 +1,29 @@
+<thy-calendar-header
+  [operationRender]="headerOperation"
+  (monthChange)="onMonthSelect($event)"
+  (yearChange)="onYearSelect($event)"
+  (dateRangeChange)="onDateRangeSelect($event)"
+  [currentDate]="currentDate"
+></thy-calendar-header>
+
+<div class="thy-calendar-panel">
+  <div class="thy-calendar-{{ thyMode === 'month' ? 'date' : 'month' }}-panel">
+    <div class="thy-calendar-body">
+      <ng-container *ngIf="thyMode === 'month'; then monthModeTable; else yearModeTable"></ng-container>
+    </div>
+  </div>
+</div>
+<ng-template #monthModeTable>
+  <date-table
+    [prefixCls]="prefixCls"
+    [value]="currentDate"
+    [selectedValue]="currentDate"
+    [dateCellRender]="dateCell"
+    [disabledDate]="thyDisabledDate"
+    (valueChange)="onDateSelect($event)"
+  ></date-table>
+</ng-template>
+
+<ng-template #yearModeTable>
+  <month-table [value]="currentDate" (valueChange)="onDateSelect($event)"></month-table>
+</ng-template>
