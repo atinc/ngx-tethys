@@ -74,12 +74,8 @@ $calendar-full-prefix-cls: 'thy-calendar-full';
 
                 .#{$calendar-full-prefix-cls}-date-content {
                     height: 110px;
-                    padding: 0 13px;
+                    padding: 0 6px;
                     overflow: auto;
-                }
-
-                &:hover {
-                    background: $gray-80;
                 }
             }
         }

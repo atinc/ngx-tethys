@@ -16,9 +16,9 @@
         {{ row.weekNum }}
       </td>
       <!-- 在td中删除了鼠标事件 -->
+      <!-- 去掉tooltip，故去掉title属性 -->
       <td
         *ngFor="let cell of row.dateCells; trackBy: trackByDateFn"
-        title="{{ cell.title }}"
         role="gridcell"
         [ngClass]="cell.classMap"
         (click)="cell.isDisabled ? null : cell.onClick()"
