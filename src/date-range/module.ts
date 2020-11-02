@@ -7,8 +7,9 @@ import { ThyActionMenuModule } from '../action-menu/action-menu.module';
 import { ThyDirectiveModule } from '../directive';
 import { ThyDatePickerModule } from '../date-picker/date-picker.module';
 import { OptionalDateRangesComponent } from './optional-dates/optional-dates.component';
+import { ThyNavModule } from '../nav/nav.module';
 @NgModule({
-    imports: [CommonModule, FormsModule, ThyActionMenuModule, ThyDirectiveModule, ThyIconModule, ThyDatePickerModule],
+    imports: [CommonModule, FormsModule, ThyActionMenuModule, ThyDirectiveModule, ThyIconModule, ThyDatePickerModule, ThyNavModule],
     declarations: [ThyDateRangeComponent, OptionalDateRangesComponent],
     exports: [ThyDateRangeComponent],
     entryComponents: [OptionalDateRangesComponent]
