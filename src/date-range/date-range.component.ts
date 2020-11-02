@@ -35,7 +35,9 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
 
     @Input() thyMaxDate: Date | number;
 
-    private customKey = 'custom';
+    @Input() customKey: 'custom' | 'exception' = 'custom';
+
+    @Input() pickerFormat: string;
 
     public selectedDate?: DateRangeItemInfo;
 

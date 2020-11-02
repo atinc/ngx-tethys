@@ -90,7 +90,7 @@ export class ThyCalendarHeaderComponent implements OnInit {
             this._currentDate = value;
             const dateRange = {
                 ...this.dateRanges[0],
-                key: 'custom',
+                key: 'exception',
                 begin: getUnixTime(startOfMonth(this._currentDate.nativeDate)),
                 end: getUnixTime(endOfMonth(this._currentDate.nativeDate))
             };
