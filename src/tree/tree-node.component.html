@@ -5,7 +5,7 @@
   [class.disabled]="node.isDisabled"
   (click)="clickNode($event)"
 >
-  <span *ngIf="thyDraggable" class="thy-tree-drag-icon thy-sortable-handle">
+  <span *ngIf="thyDraggable && thyShowDragIcon" class="thy-tree-drag-icon thy-sortable-handle">
     <thy-icon thyIconName="drag"></thy-icon>
   </span>
   <span class="thy-tree-expand" (click)="expandNode($event)">
@@ -66,6 +66,7 @@
     [thyAsync]="thyAsync"
     [thyMultiple]="thyMultiple"
     [thyDraggable]="thyDraggable"
+    [thyShowDragIcon]="thyShowDragIcon"
     [thyCheckable]="thyCheckable"
     [thyTitleTruncate]="thyTitleTruncate"
     (thyOnClick)="thyOnClick.emit($event)"

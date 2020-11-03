@@ -195,6 +195,16 @@ describe('ThyTreeComponent', () => {
             fixture.detectChanges();
             expect(checkChangeSpy).toHaveBeenCalledTimes(1);
         }));
+
+        it('test hide drag icon when node hover', fakeAsync(() => {
+            const dragIconEleTrue = treeElement.querySelectorAll('.thy-drag-content .thy-tree-drag-icon')[0] as HTMLElement;
+            expect(dragIconEleTrue).toBeTruthy();
+
+            treeInstance.options.showDragIcon = false;
+            fixture.detectChanges();
+            const dragIconEleFalse = treeElement.querySelectorAll('.thy-drag-content .thy-tree-drag-icon')[0] as HTMLElement;
+            expect(dragIconEleFalse).toBeFalsy();
+        }));
     });
 
     describe('async tree', () => {
@@ -245,6 +255,7 @@ describe('ThyTreeComponent', () => {
             [thyIcons]="options.treeIcons"
             [thyType]="'especial'"
             [thyDraggable]="options.draggable"
+            [thyShowDragIcon]="options.showDragIcon"
             [thyCheckable]="options.checkable"
             [thyCheckStateResolve]="options.checkStateResolve"
             [thyMultiple]="options.multiple"
@@ -277,6 +288,7 @@ class TestBasicTreeComponent {
 
     options: any = {
         draggable: true,
+        showDragIcon: true,
         checkable: true,
         multiple: false
     };

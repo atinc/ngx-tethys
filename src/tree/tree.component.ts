@@ -85,6 +85,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
     get thyDraggable() {
         return this._draggable;
     }
+    @Input() thyShowDragIcon = true;
 
     @Input() thyCheckable: boolean;
 

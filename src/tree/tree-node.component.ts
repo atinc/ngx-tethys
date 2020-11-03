@@ -34,6 +34,8 @@ export class ThyTreeNodeComponent implements OnDestroy {
 
     @Input() thyDraggable = false;
 
+    @Input() thyShowDragIcon = true;
+
     @Input() thyCheckable = false;
 
     @Input() thyTitleTruncate: boolean;

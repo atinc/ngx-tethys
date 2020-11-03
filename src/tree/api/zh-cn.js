@@ -41,6 +41,12 @@ module.exports = [
                 default: 'false'
             },
             {
+                name: 'thyShowDragIcon',
+                description: '设置是否显示 Node 节点的的可拖动图标',
+                type: 'boolean',
+                default: 'true'
+            },
+            {
                 name: 'thyType',
                 description: '设置不同展示类型的 Tree `default` 为小箭头展示， `especial` 为 加减号图标展示',
                 type: 'string',
