@@ -67,3 +67,4 @@ export * from './anchor';
 export * from './back-top';
 export * from './copy';
 export * from './slider';
+export * from './calendar';
