@@ -14,7 +14,7 @@
       {{ selectedDate?.begin | thyDatePickerFormat }} ~ {{ selectedDate?.end | thyDatePickerFormat }}
     </ng-container>
     <ng-container *ngIf="selectedDate?.key === 'exception'">
-      {{ selectedDate?.begin | thyDatePickerFormat: pickerFormat }}
+      {{ selectedDate?.begin | thyDatePickerFormat: thyPickerFormat }}
     </ng-container>
     <ng-container *ngIf="selectedDate?.key !== 'custom' && selectedDate?.key !== 'exception'">{{ selectedDate?.text }}</ng-container>
     <thy-icon *ngIf="!thyHiddenMenu" class="thy-date-range-text-caret-down ml-2" thyIconName="angle-down"></thy-icon>
