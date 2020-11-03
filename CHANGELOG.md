@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.1.24"></a>
+## [8.1.24](https://github.com/atinc/ngx-tethys/compare/8.1.23...8.1.24) (2020-11-03)
+
+
+### Bug Fixes
+
+* **calendar:** #AE-3361 #AE-3362 remove tooltip and td hover ([#939](https://github.com/atinc/ngx-tethys/issues/939)) ([a645ecf](https://github.com/atinc/ngx-tethys/commit/a645ecf)), closes [#AE-3361](https://github.com/atinc/ngx-tethys/issues/AE-3361) [#AE-3362](https://github.com/atinc/ngx-tethys/issues/AE-3362)
+* **grid:** change first th padding left in draggable table #INFR-1146 ([#938](https://github.com/atinc/ngx-tethys/issues/938)) ([ac4f25a](https://github.com/atinc/ngx-tethys/commit/ac4f25a)), closes [#INFR-1146](https://github.com/atinc/ngx-tethys/issues/INFR-1146)
+
+
+### Features
+
+* **date-range:** #AE-3367 custom time display ([#940](https://github.com/atinc/ngx-tethys/issues/940)) ([cc7ed6b](https://github.com/atinc/ngx-tethys/commit/cc7ed6b)), closes [#AE-3367](https://github.com/atinc/ngx-tethys/issues/AE-3367) [#AE-3367](https://github.com/atinc/ngx-tethys/issues/AE-3367)
+
+
+
 <a name="8.1.23"></a>
 ## [8.1.23](https://github.com/atinc/ngx-tethys/compare/8.1.22...8.1.23) (2020-10-29)
 
