@@ -86,7 +86,7 @@ export class ThyCalendarHeaderComponent implements OnInit {
     }
 
     setDate(value: TinyDate) {
-        if (value.getMonth() !== getMonth(new Date())) {
+        if (value.getMonth() !== getMonth(new Date()) || value.getYear() !== getYear(new Date())) {
             this._currentDate = value;
             const dateRange = {
                 ...this.dateRanges[0],
