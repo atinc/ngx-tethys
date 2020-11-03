@@ -4,8 +4,8 @@
     [ngModel]="date"
     [thyHiddenMenu]="true"
     [thyOptionalDateRanges]="dateRanges"
-    [customKey]="'exception'"
-    [pickerFormat]="'yyyy年MM月'"
+    [thyCustomKey]="'exception'"
+    [thyPickerFormat]="'yyyy年MM月'"
     (ngModelChange)="onChangeRange($event)"
   ></thy-date-range>
   <button *ngIf="markMonth !== currentMonth" thyButton="outline-default-square" thySize="md" (click)="backToday()">今天</button>
