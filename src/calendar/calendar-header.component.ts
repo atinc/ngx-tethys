@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, EventEmitter, HostBinding, Input, OnInit,
 import { DateRangeItemInfo } from '../date-range/date-range.class';
 import { FunctionProp } from '../util/helpers';
 import { endOfMonth, getUnixTime, startOfMonth, TinyDate } from '../util/tiny-date';
-import { fromUnixTime, getMonth } from 'date-fns';
+import { fromUnixTime, getMonth, getYear } from 'date-fns';
 
 @Component({
     selector: 'thy-calendar-header',
@@ -33,7 +33,7 @@ export class ThyCalendarHeaderComponent implements OnInit {
     public dateRanges: DateRangeItemInfo[] = [
         {
             key: 'month',
-            text: '本月',
+            text: getYear(new Date()) + '年' + (getMonth(new Date()) + 1) + '月',
             begin: getUnixTime(startOfMonth(new Date())),
             end: getUnixTime(endOfMonth(new Date())),
             timestamp: {
