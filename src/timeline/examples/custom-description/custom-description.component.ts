@@ -2,9 +2,9 @@ import { Component, Optional, SkipSelf } from '@angular/core';
 
 @Component({
     selector: 'thy-timeline-custom-example',
-    templateUrl: './custom.component.html'
+    templateUrl: './custom-description.component.html'
 })
-export class ThyTimelineCustomExampleComponent {
+export class ThyTimelineCustomDescriptionExampleComponent {
     public thyColor = '';
 
     public thyMode = 'left';

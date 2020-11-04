@@ -30,7 +30,7 @@ module.exports = [
                 default: 'primary'
             },
             {
-                name: 'thyDot',
+                name: 'dot',
                 description: '自定义时间轴点',
                 type: 'TemplateRef',
                 default: 'null'
@@ -42,7 +42,7 @@ module.exports = [
                 default: 'null'
             },
             {
-                name: 'thyOtherSideTemplate',
+                name: 'description',
                 description: '自定义另一侧的模版',
                 type: 'TemplateRef',
                 default: 'null'

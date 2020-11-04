@@ -14,21 +14,23 @@ import {
     ViewEncapsulation,
     ChangeDetectionStrategy
 } from '@angular/core';
+import { takeUntil } from 'rxjs/operators';
 import { ThyTimelineItemComponent } from './timeline-item.component';
+import { ThyTimelineService } from './timeline.service';
 import { Subject } from 'rxjs';
 
-export type thyTimeMode = 'left' | 'right' | 'center' | 'custom';
+export type thyTimeMode = 'left' | 'right' | 'center';
 
 export enum thyTimeModes {
     left = 'left',
     right = 'right',
-    center = 'center',
-    custom = 'custom'
+    center = 'center'
 }
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     selector: 'thy-timeline',
+    providers: [ThyTimelineService],
     template: `
         <ng-container>
             <ng-container *ngFor="let item of timelineItems">
@@ -38,12 +40,14 @@ export enum thyTimeModes {
         </ng-container>
     `
 })
-export class ThyTimelineComponent implements AfterContentInit, OnChanges, OnDestroy {
+export class ThyTimelineComponent implements OnInit, AfterContentInit, OnChanges, OnDestroy {
     @Input() thyReverse: Boolean;
 
     @Input() thyMode: thyTimeMode;
 
     public timelineItems: ThyTimelineItemComponent[] = [];
+
+    private destroy$ = new Subject<void>();
 
     @HostBinding(`class.thy-timeline`) isTimeline = true;
     @HostBinding(`class.thy-timeline-right`) rightTimeline = false;
@@ -53,9 +57,7 @@ export class ThyTimelineComponent implements AfterContentInit, OnChanges, OnDest
     @ContentChildren(ThyTimelineItemComponent)
     listOfItems: QueryList<ThyTimelineItemComponent>;
 
-    private destroy$ = new Subject<void>();
-
-    constructor(private cdr: ChangeDetectorRef) {}
+    constructor(private cdr: ChangeDetectorRef, private timelineService: ThyTimelineService) {}
 
     ngOnChanges(changes: SimpleChanges): void {
         const { thyMode, thyReverse } = changes;
@@ -76,6 +78,12 @@ export class ThyTimelineComponent implements AfterContentInit, OnChanges, OnDest
         }
     }
 
+    ngOnInit() {
+        this.timelineService.check$.pipe(takeUntil(this.destroy$)).subscribe(() => {
+            this.cdr.markForCheck();
+        });
+    }
+
     ngAfterContentInit() {
         this.updateChildren();
     }
@@ -93,7 +101,7 @@ export class ThyTimelineComponent implements AfterContentInit, OnChanges, OnDest
                 item.isFirst = this.thyReverse ? index === length - 1 : index === 0;
                 item.position = getTimelineItemPosition(index, this.thyMode);
                 item.reverse = this.thyReverse;
-                if (item.thyOtherSideTemplate) {
+                if (item.description || item.thyPosition) {
                     this.templateTimeline = true;
                 }
                 item.detectChanges();

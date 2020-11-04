@@ -1,14 +1,5 @@
 <div>
   <form class="mb-2" thyForm name="demoForm" #demoForm="ngForm" thyLayout="inline">
-    <thy-form-group thyLabelText="节点颜色">
-      <thy-select [(ngModel)]="thyColor" name="thyColor">
-        <option value="primary">蓝色</option>
-        <option value="success">绿色</option>
-        <option value="warning">黄色</option>
-        <option value="danger">红色</option>
-        <option value="info">灰色</option>
-      </thy-select>
-    </thy-form-group>
     <thy-form-group thyLabelText="时间轴位置">
       <thy-select [(ngModel)]="thyMode" name="thyMode">
         <option value="right">居右</option>
@@ -27,13 +18,26 @@
     <thy-timeline-item [thyColor]="thyColor">2019年7月18日</thy-timeline-item>
     <thy-timeline-item [thyColor]="thyColor">
       <thy-avatar [thyShowName]="true" thyName="terry" thySize="xs"></thy-avatar>
+
+      <ng-template #description>
+        <span class="state-label" thyLabel="outline" thyLabelColor="#f0f" thySize="sm"><span thyFlexibleText>另一侧模版</span></span>
+      </ng-template>
     </thy-timeline-item>
     <thy-timeline-item [thyColor]="thyColor"
       >PingCode
       是简单易用的新一代研发管理平台，让研发管理自动化、数据化、智能化，帮助企业提升研发效能。从路线图到专业的敏捷开发管理，多项目进度跟踪，知识沉淀与测试管理。提供标准敏捷研发管理，支持
       Scrum与Kanban,提供测试用例管理与测试计划执行，并自动生成测试报告
-      。Plan产品路线图定制，多项目进度管控，资源跟踪及里程碑管理。Wiki提供结构化知识库来记载信息，便于团队沉</thy-timeline-item
-    >
-    <thy-timeline-item [thyColor]="thyColor"><button thySize="sm" thyButton>按钮</button> </thy-timeline-item>
+      。Plan产品路线图定制，多项目进度管控，资源跟踪及里程碑管理。Wiki提供结构化知识库来记载信息，便于团队沉淀经验、共享资源。覆盖研发全流程
+      通过增量迭代，实现计划、研发和交付的可预测和可控制，有效连接需求规划、开发过程、测试和持续集成。
+    </thy-timeline-item>
+    <thy-timeline-item [thyColor]="thyColor"
+      ><button thySize="sm" thyButton>按钮</button>
+      <ng-template #dot>
+        <thy-icon thyIconName="bell"></thy-icon>
+      </ng-template>
+      <ng-template #description>
+        <button thySize="sm" thyButton>另一侧模版的按钮</button>
+      </ng-template>
+    </thy-timeline-item>
   </thy-timeline>
 </div>

@@ -11,7 +11,8 @@ import {
     ChangeDetectionStrategy,
     SimpleChanges
 } from '@angular/core';
-import { thyTimeMode, thyTimeModes } from './timeline.component';
+import { thyTimeMode } from './timeline.component';
+import { ThyTimelineService } from './timeline.service';
 
 export type thyColor = 'primary' | 'success' | 'warning' | 'danger';
 
@@ -21,8 +22,8 @@ export type thyColor = 'primary' | 'success' | 'warning' | 'danger';
     templateUrl: './timeline-item.component.html',
     exportAs: 'ThyTimelineItem'
 })
-export class ThyTimelineItemComponent implements OnInit {
-    @ViewChild('template', { static: false }) template: TemplateRef<void>;
+export class ThyTimelineItemComponent implements OnInit, OnChanges {
+    @ViewChild('timelineItem', { static: false }) template: TemplateRef<void>;
 
     public color: thyColor = 'primary';
 
@@ -43,14 +44,18 @@ export class ThyTimelineItemComponent implements OnInit {
 
     @Input() thyPosition: thyTimeMode;
 
-    @ContentChild('thyDot', { static: false }) thyDot: TemplateRef<any>;
+    @ContentChild('dot', { static: false }) dot: TemplateRef<any>;
 
-    @ContentChild('thyOtherSideTemplate', { static: false }) thyOtherSideTemplate: TemplateRef<any>;
+    @ContentChild('description', { static: false }) description: TemplateRef<any>;
 
-    constructor(private cdr: ChangeDetectorRef) {}
+    constructor(private cdr: ChangeDetectorRef, private timelineService: ThyTimelineService) {}
 
     detectChanges(): void {
         this.cdr.detectChanges();
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        this.timelineService.markForCheck();
     }
 
     ngOnInit() {}

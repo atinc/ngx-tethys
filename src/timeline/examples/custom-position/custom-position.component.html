@@ -1,0 +1,23 @@
+<div>
+  <form class="mb-2" thyForm name="demoForm" #demoForm="ngForm" thyLayout="inline">
+    <thy-form-group thyLabelText="时间轴位置">
+      <thy-select [(ngModel)]="thyMode" name="thyMode">
+        <option value="right">居右</option>
+        <option value="left">居左</option>
+        <option value="center">居中</option>
+      </thy-select>
+    </thy-form-group>
+    <thy-form-group thyLabelText="自定义数据位置">
+      <thy-select [(ngModel)]="position" name="position">
+        <option value="right">居右</option>
+        <option value="left">居左</option>
+      </thy-select>
+    </thy-form-group>
+  </form>
+  <thy-timeline [thyMode]="thyMode">
+    <thy-timeline-item>第一条数据</thy-timeline-item>
+    <thy-timeline-item>第二条数据</thy-timeline-item>
+    <thy-timeline-item [thyPosition]="position">第三条数据</thy-timeline-item>
+    <thy-timeline-item>第四条数据</thy-timeline-item>
+  </thy-timeline>
+</div>

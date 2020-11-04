@@ -114,16 +114,16 @@
         width: calc(50% - 14px);
         text-align: right;
     }
-    .thy-timeline-item-first .thy-timeline-item-content-other-side {
+    .thy-timeline-item-reverse-first .thy-timeline-item-content-other-side {
         top: 23px;
     }
 }
-.thy-timeline-item-last {
+.thy-timeline-item-reverse-last {
     .thy-timeline-item-tail {
         height: 0;
     }
 }
-.thy-timeline-item-first {
+.thy-timeline-item-reverse-first {
     padding-top: 30px;
     .thy-timeline-item-tail {
         top: 0;

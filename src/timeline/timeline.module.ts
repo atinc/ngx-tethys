@@ -12,4 +12,4 @@ import { ThyTimelineItemComponent } from './timeline-item.component';
     exports: [ThyTimelineComponent, ThyTimelineItemComponent],
     providers: []
 })
-export class ThyTimeLineModule {}
+export class ThyTimelineModule {}
