@@ -7,12 +7,7 @@
     [thyPickerFormat]="'yyyy年MM月'"
     (ngModelChange)="onChangeRange($event)"
   ></thy-date-range>
-  <button
-    *ngIf="markMonth !== currentMonth || markYear !== currentYear"
-    thyButton="outline-default-square"
-    thySize="md"
-    (click)="backToday()"
-  >
+  <button *ngIf="isCurrent" thyButton="outline-default-square" thySize="md" (click)="backToday()">
     今天
   </button>
 </div>
