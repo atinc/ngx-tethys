@@ -51,13 +51,7 @@ export class ThyCalendarHeaderComponent implements OnInit {
 
     constructor(private cdr: ChangeDetectorRef) {}
 
-    ngOnInit(): void {
-        this.initialMarkMonth();
-    }
-
-    initialMarkMonth() {
-        this.isCurrentDate(this._currentDate);
-    }
+    ngOnInit(): void {}
 
     onChangeMonth(month: DateRangeItemInfo) {
         const currentMonth = fromUnixTime(month.begin).getMonth();
