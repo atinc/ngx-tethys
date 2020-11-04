@@ -19,6 +19,7 @@ import { ThyTreeNode } from './tree-node.class';
 import { ThyTreeService } from './tree.service';
 import { takeUntil, filter } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { ThyDragStartEvent } from '../drag-drop/drag-drop.class';
 
 @Component({
     selector: 'thy-tree-node',
@@ -27,6 +28,7 @@ import { Subject } from 'rxjs';
 })
 export class ThyTreeNodeComponent implements OnDestroy {
     @Input() node: ThyTreeNode;
+    @Input() nodeContainer: ThyTreeNode[];
 
     @Input() thyAsync = false;
 
@@ -61,6 +63,8 @@ export class ThyTreeNodeComponent implements OnDestroy {
     public get nodeIconStyle() {
         return this.node.origin.iconStyle;
     }
+
+    public hoverShowDragIcon = true;
 
     private _showExpand: boolean | ((_: ThyTreeNode) => boolean);
 
@@ -100,6 +104,21 @@ export class ThyTreeNodeComponent implements OnDestroy {
             event: event,
             node: this.node
         });
+    }
+
+    public nodeMouseEnter(event: Event, root: ThyTreeComponent): void {
+        if (!root.thyBeforeDragStart) {
+            this.hoverShowDragIcon = true;
+            return void 0;
+        }
+
+        const dragStartEvent: ThyDragStartEvent = {
+            event: event as DragEvent,
+            item: this.node,
+            containerItems: this.nodeContainer,
+            currentIndex: this.nodeContainer.indexOf(this.node)
+        };
+        this.hoverShowDragIcon = root.thyBeforeDragStart(dragStartEvent);
     }
 
     public clickNodeCheck(event: Event) {

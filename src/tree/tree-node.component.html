@@ -4,8 +4,9 @@
   [class.active]="root.isSelected(node)"
   [class.disabled]="node.isDisabled"
   (click)="clickNode($event)"
+  (mouseenter)="nodeMouseEnter($event, root)"
 >
-  <span *ngIf="thyDraggable" class="thy-tree-drag-icon thy-sortable-handle">
+  <span *ngIf="thyDraggable && hoverShowDragIcon" class="thy-tree-drag-icon thy-sortable-handle">
     <thy-icon thyIconName="drag"></thy-icon>
   </span>
   <span class="thy-tree-expand" (click)="expandNode($event)">
@@ -59,9 +60,10 @@
   (thyDragStarted)="root.onDragStart($event)"
 >
   <thy-tree-node
-    *ngFor="let node of node.children; trackBy: root.trackByFn; let i = index"
-    [node]="node"
-    [thyDrag]="node"
+    *ngFor="let nodeChild of node.children; trackBy: root.trackByFn; let i = index"
+    [node]="nodeChild"
+    [nodeContainer]="node.children"
+    [thyDrag]="nodeChild"
     [templateRef]="templateRef"
     [thyAsync]="thyAsync"
     [thyMultiple]="thyMultiple"

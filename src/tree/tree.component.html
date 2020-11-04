@@ -11,6 +11,7 @@
     [thyDrag]="node"
     *ngFor="let node of treeNodes; trackBy: trackByFn; let i = index"
     [node]="node"
+    [nodeContainer]="treeNodes"
     [templateRef]="templateRef"
     [emptyChildrenTemplateRef]="emptyChildrenTemplate"
     [thyAsync]="thyAsync"
