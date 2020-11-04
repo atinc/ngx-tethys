@@ -45,26 +45,17 @@ export class ThyCalendarHeaderComponent implements OnInit {
 
     public date: DateRangeItemInfo;
 
-    public markMonth: number;
-
-    public currentMonth: number;
-
     private _currentDate: TinyDate;
+
+    public isCurrent: boolean;
 
     constructor(private cdr: ChangeDetectorRef) {}
 
-    ngOnInit(): void {
-        this.initialMarkMonth();
-    }
-
-    initialMarkMonth() {
-        this.markMonth = getMonth(new Date());
-    }
+    ngOnInit(): void {}
 
     onChangeMonth(month: DateRangeItemInfo) {
         const currentMonth = fromUnixTime(month.begin).getMonth();
-        this.currentMonth = currentMonth;
-        this.monthChange.emit(this.currentMonth);
+        this.monthChange.emit(currentMonth);
     }
 
     onChangeYear(year: DateRangeItemInfo) {
@@ -73,20 +64,22 @@ export class ThyCalendarHeaderComponent implements OnInit {
     }
 
     onChangeRange(dateRange: DateRangeItemInfo) {
+        this.isCurrentDate(this._currentDate);
         this.onChangeYear(dateRange);
         this.onChangeMonth(dateRange);
         this.dateRangeChange.emit(dateRange);
     }
 
     backToday() {
-        this.currentMonth = this.markMonth;
+        this._currentDate = new TinyDate();
         this.date = { ...this.dateRanges[0] };
         this.onChangeRange(this.date);
         this.cdr.detectChanges();
     }
 
     setDate(value: TinyDate) {
-        if (value.getMonth() !== getMonth(new Date()) || value.getYear() !== getYear(new Date())) {
+        this.isCurrentDate(value);
+        if (this.isCurrent) {
             this._currentDate = value;
             const dateRange = {
                 ...this.dateRanges[0],
@@ -99,5 +92,9 @@ export class ThyCalendarHeaderComponent implements OnInit {
         } else {
             this.backToday();
         }
+    }
+
+    isCurrentDate(currentDate: TinyDate) {
+        this.isCurrent = currentDate.getMonth() !== getMonth(new Date()) || currentDate.getYear() !== getYear(new Date());
     }
 }
