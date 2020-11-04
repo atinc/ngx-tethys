@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.1.28"></a>
+## [8.1.28](https://github.com/atinc/ngx-tethys/compare/8.1.27...8.1.28) (2020-11-04)
+
+
+### Bug Fixes
+
+* **calendar:** #AE-3414 日历‘今天’显示逻辑不对 ([#950](https://github.com/atinc/ngx-tethys/issues/950)) ([ff245c6](https://github.com/atinc/ngx-tethys/commit/ff245c6)), closes [#AE-3414](https://github.com/atinc/ngx-tethys/issues/AE-3414) [#AE-3414](https://github.com/atinc/ngx-tethys/issues/AE-3414)
+
+
+
 <a name="8.1.27"></a>
 ## [8.1.27](https://github.com/atinc/ngx-tethys/compare/8.1.26...8.1.27) (2020-11-03)
 
