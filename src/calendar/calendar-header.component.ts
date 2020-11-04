@@ -47,7 +47,11 @@ export class ThyCalendarHeaderComponent implements OnInit {
 
     public markMonth: number;
 
+    public markYear: number;
+
     public currentMonth: number;
+
+    public currentYear: number;
 
     private _currentDate: TinyDate;
 
@@ -59,6 +63,7 @@ export class ThyCalendarHeaderComponent implements OnInit {
 
     initialMarkMonth() {
         this.markMonth = getMonth(new Date());
+        this.markYear = getYear(new Date());
     }
 
     onChangeMonth(month: DateRangeItemInfo) {
@@ -69,7 +74,8 @@ export class ThyCalendarHeaderComponent implements OnInit {
 
     onChangeYear(year: DateRangeItemInfo) {
         const currentYear = fromUnixTime(year.begin).getFullYear();
-        this.yearChange.emit(currentYear);
+        this.currentYear = currentYear;
+        this.yearChange.emit(this.currentYear);
     }
 
     onChangeRange(dateRange: DateRangeItemInfo) {
