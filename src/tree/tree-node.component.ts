@@ -55,8 +55,6 @@ export class ThyTreeNodeComponent implements OnDestroy {
 
     @HostBinding('class.thy-tree-node') thyTreeNodeClass = true;
 
-    @Input() nodeContainer: ThyTreeNode[];
-
     public get nodeIcon() {
         return this.node.origin.icon;
     }
@@ -92,32 +90,37 @@ export class ThyTreeNodeComponent implements OnDestroy {
             });
     }
 
-    protected changeDragIconVisibility(event: Event, showDragIcon: boolean): void {
+    private changeDragIconVisibility(event: Event, showDragIcon: boolean): void {
         const nodeEle = event.target as HTMLElement;
-        const dragIconEle = nodeEle.querySelector('.thy-tree-drag-icon');
+        const dragIconEle = nodeEle.querySelector('.thy-tree-drag-icon') as HTMLElement;
         if (dragIconEle) {
-            (dragIconEle as HTMLElement).style.visibility = showDragIcon ? 'visible' : 'hidden';
+            dragIconEle.style.visibility = showDragIcon ? 'visible' : 'hidden';
         }
     }
 
     public nodeMouseEnter(event: Event) {
-        if (!this.root.thyDraggable) {
-            this.changeDragIconVisibility(event, false);
+        if (!this.root.thyDraggable || this.node.isDisabled) {
+            return;
         } else if (this.root.thyDraggable && !this.root.thyBeforeDragStart) {
             this.changeDragIconVisibility(event, true);
         } else {
+            const containerItems = this.node.getParentNode() ? this.node.getParentNode().getChildren() : this.root.treeNodes;
             const dragStartEvent: ThyDragStartEvent = {
                 event: event as DragEvent,
                 item: this.node,
-                containerItems: this.nodeContainer,
-                currentIndex: this.nodeContainer.indexOf(this.node)
+                containerItems,
+                currentIndex: containerItems.indexOf(this.node)
             };
             this.changeDragIconVisibility(event, this.root.thyBeforeDragStart(dragStartEvent));
         }
     }
 
     public nodeMouseLeave(event: Event) {
-        this.changeDragIconVisibility(event, false);
+        if (!this.root.thyDraggable || this.node.isDisabled) {
+            return;
+        } else {
+            this.changeDragIconVisibility(event, false);
+        }
     }
 
     public clickNode(event: Event) {

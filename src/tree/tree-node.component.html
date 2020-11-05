@@ -63,7 +63,6 @@
   <thy-tree-node
     *ngFor="let nodeChild of node.children; trackBy: root.trackByFn; let i = index"
     [node]="nodeChild"
-    [nodeContainer]="node.children"
     [thyDrag]="nodeChild"
     [templateRef]="templateRef"
     [thyAsync]="thyAsync"
