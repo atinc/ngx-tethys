@@ -61,9 +61,9 @@
   (thyDragStarted)="root.onDragStart($event)"
 >
   <thy-tree-node
-    *ngFor="let nodeChild of node.children; trackBy: root.trackByFn; let i = index"
-    [node]="nodeChild"
-    [thyDrag]="nodeChild"
+    *ngFor="let node of node.children; trackBy: root.trackByFn; let i = index"
+    [node]="node"
+    [thyDrag]="node"
     [templateRef]="templateRef"
     [thyAsync]="thyAsync"
     [thyMultiple]="thyMultiple"

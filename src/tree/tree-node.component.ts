@@ -91,10 +91,10 @@ export class ThyTreeNodeComponent implements OnDestroy {
     }
 
     private changeDragIconVisibility(event: Event, showDragIcon: boolean): void {
-        const nodeEle = event.target as HTMLElement;
-        const dragIconEle = nodeEle.querySelector('.thy-tree-drag-icon') as HTMLElement;
-        if (dragIconEle) {
-            dragIconEle.style.visibility = showDragIcon ? 'visible' : 'hidden';
+        const nodeElement = event.target as HTMLElement;
+        const dragIcon = nodeElement.querySelector('.thy-tree-drag-icon') as HTMLElement;
+        if (dragIcon) {
+            dragIcon.style.visibility = showDragIcon ? 'visible' : 'hidden';
         }
     }
 
