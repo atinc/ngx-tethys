@@ -19,6 +19,7 @@ import { ThyTreeNode } from './tree-node.class';
 import { ThyTreeService } from './tree.service';
 import { takeUntil, filter } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { ThyDragStartEvent } from '../drag-drop/drag-drop.class';
 
 @Component({
     selector: 'thy-tree-node',
@@ -54,6 +55,8 @@ export class ThyTreeNodeComponent implements OnDestroy {
 
     @HostBinding('class.thy-tree-node') thyTreeNodeClass = true;
 
+    @Input() nodeContainer: ThyTreeNode[];
+
     public get nodeIcon() {
         return this.node.origin.icon;
     }
@@ -87,6 +90,34 @@ export class ThyTreeNodeComponent implements OnDestroy {
             .subscribe(() => {
                 this.markForCheck();
             });
+    }
+
+    protected changeDragIconVisibility(event: Event, showDragIcon: boolean): void {
+        const nodeEle = event.target as HTMLElement;
+        const dragIconEle = nodeEle.querySelector('.thy-tree-drag-icon');
+        if (dragIconEle) {
+            (dragIconEle as HTMLElement).style.visibility = showDragIcon ? 'visible' : 'hidden';
+        }
+    }
+
+    public nodeMouseEnter(event: Event) {
+        if (!this.root.thyDraggable) {
+            this.changeDragIconVisibility(event, false);
+        } else if (this.root.thyDraggable && !this.root.thyBeforeDragStart) {
+            this.changeDragIconVisibility(event, true);
+        } else {
+            const dragStartEvent: ThyDragStartEvent = {
+                event: event as DragEvent,
+                item: this.node,
+                containerItems: this.nodeContainer,
+                currentIndex: this.nodeContainer.indexOf(this.node)
+            };
+            this.changeDragIconVisibility(event, this.root.thyBeforeDragStart(dragStartEvent));
+        }
+    }
+
+    public nodeMouseLeave(event: Event) {
+        this.changeDragIconVisibility(event, false);
     }
 
     public clickNode(event: Event) {
