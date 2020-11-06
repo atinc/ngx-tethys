@@ -1,0 +1,28 @@
+<div class="selection-list-wrapper" #body>
+  <form thyForm name="options" thyLayout="inline">
+    <!-- <thy-form-group thyLabelText="大小">
+      <thy-select name="size" [(ngModel)]="size">
+        <option value="sm">sm</option>
+        <option value="md">md</option>
+        <option value="lg">lg</option>
+      </thy-select>
+    </thy-form-group> -->
+    <thy-form-group thyLabelText="">
+      <label thyCheckbox name="isMultiple" [(ngModel)]="isMultiple" thyLabelText="是否多选"></label>
+    </thy-form-group>
+  </form>
+  <thy-selection-list
+    [(ngModel)]="selectionModel.selectedValues"
+    [thyMultiple]="isMultiple"
+    [thyBeforeKeydown]="thyBeforeKeydown"
+    [thyBindKeyEventContainer]="body"
+    (thySelectionChange)="selectionChange($event)"
+  >
+    <thy-list-option *ngFor="let item of items" [thyDisabled]="item.id === 3" [thyValue]="item?.id">
+      {{ item.name }}
+    </thy-list-option>
+  </thy-selection-list>
+
+  <h6 class="my-3">已选择的值：</h6>
+  <p>{{ selectionModel.selectedValues | json }}</p>
+</div>
