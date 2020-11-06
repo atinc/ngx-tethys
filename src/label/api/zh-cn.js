@@ -2,7 +2,6 @@ module.exports = [
     {
         type: 'directive',
         name: 'thyLabel',
-        description: '操作按钮图标，支持组件`thy-button-icon`形式和`thyButtonIcon`指令形式',
         properties: [
             {
                 name: 'thyLabel',
