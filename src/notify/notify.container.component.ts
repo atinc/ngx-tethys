@@ -54,4 +54,8 @@ export class ThyNotifyContainerComponent implements OnInit {
             this[queueKey] = data;
         });
     }
+
+    ngOnDestroy() {
+        debugger;
+    }
 }
