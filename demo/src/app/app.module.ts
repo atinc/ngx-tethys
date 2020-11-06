@@ -4,7 +4,7 @@ import { TextFieldModule } from '@angular/cdk/text-field';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { OverlayModule } from '@angular/cdk/overlay';
 
-import { NgxTethysModule, THY_SLIDE_DEFAULT_CONFIG } from 'ngx-tethys';
+import { NgxTethysModule, THY_NOTIFY_DEFAULT_OPTIONS, THY_SLIDE_DEFAULT_CONFIG } from 'ngx-tethys';
 import { RouterModule } from '@angular/router';
 import { SortablejsModule } from 'ngx-sortablejs';
 
@@ -83,6 +83,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
             useValue: {
                 footerAlign: 'left',
                 footerDivided: false
+            }
+        },
+        {
+            provide: THY_NOTIFY_DEFAULT_OPTIONS,
+            useValue: {
+                placement: 'topRight'
             }
         }
     ],

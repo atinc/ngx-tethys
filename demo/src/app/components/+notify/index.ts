@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { THY_NOTIFY_DEFAULT_OPTIONS } from 'ngx-tethys';
 
 import { SharedModule } from '../../shared.module';
 import { DemoNotifyBasicComponent } from './basic/notify-basic.component';
@@ -23,6 +24,14 @@ import { DemoNotifySectionComponent } from './notify-section.component';
         DemoNotifyCustomHtmlComponent
     ],
     imports: [SharedModule],
-    exports: [DemoNotifySectionComponent]
+    exports: [DemoNotifySectionComponent],
+    providers: [
+        {
+            provide: THY_NOTIFY_DEFAULT_OPTIONS,
+            useValue: {
+                placement: 'topLeft'
+            }
+        }
+    ]
 })
 export class DemoNotifyModule {}

@@ -56,6 +56,12 @@ module.exports = [
                 description: `同一时间可展示的最大提示数量`,
                 type: 'number',
                 default: ''
+            },
+            {
+                name: 'placement',
+                description: `通知弹出位置`,
+                type: `'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight'`,
+                default: 'topRight'
             }
         ]
     }
