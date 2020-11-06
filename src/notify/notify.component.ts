@@ -1,8 +1,12 @@
-import { Component, Input, HostBinding, OnInit, HostListener, OnDestroy, ElementRef } from '@angular/core';
-import { ThyNotifyOption } from './notify-option.interface';
-import { ThyNotifyService } from './notify.service';
+import { Component, Input, HostBinding, OnInit, HostListener, OnDestroy, NgZone } from '@angular/core';
+import { NotifyPlacement, ThyNotifyOption } from './notify-option.interface';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { UpdateHostClassService } from '../shared/update-host-class.service';
+import { NotifyQueueStore } from './notify-queue.store';
+
+const ANIMATION_IN_DURATION = 100;
+const ANIMATION_OUT_DURATION = 150;
+const HIDE_STYLE = { transform: 'translateX(0)', opacity: 0, height: 0, paddingTop: 0, paddingBottom: 0, margin: 0 };
 
 @Component({
     selector: 'thy-notify',
@@ -10,14 +14,28 @@ import { UpdateHostClassService } from '../shared/update-host-class.service';
     providers: [UpdateHostClassService],
     animations: [
         trigger('flyInOut', [
-            state('in', style({ transform: 'translateX(0)', opacity: 1 })),
-            transition('void => *', [style({ transform: 'translateX(100%)', opacity: 0 }), animate(100)]),
-            transition('* => void', [animate(100, style({ transform: 'translateX(100%)', opacity: 0 }))])
+            state('flyInOutRight', style({ transform: 'translateX(0)', opacity: 1, height: '*' })),
+            transition('void => flyInOutRight', [
+                style({ transform: 'translateX(100%)', opacity: 0, height: '*' }),
+                animate(ANIMATION_IN_DURATION)
+            ]),
+            transition('flyInOutRight => componentHide', [animate(ANIMATION_OUT_DURATION, style(HIDE_STYLE))]),
+            transition('flyInOutRight => void', [animate(ANIMATION_IN_DURATION, style(HIDE_STYLE))]),
+
+            state('flyInOutLeft', style({ transform: 'translateX(0)', opacity: 1, height: '*' })),
+            transition('void => flyInOutLeft', [
+                style({ transform: 'translateX(-100%)', opacity: 0, height: '*' }),
+                animate(ANIMATION_IN_DURATION)
+            ]),
+            transition('flyInOutLeft => componentHide', [animate(ANIMATION_OUT_DURATION, style(HIDE_STYLE))]),
+            transition('flyInOutLeft => void', [animate(ANIMATION_IN_DURATION, style(HIDE_STYLE))]),
+
+            state('componentHide', style(HIDE_STYLE))
         ])
     ]
 })
 export class ThyNotifyComponent implements OnInit, OnDestroy {
-    @HostBinding('@flyInOut') flyInOut = 'in';
+    @HostBinding('@flyInOut') flyInOut: string;
 
     @HostBinding('class') className = '';
 
@@ -31,14 +49,22 @@ export class ThyNotifyComponent implements OnInit, OnDestroy {
 
     isShowDetail = false;
 
+    placement: NotifyPlacement;
+
     @Input()
     set thyOption(value: ThyNotifyOption) {
         this.option = value;
         const type = value.type;
+        this.placement = value.placement || 'topRight';
+        if (this.placement === 'topLeft' || this.placement === 'bottomLeft') {
+            this.flyInOut = 'flyInOutLeft';
+        } else {
+            this.flyInOut = 'flyInOutRight';
+        }
         this.className = `thy-notify thy-notify-${type}`;
     }
 
-    constructor(private notifyService: ThyNotifyService) {}
+    constructor(private _queueStore: NotifyQueueStore, private _ngZone: NgZone) {}
 
     ngOnInit() {
         const iconName = {
@@ -65,7 +91,12 @@ export class ThyNotifyComponent implements OnInit, OnDestroy {
     }
 
     closeNotify() {
-        this.notifyService.removeItemById(this.option.id);
+        this._ngZone.runOutsideAngular(() => {
+            this.flyInOut = 'componentHide';
+            setTimeout(() => {
+                this._queueStore.removeNotify(this.placement, this.option.id);
+            }, ANIMATION_OUT_DURATION);
+        });
     }
 
     @HostListener('mouseenter') mouseenter() {

@@ -3,9 +3,9 @@
     z-index: $notify-z-index;
     top: $notify-spacing;
     right: $notify-spacing;
-    width: $notify-width;
 
     .thy-notify {
+        width: $notify-width;
         padding: $notify-padding;
         margin-bottom: $notify-margin-bottom;
         position: relative;
@@ -74,4 +74,22 @@
     @each $state, $color in $notify-states {
         @include thy-notify-state($state, $color);
     }
+}
+.thy-notify-bottomRight {
+    top: auto;
+    bottom: $notify-spacing;
+    right: $notify-spacing;
+    left: auto;
+}
+.thy-notify-bottomLeft {
+    top: auto;
+    bottom: $notify-spacing;
+    left: $notify-spacing;
+    right: auto;
+}
+.thy-notify-topLeft {
+    top: $notify-spacing;
+    bottom: auto;
+    left: $notify-spacing;
+    right: auto;
 }

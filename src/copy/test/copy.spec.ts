@@ -30,6 +30,7 @@ describe('thy-copy', () => {
             dispatchFakeEvent(el, 'click');
             fixture.detectChanges();
             tick(4500);
+            flush();
             expect(spy).toHaveBeenCalledTimes(1);
             document.body.querySelectorAll(`thy-notify-container`)[0].remove();
         }));
