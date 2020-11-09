@@ -3,6 +3,8 @@
 </div>
 
 <ng-template #member let-member>
-  <thy-avatar thySize="sm" [thyName]="member.display_name" [thyShowName]="true"></thy-avatar>
-  <span class="text-desc ml-2">({{ member.name }})</span>
+  <div class="text-truncate">
+    <thy-avatar thySize="sm" [thyName]="member.display_name" [thyShowName]="true"></thy-avatar>
+    <span class="text-desc ml-2">({{ member.name }})</span>
+  </div>
 </ng-template>

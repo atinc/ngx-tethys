@@ -18,7 +18,8 @@ const UsersMock = [
     'Joshua',
     'Emily',
     'Daniel',
-    'Madison'
+    'Madison',
+    'Onetwothreefourfivesixseven'
 ].map(name => {
     return {
         name: name.toLocaleLowerCase(),
