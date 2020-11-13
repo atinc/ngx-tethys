@@ -43,15 +43,19 @@
     &.slider-vertical {
         height: 100%;
         width: 15px;
+        display: inline-block;
         .thy-slider-rail {
             width: 5px;
             height: 100%;
             .thy-slider-track {
                 width: 5px;
+                bottom: 0;
             }
             .thy-slider-pointer {
+                transform: translate(-50%, 50%);
                 left: 50%;
-                top: 0;
+                bottom: 0;
+                top: unset;
             }
         }
     }
