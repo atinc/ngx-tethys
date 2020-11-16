@@ -1,14 +1,14 @@
 module.exports = [
     {
         type: 'component',
-        name: 'thySwitch',
+        name: 'thy-switch',
         description: '开关组件',
         properties: [
             {
                 name: 'thyType',
-                description: `类型，目前分为：'info' | 'warning' | 'danger'，默认不传`,
+                description: `类型，目前分为：'primary' |'info' | 'warning' | 'danger'`,
                 type: 'string',
-                default: '-'
+                default: 'primary'
             },
             {
                 name: 'thySize',
@@ -21,6 +21,18 @@ module.exports = [
                 description: `禁用状态`,
                 type: 'boolean',
                 default: 'false'
+            },
+            {
+                name: '[(ngModel)]',
+                description: '绑定开关的状态值',
+                type: 'boolean',
+                default: 'false'
+            },
+            {
+                name: '(ngModelChange)',
+                description: '开关状态发生改变的回调',
+                type: 'function',
+                default: ''
             }
         ]
     }

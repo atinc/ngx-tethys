@@ -3,12 +3,15 @@
     placeholder="Mention people using @, using # to relate task, quick reply using /"
     thyInput
     [thyMention]="mentions"
+    [thyPopoverConfig]="popoverConfig"
     (thySelectSuggestion)="selectSuggestion($event)"
     [(ngModel)]="value"
   ></textarea>
 </div>
 
 <ng-template #memberDisplayTemplate let-member>
-  <thy-avatar thySize="sm" [thyName]="member.display_name" [thyShowName]="true"></thy-avatar>
-  <span class="text-desc ml-2">({{ member.name }})</span>
+  <div class="text-truncate">
+    <thy-avatar thySize="sm" [thyName]="member.display_name" [thyShowName]="true"></thy-avatar>
+    <span class="text-desc ml-2">({{ member.name }})</span>
+  </div>
 </ng-template>

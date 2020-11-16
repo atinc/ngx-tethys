@@ -2,6 +2,134 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.1.28"></a>
+## [8.1.28](https://github.com/atinc/ngx-tethys/compare/8.1.27...8.1.28) (2020-11-04)
+
+
+### Bug Fixes
+
+* **calendar:** #AE-3414 日历‘今天’显示逻辑不对 ([#950](https://github.com/atinc/ngx-tethys/issues/950)) ([ff245c6](https://github.com/atinc/ngx-tethys/commit/ff245c6)), closes [#AE-3414](https://github.com/atinc/ngx-tethys/issues/AE-3414) [#AE-3414](https://github.com/atinc/ngx-tethys/issues/AE-3414)
+
+
+
+<a name="8.1.27"></a>
+## [8.1.27](https://github.com/atinc/ngx-tethys/compare/8.1.26...8.1.27) (2020-11-03)
+
+
+
+<a name="8.1.26"></a>
+## [8.1.26](https://github.com/atinc/ngx-tethys/compare/8.1.25...8.1.26) (2020-11-03)
+
+
+
+<a name="8.1.25"></a>
+## [8.1.25](https://github.com/atinc/ngx-tethys/compare/8.1.24...8.1.25) (2020-11-03)
+
+
+### Bug Fixes
+
+* **calendar:** #AE-3412 calendar显示月份 ([#945](https://github.com/atinc/ngx-tethys/issues/945)) ([80dfae6](https://github.com/atinc/ngx-tethys/commit/80dfae6)), closes [#AE-3412](https://github.com/atinc/ngx-tethys/issues/AE-3412)
+
+
+
+<a name="8.1.24"></a>
+## [8.1.24](https://github.com/atinc/ngx-tethys/compare/8.1.23...8.1.24) (2020-11-03)
+
+
+### Bug Fixes
+
+* **calendar:** #AE-3361 #AE-3362 remove tooltip and td hover ([#939](https://github.com/atinc/ngx-tethys/issues/939)) ([a645ecf](https://github.com/atinc/ngx-tethys/commit/a645ecf)), closes [#AE-3361](https://github.com/atinc/ngx-tethys/issues/AE-3361) [#AE-3362](https://github.com/atinc/ngx-tethys/issues/AE-3362)
+* **grid:** change first th padding left in draggable table #INFR-1146 ([#938](https://github.com/atinc/ngx-tethys/issues/938)) ([ac4f25a](https://github.com/atinc/ngx-tethys/commit/ac4f25a)), closes [#INFR-1146](https://github.com/atinc/ngx-tethys/issues/INFR-1146)
+
+
+### Features
+
+* **date-range:** #AE-3367 custom time display ([#940](https://github.com/atinc/ngx-tethys/issues/940)) ([cc7ed6b](https://github.com/atinc/ngx-tethys/commit/cc7ed6b)), closes [#AE-3367](https://github.com/atinc/ngx-tethys/issues/AE-3367) [#AE-3367](https://github.com/atinc/ngx-tethys/issues/AE-3367)
+
+
+
+<a name="8.1.23"></a>
+## [8.1.23](https://github.com/atinc/ngx-tethys/compare/8.1.22...8.1.23) (2020-10-29)
+
+
+### Bug Fixes
+
+* **uploader:** 部分文件如key、rar等格式的文件拖拽上传失败(#INFR-1176) ([#935](https://github.com/atinc/ngx-tethys/issues/935)) ([840a8f9](https://github.com/atinc/ngx-tethys/commit/840a8f9)), closes [#INFR-1176](https://github.com/atinc/ngx-tethys/issues/INFR-1176)
+
+
+### Features
+
+* **calendar:** #INFR-1149 calendar API ([#932](https://github.com/atinc/ngx-tethys/issues/932)) ([a3caec3](https://github.com/atinc/ngx-tethys/commit/a3caec3)), closes [#INFR-1149](https://github.com/atinc/ngx-tethys/issues/INFR-1149) [#INFR-1149](https://github.com/atinc/ngx-tethys/issues/INFR-1149)
+
+
+
+<a name="8.1.22"></a>
+## [8.1.22](https://github.com/atinc/ngx-tethys/compare/8.1.21...8.1.22) (2020-10-21)
+
+
+### Bug Fixes
+
+* **grid:** fix grid row drag style #INFR-1146 ([09ea73f](https://github.com/atinc/ngx-tethys/commit/09ea73f)), closes [#INFR-1146](https://github.com/atinc/ngx-tethys/issues/INFR-1146)
+* **slider:** add thyType and thyColor to change slider color #INFR-1147 ([0098536](https://github.com/atinc/ngx-tethys/commit/0098536)), closes [#INFR-1147](https://github.com/atinc/ngx-tethys/issues/INFR-1147)
+
+
+
+<a name="8.1.21"></a>
+## [8.1.21](https://github.com/atinc/ngx-tethys/compare/8.1.20...8.1.21) (2020-10-15)
+
+
+### Bug Fixes
+
+* update spacing for multiple  #INFR-1076 ([3c06044](https://github.com/atinc/ngx-tethys/commit/3c06044)), closes [#INFR-1076](https://github.com/atinc/ngx-tethys/issues/INFR-1076)
+
+
+### Features
+
+* **select:** add loading state to select #INFR-1073 ([f2ff42b](https://github.com/atinc/ngx-tethys/commit/f2ff42b)), closes [#INFR-1073](https://github.com/atinc/ngx-tethys/issues/INFR-1073)
+
+
+
+<a name="8.1.20"></a>
+## [8.1.20](https://github.com/atinc/ngx-tethys/compare/8.1.19...8.1.20) (2020-10-12)
+
+
+### Bug Fixes
+
+* **slider:** export slider component for public-api ([a98b1c4](https://github.com/atinc/ngx-tethys/commit/a98b1c4))
+
+
+### Features
+
+* **slider:** add slider component #INFR-837 ([#909](https://github.com/atinc/ngx-tethys/issues/909)) ([f60fe07](https://github.com/atinc/ngx-tethys/commit/f60fe07)), closes [#INFR-837](https://github.com/atinc/ngx-tethys/issues/INFR-837)
+
+
+
+<a name="8.1.19"></a>
+## [8.1.19](https://github.com/atinc/ngx-tethys/compare/8.1.18...8.1.19) (2020-09-28)
+
+
+### Bug Fixes
+
+* **anchor:** resolve anchor move error ([#917](https://github.com/atinc/ngx-tethys/issues/917)) ([15abbc9](https://github.com/atinc/ngx-tethys/commit/15abbc9))
+
+
+
+<a name="8.1.18"></a>
+## [8.1.18](https://github.com/atinc/ngx-tethys/compare/8.1.17...8.1.18) (2020-09-25)
+
+
+### Bug Fixes
+
+* **dialog:** dialog footer words position when align set #INFR-860 ([#911](https://github.com/atinc/ngx-tethys/issues/911)) ([33bbb37](https://github.com/atinc/ngx-tethys/commit/33bbb37)), closes [#INFR-860](https://github.com/atinc/ngx-tethys/issues/INFR-860) [#INFR-860](https://github.com/atinc/ngx-tethys/issues/INFR-860) [#INFR-860](https://github.com/atinc/ngx-tethys/issues/INFR-860) [#INFR-860](https://github.com/atinc/ngx-tethys/issues/INFR-860) [#INFR-860](https://github.com/atinc/ngx-tethys/issues/INFR-860)
+* **pagination:** words bug when pageIndex set #INFR-811 ([#912](https://github.com/atinc/ngx-tethys/issues/912)) ([e25c83e](https://github.com/atinc/ngx-tethys/commit/e25c83e)), closes [#INFR-811](https://github.com/atinc/ngx-tethys/issues/INFR-811) [#INFR-811](https://github.com/atinc/ngx-tethys/issues/INFR-811) [#INFR-811](https://github.com/atinc/ngx-tethys/issues/INFR-811) [#INFR-811](https://github.com/atinc/ngx-tethys/issues/INFR-811)
+
+
+### Features
+
+* **mention:** add open suggestion popover config ([a188980](https://github.com/atinc/ngx-tethys/commit/a188980))
+
+
+
 <a name="8.1.17"></a>
 ## [8.1.17](https://github.com/atinc/ngx-tethys/compare/8.1.16...8.1.17) (2020-09-04)
 

@@ -14,4 +14,21 @@
       </ng-container>
     </ng-container>
   </ng-container>
+  <ng-container *ngSwitchCase="'thy-calendar-full'">
+    <div class="{{ prefixCls }}-date thy-calendar-full-cell-inner" [class.thy-calendar-full-calendar-date-today]="cell.isToday">
+      <ng-container *ngIf="cell.fullCellRender; else defaultCell">
+        <ng-container *ngTemplateOutlet="$any(cell.fullCellRender); context: { $implicit: cell.value }"> </ng-container>
+      </ng-container>
+      <ng-template #defaultCell>
+        <div class="{{ prefixCls }}-date-value">
+          <span class="{{ prefixCls }}-date-value-today-text">
+            <span class="{{ prefixCls }}-date-value-text">{{ cell.content }}</span>
+          </span>
+        </div>
+        <div class="{{ prefixCls }}-date-content">
+          <ng-container *ngTemplateOutlet="$any(cell.dateCellRender); context: { $implicit: cell.value }"> </ng-container>
+        </div>
+      </ng-template>
+    </div>
+  </ng-container>
 </ng-container>

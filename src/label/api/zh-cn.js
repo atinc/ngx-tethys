@@ -2,12 +2,17 @@ module.exports = [
     {
         type: 'directive',
         name: 'thyLabel',
-        description: '操作按钮图标，支持组件`thy-button-icon`形式和`thyButtonIcon`指令形式',
         properties: [
             {
                 name: 'thyLabel',
                 description:
                     '标签类型（default、primary、success、info、danger、emboss-default、emboss-primary、emboss-warning、emboss-danger、outline）',
+                type: 'String',
+                default: ''
+            },
+            {
+                name: 'thySize',
+                description: '大小有sm、default、md、lg，对应大小为：20px、22px、24px、26px, 默认为 default',
                 type: 'String',
                 default: ''
             },

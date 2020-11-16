@@ -37,6 +37,39 @@ showWithHtml(htmlRef: ElementRef) {
 }
 ```
 
+## 指定打开位置
+
+`ThyNotifyService`服务的`show`方法支持传参数`{placement: NotifyPlacement}`（`NotifyPlacement`类型包括`topLeft`、`topRight`、`bottomLeft`和`bottomRight`，默认为`topRight`），支持自定义通知弹出的位置。
+
+```ts
+notifyService.show({
+    placement: 'topRight'
+});
+```
+
+## 设置全局默认值
+
+对话框的默认选项可以通过在应用根模块中为`THY_NOTIFY_DEFAULT_OPTIONS`令牌提供一个`ThyDialogConfig`实例来指定。
+
+```ts
+@NgModule({
+  providers: [
+    { provide: THY_NOTIFY_DEFAULT_OPTIONS, useValue: { placement: 'topRight' }}
+  ]
+})
+```
+
+默认的配置如下：
+```ts
+const DEFAULT_OPTIONS = {
+    type: 'blank',
+    pauseOnHover: true,
+    duration: 4500,
+    maxStack: 8,
+    placement: 'topRight'
+};
+```
+
 ## 指定打开类型
 
 `ThyNotifyService`服务提供了`success`, `info`, `warning`,`error`四种指定类型的打开方法。

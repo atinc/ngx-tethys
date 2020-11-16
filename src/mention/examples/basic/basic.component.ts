@@ -16,7 +16,8 @@ const UsersMock = [
     'Joshua',
     'Emily',
     'Daniel',
-    'Madison'
+    'Madison',
+    'Onetwothreefourfivesixseven'
 ].map(name => {
     return {
         name: name.toLocaleLowerCase(),
@@ -61,6 +62,10 @@ export class ThyMentionBasicExampleComponent implements OnInit {
     @ViewChild('memberDisplayTemplate', { static: true }) memberDisplayTemplateRef: TemplateRef<any>;
 
     mentions: Mention<any>[];
+
+    popoverConfig = {
+        panelClass: 'mention-popover-panel'
+    };
 
     constructor() {}
 

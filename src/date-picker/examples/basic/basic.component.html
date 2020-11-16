@@ -1,0 +1,38 @@
+<thy-button-group class="mb-3" thySize="md">
+  <button thyButton="primary" (click)="allowClearChange()">是否可以清空输入框{{ isAllowClear }}</button>
+</thy-button-group>
+<thy-date-picker
+  class="d-block w-50 mb-3"
+  [(ngModel)]="date"
+  (ngModelChange)="onChange($event)"
+  [thyAllowClear]="isAllowClear"
+></thy-date-picker>
+<thy-date-picker
+  class="d-block w-50 mb-3"
+  [(ngModel)]="dateTime"
+  (ngModelChange)="onChange($event)"
+  [thyAllowClear]="isAllowClear"
+></thy-date-picker>
+<thy-month-picker class="d-block w-50 mb-3" [(ngModel)]="dateTime" (ngModelChange)="onChange($event)" [thyAllowClear]="isAllowClear">
+</thy-month-picker>
+<thy-year-picker
+  class="d-block w-50 mb-3"
+  [(ngModel)]="dateTime"
+  (ngModelChange)="onChange($event)"
+  [thyAllowClear]="isAllowClear"
+></thy-year-picker>
+<thy-range-picker
+  class="d-block w-50 mb-3"
+  [(ngModel)]="dateRange"
+  (ngModelChange)="onChange($event)"
+  [thyAllowClear]="isAllowClear"
+></thy-range-picker>
+<thy-date-picker
+  class="d-block w-50 mb-3"
+  thyShowTime
+  [thyFormat]="dateShowTime | thyDatePickerFormatString"
+  thyPlaceHolder="选择时间"
+  [(ngModel)]="dateTime"
+  (ngModelChange)="onChange($event)"
+  [thyAllowClear]="isAllowClear"
+></thy-date-picker>

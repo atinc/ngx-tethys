@@ -8,6 +8,7 @@ import { ThyDateRangeDisabledSwitchIconExampleComponent } from './disabled-switc
 import { ThyDateRangeCustomTextValueExampleComponent } from './custom-text-value/custom-text-value.component';
 import { ThyDateRangeMinAndMaxDateExampleComponent } from './min-and-max-date/min-and-max-date.component';
 import { ThyDateRangeOptionalDateRangesExampleComponent } from './optional-date-ranges/optional-date-ranges.component';
+import { ThyDateRangeCustomTimeDisplayExampleComponent } from './custom-time-display/custom-time-display.component';
 
 const COMPONENTS = [
     ThyDateRangeBasicExampleComponent,
@@ -15,7 +16,8 @@ const COMPONENTS = [
     ThyDateRangeDisabledSwitchIconExampleComponent,
     ThyDateRangeCustomTextValueExampleComponent,
     ThyDateRangeMinAndMaxDateExampleComponent,
-    ThyDateRangeOptionalDateRangesExampleComponent
+    ThyDateRangeOptionalDateRangesExampleComponent,
+    ThyDateRangeCustomTimeDisplayExampleComponent
 ];
 @NgModule({
     imports: [CommonModule, FormsModule, NgxTethysModule],

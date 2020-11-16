@@ -1,0 +1,9 @@
+<thy-date-picker class="d-block w-50 mb-3" thyFormat="yyyy-MM-dd HH:mm:ss" [(ngModel)]="today" [thyMinDate]="today"> </thy-date-picker>
+<thy-date-picker class="d-block w-50 mb-3" thyFormat="yyyy-MM-dd HH:mm:ss" [thyMaxDate]="today"> </thy-date-picker>
+<thy-range-picker
+  class="mb-3"
+  [thyMinDate]="minDate"
+  [thyMaxDate]="maxDate"
+  [thyDefaultPickerValue]="defaultPickerValue"
+  thyFormat="yyyy-MM-dd"
+></thy-range-picker>

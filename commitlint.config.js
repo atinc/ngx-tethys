@@ -56,6 +56,7 @@ module.exports = {
                 'shared',
                 'skeleton',
                 'slide',
+                'slider',
                 'statistic',
                 'stepper',
                 'store',
@@ -72,7 +73,8 @@ module.exports = {
                 'vote',
                 'anchor',
                 'back-top',
-                'timeline'
+                'timeline',
+                'calendar'
             ]
         ]
     }

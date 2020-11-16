@@ -4,13 +4,9 @@
       <th *ngIf="showWeek" role="columnheader" class="{{ prefixCls }}-column-header {{ prefixCls }}-week-number-header">
         <span class="{{ prefixCls }}-column-header-inner">x</span>
       </th>
-      <th
-        *ngFor="let cell of headWeekDays"
-        role="columnheader"
-        title="{{ cell.short }}"
-        class="{{ prefixCls }}-column-header"
-      >
-        <span class="{{ prefixCls }}-column-header-inner">{{ cell.veryShort }}</span>
+      <th *ngFor="let cell of headWeekDays" role="columnheader" title="{{ cell.short }}" class="{{ prefixCls }}-column-header">
+        <span *ngIf="prefixCls === 'thy-calendar'" class="{{ prefixCls }}-column-header-inner">{{ cell.veryShort }}</span>
+        <span *ngIf="prefixCls === 'thy-calendar-full'" class="{{ prefixCls }}-column-header-inner">周{{ cell.veryShort }}</span>
       </th>
     </tr>
   </thead>
@@ -19,13 +15,13 @@
       <td *ngIf="row.weekNum" role="gridcell" class="{{ prefixCls }}-week-number-cell">
         {{ row.weekNum }}
       </td>
+      <!-- 在td中删除了鼠标事件 -->
+      <!-- 去掉tooltip，故去掉title属性 -->
       <td
         *ngFor="let cell of row.dateCells; trackBy: trackByDateFn"
-        title="{{ cell.title }}"
         role="gridcell"
         [ngClass]="cell.classMap"
         (click)="cell.isDisabled ? null : cell.onClick()"
-        (mouseenter)="cell.isDisabled ? null : cell.onMouseEnter()"
         date-table-cell
         [prefixCls]="prefixCls"
         [cell]="cell"

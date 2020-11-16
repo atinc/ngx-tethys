@@ -14,7 +14,7 @@ import {
 import { thyTimeMode } from './timeline.component';
 import { ThyTimelineService } from './timeline.service';
 
-export type thyColor = 'primary' | 'success' | 'warning' | 'danger';
+export type thyColor = 'primary' | 'success' | 'warning' | 'danger' | 'info';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,36 +1,54 @@
-import { Injectable, TemplateRef, ViewContainerRef, Injector, ApplicationRef, ComponentFactoryResolver, ComponentRef } from '@angular/core';
-import { ThyNotifyOption } from './notify-option.interface';
+import {
+    Injectable,
+    TemplateRef,
+    ViewContainerRef,
+    Injector,
+    ApplicationRef,
+    ComponentFactoryResolver,
+    ComponentRef,
+    Inject,
+    Optional
+} from '@angular/core';
+import { CONTAINER_PLACEMENT, NotifyPlacement, ThyNotifyOption, THY_NOTIFY_DEFAULT_OPTIONS } from './notify-option.interface';
 import { ThyNotifyContainerComponent } from './notify.container.component';
 import { Subject } from 'rxjs';
-import { DomPortalOutlet, ComponentPortal } from '@angular/cdk/portal';
+import { DomPortalOutlet, ComponentPortal, PortalInjector } from '@angular/cdk/portal';
+import { NotifyQueueStore } from './notify-queue.store';
 
 const NOTIFY_OPTION_DEFAULT = {
     duration: 4500,
     pauseOnHover: true,
-    maxStack: 8
+    maxStack: 8,
+    placement: 'topRight'
 };
 
 @Injectable()
 export class ThyNotifyService {
     notifyQueue$: Subject<any> = new Subject();
 
-    private _notifyQueue: ThyNotifyOption[] = [];
-
-    private _option: ThyNotifyOption;
-
     private _lastNotifyId = 0;
 
-    private containerRef: ComponentRef<ThyNotifyContainerComponent>;
+    private containerRefTopRight: ComponentRef<ThyNotifyContainerComponent>;
 
-    constructor(private injector: Injector, private componentFactoryResolver: ComponentFactoryResolver, private appRef: ApplicationRef) {}
+    private containerRefBottomRight: ComponentRef<ThyNotifyContainerComponent>;
+
+    private containerRefBottomLeft: ComponentRef<ThyNotifyContainerComponent>;
+
+    private containerRefTopLeft: ComponentRef<ThyNotifyContainerComponent>;
+
+    constructor(
+        private injector: Injector,
+        private componentFactoryResolver: ComponentFactoryResolver,
+        private appRef: ApplicationRef,
+        private queueStore: NotifyQueueStore,
+        @Inject(THY_NOTIFY_DEFAULT_OPTIONS) private defaultConfig: ThyNotifyOption
+    ) {}
 
     show(option: ThyNotifyOption) {
-        this._loadNotifyContainerComponent();
-        if (this._notifyQueue.length > NOTIFY_OPTION_DEFAULT.maxStack) {
-            this._notifyQueue.shift();
-        }
-        this._notifyQueue.push(this._formatOption(option));
-        this.notifyQueue$.next(this._notifyQueue);
+        const notifyConfig = this._formatOption(option);
+        const { placement } = notifyConfig;
+        this.queueStore.addNotify(placement, notifyConfig);
+        this._initContainer(placement);
     }
 
     success(title?: string, content?: string, detail?: string) {
@@ -69,28 +87,37 @@ export class ThyNotifyService {
         });
     }
 
-    removeItemById(id: number) {
-        this._notifyQueue = this._notifyQueue.filter(item => {
-            return item.id !== id;
-        });
-        this.notifyQueue$.next(this._notifyQueue);
-    }
-
-    private _loadNotifyContainerComponent() {
-        if (!this.containerRef) {
-            const portalOutlet = new DomPortalOutlet(document.body, this.componentFactoryResolver, this.appRef, this.injector);
-            const componentPortal = new ComponentPortal(ThyNotifyContainerComponent, null);
-            this.containerRef = portalOutlet.attachComponentPortal(componentPortal);
-            Object.assign(this.containerRef.instance, {
-                initialState: {
-                    notifyQueue$: this.notifyQueue$
-                }
-            });
-            this.containerRef.changeDetectorRef.detectChanges();
+    private _initContainer(placement: NotifyPlacement) {
+        if (placement === 'topRight') {
+            this.containerRefTopRight = this._loadNotifyContainerComponent(this.containerRefTopRight, placement);
+        } else if (placement === 'bottomRight') {
+            this.containerRefBottomRight = this._loadNotifyContainerComponent(this.containerRefBottomRight, placement);
+        } else if (placement === 'bottomLeft') {
+            this.containerRefBottomLeft = this._loadNotifyContainerComponent(this.containerRefBottomLeft, placement);
+        } else if (placement === 'topLeft') {
+            this.containerRefTopLeft = this._loadNotifyContainerComponent(this.containerRefTopLeft, placement);
         }
     }
 
+    private _loadNotifyContainerComponent(
+        containerRef: ComponentRef<ThyNotifyContainerComponent>,
+        placement: NotifyPlacement
+    ): ComponentRef<ThyNotifyContainerComponent> {
+        if (!containerRef) {
+            const portalOutlet = new DomPortalOutlet(document.body, this.componentFactoryResolver, this.appRef, this.injector);
+            const componentPortal = new ComponentPortal(ThyNotifyContainerComponent, null);
+            containerRef = portalOutlet.attachComponentPortal(componentPortal);
+            Object.assign(containerRef.instance, {
+                initialState: {
+                    placement
+                }
+            });
+            containerRef.changeDetectorRef.detectChanges();
+        }
+        return containerRef;
+    }
+
     private _formatOption(option: ThyNotifyOption) {
-        return Object.assign({}, NOTIFY_OPTION_DEFAULT, { id: this._lastNotifyId++ }, option);
+        return Object.assign({}, NOTIFY_OPTION_DEFAULT, { id: this._lastNotifyId++ }, this.defaultConfig, option);
     }
 }

@@ -1,0 +1,103 @@
+$calendar-full-prefix-cls: 'thy-calendar-full';
+
+.#{$calendar-full-prefix-cls} {
+    display: block;
+    padding: 9px 9px 13px 9px;
+    height: 100%;
+
+    .thy-calendar-panel {
+        height: calc(100% - 33px);
+        .thy-calendar-date-panel {
+            height: 100%;
+            .thy-calendar-body {
+                height: 100%;
+            }
+        }
+    }
+    .#{$calendar-full-prefix-cls}-table {
+        table-layout: fixed;
+        width: 100%;
+        height: 100%;
+        thead {
+            font-size: 14px;
+            color: $gray-500;
+        }
+
+        .#{$calendar-full-prefix-cls}-column-header,
+        .#{$calendar-full-prefix-cls}-cell {
+            text-align: left;
+            font-weight: 400;
+        }
+
+        .#{$calendar-full-prefix-cls}-selected-day {
+            // background: $gray-80;
+        }
+
+        .#{$calendar-full-prefix-cls}-date-value-text {
+        }
+
+        .#{$calendar-full-prefix-cls}-today {
+            .#{$calendar-full-prefix-cls}-date-value-today-text {
+                width: 24px;
+                height: 24px;
+                background: #ff9f73;
+                display: inline-block;
+                text-align: center;
+                line-height: 24px;
+                border-radius: 50%;
+                color: $white;
+            }
+        }
+
+        .#{$calendar-full-prefix-cls}-column-header,
+        .#{$calendar-full-prefix-cls}-cell .#{$calendar-full-prefix-cls}-date-value {
+            padding: 10px;
+            min-height: 44px;
+        }
+
+        .#{$calendar-full-prefix-cls}-last-month-cell,
+        .#{$calendar-full-prefix-cls}-next-month-btn-day {
+            color: $gray-500;
+        }
+
+        .#{$calendar-full-prefix-cls}-tbody {
+            border: 1px solid $gray-200;
+            border-collapse: collapse;
+
+            tr td:first-child,
+            tr td:last-child {
+                background: $gray-80;
+            }
+
+            td {
+                border: 1px solid $gray-200;
+
+                .#{$calendar-full-prefix-cls}-date-content {
+                    height: 110px;
+                    padding: 0 6px;
+                    overflow: auto;
+                }
+            }
+        }
+    }
+}
+
+.#{$calendar-full-prefix-cls}-header-container {
+    align-items: center;
+    display: flex;
+    min-height: 33px;
+    padding: 0 12px;
+
+    .#{$calendar-full-prefix-cls}-header-left {
+        display: flex;
+        align-items: center;
+        .select-date-range {
+            display: inline-block;
+            margin-right: 15px;
+        }
+    }
+
+    .#{$calendar-full-prefix-cls}-header-right {
+        margin-left: auto;
+    }
+}

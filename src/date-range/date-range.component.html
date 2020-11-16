@@ -1,8 +1,8 @@
 <div class="thy-date-range-container">
   <ng-container *ngIf="!thyDisabledSwitch">
-    <span href="javascript:;" class="btn btn-icon" (click)="previous()">
-      <thy-icon thyIconName="angle-left"></thy-icon>
-    </span>
+    <thy-icon-nav thyType="secondary" (click)="previous()">
+      <a href="javascript:;" thyIconNavLink><thy-icon thyIconName="angle-left"></thy-icon></a>
+    </thy-icon-nav>
   </ng-container>
   <span
     href="javascript:;"
@@ -13,12 +13,15 @@
     <ng-container *ngIf="selectedDate?.key === 'custom'">
       {{ selectedDate?.begin | thyDatePickerFormat }} ~ {{ selectedDate?.end | thyDatePickerFormat }}
     </ng-container>
-    <ng-container *ngIf="selectedDate?.key !== 'custom'">{{ selectedDate?.text }}</ng-container>
+    <ng-container *ngIf="selectedDate?.key === 'exception'">
+      {{ selectedDate?.begin | thyDatePickerFormat: thyPickerFormat }}
+    </ng-container>
+    <ng-container *ngIf="selectedDate?.key !== 'custom' && selectedDate?.key !== 'exception'">{{ selectedDate?.text }}</ng-container>
     <thy-icon *ngIf="!thyHiddenMenu" class="thy-date-range-text-caret-down ml-2" thyIconName="angle-down"></thy-icon>
   </span>
   <ng-container *ngIf="!thyDisabledSwitch">
-    <span href="javascript:;" class="btn btn-icon" (click)="next()">
-      <thy-icon thyIconName="angle-right"></thy-icon>
-    </span>
+    <thy-icon-nav thyType="secondary" (click)="next()">
+      <a href="javascript:;" thyIconNavLink><thy-icon thyIconName="angle-right"></thy-icon></a>
+    </thy-icon-nav>
   </ng-container>
 </div>

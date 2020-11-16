@@ -1,7 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit, forwardRef, ElementRef, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { helpers } from '../util';
-import { UpdateHostClassService } from '../shared';
 
 @Component({
     selector: 'thy-switch',
@@ -15,7 +14,7 @@ import { UpdateHostClassService } from '../shared';
     ]
 })
 export class ThySwitchComponent implements OnInit, ControlValueAccessor, OnChanges {
-    public model: any;
+    public model: boolean;
 
     public type?: String = 'primary';
 
@@ -25,9 +24,11 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor, OnChang
 
     public classNames: string[];
 
-    public typeArray: any = ['primary', 'info', 'warning', 'danger'];
+    public typeArray: string[] = ['primary', 'info', 'warning', 'danger'];
 
-    public sizeArray: any = ['lg', '', 'sm'];
+    public sizeArray: string[] = ['lg', '', 'sm'];
+
+    private initialized = false;
 
     @ViewChild('switch', { static: true }) switchElementRef: ElementRef;
 
@@ -37,6 +38,9 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor, OnChang
             value = 'primary';
         }
         this.type = value;
+        if (this.initialized) {
+            this.setClassNames();
+        }
     }
 
     @Input()
@@ -45,6 +49,9 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor, OnChang
             value = '';
         }
         this.size = value;
+        if (this.initialized) {
+            this.setClassNames();
+        }
     }
 
     @Input() thyDisabled: boolean;
@@ -55,6 +62,7 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor, OnChang
 
     ngOnInit() {
         this.setClassNames();
+        this.initialized = true;
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -70,7 +78,7 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor, OnChang
 
     public onModelTouched: Function = () => {};
 
-    writeValue(value: any) {
+    writeValue(value: boolean) {
         this.model = value;
         // this.setClassNames();
     }
@@ -88,7 +96,7 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor, OnChang
         this.setClassNames();
     }
 
-    toggle(event: any) {
+    toggle(event: Event) {
         this.model = !this.model;
         this.onModelChange(this.model);
         this.thyChange.emit(event);

@@ -19,7 +19,7 @@ class BasicButtonIconComponent {
     color = '#5DCFFF';
 }
 
-fdescribe(`button-icon`, () => {
+describe(`button-icon`, () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ThyButtonModule],

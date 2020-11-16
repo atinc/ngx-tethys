@@ -11,7 +11,5 @@ export class ThySwitchBasicExampleComponent implements OnInit {
 
     ngOnInit() {}
 
-    switchChange() {
-        console.log(this.isChecked + '11');
-    }
+    switchChange() {}
 }

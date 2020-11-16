@@ -81,6 +81,12 @@ module.exports = [
                 name: 'thyFooterClass',
                 description: '自定义Footer模板容器Class',
                 default: 'thy-custom-select-footer'
+            },
+            {
+                name: 'thyLoadState',
+                description: '异步加载loading状态，false表示加载中，true表示加载完成',
+                type: 'boolean',
+                default: 'true'
             }
         ]
     },

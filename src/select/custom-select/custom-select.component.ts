@@ -103,8 +103,6 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
 
     defaultOffset = 4;
 
-    defaultMultipleOffset = 10;
-
     dropDownClass: { [key: string]: boolean };
 
     public dropDownPositions: ConnectionPositionPair[];
@@ -156,6 +154,8 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
     @Input() thyPlaceHolder: string;
 
     @Input() thyServerSearch: boolean;
+
+    @Input() thyLoadState = true;
 
     @Input()
     set thyMode(value: SelectMode) {
@@ -289,8 +289,8 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
         });
     }
 
-    public get isShowEmptySearchResult(): boolean {
-        return !this.options.some(option => !option.hidden);
+    public get isHiddenOptions(): boolean {
+        return this.options.toArray().every(option => option.hidden);
     }
 
     public onAttached(): void {
@@ -547,7 +547,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
     }
 
     private getPositions() {
-        this.dropDownPositions = getFlexiblePositions('bottom', this.isMultiple ? this.defaultMultipleOffset : this.defaultOffset);
+        this.dropDownPositions = getFlexiblePositions('bottom', this.defaultOffset);
     }
 
     private instanceSelectionModel() {

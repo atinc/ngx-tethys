@@ -1,0 +1,88 @@
+@mixin slider-type($color) {
+    .thy-slider-rail {
+        background-color: $gray-200;
+        .thy-slider-track {
+            background-color: $color;
+        }
+        .thy-slider-pointer {
+            border-color: $color;
+            background-color: $white;
+        }
+    }
+}
+
+.thy-slider {
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+    height: 15px;
+    .thy-slider-rail {
+        position: relative;
+        width: 100%;
+        height: 5px;
+        border-radius: 5px;
+        background-color: $gray-200;
+        .thy-slider-track {
+            position: absolute;
+            height: 5px;
+            border-radius: 5px;
+        }
+        .thy-slider-pointer {
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border-width: 2px;
+            border-style: solid;
+            background-color: $white;
+        }
+    }
+
+    &.slider-vertical {
+        height: 100%;
+        width: 15px;
+        .thy-slider-rail {
+            width: 5px;
+            height: 100%;
+            .thy-slider-track {
+                width: 5px;
+            }
+            .thy-slider-pointer {
+                left: 50%;
+                top: 0;
+            }
+        }
+    }
+
+    &.slider-disabled {
+        cursor: not-allowed;
+        .thy-slider-rail {
+            background-color: $gray-100;
+            .thy-slider-track {
+                background-color: $gray-400;
+            }
+            .thy-slider-pointer {
+                border-color: $gray-100;
+            }
+        }
+    }
+
+    &.thy-slider-primary {
+        @include slider-type($primary);
+    }
+    &,
+    &.thy-slider-success {
+        @include slider-type($success);
+    }
+    &.thy-slider-info {
+        @include slider-type($info);
+    }
+    &.thy-slider-warning {
+        @include slider-type($warning);
+    }
+    &.thy-slider-danger {
+        @include slider-type($danger);
+    }
+}

@@ -194,7 +194,8 @@ export class ThyAnchorComponent implements OnDestroy, AfterViewInit, OnChanges {
     }
 
     handleScrollTo(linkComponent: ThyAnchorLinkComponent): void {
-        const linkElement: HTMLElement = this.document.querySelector(linkComponent.thyHref);
+        const container: HTMLElement = this.container instanceof HTMLElement ? this.container : this.document;
+        const linkElement: HTMLElement = container.querySelector(linkComponent.thyHref);
         if (!linkElement) {
             return;
         }

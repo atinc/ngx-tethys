@@ -1,0 +1,25 @@
+.app-sign {
+    margin-right: 30px;
+    &:last-child {
+        margin-right: 10px;
+    }
+}
+
+.app-color-agile,
+.app-color-prod,
+.app-color-plan {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    display: inline-block;
+}
+
+.app-color-agile {
+    background: #fb8c7c;
+}
+.app-color-plan {
+    background: #73d897;
+}
+.app-color-prod {
+    background: #56abfb;
+}
