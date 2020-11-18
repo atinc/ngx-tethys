@@ -346,7 +346,7 @@ class SelectWithSearchAndServerSearchComponent {
                 [thyMode]="'multiple'"
                 style="width:500px"
                 [(ngModel)]="selectedValue"
-                [formControl]="control"
+                name="Food"
                 [required]="isRequired"
             >
                 <thy-option
@@ -372,7 +372,6 @@ class SelectEimtOptionsChangesComponent {
         { value: 'sushi-7', viewValue: 'Sushi' }
     ];
     selectedValue = ['sushi-7'];
-    control = new FormControl();
     isRequired: boolean;
     @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
     @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
