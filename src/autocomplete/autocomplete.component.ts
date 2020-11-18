@@ -153,7 +153,7 @@ export class ThyAutocompleteComponent extends mixinUnsubscribe(MixinBase)
             this.selectionModel.clear();
         }
         this.selectionModel = new SelectionModel<ThyOptionComponent>(this.isMultiple);
-        this.selectionModel.onChange.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(event => {
+        this.selectionModel.changed.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(event => {
             event.added.forEach(option => option.select());
             event.removed.forEach(option => option.deselect());
         });

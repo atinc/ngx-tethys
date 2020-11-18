@@ -559,7 +559,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
             this.selectionModelSubscription.unsubscribe();
             this.selectionModelSubscription = null;
         }
-        this.selectionModelSubscription = this.selectionModel.onChange.pipe(takeUntil(this.destroy$)).subscribe(event => {
+        this.selectionModelSubscription = this.selectionModel.changed.pipe(takeUntil(this.destroy$)).subscribe(event => {
             event.added.forEach(option => option.select());
             event.removed.forEach(option => option.deselect());
         });
