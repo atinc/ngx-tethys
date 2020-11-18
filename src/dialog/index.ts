@@ -11,3 +11,7 @@ export {
 } from './dialog.config';
 export { ThyDialogRef } from './dialog-ref';
 export { ThyConfirmConfig, THY_CONFIRM_DEFAULT_OPTIONS } from './confirm.config';
+export * from './dialog-container.component';
+export * from './header/dialog-header.component';
+export * from './body/dialog-body.component';
+export * from './footer/dialog-footer.component';
