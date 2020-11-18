@@ -80,6 +80,7 @@ const appRoutes = [
         path: 'changelog',
         component: ChangelogComponent
     },
+    { path: 'global', pathMatch: 'full', redirectTo: 'global/variables' },
     {
         path: 'global/drop-drag',
         component: DropDragComponent
