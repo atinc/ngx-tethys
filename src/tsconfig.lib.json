@@ -14,7 +14,7 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "types": [],
-    "lib": ["dom", "es2015"]
+    "lib": ["dom", "ES2017"]
   },
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,

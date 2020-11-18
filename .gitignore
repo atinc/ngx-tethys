@@ -66,3 +66,4 @@ reference
 /.vs
 demo/src/assets/css
 integration
+out-tsc
