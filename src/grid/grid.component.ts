@@ -132,6 +132,7 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
     private _listOfColumnComponents: QueryList<ThyGridColumnComponent>;
 
     private initialized = false;
+    private _oldThyClassName = '';
 
     @ViewChild('table', { static: true }) tableElementRef: ElementRef<any>;
 
@@ -179,10 +180,17 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
         this.size = value || this.size;
         this._setClass();
     }
-
     @Input()
     set thyClassName(value: string) {
-        this.className = value || ' ';
+        const list = this.className.split(' ').filter(a => a.trim());
+        const index: number = list.findIndex(item => item === this._oldThyClassName);
+        if (index !== -1) {
+            list.splice(index, 1, value);
+        } else {
+            list.push(value);
+        }
+        this._oldThyClassName = value;
+        this.className = list.join(' ');
     }
 
     @Input()
@@ -237,6 +245,7 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
     set thyWholeRowSelect(value: boolean) {
         if (value) {
             this.className += ' table-hover';
+            console.log('设置hover', this.className);
         }
         this.wholeRowSelect = value;
     }
