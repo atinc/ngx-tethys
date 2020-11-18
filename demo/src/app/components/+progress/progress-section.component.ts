@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { clamp } from '../../../../../src/util/helpers';
 import { apiParameters } from './api-parameters';
 
@@ -46,7 +46,7 @@ export class DemoProgressSectionComponent implements OnInit, AfterViewInit {
 
     stacked = [];
 
-    constructor() {}
+    constructor(private cd: ChangeDetectorRef) {}
 
     randomStacked(): void {
         const types = ['success', 'warning', 'danger', 'info', 'primary'];
@@ -115,6 +115,7 @@ export class DemoProgressSectionComponent implements OnInit, AfterViewInit {
                 label: 'custom color'
             }
         ];
+        this.cd.detectChanges();
     }
 
     increase() {
