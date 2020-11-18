@@ -54,9 +54,9 @@ export class ThyInputGroupComponent {
         }
     }
 
-    @ContentChild('append', { static: false }) appendTemplate: TemplateRef<any>;
+    @ContentChild('append') appendTemplate: TemplateRef<any>;
 
-    @ContentChild('prepend', { static: false }) prependTemplate: TemplateRef<any>;
+    @ContentChild('prepend') prependTemplate: TemplateRef<any>;
 
     constructor(
         private thyTranslate: ThyTranslate,

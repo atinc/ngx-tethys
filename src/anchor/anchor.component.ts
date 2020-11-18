@@ -55,7 +55,7 @@ const sharpMatcherRegx = /#([^#]+)$/;
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyAnchorComponent implements OnDestroy, AfterViewInit, OnChanges {
-    @ViewChild('ink', { static: false }) private ink!: ElementRef;
+    @ViewChild('ink') private ink!: ElementRef;
 
     @Input() thyAffix = true;
 

@@ -46,7 +46,7 @@ export class ThyPropertyOperationComponent implements OnInit, AfterContentInit {
 
     @HostBinding('class.thy-property-operation') _isPropertyOperation = true;
 
-    @ContentChild('operationIcon', { static: false }) operationIcon: TemplateRef<any>;
+    @ContentChild('operationIcon') operationIcon: TemplateRef<any>;
 
     @ViewChild('contentElement', { static: true }) contentElement: ElementRef;
 

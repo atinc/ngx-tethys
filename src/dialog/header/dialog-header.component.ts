@@ -27,7 +27,7 @@ export class DialogHeaderComponent implements OnInit {
 
     @HostBinding(`class.dialog-header-lg`) isDialogHeaderLg = false;
 
-    @ContentChild('dialogHeader', { static: false })
+    @ContentChild('dialogHeader')
     public headerTemplate: TemplateRef<any>;
 
     @Input() thyTitle: string;

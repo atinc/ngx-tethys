@@ -43,8 +43,7 @@ import { ThyIconModule } from '../icon/icon.module';
     providers: [ThyFormValidatorLoader, THY_FORM_CONFIG_PROVIDER]
 })
 export class ThyFormModule {
-    static ModuleWithProviders: any;
-    static forRoot(config: ThyFormValidatorGlobalConfig): ModuleWithProviders {
+    static forRoot(config: ThyFormValidatorGlobalConfig): ModuleWithProviders<ThyFormModule> {
         return {
             ngModule: ThyFormModule,
             providers: [

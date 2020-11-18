@@ -145,7 +145,7 @@ const IMPORT_EXPORT_MODULES = [
     providers: []
 })
 export class NgxTethysModule {
-    static forRoot(): ModuleWithProviders {
+    static forRoot(): ModuleWithProviders<NgxTethysModule> {
         return {
             ngModule: NgxTethysModule,
             providers: []

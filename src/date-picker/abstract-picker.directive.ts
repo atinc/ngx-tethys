@@ -8,7 +8,8 @@ import {
     Output,
     ChangeDetectorRef,
     TemplateRef,
-    SimpleChange
+    SimpleChange,
+    Directive
 } from '@angular/core';
 import { fromEvent, Observable, Subject } from 'rxjs';
 import { debounceTime, mapTo, takeUntil, tap } from 'rxjs/operators';
@@ -18,6 +19,7 @@ import { FunctionProp, coerceBooleanProperty } from '../util/helpers';
 import { PanelMode, CompatibleValue } from './standard-types';
 import { ThyPopover } from '../popover';
 
+@Directive()
 export abstract class PickerDirective extends AbstractPickerComponent implements AfterViewInit, OnDestroy, OnChanges {
     showWeek = false;
 

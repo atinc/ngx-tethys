@@ -205,11 +205,11 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
     @Input()
     thyFooterClass = 'thy-custom-select-footer';
 
-    @ContentChild('selectedDisplay', { static: false }) selectedValueDisplayRef: TemplateRef<any>;
+    @ContentChild('selectedDisplay') selectedValueDisplayRef: TemplateRef<any>;
 
     @ViewChild('trigger', { read: ElementRef, static: true }) trigger: ElementRef<any>;
 
-    @ViewChild('panel', { read: ElementRef, static: false }) panel: ElementRef<any>;
+    @ViewChild('panel', { read: ElementRef }) panel: ElementRef<any>;
 
     @ContentChildren(ThyOptionComponent, { descendants: true }) options: QueryList<ThyOptionComponent>;
 
