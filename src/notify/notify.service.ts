@@ -87,6 +87,17 @@ export class ThyNotifyService {
         });
     }
 
+    /**
+     * @deprecated The removeItemById will be deprecated, please use removeNotifyById.
+     */
+    removeItemById(id: number) {
+        this.removeNotifyById(id);
+    }
+
+    removeNotifyById(id: number) {
+        this.queueStore.removeNotify(id);
+    }
+
     private _initContainer(placement: NotifyPlacement) {
         if (placement === 'topRight') {
             this.containerRefTopRight = this._loadNotifyContainerComponent(this.containerRefTopRight, placement);
