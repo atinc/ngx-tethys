@@ -64,14 +64,16 @@ export class NotifyQueueStore extends Store<NotifyQueueState> {
     removeNotify(id: number, placement?: NotifyPlacement) {
         const state = this.snapshot;
         if (placement) {
-            const key = this.convertQueueKey(placement);
-            state[key] = state[key].filter((item: any) => {
-                return item.id !== id;
-            });
+            const queueKey = this.convertQueueKey(placement);
+            if (state.hasOwnProperty(queueKey) && state[queueKey].length) {
+                state[queueKey] = state[queueKey].filter((item: any) => {
+                    return item.id !== id;
+                });
+            }
         } else {
-            Object.keys(state).map(key => {
-                if (state[key].length) {
-                    state[key] = state[key].filter((item: any) => {
+            Object.keys(state).forEach(queueKey => {
+                if (state.hasOwnProperty(queueKey) && state[queueKey].length) {
+                    state[queueKey] = state[queueKey].filter((item: any) => {
                         return item.id !== id;
                     });
                 }

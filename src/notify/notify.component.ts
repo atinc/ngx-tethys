@@ -94,7 +94,7 @@ export class ThyNotifyComponent implements OnInit, OnDestroy {
         this._ngZone.runOutsideAngular(() => {
             this.flyInOut = 'componentHide';
             setTimeout(() => {
-                this._queueStore.removeNotify(this.placement, this.option.id);
+                this._queueStore.removeNotify(this.option.id, this.placement);
             }, ANIMATION_OUT_DURATION);
         });
     }
