@@ -61,7 +61,7 @@
     "ng-packagr": "^9.0.0",
     "ngx-bootstrap": "6.2.0",
     "ngx-highlightjs": "^4.0.2",
-    "rxjs": "^6.4.0",
+    "rxjs": "~6.5.4",
     "sortablejs": "^1.7.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
@@ -117,8 +117,8 @@
     "readline-sync": "^1.4.9",
     "replace": "^1.1.0",
     "semver": "^6.0.0",
-    "ts-node": "~5.0.1",
-    "tslint": "~5.20.0",
+    "ts-node": "~8.3.0",
+    "tslint": "~6.1.0",
     "typescript": "~3.8.3",
     "webpack": "^4.23.1"
   },
