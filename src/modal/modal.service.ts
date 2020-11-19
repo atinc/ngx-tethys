@@ -1,5 +1,5 @@
-import { Injectable, TemplateRef, RendererFactory2, EventEmitter } from '@angular/core';
-import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
+import { Injectable, TemplateRef, RendererFactory2, EventEmitter, Optional, Inject } from '@angular/core';
+import { BsModalService, BsModalRef, ModalOptions, MODAL_CONFIG_DEFAULT_OVERRIDE } from 'ngx-bootstrap/modal';
 import { ComponentLoaderFactory } from 'ngx-bootstrap/component-loader';
 import { warnDeprecation } from '../core/logger';
 
@@ -24,8 +24,13 @@ export class ThyModalService extends BsModalService {
     private modalConfig: ModalOptions;
     private bsModalRefs: BsModalRef[] = [];
 
-    constructor(private modalService: BsModalService, rendererFactory: RendererFactory2, clf: ComponentLoaderFactory) {
-        super(rendererFactory, clf);
+    constructor(
+        private modalService: BsModalService,
+        rendererFactory: RendererFactory2,
+        clf: ComponentLoaderFactory,
+        @Optional() @Inject(MODAL_CONFIG_DEFAULT_OVERRIDE) modalDefaultOption: ModalOptions
+    ) {
+        super(rendererFactory, clf, modalDefaultOption);
         this.modalService.onHidden.subscribe(() => {
             if (this.bsModalRefs.length > 0) {
                 this.bsModalRefs.splice(this.bsModalRefs.length - 1, 1);

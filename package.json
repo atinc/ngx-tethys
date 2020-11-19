@@ -59,7 +59,7 @@
     "date-fns": "^2.6.0",
     "natives": "^1.1.6",
     "ng-packagr": "^9.0.0",
-    "ngx-bootstrap": "5.1.2",
+    "ngx-bootstrap": "6.2.0",
     "ngx-highlightjs": "^4.0.2",
     "rxjs": "^6.4.0",
     "sortablejs": "^1.7.0",
