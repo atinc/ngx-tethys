@@ -50,7 +50,7 @@
     "@angular/platform-browser": "^9.1.12",
     "@angular/platform-browser-dynamic": "^9.1.12",
     "@angular/router": "^9.1.12",
-    "@ngx-translate/core": "^10.0.1",
+    "@ngx-translate/core": "^12.1.2",
     "ngx-sortablejs": "^3.1.4",
     "bootstrap": "4.5.0",
     "china-division": "^2.1.1",
