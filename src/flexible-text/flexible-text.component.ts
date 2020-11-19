@@ -1,13 +1,4 @@
-import {
-    Component,
-    Input,
-    TemplateRef,
-    ElementRef,
-    OnInit,
-    ViewContainerRef,
-    OnDestroy,
-    AfterContentInit
-} from '@angular/core';
+import { Component, Input, TemplateRef, ElementRef, OnInit, ViewContainerRef, OnDestroy, AfterContentInit } from '@angular/core';
 import { timer, Subject, Subscription } from 'rxjs';
 import { TooltipService } from '../tooltip/tooltip.service';
 import { UpdateHostClassService } from '../shared/update-host-class.service';
@@ -80,6 +71,7 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
     }
 
     ngAfterContentInit() {
+        this.applyOverflow();
         this.subscription = this.contentObserver
             .observe(this.elementRef)
             .pipe(debounceTime(100))
