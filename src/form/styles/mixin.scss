@@ -155,7 +155,7 @@
 }
 
 @mixin set-input-hover-border($border-color: $input-hover-border) {
-    &:not(:disabled):not(.disabled):not(.is-invalid) {
+    &:not([disabled]):not(.disabled):not(.is-invalid) {
         @include hover {
             border-color: $border-color;
         }
