@@ -15,6 +15,7 @@ import { FocusableOption, FocusOrigin, Highlightable } from '@angular/cdk/a11y';
 // import { SelectionModel } from '@angular/cdk/collections';
 import { coerceBooleanProperty } from '../../../util/helpers';
 import { UpdateHostClassService } from '../../../shared';
+import { THY_OPTION_PARENT_COMPONENT } from '../option.token';
 
 let _uniqueIdCounter = 0;
 
@@ -32,11 +33,6 @@ export interface IThyOptionParentComponent {
     scrollIntoView(option: ThyListOptionComponent): void;
     isSelected(option: ThyListOptionComponent): boolean;
 }
-
-/**
- * Injection token used to provide the parent component to options.
- */
-export const THY_OPTION_PARENT_COMPONENT = new InjectionToken<IThyOptionParentComponent>('THY_OPTION_PARENT_COMPONENT');
 
 @Component({
     selector: 'thy-list-option,[thy-list-option]',
