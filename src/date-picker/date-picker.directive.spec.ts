@@ -14,6 +14,7 @@ import { DatePopupComponent } from './lib/popups/date-popup.component';
 import { ThyPropertyOperationModule, ThyPropertyOperationComponent } from '../property-operation';
 import { ThyDatePickerDirective } from './date-picker.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { of } from 'rxjs';
 
 registerLocaleData(zh);
 
@@ -99,6 +100,69 @@ describe('ThyPickerDirective', () => {
         }));
     });
 
+    describe('should get correct thyPlacement and offset', () => {
+        it('should get correct thyPlacement and offset', fakeAsync(() => {
+            const thyPopover = TestBed.get(ThyPopover);
+            const spy = spyOn(thyPopover, 'open');
+            spy.and.returnValue({ componentInstance: { valueChange: of(), showTimePickerChange: of(), ngOnChanges: () => {} } });
+
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+
+            expect(spy).toHaveBeenCalled();
+            expect(spy).toHaveBeenCalledWith(DatePopupComponent, {
+                origin: debugElement.nativeElement.childNodes[0],
+                hasBackdrop: true,
+                backdropClass: 'thy-overlay-transparent-backdrop',
+                offset: 10,
+                initialState: {
+                    isRange: false,
+                    showWeek: false,
+                    value: null,
+                    showTime: undefined,
+                    mustShowTime: undefined,
+                    format: undefined,
+                    dateRender: undefined,
+                    disabledDate: undefined,
+                    placeholder: '请选择日期',
+                    className: undefined,
+                    defaultPickerValue: undefined,
+                    minDate: undefined,
+                    maxDate: undefined
+                },
+                placement: 'bottomLeft'
+            });
+
+            fixtureInstance.thyOffset = 0;
+            fixtureInstance.thyPlacement = 'right';
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+
+            expect(spy).toHaveBeenCalledWith(DatePopupComponent, {
+                origin: debugElement.nativeElement.childNodes[0],
+                hasBackdrop: true,
+                backdropClass: 'thy-overlay-transparent-backdrop',
+                offset: fixtureInstance.thyOffset,
+                initialState: {
+                    isRange: false,
+                    showWeek: false,
+                    value: null,
+                    showTime: undefined,
+                    mustShowTime: undefined,
+                    format: undefined,
+                    dateRender: undefined,
+                    disabledDate: undefined,
+                    placeholder: '请选择日期',
+                    className: undefined,
+                    defaultPickerValue: undefined,
+                    minDate: undefined,
+                    maxDate: undefined
+                },
+                placement: fixtureInstance.thyPlacement
+            });
+        }));
+    });
+
     function getPickerTriggerWrapper() {
         const element = debugElement.query(By.directive(ThyPropertyOperationComponent)).nativeElement;
         return element;
@@ -120,6 +184,85 @@ describe('ThyPickerDirective', () => {
     }
 });
 
+describe('should get correct default thyPlacement and offset', () => {
+    let fixture: ComponentFixture<ThyTestPickerPlacementDirective>;
+    let fixtureInstance: ThyTestPickerPlacementDirective;
+    let debugElement: DebugElement;
+    let overlayContainer: OverlayContainer;
+    let overlayContainerElement: HTMLElement;
+    let popover: ThyPopover;
+
+    beforeEach(fakeAsync(() => {
+        TestBed.configureTestingModule({
+            imports: [FormsModule, ThyDatePickerModule, ThyPropertyOperationModule, BrowserAnimationsModule],
+            declarations: [ThyTestPickerPlacementDirective]
+        }).compileComponents();
+    }));
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(ThyTestPickerPlacementDirective);
+        fixtureInstance = fixture.componentInstance;
+        debugElement = fixture.debugElement;
+    });
+
+    beforeEach(inject([OverlayContainer, ThyPopover], (oc: OverlayContainer, _popover: ThyPopover) => {
+        overlayContainer = oc;
+        popover = _popover;
+        overlayContainerElement = oc.getContainerElement();
+    }));
+
+    afterEach(() => {
+        overlayContainer.ngOnDestroy();
+    });
+
+    describe('should get correct default thyPlacement and offset', () => {
+        it('should get correct default thyPlacement and offset', fakeAsync(() => {
+            const thyPopover = TestBed.get(ThyPopover);
+            const spy = spyOn(thyPopover, 'open');
+            spy.and.returnValue({ componentInstance: { valueChange: of(), showTimePickerChange: of(), ngOnChanges: () => {} } });
+
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+
+            expect(spy).toHaveBeenCalled();
+            expect(spy).toHaveBeenCalledWith(DatePopupComponent, {
+                origin: debugElement.nativeElement.childNodes[0],
+                hasBackdrop: true,
+                backdropClass: 'thy-overlay-transparent-backdrop',
+                offset: 10,
+                initialState: {
+                    isRange: false,
+                    showWeek: false,
+                    value: null,
+                    showTime: undefined,
+                    mustShowTime: false,
+                    format: undefined,
+                    dateRender: undefined,
+                    disabledDate: undefined,
+                    placeholder: '请选择日期',
+                    className: undefined,
+                    defaultPickerValue: null,
+                    minDate: undefined,
+                    maxDate: undefined
+                },
+                placement: 'bottomLeft'
+            });
+        }));
+    });
+
+    function getPickerTriggerWrapper() {
+        const element = debugElement.query(By.directive(ThyPropertyOperationComponent)).nativeElement;
+        return element;
+    }
+
+    function openPickerByClickTrigger(): void {
+        dispatchMouseEvent(getPickerTriggerWrapper(), 'click');
+        fixture.detectChanges();
+        tick(500);
+        fixture.detectChanges();
+    }
+});
+
 @Component({
     template: `
         <thy-property-operation
@@ -131,6 +274,8 @@ describe('ThyPickerDirective', () => {
             [thyMinDate]="thyMinDate"
             [thyMaxDate]="thyMaxDate"
             [thyDefaultPickerValue]="thyDefaultPickerValue"
+            [thyOffset]="thyOffset"
+            [thyPlacement]="thyPlacement"
         ></thy-property-operation>
     `
 })
@@ -147,6 +292,8 @@ class ThyTestPickerDirective {
     thyShowTime: boolean | object = false;
     thyMode: string;
     thyDisabled: boolean;
+    thyOffset = 10;
+    thyPlacement = 'bottomLeft';
     thyOnChange(): void {}
     thyOnCalendarChange(): void {}
     thyOpenChange(): void {}
@@ -155,3 +302,10 @@ class ThyTestPickerDirective {
 
     thyOnOk(): void {}
 }
+
+@Component({
+    template: `
+        <thy-property-operation thyLabelText="开始时间" thyDatePicker></thy-property-operation>
+    `
+})
+class ThyTestPickerPlacementDirective {}

@@ -18,6 +18,7 @@ import { AbstractPickerComponent } from './abstract-picker.component';
 import { FunctionProp, coerceBooleanProperty } from '../util/helpers';
 import { PanelMode, CompatibleValue } from './standard-types';
 import { ThyPopover } from '../popover';
+import { ThyPlacement } from 'ngx-tethys/core';
 
 @Directive()
 export abstract class PickerDirective extends AbstractPickerComponent implements AfterViewInit, OnDestroy, OnChanges {
@@ -38,6 +39,11 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
     }
 
     @Input() thyMustShowTime = false;
+
+    @Input() thyPlacement: ThyPlacement = 'bottomLeft';
+
+    @Input() thyOffset = 10;
+
     private destroy$ = new Subject();
     private el: HTMLElement = this.elementRef.nativeElement;
     readonly $click: Observable<boolean> = fromEvent(this.el, 'click').pipe(
@@ -50,7 +56,7 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
             origin: this.el,
             hasBackdrop: true,
             backdropClass: 'thy-overlay-transparent-backdrop',
-            offset: 10,
+            offset: this.thyOffset,
             initialState: {
                 isRange: this.isRange,
                 showWeek: this.showWeek,
@@ -66,7 +72,7 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
                 minDate: this.thyMinDate,
                 maxDate: this.thyMaxDate
             },
-            placement: 'bottomLeft'
+            placement: this.thyPlacement
         });
         componentInstance.valueChange.pipe(takeUntil(this.destroy$)).subscribe((event: CompatibleValue) => this.onValueChange(event));
         componentInstance.showTimePickerChange

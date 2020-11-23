@@ -188,7 +188,7 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
 
     private updateStyle(offsetPercentage: number) {
         const percentage = Math.min(1, Math.max(0, offsetPercentage));
-        const orientFields: string[] = this.thyVertical ? ['height', 'top'] : ['width', 'left'];
+        const orientFields: string[] = this.thyVertical ? ['height', 'bottom'] : ['width', 'left'];
         this.sliderTrack.nativeElement.style[orientFields[0]] = `${percentage * 100}%`;
         this.sliderPointer.nativeElement.style[orientFields[1]] = `${percentage * 100}%`;
     }
@@ -289,7 +289,7 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
     private getSliderPagePosition(): number {
         const rect = this.ref.nativeElement.getBoundingClientRect();
         const window = this.ref.nativeElement.ownerDocument.defaultView;
-        const orientFields: string[] = this.thyVertical ? ['top', 'pageYOffset'] : ['left', 'pageXOffset'];
+        const orientFields: string[] = this.thyVertical ? ['bottom', 'pageYOffset'] : ['left', 'pageXOffset'];
         return rect[orientFields[0]] + window[orientFields[1]];
     }
 
@@ -300,6 +300,9 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
     }
 
     private convertPointerPositionToRatio(pointerPosition: number, startPosition: number, totalLength: number) {
+        if (this.thyVertical) {
+            return clamp((startPosition - pointerPosition) / totalLength, 0, 1);
+        }
         return clamp((pointerPosition - startPosition) / totalLength, 0, 1);
     }
 
