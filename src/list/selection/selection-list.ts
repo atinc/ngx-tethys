@@ -17,7 +17,7 @@ import {
 } from '@angular/core';
 import { FocusKeyManager, ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
-import { ThyListOptionComponent, THY_OPTION_PARENT_COMPONENT, IThyOptionParentComponent, ThyListLayout } from '../../core/option';
+import { ThyListOptionComponent, THY_LIST_OPTION_PARENT_COMPONENT, IThyListOptionParentComponent, ThyListLayout } from '../../core/option';
 import { keycodes, helpers, dom } from '../../util';
 import { coerceBooleanProperty } from '../../util/helpers';
 import { Subscription, throwError } from 'rxjs';
@@ -39,7 +39,7 @@ const listSizesMap = {
     providers: [
         UpdateHostClassService,
         {
-            provide: THY_OPTION_PARENT_COMPONENT,
+            provide: THY_LIST_OPTION_PARENT_COMPONENT,
             useExisting: ThySelectionListComponent
         },
         {
@@ -50,7 +50,7 @@ const listSizesMap = {
     ],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ThySelectionListComponent implements OnInit, OnDestroy, AfterContentInit, IThyOptionParentComponent, ControlValueAccessor {
+export class ThySelectionListComponent implements OnInit, OnDestroy, AfterContentInit, IThyListOptionParentComponent, ControlValueAccessor {
     private _keyManager: ActiveDescendantKeyManager<ThyListOptionComponent>;
 
     private _selectionChangesUnsubscribe$ = Subscription.EMPTY;
