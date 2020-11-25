@@ -55,7 +55,7 @@
     "bootstrap": "4.5.0",
     "china-division": "^2.1.1",
     "core-js": "^2.5.4",
-    "highlight.js": "^9.13.1",
+    "highlight.js": "^10.1.2",
     "date-fns": "^2.6.0",
     "natives": "^1.1.6",
     "ng-packagr": "^5.4.0",
