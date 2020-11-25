@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.1.29"></a>
+## [8.1.29](https://github.com/atinc/ngx-tethys/compare/8.1.28...8.1.29) (2020-11-25)
+
+
+### Bug Fixes
+
+* fix notify service removeItemById #INFR-1192 ([#960](https://github.com/atinc/ngx-tethys/issues/960)) ([15a5c70](https://github.com/atinc/ngx-tethys/commit/15a5c70)), closes [#INFR-1192](https://github.com/atinc/ngx-tethys/issues/INFR-1192) [#INFR-1192](https://github.com/atinc/ngx-tethys/issues/INFR-1192)
+* **input:**  fix input hover disabled style ([aef4f0b](https://github.com/atinc/ngx-tethys/commit/aef4f0b))
+* **list:** fix duplicate token #INFR-1274 ([1891cdb](https://github.com/atinc/ngx-tethys/commit/1891cdb)), closes [#INFR-1274](https://github.com/atinc/ngx-tethys/issues/INFR-1274)
+* **slider:** make slider vertical more natural ([1058ebe](https://github.com/atinc/ngx-tethys/commit/1058ebe))
+
+
+### Features
+
+* #INFR-1192 【Notify】弹出通知支持 placement，topLeft/topRight/bottomLeft… ([#954](https://github.com/atinc/ngx-tethys/issues/954)) ([8b50408](https://github.com/atinc/ngx-tethys/commit/8b50408)), closes [#INFR-1192](https://github.com/atinc/ngx-tethys/issues/INFR-1192) [#INFR-1192](https://github.com/atinc/ngx-tethys/issues/INFR-1192) [#INFR-1192](https://github.com/atinc/ngx-tethys/issues/INFR-1192)
+* **date-picker:** support placement and offset ([c1d4c8c](https://github.com/atinc/ngx-tethys/commit/c1d4c8c))
+
+
+
 <a name="8.1.28"></a>
 ## [8.1.28](https://github.com/atinc/ngx-tethys/compare/8.1.27...8.1.28) (2020-11-04)
 
