@@ -3,7 +3,7 @@
   "version": "9.0.0-beta.0",
   "license": "MIT",
   "scripts": {
-    "build": "npm run build",
+    "build": "npm run build:ng",
     "build:ng": "rimraf ./built/* && node --max_old_space_size=8096 ./node_modules/@angular/cli/bin/ng build ngx-tethys --prod && cpx \"./src/**/*.scss\" built -v",
     "build:ngc": "rimraf ./built/* ./codegen/* && ngc -p ./src/tsconfig.lib.json",
     "build:ngm": "ngm build -p src --clean && cpx './built/.tmp/**' ./built && rimraf ./built/.tmp",
