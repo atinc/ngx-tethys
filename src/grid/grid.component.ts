@@ -245,7 +245,6 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
     set thyWholeRowSelect(value: boolean) {
         if (value) {
             this.className += ' table-hover';
-            console.log('设置hover', this.className);
         }
         this.wholeRowSelect = value;
     }
