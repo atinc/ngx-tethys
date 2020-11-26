@@ -15,7 +15,7 @@ module.exports = {
     // otherwise, the changelog will rebuild, and will be lost past versions
     tagPrefix: '',
     hooks: {
-        prepublish: 'npm run build:ng',
+        prepublish: 'npm run build',
         postpublish: 'npm run pub-only'
     }
 };
