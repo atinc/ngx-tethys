@@ -23,8 +23,8 @@
     "lib": ["dom", "ES2018"],
     "types": ["jasmine", "node"],
     "paths": {
-      "ngx-tethys": ["../src/public-api"],
-      "ngx-tethys/*": ["../src/*"]
+      "ngx-tethys": ["./public-api"],
+      "ngx-tethys/*": ["./*"]
     }
   },
   "exclude": ["node_modules", "./**/*.spec.ts"],
