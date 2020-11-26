@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { dom } from '../util';
+import { dom } from 'ngx-tethys/util';
 
 export class ScrollToService {
     static _customScrollToElement(targetElement: HTMLElement, containerElement: HTMLElement) {
@@ -29,6 +29,5 @@ export class ScrollToService {
             //     this._customScrollToElement(targetElement, containerElement);
             // }
         }
-
     }
 }

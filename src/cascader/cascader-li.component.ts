@@ -1,14 +1,6 @@
-import {
-    Component,
-    OnInit,
-    Input,
-    HostBinding,
-    ElementRef,
-    ChangeDetectionStrategy,
-    ViewEncapsulation
-} from '@angular/core';
+import { Component, OnInit, Input, HostBinding, ElementRef, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { CascaderOption } from './cascader.component';
-import { UpdateHostClassService } from '../shared/update-host-class.service';
+import { UpdateHostClassService } from 'ngx-tethys/shared';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,

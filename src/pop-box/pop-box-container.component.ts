@@ -1,12 +1,21 @@
 import {
-    Component, OnInit, ElementRef,
-    HostBinding, Inject,
-    Renderer2, ViewEncapsulation, HostListener, NgZone, OnDestroy, DoCheck, AfterViewInit
+    Component,
+    OnInit,
+    ElementRef,
+    HostBinding,
+    Inject,
+    Renderer2,
+    ViewEncapsulation,
+    HostListener,
+    NgZone,
+    OnDestroy,
+    DoCheck,
+    AfterViewInit
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { PopBoxRef } from './pop-box-ref.service';
 import { PopBoxOptions } from './pop-box-options.class';
-import { ThyPositioningService } from '../positioning/positioning.service';
+import { ThyPositioningService } from 'ngx-tethys/positioning';
 
 @Component({
     selector: 'pop-box-container',
@@ -14,7 +23,6 @@ import { ThyPositioningService } from '../positioning/positioning.service';
     encapsulation: ViewEncapsulation.None
 })
 export class PopBoxContainerComponent implements OnInit, OnDestroy, DoCheck, AfterViewInit {
-
     @HostBinding('style.z-index') _zIndex: number | string;
 
     public popBoxRef: PopBoxRef;
@@ -44,9 +52,8 @@ export class PopBoxContainerComponent implements OnInit, OnDestroy, DoCheck, Aft
     }
 
     ngAfterViewInit() {
-        this._originHeight = (+this.elementRef.nativeElement.clientHeight);
+        this._originHeight = +this.elementRef.nativeElement.clientHeight;
     }
-
 
     hide(): void {
         this.popBoxRef.hide();
@@ -107,7 +114,7 @@ export class PopBoxContainerComponent implements OnInit, OnDestroy, DoCheck, Aft
     }
 
     ngDoCheck(): void {
-        const height = (+this.elementRef.nativeElement.clientHeight);
+        const height = +this.elementRef.nativeElement.clientHeight;
         if (height !== this._originHeight) {
             this._originHeight = height;
             this.thyPositioningService.setPosition({

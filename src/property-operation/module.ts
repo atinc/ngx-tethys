@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ThyButtonModule } from '../button/button.module';
+import { ThyButtonModule } from 'ngx-tethys/button';
 import { ThyPropertyOperationComponent } from './property-operation.component';
 import { ThyPropertyOperationGroupComponent } from './group/property-operation-group.component';
-import { ThyIconModule } from '../icon';
+import { ThyIconModule } from 'ngx-tethys/icon';
 
 @NgModule({
     declarations: [ThyPropertyOperationComponent, ThyPropertyOperationGroupComponent],

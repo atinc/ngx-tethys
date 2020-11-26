@@ -13,14 +13,14 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ComponentLoader, ComponentLoaderFactory } from 'ngx-bootstrap/component-loader';
-import { PlacementTypes, ThyPositioningService } from '../positioning/positioning.service';
-import { coerceBooleanProperty } from '../util/helpers';
+import { PlacementTypes, ThyPositioningService } from 'ngx-tethys/positioning';
+import { coerceBooleanProperty } from 'ngx-tethys/util/helpers';
 import { ThyDatepickerContainerComponent } from './datepicker-container.component';
 import { ThyDatepickerConfig } from './datepicker.config';
 import { ThyDatepickerService } from './datepicker.service';
 import { DatepickerValueEntry, DatepickerValueShowTypesEnum } from './i.datepicker';
 import { datepickerUtilConvertToDatepickerObject, datepickerUtilIdentificationValueType } from './util';
-import { warnDeprecation } from '../core/logger';
+import { warnDeprecation } from 'ngx-tethys/core/logger';
 
 registerLocaleData(localeZhHans, 'zh-Hans');
 
@@ -126,7 +126,7 @@ export class ThyDatepickerDirective implements OnInit, AfterContentInit, Control
         }
 
         this.datepickerService.initLocale();
-        let a = datepickerUtilConvertToDatepickerObject(this.thyMinDate);
+        const a = datepickerUtilConvertToDatepickerObject(this.thyMinDate);
         const dateContainerRef = this._loader
             .provide({ provide: ThyDatepickerConfig, useValue: this._config })
             .attach(ThyDatepickerContainerComponent)

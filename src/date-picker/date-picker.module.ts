@@ -12,14 +12,14 @@ import { ThyRangePickerComponent } from './range-picker.component';
 import { ThyWeekPickerComponent } from './week-picker.component';
 import { ThyYearPickerComponent } from './year-picker.component';
 import { ThyPickerComponent } from './picker.component';
-import { ThyIconModule } from '../icon/icon.module';
-import { ThyInputModule } from '../input/module';
+import { ThyIconModule } from 'ngx-tethys/icon';
+import { ThyInputModule } from 'ngx-tethys/input';
 import { DatePickerRequiredValidator, RangePickerRequiredValidator } from './picker.validators';
 import { ThyDatePickerFormatPipe, ThyDatePickerFormatStringPipe } from './picker.pipes';
 import { ThyDatePickerDirective } from './date-picker.directive';
 import { ThyRangePickerDirective } from './range-picker.directive';
 import { DatePopupComponent } from './lib/popups/date-popup.component';
-import { ThyPopoverModule } from '../popover';
+import { ThyPopoverModule } from 'ngx-tethys/popover';
 
 @NgModule({
     imports: [CommonModule, OverlayModule, LibPackerModule, ThyIconModule, ThyInputModule, ThyPopoverModule],

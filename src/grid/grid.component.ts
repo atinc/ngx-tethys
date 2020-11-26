@@ -20,8 +20,8 @@ import {
     Inject,
     ContentChild
 } from '@angular/core';
-import { Dictionary } from '../typings';
-import { get, set, isString, coerceBooleanProperty, keyBy } from '../util/helpers';
+import { Dictionary } from 'ngx-tethys/typings';
+import { get, set, isString, coerceBooleanProperty, keyBy } from 'ngx-tethys/util/helpers';
 import {
     ThyGridColumn,
     ThyMultiSelectEvent,
@@ -37,8 +37,8 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { ThyGridColumnComponent, IThyGridColumnParentComponent, THY_GRID_COLUMN_PARENT_COMPONENT } from './grid-column.component';
 import { ViewportRuler } from '@angular/cdk/overlay';
 import { takeUntil, delay } from 'rxjs/operators';
-import { mixinUnsubscribe, MixinBase } from '../core';
-import { UpdateHostClassService } from '../shared';
+import { mixinUnsubscribe, MixinBase } from 'ngx-tethys/core';
+import { UpdateHostClassService } from 'ngx-tethys/shared';
 import { of, merge } from 'rxjs';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { DOCUMENT } from '@angular/common';
@@ -132,6 +132,7 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
     private _listOfColumnComponents: QueryList<ThyGridColumnComponent>;
 
     private initialized = false;
+    private _oldThyClassName = '';
 
     @ViewChild('table', { static: true }) tableElementRef: ElementRef<any>;
 
@@ -179,10 +180,17 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
         this.size = value || this.size;
         this._setClass();
     }
-
     @Input()
     set thyClassName(value: string) {
-        this.className = value || ' ';
+        const list = this.className.split(' ').filter(a => a.trim());
+        const index: number = list.findIndex(item => item === this._oldThyClassName);
+        if (index !== -1) {
+            list.splice(index, 1, value);
+        } else {
+            list.push(value);
+        }
+        this._oldThyClassName = value;
+        this.className = list.join(' ');
     }
 
     @Input()

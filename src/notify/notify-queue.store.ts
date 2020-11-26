@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Store, Action } from '../store';
+import { Store, Action } from 'ngx-tethys/store';
 import { NotifyPlacement, ThyNotifyOption } from './notify-option.interface';
 
 export interface NotifyQueueState {

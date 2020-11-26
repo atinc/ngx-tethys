@@ -280,7 +280,7 @@ describe('should get correct default thyPlacement and offset', () => {
     `
 })
 class ThyTestPickerDirective {
-    @ViewChild(ThyDatePickerDirective, { static: true, read: false }) thyDatePickerDirective: ThyDatePickerDirective;
+    @ViewChild(ThyDatePickerDirective, { read: false }) thyDatePickerDirective: ThyDatePickerDirective;
 
     thyPlaceHolder: string;
     thyPanelClassName: string;

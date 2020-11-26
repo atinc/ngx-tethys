@@ -17,7 +17,7 @@ import {
 } from '@angular/core';
 import { Highlightable } from '@angular/cdk/a11y';
 import { SelectOptionBase } from './select-option-base';
-import { ENTER, SPACE, hasModifierKey } from '../../util/keycodes';
+import { ENTER, SPACE, hasModifierKey } from 'ngx-tethys/util';
 import {
     IThyOptionGroupComponent,
     IThyOptionParentComponent,

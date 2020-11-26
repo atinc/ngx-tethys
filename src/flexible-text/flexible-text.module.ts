@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ThyFlexibleTextComponent } from './flexible-text.component';
-import { ThyTooltipModule } from '../tooltip';
+import { ThyTooltipModule } from 'ngx-tethys/tooltip';
 import { ObserversModule } from '@angular/cdk/observers';
 
 @NgModule({

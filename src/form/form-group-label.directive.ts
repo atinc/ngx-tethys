@@ -1,7 +1,7 @@
 import { Directive, HostBinding, Optional, Input, ViewEncapsulation } from '@angular/core';
 import { ThyFormDirective } from './form.directive';
-import { coerceBooleanProperty } from '../util/helpers';
-import { ThyTranslate } from '../shared';
+import { coerceBooleanProperty } from 'ngx-tethys/util/helpers';
+import { ThyTranslate } from 'ngx-tethys/shared';
 
 @Directive({
     selector: '[thyFormGroupLabel]'

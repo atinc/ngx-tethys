@@ -89,9 +89,7 @@ describe('#skeleton', () => {
             const svgElement = skeletonDebugElement.nativeElement.querySelector('svg');
 
             expect(svgElement).toBeTruthy();
-            expect(svgElement.getAttribute('viewBox')).toEqual(
-                `0 0 ${defaultValues.thyViewBoxWidth} ${defaultValues.thyViewBoxHeight}`
-            );
+            expect(svgElement.getAttribute('viewBox')).toEqual(`0 0 ${defaultValues.thyViewBoxWidth} ${defaultValues.thyViewBoxHeight}`);
             expect(svgElement.getAttribute('preserveAspectRatio')).toEqual(defaultValues.thyPreserveAspectRatio);
             expect(svgElement.getAttribute('height')).toEqual(defaultValues.height);
             expect(svgElement.getAttribute('width')).toEqual(defaultValues.width);
@@ -122,12 +120,8 @@ describe('#skeleton', () => {
             stopElements.forEach((stopElement, index) => {
                 const color = stopElement.getAttribute('stop-color');
                 const opacity = stopElement.getAttribute('stop-opacity');
-                expect(color).toEqual(
-                    `${index % 2 === 0 ? defaultValues.thyPrimaryColor : defaultValues.thySecondaryColor}`
-                );
-                expect(opacity).toEqual(
-                    `${index % 2 === 0 ? defaultValues.thyPrimaryOpacity : defaultValues.thySecondaryOpacity}`
-                );
+                expect(color).toEqual(`${index % 2 === 0 ? defaultValues.thyPrimaryColor : defaultValues.thySecondaryColor}`);
+                expect(opacity).toEqual(`${index % 2 === 0 ? defaultValues.thyPrimaryOpacity : defaultValues.thySecondaryOpacity}`);
                 const animateElement = stopElement.querySelector('animate');
                 expect(animateElement).toBeTruthy();
                 expect(animateElement.getAttribute('dur')).toEqual(`${defaultValues.thySpeed}`);
@@ -176,7 +170,7 @@ describe('#skeleton', () => {
             expect(clipPathElement).toBeTruthy();
             expect(
                 clipPathElement.innerHTML.includes(
-                    '<circle cx="30" cy="30" r="30"></circle><rect height="10" rx="4" ry="4" width="100" x="15" y="13"></rect>'
+                    '<circle cx="30" cy="30" r="30"></circle><rect x="15" y="13" rx="4" ry="4" width="100" height="10"></rect>'
                 )
             ).toBeTruthy();
         });
@@ -195,9 +189,7 @@ describe('#skeleton', () => {
         it('should get title template content', () => {
             const clipPathElement: HTMLElement = skeletonDebugElement.nativeElement.querySelector('clipPath');
             expect(clipPathElement).toBeTruthy();
-            expect(
-                clipPathElement.innerHTML.includes('<rect rx="4" ry="4" x="15" y="13" width="100" height="10"></rect>')
-            ).toBeTruthy();
+            expect(clipPathElement.innerHTML.includes('<rect x="15" y="13" rx="4" ry="4" width="100" height="10"></rect>')).toBeTruthy();
         });
 
         it("should custom title content's width and height", () => {
@@ -207,9 +199,7 @@ describe('#skeleton', () => {
             skeletonDebugElement = fixture.debugElement.query(By.directive(ThySkeletonComponent));
             const clipPathElement: HTMLElement = skeletonDebugElement.nativeElement.querySelector('clipPath');
             expect(clipPathElement).toBeTruthy();
-            expect(
-                clipPathElement.innerHTML.includes('<rect rx="4" ry="4" x="15" y="13" width="200" height="20"></rect>')
-            ).toBeTruthy();
+            expect(clipPathElement.innerHTML.includes('<rect x="15" y="13" rx="4" ry="4" width="200" height="20"></rect>')).toBeTruthy();
         });
     });
 });

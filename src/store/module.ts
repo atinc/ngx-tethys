@@ -2,18 +2,13 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { ROOT_STATE_TOKEN, FEATURE_STATE_TOKEN } from './types';
 
 @NgModule()
-export class RootStoreModule {
-
-}
+export class RootStoreModule {}
 
 @NgModule()
-export class FeatureStoreModule {
-
-}
+export class FeatureStoreModule {}
 @NgModule({})
 export class ThyStoreModule {
-
-    static forRoot(stores: any[] = []): ModuleWithProviders {
+    static forRoot(stores: any[] = []): ModuleWithProviders<RootStoreModule> {
         return {
             ngModule: RootStoreModule,
             providers: [
@@ -26,7 +21,7 @@ export class ThyStoreModule {
         };
     }
 
-    static forFeature(stores: any[] = []): ModuleWithProviders {
+    static forFeature(stores: any[] = []): ModuleWithProviders<FeatureStoreModule> {
         return {
             ngModule: FeatureStoreModule,
             providers: [

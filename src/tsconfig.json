@@ -3,8 +3,8 @@
   "compilerOptions": {
     "outDir": "../built",
     "baseUrl": "./",
-    "target": "es5",
-    "module": "es2015",
+    "target": "ES2015",
+    "module": "ESNext",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -20,20 +20,21 @@
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "lib": ["dom", "es6"],
+    "lib": ["dom", "ES2018"],
     "types": ["jasmine", "node"],
     "paths": {
-      "ngx-tethys": ["../src/public-api"],
-      "ngx-tethys/*": ["../src/*"]
+      "ngx-tethys": ["./public-api"],
+      "ngx-tethys/*": ["./*"]
     }
   },
   "exclude": ["node_modules", "./**/*.spec.ts"],
-  "include": ["./**/*.ts", "./public-api.ts", "./typings.d.ts"],
-  "files": ["./typings.d.ts", "./public-api.ts"],
+  "include": ["./**/*.ts", "./public-api.ts"],
+  "files": ["./public-api.ts"],
   "angularCompilerOptions": {
     "genDir": "../temp/factories",
     "strictMetadataEmit": false,
     "skipTemplateCodegen": true,
-    "fullTemplateTypeCheck": true
+    "fullTemplateTypeCheck": true,
+    "enableIvy": false
   }
 }

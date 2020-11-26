@@ -3,3 +3,7 @@ export * from './daterangepicker.directive';
 export * from './datepicker.directive';
 export * from './pipe';
 export * from './datepicker.config';
+export * from './datepicker-container.component';
+export * from './daterangepicker-container.component';
+export * from './datepicker.service';
+export * from './i.datepicker';

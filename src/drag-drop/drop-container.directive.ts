@@ -1,17 +1,7 @@
-import {
-    OnInit,
-    Directive,
-    Output,
-    EventEmitter,
-    ContentChildren,
-    QueryList,
-    AfterContentInit,
-    NgZone,
-    Input
-} from '@angular/core';
+import { OnInit, Directive, Output, EventEmitter, ContentChildren, QueryList, AfterContentInit, NgZone, Input } from '@angular/core';
 import { ThyDragDirective } from './drag.directive';
 import { merge, Observable, defer } from 'rxjs';
-import { mixinUnsubscribe, MixinBase } from '../core';
+import { mixinUnsubscribe, MixinBase } from 'ngx-tethys/core';
 import { takeUntil, startWith, take, switchMap } from 'rxjs/operators';
 import { ThyDragDropEvent, ThyDragStartEvent, ThyDragEndEvent, ThyDragOverEvent } from './drag-drop.class';
 import { THY_DROP_CONTAINER_DIRECTIVE, IThyDropContainerDirective } from './drop-container.class';
@@ -62,14 +52,9 @@ export class ThyDropContainerDirective<T = any> extends mixinUnsubscribe(MixinBa
     ngOnInit() {}
 
     ngAfterContentInit() {
-        this.draggables.changes
-            .pipe(
-                startWith(null),
-                takeUntil(this.ngUnsubscribe$)
-            )
-            .subscribe(() => {
-                this.draggableChanges();
-            });
+        this.draggables.changes.pipe(startWith(null), takeUntil(this.ngUnsubscribe$)).subscribe(() => {
+            this.draggableChanges();
+        });
     }
 
     private draggableChanges() {

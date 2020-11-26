@@ -1,11 +1,10 @@
 import { Injectable, TemplateRef } from '@angular/core';
 import { ThyConfirmComponent } from './confirm.component';
-import { ThyButtonType } from '../button/button.component';
 import { ConfirmOption, ContentKeyParams } from './confirm-option.interface';
-import { ThyModalService } from '../modal/modal.service';
-import { ThyTranslate } from '../shared';
-import { isObject } from '../util/helpers';
-import { warnDeprecation } from '../core/logger';
+import { ThyModalService } from 'ngx-tethys/modal';
+import { ThyTranslate } from 'ngx-tethys/shared';
+import { isObject } from 'ngx-tethys/util/helpers';
+import { warnDeprecation } from 'ngx-tethys/core/logger';
 
 @Injectable()
 export class ThyConfirmService {
@@ -78,20 +77,10 @@ export class ThyConfirmService {
         };
         _res = Object.assign({}, _defaultOption, option);
         if (option.buttons && option.buttons.confirm) {
-            _res.buttons.confirm = Object.assign(
-                {},
-                _res.buttons.confirm,
-                _defaultOption.buttons.confirm,
-                option.buttons.confirm
-            );
+            _res.buttons.confirm = Object.assign({}, _res.buttons.confirm, _defaultOption.buttons.confirm, option.buttons.confirm);
         }
         if (option.buttons && option.buttons.decline) {
-            _res.buttons.decline = Object.assign(
-                {},
-                _res.buttons.decline,
-                _defaultOption.buttons.decline,
-                option.buttons.decline
-            );
+            _res.buttons.decline = Object.assign({}, _res.buttons.decline, _defaultOption.buttons.decline, option.buttons.decline);
         }
         return Object.assign({}, _defaultOption, option);
     }

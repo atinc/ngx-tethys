@@ -12,10 +12,10 @@ import {
     Renderer2,
     OnInit
 } from '@angular/core';
-import { UpdateHostClassService } from '../shared';
+import { UpdateHostClassService } from 'ngx-tethys/shared';
 import { ThyRowDirective } from './thy-row.directive';
 import { takeUntil } from 'rxjs/operators';
-import { mixinUnsubscribe, MixinBase } from '../core';
+import { mixinUnsubscribe, MixinBase } from 'ngx-tethys/core';
 
 export interface ThyColEmbeddedProperty {
     span?: number;
@@ -32,8 +32,7 @@ export interface ThyColEmbeddedProperty {
         class: 'thy-col'
     }
 })
-export class ThyColDirective extends mixinUnsubscribe(MixinBase)
-    implements OnInit, OnChanges, AfterViewInit, OnDestroy {
+export class ThyColDirective extends mixinUnsubscribe(MixinBase) implements OnInit, OnChanges, AfterViewInit, OnDestroy {
     @Input() thyFlex: string | number | null = null;
     @Input() thySpan: number | null = 24;
     @Input() thyOrder: number | null = null;
@@ -67,22 +66,20 @@ export class ThyColDirective extends mixinUnsubscribe(MixinBase)
 
     ngAfterViewInit(): void {
         if (this.thyRowDirective) {
-            this.thyRowDirective.actualGutter$
-                .pipe(takeUntil(this.ngUnsubscribe$))
-                .subscribe(([horizontalGutter, verticalGutter]) => {
-                    const renderGutter = (name: string, gutter: number) => {
-                        const nativeElement = this.elementRef.nativeElement;
-                        this.renderer.setStyle(nativeElement, name, `${gutter / 2}px`);
-                    };
-                    if (horizontalGutter > 0) {
-                        renderGutter('padding-left', horizontalGutter);
-                        renderGutter('padding-right', horizontalGutter);
-                    }
-                    if (verticalGutter > 0) {
-                        renderGutter('padding-top', verticalGutter);
-                        renderGutter('padding-bottom', verticalGutter);
-                    }
-                });
+            this.thyRowDirective.actualGutter$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(([horizontalGutter, verticalGutter]) => {
+                const renderGutter = (name: string, gutter: number) => {
+                    const nativeElement = this.elementRef.nativeElement;
+                    this.renderer.setStyle(nativeElement, name, `${gutter / 2}px`);
+                };
+                if (horizontalGutter > 0) {
+                    renderGutter('padding-left', horizontalGutter);
+                    renderGutter('padding-right', horizontalGutter);
+                }
+                if (verticalGutter > 0) {
+                    renderGutter('padding-top', verticalGutter);
+                    renderGutter('padding-bottom', verticalGutter);
+                }
+            });
         }
     }
 

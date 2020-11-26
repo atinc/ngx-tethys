@@ -1,5 +1,5 @@
 import { Injectable, Inject, NgZone } from '@angular/core';
-import { ThyClickDispatcher } from './event-dispatchers';
+import { ThyClickDispatcher } from './event-dispatchers/index';
 
 export interface ThyClickPosition {
     x: number;

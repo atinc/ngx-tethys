@@ -14,15 +14,15 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ThyTreeSelectNode, ThyTreeSelectType } from './tree-select.class';
-import { isObject, isArray } from '../util/helpers';
+import { isObject, isArray } from 'ngx-tethys/util/helpers';
 import { Observable, of } from 'rxjs';
 import { CdkOverlayOrigin, CdkConnectedOverlay, ConnectionPositionPair } from '@angular/cdk/overlay';
-import { getFlexiblePositions } from '../core/overlay';
-import { ThyTreeNode } from '../tree/tree-node.class';
+import { getFlexiblePositions } from 'ngx-tethys/core';
+import { ThyTreeNode } from 'ngx-tethys/tree';
 
 import { take } from 'rxjs/operators';
-import { produce } from '../util';
-import { warnDeprecation } from '../core';
+import { produce } from 'ngx-tethys/util';
+import { warnDeprecation } from 'ngx-tethys/core/logger';
 
 type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -71,10 +71,10 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
 
     public valueIsObject = false;
 
-    @ContentChild('thyTreeSelectTriggerDisplay', { static: false })
+    @ContentChild('thyTreeSelectTriggerDisplay')
     thyTreeSelectTriggerDisplayRef: TemplateRef<any>;
 
-    @ContentChild('treeNodeTemplate', { static: false })
+    @ContentChild('treeNodeTemplate')
     treeNodeTemplateRef: TemplateRef<any>;
 
     @ViewChild(CdkOverlayOrigin, { static: true }) cdkOverlayOrigin: CdkOverlayOrigin;

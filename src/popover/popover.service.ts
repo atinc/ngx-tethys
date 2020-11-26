@@ -7,16 +7,7 @@ import {
     ScrollDispatcher,
     OverlayContainer
 } from '@angular/cdk/overlay';
-import {
-    TemplateRef,
-    ViewContainerRef,
-    Injectable,
-    ElementRef,
-    Injector,
-    OnDestroy,
-    Inject,
-    NgZone
-} from '@angular/core';
+import { TemplateRef, ViewContainerRef, Injectable, ElementRef, Injector, OnDestroy, Inject, NgZone } from '@angular/core';
 import { coerceElement, coerceArray } from '@angular/cdk/coercion';
 import { PortalInjector, ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
 import { ThyPopoverContainerComponent } from './popover-container.component';
@@ -24,23 +15,19 @@ import { ThyPopoverConfig, THY_POPOVER_DEFAULT_CONFIG } from './popover.config';
 import { ThyPopoverRef, ThyInternalPopoverRef } from './popover-ref';
 import { Directionality } from '@angular/cdk/bidi';
 import { of, Subject } from 'rxjs';
-import { getFlexiblePositions, ThyUpperOverlayService, ThyUpperOverlayRef } from '../core/overlay';
+import { getFlexiblePositions, ThyUpperOverlayService } from 'ngx-tethys/core';
 import { takeUntil } from 'rxjs/operators';
-import { helpers } from '../util';
+import { helpers } from 'ngx-tethys/util';
 import { popoverUpperOverlayOptions } from './popover.options';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { DOCUMENT } from '@angular/common';
 import { Platform } from '@angular/cdk/platform';
-import {
-    FlexibleConnectedPositionStrategy,
-    FlexibleConnectedPositionStrategyOrigin
-} from '../core/overlay/position/flexible-connected-position-strategy';
+import { FlexibleConnectedPositionStrategy, FlexibleConnectedPositionStrategyOrigin } from 'ngx-tethys/core';
 
 @Injectable({
     providedIn: 'root'
 })
-export class ThyPopover extends ThyUpperOverlayService<ThyPopoverConfig, ThyPopoverContainerComponent>
-    implements OnDestroy {
+export class ThyPopover extends ThyUpperOverlayService<ThyPopoverConfig, ThyPopoverContainerComponent> implements OnDestroy {
     private readonly ngUnsubscribe$ = new Subject();
 
     private originInstancesMap = new Map<
@@ -52,9 +39,7 @@ export class ThyPopover extends ThyUpperOverlayService<ThyPopoverConfig, ThyPopo
     >();
 
     private buildPositionStrategy<TData>(config: ThyPopoverConfig<TData>): PositionStrategy {
-        const origin: FlexibleConnectedPositionStrategyOrigin = config.originPosition
-            ? config.originPosition
-            : config.origin;
+        const origin: FlexibleConnectedPositionStrategyOrigin = config.originPosition ? config.originPosition : config.origin;
         // const positionStrategy = this.overlay.position().flexibleConnectedTo(origin);
         const positionStrategy = new FlexibleConnectedPositionStrategy(
             origin,
@@ -97,10 +82,7 @@ export class ThyPopover extends ThyUpperOverlayService<ThyPopoverConfig, ThyPopo
         return overlayConfig;
     }
 
-    protected attachUpperOverlayContainer(
-        overlay: OverlayRef,
-        config: ThyPopoverConfig<any>
-    ): ThyPopoverContainerComponent {
+    protected attachUpperOverlayContainer(overlay: OverlayRef, config: ThyPopoverConfig<any>): ThyPopoverContainerComponent {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
         const injector = new PortalInjector(userInjector || this.injector, new WeakMap([[ThyPopoverConfig, config]]));
         const containerPortal = new ComponentPortal(ThyPopoverContainerComponent, config.viewContainerRef, injector);

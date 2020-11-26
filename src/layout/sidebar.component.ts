@@ -1,6 +1,6 @@
 import { Component, HostBinding, Host, Optional, OnInit, Input, ViewChild, Renderer2, ElementRef, NgZone } from '@angular/core';
 import { ThyLayoutComponent } from './layout.component';
-import { coerceBooleanProperty } from '../util/helpers';
+import { coerceBooleanProperty } from 'ngx-tethys/util/helpers';
 
 const LG_WIDTH = 300;
 @Component({
@@ -25,6 +25,7 @@ export class ThySidebarComponent implements OnInit {
     @HostBinding('class.thy-layout-sidebar--clear-border-right') thyLayoutSidebarClearBorderRightClass = false;
 
     @HostBinding('style.width.px') thyLayoutSidebarWidth: number;
+    @HostBinding('style.pointer-events') thyLayoutSidebarPointerEvents: string;
 
     @HostBinding('class.thy-layout-sidebar-isolated') sidebarIsolated = false;
 
@@ -50,7 +51,7 @@ export class ThySidebarComponent implements OnInit {
     @Input('thyIsDraggableWidth')
     set thyIsDraggableWidth(value: any) {
         if (coerceBooleanProperty(value)) {
-            this.renderer.setStyle(this.dragRef.nativeElement, 'pointer-events', 'all');
+            this.thyLayoutSidebarPointerEvents = 'all';
         }
     }
 

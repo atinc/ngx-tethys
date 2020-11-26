@@ -10,7 +10,7 @@ import {
     TemplateRef,
     ContentChild
 } from '@angular/core';
-import { helpers } from '../util';
+import { helpers } from 'ngx-tethys/util';
 import { isPlatformBrowser } from '@angular/common';
 
 @Component({
@@ -54,7 +54,7 @@ export class ThySkeletonComponent implements OnInit, OnChanges {
 
     @Input() thyLoadingDone = false;
 
-    @ContentChild('content', { static: false })
+    @ContentChild('content')
     customTemplate: TemplateRef<any>;
 
     contentTemplates: TemplateRef<any>[] = [];

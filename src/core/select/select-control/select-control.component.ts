@@ -10,9 +10,9 @@ import {
     OnInit,
     ChangeDetectionStrategy
 } from '@angular/core';
-import { UpdateHostClassService } from '../../../shared';
+import { UpdateHostClassService } from 'ngx-tethys/shared';
 import { SelectOptionBase } from '../../option/select-option-base';
-import { isArray, isUndefinedOrNull } from '../../../util/helpers';
+import { isArray, isUndefinedOrNull } from 'ngx-tethys/util/helpers';
 
 export type SelectControlSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -149,7 +149,7 @@ export class ThySelectControlComponent implements OnInit {
     @Output()
     public thyOnClear = new EventEmitter<Event>();
 
-    @ViewChild('inputElement', { static: false })
+    @ViewChild('inputElement')
     inputElement: ElementRef;
 
     get selectedValueStyle(): { [key: string]: string } {

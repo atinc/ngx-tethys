@@ -1,12 +1,8 @@
 import { Injectable } from '@angular/core';
 import { NgForm, AbstractControl, ValidationErrors } from '@angular/forms';
-import { helpers } from '../util';
-import {
-    ThyFormValidatorLoader,
-    ERROR_VALUE_REPLACE_REGEX
-} from './form-validator-loader';
+import { ThyFormValidatorLoader, ERROR_VALUE_REPLACE_REGEX } from './form-validator-loader';
 import { ThyFormValidatorConfig } from './form.class';
-import { Dictionary } from '../typings';
+import { Dictionary } from 'ngx-tethys/typings';
 
 @Injectable()
 export class ThyFormValidatorService {
@@ -43,10 +39,7 @@ export class ThyFormValidatorService {
 
     private _tryGetValidation(name: string) {
         if (!this.validations[name]) {
-            this._initializeFormControlValidation(
-                name,
-                this._ngForm.controls[name]
-            );
+            this._initializeFormControlValidation(name, this._ngForm.controls[name]);
         }
         return this.validations[name];
     }
@@ -59,10 +52,7 @@ export class ThyFormValidatorService {
         this.errors = [];
     }
 
-    private _initializeFormControlValidation(
-        name: string,
-        control: AbstractControl
-    ) {
+    private _initializeFormControlValidation(name: string, control: AbstractControl) {
         this.validations[name] = {
             hasError: false,
             errorMessages: []
@@ -84,17 +74,11 @@ export class ThyFormValidatorService {
     private _formatValidationMessage(name: string, message: string) {
         const control = this._ngForm.controls[name];
         if (control) {
-            return message.replace(
-                ERROR_VALUE_REPLACE_REGEX,
-                (tag, key) => {
-                    if (key) {
-                        return (
-                            control.errors[key][key] ||
-                            control.errors[key].requiredLength
-                        );
-                    }
+            return message.replace(ERROR_VALUE_REPLACE_REGEX, (tag, key) => {
+                if (key) {
+                    return control.errors[key][key] || control.errors[key].requiredLength;
                 }
-            );
+            });
         } else {
             return message;
         }
@@ -110,24 +94,16 @@ export class ThyFormValidatorService {
         ) {
             message = this._config.validationMessages[name][validationError];
         } else {
-            message = this.thyFormValidateLoader.getErrorMessage(
-                name,
-                validationError
-            );
+            message = this.thyFormValidateLoader.getErrorMessage(name, validationError);
         }
         return this._formatValidationMessage(name, message);
     }
 
-    private _getValidationMessages(
-        name: string,
-        validationErrors: ValidationErrors
-    ) {
+    private _getValidationMessages(name: string, validationErrors: ValidationErrors) {
         const messages = [];
         for (const validationError in validationErrors) {
             if (validationErrors.hasOwnProperty(validationError)) {
-                messages.push(
-                    this._getValidationMessage(name, validationError)
-                );
+                messages.push(this._getValidationMessage(name, validationError));
             }
         }
         return messages;
@@ -137,10 +113,7 @@ export class ThyFormValidatorService {
         const validation = this._tryGetValidation(name);
         validation.errorMessages = errorMessages;
         validation.hasError = true;
-        this.thyFormValidateLoader.showError(
-            this._getElement(name),
-            errorMessages
-        );
+        this.thyFormValidateLoader.showError(this._getElement(name), errorMessages);
     }
 
     constructor(private thyFormValidateLoader: ThyFormValidatorLoader) {}
@@ -158,10 +131,7 @@ export class ThyFormValidatorService {
         this._clearElementError(name);
         const control = this._ngForm.controls[name];
         if (control && control.invalid) {
-            const errorMessages = this._getValidationMessages(
-                name,
-                control.errors
-            );
+            const errorMessages = this._getValidationMessages(name, control.errors);
             this._setControlValidationError(name, errorMessages);
         }
     }

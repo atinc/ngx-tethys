@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ThyAvatarComponent } from './avatar.component';
 import { AvatarPipes } from './avatar.pipe';
 import { ThyAvatarService, ThyDefaultAvatarService } from './avatar.service';
-import { ThyIconModule } from '../icon';
+import { ThyIconModule } from 'ngx-tethys/icon';
 
 @NgModule({
     declarations: [ThyAvatarComponent, AvatarPipes],

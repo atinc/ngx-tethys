@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ThySharedModule } from '../shared';
+import { ThySharedModule } from 'ngx-tethys/shared';
 import { ThyStatisticComponent } from './statistic.component';
-import { ThyIconModule } from '../icon';
+import { ThyIconModule } from 'ngx-tethys/icon';
 
 @NgModule({
     declarations: [ThyStatisticComponent],

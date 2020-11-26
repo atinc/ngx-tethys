@@ -1,5 +1,4 @@
 import { Directive, HostBinding, Input, Component, HostListener, ViewEncapsulation, ElementRef } from '@angular/core';
-import { coerceBooleanProperty } from '../util/helpers';
 import { fromEvent } from 'rxjs';
 import { debounceTime, shareReplay } from 'rxjs/operators';
 

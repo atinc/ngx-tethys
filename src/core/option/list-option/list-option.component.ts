@@ -13,8 +13,7 @@ import {
 } from '@angular/core';
 import { FocusableOption, FocusOrigin, Highlightable } from '@angular/cdk/a11y';
 // import { SelectionModel } from '@angular/cdk/collections';
-import { coerceBooleanProperty } from '../../../util/helpers';
-import { UpdateHostClassService } from '../../../shared';
+import { coerceBooleanProperty } from 'ngx-tethys/util/helpers';
 import { IThyListOptionParentComponent, THY_LIST_OPTION_PARENT_COMPONENT } from '../option.token';
 
 let _uniqueIdCounter = 0;

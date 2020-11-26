@@ -1,5 +1,5 @@
 import { Component, OnInit, HostBinding, Input, Output, EventEmitter, ElementRef, ViewChild } from '@angular/core';
-import { ThyPopBoxService } from '../../pop-box';
+import { ThyPopBoxService } from 'ngx-tethys/pop-box';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { ComponentType } from '@angular/cdk/portal';
 import { ThyMenuComponent } from '../menu.component';

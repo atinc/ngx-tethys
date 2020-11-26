@@ -5,14 +5,14 @@ import { ThyFormDirective } from './form.directive';
 import { ThyFormGroupComponent } from './form-group.component';
 import { ThyFormGroupLabelDirective } from './form-group-label.directive';
 import { ThyFormSubmitDirective } from './form-submit.directive';
-import { ThyInputModule } from '../input/module';
+import { ThyInputModule } from 'ngx-tethys/input';
 import { ThyFormGroupFooterComponent } from './from-group-footer/form-group-footer.component';
 import { ThyFormGroupErrorComponent } from './form-group-error/form-group-error.component';
 import { ThyFormValidatorLoader } from './form-validator-loader';
 import { ThyFormValidatorGlobalConfig, THY_VALIDATOR_CONFIG, THY_FORM_CONFIG, THY_FORM_CONFIG_PROVIDER } from './form.class';
-import { ThyUniqueCheckValidator, ThyMaxDirective, ThyMinDirective, ThyConfirmValidatorDirective } from './validator';
-import { ThyAlertModule } from '../alert/alert.module';
-import { ThyIconModule } from '../icon/icon.module';
+import { ThyUniqueCheckValidator, ThyMaxDirective, ThyMinDirective, ThyConfirmValidatorDirective } from './validator/index';
+import { ThyAlertModule } from 'ngx-tethys/alert';
+import { ThyIconModule } from 'ngx-tethys/icon';
 
 @NgModule({
     imports: [CommonModule, FormsModule, ThyInputModule, ThyAlertModule, ThyIconModule],
@@ -43,8 +43,7 @@ import { ThyIconModule } from '../icon/icon.module';
     providers: [ThyFormValidatorLoader, THY_FORM_CONFIG_PROVIDER]
 })
 export class ThyFormModule {
-    static ModuleWithProviders: any;
-    static forRoot(config: ThyFormValidatorGlobalConfig): ModuleWithProviders {
+    static forRoot(config: ThyFormValidatorGlobalConfig): ModuleWithProviders<ThyFormModule> {
         return {
             ngModule: ThyFormModule,
             providers: [

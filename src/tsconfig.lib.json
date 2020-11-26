@@ -14,10 +14,14 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "types": [],
-    "lib": ["dom", "es2015"]
+    "lib": ["dom", "ES2017"],
+    "paths": {
+      "ngx-tethys/*": ["./*"],
+      "ngx-tethys/util/helpers": ["./util/helpers"],
+      "ngx-tethys/core/logger": ["./core/logger"]
+    }
   },
   "angularCompilerOptions": {
-    "annotateForClosureCompiler": true,
     "skipTemplateCodegen": true,
     "strictMetadataEmit": true,
     "fullTemplateTypeCheck": true,

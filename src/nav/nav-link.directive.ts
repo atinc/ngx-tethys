@@ -1,5 +1,5 @@
 import { Component, Directive, ElementRef, Renderer2, Input, HostBinding } from '@angular/core';
-import { coerceBooleanProperty } from '../util/helpers';
+import { coerceBooleanProperty } from 'ngx-tethys/util/helpers';
 
 export type ThyNavLink = '' | 'active';
 

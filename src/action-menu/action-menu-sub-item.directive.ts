@@ -10,11 +10,9 @@ import {
     AfterViewInit,
     OnDestroy
 } from '@angular/core';
-import { ThyActionMenuComponent } from './action-menu.component';
-import { UpdateHostClassService } from '../shared';
-import { ThyPositioningService } from '../positioning';
+import { ThyPositioningService } from 'ngx-tethys/positioning';
 import { ThyActionMenuItemDirective } from './action-menu-item.directive';
-import { mixinUnsubscribe, MixinBase } from '../core';
+import { mixinUnsubscribe, MixinBase } from 'ngx-tethys/core';
 import { takeUntil } from 'rxjs/operators';
 
 type SubMenuDirection = 'left' | 'right' | 'auto';

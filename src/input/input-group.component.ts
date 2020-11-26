@@ -1,5 +1,5 @@
 import { Component, HostBinding, Input, ContentChild, TemplateRef, ElementRef, ViewEncapsulation } from '@angular/core';
-import { ThyTranslate, UpdateHostClassService } from '../shared';
+import { ThyTranslate, UpdateHostClassService } from 'ngx-tethys/shared';
 
 export type InputGroupSize = 'sm' | 'lg' | '';
 
@@ -54,9 +54,9 @@ export class ThyInputGroupComponent {
         }
     }
 
-    @ContentChild('append', { static: false }) appendTemplate: TemplateRef<any>;
+    @ContentChild('append') appendTemplate: TemplateRef<any>;
 
-    @ContentChild('prepend', { static: false }) prependTemplate: TemplateRef<any>;
+    @ContentChild('prepend') prependTemplate: TemplateRef<any>;
 
     constructor(
         private thyTranslate: ThyTranslate,

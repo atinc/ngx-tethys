@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
 
 import { ThyListOptionComponent } from './list-option/list-option.component';
 import { ThyOptionGroupComponent } from './option-group.component';
-import { ThyIconModule } from '../../icon';
+import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyOptionComponent } from './option.component';
 import { ThySelectOptionGroupComponent } from './group/option-group.component';
 

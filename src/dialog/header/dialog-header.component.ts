@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { ThyDialog } from '../dialog.service';
 import { ThyDialogContainerComponent } from '../dialog-container.component';
-import { ThyTranslate } from '../../shared';
+import { ThyTranslate } from 'ngx-tethys/shared';
 import { ThyInternalDialogRef } from '../dialog-ref';
 
 @Component({
@@ -27,7 +27,7 @@ export class DialogHeaderComponent implements OnInit {
 
     @HostBinding(`class.dialog-header-lg`) isDialogHeaderLg = false;
 
-    @ContentChild('dialogHeader', { static: false })
+    @ContentChild('dialogHeader')
     public headerTemplate: TemplateRef<any>;
 
     @Input() thyTitle: string;

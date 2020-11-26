@@ -1,7 +1,7 @@
-import { ArrayInferExtract } from '../util/references';
+import { ArrayInferExtract } from 'ngx-tethys/util';
 
 export type ReferencesIdDictionary<TReferences> = {
-    [key in keyof TReferences]?: { [key: string]: ArrayInferExtract<TReferences[key]> }
+    [key in keyof TReferences]?: { [key: string]: ArrayInferExtract<TReferences[key]> };
 };
 
 export type OnCombineRefsFn<TEntity, TReferences> = (
@@ -11,9 +11,5 @@ export type OnCombineRefsFn<TEntity, TReferences> = (
 ) => void;
 
 export interface OnCombineRefs<TEntity, TReferences> {
-    onCombineRefs(
-        entity: TEntity,
-        referencesIdMap: ReferencesIdDictionary<TReferences>,
-        references?: TReferences
-    ): void;
+    onCombineRefs(entity: TEntity, referencesIdMap: ReferencesIdDictionary<TReferences>, references?: TReferences): void;
 }

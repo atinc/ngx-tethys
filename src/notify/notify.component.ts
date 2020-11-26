@@ -1,7 +1,7 @@
 import { Component, Input, HostBinding, OnInit, HostListener, OnDestroy, NgZone } from '@angular/core';
 import { NotifyPlacement, ThyNotifyOption } from './notify-option.interface';
 import { trigger, state, style, animate, transition } from '@angular/animations';
-import { UpdateHostClassService } from '../shared/update-host-class.service';
+import { UpdateHostClassService } from 'ngx-tethys/shared';
 import { NotifyQueueStore } from './notify-queue.store';
 
 const ANIMATION_IN_DURATION = 100;

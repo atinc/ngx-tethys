@@ -1,16 +1,6 @@
-import {
-    Component,
-    Input,
-    HostBinding,
-    ElementRef,
-    ViewEncapsulation,
-    InjectionToken,
-    Inject,
-    Host,
-    TemplateRef
-} from '@angular/core';
+import { Component, Input, HostBinding, ElementRef, ViewEncapsulation, InjectionToken, Inject, Host, TemplateRef } from '@angular/core';
 import { ThyProgressTypes } from '../interfaces';
-import { UpdateHostClassService } from '../../shared';
+import { UpdateHostClassService } from 'ngx-tethys/shared';
 
 export interface ThyParentProgress {
     max: number;

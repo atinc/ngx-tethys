@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 
 import { PanelMode } from '../../standard-types';
-import { TinyDate } from '../../../util';
+import { TinyDate } from 'ngx-tethys/util';
 import { DateHelperService, DateHelperByDatePipe } from '../../date-helper.service';
 
 @Component({

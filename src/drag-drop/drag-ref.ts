@@ -4,16 +4,10 @@ import { Subject, fromEvent } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ThyDragHandleDirective } from './drag-handle.directive';
 import { ThyDragDropService } from './drag-drop.service';
-import {
-    ThyDragStartEvent,
-    ThyDragEndEvent,
-    ThyDragOverEvent,
-    ThyDragDropEvent,
-    ThyDropPosition
-} from './drag-drop.class';
+import { ThyDragStartEvent, ThyDragEndEvent, ThyDragOverEvent, ThyDragDropEvent, ThyDropPosition } from './drag-drop.class';
 import { ThyDragDirective } from './drag.directive';
 import { IThyDropContainerDirective } from './drop-container.class';
-import { coerceArray } from '../util/helpers';
+import { coerceArray } from 'ngx-tethys/util/helpers';
 
 const dropPositionClass = {
     [ThyDropPosition.in]: 'thy-drop-position-in',
@@ -114,11 +108,7 @@ export class DragRef<T = any> {
             containerItems: this.container.data,
             currentIndex: this.container.data.indexOf(this.drag.data)
         };
-        if (
-            this.disabled ||
-            !this.isTriggerHandle() ||
-            (this.container.beforeStart && !this.container.beforeStart(dragStartEvent))
-        ) {
+        if (this.disabled || !this.isTriggerHandle() || (this.container.beforeStart && !this.container.beforeStart(dragStartEvent))) {
             event.preventDefault();
             return false;
         }
@@ -132,8 +122,7 @@ export class DragRef<T = any> {
         if (this.handles && this.handles.length > 0) {
             const targetHandle = this.handles.find(handle => {
                 return (
-                    !handle.disabled &&
-                    (handle.element.nativeElement === this.target || handle.element.nativeElement.contains(this.target))
+                    !handle.disabled && (handle.element.nativeElement === this.target || handle.element.nativeElement.contains(this.target))
                 );
             });
             return !!targetHandle;
@@ -202,10 +191,7 @@ export class DragRef<T = any> {
             position: this.calcDropPosition(event),
             ...this.getPreviousEventData()
         };
-        if (
-            this.dragDropService.previousDrag === this.drag ||
-            (this.container.beforeDrop && !this.container.beforeDrop(dragDropEvent))
-        ) {
+        if (this.dragDropService.previousDrag === this.drag || (this.container.beforeDrop && !this.container.beforeDrop(dragDropEvent))) {
             event.preventDefault();
             return;
         }

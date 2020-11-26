@@ -11,10 +11,10 @@ import {
     ChangeDetectorRef
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { ThyTranslate } from '../shared';
-import { ThyFormCheckBaseComponent } from '../shared';
+import { ThyTranslate } from 'ngx-tethys/shared';
+import { ThyFormCheckBaseComponent } from 'ngx-tethys/shared';
 import { ThyRadioGroupComponent } from './group/radio-group.component';
-import { coerceBooleanProperty } from '../util/helpers';
+import { coerceBooleanProperty } from 'ngx-tethys/util/helpers';
 
 @Component({
     selector: '[thy-radio],[thyRadio]',

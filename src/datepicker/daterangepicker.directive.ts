@@ -17,12 +17,11 @@ import { ComponentLoaderFactory, ComponentLoader } from 'ngx-bootstrap/component
 import { DatepickerValueEntry, DatepickerValueShowTypesEnum, DatepickerFormatRules } from './i.datepicker';
 import { ThyDatepickerService } from './datepicker.service';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { isObject, isNumber, isDate, coerceBooleanProperty } from '../util/helpers';
 import { daterangepickerUtilIdentificationValueType, daterangepickerUtilConvertToDaterangepickerObject } from './util';
 import { ThyDaterangepickerContainerComponent } from './daterangepicker-container.component';
-import { ThyPositioningService } from '../positioning/positioning.service';
+import { ThyPositioningService } from 'ngx-tethys/positioning';
 import { ThyDaterangepickerConfig } from './daterangepicker.config';
-import { warnDeprecation } from '../core/logger';
+import { warnDeprecation } from 'ngx-tethys/core/logger';
 
 const DATEPICKER_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,

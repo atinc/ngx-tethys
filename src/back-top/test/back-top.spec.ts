@@ -243,7 +243,7 @@ class TestBackTopComponent {
     `
 })
 class TestBackTopTemplateComponent {
-    @ViewChild(ThyBackTopComponent, { static: false })
+    @ViewChild(ThyBackTopComponent)
     thyBackTopComponent!: ThyBackTopComponent;
 }
 

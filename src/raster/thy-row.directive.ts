@@ -1,7 +1,7 @@
 import { Directive, HostBinding, Input, Renderer2, OnChanges, OnInit, AfterViewInit, OnDestroy, ElementRef } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
-import { mixinUnsubscribe, MixinBase } from '../core';
-import { isString } from '../util/helpers';
+import { mixinUnsubscribe, MixinBase } from 'ngx-tethys/core';
+import { isString } from 'ngx-tethys/util/helpers';
 
 export type ThyRowJustify = 'start' | 'end' | 'center' | 'space-around' | 'space-between';
 export type ThyRowAlign = 'top' | 'middle' | 'bottom';

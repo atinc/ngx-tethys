@@ -1,20 +1,11 @@
-import {
-    Component,
-    Input,
-    TemplateRef,
-    ElementRef,
-    OnInit,
-    ViewContainerRef,
-    OnDestroy,
-    AfterContentInit
-} from '@angular/core';
+import { Component, Input, TemplateRef, ElementRef, OnInit, ViewContainerRef, OnDestroy, AfterContentInit } from '@angular/core';
 import { timer, Subject, Subscription } from 'rxjs';
-import { TooltipService } from '../tooltip/tooltip.service';
-import { UpdateHostClassService } from '../shared/update-host-class.service';
+import { TooltipService } from 'ngx-tethys/tooltip';
+import { UpdateHostClassService } from 'ngx-tethys/shared';
 import { ContentObserver } from '@angular/cdk/observers';
 import { debounceTime } from 'rxjs/operators';
-import { ThyPlacement } from '../core/overlay';
-import { isUndefinedOrNull } from '../util/helpers';
+import { ThyPlacement } from 'ngx-tethys/core';
+import { isUndefinedOrNull } from 'ngx-tethys/util/helpers';
 
 @Component({
     selector: 'thy-flexible-text,[thyFlexibleText]',
@@ -80,6 +71,7 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
     }
 
     ngAfterContentInit() {
+        this.applyOverflow();
         this.subscription = this.contentObserver
             .observe(this.elementRef)
             .pipe(debounceTime(100))

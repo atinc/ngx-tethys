@@ -1,0 +1,9 @@
+{
+  "$schema": "../../node_modules/ng-packagr/package.schema.json",
+  "ngPackage": {
+    "deleteDestPath": true,
+    "lib": {
+      "entryFile": "index.ts"
+    }
+  }
+}

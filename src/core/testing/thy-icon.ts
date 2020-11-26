@@ -39,7 +39,7 @@ export const defaultSvgHtml = `
 </svg>`;
 
 export const injectDefaultSvgIconSet = () => {
-    inject([ThyIconRegistry], (iconRegistry: ThyIconRegistry) => {
-        iconRegistry.addSvgIconSetLiteral(defaultInlineIconSet);
+    inject([ThyIconRegistry, DomSanitizer], (iconRegistry: ThyIconRegistry, domSanitizer: DomSanitizer) => {
+        iconRegistry.addSvgIconSetLiteral(domSanitizer.bypassSecurityTrustHtml(defaultInlineIconSet));
     })();
 };

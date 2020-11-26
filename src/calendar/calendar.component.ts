@@ -15,9 +15,9 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { InputBoolean } from '../core';
-import { DateRangeItemInfo } from '../date-range';
-import { TinyDate } from '../util';
+import { InputBoolean } from 'ngx-tethys/core';
+import { DateRangeItemInfo } from 'ngx-tethys/date-range';
+import { TinyDate } from 'ngx-tethys/util';
 import {
     ThyDateCellDirective as DateCell,
     ThyDateFullCellDirective as DateFullCell,
@@ -60,31 +60,31 @@ export class ThyCalendarComponent implements OnInit, OnChanges {
     @Output() thyDateRangeChange: EventEmitter<DateRangeItemInfo> = new EventEmitter();
 
     @Input() thyDateCell?: CalendarDateTemplate;
-    @ContentChild(DateCell, { static: false, read: TemplateRef }) thyDateCellChild?: CalendarDateTemplate;
+    @ContentChild(DateCell, { read: TemplateRef }) thyDateCellChild?: CalendarDateTemplate;
     get dateCell(): CalendarDateTemplate {
         return (this.thyDateCell || this.thyDateCellChild)!;
     }
 
     @Input() thyDateFullCell?: CalendarDateTemplate;
-    @ContentChild(DateFullCell, { static: false, read: TemplateRef }) thyDateFullCellChild?: CalendarDateTemplate;
+    @ContentChild(DateFullCell, { read: TemplateRef }) thyDateFullCellChild?: CalendarDateTemplate;
     get dateFullCell(): CalendarDateTemplate {
         return (this.thyDateFullCell || this.thyDateFullCellChild)!;
     }
 
     @Input() thyMonthCell?: CalendarDateTemplate;
-    @ContentChild(MonthCell, { static: false, read: TemplateRef }) thyMonthCellChild?: CalendarDateTemplate;
+    @ContentChild(MonthCell, { read: TemplateRef }) thyMonthCellChild?: CalendarDateTemplate;
     get monthCell(): CalendarDateTemplate {
         return (this.thyMonthCell || this.thyMonthCellChild)!;
     }
 
     @Input() thyMonthFullCell?: CalendarDateTemplate;
-    @ContentChild(MonthFullCell, { static: false, read: TemplateRef }) thyMonthFullCellChild?: CalendarDateTemplate;
+    @ContentChild(MonthFullCell, { read: TemplateRef }) thyMonthFullCellChild?: CalendarDateTemplate;
     get monthFullCell(): CalendarDateTemplate {
         return (this.thyMonthFullCell || this.thyMonthFullCellChild)!;
     }
 
     @Input() thyCalendarHeaderOperation?: CalendarDateTemplate;
-    @ContentChild(HeaderOperation, { static: false, read: TemplateRef }) thyCalendarHeaderOperationChild?: CalendarDateTemplate;
+    @ContentChild(HeaderOperation, { read: TemplateRef }) thyCalendarHeaderOperationChild?: CalendarDateTemplate;
     get headerOperation(): CalendarDateTemplate {
         return (this.thyCalendarHeaderOperation || this.thyCalendarHeaderOperationChild)!;
     }

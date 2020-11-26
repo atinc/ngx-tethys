@@ -9,15 +9,15 @@
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss",
-          "spec": false,
-          "prefix": "demo",
-          "styleext": "scss"
+          "skipTests": true,
+          "prefix": "demo"
         }
       },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist/doc-site",
             "index": "demo/src/index.html",
             "main": "demo/src/main.ts",
@@ -46,6 +46,12 @@
           },
           "configurations": {
             "production": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "src": "demo/src/environments/environment.ts",
@@ -123,7 +129,8 @@
           },
           "configurations": {
             "production": {
-              "project": "src/ng-package.prod.json"
+              "project": "src/ng-package.prod.json",
+              "tsConfig": "src/tsconfig.lib.prod.json"
             }
           }
         },
@@ -166,7 +173,7 @@
             "main": "site/src/main.ts",
             "polyfills": "site/src/polyfills.ts",
             "tsConfig": "site/tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
               "site/src/favicon.ico",
               "site/src/assets",
@@ -192,7 +199,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -264,5 +270,8 @@
       }
     }
   },
-  "defaultProject": "ngx-tethys"
+  "defaultProject": "ngx-tethys",
+  "cli": {
+    "analytics": "320b41d2-079c-4f3e-9bb4-38b51babf41c"
+  }
 }

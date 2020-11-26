@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
-import { ThyButtonModule } from '../button/button.module';
+import { ThyButtonModule } from 'ngx-tethys/button';
 
 import { ThyDatepickerFormatPipe } from './pipe';
 import { ThyDatepickerDirective } from './datepicker.directive';

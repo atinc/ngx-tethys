@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ContentChild, TemplateRef, HostBinding } from '@angular/core';
-import { helpers } from '../util';
-import { Dictionary } from '../typings';
+import { helpers } from 'ngx-tethys/util';
+import { Dictionary } from 'ngx-tethys/typings';
 type ThyAlertType = 'success' | 'warning' | 'danger' | 'info' | 'primary-week' | 'success-week' | 'warning-week' | 'danger-week';
 
 @Component({
@@ -44,7 +44,7 @@ export class ThyAlertComponent implements OnInit {
 
     @Input() thyCloseable: boolean;
 
-    @ContentChild('operation', { static: false }) alertOperation: TemplateRef<any>;
+    @ContentChild('operation') alertOperation: TemplateRef<any>;
 
     // @ViewChild(TemplateRef) content: TemplateRef<any>;
 

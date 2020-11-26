@@ -1,7 +1,6 @@
-import { ThyButtonType } from '../button/button.component';
+import { ThyButtonType } from 'ngx-tethys/button';
 
 export interface ConfirmOption {
-
     title?: string;
 
     content?: string;
@@ -13,20 +12,15 @@ export interface ConfirmOption {
     ignoreBackdropClick?: boolean;
 
     buttons?: ConfirmButtonsOption;
-
 }
 
 export interface ConfirmButtonsOption {
-
     confirm?: ConfirmButtonsConfirmOption;
 
     decline?: ConfirmButtonsDeclineOption;
-
 }
 
-
 export interface ConfirmButtonsConfirmOption {
-
     text?: string;
 
     loadingText?: string;
@@ -34,23 +28,18 @@ export interface ConfirmButtonsConfirmOption {
     type?: ThyButtonType;
 
     action?: Function;
-
 }
 
 export interface ConfirmButtonsDeclineOption {
-
     hidden?: boolean;
 
     type?: ThyButtonType;
 
     action?: Function;
-
 }
 
 export interface ContentKeyParams {
-
     content: string;
 
     params: object;
-
 }

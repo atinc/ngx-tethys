@@ -1,5 +1,5 @@
 import { Injectable, Renderer2, ElementRef } from '@angular/core';
-import { Dictionary } from '../typings';
+import { Dictionary } from 'ngx-tethys/typings';
 
 @Injectable()
 export class UpdateHostClassService {

@@ -5,6 +5,15 @@ export const mermaid = (window as any).mermaid;
 export const liteMarked = (window as any).liteMarked;
 export const $ = (window as any).$;
 export const katex = (window as any).katex;
+
+// google code-prettify
+
+export declare module jasmine {
+    interface Matchers<T> {
+        toHaveCssClass(expected: any): boolean;
+    }
+}
+
 export declare interface Dictionary<T> {
     [key: string]: T;
 }
@@ -16,12 +25,11 @@ export declare interface NumericDictionary<T> {
 export declare interface Id {
     toString(): string;
 }
-
-export interface IndexableObject {
+export declare interface IndexableObject {
     [key: string]: any;
 }
 
-export interface SimpleRect {
+export declare interface SimpleRect {
     top: number;
     left: number;
     width?: number;

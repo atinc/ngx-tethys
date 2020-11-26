@@ -15,7 +15,7 @@ import {
     OnInit
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { UpdateHostClassService } from '../shared';
+import { UpdateHostClassService } from 'ngx-tethys/shared';
 import { take } from 'rxjs/operators';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
@@ -61,9 +61,9 @@ export class ThyInputComponent implements ControlValueAccessor, OnInit {
 
     @Output() blur: EventEmitter<Event> = new EventEmitter<Event>();
 
-    @ContentChild('append', { static: false }) appendTemplate: TemplateRef<any>;
+    @ContentChild('append') appendTemplate: TemplateRef<any>;
 
-    @ContentChild('prepend', { static: false }) prependTemplate: TemplateRef<any>;
+    @ContentChild('prepend') prependTemplate: TemplateRef<any>;
 
     @ViewChild('eye', { static: true }) eyeTemplate: TemplateRef<any>;
 

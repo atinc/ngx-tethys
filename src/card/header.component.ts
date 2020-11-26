@@ -1,5 +1,4 @@
 import { Component, HostBinding, Input, OnInit, TemplateRef, Optional, ViewChild, ContentChild, ViewContainerRef } from '@angular/core';
-import { coerceBooleanProperty } from '../util/helpers';
 @Component({
     selector: 'thy-card-header',
     preserveWhitespaces: false,
@@ -24,13 +23,13 @@ export class ThyCardHeaderComponent implements OnInit {
         this._thySizeLg = value === 'lg';
     }
 
-    @ContentChild('headerTitle', { static: false })
+    @ContentChild('headerTitle')
     public titleTemplateRef: TemplateRef<any>;
 
-    @ContentChild('headerDescription', { static: false })
+    @ContentChild('headerDescription')
     public descriptionTemplateRef: TemplateRef<any>;
 
-    @ContentChild('headerOperation', { static: false })
+    @ContentChild('headerOperation')
     public operationTemplateRef: TemplateRef<any>;
 
     constructor() {}

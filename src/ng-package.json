@@ -1,8 +1,8 @@
 {
-    "$schema": "../node_modules/ng-packagr/ng-package.schema.json",
-    "dest": "../built",
-    "deleteDestPath": false,
-    "lib": {
-        "entryFile": "public-api.ts"
-    }
+  "$schema": "../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../ngx-tethys",
+  "deleteDestPath": false,
+  "lib": {
+    "entryFile": "public-api.ts"
+  }
 }

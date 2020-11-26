@@ -1,6 +1,7 @@
 import { Store, Action } from '../../../../src/store';
 import { of } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
 
 export interface TaskInfo {
     id: number;
@@ -13,20 +14,19 @@ export interface ProjectInfo {
 }
 
 interface TasksState {
-
     tasks: TaskInfo[];
 
     project: {
-        detail: ProjectInfo,
+        detail: ProjectInfo;
         views: {
-            id: number,
-            name: string
-        }[]
+            id: number;
+            name: string;
+        }[];
     };
 }
 
+@Injectable()
 export class TasksStore extends Store<TasksState> {
-
     private getTaskNewId(): number {
         const maxTaskId = (this.snapshot.tasks || []).reduce((maxId, task) => {
             if (task.id > maxId) {
@@ -58,25 +58,28 @@ export class TasksStore extends Store<TasksState> {
             { id: 1, title: 'Todo 1' },
             { id: 2, title: 'Todo 2' }
         ];
-        return of(apiMockTasks)
-            .pipe(tap((tasks) => {
+        return of(apiMockTasks).pipe(
+            tap(tasks => {
                 this.snapshot.tasks = tasks;
-            }));
+            })
+        );
     }
 
     @Action()
     addTask(title: string) {
-        return of({ id: this.getTaskNewId(), title: title }).pipe(tap((task) => {
-            const state = this.snapshot;
-            // state.tasks = [...state.tasks, task];
-            state.tasks.push(task);
-            this.next(state);
-        }));
+        return of({ id: this.getTaskNewId(), title: title }).pipe(
+            tap(task => {
+                const state = this.snapshot;
+                // state.tasks = [...state.tasks, task];
+                state.tasks.push(task);
+                this.next(state);
+            })
+        );
     }
 
     @Action()
     updateTask(taskId: number, title: string) {
-        const updatedTask = this.snapshot.tasks.find((task) => {
+        const updatedTask = this.snapshot.tasks.find(task => {
             return task.id === taskId;
         });
         if (updatedTask) {

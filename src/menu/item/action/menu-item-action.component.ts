@@ -1,15 +1,5 @@
-import {
-    Component,
-    OnInit,
-    HostBinding,
-    HostListener,
-    ElementRef,
-    Input,
-    Output,
-    EventEmitter,
-    Renderer2
-} from '@angular/core';
-import { ThyPopBoxService } from '../../../pop-box';
+import { Component, OnInit, HostBinding, HostListener, ElementRef, Input, Output, EventEmitter, Renderer2 } from '@angular/core';
+import { ThyPopBoxService } from 'ngx-tethys/pop-box';
 import { ComponentType } from '@angular/cdk/portal';
 
 @Component({

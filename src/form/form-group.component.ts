@@ -1,8 +1,8 @@
 import { Component, HostBinding, Optional, Input, ViewEncapsulation, ContentChild, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThyFormDirective } from './form.directive';
-import { coerceBooleanProperty } from '../util/helpers';
+import { coerceBooleanProperty } from 'ngx-tethys/util/helpers';
 import { TemplateRef } from '@angular/core';
-import { ThyTranslate } from '../shared';
+import { ThyTranslate } from 'ngx-tethys/shared';
 import { ThyFormLayout } from './form.class';
 import { NgModel } from '@angular/forms';
 
@@ -81,7 +81,7 @@ export class ThyFormGroupComponent implements OnInit {
         this._rowFill = coerceBooleanProperty(value);
     }
 
-    @ContentChild('formGroup', { static: false })
+    @ContentChild('formGroup')
     public contentTemplateRef: TemplateRef<any>;
 
     constructor(@Optional() private thyParentForm: ThyFormDirective, private thyTranslate: ThyTranslate) {}

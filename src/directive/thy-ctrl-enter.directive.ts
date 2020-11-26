@@ -1,27 +1,13 @@
-import {
-    Directive,
-    Output,
-    ElementRef,
-    EventEmitter,
-    OnInit,
-    NgZone,
-    Renderer2
-} from '@angular/core';
-import { keycodes } from '../util';
+import { Directive, Output, ElementRef, EventEmitter, OnInit, NgZone, Renderer2 } from '@angular/core';
+import { keycodes } from 'ngx-tethys/util';
 
 @Directive({
     selector: '[thyCtrlEnter]'
 })
 export class ThyCtrlEnterDirective implements OnInit {
-
     @Output() thyCtrlEnter = new EventEmitter();
 
-    constructor(
-        private ngZone: NgZone,
-        private elementRef: ElementRef,
-        private renderer: Renderer2
-    ) {
-    }
+    constructor(private ngZone: NgZone, private elementRef: ElementRef, private renderer: Renderer2) {}
 
     onKeydown(event: KeyboardEvent) {
         const keyCode = event.which || event.keyCode;

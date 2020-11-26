@@ -1,17 +1,8 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    EventEmitter,
-    Input,
-    OnChanges,
-    Output,
-    SimpleChanges,
-    TemplateRef
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, TemplateRef } from '@angular/core';
 
 import { DisabledDateFn, PanelMode, SupportTimeOptions } from '../../standard-types';
-import { TinyDate } from '../../../util';
-import { FunctionProp } from '../../../util/helpers';
+import { TinyDate } from 'ngx-tethys/util';
+import { FunctionProp } from 'ngx-tethys/util/helpers';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,

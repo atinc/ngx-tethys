@@ -1,6 +1,6 @@
 import { ElementRef, ViewContainerRef, InjectionToken } from '@angular/core';
 import { Directionality } from '@angular/cdk/bidi';
-import { ThyPlacement, ThyUpperOverlayConfig } from '../core/overlay';
+import { ThyPlacement, ThyUpperOverlayConfig } from 'ngx-tethys/core';
 import { ScrollStrategy, PositionStrategy } from '@angular/cdk/overlay';
 
 export class ThyPopoverConfig<TData = any> extends ThyUpperOverlayConfig<TData> {

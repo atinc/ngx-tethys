@@ -1,7 +1,6 @@
 import { ElementRef } from '@angular/core';
 import * as helpers from './helpers';
-import { SimpleRect } from '../typings';
-
+import { SimpleRect } from 'ngx-tethys/typings';
 const proto = Element.prototype;
 const vendor =
     proto.matches ||

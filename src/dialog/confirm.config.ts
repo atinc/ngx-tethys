@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { InjectionToken } from '@angular/core';
-import { ThyFormGroupFooterAlign } from '../form';
+import { ThyFormGroupFooterAlign } from 'ngx-tethys/form';
 
 export interface ThyConfirmConfig {
     title?: string;
