@@ -1,13 +1,13 @@
 import { Component, ElementRef, ViewChild, Inject, ChangeDetectorRef, Renderer2, OnDestroy } from '@angular/core';
 import { CdkPortalOutlet } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
-import { ThyUpperOverlayContainer } from '../core/overlay';
+import { ThyUpperOverlayContainer } from 'ngx-tethys/core';
 import { Observable, Subject } from 'rxjs';
 import { AnimationEvent } from '@angular/animations';
 import { slideUpperOverlayOptions, ThySlideConfig, ThySlideFromTypes } from './slide.config';
 import { filter, map, takeUntil, startWith } from 'rxjs/operators';
 import { thySlideAnimations } from './slide-animations';
-import { helpers } from '../util';
+import { helpers } from 'ngx-tethys/util';
 import { ViewportRuler } from '@angular/cdk/overlay';
 
 @Component({

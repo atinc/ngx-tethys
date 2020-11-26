@@ -4,10 +4,10 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { ThyButtonModule } from '../button';
-import { ThyFormModule } from '../form';
-import { ThyIconModule } from '../icon/icon.module';
-import { ThySharedModule } from '../shared';
+import { ThyButtonModule } from 'ngx-tethys/button';
+import { ThyFormModule } from 'ngx-tethys/form';
+import { ThyIconModule } from 'ngx-tethys/icon';
+import { ThySharedModule } from 'ngx-tethys/shared';
 import { DialogBodyComponent } from './body/dialog-body.component';
 import { THY_CONFIRM_DEFAULT_OPTIONS_PROVIDER } from './confirm.config';
 import { ThyConfirmComponent } from './confirm/confirm.component';

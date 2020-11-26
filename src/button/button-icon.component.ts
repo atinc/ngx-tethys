@@ -1,7 +1,7 @@
 import { Component, Directive, HostBinding, Input, ElementRef, Renderer2, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { AfterContentInit, OnChanges, OnInit } from '@angular/core';
-import { coerceBooleanProperty, isUndefined } from '../util/helpers';
-import { UpdateHostClassService } from '../shared';
+import { coerceBooleanProperty, isUndefined } from 'ngx-tethys/util/helpers';
+import { UpdateHostClassService } from 'ngx-tethys/shared';
 
 export type IconShape = '' | 'dashed' | 'solid';
 
@@ -31,52 +31,11 @@ const themeClassesMap: any = {
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyButtonIconComponent implements OnInit {
-    private initialized = false;
-
-    private shape: IconShape;
-
-    private size: string;
-
-    iconPrefix = 'wtf';
-
-    iconClasses: string[];
-
-    icon: string;
-
-    theme: string;
-
-    svgIconName: string;
-
-    @HostBinding('class.btn') _isBtn = true;
-    @HostBinding('class.btn-icon') _isBtnIcon = true;
-    @HostBinding('class.btn-icon-light') _isLighted = false;
-    @HostBinding('class.btn-icon-active') _isActive = false;
-
-    private setIconClass(icon: string) {
-        if (icon) {
-            if (icon.includes('wtf')) {
-                const classes = icon.split(' ');
-                if (classes.length === 1) {
-                    classes.unshift('wtf');
-                }
-                this.iconClasses = classes;
-                this.svgIconName = null;
-            } else {
-                this.svgIconName = icon;
-            }
-        } else {
-            this.iconClasses = null;
-            this.svgIconName = null;
-        }
-    }
-
     @Input()
     set thySize(size: string) {
         this.size = size;
         this.setClasses();
     }
-
-    @Input() thyColor: string;
 
     // 字体前缀，默认 wtf
     @Input()
@@ -111,6 +70,50 @@ export class ThyButtonIconComponent implements OnInit {
         this.setClasses();
     }
 
+    constructor(elementRef: ElementRef, private updateHostClassService: UpdateHostClassService) {
+        this.updateHostClassService.initializeElement(elementRef.nativeElement);
+    }
+    private initialized = false;
+
+    private shape: IconShape;
+
+    private size: string;
+
+    iconPrefix = 'wtf';
+
+    iconClasses: string[];
+
+    icon: string;
+
+    theme: string;
+
+    svgIconName: string;
+
+    @HostBinding('class.btn') _isBtn = true;
+    @HostBinding('class.btn-icon') _isBtnIcon = true;
+    @HostBinding('class.btn-icon-light') _isLighted = false;
+    @HostBinding('class.btn-icon-active') _isActive = false;
+
+    @Input() thyColor: string;
+
+    private setIconClass(icon: string) {
+        if (icon) {
+            if (icon.includes('wtf')) {
+                const classes = icon.split(' ');
+                if (classes.length === 1) {
+                    classes.unshift('wtf');
+                }
+                this.iconClasses = classes;
+                this.svgIconName = null;
+            } else {
+                this.svgIconName = icon;
+            }
+        } else {
+            this.iconClasses = null;
+            this.svgIconName = null;
+        }
+    }
+
     private setClasses(first = false) {
         // 设置样式判断是否已经初始化，未初始化直接返回，除非是初次调用
         // 只有 ngOnInit 调用会传入 first = true
@@ -129,10 +132,6 @@ export class ThyButtonIconComponent implements OnInit {
             });
         }
         this.updateHostClassService.updateClass(classes);
-    }
-
-    constructor(elementRef: ElementRef, private updateHostClassService: UpdateHostClassService) {
-        this.updateHostClassService.initializeElement(elementRef.nativeElement);
     }
 
     ngOnInit() {

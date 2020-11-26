@@ -1,5 +1,4 @@
 import { Directive, Renderer2, Input, HostListener, ElementRef, OnInit, OnDestroy } from '@angular/core';
-import { coerceBooleanProperty } from '../util/helpers';
 
 /**
  * 将来会移动到 thy 组件库中

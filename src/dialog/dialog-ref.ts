@@ -4,20 +4,12 @@ import { Observable, Subject } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 import { ThyDialogConfig } from './dialog.config';
 import { ThyDialogContainerComponent } from './dialog-container.component';
-import { ThyUpperOverlayRef, ThyInternalUpperOverlayRef, ThyUpperOverlayPosition } from '../core/overlay';
+import { ThyUpperOverlayRef, ThyInternalUpperOverlayRef, ThyUpperOverlayPosition } from 'ngx-tethys/core';
 import { dialogUpperOverlayOptions } from './dialog.options';
 
-export abstract class ThyDialogRef<T, TResult = any> extends ThyUpperOverlayRef<
-    T,
-    ThyDialogContainerComponent,
-    TResult
-> {}
+export abstract class ThyDialogRef<T, TResult = any> extends ThyUpperOverlayRef<T, ThyDialogContainerComponent, TResult> {}
 
-export class ThyInternalDialogRef<T, TResult = any> extends ThyInternalUpperOverlayRef<
-    T,
-    ThyDialogContainerComponent,
-    TResult
-> {
+export class ThyInternalDialogRef<T, TResult = any> extends ThyInternalUpperOverlayRef<T, ThyDialogContainerComponent, TResult> {
     constructor(overlayRef: OverlayRef, containerInstance: ThyDialogContainerComponent, config: ThyDialogConfig<T>) {
         super(dialogUpperOverlayOptions, overlayRef, containerInstance, config);
     }

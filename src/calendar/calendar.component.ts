@@ -15,9 +15,9 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { InputBoolean } from '../core';
-import { DateRangeItemInfo } from '../date-range';
-import { TinyDate } from '../util';
+import { InputBoolean } from 'ngx-tethys/core';
+import { DateRangeItemInfo } from 'ngx-tethys/date-range';
+import { TinyDate } from 'ngx-tethys/util';
 import {
     ThyDateCellDirective as DateCell,
     ThyDateFullCellDirective as DateFullCell,

@@ -1,5 +1,5 @@
 import { Directive, Input, ElementRef } from '@angular/core';
-import { coerceBooleanProperty } from '../util/helpers';
+import { coerceBooleanProperty } from 'ngx-tethys/util/helpers';
 
 @Directive({
     selector: 'input[thyAutofocus],textarea[thyAutofocus]'

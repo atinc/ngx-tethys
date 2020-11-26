@@ -11,8 +11,8 @@ import {
     ChangeDetectorRef
 } from '@angular/core';
 
-import { FunctionProp } from '../../../util/helpers';
-import { TinyDate, sortRangeValue } from '../../../util';
+import { FunctionProp } from 'ngx-tethys/util/helpers';
+import { TinyDate, sortRangeValue } from 'ngx-tethys/util';
 
 import { CompatibleValue, DisabledDateFn, PanelMode, SupportTimeOptions, CompatibleDate } from '../../standard-types';
 import { transformDateValue, hasValue, makeValue } from '../../picker.util';

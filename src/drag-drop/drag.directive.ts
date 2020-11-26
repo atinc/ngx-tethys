@@ -14,7 +14,7 @@ import { DragRef } from './drag-ref';
 import { DOCUMENT } from '@angular/common';
 import { ThyDragHandleDirective } from './drag-handle.directive';
 import { ThyDragDropService } from './drag-drop.service';
-import { mixinUnsubscribe, MixinBase } from '../core';
+import { mixinUnsubscribe, MixinBase } from 'ngx-tethys/core';
 import { THY_DROP_CONTAINER_DIRECTIVE, IThyDropContainerDirective } from './drop-container.class';
 
 @Directive({ selector: 'thy-drag,[thyDrag]' })

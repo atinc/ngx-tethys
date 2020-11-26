@@ -13,8 +13,8 @@ import { AnimationEvent } from '@angular/animations';
 
 import { ThyTooltipVisibility } from './interface';
 import { thyTooltipAnimations } from './tooltip-animations';
-import { UpdateHostClassService } from '../shared';
-import { coerceArray } from '../util/helpers';
+import { UpdateHostClassService } from 'ngx-tethys/shared';
+import { coerceArray } from 'ngx-tethys/util/helpers';
 
 @Component({
     selector: 'thy-tooltip',

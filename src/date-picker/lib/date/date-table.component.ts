@@ -9,8 +9,8 @@ import {
     SimpleChanges,
     TemplateRef
 } from '@angular/core';
-import { TinyDate } from '../../../util';
-import { valueFunctionProp, FunctionProp } from '../../../util/helpers';
+import { TinyDate } from 'ngx-tethys/util';
+import { valueFunctionProp, FunctionProp } from 'ngx-tethys/util/helpers';
 import { DateHelperService } from '../../date-helper.service';
 
 const DATE_ROW_NUM = 6;

@@ -23,5 +23,5 @@
     "skipTemplateCodegen": true,
     "fullTemplateTypeCheck": true
   },
-  "files": ["./src/typings/index.d.ts", "./src/public-api.ts"]
+  "files": ["./src/public-api.ts"]
 }

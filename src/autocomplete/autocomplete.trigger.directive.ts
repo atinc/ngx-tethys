@@ -15,17 +15,17 @@ import {
 import { Platform } from '@angular/cdk/platform';
 import { OverlayRef, Overlay } from '@angular/cdk/overlay';
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { ThyOverlayDirectiveBase, ThyPlacement } from '../core/overlay';
+import { ThyOverlayDirectiveBase, ThyPlacement } from 'ngx-tethys/core';
 import { ThyAutocompleteService } from './overlay/autocomplete.service';
 import { ThyAutocompleteRef } from './overlay/autocomplete-ref';
 import { ThyAutocompleteComponent } from './autocomplete.component';
-import { ThyOptionComponent, ThyOptionSelectionChangeEvent } from '../core/option/option.component';
+import { ThyOptionComponent, ThyOptionSelectionChangeEvent } from 'ngx-tethys/core';
 import { DOCUMENT } from '@angular/common';
 import { Subject, Observable, merge, fromEvent, of, Subscription } from 'rxjs';
-import { ESCAPE, UP_ARROW, ENTER, DOWN_ARROW, TAB } from '../util/keycodes';
+import { ESCAPE, UP_ARROW, ENTER, DOWN_ARROW, TAB } from 'ngx-tethys/util';
 import { filter, map, take, tap, delay, switchMap } from 'rxjs/operators';
-import { ScrollToService } from '../core/scroll-to.service';
-import { warnDeprecation } from '../core/logger/logger';
+import { ScrollToService } from 'ngx-tethys/core';
+import { warnDeprecation } from 'ngx-tethys/core/logger';
 
 @Directive({
     selector: 'input[thyAutocompleteTrigger], textarea[thyAutocompleteTrigger]',
@@ -259,7 +259,8 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
                     this.panelOpened &&
                     clickTarget !== this.elementRef.nativeElement &&
                     (!formField || !formField.contains(clickTarget)) &&
-                    !!this.overlayRef && !this.overlayRef.overlayElement.contains(clickTarget)
+                    !!this.overlayRef &&
+                    !this.overlayRef.overlayElement.contains(clickTarget)
                 );
             })
         );

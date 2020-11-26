@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ThyIconModule } from '../icon';
+import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyBackTopComponent } from './back-top.component';
 
 @NgModule({

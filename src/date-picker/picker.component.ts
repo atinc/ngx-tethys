@@ -11,10 +11,10 @@ import {
     ViewChild,
     Renderer2
 } from '@angular/core';
-import { TinyDate } from '../util';
+import { TinyDate } from 'ngx-tethys/util';
 import { DateHelperService } from './date-helper.service';
 import { CompatibleValue } from './standard-types';
-import { getFlexiblePositions } from '../core/overlay';
+import { getFlexiblePositions } from 'ngx-tethys/core';
 
 export type RangePartType = 'left' | 'right';
 

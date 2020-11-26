@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { ThyDialog } from '../dialog.service';
 import { ThyDialogContainerComponent } from '../dialog-container.component';
-import { ThyTranslate } from '../../shared';
+import { ThyTranslate } from 'ngx-tethys/shared';
 import { ThyInternalDialogRef } from '../dialog-ref';
 
 @Component({

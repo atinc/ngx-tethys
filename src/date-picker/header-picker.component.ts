@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges, TemplateRef } from '@angular/core';
 import { AbstractPickerComponent } from './abstract-picker.component';
 import { PanelMode, CompatibleValue } from './standard-types';
-import { TinyDate } from '../util';
+import { TinyDate } from 'ngx-tethys/util';
 
 @Component({
     template: ``

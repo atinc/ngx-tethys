@@ -11,7 +11,7 @@ import {
     HostListener,
     EventEmitter
 } from '@angular/core';
-import { coerceBooleanProperty, isArray, isString } from '../util/helpers';
+import { coerceBooleanProperty, isArray, isString } from 'ngx-tethys/util/helpers';
 import { mimeTypeConvert } from './util';
 
 @Component({

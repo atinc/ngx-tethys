@@ -1,9 +1,9 @@
 import { Directive, AfterContentInit, ContentChildren, QueryList, OnDestroy } from '@angular/core';
 import { CdkDrag } from '@angular/cdk/drag-drop';
 import { merge, Subject } from 'rxjs';
-import { MixinBase, mixinUnsubscribe } from '../core';
+import { MixinBase, mixinUnsubscribe } from 'ngx-tethys/core';
 import { takeUntil, startWith } from 'rxjs/operators';
-import { $ } from '../typings';
+import { $ } from 'ngx-tethys/typings';
 
 @Directive({
     selector: '[thyDragDrop]'

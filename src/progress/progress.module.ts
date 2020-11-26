@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { ThyTooltipModule } from '../tooltip';
+import { ThyTooltipModule } from 'ngx-tethys/tooltip';
 import { ThyProgressBarComponent } from './bar/progress-bar.component';
 import { ThyProgressComponent } from './progress.component';
 

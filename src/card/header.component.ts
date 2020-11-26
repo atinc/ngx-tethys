@@ -1,5 +1,4 @@
 import { Component, HostBinding, Input, OnInit, TemplateRef, Optional, ViewChild, ContentChild, ViewContainerRef } from '@angular/core';
-import { coerceBooleanProperty } from '../util/helpers';
 @Component({
     selector: 'thy-card-header',
     preserveWhitespaces: false,

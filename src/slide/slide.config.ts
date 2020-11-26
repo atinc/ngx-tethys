@@ -1,4 +1,4 @@
-import { ThyUpperOverlayConfig, ThyUpperOverlayOptions } from '../core/overlay';
+import { ThyUpperOverlayConfig, ThyUpperOverlayOptions } from 'ngx-tethys/core';
 import { InjectionToken, ElementRef } from '@angular/core';
 
 export type ThySlideFromTypes =

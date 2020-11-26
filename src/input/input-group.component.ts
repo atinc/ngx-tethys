@@ -1,5 +1,5 @@
 import { Component, HostBinding, Input, ContentChild, TemplateRef, ElementRef, ViewEncapsulation } from '@angular/core';
-import { ThyTranslate, UpdateHostClassService } from '../shared';
+import { ThyTranslate, UpdateHostClassService } from 'ngx-tethys/shared';
 
 export type InputGroupSize = 'sm' | 'lg' | '';
 

@@ -1,7 +1,7 @@
 import { Directive, ElementRef, OnInit, NgZone, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 import { Subject, Observable, Observer, fromEvent, Subscription } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
-import { coerceBooleanProperty } from '../util/helpers';
+import { coerceBooleanProperty } from 'ngx-tethys/util/helpers';
 
 @Directive({
     selector: '[thyScroll]'

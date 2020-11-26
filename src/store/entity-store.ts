@@ -1,7 +1,7 @@
 import { Store } from './store';
 import { Id, PaginationInfo } from './types';
-import { helpers, produce } from '../util';
-import { mergeReferences, buildReferencesKeyBy, ReferenceArrayExtractAllowKeys } from '../util/references';
+import { helpers, produce } from 'ngx-tethys/util';
+import { mergeReferences, buildReferencesKeyBy, ReferenceArrayExtractAllowKeys } from 'ngx-tethys/util';
 import { map } from 'rxjs/operators';
 import { ReferencesIdDictionary, OnCombineRefsFn } from './references';
 
@@ -22,11 +22,7 @@ export interface EntityState<TEntity, TReferences = unknown> {
     references?: TReferences;
 }
 
-export class EntityStore<
-    TState extends EntityState<TEntity, TReferences>,
-    TEntity,
-    TReferences = unknown
-> extends Store<TState> {
+export class EntityStore<TState extends EntityState<TEntity, TReferences>, TEntity, TReferences = unknown> extends Store<TState> {
     protected options: EntityStoreOptions<TEntity, TReferences>;
 
     private internalReferencesIdMap: ReferencesIdDictionary<TReferences>;
@@ -82,10 +78,7 @@ export class EntityStore<
 
     private buildReferencesIdMap() {
         if (this.snapshot.references) {
-            this.internalReferencesIdMap = buildReferencesKeyBy(
-                this.snapshot.references,
-                this.options.referencesIdKeys
-            );
+            this.internalReferencesIdMap = buildReferencesKeyBy(this.snapshot.references, this.options.referencesIdKeys);
         }
     }
 
@@ -252,10 +245,7 @@ export class EntityStore<
      *   name: 'New Name'
      * }, references);
      */
-    update(
-        idsOrFn: Id | Id[] | null,
-        newStateOrFn: ((entity: Readonly<TEntity>) => Partial<TEntity>) | Partial<TEntity>
-    ): void {
+    update(idsOrFn: Id | Id[] | null, newStateOrFn: ((entity: Readonly<TEntity>) => Partial<TEntity>) | Partial<TEntity>): void {
         this.updateInternal(idsOrFn, newStateOrFn, undefined);
     }
 

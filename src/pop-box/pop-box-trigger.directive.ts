@@ -1,7 +1,6 @@
 import { Directive, HostListener, Input, ElementRef, TemplateRef } from '@angular/core';
 import { ThyPopBoxService } from './pop-box.service';
 import { PopBoxOptions } from './pop-box-options.class';
-import { coerceBooleanProperty } from '../util/helpers';
 
 @Directive({
     selector: `[thyPopBoxTrigger]`

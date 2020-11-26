@@ -15,9 +15,9 @@ import { fromEvent, Observable, Subject } from 'rxjs';
 import { debounceTime, mapTo, takeUntil, tap } from 'rxjs/operators';
 import { DatePopupComponent } from './lib/popups/date-popup.component';
 import { AbstractPickerComponent } from './abstract-picker.component';
-import { FunctionProp, coerceBooleanProperty } from '../util/helpers';
+import { FunctionProp, coerceBooleanProperty } from 'ngx-tethys/util/helpers';
 import { PanelMode, CompatibleValue } from './standard-types';
-import { ThyPopover } from '../popover';
+import { ThyPopover } from 'ngx-tethys/popover';
 import { ThyPlacement } from 'ngx-tethys/core';
 
 @Directive()

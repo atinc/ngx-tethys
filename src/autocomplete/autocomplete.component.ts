@@ -15,12 +15,12 @@ import {
     Input,
     ElementRef
 } from '@angular/core';
-import { ThyOptionComponent, ThyOptionSelectionChangeEvent } from '../core/option/option.component';
+import { ThyOptionComponent, ThyOptionSelectionChangeEvent } from 'ngx-tethys/core';
 import { defer, merge, Observable, timer } from 'rxjs';
 import { take, switchMap, takeUntil, startWith } from 'rxjs/operators';
-import { MixinBase, mixinUnsubscribe } from '../core';
+import { MixinBase, mixinUnsubscribe } from 'ngx-tethys/core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { THY_OPTION_PARENT_COMPONENT, IThyOptionParentComponent } from '../core/option/option.token';
+import { THY_OPTION_PARENT_COMPONENT, IThyOptionParentComponent } from 'ngx-tethys/core';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 

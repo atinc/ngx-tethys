@@ -14,12 +14,11 @@ import {
 import { Platform } from '@angular/cdk/platform';
 import { takeUntil, take } from 'rxjs/operators';
 
-import { MixinBase, mixinUnsubscribe } from '../core/behaviors';
 import { ThyTooltipOptions, DEFAULT_TOOLTIP_OPTIONS } from './interface';
-import { coerceBooleanProperty, isString } from '../util/helpers';
+import { coerceBooleanProperty, isString } from 'ngx-tethys/util/helpers';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ThyTooltipComponent } from './tooltip.component';
-import { getFlexiblePositions, ThyPlacement, ThyOverlayDirectiveBase } from '../core/overlay';
+import { getFlexiblePositions, ThyPlacement, ThyOverlayDirectiveBase } from 'ngx-tethys/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { THY_TOOLTIP_DEFAULT_CONFIG_TOKEN, ThyTooltipConfig } from './tooltip.config';
 

@@ -21,8 +21,8 @@ import { fromEvent, Subject } from 'rxjs';
 import { takeUntil, throttleTime } from 'rxjs/operators';
 
 import { ThyAnchorLinkComponent } from './anchor-link.component';
-import { getOffset } from './../util/dom';
-import { ThyScrollService } from '../core/scroll';
+import { getOffset } from 'ngx-tethys/util';
+import { ThyScrollService } from 'ngx-tethys/core';
 import { DOCUMENT } from '@angular/common';
 
 interface Section {

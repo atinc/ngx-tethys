@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
-import { TinyDate } from '../../../util';
+import { TinyDate } from 'ngx-tethys/util';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,

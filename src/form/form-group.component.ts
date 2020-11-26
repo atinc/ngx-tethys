@@ -1,8 +1,8 @@
 import { Component, HostBinding, Optional, Input, ViewEncapsulation, ContentChild, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThyFormDirective } from './form.directive';
-import { coerceBooleanProperty } from '../util/helpers';
+import { coerceBooleanProperty } from 'ngx-tethys/util/helpers';
 import { TemplateRef } from '@angular/core';
-import { ThyTranslate } from '../shared';
+import { ThyTranslate } from 'ngx-tethys/shared';
 import { ThyFormLayout } from './form.class';
 import { NgModel } from '@angular/forms';
 

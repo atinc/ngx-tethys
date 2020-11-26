@@ -1,6 +1,6 @@
 import { ControlValueAccessor } from '@angular/forms';
 import { HostBinding, Input, ChangeDetectorRef, Directive } from '@angular/core';
-import { coerceBooleanProperty } from '../util/helpers';
+import { coerceBooleanProperty } from 'ngx-tethys/util/helpers';
 import { ThyTranslate } from './translate';
 
 const noop = () => {};

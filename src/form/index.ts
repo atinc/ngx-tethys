@@ -8,3 +8,4 @@ export * from './validator/index';
 export * from './form-group-error/form-group-error.component';
 export * from './from-group-footer/form-group-footer.component';
 export * from './form-submit.directive';
+export * from './form-validator-loader';

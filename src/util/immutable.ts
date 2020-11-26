@@ -1,5 +1,5 @@
+import { Id } from 'ngx-tethys/typings';
 import { coerceArray, isFunction, isUndefinedOrNull } from './helpers';
-import { Id } from '../typings';
 
 export interface EntityAddOptions {
     prepend?: boolean;

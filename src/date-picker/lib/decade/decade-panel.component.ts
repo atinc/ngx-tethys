@@ -1,13 +1,5 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    EventEmitter,
-    Input,
-    OnChanges,
-    Output,
-    SimpleChanges
-} from '@angular/core';
-import { TinyDate } from '../../../util';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { TinyDate } from 'ngx-tethys/util';
 
 const MAX_ROW = 4;
 const MAX_COL = 3;

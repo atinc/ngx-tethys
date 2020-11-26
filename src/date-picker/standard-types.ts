@@ -1,5 +1,5 @@
 import { TemplateRef } from '@angular/core';
-import { TinyDate } from '../util';
+import { TinyDate } from 'ngx-tethys/util';
 
 export type DisabledDateFn = (d: Date) => boolean;
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DateRangeItemInfo } from '../date-range.class';
-import { ThyPopover } from '../../popover';
+import { ThyPopover } from 'ngx-tethys/popover';
 
 @Component({
     selector: 'date-range-optional',

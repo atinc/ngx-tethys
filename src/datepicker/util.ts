@@ -1,4 +1,4 @@
-import { isNumber, isDate, isObject } from '../util/helpers';
+import { isNumber, isDate, isObject } from 'ngx-tethys/util/helpers';
 import { DatepickerValueShowTypesEnum } from './i.datepicker';
 
 export function datepickerUtilIdentificationValueType(value: any): DatepickerValueShowTypesEnum {
@@ -109,10 +109,7 @@ export function daterangepickerUtilIdentificationValueType(value: any): Datepick
     }
 }
 
-export function daterangepickerUtilConvertToDaterangepickerObject(
-    value: any,
-    valueType?: DatepickerValueShowTypesEnum
-) {
+export function daterangepickerUtilConvertToDaterangepickerObject(value: any, valueType?: DatepickerValueShowTypesEnum) {
     const _valueType = valueType || daterangepickerUtilIdentificationValueType(value);
     let _value: any;
     switch (_valueType) {

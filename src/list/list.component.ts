@@ -1,6 +1,5 @@
 import { Component, Input, HostBinding } from '@angular/core';
-import { coerceBooleanProperty } from '../util/helpers';
-import { InputBoolean } from '../core';
+import { InputBoolean } from 'ngx-tethys/core';
 
 @Component({
     selector: 'thy-list',

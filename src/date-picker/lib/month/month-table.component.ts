@@ -1,13 +1,5 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    EventEmitter,
-    Input,
-    OnChanges,
-    Output,
-    SimpleChanges
-} from '@angular/core';
-import { TinyDate } from '../../../util';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { TinyDate } from 'ngx-tethys/util';
 import { DateHelperService } from '../../date-helper.service';
 
 const MAX_ROW = 4;
@@ -60,9 +52,7 @@ export class MonthTableComponent implements OnChanges {
             months[rowIndex] = [];
             for (let colIndex = 0; colIndex < MAX_COL; colIndex++) {
                 const month = this.value.setMonth(monthValue);
-                const disabled = this.disabledDate
-                    ? this.disabledDate(this.value.setMonth(monthValue).nativeDate)
-                    : false;
+                const disabled = this.disabledDate ? this.disabledDate(this.value.setMonth(monthValue).nativeDate) : false;
                 const content = this.dateHelper.format(month.nativeDate, 'MMMM');
 
                 const cell: PanelMonthData = (months[rowIndex][colIndex] = {

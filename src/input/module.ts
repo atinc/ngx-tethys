@@ -5,8 +5,8 @@ import { ThyInputComponent } from './input.component';
 import { ThyInputGroupComponent } from './input-group.component';
 import { ThyInputSearchComponent } from './input-search.component';
 import { FormsModule } from '@angular/forms';
-import { ThyDirectiveModule } from '../directive';
-import { ThyIconModule } from '../icon';
+import { ThyDirectiveModule } from 'ngx-tethys/directive';
+import { ThyIconModule } from 'ngx-tethys/icon';
 
 @NgModule({
     imports: [CommonModule, FormsModule, ThyDirectiveModule, ThyIconModule],

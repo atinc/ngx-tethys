@@ -19,11 +19,11 @@ import { AnimationEvent } from '@angular/animations';
 
 import { ThyAutocompleteConfig } from './autocomplete.config';
 import { thyAutocompleteAnimations } from './autocomplete-animations';
-import { ThyUpperOverlayContainer } from '../../core/overlay';
+import { ThyUpperOverlayContainer } from 'ngx-tethys/core';
 import { autocompleteUpperOverlayOptions } from './autocomplete.options';
 import { Observable, fromEvent, timer } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
-import { ThyClickDispatcher } from '../../core/event-dispatchers/click-dispatcher';
+import { ThyClickDispatcher } from 'ngx-tethys/core';
 
 @Component({
     selector: 'thy-autocomplete-container',

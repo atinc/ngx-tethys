@@ -1,6 +1,5 @@
 import { Component, HostBinding, ContentChild, TemplateRef, ElementRef, Input, AfterContentInit, ViewChild } from '@angular/core';
-import { ThyTranslate } from '../../shared/translate';
-import { htmlElementIsEmpty } from '../../util/helpers';
+import { ThyTranslate } from 'ngx-tethys/shared';
 
 @Component({
     selector: 'thy-property-operation-group',

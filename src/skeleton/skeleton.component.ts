@@ -10,7 +10,7 @@ import {
     TemplateRef,
     ContentChild
 } from '@angular/core';
-import { helpers } from '../util';
+import { helpers } from 'ngx-tethys/util';
 import { isPlatformBrowser } from '@angular/common';
 
 @Component({

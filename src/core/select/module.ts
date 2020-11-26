@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
 
 import { ThySelectControlComponent } from './select-control/select-control.component';
 import { FormsModule } from '@angular/forms';
-import { ThyIconModule } from '../../icon/icon.module';
+import { ThyIconModule } from 'ngx-tethys/icon';
 
 @NgModule({
     imports: [CommonModule, FormsModule, ThyIconModule],

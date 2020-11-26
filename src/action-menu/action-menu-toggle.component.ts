@@ -1,8 +1,8 @@
 import { Directive, Input, HostListener, TemplateRef } from '@angular/core';
-import { coerceBooleanProperty } from '../util/helpers';
-import { ThyPopover } from '../popover';
-import { ThyPlacement } from '../core';
-import { helpers } from '../util';
+import { ThyPopover } from 'ngx-tethys/popover';
+import { ThyPlacement } from 'ngx-tethys/core';
+import { helpers } from 'ngx-tethys/util';
+import { coerceBooleanProperty } from 'ngx-tethys/util/helpers';
 
 export enum ActionEnum {
     click = 'click',

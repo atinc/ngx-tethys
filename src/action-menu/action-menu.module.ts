@@ -17,7 +17,7 @@ import {
     ThyActionMenuItemActiveDirective
 } from './action-menu-item.directive';
 import { ThyActionMenuSubItemDirective } from './action-menu-sub-item.directive';
-import { ThyPopoverModule } from '../popover';
+import { ThyPopoverModule } from 'ngx-tethys/popover';
 
 @NgModule({
     declarations: [

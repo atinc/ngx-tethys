@@ -1,6 +1,6 @@
 import { Directive, ElementRef, HostBinding, Input, OnInit, Renderer2 } from '@angular/core';
-import { UpdateHostClassService } from '../shared';
-import { coerceBooleanProperty } from '../util/helpers';
+import { UpdateHostClassService } from 'ngx-tethys/shared';
+import { coerceBooleanProperty } from 'ngx-tethys/util/helpers';
 
 export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 

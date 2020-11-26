@@ -13,8 +13,8 @@ import { PopBoxRef } from './pop-box-ref.service';
 import { ComponentLoader, ComponentLoaderFactory } from 'ngx-bootstrap/component-loader';
 import { PopBoxContainerComponent } from './pop-box-container.component';
 import { PopBoxOptions, popBoxConfigDefaults } from './pop-box-options.class';
-import { ThyPositioningService } from '../positioning/positioning.service';
-import { warnDeprecation } from '../core/logger';
+import { ThyPositioningService } from 'ngx-tethys/positioning';
+import { warnDeprecation } from 'ngx-tethys/core/logger';
 
 @Injectable()
 export class ThyPopBoxService {
@@ -64,11 +64,7 @@ export class ThyPopBoxService {
             target: target
         });
 
-        const loader = (this._popBoxLoader = this.clf.createLoader<PopBoxContainerComponent>(
-            config.target,
-            null,
-            null
-        ));
+        const loader = (this._popBoxLoader = this.clf.createLoader<PopBoxContainerComponent>(config.target, null, null));
 
         const popBoxRef = new PopBoxRef();
         const popBoxContainerRef = loader

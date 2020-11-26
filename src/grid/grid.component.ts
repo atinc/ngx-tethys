@@ -20,8 +20,8 @@ import {
     Inject,
     ContentChild
 } from '@angular/core';
-import { Dictionary } from '../typings';
-import { get, set, isString, coerceBooleanProperty, keyBy } from '../util/helpers';
+import { Dictionary } from 'ngx-tethys/typings';
+import { get, set, isString, coerceBooleanProperty, keyBy } from 'ngx-tethys/util/helpers';
 import {
     ThyGridColumn,
     ThyMultiSelectEvent,
@@ -37,8 +37,8 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { ThyGridColumnComponent, IThyGridColumnParentComponent, THY_GRID_COLUMN_PARENT_COMPONENT } from './grid-column.component';
 import { ViewportRuler } from '@angular/cdk/overlay';
 import { takeUntil, delay } from 'rxjs/operators';
-import { mixinUnsubscribe, MixinBase } from '../core';
-import { UpdateHostClassService } from '../shared';
+import { mixinUnsubscribe, MixinBase } from 'ngx-tethys/core';
+import { UpdateHostClassService } from 'ngx-tethys/shared';
 import { of, merge } from 'rxjs';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { DOCUMENT } from '@angular/common';

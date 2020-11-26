@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ThyDirectiveModule } from '../directive';
-import { ThyIconModule } from '../icon';
+import { ThyDirectiveModule } from 'ngx-tethys/directive';
+import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyCalendarHeaderComponent } from './calendar-header.component';
 import { ThyCalendarComponent } from './calendar.component';
 import {
@@ -12,11 +12,11 @@ import {
     ThyMonthCellDirective,
     ThyMonthFullCellDirective
 } from './calendar-cells';
-import { LibPackerModule } from '../date-picker/lib/lib-packer.module';
-import { ThySelectModule } from '../select/module';
-import { ThyRadioModule } from '../radio/module';
-import { ThyButtonModule } from '../button/button.module';
-import { ThyDateRangeModule } from '../date-range/module';
+import { LibPackerModule } from 'ngx-tethys/date-picker';
+import { ThySelectModule } from 'ngx-tethys/select';
+import { ThyRadioModule } from 'ngx-tethys/radio';
+import { ThyButtonModule } from 'ngx-tethys/button';
+import { ThyDateRangeModule } from 'ngx-tethys/date-range';
 
 @NgModule({
     imports: [

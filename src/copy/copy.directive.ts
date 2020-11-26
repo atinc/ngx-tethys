@@ -13,8 +13,8 @@ import {
 
 import { coerceElement } from '@angular/cdk/coercion';
 import { DOCUMENT } from '@angular/common';
-import { TooltipService } from '../tooltip/tooltip.service';
-import { ThyNotifyService } from '../notify';
+import { TooltipService } from 'ngx-tethys/tooltip';
+import { ThyNotifyService } from 'ngx-tethys/notify';
 
 export interface ThyCopyEvent {
     isSuccess: boolean;

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { formatDate } from '@angular/common';
-
-export type WeekDayIndex = 0 | 1 | 2 | 3 | 4 | 5 | 6;
+import { WeekDayIndex } from 'ngx-tethys/util';
 
 export function DATE_HELPER_SERVICE_FACTORY(): DateHelperService {
     return new DateHelperByDatePipe();

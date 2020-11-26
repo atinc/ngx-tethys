@@ -2,7 +2,7 @@ import { forwardRef, ChangeDetectorRef, ElementRef, OnInit, Directive } from '@a
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { PickerDirective } from './abstract-picker.directive';
-import { ThyPopover } from '../popover';
+import { ThyPopover } from 'ngx-tethys/popover';
 
 @Directive({
     selector: '[thyRangePicker]',

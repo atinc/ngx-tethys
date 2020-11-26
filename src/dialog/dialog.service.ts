@@ -7,18 +7,17 @@ import { Overlay, OverlayConfig, OverlayRef, ScrollStrategy } from '@angular/cdk
 import { ThyDialogContainerComponent } from './dialog-container.component';
 import { ThyDialogRef, ThyInternalDialogRef } from './dialog-ref';
 import { Directionality } from '@angular/cdk/bidi';
-import { helpers } from '../util';
-import { ThyClickPositioner } from '../core';
+import { helpers } from 'ngx-tethys/util';
+import { ThyClickPositioner } from 'ngx-tethys/core';
 import { ThyConfirmComponent } from './confirm/confirm.component';
 import { ThyConfirmConfig } from './confirm.config';
-import { ThyUpperOverlayService, ThyUpperOverlayRef } from '../core/overlay';
+import { ThyUpperOverlayService, ThyUpperOverlayRef } from 'ngx-tethys/core';
 import { dialogUpperOverlayOptions } from './dialog.options';
 
 @Injectable({
     providedIn: 'root'
 })
-export class ThyDialog extends ThyUpperOverlayService<ThyDialogConfig, ThyDialogContainerComponent>
-    implements OnDestroy {
+export class ThyDialog extends ThyUpperOverlayService<ThyDialogConfig, ThyDialogContainerComponent> implements OnDestroy {
     private getOverlayPanelClasses(dialogConfig: ThyDialogConfig) {
         let classes = [`cdk-overlay-pane`, `dialog-overlay-pane`];
         const size = dialogConfig.size || ThyDialogSizes.md;
@@ -41,10 +40,7 @@ export class ThyDialog extends ThyUpperOverlayService<ThyDialogConfig, ThyDialog
         return overlayConfig;
     }
 
-    protected attachUpperOverlayContainer(
-        overlay: OverlayRef,
-        config: ThyDialogConfig<any>
-    ): ThyDialogContainerComponent {
+    protected attachUpperOverlayContainer(overlay: OverlayRef, config: ThyDialogConfig<any>): ThyDialogContainerComponent {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
         const injector = new PortalInjector(userInjector || this.injector, new WeakMap([[ThyDialogConfig, config]]));
         const containerPortal = new ComponentPortal(ThyDialogContainerComponent, config.viewContainerRef, injector);

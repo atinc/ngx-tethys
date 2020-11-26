@@ -1,6 +1,6 @@
 import { ElementRef, ViewContainerRef, InjectionToken } from '@angular/core';
 import { Directionality } from '@angular/cdk/bidi';
-import { ThyPlacement, ThyUpperOverlayConfig } from '../../core/overlay';
+import { ThyPlacement, ThyUpperOverlayConfig } from 'ngx-tethys/core';
 import { ScrollStrategy, PositionStrategy, ScrollStrategyOptions } from '@angular/cdk/overlay';
 
 export class ThyAutocompleteConfig<TData = any> extends ThyUpperOverlayConfig<TData> {
@@ -31,9 +31,7 @@ export class ThyAutocompleteConfig<TData = any> extends ThyUpperOverlayConfig<TD
     outsideClosable?: boolean;
 }
 
-export const THY_AUTOCOMPLETE_DEFAULT_CONFIG = new InjectionToken<ThyAutocompleteConfig>(
-    'thy-autocomplete-default-config'
-);
+export const THY_AUTOCOMPLETE_DEFAULT_CONFIG = new InjectionToken<ThyAutocompleteConfig>('thy-autocomplete-default-config');
 
 export const THY_AUTOCOMPLETE_DEFAULT_CONFIG_PROVIDER = {
     provide: THY_AUTOCOMPLETE_DEFAULT_CONFIG,

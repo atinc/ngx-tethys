@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ThyLabelComponent } from './label.component';
-import { ThyIconModule } from '../icon';
+import { ThyIconModule } from 'ngx-tethys/icon';
 
 @NgModule({
     declarations: [ThyLabelComponent],

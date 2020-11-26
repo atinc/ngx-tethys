@@ -1,7 +1,6 @@
 import { Component, forwardRef, HostBinding, Input, ElementRef, OnInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { UpdateHostClassService } from '../shared/update-host-class.service';
-import { coerceBooleanProperty } from '../util/helpers';
+import { UpdateHostClassService } from 'ngx-tethys/shared';
 
 export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 

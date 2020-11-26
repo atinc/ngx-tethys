@@ -22,10 +22,9 @@ import { fromEvent, merge, ReplaySubject, Subject, Subscription } from 'rxjs';
 import { auditTime, map, takeUntil } from 'rxjs/operators';
 
 import { AffixRespondEvents } from './respond-events';
-import { ThyScrollService } from '../core/scroll';
-import { helpers, dom } from '../util';
-import { SimpleRect } from '../typings';
-
+import { ThyScrollService } from 'ngx-tethys/core';
+import { helpers, dom } from 'ngx-tethys/util';
+import { SimpleRect } from 'ngx-tethys/typings';
 const THY_AFFIX_CLS_PREFIX = 'thy-affix';
 const THY_AFFIX_DEFAULT_SCROLL_TIME = 20;
 

@@ -3,7 +3,7 @@ import { ThyUpperOverlayPosition, ThyUpperOverlayOptions, ThyUpperOverlayConfig 
 import { filter, take } from 'rxjs/operators';
 import { OverlayRef, PositionStrategy, GlobalPositionStrategy } from '@angular/cdk/overlay';
 import { ThyUpperOverlayContainer } from './upper-overlay-container';
-import { ESCAPE } from '../../util/keycodes';
+import { ESCAPE } from 'ngx-tethys/util';
 
 export abstract class ThyUpperOverlayRef<T, TContainer extends ThyUpperOverlayContainer, TResult = any> {
     id: string;
@@ -69,9 +69,7 @@ export abstract class ThyInternalUpperOverlayRef<
         super();
         this.containerInstance = containerInstance;
         // Pass the id along to the container.
-        this.id = containerInstance.id = config.id
-            ? config.id
-            : `thy-${this.options.name}-${getUniqueId(this.options.name)}`;
+        this.id = containerInstance.id = config.id ? config.id : `thy-${this.options.name}-${getUniqueId(this.options.name)}`;
         // Emit when opening animation completes
         containerInstance.animationOpeningDone.pipe(take(1)).subscribe(() => {
             this._afterOpened.next();
