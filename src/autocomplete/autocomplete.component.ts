@@ -15,7 +15,7 @@ import {
     Input,
     ElementRef
 } from '@angular/core';
-import { ThyOptionComponent, ThyOptionSelectionChangeEvent } from 'ngx-tethys/core';
+import { Constructor, ThyOptionComponent, ThyOptionSelectionChangeEvent, ThyUnsubscribe } from 'ngx-tethys/core';
 import { defer, merge, Observable, timer } from 'rxjs';
 import { take, switchMap, takeUntil, startWith } from 'rxjs/operators';
 import { MixinBase, mixinUnsubscribe } from 'ngx-tethys/core';
@@ -33,6 +33,7 @@ export interface ThyAutocompleteActivatedEvent {
     option: ThyOptionComponent | null;
 }
 
+const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 @Component({
     selector: 'thy-autocomplete',
     templateUrl: 'autocomplete.component.html',
@@ -44,8 +45,7 @@ export interface ThyAutocompleteActivatedEvent {
         }
     ]
 })
-export class ThyAutocompleteComponent extends mixinUnsubscribe(MixinBase)
-    implements IThyOptionParentComponent, OnInit, AfterContentInit, OnDestroy {
+export class ThyAutocompleteComponent extends _MixinBase implements IThyOptionParentComponent, OnInit, AfterContentInit, OnDestroy {
     dropDownClass: { [key: string]: boolean };
 
     isMultiple = false;

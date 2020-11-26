@@ -12,16 +12,18 @@ import {
 } from '@angular/core';
 import { ThyPositioningService } from 'ngx-tethys/positioning';
 import { ThyActionMenuItemDirective } from './action-menu-item.directive';
-import { mixinUnsubscribe, MixinBase } from 'ngx-tethys/core';
+import { mixinUnsubscribe, MixinBase, Constructor, ThyUnsubscribe } from 'ngx-tethys/core';
 import { takeUntil } from 'rxjs/operators';
 
 type SubMenuDirection = 'left' | 'right' | 'auto';
+
+const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
 @Directive({
     selector: '[thyActionMenuSubItem]',
     providers: []
 })
-export class ThyActionMenuSubItemDirective extends mixinUnsubscribe(MixinBase) implements OnInit, OnDestroy {
+export class ThyActionMenuSubItemDirective extends _MixinBase implements OnInit, OnDestroy {
     @HostBinding('class.action-menu-sub-item') className = true;
 
     @Input() thyActionMenuSubItem: SubMenuDirection = 'right';

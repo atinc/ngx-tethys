@@ -37,7 +37,7 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { ThyGridColumnComponent, IThyGridColumnParentComponent, THY_GRID_COLUMN_PARENT_COMPONENT } from './grid-column.component';
 import { ViewportRuler } from '@angular/cdk/overlay';
 import { takeUntil, delay } from 'rxjs/operators';
-import { mixinUnsubscribe, MixinBase } from 'ngx-tethys/core';
+import { mixinUnsubscribe, MixinBase, Constructor, ThyUnsubscribe } from 'ngx-tethys/core';
 import { UpdateHostClassService } from 'ngx-tethys/shared';
 import { of, merge } from 'rxjs';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
@@ -72,6 +72,7 @@ const customType = {
     switch: 'switch'
 };
 
+const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 @Component({
     selector: 'thy-grid',
     templateUrl: './grid.component.html',
@@ -84,7 +85,7 @@ const customType = {
     ],
     encapsulation: ViewEncapsulation.None
 })
-export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnInit, OnDestroy, DoCheck, IThyGridColumnParentComponent {
+export class ThyGridComponent extends _MixinBase implements OnInit, OnDestroy, DoCheck, IThyGridColumnParentComponent {
     public customType = customType;
 
     public model: object[] = [];
