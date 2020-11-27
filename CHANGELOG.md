@@ -5,26 +5,14 @@ All notable changes to this project will be documented in this file. See [standa
 <a name="9.0.0-beta.1"></a>
 # [9.0.0-beta.1](https://github.com/atinc/ngx-tethys/compare/9.0.0-beta.0...9.0.0-beta.1) (2020-11-27)
 
+### Features
 
-### Bug Fixes
-
-* fix generate import relative path when extends mixin class ([c4fed45](https://github.com/atinc/ngx-tethys/commit/c4fed45))
-
-
-
-<a name="9.0.0-beta.1"></a>
-# [9.0.0-beta.1](https://github.com/atinc/ngx-tethys/compare/9.0.0-beta.0...9.0.0-beta.1) (2020-11-27)
+* update ng to 9.x and use ng build ([#971](https://github.com/atinc/ngx-tethys/issues/971)) ([1954ef7](https://github.com/atinc/ngx-tethys/commit/1954ef7))
 
 
 ### Bug Fixes
 
 * fix generate import relative path when extends mixin class ([c4fed45](https://github.com/atinc/ngx-tethys/commit/c4fed45))
-
-
-
-<a name="9.0.0-beta.0"></a>
-# [9.0.0-beta.0](https://github.com/atinc/ngx-tethys/compare/8.1.29...9.0.0-beta.0) (2020-11-26)
-
 
 
 <a name="8.1.29"></a>
