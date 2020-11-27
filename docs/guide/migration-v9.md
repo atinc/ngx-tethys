@@ -49,6 +49,32 @@ order: 10
 - 彻底移除`modal`、`datepicker`、`pop-box`、`confirm`废弃的模块，分别使用`dialog`、`date-picker`、`popover`、`dialog.confirm`替换
 - 彻底移除了 `ngx-bootstrap`、`ngx-sortablejs` 依赖
 - 新增`styles/main.bundle.scss`和`styles/basic.bundle.scss` bundle 文件，用于替换`styles/index.scss`和`styles/basic.scss`，之后的大版本会移出`styles/index.scss`和`styles/basic.scss`
+- 移出了 scrollbar 的样式，使用浏览器默认的滚动条样式，如果需要使用，请单独在项目中引入如下 scrollbar 样式即可
+
+    ```
+    ::-webkit-scrollbar {
+        width: 6px;
+        height: 9px;
+        -webkit-appearance: none;
+    }
+
+    ::-webkit-scrollbar-track-piece {
+        background: $scrollbar-track-piece;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: $scrollbar-thumb;
+        border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:vertical:hover {
+        background: darken($scrollbar-thumb, 15%);
+    }
+
+    ::-webkit-scrollbar-thumb:horizontal:hover {
+        background: darken($scrollbar-thumb, 15%);
+    }
+    ```
 
 ## 过渡
 
