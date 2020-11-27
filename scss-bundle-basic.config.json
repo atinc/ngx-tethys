@@ -1,0 +1,9 @@
+{
+  "bundlerOptions": {
+    "entryFile": "./src/styles/basic.scss",
+    "rootDir": "./src",
+    "outFile": "./built/styles/basic.bundle.scss",
+    "ignoreImports": ["~@angular/.*"],
+    "logLevel": "silent"
+  }
+}

@@ -6,6 +6,7 @@ module.exports = {
             'always',
             [
                 'variables',
+                'styles',
                 'action-menu',
                 'alert',
                 'arrow-switcher',
