@@ -129,6 +129,7 @@ const IMPORT_EXPORT_MODULES = [
     ThyResultModule,
     ThyMentionModule,
     ThyDatePickerModule,
+    ThyTimelineModule,
     ThyTimePickerModule,
     ThyStatisticModule,
     ThyAutocompleteModule,

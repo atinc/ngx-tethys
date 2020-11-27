@@ -1,6 +1,6 @@
-import { Component, OnInit, HostBinding, HostListener, ElementRef, Input, Output, EventEmitter, Renderer2 } from '@angular/core';
-import { ThyPopBoxService } from 'ngx-tethys/pop-box';
+import { Component, OnInit, HostBinding, ElementRef, Input, Renderer2, TemplateRef } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
+import { ThyPopover } from 'ngx-tethys/popover';
 
 @Component({
     selector: 'thy-menu-item-action,[thy-menu-item-action],[thyMenuItemAction]',
@@ -9,12 +9,12 @@ import { ComponentType } from '@angular/cdk/portal';
 export class ThyMenuItemActionComponent implements OnInit {
     _boundEvent = false;
 
-    _actionMenu: ElementRef | ComponentType<any>;
+    _actionMenu: ComponentType<any> | TemplateRef<any>;
 
     @HostBinding('class.thy-menu-item-action') isThyMenuItemIconMore = true;
 
     @Input()
-    set thyActionMenu(value: ElementRef | ComponentType<any>) {
+    set thyActionMenu(value: ComponentType<any> | TemplateRef<any>) {
         this._actionMenu = value;
         if (this._actionMenu) {
             this.bindClickEvent();
@@ -33,17 +33,16 @@ export class ThyMenuItemActionComponent implements OnInit {
                 event.stopPropagation();
             }
             if (this._actionMenu) {
-                this.popBoxService.show(this._actionMenu, {
-                    target: event.currentTarget,
-                    insideAutoClose: true,
-                    stopPropagation: true,
-                    placement: 'bottom right'
+                this.popover.open(this._actionMenu, {
+                    origin: event.currentTarget as HTMLElement,
+                    insideClosable: true,
+                    placement: 'bottom'
                 });
             }
         });
     }
 
-    constructor(private popBoxService: ThyPopBoxService, private renderer: Renderer2, private elementRef: ElementRef) {}
+    constructor(private popover: ThyPopover, private renderer: Renderer2, private elementRef: ElementRef) {}
 
     ngOnInit(): void {}
 }
