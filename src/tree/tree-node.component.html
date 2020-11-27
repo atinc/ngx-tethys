@@ -4,6 +4,8 @@
   [class.active]="root.isSelected(node)"
   [class.disabled]="node.isDisabled"
   (click)="clickNode($event)"
+  (mouseenter)="nodeMouseEnter($event)"
+  (mouseleave)="nodeMouseLeave($event)"
 >
   <span *ngIf="thyDraggable" class="thy-tree-drag-icon thy-sortable-handle">
     <thy-icon thyIconName="drag"></thy-icon>
