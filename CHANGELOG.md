@@ -2,6 +2,52 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.0.0-beta.2"></a>
+# [9.0.0-beta.2](https://github.com/atinc/ngx-tethys/compare/8.1.30...9.0.0-beta.2) (2020-11-27)
+
+
+### Bug Fixes
+
+* **menu:** modify pop-box to popover #INFR-1289 ([27f5acd](https://github.com/atinc/ngx-tethys/commit/27f5acd)), closes [#INFR-1289](https://github.com/atinc/ngx-tethys/issues/INFR-1289)
+* **menu:** remove ThyPopBoxService  #INFR-1289 ([a31b3c1](https://github.com/atinc/ngx-tethys/commit/a31b3c1)), closes [#INFR-1289](https://github.com/atinc/ngx-tethys/issues/INFR-1289)
+* **mune:** remove popbox in mune and test #INFR-1289 ([fba6c04](https://github.com/atinc/ngx-tethys/commit/fba6c04)), closes [#INFR-1289](https://github.com/atinc/ngx-tethys/issues/INFR-1289)
+
+
+### Features
+
+* remove key-select module ([87e5b27](https://github.com/atinc/ngx-tethys/commit/87e5b27))
+* **styles:** add basic and index scss bundle #INFR-1296 ([#983](https://github.com/atinc/ngx-tethys/issues/983)) ([cc895c4](https://github.com/atinc/ngx-tethys/commit/cc895c4)), closes [#INFR-1296](https://github.com/atinc/ngx-tethys/issues/INFR-1296) [#INFR-1296](https://github.com/atinc/ngx-tethys/issues/INFR-1296)
+* **timeline:** add timeline component  #INFR-896 ([#907](https://github.com/atinc/ngx-tethys/issues/907)) ([52dca3f](https://github.com/atinc/ngx-tethys/commit/52dca3f)), closes [#INFR-896](https://github.com/atinc/ngx-tethys/issues/INFR-896) [#INFR-896](https://github.com/atinc/ngx-tethys/issues/INFR-896)
+* remove modal, datepicker, confirm and popbox module #INFR-1295 ([50362d5](https://github.com/atinc/ngx-tethys/commit/50362d5)), closes [#INFR-1295](https://github.com/atinc/ngx-tethys/issues/INFR-1295)
+* 移除三级入口 ([cd903b3](https://github.com/atinc/ngx-tethys/commit/cd903b3))
+
+
+### BREAKING CHANGES
+
+* please remove deps for this module, replace modal with dialog, replace popbox with popover, replace confirm with dialog's confirm, replace datepicker with date-picker
+
+
+
+<a name="9.0.0-beta.1"></a>
+# [9.0.0-beta.1](https://github.com/atinc/ngx-tethys/compare/9.0.0-beta.0...9.0.0-beta.1) (2020-11-27)
+
+
+### Bug Fixes
+
+* fix generate import relative path when extends mixin class ([c4fed45](https://github.com/atinc/ngx-tethys/commit/c4fed45))
+
+
+
+<a name="9.0.0-beta.0"></a>
+# [9.0.0-beta.0](https://github.com/atinc/ngx-tethys/compare/8.1.29...9.0.0-beta.0) (2020-11-26)
+
+
+### Features
+
+* update ng to 9.x and use ng build  ([1954ef7](https://github.com/atinc/ngx-tethys/commit/1954ef7))
+
+
+
 <a name="9.0.0-beta.1"></a>
 # [9.0.0-beta.1](https://github.com/atinc/ngx-tethys/compare/9.0.0-beta.0...9.0.0-beta.1) (2020-11-27)
 
