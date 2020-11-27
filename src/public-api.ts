@@ -68,3 +68,4 @@ export * from 'ngx-tethys/back-top';
 export * from 'ngx-tethys/copy';
 export * from 'ngx-tethys/slider';
 export * from 'ngx-tethys/calendar';
+export * from 'ngx-tethys/timeline';

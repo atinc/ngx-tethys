@@ -1,7 +1,7 @@
 import { Component, OnInit, HostBinding, Input, Output, EventEmitter, ElementRef, ViewChild, TemplateRef } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { ComponentType } from '@angular/cdk/portal';
-import { ThyPopover } from '../../popover';
+import { ThyPopover } from 'ngx-tethys/popover';
 
 @Component({
     selector: 'thy-menu-group, [thy-menu-group],[thyMenuGroup]',

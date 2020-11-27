@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ThySharedModule } from '../shared';
-import { ThyIconModule } from '../icon';
+import { ThySharedModule } from 'ngx-tethys/shared';
+import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyTimelineComponent } from './timeline.component';
 import { ThyTimelineItemComponent } from './timeline-item.component';
 
