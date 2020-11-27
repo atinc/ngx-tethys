@@ -73,6 +73,7 @@ module.exports = {
                 'vote',
                 'anchor',
                 'back-top',
+                'timeline',
                 'calendar'
             ]
         ]

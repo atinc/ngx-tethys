@@ -14,6 +14,14 @@ All notable changes to this project will be documented in this file. See [standa
 
 * fix generate import relative path when extends mixin class ([c4fed45](https://github.com/atinc/ngx-tethys/commit/c4fed45))
 
+<a name="8.1.30"></a>
+## [8.1.30](https://github.com/atinc/ngx-tethys/compare/8.1.29...8.1.30) (2020-11-27)
+
+
+### Features
+
+* **date-picker:** support hasBackdrop ([#978](https://github.com/atinc/ngx-tethys/issues/978)) ([25b24c6](https://github.com/atinc/ngx-tethys/commit/25b24c6))
+
 
 <a name="8.1.29"></a>
 ## [8.1.29](https://github.com/atinc/ngx-tethys/compare/8.1.28...8.1.29) (2020-11-25)

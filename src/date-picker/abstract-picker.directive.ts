@@ -44,6 +44,8 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
 
     @Input() thyOffset = 10;
 
+    @Input() thyHasBackdrop = true;
+
     private destroy$ = new Subject();
     private el: HTMLElement = this.elementRef.nativeElement;
     readonly $click: Observable<boolean> = fromEvent(this.el, 'click').pipe(
@@ -54,7 +56,7 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
     private openOverlay(): void {
         const { componentInstance } = this.thyPopover.open(DatePopupComponent, {
             origin: this.el,
-            hasBackdrop: true,
+            hasBackdrop: this.thyHasBackdrop,
             backdropClass: 'thy-overlay-transparent-backdrop',
             offset: this.thyOffset,
             initialState: {

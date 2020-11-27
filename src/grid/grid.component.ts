@@ -31,9 +31,9 @@ import {
     ThySwitchEvent,
     ThyGridDraggableEvent,
     ThyGridRowEvent,
-    ThyGridEvent
+    ThyGridEvent,
+    PageChangedEvent
 } from './grid.interface';
-import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { ThyGridColumnComponent, IThyGridColumnParentComponent, THY_GRID_COLUMN_PARENT_COMPONENT } from './grid-column.component';
 import { ViewportRuler } from '@angular/cdk/overlay';
 import { takeUntil, delay } from 'rxjs/operators';
