@@ -23,12 +23,12 @@ order: 10
 - 修改 `ngx-tethys` 版本为 `9.0.0`
 
 ## 引入修改
-- 多级引入改为二级或者三级(一般为二级)
+- 模块引入改为二级
 - 尽量避免使用`ngx-tethys`的一级模块
-### 三级入口
-- `ngx-tethys/util/helpers`
-- `ngx-tethys/core/logger`
 
+## 过渡
+- 下个大版本移除主入口即`ngx-tethys`
+- 下个大版本移除util中的helpers导出
 ## todo
 - 未来正式版可能通过`ng add`,`ng update`支持自动化安装/升级依赖,所以不需要目前把所有项目都升级,除非是最近必须用项目
 - 调用umd.js实现cdn式的模块引入

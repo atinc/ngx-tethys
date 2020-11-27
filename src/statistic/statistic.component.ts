@@ -1,5 +1,5 @@
 import { OnInit, Component, Input, HostBinding, ElementRef, TemplateRef, ContentChild, Renderer2 } from '@angular/core';
-import { coerceBooleanProperty, hexToRgb } from 'ngx-tethys/util/helpers';
+import { coerceBooleanProperty, hexToRgb } from 'ngx-tethys/util';
 import { UpdateHostClassService } from 'ngx-tethys/shared';
 
 export type ThyStatisticColorType = 'primary' | 'success' | 'warning' | 'danger' | 'info';

@@ -23,7 +23,7 @@ import { auditTime, map, takeUntil } from 'rxjs/operators';
 
 import { AffixRespondEvents } from './respond-events';
 import { ThyScrollService } from 'ngx-tethys/core';
-import { helpers, dom } from 'ngx-tethys/util';
+import { dom, shallowEqual } from 'ngx-tethys/util';
 import { SimpleRect } from 'ngx-tethys/typings';
 const THY_AFFIX_CLS_PREFIX = 'thy-affix';
 const THY_AFFIX_DEFAULT_SCROLL_TIME = 20;
@@ -147,7 +147,7 @@ export class ThyAffixComponent implements AfterViewInit, OnChanges, OnDestroy {
         if (e.type === 'scroll' && originalAffixStyle && affixStyle && isWindow) {
             return;
         }
-        if (helpers.shallowEqual(originalAffixStyle, affixStyle)) {
+        if (shallowEqual(originalAffixStyle, affixStyle)) {
             return;
         }
 
@@ -168,7 +168,7 @@ export class ThyAffixComponent implements AfterViewInit, OnChanges, OnDestroy {
 
     private setPlaceholderStyle(placeholderStyle?: any): void {
         const originalPlaceholderStyle = this.placeholderStyle;
-        if (helpers.shallowEqual(placeholderStyle, originalPlaceholderStyle)) {
+        if (shallowEqual(placeholderStyle, originalPlaceholderStyle)) {
             return;
         }
         this.renderer.setStyle(this.placeholderNode, 'cssText', dom.getStyleAsText(placeholderStyle));

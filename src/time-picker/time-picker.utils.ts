@@ -1,5 +1,5 @@
 import { Time, TimePickerComponentState } from './time-picker.models';
-import { coerceNumberValue } from 'ngx-tethys/util/helpers';
+import { coerceNumberValue } from 'ngx-tethys/util';
 
 const hoursPerDay = 24;
 const hoursPerDayHalf = 12;

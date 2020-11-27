@@ -1,5 +1,5 @@
 import { Directive, HostBinding, Input, Component, HostListener, ViewEncapsulation, ElementRef, OnInit } from '@angular/core';
-import { coerceBooleanProperty } from 'ngx-tethys/util/helpers';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { fromEvent } from 'rxjs';
 import { debounceTime, shareReplay } from 'rxjs/operators';
 import { UpdateHostClassService } from 'ngx-tethys/shared';

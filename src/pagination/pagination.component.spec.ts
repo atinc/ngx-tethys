@@ -1,4 +1,3 @@
-import { log } from './../core/logger/logger';
 import { fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, OnInit, NgModule, DebugElement, TemplateRef, ViewChild, QueryList } from '@angular/core';
 import { ThyPaginationComponent } from './pagination.component';

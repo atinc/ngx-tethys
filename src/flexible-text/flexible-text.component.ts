@@ -5,7 +5,7 @@ import { UpdateHostClassService } from 'ngx-tethys/shared';
 import { ContentObserver } from '@angular/cdk/observers';
 import { debounceTime } from 'rxjs/operators';
 import { ThyPlacement } from 'ngx-tethys/core';
-import { isUndefinedOrNull } from 'ngx-tethys/util/helpers';
+import { isUndefinedOrNull } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-flexible-text,[thyFlexibleText]',

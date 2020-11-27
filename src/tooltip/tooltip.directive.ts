@@ -15,7 +15,7 @@ import { Platform } from '@angular/cdk/platform';
 import { takeUntil, take } from 'rxjs/operators';
 
 import { ThyTooltipOptions, DEFAULT_TOOLTIP_OPTIONS } from './interface';
-import { coerceBooleanProperty, isString } from 'ngx-tethys/util/helpers';
+import { coerceBooleanProperty, isString } from 'ngx-tethys/util';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ThyTooltipComponent } from './tooltip.component';
 import { getFlexiblePositions, ThyPlacement, ThyOverlayDirectiveBase } from 'ngx-tethys/core';

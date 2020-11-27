@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, TemplateRef } from '@angular/core';
 
 import { TinyDate } from 'ngx-tethys/util';
-import { coerceBooleanProperty, FunctionProp } from 'ngx-tethys/util/helpers';
+import { coerceBooleanProperty, FunctionProp } from 'ngx-tethys/util';
 
 import { AbstractPickerComponent } from './abstract-picker.component';
 import { CompatibleDate, PanelMode, CompatibleValue } from './standard-types';

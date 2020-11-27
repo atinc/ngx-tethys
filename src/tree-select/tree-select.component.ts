@@ -14,7 +14,7 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ThyTreeSelectNode, ThyTreeSelectType } from './tree-select.class';
-import { isObject, isArray } from 'ngx-tethys/util/helpers';
+import { isObject, isArray } from 'ngx-tethys/util';
 import { Observable, of } from 'rxjs';
 import { CdkOverlayOrigin, CdkConnectedOverlay, ConnectionPositionPair } from '@angular/cdk/overlay';
 import { getFlexiblePositions } from 'ngx-tethys/core';
@@ -22,7 +22,7 @@ import { ThyTreeNode } from 'ngx-tethys/tree';
 
 import { take } from 'rxjs/operators';
 import { produce } from 'ngx-tethys/util';
-import { warnDeprecation } from 'ngx-tethys/core/logger';
+import { warnDeprecation } from 'ngx-tethys/util';
 
 type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 

@@ -1,4 +1,4 @@
-import { coerceNumberValue, coerceBooleanProperty, coerceCssPixelValue } from 'ngx-tethys/util/helpers';
+import { coerceNumberValue, coerceBooleanProperty, coerceCssPixelValue } from 'ngx-tethys/util';
 
 export function InputBoolean(): any {
     return propDecoratorFactory('InputBoolean', coerceBooleanProperty);

@@ -2,7 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { ThyTreeNodeCheckState } from './tree.class';
 import { Subject } from 'rxjs';
 import { ThyTreeNode } from './tree-node.class';
-import { coerceArray } from 'ngx-tethys/util/helpers';
+import { coerceArray } from 'ngx-tethys/util';
 
 function checkStateResolve(node: ThyTreeNode) {
     const checkedNodes = node.children.filter(n => n.isChecked === ThyTreeNodeCheckState.checked);

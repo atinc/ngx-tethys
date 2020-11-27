@@ -1,5 +1,5 @@
 import { Component, HostBinding, Input, OnInit, TemplateRef, Optional, ViewChild, ContentChild, ViewContainerRef } from '@angular/core';
-import { coerceBooleanProperty } from 'ngx-tethys/util/helpers';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 @Component({
     selector: 'thy-header',
     preserveWhitespaces: false,

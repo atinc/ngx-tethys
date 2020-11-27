@@ -14,7 +14,7 @@ import { ComponentLoader, ComponentLoaderFactory } from 'ngx-bootstrap/component
 import { PopBoxContainerComponent } from './pop-box-container.component';
 import { PopBoxOptions, popBoxConfigDefaults } from './pop-box-options.class';
 import { ThyPositioningService } from 'ngx-tethys/positioning';
-import { warnDeprecation } from 'ngx-tethys/core/logger';
+import { warnDeprecation } from 'ngx-tethys/util';
 
 @Injectable()
 export class ThyPopBoxService {

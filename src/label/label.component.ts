@@ -1,5 +1,5 @@
 import { Component, ElementRef, Renderer2, Input, Output, EventEmitter, HostBinding } from '@angular/core';
-import { coerceBooleanProperty } from 'ngx-tethys/util/helpers';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { helpers } from 'ngx-tethys/util';
 
 export type ThyLabelType = 'default' | 'primary' | 'success' | 'info' | 'warning' | 'danger';

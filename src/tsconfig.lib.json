@@ -16,9 +16,7 @@
     "types": [],
     "lib": ["dom", "ES2017"],
     "paths": {
-      "ngx-tethys/*": ["./*"],
-      "ngx-tethys/util/helpers": ["./util/helpers"],
-      "ngx-tethys/core/logger": ["./core/logger"]
+      "ngx-tethys/*": ["./*"]
     }
   },
   "angularCompilerOptions": {

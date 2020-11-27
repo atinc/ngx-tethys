@@ -1,4 +1,4 @@
-import { isNumber, isDate, isObject } from 'ngx-tethys/util/helpers';
+import { isNumber, isDate, isObject } from 'ngx-tethys/util';
 import { DatepickerValueShowTypesEnum } from './i.datepicker';
 
 export function datepickerUtilIdentificationValueType(value: any): DatepickerValueShowTypesEnum {

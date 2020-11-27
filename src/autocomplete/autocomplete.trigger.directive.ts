@@ -25,7 +25,7 @@ import { Subject, Observable, merge, fromEvent, of, Subscription } from 'rxjs';
 import { ESCAPE, UP_ARROW, ENTER, DOWN_ARROW, TAB } from 'ngx-tethys/util';
 import { filter, map, take, tap, delay, switchMap } from 'rxjs/operators';
 import { ScrollToService } from 'ngx-tethys/core';
-import { warnDeprecation } from 'ngx-tethys/core/logger';
+import { warnDeprecation } from 'ngx-tethys/util';
 
 @Directive({
     selector: 'input[thyAutocompleteTrigger], textarea[thyAutocompleteTrigger]',

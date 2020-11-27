@@ -14,7 +14,7 @@ import { AnimationEvent } from '@angular/animations';
 import { ThyTooltipVisibility } from './interface';
 import { thyTooltipAnimations } from './tooltip-animations';
 import { UpdateHostClassService } from 'ngx-tethys/shared';
-import { coerceArray } from 'ngx-tethys/util/helpers';
+import { coerceArray } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-tooltip',

@@ -11,7 +11,7 @@ import {
     ChangeDetectorRef
 } from '@angular/core';
 
-import { FunctionProp } from 'ngx-tethys/util/helpers';
+import { FunctionProp } from 'ngx-tethys/util';
 import { TinyDate, sortRangeValue } from 'ngx-tethys/util';
 
 import { CompatibleValue, DisabledDateFn, PanelMode, SupportTimeOptions, CompatibleDate } from '../../standard-types';

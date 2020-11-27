@@ -1,6 +1,6 @@
 import { Directive, HostBinding, Optional, Input, ViewEncapsulation } from '@angular/core';
 import { ThyFormDirective } from './form.directive';
-import { coerceBooleanProperty } from 'ngx-tethys/util/helpers';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { ThyTranslate } from 'ngx-tethys/shared';
 
 @Directive({

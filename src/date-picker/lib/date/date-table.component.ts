@@ -10,7 +10,7 @@ import {
     TemplateRef
 } from '@angular/core';
 import { TinyDate } from 'ngx-tethys/util';
-import { valueFunctionProp, FunctionProp } from 'ngx-tethys/util/helpers';
+import { valueFunctionProp, FunctionProp } from 'ngx-tethys/util';
 import { DateHelperService } from '../../date-helper.service';
 
 const DATE_ROW_NUM = 6;

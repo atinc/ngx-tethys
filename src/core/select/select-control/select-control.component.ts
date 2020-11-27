@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { UpdateHostClassService } from 'ngx-tethys/shared';
 import { SelectOptionBase } from '../../option/select-option-base';
-import { isArray, isUndefinedOrNull } from 'ngx-tethys/util/helpers';
+import { isArray, isUndefinedOrNull } from 'ngx-tethys/util';
 
 export type SelectControlSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 

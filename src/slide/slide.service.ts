@@ -7,7 +7,7 @@ import { ThySlideConfig, THY_SLIDE_DEFAULT_CONFIG, slideUpperOverlayOptions, sli
 import { ThySlideRef, ThyInternalSlideRef } from './slide-ref.service';
 import { Directionality } from '@angular/cdk/bidi';
 import { of } from 'rxjs';
-import { coerceArray } from 'ngx-tethys/util/helpers';
+import { coerceArray } from 'ngx-tethys/util';
 import { coerceElement } from '@angular/cdk/coercion';
 
 @Injectable()

@@ -17,7 +17,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Observable, Subscription, fromEvent } from 'rxjs';
-import { clamp } from 'ngx-tethys/util/helpers';
+import { clamp } from 'ngx-tethys/util';
 import { tap, pluck, map, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { InputBoolean } from 'ngx-tethys/core';
 import { UpdateHostClassService } from 'ngx-tethys/shared';

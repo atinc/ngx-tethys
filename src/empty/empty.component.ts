@@ -1,7 +1,7 @@
 import { Component, HostBinding, TemplateRef, ElementRef, Input, OnInit, AfterViewInit, Renderer2, NgZone } from '@angular/core';
 import { ThyTranslate } from 'ngx-tethys/shared';
 import { ThyEmptyConfig } from './empty.config';
-import { coerceBooleanProperty } from 'ngx-tethys/util/helpers';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 const sizeClassMap: any = {
     lg: ['empty-state', 'empty-state--lg'],

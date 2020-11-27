@@ -68,3 +68,5 @@ export * from 'ngx-tethys/back-top';
 export * from 'ngx-tethys/copy';
 export * from 'ngx-tethys/slider';
 export * from 'ngx-tethys/calendar';
+import { warnDeprecation } from 'ngx-tethys/util';
+warnDeprecation('The main entry point will be deprecated, please use second entry point');

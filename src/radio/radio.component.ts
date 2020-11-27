@@ -14,7 +14,7 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ThyTranslate } from 'ngx-tethys/shared';
 import { ThyFormCheckBaseComponent } from 'ngx-tethys/shared';
 import { ThyRadioGroupComponent } from './group/radio-group.component';
-import { coerceBooleanProperty } from 'ngx-tethys/util/helpers';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 @Component({
     selector: '[thy-radio],[thyRadio]',

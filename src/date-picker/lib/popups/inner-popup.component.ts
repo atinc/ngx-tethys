@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Out
 
 import { DisabledDateFn, PanelMode, SupportTimeOptions } from '../../standard-types';
 import { TinyDate } from 'ngx-tethys/util';
-import { FunctionProp } from 'ngx-tethys/util/helpers';
+import { FunctionProp } from 'ngx-tethys/util';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,

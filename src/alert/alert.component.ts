@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ContentChild, TemplateRef, HostBinding } from '@angular/core';
-import { helpers } from 'ngx-tethys/util';
+import { isString } from 'ngx-tethys/util';
 import { Dictionary } from 'ngx-tethys/typings';
 type ThyAlertType = 'success' | 'warning' | 'danger' | 'info' | 'primary-week' | 'success-week' | 'warning-week' | 'danger-week';
 
@@ -28,7 +28,7 @@ export class ThyAlertComponent implements OnInit {
     set thyIcon(value: boolean | string) {
         if (value) {
             this._showIcon = true;
-            this._icon = helpers.isString(value) ? value.toString() : null;
+            this._icon = isString(value) ? value.toString() : null;
         } else {
             this._showIcon = false;
         }

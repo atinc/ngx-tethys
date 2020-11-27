@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject, Subscriber, from } from 'rxjs';
-import { coerceArray } from 'ngx-tethys/util/helpers';
+import { coerceArray } from 'ngx-tethys/util';
 import { map, tap, mergeMap } from 'rxjs/operators';
 import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
 

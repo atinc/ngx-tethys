@@ -21,7 +21,7 @@ import {
     ContentChild
 } from '@angular/core';
 import { Dictionary } from 'ngx-tethys/typings';
-import { get, set, isString, coerceBooleanProperty, keyBy } from 'ngx-tethys/util/helpers';
+import { get, set, isString, coerceBooleanProperty, keyBy } from 'ngx-tethys/util';
 import {
     ThyGridColumn,
     ThyMultiSelectEvent,

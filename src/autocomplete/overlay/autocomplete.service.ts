@@ -17,7 +17,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import { of, Subject } from 'rxjs';
 import { getFlexiblePositions, ThyUpperOverlayService, ThyUpperOverlayRef } from 'ngx-tethys/core';
 import { takeUntil } from 'rxjs/operators';
-import { helpers } from 'ngx-tethys/util';
+import { isArray } from 'ngx-tethys/util';
 import { autocompleteUpperOverlayOptions } from './autocomplete.options';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { DOCUMENT } from '@angular/common';
@@ -63,7 +63,7 @@ export class ThyAutocompleteService extends ThyUpperOverlayService<ThyAutocomple
     private buildOverlayPanelClasses(config: ThyAutocompleteConfig) {
         let classes = [`cdk-overlay-pane`];
         if (config.panelClass) {
-            if (helpers.isArray(config.panelClass)) {
+            if (isArray(config.panelClass)) {
                 classes = classes.concat(config.panelClass);
             } else {
                 classes.push(config.panelClass as string);

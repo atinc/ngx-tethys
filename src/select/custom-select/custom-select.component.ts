@@ -24,7 +24,7 @@ import {
 import { UpdateHostClassService } from 'ngx-tethys/shared';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ThyOptionComponent, ThyOptionSelectionChangeEvent } from 'ngx-tethys/core';
-import { coerceBooleanProperty, isArray } from 'ngx-tethys/util/helpers';
+import { coerceBooleanProperty, isArray } from 'ngx-tethys/util';
 import {
     ScrollStrategy,
     Overlay,

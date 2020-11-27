@@ -3,8 +3,8 @@ import { ThyConfirmComponent } from './confirm.component';
 import { ConfirmOption, ContentKeyParams } from './confirm-option.interface';
 import { ThyModalService } from 'ngx-tethys/modal';
 import { ThyTranslate } from 'ngx-tethys/shared';
-import { isObject } from 'ngx-tethys/util/helpers';
-import { warnDeprecation } from 'ngx-tethys/core/logger';
+import { isObject } from 'ngx-tethys/util';
+import { warnDeprecation } from 'ngx-tethys/util';
 
 @Injectable()
 export class ThyConfirmService {

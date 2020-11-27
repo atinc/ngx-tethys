@@ -1,6 +1,6 @@
 import { Component, Directive, HostBinding, Input, ElementRef, Renderer2, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { AfterContentInit, OnChanges, OnInit } from '@angular/core';
-import { coerceBooleanProperty, isUndefined } from 'ngx-tethys/util/helpers';
+import { coerceBooleanProperty, isUndefined } from 'ngx-tethys/util';
 import { UpdateHostClassService } from 'ngx-tethys/shared';
 
 export type IconShape = '' | 'dashed' | 'solid';

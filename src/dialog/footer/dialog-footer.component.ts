@@ -1,8 +1,8 @@
 import { Component, Input, ContentChild, TemplateRef, Inject, OnInit, ElementRef } from '@angular/core';
-import { coerceBooleanProperty } from 'ngx-tethys/util/helpers';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { THY_DIALOG_LAYOUT_CONFIG, ThyDialogLayoutConfig, ThyDialogFooterAlign } from '../dialog.config';
 import { UpdateHostClassService } from 'ngx-tethys/shared';
-import { warnDeprecation } from 'ngx-tethys/core/logger';
+import { warnDeprecation } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-dialog-footer',

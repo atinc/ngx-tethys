@@ -2,7 +2,7 @@ import { Component, forwardRef, OnInit, HostBinding, HostListener, Input, Option
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyTranslate } from 'ngx-tethys/shared';
 import { ThyRadioGroupComponent } from './../group/radio-group.component';
-import { coerceBooleanProperty } from 'ngx-tethys/util/helpers';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { ThyRadioComponent } from '../radio.component';
 
 @Component({

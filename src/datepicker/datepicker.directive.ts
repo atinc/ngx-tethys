@@ -14,13 +14,13 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ComponentLoader, ComponentLoaderFactory } from 'ngx-bootstrap/component-loader';
 import { PlacementTypes, ThyPositioningService } from 'ngx-tethys/positioning';
-import { coerceBooleanProperty } from 'ngx-tethys/util/helpers';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { ThyDatepickerContainerComponent } from './datepicker-container.component';
 import { ThyDatepickerConfig } from './datepicker.config';
 import { ThyDatepickerService } from './datepicker.service';
 import { DatepickerValueEntry, DatepickerValueShowTypesEnum } from './i.datepicker';
 import { datepickerUtilConvertToDatepickerObject, datepickerUtilIdentificationValueType } from './util';
-import { warnDeprecation } from 'ngx-tethys/core/logger';
+import { warnDeprecation } from 'ngx-tethys/util';
 
 registerLocaleData(localeZhHans, 'zh-Hans');
 

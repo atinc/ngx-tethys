@@ -21,7 +21,7 @@ import { daterangepickerUtilIdentificationValueType, daterangepickerUtilConvertT
 import { ThyDaterangepickerContainerComponent } from './daterangepicker-container.component';
 import { ThyPositioningService } from 'ngx-tethys/positioning';
 import { ThyDaterangepickerConfig } from './daterangepicker.config';
-import { warnDeprecation } from 'ngx-tethys/core/logger';
+import { warnDeprecation } from 'ngx-tethys/util';
 
 const DATEPICKER_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,

@@ -1,7 +1,7 @@
 import { Injectable, TemplateRef, RendererFactory2, EventEmitter, Optional, Inject } from '@angular/core';
 import { BsModalService, BsModalRef, ModalOptions, MODAL_CONFIG_DEFAULT_OVERRIDE } from 'ngx-bootstrap/modal';
 import { ComponentLoaderFactory } from 'ngx-bootstrap/component-loader';
-import { warnDeprecation } from 'ngx-tethys/core/logger';
+import { warnDeprecation } from 'ngx-tethys/util';
 
 const modalConfigDefaults = {
     backdrop: true,

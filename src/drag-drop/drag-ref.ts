@@ -7,7 +7,7 @@ import { ThyDragDropService } from './drag-drop.service';
 import { ThyDragStartEvent, ThyDragEndEvent, ThyDragOverEvent, ThyDragDropEvent, ThyDropPosition } from './drag-drop.class';
 import { ThyDragDirective } from './drag.directive';
 import { IThyDropContainerDirective } from './drop-container.class';
-import { coerceArray } from 'ngx-tethys/util/helpers';
+import { coerceArray } from 'ngx-tethys/util';
 
 const dropPositionClass = {
     [ThyDropPosition.in]: 'thy-drop-position-in',
