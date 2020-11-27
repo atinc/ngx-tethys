@@ -100,8 +100,8 @@ describe('ThyPickerDirective', () => {
         }));
     });
 
-    describe('should get correct thyPlacement and offset', () => {
-        it('should get correct thyPlacement and offset', fakeAsync(() => {
+    describe('should get correct thyPlacement and offset and hasBackdrop', () => {
+        it('should get correct thyPlacement and offset and hasBackdrop', fakeAsync(() => {
             const thyPopover = TestBed.get(ThyPopover);
             const spy = spyOn(thyPopover, 'open');
             spy.and.returnValue({ componentInstance: { valueChange: of(), showTimePickerChange: of(), ngOnChanges: () => {} } });
@@ -135,12 +135,13 @@ describe('ThyPickerDirective', () => {
 
             fixtureInstance.thyOffset = 0;
             fixtureInstance.thyPlacement = 'right';
+            fixtureInstance.thyHasBackdrop = false;
             fixture.detectChanges();
             openPickerByClickTrigger();
 
             expect(spy).toHaveBeenCalledWith(DatePopupComponent, {
                 origin: debugElement.nativeElement.childNodes[0],
-                hasBackdrop: true,
+                hasBackdrop: false,
                 backdropClass: 'thy-overlay-transparent-backdrop',
                 offset: fixtureInstance.thyOffset,
                 initialState: {
@@ -215,8 +216,8 @@ describe('should get correct default thyPlacement and offset', () => {
         overlayContainer.ngOnDestroy();
     });
 
-    describe('should get correct default thyPlacement and offset', () => {
-        it('should get correct default thyPlacement and offset', fakeAsync(() => {
+    describe('should get correct default thyPlacement and offset and hasBackdrop', () => {
+        it('should get correct default thyPlacement and offset and hasBackdrop', fakeAsync(() => {
             const thyPopover = TestBed.get(ThyPopover);
             const spy = spyOn(thyPopover, 'open');
             spy.and.returnValue({ componentInstance: { valueChange: of(), showTimePickerChange: of(), ngOnChanges: () => {} } });
@@ -276,6 +277,7 @@ describe('should get correct default thyPlacement and offset', () => {
             [thyDefaultPickerValue]="thyDefaultPickerValue"
             [thyOffset]="thyOffset"
             [thyPlacement]="thyPlacement"
+            [thyHasBackdrop]="thyHasBackdrop"
         ></thy-property-operation>
     `
 })
@@ -294,6 +296,7 @@ class ThyTestPickerDirective {
     thyDisabled: boolean;
     thyOffset = 10;
     thyPlacement = 'bottomLeft';
+    thyHasBackdrop = true;
     thyOnChange(): void {}
     thyOnCalendarChange(): void {}
     thyOpenChange(): void {}
