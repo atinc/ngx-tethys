@@ -1,4 +1,0 @@
-<ng-container *ngFor="let member of removeMembers">
-    <thy-avatar class="mr-2" ngFor="" [thySrc]="member.avatar" [thySize]="member.size" (thyOnRemove)="onRemove(member)" thyShowRemove="true"></thy-avatar>
-</ng-container>
-<a href="javascript:;" *ngIf="removeMembers.length < 3" class="link-secondary" (click)="resetRemoveMembers()">重置</a>

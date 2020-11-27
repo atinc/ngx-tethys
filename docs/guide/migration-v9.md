@@ -75,7 +75,7 @@ order: 10
         background: darken($scrollbar-thumb, 15%);
     }
     ```
-
+- 移出了 Legacy Docs
 ## 过渡
 
 - 下个大版本移除主入口，即`ngx-tethys`
