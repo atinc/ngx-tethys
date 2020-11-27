@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.0.0-beta.1"></a>
+# [9.0.0-beta.1](https://github.com/atinc/ngx-tethys/compare/8.1.29...9.0.0-beta.1) (2020-11-27)
+
+
+
 <a name="8.1.29"></a>
 ## [8.1.29](https://github.com/atinc/ngx-tethys/compare/8.1.28...8.1.29) (2020-11-25)
 
