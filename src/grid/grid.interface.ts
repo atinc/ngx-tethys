@@ -33,7 +33,10 @@ export interface ThyGridEmptyOptions {
     topAuto?: string;
     container?: TemplateRef<any>;
 }
-
+export interface PageChangedEvent {
+    itemsPerPage: number;
+    page: number;
+}
 export interface ThyGridEvent {
     event: Event;
     row: any;
