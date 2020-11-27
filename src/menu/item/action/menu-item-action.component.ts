@@ -10,7 +10,6 @@ import {
     Renderer2,
     TemplateRef
 } from '@angular/core';
-import { ThyPopBoxService } from '../../../pop-box';
 import { ComponentType } from '@angular/cdk/portal';
 import { ThyPopover } from '../../../popover';
 
@@ -48,7 +47,7 @@ export class ThyMenuItemActionComponent implements OnInit {
                 this.popover.open(this._actionMenu,{
                     origin: event.currentTarget as HTMLElement,
                     insideClosable: true,
-                    placement: 'bottomRight',
+                    placement: 'bottom',
                 });
             }
         });
