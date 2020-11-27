@@ -27,7 +27,7 @@
     "build:docs": "ng build demo --prod --extract-css --baseHref=/ngx-tethys/legacy/",
     "build:docs:next": "docgeni build --skip-site && ng build site --prod --extract-css --baseHref=/ngx-tethys/",
     "test": "ng test ngx-tethys",
-    "lint": "ng lint",
+    "lint": "ng lint ngx-tethys",
     "pretty": "pretty-quick --staged",
     "e2e": "ng e2e",
     "serve-demo": "http-server docs -p 8888 -g &"
