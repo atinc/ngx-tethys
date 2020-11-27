@@ -47,13 +47,13 @@ export class ThyMenuItemActionComponent implements OnInit {
                 this.popover.open(this._actionMenu,{
                     origin: event.currentTarget as HTMLElement,
                     insideClosable: true,
-                    placement: 'bottom',
+                    placement: 'bottom'
                 });
             }
         });
     }
 
-    constructor( private popover: ThyPopover ,private renderer: Renderer2, private elementRef: ElementRef) {}
+    constructor(private popover: ThyPopover, private renderer: Renderer2, private elementRef: ElementRef) {}
 
     ngOnInit(): void {}
 }
