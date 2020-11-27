@@ -8,7 +8,7 @@ import { ThyMenuItemComponent } from '../item/menu-item.component';
 import { ThyMenuItemIconComponent } from '../item/icon/menu-item-icon.component';
 import { ThyMenuItemNameComponent } from '../item/name/menu-item-name.component';
 import { ThyMenuItemActionComponent } from '../item/action/menu-item-action.component';
-import { ThyPopBoxService, ThyPopBoxModule } from '../../pop-box';
+import { ThyPopover, ThyPopoverModule } from '../../popover';
 import { ComponentLoaderFactory } from 'ngx-bootstrap/component-loader';
 import { PositioningService } from 'ngx-bootstrap/positioning';
 import { ThyPositioningService } from '../../positioning/positioning.service';
@@ -66,10 +66,10 @@ class ThyDemoMenuComponent {
 }
 
 @NgModule({
-    imports: [ThyMenuModule, BrowserAnimationsModule, ThyPopBoxModule, ThyIconModule],
+    imports: [ThyMenuModule, BrowserAnimationsModule, ThyPopoverModule, ThyIconModule],
     declarations: [ThyDemoMenuComponent],
     exports: [ThyDemoMenuComponent],
-    providers: [ThyPopBoxService, ComponentLoaderFactory, PositioningService, ThyPositioningService]
+    providers: [ThyPopover, ComponentLoaderFactory, PositioningService, ThyPositioningService]
 })
 export class ThyMenuTestModule {}
 
