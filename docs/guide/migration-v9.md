@@ -22,13 +22,36 @@ order: 10
 ### 升级 ngx-tethys
 - 修改 `ngx-tethys` 版本为 `9.0.0`
 
-## 引入修改
-- 模块引入改为二级
-- 尽量避免使用`ngx-tethys`的一级模块
+## 新特性和相关修改
+- 所有模块的引入改为二级方式引入, 比如: `import { ThyButtonModule } from "ngx-tethys/button"`
+- 避免使用`ngx-tethys`主入口方式引入, 主入口引入会在 `10.0.0` 版本彻底移出
+  ```
+    import { ThyButtonModule, ThyIconModule} from "ngx-tethys";
+
+    // 需要修改成
+    import { ThyButtonModule } from "ngx-tethys/button";
+    import { ThyIconModule} from "ngx-tethys/icon";
+  ```
+- `ngx-tethys/util/helpers` 函数入口取消，需要修改成`ngx-tethys/util`导入
+    ```
+    import { isString } from "ngx-tethys/util/helpers";
+    // 需要修改成
+    import { isString } from "ngx-tethys/util";
+    ```
+- util.helpers 会保留到下一个大版本，提前使用 "ngx-tethys/util" 导入替换
+    ```
+    import { helpers } from "ngx-tethys/util";
+    helpers.isString(xxx);
+    helpers.isNumber(xxx)
+    // 需要修改成
+    import { isString, isNumber } from "ngx-tethys/util";
+    ```
+- 彻底移除`modal`、`datepicker`、`pop-box`、`confirm`废弃的模块，分别使用`dialog`、`date-picker`、`popover`、`dialog.confirm`替换
+- 彻底移除了 `ngx-bootstrap`、`ngx-sortablejs` 依赖
+- 新增`styles/main.bundle.scss`和`styles/basic.bundle.scss` bundle 文件，用于替换`styles/index.scss`和`styles/basic.scss`，之后的大版本会移出`styles/index.scss`和`styles/basic.scss`
 
 ## 过渡
-- 下个大版本移除主入口即`ngx-tethys`
+
+- 下个大版本移除主入口，即`ngx-tethys`
 - 下个大版本移除util中的helpers导出
-## todo
-- 未来正式版可能通过`ng add`,`ng update`支持自动化安装/升级依赖,所以不需要目前把所有项目都升级,除非是最近必须用项目
-- 调用umd.js实现cdn式的模块引入
+

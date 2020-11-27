@@ -2,7 +2,7 @@
   "bundlerOptions": {
     "entryFile": "./src/styles/index.scss",
     "rootDir": "./src",
-    "outFile": "./built/styles/style.bundle.scss",
+    "outFile": "./built/styles/main.bundle.scss",
     "ignoreImports": ["~@angular/.*"],
     "logLevel": "silent"
   }
