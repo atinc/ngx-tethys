@@ -7,7 +7,7 @@
     "baseUrl": "./",
     "sourceMap": true,
     "declaration": false,
-    "module": "esnext",
+    "module": "CommonJS",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
