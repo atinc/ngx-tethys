@@ -1,5 +1,3 @@
-import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
-
 import { ModuleWithProviders, NgModule } from '@angular/core';
 
 import { ThyActionMenuModule } from 'ngx-tethys/action-menu';
@@ -16,11 +14,9 @@ import { ThyButtonModule } from 'ngx-tethys/button';
 import { ThyCardModule } from 'ngx-tethys/card';
 import { ThyCascaderModule } from 'ngx-tethys/cascader';
 import { ThyCheckboxModule } from 'ngx-tethys/checkbox';
-import { ThyConfirmModule } from 'ngx-tethys/confirm';
 import { ThySelectCommonModule } from 'ngx-tethys/core';
 import { ThyDatePickerModule } from 'ngx-tethys/date-picker';
 import { ThyDateRangeModule } from 'ngx-tethys/date-range';
-import { ThyDatepickerModule } from 'ngx-tethys/datepicker';
 import { ThyDialogModule } from 'ngx-tethys/dialog';
 import { ThyDirectiveModule } from 'ngx-tethys/directive';
 import { ThyDragDropModule } from 'ngx-tethys/drag-drop';
@@ -40,11 +36,9 @@ import { ThyLoadingModule } from 'ngx-tethys/loading';
 import { ThyMarkdownModule } from 'ngx-tethys/markdown';
 import { ThyMentionModule } from 'ngx-tethys/mention';
 import { ThyMenuModule } from 'ngx-tethys/menu';
-import { ThyModalModule } from 'ngx-tethys/modal';
 import { ThyNavModule } from 'ngx-tethys/nav';
 import { ThyNotifyModule } from 'ngx-tethys/notify';
 import { ThyPaginationModule } from 'ngx-tethys/pagination';
-import { ThyPopBoxModule } from 'ngx-tethys/pop-box';
 import { ThyPopoverModule } from 'ngx-tethys/popover';
 import { ThyProgressModule } from 'ngx-tethys/progress';
 import { ThyPropertyOperationModule } from 'ngx-tethys/property-operation';
@@ -74,7 +68,6 @@ const IMPORT_EXPORT_MODULES = [
     ThyButtonModule,
     ThyBackTopModule,
     ThyIconModule,
-    ThyPopBoxModule,
     ThyPopoverModule,
     ThyBadgeModule,
     ThyGridModule,
@@ -84,14 +77,11 @@ const IMPORT_EXPORT_MODULES = [
     ThyNavModule,
     ThyMenuModule,
     ThyPaginationModule,
-    ThyModalModule,
     ThyNotifyModule,
     ThyCardModule,
     ThyLoadingModule,
     ThyAlertModule,
-    ThyDatepickerModule,
     ThyActionMenuModule,
-    ThyConfirmModule,
     ThyTreeModule,
     ThyEmptyModule,
     ThySwitchModule,
@@ -102,7 +92,6 @@ const IMPORT_EXPORT_MODULES = [
     ThyDropdownModule,
     ThyCopyModule,
     ThyDirectiveModule,
-    ProgressbarModule,
     ThyCheckboxModule,
     ThySelectModule,
     ThySlideModule,
@@ -142,7 +131,7 @@ const IMPORT_EXPORT_MODULES = [
 
 @NgModule({
     declarations: [],
-    imports: [ProgressbarModule.forRoot(), ...IMPORT_EXPORT_MODULES],
+    imports: [...IMPORT_EXPORT_MODULES],
     exports: IMPORT_EXPORT_MODULES,
     providers: []
 })

@@ -13,7 +13,6 @@
     "@angular/cdk": "*",
     "lodash": "*",
     "rxjs": "*",
-    "date-fns": "*",
-    "ngx-bootstrap": "*"
+    "date-fns": "*"
   }
 }
