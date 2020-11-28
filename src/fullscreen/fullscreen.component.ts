@@ -39,16 +39,16 @@ export class ThyFullscreenComponent implements OnInit, AfterViewInit, OnDestroy 
         }
     }
 
-    // 沉浸式全屏时监听不到键盘事件，所以只能通过监听fullscreenchange事件将全屏状态传出去
+    // 沉浸式全屏时通过监听fullscreenchange事件将全屏状态传出去
     private onFullscreenChange = () => {
         if (this.currentTarget) {
             const targetElement: HTMLElement = this.currentTarget;
             const isFullscreen = this.service.isImmersiveFullscreen(this.doc);
             if (!isFullscreen) {
                 this.service.exitNormalFullscreen(targetElement, this.thyFullscreenClasses);
+                this.isFullscreen = isFullscreen;
+                this.thyFullscreenChange.emit(this.isFullscreen);
             }
-            this.isFullscreen = isFullscreen;
-            this.thyFullscreenChange.emit(this.isFullscreen);
         }
     };
 
@@ -77,10 +77,10 @@ export class ThyFullscreenComponent implements OnInit, AfterViewInit, OnDestroy 
         this.thyFullscreenChange.emit(this.isFullscreen);
     };
 
-    // 按ESC键退出全屏
+    // normal模式下按ESC键退出全屏
     private handleKeyDown = (event: KeyboardEvent) => {
         if (event.key === ESC_KEY) {
-            if (this.isFullscreen) {
+            if (this.isFullscreen && this.thyMode === 'normal') {
                 const targetElement = this.elementRef.nativeElement.querySelector('[fullscreen-target]');
                 const containerElement = this.elementRef.nativeElement.querySelector('[fullscreen-container]');
                 this.service.exitNormalFullscreen(targetElement, this.thyFullscreenClasses, containerElement);
