@@ -23,12 +23,7 @@ module.exports = function(config) {
         angularCli: {
             environment: 'dev'
         },
-        files: [
-            './demo/src/assets/js/jquery.js',
-            './demo/src/assets/js/marked.lite.js',
-            './demo/src/assets/js/mermaid.full.min.js',
-            './demo/src/assets/js/katex.min.js'
-        ],
+        files: [],
         reporters: ['progress', 'kjhtml'],
         port: 9876,
         colors: true,

@@ -28,13 +28,13 @@ export class ThyDragDropDirective extends _MixinBase implements AfterContentInit
                 )
                     .pipe(takeUntil(this.ngUnsubscribe$))
                     .subscribe(() => {
-                        $('body').addClass('thy-dragging-body');
+                        document.body.classList.add('thy-dragging-body');
                     });
 
                 merge(...this.draggables.toArray().map(dragRef => dragRef.released))
                     .pipe(takeUntil(this.ngUnsubscribe$))
                     .subscribe(() => {
-                        $('body').removeClass('thy-dragging-body');
+                        document.body.classList.remove('thy-dragging-body');
                     });
             });
         }
