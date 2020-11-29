@@ -19,6 +19,7 @@ import { ThyTreeNode } from './tree-node.class';
 import { ThyTreeService } from './tree.service';
 import { takeUntil, filter } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { ThyDragStartEvent } from 'ngx-tethys/drag-drop';
 
 @Component({
     selector: 'thy-tree-node',
@@ -87,6 +88,39 @@ export class ThyTreeNodeComponent implements OnDestroy {
             .subscribe(() => {
                 this.markForCheck();
             });
+    }
+
+    private changeDragIconVisibility(event: Event, showDragIcon: boolean): void {
+        const nodeElement = event.target as HTMLElement;
+        const dragIcon = nodeElement.querySelector('.thy-tree-drag-icon') as HTMLElement;
+        if (dragIcon) {
+            dragIcon.style.visibility = showDragIcon ? 'visible' : 'hidden';
+        }
+    }
+
+    public nodeMouseEnter(event: Event) {
+        if (!this.root.thyDraggable || this.node.isDisabled) {
+            return;
+        } else if (this.root.thyDraggable && !this.root.thyBeforeDragStart) {
+            this.changeDragIconVisibility(event, true);
+        } else {
+            const containerItems = this.node.getParentNode() ? this.node.getParentNode().getChildren() : this.root.treeNodes;
+            const dragStartEvent: ThyDragStartEvent = {
+                event: event as DragEvent,
+                item: this.node,
+                containerItems,
+                currentIndex: containerItems.indexOf(this.node)
+            };
+            this.changeDragIconVisibility(event, this.root.thyBeforeDragStart(dragStartEvent));
+        }
+    }
+
+    public nodeMouseLeave(event: Event) {
+        if (!this.root.thyDraggable || this.node.isDisabled) {
+            return;
+        } else {
+            this.changeDragIconVisibility(event, false);
+        }
     }
 
     public clickNode(event: Event) {

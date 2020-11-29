@@ -106,14 +106,6 @@
                     color: $gray-500;
                     visibility: hidden;
                 }
-
-                &:not(.disabled) {
-                    &:hover {
-                        .thy-tree-drag-icon {
-                            visibility: visible;
-                        }
-                    }
-                }
             }
         }
     }
