@@ -7,7 +7,9 @@ import { Component, OnInit } from '@angular/core';
 export class ThySelectAutoExpendExampleComponent implements OnInit {
     listOfOption: Array<{ label: string; value: string }> = [];
 
-    isAutoExpend: boolean;
+    isAutoExpend = true;
+
+    isShow: boolean;
 
     constructor() {}
 

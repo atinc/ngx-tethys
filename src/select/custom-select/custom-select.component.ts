@@ -89,8 +89,6 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
 
     size: SelectControlSize;
 
-    autoExpend: boolean;
-
     mode: SelectMode = '';
 
     emptyStateText = '无任何选项';
@@ -180,19 +178,6 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
     }
 
     @Input()
-    get thyAutoExpand(): boolean {
-        return this.autoExpend;
-    }
-    set thyAutoExpand(value: boolean) {
-        this.autoExpend = value;
-        if (this.autoExpend) {
-            this.open();
-        } else {
-            this.close();
-        }
-    }
-
-    @Input()
     set thyEmptyStateText(value: string) {
         this.emptyStateText = value;
     }
@@ -219,6 +204,8 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
 
     @Input()
     thyFooterClass = 'thy-custom-select-footer';
+
+    @Input() thyAutoExpand: boolean;
 
     @ContentChild('selectedDisplay', { static: false }) selectedValueDisplayRef: TemplateRef<any>;
 

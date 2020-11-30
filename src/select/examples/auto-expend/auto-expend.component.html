@@ -1,6 +1,6 @@
-<label name="autoExpend" thyCheckbox [(ngModel)]="isAutoExpend" thyLabelText="是否自动展开"></label>
 <div>
-  <thy-custom-select [thyAutoExpand]="isAutoExpend" style="width:500px;">
+  <button class="btn btn-primary" (click)="isShow = !isShow">打开</button>
+  <thy-custom-select [thyAutoExpand]="isAutoExpend" style="width:500px;" *ngIf="isShow">
     <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.label"></thy-option>
   </thy-custom-select>
 </div>
