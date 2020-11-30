@@ -1,4 +1,4 @@
-import { Id } from 'ngx-tethys/typings';
+import { Id } from 'ngx-tethys/types';
 import { coerceArray, isFunction, isUndefinedOrNull } from './helpers';
 
 export interface EntityAddOptions {

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ContentChild, TemplateRef, HostBinding } from '@angular/core';
 import { isString } from 'ngx-tethys/util';
-import { Dictionary } from 'ngx-tethys/typings';
+import { Dictionary } from 'ngx-tethys/types';
 type ThyAlertType = 'success' | 'warning' | 'danger' | 'info' | 'primary-week' | 'success-week' | 'warning-week' | 'danger-week';
 
 @Component({

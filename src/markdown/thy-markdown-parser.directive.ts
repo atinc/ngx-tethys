@@ -1,6 +1,6 @@
 import { Directive, ElementRef, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ThyMarkdownParserService } from './thy-markdown-parser.service';
-import { $, liteMarked, mermaid, katex } from 'ngx-tethys/typings';
+import { $, liteMarked, mermaid, katex } from 'ngx-tethys/types';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 @Directive({

@@ -1,6 +1,6 @@
 import { InjectionToken, Inject, Injectable, Optional } from '@angular/core';
 import { ThyFormValidatorGlobalConfig, ThyFormValidationMessages, THY_VALIDATOR_CONFIG } from './form.class';
-import { Dictionary } from 'ngx-tethys/typings';
+import { Dictionary } from 'ngx-tethys/types';
 import { ValidationErrors } from '@angular/forms';
 import { helpers } from 'ngx-tethys/util';
 

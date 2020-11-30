@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { NgForm, AbstractControl, ValidationErrors } from '@angular/forms';
 import { ThyFormValidatorLoader, ERROR_VALUE_REPLACE_REGEX } from './form-validator-loader';
 import { ThyFormValidatorConfig } from './form.class';
-import { Dictionary } from 'ngx-tethys/typings';
+import { Dictionary } from 'ngx-tethys/types';
 
 @Injectable()
 export class ThyFormValidatorService {
