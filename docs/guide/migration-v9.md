@@ -1,7 +1,7 @@
 ---
 title: 9.x 升级指南
 path: 'migration-v9'
-order: 10
+order: 100
 ---
 
 本文档将帮助你从 ngx-tethys 8.x 版本升级到 9.x 版本。
