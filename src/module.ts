@@ -68,6 +68,7 @@ import { ThyUploaderModule } from './uploader';
 import { ThyVoteModule } from './vote';
 import { ThySliderModule } from './slider/slider.module';
 import { ThyCalendarModule } from './calendar';
+import { ThyFullscreenModule } from './fullscreen/fullscreen.module';
 
 const IMPORT_EXPORT_MODULES = [
     ThyLayoutModule,
@@ -137,7 +138,8 @@ const IMPORT_EXPORT_MODULES = [
     ThyAnchorModule,
     ThyAffixModule,
     ThySliderModule,
-    ThyCalendarModule
+    ThyCalendarModule,
+    ThyFullscreenModule
 ];
 
 @NgModule({
