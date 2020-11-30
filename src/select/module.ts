@@ -7,10 +7,10 @@ import { ThySelectCustomComponent } from './custom-select/custom-select.componen
 import { ThyLabelModule } from 'ngx-tethys/label';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { ThyLoadingModule } from 'ngx-tethys/loading';
-import { ThyDirectiveModule } from 'ngx-tethys/directive';
+import { ThySharedModule } from 'ngx-tethys/shared';
 import { ThyIconModule } from 'ngx-tethys/icon';
-import { ThyOptionModule } from 'ngx-tethys/core';
-import { ThySelectCommonModule } from 'ngx-tethys/core';
+import { ThyOptionModule } from 'ngx-tethys/shared';
+import { ThySelectCommonModule } from 'ngx-tethys/shared';
 import { ThyEmptyModule } from 'ngx-tethys/empty';
 
 @NgModule({
@@ -21,7 +21,7 @@ import { ThyEmptyModule } from 'ngx-tethys/empty';
         ThyLabelModule,
         OverlayModule,
         ThyLoadingModule,
-        ThyDirectiveModule,
+        ThySharedModule,
         ThyIconModule,
         ThyEmptyModule,
         ThySelectCommonModule,

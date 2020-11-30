@@ -1,14 +1,4 @@
-import {
-    Component,
-    HostBinding,
-    Input,
-    OnInit,
-    ContentChildren,
-    QueryList,
-    NgZone,
-    OnDestroy,
-    AfterContentInit
-} from '@angular/core';
+import { Component, HostBinding, Input, OnInit, ContentChildren, QueryList, NgZone, OnDestroy, AfterContentInit } from '@angular/core';
 import { Observable, defer, Subject, merge, combineLatest } from 'rxjs';
 import { ThyOptionVisibleChangeEvent, ThyOptionComponent } from '../option.component';
 import { take, switchMap, startWith, takeUntil, reduce, debounceTime, map } from 'rxjs/operators';
@@ -56,14 +46,9 @@ export class ThySelectOptionGroupComponent implements OnDestroy, AfterContentIni
     constructor(private _ngZone: NgZone) {}
 
     ngAfterContentInit() {
-        this.options.changes
-            .pipe(
-                startWith(null),
-                takeUntil(this._destroy$)
-            )
-            .subscribe(() => {
-                this._resetOptions();
-            });
+        this.options.changes.pipe(startWith(null), takeUntil(this._destroy$)).subscribe(() => {
+            this._resetOptions();
+        });
     }
 
     _resetOptions() {

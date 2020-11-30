@@ -14,7 +14,7 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ConnectedOverlayPositionChange, ConnectionPositionPair } from '@angular/cdk/overlay';
 import { EXPANDED_DROPDOWN_POSITIONS } from 'ngx-tethys/core';
-import { UpdateHostClassService } from 'ngx-tethys/shared';
+import { UpdateHostClassService } from 'ngx-tethys/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 function toArray<T>(value: T | T[]): T[] {

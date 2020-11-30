@@ -15,7 +15,7 @@ import {
     OnInit
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { UpdateHostClassService } from 'ngx-tethys/shared';
+import { UpdateHostClassService } from 'ngx-tethys/core';
 import { take } from 'rxjs/operators';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {

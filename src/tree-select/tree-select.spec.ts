@@ -3,7 +3,7 @@ import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Component, ViewChild, ViewChildren, QueryList, ElementRef, Sanitizer, SecurityContext, DebugElement } from '@angular/core';
 import { ThyTreeSelectModule } from './module';
 import { By, DomSanitizer } from '@angular/platform-browser';
-import { UpdateHostClassService } from '../shared';
+import { UpdateHostClassService } from '../core';
 import { ThyPositioningService } from '../positioning/positioning.service';
 import { OverlayContainer, ViewportRuler } from '@angular/cdk/overlay';
 import { Observable, Subject } from 'rxjs';

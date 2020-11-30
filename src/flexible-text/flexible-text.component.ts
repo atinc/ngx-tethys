@@ -1,7 +1,7 @@
 import { Component, Input, TemplateRef, ElementRef, OnInit, ViewContainerRef, OnDestroy, AfterContentInit } from '@angular/core';
 import { timer, Subject, Subscription } from 'rxjs';
 import { TooltipService } from 'ngx-tethys/tooltip';
-import { UpdateHostClassService } from 'ngx-tethys/shared';
+import { UpdateHostClassService } from 'ngx-tethys/core';
 import { ContentObserver } from '@angular/cdk/observers';
 import { debounceTime } from 'rxjs/operators';
 import { ThyPlacement } from 'ngx-tethys/core';

@@ -1,7 +1,7 @@
 import { Component, Input, ContentChild, TemplateRef, Inject, OnInit, ElementRef } from '@angular/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { THY_DIALOG_LAYOUT_CONFIG, ThyDialogLayoutConfig, ThyDialogFooterAlign } from '../dialog.config';
-import { UpdateHostClassService } from 'ngx-tethys/shared';
+import { UpdateHostClassService } from 'ngx-tethys/core';
 import { warnDeprecation } from 'ngx-tethys/util';
 
 @Component({

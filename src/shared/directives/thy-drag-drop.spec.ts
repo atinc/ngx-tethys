@@ -1,9 +1,22 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, async, TestBed } from '@angular/core/testing';
-import { ThyDirectiveModule } from './module';
+import { ThySharedModule } from '../shared.module';
 import { By } from '@angular/platform-browser';
-import { dispatchMouseEvent } from '../core/testing';
+import { dispatchMouseEvent } from '../../core/testing';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+
+@Component({
+    selector: 'thy-drag-drop-test',
+    template: `
+        <div cdkDropList thyDragDrop class="list">
+            <div class="item1" cdkDrag>item1</div>
+            <div *ngIf="showItem2" class="item2" cdkDrag>item2</div>
+        </div>
+    `
+})
+class ThyDragDropTestComponent {
+    showItem2 = false;
+}
 
 describe('thy-drag-drop', () => {
     let fixture: ComponentFixture<ThyDragDropTestComponent>;
@@ -11,7 +24,7 @@ describe('thy-drag-drop', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [ThyDirectiveModule, DragDropModule],
+            imports: [ThySharedModule, DragDropModule],
             declarations: [ThyDragDropTestComponent]
         }).compileComponents();
     }));
@@ -54,16 +67,3 @@ describe('thy-drag-drop', () => {
         expect(document.body.classList).not.toContain('thy-dragging-body');
     });
 });
-
-@Component({
-    selector: 'thy-drag-drop-test',
-    template: `
-        <div cdkDropList thyDragDrop class="list">
-            <div class="item1" cdkDrag>item1</div>
-            <div *ngIf="showItem2" class="item2" cdkDrag>item2</div>
-        </div>
-    `
-})
-class ThyDragDropTestComponent {
-    showItem2 = false;
-}

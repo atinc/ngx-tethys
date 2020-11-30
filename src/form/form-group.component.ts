@@ -2,9 +2,7 @@ import { Component, HostBinding, Optional, Input, ViewEncapsulation, ContentChil
 import { ThyFormDirective } from './form.directive';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { TemplateRef } from '@angular/core';
-import { ThyTranslate } from 'ngx-tethys/shared';
-import { ThyFormLayout } from './form.class';
-import { NgModel } from '@angular/forms';
+import { ThyTranslate } from 'ngx-tethys/core';
 
 const internalIconMap = {
     date: 'wtf wtf-schedule-o'

@@ -1,14 +1,13 @@
 import { TestBed, async, ComponentFixture, fakeAsync, tick, inject, flush, discardPeriodicTasks } from '@angular/core/testing';
 import { ThySelectCommonModule } from '../module';
-import { injectDefaultSvgIconSet } from '../../testing/thy-icon';
 import { By } from '@angular/platform-browser';
 import { Component, ViewChild } from '@angular/core';
 import { ThyFormModule } from '../../../form';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { UpdateHostClassService } from '../../../shared/update-host-class.service';
+import { UpdateHostClassService } from 'ngx-tethys/core';
 import { ThyIconModule } from '../../../icon/icon.module';
 import { ThySelectControlComponent, SelectControlSize } from './select-control.component';
-import { SelectOptionBase } from '../../option/select-option-base';
+import { SelectOptionBase } from '../../option';
 
 @Component({
     selector: 'basic-select-control',

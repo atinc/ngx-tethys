@@ -1,5 +1,5 @@
 import { Component, HostBinding, Input, ContentChild, TemplateRef, ElementRef, ViewEncapsulation, OnInit } from '@angular/core';
-import { ThyTranslate, UpdateHostClassService } from 'ngx-tethys/shared';
+import { UpdateHostClassService } from 'ngx-tethys/core';
 import { ThyButtonType } from '.';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 

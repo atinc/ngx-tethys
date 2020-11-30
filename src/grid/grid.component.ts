@@ -38,7 +38,7 @@ import { ThyGridColumnComponent, IThyGridColumnParentComponent, THY_GRID_COLUMN_
 import { ViewportRuler } from '@angular/cdk/overlay';
 import { takeUntil, delay } from 'rxjs/operators';
 import { mixinUnsubscribe, MixinBase, Constructor, ThyUnsubscribe } from 'ngx-tethys/core';
-import { UpdateHostClassService } from 'ngx-tethys/shared';
+import { UpdateHostClassService } from 'ngx-tethys/core';
 import { of, merge } from 'rxjs';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { DOCUMENT } from '@angular/common';

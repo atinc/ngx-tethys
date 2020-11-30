@@ -19,7 +19,7 @@ import { ThyOverlayDirectiveBase, ThyPlacement } from 'ngx-tethys/core';
 import { ThyAutocompleteService } from './overlay/autocomplete.service';
 import { ThyAutocompleteRef } from './overlay/autocomplete-ref';
 import { ThyAutocompleteComponent } from './autocomplete.component';
-import { ThyOptionComponent, ThyOptionSelectionChangeEvent } from 'ngx-tethys/core';
+import { ThyOptionComponent, ThyOptionSelectionChangeEvent } from 'ngx-tethys/shared';
 import { DOCUMENT } from '@angular/common';
 import { Subject, Observable, merge, fromEvent, of, Subscription } from 'rxjs';
 import { ESCAPE, UP_ARROW, ENTER, DOWN_ARROW, TAB } from 'ngx-tethys/util';

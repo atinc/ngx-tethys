@@ -10,7 +10,7 @@ import {
     OnInit,
     ChangeDetectionStrategy
 } from '@angular/core';
-import { UpdateHostClassService } from 'ngx-tethys/shared';
+import { UpdateHostClassService } from 'ngx-tethys/core';
 import { SelectOptionBase } from '../../option/select-option-base';
 import { isArray, isUndefinedOrNull } from 'ngx-tethys/util';
 

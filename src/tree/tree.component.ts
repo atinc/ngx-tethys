@@ -18,7 +18,7 @@ import { helpers } from 'ngx-tethys/util';
 import { ThyTreeService } from './tree.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { UpdateHostClassService } from 'ngx-tethys/shared';
+import { UpdateHostClassService } from 'ngx-tethys/core';
 import { ThyDragDropEvent, ThyDropPosition, ThyDragOverEvent, ThyDragStartEvent } from 'ngx-tethys/drag-drop';
 import { ThyTreeNode } from './tree-node.class';
 

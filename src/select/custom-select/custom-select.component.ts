@@ -21,9 +21,14 @@ import {
     HostListener,
     Attribute
 } from '@angular/core';
-import { UpdateHostClassService } from 'ngx-tethys/shared';
+import { UpdateHostClassService } from 'ngx-tethys/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { ThyOptionComponent, ThyOptionSelectionChangeEvent } from 'ngx-tethys/core';
+import {
+    ThyOptionComponent,
+    ThyOptionSelectionChangeEvent,
+    THY_OPTION_PARENT_COMPONENT,
+    IThyOptionParentComponent
+} from 'ngx-tethys/shared';
 import { coerceBooleanProperty, isArray } from 'ngx-tethys/util';
 import {
     ScrollStrategy,
@@ -36,13 +41,12 @@ import {
 import { takeUntil, startWith, take, switchMap } from 'rxjs/operators';
 import { Subject, Observable, merge, defer, Subscription, timer } from 'rxjs';
 import { getFlexiblePositions } from 'ngx-tethys/core';
-import { ThySelectOptionGroupComponent } from 'ngx-tethys/core';
+import { ThySelectOptionGroupComponent, SelectControlSize } from 'ngx-tethys/shared';
 import { SelectionModel } from '@angular/cdk/collections';
 import { helpers } from 'ngx-tethys/util';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
-import { SelectControlSize, ScrollToService } from 'ngx-tethys/core';
+import { ScrollToService } from 'ngx-tethys/core';
 import { DOWN_ARROW, UP_ARROW, LEFT_ARROW, RIGHT_ARROW, ENTER, SPACE, hasModifierKey, HOME, END, A } from 'ngx-tethys/util';
-import { THY_OPTION_PARENT_COMPONENT, IThyOptionParentComponent } from 'ngx-tethys/core';
 
 export type SelectMode = 'multiple' | '';
 

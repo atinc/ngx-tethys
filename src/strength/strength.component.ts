@@ -1,6 +1,6 @@
 import { Component, OnInit, forwardRef, HostBinding, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { ThyTranslate } from 'ngx-tethys/shared';
+import { ThyTranslate } from 'ngx-tethys/core';
 
 enum ThyStrengthEnum {
     highest = 4,

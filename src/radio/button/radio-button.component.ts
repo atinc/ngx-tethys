@@ -1,6 +1,6 @@
 import { Component, forwardRef, OnInit, HostBinding, HostListener, Input, Optional, ChangeDetectorRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { ThyTranslate } from 'ngx-tethys/shared';
+import { ThyTranslate } from 'ngx-tethys/core';
 import { ThyRadioGroupComponent } from './../group/radio-group.component';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { ThyRadioComponent } from '../radio.component';

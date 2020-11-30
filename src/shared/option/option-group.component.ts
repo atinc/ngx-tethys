@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
-import { ThyCanDisable, mixinDisabled, ThyCanDisableCtor, MixinBase } from '../behaviors';
+import { ThyCanDisable, mixinDisabled, ThyCanDisableCtor, MixinBase } from 'ngx-tethys/core';
 
 const _MixinBase: ThyCanDisableCtor & typeof MixinBase = mixinDisabled(MixinBase);
 @Component({
