@@ -205,6 +205,8 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
     @Input()
     thyFooterClass = 'thy-custom-select-footer';
 
+    @Input() thyAutoExpand: boolean;
+
     @ContentChild('selectedDisplay', { static: false }) selectedValueDisplayRef: TemplateRef<any>;
 
     @ViewChild('trigger', { read: ElementRef, static: true }) trigger: ElementRef<any>;
@@ -286,6 +288,14 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
             this.initializeSelection();
             this.initKeyManager();
             this.changeDetectorRef.markForCheck();
+            if (this.thyAutoExpand) {
+                timer().subscribe(() => {
+                    this.triggerRect = this.trigger.nativeElement.getBoundingClientRect();
+                    this.changeDetectorRef.markForCheck();
+                    this.open();
+                    this.focus();
+                });
+            }
         });
     }
 
