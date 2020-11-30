@@ -17,7 +17,7 @@ import {
 } from '@angular/core';
 import { FocusKeyManager, ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
-import { ThyListOptionComponent, THY_LIST_OPTION_PARENT_COMPONENT, IThyListOptionParentComponent, ThyListLayout } from 'ngx-tethys/core';
+import { ThyListOptionComponent, THY_LIST_OPTION_PARENT_COMPONENT, IThyListOptionParentComponent, ThyListLayout } from 'ngx-tethys/shared';
 import { keycodes, helpers, dom } from 'ngx-tethys/util';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { Subscription, throwError } from 'rxjs';
@@ -25,7 +25,7 @@ import { ThySelectionListChange } from './selection.interface';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ScrollToService, InputBoolean } from 'ngx-tethys/core';
 import { warnDeprecation } from 'ngx-tethys/util';
-import { UpdateHostClassService } from 'ngx-tethys/shared';
+import { UpdateHostClassService } from 'ngx-tethys/core';
 import { startWith } from 'rxjs/operators';
 
 export type ThyListSize = 'sm' | 'md' | 'lg';

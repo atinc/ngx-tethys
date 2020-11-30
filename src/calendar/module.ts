@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ThyDirectiveModule } from 'ngx-tethys/directive';
+import { ThySharedModule } from 'ngx-tethys/shared';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyCalendarHeaderComponent } from './calendar-header.component';
 import { ThyCalendarComponent } from './calendar.component';
@@ -22,7 +22,7 @@ import { ThyDateRangeModule } from 'ngx-tethys/date-range';
     imports: [
         CommonModule,
         FormsModule,
-        ThyDirectiveModule,
+        ThySharedModule,
         ThyIconModule,
         LibPackerModule,
         ThySelectModule,

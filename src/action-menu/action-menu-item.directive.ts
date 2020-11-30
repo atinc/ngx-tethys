@@ -2,7 +2,7 @@ import { Directive, HostBinding, Input, Component, HostListener, ViewEncapsulati
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { fromEvent } from 'rxjs';
 import { debounceTime, shareReplay } from 'rxjs/operators';
-import { UpdateHostClassService } from 'ngx-tethys/shared';
+import { UpdateHostClassService } from 'ngx-tethys/core';
 
 export type ThyActionMenuItemType = 'danger' | 'success';
 

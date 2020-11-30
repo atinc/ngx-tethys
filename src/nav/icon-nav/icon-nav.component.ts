@@ -1,5 +1,5 @@
 import { Component, OnInit, HostBinding, Input, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { UpdateHostClassService } from 'ngx-tethys/shared';
+import { UpdateHostClassService } from 'ngx-tethys/core';
 
 type IconNavTypes = 'primary' | 'secondary' | 'individual' | '';
 @Component({

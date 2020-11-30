@@ -3,9 +3,9 @@ import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Component, ViewChild, ViewChildren, QueryList, ElementRef, Sanitizer, SecurityContext, TemplateRef } from '@angular/core';
 import { ThySelectModule } from './module';
 import { ThySelectCustomComponent, SelectMode } from './custom-select/custom-select.component';
-import { ThyOptionComponent } from '../core/option/option.component';
+import { ThyOptionComponent } from '../shared/option/option.component';
 import { By, DomSanitizer } from '@angular/platform-browser';
-import { UpdateHostClassService } from '../shared';
+import { UpdateHostClassService } from '../core';
 import { ThyPositioningService } from '../positioning/positioning.service';
 import { OverlayContainer, ViewportRuler } from '@angular/cdk/overlay';
 import { Observable, Subject, fromEvent } from 'rxjs';
@@ -15,8 +15,7 @@ import { ThyFormModule } from '../form';
 import { dispatchFakeEvent, dispatchKeyboardEvent } from '../core/testing/dispatcher-events';
 import { TAB, ESCAPE, DOWN_ARROW, ENTER } from '../util/keycodes';
 import { typeInElement, injectDefaultSvgIconSet, bypassSanitizeProvider } from '../core/testing';
-import { ThyIconRegistry } from '../icon';
-import { ThyOptionModule } from '../core/option/module';
+import { ThyOptionModule } from '../shared/option/module';
 
 @Component({
     selector: 'basic-select',

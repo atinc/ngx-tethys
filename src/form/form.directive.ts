@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input, OnInit, Renderer2, HostBinding, OnDestroy, NgZone, Inject } from '@angular/core';
-import { UpdateHostClassService } from 'ngx-tethys/shared';
+import { UpdateHostClassService } from 'ngx-tethys/core';
 import { NgForm } from '@angular/forms';
 import { keycodes } from 'ngx-tethys/util';
 import { ThyFormLayout, ThyFormValidatorConfig, ThyFormConfig, THY_FORM_CONFIG } from './form.class';

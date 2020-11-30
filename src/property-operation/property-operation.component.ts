@@ -12,8 +12,7 @@ import {
     ViewChild,
     HostListener
 } from '@angular/core';
-import { UpdateHostClassService } from 'ngx-tethys/shared';
-import { ThyTranslate } from 'ngx-tethys/shared';
+import { UpdateHostClassService, ThyTranslate } from 'ngx-tethys/core';
 import { htmlElementIsEmpty, coerceBooleanProperty } from 'ngx-tethys/util';
 
 type ThyPropertyOperationTypes = 'primary' | 'success' | 'warning' | 'danger';

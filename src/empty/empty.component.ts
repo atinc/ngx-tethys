@@ -1,5 +1,5 @@
 import { Component, HostBinding, TemplateRef, ElementRef, Input, OnInit, AfterViewInit, Renderer2, NgZone } from '@angular/core';
-import { ThyTranslate } from 'ngx-tethys/shared';
+import { ThyTranslate } from 'ngx-tethys/core';
 import { ThyEmptyConfig } from './empty.config';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 

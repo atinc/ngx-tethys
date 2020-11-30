@@ -1,8 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ComponentFixture, async, TestBed, flush, fakeAsync, tick } from '@angular/core/testing';
-import { ThyDirectiveModule } from './module';
+import { ThySharedModule } from '../shared.module';
 import { ThyScrollDirective } from './thy-scroll.directive';
-import { dispatchFakeEvent } from '../core/testing';
+import { dispatchFakeEvent } from '../../core/testing';
 
 describe('thy-scroll', () => {
     let fixture: ComponentFixture<ThyScrollViewportComponent>;
@@ -10,7 +10,7 @@ describe('thy-scroll', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [ThyDirectiveModule],
+            imports: [ThySharedModule],
             declarations: [ThyScrollViewportComponent]
         }).compileComponents();
     }));

@@ -14,11 +14,11 @@ import { ThyButtonModule } from 'ngx-tethys/button';
 import { ThyCardModule } from 'ngx-tethys/card';
 import { ThyCascaderModule } from 'ngx-tethys/cascader';
 import { ThyCheckboxModule } from 'ngx-tethys/checkbox';
-import { ThySelectCommonModule } from 'ngx-tethys/core';
+import { ThySelectCommonModule } from 'ngx-tethys/shared';
+import { ThySharedModule } from 'ngx-tethys/shared';
 import { ThyDatePickerModule } from 'ngx-tethys/date-picker';
 import { ThyDateRangeModule } from 'ngx-tethys/date-range';
 import { ThyDialogModule } from 'ngx-tethys/dialog';
-import { ThyDirectiveModule } from 'ngx-tethys/directive';
 import { ThyDragDropModule } from 'ngx-tethys/drag-drop';
 import { ThyDropdownModule } from 'ngx-tethys/dropdown';
 import { ThyCopyModule } from 'ngx-tethys/copy';
@@ -91,7 +91,6 @@ const IMPORT_EXPORT_MODULES = [
     ThyInputModule,
     ThyDropdownModule,
     ThyCopyModule,
-    ThyDirectiveModule,
     ThyCheckboxModule,
     ThySelectModule,
     ThySlideModule,
@@ -100,7 +99,7 @@ const IMPORT_EXPORT_MODULES = [
     ThyPropertyOperationModule,
     ThyUploaderModule,
     ThyDateRangeModule,
-    // ThyKeySelectModule,
+    ThySharedModule,
     ThyListModule,
     ThyTreeSelectModule,
     ThyStepperModule,

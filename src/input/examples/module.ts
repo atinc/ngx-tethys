@@ -10,7 +10,7 @@ import { ThyInputSearchExampleComponent } from './search/search.component';
 import { ThyInputSizeExampleComponent } from './size/size.component';
 import { ThyInputModule } from 'ngx-tethys/input';
 import { ThyActionMenuModule } from 'ngx-tethys/action-menu';
-import { ThyDirectiveModule } from 'ngx-tethys/directive';
+import { ThySharedModule } from 'ngx-tethys/shared';
 
 const COMPONENTS = [
     ThyInputAppendExampleComponent,
@@ -25,7 +25,7 @@ const COMPONENTS = [
 @NgModule({
     declarations: [...COMPONENTS],
     entryComponents: [...COMPONENTS],
-    imports: [CommonModule, FormsModule, ThyInputModule, ThyActionMenuModule, ThyDirectiveModule],
+    imports: [CommonModule, FormsModule, ThyInputModule, ThyActionMenuModule, ThySharedModule],
     exports: [...COMPONENTS]
 })
 export class ThyInputExamplesModule {}

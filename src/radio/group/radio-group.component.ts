@@ -2,7 +2,7 @@ import { Component, forwardRef, HostBinding, Input, ElementRef, OnInit, ChangeDe
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ThyRadioComponent } from '../radio.component';
 import { ThyRadioButtonComponent } from '../button/radio-button.component';
-import { UpdateHostClassService } from 'ngx-tethys/shared';
+import { UpdateHostClassService } from 'ngx-tethys/core';
 
 const buttonGroupSizeMap = {
     sm: ['btn-group-sm'],

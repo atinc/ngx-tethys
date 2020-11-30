@@ -5,10 +5,10 @@ import { ThyTreeNodeComponent } from './tree-node.component';
 import { ThyTreeReplaceRegionComponent } from './tree-replace-region.component';
 import { ThyInputModule } from 'ngx-tethys/input';
 import { ThyButtonModule } from 'ngx-tethys/button';
-import { ThyDirectiveModule } from 'ngx-tethys/directive';
+import { ThySharedModule } from 'ngx-tethys/shared';
 import { ThyTreeService } from './tree.service';
 import { ThyListModule } from 'ngx-tethys/list';
-import { ThyOptionModule } from 'ngx-tethys/core';
+import { ThyOptionModule } from 'ngx-tethys/shared';
 import { FormsModule } from '@angular/forms';
 import { ThyLoadingModule } from 'ngx-tethys/loading';
 import { ThyIconModule } from 'ngx-tethys/icon';
@@ -21,7 +21,7 @@ import { ThyCheckboxModule } from 'ngx-tethys/checkbox';
         CommonModule,
         ThyInputModule,
         ThyButtonModule,
-        ThyDirectiveModule,
+        ThySharedModule,
         FormsModule,
         ThyListModule,
         ThyOptionModule,

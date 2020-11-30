@@ -1,5 +1,5 @@
 import { Component, Directive, ElementRef, Renderer2, Input, HostBinding, OnInit } from '@angular/core';
-import { UpdateHostClassService } from 'ngx-tethys/shared';
+import { UpdateHostClassService } from 'ngx-tethys/core';
 
 export type ThyNavType = 'primary' | 'secondary' | 'thirdly' | 'secondary-divider';
 export type ThyNavSize = '' | 'sm';

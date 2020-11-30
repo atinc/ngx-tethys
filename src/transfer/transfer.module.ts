@@ -6,11 +6,11 @@ import { ThyButtonModule } from 'ngx-tethys/button';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyListModule } from 'ngx-tethys/list';
-import { ThyDirectiveModule } from 'ngx-tethys/directive';
+import { ThySharedModule } from 'ngx-tethys/shared';
 import { ThyFlexibleTextModule } from 'ngx-tethys/flexible-text';
 @NgModule({
     declarations: [ThyTransferComponent, ThyTransferListComponent],
-    imports: [CommonModule, ThyButtonModule, DragDropModule, ThyIconModule, ThyListModule, ThyDirectiveModule, ThyFlexibleTextModule],
+    imports: [CommonModule, ThyButtonModule, DragDropModule, ThyIconModule, ThyListModule, ThySharedModule, ThyFlexibleTextModule],
     exports: [ThyTransferComponent]
 })
 export class ThyTransferModule {}

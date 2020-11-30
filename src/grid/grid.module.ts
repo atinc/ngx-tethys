@@ -8,7 +8,7 @@ import { ThySwitchModule } from 'ngx-tethys/switch';
 import { ThyLoadingModule } from 'ngx-tethys/loading';
 import { ThyEmptyModule } from 'ngx-tethys/empty';
 import { GridIsValidModelValuePipe } from './grid.pipe';
-import { ThyDirectiveModule } from 'ngx-tethys/directive';
+import { ThySharedModule } from 'ngx-tethys/shared';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
@@ -21,7 +21,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
         ThySwitchModule,
         ThyLoadingModule,
         ThyEmptyModule,
-        ThyDirectiveModule,
+        ThySharedModule,
         ThyIconModule,
         DragDropModule
     ],

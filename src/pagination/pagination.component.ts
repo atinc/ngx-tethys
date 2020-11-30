@@ -14,7 +14,7 @@ import {
 } from '@angular/core';
 import { ThyPaginationConfigModel } from './pagination.class';
 import { PaginationDefaultConfig, DEFAULT_RANGE_COUNT, THY_PAGINATION_CONFIG, ThyPaginationConfig } from './pagination.config';
-import { UpdateHostClassService } from 'ngx-tethys/shared';
+import { UpdateHostClassService } from 'ngx-tethys/core';
 import { isTemplateRef } from 'ngx-tethys/util';
 
 @Component({

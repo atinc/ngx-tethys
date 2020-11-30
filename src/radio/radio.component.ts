@@ -11,7 +11,7 @@ import {
     ChangeDetectorRef
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { ThyTranslate } from 'ngx-tethys/shared';
+import { ThyTranslate } from 'ngx-tethys/core';
 import { ThyFormCheckBaseComponent } from 'ngx-tethys/shared';
 import { ThyRadioGroupComponent } from './group/radio-group.component';
 import { coerceBooleanProperty } from 'ngx-tethys/util';

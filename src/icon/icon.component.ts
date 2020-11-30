@@ -11,7 +11,7 @@ import {
     OnChanges
 } from '@angular/core';
 
-import { UpdateHostClassService } from 'ngx-tethys/shared';
+import { UpdateHostClassService } from 'ngx-tethys/core';
 import { ThyIconRegistry } from './icon-registry';
 import { take, tap } from 'rxjs/operators';
 import { Subject, noop, BehaviorSubject } from 'rxjs';

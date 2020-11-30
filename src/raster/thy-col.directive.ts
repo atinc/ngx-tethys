@@ -12,7 +12,7 @@ import {
     Renderer2,
     OnInit
 } from '@angular/core';
-import { UpdateHostClassService } from 'ngx-tethys/shared';
+import { UpdateHostClassService } from 'ngx-tethys/core';
 import { ThyRowDirective } from './thy-row.directive';
 import { takeUntil } from 'rxjs/operators';
 import { mixinUnsubscribe, MixinBase, Constructor, ThyUnsubscribe } from 'ngx-tethys/core';

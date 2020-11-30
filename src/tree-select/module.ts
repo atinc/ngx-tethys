@@ -8,7 +8,7 @@ import { ThyTreeSelectNodesComponent } from './tree-select-nodes.component';
 import { ThyListModule } from 'ngx-tethys/list';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyEmptyModule } from 'ngx-tethys/empty';
-import { ThySelectCommonModule } from 'ngx-tethys/core';
+import { ThySelectCommonModule } from 'ngx-tethys/shared';
 
 @NgModule({
     imports: [

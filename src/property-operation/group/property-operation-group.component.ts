@@ -1,5 +1,4 @@
-import { Component, HostBinding, ContentChild, TemplateRef, ElementRef, Input, AfterContentInit, ViewChild } from '@angular/core';
-import { ThyTranslate } from 'ngx-tethys/shared';
+import { Component, HostBinding } from '@angular/core';
 
 @Component({
     selector: 'thy-property-operation-group',
@@ -8,5 +7,5 @@ import { ThyTranslate } from 'ngx-tethys/shared';
 export class ThyPropertyOperationGroupComponent {
     @HostBinding('class.thy-property-operation-group') _isPropertyOperationGroup = true;
 
-    constructor(private thyTranslate: ThyTranslate) {}
+    constructor() {}
 }

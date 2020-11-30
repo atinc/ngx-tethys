@@ -1,10 +1,9 @@
 import { Component, Sanitizer, SecurityContext, DebugElement } from '@angular/core';
 import { TestBed, ComponentFixture, inject } from '@angular/core/testing';
-import { UpdateHostClassService } from '../shared';
+import { UpdateHostClassService } from '../core';
 import { ThyButtonModule } from './button.module';
 import { ThyIconComponent } from '../icon';
 import { By } from '@angular/platform-browser';
-import { ThyButtonComponent } from './button.component';
 import { ThyButtonIconComponent } from './button-icon.component';
 import { injectDefaultSvgIconSet, bypassSanitizeProvider } from '../core/testing';
 

@@ -3,7 +3,6 @@ import { CdkDrag } from '@angular/cdk/drag-drop';
 import { merge, Subject } from 'rxjs';
 import { Constructor, MixinBase, mixinUnsubscribe, ThyUnsubscribe } from 'ngx-tethys/core';
 import { takeUntil, startWith } from 'rxjs/operators';
-import { $ } from 'ngx-tethys/typings';
 
 const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 @Directive({

@@ -13,7 +13,6 @@ export * from 'ngx-tethys/date-range';
 export * from 'ngx-tethys/core';
 export * from 'ngx-tethys/dialog';
 export * from 'ngx-tethys/tooltip';
-export * from 'ngx-tethys/directive';
 export * from 'ngx-tethys/dropdown';
 export * from 'ngx-tethys/empty';
 export * from 'ngx-tethys/form';

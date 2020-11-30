@@ -1,7 +1,7 @@
 import { Component, Directive, Input, ElementRef, Renderer2, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { AfterContentInit, OnChanges, OnInit } from '@angular/core';
 import { coerceBooleanProperty, isUndefined } from 'ngx-tethys/util';
-import { UpdateHostClassService } from 'ngx-tethys/shared';
+import { UpdateHostClassService } from 'ngx-tethys/core';
 
 export type ThyButtonType = 'primary' | 'secondary' | 'info' | 'outline-primary' | 'outline-default' | 'danger' | 'link' | 'link-secondary';
 

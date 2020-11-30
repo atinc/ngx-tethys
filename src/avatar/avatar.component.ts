@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, ElementRef, HostBinding, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { isNumber, coerceBooleanProperty } from 'ngx-tethys/util';
-import { UpdateHostClassService } from 'ngx-tethys/shared';
+import { UpdateHostClassService } from 'ngx-tethys/core';
 import { ThyAvatarService } from './avatar.service';
 import { isString } from 'ngx-tethys/util';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
