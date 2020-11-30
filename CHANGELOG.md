@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.1.31"></a>
+## [8.1.31](https://github.com/atinc/ngx-tethys/compare/8.1.30...8.1.31) (2020-11-30)
+
+
+### Bug Fixes
+
+* **menu:** modify pop-box to popover #INFR-1289 ([27f5acd](https://github.com/atinc/ngx-tethys/commit/27f5acd)), closes [#INFR-1289](https://github.com/atinc/ngx-tethys/issues/INFR-1289)
+* **menu:** remove ThyPopBoxService  #INFR-1289 ([a31b3c1](https://github.com/atinc/ngx-tethys/commit/a31b3c1)), closes [#INFR-1289](https://github.com/atinc/ngx-tethys/issues/INFR-1289)
+* **mune:** remove popbox in mune and test #INFR-1289 ([fba6c04](https://github.com/atinc/ngx-tethys/commit/fba6c04)), closes [#INFR-1289](https://github.com/atinc/ngx-tethys/issues/INFR-1289)
+* **tree:** hide drag icon when tree with thyBeforeDragStart #INFR-489 ([#953](https://github.com/atinc/ngx-tethys/issues/953)) ([abfdf86](https://github.com/atinc/ngx-tethys/commit/abfdf86)), closes [#INFR-489](https://github.com/atinc/ngx-tethys/issues/INFR-489)
+
+
+### Features
+
+* **fullscreen:** add fullscreen module #INFR-250 ([#990](https://github.com/atinc/ngx-tethys/issues/990)) ([32b0a04](https://github.com/atinc/ngx-tethys/commit/32b0a04)), closes [#INFR-250](https://github.com/atinc/ngx-tethys/issues/INFR-250)
+* **timeline:** add timeline component  #INFR-896 ([#907](https://github.com/atinc/ngx-tethys/issues/907)) ([52dca3f](https://github.com/atinc/ngx-tethys/commit/52dca3f)), closes [#INFR-896](https://github.com/atinc/ngx-tethys/issues/INFR-896) [#INFR-896](https://github.com/atinc/ngx-tethys/issues/INFR-896)
+
+
+
 <a name="8.1.30"></a>
 ## [8.1.30](https://github.com/atinc/ngx-tethys/compare/8.1.29...8.1.30) (2020-11-27)
 
