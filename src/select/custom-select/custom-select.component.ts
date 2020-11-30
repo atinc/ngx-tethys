@@ -192,6 +192,8 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
 
     @Input() thyAllowClear = false;
 
+    @Input() thyAutoExpand: boolean;
+
     @Input()
     set thyDisabled(value: string) {
         this.disabled = coerceBooleanProperty(value);
@@ -286,6 +288,14 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
             this.initializeSelection();
             this.initKeyManager();
             this.changeDetectorRef.markForCheck();
+            if (this.thyAutoExpand) {
+                timer().subscribe(() => {
+                    this.triggerRect = this.trigger.nativeElement.getBoundingClientRect();
+                    this.changeDetectorRef.markForCheck();
+                    this.open();
+                    this.focus();
+                });
+            }
         });
     }
 
