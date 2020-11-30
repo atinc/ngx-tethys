@@ -1,7 +1,7 @@
 ---
 title: 8.x 升级指南
 path: 'migration-v8'
-order: 10
+order: 99
 ---
 
 本文档将帮助你从 ngx-tethys 7.x 版本升级到 8.x 版本。
