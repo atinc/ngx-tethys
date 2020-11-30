@@ -1,5 +1,5 @@
 import { Store } from './store';
-import { Id, PaginationInfo } from './types';
+import { Id, PaginationInfo } from 'ngx-tethys/types';
 import { helpers, produce } from 'ngx-tethys/util';
 import { mergeReferences, buildReferencesKeyBy, ReferenceArrayExtractAllowKeys } from 'ngx-tethys/util';
 import { map } from 'rxjs/operators';

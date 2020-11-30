@@ -1,6 +1,6 @@
 import { Directive, ElementRef, OnInit, Input, HostBinding } from '@angular/core';
 import { ThyMarkdownParserService } from './thy-markdown-parser.service';
-import { liteMarked } from 'ngx-tethys/typings';
+import { liteMarked } from 'ngx-tethys/types';
 
 @Directive({
     selector: '[thyMarkdownPlanText]'

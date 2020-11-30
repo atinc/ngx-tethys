@@ -1,7 +1,7 @@
+import { IndexableObject } from './../tiny-date';
 import { TemplateRef, ElementRef } from '@angular/core';
 import { coerceBooleanProperty as coerceBoolean, coerceCssPixelValue as coerceCssPixel, _isNumberValue } from '@angular/cdk/coercion';
 import { warnDeprecation } from '../logger';
-import { IndexableObject } from 'ngx-tethys/typings';
 export function inputValueToBoolean(value: boolean | string): boolean {
     warnDeprecation(`The method inputValueToBoolean will be deprecated, please use coerceBooleanProperty instead.`);
     return value === '' || (value && value !== 'false');

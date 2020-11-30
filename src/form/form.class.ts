@@ -1,4 +1,4 @@
-import { Dictionary } from 'ngx-tethys/typings';
+import { Dictionary } from 'ngx-tethys/types';
 import { InjectionToken } from '@angular/core';
 
 export type ThyFormLayout = 'horizontal' | 'vertical' | 'inline';
