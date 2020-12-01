@@ -1,6 +1,6 @@
 import { TestBed, async, ComponentFixture, fakeAsync, tick, inject, flush, discardPeriodicTasks } from '@angular/core/testing';
 import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { Component, ViewChild, ViewChildren, QueryList, ElementRef, Sanitizer, SecurityContext, TemplateRef } from '@angular/core';
+import { Component, ViewChild, ViewChildren, QueryList, ElementRef, Sanitizer, SecurityContext, TemplateRef, OnInit } from '@angular/core';
 import { ThySelectModule } from './module';
 import { ThySelectCustomComponent, SelectMode } from './custom-select/custom-select.component';
 import { ThyOptionComponent } from '../core/option/option.component';
@@ -457,6 +457,32 @@ class SelectWithThySortComparatorComponent {
     @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
 }
 
+@Component({
+    selector: 'auto-expend-select',
+    template: `
+        <thy-custom-select [thyAutoExpand]="isAutoExpend" style="width:500px;">
+            <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.label"></thy-option>
+        </thy-custom-select>
+    `
+})
+class SelectWithThyAutoExpendComponent implements OnInit {
+    listOfOption: Array<{ label: string; value: string }> = [];
+
+    isAutoExpend = true;
+
+    @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
+
+    constructor() {}
+
+    ngOnInit() {
+        const children: Array<{ label: string; value: string }> = [];
+        for (let i = 10; i < 36; i++) {
+            children.push({ label: i.toString(36) + i, value: i.toString(36) + i });
+        }
+        this.listOfOption = children;
+    }
+}
+
 describe('ThyCustomSelect', () => {
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
@@ -488,7 +514,8 @@ describe('ThyCustomSelect', () => {
                 BasicSelectComponent,
                 SelectWithGroupsAndNgContainerComponent,
                 SelectWithExpandStatusComponent,
-                MultipleSelectComponent
+                MultipleSelectComponent,
+                SelectWithThyAutoExpendComponent
             ]);
         }));
 
@@ -1371,6 +1398,24 @@ describe('ThyCustomSelect', () => {
             flush();
 
             expect(spy).not.toHaveBeenCalled();
+        }));
+    });
+
+    describe('autoExpend', () => {
+        let fixture: ComponentFixture<SelectWithThyAutoExpendComponent>;
+
+        beforeEach(async(() => {
+            configureThyCustomSelectTestingModule([SelectWithThyAutoExpendComponent]);
+        }));
+
+        beforeEach(fakeAsync(() => {
+            fixture = TestBed.createComponent(SelectWithThyAutoExpendComponent);
+            fixture.detectChanges();
+            tick(1000);
+        }));
+
+        it('auto expend', fakeAsync(() => {
+            expect(fixture.componentInstance.select.panelOpen).toBe(true);
         }));
     });
 });
