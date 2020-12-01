@@ -1,16 +1,14 @@
-import { SchematicContext, Tree, chain, Rule } from '@angular-devkit/schematics';
-import { addPackageJsonDependency, NodeDependency, NodeDependencyType } from '@schematics/angular/utility/dependencies';
+import { SchematicContext, Tree, chain, Rule, noop } from '@angular-devkit/schematics';
 import { updateWorkspace } from '@schematics/angular/utility/workspace';
 import { JsonArray } from '@angular-devkit/core';
-import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 
-function addStyleToWorkspace() {
+function addStyleToWorkspace(projectName: string) {
     return (tree: Tree) => {
         return updateWorkspace(workspace => {
-            const defaultProject = workspace.extensions.defaultProject as string;
-            const config = workspace.projects.get(defaultProject);
+            projectName = projectName || (workspace.extensions.defaultProject as string);
+            const config = workspace.projects.get(projectName);
             const stylesList = (config.targets.get('build').options.styles as any[]) || [];
-            const filePath = `./node_modules/ngx-tethys/styles/index.scss`;
+            const filePath = `./node_modules/ngx-tethys/styles/main.bundle.scss`;
             if (!stylesList.includes(filePath)) {
                 stylesList.push(filePath);
                 config.targets.get('build').options.styles = stylesList;
@@ -18,52 +16,21 @@ function addStyleToWorkspace() {
         });
     };
 }
-function addDependenciesToPackageJson() {
-    return (tree: Tree) => {
-        ([
-            {
-                type: NodeDependencyType.Default,
-                name: 'bootstrap',
-                version: '~4.5.0'
-            },
-            {
-                type: NodeDependencyType.Default,
-                name: 'date-fns',
-                version: '^2.14.0'
-            },
-            {
-                type: NodeDependencyType.Default,
-                name: '@tethys/icons',
-                version: '^1.1.54'
-            },
-            {
-                type: NodeDependencyType.Default,
-                name: '@angular/cdk',
-                version: '^9.2.4'
-            }
-        ] as NodeDependency[]).forEach(item => addPackageJsonDependency(tree, item));
-
-        return tree;
-    };
-}
-function installPackage() {
-    return (tree: Tree, ctx: SchematicContext) => {
-        ctx.addTask(new NodePackageInstallTask());
-    };
-}
-export function main() {
-    return async (tree: Tree, ctx: SchematicContext) => {
-        const rule = updateWorkspace(workspace => {
-            const defaultProject = workspace.extensions.defaultProject as string;
-            const config = workspace.projects.get(defaultProject);
-            const list: JsonArray = (config.targets.get('build').options.assets as any) || [];
-            list.push({
-                glob: '**/*',
-                input: './node_modules/@tethys/icons/defs',
-                output: '/assets/icons/defs/'
-            });
-            config.targets.get('build').options.assets = list;
+function addIconToWorkspace(projectName: string) {
+    return updateWorkspace(workspace => {
+        projectName = projectName || (workspace.extensions.defaultProject as string);
+        const config = workspace.projects.get(projectName);
+        const list: JsonArray = (config.targets.get('build').options.assets as any) || [];
+        list.push({
+            glob: '**/*',
+            input: './node_modules/@tethys/icons',
+            output: '/assets/icons/'
         });
-        return chain([rule, addDependenciesToPackageJson(), addStyleToWorkspace(), installPackage()]);
+        config.targets.get('build').options.assets = list;
+    });
+}
+export function main(option: { project?: string; icon?: boolean } = {}) {
+    return async (tree: Tree, ctx: SchematicContext) => {
+        return chain([option.icon ? addIconToWorkspace(option.project) : noop(), addStyleToWorkspace(option.project)]);
     };
 }

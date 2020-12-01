@@ -20,13 +20,14 @@
     "release-next": "node ./scripts/release-next.js",
     "pub-only": "cd ./built && npm publish && cd ..",
     "pub": "wpm publish",
-    "test": "ng test ngx-tethys",
+    "test": "ng test ngx-tethys && npm run test:schematics",
     "lint": "ng lint ngx-tethys",
     "pretty": "pretty-quick --staged",
     "e2e": "ng e2e",
     "serve-demo": "http-server dist/site -p 8888 -g &",
     "build:schematics": "tsc -p ./schematics && npm run copy:schematics",
-    "copy:schematics": "cpx \"./schematics/**/*.{json,template}\" ./built/schematics/ -v"
+    "copy:schematics": "cpx \"./schematics/**/*.{json,template}\" ./built/schematics/ -v",
+    "test:schematics": "TS_NODE_PROJECT=./schematics/tsconfig.json node --require ts-node/register/transpile-only node_modules/jasmine/bin/jasmine schematics/**/*.spec.ts"
   },
   "repository": {
     "type": "git",
