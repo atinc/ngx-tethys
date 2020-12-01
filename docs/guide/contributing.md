@@ -8,11 +8,11 @@ order: 10
 
 ## 行为准则
 
-我们有一份 [行为准则]，希望所有的贡献者都能遵守，请花时间阅读一遍全文以确保你能明白哪些是可以做的，哪些是不可以做的。
+我们有一份 [行为准则]()，希望所有的贡献者都能遵守，请花时间阅读一遍全文以确保你能明白哪些是可以做的，哪些是不可以做的。
 
 ## 透明的开发
 
-我们所有的工作都会在[T01 Infrastructure项目下的 ngx-tethys 看板](https://at.pingcode.com/agile/projects/5e75e55dc9ecce3484ed21f0/kanban/5e75ee11c93dc84d996a0c92)上，不管是核心团队的成员还是外部贡献者的 pull request 都需要进过同样流程的 review。
+我们所有的工作都会在[T01 Infrastructure项目下的 ngx-tethys](https://at.pingcode.com/agile/projects/5e75e55dc9ecce3484ed21f0/kanban/5e75ee11c93dc84d996a0c92)看板上，不管是核心团队的成员还是外部贡献者的 pull request 都需要进过同样流程的 Review。
 
 ## Bugs
 

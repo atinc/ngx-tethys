@@ -13,7 +13,7 @@ npm install -g @angular/cli
 ### 创建一个项目
 > 在创建项目之前，请确保 `@angular/cli` 已被成功安装。
 
-执行以下命令，`@angular/cli` 会在当前目录下新建一个名称为 ` my-app` 的文件夹，并自动安装好相应依赖。
+执行以下命令，`@angular/cli` 会在当前目录下新建一个名称为 `my-app` 的文件夹，并自动安装好相应依赖。
 
 ```
 ng new my-app
