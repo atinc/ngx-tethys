@@ -14,5 +14,6 @@
     "lodash": "*",
     "rxjs": "*",
     "date-fns": "*"
-  }
+  },
+  "schematics": "./schematics/collection.json"
 }

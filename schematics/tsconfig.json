@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "outDir": "../built/schematics",
+    "rootDir": "./",
+    "target": "ES2015",
+    "module": "commonjs",
+    "strict": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  }
+}
