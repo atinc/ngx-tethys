@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.1.32"></a>
+## [8.1.32](https://github.com/atinc/ngx-tethys/compare/8.1.31...8.1.32) (2020-12-02)
+
+
+### Bug Fixes
+
+* **popover:** fix the problem of close container when click inside #INFR-1317 ([#1003](https://github.com/atinc/ngx-tethys/issues/1003)) ([e6a0fd9](https://github.com/atinc/ngx-tethys/commit/e6a0fd9)), closes [#INFR-1317](https://github.com/atinc/ngx-tethys/issues/INFR-1317)
+
+
+### Features
+
+* **select:** support thyAutoExpend ([#998](https://github.com/atinc/ngx-tethys/issues/998)) ([3264141](https://github.com/atinc/ngx-tethys/commit/3264141))
+
+
+
 <a name="8.1.31"></a>
 ## [8.1.31](https://github.com/atinc/ngx-tethys/compare/8.1.30...8.1.31) (2020-11-30)
 
