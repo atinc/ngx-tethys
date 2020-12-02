@@ -1,40 +1,6 @@
 import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
-async function createTestApp(runner: SchematicTestRunner, appOptions = {}, tree?: Tree): Promise<UnitTestTree> {
-    return createTestProject(runner, 'application', appOptions, tree);
-}
-async function createTestProject(
-    runner: SchematicTestRunner,
-    projectType: 'application' | 'library',
-    appOptions = {},
-    tree?: Tree
-): Promise<UnitTestTree> {
-    let workspaceTree;
-    if (!tree) {
-        workspaceTree = await runner
-            .runExternalSchematicAsync(
-                '@schematics/angular',
-                'workspace',
-                {
-                    name: 'workspace',
-                    version: '6.0.0',
-                    newProjectRoot: 'projects'
-                },
-                tree
-            )
-            .toPromise();
-    } else {
-        workspaceTree = tree;
-    }
-
-    return runner
-        .runExternalSchematicAsync('@schematics/angular', projectType, { name: 'ngx-tethys-test', ...appOptions }, workspaceTree)
-        .toPromise();
-}
-
-function getJsonFileContent(tree: UnitTestTree, path: string) {
-    return JSON.parse(tree.readContent(path));
-}
+import { createTestApp, getJsonFileContent } from '../testing';
 
 describe('ng-add Schematic', () => {
     let tree: Tree;
@@ -77,6 +43,22 @@ describe('ng-add Schematic', () => {
             a => typeof a === 'object' && a.input === './node_modules/@tethys/icons'
         );
         expect(existIcon).toEqual({
+            glob: '**/*',
+            input: './node_modules/@tethys/icons',
+            output: '/assets/icons/'
+        });
+    });
+
+    it(`should not icons`, async () => {
+        workspaceTree = await schematicRunner.runSchematicAsync('ng-add', { icon: false }, tree).toPromise();
+
+        const workspace = getJsonFileContent(workspaceTree, '/angular.json');
+        const defaultProject = workspace.defaultProject;
+
+        const existIcon = workspace.projects[defaultProject].architect.build.options.assets.find(
+            a => typeof a === 'object' && a.input === './node_modules/@tethys/icons'
+        );
+        expect(existIcon).not.toEqual({
             glob: '**/*',
             input: './node_modules/@tethys/icons',
             output: '/assets/icons/'
