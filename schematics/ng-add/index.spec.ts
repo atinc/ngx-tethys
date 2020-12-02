@@ -7,6 +7,7 @@ describe('ng-add Schematic', () => {
     const schematicRunner = new SchematicTestRunner('ngx-tethys', require.resolve('../collection.json'));
 
     let workspaceTree: UnitTestTree;
+
     beforeEach(async () => {
         tree = await createTestApp(schematicRunner);
     });
@@ -22,6 +23,7 @@ describe('ng-add Schematic', () => {
 
         expect(existStyle).toBe(true);
     });
+
     it(`should add styles in [ngx-tethys-chen] project`, async () => {
         tree = await createTestApp(schematicRunner, { name: 'ngx-tethys-chen' }, tree);
         workspaceTree = await schematicRunner.runSchematicAsync('ng-add', { project: 'ngx-tethys-chen' }, tree).toPromise();
@@ -33,6 +35,7 @@ describe('ng-add Schematic', () => {
 
         expect(existStyle).toBe(true);
     });
+
     it(`should add icons`, async () => {
         workspaceTree = await schematicRunner.runSchematicAsync('ng-add', { icon: true }, tree).toPromise();
 

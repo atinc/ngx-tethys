@@ -1,16 +1,13 @@
 import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 
-export async function createTestApp(runner: SchematicTestRunner, appOptions = {}, tree?: Tree): Promise<UnitTestTree> {
-    return createTestProject(runner, 'application', appOptions, tree);
-}
-async function createTestProject(
+export async function createTestProject(
     runner: SchematicTestRunner,
     projectType: 'application' | 'library',
-    appOptions = {},
+    projectOptions: any = {},
     tree?: Tree
 ): Promise<UnitTestTree> {
-    let workspaceTree;
+    let workspaceTree: Tree;
     if (!tree) {
         workspaceTree = await runner
             .runExternalSchematicAsync(
@@ -29,6 +26,6 @@ async function createTestProject(
     }
 
     return runner
-        .runExternalSchematicAsync('@schematics/angular', projectType, { name: 'ngx-tethys-test', ...appOptions }, workspaceTree)
+        .runExternalSchematicAsync('@schematics/angular', projectType, { name: 'ngx-tethys-test', ...projectOptions }, workspaceTree)
         .toPromise();
 }
