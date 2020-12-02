@@ -18,7 +18,7 @@ import { Subject, fromEvent } from 'rxjs';
 import { Platform } from '@angular/cdk/platform';
 import { throttleTime, takeUntil } from 'rxjs/operators';
 import { DOCUMENT } from '@angular/common';
-import { fadeMotion, ThyScrollService } from '../core';
+import { fadeMotion, ThyScrollService } from 'ngx-tethys/core';
 
 @Component({
     selector: 'thy-back-top,[thyBackTop]',
@@ -52,7 +52,7 @@ export class ThyBackTopComponent implements OnInit, OnDestroy, OnChanges {
         private platform: Platform,
         private cdr: ChangeDetectorRef,
         private zone: NgZone
-    ) { }
+    ) {}
 
     ngOnInit(): void {
         this.registerScrollEvent();
@@ -104,4 +104,3 @@ export class ThyBackTopComponent implements OnInit, OnDestroy, OnChanges {
         }
     }
 }
-

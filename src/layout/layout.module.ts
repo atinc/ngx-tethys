@@ -7,7 +7,7 @@ import { ThySidebarComponent } from './sidebar.component';
 import { ThyContentSectionComponent } from './content-section.component';
 import { ThyContentMainComponent } from './content-main.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { ThyIconModule } from '../icon/icon.module';
+import { ThyIconModule } from 'ngx-tethys/icon';
 
 @NgModule({
     declarations: [

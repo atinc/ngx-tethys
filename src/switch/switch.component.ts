@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit, forwardRef, ElementRef, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { helpers } from '../util';
+import { helpers } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-switch',

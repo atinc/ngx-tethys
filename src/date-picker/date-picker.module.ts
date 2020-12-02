@@ -1,6 +1,7 @@
 import { OverlayModule } from '@angular/cdk/overlay';
-import { CommonModule } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import { NgModule } from '@angular/core';
+import localeZhHans from '@angular/common/locales/zh-Hans';
 
 import { LibPackerModule } from './lib/lib-packer.module';
 
@@ -12,14 +13,16 @@ import { ThyRangePickerComponent } from './range-picker.component';
 import { ThyWeekPickerComponent } from './week-picker.component';
 import { ThyYearPickerComponent } from './year-picker.component';
 import { ThyPickerComponent } from './picker.component';
-import { ThyIconModule } from '../icon/icon.module';
-import { ThyInputModule } from '../input/module';
+import { ThyIconModule } from 'ngx-tethys/icon';
+import { ThyInputModule } from 'ngx-tethys/input';
 import { DatePickerRequiredValidator, RangePickerRequiredValidator } from './picker.validators';
 import { ThyDatePickerFormatPipe, ThyDatePickerFormatStringPipe } from './picker.pipes';
 import { ThyDatePickerDirective } from './date-picker.directive';
 import { ThyRangePickerDirective } from './range-picker.directive';
 import { DatePopupComponent } from './lib/popups/date-popup.component';
-import { ThyPopoverModule } from '../popover';
+import { ThyPopoverModule } from 'ngx-tethys/popover';
+
+registerLocaleData(localeZhHans, 'zh-Hans');
 
 @NgModule({
     imports: [CommonModule, OverlayModule, LibPackerModule, ThyIconModule, ThyInputModule, ThyPopoverModule],

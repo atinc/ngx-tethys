@@ -1,5 +1,5 @@
 import { Component, Input, HostBinding, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { coerceBooleanProperty } from '../util/helpers';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 const BadgeMutexType = ['thy-badge-count', 'thy-badge-dot', 'thy-badge-hollow'];
 const BadgeMutexTheme = ['thy-badge-primary', 'thy-badge-warning', 'thy-badge-danger', 'thy-badge-secondary'];

@@ -2,23 +2,16 @@ import { Injectable, Injector, Optional, Inject, OnDestroy, ElementRef } from '@
 import { ThySlideContainerComponent } from './slide-container.component';
 import { OverlayConfig, OverlayRef, Overlay } from '@angular/cdk/overlay';
 import { PortalInjector, ComponentPortal } from '@angular/cdk/portal';
-import { ThyUpperOverlayService, ThyUpperOverlayRef, ComponentTypeOrTemplateRef } from '../core/overlay';
-import {
-    ThySlideConfig,
-    THY_SLIDE_DEFAULT_CONFIG,
-    slideUpperOverlayOptions,
-    slideDefaultConfigValue
-} from './slide.config';
+import { ThyUpperOverlayService, ThyUpperOverlayRef, ComponentTypeOrTemplateRef } from 'ngx-tethys/core';
+import { ThySlideConfig, THY_SLIDE_DEFAULT_CONFIG, slideUpperOverlayOptions, slideDefaultConfigValue } from './slide.config';
 import { ThySlideRef, ThyInternalSlideRef } from './slide-ref.service';
 import { Directionality } from '@angular/cdk/bidi';
 import { of } from 'rxjs';
-import { coerceArray } from '../util/helpers';
+import { coerceArray } from 'ngx-tethys/util';
 import { coerceElement } from '@angular/cdk/coercion';
-import { helpers } from '../util';
 
 @Injectable()
-export class ThySlideService extends ThyUpperOverlayService<ThySlideConfig, ThySlideContainerComponent>
-    implements OnDestroy {
+export class ThySlideService extends ThyUpperOverlayService<ThySlideConfig, ThySlideContainerComponent> implements OnDestroy {
     private originElementAddActiveClass(config: ThySlideConfig) {
         if (config.origin) {
             coerceElement<HTMLElement>(config.origin).classList.add(...coerceArray(config.originActiveClass));

@@ -1,5 +1,4 @@
 import { Component, Input, HostBinding } from '@angular/core';
-import { coerceBooleanProperty } from '../util/helpers';
 
 @Component({
     selector: 'thy-list-item,[thy-list-item]',

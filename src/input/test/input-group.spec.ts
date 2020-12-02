@@ -4,7 +4,7 @@ import { ComponentFixture, fakeAsync, TestBed, inject } from '@angular/core/test
 import { By } from '@angular/platform-browser';
 import { ThyInputGroupComponent } from '../input-group.component';
 import { ThyInputModule } from './../module';
-import { ThyTranslate } from '../../shared';
+import { ThyTranslate } from '../../core';
 
 @Component({
     selector: 'test-bed',

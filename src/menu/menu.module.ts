@@ -7,7 +7,8 @@ import { ThyMenuItemNameComponent } from './item/name/menu-item-name.component';
 import { ThyMenuItemIconComponent } from './item/icon/menu-item-icon.component';
 import { ThyMenuItemActionComponent } from './item/action/menu-item-action.component';
 import { ThyMenuDividerComponent } from './divider/menu-divider.component';
-import { ThyIconModule } from '../icon/icon.module';
+import { ThyIconModule } from 'ngx-tethys/icon';
+import { ThyPopoverModule } from 'ngx-tethys/popover';
 
 @NgModule({
     declarations: [
@@ -19,7 +20,7 @@ import { ThyIconModule } from '../icon/icon.module';
         ThyMenuItemActionComponent,
         ThyMenuDividerComponent
     ],
-    imports: [CommonModule, ThyIconModule],
+    imports: [CommonModule, ThyIconModule, ThyPopoverModule],
     exports: [
         ThyMenuComponent,
         ThyMenuGroupComponent,

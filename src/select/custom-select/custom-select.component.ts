@@ -21,10 +21,15 @@ import {
     HostListener,
     Attribute
 } from '@angular/core';
-import { UpdateHostClassService } from '../../shared/update-host-class.service';
+import { UpdateHostClassService } from 'ngx-tethys/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { ThyOptionComponent, ThyOptionSelectionChangeEvent } from '../../core/option/option.component';
-import { coerceBooleanProperty, isArray } from '../../util/helpers';
+import {
+    ThyOptionComponent,
+    ThyOptionSelectionChangeEvent,
+    THY_OPTION_PARENT_COMPONENT,
+    IThyOptionParentComponent
+} from 'ngx-tethys/shared';
+import { coerceBooleanProperty, isArray } from 'ngx-tethys/util';
 import {
     ScrollStrategy,
     Overlay,
@@ -35,14 +40,13 @@ import {
 } from '@angular/cdk/overlay';
 import { takeUntil, startWith, take, switchMap } from 'rxjs/operators';
 import { Subject, Observable, merge, defer, Subscription, timer } from 'rxjs';
-import { getFlexiblePositions } from '../../core/overlay';
-import { ThySelectOptionGroupComponent } from '../../core/option/group/option-group.component';
+import { getFlexiblePositions } from 'ngx-tethys/core';
+import { ThySelectOptionGroupComponent, SelectControlSize } from 'ngx-tethys/shared';
 import { SelectionModel } from '@angular/cdk/collections';
-import { helpers } from '../../util';
+import { helpers } from 'ngx-tethys/util';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
-import { SelectControlSize, ScrollToService } from '../../core';
-import { DOWN_ARROW, UP_ARROW, LEFT_ARROW, RIGHT_ARROW, ENTER, SPACE, hasModifierKey, HOME, END, A } from '../../util/keycodes';
-import { THY_OPTION_PARENT_COMPONENT, IThyOptionParentComponent } from '../../core/option/option.token';
+import { ScrollToService } from 'ngx-tethys/core';
+import { DOWN_ARROW, UP_ARROW, LEFT_ARROW, RIGHT_ARROW, ENTER, SPACE, hasModifierKey, HOME, END, A } from 'ngx-tethys/util';
 
 export type SelectMode = 'multiple' | '';
 
@@ -205,13 +209,13 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
     @Input()
     thyFooterClass = 'thy-custom-select-footer';
 
-    @Input() thyAutoExpand: boolean;
+    @ContentChild('selectedDisplay') selectedValueDisplayRef: TemplateRef<any>;
 
-    @ContentChild('selectedDisplay', { static: false }) selectedValueDisplayRef: TemplateRef<any>;
+    @Input() thyAutoExpand: boolean;
 
     @ViewChild('trigger', { read: ElementRef, static: true }) trigger: ElementRef<any>;
 
-    @ViewChild('panel', { read: ElementRef, static: false }) panel: ElementRef<any>;
+    @ViewChild('panel', { read: ElementRef }) panel: ElementRef<any>;
 
     @ContentChildren(ThyOptionComponent, { descendants: true }) options: QueryList<ThyOptionComponent>;
 
@@ -568,7 +572,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
             this.selectionModelSubscription.unsubscribe();
             this.selectionModelSubscription = null;
         }
-        this.selectionModelSubscription = this.selectionModel.onChange.pipe(takeUntil(this.destroy$)).subscribe(event => {
+        this.selectionModelSubscription = this.selectionModel.changed.pipe(takeUntil(this.destroy$)).subscribe(event => {
             event.added.forEach(option => option.select());
             event.removed.forEach(option => option.deselect());
         });

@@ -5,7 +5,6 @@ import { By } from '@angular/platform-browser';
 import { ThyPropertyOperationComponent } from '../property-operation.component';
 import { ThyButtonIconComponent } from '../../button';
 import { injectDefaultSvgIconSet, bypassSanitizeProvider, defaultSvgHtml } from '../../core/testing';
-import { active } from 'sortablejs';
 
 //#region test component
 

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ThyAlertComponent } from './alert.component';
-import { ThyIconModule } from '../icon/icon.module';
+import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyAlertActionItemDirective } from './alert.directive';
 
 @NgModule({

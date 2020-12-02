@@ -1,7 +1,7 @@
 import { Observable, Observer, BehaviorSubject, from, of, PartialObserver, Subscription } from 'rxjs';
 import { distinctUntilChanged, map, shareReplay } from 'rxjs/operators';
 import { META_KEY, StoreMetaInfo } from './types';
-import { helpers } from '../util';
+import { helpers } from 'ngx-tethys/util';
 import { RootStore } from './root-store';
 import { OnDestroy, isDevMode } from '@angular/core';
 import { ActionState } from './action-state';
@@ -75,10 +75,7 @@ export class Store<T extends object> implements Observer<T>, OnDestroy {
 
     select<TResult>(selector: (state: T) => TResult): Observable<TResult> | Observable<TResult>;
     select(selector: string | any): Observable<any> {
-        return this.state$.pipe(
-            map(selector),
-            distinctUntilChanged()
-        );
+        return this.state$.pipe(map(selector), distinctUntilChanged());
     }
 
     next(state: T) {

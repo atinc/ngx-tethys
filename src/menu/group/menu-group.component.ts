@@ -1,8 +1,7 @@
 import { Component, OnInit, HostBinding, Input, Output, EventEmitter, ElementRef, ViewChild, TemplateRef } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { ComponentType } from '@angular/cdk/portal';
-import { ThyMenuComponent } from '../menu.component';
-import { ThyPopover } from '../../popover';
+import { ThyPopover } from 'ngx-tethys/popover';
 
 @Component({
     selector: 'thy-menu-group, [thy-menu-group],[thyMenuGroup]',
@@ -33,7 +32,7 @@ import { ThyPopover } from '../../popover';
     ]
 })
 export class ThyMenuGroupComponent implements OnInit {
-    public _actionMenu:  ComponentType<any> | TemplateRef<any>;
+    public _actionMenu: ComponentType<any> | TemplateRef<any>;
 
     public rightIconClass = 'more';
 
@@ -78,7 +77,7 @@ export class ThyMenuGroupComponent implements OnInit {
     @Output() thyOnActionClick: EventEmitter<Event> = new EventEmitter<Event>();
 
     @Input()
-    set thyActionMenu(value:  ComponentType<any> | TemplateRef<any>) {
+    set thyActionMenu(value: ComponentType<any> | TemplateRef<any>) {
         this._actionMenu = value;
     }
 
@@ -95,7 +94,7 @@ export class ThyMenuGroupComponent implements OnInit {
             event.stopPropagation();
         }
         if (this._actionMenu) {
-            this.popover.open(this._actionMenu,{
+            this.popover.open(this._actionMenu, {
                 origin: event.currentTarget as HTMLElement,
                 insideClosable: true,
                 placement: 'bottom'

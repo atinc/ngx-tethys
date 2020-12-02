@@ -14,12 +14,12 @@ import {
     SimpleChanges
 } from '@angular/core';
 import { ThyTreeNodeData, ThyTreeEmitEvent, ThyTreeDragDropEvent, ThyTreeIcons, ThyTreeNodeCheckState } from './tree.class';
-import { helpers } from '../util';
+import { helpers } from 'ngx-tethys/util';
 import { ThyTreeService } from './tree.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { UpdateHostClassService } from '../shared/update-host-class.service';
-import { ThyDragDropEvent, ThyDropPosition, ThyDragOverEvent, ThyDragStartEvent } from '../drag-drop/drag-drop.class';
+import { UpdateHostClassService } from 'ngx-tethys/core';
+import { ThyDragDropEvent, ThyDropPosition, ThyDragOverEvent, ThyDragStartEvent } from 'ngx-tethys/drag-drop';
 import { ThyTreeNode } from './tree-node.class';
 
 type ThyTreeSize = 'sm' | '';

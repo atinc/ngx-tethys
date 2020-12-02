@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { dispatchMouseEvent } from '../core/testing';
 import { DateRangeItemInfo } from './date-range.class';
-import { helpers } from '../util';
+import { formatDate } from '../util';
 import { DateHelperByDatePipe } from '../date-picker/date-helper.service';
 import { ThyDateRangeModule } from './module';
 import { getUnixTime, startOfQuarter, endOfQuarter, setMonth, getMonth, startOfMonth, endOfMonth } from 'date-fns';
@@ -166,8 +166,8 @@ class ThyTestDateRangeComponent {
         {
             key: '3month',
             text: '近三个月',
-            begin: helpers.formatDate(new Date(new Date().getFullYear(), new Date().getMonth() - 2, 1)),
-            end: helpers.formatDate(new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0)),
+            begin: formatDate(new Date(new Date().getFullYear(), new Date().getMonth() - 2, 1)),
+            end: formatDate(new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0)),
             timestamp: {
                 interval: 3,
                 unit: 'month'

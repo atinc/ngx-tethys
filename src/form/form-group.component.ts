@@ -1,10 +1,8 @@
 import { Component, HostBinding, Optional, Input, ViewEncapsulation, ContentChild, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ThyFormDirective } from './form.directive';
-import { coerceBooleanProperty } from '../util/helpers';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { TemplateRef } from '@angular/core';
-import { ThyTranslate } from '../shared';
-import { ThyFormLayout } from './form.class';
-import { NgModel } from '@angular/forms';
+import { ThyTranslate } from 'ngx-tethys/core';
 
 const internalIconMap = {
     date: 'wtf wtf-schedule-o'
@@ -81,7 +79,7 @@ export class ThyFormGroupComponent implements OnInit {
         this._rowFill = coerceBooleanProperty(value);
     }
 
-    @ContentChild('formGroup', { static: false })
+    @ContentChild('formGroup')
     public contentTemplateRef: TemplateRef<any>;
 
     constructor(@Optional() private thyParentForm: ThyFormDirective, private thyTranslate: ThyTranslate) {}

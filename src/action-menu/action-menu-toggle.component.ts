@@ -1,8 +1,8 @@
 import { Directive, Input, HostListener, TemplateRef } from '@angular/core';
-import { coerceBooleanProperty } from '../util/helpers';
-import { ThyPopover } from '../popover';
-import { ThyPlacement } from '../core';
-import { helpers } from '../util';
+import { ThyPopover } from 'ngx-tethys/popover';
+import { ThyPlacement } from 'ngx-tethys/core';
+import { camelCase } from 'ngx-tethys/util';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 export enum ActionEnum {
     click = 'click',
@@ -75,7 +75,7 @@ export class ThyActionMenuToggleDirective {
         this.thyPopover.open(this._templateRef, {
             origin: event.currentTarget,
             insideClosable: true,
-            placement: this._placement ? (helpers.camelCase(this._placement.split(' ')) as ThyPlacement) : 'bottomLeft',
+            placement: this._placement ? (camelCase(this._placement.split(' ')) as ThyPlacement) : 'bottomLeft',
             panelClass: this._thyContainerClass,
             originActiveClass: this.thyOriginActiveClass
         });

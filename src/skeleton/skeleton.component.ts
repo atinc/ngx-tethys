@@ -10,7 +10,7 @@ import {
     TemplateRef,
     ContentChild
 } from '@angular/core';
-import { helpers } from '../util';
+import { generateRandomStr } from 'ngx-tethys/util';
 import { isPlatformBrowser } from '@angular/common';
 
 @Component({
@@ -54,14 +54,14 @@ export class ThySkeletonComponent implements OnInit, OnChanges {
 
     @Input() thyLoadingDone = false;
 
-    @ContentChild('content', { static: false })
+    @ContentChild('content')
     customTemplate: TemplateRef<any>;
 
     contentTemplates: TemplateRef<any>[] = [];
 
-    idClip = helpers.generateRandomStr();
+    idClip = generateRandomStr();
 
-    idGradient = helpers.generateRandomStr();
+    idGradient = generateRandomStr();
 
     defaultAnimation = ['-3; 1', '-2; 2', '-1; 3'];
 

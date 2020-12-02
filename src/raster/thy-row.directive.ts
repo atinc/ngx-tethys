@@ -1,18 +1,19 @@
 import { Directive, HostBinding, Input, Renderer2, OnChanges, OnInit, AfterViewInit, OnDestroy, ElementRef } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
-import { mixinUnsubscribe, MixinBase } from '../core';
-import { isString } from '../util/helpers';
+import { mixinUnsubscribe, MixinBase, Constructor, ThyUnsubscribe } from 'ngx-tethys/core';
+import { isString } from 'ngx-tethys/util';
 
 export type ThyRowJustify = 'start' | 'end' | 'center' | 'space-around' | 'space-between';
 export type ThyRowAlign = 'top' | 'middle' | 'bottom';
 
+const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 @Directive({
     selector: '[thyRow]',
     host: {
         class: 'thy-row'
     }
 })
-export class ThyRowDirective extends mixinUnsubscribe(MixinBase) implements OnInit, OnChanges, AfterViewInit, OnDestroy {
+export class ThyRowDirective extends _MixinBase implements OnInit, OnChanges, AfterViewInit, OnDestroy {
     @Input() thyGutter: number | { xs?: number; sm?: number; md?: number; lg?: number; xl?: number; xxl?: number };
     @Input() thyAlign: ThyRowAlign | null = null;
     @Input() thyJustify: ThyRowJustify | null = null;

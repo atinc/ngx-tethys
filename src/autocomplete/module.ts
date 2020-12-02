@@ -2,17 +2,17 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ThyAutocompleteTriggerDirective } from './autocomplete.trigger.directive';
-import { ThyInputModule } from '../input/module';
+import { ThyInputModule } from 'ngx-tethys/input';
 import { ThyAutocompleteComponent } from './autocomplete.component';
-import { ThyLabelModule } from '../label/label.module';
+import { ThyLabelModule } from 'ngx-tethys/label';
 import { OverlayModule } from '@angular/cdk/overlay';
-import { ThyLoadingModule } from '../loading';
-import { ThyDirectiveModule } from '../directive';
-import { ThyIconModule } from '../icon';
-import { ThyEmptyModule } from '../empty/empty.module';
+import { ThyLoadingModule } from 'ngx-tethys/loading';
+import { ThySharedModule } from 'ngx-tethys/shared';
+import { ThyIconModule } from 'ngx-tethys/icon';
+import { ThyEmptyModule } from 'ngx-tethys/empty';
 import { ThyAutocompleteContainerComponent } from './overlay/autocomplete-container.component';
 import { THY_AUTOCOMPLETE_DEFAULT_CONFIG_PROVIDER } from './overlay/autocomplete.config';
-import { ThyOptionModule } from '../core/option/module';
+import { ThyOptionModule } from 'ngx-tethys/shared';
 import { PortalModule } from '@angular/cdk/portal';
 
 @NgModule({
@@ -24,14 +24,14 @@ import { PortalModule } from '@angular/cdk/portal';
         OverlayModule,
         PortalModule,
         ThyLoadingModule,
-        ThyDirectiveModule,
+        ThySharedModule,
         ThyIconModule,
         ThyEmptyModule,
         ThyOptionModule
     ],
     declarations: [ThyAutocompleteTriggerDirective, ThyAutocompleteComponent, ThyAutocompleteContainerComponent],
     entryComponents: [ThyAutocompleteContainerComponent],
-    exports: [ThyAutocompleteTriggerDirective, ThyAutocompleteComponent, ThyAutocompleteContainerComponent],
+    exports: [ThyAutocompleteTriggerDirective, ThyAutocompleteComponent, ThyAutocompleteContainerComponent, ThyOptionModule],
     providers: [THY_AUTOCOMPLETE_DEFAULT_CONFIG_PROVIDER]
 })
 export class ThyAutocompleteModule {}

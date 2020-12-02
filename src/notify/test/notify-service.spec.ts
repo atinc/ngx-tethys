@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { async, TestBed, ComponentFixture, tick, fakeAsync, flush } from '@angular/core/testing';
 import { ThyNotifyModule } from '../notify.module';
 import { ThyNotifyService } from '../notify.service';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 //#region test component
 
@@ -40,7 +41,7 @@ describe('ThyNotify', () => {
     let bodyElement: Element;
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [ThyNotifyModule],
+            imports: [ThyNotifyModule, NoopAnimationsModule],
             declarations: [ThyNotifyBasicComponent],
             providers: []
         });

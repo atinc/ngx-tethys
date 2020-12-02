@@ -19,11 +19,11 @@ import { AnimationEvent } from '@angular/animations';
 
 import { ThyPopoverConfig } from './popover.config';
 import { thyPopoverAnimations } from './popover-animations';
-import { ThyUpperOverlayContainer } from '../core/overlay';
+import { ThyUpperOverlayContainer } from 'ngx-tethys/core';
 import { popoverUpperOverlayOptions } from './popover.options';
 import { Observable, fromEvent, timer } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
-import { ThyClickDispatcher } from '../core/event-dispatchers/click-dispatcher';
+import { ThyClickDispatcher } from 'ngx-tethys/core';
 
 @Component({
     selector: 'thy-popover-container',
@@ -86,7 +86,7 @@ export class ThyPopoverContainerComponent extends ThyUpperOverlayContainer imple
                     .clicked()
                     .pipe(takeUntil(this.animationClosingDone))
                     .subscribe((event: MouseEvent) => {
-                        if (!this.elementRef.nativeElement.contains((event.target as HTMLElement))) {
+                        if (!this.elementRef.nativeElement.contains(event.target as HTMLElement)) {
                             this.ngZone.run(() => {
                                 this.outsideClicked.emit();
                             });

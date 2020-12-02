@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, EventEmitter, HostBinding, Input, OnInit, Output, TemplateRef } from '@angular/core';
-import { DateRangeItemInfo } from '../date-range/date-range.class';
-import { FunctionProp } from '../util/helpers';
-import { endOfMonth, getUnixTime, startOfMonth, TinyDate } from '../util/tiny-date';
+import { DateRangeItemInfo } from 'ngx-tethys/date-range';
+import { FunctionProp } from 'ngx-tethys/util';
+import { endOfMonth, getUnixTime, startOfMonth, TinyDate } from 'ngx-tethys/util';
 import { fromUnixTime, getMonth, getYear } from 'date-fns';
 
 @Component({

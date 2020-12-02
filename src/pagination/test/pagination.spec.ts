@@ -1,4 +1,3 @@
-import { log } from './../../core/logger/logger';
 import { element } from 'protractor';
 import { TestBed, ComponentFixture, tick, fakeAsync } from '@angular/core/testing';
 import { NgModule, Component } from '@angular/core';

@@ -1,12 +1,6 @@
-import { Store, Action } from '../store';
+import { Store, Action } from 'ngx-tethys/store';
 import { TimeChangeEvent, TimePickerComponentState, Time, TimePickerControls } from './time-picker.models';
-import {
-    canChangeHours,
-    canChangeMinutes,
-    canChangeSeconds,
-    canChangeValue,
-    timePickerControls
-} from './time-picker-controls.util';
+import { canChangeHours, canChangeMinutes, canChangeSeconds, canChangeValue, timePickerControls } from './time-picker-controls.util';
 import { changeTime, setTime, isValidLimit } from './time-picker.utils';
 import { Injectable } from '@angular/core';
 import { TimePickerConfig } from './time-picker.config';

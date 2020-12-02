@@ -1,10 +1,10 @@
 import { Directive, ElementRef, Input, OnInit, Renderer2, HostBinding, OnDestroy, NgZone, Inject } from '@angular/core';
-import { UpdateHostClassService } from '../shared';
+import { UpdateHostClassService } from 'ngx-tethys/core';
 import { NgForm } from '@angular/forms';
-import { keycodes } from '../util';
+import { keycodes } from 'ngx-tethys/util';
 import { ThyFormLayout, ThyFormValidatorConfig, ThyFormConfig, THY_FORM_CONFIG } from './form.class';
 import { ThyFormValidatorService } from './form-validator.service';
-import { coerceBooleanProperty } from '../util/helpers';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 // 1. submit 按 Enter 键提交, Textare或包含[contenteditable]属性的元素 除外，需要按 Ctrl | Command + Enter 提交
 // 2. alwaysSubmit 不管是哪个元素 按 Enter 键都提交

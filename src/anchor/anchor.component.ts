@@ -21,8 +21,8 @@ import { fromEvent, Subject } from 'rxjs';
 import { takeUntil, throttleTime } from 'rxjs/operators';
 
 import { ThyAnchorLinkComponent } from './anchor-link.component';
-import { getOffset } from './../util/dom';
-import { ThyScrollService } from '../core/scroll';
+import { getOffset } from 'ngx-tethys/util';
+import { ThyScrollService } from 'ngx-tethys/core';
 import { DOCUMENT } from '@angular/common';
 
 interface Section {
@@ -55,7 +55,7 @@ const sharpMatcherRegx = /#([^#]+)$/;
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyAnchorComponent implements OnDestroy, AfterViewInit, OnChanges {
-    @ViewChild('ink', { static: false }) private ink!: ElementRef;
+    @ViewChild('ink') private ink!: ElementRef;
 
     @Input() thyAffix = true;
 

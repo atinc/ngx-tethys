@@ -10,7 +10,7 @@ import {
     ChangeDetectionStrategy
 } from '@angular/core';
 import { ThyDialog } from '../dialog.service';
-import { coerceBooleanProperty } from '../../util/helpers';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-dialog-body',

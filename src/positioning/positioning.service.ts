@@ -1,5 +1,5 @@
 import { Injectable, ElementRef, NgZone } from '@angular/core';
-import { isNumber } from '../util/helpers';
+import { isNumber } from 'ngx-tethys/util';
 import { NewClientRect } from './client-rect';
 
 export enum PlacementTypes {

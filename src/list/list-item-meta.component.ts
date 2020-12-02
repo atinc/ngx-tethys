@@ -1,5 +1,4 @@
 import { Component, Input, HostBinding, ChangeDetectionStrategy, TemplateRef, ContentChild } from '@angular/core';
-import { coerceBooleanProperty } from '../util/helpers';
 
 @Component({
     selector: 'thy-list-item-meta,[thy-list-item-meta]',
@@ -13,13 +12,13 @@ export class ThyListItemMetaComponent {
 
     @Input() thyDescription: string;
 
-    @ContentChild('metaAvatar', { static: false })
+    @ContentChild('metaAvatar')
     public avatarTemplateRef: TemplateRef<any>;
 
-    @ContentChild('metaTitle', { static: false })
+    @ContentChild('metaTitle')
     public titleTemplateRef: TemplateRef<any>;
 
-    @ContentChild('metaDescription', { static: false })
+    @ContentChild('metaDescription')
     public descriptionTemplateRef: TemplateRef<any>;
 
     @HostBinding('class') className = `thy-list-item-meta`;

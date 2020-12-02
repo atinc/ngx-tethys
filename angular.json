@@ -3,113 +3,6 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "demo": {
-      "root": "demo",
-      "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss",
-          "spec": false,
-          "prefix": "demo",
-          "styleext": "scss"
-        }
-      },
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "options": {
-            "outputPath": "dist/doc-site",
-            "index": "demo/src/index.html",
-            "main": "demo/src/main.ts",
-            "polyfills": "demo/src/polyfills.ts",
-            "tsConfig": "demo/src/tsconfig.app.json",
-            "vendorSourceMap": true,
-            "assets": [
-              {
-                "glob": "favicon.ico",
-                "input": "demo/src",
-                "output": "/"
-              },
-              {
-                "glob": "**/*",
-                "input": "demo/src/assets",
-                "output": "/assets"
-              },
-              {
-                "glob": "**/*",
-                "input": "./node_modules/@tethys/icons/defs",
-                "output": "/assets/icons/defs/"
-              }
-            ],
-            "styles": ["demo/src/styles.scss"],
-            "scripts": []
-          },
-          "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "src": "demo/src/environments/environment.ts",
-                  "replaceWith": "demo/src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "aot": true,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true
-            }
-          }
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "demo:build"
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "demo:build:production"
-            }
-          }
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "demo:build"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["demo/src/tsconfig.app.json", "demo/src/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
-          }
-        }
-      }
-    },
-    "demo-e2e": {
-      "root": "e2e/",
-      "projectType": "application",
-      "architect": {
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "demo:serve"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": "e2e/tsconfig.e2e.json",
-            "exclude": ["**/node_modules/**"]
-          }
-        }
-      }
-    },
     "ngx-tethys": {
       "root": "src",
       "projectType": "library",
@@ -123,7 +16,8 @@
           },
           "configurations": {
             "production": {
-              "project": "src/ng-package.prod.json"
+              "project": "src/ng-package.prod.json",
+              "tsConfig": "src/tsconfig.lib.prod.json"
             }
           }
         },
@@ -133,7 +27,7 @@
             "main": "src/test.ts",
             "polyfills": "src/polyfills.ts",
             "codeCoverage": true,
-            "codeCoverageExclude": ["/src/core/testing/**/*", "/src/modal/**/*", "/src/confirm/**/*", "/src/pop-box/**/*"],
+            "codeCoverageExclude": ["/src/core/testing/**/*"],
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "karma.conf.js"
           }
@@ -166,7 +60,7 @@
             "main": "site/src/main.ts",
             "polyfills": "site/src/polyfills.ts",
             "tsConfig": "site/tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
               "site/src/favicon.ico",
               "site/src/assets",
@@ -192,7 +86,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -264,5 +157,8 @@
       }
     }
   },
-  "defaultProject": "ngx-tethys"
+  "defaultProject": "ngx-tethys",
+  "cli": {
+    "analytics": "320b41d2-079c-4f3e-9bb4-38b51babf41c"
+  }
 }

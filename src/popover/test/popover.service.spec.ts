@@ -17,12 +17,12 @@ import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/t
     `
 })
 class PopoverBasicComponent {
-    openComponentPopover() { }
+    openComponentPopover() {}
 }
 
 @Directive({ selector: 'with-view-container-directive' })
 class WithViewContainerDirective {
-    constructor(public viewContainerRef: ViewContainerRef) { }
+    constructor(public viewContainerRef: ViewContainerRef) {}
 }
 
 @Component({
@@ -55,7 +55,7 @@ export class PopoverSimpleContentComponent {
         public popoverRef: ThyPopoverRef<PopoverSimpleContentComponent>,
         public popoverInjector: Injector,
         public directionality: Directionality
-    ) { }
+    ) {}
 }
 
 @Component({
@@ -83,7 +83,7 @@ export class PopoverManualClosureContentComponent implements OnInit {
         public overlay: Overlay,
         public popoverInjector: Injector,
         public directionality: Directionality
-    ) { }
+    ) {}
 
     public popoverRef: ThyPopoverRef<any>;
 
@@ -143,7 +143,7 @@ export class PopoverOutsideClosableComponent {
         public overlay: Overlay,
         public popoverInjector: Injector,
         public directionality: Directionality
-    ) { }
+    ) {}
 
     public popoverRef: ThyPopoverRef<any>;
 
@@ -176,7 +176,7 @@ const TEST_COMPONENTS = [
     imports: [ThyPopoverModule, NoopAnimationsModule, OverlayModule],
     exports: TEST_COMPONENTS
 })
-class PopoverTestModule { }
+class PopoverTestModule {}
 
 describe(`thyPopover`, () => {
     describe('basic', () => {

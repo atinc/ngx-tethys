@@ -1,6 +1,6 @@
 import { Directive, ElementRef, Input, OnInit, EventEmitter, Output, NgZone } from '@angular/core';
 import { Mention, MentionSuggestionSelectEvent, MentionDefaultDataItem } from './interfaces';
-import { ThyPopover, ThyPopoverRef, ThyPopoverConfig } from '../popover';
+import { ThyPopover, ThyPopoverRef, ThyPopoverConfig } from 'ngx-tethys/popover';
 import { ThyMentionSuggestionsComponent } from './suggestions/suggestions.component';
 import { CaretPositioner } from './caret-positioner';
 import { MentionAdapter, createMentionAdapter, MatchedMention } from './adapter';

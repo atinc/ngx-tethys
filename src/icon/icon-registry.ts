@@ -1,5 +1,5 @@
-import { Injectable, Sanitizer, SecurityContext, inject, Inject } from '@angular/core';
-import { SafeResourceUrl, SafeHtml } from '@angular/platform-browser';
+import { Injectable, SecurityContext, inject, Inject } from '@angular/core';
+import { SafeResourceUrl, SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { Observable, of, forkJoin, throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { finalize, share, map, tap, catchError } from 'rxjs/operators';
@@ -36,11 +36,7 @@ export class ThyIconRegistry {
         return this.internalIconMode;
     }
 
-    constructor(
-        private sanitizer: Sanitizer,
-        private httpClient: HttpClient,
-        @Inject(DOCUMENT) private document: any
-    ) {}
+    constructor(private sanitizer: DomSanitizer, private httpClient: HttpClient, @Inject(DOCUMENT) private document: any) {}
 
     private getIconNameNotFoundError(iconName: string): Error {
         return Error(`Unable to find icon with the name "${iconName}"`);
@@ -154,10 +150,7 @@ export class ThyIconRegistry {
         return this.setSvgAttributes(svg);
     }
 
-    private extractIconWithNameFromIconSetConfigs(
-        iconName: string,
-        iconSetConfigs: SvgIconConfig[]
-    ): SVGElement | null {
+    private extractIconWithNameFromIconSetConfigs(iconName: string, iconSetConfigs: SvgIconConfig[]): SVGElement | null {
         // Iterate backwards, so icon sets added later have precedence.
         for (let i = iconSetConfigs.length - 1; i >= 0; i--) {
             const config = iconSetConfigs[i];

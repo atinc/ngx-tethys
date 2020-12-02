@@ -1,8 +1,8 @@
 import { Component, forwardRef, OnInit, Input, SimpleChanges, ChangeDetectorRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { DateRangeItemInfo } from './date-range.class';
-import { helpers } from '../util';
-import { ThyPopover } from '../popover';
+import { helpers } from 'ngx-tethys/util';
+import { ThyPopover } from 'ngx-tethys/popover';
 import { OptionalDateRangesComponent } from './optional-dates/optional-dates.component';
 
 import { getUnixTime, startOfISOWeek, endOfISOWeek, endOfMonth, startOfMonth, addDays, addMonths, addYears } from 'date-fns';

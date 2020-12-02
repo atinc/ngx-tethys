@@ -4,11 +4,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { ThyFileSelectComponent } from './file-select.component';
 import { ThyFileDropComponent } from './file-drop.component';
 import { ThyUploaderService } from './uploader.service';
-import { ThyDirectiveModule } from '../directive';
+// import { ThyDirectiveModule } from 'ngx-tethys/directive';
 
 @NgModule({
     declarations: [ThyFileSelectComponent, ThyFileDropComponent],
-    imports: [CommonModule, HttpClientModule, ThyDirectiveModule],
+    imports: [CommonModule, HttpClientModule],
     entryComponents: [ThyFileDropComponent],
     providers: [ThyUploaderService],
     exports: [ThyFileSelectComponent, ThyFileDropComponent]

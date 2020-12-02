@@ -1,6 +1,6 @@
 import { ThyTreeNodeData, ThyTreeNodeCheckState } from './tree.class';
 import { ThyTreeService } from './tree.service';
-import { helpers } from '../util';
+import { helpers } from 'ngx-tethys/util';
 
 export class ThyTreeNode<T = any> {
     key?: number | string;

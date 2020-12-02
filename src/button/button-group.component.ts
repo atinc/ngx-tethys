@@ -1,7 +1,7 @@
 import { Component, HostBinding, Input, ContentChild, TemplateRef, ElementRef, ViewEncapsulation, OnInit } from '@angular/core';
-import { ThyTranslate, UpdateHostClassService } from '../shared';
+import { UpdateHostClassService } from 'ngx-tethys/core';
 import { ThyButtonType } from '.';
-import { coerceBooleanProperty } from '../util/helpers';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 export type buttonGroupSize = 'sm' | 'lg' | 'xs' | 'md';
 

@@ -1,6 +1,6 @@
 import { OnInit, Component, Input, HostBinding, ElementRef, TemplateRef, ContentChild } from '@angular/core';
-import { coerceBooleanProperty } from '../util/helpers';
-import { UpdateHostClassService } from '../shared';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { UpdateHostClassService } from 'ngx-tethys/core';
 
 export type ThyVoteSizes = 'default' | 'sm';
 
@@ -69,7 +69,7 @@ export class ThyVoteComponent implements OnInit {
         }
     }
 
-    @ContentChild('voteIcon', { static: false }) voteIcon: TemplateRef<any>;
+    @ContentChild('voteIcon') voteIcon: TemplateRef<any>;
 
     constructor(private elementRef: ElementRef, private updateHostClassService: UpdateHostClassService) {
         this.updateHostClassService.initializeElement(elementRef.nativeElement);

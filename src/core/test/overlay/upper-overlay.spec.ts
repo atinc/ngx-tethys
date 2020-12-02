@@ -9,7 +9,7 @@ import { ThyUpperOverlayService, ComponentTypeOrTemplateRef } from '../../overla
 import { ThyUpperOverlayConfig, ThyUpperOverlayOptions, ThyUpperOverlayPosition } from '../../overlay/upper-overlay.config';
 import { ThyUpperOverlayContainer } from '../../overlay/upper-overlay-container';
 import { ThyUpperOverlayRef, ThyInternalUpperOverlayRef } from '../../overlay/upper-overlay-ref';
-import { helpers } from '../../../util';
+import { isArray } from '../../../util';
 import { CommonModule } from '@angular/common';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyClickPositioner } from '../../click-positioner';
@@ -103,7 +103,7 @@ export class TestDialogService extends ThyUpperOverlayService<TestDialogConfig, 
         const size = dialogConfig.size || 'md';
         classes.push(`dialog-${size}`);
         if (dialogConfig.panelClass) {
-            if (helpers.isArray(dialogConfig.panelClass)) {
+            if (isArray(dialogConfig.panelClass)) {
                 classes = classes.concat(dialogConfig.panelClass);
             } else {
                 classes.push(dialogConfig.panelClass as string);

@@ -4,19 +4,19 @@ import { Component, ViewChild, ViewChildren, QueryList, ElementRef, Sanitizer, S
 import { ThyAutocompleteModule } from '../module';
 import { ThyAutocompleteComponent } from '../autocomplete.component';
 import { By } from '@angular/platform-browser';
-import { UpdateHostClassService } from '../../shared';
+import { UpdateHostClassService } from '../../core';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { ThyFormModule } from '../../form';
 import { dispatchFakeEvent, dispatchKeyboardEvent } from '../../core/testing/dispatcher-events';
 import { ESCAPE } from '../../util/keycodes';
 import { typeInElement, injectDefaultSvgIconSet, bypassSanitizeProvider } from '../../core/testing';
-import { ThyOptionComponent } from '../../core/option/option.component';
+import { ThyOptionComponent } from '../../shared/option/option.component';
 import { ThyInputModule } from '../../input/module';
 import { CommonModule } from '@angular/common';
-import { ThyDirectiveModule } from '../../directive/module';
+import { ThySharedModule } from '../../shared';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ThyOptionModule } from '../../core';
+import { ThyOptionModule } from '../../shared';
 
 @Component({
     selector: 'basic-autocomplete',
@@ -69,7 +69,7 @@ describe('ThyAutocomplete', () => {
                 CommonModule,
                 FormsModule,
                 ThyFormModule,
-                ThyDirectiveModule,
+                ThySharedModule,
                 ThyInputModule,
                 ThyAutocompleteModule,
                 ReactiveFormsModule,

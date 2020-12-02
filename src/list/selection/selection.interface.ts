@@ -1,5 +1,5 @@
 import { ThySelectionListComponent } from './selection-list';
-import { ThyListOptionComponent } from '../../core/option/list-option/list-option.component';
+import { ThyListOptionComponent } from 'ngx-tethys/shared';
 
 export interface ThySelectionListChange<TValue = any> {
     source: ThySelectionListComponent;

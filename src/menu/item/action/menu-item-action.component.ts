@@ -1,17 +1,6 @@
-import {
-    Component,
-    OnInit,
-    HostBinding,
-    HostListener,
-    ElementRef,
-    Input,
-    Output,
-    EventEmitter,
-    Renderer2,
-    TemplateRef
-} from '@angular/core';
+import { Component, OnInit, HostBinding, ElementRef, Input, Renderer2, TemplateRef } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
-import { ThyPopover } from '../../../popover';
+import { ThyPopover } from 'ngx-tethys/popover';
 
 @Component({
     selector: 'thy-menu-item-action,[thy-menu-item-action],[thyMenuItemAction]',
@@ -44,7 +33,7 @@ export class ThyMenuItemActionComponent implements OnInit {
                 event.stopPropagation();
             }
             if (this._actionMenu) {
-                this.popover.open(this._actionMenu,{
+                this.popover.open(this._actionMenu, {
                     origin: event.currentTarget as HTMLElement,
                     insideClosable: true,
                     placement: 'bottom'

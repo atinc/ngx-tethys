@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { ThyFormModule } from 'ngx-tethys/form';
 import { ThySelectModule } from 'ngx-tethys/select';
 import { FormsModule } from '@angular/forms';
+import { ThyCheckboxModule } from 'ngx-tethys/checkbox';
 
 const COMPONENTS = [
     ThyCardBasicExampleComponent,
@@ -19,7 +20,7 @@ const COMPONENTS = [
 @NgModule({
     declarations: [...COMPONENTS],
     entryComponents: [...COMPONENTS],
-    imports: [CommonModule, FormsModule, ThyCardModule, ThyFormModule, ThySelectModule],
+    imports: [CommonModule, FormsModule, ThyCardModule, ThyFormModule, ThySelectModule, ThyCheckboxModule],
     exports: [...COMPONENTS]
 })
 export class ThyCardExamplesModule {}

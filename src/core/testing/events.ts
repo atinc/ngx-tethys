@@ -30,10 +30,18 @@ export function createMouseEvent(type: string, x = 0, y = 0, button = 0, related
 export function createTouchEvent(type: string, pageX = 0, pageY = 0) {
     // In favor of creating events that work for most of the browsers, the event is created
     // as a basic UI Event. The necessary details for the event will be set manually.
-    const event = document.createEvent('UIEvent');
+    let event = document.createEvent('UIEvent');
     const touchDetails = { pageX, pageY };
-
-    event.initUIEvent(type, true, true, window, 0);
+    if (Object.prototype.hasOwnProperty.call(event, 'initUIEvent')) {
+        (event as any).initUIEvent(type, true, true, window, 0);
+    } else {
+        event = new UIEvent(type, {
+            view: window,
+            bubbles: true,
+            cancelable: true,
+            detail: 0
+        });
+    }
 
     // Most of the browsers don't have a "initTouchEvent" method that can be used to define
     // the touch details.

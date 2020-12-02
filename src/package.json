@@ -1,18 +1,22 @@
 {
   "name": "ngx-tethys",
-  "version": "8.1.32",
+  "version": "9.0.0-beta.4",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/atinc/ngx-tethys.git"
   },
+  "dependencies": {
+    "@angular/cdk": "^9.0.0",
+    "date-fns": "^2.6.0",
+    "bootstrap": "4.5.0",
+    "@tethys/icons": "^1.1.54"
+  },
   "peerDependencies": {
-    "@angular/common": "*",
-    "@angular/compiler": "*",
-    "@angular/core": "*",
-    "@angular/forms": "*",
-    "@angular/cdk": "*",
-    "lodash": "*",
-    "rxjs": "*",
-    "date-fns": "*"
-  }
+    "@angular/common": "^9.0.0 || ^10.0.0",
+    "@angular/compiler": "^9.0.0 || ^10.0.0",
+    "@angular/core": "^9.0.0 || ^10.0.0",
+    "@angular/forms": "^9.0.0 || ^10.0.0",
+    "rxjs": "^6.5.4"
+  },
+  "schematics": "./schematics/collection.json"
 }

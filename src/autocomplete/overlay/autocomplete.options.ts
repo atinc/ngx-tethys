@@ -1,4 +1,4 @@
-import { ThyUpperOverlayOptions } from '../../core/overlay';
+import { ThyUpperOverlayOptions } from 'ngx-tethys/core';
 
 export const autocompleteUpperOverlayOptions: ThyUpperOverlayOptions = {
     name: 'autocomplete',

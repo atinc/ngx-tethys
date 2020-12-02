@@ -1,5 +1,5 @@
 import { Component, ContentChild, TemplateRef, Input, Output, OnInit, HostBinding } from '@angular/core';
-import { coerceBooleanProperty } from '../../util/helpers';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-slide-body-section',

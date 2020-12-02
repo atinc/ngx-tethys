@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject, Subscriber, from } from 'rxjs';
-import { coerceArray } from '../util/helpers';
+import { coerceArray } from 'ngx-tethys/util';
 import { map, tap, mergeMap } from 'rxjs/operators';
 import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
 
@@ -182,8 +182,7 @@ export class ThyUploaderService {
                         }
                         const diff = new Date().getTime() - time;
                         speed = Math.round((event.loaded / diff) * 1000);
-                        const progressStartTime =
-                            (uploadFile.progress && uploadFile.progress.startTime) || new Date().getTime();
+                        const progressStartTime = (uploadFile.progress && uploadFile.progress.startTime) || new Date().getTime();
                         estimatedTime = Math.ceil((event.total - event.loaded) / speed);
 
                         uploadFile.progress.status = ThyUploadStatus.uploading;
@@ -240,9 +239,7 @@ export class ThyUploaderService {
                 const formData = new FormData();
 
                 Object.keys(uploadFile.data || {}).forEach(key => formData.append(key, uploadFile.data[key]));
-                Object.keys(uploadFile.headers || {}).forEach(key =>
-                    xhr.setRequestHeader(key, uploadFile.headers[key])
-                );
+                Object.keys(uploadFile.headers || {}).forEach(key => xhr.setRequestHeader(key, uploadFile.headers[key]));
 
                 formData.append(uploadFile.fileField || 'file', uploadFile.nativeFile, uploadFile.fileName);
 

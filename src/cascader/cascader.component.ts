@@ -13,9 +13,9 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ConnectedOverlayPositionChange, ConnectionPositionPair } from '@angular/cdk/overlay';
-import { EXPANDED_DROPDOWN_POSITIONS } from '../core/overlay/overlay-position-map';
-import { UpdateHostClassService } from '../shared/update-host-class.service';
-import { coerceBooleanProperty } from '../util/helpers';
+import { EXPANDED_DROPDOWN_POSITIONS } from 'ngx-tethys/core';
+import { UpdateHostClassService } from 'ngx-tethys/core';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 function toArray<T>(value: T | T[]): T[] {
     let ret: T[];
@@ -230,9 +230,9 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
 
     @Output() thyClear = new EventEmitter<void>();
 
-    @ViewChild('input', { static: false }) input: ElementRef;
+    @ViewChild('input') input: ElementRef;
 
-    @ViewChild('menu', { static: false }) menu: ElementRef;
+    @ViewChild('menu') menu: ElementRef;
 
     ngOnInit(): void {
         this.setClassMap();

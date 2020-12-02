@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { getElementOffset } from '../util/dom';
+import { getElementOffset } from 'ngx-tethys/util';
 
 export interface CaretCoordinates {
     top: number;
@@ -65,11 +65,7 @@ export type AllElement = InputOrTextAreaElement | HTMLElement;
 export class CaretPositioner {
     // get caret coordinates in input or textarea
     // copy from repo: https://github.com/component/textarea-caret-position
-    static getTextareaCaretCoordinates(
-        element: InputOrTextAreaElement,
-        position: number,
-        options?: CaretOptions
-    ): CaretCoordinates {
+    static getTextareaCaretCoordinates(element: InputOrTextAreaElement, position: number, options?: CaretOptions): CaretCoordinates {
         if (!isBrowser) {
             throw new Error('textarea-caret-position#getCaretCoordinates should only be called in a browser');
         }

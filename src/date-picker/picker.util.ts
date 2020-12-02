@@ -1,18 +1,9 @@
-import {
-    CompatibleDate,
-    DateEntry,
-    RangeEntry,
-    instanceOfDateEntry,
-    instanceOfRangeEntry,
-    CompatibleValue
-} from './standard-types';
+import { CompatibleDate, DateEntry, RangeEntry, instanceOfDateEntry, instanceOfRangeEntry, CompatibleValue } from './standard-types';
 
 import { fromUnixTime } from 'date-fns';
-import { TinyDate } from '../util/tiny-date';
+import { TinyDate } from 'ngx-tethys/util';
 
-export function transformDateValue(
-    value: CompatibleDate | number | DateEntry | RangeEntry
-): { value: CompatibleDate; withTime?: boolean } {
+export function transformDateValue(value: CompatibleDate | number | DateEntry | RangeEntry): { value: CompatibleDate; withTime?: boolean } {
     if (!value) {
         return { value: null };
     }

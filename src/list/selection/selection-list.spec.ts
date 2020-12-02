@@ -3,7 +3,7 @@ import { ThySelectionListChange } from './selection.interface';
 import { async, ComponentFixture, fakeAsync, TestBed, tick, flush } from '@angular/core/testing';
 import { ThyListModule } from '../list.module';
 import { By } from '@angular/platform-browser';
-import { ThyListOptionComponent, ThyListLayout } from '../../core/option';
+import { ThyListOptionComponent, ThyListLayout } from '../../shared/option';
 import { ThySelectionListComponent } from './selection-list';
 
 export function createFakeEvent(type: string, canBubble = false, cancelable = true) {

@@ -1,6 +1,5 @@
 import { ElementRef } from '@angular/core';
 import * as helpers from './helpers';
-import { SimpleRect } from '../typings';
 
 const proto = Element.prototype;
 const vendor =
@@ -26,6 +25,7 @@ export function match(el: any, selector: string) {
     }
     return false;
 }
+
 export function isDocument(element: any) {
     return (
         (typeof HTMLDocument !== 'undefined' && element instanceof HTMLDocument) ||
@@ -129,6 +129,14 @@ export function isInputOrTextarea(element: HTMLElement) {
 
 export function isWindow(container: Element | Window): container is Window {
     return typeof window !== 'undefined' && container === window;
+}
+
+export interface SimpleRect {
+    top: number;
+    left: number;
+    width?: number;
+    height?: number;
+    bottom?: number;
 }
 
 export function getContainerRect(container: Element | Window): SimpleRect {

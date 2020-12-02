@@ -1,5 +1,5 @@
 import { Time, TimePickerComponentState } from './time-picker.models';
-import { coerceNumberValue } from '../util/helpers';
+import { coerceNumberValue } from 'ngx-tethys/util';
 
 const hoursPerDay = 24;
 const hoursPerDayHalf = 12;
@@ -121,15 +121,7 @@ export function setTime(value: Date, opts: Time): Date {
 }
 
 export function createDate(value: Date, hours: number, minutes: number, seconds: number): Date {
-    return new Date(
-        value.getFullYear(),
-        value.getMonth(),
-        value.getDate(),
-        hours,
-        minutes,
-        seconds,
-        value.getMilliseconds()
-    );
+    return new Date(value.getFullYear(), value.getMonth(), value.getDate(), hours, minutes, seconds, value.getMilliseconds());
 }
 
 export function padNumber(value: number): string {

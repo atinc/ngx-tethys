@@ -10,7 +10,7 @@ import {
     TemplateRef
 } from '@angular/core';
 import { ThyProgressTypes, ThyStackedValue } from './interfaces';
-import { UpdateHostClassService } from '../shared';
+import { UpdateHostClassService } from 'ngx-tethys/core';
 import { THY_PROGRESS_COMPONENT, ThyProgressBarComponent, ThyParentProgress } from './bar/progress-bar.component';
 
 @Component({

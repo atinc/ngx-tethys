@@ -6,3 +6,4 @@ export * from './drag-drop.class';
 export * from './drop-container.directive';
 export * from './drop-container.class';
 export * from './module';
+export * from './drag-drop.service';

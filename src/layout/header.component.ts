@@ -1,5 +1,5 @@
 import { Component, HostBinding, Input, OnInit, TemplateRef, Optional, ViewChild, ContentChild, ViewContainerRef } from '@angular/core';
-import { coerceBooleanProperty } from '../util/helpers';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 @Component({
     selector: 'thy-header',
     preserveWhitespaces: false,
@@ -44,13 +44,13 @@ export class ThyHeaderComponent implements OnInit {
         }
     }
 
-    @ContentChild('headerTitle', { static: false })
+    @ContentChild('headerTitle')
     public titleTemplateRef: TemplateRef<any>;
 
-    @ContentChild('headerContent', { static: false })
+    @ContentChild('headerContent')
     public contentTemplateRef: TemplateRef<any>;
 
-    @ContentChild('headerOperation', { static: false })
+    @ContentChild('headerOperation')
     public operationTemplateRef: TemplateRef<any>;
 
     constructor() {}
