@@ -17,12 +17,12 @@ import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/t
     `
 })
 class PopoverBasicComponent {
-    openComponentPopover() {}
+    openComponentPopover() { }
 }
 
 @Directive({ selector: 'with-view-container-directive' })
 class WithViewContainerDirective {
-    constructor(public viewContainerRef: ViewContainerRef) {}
+    constructor(public viewContainerRef: ViewContainerRef) { }
 }
 
 @Component({
@@ -55,7 +55,7 @@ export class PopoverSimpleContentComponent {
         public popoverRef: ThyPopoverRef<PopoverSimpleContentComponent>,
         public popoverInjector: Injector,
         public directionality: Directionality
-    ) {}
+    ) { }
 }
 
 @Component({
@@ -73,7 +73,7 @@ export class PopoverSimpleContentComponent {
         <a class="btn btn4" #btn4 (click)="open4(btn4, template4)">Open4</a>
         <ng-template #template4><div class="template4">template4</div></ng-template>
 
-        <a class="btn btn5" #btn5 (click)="open5(btn5, template5)">Open4</a>
+        <a class="btn btn5" #btn5 (click)="open5(btn5, template5)">Open5</a>
         <ng-template #template5><div class="template5">template5</div></ng-template>
     `
 })
@@ -83,7 +83,7 @@ export class PopoverManualClosureContentComponent implements OnInit {
         public overlay: Overlay,
         public popoverInjector: Injector,
         public directionality: Directionality
-    ) {}
+    ) { }
 
     public popoverRef: ThyPopoverRef<any>;
 
@@ -143,7 +143,7 @@ export class PopoverOutsideClosableComponent {
         public overlay: Overlay,
         public popoverInjector: Injector,
         public directionality: Directionality
-    ) {}
+    ) { }
 
     public popoverRef: ThyPopoverRef<any>;
 
@@ -176,7 +176,7 @@ const TEST_COMPONENTS = [
     imports: [ThyPopoverModule, NoopAnimationsModule, OverlayModule],
     exports: TEST_COMPONENTS
 })
-class PopoverTestModule {}
+class PopoverTestModule { }
 
 describe(`thyPopover`, () => {
     describe('basic', () => {
@@ -361,6 +361,15 @@ describe(`thyPopover`, () => {
                 outsideClosableComponent.outsideBtn.nativeElement.click();
                 tick(1000);
                 expect(document.querySelector('.template')).not.toBeTruthy();
+            }));
+
+            it('should not close popover when click dom inside popovercontainer', fakeAsync(() => {
+                outsideClosableComponent.openBtn.nativeElement.click();
+                tick(1000);
+                const innerContent = document.querySelector('.thy-popover-container') as HTMLElement;
+                innerContent.click();
+                tick(1000);
+                expect(document.querySelector('.template')).toBeTruthy();
             }));
         });
     });
