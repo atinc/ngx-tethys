@@ -4,5 +4,6 @@
   "deleteDestPath": true,
   "lib": {
     "entryFile": "public-api.ts"
-  }
+  },
+  "whitelistedNonPeerDependencies": ["tslib", "angular", "date-fns", "@tethys/icons", "bootstrap"]
 }
