@@ -10,7 +10,7 @@
     "build:demo": "npm run build:site",
     "build:site": "npm run build:docs && ng build site --prod --extract-css --baseHref=/ngx-tethys/ && npm run build:theme",
     "build:docs": "docgeni build --skip-site",
-    "build": "npm run build:ng&&npm run build:schematics",
+    "build": "npm run build:ng && npm run build:schematics",
     "build:ng": "rimraf ./built/* && node --max_old_space_size=8096 ./node_modules/@angular/cli/bin/ng build ngx-tethys --prod && npm run build:styles && npm run build:testing",
     "build:styles": "cpx \"./src/**/*.scss\" built && npm run scss-bundle",
     "scss-bundle": "scss-bundle --config ./scss-bundle.config.json && scss-bundle --config ./scss-bundle-basic.config.json",
