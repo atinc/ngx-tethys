@@ -58,6 +58,7 @@ import { ThyStatisticModule } from './statistic';
 import { ThyStepperModule } from './stepper';
 import { ThyStrengthModule } from './strength';
 import { ThySwitchModule } from './switch';
+import { ThyTimelineModule } from './timeline';
 import { ThyTimePickerModule } from './time-picker';
 import { ThyTooltipModule } from './tooltip';
 import { ThyTransferModule } from './transfer';
@@ -67,6 +68,7 @@ import { ThyUploaderModule } from './uploader';
 import { ThyVoteModule } from './vote';
 import { ThySliderModule } from './slider/slider.module';
 import { ThyCalendarModule } from './calendar';
+import { ThyFullscreenModule } from './fullscreen/fullscreen.module';
 
 const IMPORT_EXPORT_MODULES = [
     ThyLayoutModule,
@@ -129,13 +131,15 @@ const IMPORT_EXPORT_MODULES = [
     ThyResultModule,
     ThyMentionModule,
     ThyDatePickerModule,
+    ThyTimelineModule,
     ThyTimePickerModule,
     ThyStatisticModule,
     ThyAutocompleteModule,
     ThyAnchorModule,
     ThyAffixModule,
     ThySliderModule,
-    ThyCalendarModule
+    ThyCalendarModule,
+    ThyFullscreenModule
 ];
 
 @NgModule({

@@ -1,4 +1,4 @@
-import { TestBed, async, ComponentFixture, tick, fakeAsync } from '@angular/core/testing';
+import { TestBed, async, ComponentFixture, tick, fakeAsync, flush } from '@angular/core/testing';
 import { ThyTreeModule } from '../tree.module';
 import { Component, ViewChild } from '@angular/core';
 import { By } from '@angular/platform-browser';
@@ -8,6 +8,8 @@ import { ThyIconModule } from '../../icon';
 import { ThyFlexibleTextModule } from '../../flexible-text/flexible-text.module';
 import { ThyTreeNode } from '../tree-node.class';
 import { ThyTreeEmitEvent, ThyTreeNodeCheckState } from '../tree.class';
+import { dispatchMouseEvent } from '../../core/testing';
+import { ThyDragDropEvent } from '../../drag-drop/drag-drop.class';
 
 const expandSelector = '.thy-tree-expand';
 const expandIconSelector = '.thy-tree-expand-icon';
@@ -195,6 +197,33 @@ describe('ThyTreeComponent', () => {
             fixture.detectChanges();
             expect(checkChangeSpy).toHaveBeenCalledTimes(1);
         }));
+
+        it('test hide drag icon when node hover', fakeAsync(() => {
+            const dragContentList = treeElement.querySelectorAll('.thy-drag-content');
+            dragContentList.forEach((dragContent, index) => {
+                const dragContentInnerHTML = dragContent.querySelector('.thy-tree-node-title').innerHTML;
+
+                const dragIcon = dragContent.querySelector('.thy-tree-drag-icon') as HTMLElement;
+                expect(dragIcon.style.visibility).toBeFalsy();
+
+                dispatchMouseEvent(dragContent, 'mouseenter');
+                const dragIconVisible = dragContent.querySelector('.thy-tree-drag-icon') as HTMLElement;
+                if (dragContent.className.includes('disabled')) {
+                    expect(!dragIconVisible.style.visibility).toBeTruthy();
+                } else {
+                    let cssVisible = dragContentInnerHTML.includes('不可拖拽') ? 'hidden' : 'visible';
+                    expect(dragIconVisible.style.visibility === cssVisible).toBeTruthy();
+                }
+
+                dispatchMouseEvent(dragContent, 'mouseleave');
+                const dragIconHide = dragContent.querySelector('.thy-tree-drag-icon') as HTMLElement;
+                if (dragContent.className.includes('disabled')) {
+                    expect(!dragIconHide.style.visibility).toBeTruthy();
+                } else {
+                    expect(dragIconHide.style.visibility === 'hidden').toBeTruthy();
+                }
+            });
+        }));
     });
 
     describe('async tree', () => {
@@ -250,7 +279,7 @@ describe('ThyTreeComponent', () => {
             [thyMultiple]="options.multiple"
             [thySelectedKeys]="['000000000000000000000000']"
             [thyShowExpand]="true"
-            [thyBeforeDragDrop]="beforeDragDrop"
+            [thyBeforeDragStart]="options.beforeDragStart"
             (thyOnDragDrop)="onEvent()"
             (thyOnClick)="onEvent()"
             (thyOnCheckboxChange)="onEvent()"
@@ -278,7 +307,10 @@ class TestBasicTreeComponent {
     options: any = {
         draggable: true,
         checkable: true,
-        multiple: false
+        multiple: false,
+        beforeDragStart: (event: ThyDragDropEvent<ThyTreeNode>) => {
+            return !event.item.title.includes('不可拖拽');
+        }
     };
 
     onEvent() {}

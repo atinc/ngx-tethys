@@ -73,7 +73,9 @@ module.exports = {
                 'vote',
                 'anchor',
                 'back-top',
-                'calendar'
+                'timeline',
+                'calendar',
+                'fullscreen'
             ]
         ]
     }

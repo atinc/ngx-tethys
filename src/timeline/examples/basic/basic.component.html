@@ -1,0 +1,39 @@
+<div>
+  <form class="mb-2" thyForm name="demoForm" #demoForm="ngForm" thyLayout="inline">
+    <thy-form-group thyLabelText="节点颜色">
+      <thy-select [(ngModel)]="thyColor" name="thyColor">
+        <option value="primary">蓝色</option>
+        <option value="success">绿色</option>
+        <option value="warning">黄色</option>
+        <option value="danger">红色</option>
+        <option value="info">灰色</option>
+      </thy-select>
+    </thy-form-group>
+    <thy-form-group thyLabelText="时间轴位置">
+      <thy-select [(ngModel)]="thyMode" name="thyMode">
+        <option value="right">居右</option>
+        <option value="left">居左</option>
+        <option value="center">居中</option>
+      </thy-select>
+    </thy-form-group>
+    <thy-form-group thyLabelText="排序">
+      <thy-select [(ngModel)]="thyReverse" name="thyReverse">
+        <option value="sequence">正序</option>
+        <option value="reverse">倒序</option>
+      </thy-select>
+    </thy-form-group>
+  </form>
+  <thy-timeline [thyMode]="thyMode" [thyReverse]="thyReverse === 'reverse'">
+    <thy-timeline-item [thyColor]="thyColor">2019年7月18日</thy-timeline-item>
+    <thy-timeline-item [thyColor]="thyColor">
+      <thy-avatar [thyShowName]="true" thyName="terry" thySize="xs"></thy-avatar>
+    </thy-timeline-item>
+    <thy-timeline-item [thyColor]="thyColor"
+      >PingCode
+      是简单易用的新一代研发管理平台，让研发管理自动化、数据化、智能化，帮助企业提升研发效能。从路线图到专业的敏捷开发管理，多项目进度跟踪，知识沉淀与测试管理。提供标准敏捷研发管理，支持
+      Scrum与Kanban,提供测试用例管理与测试计划执行，并自动生成测试报告
+      。Plan产品路线图定制，多项目进度管控，资源跟踪及里程碑管理。Wiki提供结构化知识库来记载信息，便于团队沉</thy-timeline-item
+    >
+    <thy-timeline-item [thyColor]="thyColor"><button thySize="sm" thyButton>按钮</button> </thy-timeline-item>
+  </thy-timeline>
+</div>

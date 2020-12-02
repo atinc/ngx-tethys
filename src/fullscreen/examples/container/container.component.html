@@ -1,0 +1,10 @@
+<thy-fullscreen thyMode="normal" (thyFullscreenChange)="changeFullscreen($event)">
+  <div fullscreen-container [style.height.px]="300">
+    <div fullscreen-target [style.backgroundColor]="'#eee'">
+      <button thyButton="primary" fullscreen-launch>
+        {{ btnContent }}
+      </button>
+      <div>元素内全屏</div>
+    </div>
+  </div>
+</thy-fullscreen>

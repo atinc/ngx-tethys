@@ -2,6 +2,69 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.1.32"></a>
+## [8.1.32](https://github.com/atinc/ngx-tethys/compare/8.1.31...8.1.32) (2020-12-02)
+
+
+### Bug Fixes
+
+* **popover:** fix the problem of close container when click inside #INFR-1317 ([#1003](https://github.com/atinc/ngx-tethys/issues/1003)) ([e6a0fd9](https://github.com/atinc/ngx-tethys/commit/e6a0fd9)), closes [#INFR-1317](https://github.com/atinc/ngx-tethys/issues/INFR-1317)
+
+
+### Features
+
+* **select:** support thyAutoExpend ([#998](https://github.com/atinc/ngx-tethys/issues/998)) ([3264141](https://github.com/atinc/ngx-tethys/commit/3264141))
+
+
+
+<a name="8.1.31"></a>
+## [8.1.31](https://github.com/atinc/ngx-tethys/compare/8.1.30...8.1.31) (2020-11-30)
+
+
+### Bug Fixes
+
+* **menu:** modify pop-box to popover #INFR-1289 ([27f5acd](https://github.com/atinc/ngx-tethys/commit/27f5acd)), closes [#INFR-1289](https://github.com/atinc/ngx-tethys/issues/INFR-1289)
+* **menu:** remove ThyPopBoxService  #INFR-1289 ([a31b3c1](https://github.com/atinc/ngx-tethys/commit/a31b3c1)), closes [#INFR-1289](https://github.com/atinc/ngx-tethys/issues/INFR-1289)
+* **mune:** remove popbox in mune and test #INFR-1289 ([fba6c04](https://github.com/atinc/ngx-tethys/commit/fba6c04)), closes [#INFR-1289](https://github.com/atinc/ngx-tethys/issues/INFR-1289)
+* **tree:** hide drag icon when tree with thyBeforeDragStart #INFR-489 ([#953](https://github.com/atinc/ngx-tethys/issues/953)) ([abfdf86](https://github.com/atinc/ngx-tethys/commit/abfdf86)), closes [#INFR-489](https://github.com/atinc/ngx-tethys/issues/INFR-489)
+
+
+### Features
+
+* **fullscreen:** add fullscreen module #INFR-250 ([#990](https://github.com/atinc/ngx-tethys/issues/990)) ([32b0a04](https://github.com/atinc/ngx-tethys/commit/32b0a04)), closes [#INFR-250](https://github.com/atinc/ngx-tethys/issues/INFR-250)
+* **timeline:** add timeline component  #INFR-896 ([#907](https://github.com/atinc/ngx-tethys/issues/907)) ([52dca3f](https://github.com/atinc/ngx-tethys/commit/52dca3f)), closes [#INFR-896](https://github.com/atinc/ngx-tethys/issues/INFR-896) [#INFR-896](https://github.com/atinc/ngx-tethys/issues/INFR-896)
+
+
+
+<a name="8.1.30"></a>
+## [8.1.30](https://github.com/atinc/ngx-tethys/compare/8.1.29...8.1.30) (2020-11-27)
+
+
+### Features
+
+* **date-picker:** support hasBackdrop ([#978](https://github.com/atinc/ngx-tethys/issues/978)) ([25b24c6](https://github.com/atinc/ngx-tethys/commit/25b24c6))
+
+
+
+<a name="8.1.29"></a>
+## [8.1.29](https://github.com/atinc/ngx-tethys/compare/8.1.28...8.1.29) (2020-11-25)
+
+
+### Bug Fixes
+
+* fix notify service removeItemById #INFR-1192 ([#960](https://github.com/atinc/ngx-tethys/issues/960)) ([15a5c70](https://github.com/atinc/ngx-tethys/commit/15a5c70)), closes [#INFR-1192](https://github.com/atinc/ngx-tethys/issues/INFR-1192) [#INFR-1192](https://github.com/atinc/ngx-tethys/issues/INFR-1192)
+* **input:**  fix input hover disabled style ([aef4f0b](https://github.com/atinc/ngx-tethys/commit/aef4f0b))
+* **list:** fix duplicate token #INFR-1274 ([1891cdb](https://github.com/atinc/ngx-tethys/commit/1891cdb)), closes [#INFR-1274](https://github.com/atinc/ngx-tethys/issues/INFR-1274)
+* **slider:** make slider vertical more natural ([1058ebe](https://github.com/atinc/ngx-tethys/commit/1058ebe))
+
+
+### Features
+
+* #INFR-1192 【Notify】弹出通知支持 placement，topLeft/topRight/bottomLeft… ([#954](https://github.com/atinc/ngx-tethys/issues/954)) ([8b50408](https://github.com/atinc/ngx-tethys/commit/8b50408)), closes [#INFR-1192](https://github.com/atinc/ngx-tethys/issues/INFR-1192) [#INFR-1192](https://github.com/atinc/ngx-tethys/issues/INFR-1192) [#INFR-1192](https://github.com/atinc/ngx-tethys/issues/INFR-1192)
+* **date-picker:** support placement and offset ([c1d4c8c](https://github.com/atinc/ngx-tethys/commit/c1d4c8c))
+
+
+
 <a name="8.1.28"></a>
 ## [8.1.28](https://github.com/atinc/ngx-tethys/compare/8.1.27...8.1.28) (2020-11-04)
 
