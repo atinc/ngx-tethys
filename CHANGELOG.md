@@ -30,43 +30,9 @@ All notable changes to this project will be documented in this file. See [standa
 
 * **styles:** remove the `scrollbar` default style
 
-
-
-<a name="9.0.0-beta.2"></a>
-# [9.0.0-beta.2](https://github.com/atinc/ngx-tethys/compare/8.1.30...9.0.0-beta.2) (2020-11-27)
-
-
-### Features
-
-* remove key-select module ([87e5b27](https://github.com/atinc/ngx-tethys/commit/87e5b27))
-* **styles:** add basic and index scss bundle #INFR-1296 ([#983](https://github.com/atinc/ngx-tethys/issues/983)) ([cc895c4](https://github.com/atinc/ngx-tethys/commit/cc895c4)), closes [#INFR-1296](https://github.com/atinc/ngx-tethys/issues/INFR-1296) [#INFR-1296](https://github.com/atinc/ngx-tethys/issues/INFR-1296)
-* remove modal, datepicker, confirm and popbox module #INFR-1295 ([50362d5](https://github.com/atinc/ngx-tethys/commit/50362d5)), closes [#INFR-1295](https://github.com/atinc/ngx-tethys/issues/INFR-1295)
-* 移除三级入口 ([cd903b3](https://github.com/atinc/ngx-tethys/commit/cd903b3))
-
-
 ### BREAKING CHANGES
 
 * please remove deps for this module, replace modal with dialog, replace popbox with popover, replace confirm with dialog's confirm, replace datepicker with date-picker
-
-
-
-<a name="9.0.0-beta.1"></a>
-# [9.0.0-beta.1](https://github.com/atinc/ngx-tethys/compare/9.0.0-beta.0...9.0.0-beta.1) (2020-11-27)
-
-
-### Bug Fixes
-
-* fix generate import relative path when extends mixin class ([c4fed45](https://github.com/atinc/ngx-tethys/commit/c4fed45))
-
-
-
-<a name="9.0.0-beta.0"></a>
-# [9.0.0-beta.0](https://github.com/atinc/ngx-tethys/compare/8.1.29...9.0.0-beta.0) (2020-11-26)
-
-
-### Features
-
-* update ng to 9.x and use ng build  ([1954ef7](https://github.com/atinc/ngx-tethys/commit/1954ef7))
 
 
 
@@ -113,19 +79,24 @@ All notable changes to this project will be documented in this file. See [standa
 
 * update ng to 9.x and use ng build  ([1954ef7](https://github.com/atinc/ngx-tethys/commit/1954ef7))
 
+### Bug Fixes
+
+* fix generate import relative path when extends mixin class ([c4fed45](https://github.com/atinc/ngx-tethys/commit/c4fed45))
 
 
-<a name="9.0.0-beta.1"></a>
-# [9.0.0-beta.1](https://github.com/atinc/ngx-tethys/compare/9.0.0-beta.0...9.0.0-beta.1) (2020-11-27)
-
-### Features
-
-* update ng to 9.x and use ng build ([#971](https://github.com/atinc/ngx-tethys/issues/971)) ([1954ef7](https://github.com/atinc/ngx-tethys/commit/1954ef7))
+<a name="8.1.32"></a>
+## [8.1.32](https://github.com/atinc/ngx-tethys/compare/8.1.31...8.1.32) (2020-12-02)
 
 
 ### Bug Fixes
 
-* fix generate import relative path when extends mixin class ([c4fed45](https://github.com/atinc/ngx-tethys/commit/c4fed45))
+* **popover:** fix the problem of close container when click inside #INFR-1317 ([#1003](https://github.com/atinc/ngx-tethys/issues/1003)) ([e6a0fd9](https://github.com/atinc/ngx-tethys/commit/e6a0fd9)), closes [#INFR-1317](https://github.com/atinc/ngx-tethys/issues/INFR-1317)
+
+
+### Features
+
+* **select:** support thyAutoExpend ([#998](https://github.com/atinc/ngx-tethys/issues/998)) ([3264141](https://github.com/atinc/ngx-tethys/commit/3264141))
+
 
 <a name="8.1.31"></a>
 ## [8.1.31](https://github.com/atinc/ngx-tethys/compare/8.1.30...8.1.31) (2020-11-30)

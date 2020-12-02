@@ -211,6 +211,8 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
 
     @ContentChild('selectedDisplay') selectedValueDisplayRef: TemplateRef<any>;
 
+    @Input() thyAutoExpand: boolean;
+
     @ViewChild('trigger', { read: ElementRef, static: true }) trigger: ElementRef<any>;
 
     @ViewChild('panel', { read: ElementRef }) panel: ElementRef<any>;
@@ -291,6 +293,13 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
             this.initKeyManager();
             this.changeDetectorRef.markForCheck();
         });
+        if (this.thyAutoExpand) {
+            timer().subscribe(() => {
+                this.changeDetectorRef.markForCheck();
+                this.open();
+                this.focus();
+            });
+        }
     }
 
     public get isHiddenOptions(): boolean {

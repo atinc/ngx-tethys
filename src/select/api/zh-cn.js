@@ -87,6 +87,12 @@ module.exports = [
                 description: '异步加载loading状态，false表示加载中，true表示加载完成',
                 type: 'boolean',
                 default: 'true'
+            },
+            {
+                name: 'thyAutoExpand',
+                description: '初始化时，是否展开面板',
+                type: 'boolean',
+                default: 'false'
             }
         ]
     },
