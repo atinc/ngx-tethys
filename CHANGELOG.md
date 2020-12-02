@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.0.0-beta.4"></a>
+# [9.0.0-beta.4](https://github.com/atinc/ngx-tethys/compare/9.0.0-beta.3...9.0.0-beta.4) (2020-12-02)
+
+
+### Bug Fixes
+
+* **date-picker:** register zh-Hans locale ([1d1589b](https://github.com/atinc/ngx-tethys/commit/1d1589b))
+
+
+### Features
+
+* **schematics:** add ng-add schematic #INFR-1293  ([4ac352f](https://github.com/atinc/ngx-tethys/commit/4ac352f)), closes [#INFR-1293](https://github.com/atinc/ngx-tethys/issues/INFR-1293)
+
+
+
 <a name="9.0.0-beta.3"></a>
 # [9.0.0-beta.3](https://github.com/atinc/ngx-tethys/compare/8.1.31...9.0.0-beta.3) (2020-11-30)
 
