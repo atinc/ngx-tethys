@@ -1,6 +1,7 @@
 import { OverlayModule } from '@angular/cdk/overlay';
-import { CommonModule } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import { NgModule } from '@angular/core';
+import localeZhHans from '@angular/common/locales/zh-Hans';
 
 import { LibPackerModule } from './lib/lib-packer.module';
 
@@ -20,6 +21,8 @@ import { ThyDatePickerDirective } from './date-picker.directive';
 import { ThyRangePickerDirective } from './range-picker.directive';
 import { DatePopupComponent } from './lib/popups/date-popup.component';
 import { ThyPopoverModule } from 'ngx-tethys/popover';
+
+registerLocaleData(localeZhHans, 'zh-Hans');
 
 @NgModule({
     imports: [CommonModule, OverlayModule, LibPackerModule, ThyIconModule, ThyInputModule, ThyPopoverModule],

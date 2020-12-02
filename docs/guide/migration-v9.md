@@ -1,7 +1,7 @@
 ---
 title: 9.x 升级指南
 path: 'migration-v9'
-order: 10
+order: 100
 ---
 
 本文档将帮助你从 ngx-tethys 8.x 版本升级到 9.x 版本。
@@ -24,7 +24,7 @@ order: 10
 
 ## 新特性和相关修改
 - 所有模块的引入改为二级方式引入, 比如: `import { ThyButtonModule } from "ngx-tethys/button"`
-- 避免使用`ngx-tethys`主入口方式引入, 主入口引入会在 `10.0.0` 版本彻底移出
+- 避免使用`ngx-tethys`主入口方式引入, 主入口会在 `10.0.0` 版本彻底移出
   ```
     import { ThyButtonModule, ThyIconModule} from "ngx-tethys";
 
@@ -75,6 +75,12 @@ order: 10
         background: darken($scrollbar-thumb, 15%);
     }
     ```
+- Id, PaginationInfo, Dictionary, NumericDictionary, IndexableObject 等类型移动到了`ngx-tethys/types`模块
+    ```
+    import { PaginationInfo } from "ngx-tethys/types";
+    ```
+- `ngx-tethys/store`模块下的 Id, PaginationInfo 类型无法使用, 请替换成 `ngx-tethys/types`
+- `directives`下的指令全部移动到`ngx-tethys/shared`模块, 单独引入需要导入`ThySharedModule`
 
 ## 过渡
 
