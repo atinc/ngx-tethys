@@ -2,6 +2,84 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.0.0"></a>
+# [9.0.0](https://github.com/atinc/ngx-tethys/compare/8.1.32...9.0.0) (2020-12-02)
+
+
+### Bug Fixes
+
+* **schematics:** add schema config for ng-add in collection.json #INFR-1293 ([#1006](https://github.com/atinc/ngx-tethys/issues/1006)) ([5f29d84](https://github.com/atinc/ngx-tethys/commit/5f29d84)), closes [#INFR-1293](https://github.com/atinc/ngx-tethys/issues/INFR-1293)
+
+
+
+<a name="9.0.0-beta.4"></a>
+# [9.0.0-beta.4](https://github.com/atinc/ngx-tethys/compare/9.0.0-beta.3...9.0.0-beta.4) (2020-12-02)
+
+
+### Bug Fixes
+
+* **date-picker:** register zh-Hans locale ([1d1589b](https://github.com/atinc/ngx-tethys/commit/1d1589b))
+
+
+### Features
+
+* **schematics:** add ng-add schematic #INFR-1293  ([4ac352f](https://github.com/atinc/ngx-tethys/commit/4ac352f)), closes [#INFR-1293](https://github.com/atinc/ngx-tethys/issues/INFR-1293)
+
+
+
+<a name="9.0.0-beta.3"></a>
+# [9.0.0-beta.3](https://github.com/atinc/ngx-tethys/compare/8.1.31...9.0.0-beta.3) (2020-11-30)
+
+
+### Code Refactoring
+
+* **styles:** delete scrollbar style ([17a36a1](https://github.com/atinc/ngx-tethys/commit/17a36a1))
+
+
+### BREAKING CHANGES
+
+* **styles:** remove the `scrollbar` default style
+
+
+
+<a name="9.0.0-beta.2"></a>
+# [9.0.0-beta.2](https://github.com/atinc/ngx-tethys/compare/8.1.30...9.0.0-beta.2) (2020-11-27)
+
+
+### Features
+
+* remove modal, datepicker, confirm and popbox module #INFR-1295 ([50362d5](https://github.com/atinc/ngx-tethys/commit/50362d5)), closes [#INFR-1295](https://github.com/atinc/ngx-tethys/issues/INFR-1295)
+* **styles:** add basic and index scss bundle #INFR-1296 ([#983](https://github.com/atinc/ngx-tethys/issues/983)) ([cc895c4](https://github.com/atinc/ngx-tethys/commit/cc895c4)), closes [#INFR-1296](https://github.com/atinc/ngx-tethys/issues/INFR-1296) [#INFR-1296](https://github.com/atinc/ngx-tethys/issues/INFR-1296)
+* 移除三级入口 ([cd903b3](https://github.com/atinc/ngx-tethys/commit/cd903b3))
+* remove key-select module ([87e5b27](https://github.com/atinc/ngx-tethys/commit/87e5b27))
+
+
+### BREAKING CHANGES
+
+* please remove deps for this module, replace modal with dialog, replace popbox with popover, replace confirm with dialog's confirm, replace datepicker with date-picker
+
+
+
+<a name="9.0.0-beta.1"></a>
+# [9.0.0-beta.1](https://github.com/atinc/ngx-tethys/compare/9.0.0-beta.0...9.0.0-beta.1) (2020-11-27)
+
+
+### Bug Fixes
+
+* fix generate import relative path when extends mixin class ([c4fed45](https://github.com/atinc/ngx-tethys/commit/c4fed45))
+
+
+
+<a name="9.0.0-beta.0"></a>
+# [9.0.0-beta.0](https://github.com/atinc/ngx-tethys/compare/8.1.29...9.0.0-beta.0) (2020-11-26)
+
+
+### Features
+
+* update ng to 9.x and use ng build  ([1954ef7](https://github.com/atinc/ngx-tethys/commit/1954ef7))
+
+
+
 <a name="9.0.0-beta.4"></a>
 # [9.0.0-beta.4](https://github.com/atinc/ngx-tethys/compare/9.0.0-beta.3...9.0.0-beta.4) (2020-12-02)
 
