@@ -11,7 +11,7 @@
     "icon": {
       "description": "add icon",
       "type": "boolean",
-      "default": false
+      "default": true
     }
   }
 }
