@@ -86,7 +86,7 @@ export class ThyPopoverContainerComponent extends ThyUpperOverlayContainer imple
                     .clicked()
                     .pipe(takeUntil(this.animationClosingDone))
                     .subscribe((event: MouseEvent) => {
-                        if (!(event.target as HTMLElement).contains(this.elementRef.nativeElement)) {
+                        if (!this.elementRef.nativeElement.contains((event.target as HTMLElement))) {
                             this.ngZone.run(() => {
                                 this.outsideClicked.emit();
                             });
