@@ -42,3 +42,19 @@
   thyDisabled="true"
   [(ngModel)]="date"
 ></thy-property-operation>
+
+<div
+  class="property-item"
+  thyDatePicker
+  [thyShowTime]="true"
+  [(ngModel)]="dateTime"
+  [thyPopoverOptions]="{ hasBackdrop: false, outsideClosable: true, originActiveClass: 'popover-origin-active' }"
+>
+  <div class="property-control-displayer">
+    <div class="property-control-content">
+      <ng-container *ngIf="dateTime">
+        <span> {{ dateTime | thyDatePickerFormat }}</span>
+      </ng-container>
+    </div>
+  </div>
+</div>
