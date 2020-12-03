@@ -69,3 +69,4 @@ export * from './copy';
 export * from './timeline';
 export * from './slider';
 export * from './calendar';
+export * from './fullscreen';
