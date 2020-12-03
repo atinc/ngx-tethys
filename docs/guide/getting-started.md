@@ -5,7 +5,7 @@ order: 1
 ---
 
 ## 使用 CLI 搭建本地项目
-我们强烈建议使用官方的 @angular/cli 工具链辅助进行开发，下面我们用一个简单的实例来说明，你可以阅读[官网文档搭建环境](https://angular.cn/guide/setup-local)搭建本地开发环境和工作空间。
+我们强烈建议使用官方的 @angular/cli 工具链辅助进行开发，下面我们用一个简单的实例来说明，你可以阅读 [官网文档搭建环境](https://angular.cn/guide/setup-local) 搭建本地开发环境和工作空间。
 ### 安装脚手架工具
 ```bash
 npm install -g @angular/cli
@@ -26,7 +26,10 @@ ng new my-app
 $ ng add ngx-tethys
 ```
 
-开发者可以通过增加参数来完成个性化的初始化配置，例如国际化或者自定义主题等，详细可以参考[脚手架](./docs/schematics)部分。
+<img class="mb-2" src="https://cdn.pingcode.com/open-sources/ngx-tethys/images/ng-add.png" />
+
+开发者可以通过增加参数来完成个性化的初始化配置，例如国际化或者自定义主题等，详细可以参考 [脚手架](http://lib.worktile.live/ngx-tethys/docs/schematics) 部分。
+
 
 ### 开发调试
 一键启动调试，运行成功后显示欢迎页面。
@@ -62,9 +65,23 @@ $ yarn add ngx-tethys
     @import "~ngx-tethys/styles/main.bundle.scss";
     ```
 
+### 引入图标
+在 angular.json 中引入 assets 配置
+  ```
+    "assets": [
+        ...
+        {
+            "glob": "**/*",
+            "input": "./node_modules/@tethys/icons",
+            "output": "/assets/icons/"
+        }
+    ]
+```
+
+
 ### 引入组件模块
 
-最后需要将使用的组件模块引入到你的 `app.module.ts` 文件和[特性模块](https://angular.cn/guide/feature-modules)中。
+最后需要将使用的组件模块引入到你的 `app.module.ts` 文件和 [特性模块](https://angular.cn/guide/feature-modules) 中。
 
 以 `ThyButtonModule` 模块为例，先引入组件模块：
 
