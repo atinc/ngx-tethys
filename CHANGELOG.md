@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.1.33"></a>
+## [8.1.33](https://github.com/atinc/ngx-tethys/compare/8.1.32...8.1.33) (2020-12-03)
+
+
+### Bug Fixes
+
+* **fullscreen:** export fullscreen in public api ([#1014](https://github.com/atinc/ngx-tethys/issues/1014)) ([6ddab57](https://github.com/atinc/ngx-tethys/commit/6ddab57))
+
+
+### Features
+
+* **date-picker:** set popver options in DatePicker ([c60553c](https://github.com/atinc/ngx-tethys/commit/c60553c))
+
+
+
 <a name="8.1.32"></a>
 ## [8.1.32](https://github.com/atinc/ngx-tethys/compare/8.1.31...8.1.32) (2020-12-02)
 
