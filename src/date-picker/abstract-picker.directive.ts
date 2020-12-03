@@ -1,24 +1,26 @@
+import { ThyPlacement } from 'ngx-tethys/core';
+import { ThyPopover, ThyPopoverConfig } from 'ngx-tethys/popover';
+import { coerceBooleanProperty, FunctionProp } from 'ngx-tethys/util';
+import { fromEvent, Observable, Subject } from 'rxjs';
+import { debounceTime, mapTo, takeUntil, tap } from 'rxjs/operators';
+
 import {
     AfterViewInit,
+    ChangeDetectorRef,
+    Directive,
     ElementRef,
     EventEmitter,
     Input,
     OnChanges,
     OnDestroy,
     Output,
-    ChangeDetectorRef,
-    TemplateRef,
     SimpleChange,
-    Directive
+    TemplateRef
 } from '@angular/core';
-import { fromEvent, Observable, Subject } from 'rxjs';
-import { debounceTime, mapTo, takeUntil, tap } from 'rxjs/operators';
-import { DatePopupComponent } from './lib/popups/date-popup.component';
+
 import { AbstractPickerComponent } from './abstract-picker.component';
-import { FunctionProp, coerceBooleanProperty } from 'ngx-tethys/util';
-import { PanelMode, CompatibleValue } from './standard-types';
-import { ThyPopover } from 'ngx-tethys/popover';
-import { ThyPlacement } from 'ngx-tethys/core';
+import { DatePopupComponent } from './lib/popups/date-popup.component';
+import { CompatibleValue, PanelMode } from './standard-types';
 
 @Directive()
 export abstract class PickerDirective extends AbstractPickerComponent implements AfterViewInit, OnDestroy, OnChanges {
@@ -46,6 +48,8 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
 
     @Input() thyHasBackdrop = true;
 
+    @Input() thyPopoverOptions: ThyPopoverConfig;
+
     private destroy$ = new Subject();
     private el: HTMLElement = this.elementRef.nativeElement;
     readonly $click: Observable<boolean> = fromEvent(this.el, 'click').pipe(
@@ -54,34 +58,43 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
     );
 
     private openOverlay(): void {
-        const { componentInstance } = this.thyPopover.open(DatePopupComponent, {
-            origin: this.el,
-            hasBackdrop: this.thyHasBackdrop,
-            backdropClass: 'thy-overlay-transparent-backdrop',
-            offset: this.thyOffset,
-            initialState: {
-                isRange: this.isRange,
-                showWeek: this.showWeek,
-                value: this.thyValue,
-                showTime: this.thyShowTime,
-                mustShowTime: this.withTime,
-                format: this.thyFormat,
-                dateRender: this.thyDateRender,
-                disabledDate: this.thyDisabledDate,
-                placeholder: this.thyPlaceHolder,
-                className: this.thyPanelClassName,
-                defaultPickerValue: this.thyDefaultPickerValue,
-                minDate: this.thyMinDate,
-                maxDate: this.thyMaxDate
-            },
-            placement: this.thyPlacement
-        });
-        componentInstance.valueChange.pipe(takeUntil(this.destroy$)).subscribe((event: CompatibleValue) => this.onValueChange(event));
-        componentInstance.showTimePickerChange
-            .pipe(takeUntil(this.destroy$))
-            .subscribe((event: boolean) => this.onShowTimePickerChange(event));
-        // tslint:disable-next-line: max-line-length
-        componentInstance.ngOnChanges({ value: {} as SimpleChange }); // dynamically created components don't call ngOnChanges, manual call
+        const popoverRef = this.thyPopover.open(
+            DatePopupComponent,
+            Object.assign(
+                {
+                    origin: this.el,
+                    hasBackdrop: this.thyHasBackdrop,
+                    backdropClass: 'thy-overlay-transparent-backdrop',
+                    offset: this.thyOffset,
+                    initialState: {
+                        isRange: this.isRange,
+                        showWeek: this.showWeek,
+                        value: this.thyValue,
+                        showTime: this.thyShowTime,
+                        mustShowTime: this.withTime,
+                        format: this.thyFormat,
+                        dateRender: this.thyDateRender,
+                        disabledDate: this.thyDisabledDate,
+                        placeholder: this.thyPlaceHolder,
+                        className: this.thyPanelClassName,
+                        defaultPickerValue: this.thyDefaultPickerValue,
+                        minDate: this.thyMinDate,
+                        maxDate: this.thyMaxDate
+                    },
+                    placement: this.thyPlacement
+                },
+                this.thyPopoverOptions
+            )
+        );
+        if (popoverRef) {
+            const componentInstance = popoverRef.componentInstance;
+            componentInstance.valueChange.pipe(takeUntil(this.destroy$)).subscribe((event: CompatibleValue) => this.onValueChange(event));
+            componentInstance.showTimePickerChange
+                .pipe(takeUntil(this.destroy$))
+                .subscribe((event: boolean) => this.onShowTimePickerChange(event));
+            // tslint:disable-next-line: max-line-length
+            componentInstance.ngOnChanges({ value: {} as SimpleChange }); // dynamically created components don't call ngOnChanges, manual call
+        }
     }
 
     closeOverlay(): void {
