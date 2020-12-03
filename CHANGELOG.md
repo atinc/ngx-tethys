@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.0.1"></a>
+## [9.0.1](https://github.com/atinc/ngx-tethys/compare/9.0.0...9.0.1) (2020-12-03)
+
+
+### Bug Fixes
+
+* remove warnDeprecation from public-api for fix error " Cannot enable prod mode after platform setup" ([7871f01](https://github.com/atinc/ngx-tethys/commit/7871f01))
+
+
+
 <a name="9.0.0"></a>
 # [9.0.0](https://github.com/atinc/ngx-tethys/compare/8.1.32...9.0.0) (2020-12-02)
 
