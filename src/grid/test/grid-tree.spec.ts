@@ -3,7 +3,7 @@ import { ThyGridModule } from '../grid.module';
 import { NgModule, Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ThyGridComponent } from '../grid.component';
-import { dispatchFakeEvent } from '../../core/testing/dispatcher-events';
+import { dispatchFakeEvent } from 'ngx-tethys/testing/dispatcher-events';
 
 @Component({
     selector: 'thy-demo-grid-tree',

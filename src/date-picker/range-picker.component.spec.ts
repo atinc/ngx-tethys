@@ -6,7 +6,7 @@ import { ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/cor
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { ThyDatePickerModule } from './date-picker.module';
-import { dispatchMouseEvent, typeInElement } from '../core/testing';
+import { dispatchMouseEvent, typeInElement } from 'ngx-tethys/testing';
 import { isSameDay, fromUnixTime } from 'date-fns';
 import { RangeEntry } from './standard-types';
 

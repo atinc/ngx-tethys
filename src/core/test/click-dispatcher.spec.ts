@@ -1,23 +1,8 @@
-import {
-    inject,
-    TestBed,
-    async,
-    fakeAsync,
-    ComponentFixture,
-    tick,
-    flushMicrotasks,
-    flush
-} from '@angular/core/testing';
-import {
-    NgModule,
-    Component,
-    ViewChild,
-    ElementRef,
-    OnDestroy
-} from '@angular/core';
+import { inject, TestBed, async, fakeAsync, ComponentFixture, tick, flushMicrotasks, flush } from '@angular/core/testing';
+import { NgModule, Component, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { ThyClickDispatcher } from '../event-dispatchers/click-dispatcher';
 import { Subscription, Observable } from 'rxjs';
-import { dispatchFakeEvent } from '../testing';
+import { dispatchFakeEvent } from 'ngx-tethys/testing';
 
 describe('ClickDispatcher', () => {
     beforeEach(async(() => {
@@ -85,9 +70,7 @@ describe('ClickDispatcher', () => {
 
         it('should complete the `clicked` stream on destroy', () => {
             const completeSpy = jasmine.createSpy('complete spy');
-            const subscription = click
-                .clicked(0)
-                .subscribe(undefined, undefined, completeSpy);
+            const subscription = click.clicked(0).subscribe(undefined, undefined, completeSpy);
 
             click.ngOnDestroy();
 
@@ -116,39 +99,27 @@ describe('ClickDispatcher', () => {
         }));
 
         it('should lazily add global listeners as service subscriptions are added and removed', () => {
-            expect(click.globalSubscription).toBeNull(
-                'Expected no global listeners on init.'
-            );
+            expect(click.globalSubscription).toBeNull('Expected no global listeners on init.');
 
             const subscription = click.clicked(0).subscribe(() => {});
 
-            expect(click.globalSubscription).toBeTruthy(
-                'Expected global listeners after a subscription has been added.'
-            );
+            expect(click.globalSubscription).toBeTruthy('Expected global listeners after a subscription has been added.');
 
             subscription.unsubscribe();
 
-            expect(click.globalSubscription).toBeNull(
-                'Expected global listeners to have been removed after the subscription has stopped.'
-            );
+            expect(click.globalSubscription).toBeNull('Expected global listeners to have been removed after the subscription has stopped.');
         });
 
         it('should remove the global subscription on destroy', () => {
-            expect(click.globalSubscription).toBeNull(
-                'Expected no global listeners on init.'
-            );
+            expect(click.globalSubscription).toBeNull('Expected no global listeners on init.');
 
             const subscription = click.clicked(0).subscribe(() => {});
 
-            expect(click.globalSubscription).toBeTruthy(
-                'Expected global listeners after a subscription has been added.'
-            );
+            expect(click.globalSubscription).toBeTruthy('Expected global listeners after a subscription has been added.');
 
             click.ngOnDestroy();
 
-            expect(click.globalSubscription).toBeNull(
-                'Expected global listeners to have been removed after the subscription has stopped.'
-            );
+            expect(click.globalSubscription).toBeNull('Expected global listeners to have been removed after the subscription has stopped.');
 
             subscription.unsubscribe();
         });

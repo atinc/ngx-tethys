@@ -7,7 +7,7 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ThyTooltipDirective } from '../tooltip.directive';
-import { dispatchMouseEvent, dispatchTouchEvent } from '../../core/testing';
+import { dispatchMouseEvent, dispatchTouchEvent } from 'ngx-tethys/testing';
 import { Platform } from '@angular/cdk/platform';
 
 const initialTooltipMessage = 'hello, this is tooltip message';

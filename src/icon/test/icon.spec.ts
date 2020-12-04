@@ -3,7 +3,7 @@ import { async, TestBed, ComponentFixture } from '@angular/core/testing';
 import { ThyIconModule } from '../icon.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ThyIconRegistry } from '../icon-registry';
-import { bypassSanitizeProvider, injectDefaultSvgIconSet } from '../../core/testing';
+import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 
 //#region test component
 
@@ -44,15 +44,11 @@ describe('ThyIconComponent', () => {
         }));
 
         it('should has icon name class', () => {
-            expect(
-                fixture.nativeElement.querySelector(`.${iconSvgClassPrefix}${componentInstance.thyIconName}`)
-            ).toBeTruthy();
+            expect(fixture.nativeElement.querySelector(`.${iconSvgClassPrefix}${componentInstance.thyIconName}`)).toBeTruthy();
         });
 
         it('should has new icon name class', () => {
-            expect(
-                fixture.nativeElement.querySelector(`.${iconSvgClassPrefix}${componentInstance.thyIconName}`)
-            ).toBeTruthy();
+            expect(fixture.nativeElement.querySelector(`.${iconSvgClassPrefix}${componentInstance.thyIconName}`)).toBeTruthy();
         });
 
         it('should not be found old icon name class', () => {
@@ -65,12 +61,8 @@ describe('ThyIconComponent', () => {
         it('should set thyIconType fill have correct class', () => {
             componentInstance.thyIconType = 'fill';
             fixture.detectChanges();
-            expect(
-                fixture.nativeElement.querySelector(`.${iconSvgClassPrefix}${componentInstance.thyIconName}`)
-            ).toBeFalsy();
-            expect(
-                fixture.nativeElement.querySelector(`.${iconSvgClassPrefix}${componentInstance.thyIconName}-fill`)
-            ).toBeTruthy();
+            expect(fixture.nativeElement.querySelector(`.${iconSvgClassPrefix}${componentInstance.thyIconName}`)).toBeFalsy();
+            expect(fixture.nativeElement.querySelector(`.${iconSvgClassPrefix}${componentInstance.thyIconName}-fill`)).toBeTruthy();
         });
 
         it('should set thyIconLegging be true have correct class', () => {

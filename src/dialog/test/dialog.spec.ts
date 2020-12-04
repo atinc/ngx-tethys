@@ -18,7 +18,7 @@ import {
     DialogFullContentComponent
 } from './module';
 import { ESCAPE, A } from '../../util/keycodes';
-import { dispatchKeyboardEvent, bypassSanitizeProvider, injectDefaultSvgIconSet } from '../../core/testing';
+import { dispatchKeyboardEvent, bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 import { By } from '@angular/platform-browser';
 import { ThyDialogContainerComponent } from '../dialog-container.component';
 import { ThyDialogSizes } from '../dialog.config';
@@ -257,20 +257,14 @@ describe('ThyDialog', () => {
         onPushFixture.detectChanges();
         flushMicrotasks();
 
-        expect(overlayContainerElement.querySelectorAll('thy-dialog-container').length).toBe(
-            1,
-            'Expected one open dialog.'
-        );
+        expect(overlayContainerElement.querySelectorAll('thy-dialog-container').length).toBe(1, 'Expected one open dialog.');
 
         dialogRef.close();
         flushMicrotasks();
         onPushFixture.detectChanges();
         tick(500);
 
-        expect(overlayContainerElement.querySelectorAll('thy-dialog-container').length).toBe(
-            0,
-            'Expected no open dialogs.'
-        );
+        expect(overlayContainerElement.querySelectorAll('thy-dialog-container').length).toBe(0, 'Expected no open dialogs.');
     }));
 
     it('should close when clicking on the overlay backdrop', fakeAsync(() => {

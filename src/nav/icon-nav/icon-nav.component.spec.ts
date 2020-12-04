@@ -4,7 +4,7 @@ import { ThyNavModule } from '../nav.module';
 import { ThyIconNavComponent } from './icon-nav.component';
 import { ThyIconNavLinkComponent } from './icon-nav-link.directive';
 import { ThyIconModule } from '../../icon';
-import { injectDefaultSvgIconSet, bypassSanitizeProvider } from '../../core/testing';
+import { injectDefaultSvgIconSet, bypassSanitizeProvider } from 'ngx-tethys/testing';
 import { By } from '@angular/platform-browser';
 
 const ICON_NAV_CLASS = `thy-icon-nav`;

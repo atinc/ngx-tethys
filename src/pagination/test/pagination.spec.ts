@@ -4,7 +4,7 @@ import { NgModule, Component } from '@angular/core';
 import { ThyPaginationModule } from '../pagination.module';
 import { ThyPaginationComponent } from '../pagination.component';
 import { By } from '@angular/platform-browser';
-import { dispatchFakeEvent, dispatchMouseEvent } from '../../core/testing';
+import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 
 @Component({
     template: `

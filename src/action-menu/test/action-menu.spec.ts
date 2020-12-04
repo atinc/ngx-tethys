@@ -5,7 +5,7 @@ import { By } from '@angular/platform-browser';
 import { ThyActionMenuComponent, ThyActionMenuDividerComponent } from '../action-menu.component';
 import { ThyActionMenuItemDirective } from '../action-menu-item.directive';
 import { ThyActionMenuSubItemDirective } from '../action-menu-sub-item.directive';
-import { dispatchEvent, dispatchFakeEvent, dispatchMouseEvent } from '../../core/testing';
+import { dispatchEvent, dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 @Component({
     selector: 'thy-demo-action-menu',
     template: `

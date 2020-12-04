@@ -13,7 +13,7 @@ import { ThyPositioningService } from '../../positioning/positioning.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyMenuDividerComponent } from '../divider/menu-divider.component';
 import { ThyIconModule } from '../../icon/icon.module';
-import { injectDefaultSvgIconSet, bypassSanitizeProvider } from '../../core/testing/thy-icon';
+import { injectDefaultSvgIconSet, bypassSanitizeProvider } from 'ngx-tethys/testing/thy-icon';
 
 @Component({
     selector: 'thy-demo-thy-menu',

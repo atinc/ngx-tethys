@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ComponentFixture, async, TestBed, flush, fakeAsync, tick } from '@angular/core/testing';
-import { dispatchFakeEvent } from '../../core/testing';
+import { dispatchFakeEvent } from 'ngx-tethys/testing';
 import { ThyCopyDirective } from '../copy.directive';
 import { ThyTooltipModule } from '../../tooltip/tooltip.module';
 import { ThyNotifyService, ThyNotifyModule } from '../../notify';
