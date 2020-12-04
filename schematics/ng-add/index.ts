@@ -1,13 +1,19 @@
-import { ProjectDefinition } from '@angular-devkit/core/src/workspace';
 import { SchematicContext, Tree, chain, Rule, noop } from '@angular-devkit/schematics';
-import { updateWorkspace } from '@schematics/angular/utility/workspace';
-import { getWorkspace } from '@schematics/angular/utility/config';
+import { getWorkspace, updateWorkspace } from '@schematics/angular/utility/workspace';
+import { NodePackageInstallTask, RunSchematicTask } from '@angular-devkit/schematics/tasks';
 import { JsonArray } from '@angular-devkit/core';
-import { getProjectFromWorkspace } from '../utils';
+import { fetchPackageMetadata } from '@angular/cli/utilities/package-metadata';
+
+import { addPackageToPackageJson, getPackageVersionFromPackageJson, getProjectFromWorkspace } from '../utils';
+import { DEPENDENCIES } from '../dependencies';
+import { VERSION } from '../version';
+
+const TETHYS_PKG_NAME = 'ngx-tethys';
 
 interface NgAddSchema {
     project?: string;
     icon?: boolean;
+    animations?: boolean;
 }
 
 function addStyleToWorkspace(projectName: string) {
@@ -38,7 +44,29 @@ function addIconToWorkspace(projectName: string) {
 }
 
 export function main(options: NgAddSchema = {}) {
-    return async (host: Tree, ctx: SchematicContext) => {
+    return async (host: Tree, context: SchematicContext) => {
+        for (const pkg of Object.keys(DEPENDENCIES)) {
+            const version = DEPENDENCIES[pkg];
+            if (version === '*') {
+                const packageMetadata = await fetchPackageMetadata(pkg, context.logger, {});
+                const latestManifest = packageMetadata.tags['latest'];
+                addPackageToPackageJson(host, pkg, latestManifest.version);
+            } else {
+                addPackageToPackageJson(host, pkg, DEPENDENCIES[pkg]);
+            }
+        }
+
+        const tethysVersionRange = getPackageVersionFromPackageJson(host, TETHYS_PKG_NAME);
+        // The CLI inserts `ngx-tethys` into the `package.json` before this schematic runs.
+        // This means that we do not need to insert ngx-tethys into `package.json` files again.
+        // In some cases though, it could happen that this schematic runs outside of the CLI `ng add`
+        // command, or ngx-tethys is only listed a dev dependency. If that is the case, we insert a
+        // version based on the current build version (substituted version placeholder).
+        if (tethysVersionRange === null) {
+            addPackageToPackageJson(host, TETHYS_PKG_NAME, VERSION);
+        }
+
+        context.addTask(new NodePackageInstallTask());
         return chain([options.icon ? addIconToWorkspace(options.project) : noop(), addStyleToWorkspace(options.project)]);
     };
 }

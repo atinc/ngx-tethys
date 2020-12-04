@@ -5,17 +5,16 @@
     "type": "git",
     "url": "git+ssh://git@github.com/atinc/ngx-tethys.git"
   },
-  "dependencies": {
-    "@angular/cdk": "^9.0.0",
-    "date-fns": "^2.6.0",
-    "bootstrap": "4.5.0",
-    "@tethys/icons": "^1.1.54"
-  },
+  "dependencies": {},
   "peerDependencies": {
     "@angular/common": "^9.0.0 || ^10.0.0 || ^11.0.0",
     "@angular/compiler": "^9.0.0 || ^10.0.0 || ^11.0.0",
     "@angular/core": "^9.0.0 || ^10.0.0 || ^11.0.0",
     "@angular/forms": "^9.0.0 || ^10.0.0 || ^11.0.0",
+    "@angular/cdk": "^9.0.0 || ^10.0.0 || ^11.0.0",
+    "date-fns": "^2.6.0",
+    "@tethys/icons": "*",
+    "bootstrap": "4.5.0",
     "rxjs": "^6.5.4"
   },
   "schematics": "./schematics/collection.json"
