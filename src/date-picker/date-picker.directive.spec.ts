@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { dispatchMouseEvent } from '../core/testing';
+import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyPopover } from '../popover/popover.service';
 import { ThyPropertyOperationComponent, ThyPropertyOperationModule } from '../property-operation';
 import { ThyDatePickerDirective } from './date-picker.directive';

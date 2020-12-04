@@ -12,9 +12,9 @@ import { Observable, Subject, fromEvent } from 'rxjs';
 import { Platform } from '@angular/cdk/platform';
 import { ThySelectComponent } from './select.component';
 import { ThyFormModule } from '../form';
-import { dispatchFakeEvent, dispatchKeyboardEvent } from '../core/testing/dispatcher-events';
+import { dispatchFakeEvent, dispatchKeyboardEvent } from 'ngx-tethys/testing/dispatcher-events';
 import { TAB, ESCAPE, DOWN_ARROW, ENTER } from '../util/keycodes';
-import { typeInElement, injectDefaultSvgIconSet, bypassSanitizeProvider } from '../core/testing';
+import { typeInElement, injectDefaultSvgIconSet, bypassSanitizeProvider } from 'ngx-tethys/testing';
 import { ThyOptionModule } from '../shared/option/module';
 
 @Component({

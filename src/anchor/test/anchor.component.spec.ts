@@ -5,7 +5,7 @@ import { ThyAnchorModule } from '../anchor.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyScrollService } from '../../core/scroll';
 import { By } from '@angular/platform-browser';
-import { dispatchFakeEvent } from '../../core/testing';
+import { dispatchFakeEvent } from 'ngx-tethys/testing';
 import { getOffset } from '../../util/dom';
 
 describe('thy-anchor', () => {

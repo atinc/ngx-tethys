@@ -1,6 +1,6 @@
 import { Provider, Sanitizer, SecurityContext } from '@angular/core';
 import { inject } from '@angular/core/testing';
-import { ThyIconRegistry } from '../../icon';
+import { ThyIconRegistry } from 'ngx-tethys/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 
 export const bypassSanitizeProvider: Provider = {

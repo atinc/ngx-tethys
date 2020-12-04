@@ -8,7 +8,7 @@ import { ThyIconModule } from '../../icon';
 import { ThyFlexibleTextModule } from '../../flexible-text/flexible-text.module';
 import { ThyTreeNode } from '../tree-node.class';
 import { ThyTreeEmitEvent, ThyTreeNodeCheckState } from '../tree.class';
-import { dispatchMouseEvent } from '../../core/testing';
+import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyDragDropEvent } from '../../drag-drop/drag-drop.class';
 
 const expandSelector = '.thy-tree-expand';

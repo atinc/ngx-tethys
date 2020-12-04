@@ -4,7 +4,7 @@ import { ThyPropertyOperationModule } from '../module';
 import { By } from '@angular/platform-browser';
 import { ThyPropertyOperationComponent } from '../property-operation.component';
 import { ThyButtonIconComponent } from '../../button';
-import { injectDefaultSvgIconSet, bypassSanitizeProvider, defaultSvgHtml } from '../../core/testing';
+import { injectDefaultSvgIconSet, bypassSanitizeProvider, defaultSvgHtml } from 'ngx-tethys/testing';
 
 //#region test component
 

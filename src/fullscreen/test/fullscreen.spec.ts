@@ -3,7 +3,7 @@ import { ThyFullscreenModule } from '../fullscreen.module';
 import { NgModule, Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ThyFullscreenComponent } from '../fullscreen.component';
-import { dispatchFakeEvent, dispatchKeyboardEvent } from '../../core/testing';
+import { dispatchFakeEvent, dispatchKeyboardEvent } from 'ngx-tethys/testing';
 import { ESCAPE } from '../../util/keycodes';
 
 describe('ThyFullscreen', () => {

@@ -9,7 +9,7 @@ import { ThyProgressBarComponent } from '../bar/progress-bar.component';
 import { ThyProgressTypes, ThyStackedValue } from '../interfaces';
 import { hexToRgb } from '../../util/helpers';
 import { ThyTooltipModule, ThyTooltipDirective } from '../../tooltip';
-import { dispatchMouseEvent } from '../../core/testing';
+import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 const PROGRESS_CLASS_NAME = 'progress';
@@ -97,11 +97,7 @@ function assertTooltipInstance(tooltip: ThyTooltipDirective, shouldExist: boolea
 
 @NgModule({
     imports: [ThyProgressModule],
-    declarations: [
-        ThyDemoProgressBasicComponent,
-        ThyDemoProgressStackedComponent,
-        ThyDemoProgressTooltipTemplateComponent
-    ],
+    declarations: [ThyDemoProgressBasicComponent, ThyDemoProgressStackedComponent, ThyDemoProgressTooltipTemplateComponent],
     exports: [ThyDemoProgressBasicComponent]
 })
 export class ProgressTestModule {}
@@ -171,9 +167,7 @@ describe(`ThyProgressComponent`, () => {
             progressBarComponent = fixture.debugElement.query(By.directive(ThyProgressBarComponent));
             progressBarElement = progressBarComponent.nativeElement;
             assertProgressAndBarComponentClass();
-            expect(
-                progressBarComponent.nativeElement.classList.contains(`progress-bar-${basicTestComponent.type}`)
-            ).toBe(true);
+            expect(progressBarComponent.nativeElement.classList.contains(`progress-bar-${basicTestComponent.type}`)).toBe(true);
             expect(progressBarComponent.nativeElement.classList.contains(`bg-${basicTestComponent.type}`)).toBe(true);
 
             basicTestComponent.type = 'warning';

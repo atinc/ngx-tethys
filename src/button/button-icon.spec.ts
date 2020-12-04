@@ -5,7 +5,7 @@ import { ThyButtonModule } from './button.module';
 import { ThyIconComponent } from '../icon';
 import { By } from '@angular/platform-browser';
 import { ThyButtonIconComponent } from './button-icon.component';
-import { injectDefaultSvgIconSet, bypassSanitizeProvider } from '../core/testing';
+import { injectDefaultSvgIconSet, bypassSanitizeProvider } from 'ngx-tethys/testing';
 
 @Component({
     selector: 'app-basic-button-icon',

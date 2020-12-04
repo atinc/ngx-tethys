@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ComponentFixture, async, TestBed } from '@angular/core/testing';
 import { ThySharedModule } from '../shared.module';
 import { By } from '@angular/platform-browser';
-import { dispatchMouseEvent } from '../../core/testing';
+import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @Component({

@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 import { ThyDatePickerModule } from './date-picker.module';
-import { dispatchMouseEvent, dispatchKeyboardEvent } from '../core/testing';
+import { dispatchMouseEvent, dispatchKeyboardEvent } from 'ngx-tethys/testing';
 import { isSameDay, format, getUnixTime, fromUnixTime } from 'date-fns';
 import { DateEntry } from './standard-types';
 import { convertDate } from './picker.util';

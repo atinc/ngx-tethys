@@ -1,23 +1,8 @@
-import {
-    inject,
-    TestBed,
-    async,
-    fakeAsync,
-    ComponentFixture,
-    tick,
-    flushMicrotasks,
-    flush
-} from '@angular/core/testing';
-import {
-    NgModule,
-    Component,
-    ViewChild,
-    ElementRef,
-    OnDestroy
-} from '@angular/core';
+import { inject, TestBed, async, fakeAsync, ComponentFixture, tick, flushMicrotasks, flush } from '@angular/core/testing';
+import { NgModule, Component, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { ThyClickPositioner } from '../click-positioner';
 import { Subscription, Observable } from 'rxjs';
-import { dispatchFakeEvent, dispatchMouseEvent } from '../testing';
+import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 
 describe('ClickDispatcher', () => {
     beforeEach(async(() => {
@@ -31,15 +16,12 @@ describe('ClickDispatcher', () => {
     let clickPositioner: ThyClickPositioner;
     let fixture: ComponentFixture<ClickPositionerComponent>;
 
-    beforeEach(inject(
-        [ThyClickPositioner],
-        (_clickPositioner: ThyClickPositioner) => {
-            clickPositioner = _clickPositioner;
+    beforeEach(inject([ThyClickPositioner], (_clickPositioner: ThyClickPositioner) => {
+        clickPositioner = _clickPositioner;
 
-            fixture = TestBed.createComponent(ClickPositionerComponent);
-            fixture.detectChanges();
-        }
-    ));
+        fixture = TestBed.createComponent(ClickPositionerComponent);
+        fixture.detectChanges();
+    }));
 
     it('should not execute the global events in the Angular zone', () => {
         expect(clickPositioner.lastClickPosition).toBeNull();

@@ -9,9 +9,9 @@ import { OverlayContainer, ViewportRuler } from '@angular/cdk/overlay';
 import { Observable, Subject } from 'rxjs';
 import { Platform } from '@angular/cdk/platform';
 import { ThyFormModule } from '../form';
-import { dispatchFakeEvent, dispatchKeyboardEvent } from '../core/testing/dispatcher-events';
+import { dispatchFakeEvent, dispatchKeyboardEvent } from 'ngx-tethys/testing/dispatcher-events';
 import { TAB, ESCAPE } from '../util/keycodes';
-import { typeInElement } from '../core/testing';
+import { typeInElement } from 'ngx-tethys/testing';
 import { ThyTreeSelectComponent } from './tree-select.component';
 import { ThyIconRegistry, ThyIconComponent } from '../icon';
 
