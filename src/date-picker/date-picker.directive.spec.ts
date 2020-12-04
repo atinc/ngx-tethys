@@ -1,20 +1,20 @@
-import { ESCAPE } from '@angular/cdk/keycodes';
+import { of } from 'rxjs';
+
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
-import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
+import { Component, DebugElement, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-
-import { ThyDatePickerModule } from './date-picker.module';
-import { dispatchMouseEvent, dispatchKeyboardEvent } from '../core/testing';
-import { ThyPopover } from '../popover/popover.service';
-import { DatePopupComponent } from './lib/popups/date-popup.component';
-import { ThyPropertyOperationModule, ThyPropertyOperationComponent } from '../property-operation';
-import { ThyDatePickerDirective } from './date-picker.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { of } from 'rxjs';
+
+import { dispatchMouseEvent } from 'ngx-tethys/testing';
+import { ThyPopover } from '../popover/popover.service';
+import { ThyPropertyOperationComponent, ThyPropertyOperationModule } from '../property-operation';
+import { ThyDatePickerDirective } from './date-picker.directive';
+import { ThyDatePickerModule } from './date-picker.module';
+import { DatePopupComponent } from './lib/popups/date-popup.component';
 
 registerLocaleData(zh);
 
@@ -100,7 +100,7 @@ describe('ThyPickerDirective', () => {
         }));
     });
 
-    describe('should get correct thyPlacement and offset and hasBackdrop', () => {
+    describe('popover config testing', () => {
         it('should get correct thyPlacement and offset and hasBackdrop', fakeAsync(() => {
             const thyPopover = TestBed.get(ThyPopover);
             const spy = spyOn(thyPopover, 'open');
@@ -161,6 +161,57 @@ describe('ThyPickerDirective', () => {
                 },
                 placement: fixtureInstance.thyPlacement
             });
+        }));
+
+        it('should use options when open popover', fakeAsync(() => {
+            const thyPopover = TestBed.get(ThyPopover);
+            const spy = spyOn(thyPopover, 'open');
+            spy.and.returnValue({ componentInstance: { valueChange: of(), showTimePickerChange: of(), ngOnChanges: () => {} } });
+            fixtureInstance.thyOffset = 0;
+            fixtureInstance.thyPlacement = 'right';
+            fixtureInstance.thyHasBackdrop = false;
+            fixtureInstance.popoverOptions = {
+                hasBackdrop: false,
+                outsideClosable: true,
+                originActiveClass: 'popover-origin-active'
+            };
+            fixture.detectChanges();
+            expect(spy).not.toHaveBeenCalled();
+            openPickerByClickTrigger();
+
+            expect(spy).toHaveBeenCalled();
+            expect(spy).toHaveBeenCalledWith(
+                DatePopupComponent,
+                Object.assign(
+                    {
+                        origin: debugElement.nativeElement.childNodes[0],
+                        hasBackdrop: false,
+                        backdropClass: 'thy-overlay-transparent-backdrop',
+                        offset: fixtureInstance.thyOffset,
+                        initialState: {
+                            isRange: false,
+                            showWeek: false,
+                            value: null,
+                            showTime: undefined,
+                            mustShowTime: undefined,
+                            format: undefined,
+                            dateRender: undefined,
+                            disabledDate: undefined,
+                            placeholder: '请选择日期',
+                            className: undefined,
+                            defaultPickerValue: undefined,
+                            minDate: undefined,
+                            maxDate: undefined
+                        },
+                        placement: fixtureInstance.thyPlacement
+                    },
+                    {
+                        hasBackdrop: false,
+                        outsideClosable: true,
+                        originActiveClass: 'popover-origin-active'
+                    }
+                )
+            );
         }));
     });
 
@@ -278,6 +329,7 @@ describe('should get correct default thyPlacement and offset', () => {
             [thyOffset]="thyOffset"
             [thyPlacement]="thyPlacement"
             [thyHasBackdrop]="thyHasBackdrop"
+            [thyPopoverOptions]="popoverOptions"
         ></thy-property-operation>
     `
 })
@@ -297,6 +349,7 @@ class ThyTestPickerDirective {
     thyOffset = 10;
     thyPlacement = 'bottomLeft';
     thyHasBackdrop = true;
+    popoverOptions;
     thyOnChange(): void {}
     thyOnCalendarChange(): void {}
     thyOpenChange(): void {}

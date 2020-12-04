@@ -1,6 +1,6 @@
 {
   "name": "ngx-tethys",
-  "version": "9.0.0-beta.4",
+  "version": "9.0.4",
   "license": "MIT",
   "scripts": {
     "start": "docgeni serve",
@@ -11,7 +11,7 @@
     "build:site": "npm run build:docs && ng build site --prod --extract-css --baseHref=/ngx-tethys/ && npm run build:theme",
     "build:docs": "docgeni build --skip-site",
     "build": "npm run build:ng && npm run build:schematics",
-    "build:ng": "rimraf ./built/* && node --max_old_space_size=8096 ./node_modules/@angular/cli/bin/ng build ngx-tethys --prod && npm run build:styles && npm run build:testing",
+    "build:ng": "rimraf ./built/* && node --max-old-space-size=8096 ./node_modules/@angular/cli/bin/ng build ngx-tethys --prod && npm run build:styles && npm run build:testing",
     "build:styles": "cpx \"./src/**/*.scss\" built && npm run scss-bundle",
     "scss-bundle": "scss-bundle --config ./scss-bundle.config.json && scss-bundle --config ./scss-bundle-basic.config.json",
     "build:testing": "cpx \"./src/core/testing/**/*.ts\" ./built/core/testing",

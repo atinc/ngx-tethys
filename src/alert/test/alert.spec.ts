@@ -3,7 +3,7 @@ import { ThyAlertModule } from '../alert.module';
 import { NgModule, Component, ViewChild, TemplateRef } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ThyAlertComponent } from '../alert.component';
-import { bypassSanitizeProvider, injectDefaultSvgIconSet } from '../../core/testing/thy-icon';
+import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/testing/thy-icon';
 
 describe('ThyAlert', () => {
     let fixture: ComponentFixture<ThyDemoAlertComponent>;

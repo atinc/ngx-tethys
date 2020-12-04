@@ -5,13 +5,17 @@
   "type": "object",
   "properties": {
     "project": {
-      "description": "select project",
-      "type": "string"
+      "description": "Name of the project.",
+      "type": "string",
+      "$default": {
+        "$source": "projectName"
+      }
     },
     "icon": {
-      "description": "add icon",
       "type": "boolean",
-      "default": true
+      "default": true,
+      "description": "Whether add @tethys/icons.",
+      "x-prompt": "Whether add @tethys/icons?"
     }
   }
 }

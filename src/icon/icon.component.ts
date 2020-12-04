@@ -16,6 +16,7 @@ import { ThyIconRegistry } from './icon-registry';
 import { take, tap } from 'rxjs/operators';
 import { Subject, noop, BehaviorSubject } from 'rxjs';
 import { coerceArray, coerceBooleanProperty } from 'ngx-tethys/util';
+import { getWhetherPrintErrorWhenIconNotFound } from './config';
 
 const iconSuffixMap = {
     fill: 'fill',
@@ -88,7 +89,11 @@ export class ThyIconComponent implements OnInit, OnChanges {
                     .pipe(take(1))
                     .subscribe(
                         svg => this.setSvgElement(svg),
-                        (error: Error) => console.error(`Error retrieving icon: ${error.message}`)
+                        (error: Error) => {
+                            if (getWhetherPrintErrorWhenIconNotFound()) {
+                                console.error(`Error retrieving icon: ${error.message}`);
+                            }
+                        }
                     );
                 this.updateHostClassService.updateClass([
                     `thy-icon${namespace ? `-${namespace}` : ``}-${this.buildIconNameByType(iconName)}`

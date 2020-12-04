@@ -3,3 +3,5 @@ export * from './get-workspace-tsconfig';
 export * from './get-angular-json';
 export * from './update-file.service';
 export * from './create-tree-ts-parse-config-host';
+export * from './get-project';
+export * from './package-config';

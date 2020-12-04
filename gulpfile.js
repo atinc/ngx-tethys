@@ -6,7 +6,7 @@ const gulpCleanCSS = require('gulp-clean-css');
 const gulpRename = require('gulp-rename');
 const path = require('path');
 
-const _distDemoPath = 'demo/src/assets/css';
+const _distPath = 'dist/site/assets/css';
 const scssOptions = {
     includePaths: [`${__dirname}/node_modules`],
     importer: function(url, prev, done) {
@@ -40,7 +40,7 @@ const buildTheme = function() {
                 return path;
             })
         )
-        .pipe(gulp.dest(_distDemoPath));
+        .pipe(gulp.dest(_distPath));
 };
 
 gulp.task('build-theme', buildTheme);

@@ -3,6 +3,7 @@
   "schematics": {
     "ng-add": {
       "description": "add ngx-tethys",
+      "schema": "./ng-add/schema.json",
       "factory": "./ng-add/index#main"
     },
     "test-environment": {

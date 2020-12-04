@@ -1,3 +1,4 @@
+import { warnDeprecation } from 'ngx-tethys/util';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 
 import { ThyActionMenuModule } from 'ngx-tethys/action-menu';
@@ -130,6 +131,9 @@ const IMPORT_EXPORT_MODULES = [
     ThyFullscreenModule
 ];
 
+/**
+ * @deprecated root module is deprecated, please use component module
+ */
 @NgModule({
     declarations: [],
     imports: [...IMPORT_EXPORT_MODULES],
@@ -137,6 +141,11 @@ const IMPORT_EXPORT_MODULES = [
     providers: []
 })
 export class NgxTethysModule {
+    constructor() {
+        warnDeprecation(
+            'The NgxTethysModule is deprecated, please use second entry point, we will remove main entry point in next major version'
+        );
+    }
     static forRoot(): ModuleWithProviders<NgxTethysModule> {
         return {
             ngModule: NgxTethysModule,

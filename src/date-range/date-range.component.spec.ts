@@ -6,7 +6,7 @@ import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { dispatchMouseEvent } from '../core/testing';
+import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { DateRangeItemInfo } from './date-range.class';
 import { formatDate } from '../util';
 import { DateHelperByDatePipe } from '../date-picker/date-helper.service';

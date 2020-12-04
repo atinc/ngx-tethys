@@ -2,6 +2,58 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.0.4"></a>
+## [9.0.4](https://github.com/atinc/ngx-tethys/compare/9.0.2...9.0.4) (2020-12-04)
+
+
+### Bug Fixes
+
+* update package-lock.json ([c54aa7d](https://github.com/atinc/ngx-tethys/commit/c54aa7d))
+* **schematics:** update deps as peerDependencies, and add deps to package.json for ng-add #INFR-1327 ([#1020](https://github.com/atinc/ngx-tethys/issues/1020)) ([0079a31](https://github.com/atinc/ngx-tethys/commit/0079a31)), closes [#INFR-1327](https://github.com/atinc/ngx-tethys/issues/INFR-1327)
+
+
+### Features
+
+* **icon:** add printErrorWhenNotFound config for test #INFR-1330 ([f8bbf9d](https://github.com/atinc/ngx-tethys/commit/f8bbf9d)), closes [#INFR-1330](https://github.com/atinc/ngx-tethys/issues/INFR-1330)
+* **testing:** move testing to root folder from core #INFR-1330 ([ae9ea68](https://github.com/atinc/ngx-tethys/commit/ae9ea68)), closes [#INFR-1330](https://github.com/atinc/ngx-tethys/issues/INFR-1330)
+
+
+
+<a name="9.0.3"></a>
+## [9.0.3](https://github.com/atinc/ngx-tethys/compare/9.0.2...9.0.3) (2020-12-04)
+
+
+### Bug Fixes
+
+* **schematics:** update deps as peerDependencies, and add deps to package.json for ng-add #INFR-1327 ([#1020](https://github.com/atinc/ngx-tethys/issues/1020)) ([0079a31](https://github.com/atinc/ngx-tethys/commit/0079a31)), closes [#INFR-1327](https://github.com/atinc/ngx-tethys/issues/INFR-1327)
+
+
+
+<a name="9.0.2"></a>
+## [9.0.2](https://github.com/atinc/ngx-tethys/compare/9.0.1...9.0.2) (2020-12-03)
+
+
+
+<a name="9.0.1"></a>
+## [9.0.1](https://github.com/atinc/ngx-tethys/compare/9.0.0...9.0.1) (2020-12-03)
+
+
+### Bug Fixes
+
+* remove warnDeprecation from public-api for fix error " Cannot enable prod mode after platform setup" ([7871f01](https://github.com/atinc/ngx-tethys/commit/7871f01))
+
+
+
+<a name="9.0.0"></a>
+# [9.0.0](https://github.com/atinc/ngx-tethys/compare/8.1.32...9.0.0) (2020-12-02)
+
+
+### Bug Fixes
+
+* **schematics:** add schema config for ng-add in collection.json #INFR-1293 ([#1006](https://github.com/atinc/ngx-tethys/issues/1006)) ([5f29d84](https://github.com/atinc/ngx-tethys/commit/5f29d84)), closes [#INFR-1293](https://github.com/atinc/ngx-tethys/issues/INFR-1293)
+
+
+
 <a name="9.0.0-beta.4"></a>
 # [9.0.0-beta.4](https://github.com/atinc/ngx-tethys/compare/9.0.0-beta.3...9.0.0-beta.4) (2020-12-02)
 
@@ -38,10 +90,10 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Features
 
-* remove key-select module ([87e5b27](https://github.com/atinc/ngx-tethys/commit/87e5b27))
-* **styles:** add basic and index scss bundle #INFR-1296 ([#983](https://github.com/atinc/ngx-tethys/issues/983)) ([cc895c4](https://github.com/atinc/ngx-tethys/commit/cc895c4)), closes [#INFR-1296](https://github.com/atinc/ngx-tethys/issues/INFR-1296) [#INFR-1296](https://github.com/atinc/ngx-tethys/issues/INFR-1296)
 * remove modal, datepicker, confirm and popbox module #INFR-1295 ([50362d5](https://github.com/atinc/ngx-tethys/commit/50362d5)), closes [#INFR-1295](https://github.com/atinc/ngx-tethys/issues/INFR-1295)
+* **styles:** add basic and index scss bundle #INFR-1296 ([#983](https://github.com/atinc/ngx-tethys/issues/983)) ([cc895c4](https://github.com/atinc/ngx-tethys/commit/cc895c4)), closes [#INFR-1296](https://github.com/atinc/ngx-tethys/issues/INFR-1296) [#INFR-1296](https://github.com/atinc/ngx-tethys/issues/INFR-1296)
 * 移除三级入口 ([cd903b3](https://github.com/atinc/ngx-tethys/commit/cd903b3))
+* remove key-select module ([87e5b27](https://github.com/atinc/ngx-tethys/commit/87e5b27))
 
 
 ### BREAKING CHANGES
@@ -67,6 +119,40 @@ All notable changes to this project will be documented in this file. See [standa
 ### Features
 
 * update ng to 9.x and use ng build  ([1954ef7](https://github.com/atinc/ngx-tethys/commit/1954ef7))
+
+
+
+<a name="9.0.0-beta.4"></a>
+# [9.0.0-beta.4](https://github.com/atinc/ngx-tethys/compare/9.0.0-beta.3...9.0.0-beta.4) (2020-12-02)
+
+
+### Bug Fixes
+
+* **date-picker:** register zh-Hans locale ([1d1589b](https://github.com/atinc/ngx-tethys/commit/1d1589b))
+
+
+### Features
+
+* **schematics:** add ng-add schematic #INFR-1293  ([4ac352f](https://github.com/atinc/ngx-tethys/commit/4ac352f)), closes [#INFR-1293](https://github.com/atinc/ngx-tethys/issues/INFR-1293)
+
+
+
+<a name="9.0.0-beta.3"></a>
+# [9.0.0-beta.3](https://github.com/atinc/ngx-tethys/compare/8.1.31...9.0.0-beta.3) (2020-11-30)
+
+
+### Code Refactoring
+
+* **styles:** delete scrollbar style ([17a36a1](https://github.com/atinc/ngx-tethys/commit/17a36a1))
+
+
+### BREAKING CHANGES
+
+* **styles:** remove the `scrollbar` default style
+
+### BREAKING CHANGES
+
+* please remove deps for this module, replace modal with dialog, replace popbox with popover, replace confirm with dialog's confirm, replace datepicker with date-picker
 
 
 
@@ -113,19 +199,24 @@ All notable changes to this project will be documented in this file. See [standa
 
 * update ng to 9.x and use ng build  ([1954ef7](https://github.com/atinc/ngx-tethys/commit/1954ef7))
 
+### Bug Fixes
+
+* fix generate import relative path when extends mixin class ([c4fed45](https://github.com/atinc/ngx-tethys/commit/c4fed45))
 
 
-<a name="9.0.0-beta.1"></a>
-# [9.0.0-beta.1](https://github.com/atinc/ngx-tethys/compare/9.0.0-beta.0...9.0.0-beta.1) (2020-11-27)
-
-### Features
-
-* update ng to 9.x and use ng build ([#971](https://github.com/atinc/ngx-tethys/issues/971)) ([1954ef7](https://github.com/atinc/ngx-tethys/commit/1954ef7))
+<a name="8.1.32"></a>
+## [8.1.32](https://github.com/atinc/ngx-tethys/compare/8.1.31...8.1.32) (2020-12-02)
 
 
 ### Bug Fixes
 
-* fix generate import relative path when extends mixin class ([c4fed45](https://github.com/atinc/ngx-tethys/commit/c4fed45))
+* **popover:** fix the problem of close container when click inside #INFR-1317 ([#1003](https://github.com/atinc/ngx-tethys/issues/1003)) ([e6a0fd9](https://github.com/atinc/ngx-tethys/commit/e6a0fd9)), closes [#INFR-1317](https://github.com/atinc/ngx-tethys/issues/INFR-1317)
+
+
+### Features
+
+* **select:** support thyAutoExpend ([#998](https://github.com/atinc/ngx-tethys/issues/998)) ([3264141](https://github.com/atinc/ngx-tethys/commit/3264141))
+
 
 <a name="8.1.31"></a>
 ## [8.1.31](https://github.com/atinc/ngx-tethys/compare/8.1.30...8.1.31) (2020-11-30)

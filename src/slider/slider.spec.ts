@@ -2,7 +2,7 @@ import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { ThySliderModule } from './slider.module';
-import { dispatchMouseEvent } from '../core/testing';
+import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { By } from '@angular/platform-browser';
 
 @Component({

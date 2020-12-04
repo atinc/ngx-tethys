@@ -5,8 +5,10 @@ module.exports = {
             2,
             'always',
             [
+                'schematics',
                 'variables',
                 'core',
+                'testing',
                 'shared',
                 'types',
                 'util',

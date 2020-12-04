@@ -1,5 +1,3 @@
-import { warnDeprecation } from 'ngx-tethys/util';
-
 export * from './module';
 export * from 'ngx-tethys/action-menu';
 export * from 'ngx-tethys/alert';
@@ -67,5 +65,3 @@ export * from 'ngx-tethys/slider';
 export * from 'ngx-tethys/calendar';
 export * from 'ngx-tethys/timeline';
 export * from 'ngx-tethys/fullscreen';
-
-warnDeprecation('The main entry point is deprecated, please use second entry point, we will remove main entry point in next major version');

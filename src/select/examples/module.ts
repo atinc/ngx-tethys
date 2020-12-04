@@ -14,6 +14,7 @@ import { ThySelectScrollLoadExampleComponent } from './scroll-load/scroll-load.c
 import { ThySelectGroupExampleComponent } from './group/group.component';
 import { ThySelectServerSearchExampleComponent } from './server-search/server-search.component';
 import { ThySelectFooterExampleComponent } from './footer/footer.component';
+import { ThySelectAutoExpendExampleComponent } from './auto-expend/auto-expend.component';
 
 const COMPONENTS = [
     ThySelectBasicExampleComponent,
@@ -23,7 +24,8 @@ const COMPONENTS = [
     ThySelectScrollLoadExampleComponent,
     ThySelectGroupExampleComponent,
     ThySelectServerSearchExampleComponent,
-    ThySelectFooterExampleComponent
+    ThySelectFooterExampleComponent,
+    ThySelectAutoExpendExampleComponent
 ];
 
 @NgModule({

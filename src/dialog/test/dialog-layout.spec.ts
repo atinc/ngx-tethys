@@ -3,7 +3,7 @@ import { ThyDialogModule } from '../dialog.module';
 import { Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { DialogHeaderComponent } from '../header/dialog-header.component';
-import { bypassSanitizeProvider, injectDefaultSvgIconSet } from '../../core/testing/thy-icon';
+import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/testing/thy-icon';
 import { DialogFooterComponent } from '../footer/dialog-footer.component';
 import { THY_DIALOG_LAYOUT_CONFIG } from '../dialog.config';
 
@@ -114,32 +114,24 @@ describe('dialog-layout', () => {
             it('should get correct class', () => {
                 dialogBasicFixture.detectChanges();
                 expect(dialogFooterNewDebugElement.nativeElement.classList.contains('dialog-footer')).toBeTruthy();
-                expect(
-                    dialogFooterNewDebugElement.nativeElement.classList.contains('dialog-footer-border-top')
-                ).toBeFalsy();
+                expect(dialogFooterNewDebugElement.nativeElement.classList.contains('dialog-footer-border-top')).toBeFalsy();
             });
 
             it('should get correct class when thyShowBorderTop is none', () => {
                 dialogBasicFixture.detectChanges();
-                expect(
-                    dialogFooterNoConfigDebugElement.nativeElement.classList.contains('dialog-footer-border-top')
-                ).toBeFalsy();
+                expect(dialogFooterNoConfigDebugElement.nativeElement.classList.contains('dialog-footer-border-top')).toBeFalsy();
             });
 
             it('should get correct class when thyShowBorderTop is true', () => {
                 dialogBasicFixture.componentInstance.showBorderTop = true;
                 dialogBasicFixture.detectChanges();
-                expect(
-                    dialogFooterBorderDebugElement.nativeElement.classList.contains('dialog-footer-border-top')
-                ).toBeTruthy();
+                expect(dialogFooterBorderDebugElement.nativeElement.classList.contains('dialog-footer-border-top')).toBeTruthy();
             });
 
             it('should get correct class when thyShowBorderTop is false', () => {
                 dialogBasicFixture.componentInstance.showBorderTop = false;
                 dialogBasicFixture.detectChanges();
-                expect(
-                    dialogFooterBorderDebugElement.nativeElement.classList.contains('dialog-footer-border-top')
-                ).toBeFalsy();
+                expect(dialogFooterBorderDebugElement.nativeElement.classList.contains('dialog-footer-border-top')).toBeFalsy();
             });
 
             it('should get description when has description template', () => {
@@ -150,56 +142,42 @@ describe('dialog-layout', () => {
             it('should get correct class when thyAlign is none', () => {
                 dialogBasicFixture.componentInstance.align = '';
                 dialogBasicFixture.detectChanges();
-                expect(
-                    dialogFooterNewDebugElement.nativeElement.classList.contains('dialog-footer-actions-align-left')
-                ).toBeTruthy();
+                expect(dialogFooterNewDebugElement.nativeElement.classList.contains('dialog-footer-actions-align-left')).toBeTruthy();
             });
 
             it('should get correct class when thyAlign is left', () => {
                 dialogBasicFixture.componentInstance.align = 'left';
                 dialogBasicFixture.detectChanges();
-                expect(
-                    dialogFooterNewDebugElement.nativeElement.classList.contains('dialog-footer-actions-align-left')
-                ).toBeTruthy();
+                expect(dialogFooterNewDebugElement.nativeElement.classList.contains('dialog-footer-actions-align-left')).toBeTruthy();
             });
 
             it('should get correct class when thyAlign is center', () => {
                 dialogBasicFixture.componentInstance.align = 'center';
                 dialogBasicFixture.detectChanges();
-                expect(
-                    dialogFooterNewDebugElement.nativeElement.classList.contains('dialog-footer-actions-align-center')
-                ).toBeTruthy();
+                expect(dialogFooterNewDebugElement.nativeElement.classList.contains('dialog-footer-actions-align-center')).toBeTruthy();
             });
 
             it('should get correct class when thyAlign is right', () => {
                 dialogBasicFixture.componentInstance.align = 'right';
                 dialogBasicFixture.detectChanges();
-                expect(
-                    dialogFooterNewDebugElement.nativeElement.classList.contains('dialog-footer-actions-align-right')
-                ).toBeTruthy();
+                expect(dialogFooterNewDebugElement.nativeElement.classList.contains('dialog-footer-actions-align-right')).toBeTruthy();
             });
 
             it('should get correct class when thyDivided is none', () => {
                 dialogBasicFixture.detectChanges();
-                expect(
-                    dialogFooterNoConfigDebugElement.nativeElement.classList.contains('dialog-footer-border-top')
-                ).toBeFalsy();
+                expect(dialogFooterNoConfigDebugElement.nativeElement.classList.contains('dialog-footer-border-top')).toBeFalsy();
             });
 
             it('should get correct class when thyDivided is true', () => {
                 dialogBasicFixture.componentInstance.divided = true;
                 dialogBasicFixture.detectChanges();
-                expect(
-                    dialogFooterNewDebugElement.nativeElement.classList.contains('dialog-footer-border-top')
-                ).toBeTruthy();
+                expect(dialogFooterNewDebugElement.nativeElement.classList.contains('dialog-footer-border-top')).toBeTruthy();
             });
 
             it('should get correct class when thyDivided is false', () => {
                 dialogBasicFixture.componentInstance.divided = false;
                 dialogBasicFixture.detectChanges();
-                expect(
-                    dialogFooterNewDebugElement.nativeElement.classList.contains('dialog-footer-border-top')
-                ).toBeFalsy();
+                expect(dialogFooterNewDebugElement.nativeElement.classList.contains('dialog-footer-border-top')).toBeFalsy();
             });
         });
         describe('with global dialog layout config', () => {
@@ -233,81 +211,59 @@ describe('dialog-layout', () => {
             it('should get correct class when thyAlign is none', () => {
                 dialogBasicFixture.componentInstance.align = '';
                 dialogBasicFixture.detectChanges();
-                expect(
-                    dialogFooterNoConfigDebugElement.nativeElement.classList.contains(
-                        'dialog-footer-actions-align-right'
-                    )
-                ).toBeTruthy();
+                expect(dialogFooterNoConfigDebugElement.nativeElement.classList.contains('dialog-footer-actions-align-right')).toBeTruthy();
             });
 
             it('should get correct class when thyAlign is left', () => {
                 dialogBasicFixture.componentInstance.align = 'left';
                 dialogBasicFixture.detectChanges();
-                expect(
-                    dialogFooterNewDebugElement.nativeElement.classList.contains('dialog-footer-actions-align-left')
-                ).toBeTruthy();
+                expect(dialogFooterNewDebugElement.nativeElement.classList.contains('dialog-footer-actions-align-left')).toBeTruthy();
             });
 
             it('should get correct class when thyAlign is center', () => {
                 dialogBasicFixture.componentInstance.align = 'center';
                 dialogBasicFixture.detectChanges();
-                expect(
-                    dialogFooterNewDebugElement.nativeElement.classList.contains('dialog-footer-actions-align-center')
-                ).toBeTruthy();
+                expect(dialogFooterNewDebugElement.nativeElement.classList.contains('dialog-footer-actions-align-center')).toBeTruthy();
             });
 
             it('should get correct class when thyAlign is right', () => {
                 dialogBasicFixture.componentInstance.align = 'right';
                 dialogBasicFixture.detectChanges();
-                expect(
-                    dialogFooterNewDebugElement.nativeElement.classList.contains('dialog-footer-actions-align-right')
-                ).toBeTruthy();
+                expect(dialogFooterNewDebugElement.nativeElement.classList.contains('dialog-footer-actions-align-right')).toBeTruthy();
             });
 
             it('should get correct class when thyDivided is none', () => {
                 dialogBasicFixture.detectChanges();
-                expect(
-                    dialogFooterNoConfigDebugElement.nativeElement.classList.contains('dialog-footer-border-top')
-                ).toBeTruthy();
+                expect(dialogFooterNoConfigDebugElement.nativeElement.classList.contains('dialog-footer-border-top')).toBeTruthy();
             });
 
             it('should get correct class when thyDivided is true', () => {
                 dialogBasicFixture.componentInstance.divided = true;
                 dialogBasicFixture.detectChanges();
-                expect(
-                    dialogFooterNewDebugElement.nativeElement.classList.contains('dialog-footer-border-top')
-                ).toBeTruthy();
+                expect(dialogFooterNewDebugElement.nativeElement.classList.contains('dialog-footer-border-top')).toBeTruthy();
             });
 
             it('should get correct class when thyDivided is false', () => {
                 dialogBasicFixture.componentInstance.divided = false;
                 dialogBasicFixture.detectChanges();
-                expect(
-                    dialogFooterNewDebugElement.nativeElement.classList.contains('dialog-footer-border-top')
-                ).toBeFalsy();
+                expect(dialogFooterNewDebugElement.nativeElement.classList.contains('dialog-footer-border-top')).toBeFalsy();
             });
 
             it('should get correct class when thyShowBorderTop is none', () => {
                 dialogBasicFixture.detectChanges();
-                expect(
-                    dialogFooterNoConfigDebugElement.nativeElement.classList.contains('dialog-footer-border-top')
-                ).toBeTruthy();
+                expect(dialogFooterNoConfigDebugElement.nativeElement.classList.contains('dialog-footer-border-top')).toBeTruthy();
             });
 
             it('should get correct class when thyShowBorderTop is true', () => {
                 dialogBasicFixture.componentInstance.showBorderTop = true;
                 dialogBasicFixture.detectChanges();
-                expect(
-                    dialogFooterBorderDebugElement.nativeElement.classList.contains('dialog-footer-border-top')
-                ).toBeTruthy();
+                expect(dialogFooterBorderDebugElement.nativeElement.classList.contains('dialog-footer-border-top')).toBeTruthy();
             });
 
             it('should get correct class when thyShowBorderTop is false', () => {
                 dialogBasicFixture.componentInstance.showBorderTop = false;
                 dialogBasicFixture.detectChanges();
-                expect(
-                    dialogFooterBorderDebugElement.nativeElement.classList.contains('dialog-footer-border-top')
-                ).toBeFalsy();
+                expect(dialogFooterBorderDebugElement.nativeElement.classList.contains('dialog-footer-border-top')).toBeFalsy();
             });
         });
     });
