@@ -10,7 +10,6 @@ function getDirFiles(fileName: string, fileList: string[] = []): string[] {
     for (const item of list) {
         if (item.isFile() && /(\.ts)$/.test(item.name) && !/\.spec\.ts$/.test(item.name)) {
             fileList.push(`${fileName}/${item.name}`);
-            // fileList.push(`${fileName}/${item.name.replace('.ts', '')}`);
         } else if (item.isDirectory() && !/^(api|doc|examples|test)$/.test(item.name)) {
             fileList = getDirFiles(`${fileName}/${item.name}`, fileList);
         } else {
@@ -22,7 +21,6 @@ function getExportDeclarations(pathName: string) {
     const fileContent = fs.readFileSync(path.resolve(srcPath, pathName));
     const sourceFile = ts.createSourceFile(pathName, fileContent.toString(), ts.ScriptTarget.Latest);
     const list: string[] = [];
-    // console.log('-------', pathName);
     sourceFile.statements
         .filter(item => item.modifiers && item.modifiers.some(modifier => modifier.kind === ts.SyntaxKind.ExportKeyword))
         .forEach(node => {
@@ -61,8 +59,6 @@ function main() {
         });
     });
 
-    // allList.forEach(item => {});
-    console.log(map);
     fs.writeFileSync('name-package-relation.json', JSON.stringify(map));
 }
 main();
