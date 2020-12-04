@@ -3,10 +3,12 @@ import { getWorkspace, updateWorkspace } from '@schematics/angular/utility/works
 import { NodePackageInstallTask, RunSchematicTask } from '@angular-devkit/schematics/tasks';
 import { JsonArray } from '@angular-devkit/core';
 import { fetchPackageMetadata } from '@angular/cli/utilities/package-metadata';
+import { getPackageManager } from '@angular/cli/utilities/package-manager';
 
 import { addPackageToPackageJson, getPackageVersionFromPackageJson, getProjectFromWorkspace } from '../utils';
 import { DEPENDENCIES } from '../dependencies';
 import { VERSION } from '../version';
+import { PackageManager } from '@angular/cli/lib/config/schema';
 
 const TETHYS_PKG_NAME = 'ngx-tethys';
 
@@ -45,10 +47,15 @@ function addIconToWorkspace(projectName: string) {
 
 export function main(options: NgAddSchema = {}) {
     return async (host: Tree, context: SchematicContext) => {
+        const packageManager = await getPackageManager(host.root.path);
+        const usingYarn = packageManager === PackageManager.Yarn;
+
         for (const pkg of Object.keys(DEPENDENCIES)) {
             const version = DEPENDENCIES[pkg];
             if (version === '*') {
-                const packageMetadata = await fetchPackageMetadata(pkg, context.logger, {});
+                const packageMetadata = await fetchPackageMetadata(pkg, context.logger, {
+                    usingYarn: usingYarn
+                });
                 const latestManifest = packageMetadata.tags['latest'];
                 addPackageToPackageJson(host, pkg, latestManifest.version);
             } else {
