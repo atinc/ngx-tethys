@@ -8,6 +8,7 @@ module.exports = {
                 'schematics',
                 'variables',
                 'core',
+                'testing',
                 'shared',
                 'types',
                 'util',
