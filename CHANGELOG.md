@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.0.4"></a>
+## [9.0.4](https://github.com/atinc/ngx-tethys/compare/9.0.2...9.0.4) (2020-12-04)
+
+
+### Bug Fixes
+
+* update package-lock.json ([c54aa7d](https://github.com/atinc/ngx-tethys/commit/c54aa7d))
+* **schematics:** update deps as peerDependencies, and add deps to package.json for ng-add #INFR-1327 ([#1020](https://github.com/atinc/ngx-tethys/issues/1020)) ([0079a31](https://github.com/atinc/ngx-tethys/commit/0079a31)), closes [#INFR-1327](https://github.com/atinc/ngx-tethys/issues/INFR-1327)
+
+
+### Features
+
+* **icon:** add printErrorWhenNotFound config for test #INFR-1330 ([f8bbf9d](https://github.com/atinc/ngx-tethys/commit/f8bbf9d)), closes [#INFR-1330](https://github.com/atinc/ngx-tethys/issues/INFR-1330)
+* **testing:** move testing to root folder from core #INFR-1330 ([ae9ea68](https://github.com/atinc/ngx-tethys/commit/ae9ea68)), closes [#INFR-1330](https://github.com/atinc/ngx-tethys/issues/INFR-1330)
+
+
+
 <a name="9.0.3"></a>
 ## [9.0.3](https://github.com/atinc/ngx-tethys/compare/9.0.2...9.0.3) (2020-12-04)
 
