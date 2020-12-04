@@ -1,0 +1,22 @@
+// 入口点二级化测试
+import { THY_CONFIRM_DEFAULT_OPTIONS, ThyConfirmConfig, ThyDialog ,NgxTethysModule, NotAName } from 'ngx-tethys';
+import {yyy} from 'ngx-tethys'
+import {
+  ThyInputModule,
+  ThyOptionModule,
+  ThySelectModule,
+  ThyDatePickerModule,
+  ThyGridModule,
+  ThyRasterModule,
+  ThyIconModule,
+  ThyDialogModule,
+  ThyNotifyModule,
+} from 'ngx-tethys';
+// 入口点截取测试
+import { isString } from 'ngx-tethys/util/helpers';
+// 入口点变更测试
+import { Id,PaginationInfo } from 'ngx-tethys/store';
+// typings 转 types 替换
+import { xxx,yyy } from 'ngx-tethys/typings'
+// 混淆
+import { chen } from 'my-package'

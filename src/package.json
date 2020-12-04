@@ -18,5 +18,8 @@
     "@angular/forms": "^9.0.0 || ^10.0.0",
     "rxjs": "^6.5.4"
   },
-  "schematics": "./schematics/collection.json"
+  "schematics": "./schematics/collection.json",
+  "ng-update": {
+    "migrations": "./schematics/ng-update/migration-collection.json"
+  }
 }

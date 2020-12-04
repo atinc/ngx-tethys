@@ -1,0 +1,6 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "strict": true
+  }
+}

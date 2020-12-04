@@ -4,6 +4,12 @@
     "ng-add": {
       "description": "add ngx-tethys",
       "factory": "./ng-add/index#main"
+    },
+    "test-environment": {
+      "factory": "./test-environment",
+      "schema": "./test-environment/schema.json",
+      "description": "Create an mock Angular project to test.",
+      "private": true
     }
   }
 }
