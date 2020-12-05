@@ -1,6 +1,6 @@
 <form thyForm thyLayout="inline">
   <thy-form-group thyLabelText="Placement">
-    <thy-select name="size" [(ngModel)]="placement" name="placement">
+    <thy-select name="size" [(ngModel)]="config.placement" name="placement">
       <option value="top">top</option>
       <option value="topLeft">topLeft</option>
       <option value="topRight">topRight</option>
@@ -16,41 +16,41 @@
     </thy-select>
   </thy-form-group>
   <thy-form-group>
-    <label thyCheckbox thyLabelText="hasBackdrop" [(ngModel)]="hasBackdrop" name="checkbox1"></label>
+    <label thyCheckbox thyLabelText="hasBackdrop" [(ngModel)]="config.hasBackdrop" name="hasBackdrop"></label>
+  </thy-form-group>
+  <thy-form-group>
+    <label thyCheckbox thyLabelText="backdropClosable" [(ngModel)]="config.backdropClosable" name="backdropClosable"></label>
+  </thy-form-group>
+  <thy-form-group>
+    <label thyCheckbox thyLabelText="insideClosable" [(ngModel)]="config.insideClosable" name="insideClosable"></label>
+  </thy-form-group>
+  <thy-form-group>
+    <label thyCheckbox thyLabelText="outsideClosable" [(ngModel)]="config.outsideClosable" name="outsideClosable"></label>
   </thy-form-group>
 </form>
-<div class="btn-pair mt-3">
+<div class="demo-buttons d-flex mt-3">
   <button thyButton="secondary" thySize="md" (click)="openPopover($event)">
-    Use Component 1
+    Use Component
   </button>
   <button thyButton="secondary" thySize="md" (click)="openTemplatePopover($event, template)">
-    Use Template 2
+    Use Template
   </button>
-  <button thyButton="secondary" thySize="md" (click)="openTemplatePopoverWidth($event, template)">
-    Use Template 3
-  </button>
-  <button thyButton="secondary" thySize="md" (click)="openTemplatePopoverManualClosure($event, template)">
-    Use Template 3 with manualClosure
-  </button>
-  <button thyButton="secondary" thySize="md" (click)="openTemplatePopoverManualClosure($event, template)">
-    Use Template 4 with manualClosure
-  </button>
-  <thy-icon-nav>
+  <thy-icon-nav class="ml-2">
     <a
       href="javascript:;"
       thyIconNavLink
       thyIconNavLinkIcon="vertical-view-lines"
       thyTooltip="视图"
       thyTooltipPlacement="bottom"
-      (click)="openTemplatePopoverIconNav($event, template)"
+      (click)="openTemplatePopover($event, template)"
     ></a>
   </thy-icon-nav>
 </div>
-<div class="btn-pair mt-3">
-  <button thyButton="secondary" thySize="md" (click)="openPopoverOutsideClosable($event)">
-    outside closable
-  </button>
-</div>
 <ng-template #template>
-  <p class="p-2">Hello, I am template content</p>
+  <p class="p-2">
+    Hello, I am template content
+    <button thyButton="secondary" thySize="md" (click)="close()">
+      Close
+    </button>
+  </p>
 </ng-template>
