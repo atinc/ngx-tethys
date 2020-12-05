@@ -1,7 +1,7 @@
 import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import { DEPENDENCIES } from '../dependencies';
-import { createTestApp, getJsonFileContent } from '../testing';
+import { createTestWorkspaceFactory, getJsonFileContent } from '../testing';
 import { addPackageToPackageJson } from '../utils';
 import { VERSION } from '../version';
 
@@ -12,7 +12,10 @@ describe('ng-add Schematic', () => {
     let workspaceTree: UnitTestTree;
 
     beforeEach(async () => {
-        tree = await createTestApp(schematicRunner);
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'ngx-tethys-chen' });
+        tree = factory.getTree();
     });
 
     it('should update package.json', async () => {
@@ -52,7 +55,6 @@ describe('ng-add Schematic', () => {
     });
 
     it(`should add styles in [ngx-tethys-chen] project`, async () => {
-        tree = await createTestApp(schematicRunner, { name: 'ngx-tethys-chen' }, tree);
         workspaceTree = await schematicRunner.runSchematicAsync('ng-add', { project: 'ngx-tethys-chen' }, tree).toPromise();
 
         const workspace = getJsonFileContent(workspaceTree, '/angular.json');

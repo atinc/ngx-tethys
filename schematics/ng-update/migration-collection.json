@@ -1,0 +1,10 @@
+{
+  "$schema": "../../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "migration-v9": {
+      "version": "9.0.0",
+      "factory": "./update-9",
+      "description": "Updates NGX-TETHYS to v9"
+    }
+  }
+}
