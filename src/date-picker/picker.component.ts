@@ -47,7 +47,7 @@ export class ThyPickerComponent implements AfterViewInit {
     prefixCls = 'thy-calendar';
     animationOpenState = false;
     overlayOpen = false; // Available when "open"=undefined
-    overlayPositions = getFlexiblePositions('bottomLeft', 10);
+    overlayPositions = getFlexiblePositions('bottomLeft', 4);
     currentPositionX: 'start' | 'end' = 'start';
     currentPositionY: 'top' | 'bottom' = 'top';
 
