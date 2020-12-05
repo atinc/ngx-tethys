@@ -96,7 +96,6 @@
         *ngFor="let column of columns; let j = index"
         [ngClass]="column.className"
         [class.thy-grid-checkbox-column]="column.type === customType.checkbox"
-        style="position: relative;"
       >
         <ng-container *ngIf="j === 0 && draggable">
           <thy-icon class="table-draggable-icon" thyIconName="drag"></thy-icon>

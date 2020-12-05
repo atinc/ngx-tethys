@@ -217,6 +217,12 @@ module.exports = [
                 description: '设置数据为空的时候显示的文本',
                 type: 'String',
                 default: ''
+            },
+            {
+                name: 'thyExpand',
+                description: '设置 tree 模式下折叠展开按钮展示列，不传默认第一列',
+                type: 'boolean',
+                default: 'false'
             }
         ]
     }
