@@ -1,5 +1,6 @@
-import { Component, OnInit, ElementRef, TemplateRef } from '@angular/core';
-import { ThyPlacement, ThyPopover } from 'ngx-tethys';
+import { ThyPopoverConfig } from 'ngx-tethys/popover';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { ThyPopover } from 'ngx-tethys/popover';
 import { ThyPopoverBasicContentComponent } from './popover-content.component';
 
 @Component({
@@ -7,11 +8,12 @@ import { ThyPopoverBasicContentComponent } from './popover-content.component';
     templateUrl: './basic.component.html'
 })
 export class ThyPopoverBasicExampleComponent implements OnInit {
-    placement: ThyPlacement = 'bottom';
-
-    trigger = 'click';
-
-    hasBackdrop = true;
+    config: Partial<ThyPopoverConfig<unknown>> = {
+        hasBackdrop: true,
+        backdropClosable: true,
+        placement: 'bottom',
+        originActiveClass: 'active'
+    };
 
     constructor(private thyPopover: ThyPopover) {}
 
@@ -19,62 +21,29 @@ export class ThyPopoverBasicExampleComponent implements OnInit {
 
     openPopover(event: Event) {
         this.thyPopover.open(ThyPopoverBasicContentComponent, {
+            ...this.config,
             origin: event.currentTarget as HTMLElement,
-            placement: this.placement,
-            hasBackdrop: this.hasBackdrop,
-            panelClass: 'demo-popover',
-            insideClosable: true
+            panelClass: 'demo-popover'
         });
     }
 
     openPopoverOutsideClosable(event: Event) {
         this.thyPopover.open(ThyPopoverBasicContentComponent, {
+            ...this.config,
             origin: event.currentTarget as HTMLElement,
-            placement: this.placement,
-            hasBackdrop: false,
-            panelClass: 'demo-popover',
-            insideClosable: true,
-            outsideClosable: true
+            panelClass: 'demo-popover'
         });
     }
 
     openTemplatePopover(event: Event, template: TemplateRef<HTMLElement>) {
         this.thyPopover.open(template, {
+            ...this.config,
             origin: event.currentTarget as HTMLElement,
-            hasBackdrop: this.hasBackdrop,
-            placement: this.placement,
             panelClass: 'demo-popover'
         });
     }
 
-    openTemplatePopoverWidth(event: Event, template: TemplateRef<HTMLElement>) {
-        this.thyPopover.open(template, {
-            origin: event.currentTarget as HTMLElement,
-            hasBackdrop: this.hasBackdrop,
-            placement: this.placement,
-            panelClass: 'demo-popover',
-            width: '1000px'
-        });
-    }
-
-    openTemplatePopoverManualClosure(event: Event, template: TemplateRef<HTMLElement>) {
-        this.thyPopover.open(template, {
-            origin: event.currentTarget as HTMLElement,
-            manualClosure: true,
-            hasBackdrop: this.hasBackdrop,
-            placement: this.placement,
-            panelClass: 'demo-popover'
-        });
-    }
-
-    openTemplatePopoverIconNav(event: Event, template: TemplateRef<HTMLElement>) {
-        this.thyPopover.open(template, {
-            origin: event.currentTarget as HTMLElement,
-            manualClosure: true,
-            hasBackdrop: this.hasBackdrop,
-            placement: this.placement,
-            panelClass: 'demo-popover',
-            originActiveClass: 'active'
-        });
+    close() {
+        this.thyPopover.close();
     }
 }

@@ -89,7 +89,7 @@ module.exports = [
         properties: [
             {
                 name: 'thyClearPadding',
-                description: '清楚间距',
+                description: '清除间距',
                 type: 'boolean',
                 default: 'false'
             }
