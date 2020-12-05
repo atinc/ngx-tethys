@@ -321,6 +321,7 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
                 headerClassName: component.headerClassName,
                 disabled: component.disabled,
                 defaultText: component.defaultText,
+                expand: component.expand,
                 templateRef: component.cellTemplateRef,
                 headerTemplateRef: component.headerTemplateRef
             };
@@ -506,7 +507,7 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
 
     iconIndentComputed(level: number) {
         if (this.mode === 'tree') {
-            return level * this.thyIndent;
+            return level * this.thyIndent - 23;
         }
     }
 
