@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.0.5"></a>
+## [9.0.5](https://github.com/atinc/ngx-tethys/compare/9.0.4...9.0.5) (2020-12-05)
+
+
+### Features
+
+* **schematics:** add migration to v9.x schematics #INFR-1294 ([61e9da1](https://github.com/atinc/ngx-tethys/commit/61e9da1)), closes [#INFR-1294](https://github.com/atinc/ngx-tethys/issues/INFR-1294)
+
+
+
 <a name="9.0.4"></a>
 ## [9.0.4](https://github.com/atinc/ngx-tethys/compare/9.0.2...9.0.4) (2020-12-04)
 
