@@ -16,6 +16,7 @@ export class ImportEntryPointChangeMigration extends MigrationBase {
     readonly changePackageGroup = {
         'ngx-tethys/typings': 'ngx-tethys/types'
     };
+
     run() {
         const importDeclarationList: ts.ImportDeclaration[] = this.getImportDeclarationList();
 
@@ -57,6 +58,7 @@ export class ImportEntryPointChangeMigration extends MigrationBase {
             node: undefined
         };
     }
+
     generateChangeModulePackageNode(importDeclaration: ts.ImportDeclaration) {
         const importPackageName = this.getImportDeclarationPackageName(importDeclaration);
         const appendImportNameList: string[] = [];

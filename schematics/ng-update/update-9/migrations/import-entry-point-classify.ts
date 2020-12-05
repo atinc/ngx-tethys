@@ -760,6 +760,7 @@ export class ImportEntryPointClassifyMigration extends MigrationBase {
         VERSION: ''
     };
     readonly relation = Object.assign({}, NAME_PACKAGE_RELATION, this.specifyGroup);
+
     run() {
         const importDeclarationList: ts.ImportDeclaration[] = this.getImportDeclarationList().filter(
             item => this.getImportDeclarationPackageName(item) === 'ngx-tethys'

@@ -2,6 +2,7 @@ import { Tree } from '@angular-devkit/schematics';
 import { ContentChange, RemoveContentChange, ReplaceContentChange, UpdateContentChange } from '../types';
 export class UpdateFileService {
     constructor(private tree: Tree) {}
+
     private update(filePath, change: UpdateContentChange) {
         try {
             const recorder = this.tree.beginUpdate(filePath);
@@ -21,6 +22,7 @@ export class UpdateFileService {
             console.error('remove fail', error);
         }
     }
+
     private replace(filePath: string, change: ReplaceContentChange) {
         try {
             const recorder = this.tree.beginUpdate(filePath);
@@ -31,6 +33,7 @@ export class UpdateFileService {
             console.error('replace fail', error);
         }
     }
+
     change(filePath: string, changeList: ContentChange[]) {
         changeList
             .sort((a, b) => b.pos - a.pos)

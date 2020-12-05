@@ -17,7 +17,7 @@ export default function main() {
         const updateFileService = createUpdateFileService(tree);
         const angularConfig = getAngularJson(tree);
         const tsConfigList = getWorkspaceAllTsconfig(angularConfig);
-
+        const transformedList: string[] = [];
         for (const tsConfig of tsConfigList) {
             const readResult = ts.readConfigFile(tsConfig, e => {
                 return tree.read(path.resolve('/', e)).toString();
@@ -26,13 +26,13 @@ export default function main() {
                 throw new Error(`read ${tsConfig} fail`);
             }
             const config = readResult.config;
-            const parseContent = ts.parseJsonConfigFileContent(config, creatTreeTsParseConfigHost(tree), '/', {});
+            const basePath = path.dirname(path.join('/', tsConfig));
+            const parseContent = ts.parseJsonConfigFileContent(config, creatTreeTsParseConfigHost(tree, basePath), basePath, {});
             const program = ts.createProgram({
                 host: createTreeCompilerHost(parseContent.options, tree),
                 rootNames: parseContent.fileNames,
                 options: parseContent.options
             });
-            const transformedList: string[] = [];
             program
                 .getSourceFiles()
                 .filter(sf => !sf.fileName.includes('node_modules'))

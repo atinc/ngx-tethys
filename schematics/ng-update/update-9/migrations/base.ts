@@ -5,6 +5,7 @@ export abstract class MigrationBase {
     private printer = ts.createPrinter();
     abstract run(): void;
     constructor(protected sourceFile: SourceFile, protected updateFileService: UpdateFileService) {}
+
     createImportDeclaration(
         importNameList: string[],
         importPackageName: string,
@@ -40,20 +41,25 @@ export abstract class MigrationBase {
     createNamedImports(importSpecifierList: ts.ImportSpecifier[]) {
         return ts.createNamedImports(importSpecifierList);
     }
+
     printNodeContent(node: ts.Node) {
         return this.printer.printNode(ts.EmitHint.Unspecified, node, undefined);
     }
+
     createStringLiteral(string: string) {
         return ts.createStringLiteral(string);
     }
+
     getImportDeclarationList(): ts.ImportDeclaration[] {
         return this.sourceFile.statements
             .filter(item => ts.isImportDeclaration(item))
             .filter((item: ts.ImportDeclaration) => this.getImportDeclarationPackageName(item).startsWith('ngx-tethys')) as any[];
     }
+
     getImportDeclarationPackageName(importDeclaration: ts.ImportDeclaration) {
         return (importDeclaration.moduleSpecifier as ts.StringLiteral).text;
     }
+
     getImportDeclarationImportSpecifierList(importDeclaration: ImportDeclaration): ts.ImportSpecifier[] {
         if (
             importDeclaration.importClause &&
@@ -64,6 +70,7 @@ export abstract class MigrationBase {
         }
         return [];
     }
+
     addComment(
         node: ts.Node,
         commentOptions: {
