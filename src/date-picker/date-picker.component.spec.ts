@@ -567,6 +567,21 @@ describe('ThyDatePickerComponent', () => {
         }));
     });
 
+    describe('date picker offset testing', () => {
+        beforeEach(() => (fixtureInstance.useSuite = 1));
+        it('should open date picker offset', fakeAsync(() => {
+            fixtureInstance.thyValue = new Date('2020-12-07');
+            fixture.detectChanges();
+            flush();
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            fixture.detectChanges();
+            const result = getCdkOverlayPane();
+            fixture.detectChanges();
+            expect(result.style.transform).toBe('translateY(4px)');
+        }));
+    });
+
     ////////////
 
     function getPickerTrigger(): HTMLInputElement {
@@ -599,6 +614,10 @@ describe('ThyDatePickerComponent', () => {
 
     function getClearButton(): HTMLElement {
         return queryFromOverlay('calendar-footer .time-picker-clear-btn') as HTMLElement;
+    }
+
+    function getCdkOverlayPane(): HTMLElement {
+        return queryFromOverlay('.cdk-overlay-pane') as HTMLElement;
     }
 
     function queryFromOverlay(selector: string): HTMLElement {
