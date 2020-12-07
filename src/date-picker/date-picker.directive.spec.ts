@@ -114,7 +114,7 @@ describe('ThyPickerDirective', () => {
                 origin: debugElement.nativeElement.childNodes[0],
                 hasBackdrop: true,
                 backdropClass: 'thy-overlay-transparent-backdrop',
-                offset: 10,
+                offset: 4,
                 initialState: {
                     isRange: false,
                     showWeek: false,
@@ -281,7 +281,7 @@ describe('should get correct default thyPlacement and offset', () => {
                 origin: debugElement.nativeElement.childNodes[0],
                 hasBackdrop: true,
                 backdropClass: 'thy-overlay-transparent-backdrop',
-                offset: 10,
+                offset: 4,
                 initialState: {
                     isRange: false,
                     showWeek: false,
@@ -346,7 +346,7 @@ class ThyTestPickerDirective {
     thyShowTime: boolean | object = false;
     thyMode: string;
     thyDisabled: boolean;
-    thyOffset = 10;
+    thyOffset = 4;
     thyPlacement = 'bottomLeft';
     thyHasBackdrop = true;
     popoverOptions;
