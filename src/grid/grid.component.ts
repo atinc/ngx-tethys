@@ -511,6 +511,14 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements OnI
         }
     }
 
+    isShowExpand(column: ThyGridColumn, index: number) {
+        if (this.mode === 'tree') {
+            const hasExpand = this.columns.some(item => item.expand === true);
+            return (hasExpand && column.expand) || (!hasExpand && index === 0);
+        }
+        return false;
+    }
+
     tdIndentComputed(index: number, level: number) {
         if (this.mode === 'tree' && index === 0) {
             return {
