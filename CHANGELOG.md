@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.0.6"></a>
+## [9.0.6](https://github.com/atinc/ngx-tethys/compare/9.0.5...9.0.6) (2020-12-07)
+
+
+### Bug Fixes
+
+* **date-picker:** change offset to 4px for date-picker (#INFR-1341) ([8024bcc](https://github.com/atinc/ngx-tethys/commit/8024bcc)), closes [#INFR-1341](https://github.com/atinc/ngx-tethys/issues/INFR-1341)
+* **schematics:** fix ng update change rule (helpers) #INFR-1294 ([66bbf4e](https://github.com/atinc/ngx-tethys/commit/66bbf4e)), closes [#INFR-1294](https://github.com/atinc/ngx-tethys/issues/INFR-1294)
+* ng update ([332de83](https://github.com/atinc/ngx-tethys/commit/332de83))
+* update peerDependencies only ^9.0.0 ([413ac61](https://github.com/atinc/ngx-tethys/commit/413ac61))
+
+
+
 <a name="9.0.5"></a>
 ## [9.0.5](https://github.com/atinc/ngx-tethys/compare/9.0.4...9.0.5) (2020-12-05)
 
