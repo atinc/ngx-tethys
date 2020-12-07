@@ -38,7 +38,7 @@ export default function main() {
                 .filter(sf => !sf.fileName.includes('node_modules'))
                 .filter(item => !transformedList.includes(item.fileName))
                 .forEach(sf => {
-                    [ImportEntryPointChangeMigration, ImportEntryPointTrimMigration, ImportEntryPointClassifyMigration].forEach(item => {
+                    [ImportEntryPointTrimMigration, ImportEntryPointChangeMigration, ImportEntryPointClassifyMigration].forEach(item => {
                         const newSourceFile = ts.createSourceFile(
                             sf.fileName,
                             tree.read(sf.fileName).toString(),

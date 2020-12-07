@@ -11,10 +11,15 @@ export class ImportEntryPointChangeMigration extends MigrationBase {
         PaginationInfo: {
             with: 'ngx-tethys/types',
             replace: 'ngx-tethys/store'
+        },
+        UpdateHostClassService: {
+            with: 'ngx-tethys/core',
+            replace: 'ngx-tethys/shared'
         }
     };
     readonly changePackageGroup = {
-        'ngx-tethys/typings': 'ngx-tethys/types'
+        'ngx-tethys/typings': 'ngx-tethys/types',
+        'ngx-tethys/directives': 'ngx-tethys/shared'
     };
 
     run() {
