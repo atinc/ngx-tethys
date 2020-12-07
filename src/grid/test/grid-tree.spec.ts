@@ -10,7 +10,12 @@ import { dispatchFakeEvent } from '../../core/testing/dispatcher-events';
     template: `
         <thy-grid [thyModel]="model" thyRowKey="id" [thyMode]="mode">
             <thy-grid-column thyTitle="姓名" thyModelKey="name" thyWidth="160"></thy-grid-column>
-            <thy-grid-column thyTitle="年龄" thyModelKey="age" thyHeaderClassName="header-class-name"></thy-grid-column>
+            <thy-grid-column
+                thyTitle="年龄"
+                thyModelKey="age"
+                thyHeaderClassName="header-class-name"
+                [thyExpand]="showExpand"
+            ></thy-grid-column>
             <thy-grid-column thyTitle="备注" thyModelKey="desc" thyDefaultText="-"></thy-grid-column>
             <thy-grid-column thyTitle="默认" thyModelKey="checked" thyType="switch"></thy-grid-column>
             <thy-grid-column thyTitle="操作" thyClassName="thy-operation-links">
@@ -25,11 +30,12 @@ import { dispatchFakeEvent } from '../../core/testing/dispatcher-events';
     `
 })
 class ThyDemoGridTreeComponent {
+    showExpand = false;
     model = [
         {
             id: 1,
             name: '张三',
-            age: '',
+            age: '20',
             checked: true,
             children: [
                 {
@@ -108,7 +114,7 @@ class ThyDemoGridTreeComponent {
 })
 export class GridTreeTestModule {}
 
-describe('ThyGrid', () => {
+fdescribe('ThyGrid', () => {
     let fixture: ComponentFixture<ThyDemoGridTreeComponent>;
     let testComponent: ThyDemoGridTreeComponent;
     let gridComponent;
@@ -168,6 +174,33 @@ describe('ThyGrid', () => {
 
         dispatchFakeEvent(expandElement, 'click');
         fixture.detectChanges();
+        expect(gridComponent.nativeElement.querySelectorAll('tr').length).toBe(7);
+        tick(100);
+    }));
+
+    it('Test that Collapse Expand is displayed in the specified column', fakeAsync(() => {
+        fixture = TestBed.createComponent(ThyDemoGridTreeComponent);
+        fixture.componentInstance.showExpand = true;
+        testComponent = fixture.debugElement.componentInstance;
+        gridComponent = fixture.debugElement.query(By.directive(ThyGridComponent));
+        fixture.detectChanges();
+        rows = gridComponent.nativeElement.querySelectorAll('tr');
+
+        const secondRowColumnItem = rows[1].querySelectorAll('td');
+        const expandElement = secondRowColumnItem[1].querySelector('.tree-expand-icon');
+
+        expect(expandElement).toBeTruthy();
+
+        dispatchFakeEvent(expandElement, 'click');
+        fixture.detectChanges();
+
+        tick(100);
+
+        expect(gridComponent.nativeElement.querySelectorAll('tr').length).toBe(9);
+
+        dispatchFakeEvent(expandElement, 'click');
+        fixture.detectChanges();
+        rows = gridComponent.nativeElement.querySelectorAll('tr');
         expect(gridComponent.nativeElement.querySelectorAll('tr').length).toBe(7);
         tick(100);
     }));
