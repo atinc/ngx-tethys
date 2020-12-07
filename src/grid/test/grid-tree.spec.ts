@@ -114,7 +114,7 @@ class ThyDemoGridTreeComponent {
 })
 export class GridTreeTestModule {}
 
-fdescribe('ThyGrid', () => {
+describe('ThyGrid', () => {
     let fixture: ComponentFixture<ThyDemoGridTreeComponent>;
     let testComponent: ThyDemoGridTreeComponent;
     let gridComponent;
