@@ -42,7 +42,7 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
 
     @Input() thyPlacement: ThyPlacement = 'bottomLeft';
 
-    @Input() thyOffset = 10;
+    @Input() thyOffset = 4;
 
     @Input() thyHasBackdrop = true;
 
