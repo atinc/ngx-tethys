@@ -48,8 +48,6 @@ export class ThyPickerComponent implements AfterViewInit {
     animationOpenState = false;
     overlayOpen = false; // Available when "open"=undefined
     overlayPositions = getFlexiblePositions('bottomLeft', 4);
-    currentPositionX: 'start' | 'end' = 'start';
-    currentPositionY: 'top' | 'bottom' = 'top';
 
     get realOpenState(): boolean {
         // The value that really decide the open state of overlay
@@ -109,8 +107,6 @@ export class ThyPickerComponent implements AfterViewInit {
     }
 
     onPositionChange(position: ConnectedOverlayPositionChange): void {
-        this.currentPositionX = position.connectionPair.originX as 'start' | 'end';
-        this.currentPositionY = position.connectionPair.originY as 'top' | 'bottom';
         this.changeDetector.detectChanges();
     }
 

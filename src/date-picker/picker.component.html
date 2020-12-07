@@ -48,11 +48,7 @@
   (backdropClick)="onClickBackdrop()"
   (detach)="onOverlayDetach()"
 >
-  <div
-    style="position: relative;"
-    [style.left]="currentPositionX === 'start' ? '-2px' : '2px'"
-    [style.top]="currentPositionY === 'top' ? '0' : '2px'"
-  >
+  <div style="position: relative;">
     <!-- Compatible for overlay that not support offset dynamically and immediately -->
     <ng-content></ng-content>
   </div>
