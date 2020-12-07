@@ -27,7 +27,7 @@ export default function main() {
             }
             const config = readResult.config;
             const basePath = path.dirname(path.join('/', tsConfig));
-            const parseContent = ts.parseJsonConfigFileContent(config, creatTreeTsParseConfigHost(tree, basePath), basePath, {});
+            const parseContent = ts.parseJsonConfigFileContent(config, creatTreeTsParseConfigHost(tree), basePath, {});
             const program = ts.createProgram({
                 host: createTreeCompilerHost(parseContent.options, tree),
                 rootNames: parseContent.fileNames,
