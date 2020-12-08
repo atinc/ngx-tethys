@@ -61,6 +61,8 @@ export class ThyGridColumnComponent implements OnInit {
 
     @Input() thyDefaultText = '';
 
+    @Input() thyExpand = false;
+
     @ContentChild('header', { static: true }) headerTemplateRef: TemplateRef<any>;
 
     @ContentChild('cell', { static: true }) cellTemplateRef: TemplateRef<any>;
@@ -96,6 +98,8 @@ export class ThyGridColumnComponent implements OnInit {
 
     private _firstChange = true;
 
+    public expand = false;
+
     constructor(
         private el: ElementRef,
         @Optional()
@@ -114,6 +118,7 @@ export class ThyGridColumnComponent implements OnInit {
         this.disabled = this.thyDisabled;
         this.defaultText = this.thyDefaultText;
         this._firstChange = false;
+        this.expand = this.thyExpand;
     }
 
     private _generateKey() {
