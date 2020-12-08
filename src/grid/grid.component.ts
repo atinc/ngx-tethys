@@ -317,7 +317,8 @@ export class ThyGridComponent extends _MixinBase implements OnInit, OnDestroy, D
 
     private _initializeColumns() {
         const components = this._listOfColumnComponents ? this._listOfColumnComponents.toArray() : [];
-        this.columns = components.map<ThyGridColumn>(component => {
+        const hasExpand = components.some(item => item.expand === true);
+        this.columns = components.map<ThyGridColumn>((component, i) => {
             const selections = this._getSelectionKeys(component.selections);
             return {
                 key: component.key,
@@ -330,6 +331,7 @@ export class ThyGridComponent extends _MixinBase implements OnInit, OnDestroy, D
                 headerClassName: component.headerClassName,
                 disabled: component.disabled,
                 defaultText: component.defaultText,
+                expand: hasExpand ? component.expand : i === 0,
                 templateRef: component.cellTemplateRef,
                 headerTemplateRef: component.headerTemplateRef
             };
@@ -515,7 +517,7 @@ export class ThyGridComponent extends _MixinBase implements OnInit, OnDestroy, D
 
     iconIndentComputed(level: number) {
         if (this.mode === 'tree') {
-            return level * this.thyIndent;
+            return level * this.thyIndent - 23;
         }
     }
 

@@ -11,6 +11,7 @@ export interface ThyGridColumn {
     headerClassName: string;
     disabled: boolean;
     defaultText: string;
+    expand: boolean;
     templateRef: TemplateRef<any>;
     headerTemplateRef: TemplateRef<any>;
 }

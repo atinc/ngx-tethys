@@ -5,6 +5,8 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './tree.component.html'
 })
 export class ThyGridTreeExampleComponent implements OnInit {
+    public selections: any = [];
+
     public model = [
         {
             id: 1,
