@@ -6,7 +6,7 @@ import { ThyTranslate } from 'ngx-tethys/core';
     templateUrl: './popover-header.component.html',
     exportAs: 'thyPopoverHeader'
 })
-export class PopoverHeaderComponent {
+export class ThyPopoverHeaderComponent {
     @Input() thyTitle: string;
 
     @Input()
