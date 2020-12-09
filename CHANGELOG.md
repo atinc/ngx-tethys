@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.0.7"></a>
+## [9.0.7](https://github.com/atinc/ngx-tethys/compare/9.0.6...9.0.7) (2020-12-09)
+
+
+### Bug Fixes
+
+* **schematics:** fix directoryExists logic, should return true when contains subfiles or contains subdirs ([2961080](https://github.com/atinc/ngx-tethys/commit/2961080))
+
+
+
 <a name="9.0.6"></a>
 ## [9.0.6](https://github.com/atinc/ngx-tethys/compare/9.0.5...9.0.6) (2020-12-07)
 
