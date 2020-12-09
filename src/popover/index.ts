@@ -5,3 +5,5 @@ export * from './module';
 export * from './popover.directive';
 export * from './popover-container.component';
 export * from './popover-animations';
+export * from './header/popover-header.component';
+export * from './body/popover-body.component';
