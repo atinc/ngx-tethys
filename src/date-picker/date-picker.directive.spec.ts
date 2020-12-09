@@ -297,7 +297,7 @@ describe('should get correct default thyPlacement and offset', () => {
                     minDate: undefined,
                     maxDate: undefined
                 },
-                placement: 'bottomLeft'
+                placement: 'bottom'
             });
         }));
     });
