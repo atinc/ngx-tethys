@@ -64,7 +64,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
         return this._autocompleteComponent;
     }
 
-    @Input() thyOffset = 8;
+    @Input() thyOffset = 4;
 
     @Input() thyAutocompleteWidth: number;
 
