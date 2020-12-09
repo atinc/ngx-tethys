@@ -4,3 +4,21 @@
     box-shadow: $box-shadow;
     width: 100%;
 }
+
+.thy-popover-header {
+    padding: 12px 20px;
+    display: flex;
+    flex-direction: row;
+    border-bottom: solid 1px $popover-divider;
+    background-color: transparent;
+    .thy-popover-title,
+    h5 {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        margin: 0;
+        font-size: $font-size-md;
+        line-height: 20px;
+        font-weight: normal;
+    }
+}
