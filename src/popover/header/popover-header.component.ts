@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ThyTranslate } from 'ngx-tethys/core';
+import { ThyPopover } from '../popover.service';
 
 @Component({
     selector: 'thy-popover-header',
@@ -16,5 +17,15 @@ export class ThyPopoverHeaderComponent {
         }
     }
 
-    constructor(private translate: ThyTranslate) {}
+    @Output() thyOnClose: EventEmitter<Event> = new EventEmitter<Event>();
+
+    constructor(private translate: ThyTranslate, private thyPopover: ThyPopover) {}
+
+    close(event?: Event) {
+        if (this.thyOnClose.observers.length > 0) {
+            this.thyOnClose.emit(event);
+        } else {
+            this.thyPopover.close();
+        }
+    }
 }
