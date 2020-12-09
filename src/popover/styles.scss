@@ -22,3 +22,9 @@
         font-weight: normal;
     }
 }
+
+.thy-popover-body {
+    display: block;
+    position: relative;
+    padding: $popover-body-padding;
+}
