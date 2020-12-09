@@ -12,15 +12,20 @@ order: 100
 - 创建新的分支进行升级，或者把当前分支备份
 - 删除项目下 package-lock.json 文件
 
-## 升级依赖
-- 前往 https://update.angular.io/ 将项目升级到 Angular 9 
-```
-ng update @angular/cli^9 @angular/core@^9 @angular/cdk^9 --force
-```
+## 自动升级
+ 执行 `ng update ngx-tethys` 命令自动升级, 这个命令主要做了一下几件事：
+- 升级 `ngx-tethys` 到 `9.x` 版本，修改 package.json
+- 会自动把依赖的 CDK 和 Angular 库都升级到 `9.x` 版本
+- 会把所有的三级以及以上入口改为二级
+- 会把所有的一级以及以上入口改为二级
 
-## 升级 ngx-tethys
+## 手动升级
+- 前往 https://update.angular.io/ 将项目升级到 Angular 9 
+    ```
+    ng update @angular/cli^9 @angular/core@^9 @angular/cdk^9 --force
+    ```
 - 修改 `ngx-tethys` 版本为 `9.0.1`
-- 执行 `ng update ngx-tethys` 命令自动修改破坏性的更改（暂时未完成）
+- 下面列举的所有破坏性的更改手动修正
 
 ## 新特性
 - 新增`styles/main.bundle.scss`和`styles/basic.bundle.scss` bundle 文件，用于替换`styles/index.scss`和`styles/basic.scss`，之后的大版本会移出`styles/index.scss`和`styles/basic.scss`
