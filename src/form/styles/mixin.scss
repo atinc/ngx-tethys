@@ -72,6 +72,7 @@
     .thy-radio-group,
     .custom-select,
     .thy-cascader,
+    .thy-date-picker,
     .input-label-container {
         .was-validated &:#{$state},
         &.is-#{$state} {
