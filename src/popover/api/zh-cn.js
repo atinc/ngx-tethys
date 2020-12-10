@@ -94,7 +94,7 @@ module.exports = [
                 default: ''
             },
             {
-                name: 'thyOnClose',
+                name: 'thyClosed',
                 description: '关闭事件',
                 type: 'EventEmitter',
                 default: 'null'
@@ -104,14 +104,7 @@ module.exports = [
     {
         type: 'component',
         name: 'thy-popover-body',
-        properties: [
-            {
-                name: '',
-                description: '-',
-                type: '-',
-                default: '-'
-            }
-        ]
+        properties: []
     },
     {
         type: 'DIRECTIVE',

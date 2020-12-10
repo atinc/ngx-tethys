@@ -6,7 +6,7 @@
 }
 
 .thy-popover-header {
-    padding: 12px 20px;
+    padding: $popover-header-padding;
     display: flex;
     flex-direction: row;
     border-bottom: solid 1px $popover-divider;

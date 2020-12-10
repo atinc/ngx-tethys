@@ -17,15 +17,12 @@ export class ThyPopoverHeaderComponent {
         }
     }
 
-    @Output() thyOnClose: EventEmitter<Event> = new EventEmitter<Event>();
+    @Output() thyClosed: EventEmitter<Event> = new EventEmitter<Event>();
 
     constructor(private translate: ThyTranslate, private thyPopover: ThyPopover) {}
 
-    close(event?: Event) {
-        if (this.thyOnClose.observers.length > 0) {
-            this.thyOnClose.emit(event);
-        } else {
-            this.thyPopover.close();
-        }
+    close(event: Event) {
+        this.thyClosed.emit(event);
+        this.thyPopover.close();
     }
 }
