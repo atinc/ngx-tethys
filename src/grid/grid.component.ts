@@ -5,6 +5,7 @@ import {
     ViewEncapsulation,
     TemplateRef,
     OnInit,
+    OnChanges,
     EventEmitter,
     DoCheck,
     IterableDiffers,
@@ -18,7 +19,8 @@ import {
     ElementRef,
     ViewChild,
     Inject,
-    ContentChild
+    ContentChild,
+    SimpleChanges
 } from '@angular/core';
 import { Dictionary } from 'ngx-tethys/types';
 import { get, set, isString, coerceBooleanProperty, keyBy } from 'ngx-tethys/util';
@@ -85,7 +87,7 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
     ],
     encapsulation: ViewEncapsulation.None
 })
-export class ThyGridComponent extends _MixinBase implements OnInit, OnDestroy, DoCheck, IThyGridColumnParentComponent {
+export class ThyGridComponent extends _MixinBase implements OnInit, OnChanges, OnDestroy, DoCheck, IThyGridColumnParentComponent {
     public customType = customType;
 
     public model: object[] = [];
@@ -647,6 +649,16 @@ export class ThyGridComponent extends _MixinBase implements OnInit, OnDestroy, D
             .subscribe(() => {
                 this._refreshColumns();
             });
+    }
+
+    ngOnChanges(simpleChangs: SimpleChanges) {
+        const modeChange = simpleChangs.thyMode;
+        const thyGroupsChange = simpleChangs.thyGroups;
+        const isGroupMode = modeChange && modeChange.currentValue === 'group';
+        if (isGroupMode && thyGroupsChange && thyGroupsChange.firstChange) {
+            this.buildGroups(thyGroupsChange.currentValue);
+            this.buildModel();
+        }
     }
 
     ngDoCheck() {
