@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.0.8"></a>
+## [9.0.8](https://github.com/atinc/ngx-tethys/compare/9.0.7...9.0.8) (2020-12-10)
+
+
+### Bug Fixes
+
+* **autocomplete:** set default offset as 4 and fix baisc example #INFR-1335 ([64fa9df](https://github.com/atinc/ngx-tethys/commit/64fa9df)), closes [#INFR-1335](https://github.com/atinc/ngx-tethys/issues/INFR-1335)
+* **date-picker:** date-picker directive placement default bottom (#INFR-1336) ([#1039](https://github.com/atinc/ngx-tethys/issues/1039)) ([5d01829](https://github.com/atinc/ngx-tethys/commit/5d01829)), closes [#INFR-1336](https://github.com/atinc/ngx-tethys/issues/INFR-1336) [#INFR-1336](https://github.com/atinc/ngx-tethys/issues/INFR-1336) [#INFR-1336](https://github.com/atinc/ngx-tethys/issues/INFR-1336)
+* **form:** fix when the form layout is vertical and there is no label to hide the label ([1eb34ff](https://github.com/atinc/ngx-tethys/commit/1eb34ff))
+
+
+### Features
+
+* **grid:** stom expand icon display column in tree mode #INFR-1340 ([#1040](https://github.com/atinc/ngx-tethys/issues/1040)) ([3c4cfae](https://github.com/atinc/ngx-tethys/commit/3c4cfae)), closes [#INFR-1340](https://github.com/atinc/ngx-tethys/issues/INFR-1340)
+
+
+
 <a name="9.0.7"></a>
 ## [9.0.7](https://github.com/atinc/ngx-tethys/compare/9.0.6...9.0.7) (2020-12-09)
 
