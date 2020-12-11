@@ -140,5 +140,47 @@ module.exports = [
                 default: '-'
             }
         ]
+    },
+    {
+        type: 'DIRECTIVE',
+        name: 'thyDatePicker',
+        properties: [
+            {
+                name: 'thyMode',
+                description: `模式，'decade' | 'year' | 'month' | 'date'`,
+                type: 'string|string[]',
+                default: ''
+            },
+            {
+                name: 'thyPlacement',
+                description: `弹出位置，'top' | 'topLeft' | 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight' | 'left' | 'leftTop' | 'leftBottom' | 'right' | 'rightTop' | 'rightBottom'`,
+                type: 'string',
+                default: 'bottom'
+            },
+            {
+                name: 'thyOffset',
+                description: '弹出 DatePicker 的偏移量',
+                type: 'number',
+                default: '4'
+            },
+            {
+                name: 'thyMustShowTime',
+                description: '是否展示时间(时、分)',
+                type: 'boolean',
+                default: 'false'
+            },
+            {
+                name: 'thyHasBackdrop',
+                description: '是否有幕布',
+                type: 'boolean',
+                default: 'true'
+            },
+            {
+                name: 'thyStopPropagation',
+                description: '是否阻止冒泡',
+                type: 'boolean',
+                default: 'true'
+            }
+        ]
     }
 ];

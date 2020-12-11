@@ -50,10 +50,16 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
 
     @Input() thyPopoverOptions: ThyPopoverConfig;
 
+    @Input() thyStopPropagation = true;
+
     private destroy$ = new Subject();
     private el: HTMLElement = this.elementRef.nativeElement;
     readonly $click: Observable<boolean> = fromEvent(this.el, 'click').pipe(
-        tap(e => e.stopPropagation()),
+        tap(e => {
+            if (this.thyStopPropagation) {
+                e.stopPropagation();
+            }
+        }),
         mapTo(true)
     );
 
