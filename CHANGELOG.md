@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.0.9"></a>
+## [9.0.9](https://github.com/atinc/ngx-tethys/compare/9.0.8...9.0.9) (2020-12-11)
+
+
+### Bug Fixes
+
+* **grid:** fix tree mode td style ([#1046](https://github.com/atinc/ngx-tethys/issues/1046)) ([2da8b3f](https://github.com/atinc/ngx-tethys/commit/2da8b3f))
+
+
+### Features
+
+* **datepicker:** add thyStopPropagation to date-picker directive (#INFR-1351) ([#1045](https://github.com/atinc/ngx-tethys/issues/1045)) ([f05781b](https://github.com/atinc/ngx-tethys/commit/f05781b)), closes [#INFR-1351](https://github.com/atinc/ngx-tethys/issues/INFR-1351) [#INFR-1351](https://github.com/atinc/ngx-tethys/issues/INFR-1351) [#INFR-1351](https://github.com/atinc/ngx-tethys/issues/INFR-1351) [#INFR-1351](https://github.com/atinc/ngx-tethys/issues/INFR-1351) [#INFR-1351](https://github.com/atinc/ngx-tethys/issues/INFR-1351)
+* **popover:** add thy-popover-header and thy-popover-body (#INFR-1339) ([#1042](https://github.com/atinc/ngx-tethys/issues/1042)) ([be3abdc](https://github.com/atinc/ngx-tethys/commit/be3abdc)), closes [#INFR-1339](https://github.com/atinc/ngx-tethys/issues/INFR-1339)
+
+
+
 <a name="9.0.8"></a>
 ## [9.0.8](https://github.com/atinc/ngx-tethys/compare/9.0.7...9.0.8) (2020-12-10)
 
