@@ -15,7 +15,6 @@ import { ThyPropertyOperationComponent, ThyPropertyOperationModule } from '../pr
 import { ThyDatePickerDirective } from './date-picker.directive';
 import { ThyDatePickerModule } from './date-picker.module';
 import { DatePopupComponent } from './lib/popups/date-popup.component';
-import { de } from 'date-fns/locale';
 
 registerLocaleData(zh);
 
@@ -316,38 +315,6 @@ describe('should get correct default thyPlacement and offset', () => {
     }
 });
 
-describe('should get correct default thyStopPropagation', () => {
-    let fixture: ComponentFixture<ThyTestPickerStopPropagationDirective>;
-    let fixtureInstance: ThyTestPickerStopPropagationDirective;
-    let debugElement: DebugElement;
-
-    beforeEach(fakeAsync(() => {
-        TestBed.configureTestingModule({
-            imports: [ThyDatePickerModule, ThyPropertyOperationModule, BrowserAnimationsModule],
-            declarations: [ThyTestPickerStopPropagationDirective]
-        }).compileComponents();
-    }));
-
-    beforeEach(() => {
-        fixture = TestBed.createComponent(ThyTestPickerStopPropagationDirective);
-        fixtureInstance = fixture.componentInstance;
-        debugElement = fixture.debugElement.query(By.css('thy-property-operation'));
-        fixture.detectChanges();
-    });
-
-    it('should get correct default thyStopPropagation value', () => {
-        debugElement.nativeElement.click();
-        expect(fixtureInstance.testStopPropagation).toHaveBeenCalledTimes(0);
-    });
-
-    it('should propagation when thyStopPropagation is false', () => {
-        fixtureInstance.thyStopPropagation = false;
-        fixture.detectChanges();
-        debugElement.nativeElement.click();
-        expect(fixtureInstance.testStopPropagation).toHaveBeenCalledTimes(1);
-    });
-});
-
 @Component({
     template: `
         <thy-property-operation
@@ -363,7 +330,6 @@ describe('should get correct default thyStopPropagation', () => {
             [thyPlacement]="thyPlacement"
             [thyHasBackdrop]="thyHasBackdrop"
             [thyPopoverOptions]="popoverOptions"
-            [thyStopPropagation]="thyStopPropagation"
         ></thy-property-operation>
     `
 })
@@ -412,3 +378,35 @@ class ThyTestPickerStopPropagationDirective {
     thyStopPropagation = true;
     testStopPropagation = jasmine.createSpy('opened event spy callback');
 }
+
+describe('should get correct default thyStopPropagation', () => {
+    let fixture: ComponentFixture<ThyTestPickerStopPropagationDirective>;
+    let fixtureInstance: ThyTestPickerStopPropagationDirective;
+    let debugElement: DebugElement;
+
+    beforeEach(fakeAsync(() => {
+        TestBed.configureTestingModule({
+            imports: [ThyDatePickerModule, ThyPropertyOperationModule, BrowserAnimationsModule],
+            declarations: [ThyTestPickerStopPropagationDirective]
+        }).compileComponents();
+    }));
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(ThyTestPickerStopPropagationDirective);
+        fixtureInstance = fixture.componentInstance;
+        debugElement = fixture.debugElement.query(By.css('thy-property-operation'));
+        fixture.detectChanges();
+    });
+
+    it('should get correct default thyStopPropagation value', () => {
+        debugElement.nativeElement.click();
+        expect(fixtureInstance.testStopPropagation).toHaveBeenCalledTimes(0);
+    });
+
+    it('should propagation when thyStopPropagation is false', () => {
+        fixtureInstance.thyStopPropagation = false;
+        fixture.detectChanges();
+        debugElement.nativeElement.click();
+        expect(fixtureInstance.testStopPropagation).toHaveBeenCalledTimes(1);
+    });
+});
