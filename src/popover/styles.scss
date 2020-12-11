@@ -4,3 +4,32 @@
     box-shadow: $box-shadow;
     width: 100%;
 }
+
+.thy-popover-header {
+    padding: $popover-header-padding;
+    display: flex;
+    flex-direction: row;
+    border-bottom: solid 1px $popover-divider;
+    background-color: transparent;
+    .thy-popover-title,
+    h5 {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        margin: 0;
+        font-size: $font-size-md;
+        line-height: 20px;
+        font-weight: normal;
+    }
+    .close {
+        outline: none;
+        height: 20px;
+        line-height: 20px;
+    }
+}
+
+.thy-popover-body {
+    display: block;
+    position: relative;
+    padding: $popover-body-padding;
+}
