@@ -51,7 +51,10 @@
     }
 
     .tree-expand-icon {
-        margin-right: 5px;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        margin-top: -8px;
         color: $gray-500;
     }
 

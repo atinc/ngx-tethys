@@ -517,19 +517,15 @@ export class ThyGridComponent extends _MixinBase implements OnInit, OnDestroy, D
 
     iconIndentComputed(level: number) {
         if (this.mode === 'tree') {
-            return level * this.thyIndent - 23;
+            return level * this.thyIndent - 10;
         }
     }
 
-    tdIndentComputed(index: number, level: number) {
-        if (this.mode === 'tree' && index === 0) {
-            return {
-                position: 'relative',
-                paddingLeft: `${(level + 1) * this.thyIndent}px`
-            };
-        } else {
-            return null;
-        }
+    tdIndentComputed(level: number) {
+        return {
+            position: 'relative',
+            paddingLeft: `${(level + 1) * this.thyIndent - 10}px`
+        };
     }
 
     expandChildren(event: Event, row: any) {
