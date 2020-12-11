@@ -1,6 +1,6 @@
 import { ThyPlacement } from 'ngx-tethys/core';
 import { ThyPopover, ThyPopoverConfig } from 'ngx-tethys/popover';
-import { coerceBooleanProperty, FunctionProp } from 'ngx-tethys/util';
+import { coerceBooleanProperty, FunctionProp, warnDeprecation } from 'ngx-tethys/util';
 import { fromEvent, Observable, Subject } from 'rxjs';
 import { debounceTime, mapTo, takeUntil, tap } from 'rxjs/operators';
 
@@ -44,9 +44,17 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
 
     @Input() thyPlacement: ThyPlacement = 'bottom';
 
-    @Input() thyOffset = 4;
+    private offset = 4;
+    @Input() set thyOffset(value: number) {
+        warnDeprecation(`This parameter will be deprecated, please use thyPopoverOptions instead.`);
+        this.offset = value;
+    }
 
-    @Input() thyHasBackdrop = true;
+    private hasBackdrop = true;
+    @Input() set thyHasBackdrop(value: boolean) {
+        warnDeprecation(`This parameter will be deprecated, please use thyPopoverOptions instead.`);
+        this.hasBackdrop = value;
+    }
 
     @Input() thyPopoverOptions: ThyPopoverConfig;
 
@@ -69,9 +77,9 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
             Object.assign(
                 {
                     origin: this.el,
-                    hasBackdrop: this.thyHasBackdrop,
+                    hasBackdrop: this.hasBackdrop,
                     backdropClass: 'thy-overlay-transparent-backdrop',
-                    offset: this.thyOffset,
+                    offset: this.offset,
                     initialState: {
                         isRange: this.isRange,
                         showWeek: this.showWeek,
