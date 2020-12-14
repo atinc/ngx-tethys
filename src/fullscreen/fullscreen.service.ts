@@ -6,7 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({
     providedIn: 'root'
 })
-export class StyxFullscreenService {
+export class ThyFullscreenService {
     fullscreen$ = new BehaviorSubject<boolean>(false);
 
     constructor(@Inject(DOCUMENT) private document: any) {}

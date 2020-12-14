@@ -284,7 +284,7 @@ const NAME_PACKAGE_RELATION = {
     ESC_KEY: 'fullscreen',
     ThyFullscreenComponent: 'fullscreen',
     ThyFullscreenModule: 'fullscreen',
-    StyxFullscreenService: 'fullscreen',
+    ThyFullscreenService: 'fullscreen',
     IThyGridColumnParentComponent: 'grid',
     THY_GRID_COLUMN_PARENT_COMPONENT: 'grid',
     ThyGridColumnComponent: 'grid',
