@@ -1,20 +1,35 @@
-.empty-state {
+.thy-empty-state {
     display: block;
     text-align: center;
-    .empty-icon {
+    .thy-empty-icon .empty-icon {
         i {
             color: $empty-icon-color;
         }
     }
 
-    .empty-text {
+    .thy-empty-text {
         color: $empty-text-color;
-        // margin-left: 15px;
+        &-with-extra {
+            color: $empty-text-color-with-extra;
+        }
     }
 
-    @include set-empty-state-size($empty-icon-size, $empty-text-size);
+    @include set-empty-state-style($empty-icon-size, $empty-text-size, $empty-text-margin-top, $empty-svg-width, $empty-svg-height);
 
     &--lg {
-        @include set-empty-state-size($empty-icon-size-lg, $empty-text-size-lg);
+        @include set-empty-state-style(
+            $empty-icon-size-lg,
+            $empty-text-size-lg,
+            $empty-text-margin-top-lg,
+            $empty-svg-width-lg,
+            $empty-svg-height-lg
+        );
+    }
+}
+
+.thy-empty-extra {
+    margin-top: $empty-extra-margin-top;
+    & > *:not(:last-child) {
+        margin-right: 8px;
     }
 }

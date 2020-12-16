@@ -1,12 +1,24 @@
-import { Component, HostBinding, TemplateRef, ElementRef, Input, OnInit, AfterViewInit, Renderer2, NgZone } from '@angular/core';
 import { ThyTranslate } from 'ngx-tethys/core';
-import { ThyEmptyConfig } from './empty.config';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
+import {
+    AfterViewInit,
+    Component,
+    ContentChild,
+    ElementRef,
+    HostBinding,
+    Input,
+    NgZone,
+    OnInit,
+    Renderer2,
+    TemplateRef
+} from '@angular/core';
+
+import { ThyEmptyConfig } from './empty.config';
+
 const sizeClassMap: any = {
-    lg: ['empty-state', 'empty-state--lg'],
-    md: ['empty-state'],
-    sm: ['empty-state', 'empty-state--sm']
+    lg: ['thy-empty-state', 'thy-empty-state--lg'],
+    md: ['thy-empty-state']
 };
 const sizeMap: any = {
     lg: {
@@ -18,11 +30,6 @@ const sizeMap: any = {
         height: 91,
         offsetTop: 20,
         defaultMarginTop: 10
-    },
-    sm: {
-        height: 50,
-        offsetTop: 10,
-        defaultMarginTop: 0
     }
 };
 
@@ -62,6 +69,10 @@ export class ThyEmptyComponent implements OnInit, AfterViewInit {
     @Input() thyTopAuto: boolean;
 
     @Input() thyContainer: ElementRef;
+
+    @Input() thyImageUrl: string;
+
+    @ContentChild('thyExtra') extraTemplateRef: TemplateRef<any>;
 
     get displayText() {
         if (this.thyMessage) {
