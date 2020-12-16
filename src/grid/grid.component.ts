@@ -1,47 +1,48 @@
+import { Constructor, MixinBase, mixinUnsubscribe, ThyUnsubscribe, UpdateHostClassService } from 'ngx-tethys/core';
+import { Dictionary } from 'ngx-tethys/types';
+import { coerceBooleanProperty, get, isString, keyBy, set } from 'ngx-tethys/util';
+import { merge, of } from 'rxjs';
+import { delay, takeUntil } from 'rxjs/operators';
+
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { ViewportRuler } from '@angular/cdk/overlay';
+import { DOCUMENT } from '@angular/common';
 import {
     Component,
-    Input,
-    Output,
-    ViewEncapsulation,
-    TemplateRef,
-    OnInit,
-    EventEmitter,
-    DoCheck,
-    IterableDiffers,
-    IterableDiffer,
-    IterableChanges,
-    IterableChangeRecord,
+    ContentChild,
     ContentChildren,
-    QueryList,
-    OnDestroy,
-    HostBinding,
+    DoCheck,
     ElementRef,
-    ViewChild,
+    EventEmitter,
+    HostBinding,
     Inject,
-    ContentChild
+    Input,
+    IterableChangeRecord,
+    IterableChanges,
+    IterableDiffer,
+    IterableDiffers,
+    OnDestroy,
+    OnInit,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
 } from '@angular/core';
-import { Dictionary } from 'ngx-tethys/types';
-import { get, set, isString, coerceBooleanProperty, keyBy } from 'ngx-tethys/util';
+
+import { IThyGridColumnParentComponent, THY_GRID_COLUMN_PARENT_COMPONENT, ThyGridColumnComponent } from './grid-column.component';
 import {
+    PageChangedEvent,
     ThyGridColumn,
-    ThyMultiSelectEvent,
-    ThyRadioSelectEvent,
-    ThyPage,
-    ThyGridEmptyOptions,
-    ThySwitchEvent,
     ThyGridDraggableEvent,
-    ThyGridRowEvent,
+    ThyGridEmptyOptions,
     ThyGridEvent,
-    PageChangedEvent
+    ThyGridRowEvent,
+    ThyMultiSelectEvent,
+    ThyPage,
+    ThyRadioSelectEvent,
+    ThySwitchEvent
 } from './grid.interface';
-import { ThyGridColumnComponent, IThyGridColumnParentComponent, THY_GRID_COLUMN_PARENT_COMPONENT } from './grid-column.component';
-import { ViewportRuler } from '@angular/cdk/overlay';
-import { takeUntil, delay } from 'rxjs/operators';
-import { mixinUnsubscribe, MixinBase, Constructor, ThyUnsubscribe } from 'ngx-tethys/core';
-import { UpdateHostClassService } from 'ngx-tethys/core';
-import { of, merge } from 'rxjs';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { DOCUMENT } from '@angular/common';
 
 export type ThyGridTheme = 'default' | 'bordered';
 
@@ -134,6 +135,8 @@ export class ThyGridComponent extends _MixinBase implements OnInit, OnDestroy, D
 
     private initialized = false;
     private _oldThyClassName = '';
+
+    @ContentChild('empty') emptyTemplate: TemplateRef<any>;
 
     @ViewChild('table', { static: true }) tableElementRef: ElementRef<any>;
 
