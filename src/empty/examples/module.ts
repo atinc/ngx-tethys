@@ -1,16 +1,19 @@
-import { NgModule } from '@angular/core';
+import { ThyButtonModule, ThyEmptyModule, ThyTranslate } from 'ngx-tethys';
+import { Observable } from 'rxjs';
+
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ThyEmptyModule, ThyTranslate } from 'ngx-tethys';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 import { ThyEmptyBasicExampleComponent } from './basic/basic.component';
+import { ThyEmptyEntityNameExampleComponent } from './entity-name/entity-name.component';
+import { ThyEmptyExtraExampleComponent } from './extra/extra.component';
+import { ThyEmptyIconExampleComponent } from './icon/icon.component';
+import { ThyEmptyImgExampleComponent } from './img/img.component';
+import { ThyEmptyMessageExampleComponent } from './message/message.component';
 import { ThyEmptySizeExampleComponent } from './size/size.component';
 import { ThyEmptyTopExampleComponent } from './top/top.component';
-import { ThyEmptyMessageExampleComponent } from './message/message.component';
-import { ThyEmptyEntityNameExampleComponent } from './entity-name/entity-name.component';
-import { ThyEmptyIconExampleComponent } from './icon/icon.component';
-import { Observable } from 'rxjs';
 
 const COMPONENTS = [
     ThyEmptyBasicExampleComponent,
@@ -18,13 +21,15 @@ const COMPONENTS = [
     ThyEmptyTopExampleComponent,
     ThyEmptyMessageExampleComponent,
     ThyEmptyEntityNameExampleComponent,
-    ThyEmptyIconExampleComponent
+    ThyEmptyIconExampleComponent,
+    ThyEmptyImgExampleComponent,
+    ThyEmptyExtraExampleComponent
 ];
 
 @NgModule({
     declarations: [...COMPONENTS],
     entryComponents: [...COMPONENTS],
-    imports: [CommonModule, FormsModule, ThyEmptyModule, TranslateModule.forRoot(), TranslateModule],
+    imports: [CommonModule, FormsModule, ThyEmptyModule, TranslateModule.forRoot(), TranslateModule, ThyButtonModule],
     exports: [...COMPONENTS],
     providers: [
         {

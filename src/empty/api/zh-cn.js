@@ -36,10 +36,17 @@ module.exports = [
             },
             {
                 name: 'thyIconClass',
-                description: `提示图标`,
+                description: `提示图标类名`,
                 type: 'string',
-                default: 'wtf-empty-o'
+                default: ''
             },
+            {
+                name: 'thyImageUrl',
+                description: `提示图片链接`,
+                type: 'string',
+                default: ''
+            },
+
             {
                 name: 'thySize',
                 description: `大小, md, lg`,
@@ -62,6 +69,12 @@ module.exports = [
                 name: 'thyContainer',
                 description: `自动计算高度传入父容器`,
                 type: 'elementRef',
+                default: ''
+            },
+            {
+                name: 'thyExtra',
+                description: `除提示图片，文本外的其他信息传入模版`,
+                type: 'templateRef',
                 default: ''
             }
         ]
