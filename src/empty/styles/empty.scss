@@ -22,6 +22,7 @@
 .thy-empty-state {
     display: block;
     text-align: center;
+    line-height: 1;
     .thy-empty-icon .empty-icon {
         svg {
             color: $empty-icon-color;
@@ -45,12 +46,5 @@
             $empty-svg-width-lg,
             $empty-svg-height-lg
         );
-    }
-}
-
-.thy-empty-extra {
-    margin-top: $empty-extra-margin-top;
-    & > *:not(:last-child) {
-        margin-right: 8px;
     }
 }
