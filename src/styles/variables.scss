@@ -521,9 +521,11 @@ $close-color: $black !default;
 $close-text-shadow: 0 1px 0 $white !default;
 $close-text-color: $gray-400 !default;
 
-$empty-icon-color: $gray-200 !default;
+//empty
 $empty-icon-size: 3.125rem !default;
 $empty-icon-size-lg: 5rem !default;
+
+$empty-icon-color: $gray-200 !default;
 $empty-svg-width: 102px !default;
 $empty-svg-height: 92px !default;
 $empty-svg-width-lg: 148px !default;
@@ -534,7 +536,6 @@ $empty-text-size: $font-size-base !default;
 $empty-text-size-lg: $font-size-md !default;
 $empty-text-margin-top: 12px !default;
 $empty-text-margin-top-lg: 18px !default;
-$empty-extra-margin-top: 18px !default;
 
 //util
 $operation-link-margin-y: 20px !default;

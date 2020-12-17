@@ -10,7 +10,7 @@
     }
 }
 
-@mixin set-empty-state-style($icon-size, $text-size: $font-size-md, $text-margin-top, $svg-size-width, $svg-size-height) {
+@mixin set-empty-state-style($text-size: $font-size-md, $text-margin-top, $svg-size-width, $svg-size-height) {
     .thy-empty-icon {
         height: $svg-size-height;
         .empty-icon {
