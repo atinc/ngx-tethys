@@ -35,11 +35,18 @@ module.exports = [
                 default: ''
             },
             {
-                name: 'thyIconClass',
-                description: `提示图标`,
+                name: 'thyIconName',
+                description: `提示图标名`,
                 type: 'string',
-                default: 'wtf-empty-o'
+                default: ''
             },
+            {
+                name: 'thyImageUrl',
+                description: `提示图片链接`,
+                type: 'string',
+                default: ''
+            },
+
             {
                 name: 'thySize',
                 description: `大小, md, lg`,
@@ -54,7 +61,7 @@ module.exports = [
             },
             {
                 name: 'thyTopAuto',
-                description: `自动根据父容器计算高度，水平居中`,
+                description: `自动根据父容器计算高度，垂直居中`,
                 type: 'boolean',
                 default: 'false'
             },
@@ -62,6 +69,12 @@ module.exports = [
                 name: 'thyContainer',
                 description: `自动计算高度传入父容器`,
                 type: 'elementRef',
+                default: ''
+            },
+            {
+                name: 'extra',
+                description: `除提示图片，文本外的其他信息传入模版`,
+                type: 'templateRef',
                 default: ''
             }
         ]

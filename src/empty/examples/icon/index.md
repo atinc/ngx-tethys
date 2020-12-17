@@ -1,4 +1,4 @@
 ---
-title: thyIconClass
+title: thyIconName
 order: 6
 ---
