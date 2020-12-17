@@ -18,3 +18,39 @@
         @include set-empty-state-size($empty-icon-size-lg, $empty-text-size-lg);
     }
 }
+
+.thy-empty-state {
+    display: block;
+    text-align: center;
+    .thy-empty-icon .empty-icon {
+        svg {
+            color: $empty-icon-color;
+        }
+    }
+
+    .thy-empty-text {
+        color: $empty-text-color;
+        &-with-extra {
+            color: $empty-text-color-with-extra;
+        }
+    }
+
+    @include set-empty-state-style($empty-icon-size, $empty-text-size, $empty-text-margin-top, $empty-svg-width, $empty-svg-height);
+
+    &--lg {
+        @include set-empty-state-style(
+            $empty-icon-size-lg,
+            $empty-text-size-lg,
+            $empty-text-margin-top-lg,
+            $empty-svg-width-lg,
+            $empty-svg-height-lg
+        );
+    }
+}
+
+.thy-empty-extra {
+    margin-top: $empty-extra-margin-top;
+    & > *:not(:last-child) {
+        margin-right: 8px;
+    }
+}

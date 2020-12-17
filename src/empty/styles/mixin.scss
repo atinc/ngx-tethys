@@ -9,3 +9,28 @@
         font-size: $text-size;
     }
 }
+
+@mixin set-empty-state-style($icon-size, $text-size: $font-size-md, $text-margin-top, $svg-size-width, $svg-size-height) {
+    .thy-empty-icon {
+        .empty-icon {
+            svg {
+                width: $svg-size-width;
+                height: $svg-size-height;
+            }
+        }
+        svg {
+            width: $svg-size-width;
+            height: $svg-size-height;
+        }
+
+        .empty-img {
+            width: $svg-size-width;
+            height: $svg-size-height;
+        }
+    }
+
+    .thy-empty-text {
+        font-size: $text-size;
+        margin-top: $text-margin-top;
+    }
+}
