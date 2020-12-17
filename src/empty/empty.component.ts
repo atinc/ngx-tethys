@@ -54,7 +54,7 @@ export class ThyEmptyComponent implements OnInit, AfterViewInit {
     // 显示默认提示信息，替换目标名称的 translateKey
     @Input() thyEntityNameTranslateKey: string;
 
-    @Input() thyIconClass: string;
+    @Input() thyIconName: string;
 
     @Input()
     set thySize(value: string) {
@@ -72,7 +72,7 @@ export class ThyEmptyComponent implements OnInit, AfterViewInit {
 
     @Input() thyImageUrl: string;
 
-    @ContentChild('thyExtra') extraTemplateRef: TemplateRef<any>;
+    @ContentChild('extra') extraTemplateRef: TemplateRef<any>;
 
     get displayText() {
         if (this.thyMessage) {
