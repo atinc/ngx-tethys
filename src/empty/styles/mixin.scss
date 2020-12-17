@@ -1,8 +1,22 @@
-@mixin set-empty-state-style($icon-size, $text-size: $font-size-md, $text-margin-top, $svg-size-width, $svg-size-height) {
+@mixin set-empty-state-size($icon-size, $text-size: $font-size-md) {
+    .empty-icon {
+        i {
+            font-size: $icon-size;
+        }
+    }
+
+    .empty-text {
+        font-size: $text-size;
+    }
+}
+
+@mixin set-empty-state-style($text-size: $font-size-md, $text-margin-top, $svg-size-width, $svg-size-height) {
     .thy-empty-icon {
+        height: $svg-size-height;
         .empty-icon {
-            i {
-                font-size: $icon-size;
+            svg {
+                width: $svg-size-width;
+                height: $svg-size-height;
             }
         }
         svg {
@@ -16,7 +30,8 @@
         }
     }
 
-    .thy-empty-text {
+    .thy-empty-text,
+    .thy-empty-text-with-extra {
         font-size: $text-size;
         margin-top: $text-margin-top;
     }

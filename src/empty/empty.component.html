@@ -1,7 +1,7 @@
 <div class="thy-empty-icon">
   <img *ngIf="thyImageUrl; else icon" [src]="thyImageUrl" class="empty-img" />
   <ng-template #icon>
-    <span class="empty-icon" *ngIf="thyIconClass; else svg"><i [class]="thyIconClass"></i></span>
+    <thy-icon class="empty-icon" [thyIconName]="thyIconName" *ngIf="thyIconName; else svg"></thy-icon>
     <ng-template #svg>
       <ng-container>
         <svg
