@@ -35,8 +35,8 @@ module.exports = [
                 default: ''
             },
             {
-                name: 'thyIconClass',
-                description: `提示图标类名`,
+                name: 'thyIconName',
+                description: `提示图标名`,
                 type: 'string',
                 default: ''
             },
@@ -72,7 +72,7 @@ module.exports = [
                 default: ''
             },
             {
-                name: 'thyExtra',
+                name: 'extra',
                 description: `除提示图片，文本外的其他信息传入模版`,
                 type: 'templateRef',
                 default: ''

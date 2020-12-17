@@ -1,4 +1,4 @@
 ---
-title: thyExtra
+title: extra
 order: 8
 ---

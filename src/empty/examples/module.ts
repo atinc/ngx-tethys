@@ -6,6 +6,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
+import { ThyEmptyAnotherExtraExampleComponent } from './another-extra/another-extra.component';
 import { ThyEmptyBasicExampleComponent } from './basic/basic.component';
 import { ThyEmptyEntityNameExampleComponent } from './entity-name/entity-name.component';
 import { ThyEmptyExtraExampleComponent } from './extra/extra.component';
@@ -23,7 +24,8 @@ const COMPONENTS = [
     ThyEmptyEntityNameExampleComponent,
     ThyEmptyIconExampleComponent,
     ThyEmptyImgExampleComponent,
-    ThyEmptyExtraExampleComponent
+    ThyEmptyExtraExampleComponent,
+    ThyEmptyAnotherExtraExampleComponent
 ];
 
 @NgModule({
