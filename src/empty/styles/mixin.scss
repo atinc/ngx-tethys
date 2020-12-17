@@ -9,3 +9,30 @@
         font-size: $text-size;
     }
 }
+
+@mixin set-empty-state-style($text-size: $font-size-md, $text-margin-top, $svg-size-width, $svg-size-height) {
+    .thy-empty-icon {
+        height: $svg-size-height;
+        .empty-icon {
+            svg {
+                width: $svg-size-width;
+                height: $svg-size-height;
+            }
+        }
+        svg {
+            width: $svg-size-width;
+            height: $svg-size-height;
+        }
+
+        .empty-img {
+            width: $svg-size-width;
+            height: $svg-size-height;
+        }
+    }
+
+    .thy-empty-text,
+    .thy-empty-text-with-extra {
+        font-size: $text-size;
+        margin-top: $text-margin-top;
+    }
+}
