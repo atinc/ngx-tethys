@@ -31,6 +31,22 @@ $calendar-full-prefix-cls: 'thy-calendar-full';
 
         .#{$calendar-full-prefix-cls}-selected-day {
             // background: $gray-80;
+            // border-color: $primary;
+
+            position: relative;
+            .#{$calendar-full-prefix-cls}-date {
+                position: absolute;
+                top: 0;
+                left: 0;
+                box-shadow: 0 0 16px 0 rgba($primary, 0.6);
+                background: $white;
+                width: 100%;
+                min-height: 100%;
+
+                .#{$calendar-full-prefix-cls}-date-content {
+                    height: auto;
+                }
+            }
         }
 
         .#{$calendar-full-prefix-cls}-date-value-text {
@@ -73,7 +89,7 @@ $calendar-full-prefix-cls: 'thy-calendar-full';
                 border: 1px solid $gray-200;
 
                 .#{$calendar-full-prefix-cls}-date-content {
-                    height: 110px;
+                    height: 126px;
                     padding: 0 6px;
                     overflow: auto;
                 }
