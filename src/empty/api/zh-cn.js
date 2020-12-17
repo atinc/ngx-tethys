@@ -61,7 +61,7 @@ module.exports = [
             },
             {
                 name: 'thyTopAuto',
-                description: `自动根据父容器计算高度，水平居中`,
+                description: `自动根据父容器计算高度，垂直居中`,
                 type: 'boolean',
                 default: 'false'
             },

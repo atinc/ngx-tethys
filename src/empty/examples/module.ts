@@ -12,6 +12,7 @@ import { ThyEmptyEntityNameExampleComponent } from './entity-name/entity-name.co
 import { ThyEmptyExtraExampleComponent } from './extra/extra.component';
 import { ThyEmptyIconExampleComponent } from './icon/icon.component';
 import { ThyEmptyImgExampleComponent } from './img/img.component';
+import { ThyEmptyMarginTopExampleComponent } from './margin-top/margin-top.component';
 import { ThyEmptyMessageExampleComponent } from './message/message.component';
 import { ThyEmptySizeExampleComponent } from './size/size.component';
 import { ThyEmptyTopExampleComponent } from './top/top.component';
@@ -25,7 +26,8 @@ const COMPONENTS = [
     ThyEmptyIconExampleComponent,
     ThyEmptyImgExampleComponent,
     ThyEmptyExtraExampleComponent,
-    ThyEmptyAnotherExtraExampleComponent
+    ThyEmptyAnotherExtraExampleComponent,
+    ThyEmptyMarginTopExampleComponent
 ];
 
 @NgModule({

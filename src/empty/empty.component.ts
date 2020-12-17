@@ -22,12 +22,12 @@ const sizeClassMap: any = {
 };
 const sizeMap: any = {
     lg: {
-        height: 164, // 空提示的高度
+        height: 168, // 空提示的高度
         offsetTop: 30, // 空提示图标和大小之间的空白距离，需要除去，否则会不居中
         defaultMarginTop: 120 // 不自动计算默认的 top 距离
     },
     md: {
-        height: 91,
+        height: 118,
         offsetTop: 20,
         defaultMarginTop: 10
     }
@@ -105,7 +105,8 @@ export class ThyEmptyComponent implements OnInit, AfterViewInit {
             if (emptyStateHeight <= 10) {
                 emptyStateHeight = sizeOptions.height;
             }
-            marginTop = (containerElement.offsetHeight - emptyStateHeight) / 2 - sizeOptions.offsetTop;
+            // marginTop = (containerElement.offsetHeight - emptyStateHeight) / 2 - sizeOptions.offsetTop;
+            marginTop = containerElement.offsetHeight - emptyStateHeight;
             if (marginTop < 0) {
                 marginTop = 0; // sizeOptions.defaultMarginTop;
             }
