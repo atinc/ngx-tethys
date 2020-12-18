@@ -46,7 +46,9 @@
     </ng-container>
     <ng-template #emptyPlaceholder>
       <thy-loading [thyDone]="thyLoadState" thySize="sm"></thy-loading>
-      <thy-empty *ngIf="thyLoadState" [thyMessage]="emptyStateText"></thy-empty>
+      <div class="thy-select-empty-margin">
+        <thy-empty *ngIf="thyLoadState" [thyMessage]="emptyStateText" thySize="sm"></thy-empty>
+      </div>
     </ng-template>
     <div *ngIf="thyFooterTemplate" [class]="thyFooterClass ? thyFooterClass : 'thy-custom-select-footer'">
       <ng-template *ngIf="thyFooterTemplate" [ngTemplateOutlet]="thyFooterTemplate"></ng-template>
