@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, EventEmitter, Inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { StyxFullscreenService } from './fullscreen.service';
+import { ThyFullscreenService } from './fullscreen.service';
 
 export type FullscreenMode = 'immersive' | 'normal';
 
@@ -23,7 +23,7 @@ export class ThyFullscreenComponent implements OnInit, AfterViewInit, OnDestroy 
 
     @Output() thyFullscreenChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-    constructor(private elementRef: ElementRef, @Inject(DOCUMENT) private doc: any, private service: StyxFullscreenService) {}
+    constructor(private elementRef: ElementRef, @Inject(DOCUMENT) private doc: any, private service: ThyFullscreenService) {}
 
     ngOnInit() {
         document.addEventListener('fullscreenchange', this.onFullscreenChange);

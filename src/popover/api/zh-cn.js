@@ -78,6 +78,35 @@ module.exports = [
         ]
     },
     {
+        type: 'component',
+        name: 'thy-popover-header',
+        properties: [
+            {
+                name: 'thyTitle',
+                description: '标题',
+                type: 'string',
+                default: ''
+            },
+            {
+                name: 'thyTitleTranslationKey',
+                description: '标题的多语言 Key',
+                type: 'string',
+                default: ''
+            },
+            {
+                name: 'thyClosed',
+                description: '关闭事件',
+                type: 'EventEmitter',
+                default: 'null'
+            }
+        ]
+    },
+    {
+        type: 'component',
+        name: 'thy-popover-body',
+        properties: []
+    },
+    {
         type: 'DIRECTIVE',
         name: 'thyPopover',
         properties: [

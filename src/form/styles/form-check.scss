@@ -107,8 +107,9 @@ input[type='checkbox'] {
             transition: all 0.1s cubic-bezier(0.71, -0.46, 0.88, 0.6);
         }
         &:not(:disabled) {
+            background: $primary;
             &::after {
-                border-color: $primary;
+                border-color: $white;
             }
         }
         &:disabled {
@@ -120,7 +121,6 @@ input[type='checkbox'] {
 }
 
 input.form-check-indeterminate[type='checkbox'] {
-    border-color: $primary;
     &::after {
         top: 50%;
         left: 50%;

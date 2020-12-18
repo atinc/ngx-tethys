@@ -96,6 +96,7 @@
         *ngFor="let column of columns; let j = index"
         [ngClass]="column.className"
         [class.thy-grid-checkbox-column]="column.type === customType.checkbox"
+        [ngStyle]="mode === 'tree' && column.expand ? tdIndentComputed(level) : null"
       >
         <ng-container *ngIf="j === 0 && draggable">
           <thy-icon class="table-draggable-icon" thyIconName="drag"></thy-icon>
@@ -108,7 +109,7 @@
             *ngIf="mode === 'tree' && column.expand"
             [thyIconName]="isExpanded(row) ? 'angle-down' : 'angle-right'"
             [style.visibility]="showExpand(row) ? 'visible' : 'hidden'"
-            [style.marginLeft.px]="iconIndentComputed(level)"
+            [style.left.px]="iconIndentComputed(level)"
             (click)="expandChildren($event, row)"
           ></thy-icon>
           <ng-template [ngTemplateOutlet]="column.templateRef" [ngTemplateOutletContext]="{ $implicit: row }"></ng-template>
@@ -179,18 +180,23 @@
 
     <tr *ngIf="model.length === 0 && groups.length === 0" class="clear-hover">
       <td [colSpan]="columns.length" height="280px">
-        <thy-empty
-          [thyMessage]="emptyOptions.message"
-          [thyTranslationKey]="emptyOptions.translationKey"
-          [thyTranslationValues]="emptyOptions.translationValues"
-          [thyEntityName]="emptyOptions.entityName"
-          [thyEntityNameTranslateKey]="emptyOptions.entityNameTranslateKey"
-          [thyIconClass]="emptyOptions.iconClass"
-          [thySize]="emptyOptions.size"
-          [thyMarginTop]="emptyOptions.marginTop"
-          [thyTopAuto]="emptyOptions.topAuto"
-          [thyContainer]="emptyOptions.container"
-        ></thy-empty>
+        <ng-container *ngIf="emptyTemplate; else defaultEmpty">
+          <ng-template [ngTemplateOutlet]="emptyTemplate"></ng-template>
+        </ng-container>
+        <ng-template #defaultEmpty>
+          <thy-empty
+            [thyMessage]="emptyOptions.message"
+            [thyTranslationKey]="emptyOptions.translationKey"
+            [thyTranslationValues]="emptyOptions.translationValues"
+            [thyEntityName]="emptyOptions.entityName"
+            [thyEntityNameTranslateKey]="emptyOptions.entityNameTranslateKey"
+            [thyIconName]="emptyOptions.iconName"
+            [thySize]="emptyOptions.size"
+            [thyMarginTop]="emptyOptions.marginTop"
+            [thyTopAuto]="emptyOptions.topAuto"
+            [thyContainer]="emptyOptions.container"
+          ></thy-empty>
+        </ng-template>
       </td>
     </tr>
   </tbody>

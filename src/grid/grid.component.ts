@@ -1,3 +1,12 @@
+import { Constructor, MixinBase, mixinUnsubscribe, ThyUnsubscribe, UpdateHostClassService } from 'ngx-tethys/core';
+import { Dictionary } from 'ngx-tethys/types';
+import { coerceBooleanProperty, get, isString, keyBy, set } from 'ngx-tethys/util';
+import { merge, of } from 'rxjs';
+import { delay, takeUntil } from 'rxjs/operators';
+
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { ViewportRuler } from '@angular/cdk/overlay';
+import { DOCUMENT } from '@angular/common';
 import {
     Component,
     Input,
@@ -7,43 +16,35 @@ import {
     OnInit,
     OnChanges,
     EventEmitter,
-    DoCheck,
-    IterableDiffers,
-    IterableDiffer,
-    IterableChanges,
-    IterableChangeRecord,
-    ContentChildren,
-    QueryList,
-    OnDestroy,
-    HostBinding,
-    ElementRef,
-    ViewChild,
-    Inject,
     ContentChild,
+    ContentChildren,
+    DoCheck,
+    ElementRef,
+    HostBinding,
+    Inject,
+    IterableChangeRecord,
+    IterableChanges,
+    IterableDiffer,
+    IterableDiffers,
+    OnDestroy,
+    QueryList,
+    ViewChild,
     SimpleChanges
 } from '@angular/core';
-import { Dictionary } from 'ngx-tethys/types';
-import { get, set, isString, coerceBooleanProperty, keyBy } from 'ngx-tethys/util';
+
+import { IThyGridColumnParentComponent, THY_GRID_COLUMN_PARENT_COMPONENT, ThyGridColumnComponent } from './grid-column.component';
 import {
+    PageChangedEvent,
     ThyGridColumn,
-    ThyMultiSelectEvent,
-    ThyRadioSelectEvent,
-    ThyPage,
-    ThyGridEmptyOptions,
-    ThySwitchEvent,
     ThyGridDraggableEvent,
-    ThyGridRowEvent,
+    ThyGridEmptyOptions,
     ThyGridEvent,
-    PageChangedEvent
+    ThyGridRowEvent,
+    ThyMultiSelectEvent,
+    ThyPage,
+    ThyRadioSelectEvent,
+    ThySwitchEvent
 } from './grid.interface';
-import { ThyGridColumnComponent, IThyGridColumnParentComponent, THY_GRID_COLUMN_PARENT_COMPONENT } from './grid-column.component';
-import { ViewportRuler } from '@angular/cdk/overlay';
-import { takeUntil, delay } from 'rxjs/operators';
-import { mixinUnsubscribe, MixinBase, Constructor, ThyUnsubscribe } from 'ngx-tethys/core';
-import { UpdateHostClassService } from 'ngx-tethys/core';
-import { of, merge } from 'rxjs';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { DOCUMENT } from '@angular/common';
 
 export type ThyGridTheme = 'default' | 'bordered';
 
@@ -136,6 +137,8 @@ export class ThyGridComponent extends _MixinBase implements OnInit, OnChanges, O
 
     private initialized = false;
     private _oldThyClassName = '';
+
+    @ContentChild('empty') emptyTemplate: TemplateRef<any>;
 
     @ViewChild('table', { static: true }) tableElementRef: ElementRef<any>;
 
@@ -519,19 +522,15 @@ export class ThyGridComponent extends _MixinBase implements OnInit, OnChanges, O
 
     iconIndentComputed(level: number) {
         if (this.mode === 'tree') {
-            return level * this.thyIndent - 23;
+            return level * this.thyIndent - 10;
         }
     }
 
-    tdIndentComputed(index: number, level: number) {
-        if (this.mode === 'tree' && index === 0) {
-            return {
-                position: 'relative',
-                paddingLeft: `${(level + 1) * this.thyIndent}px`
-            };
-        } else {
-            return null;
-        }
+    tdIndentComputed(level: number) {
+        return {
+            position: 'relative',
+            paddingLeft: `${(level + 1) * this.thyIndent - 10}px`
+        };
     }
 
     expandChildren(event: Event, row: any) {

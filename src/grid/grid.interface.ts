@@ -28,7 +28,7 @@ export interface ThyGridEmptyOptions {
     translationValues?: any;
     entityName?: string;
     entityNameTranslateKey?: string;
-    iconClass?: string;
+    iconName?: string;
     size?: string;
     marginTop?: string;
     topAuto?: string;
