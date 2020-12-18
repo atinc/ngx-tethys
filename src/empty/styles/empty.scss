@@ -41,4 +41,8 @@
     &--lg {
         @include set-empty-state-style($empty-text-size-lg, $empty-text-margin-top-lg, $empty-svg-width-lg, $empty-svg-height-lg);
     }
+
+    &--sm {
+        @include set-empty-state-style($empty-text-size-sm, $empty-text-margin-top-sm, $empty-svg-width-sm, $empty-svg-height-sm);
+    }
 }

@@ -18,7 +18,8 @@ import { ThyEmptyConfig } from './empty.config';
 
 const sizeClassMap: any = {
     lg: ['thy-empty-state', 'thy-empty-state--lg'],
-    md: ['thy-empty-state']
+    md: ['thy-empty-state'],
+    sm: ['thy-empty-state', 'thy-empty-state--sm']
 };
 const sizeMap: any = {
     lg: {
@@ -28,6 +29,11 @@ const sizeMap: any = {
     },
     md: {
         height: 118,
+        offsetTop: 20,
+        defaultMarginTop: 10
+    },
+    sm: {
+        height: 78,
         offsetTop: 20,
         defaultMarginTop: 10
     }

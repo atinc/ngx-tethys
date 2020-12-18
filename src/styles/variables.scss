@@ -530,12 +530,16 @@ $empty-svg-width: 102px !default;
 $empty-svg-height: 92px !default;
 $empty-svg-width-lg: 148px !default;
 $empty-svg-height-lg: 134px !default;
+$empty-svg-width-sm: 64px !default;
+$empty-svg-height-sm: 58px !default;
 $empty-text-color: $gray-400 !default;
 $empty-text-color-with-extra: $gray-800 !default;
 $empty-text-size: $font-size-base !default;
 $empty-text-size-lg: $font-size-md !default;
+$empty-text-size-sm: $font-size-base !default;
 $empty-text-margin-top: 12px !default;
 $empty-text-margin-top-lg: 18px !default;
+$empty-text-margin-top-sm: 6px !default;
 
 //util
 $operation-link-margin-y: 20px !default;

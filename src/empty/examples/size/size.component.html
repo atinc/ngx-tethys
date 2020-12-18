@@ -1,1 +1,11 @@
-<thy-empty thySize="lg"></thy-empty>
+<form class="mb-2" thyForm name="demoForm" #demoForm="ngForm" thyLayout="inline">
+  <thy-form-group thyLabelText="大小">
+    <thy-select [(ngModel)]="thySize" name="styxSize">
+      <option value="sm">小</option>
+      <option value="md">中(默认)</option>
+      <option value="lg">大</option>
+    </thy-select>
+  </thy-form-group>
+</form>
+
+<thy-empty [thySize]="thySize"></thy-empty>

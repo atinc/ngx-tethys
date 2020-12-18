@@ -49,7 +49,7 @@ module.exports = [
 
             {
                 name: 'thySize',
-                description: `大小, md, lg`,
+                description: `大小, md, lg, sm`,
                 type: 'string',
                 default: 'md'
             },
