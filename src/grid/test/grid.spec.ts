@@ -1,8 +1,9 @@
-import { fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ThyGridModule } from '../grid.module';
-import { NgModule, Component, TemplateRef, ViewChild } from '@angular/core';
+import { Component, DebugElement, NgModule, TemplateRef, ViewChild } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+
 import { ThyGridComponent } from '../grid.component';
+import { ThyGridModule } from '../grid.module';
 
 const SizeMap = {
     sm: 'table-sm'
@@ -433,5 +434,133 @@ describe('ThyGrid', () => {
 
     it('#onRowContextMenu() should set #message to "onRowContextMenu is ok"', () => {
         expect(testComponent.onRowContextMenu()).toMatch('onRowContextMenu is ok');
+    });
+});
+
+@Component({
+    selector: 'thy-demo-default-grid',
+    template: `
+        <thy-grid
+            [thyModel]="model"
+            thyRowKey="id"
+            thyGroupBy="group_id"
+            [thyMode]="mode"
+            [thyGroups]="groups"
+            [thyTheme]="theme"
+            [thySize]="size"
+            [thyWholeRowSelect]="isRowSelect"
+            [thyDraggable]="isDraggable"
+            [thyClassName]="gridClassName"
+            [thyRowClassName]="gridRowClassName"
+            [thyLoadingDone]="isLoadingDone"
+            [thyLoadingText]="loadingText"
+            [thyShowHeader]="isShowHeader"
+            (thyOnRowClick)="onRowClick($event, row)"
+            (thyOnMultiSelectChange)="onMultiSelectChange($event, row)"
+            [thyPageIndex]="pagination.index"
+            [thyPageSize]="pagination.size"
+            [thyPageTotal]="pagination.total"
+            (thyOnPageChange)="onPageChange($event)"
+            (thyOnSwitchChange)="onSwitchChange($event)"
+            (thyOnRowContextMenu)="onContextMenu($event)"
+        >
+            <ng-template #group let-group>{{ group.id }}</ng-template>
+            <thy-grid-column thyModelKey="selected" thyType="checkbox" [thySelections]="selections">
+                <ng-template #header>
+                    <span class="text-primary"
+                        >选择<a href="javascript:;"><i class="wtf wtf-angle-down"></i></a
+                    ></span>
+                </ng-template>
+            </thy-grid-column>
+            <thy-grid-column thyTitle="姓名" thyModelKey="name" thyWidth="160"></thy-grid-column>
+            <thy-grid-column thyTitle="年龄" thyModelKey="age" thyHeaderClassName="header-class-name"></thy-grid-column>
+            <thy-grid-column thyTitle="备注" thyModelKey="desc" thyDefaultText="-"></thy-grid-column>
+            <thy-grid-column thyTitle="默认" thyModelKey="checked" thyType="switch"></thy-grid-column>
+            <thy-grid-column thyTitle="操作" thyClassName="thy-operation-links">
+                <ng-template #cell let-row>
+                    <a href="javascript:;">设置</a>
+                    <a class="link-secondary" href="javascript:;">
+                        <i class="wtf wtf-trash-o"></i>
+                    </a>
+                </ng-template>
+            </thy-grid-column>
+            <ng-template #empty>
+                <div class="custom-empty">
+                    空数据模板
+                </div>
+            </ng-template>
+        </thy-grid>
+        <ng-template #total let-total>共{{ total }}条</ng-template>
+    `
+})
+class ThyDemoEmptyGridComponent {
+    model = [];
+
+    pagination = {
+        index: 1,
+        size: 3,
+        total: 6
+    };
+    isShowHeader = true;
+    isDraggable = false;
+    isRowSelect = false;
+    gridClassName = 'class-name';
+    gridRowClassName = 'row-class-name';
+    selections = [];
+    theme = 'default';
+    isLoadingDone = true;
+    loadingText = 'loading now';
+    size = 'sm';
+    showTotal = false;
+
+    mode = 'list';
+
+    @ViewChild('total', { static: true }) totalTemplate: TemplateRef<any>;
+
+    onRowClick() {
+        return 'onRowClick is ok';
+    }
+    onMultiSelectChange() {
+        return 'onMultiSelectChange is ok';
+    }
+    onPageChange() {
+        return 'onPageChange is ok';
+    }
+    onSwitchChange() {
+        return 'onSwitchChange is ok';
+    }
+    onRowContextMenu() {
+        return 'onRowContextMenu is ok';
+    }
+}
+describe('ThyGrid', () => {
+    let fixture: ComponentFixture<ThyDemoEmptyGridComponent>;
+    let testComponent: ThyDemoEmptyGridComponent;
+    let gridComponent: DebugElement;
+
+    beforeEach(fakeAsync(() => {
+        TestBed.configureTestingModule({
+            imports: [ThyGridModule],
+            declarations: [ThyDemoEmptyGridComponent]
+        });
+        TestBed.compileComponents();
+    }));
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(ThyDemoEmptyGridComponent);
+        testComponent = fixture.debugElement.componentInstance;
+        gridComponent = fixture.debugElement.query(By.directive(ThyGridComponent));
+    });
+
+    it('should be created grid component', () => {
+        expect(gridComponent).toBeTruthy();
+    });
+
+    it('should have custom empty template when model is [] and has empty', () => {
+        testComponent.model = [];
+        fixture.detectChanges();
+        const defaultEmptyComponent = gridComponent.nativeElement.querySelector('thy-empty');
+        expect(defaultEmptyComponent).not.toBeTruthy();
+        expect(gridComponent.query(By.css('.custom-empty'))).toBeTruthy();
     });
 });

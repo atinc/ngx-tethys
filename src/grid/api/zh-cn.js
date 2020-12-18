@@ -121,6 +121,12 @@ module.exports = [
                 default: 'children'
             },
             {
+                name: 'empty',
+                description: '设置数据为空时展示的模板',
+                type: 'TemplateRef',
+                default: ''
+            },
+            {
                 name: '(thyOnRowClick)',
                 description: 'Grid行点击事件',
                 type: 'ThyGridRowEvent',
