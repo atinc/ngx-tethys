@@ -9,25 +9,27 @@ import { ViewportRuler } from '@angular/cdk/overlay';
 import { DOCUMENT } from '@angular/common';
 import {
     Component,
+    Input,
+    Output,
+    ViewEncapsulation,
+    TemplateRef,
+    OnInit,
+    OnChanges,
+    EventEmitter,
     ContentChild,
     ContentChildren,
     DoCheck,
     ElementRef,
-    EventEmitter,
     HostBinding,
     Inject,
-    Input,
     IterableChangeRecord,
     IterableChanges,
     IterableDiffer,
     IterableDiffers,
     OnDestroy,
-    OnInit,
-    Output,
     QueryList,
-    TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    SimpleChanges
 } from '@angular/core';
 
 import { IThyGridColumnParentComponent, THY_GRID_COLUMN_PARENT_COMPONENT, ThyGridColumnComponent } from './grid-column.component';
@@ -86,7 +88,7 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
     ],
     encapsulation: ViewEncapsulation.None
 })
-export class ThyGridComponent extends _MixinBase implements OnInit, OnDestroy, DoCheck, IThyGridColumnParentComponent {
+export class ThyGridComponent extends _MixinBase implements OnInit, OnChanges, OnDestroy, DoCheck, IThyGridColumnParentComponent {
     public customType = customType;
 
     public model: object[] = [];
@@ -646,6 +648,16 @@ export class ThyGridComponent extends _MixinBase implements OnInit, OnDestroy, D
             .subscribe(() => {
                 this._refreshColumns();
             });
+    }
+
+    ngOnChanges(simpleChangs: SimpleChanges) {
+        const modeChange = simpleChangs.thyMode;
+        const thyGroupsChange = simpleChangs.thyGroups;
+        const isGroupMode = modeChange && modeChange.currentValue === 'group';
+        if (isGroupMode && thyGroupsChange && thyGroupsChange.firstChange) {
+            this.buildGroups(thyGroupsChange.currentValue);
+            this.buildModel();
+        }
     }
 
     ngDoCheck() {
