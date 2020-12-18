@@ -1,28 +1,35 @@
-import { Component, HostBinding, TemplateRef, ElementRef, Input, OnInit, AfterViewInit, Renderer2, NgZone } from '@angular/core';
 import { ThyTranslate } from 'ngx-tethys/core';
-import { ThyEmptyConfig } from './empty.config';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
+import {
+    AfterViewInit,
+    Component,
+    ContentChild,
+    ElementRef,
+    HostBinding,
+    Input,
+    NgZone,
+    OnInit,
+    Renderer2,
+    TemplateRef
+} from '@angular/core';
+
+import { ThyEmptyConfig } from './empty.config';
+
 const sizeClassMap: any = {
-    lg: ['empty-state', 'empty-state--lg'],
-    md: ['empty-state'],
-    sm: ['empty-state', 'empty-state--sm']
+    lg: ['thy-empty-state', 'thy-empty-state--lg'],
+    md: ['thy-empty-state']
 };
 const sizeMap: any = {
     lg: {
-        height: 164, // 空提示的高度
+        height: 168, // 空提示的高度
         offsetTop: 30, // 空提示图标和大小之间的空白距离，需要除去，否则会不居中
         defaultMarginTop: 120 // 不自动计算默认的 top 距离
     },
     md: {
-        height: 91,
+        height: 118,
         offsetTop: 20,
         defaultMarginTop: 10
-    },
-    sm: {
-        height: 50,
-        offsetTop: 10,
-        defaultMarginTop: 0
     }
 };
 
@@ -47,7 +54,7 @@ export class ThyEmptyComponent implements OnInit, AfterViewInit {
     // 显示默认提示信息，替换目标名称的 translateKey
     @Input() thyEntityNameTranslateKey: string;
 
-    @Input() thyIconClass: string;
+    @Input() thyIconName: string;
 
     @Input()
     set thySize(value: string) {
@@ -62,6 +69,10 @@ export class ThyEmptyComponent implements OnInit, AfterViewInit {
     @Input() thyTopAuto: boolean;
 
     @Input() thyContainer: ElementRef;
+
+    @Input() thyImageUrl: string;
+
+    @ContentChild('extra') extraTemplateRef: TemplateRef<any>;
 
     get displayText() {
         if (this.thyMessage) {
@@ -94,7 +105,8 @@ export class ThyEmptyComponent implements OnInit, AfterViewInit {
             if (emptyStateHeight <= 10) {
                 emptyStateHeight = sizeOptions.height;
             }
-            marginTop = (containerElement.offsetHeight - emptyStateHeight) / 2 - sizeOptions.offsetTop;
+            // marginTop = (containerElement.offsetHeight - emptyStateHeight) / 2 - sizeOptions.offsetTop;
+            marginTop = containerElement.offsetHeight - emptyStateHeight;
             if (marginTop < 0) {
                 marginTop = 0; // sizeOptions.defaultMarginTop;
             }
