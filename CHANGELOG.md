@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.0.10"></a>
+## [9.0.10](https://github.com/atinc/ngx-tethys/compare/9.0.9...9.0.10) (2020-12-18)
+
+
+### Bug Fixes
+
+* **empty:** fix set empty state style ([#1056](https://github.com/atinc/ngx-tethys/issues/1056)) ([297dbc8](https://github.com/atinc/ngx-tethys/commit/297dbc8))
+* **fullscreen:** change StyxFullscreenService to ThyFullscreenService ([9f46852](https://github.com/atinc/ngx-tethys/commit/9f46852))
+* **grid:** fix group mode data presentation abnormal ([#1044](https://github.com/atinc/ngx-tethys/issues/1044)) ([6cb9d71](https://github.com/atinc/ngx-tethys/commit/6cb9d71))
+
+
+### Features
+
+* **calendar:** #AE-3801 calendar style ([a836e02](https://github.com/atinc/ngx-tethys/commit/a836e02)), closes [#AE-3801](https://github.com/atinc/ngx-tethys/issues/AE-3801)
+* **datepicker:** add warnDeprecation to offset and hasBackdrop #INFR-1322 ([957cccc](https://github.com/atinc/ngx-tethys/commit/957cccc)), closes [#INFR-1322](https://github.com/atinc/ngx-tethys/issues/INFR-1322)
+* **empty:** empty component add sm size #INFR-1416 ([#1057](https://github.com/atinc/ngx-tethys/issues/1057)) ([45f7252](https://github.com/atinc/ngx-tethys/commit/45f7252)), closes [#INFR-1416](https://github.com/atinc/ngx-tethys/issues/INFR-1416) [#INFR-1416](https://github.com/atinc/ngx-tethys/issues/INFR-1416)
+* **empty:** refactor empty component #INFR-1395 ([#1051](https://github.com/atinc/ngx-tethys/issues/1051)) ([2db73a4](https://github.com/atinc/ngx-tethys/commit/2db73a4)), closes [#INFR-1395](https://github.com/atinc/ngx-tethys/issues/INFR-1395) [#INFR-1395](https://github.com/atinc/ngx-tethys/issues/INFR-1395)
+* **empty:** remove grid empty thyIconClass #INFR-1395 ([fd33f7f](https://github.com/atinc/ngx-tethys/commit/fd33f7f)), closes [#INFR-1395](https://github.com/atinc/ngx-tethys/issues/INFR-1395) [#INFR-1395](https://github.com/atinc/ngx-tethys/issues/INFR-1395)
+* **grid:** set empty template when model=[] ([#1052](https://github.com/atinc/ngx-tethys/issues/1052)) ([363ebd5](https://github.com/atinc/ngx-tethys/commit/363ebd5)), closes [#INFR-1393](https://github.com/atinc/ngx-tethys/issues/INFR-1393)
+
+
+
 <a name="9.0.9"></a>
 ## [9.0.9](https://github.com/atinc/ngx-tethys/compare/9.0.8...9.0.9) (2020-12-11)
 
