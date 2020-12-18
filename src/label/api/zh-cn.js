@@ -41,10 +41,16 @@ module.exports = [
                 default: ''
             },
             {
-                name: '[thyLabelColor]',
+                name: 'thyLabelColor',
                 description: '自定义颜色，#f969aa 或者变量，需要同时加上 thyLabel 属性',
                 type: 'String',
                 default: ''
+            },
+            {
+                name: 'thyLabelBackgroundOpacity',
+                description: '自定义背景颜色透明度，配合thyLabelColor使用，范围0～1',
+                type: 'Number',
+                default: 0.1
             },
             {
                 name: 'thyOnRemove',
