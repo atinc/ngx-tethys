@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
 })
 export class ThyLabelBasicExampleComponent {
     public color: string;
+    public backgroundOpacity = 0.3;
 
     relationLabels = [
         {

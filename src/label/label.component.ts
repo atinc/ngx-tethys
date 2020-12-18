@@ -57,6 +57,8 @@ export class ThyLabelComponent {
 
     public _color?: string;
 
+    public _backgroundOpacity?: number = 0.1;
+
     @Output() thyOnRemove: EventEmitter<any> = new EventEmitter<any>();
 
     constructor(private el: ElementRef, private renderer: Renderer2) {
@@ -78,6 +80,14 @@ export class ThyLabelComponent {
     set thyLabelColor(color: string) {
         this._color = color;
         this._setLabelCustomColor();
+    }
+
+    @Input()
+    set thyLabelBackgroundOpacity(opacity: number) {
+        if (opacity && opacity > 0 && this._backgroundOpacity !== opacity) {
+            this._backgroundOpacity = opacity;
+            this._setLabelCustomColor();
+        }
     }
 
     @Input()
@@ -148,7 +158,7 @@ export class ThyLabelComponent {
                 } else {
                     this.el.nativeElement.style.color = this._color;
                 }
-                this.el.nativeElement.style.backgroundColor = helpers.hexToRgb(this._color, 0.1);
+                this.el.nativeElement.style.backgroundColor = helpers.hexToRgb(this._color, this._backgroundOpacity);
             } else if (this._type.indexOf('outline') > -1) {
                 this.el.nativeElement.style.color = this._color;
                 this.el.nativeElement.style.borderColor = this._color;

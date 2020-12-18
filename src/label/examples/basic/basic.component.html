@@ -22,14 +22,16 @@
 <span *ngFor="let status of relationLabels" class="mr-3" thyLabel="outline" [thyLabelColor]="status.color">{{ status.name }}</span>
 
 <hr />
-
 <p class="font-size-xs">· 标签的颜色自定义，eg：<code>#7076fa</code>覆盖</p>
 <span class="mr-1" thyLabel [thyLabelColor]="color">Danger</span>
 <span class="mr-1" thyLabel="emboss-default" [thyLabelColor]="''">emboss-primary</span>
 <span class="mr-1" thyLabel="emboss-default" [thyLabelColor]="color">emboss-primary</span>
 
 <hr />
+<p class="font-size-xs">· 标签自定义背景色透明度</p>
+<span class="mr-1" thyLabel="emboss-default" [thyLabelColor]="color" [thyLabelBackgroundOpacity]="backgroundOpacity">emboss-primary</span>
 
+<hr />
 <p class="font-size-xs">
   · 标签上的操作：鼠标划过<code>thyHasHover</code>、移除操作<code>thyOnRemove</code>、前置图标<code>thyBeforeIcon</code>、后置图标<code
     >thyAfterIcon</code
