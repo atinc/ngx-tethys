@@ -1,6 +1,7 @@
 import { Component, DebugElement, NgModule, TemplateRef, ViewChild } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { dispatchFakeEvent } from 'ngx-tethys/testing/dispatcher-events';
 
 import { ThyGridComponent } from '../grid.component';
 import { ThyGridModule } from '../grid.module';
@@ -435,6 +436,160 @@ describe('ThyGrid', () => {
     it('#onRowContextMenu() should set #message to "onRowContextMenu is ok"', () => {
         expect(testComponent.onRowContextMenu()).toMatch('onRowContextMenu is ok');
     });
+});
+
+// grid group mode test
+@Component({
+    selector: 'thy-demo-group-grid',
+    template: `
+        <thy-grid
+            [thyGroups]="groups"
+            [thyModel]="model"
+            thyRowKey="id"
+            thyGroupBy="group_id"
+            [thyMode]="mode"
+            [thyPageIndex]="pagination.index"
+            [thyPageSize]="pagination.size"
+            [thyPageTotal]="pagination.total"
+        >
+            <ng-template #group let-group>{{ group.id }}</ng-template>
+            <thy-grid-column thyModelKey="selected" thyType="checkbox" [thySelections]="selections">
+                <ng-template #header>
+                    <span class="text-primary"
+                        >选择<a href="javascript:;"><i class="wtf wtf-angle-down"></i></a
+                    ></span>
+                </ng-template>
+            </thy-grid-column>
+            <thy-grid-column thyTitle="姓名" thyModelKey="name" thyWidth="160"></thy-grid-column>
+            <thy-grid-column thyTitle="年龄" thyModelKey="age" thyHeaderClassName="header-class-name"></thy-grid-column>
+            <thy-grid-column thyTitle="备注" thyModelKey="desc" thyDefaultText="-"></thy-grid-column>
+            <thy-grid-column thyTitle="默认" thyModelKey="checked" thyType="switch"></thy-grid-column>
+        </thy-grid>
+        <ng-template #total let-total>共{{ total }}条</ng-template>
+    `
+})
+class ThyDemoGroupGridComponent {
+    groups = [
+        {
+            id: '11',
+            title: '分组1'
+        },
+        {
+            id: '22',
+            title: '分组2'
+        }
+    ];
+    model = [
+        {
+            group_id: '11',
+            id: 1,
+            name: '张三',
+            age: '',
+            checked: true
+        },
+        {
+            group_id: '11',
+            id: 2,
+            name: '李四',
+            age: 10,
+            checked: false,
+            desc: '这是一条测试数据'
+        },
+        {
+            group_id: '11',
+            id: 3,
+            name: '王五',
+            age: 10,
+            checked: false,
+            desc: '这是一条测试数据'
+        },
+        {
+            group_id: '22',
+            id: 4,
+            name: '张三2',
+            age: 0,
+            checked: true,
+            desc: ''
+        },
+        {
+            group_id: '22',
+            id: 5,
+            name: '李四2',
+            age: 10,
+            checked: false,
+            desc: '这是一条测试数据'
+        },
+        {
+            group_id: '22',
+            id: 6,
+            name: '王五2',
+            age: 10,
+            checked: false,
+            desc: '这是一条测试数据'
+        }
+    ];
+    mode = 'group';
+    pagination = {
+        index: 1,
+        size: 3,
+        total: 6
+    };
+}
+
+describe('ThyGrid', () => {
+    let fixture: ComponentFixture<ThyDemoGroupGridComponent>;
+    let testComponent: ThyDemoGroupGridComponent;
+    let gridComponent: DebugElement;
+    let table;
+    let rows;
+
+    beforeEach(fakeAsync(() => {
+        TestBed.configureTestingModule({
+            imports: [ThyGridModule, GridTestModule],
+            declarations: [ThyDemoGroupGridComponent]
+        });
+        TestBed.compileComponents();
+    }));
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(ThyDemoGroupGridComponent);
+        testComponent = fixture.debugElement.componentInstance;
+        gridComponent = fixture.debugElement.query(By.directive(ThyGridComponent));
+        table = gridComponent.nativeElement.querySelector('table');
+        fixture.detectChanges();
+        rows = table.querySelectorAll('tr');
+    });
+
+    it('should be created grid component', () => {
+        expect(gridComponent).toBeTruthy();
+    });
+
+    it('should has correct class and when mode is group', () => {
+        fixture.detectChanges();
+        expect(table.classList.contains('table-group')).toBe(true);
+    });
+
+    it('should has group element when mode is group', () => {
+        fixture.detectChanges();
+        const groups = table.querySelector('.thy-grid-group');
+        expect(groups).toBeTruthy();
+    });
+
+    it('test expand event', fakeAsync(() => {
+        expect(rows.length).toBe(9);
+
+        const trExpandElement = rows[1];
+
+        dispatchFakeEvent(trExpandElement, 'click');
+        fixture.detectChanges();
+        rows = gridComponent.nativeElement.querySelectorAll('tr');
+        expect(rows.length).toBe(6);
+
+        dispatchFakeEvent(trExpandElement, 'click');
+        fixture.detectChanges();
+        rows = gridComponent.nativeElement.querySelectorAll('tr');
+        expect(rows.length).toBe(9);
+    }));
 });
 
 @Component({
