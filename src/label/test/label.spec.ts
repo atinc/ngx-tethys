@@ -103,7 +103,6 @@ describe('ThyLabel', () => {
         basicTestComponent.thyLabelColor = `#7076fa`;
         basicTestComponent.thyLabelBackgroundOpacity = 0.2;
         fixture.detectChanges();
-        console.log(labelComponent.nativeElement.style.backgroundColor, 22);
         expect(labelComponent.nativeElement.style.backgroundColor === 'rgba(112, 118, 250, 0.2)').toBe(true);
     });
 
