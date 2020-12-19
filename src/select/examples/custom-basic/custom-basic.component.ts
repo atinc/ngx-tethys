@@ -54,6 +54,8 @@ export class ThySelectCustomBasicExampleComponent implements OnInit {
         }
     }
 
+    hasBackdrop = false;
+
     switchClear() {
         this.allowClear = !this.allowClear;
     }

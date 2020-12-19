@@ -21,7 +21,7 @@ import {
     HostListener,
     Attribute
 } from '@angular/core';
-import { UpdateHostClassService } from 'ngx-tethys/core';
+import { InputBoolean, UpdateHostClassService } from 'ngx-tethys/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import {
     ThyOptionComponent,
@@ -98,8 +98,6 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
     emptyStateText = '无任何选项';
 
     emptySearchMessageText = '没有匹配到任何选项';
-
-    scrollStrategy: ScrollStrategy;
 
     scrollTop = 0;
 
@@ -213,6 +211,10 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
 
     @Input() thyAutoExpand: boolean;
 
+    @Input()
+    @InputBoolean()
+    thyHasBackdrop = false;
+
     @ViewChild('trigger', { read: ElementRef, static: true }) trigger: ElementRef<any>;
 
     @ViewChild('panel', { read: ElementRef }) panel: ElementRef<any>;
@@ -270,7 +272,6 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
 
     ngOnInit() {
         this.getPositions();
-        this.scrollStrategy = this.overlay.scrollStrategies.close();
         this.viewportRuler
             .change()
             .pipe(takeUntil(this.destroy$))
