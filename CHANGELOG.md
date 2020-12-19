@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.0.11"></a>
+## [9.0.11](https://github.com/atinc/ngx-tethys/compare/9.0.10...9.0.11) (2020-12-19)
+
+
+### Bug Fixes
+
+* **grid:** add grid group mode test ([8d2f0d2](https://github.com/atinc/ngx-tethys/commit/8d2f0d2))
+
+
+### Features
+
+* **label:** add thyLabelBackgroundOpacity to label #INFR-1418 ([3724e1a](https://github.com/atinc/ngx-tethys/commit/3724e1a)), closes [#INFR-1418](https://github.com/atinc/ngx-tethys/issues/INFR-1418)
+* **select:** select component empty style #INFR-1417 ([#1059](https://github.com/atinc/ngx-tethys/issues/1059)) ([a2a3669](https://github.com/atinc/ngx-tethys/commit/a2a3669)), closes [#INFR-1417](https://github.com/atinc/ngx-tethys/issues/INFR-1417)
+
+
+
 <a name="9.0.10"></a>
 ## [9.0.10](https://github.com/atinc/ngx-tethys/compare/9.0.9...9.0.10) (2020-12-18)
 
