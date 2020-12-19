@@ -99,8 +99,6 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
 
     emptySearchMessageText = '没有匹配到任何选项';
 
-    scrollStrategy: ScrollStrategy;
-
     scrollTop = 0;
 
     modalValue: any = null;
@@ -213,6 +211,8 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
 
     @Input() thyAutoExpand: boolean;
 
+    @Input() thyHasBackdrop = false;
+
     @ViewChild('trigger', { read: ElementRef, static: true }) trigger: ElementRef<any>;
 
     @ViewChild('panel', { read: ElementRef }) panel: ElementRef<any>;
@@ -270,7 +270,6 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
 
     ngOnInit() {
         this.getPositions();
-        this.scrollStrategy = this.overlay.scrollStrategies.close();
         this.viewportRuler
             .change()
             .pipe(takeUntil(this.destroy$))

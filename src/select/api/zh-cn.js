@@ -93,6 +93,12 @@ module.exports = [
                 description: '初始化时，是否展开面板',
                 type: 'boolean',
                 default: 'false'
+            },
+            {
+                name: 'thyHasBackdrop',
+                description: '是否弹出透明遮罩，如果显示遮罩则会阻止滚动区域滚动',
+                type: 'boolean',
+                default: 'false'
             }
         ]
     },

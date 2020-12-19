@@ -38,7 +38,19 @@
     related code into functional sets; an Angular app is defined by a set of NgModules. An app always has at least a root module that
     enables bootstrapping, and typically has many more feature modules.
   </p>
-
+  <thy-custom-select
+    thySize="md"
+    [thyShowSearch]="true"
+    thyEmptyStateText="无匹配结果"
+    [thyAllowClear]="allowClear"
+    [thyHasBackdrop]="true"
+  >
+    <thy-option thyValue="" thyLabelText="空"></thy-option>
+    <thy-option thyValue="1" thyLabelText="选项1"> </thy-option>
+    <thy-option thyValue="2" thyLabelText="选项2"> </thy-option>
+    <thy-option thyValue="3" thyLabelText="选项3"> </thy-option>
+    <thy-option thyValue="4" thyLabelText="选项4"> </thy-option>
+  </thy-custom-select>
   <p>
     Components define views, which are sets of screen elements that Angular can choose among and modify according to your program logic and
     data. Every app has at least a root component.
@@ -68,13 +80,6 @@
     An app's components typically define many views, arranged hierarchically. Angular provides the Router service to help you define
     navigation paths among views. The router provides sophisticated in-browser navigational capabilities.
   </p>
-  <thy-custom-select thySize="md" [thyShowSearch]="true" thyEmptyStateText="无匹配结果" [thyAllowClear]="allowClear">
-    <thy-option thyValue="" thyLabelText="空"></thy-option>
-    <thy-option thyValue="1" thyLabelText="选项1"> </thy-option>
-    <thy-option thyValue="2" thyLabelText="选项2"> </thy-option>
-    <thy-option thyValue="3" thyLabelText="选项3"> </thy-option>
-    <thy-option thyValue="4" thyLabelText="选项4"> </thy-option>
-  </thy-custom-select>
 </div>
 
 <ng-template #subDialog>
