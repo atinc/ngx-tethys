@@ -21,7 +21,7 @@ import {
     HostListener,
     Attribute
 } from '@angular/core';
-import { UpdateHostClassService } from 'ngx-tethys/core';
+import { InputBoolean, UpdateHostClassService } from 'ngx-tethys/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import {
     ThyOptionComponent,
@@ -211,7 +211,9 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
 
     @Input() thyAutoExpand: boolean;
 
-    @Input() thyHasBackdrop = false;
+    @Input()
+    @InputBoolean()
+    thyHasBackdrop = false;
 
     @ViewChild('trigger', { read: ElementRef, static: true }) trigger: ElementRef<any>;
 
