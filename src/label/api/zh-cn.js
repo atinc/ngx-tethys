@@ -47,7 +47,7 @@ module.exports = [
                 default: ''
             },
             {
-                name: 'thyLabelBackgroundOpacity',
+                name: 'thyBackgroundOpacity',
                 description: '自定义背景颜色透明度，配合thyLabelColor使用，范围0～1',
                 type: 'Number',
                 default: 0.1
