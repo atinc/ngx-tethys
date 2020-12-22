@@ -1,15 +1,54 @@
 import { coerceElement } from '@angular/cdk/coercion';
 import { DOCUMENT } from '@angular/common';
-import { ElementRef, Inject, Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { ElementRef, Inject, Injectable, OnDestroy, OnInit } from '@angular/core';
+import { fromEvent, merge, Observable, Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { takeUntil } from 'rxjs/operators';
 
+export const ESC_KEY = 'Escape';
+
+export interface ThyFullscreenConfig {
+    mode: ThyFullscreenMode;
+    target: string | Element | ElementRef;
+    classes?: string;
+    container?: string | Element | ElementRef;
+}
+
+export type ThyFullscreenMode = 'immersive' | 'normal';
+
+export const defaultFullscreenMode = 'immersive';
 @Injectable({
     providedIn: 'root'
 })
 export class ThyFullscreenService {
-    fullscreen$ = new BehaviorSubject<boolean>(false);
+    private fullscreenChange$: Observable<any>;
 
-    constructor(@Inject(DOCUMENT) private document: any) {}
+    private keydownEvent$: Observable<KeyboardEvent>;
+
+    private ngUnsubscribe$ = new Subject();
+
+    private fullscreenConfig: ThyFullscreenConfig;
+
+    private isFullscreen$ = new BehaviorSubject<boolean>(false);
+
+    constructor(@Inject(DOCUMENT) private document: any) {
+        this.fullscreenChange$ = merge(
+            fromEvent(this.document, 'fullscreenchange'),
+            fromEvent(this.document, 'MSFullscreenChange'),
+            fromEvent(this.document, 'webkitfullscreenchange')
+        );
+
+        this.keydownEvent$ = fromEvent(this.document, 'keydown');
+    }
+
+    private onFullscreenChange() {
+        const isFullScreen = this.isImmersiveFullscreen();
+        if (isFullScreen) {
+            this.launchNormalFullscreen();
+        } else {
+            this.exitNormalFullscreen();
+        }
+    }
 
     private resetElement(element: string | Element | ElementRef) {
         const targetType = typeof element;
@@ -20,8 +59,24 @@ export class ThyFullscreenService {
         }
     }
 
-    launchNormalFullscreen(target: string | Element | ElementRef, classes?: string, container?: string | Element | ElementRef) {
-        const targetElement = this.resetElement(target);
+    private isImmersiveFullscreen() {
+        const doc = this.document;
+        return !!(doc['fullscreenElement'] || doc['mozFullScreenElement'] || doc['webkitFullscreenElement'] || doc['msFullscreenElement']);
+    }
+
+    private handleKeyDown(event: KeyboardEvent) {
+        if (event.key === ESC_KEY) {
+            const isFullscreen = this.isFullscreen$.value;
+            if (isFullscreen && this.fullscreenConfig.mode === 'normal') {
+                this.exitNormalFullscreen();
+            }
+        }
+    }
+
+    private launchNormalFullscreen() {
+        const targetElement = this.resetElement(this.fullscreenConfig.target);
+        const classes = this.fullscreenConfig.classes;
+        const container = this.fullscreenConfig.container;
         if (container) {
             const containerElement = this.resetElement(container);
             const containerClientRect = containerElement.getBoundingClientRect();
@@ -38,11 +93,13 @@ export class ThyFullscreenService {
         if (classes && classes.length) {
             targetElement.classList.add(classes);
         }
-        this.fullscreen$.next(true);
+        this.isFullscreen$.next(true);
     }
 
-    exitNormalFullscreen(target: string | Element | ElementRef, classes?: string, container?: string | Element | ElementRef) {
-        const targetElement = this.resetElement(target);
+    private exitNormalFullscreen() {
+        const targetElement = this.resetElement(this.fullscreenConfig.target);
+        const classes = this.fullscreenConfig.classes;
+        const container = this.fullscreenConfig.container;
         if (container) {
             targetElement.style.transform = ``;
             targetElement.style.width = ``;
@@ -54,10 +111,16 @@ export class ThyFullscreenService {
         if (classes && classes.length) {
             targetElement.classList.remove(classes);
         }
-        this.fullscreen$.next(false);
+
+        this.isFullscreen$.next(false);
+
+        this.ngUnsubscribe$.next();
+        this.ngUnsubscribe$.complete();
     }
 
-    launchImmersiveFullscreen(docElement: HTMLElement) {
+    launchImmersiveFullscreen() {
+        const docElement = this.document.documentElement;
+
         if (docElement.requestFullscreen) {
             docElement.requestFullscreen();
         } else if (docElement['mozRequestFullScreen']) {
@@ -69,7 +132,8 @@ export class ThyFullscreenService {
         }
     }
 
-    exitImmersiveFullscreen(doc: Document) {
+    private exitImmersiveFullscreen() {
+        const doc = this.document;
         if (doc['exitFullscreen']) {
             doc['exitFullscreen']();
         } else if (doc['mozCancelFullScreen']) {
@@ -81,11 +145,30 @@ export class ThyFullscreenService {
         }
     }
 
-    isImmersiveFullscreen(doc: Document) {
-        return !!(doc['fullscreenElement'] || doc['mozFullScreenElement'] || doc['webkitFullscreenElement'] || doc['msFullscreenElement']);
+    openFullscreen(config: ThyFullscreenConfig) {
+        this.fullscreenConfig = config;
+        if (config.mode === defaultFullscreenMode) {
+            this.fullscreenChange$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(() => {
+                this.onFullscreenChange();
+            });
+            this.launchImmersiveFullscreen();
+        } else {
+            this.keydownEvent$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(event => {
+                this.handleKeyDown(event);
+            });
+            this.launchNormalFullscreen();
+        }
     }
 
-    getIsFullscreen() {
-        return this.fullscreen$;
+    closeFullscreen() {
+        if (this.fullscreenConfig.mode === defaultFullscreenMode) {
+            this.exitImmersiveFullscreen();
+        } else {
+            this.exitNormalFullscreen();
+        }
+    }
+
+    getIsFullscreen$() {
+        return this.isFullscreen$;
     }
 }

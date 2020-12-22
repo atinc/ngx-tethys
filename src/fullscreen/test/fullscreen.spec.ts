@@ -1,4 +1,5 @@
-import { fakeAsync, ComponentFixture, TestBed, tick } from '@angular/core/testing';
+import { ThyFullscreenService } from './../fullscreen.service';
+import { fakeAsync, ComponentFixture, TestBed, tick, flush } from '@angular/core/testing';
 import { ThyFullscreenModule } from '../fullscreen.module';
 import { NgModule, Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
@@ -6,10 +7,11 @@ import { ThyFullscreenComponent } from '../fullscreen.component';
 import { dispatchFakeEvent, dispatchKeyboardEvent } from 'ngx-tethys/testing';
 import { ESCAPE } from '../../util/keycodes';
 
-describe('ThyFullscreen', () => {
+fdescribe('ThyFullscreen', () => {
     let fixture: ComponentFixture<ThyDemoFullscreenComponent>;
     let testComponent: ThyDemoFullscreenComponent;
     let fullscreenComponent;
+    let fullscreenService: ThyFullscreenService;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
@@ -22,6 +24,7 @@ describe('ThyFullscreen', () => {
         fixture = TestBed.createComponent(ThyDemoFullscreenComponent);
         testComponent = fixture.debugElement.componentInstance;
         fullscreenComponent = fixture.debugElement.query(By.directive(ThyFullscreenComponent));
+        fullscreenService = TestBed.inject(ThyFullscreenService);
         fixture.detectChanges();
     });
 
@@ -35,14 +38,22 @@ describe('ThyFullscreen', () => {
 
     it('should call fullscreen change when click fullscreen button', fakeAsync(() => {
         const buttonEle = fixture.debugElement.query(By.css('.fullscreen-button')).nativeElement;
+
+        const fullscreenChangeSpy = spyOn(fullscreenService, 'launchImmersiveFullscreen');
         const spy = spyOn(fixture.componentInstance, 'changeFullscreen');
+
+        fixture.detectChanges();
         // 第一次点击打开
         dispatchFakeEvent(buttonEle, 'click');
+
+        expect(fullscreenChangeSpy).toHaveBeenCalled();
         expect(spy).toHaveBeenCalled();
         expect(fullscreenComponent.query(By.css('.thy-fullscreen-active.test-fullscreen'))).toBeTruthy();
 
         // 第二次点击关闭
         dispatchFakeEvent(buttonEle, 'click');
+
+        // expect(fullscreenChangeSpy).toHaveBeenCalled();
         expect(spy).toHaveBeenCalled();
         expect(fullscreenComponent.query(By.css('.thy-fullscreen-active.test-fullscreen'))).toBeNull();
     }));
