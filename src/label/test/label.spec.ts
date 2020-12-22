@@ -98,10 +98,10 @@ describe('ThyLabel', () => {
         expect(labelComponent.nativeElement.classList.contains('thy-label-emboss-default')).toBe(true);
     });
 
-    it('should have correct background opacity when set thyLabelBackgroundOpacity', () => {
+    it('should have correct background opacity when set thyBackgroundOpacity', () => {
         basicTestComponent.thyLabel = 'emboss-default';
         basicTestComponent.thyLabelColor = `#7076fa`;
-        basicTestComponent.thyLabelBackgroundOpacity = 0.2;
+        basicTestComponent.thyBackgroundOpacity = 0.2;
         fixture.detectChanges();
         expect(labelComponent.nativeElement.style.backgroundColor === 'rgba(112, 118, 250, 0.2)').toBe(true);
     });
@@ -129,7 +129,7 @@ describe('ThyLabel', () => {
             [thyBeforeIcon]="thyBeforeIcon"
             [thyAfterIcon]="thyAfterIcon"
             [thyLabelColor]="thyLabelColor"
-            [thyLabelBackgroundOpacity]="thyLabelBackgroundOpacity"
+            [thyBackgroundOpacity]="thyBackgroundOpacity"
             [thyHasHover]="thyHasHover"
             >Default</span
         >
@@ -140,7 +140,7 @@ class ThyDemoLabelBasicComponent {
     thyBeforeIcon = `plus`;
     thyAfterIcon = `close`;
     thyLabelColor = ``;
-    thyLabelBackgroundOpacity = 0.1;
+    thyBackgroundOpacity = 0.1;
     thyHasHover = false;
 }
 

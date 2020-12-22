@@ -83,7 +83,7 @@ export class ThyLabelComponent {
     }
 
     @Input()
-    set thyLabelBackgroundOpacity(opacity: number) {
+    set thyBackgroundOpacity(opacity: number) {
         if (opacity && opacity > 0 && this._backgroundOpacity !== opacity) {
             this._backgroundOpacity = opacity;
             this._setLabelCustomColor();
