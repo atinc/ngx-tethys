@@ -17,7 +17,7 @@ export class FakeFullscreenService extends ThyFullscreenService {
     }
 }
 
-fdescribe('ThyFullscreen', () => {
+describe('ThyFullscreen', () => {
     let fixture: ComponentFixture<ThyDemoFullscreenComponent>;
     let testComponent: ThyDemoFullscreenComponent;
     let fullscreenComponent;
@@ -75,9 +75,7 @@ fdescribe('ThyFullscreen', () => {
         expect(fullscreenComponent.query(By.css('.thy-fullscreen-active.test-fullscreen'))).toBeTruthy();
         // ESC退出
         dispatchKeyboardEvent(document.body, 'keydown', ESCAPE);
-
-        // 为什么退出没有主动调一次change？
-        // expect(spy).toHaveBeenCalled Times(2);
+        expect(spy).toHaveBeenCalledTimes(2);
         expect(fullscreenComponent.query(By.css('.thy-fullscreen-active.test-fullscreen'))).toBeNull();
     }));
 });

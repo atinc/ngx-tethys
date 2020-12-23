@@ -1,13 +1,14 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { defaultFullscreenMode, ThyFullscreenMode, ThyFullscreenService } from './fullscreen.service';
+import { ThyFullscreenMode, ThyFullscreenService } from './fullscreen.service';
 @Component({
     selector: 'thy-fullscreen',
-    templateUrl: './fullscreen.component.html'
+    templateUrl: './fullscreen.component.html',
+    providers: [ThyFullscreenService]
 })
 export class ThyFullscreenComponent implements OnInit, AfterViewInit, OnDestroy {
-    @Input() thyMode: ThyFullscreenMode = defaultFullscreenMode;
+    @Input() thyMode: ThyFullscreenMode = ThyFullscreenMode.immersive;
 
     @Input() thyFullscreenClasses: string;
 

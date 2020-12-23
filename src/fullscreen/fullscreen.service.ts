@@ -7,18 +7,17 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { takeUntil } from 'rxjs/operators';
 
 export interface ThyFullscreenConfig {
-    mode: ThyFullscreenMode;
+    mode?: ThyFullscreenMode;
     target: string | Element | ElementRef;
     classes?: string;
     container?: string | Element | ElementRef;
 }
 
-export type ThyFullscreenMode = 'immersive' | 'normal';
-
-export const defaultFullscreenMode = 'immersive';
-@Injectable({
-    providedIn: 'root'
-})
+export enum ThyFullscreenMode {
+    immersive = 'immersive',
+    normal = 'normal'
+}
+@Injectable()
 export class ThyFullscreenService {
     private fullscreenChange$: Observable<any>;
 
@@ -145,8 +144,9 @@ export class ThyFullscreenService {
     }
 
     openFullscreen(config: ThyFullscreenConfig) {
+        config.mode = config.mode || ThyFullscreenMode.immersive;
         this.fullscreenConfig = config;
-        if (config.mode === defaultFullscreenMode) {
+        if (config.mode === ThyFullscreenMode.immersive) {
             this.fullscreenChange$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(() => {
                 this.onFullscreenChange();
             });
@@ -160,7 +160,7 @@ export class ThyFullscreenService {
     }
 
     closeFullscreen() {
-        if (this.fullscreenConfig.mode === defaultFullscreenMode) {
+        if (this.fullscreenConfig.mode === ThyFullscreenMode.immersive) {
             this.exitImmersiveFullscreen();
         } else {
             this.exitNormalFullscreen();
