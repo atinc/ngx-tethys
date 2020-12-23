@@ -17,22 +17,16 @@ export class FakeFullscreenService extends ThyFullscreenService {
     }
 }
 
-describe('ThyFullscreen', () => {
+fdescribe('ThyFullscreen', () => {
     let fixture: ComponentFixture<ThyDemoFullscreenComponent>;
     let testComponent: ThyDemoFullscreenComponent;
     let fullscreenComponent;
-    let fullscreenService: ThyFullscreenService;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyFullscreenModule, FullscreenTestModule],
-            providers: [
-                {
-                    provide: ThyFullscreenService,
-                    useClass: FakeFullscreenService
-                }
-            ]
+            imports: [ThyFullscreenModule, FullscreenTestModule]
         });
+
         TestBed.compileComponents();
     }));
 
@@ -40,7 +34,7 @@ describe('ThyFullscreen', () => {
         fixture = TestBed.createComponent(ThyDemoFullscreenComponent);
         testComponent = fixture.debugElement.componentInstance;
         fullscreenComponent = fixture.debugElement.query(By.directive(ThyFullscreenComponent));
-        fullscreenService = TestBed.inject(ThyFullscreenService);
+        fullscreenComponent.componentInstance.service = new FakeFullscreenService(document);
         fixture.detectChanges();
     });
 
@@ -53,7 +47,6 @@ describe('ThyFullscreen', () => {
     });
 
     it('should call fullscreen change when click fullscreen button', fakeAsync(() => {
-        fixture.detectChanges();
         const buttonEle = fixture.debugElement.query(By.css('.fullscreen-button')).nativeElement;
         const spy = spyOn(fixture.componentInstance, 'changeFullscreen');
         // 第一次点击打开
