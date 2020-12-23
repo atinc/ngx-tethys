@@ -1,11 +1,10 @@
 import { coerceElement } from '@angular/cdk/coercion';
 import { DOCUMENT } from '@angular/common';
 import { ElementRef, Inject, Injectable, OnDestroy, OnInit } from '@angular/core';
+import { ESCAPE } from 'ngx-tethys/util';
 import { fromEvent, merge, Observable, Subject } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { takeUntil } from 'rxjs/operators';
-
-export const ESC_KEY = 'Escape';
 
 export interface ThyFullscreenConfig {
     mode: ThyFullscreenMode;
@@ -31,7 +30,7 @@ export class ThyFullscreenService {
 
     private isFullscreen$ = new BehaviorSubject<boolean>(false);
 
-    constructor(@Inject(DOCUMENT) private document: any) {
+    constructor(@Inject(DOCUMENT) protected document: any) {
         this.fullscreenChange$ = merge(
             fromEvent(this.document, 'fullscreenchange'),
             fromEvent(this.document, 'MSFullscreenChange'),
@@ -65,7 +64,7 @@ export class ThyFullscreenService {
     }
 
     private handleKeyDown(event: KeyboardEvent) {
-        if (event.key === ESC_KEY) {
+        if (event.keyCode === ESCAPE) {
             const isFullscreen = this.isFullscreen$.value;
             if (isFullscreen && this.fullscreenConfig.mode === 'normal') {
                 this.exitNormalFullscreen();
@@ -118,7 +117,7 @@ export class ThyFullscreenService {
         this.ngUnsubscribe$.complete();
     }
 
-    launchImmersiveFullscreen() {
+    protected launchImmersiveFullscreen() {
         const docElement = this.document.documentElement;
 
         if (docElement.requestFullscreen) {
@@ -132,7 +131,7 @@ export class ThyFullscreenService {
         }
     }
 
-    private exitImmersiveFullscreen() {
+    protected exitImmersiveFullscreen() {
         const doc = this.document;
         if (doc['exitFullscreen']) {
             doc['exitFullscreen']();
