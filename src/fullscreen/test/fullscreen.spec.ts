@@ -17,7 +17,7 @@ export class FakeFullscreenService extends ThyFullscreenService {
     }
 }
 
-fdescribe('ThyFullscreen', () => {
+describe('ThyFullscreen', () => {
     let fixture: ComponentFixture<ThyDemoFullscreenComponent>;
     let testComponent: ThyDemoFullscreenComponent;
     let fullscreenComponent;
