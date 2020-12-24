@@ -2,7 +2,7 @@ import { Component, OnInit, ElementRef, Renderer2, Output, EventEmitter, HostBin
 import { mimeTypeConvert } from './util';
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil, filter, map, mapTo, tap, debounceTime, auditTime, catchError, retry } from 'rxjs/operators';
-import { ThyNotifyService } from '../notify';
+import { ERROR_TYPES } from './constant';
 
 @Component({
     selector: '[thyFileDrop]',
@@ -15,7 +15,7 @@ export class ThyFileDropComponent implements OnInit, OnDestroy {
         isDragOver: false,
         isCustomClassName: false,
         acceptType: '',
-        acceptMaxSize: 200,
+        sizeThreshold: 200,
         isNeedCheckTypeAccept: false
     };
 
@@ -28,11 +28,16 @@ export class ThyFileDropComponent implements OnInit, OnDestroy {
     }
 
     @Input()
-    set thyAcceptMaxSize(value: number) {
-        this._state.acceptMaxSize = value;
+    set thySizeThreshold(value: number) {
+        this._state.sizeThreshold = value;
     }
 
     @Output() thyOnDrop = new EventEmitter();
+
+    @Output() thyOnUploadError: EventEmitter<{
+        type: string;
+        data: { files: FileList; nativeEvent: Event; acceptMaxSize?: number };
+    }> = new EventEmitter();
 
     @HostBinding('class.drop-over')
     get isDragOver() {
@@ -41,12 +46,7 @@ export class ThyFileDropComponent implements OnInit, OnDestroy {
 
     private ngUnsubscribe$ = new Subject();
 
-    constructor(
-        private elementRef: ElementRef,
-        private renderer: Renderer2,
-        private ngZone: NgZone,
-        private notifyService: ThyNotifyService
-    ) {}
+    constructor(private elementRef: ElementRef, private renderer: Renderer2, private ngZone: NgZone) {}
 
     ngOnInit(): void {
         this._state.isCustomClassName = !!this.thyFileDropClassName;
@@ -108,8 +108,21 @@ export class ThyFileDropComponent implements OnInit, OnDestroy {
                             console.error('ngx-tethys Error: Uploaded files that do not support extensions.');
                             return;
                         }
-                        if (event.dataTransfer.files[0].size / 1024 / 1024 > this._state.acceptMaxSize) {
-                            this.notifyService.warning('提示', `文件大小不能超过${this._state.acceptMaxSize}M。`);
+                        if (
+                            event.dataTransfer.files &&
+                            event.dataTransfer.files.length > 0 &&
+                            event.dataTransfer.files[0].size / 1024 / 1024 > this._state.sizeThreshold
+                        ) {
+                            this.thyOnUploadError.emit({
+                                type: ERROR_TYPES.size_limit_exceeds,
+                                data: {
+                                    files: event.dataTransfer.files,
+                                    nativeEvent: event,
+                                    acceptMaxSize: this._state.sizeThreshold
+                                }
+                            });
+                            this._backToDefaultState();
+                            this._toggleDropOverClassName();
                             return;
                         }
                         this.thyOnDrop.emit({

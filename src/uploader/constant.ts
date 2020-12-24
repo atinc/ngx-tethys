@@ -67,3 +67,7 @@ export const MIME_Map = {
     '.zip': 'application/x-zip-compressed',
     '': '*/*'
 };
+
+export const ERROR_TYPES = {
+    size_limit_exceeds: 'SiZE_LIMIT_EXCEEDS'
+};

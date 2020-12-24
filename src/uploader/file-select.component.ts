@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { coerceBooleanProperty, isArray, isString } from 'ngx-tethys/util';
 import { mimeTypeConvert } from './util';
-import { ThyNotifyService } from '../notify';
+import { ERROR_TYPES } from './constant';
 
 @Component({
     selector: '[thyFileSelect],thy-file-select',
@@ -26,9 +26,14 @@ export class ThyFileSelectComponent implements OnInit, OnDestroy {
 
     acceptType: string;
 
-    acceptMaxSize: number = 200;
+    sizeThreshold: number = 200;
 
     @Output() thyOnFileSelect = new EventEmitter();
+
+    @Output() thyOnUploadError: EventEmitter<{
+        type: string;
+        data: { files: FileList; nativeEvent: Event; acceptMaxSize?: number };
+    }> = new EventEmitter();
 
     @ViewChild('fileInput', { static: true }) fileInput: ElementRef<HTMLInputElement>;
 
@@ -58,8 +63,8 @@ export class ThyFileSelectComponent implements OnInit, OnDestroy {
     }
 
     @Input()
-    set thyAcceptMaxSize(value: number) {
-        this.acceptMaxSize = value;
+    set thySizeThreshold(value: number) {
+        this.sizeThreshold = value;
     }
 
     @HostListener('click', ['$event'])
@@ -67,7 +72,7 @@ export class ThyFileSelectComponent implements OnInit, OnDestroy {
         this.fileInput.nativeElement.click();
     }
 
-    constructor(private elementRef: ElementRef, private notifyService: ThyNotifyService) {}
+    constructor(private elementRef: ElementRef) {}
 
     _isInputTypeFile() {
         const nativeElement = this.elementRef.nativeElement;
@@ -76,11 +81,19 @@ export class ThyFileSelectComponent implements OnInit, OnDestroy {
 
     selectFile($event: Event) {
         const files = this.fileInput.nativeElement.files;
-        if (files[0].size / 1024 / 1024 > this.acceptMaxSize) {
-            this.notifyService.warning('提示', `文件大小不能超过${this.acceptMaxSize}M。`);
-            return;
-        }
         if (files && files.length > 0) {
+            if (files[0].size / 1024 / 1024 > this.sizeThreshold) {
+                this.thyOnUploadError.emit({
+                    type: ERROR_TYPES.size_limit_exceeds,
+                    data: {
+                        files: files,
+                        nativeEvent: $event,
+                        acceptMaxSize: this.sizeThreshold
+                    }
+                });
+                this.fileInput.nativeElement.value = '';
+                return;
+            }
             this.thyOnFileSelect.emit({
                 files: files,
                 nativeEvent: $event
