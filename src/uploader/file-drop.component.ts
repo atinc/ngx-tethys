@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef, Renderer2, Output, EventEmitter, HostBin
 import { mimeTypeConvert } from './util';
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil, filter, map, mapTo, tap, debounceTime, auditTime, catchError, retry } from 'rxjs/operators';
+import { ThyNotifyService } from '../notify';
 
 @Component({
     selector: '[thyFileDrop]',
@@ -14,6 +15,7 @@ export class ThyFileDropComponent implements OnInit, OnDestroy {
         isDragOver: false,
         isCustomClassName: false,
         acceptType: '',
+        acceptMaxSize: 200,
         isNeedCheckTypeAccept: false
     };
 
@@ -25,6 +27,11 @@ export class ThyFileDropComponent implements OnInit, OnDestroy {
         this._state.isNeedCheckTypeAccept = !!value;
     }
 
+    @Input()
+    set thyAcceptMaxSize(value: number) {
+        this._state.acceptMaxSize = value;
+    }
+
     @Output() thyOnDrop = new EventEmitter();
 
     @HostBinding('class.drop-over')
@@ -34,7 +41,12 @@ export class ThyFileDropComponent implements OnInit, OnDestroy {
 
     private ngUnsubscribe$ = new Subject();
 
-    constructor(private elementRef: ElementRef, private renderer: Renderer2, private ngZone: NgZone) {}
+    constructor(
+        private elementRef: ElementRef,
+        private renderer: Renderer2,
+        private ngZone: NgZone,
+        private notifyService: ThyNotifyService
+    ) {}
 
     ngOnInit(): void {
         this._state.isCustomClassName = !!this.thyFileDropClassName;
@@ -96,7 +108,10 @@ export class ThyFileDropComponent implements OnInit, OnDestroy {
                             console.error('ngx-tethys Error: Uploaded files that do not support extensions.');
                             return;
                         }
-
+                        if (event.dataTransfer.files[0].size / 1024 / 1024 > this._state.acceptMaxSize) {
+                            this.notifyService.warning('提示', `文件大小不能超过${this._state.acceptMaxSize}M。`);
+                            return;
+                        }
                         this.thyOnDrop.emit({
                             files: event.dataTransfer.files,
                             nativeEvent: event

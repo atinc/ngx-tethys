@@ -1,4 +1,5 @@
-<thy-file-select class="mt-2 d-inline-block" (thyOnFileSelect)="selectFiles($event)">
+<p>限制上传文件大小为20M</p>
+<thy-file-select class="mt-2 d-inline-block" [thyAcceptMaxSize]="20" (thyOnFileSelect)="selectFiles($event)">
   <button thyButton="primary">上传</button>
 </thy-file-select>
 <div *ngFor="let queueFile of queueFiles">

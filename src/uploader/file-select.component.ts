@@ -13,6 +13,7 @@ import {
 } from '@angular/core';
 import { coerceBooleanProperty, isArray, isString } from 'ngx-tethys/util';
 import { mimeTypeConvert } from './util';
+import { ThyNotifyService } from '../notify';
 
 @Component({
     selector: '[thyFileSelect],thy-file-select',
@@ -24,6 +25,8 @@ export class ThyFileSelectComponent implements OnInit, OnDestroy {
     _acceptFolder: boolean;
 
     acceptType: string;
+
+    acceptMaxSize: number = 200;
 
     @Output() thyOnFileSelect = new EventEmitter();
 
@@ -54,12 +57,17 @@ export class ThyFileSelectComponent implements OnInit, OnDestroy {
         this.acceptType = mimeTypeConvert(value);
     }
 
+    @Input()
+    set thyAcceptMaxSize(value: number) {
+        this.acceptMaxSize = value;
+    }
+
     @HostListener('click', ['$event'])
     click($event: any) {
         this.fileInput.nativeElement.click();
     }
 
-    constructor(private elementRef: ElementRef) {}
+    constructor(private elementRef: ElementRef, private notifyService: ThyNotifyService) {}
 
     _isInputTypeFile() {
         const nativeElement = this.elementRef.nativeElement;
@@ -68,6 +76,10 @@ export class ThyFileSelectComponent implements OnInit, OnDestroy {
 
     selectFile($event: Event) {
         const files = this.fileInput.nativeElement.files;
+        if (files[0].size / 1024 / 1024 > this.acceptMaxSize) {
+            this.notifyService.warning('提示', `文件大小不能超过${this.acceptMaxSize}M。`);
+            return;
+        }
         if (files && files.length > 0) {
             this.thyOnFileSelect.emit({
                 files: files,
