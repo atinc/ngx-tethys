@@ -14,8 +14,9 @@ import {
 import { mimeTypeConvert } from './util';
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil, filter, map, mapTo, tap, debounceTime, auditTime, catchError, retry } from 'rxjs/operators';
-import { ERROR_TYPES } from './constant';
+import { ErrorData } from './constant';
 import { THY_UPLOADER_DEFAULT_OPTIONS, ThyUploaderConfig } from './uploader.config';
+import { UploaderBase } from './uploader-base';
 
 @Component({
     selector: '[thyFileDrop]',
@@ -23,12 +24,11 @@ import { THY_UPLOADER_DEFAULT_OPTIONS, ThyUploaderConfig } from './uploader.conf
         <ng-content></ng-content>
     `
 })
-export class ThyFileDropComponent implements OnInit, OnDestroy {
+export class ThyFileDropComponent extends UploaderBase implements OnInit, OnDestroy {
     _state = {
         isDragOver: false,
         isCustomClassName: false,
         acceptType: '',
-        sizeThreshold: 200,
         isNeedCheckTypeAccept: false
     };
 
@@ -43,15 +43,12 @@ export class ThyFileDropComponent implements OnInit, OnDestroy {
     @Input() thySizeThreshold: number;
 
     get sizeThreshold() {
-        return this.thySizeThreshold ? this.thySizeThreshold : this.defaultConfig.sizeThreshold;
+        return this.thySizeThreshold ? this.thySizeThreshold : this.defaultConfig.thySizeThreshold;
     }
 
-    @Output() thyOnDrop = new EventEmitter();
+    @Input() thySizeExceedsHandler: (errorData: ErrorData) => {};
 
-    @Output() thyOnUploadError: EventEmitter<{
-        type: string;
-        data: { files: FileList; nativeEvent: Event; sizeThreshold?: number };
-    }> = new EventEmitter();
+    @Output() thyOnDrop = new EventEmitter();
 
     @HostBinding('class.drop-over')
     get isDragOver() {
@@ -61,11 +58,13 @@ export class ThyFileDropComponent implements OnInit, OnDestroy {
     private ngUnsubscribe$ = new Subject();
 
     constructor(
-        private elementRef: ElementRef,
-        private renderer: Renderer2,
-        private ngZone: NgZone,
-        @Inject(THY_UPLOADER_DEFAULT_OPTIONS) private defaultConfig: ThyUploaderConfig
-    ) {}
+        public elementRef: ElementRef,
+        public renderer: Renderer2,
+        public ngZone: NgZone,
+        @Inject(THY_UPLOADER_DEFAULT_OPTIONS) public defaultConfig: ThyUploaderConfig
+    ) {
+        super(elementRef, defaultConfig);
+    }
 
     ngOnInit(): void {
         this._state.isCustomClassName = !!this.thyFileDropClassName;
@@ -127,34 +126,23 @@ export class ThyFileDropComponent implements OnInit, OnDestroy {
                             console.error('ngx-tethys Error: Uploaded files that do not support extensions.');
                             return;
                         }
-                        if (
-                            event.dataTransfer.files &&
-                            event.dataTransfer.files.length > 0 &&
-                            event.dataTransfer.files[0].size / 1024 / 1024 > this.sizeThreshold
-                        ) {
-                            const errorData = {
-                                type: ERROR_TYPES.size_limit_exceeds,
-                                data: {
-                                    files: event.dataTransfer.files,
-                                    nativeEvent: event,
-                                    sizeThreshold: this.sizeThreshold
-                                }
-                            };
-                            if (this.thyOnUploadError.observers.length > 0) {
-                                this.thyOnUploadError.emit(errorData);
-                            } else {
-                                this.defaultConfig.onUploadError(errorData);
+                        if (event.dataTransfer.files && event.dataTransfer.files.length > 0) {
+                            let uploadFiles = Array.from(event.dataTransfer.files);
+                            if (!!this.sizeThreshold) {
+                                uploadFiles = this.handleSizeExceeds(
+                                    { sizeThreshold: this.sizeThreshold, files: event.dataTransfer.files, event: event },
+                                    this.thySizeExceedsHandler
+                                );
+                            }
+                            if (uploadFiles.length > 0) {
+                                this.thyOnDrop.emit({
+                                    files: uploadFiles,
+                                    nativeEvent: event
+                                });
                             }
                             this._backToDefaultState();
                             this._toggleDropOverClassName();
-                            return;
                         }
-                        this.thyOnDrop.emit({
-                            files: event.dataTransfer.files,
-                            nativeEvent: event
-                        });
-                        this._backToDefaultState();
-                        this._toggleDropOverClassName();
                     });
                 });
         });

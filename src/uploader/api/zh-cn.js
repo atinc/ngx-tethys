@@ -11,10 +11,10 @@ module.exports = [
                 default: '$event: { files: File[], nativeEvent: Event}'
             },
             {
-                name: 'thyOnUploadError',
-                description: '文件上传错误处理事件,错误类型（ERROR_TYPES）,‘SiZE_LIMIT_EXCEEDS’表示超出文件大小限制',
-                type: 'EventEmitter',
-                default: '$event:{type: "" , data: {files: File[], nativeEvent: Event } '
+                name: 'thySizeExceedsHandler',
+                description: '文件上传超出限制处理事件,type:‘SiZE_LIMIT_EXCEEDS’表示超出文件大小限制',
+                type: '(data: ErrorData)=>{}',
+                default: ''
             },
             {
                 name: 'thyMultiple',
@@ -30,9 +30,9 @@ module.exports = [
             },
             {
                 name: 'thySizeThreshold',
-                description: '文件上传大小限制',
+                description: '文件上传大小限制,单位kb，默认为0，表示没有任何限制',
                 type: 'number',
-                default: '200M'
+                default: '0'
             }
         ]
     }
