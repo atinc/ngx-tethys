@@ -33,25 +33,26 @@ describe('Store: EntityStore with refs', () => {
 
     interface TasksState extends EntityState<TaskInfo, TaskReferences> {}
 
-    class TasksStore extends EntityStore<TasksState, TaskInfo, TaskReferences>
-        implements OnCombineRefs<TaskInfo, TaskReferences> {
+    class TasksStore extends EntityStore<TasksState, TaskInfo, TaskReferences> implements OnCombineRefs<TaskInfo, TaskReferences> {
         constructor(initialState?: TasksState, options?: EntityStoreOptions<TaskInfo, TaskReferences>) {
             super(initialState, options);
         }
 
-        onCombineRefs(
-            entity: TaskInfo,
-            referencesIdMap: ReferencesIdDictionary<TaskReferences>,
-            references: TaskReferences
-        ) {
+        onCombineRefs(entity: TaskInfo, referencesIdMap: ReferencesIdDictionary<TaskReferences>, references: TaskReferences) {
             entity.refs.group = referencesIdMap.groups[entity.group_id];
             entity.refs.created_by = referencesIdMap.users[entity.created_by];
         }
     }
 
-    const initialUsers: UserInfo[] = [{ uid: '1', name: 'user 1' }, { uid: '2', name: 'user 2' }];
+    const initialUsers: UserInfo[] = [
+        { uid: '1', name: 'user 1' },
+        { uid: '2', name: 'user 2' }
+    ];
 
-    const initialGroups: GroupInfo[] = [{ _id: 'group-1', name: 'group 1' }, { _id: 'group-2', name: 'group 2' }];
+    const initialGroups: GroupInfo[] = [
+        { _id: 'group-1', name: 'group 1' },
+        { _id: 'group-2', name: 'group 2' }
+    ];
 
     const initialTasks: TaskInfo[] = [
         { _id: 'task-1', title: 'task 1', group_id: 'group-1', created_by: '1' },

@@ -14,7 +14,10 @@ describe('Store: EntityStore', () => {
         }
     }
 
-    const initialTasks = [{ _id: '1', name: 'task 1' }, { _id: '2', name: 'task 2' }];
+    const initialTasks = [
+        { _id: '1', name: 'task 1' },
+        { _id: '2', name: 'task 2' }
+    ];
 
     interface UserInfo {
         uid?: string;
@@ -31,7 +34,10 @@ describe('Store: EntityStore', () => {
         }
     }
 
-    const initialUsers = [{ uid: 'user-1', name: 'user name-1' }, { uid: 'user-2', name: 'user name-2' }];
+    const initialUsers = [
+        { uid: 'user-1', name: 'user name-1' },
+        { uid: 'user-2', name: 'user name-2' }
+    ];
 
     it('should get store default value', () => {
         const taskEntityStore = new TasksEntityStore();
@@ -50,7 +56,10 @@ describe('Store: EntityStore', () => {
             pageCount: 20
         });
         const state = taskEntityStore.snapshot;
-        expect(state.entities).toEqual([{ _id: '1', name: 'task 1' }, { _id: '2', name: 'task 2' }]);
+        expect(state.entities).toEqual([
+            { _id: '1', name: 'task 1' },
+            { _id: '2', name: 'task 2' }
+        ]);
         expect(state.pagination).toEqual({
             pageIndex: 2,
             pageSize: 20,
