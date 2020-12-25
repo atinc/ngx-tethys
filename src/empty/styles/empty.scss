@@ -36,6 +36,12 @@
         }
     }
 
+    .thy-empty-description {
+        color: $empty-description-color;
+        font-size: $empty-description-size;
+        margin-top: $empty-description-margin-top;
+    }
+
     @include set-empty-state-style($empty-text-size, $empty-text-margin-top, $empty-svg-width, $empty-svg-height);
 
     &--lg {

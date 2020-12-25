@@ -76,6 +76,12 @@ module.exports = [
                 description: `除提示图片，文本外的其他信息传入模版`,
                 type: 'templateRef',
                 default: ''
+            },
+            {
+                name: 'thyDescription',
+                description: `显示文本描述`,
+                type: 'string',
+                default: ''
             }
         ]
     }

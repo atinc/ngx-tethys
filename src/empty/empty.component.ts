@@ -34,7 +34,7 @@ const sizeMap: any = {
     },
     sm: {
         height: 78,
-        offsetTop: 20,
+        offsetTop: 10,
         defaultMarginTop: 10
     }
 };
@@ -78,6 +78,8 @@ export class ThyEmptyComponent implements OnInit, AfterViewInit {
 
     @Input() thyImageUrl: string;
 
+    @Input() thyDescription: string;
+
     @ContentChild('extra') extraTemplateRef: TemplateRef<any>;
 
     get displayText() {
@@ -111,8 +113,8 @@ export class ThyEmptyComponent implements OnInit, AfterViewInit {
             if (emptyStateHeight <= 10) {
                 emptyStateHeight = sizeOptions.height;
             }
-            // marginTop = (containerElement.offsetHeight - emptyStateHeight) / 2 - sizeOptions.offsetTop;
-            marginTop = (containerElement.offsetHeight - emptyStateHeight) / 2;
+            marginTop = (containerElement.offsetHeight - emptyStateHeight) / 2 - sizeOptions.offsetTop;
+            // marginTop = (containerElement.offsetHeight - emptyStateHeight) / 2;
             if (marginTop < 0) {
                 marginTop = 0; // sizeOptions.defaultMarginTop;
             }
