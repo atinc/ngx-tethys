@@ -68,6 +68,6 @@ export const MIME_Map = {
     '': '*/*'
 };
 
-export const ERROR_TYPES = {
-    size_limit_exceeds: 'SiZE_LIMIT_EXCEEDS'
-};
+export enum ERROR_TYPES {
+    size_limit_exceeds = 'SiZE_LIMIT_EXCEEDS'
+}

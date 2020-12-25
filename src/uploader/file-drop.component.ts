@@ -137,7 +137,7 @@ export class ThyFileDropComponent implements OnInit, OnDestroy {
                                 data: {
                                     files: event.dataTransfer.files,
                                     nativeEvent: event,
-                                    acceptMaxSize: this.sizeThreshold
+                                    sizeThreshold: this.sizeThreshold
                                 }
                             };
                             if (this.thyOnUploadError.observers.length > 0) {

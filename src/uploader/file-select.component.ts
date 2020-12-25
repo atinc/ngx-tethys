@@ -30,7 +30,7 @@ export class ThyFileSelectComponent implements OnInit, OnDestroy {
     @Output() thyOnFileSelect = new EventEmitter();
 
     @Output() thyOnUploadError: EventEmitter<{
-        type: string;
+        type: ERROR_TYPES;
         data: { files: FileList; nativeEvent: Event; acceptMaxSize?: number };
     }> = new EventEmitter();
 
@@ -88,7 +88,7 @@ export class ThyFileSelectComponent implements OnInit, OnDestroy {
                     data: {
                         files: files,
                         nativeEvent: $event,
-                        acceptMaxSize: this.sizeThreshold
+                        sizeThreshold: this.sizeThreshold
                     }
                 };
                 if (this.thyOnUploadError.observers.length > 0) {
