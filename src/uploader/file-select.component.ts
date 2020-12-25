@@ -14,6 +14,7 @@ import {
 import { coerceBooleanProperty, isArray, isString } from 'ngx-tethys/util';
 import { mimeTypeConvert } from './util';
 import { ERROR_TYPES } from './constant';
+import { THY_UPLOADER_DEFAULT_OPTIONS, ThyUploaderConfig } from './uploader.config';
 
 @Component({
     selector: '[thyFileSelect],thy-file-select',
@@ -25,8 +26,6 @@ export class ThyFileSelectComponent implements OnInit, OnDestroy {
     _acceptFolder: boolean;
 
     acceptType: string;
-
-    sizeThreshold: number = 200;
 
     @Output() thyOnFileSelect = new EventEmitter();
 
@@ -62,9 +61,10 @@ export class ThyFileSelectComponent implements OnInit, OnDestroy {
         this.acceptType = mimeTypeConvert(value);
     }
 
-    @Input()
-    set thySizeThreshold(value: number) {
-        this.sizeThreshold = value;
+    @Input() thySizeThreshold: number;
+
+    get sizeThreshold() {
+        return this.thySizeThreshold ? this.thySizeThreshold : this.defaultConfig.sizeThreshold;
     }
 
     @HostListener('click', ['$event'])
@@ -72,7 +72,7 @@ export class ThyFileSelectComponent implements OnInit, OnDestroy {
         this.fileInput.nativeElement.click();
     }
 
-    constructor(private elementRef: ElementRef) {}
+    constructor(private elementRef: ElementRef, @Inject(THY_UPLOADER_DEFAULT_OPTIONS) private defaultConfig: ThyUploaderConfig) {}
 
     _isInputTypeFile() {
         const nativeElement = this.elementRef.nativeElement;
@@ -83,14 +83,19 @@ export class ThyFileSelectComponent implements OnInit, OnDestroy {
         const files = this.fileInput.nativeElement.files;
         if (files && files.length > 0) {
             if (files[0].size / 1024 / 1024 > this.sizeThreshold) {
-                this.thyOnUploadError.emit({
+                const errorData = {
                     type: ERROR_TYPES.size_limit_exceeds,
                     data: {
                         files: files,
                         nativeEvent: $event,
                         acceptMaxSize: this.sizeThreshold
                     }
-                });
+                };
+                if (this.thyOnUploadError.observers.length > 0) {
+                    this.thyOnUploadError.emit(errorData);
+                } else {
+                    this.defaultConfig.onUploadError(errorData);
+                }
                 this.fileInput.nativeElement.value = '';
                 return;
             }

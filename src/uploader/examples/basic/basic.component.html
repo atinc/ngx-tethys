@@ -1,7 +1,7 @@
 <p>限制上传文件大小为20M</p>
 <thy-file-select
   class="mt-2 d-inline-block"
-  [thySizeThreshold]="20"
+  [thySizeThreshold]="200"
   (thyOnUploadError)="uploadError($event)"
   (thyOnFileSelect)="selectFiles($event)"
 >

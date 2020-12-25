@@ -1,8 +1,21 @@
-import { Component, OnInit, ElementRef, Renderer2, Output, EventEmitter, HostBinding, Input, NgZone, OnDestroy } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    ElementRef,
+    Renderer2,
+    Output,
+    EventEmitter,
+    HostBinding,
+    Input,
+    NgZone,
+    OnDestroy,
+    Inject
+} from '@angular/core';
 import { mimeTypeConvert } from './util';
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil, filter, map, mapTo, tap, debounceTime, auditTime, catchError, retry } from 'rxjs/operators';
 import { ERROR_TYPES } from './constant';
+import { THY_UPLOADER_DEFAULT_OPTIONS, ThyUploaderConfig } from './uploader.config';
 
 @Component({
     selector: '[thyFileDrop]',
@@ -27,9 +40,10 @@ export class ThyFileDropComponent implements OnInit, OnDestroy {
         this._state.isNeedCheckTypeAccept = !!value;
     }
 
-    @Input()
-    set thySizeThreshold(value: number) {
-        this._state.sizeThreshold = value;
+    @Input() thySizeThreshold: number;
+
+    get sizeThreshold() {
+        return this.thySizeThreshold ? this.thySizeThreshold : this.defaultConfig.sizeThreshold;
     }
 
     @Output() thyOnDrop = new EventEmitter();
@@ -46,7 +60,12 @@ export class ThyFileDropComponent implements OnInit, OnDestroy {
 
     private ngUnsubscribe$ = new Subject();
 
-    constructor(private elementRef: ElementRef, private renderer: Renderer2, private ngZone: NgZone) {}
+    constructor(
+        private elementRef: ElementRef,
+        private renderer: Renderer2,
+        private ngZone: NgZone,
+        @Inject(THY_UPLOADER_DEFAULT_OPTIONS) private defaultConfig: ThyUploaderConfig
+    ) {}
 
     ngOnInit(): void {
         this._state.isCustomClassName = !!this.thyFileDropClassName;
@@ -111,16 +130,21 @@ export class ThyFileDropComponent implements OnInit, OnDestroy {
                         if (
                             event.dataTransfer.files &&
                             event.dataTransfer.files.length > 0 &&
-                            event.dataTransfer.files[0].size / 1024 / 1024 > this._state.sizeThreshold
+                            event.dataTransfer.files[0].size / 1024 / 1024 > this.sizeThreshold
                         ) {
-                            this.thyOnUploadError.emit({
+                            const errorData = {
                                 type: ERROR_TYPES.size_limit_exceeds,
                                 data: {
                                     files: event.dataTransfer.files,
                                     nativeEvent: event,
-                                    acceptMaxSize: this._state.sizeThreshold
+                                    acceptMaxSize: this.sizeThreshold
                                 }
-                            });
+                            };
+                            if (this.thyOnUploadError.observers.length > 0) {
+                                this.thyOnUploadError.emit(errorData);
+                            } else {
+                                this.defaultConfig.onUploadError(errorData);
+                            }
                             this._backToDefaultState();
                             this._toggleDropOverClassName();
                             return;
