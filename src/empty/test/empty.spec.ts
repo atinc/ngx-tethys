@@ -89,7 +89,7 @@ describe('EmptyComponent', () => {
         componentInstance.thyMessage = '';
         fixture.detectChanges();
         const empty = fixture.debugElement.query(By.directive(ThyEmptyComponent));
-        expect(empty.nativeElement.querySelector('.thy-empty-text-with-extra').textContent).toContain('暂无活动');
+        expect(empty.nativeElement.querySelector('.thy-empty-text').textContent).toContain('暂无活动');
     });
 
     it('should should entity name', () => {
@@ -97,7 +97,7 @@ describe('EmptyComponent', () => {
         componentInstance.thyTranslationKey = '';
         fixture.detectChanges();
         const empty = fixture.debugElement.query(By.directive(ThyEmptyComponent));
-        expect(empty.nativeElement.querySelector('.thy-empty-text-with-extra').textContent).toContain('common.tips.NO_RESULT_TARGET');
+        expect(empty.nativeElement.querySelector('.thy-empty-text').textContent).toContain('common.tips.NO_RESULT_TARGET');
     });
 
     it('should should entity name translateKey', () => {
@@ -106,7 +106,7 @@ describe('EmptyComponent', () => {
         componentInstance.thyEntityName = '';
         fixture.detectChanges();
         const empty = fixture.debugElement.query(By.directive(ThyEmptyComponent));
-        expect(empty.nativeElement.querySelector('.thy-empty-text-with-extra').textContent).toContain('common.tips.NO_RESULT_TARGET');
+        expect(empty.nativeElement.querySelector('.thy-empty-text').textContent).toContain('common.tips.NO_RESULT_TARGET');
     });
 
     it('should should no result translateKey', () => {
@@ -116,6 +116,6 @@ describe('EmptyComponent', () => {
         componentInstance.thyEntityNameTranslateKey = '';
         fixture.detectChanges();
         const empty = fixture.debugElement.query(By.directive(ThyEmptyComponent));
-        expect(empty.nativeElement.querySelector('.thy-empty-text-with-extra').textContent).toContain('common.tips.NO_RESULT');
+        expect(empty.nativeElement.querySelector('.thy-empty-text').textContent).toContain('common.tips.NO_RESULT');
     });
 });

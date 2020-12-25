@@ -78,8 +78,12 @@
   </ng-template>
 </div>
 
-<div [ngClass]="{ 'thy-empty-text': !extraTemplateRef, 'thy-empty-text-with-extra': extraTemplateRef }">
+<div [ngClass]="{ 'thy-empty-text': !thyDescription, 'thy-empty-text-with-extra': thyDescription }">
   {{ displayText }}
+</div>
+
+<div class="thy-empty-description" *ngIf="thyDescription">
+  {{ thyDescription }}
 </div>
 
 <div class="thy-empty-extra" *ngIf="extraTemplateRef">
