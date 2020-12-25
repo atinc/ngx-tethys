@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.0.12"></a>
+## [9.0.12](https://github.com/atinc/ngx-tethys/compare/9.0.11...9.0.12) (2020-12-25)
+
+
+### Bug Fixes
+
+* **calendar:** #AE-3898 发布计划——版本名称太长时hover穿透 ([#1070](https://github.com/atinc/ngx-tethys/issues/1070)) ([7aaf09b](https://github.com/atinc/ngx-tethys/commit/7aaf09b)), closes [#AE-3898](https://github.com/atinc/ngx-tethys/issues/AE-3898)
+* **empty:** fix empty component vertical middle ([#1068](https://github.com/atinc/ngx-tethys/issues/1068)) ([3160a00](https://github.com/atinc/ngx-tethys/commit/3160a00))
+* **empty:** fix empty massage color #AE-3882 ([#1071](https://github.com/atinc/ngx-tethys/issues/1071)) ([a30488d](https://github.com/atinc/ngx-tethys/commit/a30488d)), closes [#AE-3882](https://github.com/atinc/ngx-tethys/issues/AE-3882) [#AE-3882](https://github.com/atinc/ngx-tethys/issues/AE-3882)
+
+
+### Features
+
+* **select:** select empty style #INFR-1417 ([d7c96ce](https://github.com/atinc/ngx-tethys/commit/d7c96ce)), closes [#INFR-1417](https://github.com/atinc/ngx-tethys/issues/INFR-1417)
+* **select:** support thyHasBackdrop #INFR-1421 ([#1064](https://github.com/atinc/ngx-tethys/issues/1064)) ([74296f6](https://github.com/atinc/ngx-tethys/commit/74296f6)), closes [#INFR-1421](https://github.com/atinc/ngx-tethys/issues/INFR-1421) [#INFR-1421](https://github.com/atinc/ngx-tethys/issues/INFR-1421)
+
+
+
 <a name="9.0.11"></a>
 ## [9.0.11](https://github.com/atinc/ngx-tethys/compare/9.0.10...9.0.11) (2020-12-19)
 
