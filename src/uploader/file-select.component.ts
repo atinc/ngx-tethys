@@ -13,15 +13,15 @@ import {
 } from '@angular/core';
 import { coerceBooleanProperty, isArray, isString } from 'ngx-tethys/util';
 import { mimeTypeConvert } from './util';
-import { ThyFileSizeExceedsContext } from './types';
+import { ThySizeExceedsHandler } from './types';
 import { THY_UPLOADER_DEFAULT_OPTIONS, ThyUploaderConfig } from './uploader.config';
-import { UploaderBase } from './uploader-base';
+import { FileSelectBaseComponent } from './file-select-base';
 
 @Component({
     selector: '[thyFileSelect],thy-file-select',
     templateUrl: './file-select.component.html'
 })
-export class ThyFileSelectComponent extends UploaderBase implements OnInit, OnDestroy {
+export class ThyFileSelectComponent extends FileSelectBaseComponent implements OnInit, OnDestroy {
     _multiple: boolean;
 
     _acceptFolder: boolean;
@@ -32,7 +32,7 @@ export class ThyFileSelectComponent extends UploaderBase implements OnInit, OnDe
 
     @ViewChild('fileInput', { static: true }) fileInput: ElementRef<HTMLInputElement>;
 
-    @Input() thySizeExceedsHandler: (data: ThyFileSizeExceedsContext) => {};
+    @Input() thySizeExceedsHandler: ThySizeExceedsHandler;
 
     @Input()
     set thyMultiple(value: boolean) {
@@ -62,7 +62,7 @@ export class ThyFileSelectComponent extends UploaderBase implements OnInit, OnDe
     @Input() thySizeThreshold: number;
 
     get sizeThreshold() {
-        return this.thySizeThreshold ? this.thySizeThreshold : this.defaultConfig.thySizeThreshold;
+        return this.thySizeThreshold !== undefined ? this.thySizeThreshold : this.defaultConfig.thySizeThreshold;
     }
 
     @HostListener('click', ['$event'])

@@ -2,7 +2,7 @@ import { Inject, ElementRef, Renderer2, NgZone } from '@angular/core';
 import { THY_UPLOADER_DEFAULT_OPTIONS, ThyUploaderConfig } from './uploader.config';
 import { ThyFileSizeExceedsContext } from './types';
 
-export abstract class UploaderBase {
+export abstract class FileSelectBaseComponent {
     constructor(
         public elementRef: ElementRef,
         @Inject(THY_UPLOADER_DEFAULT_OPTIONS) public defaultConfig: ThyUploaderConfig,

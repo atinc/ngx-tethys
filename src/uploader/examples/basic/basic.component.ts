@@ -39,9 +39,9 @@ export class ThyUploaderBasicExampleComponent {
             );
     }
 
-    sizeExceedsHandler = (event: { type: string; data: { files: FileList; nativeEvent: Event; sizeThreshold: number } }) => {
-        if (event.type === 'SIZE_LIMIT_EXCEEDS') {
-            this.notifyService.warning('提示', `不支持上传${event.data.sizeThreshold / 1024}M以上附件。`);
+    sizeExceedsHandler = (event: { files: File[]; exceedsFiles: File[]; nativeEvent: Event; sizeThreshold: number }) => {
+        if (event.exceedsFiles.length > 0) {
+            this.notifyService.warning('提示', `不支持上传${event.sizeThreshold / 1024}M以上附件。`);
         }
     };
 }

@@ -14,9 +14,9 @@ import {
 import { mimeTypeConvert } from './util';
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil, filter, map, mapTo, tap, debounceTime, auditTime, catchError, retry } from 'rxjs/operators';
-import { ThyFileSizeExceedsContext } from './types';
+import { ThySizeExceedsHandler } from './types';
 import { THY_UPLOADER_DEFAULT_OPTIONS, ThyUploaderConfig } from './uploader.config';
-import { UploaderBase } from './uploader-base';
+import { FileSelectBaseComponent } from './file-select-base';
 
 @Component({
     selector: '[thyFileDrop]',
@@ -24,7 +24,7 @@ import { UploaderBase } from './uploader-base';
         <ng-content></ng-content>
     `
 })
-export class ThyFileDropComponent extends UploaderBase implements OnInit, OnDestroy {
+export class ThyFileDropComponent extends FileSelectBaseComponent implements OnInit, OnDestroy {
     _state = {
         isDragOver: false,
         isCustomClassName: false,
@@ -43,10 +43,10 @@ export class ThyFileDropComponent extends UploaderBase implements OnInit, OnDest
     @Input() thySizeThreshold: number;
 
     get sizeThreshold() {
-        return this.thySizeThreshold ? this.thySizeThreshold : this.defaultConfig.thySizeThreshold;
+        return this.thySizeThreshold !== undefined ? this.thySizeThreshold : this.defaultConfig.thySizeThreshold;
     }
 
-    @Input() thySizeExceedsHandler: (data: ThyFileSizeExceedsContext) => {};
+    @Input() thySizeExceedsHandler: ThySizeExceedsHandler;
 
     @Output() thyOnDrop = new EventEmitter();
 

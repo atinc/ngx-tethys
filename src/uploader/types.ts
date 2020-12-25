@@ -4,3 +4,5 @@ export interface ThyFileSizeExceedsContext {
     nativeEvent?: Event;
     sizeThreshold?: number;
 }
+
+export type ThySizeExceedsHandler = (data: ThyFileSizeExceedsContext) => File[] | undefined;

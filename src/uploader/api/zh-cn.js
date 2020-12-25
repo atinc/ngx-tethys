@@ -12,8 +12,8 @@ module.exports = [
             },
             {
                 name: 'thySizeExceedsHandler',
-                description: '文件上传超出限制处理事件,type:‘SiZE_LIMIT_EXCEEDS’表示超出文件大小限制',
-                type: '(data: ErrorData)=>{}',
+                description: '文件上传超出限制处理事件',
+                type: '(data: ThyFileSizeExceedsContext)=>{}',
                 default: ''
             },
             {
@@ -32,7 +32,7 @@ module.exports = [
                 name: 'thySizeThreshold',
                 description: '文件上传大小限制,单位kb，默认为0，表示没有任何限制',
                 type: 'number',
-                default: '0'
+                default: 0
             }
         ]
     }
