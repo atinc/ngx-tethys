@@ -50,7 +50,7 @@ export class ThyFileDropComponent implements OnInit, OnDestroy {
 
     @Output() thyOnUploadError: EventEmitter<{
         type: string;
-        data: { files: FileList; nativeEvent: Event; acceptMaxSize?: number };
+        data: { files: FileList; nativeEvent: Event; sizeThreshold?: number };
     }> = new EventEmitter();
 
     @HostBinding('class.drop-over')

@@ -31,7 +31,7 @@ export class ThyFileSelectComponent implements OnInit, OnDestroy {
 
     @Output() thyOnUploadError: EventEmitter<{
         type: ERROR_TYPES;
-        data: { files: FileList; nativeEvent: Event; acceptMaxSize?: number };
+        data: { files: FileList; nativeEvent: Event; sizeThreshold?: number };
     }> = new EventEmitter();
 
     @ViewChild('fileInput', { static: true }) fileInput: ElementRef<HTMLInputElement>;
