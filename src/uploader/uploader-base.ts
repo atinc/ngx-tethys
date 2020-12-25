@@ -1,6 +1,6 @@
-import { ERROR_TYPES, ErrorData } from './constant';
 import { Inject, ElementRef, Renderer2, NgZone } from '@angular/core';
 import { THY_UPLOADER_DEFAULT_OPTIONS, ThyUploaderConfig } from './uploader.config';
+import { ThyFileSizeExceedsContext } from './types';
 
 export abstract class UploaderBase {
     constructor(
@@ -12,17 +12,15 @@ export abstract class UploaderBase {
 
     handleSizeExceeds(
         data: { sizeThreshold: number; files: File[]; event: Event },
-        thySizeExceedsHandler?: (sizeExceedData: ErrorData) => {}
+        thySizeExceedsHandler?: (sizeExceedData: ThyFileSizeExceedsContext) => {}
     ) {
         let filterFile = Array.from(data.files).filter(item => item.size / 1024 <= data.sizeThreshold);
         if (filterFile.length < data.files.length) {
             const sizeExceedData = {
-                type: ERROR_TYPES.size_limit_exceeds,
-                data: {
-                    exceedsFiles: Array.from(data.files).filter(item => item.size / 1024 > data.sizeThreshold),
-                    nativeEvent: data.event,
-                    sizeThreshold: data.sizeThreshold
-                }
+                files: Array.from(data.files),
+                exceedsFiles: Array.from(data.files).filter(item => item.size / 1024 > data.sizeThreshold),
+                nativeEvent: data.event,
+                sizeThreshold: data.sizeThreshold
             };
             if (thySizeExceedsHandler) {
                 thySizeExceedsHandler(sizeExceedData);

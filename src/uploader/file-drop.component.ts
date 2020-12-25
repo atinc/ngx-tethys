@@ -14,7 +14,7 @@ import {
 import { mimeTypeConvert } from './util';
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil, filter, map, mapTo, tap, debounceTime, auditTime, catchError, retry } from 'rxjs/operators';
-import { ErrorData } from './constant';
+import { ThyFileSizeExceedsContext } from './types';
 import { THY_UPLOADER_DEFAULT_OPTIONS, ThyUploaderConfig } from './uploader.config';
 import { UploaderBase } from './uploader-base';
 
@@ -46,7 +46,7 @@ export class ThyFileDropComponent extends UploaderBase implements OnInit, OnDest
         return this.thySizeThreshold ? this.thySizeThreshold : this.defaultConfig.thySizeThreshold;
     }
 
-    @Input() thySizeExceedsHandler: (errorData: ErrorData) => {};
+    @Input() thySizeExceedsHandler: (data: ThyFileSizeExceedsContext) => {};
 
     @Output() thyOnDrop = new EventEmitter();
 

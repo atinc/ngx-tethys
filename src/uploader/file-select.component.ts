@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { coerceBooleanProperty, isArray, isString } from 'ngx-tethys/util';
 import { mimeTypeConvert } from './util';
-import { ErrorData } from './constant';
+import { ThyFileSizeExceedsContext } from './types';
 import { THY_UPLOADER_DEFAULT_OPTIONS, ThyUploaderConfig } from './uploader.config';
 import { UploaderBase } from './uploader-base';
 
@@ -32,7 +32,7 @@ export class ThyFileSelectComponent extends UploaderBase implements OnInit, OnDe
 
     @ViewChild('fileInput', { static: true }) fileInput: ElementRef<HTMLInputElement>;
 
-    @Input() thySizeExceedsHandler: (errorData: ErrorData) => {};
+    @Input() thySizeExceedsHandler: (data: ThyFileSizeExceedsContext) => {};
 
     @Input()
     set thyMultiple(value: boolean) {

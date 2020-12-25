@@ -67,16 +67,3 @@ export const MIME_Map = {
     '.zip': 'application/x-zip-compressed',
     '': '*/*'
 };
-
-export enum ERROR_TYPES {
-    size_limit_exceeds = 'SIZE_LIMIT_EXCEEDS'
-}
-
-export interface ErrorData {
-    type: ERROR_TYPES;
-    data: {
-        exceedsFiles: File[];
-        nativeEvent?: Event;
-        sizeThreshold?: number;
-    };
-}
