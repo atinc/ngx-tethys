@@ -1,7 +1,8 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Injector } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
 
 import { ThyStoreModule, Store } from '../index';
+import { getInjector } from '../internals/static-injector';
 
 interface RootStateModel {
     foo: string;
@@ -22,6 +23,7 @@ class RootStore extends Store<RootStateModel> {
 class FeatureState {
     zoo: string;
 }
+
 class FeatureStore extends Store<FeatureState> {
     constructor() {
         super(new FeatureState());
@@ -44,7 +46,16 @@ describe('module', () => {
             imports: [RootModule]
         });
 
-        expect(TestBed.get(RootStore)).toBeTruthy();
+        expect(TestBed.inject(RootStore)).toBeTruthy();
+    });
+
+    it('should get correct injector by getInjector', () => {
+        TestBed.configureTestingModule({
+            imports: [RootModule]
+        });
+        const expectedInjector = TestBed.inject(Injector);
+        expect(getInjector()).toEqual(expectedInjector);
+        expect(TestBed.inject(RootStore)).toEqual(getInjector().get(RootStore));
     });
 
     it('should initialize all modules state', async(() => {
@@ -52,11 +63,9 @@ describe('module', () => {
             imports: [RootModule]
         });
 
-        const store = TestBed.get(RootStore) as RootStore;
+        const store = TestBed.inject(RootStore) as RootStore;
         expect(store).toBeTruthy();
-        store
-            .select(store.getFoo)
-            .subscribe((foo) => expect(foo).toEqual('Hello'));
+        store.select(store.getFoo).subscribe(foo => expect(foo).toEqual('Hello'));
     }));
 
     it('should configure feature module and return `RootStore` and `FeatureStore`', () => {
@@ -64,8 +73,8 @@ describe('module', () => {
             imports: [RootModule, FeatureModule]
         });
 
-        expect(TestBed.get(RootStore)).toBeTruthy();
-        expect(TestBed.get(FeatureModule)).toBeTruthy();
-        expect(TestBed.get(FeatureStore)).toBeTruthy();
+        expect(TestBed.inject(RootStore)).toBeTruthy();
+        expect(TestBed.inject(FeatureModule)).toBeTruthy();
+        expect(TestBed.inject(FeatureStore)).toBeTruthy();
     });
 });

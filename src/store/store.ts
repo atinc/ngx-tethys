@@ -12,12 +12,12 @@ interface Action {
     payload?: any;
 }
 
-export class Store<T extends object> implements Observer<T>, OnDestroy {
+export class Store<T = unknown> implements Observer<T>, OnDestroy {
     initialStateCache: any;
 
     public state$: BehaviorSubject<T>;
 
-    public apply_redux_tool = isDevMode();
+    public reduxToolEnabled = isDevMode();
 
     private _defaultStoreInstanceId: string;
 
@@ -25,7 +25,7 @@ export class Store<T extends object> implements Observer<T>, OnDestroy {
         this._defaultStoreInstanceId = this._getClassName();
         this.state$ = new BehaviorSubject<T>(initialState);
         this.initialStateCache = { ...initialState };
-        if (this.apply_redux_tool) {
+        if (this.reduxToolEnabled) {
             const _rootStore: RootStore = RootStore.getSingletonRootStore();
             ActionState.changeAction(`Add-${this._defaultStoreInstanceId}`);
             _rootStore.registerStore(this);
@@ -131,7 +131,7 @@ export class Store<T extends object> implements Observer<T>, OnDestroy {
     }
 
     ngOnDestroy() {
-        if (this.apply_redux_tool) {
+        if (this.reduxToolEnabled) {
             const _rootStore: RootStore = RootStore.getSingletonRootStore();
             _rootStore.unregisterStore(this);
         }
@@ -147,14 +147,14 @@ export class Store<T extends object> implements Observer<T>, OnDestroy {
 
     private _getClassName(): string {
         const name = this.constructor.name || /function (.+)\(/.exec(this.constructor + '')[1];
-        if (this.apply_redux_tool) {
-            const _rootStore: RootStore = RootStore.getSingletonRootStore();
-            if (!_rootStore.existStoreInstanceId(name)) {
+        if (this.reduxToolEnabled) {
+            const rootStore: RootStore = RootStore.getSingletonRootStore();
+            if (!rootStore.existStoreInstanceId(name)) {
                 return name;
             }
             let j = 0;
             for (let i = 1; i < 20; i++) {
-                if (!_rootStore.existStoreInstanceId(`${name}-${i}`)) {
+                if (!rootStore.existStoreInstanceId(`${name}-${i}`)) {
                     j = i;
                     break;
                 }

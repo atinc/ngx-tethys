@@ -1,16 +1,24 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
+import { NgModule, ModuleWithProviders, Type, Injector, NgModuleRef } from '@angular/core';
 import { ROOT_STATE_TOKEN, FEATURE_STATE_TOKEN } from './types';
+import { Store } from './store';
+import { clearInjector, setInjector } from './internals/static-injector';
 
 @NgModule()
-export class RootStoreModule {}
+export class ThyRootStoreModule {
+    constructor(ngModuleRef: NgModuleRef<any>) {
+        setInjector(ngModuleRef.injector);
+        ngModuleRef.onDestroy(clearInjector);
+    }
+}
 
 @NgModule()
-export class FeatureStoreModule {}
+export class ThyFeatureStoreModule {}
+
 @NgModule({})
 export class ThyStoreModule {
-    static forRoot(stores: any[] = []): ModuleWithProviders<RootStoreModule> {
+    static forRoot(stores: Type<Store>[] = []): ModuleWithProviders<ThyRootStoreModule> {
         return {
-            ngModule: RootStoreModule,
+            ngModule: ThyRootStoreModule,
             providers: [
                 ...stores,
                 {
@@ -21,13 +29,14 @@ export class ThyStoreModule {
         };
     }
 
-    static forFeature(stores: any[] = []): ModuleWithProviders<FeatureStoreModule> {
+    static forFeature(stores: Type<Store>[] = []): ModuleWithProviders<ThyFeatureStoreModule> {
         return {
-            ngModule: FeatureStoreModule,
+            ngModule: ThyFeatureStoreModule,
             providers: [
                 ...stores,
                 {
                     provide: FEATURE_STATE_TOKEN,
+                    multi: true,
                     useValue: stores
                 }
             ]

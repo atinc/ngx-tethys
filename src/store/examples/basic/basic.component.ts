@@ -15,7 +15,10 @@ export class ThyStoreBasicExampleComponent implements OnInit, OnDestroy {
     constructor(public workItemsStore: WorkItemsStore) {}
 
     ngOnInit() {
-        this.fetchWorkItems();
+        this.fetchWorkItems().subscribe(
+            () => {},
+            error => {}
+        );
 
         this.workItemsStore
             .select(state => state.workItems)
@@ -27,7 +30,7 @@ export class ThyStoreBasicExampleComponent implements OnInit, OnDestroy {
     }
 
     fetchWorkItems() {
-        this.workItemsStore.fetchWorkItems();
+        return this.workItemsStore.fetchWorkItems();
     }
 
     addWorkItem() {

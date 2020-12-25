@@ -11,4 +11,6 @@ export interface StoreMetaInfo {
     instance: any;
 }
 
+export interface ActionResult {}
+
 // export type Newable<T> = { new (...args: any[]): T };
