@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.0.14"></a>
+## [9.0.14](https://github.com/atinc/ngx-tethys/compare/9.0.13...9.0.14) (2020-12-28)
+
+
+### Bug Fixes
+
+* **calendar:** #AE-3897 点击日历外部，去掉选中 ([#1076](https://github.com/atinc/ngx-tethys/issues/1076)) ([80cbdce](https://github.com/atinc/ngx-tethys/commit/80cbdce)), closes [#AE-3897](https://github.com/atinc/ngx-tethys/issues/AE-3897) [#AE-3897](https://github.com/atinc/ngx-tethys/issues/AE-3897)
+
+
+### Features
+
+* **copy:** support thyCopyTips #INFR-1496 ([#1077](https://github.com/atinc/ngx-tethys/issues/1077)) ([c659649](https://github.com/atinc/ngx-tethys/commit/c659649)), closes [#INFR-1496](https://github.com/atinc/ngx-tethys/issues/INFR-1496) [#INFR-1496](https://github.com/atinc/ngx-tethys/issues/INFR-1496)
+
+
+
 <a name="9.0.13"></a>
 ## [9.0.13](https://github.com/atinc/ngx-tethys/compare/9.0.12...9.0.13) (2020-12-28)
 
