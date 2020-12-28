@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { ThyUploaderService, ThyUploadStatus, ThyUploadFile } from 'ngx-tethys';
+import { ThyUploaderService, ThyUploadStatus, ThyUploadFile, ThyNotifyService, ThyFileSizeExceedsContext } from 'ngx-tethys';
 
 const UPLOAD_URL = `http://www.mocky.io/v2/5cf52b1f2f0000c02c4f072f?mocky-delay=2s`;
 @Component({
@@ -9,7 +9,7 @@ const UPLOAD_URL = `http://www.mocky.io/v2/5cf52b1f2f0000c02c4f072f?mocky-delay=
 export class ThyUploaderBasicExampleComponent {
     @ViewChild('file1', { static: true }) file1: ElementRef<HTMLInputElement>;
     queueFiles: ThyUploadFile[] = [];
-    constructor(private thyUploaderService: ThyUploaderService) {}
+    constructor(private thyUploaderService: ThyUploaderService, private notifyService: ThyNotifyService) {}
 
     selectFiles(event: { files: File[] }) {
         this.thyUploaderService
@@ -38,4 +38,10 @@ export class ThyUploaderBasicExampleComponent {
                 }
             );
     }
+
+    sizeExceedsHandler = (event: ThyFileSizeExceedsContext) => {
+        if (event.exceedsFiles.length > 0) {
+            this.notifyService.warning('提示', `不支持上传${event.sizeThreshold / 1024}M以上附件。`);
+        }
+    };
 }

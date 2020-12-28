@@ -1,7 +1,22 @@
-import { Component, OnInit, ElementRef, Renderer2, Output, EventEmitter, HostBinding, Input, NgZone, OnDestroy } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    ElementRef,
+    Renderer2,
+    Output,
+    EventEmitter,
+    HostBinding,
+    Input,
+    NgZone,
+    OnDestroy,
+    Inject
+} from '@angular/core';
 import { mimeTypeConvert } from './util';
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil, filter, map, mapTo, tap, debounceTime, auditTime, catchError, retry } from 'rxjs/operators';
+import { ThySizeExceedsHandler } from './types';
+import { THY_UPLOADER_DEFAULT_OPTIONS, ThyUploaderConfig } from './uploader.config';
+import { FileSelectBaseComponent } from './file-select-base';
 
 @Component({
     selector: '[thyFileDrop]',
@@ -9,7 +24,7 @@ import { takeUntil, filter, map, mapTo, tap, debounceTime, auditTime, catchError
         <ng-content></ng-content>
     `
 })
-export class ThyFileDropComponent implements OnInit, OnDestroy {
+export class ThyFileDropComponent extends FileSelectBaseComponent implements OnInit, OnDestroy {
     _state = {
         isDragOver: false,
         isCustomClassName: false,
@@ -25,6 +40,14 @@ export class ThyFileDropComponent implements OnInit, OnDestroy {
         this._state.isNeedCheckTypeAccept = !!value;
     }
 
+    @Input() thySizeThreshold: number;
+
+    get sizeThreshold() {
+        return this.thySizeThreshold !== undefined ? this.thySizeThreshold : this.defaultConfig.sizeThreshold;
+    }
+
+    @Input() thySizeExceedsHandler: ThySizeExceedsHandler;
+
     @Output() thyOnDrop = new EventEmitter();
 
     @HostBinding('class.drop-over')
@@ -34,7 +57,14 @@ export class ThyFileDropComponent implements OnInit, OnDestroy {
 
     private ngUnsubscribe$ = new Subject();
 
-    constructor(private elementRef: ElementRef, private renderer: Renderer2, private ngZone: NgZone) {}
+    constructor(
+        public elementRef: ElementRef,
+        public renderer: Renderer2,
+        public ngZone: NgZone,
+        @Inject(THY_UPLOADER_DEFAULT_OPTIONS) public defaultConfig: ThyUploaderConfig
+    ) {
+        super(elementRef, defaultConfig);
+    }
 
     ngOnInit(): void {
         this._state.isCustomClassName = !!this.thyFileDropClassName;
@@ -96,13 +126,23 @@ export class ThyFileDropComponent implements OnInit, OnDestroy {
                             console.error('ngx-tethys Error: Uploaded files that do not support extensions.');
                             return;
                         }
-
-                        this.thyOnDrop.emit({
-                            files: event.dataTransfer.files,
-                            nativeEvent: event
-                        });
-                        this._backToDefaultState();
-                        this._toggleDropOverClassName();
+                        if (event.dataTransfer.files && event.dataTransfer.files.length > 0) {
+                            let uploadFiles = Array.from(event.dataTransfer.files);
+                            if (!!this.sizeThreshold) {
+                                uploadFiles = this.handleSizeExceeds(
+                                    { sizeThreshold: this.sizeThreshold, files: event.dataTransfer.files, event: event },
+                                    this.thySizeExceedsHandler
+                                );
+                            }
+                            if (uploadFiles.length > 0) {
+                                this.thyOnDrop.emit({
+                                    files: uploadFiles,
+                                    nativeEvent: event
+                                });
+                            }
+                            this._backToDefaultState();
+                            this._toggleDropOverClassName();
+                        }
                     });
                 });
         });

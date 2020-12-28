@@ -13,12 +13,15 @@ import {
 } from '@angular/core';
 import { coerceBooleanProperty, isArray, isString } from 'ngx-tethys/util';
 import { mimeTypeConvert } from './util';
+import { ThySizeExceedsHandler } from './types';
+import { THY_UPLOADER_DEFAULT_OPTIONS, ThyUploaderConfig } from './uploader.config';
+import { FileSelectBaseComponent } from './file-select-base';
 
 @Component({
     selector: '[thyFileSelect],thy-file-select',
     templateUrl: './file-select.component.html'
 })
-export class ThyFileSelectComponent implements OnInit, OnDestroy {
+export class ThyFileSelectComponent extends FileSelectBaseComponent implements OnInit, OnDestroy {
     _multiple: boolean;
 
     _acceptFolder: boolean;
@@ -28,6 +31,8 @@ export class ThyFileSelectComponent implements OnInit, OnDestroy {
     @Output() thyOnFileSelect = new EventEmitter();
 
     @ViewChild('fileInput', { static: true }) fileInput: ElementRef<HTMLInputElement>;
+
+    @Input() thySizeExceedsHandler: ThySizeExceedsHandler;
 
     @Input()
     set thyMultiple(value: boolean) {
@@ -54,12 +59,20 @@ export class ThyFileSelectComponent implements OnInit, OnDestroy {
         this.acceptType = mimeTypeConvert(value);
     }
 
+    @Input() thySizeThreshold: number;
+
+    get sizeThreshold() {
+        return this.thySizeThreshold !== undefined ? this.thySizeThreshold : this.defaultConfig.sizeThreshold;
+    }
+
     @HostListener('click', ['$event'])
     click($event: any) {
         this.fileInput.nativeElement.click();
     }
 
-    constructor(private elementRef: ElementRef) {}
+    constructor(public elementRef: ElementRef, @Inject(THY_UPLOADER_DEFAULT_OPTIONS) public defaultConfig: ThyUploaderConfig) {
+        super(elementRef, defaultConfig);
+    }
 
     _isInputTypeFile() {
         const nativeElement = this.elementRef.nativeElement;
@@ -69,10 +82,19 @@ export class ThyFileSelectComponent implements OnInit, OnDestroy {
     selectFile($event: Event) {
         const files = this.fileInput.nativeElement.files;
         if (files && files.length > 0) {
-            this.thyOnFileSelect.emit({
-                files: files,
-                nativeEvent: $event
-            });
+            let uploadFiles = Array.from(files);
+            if (!!this.sizeThreshold) {
+                uploadFiles = this.handleSizeExceeds(
+                    { sizeThreshold: this.sizeThreshold, files: Array.from(files), event: $event },
+                    this.thySizeExceedsHandler
+                );
+            }
+            if (uploadFiles.length > 0) {
+                this.thyOnFileSelect.emit({
+                    files: uploadFiles,
+                    nativeEvent: $event
+                });
+            }
             this.fileInput.nativeElement.value = '';
         }
     }
