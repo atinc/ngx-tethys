@@ -35,14 +35,24 @@ describe('thy-copy', () => {
             document.body.querySelectorAll(`thy-notify-container`)[0].remove();
         }));
     });
+
+    describe('copy tooltip', () => {
+        it('thyCopyTips should be correct', fakeAsync(() => {
+            // console.log(testComponent,testComponent.copyDirective.tooltipService.thyTooltipDirective);
+        }));
+    });
 });
 @Component({
     template: `
-        <p #copyContainer (thyCopy)="copy($event)" thyCopyContent="我是一只猪猪">点击</p>
+        <p #copyContainer (thyCopy)="copy($event)" thyCopyContent="我是一只猪猪" [thyCopyTips]="copyTooltip">点击</p>
     `
 })
 class ThyCopyComponent implements OnInit {
+    copyTooltip = '';
+
     ngOnInit() {}
     @ViewChild('copyContainer', { read: false }) copyContainer: ElementRef<Element>;
+    @ViewChild(ThyCopyDirective, { static: true }) copyDirective: ThyCopyDirective;
+
     copy = jasmine.createSpy('thyCopy callback');
 }
