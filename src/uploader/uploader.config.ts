@@ -12,11 +12,13 @@ export const THY_UPLOADER_DEFAULT_OPTIONS_PROVIDER = {
     provide: THY_UPLOADER_DEFAULT_OPTIONS,
     useValue: {
         sizeThreshold: 0,
-        sizeExceedsHandler: (event: ThyFileSizeExceedsContext) => {
-            const exceedsFilesMessage = event.exceedsFiles.map(item => {
-                return `file: ${item}, size: ${item.size}`;
-            });
-            console.error(`some files(${exceedsFilesMessage}) size exceeds threshold ${event.sizeThreshold}`);
-        }
+        sizeExceedsHandler: sizeExceedsHandler
     }
 };
+
+export function sizeExceedsHandler(event: ThyFileSizeExceedsContext) {
+    const exceedsFilesMessage = event.exceedsFiles.map(item => {
+        return `file: ${item}, size: ${item.size}`;
+    });
+    console.error(`some files(${exceedsFilesMessage}) size exceeds threshold ${event.sizeThreshold}`);
+}
