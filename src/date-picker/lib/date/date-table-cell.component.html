@@ -15,7 +15,11 @@
     </ng-container>
   </ng-container>
   <ng-container *ngSwitchCase="'thy-calendar-full'">
-    <div class="{{ prefixCls }}-date thy-calendar-full-cell-inner" [class.thy-calendar-full-calendar-date-today]="cell.isToday">
+    <div
+      tabindex="0"
+      class="{{ prefixCls }}-date thy-calendar-full-cell-inner"
+      [class.thy-calendar-full-calendar-date-today]="cell.isToday"
+    >
       <ng-container *ngIf="cell.fullCellRender; else defaultCell">
         <ng-container *ngTemplateOutlet="$any(cell.fullCellRender); context: { $implicit: cell.value }"> </ng-container>
       </ng-container>
