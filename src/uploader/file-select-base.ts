@@ -1,6 +1,6 @@
 import { Inject, ElementRef, Renderer2, NgZone } from '@angular/core';
 import { THY_UPLOADER_DEFAULT_OPTIONS, ThyUploaderConfig } from './uploader.config';
-import { ThyFileSizeExceedsContext } from './types';
+import { ThySizeExceedsHandler } from './types';
 
 export abstract class FileSelectBaseComponent {
     constructor(
@@ -10,10 +10,7 @@ export abstract class FileSelectBaseComponent {
         public ngZone?: NgZone
     ) {}
 
-    handleSizeExceeds(
-        data: { sizeThreshold: number; files: File[]; event: Event },
-        thySizeExceedsHandler?: (sizeExceedData: ThyFileSizeExceedsContext) => {}
-    ) {
+    handleSizeExceeds(data: { sizeThreshold: number; files: File[]; event: Event }, thySizeExceedsHandler?: ThySizeExceedsHandler) {
         let filterFile = Array.from(data.files).filter(item => item.size / 1024 <= data.sizeThreshold);
         if (filterFile.length < data.files.length) {
             const sizeExceedData = {
@@ -25,7 +22,7 @@ export abstract class FileSelectBaseComponent {
             if (thySizeExceedsHandler) {
                 thySizeExceedsHandler(sizeExceedData);
             } else {
-                this.defaultConfig.thySizeExceedsHandler(sizeExceedData);
+                this.defaultConfig.sizeExceedsHandler(sizeExceedData);
             }
         }
         return filterFile;

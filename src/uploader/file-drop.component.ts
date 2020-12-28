@@ -43,7 +43,7 @@ export class ThyFileDropComponent extends FileSelectBaseComponent implements OnI
     @Input() thySizeThreshold: number;
 
     get sizeThreshold() {
-        return this.thySizeThreshold !== undefined ? this.thySizeThreshold : this.defaultConfig.thySizeThreshold;
+        return this.thySizeThreshold !== undefined ? this.thySizeThreshold : this.defaultConfig.sizeThreshold;
     }
 
     @Input() thySizeExceedsHandler: ThySizeExceedsHandler;

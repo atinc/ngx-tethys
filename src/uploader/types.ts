@@ -5,4 +5,4 @@ export interface ThyFileSizeExceedsContext {
     sizeThreshold?: number;
 }
 
-export type ThySizeExceedsHandler = (data: ThyFileSizeExceedsContext) => File[] | undefined;
+export type ThySizeExceedsHandler = (data: ThyFileSizeExceedsContext) => File[] | undefined | void;

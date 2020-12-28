@@ -13,7 +13,7 @@ module.exports = [
             {
                 name: 'thySizeExceedsHandler',
                 description: '文件上传超出限制处理事件',
-                type: '(data: ThyFileSizeExceedsContext)=>{}',
+                type: '(data: ThyFileSizeExceedsContext) => File[] | undefined | void',
                 default: ''
             },
             {

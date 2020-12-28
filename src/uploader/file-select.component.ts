@@ -62,7 +62,7 @@ export class ThyFileSelectComponent extends FileSelectBaseComponent implements O
     @Input() thySizeThreshold: number;
 
     get sizeThreshold() {
-        return this.thySizeThreshold !== undefined ? this.thySizeThreshold : this.defaultConfig.thySizeThreshold;
+        return this.thySizeThreshold !== undefined ? this.thySizeThreshold : this.defaultConfig.sizeThreshold;
     }
 
     @HostListener('click', ['$event'])
