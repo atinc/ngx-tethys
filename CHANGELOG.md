@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.0.13"></a>
+## [9.0.13](https://github.com/atinc/ngx-tethys/compare/9.0.12...9.0.13) (2020-12-28)
+
+
+### Features
+
+* **uploader:** add file size threshold and size exceeds handler for file select and drop component  #INFR-1495  ([3f2d69d](https://github.com/atinc/ngx-tethys/commit/3f2d69d)), closes [#INFR-1495](https://github.com/atinc/ngx-tethys/issues/INFR-1495)
+
+
+
 <a name="9.0.12"></a>
 ## [9.0.12](https://github.com/atinc/ngx-tethys/compare/9.0.11...9.0.12) (2020-12-25)
 
