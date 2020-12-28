@@ -31,11 +31,13 @@ export class ThyCopyDirective implements OnInit, OnDestroy {
 
     @Input() thyCopySuccessText = '复制成功';
 
+    @Input() thyCopyTips = '点击复制';
+
     @Input() thyCopyContent: string | ElementRef | HTMLElement;
 
     constructor(
         @Inject(DOCUMENT) private document: any,
-        private tooltipService: TooltipService,
+        public tooltipService: TooltipService,
         private elementRef: ElementRef<HTMLElement>,
         private viewContainerRef: ViewContainerRef,
         private notifyService: ThyNotifyService
@@ -43,7 +45,7 @@ export class ThyCopyDirective implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.tooltipService.attach(this.elementRef, this.viewContainerRef, 'hover');
-        this.tooltipService.thyTooltipDirective.content = '点击复制';
+        this.tooltipService.thyTooltipDirective.content = this.thyCopyTips ? this.thyCopyTips : '点击复制';
     }
 
     private getContent(event: Event) {
