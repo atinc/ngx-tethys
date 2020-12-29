@@ -4,7 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 import { ThyFullscreenMode } from './fullscreen.config';
 import { ThyFullscreen } from './fullscreen.service';
 @Component({
-    selector: 'thy-fullscreen',
+    selector: 'thy-fullscreen, [thyFullscreen]',
     templateUrl: './fullscreen.component.html'
 })
 export class ThyFullscreenComponent implements OnInit, AfterViewInit, OnDestroy {
