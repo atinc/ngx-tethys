@@ -1,6 +1,7 @@
 import { Store, Action } from '../index';
 import { of, Observable } from 'rxjs';
 import { map, tap, skip, reduce } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
 
 interface UserInfo {
     uid?: string;
@@ -23,6 +24,7 @@ describe('Store: Store', () => {
         initializeTeam: 'initializeTeam'
     };
 
+    @Injectable()
     class AppStateStore extends Store<AppState> {
         constructor(initialState?: AppState) {
             super(

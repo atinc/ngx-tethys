@@ -1,3 +1,4 @@
+import { Injectable } from '@angular/core';
 import { EntityStore, EntityState, EntityStoreOptions } from '../entity-store';
 import { OnCombineRefs, ReferencesIdDictionary } from '../references';
 
@@ -33,6 +34,7 @@ describe('Store: EntityStore with refs', () => {
 
     interface TasksState extends EntityState<TaskInfo, TaskReferences> {}
 
+    @Injectable()
     class TasksStore extends EntityStore<TasksState, TaskInfo, TaskReferences> implements OnCombineRefs<TaskInfo, TaskReferences> {
         constructor(initialState?: TasksState, options?: EntityStoreOptions<TaskInfo, TaskReferences>) {
             super(initialState, options);

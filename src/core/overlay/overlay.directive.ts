@@ -11,11 +11,11 @@ export abstract class ThyOverlayDirectiveBase {
     protected elementRef: ElementRef;
     private initialized = false;
     /** Trigger Overlay */
-    private _trigger: ThyOverlayTrigger = 'click';
-    protected get trigger() {
+    protected _trigger: ThyOverlayTrigger = 'click';
+    public get trigger() {
         return this._trigger;
     }
-    protected set trigger(value: ThyOverlayTrigger) {
+    public set trigger(value: ThyOverlayTrigger) {
         this._trigger = value;
         // Trigger reinitialize when trigger changed which can't contain first
         if (this.initialized) {

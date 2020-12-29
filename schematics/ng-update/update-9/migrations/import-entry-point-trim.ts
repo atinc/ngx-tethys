@@ -1,4 +1,4 @@
-import ts from 'typescript';
+import ts, { factory } from 'typescript';
 import { ContentChange, ReplaceContentChange } from '../../../types';
 import { MigrationBase } from './base';
 

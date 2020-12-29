@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
 import { TestBed, async } from '@angular/core/testing';
 import { Observable } from 'rxjs';
 import { ThyStoreModule, Store } from '../index';
@@ -7,6 +7,8 @@ class StringSelectState {
     baz: string;
     boo: string;
 }
+
+@Injectable()
 class StringSelectStore extends Store<StringSelectState> {
     constructor() {
         super({

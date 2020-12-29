@@ -3,7 +3,7 @@ import { distinctUntilChanged, map, shareReplay } from 'rxjs/operators';
 import { META_KEY, StoreMetaInfo } from './types';
 import { helpers } from 'ngx-tethys/util';
 import { RootStore } from './root-store';
-import { OnDestroy, isDevMode } from '@angular/core';
+import { OnDestroy, isDevMode, Injectable } from '@angular/core';
 import { ActionState } from './action-state';
 import { Action } from './action';
 
@@ -12,6 +12,7 @@ interface Action {
     payload?: any;
 }
 
+@Injectable()
 export class Store<T = unknown> implements Observer<T>, OnDestroy {
     initialStateCache: any;
 

@@ -1,9 +1,10 @@
-import { NgZone, OnDestroy } from '@angular/core';
+import { Injectable, NgZone, OnDestroy } from '@angular/core';
 import { fromEvent, Subject, Observable, Observer, Subscription } from 'rxjs';
 import { auditTime } from 'rxjs/operators';
 
 const DEFAULT_EVENT_TIME = 100;
 
+@Injectable()
 export abstract class ThyEventDispatcher implements OnDestroy {
     private _globalSubscription: Subscription = null;
 
@@ -13,11 +14,9 @@ export abstract class ThyEventDispatcher implements OnDestroy {
 
     private _addGlobalListener() {
         this._globalSubscription = this.ngZone.runOutsideAngular(() => {
-            return fromEvent(this.document, this.eventName).subscribe(
-                (event: Event) => {
-                    this._event$.next(event);
-                }
-            );
+            return fromEvent(this.document, this.eventName).subscribe((event: Event) => {
+                this._event$.next(event);
+            });
         });
     }
 
@@ -32,11 +31,7 @@ export abstract class ThyEventDispatcher implements OnDestroy {
         return this._globalSubscription;
     }
 
-    constructor(
-        private document: any,
-        private ngZone: NgZone,
-        private eventName: string
-    ) {}
+    constructor(private document: any, private ngZone: NgZone, private eventName: string) {}
 
     protected subscribe(auditTimeInMs: number = DEFAULT_EVENT_TIME): Observable<Event> {
         return Observable.create((observer: Observer<Event | void>) => {
@@ -46,11 +41,7 @@ export abstract class ThyEventDispatcher implements OnDestroy {
             // In the case of a 0ms delay, use an observable without auditTime
             // since it does add a perceptible delay in processing overhead.
             const subscription =
-                auditTimeInMs > 0
-                    ? this._event$
-                          .pipe(auditTime(auditTimeInMs))
-                          .subscribe(observer)
-                    : this._event$.subscribe(observer);
+                auditTimeInMs > 0 ? this._event$.pipe(auditTime(auditTimeInMs)).subscribe(observer) : this._event$.subscribe(observer);
 
             this._subscriptionCount++;
             return () => {

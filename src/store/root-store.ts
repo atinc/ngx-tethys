@@ -11,7 +11,7 @@ export type StoreInstanceMap = Map<string, Store<any>>; // Map key：string，va
 /**
  * @internal
  */
-// @dynamic
+@Injectable()
 export class RootStore implements OnDestroy {
     private static _rootStore: RootStore;
     private connectSuccessed = false;
@@ -43,13 +43,10 @@ export class RootStore implements OnDestroy {
             .pipe(
                 map(states => {
                     const actionName = ActionState.getActionName();
-                    const state = states.reduce(
-                        (acc, curr) => {
-                            acc[curr.containerName] = curr.state;
-                            return acc;
-                        },
-                        <{ [key: string]: any }>{}
-                    );
+                    const state = states.reduce((acc, curr) => {
+                        acc[curr.containerName] = curr.state;
+                        return acc;
+                    }, <{ [key: string]: any }>{});
                     return { state: state, actionName: actionName };
                 })
             )
