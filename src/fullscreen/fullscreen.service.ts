@@ -17,7 +17,7 @@ export class ThyFullscreen {
      */
     launch<TResult = unknown>(config: ThyFullscreenConfig): ThyFullscreenRef<TResult> {
         config.mode = config.mode || ThyFullscreenMode.immersive;
-        const fullscreenRef = new ThyFullscreenRef(this.document);
+        const fullscreenRef = new ThyFullscreenRef<TResult>(this.document);
         fullscreenRef.fullscreenConfig = config;
         fullscreenRef.launch();
         this.fullscreenRefs.push(fullscreenRef);
@@ -28,7 +28,7 @@ export class ThyFullscreen {
             }
         });
 
-        return fullscreenRef as ThyFullscreenRef<TResult>;
+        return fullscreenRef;
     }
 
     /**
