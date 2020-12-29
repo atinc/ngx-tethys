@@ -1,11 +1,11 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { ThyFullscreenMode, ThyFullscreenService } from './fullscreen.service';
+import { ThyFullscreenMode } from './fullscreen.config';
+import { ThyFullscreen } from './fullscreen.service';
 @Component({
     selector: 'thy-fullscreen',
-    templateUrl: './fullscreen.component.html',
-    providers: [ThyFullscreenService]
+    templateUrl: './fullscreen.component.html'
 })
 export class ThyFullscreenComponent implements OnInit, AfterViewInit, OnDestroy {
     @Input() thyMode: ThyFullscreenMode = ThyFullscreenMode.immersive;
@@ -16,16 +16,9 @@ export class ThyFullscreenComponent implements OnInit, AfterViewInit, OnDestroy 
 
     private ngUnsubscribe$ = new Subject();
 
-    constructor(private elementRef: ElementRef, private service: ThyFullscreenService) {}
+    constructor(private elementRef: ElementRef, private service: ThyFullscreen) {}
 
-    ngOnInit() {
-        this.service
-            .getIsFullscreen$()
-            .pipe(takeUntil(this.ngUnsubscribe$))
-            .subscribe(isFullscreen => {
-                this.thyFullscreenChange.emit(isFullscreen);
-            });
-    }
+    ngOnInit() {}
 
     ngAfterViewInit() {
         const btnLaunch = this.elementRef.nativeElement.querySelector('[fullscreen-launch]');
@@ -38,16 +31,22 @@ export class ThyFullscreenComponent implements OnInit, AfterViewInit, OnDestroy 
     private handleFullscreen = () => {
         const targetElement = this.elementRef.nativeElement.querySelector('[fullscreen-target]');
         const containerElement = this.elementRef.nativeElement.querySelector('[fullscreen-container]');
-        const fullscreen = this.service.getIsFullscreen$().value;
+        const fullscreen = targetElement.classList.contains('thy-fullscreen-active');
 
         if (fullscreen) {
-            this.service.closeFullscreen();
+            this.service.exit();
         } else {
-            this.service.openFullscreen({
+            const fullscreenRef = this.service.launch({
                 mode: this.thyMode,
                 target: targetElement,
-                classes: this.thyFullscreenClasses,
-                container: containerElement
+                targetLaunchededClasse: this.thyFullscreenClasses,
+                emulatedContainer: containerElement
+            });
+
+            this.thyFullscreenChange.emit(true);
+
+            fullscreenRef.afterExited().subscribe(() => {
+                this.thyFullscreenChange.emit(false);
             });
         }
     };

@@ -1,4 +1,4 @@
-import { ThyFullscreenService } from './../fullscreen.service';
+import { ThyFullscreen } from './../fullscreen.service';
 import { fakeAsync, ComponentFixture, TestBed, tick, flush } from '@angular/core/testing';
 import { ThyFullscreenModule } from '../fullscreen.module';
 import { NgModule, Component } from '@angular/core';
@@ -7,7 +7,7 @@ import { ThyFullscreenComponent } from '../fullscreen.component';
 import { dispatchFakeEvent, dispatchKeyboardEvent } from 'ngx-tethys/testing';
 import { ESCAPE } from '../../util/keycodes';
 
-export class FakeFullscreenService extends ThyFullscreenService {
+export class FakeFullscreenService extends ThyFullscreen {
     launchImmersiveFullscreen() {
         dispatchFakeEvent(this.document, 'fullscreenchange');
     }
@@ -24,7 +24,13 @@ describe('ThyFullscreen', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyFullscreenModule, FullscreenTestModule]
+            imports: [ThyFullscreenModule, FullscreenTestModule],
+            providers: [
+                {
+                    provider: ThyFullscreen,
+                    useValue: FakeFullscreenService
+                }
+            ]
         });
 
         TestBed.compileComponents();
@@ -34,7 +40,6 @@ describe('ThyFullscreen', () => {
         fixture = TestBed.createComponent(ThyDemoFullscreenComponent);
         testComponent = fixture.debugElement.componentInstance;
         fullscreenComponent = fixture.debugElement.query(By.directive(ThyFullscreenComponent));
-        fullscreenComponent.componentInstance.service = new FakeFullscreenService(document);
         fixture.detectChanges();
     });
 
@@ -57,8 +62,8 @@ describe('ThyFullscreen', () => {
         expect(spy).toHaveBeenCalledTimes(2);
     }));
 
-    it('should call fullscreen change when keydown at normal mode', fakeAsync(() => {
-        testComponent.mode = 'normal';
+    it('should call fullscreen change when keydown at emulated mode', fakeAsync(() => {
+        testComponent.mode = 'emulated';
         fixture.detectChanges();
         const buttonEle = fixture.debugElement.query(By.css('.fullscreen-button')).nativeElement;
         const spy = spyOn(fixture.componentInstance, 'changeFullscreen');
