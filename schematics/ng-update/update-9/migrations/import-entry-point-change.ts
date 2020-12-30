@@ -38,7 +38,7 @@ export class ImportEntryPointChangeMigration extends MigrationBase {
                     importDeclaration.getStart(),
                     importDeclaration.getWidth(),
                     [
-                        changeModulePackageNodeResult.addOldNode && importDeclaration,
+                        changeModulePackageNodeResult.addOldNode && changeModulePackageNodeResult.importDeclaration,
                         changePackageNodeResult.node,
                         changeModulePackageNodeResult.node
                     ]
@@ -54,7 +54,10 @@ export class ImportEntryPointChangeMigration extends MigrationBase {
     generateChangePackageNode(importDeclaration: ts.ImportDeclaration) {
         const importPackageName = this.getImportDeclarationPackageName(importDeclaration);
         if (this.changePackageGroup[importPackageName]) {
-            importDeclaration.moduleSpecifier = this.createStringLiteral(this.changePackageGroup[importPackageName]);
+            importDeclaration = this.updateImportDeclaration(
+                importDeclaration,
+                this.createStringLiteral(this.changePackageGroup[importPackageName])
+            );
             return {
                 node: importDeclaration
             };
@@ -81,14 +84,19 @@ export class ImportEntryPointChangeMigration extends MigrationBase {
             return true;
         });
         if (list.length && list.length !== list.length) {
-            importDeclaration.importClause.namedBindings = this.createNamedImports(list);
+            importDeclaration = this.updateImportDeclaration(
+                importDeclaration,
+                undefined,
+                this.updateImportClause(importDeclaration.importClause, this.createNamedImports(list))
+            );
             addOldNode = true;
         } else if (!list.length && importDeclaration?.importClause?.name) {
             addOldNode = true;
         }
         return {
             addOldNode,
-            node: !!appendImportNameList.length && this.createImportDeclaration(appendImportNameList, newPackageName)
+            node: !!appendImportNameList.length && this.createImportDeclaration(appendImportNameList, newPackageName),
+            importDeclaration
         };
     }
 }
