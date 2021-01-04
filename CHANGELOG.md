@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="10.0.0-next.0"></a>
+# [10.0.0-next.0](https://github.com/atinc/ngx-tethys/compare/9.0.14...10.0.0-next.0) (2021-01-04)
+
+
+### Bug Fixes
+
+* **fullscreen:** add fullscreenchange and keydown events listeners in ThyFullscreenService #INFR-1403 ([#1067](https://github.com/atinc/ngx-tethys/issues/1067)) ([6452e28](https://github.com/atinc/ngx-tethys/commit/6452e28)), closes [#INFR-1403](https://github.com/atinc/ngx-tethys/issues/INFR-1403)
+* **schematics:** ts节点属性 readonly 修复 ([01b4506](https://github.com/atinc/ngx-tethys/commit/01b4506))
+
+
+### Features
+
+* upgrade angular from 9.x to 10.x #INFR-1516 ([c47569d](https://github.com/atinc/ngx-tethys/commit/c47569d)), closes [#INFR-1516](https://github.com/atinc/ngx-tethys/issues/INFR-1516)
+
+
+
 <a name="9.0.14"></a>
 ## [9.0.14](https://github.com/atinc/ngx-tethys/compare/9.0.13...9.0.14) (2020-12-28)
 
