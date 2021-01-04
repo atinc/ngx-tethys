@@ -8,12 +8,11 @@ import { ActionState } from './action-state';
 
 export type StoreInstanceMap = Map<string, Store<any>>; // Map key：string，value：状态数据
 
+let rootStore: RootStore;
 /**
  * @internal
  */
-@Injectable()
-export class RootStore implements OnDestroy {
-    private static _rootStore: RootStore;
+export class RootStore {
     private connectSuccessed = false;
     /**
      * 数据流 数据是一个Map，k,v键值对，关键字->状态数据
@@ -21,13 +20,6 @@ export class RootStore implements OnDestroy {
     private readonly _containers = new BehaviorSubject<StoreInstanceMap>(new Map<string, Store<any>>());
     private _plugin: StorePlugin = getReduxDevToolsPlugin();
     private _combinedStateSubscription: Subscription = new Subscription();
-
-    public static getSingletonRootStore() {
-        if (!this._rootStore) {
-            this._rootStore = new RootStore();
-        }
-        return this._rootStore;
-    }
 
     constructor() {
         if (this._plugin.isConnectSuccessed()) {
@@ -116,4 +108,11 @@ export class RootStore implements OnDestroy {
         containers.delete(store.getStoreInstanceId());
         this._containers.next(containers);
     }
+}
+
+export function getSingletonRootStore() {
+    if (!rootStore) {
+        rootStore = new RootStore();
+    }
+    return rootStore;
 }
