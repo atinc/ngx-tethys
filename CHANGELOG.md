@@ -68,7 +68,7 @@ All notable changes to this project will be documented in this file. See [standa
 ### Bug Fixes
 
 * **empty:** fix set empty state style ([#1056](https://github.com/atinc/ngx-tethys/issues/1056)) ([297dbc8](https://github.com/atinc/ngx-tethys/commit/297dbc8))
-* **fullscreen:** change StyxFullscreenService to ThyFullscreenService ([9f46852](https://github.com/atinc/ngx-tethys/commit/9f46852))
+* **fullscreen:** change StyxFullscreenService to ThyFullscreen ([9f46852](https://github.com/atinc/ngx-tethys/commit/9f46852))
 * **grid:** fix group mode data presentation abnormal ([#1044](https://github.com/atinc/ngx-tethys/issues/1044)) ([6cb9d71](https://github.com/atinc/ngx-tethys/commit/6cb9d71))
 
 

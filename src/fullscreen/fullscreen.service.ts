@@ -1,91 +1,42 @@
-import { coerceElement } from '@angular/cdk/coercion';
 import { DOCUMENT } from '@angular/common';
-import { ElementRef, Inject, Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Inject, Injectable } from '@angular/core';
+import { ThyFullscreenRef } from './fullscreen-ref';
+import { ThyFullscreenConfig, ThyFullscreenMode } from './fullscreen.config';
 
 @Injectable({
     providedIn: 'root'
 })
-export class ThyFullscreenService {
-    fullscreen$ = new BehaviorSubject<boolean>(false);
+export class ThyFullscreen {
+    constructor(@Inject(DOCUMENT) protected document: any) {}
 
-    constructor(@Inject(DOCUMENT) private document: any) {}
+    private fullscreenRefs: ThyFullscreenRef[] = [];
 
-    private resetElement(element: string | Element | ElementRef) {
-        const targetType = typeof element;
-        if (targetType === 'string') {
-            return this.document.querySelector(`.${element}`);
-        } else {
-            return coerceElement(element);
-        }
+    /**
+     * 开始全屏
+     * @param config
+     */
+    launch<TResult = unknown>(config: ThyFullscreenConfig): ThyFullscreenRef<TResult> {
+        config.mode = config.mode || ThyFullscreenMode.immersive;
+        const fullscreenRef = new ThyFullscreenRef<TResult>(this.document);
+        fullscreenRef.fullscreenConfig = config;
+        fullscreenRef.launch();
+        this.fullscreenRefs.push(fullscreenRef);
+        fullscreenRef.afterExited().subscribe(() => {
+            const index = this.fullscreenRefs.indexOf(fullscreenRef);
+            if (index > -1) {
+                this.fullscreenRefs.splice(index, 1);
+            }
+        });
+
+        return fullscreenRef;
     }
 
-    launchNormalFullscreen(target: string | Element | ElementRef, classes?: string, container?: string | Element | ElementRef) {
-        const targetElement = this.resetElement(target);
-        if (container) {
-            const containerElement = this.resetElement(container);
-            const containerClientRect = containerElement.getBoundingClientRect();
-            const targetClientRect = targetElement.getBoundingClientRect();
-            const distanceX = containerClientRect.left - targetClientRect.left;
-            const distanceY = containerClientRect.top - targetClientRect.top;
-            targetElement.style.transform = `translate(${distanceX}px, ${distanceY}px)`;
-            targetElement.style.width = `${containerClientRect.width}px`;
-            targetElement.style.height = `${containerClientRect.height}px`;
-        } else {
-            targetElement.classList.add('thy-fullscreen');
-        }
-        targetElement.classList.add('thy-fullscreen-active');
-        if (classes && classes.length) {
-            targetElement.classList.add(classes);
-        }
-        this.fullscreen$.next(true);
-    }
-
-    exitNormalFullscreen(target: string | Element | ElementRef, classes?: string, container?: string | Element | ElementRef) {
-        const targetElement = this.resetElement(target);
-        if (container) {
-            targetElement.style.transform = ``;
-            targetElement.style.width = ``;
-            targetElement.style.height = ``;
-        } else {
-            targetElement.classList.remove('thy-fullscreen');
-        }
-        targetElement.classList.remove('thy-fullscreen-active');
-        if (classes && classes.length) {
-            targetElement.classList.remove(classes);
-        }
-        this.fullscreen$.next(false);
-    }
-
-    launchImmersiveFullscreen(docElement: HTMLElement) {
-        if (docElement.requestFullscreen) {
-            docElement.requestFullscreen();
-        } else if (docElement['mozRequestFullScreen']) {
-            docElement['mozRequestFullScreen']();
-        } else if (docElement['webkitRequestFullscreen']) {
-            docElement['webkitRequestFullscreen']();
-        } else if (docElement['msRequestFullscreen']) {
-            docElement['msRequestFullscreen']();
-        }
-    }
-
-    exitImmersiveFullscreen(doc: Document) {
-        if (doc['exitFullscreen']) {
-            doc['exitFullscreen']();
-        } else if (doc['mozCancelFullScreen']) {
-            doc['mozCancelFullScreen']();
-        } else if (doc['webkitExitFullscreen']) {
-            doc['webkitExitFullscreen']();
-        } else if (doc['msExitFullscreen']) {
-            doc['msExitFullscreen']();
-        }
-    }
-
-    isImmersiveFullscreen(doc: Document) {
-        return !!(doc['fullscreenElement'] || doc['mozFullScreenElement'] || doc['webkitFullscreenElement'] || doc['msFullscreenElement']);
-    }
-
-    getIsFullscreen() {
-        return this.fullscreen$;
+    /**
+     * 退出最后一个 ThyFullscreenRef 的全屏
+     * @param config
+     */
+    exit() {
+        const lastFullscreenRef = this.fullscreenRefs[this.fullscreenRefs.length - 1];
+        lastFullscreenRef.exit();
     }
 }

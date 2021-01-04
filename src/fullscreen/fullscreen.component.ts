@@ -1,36 +1,24 @@
-import { DOCUMENT } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, EventEmitter, Inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { ThyFullscreenService } from './fullscreen.service';
-
-export type FullscreenMode = 'immersive' | 'normal';
-
-export const DEFAULT_MODE = 'immersive';
-
-export const ESC_KEY = 'Escape';
-
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { ThyFullscreenMode } from './fullscreen.config';
+import { ThyFullscreen } from './fullscreen.service';
 @Component({
-    selector: 'thy-fullscreen',
+    selector: 'thy-fullscreen, [thyFullscreen]',
     templateUrl: './fullscreen.component.html'
 })
 export class ThyFullscreenComponent implements OnInit, AfterViewInit, OnDestroy {
-    private currentTarget: HTMLElement;
-
-    private isFullscreen = false;
-
-    @Input() thyMode: FullscreenMode = DEFAULT_MODE;
+    @Input() thyMode: ThyFullscreenMode = ThyFullscreenMode.immersive;
 
     @Input() thyFullscreenClasses: string;
 
     @Output() thyFullscreenChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-    constructor(private elementRef: ElementRef, @Inject(DOCUMENT) private doc: any, private service: ThyFullscreenService) {}
+    private ngUnsubscribe$ = new Subject();
 
-    ngOnInit() {
-        document.addEventListener('fullscreenchange', this.onFullscreenChange);
-        document.addEventListener('MSFullscreenChange', this.onFullscreenChange);
-        document.addEventListener('webkitfullscreenchange', this.onFullscreenChange);
-        document.addEventListener('keydown', this.handleKeyDown);
-    }
+    constructor(private elementRef: ElementRef, private service: ThyFullscreen) {}
+
+    ngOnInit() {}
 
     ngAfterViewInit() {
         const btnLaunch = this.elementRef.nativeElement.querySelector('[fullscreen-launch]');
@@ -39,60 +27,34 @@ export class ThyFullscreenComponent implements OnInit, AfterViewInit, OnDestroy 
         }
     }
 
-    // 沉浸式全屏时通过监听fullscreenchange事件将全屏状态传出去
-    private onFullscreenChange = () => {
-        if (this.currentTarget) {
-            const targetElement: HTMLElement = this.currentTarget;
-            const isFullscreen = this.service.isImmersiveFullscreen(this.doc);
-            if (!isFullscreen) {
-                this.service.exitNormalFullscreen(targetElement, this.thyFullscreenClasses);
-                this.isFullscreen = isFullscreen;
-                this.thyFullscreenChange.emit(this.isFullscreen);
-            }
-        }
-    };
-
     // 点击打开或关闭全屏
     private handleFullscreen = () => {
         const targetElement = this.elementRef.nativeElement.querySelector('[fullscreen-target]');
         const containerElement = this.elementRef.nativeElement.querySelector('[fullscreen-container]');
         const fullscreen = targetElement.classList.contains('thy-fullscreen-active');
-        this.currentTarget = targetElement;
-        let isFullscreen;
+
         if (fullscreen) {
-            if (this.thyMode === DEFAULT_MODE) {
-                this.service.exitImmersiveFullscreen(this.doc);
-            }
-            this.service.exitNormalFullscreen(targetElement, this.thyFullscreenClasses, containerElement);
-            isFullscreen = false;
+            this.service.exit();
         } else {
-            if (this.thyMode === DEFAULT_MODE) {
-                this.service.launchImmersiveFullscreen(this.doc.documentElement);
-            }
-            this.service.launchNormalFullscreen(targetElement, this.thyFullscreenClasses, containerElement);
-            isFullscreen = true;
-        }
+            const fullscreenRef = this.service.launch({
+                mode: this.thyMode,
+                target: targetElement,
+                targetLaunchededClasse: this.thyFullscreenClasses,
+                emulatedContainer: containerElement
+            });
 
-        this.isFullscreen = isFullscreen;
-        this.thyFullscreenChange.emit(this.isFullscreen);
-    };
+            this.thyFullscreenChange.emit(true);
 
-    // normal模式下按ESC键退出全屏
-    private handleKeyDown = (event: KeyboardEvent) => {
-        if (event.key === ESC_KEY) {
-            if (this.isFullscreen && this.thyMode === 'normal') {
-                const targetElement = this.elementRef.nativeElement.querySelector('[fullscreen-target]');
-                const containerElement = this.elementRef.nativeElement.querySelector('[fullscreen-container]');
-                this.service.exitNormalFullscreen(targetElement, this.thyFullscreenClasses, containerElement);
-                this.isFullscreen = false;
-                this.thyFullscreenChange.emit(this.isFullscreen);
-            }
+            fullscreenRef.afterExited().subscribe(() => {
+                this.thyFullscreenChange.emit(false);
+            });
         }
     };
 
     ngOnDestroy() {
-        document.removeEventListener('fullscreenchange', this.onFullscreenChange);
-        document.removeEventListener('keydown', this.handleKeyDown);
+        this.ngUnsubscribe$.next();
+        this.ngUnsubscribe$.complete();
+
         const btnLaunch = this.elementRef.nativeElement.querySelector('[fullscreen-launch]');
         if (btnLaunch) {
             btnLaunch.removeEventListener('click', this.handleFullscreen);

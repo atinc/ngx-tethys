@@ -1,10 +1,21 @@
-import { fakeAsync, ComponentFixture, TestBed, tick } from '@angular/core/testing';
+import { ThyFullscreen } from './../fullscreen.service';
+import { fakeAsync, ComponentFixture, TestBed, tick, flush } from '@angular/core/testing';
 import { ThyFullscreenModule } from '../fullscreen.module';
 import { NgModule, Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ThyFullscreenComponent } from '../fullscreen.component';
 import { dispatchFakeEvent, dispatchKeyboardEvent } from 'ngx-tethys/testing';
 import { ESCAPE } from '../../util/keycodes';
+
+export class FakeFullscreenService extends ThyFullscreen {
+    launchImmersiveFullscreen() {
+        dispatchFakeEvent(this.document, 'fullscreenchange');
+    }
+
+    exitImmersiveFullscreen() {
+        dispatchFakeEvent(this.document, 'fullscreenchange');
+    }
+}
 
 describe('ThyFullscreen', () => {
     let fixture: ComponentFixture<ThyDemoFullscreenComponent>;
@@ -13,8 +24,15 @@ describe('ThyFullscreen', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyFullscreenModule, FullscreenTestModule]
+            imports: [ThyFullscreenModule, FullscreenTestModule],
+            providers: [
+                {
+                    provider: ThyFullscreen,
+                    useValue: FakeFullscreenService
+                }
+            ]
         });
+
         TestBed.compileComponents();
     }));
 
@@ -38,27 +56,25 @@ describe('ThyFullscreen', () => {
         const spy = spyOn(fixture.componentInstance, 'changeFullscreen');
         // 第一次点击打开
         dispatchFakeEvent(buttonEle, 'click');
-        expect(spy).toHaveBeenCalled();
-        expect(fullscreenComponent.query(By.css('.thy-fullscreen-active.test-fullscreen'))).toBeTruthy();
-
+        expect(spy).toHaveBeenCalledTimes(1);
         // 第二次点击关闭
         dispatchFakeEvent(buttonEle, 'click');
-        expect(spy).toHaveBeenCalled();
-        expect(fullscreenComponent.query(By.css('.thy-fullscreen-active.test-fullscreen'))).toBeNull();
+        expect(spy).toHaveBeenCalledTimes(2);
     }));
 
-    it('should call fullscreen change when keydown at normal mode', fakeAsync(() => {
-        testComponent.mode = 'normal';
+    it('should call fullscreen change when keydown at emulated mode', fakeAsync(() => {
+        testComponent.mode = 'emulated';
         fixture.detectChanges();
         const buttonEle = fixture.debugElement.query(By.css('.fullscreen-button')).nativeElement;
         const spy = spyOn(fixture.componentInstance, 'changeFullscreen');
         // 第一次点击打开
         dispatchFakeEvent(buttonEle, 'click');
-        expect(spy).toHaveBeenCalled();
-
-        // ESC关闭
-        dispatchKeyboardEvent(document, 'keydown', ESCAPE);
-        expect(spy).toHaveBeenCalled();
+        expect(spy).toHaveBeenCalledTimes(1);
+        expect(fullscreenComponent.query(By.css('.thy-fullscreen-active.test-fullscreen'))).toBeTruthy();
+        // ESC退出
+        dispatchKeyboardEvent(document.body, 'keydown', ESCAPE);
+        expect(spy).toHaveBeenCalledTimes(2);
+        expect(fullscreenComponent.query(By.css('.thy-fullscreen-active.test-fullscreen'))).toBeNull();
     }));
 });
 
