@@ -13,8 +13,7 @@ import {
     SimpleChange,
     ChangeDetectorRef,
     ViewEncapsulation,
-    ChangeDetectionStrategy,
-    ElementRef
+    ChangeDetectionStrategy
 } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { ThyTimelineItemComponent } from './timeline-item.component';
