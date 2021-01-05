@@ -72,7 +72,7 @@ export class ThyTimelineComponent implements OnInit, AfterContentInit, OnChanges
 
     ngOnChanges(changes: SimpleChanges): void {
         const { thyMode, thyReverse } = changes;
-        if (thyMode) {
+        if (thyMode && !this.horizontal) {
             if (thyMode.currentValue === 'right') {
                 this.rightTimeline = !this.templateTimeline;
                 this.centerTimeline = false;
@@ -84,7 +84,7 @@ export class ThyTimelineComponent implements OnInit, AfterContentInit, OnChanges
                 this.centerTimeline = false;
             }
         }
-        if (simpleChangeActivated(thyMode) || simpleChangeActivated(thyReverse)) {
+        if ((simpleChangeActivated(thyMode) && !this.horizontal) || simpleChangeActivated(thyReverse)) {
             this.updateChildren();
         }
     }
