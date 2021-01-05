@@ -1,0 +1,32 @@
+<div>
+  <form class="mb-2" thyForm name="demoForm" #demoForm="ngForm" thyLayout="inline">
+    <thy-form-group thyLabelText="节点颜色">
+      <thy-select [(ngModel)]="thyColor" name="thyColor">
+        <option value="primary">蓝色</option>
+        <option value="success">绿色</option>
+        <option value="warning">黄色</option>
+        <option value="danger">红色</option>
+        <option value="info">灰色</option>
+      </thy-select>
+    </thy-form-group>
+    <thy-form-group thyLabelText="排序">
+      <thy-select [(ngModel)]="thyReverse" name="thyReverse">
+        <option value="sequence">正序</option>
+        <option value="reverse">倒序</option>
+      </thy-select>
+    </thy-form-group>
+  </form>
+  <thy-timeline [thyMode]="thyMode" [thyReverse]="thyReverse === 'reverse'" [thyDirection]="'horizontal'">
+    <thy-timeline-item [thyColor]="thyColor">2019年7月18日</thy-timeline-item>
+    <thy-timeline-item [thyColor]="thyColor">
+      <thy-avatar [thyShowName]="true" thyName="terry" thySize="xs"></thy-avatar>
+      <ng-template #description>
+        <span class="state-label" thyLabel="outline" thyLabelColor="#f0f" thySize="sm"><span thyFlexibleText>另一侧模版</span></span>
+      </ng-template>
+    </thy-timeline-item>
+    <thy-timeline-item [thyColor]="thyColor">
+      PingCode 是简单易用的新一代研发管理平台，让研发管理自动化、数据化、智能化，帮助企业提升研发效能。</thy-timeline-item
+    >
+    <thy-timeline-item [thyColor]="thyColor"><button thySize="sm" thyButton>按钮</button> </thy-timeline-item>
+  </thy-timeline>
+</div>

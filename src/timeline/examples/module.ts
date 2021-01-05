@@ -6,12 +6,13 @@ import { ThyTimelineCustomDescriptionExampleComponent } from './custom-descripti
 import { ThyTimelineCustomPositionExampleComponent } from './custom-position/custom-position.component';
 import { ThyTimelineCustomColorExampleComponent } from './custom-color/custom-color.component';
 import { NgxTethysModule } from 'ngx-tethys';
-
+import { ThyTimelineCustomHorizontalExampleComponent } from './custom-horizontal/custom-horizontal.component';
 const COMPONENTS = [
     ThyTimelineBasicExampleComponent,
     ThyTimelineCustomDescriptionExampleComponent,
     ThyTimelineCustomPositionExampleComponent,
-    ThyTimelineCustomColorExampleComponent
+    ThyTimelineCustomColorExampleComponent,
+    ThyTimelineCustomHorizontalExampleComponent
 ];
 
 @NgModule({
