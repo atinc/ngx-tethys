@@ -52,6 +52,19 @@ export class TestTimelineCustomDescriptionComponent {
     mode = 'left';
 }
 
+@Component({
+    template: `
+        <thy-timeline [thyDirection]="direction">
+            <thy-timeline-item>111</thy-timeline-item>
+            <thy-timeline-item>
+                222
+                <ng-template #description>
+                    另一侧的描述
+                </ng-template>
+            </thy-timeline-item>
+        </thy-timeline>
+    `
+})
 export class TestTimelineCustomHorizontalComponent {
     direction: ThyTimeDirection = 'horizontal';
 }
@@ -179,7 +192,7 @@ describe('timeline', () => {
             expect(debugElement.nativeElement.classList).toContain('thy-timeline-template');
         });
     });
-    fdescribe('custom direction', () => {
+    describe('custom direction', () => {
         let fixture: ComponentFixture<TestTimelineCustomHorizontalComponent>;
         let debugElement: DebugElement;
         beforeEach(async(() => {
