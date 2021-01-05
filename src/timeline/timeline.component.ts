@@ -111,9 +111,11 @@ export class ThyTimelineComponent implements OnInit, AfterContentInit, OnChanges
             this.listOfItems.forEach((item, index) => {
                 item.isLast = !this.thyReverse ? index === length - 1 : index === 0;
                 item.isFirst = this.thyReverse ? index === length - 1 : index === 0;
-                item.position = getTimelineItemPosition(index, this.thyMode, this.thyDirection);
                 item.reverse = this.thyReverse;
-                if (item.description || item.thyPosition) {
+                if (!this.horizontal) {
+                    item.position = getTimelineItemPosition(index, this.thyMode);
+                }
+                if (item.description || (item.thyPosition && !this.horizontal)) {
                     this.templateTimeline = true;
                 }
                 item.detectChanges();
@@ -127,8 +129,6 @@ function simpleChangeActivated(simpleChange?: SimpleChange): boolean {
     return !!(simpleChange && (simpleChange.previousValue !== simpleChange.currentValue || simpleChange.isFirstChange()));
 }
 
-function getTimelineItemPosition(index: number, mode: ThyTimeMode, direction: ThyTimeDirection): ThyTimeMode | undefined {
-    if (direction === 'vertical') {
-        return mode === 'left' ? 'left' : mode === 'right' ? 'right' : mode === 'center' && index % 2 === 0 ? 'left' : 'right';
-    }
+function getTimelineItemPosition(index: number, mode: ThyTimeMode): ThyTimeMode | undefined {
+    return mode === 'left' ? 'left' : mode === 'right' ? 'right' : mode === 'center' && index % 2 === 0 ? 'left' : 'right';
 }
