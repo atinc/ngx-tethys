@@ -138,35 +138,40 @@
 }
 
 .thy-timeline {
-    &-vertical {
+    &-horizontal {
         display: flex;
-        overflow: auto;
+        overflow-x: auto;
         .thy-timeline-item {
             min-width: 160px;
+            &-last {
+                display: block;
+                .thy-timeline-item-tail {
+                    border-bottom: none;
+                }
+            }
             &-tail {
                 position: absolute;
                 top: 3px;
-                left: 0% !important;
-                width: calc(100% - 7px);
+                width: 100%;
                 border-bottom: 1px solid $gray-200;
                 height: 0;
-                top: 50%;
+                top: 40px;
             }
+
             &-content {
                 left: 0;
-                margin: 26px 0 0 0;
+                margin: 56px 0 0 0;
                 text-align: center;
-                top: 50%;
+                top: 0;
             }
             &-dot {
                 left: 50%;
-                top: 50%;
-                margin-top: -2px;
+                top: 40px;
+                margin-top: -3px;
             }
 
             .thy-timeline-item-content-other-side {
-                top: 50%;
-                margin-top: -38px;
+                top: 0;
                 text-align: center;
                 width: 100%;
             }

@@ -1,3 +1,4 @@
+import { log } from './../util/logger/logger';
 import {
     Component,
     Input,
@@ -12,24 +13,23 @@ import {
     SimpleChange,
     ChangeDetectorRef,
     ViewEncapsulation,
-    ChangeDetectionStrategy
+    ChangeDetectionStrategy,
+    ElementRef
 } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { ThyTimelineItemComponent } from './timeline-item.component';
 import { ThyTimelineService } from './timeline.service';
 import { Subject } from 'rxjs';
 
-export type thyTimeMode = 'left' | 'right' | 'center';
+export type ThyTimeMode = 'left' | 'right' | 'center';
 
-export enum thyTimeModes {
+export enum ThyTimeModes {
     left = 'left',
     right = 'right',
-    center = 'center',
-    top = 'top',
-    bottom = 'bottom'
+    center = 'center'
 }
 
-export type thyTimeDirection = 'horizontal' | 'vertical';
+export type ThyTimeDirection = 'horizontal' | 'vertical';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -48,9 +48,9 @@ export type thyTimeDirection = 'horizontal' | 'vertical';
 export class ThyTimelineComponent implements OnInit, AfterContentInit, OnChanges, OnDestroy {
     @Input() thyReverse: Boolean;
 
-    @Input() thyMode: thyTimeMode;
+    @Input() thyMode: ThyTimeMode;
 
-    @Input() thyDirection: thyTimeDirection = 'vertical';
+    @Input() thyDirection: ThyTimeDirection = 'vertical';
 
     public timelineItems: ThyTimelineItemComponent[] = [];
 
@@ -60,10 +60,13 @@ export class ThyTimelineComponent implements OnInit, AfterContentInit, OnChanges
     @HostBinding(`class.thy-timeline-right`) rightTimeline = false;
     @HostBinding(`class.thy-timeline-center`) centerTimeline = false;
     @HostBinding(`class.thy-timeline-template`) templateTimeline = false;
-    @HostBinding(`class.thy-timeline-vertical`) horizontal = false;
+    @HostBinding(`class.thy-timeline-horizontal`) horizontal = false;
 
     @ContentChildren(ThyTimelineItemComponent)
     listOfItems: QueryList<ThyTimelineItemComponent>;
+
+    @ContentChildren(ThyTimelineItemComponent)
+    listOfElements: ElementRef<ThyTimelineItemComponent>;
 
     constructor(private cdr: ChangeDetectorRef, private timelineService: ThyTimelineService) {}
 
@@ -124,7 +127,7 @@ function simpleChangeActivated(simpleChange?: SimpleChange): boolean {
     return !!(simpleChange && (simpleChange.previousValue !== simpleChange.currentValue || simpleChange.isFirstChange()));
 }
 
-function getTimelineItemPosition(index: number, mode: thyTimeMode, direction: thyTimeDirection): thyTimeMode | undefined {
+function getTimelineItemPosition(index: number, mode: ThyTimeMode, direction: ThyTimeDirection): ThyTimeMode | undefined {
     if (direction === 'vertical') {
         return mode === 'left' ? 'left' : mode === 'right' ? 'right' : mode === 'center' && index % 2 === 0 ? 'left' : 'right';
     }
