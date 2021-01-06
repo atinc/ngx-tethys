@@ -1,3 +1,5 @@
+import { ThyPopover } from './../../popover/popover.service';
+import { dispatchKeyboardEvent } from 'ngx-tethys/testing/dispatcher-events';
 import { FormsModule } from '@angular/forms';
 import { Component, DebugElement, NgModule, OnInit, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, inject, tick, flushMicrotasks, async } from '@angular/core/testing';
@@ -6,6 +8,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Mention } from '../interfaces';
 import { ThyMentionDirective } from '../mention.directive';
 import { ThyMentionModule } from './../mention.module';
+import { ENTER, T } from 'ngx-tethys/util';
+import { MentionInputorElement } from '../adapter';
 
 @Component({
     selector: 'thy-test-mention-basic',
@@ -16,7 +20,7 @@ import { ThyMentionModule } from './../mention.module';
     `
 })
 class ThyTestMentionBasicComponent implements OnInit {
-    value = `This is text!`;
+    value = `@t`;
 
     mentions: Mention<any>[];
 
@@ -49,7 +53,8 @@ describe('MentionDirective', () => {
     let fixture: ComponentFixture<ThyTestMentionBasicComponent>;
     let mentionDirective: ThyMentionDirective;
     let inputDebugElement: DebugElement;
-    let inputElement: HTMLElement;
+    let inputElement: MentionInputorElement;
+    let popover: ThyPopover;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
@@ -64,13 +69,36 @@ describe('MentionDirective', () => {
         mentionDirective = inputDebugElement.injector.get<ThyMentionDirective>(ThyMentionDirective);
     }));
 
+    beforeEach(inject([ThyPopover], (_popover: ThyPopover) => {
+        popover = _popover;
+    }));
+
+    afterEach(() => {
+        popover.close();
+    });
+
     it('should create an instance', () => {
         expect(mentionDirective).toBeTruthy();
     });
 
-    it('should open suggestions popover with popover config', () => {
-        mentionDirective['openSuggestions']({ query: { term: 'a', start: 0, end: 1 }, mention: fixture.componentInstance.mentions[0] });
+    it('should open suggestions popover success', () => {
+        mentionDirective['openSuggestions']({ query: { term: 'test1', start: 0, end: 1 }, mention: mentionDirective.mentions[0] });
         fixture.detectChanges();
-        expect(document.querySelector('.mention-popover-panel')).toBeTruthy();
+        const panelElement = document.querySelector('.mention-popover-panel');
+        expect(panelElement).toBeTruthy();
+        const mentionSuggestionsElement = document.querySelector('thy-mention-suggestions');
+        expect(mentionSuggestionsElement).toBeTruthy();
+        expect(mentionSuggestionsElement.textContent).toContain('test1');
+    });
+
+    it('should update ngModel when select suggestion test1', () => {
+        inputElement.focus();
+        inputElement.setSelectionRange(2, 2);
+        mentionDirective['lookup'](null);
+        fixture.detectChanges();
+        const panelElement = document.querySelector('.mention-popover-panel');
+        expect(fixture.componentInstance.value).toEqual('@t');
+        dispatchKeyboardEvent(panelElement, 'keydown', ENTER);
+        expect(fixture.componentInstance.value).toEqual('@test1 ');
     });
 });

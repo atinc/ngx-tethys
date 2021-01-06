@@ -1,10 +1,10 @@
-import { MentionAdapter, SeekQueryResult } from './adapter';
+import { MentionAdapter, MentionInputorElement, SeekQueryResult } from './adapter';
 import { Mention, MentionDefaultDataItem } from '../interfaces';
 
 export class EditableMentionAdapter extends MentionAdapter {
-    inputor: HTMLElement;
+    inputor: MentionInputorElement;
 
-    constructor(inputor: HTMLElement) {
+    constructor(inputor: MentionInputorElement) {
         super(inputor);
     }
 
@@ -12,7 +12,7 @@ export class EditableMentionAdapter extends MentionAdapter {
         return null;
     }
 
-    insertMention(item: MentionDefaultDataItem): void {
+    insertMention(item: MentionDefaultDataItem): string {
         throw new Error('Method not implemented.');
     }
 }
