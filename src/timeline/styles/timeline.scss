@@ -136,3 +136,45 @@
         top: 23px;
     }
 }
+
+.thy-timeline {
+    &-horizontal {
+        display: flex;
+        overflow-x: auto;
+        .thy-timeline-item {
+            min-width: 160px;
+            &-last {
+                display: block;
+                .thy-timeline-item-tail {
+                    border-bottom: none;
+                }
+            }
+            &-tail {
+                position: absolute;
+                top: 3px;
+                width: 100%;
+                border-bottom: 1px solid $gray-200;
+                height: 0;
+                top: 40px;
+            }
+
+            &-content {
+                left: 0;
+                margin: 56px 0 0 0;
+                text-align: center;
+                top: 0;
+            }
+            &-dot {
+                left: 50%;
+                top: 40px;
+                margin-top: -3px;
+            }
+
+            .thy-timeline-item-content-other-side {
+                top: 0;
+                text-align: center;
+                width: 100%;
+            }
+        }
+    }
+}

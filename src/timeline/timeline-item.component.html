@@ -2,6 +2,7 @@
   <div
     class="thy-timeline-item"
     [class.thy-timeline-item-reverse-last]="isLast && reverse"
+    [class.thy-timeline-item-last]="isLast"
     [class.thy-timeline-item-reverse-first]="isFirst && reverse"
     [class.thy-timeline-item-right]="(thyPosition || position) === 'right'"
     [class.thy-timeline-item-left]="(thyPosition || position) === 'left'"
