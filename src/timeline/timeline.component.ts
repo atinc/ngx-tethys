@@ -1,4 +1,3 @@
-import { log } from './../util/logger/logger';
 import {
     Component,
     Input,
