@@ -150,6 +150,8 @@ export class ThyPickerComponent implements AfterViewInit {
     }
 
     getPlaceholder(): string {
-        return this.isRange && this.placeholder ? (this.placeholder as string[]).join(' ~ ') : (this.placeholder as string);
+        return this.isRange && this.placeholder && Array.isArray(this.placeholder)
+            ? (this.placeholder as string[]).join(' ~ ')
+            : (this.placeholder as string);
     }
 }
