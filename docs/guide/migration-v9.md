@@ -22,7 +22,7 @@ order: 100
 ## 手动升级
 - 前往 https://update.angular.io/ 将项目升级到 Angular 9 
     ```
-    ng update @angular/cli^9 @angular/core@^9 @angular/cdk^9 --force
+    ng update @angular/cli@^9 @angular/core@^9 @angular/cdk@^9 --force
     ```
 - 修改 `ngx-tethys` 版本为 `9.0.1`
 - 下面列举的所有破坏性的更改手动修正
