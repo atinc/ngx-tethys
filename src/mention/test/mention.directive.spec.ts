@@ -1,5 +1,3 @@
-import { ThyPopover } from './../../popover/popover.service';
-import { dispatchKeyboardEvent } from 'ngx-tethys/testing/dispatcher-events';
 import { FormsModule } from '@angular/forms';
 import { Component, DebugElement, NgModule, OnInit, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, inject, tick, flushMicrotasks, async } from '@angular/core/testing';
@@ -8,7 +6,9 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Mention } from '../interfaces';
 import { ThyMentionDirective } from '../mention.directive';
 import { ThyMentionModule } from './../mention.module';
+import { ThyPopover } from 'ngx-tethys/popover';
 import { ENTER, T } from 'ngx-tethys/util';
+import { dispatchKeyboardEvent } from 'ngx-tethys/testing';
 import { MentionInputorElement } from '../adapter';
 
 @Component({
@@ -91,7 +91,7 @@ describe('MentionDirective', () => {
         expect(mentionSuggestionsElement.textContent).toContain('test1');
     });
 
-    it('should update ngModel when select suggestion test1', () => {
+    it('should update ngModel value when select suggestion test1', () => {
         inputElement.focus();
         inputElement.setSelectionRange(2, 2);
         mentionDirective['lookup'](null);

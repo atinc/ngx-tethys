@@ -112,7 +112,9 @@ export class ThyMentionDirective implements OnInit {
             });
             this.openedSuggestionsRef.componentInstance.suggestionSelect$.subscribe(event => {
                 const newValue = this.adapter.insertMention(event.item);
-                this.ngControl.control.setValue(newValue);
+                if (this.ngControl && this.ngControl.control) {
+                    this.ngControl.control.setValue(newValue);
+                }
                 this.openedSuggestionsRef.close();
                 this.select.emit(event);
             });
