@@ -12,6 +12,7 @@ let rootStore: RootStore;
 /**
  * @internal
  */
+@Injectable()
 export class RootStore {
     private connectSuccessed = false;
     /**
