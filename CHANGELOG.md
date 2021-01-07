@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.0.15"></a>
+## [9.0.15](https://github.com/atinc/ngx-tethys/compare/9.0.14...9.0.15) (2021-01-07)
+
+
+### Bug Fixes
+
+* **fullscreen:** add fullscreenchange and keydown events listeners in ThyFullscreenService #INFR-1403 ([#1067](https://github.com/atinc/ngx-tethys/issues/1067)) ([6452e28](https://github.com/atinc/ngx-tethys/commit/6452e28)), closes [#INFR-1403](https://github.com/atinc/ngx-tethys/issues/INFR-1403)
+* **mention:** should update ngModel value when select a suggestion #INFR-1531 ([#1084](https://github.com/atinc/ngx-tethys/issues/1084)) ([94c6c19](https://github.com/atinc/ngx-tethys/commit/94c6c19)), closes [#INFR-1531](https://github.com/atinc/ngx-tethys/issues/INFR-1531) [#INFR-1531](https://github.com/atinc/ngx-tethys/issues/INFR-1531)
+* **timeline:** remove log import, #INFR-1527 ([b63469b](https://github.com/atinc/ngx-tethys/commit/b63469b)), closes [#INFR-1527](https://github.com/atinc/ngx-tethys/issues/INFR-1527)
+
+
+### Features
+
+* **timeline:** timeline support horizontal #INFR-1527 ([#1081](https://github.com/atinc/ngx-tethys/issues/1081)) ([f6bcd12](https://github.com/atinc/ngx-tethys/commit/f6bcd12)), closes [#INFR-1527](https://github.com/atinc/ngx-tethys/issues/INFR-1527)
+* #INFR-1400 【DateRangePicker】选择时间组件中，设置 thyPlaceholder 仅支持 string[]，显示为thyPlaceholder[0] ~ thyPlaceholder[1]，需要支持string，placeholder 直接显示传入的 ([d55fc5c](https://github.com/atinc/ngx-tethys/commit/d55fc5c)), closes [#INFR-1400](https://github.com/atinc/ngx-tethys/issues/INFR-1400)
+
+
+
 <a name="9.0.14"></a>
 ## [9.0.14](https://github.com/atinc/ngx-tethys/compare/9.0.13...9.0.14) (2020-12-28)
 
