@@ -11,18 +11,19 @@ export interface MatchedMention<T = MentionDefaultDataItem> {
     mention: Mention<T>;
 }
 
+export type MentionInputorElement = HTMLTextAreaElement | HTMLInputElement;
 export abstract class MentionAdapter {
-    inputor: HTMLElement;
+    inputor: MentionInputorElement;
 
     matchedMention: MatchedMention;
 
-    constructor(inputor: HTMLElement) {
+    constructor(inputor: MentionInputorElement) {
         this.inputor = inputor;
     }
 
     abstract seekQuery(event: Event, mention: Mention): SeekQueryResult;
 
-    abstract insertMention(item: MentionDefaultDataItem): void;
+    abstract insertMention(item: MentionDefaultDataItem): string;
 
     lookup(event: Event, mentions: Mention[]) {
         this.matchedMention = null;

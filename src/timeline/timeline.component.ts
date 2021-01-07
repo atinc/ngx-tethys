@@ -19,13 +19,16 @@ import { ThyTimelineItemComponent } from './timeline-item.component';
 import { ThyTimelineService } from './timeline.service';
 import { Subject } from 'rxjs';
 
-export type thyTimeMode = 'left' | 'right' | 'center';
+export type ThyTimeMode = 'left' | 'right' | 'center';
 
-export enum thyTimeModes {
+export enum ThyTimeModes {
     left = 'left',
     right = 'right',
     center = 'center'
 }
+
+export type ThyTimeDirection = 'horizontal' | 'vertical';
+
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -43,7 +46,9 @@ export enum thyTimeModes {
 export class ThyTimelineComponent implements OnInit, AfterContentInit, OnChanges, OnDestroy {
     @Input() thyReverse: Boolean;
 
-    @Input() thyMode: thyTimeMode;
+    @Input() thyMode: ThyTimeMode;
+
+    @Input() thyDirection: ThyTimeDirection = 'vertical';
 
     public timelineItems: ThyTimelineItemComponent[] = [];
 
@@ -53,6 +58,7 @@ export class ThyTimelineComponent implements OnInit, AfterContentInit, OnChanges
     @HostBinding(`class.thy-timeline-right`) rightTimeline = false;
     @HostBinding(`class.thy-timeline-center`) centerTimeline = false;
     @HostBinding(`class.thy-timeline-template`) templateTimeline = false;
+    @HostBinding(`class.thy-timeline-horizontal`) horizontal = false;
 
     @ContentChildren(ThyTimelineItemComponent)
     listOfItems: QueryList<ThyTimelineItemComponent>;
@@ -61,7 +67,7 @@ export class ThyTimelineComponent implements OnInit, AfterContentInit, OnChanges
 
     ngOnChanges(changes: SimpleChanges): void {
         const { thyMode, thyReverse } = changes;
-        if (thyMode) {
+        if (thyMode && !this.horizontal) {
             if (thyMode.currentValue === 'right') {
                 this.rightTimeline = !this.templateTimeline;
                 this.centerTimeline = false;
@@ -73,12 +79,13 @@ export class ThyTimelineComponent implements OnInit, AfterContentInit, OnChanges
                 this.centerTimeline = false;
             }
         }
-        if (simpleChangeActivated(thyMode) || simpleChangeActivated(thyReverse)) {
+        if ((simpleChangeActivated(thyMode) && !this.horizontal) || simpleChangeActivated(thyReverse)) {
             this.updateChildren();
         }
     }
 
     ngOnInit() {
+        this.horizontal = this.thyDirection === 'horizontal' ? true : false;
         this.timelineService.check$.pipe(takeUntil(this.destroy$)).subscribe(() => {
             this.cdr.markForCheck();
         });
@@ -99,9 +106,11 @@ export class ThyTimelineComponent implements OnInit, AfterContentInit, OnChanges
             this.listOfItems.forEach((item, index) => {
                 item.isLast = !this.thyReverse ? index === length - 1 : index === 0;
                 item.isFirst = this.thyReverse ? index === length - 1 : index === 0;
-                item.position = getTimelineItemPosition(index, this.thyMode);
                 item.reverse = this.thyReverse;
-                if (item.description || item.thyPosition) {
+                if (!this.horizontal) {
+                    item.position = getTimelineItemPosition(index, this.thyMode);
+                }
+                if (item.description || (item.thyPosition && !this.horizontal)) {
                     this.templateTimeline = true;
                 }
                 item.detectChanges();
@@ -115,6 +124,6 @@ function simpleChangeActivated(simpleChange?: SimpleChange): boolean {
     return !!(simpleChange && (simpleChange.previousValue !== simpleChange.currentValue || simpleChange.isFirstChange()));
 }
 
-function getTimelineItemPosition(index: number, mode: thyTimeMode): thyTimeMode | undefined {
+function getTimelineItemPosition(index: number, mode: ThyTimeMode): ThyTimeMode | undefined {
     return mode === 'left' ? 'left' : mode === 'right' ? 'right' : mode === 'center' && index % 2 === 0 ? 'left' : 'right';
 }

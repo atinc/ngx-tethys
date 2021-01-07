@@ -11,7 +11,7 @@ import {
     ChangeDetectionStrategy,
     SimpleChanges
 } from '@angular/core';
-import { thyTimeMode } from './timeline.component';
+import { ThyTimeMode } from './timeline.component';
 import { ThyTimelineService } from './timeline.service';
 
 export type thyColor = 'primary' | 'success' | 'warning' | 'danger' | 'info';
@@ -25,13 +25,15 @@ export type thyColor = 'primary' | 'success' | 'warning' | 'danger' | 'info';
 export class ThyTimelineItemComponent implements OnInit, OnChanges {
     @ViewChild('timelineItem', { static: false }) template: TemplateRef<void>;
 
+    @HostBinding('class') className: string;
+
     public color: thyColor = 'primary';
 
     public isLast = false;
 
     public isFirst = false;
 
-    public position: thyTimeMode;
+    public position: ThyTimeMode;
 
     public reverse: Boolean = false;
 
@@ -42,7 +44,7 @@ export class ThyTimelineItemComponent implements OnInit, OnChanges {
         }
     }
 
-    @Input() thyPosition: thyTimeMode;
+    @Input() thyPosition: ThyTimeMode;
 
     @ContentChild('dot', { static: false }) dot: TemplateRef<any>;
 

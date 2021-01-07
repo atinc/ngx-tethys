@@ -2,7 +2,7 @@ import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { ThyTimelineModule } from '../timeline.module';
 import { By } from '@angular/platform-browser';
-import { ThyTimelineComponent } from '../timeline.component';
+import { ThyTimeDirection, ThyTimelineComponent } from '../timeline.component';
 
 @Component({
     template: `
@@ -50,6 +50,23 @@ export class TestTimelineCustomPositionComponent {
 })
 export class TestTimelineCustomDescriptionComponent {
     mode = 'left';
+}
+
+@Component({
+    template: `
+        <thy-timeline [thyDirection]="direction">
+            <thy-timeline-item>111</thy-timeline-item>
+            <thy-timeline-item>
+                222
+                <ng-template #description>
+                    另一侧的描述
+                </ng-template>
+            </thy-timeline-item>
+        </thy-timeline>
+    `
+})
+export class TestTimelineCustomHorizontalComponent {
+    direction: ThyTimeDirection = 'horizontal';
 }
 
 describe('timeline', () => {
@@ -173,6 +190,26 @@ describe('timeline', () => {
 
         it('should init className correct', () => {
             expect(debugElement.nativeElement.classList).toContain('thy-timeline-template');
+        });
+    });
+    describe('custom direction', () => {
+        let fixture: ComponentFixture<TestTimelineCustomHorizontalComponent>;
+        let debugElement: DebugElement;
+        beforeEach(async(() => {
+            TestBed.configureTestingModule({
+                imports: [ThyTimelineModule],
+                declarations: [TestTimelineCustomHorizontalComponent]
+            }).compileComponents();
+        }));
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(TestTimelineCustomHorizontalComponent);
+            debugElement = fixture.debugElement.query(By.directive(ThyTimelineComponent));
+            fixture.detectChanges();
+        });
+
+        it('should init className correct', () => {
+            expect(debugElement.nativeElement.classList).toContain('thy-timeline-horizontal');
         });
     });
 });
