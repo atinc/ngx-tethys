@@ -1,4 +1,16 @@
-import { Directive, ElementRef, Input, OnInit, EventEmitter, Output, NgZone, Optional, ChangeDetectorRef, forwardRef } from '@angular/core';
+import {
+    Directive,
+    ElementRef,
+    Input,
+    OnInit,
+    EventEmitter,
+    Output,
+    NgZone,
+    Optional,
+    ChangeDetectorRef,
+    forwardRef,
+    Self
+} from '@angular/core';
 import { NgModel, NgControl, FormControl } from '@angular/forms';
 import { Mention, MentionSuggestionSelectEvent, MentionDefaultDataItem } from './interfaces';
 import { ThyPopover, ThyPopoverRef, ThyPopoverConfig } from 'ngx-tethys/popover';
@@ -54,7 +66,11 @@ export class ThyMentionDirective implements OnInit {
     @Output('thySelectSuggestion')
     select = new EventEmitter<MentionSuggestionSelectEvent>();
 
-    constructor(private elementRef: ElementRef<HTMLElement>, private thyPopover: ThyPopover, @Optional() private ngControl: NgControl) {
+    constructor(
+        private elementRef: ElementRef<HTMLElement>,
+        private thyPopover: ThyPopover,
+        @Optional() @Self() private ngControl: NgControl
+    ) {
         this.adapter = createMentionAdapter(elementRef.nativeElement as MentionInputorElement);
         this.bindEvents();
     }
