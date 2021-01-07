@@ -1,17 +1,16 @@
-import { MentionAdapter, SeekQueryResult } from './adapter';
+import { MentionAdapter, MentionInputorElement, SeekQueryResult } from './adapter';
 import { Mention, MentionDefaultDataItem } from '../interfaces';
 
 export class TextareaMentionAdapter extends MentionAdapter {
-    inputor: HTMLTextAreaElement | HTMLInputElement;
+    inputor: MentionInputorElement;
 
-    constructor(inputor: HTMLElement) {
+    constructor(inputor: MentionInputorElement) {
         super(inputor);
     }
 
     public seekQuery(event: Event, mention: Mention): SeekQueryResult {
         const selectionStart = this.inputor.selectionStart;
         const value = this.inputor.value.replace(/[\r\n]/g, ' ');
-
         // @123 | @456 => 0(start) => @123
         // @123 @456 | => 5(start) => @456
         const start = value.lastIndexOf(mention.trigger, selectionStart);
@@ -19,11 +18,7 @@ export class TextareaMentionAdapter extends MentionAdapter {
         const end = fistSpaceIndexFromStart > -1 ? fistSpaceIndexFromStart : value.length;
         const termWithTrigger = value.substring(start, end);
         const startBeforeHasSpace = start > 0 && value[start - 1] === ' ';
-        if (
-            (startBeforeHasSpace || start === 0) &&
-            !termWithTrigger.includes(' ') &&
-            !termWithTrigger.includes(mention.trigger, 1)
-        ) {
+        if ((startBeforeHasSpace || start === 0) && !termWithTrigger.includes(' ') && !termWithTrigger.includes(mention.trigger, 1)) {
             return {
                 start: start,
                 end: end,
@@ -34,7 +29,7 @@ export class TextareaMentionAdapter extends MentionAdapter {
         }
     }
 
-    public insertMention(item: MentionDefaultDataItem) {
+    public insertMention(item: MentionDefaultDataItem): string {
         if (!this.matchedMention) {
             throw new Error(`matchedMention is null`);
         }
@@ -47,6 +42,7 @@ export class TextareaMentionAdapter extends MentionAdapter {
         ].join('');
         this.inputor.value = newValue;
         this.focus(this.matchedMention.query.start + insertValue.length);
+        return newValue;
     }
 
     private getInsertValue(item: MentionDefaultDataItem) {

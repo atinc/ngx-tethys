@@ -2,8 +2,9 @@ import { isInputOrTextarea } from 'ngx-tethys/util';
 import { Mention } from '../interfaces';
 import { TextareaMentionAdapter } from './textarea.adapter';
 import { EditableMentionAdapter } from './editable.adapter';
+import { MentionInputorElement } from './adapter';
 
-export function createMentionAdapter(element: HTMLElement) {
+export function createMentionAdapter(element: MentionInputorElement) {
     if (isInputOrTextarea(element)) {
         return new TextareaMentionAdapter(element);
     } else {

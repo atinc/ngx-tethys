@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ThyMentionDirective } from './mention.directive';
 import { ThyMentionSuggestionsComponent } from './suggestions/suggestions.component';
 import { ThyPopoverModule } from 'ngx-tethys/popover';
@@ -9,7 +10,7 @@ import { ThyEmptyModule } from 'ngx-tethys/empty';
 
 @NgModule({
     declarations: [ThyMentionDirective, ThyMentionSuggestionsComponent],
-    imports: [CommonModule, ThyPopoverModule, ThyListModule, ThyLoadingModule],
+    imports: [CommonModule, FormsModule, ThyPopoverModule, ThyListModule, ThyLoadingModule],
     exports: [ThyMentionDirective],
     providers: [],
     entryComponents: [ThyMentionSuggestionsComponent]

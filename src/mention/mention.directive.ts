@@ -1,9 +1,22 @@
-import { Directive, ElementRef, Input, OnInit, EventEmitter, Output, NgZone } from '@angular/core';
+import {
+    Directive,
+    ElementRef,
+    Input,
+    OnInit,
+    EventEmitter,
+    Output,
+    NgZone,
+    Optional,
+    ChangeDetectorRef,
+    forwardRef,
+    Self
+} from '@angular/core';
+import { NgModel, NgControl, FormControl } from '@angular/forms';
 import { Mention, MentionSuggestionSelectEvent, MentionDefaultDataItem } from './interfaces';
 import { ThyPopover, ThyPopoverRef, ThyPopoverConfig } from 'ngx-tethys/popover';
 import { ThyMentionSuggestionsComponent } from './suggestions/suggestions.component';
 import { CaretPositioner } from './caret-positioner';
-import { MentionAdapter, createMentionAdapter, MatchedMention } from './adapter';
+import { MentionAdapter, createMentionAdapter, MatchedMention, MentionInputorElement } from './adapter';
 
 const SUGGESTION_BACKDROP_CLASS = 'thy-mention-suggestions-backdrop';
 
@@ -23,7 +36,8 @@ const DEFAULT_MENTION_CONFIG: Partial<Mention> = {
 };
 
 @Directive({
-    selector: '[thyMention]'
+    selector: '[thyMention]',
+    providers: []
 })
 export class ThyMentionDirective implements OnInit {
     private adapter: MentionAdapter = null;
@@ -34,6 +48,7 @@ export class ThyMentionDirective implements OnInit {
     get mentions() {
         return this._mentions;
     }
+
     @Input('thyMention') set mentions(value: Mention<any>[]) {
         this._mentions = value;
         if (this._mentions) {
@@ -51,8 +66,12 @@ export class ThyMentionDirective implements OnInit {
     @Output('thySelectSuggestion')
     select = new EventEmitter<MentionSuggestionSelectEvent>();
 
-    constructor(private elementRef: ElementRef<HTMLElement>, private thyPopover: ThyPopover, private ngZone: NgZone) {
-        this.adapter = createMentionAdapter(elementRef.nativeElement);
+    constructor(
+        private elementRef: ElementRef<HTMLElement>,
+        private thyPopover: ThyPopover,
+        @Optional() @Self() private ngControl: NgControl
+    ) {
+        this.adapter = createMentionAdapter(elementRef.nativeElement as MentionInputorElement);
         this.bindEvents();
     }
 
@@ -108,7 +127,10 @@ export class ThyMentionDirective implements OnInit {
                 this.openedSuggestionsRef = null;
             });
             this.openedSuggestionsRef.componentInstance.suggestionSelect$.subscribe(event => {
-                this.adapter.insertMention(event.item);
+                const newValue = this.adapter.insertMention(event.item);
+                if (this.ngControl && this.ngControl.control) {
+                    this.ngControl.control.setValue(newValue);
+                }
                 this.openedSuggestionsRef.close();
                 this.select.emit(event);
             });
