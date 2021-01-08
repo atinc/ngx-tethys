@@ -69,6 +69,17 @@ export class TestTimelineCustomHorizontalComponent {
     direction: ThyTimeDirection = 'horizontal';
 }
 
+@Component({
+    template: `
+        <thy-timeline>
+            <thy-timeline-item *ngFor="let item of timelineItems"></thy-timeline-item>
+        </thy-timeline>
+    `
+})
+export class TestTimelineCustomItemsComponent {
+    timelineItems = ['节点1', '节点2', '节点3', '节点4'];
+}
+
 describe('timeline', () => {
     describe('basic', () => {
         let component: TestTimelineBasicComponent;
@@ -210,6 +221,31 @@ describe('timeline', () => {
 
         it('should init className correct', () => {
             expect(debugElement.nativeElement.classList).toContain('thy-timeline-horizontal');
+        });
+    });
+    describe('custom timeline items', () => {
+        let fixture: ComponentFixture<TestTimelineCustomItemsComponent>;
+
+        beforeEach(async(() => {
+            TestBed.configureTestingModule({
+                imports: [ThyTimelineModule],
+                declarations: [TestTimelineCustomItemsComponent]
+            }).compileComponents();
+        }));
+        beforeEach(() => {
+            fixture = TestBed.createComponent(TestTimelineCustomItemsComponent);
+            fixture.detectChanges();
+        });
+
+        it('should get correct timeline item', () => {
+            fixture.detectChanges();
+            const items = Array.from((fixture.debugElement.nativeElement as HTMLElement).querySelectorAll('.thy-timeline-item'));
+            expect(items.length).toBe(4);
+            fixture.detectChanges();
+            fixture.componentInstance.timelineItems.push('节点5');
+            fixture.detectChanges();
+            const newItems = Array.from((fixture.debugElement.nativeElement as HTMLElement).querySelectorAll('.thy-timeline-item'));
+            expect(newItems.length).toBe(5);
         });
     });
 });

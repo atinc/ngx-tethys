@@ -93,6 +93,9 @@ export class ThyTimelineComponent implements OnInit, AfterContentInit, OnChanges
 
     ngAfterContentInit() {
         this.updateChildren();
+        this.listOfItems.changes.subscribe(() => {
+            this.updateChildren();
+        });
     }
 
     ngOnDestroy(): void {
