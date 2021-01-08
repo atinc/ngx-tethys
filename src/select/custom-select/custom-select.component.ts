@@ -226,16 +226,12 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
     @HostListener('keydown', ['$event'])
     handleKeydown(event: KeyboardEvent): void {
         if (!this.disabled) {
-            if (event.keyCode === ENTER) {
-                event.stopPropagation();
-            }
             this.panelOpen ? this.handleOpenKeydown(event) : this.handleClosedKeydown(event);
         }
     }
 
     @HostListener('document:click', ['$event'])
     onDocumentClick(event: Event) {
-        event.stopPropagation();
         if (!this.elementRef.nativeElement.contains(event.target) && this.panelOpen) {
             this.close();
         }
