@@ -1,3 +1,4 @@
+import { ThyTreeSelectNode } from './tree-select.class';
 import { TestBed, async, ComponentFixture, fakeAsync, tick, inject, flush, discardPeriodicTasks } from '@angular/core/testing';
 import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Component, ViewChild, ViewChildren, QueryList, ElementRef, Sanitizer, SecurityContext, DebugElement } from '@angular/core';
@@ -5,16 +6,26 @@ import { ThyTreeSelectModule } from './module';
 import { By, DomSanitizer } from '@angular/platform-browser';
 import { UpdateHostClassService } from '../core';
 import { ThyPositioningService } from '../positioning/positioning.service';
-import { OverlayContainer, ViewportRuler } from '@angular/cdk/overlay';
-import { Observable, Subject } from 'rxjs';
+import { OverlayContainer } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { ThyFormModule } from '../form';
-import { dispatchFakeEvent, dispatchKeyboardEvent } from 'ngx-tethys/testing/dispatcher-events';
-import { TAB, ESCAPE } from '../util/keycodes';
-import { typeInElement } from 'ngx-tethys/testing';
-import { ThyTreeSelectComponent } from './tree-select.component';
+import { filterTreeData, ThyTreeSelectComponent } from './tree-select.component';
 import { ThyIconRegistry, ThyIconComponent } from '../icon';
+import { searchTreeSelectData } from './examples/mock-data';
 
+function treeNodesExpands(nodes: ThyTreeSelectNode[]) {
+    const arr = [] as ThyTreeSelectNode[];
+    const filterExpandNodes = (node: ThyTreeSelectNode, total: ThyTreeSelectNode[]) => {
+        if (node.expand) {
+            total.push(node);
+        }
+        if (node.children.length > 0) {
+            node.children.reduce((pre, current) => filterExpandNodes(current, pre), arr);
+        }
+        return total;
+    };
+    return nodes.reduce((pre, current) => filterExpandNodes(current, pre), arr);
+}
 @Component({
     selector: 'basic-tree-select',
     template: `
@@ -309,6 +320,32 @@ class NgModelTreeSelectComponent {
     treeSelect: ThyTreeSelectComponent;
 }
 
+@Component({
+    selector: 'search-tree-select',
+    template: `
+        <div>
+            <thy-tree-select
+                #treeSelect
+                [thyTreeNodes]="nodes"
+                thyPrimaryKey="key"
+                thyShowKey="title"
+                [(ngModel)]="selectedValue"
+                [thyShowSearch]="treeShowSearch"
+            ></thy-tree-select>
+        </div>
+    `
+})
+class SearchTreeSelectComponent {
+    nodes = searchTreeSelectData;
+
+    selectedValue = '';
+
+    treeShowSearch = true;
+
+    @ViewChild('treeSelect', { static: true })
+    treeSelect: ThyTreeSelectComponent;
+}
+
 describe('ThyTreeSelect', () => {
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
@@ -467,6 +504,25 @@ describe('ThyTreeSelect', () => {
             const multipleWrapper = fixture.debugElement.query(By.css('.select-control-rendered')).nativeElement;
             expect(multipleWrapper.textContent).toContain('root5');
             expect(multipleWrapper.textContent).toContain('root6');
+        }));
+    });
+
+    describe('with search', () => {
+        beforeEach(async(() => configureThyCustomSelectTestingModule([SearchTreeSelectComponent])));
+        it('show search input when set thyShowSearch is true', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SearchTreeSelectComponent);
+            fixture.detectChanges();
+            expect(fixture.debugElement.nativeElement.querySelector('input')).toBeTruthy();
+        }));
+
+        it('should show filter trees when has search text', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SearchTreeSelectComponent);
+            const componentInstance = fixture.debugElement.componentInstance;
+            fixture.detectChanges();
+            const filterNodes = filterTreeData(componentInstance.treeSelect.originTreeNodes, '2-1', 'name');
+            componentInstance.treeSelect.treeNodes = filterNodes;
+            fixture.detectChanges();
+            expect(treeNodesExpands(componentInstance.treeSelect.treeNodes).length).toEqual(2);
         }));
     });
 });
