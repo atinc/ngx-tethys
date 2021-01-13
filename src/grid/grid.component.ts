@@ -658,6 +658,14 @@ export class ThyGridComponent extends _MixinBase implements OnInit, OnChanges, O
             this.buildGroups(thyGroupsChange.currentValue);
             this.buildModel();
         }
+        if (this.model.length === 0 && this.groups.length === 0) {
+            this.className += ' empty-table';
+        } else {
+            this.className = this.className
+                .split(' ')
+                .filter(item => item !== 'empty-table')
+                .join(' ');
+        }
     }
 
     ngDoCheck() {
