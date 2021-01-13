@@ -45,6 +45,8 @@
     }
 
     .thy-layout-content-main {
+        display: flex;
+        flex-direction: column;
         flex: auto;
         background: $layout-content-section-background;
     }
