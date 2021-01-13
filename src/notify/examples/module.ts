@@ -9,6 +9,7 @@ import { ThyNotifyDetailExampleComponent } from './detail/detail.component';
 import { ThyNotifyHoverExampleComponent } from './hover/hover.component';
 import { ThyNotifyTypeExampleComponent } from './type/type.component';
 import { ThyNotifyPlacementExampleComponent } from './placement/placement.component';
+import { ThyNotifyOpenDetailExampleComponent } from './open-detail/open-detail.component';
 
 const COMPONENTS = [
     ThyNotifyHoverExampleComponent,
@@ -16,7 +17,8 @@ const COMPONENTS = [
     ThyNotifyCustomHtmlExampleComponent,
     ThyNotifyBasicExampleComponent,
     ThyNotifyTypeExampleComponent,
-    ThyNotifyPlacementExampleComponent
+    ThyNotifyPlacementExampleComponent,
+    ThyNotifyOpenDetailExampleComponent
 ];
 
 @NgModule({

@@ -24,6 +24,12 @@ export interface ThyNotifyOption {
     maxStack?: number;
 
     placement?: NotifyPlacement;
+
+    openableDetail?: boolean;
+
+    linkName?: string;
+
+    openDetailFn?: any;
 }
 
 export const THY_NOTIFY_DEFAULT_OPTIONS = new InjectionToken<ThyNotifyOption>('thy-notify-default-options');

@@ -90,6 +90,11 @@ export class ThyNotifyComponent implements OnInit, OnDestroy {
         this.isShowDetail = !this.isShowDetail;
     }
 
+    showOpenDetail() {
+        this.option.openDetailFn();
+        this.closeNotify();
+    }
+
     closeNotify() {
         this._ngZone.runOutsideAngular(() => {
             this.flyInOut = 'componentHide';

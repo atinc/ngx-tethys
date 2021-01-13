@@ -6,8 +6,7 @@ import {
     ApplicationRef,
     ComponentFactoryResolver,
     ComponentRef,
-    Inject,
-    Optional
+    Inject
 } from '@angular/core';
 import { CONTAINER_PLACEMENT, NotifyPlacement, ThyNotifyOption, THY_NOTIFY_DEFAULT_OPTIONS } from './notify-option.interface';
 import { ThyNotifyContainerComponent } from './notify.container.component';
@@ -84,6 +83,17 @@ export class ThyNotifyService {
             title: title || '错误',
             content: content,
             detail: detail
+        });
+    }
+
+    openDetail(title?: string, content?: string, linkName?: string, openDetailFn?: any) {
+        this.show({
+            type: 'success',
+            title: title || '成功',
+            content: content,
+            openableDetail: true,
+            linkName: linkName,
+            openDetailFn: openDetailFn
         });
     }
 
