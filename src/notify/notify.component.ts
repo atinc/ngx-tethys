@@ -90,8 +90,8 @@ export class ThyNotifyComponent implements OnInit, OnDestroy {
         this.isShowDetail = !this.isShowDetail;
     }
 
-    showOpenDetail() {
-        this.option.openDetailFn();
+    showOpenLink() {
+        this.option.openLinkFn();
         this.closeNotify();
     }
 

@@ -1,14 +1,5 @@
-import {
-    Injectable,
-    TemplateRef,
-    ViewContainerRef,
-    Injector,
-    ApplicationRef,
-    ComponentFactoryResolver,
-    ComponentRef,
-    Inject
-} from '@angular/core';
-import { CONTAINER_PLACEMENT, NotifyPlacement, ThyNotifyOption, THY_NOTIFY_DEFAULT_OPTIONS } from './notify-option.interface';
+import { Injectable, Injector, ApplicationRef, ComponentFactoryResolver, ComponentRef, Inject } from '@angular/core';
+import { NotifyPlacement, ThyNotifyOption, THY_NOTIFY_DEFAULT_OPTIONS } from './notify-option.interface';
 import { ThyNotifyContainerComponent } from './notify.container.component';
 import { Subject } from 'rxjs';
 import { DomPortalOutlet, ComponentPortal, PortalInjector } from '@angular/cdk/portal';
@@ -86,14 +77,14 @@ export class ThyNotifyService {
         });
     }
 
-    openDetail(title?: string, content?: string, linkName?: string, openDetailFn?: any) {
+    openDetail(title?: string, content?: string, linkName?: string, openLinkFn?: any) {
         this.show({
             type: 'success',
             title: title || '成功',
             content: content,
-            openableDetail: true,
+            openableLink: true,
             linkName: linkName,
-            openDetailFn: openDetailFn
+            openLinkFn: openLinkFn
         });
     }
 
