@@ -1,4 +1,5 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { Component, OnInit, HostBinding, Input } from '@angular/core';
 import { ThyTreeSelectComponent } from './tree-select.component';
 import { ThyTreeSelectNode } from './tree-select.class';
 
@@ -9,7 +10,7 @@ import { ThyTreeSelectNode } from './tree-select.class';
 export class ThyTreeSelectNodesComponent implements OnInit {
     @HostBinding('class') class: string;
 
-    public treeNodes = this.parent.treeNodes;
+    @Input() treeNodes: ThyTreeSelectNode[];
 
     public primaryKey = this.parent.thyPrimaryKey;
 
@@ -28,9 +29,7 @@ export class ThyTreeSelectNodesComponent implements OnInit {
     constructor(public parent: ThyTreeSelectComponent) {}
 
     ngOnInit() {
-        this.class = this.isMultiple
-            ? 'thy-tree-select-dropdown thy-tree-select-dropdown-multiple'
-            : 'thy-tree-select-dropdown';
+        this.class = this.isMultiple ? 'thy-tree-select-dropdown thy-tree-select-dropdown-multiple' : 'thy-tree-select-dropdown';
     }
 
     treeNodeIsSelected(node: ThyTreeSelectNode) {

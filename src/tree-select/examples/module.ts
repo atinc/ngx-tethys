@@ -9,6 +9,8 @@ import { ThyTreeSelectHiddenExampleComponent } from './hidden/hidden.component';
 import { ThyTreeSelectDisabledExampleComponent } from './disabled/disabled.component';
 import { ThyTreeSelectMultipleExampleComponent } from './multiple/multiple.component';
 import { ThyTreeSelectSizeExampleComponent } from './size/size.component';
+import { ThyTreeSelectSearchExampleComponent } from './search/search.component';
+
 import { ThyTreeSelectEmptySelectionExampleComponent } from './empty-selection/empty-selection.component';
 import { ThyTreeSelectAsyncFetchExampleComponent } from './async-fetch/async-fetch.component';
 
@@ -21,7 +23,8 @@ const COMPONENTS = [
     ThyTreeSelectMultipleExampleComponent,
     ThyTreeSelectSizeExampleComponent,
     ThyTreeSelectEmptySelectionExampleComponent,
-    ThyTreeSelectAsyncFetchExampleComponent
+    ThyTreeSelectAsyncFetchExampleComponent,
+    ThyTreeSelectSearchExampleComponent
 ];
 @NgModule({
     imports: [CommonModule, FormsModule, NgxTethysModule],
