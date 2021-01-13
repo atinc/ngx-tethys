@@ -30,12 +30,6 @@
 .thy-grid {
     display: block;
     height: 100%;
-    .empty-table {
-        height: 100%;
-        tbody {
-            height: 100%;
-        }
-    }
 
     .thy-grid-group {
         &:hover {
