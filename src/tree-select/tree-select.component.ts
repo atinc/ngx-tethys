@@ -15,7 +15,7 @@ import {
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ThyTreeSelectNode, ThyTreeSelectType } from './tree-select.class';
 import { isObject, isArray } from 'ngx-tethys/util';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable, of } from 'rxjs';
 import { CdkOverlayOrigin, CdkConnectedOverlay, ConnectionPositionPair } from '@angular/cdk/overlay';
 import { getFlexiblePositions } from 'ngx-tethys/core';
 import { ThyTreeNode } from 'ngx-tethys/tree';
@@ -26,6 +26,24 @@ import { warnDeprecation } from 'ngx-tethys/util';
 
 type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
+export function filterTreeData(treeNodes: ThyTreeSelectNode[], searchText: string, searchKey: string = 'name') {
+    const filterNodes = (node: ThyTreeSelectNode, result: ThyTreeSelectNode[]) => {
+        if (node[searchKey] && node[searchKey].indexOf(searchText) !== -1) {
+            result.push(node);
+            return result;
+        }
+        if (Array.isArray(node.children)) {
+            const nodes = node.children.reduce((previous, current) => filterNodes(current, previous), [] as ThyTreeSelectNode[]);
+            if (nodes.length) {
+                const parentNode = { ...node, children: nodes, expand: true };
+                result.push(parentNode);
+            }
+        }
+        return result;
+    };
+    const treeData = treeNodes.reduce((previous, current) => filterNodes(current, previous), [] as ThyTreeSelectNode[]);
+    return treeData;
+}
 @Component({
     selector: 'thy-tree-select',
     templateUrl: './tree-select.component.html',
@@ -71,6 +89,8 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
 
     public valueIsObject = false;
 
+    originTreeNodes: ThyTreeSelectNode[];
+
     @ContentChild('thyTreeSelectTriggerDisplay')
     thyTreeSelectTriggerDisplayRef: TemplateRef<any>;
 
@@ -86,6 +106,7 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
     @Input()
     set thyTreeNodes(value: ThyTreeSelectNode[]) {
         this.treeNodes = value;
+        this.originTreeNodes = value;
         if (this.initialled) {
             this.flattenTreeNodes = this.flattenNodes(this.treeNodes, this.flattenTreeNodes, []);
             this.setSelectedNodes();
@@ -121,6 +142,8 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
     @Input() thyAsyncNode = false;
 
     @Input() thyShowWholeName = false;
+
+    @Input() thyShowSearch = false;
 
     @Input()
     set thyIconType(type: ThyTreeSelectType) {
@@ -191,6 +214,10 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
 
     get selectedValueObject() {
         return this.thyMultiple ? this.selectedNodes : this.selectedNode;
+    }
+
+    searchValue(searchText: string) {
+        this.treeNodes = filterTreeData(this.originTreeNodes, searchText, this.thyShowKey);
     }
 
     public setPosition() {

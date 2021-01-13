@@ -200,3 +200,74 @@ export const disabledOptionTreeSelectData: ThyTreeSelectNode[] = [
         ]
     }
 ];
+
+export const searchTreeSelectData: ThyTreeSelectNode[] = [
+    {
+        _id: 'epic-001',
+        name: '史诗1',
+        level: 0,
+        icon: 'epic-square-fill',
+        children: [
+            {
+                _id: 'feature-001',
+                name: '特性1',
+                level: 1,
+                icon: 'feature-square-fill',
+                children: [
+                    {
+                        _id: 'user-story-001',
+                        name: '用户故事1',
+                        level: 2,
+                        icon: 'user-story-square-fill',
+                        children: []
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        _id: 'epic-002',
+        name: '另一个史诗2',
+        level: 0,
+        icon: 'epic-square-fill',
+        children: [
+            {
+                _id: 'feature-002-1',
+                name: '特性2-1',
+                level: 1,
+                icon: 'feature-square-fill',
+                children: [
+                    {
+                        _id: 'user-story-002-1',
+                        name: '用户故事2-1-1',
+                        level: 2,
+                        icon: 'user-story-square-fill',
+                        children: []
+                    }
+                ]
+            },
+            {
+                _id: 'feature-002-2',
+                name: '特性2-2',
+                level: 1,
+                icon: 'feature-square-fill',
+                children: [
+                    {
+                        _id: 'user-story-002-2',
+                        name: '用户故事2-2-1',
+                        level: 2,
+                        icon: 'user-story-square-fill',
+                        children: []
+                    },
+                    {
+                        _id: 'user-story-002-2',
+                        name: '特性2-2-2',
+                        level: 2,
+                        icon: 'user-story-square-fill',
+                        children: []
+                    }
+                ]
+            }
+        ]
+    }
+];
