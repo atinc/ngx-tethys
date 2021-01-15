@@ -1,25 +1,38 @@
 .thy-guider-highlight-container {
     display: inline-block;
-    width: 20px;
-    height: 20px;
-    padding: 4px;
+    width: 16px;
+    height: 16px;
     background-color: $primary;
-    border: 1px solid $primary;
     border-radius: 50%;
-    animation-name: highlightPulse;
-    animation-timing-function: cubic-bezier(0, 0.42, 0.26, 0.96);
-    animation-duration: 1.5s;
-    animation-iteration-count: infinite;
+
+    &::after {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        content: '';
+        width: 16px;
+        height: 16px;
+        border: 1px solid $primary;
+        border-radius: 50%;
+        animation-name: highlightPulse;
+        animation-timing-function: cubic-bezier(0, 0.42, 0.26, 0.96);
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+    }
 }
 
 @keyframes highlightPulse {
     0% {
-        padding: 4px;
+        width: 16px;
+        height: 16px;
     }
     50% {
-        padding: 6px;
+        width: 28px;
+        height: 28px;
     }
     100% {
-        padding: 8px;
+        width: 16px;
+        height: 16px;
     }
 }

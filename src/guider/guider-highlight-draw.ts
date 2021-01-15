@@ -63,8 +63,8 @@ export class GuiderDrawHighlightService {
         // 如果显示过程中进行滚动，那么需要监测滚动事件，再做进一步处理
         const setPosition = step.highLightPosition;
         if (helpers.isArray(setPosition)) {
-            this.renderer.setStyle(this.currentHighlightContainer, 'x', setPosition[0] + 'px');
-            this.renderer.setStyle(this.currentHighlightContainer, 'y', setPosition[1] + 'px');
+            this.renderer.setStyle(this.currentHighlightContainer, 'left', setPosition[0] + 'px');
+            this.renderer.setStyle(this.currentHighlightContainer, 'top', setPosition[1] + 'px');
         } else {
             // TODO ThyPlacement 的情况
         }
