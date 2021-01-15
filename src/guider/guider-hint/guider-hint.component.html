@@ -1,0 +1,10 @@
+<img [src]="cover" [alt]="title" />
+<h3>{{ title }}</h3>
+<div class="thy-guider-hint-content">
+  <ng-container *ngIf="descriptionTemplateRef; else stringTemplateRef">
+    <ng-template [ngTemplateOutlet]="descriptionTemplateRef"></ng-template>
+  </ng-container>
+  <ng-template #stringTemplateRef>
+    {{ descriptionString }}
+  </ng-template>
+</div>
