@@ -90,7 +90,7 @@ export {
     format,
     getQuarter,
     addDays
-} from 'date-fns';
+};
 
 export interface IndexableObject {
     [key: string]: any;
