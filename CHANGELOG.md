@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="10.0.0-next.2"></a>
+# [10.0.0-next.2](https://github.com/atinc/ngx-tethys/compare/10.0.0-next.1...10.0.0-next.2) (2021-01-18)
+
+
+### Bug Fixes
+
+* **util:** move tiny-date.ts, fix date-fns reexported  error when build ([12cf309](https://github.com/atinc/ngx-tethys/commit/12cf309))
+
+
+
 <a name="10.0.0-next.1"></a>
 # [10.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/10.0.0-next.0...10.0.0-next.1) (2021-01-15)
 
