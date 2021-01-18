@@ -1,4 +1,4 @@
-import { IndexableObject } from './../tiny-date';
+import { IndexableObject } from '../date/tiny-date';
 import { TemplateRef, ElementRef } from '@angular/core';
 import { coerceBooleanProperty as coerceBoolean, coerceCssPixelValue as coerceCssPixel, _isNumberValue } from '@angular/cdk/coercion';
 import { warnDeprecation } from '../logger';
