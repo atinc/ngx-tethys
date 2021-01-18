@@ -1,6 +1,6 @@
 {
   "name": "ngx-tethys",
-  "version": "9.0.15",
+  "version": "9.0.16",
   "license": "MIT",
   "scripts": {
     "start": "docgeni serve",

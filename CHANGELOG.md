@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.0.16"></a>
+## [9.0.16](https://github.com/atinc/ngx-tethys/compare/9.0.15...9.0.16) (2021-01-18)
+
+
+### Bug Fixes
+
+* **layout:** update thy-layout-content-main's display as flex #INFR-1546 ([3aa2820](https://github.com/atinc/ngx-tethys/commit/3aa2820)), closes [#INFR-1546](https://github.com/atinc/ngx-tethys/issues/INFR-1546)
+* **select:** add keydown stop propagation #INFR-1160 ([12c806e](https://github.com/atinc/ngx-tethys/commit/12c806e)), closes [#INFR-1160](https://github.com/atinc/ngx-tethys/issues/INFR-1160)
+* **select:** cancel stop propagation in select #INFR-1160 ([adb6394](https://github.com/atinc/ngx-tethys/commit/adb6394)), closes [#INFR-1160](https://github.com/atinc/ngx-tethys/issues/INFR-1160)
+* **timeline:** fix timeline data update #INFR-1536 ([e914b30](https://github.com/atinc/ngx-tethys/commit/e914b30)), closes [#INFR-1536](https://github.com/atinc/ngx-tethys/issues/INFR-1536)
+
+
+### Features
+
+* **tree-select:** tree select support search, #INFR-1542 ([a691bd3](https://github.com/atinc/ngx-tethys/commit/a691bd3)), closes [#INFR-1542](https://github.com/atinc/ngx-tethys/issues/INFR-1542)
+
+
+
 <a name="9.0.15"></a>
 ## [9.0.15](https://github.com/atinc/ngx-tethys/compare/9.0.14...9.0.15) (2021-01-07)
 
