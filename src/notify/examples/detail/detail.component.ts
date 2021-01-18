@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './detail.component.html'
 })
 export class ThyNotifyDetailExampleComponent implements OnInit {
+    openAction = () => {
+        alert(111);
+    };
     constructor(private notifyService: ThyNotifyService) {}
 
     ngOnInit() {}
@@ -50,6 +53,17 @@ export class ThyNotifyDetailExampleComponent implements OnInit {
         Date: 2018-04-20T08:57:23.362Z - Hash: d96e601a21c551b7c38a
         - Time: 11376ms 4 unchanged chunks chunk {main} main.js (main) 703 kB [initial]
         [rendered]ℹ ｢wdm｣: Compiled successfully.`,
+            duration: 0
+        });
+
+        this.notifyService.show({
+            type: 'success',
+            title: '成功',
+            content: '获取数据成功！',
+            detail: {
+                link: '查看',
+                action: this.openAction
+            },
             duration: 0
         });
     }

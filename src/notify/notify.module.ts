@@ -6,9 +6,10 @@ import { ThyNotifyService } from './notify.service';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { NotifyQueueStore } from './notify-queue.store';
 import { THY_NOTIFY_DEFAULT_OPTIONS, THY_NOTIFY_DEFAULT_OPTIONS_PROVIDER } from './notify-option.interface';
+import { NotifyPipes } from './notify.pipe';
 
 @NgModule({
-    declarations: [ThyNotifyComponent, ThyNotifyContainerComponent],
+    declarations: [ThyNotifyComponent, ThyNotifyContainerComponent, ...NotifyPipes],
     entryComponents: [ThyNotifyContainerComponent],
     providers: [ThyNotifyService, NotifyQueueStore, THY_NOTIFY_DEFAULT_OPTIONS_PROVIDER],
     imports: [CommonModule, ThyIconModule],
