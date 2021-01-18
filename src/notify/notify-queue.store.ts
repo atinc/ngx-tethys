@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Store, Action } from 'ngx-tethys/store';
-import { NotifyPlacement, ThyNotifyOption } from './notify-option.interface';
+import { NotifyPlacement, ThyNotifyOptions } from './notify-option.interface';
 
 export interface NotifyQueueState {
-    topLeftQueue: ThyNotifyOption[];
-    topRightQueue: ThyNotifyOption[];
-    bottomLeftQueue: ThyNotifyOption[];
-    bottomRightQueue: ThyNotifyOption[];
+    topLeftQueue: ThyNotifyOptions[];
+    topRightQueue: ThyNotifyOptions[];
+    bottomLeftQueue: ThyNotifyOptions[];
+    bottomRightQueue: ThyNotifyOptions[];
 }
 
 export const notifyQueueInitialState: NotifyQueueState = {
@@ -50,13 +50,13 @@ export class NotifyQueueStore extends Store<NotifyQueueState> {
     }
 
     @Action()
-    addNotify(placement: NotifyPlacement, notify: ThyNotifyOption) {
+    addNotify(placement: NotifyPlacement, options: ThyNotifyOptions) {
         const key = this.convertQueueKey(placement);
         const state = this.snapshot;
-        if (state[key].length > notify.maxStack) {
+        if (state[key].length > options.maxStack) {
             state[key].shift();
         }
-        state[key].push(notify);
+        state[key].push(options);
         this.next(state);
     }
 

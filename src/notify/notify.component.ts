@@ -1,5 +1,5 @@
 import { Component, Input, HostBinding, OnInit, HostListener, OnDestroy, NgZone } from '@angular/core';
-import { NotifyPlacement, ThyNotifyOption } from './notify-option.interface';
+import { NotifyPlacement, ThyNotifyOptions } from './notify-option.interface';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { UpdateHostClassService } from 'ngx-tethys/core';
 import { NotifyQueueStore } from './notify-queue.store';
@@ -39,7 +39,7 @@ export class ThyNotifyComponent implements OnInit, OnDestroy {
 
     @HostBinding('class') className = '';
 
-    option: ThyNotifyOption;
+    option: ThyNotifyOptions;
 
     notifyIconName = '';
 
@@ -52,7 +52,7 @@ export class ThyNotifyComponent implements OnInit, OnDestroy {
     placement: NotifyPlacement;
 
     @Input()
-    set thyOption(value: ThyNotifyOption) {
+    set thyOption(value: ThyNotifyOptions) {
         this.option = value;
         const type = value.type;
         this.placement = value.placement || 'topRight';
