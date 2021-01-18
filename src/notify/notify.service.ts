@@ -9,10 +9,10 @@ import {
     Inject,
     Optional
 } from '@angular/core';
-import { CONTAINER_PLACEMENT, NotifyPlacement, ThyNotifyOption, THY_NOTIFY_DEFAULT_OPTIONS } from './notify-option.interface';
+import { CONTAINER_PLACEMENT, NotifyPlacement, ThyNotifyOptions, THY_NOTIFY_DEFAULT_OPTIONS } from './notify-option.interface';
 import { ThyNotifyContainerComponent } from './notify.container.component';
 import { Subject } from 'rxjs';
-import { DomPortalOutlet, ComponentPortal, PortalInjector } from '@angular/cdk/portal';
+import { DomPortalOutlet, ComponentPortal } from '@angular/cdk/portal';
 import { NotifyQueueStore } from './notify-queue.store';
 
 const NOTIFY_OPTION_DEFAULT = {
@@ -41,11 +41,11 @@ export class ThyNotifyService {
         private componentFactoryResolver: ComponentFactoryResolver,
         private appRef: ApplicationRef,
         private queueStore: NotifyQueueStore,
-        @Inject(THY_NOTIFY_DEFAULT_OPTIONS) private defaultConfig: ThyNotifyOption
+        @Inject(THY_NOTIFY_DEFAULT_OPTIONS) private defaultConfig: ThyNotifyOptions
     ) {}
 
-    show(option: ThyNotifyOption) {
-        const notifyConfig = this._formatOption(option);
+    show(options: ThyNotifyOptions) {
+        const notifyConfig = this.formatOptions(options);
         const { placement } = notifyConfig;
         this.queueStore.addNotify(placement, notifyConfig);
         this._initContainer(placement);
@@ -128,7 +128,7 @@ export class ThyNotifyService {
         return containerRef;
     }
 
-    private _formatOption(option: ThyNotifyOption) {
-        return Object.assign({}, NOTIFY_OPTION_DEFAULT, { id: this._lastNotifyId++ }, this.defaultConfig, option);
+    private formatOptions(options: ThyNotifyOptions) {
+        return Object.assign({}, NOTIFY_OPTION_DEFAULT, { id: this._lastNotifyId++ }, this.defaultConfig, options);
     }
 }
