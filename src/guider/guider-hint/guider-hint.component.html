@@ -2,7 +2,7 @@
   <img [src]="cover" [alt]="title" />
   <button thyButton="link" class="thy-guider-hint-top-btn" (click)="jump()">跳过</button>
 </div>
-<div class="thy-guider-hint-content">
+<div class="thy-guider-hint-content bg-white">
   <div class="thy-guider-hint-content-title">
     {{ title }}
   </div>
@@ -22,8 +22,8 @@
     </div>
 
     <div class="thy-guider-hint-step-btn">
-      <button thyButton="link" class="thy-guider-hint-step-pre">上一步</button>
-      <button thyButton="link" class="thy-guider-hint-step-next">下一步</button>
+      <button thyButton="link" (click)="prev()" class="thy-guider-hint-step-pre">上一步</button>
+      <button thyButton="link" (click)="next()" class="thy-guider-hint-step-next">下一步</button>
     </div>
   </div>
 </div>

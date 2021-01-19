@@ -1,13 +1,12 @@
+import { Type } from '@angular/core';
+import { ThyPlacement } from 'ngx-tethys/core';
+
 export enum StepActionType {
     NEXT = 'NEXT',
     PREV = 'PREV'
 }
 
 export const NOT_SET_POSITION = 'NOT_SET_POSITION';
-
-import { Component, Type } from '@angular/core';
-import { ThyPlacement } from 'ngx-tethys/core';
-
 export interface StepInfo {
     key: string;
     target: string; // directive

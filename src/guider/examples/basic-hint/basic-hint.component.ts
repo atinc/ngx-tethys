@@ -26,6 +26,8 @@ export class ThyGuiderBasicHintExampleComponent implements OnInit {
                     key: 'basic-hint-target',
                     target: '.basic-hint-target',
                     data: {
+                        cover:
+                            'https://raw.githubusercontent.com/FrankWang117/images/master/page-1-artboard-copy-6.png?token=AFFPCSHBUDJ722DLBCX227DAATY4U',
                         title: 'basic-hint-title',
                         description: 'description for basic hint'
                     }

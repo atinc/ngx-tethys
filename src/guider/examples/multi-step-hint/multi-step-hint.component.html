@@ -1,0 +1,14 @@
+<h2>
+  <span class="step1">step 1</span>
+</h2>
+<div class="blank"></div>
+<h2 class="step2">step 2</h2>
+<div class="blank"></div>
+<button thyButton="danger" class="step3" (click)="showText()">step 3</button>
+<div class="blank">
+  <ng-container *ngIf="text">
+    {{ text }}
+  </ng-container>
+</div>
+
+<button thyButton="primary" (click)="startTour()">开始</button>

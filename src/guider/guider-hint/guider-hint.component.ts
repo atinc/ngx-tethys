@@ -1,10 +1,24 @@
-import { Component, HostBinding, Input, OnInit, TemplateRef } from '@angular/core';
+import { HostBinding, AfterViewInit, Component, Input, OnInit, TemplateRef } from '@angular/core';
+import { GuiderRef } from '../guider-ref';
 import { helpers } from 'ngx-tethys/util';
+
+export abstract class ThyGuiderHintBaseComponent implements OnInit, AfterViewInit {
+    @Input() guiderRef: GuiderRef;
+
+    @Input() set stepHintData(value: any) {}
+
+    constructor() {}
+
+    ngOnInit() {}
+
+    ngAfterViewInit() {}
+}
+
 @Component({
     selector: 'thy-guider-hint',
     templateUrl: 'guider-hint.component.html'
 })
-export class ThyGuiderHintComponent implements OnInit {
+export class ThyGuiderHintComponent extends ThyGuiderHintBaseComponent {
     @HostBinding('class.thy-guider-hint-container') guiderHint = true;
 
     @Input()
@@ -24,9 +38,16 @@ export class ThyGuiderHintComponent implements OnInit {
 
     public descriptionTemplateRef: TemplateRef<any>;
 
-    constructor() {}
+    public currentStepIndex: number;
+
+    public totalStepsCount: number;
+    constructor() {
+        super();
+    }
 
     ngOnInit() {}
+
+    ngAfterViewInit() {}
 
     private setDescription(value: string | TemplateRef<any>) {
         if (helpers.isString(value)) {
@@ -36,5 +57,18 @@ export class ThyGuiderHintComponent implements OnInit {
         }
     }
 
-    jump() {}
+    jump() {
+        this.guiderRef.end();
+    }
+
+    public prev() {
+        this.guiderRef.prev();
+    }
+    public next() {
+        this.guiderRef?.next();
+        console.log(this.guiderRef.stepsContainer);
+    }
+    public end() {
+        this.guiderRef.end();
+    }
 }

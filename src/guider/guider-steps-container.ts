@@ -1,11 +1,11 @@
 import { Subject } from 'rxjs';
-import { ThyPlacement } from 'ngx-tethys';
+// import { ThyPlacement } from 'ngx-tethys';
 import { StepInfo, StepActionType } from './guider.class';
 
 export class ThyGuiderStepsContainer {
     private steps: StepInfo[];
     private currentStepIndex = -2;
-    stepHasBeenModified: Subject<StepInfo> = new Subject<StepInfo>();
+    public stepHasBeenModified: Subject<StepInfo> = new Subject<StepInfo>();
 
     constructor(steps: StepInfo[], startWith?: string) {
         this.steps = steps;
@@ -25,18 +25,7 @@ export class ThyGuiderStepsContainer {
         return index;
     }
 
-    // addStep(stepToAdd: JoyrideStep) {
-    //     let stepExist = this.tempSteps.filter(step => step.name === stepToAdd.name).length > 0;
-    //     if (!stepExist) {
-    //         this.logger.info(`Adding step ${stepToAdd.name} to the steps list.`);
-    //         this.tempSteps.push(stepToAdd);
-    //     } else {
-    //         let stepIndexToReplace = this.tempSteps.findIndex(step => step.name === stepToAdd.name);
-    //         this.tempSteps[stepIndexToReplace] = stepToAdd;
-    //     }
-    // }
-
-    getStep(actionType: StepActionType): StepInfo {
+    public getStep(actionType: StepActionType): StepInfo {
         if (actionType === StepActionType.NEXT) this.currentStepIndex++;
         else this.currentStepIndex--;
 
@@ -52,43 +41,29 @@ export class ThyGuiderStepsContainer {
         return currentStep;
     }
 
-    // getStepRoute(action: StepActionType) {
-    //     let stepID: string;
-    //     if (action === StepActionType.NEXT) {
-    //         stepID = this.steps[this.currentStepIndex + 1] ? this.steps[this.currentStepIndex + 1].id : null;
-    //     } else {
-    //         stepID = this.steps[this.currentStepIndex - 1] ? this.steps[this.currentStepIndex - 1].id : null;
-    //     }
-    //     let stepRoute = stepID && stepID.includes(ROUTE_SEPARATOR) ? stepID.split(ROUTE_SEPARATOR)[1] : '';
-
-    //     return stepRoute;
+    // private updateHintPosition(stepKey: string, position: ThyPlacement | string[]) {
+    //     this.updatePosition(stepKey, position, 'hintPosition');
     // }
 
-    updateHintPosition(stepKey: string, position: ThyPlacement | string[]) {
-        this.updatePosition(stepKey, position, 'hintPosition');
-    }
+    // private updateHighLightPosition(stepKey: string, position: ThyPlacement | string[]) {
+    //     this.updatePosition(stepKey, position, 'highLightPosition');
+    // }
 
-    updateHighLightPosition(stepKey: string, position: ThyPlacement | string[]) {
-        this.updatePosition(stepKey, position, 'highLightPosition');
-    }
+    // private updatePosition(stepKey: string, position: ThyPlacement | string[], type: string) {
+    //     let index = this.getStepIndex(stepKey);
+    //     if (this.steps[index]) {
+    //         this.steps[index][type] = position;
+    //         this.stepHasBeenModified.next(this.steps[index]);
+    //     } else {
+    //         throw new Error(`Trying to modify the position of ${stepKey} to ${position}. Step not found!`);
+    //     }
+    // }
 
-    private updatePosition(stepKey: string, position: ThyPlacement | string[], type: string) {
-        let index = this.getStepIndex(stepKey);
-        if (this.steps[index]) {
-            this.steps[index][type] = position;
-            this.stepHasBeenModified.next(this.steps[index]);
-        } else {
-            // throw new Error(
-            //     `Trying to modify the position of ${stepName} to ${position}. Step not found!Is this step located in a different route?`
-            // );
-        }
-    }
-
-    getStepNumber(stepKey: string): number {
+    public getStepNumber(stepKey: string): number {
         return this.getStepIndex(stepKey) + 1;
     }
 
-    getStepsCount() {
+    public getStepsCount() {
         return this.steps.length;
     }
 

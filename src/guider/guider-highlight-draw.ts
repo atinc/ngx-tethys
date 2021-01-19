@@ -21,7 +21,6 @@ export class GuiderDrawHighlightService {
     }
 
     draw(step: StepInfo) {
-        console.log(step);
         if (!step.target) {
             return;
         }
@@ -63,8 +62,8 @@ export class GuiderDrawHighlightService {
         // 如果显示过程中进行滚动，那么需要监测滚动事件，再做进一步处理
         const setPosition = step.highLightPosition;
         if (helpers.isArray(setPosition)) {
-            this.renderer.setStyle(this.currentHighlightContainer, 'left', setPosition[0] + 'px');
-            this.renderer.setStyle(this.currentHighlightContainer, 'top', setPosition[1] + 'px');
+            this.renderer.setStyle(this.currentHighlightContainer, setPosition[0] > 0 ? 'left' : 'right', setPosition[0] + 'px');
+            this.renderer.setStyle(this.currentHighlightContainer, setPosition[1] > 0 ? 'top' : 'bottom', setPosition[1] + 'px');
         } else {
             // TODO ThyPlacement 的情况
         }
