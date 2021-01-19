@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GuiderOptionInfo, GuiderRef, StepInfo, ThyGuider } from 'ngx-tethys';
+import { ThyGuiderConfig, GuiderRef, StepInfo, ThyGuider } from 'ngx-tethys';
 import { ThyGuiderHintComponent } from 'ngx-tethys/guider/guider-hint/guider-hint.component';
 
 @Component({
@@ -7,7 +7,7 @@ import { ThyGuiderHintComponent } from 'ngx-tethys/guider/guider-hint/guider-hin
     templateUrl: 'hint-without-target.component.html'
 })
 export class ThyGuiderHintWithoutTargetExampleComponent implements OnInit {
-    private option: GuiderOptionInfo;
+    private option: ThyGuiderConfig;
 
     private guiderRef: GuiderRef;
 
@@ -22,7 +22,7 @@ export class ThyGuiderHintWithoutTargetExampleComponent implements OnInit {
         this.guiderRef.end();
     }
 
-    private setDefaultGuiderOption(): GuiderOptionInfo {
+    private setDefaultGuiderOption(): ThyGuiderConfig {
         return {
             component: ThyGuiderHintComponent,
             steps: [
@@ -36,8 +36,7 @@ export class ThyGuiderHintWithoutTargetExampleComponent implements OnInit {
                     }
                 }
             ] as StepInfo[],
-            // startWith: '',
-            hintDefaultPosition: [100, -100]
+            tooltipDefaultPosition: [100, -100]
         };
     }
 

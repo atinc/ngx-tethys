@@ -1,3 +1,6 @@
-<h2 class="custom-hint-target">customHint</h2>
+<p>自定义显示的提示框以及使用 <code>TemplateRef</code> 类型传递要显示的内容。</p>
 <button thyButton="primary" (click)="startTour()">开始</button>
-<button thyButton="danger" (click)="endTour()">结束</button>
+<button class="custom-hint-target" thyButton="danger" (click)="endTour()">结束</button>
+<ng-template #descTemplate>
+  <thy-icon thyIconName="bell-fill"></thy-icon> 圣诞快乐<thy-icon thyIconName="bell-fill"></thy-icon>
+</ng-template>

@@ -1,28 +1,36 @@
-import { HostBinding, AfterViewInit, Component, Input, OnInit, TemplateRef } from '@angular/core';
+import { HostBinding, Component, Input, OnInit, TemplateRef, OnChanges, SimpleChanges } from '@angular/core';
 import { GuiderRef } from '../guider-ref';
 import { helpers } from 'ngx-tethys/util';
+import { StepInfo } from '../guider.class';
 
-export abstract class ThyGuiderHintBaseComponent implements OnInit, AfterViewInit {
+export abstract class ThyGuiderTooltipBaseComponent implements OnInit, OnChanges {
     @Input() guiderRef: GuiderRef;
 
-    @Input() set stepHintData(value: any) {}
+    @Input() set stepTooltipData(value: any) {}
 
     constructor() {}
 
     ngOnInit() {}
 
-    ngAfterViewInit() {}
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes.guiderRef) {
+            this.guiderRef.stepChange().subscribe((step: StepInfo) => {
+                console.log(step);
+                console.log('====');
+            });
+        }
+    }
 }
 
 @Component({
     selector: 'thy-guider-hint',
     templateUrl: 'guider-hint.component.html'
 })
-export class ThyGuiderHintComponent extends ThyGuiderHintBaseComponent {
+export class ThyGuiderHintComponent extends ThyGuiderTooltipBaseComponent {
     @HostBinding('class.thy-guider-hint-container') guiderHint = true;
 
     @Input()
-    set stepHintData(value: any) {
+    set stepTooltipData(value: any) {
         this.title = value.title;
         this.setDescription(value.description);
         this.cover = value.cover;
@@ -47,8 +55,6 @@ export class ThyGuiderHintComponent extends ThyGuiderHintBaseComponent {
 
     ngOnInit() {}
 
-    ngAfterViewInit() {}
-
     private setDescription(value: string | TemplateRef<any>) {
         if (helpers.isString(value)) {
             this.descriptionString = value as string;
@@ -62,12 +68,11 @@ export class ThyGuiderHintComponent extends ThyGuiderHintBaseComponent {
     }
 
     public prev() {
-        this.guiderRef.prev();
+        this.guiderRef.previous();
     }
 
     public next() {
         this.guiderRef.next();
-        console.log(this.guiderRef.stepsContainer);
     }
 
     public end() {

@@ -1,119 +1,119 @@
-import { Type } from '@angular/core';
-import { ThyPlacement } from 'ngx-tethys/core';
 import { helpers } from 'ngx-tethys/util';
-import { Observable, ReplaySubject } from 'rxjs';
-import { GuiderDrawHighlightService } from './guider-highlight-draw';
-import { GuiderDrawHintService } from './guider-hint-draw';
-import { ThyGuiderStepsContainer } from './guider-steps-container';
-import { NOT_SET_POSITION, StepActionType, GuiderOptionInfo, StepInfo, GuiderPosition } from './guider.class';
+import { ThyPlacement } from 'ngx-tethys/core';
+import { ThyGuiderStepRef } from './guider-step-ref';
+import { Observable, ReplaySubject, Subject } from 'rxjs';
+import { NOT_SET_POSITION, ThyGuiderConfig, StepInfo, GuiderPlacement } from './guider.class';
 
 export class GuiderRef {
-    private stepsObserver$: ReplaySubject<StepInfo> = new ReplaySubject<StepInfo>();
+    private stepChange$: ReplaySubject<StepInfo> = new ReplaySubject<StepInfo>();
+
+    private guiderEnded$ = new Subject();
 
     private steps: StepInfo[];
 
     private currentStep: StepInfo;
 
-    private highLightDefaultPosition: GuiderPosition;
+    private highLightDefaultPosition: GuiderPlacement;
 
-    private hintDefaultPosition: GuiderPosition;
+    private hintDefaultPosition: GuiderPlacement;
 
     private currentStepIndex: number;
 
-    private startWidth: string;
+    public option: ThyGuiderConfig;
 
-    private hintComponent: Type<unknown>;
-
-    public stepsContainer: ThyGuiderStepsContainer;
-
-    public option: GuiderOptionInfo;
-
-    constructor(option: GuiderOptionInfo, private highlightDraw: GuiderDrawHighlightService, private stepHintDraw: GuiderDrawHintService) {
+    constructor(option: ThyGuiderConfig, private stepRef: ThyGuiderStepRef) {
         if (!option || !option?.steps || !helpers.isArray(option?.steps)) {
             throw new Error('’option.steps’ must be an array of length greater than 0');
         }
         this.option = option;
         this.steps = this.adapterSteps(option.steps);
-        this.startWidth = option.startWith;
-        this.highLightDefaultPosition = option.highLightDefaultPosition;
-        this.hintDefaultPosition = option.hintDefaultPosition;
-        this.hintComponent = option.component;
+        this.highLightDefaultPosition = option.pointDefaultPosition;
+        this.hintDefaultPosition = option.tooltipDefaultPosition;
     }
 
     public stepChange(): Observable<StepInfo> {
-        return this.stepsObserver$;
+        return this.stepChange$;
     }
 
     public start(startWith?: string) {
-        this.stepsObserver$ = new ReplaySubject<StepInfo>();
-        this.stepsContainer = new ThyGuiderStepsContainer(this.steps, startWith);
-        this.showStep(StepActionType.NEXT);
-        this.subscribeToStepsUpdates();
-        return this.stepsObserver$.asObservable();
+        this.stepChange$ = new ReplaySubject<StepInfo>();
+        this.currentStepIndex = this.getFirstStepIndex(startWith);
+        this.to(this.currentStepIndex);
+
+        return this.stepChange$.asObservable();
     }
 
     public next() {
-        this.removeExistedStep();
-        this.showStep(StepActionType.NEXT);
+        if (this.currentStepIndex + 1 > this.steps.length) {
+            return;
+        }
+        this.to(this.currentStepIndex + 1);
     }
 
-    public prev() {
-        this.removeExistedStep();
-        this.showStep(StepActionType.PREV);
+    public previous() {
+        if (this.currentStepIndex - 1 < 0) {
+            return;
+        }
+
+        this.to(this.currentStepIndex - 1);
     }
 
-    // TODO
-    public go(stepName: string) {
+    public to(index: number): void {
         this.removeExistedStep();
-    }
 
-    public end() {
-        this.removeExistedStep();
-        this.highlightDraw.remove();
-        this.notifyTourIsFinished();
-    }
-
-    private showStep(actionType: StepActionType) {
-        this.currentStep = this.stepsContainer.getStep(actionType);
-
-        if (this.currentStep == null) throw new Error('step no exit');
+        if (!helpers.isNumber(index)) {
+            index = 0;
+        }
+        this.currentStep = this.steps[index];
+        this.currentStepIndex = index;
+        if (!this.currentStep) {
+            throw new Error('step not exist');
+        }
         this.drawStep(this.currentStep);
         this.notifyStepClicked();
     }
 
-    private subscribeToStepsUpdates() {
-        this.stepsContainer.stepHasBeenModified.subscribe(updatedStep => {
-            if (this.currentStep && this.currentStep.key === updatedStep.key) {
-                this.currentStep = updatedStep;
-            }
-        });
+    public close() {
+        this.stepRef.dispose(this.currentStep);
+    }
+    public end() {
+        this.close();
+        this.guiderEnded$.next(this.currentStep);
+        this.notifyGuiderIsFinished();
+    }
+
+    private getFirstStepIndex(startWith: string): number {
+        const firstStep = startWith;
+        const stepIds = this.steps.map(step => step.key);
+
+        let index = stepIds.indexOf(firstStep);
+        if (index < 0) {
+            index = 0;
+            if (firstStep !== undefined) throw new Error(`The step ${firstStep} does not exist. `);
+        }
+
+        return index;
     }
 
     private notifyStepClicked() {
-        this.stepsObserver$.next(this.currentStep);
+        this.stepChange$.next(this.currentStep);
+        // this.currentStepIndex++;
     }
 
     private drawStep(step: StepInfo) {
         this.drawHighlight(step);
-        this.drawHint(step);
+        this.stepRef.attach(step, this);
     }
 
     private drawHighlight(step: StepInfo) {
-        step.highLightPosition = step.highLightPosition === NOT_SET_POSITION ? this.getHighLightDefaultPosition() : step.highLightPosition;
-
-        this.highlightDraw.draw(step);
+        step.pointPosition = step.pointPosition === NOT_SET_POSITION ? this.getHighLightDefaultPosition() : step.pointPosition;
     }
 
-    private drawHint(step: StepInfo) {
-        this.removeExistedStep();
-        this.stepHintDraw.draw(step, this);
-    }
-
-    private getHintDefaultPosition(): GuiderPosition {
+    private getHintDefaultPosition(): GuiderPlacement {
         return this.hintDefaultPosition ? this.hintDefaultPosition : [100, -100];
     }
 
-    private getHighLightDefaultPosition(): GuiderPosition {
+    private getHighLightDefaultPosition(): GuiderPlacement {
         return this.highLightDefaultPosition ? this.highLightDefaultPosition : ('bottomRight' as ThyPlacement);
     }
 
@@ -121,20 +121,21 @@ export class GuiderRef {
         return steps.map(step => {
             const tempStep = { ...step };
 
-            tempStep.hintPosition = tempStep.hintPosition ? tempStep.hintPosition : NOT_SET_POSITION;
+            tempStep.tooltipPosition = tempStep.tooltipPosition ? tempStep.tooltipPosition : NOT_SET_POSITION;
 
-            tempStep.highLightPosition = tempStep.highLightPosition ? tempStep.highLightPosition : NOT_SET_POSITION;
+            tempStep.pointPosition = tempStep.pointPosition ? tempStep.pointPosition : NOT_SET_POSITION;
             return {
                 ...tempStep
             };
         });
     }
 
-    private notifyTourIsFinished() {
-        this.stepsObserver$.complete();
+    private notifyGuiderIsFinished() {
+        this.stepChange$.complete();
+        this.currentStepIndex = 0;
     }
 
     private removeExistedStep() {
-        this.stepHintDraw.remove(this.currentStep);
+        this.stepRef.dispose(this.currentStep);
     }
 }

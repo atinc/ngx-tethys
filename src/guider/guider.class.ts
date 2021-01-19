@@ -1,27 +1,42 @@
 import { Type } from '@angular/core';
 import { ThyPlacement } from 'ngx-tethys/core';
 
-export enum StepActionType {
-    NEXT = 'NEXT',
-    PREV = 'PREV'
-}
-
 export const NOT_SET_POSITION = 'NOT_SET_POSITION';
+
+export type stepTooltipData = any;
+
+export type GuiderPlacement = ThyPlacement | number[] | string;
+
 export interface StepInfo {
     key: string;
     target: string; // directive
-    data: any;
-    highLightPosition?: GuiderPosition;
-    hintPosition?: GuiderPosition;
+    data: stepTooltipData;
+    pointPosition?: GuiderPlacement;
+    tooltipPosition?: GuiderPlacement;
     // children: StepInfo<T>[]
 }
 
-export interface GuiderOptionInfo {
+export class ThyGuiderConfig {
+    /** tooltip Component ,default is ThyGuiderTooltip */
     component: Type<unknown>;
-    steps: StepInfo[];
-    startWith?: string;
-    highLightDefaultPosition?: GuiderPosition;
-    hintDefaultPosition?: GuiderPosition;
-}
 
-export type GuiderPosition = ThyPlacement | number[] | string;
+    /** steps info */
+    steps: StepInfo[];
+
+    /** point default position */
+    pointDefaultPosition?: GuiderPlacement;
+
+    /** tooltip default position when step info not set tooltipPosition */
+    tooltipDefaultPosition?: GuiderPlacement;
+
+    /** Origin point, default use origin's boundingClientRect*/
+    // originPosition?: {
+    //     x: number;
+    //     y: number;
+    // } & { width?: number; height?: number };
+
+    /** Placement be relative to origin, topCenter, topLeft, topRight, bottomCenter, bottomLeft, bottomRight ...*/
+    // placement?: ThyPlacement;
+    /** Offset be relative to origin, default is 4*/
+    // offset?: number;
+}

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyMultiSelectEvent, ThyGridRowEvent, ThyGridSize, ThyGridTheme } from 'ngx-tethys';
 
 @Component({
     selector: 'thy-guider-basic-example',

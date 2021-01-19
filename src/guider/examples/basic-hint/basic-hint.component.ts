@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GuiderOptionInfo, GuiderRef, StepInfo, ThyGuider } from 'ngx-tethys';
+import { ThyGuiderConfig, GuiderRef, StepInfo, ThyGuider } from 'ngx-tethys';
 import { ThyGuiderHintComponent } from 'ngx-tethys/guider/guider-hint/guider-hint.component';
 
 @Component({
@@ -7,7 +7,7 @@ import { ThyGuiderHintComponent } from 'ngx-tethys/guider/guider-hint/guider-hin
     templateUrl: 'basic-hint.component.html'
 })
 export class ThyGuiderBasicHintExampleComponent implements OnInit {
-    private option: GuiderOptionInfo;
+    private option: ThyGuiderConfig;
 
     private guiderRef: GuiderRef;
 
@@ -18,7 +18,7 @@ export class ThyGuiderBasicHintExampleComponent implements OnInit {
         this.guiderRef = this.thyGuider.create(this.option);
     }
 
-    private setDefaultGuiderOption(): GuiderOptionInfo {
+    private setDefaultGuiderOption(): ThyGuiderConfig {
         return {
             component: ThyGuiderHintComponent,
             steps: [
@@ -31,11 +31,10 @@ export class ThyGuiderBasicHintExampleComponent implements OnInit {
                         description: 'description for basic hint'
                     }
                     // highLightPosition: [40,100];
-                    // hintPosition?: GuiderPosition;
+                    // hintPosition?: GuiderPlacement;
                 }
             ] as StepInfo[],
-            // startWith: '',
-            highLightDefaultPosition: [20, 20]
+            pointDefaultPosition: [20, 20]
         };
     }
 
