@@ -14,10 +14,12 @@ import { ThyInputModule } from './../module';
             [thyTheme]="thyTheme"
             [thySearchFocus]="true"
             (clear)="onClear()"
+            [thySearchSize]="thySearchSize"
         ></thy-input-search>
     `
 })
 class TestBedComponent {
+    thySearchSize = 'sm';
     thyTheme = ``;
     checkClear;
     onClear() {
@@ -32,7 +34,7 @@ class TestBedComponent {
 })
 export class InputSearchTestModule {}
 
-describe('input search', () => {
+fdescribe('input search', () => {
     let fixture: ComponentFixture<TestBedComponent>;
     let basicTestComponent: TestBedComponent;
     let debugElement: DebugElement;
@@ -69,5 +71,13 @@ describe('input search', () => {
     it('clear EventEmitter', () => {
         fixture.detectChanges();
         expect(debugElement.nativeElement.placeholder).toBe('请输入');
+    });
+
+    it('thySize', () => {
+        fixture.detectChanges();
+        expect(debugContainerElement.nativeElement.children[1].classList.contains('form-control-sm')).toBe(true);
+        basicTestComponent.thySearchSize = 'lg';
+        fixture.detectChanges();
+        expect(debugContainerElement.nativeElement.children[1].classList.contains('form-control-lg')).toBe(true);
     });
 });
