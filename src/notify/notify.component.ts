@@ -104,7 +104,9 @@ export class ThyNotifyComponent implements OnInit, OnDestroy {
         if (helpers.isFunction((this.option.detail as ThyNotifyDetail).action)) {
             (this.option.detail as ThyNotifyDetail).action();
         }
-        this.showDetailToggle();
+        if ((this.option.detail as ThyNotifyDetail).content) {
+            this.showDetailToggle();
+        }
     }
 
     @HostListener('mouseenter') mouseenter() {

@@ -42,7 +42,7 @@ export class ThyNotifyService {
         this._initContainer(placement);
     }
 
-    success(title?: string, content?: string, options?: ThyNotifyDetail) {
+    success(title?: string, content?: string, options?: ThyNotifyOptions) {
         this.show({
             type: 'success',
             title: title || '成功',
@@ -51,7 +51,7 @@ export class ThyNotifyService {
         });
     }
 
-    info(title?: string, content?: string, options?: ThyNotifyDetail) {
+    info(title?: string, content?: string, options?: ThyNotifyOptions) {
         this.show({
             type: 'info',
             title: title || '提示',
@@ -60,7 +60,7 @@ export class ThyNotifyService {
         });
     }
 
-    warning(title?: string, content?: string, options?: ThyNotifyDetail) {
+    warning(title?: string, content?: string, options?: ThyNotifyOptions) {
         this.show({
             type: 'warning',
             title: title || '警告',
@@ -69,7 +69,7 @@ export class ThyNotifyService {
         });
     }
 
-    error(title?: string, content?: string, options?: ThyNotifyDetail) {
+    error(title?: string, content?: string, options?: ThyNotifyOptions) {
         this.show({
             type: 'error',
             title: title || '错误',
