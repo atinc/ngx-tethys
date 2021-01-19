@@ -30,7 +30,9 @@ export class ThyGuiderHintWithoutTargetExampleComponent implements OnInit {
                     key: 'hint-without-target',
                     target: '',
                     data: {
-                        desc: 'without target'
+                        cover: '',
+                        title: 'HintWithoutTarget',
+                        description: '没有具体 target 的提示框。'
                     }
                 }
             ] as StepInfo[],

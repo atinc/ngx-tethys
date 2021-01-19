@@ -39,6 +39,7 @@ export class GuiderDrawHintService {
 
         const instance: any = ref.instance;
         // 设置基类的 Input
+        console.log(step.data);
         instance.stepHintData = step.data;
         instance.guiderRef = guiderRef;
         ref.changeDetectorRef.detectChanges();
@@ -70,7 +71,7 @@ export class GuiderDrawHintService {
             backdropClosable: false,
             hasBackdrop: false,
             initialState: {
-                stepHintData: step,
+                stepHintData: step.data,
                 guiderRef: this.guiderRef
             }
         });
