@@ -100,12 +100,11 @@ export class ThyNotifyComponent implements OnInit, OnDestroy {
         });
     }
 
-    openAction() {
+    triggerDetail() {
         if (helpers.isFunction((this.option.detail as ThyNotifyDetail).action)) {
             (this.option.detail as ThyNotifyDetail).action();
-        } else {
-            this.showDetailToggle();
         }
+        this.showDetailToggle();
     }
 
     @HostListener('mouseenter') mouseenter() {

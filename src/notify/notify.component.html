@@ -14,7 +14,7 @@
       (click)="extendContent()"
     >
       {{ option?.content }}
-      <a href="javascript:;" class="link-secondary" (click)="openAction()">{{ (option?.detail)['link'] }}</a>
+      <a href="javascript:;" *ngIf="option?.detail" class="link-secondary" (click)="triggerDetail()">{{ (option?.detail)['link'] }}</a>
     </div>
     <div class="thy-notify-detail" *ngIf="isShowDetail">{{ (option?.detail)['content'] }}</div>
   </div>

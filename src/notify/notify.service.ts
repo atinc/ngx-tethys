@@ -42,39 +42,39 @@ export class ThyNotifyService {
         this._initContainer(placement);
     }
 
-    success(title?: string, content?: string, detail?: ThyNotifyDetail) {
+    success(title?: string, content?: string, options?: ThyNotifyDetail) {
         this.show({
             type: 'success',
             title: title || '成功',
             content: content,
-            detail: detail
+            detail: options
         });
     }
 
-    info(title?: string, content?: string, detail?: ThyNotifyDetail) {
+    info(title?: string, content?: string, options?: ThyNotifyDetail) {
         this.show({
             type: 'info',
             title: title || '提示',
             content: content,
-            detail: detail
+            detail: options
         });
     }
 
-    warning(title?: string, content?: string, detail?: ThyNotifyDetail) {
+    warning(title?: string, content?: string, options?: ThyNotifyDetail) {
         this.show({
             type: 'warning',
             title: title || '警告',
             content: content,
-            detail: detail
+            detail: options
         });
     }
 
-    error(title?: string, content?: string, detail?: ThyNotifyDetail) {
+    error(title?: string, content?: string, options?: ThyNotifyDetail) {
         this.show({
             type: 'error',
             title: title || '错误',
             content: content,
-            detail: detail
+            detail: options
         });
     }
 
