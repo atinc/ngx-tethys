@@ -1,5 +1,5 @@
 import { Injectable, Injector, ApplicationRef, ComponentFactoryResolver, ComponentRef, Inject } from '@angular/core';
-import { NotifyDetail, NotifyPlacement, ThyNotifyOptions, THY_NOTIFY_DEFAULT_OPTIONS } from './notify-option.interface';
+import { ThyNotifyDetail, NotifyPlacement, ThyNotifyOptions, THY_NOTIFY_DEFAULT_OPTIONS } from './notify-option.interface';
 import { ThyNotifyContainerComponent } from './notify.container.component';
 import { Subject } from 'rxjs';
 import { DomPortalOutlet, ComponentPortal } from '@angular/cdk/portal';
@@ -42,7 +42,7 @@ export class ThyNotifyService {
         this._initContainer(placement);
     }
 
-    success(title?: string, content?: string, detail?: NotifyDetail) {
+    success(title?: string, content?: string, detail?: ThyNotifyDetail) {
         this.show({
             type: 'success',
             title: title || '成功',
@@ -51,7 +51,7 @@ export class ThyNotifyService {
         });
     }
 
-    info(title?: string, content?: string, detail?: NotifyDetail) {
+    info(title?: string, content?: string, detail?: ThyNotifyDetail) {
         this.show({
             type: 'info',
             title: title || '提示',
@@ -60,7 +60,7 @@ export class ThyNotifyService {
         });
     }
 
-    warning(title?: string, content?: string, detail?: NotifyDetail) {
+    warning(title?: string, content?: string, detail?: ThyNotifyDetail) {
         this.show({
             type: 'warning',
             title: title || '警告',
@@ -69,7 +69,7 @@ export class ThyNotifyService {
         });
     }
 
-    error(title?: string, content?: string, detail?: NotifyDetail) {
+    error(title?: string, content?: string, detail?: ThyNotifyDetail) {
         this.show({
             type: 'error',
             title: title || '错误',

@@ -66,5 +66,13 @@ export class ThyNotifyDetailExampleComponent implements OnInit {
             },
             duration: 0
         });
+
+        this.notifyService.show({
+            type: 'success',
+            title: '成功',
+            content: '获取数据成功！',
+            detail: '提示信息',
+            duration: 0
+        });
     }
 }

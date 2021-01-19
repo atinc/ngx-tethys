@@ -4,7 +4,7 @@ export const CONTAINER_PLACEMENT = new InjectionToken<{}>('CONTAINER_PLACEMENT')
 
 export type NotifyPlacement = 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight';
 
-export interface NotifyDetail {
+export interface ThyNotifyDetail {
     link?: string;
     content?: string;
     action?: (event?: Event) => void;
@@ -19,7 +19,7 @@ export interface ThyNotifyOptions {
 
     content?: string;
 
-    detail?: string | NotifyDetail;
+    detail?: string | ThyNotifyDetail;
 
     html?: ElementRef;
 

@@ -1,5 +1,5 @@
 import { Component, Input, HostBinding, OnInit, HostListener, OnDestroy, NgZone } from '@angular/core';
-import { NotifyDetail, NotifyPlacement, ThyNotifyOptions } from './notify-option.interface';
+import { ThyNotifyDetail, NotifyPlacement, ThyNotifyOptions } from './notify-option.interface';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { UpdateHostClassService } from 'ngx-tethys/core';
 import { NotifyQueueStore } from './notify-queue.store';
@@ -101,8 +101,8 @@ export class ThyNotifyComponent implements OnInit, OnDestroy {
     }
 
     openAction() {
-        if (helpers.isFunction((this.option.detail as NotifyDetail).action)) {
-            (this.option.detail as NotifyDetail).action();
+        if (helpers.isFunction((this.option.detail as ThyNotifyDetail).action)) {
+            (this.option.detail as ThyNotifyDetail).action();
         } else {
             this.showDetailToggle();
         }
