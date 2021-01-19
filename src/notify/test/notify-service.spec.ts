@@ -16,6 +16,7 @@ import { By } from '@angular/platform-browser';
         <button class="btn4" (click)="openComponentNotify4()">Open</button>
         <button class="btn5" (click)="openComponentNotify5()">Open</button>
         <button class="btn6" (click)="openComponentNotify6()">Open</button>
+        <button class="btn7" (click)="openComponentNotify7()">Open</button>
     `
 })
 export class ThyNotifyBasicComponent implements OnInit {
@@ -80,6 +81,10 @@ export class ThyNotifyBasicComponent implements OnInit {
             duration: 0
         });
     }
+
+    openComponentNotify7() {
+        this.notifyService.success('成功的title', '成功的content', { detail: '我是成功的detail', duration: 0 });
+    }
 }
 
 describe('ThyNotify', () => {
@@ -97,7 +102,7 @@ describe('ThyNotify', () => {
     describe('basic', () => {
         let fixture: ComponentFixture<ThyNotifyBasicComponent>;
         let componentInstance: ThyNotifyBasicComponent;
-        let btnElement1, btnElement3, btnElement4, btnElement5, btnElement6;
+        let btnElement1, btnElement3, btnElement4, btnElement5, btnElement6, btnElement7;
         let notifyContainer: NodeListOf<Element>, notifyTopLeftContainer: NodeListOf<Element>, linkContainer: NodeListOf<Element>;
 
         beforeEach(async(() => {
@@ -182,6 +187,23 @@ describe('ThyNotify', () => {
             const detailContentContainer = bodyElement.querySelectorAll(`.thy-notify-detail`);
             expect(detailContentContainer[0].textContent === '查看的内容').toBeTruthy();
             notifyOpenDetailContainer3[0].remove();
+        }));
+
+        it('kjsdflajsdf', fakeAsync(() => {
+            btnElement7 = fixture.nativeElement.querySelector('.btn7');
+            btnElement7.click();
+            fixture.detectChanges();
+            const notifyOpenDetailContainer4 = bodyElement.querySelectorAll(`.thy-notify-topRight`);
+            linkContainer = bodyElement.querySelectorAll(`.link-secondary`);
+            expect(linkContainer[3].textContent === '[详情]').toBeTruthy();
+            const titleContainer = bodyElement.querySelectorAll(`.thy-notify-title`);
+            expect(titleContainer[5].textContent === '成功的title').toBeTruthy();
+            const openDetailElement = linkContainer[3] as HTMLElement;
+            openDetailElement.click();
+            fixture.detectChanges();
+            const detailContentContainer = bodyElement.querySelectorAll(`.thy-notify-detail`);
+            expect(detailContentContainer[0].textContent === '我是成功的detail').toBeTruthy();
+            notifyOpenDetailContainer4[0].remove();
         }));
     });
 });
