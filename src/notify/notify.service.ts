@@ -44,57 +44,37 @@ export class ThyNotifyService {
 
     success(title?: string, content?: string, options?: ThyNotifyOptions) {
         this.show({
+            ...(options || {}),
             type: 'success',
             title: title || options?.title || '成功',
-            content: content || options?.content,
-            detail: options?.detail,
-            duration: this.defaultConfig.duration || options?.duration,
-            pauseOnHover: this.defaultConfig.pauseOnHover || options?.pauseOnHover,
-            maxStack: this.defaultConfig.maxStack || options?.maxStack,
-            placement: this.defaultConfig.placement || options?.placement,
-            html: options?.html
+            content: content || options?.content
         });
     }
 
     info(title?: string, content?: string, options?: ThyNotifyOptions) {
         this.show({
+            ...(options || {}),
             type: 'info',
             title: title || options?.title || '提示',
-            content: content || options?.content,
-            detail: options?.detail,
-            duration: this.defaultConfig.duration || options?.duration,
-            pauseOnHover: this.defaultConfig.pauseOnHover || options?.pauseOnHover,
-            maxStack: this.defaultConfig.maxStack || options?.maxStack,
-            placement: this.defaultConfig.placement || options?.placement,
-            html: options?.html
+            content: content || options?.content
         });
     }
 
     warning(title?: string, content?: string, options?: ThyNotifyOptions) {
         this.show({
+            ...(options || {}),
             type: 'warning',
             title: title || options?.title || '警告',
-            content: content || options?.content,
-            detail: options?.detail,
-            duration: this.defaultConfig.duration || options?.duration,
-            pauseOnHover: this.defaultConfig.pauseOnHover || options?.pauseOnHover,
-            maxStack: this.defaultConfig.maxStack || options?.maxStack,
-            placement: this.defaultConfig.placement || options?.placement,
-            html: options?.html
+            content: content || options?.content
         });
     }
 
     error(title?: string, content?: string, options?: ThyNotifyOptions) {
         this.show({
+            ...(options || {}),
             type: 'error',
             title: title || options?.title || '错误',
-            content: content || options?.content,
-            detail: options?.detail,
-            duration: this.defaultConfig.duration || options?.duration,
-            pauseOnHover: this.defaultConfig.pauseOnHover || options?.pauseOnHover,
-            maxStack: this.defaultConfig.maxStack || options?.maxStack,
-            placement: this.defaultConfig.placement || options?.placement,
-            html: options?.html
+            content: content || options?.content
         });
     }
 
