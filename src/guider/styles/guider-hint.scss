@@ -27,7 +27,7 @@
     }
 
     .thy-guider-hint-content {
-        padding: 30px 30px 28px;
+        padding: 30px 30px 0;
         height: 250px;
         box-sizing: border-box;
         display: flex;
@@ -47,14 +47,35 @@
             overflow-y: scroll;
         }
         .thy-guider-hint-step {
-            height: 20px;
-            padding: 10px 0 20px;
+            display: flex;
+            justify-content: space-between;
+            height: 36px;
+            margin-bottom: 20px;
+            margin-top: 10px;
             &-pagination {
+                line-height: 36px;
                 .pagination-item {
+                    width: 3px;
+                    height: 3px;
+                    display: inline-block;
+                    border-radius: 50%;
+                    background-color: rgba($primary, 0.4);
+                    margin: 2px 4px;
+                    box-sizing: border-box;
+                    &.active {
+                        border: 2px solid $primary;
+                        background-color: #fff;
+                        width: 7px;
+                        height: 7px;
+                        margin: 0 4px;
+                    }
                 }
             }
             &-pre,
             &-next {
+                &:hover {
+                    text-decoration: none;
+                }
             }
         }
     }

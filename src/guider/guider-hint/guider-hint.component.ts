@@ -64,10 +64,12 @@ export class ThyGuiderHintComponent extends ThyGuiderHintBaseComponent {
     public prev() {
         this.guiderRef.prev();
     }
+
     public next() {
-        this.guiderRef?.next();
+        this.guiderRef.next();
         console.log(this.guiderRef.stepsContainer);
     }
+
     public end() {
         this.guiderRef.end();
     }

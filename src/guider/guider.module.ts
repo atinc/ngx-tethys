@@ -11,6 +11,7 @@ import { ThyPopoverModule } from 'ngx-tethys/popover';
 
 @NgModule({
     imports: [CommonModule, ThySharedModule, ThyIconModule, ThyButtonModule, ThyPopoverModule],
+
     declarations: [ThyGuiderHintComponent],
     exports: [ThyGuiderHintComponent],
     entryComponents: [ThyGuiderHintComponent],
