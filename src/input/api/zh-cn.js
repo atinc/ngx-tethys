@@ -119,6 +119,12 @@ module.exports = [
                 description: '点击清空事件',
                 type: 'Event',
                 default: ''
+            },
+            {
+                name: 'thySearchSize',
+                description: '大小',
+                type: `'' | 'md' | 'lg'`,
+                default: ''
             }
         ]
     },
