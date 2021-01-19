@@ -1,10 +1,29 @@
-<img [src]="cover" [alt]="title" />
-<h3>{{ title }}</h3>
+<div class="thy-guider-hint-top">
+  <img [src]="cover" [alt]="title" />
+  <button thyButton="link" class="thy-guider-hint-top-btn" (click)="jump()">跳过</button>
+</div>
 <div class="thy-guider-hint-content">
-  <ng-container *ngIf="descriptionTemplateRef; else stringTemplateRef">
-    <ng-template [ngTemplateOutlet]="descriptionTemplateRef"></ng-template>
-  </ng-container>
-  <ng-template #stringTemplateRef>
-    {{ descriptionString }}
-  </ng-template>
+  <div class="thy-guider-hint-content-title">
+    {{ title }}
+  </div>
+  <div class="thy-guider-hint-content-description">
+    <ng-container *ngIf="descriptionTemplateRef; else stringTemplateRef">
+      <ng-template [ngTemplateOutlet]="descriptionTemplateRef"></ng-template>
+    </ng-container>
+    <ng-template #stringTemplateRef>
+      {{ descriptionString }}
+    </ng-template>
+  </div>
+  <div class="thy-guider-hint-step">
+    <div class="thy-guider-hint-step-pagination">
+      <span class="pagination-item" [ngClass]="{ active: true }"></span>
+      <span class="pagination-item" [ngClass]="{ active: false }"></span>
+      <span class="pagination-item" [ngClass]="{ active: false }"></span>
+    </div>
+
+    <div class="thy-guider-hint-step-btn">
+      <button thyButton="link" class="thy-guider-hint-step-pre">上一步</button>
+      <button thyButton="link" class="thy-guider-hint-step-next">下一步</button>
+    </div>
+  </div>
 </div>

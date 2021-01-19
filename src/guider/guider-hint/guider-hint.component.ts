@@ -1,17 +1,21 @@
-import { Component, Input, OnInit, TemplateRef } from '@angular/core';
+import { Component, HostBinding, Input, OnInit, TemplateRef } from '@angular/core';
 import { helpers } from 'ngx-tethys/util';
-
 @Component({
     selector: 'thy-guider-hint',
     templateUrl: 'guider-hint.component.html'
 })
 export class ThyGuiderHintComponent implements OnInit {
+    @HostBinding('class.thy-guider-hint-container') guiderHint = true;
+
     @Input()
     set stepHintData(value: any) {
         this.title = value.title;
         this.setDescription(value.description);
         this.cover = value.cover;
     }
+
+    @Input() current: number;
+
     public title: string;
 
     public cover: string;
@@ -31,4 +35,6 @@ export class ThyGuiderHintComponent implements OnInit {
             this.descriptionTemplateRef = value as TemplateRef<any>;
         }
     }
+
+    jump() {}
 }
