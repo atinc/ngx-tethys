@@ -22,8 +22,21 @@
     </div>
 
     <div class="thy-guider-hint-step-btn">
-      <button thyButton="link" (click)="prev()" [disabled]="true" class="thy-guider-hint-step-pre">上一步</button>
-      <button thyButton="link" (click)="next()" class="thy-guider-hint-step-next">下一步</button>
+      <ng-container *ngIf="true; else finishTemplate">
+        <button
+          thyButton="link-secondary"
+          (click)="prev()"
+          [disabled]="true"
+          [ngClass]="{ disabled: true }"
+          class="thy-guider-hint-step-pre"
+        >
+          上一步
+        </button>
+        <button thyButton="link-secondary" (click)="next()" class="thy-guider-hint-step-next">下一步</button>
+      </ng-container>
+      <ng-template #finishTemplate>
+        <button thyButton="link-secondary" (click)="end()" class="thy-guider-hint-step-next">完成</button>
+      </ng-template>
     </div>
   </div>
 </div>

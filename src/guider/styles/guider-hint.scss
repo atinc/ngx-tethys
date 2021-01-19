@@ -73,8 +73,9 @@
             }
             &-pre,
             &-next {
-                &:hover {
-                    text-decoration: none;
+                color: $primary;
+                &.disabled {
+                    color: $gray-400;
                 }
             }
         }
