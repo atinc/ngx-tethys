@@ -189,7 +189,7 @@ describe('ThyNotify', () => {
             notifyOpenDetailContainer3[0].remove();
         }));
 
-        it('kjsdflajsdf', fakeAsync(() => {
+        it('When you click openComponentNotify7, the content should be "成功的title" and the detail should be"我是成功的detail"', fakeAsync(() => {
             btnElement7 = fixture.nativeElement.querySelector('.btn7');
             btnElement7.click();
             fixture.detectChanges();
