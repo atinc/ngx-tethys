@@ -1,7 +1,12 @@
 import { Type } from '@angular/core';
 import { ThyPlacement } from 'ngx-tethys/core';
 
-export type stepTipData = any;
+export type stepTipData = {
+    [key: string]: any;
+    title?: string;
+    description?: string;
+    image?: string;
+};
 
 export type GuiderPlacement = ThyPlacement | GuiderOriginPosition;
 
@@ -24,7 +29,7 @@ export interface StepInfo {
 
 export class ThyGuiderConfig {
     /** tooltip Component ,default is ThyGuiderTooltip */
-    component: Type<unknown>;
+    component?: Type<unknown>;
 
     /** steps info */
     steps: StepInfo[];

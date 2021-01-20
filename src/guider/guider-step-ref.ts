@@ -4,6 +4,7 @@ import { ThyPlacement } from 'ngx-tethys/core';
 import { ThyPopover, ThyPopoverConfig } from 'ngx-tethys/popover';
 import { helpers } from 'ngx-tethys/util';
 import { ThyGuiderRef } from './guider-ref';
+import { ThyGuiderTipComponent } from './guider-tip/guider-tip.component';
 import { GuiderOriginPosition, GuiderPlacement, StepInfo } from './guider.class';
 
 export class ThyGuiderStepRef {
@@ -94,7 +95,7 @@ export class ThyGuiderStepRef {
 
     private tooltipWithoutTarget(step: StepInfo) {
         const position = this.setTipPosition(step);
-        this.popover.open(this.guiderRef.config.component, {
+        this.popover.open(this.guiderRef.config.component || ThyGuiderTipComponent, {
             origin: null,
             originPosition: {
                 x: position[0],
@@ -137,7 +138,7 @@ export class ThyGuiderStepRef {
             popoverConfig.offset = step.tipOffset;
         }
 
-        this.popover.open(this.guiderRef.config.component, popoverConfig);
+        this.popover.open(this.guiderRef.config.component || ThyGuiderTipComponent, popoverConfig);
     }
 
     private removeTip() {

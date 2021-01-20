@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyGuiderConfig, ThyGuiderRef, StepInfo, ThyGuider, ThyGuiderTipComponent } from 'ngx-tethys';
+import { ThyGuiderConfig, ThyGuiderRef, StepInfo, ThyGuider } from 'ngx-tethys';
 
 @Component({
     selector: 'thy-guider-basic-tip-example',
@@ -19,7 +19,6 @@ export class ThyGuiderBasicTipExampleComponent implements OnInit {
 
     private setDefaultGuiderOption(): ThyGuiderConfig {
         return {
-            component: ThyGuiderTipComponent,
             steps: [
                 {
                     key: 'basic-tip-target',
@@ -31,7 +30,7 @@ export class ThyGuiderBasicTipExampleComponent implements OnInit {
                     }
                 }
             ] as StepInfo[],
-            pointDefaultPosition: [20, 20]
+            pointDefaultPosition: [40, 40]
         };
     }
 
