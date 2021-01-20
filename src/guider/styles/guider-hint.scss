@@ -16,12 +16,11 @@
             color: $white;
             font-size: 12px;
             position: absolute;
-            right: 16px;
-            top: 10px;
+            right: 20px;
+            top: 14px;
             background-color: rgba(0, 0, 0, 0);
-            border: none;
-            &:focus {
-                outline: hidden !important;
+            &:hover {
+                text-decoration: none;
             }
         }
     }
@@ -71,12 +70,11 @@
                     }
                 }
             }
-            &-pre,
+            &-pre {
+                margin-right: 10px;
+            }
             &-next {
                 color: $primary;
-                &.disabled {
-                    color: $gray-400;
-                }
             }
         }
     }
