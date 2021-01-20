@@ -1,10 +1,10 @@
 import { RendererFactory2 } from '@angular/core';
 import { Renderer2 } from '@angular/core';
-import { ThyPlacement } from 'ngx-tethys';
-import { ThyPopover } from 'ngx-tethys/popover';
+import { ThyPlacement } from 'ngx-tethys/core';
+import { ThyPopover, ThyPopoverConfig } from 'ngx-tethys/popover';
 import { helpers } from 'ngx-tethys/util';
-import { GuiderRef } from './guider-ref';
-import { GuiderPlacement, StepInfo } from './guider.class';
+import { ThyGuiderRef } from './guider-ref';
+import { GuiderOriginPosition, GuiderPlacement, StepInfo } from './guider.class';
 
 export class ThyGuiderStepRef {
     private renderer: Renderer2;
@@ -13,7 +13,7 @@ export class ThyGuiderStepRef {
 
     private defaultPosition: GuiderPlacement;
 
-    private guiderRef: GuiderRef;
+    private guiderRef: ThyGuiderRef;
 
     constructor(
         private step: StepInfo,
@@ -25,7 +25,7 @@ export class ThyGuiderStepRef {
         this.renderer = this.rendererFactory.createRenderer(null, null);
     }
 
-    public show(guiderRef: GuiderRef) {
+    public show(guiderRef: ThyGuiderRef) {
         this.createPoint(this.step);
         this.createTip(this.step, guiderRef);
     }
@@ -81,52 +81,63 @@ export class ThyGuiderStepRef {
         }
     }
 
-    private createTip(step: StepInfo, guiderRef: GuiderRef) {
+    private createTip(step: StepInfo, guiderRef: ThyGuiderRef) {
         this.guiderRef = guiderRef;
         this.step = step;
-        this.defaultPosition = this.getTipDefaultPosition(guiderRef.config.tipDefaultPosition);
         this.removeTip();
-
-        if (this.defaultPosition && !step.target) {
+        if (!step.target) {
             this.tooltipWithoutTarget(step);
         } else {
             this.tooltipWithTarget(step);
         }
     }
 
-    private getTipDefaultPosition(defaultPosition: GuiderPlacement): GuiderPlacement {
-        // TODO 默认位置 左下角100，100距离
-        return defaultPosition ? defaultPosition : [100, -100];
-    }
-
     private tooltipWithoutTarget(step: StepInfo) {
+        const position = this.setTipPosition(step);
         this.popover.open(this.guiderRef.config.component, {
             origin: null,
-            // TODO originPosition
             originPosition: {
-                x: 100,
-                y: 100
+                x: position[0],
+                y: position[1]
             },
             originActiveClass: '',
             backdropClosable: false,
             hasBackdrop: false,
+
             initialState: {
                 stepTipData: step.data,
                 guiderRef: this.guiderRef
             }
         });
     }
+
+    private setTipPosition(step: StepInfo): GuiderOriginPosition {
+        // TODO 当无target时，并且 tipPosition 为 ThyPlacement 类型时，默认位置为[0,0]
+        if (!helpers.isArray(step.tipPosition)) {
+            return [0, 0];
+        }
+        return step.tipPosition as GuiderOriginPosition;
+    }
+
     private tooltipWithTarget(step: StepInfo) {
-        this.popover.open(this.guiderRef.config.component, {
+        // TODO 当target 不为空时，目前 placement 只能设置为 ThyPlacement，
+
+        const popoverConfig = {
             origin: this.document.querySelector(this.step.target) as HTMLElement,
-            placement: (this.step.tipPosition as ThyPlacement) || 'right', // TODO
+            placement: helpers.isArray(this.step.tipPosition) ? 'right' : (this.step.tipPosition as ThyPlacement),
             backdropClosable: false,
             hasBackdrop: false,
             initialState: {
                 stepTipData: step.data,
                 guiderRef: this.guiderRef
             }
-        });
+        } as ThyPopoverConfig<any>;
+
+        if (step.tipOffset) {
+            popoverConfig.offset = step.tipOffset;
+        }
+
+        this.popover.open(this.guiderRef.config.component, popoverConfig);
     }
 
     private removeTip() {
