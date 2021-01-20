@@ -9,7 +9,7 @@
   [(ngModel)]="searchText"
   (ngModelChange)="searchModelChange()"
   (blur)="onTouchedCallback()"
-  [thySize]="thySearchSize"
+  [thySize]="thySize"
 />
 <a *ngIf="searchText" class="close input-suffix-icon" href="javascript:;" (click)="clearSearchText($event)">
   <thy-icon thyIconName="close"></thy-icon>

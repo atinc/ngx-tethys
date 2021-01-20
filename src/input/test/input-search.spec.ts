@@ -14,12 +14,12 @@ import { ThyInputModule } from './../module';
             [thyTheme]="thyTheme"
             [thySearchFocus]="true"
             (clear)="onClear()"
-            [thySearchSize]="thySearchSize"
+            [thySize]="thySize"
         ></thy-input-search>
     `
 })
 class TestBedComponent {
-    thySearchSize = 'sm';
+    thySize = 'sm';
     thyTheme = ``;
     checkClear;
     onClear() {
@@ -76,7 +76,7 @@ fdescribe('input search', () => {
     it('thySize', () => {
         fixture.detectChanges();
         expect(debugContainerElement.nativeElement.children[1].classList.contains('form-control-sm')).toBe(true);
-        basicTestComponent.thySearchSize = 'lg';
+        basicTestComponent.thySize = 'lg';
         fixture.detectChanges();
         expect(debugContainerElement.nativeElement.children[1].classList.contains('form-control-lg')).toBe(true);
     });

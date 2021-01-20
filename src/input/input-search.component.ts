@@ -50,7 +50,7 @@ export class ThyInputSearchComponent implements ControlValueAccessor {
         this.autoFocus = value;
     }
 
-    @Input() thySearchSize: InputSize;
+    @Input() thySize: InputSize;
 
     @Output() clear: EventEmitter<Event> = new EventEmitter<Event>();
 

@@ -121,7 +121,7 @@ module.exports = [
                 default: ''
             },
             {
-                name: 'thySearchSize',
+                name: 'thySize',
                 description: '大小',
                 type: `'' | 'md' | 'lg'`,
                 default: ''
