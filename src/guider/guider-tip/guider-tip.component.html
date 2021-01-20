@@ -25,15 +25,15 @@
 
     <div class="thy-guider-hint-step-btn">
       <ng-container *ngIf="currentStepIndex !== 0">
-        <button thyButton="link-secondary" (click)="prev()" class="thy-guider-hint-step-pre">
+        <a href="javascript:;" (click)="prev()" class="thy-guider-hint-step-pre">
           上一步
-        </button>
+        </a>
       </ng-container>
       <ng-container *ngIf="currentStepIndex !== steps.length - 1; else finish">
-        <button thyButton="link-secondary" (click)="next()" class="thy-guider-hint-step-next">下一步</button>
+        <a href="javascript:;" (click)="next()" class="thy-guider-hint-step-next">下一步</a>
       </ng-container>
       <ng-template #finish>
-        <button thyButton="link-secondary" (click)="end()" class="thy-guider-hint-step-next">完成</button>
+        <a href="javascript:;" thyButton="link-secondary" (click)="end()" class="thy-guider-hint-step-next">完成</a>
       </ng-template>
     </div>
   </div>
