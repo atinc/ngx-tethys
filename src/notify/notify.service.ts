@@ -69,13 +69,20 @@ export class ThyNotifyService {
         });
     }
 
-    error(title?: string, content?: string, options?: ThyNotifyOptions) {
-        this.show({
-            ...(options || {}),
-            type: 'error',
-            title: title || options?.title || '错误',
-            content: content || options?.content
-        });
+    /**
+     * @deprecated The string type parameter of options in error will be discarded, For options, please use ThyNotifyOptions type
+     */
+    error(title?: string, content?: string, options?: ThyNotifyOptions | string) {
+        const isDetail = helpers.isString(options);
+        const config: ThyNotifyOptions = isDetail
+            ? { type: 'error', title: title || '错误', content: content, detail: options }
+            : {
+                  ...((options || {}) as ThyNotifyOptions),
+                  type: 'error',
+                  title: title || (options as ThyNotifyOptions)?.title || '错误',
+                  content: content || (options as ThyNotifyOptions)?.content
+              };
+        this.show(config);
     }
 
     /**
