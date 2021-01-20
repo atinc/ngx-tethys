@@ -115,7 +115,7 @@ export class ThyFileDropComponent implements OnInit, OnDestroy {
         for (let index = 0; index < items.length; index++) {
             const element = items[index];
             const _entry = this._getAsEntry(element);
-            if (_entry && !_entry.isFile) {
+            if (element.kind !== 'file' || (_entry && !_entry.isFile)) {
                 res = false;
                 throw new Error(`file extensions not support`);
             }
