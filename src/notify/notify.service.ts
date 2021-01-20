@@ -73,8 +73,7 @@ export class ThyNotifyService {
      * @deprecated The string type parameter of options in error will be discarded, For options, please use ThyNotifyOptions type
      */
     error(title?: string, content?: string, options?: ThyNotifyOptions | string) {
-        const isDetail = helpers.isString(options);
-        const config: ThyNotifyOptions = isDetail
+        const config: ThyNotifyOptions = helpers.isString(options)
             ? { type: 'error', title: title || '错误', content: content, detail: options }
             : {
                   ...((options || {}) as ThyNotifyOptions),
