@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.0.17"></a>
+## [9.0.17](https://github.com/atinc/ngx-tethys/compare/9.0.16...9.0.17) (2021-01-20)
+
+
+### Bug Fixes
+
+* **uploader:** 修复页面中可点击的元素可拖拽上传的问题(#INFR-1329) ([edd07c3](https://github.com/atinc/ngx-tethys/commit/edd07c3)), closes [#INFR-1329](https://github.com/atinc/ngx-tethys/issues/INFR-1329)
+
+
+### Features
+
+* **guider:** guider tip and guider point #INFR-1543 ([#1102](https://github.com/atinc/ngx-tethys/issues/1102)) ([68253d9](https://github.com/atinc/ngx-tethys/commit/68253d9)), closes [#INFR-1543](https://github.com/atinc/ngx-tethys/issues/INFR-1543)
+* **notify:** #INFR-1551 支持 detail 配置查看文案以及点击链接行为 ([#1094](https://github.com/atinc/ngx-tethys/issues/1094)) ([e44b75d](https://github.com/atinc/ngx-tethys/commit/e44b75d)), closes [#INFR-1551](https://github.com/atinc/ngx-tethys/issues/INFR-1551) [#INFR-1551](https://github.com/atinc/ngx-tethys/issues/INFR-1551)
+
+
+
 <a name="9.0.16"></a>
 ## [9.0.16](https://github.com/atinc/ngx-tethys/compare/9.0.15...9.0.16) (2021-01-18)
 
