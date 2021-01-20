@@ -11,6 +11,7 @@ import { ThyInputSizeExampleComponent } from './size/size.component';
 import { ThyInputModule } from 'ngx-tethys/input';
 import { ThyActionMenuModule } from 'ngx-tethys/action-menu';
 import { ThySharedModule } from 'ngx-tethys/shared';
+import { ThySelectModule } from 'ngx-tethys/select';
 
 const COMPONENTS = [
     ThyInputAppendExampleComponent,
@@ -25,7 +26,7 @@ const COMPONENTS = [
 @NgModule({
     declarations: [...COMPONENTS],
     entryComponents: [...COMPONENTS],
-    imports: [CommonModule, FormsModule, ThyInputModule, ThyActionMenuModule, ThySharedModule],
+    imports: [CommonModule, FormsModule, ThyInputModule, ThyActionMenuModule, ThySharedModule, ThySelectModule],
     exports: [...COMPONENTS]
 })
 export class ThyInputExamplesModule {}

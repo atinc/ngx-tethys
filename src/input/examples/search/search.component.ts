@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { InputSize } from 'ngx-tethys/input';
 
 @Component({
     selector: 'thy-input-search-example',
@@ -14,4 +15,6 @@ export class ThyInputSearchExampleComponent implements OnInit {
     public change() {
         console.log(this.searchText);
     }
+
+    public thySize: InputSize = 'sm';
 }
