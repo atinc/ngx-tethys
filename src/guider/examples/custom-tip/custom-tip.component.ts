@@ -1,20 +1,20 @@
 import { Component, HostBinding, Input, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { ThyGuiderConfig, GuiderRef, StepInfo, ThyGuider } from 'ngx-tethys';
-import { ThyGuiderTooltipBaseComponent } from 'ngx-tethys/guider/guider-hint/guider-hint.component';
+import { ThyGuiderConfig, GuiderRef, StepInfo, ThyGuider, ThyGuiderTipBaseComponent } from 'ngx-tethys';
 
 @Component({
-    selector: 'custom-hint',
+    selector: 'custom-tip',
     template: `
-        <p class="m-0 text-white bg-primary rounded">
+        <p class="m-0 text-white bg-primary rounded text-center">
+            <span class="d-block">{{ descString }}</span>
             <ng-template [ngTemplateOutlet]="descTemplate"></ng-template>
         </p>
     `,
     styles: ['p {font-size: 24px}']
 })
-export class CustomHintComponent extends ThyGuiderTooltipBaseComponent {
-    @HostBinding('class.hint-blue') className = true;
+export class CustomTipComponent extends ThyGuiderTipBaseComponent {
+    @HostBinding('class.tip-blue') className = true;
 
-    @Input() set stepHintData(value: any) {
+    @Input() set stepTipData(value: any) {
         this.descString = value.descString;
         this.descTemplate = value.descTemplate;
     }
@@ -26,14 +26,16 @@ export class CustomHintComponent extends ThyGuiderTooltipBaseComponent {
         super();
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+        super.ngOnInit();
+    }
 }
 
 @Component({
-    selector: 'thy-guider-custom-hint-example',
-    templateUrl: 'custom-hint.component.html'
+    selector: 'thy-guider-custom-tip-example',
+    templateUrl: 'custom-tip.component.html'
 })
-export class ThyGuiderCustomHintExampleComponent implements OnInit, OnDestroy {
+export class ThyGuiderCustomTipExampleComponent implements OnInit, OnDestroy {
     private option: ThyGuiderConfig;
 
     private guiderRef: GuiderRef;
@@ -53,21 +55,19 @@ export class ThyGuiderCustomHintExampleComponent implements OnInit, OnDestroy {
 
     private setDefaultGuiderOption(): ThyGuiderConfig {
         return {
-            component: CustomHintComponent,
+            component: CustomTipComponent,
             steps: [
                 {
-                    key: 'custom-hint-target',
-                    target: '.custom-hint-target',
+                    key: 'custom-tip-target',
+                    target: '.custom-tip-target',
                     data: {
                         descTemplate: this.descTemplate,
                         descString: 'hello world'
                     }
-                    // highLightPosition: [40,100];
-                    // hintPosition?: GuiderPlacement;
                 }
             ] as StepInfo[],
             pointDefaultPosition: [40, 40],
-            tooltipDefaultPosition: [100, -100]
+            tipDefaultPosition: [100, -100]
         };
     }
 

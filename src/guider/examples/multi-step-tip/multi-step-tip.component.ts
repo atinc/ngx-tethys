@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyGuiderConfig, GuiderRef, StepInfo } from 'ngx-tethys';
-import { ThyGuiderHintComponent } from 'ngx-tethys/guider/guider-hint/guider-hint.component';
-import { ThyGuider } from 'ngx-tethys/guider/guider.service';
+import { ThyGuiderConfig, GuiderRef, StepInfo, ThyGuiderTipComponent, ThyGuider } from 'ngx-tethys';
 
 @Component({
-    selector: 'thy-guider-multi-step-hint-example',
-    templateUrl: 'multi-step-hint.component.html'
+    selector: 'thy-guider-multi-step-tip-example',
+    templateUrl: 'multi-step-tip.component.html'
 })
-export class ThyGuiderMultiStepHintExampleComponent implements OnInit {
+export class ThyGuiderMultiStepTipExampleComponent implements OnInit {
     private option: ThyGuiderConfig;
 
     private guiderRef: GuiderRef;
@@ -22,10 +20,10 @@ export class ThyGuiderMultiStepHintExampleComponent implements OnInit {
     }
     private setDefaultGuiderOption(): ThyGuiderConfig {
         return {
-            component: ThyGuiderHintComponent,
+            component: ThyGuiderTipComponent,
             steps: [
                 {
-                    key: 'custom-hint-target',
+                    key: 'multi-steps-tip-start',
                     target: '',
                     data: {
                         cover: '',
@@ -33,10 +31,10 @@ export class ThyGuiderMultiStepHintExampleComponent implements OnInit {
                         description: '欢迎使用 PingCode 开启高效研发，我们将通过简单的指引，帮助你快速熟悉产品，让你更便捷的开始工作'
                     }
                     // pointPosition: [40,100],
-                    // tooltipPosition?: GuiderPlacement
+                    // tipPosition?: GuiderPlacement
                 },
                 {
-                    key: 'custom-hint-target-1',
+                    key: 'multi-steps-tip-1',
                     target: '.step1',
                     data: {
                         cover: '',
@@ -44,10 +42,10 @@ export class ThyGuiderMultiStepHintExampleComponent implements OnInit {
                         description: '点击      ，查看团队当前版本及用量，掌握团队资产，还可以进入团队后台管理组织架构、成员、安全等内容'
                     },
                     // pointPosition: [40,100],
-                    tooltipPosition: 'right'
+                    tipPosition: 'right'
                 },
                 {
-                    key: 'custom-hint-target2',
+                    key: 'multi-steps-tip-2',
                     target: '.step2',
                     data: {
                         cover: '',
@@ -56,10 +54,10 @@ export class ThyGuiderMultiStepHintExampleComponent implements OnInit {
                             '点击      ，无论是个人工作台还是团队公共工作台，都显而易见，在这里，可以随时定义关注的工作内容，实时掌握工作动态'
                     },
                     // pointPosition: [40,100],
-                    tooltipPosition: 'topRight'
+                    tipPosition: 'topRight'
                 },
                 {
-                    key: 'custom-hint-target3',
+                    key: 'multi-steps-tip-3',
                     target: '.step3',
                     data: {
                         cover: '',
@@ -67,10 +65,10 @@ export class ThyGuiderMultiStepHintExampleComponent implements OnInit {
                         description: '点击      ，查看当前团队使用的产品，还可进入全部产品了解 PingCode 产品矩阵'
                     },
                     pointPosition: [40, 10],
-                    tooltipPosition: 'bottomRight'
+                    tipPosition: 'bottomRight'
                 },
                 {
-                    key: 'custom-hint-target-end',
+                    key: 'multi-steps-tip-end',
                     target: '',
                     data: {
                         cover: '',
@@ -80,9 +78,8 @@ export class ThyGuiderMultiStepHintExampleComponent implements OnInit {
                     // pointPosition: [40, 100],
                 }
             ] as StepInfo[],
-            // startWith: '',
             pointDefaultPosition: [10, 10],
-            tooltipDefaultPosition: [100, -100]
+            tipDefaultPosition: [100, -100]
         };
     }
 

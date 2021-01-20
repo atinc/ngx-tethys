@@ -5,7 +5,7 @@ module.exports = [
         description: 'Guider 服务',
         properties: [
             {
-                name: 'option',
+                name: 'config',
                 description: 'Guider 的配置项',
                 type: 'ThyGuiderConfig',
                 default: ''

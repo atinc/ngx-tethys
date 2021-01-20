@@ -10,7 +10,7 @@ subtitle: 新手引导
 
 ## 使用方式
 
-导入服务，配置相关 option。
+导入服务，配置相关 option config。
 
 
 

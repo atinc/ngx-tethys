@@ -1,56 +1,49 @@
-import { ApplicationRef, ComponentFactoryResolver, ComponentRef, EmbeddedViewRef, Injector, RendererFactory2 } from '@angular/core';
+import { RendererFactory2 } from '@angular/core';
 import { Renderer2 } from '@angular/core';
 import { ThyPlacement } from 'ngx-tethys';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { helpers } from 'ngx-tethys/util';
 import { GuiderRef } from './guider-ref';
-import { GuiderPlacement, NOT_SET_POSITION, StepInfo } from './guider.class';
+import { GuiderPlacement, StepInfo } from './guider.class';
 
 export class ThyGuiderStepRef {
     private renderer: Renderer2;
 
-    private step: StepInfo;
-
     private lastPointerContainer: any;
 
-    private refMap: { [key: string]: ComponentRef<any> } = {};
-
     private defaultPosition: GuiderPlacement;
-
-    private hintElem: HTMLElement;
 
     private guiderRef: GuiderRef;
 
     constructor(
+        private step: StepInfo,
         private readonly rendererFactory: RendererFactory2,
-        private readonly componentFactoryResolver: ComponentFactoryResolver,
-        private appRef: ApplicationRef,
-        private injector: Injector,
-        private popover: ThyPopover
+        private popover: ThyPopover,
+        private document: any
     ) {
+        this.step = step;
         this.renderer = this.rendererFactory.createRenderer(null, null);
     }
 
-    public attach(step: StepInfo, guiderRef: GuiderRef) {
-        this.createPoint(step);
-        this.createTooltip(step, guiderRef);
+    public show(guiderRef: GuiderRef) {
+        this.createPoint(this.step);
+        this.createTip(this.step, guiderRef);
     }
 
-    public dispose(step: StepInfo) {
+    public dispose() {
         this.removeLastPointContainer();
-        this.removeTooltip(step);
+        this.removeTip();
     }
 
     private createPoint(step: StepInfo) {
         if (!step.target) {
             return;
         }
-        const targetElement = document.querySelector(step.target);
+        const targetElement = this.document.querySelector(step.target);
         if (helpers.isNull(targetElement)) {
             throw new Error(`there is no target called ${step.target}`);
         }
 
-        // const currentHighlightContainer = this.renderer.createElement('div');
         this.renderer.setStyle(targetElement, 'position', 'relative');
         this.setStyleForPointContainer(step, targetElement);
     }
@@ -83,16 +76,16 @@ export class ThyGuiderStepRef {
 
     private removeLastPointContainer() {
         if (this.lastPointerContainer) {
-            this.renderer.removeChild(document.body, this.lastPointerContainer);
+            this.renderer.removeChild(this.document.body, this.lastPointerContainer);
             this.lastPointerContainer = undefined;
         }
     }
 
-    private createTooltip(step: StepInfo, guiderRef: GuiderRef) {
+    private createTip(step: StepInfo, guiderRef: GuiderRef) {
         this.guiderRef = guiderRef;
         this.step = step;
-        this.defaultPosition = this.getTooltipDefaultPosition(guiderRef.option.tooltipDefaultPosition);
-        this.removeTooltip(step);
+        this.defaultPosition = this.getTipDefaultPosition(guiderRef.config.tipDefaultPosition);
+        this.removeTip();
 
         if (this.defaultPosition && !step.target) {
             this.tooltipWithoutTarget(step);
@@ -101,94 +94,42 @@ export class ThyGuiderStepRef {
         }
     }
 
-    private getTooltipDefaultPosition(defaultPosition: GuiderPlacement): GuiderPlacement {
+    private getTipDefaultPosition(defaultPosition: GuiderPlacement): GuiderPlacement {
         // TODO 默认位置 左下角100，100距离
         return defaultPosition ? defaultPosition : [100, -100];
     }
 
     private tooltipWithoutTarget(step: StepInfo) {
-        // this.removeTooltip(step);
-        // 1. 创建 componentRef
-        const ref: ComponentRef<any> = this.componentFactoryResolver
-            .resolveComponentFactory(this.guiderRef.option.component)
-            .create(this.injector);
-
-        // 2. 添加
-        this.appRef.attachView(ref.hostView);
-
-        // 3. DOM Element
-        const domElem = (ref.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
-        this.hintElem = domElem;
-
-        // 4. class / styles position
-        domElem.classList.add('thy-guider-hint-container');
-
-        // 5. set position
-        this.setTooltipWithoutTargetStyles();
-
-        const instance: any = ref.instance;
-        // 设置基类的 Input
-        instance.stepTooltipData = step.data;
-        instance.guiderRef = this.guiderRef;
-        ref.changeDetectorRef.detectChanges();
-
-        this.refMap[step.key] = ref;
-    }
-
-    private tooltipWithTarget(step: StepInfo) {
-        this.popover.open(this.guiderRef.option.component, {
-            origin: document.querySelector(this.step.target) as HTMLElement,
-            placement: this.step.tooltipPosition as ThyPlacement,
+        this.popover.open(this.guiderRef.config.component, {
+            origin: null,
+            // TODO originPosition
+            originPosition: {
+                x: 100,
+                y: 100
+            },
+            originActiveClass: '',
             backdropClosable: false,
             hasBackdrop: false,
             initialState: {
-                stepTooltipData: step.data,
+                stepTipData: step.data,
+                guiderRef: this.guiderRef
+            }
+        });
+    }
+    private tooltipWithTarget(step: StepInfo) {
+        this.popover.open(this.guiderRef.config.component, {
+            origin: this.document.querySelector(this.step.target) as HTMLElement,
+            placement: (this.step.tipPosition as ThyPlacement) || 'right', // TODO
+            backdropClosable: false,
+            hasBackdrop: false,
+            initialState: {
+                stepTipData: step.data,
                 guiderRef: this.guiderRef
             }
         });
     }
 
-    private setTooltipWithoutTargetStyles() {
-        document.body.appendChild(this.hintElem);
-
-        const rowDirection = this.defaultPosition[0] > 0 ? 'left' : 'right';
-        const columnDirection = this.defaultPosition[1] > 0 ? 'top' : 'bottom';
-        this.hintElem.style.position = 'fixed';
-        this.hintElem.style[rowDirection] = Math.abs(this.defaultPosition[0] as number) + 'px';
-        this.hintElem.style[columnDirection] = Math.abs(this.defaultPosition[1] as number) + 'px';
-    }
-
-    // private setStepTooltipStyle(step: StepInfo) {
-    //     if (this.defaultPosition && step.tooltipPosition === NOT_SET_POSITION) {
-    //         document.body.appendChild(this.hintElem);
-
-    //         const rowDirection = this.defaultPosition[0] > 0 ? 'left' : 'right';
-    //         const columnDirection = this.defaultPosition[1] > 0 ? 'top' : 'bottom';
-    //         this.hintElem.style.position = 'fixed';
-    //         this.hintElem.style[rowDirection] = Math.abs(this.defaultPosition[0] as number) + 'px';
-    //         this.hintElem.style[columnDirection] = Math.abs(this.defaultPosition[1] as number) + 'px';
-
-    //         return;
-    //     }
-    //     this.popover.close();
-    //     this.popover.open(this.guiderRef.option.component, {
-    //         origin: document.querySelector(this.step.target) as HTMLElement,
-    //         placement: this.step.tooltipPosition as ThyPlacement,
-    //         backdropClosable: false,
-    //         hasBackdrop: false,
-    //         initialState: {
-    //             stepHintData: step.data,
-    //             guiderRef: this.guiderRef
-    //         }
-    //     });
-    // }
-
-    private removeTooltip(step: StepInfo) {
-        if (this.refMap[step?.key]) {
-            this.appRef.detachView(this.refMap[step.key].hostView);
-            this.refMap[step.key].destroy();
-        } else {
-            this.popover.close();
-        }
+    private removeTip() {
+        this.popover.close();
     }
 }

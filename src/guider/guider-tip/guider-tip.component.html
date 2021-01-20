@@ -16,17 +16,25 @@
   </div>
   <div class="thy-guider-hint-step">
     <div class="thy-guider-hint-step-pagination">
-      <span class="pagination-item" [ngClass]="{ active: true }"></span>
-      <span class="pagination-item" [ngClass]="{ active: false }"></span>
-      <span class="pagination-item" [ngClass]="{ active: false }"></span>
+      <span
+        class="pagination-item"
+        *ngFor="let step of steps; let i = index; trackBy: trackByFn"
+        [ngClass]="{ active: i === currentStepIndex }"
+      ></span>
     </div>
 
     <div class="thy-guider-hint-step-btn">
-      <button thyButton="link-secondary" (click)="prev()" [disabled]="true" [ngClass]="{ disabled: true }" class="thy-guider-hint-step-pre">
-        上一步
-      </button>
-      <button thyButton="link-secondary" (click)="next()" class="thy-guider-hint-step-next">下一步</button>
-      <button thyButton="link-secondary" (click)="end()" class="thy-guider-hint-step-next">完成</button>
+      <ng-container *ngIf="currentStepIndex !== 0">
+        <button thyButton="link-secondary" (click)="prev()" class="thy-guider-hint-step-pre">
+          上一步
+        </button>
+      </ng-container>
+      <ng-container *ngIf="currentStepIndex !== steps.length - 1; else finish">
+        <button thyButton="link-secondary" (click)="next()" class="thy-guider-hint-step-next">下一步</button>
+      </ng-container>
+      <ng-template #finish>
+        <button thyButton="link-secondary" (click)="end()" class="thy-guider-hint-step-next">完成</button>
+      </ng-template>
     </div>
   </div>
 </div>

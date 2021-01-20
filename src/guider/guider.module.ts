@@ -5,14 +5,14 @@ import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThySharedModule } from 'ngx-tethys/shared';
 import { ThyButtonModule } from 'ngx-tethys/button';
 import { ThyPopoverModule } from 'ngx-tethys/popover';
-import { ThyGuiderHintComponent } from './guider-hint/guider-hint.component';
+import { ThyGuiderTipComponent } from './guider-tip/guider-tip.component';
 
 @NgModule({
     imports: [CommonModule, ThySharedModule, ThyIconModule, ThyButtonModule, ThyPopoverModule],
 
-    declarations: [ThyGuiderHintComponent],
-    exports: [ThyGuiderHintComponent],
-    entryComponents: [ThyGuiderHintComponent],
+    declarations: [ThyGuiderTipComponent],
+    exports: [ThyGuiderTipComponent],
+    entryComponents: [ThyGuiderTipComponent],
     providers: [ThyGuider]
 })
 export class ThyGuiderModule {}

@@ -2,25 +2,23 @@ import { GuiderRef } from './guider-ref';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { ThyGuiderConfig } from './guider.class';
 import { ThyGuiderStepRef } from './guider-step-ref';
-import { ApplicationRef, ComponentFactoryResolver, Injectable, Injector, RendererFactory2 } from '@angular/core';
+import { Injectable, RendererFactory2 } from '@angular/core';
+import { Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ThyGuider {
-    private stepRef: ThyGuiderStepRef;
+    private stepsRef: ThyGuiderStepRef[];
 
-    constructor(
-        private readonly rendererFactory: RendererFactory2,
-        private readonly componentFactoryResolver: ComponentFactoryResolver,
-        private appRef: ApplicationRef,
-        private injector: Injector,
-        private popover: ThyPopover
-    ) {
-        this.stepRef = new ThyGuiderStepRef(this.rendererFactory, this.componentFactoryResolver, this.appRef, this.injector, this.popover);
-    }
+    constructor(private readonly rendererFactory: RendererFactory2, private popover: ThyPopover, @Inject(DOCUMENT) private document: any) {}
 
-    public create(option: ThyGuiderConfig): GuiderRef {
-        return new GuiderRef(option, this.stepRef);
+    public create(config: ThyGuiderConfig): GuiderRef {
+        this.stepsRef = config.steps.map(step => {
+            return new ThyGuiderStepRef(step, this.rendererFactory, this.popover, this.document);
+        });
+
+        return new GuiderRef(config, this.stepsRef);
     }
 }

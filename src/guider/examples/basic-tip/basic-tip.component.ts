@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyGuiderConfig, GuiderRef, StepInfo, ThyGuider } from 'ngx-tethys';
-import { ThyGuiderHintComponent } from 'ngx-tethys/guider/guider-hint/guider-hint.component';
+import { ThyGuiderConfig, GuiderRef, StepInfo, ThyGuider, ThyGuiderTipComponent } from 'ngx-tethys';
 
 @Component({
-    selector: 'thy-guider-basic-hint-example',
-    templateUrl: 'basic-hint.component.html'
+    selector: 'thy-guider-basic-tip-example',
+    templateUrl: 'basic-tip.component.html'
 })
-export class ThyGuiderBasicHintExampleComponent implements OnInit {
+export class ThyGuiderBasicTipExampleComponent implements OnInit {
     private option: ThyGuiderConfig;
 
     private guiderRef: GuiderRef;
@@ -20,18 +19,16 @@ export class ThyGuiderBasicHintExampleComponent implements OnInit {
 
     private setDefaultGuiderOption(): ThyGuiderConfig {
         return {
-            component: ThyGuiderHintComponent,
+            component: ThyGuiderTipComponent,
             steps: [
                 {
-                    key: 'basic-hint-target',
-                    target: '.basic-hint-target',
+                    key: 'basic-tip-target',
+                    target: '.basic-tip-target',
                     data: {
                         cover: '',
-                        title: 'basic-hint-title',
-                        description: 'description for basic hint'
+                        title: 'basic-tip-title',
+                        description: 'description for basic tip'
                     }
-                    // highLightPosition: [40,100];
-                    // hintPosition?: GuiderPlacement;
                 }
             ] as StepInfo[],
             pointDefaultPosition: [20, 20]

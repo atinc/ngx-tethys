@@ -13,22 +13,23 @@ export class GuiderRef {
 
     private currentStep: StepInfo;
 
-    private highLightDefaultPosition: GuiderPlacement;
+    private pointDefaultPosition: GuiderPlacement;
 
-    private hintDefaultPosition: GuiderPlacement;
+    // TODO
+    private tipDefaultPosition: GuiderPlacement;
 
     private currentStepIndex: number;
 
-    public option: ThyGuiderConfig;
+    public config: ThyGuiderConfig;
 
-    constructor(option: ThyGuiderConfig, private stepRef: ThyGuiderStepRef) {
-        if (!option || !option?.steps || !helpers.isArray(option?.steps)) {
-            throw new Error('’option.steps’ must be an array of length greater than 0');
+    constructor(config: ThyGuiderConfig, private stepsRef: ThyGuiderStepRef[]) {
+        if (!config || !config?.steps || !helpers.isArray(config?.steps)) {
+            throw new Error('’config.steps’ must be an array of length greater than 0');
         }
-        this.option = option;
-        this.steps = this.adapterSteps(option.steps);
-        this.highLightDefaultPosition = option.pointDefaultPosition;
-        this.hintDefaultPosition = option.tooltipDefaultPosition;
+        this.config = config;
+        this.steps = this.adapterSteps(config.steps);
+        this.pointDefaultPosition = config.pointDefaultPosition;
+        this.tipDefaultPosition = config.tipDefaultPosition;
     }
 
     public stepChange(): Observable<StepInfo> {
@@ -74,7 +75,7 @@ export class GuiderRef {
     }
 
     public close() {
-        this.stepRef.dispose(this.currentStep);
+        this.stepsRef[this.currentStepIndex].dispose();
     }
     public end() {
         this.close();
@@ -97,31 +98,26 @@ export class GuiderRef {
 
     private notifyStepClicked() {
         this.stepChange$.next(this.currentStep);
-        // this.currentStepIndex++;
     }
 
     private drawStep(step: StepInfo) {
-        this.drawHighlight(step);
-        this.stepRef.attach(step, this);
+        this.setPointPosition(step);
+        this.stepsRef[this.currentStepIndex].show(this);
     }
 
-    private drawHighlight(step: StepInfo) {
-        step.pointPosition = step.pointPosition === NOT_SET_POSITION ? this.getHighLightDefaultPosition() : step.pointPosition;
+    private setPointPosition(step: StepInfo) {
+        step.pointPosition = step.pointPosition === NOT_SET_POSITION ? this.getPointDefaultPosition() : step.pointPosition;
     }
 
-    private getHintDefaultPosition(): GuiderPlacement {
-        return this.hintDefaultPosition ? this.hintDefaultPosition : [100, -100];
-    }
-
-    private getHighLightDefaultPosition(): GuiderPlacement {
-        return this.highLightDefaultPosition ? this.highLightDefaultPosition : ('bottomRight' as ThyPlacement);
+    private getPointDefaultPosition(): GuiderPlacement {
+        return this.pointDefaultPosition ? this.pointDefaultPosition : ('bottomRight' as ThyPlacement);
     }
 
     private adapterSteps(steps: StepInfo[]): StepInfo[] {
         return steps.map(step => {
             const tempStep = { ...step };
 
-            tempStep.tooltipPosition = tempStep.tooltipPosition ? tempStep.tooltipPosition : NOT_SET_POSITION;
+            tempStep.tipPosition = tempStep.tipPosition ? tempStep.tipPosition : NOT_SET_POSITION;
 
             tempStep.pointPosition = tempStep.pointPosition ? tempStep.pointPosition : NOT_SET_POSITION;
             return {
@@ -136,6 +132,6 @@ export class GuiderRef {
     }
 
     private removeExistedStep() {
-        this.stepRef.dispose(this.currentStep);
+        this.stepsRef[this.currentStepIndex].dispose();
     }
 }

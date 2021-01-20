@@ -1,36 +1,41 @@
-import { HostBinding, Component, Input, OnInit, TemplateRef, OnChanges, SimpleChanges } from '@angular/core';
+import { HostBinding, Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { GuiderRef } from '../guider-ref';
 import { helpers } from 'ngx-tethys/util';
 import { StepInfo } from '../guider.class';
 
-export abstract class ThyGuiderTooltipBaseComponent implements OnInit, OnChanges {
+export abstract class ThyGuiderTipBaseComponent implements OnInit {
     @Input() guiderRef: GuiderRef;
 
-    @Input() set stepTooltipData(value: any) {}
+    @Input() set stepTipData(value: any) {}
+
+    public steps: StepInfo[] = [];
+
+    public currentStep: StepInfo;
+
+    public currentStepIndex: number = 0;
 
     constructor() {}
 
-    ngOnInit() {}
-
-    ngOnChanges(changes: SimpleChanges) {
-        if (changes.guiderRef) {
-            this.guiderRef.stepChange().subscribe((step: StepInfo) => {
-                console.log(step);
-                console.log('====');
+    ngOnInit() {
+        if (this.guiderRef) {
+            this.steps = this.guiderRef.config.steps;
+            this.guiderRef.stepChange().subscribe(step => {
+                this.currentStep = step;
+                this.currentStepIndex = this.steps.findIndex(item => item.key === step.key);
             });
         }
     }
 }
 
 @Component({
-    selector: 'thy-guider-hint',
-    templateUrl: 'guider-hint.component.html'
+    selector: 'thy-guider-tip',
+    templateUrl: 'guider-tip.component.html'
 })
-export class ThyGuiderHintComponent extends ThyGuiderTooltipBaseComponent {
+export class ThyGuiderTipComponent extends ThyGuiderTipBaseComponent {
     @HostBinding('class.thy-guider-hint-container') guiderHint = true;
 
     @Input()
-    set stepTooltipData(value: any) {
+    set stepTipData(value: any) {
         this.title = value.title;
         this.setDescription(value.description);
         this.cover = value.cover;
@@ -49,11 +54,14 @@ export class ThyGuiderHintComponent extends ThyGuiderTooltipBaseComponent {
     public currentStepIndex: number;
 
     public totalStepsCount: number;
+
     constructor() {
         super();
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+        super.ngOnInit();
+    }
 
     private setDescription(value: string | TemplateRef<any>) {
         if (helpers.isString(value)) {
@@ -63,7 +71,7 @@ export class ThyGuiderHintComponent extends ThyGuiderTooltipBaseComponent {
         }
     }
 
-    jump() {
+    public jump() {
         this.guiderRef.end();
     }
 
@@ -77,5 +85,9 @@ export class ThyGuiderHintComponent extends ThyGuiderTooltipBaseComponent {
 
     public end() {
         this.guiderRef.end();
+    }
+
+    public trackByFn(index: number, step: StepInfo) {
+        return step.key || index;
     }
 }

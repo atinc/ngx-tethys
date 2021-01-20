@@ -3,16 +3,16 @@ import { ThyPlacement } from 'ngx-tethys/core';
 
 export const NOT_SET_POSITION = 'NOT_SET_POSITION';
 
-export type stepTooltipData = any;
+export type stepTipData = any;
 
 export type GuiderPlacement = ThyPlacement | number[] | string;
 
 export interface StepInfo {
     key: string;
     target: string; // directive
-    data: stepTooltipData;
+    data: stepTipData;
     pointPosition?: GuiderPlacement;
-    tooltipPosition?: GuiderPlacement;
+    tipPosition?: GuiderPlacement;
     // children: StepInfo<T>[]
 }
 
@@ -26,8 +26,8 @@ export class ThyGuiderConfig {
     /** point default position */
     pointDefaultPosition?: GuiderPlacement;
 
-    /** tooltip default position when step info not set tooltipPosition */
-    tooltipDefaultPosition?: GuiderPlacement;
+    /** tooltip default position when step info not set tipPosition */
+    tipDefaultPosition?: GuiderPlacement;
 
     /** Origin point, default use origin's boundingClientRect*/
     // originPosition?: {
