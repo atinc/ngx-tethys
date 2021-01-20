@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.1.34"></a>
+## [8.1.34](https://github.com/atinc/ngx-tethys/compare/8.1.33...8.1.34) (2021-01-20)
+
+
+### Bug Fixes
+
+* **date-picker:** change offset to 4px for date-picker (#INFR-1341) ([fcb85e9](https://github.com/atinc/ngx-tethys/commit/fcb85e9)), closes [#INFR-1341](https://github.com/atinc/ngx-tethys/issues/INFR-1341)
+* **uploader:** 修复页面中可点击的元素可拖拽上传的问题(#INFR-1329) ([3eb1952](https://github.com/atinc/ngx-tethys/commit/3eb1952)), closes [#INFR-1329](https://github.com/atinc/ngx-tethys/issues/INFR-1329)
+
+
+### Features
+
+* **grid:** stom expand icon display column in tree mode #INFR-1340 ([#1029](https://github.com/atinc/ngx-tethys/issues/1029)) ([a2709d5](https://github.com/atinc/ngx-tethys/commit/a2709d5)), closes [#INFR-1340](https://github.com/atinc/ngx-tethys/issues/INFR-1340) [#INFR-1340](https://github.com/atinc/ngx-tethys/issues/INFR-1340)
+
+
+
 <a name="8.1.33"></a>
 ## [8.1.33](https://github.com/atinc/ngx-tethys/compare/8.1.32...8.1.33) (2020-12-03)
 
