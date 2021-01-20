@@ -1,22 +1,18 @@
 import { helpers } from 'ngx-tethys/util';
-import { ThyPlacement } from 'ngx-tethys/core';
 import { ThyGuiderStepRef } from './guider-step-ref';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
-import { NOT_SET_POSITION, ThyGuiderConfig, StepInfo, GuiderPlacement } from './guider.class';
+import { ThyGuiderConfig, StepInfo } from './guider.class';
 
-export class GuiderRef {
+export class ThyGuiderRef {
     private stepChange$: ReplaySubject<StepInfo> = new ReplaySubject<StepInfo>();
 
     private guiderEnded$ = new Subject();
 
+    private guiderClosed$ = new Subject<StepInfo>();
+
     private steps: StepInfo[];
 
     private currentStep: StepInfo;
-
-    private pointDefaultPosition: GuiderPlacement;
-
-    // TODO
-    private tipDefaultPosition: GuiderPlacement;
 
     private currentStepIndex: number;
 
@@ -27,18 +23,24 @@ export class GuiderRef {
             throw new Error('’config.steps’ must be an array of length greater than 0');
         }
         this.config = config;
-        this.steps = this.adapterSteps(config.steps);
-        this.pointDefaultPosition = config.pointDefaultPosition;
-        this.tipDefaultPosition = config.tipDefaultPosition;
+        this.steps = config.steps;
     }
 
     public stepChange(): Observable<StepInfo> {
         return this.stepChange$;
     }
 
-    public start(startWith?: string) {
+    public guiderEnded() {
+        return this.guiderEnded$;
+    }
+
+    public guiderClosed() {
+        return this.guiderClosed$;
+    }
+
+    public start(startWith?: number) {
         this.stepChange$ = new ReplaySubject<StepInfo>();
-        this.currentStepIndex = this.getFirstStepIndex(startWith);
+        this.currentStepIndex = startWith || 0;
         this.to(this.currentStepIndex);
 
         return this.stepChange$.asObservable();
@@ -70,60 +72,27 @@ export class GuiderRef {
         if (!this.currentStep) {
             throw new Error('step not exist');
         }
-        this.drawStep(this.currentStep);
+        this.drawStep();
         this.notifyStepClicked();
     }
 
     public close() {
         this.stepsRef[this.currentStepIndex].dispose();
+        this.guiderClosed$.next(this.currentStep);
     }
+
     public end() {
         this.close();
         this.guiderEnded$.next(this.currentStep);
         this.notifyGuiderIsFinished();
     }
 
-    private getFirstStepIndex(startWith: string): number {
-        const firstStep = startWith;
-        const stepIds = this.steps.map(step => step.key);
-
-        let index = stepIds.indexOf(firstStep);
-        if (index < 0) {
-            index = 0;
-            if (firstStep !== undefined) throw new Error(`The step ${firstStep} does not exist. `);
-        }
-
-        return index;
-    }
-
     private notifyStepClicked() {
         this.stepChange$.next(this.currentStep);
     }
 
-    private drawStep(step: StepInfo) {
-        this.setPointPosition(step);
+    private drawStep() {
         this.stepsRef[this.currentStepIndex].show(this);
-    }
-
-    private setPointPosition(step: StepInfo) {
-        step.pointPosition = step.pointPosition === NOT_SET_POSITION ? this.getPointDefaultPosition() : step.pointPosition;
-    }
-
-    private getPointDefaultPosition(): GuiderPlacement {
-        return this.pointDefaultPosition ? this.pointDefaultPosition : ('bottomRight' as ThyPlacement);
-    }
-
-    private adapterSteps(steps: StepInfo[]): StepInfo[] {
-        return steps.map(step => {
-            const tempStep = { ...step };
-
-            tempStep.tipPosition = tempStep.tipPosition ? tempStep.tipPosition : NOT_SET_POSITION;
-
-            tempStep.pointPosition = tempStep.pointPosition ? tempStep.pointPosition : NOT_SET_POSITION;
-            return {
-                ...tempStep
-            };
-        });
     }
 
     private notifyGuiderIsFinished() {

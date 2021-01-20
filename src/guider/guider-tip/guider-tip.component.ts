@@ -1,10 +1,10 @@
 import { HostBinding, Component, Input, OnInit, TemplateRef } from '@angular/core';
-import { GuiderRef } from '../guider-ref';
+import { ThyGuiderRef } from '../guider-ref';
 import { helpers } from 'ngx-tethys/util';
 import { StepInfo } from '../guider.class';
 
 export abstract class ThyGuiderTipBaseComponent implements OnInit {
-    @Input() guiderRef: GuiderRef;
+    @Input() guiderRef: ThyGuiderRef;
 
     @Input() set stepTipData(value: any) {}
 

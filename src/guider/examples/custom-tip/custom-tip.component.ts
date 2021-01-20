@@ -1,5 +1,5 @@
 import { Component, HostBinding, Input, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { ThyGuiderConfig, GuiderRef, StepInfo, ThyGuider, ThyGuiderTipBaseComponent } from 'ngx-tethys';
+import { ThyGuiderConfig, ThyGuiderRef, StepInfo, ThyGuider, ThyGuiderTipBaseComponent } from 'ngx-tethys';
 
 @Component({
     selector: 'custom-tip',
@@ -38,7 +38,7 @@ export class CustomTipComponent extends ThyGuiderTipBaseComponent {
 export class ThyGuiderCustomTipExampleComponent implements OnInit, OnDestroy {
     private option: ThyGuiderConfig;
 
-    private guiderRef: GuiderRef;
+    private guiderRef: ThyGuiderRef;
 
     @ViewChild('descTemplate', { static: true }) descTemplate: TemplateRef<any>;
 

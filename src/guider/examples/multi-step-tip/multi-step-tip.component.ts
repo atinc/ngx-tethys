@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyGuiderConfig, GuiderRef, StepInfo, ThyGuiderTipComponent, ThyGuider } from 'ngx-tethys';
+import { ThyGuiderConfig, ThyGuiderRef, StepInfo, ThyGuiderTipComponent, ThyGuider } from 'ngx-tethys';
 
 @Component({
     selector: 'thy-guider-multi-step-tip-example',
@@ -8,7 +8,7 @@ import { ThyGuiderConfig, GuiderRef, StepInfo, ThyGuiderTipComponent, ThyGuider 
 export class ThyGuiderMultiStepTipExampleComponent implements OnInit {
     private option: ThyGuiderConfig;
 
-    private guiderRef: GuiderRef;
+    private guiderRef: ThyGuiderRef;
 
     public text: string;
 
