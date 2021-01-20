@@ -1,0 +1,13 @@
+<span class="step1 display-inline-block font-weight-normal">step 1</span>
+
+<div class="my-3"></div>
+<span class="step2 font-weight-normal">step 2</span>
+<div class="my-3"></div>
+
+<button thyButton="danger" class="step3" (click)="showText()">step 3</button>
+<ng-container *ngIf="text">
+  {{ text }}
+</ng-container>
+<div class="my-3"></div>
+
+<button thyButton="primary" (click)="startTour()">开始</button>

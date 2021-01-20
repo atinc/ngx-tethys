@@ -64,6 +64,7 @@ import { ThySliderModule } from 'ngx-tethys/slider';
 import { ThyCalendarModule } from 'ngx-tethys/calendar';
 import { ThyTimelineModule } from 'ngx-tethys/timeline';
 import { ThyFullscreenModule } from 'ngx-tethys/fullscreen';
+import { ThyGuiderModule } from 'ngx-tethys/guider';
 
 const IMPORT_EXPORT_MODULES = [
     ThyLayoutModule,
@@ -128,7 +129,8 @@ const IMPORT_EXPORT_MODULES = [
     ThyAffixModule,
     ThySliderModule,
     ThyCalendarModule,
-    ThyFullscreenModule
+    ThyFullscreenModule,
+    ThyGuiderModule
 ];
 
 /**

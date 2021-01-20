@@ -1,0 +1,40 @@
+<div class="thy-guider-hint-top">
+  <img [src]="cover" [alt]="title" />
+  <a href="javascript:;" class="thy-guider-hint-top-btn" (click)="jump()">跳过</a>
+</div>
+<div class="thy-guider-hint-content bg-white">
+  <div class="thy-guider-hint-content-title">
+    {{ title }}
+  </div>
+  <div class="thy-guider-hint-content-description">
+    <ng-container *ngIf="descriptionTemplateRef; else stringTemplateRef">
+      <ng-template [ngTemplateOutlet]="descriptionTemplateRef"></ng-template>
+    </ng-container>
+    <ng-template #stringTemplateRef>
+      {{ descriptionString }}
+    </ng-template>
+  </div>
+  <div class="thy-guider-hint-step">
+    <div class="thy-guider-hint-step-pagination">
+      <span
+        class="pagination-item"
+        *ngFor="let step of steps; let i = index; trackBy: trackByFn"
+        [ngClass]="{ active: i === currentStepIndex }"
+      ></span>
+    </div>
+
+    <div class="thy-guider-hint-step-btn">
+      <ng-container *ngIf="currentStepIndex !== 0">
+        <a href="javascript:;" (click)="prev()" class="thy-guider-hint-step-pre">
+          上一步
+        </a>
+      </ng-container>
+      <ng-container *ngIf="currentStepIndex !== steps.length - 1; else finish">
+        <a href="javascript:;" (click)="next()" class="thy-guider-hint-step-next">下一步</a>
+      </ng-container>
+      <ng-template #finish>
+        <a href="javascript:;" thyButton="link-secondary" (click)="end()" class="thy-guider-hint-step-next">完成</a>
+      </ng-template>
+    </div>
+  </div>
+</div>
