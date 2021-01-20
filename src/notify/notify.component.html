@@ -6,24 +6,24 @@
     <thy-icon [thyIconName]="notifyIconName"></thy-icon>
   </div>
   <div class="thy-notify-main">
-    <div class="thy-notify-title">{{ option.title }}</div>
+    <div class="thy-notify-title">{{ option?.title }}</div>
     <div
-      *ngIf="option.detail || option.content"
+      *ngIf="option?.detail || option?.content"
       class="thy-notify-content"
       [ngClass]="{ 'thy-notify-content--extend': extendContentClass === true }"
       (click)="extendContent()"
     >
-      {{ option.content }}
-      <a href="javascript:;" class="link-secondary" *ngIf="option.detail" (click)="showDetailToggle()">[详细]</a>
+      {{ option?.content }}
+      <a href="javascript:;" *ngIf="option?.detail" class="link-secondary" (click)="triggerDetail()">{{ (option?.detail)['link'] }}</a>
     </div>
-    <div class="thy-notify-detail" *ngIf="isShowDetail">{{ option.detail }}</div>
+    <div class="thy-notify-detail" *ngIf="isShowDetail">{{ (option?.detail)['content'] }}</div>
   </div>
 </ng-container>
-<ng-container *ngIf="option.html">
+<ng-container *ngIf="option?.html">
   <a href="javascript:;" class="thy-notify-close" (click)="closeNotify()">
     <thy-icon thyIconName="close"></thy-icon>
   </a>
   <div class="thy-notify-main">
-    <template [ngTemplateOutlet]="option.html"></template>
+    <template [ngTemplateOutlet]="option?.html"></template>
   </div>
 </ng-container>

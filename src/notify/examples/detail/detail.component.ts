@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './detail.component.html'
 })
 export class ThyNotifyDetailExampleComponent implements OnInit {
+    openAction = () => {
+        alert(111);
+    };
     constructor(private notifyService: ThyNotifyService) {}
 
     ngOnInit() {}

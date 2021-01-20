@@ -23,6 +23,25 @@ notifyService.show({
 });
 ```
 
+## 可操作性详情
+`ThyNotifyService`服务的`show`方法支持传参数`{detail: string | ThyNotifyDetail}`（`ThyNotifyDetail`类型包括`link`链接名、`content`链接描述、和`action`操作链接的方法）。
+
+```ts
+notifyService.show({
+   type: 'error',
+   title: '错误',
+   content: '获取数据失败！',
+   detail: {
+     link:'查看',
+     content:'查看的详情',
+     action:()=>{
+       // 操作方法
+     }
+   },
+   duration: 0
+});
+```
+
 ## 自定义模版
 
 `ThyNotifyService`服务的`show`方法支持传参数`{html: ElementRef}`，支持打开自定义模版。
@@ -75,8 +94,8 @@ const DEFAULT_OPTIONS = {
 `ThyNotifyService`服务提供了`success`, `info`, `warning`,`error`四种指定类型的打开方法。
 
 ```ts
-ThyNotifyService.success(title, content, detail)
-ThyNotifyService.info(title, content, detail)
-ThyNotifyService.warning(title, content, detail)
-ThyNotifyService.error(title, content, detail)
+ThyNotifyService.success(title?: string, content?: string, options?: ThyNotifyOptions)
+ThyNotifyService.info(title?: string, content?: string, options?: ThyNotifyOptions)
+ThyNotifyService.warning(title?: string, content?: string, options?: ThyNotifyOptions)
+ThyNotifyService.error(title?: string, content?: string, options?: ThyNotifyOptions)
 ```

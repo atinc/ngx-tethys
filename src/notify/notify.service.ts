@@ -1,19 +1,10 @@
-import {
-    Injectable,
-    TemplateRef,
-    ViewContainerRef,
-    Injector,
-    ApplicationRef,
-    ComponentFactoryResolver,
-    ComponentRef,
-    Inject,
-    Optional
-} from '@angular/core';
-import { CONTAINER_PLACEMENT, NotifyPlacement, ThyNotifyOptions, THY_NOTIFY_DEFAULT_OPTIONS } from './notify-option.interface';
+import { Injectable, Injector, ApplicationRef, ComponentFactoryResolver, ComponentRef, Inject } from '@angular/core';
+import { ThyNotifyDetail, NotifyPlacement, ThyNotifyOptions, THY_NOTIFY_DEFAULT_OPTIONS } from './notify-option.interface';
 import { ThyNotifyContainerComponent } from './notify.container.component';
 import { Subject } from 'rxjs';
 import { DomPortalOutlet, ComponentPortal } from '@angular/cdk/portal';
 import { NotifyQueueStore } from './notify-queue.store';
+import { helpers } from 'ngx-tethys/util';
 
 const NOTIFY_OPTION_DEFAULT = {
     duration: 4500,
@@ -51,40 +42,46 @@ export class ThyNotifyService {
         this._initContainer(placement);
     }
 
-    success(title?: string, content?: string, detail?: string) {
+    success(title?: string, content?: string, options?: ThyNotifyOptions) {
         this.show({
+            ...(options || {}),
             type: 'success',
-            title: title || '成功',
-            content: content,
-            detail: detail
+            title: title || options?.title || '成功',
+            content: content || options?.content
         });
     }
 
-    info(title?: string, content?: string, detail?: string) {
+    info(title?: string, content?: string, options?: ThyNotifyOptions) {
         this.show({
+            ...(options || {}),
             type: 'info',
-            title: title || '提示',
-            content: content,
-            detail: detail
+            title: title || options?.title || '提示',
+            content: content || options?.content
         });
     }
 
-    warning(title?: string, content?: string, detail?: string) {
+    warning(title?: string, content?: string, options?: ThyNotifyOptions) {
         this.show({
+            ...(options || {}),
             type: 'warning',
-            title: title || '警告',
-            content: content,
-            detail: detail
+            title: title || options?.title || '警告',
+            content: content || options?.content
         });
     }
 
-    error(title?: string, content?: string, detail?: string) {
-        this.show({
-            type: 'error',
-            title: title || '错误',
-            content: content,
-            detail: detail
-        });
+    /**
+     * @deprecated The string type parameter of options in error will be discarded, For options, please use ThyNotifyOptions type
+     */
+    error(title?: string, content?: string, options?: ThyNotifyOptions | string) {
+        const config: ThyNotifyOptions = helpers.isString(options)
+            ? { type: 'error', title: title || '错误', content: content, detail: options }
+            : {
+                  ...((options || {}) as ThyNotifyOptions),
+                  type: 'error',
+                  title: title || (options as ThyNotifyOptions)?.title || '错误',
+                  content: content || (options as ThyNotifyOptions)?.content
+              };
+        this.show(config);
     }
 
     /**
@@ -129,6 +126,9 @@ export class ThyNotifyService {
     }
 
     private formatOptions(options: ThyNotifyOptions) {
+        if (helpers.isString(options.detail)) {
+            options = { ...options, detail: { link: '[详情]', content: options.detail as string } };
+        }
         return Object.assign({}, NOTIFY_OPTION_DEFAULT, { id: this._lastNotifyId++ }, this.defaultConfig, options);
     }
 }
