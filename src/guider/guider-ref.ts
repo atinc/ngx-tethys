@@ -10,6 +10,8 @@ export class ThyGuiderRef {
 
     private guiderClosed$ = new Subject<StepInfo>();
 
+    private targetClicked$ = new Subject<StepInfo>();
+
     private steps: StepInfo[];
 
     private currentStep: StepInfo;
@@ -27,7 +29,7 @@ export class ThyGuiderRef {
     }
 
     public stepChange(): Observable<StepInfo> {
-        return this.stepChange$;
+        return this.stepChange$.asObservable();
     }
 
     public guiderEnded() {
@@ -38,12 +40,15 @@ export class ThyGuiderRef {
         return this.guiderClosed$;
     }
 
+    public targetClicked() {
+        return this.targetClicked$;
+    }
+
     public start(startWith?: number) {
-        this.stepChange$ = new ReplaySubject<StepInfo>();
-        this.currentStepIndex = startWith || 0;
+        this.currentStepIndex = startWith >= 0 ? startWith : 0;
         this.to(this.currentStepIndex);
 
-        return this.stepChange$.asObservable();
+        return this.stepChange();
     }
 
     public next() {
@@ -97,6 +102,7 @@ export class ThyGuiderRef {
 
     private notifyGuiderIsFinished() {
         this.stepChange$.complete();
+        this.targetClicked().unsubscribe();
         this.currentStepIndex = 0;
     }
 

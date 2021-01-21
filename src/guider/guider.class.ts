@@ -1,31 +1,39 @@
-import { Type } from '@angular/core';
+import { TemplateRef, Type } from '@angular/core';
 import { ThyPlacement } from 'ngx-tethys/core';
 
-export type stepTipData = {
+export type StepTipData = {
     [key: string]: any;
     title?: string;
-    description?: string;
+    description?: string | TemplateRef<any>;
     image?: string;
 };
 
-export type GuiderPlacement = ThyPlacement | GuiderOriginPosition;
+export type GuiderPlacement = ThyPlacement | GuiderTargetPosition;
 
-export type GuiderOriginPosition = [number, number];
+export type GuiderTargetPosition = [number, number];
 
-export const tipDefaultPosition = 'right';
+export type GuiderOffset = [number, number];
 
-export const pointDefaultPosition = [0, 0] as GuiderOriginPosition;
+export const defaultTipPlacement = 'rightBottom';
+
+export const defaultTipPosition = [0, 0] as GuiderTargetPosition;
+
+export const pointDefaultPosition = [0, 0] as GuiderTargetPosition;
 
 export interface StepInfo {
     key: string;
-    target: string; // directive
-    data: stepTipData;
-    pointPosition?: GuiderOriginPosition;
-    // 当 target 为空时，需要设置 tipPosition 为 GuiderOriginPosition
-    tipPosition?: GuiderPlacement;
+    target?: string; // directive
+    data: StepTipData;
+    // 只使用 offset 来控制 point 高亮点的位置
+    // targetPosition?: GuiderTargetPosition;
+    // 当 target 为空时，需要设置 tipPlacement 为 GuiderTargetPosition
+    tipPlacement?: GuiderPlacement;
     tipOffset?: number;
+    pointOffset?: GuiderOffset;
     // children: StepInfo<T>[]
 }
+
+// TODO 像 popoverConfig 一样，配置一个默认 config的对象，在初始化的时候使用 assign 统一配置默认值
 
 export class ThyGuiderConfig {
     /** tooltip Component ,default is ThyGuiderTooltip */
@@ -34,11 +42,11 @@ export class ThyGuiderConfig {
     /** steps info */
     steps: StepInfo[];
 
-    /** point default position */
-    pointDefaultPosition?: GuiderOriginPosition;
+    /** tooltip default position when step info not set tipPlacement */
+    defaultTipPlacement?: ThyPlacement;
 
-    /** tooltip default position when step info not set tipPosition */
-    tipDefaultPosition?: GuiderPlacement;
+    /** the priority is higher than defaultTipPlacement */
+    defaultTipPosition?: GuiderTargetPosition;
 
     /** 当  tipDefaultPosition 类型为 ThyPlacement 时，配置的 tipDefaultOffset 才会起作用*/
     tipDefaultOffset?: number;
