@@ -27,11 +27,7 @@ export class ThyGuider {
         return new ThyGuiderRef(config, this.stepsRef);
     }
     private adapterConfig(config: ThyGuiderConfig) {
-        // 根据优先级做判断
-        if (!config.defaultTipPosition) {
-            this.defaultTipPlacement = config.defaultTipPlacement || defaultTipPlacement;
-        }
-        // this.defaultTipPlacement = config.defaultTipPlacement || defaultTipPlacement;
+        this.defaultTipPlacement = config.defaultTipPlacement || defaultTipPlacement;
         this.tipDefaultOffset = config.tipDefaultOffset || 0;
         config.steps = config.steps.map(step => {
             return this.adapterStep(step);

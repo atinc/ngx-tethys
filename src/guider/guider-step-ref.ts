@@ -151,25 +151,21 @@ export class ThyGuiderStepRef {
     }
 
     private tooltipWithTarget(step: StepInfo) {
-        if (step.tipPlacement || !this.guiderRef.config.defaultTipPosition) {
-            const popoverConfig = {
-                origin: this.document.querySelector(this.step.target) as HTMLElement,
-                placement: step.tipPlacement,
-                backdropClosable: false,
-                hasBackdrop: false,
-                initialState: {
-                    stepTipData: step.data,
-                    guiderRef: this.guiderRef
-                }
-            } as ThyPopoverConfig<any>;
-
-            if (step.tipOffset) {
-                popoverConfig.offset = step.tipOffset;
+        const popoverConfig = {
+            origin: this.document.querySelector(this.step.target) as HTMLElement,
+            placement: step.tipPlacement,
+            backdropClosable: false,
+            hasBackdrop: false,
+            initialState: {
+                stepTipData: step.data,
+                guiderRef: this.guiderRef
             }
-            this.popover.open(this.guiderRef.config.component || ThyGuiderTipComponent, popoverConfig);
-        } else {
-            this.tooltipWithoutTarget(step);
+        } as ThyPopoverConfig<any>;
+
+        if (step.tipOffset) {
+            popoverConfig.offset = step.tipOffset;
         }
+        this.popover.open(this.guiderRef.config.component || ThyGuiderTipComponent, popoverConfig);
     }
 
     private removeTip() {
