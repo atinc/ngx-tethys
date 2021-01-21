@@ -102,7 +102,7 @@ export class ThyGuiderRef {
 
     private notifyGuiderIsFinished() {
         this.stepChange$.complete();
-        this.targetClicked().unsubscribe();
+        // this.targetClicked().unsubscribe();
         this.currentStepIndex = 0;
     }
 

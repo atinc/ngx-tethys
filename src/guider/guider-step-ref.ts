@@ -29,8 +29,8 @@ export class ThyGuiderStepRef {
     }
 
     public show(guiderRef: ThyGuiderRef) {
+        this.guiderRef = guiderRef;
         this.createPoint(this.step, guiderRef);
-        this.createTip(this.step, guiderRef);
     }
 
     public dispose() {
@@ -40,6 +40,7 @@ export class ThyGuiderStepRef {
 
     private createPoint(step: StepInfo, guiderRef: ThyGuiderRef) {
         if (!step.target) {
+            this.createTip(this.step);
             return;
         }
 
@@ -97,10 +98,10 @@ export class ThyGuiderStepRef {
     }
 
     private renderPoint(targetElement: Element, pointContainer: any) {
-        // TODO 将元素插入 body 中，并使用 fixed 定位，定位到 target 的右下角
         this.renderer.appendChild(targetElement, pointContainer);
         this.lastPointerContainer = pointContainer;
         this.lastTargetElement = targetElement;
+        this.createTip(this.step);
     }
 
     private removeLastPointContainer() {
@@ -115,8 +116,7 @@ export class ThyGuiderStepRef {
         }
     }
 
-    private createTip(step: StepInfo, guiderRef: ThyGuiderRef) {
-        this.guiderRef = guiderRef;
+    private createTip(step: StepInfo) {
         this.step = step;
         if (!step.target) {
             this.tooltipWithoutTarget(step);
@@ -152,7 +152,7 @@ export class ThyGuiderStepRef {
 
     private tooltipWithTarget(step: StepInfo) {
         const popoverConfig = {
-            origin: this.document.querySelector(this.step.target) as HTMLElement,
+            origin: this.lastPointerContainer,
             placement: step.tipPlacement,
             backdropClosable: false,
             hasBackdrop: false,
