@@ -22,6 +22,7 @@ export class ThyGuiderCustomPositionExampleComponent implements OnInit {
 
     private setDefaultGuiderOption(): ThyGuiderConfig {
         return {
+            defaultTipPosition: [100, 100],
             steps: [
                 {
                     key: 'custom-point-position',
@@ -32,16 +33,6 @@ export class ThyGuiderCustomPositionExampleComponent implements OnInit {
                         description: '设置 point 的偏移量，从默认位置偏移[-10,-10]达到此位置'
                     },
                     pointOffset: [-10, -10]
-                },
-                {
-                    key: 'custom-point-position-2',
-                    target: '.custom-point-position-2',
-                    data: {
-                        image: '',
-                        title: 'custom-position-by-coordinates',
-                        description: '设置 point 的相对 target 左上角的位置，设置相对于目标[10,10]的位置'
-                    },
-                    targetPosition: [10, 10]
                 },
                 {
                     key: 'custom-tip-position',
@@ -58,10 +49,20 @@ export class ThyGuiderCustomPositionExampleComponent implements OnInit {
                     target: '.custom-tip-position-2',
                     data: {
                         image: '',
-                        title: 'custom-tip-by-default',
+                        title: 'custom-tip-by-Offset',
                         description: '设置 tip 相对于默认位置的偏移量为 40'
                     },
+                    tipPlacement: 'bottomRight',
                     tipOffset: 40
+                },
+                {
+                    key: 'custom-tip-position-3',
+                    target: '.custom-tip-position-3',
+                    data: {
+                        image: '',
+                        title: 'custom-tip-by-position',
+                        description: '通过 defaultTipPosition 控制位置'
+                    }
                 }
             ] as StepInfo[]
         };

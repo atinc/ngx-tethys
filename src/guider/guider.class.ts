@@ -16,13 +16,16 @@ export type GuiderOffset = [number, number];
 
 export const defaultTipPlacement = 'rightBottom';
 
+export const defaultTipPosition = [0, 0] as GuiderTargetPosition;
+
 export const pointDefaultPosition = [0, 0] as GuiderTargetPosition;
 
 export interface StepInfo {
     key: string;
     target?: string; // directive
     data: StepTipData;
-    targetPosition?: GuiderTargetPosition;
+    // 只使用 offset 来控制 point 高亮点的位置
+    // targetPosition?: GuiderTargetPosition;
     // 当 target 为空时，需要设置 tipPlacement 为 GuiderTargetPosition
     tipPlacement?: GuiderPlacement;
     tipOffset?: number;
@@ -39,12 +42,11 @@ export class ThyGuiderConfig {
     /** steps info */
     steps: StepInfo[];
 
-    /** point default position */
-    // TODO 命名方式与 stepInfo 相同
-    pointDefaultPosition?: GuiderTargetPosition;
-
     /** tooltip default position when step info not set tipPlacement */
-    defaultTipPlacement?: GuiderPlacement;
+    defaultTipPlacement?: ThyPlacement;
+
+    /** the priority is higher than defaultTipPlacement */
+    defaultTipPosition?: GuiderTargetPosition;
 
     /** 当  tipDefaultPosition 类型为 ThyPlacement 时，配置的 tipDefaultOffset 才会起作用*/
     tipDefaultOffset?: number;

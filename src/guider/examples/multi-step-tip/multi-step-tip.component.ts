@@ -34,8 +34,6 @@ export class ThyGuiderMultiStepTipExampleComponent implements OnInit {
                         title: 'withoutTarget',
                         description: '欢迎使用 PingCode 开启高效研发，我们将通过简单的指引，帮助你快速熟悉产品，让你更便捷的开始工作'
                     }
-                    // targetPosition: [40,100],
-                    // tipPlacement?: GuiderPlacement
                 },
                 {
                     key: 'multi-steps-tip-1',
@@ -45,7 +43,6 @@ export class ThyGuiderMultiStepTipExampleComponent implements OnInit {
                         title: 'withoutTarget-Step1',
                         description: '点击      ，查看团队当前版本及用量，掌握团队资产，还可以进入团队后台管理组织架构、成员、安全等内容'
                     },
-                    // targetPosition: [40,100],
                     tipPlacement: 'right'
                 },
                 {
@@ -57,7 +54,6 @@ export class ThyGuiderMultiStepTipExampleComponent implements OnInit {
                         description:
                             '点击      ，无论是个人工作台还是团队公共工作台，都显而易见，在这里，可以随时定义关注的工作内容，实时掌握工作动态'
                     },
-                    // targetPosition: [40,100],
                     tipPlacement: 'topRight'
                 },
                 {
@@ -68,7 +64,6 @@ export class ThyGuiderMultiStepTipExampleComponent implements OnInit {
                         title: 'withoutTarget-Step3',
                         description: '点击      ，查看当前团队使用的产品，还可进入全部产品了解 PingCode 产品矩阵'
                     },
-                    targetPosition: [40, 10],
                     tipPlacement: 'bottomRight'
                 },
                 {
@@ -79,11 +74,9 @@ export class ThyGuiderMultiStepTipExampleComponent implements OnInit {
                         title: 'withoutTarget-Step-end',
                         description: '开启 PingCode 高效研发之旅'
                     }
-                    // targetPosition: [40, 100],
                 }
             ] as StepInfo[],
-            pointDefaultPosition: [10, 10],
-            defaultTipPlacement: [100, -100]
+            defaultTipPosition: [100, -100]
         };
     }
 
