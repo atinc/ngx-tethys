@@ -41,7 +41,7 @@ export class ThyGuiderCustomPositionExampleComponent implements OnInit {
                         title: 'custom-position-by-coordinates',
                         description: '设置 point 的相对 target 左上角的位置，设置相对于目标[10,10]的位置'
                     },
-                    pointPosition: [10, 10]
+                    targetPosition: [10, 10]
                 },
                 {
                     key: 'custom-tip-position',
@@ -51,7 +51,7 @@ export class ThyGuiderCustomPositionExampleComponent implements OnInit {
                         title: 'custom-tip-by-default',
                         description: '通过 placement 设置 tip 的位置从默认设置为 topRight'
                     },
-                    tipPosition: 'topRight'
+                    tipPlacement: 'topRight'
                 },
                 {
                     key: 'custom-tip-position-2',

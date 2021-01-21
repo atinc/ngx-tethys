@@ -35,7 +35,7 @@ export class ThyGuiderTipWithoutTargetExampleComponent implements OnInit {
                     }
                 }
             ] as StepInfo[],
-            tipDefaultPosition: [100, 100]
+            defaultTipPlacement: [100, 100]
         };
     }
 

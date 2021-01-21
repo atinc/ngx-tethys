@@ -10,6 +10,8 @@ export class ThyGuiderRef {
 
     private guiderClosed$ = new Subject<StepInfo>();
 
+    private targetClicked$ = new Subject<StepInfo>();
+
     private steps: StepInfo[];
 
     private currentStep: StepInfo;
@@ -36,6 +38,10 @@ export class ThyGuiderRef {
 
     public guiderClosed() {
         return this.guiderClosed$;
+    }
+
+    public targetClicked() {
+        return this.targetClicked$;
     }
 
     public start(startWith?: number) {
@@ -96,6 +102,7 @@ export class ThyGuiderRef {
 
     private notifyGuiderIsFinished() {
         this.stepChange$.complete();
+        this.targetClicked().unsubscribe();
         this.currentStepIndex = 0;
     }
 

@@ -64,7 +64,7 @@ export class ThyGuiderCustomTipExampleComponent implements OnInit, OnDestroy {
                         descTemplate: this.descTemplate,
                         descString: 'hello world'
                     },
-                    tipPosition: 'bottom',
+                    tipPlacement: 'bottom',
                     tipOffset: 40
                 }
             ] as StepInfo[],

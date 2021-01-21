@@ -1,6 +1,13 @@
 import { ThyGuiderRef } from './guider-ref';
 import { ThyPopover } from 'ngx-tethys/popover';
-import { GuiderOriginPosition, GuiderPlacement, pointDefaultPosition, StepInfo, ThyGuiderConfig, tipDefaultPosition } from './guider.class';
+import {
+    GuiderTargetPosition,
+    GuiderPlacement,
+    pointDefaultPosition,
+    StepInfo,
+    ThyGuiderConfig,
+    defaultTipPlacement
+} from './guider.class';
 import { ThyGuiderStepRef } from './guider-step-ref';
 import { Injectable, RendererFactory2 } from '@angular/core';
 import { Inject } from '@angular/core';
@@ -12,9 +19,9 @@ import { DOCUMENT } from '@angular/common';
 export class ThyGuider {
     private stepsRef: ThyGuiderStepRef[];
 
-    private pointDefaultPosition: GuiderOriginPosition;
+    private pointDefaultPosition: GuiderTargetPosition;
 
-    private tipDefaultPosition: GuiderPlacement;
+    private defaultTipPlacement: GuiderPlacement;
 
     private tipDefaultOffset: number;
 
@@ -30,7 +37,7 @@ export class ThyGuider {
     }
     private adapterConfig(config: ThyGuiderConfig) {
         this.pointDefaultPosition = config.pointDefaultPosition || pointDefaultPosition;
-        this.tipDefaultPosition = config.tipDefaultPosition || tipDefaultPosition;
+        this.defaultTipPlacement = config.defaultTipPlacement || defaultTipPlacement;
         this.tipDefaultOffset = config.tipDefaultOffset || 0;
         config.steps = config.steps.map(step => {
             return this.adapterStep(step);
@@ -39,9 +46,9 @@ export class ThyGuider {
 
     private adapterStep(step: StepInfo): StepInfo {
         const tempStep = { ...step };
-        tempStep.tipPosition = tempStep.tipPosition ? tempStep.tipPosition : this.tipDefaultPosition;
+        tempStep.tipPlacement = tempStep.tipPlacement ? tempStep.tipPlacement : this.defaultTipPlacement;
 
-        tempStep.pointPosition = tempStep.pointPosition ? tempStep.pointPosition : this.pointDefaultPosition;
+        tempStep.targetPosition = tempStep.targetPosition ? tempStep.targetPosition : this.pointDefaultPosition;
 
         tempStep.tipOffset = tempStep.tipOffset ? tempStep.tipOffset : this.tipDefaultOffset;
 
