@@ -1,7 +1,7 @@
 import { HostBinding, Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { ThyGuiderRef } from '../guider-ref';
 import { helpers } from 'ngx-tethys/util';
-import { StepInfo } from '../guider.class';
+import { StepInfo, StepTipData } from '../guider.class';
 
 export abstract class ThyGuiderTipBaseComponent implements OnInit {
     @Input() guiderRef: ThyGuiderRef;
@@ -35,17 +35,17 @@ export class ThyGuiderTipComponent extends ThyGuiderTipBaseComponent {
     @HostBinding('class.thy-guider-hint-container') guiderHint = true;
 
     @Input()
-    set stepTipData(value: any) {
+    set stepTipData(value: StepTipData) {
         this.title = value.title;
         this.setDescription(value.description);
-        this.cover = value.cover;
+        this.image = value.image;
     }
 
     @Input() current: number;
 
     public title: string;
 
-    public cover: string;
+    public image: string;
 
     public descriptionString: string;
 

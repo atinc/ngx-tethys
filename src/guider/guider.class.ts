@@ -1,7 +1,7 @@
 import { Type } from '@angular/core';
 import { ThyPlacement } from 'ngx-tethys/core';
 
-export type stepTipData = {
+export type StepTipData = {
     [key: string]: any;
     title?: string;
     description?: string;
@@ -12,18 +12,19 @@ export type GuiderPlacement = ThyPlacement | GuiderOriginPosition;
 
 export type GuiderOriginPosition = [number, number];
 
-export const tipDefaultPosition = 'right';
+export const tipDefaultPosition = 'rightBottom';
 
 export const pointDefaultPosition = [0, 0] as GuiderOriginPosition;
 
 export interface StepInfo {
     key: string;
     target: string; // directive
-    data: stepTipData;
+    data: StepTipData;
     pointPosition?: GuiderOriginPosition;
     // 当 target 为空时，需要设置 tipPosition 为 GuiderOriginPosition
     tipPosition?: GuiderPlacement;
     tipOffset?: number;
+    pointOffset?: GuiderOriginPosition;
     // children: StepInfo<T>[]
 }
 

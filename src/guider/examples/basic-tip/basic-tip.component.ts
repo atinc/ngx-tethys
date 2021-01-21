@@ -29,8 +29,7 @@ export class ThyGuiderBasicTipExampleComponent implements OnInit {
                         description: 'description for basic tip'
                     }
                 }
-            ] as StepInfo[],
-            pointDefaultPosition: [40, 40]
+            ] as StepInfo[]
         };
     }
 
