@@ -76,7 +76,7 @@ export class ThyGuiderMultiStepTipExampleComponent implements OnInit {
                     }
                 }
             ] as StepInfo[],
-            defaultTipPosition: [100, -100]
+            defaultTipPosition: [100, 50]
         };
     }
 
