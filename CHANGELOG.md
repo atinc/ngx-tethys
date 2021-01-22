@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.0.19"></a>
+## [9.0.19](https://github.com/atinc/ngx-tethys/compare/9.0.18...9.0.19) (2021-01-22)
+
+
+### Bug Fixes
+
+* **guider:** point default position is rightBottom #INFR-1543 ([42f97c7](https://github.com/atinc/ngx-tethys/commit/42f97c7)), closes [#INFR-1543](https://github.com/atinc/ngx-tethys/issues/INFR-1543)
+
+
+
 <a name="9.0.18"></a>
 ## [9.0.18](https://github.com/atinc/ngx-tethys/compare/9.0.17...9.0.18) (2021-01-22)
 
