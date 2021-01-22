@@ -82,7 +82,7 @@ export class ThyGuiderRef {
     }
 
     public close() {
-        this.stepsRef[this.currentStepIndex].dispose();
+        this.stepsRef[this.currentStepIndex]?.dispose();
         this.guiderClosed$.next(this.currentStep);
     }
 

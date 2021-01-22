@@ -63,7 +63,7 @@ export class ThyGuiderStepRef {
     private setStyleForPointContainer(step: StepInfo, targetElement: Element) {
         const pointPosition = this.getPointPosition(step, targetElement);
 
-        const pointContainer = this.setPointPosition(step, pointPosition);
+        const pointContainer = this.setPointPosition(pointPosition);
         this.renderPoint(targetElement, pointContainer);
     }
 
@@ -74,25 +74,20 @@ export class ThyGuiderStepRef {
         // 如果 element 超出 document 的高度/宽度，需要进行滚动展示
         // 先滚动再计算
         // 如果显示过程中进行滚动，那么需要监测滚动事件，再做进一步处理
-        const pointOffset = step.pointOffset || [0, 0];
-        // 只通过 pointOffset 控制point 的位置，为空默认在 target 的中间，
-        // 有值则为target 的左上角
-        if (!step.pointOffset) {
-            return [targetElementWidth / 2, targetElementHeight / 2];
-        }
-        return pointOffset;
+        const pointOffset = step.pointOffset;
+        // 只通过 pointOffset 控制point 的位置，默认在 target 的右下角，
+        // offset 的基点也为默认位置
+        return [targetElementWidth + pointOffset[0], targetElementHeight + pointOffset[1]];
     }
 
-    private setPointPosition(step: StepInfo, pointPosition: GuiderTargetPosition) {
+    private setPointPosition(pointPosition: GuiderTargetPosition) {
         const currentPointContainer = this.renderer.createElement('div');
 
         this.renderer.addClass(currentPointContainer, 'thy-guider-highlight-container');
         this.renderer.setStyle(currentPointContainer, 'position', 'absolute');
         this.renderer.setStyle(currentPointContainer, 'left', pointPosition[0] + 'px');
         this.renderer.setStyle(currentPointContainer, 'top', pointPosition[1] + 'px');
-        if (!step.pointOffset) {
-            this.renderer.setStyle(currentPointContainer, 'transform', 'translate(-50%,-50%)');
-        }
+        this.renderer.setStyle(currentPointContainer, 'transform', 'translate(-100%,-100%)');
 
         return currentPointContainer;
     }
@@ -105,8 +100,9 @@ export class ThyGuiderStepRef {
     }
 
     private removeLastPointContainer() {
-        if (this.lastPointerContainer) {
-            this.renderer.removeChild(this.document.body, this.lastPointerContainer);
+        const existedPointContainer = this.document.querySelector('.thy-guider-highlight-container');
+        if (this.lastPointerContainer || existedPointContainer) {
+            this.renderer.removeChild(this.document.body, this.lastPointerContainer || existedPointContainer);
             this.lastPointerContainer = undefined;
         }
         if (this.lastTargetElement && this.targetElementObserver) {
@@ -136,6 +132,7 @@ export class ThyGuiderStepRef {
             originActiveClass: '',
             backdropClosable: false,
             hasBackdrop: false,
+            manualClosure: true,
             initialState: {
                 stepTipData: step.data,
                 guiderRef: this.guiderRef
@@ -144,10 +141,10 @@ export class ThyGuiderStepRef {
     }
 
     private getTipPosition(): GuiderTargetPosition {
-        if (!this.guiderRef.config.defaultTipPosition) {
+        if (!this.guiderRef.config.tipPosition) {
             return defaultTipPosition;
         }
-        return this.guiderRef.config.defaultTipPosition;
+        return this.guiderRef.config.tipPosition;
     }
 
     private tooltipWithTarget(step: StepInfo) {
@@ -156,6 +153,7 @@ export class ThyGuiderStepRef {
             placement: step.tipPlacement,
             backdropClosable: false,
             hasBackdrop: false,
+            manualClosure: true,
             initialState: {
                 stepTipData: step.data,
                 guiderRef: this.guiderRef
