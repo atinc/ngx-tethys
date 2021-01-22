@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.0.18"></a>
+## [9.0.18](https://github.com/atinc/ngx-tethys/compare/9.0.17...9.0.18) (2021-01-22)
+
+
+### Bug Fixes
+
+* **guider:** modify the priority of the position #INFR-1543 ([#1106](https://github.com/atinc/ngx-tethys/issues/1106)) ([7dcf26e](https://github.com/atinc/ngx-tethys/commit/7dcf26e)), closes [#INFR-1543](https://github.com/atinc/ngx-tethys/issues/INFR-1543)
+* **guider:** reset default point position and add pointOffset #INFR-1543 ([#1104](https://github.com/atinc/ngx-tethys/issues/1104)) ([5f24f47](https://github.com/atinc/ngx-tethys/commit/5f24f47)), closes [#INFR-1543](https://github.com/atinc/ngx-tethys/issues/INFR-1543)
+
+
+### Features
+
+* **input:** input-search support add size, #INFR-80 ([#1097](https://github.com/atinc/ngx-tethys/issues/1097)) ([840dda3](https://github.com/atinc/ngx-tethys/commit/840dda3)), closes [#INFR-80](https://github.com/atinc/ngx-tethys/issues/INFR-80)
+
+
+
 <a name="9.0.17"></a>
 ## [9.0.17](https://github.com/atinc/ngx-tethys/compare/9.0.16...9.0.17) (2021-01-20)
 
