@@ -18,7 +18,7 @@ export const defaultTipPlacement = 'rightBottom';
 
 export const defaultTipPosition = [0, 0] as GuiderTargetPosition;
 
-export const pointDefaultPosition = [0, 0] as GuiderTargetPosition;
+export const pointOffset = [0, 0] as GuiderOffset;
 
 export interface StepInfo {
     key: string;
@@ -43,11 +43,13 @@ export class ThyGuiderConfig {
     steps: StepInfo[];
 
     /** tooltip default position when step info not set tipPlacement */
-    defaultTipPlacement?: ThyPlacement;
+    tipPlacement?: ThyPlacement;
 
-    /** the priority is higher than defaultTipPlacement */
-    defaultTipPosition?: GuiderTargetPosition;
+    /** the priority is higher than tipPlacement */
+    tipPosition?: GuiderTargetPosition;
 
-    /** 当  tipDefaultPosition 类型为 ThyPlacement 时，配置的 tipDefaultOffset 才会起作用*/
-    tipDefaultOffset?: number;
+    /** setting default point offset */
+    pointOffset?: GuiderOffset;
+
+    tipOffset?: number;
 }

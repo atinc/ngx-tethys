@@ -22,8 +22,19 @@ export class ThyGuiderCustomPositionExampleComponent implements OnInit {
 
     private setDefaultGuiderOption(): ThyGuiderConfig {
         return {
-            defaultTipPosition: [100, 100],
+            tipPosition: [100, 100],
+            pointOffset: [20, 20],
             steps: [
+                {
+                    key: 'custom-point-position-default',
+                    target: '.custom-point-position-default',
+                    data: {
+                        image: '',
+                        title: 'custom-position-by-offset',
+                        description: '默认位置'
+                    },
+                    pointOffset: [0, 0] // 非必选项，默认值 [0,0]
+                },
                 {
                     key: 'custom-point-position',
                     target: '.custom-point-position',
@@ -33,6 +44,15 @@ export class ThyGuiderCustomPositionExampleComponent implements OnInit {
                         description: '设置 point 的偏移量，从默认位置偏移[-10,-10]达到此位置'
                     },
                     pointOffset: [-10, -10]
+                },
+                {
+                    key: 'custom-point-position-config-offset',
+                    target: '.custom-point-position-config-offset',
+                    data: {
+                        image: '',
+                        title: 'custom-position-by-offset',
+                        description: '通过 config 中 pointOffset 设置 point 的偏移量，从默认位置偏移[20,20]达到此位置'
+                    }
                 },
                 {
                     key: 'custom-tip-position',
@@ -61,7 +81,7 @@ export class ThyGuiderCustomPositionExampleComponent implements OnInit {
                     data: {
                         image: '',
                         title: 'custom-tip-by-position',
-                        description: '通过 defaultTipPosition 控制位置'
+                        description: '通过 tipPosition 控制位置,因为有 target 所有通过 position 配置的位置不起作用，与 popover 相同'
                     }
                 }
             ] as StepInfo[]
