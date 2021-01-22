@@ -13,13 +13,14 @@
             display: block;
         }
         &-btn {
-            color: $white;
+            color: rgba($white, 0.8);
             font-size: 12px;
             position: absolute;
             right: 20px;
             top: 14px;
             background-color: rgba(0, 0, 0, 0);
             &:hover {
+                color: rgba($white, 1);
                 text-decoration: none;
             }
         }
