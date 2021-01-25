@@ -1,6 +1,7 @@
 import { TemplateRef, Type } from '@angular/core';
 import { ThyPlacement } from 'ngx-tethys/core';
 
+// TODO 抛出的 type/interface 需要添加 ThyGuider**，比如 ThyGuiderStepInfo
 export type StepTipData = {
     [key: string]: any;
     title?: string;
