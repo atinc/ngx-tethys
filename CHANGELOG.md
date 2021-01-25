@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.0.20"></a>
+## [9.0.20](https://github.com/atinc/ngx-tethys/compare/9.0.19...9.0.20) (2021-01-25)
+
+
+### Bug Fixes
+
+* **guider:** fix guider jump text color, #POR-2804 ([cc653ea](https://github.com/atinc/ngx-tethys/commit/cc653ea)), closes [#POR-2804](https://github.com/atinc/ngx-tethys/issues/POR-2804)
+* **guider:** fix guider tip finish margin left ([1c9d137](https://github.com/atinc/ngx-tethys/commit/1c9d137))
+* **guider:** use popoverRef to close privious tip #INFR-1543 ([909e824](https://github.com/atinc/ngx-tethys/commit/909e824)), closes [#INFR-1543](https://github.com/atinc/ngx-tethys/issues/INFR-1543)
+
+
+
 <a name="9.0.19"></a>
 ## [9.0.19](https://github.com/atinc/ngx-tethys/compare/9.0.18...9.0.19) (2021-01-22)
 
