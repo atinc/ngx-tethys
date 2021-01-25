@@ -1,6 +1,6 @@
 import { RendererFactory2 } from '@angular/core';
 import { Renderer2 } from '@angular/core';
-import { ThyPopover, ThyPopoverConfig } from 'ngx-tethys/popover';
+import { ThyPopover, ThyPopoverConfig, ThyPopoverRef } from 'ngx-tethys/popover';
 import { helpers } from 'ngx-tethys/util';
 import { fromEvent, Subscription } from 'rxjs';
 import { ThyGuiderRef } from './guider-ref';
@@ -17,6 +17,8 @@ export class ThyGuiderStepRef {
     private targetElementObserver: Subscription;
 
     private guiderRef: ThyGuiderRef;
+
+    private lastPopoverRef: ThyPopoverRef<any>;
 
     constructor(
         private step: StepInfo,
@@ -113,7 +115,6 @@ export class ThyGuiderStepRef {
     }
 
     private createTip(step: StepInfo) {
-        this.step = step;
         if (!step.target) {
             this.tooltipWithoutTarget(step);
         } else {
@@ -123,7 +124,7 @@ export class ThyGuiderStepRef {
 
     private tooltipWithoutTarget(step: StepInfo) {
         const position = this.getTipPosition();
-        this.popover.open(this.guiderRef.config.component || ThyGuiderTipComponent, {
+        this.lastPopoverRef = this.popover.open(this.guiderRef.config.component || ThyGuiderTipComponent, {
             origin: null,
             originPosition: {
                 x: position[0],
@@ -163,10 +164,13 @@ export class ThyGuiderStepRef {
         if (step.tipOffset) {
             popoverConfig.offset = step.tipOffset;
         }
-        this.popover.open(this.guiderRef.config.component || ThyGuiderTipComponent, popoverConfig);
+        this.lastPopoverRef = this.popover.open(this.guiderRef.config.component || ThyGuiderTipComponent, popoverConfig);
     }
 
     private removeTip() {
-        this.popover.close();
+        if (this.lastPopoverRef) {
+            this.lastPopoverRef.close();
+            this.lastPopoverRef = undefined;
+        }
     }
 }
