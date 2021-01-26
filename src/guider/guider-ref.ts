@@ -77,8 +77,10 @@ export class ThyGuiderRef {
         if (!this.currentStep) {
             throw new Error('step not exist');
         }
-        this.drawStep();
-        this.notifyStepClicked();
+        setTimeout(() => {
+            this.drawStep();
+            this.notifyStepClicked();
+        }, 0);
     }
 
     public close() {
