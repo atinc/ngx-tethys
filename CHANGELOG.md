@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.0.21"></a>
+## [9.0.21](https://github.com/atinc/ngx-tethys/compare/9.0.20...9.0.21) (2021-01-26)
+
+
+### Bug Fixes
+
+* **grid:** #INFR-1498 【Grid】数据为空时，空页面不居中 ([#1105](https://github.com/atinc/ngx-tethys/issues/1105)) ([deb9722](https://github.com/atinc/ngx-tethys/commit/deb9722)), closes [#INFR-1498](https://github.com/atinc/ngx-tethys/issues/INFR-1498)
+* **guider:** close previous overlay when start same guider #INFR-1543 ([513c2d1](https://github.com/atinc/ngx-tethys/commit/513c2d1)), closes [#INFR-1543](https://github.com/atinc/ngx-tethys/issues/INFR-1543)
+* **guider:** modify tip origin is target and auto offset #INFR-1543 ([66b5bda](https://github.com/atinc/ngx-tethys/commit/66b5bda)), closes [#INFR-1543](https://github.com/atinc/ngx-tethys/issues/INFR-1543)
+
+
+
 <a name="9.0.20"></a>
 ## [9.0.20](https://github.com/atinc/ngx-tethys/compare/9.0.19...9.0.20) (2021-01-25)
 
