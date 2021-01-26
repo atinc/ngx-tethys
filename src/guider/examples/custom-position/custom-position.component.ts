@@ -89,6 +89,31 @@ export class ThyGuiderCustomPositionExampleComponent implements OnInit {
     }
 
     public startTour() {
+        this.close();
         this.guiderRef.start();
+    }
+    public startAtFirst() {
+        this.close();
+        this.guiderRef.start(1);
+    }
+
+    public startAtSecond() {
+        this.close();
+        this.guiderRef.start(2);
+    }
+    public startAtThird() {
+        this.close();
+        this.guiderRef.start(3);
+    }
+    public startAtFourth() {
+        this.close();
+        this.guiderRef.start(4);
+    }
+    public startAtFifth() {
+        this.close();
+        this.guiderRef.start(5);
+    }
+    private close() {
+        this.guiderRef.close();
     }
 }
