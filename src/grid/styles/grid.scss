@@ -28,7 +28,17 @@
 }
 
 .thy-grid {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    flex: auto;
+
+    .thy-grid-empty {
+        display: flex;
+        min-height: 280px;
+        flex: auto;
+        flex-direction: column;
+        justify-content: center;
+    }
 
     .thy-grid-group {
         &:hover {
