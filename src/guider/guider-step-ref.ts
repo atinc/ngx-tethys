@@ -136,7 +136,6 @@ export class ThyGuiderStepRef {
             hasBackdrop: false,
             manualClosure: true,
             initialState: {
-                stepTipData: step.data,
                 guiderRef: this.guiderRef,
                 stepInfo: step
             }
@@ -160,7 +159,6 @@ export class ThyGuiderStepRef {
             hasBackdrop: false,
             manualClosure: true,
             initialState: {
-                stepTipData: step.data,
                 guiderRef: this.guiderRef,
                 stepInfo: step
             }
