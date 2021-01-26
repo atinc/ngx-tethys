@@ -5,8 +5,9 @@ import { helpers } from 'ngx-tethys/util';
 import { fromEvent, Subscription } from 'rxjs';
 import { ThyGuiderRef } from './guider-ref';
 import { ThyGuiderTipComponent } from './guider-tip/guider-tip.component';
-import { GuiderTargetPosition, StepInfo, defaultTipPosition } from './guider.class';
+import { GuiderTargetPosition, StepInfo, defaultTipPosition, GuiderOffset } from './guider.class';
 
+const pointContainerSize = 28;
 export class ThyGuiderStepRef {
     private renderer: Renderer2;
 
@@ -116,13 +117,13 @@ export class ThyGuiderStepRef {
 
     private createTip(step: StepInfo) {
         if (!step.target) {
-            this.tooltipWithoutTarget(step);
+            this.tipWithoutTarget(step);
         } else {
-            this.tooltipWithTarget(step);
+            this.tipWithTarget(step);
         }
     }
 
-    private tooltipWithoutTarget(step: StepInfo) {
+    private tipWithoutTarget(step: StepInfo) {
         const position = this.getTipPosition();
         this.lastPopoverRef = this.popover.open(this.guiderRef.config.component || ThyGuiderTipComponent, {
             origin: null,
@@ -148,9 +149,11 @@ export class ThyGuiderStepRef {
         return this.guiderRef.config.tipPosition;
     }
 
-    private tooltipWithTarget(step: StepInfo) {
+    private tipWithTarget(step: StepInfo) {
+        const targetElement = this.document.querySelector(step.target);
+
         const popoverConfig = {
-            origin: this.lastPointerContainer,
+            origin: targetElement,
             placement: step.tipPlacement,
             backdropClosable: false,
             hasBackdrop: false,
@@ -161,10 +164,42 @@ export class ThyGuiderStepRef {
             }
         } as ThyPopoverConfig<any>;
 
-        if (step.tipOffset) {
-            popoverConfig.offset = step.tipOffset;
+        const pointPosition = this.getPointPosition(step, targetElement);
+        const tipOffset = this.getTipOffset(step, pointPosition, targetElement);
+        if (tipOffset) {
+            popoverConfig.offset = tipOffset;
         }
         this.lastPopoverRef = this.popover.open(this.guiderRef.config.component || ThyGuiderTipComponent, popoverConfig);
+    }
+
+    private getTipOffset(step: StepInfo, pointPosition: GuiderOffset, targetElement: Element): number {
+        const tipPlacement = step.tipPlacement;
+        const targetElementClientRect = targetElement.getBoundingClientRect();
+        const { width: targetElementWidth, height: targetElementHeight } = targetElementClientRect;
+        let tipOffset: number = step.tipOffset || 0;
+        const pointXAxisOffset = pointPosition[0];
+        const pointYAxisOffset = pointPosition[1];
+
+        if (tipPlacement.startsWith('top')) {
+            if (pointYAxisOffset < pointContainerSize) {
+                tipOffset = tipOffset + Math.abs(pointYAxisOffset) + pointContainerSize;
+            }
+        } else if (tipPlacement.startsWith('bottom')) {
+            if (pointYAxisOffset > targetElementHeight) {
+                tipOffset = tipOffset + (pointYAxisOffset - targetElementHeight) + 10; // 10 为空隙量
+            }
+        } else if (tipPlacement.startsWith('left')) {
+            if (pointXAxisOffset < 0) {
+                tipOffset = tipOffset + Math.abs(pointXAxisOffset) + pointContainerSize;
+            }
+        } else if (tipPlacement.startsWith('right')) {
+            if (pointXAxisOffset > targetElementWidth) {
+                tipOffset = tipOffset + (pointXAxisOffset - targetElementWidth) + 10; // 10 为空隙量
+            }
+        } else {
+            // do nothings
+        }
+        return tipOffset;
     }
 
     private removeTip() {
