@@ -1,10 +1,11 @@
 import { ThyGuiderRef } from './guider-ref';
 import { ThyPopover } from 'ngx-tethys/popover';
-import { GuiderPlacement, StepInfo, ThyGuiderConfig, defaultTipPlacement, GuiderOffset, pointOffset } from './guider.class';
+import { StepInfo, ThyGuiderConfig, defaultTipPlacement, GuiderOffset, pointOffset } from './guider.class';
 import { ThyGuiderStepRef } from './guider-step-ref';
 import { Injectable, RendererFactory2 } from '@angular/core';
 import { Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import { ThyPlacement } from 'ngx-tethys/core';
 
 @Injectable({
     providedIn: 'root'
@@ -12,7 +13,7 @@ import { DOCUMENT } from '@angular/common';
 export class ThyGuider {
     private stepsRef: ThyGuiderStepRef[];
 
-    private defaultTipPlacement: GuiderPlacement;
+    private defaultTipPlacement: ThyPlacement;
 
     private tipDefaultOffset: number;
 
