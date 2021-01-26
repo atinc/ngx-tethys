@@ -42,7 +42,6 @@ export class ThyGuiderTipComponent extends ThyGuiderTipBaseComponent {
         this.title = value.title;
         this.setDescription(value.description);
         this.image = value.image;
-        console.log(value);
     }
 
     public title: string;
