@@ -165,7 +165,7 @@ class SingleSelectWithPreselectedArrayValuesComponent {
     `
 })
 class SingleSelectNgModelComponent {
-    values: any[] = [
+    values = [
         { value: 'steak-0', viewValue: 'Steak' },
         { value: 'pizza-1', viewValue: 'Pizza' },
         { value: 'tacos-2', viewValue: 'Tacos' }
@@ -950,10 +950,10 @@ describe('ThyCustomSelect', () => {
         }));
     });
 
-    describe('single select thyMode change', () => {
+    describe('single choice when ngModel value change', () => {
         beforeEach(async(() => configureThyCustomSelectTestingModule([SingleSelectNgModelComponent])));
 
-        it('should clear selected status when single select thyMode change', fakeAsync(() => {
+        it('should clear selection model for single choice when ngModel value change ', fakeAsync(() => {
             const fixture = TestBed.createComponent(SingleSelectNgModelComponent);
             fixture.detectChanges();
             const optionComponents = fixture.componentInstance.options.toArray();
