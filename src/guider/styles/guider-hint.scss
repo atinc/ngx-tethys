@@ -81,10 +81,16 @@
             &-pre {
                 margin-right: 30px;
                 color: $gray-500;
+                &:hover {
+                    color: $gray-700;
+                }
             }
             &-next {
                 color: $primary;
                 margin-right: 10px;
+                &:hover {
+                    color: rgba($primary, 0.8);
+                }
             }
         }
     }
