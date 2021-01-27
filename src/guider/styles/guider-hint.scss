@@ -86,10 +86,10 @@
                 }
             }
             &-next {
-                color: $primary;
                 margin-right: 10px;
+                color: rgba($primary, 0.8);
                 &:hover {
-                    color: rgba($primary, 0.8);
+                    color: $primary;
                 }
             }
         }
