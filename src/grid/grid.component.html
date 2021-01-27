@@ -180,7 +180,7 @@
   </tbody>
 </table>
 
-<div *ngIf="model.length === 0 && groups.length === 0" class="thy-grid-empty clear-hover">
+<div *ngIf="loadingDone && model.length === 0 && groups.length === 0" class="thy-grid-empty clear-hover">
   <ng-container *ngIf="emptyTemplate; else defaultEmpty">
     <ng-template [ngTemplateOutlet]="emptyTemplate"></ng-template>
   </ng-container>
