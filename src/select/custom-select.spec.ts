@@ -155,6 +155,28 @@ class SingleSelectWithPreselectedArrayValuesComponent {
 }
 
 @Component({
+    template: `
+        <form thyForm name="demoForm" #demoForm="ngForm">
+            <thy-custom-select placeholder="Food" [(ngModel)]="selectedValues" name="food">
+                <thy-option *ngFor="let item of values" [thyValue]="item.value" [thyLabelText]="item.viewValue"></thy-option>
+            </thy-custom-select>
+        </form>
+    `
+})
+class SingleSelectNgModelComponent {
+    values: any[] = [
+        { value: 'steak-0', viewValue: 'Steak' },
+        { value: 'pizza-1', viewValue: 'Pizza' },
+        { value: 'tacos-2', viewValue: 'Tacos' }
+    ];
+
+    selectedValues = this.values[1].value;
+
+    @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
+    @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
+}
+
+@Component({
     selector: 'basic-select-initially-hidden',
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
@@ -923,6 +945,22 @@ describe('ThyCustomSelect', () => {
 
             expect(trigger.textContent).toContain('Pizza');
             expect(fixture.componentInstance.options.toArray()[1].selected).toBe(true);
+        }));
+    });
+
+    describe('single select thyMode change', () => {
+        beforeEach(async(() => configureThyCustomSelectTestingModule([SingleSelectNgModelComponent])));
+
+        it('should clear selected status when single select thyMode change', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SingleSelectNgModelComponent);
+            fixture.detectChanges();
+            const optionComponents = fixture.componentInstance.options.toArray();
+            fixture.componentInstance.selectedValues = '';
+            fixture.detectChanges();
+            flush();
+            expect(optionComponents[0].selected).toBe(false);
+            expect(optionComponents[1].selected).toBe(false);
+            expect(optionComponents[2].selected).toBe(false);
         }));
     });
 
