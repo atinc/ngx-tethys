@@ -32,7 +32,7 @@ export abstract class ThyGuiderTipBaseComponent implements OnInit {
     templateUrl: 'guider-tip.component.html'
 })
 export class ThyGuiderTipComponent extends ThyGuiderTipBaseComponent {
-    @HostBinding('class.thy-guider-hint-container') guiderHint = true;
+    @HostBinding('class.thy-guider-tip-container') guiderHint = true;
 
     @Input()
     set stepTipData(value: StepTipData) {
