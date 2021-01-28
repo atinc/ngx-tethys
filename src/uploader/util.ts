@@ -14,6 +14,9 @@ export function mimeTypeConvert(value: Array<string> | string) {
 
     if (valueArray.length > 0) {
         valueArray.forEach((n: any) => {
+            if (n === '.xls' || n === '.xlsx') {
+                _acceptTypeArray.push(n);
+            }
             if (MIME_Map[n]) {
                 _acceptTypeArray.push(MIME_Map[n]);
             } else {
