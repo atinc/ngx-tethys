@@ -44,7 +44,7 @@
         line-height: 26px;
         &-description {
             flex: 1;
-            overflow-y: scroll;
+            overflow-y: hidden;
         }
         .thy-guider-hint-step {
             display: flex;
