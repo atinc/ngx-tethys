@@ -15,7 +15,7 @@ export function mimeTypeConvert(value: Array<string> | string) {
     if (valueArray.length > 0) {
         valueArray.forEach((n: any) => {
             if (MIME_Map[n]) {
-                _acceptTypeArray.push(n, MIME_Map[n]);
+                _acceptTypeArray.push(MIME_Map[n]);
             } else {
                 console.error('ngx-tethys Error: Uploaded files that do not support extensions.');
             }

@@ -13,7 +13,7 @@ export const MIME_Map = {
     '.doc': 'application/msword',
     '.docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     '.xls': 'application/vnd.ms-excel',
-    '.xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    '.xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, .xlsx',
     '.exe': 'application/octet-stream',
     '.gif': 'image/gif',
     '.gtar': 'application/x-gtar',
@@ -65,5 +65,8 @@ export const MIME_Map = {
     '.xml': 'text/plain',
     '.z': 'application/x-compress',
     '.zip': 'application/x-zip-compressed',
-    '': '*/*'
+    '': '*/*',
+    '.xlsb': 'application/vnd.ms-excel.sheet.binary.macroenabled.12',
+    '.xlsm': 'application/vnd.ms-excel.sheet.macroenabled.12',
+    '.xltx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.template'
 };
