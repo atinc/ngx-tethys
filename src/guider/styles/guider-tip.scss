@@ -1,8 +1,8 @@
-.thy-guider-hint-container {
+.thy-guider-tip-container {
     width: 310px;
     display: block;
     box-shadow: 0 2px 18px 0 rgba(0, 0, 0, 0.5);
-    .thy-guider-hint-top {
+    .thy-guider-tip-top {
         background-color: $primary;
         width: 100%;
         height: 190px;
@@ -26,27 +26,31 @@
         }
     }
 
-    .thy-guider-hint-content {
+    .thy-guider-tip-content {
         padding: 30px 30px 0;
         height: 250px;
         box-sizing: border-box;
-        display: flex;
         flex-direction: column;
+        display: flex;
         &-title {
             font-size: 16px;
             color: $gray-800;
             margin-bottom: 12px;
         }
-
         font-size: 14px;
         color: $gray-700;
         letter-spacing: 0;
         line-height: 26px;
         &-description {
             flex: 1;
-            overflow-y: hidden;
+            overflow-y: auto;
+            scrollbar-width: none; /* firefox */
+            -ms-overflow-style: none; /* IE 10+ */
+            &::-webkit-scrollbar {
+                display: none; /* Chrome Safari */
+            }
         }
-        .thy-guider-hint-step {
+        .thy-guider-tip-step {
             display: flex;
             justify-content: space-between;
             height: 36px;
