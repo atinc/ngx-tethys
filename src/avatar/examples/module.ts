@@ -8,6 +8,7 @@ import { ThyAvatarNameExampleComponent } from './name/name.component';
 import { ThyAvatarRemoveExampleComponent } from './remove/remove.component';
 import { ThyAvatarBasicExampleComponent } from './basic/basic.component';
 import { ThyAvatarCustomExampleComponent } from './custom/custom.component';
+import { ThyAvatarImgErrorExampleComponent } from './img-error/img-error.component';
 
 const COMPONENTS = [
     ThyAvatarBasicExampleComponent,
@@ -16,7 +17,8 @@ const COMPONENTS = [
     ThyAvatarHasBadgeExampleComponent,
     ThyAvatarNameExampleComponent,
     ThyAvatarRemoveExampleComponent,
-    ThyAvatarCustomExampleComponent
+    ThyAvatarCustomExampleComponent,
+    ThyAvatarImgErrorExampleComponent
 ];
 
 @NgModule({

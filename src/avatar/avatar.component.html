@@ -4,6 +4,7 @@
   class="avatar-avatar"
   [ngClass]="thyImgClass"
   alt="{{ avatarName || '' }}"
+  (error)="avatarImgError($event)"
 />
 <span *ngIf="!_src" class="avatar-default" [ngStyle]="avatarName | avatarBgColor">
   <div>{{ avatarName | avatarShortName }}</div>
