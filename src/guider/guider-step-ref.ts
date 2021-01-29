@@ -103,9 +103,8 @@ export class ThyGuiderStepRef {
     }
 
     private removeLastPointContainer() {
-        const existedPointContainer = this.document.querySelector('.thy-guider-highlight-container');
-        if (this.lastPointerContainer || existedPointContainer) {
-            this.renderer.removeChild(this.document.body, this.lastPointerContainer || existedPointContainer);
+        if (this.lastPointerContainer) {
+            this.renderer.removeChild(this.document.body, this.lastPointerContainer);
             this.lastPointerContainer = undefined;
         }
         if (this.lastTargetElement && this.targetElementObserver) {
