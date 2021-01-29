@@ -137,7 +137,7 @@ export class ThyGuiderStepRef {
             manualClosure: true,
             initialState: {
                 guiderRef: this.guiderRef,
-                stepInfo: step
+                step: step
             }
         });
     }
@@ -160,7 +160,7 @@ export class ThyGuiderStepRef {
             manualClosure: true,
             initialState: {
                 guiderRef: this.guiderRef,
-                stepInfo: step
+                step: step
             }
         } as ThyPopoverConfig<any>;
 

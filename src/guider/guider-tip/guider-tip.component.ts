@@ -6,7 +6,7 @@ import { StepInfo, StepTipData } from '../guider.class';
 export abstract class ThyGuiderTipBaseComponent implements OnInit {
     @Input() guiderRef: ThyGuiderRef;
 
-    @Input() set stepInfo(value: StepInfo) {
+    @Input() set step(value: StepInfo) {
         this.stepTipData = value.data;
         this.currentStep = value;
     }
