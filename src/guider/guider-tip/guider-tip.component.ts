@@ -36,7 +36,7 @@ export abstract class ThyGuiderTipBaseComponent implements OnInit {
     templateUrl: 'guider-tip.component.html'
 })
 export class ThyGuiderTipComponent extends ThyGuiderTipBaseComponent {
-    @HostBinding('class.thy-guider-hint-container') className = true;
+    @HostBinding('class.thy-guider-tip-container') guiderHint = true;
 
     set stepTipData(value: StepTipData) {
         this.title = value.title;
