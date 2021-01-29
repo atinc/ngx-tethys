@@ -1,4 +1,4 @@
-import { TestBed, ComponentFixture, async } from '@angular/core/testing';
+import { TestBed, ComponentFixture, async, tick, fakeAsync, flush } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { DomSanitizer, By } from '@angular/platform-browser';
 import { ThyAvatarModule } from '../avatar.module';
@@ -15,11 +15,13 @@ import { ThyAvatarService } from '../avatar.service';
             <thy-avatar *ngSwitchCase="3" [thyName]="name" [thySize]="size"></thy-avatar>
             <!-- Suite 4 for test thyDisabled and thyShowRemove -->
             <thy-avatar *ngSwitchCase="4" [thyName]="name" thyDisabled="true" thyShowRemove="true"></thy-avatar>
+            <!-- Suite 5 for test thySrc with thyOnError -->
+            <thy-avatar *ngSwitchCase="5" [thyName]="name" [thySrc]="'./not_exist/abc.jpg'"></thy-avatar>
         </ng-container>
     `
 })
 class ThyTestAvatarComponent {
-    useSuite: 1 | 2 | 3 | 4;
+    useSuite: 1 | 2 | 3 | 4 | 5;
 
     name = 'LiLei';
 
@@ -154,5 +156,20 @@ describe('ThyAvatarComponent', () => {
             const avatarContainer = fixture.nativeElement.querySelector('.thy-avatar');
             expect(avatarContainer.querySelector('.remove-link')).not.toBeNull();
         });
+    });
+
+    describe('img thySrc load fail', () => {
+        beforeEach(function() {
+            componentInstance.useSuite = 5;
+        });
+
+        it('should name instead of img when load fail', async(() => {
+            fixture.detectChanges();
+            setTimeout(() => {
+                fixture.detectChanges();
+                const avatarContainer = fixture.nativeElement.querySelector('.thy-avatar');
+                expect(avatarContainer.querySelector('span')).toBeTruthy();
+            }, 1000);
+        }));
     });
 });
