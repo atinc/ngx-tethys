@@ -6,7 +6,12 @@ import { StepInfo, StepTipData } from '../guider.class';
 export abstract class ThyGuiderTipBaseComponent implements OnInit {
     @Input() guiderRef: ThyGuiderRef;
 
-    @Input() set stepTipData(value: any) {}
+    @Input() set step(value: StepInfo) {
+        this.stepTipData = value.data;
+        this.currentStep = value;
+    }
+
+    set stepTipData(value: any) {}
 
     public steps: StepInfo[] = [];
 
@@ -20,7 +25,6 @@ export abstract class ThyGuiderTipBaseComponent implements OnInit {
         if (this.guiderRef) {
             this.steps = this.guiderRef.config.steps;
             this.guiderRef.stepChange().subscribe(step => {
-                this.currentStep = step;
                 this.currentStepIndex = this.steps.findIndex(item => item.key === step.key);
             });
         }
@@ -34,14 +38,11 @@ export abstract class ThyGuiderTipBaseComponent implements OnInit {
 export class ThyGuiderTipComponent extends ThyGuiderTipBaseComponent {
     @HostBinding('class.thy-guider-tip-container') guiderHint = true;
 
-    @Input()
     set stepTipData(value: StepTipData) {
         this.title = value.title;
         this.setDescription(value.description);
         this.image = value.image;
     }
-
-    @Input() current: number;
 
     public title: string;
 
@@ -52,8 +53,6 @@ export class ThyGuiderTipComponent extends ThyGuiderTipBaseComponent {
     public descriptionTemplateRef: TemplateRef<any>;
 
     public currentStepIndex: number;
-
-    public totalStepsCount: number;
 
     constructor() {
         super();
