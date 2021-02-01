@@ -17,7 +17,7 @@ export function mimeTypeConvert(value: Array<string> | string) {
             if (MIME_Map[n]) {
                 _acceptTypeArray.push(MIME_Map[n]);
             } else {
-                console.error('ngx-tethys Error: Uploaded files that do not support extensions.');
+                _acceptTypeArray.push(n);
             }
         });
     }
