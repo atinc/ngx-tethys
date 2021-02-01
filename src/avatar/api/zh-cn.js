@@ -36,7 +36,7 @@ module.exports = [
                 default: ''
             },
             {
-                name: 'thyOnError',
+                name: 'thyError',
                 description: '头像 img 加载 error 时触发',
                 type: 'Event',
                 default: ''
