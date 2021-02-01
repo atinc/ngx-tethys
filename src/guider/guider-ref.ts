@@ -45,8 +45,7 @@ export class ThyGuiderRef {
     }
 
     public start(startWith?: number) {
-        this.currentStepIndex = startWith >= 0 && startWith < this.steps.length ? startWith : 0;
-        this.to(this.currentStepIndex);
+        this.to(startWith);
 
         return this.stepChange();
     }
@@ -69,7 +68,7 @@ export class ThyGuiderRef {
     public to(index: number): void {
         this.removeExistedStep();
 
-        if (!helpers.isNumber(index)) {
+        if (!helpers.isNumber(index) || index >= this.steps.length || index < 0 || Number.isNaN(index)) {
             index = 0;
         }
         this.currentStep = this.steps[index];
@@ -109,6 +108,6 @@ export class ThyGuiderRef {
     }
 
     private removeExistedStep() {
-        this.stepsRef[this.currentStepIndex].dispose();
+        this.stepsRef[this.currentStepIndex]?.dispose();
     }
 }
