@@ -113,6 +113,10 @@ export class ThyGuiderCustomPositionExampleComponent implements OnInit {
         this.close();
         this.guiderRef.start(5);
     }
+    public startAtIllegal() {
+        this.close();
+        this.guiderRef.start(NaN);
+    }
     private close() {
         this.guiderRef.close();
     }

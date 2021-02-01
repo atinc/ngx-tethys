@@ -45,7 +45,7 @@ export class ThyGuiderRef {
     }
 
     public start(startWith?: number) {
-        this.currentStepIndex = startWith >= 0 ? startWith : 0;
+        this.currentStepIndex = startWith >= 0 && startWith < this.steps.length ? startWith : 0;
         this.to(this.currentStepIndex);
 
         return this.stepChange();
