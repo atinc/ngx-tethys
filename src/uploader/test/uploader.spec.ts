@@ -112,6 +112,7 @@ fdescribe('ThyFileSelect', () => {
         inputEl.files = dT.files;
         inputEl.dispatchEvent(new Event('change'));
         expect(testComponent.queueFiles[0].nativeFile.name).toEqual('testFile');
+        expect(testComponent.queueFiles[1].nativeFile.name).toEqual('testJsonFile');
         testComponent.uploaderFileResult.subscribe(result => {
             if (result.status === ThyUploadStatus.done) {
                 const index = testComponent.queueFiles.indexOf(result.uploadFile);
