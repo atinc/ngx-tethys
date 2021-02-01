@@ -408,11 +408,14 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
         return this.options.length + this.optionGroups.length;
     }
 
-    public toggle(event: MouseEvent): void {
-        this.panelOpen ? this.close() : this.open();
+    public toggle(event: Event): void {
+        this.panelOpen ? this.close() : this.open(event);
     }
 
-    public open(): void {
+    public open(event: Event): void {
+        if (navigator.userAgent.indexOf('Safari') > 0) {
+            event.stopPropagation();
+        }
         if (this.disabled || !this.options || this.panelOpen) {
             return;
         }
