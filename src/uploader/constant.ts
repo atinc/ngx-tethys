@@ -29,6 +29,7 @@ export const MIME_Map = {
     '.jpeg': 'image/jpeg',
     '.jpg': 'image/jpeg',
     '.js': 'application/x-javascript',
+    '.json': 'application/json',
     '.log': 'text/plain',
     '.m3u': 'audio/x-mpegurl',
     '.m4a': 'audio/mp4a-latm',
