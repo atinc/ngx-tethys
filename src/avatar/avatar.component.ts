@@ -37,7 +37,7 @@ export class ThyAvatarComponent implements OnInit {
 
     @Output() thyOnRemove = new EventEmitter();
 
-    @Output() thyOnError: EventEmitter<Event> = new EventEmitter<Event>();
+    @Output() thyError: EventEmitter<Event> = new EventEmitter<Event>();
 
     @Input() thyShowName: boolean;
 
@@ -142,6 +142,6 @@ export class ThyAvatarComponent implements OnInit {
 
     avatarImgError($event: Event) {
         this._setAvatarSrc(null);
-        this.thyOnError.emit($event);
+        this.thyError.emit($event);
     }
 }
