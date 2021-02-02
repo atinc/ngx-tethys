@@ -1,6 +1,8 @@
-import { TestBed, ComponentFixture, async, tick, fakeAsync, flush } from '@angular/core/testing';
+import { TestBed, ComponentFixture, async, fakeAsync } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { DomSanitizer, By } from '@angular/platform-browser';
+import { Observable, Subscriber } from 'rxjs';
+
 import { ThyAvatarModule } from '../avatar.module';
 import { ThyAvatarService } from '../avatar.service';
 
@@ -15,24 +17,39 @@ import { ThyAvatarService } from '../avatar.service';
             <thy-avatar *ngSwitchCase="3" [thyName]="name" [thySize]="size"></thy-avatar>
             <!-- Suite 4 for test thyDisabled and thyShowRemove -->
             <thy-avatar *ngSwitchCase="4" [thyName]="name" thyDisabled="true" thyShowRemove="true"></thy-avatar>
-            <!-- Suite 5 for test thySrc with thyOnError -->
-            <thy-avatar *ngSwitchCase="5" [thyName]="name" [thySrc]="'./not_exist/abc.jpg'"></thy-avatar>
+            <!-- Suite 5 for test thySrc with thyError -->
+            <thy-avatar *ngSwitchCase="5" [thyName]="name" [thySrc]="'./not_exist/abc.jpg'" (thyError)="thyError($event)"></thy-avatar>
         </ng-container>
     `
 })
 class ThyTestAvatarComponent {
+    constructor(private thyAvatarService: ThyAvatarService, private domSanitizer: DomSanitizer) {
+        this.errorEmit$ = new Observable<Event>(subscriber => {
+            this.errorSubscriber = subscriber;
+        });
+    }
+
     useSuite: 1 | 2 | 3 | 4 | 5;
 
     name = 'LiLei';
 
     size: number | string = 0;
 
-    constructor(private thyAvatarService: ThyAvatarService, private domSanitizer: DomSanitizer) {}
+    errorSubscriber: Subscriber<Event>;
+
+    errorEmit$: Observable<Event>;
+
+    spyThyError = jasmine.createSpy('thyServerSearch callback');
 
     rewriteNameTransform() {
         this.thyAvatarService.nameTransform = (name: string) => {
             return this.domSanitizer.bypassSecurityTrustHtml(`<code>${name}</code>`);
         };
+    }
+
+    thyError(event: Event): void {
+        this.spyThyError();
+        this.errorSubscriber.next(event);
     }
 }
 
@@ -159,17 +176,22 @@ describe('ThyAvatarComponent', () => {
     });
 
     describe('img thySrc load fail', () => {
-        beforeEach(function() {
+        beforeEach(() => {
             componentInstance.useSuite = 5;
         });
 
-        it('should name instead of img when load fail', async(() => {
+        it('should name span instead of img, and emit thyError', (done: DoneFn) => {
             fixture.detectChanges();
-            setTimeout(() => {
-                fixture.detectChanges();
-                const avatarContainer = fixture.nativeElement.querySelector('.thy-avatar');
-                expect(avatarContainer.querySelector('span')).toBeTruthy();
-            }, 1000);
-        }));
+            fixture.componentInstance.errorEmit$.subscribe(
+                fakeAsync(() => {
+                    fixture.detectChanges();
+                    const avatarContainer = fixture.nativeElement.querySelector('.thy-avatar');
+                    expect(avatarContainer.querySelector('img')).toBeFalsy();
+                    expect(avatarContainer.querySelector('span')).toBeTruthy();
+                    expect(fixture.componentInstance.spyThyError).toHaveBeenCalled();
+                    done();
+                })
+            );
+        });
     });
 });
