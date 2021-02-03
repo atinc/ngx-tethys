@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.0.22"></a>
+## [9.0.22](https://github.com/atinc/ngx-tethys/compare/9.0.21...9.0.22) (2021-02-03)
+
+
+### Bug Fixes
+
+* **grid:** center empty when data is [] ([#1117](https://github.com/atinc/ngx-tethys/issues/1117)) ([2604032](https://github.com/atinc/ngx-tethys/commit/2604032))
+* **guider:** add guider hover color, #POR-2829 ([#1120](https://github.com/atinc/ngx-tethys/issues/1120)) ([2f3f2c8](https://github.com/atinc/ngx-tethys/commit/2f3f2c8)), closes [#POR-2829](https://github.com/atinc/ngx-tethys/issues/POR-2829) [#POR-2829](https://github.com/atinc/ngx-tethys/issues/POR-2829)
+* **guider:** add guider top overflow hidden, remove guider-container shadow, #INFR-1602, #INFR-1602 ([#1123](https://github.com/atinc/ngx-tethys/issues/1123)) ([94f5994](https://github.com/atinc/ngx-tethys/commit/94f5994)), closes [#INFR-1602](https://github.com/atinc/ngx-tethys/issues/INFR-1602) [#INFR-1602](https://github.com/atinc/ngx-tethys/issues/INFR-1602)
+* **guider:** closing operation dont affect each other #POR-2832 ([feff20b](https://github.com/atinc/ngx-tethys/commit/feff20b)), closes [#POR-2832](https://github.com/atinc/ngx-tethys/issues/POR-2832)
+* **guider:** fix guider style ([67bc195](https://github.com/atinc/ngx-tethys/commit/67bc195))
+* **guider:** fix illegal start index #INFR-1556 ([#1127](https://github.com/atinc/ngx-tethys/issues/1127)) ([2e5ac94](https://github.com/atinc/ngx-tethys/commit/2e5ac94)), closes [#INFR-1556](https://github.com/atinc/ngx-tethys/issues/INFR-1556)
+* **guider:** remove description scroll ([ebf1f65](https://github.com/atinc/ngx-tethys/commit/ebf1f65))
+* **guider:** remove description scroll, #INFR-1577 ([37da4a1](https://github.com/atinc/ngx-tethys/commit/37da4a1)), closes [#INFR-1577](https://github.com/atinc/ngx-tethys/issues/INFR-1577)
+* **select:** fix single select ngModel change input no clear(#INFR-1561) ([#1118](https://github.com/atinc/ngx-tethys/issues/1118)) ([f70b92a](https://github.com/atinc/ngx-tethys/commit/f70b92a)), closes [#INFR-1561](https://github.com/atinc/ngx-tethys/issues/INFR-1561) [#INFR-1561](https://github.com/atinc/ngx-tethys/issues/INFR-1561) [#INFR-1561](https://github.com/atinc/ngx-tethys/issues/INFR-1561)
+* **uploader:** fix upload in safari support xls and xlsx type, #INFR-1564 ([#1121](https://github.com/atinc/ngx-tethys/issues/1121)) ([e52cbeb](https://github.com/atinc/ngx-tethys/commit/e52cbeb)), closes [#INFR-1564](https://github.com/atinc/ngx-tethys/issues/INFR-1564)
+
+
+### Features
+
+* **avatar:** use defaultName when img load error #INFR-447 ([#1126](https://github.com/atinc/ngx-tethys/issues/1126)) ([85d9152](https://github.com/atinc/ngx-tethys/commit/85d9152)), closes [#INFR-447](https://github.com/atinc/ngx-tethys/issues/INFR-447) [#INFR-447](https://github.com/atinc/ngx-tethys/issues/INFR-447) [#INFR-447](https://github.com/atinc/ngx-tethys/issues/INFR-447) [#INFR-447](https://github.com/atinc/ngx-tethys/issues/INFR-447)
+* **guider:** add stepInfo in guider tip component #INFR-1543 ([#1116](https://github.com/atinc/ngx-tethys/issues/1116)) ([bf3db6b](https://github.com/atinc/ngx-tethys/commit/bf3db6b)), closes [#INFR-1543](https://github.com/atinc/ngx-tethys/issues/INFR-1543)
+* **uploader:** #INFR-1554 Added json type ([bbe8157](https://github.com/atinc/ngx-tethys/commit/bbe8157)), closes [#INFR-1554](https://github.com/atinc/ngx-tethys/issues/INFR-1554)
+
+
+
 <a name="9.0.21"></a>
 ## [9.0.21](https://github.com/atinc/ngx-tethys/compare/9.0.20...9.0.21) (2021-01-26)
 
