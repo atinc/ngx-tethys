@@ -9,7 +9,7 @@ import {
 } from '@angular/cdk/overlay';
 import { TemplateRef, ViewContainerRef, Injectable, ElementRef, Injector, OnDestroy, Inject, NgZone } from '@angular/core';
 import { coerceElement, coerceArray } from '@angular/cdk/coercion';
-import { PortalInjector, ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
+import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
 import { ThyPopoverContainerComponent } from './popover-container.component';
 import { ThyPopoverConfig, THY_POPOVER_DEFAULT_CONFIG } from './popover.config';
 import { ThyPopoverRef, ThyInternalPopoverRef } from './popover-ref';
@@ -23,6 +23,7 @@ import { ViewportRuler } from '@angular/cdk/scrolling';
 import { DOCUMENT } from '@angular/common';
 import { Platform } from '@angular/cdk/platform';
 import { FlexibleConnectedPositionStrategy, FlexibleConnectedPositionStrategyOrigin } from 'ngx-tethys/core';
+import { StaticProvider } from '@angular/core';
 
 @Injectable({
     providedIn: 'root'
@@ -84,7 +85,10 @@ export class ThyPopover extends ThyUpperOverlayService<ThyPopoverConfig, ThyPopo
 
     protected attachUpperOverlayContainer(overlay: OverlayRef, config: ThyPopoverConfig<any>): ThyPopoverContainerComponent {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
-        const injector = new PortalInjector(userInjector || this.injector, new WeakMap([[ThyPopoverConfig, config]]));
+        const injector = Injector.create({
+            parent: userInjector || this.injector,
+            providers: [{ provide: ThyPopoverConfig, useValue: config }]
+        });
         const containerPortal = new ComponentPortal(ThyPopoverContainerComponent, config.viewContainerRef, injector);
         const containerRef = overlay.attach<ThyPopoverContainerComponent>(containerPortal);
         return containerRef.instance;
@@ -102,22 +106,28 @@ export class ThyPopover extends ThyUpperOverlayService<ThyPopoverConfig, ThyPopo
         config: ThyPopoverConfig,
         popoverRef: ThyPopoverRef<T>,
         popoverContainer: ThyPopoverContainerComponent
-    ): PortalInjector {
+    ): Injector {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
 
-        const injectionTokens = new WeakMap<any, any>([
-            [ThyPopoverContainerComponent, popoverContainer],
-            [ThyPopoverRef, popoverRef]
-        ]);
+        const injectionTokens: StaticProvider[] = [
+            { provide: ThyPopoverContainerComponent, useValue: popoverContainer },
+            {
+                provide: ThyPopoverRef,
+                useValue: popoverRef
+            }
+        ];
 
         if (config.direction && (!userInjector || !userInjector.get<Directionality | null>(Directionality, null))) {
-            injectionTokens.set(Directionality, {
-                value: config.direction,
-                change: of()
+            injectionTokens.push({
+                provide: Directionality,
+                useValue: {
+                    value: config.direction,
+                    change: of()
+                }
             });
         }
 
-        return new PortalInjector(userInjector || this.injector, injectionTokens);
+        return Injector.create({ parent: userInjector || this.injector, providers: injectionTokens });
     }
 
     private originElementAddActiveClass(config: ThyPopoverConfig) {
