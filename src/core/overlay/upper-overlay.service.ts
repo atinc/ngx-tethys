@@ -1,7 +1,7 @@
 import { ViewContainerRef, Injector, TemplateRef, EmbeddedViewRef, ComponentRef } from '@angular/core';
 import { Direction } from '@angular/cdk/bidi';
 import { Overlay, ComponentType, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
-import { PortalInjector, ComponentPortal, TemplatePortal, CdkPortalOutlet } from '@angular/cdk/portal';
+import { ComponentPortal, TemplatePortal, CdkPortalOutlet } from '@angular/cdk/portal';
 import { Observable, Subject } from 'rxjs';
 import { ThyUpperOverlayConfig, ThyUpperOverlayOptions } from './upper-overlay.config';
 import { ThyUpperOverlayRef } from './upper-overlay-ref';
@@ -9,10 +9,7 @@ import { ThyUpperOverlayContainer } from './upper-overlay-container';
 
 export type ComponentTypeOrTemplateRef<T> = ComponentType<T> | TemplateRef<T>;
 
-export abstract class ThyUpperOverlayService<
-    TConfig extends ThyUpperOverlayConfig,
-    TContainer extends ThyUpperOverlayContainer
-> {
+export abstract class ThyUpperOverlayService<TConfig extends ThyUpperOverlayConfig, TContainer extends ThyUpperOverlayContainer> {
     private openedOverlays: ThyUpperOverlayRef<any, TContainer>[] = [];
 
     private readonly _afterAllClosed = new Subject<void>();
@@ -44,7 +41,7 @@ export abstract class ThyUpperOverlayService<
         config: TConfig,
         overlayRef: ThyUpperOverlayRef<T, TContainer>,
         containerInstance: TContainer
-    ): PortalInjector;
+    ): Injector;
 
     abstract open<T, TData = undefined, TResult = undefined>(
         componentOrTemplateRef: ComponentTypeOrTemplateRef<T>,
@@ -80,9 +77,7 @@ export abstract class ThyUpperOverlayService<
             );
         } else {
             const injector = this.createInjector<T>(config, upperOverlayRef, containerInstance);
-            const contentRef = containerInstance.attachComponentPortal<T>(
-                new ComponentPortal(componentOrTemplateRef, undefined, injector)
-            );
+            const contentRef = containerInstance.attachComponentPortal<T>(new ComponentPortal(componentOrTemplateRef, undefined, injector));
             if (config.initialState) {
                 Object.assign(contentRef.instance, config.initialState);
             }
@@ -135,20 +130,13 @@ export abstract class ThyUpperOverlayService<
     ): ThyUpperOverlayRef<T, TContainer, TResult> {
         config = { ...this.defaultConfig, ...config };
         if (config.id && this.getUpperOverlayById(config.id)) {
-            throw Error(
-                `${this.options.name} with id ${config.id} exists already. The ${this.options.name} id must be unique.`
-            );
+            throw Error(`${this.options.name} with id ${config.id} exists already. The ${this.options.name} id must be unique.`);
         }
         const overlayConfig: OverlayConfig = this.buildOverlayConfig(config);
         const overlayRef = this.overlay.create(overlayConfig);
 
         const overlayContainer = this.attachUpperOverlayContainer(overlayRef, config);
-        const upperOverlayRef = this.attachUpperOverlayContent<T, TResult>(
-            componentOrTemplateRef,
-            overlayContainer,
-            overlayRef,
-            config
-        );
+        const upperOverlayRef = this.attachUpperOverlayContent<T, TResult>(componentOrTemplateRef, overlayContainer, overlayRef, config);
 
         this.openedOverlays.push(upperOverlayRef);
         upperOverlayRef.afterClosed().subscribe(() => {

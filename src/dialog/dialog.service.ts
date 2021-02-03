@@ -1,7 +1,7 @@
 import { Injectable, TemplateRef, Injector, Optional, OnDestroy, Inject } from '@angular/core';
 import { Location } from '@angular/common';
 import { of, Subject } from 'rxjs';
-import { ComponentType, PortalInjector, ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
+import { ComponentType, ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
 import { ThyDialogConfig, ThyDialogSizes, THY_DIALOG_DEFAULT_OPTIONS } from './dialog.config';
 import { Overlay, OverlayConfig, OverlayRef, ScrollStrategy } from '@angular/cdk/overlay';
 import { ThyDialogContainerComponent } from './dialog-container.component';
@@ -13,6 +13,7 @@ import { ThyConfirmComponent } from './confirm/confirm.component';
 import { ThyConfirmConfig } from './confirm.config';
 import { ThyUpperOverlayService, ThyUpperOverlayRef } from 'ngx-tethys/core';
 import { dialogUpperOverlayOptions } from './dialog.options';
+import { StaticProvider } from '@angular/core';
 
 @Injectable({
     providedIn: 'root'
@@ -42,7 +43,10 @@ export class ThyDialog extends ThyUpperOverlayService<ThyDialogConfig, ThyDialog
 
     protected attachUpperOverlayContainer(overlay: OverlayRef, config: ThyDialogConfig<any>): ThyDialogContainerComponent {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
-        const injector = new PortalInjector(userInjector || this.injector, new WeakMap([[ThyDialogConfig, config]]));
+        const injector = Injector.create({
+            parent: userInjector || this.injector,
+            providers: [{ provide: ThyDialogConfig, useValue: config }]
+        });
         const containerPortal = new ComponentPortal(ThyDialogContainerComponent, config.viewContainerRef, injector);
         const containerRef = overlay.attach<ThyDialogContainerComponent>(containerPortal);
 
@@ -61,22 +65,28 @@ export class ThyDialog extends ThyUpperOverlayService<ThyDialogConfig, ThyDialog
         config: ThyDialogConfig,
         dialogRef: ThyDialogRef<T>,
         dialogContainer: ThyDialogContainerComponent
-    ): PortalInjector {
+    ): Injector {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
 
-        const injectionTokens = new WeakMap<any, any>([
-            [ThyDialogContainerComponent, dialogContainer],
-            [ThyDialogRef, dialogRef]
-        ]);
+        const injectionTokens: StaticProvider[] = [
+            { provide: ThyDialogContainerComponent, useValue: dialogContainer },
+            {
+                provide: ThyDialogRef,
+                useValue: dialogRef
+            }
+        ];
 
         if (config.direction && (!userInjector || !userInjector.get<Directionality | null>(Directionality, null))) {
-            injectionTokens.set(Directionality, {
-                value: config.direction,
-                change: of()
+            injectionTokens.push({
+                provide: Directionality,
+                useValue: {
+                    value: config.direction,
+                    change: of()
+                }
             });
         }
 
-        return new PortalInjector(userInjector || this.injector, injectionTokens);
+        return Injector.create({ parent: userInjector || this.injector, providers: injectionTokens });
     }
 
     constructor(

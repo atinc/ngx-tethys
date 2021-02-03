@@ -9,7 +9,7 @@ import {
 } from '@angular/cdk/overlay';
 import { TemplateRef, ViewContainerRef, Injectable, ElementRef, Injector, OnDestroy, Inject, NgZone } from '@angular/core';
 import { coerceElement, coerceArray } from '@angular/cdk/coercion';
-import { PortalInjector, ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
+import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
 import { ThyAutocompleteContainerComponent } from './autocomplete-container.component';
 import { ThyAutocompleteConfig, THY_AUTOCOMPLETE_DEFAULT_CONFIG } from './autocomplete.config';
 import { ThyAutocompleteRef, ThyInternalAutocompleteRef } from './autocomplete-ref';
@@ -23,6 +23,7 @@ import { ViewportRuler } from '@angular/cdk/scrolling';
 import { DOCUMENT } from '@angular/common';
 import { Platform } from '@angular/cdk/platform';
 import { FlexibleConnectedPositionStrategy, FlexibleConnectedPositionStrategyOrigin } from 'ngx-tethys/core';
+import { StaticProvider } from '@angular/core';
 
 @Injectable({
     providedIn: 'root'
@@ -84,7 +85,10 @@ export class ThyAutocompleteService extends ThyUpperOverlayService<ThyAutocomple
 
     protected attachUpperOverlayContainer(overlay: OverlayRef, config: ThyAutocompleteConfig<any>): ThyAutocompleteContainerComponent {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
-        const injector = new PortalInjector(userInjector || this.injector, new WeakMap([[ThyAutocompleteConfig, config]]));
+        const injector = Injector.create({
+            parent: userInjector || this.injector,
+            providers: [{ provide: ThyAutocompleteConfig, useValue: config }]
+        });
         const containerPortal = new ComponentPortal(ThyAutocompleteContainerComponent, config.viewContainerRef, injector);
         const containerRef = overlay.attach<ThyAutocompleteContainerComponent>(containerPortal);
         return containerRef.instance;
@@ -102,22 +106,30 @@ export class ThyAutocompleteService extends ThyUpperOverlayService<ThyAutocomple
         config: ThyAutocompleteConfig,
         autocompleteRef: ThyAutocompleteRef<T>,
         autocompleteContainer: ThyAutocompleteContainerComponent
-    ): PortalInjector {
+    ): Injector {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
-
-        const injectionTokens = new WeakMap<any, any>([
-            [ThyAutocompleteContainerComponent, autocompleteContainer],
-            [ThyAutocompleteRef, autocompleteRef]
-        ]);
+        const injectionTokens: StaticProvider[] = [
+            {
+                provide: ThyAutocompleteContainerComponent,
+                useValue: autocompleteContainer
+            },
+            {
+                provide: ThyAutocompleteRef,
+                useValue: autocompleteRef
+            }
+        ];
 
         if (config.direction && (!userInjector || !userInjector.get<Directionality | null>(Directionality, null))) {
-            injectionTokens.set(Directionality, {
-                value: config.direction,
-                change: of()
+            injectionTokens.push({
+                provide: Directionality,
+                useValue: {
+                    value: config.direction,
+                    change: of()
+                }
             });
         }
 
-        return new PortalInjector(userInjector || this.injector, injectionTokens);
+        return Injector.create({ parent: userInjector || this.injector, providers: injectionTokens });
     }
 
     private originElementAddActiveClass(config: ThyAutocompleteConfig) {

@@ -1,7 +1,7 @@
 import { Injectable, Injector, Optional, Inject, OnDestroy, ElementRef } from '@angular/core';
 import { ThySlideContainerComponent } from './slide-container.component';
 import { OverlayConfig, OverlayRef, Overlay } from '@angular/cdk/overlay';
-import { PortalInjector, ComponentPortal } from '@angular/cdk/portal';
+import { ComponentPortal } from '@angular/cdk/portal';
 import { ThyUpperOverlayService, ThyUpperOverlayRef, ComponentTypeOrTemplateRef } from 'ngx-tethys/core';
 import { ThySlideConfig, THY_SLIDE_DEFAULT_CONFIG, slideUpperOverlayOptions, slideDefaultConfigValue } from './slide.config';
 import { ThySlideRef, ThyInternalSlideRef } from './slide-ref.service';
@@ -9,6 +9,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import { of } from 'rxjs';
 import { coerceArray } from 'ngx-tethys/util';
 import { coerceElement } from '@angular/cdk/coercion';
+import { StaticProvider } from '@angular/core';
 
 @Injectable()
 export class ThySlideService extends ThyUpperOverlayService<ThySlideConfig, ThySlideContainerComponent> implements OnDestroy {
@@ -48,7 +49,10 @@ export class ThySlideService extends ThyUpperOverlayService<ThySlideConfig, ThyS
 
     protected attachUpperOverlayContainer(overlay: OverlayRef, config: ThySlideConfig): ThySlideContainerComponent {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
-        const injector = new PortalInjector(userInjector || this.injector, new WeakMap([[ThySlideConfig, config]]));
+        const injector = Injector.create({
+            parent: userInjector || this.injector,
+            providers: [{ provide: ThySlideConfig, useValue: config }]
+        });
         const containerPortal = new ComponentPortal(ThySlideContainerComponent, config.viewContainerRef, injector);
         const containerRef = overlay.attach<ThySlideContainerComponent>(containerPortal);
         return containerRef.instance;
@@ -66,22 +70,25 @@ export class ThySlideService extends ThyUpperOverlayService<ThySlideConfig, ThyS
         config: ThySlideConfig,
         overlayRef: ThyUpperOverlayRef<T, ThySlideContainerComponent, any>,
         containerInstance: ThySlideContainerComponent
-    ): PortalInjector {
+    ): Injector {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
 
-        const injectionTokens = new WeakMap<any, any>([
-            [ThySlideContainerComponent, containerInstance],
-            [ThySlideRef, overlayRef]
-        ]);
+        const injectionTokens: StaticProvider[] = [
+            { provide: ThySlideContainerComponent, useValue: containerInstance },
+            { provide: ThySlideRef, useValue: overlayRef }
+        ];
 
         if (config.direction && (!userInjector || !userInjector.get<Directionality | null>(Directionality, null))) {
-            injectionTokens.set(Directionality, {
-                value: config.direction,
-                change: of()
+            injectionTokens.push({
+                provide: Directionality,
+                useValue: {
+                    value: config.direction,
+                    change: of()
+                }
             });
         }
 
-        return new PortalInjector(userInjector || this.injector, injectionTokens);
+        return Injector.create({ parent: userInjector || this.injector, providers: injectionTokens });
     }
 
     private overlayIsOpened(config: ThySlideConfig) {
