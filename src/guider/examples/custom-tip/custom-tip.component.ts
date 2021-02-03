@@ -1,34 +1,31 @@
 import { Component, HostBinding, Input, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { ThyGuiderConfig, ThyGuiderRef, StepInfo, ThyGuider, ThyGuiderTipBaseComponent } from 'ngx-tethys';
+import { ThyGuiderConfig, ThyGuiderRef, ThyGuiderStep, ThyGuider } from 'ngx-tethys';
+import { ThyGuiderStepRef } from 'ngx-tethys/guider/guider-step-ref';
 
 @Component({
     selector: 'custom-tip',
     template: `
         <p class="m-0 text-white bg-primary rounded text-center">
-            <span class="d-block">{{ descString }}</span>
-            <ng-template [ngTemplateOutlet]="descTemplate"></ng-template>
+            <span class="d-block">{{ stepRef.step.data.descString }}</span>
+            <ng-template [ngTemplateOutlet]="stepRef.step.data.descTemplate"></ng-template>
         </p>
     `,
     styles: ['p {font-size: 24px}']
 })
-export class CustomTipComponent extends ThyGuiderTipBaseComponent {
+export class CustomTipComponent implements OnInit {
     @HostBinding('class.tip-blue') className = true;
 
-    @Input() set stepTipData(value: any) {
-        this.descString = value.descString;
-        this.descTemplate = value.descTemplate;
-    }
+    public guiderRef: ThyGuiderRef;
+
+    public stepRef: ThyGuiderStepRef;
+
     public descTemplate: TemplateRef<any>;
 
     public descString: string;
 
-    constructor() {
-        super();
-    }
+    constructor() {}
 
-    ngOnInit() {
-        super.ngOnInit();
-    }
+    ngOnInit() {}
 }
 
 @Component({
@@ -55,7 +52,7 @@ export class ThyGuiderCustomTipExampleComponent implements OnInit, OnDestroy {
 
     private setDefaultGuiderOption(): ThyGuiderConfig {
         return {
-            component: CustomTipComponent,
+            hintComponent: CustomTipComponent,
             steps: [
                 {
                     key: 'custom-tip-target',
@@ -64,10 +61,10 @@ export class ThyGuiderCustomTipExampleComponent implements OnInit, OnDestroy {
                         descTemplate: this.descTemplate,
                         descString: 'hello world'
                     },
-                    tipPlacement: 'bottom',
-                    tipOffset: 40
+                    hintPlacement: 'bottom',
+                    hintOffset: 40
                 }
-            ] as StepInfo[]
+            ] as ThyGuiderStep[]
         };
     }
 
