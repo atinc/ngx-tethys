@@ -10,20 +10,17 @@ describe(`uploader-util`, () => {
             expect(MIME_Map['.xls']).toBeTruthy();
             expect(MIME_Map['.xlsx']).toBeTruthy();
             expect(MIME_Map['.png']).toBeTruthy();
-            expect(MIME_Map['.json']).toBeFalsy();
+            expect(MIME_Map['.json']).toBeTruthy();
         });
 
         it('should has .xls and .xlsx type', () => {
             expect(convertType.indexOf(MIME_Map['.xls']) === -1).toBeFalsy();
             expect(convertType.indexOf(MIME_Map['.xlsx']) === -1).toBeFalsy();
+            expect(convertType.indexOf(MIME_Map['.json']) === -1).toBeFalsy();
         });
 
         it('should not has .png type', () => {
             expect(convertType.indexOf(MIME_Map['.png']) === -1).toBeTruthy();
-        });
-
-        it('should has .json custom type', () => {
-            expect(convertType.indexOf(['.json']) === -1).toBeFalsy();
         });
     });
 });

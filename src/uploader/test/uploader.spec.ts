@@ -71,7 +71,7 @@ class ThyUploaderDemoComponent {
 })
 export class FileUploaderTestModule {}
 
-fdescribe('ThyFileSelect', () => {
+describe('ThyFileSelect', () => {
     let fixture: ComponentFixture<ThyUploaderDemoComponent>;
     let testComponent: ThyUploaderDemoComponent;
     let thyFileSelectComponent: DebugElement;
