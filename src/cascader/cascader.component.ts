@@ -475,13 +475,6 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
         return this.thyTriggerAction.indexOf('hover') !== -1;
     }
 
-    private isClickExpandTriggerAction(): boolean {
-        if (typeof this.thyExpandTriggerAction === 'string') {
-            return this.thyExpandTriggerAction === 'click';
-        }
-        return this.thyExpandTriggerAction.indexOf('click') !== -1;
-    }
-
     private isHoverExpandTriggerAction(): boolean {
         if (typeof this.thyExpandTriggerAction === 'string') {
             return this.thyExpandTriggerAction === 'hover';
