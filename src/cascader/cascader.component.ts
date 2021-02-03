@@ -269,7 +269,7 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
             load();
         } else {
             const node = this.activatedOptions[index - 1] || {};
-            this.loadChildren(node, index - 1, load, this.afterWriteValue);
+            this.loadChildren(node, index - 1, load, this.afterWriteValue.bind(this));
         }
     }
 
