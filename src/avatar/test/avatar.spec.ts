@@ -39,7 +39,7 @@ class ThyTestAvatarComponent {
 
     errorEmit$: Observable<Event>;
 
-    spyThyError = jasmine.createSpy('thyServerSearch callback');
+    spyThyError = jasmine.createSpy('ThyError emit');
 
     rewriteNameTransform() {
         this.thyAvatarService.nameTransform = (name: string) => {
