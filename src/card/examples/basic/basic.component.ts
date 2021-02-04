@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'thy-card-basic-example', //app-demo-card-basic
+    selector: 'thy-card-basic-example', // app-demo-card-basic
     templateUrl: './basic.component.html'
 })
 export class ThyCardBasicExampleComponent implements OnInit {
@@ -10,8 +10,6 @@ export class ThyCardBasicExampleComponent implements OnInit {
     headerSize = '';
 
     contentSize = '';
-
-    contentAlignTitle = false;
 
     constructor() {}
 

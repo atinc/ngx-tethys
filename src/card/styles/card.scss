@@ -51,6 +51,7 @@
         padding: 10px 20px 20px 20px;
         flex: auto;
 
+        // @deprecated remove in v11
         &--alignment-title {
             padding-left: 30px;
             padding-right: 30px;
@@ -112,7 +113,7 @@
         .thy-card-content {
             padding-left: 0;
             padding-right: 0;
-
+            // @deprecated remove in v11
             &--alignment-title {
                 padding-left: 10px;
                 padding-right: 10px;
