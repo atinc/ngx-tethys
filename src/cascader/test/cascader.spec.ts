@@ -74,21 +74,16 @@ class CascaderLoadComponent {
 
     constructor() {}
 
-    thyLoadData = this.init();
-
-    init() {
-        const self = this;
-        return function(option: any) {
-            return new Promise((res, rej) => {
-                if (self.success) {
-                    option.children = customerOptions;
-                    res();
-                } else {
-                    rej();
-                }
-            });
-        };
-    }
+    thyLoadData = (option: any) => {
+        return new Promise<void>((res, rej) => {
+            if (this.success) {
+                option.children = customerOptions;
+                res();
+            } else {
+                rej();
+            }
+        });
+    };
 }
 @Component({
     selector: 'thy-cascader-template',
@@ -260,11 +255,17 @@ describe('thy-cascader', () => {
         it('should menu mouse leave(click)', () => {
             dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'click', true);
             fixture.detectChanges();
-            let el = debugElement.query(By.css('.test-menu-class'));
+            let el = debugElement.query(By.css('.thy-cascader-menus'));
             expect(el).toBeTruthy();
             dispatchFakeEvent(el.nativeElement, 'mouseleave', true);
             fixture.detectChanges();
-            el = debugElement.query(By.css('.test-menu-class'));
+            el = debugElement.query(By.css('.thy-cascader-menus'));
+            expect(el).toBeTruthy();
+        });
+        it('should have custom menu class', () => {
+            dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'click', true);
+            fixture.detectChanges();
+            const el = debugElement.query(By.css('.test-menu-class'));
             expect(el).toBeTruthy();
         });
     });
