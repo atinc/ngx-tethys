@@ -1,5 +1,9 @@
+import { endOfDay, startOfDay } from 'date-fns';
+import { FunctionProp, sortRangeValue, TinyDate } from 'ngx-tethys/util';
+
 import {
     ChangeDetectionStrategy,
+    ChangeDetectorRef,
     Component,
     EventEmitter,
     Input,
@@ -7,15 +11,11 @@ import {
     OnInit,
     Output,
     SimpleChanges,
-    TemplateRef,
-    ChangeDetectorRef
+    TemplateRef
 } from '@angular/core';
 
-import { FunctionProp } from 'ngx-tethys/util';
-import { TinyDate, sortRangeValue } from 'ngx-tethys/util';
-
-import { CompatibleValue, DisabledDateFn, PanelMode, SupportTimeOptions, CompatibleDate } from '../../standard-types';
-import { transformDateValue, hasValue, makeValue } from '../../picker.util';
+import { hasValue, makeValue, transformDateValue } from '../../picker.util';
+import { CompatibleDate, CompatibleValue, DisabledDateFn, PanelMode, SupportTimeOptions } from '../../standard-types';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -186,11 +186,16 @@ export class DatePopupComponent implements OnChanges, OnInit {
                 // If totally full or empty, clean up && re-assign left first
                 this.hoverValue = this.selectedValue = [value];
                 this.calendarChange.emit([value.clone()]);
+                this.selectedValue = [new TinyDate(startOfDay(this.selectedValue[0].nativeDate))];
             } else if (left && !right) {
                 // If one of them is empty, assign the other one and sort, then set the final values
                 this.clearHoverValue(); // Clean up
                 this.setRangeValue('right', value);
                 this.selectedValue = sortRangeValue(this.selectedValue); // Sort
+                this.selectedValue = [
+                    new TinyDate(startOfDay(this.selectedValue[0].nativeDate)),
+                    new TinyDate(endOfDay(this.selectedValue[1].nativeDate))
+                ];
                 this.valueForRangeShow = this.normalizeRangeValue(this.selectedValue);
                 this.setValue(this.cloneRangeDate(this.selectedValue));
                 this.calendarChange.emit(this.cloneRangeDate(this.selectedValue));

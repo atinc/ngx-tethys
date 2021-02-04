@@ -35,6 +35,18 @@
 ></thy-property-operation>
 <thy-property-operation
   class="w-100 mb-3"
+  thyLabelText="时间区间选择几天内的时间"
+  [thyValue]="dateRangeDisabled | thyDatePickerFormat"
+  thyIcon="calendar-check"
+  thyRangePicker
+  [thyDisabledDate]="disableDate"
+  [(ngModel)]="dateRangeDisabled"
+  (thyOnCalendarChange)="calendarChange($event)"
+  (thyOpenChange)="panelOpenChange($event)"
+></thy-property-operation>
+
+<thy-property-operation
+  class="w-100 mb-3"
   thyLabelText="开始时间"
   [thyValue]="date | thyDatePickerFormat"
   thyIcon="calendar-check"

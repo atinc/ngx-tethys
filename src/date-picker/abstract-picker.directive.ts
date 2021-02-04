@@ -4,6 +4,7 @@ import { coerceBooleanProperty, FunctionProp, warnDeprecation } from 'ngx-tethys
 import { fromEvent, Observable, Subject } from 'rxjs';
 import { debounceTime, mapTo, takeUntil, tap } from 'rxjs/operators';
 
+import { coerceArray } from '@angular/cdk/coercion';
 import {
     AfterViewInit,
     ChangeDetectorRef,
@@ -103,11 +104,16 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
         if (popoverRef) {
             const componentInstance = popoverRef.componentInstance;
             componentInstance.valueChange.pipe(takeUntil(this.destroy$)).subscribe((event: CompatibleValue) => this.onValueChange(event));
+            componentInstance.calendarChange.pipe(takeUntil(this.destroy$)).subscribe((event: CompatibleValue) => {
+                const rangeValue = coerceArray(event).map(x => x.nativeDate);
+                this.thyOnCalendarChange.emit(rangeValue);
+            });
             componentInstance.showTimePickerChange
                 .pipe(takeUntil(this.destroy$))
                 .subscribe((event: boolean) => this.onShowTimePickerChange(event));
             // tslint:disable-next-line: max-line-length
             componentInstance.ngOnChanges({ value: {} as SimpleChange }); // dynamically created components don't call ngOnChanges, manual call
+            this.thyOpenChange.emit(true);
         }
     }
 

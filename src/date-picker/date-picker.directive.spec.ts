@@ -1,3 +1,4 @@
+import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { of } from 'rxjs';
 
 import { OverlayContainer } from '@angular/cdk/overlay';
@@ -9,7 +10,6 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyPopover } from '../popover/popover.service';
 import { ThyPropertyOperationComponent, ThyPropertyOperationModule } from '../property-operation';
 import { ThyDatePickerDirective } from './date-picker.directive';
@@ -104,7 +104,9 @@ describe('ThyPickerDirective', () => {
         it('should get correct thyPlacement and offset and hasBackdrop', fakeAsync(() => {
             const thyPopover = TestBed.get(ThyPopover);
             const spy = spyOn(thyPopover, 'open');
-            spy.and.returnValue({ componentInstance: { valueChange: of(), showTimePickerChange: of(), ngOnChanges: () => {} } });
+            spy.and.returnValue({
+                componentInstance: { valueChange: of(), calendarChange: of(), showTimePickerChange: of(), ngOnChanges: () => {} }
+            });
 
             fixture.detectChanges();
             openPickerByClickTrigger();
@@ -166,7 +168,9 @@ describe('ThyPickerDirective', () => {
         it('should use options when open popover', fakeAsync(() => {
             const thyPopover = TestBed.get(ThyPopover);
             const spy = spyOn(thyPopover, 'open');
-            spy.and.returnValue({ componentInstance: { valueChange: of(), showTimePickerChange: of(), ngOnChanges: () => {} } });
+            spy.and.returnValue({
+                componentInstance: { valueChange: of(), calendarChange: of(), showTimePickerChange: of(), ngOnChanges: () => {} }
+            });
             fixtureInstance.thyOffset = 0;
             fixtureInstance.thyPlacement = 'right';
             fixtureInstance.thyHasBackdrop = false;
@@ -271,7 +275,9 @@ describe('should get correct default thyPlacement and offset', () => {
         it('should get correct default thyPlacement and offset and hasBackdrop', fakeAsync(() => {
             const thyPopover = TestBed.get(ThyPopover);
             const spy = spyOn(thyPopover, 'open');
-            spy.and.returnValue({ componentInstance: { valueChange: of(), showTimePickerChange: of(), ngOnChanges: () => {} } });
+            spy.and.returnValue({
+                componentInstance: { valueChange: of(), calendarChange: of(), showTimePickerChange: of(), ngOnChanges: () => {} }
+            });
 
             fixture.detectChanges();
             openPickerByClickTrigger();
