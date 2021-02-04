@@ -46,11 +46,11 @@ export class ThyGuiderRef {
         return this.stepChange$.asObservable();
     }
 
-    public guiderEnded() {
+    public ended() {
         return this.guiderEnded$;
     }
 
-    public guiderClosed() {
+    public closed() {
         return this.guiderClosed$;
     }
 

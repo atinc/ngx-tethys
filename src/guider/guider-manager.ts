@@ -4,10 +4,10 @@ import { ThyGuiderRef } from './guider-ref';
 import { Dictionary } from 'ngx-tethys/types';
 import { ElementRef, Injectable } from '@angular/core';
 
-export class Target {
+type Target = {
     key: string;
     target: ElementRef;
-}
+};
 
 @Injectable({
     providedIn: 'root'
@@ -39,8 +39,10 @@ export class ThyGuiderManager {
 
     public removeStep(key: string) {
         const index = this.targetList.findIndex(target => target.key === key);
-        this.targetList.splice(index, 1);
-        this.targetListMap = helpers.keyBy(this.targetList, 'key');
+        if (index >= 0) {
+            this.targetList.splice(index, 1);
+            this.targetListMap = helpers.keyBy(this.targetList, 'key');
+        }
     }
 
     getTargetListMap(): Dictionary<Target> {

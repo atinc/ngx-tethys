@@ -17,6 +17,8 @@ export class ThyGuiderDirectiveHintExampleComponent implements OnInit {
         this.guiderRef = this.thyGuider.create(this.option);
     }
 
+    public key = 'directive-tip-target';
+
     private setDefaultGuiderOption(): ThyGuiderConfig {
         return {
             steps: [

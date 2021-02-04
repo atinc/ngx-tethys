@@ -20,21 +20,22 @@ export interface ThyGuiderStep<TData = any> {
 }
 
 export class ThyGuiderConfig {
-    /** tip Component ,default is ThyGuiderTooltip */
+    /** hint Component,default is ThyGuiderHintComponent */
     hintComponent?: Type<unknown>;
 
     /** steps info */
     steps: ThyGuiderStep[];
 
-    /** tip default position when step info not set tipPlacement */
+    /** hint default position when step info not set hintPlacement */
     hintPlacement?: ThyPlacement;
 
-    /** the priority is higher than tipPlacement */
+    /** useful when without target */
     defaultPosition?: [number, number];
 
     /** setting default point offset */
     pointOffset?: [number, number];
 
+    /** like popover offset */
     hintOffset?: number;
 }
 

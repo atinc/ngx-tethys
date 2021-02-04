@@ -1,7 +1,7 @@
 import { ThyGuiderManager } from './guider-manager';
 import { AfterViewInit, Directive, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
 
-@Directive({ selector: '[thyGuiderTarget]' })
+@Directive({ selector: '[thyGuiderTarget]', exportAs: 'thyGuiderTarget' })
 export class ThyGuiderTargetDirective implements OnInit, OnDestroy, AfterViewInit {
     @Input('thyGuiderTarget')
     target: string;
@@ -22,6 +22,10 @@ export class ThyGuiderTargetDirective implements OnInit, OnDestroy, AfterViewIni
     }
 
     ngOnDestroy() {
+        const guiderRef = this.guiderManager.thyGuiderRef;
+        if (guiderRef) {
+            guiderRef.close();
+        }
         this.guiderManager.removeStep(this.target);
     }
 }
