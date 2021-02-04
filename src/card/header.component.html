@@ -1,16 +1,15 @@
-<div class="card-header-icon"></div>
 <div class="card-header-title">
-    <ng-template [ngTemplateOutlet]="titleTemplateRef"></ng-template>
-    <ng-container *ngIf="!titleTemplateRef">
-        <span>{{thyTitle}}</span>
-    </ng-container>
+  <ng-template [ngTemplateOutlet]="titleTemplateRef"></ng-template>
+  <ng-container *ngIf="!titleTemplateRef">
+    <span>{{ thyTitle }}</span>
+  </ng-container>
 </div>
 <div class="card-header-description">
-    <ng-template [ngTemplateOutlet]="descriptionTemplateRef"></ng-template>
-    <ng-container *ngIf="!descriptionTemplateRef">
-        <span>{{thyDescription}}</span>
-    </ng-container>
+  <ng-template [ngTemplateOutlet]="descriptionTemplateRef"></ng-template>
+  <ng-container *ngIf="!descriptionTemplateRef">
+    <span>{{ thyDescription }}</span>
+  </ng-container>
 </div>
 <div class="card-header-operation">
-    <ng-template [ngTemplateOutlet]="operationTemplateRef"></ng-template>
+  <ng-template [ngTemplateOutlet]="operationTemplateRef"></ng-template>
 </div>
