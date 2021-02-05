@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="10.0.0-next.3"></a>
+# [10.0.0-next.3](https://github.com/atinc/ngx-tethys/compare/9.0.22...10.0.0-next.3) (2021-02-05)
+
+
+### Bug Fixes
+
+* **cascader:** 传入函数this丢失 ([75028d4](https://github.com/atinc/ngx-tethys/commit/75028d4))
+* **grid:** set header padding align td when size is default ([#1136](https://github.com/atinc/ngx-tethys/issues/1136)) ([ee59380](https://github.com/atinc/ngx-tethys/commit/ee59380))
+* **uploader:** uploader support custom accept type, #INFR-1564 ([#1130](https://github.com/atinc/ngx-tethys/issues/1130)) ([b0e1e9c](https://github.com/atinc/ngx-tethys/commit/b0e1e9c)), closes [#INFR-1564](https://github.com/atinc/ngx-tethys/issues/INFR-1564)
+* **util:** move tiny-date.ts, fix date-fns reexported  error when build ([12cf309](https://github.com/atinc/ngx-tethys/commit/12cf309))
+
+
+### Features
+
+* **guider:** support redirect to other route when change step #INFR-1543 ([#1138](https://github.com/atinc/ngx-tethys/issues/1138)) ([452283c](https://github.com/atinc/ngx-tethys/commit/452283c)), closes [#INFR-1543](https://github.com/atinc/ngx-tethys/issues/INFR-1543)
+
+
+
 <a name="10.0.0-next.2"></a>
 # [10.0.0-next.2](https://github.com/atinc/ngx-tethys/compare/10.0.0-next.1...10.0.0-next.2) (2021-01-18)
 
