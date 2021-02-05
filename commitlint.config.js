@@ -77,6 +77,7 @@ module.exports = {
                 'anchor',
                 'back-top',
                 'timeline',
+                'divider',
                 'calendar',
                 'fullscreen',
                 'guider'

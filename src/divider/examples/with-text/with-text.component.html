@@ -1,0 +1,74 @@
+<div [ngClass]="{ 'thy-divider-with-text-example': true }">
+  <p>{{ articleList[0] }}</p>
+  <thy-divider></thy-divider>
+
+  <p>{{ articleList[1] }}</p>
+  <thy-divider [thyStyle]="'dashed'"></thy-divider>
+
+  <p>{{ articleList[2] }}</p>
+  <thy-divider [thyStyle]="'dashed'" thyText="With Text"></thy-divider>
+
+  <p>{{ articleList[3] }}</p>
+  <thy-divider thyText="With Text"></thy-divider>
+
+  <p>{{ articleList[4] }}</p>
+  <thy-divider thyText="thyHeavy = true" [thyHeavy]="true"></thy-divider>
+
+  <div thyRow [thyGutter]="30">
+    <div thyCol [thySpan]="12">
+      <div class="demo-col-section">
+        <p>{{ articleList[5] }}</p>
+        <thy-divider [thyTextDirection]="'left'" thyText="With left"></thy-divider>
+
+        <p>{{ articleList[6] }}</p>
+        <thy-divider [thyTextDirection]="'center'" thyText="With center"></thy-divider>
+
+        <p>{{ articleList[7] }}</p>
+        <thy-divider [thyTextDirection]="'right'" thyText="With right"></thy-divider>
+
+        <p>{{ articleList[8] }}</p>
+        <thy-divider [thyText]="dividerTemplate"></thy-divider>
+        <ng-template #dividerTemplate>
+          <div>this is a demo for <span style="color: #2dbcff;">template</span></div>
+        </ng-template>
+
+        <p>{{ articleList[9] }}</p>
+        <thy-divider [thyText]="dividerTemplateSelect"></thy-divider>
+        <ng-template #dividerTemplateSelect>
+          <thy-custom-select [(ngModel)]="testModel" thyPlaceHolder="请选择" style="width: 80px;">
+            <thy-option thyValue="or|or" thyLabelText="Or"></thy-option>
+            <thy-option thyValue="and&and" thyLabelText="And"></thy-option>
+          </thy-custom-select>
+        </ng-template>
+      </div>
+    </div>
+
+    <div thyCol [thySpan]="12">
+      <div class="demo-col-section">
+        <p>{{ articleList[5] }}</p>
+        <thy-divider [thyTextDirection]="'left'" thyText="thyHeavy & left" [thyHeavy]="true"></thy-divider>
+
+        <p>{{ articleList[6] }}</p>
+        <thy-divider [thyTextDirection]="'center'" thyText="thyHeavy & center" [thyHeavy]="true"></thy-divider>
+
+        <p>{{ articleList[7] }}</p>
+        <thy-divider [thyTextDirection]="'right'" thyText="thyHeavy & right" [thyHeavy]="true"></thy-divider>
+
+        <p>{{ articleList[8] }}</p>
+        <thy-divider [thyText]="dividerTemplateHeavy" [thyHeavy]="true"></thy-divider>
+        <ng-template #dividerTemplateHeavy>
+          <div>this is a demo for <span style="color: #2dbcff;">template thyHeavy</span></div>
+        </ng-template>
+
+        <p>{{ articleList[9] }}</p>
+        <thy-divider [thyText]="dividerTemplateSelectHeavy" [thyHeavy]="true"></thy-divider>
+        <ng-template #dividerTemplateSelectHeavy>
+          <thy-custom-select [(ngModel)]="testModel" thyPlaceHolder="请选择" style="width: 80px;">
+            <thy-option thyValue="or|or" thyLabelText="Or"></thy-option>
+            <thy-option thyValue="and&and" thyLabelText="And"></thy-option>
+          </thy-custom-select>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>
