@@ -2,6 +2,56 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="10.0.0-next.3"></a>
+# [10.0.0-next.3](https://github.com/atinc/ngx-tethys/compare/9.0.22...10.0.0-next.3) (2021-02-05)
+
+
+### Bug Fixes
+
+* **cascader:** 传入函数this丢失 ([75028d4](https://github.com/atinc/ngx-tethys/commit/75028d4))
+* **grid:** set header padding align td when size is default ([#1136](https://github.com/atinc/ngx-tethys/issues/1136)) ([ee59380](https://github.com/atinc/ngx-tethys/commit/ee59380))
+* **uploader:** uploader support custom accept type, #INFR-1564 ([#1130](https://github.com/atinc/ngx-tethys/issues/1130)) ([b0e1e9c](https://github.com/atinc/ngx-tethys/commit/b0e1e9c)), closes [#INFR-1564](https://github.com/atinc/ngx-tethys/issues/INFR-1564)
+* **util:** move tiny-date.ts, fix date-fns reexported  error when build ([12cf309](https://github.com/atinc/ngx-tethys/commit/12cf309))
+
+
+### Features
+
+* **guider:** support redirect to other route when change step #INFR-1543 ([#1138](https://github.com/atinc/ngx-tethys/issues/1138)) ([452283c](https://github.com/atinc/ngx-tethys/commit/452283c)), closes [#INFR-1543](https://github.com/atinc/ngx-tethys/issues/INFR-1543)
+
+
+
+<a name="10.0.0-next.1"></a>
+# [10.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/9.0.15...10.0.0-next.1) (2021-01-15)
+
+
+### Bug Fixes
+
+* **store:** add @Injectable() for fix build RootStore error ([3639884](https://github.com/atinc/ngx-tethys/commit/3639884))
+* **util:** change tiny-date export function ([4919756](https://github.com/atinc/ngx-tethys/commit/4919756))
+
+
+### Features
+
+* **tree-select:** tree select support search, #INFR-1542 ([78e80ed](https://github.com/atinc/ngx-tethys/commit/78e80ed)), closes [#INFR-1542](https://github.com/atinc/ngx-tethys/issues/INFR-1542)
+
+
+
+<a name="10.0.0-next.0"></a>
+# [10.0.0-next.0](https://github.com/atinc/ngx-tethys/compare/9.0.14...10.0.0-next.0) (2021-01-04)
+
+
+### Bug Fixes
+
+* **schematics:** ts节点属性 readonly 修复 ([01b4506](https://github.com/atinc/ngx-tethys/commit/01b4506))
+* **store:** fix build error: Only initialized variables and constants can be referenced in decorators ([d502fc8](https://github.com/atinc/ngx-tethys/commit/d502fc8))
+
+
+### Features
+
+* upgrade angular from 9.x to 10.x #INFR-1516 ([c47569d](https://github.com/atinc/ngx-tethys/commit/c47569d)), closes [#INFR-1516](https://github.com/atinc/ngx-tethys/issues/INFR-1516)
+
+
+
 <a name="10.0.0-next.2"></a>
 # [10.0.0-next.2](https://github.com/atinc/ngx-tethys/compare/10.0.0-next.1...10.0.0-next.2) (2021-01-18)
 
