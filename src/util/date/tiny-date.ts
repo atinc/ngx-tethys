@@ -47,10 +47,6 @@ import {
 
 import { Locale } from 'date-fns';
 
-export interface IndexableObject {
-    [key: string]: any;
-}
-
 export type TinyDateCompareGrain = 'year' | 'quarter' | 'month' | 'week' | 'day' | 'hour' | 'minute' | 'second';
 
 export type WeekDayIndex = 0 | 1 | 2 | 3 | 4 | 5 | 6;
@@ -65,7 +61,7 @@ export function sortRangeValue(rangeValue: TinyDate[]): TinyDate[] {
     return rangeValue;
 }
 
-export class TinyDate implements IndexableObject {
+export class TinyDate implements Record<string, any> {
     nativeDate: Date;
 
     constructor(date?: Date | string | number) {
