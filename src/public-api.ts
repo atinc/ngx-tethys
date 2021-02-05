@@ -65,3 +65,4 @@ export * from 'ngx-tethys/slider';
 export * from 'ngx-tethys/calendar';
 export * from 'ngx-tethys/timeline';
 export * from 'ngx-tethys/fullscreen';
+export * from 'ngx-tethys/guider';

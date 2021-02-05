@@ -5,8 +5,8 @@ import { By } from '@angular/platform-browser';
 import { ThyFileSelectComponent } from '../file-select.component';
 import { ThyUploadFile, ThyUploaderService, ThyUploadStatus, ThyUploadResponse } from '../uploader.service';
 import { Observable } from 'rxjs';
+const testJsonFile = require.resolve('./test.json');
 const UPLOAD_URL = `http://www.mocky.io/v2/5cf52b1f2f0000c02c4f072f?mocky-delay=2s`;
-
 @Component({
     selector: 'thy-uploader-demo',
     template: `
@@ -24,8 +24,8 @@ const UPLOAD_URL = `http://www.mocky.io/v2/5cf52b1f2f0000c02c4f072f?mocky-delay=
 class ThyUploaderDemoComponent {
     queueFiles: ThyUploadFile[] = [];
     multiple: boolean;
-    acceptType = ['.txt'];
-    sizeThreshold: number = 1;
+    acceptType = ['.txt', '.json'];
+    sizeThreshold = 1;
     uploaderFileResult: Observable<ThyUploadResponse>;
     exceedsFiles: File[];
     constructor(private thyUploaderService: ThyUploaderService) {}
@@ -82,6 +82,7 @@ describe('ThyFileSelect', () => {
         'Were converting our compatibility data into a machine-readable JSON format. This compatibility table still uses the old format, because we have not yet converted the data it contains. Find out how you can help!';
     const file = new File([fileContent], 'testFile');
 
+    const jsonFile = new File([testJsonFile], 'testJsonFile');
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyUploaderModule, FileUploaderTestModule],
@@ -99,6 +100,8 @@ describe('ThyFileSelect', () => {
         // creat FileList
         dT = new ClipboardEvent('').clipboardData || new DataTransfer(); // specs compliant (as of March 2018 only Chrome)
         dT.items.add(file);
+
+        dT.items.add(jsonFile);
     });
 
     it('should create', () => {
@@ -109,6 +112,7 @@ describe('ThyFileSelect', () => {
         inputEl.files = dT.files;
         inputEl.dispatchEvent(new Event('change'));
         expect(testComponent.queueFiles[0].nativeFile.name).toEqual('testFile');
+        expect(testComponent.queueFiles[1].nativeFile.name).toEqual('testJsonFile');
         testComponent.uploaderFileResult.subscribe(result => {
             if (result.status === ThyUploadStatus.done) {
                 const index = testComponent.queueFiles.indexOf(result.uploadFile);
@@ -126,7 +130,8 @@ describe('ThyFileSelect', () => {
         inputEl.files = dT.files;
         inputEl.dispatchEvent(new Event('change'));
         expect(testComponent.queueFiles[0].nativeFile.name).toEqual('testFile');
-        expect(testComponent.queueFiles[1].nativeFile.name).toEqual('multipleFile');
+        expect(testComponent.queueFiles[1].nativeFile.name).toEqual('testJsonFile');
+        expect(testComponent.queueFiles[2].nativeFile.name).toEqual('multipleFile');
         testComponent.uploaderFileResult.subscribe(result => {
             if (result.status === ThyUploadStatus.done) {
                 const index = testComponent.queueFiles.indexOf(result.uploadFile);
@@ -144,5 +149,10 @@ describe('ThyFileSelect', () => {
         inputEl.files = dT.files;
         inputEl.dispatchEvent(new Event('change'));
         expect(testComponent.exceedsFiles[0].name).toBe('testFile');
+
+        fixture.detectChanges();
+        inputEl.files = dT.files;
+        inputEl.dispatchEvent(new Event('change'));
+        expect(testComponent.exceedsFiles[1].name).toBe('testJsonFile');
     });
 });

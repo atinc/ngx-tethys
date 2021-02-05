@@ -235,7 +235,6 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
 
     @HostListener('document:click', ['$event'])
     onDocumentClick(event: Event) {
-        event.stopPropagation();
         if (!this.elementRef.nativeElement.contains(event.target) && this.panelOpen) {
             this.close();
         }
@@ -632,6 +631,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
                 });
             }
         } else {
+            this.selectionModel.clear();
             const selectedOption = this.options.find(option => {
                 return option.thyValue === modalValue;
             });

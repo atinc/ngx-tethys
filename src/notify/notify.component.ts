@@ -1,8 +1,9 @@
 import { Component, Input, HostBinding, OnInit, HostListener, OnDestroy, NgZone } from '@angular/core';
-import { NotifyPlacement, ThyNotifyOption } from './notify-option.interface';
+import { ThyNotifyDetail, NotifyPlacement, ThyNotifyOptions } from './notify-option.interface';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { UpdateHostClassService } from 'ngx-tethys/core';
 import { NotifyQueueStore } from './notify-queue.store';
+import { helpers } from 'ngx-tethys/util';
 
 const ANIMATION_IN_DURATION = 100;
 const ANIMATION_OUT_DURATION = 150;
@@ -39,7 +40,7 @@ export class ThyNotifyComponent implements OnInit, OnDestroy {
 
     @HostBinding('class') className = '';
 
-    option: ThyNotifyOption;
+    option: ThyNotifyOptions;
 
     notifyIconName = '';
 
@@ -52,7 +53,7 @@ export class ThyNotifyComponent implements OnInit, OnDestroy {
     placement: NotifyPlacement;
 
     @Input()
-    set thyOption(value: ThyNotifyOption) {
+    set thyOption(value: ThyNotifyOptions) {
         this.option = value;
         const type = value.type;
         this.placement = value.placement || 'topRight';
@@ -97,6 +98,15 @@ export class ThyNotifyComponent implements OnInit, OnDestroy {
                 this._queueStore.removeNotify(this.option.id, this.placement);
             }, ANIMATION_OUT_DURATION);
         });
+    }
+
+    triggerDetail() {
+        if (helpers.isFunction((this.option.detail as ThyNotifyDetail).action)) {
+            (this.option.detail as ThyNotifyDetail).action();
+        }
+        if ((this.option.detail as ThyNotifyDetail).content) {
+            this.showDetailToggle();
+        }
     }
 
     @HostListener('mouseenter') mouseenter() {

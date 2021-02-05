@@ -269,7 +269,7 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
             load();
         } else {
             const node = this.activatedOptions[index - 1] || {};
-            this.loadChildren(node, index - 1, load, this.afterWriteValue);
+            this.loadChildren(node, index - 1, load, this.afterWriteValue.bind(this));
         }
     }
 
@@ -473,13 +473,6 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
             return this.thyTriggerAction === 'hover';
         }
         return this.thyTriggerAction.indexOf('hover') !== -1;
-    }
-
-    private isClickExpandTriggerAction(): boolean {
-        if (typeof this.thyExpandTriggerAction === 'string') {
-            return this.thyExpandTriggerAction === 'click';
-        }
-        return this.thyExpandTriggerAction.indexOf('click') !== -1;
     }
 
     private isHoverExpandTriggerAction(): boolean {

@@ -9,10 +9,12 @@ import { ThyNotifyDetailExampleComponent } from './detail/detail.component';
 import { ThyNotifyHoverExampleComponent } from './hover/hover.component';
 import { ThyNotifyTypeExampleComponent } from './type/type.component';
 import { ThyNotifyPlacementExampleComponent } from './placement/placement.component';
+import { ThyNotifyDetailOperationExampleComponent } from './detail-operation/detail-operation.component';
 
 const COMPONENTS = [
     ThyNotifyHoverExampleComponent,
     ThyNotifyDetailExampleComponent,
+    ThyNotifyDetailOperationExampleComponent,
     ThyNotifyCustomHtmlExampleComponent,
     ThyNotifyBasicExampleComponent,
     ThyNotifyTypeExampleComponent,

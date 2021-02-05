@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, EventEmitter, forwardRef, HostBinding, Input, Output, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { UpdateHostClassService } from 'ngx-tethys/core';
+import { InputSize } from './input.directive';
 
 export type InputSearchTheme = 'ellipse' | '';
 
@@ -48,6 +49,8 @@ export class ThyInputSearchComponent implements ControlValueAccessor {
     set thySearchFocus(value: boolean) {
         this.autoFocus = value;
     }
+
+    @Input() thySize: InputSize;
 
     @Output() clear: EventEmitter<Event> = new EventEmitter<Event>();
 

@@ -4,7 +4,13 @@ export const CONTAINER_PLACEMENT = new InjectionToken<{}>('CONTAINER_PLACEMENT')
 
 export type NotifyPlacement = 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight';
 
-export interface ThyNotifyOption {
+export interface ThyNotifyDetail {
+    link?: string;
+    content?: string;
+    action?: (event?: Event) => void;
+}
+
+export interface ThyNotifyOptions {
     id?: number;
 
     type?: 'blank' | 'success' | 'error' | 'warning' | 'info';
@@ -13,7 +19,7 @@ export interface ThyNotifyOption {
 
     content?: string;
 
-    detail?: string;
+    detail?: string | ThyNotifyDetail;
 
     html?: ElementRef;
 
@@ -26,7 +32,12 @@ export interface ThyNotifyOption {
     placement?: NotifyPlacement;
 }
 
-export const THY_NOTIFY_DEFAULT_OPTIONS = new InjectionToken<ThyNotifyOption>('thy-notify-default-options');
+/**
+ * @deprecated please use ThyNotifyOptions
+ */
+export type ThyNotifyOption = ThyNotifyOptions;
+
+export const THY_NOTIFY_DEFAULT_OPTIONS = new InjectionToken<ThyNotifyOptions>('thy-notify-default-options');
 
 export const THY_NOTIFY_DEFAULT_OPTIONS_PROVIDER = {
     provide: THY_NOTIFY_DEFAULT_OPTIONS,

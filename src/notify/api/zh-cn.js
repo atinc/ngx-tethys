@@ -29,8 +29,8 @@ module.exports = [
             },
             {
                 name: 'detail',
-                description: `提示内容的详情，是对内容的详情描述`,
-                type: 'string',
+                description: `提示内容的详情，是对内容的详情描述，也可以是能够操作的链接，link是链接名，content是详情描述，action是点击的方法`,
+                type: 'string | ThyNotifyDetail',
                 default: ''
             },
             {
