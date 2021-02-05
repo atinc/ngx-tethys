@@ -1,6 +1,6 @@
 import * as dateFns from 'date-fns';
 
-export const differenceInCalendarDays = dateFns.differenceInBusinessDays;
+export const differenceInCalendarDays = dateFns.differenceInCalendarDays;
 export const differenceInCalendarMonths = dateFns.differenceInCalendarMonths;
 export const differenceInCalendarYears = dateFns.differenceInCalendarYears;
 export const differenceInWeeks = dateFns.differenceInWeeks;
