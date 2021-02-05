@@ -1,51 +1,39 @@
-import { Subject } from 'rxjs';
-import { helpers } from 'ngx-tethys/util';
 import { ThyGuiderRef } from './guider-ref';
-import { Dictionary } from 'ngx-tethys/types';
-import { ElementRef, Injectable } from '@angular/core';
-
-type Target = {
-    key: string;
-    target: ElementRef;
-};
+import { Injectable } from '@angular/core';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ThyGuiderManager {
-    private targetList: Target[] = [];
+    private targetListMap = {};
 
-    private targetListMap: Dictionary<Target> = {};
+    private thyGuiderRef: ThyGuiderRef;
 
-    public activeStepKey$: Subject<string> = new Subject();
+    private activeStepKey: string;
 
-    public thyGuiderRef: ThyGuiderRef;
+    constructor() {}
 
-    public activeStepKey: string;
-
-    constructor() {
-        this.activeStepKey$.subscribe(key => {
-            this.activeStepKey = key;
-        });
+    public updateActive(key: string, guiderRef: ThyGuiderRef) {
+        this.activeStepKey = key;
+        this.thyGuiderRef = guiderRef;
     }
 
-    public addStep(elementRef: ElementRef, key: string) {
-        this.targetList.push({
-            target: elementRef,
-            key
-        });
-        this.targetListMap = helpers.keyBy(this.targetList, 'key');
+    public addStepTarget(key: string, el: HTMLElement) {
+        this.targetListMap[key] = el;
     }
 
-    public removeStep(key: string) {
-        const index = this.targetList.findIndex(target => target.key === key);
-        if (index >= 0) {
-            this.targetList.splice(index, 1);
-            this.targetListMap = helpers.keyBy(this.targetList, 'key');
-        }
+    public removeStepTarget(key: string) {
+        delete this.targetListMap[key];
     }
 
-    getTargetListMap(): Dictionary<Target> {
-        return this.targetListMap;
+    public getActiveTarget(key: string): HTMLElement {
+        return this.targetListMap[key];
+    }
+
+    public getActive(): { key: string; guiderRef: ThyGuiderRef } {
+        return {
+            key: this.activeStepKey,
+            guiderRef: this.thyGuiderRef
+        };
     }
 }

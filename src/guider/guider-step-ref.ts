@@ -49,7 +49,7 @@ export class ThyGuiderStepRef {
         if (step.target) {
             targetElement = this.document.querySelector(step.target);
         } else {
-            targetElement = this.guiderManager.getTargetListMap()[step.key].target.nativeElement;
+            targetElement = this.guiderManager.getActiveTarget(step.key);
         }
         return targetElement;
     }
@@ -171,7 +171,7 @@ export class ThyGuiderStepRef {
         if (step.target) {
             targetElement = this.document.querySelector(step.target);
         } else {
-            targetElement = this.guiderManager.getTargetListMap()[step.key].target.nativeElement;
+            targetElement = this.guiderManager.getActiveTarget(step.key);
         }
 
         const hintContainer = this.createTipContainer();
@@ -246,7 +246,7 @@ export class ThyGuiderStepRef {
         if (step.target) {
             return !Array.isArray(step.target);
         } else {
-            return !!this.guiderManager.getTargetListMap()[step.key];
+            return !!this.guiderManager.getActiveTarget(step.key);
         }
     }
 }

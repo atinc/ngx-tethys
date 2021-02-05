@@ -33,6 +33,9 @@ export class ThyGuider {
             this.guiderManager,
             this.document
         );
+        this.guiderRef.closed().subscribe(() => {
+            this.guiderRefs.pop();
+        });
         this.guiderRefs.push(this.guiderRef);
         return this.guiderRef;
     }
@@ -62,7 +65,8 @@ export class ThyGuider {
         if (this.guiderRefs.length > 0) {
             const lasGuiderRef = this.guiderRefs[this.guiderRefs.length - 1];
             if (lasGuiderRef) {
-                lasGuiderRef.end();
+                lasGuiderRef.close();
+                this.guiderRefs.pop();
             }
         }
     }

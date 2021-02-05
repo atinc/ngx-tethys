@@ -79,7 +79,19 @@ export class ThyGuiderRef {
         this.to(this.currentStepIndex - 1);
     }
 
-    public to(index: number): void {
+    public active(activeIdentifier: number | string): void {
+        if (helpers.isNumber(activeIdentifier)) {
+            this.to(activeIdentifier as number);
+            return;
+        }
+        if (helpers.isString(activeIdentifier)) {
+            const index = this.steps.findIndex(step => step.key === (activeIdentifier as string));
+            this.to(index);
+            return;
+        }
+    }
+
+    private to(index: number): void {
         this.removeExistedStep();
 
         if (!helpers.isNumber(index) || index >= this.steps.length || index < 0 || Number.isNaN(index)) {
@@ -91,9 +103,7 @@ export class ThyGuiderRef {
             throw new Error('step not exist');
         }
         // update guiderManager
-        this.guiderManager.activeStepKey$.next(this.currentStep.key);
-        this.guiderManager.thyGuiderRef = this;
-
+        this.guiderManager.updateActive(this.currentStep.key, this);
         if (this.currentStep.route && this.currentStep.route !== this.router.url) {
             this.router.navigateByUrl(this.currentStep.route);
             return;

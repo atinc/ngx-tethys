@@ -9,23 +9,22 @@ export class ThyGuiderTargetDirective implements OnInit, OnDestroy, AfterViewIni
     constructor(private guiderManager: ThyGuiderManager, private el: ElementRef) {}
 
     ngOnInit() {
-        this.guiderManager.addStep(this.el, this.target);
+        this.guiderManager.addStepTarget(this.target, this.el.nativeElement);
     }
 
     ngAfterViewInit() {
-        const activeKey = this.guiderManager.activeStepKey;
-        if (activeKey === this.target) {
-            const guiderRef = this.guiderManager.thyGuiderRef;
+        const { key, guiderRef } = this.guiderManager.getActive();
+        if (key === this.target) {
             const index = guiderRef.steps.findIndex(step => step.key === this.target);
-            guiderRef.to(index);
+            guiderRef.active(index);
         }
     }
 
     ngOnDestroy() {
-        const guiderRef = this.guiderManager.thyGuiderRef;
+        const { guiderRef } = this.guiderManager.getActive();
         if (guiderRef) {
             guiderRef.close();
         }
-        this.guiderManager.removeStep(this.target);
+        this.guiderManager.removeStepTarget(this.target);
     }
 }

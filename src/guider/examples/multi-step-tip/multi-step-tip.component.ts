@@ -66,7 +66,7 @@ export class ThyGuiderMultiStepTipExampleComponent implements OnInit {
                 },
                 {
                     key: 'multi-steps-tip-end',
-                    target: '',
+                    target: [500, 500],
                     data: {
                         cover: '',
                         title: 'step 5/5',
