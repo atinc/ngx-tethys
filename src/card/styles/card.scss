@@ -11,7 +11,7 @@
         display: flex;
         flex: 0 0 auto;
         align-items: center;
-
+        // @deprecated remove in v11
         .card-header-icon {
             display: block;
             margin-right: 7px;
@@ -51,6 +51,7 @@
         padding: 10px 20px 20px 20px;
         flex: auto;
 
+        // @deprecated remove in v11
         &--alignment-title {
             padding-left: 30px;
             padding-right: 30px;
@@ -86,7 +87,7 @@
                 left: 20px;
                 right: 20px;
             }
-
+            // @deprecated remove in v11
             .card-header-icon {
                 display: none;
             }
@@ -112,7 +113,7 @@
         .thy-card-content {
             padding-left: 0;
             padding-right: 0;
-
+            // @deprecated remove in v11
             &--alignment-title {
                 padding-left: 10px;
                 padding-right: 10px;

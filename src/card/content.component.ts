@@ -11,11 +11,12 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 export class ThyCardContentComponent implements OnInit {
     @HostBinding('class.thy-card-content') thyCardContentClass = true;
 
-    @HostBinding('class.thy-card-content--alignment-title') alignmentClass = false;
-
+    /**
+     * @deprecated remove in v11
+     */
     @Input('thyAlign')
     set thyAlign(value: any) {
-        this.alignmentClass = value === 'title';
+        console.warn('this property will remove in v11');
     }
 
     @HostBinding('class.thy-card-content--scroll') scrollClassName = false;
