@@ -48,6 +48,134 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 
+<a name="9.0.22"></a>
+## [9.0.22](https://github.com/atinc/ngx-tethys/compare/9.0.21...9.0.22) (2021-02-03)
+
+
+### Bug Fixes
+
+* **grid:** center empty when data is [] ([#1117](https://github.com/atinc/ngx-tethys/issues/1117)) ([2604032](https://github.com/atinc/ngx-tethys/commit/2604032))
+* **guider:** add guider hover color, #POR-2829 ([#1120](https://github.com/atinc/ngx-tethys/issues/1120)) ([2f3f2c8](https://github.com/atinc/ngx-tethys/commit/2f3f2c8)), closes [#POR-2829](https://github.com/atinc/ngx-tethys/issues/POR-2829) [#POR-2829](https://github.com/atinc/ngx-tethys/issues/POR-2829)
+* **guider:** add guider top overflow hidden, remove guider-container shadow, #INFR-1602, #INFR-1602 ([#1123](https://github.com/atinc/ngx-tethys/issues/1123)) ([94f5994](https://github.com/atinc/ngx-tethys/commit/94f5994)), closes [#INFR-1602](https://github.com/atinc/ngx-tethys/issues/INFR-1602) [#INFR-1602](https://github.com/atinc/ngx-tethys/issues/INFR-1602)
+* **guider:** closing operation dont affect each other #POR-2832 ([feff20b](https://github.com/atinc/ngx-tethys/commit/feff20b)), closes [#POR-2832](https://github.com/atinc/ngx-tethys/issues/POR-2832)
+* **guider:** fix guider style ([67bc195](https://github.com/atinc/ngx-tethys/commit/67bc195))
+* **guider:** fix illegal start index #INFR-1556 ([#1127](https://github.com/atinc/ngx-tethys/issues/1127)) ([2e5ac94](https://github.com/atinc/ngx-tethys/commit/2e5ac94)), closes [#INFR-1556](https://github.com/atinc/ngx-tethys/issues/INFR-1556)
+* **guider:** remove description scroll ([ebf1f65](https://github.com/atinc/ngx-tethys/commit/ebf1f65))
+* **guider:** remove description scroll, #INFR-1577 ([37da4a1](https://github.com/atinc/ngx-tethys/commit/37da4a1)), closes [#INFR-1577](https://github.com/atinc/ngx-tethys/issues/INFR-1577)
+* **select:** fix single select ngModel change input no clear(#INFR-1561) ([#1118](https://github.com/atinc/ngx-tethys/issues/1118)) ([f70b92a](https://github.com/atinc/ngx-tethys/commit/f70b92a)), closes [#INFR-1561](https://github.com/atinc/ngx-tethys/issues/INFR-1561) [#INFR-1561](https://github.com/atinc/ngx-tethys/issues/INFR-1561) [#INFR-1561](https://github.com/atinc/ngx-tethys/issues/INFR-1561)
+* **uploader:** fix upload in safari support xls and xlsx type, #INFR-1564 ([#1121](https://github.com/atinc/ngx-tethys/issues/1121)) ([e52cbeb](https://github.com/atinc/ngx-tethys/commit/e52cbeb)), closes [#INFR-1564](https://github.com/atinc/ngx-tethys/issues/INFR-1564)
+
+
+### Features
+
+* **avatar:** use defaultName when img load error #INFR-447 ([#1126](https://github.com/atinc/ngx-tethys/issues/1126)) ([85d9152](https://github.com/atinc/ngx-tethys/commit/85d9152)), closes [#INFR-447](https://github.com/atinc/ngx-tethys/issues/INFR-447) [#INFR-447](https://github.com/atinc/ngx-tethys/issues/INFR-447) [#INFR-447](https://github.com/atinc/ngx-tethys/issues/INFR-447) [#INFR-447](https://github.com/atinc/ngx-tethys/issues/INFR-447)
+* **guider:** add stepInfo in guider tip component #INFR-1543 ([#1116](https://github.com/atinc/ngx-tethys/issues/1116)) ([bf3db6b](https://github.com/atinc/ngx-tethys/commit/bf3db6b)), closes [#INFR-1543](https://github.com/atinc/ngx-tethys/issues/INFR-1543)
+* **uploader:** #INFR-1554 Added json type ([bbe8157](https://github.com/atinc/ngx-tethys/commit/bbe8157)), closes [#INFR-1554](https://github.com/atinc/ngx-tethys/issues/INFR-1554)
+
+
+
+<a name="9.0.21"></a>
+## [9.0.21](https://github.com/atinc/ngx-tethys/compare/9.0.20...9.0.21) (2021-01-26)
+
+
+### Bug Fixes
+
+* **grid:** #INFR-1498 【Grid】数据为空时，空页面不居中 ([#1105](https://github.com/atinc/ngx-tethys/issues/1105)) ([deb9722](https://github.com/atinc/ngx-tethys/commit/deb9722)), closes [#INFR-1498](https://github.com/atinc/ngx-tethys/issues/INFR-1498)
+* **guider:** close previous overlay when start same guider #INFR-1543 ([513c2d1](https://github.com/atinc/ngx-tethys/commit/513c2d1)), closes [#INFR-1543](https://github.com/atinc/ngx-tethys/issues/INFR-1543)
+* **guider:** modify tip origin is target and auto offset #INFR-1543 ([66b5bda](https://github.com/atinc/ngx-tethys/commit/66b5bda)), closes [#INFR-1543](https://github.com/atinc/ngx-tethys/issues/INFR-1543)
+
+
+
+<a name="9.0.20"></a>
+## [9.0.20](https://github.com/atinc/ngx-tethys/compare/9.0.19...9.0.20) (2021-01-25)
+
+
+### Bug Fixes
+
+* **guider:** fix guider jump text color, #POR-2804 ([cc653ea](https://github.com/atinc/ngx-tethys/commit/cc653ea)), closes [#POR-2804](https://github.com/atinc/ngx-tethys/issues/POR-2804)
+* **guider:** fix guider tip finish margin left ([1c9d137](https://github.com/atinc/ngx-tethys/commit/1c9d137))
+* **guider:** use popoverRef to close privious tip #INFR-1543 ([909e824](https://github.com/atinc/ngx-tethys/commit/909e824)), closes [#INFR-1543](https://github.com/atinc/ngx-tethys/issues/INFR-1543)
+
+
+
+<a name="9.0.19"></a>
+## [9.0.19](https://github.com/atinc/ngx-tethys/compare/9.0.18...9.0.19) (2021-01-22)
+
+
+### Bug Fixes
+
+* **guider:** point default position is rightBottom #INFR-1543 ([42f97c7](https://github.com/atinc/ngx-tethys/commit/42f97c7)), closes [#INFR-1543](https://github.com/atinc/ngx-tethys/issues/INFR-1543)
+
+
+
+<a name="9.0.18"></a>
+## [9.0.18](https://github.com/atinc/ngx-tethys/compare/9.0.17...9.0.18) (2021-01-22)
+
+
+### Bug Fixes
+
+* **guider:** modify the priority of the position #INFR-1543 ([#1106](https://github.com/atinc/ngx-tethys/issues/1106)) ([7dcf26e](https://github.com/atinc/ngx-tethys/commit/7dcf26e)), closes [#INFR-1543](https://github.com/atinc/ngx-tethys/issues/INFR-1543)
+* **guider:** reset default point position and add pointOffset #INFR-1543 ([#1104](https://github.com/atinc/ngx-tethys/issues/1104)) ([5f24f47](https://github.com/atinc/ngx-tethys/commit/5f24f47)), closes [#INFR-1543](https://github.com/atinc/ngx-tethys/issues/INFR-1543)
+
+
+### Features
+
+* **input:** input-search support add size, #INFR-80 ([#1097](https://github.com/atinc/ngx-tethys/issues/1097)) ([840dda3](https://github.com/atinc/ngx-tethys/commit/840dda3)), closes [#INFR-80](https://github.com/atinc/ngx-tethys/issues/INFR-80)
+
+
+
+<a name="9.0.17"></a>
+## [9.0.17](https://github.com/atinc/ngx-tethys/compare/9.0.16...9.0.17) (2021-01-20)
+
+
+### Bug Fixes
+
+* **uploader:** 修复页面中可点击的元素可拖拽上传的问题(#INFR-1329) ([edd07c3](https://github.com/atinc/ngx-tethys/commit/edd07c3)), closes [#INFR-1329](https://github.com/atinc/ngx-tethys/issues/INFR-1329)
+
+
+### Features
+
+* **guider:** guider tip and guider point #INFR-1543 ([#1102](https://github.com/atinc/ngx-tethys/issues/1102)) ([68253d9](https://github.com/atinc/ngx-tethys/commit/68253d9)), closes [#INFR-1543](https://github.com/atinc/ngx-tethys/issues/INFR-1543)
+* **notify:** #INFR-1551 支持 detail 配置查看文案以及点击链接行为 ([#1094](https://github.com/atinc/ngx-tethys/issues/1094)) ([e44b75d](https://github.com/atinc/ngx-tethys/commit/e44b75d)), closes [#INFR-1551](https://github.com/atinc/ngx-tethys/issues/INFR-1551) [#INFR-1551](https://github.com/atinc/ngx-tethys/issues/INFR-1551)
+
+
+
+<a name="9.0.16"></a>
+## [9.0.16](https://github.com/atinc/ngx-tethys/compare/9.0.15...9.0.16) (2021-01-18)
+
+
+### Bug Fixes
+
+* **layout:** update thy-layout-content-main's display as flex #INFR-1546 ([3aa2820](https://github.com/atinc/ngx-tethys/commit/3aa2820)), closes [#INFR-1546](https://github.com/atinc/ngx-tethys/issues/INFR-1546)
+* **select:** add keydown stop propagation #INFR-1160 ([12c806e](https://github.com/atinc/ngx-tethys/commit/12c806e)), closes [#INFR-1160](https://github.com/atinc/ngx-tethys/issues/INFR-1160)
+* **select:** cancel stop propagation in select #INFR-1160 ([adb6394](https://github.com/atinc/ngx-tethys/commit/adb6394)), closes [#INFR-1160](https://github.com/atinc/ngx-tethys/issues/INFR-1160)
+* **timeline:** fix timeline data update #INFR-1536 ([e914b30](https://github.com/atinc/ngx-tethys/commit/e914b30)), closes [#INFR-1536](https://github.com/atinc/ngx-tethys/issues/INFR-1536)
+
+
+### Features
+
+* **tree-select:** tree select support search, #INFR-1542 ([a691bd3](https://github.com/atinc/ngx-tethys/commit/a691bd3)), closes [#INFR-1542](https://github.com/atinc/ngx-tethys/issues/INFR-1542)
+
+
+
+<a name="9.0.15"></a>
+## [9.0.15](https://github.com/atinc/ngx-tethys/compare/9.0.14...9.0.15) (2021-01-07)
+
+
+### Bug Fixes
+
+* **fullscreen:** add fullscreenchange and keydown events listeners in ThyFullscreenService #INFR-1403 ([#1067](https://github.com/atinc/ngx-tethys/issues/1067)) ([6452e28](https://github.com/atinc/ngx-tethys/commit/6452e28)), closes [#INFR-1403](https://github.com/atinc/ngx-tethys/issues/INFR-1403)
+* **mention:** should update ngModel value when select a suggestion #INFR-1531 ([#1084](https://github.com/atinc/ngx-tethys/issues/1084)) ([94c6c19](https://github.com/atinc/ngx-tethys/commit/94c6c19)), closes [#INFR-1531](https://github.com/atinc/ngx-tethys/issues/INFR-1531) [#INFR-1531](https://github.com/atinc/ngx-tethys/issues/INFR-1531)
+* **timeline:** remove log import, #INFR-1527 ([b63469b](https://github.com/atinc/ngx-tethys/commit/b63469b)), closes [#INFR-1527](https://github.com/atinc/ngx-tethys/issues/INFR-1527)
+
+
+### Features
+
+* **timeline:** timeline support horizontal #INFR-1527 ([#1081](https://github.com/atinc/ngx-tethys/issues/1081)) ([f6bcd12](https://github.com/atinc/ngx-tethys/commit/f6bcd12)), closes [#INFR-1527](https://github.com/atinc/ngx-tethys/issues/INFR-1527)
+* #INFR-1400 【DateRangePicker】选择时间组件中，设置 thyPlaceholder 仅支持 string[]，显示为thyPlaceholder[0] ~ thyPlaceholder[1]，需要支持string，placeholder 直接显示传入的 ([d55fc5c](https://github.com/atinc/ngx-tethys/commit/d55fc5c)), closes [#INFR-1400](https://github.com/atinc/ngx-tethys/issues/INFR-1400)
+
+
+
 <a name="9.0.14"></a>
 ## [9.0.14](https://github.com/atinc/ngx-tethys/compare/9.0.13...9.0.14) (2020-12-28)
 
@@ -60,7 +188,6 @@ All notable changes to this project will be documented in this file. See [standa
 ### Features
 
 * **copy:** support thyCopyTips #INFR-1496 ([#1077](https://github.com/atinc/ngx-tethys/issues/1077)) ([c659649](https://github.com/atinc/ngx-tethys/commit/c659649)), closes [#INFR-1496](https://github.com/atinc/ngx-tethys/issues/INFR-1496) [#INFR-1496](https://github.com/atinc/ngx-tethys/issues/INFR-1496)
-
 
 
 <a name="9.0.13"></a>
