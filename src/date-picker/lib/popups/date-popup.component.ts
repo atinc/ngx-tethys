@@ -185,8 +185,8 @@ export class DatePopupComponent implements OnChanges, OnInit {
             if ((!left && !right) || (left && right)) {
                 // If totally full or empty, clean up && re-assign left first
                 this.hoverValue = this.selectedValue = [value];
-                this.calendarChange.emit([value.clone()]);
                 this.selectedValue = [new TinyDate(startOfDay(this.selectedValue[0].nativeDate))];
+                this.calendarChange.emit([this.selectedValue[0].clone()]);
             } else if (left && !right) {
                 // If one of them is empty, assign the other one and sort, then set the final values
                 this.clearHoverValue(); // Clean up

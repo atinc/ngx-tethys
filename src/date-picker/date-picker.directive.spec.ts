@@ -105,7 +105,9 @@ describe('ThyPickerDirective', () => {
             const thyPopover = TestBed.get(ThyPopover);
             const spy = spyOn(thyPopover, 'open');
             spy.and.returnValue({
-                componentInstance: { valueChange: of(), calendarChange: of(), showTimePickerChange: of(), ngOnChanges: () => {} }
+                componentInstance: { valueChange: of(), calendarChange: of(), showTimePickerChange: of(), ngOnChanges: () => {} },
+                afterOpened: () => of(),
+                afterClosed: () => of()
             });
 
             fixture.detectChanges();
@@ -169,7 +171,9 @@ describe('ThyPickerDirective', () => {
             const thyPopover = TestBed.get(ThyPopover);
             const spy = spyOn(thyPopover, 'open');
             spy.and.returnValue({
-                componentInstance: { valueChange: of(), calendarChange: of(), showTimePickerChange: of(), ngOnChanges: () => {} }
+                componentInstance: { valueChange: of(), calendarChange: of(), showTimePickerChange: of(), ngOnChanges: () => {} },
+                afterOpened: () => of(),
+                afterClosed: () => of()
             });
             fixtureInstance.thyOffset = 0;
             fixtureInstance.thyPlacement = 'right';
@@ -276,7 +280,9 @@ describe('should get correct default thyPlacement and offset', () => {
             const thyPopover = TestBed.get(ThyPopover);
             const spy = spyOn(thyPopover, 'open');
             spy.and.returnValue({
-                componentInstance: { valueChange: of(), calendarChange: of(), showTimePickerChange: of(), ngOnChanges: () => {} }
+                componentInstance: { valueChange: of(), calendarChange: of(), showTimePickerChange: of(), ngOnChanges: () => {} },
+                afterOpened: () => of(),
+                afterClosed: () => of()
             });
 
             fixture.detectChanges();
