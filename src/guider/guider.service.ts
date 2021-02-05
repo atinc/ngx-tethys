@@ -34,7 +34,8 @@ export class ThyGuider {
             this.document
         );
         this.guiderRef.closed().subscribe(() => {
-            this.guiderRefs.pop();
+            const index = this.guiderRefs.findIndex(guiderRef => guiderRef === this.guiderRef);
+            this.guiderRefs.splice(index, 1);
         });
         this.guiderRefs.push(this.guiderRef);
         return this.guiderRef;

@@ -79,13 +79,13 @@ export class ThyGuiderRef {
         this.to(this.currentStepIndex - 1);
     }
 
-    public active(activeIdentifier: number | string): void {
-        if (helpers.isNumber(activeIdentifier)) {
-            this.to(activeIdentifier as number);
+    public active(indexOrKey: number | string): void {
+        if (helpers.isNumber(indexOrKey)) {
+            this.to(indexOrKey as number);
             return;
         }
-        if (helpers.isString(activeIdentifier)) {
-            const index = this.steps.findIndex(step => step.key === (activeIdentifier as string));
+        if (helpers.isString(indexOrKey)) {
+            const index = this.steps.findIndex(step => step.key === (indexOrKey as string));
             this.to(index);
             return;
         }
