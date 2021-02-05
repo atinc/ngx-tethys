@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyGuiderConfig, ThyGuiderRef, StepInfo, ThyGuiderTipComponent, ThyGuider } from 'ngx-tethys';
+import { ThyGuiderConfig, ThyGuiderRef, ThyGuiderStep, ThyGuider } from 'ngx-tethys';
 
 @Component({
     selector: 'thy-guider-multi-step-tip-example',
@@ -24,15 +24,14 @@ export class ThyGuiderMultiStepTipExampleComponent implements OnInit {
 
     private setDefaultGuiderOption(): ThyGuiderConfig {
         return {
-            component: ThyGuiderTipComponent,
             steps: [
                 {
                     key: 'multi-steps-tip-start',
                     target: '',
                     data: {
                         cover: '',
-                        title: 'withoutTarget',
-                        description: '欢迎使用 PingCode 开启高效研发，我们将通过简单的指引，帮助你快速熟悉产品，让你更便捷的开始工作'
+                        title: 'step 1/5',
+                        description: '本次新手引导总共五步，第一步：无目标'
                     }
                 },
                 {
@@ -40,8 +39,8 @@ export class ThyGuiderMultiStepTipExampleComponent implements OnInit {
                     target: '.step1',
                     data: {
                         cover: '',
-                        title: 'withoutTarget-Step1',
-                        description: '点击      ，查看团队当前版本及用量，掌握团队资产，还可以进入团队后台管理组织架构、成员、安全等内容'
+                        title: 'step 2/5',
+                        description: '新手引导五步中的第二步'
                     },
                     tipPlacement: 'right'
                 },
@@ -50,9 +49,8 @@ export class ThyGuiderMultiStepTipExampleComponent implements OnInit {
                     target: '.step2',
                     data: {
                         cover: '',
-                        title: 'withoutTarget-Step2',
-                        description:
-                            '点击      ，无论是个人工作台还是团队公共工作台，都显而易见，在这里，可以随时定义关注的工作内容，实时掌握工作动态'
+                        title: 'step 3/5',
+                        description: '新手引导五步中的第三步'
                     },
                     tipPlacement: 'topRight'
                 },
@@ -61,34 +59,26 @@ export class ThyGuiderMultiStepTipExampleComponent implements OnInit {
                     target: '.step3',
                     data: {
                         cover: '',
-                        title: 'withoutTarget-Step3',
-                        description: '点击      ，查看当前团队使用的产品，还可进入全部产品了解 PingCode 产品矩阵'
+                        title: 'step 4/5',
+                        description: '新手引导五步中的第四步'
                     },
                     tipPlacement: 'bottomRight'
                 },
                 {
                     key: 'multi-steps-tip-end',
-                    target: '',
+                    target: [500, 500],
                     data: {
                         cover: '',
-                        title: 'withoutTarget-Step-end',
-                        description: '开启 PingCode 高效研发之旅'
+                        title: 'step 5/5',
+                        description: '新手引导的最后一步'
                     }
                 }
-            ] as StepInfo[],
-            tipPosition: [100, 50]
+            ] as ThyGuiderStep[],
+            defaultPosition: [100, 50]
         };
     }
 
     public startTour() {
         this.guiderRef.start();
-    }
-
-    public showText() {
-        if (this.text) {
-            this.text = '';
-        } else {
-            this.text = 'show text';
-        }
     }
 }

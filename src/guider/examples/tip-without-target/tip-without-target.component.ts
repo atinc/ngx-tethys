@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyGuiderConfig, ThyGuiderRef, StepInfo, ThyGuider, ThyGuiderTipComponent } from 'ngx-tethys';
+import { ThyGuiderConfig, ThyGuiderRef, ThyGuiderStep, ThyGuider } from 'ngx-tethys';
 
 @Component({
     selector: 'thy-guider-tip-without-target-example',
@@ -23,7 +23,6 @@ export class ThyGuiderTipWithoutTargetExampleComponent implements OnInit {
 
     private setDefaultGuiderOption(): ThyGuiderConfig {
         return {
-            component: ThyGuiderTipComponent,
             steps: [
                 {
                     key: 'tip-without-target',
@@ -34,8 +33,8 @@ export class ThyGuiderTipWithoutTargetExampleComponent implements OnInit {
                         description: '没有具体 target 的提示框。'
                     }
                 }
-            ] as StepInfo[],
-            tipPosition: [100, 100]
+            ] as ThyGuiderStep[],
+            defaultPosition: [100, 100]
         };
     }
 

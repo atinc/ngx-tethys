@@ -1,42 +1,56 @@
-import { helpers } from 'ngx-tethys/util';
 import { ThyGuiderStepRef } from './guider-step-ref';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
-import { ThyGuiderConfig, StepInfo } from './guider.class';
+import { ThyGuiderConfig, ThyGuiderStep } from './guider.class';
+import { ThyPopover } from 'ngx-tethys/popover';
+import { ThyGuiderManager } from './guider-manager';
+import { Inject, RendererFactory2 } from '@angular/core';
+import { Router } from '@angular/router';
+import { DOCUMENT } from '@angular/common';
+import { helpers } from 'ngx-tethys/util';
 
 export class ThyGuiderRef {
-    private stepChange$: ReplaySubject<StepInfo> = new ReplaySubject<StepInfo>();
+    private stepChange$: ReplaySubject<ThyGuiderStep> = new ReplaySubject<ThyGuiderStep>();
 
     private guiderEnded$ = new Subject();
 
-    private guiderClosed$ = new Subject<StepInfo>();
+    private guiderClosed$ = new Subject<ThyGuiderStep>();
 
-    private targetClicked$ = new Subject<StepInfo>();
+    private targetClicked$ = new Subject<ThyGuiderStep>();
 
-    private steps: StepInfo[];
+    public steps: ThyGuiderStep[];
 
-    private currentStep: StepInfo;
+    private currentStep: ThyGuiderStep;
 
     private currentStepIndex: number;
 
-    public config: ThyGuiderConfig;
+    private stepsRef: ThyGuiderStepRef[];
 
-    constructor(config: ThyGuiderConfig, private stepsRef: ThyGuiderStepRef[]) {
+    constructor(
+        public config: ThyGuiderConfig,
+        private rendererFactory: RendererFactory2,
+        private popover: ThyPopover,
+        private router: Router,
+        private guiderManager: ThyGuiderManager,
+        @Inject(DOCUMENT) private document: any
+    ) {
         if (!config || !config?.steps || !helpers.isArray(config?.steps)) {
             throw new Error('’config.steps’ must be an array of length greater than 0');
         }
-        this.config = config;
+        this.stepsRef = config.steps.map((step, index) => {
+            return new ThyGuiderStepRef(step, index, this.rendererFactory, this.popover, this.guiderManager, this.document);
+        });
         this.steps = config.steps;
     }
 
-    public stepChange(): Observable<StepInfo> {
+    public stepChange(): Observable<ThyGuiderStep> {
         return this.stepChange$.asObservable();
     }
 
-    public guiderEnded() {
+    public ended() {
         return this.guiderEnded$;
     }
 
-    public guiderClosed() {
+    public closed() {
         return this.guiderClosed$;
     }
 
@@ -65,7 +79,19 @@ export class ThyGuiderRef {
         this.to(this.currentStepIndex - 1);
     }
 
-    public to(index: number): void {
+    public active(indexOrKey: number | string): void {
+        if (helpers.isNumber(indexOrKey)) {
+            this.to(indexOrKey as number);
+            return;
+        }
+        if (helpers.isString(indexOrKey)) {
+            const index = this.steps.findIndex(step => step.key === (indexOrKey as string));
+            this.to(index);
+            return;
+        }
+    }
+
+    private to(index: number): void {
         this.removeExistedStep();
 
         if (!helpers.isNumber(index) || index >= this.steps.length || index < 0 || Number.isNaN(index)) {
@@ -75,6 +101,12 @@ export class ThyGuiderRef {
         this.currentStepIndex = index;
         if (!this.currentStep) {
             throw new Error('step not exist');
+        }
+        // update guiderManager
+        this.guiderManager.updateActive(this.currentStep.key, this);
+        if (this.currentStep.route && this.currentStep.route !== this.router.url) {
+            this.router.navigateByUrl(this.currentStep.route);
+            return;
         }
         setTimeout(() => {
             this.drawStep();

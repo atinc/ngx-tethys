@@ -3,24 +3,32 @@
   提示内容的位置是基于目标区域的 <code>ThyPlacement</code> 值，具体的配置可以参照
   <a href="http://lib.worktile.live/ngx-tethys/components/popover/examples" target="_blank">popover doc</a>
 </p>
-<span class="custom-point-position-default display-inline-block border border-primary font-weight-normal">0.默认高亮点位置</span>
-<div class="my-3"></div>
-<span class="custom-point-position display-inline-block border border-primary font-weight-normal">1.通过 offset 自定义高亮点位置</span>
-<div class="my-3"></div>
-<span class="custom-point-position-config-offset display-inline-block border border-primary font-weight-normal"
-  >2.通过 <code>config.pointOffset</code> 自定义高亮点位置</span
->
-<div class="my-3"></div>
-<span class="custom-tip-position font-weight-normal border border-primary">3.通过设置 placement 改变 tip 位置</span>
-<div class="my-3"></div>
-<span class="custom-tip-position-2  font-weight-normal border border-primary">4.通过 offset 移动 tip 位置</span>
-<div class="my-3"></div>
-<span class="custom-tip-position-3  font-weight-normal border border-primary">5.通过 tipPosition 自定义 tip 位置</span>
-<div class="my-3"></div>
-<button thyButton="primary" (click)="startTour()">开始</button>
-<button thyButton="primary" (click)="startAtFirst()">开始(1)</button>
-<button thyButton="primary" (click)="startAtSecond()">开始(2)</button>
-<button thyButton="primary" (click)="startAtThird()">开始(3)</button>
-<button thyButton="primary" (click)="startAtFourth()">开始(4)</button>
-<button thyButton="primary" (click)="startAtFifth()">开始(5)</button>
-<button thyButton="primary" (click)="startAtIllegal()">开始(非法位置)</button>
+
+<form thyForm>
+  <div thyRow [thyGutter]="30">
+    <thy-form-group thyCol [thySpan]="12" thyLabelText="Placement">
+      <thy-select name="size" [(ngModel)]="hintPlacement" (ngModelChange)="updatePlacement($event)" name="placement">
+        <option value="top">top</option>
+        <option value="topLeft">topLeft</option>
+        <option value="topRight">topRight</option>
+        <option value="bottom">bottom</option>
+        <option value="bottomLeft">bottomLeft</option>
+        <option value="bottomRight">bottomRight</option>
+        <option value="left">left</option>
+        <option value="leftTop">leftTop</option>
+        <option value="leftBottom">leftBottom</option>
+        <option value="right">right</option>
+        <option value="rightTop">rightTop</option>
+        <option value="rightBottom">rightBottom</option>
+      </thy-select>
+    </thy-form-group>
+    <thy-form-group thyCol [thySpan]="12" thyLabelText="hintOffset">
+      <thy-slider [(ngModel)]="hintOffset" (thyAfterChange)="updateHintOffset($event)" name="hintOffset"></thy-slider>
+    </thy-form-group>
+    <thy-form-group thyCol [thySpan]="12" thyLabelText="pointOffset">
+      <thy-slider [(ngModel)]="pointXOffset" (thyAfterChange)="updatePointXOffset($event)" name="pointXOffset"></thy-slider>
+      <thy-slider [(ngModel)]="pointYOffset" (thyAfterChange)="updatePointYOffset($event)" name="pointYOffset"></thy-slider>
+    </thy-form-group>
+  </div>
+</form>
+<button class="custom-guider-position" thyButton="primary" (click)="startTour()">开始</button>

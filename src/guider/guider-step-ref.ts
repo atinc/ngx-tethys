@@ -1,11 +1,11 @@
-import { RendererFactory2 } from '@angular/core';
 import { Renderer2 } from '@angular/core';
+import { ThyGuiderRef } from './guider-ref';
+import { fromEvent, Subscription } from 'rxjs';
+import { RendererFactory2 } from '@angular/core';
+import { ThyGuiderManager } from './guider-manager';
+import { ThyGuiderStep } from './guider.class';
 import { ThyPopover, ThyPopoverConfig, ThyPopoverRef } from 'ngx-tethys/popover';
 import { helpers } from 'ngx-tethys/util';
-import { fromEvent, Subscription } from 'rxjs';
-import { ThyGuiderRef } from './guider-ref';
-import { ThyGuiderTipComponent } from './guider-tip/guider-tip.component';
-import { GuiderTargetPosition, StepInfo, defaultTipPosition, GuiderOffset } from './guider.class';
 
 const pointContainerSize = 28;
 export class ThyGuiderStepRef {
@@ -17,17 +17,20 @@ export class ThyGuiderStepRef {
 
     private targetElementObserver: Subscription;
 
+    private lastTipContainer: any;
+
     private guiderRef: ThyGuiderRef;
 
     private lastPopoverRef: ThyPopoverRef<any>;
 
     constructor(
-        private step: StepInfo,
+        public step: ThyGuiderStep,
+        public stepIndex: number,
         private readonly rendererFactory: RendererFactory2,
         private popover: ThyPopover,
+        private guiderManager: ThyGuiderManager,
         private document: any
     ) {
-        this.step = step;
         this.renderer = this.rendererFactory.createRenderer(null, null);
     }
 
@@ -41,21 +44,32 @@ export class ThyGuiderStepRef {
         this.removeTip();
     }
 
-    private createPoint(step: StepInfo, guiderRef: ThyGuiderRef) {
-        if (!step.target) {
+    private getTargetElement(step: ThyGuiderStep) {
+        let targetElement: HTMLElement;
+        if (step.target) {
+            targetElement = this.document.querySelector(step.target);
+        } else {
+            targetElement = this.guiderManager.getActiveTarget(step.key);
+        }
+        return targetElement;
+    }
+
+    private createPoint(step: ThyGuiderStep, guiderRef: ThyGuiderRef) {
+        // target 为空并且 guiderManager 中的 targetMap 也没有此step 的 key，或者 target 直接为 坐标数组
+        // 则执行无 target 的显示
+        if (!this.isTipHasTarget(step)) {
             this.createTip(this.step);
             return;
         }
 
-        const targetElement = this.document.querySelector(step.target);
-
-        this.targetElementObserver = fromEvent(targetElement, 'click').subscribe(() => {
-            guiderRef.targetClicked().next(step);
-        });
+        const targetElement = this.getTargetElement(step);
 
         if (helpers.isNull(targetElement)) {
             throw new Error(`there is no target called ${step.target}`);
         }
+        this.targetElementObserver = fromEvent(targetElement, 'click').subscribe(() => {
+            guiderRef.targetClicked().next(step);
+        });
         const positionValue = targetElement?.style?.position;
         if (!positionValue || positionValue === 'static') {
             this.renderer.setStyle(targetElement, 'position', 'relative');
@@ -63,27 +77,24 @@ export class ThyGuiderStepRef {
         this.setStyleForPointContainer(step, targetElement);
     }
 
-    private setStyleForPointContainer(step: StepInfo, targetElement: Element) {
+    private setStyleForPointContainer(step: ThyGuiderStep, targetElement: Element) {
         const pointPosition = this.getPointPosition(step, targetElement);
 
         const pointContainer = this.setPointPosition(pointPosition);
         this.renderPoint(targetElement, pointContainer);
     }
 
-    private getPointPosition(step: StepInfo, targetElement: Element): GuiderTargetPosition {
+    private getPointPosition(step: ThyGuiderStep, targetElement: Element): [number, number] {
         const targetElementClientRect = targetElement.getBoundingClientRect();
         const { width: targetElementWidth, height: targetElementHeight } = targetElementClientRect;
 
-        // 如果 element 超出 document 的高度/宽度，需要进行滚动展示
-        // 先滚动再计算
-        // 如果显示过程中进行滚动，那么需要监测滚动事件，再做进一步处理
         const pointOffset = step.pointOffset;
-        // 只通过 pointOffset 控制point 的位置，默认在 target 的右下角，
+        // 只通过 pointOffset 控制 point 的位置，默认在 target 的右下角，
         // offset 的基点也为默认位置
         return [targetElementWidth + pointOffset[0], targetElementHeight + pointOffset[1]];
     }
 
-    private setPointPosition(pointPosition: GuiderTargetPosition) {
+    private setPointPosition(pointPosition: [number, number]) {
         const currentPointContainer = this.renderer.createElement('div');
 
         this.renderer.addClass(currentPointContainer, 'thy-guider-highlight-container');
@@ -107,24 +118,19 @@ export class ThyGuiderStepRef {
             this.renderer.removeChild(this.document.body, this.lastPointerContainer);
             this.lastPointerContainer = undefined;
         }
-        if (this.lastTargetElement && this.targetElementObserver) {
-            this.targetElementObserver.unsubscribe();
-            this.lastTargetElement = undefined;
-            this.targetElementObserver = undefined;
-        }
     }
 
-    private createTip(step: StepInfo) {
-        if (!step.target) {
-            this.tipWithoutTarget(step);
-        } else {
+    private createTip(step: ThyGuiderStep) {
+        if (this.isTipHasTarget(step)) {
             this.tipWithTarget(step);
+        } else {
+            this.tipWithoutTarget(step);
         }
     }
 
-    private tipWithoutTarget(step: StepInfo) {
-        const position = this.getTipPosition();
-        this.lastPopoverRef = this.popover.open(this.guiderRef.config.component || ThyGuiderTipComponent, {
+    private tipWithoutTarget(step: ThyGuiderStep) {
+        const position = this.getTipPosition(step);
+        this.lastPopoverRef = this.popover.open(this.guiderRef.config.hintComponent, {
             origin: null,
             originPosition: {
                 x: position[0],
@@ -136,75 +142,111 @@ export class ThyGuiderStepRef {
             manualClosure: true,
             initialState: {
                 guiderRef: this.guiderRef,
-                step: step
+                stepRef: this
             }
         });
     }
 
-    private getTipPosition(): GuiderTargetPosition {
-        if (!this.guiderRef.config.tipPosition) {
-            return defaultTipPosition;
+    private getTipPosition(step: ThyGuiderStep): [number, number] {
+        if (Array.isArray(step.target)) {
+            return step.target;
         }
-        return this.guiderRef.config.tipPosition;
+        return this.guiderRef.config.defaultPosition;
     }
 
-    private tipWithTarget(step: StepInfo) {
-        const targetElement = this.document.querySelector(step.target);
+    private createTipContainer() {
+        const tipContainer = this.renderer.createElement('div');
+        this.renderer.addClass(tipContainer, 'thy-guider-content-container');
+        this.renderer.setStyle(tipContainer, 'position', 'absolute');
+        this.renderer.setStyle(tipContainer, 'top', '0px');
+        this.renderer.setStyle(tipContainer, 'right', '0px');
+        this.renderer.setStyle(tipContainer, 'bottom', '0px');
+        this.renderer.setStyle(tipContainer, 'left', '0px');
+        return tipContainer;
+    }
+
+    private tipWithTarget(step: ThyGuiderStep) {
+        let targetElement: Element;
+
+        if (step.target) {
+            targetElement = this.document.querySelector(step.target);
+        } else {
+            targetElement = this.guiderManager.getActiveTarget(step.key);
+        }
+
+        const hintContainer = this.createTipContainer();
+        this.renderer.appendChild(targetElement, hintContainer);
+        this.lastTipContainer = hintContainer;
 
         const popoverConfig = {
-            origin: targetElement,
-            placement: step.tipPlacement,
+            origin: hintContainer,
+            placement: step.hintPlacement,
             backdropClosable: false,
             hasBackdrop: false,
             manualClosure: true,
             initialState: {
                 guiderRef: this.guiderRef,
-                step: step
+                stepRef: this
             }
         } as ThyPopoverConfig<any>;
 
         const pointPosition = this.getPointPosition(step, targetElement);
-        const tipOffset = this.getTipOffset(step, pointPosition, targetElement);
-        if (tipOffset) {
-            popoverConfig.offset = tipOffset;
+        const hintOffset = this.getTipOffset(step, pointPosition, targetElement);
+        if (hintOffset) {
+            popoverConfig.offset = hintOffset;
         }
-        this.lastPopoverRef = this.popover.open(this.guiderRef.config.component || ThyGuiderTipComponent, popoverConfig);
+        this.lastPopoverRef = this.popover.open(this.guiderRef.config.hintComponent, popoverConfig);
     }
 
-    private getTipOffset(step: StepInfo, pointPosition: GuiderOffset, targetElement: Element): number {
-        const tipPlacement = step.tipPlacement;
+    private getTipOffset(step: ThyGuiderStep, pointPosition: [number, number], targetElement: Element): number {
+        const hintPlacement = step.hintPlacement;
         const targetElementClientRect = targetElement.getBoundingClientRect();
         const { width: targetElementWidth, height: targetElementHeight } = targetElementClientRect;
-        let tipOffset: number = step.tipOffset || 0;
+        let hintOffset: number = step.hintOffset || 0;
         const pointXAxisOffset = pointPosition[0];
         const pointYAxisOffset = pointPosition[1];
 
-        if (tipPlacement.startsWith('top')) {
+        if (hintPlacement.startsWith('top')) {
             if (pointYAxisOffset < pointContainerSize) {
-                tipOffset = tipOffset + Math.abs(pointYAxisOffset) + pointContainerSize;
+                hintOffset = hintOffset + Math.abs(pointYAxisOffset) + pointContainerSize;
             }
-        } else if (tipPlacement.startsWith('bottom')) {
+        } else if (hintPlacement.startsWith('bottom')) {
             if (pointYAxisOffset > targetElementHeight) {
-                tipOffset = tipOffset + (pointYAxisOffset - targetElementHeight) + 10; // 10 为空隙量
+                hintOffset = hintOffset + (pointYAxisOffset - targetElementHeight) + 10; // 10 为空隙量
             }
-        } else if (tipPlacement.startsWith('left')) {
+        } else if (hintPlacement.startsWith('left')) {
             if (pointXAxisOffset < 0) {
-                tipOffset = tipOffset + Math.abs(pointXAxisOffset) + pointContainerSize;
+                hintOffset = hintOffset + Math.abs(pointXAxisOffset) + pointContainerSize;
             }
-        } else if (tipPlacement.startsWith('right')) {
+        } else if (hintPlacement.startsWith('right')) {
             if (pointXAxisOffset > targetElementWidth) {
-                tipOffset = tipOffset + (pointXAxisOffset - targetElementWidth) + 10; // 10 为空隙量
+                hintOffset = hintOffset + (pointXAxisOffset - targetElementWidth) + 10; // 10 为空隙量
             }
-        } else {
-            // do nothings
         }
-        return tipOffset;
+        return hintOffset;
     }
 
     private removeTip() {
         if (this.lastPopoverRef) {
             this.lastPopoverRef.close();
             this.lastPopoverRef = undefined;
+        }
+        if (this.lastTipContainer) {
+            this.renderer.removeChild(this.document.body, this.lastTipContainer);
+            this.lastTipContainer = undefined;
+        }
+        if (this.lastTargetElement && this.targetElementObserver) {
+            this.targetElementObserver.unsubscribe();
+            this.lastTargetElement = undefined;
+            this.targetElementObserver = undefined;
+        }
+    }
+
+    private isTipHasTarget(step: ThyGuiderStep): boolean {
+        if (step.target) {
+            return !Array.isArray(step.target);
+        } else {
+            return !!this.guiderManager.getActiveTarget(step.key);
         }
     }
 }
