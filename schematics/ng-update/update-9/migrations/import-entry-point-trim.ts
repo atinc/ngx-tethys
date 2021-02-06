@@ -1,6 +1,6 @@
 import ts from 'typescript';
 import { ContentChange, ReplaceContentChange } from '../../../types';
-import { MigrationBase } from './base';
+import { MigrationBase } from '../../../class';
 
 export class ImportEntryPointTrimMigration extends MigrationBase {
     run() {

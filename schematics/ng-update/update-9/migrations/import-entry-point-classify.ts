@@ -1,7 +1,7 @@
 import ts from 'typescript';
 import { ContentChange, RemoveContentChange, ReplaceContentChange, UpdateContentChange } from '../../../types';
 
-import { MigrationBase } from './base';
+import { MigrationBase } from '../../../class';
 
 const NAME_PACKAGE_RELATION = {
     ThyActionMenuItemType: 'action-menu',
