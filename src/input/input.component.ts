@@ -57,6 +57,8 @@ export class ThyInputComponent implements ControlValueAccessor, OnInit {
         this.autocomplete = value;
     }
 
+    @Input() disabled = false;
+
     @Output() focus: EventEmitter<Event> = new EventEmitter<Event>();
 
     @Output() blur: EventEmitter<Event> = new EventEmitter<Event>();
@@ -71,8 +73,6 @@ export class ThyInputComponent implements ControlValueAccessor, OnInit {
 
     public value: string;
 
-    public disabled = false;
-
     public autocomplete: boolean;
 
     public showLabel: boolean;
@@ -86,6 +86,8 @@ export class ThyInputComponent implements ControlValueAccessor, OnInit {
     @HostBinding('class.form-control') _isFormControl = true;
 
     @HostBinding('class.form-control-active') _isFocus = false;
+
+    @HostBinding('class.thy-input-disabled') _isDisabled = false;
 
     constructor(private ngZone: NgZone) {}
 
@@ -111,6 +113,7 @@ export class ThyInputComponent implements ControlValueAccessor, OnInit {
 
     setDisabledState?(isDisabled: boolean): void {
         this.disabled = isDisabled;
+        this._isDisabled = isDisabled;
     }
 
     onModelChange() {

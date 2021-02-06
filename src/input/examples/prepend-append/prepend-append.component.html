@@ -23,3 +23,20 @@
     </a>
   </thy-action-menu>
 </ng-template>
+
+<br />
+<h5>不可编辑</h5>
+<thy-input [(ngModel)]="value" [thyAutofocus]="true" [disabled]="true">
+  <ng-template #prepend>
+    <div [thyActionMenuToggle]="menuTemplate">中国+86</div>
+  </ng-template>
+  <ng-template #append>
+    <a><span thyLabel="default">获取验证码</span></a>
+  </ng-template>
+</thy-input>
+
+<br />
+<thy-input-group thyPrependText="前置" thyAppendText="$">
+  <input [disabled]="true" thyInput placeholder="请输入元素" />
+</thy-input-group>
+<br />

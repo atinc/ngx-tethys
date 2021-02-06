@@ -66,6 +66,12 @@ module.exports = [
                 default: 'false'
             },
             {
+                name: 'disabled',
+                description: 'input不可编辑',
+                type: 'Boolean',
+                default: 'false'
+            },
+            {
                 name: 'thyAutocomplete',
                 description: '自动表单',
                 type: 'Boolean',

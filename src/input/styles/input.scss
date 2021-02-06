@@ -52,6 +52,25 @@
             }
         }
     }
+    &.thy-input-disabled {
+        background-color: #f3f3f3;
+        color: $gray-600;
+        .input-append,
+        .input-prepend {
+            a,
+            span,
+            div {
+                color: $gray-600;
+            }
+            .input-password-icon {
+                color: $gray-300;
+            }
+        }
+        &:hover,
+        &:focus {
+            border: none;
+        }
+    }
 }
 
 .input-search-container {

@@ -22,6 +22,7 @@ import { CommonModule } from '@angular/common';
             placeholder="请输入您的姓名"
             (focus)="onFocus()"
             (blur)="onBlur()"
+            [disabled]="disabled"
         ></thy-input>
         <thy-input class="input2">
             <ng-template #prepend>前置模版</ng-template>
@@ -36,7 +37,7 @@ class TestBedComponent {
     readonly;
     checkFocus = false;
     checkBlur = false;
-
+    disabled = false;
     onFocus() {
         this.checkFocus = true;
     }
@@ -146,5 +147,11 @@ describe('input component', () => {
         basicTestComponent.readonly = true;
         fixture.detectChanges();
         expect(debugElement.nativeElement.readOnly).toBe(true);
+    });
+
+    it('disabled', () => {
+        basicTestComponent.disabled = true;
+        fixture.detectChanges();
+        expect(debugContainerElement.componentInstance.disabled).toBe(true);
     });
 });
