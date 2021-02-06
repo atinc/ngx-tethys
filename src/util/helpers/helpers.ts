@@ -27,12 +27,12 @@ export function isEmpty(value: any): boolean {
     return !(isArray(value) && value.length > 0);
 }
 
-export function isString(value: any): value is string {
-    return value && baseGetTag(value) === '[object String]';
+export function isString(value?: any): value is string {
+    return typeof value == 'string' || (!isArray(value) && isObjectLike(value) && baseGetTag(value) === '[object String]');
 }
 
 function isObjectLike(value: any): value is object {
-    return typeof value === 'object' && value !== null;
+    return value !== null && typeof value === 'object';
 }
 
 function baseGetTag(value: any) {
