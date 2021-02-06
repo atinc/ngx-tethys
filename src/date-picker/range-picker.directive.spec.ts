@@ -54,13 +54,12 @@ describe('ThyRangePickerDirective', () => {
         it('should support thyOpenChange', fakeAsync(() => {
             const thyOpenChange = spyOn(fixtureInstance, 'thyOpenChange');
             fixture.detectChanges();
-            openPickerByClickTrigger();
+            dispatchClickEvent(getPickerTriggerWrapper());
+
             expect(thyOpenChange).toHaveBeenCalledWith(true);
 
-            dispatchMouseEvent(queryFromOverlay('.cdk-overlay-backdrop'), 'click');
-            fixture.detectChanges();
-            tick(500);
-            fixture.detectChanges();
+            dispatchClickEvent(queryFromOverlay('.cdk-overlay-backdrop'));
+
             expect(thyOpenChange).toHaveBeenCalledWith(false);
             expect(thyOpenChange).toHaveBeenCalledTimes(2);
         }));
@@ -68,22 +67,20 @@ describe('ThyRangePickerDirective', () => {
         it('should support calendarChange', fakeAsync(() => {
             const thyOnCalendarChange = spyOn(fixtureInstance, 'thyOnCalendarChange');
             fixture.detectChanges();
-            openPickerByClickTrigger();
+            dispatchClickEvent(getPickerTriggerWrapper());
+
             const left = getFirstCell('left');
             const leftText = left.textContent.trim();
-            dispatchMouseEvent(left, 'click');
-            fixture.detectChanges();
-            tick(500);
-            fixture.detectChanges();
+            dispatchClickEvent(left);
+
             expect(thyOnCalendarChange).toHaveBeenCalled();
             let result = (thyOnCalendarChange.calls.allArgs()[0] as Date[][])[0];
             expect((result[0] as Date).getDate()).toBe(+leftText);
+
             const right = getFirstCell('right');
             const rightText = right.textContent.trim();
-            dispatchMouseEvent(right, 'click');
-            fixture.detectChanges();
-            tick(500);
-            fixture.detectChanges();
+            dispatchClickEvent(right);
+
             expect(thyOnCalendarChange).toHaveBeenCalled();
             result = (thyOnCalendarChange.calls.allArgs()[1] as Date[][])[0];
             expect((result[0] as Date).getDate()).toBe(+leftText);
@@ -93,21 +90,18 @@ describe('ThyRangePickerDirective', () => {
         it('should first date is startOfDay,last date is endOfDay', fakeAsync(() => {
             const thyOnCalendarChange = spyOn(fixtureInstance, 'thyOnCalendarChange');
             fixture.detectChanges();
-            openPickerByClickTrigger();
+            dispatchClickEvent(getPickerTriggerWrapper());
+
             const left = getFirstCell('left');
-            dispatchMouseEvent(left, 'click');
-            fixture.detectChanges();
-            tick(500);
-            fixture.detectChanges();
+            dispatchClickEvent(left);
+
             expect(thyOnCalendarChange).toHaveBeenCalled();
             let result = (thyOnCalendarChange.calls.allArgs()[0] as Date[][])[0];
             expect(result[0]).toEqual(startOfDay(result[0]));
 
             const right = getFirstCell('right');
-            dispatchMouseEvent(right, 'click');
-            fixture.detectChanges();
-            tick(500);
-            fixture.detectChanges();
+            dispatchClickEvent(right);
+
             expect(thyOnCalendarChange).toHaveBeenCalled();
             result = (thyOnCalendarChange.calls.allArgs()[1] as Date[][])[0];
             expect(result[1]).toEqual(endOfDay(result[1]));
@@ -125,8 +119,8 @@ describe('ThyRangePickerDirective', () => {
             return debugElement.query(By.directive(ThyPropertyOperationComponent)).nativeElement;
         }
 
-        function openPickerByClickTrigger(): void {
-            dispatchMouseEvent(getPickerTriggerWrapper(), 'click');
+        function dispatchClickEvent(selector: HTMLElement | HTMLInputElement): void {
+            dispatchMouseEvent(selector, 'click');
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
