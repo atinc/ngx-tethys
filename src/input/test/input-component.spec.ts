@@ -148,10 +148,4 @@ describe('input component', () => {
         fixture.detectChanges();
         expect(debugElement.nativeElement.readOnly).toBe(true);
     });
-
-    it('disabled', () => {
-        basicTestComponent.disabled = true;
-        fixture.detectChanges();
-        expect(debugContainerElement.componentInstance.disabled).toBe(true);
-    });
 });

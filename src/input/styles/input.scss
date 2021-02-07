@@ -52,19 +52,12 @@
             }
         }
     }
-    &.thy-input-disabled {
-        background-color: #f3f3f3;
+    &[disabled] {
+        background-color: $input-disabled-bg;
         color: $gray-600;
         .input-append,
         .input-prepend {
-            a,
-            span,
-            div {
-                color: $gray-600;
-            }
-            .input-password-icon {
-                color: $gray-300;
-            }
+            background-color: $input-disabled-bg;
         }
         &:hover,
         &:focus {
