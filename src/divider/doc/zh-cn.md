@@ -6,6 +6,3 @@ order: 1
 ---
 
 <example name="thy-divider-basic-example" />
-
-
-
