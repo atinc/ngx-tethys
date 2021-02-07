@@ -58,6 +58,7 @@
         .input-append,
         .input-prepend {
             background-color: $input-disabled-bg;
+            pointer-events: none;
         }
         &:hover,
         &:focus {
