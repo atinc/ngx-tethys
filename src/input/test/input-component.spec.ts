@@ -36,7 +36,6 @@ class TestBedComponent {
     readonly;
     checkFocus = false;
     checkBlur = false;
-
     onFocus() {
         this.checkFocus = true;
     }
