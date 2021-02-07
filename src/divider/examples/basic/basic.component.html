@@ -14,20 +14,11 @@
         <thy-option thyValue="right" thyLabelText="居右"></thy-option>
       </thy-custom-select>
     </thy-form-group>
-
-    <thy-form-group thyLabelText="thyHeavy">
-      <thy-switch thySize="lg" [(ngModel)]="thyHeavyMode" name="thyHeavyMode"></thy-switch>
-    </thy-form-group>
   </form>
 
-  <thy-divider [thyStyle]="thyStyleMode" [thyTextDirection]="thyTextDirectionMode" [thyHeavy]="thyHeavyMode"></thy-divider>
+  <thy-divider [thyStyle]="thyStyleMode" [thyTextDirection]="thyTextDirectionMode"></thy-divider>
 
-  <thy-divider
-    [thyStyle]="thyStyleMode"
-    [thyTextDirection]="thyTextDirectionMode"
-    [thyHeavy]="thyHeavyMode"
-    thyText="With Text"
-  ></thy-divider>
+  <thy-divider [thyStyle]="thyStyleMode" [thyTextDirection]="thyTextDirectionMode" thyText="With Text"></thy-divider>
 
   Text
   <thy-divider [thyVertical]="true"></thy-divider>

@@ -1,4 +1,4 @@
-import { TestBed, ComponentFixture, async } from '@angular/core/testing';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { Component } from '@angular/core';
 
 import { ThyDividerModule } from '../divider.module';
@@ -6,42 +6,32 @@ import { ThyDividerStyle, ThyDividerTextDirection } from '../divider.component';
 
 @Component({
     template: `
-        <ng-container [ngSwitch]="useSuite">
-            <!-- Suite 1 for test default divider -->
-            <thy-divider *ngSwitchCase="1"></thy-divider>
-
-            <!-- Suite 2 for test thyVertical -->
-            <thy-divider *ngSwitchCase="2" [thyVertical]="true"></thy-divider>
-
-            <!-- Suite 3 for test thyStyle -->
-            <thy-divider *ngSwitchCase="3" [thyStyle]="'dashed'"></thy-divider>
-
-            <!-- Suite 4 for test thyText as text -->
-            <thy-divider *ngSwitchCase="4" thyText="With Text"></thy-divider>
-
-            <!-- Suite 5 for test thyText as template -->
-            <thy-divider *ngSwitchCase="5" [thyText]="dividerTemplateSelect"></thy-divider>
+        <ng-container>
+            <thy-divider
+                [thyVertical]="verticalMode"
+                [thyStyle]="styleMode"
+                [thyTextDirection]="directionMode"
+                [thyText]="textContent || dividerTemplateSelect"
+            ></thy-divider>
             <ng-template #dividerTemplateSelect>
-                <thy-custom-select [(ngModel)]="dividerSelectModel" thyPlaceHolder="请选择" style="width: 80px;">
+                <thy-custom-select [(ngModel)]="dividerSelectModel" thyPlaceHolder="请选择">
                     <thy-option thyValue="or|or" thyLabelText="Or"></thy-option>
                     <thy-option thyValue="and&and" thyLabelText="And"></thy-option>
                 </thy-custom-select>
             </ng-template>
-
-            <!-- Suite 6 for test thyTextDirection -->
-            <thy-divider *ngSwitchCase="6" thyText="With Text" [thyTextDirection]="directionMode"></thy-divider>
-
-            <!-- Suite 7 for test thyHeavy when thyText as text -->
-            <thy-divider *ngSwitchCase="7" thyText="With Text" [thyHeavy]="heavyMode"></thy-divider>
         </ng-container>
     `
 })
 class ThyTestDividerComponent {
-    useSuite: 1 | 2 | 3 | 4 | 5 | 6 | 7;
-    dividerSelectModel: ThyDividerStyle = 'solid';
+    verticalMode = false;
 
-    heavyMode = true;
+    styleMode: ThyDividerStyle = 'solid';
+
     directionMode: ThyDividerTextDirection = 'center';
+
+    textContent = 'with text';
+
+    dividerSelectModel = 'or|or';
 
     constructor() {}
 }
@@ -55,7 +45,7 @@ describe('ThyDividerComponent', () => {
             imports: [ThyDividerModule],
             declarations: [ThyTestDividerComponent]
         });
-        TestBed.compileComponents();
+        TestBed.compileComponents().then(r => r);
     });
 
     beforeEach(() => {
@@ -64,23 +54,17 @@ describe('ThyDividerComponent', () => {
     });
 
     describe('default thy-divider', () => {
-        beforeEach(async(() => {
-            componentInstance.useSuite = 1;
-            fixture.detectChanges();
-        }));
-
         it('should show the thy-divider default', () => {
+            fixture.detectChanges();
+
             const dividerContainer = fixture.nativeElement.querySelector('.thy-divider.thy-divider-horizontal.thy-divider-solid');
             expect(dividerContainer).toBeTruthy();
         });
     });
 
     describe('test thyVertical as true', () => {
-        beforeEach(async(() => {
-            componentInstance.useSuite = 2;
-        }));
-
         it('should exist .thy-divider.thy-divider-vertical', () => {
+            componentInstance.verticalMode = true;
             fixture.detectChanges();
 
             const dividerContainer = fixture.nativeElement.querySelector('.thy-divider.thy-divider-vertical');
@@ -89,11 +73,8 @@ describe('ThyDividerComponent', () => {
     });
 
     describe("test thyStyle as 'dashed'", () => {
-        beforeEach(async(() => {
-            componentInstance.useSuite = 3;
-        }));
-
         it('should exist .thy-divider.thy-divider-dashed', () => {
+            componentInstance.styleMode = 'dashed';
             fixture.detectChanges();
 
             const dividerContainer = fixture.nativeElement.querySelector('.thy-divider.thy-divider-dashed');
@@ -102,10 +83,6 @@ describe('ThyDividerComponent', () => {
     });
 
     describe('test thyText as text', () => {
-        beforeEach(async(() => {
-            componentInstance.useSuite = 4;
-        }));
-
         it('should exist .thy-divider-inner-text', () => {
             fixture.detectChanges();
 
@@ -115,11 +92,8 @@ describe('ThyDividerComponent', () => {
     });
 
     describe('test thyText as template', () => {
-        beforeEach(async(() => {
-            componentInstance.useSuite = 5;
-        }));
-
         it('should exist .thy-divider-inner-template', () => {
+            componentInstance.textContent = null;
             fixture.detectChanges();
 
             const innerTemplate = fixture.nativeElement.querySelector('.thy-divider .thy-divider-inner-template');
@@ -128,10 +102,6 @@ describe('ThyDividerComponent', () => {
     });
 
     describe('test thyTextDirection change', () => {
-        beforeEach(async(() => {
-            componentInstance.useSuite = 6;
-        }));
-
         it('should show direction class change', () => {
             fixture.detectChanges();
 
@@ -147,19 +117,6 @@ describe('ThyDividerComponent', () => {
             fixture.detectChanges();
             const rightContent = fixture.nativeElement.querySelector('.thy-divider.thy-divider-with-content-right');
             expect(rightContent).toBeTruthy();
-        });
-    });
-
-    describe('test thyHeavy as true', () => {
-        beforeEach(async(() => {
-            componentInstance.useSuite = 7;
-        }));
-
-        it('should exist .thy-divider-heavy', () => {
-            fixture.detectChanges();
-
-            const heavyContainer = fixture.nativeElement.querySelector('.thy-divider.thy-divider-heavy');
-            expect(heavyContainer).toBeTruthy();
         });
     });
 });

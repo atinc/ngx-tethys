@@ -27,12 +27,6 @@ module.exports = [
                 description: "中间内容位置 'left' | 'right' | 'center'",
                 type: 'string',
                 default: "'center'"
-            },
-            {
-                name: 'thyHeavy',
-                description: '是否显示为加粗样式',
-                type: 'boolean',
-                default: 'false'
             }
         ]
     }

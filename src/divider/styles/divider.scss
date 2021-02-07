@@ -1,20 +1,12 @@
-$divider-orientation-margin: 5%;
-$divider-text-padding: 1em;
-$divider-color: rgba(0, 0, 0, 6%);
-$divider-font-variant: tabular-nums;
-$divider-font-feature-settings: 'tnum';
-
 .thy-divider {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     color: $text-color;
     font-size: $font-size-base;
-    font-variant: $divider-font-variant;
     line-height: $line-height-base;
     list-style: none;
-    font-feature-settings: $divider-font-feature-settings;
-    border-top: $border-width-base solid $divider-color;
+    border-top: $divider-width solid $divider-color;
     &.thy-divider-vertical {
         position: relative;
         top: -0.06em;
@@ -23,9 +15,9 @@ $divider-font-feature-settings: 'tnum';
         margin: 0 8px;
         vertical-align: middle;
         border-top: 0;
-        border-left: $border-width-base solid $divider-color;
+        border-left: $divider-width solid $divider-color;
         &.thy-divider-dashed {
-            border-width: 0 0 0 $border-width-base;
+            border-width: 0 0 0 $divider-width;
         }
     }
     &.thy-divider-horizontal {
@@ -49,7 +41,7 @@ $divider-font-feature-settings: 'tnum';
                 position: relative;
                 top: 50%;
                 width: 50%;
-                border-top: $border-width-base solid transparent;
+                border-top: $divider-width solid transparent;
                 border-top-color: inherit; /* Chrome not accept `inherit` in `border-top` */
                 border-bottom: 0;
                 transform: translateY(50%);
@@ -88,14 +80,7 @@ $divider-font-feature-settings: 'tnum';
         background: none;
         border-color: $divider-color;
         border-style: dashed;
-        border-width: $border-width-base 0 0;
-    }
-    &.thy-divider-heavy {
-        &.thy-divider-with-content {
-            color: $heading-color;
-            font-weight: 500;
-            font-size: $font-size-lg;
-        }
+        border-width: $divider-width 0 0;
     }
     .thy-divider-inner-template,
     .thy-divider-inner-text {
