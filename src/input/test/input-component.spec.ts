@@ -22,7 +22,6 @@ import { CommonModule } from '@angular/common';
             placeholder="请输入您的姓名"
             (focus)="onFocus()"
             (blur)="onBlur()"
-            [disabled]="disabled"
         ></thy-input>
         <thy-input class="input2">
             <ng-template #prepend>前置模版</ng-template>
@@ -37,7 +36,6 @@ class TestBedComponent {
     readonly;
     checkFocus = false;
     checkBlur = false;
-    disabled = false;
     onFocus() {
         this.checkFocus = true;
     }
