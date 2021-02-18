@@ -2,9 +2,9 @@ import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
     encapsulation: ViewEncapsulation.None,
-    selector: 'thy-divider-basic-example',
-    templateUrl: './basic.component.html'
+    selector: 'thy-divider-vertical-example',
+    templateUrl: './vertical.component.html'
 })
-export class ThyDividerBasicExampleComponent {
+export class ThyDividerVerticalExampleComponent {
     constructor() {}
 }

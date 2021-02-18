@@ -9,7 +9,6 @@ import { mockArticle } from '../mock-article';
     styleUrls: ['./with-text.component.scss']
 })
 export class ThyDividerWithTextExampleComponent {
-    testModel = 'or|or';
     articleList: string[] = mockArticle;
     constructor() {}
 }

@@ -8,7 +8,7 @@ import { ThyDividerStyle, ThyDividerTextDirection } from '../divider.component';
     template: `
         <ng-container>
             <thy-divider
-                [thyVertical]="verticalMode"
+                [thyVertical]="isVertical"
                 [thyStyle]="styleMode"
                 [thyTextDirection]="directionMode"
                 [thyText]="textContent || dividerTemplateSelect"
@@ -23,7 +23,7 @@ import { ThyDividerStyle, ThyDividerTextDirection } from '../divider.component';
     `
 })
 class ThyTestDividerComponent {
-    verticalMode = false;
+    isVertical = false;
 
     styleMode: ThyDividerStyle = 'solid';
 
@@ -64,7 +64,7 @@ describe('ThyDividerComponent', () => {
 
     describe('test thyVertical as true', () => {
         it('should exist .thy-divider.thy-divider-vertical', () => {
-            componentInstance.verticalMode = true;
+            componentInstance.isVertical = true;
             fixture.detectChanges();
 
             const dividerContainer = fixture.nativeElement.querySelector('.thy-divider.thy-divider-vertical');

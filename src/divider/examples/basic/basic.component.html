@@ -1,28 +1,4 @@
-<div [ngClass]="{ 'thy-divider-basic-example': true }">
-  <form class="mb-2" thyForm name="demoForm" #demoForm="ngForm" thyLayout="inline">
-    <thy-form-group thyLabelText="thyStyle">
-      <thy-custom-select [(ngModel)]="thyStyleMode" name="thyStyleMode" thyPlaceHolder="请选择" style="width: 80px;">
-        <thy-option thyValue="solid" thyLabelText="直线"></thy-option>
-        <thy-option thyValue="dashed" thyLabelText="虚线"></thy-option>
-      </thy-custom-select>
-    </thy-form-group>
-
-    <thy-form-group thyLabelText="thyTextDirection">
-      <thy-custom-select [(ngModel)]="thyTextDirectionMode" name="thyTextDirectionMode" thyPlaceHolder="请选择" style="width: 80px;">
-        <thy-option thyValue="left" thyLabelText="居左"></thy-option>
-        <thy-option thyValue="center" thyLabelText="居中"></thy-option>
-        <thy-option thyValue="right" thyLabelText="居右"></thy-option>
-      </thy-custom-select>
-    </thy-form-group>
-  </form>
-
-  <thy-divider [thyStyle]="thyStyleMode" [thyTextDirection]="thyTextDirectionMode"></thy-divider>
-
-  <thy-divider [thyStyle]="thyStyleMode" [thyTextDirection]="thyTextDirectionMode" thyText="With Text"></thy-divider>
-
-  Text
-  <thy-divider [thyVertical]="true"></thy-divider>
-  <a href="javascript:">Link</a>
-  <thy-divider [thyVertical]="true"></thy-divider>
-  <a href="javascript:">Link</a>
+<div>
+  <thy-divider [thyStyle]="'solid'"></thy-divider>
+  <thy-divider [thyStyle]="'dashed'"></thy-divider>
 </div>

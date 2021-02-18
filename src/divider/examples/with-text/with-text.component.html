@@ -1,13 +1,4 @@
 <div [ngClass]="{ 'thy-divider-with-text-example': true }">
-  <p>{{ articleList[0] }}</p>
-  <thy-divider></thy-divider>
-
-  <p>{{ articleList[1] }}</p>
-  <thy-divider [thyStyle]="'dashed'"></thy-divider>
-
-  <p>{{ articleList[2] }}</p>
-  <thy-divider [thyStyle]="'dashed'" thyText="With Text"></thy-divider>
-
   <p>{{ articleList[3] }}</p>
   <thy-divider thyText="With Text"></thy-divider>
 
@@ -29,7 +20,7 @@
   <p>{{ articleList[8] }}</p>
   <thy-divider [thyText]="dividerTemplateSelect"></thy-divider>
   <ng-template #dividerTemplateSelect>
-    <thy-custom-select [(ngModel)]="testModel" thyPlaceHolder="请选择" style="width: 80px;">
+    <thy-custom-select thyPlaceHolder="请选择" style="width: 80px;">
       <thy-option thyValue="or|or" thyLabelText="Or"></thy-option>
       <thy-option thyValue="and&and" thyLabelText="And"></thy-option>
     </thy-custom-select>
