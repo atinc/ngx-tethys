@@ -63,6 +63,7 @@ import { ThyVoteModule } from 'ngx-tethys/vote';
 import { ThySliderModule } from 'ngx-tethys/slider';
 import { ThyCalendarModule } from 'ngx-tethys/calendar';
 import { ThyTimelineModule } from 'ngx-tethys/timeline';
+import { ThyDividerModule } from 'ngx-tethys/divider';
 import { ThyFullscreenModule } from 'ngx-tethys/fullscreen';
 import { ThyGuiderModule } from 'ngx-tethys/guider';
 
@@ -122,6 +123,7 @@ const IMPORT_EXPORT_MODULES = [
     ThyMentionModule,
     ThyDatePickerModule,
     ThyTimelineModule,
+    ThyDividerModule,
     ThyTimePickerModule,
     ThyStatisticModule,
     ThyAutocompleteModule,

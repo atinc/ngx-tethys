@@ -1,0 +1,25 @@
+<div [ngClass]="{ 'thy-divider-with-text-example': true }">
+  <p>{{ articleList[4] }}</p>
+  <thy-divider [thyTextDirection]="'center'" thyText="Center Text"></thy-divider>
+
+  <p>{{ articleList[5] }}</p>
+  <thy-divider [thyTextDirection]="'left'" thyText="Left Text"></thy-divider>
+
+  <p>{{ articleList[6] }}</p>
+  <thy-divider [thyTextDirection]="'right'" thyText="Right Text"></thy-divider>
+
+  <p>{{ articleList[7] }}</p>
+  <thy-divider [thyText]="dividerTemplate"></thy-divider>
+  <ng-template #dividerTemplate>
+    <div>this is a demo for <span style="color: #2dbcff;">template</span></div>
+  </ng-template>
+
+  <p>{{ articleList[8] }}</p>
+  <thy-divider [thyText]="dividerTemplateSelect"></thy-divider>
+  <ng-template #dividerTemplateSelect>
+    <thy-custom-select thyPlaceHolder="请选择" style="width: 80px;">
+      <thy-option thyValue="or|or" thyLabelText="Or"></thy-option>
+      <thy-option thyValue="and&and" thyLabelText="And"></thy-option>
+    </thy-custom-select>
+  </ng-template>
+</div>
