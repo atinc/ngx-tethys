@@ -64,9 +64,6 @@ All notable changes to this project will be documented in this file. See [standa
 
 * upgrade angular from 9.x to 10.x #INFR-1516 ([c47569d](https://github.com/atinc/ngx-tethys/commit/c47569d)), closes [#INFR-1516](https://github.com/atinc/ngx-tethys/issues/INFR-1516)
 
-# Changelog
-
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
 <a name="9.0.24"></a>
 ## [9.0.24](https://github.com/atinc/ngx-tethys/compare/9.0.23...9.0.24) (2021-02-19)
