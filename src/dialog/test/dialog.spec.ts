@@ -319,8 +319,8 @@ describe('ThyDialog', () => {
         const backdrop = overlayContainerElement.querySelector('.cdk-overlay-backdrop') as HTMLElement;
         const container = getDialogContainerElement();
         dispatchKeyboardEvent(document.body, 'keydown', A);
-        dispatchKeyboardEvent(document.body, 'keydown', A, backdrop);
-        dispatchKeyboardEvent(document.body, 'keydown', A, container);
+        dispatchKeyboardEvent(backdrop, 'keydown', A);
+        dispatchKeyboardEvent(container, 'keydown', A);
 
         expect(spy).toHaveBeenCalledTimes(3);
     }));

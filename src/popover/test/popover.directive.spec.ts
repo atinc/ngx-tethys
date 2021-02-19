@@ -101,7 +101,9 @@ describe(`ThyTooltip`, () => {
             flush();
             expect(getPopoverVisible()).toBe(true);
 
-            dispatchMouseEvent(buttonElement, 'mouseleave', 0, 0, 0, overlayContainerElement.querySelector('.thy-popover-container'));
+            const container = overlayContainerElement.querySelector('.thy-popover-container');
+            dispatchMouseEvent(buttonElement, 'mouseleave', 0, 0, undefined, undefined, container);
+
             flush();
             fixture.detectChanges();
             flush();
@@ -119,7 +121,16 @@ describe(`ThyTooltip`, () => {
             flush();
             expect(getPopoverVisible()).toBe(true);
 
-            dispatchMouseEvent(buttonElement, 'mouseleave', 0, 0, 0, overlayContainerElement.querySelector('.thy-popover-container'));
+            dispatchMouseEvent(
+                buttonElement,
+                'mouseleave',
+                0,
+                0,
+                0,
+                undefined,
+                overlayContainerElement.querySelector('.thy-popover-container')
+            );
+
             flush();
             fixture.detectChanges();
             flush();

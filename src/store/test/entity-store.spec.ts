@@ -1,3 +1,4 @@
+import { Injectable } from '@angular/core';
 import { EntityStore, EntityState, EntityStoreOptions } from '../entity-store';
 
 describe('Store: EntityStore', () => {
@@ -8,6 +9,7 @@ describe('Store: EntityStore', () => {
 
     interface TasksState extends EntityState<TaskInfo> {}
 
+    @Injectable()
     class TasksEntityStore extends EntityStore<TasksState, TaskInfo> {
         constructor(initialState?: TasksState, options?: EntityStoreOptions) {
             super(initialState, options);
@@ -26,6 +28,7 @@ describe('Store: EntityStore', () => {
 
     interface UsersState extends EntityState<UserInfo> {}
 
+    @Injectable()
     class UsersEntityStore extends EntityStore<UsersState, UserInfo> {
         constructor(initialState?: UsersState) {
             super(initialState, {

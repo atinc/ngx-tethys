@@ -1,4 +1,4 @@
-import ts, { ImportDeclaration, SourceFile } from 'typescript';
+import ts, { ImportDeclaration, SourceFile, StringLiteral, factory } from 'typescript';
 import { UpdateFileService } from '../../../utils';
 
 export abstract class MigrationBase {
@@ -88,5 +88,19 @@ export abstract class MigrationBase {
             );
         }
         return node;
+    }
+    /** 更新引入声明,因为ts 4.0设置为readonly的原因,无法直接赋值 */
+    updateImportDeclaration(node: ts.ImportDeclaration, moduleSpecifier?: StringLiteral, importClause?: ts.ImportClause) {
+        return factory.updateImportDeclaration(
+            node,
+            node.decorators,
+            node.modifiers,
+            importClause || node.importClause,
+            moduleSpecifier || node.moduleSpecifier
+        );
+    }
+    /** 更新引入声明,因为ts 4.0设置为readonly的原因,无法直接赋值 */
+    updateImportClause(node: ts.ImportClause, namedImports: ts.NamedImportBindings) {
+        return factory.updateImportClause(node, false, node.name, namedImports || node.namedBindings);
     }
 }

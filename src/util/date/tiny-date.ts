@@ -43,58 +43,9 @@ import {
     format,
     getQuarter,
     addDays
-} from 'date-fns';
+} from './functions';
 
-export {
-    differenceInCalendarDays,
-    differenceInCalendarMonths,
-    differenceInCalendarYears,
-    differenceInWeeks,
-    differenceInHours,
-    differenceInMinutes,
-    differenceInSeconds,
-    isSameDay,
-    isSameHour,
-    isSameMinute,
-    isSameMonth,
-    isSameSecond,
-    isSameYear,
-    isToday,
-    isTomorrow,
-    isValid,
-    setYear,
-    startOfMonth,
-    startOfWeek,
-    addMonths,
-    addYears,
-    setDay,
-    setMonth,
-    getUnixTime,
-    startOfDay,
-    endOfDay,
-    fromUnixTime,
-    isWeekend,
-    getWeek,
-    getDaysInMonth,
-    addSeconds,
-    addMinutes,
-    addHours,
-    addWeeks,
-    addQuarters,
-    startOfQuarter,
-    startOfYear,
-    endOfWeek,
-    endOfMonth,
-    endOfQuarter,
-    endOfYear,
-    format,
-    getQuarter,
-    addDays
-} from 'date-fns';
-
-export interface IndexableObject {
-    [key: string]: any;
-}
+import { Locale } from 'date-fns';
 
 export type TinyDateCompareGrain = 'year' | 'quarter' | 'month' | 'week' | 'day' | 'hour' | 'minute' | 'second';
 
@@ -110,7 +61,7 @@ export function sortRangeValue(rangeValue: TinyDate[]): TinyDate[] {
     return rangeValue;
 }
 
-export class TinyDate implements IndexableObject {
+export class TinyDate implements Record<string, any> {
     nativeDate: Date;
 
     constructor(date?: Date | string | number) {

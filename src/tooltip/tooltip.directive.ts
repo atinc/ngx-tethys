@@ -18,7 +18,7 @@ import { ThyTooltipOptions, DEFAULT_TOOLTIP_OPTIONS } from './interface';
 import { coerceBooleanProperty, isString } from 'ngx-tethys/util';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ThyTooltipComponent } from './tooltip.component';
-import { getFlexiblePositions, ThyPlacement, ThyOverlayDirectiveBase } from 'ngx-tethys/core';
+import { getFlexiblePositions, ThyPlacement, ThyOverlayDirectiveBase, ThyOverlayTrigger } from 'ngx-tethys/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { THY_TOOLTIP_DEFAULT_CONFIG_TOKEN, ThyTooltipConfig } from './tooltip.config';
 
@@ -72,8 +72,11 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
     // tslint:disable-next-line:no-input-rename
     @Input('thyTooltipHideDelay') hideDelay = this.options.hideDelay;
 
+    _trigger: ThyOverlayTrigger = 'hover';
     // tslint:disable-next-line:no-input-rename
-    @Input('thyTooltipTrigger') trigger: 'hover' | 'focus' | 'click' = 'hover';
+    @Input('thyTooltipTrigger') set thyTooltipTrigger(value: ThyOverlayTrigger) {
+        this.trigger = value;
+    }
 
     /** Disables the display of the tooltip. */
     @Input('thyTooltipDisabled')

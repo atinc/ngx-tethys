@@ -22,22 +22,18 @@ import { FileSelectBaseComponent } from './file-select-base';
     templateUrl: './file-select.component.html'
 })
 export class ThyFileSelectComponent extends FileSelectBaseComponent implements OnInit, OnDestroy {
-    _multiple: boolean;
+    private multiple: boolean;
 
-    _acceptFolder: boolean;
-
-    acceptType: string;
+    private acceptFolder: boolean;
 
     @Output() thyOnFileSelect = new EventEmitter();
 
     @ViewChild('fileInput', { static: true }) fileInput: ElementRef<HTMLInputElement>;
 
-    @Input() thySizeExceedsHandler: ThySizeExceedsHandler;
-
     @Input()
     set thyMultiple(value: boolean) {
-        this._multiple = coerceBooleanProperty(value);
-        if (this._multiple) {
+        this.multiple = coerceBooleanProperty(value);
+        if (this.multiple) {
             this.fileInput.nativeElement.setAttribute('multiple', '');
         } else {
             this.fileInput.nativeElement.removeAttribute('multiple');
@@ -46,8 +42,8 @@ export class ThyFileSelectComponent extends FileSelectBaseComponent implements O
 
     @Input()
     set thyAcceptFolder(value: boolean) {
-        this._acceptFolder = coerceBooleanProperty(value);
-        if (this._acceptFolder) {
+        this.acceptFolder = coerceBooleanProperty(value);
+        if (this.acceptFolder) {
             this.fileInput.nativeElement.setAttribute('webkitdirectory', '');
         } else {
             this.fileInput.nativeElement.removeAttribute('webkitdirectory');
@@ -59,14 +55,12 @@ export class ThyFileSelectComponent extends FileSelectBaseComponent implements O
         this.acceptType = mimeTypeConvert(value);
     }
 
-    @Input() thySizeThreshold: number;
-
-    get sizeThreshold() {
-        return this.thySizeThreshold !== undefined ? this.thySizeThreshold : this.defaultConfig.sizeThreshold;
+    @Input() set thySizeThreshold(value: number) {
+        this.sizeThreshold = value;
     }
 
     @HostListener('click', ['$event'])
-    click($event: any) {
+    click($event: Event) {
         this.fileInput.nativeElement.click();
     }
 
@@ -74,27 +68,10 @@ export class ThyFileSelectComponent extends FileSelectBaseComponent implements O
         super(elementRef, defaultConfig);
     }
 
-    _isInputTypeFile() {
-        const nativeElement = this.elementRef.nativeElement;
-        return nativeElement.tagName.toLowerCase() === 'input' && nativeElement.type && nativeElement.type.toLowerCase() === 'file';
-    }
-
     selectFile($event: Event) {
         const files = this.fileInput.nativeElement.files;
         if (files && files.length > 0) {
-            let uploadFiles = Array.from(files);
-            if (!!this.sizeThreshold) {
-                uploadFiles = this.handleSizeExceeds(
-                    { sizeThreshold: this.sizeThreshold, files: Array.from(files), event: $event },
-                    this.thySizeExceedsHandler
-                );
-            }
-            if (uploadFiles.length > 0) {
-                this.thyOnFileSelect.emit({
-                    files: uploadFiles,
-                    nativeEvent: $event
-                });
-            }
+            this.selectFiles($event, Array.from(files), this.thyOnFileSelect);
             this.fileInput.nativeElement.value = '';
         }
     }

@@ -2,6 +2,69 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="10.0.0-next.3"></a>
+# [10.0.0-next.3](https://github.com/atinc/ngx-tethys/compare/9.0.22...10.0.0-next.3) (2021-02-05)
+
+
+### Bug Fixes
+
+* **cascader:** 传入函数this丢失 ([75028d4](https://github.com/atinc/ngx-tethys/commit/75028d4))
+* **grid:** set header padding align td when size is default ([#1136](https://github.com/atinc/ngx-tethys/issues/1136)) ([ee59380](https://github.com/atinc/ngx-tethys/commit/ee59380))
+* **uploader:** uploader support custom accept type, #INFR-1564 ([#1130](https://github.com/atinc/ngx-tethys/issues/1130)) ([b0e1e9c](https://github.com/atinc/ngx-tethys/commit/b0e1e9c)), closes [#INFR-1564](https://github.com/atinc/ngx-tethys/issues/INFR-1564)
+* **util:** move tiny-date.ts, fix date-fns reexported  error when build ([12cf309](https://github.com/atinc/ngx-tethys/commit/12cf309))
+
+
+### Features
+
+* **guider:** support redirect to other route when change step #INFR-1543 ([#1138](https://github.com/atinc/ngx-tethys/issues/1138)) ([452283c](https://github.com/atinc/ngx-tethys/commit/452283c)), closes [#INFR-1543](https://github.com/atinc/ngx-tethys/issues/INFR-1543)
+
+
+
+<a name="10.0.0-next.2"></a>
+# [10.0.0-next.2](https://github.com/atinc/ngx-tethys/compare/10.0.0-next.1...10.0.0-next.2) (2021-01-18)
+
+
+### Bug Fixes
+
+* **util:** move tiny-date.ts, fix date-fns reexported  error when build ([12cf309](https://github.com/atinc/ngx-tethys/commit/12cf309))
+
+
+
+<a name="10.0.0-next.1"></a>
+# [10.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/10.0.0-next.0...10.0.0-next.1) (2021-01-15)
+
+
+### Bug Fixes
+
+* **mention:** should update ngModel value when select a suggestion #INFR-1531 ([#1084](https://github.com/atinc/ngx-tethys/issues/1084)) ([94c6c19](https://github.com/atinc/ngx-tethys/commit/94c6c19)), closes [#INFR-1531](https://github.com/atinc/ngx-tethys/issues/INFR-1531) [#INFR-1531](https://github.com/atinc/ngx-tethys/issues/INFR-1531)
+* **store:** add @Injectable() for fix build RootStore error ([3639884](https://github.com/atinc/ngx-tethys/commit/3639884))
+* **timeline:** remove log import, #INFR-1527 ([b63469b](https://github.com/atinc/ngx-tethys/commit/b63469b)), closes [#INFR-1527](https://github.com/atinc/ngx-tethys/issues/INFR-1527)
+* **util:** change tiny-date export function ([4919756](https://github.com/atinc/ngx-tethys/commit/4919756))
+
+
+### Features
+
+* **timeline:** timeline support horizontal #INFR-1527 ([#1081](https://github.com/atinc/ngx-tethys/issues/1081)) ([f6bcd12](https://github.com/atinc/ngx-tethys/commit/f6bcd12)), closes [#INFR-1527](https://github.com/atinc/ngx-tethys/issues/INFR-1527)
+* #INFR-1400 【DateRangePicker】选择时间组件中，设置 thyPlaceholder 仅支持 string[]，显示为thyPlaceholder[0] ~ thyPlaceholder[1]，需要支持string，placeholder 直接显示传入的 ([d55fc5c](https://github.com/atinc/ngx-tethys/commit/d55fc5c)), closes [#INFR-1400](https://github.com/atinc/ngx-tethys/issues/INFR-1400)
+* **tree-select:** tree select support search, #INFR-1542 ([78e80ed](https://github.com/atinc/ngx-tethys/commit/78e80ed)), closes [#INFR-1542](https://github.com/atinc/ngx-tethys/issues/INFR-1542)
+
+
+
+<a name="10.0.0-next.0"></a>
+# [10.0.0-next.0](https://github.com/atinc/ngx-tethys/compare/9.0.14...10.0.0-next.0) (2021-01-04)
+
+
+### Bug Fixes
+
+* **fullscreen:** add fullscreenchange and keydown events listeners in ThyFullscreenService #INFR-1403 ([#1067](https://github.com/atinc/ngx-tethys/issues/1067)) ([6452e28](https://github.com/atinc/ngx-tethys/commit/6452e28)), closes [#INFR-1403](https://github.com/atinc/ngx-tethys/issues/INFR-1403)
+* **schematics:** ts节点属性 readonly 修复 ([01b4506](https://github.com/atinc/ngx-tethys/commit/01b4506))
+
+
+### Features
+
+* upgrade angular from 9.x to 10.x #INFR-1516 ([c47569d](https://github.com/atinc/ngx-tethys/commit/c47569d)), closes [#INFR-1516](https://github.com/atinc/ngx-tethys/issues/INFR-1516)
+
+
 <a name="9.0.24"></a>
 ## [9.0.24](https://github.com/atinc/ngx-tethys/compare/9.0.23...9.0.24) (2021-02-19)
 
@@ -35,7 +98,6 @@ All notable changes to this project will be documented in this file. See [standa
 
 * **card:** remove line in card-header and deprecate thyAlign in card-content #INFR-1158 ([3c2c08e](https://github.com/atinc/ngx-tethys/commit/3c2c08e)), closes [#INFR-1158](https://github.com/atinc/ngx-tethys/issues/INFR-1158)
 * **guider:** support redirect to other route when change step #INFR-1543 ([#1138](https://github.com/atinc/ngx-tethys/issues/1138)) ([452283c](https://github.com/atinc/ngx-tethys/commit/452283c)), closes [#INFR-1543](https://github.com/atinc/ngx-tethys/issues/INFR-1543)
-
 
 
 <a name="9.0.22"></a>
@@ -178,7 +240,6 @@ All notable changes to this project will be documented in this file. See [standa
 ### Features
 
 * **copy:** support thyCopyTips #INFR-1496 ([#1077](https://github.com/atinc/ngx-tethys/issues/1077)) ([c659649](https://github.com/atinc/ngx-tethys/commit/c659649)), closes [#INFR-1496](https://github.com/atinc/ngx-tethys/issues/INFR-1496) [#INFR-1496](https://github.com/atinc/ngx-tethys/issues/INFR-1496)
-
 
 
 <a name="9.0.13"></a>

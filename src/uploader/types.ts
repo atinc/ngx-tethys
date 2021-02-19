@@ -6,3 +6,8 @@ export interface ThyFileSizeExceedsContext {
 }
 
 export type ThySizeExceedsHandler = (data: ThyFileSizeExceedsContext) => File[] | undefined | void;
+
+export interface ThyFileSelectEvent {
+    files: File[];
+    nativeEvent: Event;
+}
