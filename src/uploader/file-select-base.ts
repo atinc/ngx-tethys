@@ -6,7 +6,7 @@ import { ThyFileSelectEvent, ThySizeExceedsHandler } from './types';
 @Component({
     template: ``
 })
-export abstract class FileSelectBaseComponent {
+export class FileSelectBaseComponent {
     acceptType: string;
     sizeThreshold: number;
     sizeExceedsHandler: ThySizeExceedsHandler;
