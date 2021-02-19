@@ -7,7 +7,7 @@ import { CustomTipComponent, ThyGuiderCustomTipExampleComponent } from './custom
 import { ThyGuiderMultiStepTipExampleComponent } from './multi-step-tip/multi-step-tip.component';
 import { ThyGuiderCustomPositionExampleComponent } from './custom-position/custom-position.component';
 import { ThyGuiderDirectiveHintExampleComponent } from './directive-hint/directive-hint.component';
-import { ThyGuiderCustomPanelClassExampleComponent } from './custom-panel-class/custom-panel-class.component';
+import { ThyGuiderCustomHintClassExampleComponent } from './custom-hint-class/custom-hint-class.component';
 import { FormsModule } from '@angular/forms';
 
 const COMPONENTS = [
@@ -17,7 +17,7 @@ const COMPONENTS = [
     ThyGuiderMultiStepTipExampleComponent,
     ThyGuiderCustomPositionExampleComponent,
     ThyGuiderDirectiveHintExampleComponent,
-    ThyGuiderCustomPanelClassExampleComponent,
+    ThyGuiderCustomHintClassExampleComponent,
     CustomTipComponent
 ];
 
