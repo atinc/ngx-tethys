@@ -1,158 +1,203 @@
-import { fakeAsync, ComponentFixture, TestBed, tick } from '@angular/core/testing';
+import { ThyUploadResponse } from './../../../built/uploader/uploader.service.d';
+import { Subject } from 'rxjs';
+import { XhrFactory } from '@angular/common/http';
+import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { ThyUploaderModule } from '../module';
-import { NgModule, Component, DebugElement } from '@angular/core';
-import { By } from '@angular/platform-browser';
-import { ThyFileSelectComponent } from '../file-select.component';
-import { ThyUploadFile, ThyUploaderService, ThyUploadStatus, ThyUploadResponse } from '../uploader.service';
-import { Observable } from 'rxjs';
-const testJsonFile = require.resolve('./test.json');
-const UPLOAD_URL = `http://www.mocky.io/v2/5cf52b1f2f0000c02c4f072f?mocky-delay=2s`;
-@Component({
-    selector: 'thy-uploader-demo',
-    template: `
-        <thy-file-select
-            class="mt-2 d-inline-block"
-            [thyMultiple]="multiple"
-            [thyAcceptType]="acceptType"
-            [thySizeThreshold]="sizeThreshold"
-            [thySizeExceedsHandler]="sizeExceedsHandler"
-            (thyOnFileSelect)="selectFiles($event)"
-        >
-        </thy-file-select>
-    `
-})
-class ThyUploaderDemoComponent {
-    queueFiles: ThyUploadFile[] = [];
-    multiple: boolean;
-    acceptType = ['.txt', '.json'];
-    sizeThreshold = 1;
-    uploaderFileResult: Observable<ThyUploadResponse>;
-    exceedsFiles: File[];
-    constructor(private thyUploaderService: ThyUploaderService) {}
-    selectFiles(event: { files: File[] }) {
-        const uploadFiles: ThyUploadFile[] = Array.from(event.files).map((file, index) => {
-            return {
-                nativeFile: file,
-                url: UPLOAD_URL,
-                method: 'POST',
-                fileName: file.name || '复制粘贴.png',
-                withCredentials: true
-            };
-        });
-        uploadFiles.forEach(uploadFile => {
-            this.queueFiles.push(uploadFile);
-        });
-        if (this.multiple) {
-            this.uploaderFileResult = this.thyUploaderService.uploadBulk(uploadFiles, 2);
-        } else {
-            this.uploaderFileResult = this.thyUploaderService.upload(uploadFiles[0]);
-        }
-        this.uploaderFileResult.subscribe(result => {
-            if (result.status === ThyUploadStatus.done) {
-                const index = this.queueFiles.indexOf(result.uploadFile);
-                if (index > -1) {
-                    this.queueFiles.splice(index, 1);
-                }
-            }
-        });
-    }
+import { ThyUploaderService, ThyUploadFile, ThyUploadStatus } from '../uploader.service';
+import { createFile } from './utils';
+import { MockXhrFactory, MockXMLHttpRequest } from './xhr-mock';
 
-    sizeExceedsHandler = (event: { files: File[]; exceedsFiles: File[]; nativeEvent: Event; sizeThreshold: number }) => {
-        if (event.exceedsFiles.length > 0) {
-            this.exceedsFiles = event.exceedsFiles;
-        }
-    };
-}
+const UPLOAD_URL = `http://example.com/upload`;
 
-@NgModule({
-    imports: [ThyUploaderModule],
-    declarations: [ThyUploaderDemoComponent],
-    exports: [ThyUploaderDemoComponent]
-})
-export class FileUploaderTestModule {}
-
-describe('ThyFileSelect', () => {
-    let fixture: ComponentFixture<ThyUploaderDemoComponent>;
-    let testComponent: ThyUploaderDemoComponent;
-    let thyFileSelectComponent: DebugElement;
-    let fileSelectContentElement: HTMLInputElement;
-    let inputEl: HTMLInputElement;
-    let dT: any;
-    const fileContent =
-        'Were converting our compatibility data into a machine-readable JSON format. This compatibility table still uses the old format, because we have not yet converted the data it contains. Find out how you can help!';
-    const file = new File([fileContent], 'testFile');
-
-    const jsonFile = new File([testJsonFile], 'testJsonFile');
-    beforeEach(fakeAsync(() => {
-        TestBed.configureTestingModule({
-            imports: [ThyUploaderModule, FileUploaderTestModule],
-            providers: []
-        });
-        TestBed.compileComponents();
-    }));
+describe('ThyUploaderService', () => {
+    let uploader: ThyUploaderService;
+    let mockXhrFactory: MockXhrFactory;
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(ThyUploaderDemoComponent);
-        testComponent = fixture.debugElement.componentInstance;
-        thyFileSelectComponent = fixture.debugElement.query(By.directive(ThyFileSelectComponent));
-        fileSelectContentElement = thyFileSelectComponent.nativeElement;
-        inputEl = fileSelectContentElement.querySelector('input') as HTMLInputElement;
-        // creat FileList
-        dT = new ClipboardEvent('').clipboardData || new DataTransfer(); // specs compliant (as of March 2018 only Chrome)
-        dT.items.add(file);
-
-        dT.items.add(jsonFile);
-    });
-
-    it('should create', () => {
-        expect(thyFileSelectComponent).toBeTruthy();
-    });
-
-    it('should upload file', () => {
-        inputEl.files = dT.files;
-        inputEl.dispatchEvent(new Event('change'));
-        expect(testComponent.queueFiles[0].nativeFile.name).toEqual('testFile');
-        expect(testComponent.queueFiles[1].nativeFile.name).toEqual('testJsonFile');
-        testComponent.uploaderFileResult.subscribe(result => {
-            if (result.status === ThyUploadStatus.done) {
-                const index = testComponent.queueFiles.indexOf(result.uploadFile);
-                if (index > -1) {
-                    testComponent.queueFiles.splice(index, 1);
-                    expect(testComponent.queueFiles.length).toEqual(0);
+        mockXhrFactory = new MockXhrFactory();
+        TestBed.configureTestingModule({
+            imports: [ThyUploaderModule],
+            providers: [
+                {
+                    provide: XhrFactory,
+                    useValue: mockXhrFactory
                 }
+            ]
+        });
+        TestBed.compileComponents();
+        uploader = TestBed.inject(ThyUploaderService);
+    });
+
+    it('should create uploader service success', () => {
+        expect(uploader).toBeTruthy();
+    });
+
+    it('should upload file success', fakeAsync(() => {
+        const file = createFile();
+        const startedSpy = jasmine.createSpy('started spy');
+        const doneSpy = jasmine.createSpy('done spy');
+        const pendingSpy = jasmine.createSpy('pending spy');
+        const uploadingSpy = jasmine.createSpy('uploading spy');
+
+        const uploadFile: ThyUploadFile = {
+            url: UPLOAD_URL,
+            method: 'post',
+            nativeFile: file
+        };
+        expect(startedSpy).not.toHaveBeenCalled();
+
+        uploader.upload(uploadFile).subscribe(response => {
+            if (response.status === ThyUploadStatus.started) {
+                startedSpy(response);
+            } else if (response.status === ThyUploadStatus.done) {
+                doneSpy(response);
+            } else if (response.status === ThyUploadStatus.pending) {
+                pendingSpy(response);
+            } else {
+                uploadingSpy(response);
             }
         });
-    });
 
-    it('should upload multiple files', () => {
-        testComponent.multiple = true;
-        dT.items.add(new File([fileContent], 'multipleFile'));
-        inputEl.files = dT.files;
-        inputEl.dispatchEvent(new Event('change'));
-        expect(testComponent.queueFiles[0].nativeFile.name).toEqual('testFile');
-        expect(testComponent.queueFiles[1].nativeFile.name).toEqual('testJsonFile');
-        expect(testComponent.queueFiles[2].nativeFile.name).toEqual('multipleFile');
-        testComponent.uploaderFileResult.subscribe(result => {
-            if (result.status === ThyUploadStatus.done) {
-                const index = testComponent.queueFiles.indexOf(result.uploadFile);
-                if (index > -1) {
-                    testComponent.queueFiles.splice(index, 1);
-                    expect(testComponent.queueFiles.length).toEqual(0);
-                }
-            }
+        // start upload file
+        expect(startedSpy).toHaveBeenCalled();
+        expect(startedSpy).toHaveBeenCalledWith({
+            status: ThyUploadStatus.started,
+            uploadFile: uploadFile
         });
+        expect(uploadFile.progress.percentage).toEqual(0);
+
+        expect(uploadingSpy).not.toHaveBeenCalled();
+        expect(doneSpy).not.toHaveBeenCalled();
+        expect(pendingSpy).not.toHaveBeenCalled();
+
+        // 为了让开始和进度更新之间有时间差
+        tick(1000);
+
+        // upload 300
+        mockXhrFactory.mock.mockUploadProgressEvent(300, 1024 + 26);
+        expect(uploadingSpy).toHaveBeenCalled();
+        expect(uploadingSpy).toHaveBeenCalledWith({
+            status: ThyUploadStatus.uploading,
+            uploadFile: uploadFile
+        });
+        expect(uploadFile.progress.percentage).toEqual(Math.round((300 * 100) / (1024 + 26)));
+        expect(uploadFile.progress.speed).toEqual(300);
+        expect(uploadFile.progress.speedHuman).toEqual(`300 Bytes/s`);
+
+        // upload 1024 + 26
+        mockXhrFactory.mock.mockUploadProgressEvent(1024 + 26, 1024 + 26);
+        expect(uploadingSpy).toHaveBeenCalled();
+        expect(uploadingSpy).toHaveBeenCalledWith({
+            status: ThyUploadStatus.uploading,
+            uploadFile: uploadFile
+        });
+        expect(uploadFile.progress.percentage).toEqual(99);
+
+        // upload success
+        mockXhrFactory.mock.mockFlush(
+            XMLHttpRequest.DONE,
+            'SUCCESS',
+            JSON.stringify({
+                code: 200,
+                data: { name: '' }
+            })
+        );
+        mockXhrFactory.mock.mockOnReadyStateChange();
+        expect(doneSpy).toHaveBeenCalled();
+        expect(doneSpy).toHaveBeenCalledWith({
+            status: ThyUploadStatus.done,
+            uploadFile: uploadFile
+        });
+        expect(uploadFile.progress.percentage).toEqual(100);
+        tick(100);
+    }));
+
+    it('should upload bulk files', () => {
+        const file1 = createFile();
+        const uploadFile1: ThyUploadFile = {
+            url: UPLOAD_URL,
+            method: 'post',
+            nativeFile: file1
+        };
+
+        const file2 = createFile();
+        const uploadFile2: ThyUploadFile = {
+            url: UPLOAD_URL,
+            method: 'post',
+            nativeFile: file2
+        };
+
+        const uploadFile1$ = new Subject<ThyUploadResponse>();
+        const uploadFile2$ = new Subject<ThyUploadResponse>();
+        const mockUploads = new Map<ThyUploadFile, Subject<ThyUploadResponse>>();
+        mockUploads.set(uploadFile1, uploadFile1$);
+        mockUploads.set(uploadFile2, uploadFile2$);
+        uploader.upload = (uploadFile: ThyUploadFile) => {
+            return mockUploads.get(uploadFile).asObservable();
+        };
+        const uploadBulkSpy = jasmine.createSpy(`upload bulk spy`);
+        const onStartedSpy = jasmine.createSpy(`upload started spy`);
+        const onDoneSpy = jasmine.createSpy(`upload bulk spy`);
+
+        uploader
+            .uploadBulk([uploadFile1, uploadFile2], 5, {
+                onStarted: onStartedSpy,
+                onDone: onDoneSpy
+            })
+            .subscribe(uploadBulkSpy);
+
+        expect(uploadBulkSpy).not.toHaveBeenCalled();
+        expect(onStartedSpy).not.toHaveBeenCalled();
+        expect(onDoneSpy).not.toHaveBeenCalled();
+
+        // file1 upload started
+        uploadFile1$.next({
+            status: ThyUploadStatus.started,
+            uploadFile: uploadFile1
+        });
+        expect(uploadBulkSpy).toHaveBeenCalled();
+        expect(uploadBulkSpy).toHaveBeenCalledWith({
+            status: ThyUploadStatus.started,
+            uploadFile: uploadFile1
+        });
+        expect(onStartedSpy).toHaveBeenCalled();
+        expect(onStartedSpy).toHaveBeenCalledWith(uploadFile1);
+
+        // file1 upload done
+        uploadFile1$.next({
+            status: ThyUploadStatus.done,
+            uploadFile: uploadFile1
+        });
+        expect(uploadBulkSpy).toHaveBeenCalled();
+        expect(uploadBulkSpy).toHaveBeenCalledWith({
+            status: ThyUploadStatus.done,
+            uploadFile: uploadFile1
+        });
+        expect(onDoneSpy).toHaveBeenCalled();
+        expect(onDoneSpy).toHaveBeenCalledWith(uploadFile1);
     });
 
-    it('should not upload file beyond the limit', () => {
-        testComponent.sizeThreshold = 0.001;
-        fixture.detectChanges();
-        inputEl.files = dT.files;
-        inputEl.dispatchEvent(new Event('change'));
-        expect(testComponent.exceedsFiles[0].name).toBe('testFile');
+    it('should throw error when upload file', () => {
+        const file = createFile();
+        const uploadSpy = jasmine.createSpy('upload spy');
+        const uploadErrorSpy = jasmine.createSpy('upload error spy');
 
-        fixture.detectChanges();
-        inputEl.files = dT.files;
-        inputEl.dispatchEvent(new Event('change'));
-        expect(testComponent.exceedsFiles[1].name).toBe('testJsonFile');
+        const uploadFile: ThyUploadFile = {
+            url: UPLOAD_URL,
+            method: 'post',
+            nativeFile: file
+        };
+        expect(uploadSpy).not.toHaveBeenCalled();
+
+        uploader.upload(uploadFile).subscribe({
+            next: uploadSpy,
+            error: uploadErrorSpy
+        });
+
+        expect(uploadErrorSpy).not.toHaveBeenCalled();
+        const mockError = new Error('HTTP Error');
+        mockXhrFactory.mock.mockErrorEvent(mockError);
+        expect(uploadErrorSpy).toHaveBeenCalled();
+        expect(uploadErrorSpy).toHaveBeenCalledWith(mockError);
     });
 });

@@ -1,26 +1,25 @@
-import { helpers } from 'ngx-tethys/util';
+import { isString, isArray } from 'ngx-tethys/util';
 import { MIME_Map } from './constant';
 
-export function mimeTypeConvert(value: Array<string> | string) {
-    let valueArray: any;
-    const _acceptTypeArray: any = [];
-    if (helpers.isArray(value)) {
-        valueArray = value as Array<string>;
-    } else if (helpers.isString(value)) {
-        valueArray = (value as string).split(',');
+export function mimeTypeConvert(value: Array<string> | string): string {
+    let inputTypes: Array<string>;
+    const acceptTypes: Array<string> = [];
+    if (isArray(value)) {
+        inputTypes = value as Array<string>;
+    } else if (isString(value)) {
+        inputTypes = value.split(',');
     } else {
-        valueArray = [];
+        inputTypes = [];
     }
 
-    if (valueArray.length > 0) {
-        valueArray.forEach((n: any) => {
+    if (inputTypes.length > 0) {
+        inputTypes.forEach(n => {
             if (MIME_Map[n]) {
-                _acceptTypeArray.push(MIME_Map[n]);
+                acceptTypes.push(MIME_Map[n]);
             } else {
-                _acceptTypeArray.push(n);
+                acceptTypes.push(n);
             }
         });
     }
-
-    return _acceptTypeArray.join(',');
+    return acceptTypes.join(',');
 }

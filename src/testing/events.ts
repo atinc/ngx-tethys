@@ -173,6 +173,13 @@ export function createFakeEvent(type: string, canBubble = false, cancelable = tr
     return event;
 }
 
+export function createDragEvent(type: string, dataTransfer: DataTransfer = null, canBubble = false, cancelable = true) {
+    const event = document.createEvent('DragEvent');
+    event.initEvent(type, canBubble, cancelable);
+    defineReadonlyEventProperty(event, 'dataTransfer', dataTransfer);
+    return event;
+}
+
 /**
  * Defines a readonly property on the given event object. Readonly properties on an event object
  * are always set as configurable as that matches default readonly properties for DOM event objects.
