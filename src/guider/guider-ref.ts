@@ -1,23 +1,23 @@
-import { ThyGuiderStepRef } from './guider-step-ref';
-import { Observable, ReplaySubject, Subject } from 'rxjs';
-import { ThyGuiderConfig, ThyGuiderStep } from './guider.class';
+import { Router } from '@angular/router';
+import { helpers } from 'ngx-tethys/util';
+import { DOCUMENT } from '@angular/common';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { ThyGuiderManager } from './guider-manager';
+import { ThyGuiderStepRef } from './guider-step-ref';
 import { Inject, RendererFactory2 } from '@angular/core';
-import { Router } from '@angular/router';
-import { DOCUMENT } from '@angular/common';
-import { helpers } from 'ngx-tethys/util';
+import { Observable, ReplaySubject, Subject } from 'rxjs';
+import { ThyGuiderConfig, ThyGuiderStep } from './guider.class';
 
 export class ThyGuiderRef {
+    public steps: ThyGuiderStep[];
+
     private stepChange$: ReplaySubject<ThyGuiderStep> = new ReplaySubject<ThyGuiderStep>();
 
     private guiderEnded$ = new Subject();
 
-    private guiderClosed$ = new Subject<ThyGuiderStep>();
+    private closed$ = new Subject<ThyGuiderStep>();
 
     private targetClicked$ = new Subject<ThyGuiderStep>();
-
-    public steps: ThyGuiderStep[];
 
     private currentStep: ThyGuiderStep;
 
@@ -51,7 +51,7 @@ export class ThyGuiderRef {
     }
 
     public closed() {
-        return this.guiderClosed$;
+        return this.closed$;
     }
 
     public targetClicked() {
@@ -116,7 +116,7 @@ export class ThyGuiderRef {
 
     public close() {
         this.stepsRef[this.currentStepIndex]?.dispose();
-        this.guiderClosed$.next(this.currentStep);
+        this.closed$.next(this.currentStep);
     }
 
     public end() {

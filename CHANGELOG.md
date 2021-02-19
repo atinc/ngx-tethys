@@ -64,6 +64,43 @@ All notable changes to this project will be documented in this file. See [standa
 
 * upgrade angular from 9.x to 10.x #INFR-1516 ([c47569d](https://github.com/atinc/ngx-tethys/commit/c47569d)), closes [#INFR-1516](https://github.com/atinc/ngx-tethys/issues/INFR-1516)
 
+# Changelog
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+<a name="9.0.24"></a>
+## [9.0.24](https://github.com/atinc/ngx-tethys/compare/9.0.23...9.0.24) (2021-02-19)
+
+
+### Bug Fixes
+
+* **guider:** rename config property name #INFR-1633 ([a0dccc7](https://github.com/atinc/ngx-tethys/commit/a0dccc7)), closes [#INFR-1633](https://github.com/atinc/ngx-tethys/issues/INFR-1633)
+* **input:** append bg color should be disabled when input is disabled #INFR-1630 ([31d083b](https://github.com/atinc/ngx-tethys/commit/31d083b)), closes [#INFR-1630](https://github.com/atinc/ngx-tethys/issues/INFR-1630)
+
+
+### Features
+
+* **divider:** add divider component #INFR-228 ([#1145](https://github.com/atinc/ngx-tethys/issues/1145)) ([8e3b1d8](https://github.com/atinc/ngx-tethys/commit/8e3b1d8)), closes [#INFR-228](https://github.com/atinc/ngx-tethys/issues/INFR-228)
+* **guider:** support add panel class for guider #INFR-1633 ([212a6b1](https://github.com/atinc/ngx-tethys/commit/212a6b1)), closes [#INFR-1633](https://github.com/atinc/ngx-tethys/issues/INFR-1633)
+* support thyRangePicker select date range #INFR-1620 ([#1139](https://github.com/atinc/ngx-tethys/issues/1139)) ([67374ed](https://github.com/atinc/ngx-tethys/commit/67374ed)), closes [#INFR-1620](https://github.com/atinc/ngx-tethys/issues/INFR-1620) [#INFR-1620](https://github.com/atinc/ngx-tethys/issues/INFR-1620) [#INFR-1620](https://github.com/atinc/ngx-tethys/issues/INFR-1620)
+
+
+
+<a name="9.0.23"></a>
+## [9.0.23](https://github.com/atinc/ngx-tethys/compare/9.0.22...9.0.23) (2021-02-05)
+
+
+### Bug Fixes
+
+* **cascader:** 传入函数this丢失 ([75028d4](https://github.com/atinc/ngx-tethys/commit/75028d4))
+* **grid:** set header padding align td when size is default ([#1136](https://github.com/atinc/ngx-tethys/issues/1136)) ([ee59380](https://github.com/atinc/ngx-tethys/commit/ee59380))
+* **uploader:** uploader support custom accept type, #INFR-1564 ([#1130](https://github.com/atinc/ngx-tethys/issues/1130)) ([b0e1e9c](https://github.com/atinc/ngx-tethys/commit/b0e1e9c)), closes [#INFR-1564](https://github.com/atinc/ngx-tethys/issues/INFR-1564)
+
+
+### Features
+
+* **card:** remove line in card-header and deprecate thyAlign in card-content #INFR-1158 ([3c2c08e](https://github.com/atinc/ngx-tethys/commit/3c2c08e)), closes [#INFR-1158](https://github.com/atinc/ngx-tethys/issues/INFR-1158)
+* **guider:** support redirect to other route when change step #INFR-1543 ([#1138](https://github.com/atinc/ngx-tethys/issues/1138)) ([452283c](https://github.com/atinc/ngx-tethys/commit/452283c)), closes [#INFR-1543](https://github.com/atinc/ngx-tethys/issues/INFR-1543)
 
 
 <a name="9.0.22"></a>

@@ -3,6 +3,7 @@ import { ThyCardModule } from '../card.module';
 import { Component, OnInit, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ThyCardComponent } from '../card.component';
+import { ThyCardContentComponent } from '../content.component';
 
 @Component({
     selector: 'card-basic',
@@ -73,6 +74,13 @@ describe('thy-card', () => {
             expect(cardBasicDebugElement).toBeTruthy();
             const cardElement: HTMLElement = cardBasicDebugElement.nativeElement;
             expect(cardElement.classList.contains('thy-card')).toBe(true);
+        });
+        it('should header and content align', () => {
+            const headerDebugElement = cardBasicDebugElement.query(By.css('.card-header-title'));
+            const contentDebugElement = cardBasicDebugElement.query(By.directive(ThyCardContentComponent));
+            expect((headerDebugElement.nativeElement as HTMLElement).getBoundingClientRect().left).toEqual(
+                (contentDebugElement.nativeElement as HTMLElement).getBoundingClientRect().left
+            );
         });
     });
 

@@ -137,6 +137,7 @@ export class ThyGuiderStepRef {
                 y: position[1]
             },
             originActiveClass: '',
+            panelClass: this.guiderRef.config.hintClass || '',
             backdropClosable: false,
             hasBackdrop: false,
             manualClosure: true,
@@ -181,6 +182,7 @@ export class ThyGuiderStepRef {
         const popoverConfig = {
             origin: hintContainer,
             placement: step.hintPlacement,
+            panelClass: this.guiderRef.config.hintClass || '',
             backdropClosable: false,
             hasBackdrop: false,
             manualClosure: true,

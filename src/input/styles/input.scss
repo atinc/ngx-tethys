@@ -52,6 +52,14 @@
             }
         }
     }
+    &[disabled] {
+        background-color: $input-disabled-bg;
+        .input-append,
+        .input-prepend {
+            background-color: $input-disabled-bg;
+            pointer-events: none;
+        }
+    }
 }
 
 .input-search-container {

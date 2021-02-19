@@ -1,3 +1,6 @@
 <input thyInput [(ngModel)]="value" [thyAutofocus]="true" (thyEnter)="enter()" placeholder="请输入" />
 <br />
 <input thyInput readonly [(ngModel)]="value" placeholder="只读，不可输入" />
+
+<br />
+<input thyInput [disabled]="true" [(ngModel)]="value" placeholder="不可编辑" />
