@@ -2,6 +2,63 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="10.0.0"></a>
+# [10.0.0](https://github.com/atinc/ngx-tethys/compare/9.0.24...10.0.0) (2021-02-19)
+
+
+### Bug Fixes
+
+* **util:** should return true when isString('') and add testcases #INFR-1629 ([#1146](https://github.com/atinc/ngx-tethys/issues/1146)) ([1cf4a2d](https://github.com/atinc/ngx-tethys/commit/1cf4a2d)), closes [#INFR-1629](https://github.com/atinc/ngx-tethys/issues/INFR-1629)
+
+
+### Features
+
+* **util:** add type guards for isxxx functions #INFR-1626 ([#1142](https://github.com/atinc/ngx-tethys/issues/1142)) ([74a6412](https://github.com/atinc/ngx-tethys/commit/74a6412)), closes [#INFR-1626](https://github.com/atinc/ngx-tethys/issues/INFR-1626)
+
+
+
+<a name="10.0.0-next.3"></a>
+# [10.0.0-next.3](https://github.com/atinc/ngx-tethys/compare/9.0.22...10.0.0-next.3) (2021-02-05)
+
+
+### Bug Fixes
+
+* **util:** move tiny-date.ts, fix date-fns reexported  error when build ([12cf309](https://github.com/atinc/ngx-tethys/commit/12cf309))
+
+
+
+<a name="10.0.0-next.1"></a>
+# [10.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/9.0.15...10.0.0-next.1) (2021-01-15)
+
+
+### Bug Fixes
+
+* **store:** add @Injectable() for fix build RootStore error ([3639884](https://github.com/atinc/ngx-tethys/commit/3639884))
+* **util:** change tiny-date export function ([4919756](https://github.com/atinc/ngx-tethys/commit/4919756))
+
+
+### Features
+
+* **tree-select:** tree select support search, #INFR-1542 ([78e80ed](https://github.com/atinc/ngx-tethys/commit/78e80ed)), closes [#INFR-1542](https://github.com/atinc/ngx-tethys/issues/INFR-1542)
+
+
+
+<a name="10.0.0-next.0"></a>
+# [10.0.0-next.0](https://github.com/atinc/ngx-tethys/compare/9.0.14...10.0.0-next.0) (2021-01-04)
+
+
+### Bug Fixes
+
+* **schematics:** ts节点属性 readonly 修复 ([01b4506](https://github.com/atinc/ngx-tethys/commit/01b4506))
+* **store:** fix build error: Only initialized variables and constants can be referenced in decorators ([d502fc8](https://github.com/atinc/ngx-tethys/commit/d502fc8))
+
+
+### Features
+
+* upgrade angular from 9.x to 10.x #INFR-1516 ([c47569d](https://github.com/atinc/ngx-tethys/commit/c47569d)), closes [#INFR-1516](https://github.com/atinc/ngx-tethys/issues/INFR-1516)
+
+
+
 <a name="10.0.0-next.3"></a>
 # [10.0.0-next.3](https://github.com/atinc/ngx-tethys/compare/9.0.22...10.0.0-next.3) (2021-02-05)
 
