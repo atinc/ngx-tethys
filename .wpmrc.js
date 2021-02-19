@@ -7,6 +7,10 @@ module.exports = {
         {
             filename: './src/version.ts',
             type: 'code'
+        },
+        {
+            filename: './schematics/version.ts',
+            type: 'code'
         }
     ],
     // backward compatibility changelog
