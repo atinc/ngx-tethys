@@ -17,7 +17,6 @@ export interface ThyGuiderStep<TData = any> {
     hintOffset?: number;
     pointOffset?: [number, number];
     // children: StepInfo<T>[]
-    panelClass?: string | string[];
 }
 
 export class ThyGuiderConfig {
@@ -40,7 +39,7 @@ export class ThyGuiderConfig {
     hintOffset?: number;
 
     /** popover active class */
-    panelClass?: string | string[];
+    hintClass?: string | string[];
 }
 
 export const defaultGuiderPositionConfig = {

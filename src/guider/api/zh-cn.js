@@ -54,7 +54,7 @@ module.exports = [
                 default: '[0,0]'
             },
             {
-                name: 'panelClass',
+                name: 'hintClass',
                 description: '新手引导弹窗的自定义类',
                 type: 'string | string[]',
                 default: ''
@@ -113,12 +113,6 @@ module.exports = [
                 description: '新手引导内容组件默认位置（基于浏览器视窗，优先级小于 hintPlacement',
                 type: '[number,number]',
                 default: '[0,0]'
-            },
-            {
-                name: 'panelClass',
-                description: '新手引导当前步骤弹窗的自定义类',
-                type: 'string | string[]',
-                default: ''
             }
         ]
     },

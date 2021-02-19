@@ -54,8 +54,7 @@ export class ThyGuider {
             {
                 hintPlacement: config.hintPlacement,
                 hintOffset: config.hintOffset,
-                pointOffset: config.pointOffset,
-                panelClass: config.panelClass
+                pointOffset: config.pointOffset
             },
             step
         );
