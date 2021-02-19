@@ -27,7 +27,7 @@ import { FileSelectBaseComponent } from './file-select-base';
 export class ThyFileDropComponent extends FileSelectBaseComponent implements OnInit, OnDestroy {
     @HostBinding('class.drop-over')
     @HostBinding('class.thy-drop-over')
-    private isDragOver = false;
+    isDragOver = false;
     private dragOverCustomClass: string;
 
     @Input() set thyFileDropClassName(value: string) {

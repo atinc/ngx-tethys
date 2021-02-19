@@ -5,10 +5,11 @@ import { ThyFileSelectComponent } from './file-select.component';
 import { ThyFileDropComponent } from './file-drop.component';
 import { ThyUploaderService } from './uploader.service';
 import { THY_UPLOADER_DEFAULT_OPTIONS_PROVIDER } from './uploader.config';
+import { FileSelectBaseComponent } from './file-select-base';
 // import { ThyDirectiveModule } from 'ngx-tethys/directive';
 
 @NgModule({
-    declarations: [ThyFileSelectComponent, ThyFileDropComponent],
+    declarations: [ThyFileSelectComponent, ThyFileDropComponent, FileSelectBaseComponent],
     imports: [CommonModule, HttpClientModule],
     entryComponents: [ThyFileDropComponent],
     providers: [ThyUploaderService, THY_UPLOADER_DEFAULT_OPTIONS_PROVIDER],
