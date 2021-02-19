@@ -1,9 +1,8 @@
-import { ThyUploadResponse } from './../../../built/uploader/uploader.service.d';
 import { Subject } from 'rxjs';
 import { XhrFactory } from '@angular/common/http';
 import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { ThyUploaderModule } from '../module';
-import { ThyUploaderService, ThyUploadFile, ThyUploadStatus } from '../uploader.service';
+import { ThyUploaderService, ThyUploadFile, ThyUploadResponse, ThyUploadStatus } from '../uploader.service';
 import { createFile } from './utils';
 import { MockXhrFactory, MockXMLHttpRequest } from './xhr-mock';
 
