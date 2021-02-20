@@ -15,3 +15,4 @@ jobs:
             - 'node_modules'
       - run: npm run test:components -- --no-watch --no-progress --browsers=ChromeHeadlessCI
       - run: npm run test:schematics
+      - run: npm run report-coverage
