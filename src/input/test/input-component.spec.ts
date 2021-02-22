@@ -2,7 +2,7 @@ import { ThyInputComponent } from './../input.component';
 import { ThyInputModule } from './../module';
 import { ThyInputDirective } from './../input.directive';
 import { Component, DebugElement, NgModule } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -22,7 +22,10 @@ import { CommonModule } from '@angular/common';
             placeholder="请输入您的姓名"
             (focus)="onFocus()"
             (blur)="onBlur()"
-        ></thy-input>
+            [disabled]="disabled"
+        >
+            <ng-template #prepend>前置模版</ng-template>
+        </thy-input>
         <thy-input class="input2">
             <ng-template #prepend>前置模版</ng-template>
             <ng-template #append>后置模版</ng-template>
@@ -36,6 +39,7 @@ class TestBedComponent {
     readonly;
     checkFocus = false;
     checkBlur = false;
+    disabled = false;
     onFocus() {
         this.checkFocus = true;
     }
@@ -52,7 +56,7 @@ class TestBedComponent {
 })
 export class InputComponentTestModule {}
 
-describe('input component', () => {
+fdescribe('input component', () => {
     let fixture: ComponentFixture<TestBedComponent>;
     let basicTestComponent: TestBedComponent;
     let debugElement: DebugElement;
@@ -146,4 +150,11 @@ describe('input component', () => {
         fixture.detectChanges();
         expect(debugElement.nativeElement.readOnly).toBe(true);
     });
+
+    it('disabled', fakeAsync(() => {
+        basicTestComponent.disabled = true;
+        fixture.detectChanges();
+        tick();
+        expect(debugContainerElement.componentInstance.isDisabled).toBe(true);
+    }));
 });

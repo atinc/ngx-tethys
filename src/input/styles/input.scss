@@ -53,13 +53,6 @@
         }
     }
     &[disabled] {
-        &[disabled='false'] {
-            background-color: $white;
-            .input-append,
-            .input-prepend {
-                background-color: $white;
-            }
-        }
         background-color: $input-disabled-bg;
         .input-append,
         .input-prepend {

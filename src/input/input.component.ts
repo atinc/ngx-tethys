@@ -32,10 +32,7 @@ const password = 'password';
     selector: 'thy-input',
     templateUrl: './input.component.html',
     providers: [UpdateHostClassService, CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
-    encapsulation: ViewEncapsulation.None,
-    host: {
-        '[attr.disabled]': `disabled`
-    }
+    encapsulation: ViewEncapsulation.None
 })
 export class ThyInputComponent implements ControlValueAccessor, OnInit {
     @Input() placeholder = '';
@@ -90,6 +87,8 @@ export class ThyInputComponent implements ControlValueAccessor, OnInit {
 
     @HostBinding('class.form-control-active') _isFocus = false;
 
+    @HostBinding('class.disabled') isDisabled = false;
+
     constructor(private ngZone: NgZone) {}
 
     ngOnInit() {
@@ -114,6 +113,7 @@ export class ThyInputComponent implements ControlValueAccessor, OnInit {
 
     setDisabledState?(isDisabled: boolean): void {
         this.disabled = isDisabled;
+        this.isDisabled = isDisabled;
     }
 
     onModelChange() {
