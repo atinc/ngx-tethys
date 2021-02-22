@@ -71,8 +71,6 @@ export class ThyInputComponent implements ControlValueAccessor, OnInit {
 
     public value: string;
 
-    public disabled = false;
-
     public autocomplete: boolean;
 
     public showLabel: boolean;
@@ -87,7 +85,7 @@ export class ThyInputComponent implements ControlValueAccessor, OnInit {
 
     @HostBinding('class.form-control-active') _isFocus = false;
 
-    @HostBinding('class.disabled') isDisabled = false;
+    @HostBinding('class.disabled') disabled = false;
 
     constructor(private ngZone: NgZone) {}
 
@@ -113,7 +111,6 @@ export class ThyInputComponent implements ControlValueAccessor, OnInit {
 
     setDisabledState?(isDisabled: boolean): void {
         this.disabled = isDisabled;
-        this.isDisabled = isDisabled;
     }
 
     onModelChange() {

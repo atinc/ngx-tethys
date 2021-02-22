@@ -1,3 +1,4 @@
+import { style } from '@angular/animations';
 import { ThyInputComponent } from './../input.component';
 import { ThyInputModule } from './../module';
 import { ThyInputDirective } from './../input.directive';
@@ -155,6 +156,7 @@ fdescribe('input component', () => {
         basicTestComponent.disabled = true;
         fixture.detectChanges();
         tick();
-        expect(debugContainerElement.componentInstance.isDisabled).toBe(true);
+        fixture.detectChanges();
+        expect(debugContainerElement.attributes.class.includes('disabled')).toBe(true);
     }));
 });
