@@ -53,6 +53,13 @@
         }
     }
     &[disabled] {
+        &[disabled='false'] {
+            background-color: rgba(0, 0, 0, 0);
+            .input-append,
+            .input-prepend {
+                background-color: rgba(0, 0, 0, 0);
+            }
+        }
         background-color: $input-disabled-bg;
         .input-append,
         .input-prepend {

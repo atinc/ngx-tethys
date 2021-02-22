@@ -32,7 +32,10 @@ const password = 'password';
     selector: 'thy-input',
     templateUrl: './input.component.html',
     providers: [UpdateHostClassService, CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        '[attr.disabled]': `disabled`
+    }
 })
 export class ThyInputComponent implements ControlValueAccessor, OnInit {
     @Input() placeholder = '';
