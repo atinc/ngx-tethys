@@ -54,10 +54,10 @@
     }
     &[disabled] {
         &[disabled='false'] {
-            background-color: rgba(0, 0, 0, 0);
+            background-color: $white;
             .input-append,
             .input-prepend {
-                background-color: rgba(0, 0, 0, 0);
+                background-color: $white;
             }
         }
         background-color: $input-disabled-bg;
