@@ -57,7 +57,7 @@ class TestBedComponent {
 })
 export class InputComponentTestModule {}
 
-fdescribe('input component', () => {
+describe('input component', () => {
     let fixture: ComponentFixture<TestBedComponent>;
     let basicTestComponent: TestBedComponent;
     let debugElement: DebugElement;
