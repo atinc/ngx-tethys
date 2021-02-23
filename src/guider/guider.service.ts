@@ -1,7 +1,8 @@
-import { Inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { helpers } from 'ngx-tethys/util';
 import { DOCUMENT } from '@angular/common';
 import { ThyGuiderRef } from './guider-ref';
+import { Inject, NgZone } from '@angular/core';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { ThyGuiderManager } from './guider-manager';
 import { Injectable, RendererFactory2 } from '@angular/core';
@@ -20,10 +21,14 @@ export class ThyGuider {
         private popover: ThyPopover,
         private router: Router,
         private guiderManager: ThyGuiderManager,
+        private ngZone: NgZone,
         @Inject(DOCUMENT) private document: any
     ) {}
 
     public create(config: ThyGuiderConfig): ThyGuiderRef {
+        if (!config || !config?.steps || !helpers.isArray(config?.steps)) {
+            throw new Error(`'config.steps' must be an array of length greater than 0`);
+        }
         const normalizeConfig = this.normalizeConfig(config);
         this.guiderRef = new ThyGuiderRef(
             normalizeConfig,
@@ -31,6 +36,7 @@ export class ThyGuider {
             this.popover,
             this.router,
             this.guiderManager,
+            this.ngZone,
             this.document
         );
         this.guiderRef.closed().subscribe(() => {
