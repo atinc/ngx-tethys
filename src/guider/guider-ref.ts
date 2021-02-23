@@ -4,9 +4,9 @@ import { DOCUMENT } from '@angular/common';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { ThyGuiderManager } from './guider-manager';
 import { ThyGuiderStepRef } from './guider-step-ref';
-import { Inject, RendererFactory2 } from '@angular/core';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { ThyGuiderConfig, ThyGuiderStep } from './guider.class';
+import { Inject, NgZone, RendererFactory2 } from '@angular/core';
 
 export class ThyGuiderRef {
     public steps: ThyGuiderStep[];
@@ -31,11 +31,9 @@ export class ThyGuiderRef {
         private popover: ThyPopover,
         private router: Router,
         private guiderManager: ThyGuiderManager,
+        private ngZone: NgZone,
         @Inject(DOCUMENT) private document: any
     ) {
-        if (!config || !config?.steps || !helpers.isArray(config?.steps)) {
-            throw new Error('’config.steps’ must be an array of length greater than 0');
-        }
         this.stepsRef = config.steps.map((step, index) => {
             return new ThyGuiderStepRef(step, index, this.rendererFactory, this.popover, this.guiderManager, this.document);
         });
@@ -99,13 +97,13 @@ export class ThyGuiderRef {
         }
         this.currentStep = this.steps[index];
         this.currentStepIndex = index;
-        if (!this.currentStep) {
-            throw new Error('step not exist');
-        }
+
         // update guiderManager
         this.guiderManager.updateActive(this.currentStep.key, this);
         if (this.currentStep.route && this.currentStep.route !== this.router.url) {
-            this.router.navigateByUrl(this.currentStep.route);
+            this.ngZone.run(() => {
+                this.router.navigateByUrl(this.currentStep.route);
+            });
             return;
         }
         setTimeout(() => {
