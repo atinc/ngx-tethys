@@ -113,20 +113,10 @@ class GuiderBasicComponent implements OnInit {
 
     public innerText = templateRefInnerText;
 
-    public step: ThyGuiderStep;
-
-    public ended: boolean = false;
-
     constructor(private thyGuider: ThyGuider) {}
 
     ngOnInit() {
         this.guiderRef = this.thyGuider.create(this.option);
-        this.guiderRef.targetClicked().subscribe(step => {
-            this.step = step;
-        });
-        this.guiderRef.ended().subscribe(() => {
-            this.ended = true;
-        });
     }
 
     startGuider() {
@@ -167,7 +157,7 @@ class GuiderBasicComponent implements OnInit {
         <ng-container *ngIf="show">
             <span thyGuiderTarget="directive-tip-target" class="test-directive-span">back directive</span>
         </ng-container>
-        <ng-container *ngIf="delay1000">
+        <ng-container *ngIf="delayShow">
             <span thyGuiderTarget="directive-tip-target-second" class="test-directive-span-second"> directive 2</span>
         </ng-container>
     `
@@ -177,7 +167,7 @@ class TestGuiderDirectiveComponent implements OnInit {
 
     public show = true;
 
-    public delay1000 = false;
+    public delayShow = false;
 
     constructor(private thyGuider: ThyGuider) {}
 
@@ -187,8 +177,8 @@ class TestGuiderDirectiveComponent implements OnInit {
         });
     }
 
-    toggleDelay1000() {
-        this.delay1000 = true;
+    toggleDelayShow() {
+        this.delayShow = true;
     }
 }
 const TEST_COMPONENTS = [GuiderBasicComponent, TestGuiderDirectiveComponent];
@@ -317,12 +307,14 @@ describe(`thyGuider`, () => {
             fixture.detectChanges();
             const target = debugElement.query(By.css('.basic-hint-target')).nativeElement as HTMLInputElement;
             fixture.detectChanges();
-            expect(fixtureInstance.step).toBeUndefined();
+            const spy = jasmine.createSpy('target click');
+            fixtureInstance.guiderRef.targetClicked().subscribe(spy);
+            fixture.detectChanges();
+            expect(spy).not.toHaveBeenCalled();
 
             dispatchMouseEvent(target, 'click');
             fixture.detectChanges();
-
-            expect(fixtureInstance.step.target).toBe('.basic-hint-target');
+            expect(spy).toHaveBeenCalled();
         }));
 
         it('should be informed when the guider is ended', fakeAsync(() => {
@@ -330,11 +322,14 @@ describe(`thyGuider`, () => {
             fixture.detectChanges();
             const target = queryHintComponentBtnArea().firstElementChild;
             fixture.detectChanges();
-            expect(fixtureInstance.ended).toBeFalsy();
+            const spyEnded = jasmine.createSpy('guider ended');
+            fixtureInstance.guiderRef.ended().subscribe(spyEnded);
+            fixture.detectChanges();
+            expect(spyEnded).not.toHaveBeenCalled();
 
             dispatchMouseEvent(target, 'click');
             fixture.detectChanges();
-            expect(fixtureInstance.ended).toBeTruthy();
+            expect(spyEnded).toHaveBeenCalled();
         }));
 
         // it('should do nothing when index is out of range', fakeAsync(() => {
@@ -515,11 +510,10 @@ describe(`thyGuider`, () => {
             managerService.updateActive('directive-tip-target-second', guiderRef);
             fixtureOfDirective.detectChanges();
             tick(500);
-            fixtureInstanceOfDirective.toggleDelay1000();
+            fixtureInstanceOfDirective.toggleDelayShow();
             fixtureOfDirective.detectChanges();
             flush();
             fixtureOfDirective.detectChanges();
-
             expect(getHintContainer()).not.toBeNull();
         }));
 
