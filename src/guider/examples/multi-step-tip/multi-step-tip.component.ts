@@ -42,7 +42,7 @@ export class ThyGuiderMultiStepTipExampleComponent implements OnInit {
                         title: 'step 2/5',
                         description: '新手引导五步中的第二步'
                     },
-                    tipPlacement: 'right'
+                    hintPlacement: 'right'
                 },
                 {
                     key: 'multi-steps-tip-2',
@@ -52,7 +52,7 @@ export class ThyGuiderMultiStepTipExampleComponent implements OnInit {
                         title: 'step 3/5',
                         description: '新手引导五步中的第三步'
                     },
-                    tipPlacement: 'topRight'
+                    hintPlacement: 'topRight'
                 },
                 {
                     key: 'multi-steps-tip-3',
@@ -62,7 +62,7 @@ export class ThyGuiderMultiStepTipExampleComponent implements OnInit {
                         title: 'step 4/5',
                         description: '新手引导五步中的第四步'
                     },
-                    tipPlacement: 'bottomRight'
+                    hintPlacement: 'bottomRight'
                 },
                 {
                     key: 'multi-steps-tip-end',
