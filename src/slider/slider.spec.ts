@@ -17,7 +17,7 @@ import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
                 [(ngModel)]="value"
                 [thyType]="type"
                 [thyColor]="color"
-                (thyAfterChange)="afterChange()"
+                (thyAfterChange)="afterChange($event)"
             ></thy-slider>
         </div>
     `,
@@ -40,8 +40,8 @@ class ThyTestSliderComponent {
     type = '';
     color = '';
     spy = jasmine.createSpy('after change');
-    afterChange() {
-        this.spy();
+    afterChange({ value }: { value: number }) {
+        this.spy(value);
     }
 }
 
@@ -194,10 +194,12 @@ describe('ThyTestSliderComponent', () => {
             fixture.detectChanges();
             expect(fixtureInstance.spy).not.toHaveBeenCalled();
 
-            dispatchMouseEvent(pointerElement, 'mousedown', pointerElementRect.left + 10, pointerElementRect.height);
+            dispatchMouseEvent(pointerElement, 'mousedown', pointerElementRect.left + 500, pointerElementRect.height);
             dispatchMouseEvent(pointerElement, 'mouseup');
             fixture.detectChanges();
             expect(fixtureInstance.spy).toHaveBeenCalled();
+
+            expect(fixtureInstance.spy.calls.mostRecent().args[0]).toEqual(fixtureInstance.max);
         }));
     });
 
