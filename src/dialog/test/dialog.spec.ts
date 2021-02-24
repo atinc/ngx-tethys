@@ -1106,14 +1106,7 @@ describe('ThyDialog', () => {
         });
     });
 
-    describe(`dialog header`, () => {
-        it('should show thyTitle when header only set thyTitleTranslationKey', () => {
-            dialog.open(DialogFullContentComponent, { viewContainerRef: testViewContainerRef });
-            viewContainerFixture.detectChanges();
-            const titleElement = overlayContainerElement.querySelector('.dialog-title') as HTMLDivElement;
-            expect(titleElement.innerHTML.includes('Translation Key Title')).toBeTruthy();
-        });
-
+    describe(`dialog should work with header close button`, () => {
         it('should close the dialog when click dialog header close button', (done: DoneFn) => {
             const dialogRef = dialog.open(DialogFullContentComponent, { viewContainerRef: testViewContainerRef });
             const spy = jasmine.createSpy('Dialog afterClosed spy');
