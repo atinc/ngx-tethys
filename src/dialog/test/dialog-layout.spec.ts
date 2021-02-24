@@ -4,7 +4,6 @@ import { Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { DialogHeaderComponent } from '../header/dialog-header.component';
 import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/testing/thy-icon';
-import { DialogFooterComponent } from '../footer/dialog-footer.component';
 import { THY_DIALOG_LAYOUT_CONFIG } from '../dialog.config';
 
 @Component({
@@ -35,8 +34,16 @@ class DialogFooterBasicComponent {
 
     align = '';
 
-    divided;
+    divided: boolean;
 }
+
+@Component({
+    selector: 'dialog-header-basic',
+    template: `
+        <thy-dialog-header thyTitleTranslationKey="Translation Key Title"></thy-dialog-header>
+    `
+})
+class DialogHeaderTitleTranslationComponent {}
 
 describe('dialog-layout', () => {
     describe('dialog-header', () => {
@@ -78,6 +85,34 @@ describe('dialog-layout', () => {
             dialogBasicFixture.componentInstance.size = 'lg';
             dialogBasicFixture.detectChanges();
             expect(dialogHeaderElement.classList.contains('dialog-header-lg')).toBeTruthy();
+        });
+    });
+
+    describe('dialog-header-title-translation', () => {
+        beforeEach(() => {
+            TestBed.configureTestingModule({
+                imports: [ThyDialogModule],
+                declarations: [DialogHeaderTitleTranslationComponent],
+                providers: [bypassSanitizeProvider]
+            });
+            TestBed.compileComponents();
+
+            injectDefaultSvgIconSet();
+        });
+
+        let dialogBasicFixture: ComponentFixture<DialogHeaderTitleTranslationComponent>;
+        let dialogHeaderDebugElement: DebugElement;
+        let dialogHeaderElement: HTMLElement;
+
+        beforeEach(() => {
+            dialogBasicFixture = TestBed.createComponent(DialogHeaderTitleTranslationComponent);
+            dialogBasicFixture.detectChanges();
+            dialogHeaderDebugElement = dialogBasicFixture.debugElement.query(By.directive(DialogHeaderComponent));
+            dialogHeaderElement = dialogHeaderDebugElement.nativeElement;
+        });
+
+        it('should show thyTitle when header only set thyTitleTranslationKey', () => {
+            expect(dialogHeaderElement.innerHTML.includes('Translation Key Title')).toBeTruthy();
         });
     });
 
