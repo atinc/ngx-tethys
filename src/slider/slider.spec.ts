@@ -40,8 +40,8 @@ class ThyTestSliderComponent {
     type = '';
     color = '';
     spy = jasmine.createSpy('after change');
-    afterChange({ value }: { value: number }) {
-        this.spy(value);
+    afterChange(result: { value: number }) {
+        this.spy(result);
     }
 }
 
@@ -199,7 +199,7 @@ describe('ThyTestSliderComponent', () => {
             fixture.detectChanges();
             expect(fixtureInstance.spy).toHaveBeenCalled();
 
-            expect(fixtureInstance.spy.calls.mostRecent().args[0]).toEqual(fixtureInstance.max);
+            expect(fixtureInstance.spy).toHaveBeenCalledWith({ value: fixtureInstance.max });
         }));
     });
 
