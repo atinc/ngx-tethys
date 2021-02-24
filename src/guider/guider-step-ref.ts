@@ -98,12 +98,25 @@ export class ThyGuiderStepRef {
         const currentPointContainer = this.renderer.createElement('div');
 
         this.renderer.addClass(currentPointContainer, 'thy-guider-highlight-container');
+        if (this.guiderRef.config.pointClass) {
+            this.addPointClass(currentPointContainer, this.guiderRef.config.pointClass);
+        }
         this.renderer.setStyle(currentPointContainer, 'position', 'absolute');
         this.renderer.setStyle(currentPointContainer, 'left', pointPosition[0] + 'px');
         this.renderer.setStyle(currentPointContainer, 'top', pointPosition[1] + 'px');
         this.renderer.setStyle(currentPointContainer, 'transform', 'translate(-100%,-100%)');
 
         return currentPointContainer;
+    }
+    private addPointClass(el: any, pointClass: string | string[]) {
+        if (helpers.isString(pointClass)) {
+            this.renderer.addClass(el, pointClass);
+        }
+        if (helpers.isArray(pointClass)) {
+            pointClass.forEach(classItem => {
+                this.renderer.addClass(el, classItem);
+            });
+        }
     }
 
     private renderPoint(targetElement: Element, pointContainer: any) {

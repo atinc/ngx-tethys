@@ -40,6 +40,9 @@ export class ThyGuiderConfig {
 
     /** popover active class */
     hintClass?: string | string[];
+
+    /** guider point class */
+    pointClass?: string | string[];
 }
 
 export const defaultGuiderPositionConfig = {
