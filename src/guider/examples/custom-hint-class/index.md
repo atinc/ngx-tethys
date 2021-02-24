@@ -1,4 +1,4 @@
 ---
-title: 自定义 panel 类
+title: 自定义 panel & point 类
 order: 5
 ---
