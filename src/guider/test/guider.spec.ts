@@ -473,6 +473,36 @@ describe(`thyGuider`, () => {
             expect(content.nodeName).toBe('span'.toUpperCase());
             expect(content.innerText).toBe(templateRefInnerText);
         }));
+
+        it('should add custom class when config pointClass', fakeAsync(() => {
+            fixtureInstance.multiStepsOption.pointClass = 'custom-point-class';
+            fixture.detectChanges();
+            fixtureInstance.setMultiStepsGuider();
+            fixture.detectChanges();
+            fixtureInstance.guiderRef.active(1);
+            tick(500);
+            fixture.detectChanges();
+
+            const point = debugElement.query(By.css('.thy-guider-highlight-container')).nativeElement as HTMLElement;
+            const hasCustomClass = point.classList.contains('custom-point-class');
+            expect(hasCustomClass).toBeTruthy();
+
+            fixtureInstance.guiderRef.close();
+            fixture.detectChanges();
+            fixtureInstance.multiStepsOption.pointClass = ['custom-point-class-2', 'custom-point-class-3'];
+            fixture.detectChanges();
+            fixtureInstance.setMultiStepsGuider();
+            fixture.detectChanges();
+            fixtureInstance.guiderRef.active(1);
+            tick(500);
+            fixture.detectChanges();
+
+            const secondPoint = debugElement.query(By.css('.thy-guider-highlight-container')).nativeElement as HTMLElement;
+            const hasSecondCustomClass = secondPoint.classList.contains('custom-point-class-2');
+            expect(hasSecondCustomClass).toBeTruthy();
+            const hasThirdCustomClass = secondPoint.classList.contains('custom-point-class-3');
+            expect(hasThirdCustomClass).toBeTruthy();
+        }));
     });
 
     describe('guider directive and guider manager service', () => {

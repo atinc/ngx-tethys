@@ -16,11 +16,13 @@ export class ThyGuiderCustomHintClassExampleComponent implements OnInit {
                 data: {
                     cover: '',
                     title: '自定义弹出窗的类',
-                    description: '通过 popoverConfig.panelClass 控制样式类,可以看到此弹出窗的包裹层有 custom-hint-class 类'
+                    description: `通过 popoverConfig.panelClass 控制样式类,可以看到此弹出窗的包裹层有 custom-hint-class 类.
+                        通过 pointClass 控制 point 的样式，可以看到此 point 有 custom-point-class 类`
                 }
             }
         ] as ThyGuiderStep[],
-        hintClass: 'custom-hint-class'
+        hintClass: 'custom-hint-class',
+        pointClass: 'custom-point-class'
     };
 
     private guiderRef: ThyGuiderRef;

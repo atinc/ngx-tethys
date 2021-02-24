@@ -58,6 +58,12 @@ module.exports = [
                 description: '新手引导弹窗的自定义类',
                 type: 'string | string[]',
                 default: ''
+            },
+            {
+                name: 'pointClass',
+                description: '新手引导point的自定义类',
+                type: 'string | string[]',
+                default: ''
             }
         ]
     },
