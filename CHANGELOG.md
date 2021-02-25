@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="10.0.1"></a>
+## [10.0.1](https://github.com/atinc/ngx-tethys/compare/10.0.0...10.0.1) (2021-02-25)
+
+
+### Bug Fixes
+
+* **input:** fix custom input disabled, #INFR-1630 ([#1159](https://github.com/atinc/ngx-tethys/issues/1159)) ([76a7c8b](https://github.com/atinc/ngx-tethys/commit/76a7c8b)), closes [#INFR-1630](https://github.com/atinc/ngx-tethys/issues/INFR-1630) [#INFR-1630](https://github.com/atinc/ngx-tethys/issues/INFR-1630)
+
+
+### Features
+
+* **guider:** support custom point class #INFR-1658 ([f6dac02](https://github.com/atinc/ngx-tethys/commit/f6dac02)), closes [#INFR-1658](https://github.com/atinc/ngx-tethys/issues/INFR-1658)
+
+
+
 <a name="10.0.0"></a>
 # [10.0.0](https://github.com/atinc/ngx-tethys/compare/9.0.24...10.0.0) (2021-02-19)
 
