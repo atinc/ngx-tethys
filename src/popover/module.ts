@@ -1,13 +1,15 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { ThyPopoverContainerComponent } from './popover-container.component';
+import { ThyIconModule } from 'ngx-tethys/icon';
+
 import { OverlayModule } from '@angular/cdk/overlay';
 import { PortalModule } from '@angular/cdk/portal';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+
+import { ThyPopoverBodyComponent } from './body/popover-body.component';
+import { ThyPopoverHeaderComponent } from './header/popover-header.component';
+import { ThyPopoverContainerComponent } from './popover-container.component';
 import { THY_POPOVER_DEFAULT_CONFIG_PROVIDER } from './popover.config';
 import { ThyPopoverDirective } from './popover.directive';
-import { ThyPopoverHeaderComponent } from './header/popover-header.component';
-import { ThyPopoverBodyComponent } from './body/popover-body.component';
-import { ThyIconModule } from 'ngx-tethys/icon';
 
 @NgModule({
     declarations: [ThyPopoverContainerComponent, ThyPopoverDirective, ThyPopoverHeaderComponent, ThyPopoverBodyComponent],

@@ -1,14 +1,15 @@
-import { Component, Injector, ViewContainerRef, ViewChild, Directive, NgModule, TemplateRef, OnInit, ElementRef } from '@angular/core';
-import { Location } from '@angular/common';
-import { OverlayContainer, Overlay, OverlayModule, ScrollStrategy } from '@angular/cdk/overlay';
-import { SpyLocation } from '@angular/common/testing';
-import { TestBed, inject, ComponentFixture, tick, fakeAsync } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ThyPopoverModule } from '../module';
-import { ThyPopover } from '../popover.service';
-import { ThyPopoverRef } from '../popover-ref';
 import { Directionality } from '@angular/cdk/bidi';
-import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { CloseScrollStrategy, Overlay, OverlayContainer, OverlayModule, ScrollStrategy } from '@angular/cdk/overlay';
+import { Location } from '@angular/common';
+import { SpyLocation } from '@angular/common/testing';
+import { Component, Directive, ElementRef, Injector, NgModule, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
+import { ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ThyPopoverModule } from '../module';
+import { ThyPopoverRef } from '../popover-ref';
+import { THY_POPOVER_DEFAULT_CONFIG } from '../popover.config';
+import { ThyPopover } from '../popover.service';
 
 @Component({
     selector: 'popover-basic',
@@ -112,7 +113,7 @@ export class PopoverManualClosureContentComponent implements OnInit {
     }
 
     open4(origin: HTMLElement, template: TemplateRef<HTMLElement>) {
-        this.popover.open(template, {
+        this.popoverRef = this.popover.open(template, {
             origin
         });
     }
@@ -179,11 +180,38 @@ const TEST_COMPONENTS = [
 class PopoverTestModule {}
 
 describe(`thyPopover`, () => {
-    describe('basic', () => {
-        let popover: ThyPopover;
-        let mockLocation: SpyLocation;
-        let overlayContainer: OverlayContainer;
-        let overlayContainerElement: Element;
+    let popover: ThyPopover;
+    let mockLocation: SpyLocation;
+    let overlayContainer: OverlayContainer;
+    let overlayContainerElement: Element;
+    let viewContainerFixture: ComponentFixture<WithChildViewContainerComponent>;
+
+    function getPopoverContainerElement() {
+        return overlayContainerElement.querySelector(`thy-popover-container`);
+    }
+
+    function getOverlayBackdropElement() {
+        return overlayContainerElement.querySelector('.cdk-overlay-backdrop');
+    }
+
+    function getOverlayPaneElement() {
+        return overlayContainerElement.querySelector('.cdk-overlay-pane');
+    }
+
+    function assertPopoverSimpleContentComponent(popoverRef: ThyPopoverRef<PopoverSimpleContentComponent>) {
+        expect(overlayContainerElement.textContent).toContain('Hello Popover');
+        expect(popoverRef.componentInstance instanceof PopoverSimpleContentComponent).toBe(true);
+        expect(popoverRef.componentInstance.popoverRef).toBe(popoverRef);
+
+        viewContainerFixture.detectChanges();
+        const popoverContainerElement = getPopoverContainerElement();
+        expect(popoverContainerElement.classList.contains('thy-popover-container')).toBe(true);
+        expect(popoverContainerElement.getAttribute('role')).toBe('popover');
+        const overlayPaneElement = getOverlayPaneElement();
+        expect(overlayPaneElement).toBeTruthy();
+    }
+
+    describe('manualClosure', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 imports: [PopoverTestModule],
@@ -206,37 +234,10 @@ describe(`thyPopover`, () => {
             overlayContainer.ngOnDestroy();
         });
 
-        let viewContainerFixture: ComponentFixture<WithChildViewContainerComponent>;
-
         beforeEach(() => {
             viewContainerFixture = TestBed.createComponent(WithChildViewContainerComponent);
             viewContainerFixture.detectChanges();
         });
-
-        function getPopoverContainerElement() {
-            return overlayContainerElement.querySelector(`thy-popover-container`);
-        }
-
-        function getOverlayBackdropElement() {
-            return overlayContainerElement.querySelector('.cdk-overlay-backdrop');
-        }
-
-        function getOverlayPaneElement() {
-            return overlayContainerElement.querySelector('.cdk-overlay-pane');
-        }
-
-        function assertPopoverSimpleContentComponent(popoverRef: ThyPopoverRef<PopoverSimpleContentComponent>) {
-            expect(overlayContainerElement.textContent).toContain('Hello Popover');
-            expect(popoverRef.componentInstance instanceof PopoverSimpleContentComponent).toBe(true);
-            expect(popoverRef.componentInstance.popoverRef).toBe(popoverRef);
-
-            viewContainerFixture.detectChanges();
-            const popoverContainerElement = getPopoverContainerElement();
-            expect(popoverContainerElement.classList.contains('thy-popover-container')).toBe(true);
-            expect(popoverContainerElement.getAttribute('role')).toBe('popover');
-            const overlayPaneElement = getOverlayPaneElement();
-            expect(overlayPaneElement).toBeTruthy();
-        }
 
         it('should open a popover with a component', () => {
             const overlayRef = popover.open(PopoverSimpleContentComponent, {
@@ -245,132 +246,267 @@ describe(`thyPopover`, () => {
             assertPopoverSimpleContentComponent(overlayRef);
         });
 
-        describe('manualClosure', () => {
-            let viewContainerFixtureManualClosure: ComponentFixture<PopoverManualClosureContentComponent>;
-            let btnElement1, btnElement2, btnElement3, btnElement4, btnElement5;
+        let viewContainerFixtureManualClosure: ComponentFixture<PopoverManualClosureContentComponent>;
+        let btnElement1: HTMLElement,
+            btnElement2: HTMLElement,
+            btnElement3: HTMLElement,
+            btnElement4: HTMLElement,
+            btnElement5: HTMLElement;
 
-            beforeEach(() => {
-                viewContainerFixtureManualClosure = TestBed.createComponent(PopoverManualClosureContentComponent);
-                btnElement1 = viewContainerFixtureManualClosure.nativeElement.querySelector('.btn1');
-                btnElement2 = viewContainerFixtureManualClosure.nativeElement.querySelector('.btn2');
-                btnElement3 = viewContainerFixtureManualClosure.nativeElement.querySelector('.btn3');
-                btnElement4 = viewContainerFixtureManualClosure.nativeElement.querySelector('.btn4');
-                btnElement5 = viewContainerFixtureManualClosure.nativeElement.querySelector('.btn5');
-                viewContainerFixtureManualClosure.detectChanges();
-            });
-
-            it('closeAll', fakeAsync(() => {
-                btnElement1.click();
-                btnElement3.click();
-                popover.closeAll();
-                tick(1000);
-                viewContainerFixtureManualClosure.detectChanges();
-                expect(document.querySelector('.template1')).toBeFalsy();
-                expect(document.querySelector('.template3')).toBeFalsy();
-            }));
-
-            it('closeLast', fakeAsync(() => {
-                btnElement1.click();
-                btnElement2.click();
-                btnElement3.click();
-                popover.close();
-                tick(1000);
-                viewContainerFixtureManualClosure.detectChanges();
-                expect(document.querySelector('.template1')).toBeTruthy();
-                expect(document.querySelector('.template2')).toBeTruthy();
-                expect(document.querySelector('.template3')).toBeFalsy();
-            }));
-
-            // it('closeLast 2', fakeAsync(() => {
-            //     btnElement1.click();
-            //     btnElement2.click();
-            //     btnElement3.click();
-            //     popover.closeLast(2);
-            //     tick(1000);
-            //     viewContainerFixtureManualClosure.detectChanges();
-            //     expect(document.querySelector('.template1')).toBeTruthy();
-            //     expect(document.querySelector('.template2')).toBeFalsy();
-            //     expect(document.querySelector('.template3')).toBeFalsy();
-            // }));
-
-            it('manualClosure, open manualClosure times', () => {
-                btnElement1.click();
-                btnElement2.click();
-                expect(document.querySelector('.template1')).toBeTruthy();
-                expect(document.querySelector('.template2')).toBeTruthy();
-            });
-
-            it('not manualClosure, open manualClosure times', fakeAsync(() => {
-                btnElement3.click();
-                btnElement4.click();
-                tick(1000);
-                expect(document.querySelector('.template3')).toBeFalsy();
-                expect(document.querySelector('.template4')).toBeTruthy();
-            }));
-
-            it('manualClosure and not manualClosure, mixed open', fakeAsync(() => {
-                btnElement3.click();
-                expect(document.querySelector('.template3')).toBeTruthy();
-                btnElement1.click();
-                tick(1000);
-                expect(document.querySelector('.template3')).toBeFalsy();
-                expect(document.querySelector('.template1')).toBeTruthy();
-                btnElement3.click();
-                tick(1000);
-                expect(document.querySelector('.template3')).toBeTruthy();
-            }));
-
-            it('origin add active className, default', () => {
-                btnElement1.click();
-                const element = getOverlayPaneElement();
-                expect(document.querySelector('.thy-popover-origin-active')).toBeTruthy();
-            });
-
-            it('origin add active className, originActiveClass', () => {
-                btnElement2.click();
-                expect(document.querySelector('.active-class')).toBeTruthy();
-            });
-
-            it('origin add active className, originActiveClass with Array', () => {
-                btnElement3.click();
-                expect(document.querySelector('.active-class2')).toBeTruthy();
-                expect(document.querySelector('.active-class3')).toBeTruthy();
-            });
-
-            it('apply reposition scroll strategy', () => {
-                btnElement5.click();
-                expect(viewContainerFixtureManualClosure.componentInstance.popoverRef.getOverlayRef().getConfig().scrollStrategy).toEqual(
-                    viewContainerFixtureManualClosure.componentInstance.scrollStrategy
-                );
-            });
+        beforeEach(() => {
+            viewContainerFixtureManualClosure = TestBed.createComponent(PopoverManualClosureContentComponent);
+            btnElement1 = viewContainerFixtureManualClosure.nativeElement.querySelector('.btn1');
+            btnElement2 = viewContainerFixtureManualClosure.nativeElement.querySelector('.btn2');
+            btnElement3 = viewContainerFixtureManualClosure.nativeElement.querySelector('.btn3');
+            btnElement4 = viewContainerFixtureManualClosure.nativeElement.querySelector('.btn4');
+            btnElement5 = viewContainerFixtureManualClosure.nativeElement.querySelector('.btn5');
+            viewContainerFixtureManualClosure.detectChanges();
         });
 
-        describe('outsideClosable', () => {
+        it('closeAll', fakeAsync(() => {
+            btnElement1.click();
+            btnElement3.click();
+            popover.closeAll();
+            tick(1000);
+            viewContainerFixtureManualClosure.detectChanges();
+            expect(document.querySelector('.template1')).toBeFalsy();
+            expect(document.querySelector('.template3')).toBeFalsy();
+        }));
+
+        it('closeLast', fakeAsync(() => {
+            btnElement1.click();
+            btnElement2.click();
+            btnElement3.click();
+            popover.close();
+            tick(1000);
+            viewContainerFixtureManualClosure.detectChanges();
+            expect(document.querySelector('.template1')).toBeTruthy();
+            expect(document.querySelector('.template2')).toBeTruthy();
+            expect(document.querySelector('.template3')).toBeFalsy();
+        }));
+
+        // it('closeLast 2', fakeAsync(() => {
+        //     btnElement1.click();
+        //     btnElement2.click();
+        //     btnElement3.click();
+        //     popover.closeLast(2);
+        //     tick(1000);
+        //     viewContainerFixtureManualClosure.detectChanges();
+        //     expect(document.querySelector('.template1')).toBeTruthy();
+        //     expect(document.querySelector('.template2')).toBeFalsy();
+        //     expect(document.querySelector('.template3')).toBeFalsy();
+        // }));
+
+        it('manualClosure, open manualClosure times', () => {
+            btnElement1.click();
+            btnElement2.click();
+            expect(document.querySelector('.template1')).toBeTruthy();
+            expect(document.querySelector('.template2')).toBeTruthy();
+        });
+
+        it('not manualClosure, open manualClosure times', fakeAsync(() => {
+            btnElement3.click();
+            btnElement4.click();
+            tick(1000);
+            expect(document.querySelector('.template3')).toBeFalsy();
+            expect(document.querySelector('.template4')).toBeTruthy();
+        }));
+
+        it('manualClosure and not manualClosure, mixed open', fakeAsync(() => {
+            btnElement3.click();
+            expect(document.querySelector('.template3')).toBeTruthy();
+            btnElement1.click();
+            tick(1000);
+            expect(document.querySelector('.template3')).toBeFalsy();
+            expect(document.querySelector('.template1')).toBeTruthy();
+            btnElement3.click();
+            tick(1000);
+            expect(document.querySelector('.template3')).toBeTruthy();
+        }));
+
+        it('origin add active className, default', () => {
+            btnElement1.click();
+            const element = getOverlayPaneElement();
+            expect(document.querySelector('.thy-popover-origin-active')).toBeTruthy();
+        });
+
+        it('origin add active className, originActiveClass', () => {
+            btnElement2.click();
+            expect(document.querySelector('.active-class')).toBeTruthy();
+        });
+
+        it('origin add active className, originActiveClass with Array', () => {
+            btnElement3.click();
+            expect(document.querySelector('.active-class2')).toBeTruthy();
+            expect(document.querySelector('.active-class3')).toBeTruthy();
+        });
+
+        it('should apply reposition scroll strategy when set reposition', () => {
+            btnElement5.click();
+            expect(viewContainerFixtureManualClosure.componentInstance.popoverRef.getOverlayRef().getConfig().scrollStrategy).toEqual(
+                viewContainerFixtureManualClosure.componentInstance.scrollStrategy
+            );
+        });
+    });
+
+    describe('outsideClosable', () => {
+        let outsideClosableFixture: ComponentFixture<PopoverOutsideClosableComponent>;
+        let outsideClosableComponent: PopoverOutsideClosableComponent;
+        let closeScrollStrategy: CloseScrollStrategy;
+
+        beforeEach(() => {
+            TestBed.configureTestingModule({
+                imports: [PopoverTestModule],
+                providers: [
+                    { provide: Location, useClass: SpyLocation },
+                    {
+                        provide: THY_POPOVER_DEFAULT_CONFIG,
+                        deps: [Overlay],
+                        useFactory: (overlay: Overlay) => {
+                            return () => {
+                                closeScrollStrategy = overlay.scrollStrategies.close();
+                                return {
+                                    scrollStrategy: closeScrollStrategy
+                                };
+                            };
+                        }
+                    }
+                ]
+            });
+            TestBed.compileComponents();
+        });
+
+        beforeEach(inject(
+            [ThyPopover, Location, OverlayContainer],
+            (_popover: ThyPopover, _location: Location, _overlayContainer: OverlayContainer) => {
+                popover = _popover;
+                mockLocation = _location as SpyLocation;
+                overlayContainer = _overlayContainer;
+                overlayContainerElement = _overlayContainer.getContainerElement();
+            }
+        ));
+
+        afterEach(() => {
+            overlayContainer.ngOnDestroy();
+        });
+
+        beforeEach(() => {
+            outsideClosableFixture = TestBed.createComponent(PopoverOutsideClosableComponent);
+            outsideClosableFixture.detectChanges();
+            outsideClosableComponent = outsideClosableFixture.componentInstance;
+        });
+
+        it('should close popover when click dom outside popovercontainer', fakeAsync(() => {
+            outsideClosableComponent.openBtn.nativeElement.click();
+            tick(1000);
+            expect(document.querySelector('.template')).toBeTruthy();
+            outsideClosableComponent.outsideBtn.nativeElement.click();
+            tick(1000);
+            expect(document.querySelector('.template')).not.toBeTruthy();
+        }));
+
+        it('should not close popover when click dom inside popovercontainer', fakeAsync(() => {
+            outsideClosableComponent.openBtn.nativeElement.click();
+            tick(1000);
+            const innerContent = document.querySelector('.thy-popover-container') as HTMLElement;
+            innerContent.click();
+            tick(1000);
+            expect(document.querySelector('.template')).toBeTruthy();
+        }));
+    });
+
+    describe('config', () => {
+        describe('has default config', () => {
             let outsideClosableFixture: ComponentFixture<PopoverOutsideClosableComponent>;
             let outsideClosableComponent: PopoverOutsideClosableComponent;
+            let closeScrollStrategy: CloseScrollStrategy;
+
+            beforeEach(() => {
+                TestBed.configureTestingModule({
+                    imports: [PopoverTestModule],
+                    providers: [
+                        { provide: Location, useClass: SpyLocation },
+                        {
+                            provide: THY_POPOVER_DEFAULT_CONFIG,
+                            deps: [Overlay],
+                            useFactory: (overlay: Overlay) => {
+                                return () => {
+                                    closeScrollStrategy = overlay.scrollStrategies.close();
+                                    return {
+                                        scrollStrategy: closeScrollStrategy
+                                    };
+                                };
+                            }
+                        }
+                    ]
+                });
+                TestBed.compileComponents();
+            });
+
+            beforeEach(inject(
+                [ThyPopover, Location, OverlayContainer],
+                (_popover: ThyPopover, _location: Location, _overlayContainer: OverlayContainer) => {
+                    popover = _popover;
+                    mockLocation = _location as SpyLocation;
+                    overlayContainer = _overlayContainer;
+                    overlayContainerElement = _overlayContainer.getContainerElement();
+                }
+            ));
+
             beforeEach(() => {
                 outsideClosableFixture = TestBed.createComponent(PopoverOutsideClosableComponent);
                 outsideClosableFixture.detectChanges();
                 outsideClosableComponent = outsideClosableFixture.componentInstance;
             });
 
-            it('should close popover when click dom outside popovercontainer', fakeAsync(() => {
-                outsideClosableComponent.openBtn.nativeElement.click();
-                tick(1000);
-                expect(document.querySelector('.template')).toBeTruthy();
-                outsideClosableComponent.outsideBtn.nativeElement.click();
-                tick(1000);
-                expect(document.querySelector('.template')).not.toBeTruthy();
-            }));
+            afterEach(() => {
+                overlayContainer.ngOnDestroy();
+            });
 
-            it('should not close popover when click dom inside popovercontainer', fakeAsync(() => {
+            it('should apply closeScrollStrategy when set close in token', () => {
                 outsideClosableComponent.openBtn.nativeElement.click();
-                tick(1000);
-                const innerContent = document.querySelector('.thy-popover-container') as HTMLElement;
-                innerContent.click();
-                tick(1000);
-                expect(document.querySelector('.template')).toBeTruthy();
-            }));
+                expect(outsideClosableComponent.popoverRef.getOverlayRef().getConfig().scrollStrategy).toEqual(closeScrollStrategy);
+            });
+        });
+
+        describe('not set default config', () => {
+            let outsideClosableFixture: ComponentFixture<PopoverOutsideClosableComponent>;
+            let outsideClosableComponent: PopoverOutsideClosableComponent;
+
+            beforeEach(() => {
+                TestBed.configureTestingModule({
+                    imports: [PopoverTestModule],
+                    providers: [{ provide: Location, useClass: SpyLocation }]
+                });
+                TestBed.compileComponents();
+            });
+
+            beforeEach(inject(
+                [ThyPopover, Location, OverlayContainer],
+                (_popover: ThyPopover, _location: Location, _overlayContainer: OverlayContainer) => {
+                    popover = _popover;
+                    mockLocation = _location as SpyLocation;
+                    overlayContainer = _overlayContainer;
+                    overlayContainerElement = _overlayContainer.getContainerElement();
+                }
+            ));
+
+            beforeEach(() => {
+                outsideClosableFixture = TestBed.createComponent(PopoverOutsideClosableComponent);
+                outsideClosableFixture.detectChanges();
+                outsideClosableComponent = outsideClosableFixture.componentInstance;
+            });
+
+            afterEach(() => {
+                overlayContainer.ngOnDestroy();
+            });
+
+            it('should apply blockScrollStrategy when not set scrollStrategy', () => {
+                outsideClosableComponent.openBtn.nativeElement.click();
+                expect(outsideClosableComponent.popoverRef.getOverlayRef().getConfig().scrollStrategy).toEqual(
+                    outsideClosableComponent.overlay.scrollStrategies.block()
+                );
+            });
         });
     });
 });

@@ -1,7 +1,7 @@
-import { ElementRef, ViewContainerRef, InjectionToken } from '@angular/core';
-import { Directionality } from '@angular/cdk/bidi';
 import { ThyPlacement, ThyUpperOverlayConfig } from 'ngx-tethys/core';
-import { ScrollStrategy, PositionStrategy } from '@angular/cdk/overlay';
+
+import { ScrollStrategy } from '@angular/cdk/overlay';
+import { ElementRef, InjectionToken } from '@angular/core';
 
 export class ThyPopoverConfig<TData = any> extends ThyUpperOverlayConfig<TData> {
     /** Origin Element, for overlay flexible connected to */
@@ -39,18 +39,22 @@ export class ThyPopoverConfig<TData = any> extends ThyUpperOverlayConfig<TData> 
 
 export const THY_POPOVER_DEFAULT_CONFIG = new InjectionToken<ThyPopoverConfig>('thy-popover-default-config');
 
+export const thyPopoverDefaultConfig = {
+    hasBackdrop: true,
+    backdropClass: 'thy-popover-backdrop',
+    panelClass: '',
+    offset: 4,
+    backdropClosable: true,
+    closeOnNavigation: true,
+    placement: 'bottom' as ThyPlacement,
+    insideClosable: false,
+    manualClosure: false,
+    originActiveClass: 'thy-popover-origin-active'
+};
+
 export const THY_POPOVER_DEFAULT_CONFIG_PROVIDER = {
     provide: THY_POPOVER_DEFAULT_CONFIG,
-    useValue: {
-        hasBackdrop: true,
-        backdropClass: 'thy-popover-backdrop',
-        panelClass: '',
-        offset: 4,
-        backdropClosable: true,
-        closeOnNavigation: true,
-        placement: 'bottom',
-        insideClosable: false,
-        manualClosure: false,
-        originActiveClass: 'thy-popover-origin-active'
+    useFactory: () => {
+        return () => {};
     }
 };
