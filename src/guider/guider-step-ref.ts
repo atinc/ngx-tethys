@@ -110,10 +110,10 @@ export class ThyGuiderStepRef {
     }
     private addPointClass(el: any, pointClass: string | string[]) {
         if (helpers.isString(pointClass)) {
-            this.renderer.addClass(el, pointClass);
+            this.renderer.addClass(el, pointClass as string);
         }
         if (helpers.isArray(pointClass)) {
-            pointClass.forEach(classItem => {
+            (pointClass as string[]).forEach(classItem => {
                 this.renderer.addClass(el, classItem);
             });
         }
