@@ -161,3 +161,7 @@ export function getStyleAsText(styles?: any): string {
         })
         .join(';');
 }
+
+export function isTouchEvent(event: MouseEvent | TouchEvent): event is TouchEvent {
+    return event.type.startsWith('touch');
+}

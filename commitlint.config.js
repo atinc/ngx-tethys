@@ -79,7 +79,8 @@ module.exports = {
                 'timeline',
                 'calendar',
                 'fullscreen',
-                'guider'
+                'guider',
+                'resizable'
             ]
         ]
     }
