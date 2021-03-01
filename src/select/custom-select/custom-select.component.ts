@@ -627,7 +627,6 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
                 });
             }
         } else {
-            this.selectionModel.clear();
             const selectedOption = this.options.find(option => {
                 return option.thyValue === modalValue;
             });

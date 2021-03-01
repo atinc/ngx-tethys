@@ -957,7 +957,7 @@ describe('ThyCustomSelect', () => {
             const fixture = TestBed.createComponent(SingleSelectNgModelComponent);
             fixture.detectChanges();
             const optionComponents = fixture.componentInstance.options.toArray();
-            fixture.componentInstance.selectedValues = '';
+            fixture.componentInstance.selectedValues = null;
             fixture.detectChanges();
             flush();
             expect(optionComponents[0].selected).toBe(false);
