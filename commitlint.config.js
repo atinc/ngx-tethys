@@ -80,7 +80,8 @@ module.exports = {
                 'divider',
                 'calendar',
                 'fullscreen',
-                'guider'
+                'guider',
+                'resizable'
             ]
         ]
     }
