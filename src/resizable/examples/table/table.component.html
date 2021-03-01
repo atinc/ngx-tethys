@@ -1,0 +1,22 @@
+<thy-grid [thyModel]="listOfData">
+  <ng-container *ngFor="let col of listOfData">
+    <thy-grid-column [thyTitle]="col.title" [thyModelKey]="col.title" [thyWidth]="col.width">
+      <ng-template #header let-row>
+        <div
+          class="th-content"
+          thyResizable
+          thyPreview
+          [thyMaxWidth]="256"
+          [thyMinWidth]="60"
+          (thyResizeEnd)="onResize($event, col.title)"
+          thyBounds="window"
+        >
+          {{ col.title }}
+          <thy-resize-handle thyDirection="right" *ngIf="col.width">
+            <div class="resize-trigger"></div>
+          </thy-resize-handle>
+        </div>
+      </ng-template>
+    </thy-grid-column>
+  </ng-container>
+</thy-grid>

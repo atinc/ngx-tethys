@@ -1,0 +1,51 @@
+:host {
+    display: block;
+    height: 200px;
+}
+.box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #eee;
+    border: 1px solid #ddd;
+}
+
+.bottom-right {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.right-wrap {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.right {
+    background: #fff;
+    border: 1px solid #ddd;
+    text-align: center;
+    font-size: 12px;
+    height: 22px;
+    line-height: 22px;
+}
+
+thy-resizable-raster-example:host {
+    display: block;
+    height: auto;
+}
+.col {
+    padding: 16px 0;
+    text-align: center;
+    border-radius: 0;
+    min-height: 30px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    background: rgba(0, 160, 233, 0.7);
+    color: #fff;
+}
+
+.col-right {
+    background: #00a0e9;
+}

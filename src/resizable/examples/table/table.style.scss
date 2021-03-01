@@ -1,0 +1,19 @@
+:host ::ng-deep .table-default thead th {
+    padding: 0;
+}
+.th-content {
+    position: relative;
+    padding: 12px 15px;
+    overflow-wrap: break-word;
+}
+
+.resize-trigger {
+    width: 1px;
+    height: 30px;
+    margin-top: 12px;
+    background: #e8e8e8;
+}
+.thy-resizable-preview {
+    border-width: 0;
+    border-right-width: 1px;
+}
