@@ -1,0 +1,21 @@
+<div
+  class="box"
+  thyResizable
+  [thyMaxWidth]="600"
+  [thyMinWidth]="80"
+  [thyMaxHeight]="200"
+  [thyMinHeight]="80"
+  [style.height.px]="height"
+  [style.width.px]="width"
+  (thyResize)="onResize($event)"
+>
+  <thy-resize-handle thyDirection="bottomRight">
+    <thy-icon class="bottom-right" thyIconName="caret-right-down"></thy-icon>
+  </thy-resize-handle>
+  <thy-resize-handle thyDirection="right">
+    <div class="right-wrap">
+      <thy-icon thyIconName="drag" class="right"></thy-icon>
+    </div>
+  </thy-resize-handle>
+  content
+</div>
