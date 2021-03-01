@@ -9,6 +9,7 @@ import { ThyResizeEvent } from 'ngx-tethys/resizable/interface';
 export class ThyResizableBasicExampleComponent {
     width = 400;
     height = 200;
+    disabled = false;
 
     onResize({ width, height }: ThyResizeEvent): void {
         this.width = width!;
