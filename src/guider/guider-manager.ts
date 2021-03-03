@@ -36,9 +36,4 @@ export class ThyGuiderManager {
             guiderRef: this.thyGuiderRef
         };
     }
-
-    public removeActiveKey() {
-        this.activeStepKey = '';
-        this.thyGuiderRef = undefined;
-    }
 }

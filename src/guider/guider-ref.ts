@@ -126,8 +126,8 @@ export class ThyGuiderRef {
 
     private removeManagerActiveKey() {
         const activeKey = this.guiderManager.getActive().key;
-        if (activeKey && this.steps.map(step => step.key).includes(activeKey)) {
-            this.guiderManager.removeActiveKey();
+        if (activeKey && this.steps.some(step => step.key === activeKey)) {
+            this.guiderManager.updateActive('', undefined);
         }
     }
 
