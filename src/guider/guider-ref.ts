@@ -113,6 +113,7 @@ export class ThyGuiderRef {
     }
 
     public close() {
+        this.removeManagerActiveKey();
         this.stepsRef[this.currentStepIndex]?.dispose();
         this.closed$.next(this.currentStep);
     }
@@ -121,6 +122,13 @@ export class ThyGuiderRef {
         this.close();
         this.guiderEnded$.next(this.currentStep);
         this.notifyGuiderIsFinished();
+    }
+
+    private removeManagerActiveKey() {
+        const activeKey = this.guiderManager.getActive().key;
+        if (activeKey && this.steps.map(step => step.key).includes(activeKey)) {
+            this.guiderManager.removeActiveKey();
+        }
     }
 
     private notifyStepClicked() {
