@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.0.26"></a>
+## [9.0.26](https://github.com/atinc/ngx-tethys/compare/9.0.25...9.0.26) (2021-03-03)
+
+
+### Bug Fixes
+
+* **guider:** remove guiderManager activeKey when guider close ([6922918](https://github.com/atinc/ngx-tethys/commit/6922918))
+
+
+
 <a name="9.0.25"></a>
 ## [9.0.25](https://github.com/atinc/ngx-tethys/compare/9.0.24...9.0.25) (2021-02-26)
 
