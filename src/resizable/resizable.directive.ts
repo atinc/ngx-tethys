@@ -38,8 +38,8 @@ export class ThyResizableDirective extends _MixinBase implements AfterViewInit, 
     @Output() readonly thyResizeStart = new EventEmitter<ThyResizeEvent>();
 
     resizing = false;
-    private el!: HTMLElement;
-    private elRect!: ClientRect | DOMRect;
+    private nativeElement!: HTMLElement;
+    private nativeElementRect!: ClientRect | DOMRect;
     private sizeCache: ThyResizeEvent | null = null;
     private ghostElement: HTMLDivElement | null = null;
     private currentHandleEvent: ThyResizeHandleMouseDownEvent | null = null;
@@ -63,7 +63,7 @@ export class ThyResizableDirective extends _MixinBase implements AfterViewInit, 
             this.thyResizeStart.emit({
                 mouseEvent: event.mouseEvent
             });
-            this.elRect = this.el.getBoundingClientRect();
+            this.nativeElementRect = this.nativeElement.getBoundingClientRect();
         });
 
         this.thyResizableService.documentMouseUp$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(event => {
@@ -83,7 +83,7 @@ export class ThyResizableDirective extends _MixinBase implements AfterViewInit, 
 
     ngAfterViewInit(): void {
         if (this.platform.isBrowser) {
-            this.el = this.elementRef.nativeElement;
+            this.nativeElement = this.elementRef.nativeElement;
             this.setPosition();
         }
     }
@@ -111,9 +111,9 @@ export class ThyResizableDirective extends _MixinBase implements AfterViewInit, 
     }
 
     setPosition(): void {
-        const position = getComputedStyle(this.el).position;
+        const position = getComputedStyle(this.nativeElement).position;
         if (position === 'static' || !position) {
-            this.renderer.setStyle(this.el, 'position', 'relative');
+            this.renderer.setStyle(this.nativeElement, 'position', 'relative');
         }
     }
 
@@ -132,8 +132,8 @@ export class ThyResizableDirective extends _MixinBase implements AfterViewInit, 
         const size = this.sizeCache
             ? { ...this.sizeCache }
             : {
-                  width: this.elRect.width,
-                  height: this.elRect.height
+                  width: this.nativeElementRect.width,
+                  height: this.nativeElementRect.height
               };
         this.ngZone.run(() => {
             this.thyResizeEnd.emit({
@@ -146,40 +146,40 @@ export class ThyResizableDirective extends _MixinBase implements AfterViewInit, 
     }
 
     resize(event: MouseEvent | TouchEvent): void {
-        const elRect = this.elRect;
+        const nativeElementRect = this.nativeElementRect;
         const resizeEvent = getEventWithPoint(event);
         const handleEvent = getEventWithPoint(this.currentHandleEvent!.mouseEvent);
-        let width = elRect.width;
-        let height = elRect.height;
+        let width = nativeElementRect.width;
+        let height = nativeElementRect.height;
         const ratio = this.thyLockAspectRatio ? width / height : -1;
         switch (this.currentHandleEvent!.direction) {
             case 'bottomRight':
-                width = resizeEvent.clientX - elRect.left;
-                height = resizeEvent.clientY - elRect.top;
+                width = resizeEvent.clientX - nativeElementRect.left;
+                height = resizeEvent.clientY - nativeElementRect.top;
                 break;
             case 'bottomLeft':
-                width = elRect.width + (handleEvent.clientX - resizeEvent.clientX);
-                height = resizeEvent.clientY - elRect.top;
+                width = nativeElementRect.width + (handleEvent.clientX - resizeEvent.clientX);
+                height = resizeEvent.clientY - nativeElementRect.top;
                 break;
             case 'topRight':
-                width = resizeEvent.clientX - elRect.left;
-                height = elRect.height + (handleEvent.clientY - resizeEvent.clientY);
+                width = resizeEvent.clientX - nativeElementRect.left;
+                height = nativeElementRect.height + (handleEvent.clientY - resizeEvent.clientY);
                 break;
             case 'topLeft':
-                width = elRect.width + (handleEvent.clientX - resizeEvent.clientX);
-                height = elRect.height + (handleEvent.clientY - resizeEvent.clientY);
+                width = nativeElementRect.width + (handleEvent.clientX - resizeEvent.clientX);
+                height = nativeElementRect.height + (handleEvent.clientY - resizeEvent.clientY);
                 break;
             case 'top':
-                height = elRect.height + (handleEvent.clientY - resizeEvent.clientY);
+                height = nativeElementRect.height + (handleEvent.clientY - resizeEvent.clientY);
                 break;
             case 'right':
-                width = resizeEvent.clientX - elRect.left;
+                width = resizeEvent.clientX - nativeElementRect.left;
                 break;
             case 'bottom':
-                height = resizeEvent.clientY - elRect.top;
+                height = resizeEvent.clientY - nativeElementRect.top;
                 break;
             case 'left':
-                width = elRect.width + (handleEvent.clientX - resizeEvent.clientX);
+                width = nativeElementRect.width + (handleEvent.clientX - resizeEvent.clientX);
         }
         const size = this.calcSize(width, height, ratio);
         this.sizeCache = { ...size };
@@ -206,7 +206,7 @@ export class ThyResizableDirective extends _MixinBase implements AfterViewInit, 
         let boundWidth = Infinity;
         let boundHeight = Infinity;
         if (this.thyBounds === 'parent') {
-            const parent = this.renderer.parentNode(this.el);
+            const parent = this.renderer.parentNode(this.nativeElement);
             if (parent instanceof HTMLElement) {
                 const parentRect = parent.getBoundingClientRect();
                 boundWidth = parentRect.width;
@@ -274,13 +274,12 @@ export class ThyResizableDirective extends _MixinBase implements AfterViewInit, 
             this.ghostElement = this.renderer.createElement('div');
             this.renderer.setAttribute(this.ghostElement, 'class', 'thy-resizable-preview');
         }
-
-        this.renderer.appendChild(this.el, this.ghostElement);
+        this.renderer.appendChild(this.nativeElement, this.ghostElement);
     }
 
     removeGhostElement(): void {
         if (this.ghostElement) {
-            this.renderer.removeChild(this.el, this.ghostElement);
+            this.renderer.removeChild(this.nativeElement, this.ghostElement);
         }
     }
 
