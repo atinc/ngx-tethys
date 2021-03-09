@@ -467,6 +467,9 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
     }
 
     private initKeyManager() {
+        if (this.keyManager && this.keyManager.activeItem) {
+            this.keyManager.activeItem.setInactiveStyles();
+        }
         this.keyManager = new ActiveDescendantKeyManager<ThyOptionComponent>(this.options)
             .withTypeAhead()
             .withWrap()
