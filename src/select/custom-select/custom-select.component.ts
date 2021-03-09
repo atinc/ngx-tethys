@@ -287,11 +287,13 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
     }
 
     ngAfterContentInit() {
-        this.options.changes.pipe(startWith(null), takeUntil(this.destroy$)).subscribe(() => {
-            this.resetOptions();
-            this.initializeSelection();
-            this.initKeyManager();
-            this.changeDetectorRef.markForCheck();
+        this.options.changes.pipe(startWith(null), takeUntil(this.destroy$)).subscribe(data => {
+            if (data !== this.options) {
+                this.resetOptions();
+                this.initializeSelection();
+                this.initKeyManager();
+                this.changeDetectorRef.markForCheck();
+            }
         });
         if (this.thyAutoExpand) {
             timer().subscribe(() => {
@@ -467,9 +469,6 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
     }
 
     private initKeyManager() {
-        if (this.keyManager && this.keyManager.activeItem) {
-            this.keyManager.activeItem.setInactiveStyles();
-        }
         this.keyManager = new ActiveDescendantKeyManager<ThyOptionComponent>(this.options)
             .withTypeAhead()
             .withWrap()
