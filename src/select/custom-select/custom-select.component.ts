@@ -38,7 +38,7 @@ import {
     ScrollDispatcher,
     CdkConnectedOverlay
 } from '@angular/cdk/overlay';
-import { takeUntil, startWith, take, switchMap } from 'rxjs/operators';
+import { takeUntil, startWith, take, switchMap, filter, map, scan } from 'rxjs/operators';
 import { Subject, Observable, merge, defer, Subscription, timer } from 'rxjs';
 import { getFlexiblePositions } from 'ngx-tethys/core';
 import { ThySelectOptionGroupComponent, SelectControlSize } from 'ngx-tethys/shared';
@@ -240,6 +240,23 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
         }
     }
 
+    get optionsChanges$() {
+        return this.options.changes.pipe(
+            map(value => {
+                return this.options.toArray();
+            }),
+            scan<ThyOptionComponent[], { prev: ThyOptionComponent[]; current: ThyOptionComponent[] }>(
+                (acc, current) => {
+                    return { prev: acc.current, current };
+                },
+                { prev: [], current: [] }
+            ),
+            filter(acc => {
+                return acc.prev.length !== acc.current.length || acc.prev.some((op, index) => op !== acc.current[index]);
+            })
+        );
+    }
+
     constructor(
         private ngZone: NgZone,
         private elementRef: ElementRef,
@@ -287,13 +304,11 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
     }
 
     ngAfterContentInit() {
-        this.options.changes.pipe(startWith(null), takeUntil(this.destroy$)).subscribe(data => {
-            if (data !== this.options) {
-                this.resetOptions();
-                this.initializeSelection();
-                this.initKeyManager();
-                this.changeDetectorRef.markForCheck();
-            }
+        this.optionsChanges$.pipe(startWith(null), takeUntil(this.destroy$)).subscribe(data => {
+            this.resetOptions();
+            this.initializeSelection();
+            this.initKeyManager();
+            this.changeDetectorRef.markForCheck();
         });
         if (this.thyAutoExpand) {
             timer().subscribe(() => {
@@ -469,6 +484,9 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
     }
 
     private initKeyManager() {
+        if (this.keyManager && this.keyManager.activeItem) {
+            this.keyManager.activeItem.setInactiveStyles();
+        }
         this.keyManager = new ActiveDescendantKeyManager<ThyOptionComponent>(this.options)
             .withTypeAhead()
             .withWrap()
@@ -581,7 +599,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
     }
 
     private resetOptions() {
-        const changedOrDestroyed$ = merge(this.options.changes, this.destroy$);
+        const changedOrDestroyed$ = merge(this.optionsChanges$, this.destroy$);
 
         this.optionSelectionChanges.pipe(takeUntil(changedOrDestroyed$)).subscribe((event: ThyOptionSelectionChangeEvent) => {
             this.onSelect(event.option, event.isUserInput);
