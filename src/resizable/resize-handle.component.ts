@@ -12,7 +12,7 @@ import {
 import { ThyResizeDirection } from './interface';
 import { ThyResizableService } from './resizable.service';
 import { takeUntil } from 'rxjs/operators';
-import { Constructor, ThyUnsubscribe, MixinBase, mixinUnsubscribe } from '../core';
+import { Constructor, ThyUnsubscribe, MixinBase, mixinUnsubscribe } from 'ngx-tethys/core';
 
 export class ThyResizeHandleMouseDownEvent {
     constructor(public direction: ThyResizeDirection, public mouseEvent: MouseEvent | TouchEvent) {}

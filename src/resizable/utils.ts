@@ -1,4 +1,4 @@
-import { isTouchEvent } from '../util';
+import { isTouchEvent } from 'ngx-tethys/util';
 
 export function getEventWithPoint(event: MouseEvent | TouchEvent): MouseEvent | Touch {
     return isTouchEvent(event) ? event.touches[0] || event.changedTouches[0] : (event as MouseEvent);
