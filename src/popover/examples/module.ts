@@ -1,4 +1,4 @@
-import { NgxTethysModule, THY_POPOVER_DEFAULT_CONFIG } from 'ngx-tethys';
+import { NgxTethysModule, THY_POPOVER_SCROLL_STRATEGY } from 'ngx-tethys';
 
 import { Overlay } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
@@ -11,12 +11,6 @@ import { ThyPopoverDirectiveExampleComponent } from './directive/directive.compo
 
 const COMPONENTS = [ThyPopoverBasicContentComponent, ThyPopoverBasicExampleComponent, ThyPopoverDirectiveExampleComponent];
 
-function thyPopoverDefaultConfigFactory(overlay: Overlay) {
-    return () => {
-        return { scrollStrategy: overlay.scrollStrategies.close() };
-    };
-}
-
 @NgModule({
     declarations: COMPONENTS,
     imports: [CommonModule, NgxTethysModule, FormsModule],
@@ -24,9 +18,11 @@ function thyPopoverDefaultConfigFactory(overlay: Overlay) {
     exports: COMPONENTS,
     providers: [
         {
-            provide: THY_POPOVER_DEFAULT_CONFIG,
+            provide: THY_POPOVER_SCROLL_STRATEGY,
             deps: [Overlay],
-            useFactory: thyPopoverDefaultConfigFactory
+            useFactory: (overlay: Overlay) => {
+                return () => overlay.scrollStrategies.close();
+            }
         }
     ]
 })

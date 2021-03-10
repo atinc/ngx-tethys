@@ -4,7 +4,7 @@ import {
     getFlexiblePositions,
     ThyUpperOverlayService
 } from 'ngx-tethys/core';
-import { helpers } from 'ngx-tethys/util';
+import { helpers, isFunction } from 'ngx-tethys/util';
 import { of, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -27,7 +27,7 @@ import { ElementRef, Inject, Injectable, Injector, NgZone, OnDestroy, Optional, 
 
 import { ThyPopoverContainerComponent } from './popover-container.component';
 import { ThyInternalPopoverRef, ThyPopoverRef } from './popover-ref';
-import { THY_POPOVER_DEFAULT_CONFIG, ThyPopoverConfig, thyPopoverDefaultConfig } from './popover.config';
+import { THY_POPOVER_DEFAULT_CONFIG, THY_POPOVER_SCROLL_STRATEGY, ThyPopoverConfig, thyPopoverDefaultConfig } from './popover.config';
 import { popoverUpperOverlayOptions } from './popover.options';
 
 @Injectable({
@@ -35,8 +35,6 @@ import { popoverUpperOverlayOptions } from './popover.options';
 })
 export class ThyPopover extends ThyUpperOverlayService<ThyPopoverConfig, ThyPopoverContainerComponent> implements OnDestroy {
     private readonly ngUnsubscribe$ = new Subject();
-
-    private popoverDefaultConfig: () => ThyPopoverConfig;
 
     private originInstancesMap = new Map<
         ElementRef | HTMLElement,
@@ -82,13 +80,19 @@ export class ThyPopover extends ThyUpperOverlayService<ThyPopoverConfig, ThyPopo
     }
 
     private buildScrollStrategy(config: ThyPopoverConfig): ScrollStrategy {
-        return this.popoverDefaultConfig()?.scrollStrategy || config.scrollStrategy || this.overlay.scrollStrategies.block();
+        if (config.scrollStrategy) {
+            return config.scrollStrategy;
+        } else if (this.scrollStrategy && isFunction(this.scrollStrategy)) {
+            return this.scrollStrategy();
+        } else {
+            this.overlay.scrollStrategies.block();
+        }
     }
 
     protected buildOverlayConfig<TData>(config: ThyPopoverConfig<TData>): OverlayConfig {
-        const strategy = this.buildPositionStrategy(config);
+        const positionStrategy = this.buildPositionStrategy(config);
         const overlayConfig = this.buildBaseOverlayConfig(config);
-        overlayConfig.positionStrategy = strategy;
+        overlayConfig.positionStrategy = positionStrategy;
         overlayConfig.scrollStrategy = this.buildScrollStrategy(config);
         overlayConfig.panelClass = this.buildOverlayPanelClasses(config);
         return overlayConfig;
@@ -158,15 +162,26 @@ export class ThyPopover extends ThyUpperOverlayService<ThyPopoverConfig, ThyPopo
         injector: Injector,
         @Optional()
         @Inject(THY_POPOVER_DEFAULT_CONFIG)
-        popoverDefaultConfig: () => ThyPopoverConfig,
+        defaultConfig: ThyPopoverConfig,
+        @Optional()
+        @Inject(THY_POPOVER_SCROLL_STRATEGY)
+        scrollStrategy: () => ScrollStrategy,
         private ngZone: NgZone,
         private _viewportRuler: ViewportRuler,
         @Optional() @Inject(DOCUMENT) private _document: any,
         private _platform: Platform,
         private _overlayContainer: OverlayContainer
     ) {
-        super(popoverUpperOverlayOptions, overlay, injector, { ...thyPopoverDefaultConfig, ...popoverDefaultConfig() });
-        this.popoverDefaultConfig = popoverDefaultConfig;
+        super(
+            popoverUpperOverlayOptions,
+            overlay,
+            injector,
+            {
+                ...thyPopoverDefaultConfig,
+                ...defaultConfig
+            },
+            scrollStrategy
+        );
     }
 
     private ensureCloseClosest(origin: HTMLElement) {

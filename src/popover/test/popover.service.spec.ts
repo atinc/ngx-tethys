@@ -3,12 +3,13 @@ import { CloseScrollStrategy, Overlay, OverlayContainer, OverlayModule, ScrollSt
 import { Location } from '@angular/common';
 import { SpyLocation } from '@angular/common/testing';
 import { Component, Directive, ElementRef, Injector, NgModule, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
-import { ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
+import { isArray, isUndefinedOrNull } from '../../util';
 import { ThyPopoverModule } from '../module';
 import { ThyPopoverRef } from '../popover-ref';
-import { THY_POPOVER_DEFAULT_CONFIG } from '../popover.config';
+import { THY_POPOVER_DEFAULT_CONFIG, THY_POPOVER_SCROLL_STRATEGY, ThyPopoverConfig, thyPopoverDefaultConfig } from '../popover.config';
 import { ThyPopover } from '../popover.service';
 
 @Component({
@@ -163,13 +164,44 @@ export class PopoverOutsideClosableComponent {
     }
 }
 
+@Component({
+    selector: 'popover-config',
+    template: `
+        <a class="btn" #openBtn (click)="open(openBtn, template)">Open</a>
+        <ng-template #template><div class="template">template</div></ng-template>
+    `
+})
+export class PopoverConfigComponent {
+    constructor(
+        public popover: ThyPopover,
+        public overlay: Overlay,
+        public popoverInjector: Injector,
+        public directionality: Directionality
+    ) {}
+
+    public popoverRef: ThyPopoverRef<any>;
+
+    public config: any = { hasBackdrop: false, outsideClosable: true };
+
+    @ViewChild('openBtn', { static: true })
+    openBtn: ElementRef<any>;
+
+    open(origin: HTMLElement, template: TemplateRef<HTMLElement>) {
+        this.popoverRef = this.popover.open(template, {
+            origin,
+            ...this.config
+        });
+    }
+}
+
 const TEST_COMPONENTS = [
     PopoverBasicComponent,
     PopoverSimpleContentComponent,
     WithViewContainerDirective,
     WithChildViewContainerComponent,
     PopoverManualClosureContentComponent,
-    PopoverOutsideClosableComponent
+    PopoverOutsideClosableComponent,
+    PopoverConfigComponent
 ];
 @NgModule({
     declarations: TEST_COMPONENTS,
@@ -347,6 +379,18 @@ describe(`thyPopover`, () => {
                 viewContainerFixtureManualClosure.componentInstance.scrollStrategy
             );
         });
+
+        it('should close when the injectable is destroyed', fakeAsync(() => {
+            btnElement5.click();
+
+            expect(overlayContainerElement.querySelectorAll('thy-popover-container').length).toBe(1);
+
+            popover.ngOnDestroy();
+            viewContainerFixture.detectChanges();
+            flush();
+
+            expect(overlayContainerElement.querySelectorAll('thy-popover-container').length).toBe(0);
+        }));
     });
 
     describe('outsideClosable', () => {
@@ -416,10 +460,12 @@ describe(`thyPopover`, () => {
     });
 
     describe('config', () => {
+        const otherConfig = { panelClass: [`cdk-overlay-pane`] };
         describe('has default config', () => {
-            let outsideClosableFixture: ComponentFixture<PopoverOutsideClosableComponent>;
-            let outsideClosableComponent: PopoverOutsideClosableComponent;
+            let popoverConfigFixture: ComponentFixture<PopoverConfigComponent>;
+            let popoverConfigComponent: PopoverConfigComponent;
             let closeScrollStrategy: CloseScrollStrategy;
+            const globalDefaultConfig = { hasBackdrop: false };
 
             beforeEach(() => {
                 TestBed.configureTestingModule({
@@ -427,16 +473,16 @@ describe(`thyPopover`, () => {
                     providers: [
                         { provide: Location, useClass: SpyLocation },
                         {
-                            provide: THY_POPOVER_DEFAULT_CONFIG,
+                            provide: THY_POPOVER_SCROLL_STRATEGY,
                             deps: [Overlay],
                             useFactory: (overlay: Overlay) => {
-                                return () => {
-                                    closeScrollStrategy = overlay.scrollStrategies.close();
-                                    return {
-                                        scrollStrategy: closeScrollStrategy
-                                    };
-                                };
+                                closeScrollStrategy = overlay.scrollStrategies.close();
+                                return () => closeScrollStrategy;
                             }
+                        },
+                        {
+                            provide: THY_POPOVER_DEFAULT_CONFIG,
+                            useValue: globalDefaultConfig
                         }
                     ]
                 });
@@ -454,9 +500,9 @@ describe(`thyPopover`, () => {
             ));
 
             beforeEach(() => {
-                outsideClosableFixture = TestBed.createComponent(PopoverOutsideClosableComponent);
-                outsideClosableFixture.detectChanges();
-                outsideClosableComponent = outsideClosableFixture.componentInstance;
+                popoverConfigFixture = TestBed.createComponent(PopoverConfigComponent);
+                popoverConfigFixture.detectChanges();
+                popoverConfigComponent = popoverConfigFixture.componentInstance;
             });
 
             afterEach(() => {
@@ -464,14 +510,41 @@ describe(`thyPopover`, () => {
             });
 
             it('should apply closeScrollStrategy when set close in token', () => {
-                outsideClosableComponent.openBtn.nativeElement.click();
-                expect(outsideClosableComponent.popoverRef.getOverlayRef().getConfig().scrollStrategy).toEqual(closeScrollStrategy);
+                popoverConfigComponent.openBtn.nativeElement.click();
+                expect(popoverConfigComponent.popoverRef.getOverlayRef().getConfig().scrollStrategy).toEqual(closeScrollStrategy);
             });
+
+            it('should apply reposition scroll strategy when set reposition', () => {
+                const scrollStrategy = popoverConfigComponent.overlay.scrollStrategies.reposition();
+                popoverConfigComponent.config = {
+                    ...popoverConfigComponent.config,
+                    scrollStrategy: scrollStrategy
+                };
+                popoverConfigComponent.openBtn.nativeElement.click();
+                expect(popoverConfigComponent.popoverRef.getOverlayRef().getConfig().scrollStrategy).toEqual(scrollStrategy);
+            });
+
+            it('should use the provided defaults', () => {
+                popoverConfigComponent.config = {};
+                popoverConfigComponent.openBtn.nativeElement.click();
+                const currentConfig = popoverConfigComponent.popoverRef.getOverlayRef().getConfig();
+                const defaultConfig = { ...thyPopoverDefaultConfig, ...globalDefaultConfig, ...otherConfig };
+                expect(comparePopoverConfig(defaultConfig as ThyPopoverConfig, currentConfig as ThyPopoverConfig)).toBeTruthy();
+            });
+
+            it('should be overridable by open() options', fakeAsync(() => {
+                const config = { offset: 4, backdropClosable: true, closeOnNavigation: true };
+                popoverConfigComponent.config = { ...config };
+                popoverConfigComponent.openBtn.nativeElement.click();
+                const currentConfig = popoverConfigComponent.popoverRef.getOverlayRef().getConfig();
+                const expectConfig = { ...thyPopoverDefaultConfig, ...globalDefaultConfig, ...otherConfig, ...config };
+                expect(comparePopoverConfig(expectConfig as ThyPopoverConfig, currentConfig as ThyPopoverConfig)).toBeTruthy();
+            }));
         });
 
         describe('not set default config', () => {
-            let outsideClosableFixture: ComponentFixture<PopoverOutsideClosableComponent>;
-            let outsideClosableComponent: PopoverOutsideClosableComponent;
+            let popoverConfigFixture: ComponentFixture<PopoverConfigComponent>;
+            let popoverConfigComponent: PopoverConfigComponent;
 
             beforeEach(() => {
                 TestBed.configureTestingModule({
@@ -492,9 +565,9 @@ describe(`thyPopover`, () => {
             ));
 
             beforeEach(() => {
-                outsideClosableFixture = TestBed.createComponent(PopoverOutsideClosableComponent);
-                outsideClosableFixture.detectChanges();
-                outsideClosableComponent = outsideClosableFixture.componentInstance;
+                popoverConfigFixture = TestBed.createComponent(PopoverConfigComponent);
+                popoverConfigFixture.detectChanges();
+                popoverConfigComponent = popoverConfigFixture.componentInstance;
             });
 
             afterEach(() => {
@@ -502,11 +575,66 @@ describe(`thyPopover`, () => {
             });
 
             it('should apply blockScrollStrategy when not set scrollStrategy', () => {
-                outsideClosableComponent.openBtn.nativeElement.click();
-                expect(outsideClosableComponent.popoverRef.getOverlayRef().getConfig().scrollStrategy).toEqual(
-                    outsideClosableComponent.overlay.scrollStrategies.block()
+                popoverConfigComponent.openBtn.nativeElement.click();
+                expect(popoverConfigComponent.popoverRef.getOverlayRef().getConfig().scrollStrategy).toEqual(
+                    popoverConfigComponent.overlay.scrollStrategies.block()
                 );
             });
+
+            it('should use the provided defaults', () => {
+                popoverConfigComponent.config = {};
+                popoverConfigComponent.openBtn.nativeElement.click();
+                const currentConfig = popoverConfigComponent.popoverRef.getOverlayRef().getConfig();
+                const expectConfig = { ...thyPopoverDefaultConfig, ...otherConfig };
+                expect(comparePopoverConfig(expectConfig as ThyPopoverConfig, currentConfig as ThyPopoverConfig)).toBeTruthy();
+            });
+
+            it('should hav custom panel class when panelClass is string[]', () => {
+                const config = { panelClass: ['class1', 'class2'] };
+                popoverConfigComponent.config = config;
+                popoverConfigComponent.openBtn.nativeElement.click();
+                const currentConfig = popoverConfigComponent.popoverRef.getOverlayRef().getConfig();
+                const expectConfig = {
+                    ...thyPopoverDefaultConfig,
+                    ...otherConfig,
+                    ...{ panelClass: ['cdk-overlay-pane', 'class1', 'class2'] }
+                };
+                expect(comparePopoverConfig(expectConfig as ThyPopoverConfig, currentConfig as ThyPopoverConfig)).toBeTruthy();
+            });
+
+            it('should hav custom panel class when panelClass is string', () => {
+                const config = { panelClass: 'panel-class' };
+                popoverConfigComponent.config = config;
+                popoverConfigComponent.openBtn.nativeElement.click();
+                const currentConfig = popoverConfigComponent.popoverRef.getOverlayRef().getConfig();
+                const expectConfig = { ...thyPopoverDefaultConfig, ...otherConfig, ...{ panelClass: ['cdk-overlay-pane', 'panel-class'] } };
+                expect(comparePopoverConfig(expectConfig as ThyPopoverConfig, currentConfig as ThyPopoverConfig)).toBeTruthy();
+            });
+
+            it('should be overridable by open() options', fakeAsync(() => {
+                const config = { offset: 4, backdropClosable: true, closeOnNavigation: true };
+                popoverConfigComponent.config = { ...config };
+                popoverConfigComponent.openBtn.nativeElement.click();
+                const currentConfig = popoverConfigComponent.popoverRef.getOverlayRef().getConfig();
+                const expectConfig = { ...thyPopoverDefaultConfig, ...otherConfig, ...config };
+                expect(comparePopoverConfig(expectConfig as ThyPopoverConfig, currentConfig as ThyPopoverConfig)).toBeTruthy();
+            }));
         });
     });
 });
+
+function comparePopoverConfig(expectConfig: ThyPopoverConfig, currentConfig: ThyPopoverConfig) {
+    let isSame = false;
+    const keys = Object.keys(thyPopoverDefaultConfig);
+    keys.forEach(key => {
+        if (!isUndefinedOrNull(expectConfig[key]) && !isUndefinedOrNull(currentConfig[key])) {
+            if (isArray(currentConfig[key]) && isArray(expectConfig[key])) {
+                isSame = currentConfig[key].join(',') === expectConfig[key].join(',');
+            } else if (expectConfig[key] !== currentConfig[key]) {
+                isSame = false;
+            }
+        }
+        return isSame;
+    });
+    return isSame;
+}

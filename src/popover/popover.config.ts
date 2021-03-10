@@ -1,6 +1,6 @@
 import { ThyPlacement, ThyUpperOverlayConfig } from 'ngx-tethys/core';
 
-import { ScrollStrategy } from '@angular/cdk/overlay';
+import { Overlay, ScrollStrategy } from '@angular/cdk/overlay';
 import { ElementRef, InjectionToken } from '@angular/core';
 
 export class ThyPopoverConfig<TData = any> extends ThyUpperOverlayConfig<TData> {
@@ -54,7 +54,17 @@ export const thyPopoverDefaultConfig = {
 
 export const THY_POPOVER_DEFAULT_CONFIG_PROVIDER = {
     provide: THY_POPOVER_DEFAULT_CONFIG,
-    useFactory: () => {
-        return () => {};
-    }
+    useValue: thyPopoverDefaultConfig
+};
+
+export const THY_POPOVER_SCROLL_STRATEGY = new InjectionToken<ScrollStrategy>('thy-popover-scroll-strategy');
+
+const THY_POPOVER_SCROLL_STRATEGY_FACTORY = (overlay: Overlay) => {
+    return () => overlay.scrollStrategies.block();
+};
+
+export const THY_POPOVER_SCROLL_STRATEGY_PROVIDER = {
+    provide: THY_POPOVER_SCROLL_STRATEGY,
+    deps: [Overlay],
+    useFactory: THY_POPOVER_SCROLL_STRATEGY_FACTORY
 };

@@ -8,7 +8,7 @@ import { NgModule } from '@angular/core';
 import { ThyPopoverBodyComponent } from './body/popover-body.component';
 import { ThyPopoverHeaderComponent } from './header/popover-header.component';
 import { ThyPopoverContainerComponent } from './popover-container.component';
-import { THY_POPOVER_DEFAULT_CONFIG_PROVIDER } from './popover.config';
+import { THY_POPOVER_DEFAULT_CONFIG_PROVIDER, THY_POPOVER_SCROLL_STRATEGY_PROVIDER } from './popover.config';
 import { ThyPopoverDirective } from './popover.directive';
 
 @NgModule({
@@ -16,6 +16,6 @@ import { ThyPopoverDirective } from './popover.directive';
     entryComponents: [ThyPopoverContainerComponent],
     imports: [CommonModule, OverlayModule, PortalModule, ThyIconModule],
     exports: [ThyPopoverDirective, ThyPopoverHeaderComponent, ThyPopoverBodyComponent],
-    providers: [THY_POPOVER_DEFAULT_CONFIG_PROVIDER]
+    providers: [THY_POPOVER_DEFAULT_CONFIG_PROVIDER, THY_POPOVER_SCROLL_STRATEGY_PROVIDER]
 })
 export class ThyPopoverModule {}
