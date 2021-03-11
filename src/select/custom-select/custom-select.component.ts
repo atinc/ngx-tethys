@@ -241,15 +241,12 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
     }
 
     get optionsChanges$() {
-        let previousOptions: ThyOptionComponent[];
+        let previousOptions: ThyOptionComponent[] = this.options.toArray();
         return this.options.changes.pipe(
             map(data => {
                 return this.options.toArray();
             }),
             filter(data => {
-                if (!previousOptions) {
-                    previousOptions = data;
-                }
                 const res = previousOptions.length !== data.length || previousOptions.some((op, index) => op !== data[index]);
                 previousOptions = data;
                 return res;
