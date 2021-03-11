@@ -1,29 +1,39 @@
 import {
+    FlexibleConnectedPositionStrategy,
+    FlexibleConnectedPositionStrategyOrigin,
+    getFlexiblePositions,
+    ThyUpperOverlayService
+} from 'ngx-tethys/core';
+import { helpers, isFunction } from 'ngx-tethys/util';
+import { of, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
+import { Directionality } from '@angular/cdk/bidi';
+import { coerceArray, coerceElement } from '@angular/cdk/coercion';
+import {
     ComponentType,
     Overlay,
     OverlayConfig,
+    OverlayContainer,
     OverlayRef,
     PositionStrategy,
-    ScrollDispatcher,
-    OverlayContainer
+    ScrollStrategy,
+    ViewportRuler
 } from '@angular/cdk/overlay';
-import { TemplateRef, ViewContainerRef, Injectable, ElementRef, Injector, OnDestroy, Inject, NgZone } from '@angular/core';
-import { coerceElement, coerceArray } from '@angular/cdk/coercion';
-import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
-import { ThyPopoverContainerComponent } from './popover-container.component';
-import { ThyPopoverConfig, THY_POPOVER_DEFAULT_CONFIG } from './popover.config';
-import { ThyPopoverRef, ThyInternalPopoverRef } from './popover-ref';
-import { Directionality } from '@angular/cdk/bidi';
-import { of, Subject } from 'rxjs';
-import { getFlexiblePositions, ThyUpperOverlayService } from 'ngx-tethys/core';
-import { takeUntil } from 'rxjs/operators';
-import { helpers } from 'ngx-tethys/util';
-import { popoverUpperOverlayOptions } from './popover.options';
-import { ViewportRuler } from '@angular/cdk/scrolling';
-import { DOCUMENT } from '@angular/common';
 import { Platform } from '@angular/cdk/platform';
-import { FlexibleConnectedPositionStrategy, FlexibleConnectedPositionStrategyOrigin } from 'ngx-tethys/core';
-import { StaticProvider } from '@angular/core';
+import { ComponentPortal } from '@angular/cdk/portal';
+import { DOCUMENT } from '@angular/common';
+import { ElementRef, Inject, Injectable, Injector, NgZone, OnDestroy, Optional, StaticProvider, TemplateRef } from '@angular/core';
+
+import { ThyPopoverContainerComponent } from './popover-container.component';
+import { ThyInternalPopoverRef, ThyPopoverRef } from './popover-ref';
+import {
+    THY_POPOVER_DEFAULT_CONFIG,
+    THY_POPOVER_DEFAULT_CONFIG_VALUE,
+    THY_POPOVER_SCROLL_STRATEGY,
+    ThyPopoverConfig
+} from './popover.config';
+import { popoverUpperOverlayOptions } from './popover.options';
 
 @Injectable({
     providedIn: 'root'
@@ -74,11 +84,21 @@ export class ThyPopover extends ThyUpperOverlayService<ThyPopoverConfig, ThyPopo
         return classes;
     }
 
+    private buildScrollStrategy(config: ThyPopoverConfig): ScrollStrategy {
+        if (config.scrollStrategy) {
+            return config.scrollStrategy;
+        } else if (this.scrollStrategy && isFunction(this.scrollStrategy)) {
+            return this.scrollStrategy();
+        } else {
+            this.overlay.scrollStrategies.block();
+        }
+    }
+
     protected buildOverlayConfig<TData>(config: ThyPopoverConfig<TData>): OverlayConfig {
-        const strategy = this.buildPositionStrategy(config);
+        const positionStrategy = this.buildPositionStrategy(config);
         const overlayConfig = this.buildBaseOverlayConfig(config);
-        overlayConfig.positionStrategy = strategy;
-        overlayConfig.scrollStrategy = config.scrollStrategy || this.overlay.scrollStrategies.block();
+        overlayConfig.positionStrategy = positionStrategy;
+        overlayConfig.scrollStrategy = this.buildScrollStrategy(config);
         overlayConfig.panelClass = this.buildOverlayPanelClasses(config);
         return overlayConfig;
     }
@@ -145,15 +165,28 @@ export class ThyPopover extends ThyUpperOverlayService<ThyPopoverConfig, ThyPopo
     constructor(
         overlay: Overlay,
         injector: Injector,
-        @Inject(THY_POPOVER_DEFAULT_CONFIG) defaultConfig: ThyPopoverConfig,
-        private scrollDispatcher: ScrollDispatcher,
+        @Optional()
+        @Inject(THY_POPOVER_DEFAULT_CONFIG)
+        defaultConfig: ThyPopoverConfig,
+        @Optional()
+        @Inject(THY_POPOVER_SCROLL_STRATEGY)
+        scrollStrategy: () => ScrollStrategy,
         private ngZone: NgZone,
         private _viewportRuler: ViewportRuler,
-        @Inject(DOCUMENT) private _document: any,
+        @Optional() @Inject(DOCUMENT) private _document: any,
         private _platform: Platform,
         private _overlayContainer: OverlayContainer
     ) {
-        super(popoverUpperOverlayOptions, overlay, injector, defaultConfig);
+        super(
+            popoverUpperOverlayOptions,
+            overlay,
+            injector,
+            {
+                ...THY_POPOVER_DEFAULT_CONFIG_VALUE,
+                ...defaultConfig
+            },
+            scrollStrategy
+        );
     }
 
     private ensureCloseClosest(origin: HTMLElement) {
