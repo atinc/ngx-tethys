@@ -38,7 +38,7 @@ import {
     ScrollDispatcher,
     CdkConnectedOverlay
 } from '@angular/cdk/overlay';
-import { takeUntil, startWith, take, switchMap, filter, map, scan } from 'rxjs/operators';
+import { takeUntil, startWith, take, switchMap, filter, map } from 'rxjs/operators';
 import { Subject, Observable, merge, defer, Subscription, timer } from 'rxjs';
 import { getFlexiblePositions } from 'ngx-tethys/core';
 import { ThySelectOptionGroupComponent, SelectControlSize } from 'ngx-tethys/shared';
@@ -241,18 +241,18 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
     }
 
     get optionsChanges$() {
+        let previousOptions: ThyOptionComponent[];
         return this.options.changes.pipe(
-            map(value => {
+            map(data => {
                 return this.options.toArray();
             }),
-            scan<ThyOptionComponent[], { prev: ThyOptionComponent[]; current: ThyOptionComponent[] }>(
-                (acc, current) => {
-                    return { prev: acc.current, current };
-                },
-                { prev: [], current: [] }
-            ),
-            filter(acc => {
-                return acc.prev.length !== acc.current.length || acc.prev.some((op, index) => op !== acc.current[index]);
+            filter(data => {
+                if (!previousOptions) {
+                    previousOptions = data;
+                }
+                const res = previousOptions.length !== data.length || previousOptions.some((op, index) => op !== data[index]);
+                previousOptions = data;
+                return res;
             })
         );
     }
