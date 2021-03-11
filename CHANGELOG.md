@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.0.27"></a>
+## [9.0.27](https://github.com/atinc/ngx-tethys/compare/9.0.26...9.0.27) (2021-03-11)
+
+
+### Bug Fixes
+
+* **select:** clear active item style before initKeyManager #INFR-1724 ([#1178](https://github.com/atinc/ngx-tethys/issues/1178)) ([67437f4](https://github.com/atinc/ngx-tethys/commit/67437f4)), closes [#INFR-1724](https://github.com/atinc/ngx-tethys/issues/INFR-1724)
+* **select:** fix single choice clear(#INFR-1665) ([68d292f](https://github.com/atinc/ngx-tethys/commit/68d292f)), closes [#INFR-1665](https://github.com/atinc/ngx-tethys/issues/INFR-1665)
+
+
+
 <a name="9.0.26"></a>
 ## [9.0.26](https://github.com/atinc/ngx-tethys/compare/9.0.25...9.0.26) (2021-03-03)
 
