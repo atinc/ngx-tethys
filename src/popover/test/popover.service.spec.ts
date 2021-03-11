@@ -3,7 +3,7 @@ import { CloseScrollStrategy, Overlay, OverlayContainer, OverlayModule, ScrollSt
 import { Location } from '@angular/common';
 import { SpyLocation } from '@angular/common/testing';
 import { Component, Directive, ElementRef, Injector, NgModule, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { isArray, isUndefinedOrNull } from '../../util';
@@ -15,10 +15,15 @@ import { ThyPopover } from '../popover.service';
 @Component({
     selector: 'popover-basic',
     template: `
-        <button (click)="openComponentPopover()">Open</button>
+        <button #trigger>Open</button>
+        <ng-template #customTemplate></ng-template>
     `
 })
 class PopoverBasicComponent {
+    @ViewChild('customTemplate') template: TemplateRef<any>;
+
+    @ViewChild('trigger') trigger: TemplateRef<any>;
+
     openComponentPopover() {}
 }
 
@@ -32,6 +37,10 @@ class WithViewContainerDirective {
     template: `
         <with-view-container-directive></with-view-container-directive>
         <button #openPopoverOrigin>Open Popover</button>
+        <button #openTemplate>open template</button>
+        <ng-template #template>
+            <div>template</div>
+        </ng-template>
     `
 })
 class WithChildViewContainerComponent {
@@ -40,6 +49,12 @@ class WithChildViewContainerComponent {
 
     @ViewChild('openPopoverOrigin', { static: true })
     openPopoverOrigin: HTMLElement;
+
+    @ViewChild('openTemplate', { static: true })
+    openTemplate: HTMLElement;
+
+    @ViewChild('template', { static: true })
+    template: TemplateRef<any>;
 
     get childViewContainer() {
         return this.childWithViewContainer.viewContainerRef;
@@ -217,6 +232,7 @@ describe(`thyPopover`, () => {
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: Element;
     let viewContainerFixture: ComponentFixture<WithChildViewContainerComponent>;
+    let overlay: Overlay;
 
     function getPopoverContainerElement() {
         return overlayContainerElement.querySelector(`thy-popover-container`);
@@ -230,12 +246,7 @@ describe(`thyPopover`, () => {
         return overlayContainerElement.querySelector('.cdk-overlay-pane');
     }
 
-    function assertPopoverSimpleContentComponent(popoverRef: ThyPopoverRef<PopoverSimpleContentComponent>) {
-        expect(overlayContainerElement.textContent).toContain('Hello Popover');
-        expect(popoverRef.componentInstance instanceof PopoverSimpleContentComponent).toBe(true);
-        expect(popoverRef.componentInstance.popoverRef).toBe(popoverRef);
-
-        viewContainerFixture.detectChanges();
+    function assertPopoverContainer() {
         const popoverContainerElement = getPopoverContainerElement();
         expect(popoverContainerElement.classList.contains('thy-popover-container')).toBe(true);
         expect(popoverContainerElement.getAttribute('role')).toBe('popover');
@@ -243,28 +254,38 @@ describe(`thyPopover`, () => {
         expect(overlayPaneElement).toBeTruthy();
     }
 
-    describe('manualClosure', () => {
-        beforeEach(() => {
-            TestBed.configureTestingModule({
-                imports: [PopoverTestModule],
-                providers: [{ provide: Location, useClass: SpyLocation }]
-            });
-            TestBed.compileComponents();
-        });
+    function assertPopoverSimpleContentComponent(popoverRef: ThyPopoverRef<PopoverSimpleContentComponent>) {
+        expect(overlayContainerElement.textContent).toContain('Hello Popover');
+        expect(popoverRef.componentInstance instanceof PopoverSimpleContentComponent).toBe(true);
+        expect(popoverRef.componentInstance.popoverRef).toBe(popoverRef);
 
+        viewContainerFixture.detectChanges();
+        assertPopoverContainer();
+    }
+
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            imports: [PopoverTestModule],
+            providers: [{ provide: Location, useClass: SpyLocation }]
+        });
+        TestBed.compileComponents();
+    });
+
+    afterEach(() => {
+        overlayContainer.ngOnDestroy();
+    });
+
+    describe('basic', () => {
         beforeEach(inject(
-            [ThyPopover, Location, OverlayContainer],
-            (_popover: ThyPopover, _location: Location, _overlayContainer: OverlayContainer) => {
+            [ThyPopover, Location, OverlayContainer, Overlay],
+            (_popover: ThyPopover, _location: Location, _overlayContainer: OverlayContainer, _overlay: Overlay) => {
                 popover = _popover;
                 mockLocation = _location as SpyLocation;
                 overlayContainer = _overlayContainer;
                 overlayContainerElement = _overlayContainer.getContainerElement();
+                overlay = _overlay;
             }
         ));
-
-        afterEach(() => {
-            overlayContainer.ngOnDestroy();
-        });
 
         beforeEach(() => {
             viewContainerFixture = TestBed.createComponent(WithChildViewContainerComponent);
@@ -276,6 +297,122 @@ describe(`thyPopover`, () => {
                 origin: viewContainerFixture.componentInstance.openPopoverOrigin
             });
             assertPopoverSimpleContentComponent(overlayRef);
+        });
+
+        it('should open a popover with a template', () => {
+            const overlayRef = popover.open(viewContainerFixture.componentInstance.template, {
+                origin: viewContainerFixture.componentInstance.openTemplate
+            });
+            viewContainerFixture.detectChanges();
+            expect(overlayContainerElement.textContent).toContain('template');
+            assertPopoverContainer();
+        });
+
+        it('should closeAll when call closeAll', fakeAsync(() => {
+            popover.open(PopoverSimpleContentComponent, {
+                origin: viewContainerFixture.componentInstance.openPopoverOrigin
+            });
+            popover.open(viewContainerFixture.componentInstance.template, {
+                origin: viewContainerFixture.componentInstance.openTemplate
+            });
+            tick(1000);
+            viewContainerFixture.detectChanges();
+            let containers = overlayContainerElement.querySelectorAll(`thy-popover-container`);
+            expect(containers.length).toBe(2);
+            popover.closeAll();
+            tick(1000);
+            viewContainerFixture.detectChanges();
+            containers = overlayContainerElement.querySelectorAll(`thy-popover-container`);
+            expect(containers.length).toBe(0);
+        }));
+
+        it('should closeLast when call close', fakeAsync(() => {
+            const ref = popover.open(PopoverSimpleContentComponent, {
+                origin: viewContainerFixture.componentInstance.openPopoverOrigin,
+                manualClosure: true
+            });
+            popover.open(viewContainerFixture.componentInstance.template, {
+                origin: viewContainerFixture.componentInstance.openTemplate
+            });
+
+            popover.close();
+            viewContainerFixture.detectChanges();
+            flush();
+
+            assertPopoverSimpleContentComponent(ref);
+            expect(overlayContainerElement.textContent).not.toContain('template');
+        }));
+
+        it('should add default class to origin', () => {
+            const ref = popover.open(PopoverSimpleContentComponent, {
+                origin: viewContainerFixture.componentInstance.openPopoverOrigin,
+                manualClosure: true
+            });
+            const element = getOverlayPaneElement();
+            expect(document.querySelector('.thy-popover-origin-active')).toBeTruthy();
+        });
+
+        it('should add `active-class` to origin when originActiveClass is string', () => {
+            const ref = popover.open(PopoverSimpleContentComponent, {
+                origin: viewContainerFixture.componentInstance.openPopoverOrigin,
+                manualClosure: true,
+                originActiveClass: 'active-class'
+            });
+            expect(document.querySelector('.active-class')).toBeTruthy();
+        });
+
+        it('should add active classes to origin when originActiveClass is Array', () => {
+            const ref = popover.open(PopoverSimpleContentComponent, {
+                origin: viewContainerFixture.componentInstance.openPopoverOrigin,
+                manualClosure: true,
+                originActiveClass: ['active-class2', 'active-class3']
+            });
+            expect(document.querySelector('.active-class2')).toBeTruthy();
+            expect(document.querySelector('.active-class3')).toBeTruthy();
+        });
+
+        it('should apply reposition scroll strategy when set reposition', () => {
+            const scrollStrategy = overlay.scrollStrategies.reposition();
+            const ref = popover.open(PopoverSimpleContentComponent, {
+                origin: viewContainerFixture.componentInstance.openPopoverOrigin,
+                manualClosure: true,
+                scrollStrategy: scrollStrategy
+            });
+            expect(ref.componentInstance.popoverRef.getOverlayRef().getConfig().scrollStrategy).toEqual(scrollStrategy);
+        });
+
+        it('should close when the injectable is destroyed', fakeAsync(() => {
+            const ref = popover.open(PopoverSimpleContentComponent, {
+                origin: viewContainerFixture.componentInstance.openPopoverOrigin,
+                manualClosure: true,
+                originActiveClass: ['active-class2', 'active-class3']
+            });
+
+            expect(overlayContainerElement.querySelectorAll('thy-popover-container').length).toBe(1);
+
+            popover.ngOnDestroy();
+            viewContainerFixture.detectChanges();
+            flush();
+
+            expect(overlayContainerElement.querySelectorAll('thy-popover-container').length).toBe(0);
+        }));
+    });
+
+    describe('manualClosure', () => {
+        beforeEach(inject(
+            [ThyPopover, Location, OverlayContainer, Overlay],
+            (_popover: ThyPopover, _location: Location, _overlayContainer: OverlayContainer, _overlay: Overlay) => {
+                popover = _popover;
+                mockLocation = _location as SpyLocation;
+                overlayContainer = _overlayContainer;
+                overlayContainerElement = _overlayContainer.getContainerElement();
+                overlay = _overlay;
+            }
+        ));
+
+        beforeEach(() => {
+            viewContainerFixture = TestBed.createComponent(WithChildViewContainerComponent);
+            viewContainerFixture.detectChanges();
         });
 
         let viewContainerFixtureManualClosure: ComponentFixture<PopoverManualClosureContentComponent>;
@@ -294,40 +431,6 @@ describe(`thyPopover`, () => {
             btnElement5 = viewContainerFixtureManualClosure.nativeElement.querySelector('.btn5');
             viewContainerFixtureManualClosure.detectChanges();
         });
-
-        it('closeAll', fakeAsync(() => {
-            btnElement1.click();
-            btnElement3.click();
-            popover.closeAll();
-            tick(1000);
-            viewContainerFixtureManualClosure.detectChanges();
-            expect(document.querySelector('.template1')).toBeFalsy();
-            expect(document.querySelector('.template3')).toBeFalsy();
-        }));
-
-        it('closeLast', fakeAsync(() => {
-            btnElement1.click();
-            btnElement2.click();
-            btnElement3.click();
-            popover.close();
-            tick(1000);
-            viewContainerFixtureManualClosure.detectChanges();
-            expect(document.querySelector('.template1')).toBeTruthy();
-            expect(document.querySelector('.template2')).toBeTruthy();
-            expect(document.querySelector('.template3')).toBeFalsy();
-        }));
-
-        // it('closeLast 2', fakeAsync(() => {
-        //     btnElement1.click();
-        //     btnElement2.click();
-        //     btnElement3.click();
-        //     popover.closeLast(2);
-        //     tick(1000);
-        //     viewContainerFixtureManualClosure.detectChanges();
-        //     expect(document.querySelector('.template1')).toBeTruthy();
-        //     expect(document.querySelector('.template2')).toBeFalsy();
-        //     expect(document.querySelector('.template3')).toBeFalsy();
-        // }));
 
         it('manualClosure, open manualClosure times', () => {
             btnElement1.click();
@@ -355,84 +458,22 @@ describe(`thyPopover`, () => {
             tick(1000);
             expect(document.querySelector('.template3')).toBeTruthy();
         }));
-
-        it('origin add active className, default', () => {
-            btnElement1.click();
-            const element = getOverlayPaneElement();
-            expect(document.querySelector('.thy-popover-origin-active')).toBeTruthy();
-        });
-
-        it('origin add active className, originActiveClass', () => {
-            btnElement2.click();
-            expect(document.querySelector('.active-class')).toBeTruthy();
-        });
-
-        it('origin add active className, originActiveClass with Array', () => {
-            btnElement3.click();
-            expect(document.querySelector('.active-class2')).toBeTruthy();
-            expect(document.querySelector('.active-class3')).toBeTruthy();
-        });
-
-        it('should apply reposition scroll strategy when set reposition', () => {
-            btnElement5.click();
-            expect(viewContainerFixtureManualClosure.componentInstance.popoverRef.getOverlayRef().getConfig().scrollStrategy).toEqual(
-                viewContainerFixtureManualClosure.componentInstance.scrollStrategy
-            );
-        });
-
-        it('should close when the injectable is destroyed', fakeAsync(() => {
-            btnElement5.click();
-
-            expect(overlayContainerElement.querySelectorAll('thy-popover-container').length).toBe(1);
-
-            popover.ngOnDestroy();
-            viewContainerFixture.detectChanges();
-            flush();
-
-            expect(overlayContainerElement.querySelectorAll('thy-popover-container').length).toBe(0);
-        }));
     });
 
     describe('outsideClosable', () => {
         let outsideClosableFixture: ComponentFixture<PopoverOutsideClosableComponent>;
         let outsideClosableComponent: PopoverOutsideClosableComponent;
-        let closeScrollStrategy: CloseScrollStrategy;
-
-        beforeEach(() => {
-            TestBed.configureTestingModule({
-                imports: [PopoverTestModule],
-                providers: [
-                    { provide: Location, useClass: SpyLocation },
-                    {
-                        provide: THY_POPOVER_DEFAULT_CONFIG,
-                        deps: [Overlay],
-                        useFactory: (overlay: Overlay) => {
-                            return () => {
-                                closeScrollStrategy = overlay.scrollStrategies.close();
-                                return {
-                                    scrollStrategy: closeScrollStrategy
-                                };
-                            };
-                        }
-                    }
-                ]
-            });
-            TestBed.compileComponents();
-        });
 
         beforeEach(inject(
-            [ThyPopover, Location, OverlayContainer],
-            (_popover: ThyPopover, _location: Location, _overlayContainer: OverlayContainer) => {
+            [ThyPopover, Location, OverlayContainer, Overlay],
+            (_popover: ThyPopover, _location: Location, _overlayContainer: OverlayContainer, _overlay: Overlay) => {
                 popover = _popover;
                 mockLocation = _location as SpyLocation;
                 overlayContainer = _overlayContainer;
                 overlayContainerElement = _overlayContainer.getContainerElement();
+                overlay = _overlay;
             }
         ));
-
-        afterEach(() => {
-            overlayContainer.ngOnDestroy();
-        });
 
         beforeEach(() => {
             outsideClosableFixture = TestBed.createComponent(PopoverOutsideClosableComponent);
@@ -467,27 +508,27 @@ describe(`thyPopover`, () => {
             let closeScrollStrategy: CloseScrollStrategy;
             const globalDefaultConfig = { hasBackdrop: false };
 
-            beforeEach(() => {
-                TestBed.configureTestingModule({
-                    imports: [PopoverTestModule],
-                    providers: [
-                        { provide: Location, useClass: SpyLocation },
-                        {
-                            provide: THY_POPOVER_SCROLL_STRATEGY,
-                            deps: [Overlay],
-                            useFactory: (overlay: Overlay) => {
-                                closeScrollStrategy = overlay.scrollStrategies.close();
-                                return () => closeScrollStrategy;
+            beforeEach(async(() => {
+                TestBed.overrideModule(PopoverTestModule, {
+                    set: {
+                        providers: [
+                            {
+                                provide: THY_POPOVER_SCROLL_STRATEGY,
+                                deps: [Overlay],
+                                useFactory: (_overlay: Overlay) => {
+                                    closeScrollStrategy = _overlay.scrollStrategies.close();
+                                    return () => closeScrollStrategy;
+                                }
+                            },
+                            {
+                                provide: THY_POPOVER_DEFAULT_CONFIG,
+                                useValue: globalDefaultConfig
                             }
-                        },
-                        {
-                            provide: THY_POPOVER_DEFAULT_CONFIG,
-                            useValue: globalDefaultConfig
-                        }
-                    ]
+                        ]
+                    }
                 });
                 TestBed.compileComponents();
-            });
+            }));
 
             beforeEach(inject(
                 [ThyPopover, Location, OverlayContainer],
@@ -503,10 +544,6 @@ describe(`thyPopover`, () => {
                 popoverConfigFixture = TestBed.createComponent(PopoverConfigComponent);
                 popoverConfigFixture.detectChanges();
                 popoverConfigComponent = popoverConfigFixture.componentInstance;
-            });
-
-            afterEach(() => {
-                overlayContainer.ngOnDestroy();
             });
 
             it('should apply closeScrollStrategy when set close in token', () => {
@@ -546,14 +583,6 @@ describe(`thyPopover`, () => {
             let popoverConfigFixture: ComponentFixture<PopoverConfigComponent>;
             let popoverConfigComponent: PopoverConfigComponent;
 
-            beforeEach(() => {
-                TestBed.configureTestingModule({
-                    imports: [PopoverTestModule],
-                    providers: [{ provide: Location, useClass: SpyLocation }]
-                });
-                TestBed.compileComponents();
-            });
-
             beforeEach(inject(
                 [ThyPopover, Location, OverlayContainer],
                 (_popover: ThyPopover, _location: Location, _overlayContainer: OverlayContainer) => {
@@ -570,14 +599,10 @@ describe(`thyPopover`, () => {
                 popoverConfigComponent = popoverConfigFixture.componentInstance;
             });
 
-            afterEach(() => {
-                overlayContainer.ngOnDestroy();
-            });
-
             it('should apply blockScrollStrategy when not set scrollStrategy', () => {
                 popoverConfigComponent.openBtn.nativeElement.click();
-                expect(popoverConfigComponent.popoverRef.getOverlayRef().getConfig().scrollStrategy).toEqual(
-                    popoverConfigComponent.overlay.scrollStrategies.block()
+                expect(typeof popoverConfigComponent.popoverRef.getOverlayRef().getConfig().scrollStrategy).toEqual(
+                    typeof popoverConfigComponent.overlay.scrollStrategies.block()
                 );
             });
 
