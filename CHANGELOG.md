@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.0.28"></a>
+## [9.0.28](https://github.com/atinc/ngx-tethys/compare/9.0.27...9.0.28) (2021-03-11)
+
+
+### Bug Fixes
+
+* **select:** fix select options change status error ([#1181](https://github.com/atinc/ngx-tethys/issues/1181)) ([06f85d4](https://github.com/atinc/ngx-tethys/commit/06f85d4))
+
+
+
 <a name="9.0.27"></a>
 ## [9.0.27](https://github.com/atinc/ngx-tethys/compare/9.0.26...9.0.27) (2021-03-11)
 
