@@ -1,17 +1,18 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { ThySelectComponent } from './select.component';
-import { ThyInputModule } from 'ngx-tethys/input';
-import { ThySelectCustomComponent } from './custom-select/custom-select.component';
-import { ThyLabelModule } from 'ngx-tethys/label';
-import { OverlayModule } from '@angular/cdk/overlay';
-import { ThyLoadingModule } from 'ngx-tethys/loading';
-import { ThySharedModule } from 'ngx-tethys/shared';
-import { ThyIconModule } from 'ngx-tethys/icon';
-import { ThyOptionModule } from 'ngx-tethys/shared';
-import { ThySelectCommonModule } from 'ngx-tethys/shared';
 import { ThyEmptyModule } from 'ngx-tethys/empty';
+import { ThyIconModule } from 'ngx-tethys/icon';
+import { ThyInputModule } from 'ngx-tethys/input';
+import { ThyLabelModule } from 'ngx-tethys/label';
+import { ThyLoadingModule } from 'ngx-tethys/loading';
+import { ThyOptionModule, ThySelectCommonModule, ThySharedModule } from 'ngx-tethys/shared';
+
+import { OverlayModule } from '@angular/cdk/overlay';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+import { ThySelectCustomComponent } from './custom-select/custom-select.component';
+import { ThySelectComponent } from './select.component';
+import { THY_SELECT_SCROLL_STRATEGY_PROVIDER } from './select.config';
 
 @NgModule({
     imports: [
@@ -28,6 +29,7 @@ import { ThyEmptyModule } from 'ngx-tethys/empty';
         ThyOptionModule
     ],
     declarations: [ThySelectComponent, ThySelectCustomComponent],
-    exports: [ThySelectComponent, ThySelectCustomComponent]
+    exports: [ThySelectComponent, ThySelectCustomComponent],
+    providers: [THY_SELECT_SCROLL_STRATEGY_PROVIDER]
 })
 export class ThySelectModule {}

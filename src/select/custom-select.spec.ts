@@ -1,21 +1,23 @@
-import { TestBed, async, ComponentFixture, fakeAsync, tick, inject, flush, discardPeriodicTasks } from '@angular/core/testing';
-import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { Component, ViewChild, ViewChildren, QueryList, ElementRef, Sanitizer, SecurityContext, TemplateRef, OnInit } from '@angular/core';
-import { ThySelectModule } from './module';
-import { ThySelectCustomComponent, SelectMode } from './custom-select/custom-select.component';
-import { ThyOptionComponent } from '../shared/option/option.component';
-import { By, DomSanitizer } from '@angular/platform-browser';
-import { UpdateHostClassService } from '../core';
-import { ThyPositioningService } from '../positioning/positioning.service';
-import { OverlayContainer, ViewportRuler } from '@angular/cdk/overlay';
-import { Observable, Subject, fromEvent } from 'rxjs';
-import { Platform } from '@angular/cdk/platform';
-import { ThySelectComponent } from './select.component';
-import { ThyFormModule } from '../form';
+import { bypassSanitizeProvider, injectDefaultSvgIconSet, typeInElement } from 'ngx-tethys/testing';
 import { dispatchFakeEvent, dispatchKeyboardEvent } from 'ngx-tethys/testing/dispatcher-events';
-import { TAB, ESCAPE, DOWN_ARROW, ENTER } from '../util/keycodes';
-import { typeInElement, injectDefaultSvgIconSet, bypassSanitizeProvider } from 'ngx-tethys/testing';
+import { fromEvent, Subject } from 'rxjs';
+
+import { Overlay, OverlayContainer, ScrollDispatcher } from '@angular/cdk/overlay';
+import { Platform } from '@angular/cdk/platform';
+import { Component, OnInit, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
+import { async, ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+
+import { UpdateHostClassService } from '../core';
+import { ThyFormModule } from '../form';
+import { ThyPositioningService } from '../positioning/positioning.service';
 import { ThyOptionModule } from '../shared/option/module';
+import { ThyOptionComponent } from '../shared/option/option.component';
+import { DOWN_ARROW, ENTER, ESCAPE } from '../util/keycodes';
+import { SelectMode, ThySelectCustomComponent } from './custom-select/custom-select.component';
+import { ThySelectModule } from './module';
+import { THY_SELECT_SCROLL_STRATEGY } from './select.config';
 
 @Component({
     selector: 'basic-select',
@@ -508,11 +510,11 @@ describe('ThyCustomSelect', () => {
     let overlayContainerElement: HTMLElement;
     let platform: Platform;
 
-    function configureThyCustomSelectTestingModule(declarations: any[]) {
+    function configureThyCustomSelectTestingModule(declarations: any[], providers: any[] = []) {
         TestBed.configureTestingModule({
             imports: [ThyFormModule, ThyOptionModule, ThySelectModule, ReactiveFormsModule, FormsModule],
             declarations: declarations,
-            providers: [UpdateHostClassService, ThyPositioningService, bypassSanitizeProvider]
+            providers: [UpdateHostClassService, ThyPositioningService, bypassSanitizeProvider, ...providers]
         }).compileComponents();
 
         inject([OverlayContainer, Platform], (oc: OverlayContainer, p: Platform) => {
@@ -1453,5 +1455,91 @@ describe('ThyCustomSelect', () => {
         it('auto expend', fakeAsync(() => {
             expect(fixture.componentInstance.select.panelOpen).toBe(true);
         }));
+    });
+
+    describe('config', () => {
+        describe('has default config', () => {
+            const scrolledSubject = new Subject();
+            beforeEach(async(() =>
+                configureThyCustomSelectTestingModule(
+                    [BasicSelectComponent],
+                    [
+                        {
+                            provide: ScrollDispatcher,
+                            useFactory: () => ({
+                                scrolled: () => scrolledSubject
+                            })
+                        },
+                        {
+                            provide: THY_SELECT_SCROLL_STRATEGY,
+                            deps: [Overlay],
+                            useFactory: (overlay: Overlay) => {
+                                return () => overlay.scrollStrategies.close();
+                            }
+                        }
+                    ]
+                )));
+
+            let fixture: ComponentFixture<BasicSelectComponent>;
+            let selectElement: HTMLElement;
+            let trigger: HTMLElement;
+
+            beforeEach(() => {
+                fixture = TestBed.createComponent(BasicSelectComponent);
+                fixture.detectChanges();
+                selectElement = fixture.debugElement.query(By.css('.thy-select-custom')).nativeElement;
+                trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            });
+
+            it('should close panel when scroll container', () => {
+                trigger.click();
+                fixture.detectChanges();
+
+                spyOn(fixture.componentInstance.select.cdkConnectedOverlay.overlayRef, 'detach');
+
+                expect(fixture.componentInstance.select.cdkConnectedOverlay.overlayRef.detach).toHaveBeenCalledTimes(0);
+
+                scrolledSubject.next();
+                expect(fixture.componentInstance.select.cdkConnectedOverlay.overlayRef.detach).toHaveBeenCalledTimes(1);
+            });
+        });
+
+        describe('not set default config', () => {
+            const scrolledSubject = new Subject();
+            beforeEach(async(() =>
+                configureThyCustomSelectTestingModule(
+                    [BasicSelectComponent],
+                    [
+                        {
+                            provide: ScrollDispatcher,
+                            useFactory: () => ({
+                                scrolled: () => scrolledSubject
+                            })
+                        }
+                    ]
+                )));
+
+            let fixture: ComponentFixture<BasicSelectComponent>;
+            let selectElement: HTMLElement;
+            let trigger: HTMLElement;
+
+            beforeEach(() => {
+                fixture = TestBed.createComponent(BasicSelectComponent);
+                fixture.detectChanges();
+                selectElement = fixture.debugElement.query(By.css('.thy-select-custom')).nativeElement;
+                trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            });
+
+            it('should updatePosition when scroll container', () => {
+                trigger.click();
+                fixture.detectChanges();
+
+                spyOn(fixture.componentInstance.select.cdkConnectedOverlay.overlayRef, 'updatePosition');
+                expect(fixture.componentInstance.select.cdkConnectedOverlay.overlayRef.updatePosition).toHaveBeenCalledTimes(0);
+
+                scrolledSubject.next();
+                expect(fixture.componentInstance.select.cdkConnectedOverlay.overlayRef.updatePosition).toHaveBeenCalledTimes(1);
+            });
+        });
     });
 });
