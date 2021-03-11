@@ -1,21 +1,20 @@
-import {
-    Component,
-    ViewEncapsulation,
-    OnInit,
-    Input,
-    ViewChild,
-    ElementRef,
-    Renderer2,
-    Output,
-    EventEmitter,
-    TemplateRef
-} from '@angular/core';
+import { Component, HostBinding, OnInit, Renderer2 } from '@angular/core';
 
 @Component({
     selector: 'thy-select-custom-basic-example',
-    templateUrl: './custom-basic.component.html'
+    templateUrl: './custom-basic.component.html',
+    styles: [
+        `
+            .custom-basic-container {
+                height: 200px;
+                overflow-y: auto;
+            }
+        `
+    ]
 })
 export class ThySelectCustomBasicExampleComponent implements OnInit {
+    @HostBinding('class.d-block') class = true;
+
     thySize = '';
 
     thyMode = 'multiple';

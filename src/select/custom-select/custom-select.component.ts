@@ -1,52 +1,67 @@
+import { getFlexiblePositions, InputBoolean, ScrollToService, UpdateHostClassService } from 'ngx-tethys/core';
 import {
-    Component,
-    forwardRef,
-    HostBinding,
-    Input,
-    ElementRef,
-    OnInit,
-    ContentChildren,
-    QueryList,
-    Output,
-    EventEmitter,
-    TemplateRef,
-    ContentChild,
-    ViewChild,
-    Renderer2,
-    OnDestroy,
-    ChangeDetectorRef,
-    NgZone,
-    AfterContentInit,
-    ChangeDetectionStrategy,
-    HostListener,
-    Attribute
-} from '@angular/core';
-import { InputBoolean, UpdateHostClassService } from 'ngx-tethys/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import {
+    IThyOptionParentComponent,
+    SelectControlSize,
+    THY_OPTION_PARENT_COMPONENT,
     ThyOptionComponent,
     ThyOptionSelectionChangeEvent,
-    THY_OPTION_PARENT_COMPONENT,
-    IThyOptionParentComponent
+    ThySelectOptionGroupComponent
 } from 'ngx-tethys/shared';
-import { coerceBooleanProperty, isArray } from 'ngx-tethys/util';
 import {
-    ScrollStrategy,
-    Overlay,
-    ViewportRuler,
-    ConnectionPositionPair,
-    ScrollDispatcher,
-    CdkConnectedOverlay
-} from '@angular/cdk/overlay';
-import { takeUntil, startWith, take, switchMap, filter, map } from 'rxjs/operators';
-import { Subject, Observable, merge, defer, Subscription, timer } from 'rxjs';
-import { getFlexiblePositions } from 'ngx-tethys/core';
-import { ThySelectOptionGroupComponent, SelectControlSize } from 'ngx-tethys/shared';
-import { SelectionModel } from '@angular/cdk/collections';
-import { helpers } from 'ngx-tethys/util';
+    A,
+    coerceBooleanProperty,
+    DOWN_ARROW,
+    END,
+    ENTER,
+    hasModifierKey,
+    helpers,
+    HOME,
+    isArray,
+    isFunction,
+    LEFT_ARROW,
+    RIGHT_ARROW,
+    SPACE,
+    UP_ARROW
+} from 'ngx-tethys/util';
+import { defer, merge, Observable, Subject, Subscription, timer } from 'rxjs';
+import { filter, map, startWith, switchMap, take, takeUntil } from 'rxjs/operators';
+
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
-import { ScrollToService } from 'ngx-tethys/core';
-import { DOWN_ARROW, UP_ARROW, LEFT_ARROW, RIGHT_ARROW, ENTER, SPACE, hasModifierKey, HOME, END, A } from 'ngx-tethys/util';
+import { SelectionModel } from '@angular/cdk/collections';
+import {
+    CdkConnectedOverlay,
+    ConnectionPositionPair,
+    Overlay,
+    ScrollDispatcher,
+    ScrollStrategy,
+    ViewportRuler
+} from '@angular/cdk/overlay';
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChild,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    HostBinding,
+    HostListener,
+    Inject,
+    Input,
+    NgZone,
+    OnDestroy,
+    OnInit,
+    Optional,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewChild
+} from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+
+import { THY_SELECT_SCROLL_STRATEGY } from '../select.config';
 
 export type SelectMode = 'multiple' | '';
 
@@ -112,6 +127,8 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
     public selectionModel: SelectionModel<ThyOptionComponent>;
 
     public triggerRect: ClientRect;
+
+    public scrollStrategy: ScrollStrategy;
 
     private selectionModelSubscription: Subscription;
 
@@ -254,18 +271,26 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
         );
     }
 
+    private buildScrollStrategy() {
+        if (this.scrollStrategyFactory && isFunction(this.scrollStrategyFactory)) {
+            this.scrollStrategy = this.scrollStrategyFactory();
+        } else {
+            this.scrollStrategy = this.overlay.scrollStrategies.reposition();
+        }
+    }
+
     constructor(
         private ngZone: NgZone,
         private elementRef: ElementRef,
         private updateHostClassService: UpdateHostClassService,
-        private renderer: Renderer2,
-        private overlay: Overlay,
         private viewportRuler: ViewportRuler,
         private changeDetectorRef: ChangeDetectorRef,
         private scrollDispatcher: ScrollDispatcher,
-        @Attribute('tabindex') tabIndex: string
+        private overlay: Overlay,
+        @Optional() @Inject(THY_SELECT_SCROLL_STRATEGY) public scrollStrategyFactory: () => ScrollStrategy
     ) {
         this.updateHostClassService.initializeElement(elementRef.nativeElement);
+        this.buildScrollStrategy();
     }
 
     writeValue(value: any): void {
