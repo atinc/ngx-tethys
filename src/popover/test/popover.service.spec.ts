@@ -9,7 +9,12 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { isArray, isUndefinedOrNull } from '../../util';
 import { ThyPopoverModule } from '../module';
 import { ThyPopoverRef } from '../popover-ref';
-import { THY_POPOVER_DEFAULT_CONFIG, THY_POPOVER_SCROLL_STRATEGY, ThyPopoverConfig, thyPopoverDefaultConfig } from '../popover.config';
+import {
+    THY_POPOVER_DEFAULT_CONFIG,
+    THY_POPOVER_DEFAULT_CONFIG_VALUE,
+    THY_POPOVER_SCROLL_STRATEGY,
+    ThyPopoverConfig
+} from '../popover.config';
 import { ThyPopover } from '../popover.service';
 
 @Component({
@@ -565,7 +570,7 @@ describe(`thyPopover`, () => {
                 popoverConfigComponent.config = {};
                 popoverConfigComponent.openBtn.nativeElement.click();
                 const currentConfig = popoverConfigComponent.popoverRef.getOverlayRef().getConfig();
-                const defaultConfig = { ...thyPopoverDefaultConfig, ...globalDefaultConfig, ...otherConfig };
+                const defaultConfig = { ...THY_POPOVER_DEFAULT_CONFIG_VALUE, ...globalDefaultConfig, ...otherConfig };
                 expect(comparePopoverConfig(defaultConfig as ThyPopoverConfig, currentConfig as ThyPopoverConfig)).toBeTruthy();
             });
 
@@ -574,7 +579,7 @@ describe(`thyPopover`, () => {
                 popoverConfigComponent.config = { ...config };
                 popoverConfigComponent.openBtn.nativeElement.click();
                 const currentConfig = popoverConfigComponent.popoverRef.getOverlayRef().getConfig();
-                const expectConfig = { ...thyPopoverDefaultConfig, ...globalDefaultConfig, ...otherConfig, ...config };
+                const expectConfig = { ...THY_POPOVER_DEFAULT_CONFIG_VALUE, ...globalDefaultConfig, ...otherConfig, ...config };
                 expect(comparePopoverConfig(expectConfig as ThyPopoverConfig, currentConfig as ThyPopoverConfig)).toBeTruthy();
             }));
         });
@@ -610,7 +615,7 @@ describe(`thyPopover`, () => {
                 popoverConfigComponent.config = {};
                 popoverConfigComponent.openBtn.nativeElement.click();
                 const currentConfig = popoverConfigComponent.popoverRef.getOverlayRef().getConfig();
-                const expectConfig = { ...thyPopoverDefaultConfig, ...otherConfig };
+                const expectConfig = { ...THY_POPOVER_DEFAULT_CONFIG_VALUE, ...otherConfig };
                 expect(comparePopoverConfig(expectConfig as ThyPopoverConfig, currentConfig as ThyPopoverConfig)).toBeTruthy();
             });
 
@@ -620,7 +625,7 @@ describe(`thyPopover`, () => {
                 popoverConfigComponent.openBtn.nativeElement.click();
                 const currentConfig = popoverConfigComponent.popoverRef.getOverlayRef().getConfig();
                 const expectConfig = {
-                    ...thyPopoverDefaultConfig,
+                    ...THY_POPOVER_DEFAULT_CONFIG_VALUE,
                     ...otherConfig,
                     ...{ panelClass: ['cdk-overlay-pane', 'class1', 'class2'] }
                 };
@@ -632,7 +637,11 @@ describe(`thyPopover`, () => {
                 popoverConfigComponent.config = config;
                 popoverConfigComponent.openBtn.nativeElement.click();
                 const currentConfig = popoverConfigComponent.popoverRef.getOverlayRef().getConfig();
-                const expectConfig = { ...thyPopoverDefaultConfig, ...otherConfig, ...{ panelClass: ['cdk-overlay-pane', 'panel-class'] } };
+                const expectConfig = {
+                    ...THY_POPOVER_DEFAULT_CONFIG_VALUE,
+                    ...otherConfig,
+                    ...{ panelClass: ['cdk-overlay-pane', 'panel-class'] }
+                };
                 expect(comparePopoverConfig(expectConfig as ThyPopoverConfig, currentConfig as ThyPopoverConfig)).toBeTruthy();
             });
 
@@ -641,7 +650,7 @@ describe(`thyPopover`, () => {
                 popoverConfigComponent.config = { ...config };
                 popoverConfigComponent.openBtn.nativeElement.click();
                 const currentConfig = popoverConfigComponent.popoverRef.getOverlayRef().getConfig();
-                const expectConfig = { ...thyPopoverDefaultConfig, ...otherConfig, ...config };
+                const expectConfig = { ...THY_POPOVER_DEFAULT_CONFIG_VALUE, ...otherConfig, ...config };
                 expect(comparePopoverConfig(expectConfig as ThyPopoverConfig, currentConfig as ThyPopoverConfig)).toBeTruthy();
             }));
         });
@@ -650,7 +659,7 @@ describe(`thyPopover`, () => {
 
 function comparePopoverConfig(expectConfig: ThyPopoverConfig, currentConfig: ThyPopoverConfig) {
     let isSame = false;
-    const keys = Object.keys(thyPopoverDefaultConfig);
+    const keys = Object.keys(THY_POPOVER_DEFAULT_CONFIG_VALUE);
     keys.forEach(key => {
         if (!isUndefinedOrNull(expectConfig[key]) && !isUndefinedOrNull(currentConfig[key])) {
             if (isArray(currentConfig[key]) && isArray(expectConfig[key])) {

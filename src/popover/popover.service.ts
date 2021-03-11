@@ -27,7 +27,12 @@ import { ElementRef, Inject, Injectable, Injector, NgZone, OnDestroy, Optional, 
 
 import { ThyPopoverContainerComponent } from './popover-container.component';
 import { ThyInternalPopoverRef, ThyPopoverRef } from './popover-ref';
-import { THY_POPOVER_DEFAULT_CONFIG, THY_POPOVER_SCROLL_STRATEGY, ThyPopoverConfig, thyPopoverDefaultConfig } from './popover.config';
+import {
+    THY_POPOVER_DEFAULT_CONFIG,
+    THY_POPOVER_DEFAULT_CONFIG_VALUE,
+    THY_POPOVER_SCROLL_STRATEGY,
+    ThyPopoverConfig
+} from './popover.config';
 import { popoverUpperOverlayOptions } from './popover.options';
 
 @Injectable({
@@ -177,7 +182,7 @@ export class ThyPopover extends ThyUpperOverlayService<ThyPopoverConfig, ThyPopo
             overlay,
             injector,
             {
-                ...thyPopoverDefaultConfig,
+                ...THY_POPOVER_DEFAULT_CONFIG_VALUE,
                 ...defaultConfig
             },
             scrollStrategy

@@ -39,7 +39,7 @@ export class ThyPopoverConfig<TData = any> extends ThyUpperOverlayConfig<TData> 
 
 export const THY_POPOVER_DEFAULT_CONFIG = new InjectionToken<ThyPopoverConfig>('thy-popover-default-config');
 
-export const thyPopoverDefaultConfig = {
+export const THY_POPOVER_DEFAULT_CONFIG_VALUE = {
     hasBackdrop: true,
     backdropClass: 'thy-popover-backdrop',
     panelClass: '',
@@ -54,7 +54,7 @@ export const thyPopoverDefaultConfig = {
 
 export const THY_POPOVER_DEFAULT_CONFIG_PROVIDER = {
     provide: THY_POPOVER_DEFAULT_CONFIG,
-    useValue: thyPopoverDefaultConfig
+    useValue: THY_POPOVER_DEFAULT_CONFIG_VALUE
 };
 
 export const THY_POPOVER_SCROLL_STRATEGY = new InjectionToken<ScrollStrategy>('thy-popover-scroll-strategy');
