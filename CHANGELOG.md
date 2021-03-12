@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="10.0.2"></a>
+## [10.0.2](https://github.com/atinc/ngx-tethys/compare/10.0.1...10.0.2) (2021-03-12)
+
+
+### Bug Fixes
+
+* **guider:** fix not display hint after route jump ([9103f6e](https://github.com/atinc/ngx-tethys/commit/9103f6e))
+* **guider:** remove activeKey when close guider ([#1174](https://github.com/atinc/ngx-tethys/issues/1174)) ([2581a0a](https://github.com/atinc/ngx-tethys/commit/2581a0a))
+* **resizable:** fix build problem #INFR-1729 ([1e2bb3f](https://github.com/atinc/ngx-tethys/commit/1e2bb3f)), closes [#INFR-1729](https://github.com/atinc/ngx-tethys/issues/INFR-1729)
+* **select:** clear active item style before initKeyManager #INFR-1724 ([#1178](https://github.com/atinc/ngx-tethys/issues/1178)) ([1b9e3ca](https://github.com/atinc/ngx-tethys/commit/1b9e3ca)), closes [#INFR-1724](https://github.com/atinc/ngx-tethys/issues/INFR-1724)
+* **select:** correct options changes ([#1183](https://github.com/atinc/ngx-tethys/issues/1183)) ([42c3fc7](https://github.com/atinc/ngx-tethys/commit/42c3fc7))
+* **select:** fix select options change status error ([#1181](https://github.com/atinc/ngx-tethys/issues/1181)) ([01514b1](https://github.com/atinc/ngx-tethys/commit/01514b1))
+* **select:** fix single choice clear(#INFR-1665) ([5fd1c71](https://github.com/atinc/ngx-tethys/commit/5fd1c71)), closes [#INFR-1665](https://github.com/atinc/ngx-tethys/issues/INFR-1665)
+
+
+### Features
+
+* **popover:** support set scrollStrategy globally ([#1165](https://github.com/atinc/ngx-tethys/issues/1165)) ([46947e5](https://github.com/atinc/ngx-tethys/commit/46947e5)), closes [#INFR-1391](https://github.com/atinc/ngx-tethys/issues/INFR-1391)
+* **resizable:** add resizable component #INFR-1316 ([271311e](https://github.com/atinc/ngx-tethys/commit/271311e)), closes [#INFR-1316](https://github.com/atinc/ngx-tethys/issues/INFR-1316)
+* **resizable:** add resizable examples #INFR-1316 ([aacdd85](https://github.com/atinc/ngx-tethys/commit/aacdd85)), closes [#INFR-1316](https://github.com/atinc/ngx-tethys/issues/INFR-1316)
+* **resizable:** export resizable and rename param #INFR-1316 ([d2adf14](https://github.com/atinc/ngx-tethys/commit/d2adf14)), closes [#INFR-1316](https://github.com/atinc/ngx-tethys/issues/INFR-1316)
+* **select:** support set scrollStrategy globally ([#1185](https://github.com/atinc/ngx-tethys/issues/1185)) ([8778981](https://github.com/atinc/ngx-tethys/commit/8778981))
+
+
+
 <a name="10.0.1"></a>
 ## [10.0.1](https://github.com/atinc/ngx-tethys/compare/10.0.0...10.0.1) (2021-02-25)
 
