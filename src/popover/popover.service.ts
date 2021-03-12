@@ -4,7 +4,7 @@ import {
     getFlexiblePositions,
     ThyUpperOverlayService
 } from 'ngx-tethys/core';
-import { helpers, isFunction } from 'ngx-tethys/util';
+import { FunctionProp, helpers, isFunction } from 'ngx-tethys/util';
 import { of, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -168,9 +168,8 @@ export class ThyPopover extends ThyUpperOverlayService<ThyPopoverConfig, ThyPopo
         @Optional()
         @Inject(THY_POPOVER_DEFAULT_CONFIG)
         defaultConfig: ThyPopoverConfig,
-        @Optional()
         @Inject(THY_POPOVER_SCROLL_STRATEGY)
-        scrollStrategy: () => ScrollStrategy,
+        scrollStrategy: FunctionProp<ScrollStrategy>,
         private ngZone: NgZone,
         private _viewportRuler: ViewportRuler,
         @Optional() @Inject(DOCUMENT) private _document: any,

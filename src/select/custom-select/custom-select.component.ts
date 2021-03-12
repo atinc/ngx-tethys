@@ -13,6 +13,7 @@ import {
     DOWN_ARROW,
     END,
     ENTER,
+    FunctionProp,
     hasModifierKey,
     helpers,
     HOME,
@@ -287,7 +288,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
         private changeDetectorRef: ChangeDetectorRef,
         private scrollDispatcher: ScrollDispatcher,
         private overlay: Overlay,
-        @Optional() @Inject(THY_SELECT_SCROLL_STRATEGY) public scrollStrategyFactory: () => ScrollStrategy
+        @Optional() @Inject(THY_SELECT_SCROLL_STRATEGY) public scrollStrategyFactory: FunctionProp<ScrollStrategy>
     ) {
         this.updateHostClassService.initializeElement(elementRef.nativeElement);
         this.buildScrollStrategy();

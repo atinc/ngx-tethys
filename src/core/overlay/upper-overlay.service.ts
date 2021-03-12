@@ -1,3 +1,4 @@
+import { FunctionProp } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
 
 import { ComponentType, Overlay, OverlayConfig, OverlayRef, ScrollStrategy } from '@angular/cdk/overlay';
@@ -22,7 +23,7 @@ export abstract class ThyUpperOverlayService<TConfig extends ThyUpperOverlayConf
         protected overlay: Overlay,
         protected injector: Injector,
         protected defaultConfig: TConfig,
-        public scrollStrategy?: () => ScrollStrategy
+        public scrollStrategy?: FunctionProp<ScrollStrategy>
     ) {}
 
     /** Build cdk overlay config by config */
