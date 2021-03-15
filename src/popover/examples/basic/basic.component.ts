@@ -38,7 +38,7 @@ export class ThyPopoverBasicExampleComponent implements OnInit {
     openTemplatePopover(event: Event, template: TemplateRef<HTMLElement>) {
         this.thyPopover.open(template, {
             ...this.config,
-            offset: 100,
+            offset: 10,
             origin: event.currentTarget as HTMLElement,
             panelClass: 'demo-popover'
         });
