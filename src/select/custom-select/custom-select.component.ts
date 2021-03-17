@@ -394,6 +394,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
                     option.hideOption();
                 }
             });
+            this.keyManager.setFirstItemActive();
             this.updateCdkConnectedOverlayPositions();
         }
     }
@@ -491,17 +492,13 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
 
     private highlightCorrectOption(): void {
         if (this.keyManager) {
-            if (this.isMultiple) {
-                if (this.keyManager.activeItem) {
-                    return;
-                }
-                if (this.empty) {
-                    this.keyManager.setFirstItemActive();
-                } else {
-                    this.keyManager.setActiveItem(this.selectionModel.selected[0]);
-                }
+            if (this.keyManager.activeItem) {
+                return;
+            }
+            if (this.empty) {
+                this.keyManager.setFirstItemActive();
             } else {
-                this.keyManager.setActiveItem(-1);
+                this.keyManager.setActiveItem(this.selectionModel.selected[0]);
             }
         }
     }
