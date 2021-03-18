@@ -21,5 +21,5 @@ pagination = {
     total: 100
 };
 ```
-<example name="thy-pagination-base-example" />
+<example name="thy-pagination-basic-example" />
 
