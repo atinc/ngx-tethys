@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="10.0.3"></a>
+## [10.0.3](https://github.com/atinc/ngx-tethys/compare/10.0.2...10.0.3) (2021-03-18)
+
+
+### Bug Fixes
+
+* **select:** correct select active status when first open panel and search option #INFR-1736 ([ac8105b](https://github.com/atinc/ngx-tethys/commit/ac8105b)), closes [#INFR-1736](https://github.com/atinc/ngx-tethys/issues/INFR-1736)
+
+
+### Features
+
+* **shared:** thyStopPropagation directive dont stop propagation when [thyStopPropagation]="false" ([#1188](https://github.com/atinc/ngx-tethys/issues/1188)) ([7b06f47](https://github.com/atinc/ngx-tethys/commit/7b06f47)), closes [#INFR-1779](https://github.com/atinc/ngx-tethys/issues/INFR-1779)
+
+
+
 <a name="10.0.2"></a>
 ## [10.0.2](https://github.com/atinc/ngx-tethys/compare/10.0.1...10.0.2) (2021-03-12)
 
