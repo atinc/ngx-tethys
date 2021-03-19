@@ -184,7 +184,7 @@ export class ThyOptionComponent extends SelectOptionBase implements OnDestroy, H
     }
 
     getLabel(): string {
-        return this.thySearchKey || this.thyLabelText || (this.getHostElement().textContent || '').trim();
+        return '';
     }
 
     private emitSelectionChangeEvent(isUserInput = false): void {
