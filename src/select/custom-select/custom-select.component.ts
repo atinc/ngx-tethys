@@ -331,6 +331,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
             this.resetOptions();
             this.initializeSelection();
             this.initKeyManager();
+            this.highlightCorrectOption(false);
             this.changeDetectorRef.markForCheck();
         });
         if (this.thyAutoExpand) {
@@ -387,14 +388,15 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
         if (this.thyServerSearch) {
             this.thyOnSearch.emit(searchText);
         } else {
-            this.options.forEach(option => {
+            const options = this.options.toArray();
+            options.forEach(option => {
                 if (option.matchSearchText(searchText)) {
                     option.showOption();
                 } else {
                     option.hideOption();
                 }
             });
-            this.keyManager.setFirstItemActive();
+            this.highlightCorrectOption(false);
             this.updateCdkConnectedOverlayPositions();
         }
     }
@@ -490,15 +492,20 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
         this.updateCdkConnectedOverlayPositions();
     }
 
-    private highlightCorrectOption(): void {
-        if (this.keyManager) {
-            if (this.keyManager.activeItem) {
-                return;
-            }
-            if (this.empty) {
-                this.keyManager.setFirstItemActive();
+    private highlightCorrectOption(fromOpenPanel: boolean = true): void {
+        if (this.keyManager && this.panelOpen) {
+            if (fromOpenPanel) {
+                if (this.keyManager.activeItem) {
+                    return;
+                }
+                if (this.empty) {
+                    this.keyManager.setFirstItemActive();
+                } else {
+                    this.keyManager.setActiveItem(this.selectionModel.selected[0]);
+                }
             } else {
-                this.keyManager.setActiveItem(this.selectionModel.selected[0]);
+                // always set first option active
+                this.keyManager.setFirstItemActive();
             }
         }
     }
