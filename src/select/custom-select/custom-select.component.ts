@@ -495,6 +495,9 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
     private highlightCorrectOption(fromOpenPanel: boolean = true): void {
         if (this.keyManager && this.panelOpen) {
             if (fromOpenPanel) {
+                if (this.keyManager.activeItem) {
+                    return;
+                }
                 if (this.empty) {
                     this.keyManager.setFirstItemActive();
                 } else {
