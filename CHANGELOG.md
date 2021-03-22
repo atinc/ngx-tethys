@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="10.0.4"></a>
+## [10.0.4](https://github.com/atinc/ngx-tethys/compare/10.0.3...10.0.4) (2021-03-22)
+
+
+### Bug Fixes
+
+* **select:** correct higlinght option logic #INFR-1797 ([#1191](https://github.com/atinc/ngx-tethys/issues/1191)) ([dc40bc1](https://github.com/atinc/ngx-tethys/commit/dc40bc1)), closes [#INFR-1797](https://github.com/atinc/ngx-tethys/issues/INFR-1797) [#INFR-1797](https://github.com/atinc/ngx-tethys/issues/INFR-1797)
+* **select:** correct select active option error for search ([#1192](https://github.com/atinc/ngx-tethys/issues/1192)) ([6b800c0](https://github.com/atinc/ngx-tethys/commit/6b800c0))
+
+
+
 <a name="10.0.3"></a>
 ## [10.0.3](https://github.com/atinc/ngx-tethys/compare/10.0.2...10.0.3) (2021-03-18)
 
