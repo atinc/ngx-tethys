@@ -6,8 +6,6 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./divided.component.scss']
 })
 export class ThyCardDividedExampleComponent implements OnInit {
-    contentSize = '';
-
     constructor() {}
 
     ngOnInit(): void {}
