@@ -2,29 +2,30 @@
 category: layout
 title: Card
 subtitle: 卡片
+description: 通用的卡片组件。
 order: 30
 ---
-
-通用的卡片组件。
+<div class="dg-alert dg-alert-info">通用的卡片组件。</div>
 
 ## 何时使用
 
-最基础的卡片组件，是一个内容容器，用于文本、照片和单个主题上下文的操作，把同类信息聚合起来形成区块感。
+最基础的卡片组件，是一个内容容器，用于文本、照片和单个主题上下文的操作，同类信息聚合形成区块。
 
-## 使用示例
-基本使用场景代码如下:
+## 模块导入
+```ts
+import { ThyCardModule } from "tethys/card";
+```
+
+## 如何使用
+`thy-card`组件需要与`thy-card-header`和`thy-card-content`组件一起配合使用，基本的使用如下：
 ```html
 <thy-card>
-  <thy-card-header thyTitle="Card title" thyDescription="(Total: 10)">
-    <ng-template #headerOperation>
-      <a href="javascript:;" class="link-secondary">More</a>
-    </ng-template>
-  </thy-card-header>
-  <thy-card-content>
-    Card content
-  </thy-card-content>
-</thy-card>
+    <thy-card-header thyTitle="Card title"> </thy-card-header>
+    <thy-card-content>
+      Card content<br />
+      Card content
+    </thy-card-content>
+  </thy-card>
 ```
 展示效果：
 <example name="thy-card-basic-example" inline>
-
