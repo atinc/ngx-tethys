@@ -1,7 +1,6 @@
 module.exports = {
     mode: 'full',
     title: 'NgxTethys',
-    docsPath: './docs',
     siteProjectName: 'site',
     output: 'dist/docs-site',
     repoUrl: 'https://github.com/atinc/ngx-tethys',

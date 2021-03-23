@@ -1,21 +1,27 @@
-<form thyForm thyLayout="inline">
-  <thy-form-group thyLabelText="Content Size">
-    <thy-select name="contentSize" [(ngModel)]="contentSize">
-      <option value="">默认</option>
-      <option value="sm">小</option>
-    </thy-select>
-  </thy-form-group>
-</form>
-<div class="demo-inner-wrapper demo-layout-backdrop mt-3">
-  <thy-card style="width: 240px" thyDivided="true">
-    <thy-card-header thyTitle="头部标题">
+<div class="demo-inner-wrapper demo-layout-backdrop mt-3 demo-cards">
+  <thy-card thyDivided="true">
+    <thy-card-header thyTitle="Card title">
       <ng-template #headerOperation>
-        <button thyButtonIcon="outdent"></button>
+        <button thyButtonIcon="close"></button>
       </ng-template>
     </thy-card-header>
-    <thy-card-content [thySize]="contentSize">
-      我是 content<br />
-      我是 content<br />
+    <thy-card-content>
+      Card content<br />
+      Card content<br />
+      Card content<br />
+    </thy-card-content>
+  </thy-card>
+
+  <thy-card thyDivided="true">
+    <thy-card-header thyTitle="Card title">
+      <ng-template #headerOperation>
+        <button thyButtonIcon="close"></button>
+      </ng-template>
+    </thy-card-header>
+    <thy-card-content thySize="sm">
+      Card content with size sm, padding top is small<br />
+      Card content<br />
+      Card content<br />
     </thy-card-content>
   </thy-card>
 </div>
