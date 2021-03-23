@@ -136,6 +136,7 @@ export class ThyGuiderRef {
     }
 
     private drawStep() {
+        this.removeExistedStep();
         this.stepsRef[this.currentStepIndex].show(this);
     }
 
