@@ -1,0 +1,17 @@
+import { Component, OnInit } from '@angular/core';
+import { ThyResizeEvent } from 'ngx-tethys/resizable/interface';
+
+@Component({
+    selector: 'thy-resizable-lock-aspect-ratio-example',
+    templateUrl: './lock-aspect-ratio.component.html',
+    styleUrls: ['../style.scss']
+})
+export class ThyResizableLockAspectRatioExampleComponent {
+    width = 400;
+    height = 200;
+
+    onResize({ width, height }: ThyResizeEvent): void {
+        this.width = width!;
+        this.height = height!;
+    }
+}

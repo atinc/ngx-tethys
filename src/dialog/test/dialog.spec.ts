@@ -1,11 +1,10 @@
-import { ViewContainerRef, Component, ViewChild, Directive, NgModule, TemplateRef } from '@angular/core';
+import { ViewContainerRef } from '@angular/core';
 import { TestBed, ComponentFixture, fakeAsync, flushMicrotasks, inject, flush, tick } from '@angular/core/testing';
 import { Location } from '@angular/common';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SpyLocation } from '@angular/common/testing';
 import { ThyDialog, ThyDialogModule } from '../index';
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { Subject } from 'rxjs';
+import { of } from 'rxjs';
 import { ThyDialogRef } from '../dialog-ref';
 import {
     WithChildViewContainerComponent,
@@ -22,6 +21,7 @@ import { dispatchKeyboardEvent, bypassSanitizeProvider, injectDefaultSvgIconSet 
 import { By } from '@angular/platform-browser';
 import { ThyDialogContainerComponent } from '../dialog-container.component';
 import { ThyDialogSizes } from '../dialog.config';
+import { map } from 'rxjs/operators';
 
 describe('ThyDialog', () => {
     let dialog: ThyDialog;
@@ -94,6 +94,54 @@ describe('ThyDialog', () => {
         const dialogContainerElement = getDialogContainerElement();
         expect(dialogContainerElement.getAttribute('role')).toBe('dialog');
     }
+
+    function getElementByDialogContainer(selectors: string) {
+        const confirmDialog = getDialogContainerElement() as HTMLElement;
+        return confirmDialog && (confirmDialog.querySelector(selectors) as HTMLElement);
+    }
+
+    function assertHeaderButtonClick(spy: jasmine.Spy, done: DoneFn) {
+        viewContainerFixture.detectChanges();
+        const headerButton = getElementByDialogContainer('.dialog-header > button.close');
+        if (headerButton) {
+            headerButton.click();
+        }
+
+        viewContainerFixture.detectChanges();
+        viewContainerFixture.whenStable().then(() => {
+            expect(getDialogContainerElement()).toBeNull();
+            expect(spy).toHaveBeenCalled();
+            done();
+        });
+    }
+
+    function assertConfirmBtnWork(done: DoneFn, shouldClose: boolean = true) {
+        viewContainerFixture.detectChanges();
+        expect(overlayContainerElement.querySelector('.thy-dialog-container') as HTMLDivElement).toBeTruthy();
+
+        viewContainerFixture.detectChanges();
+        const confirmBtn = getElementByDialogContainer('.thy-confirm-footer button:first-child');
+        if (confirmBtn) {
+            confirmBtn.click();
+        }
+
+        viewContainerFixture.detectChanges();
+        viewContainerFixture.whenStable().then(() => {
+            if (shouldClose) {
+                expect(getDialogContainerElement()).toBeNull();
+            } else {
+                expect(getDialogContainerElement()).not.toBeNull();
+            }
+            done();
+        });
+    }
+
+    it('should find the closest dialog', () => {
+        dialog.open(DialogSimpleContentComponent);
+        viewContainerFixture.detectChanges();
+        const element = getDialogContainerElement() as HTMLElement;
+        expect(dialog.getClosestDialog(element.querySelector('dialog-content-component'))).toBeTruthy();
+    });
 
     it('should open a dialog with a component', () => {
         const dialogRef = dialog.open(DialogSimpleContentComponent);
@@ -319,8 +367,8 @@ describe('ThyDialog', () => {
         const backdrop = overlayContainerElement.querySelector('.cdk-overlay-backdrop') as HTMLElement;
         const container = getDialogContainerElement();
         dispatchKeyboardEvent(document.body, 'keydown', A);
-        dispatchKeyboardEvent(document.body, 'keydown', A, backdrop);
-        dispatchKeyboardEvent(document.body, 'keydown', A, container);
+        dispatchKeyboardEvent(backdrop, 'keydown', A);
+        dispatchKeyboardEvent(container, 'keydown', A);
 
         expect(spy).toHaveBeenCalledTimes(3);
     }));
@@ -353,6 +401,12 @@ describe('ThyDialog', () => {
         flush();
         expect(spy).toHaveBeenCalled();
     }));
+
+    it('should has a element class with dialog-body-clear-padding if thyClearPadding', () => {
+        dialog.open(DialogFullContentComponent, { viewContainerRef: testViewContainerRef });
+        viewContainerFixture.detectChanges();
+        expect(overlayContainerElement.querySelector('.dialog-body-clear-padding') as HTMLDivElement).toBeTruthy();
+    });
 
     it('should not emit the afterAllClosed stream on subscribe if there are no open dialogs', () => {
         const spy = jasmine.createSpy('afterAllClosed spy');
@@ -492,7 +546,7 @@ describe('ThyDialog', () => {
         });
 
         it('should allow for the position to be updated', () => {
-            let dialogRef = dialog.open(DialogSimpleContentComponent, {
+            const dialogRef = dialog.open(DialogSimpleContentComponent, {
                 position: {
                     left: '250px'
                 }
@@ -835,14 +889,14 @@ describe('ThyDialog', () => {
         }));
 
         it('should allow for the backdropClosable option to be updated while open', fakeAsync(() => {
-            let dialogRef = dialog.open(DialogSimpleContentComponent, {
+            const dialogRef = dialog.open(DialogSimpleContentComponent, {
                 backdropClosable: false,
                 viewContainerRef: testViewContainerRef
             });
 
             viewContainerFixture.detectChanges();
 
-            let backdrop = getOverlayBackdropElement() as HTMLElement;
+            const backdrop = getOverlayBackdropElement() as HTMLElement;
             backdrop.click();
             viewContainerFixture.detectChanges();
             flush();
@@ -868,6 +922,18 @@ describe('ThyDialog', () => {
             viewContainerFixture.detectChanges();
 
             expect(overlayContainerElement.querySelector('.custom-panel-class')).toBeTruthy();
+        });
+
+        it('should work with custom panel class use array ', () => {
+            dialog.open(DialogSimpleContentComponent, {
+                panelClass: ['custom-panel-class', 'custom-panel-class-other'],
+                viewContainerRef: testViewContainerRef
+            });
+
+            viewContainerFixture.detectChanges();
+
+            expect(overlayContainerElement.querySelector('.custom-panel-class')).toBeTruthy();
+            expect(overlayContainerElement.querySelector('.custom-panel-class-other')).toBeTruthy();
         });
     });
 
@@ -932,6 +998,136 @@ describe('ThyDialog', () => {
             });
             viewContainerFixture.detectChanges();
             expect(overlayContainerElement.querySelector('.dialog-supper-lg')).toBeTruthy();
+        });
+    });
+
+    describe('autoFocus option', () => {
+        // When testing focus, all of the elements must be in the DOM.
+        beforeEach(() => document.body.appendChild(overlayContainerElement));
+        afterEach(() => document.body.removeChild(overlayContainerElement));
+
+        it('should focus the first tabbable element of the dialog on open', (done: DoneFn) => {
+            dialog.open(DialogSimpleContentComponent);
+
+            viewContainerFixture.detectChanges();
+            viewContainerFixture.whenStable().then(() => {
+                expect(document.activeElement!.tagName).toBe('BUTTON');
+                done();
+            });
+        });
+
+        it('should focus the first tabbable element（BUTTON here） when confirm dialog content is string type', (done: DoneFn) => {
+            dialog.confirm({
+                content: 'The Content of Confirm Dialog',
+                onOk: () => {
+                    return of([1]).pipe(
+                        map(() => {
+                            return true;
+                        })
+                    );
+                }
+            });
+            viewContainerFixture.detectChanges();
+            viewContainerFixture.whenStable().then(() => {
+                expect(document.activeElement!.tagName).toBe('BUTTON');
+                done();
+            });
+        });
+
+        it('should focus the thy-dialog-container element when autoFocus as false', (done: DoneFn) => {
+            dialog.open(DialogSimpleContentComponent, { autoFocus: false });
+            viewContainerFixture.detectChanges();
+            viewContainerFixture.whenStable().then(() => {
+                expect(document.activeElement!.tagName).toBe('THY-DIALOG-CONTAINER');
+                done();
+            });
+        });
+    });
+
+    describe('confirm', () => {
+        it('should work with a confirm dialog when onOk callback return undefined', (done: DoneFn) => {
+            dialog.confirm({
+                content: 'test: ok button return undefined',
+                onOk: () => {}
+            });
+            assertConfirmBtnWork(done);
+        });
+
+        it('should work with a confirm dialog when onOk callback return true', (done: DoneFn) => {
+            dialog.confirm({
+                content: 'test: ok button return true',
+                onOk: () => {
+                    return of([1]).pipe(
+                        map(() => {
+                            return true;
+                        })
+                    );
+                }
+            });
+            assertConfirmBtnWork(done);
+        });
+
+        it('should work with a confirm dialog when onOk callback return false', (done: DoneFn) => {
+            dialog.confirm({
+                content: 'test: ok button return false',
+                onOk: () => {
+                    return of([1]).pipe(
+                        map(() => {
+                            return false;
+                        })
+                    );
+                }
+            });
+            assertConfirmBtnWork(done, false);
+        });
+
+        it('should the cancel button work', (done: DoneFn) => {
+            dialog.confirm({
+                content: 'test: cancel button',
+                onOk: () => {
+                    return of([1]).pipe(
+                        map(() => {
+                            return true;
+                        })
+                    );
+                }
+            });
+            viewContainerFixture.detectChanges();
+            const cancelBtn = getElementByDialogContainer('.thy-confirm-footer button:nth-child(2)');
+            if (cancelBtn) {
+                cancelBtn.click();
+            }
+
+            viewContainerFixture.detectChanges();
+            viewContainerFixture.whenStable().then(() => {
+                expect(getDialogContainerElement()).toBeNull();
+                done();
+            });
+        });
+    });
+
+    describe(`dialog should work with header close button`, () => {
+        it('should close the dialog when click dialog header close button', (done: DoneFn) => {
+            const dialogRef = dialog.open(DialogFullContentComponent, { viewContainerRef: testViewContainerRef });
+            const spy = jasmine.createSpy('Dialog afterClosed spy');
+            dialogRef.afterClosed().subscribe(spy);
+            assertHeaderButtonClick(spy, done);
+        });
+
+        it('should close the confirm dialog when click dialog header close button', (done: DoneFn) => {
+            const confirmRef = dialog.confirm({
+                content: 'test: confirm dialog header close button',
+                onOk: () => {
+                    return of([1]).pipe(
+                        map(() => {
+                            return true;
+                        })
+                    );
+                }
+            });
+            const spy = jasmine.createSpy('confirm dialog afterClosed spy');
+            confirmRef.afterClosed().subscribe(spy);
+            assertHeaderButtonClick(spy, done);
         });
     });
 

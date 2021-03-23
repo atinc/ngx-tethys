@@ -132,7 +132,7 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
     }
 
     ngOnDestroy() {
-        this.unsubscribeMouseActions();
+        this.unsubscribeMouseListeners();
     }
 
     private verificationValues() {
@@ -145,15 +145,15 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
         if (this.thyStep <= 0 || !!!this.thyStep) {
             throw new Error('step value must be greater than 0.');
         } else if (Number.isInteger(this.thyStep) && (this.thyMax - this.thyMin) % this.thyStep) {
-            throw new Error('(max -min) must be divisible by step.');
+            throw new Error('(max - min) must be divisible by step.');
         }
     }
 
     private toggleDisabled() {
         if (this.thyDisabled) {
-            this.unsubscribeMouseActions();
+            this.unsubscribeMouseListeners();
         } else {
-            this.subscribeMouseActions(['start']);
+            this.subscribeMouseListeners(['start']);
         }
     }
 
@@ -193,7 +193,7 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
         this.sliderPointer.nativeElement.style[orientFields[1]] = `${percentage * 100}%`;
     }
 
-    private unsubscribeMouseActions(actions: string[] = ['start', 'move', 'end']) {
+    private unsubscribeMouseListeners(actions: string[] = ['start', 'move', 'end']) {
         if (actions.includes('start') && this.dragStartHandler) {
             this.dragStartHandler.unsubscribe();
             this.dragStartHandler = null;
@@ -208,7 +208,7 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
         }
     }
 
-    private subscribeMouseActions(actions: string[] = ['start', 'move', 'end']) {
+    private subscribeMouseListeners(actions: string[] = ['start', 'move', 'end']) {
         if (actions.includes('start') && this.dragStartListener && !this.dragStartHandler) {
             this.dragStartHandler = this.dragStartListener.subscribe(this.mouseStartMoving.bind(this));
         }
@@ -240,9 +240,9 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
 
     private pointerController(movable: boolean) {
         if (movable) {
-            this.subscribeMouseActions(['move', 'end']);
+            this.subscribeMouseListeners(['move', 'end']);
         } else {
-            this.unsubscribeMouseActions(['move', 'end']);
+            this.unsubscribeMouseListeners(['move', 'end']);
         }
     }
     private registerMouseEventsListeners() {

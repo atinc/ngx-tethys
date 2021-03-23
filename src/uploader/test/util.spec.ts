@@ -1,26 +1,43 @@
-import { helpers } from 'ngx-tethys/util';
 import { MIME_Map } from '../constant';
 import { mimeTypeConvert } from './../util';
 
 describe(`uploader-util`, () => {
-    const fileTypes = ['.xls', '.xlsx', '.json'];
-    const convertType = mimeTypeConvert(fileTypes);
-    describe('test uploader file type', () => {
-        it('should has .xls and .xlsx .png in MIME_Map, not has .json in MIME_Map', () => {
-            expect(MIME_Map['.xls']).toBeTruthy();
-            expect(MIME_Map['.xlsx']).toBeTruthy();
-            expect(MIME_Map['.png']).toBeTruthy();
-            expect(MIME_Map['.json']).toBeTruthy();
+    describe('#mimeTypeConvert', () => {
+        it('should get application/vnd.ms-excel,.xls for .xls', () => {
+            const result = mimeTypeConvert('.xls');
+            expect(result).toEqual(`application/vnd.ms-excel,.xls`);
         });
 
-        it('should has .xls and .xlsx type', () => {
-            expect(convertType.indexOf(MIME_Map['.xls']) === -1).toBeFalsy();
-            expect(convertType.indexOf(MIME_Map['.xlsx']) === -1).toBeFalsy();
-            expect(convertType.indexOf(MIME_Map['.json']) === -1).toBeFalsy();
+        it('should get application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.xlsx for .xlsx', () => {
+            const result = mimeTypeConvert('.xlsx');
+            expect(result).toEqual(`application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.xlsx`);
         });
 
-        it('should not has .png type', () => {
-            expect(convertType.indexOf(MIME_Map['.png']) === -1).toBeTruthy();
+        it('should get application/json for .json', () => {
+            const result = mimeTypeConvert('.json');
+            expect(result).toEqual(`application/json`);
+        });
+
+        it('should get result for all types', () => {
+            Object.keys(MIME_Map).forEach(key => {
+                const result = mimeTypeConvert(key);
+                expect(result).toEqual(MIME_Map[key]);
+            });
+        });
+
+        it('should get result for multiple files', () => {
+            const result = mimeTypeConvert(['.json', '.xls']);
+            expect(result).toEqual(`application/json,application/vnd.ms-excel,.xls`);
+        });
+
+        it('should get origin value When the type does not match', () => {
+            const result = mimeTypeConvert('application/json1,.json');
+            expect(result).toEqual(`application/json1,application/json`);
+        });
+
+        it('should get empty when input is not Array<string> and string', () => {
+            const result = mimeTypeConvert({} as string);
+            expect(result).toEqual('');
         });
     });
 });

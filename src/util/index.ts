@@ -1,4 +1,5 @@
-export * from './tiny-date';
+export * from './date/functions';
+export * from './date/tiny-date';
 import * as helpers from './helpers/index';
 export * from './helpers/index';
 import * as dom from './dom';

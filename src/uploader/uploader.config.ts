@@ -1,9 +1,9 @@
 import { InjectionToken } from '@angular/core';
-import { ThyFileSizeExceedsContext } from './types';
+import { ThyFileSizeExceedsContext, ThySizeExceedsHandler } from './types';
 
 export interface ThyUploaderConfig {
     sizeThreshold?: number;
-    sizeExceedsHandler?: (event: ThyFileSizeExceedsContext) => {};
+    sizeExceedsHandler?: ThySizeExceedsHandler;
 }
 
 export const THY_UPLOADER_DEFAULT_OPTIONS = new InjectionToken<ThyUploaderConfig>('thy-uploader-default-options');
@@ -17,8 +17,10 @@ export const THY_UPLOADER_DEFAULT_OPTIONS_PROVIDER = {
 };
 
 export function sizeExceedsHandler(event: ThyFileSizeExceedsContext) {
-    const exceedsFilesMessage = event.exceedsFiles.map(item => {
-        return `file: ${item}, size: ${item.size}`;
-    });
+    const exceedsFilesMessage = event.exceedsFiles
+        .map(item => {
+            return `file: ${item.name}, size: ${item.size}`;
+        })
+        .join(',');
     console.error(`some files(${exceedsFilesMessage}) size exceeds threshold ${event.sizeThreshold}`);
 }

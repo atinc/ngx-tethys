@@ -37,6 +37,12 @@ export class ThyGuiderConfig {
 
     /** like popover offset */
     hintOffset?: number;
+
+    /** popover active class */
+    hintClass?: string | string[];
+
+    /** guider point class */
+    pointClass?: string | string[];
 }
 
 export const defaultGuiderPositionConfig = {

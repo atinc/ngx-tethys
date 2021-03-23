@@ -3,7 +3,7 @@ import { ContentChange, RemoveContentChange, ReplaceContentChange, UpdateContent
 export class UpdateFileService {
     constructor(private tree: Tree) {}
 
-    private update(filePath, change: UpdateContentChange) {
+    private update(filePath: string, change: UpdateContentChange) {
         try {
             const recorder = this.tree.beginUpdate(filePath);
             recorder.insertLeft(change.pos, change.content);

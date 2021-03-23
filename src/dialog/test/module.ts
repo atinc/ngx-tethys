@@ -32,8 +32,8 @@ export class DialogSimpleContentComponent {
 @Component({
     selector: 'dialog-full-content-component',
     template: `
-        <thy-dialog-header thyTitle="Install Angular"> </thy-dialog-header>
-        <thy-dialog-body>
+        <thy-dialog-header thyTitleTranslationKey="Translation Key Title"> </thy-dialog-header>
+        <thy-dialog-body thyClearPadding>
             <p>dialog body</p>
         </thy-dialog-body>
         <thy-dialog-footer thyShowBorderTop="true">

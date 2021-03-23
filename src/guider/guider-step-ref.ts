@@ -6,6 +6,7 @@ import { ThyGuiderManager } from './guider-manager';
 import { ThyGuiderStep } from './guider.class';
 import { ThyPopover, ThyPopoverConfig, ThyPopoverRef } from 'ngx-tethys/popover';
 import { helpers } from 'ngx-tethys/util';
+import { Overlay } from '@angular/cdk/overlay';
 
 const pointContainerSize = 28;
 export class ThyGuiderStepRef {
@@ -29,6 +30,7 @@ export class ThyGuiderStepRef {
         private readonly rendererFactory: RendererFactory2,
         private popover: ThyPopover,
         private guiderManager: ThyGuiderManager,
+        private overlay: Overlay,
         private document: any
     ) {
         this.renderer = this.rendererFactory.createRenderer(null, null);
@@ -98,12 +100,25 @@ export class ThyGuiderStepRef {
         const currentPointContainer = this.renderer.createElement('div');
 
         this.renderer.addClass(currentPointContainer, 'thy-guider-highlight-container');
+        if (this.guiderRef.config.pointClass) {
+            this.addPointClass(currentPointContainer, this.guiderRef.config.pointClass);
+        }
         this.renderer.setStyle(currentPointContainer, 'position', 'absolute');
         this.renderer.setStyle(currentPointContainer, 'left', pointPosition[0] + 'px');
         this.renderer.setStyle(currentPointContainer, 'top', pointPosition[1] + 'px');
         this.renderer.setStyle(currentPointContainer, 'transform', 'translate(-100%,-100%)');
 
         return currentPointContainer;
+    }
+    private addPointClass(el: any, pointClass: string | string[]) {
+        if (helpers.isString(pointClass)) {
+            this.renderer.addClass(el, pointClass);
+        }
+        if (helpers.isArray(pointClass)) {
+            pointClass.forEach(classItem => {
+                this.renderer.addClass(el, classItem);
+            });
+        }
     }
 
     private renderPoint(targetElement: Element, pointContainer: any) {
@@ -137,13 +152,15 @@ export class ThyGuiderStepRef {
                 y: position[1]
             },
             originActiveClass: '',
+            panelClass: this.guiderRef.config.hintClass || '',
             backdropClosable: false,
             hasBackdrop: false,
             manualClosure: true,
             initialState: {
                 guiderRef: this.guiderRef,
                 stepRef: this
-            }
+            },
+            scrollStrategy: this.overlay.scrollStrategies.block()
         });
     }
 
@@ -181,13 +198,15 @@ export class ThyGuiderStepRef {
         const popoverConfig = {
             origin: hintContainer,
             placement: step.hintPlacement,
+            panelClass: this.guiderRef.config.hintClass || '',
             backdropClosable: false,
             hasBackdrop: false,
             manualClosure: true,
             initialState: {
                 guiderRef: this.guiderRef,
                 stepRef: this
-            }
+            },
+            scrollStrategy: this.overlay.scrollStrategies.block()
         } as ThyPopoverConfig<any>;
 
         const pointPosition = this.getPointPosition(step, targetElement);

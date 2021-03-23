@@ -1,3 +1,6 @@
+import { endOfDay, fromUnixTime, isSameDay, startOfDay } from 'date-fns';
+import { dispatchMouseEvent } from 'ngx-tethys/testing';
+
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
@@ -5,9 +8,8 @@ import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+
 import { ThyDatePickerModule } from './date-picker.module';
-import { dispatchMouseEvent, typeInElement } from 'ngx-tethys/testing';
-import { isSameDay, fromUnixTime } from 'date-fns';
 import { RangeEntry } from './standard-types';
 
 registerLocaleData(zh);
@@ -228,6 +230,29 @@ describe('ThyRangePickerComponent', () => {
             result = (thyOnCalendarChange.calls.allArgs()[1] as Date[][])[0];
             expect((result[0] as Date).getDate()).toBe(+leftText);
             expect((result[1] as Date).getDate()).toBe(+rightText);
+        }));
+
+        it('should first date is startOfDay,last date is endOfDay', fakeAsync(() => {
+            const thyOnCalendarChange = spyOn(fixtureInstance, 'thyOnCalendarChange');
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            const left = getFirstCell('left');
+            dispatchMouseEvent(left, 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(thyOnCalendarChange).toHaveBeenCalled();
+            let result = (thyOnCalendarChange.calls.allArgs()[0] as Date[][])[0];
+            expect(result[0]).toEqual(startOfDay(result[0]));
+
+            const right = getFirstCell('right');
+            dispatchMouseEvent(right, 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(thyOnCalendarChange).toHaveBeenCalled();
+            result = (thyOnCalendarChange.calls.allArgs()[1] as Date[][])[0];
+            expect(result[1]).toEqual(endOfDay(result[1]));
         }));
 
         it('should support thyOnChange', fakeAsync(() => {

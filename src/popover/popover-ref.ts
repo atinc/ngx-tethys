@@ -1,7 +1,4 @@
-import { ESCAPE } from '@angular/cdk/keycodes';
-import { GlobalPositionStrategy, OverlayRef, FlexibleConnectedPositionStrategy } from '@angular/cdk/overlay';
-import { Observable, Subject } from 'rxjs';
-import { filter, take } from 'rxjs/operators';
+import { OverlayRef } from '@angular/cdk/overlay';
 import { ThyPopoverContainerComponent } from './popover-container.component';
 import { ThyUpperOverlayRef, ThyInternalUpperOverlayRef } from 'ngx-tethys/core';
 import { popoverUpperOverlayOptions } from './popover.options';

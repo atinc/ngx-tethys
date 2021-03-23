@@ -1,7 +1,15 @@
-<p>限制上传文件大小为200M</p>
+<form thyForm name="demoForm" [thyLayout]="'inline'">
+  <thy-form-group thyLabelText="Size Threshold">
+    <input thyInput name="username" type="number" [(ngModel)]="sizeThreshold" required placeholder="请输入用户名" />
+  </thy-form-group>
+  <thy-form-group thyLabelText="" thyLabelRequired>
+    <label thyCheckbox name="multiple" [(ngModel)]="multiple">Multiple</label>
+  </thy-form-group>
+</form>
 <thy-file-select
   class="mt-2 d-inline-block"
-  [thySizeThreshold]="200 * 1024"
+  [thyMultiple]="multiple"
+  [thySizeThreshold]="sizeThreshold"
   [thySizeExceedsHandler]="sizeExceedsHandler"
   (thyOnFileSelect)="selectFiles($event)"
 >

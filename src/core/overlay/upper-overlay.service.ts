@@ -1,11 +1,13 @@
-import { ViewContainerRef, Injector, TemplateRef, EmbeddedViewRef, ComponentRef } from '@angular/core';
-import { Direction } from '@angular/cdk/bidi';
-import { Overlay, ComponentType, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
-import { ComponentPortal, TemplatePortal, CdkPortalOutlet } from '@angular/cdk/portal';
-import { Observable, Subject } from 'rxjs';
-import { ThyUpperOverlayConfig, ThyUpperOverlayOptions } from './upper-overlay.config';
-import { ThyUpperOverlayRef } from './upper-overlay-ref';
+import { FunctionProp } from 'ngx-tethys/util';
+import { Subject } from 'rxjs';
+
+import { ComponentType, Overlay, OverlayConfig, OverlayRef, ScrollStrategy } from '@angular/cdk/overlay';
+import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
+import { Injector, TemplateRef } from '@angular/core';
+
 import { ThyUpperOverlayContainer } from './upper-overlay-container';
+import { ThyUpperOverlayRef } from './upper-overlay-ref';
+import { ThyUpperOverlayConfig, ThyUpperOverlayOptions } from './upper-overlay.config';
 
 export type ComponentTypeOrTemplateRef<T> = ComponentType<T> | TemplateRef<T>;
 
@@ -20,7 +22,8 @@ export abstract class ThyUpperOverlayService<TConfig extends ThyUpperOverlayConf
         protected options: ThyUpperOverlayOptions, // component name, e.g: dialog | popover | slide
         protected overlay: Overlay,
         protected injector: Injector,
-        protected defaultConfig: TConfig
+        protected defaultConfig: TConfig,
+        public scrollStrategy?: FunctionProp<ScrollStrategy>
     ) {}
 
     /** Build cdk overlay config by config */

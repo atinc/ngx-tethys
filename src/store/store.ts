@@ -2,8 +2,8 @@ import { Observable, Observer, BehaviorSubject, from, of, PartialObserver, Subsc
 import { distinctUntilChanged, map, shareReplay } from 'rxjs/operators';
 import { META_KEY, StoreMetaInfo } from './types';
 import { helpers } from 'ngx-tethys/util';
-import { RootStore } from './root-store';
-import { OnDestroy, isDevMode } from '@angular/core';
+import { getSingletonRootStore, RootStore } from './root-store';
+import { OnDestroy, isDevMode, Injectable } from '@angular/core';
 import { ActionState } from './action-state';
 import { Action } from './action';
 
@@ -12,6 +12,7 @@ interface Action {
     payload?: any;
 }
 
+@Injectable()
 export class Store<T = unknown> implements Observer<T>, OnDestroy {
     initialStateCache: any;
 
@@ -26,9 +27,9 @@ export class Store<T = unknown> implements Observer<T>, OnDestroy {
         this.state$ = new BehaviorSubject<T>(initialState);
         this.initialStateCache = { ...initialState };
         if (this.reduxToolEnabled) {
-            const _rootStore: RootStore = RootStore.getSingletonRootStore();
+            const rootStore: RootStore = getSingletonRootStore();
             ActionState.changeAction(`Add-${this._defaultStoreInstanceId}`);
-            _rootStore.registerStore(this);
+            rootStore.registerStore(this);
         }
     }
 
@@ -132,8 +133,8 @@ export class Store<T = unknown> implements Observer<T>, OnDestroy {
 
     ngOnDestroy() {
         if (this.reduxToolEnabled) {
-            const _rootStore: RootStore = RootStore.getSingletonRootStore();
-            _rootStore.unregisterStore(this);
+            const rootStore: RootStore = getSingletonRootStore();
+            rootStore.unregisterStore(this);
         }
     }
 
@@ -148,7 +149,7 @@ export class Store<T = unknown> implements Observer<T>, OnDestroy {
     private _getClassName(): string {
         const name = this.constructor.name || /function (.+)\(/.exec(this.constructor + '')[1];
         if (this.reduxToolEnabled) {
-            const rootStore: RootStore = RootStore.getSingletonRootStore();
+            const rootStore: RootStore = getSingletonRootStore();
             if (!rootStore.existStoreInstanceId(name)) {
                 return name;
             }

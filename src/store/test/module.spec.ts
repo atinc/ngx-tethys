@@ -1,4 +1,4 @@
-import { NgModule, Injector } from '@angular/core';
+import { NgModule, Injector, Injectable } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
 
 import { ThyStoreModule, Store } from '../index';
@@ -8,6 +8,7 @@ interface RootStateModel {
     foo: string;
 }
 
+@Injectable()
 class RootStore extends Store<RootStateModel> {
     constructor() {
         super({
@@ -24,6 +25,7 @@ class FeatureState {
     zoo: string;
 }
 
+@Injectable()
 class FeatureStore extends Store<FeatureState> {
     constructor() {
         super(new FeatureState());

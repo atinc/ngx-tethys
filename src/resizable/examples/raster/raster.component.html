@@ -1,0 +1,16 @@
+<div thyRow>
+  <div
+    thyCol
+    thyResizable
+    class="col"
+    (thyResize)="onResize($event)"
+    [thyMinColumn]="3"
+    [thyMaxColumn]="20"
+    [thyGridColumnCount]="24"
+    [thySpan]="col"
+  >
+    <thy-resize-handles [thyDirections]="['right']"></thy-resize-handles>
+    col-{{ col }}
+  </div>
+  <div class="col col-right" thyCol [thySpan]="24 - col">col-{{ 24 - col }}</div>
+</div>

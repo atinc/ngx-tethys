@@ -1,23 +1,24 @@
+import { Router } from '@angular/router';
+import { helpers } from 'ngx-tethys/util';
+import { DOCUMENT } from '@angular/common';
+import { ThyPopover } from 'ngx-tethys/popover';
+import { ThyGuiderManager } from './guider-manager';
 import { ThyGuiderStepRef } from './guider-step-ref';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { ThyGuiderConfig, ThyGuiderStep } from './guider.class';
-import { ThyPopover } from 'ngx-tethys/popover';
-import { ThyGuiderManager } from './guider-manager';
-import { Inject, RendererFactory2 } from '@angular/core';
-import { Router } from '@angular/router';
-import { DOCUMENT } from '@angular/common';
-import { helpers } from 'ngx-tethys/util';
+import { Inject, NgZone, RendererFactory2 } from '@angular/core';
+import { Overlay } from '@angular/cdk/overlay';
 
 export class ThyGuiderRef {
+    public steps: ThyGuiderStep[];
+
     private stepChange$: ReplaySubject<ThyGuiderStep> = new ReplaySubject<ThyGuiderStep>();
 
     private guiderEnded$ = new Subject();
 
-    private guiderClosed$ = new Subject<ThyGuiderStep>();
+    private closed$ = new Subject<ThyGuiderStep>();
 
     private targetClicked$ = new Subject<ThyGuiderStep>();
-
-    public steps: ThyGuiderStep[];
 
     private currentStep: ThyGuiderStep;
 
@@ -31,13 +32,12 @@ export class ThyGuiderRef {
         private popover: ThyPopover,
         private router: Router,
         private guiderManager: ThyGuiderManager,
+        private ngZone: NgZone,
+        private overlay: Overlay,
         @Inject(DOCUMENT) private document: any
     ) {
-        if (!config || !config?.steps || !helpers.isArray(config?.steps)) {
-            throw new Error('’config.steps’ must be an array of length greater than 0');
-        }
         this.stepsRef = config.steps.map((step, index) => {
-            return new ThyGuiderStepRef(step, index, this.rendererFactory, this.popover, this.guiderManager, this.document);
+            return new ThyGuiderStepRef(step, index, this.rendererFactory, this.popover, this.guiderManager, this.overlay, this.document);
         });
         this.steps = config.steps;
     }
@@ -51,7 +51,7 @@ export class ThyGuiderRef {
     }
 
     public closed() {
-        return this.guiderClosed$;
+        return this.closed$;
     }
 
     public targetClicked() {
@@ -99,13 +99,13 @@ export class ThyGuiderRef {
         }
         this.currentStep = this.steps[index];
         this.currentStepIndex = index;
-        if (!this.currentStep) {
-            throw new Error('step not exist');
-        }
+
         // update guiderManager
         this.guiderManager.updateActive(this.currentStep.key, this);
         if (this.currentStep.route && this.currentStep.route !== this.router.url) {
-            this.router.navigateByUrl(this.currentStep.route);
+            this.ngZone.run(() => {
+                this.router.navigateByUrl(this.currentStep.route);
+            });
             return;
         }
         setTimeout(() => {
@@ -115,8 +115,9 @@ export class ThyGuiderRef {
     }
 
     public close() {
+        this.removeManagerActiveKey();
         this.stepsRef[this.currentStepIndex]?.dispose();
-        this.guiderClosed$.next(this.currentStep);
+        this.closed$.next(this.currentStep);
     }
 
     public end() {
@@ -125,11 +126,19 @@ export class ThyGuiderRef {
         this.notifyGuiderIsFinished();
     }
 
+    private removeManagerActiveKey() {
+        const activeKey = this.guiderManager.getActive().key;
+        if (activeKey && this.steps.some(step => step.key === activeKey)) {
+            this.guiderManager.updateActive('', undefined);
+        }
+    }
+
     private notifyStepClicked() {
         this.stepChange$.next(this.currentStep);
     }
 
     private drawStep() {
+        this.removeExistedStep();
         this.stepsRef[this.currentStepIndex].show(this);
     }
 

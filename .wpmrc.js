@@ -1,11 +1,15 @@
 module.exports = {
-    allowBranch: ['master', 'v7.*', 'v8.*', 'v9.*'],
+    allowBranch: ['master', 'v7.*', 'v8.*', 'v9.*', 'v10.*'],
     bumpFiles: [
         'package.json',
         'package-lock.json',
         'src/package.json',
         {
             filename: './src/version.ts',
+            type: 'code'
+        },
+        {
+            filename: './schematics/version.ts',
             type: 'code'
         }
     ],

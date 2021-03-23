@@ -1,3 +1,4 @@
+import { Injectable } from '@angular/core';
 import { initialState } from './../../time-picker/time-picker.store';
 import { produce } from 'ngx-tethys/util';
 import { Action } from '../action';
@@ -21,6 +22,7 @@ class ZoomState {
     foo: FooEntity;
 }
 
+@Injectable()
 class ZoomStore extends Store<ZoomState> {
     static animalsSelector = (state: ZoomState) => {
         return state.animals;

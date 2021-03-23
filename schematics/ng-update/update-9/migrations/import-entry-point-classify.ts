@@ -119,8 +119,6 @@ const NAME_PACKAGE_RELATION = {
     EXPANDED_DROPDOWN_POSITIONS: 'core',
     ThyOverlayTrigger: 'core',
     ThyOverlayDirectiveBase: 'core',
-    FlexibleConnectedPositionStrategyOrigin: 'core',
-    FlexibleConnectedPositionStrategy: 'core',
     ConnectedPosition: 'core',
     isElementScrolledOutsideView: 'core',
     isElementClippedByScrolling: 'core',
