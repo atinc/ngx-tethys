@@ -7,6 +7,7 @@ import { ThyGuiderStepRef } from './guider-step-ref';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { ThyGuiderConfig, ThyGuiderStep } from './guider.class';
 import { Inject, NgZone, RendererFactory2 } from '@angular/core';
+import { Overlay } from '@angular/cdk/overlay';
 
 export class ThyGuiderRef {
     public steps: ThyGuiderStep[];
@@ -32,10 +33,11 @@ export class ThyGuiderRef {
         private router: Router,
         private guiderManager: ThyGuiderManager,
         private ngZone: NgZone,
+        private overlay: Overlay,
         @Inject(DOCUMENT) private document: any
     ) {
         this.stepsRef = config.steps.map((step, index) => {
-            return new ThyGuiderStepRef(step, index, this.rendererFactory, this.popover, this.guiderManager, this.document);
+            return new ThyGuiderStepRef(step, index, this.rendererFactory, this.popover, this.guiderManager, this.overlay, this.document);
         });
         this.steps = config.steps;
     }
