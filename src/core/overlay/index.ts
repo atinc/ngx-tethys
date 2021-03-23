@@ -6,5 +6,3 @@ export * from './upper-overlay-ref';
 export * from './upper-overlay.config';
 export * from './upper-overlay-container';
 export * from './upper-overlay.service';
-export * from './position/flexible-connected-position-strategy';
-export * from './position/scroll-clip';
