@@ -51,3 +51,57 @@ $font-family-statistics-number: 'Statistic-Number';
 @import './assets/fonts/wtd/iconfont.css';
 @import '../../src/styles/index.scss';
 @import './styles/index.scss';
+
+$dg-alert-bg-alpha: 0.05;
+
+.dg-alert {
+    position: relative;
+    font-size: 14px;
+    line-height: 20px;
+    // box-shadow: rgba(0, 0, 0, 0.06) 0px 6px 16px -2px;
+    margin: 10px 0px;
+    padding: 10px 20px;
+    border-left: 0px;
+    background: $gray-80;
+    border-radius: 1px;
+
+    &::after {
+        content: '';
+        position: absolute;
+        display: inline-block;
+        top: 0px;
+        left: 0px;
+        bottom: 0px;
+        width: 3px;
+        border-radius: 1px;
+        background: $primary;
+    }
+
+    &.dg-alert-info {
+        background-color: rgba($color: $info, $alpha: $dg-alert-bg-alpha);
+        &::after {
+            background: $info;
+        }
+    }
+
+    &.dg-alert-primary {
+        background-color: rgba($color: $primary, $alpha: $dg-alert-bg-alpha);
+        &::after {
+            background: $primary;
+        }
+    }
+
+    &.dg-alert-danger {
+        // box-shadow: rgba(0, 0, 0, 0.06) 0px 6px 16px -2px;
+        background-color: rgba($color: $danger, $alpha: $dg-alert-bg-alpha);
+        &::after {
+            background: $danger;
+        }
+    }
+}
+
+.dg-doc-content {
+    :first-child {
+        margin-top: 0px;
+    }
+}
