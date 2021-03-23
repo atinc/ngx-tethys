@@ -5,7 +5,8 @@ import {
     OverlayRef,
     PositionStrategy,
     ScrollDispatcher,
-    OverlayContainer
+    OverlayContainer,
+    FlexibleConnectedPositionStrategy
 } from '@angular/cdk/overlay';
 import { TemplateRef, ViewContainerRef, Injectable, ElementRef, Injector, OnDestroy, Inject, NgZone } from '@angular/core';
 import { coerceElement, coerceArray } from '@angular/cdk/coercion';
@@ -22,7 +23,6 @@ import { autocompleteUpperOverlayOptions } from './autocomplete.options';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { DOCUMENT } from '@angular/common';
 import { Platform } from '@angular/cdk/platform';
-import { FlexibleConnectedPositionStrategy, FlexibleConnectedPositionStrategyOrigin } from 'ngx-tethys/core';
 import { StaticProvider } from '@angular/core';
 
 @Injectable({

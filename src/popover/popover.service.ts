@@ -1,9 +1,4 @@
-import {
-    FlexibleConnectedPositionStrategy,
-    FlexibleConnectedPositionStrategyOrigin,
-    getFlexiblePositions,
-    ThyUpperOverlayService
-} from 'ngx-tethys/core';
+import { getFlexiblePositions, ThyUpperOverlayService } from 'ngx-tethys/core';
 import { FunctionProp, helpers, isFunction } from 'ngx-tethys/util';
 import { of, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -12,6 +7,8 @@ import { Directionality } from '@angular/cdk/bidi';
 import { coerceArray, coerceElement } from '@angular/cdk/coercion';
 import {
     ComponentType,
+    FlexibleConnectedPositionStrategy,
+    FlexibleConnectedPositionStrategyOrigin,
     Overlay,
     OverlayConfig,
     OverlayContainer,
