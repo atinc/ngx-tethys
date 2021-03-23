@@ -3,6 +3,7 @@ import { ThyCardBasicExampleComponent } from './basic/basic.component';
 import { ThyCardContentScrollExampleComponent } from './content-scroll/content-scroll.component';
 import { ThyCardCustomHeaderExampleComponent } from './custom-header/custom-header.component';
 import { ThyCardDividedExampleComponent } from './divided/divided.component';
+import { ThyCardSizeExampleComponent } from './size/size.component';
 import { ThyCardModule } from 'ngx-tethys/card';
 import { CommonModule } from '@angular/common';
 import { ThyFormModule } from 'ngx-tethys/form';
@@ -14,7 +15,8 @@ const COMPONENTS = [
     ThyCardBasicExampleComponent,
     ThyCardContentScrollExampleComponent,
     ThyCardCustomHeaderExampleComponent,
-    ThyCardDividedExampleComponent
+    ThyCardDividedExampleComponent,
+    ThyCardSizeExampleComponent
 ];
 
 @NgModule({
