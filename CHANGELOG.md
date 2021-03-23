@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="10.0.5"></a>
+## [10.0.5](https://github.com/atinc/ngx-tethys/compare/10.0.4...10.0.5) (2021-03-23)
+
+
+### Bug Fixes
+
+* **guider:** fix multiple hint ([#1197](https://github.com/atinc/ngx-tethys/issues/1197)) ([af1843e](https://github.com/atinc/ngx-tethys/commit/af1843e)), closes [#INFR-1803](https://github.com/atinc/ngx-tethys/issues/INFR-1803)
+
+
+
 <a name="10.0.4"></a>
 ## [10.0.4](https://github.com/atinc/ngx-tethys/compare/10.0.3...10.0.4) (2021-03-22)
 
