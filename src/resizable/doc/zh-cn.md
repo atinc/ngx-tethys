@@ -2,7 +2,7 @@
 category: layout
 title: Resizable
 subtitle: 调整尺寸
-order: 1
+order: 50
 ---
 
 调整元素尺寸。

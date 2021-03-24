@@ -3,7 +3,7 @@ category: layout
 title: Card
 subtitle: 卡片
 description: 通用的卡片组件。
-order: 30
+order: 20
 ---
 <div class="dg-alert dg-alert-info">通用的卡片组件。</div>
 
