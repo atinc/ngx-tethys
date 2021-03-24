@@ -1,7 +1,19 @@
+@import 'variables.scss';
+
 .body {
     min-height: 300px;
 }
 
 .demo-layout {
     min-height: 300px;
+}
+
+.demo-layout-backdrop {
+    > :not(:first-child).thy-layout {
+        margin-top: 20px;
+    }
+
+    .thy-layout-content {
+        background: $white; // #e4e9f2;
+    }
 }
