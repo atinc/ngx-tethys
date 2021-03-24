@@ -11,7 +11,7 @@ import ts from 'typescript';
 import * as path from 'path';
 import { ClassType } from '../types';
 
-export function MigrationSchematicsRule(migrationList: ClassType<MigrationBase>[]): Rule {
+export function TsMigrationSchematicsRule(migrationList: ClassType<MigrationBase>[]): Rule {
     return (tree: Tree, context: SchematicContext) => {
         const updateFileService = createUpdateFileService(tree);
         const angularConfig = getAngularJson(tree);
