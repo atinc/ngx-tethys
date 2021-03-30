@@ -32,39 +32,51 @@ import {
     SimpleChanges
 } from '@angular/core';
 
-import { IThyGridColumnParentComponent, THY_GRID_COLUMN_PARENT_COMPONENT, ThyGridColumnComponent } from './grid-column.component';
+import { IThyTableColumnParentComponent, THY_TABLE_COLUMN_PARENT_COMPONENT, ThyTableColumnComponent } from './table-column.component';
 import {
     PageChangedEvent,
-    ThyGridColumn,
-    ThyGridDraggableEvent,
-    ThyGridEmptyOptions,
-    ThyGridEvent,
-    ThyGridRowEvent,
+    ThyTableColumn,
+    ThyTableDraggableEvent,
+    ThyTableEmptyOptions,
+    ThyTableEvent,
+    ThyTableRowEvent,
     ThyMultiSelectEvent,
     ThyPage,
     ThyRadioSelectEvent,
     ThySwitchEvent
-} from './grid.interface';
+} from './table.interface';
 
-export type ThyGridTheme = 'default' | 'bordered';
+export type ThyTableTheme = 'default' | 'bordered';
+/**
+ * @deprecated ThyGridTheme is deprecated, please use ThyTableTheme
+ */
+export type ThyGridTheme = ThyTableTheme;
 
-export type ThyGridMode = 'list' | 'group' | 'tree';
+export type ThyTableMode = 'list' | 'group' | 'tree';
+/**
+ * @deprecated ThyGridMode is deprecated, please use ThyTableMode
+ */
+export type ThyGridMode = ThyTableMode;
 
-export type ThyGridSize = 'default' | 'sm';
+export type ThyTableSize = 'default' | 'sm';
+/**
+ * @deprecated ThyGridSize is deprecated, please use ThyTableSize
+ */
+export type ThyGridSize = ThyTableSize;
 
-interface ThyGridGroup<T = unknown> {
+interface ThyTableGroup<T = unknown> {
     id?: string;
     expand?: boolean;
     children?: object[];
     origin?: T;
 }
 
-const gridThemeMap = {
+const tableThemeMap = {
     default: 'table-default',
     bordered: 'table-bordered'
 };
 
-const gridSizeMap = {
+const tableSizeMap = {
     sm: 'table-sm'
 };
 
@@ -77,37 +89,37 @@ const customType = {
 
 const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 @Component({
-    selector: 'thy-grid',
-    templateUrl: './grid.component.html',
+    selector: 'thy-grid,thy-table',
+    templateUrl: './table.component.html',
     providers: [
         {
-            provide: THY_GRID_COLUMN_PARENT_COMPONENT,
-            useExisting: ThyGridComponent
+            provide: THY_TABLE_COLUMN_PARENT_COMPONENT,
+            useExisting: ThyTableComponent
         },
         UpdateHostClassService
     ],
     encapsulation: ViewEncapsulation.None
 })
-export class ThyGridComponent extends _MixinBase implements OnInit, OnChanges, OnDestroy, DoCheck, IThyGridColumnParentComponent {
+export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, OnDestroy, DoCheck, IThyTableColumnParentComponent {
     public customType = customType;
 
     public model: object[] = [];
 
-    public groups: ThyGridGroup[] = [];
+    public groups: ThyTableGroup[] = [];
 
     public rowKey = '_id';
 
     public groupBy: string;
 
-    public mode: ThyGridMode = 'list';
+    public mode: ThyTableMode = 'list';
 
-    public columns: ThyGridColumn[] = [];
+    public columns: ThyTableColumn[] = [];
 
-    public theme: ThyGridTheme = 'default';
+    public theme: ThyTableTheme = 'default';
 
     public className = '';
 
-    public size: ThyGridSize = 'default';
+    public size: ThyTableSize = 'default';
 
     public rowClassName: string | Function;
 
@@ -115,7 +127,7 @@ export class ThyGridComponent extends _MixinBase implements OnInit, OnChanges, O
 
     public loadingText: string;
 
-    public emptyOptions: ThyGridEmptyOptions = {};
+    public emptyOptions: ThyTableEmptyOptions = {};
 
     public draggable = false;
 
@@ -133,7 +145,7 @@ export class ThyGridComponent extends _MixinBase implements OnInit, OnChanges, O
 
     private _draggableModel: any;
 
-    private _listOfColumnComponents: QueryList<ThyGridColumnComponent>;
+    private _listOfColumnComponents: QueryList<ThyTableColumnComponent>;
 
     private initialized = false;
     private _oldThyClassName = '';
@@ -143,7 +155,7 @@ export class ThyGridComponent extends _MixinBase implements OnInit, OnChanges, O
     @ViewChild('table', { static: true }) tableElementRef: ElementRef<any>;
 
     @Input()
-    set thyMode(value: ThyGridMode) {
+    set thyMode(value: ThyTableMode) {
         this.mode = value || this.mode;
     }
 
@@ -176,13 +188,13 @@ export class ThyGridComponent extends _MixinBase implements OnInit, OnChanges, O
     }
 
     @Input()
-    set thyTheme(value: ThyGridTheme) {
+    set thyTheme(value: ThyTableTheme) {
         this.theme = value || this.theme;
         this._setClass();
     }
 
     @Input()
-    set thySize(value: ThyGridSize) {
+    set thySize(value: ThyTableSize) {
         this.size = value || this.size;
         this._setClass();
     }
@@ -215,7 +227,7 @@ export class ThyGridComponent extends _MixinBase implements OnInit, OnChanges, O
     }
 
     @Input()
-    set thyEmptyOptions(value: ThyGridEmptyOptions) {
+    set thyEmptyOptions(value: ThyTableEmptyOptions) {
         this.emptyOptions = value;
     }
 
@@ -263,7 +275,7 @@ export class ThyGridComponent extends _MixinBase implements OnInit, OnChanges, O
 
     @Input() thyChildrenKey = 'children';
 
-    @HostBinding('class.thy-grid-hover-display-operation')
+    @HostBinding('class.thy-table-hover-display-operation')
     @Input()
     thyHoverDisplayOperation: boolean;
 
@@ -277,16 +289,16 @@ export class ThyGridComponent extends _MixinBase implements OnInit, OnChanges, O
 
     @Output() thyOnRadioSelectChange: EventEmitter<ThyRadioSelectEvent> = new EventEmitter<ThyRadioSelectEvent>();
 
-    @Output() thyOnDraggableChange: EventEmitter<ThyGridDraggableEvent> = new EventEmitter<ThyGridDraggableEvent>();
+    @Output() thyOnDraggableChange: EventEmitter<ThyTableDraggableEvent> = new EventEmitter<ThyTableDraggableEvent>();
 
-    @Output() thyOnRowClick: EventEmitter<ThyGridRowEvent> = new EventEmitter<ThyGridRowEvent>();
+    @Output() thyOnRowClick: EventEmitter<ThyTableRowEvent> = new EventEmitter<ThyTableRowEvent>();
 
-    @Output() thyOnRowContextMenu: EventEmitter<ThyGridEvent> = new EventEmitter<ThyGridEvent>();
+    @Output() thyOnRowContextMenu: EventEmitter<ThyTableEvent> = new EventEmitter<ThyTableEvent>();
 
     @ContentChild('group', { static: true }) groupTemplate: TemplateRef<any>;
 
-    @ContentChildren(ThyGridColumnComponent)
-    set listOfColumnComponents(components: QueryList<ThyGridColumnComponent>) {
+    @ContentChildren(ThyTableColumnComponent)
+    set listOfColumnComponents(components: QueryList<ThyTableColumnComponent>) {
         if (components) {
             this._listOfColumnComponents = components;
             this._initializeColumns();
@@ -294,7 +306,7 @@ export class ThyGridComponent extends _MixinBase implements OnInit, OnChanges, O
         }
     }
 
-    @HostBinding('class.thy-grid') isGridClass = true;
+    @HostBinding('class.thy-table') isTableClass = true;
 
     // 数据的折叠展开状态
     public expandStatusMap: Dictionary<boolean> = {};
@@ -323,7 +335,7 @@ export class ThyGridComponent extends _MixinBase implements OnInit, OnChanges, O
     private _initializeColumns() {
         const components = this._listOfColumnComponents ? this._listOfColumnComponents.toArray() : [];
         const hasExpand = components.some(item => item.expand === true);
-        this.columns = components.map<ThyGridColumn>((component, i) => {
+        this.columns = components.map<ThyTableColumn>((component, i) => {
             const selections = this._getSelectionKeys(component.selections);
             return {
                 key: component.key,
@@ -352,7 +364,7 @@ export class ThyGridComponent extends _MixinBase implements OnInit, OnChanges, O
         });
     }
 
-    private _initialSelections(row: object, column: ThyGridColumn) {
+    private _initialSelections(row: object, column: ThyTableColumn) {
         if (column.selections) {
             if (column.type === 'checkbox') {
                 row[column.key] = column.selections.includes(row[this.rowKey]);
@@ -366,7 +378,7 @@ export class ThyGridComponent extends _MixinBase implements OnInit, OnChanges, O
         }
     }
 
-    private _initialCustomModelValue(row: object, column: ThyGridColumn) {
+    private _initialCustomModelValue(row: object, column: ThyTableColumn) {
         if (column.type === customType.switch) {
             row[column.key] = get(row, column.model);
         }
@@ -407,13 +419,13 @@ export class ThyGridComponent extends _MixinBase implements OnInit, OnChanges, O
             return;
         }
         const classNames: string[] = [];
-        if (gridSizeMap[this.size]) {
-            classNames.push(gridSizeMap[this.size]);
+        if (tableSizeMap[this.size]) {
+            classNames.push(tableSizeMap[this.size]);
         }
-        if (gridThemeMap[this.theme]) {
-            classNames.push(gridThemeMap[this.theme]);
+        if (tableThemeMap[this.theme]) {
+            classNames.push(tableThemeMap[this.theme]);
         }
-        if (gridSizeMap[this.size] === gridSizeMap['sm'] && gridThemeMap[this.theme] === gridThemeMap['default']) {
+        if (tableSizeMap[this.size] === tableSizeMap['sm'] && tableThemeMap[this.theme] === tableThemeMap['default']) {
             classNames.push('table-default-sm-bottom-padding');
         }
         this.updateHostClassService.updateClass(classNames);
@@ -453,7 +465,7 @@ export class ThyGridComponent extends _MixinBase implements OnInit, OnChanges, O
         }
     }
 
-    public onModelChange(row: any, column: ThyGridColumn) {
+    public onModelChange(row: any, column: ThyTableColumn) {
         if (column.model) {
             set(row, column.model, row[column.key]);
         }
@@ -473,12 +485,12 @@ export class ThyGridComponent extends _MixinBase implements OnInit, OnChanges, O
         this.thyOnPageIndexChange.emit(event);
     }
 
-    public onCheckboxChange(row: any, column: ThyGridColumn) {
+    public onCheckboxChange(row: any, column: ThyTableColumn) {
         this.onModelChange(row, column);
         this.onMultiSelectChange(null, row, column);
     }
 
-    public onMultiSelectChange(event: Event, row: any, column: ThyGridColumn) {
+    public onMultiSelectChange(event: Event, row: any, column: ThyTableColumn) {
         const rows = this.model.filter(item => {
             return item[column.key];
         });
@@ -546,13 +558,13 @@ export class ThyGridComponent extends _MixinBase implements OnInit, OnChanges, O
         setTimeout(() => {
             const preview = this.document.getElementsByClassName('cdk-drag-preview')[0];
             if (preview) {
-                preview.classList.add('thy-grid-drag-preview');
+                preview.classList.add('thy-table-drag-preview');
             }
         });
     }
 
     onDragDropped(event: CdkDragDrop<unknown>) {
-        const dragEvent: ThyGridDraggableEvent = {
+        const dragEvent: ThyTableDraggableEvent = {
             model: event.item,
             models: this.model,
             oldIndex: event.previousIndex,
@@ -587,7 +599,7 @@ export class ThyGridComponent extends _MixinBase implements OnInit, OnChanges, O
     }
 
     public onRowContextMenu(event: Event, row: any) {
-        const contextMenuEvent: ThyGridEvent = {
+        const contextMenuEvent: ThyTableEvent = {
             event: event,
             row: row
         };
@@ -618,7 +630,7 @@ export class ThyGridComponent extends _MixinBase implements OnInit, OnChanges, O
         const collapsedIds = this.groups.filter(group => !group.expand).map(group => group.id);
         this.groups = [];
         originGroups.forEach((origin: any) => {
-            const group: ThyGridGroup = { id: origin[this.rowKey], children: [], origin };
+            const group: ThyTableGroup = { id: origin[this.rowKey], children: [], origin };
             group.expand = !collapsedIds.includes(group.id);
             this.groups.push(group);
         });
@@ -634,8 +646,8 @@ export class ThyGridComponent extends _MixinBase implements OnInit, OnChanges, O
         });
     }
 
-    public expandGroup(gridGroup: ThyGridGroup) {
-        gridGroup.expand = !gridGroup.expand;
+    public expandGroup(group: ThyTableGroup) {
+        group.expand = !group.expand;
     }
 
     ngOnInit() {
@@ -672,3 +684,8 @@ export class ThyGridComponent extends _MixinBase implements OnInit, OnChanges, O
         this._destroyInvalidAttribute();
     }
 }
+
+/**
+ * @deprecated ThyGridComponent is deprecated, please use ThyTableComponent
+ */
+export const ThyGridComponent = ThyTableComponent;

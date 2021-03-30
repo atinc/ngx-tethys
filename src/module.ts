@@ -26,7 +26,7 @@ import { ThyCopyModule } from 'ngx-tethys/copy';
 import { ThyEmptyModule } from 'ngx-tethys/empty';
 import { ThyFlexibleTextModule } from 'ngx-tethys/flexible-text';
 import { ThyFormModule } from 'ngx-tethys/form';
-import { ThyGridModule } from 'ngx-tethys/grid';
+import { ThyTableModule } from 'ngx-tethys/table';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyInputModule } from 'ngx-tethys/input';
 import { ThyLabelModule } from 'ngx-tethys/label';
@@ -75,7 +75,7 @@ const IMPORT_EXPORT_MODULES = [
     ThyIconModule,
     ThyPopoverModule,
     ThyBadgeModule,
-    ThyGridModule,
+    ThyTableModule,
     ThyRasterModule,
     ThyAvatarModule,
     ThyLabelModule,

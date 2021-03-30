@@ -20,9 +20,9 @@
     <!-- group -->
     <ng-container *ngIf="mode === 'group'">
       <ng-container *ngFor="let group of groups">
-        <tr class="thy-grid-group" (click)="expandGroup(group)">
+        <tr class="thy-table-group" (click)="expandGroup(group)">
           <td [attr.colspan]="columns.length">
-            <div class="thy-grid-group-container">
+            <div class="thy-table-group-container">
               <thy-icon class="expand-icon" [thyIconName]="group.expand ? 'angle-down' : 'angle-right'"></thy-icon>
               <ng-container *ngIf="groupTemplate">
                 <ng-template
@@ -95,7 +95,7 @@
       <td
         *ngFor="let column of columns; let j = index"
         [ngClass]="column.className"
-        [class.thy-grid-checkbox-column]="column.type === customType.checkbox"
+        [class.thy-table-checkbox-column]="column.type === customType.checkbox"
         [ngStyle]="mode === 'tree' && column.expand ? tdIndentComputed(level) : null"
       >
         <ng-container *ngIf="j === 0 && draggable">
@@ -180,7 +180,7 @@
   </tbody>
 </table>
 
-<div *ngIf="loadingDone && model.length === 0 && groups.length === 0" class="thy-grid-empty clear-hover">
+<div *ngIf="loadingDone && model.length === 0 && groups.length === 0" class="thy-table-empty clear-hover">
   <ng-container *ngIf="emptyTemplate; else defaultEmpty">
     <ng-template [ngTemplateOutlet]="emptyTemplate"></ng-template>
   </ng-container>
@@ -202,7 +202,7 @@
 
 <thy-loading [thyDone]="loadingDone" [thyTip]="loadingText"></thy-loading>
 
-<div class="thy-grid-footer" *ngIf="pagination.total > pagination.size" [class.thy-grid-footer-has-padding]="theme === 'default'">
+<div class="thy-table-footer" *ngIf="pagination.total > pagination.size" [class.thy-table-footer-has-padding]="theme === 'default'">
   <thy-pagination
     [thyPageIndex]="pagination.index"
     [thyTotal]="pagination.total"

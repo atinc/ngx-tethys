@@ -3,16 +3,16 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 import { By } from '@angular/platform-browser';
 import { dispatchFakeEvent } from 'ngx-tethys/testing/dispatcher-events';
 
-import { ThyGridComponent } from '../grid.component';
-import { ThyGridModule } from '../grid.module';
+import { ThyTableComponent } from '../table.component';
+import { ThyTableModule } from '../table.module';
 
 const SizeMap = {
     sm: 'table-sm'
 };
 @Component({
-    selector: 'thy-demo-default-grid',
+    selector: 'thy-demo-default-table',
     template: `
-        <thy-grid
+        <thy-table
             [thyModel]="model"
             thyRowKey="id"
             thyGroupBy="group_id"
@@ -22,8 +22,8 @@ const SizeMap = {
             [thySize]="size"
             [thyWholeRowSelect]="isRowSelect"
             [thyDraggable]="isDraggable"
-            [thyClassName]="gridClassName"
-            [thyRowClassName]="gridRowClassName"
+            [thyClassName]="tableClassName"
+            [thyRowClassName]="tableRowClassName"
             [thyLoadingDone]="isLoadingDone"
             [thyLoadingText]="loadingText"
             [thyShowHeader]="isShowHeader"
@@ -37,30 +37,30 @@ const SizeMap = {
             (thyOnRowContextMenu)="onContextMenu($event)"
         >
             <ng-template #group let-group>{{ group.id }}</ng-template>
-            <thy-grid-column thyModelKey="selected" thyType="checkbox" [thySelections]="selections">
+            <thy-table-column thyModelKey="selected" thyType="checkbox" [thySelections]="selections">
                 <ng-template #header>
                     <span class="text-primary"
                         >选择<a href="javascript:;"><i class="wtf wtf-angle-down"></i></a
                     ></span>
                 </ng-template>
-            </thy-grid-column>
-            <thy-grid-column thyTitle="姓名" thyModelKey="name" thyWidth="160"></thy-grid-column>
-            <thy-grid-column thyTitle="年龄" thyModelKey="age" thyHeaderClassName="header-class-name"></thy-grid-column>
-            <thy-grid-column thyTitle="备注" thyModelKey="desc" thyDefaultText="-"></thy-grid-column>
-            <thy-grid-column thyTitle="默认" thyModelKey="checked" thyType="switch"></thy-grid-column>
-            <thy-grid-column thyTitle="操作" thyClassName="thy-operation-links">
+            </thy-table-column>
+            <thy-table-column thyTitle="姓名" thyModelKey="name" thyWidth="160"></thy-table-column>
+            <thy-table-column thyTitle="年龄" thyModelKey="age" thyHeaderClassName="header-class-name"></thy-table-column>
+            <thy-table-column thyTitle="备注" thyModelKey="desc" thyDefaultText="-"></thy-table-column>
+            <thy-table-column thyTitle="默认" thyModelKey="checked" thyType="switch"></thy-table-column>
+            <thy-table-column thyTitle="操作" thyClassName="thy-operation-links">
                 <ng-template #cell let-row>
                     <a href="javascript:;">设置</a>
                     <a class="link-secondary" href="javascript:;">
                         <i class="wtf wtf-trash-o"></i>
                     </a>
                 </ng-template>
-            </thy-grid-column>
-        </thy-grid>
+            </thy-table-column>
+        </thy-table>
         <ng-template #total let-total>共{{ total }}条</ng-template>
     `
 })
-class ThyDemoDefaultGridComponent {
+class ThyDemoDefaultTableComponent {
     groups = [
         {
             id: '11',
@@ -128,8 +128,8 @@ class ThyDemoDefaultGridComponent {
     isShowHeader = true;
     isDraggable = false;
     isRowSelect = false;
-    gridClassName = 'class-name';
-    gridRowClassName = 'row-class-name';
+    tableClassName = 'class-name';
+    tableRowClassName = 'row-class-name';
     selections = [];
     theme = 'default';
     isLoadingDone = true;
@@ -159,36 +159,36 @@ class ThyDemoDefaultGridComponent {
 }
 
 @NgModule({
-    imports: [ThyGridModule],
-    declarations: [ThyDemoDefaultGridComponent],
-    exports: [ThyDemoDefaultGridComponent]
+    imports: [ThyTableModule],
+    declarations: [ThyDemoDefaultTableComponent],
+    exports: [ThyDemoDefaultTableComponent]
 })
-export class GridTestModule {}
+export class TableTestModule {}
 
-describe('ThyGrid', () => {
-    let fixture: ComponentFixture<ThyDemoDefaultGridComponent>;
-    let testComponent: ThyDemoDefaultGridComponent;
-    let gridComponent;
+describe('ThyTable', () => {
+    let fixture: ComponentFixture<ThyDemoDefaultTableComponent>;
+    let testComponent: ThyDemoDefaultTableComponent;
+    let tableComponent;
     let table;
     let rows;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyGridModule, GridTestModule],
+            imports: [ThyTableModule, TableTestModule],
             providers: []
         });
         TestBed.compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(ThyDemoDefaultGridComponent);
+        fixture = TestBed.createComponent(ThyDemoDefaultTableComponent);
         testComponent = fixture.debugElement.componentInstance;
-        gridComponent = fixture.debugElement.query(By.directive(ThyGridComponent));
-        table = gridComponent.nativeElement.querySelector('table');
+        tableComponent = fixture.debugElement.query(By.directive(ThyTableComponent));
+        table = tableComponent.nativeElement.querySelector('table');
     });
 
-    it('should be created grid component', () => {
-        expect(gridComponent).toBeTruthy();
+    it('should be created table component', () => {
+        expect(tableComponent).toBeTruthy();
     });
 
     it('should have correct class', () => {
@@ -199,13 +199,13 @@ describe('ThyGrid', () => {
         expect(table.classList.contains('table-hover')).toBe(false);
         expect(table.classList.contains('table-draggable')).toBe(false);
 
-        rows = gridComponent.nativeElement.querySelectorAll('tr');
+        rows = tableComponent.nativeElement.querySelectorAll('tr');
         expect(rows.length).toEqual(testComponent.model.length + 1);
         for (let i = 1; i < rows.length; i++) {
             expect(rows[i].classList.contains('row-class-name')).toBe(true);
         }
 
-        const paginationComponent = gridComponent.nativeElement.querySelector('thy-pagination');
+        const paginationComponent = tableComponent.nativeElement.querySelector('thy-pagination');
         expect(paginationComponent).toBeTruthy();
     });
 
@@ -267,7 +267,7 @@ describe('ThyGrid', () => {
 
     it('width is 160 when thyWidth is 160', () => {
         fixture.detectChanges();
-        const cols = gridComponent.nativeElement.querySelectorAll('colgroup col');
+        const cols = tableComponent.nativeElement.querySelectorAll('colgroup col');
         expect(cols[1].width).toEqual('160');
     });
 
@@ -314,13 +314,13 @@ describe('ThyGrid', () => {
     });
 
     it('should have correct class when className is class-name', () => {
-        testComponent.gridClassName = 'class-name';
+        testComponent.tableClassName = 'class-name';
         fixture.detectChanges();
         expect(table.classList.contains('class-name')).toBe(true);
     });
 
     it('should have correct class when className is class-name,thySize is sm', () => {
-        testComponent.gridClassName = 'class-name';
+        testComponent.tableClassName = 'class-name';
         testComponent.size = 'sm';
         fixture.detectChanges();
         expect(table.classList.contains('class-name')).toBe(true);
@@ -331,14 +331,14 @@ describe('ThyGrid', () => {
     it('should have thy-empty component when model is []', () => {
         testComponent.model = [];
         fixture.detectChanges();
-        const defaultEmptyComponent = gridComponent.nativeElement.querySelector('thy-empty');
+        const defaultEmptyComponent = tableComponent.nativeElement.querySelector('thy-empty');
         expect(defaultEmptyComponent).toBeTruthy();
     });
 
     it('should have thy-loadin component when isLoadingDone is false', () => {
         testComponent.isLoadingDone = false;
         fixture.detectChanges();
-        const loadingComponent = gridComponent.nativeElement.querySelector('thy-loading');
+        const loadingComponent = tableComponent.nativeElement.querySelector('thy-loading');
         const loadingText = loadingComponent.querySelector('span');
         expect(loadingText.innerText).toEqual(testComponent.loadingText);
     });
@@ -350,7 +350,7 @@ describe('ThyGrid', () => {
             total: 6
         };
         fixture.detectChanges();
-        const paginationComponent = gridComponent.nativeElement.querySelector('thy-pagination');
+        const paginationComponent = tableComponent.nativeElement.querySelector('thy-pagination');
         expect(paginationComponent === null).toBe(true);
     });
 
@@ -361,7 +361,7 @@ describe('ThyGrid', () => {
             total: 6
         };
         fixture.detectChanges();
-        const paginationComponent = gridComponent.nativeElement.querySelector('thy-pagination');
+        const paginationComponent = tableComponent.nativeElement.querySelector('thy-pagination');
         const items = paginationComponent.querySelectorAll('li');
         expect(items[testComponent.pagination.index].classList.contains('active')).toBe(true);
         expect(items.length).toEqual(4);
@@ -375,7 +375,7 @@ describe('ThyGrid', () => {
         };
         testComponent.showTotal = true;
         fixture.detectChanges();
-        const paginationComponent = gridComponent.nativeElement.querySelector('thy-pagination');
+        const paginationComponent = tableComponent.nativeElement.querySelector('thy-pagination');
         expect(paginationComponent).toBeTruthy();
     });
 
@@ -385,9 +385,9 @@ describe('ThyGrid', () => {
             size: 10,
             total: 50
         };
-        testComponent.showTotal = gridComponent.totalTemplate;
+        testComponent.showTotal = tableComponent.totalTemplate;
         fixture.detectChanges();
-        const paginationComponent = gridComponent.nativeElement.querySelector('thy-pagination');
+        const paginationComponent = tableComponent.nativeElement.querySelector('thy-pagination');
         expect(paginationComponent).toBeTruthy();
     });
 
@@ -413,7 +413,7 @@ describe('ThyGrid', () => {
     it('should has group element when mode is group', () => {
         testComponent.mode = 'group';
         fixture.detectChanges();
-        const groups = table.querySelector('.thy-grid-group');
+        const groups = table.querySelector('.thy-table-group');
         expect(groups).toBeTruthy();
     });
 
@@ -438,11 +438,11 @@ describe('ThyGrid', () => {
     });
 });
 
-// grid group mode test
+// table group mode test
 @Component({
-    selector: 'thy-demo-group-grid',
+    selector: 'thy-demo-group-table',
     template: `
-        <thy-grid
+        <thy-table
             [thyGroups]="groups"
             [thyModel]="model"
             thyRowKey="id"
@@ -453,22 +453,22 @@ describe('ThyGrid', () => {
             [thyPageTotal]="pagination.total"
         >
             <ng-template #group let-group>{{ group.id }}</ng-template>
-            <thy-grid-column thyModelKey="selected" thyType="checkbox" [thySelections]="selections">
+            <thy-table-column thyModelKey="selected" thyType="checkbox" [thySelections]="selections">
                 <ng-template #header>
                     <span class="text-primary"
                         >选择<a href="javascript:;"><i class="wtf wtf-angle-down"></i></a
                     ></span>
                 </ng-template>
-            </thy-grid-column>
-            <thy-grid-column thyTitle="姓名" thyModelKey="name" thyWidth="160"></thy-grid-column>
-            <thy-grid-column thyTitle="年龄" thyModelKey="age" thyHeaderClassName="header-class-name"></thy-grid-column>
-            <thy-grid-column thyTitle="备注" thyModelKey="desc" thyDefaultText="-"></thy-grid-column>
-            <thy-grid-column thyTitle="默认" thyModelKey="checked" thyType="switch"></thy-grid-column>
-        </thy-grid>
+            </thy-table-column>
+            <thy-table-column thyTitle="姓名" thyModelKey="name" thyWidth="160"></thy-table-column>
+            <thy-table-column thyTitle="年龄" thyModelKey="age" thyHeaderClassName="header-class-name"></thy-table-column>
+            <thy-table-column thyTitle="备注" thyModelKey="desc" thyDefaultText="-"></thy-table-column>
+            <thy-table-column thyTitle="默认" thyModelKey="checked" thyType="switch"></thy-table-column>
+        </thy-table>
         <ng-template #total let-total>共{{ total }}条</ng-template>
     `
 })
-class ThyDemoGroupGridComponent {
+class ThyDemoGroupTableComponent {
     groups = [
         {
             id: '11',
@@ -536,32 +536,32 @@ class ThyDemoGroupGridComponent {
     };
 }
 
-describe('ThyGrid', () => {
-    let fixture: ComponentFixture<ThyDemoGroupGridComponent>;
-    let testComponent: ThyDemoGroupGridComponent;
-    let gridComponent: DebugElement;
+describe('ThyTable', () => {
+    let fixture: ComponentFixture<ThyDemoGroupTableComponent>;
+    let testComponent: ThyDemoGroupTableComponent;
+    let tableComponent: DebugElement;
     let table;
     let rows;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyGridModule, GridTestModule],
-            declarations: [ThyDemoGroupGridComponent]
+            imports: [ThyTableModule, TableTestModule],
+            declarations: [ThyDemoGroupTableComponent]
         });
         TestBed.compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(ThyDemoGroupGridComponent);
+        fixture = TestBed.createComponent(ThyDemoGroupTableComponent);
         testComponent = fixture.debugElement.componentInstance;
-        gridComponent = fixture.debugElement.query(By.directive(ThyGridComponent));
-        table = gridComponent.nativeElement.querySelector('table');
+        tableComponent = fixture.debugElement.query(By.directive(ThyTableComponent));
+        table = tableComponent.nativeElement.querySelector('table');
         fixture.detectChanges();
         rows = table.querySelectorAll('tr');
     });
 
-    it('should be created grid component', () => {
-        expect(gridComponent).toBeTruthy();
+    it('should be created table component', () => {
+        expect(tableComponent).toBeTruthy();
     });
 
     it('should has correct class and when mode is group', () => {
@@ -571,7 +571,7 @@ describe('ThyGrid', () => {
 
     it('should has group element when mode is group', () => {
         fixture.detectChanges();
-        const groups = table.querySelector('.thy-grid-group');
+        const groups = table.querySelector('.thy-table-group');
         expect(groups).toBeTruthy();
     });
 
@@ -582,20 +582,20 @@ describe('ThyGrid', () => {
 
         dispatchFakeEvent(trExpandElement, 'click');
         fixture.detectChanges();
-        rows = gridComponent.nativeElement.querySelectorAll('tr');
+        rows = tableComponent.nativeElement.querySelectorAll('tr');
         expect(rows.length).toBe(6);
 
         dispatchFakeEvent(trExpandElement, 'click');
         fixture.detectChanges();
-        rows = gridComponent.nativeElement.querySelectorAll('tr');
+        rows = tableComponent.nativeElement.querySelectorAll('tr');
         expect(rows.length).toBe(9);
     }));
 });
 
 @Component({
-    selector: 'thy-demo-default-grid',
+    selector: 'thy-demo-default-table',
     template: `
-        <thy-grid
+        <thy-table
             [thyModel]="model"
             thyRowKey="id"
             thyGroupBy="group_id"
@@ -605,8 +605,8 @@ describe('ThyGrid', () => {
             [thySize]="size"
             [thyWholeRowSelect]="isRowSelect"
             [thyDraggable]="isDraggable"
-            [thyClassName]="gridClassName"
-            [thyRowClassName]="gridRowClassName"
+            [thyClassName]="tableClassName"
+            [thyRowClassName]="tableRowClassName"
             [thyLoadingDone]="isLoadingDone"
             [thyLoadingText]="loadingText"
             [thyShowHeader]="isShowHeader"
@@ -620,35 +620,35 @@ describe('ThyGrid', () => {
             (thyOnRowContextMenu)="onContextMenu($event)"
         >
             <ng-template #group let-group>{{ group.id }}</ng-template>
-            <thy-grid-column thyModelKey="selected" thyType="checkbox" [thySelections]="selections">
+            <thy-table-column thyModelKey="selected" thyType="checkbox" [thySelections]="selections">
                 <ng-template #header>
                     <span class="text-primary"
                         >选择<a href="javascript:;"><i class="wtf wtf-angle-down"></i></a
                     ></span>
                 </ng-template>
-            </thy-grid-column>
-            <thy-grid-column thyTitle="姓名" thyModelKey="name" thyWidth="160"></thy-grid-column>
-            <thy-grid-column thyTitle="年龄" thyModelKey="age" thyHeaderClassName="header-class-name"></thy-grid-column>
-            <thy-grid-column thyTitle="备注" thyModelKey="desc" thyDefaultText="-"></thy-grid-column>
-            <thy-grid-column thyTitle="默认" thyModelKey="checked" thyType="switch"></thy-grid-column>
-            <thy-grid-column thyTitle="操作" thyClassName="thy-operation-links">
+            </thy-table-column>
+            <thy-table-column thyTitle="姓名" thyModelKey="name" thyWidth="160"></thy-table-column>
+            <thy-table-column thyTitle="年龄" thyModelKey="age" thyHeaderClassName="header-class-name"></thy-table-column>
+            <thy-table-column thyTitle="备注" thyModelKey="desc" thyDefaultText="-"></thy-table-column>
+            <thy-table-column thyTitle="默认" thyModelKey="checked" thyType="switch"></thy-table-column>
+            <thy-table-column thyTitle="操作" thyClassName="thy-operation-links">
                 <ng-template #cell let-row>
                     <a href="javascript:;">设置</a>
                     <a class="link-secondary" href="javascript:;">
                         <i class="wtf wtf-trash-o"></i>
                     </a>
                 </ng-template>
-            </thy-grid-column>
+            </thy-table-column>
             <ng-template #empty>
                 <div class="custom-empty">
                     空数据模板
                 </div>
             </ng-template>
-        </thy-grid>
+        </thy-table>
         <ng-template #total let-total>共{{ total }}条</ng-template>
     `
 })
-class ThyDemoEmptyGridComponent {
+class ThyDemoEmptyTableComponent {
     model = [];
 
     pagination = {
@@ -659,8 +659,8 @@ class ThyDemoEmptyGridComponent {
     isShowHeader = true;
     isDraggable = false;
     isRowSelect = false;
-    gridClassName = 'class-name';
-    gridRowClassName = 'row-class-name';
+    tableClassName = 'class-name';
+    tableRowClassName = 'row-class-name';
     selections = [];
     theme = 'default';
     isLoadingDone = true;
@@ -688,34 +688,34 @@ class ThyDemoEmptyGridComponent {
         return 'onRowContextMenu is ok';
     }
 }
-describe('ThyGrid', () => {
-    let fixture: ComponentFixture<ThyDemoEmptyGridComponent>;
-    let testComponent: ThyDemoEmptyGridComponent;
-    let gridComponent: DebugElement;
+describe('ThyTable', () => {
+    let fixture: ComponentFixture<ThyDemoEmptyTableComponent>;
+    let testComponent: ThyDemoEmptyTableComponent;
+    let tableComponent: DebugElement;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyGridModule],
-            declarations: [ThyDemoEmptyGridComponent]
+            imports: [ThyTableModule],
+            declarations: [ThyDemoEmptyTableComponent]
         });
         TestBed.compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(ThyDemoEmptyGridComponent);
+        fixture = TestBed.createComponent(ThyDemoEmptyTableComponent);
         testComponent = fixture.debugElement.componentInstance;
-        gridComponent = fixture.debugElement.query(By.directive(ThyGridComponent));
+        tableComponent = fixture.debugElement.query(By.directive(ThyTableComponent));
     });
 
-    it('should be created grid component', () => {
-        expect(gridComponent).toBeTruthy();
+    it('should be created table component', () => {
+        expect(tableComponent).toBeTruthy();
     });
 
     it('should have custom empty template when model is [] and has empty', () => {
         testComponent.model = [];
         fixture.detectChanges();
-        const defaultEmptyComponent = gridComponent.nativeElement.querySelector('thy-empty');
+        const defaultEmptyComponent = tableComponent.nativeElement.querySelector('thy-empty');
         expect(defaultEmptyComponent).not.toBeTruthy();
-        expect(gridComponent.query(By.css('.custom-empty'))).toBeTruthy();
+        expect(tableComponent.query(By.css('.custom-empty'))).toBeTruthy();
     });
 });

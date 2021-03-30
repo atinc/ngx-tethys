@@ -1,7 +1,7 @@
 module.exports = [
     {
         type: 'component',
-        name: 'thy-grid',
+        name: 'thy-table',
         description: 'Grid 列表',
         properties: [
             {
@@ -51,7 +51,7 @@ module.exports = [
             {
                 name: 'thyEmptyOptions',
                 description: '配置空状态组件',
-                type: 'ThyGridEmptyOptions',
+                type: 'ThyTableEmptyOptions',
                 default: ''
             },
             {
@@ -129,7 +129,7 @@ module.exports = [
             {
                 name: '(thyOnRowClick)',
                 description: 'Grid行点击事件',
-                type: 'ThyGridRowEvent',
+                type: 'ThyTableRowEvent',
                 default: ''
             },
             {
@@ -159,14 +159,14 @@ module.exports = [
             {
                 name: '(thyOnDraggableChange)',
                 description: '拖动修改事件',
-                type: 'ThyGridDraggableEvent',
+                type: 'ThyTableDraggableEvent',
                 default: ''
             }
         ]
     },
     {
         type: 'component',
-        name: 'thy-grid-column',
+        name: 'thy-table-column',
         description: 'Grid Column',
         properties: [
             {
