@@ -54,103 +54,93 @@ describe(`thy-nav`, () => {
         injectDefaultSvgIconSet();
     });
 
-    describe('basic', () => {
-        let fixture: ComponentFixture<NavBasicComponent>;
+    let fixture: ComponentFixture<NavBasicComponent>;
 
-        beforeEach(() => {
-            fixture = TestBed.createComponent(NavBasicComponent);
-            fixture.detectChanges();
-        });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(NavBasicComponent);
+        fixture.detectChanges();
+    });
 
-        it(`should get correct class for default nav`, () => {
-            const navDebugElement = fixture.debugElement.query(By.directive(ThyNavComponent));
-            const navElement: HTMLElement = navDebugElement.nativeElement;
-            expect(navDebugElement).toBeTruthy();
-            expect(navElement).toBeTruthy();
-            expect(navElement.classList.contains(NAV_CLASS)).toEqual(true);
-            expect(navElement.classList.contains('nav-primary')).toEqual(true);
-            expect(navElement.classList.contains('custom-nav')).toEqual(true);
-        });
+    it(`should get correct class for default nav`, () => {
+        const navDebugElement = fixture.debugElement.query(By.directive(ThyNavComponent));
+        const navElement: HTMLElement = navDebugElement.nativeElement;
+        expect(navDebugElement).toBeTruthy();
+        expect(navElement).toBeTruthy();
+        expect(navElement.classList.contains(NAV_CLASS)).toEqual(true);
+        expect(navElement.classList.contains('nav-primary')).toEqual(true);
+        expect(navElement.classList.contains('custom-nav')).toEqual(true);
+    });
 
-        it(`should get correct nav links`, () => {
-            const navDebugElement = fixture.debugElement.query(By.directive(ThyNavComponent));
-            const links = navDebugElement.queryAll(By.directive(ThyNavLinkDirective));
-            expect(links).toBeTruthy();
-            expect(links.length).toEqual(2);
-            const activeLink: HTMLElement = links[0].nativeElement;
-            const link2: HTMLElement = links[1].nativeElement;
-            expect(activeLink.classList.contains(NAV_LINK_CLASS)).toEqual(true);
-            expect(activeLink.classList.contains('active')).toEqual(true);
-            expect(link2.classList.contains(NAV_LINK_CLASS)).toEqual(true);
-            expect(link2.classList.contains('active')).toEqual(false);
-        });
+    it(`should get correct nav links`, () => {
+        const navDebugElement = fixture.debugElement.query(By.directive(ThyNavComponent));
+        const links = navDebugElement.queryAll(By.directive(ThyNavLinkDirective));
+        expect(links).toBeTruthy();
+        expect(links.length).toEqual(2);
+        const activeLink: HTMLElement = links[0].nativeElement;
+        const link2: HTMLElement = links[1].nativeElement;
+        expect(activeLink.textContent).toContain('Link1');
+        expect(activeLink.classList.contains(NAV_LINK_CLASS)).toEqual(true);
+        expect(activeLink.classList.contains('active')).toEqual(true);
 
-        it(`should get correct class when input type`, () => {
-            ['primary', 'secondary', 'thirdly', 'secondary-divider'].forEach(type => {
-                fixture.debugElement.componentInstance.type = type;
-                fixture.detectChanges();
-                const navDebugElement = fixture.debugElement.query(By.directive(ThyNavComponent));
-                const navElement: HTMLElement = navDebugElement.nativeElement;
-                expect(navElement.classList.contains(NAV_CLASS)).toEqual(true);
-                expect(navElement.classList.contains(`nav-${type}`)).toEqual(true);
-            });
-        });
+        expect(link2.textContent).toContain('Link2');
+        expect(link2.classList.contains(NAV_LINK_CLASS)).toEqual(true);
+        expect(link2.classList.contains('active')).toEqual(false);
+    });
 
-        it(`should get correct class when input size`, () => {
-            ['sm'].forEach(size => {
-                fixture.debugElement.componentInstance.size = size;
-                fixture.detectChanges();
-                const navDebugElement = fixture.debugElement.query(By.directive(ThyNavComponent));
-                const navElement: HTMLElement = navDebugElement.nativeElement;
-                expect(navElement.classList.contains(NAV_CLASS)).toEqual(true);
-                expect(navElement.classList.contains(`nav-${size}`)).toEqual(true);
-            });
-        });
-
-        it(`should get correct class when input size`, () => {
-            ['sm'].forEach(size => {
-                fixture.debugElement.componentInstance.size = size;
-                fixture.detectChanges();
-                const navDebugElement = fixture.debugElement.query(By.directive(ThyNavComponent));
-                const navElement: HTMLElement = navDebugElement.nativeElement;
-                expect(navElement.classList.contains(NAV_CLASS)).toEqual(true);
-                expect(navElement.classList.contains(`nav-${size}`)).toEqual(true);
-            });
-        });
-
-        it(`should get correct class when is fill`, () => {
-            fixture.debugElement.componentInstance.isFill = true;
+    it(`should get correct class when input type`, () => {
+        ['primary', 'secondary', 'thirdly', 'secondary-divider'].forEach(type => {
+            fixture.debugElement.componentInstance.type = type;
             fixture.detectChanges();
             const navDebugElement = fixture.debugElement.query(By.directive(ThyNavComponent));
             const navElement: HTMLElement = navDebugElement.nativeElement;
             expect(navElement.classList.contains(NAV_CLASS)).toEqual(true);
-            expect(navElement.classList.contains(`thy-nav--fill`)).toEqual(true);
+            expect(navElement.classList.contains(`nav-${type}`)).toEqual(true);
         });
+    });
 
-        it(`should get correct class when is vertical`, () => {
-            fixture.debugElement.componentInstance.isVertical = true;
+    it(`should get correct class when input size`, () => {
+        ['sm'].forEach(size => {
+            fixture.debugElement.componentInstance.size = size;
             fixture.detectChanges();
             const navDebugElement = fixture.debugElement.query(By.directive(ThyNavComponent));
             const navElement: HTMLElement = navDebugElement.nativeElement;
             expect(navElement.classList.contains(NAV_CLASS)).toEqual(true);
-            expect(navElement.classList.contains(`thy-nav--vertical`)).toEqual(true);
+            expect(navElement.classList.contains(`nav-${size}`)).toEqual(true);
         });
+    });
 
-        it(`should get correct class when input thyHorizontal`, () => {
-            const navHorizontalClassesMap = {
-                left: '',
-                center: 'justify-content-center',
-                right: 'justify-content-end'
-            };
+    it(`should get correct class when is fill`, () => {
+        fixture.debugElement.componentInstance.isFill = true;
+        fixture.detectChanges();
+        const navDebugElement = fixture.debugElement.query(By.directive(ThyNavComponent));
+        const navElement: HTMLElement = navDebugElement.nativeElement;
+        expect(navElement.classList.contains(NAV_CLASS)).toEqual(true);
+        expect(navElement.classList.contains(`thy-nav--fill`)).toEqual(true);
+    });
 
-            ['center', 'right'].forEach(item => {
-                fixture.debugElement.componentInstance.horizontal = item;
-                fixture.detectChanges();
-                const navDebugElement = fixture.debugElement.query(By.directive(ThyNavComponent));
-                const navElement: HTMLElement = navDebugElement.nativeElement;
-                expect(navElement.classList.contains(NAV_CLASS)).toEqual(true);
-                expect(navElement.classList.contains(navHorizontalClassesMap[item])).toEqual(true);
-            });
+    it(`should get correct class when is vertical`, () => {
+        fixture.debugElement.componentInstance.isVertical = true;
+        fixture.detectChanges();
+        const navDebugElement = fixture.debugElement.query(By.directive(ThyNavComponent));
+        const navElement: HTMLElement = navDebugElement.nativeElement;
+        expect(navElement.classList.contains(NAV_CLASS)).toEqual(true);
+        expect(navElement.classList.contains(`thy-nav--vertical`)).toEqual(true);
+    });
+
+    it(`should get correct class when input thyHorizontal`, () => {
+        const navHorizontalClassesMap = {
+            left: '',
+            center: 'justify-content-center',
+            right: 'justify-content-end'
+        };
+
+        ['center', 'right'].forEach(item => {
+            fixture.debugElement.componentInstance.horizontal = item;
+            fixture.detectChanges();
+            const navDebugElement = fixture.debugElement.query(By.directive(ThyNavComponent));
+            const navElement: HTMLElement = navDebugElement.nativeElement;
+            expect(navElement.classList.contains(NAV_CLASS)).toEqual(true);
+            expect(navElement.classList.contains(navHorizontalClassesMap[item])).toEqual(true);
         });
     });
 });
