@@ -12,7 +12,7 @@ An UI components based on Worktile Design and Angular.
 [coveralls-url]: https://coveralls.io/github/atinc/ngx-tethys
 
 
-## Notes:
+## Note:
 **This repo is only public now, it's far from the level of open source, we not recommended use it in production environment. we do not promise that there will be no breaking changes, only for [Worktile](https://worktile.com/) and [PingCode](https://pingcode.com/)**
 
 # Getting Started
@@ -29,7 +29,7 @@ Manual install via
 ```
 npm install ngx-tethys --save
 // or 
-yarn add
+yarn add ngx-tethys
 ```
 
 ## Usage
