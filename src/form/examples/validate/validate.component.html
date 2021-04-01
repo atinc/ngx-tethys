@@ -1,4 +1,4 @@
-<form thyForm name="demoForm" [thyFormValidatorConfig]="validateConfig" #demoForm="thyForm">
+<form thyForm #ngForm="ngForm" name="demoForm" [thyFormValidatorConfig]="validateConfig" #demoForm="thyForm">
   <thy-form-group thyLabelText="用户名" thyLabelRequired>
     <input thyInput name="username" [(ngModel)]="model.name" required placeholder="请输入用户名" />
   </thy-form-group>
