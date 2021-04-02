@@ -21,8 +21,8 @@ describe('radio component', () => {
     let fixture: ComponentFixture<RadioTestComponent>;
     let testRadioComponent: RadioTestComponent;
     let radioDebugComponent: DebugElement;
-    let radioElement;
-    let labelNode;
+    let radioElement: HTMLElement;
+    let labelNode: any;
 
     beforeEach(() => {
         TestBed.configureTestingModule({

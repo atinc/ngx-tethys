@@ -8,8 +8,9 @@ import { ThyTransferModule } from '../transfer.module';
 import { ThyTransferComponent } from '../transfer.component';
 import { ThyTransferDragEvent, ThyTransferChangeEvent, TransferDirection, ThyTransferItem } from '../transfer.interface';
 import { CdkDropListGroup } from '@angular/cdk/drag-drop';
-import { ThyListModule } from '../../list/list.module';
-import { ThyIconModule } from '../../icon/icon.module';
+import { ThyListModule } from 'ngx-tethys/list';
+import { ThyIconModule } from 'ngx-tethys/icon';
+import { ThySelectModule } from 'ngx-tethys/select';
 
 const COUNT = 9;
 const RIGHTCOUNT = 5;
@@ -121,6 +122,8 @@ class TestTransferCustomRenderContentComponent {
             unselectItem(item);
         }
     }
+
+    change($event: ThyTransferChangeEvent) {}
 }
 
 describe('transfer', () => {
@@ -129,12 +132,12 @@ describe('transfer', () => {
     let instance: TestTransferComponent;
     let pageObject: TransferPageObject;
 
-    beforeEach(async(() => {
+    beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, ThyTransferModule, ThyListModule, ThyIconModule],
+            imports: [NoopAnimationsModule, ThyTransferModule, ThyListModule, ThyIconModule, ThySelectModule],
             declarations: [TestTransferComponent, TestTransferCustomRenderComponent, TestTransferCustomRenderContentComponent]
         }).compileComponents();
-    }));
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(TestTransferComponent);
