@@ -1,15 +1,16 @@
-import { Injectable, Injector, Optional, Inject, OnDestroy, ElementRef } from '@angular/core';
-import { ThySlideContainerComponent } from './slide-container.component';
-import { OverlayConfig, OverlayRef, Overlay } from '@angular/cdk/overlay';
-import { ComponentPortal } from '@angular/cdk/portal';
-import { ThyUpperOverlayService, ThyUpperOverlayRef, ComponentTypeOrTemplateRef } from 'ngx-tethys/core';
-import { ThySlideConfig, THY_SLIDE_DEFAULT_CONFIG, slideUpperOverlayOptions, slideDefaultConfigValue } from './slide.config';
-import { ThySlideRef, ThyInternalSlideRef } from './slide-ref.service';
-import { Directionality } from '@angular/cdk/bidi';
-import { of } from 'rxjs';
+import { ComponentTypeOrTemplateRef, ThyUpperOverlayRef, ThyUpperOverlayService } from 'ngx-tethys/core';
 import { coerceArray } from 'ngx-tethys/util';
+import { of } from 'rxjs';
+
+import { Directionality } from '@angular/cdk/bidi';
 import { coerceElement } from '@angular/cdk/coercion';
-import { StaticProvider } from '@angular/core';
+import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
+import { ComponentPortal } from '@angular/cdk/portal';
+import { Inject, Injectable, Injector, OnDestroy, Optional, StaticProvider } from '@angular/core';
+
+import { ThySlideContainerComponent } from './slide-container.component';
+import { ThyInternalSlideRef, ThySlideRef } from './slide-ref.service';
+import { slideDefaultConfigValue, slideUpperOverlayOptions, THY_SLIDE_DEFAULT_CONFIG, ThySlideConfig } from './slide.config';
 
 @Injectable()
 export class ThySlideService extends ThyUpperOverlayService<ThySlideConfig, ThySlideContainerComponent> implements OnDestroy {

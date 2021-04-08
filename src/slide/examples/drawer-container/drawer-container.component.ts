@@ -5,15 +5,17 @@ import { Component } from '@angular/core';
 import { ThySlideDemoContentComponent } from '../slide-content.component';
 
 @Component({
-    selector: 'thy-slide-basic-example',
-    templateUrl: './basic.component.html'
+    selector: 'thy-slide-drawer-container-example',
+    templateUrl: './drawer-container.component.html',
+    styleUrls: ['./drawer-container.component.scss']
 })
-export class ThySlideBasicExampleComponent {
+export class ThySlideDrawerContainerExampleComponent {
     constructor(private thySlideNewService: ThySlideService) {}
 
-    showSlide() {
+    open() {
         this.thySlideNewService.open(ThySlideDemoContentComponent, {
-            id: 'basic'
+            id: 'has-container',
+            drawerContainer: 'dg-channel'
         });
     }
 }
