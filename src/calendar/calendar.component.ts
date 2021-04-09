@@ -1,3 +1,7 @@
+import { InputBoolean } from 'ngx-tethys/core';
+import { DateRangeItemInfo } from 'ngx-tethys/date-range';
+import { TinyDate } from 'ngx-tethys/util';
+
 import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
@@ -15,16 +19,8 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { InputBoolean } from 'ngx-tethys/core';
-import { DateRangeItemInfo } from 'ngx-tethys/date-range';
-import { TinyDate } from 'ngx-tethys/util';
-import {
-    ThyDateCellDirective as DateCell,
-    ThyDateFullCellDirective as DateFullCell,
-    ThyMonthCellDirective as MonthCell,
-    ThyMonthFullCellDirective as MonthFullCell,
-    ThyCalendarHeaderOperationDirective as HeaderOperation
-} from './calendar-cells';
+
+import { ThyCalendarHeaderOperationDirective as HeaderOperation, ThyDateCellDirective as DateCell } from './calendar-cells';
 
 export type CalendarMode = 'month' | 'year';
 type CalendarDateTemplate = TemplateRef<{ $implicit: Date }>;
@@ -65,23 +61,23 @@ export class ThyCalendarComponent implements OnInit, OnChanges {
         return (this.thyDateCell || this.thyDateCellChild)!;
     }
 
-    @Input() thyDateFullCell?: CalendarDateTemplate;
-    @ContentChild(DateFullCell, { read: TemplateRef }) thyDateFullCellChild?: CalendarDateTemplate;
-    get dateFullCell(): CalendarDateTemplate {
-        return (this.thyDateFullCell || this.thyDateFullCellChild)!;
-    }
+    // @Input() thyDateFullCell?: CalendarDateTemplate;
+    // @ContentChild(DateFullCell, { read: TemplateRef }) thyDateFullCellChild?: CalendarDateTemplate;
+    // get dateFullCell(): CalendarDateTemplate {
+    //     return (this.thyDateFullCell || this.thyDateFullCellChild)!;
+    // }
 
-    @Input() thyMonthCell?: CalendarDateTemplate;
-    @ContentChild(MonthCell, { read: TemplateRef }) thyMonthCellChild?: CalendarDateTemplate;
-    get monthCell(): CalendarDateTemplate {
-        return (this.thyMonthCell || this.thyMonthCellChild)!;
-    }
+    // @Input() thyMonthCell?: CalendarDateTemplate;
+    // @ContentChild(MonthCell, { read: TemplateRef }) thyMonthCellChild?: CalendarDateTemplate;
+    // get monthCell(): CalendarDateTemplate {
+    //     return (this.thyMonthCell || this.thyMonthCellChild)!;
+    // }
 
-    @Input() thyMonthFullCell?: CalendarDateTemplate;
-    @ContentChild(MonthFullCell, { read: TemplateRef }) thyMonthFullCellChild?: CalendarDateTemplate;
-    get monthFullCell(): CalendarDateTemplate {
-        return (this.thyMonthFullCell || this.thyMonthFullCellChild)!;
-    }
+    // @Input() thyMonthFullCell?: CalendarDateTemplate;
+    // @ContentChild(MonthFullCell, { read: TemplateRef }) thyMonthFullCellChild?: CalendarDateTemplate;
+    // get monthFullCell(): CalendarDateTemplate {
+    //     return (this.thyMonthFullCell || this.thyMonthFullCellChild)!;
+    // }
 
     @Input() thyCalendarHeaderOperation?: CalendarDateTemplate;
     @ContentChild(HeaderOperation, { read: TemplateRef }) thyCalendarHeaderOperationChild?: CalendarDateTemplate;
@@ -103,10 +99,10 @@ export class ThyCalendarComponent implements OnInit, OnChanges {
 
     ngOnInit(): void {}
 
-    onModeChange(mode: CalendarMode): void {
-        this.thyModeChange.emit(mode);
-        this.thyPanelChange.emit({ date: this.currentDate.nativeDate, mode });
-    }
+    // onModeChange(mode: CalendarMode): void {
+    //     this.thyModeChange.emit(mode);
+    //     this.thyPanelChange.emit({ date: this.currentDate.nativeDate, mode });
+    // }
 
     onYearSelect(year: number): void {
         const date = this.currentDate.setYear(year);
