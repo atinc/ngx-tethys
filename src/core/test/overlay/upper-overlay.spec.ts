@@ -1,4 +1,14 @@
-import { ViewChild, Component, ChangeDetectorRef, Injectable, NgModule, Injector, OnDestroy, ViewContainerRef } from '@angular/core';
+import {
+    ViewChild,
+    Component,
+    ChangeDetectorRef,
+    Injectable,
+    NgModule,
+    Injector,
+    OnDestroy,
+    ViewContainerRef,
+    StaticProvider
+} from '@angular/core';
 import { Observable } from 'rxjs';
 import { CdkPortalOutlet, PortalInjector, ComponentPortal, PortalModule } from '@angular/cdk/portal';
 import { AnimationEvent } from '@angular/animations';
@@ -98,27 +108,13 @@ class InternalTestDialogRef<T = undefined, TResult = undefined> extends ThyInter
     providedIn: 'root'
 })
 export class TestDialogService extends ThyUpperOverlayService<TestDialogConfig, TestDialogContainerComponent> {
-    private getOverlayPanelClasses(dialogConfig: TestDialogConfig) {
-        let classes = [`cdk-overlay-pane`, `dialog-overlay-pane`];
-        const size = dialogConfig.size || 'md';
-        classes.push(`dialog-${size}`);
-        if (dialogConfig.panelClass) {
-            if (isArray(dialogConfig.panelClass)) {
-                classes = classes.concat(dialogConfig.panelClass);
-            } else {
-                classes.push(dialogConfig.panelClass as string);
-            }
-        }
-        return classes;
-    }
-
     constructor(overlay: Overlay, injector: Injector, clickPositioner: ThyClickPositioner) {
         super(testDialogOptions, overlay, injector, {});
     }
 
     protected buildOverlayConfig(config: TestDialogConfig): OverlayConfig {
-        const overlayConfig = this.buildBaseOverlayConfig(config);
-        overlayConfig.panelClass = this.getOverlayPanelClasses(config);
+        const size = config.size || 'md';
+        const overlayConfig = this.buildBaseOverlayConfig(config, ['dialog-overlay-pane', `dialog-${size}`]);
         overlayConfig.positionStrategy = this.overlay.position().global();
         overlayConfig.scrollStrategy = config.scrollStrategy || this.overlay.scrollStrategies.block();
         return overlayConfig;
@@ -134,7 +130,15 @@ export class TestDialogService extends ThyUpperOverlayService<TestDialogConfig, 
 
     protected attachUpperOverlayContainer(overlay: OverlayRef, config: TestDialogConfig): TestDialogContainerComponent {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
-        const injector = new PortalInjector(userInjector || this.injector, new WeakMap([[TestDialogConfig, config]]));
+        const injector = Injector.create({
+            parent: userInjector || this.injector,
+            providers: [
+                {
+                    provide: TestDialogConfig,
+                    useValue: config
+                }
+            ]
+        });
         const containerPortal = new ComponentPortal(TestDialogContainerComponent, config.viewContainerRef, injector);
         const containerRef = overlay.attach(containerPortal);
         return containerRef.instance;
@@ -144,15 +148,17 @@ export class TestDialogService extends ThyUpperOverlayService<TestDialogConfig, 
         config: TestDialogConfig,
         upperOverlayRef: ThyUpperOverlayRef<T, any>,
         containerInstance: TestDialogContainerComponent
-    ): PortalInjector {
+    ): Injector {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
 
-        const injectionTokens = new WeakMap<any, any>([
-            [TestDialogContainerComponent, containerInstance],
-            [TestDialogRef, upperOverlayRef]
-        ]);
-
-        return new PortalInjector(userInjector || this.injector, injectionTokens);
+        const injectionTokens: StaticProvider[] = [
+            { provide: TestDialogContainerComponent, useValue: containerInstance },
+            {
+                provide: TestDialogRef,
+                useValue: upperOverlayRef
+            }
+        ];
+        return Injector.create({ parent: userInjector || this.injector, providers: injectionTokens });
     }
 
     open<T, TData = undefined, TResult = undefined>(
@@ -194,7 +200,7 @@ class TestDialogViewContainerComponent {
     }
 }
 
-describe('upper-overlay', () => {
+describe('overlay', () => {
     let dialog: TestDialogService;
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
@@ -240,7 +246,34 @@ describe('upper-overlay', () => {
         expect(overlayContainerElement.querySelector(dialogPaneClass)).toBeTruthy();
         fixture.destroy();
         flush();
-        expect(overlayContainerElement.querySelector(overlayWrapperClass)).not.toBeTruthy();
-        expect(overlayContainerElement.querySelector(dialogPaneClass)).not.toBeTruthy();
+        expect(overlayContainerElement.querySelector(overlayWrapperClass)).toBeFalsy();
+        expect(overlayContainerElement.querySelector(dialogPaneClass)).toBeFalsy();
     }));
+
+    describe('paneClass', () => {
+        it('should get incorrect default pane classes', () => {
+            dialog.open(TestDialogBasicContentComponent);
+            const paneElement = overlayContainerElement.querySelector('.cdk-overlay-pane');
+            expect(paneElement).toBeTruthy();
+            expect(paneElement.classList.contains('dialog-overlay-pane')).toBeTruthy();
+            expect(paneElement.classList.contains('dialog-md')).toBeTruthy();
+        });
+
+        it('should get custom pane class "one-class"', () => {
+            dialog.open(TestDialogBasicContentComponent, { panelClass: 'one-class' });
+            const paneElement = overlayContainerElement.querySelector('.cdk-overlay-pane');
+            expect(paneElement.classList.contains('dialog-overlay-pane')).toBeTruthy();
+            expect(paneElement.classList.contains('dialog-md')).toBeTruthy();
+            expect(paneElement.classList.contains('one-class')).toBeTruthy();
+        });
+
+        it('should get custom pane classes ["one-class", "two-class"]', () => {
+            dialog.open(TestDialogBasicContentComponent, { panelClass: ['one-class', 'two-class'] });
+            const paneElement = overlayContainerElement.querySelector('.cdk-overlay-pane');
+            expect(paneElement.classList.contains('dialog-overlay-pane')).toBeTruthy();
+            expect(paneElement.classList.contains('dialog-md')).toBeTruthy();
+            expect(paneElement.classList.contains('one-class')).toBeTruthy();
+            expect(paneElement.classList.contains('two-class')).toBeTruthy();
+        });
+    });
 });

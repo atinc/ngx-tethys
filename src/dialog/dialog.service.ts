@@ -19,23 +19,9 @@ import { StaticProvider } from '@angular/core';
     providedIn: 'root'
 })
 export class ThyDialog extends ThyUpperOverlayService<ThyDialogConfig, ThyDialogContainerComponent> implements OnDestroy {
-    private getOverlayPanelClasses(dialogConfig: ThyDialogConfig) {
-        let classes = [`cdk-overlay-pane`, `dialog-overlay-pane`];
-        const size = dialogConfig.size || ThyDialogSizes.md;
-        classes.push(`dialog-${size}`);
-        if (dialogConfig.panelClass) {
-            if (helpers.isArray(dialogConfig.panelClass)) {
-                classes = classes.concat(dialogConfig.panelClass);
-            } else {
-                classes.push(dialogConfig.panelClass as string);
-            }
-        }
-        return classes;
-    }
-
     protected buildOverlayConfig(config: ThyDialogConfig<any>): OverlayConfig {
-        const overlayConfig = this.buildBaseOverlayConfig(config);
-        overlayConfig.panelClass = this.getOverlayPanelClasses(config);
+        const size = config.size || ThyDialogSizes.md;
+        const overlayConfig = this.buildBaseOverlayConfig(config, [`dialog-${size}`]);
         overlayConfig.positionStrategy = this.overlay.position().global();
         overlayConfig.scrollStrategy = config.scrollStrategy || this.overlay.scrollStrategies.block();
         return overlayConfig;

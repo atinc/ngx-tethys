@@ -61,25 +61,12 @@ export class ThyAutocompleteService extends ThyUpperOverlayService<ThyAutocomple
         return positionStrategy;
     }
 
-    private buildOverlayPanelClasses(config: ThyAutocompleteConfig) {
-        let classes = [`cdk-overlay-pane`];
-        if (config.panelClass) {
-            if (isArray(config.panelClass)) {
-                classes = classes.concat(config.panelClass);
-            } else {
-                classes.push(config.panelClass as string);
-            }
-        }
-        return classes;
-    }
-
     protected buildOverlayConfig<TData>(config: ThyAutocompleteConfig<TData>): OverlayConfig {
         const strategy = this.buildPositionStrategy(config);
         const overlayConfig = this.buildBaseOverlayConfig(config);
         overlayConfig.positionStrategy = strategy;
         overlayConfig.scrollStrategy = config.scrollStrategy || this.overlay.scrollStrategies.block();
         overlayConfig.width = config.width;
-        overlayConfig.panelClass = this.buildOverlayPanelClasses(config);
         return overlayConfig;
     }
 

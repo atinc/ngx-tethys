@@ -1,4 +1,4 @@
-import { clamp, keyBy, indexKeyBy, coerceBooleanProperty, isString, hexToRgb } from './helpers';
+import { clamp, keyBy, indexKeyBy, coerceBooleanProperty, isString, hexToRgb, concatArray } from './helpers';
 
 const falsey = [, null, undefined, false, 0, NaN, ''];
 
@@ -144,6 +144,36 @@ describe('#helper', () => {
             expect(isString(1)).toEqual(false);
             expect(isString(/x/)).toEqual(false);
             expect(isString(Symbol('xxx'))).toEqual(false);
+        });
+    });
+
+    describe('#concatArray', () => {
+        it('should get [1, 2, 3] when concat [2, 3] to [1]', function() {
+            expect(concatArray([2, 3], [1])).toEqual([1, 2, 3]);
+        });
+
+        it('should get ["1", "2", "3"] when concat ["2", "3"] to ["1"]', function() {
+            expect(concatArray(['2', '3'], ['1'])).toEqual(['1', '2', '3']);
+        });
+
+        it('should get [1, 2, 3] when concat [2, 3] to 1', function() {
+            expect(concatArray([2, 3], 1)).toEqual([1, 2, 3]);
+        });
+
+        it('should get [2, 3] when concat [2, 3] to undefined or null or empty', function() {
+            expect(concatArray([2, 3], undefined)).toEqual([2, 3]);
+            expect(concatArray([2, 3], null)).toEqual([2, 3]);
+            expect(concatArray([2, 3], '' as any)).toEqual([2, 3]);
+        });
+
+        it('should get [1 2] when concat 2 to [1]', function() {
+            expect(concatArray(2, [1])).toEqual([1, 2]);
+        });
+
+        it('should get ["1"] when concat undefined or null or empty to ["1"]', function() {
+            expect(concatArray(undefined, ['1'])).toEqual(['1']);
+            expect(concatArray(null, ['1'])).toEqual(['1']);
+            expect(concatArray('', ['1'])).toEqual(['1']);
         });
     });
 });

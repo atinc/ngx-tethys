@@ -1,4 +1,4 @@
-import { FunctionProp } from 'ngx-tethys/util';
+import { FunctionProp, concatArray } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
 
 import { ComponentType, Overlay, OverlayConfig, OverlayRef, ScrollStrategy } from '@angular/cdk/overlay';
@@ -12,7 +12,7 @@ import { ThyUpperOverlayConfig, ThyUpperOverlayOptions } from './upper-overlay.c
 export type ComponentTypeOrTemplateRef<T> = ComponentType<T> | TemplateRef<T>;
 
 export abstract class ThyUpperOverlayService<TConfig extends ThyUpperOverlayConfig, TContainer extends ThyUpperOverlayContainer> {
-    private openedOverlays: ThyUpperOverlayRef<any, TContainer>[] = [];
+    private openedOverlays: ThyUpperOverlayRef<unknown, TContainer>[] = [];
 
     private readonly _afterAllClosed = new Subject<void>();
 
@@ -106,7 +106,7 @@ export abstract class ThyUpperOverlayService<TConfig extends ThyUpperOverlayConf
         return this.openedOverlays.find(overlay => overlay.id === id);
     }
 
-    protected buildBaseOverlayConfig(config: TConfig): OverlayConfig {
+    protected buildBaseOverlayConfig(config: TConfig, defaultPanelClass?: string | string[]): OverlayConfig {
         const overlayConfig = new OverlayConfig({
             positionStrategy: this.overlay.position().global(),
             hasBackdrop: config.hasBackdrop,
@@ -123,6 +123,8 @@ export abstract class ThyUpperOverlayService<TConfig extends ThyUpperOverlayConf
         if (config.backdropClass) {
             overlayConfig.backdropClass = config.backdropClass;
         }
+
+        overlayConfig.panelClass = concatArray(config.panelClass, defaultPanelClass);
 
         return overlayConfig;
     }

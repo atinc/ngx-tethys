@@ -69,18 +69,6 @@ export class ThyPopover extends ThyUpperOverlayService<ThyPopoverConfig, ThyPopo
         return positionStrategy;
     }
 
-    private buildOverlayPanelClasses(config: ThyPopoverConfig) {
-        let classes = [`cdk-overlay-pane`];
-        if (config.panelClass) {
-            if (helpers.isArray(config.panelClass)) {
-                classes = classes.concat(config.panelClass);
-            } else {
-                classes.push(config.panelClass as string);
-            }
-        }
-        return classes;
-    }
-
     private buildScrollStrategy(config: ThyPopoverConfig): ScrollStrategy {
         if (config.scrollStrategy) {
             return config.scrollStrategy;
@@ -96,7 +84,6 @@ export class ThyPopover extends ThyUpperOverlayService<ThyPopoverConfig, ThyPopo
         const overlayConfig = this.buildBaseOverlayConfig(config);
         overlayConfig.positionStrategy = positionStrategy;
         overlayConfig.scrollStrategy = this.buildScrollStrategy(config);
-        overlayConfig.panelClass = this.buildOverlayPanelClasses(config);
         return overlayConfig;
     }
 

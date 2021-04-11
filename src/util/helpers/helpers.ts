@@ -292,3 +292,21 @@ export function shallowEqual(objA?: Record<string, any>, objB?: Record<string, a
 
     return true;
 }
+
+export function concatArray<TItem>(items: TItem | TItem[], originalItems: TItem | TItem[] = []): TItem[] {
+    let _originalItems: TItem[] = [];
+    if (!originalItems) {
+        _originalItems = [];
+    } else {
+        _originalItems = coerceArray(originalItems);
+    }
+    if (items) {
+        if (isArray(items)) {
+            return [..._originalItems, ...items];
+        } else {
+            return [..._originalItems, items];
+        }
+    } else {
+        return _originalItems;
+    }
+}
