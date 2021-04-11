@@ -304,6 +304,15 @@ describe(`thyPopover`, () => {
             assertPopoverSimpleContentComponent(overlayRef);
         });
 
+        it('should get correct pane class', () => {
+            popover.open(PopoverSimpleContentComponent, {
+                origin: viewContainerFixture.componentInstance.openPopoverOrigin
+            });
+            const paneElement = getOverlayPaneElement();
+            expect(paneElement).toBeTruthy();
+            expect(paneElement.classList.contains(`cdk-overlay-pane`)).toBeTruthy();
+        });
+
         it('should open a popover with a template', () => {
             const overlayRef = popover.open(viewContainerFixture.componentInstance.template, {
                 origin: viewContainerFixture.componentInstance.openTemplate
@@ -506,14 +515,14 @@ describe(`thyPopover`, () => {
     });
 
     describe('config', () => {
-        const otherConfig = { panelClass: [`cdk-overlay-pane`] };
+        const otherConfig: { panelClass: string[] } = { panelClass: [] };
         describe('has default config', () => {
             let popoverConfigFixture: ComponentFixture<PopoverConfigComponent>;
             let popoverConfigComponent: PopoverConfigComponent;
             let closeScrollStrategy: CloseScrollStrategy;
             const globalDefaultConfig = { hasBackdrop: false };
 
-            beforeEach(async(() => {
+            beforeEach(() => {
                 TestBed.overrideModule(PopoverTestModule, {
                     set: {
                         providers: [
@@ -533,7 +542,7 @@ describe(`thyPopover`, () => {
                     }
                 });
                 TestBed.compileComponents();
-            }));
+            });
 
             beforeEach(inject(
                 [ThyPopover, Location, OverlayContainer],
@@ -572,6 +581,9 @@ describe(`thyPopover`, () => {
                 const currentConfig = popoverConfigComponent.popoverRef.getOverlayRef().getConfig();
                 const defaultConfig = { ...THY_POPOVER_DEFAULT_CONFIG_VALUE, ...globalDefaultConfig, ...otherConfig };
                 expect(comparePopoverConfig(defaultConfig as ThyPopoverConfig, currentConfig as ThyPopoverConfig)).toBeTruthy();
+                const paneElement = getOverlayPaneElement();
+                expect(paneElement).toBeTruthy();
+                expect(paneElement.classList.contains(`cdk-overlay-pane`)).toBeTruthy();
             });
 
             it('should be overridable by open() options', fakeAsync(() => {
@@ -627,7 +639,7 @@ describe(`thyPopover`, () => {
                 const expectConfig = {
                     ...THY_POPOVER_DEFAULT_CONFIG_VALUE,
                     ...otherConfig,
-                    ...{ panelClass: ['cdk-overlay-pane', 'class1', 'class2'] }
+                    ...{ panelClass: ['class1', 'class2'] }
                 };
                 expect(comparePopoverConfig(expectConfig as ThyPopoverConfig, currentConfig as ThyPopoverConfig)).toBeTruthy();
             });
@@ -640,7 +652,7 @@ describe(`thyPopover`, () => {
                 const expectConfig = {
                     ...THY_POPOVER_DEFAULT_CONFIG_VALUE,
                     ...otherConfig,
-                    ...{ panelClass: ['cdk-overlay-pane', 'panel-class'] }
+                    ...{ panelClass: ['panel-class'] }
                 };
                 expect(comparePopoverConfig(expectConfig as ThyPopoverConfig, currentConfig as ThyPopoverConfig)).toBeTruthy();
             });
