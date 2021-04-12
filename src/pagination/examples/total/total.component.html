@@ -1,0 +1,11 @@
+<h5>Default</h5>
+<thy-pagination [(thyPageIndex)]="currentIndex" [thyPageSize]="10" [thyTotal]="200" [thyShowTotal]="true"></thy-pagination>
+<br />
+<br />
+<h5>Custom Template</h5>
+<thy-pagination [(thyPageIndex)]="currentIndex" [thyPageSize]="10" [thyTotal]="200" [thyShowTotal]="totalTemplate"></thy-pagination>
+<ng-template #totalTemplate let-range="range" let-total>
+  <div>
+    {{ range.from }}-{{ range.to }} of {{ total }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 共计<span class="text-primary"> {{ total }} </span>条
+  </div>
+</ng-template>
