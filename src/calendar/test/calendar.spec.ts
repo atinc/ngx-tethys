@@ -1,4 +1,4 @@
-import { endOfMonth, startOfMonth } from 'date-fns';
+import { endOfMonth, getMonth, getYear, startOfMonth } from 'date-fns';
 import { getUnixTime, TinyDate } from 'ngx-tethys';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
 
@@ -45,7 +45,7 @@ import { ThyCalendarModule } from '../module';
     `
 })
 export class TestCalendarBasicComponent {
-    value = new Date();
+    value = new Date(2021, 2, 1);
 
     value1 = new Date(2020, 1, 3);
 
@@ -142,18 +142,29 @@ describe('calendar', () => {
             expect(debugElement.nativeElement.querySelector('.thy-calendar-full-table')).toBeTruthy();
         });
 
-        it('should onDateSelect was beCalled when thyDisabledDate is default', () => {
-            const calendarSpy = spyOn(debugElement.componentInstance, 'onDateSelect');
-            const tableCells = Array.from((fixture.debugElement.nativeElement as HTMLElement).querySelectorAll('.thy-calendar-full-cell'));
-            dispatchFakeEvent(tableCells[0], 'click', true);
-            expect(calendarSpy).toHaveBeenCalledTimes(1);
-        });
+        it(
+            'should onDateSelect was beCalled when thyDisabledDate is default',
+            waitForAsync(() => {
+                fixture.detectChanges();
+
+                fixture.whenStable().then(() => {
+                    const calendarSpy = spyOn(debugElement.componentInstance, 'onDateSelect');
+                    const tableCells = Array.from(
+                        (fixture.debugElement.nativeElement as HTMLElement).querySelectorAll('.thy-calendar-full-cell')
+                    );
+                    dispatchFakeEvent(tableCells[0], 'click', true);
+                    expect(calendarSpy).toHaveBeenCalledTimes(1);
+                    expect(calendarSpy).toHaveBeenCalledWith(new TinyDate(new Date(2021, 1, 28)));
+                });
+            })
+        );
 
         it('should selectedChange was beCalled when click cell', () => {
             const selectedChangeSpy = spyOn(component, 'selectedChange');
             const tableCells = Array.from((fixture.debugElement.nativeElement as HTMLElement).querySelectorAll('.thy-calendar-full-cell'));
             dispatchFakeEvent(tableCells[0], 'click', true);
             expect(selectedChangeSpy).toHaveBeenCalledTimes(1);
+            expect(selectedChangeSpy).toHaveBeenCalledWith(new Date(2021, 1, 28));
         });
 
         it('should dateRangeChange was beCalled when icon-nav was clicked', () => {
@@ -168,7 +179,7 @@ describe('calendar', () => {
             fixture.detectChanges();
             const now = new Date();
 
-            const calendarInstance = fixture.debugElement.queryAll(By.directive(ThyCalendarComponent))[0].componentInstance;
+            const calendarInstance = fixture.debugElement.queryAll(By.directive(ThyCalendarComponent))[1].componentInstance;
             component.value1 = now;
             fixture.detectChanges();
             tick(500);
@@ -239,24 +250,57 @@ describe('calendar-header', () => {
             expect(debugElement.componentInstance.date.begin).toBe(getUnixTime(startOfMonth(new Date())));
             expect(debugElement.componentInstance.date.end).toBe(getUnixTime(endOfMonth(new Date())));
             expect(rangeChangeSpy).toHaveBeenCalledTimes(1);
+            expect(rangeChangeSpy).toHaveBeenCalledWith({
+                key: 'month',
+                text: getYear(new Date()) + '年' + (getMonth(new Date()) + 1) + '月',
+                begin: getUnixTime(startOfMonth(new Date())),
+                end: getUnixTime(endOfMonth(new Date())),
+                timestamp: {
+                    interval: 1,
+                    unit: 'month'
+                }
+            });
         }));
 
-        it('should onChangeRange was be called', fakeAsync(() => {
-            fixture.detectChanges();
-            const isCurrentDateSpy = spyOn(debugElement.componentInstance, 'isCurrentDate');
-            const onChangeYearSpy = spyOn(debugElement.componentInstance, 'onChangeYear');
-            const onChangeMonthSpy = spyOn(debugElement.componentInstance, 'onChangeMonth');
-            const dateRangeChangeSpy = spyOn(component, 'onDateRangeSelect');
+        it(
+            'should onChangeRange was be called',
+            waitForAsync(() => {
+                fixture.detectChanges();
 
-            const leftSelect = (fixture.debugElement.nativeElement as HTMLElement).querySelectorAll('.select-date-range .thy-icon-nav')[0];
-            dispatchFakeEvent(leftSelect, 'click', true);
-            tick(500);
+                fixture.whenStable().then(() => {
+                    const isCurrentDateSpy = spyOn(debugElement.componentInstance, 'isCurrentDate');
+                    const onChangeYearSpy = spyOn(debugElement.componentInstance, 'onChangeYear');
+                    const onChangeMonthSpy = spyOn(debugElement.componentInstance, 'onChangeMonth');
+                    const dateRangeChangeSpy = spyOn(component, 'onDateRangeSelect');
 
-            expect(isCurrentDateSpy).toHaveBeenCalledTimes(1);
-            expect(onChangeYearSpy).toHaveBeenCalledTimes(1);
-            expect(onChangeMonthSpy).toHaveBeenCalledTimes(1);
-            expect(dateRangeChangeSpy).toHaveBeenCalledTimes(1);
-        }));
+                    const leftSelect = (fixture.debugElement.nativeElement as HTMLElement).querySelectorAll(
+                        '.select-date-range .thy-icon-nav'
+                    )[0];
+                    dispatchFakeEvent(leftSelect, 'click', true);
+
+                    fixture.detectChanges();
+                    const dateInfo = {
+                        key: 'exception',
+                        text: '2020年1月',
+                        begin: getUnixTime(startOfMonth(new Date(2019, 11, 3))),
+                        end: getUnixTime(endOfMonth(new Date(2019, 11, 3))),
+                        timestamp: {
+                            interval: 1,
+                            unit: 'month'
+                        }
+                    };
+
+                    expect(isCurrentDateSpy).toHaveBeenCalledTimes(1);
+                    expect(isCurrentDateSpy).toHaveBeenCalledWith(new TinyDate(new Date(2020, 0, 3)));
+                    expect(onChangeYearSpy).toHaveBeenCalledTimes(1);
+                    expect(onChangeMonthSpy).toHaveBeenCalledTimes(1);
+                    expect(dateRangeChangeSpy).toHaveBeenCalledTimes(1);
+                    expect(onChangeMonthSpy).toHaveBeenCalledWith(dateInfo);
+                    expect(onChangeYearSpy).toHaveBeenCalledWith(dateInfo);
+                    expect(dateRangeChangeSpy).toHaveBeenCalledWith(dateInfo);
+                });
+            })
+        );
 
         it(
             'should onChangeMonth was be called',
