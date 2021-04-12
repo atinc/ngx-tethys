@@ -1,8 +1,8 @@
-<h5>默认</h5>
+<h5>Default</h5>
 <thy-pagination [(thyPageIndex)]="currentIndex" [thyPageSize]="10" [thyTotal]="200" [thyShowTotal]="true"></thy-pagination>
 <br />
 <br />
-<h5>自定义Total模板</h5>
+<h5>Custom Template</h5>
 <thy-pagination [(thyPageIndex)]="currentIndex" [thyPageSize]="10" [thyTotal]="200" [thyShowTotal]="totalTemplate"></thy-pagination>
 <ng-template #totalTemplate let-range="range" let-total>
   <div>
