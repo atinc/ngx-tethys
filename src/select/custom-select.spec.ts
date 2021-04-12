@@ -1410,6 +1410,54 @@ describe('ThyCustomSelect', () => {
         beforeEach(async(() => {
             configureThyCustomSelectTestingModule([BasicSelectComponent]);
         }));
+
+        it('should set first option active when open panel', fakeAsync(() => {
+            const fixture = TestBed.createComponent(BasicSelectComponent);
+            fixture.detectChanges();
+
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+            flush();
+
+            expect(fixture.componentInstance.select.keyManager.activeItem).toEqual(fixture.componentInstance.select.options.toArray()[0]);
+        }));
+
+        it('should set next active option when press down_arrow', fakeAsync(() => {
+            const fixture = TestBed.createComponent(BasicSelectComponent);
+            fixture.detectChanges();
+
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+            flush();
+            dispatchKeyboardEvent(trigger, 'keydown', DOWN_ARROW);
+            fixture.detectChanges();
+            flush();
+
+            expect(fixture.componentInstance.select.keyManager.activeItem).toEqual(fixture.componentInstance.select.options.toArray()[1]);
+        }));
+
+        it('should set selected option active when open panel', fakeAsync(() => {
+            const fixture = TestBed.createComponent(BasicSelectComponent);
+            fixture.detectChanges();
+
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+            flush();
+            dispatchKeyboardEvent(trigger, 'keydown', DOWN_ARROW);
+            dispatchKeyboardEvent(trigger, 'keydown', ESCAPE);
+            fixture.detectChanges();
+            flush();
+            expect(fixture.componentInstance.select.panelOpen).toBeFalsy();
+
+            trigger.click();
+            fixture.detectChanges();
+            flush();
+            expect(fixture.componentInstance.select.keyManager.activeItem).toEqual(fixture.componentInstance.select.options.toArray()[1]);
+        }));
+
         it('should stopPropagation when press enter on custom-select', fakeAsync(() => {
             const fixture = TestBed.createComponent(BasicSelectComponent);
             fixture.detectChanges();
@@ -1419,13 +1467,6 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             flush();
 
-            // expect(fixture.componentInstance.select.panelOpen).toBe(true);
-
-            dispatchKeyboardEvent(trigger, 'keydown', DOWN_ARROW);
-            fixture.detectChanges();
-            flush();
-
-            expect(fixture.componentInstance.select.keyManager.activeItem).toEqual(fixture.componentInstance.select.options.toArray()[0]);
             const spy = jasmine.createSpy('keydown spy');
             fromEvent(fixture.debugElement.nativeElement, 'keydown').subscribe(() => {
                 spy();
@@ -1436,6 +1477,48 @@ describe('ThyCustomSelect', () => {
             flush();
 
             expect(spy).not.toHaveBeenCalled();
+        }));
+
+        it('should select an option when press enter on active option', fakeAsync(() => {
+            const fixture = TestBed.createComponent(BasicSelectComponent);
+            fixture.detectChanges();
+
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+            flush();
+
+            dispatchKeyboardEvent(trigger, 'keydown', ENTER);
+            fixture.detectChanges();
+            flush();
+
+            expect(fixture.componentInstance.options.first.selected).toEqual(true);
+            expect(fixture.componentInstance.select.selectionModel.selected[0]).toBe(fixture.componentInstance.options.first);
+        }));
+
+        it('should open the panel when press enter on trigger', fakeAsync(() => {
+            const fixture = TestBed.createComponent(BasicSelectComponent);
+            fixture.detectChanges();
+
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            dispatchKeyboardEvent(trigger, 'keydown', ENTER);
+            fixture.detectChanges();
+            flush();
+
+            expect(fixture.componentInstance.select.panelOpen).toEqual(true);
+        }));
+
+        it('should select an option when press down_arrow on trigger', fakeAsync(() => {
+            const fixture = TestBed.createComponent(BasicSelectComponent);
+            fixture.detectChanges();
+
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            dispatchKeyboardEvent(trigger, 'keydown', DOWN_ARROW);
+            fixture.detectChanges();
+            flush();
+
+            expect(fixture.componentInstance.options.first.selected).toEqual(true);
+            expect(fixture.componentInstance.select.selectionModel.selected[0]).toBe(fixture.componentInstance.options.first);
         }));
     });
 
@@ -1541,5 +1624,32 @@ describe('ThyCustomSelect', () => {
                 expect(fixture.componentInstance.select.cdkConnectedOverlay.overlayRef.updatePosition).toHaveBeenCalledTimes(1);
             });
         });
+    });
+
+    describe('active', () => {
+        beforeEach(async(() => {
+            configureThyCustomSelectTestingModule([BasicSelectComponent]);
+        }));
+        it('should active first option when open panel', fakeAsync(() => {
+            const fixture = TestBed.createComponent(BasicSelectComponent);
+            fixture.detectChanges();
+
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+            flush();
+
+            expect(fixture.componentInstance.select.keyManager.activeItem).toEqual(fixture.componentInstance.select.options.toArray()[0]);
+            const spy = jasmine.createSpy('keydown spy');
+            fromEvent(fixture.debugElement.nativeElement, 'keydown').subscribe(() => {
+                spy();
+            });
+
+            dispatchKeyboardEvent(trigger, 'keydown', ENTER);
+            fixture.detectChanges();
+            flush();
+
+            expect(spy).not.toHaveBeenCalled();
+        }));
     });
 });

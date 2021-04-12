@@ -56,6 +56,8 @@ class BasicSelectComponent {
     opened() {
         this.openedSpy();
     }
+
+    valueChange(event: string) {}
 }
 describe('ThyAutocomplete', () => {
     let overlayContainer: OverlayContainer;

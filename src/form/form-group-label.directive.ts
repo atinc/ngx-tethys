@@ -20,7 +20,9 @@ export class ThyFormGroupLabelDirective {
 
     @Input()
     set thyLabelTranslateKey(translateKey: string) {
-        this.labelText = this.thyTranslate.instant(translateKey);
+        if (translateKey) {
+            this.labelText = this.thyTranslate.instant(translateKey);
+        }
     }
 
     @Input()

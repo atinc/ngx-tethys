@@ -1,0 +1,13 @@
+@import 'variables.scss';
+
+:host {
+    .demo-layout-backdrop {
+        > :not(:first-child).thy-layout {
+            margin-top: 20px;
+        }
+
+        .thy-layout-content {
+            background: $gray-200;
+        }
+    }
+}

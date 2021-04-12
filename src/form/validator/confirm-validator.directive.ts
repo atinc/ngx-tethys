@@ -4,7 +4,7 @@ import { AbstractControl, NG_VALIDATORS, Validator, ValidatorFn } from '@angular
 export function confirmValidator(value: string): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
         const isEqual = value === control.value;
-        return !isEqual ? { confirm: { value: control.value } } : null;
+        return !isEqual ? { confirm: { value: value, actual: control.value } } : null;
     };
 }
 

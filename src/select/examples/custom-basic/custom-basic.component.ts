@@ -38,6 +38,7 @@ export class ThySelectCustomBasicExampleComponent implements OnInit {
         for (let i = 10; i < 36; i++) {
             children.push({ label: i.toString(36) + i, value: i.toString(36) + i });
         }
+        children.push({ label: '张三', value: 'zhangsan' });
         this.listOfOption = children;
     }
 

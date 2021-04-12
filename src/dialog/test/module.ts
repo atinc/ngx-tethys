@@ -36,7 +36,7 @@ export class DialogSimpleContentComponent {
         <thy-dialog-body thyClearPadding>
             <p>dialog body</p>
         </thy-dialog-body>
-        <thy-dialog-footer thyShowBorderTop="true">
+        <thy-dialog-footer thyDivided="true">
             <button thyButton="primary" (click)="ok()">确认</button>
             <button thyButton="link-secondary" (click)="close()">取消</button>
         </thy-dialog-footer>

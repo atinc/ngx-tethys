@@ -183,8 +183,8 @@ export class ThyOptionComponent extends SelectOptionBase implements OnDestroy, H
         this.cdr.markForCheck();
     }
 
-    getLabel?(): string {
-        return this.thyLabelText || (this.getHostElement().textContent || '').trim();
+    getLabel(): string {
+        return '';
     }
 
     private emitSelectionChangeEvent(isUserInput = false): void {

@@ -109,7 +109,7 @@ export class ThyFormValidatorService {
         return messages;
     }
 
-    _setControlValidationError(name: string, errorMessages: string[]) {
+    private _setControlValidationError(name: string, errorMessages: string[]) {
         const validation = this._tryGetValidation(name);
         validation.errorMessages = errorMessages;
         validation.hasError = true;

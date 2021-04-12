@@ -92,17 +92,17 @@ describe('ThySelectionList without forms', () => {
             expect(listOptions[0].nativeElement.classList).toContain('thy-grid-option');
         });
 
-        it(`should hover first when thyFirstItemDefaultActive is true`, () => {
+        it(`should hover first when thyAutoActiveFirstItem is true`, () => {
             const selectionFixture = TestBed.createComponent(SelectionListWithListOptionsComponent);
-            selectionFixture.debugElement.componentInstance.firstItemDefaultActive = true;
+            selectionFixture.debugElement.componentInstance.autoActiveFirstItem = true;
             const selectionListOptions = selectionFixture.debugElement.queryAll(By.directive(ThyListOptionComponent));
             selectionFixture.detectChanges();
             expect(selectionListOptions[0].nativeElement.classList).toContain('hover');
         });
 
-        it(`should not hover first when thyFirstItemDefaultActive is false`, () => {
+        it(`should not hover first when thyAutoActiveFirstItem is false`, () => {
             const component = fixture.debugElement.componentInstance;
-            component.firstItemDefaultActive = false;
+            component.autoActiveFirstItem = false;
             fixture.detectChanges();
             expect(listOptions[0].nativeElement.classList).not.toContain('hover');
         });
@@ -131,7 +131,7 @@ describe('ThySelectionList without forms', () => {
             id="selection-list-1"
             [thyLayout]="layout"
             (thySelectionChange)="onValueChange($event)"
-            [thyFirstItemDefaultActive]="firstItemDefaultActive"
+            [thyAutoActiveFirstItem]="autoActiveFirstItem"
         >
             <thy-list-option thyValue="inbox">
                 Inbox (disabled selection-option)
@@ -153,7 +153,7 @@ class SelectionListWithListOptionsComponent {
 
     layout: ThyListLayout = 'list';
 
-    firstItemDefaultActive = false;
+    autoActiveFirstItem = false;
 
     onValueChange(_change: ThySelectionListChange) {}
 }
