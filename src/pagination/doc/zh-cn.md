@@ -4,22 +4,62 @@ title: Pagination
 subtitle: 分页
 ---
 
-采用分页的形式分隔长列表，每次只加载一个页面。
+<div class="dg-alert dg-alert-info">列表数据展示分页组件。</div>
 
-**何时使用** 
+## 何时使用  
 - 当加载/渲染所有数据将花费很多时间时；
 - 可切换页码浏览数据。
 
-### 基本使用
+## 模块导入
+```
+import { ThyPaginationModule } from "ngx-tethys/pagination";
+```
+## 如何使用
 
-- 基本使用只需要设置一下分页参数 `当前所在分页：pageIndex`|` 每页显示大小：pageSize`| `总页数：total` 即可
+最基本的使用如下：
 
 ```
-pagination = {
-    pageIndex: 1,
-    pageSize: 20,
-    total: 100
-};
+<thy-pagination
+  [(thyPageIndex)]="currentIndex"
+  [thyPageSize]="10"
+  [thyTotal]="50"
+  [thyShowQuickJumper]="false"
+></thy-pagination>
 ```
-<example name="thy-pagination-base-example" />
 
+展示效果如下：
+
+<example name="thy-pagination-basic-example" />
+
+
+## 全局配置
+Pagination 支持全局统一配置组件每页的默认条数，上一页下一页按钮的显示文本等许多个性化的配置，具体的配置如下:
+
+```
+@NgModule({
+    ...,
+    imports: [ThyPaginationModule],
+    providers: [
+        {
+            provide: THY_PAGINATION_CONFIG,
+            useValue: {
+                boundaryLinks: false,
+                directionLinks: true,
+                pageSize: 20,
+                maxCount: 7,
+                rangeCount: 5,
+                showQuickJumper: true,
+                firstText: '首页',
+                lastText: '尾页',
+                previousText: '',
+                nextText: '',
+                firstIcon: '',
+                lastIcon: '',
+                previousIcon: 'angle-left',
+                nextIcon: 'angle-right',
+                totalPagesFormat: '共{total}页'
+            }
+        }
+    ]
+})
+```

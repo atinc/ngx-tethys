@@ -5,11 +5,7 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './jumper.component.html'
 })
 export class ThyPaginationJumperExampleComponent implements OnInit {
-    public pagination = {
-        pageIndex: 3,
-        pageSize: 10,
-        total: 100
-    };
+    currentIndex = 10;
 
     ngOnInit() {}
 }

@@ -4,10 +4,13 @@ import { filter, take } from 'rxjs/operators';
 import { OverlayRef, PositionStrategy, GlobalPositionStrategy } from '@angular/cdk/overlay';
 import { ThyUpperOverlayContainer } from './upper-overlay-container';
 import { ESCAPE } from 'ngx-tethys/util';
-
-export abstract class ThyUpperOverlayRef<T, TContainer extends ThyUpperOverlayContainer, TResult = any> {
+export abstract class ThyUpperOverlayRef<
+    TComponent = unknown,
+    TContainer extends ThyUpperOverlayContainer = ThyUpperOverlayContainer,
+    TResult = any
+> {
     id: string;
-    componentInstance: T;
+    componentInstance: TComponent;
     backdropClosable: boolean;
     containerInstance: TContainer;
     abstract getOverlayRef(): OverlayRef;

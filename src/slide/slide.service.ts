@@ -1,5 +1,5 @@
 import { ComponentTypeOrTemplateRef, ThyUpperOverlayRef, ThyUpperOverlayService } from 'ngx-tethys/core';
-import { coerceArray } from 'ngx-tethys/util';
+import { coerceArray, concatArray } from 'ngx-tethys/util';
 import { of } from 'rxjs';
 
 import { Directionality } from '@angular/cdk/bidi';
@@ -26,25 +26,17 @@ export class ThySlideService extends ThyUpperOverlayService<ThySlideConfig, ThyS
         }
     }
 
-    private getOverlayPanelClasses(slideConfig: ThySlideConfig) {
-        const classes: string[] = ['thy-slide-overlay-pane', `thy-slide-${slideConfig.from}`];
-        // 兼容之前的 class
-        if (slideConfig.class) {
-            return classes.concat(coerceArray(slideConfig.class));
-        }
-        if (slideConfig.panelClass) {
-            return classes.concat(coerceArray(slideConfig.panelClass));
-        }
-        return classes;
-    }
-
     protected buildOverlayConfig(config: ThySlideConfig): OverlayConfig {
         config.id = config.id || (config.key as string);
+        const defaultClasses: string[] = ['thy-slide-overlay-pane', `thy-slide-${config.from}`];
         const overlayConfig = {
-            ...this.buildBaseOverlayConfig(config),
-            width: config.width,
-            panelClass: this.getOverlayPanelClasses(config)
+            ...this.buildBaseOverlayConfig(config, defaultClasses),
+            width: config.width
         };
+        // 兼容之前的 class
+        if (config.class) {
+            overlayConfig.panelClass = concatArray(overlayConfig.panelClass, config.class);
+        }
         return overlayConfig;
     }
 

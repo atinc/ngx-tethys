@@ -1,15 +1,5 @@
-<thy-pagination
-  [(thyPageIndex)]="pagination.pageIndex"
-  [thyPageSize]="pagination.pageSize"
-  [thyTotal]="pagination.total"
-  [thySize]="'sm'"
-  [thyShowQuickJumper]="true"
-></thy-pagination>
+<thy-pagination [(thyPageIndex)]="currentIndex" [thyPageSize]="10" [thyTotal]="500" [thySize]="'sm'"></thy-pagination>
 <br />
-<thy-pagination
-  [(thyPageIndex)]="pagination.pageIndex"
-  [thyPageSize]="pagination.pageSize"
-  [thyTotal]="pagination.total"
-  [thySize]="'lg'"
-  [thyShowQuickJumper]="true"
-></thy-pagination>
+<thy-pagination [(thyPageIndex)]="currentIndex" [thyPageSize]="10" [thyTotal]="500"></thy-pagination>
+<br />
+<thy-pagination [(thyPageIndex)]="currentIndex" [thyPageSize]="10" [thyTotal]="500" [thySize]="'lg'"></thy-pagination>
