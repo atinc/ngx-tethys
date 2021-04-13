@@ -5,10 +5,10 @@ import { Component } from '@angular/core';
 import { ThySlideDemoContentComponent } from '../slide-content.component';
 
 @Component({
-    selector: 'thy-slide-position-example',
-    templateUrl: './position.component.html'
+    selector: 'thy-slide-direction-example',
+    templateUrl: './direction.component.html'
 })
-export class ThySlidePositionExampleComponent {
+export class ThySlideDirectionExampleComponent {
     position: ThySlideFromTypes = 'right';
 
     constructor(private thySlideNewService: ThySlideService) {}

@@ -1,1 +1,14 @@
-<button [thyButton]="'primary'" (click)="showSlide()">Open</button>
+<div class="btn-pair">
+  <button [thyButton]="'primary'" (click)="showSlideWithComponent()">Open with component</button>
+
+  <button [thyButton]="'primary'" (click)="showSlideWithTemplate(template)">Open with template</button>
+</div>
+
+<ng-template #template>
+  <thy-slide-layout>
+    <thy-slide-header [thyTitle]="'slide title'"></thy-slide-header>
+    <thy-slide-body>
+      slide body —— open with template
+    </thy-slide-body>
+  </thy-slide-layout>
+</ng-template>

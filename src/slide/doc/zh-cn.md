@@ -33,9 +33,6 @@ this.thySlideService.open(ThySlideContentComponent, {
 });
 ```
 
-展示效果如下：
-<example name="thy-slide-basic-example" />
-
 ### 打开模版
 
 通过调用`open`方法，传入要加载的模板`TemplateRef<T>`和可选的配置对象打开弹出框。
@@ -51,7 +48,7 @@ openSlide(template: TemplateRef<any>) {
 ```
 
 展示效果如下：
-<example name="thy-slide-template-example" />
+<example name="thy-slide-basic-example" />
 
 ### 设置全局默认值
 

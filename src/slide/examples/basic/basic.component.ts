@@ -1,6 +1,6 @@
 import { ThySlideService } from 'ngx-tethys/slide';
 
-import { Component } from '@angular/core';
+import { Component, TemplateRef } from '@angular/core';
 
 import { ThySlideDemoContentComponent } from '../slide-content.component';
 
@@ -11,9 +11,15 @@ import { ThySlideDemoContentComponent } from '../slide-content.component';
 export class ThySlideBasicExampleComponent {
     constructor(private thySlideNewService: ThySlideService) {}
 
-    showSlide() {
+    showSlideWithComponent() {
         this.thySlideNewService.open(ThySlideDemoContentComponent, {
-            id: 'basic'
+            id: 'withComponent'
+        });
+    }
+
+    showSlideWithTemplate(template: TemplateRef<any>) {
+        this.thySlideNewService.open(template, {
+            id: 'withTemplate'
         });
     }
 }
