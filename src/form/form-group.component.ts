@@ -59,8 +59,10 @@ export class ThyFormGroupComponent implements OnInit {
         this.hasFeedback = true;
         if (internalIconMap[value]) {
             this.feedbackIcon = internalIconMap[value];
+            this.feedbackSvgIconName = null;
         } else {
             this.feedbackSvgIconName = value;
+            this.feedbackIcon = null;
         }
     }
 

@@ -33,7 +33,7 @@ const globalValidationMessages = {
 export class ThyFormValidatorLoader {
     private config: ThyFormValidatorGlobalConfig;
 
-    private _getDefaultValidationMessage(key: string) {
+    private getDefaultValidationMessage(key: string) {
         if (this.config.globalValidationMessages && this.config.globalValidationMessages[key]) {
             return this.config.globalValidationMessages[key];
         } else {
@@ -52,15 +52,15 @@ export class ThyFormValidatorLoader {
         return this.config.validationMessages;
     }
 
-    getErrorMessage(name: string, key: string) {
+    getErrorMessage(name: string, key: string): string {
         if (this.validationMessages[name] && this.validationMessages[name][key]) {
             return this.validationMessages[name][key];
         } else {
-            return this._getDefaultValidationMessage(key);
+            return this.getDefaultValidationMessage(key);
         }
     }
 
-    getErrorMessages(name: string, validationErrors: ValidationErrors) {
+    getErrorMessages(name: string, validationErrors: ValidationErrors): string[] {
         const messages = [];
         for (const validationError in validationErrors) {
             if (validationErrors.hasOwnProperty(validationError)) {
@@ -70,7 +70,7 @@ export class ThyFormValidatorLoader {
         return messages;
     }
 
-    defaultShowError(element: any, errorMessages: string[]) {
+    defaultShowError(element: HTMLElement, errorMessages: string[]) {
         if (element && element.parentElement) {
             const documentFrag = document.createDocumentFragment();
             const divNode = document.createElement('DIV');
@@ -92,7 +92,7 @@ export class ThyFormValidatorLoader {
     removeError(element: HTMLElement) {
         element.classList.remove(INVALID_CLASS);
         if (helpers.isFunction(this.config.removeElementError)) {
-            (this.config.showElementError as any)(element);
+            this.config.removeElementError(element);
         } else if (this.config.showElementError) {
             this.defaultRemoveError(element);
         } else {
@@ -103,7 +103,7 @@ export class ThyFormValidatorLoader {
     showError(element: HTMLElement, errorMessages: string[]) {
         element.classList.add(INVALID_CLASS);
         if (helpers.isFunction(this.config.showElementError)) {
-            (this.config.showElementError as any)(element, errorMessages);
+            this.config.showElementError(element, errorMessages);
         } else if (this.config.showElementError) {
             this.defaultShowError(element, errorMessages);
         } else {

@@ -1,16 +1,5 @@
 import { Directive, ElementRef, ViewContainerRef, NgZone, Input, OnInit, OnDestroy, TemplateRef, Inject } from '@angular/core';
-import {
-    Overlay,
-    ScrollDispatcher,
-    OverlayRef,
-    ScrollStrategy,
-    FlexibleConnectedPositionStrategy,
-    OriginConnectionPosition,
-    OverlayConnectionPosition,
-    HorizontalConnectionPos,
-    VerticalConnectionPos,
-    ConnectedOverlayPositionChange
-} from '@angular/cdk/overlay';
+import { Overlay, ScrollDispatcher, OverlayRef, ScrollStrategy, FlexibleConnectedPositionStrategy } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { takeUntil, take } from 'rxjs/operators';
 

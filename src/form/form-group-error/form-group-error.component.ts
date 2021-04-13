@@ -1,11 +1,5 @@
-import {
-    Component,
-    HostBinding,
-    ViewEncapsulation,
-    OnInit,
-    Optional,
-    Input
-} from '@angular/core';
+import { InputBoolean } from 'ngx-tethys/core';
+import { Component, HostBinding, ViewEncapsulation, OnInit, Optional, Input } from '@angular/core';
 import { ThyFormDirective } from '../form.directive';
 
 @Component({
@@ -14,10 +8,9 @@ import { ThyFormDirective } from '../form.directive';
     encapsulation: ViewEncapsulation.None
 })
 export class ThyFormGroupErrorComponent implements OnInit {
-
     public errors: string[];
 
-    @Input() thyShowFirst = true;
+    @Input() @InputBoolean() thyShowFirst = true;
 
     @Input()
     set thyErrors(errors: string[]) {
@@ -36,10 +29,7 @@ export class ThyFormGroupErrorComponent implements OnInit {
 
     @HostBinding('class.row') isHorizontal = true;
 
-    constructor(
-        @Optional() private thyParentForm: ThyFormDirective
-    ) {
-    }
+    constructor(@Optional() private thyParentForm: ThyFormDirective) {}
 
     ngOnInit() {
         if (this.thyParentForm) {

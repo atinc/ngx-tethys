@@ -1,0 +1,44 @@
+@import 'variables.scss';
+
+:host {
+    > :not(:first-child).thy-layout {
+        margin-top: 20px;
+    }
+}
+
+:host ::ng-deep {
+    .thy-layout {
+        .thy-layout-header {
+            background: rgba($color: $primary, $alpha: 0.6);
+            .layout-header-title {
+                color: $primary;
+                .title-name {
+                    color: $white;
+                }
+            }
+        }
+
+        .thy-layout-sidebar {
+            background: rgba($color: $primary, $alpha: 0.75);
+            color: $white;
+            text-align: center;
+            padding-top: 20px;
+        }
+
+        .thy-layout-content {
+            background: rgba($color: $primary, $alpha: 0.9);
+            color: $white;
+
+            .thy-layout-content-section {
+                background: rgba($color: $warning, $alpha: 0.9);
+                text-align: center;
+            }
+
+            .thy-layout-content-main {
+                background: #ffa8b4;
+                text-align: center;
+                padding-top: 10px;
+            }
+        }
+    }
+}

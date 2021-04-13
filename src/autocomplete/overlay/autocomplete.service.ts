@@ -5,7 +5,8 @@ import {
     OverlayRef,
     PositionStrategy,
     ScrollDispatcher,
-    OverlayContainer
+    OverlayContainer,
+    FlexibleConnectedPositionStrategy
 } from '@angular/cdk/overlay';
 import { TemplateRef, ViewContainerRef, Injectable, ElementRef, Injector, OnDestroy, Inject, NgZone } from '@angular/core';
 import { coerceElement, coerceArray } from '@angular/cdk/coercion';
@@ -22,7 +23,6 @@ import { autocompleteUpperOverlayOptions } from './autocomplete.options';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { DOCUMENT } from '@angular/common';
 import { Platform } from '@angular/cdk/platform';
-import { FlexibleConnectedPositionStrategy, FlexibleConnectedPositionStrategyOrigin } from 'ngx-tethys/core';
 import { StaticProvider } from '@angular/core';
 
 @Injectable({
@@ -61,25 +61,12 @@ export class ThyAutocompleteService extends ThyUpperOverlayService<ThyAutocomple
         return positionStrategy;
     }
 
-    private buildOverlayPanelClasses(config: ThyAutocompleteConfig) {
-        let classes = [`cdk-overlay-pane`];
-        if (config.panelClass) {
-            if (isArray(config.panelClass)) {
-                classes = classes.concat(config.panelClass);
-            } else {
-                classes.push(config.panelClass as string);
-            }
-        }
-        return classes;
-    }
-
     protected buildOverlayConfig<TData>(config: ThyAutocompleteConfig<TData>): OverlayConfig {
         const strategy = this.buildPositionStrategy(config);
         const overlayConfig = this.buildBaseOverlayConfig(config);
         overlayConfig.positionStrategy = strategy;
         overlayConfig.scrollStrategy = config.scrollStrategy || this.overlay.scrollStrategies.block();
         overlayConfig.width = config.width;
-        overlayConfig.panelClass = this.buildOverlayPanelClasses(config);
         return overlayConfig;
     }
 

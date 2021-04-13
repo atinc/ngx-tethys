@@ -3,16 +3,20 @@ An UI components based on Worktile Design and Angular.
 
 [![CircleCI](https://circleci.com/gh/atinc/ngx-tethys.svg?style=shield)](https://circleci.com/gh/atinc/ngx-tethys)
 [![Coverage Status][coveralls-image]][coveralls-url]
+![](https://img.shields.io/badge/Made%20with%20Angular-red?logo=angular)
 [![npm (scoped)](https://img.shields.io/npm/v/ngx-tethys?style=flat)](https://www.npmjs.com/package/ngx-tethys)
 [![npm](https://img.shields.io/npm/dm/ngx-tethys)](https://www.npmjs.com/package/ngx-tethys)
-![npm bundle size (scoped)](https://img.shields.io/bundlephobia/min/ngx-tethys) 
+[![release](https://img.shields.io/github/release-date/NG-ZORRO/ng-zorro-antd.svg?style=flat-square
+)](https://github.com/atinc/ngx-tethys)
+[![docgeni](https://img.shields.io/badge/docs%20by-docgeni-348fe4)](https://github.com/docgeni/docgeni)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 
 [coveralls-image]: https://coveralls.io/repos/github/atinc/ngx-tethys/badge.svg?branch=master
 [coveralls-url]: https://coveralls.io/github/atinc/ngx-tethys
 
 
-## Notes:
+## Note:
 **This repo is only public now, it's far from the level of open source, we not recommended use it in production environment. we do not promise that there will be no breaking changes, only for [Worktile](https://worktile.com/) and [PingCode](https://pingcode.com/)**
 
 # Getting Started
@@ -29,7 +33,7 @@ Manual install via
 ```
 npm install ngx-tethys --save
 // or 
-yarn add
+yarn add ngx-tethys
 ```
 
 ## Usage

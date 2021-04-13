@@ -5,19 +5,19 @@ export type ThyNavType = 'primary' | 'secondary' | 'thirdly' | 'secondary-divide
 export type ThyNavSize = '' | 'sm';
 export type ThyNavHorizontal = '' | 'left' | 'center' | 'right';
 
-const navTypeClassesMap: any = {
-    primary: ['thy-nav', 'nav-primary'],
-    secondary: ['thy-nav', 'nav-secondary'],
-    thirdly: ['thy-nav', 'nav-thirdly'],
-    'secondary-divider': ['thy-nav', 'nav-secondary-divider']
+const navTypeClassesMap = {
+    primary: ['nav-primary'],
+    secondary: ['nav-secondary'],
+    thirdly: ['nav-thirdly'],
+    'secondary-divider': ['nav-secondary-divider']
 };
 
-const navSizeClassesMap: any = {
+const navSizeClassesMap = {
     sm: 'nav-sm'
 };
 
-const navHorizontalClassesMap: any = {
-    left: null,
+const navHorizontalClassesMap = {
+    left: '',
     center: 'justify-content-center',
     right: 'justify-content-end'
 };
@@ -27,6 +27,9 @@ const navHorizontalClassesMap: any = {
     template: `
         <ng-content></ng-content>
     `,
+    host: {
+        class: 'thy-nav'
+    },
     providers: [UpdateHostClassService]
 })
 export class ThyNavComponent implements OnInit {
@@ -37,7 +40,7 @@ export class ThyNavComponent implements OnInit {
 
     @Input()
     set thyType(type: ThyNavType) {
-        this._type = type;
+        this._type = type || 'primary';
         if (this._initialized) {
             this._updateClasses();
         }
@@ -78,7 +81,7 @@ export class ThyNavComponent implements OnInit {
         if (navTypeClassesMap[this._type]) {
             classNames = [...navTypeClassesMap[this._type]];
         }
-        if (navTypeClassesMap[this._size]) {
+        if (navSizeClassesMap[this._size]) {
             classNames.push(navSizeClassesMap[this._size]);
         }
         if (navHorizontalClassesMap[this._horizontal]) {

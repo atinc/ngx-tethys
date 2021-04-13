@@ -1,3 +1,4 @@
+import { ThyIconModule } from 'ngx-tethys/icon';
 import { fakeAsync, TestBed, ComponentFixture, tick } from '@angular/core/testing';
 import { ThyResizableBasicExampleComponent } from '../examples/basic/basic.component';
 import { NgZone, ViewChild, ElementRef, Component } from '@angular/core';
@@ -73,7 +74,7 @@ function mouseMoveTrigger(el: HTMLElement, from: { x: number; y: number }, to: {
 describe('resizable', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyResizableModule, ThyRasterModule],
+            imports: [ThyResizableModule, ThyRasterModule, ThyIconModule],
             declarations: [
                 ThyResizableBasicExampleComponent,
                 ThyResizableCustomizeExampleComponent,

@@ -5,36 +5,31 @@ import { map, catchError, tap } from 'rxjs/operators';
 import { ThyFormDirective } from '../form.directive';
 
 @Directive({
-  selector: '[thyUniqueCheck]',
-  providers: [
-    {
-      provide: NG_ASYNC_VALIDATORS, useExisting: ThyUniqueCheckValidator, multi: true
-    }
-  ]
+    selector: '[thyUniqueCheck]',
+    providers: [
+        {
+            provide: NG_ASYNC_VALIDATORS,
+            useExisting: ThyUniqueCheckValidator,
+            multi: true
+        }
+    ]
 })
 export class ThyUniqueCheckValidator implements AsyncValidator {
+    @Input() thyUniqueCheck: (value: any) => Observable<boolean>;
 
-  @Input() thyUniqueCheck: (value: any) => Observable<boolean>;
+    constructor(private elementRef: ElementRef, @Optional() private thyForm: ThyFormDirective) {}
 
-  constructor(
-    private elementRef: ElementRef,
-    @Optional() private thyForm: ThyFormDirective
-  ) { }
-
-  validate(
-    ctrl: AbstractControl
-  ): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {
-    return this.thyUniqueCheck(ctrl.value)
-      .pipe(
-        map((failed: boolean) => {
-          setTimeout(() => {
-            if (failed && this.thyForm && this.elementRef.nativeElement.name) {
-              this.thyForm.validator.validateControl(this.elementRef.nativeElement.name);
-            }
-          });
-          return failed ? { thyUniqueCheck: failed } : null;
-        }),
-        catchError(() => null)
-      );
-  }
+    validate(ctrl: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {
+        return this.thyUniqueCheck(ctrl.value).pipe(
+            map((failed: boolean) => {
+                setTimeout(() => {
+                    if (failed && this.thyForm && this.elementRef.nativeElement.name) {
+                        this.thyForm.validator.validateControl(this.elementRef.nativeElement.name);
+                    }
+                });
+                return failed ? { thyUniqueCheck: failed } : null;
+            }),
+            catchError(() => of(null))
+        );
+    }
 }

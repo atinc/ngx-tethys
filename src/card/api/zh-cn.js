@@ -4,6 +4,12 @@ module.exports = [
         name: 'thy-card',
         properties: [
             {
+                name: 'thyDivided',
+                type: 'boolean',
+                default: 'false',
+                description: `是否是分割模式，分割模式头部和内容区之间有一条分割线`
+            },
+            {
                 name: 'thyHasLeftRightPadding',
                 type: 'boolean',
                 default: 'true',
@@ -29,9 +35,27 @@ module.exports = [
             },
             {
                 name: 'thySize',
-                type: 'lg | sm',
-                default: '-',
+                type: 'lg | md | sm',
+                default: 'md',
                 description: `头部大小`
+            },
+            {
+                name: 'headerTitle',
+                type: 'ContentChild<TemplateRef>',
+                default: '',
+                description: `自定义头部标题`
+            },
+            {
+                name: 'headerDescription',
+                type: 'ContentChild<TemplateRef>',
+                default: '',
+                description: `自定义头部描述`
+            },
+            {
+                name: 'headerOperation',
+                type: 'ContentChild<TemplateRef>',
+                default: '',
+                description: `自定义头部操作区域`
             }
         ]
     },
@@ -54,9 +78,9 @@ module.exports = [
 
             {
                 name: 'thySize',
-                type: 'sm',
-                default: '-',
-                description: `Content大小`
+                type: ' md | sm',
+                default: 'md',
+                description: `Content 大小, sm 时 padding-top 间距变小`
             }
         ]
     }

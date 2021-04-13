@@ -65,13 +65,13 @@ module.exports = [
                 default: 'false'
             },
             {
-                type: 'ThyPaginationChangedEvent: { page }',
+                type: 'EventEmitter<{ page: number }>',
                 name: '(thyPageChanged)',
                 description: `与Bootstrap pagination 兼容，后续版本会进行删除，参数保持与 bootstrap 一致`,
                 default: '-'
             },
             {
-                type: 'ThyPaginationChangedEvent: number',
+                type: 'EventEmitter<number>',
                 name: '(thyPageIndexChange)',
                 description: `页码改变的回调`,
                 default: '-'
@@ -85,7 +85,7 @@ module.exports = [
         ]
     },
     {
-        type: 'service',
+        type: 'TOKEN',
         name: 'PaginationConfig 参数列表',
         description: '分页配置参数，需要一个初始化的默认值，用于设置分页的具体样式和分页首次加载后的默认显示',
         properties: [

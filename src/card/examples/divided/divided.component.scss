@@ -1,0 +1,8 @@
+.demo-cards {
+    display: flex;
+    flex-direction: row;
+    .thy-card {
+        width: 400px;
+        margin-right: 20px;
+    }
+}

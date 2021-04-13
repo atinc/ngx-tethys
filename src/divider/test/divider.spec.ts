@@ -1,3 +1,5 @@
+import { FormsModule } from '@angular/forms';
+import { ThySelectModule } from 'ngx-tethys/select';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { Component } from '@angular/core';
 
@@ -42,7 +44,7 @@ describe('ThyDividerComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyDividerModule],
+            imports: [ThyDividerModule, FormsModule, ThySelectModule],
             declarations: [ThyTestDividerComponent]
         });
         TestBed.compileComponents().then(r => r);

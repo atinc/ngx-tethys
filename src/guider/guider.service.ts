@@ -7,6 +7,7 @@ import { ThyPopover } from 'ngx-tethys/popover';
 import { ThyGuiderManager } from './guider-manager';
 import { Injectable, RendererFactory2 } from '@angular/core';
 import { ThyGuiderStep, ThyGuiderConfig, defaultGuiderPositionConfig } from './guider.class';
+import { Overlay } from '@angular/cdk/overlay';
 
 @Injectable({
     providedIn: 'root'
@@ -22,6 +23,7 @@ export class ThyGuider {
         private router: Router,
         private guiderManager: ThyGuiderManager,
         private ngZone: NgZone,
+        private overlay: Overlay,
         @Inject(DOCUMENT) private document: any
     ) {}
 
@@ -37,6 +39,7 @@ export class ThyGuider {
             this.router,
             this.guiderManager,
             this.ngZone,
+            this.overlay,
             this.document
         );
         this.guiderRef.closed().subscribe(() => {
