@@ -1,0 +1,9 @@
+<thy-radio-group [(ngModel)]="position" name="slidePosition">
+  <label thyRadio thyLabelText="top" [thyValue]="'top'" [thyInline]="true"></label>
+  <label thyRadio thyLabelText="right" [thyValue]="'right'" [thyInline]="true"></label>
+  <label thyRadio thyLabelText="bottom" [thyValue]="'bottom'" [thyInline]="true"></label>
+  <label thyRadio thyLabelText="left" [thyValue]="'left'" [thyInline]="true"></label>
+</thy-radio-group>
+<div>
+  <button [thyButton]="'primary'" (click)="showSlide()">Open</button>
+</div>
