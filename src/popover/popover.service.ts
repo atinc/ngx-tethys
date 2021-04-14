@@ -1,4 +1,4 @@
-import { getFlexiblePositions, ThyUpperOverlayService } from 'ngx-tethys/core';
+import { getFlexiblePositions, ThyAbstractOverlayService } from 'ngx-tethys/core';
 import { FunctionProp, helpers, isFunction } from 'ngx-tethys/util';
 import { of, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -35,7 +35,7 @@ import { popoverUpperOverlayOptions } from './popover.options';
 @Injectable({
     providedIn: 'root'
 })
-export class ThyPopover extends ThyUpperOverlayService<ThyPopoverConfig, ThyPopoverContainerComponent> implements OnDestroy {
+export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyPopoverContainerComponent> implements OnDestroy {
     private readonly ngUnsubscribe$ = new Subject();
 
     private originInstancesMap = new Map<

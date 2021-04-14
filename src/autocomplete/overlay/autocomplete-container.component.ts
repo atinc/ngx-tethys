@@ -19,7 +19,7 @@ import { AnimationEvent } from '@angular/animations';
 
 import { ThyAutocompleteConfig } from './autocomplete.config';
 import { thyAutocompleteAnimations } from './autocomplete-animations';
-import { ThyUpperOverlayContainer } from 'ngx-tethys/core';
+import { ThyAbstractOverlayContainer } from 'ngx-tethys/core';
 import { autocompleteUpperOverlayOptions } from './autocomplete.options';
 import { Observable, fromEvent, timer } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
@@ -38,7 +38,7 @@ import { ThyClickDispatcher } from 'ngx-tethys/core';
         '(@autocompleteContainer.done)': 'onAnimationDone($event)'
     }
 })
-export class ThyAutocompleteContainerComponent extends ThyUpperOverlayContainer implements AfterViewInit {
+export class ThyAutocompleteContainerComponent extends ThyAbstractOverlayContainer implements AfterViewInit {
     @ViewChild(CdkPortalOutlet, { static: true })
     portalOutlet: CdkPortalOutlet;
 
