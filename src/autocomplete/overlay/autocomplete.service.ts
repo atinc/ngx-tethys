@@ -16,7 +16,7 @@ import { ThyAutocompleteConfig, THY_AUTOCOMPLETE_DEFAULT_CONFIG } from './autoco
 import { ThyAutocompleteRef, ThyInternalAutocompleteRef } from './autocomplete-ref';
 import { Directionality } from '@angular/cdk/bidi';
 import { of, Subject } from 'rxjs';
-import { getFlexiblePositions, ThyUpperOverlayService, ThyUpperOverlayRef } from 'ngx-tethys/core';
+import { getFlexiblePositions, ThyAbstractOverlayService, ThyAbstractOverlayRef } from 'ngx-tethys/core';
 import { takeUntil } from 'rxjs/operators';
 import { isArray } from 'ngx-tethys/util';
 import { autocompleteUpperOverlayOptions } from './autocomplete.options';
@@ -28,7 +28,7 @@ import { StaticProvider } from '@angular/core';
 @Injectable({
     providedIn: 'root'
 })
-export class ThyAutocompleteService extends ThyUpperOverlayService<ThyAutocompleteConfig, ThyAutocompleteContainerComponent>
+export class ThyAutocompleteService extends ThyAbstractOverlayService<ThyAutocompleteConfig, ThyAutocompleteContainerComponent>
     implements OnDestroy {
     private readonly ngUnsubscribe$ = new Subject();
 

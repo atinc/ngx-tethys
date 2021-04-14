@@ -15,7 +15,7 @@ export interface ThyUpperOverlayPosition {
     right?: string;
 }
 
-export class ThyUpperOverlayConfig<TData = unknown> {
+export class ThyAbstractOverlayConfig<TData = unknown> {
     /**
      * Where the attached component should live in Angular's *logical* component tree.
      * This affects what is available for injection and the change detection order for the
