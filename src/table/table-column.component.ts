@@ -11,25 +11,32 @@ import {
     Optional,
     Inject
 } from '@angular/core';
-import { AfterContentInit, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import { ThyGridComponent } from './grid.component';
-import { ThyGridColumn } from './grid.interface';
+import { OnInit } from '@angular/core';
 
-export interface IThyGridColumnParentComponent {
+export interface IThyTableColumnParentComponent {
     updateColumnSelections(key: string, selections: any): void;
 }
 
 /**
+ * @deprecated IThyTableColumnParentComponent is deprecated, please use IThyTableColumnParentComponent
+ */
+export interface IThyGridColumnParentComponent extends IThyTableColumnParentComponent {}
+
+/**
  * Injection token used to provide the parent component to options.
  */
-export const THY_GRID_COLUMN_PARENT_COMPONENT = new InjectionToken<IThyGridColumnParentComponent>('THY_GRID_COLUMN_PARENT_COMPONENT');
+export const THY_TABLE_COLUMN_PARENT_COMPONENT = new InjectionToken<IThyTableColumnParentComponent>('THY_TABLE_COLUMN_PARENT_COMPONENT');
+/**
+ * @deprecated THY_GRID_COLUMN_PARENT_COMPONENT is deprecated, please use THY_TABLE_COLUMN_PARENT_COMPONENT
+ */
+export const THY_GRID_COLUMN_PARENT_COMPONENT = THY_TABLE_COLUMN_PARENT_COMPONENT;
 
 @Component({
-    selector: 'thy-grid-column',
+    selector: 'thy-grid-column,thy-table-column',
     template: '<ng-content></ng-content>',
     encapsulation: ViewEncapsulation.None
 })
-export class ThyGridColumnComponent implements OnInit {
+export class ThyTableColumnComponent implements OnInit {
     @Input() thyModelKey = '';
 
     @Input() thyTitle = '';
@@ -103,7 +110,7 @@ export class ThyGridColumnComponent implements OnInit {
         private el: ElementRef,
         @Optional()
         @Inject(THY_GRID_COLUMN_PARENT_COMPONENT)
-        public parent: IThyGridColumnParentComponent
+        public parent: IThyTableColumnParentComponent
     ) {}
 
     ngOnInit() {
@@ -129,3 +136,8 @@ export class ThyGridColumnComponent implements OnInit {
         );
     }
 }
+
+/**
+ * @deprecated ThyTableColumnComponent is deprecated, please use ThyTableColumnComponent
+ */
+export const ThyGridColumnComponent = ThyTableColumnComponent;
