@@ -128,7 +128,7 @@ const NAME_PACKAGE_RELATION = {
     throwPopoverContentAlreadyAttachedError: 'core',
     ThyAbstractOverlayContainer: 'core',
     ThyAbstractOverlayRef: 'core',
-    ThyInternalUpperOverlayRef: 'core',
+    ThyAbstractInternalOverlayRef: 'core',
     ThyUpperOverlayPosition: 'core',
     ThyAbstractOverlayConfig: 'core',
     ThyUpperOverlayOptions: 'core',

@@ -36,7 +36,7 @@ function getUniqueId(name: string) {
     return uniqueIdMap[name];
 }
 
-export abstract class ThyInternalUpperOverlayRef<
+export abstract class ThyAbstractInternalOverlayRef<
     T,
     TContainer extends ThyAbstractOverlayContainer,
     TResult = undefined

@@ -18,7 +18,7 @@ import { TestBed, inject, flush, fakeAsync, tick } from '@angular/core/testing';
 import { ThyAbstractOverlayService, ComponentTypeOrTemplateRef } from '../../overlay/abstract-overlay.service';
 import { ThyAbstractOverlayConfig, ThyUpperOverlayOptions, ThyUpperOverlayPosition } from '../../overlay/abstract-overlay.config';
 import { ThyAbstractOverlayContainer } from '../../overlay/abstract-overlay-container';
-import { ThyAbstractOverlayRef, ThyInternalUpperOverlayRef } from '../../overlay/abstract-overlay-ref';
+import { ThyAbstractOverlayRef, ThyAbstractInternalOverlayRef } from '../../overlay/abstract-overlay-ref';
 import { isArray } from '../../../util';
 import { CommonModule } from '@angular/common';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -93,7 +93,7 @@ export class TestDialogContainerComponent extends ThyAbstractOverlayContainer im
 }
 
 abstract class TestDialogRef<T = undefined, TResult = undefined> extends ThyAbstractOverlayRef<T, TestDialogContainerComponent, TResult> {}
-class InternalTestDialogRef<T = undefined, TResult = undefined> extends ThyInternalUpperOverlayRef<
+class InternalTestDialogRef<T = undefined, TResult = undefined> extends ThyAbstractInternalOverlayRef<
     T,
     TestDialogContainerComponent,
     TResult
