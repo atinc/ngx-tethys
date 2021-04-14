@@ -1,4 +1,4 @@
-import { ComponentTypeOrTemplateRef, ThyUpperOverlayRef, ThyUpperOverlayService } from 'ngx-tethys/core';
+import { ComponentTypeOrTemplateRef, ThyAbstractOverlayRef, ThyAbstractOverlayService } from 'ngx-tethys/core';
 import { coerceArray, concatArray } from 'ngx-tethys/util';
 import { of } from 'rxjs';
 
@@ -13,7 +13,7 @@ import { ThyInternalSlideRef, ThySlideRef } from './slide-ref.service';
 import { slideDefaultConfigValue, slideUpperOverlayOptions, THY_SLIDE_DEFAULT_CONFIG, ThySlideConfig } from './slide.config';
 
 @Injectable()
-export class ThySlideService extends ThyUpperOverlayService<ThySlideConfig, ThySlideContainerComponent> implements OnDestroy {
+export class ThySlideService extends ThyAbstractOverlayService<ThySlideConfig, ThySlideContainerComponent> implements OnDestroy {
     private originElementAddActiveClass(config: ThySlideConfig) {
         if (config.origin) {
             coerceElement<HTMLElement>(config.origin).classList.add(...coerceArray(config.originActiveClass));
@@ -55,13 +55,13 @@ export class ThySlideService extends ThyUpperOverlayService<ThySlideConfig, ThyS
         overlayRef: OverlayRef,
         containerInstance: ThySlideContainerComponent,
         config: ThySlideConfig
-    ): ThyUpperOverlayRef<T, ThySlideContainerComponent, any> {
+    ): ThyAbstractOverlayRef<T, ThySlideContainerComponent, any> {
         return new ThyInternalSlideRef(overlayRef, containerInstance, config);
     }
 
     protected createInjector<T>(
         config: ThySlideConfig,
-        overlayRef: ThyUpperOverlayRef<T, ThySlideContainerComponent, any>,
+        overlayRef: ThyAbstractOverlayRef<T, ThySlideContainerComponent, any>,
         containerInstance: ThySlideContainerComponent
     ): Injector {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;

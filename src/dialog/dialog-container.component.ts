@@ -18,7 +18,7 @@ import { ThyDialogConfig } from './dialog.config';
 import { thyDialogAnimations } from './dialog-animations';
 import { ThyClickPositioner } from 'ngx-tethys/core';
 import { FocusTrapFactory, FocusTrap } from '@angular/cdk/a11y';
-import { ThyUpperOverlayContainer } from 'ngx-tethys/core';
+import { ThyAbstractOverlayContainer } from 'ngx-tethys/core';
 import { dialogUpperOverlayOptions } from './dialog.options';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
@@ -46,7 +46,7 @@ import { map, filter } from 'rxjs/operators';
         '(@dialogContainer.done)': 'onAnimationDone($event)'
     }
 })
-export class ThyDialogContainerComponent extends ThyUpperOverlayContainer implements OnDestroy {
+export class ThyDialogContainerComponent extends ThyAbstractOverlayContainer implements OnDestroy {
     animationOpeningDone: Observable<AnimationEvent>;
     animationClosingDone: Observable<AnimationEvent>;
 

@@ -1,10 +1,10 @@
 import { OverlayRef } from '@angular/cdk/overlay';
 import { ThyPopoverContainerComponent } from './popover-container.component';
-import { ThyUpperOverlayRef, ThyInternalUpperOverlayRef } from 'ngx-tethys/core';
+import { ThyAbstractOverlayRef, ThyInternalUpperOverlayRef } from 'ngx-tethys/core';
 import { popoverUpperOverlayOptions } from './popover.options';
 import { ThyPopoverConfig } from './popover.config';
 
-export abstract class ThyPopoverRef<T, TResult = any> extends ThyUpperOverlayRef<T, ThyPopoverContainerComponent, TResult> {}
+export abstract class ThyPopoverRef<T, TResult = any> extends ThyAbstractOverlayRef<T, ThyPopoverContainerComponent, TResult> {}
 
 export class ThyInternalPopoverRef<T, TResult = any> extends ThyInternalUpperOverlayRef<T, ThyPopoverContainerComponent, TResult>
     implements ThyPopoverRef<T, TResult> {

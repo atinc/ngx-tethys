@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild, Inject, ChangeDetectorRef, Renderer2, OnDestroy } from '@angular/core';
 import { CdkPortalOutlet } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
-import { ThyUpperOverlayContainer } from 'ngx-tethys/core';
+import { ThyAbstractOverlayContainer } from 'ngx-tethys/core';
 import { Observable, Subject } from 'rxjs';
 import { AnimationEvent } from '@angular/animations';
 import { slideUpperOverlayOptions, ThySlideConfig, ThySlideFromTypes } from './slide.config';
@@ -31,7 +31,7 @@ import { ViewportRuler } from '@angular/cdk/overlay';
         '[style.max-height.px]': 'slideContainerStyles.height'
     }
 })
-export class ThySlideContainerComponent extends ThyUpperOverlayContainer implements OnDestroy {
+export class ThySlideContainerComponent extends ThyAbstractOverlayContainer implements OnDestroy {
     @ViewChild(CdkPortalOutlet, { static: true })
     portalOutlet: CdkPortalOutlet;
 

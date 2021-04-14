@@ -1,14 +1,14 @@
 import { CdkPortalOutlet, TemplatePortal, ComponentPortal } from '@angular/cdk/portal';
 import { EmbeddedViewRef, ComponentRef, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { ThyUpperOverlayOptions, ThyUpperOverlayConfig } from './upper-overlay.config';
+import { ThyUpperOverlayOptions, ThyAbstractOverlayConfig } from './abstract-overlay.config';
 import { AnimationEvent } from '@angular/animations';
 
 export function throwPopoverContentAlreadyAttachedError(name: string) {
     throw Error(`Attempting to attach ${name} content after content is already attached`);
 }
 
-export abstract class ThyUpperOverlayContainer {
+export abstract class ThyAbstractOverlayContainer {
     id?: string;
 
     animationState: string;
@@ -17,7 +17,7 @@ export abstract class ThyUpperOverlayContainer {
 
     containerDestroy = new Subject<void>();
 
-    abstract config: ThyUpperOverlayConfig;
+    abstract config: ThyAbstractOverlayConfig;
 
     /**portal outlet */
     abstract portalOutlet: CdkPortalOutlet;

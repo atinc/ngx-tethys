@@ -19,7 +19,7 @@ import { AnimationEvent } from '@angular/animations';
 
 import { ThyPopoverConfig } from './popover.config';
 import { thyPopoverAnimations } from './popover-animations';
-import { ThyUpperOverlayContainer } from 'ngx-tethys/core';
+import { ThyAbstractOverlayContainer } from 'ngx-tethys/core';
 import { popoverUpperOverlayOptions } from './popover.options';
 import { Observable, fromEvent, timer } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
@@ -38,7 +38,7 @@ import { ThyClickDispatcher } from 'ngx-tethys/core';
         '(@popoverContainer.done)': 'onAnimationDone($event)'
     }
 })
-export class ThyPopoverContainerComponent extends ThyUpperOverlayContainer implements AfterViewInit, OnDestroy {
+export class ThyPopoverContainerComponent extends ThyAbstractOverlayContainer implements AfterViewInit, OnDestroy {
     @ViewChild(CdkPortalOutlet, { static: true })
     portalOutlet: CdkPortalOutlet;
 

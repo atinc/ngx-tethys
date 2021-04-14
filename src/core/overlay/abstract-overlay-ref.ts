@@ -1,12 +1,13 @@
 import { Observable, Subject } from 'rxjs';
-import { ThyUpperOverlayPosition, ThyUpperOverlayOptions, ThyUpperOverlayConfig } from './upper-overlay.config';
+import { ThyUpperOverlayPosition, ThyUpperOverlayOptions, ThyAbstractOverlayConfig } from './abstract-overlay.config';
 import { filter, take } from 'rxjs/operators';
 import { OverlayRef, PositionStrategy, GlobalPositionStrategy } from '@angular/cdk/overlay';
-import { ThyUpperOverlayContainer } from './upper-overlay-container';
+import { ThyAbstractOverlayContainer } from './abstract-overlay-container';
 import { ESCAPE } from 'ngx-tethys/util';
-export abstract class ThyUpperOverlayRef<
+
+export abstract class ThyAbstractOverlayRef<
     TComponent = unknown,
-    TContainer extends ThyUpperOverlayContainer = ThyUpperOverlayContainer,
+    TContainer extends ThyAbstractOverlayContainer = ThyAbstractOverlayContainer,
     TResult = any
 > {
     id: string;
@@ -37,9 +38,9 @@ function getUniqueId(name: string) {
 
 export abstract class ThyInternalUpperOverlayRef<
     T,
-    TContainer extends ThyUpperOverlayContainer,
+    TContainer extends ThyAbstractOverlayContainer,
     TResult = undefined
-> extends ThyUpperOverlayRef<T, TContainer, TResult> {
+> extends ThyAbstractOverlayRef<T, TContainer, TResult> {
     /** The instance of component opened into the dialog. */
     componentInstance: T;
 
@@ -67,7 +68,7 @@ export abstract class ThyInternalUpperOverlayRef<
         private options: ThyUpperOverlayOptions,
         protected overlayRef: OverlayRef,
         containerInstance: TContainer,
-        protected config: ThyUpperOverlayConfig
+        protected config: ThyAbstractOverlayConfig
     ) {
         super();
         this.containerInstance = containerInstance;
