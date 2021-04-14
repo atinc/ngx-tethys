@@ -1,0 +1,17 @@
+<thy-table
+  [thyModel]="model"
+  thyRowKey="id"
+  [thyDraggable]="true"
+  [thyHoverDisplayOperation]="false"
+  [thyWholeRowSelect]="true"
+  [thyShowTotal]="true"
+>
+  <thy-table-column thyTitle="姓名" thyModelKey="name"></thy-table-column>
+  <thy-table-column thyTitle="年龄" thyModelKey="age" thyHeaderClassName="text-center" thyClassName="text-center"></thy-table-column>
+  <thy-table-column thyTitle="备注" thyModelKey="desc" thyDefaultText="-"></thy-table-column>
+  <thy-table-column thyTitle="默认" thyModelKey="checked" thyType="switch"></thy-table-column>
+
+  <ng-template #empty>
+    <div>自定义空模板</div>
+  </ng-template>
+</thy-table>

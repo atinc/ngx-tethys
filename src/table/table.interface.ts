@@ -1,6 +1,5 @@
 import { TemplateRef } from '@angular/core';
-
-export interface ThyGridColumn {
+export interface ThyTableColumn {
     key: string;
     model: string;
     title: string;
@@ -16,13 +15,18 @@ export interface ThyGridColumn {
     headerTemplateRef: TemplateRef<any>;
 }
 
+/**
+ * @deprecated ThyGridColumn is deprecated, please use ThyTableColumn
+ */
+export type ThyGridColumn = ThyTableColumn;
+
 export interface ThyPage {
     index?: number;
     size?: number;
     total?: number;
 }
 
-export interface ThyGridEmptyOptions {
+export interface ThyTableEmptyOptions {
     message?: string;
     translationKey?: string;
     translationValues?: any;
@@ -34,16 +38,28 @@ export interface ThyGridEmptyOptions {
     topAuto?: string;
     container?: TemplateRef<any>;
 }
+
+/**
+ * @deprecated ThyGridEmptyOptions is deprecated, please use ThyTableEmptyOptions
+ */
+export type ThyGridEmptyOptions = ThyTableEmptyOptions;
+
 export interface PageChangedEvent {
     itemsPerPage: number;
     page: number;
 }
-export interface ThyGridEvent {
+
+export interface ThyTableEvent {
     event: Event;
     row: any;
 }
 
-export interface ThyMultiSelectEvent extends ThyGridEvent {
+/**
+ * @deprecated ThyGridEvent is deprecated, please use ThyTableEvent
+ */
+export type ThyGridEvent = ThyTableEvent;
+
+export interface ThyMultiSelectEvent extends ThyTableEvent {
     rows: any[];
 }
 
@@ -52,11 +68,11 @@ export interface ThyRadioSelectEvent {
     row: any;
 }
 
-export interface ThySwitchEvent extends ThyGridEvent {
+export interface ThySwitchEvent extends ThyTableEvent {
     refresh?: Function;
 }
 
-export interface ThyGridDraggableEvent {
+export interface ThyTableDraggableEvent {
     oldIndex?: number;
     newIndex?: number;
     model?: any;
@@ -64,7 +80,16 @@ export interface ThyGridDraggableEvent {
     [key: string]: any;
 }
 
-export interface ThyGridRowEvent {
+/**
+ * @deprecated ThyGridDraggableEvent is deprecated, please use ThyTableDraggableEvent
+ */
+export type ThyGridDraggableEvent = ThyTableDraggableEvent;
+
+export interface ThyTableRowEvent {
     event: Event;
     row: any;
 }
+/**
+ * @deprecated ThyGridRowEvent is deprecated, please use ThyTableRowEvent
+ */
+export type ThyGridRowEvent = ThyTableRowEvent;

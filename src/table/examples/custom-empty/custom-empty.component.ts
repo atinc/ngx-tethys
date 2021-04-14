@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'thy-grid-custom-empty-example',
+    selector: 'thy-table-custom-empty-example',
     templateUrl: './custom-empty.component.html'
 })
-export class ThyGridCustomEmptyExampleComponent implements OnInit {
+export class ThyTableCustomEmptyExampleComponent implements OnInit {
     public model: any[] = [];
 
     ngOnInit() {}
