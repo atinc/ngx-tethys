@@ -1,32 +1,31 @@
-import {
-    Component,
-    Input,
-    HostBinding,
-    ContentChildren,
-    QueryList,
-    ChangeDetectionStrategy,
-    AfterContentInit,
-    Renderer2,
-    ElementRef,
-    OnInit,
-    EventEmitter,
-    Output,
-    OnDestroy,
-    NgZone,
-    forwardRef
-} from '@angular/core';
-import { FocusKeyManager, ActiveDescendantKeyManager } from '@angular/cdk/a11y';
-import { SelectionModel } from '@angular/cdk/collections';
-import { ThyListOptionComponent, THY_LIST_OPTION_PARENT_COMPONENT, IThyListOptionParentComponent, ThyListLayout } from 'ngx-tethys/shared';
-import { keycodes, helpers, dom } from 'ngx-tethys/util';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
-import { Subscription, throwError } from 'rxjs';
-import { ThySelectionListChange } from './selection.interface';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { ScrollToService, InputBoolean } from 'ngx-tethys/core';
-import { warnDeprecation } from 'ngx-tethys/util';
-import { UpdateHostClassService } from 'ngx-tethys/core';
+import { ScrollToService, UpdateHostClassService } from 'ngx-tethys/core';
+import { IThyListOptionParentComponent, THY_LIST_OPTION_PARENT_COMPONENT, ThyListLayout, ThyListOptionComponent } from 'ngx-tethys/shared';
+import { coerceBooleanProperty, dom, helpers, keycodes } from 'ngx-tethys/util';
+import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
+
+import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
+import { SelectionModel } from '@angular/cdk/collections';
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    HostBinding,
+    Input,
+    NgZone,
+    OnDestroy,
+    OnInit,
+    Output,
+    QueryList,
+    Renderer2
+} from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+
+import { ThySelectionListChange } from './selection.interface';
 
 export type ThyListSize = 'sm' | 'md' | 'lg';
 
@@ -100,14 +99,6 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
     @Input() set thyLayout(value: ThyListLayout) {
         this.layout = value;
         this.isLayoutGrid = value === 'grid';
-    }
-
-    /**
-     * @deprecated thyFirstItemDefaultActive will be deprecated, please use thyAutoActiveFirstItem
-     */
-    @Input() set thyFirstItemDefaultActive(value: boolean) {
-        warnDeprecation(`thyFirstItemDefaultActive will be deprecated, please use thyAutoActiveFirstItem.`);
-        this.autoActiveFirstItem = coerceBooleanProperty(value);
     }
 
     @Input() set thyAutoActiveFirstItem(value: boolean) {
