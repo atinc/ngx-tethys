@@ -1,5 +1,6 @@
 import { ThyAbstractOverlayConfig, ThyUpperOverlayOptions } from 'ngx-tethys/core';
-import { InjectionToken, ElementRef } from '@angular/core';
+
+import { ElementRef, InjectionToken } from '@angular/core';
 
 export type ThySlideFromTypes =
     | 'left'
@@ -40,16 +41,6 @@ export class ThySlideConfig extends ThyAbstractOverlayConfig {
      * set the render way. one of 'over' or 'push'. Default is 'over'
      */
     mode?: ThySlideMode;
-    /**
-     * please use id
-     * @deprecated
-     */
-    key?: string;
-    /**
-     * please use panelClass
-     * @deprecated
-     */
-    class?: string;
 }
 
 export class ThySlideOption extends ThySlideConfig {}
