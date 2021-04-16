@@ -34,7 +34,7 @@ export abstract class ThyEventDispatcher implements OnDestroy {
     constructor(private document: any, private ngZone: NgZone, private eventName: string) {}
 
     protected subscribe(auditTimeInMs: number = DEFAULT_EVENT_TIME): Observable<Event> {
-        return Observable.create((observer: Observer<Event | void>) => {
+        return new Observable(observer => {
             if (!this._globalSubscription) {
                 this._addGlobalListener();
             }
