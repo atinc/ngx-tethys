@@ -12,7 +12,7 @@ order: 10
 
 ## 模块导入
 ```
-import { ThyLayoutModule } from "tethys/layout";
+import { ThyLayoutModule } from "ngx-tethys/layout";
 ```
 ## 组件概述
 `layout`包含多个子布局组件：

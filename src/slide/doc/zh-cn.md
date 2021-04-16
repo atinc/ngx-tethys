@@ -15,7 +15,7 @@ order: 30
 
 ## 模块导入
 ```ts
-import { ThySlideModule } from "tethys/slide";
+import { ThySlideModule } from "ngx-tethys/slide";
 ```
 
 ## 如何使用
