@@ -1,5 +1,5 @@
 import ts, { ImportDeclaration, SourceFile, StringLiteral, factory } from 'typescript';
-import { UpdateFileService } from '../../../utils';
+import { UpdateFileService } from '../utils';
 
 export abstract class MigrationBase {
     private printer = ts.createPrinter();
