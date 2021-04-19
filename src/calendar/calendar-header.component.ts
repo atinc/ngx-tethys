@@ -1,8 +1,8 @@
-import { ChangeDetectorRef, Component, EventEmitter, HostBinding, Input, OnInit, Output, TemplateRef } from '@angular/core';
-import { DateRangeItemInfo } from 'ngx-tethys/date-range';
-import { FunctionProp } from 'ngx-tethys/util';
-import { endOfMonth, getUnixTime, startOfMonth, TinyDate } from 'ngx-tethys/util';
 import { fromUnixTime, getMonth, getYear } from 'date-fns';
+import { DateRangeItemInfo } from 'ngx-tethys/date-range';
+import { endOfMonth, FunctionProp, getUnixTime, startOfMonth, TinyDate } from 'ngx-tethys/util';
+
+import { ChangeDetectorRef, Component, EventEmitter, HostBinding, Input, OnInit, Output, TemplateRef } from '@angular/core';
 
 @Component({
     selector: 'thy-calendar-header',
@@ -84,13 +84,14 @@ export class ThyCalendarHeaderComponent implements OnInit {
             const dateRange = {
                 ...this.dateRanges[0],
                 key: 'exception',
+                text: getYear(this._currentDate.nativeDate) + '年' + (getMonth(this._currentDate.nativeDate) + 1) + '月',
                 begin: getUnixTime(startOfMonth(this._currentDate.nativeDate)),
                 end: getUnixTime(endOfMonth(this._currentDate.nativeDate))
             };
             this.date = dateRange;
-            this.onChangeRange(dateRange);
         } else {
-            this.backToday();
+            this._currentDate = new TinyDate();
+            this.date = { ...this.dateRanges[0] };
         }
     }
 

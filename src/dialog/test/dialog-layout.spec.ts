@@ -25,7 +25,7 @@ class DialogHeaderBasicComponent {
                 <span>这是描述</span>
             </ng-template>
         </thy-dialog-footer>
-        <thy-dialog-footer class="showBorder" [thyShowBorderTop]="showBorderTop"> </thy-dialog-footer>
+        <thy-dialog-footer class="showBorder" [thyDivided]="showBorderTop"> </thy-dialog-footer>
         <thy-dialog-footer class="noConfig"></thy-dialog-footer>
     `
 })
@@ -152,18 +152,18 @@ describe('dialog-layout', () => {
                 expect(dialogFooterNewDebugElement.nativeElement.classList.contains('dialog-footer-border-top')).toBeFalsy();
             });
 
-            it('should get correct class when thyShowBorderTop is none', () => {
+            it('should get correct class when thyDivided is none', () => {
                 dialogBasicFixture.detectChanges();
                 expect(dialogFooterNoConfigDebugElement.nativeElement.classList.contains('dialog-footer-border-top')).toBeFalsy();
             });
 
-            it('should get correct class when thyShowBorderTop is true', () => {
+            it('should get correct class when thyDivided is true', () => {
                 dialogBasicFixture.componentInstance.showBorderTop = true;
                 dialogBasicFixture.detectChanges();
                 expect(dialogFooterBorderDebugElement.nativeElement.classList.contains('dialog-footer-border-top')).toBeTruthy();
             });
 
-            it('should get correct class when thyShowBorderTop is false', () => {
+            it('should get correct class when thyDivided is false', () => {
                 dialogBasicFixture.componentInstance.showBorderTop = false;
                 dialogBasicFixture.detectChanges();
                 expect(dialogFooterBorderDebugElement.nativeElement.classList.contains('dialog-footer-border-top')).toBeFalsy();
@@ -284,18 +284,18 @@ describe('dialog-layout', () => {
                 expect(dialogFooterNewDebugElement.nativeElement.classList.contains('dialog-footer-border-top')).toBeFalsy();
             });
 
-            it('should get correct class when thyShowBorderTop is none', () => {
+            it('should get correct class when thyDivided is none', () => {
                 dialogBasicFixture.detectChanges();
                 expect(dialogFooterNoConfigDebugElement.nativeElement.classList.contains('dialog-footer-border-top')).toBeTruthy();
             });
 
-            it('should get correct class when thyShowBorderTop is true', () => {
+            it('should get correct class when thyDivided is true', () => {
                 dialogBasicFixture.componentInstance.showBorderTop = true;
                 dialogBasicFixture.detectChanges();
                 expect(dialogFooterBorderDebugElement.nativeElement.classList.contains('dialog-footer-border-top')).toBeTruthy();
             });
 
-            it('should get correct class when thyShowBorderTop is false', () => {
+            it('should get correct class when thyDivided is false', () => {
                 dialogBasicFixture.componentInstance.showBorderTop = false;
                 dialogBasicFixture.detectChanges();
                 expect(dialogFooterBorderDebugElement.nativeElement.classList.contains('dialog-footer-border-top')).toBeFalsy();

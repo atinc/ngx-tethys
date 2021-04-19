@@ -66,7 +66,7 @@
     <p>template dialog body</p>
     <p>template dialog body</p>
   </thy-dialog-body>
-  <thy-dialog-footer [thyShowBorderTop]="layoutConfig.divider" [thyAlign]="layoutConfig.align">
+  <thy-dialog-footer [thyDivided]="layoutConfig.divider" [thyAlign]="layoutConfig.align">
     <button thyButton="primary" (click)="thyDialog.close()">确认</button>
     <button thyButton="link-secondary" (click)="thyDialog.close()">
       关闭

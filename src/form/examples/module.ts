@@ -1,30 +1,57 @@
-import { NgxTethysModule } from 'ngx-tethys';
-
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+
+import { ThyButtonModule } from 'ngx-tethys/button';
+import { ThyFormModule } from 'ngx-tethys/form';
+import { ThyDialogModule } from 'ngx-tethys/dialog';
+import { ThyRasterModule } from 'ngx-tethys/raster';
+import { ThyCascaderModule } from 'ngx-tethys/cascader';
+import { ThyInputModule } from 'ngx-tethys/input';
+import { ThyIconModule } from 'ngx-tethys/icon';
+import { ThyDatePickerModule } from 'ngx-tethys/date-picker';
+import { ThyCheckboxModule } from 'ngx-tethys/checkbox';
+import { ThyRadioModule } from 'ngx-tethys/radio';
+import { ThySelectModule } from 'ngx-tethys/select';
+import { ThyNotifyModule } from 'ngx-tethys/notify';
+
 import { ThyFormBasicExampleComponent } from './basic/basic.component';
-import { ThyFormModalExampleComponent } from './modal/modal.component';
+import { ThyFormDialogExampleComponent } from './dialog/dialog.component';
 import { ThyFormLayoutExampleComponent } from './layout/layout.component';
 import { ThyFormValidateExampleComponent } from './validate/validate.component';
 import { ThyFormFullExampleComponent } from './full/full.component';
-import { ThyFormVerticalExampleComponent } from './vertical/vertical.component';
-import { ThyFormConfirmExampleComponent } from './confirm/confirm.component';
+import { ThyFormColumnsExampleComponent } from './columns/columns.component';
+import { ThyFormValidatorsExampleComponent } from './validators/validators.component';
 
 const COMPONENTS = [
     ThyFormBasicExampleComponent,
     ThyFormLayoutExampleComponent,
-    ThyFormModalExampleComponent,
+    ThyFormDialogExampleComponent,
     ThyFormValidateExampleComponent,
-    ThyFormConfirmExampleComponent,
-    ThyFormVerticalExampleComponent,
+    ThyFormValidatorsExampleComponent,
+    ThyFormColumnsExampleComponent,
     ThyFormFullExampleComponent
 ];
 
 @NgModule({
     declarations: COMPONENTS,
     entryComponents: COMPONENTS,
-    imports: [CommonModule, FormsModule, NgxTethysModule],
+    imports: [
+        CommonModule,
+        FormsModule,
+        ThyButtonModule,
+        ThyFormModule,
+        ThyDialogModule,
+        ThyRasterModule,
+        ThyCascaderModule,
+        ThyInputModule,
+        ThyIconModule,
+        ThyDatePickerModule,
+        ThyCheckboxModule,
+        ThyRadioModule,
+        ThySelectModule,
+        ThyNotifyModule
+    ],
     exports: COMPONENTS,
     providers: COMPONENTS
 })

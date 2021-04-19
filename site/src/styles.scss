@@ -1,3 +1,4 @@
+@import './styles/variables.scss';
 // docgeni
 // $dg-primary: #4150b3;
 @import '~@docgeni/template/styles/index.scss';
@@ -43,10 +44,6 @@
     overflow-y: auto;
     height: 100vh;
 }
-
-// ngx-tethys
-$primary: #348fe4;
-$font-family-statistics-number: 'Statistic-Number';
 
 @import './assets/fonts/wtd/iconfont.css';
 @import '../../src/styles/index.scss';
@@ -104,4 +101,9 @@ $dg-alert-bg-alpha: 0.05;
     :first-child {
         margin-top: 0px;
     }
+}
+
+html,
+body {
+    height: 100%;
 }

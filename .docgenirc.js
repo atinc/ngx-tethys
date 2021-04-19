@@ -2,7 +2,6 @@ module.exports = {
     mode: 'full',
     title: 'NgxTethys',
     siteProjectName: 'site',
-    output: 'dist/docs-site',
     repoUrl: 'https://github.com/atinc/ngx-tethys',
     logoUrl: 'https://cdn.worktile.com/open-sources/ngx-tethys/logos/tethys.png',
     navs: [
@@ -111,5 +110,6 @@ module.exports = {
             key: 'zh-cn',
             name: 'ZH'
         }
-    ]
+    ],
+    defaultLocale: 'zh-cn'
 };

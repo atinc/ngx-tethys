@@ -1,4 +1,4 @@
-import { ThyUpperOverlayConfig, ThyUpperOverlayOptions } from 'ngx-tethys/core';
+import { ThyAbstractOverlayConfig, ThyUpperOverlayOptions } from 'ngx-tethys/core';
 import { InjectionToken, ElementRef } from '@angular/core';
 
 export type ThySlideFromTypes =
@@ -15,7 +15,7 @@ export type ThySlideFromTypes =
 
 export type ThySlideMode = 'over' | 'push' | 'side';
 
-export class ThySlideConfig extends ThyUpperOverlayConfig {
+export class ThySlideConfig extends ThyAbstractOverlayConfig {
     /**
      * Origin Element, for overlay flexible connected to
      */

@@ -5,11 +5,7 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './size.component.html'
 })
 export class ThyPaginationSizeExampleComponent implements OnInit {
-    public pagination = {
-        pageIndex: 3,
-        pageSize: 10,
-        total: 100
-    };
+    currentIndex = 2;
 
     ngOnInit() {}
 }

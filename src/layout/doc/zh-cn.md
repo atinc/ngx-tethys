@@ -2,5 +2,40 @@
 category: layout
 title: Layout
 subtitle: 布局
-order: 20
+order: 10
 ---
+
+<div class="dg-alert dg-alert-info">整体布局容器组件。</div>
+
+## 何时使用
+整体布局使用，当使用`ngx-tethys`时要求所有的元素都应该在布局组件中。
+
+## 模块导入
+```
+import { ThyLayoutModule } from "ngx-tethys/layout";
+```
+## 组件概述
+`layout`包含多个子布局组件：
+- `thy-layout`: 布局容器组件，内部可以嵌套
+- `thy-header`: 头部布局容器组件，内部可以嵌套任何元素，只能放在`thy-layout`中
+- `thy-sidebar`: 侧边栏，内部可嵌套任何元素，只能放在`thy-layout`中
+- `thy-content`: 内容布局组件，内部可以嵌套`thy-content-section`、`thy-content-main`等任何元素，只能放在`thy-layout`中，内容充满整个屏幕剩余高度
+- `thy-content-section`: 内容块区域组件，内部可以嵌套任何元素，只能放在`thy-content`中
+- `thy-content-main`: 内容主区域，内部可以嵌套任何元素，只能放在`thy-content`中，内容充满整个屏幕剩余高度
+
+> 注意：所有布局采用`flex`实现，请注意<a href="http://caniuse.com/#search=flex" target="_blank">浏览器兼容性</a>问题。
+
+## 如何使用
+最基本的使用如下：
+
+```html
+<thy-layout>
+  <thy-header thyTitle="Header"></thy-header>
+  <thy-content>
+    Content
+  </thy-content>
+</thy-layout>
+```
+
+展示效果如下：
+<example name="thy-layout-basic-example" />

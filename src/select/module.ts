@@ -29,7 +29,7 @@ import { THY_SELECT_SCROLL_STRATEGY_PROVIDER } from './select.config';
         ThyOptionModule
     ],
     declarations: [ThySelectComponent, ThySelectCustomComponent],
-    exports: [ThySelectComponent, ThySelectCustomComponent],
+    exports: [ThySelectComponent, ThySelectCustomComponent, ThyOptionModule],
     providers: [THY_SELECT_SCROLL_STRATEGY_PROVIDER]
 })
 export class ThySelectModule {}

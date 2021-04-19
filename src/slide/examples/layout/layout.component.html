@@ -1,0 +1,28 @@
+<div class="demo-layout-backdrop demo-slides">
+  <thy-slide-layout>
+    <thy-slide-header thyTitle="slide title"></thy-slide-header>
+    <thy-slide-body>
+      slide body <br />
+      slide body
+    </thy-slide-body>
+    <thy-slide-footer>
+      slide footer
+    </thy-slide-footer>
+  </thy-slide-layout>
+
+  <thy-slide-layout>
+    <thy-slide-header thyTitle="slide title">
+      <ng-template #thyHeaderOperate>
+        <a href="javascript:;" class="link-secondary">operation</a>
+      </ng-template>
+    </thy-slide-header>
+    <thy-slide-body>
+      <thy-slide-body-section [thyDividerBorder]="true">
+        has divider
+      </thy-slide-body-section>
+      <thy-slide-body-section>
+        has`t divider
+      </thy-slide-body-section>
+    </thy-slide-body>
+  </thy-slide-layout>
+</div>
