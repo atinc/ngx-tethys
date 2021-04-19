@@ -2,6 +2,38 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="11.0.0-next.0"></a>
+# [11.0.0-next.0](https://github.com/atinc/ngx-tethys/compare/10.0.5...11.0.0-next.0) (2021-04-19)
+
+
+### Bug Fixes
+
+* **badge:** replace thyColor with thyBackgroundColor #INFR-1868 ([c1f0fac](https://github.com/atinc/ngx-tethys/commit/c1f0fac)), closes [#INFR-1868](https://github.com/atinc/ngx-tethys/issues/INFR-1868)
+* **card:** remove thyAlign in thy-card-content #INFR-1869 ([ca685cb](https://github.com/atinc/ngx-tethys/commit/ca685cb)), closes [#INFR-1869](https://github.com/atinc/ngx-tethys/issues/INFR-1869)
+* **dialog:** replace thyShowBorderTop with thyDivided #INFR-1870 ([fb027f9](https://github.com/atinc/ngx-tethys/commit/fb027f9)), closes [#INFR-1870](https://github.com/atinc/ngx-tethys/issues/INFR-1870)
+* **list:** replace thyFirstItemDefaultActive with thyAutoActiveFirstItem #INFR-1871 ([3c6242f](https://github.com/atinc/ngx-tethys/commit/3c6242f)), closes [#INFR-1871](https://github.com/atinc/ngx-tethys/issues/INFR-1871)
+* **notify:** remove ThyNotifyOption and removeItemById #INFR-1872 ([96c7d32](https://github.com/atinc/ngx-tethys/commit/96c7d32)), closes [#INFR-1872](https://github.com/atinc/ngx-tethys/issues/INFR-1872)
+
+
+### Features
+
+* **core:** add defaultPanelClass params for buildBaseOverlayConfig and simplified components use it #INFR-1852 ([#1209](https://github.com/atinc/ngx-tethys/issues/1209)) ([b11ec83](https://github.com/atinc/ngx-tethys/commit/b11ec83)), closes [#INFR-1852](https://github.com/atinc/ngx-tethys/issues/INFR-1852) [#INFR-1852](https://github.com/atinc/ngx-tethys/issues/INFR-1852) [#INFR-1852](https://github.com/atinc/ngx-tethys/issues/INFR-1852)
+* **schematics:** v11升级支持(修改thy-grid 为thy-table) ([3bd58ee](https://github.com/atinc/ngx-tethys/commit/3bd58ee))
+* **schematics:** v11升级支持(模块名修改) ([fe18d1c](https://github.com/atinc/ngx-tethys/commit/fe18d1c))
+* **schematics:** 增加对html标签变更的修改 ([f5e947c](https://github.com/atinc/ngx-tethys/commit/f5e947c))
+* **schematics:** 添加模块变更映射 ([2ab8430](https://github.com/atinc/ngx-tethys/commit/2ab8430))
+
+
+### BREAKING CHANGES
+
+* **dialog:** replace thyShowBorderTop with thyDivided
+* **list:** replace thyFirstItemDefaultActive with thyAutoActiveFirstItem
+* **notify:** replace ThyNotifyOption with ThyNotifyOptions and replace removeItemById with removeNotifyById
+* **badge:** replace thyColor with thyBackgroundColor
+* **card:** remove thyAlign in thy-card-content
+
+
+
 <a name="10.0.5"></a>
 ## [10.0.5](https://github.com/atinc/ngx-tethys/compare/10.0.4...10.0.5) (2021-03-23)
 
