@@ -7,7 +7,7 @@
       "description": "Updates NGX-TETHYS to v9"
     },
     "migration-v11": {
-      "version": "11.0.0",
+      "version": "11",
       "factory": "./update-11",
       "description": "Updates NGX-TETHYS to v11"
     }
