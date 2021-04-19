@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="11.0.0-next.1"></a>
+# [11.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/11.0.0-next.0...11.0.0-next.1) (2021-04-19)
+
+
+### Bug Fixes
+
+* add install dependencies ([31315f6](https://github.com/atinc/ngx-tethys/commit/31315f6))
+
+
+
 <a name="11.0.0-next.0"></a>
 # [11.0.0-next.0](https://github.com/atinc/ngx-tethys/compare/10.0.5...11.0.0-next.0) (2021-04-19)
 
