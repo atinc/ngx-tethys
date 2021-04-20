@@ -81,7 +81,8 @@ module.exports = {
                 'calendar',
                 'fullscreen',
                 'guider',
-                'resizable'
+                'resizable',
+                'collapse'
             ]
         ]
     }

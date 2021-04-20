@@ -1,9 +1,10 @@
-import { fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ThyResultModule } from '../result.module';
-import { NgModule, Component } from '@angular/core';
-import { By } from '@angular/platform-browser';
-import { ThyResultComponent } from '../result.component';
 import { CommonModule } from '@angular/common';
+import { Component, NgModule } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+
+import { ThyResultComponent } from '../result.component';
+import { ThyResultModule } from '../result.module';
 
 describe('ThyResult', () => {
     let fixture: ComponentFixture<ThyResultDemoComponent>;
@@ -63,7 +64,7 @@ describe('ThyResult', () => {
             <ng-template #thySubtitle>
                 <div class="custom-subtitle">自定义subtitle</div>
             </ng-template>
-            <ng-template #thyExtra>
+            <ng-template #thyExtraTemplate>
                 <button thyButton="primary-square">关闭</button>
                 <button thyButton="outline-primary-square">查看详情</button>
             </ng-template>

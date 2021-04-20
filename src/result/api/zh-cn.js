@@ -29,7 +29,7 @@ module.exports = [
                 description: 'result icon url'
             },
             {
-                name: 'thyExtra',
+                name: 'thyExtraTemplate',
                 type: 'template',
                 default: '-',
                 description: 'result extra template'
