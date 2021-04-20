@@ -1,10 +1,13 @@
-import ts, { ImportDeclaration, SourceFile, StringLiteral, factory } from 'typescript';
+import ts, { ImportDeclaration, SourceFile, StringLiteral, factory, Program } from 'typescript';
 import { UpdateFileService } from '../utils';
-
+import { createCssSelectorForTs } from 'cyia-code-util';
 export abstract class MigrationBase {
+    constructor(protected sourceFile: SourceFile, protected updateFileService: UpdateFileService, protected program: Program) {
+        this.selector = createCssSelectorForTs(this.sourceFile);
+    }
     private printer = ts.createPrinter();
+    protected selector: ReturnType<typeof createCssSelectorForTs>;
     abstract run(): void;
-    constructor(protected sourceFile: SourceFile, protected updateFileService: UpdateFileService) {}
 
     createImportDeclaration(
         importNameList: string[],
@@ -51,7 +54,8 @@ export abstract class MigrationBase {
     }
 
     getImportDeclarationList(): ts.ImportDeclaration[] {
-        return this.sourceFile.statements
+        return this.selector
+            .queryAll('ImportDeclaration')
             .filter(item => ts.isImportDeclaration(item))
             .filter((item: ts.ImportDeclaration) => this.getImportDeclarationPackageName(item).startsWith('ngx-tethys')) as any[];
     }
