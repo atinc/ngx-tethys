@@ -16,7 +16,7 @@ describe('ng-update v11 Schematic', () => {
             TEST_MODULE_PATH,
             `
             import { Dictionary } from 'ngx-tethys/types';
-            import { ThyGridModule } from 'ngx-tethys/thy-grid'
+            import { ThyGridModule } from 'ngx-tethys/grid'
             @Component({
                 template: '<thy-grid></thy-grid>',
             })
@@ -34,10 +34,10 @@ describe('ng-update v11 Schematic', () => {
         workspaceTree = await schematicRunner.runSchematicAsync('migration-v11', undefined, tree).toPromise();
     });
 
-    it(`should "ngx-tethys/thy-grid" to "ngx-tethys/thy-table"`, async () => {
+    it(`should "ngx-tethys/grid" to "ngx-tethys/table"`, async () => {
         const result = workspaceTree.read(TEST_MODULE_PATH).toString();
-        expect(result).toContain('ngx-tethys/thy-table');
-        expect(result).not.toContain(`ngx-tethys/thy-grid`);
+        expect(result).toContain('ngx-tethys/table');
+        expect(result).not.toContain(`ngx-tethys/grid`);
     });
     it(`should "ThyGridModule" to "ThyTableModule"`, async () => {
         const result = workspaceTree.read(TEST_MODULE_PATH).toString();
