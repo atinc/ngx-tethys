@@ -15,6 +15,7 @@ describe('ng-update v11 Schematic', () => {
         await factory.addNewFile(
             TEST_MODULE_PATH,
             `
+            import { Dictionary } from 'ngx-tethys/types';
             import { ThyGridModule } from 'ngx-tethys/thy-grid'
             @Component({
                 template: '<thy-grid></thy-grid>',
@@ -40,6 +41,7 @@ describe('ng-update v11 Schematic', () => {
     });
     it(`should "ThyGridModule" to "ThyTableModule"`, async () => {
         const result = workspaceTree.read(TEST_MODULE_PATH).toString();
+        expect(result).toContain(`import { Dictionary } from 'ngx-tethys/types';`);
         expect(result).toContain(`ThyTableModule`);
         expect(result).not.toContain('ThyGridModule');
     });

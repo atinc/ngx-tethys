@@ -16,6 +16,7 @@ export abstract class ImportNameChangeBase extends MigrationBase {
         for (const importDeclaration of importDeclarationList) {
             const importSpecifierList = this.getImportDeclarationImportSpecifierList(importDeclaration);
             const importNameList: string[] = [];
+            let unReplaceNumber = 0;
             for (let index = 0; index < importSpecifierList.length; index++) {
                 const importSpecifier = importSpecifierList[index];
                 const replaceName = this.relation[importSpecifier.name.text];
@@ -23,7 +24,11 @@ export abstract class ImportNameChangeBase extends MigrationBase {
                     importNameList.push(replaceName);
                 } else {
                     importNameList.push(importSpecifier.name.text);
+                    unReplaceNumber++;
                 }
+            }
+            if (unReplaceNumber === importNameList.length) {
+                continue;
             }
             const newImportDeclaration = this.createImportDeclaration(
                 importNameList,
