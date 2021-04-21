@@ -18,17 +18,17 @@ export abstract class MigrationBase {
             newLine?: boolean;
         }
     ) {
-        const node = ts.createImportDeclaration(
+        const node = factory.createImportDeclaration(
             undefined,
             undefined,
-            ts.createImportClause(
+            factory.createImportClause(
+                false,
                 undefined,
-                ts.createNamedImports(
-                    importNameList.map(importName => ts.createImportSpecifier(undefined, ts.createIdentifier(importName)))
-                ),
-                false
+                factory.createNamedImports(
+                    importNameList.map(importName => factory.createImportSpecifier(undefined, factory.createIdentifier(importName)))
+                )
             ),
-            ts.createStringLiteral(importPackageName)
+            factory.createStringLiteral(importPackageName)
         );
         if (commentOptions && commentOptions.content !== undefined) {
             return ts.addSyntheticLeadingComment(
@@ -42,7 +42,7 @@ export abstract class MigrationBase {
     }
 
     createNamedImports(importSpecifierList: ts.ImportSpecifier[]) {
-        return ts.createNamedImports(importSpecifierList);
+        return factory.createNamedImports(importSpecifierList);
     }
 
     printNodeContent(node: ts.Node) {
@@ -50,7 +50,7 @@ export abstract class MigrationBase {
     }
 
     createStringLiteral(string: string) {
-        return ts.createStringLiteral(string);
+        return factory.createStringLiteral(string);
     }
 
     getImportDeclarationList(): ts.ImportDeclaration[] {
