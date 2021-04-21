@@ -1,0 +1,45 @@
+<thy-table [thyModel]="model" thyRowKey="id" thyMode="tree">
+  <thy-table-column thyModelKey="checked" thyType="checkbox" [thySelections]="selections" [thyWidth]="40"> </thy-table-column>
+  <thy-table-column thyTitle="姓名" [thyExpand]="true">
+    <ng-template #cell let-row>
+      <span>{{ row?.name }}</span>
+    </ng-template>
+  </thy-table-column>
+  <thy-table-column thyTitle="年龄" thyModelKey="age"></thy-table-column>
+  <thy-table-column thyTitle="备注" thyModelKey="desc" thyDefaultText="-"></thy-table-column>
+</thy-table>
+
+<p>Tree 自由列</p>
+
+<thy-table [thyModel]="model" thyRowKey="id" thyMode="tree">
+  <thy-table-column thyModelKey="checked" thyType="checkbox" [thySelections]="selections" [thyWidth]="40"> </thy-table-column>
+  <thy-table-column thyTitle="姓名">
+    <ng-template #cell let-row>
+      <span>{{ row?.name }}</span>
+    </ng-template>
+  </thy-table-column>
+  <thy-table-column thyTitle="年龄" thyModelKey="age" [thyExpand]="true">
+    <ng-template #cell let-row>
+      <div class="grid-flexiable-column-container">
+        <div class="grid-flexiable-column" thyFlexibleText [thyTooltipContent]="row?.age">
+          <thy-icon class="broad-icon" thyIconName="file"></thy-icon>
+          <span>{{ row?.age }}</span>
+        </div>
+      </div>
+    </ng-template>
+  </thy-table-column>
+  <thy-table-column thyTitle="备注" thyModelKey="desc" thyDefaultText="-"></thy-table-column>
+</thy-table>
+
+<p>纯Tree</p>
+
+<thy-table [thyModel]="model" thyRowKey="id" thyMode="tree">
+  <thy-table-column thyTitle="姓名">
+    <ng-template #cell let-row>
+      <thy-icon class="broad-icon wiki-page-icon" thyIconName="file"></thy-icon>
+      <span>{{ row?.name }}</span>
+    </ng-template>
+  </thy-table-column>
+  <thy-table-column thyTitle="年龄" thyModelKey="age"></thy-table-column>
+  <thy-table-column thyTitle="备注" thyModelKey="desc" thyDefaultText="-"></thy-table-column>
+</thy-table>

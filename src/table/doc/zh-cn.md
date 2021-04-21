@@ -1,7 +1,8 @@
 ---
 category: display
-title: Grid
+title: Table
 subtitle: 列表
+name: table
 ---
 
 ## 概览

@@ -1,5 +1,5 @@
 import { ComponentTypeOrTemplateRef, ThyAbstractOverlayRef, ThyAbstractOverlayService } from 'ngx-tethys/core';
-import { coerceArray, concatArray } from 'ngx-tethys/util';
+import { coerceArray } from 'ngx-tethys/util';
 import { of } from 'rxjs';
 
 import { Directionality } from '@angular/cdk/bidi';
@@ -27,16 +27,11 @@ export class ThySlideService extends ThyAbstractOverlayService<ThySlideConfig, T
     }
 
     protected buildOverlayConfig(config: ThySlideConfig): OverlayConfig {
-        config.id = config.id || (config.key as string);
         const defaultClasses: string[] = ['thy-slide-overlay-pane', `thy-slide-${config.from}`];
         const overlayConfig = {
             ...this.buildBaseOverlayConfig(config, defaultClasses),
             width: config.width
         };
-        // 兼容之前的 class
-        if (config.class) {
-            overlayConfig.panelClass = concatArray(overlayConfig.panelClass, config.class);
-        }
         return overlayConfig;
     }
 
@@ -85,8 +80,7 @@ export class ThySlideService extends ThyAbstractOverlayService<ThySlideConfig, T
     }
 
     private overlayIsOpened(config: ThySlideConfig) {
-        const overlayId = config.id || config.key;
-        const openedOverlay = this.getUpperOverlayById(overlayId);
+        const openedOverlay = this.getUpperOverlayById(config.id);
         this.close(openedOverlay);
         return openedOverlay;
     }
@@ -115,28 +109,6 @@ export class ThySlideService extends ThyAbstractOverlayService<ThySlideConfig, T
             this.originElementRemoveActiveClass(slideRef.containerInstance.config);
         });
         return slideRef as ThySlideRef<T, TResult>;
-    }
-
-    /**
-     * please use open,
-     * @deprecated
-     * @param componentOrTemplateRef
-     * @param config
-     */
-    show<T, TData = undefined, TResult = undefined>(
-        componentOrTemplateRef: ComponentTypeOrTemplateRef<T>,
-        config: ThySlideConfig
-    ): ThySlideRef<T, TResult> {
-        return this.open(componentOrTemplateRef, config);
-    }
-
-    /**
-     * please use close,
-     * @deprecated
-     * @param result
-     */
-    hide<T>(result?: T) {
-        this.close<T>(result);
     }
 
     ngOnDestroy() {

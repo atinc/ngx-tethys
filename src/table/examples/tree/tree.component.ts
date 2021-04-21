@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'thy-grid-tree-example',
+    selector: 'thy-table-tree-example',
     templateUrl: './tree.component.html'
 })
-export class ThyGridTreeExampleComponent implements OnInit {
+export class ThyTableTreeExampleComponent implements OnInit {
     public selections: any = [];
 
     public model = [

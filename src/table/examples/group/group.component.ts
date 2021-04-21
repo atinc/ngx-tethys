@@ -1,20 +1,33 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyMultiSelectEvent, ThyGridRowEvent, ThyGridSize, ThyGridTheme } from 'ngx-tethys';
+import { ThyMultiSelectEvent, ThyTableRowEvent, helpers } from 'ngx-tethys';
 
 @Component({
-    selector: 'thy-grid-basic-example',
-    templateUrl: './basic.component.html'
+    selector: 'thy-table-group-example',
+    templateUrl: './group.component.html'
 })
-export class ThyGridBasicExampleComponent implements OnInit {
-    public cloneModel: any[];
-
-    public size: ThyGridSize = 'default';
-
-    public theme: ThyGridTheme = 'default';
-
+export class ThyTableGroupExampleComponent implements OnInit {
+    public groups = [
+        {
+            id: '111',
+            title: '分组1'
+        },
+        {
+            id: '222',
+            title: '分组2'
+        },
+        {
+            id: '333',
+            title: '分组3'
+        },
+        {
+            id: '444',
+            title: '分组4'
+        }
+    ];
     public model = [
         {
-            id: '11',
+            group_id: '111',
+            id: '1',
             name: '张三',
             age: 0,
             checked: true,
@@ -22,7 +35,8 @@ export class ThyGridBasicExampleComponent implements OnInit {
             is_favorite: 1
         },
         {
-            id: '22',
+            group_id: '111',
+            id: '2',
             name: '李四',
             age: 10,
             checked: false,
@@ -30,6 +44,7 @@ export class ThyGridBasicExampleComponent implements OnInit {
             is_favorite: 0
         },
         {
+            group_id: '111',
             id: '3',
             name: '王五',
             age: 10,
@@ -37,7 +52,9 @@ export class ThyGridBasicExampleComponent implements OnInit {
             desc: '这是一条测试数据',
             is_favorite: 0
         },
+
         {
+            group_id: '222',
             id: '4',
             name: '张三2',
             age: 0,
@@ -46,6 +63,7 @@ export class ThyGridBasicExampleComponent implements OnInit {
             is_favorite: 0
         },
         {
+            group_id: '222',
             id: '5',
             name: '李四2',
             age: 10,
@@ -54,6 +72,7 @@ export class ThyGridBasicExampleComponent implements OnInit {
             is_favorite: 0
         },
         {
+            group_id: '222',
             id: '6',
             name: '王五2',
             age: 10,
@@ -61,7 +80,9 @@ export class ThyGridBasicExampleComponent implements OnInit {
             desc: '这是一条测试数据',
             is_favorite: 1
         },
+
         {
+            group_id: '333',
             id: '7',
             name: '张三3',
             age: 0,
@@ -70,6 +91,7 @@ export class ThyGridBasicExampleComponent implements OnInit {
             is_favorite: 1
         },
         {
+            group_id: '333',
             id: '8',
             name: '李四3',
             age: 10,
@@ -78,6 +100,7 @@ export class ThyGridBasicExampleComponent implements OnInit {
             is_favorite: 1
         },
         {
+            group_id: '333',
             id: '9',
             name: '王五3',
             age: 10,
@@ -85,7 +108,9 @@ export class ThyGridBasicExampleComponent implements OnInit {
             desc: '这是一条测试数据',
             is_favorite: 1
         },
+
         {
+            group_id: '444',
             id: '10',
             name: '张三4',
             age: 0,
@@ -94,6 +119,7 @@ export class ThyGridBasicExampleComponent implements OnInit {
             is_favorite: 1
         },
         {
+            group_id: '444',
             id: '11',
             name: '李四4',
             age: 10,
@@ -102,6 +128,7 @@ export class ThyGridBasicExampleComponent implements OnInit {
             is_favorite: 1
         },
         {
+            group_id: '444',
             id: '12',
             name: '王五4',
             age: 10,
@@ -111,77 +138,11 @@ export class ThyGridBasicExampleComponent implements OnInit {
         }
     ];
 
-    public selections: any = [];
+    public size = 'default';
 
-    public pagination = {
-        index: 1,
-        size: 10,
-        total: 12
-    };
+    ngOnInit() {}
 
-    ngOnInit() {
-        this.cloneModel = this.model;
-        this.model = this.cloneModel.slice(0, this.pagination.index * this.pagination.size);
-        this.sortModel();
-    }
-
-    sortModel() {
-        const favoriteItems = this.model.filter(item => {
-            return item.is_favorite;
-        });
-        const unFavoriteItems = this.model.filter(item => {
-            return !item.is_favorite;
-        });
-        this.model = [...favoriteItems, ...unFavoriteItems];
-    }
-
-    onMultiSelectChange(event: ThyMultiSelectEvent) {
-        if (!this.selections.includes(event.row)) {
-            this.selections.push(event.row);
-        } else {
-            this.selections = this.selections.filter((item: any) => item.id !== event.row.id);
-        }
-        this.selections = [...this.selections];
+    onRowClick(event: ThyTableRowEvent) {
         console.log(event);
-        console.log(this.selections);
-    }
-
-    onRadioSelectChange(event: any) {
-        console.log(event);
-    }
-
-    onPageChange(event: any) {
-        console.log(event);
-        this.model = this.cloneModel.slice((event.page - 1) * this.pagination.size, event.page * this.pagination.size);
-    }
-
-    onSwitchChange(event: any) {
-        setTimeout(() => {
-            event.row.checked = false;
-            event.refresh();
-        }, 2000);
-    }
-
-    onDraggableUpdate(event: any) {
-        console.log(event);
-    }
-
-    onContextMenu(event: any) {
-        console.log(event);
-        alert('右键');
-    }
-
-    onRowClick(event: ThyGridRowEvent) {
-        console.log(event);
-    }
-
-    onFavorite(row: any) {
-        row.is_favorite = !!row.is_favorite ? 0 : 1;
-        this.sortModel();
-    }
-
-    deleteItem(row: any) {
-        const index = this.model.indexOf(row);
-        this.model.splice(index, 1);
     }
 }

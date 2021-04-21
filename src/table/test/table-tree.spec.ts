@@ -1,35 +1,35 @@
 import { fakeAsync, ComponentFixture, TestBed, tick } from '@angular/core/testing';
-import { ThyGridModule } from '../grid.module';
+import { ThyTableModule } from '../table.module';
 import { NgModule, Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { ThyGridComponent } from '../grid.component';
+import { ThyTableComponent } from '../table.component';
 import { dispatchFakeEvent } from 'ngx-tethys/testing/dispatcher-events';
 
 @Component({
-    selector: 'thy-demo-grid-tree',
+    selector: 'thy-demo-table-tree',
     template: `
-        <thy-grid [thyModel]="model" thyRowKey="id" [thyMode]="mode">
-            <thy-grid-column thyTitle="姓名" thyModelKey="name" thyWidth="160"></thy-grid-column>
-            <thy-grid-column
+        <thy-table [thyModel]="model" thyRowKey="id" [thyMode]="mode">
+            <thy-table-column thyTitle="姓名" thyModelKey="name" thyWidth="160"></thy-table-column>
+            <thy-table-column
                 thyTitle="年龄"
                 thyModelKey="age"
                 thyHeaderClassName="header-class-name"
                 [thyExpand]="showExpand"
-            ></thy-grid-column>
-            <thy-grid-column thyTitle="备注" thyModelKey="desc" thyDefaultText="-"></thy-grid-column>
-            <thy-grid-column thyTitle="默认" thyModelKey="checked" thyType="switch"></thy-grid-column>
-            <thy-grid-column thyTitle="操作" thyClassName="thy-operation-links">
+            ></thy-table-column>
+            <thy-table-column thyTitle="备注" thyModelKey="desc" thyDefaultText="-"></thy-table-column>
+            <thy-table-column thyTitle="默认" thyModelKey="checked" thyType="switch"></thy-table-column>
+            <thy-table-column thyTitle="操作" thyClassName="thy-operation-links">
                 <ng-template #cell let-row>
                     <a href="javascript:;">设置</a>
                     <a class="link-secondary" href="javascript:;">
                         <i class="wtf wtf-trash-o"></i>
                     </a>
                 </ng-template>
-            </thy-grid-column>
-        </thy-grid>
+            </thy-table-column>
+        </thy-table>
     `
 })
-class ThyDemoGridTreeComponent {
+class ThyDemoTableTreeComponent {
     showExpand = false;
     model = [
         {
@@ -108,32 +108,32 @@ class ThyDemoGridTreeComponent {
 }
 
 @NgModule({
-    imports: [ThyGridModule],
-    declarations: [ThyDemoGridTreeComponent],
-    exports: [ThyDemoGridTreeComponent]
+    imports: [ThyTableModule],
+    declarations: [ThyDemoTableTreeComponent],
+    exports: [ThyDemoTableTreeComponent]
 })
-export class GridTreeTestModule {}
+export class TableTreeTestModule {}
 
-describe('ThyGrid', () => {
-    let fixture: ComponentFixture<ThyDemoGridTreeComponent>;
-    let testComponent: ThyDemoGridTreeComponent;
-    let gridComponent;
+describe('ThyTable', () => {
+    let fixture: ComponentFixture<ThyDemoTableTreeComponent>;
+    let testComponent: ThyDemoTableTreeComponent;
+    let tableComponent;
     let rows;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyGridModule, GridTreeTestModule],
+            imports: [ThyTableModule, TableTreeTestModule],
             providers: []
         });
         TestBed.compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(ThyDemoGridTreeComponent);
+        fixture = TestBed.createComponent(ThyDemoTableTreeComponent);
         testComponent = fixture.debugElement.componentInstance;
-        gridComponent = fixture.debugElement.query(By.directive(ThyGridComponent));
+        tableComponent = fixture.debugElement.query(By.directive(ThyTableComponent));
         fixture.detectChanges();
-        rows = gridComponent.nativeElement.querySelectorAll('tr');
+        rows = tableComponent.nativeElement.querySelectorAll('tr');
     });
 
     it('test expand event', fakeAsync(() => {
@@ -144,25 +144,25 @@ describe('ThyGrid', () => {
         dispatchFakeEvent(expandElement, 'click');
         fixture.detectChanges();
         tick(100);
-        expect(gridComponent.nativeElement.querySelectorAll('tr').length).toBe(9);
+        expect(tableComponent.nativeElement.querySelectorAll('tr').length).toBe(9);
 
         dispatchFakeEvent(expandElement, 'click');
         fixture.detectChanges();
-        rows = gridComponent.nativeElement.querySelectorAll('tr');
-        expect(gridComponent.nativeElement.querySelectorAll('tr').length).toBe(7);
+        rows = tableComponent.nativeElement.querySelectorAll('tr');
+        expect(tableComponent.nativeElement.querySelectorAll('tr').length).toBe(7);
         tick(100);
     }));
 
     it('test Multi-level Collapse Expand', fakeAsync(() => {
         fixture.detectChanges();
 
-        const secondRowColumnItem = gridComponent.nativeElement.querySelectorAll('tr')[1].querySelectorAll('td');
+        const secondRowColumnItem = tableComponent.nativeElement.querySelectorAll('tr')[1].querySelectorAll('td');
         const expandElement = secondRowColumnItem[0].querySelector('.tree-expand-icon');
         dispatchFakeEvent(expandElement, 'click');
         fixture.detectChanges();
         tick(100);
 
-        const twoExpandElement = gridComponent.nativeElement
+        const twoExpandElement = tableComponent.nativeElement
             .querySelectorAll('tr')[2]
             .querySelectorAll('td')[0]
             .querySelector('.tree-expand-icon');
@@ -170,21 +170,21 @@ describe('ThyGrid', () => {
         fixture.detectChanges();
         tick(100);
 
-        expect(gridComponent.nativeElement.querySelectorAll('tr').length).toBe(10);
+        expect(tableComponent.nativeElement.querySelectorAll('tr').length).toBe(10);
 
         dispatchFakeEvent(expandElement, 'click');
         fixture.detectChanges();
-        expect(gridComponent.nativeElement.querySelectorAll('tr').length).toBe(7);
+        expect(tableComponent.nativeElement.querySelectorAll('tr').length).toBe(7);
         tick(100);
     }));
 
     it('Test that Collapse Expand is displayed in the specified column', fakeAsync(() => {
-        fixture = TestBed.createComponent(ThyDemoGridTreeComponent);
+        fixture = TestBed.createComponent(ThyDemoTableTreeComponent);
         fixture.componentInstance.showExpand = true;
         testComponent = fixture.debugElement.componentInstance;
-        gridComponent = fixture.debugElement.query(By.directive(ThyGridComponent));
+        tableComponent = fixture.debugElement.query(By.directive(ThyTableComponent));
         fixture.detectChanges();
-        rows = gridComponent.nativeElement.querySelectorAll('tr');
+        rows = tableComponent.nativeElement.querySelectorAll('tr');
 
         const secondRowColumnItem = rows[1].querySelectorAll('td');
         const expandElement = secondRowColumnItem[1].querySelector('.tree-expand-icon');
@@ -196,12 +196,12 @@ describe('ThyGrid', () => {
 
         tick(100);
 
-        expect(gridComponent.nativeElement.querySelectorAll('tr').length).toBe(9);
+        expect(tableComponent.nativeElement.querySelectorAll('tr').length).toBe(9);
 
         dispatchFakeEvent(expandElement, 'click');
         fixture.detectChanges();
-        rows = gridComponent.nativeElement.querySelectorAll('tr');
-        expect(gridComponent.nativeElement.querySelectorAll('tr').length).toBe(7);
+        rows = tableComponent.nativeElement.querySelectorAll('tr');
+        expect(tableComponent.nativeElement.querySelectorAll('tr').length).toBe(7);
         tick(100);
     }));
 });
