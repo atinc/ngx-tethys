@@ -10,7 +10,7 @@ import {
     OnInit,
     ChangeDetectionStrategy
 } from '@angular/core';
-import { UpdateHostClassService } from 'ngx-tethys/core';
+import { InputBoolean, UpdateHostClassService } from 'ngx-tethys/core';
 import { SelectOptionBase } from '../../option/select-option-base';
 import { isArray, isUndefinedOrNull } from 'ngx-tethys/util';
 
@@ -139,6 +139,10 @@ export class ThySelectControlComponent implements OnInit {
         this.size = value;
         this.setSelectControlClass();
     }
+
+    @Input()
+    @InputBoolean()
+    thyMultipleSelectedColorMode: boolean = false;
 
     @Output()
     thyOnSearch = new EventEmitter<string>();

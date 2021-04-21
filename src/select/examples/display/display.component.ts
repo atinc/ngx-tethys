@@ -1,15 +1,4 @@
-import {
-    Component,
-    ViewEncapsulation,
-    OnInit,
-    Input,
-    ViewChild,
-    ElementRef,
-    Renderer2,
-    Output,
-    EventEmitter,
-    TemplateRef
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { taskTypes } from '../mock-data';
 
 @Component({

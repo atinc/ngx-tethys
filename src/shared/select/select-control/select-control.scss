@@ -114,6 +114,19 @@
             max-width: 100%;
         }
     }
+    .choice-tag {
+        margin: 0 10px 8px 0;
+        word-break: break-all;
+        display: inline-flex;
+        max-width: 131px;
+        .choice-tag-remove {
+            display: flex;
+            align-items: center;
+            font-size: 0.75rem !important;
+            cursor: pointer;
+            margin-right: 0 !important;
+        }
+    }
     .choice-remove {
         cursor: pointer;
         @include absolute-vertical-align-middle(false);

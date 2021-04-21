@@ -19,21 +19,41 @@
   </div>
   <ng-container *ngIf="isMultiple; else single">
     <ul>
-      <li class="choice" *ngFor="let item of multipleSelectedValue; trackBy: trackValue">
-        <div [ngClass]="choiceContentClass">
-          <ng-template
-            #customDisplay
-            [ngTemplateOutlet]="customDisplayTemplate"
-            [ngTemplateOutletContext]="{ $implicit: item.thyRawValue || item.thyValue || item }"
-          ></ng-template>
-          <ng-container *ngIf="!customDisplayTemplate; else customDisplay">
-            {{ item.thyLabelText }}
-          </ng-container>
-        </div>
-        <span class="choice-remove font-size-base" (click)="removeHandle(item, $event)">
-          <thy-icon thyIconName="close" class="font-size-sm"></thy-icon>
-        </span>
-      </li>
+      <ng-container *ngIf="!thyMultipleSelectedColorMode; else multipleColorMode">
+        <li class="choice" *ngFor="let item of multipleSelectedValue; trackBy: trackValue">
+          <div [ngClass]="choiceContentClass">
+            <ng-template
+              #customDisplay
+              [ngTemplateOutlet]="customDisplayTemplate"
+              [ngTemplateOutletContext]="{ $implicit: item.thyRawValue || item.thyValue || item }"
+            ></ng-template>
+            <ng-container *ngIf="!customDisplayTemplate; else customDisplay">
+              {{ item.thyLabelText }}
+            </ng-container>
+          </div>
+          <span class="choice-remove font-size-base" (click)="removeHandle(item, $event)">
+            <thy-icon thyIconName="close" class="font-size-sm"></thy-icon>
+          </span>
+        </li>
+      </ng-container>
+      <ng-template #multipleColorMode>
+        <li
+          class="choice-tag"
+          *ngFor="let item of multipleSelectedValue; trackBy: trackValue"
+          thyLabel="emboss"
+          [thyLabelColor]="item.thyRawValue?.color || item.thyValue?.color || item.color"
+          [thyBackgroundOpacity]="0.1"
+        >
+          <span [ngClass]="choiceContentClass" thyFlexibleText>{{ item.thyLabelText }}</span>
+          <span
+            class="choice-tag-remove font-size-base ml-1"
+            [ngStyle]="{ color: item.thyRawValue?.color || item.thyValue?.color || item?.color }"
+            (click)="removeHandle(item, $event)"
+          >
+            <thy-icon thyIconName="close" class="font-size-sm"></thy-icon>
+          </span>
+        </li>
+      </ng-template>
       <li class="select-control-search">
         <ng-template [ngTemplateOutlet]="inputTemplate"></ng-template>
       </li>

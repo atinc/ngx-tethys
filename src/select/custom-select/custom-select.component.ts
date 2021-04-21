@@ -178,6 +178,10 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
     @Input() thyLoadState = true;
 
     @Input()
+    @InputBoolean()
+    thyMultipleSelectedColorMode: boolean = false;
+
+    @Input()
     set thyMode(value: SelectMode) {
         this.mode = value;
         this.instanceSelectionModel();
