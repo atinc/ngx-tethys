@@ -6,9 +6,7 @@
     </div>
     <thy-form-group-footer [thyAlign]="footerAlign">
       <div class="thy-confirm-footer" [ngClass]="'thy-confirm-footer-' + footerAlign">
-        <button [thyButton]="okType" (click)="confirm()" [thyLoading]="loading" [thyLoadingText]="okLoadingText">
-          {{ okText }}
-        </button>
+        <button [thyButton]="okType" (click)="confirm()" [thyLoading]="loading" [thyLoadingText]="okLoadingText">{{ okText }}</button>
         <button thyButton="link-secondary" (click)="close()" class="thy-confirm-cancel">{{ cancelText }}</button>
       </div>
     </thy-form-group-footer>
