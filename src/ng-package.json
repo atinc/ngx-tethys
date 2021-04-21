@@ -5,5 +5,5 @@
   "lib": {
     "entryFile": "public-api.ts"
   },
-  "whitelistedNonPeerDependencies": ["tslib", "angular", "date-fns", "@tethys/icons", "bootstrap", "cyia-code-util"]
+  "allowedNonPeerDependencies": ["tslib", "angular", "date-fns", "@tethys/icons", "bootstrap", "cyia-code-util"]
 }
