@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, Inject, Input } from '@angular/core';
 import { ThyDialogRef } from '../dialog-ref';
-import { ThyConfirmConfig, THY_CONFIRM_DEFAULT_OPTIONS } from '../confirm.config';
+import { ThyConfirmConfig, THY_CONFIRM_DEFAULT_OPTIONS, THY_CONFIRM_DEFAULT_OPTIONS_VALUE } from '../confirm.config';
 import { finalize } from 'rxjs/operators';
 import { ThyFormGroupFooterAlign } from 'ngx-tethys/form';
 
@@ -28,6 +28,8 @@ export class ThyConfirmComponent implements OnInit, OnDestroy {
 
     public footerAlign: ThyFormGroupFooterAlign;
 
+    private _options: ThyConfirmConfig = Object.assign(THY_CONFIRM_DEFAULT_OPTIONS_VALUE, this.defaultConfig);
+
     constructor(
         private dialogRef: ThyDialogRef<ThyConfirmComponent>,
         private changeDetectorRef: ChangeDetectorRef,
@@ -35,16 +37,14 @@ export class ThyConfirmComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit() {
-        if (this.options) {
-            this.title = this.options.title || this.defaultConfig.title;
-            this.content = this.options.content;
-            this.okText = this.options.okText || this.defaultConfig.okText;
-            this.okType = this.options.okType || this.defaultConfig.okType;
-            this.cancelText = this.options.cancelText || this.defaultConfig.cancelText;
-            this.okLoadingText = this.options.okLoadingText || this.okText;
-            this.options.okLoadingText = this.options.okLoadingText || this.options.okText;
-            this.footerAlign = this.options.footerAlign || this.defaultConfig.footerAlign;
-        }
+        this._options = this.options ? Object.assign(this._options, this.options) : this._options;
+        this.title = this._options.title;
+        this.content = this._options.content;
+        this.okText = this._options.okText;
+        this.okType = this._options.okType;
+        this.cancelText = this._options.cancelText;
+        this.okLoadingText = this._options.okLoadingText;
+        this.footerAlign = this._options.footerAlign;
     }
 
     confirm() {

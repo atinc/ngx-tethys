@@ -2,7 +2,7 @@ import { ViewContainerRef } from '@angular/core';
 import { TestBed, ComponentFixture, fakeAsync, flushMicrotasks, inject, flush, tick } from '@angular/core/testing';
 import { Location } from '@angular/common';
 import { SpyLocation } from '@angular/common/testing';
-import { ThyDialog, ThyDialogModule } from '../index';
+import { ThyDialog, ThyDialogModule, THY_CONFIRM_DEFAULT_OPTIONS } from '../index';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { of } from 'rxjs';
 import { ThyDialogRef } from '../dialog-ref';
@@ -38,7 +38,13 @@ describe('ThyDialog', () => {
             imports: [ThyDialogModule, DialogTestModule],
             providers: [
                 bypassSanitizeProvider,
-                { provide: Location, useClass: SpyLocation }
+                { provide: Location, useClass: SpyLocation },
+                {
+                    provide: THY_CONFIRM_DEFAULT_OPTIONS,
+                    useValue: {
+                        title: 'test global default config'
+                    }
+                }
                 // {
                 //     provide: ScrollDispatcher,
                 //     useFactory: () => ({
