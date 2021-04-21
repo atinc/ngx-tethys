@@ -1,4 +1,7 @@
-import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectedOverlayPositionChange, ConnectionPositionPair } from '@angular/cdk/overlay';
+import { getFlexiblePositions, ThyPlacement } from 'ngx-tethys/core';
+import { TinyDate } from 'ngx-tethys/util';
+
+import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectedOverlayPositionChange } from '@angular/cdk/overlay';
 import {
     AfterViewInit,
     ChangeDetectionStrategy,
@@ -8,13 +11,11 @@ import {
     EventEmitter,
     Input,
     Output,
-    ViewChild,
-    Renderer2
+    ViewChild
 } from '@angular/core';
-import { TinyDate } from 'ngx-tethys/util';
+
 import { DateHelperService } from './date-helper.service';
 import { CompatibleValue } from './standard-types';
-import { getFlexiblePositions } from 'ngx-tethys/core';
 
 export type RangePartType = 'left' | 'right';
 
@@ -37,6 +38,7 @@ export class ThyPickerComponent implements AfterViewInit {
     @Input() size: 'sm' | 'xs' | 'lg' | 'md' | 'default';
     @Input() value: TinyDate | TinyDate[] | null;
     @Input() suffixIcon: string;
+    @Input() placement: ThyPlacement = 'bottomLeft';
     @Output() readonly valueChange = new EventEmitter<TinyDate | TinyDate[] | null>();
     @Output() readonly openChange = new EventEmitter<boolean>(); // Emitted when overlay's open state change
 
@@ -47,7 +49,7 @@ export class ThyPickerComponent implements AfterViewInit {
     prefixCls = 'thy-calendar';
     animationOpenState = false;
     overlayOpen = false; // Available when "open"=undefined
-    overlayPositions = getFlexiblePositions('bottomLeft', 4);
+    overlayPositions = getFlexiblePositions(this.placement, 4);
 
     get realOpenState(): boolean {
         // The value that really decide the open state of overlay
@@ -57,6 +59,7 @@ export class ThyPickerComponent implements AfterViewInit {
     constructor(private changeDetector: ChangeDetectorRef, private dateHelper: DateHelperService) {}
 
     ngAfterViewInit(): void {
+        this.overlayPositions = getFlexiblePositions(this.placement, 4);
         if (this.autoFocus) {
             this.focus();
         }
