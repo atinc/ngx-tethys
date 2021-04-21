@@ -1,10 +1,10 @@
+import { ThyPlacement } from 'ngx-tethys/core';
+import { coerceBooleanProperty, FunctionProp, TinyDate } from 'ngx-tethys/util';
+
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, TemplateRef } from '@angular/core';
 
-import { TinyDate } from 'ngx-tethys/util';
-import { coerceBooleanProperty, FunctionProp } from 'ngx-tethys/util';
-
 import { AbstractPickerComponent } from './abstract-picker.component';
-import { CompatibleDate, PanelMode, CompatibleValue } from './standard-types';
+import { CompatibleDate, CompatibleValue, PanelMode } from './standard-types';
 
 @Component({
     template: ``
@@ -26,6 +26,8 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
     }
 
     @Input() thyMustShowTime = false;
+
+    @Input() thyPlacement: ThyPlacement = 'bottomLeft';
 
     @Output() readonly thyOnOk = new EventEmitter<CompatibleDate | null>();
 
