@@ -95,6 +95,12 @@ module.exports = [
                 default: 'false'
             },
             {
+                name: 'thyPlacement',
+                description: `弹出位置，'top' | 'topLeft' | 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight' | 'left' | 'leftTop' | 'leftBottom' | 'right' | 'rightTop' | 'rightBottom'`,
+                type: 'string',
+                default: 'bottom'
+            },
+            {
                 name: 'thyHasBackdrop',
                 description: '是否弹出透明遮罩，如果显示遮罩则会阻止滚动区域滚动',
                 type: 'boolean',
