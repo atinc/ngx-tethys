@@ -136,6 +136,13 @@ describe('ThyDialog', () => {
         });
     }
 
+    function getConfirmButtons() {
+        return {
+            okButton: getElementByDialogContainer('.thy-confirm-footer button:first-child'),
+            cancelButton: getElementByDialogContainer('.thy-confirm-footer button:nth-child(2)')
+        };
+    }
+
     it('should find the closest dialog', () => {
         dialog.open(DialogSimpleContentComponent);
         viewContainerFixture.detectChanges();
@@ -1106,50 +1113,27 @@ describe('ThyDialog', () => {
         });
 
         describe('confirm button text', () => {
-            it('should show default value on the ok button when the okText is not custom', () => {
+            it('should show default value on the ok(cancel) button when the okText(cancelText) is not custom', () => {
                 dialog.confirm({
-                    content: 'test: default okText',
+                    content: 'test: default okText and cancelText',
                     onOk: () => {}
                 });
-
                 viewContainerFixture.detectChanges();
-                const confirmBtn = getElementByDialogContainer('.thy-confirm-footer button:first-child');
-                expect(confirmBtn.textContent).toBe('确认');
+                expect(getConfirmButtons().okButton.textContent).toBe('确认');
+                expect(getConfirmButtons().cancelButton.textContent).toBe('取消');
             });
 
-            it('should show custom text on the ok button when the okText is custom', () => {
+            it('should show custom text on the ok(cancel) button when the okText(cancelText) is custom', () => {
                 dialog.confirm({
-                    content: 'test: custom okText',
+                    content: 'test: custom okText and cancelText',
                     okText: '好的，知道了',
-                    onOk: () => {}
-                });
-
-                viewContainerFixture.detectChanges();
-                const confirmBtn = getElementByDialogContainer('.thy-confirm-footer button:first-child');
-                expect(confirmBtn.textContent).toBe('好的，知道了');
-            });
-
-            it('should show default value on the cancel button when the cancelText is not custom', () => {
-                dialog.confirm({
-                    content: 'test: default cancelText',
-                    onOk: () => {}
-                });
-
-                viewContainerFixture.detectChanges();
-                const cancelBtn = getElementByDialogContainer('.thy-confirm-footer button:nth-child(2)');
-                expect(cancelBtn.textContent).toBe('取消');
-            });
-
-            it('should show custom text on the cancel button when the cancelText is custom', () => {
-                dialog.confirm({
-                    content: 'test: custom cancelText',
                     cancelText: '不了，谢谢',
                     onOk: () => {}
                 });
 
                 viewContainerFixture.detectChanges();
-                const cancelBtn = getElementByDialogContainer('.thy-confirm-footer button:nth-child(2)');
-                expect(cancelBtn.textContent).toBe('不了，谢谢');
+                expect(getConfirmButtons().okButton.textContent).toBe('好的，知道了');
+                expect(getConfirmButtons().cancelButton.textContent).toBe('不了，谢谢');
             });
         });
 
@@ -1159,10 +1143,9 @@ describe('ThyDialog', () => {
                     content: 'test: default okType',
                     onOk: () => {}
                 });
-
                 viewContainerFixture.detectChanges();
-                const confirmBtn = getElementByDialogContainer('.thy-confirm-footer button:first-child');
-                expect(confirmBtn.classList.contains('btn-danger')).toBeTruthy();
+                const okBtn = getConfirmButtons().okButton;
+                expect(okBtn.classList.contains('btn-danger')).toBeTruthy();
             });
 
             it('should get correct class when okType is custom', () => {
@@ -1171,10 +1154,9 @@ describe('ThyDialog', () => {
                     okType: 'primary',
                     onOk: () => {}
                 });
-
                 viewContainerFixture.detectChanges();
-                const confirmBtn = getElementByDialogContainer('.thy-confirm-footer button:first-child');
-                expect(confirmBtn.classList.contains('btn-primary')).toBeTruthy();
+                const okBtn = getConfirmButtons().okButton;
+                expect(okBtn.classList.contains('btn-primary')).toBeTruthy();
             });
         });
     });
