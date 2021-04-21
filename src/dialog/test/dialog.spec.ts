@@ -1104,6 +1104,79 @@ describe('ThyDialog', () => {
                 done();
             });
         });
+
+        describe('confirm button text', () => {
+            it('should show default value on the ok button when the okText is not custom', () => {
+                dialog.confirm({
+                    content: 'test: default okText',
+                    onOk: () => {}
+                });
+
+                viewContainerFixture.detectChanges();
+                const confirmBtn = getElementByDialogContainer('.thy-confirm-footer button:first-child');
+                expect(confirmBtn.textContent).toBe('确认');
+            });
+
+            it('should show custom text on the ok button when the okText is custom', () => {
+                dialog.confirm({
+                    content: 'test: custom okText',
+                    okText: '好的，知道了',
+                    onOk: () => {}
+                });
+
+                viewContainerFixture.detectChanges();
+                const confirmBtn = getElementByDialogContainer('.thy-confirm-footer button:first-child');
+                expect(confirmBtn.textContent).toBe('好的，知道了');
+            });
+
+            it('should show default value on the cancel button when the cancelText is not custom', () => {
+                dialog.confirm({
+                    content: 'test: default cancelText',
+                    onOk: () => {}
+                });
+
+                viewContainerFixture.detectChanges();
+                const cancelBtn = getElementByDialogContainer('.thy-confirm-footer button:nth-child(2)');
+                expect(cancelBtn.textContent).toBe('取消');
+            });
+
+            it('should show custom text on the cancel button when the cancelText is custom', () => {
+                dialog.confirm({
+                    content: 'test: custom cancelText',
+                    cancelText: '不了，谢谢',
+                    onOk: () => {}
+                });
+
+                viewContainerFixture.detectChanges();
+                const cancelBtn = getElementByDialogContainer('.thy-confirm-footer button:nth-child(2)');
+                expect(cancelBtn.textContent).toBe('不了，谢谢');
+            });
+        });
+
+        describe('confirm okType', () => {
+            it('should get correct class when default okType', () => {
+                dialog.confirm({
+                    content: 'test: default okType',
+                    onOk: () => {}
+                });
+
+                viewContainerFixture.detectChanges();
+                const confirmBtn = getElementByDialogContainer('.thy-confirm-footer button:first-child');
+                expect(confirmBtn.classList.contains('btn-danger')).toBeTruthy();
+            });
+
+            it('should get correct class when okType is custom', () => {
+                dialog.confirm({
+                    content: 'test: custom okType',
+                    okType: 'primary',
+                    onOk: () => {}
+                });
+
+                viewContainerFixture.detectChanges();
+                const confirmBtn = getElementByDialogContainer('.thy-confirm-footer button:first-child');
+                expect(confirmBtn.classList.contains('btn-primary')).toBeTruthy();
+            });
+        });
     });
 
     describe(`dialog should work with header close button`, () => {
