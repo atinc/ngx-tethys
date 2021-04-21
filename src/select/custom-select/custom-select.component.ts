@@ -388,6 +388,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
     }
 
     public onSearchFilter(searchText: string) {
+        searchText = searchText.trim();
         if (this.thyServerSearch) {
             this.thyOnSearch.emit(searchText);
         } else {
