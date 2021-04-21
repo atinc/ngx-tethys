@@ -17,8 +17,12 @@ export function createTreeCompilerHost(options: ts.CompilerOptions, tree: Tree) 
         if (fileName.includes('node_modules')) {
             return false;
         }
-        const dir = tree.getDir(fileName);
-        return !!dir.subdirs.length || !!dir.subfiles.length;
+        try {
+            const dir = tree.getDir(fileName);
+            return !!dir.subdirs.length || !!dir.subfiles.length;
+        } catch (error) {
+            return false;
+        }
     };
     host.getCurrentDirectory = () => '/';
     host.getCanonicalFileName = fileName => fileName;

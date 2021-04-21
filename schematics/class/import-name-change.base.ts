@@ -51,8 +51,7 @@ export abstract class ImportNameChangeBase extends MigrationBase {
             .filter(item => !this.changeNodeMap.has(item))
             .filter(item => (item as any).text && (item as any).text === oldNamed) as any;
         replaceNodeList.forEach(item => {
-            const symbol = checker.getSymbolAtLocation(item);
-            const type = checker.getTypeOfSymbolAtLocation(symbol, item);
+            const type = checker.getTypeAtLocation(item);
             const str = checker.typeToString(type);
             if (str === `"__hook${oldNamed}"`) {
                 list.push(new ReplaceContentChange(item.getStart(), item.getWidth(), newNamed));

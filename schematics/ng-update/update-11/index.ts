@@ -40,7 +40,7 @@ export default function main() {
                 compilerHost.readFile = fileName => {
                     if (['/node_modules/ngx-tethys/table.ts', '/node_modules/ngx-tethys/grid.ts'].includes(fileName)) {
                         return Object.keys(IMPORT_NAME_CHANGE_RELATION)
-                            .map(item => `export const ${item}:'__hook${item}';`)
+                            .map(item => `export const ${item}:'__hook${item}';export type ${item}='__hook${item}'`)
                             .join('\n');
                     }
                     return oldReadFile.call(compilerHost, fileName);

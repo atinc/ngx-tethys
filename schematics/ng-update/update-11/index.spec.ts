@@ -20,6 +20,9 @@ describe('ng-update v11 Schematic', () => {
             import { ThyGridModule as testAlias } from 'ngx-tethys/grid'
             console.log(testAlias)
             console.log(ThyGridModule)
+            class TestClass{
+                test(a:ThyGridModule){}
+            }
           {  let ThyGridColumn='not to be convert'
         console.log(ThyGridColumn)}
             @Component({
