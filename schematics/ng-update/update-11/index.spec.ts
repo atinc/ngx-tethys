@@ -17,8 +17,11 @@ describe('ng-update v11 Schematic', () => {
             `
             import { Dictionary } from 'ngx-tethys/types';
             import { ThyGridModule,ThyGridColumn } from 'ngx-tethys/grid'
+            import { ThyGridModule as testAlias } from 'ngx-tethys/grid'
+            console.log(testAlias)
             console.log(ThyGridModule)
-          {  let ThyGridColumn='not to be convert'}
+          {  let ThyGridColumn='not to be convert'
+        console.log(ThyGridColumn)}
             @Component({
                 template: '<thy-grid></thy-grid>',
             })
@@ -51,7 +54,12 @@ describe('ng-update v11 Schematic', () => {
     it(`should not convert "ThyGridColumn" when without relation`, async () => {
         const result = workspaceTree.read(TEST_MODULE_PATH).toString();
         expect(result).toContain(`let ThyGridColumn='not to be convert'`);
-        expect(result).toContain(`ThyTableColumn`);
+        expect(result).toContain(`console.log(ThyGridColumn)`);
+    });
+    it(`should convert alias import "ThyGridModule" to "ThyTableModule"`, async () => {
+        const result = workspaceTree.read(TEST_MODULE_PATH).toString();
+        expect(result).toContain(`ThyTableModule as testAlias`);
+        expect(result).toContain(`console.log(testAlias)`);
     });
     it(`should templateUrl "thy-grid" to "thy-table"`, async () => {
         const result = workspaceTree.read(TEST_HTML_PATH).toString();

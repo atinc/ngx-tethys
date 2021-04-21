@@ -3,6 +3,7 @@ import ts from 'typescript';
 import { ContentChange, ReplaceContentChange } from '../types';
 import { createCssSelectorForTs } from 'cyia-code-util';
 export abstract class ImportNameChangeBase extends MigrationBase {
+    private changeNodeMap = new Set<ts.Node>();
     abstract readonly relation: Record<string, string>;
     run() {
         const importDeclarationList: ts.ImportDeclaration[] = this.getImportDeclarationList().filter(item =>
@@ -17,9 +18,22 @@ export abstract class ImportNameChangeBase extends MigrationBase {
             const importSpecifierList = this.getImportDeclarationImportSpecifierList(importDeclaration);
             for (let index = 0; index < importSpecifierList.length; index++) {
                 const importSpecifier = importSpecifierList[index];
-                const replaceName = this.relation[importSpecifier.name.text];
-                if (replaceName) {
+                const isAlias = !!importSpecifier.propertyName;
+                const replaceName = this.relation[(importSpecifier.propertyName || importSpecifier.name).text];
+                if (!replaceName) {
+                    continue;
+                }
+                if (!isAlias) {
                     this.changeRelationIdentifier(importSpecifier.name.text, replaceName, contentChangeList);
+                } else {
+                    this.changeNodeMap.add(importSpecifier.propertyName);
+                    contentChangeList.push(
+                        new ReplaceContentChange(
+                            importSpecifier.propertyName.getStart(),
+                            importSpecifier.propertyName.getWidth(),
+                            replaceName
+                        )
+                    );
                 }
             }
         }
@@ -34,6 +48,7 @@ export abstract class ImportNameChangeBase extends MigrationBase {
         const selector = createCssSelectorForTs(this.sourceFile);
         const replaceNodeList: ts.Identifier[] = selector
             .queryAll(`Identifier`)
+            .filter(item => !this.changeNodeMap.has(item))
             .filter(item => (item as any).text && (item as any).text === oldNamed) as any;
         replaceNodeList.forEach(item => {
             const symbol = checker.getSymbolAtLocation(item);
