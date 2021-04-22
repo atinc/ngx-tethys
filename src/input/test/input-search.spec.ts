@@ -1,9 +1,12 @@
 import { Component, DebugElement, NgModule } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+
+import { dispatchKeyboardEvent } from '../../testing';
+import { A } from '../../util/keycodes';
 import { ThyInputSearchComponent } from '../input-search.component';
-import { ThyInputDirective } from './../input.directive';
-import { ThyInputModule } from './../module';
+import { ThyInputDirective } from '../input.directive';
+import { ThyInputModule } from '../module';
 
 @Component({
     selector: 'test-bed',
@@ -80,4 +83,17 @@ describe('input search', () => {
         fixture.detectChanges();
         expect(debugContainerElement.nativeElement.children[1].classList.contains('form-control-lg')).toBe(true);
     });
+
+    it('search with space', fakeAsync(() => {
+        fixture.detectChanges();
+        flush();
+        fixture.detectChanges();
+        debugContainerElement.nativeElement.querySelector('input').value = '  cc';
+        const inputElement = debugContainerElement.nativeElement.querySelector('input');
+        dispatchKeyboardEvent(inputElement, 'input', A);
+        fixture.detectChanges();
+        flush();
+        fixture.detectChanges();
+        expect(inputElement.value).toBe('cc');
+    }));
 });
