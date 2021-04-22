@@ -1181,7 +1181,7 @@ describe('ThyDialog', () => {
             });
 
             describe('confirm okLoadingText', () => {
-                fit('should show okText when loading and okLoadingText is not custom', () => {
+                it('should show okText when loading and okLoadingText is not custom', () => {
                     const dialogRef = dialog.confirm({
                         content: 'test: not custom okLoadingText',
                         onOk: () => {}
@@ -1194,7 +1194,7 @@ describe('ThyDialog', () => {
                     expect(dialogRef.componentInstance.okLoadingText).toBe(dialogRef.componentInstance.okText);
                 });
 
-                fit('should show okLoadingText when loading and okLoadingText is custom', () => {
+                it('should show okLoadingText when loading and okLoadingText is custom', () => {
                     const dialogRef = dialog.confirm({
                         content: 'test: custom okLoadingText',
                         okLoadingText: '加载中...',
