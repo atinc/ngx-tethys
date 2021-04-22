@@ -1121,92 +1121,64 @@ describe('ThyDialog', () => {
         });
 
         describe('confirm options', () => {
-            describe('global custom THY_CONFIRM_DEFAULT_OPTIONS which missing some fields', () => {
-                beforeEach(() => {
-                    dialog.confirm({
-                        content: 'test: global custom',
-                        onOk: () => {}
-                    });
-                    viewContainerFixture.detectChanges();
+            it('should show default value', () => {
+                dialog.confirm({
+                    content: 'test: global custom',
+                    onOk: () => {}
                 });
-
-                it('should show global custom title', () => {
-                    expect(getConfirmElements().headerTitle.textContent).toBe('全局定义标题');
-                });
-
-                it('should show default okText and cancelText', () => {
-                    expect(getConfirmElements().okButton.textContent).toBe('确认');
-                    expect(getConfirmElements().cancelButton.textContent).toBe('取消');
-                });
-
-                it('should get correct style in cancel button when okType is not custom', () => {
-                    expect(getConfirmElements().okButton.classList.contains('btn-danger')).toBeTruthy();
-                });
-
-                it('should put the footer buttons in the default place when footerAlign is not custom', () => {
-                    expect(getConfirmElements().confirmFooter.classList.contains('thy-confirm-footer-left'));
-                });
+                viewContainerFixture.detectChanges();
+                expect(getConfirmElements().headerTitle.textContent).toBe('全局定义标题');
+                expect(getConfirmElements().okButton.textContent).toBe('确认');
+                expect(getConfirmElements().cancelButton.textContent).toBe('取消');
+                expect(getConfirmElements().okButton.classList.contains('btn-danger')).toBeTruthy();
+                expect(getConfirmElements().confirmFooter.classList.contains('thy-confirm-footer-left'));
             });
 
-            describe('custom options', () => {
-                beforeEach(() => {
-                    dialog.confirm({
-                        title: '自定义标题',
-                        content: 'test: custom options',
-                        okText: '好的，知道了',
-                        cancelText: '不了，谢谢',
-                        okType: 'primary',
-                        footerAlign: 'right',
-                        onOk: () => {}
-                    });
-                    viewContainerFixture.detectChanges();
+            it('should show custom value', () => {
+                dialog.confirm({
+                    title: '自定义标题',
+                    content: 'test: custom options',
+                    okText: '好的，知道了',
+                    cancelText: '不了，谢谢',
+                    okType: 'primary',
+                    footerAlign: 'right',
+                    onOk: () => {}
                 });
-
-                it('should show correct title when the title is custom in options', () => {
-                    expect(getConfirmElements().headerTitle.textContent).toBe('自定义标题');
-                });
-
-                it('should show custom text on the ok(cancel) button when the okText(cancelText) is custom in options', () => {
-                    expect(getConfirmElements().okButton.textContent).toBe('好的，知道了');
-                    expect(getConfirmElements().cancelButton.textContent).toBe('不了，谢谢');
-                });
-
-                it('should get correct class when okType is custom in options', () => {
-                    expect(getConfirmElements().okButton.classList.contains('btn-primary')).toBeTruthy();
-                });
-
-                it('should put the footer buttons in the correct place when footerAlign is custom in options', () => {
-                    expect(getConfirmElements().confirmFooter.classList.contains('thy-confirm-footer-right'));
-                });
+                viewContainerFixture.detectChanges();
+                expect(getConfirmElements().headerTitle.textContent).toBe('自定义标题');
+                expect(getConfirmElements().okButton.textContent).toBe('好的，知道了');
+                expect(getConfirmElements().cancelButton.textContent).toBe('不了，谢谢');
+                expect(getConfirmElements().okButton.classList.contains('btn-primary')).toBeTruthy();
+                expect(getConfirmElements().confirmFooter.classList.contains('thy-confirm-footer-right'));
             });
 
-            describe('confirm okLoadingText', () => {
-                it('should show okText when loading and okLoadingText is not custom', () => {
-                    const dialogRef = dialog.confirm({
-                        content: 'test: not custom okLoadingText',
-                        onOk: () => {}
-                    });
-                    const okButton = getConfirmElements().okButton;
-                    if (okButton) {
-                        okButton.click();
-                    }
-                    viewContainerFixture.detectChanges();
-                    expect(dialogRef.componentInstance.okLoadingText).toBe(dialogRef.componentInstance.okText);
+            it('should show okText when loading and okLoadingText is not custom', () => {
+                const dialogRef = dialog.confirm({
+                    content: 'test: not custom okLoadingText',
+                    onOk: () => {}
                 });
+                const okButton = getConfirmElements().okButton;
+                if (okButton) {
+                    okButton.click();
+                }
+                viewContainerFixture.detectChanges();
+                expect(dialogRef.componentInstance.okLoadingText).toBe(dialogRef.componentInstance.okText);
+                expect(getConfirmElements().okButton.textContent).toBe(dialogRef.componentInstance.okText);
+            });
 
-                it('should show okLoadingText when loading and okLoadingText is custom', () => {
-                    const dialogRef = dialog.confirm({
-                        content: 'test: custom okLoadingText',
-                        okLoadingText: '加载中...',
-                        onOk: () => {}
-                    });
-                    const okButton = getConfirmElements().okButton;
-                    if (okButton) {
-                        okButton.click();
-                    }
-                    viewContainerFixture.detectChanges();
-                    expect(dialogRef.componentInstance.okLoadingText).toBe('加载中...');
+            it('should show okLoadingText when loading and okLoadingText is custom', () => {
+                const dialogRef = dialog.confirm({
+                    content: 'test: custom okLoadingText',
+                    okLoadingText: '加载中...',
+                    onOk: () => {}
                 });
+                const okButton = getConfirmElements().okButton;
+                if (okButton) {
+                    okButton.click();
+                }
+                viewContainerFixture.detectChanges();
+                expect(dialogRef.componentInstance.okLoadingText).toBe('加载中...');
+                expect(getConfirmElements().okButton.textContent).toBe('加载中...');
             });
         });
     });
