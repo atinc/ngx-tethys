@@ -28,24 +28,23 @@ export class ThyConfirmComponent implements OnInit, OnDestroy {
 
     public footerAlign: ThyFormGroupFooterAlign;
 
-    private _options: ThyConfirmConfig = Object.assign(THY_CONFIRM_DEFAULT_OPTIONS_VALUE, this.defaultConfig);
-
     constructor(
         private dialogRef: ThyDialogRef<ThyConfirmComponent>,
         private changeDetectorRef: ChangeDetectorRef,
         @Inject(THY_CONFIRM_DEFAULT_OPTIONS) private defaultConfig: ThyConfirmConfig
-    ) {}
+    ) {
+        this.defaultConfig = { ...(THY_CONFIRM_DEFAULT_OPTIONS_VALUE as ThyConfirmConfig), ...this.defaultConfig };
+    }
 
     ngOnInit() {
-        this._options = this.options ? Object.assign(this._options, this.options) : this._options;
-        this.title = this._options.title;
-        this.content = this._options.content;
-        this.okText = this._options.okText;
-        this.okType = this._options.okType;
-        this.cancelText = this._options.cancelText;
-        this.okLoadingText = this._options.okLoadingText || this.okText;
-        this.options.okLoadingText = this.okLoadingText;
-        this.footerAlign = this._options.footerAlign;
+        this.defaultConfig = this.options ? { ...this.defaultConfig, ...this.options } : this.defaultConfig;
+        this.title = this.defaultConfig.title;
+        this.content = this.defaultConfig.content;
+        this.okText = this.defaultConfig.okText;
+        this.okType = this.defaultConfig.okType;
+        this.cancelText = this.defaultConfig.cancelText;
+        this.okLoadingText = this.defaultConfig.okLoadingText || this.okText;
+        this.footerAlign = this.defaultConfig.footerAlign;
     }
 
     confirm() {
