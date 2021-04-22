@@ -43,7 +43,8 @@ export class ThyConfirmComponent implements OnInit, OnDestroy {
         this.okText = this._options.okText;
         this.okType = this._options.okType;
         this.cancelText = this._options.cancelText;
-        this.okLoadingText = this._options.okLoadingText;
+        this.okLoadingText = this._options.okLoadingText || this.okText;
+        this.options.okLoadingText = this.okLoadingText;
         this.footerAlign = this._options.footerAlign;
     }
 

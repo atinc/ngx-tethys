@@ -1179,6 +1179,35 @@ describe('ThyDialog', () => {
                     expect(getConfirmElements().confirmFooter.classList.contains('thy-confirm-footer-right'));
                 });
             });
+
+            describe('confirm okLoadingText', () => {
+                fit('should show okText when loading and okLoadingText is not custom', () => {
+                    const dialogRef = dialog.confirm({
+                        content: 'test: not custom okLoadingText',
+                        onOk: () => {}
+                    });
+                    const okButton = getConfirmElements().okButton;
+                    if (okButton) {
+                        okButton.click();
+                    }
+                    viewContainerFixture.detectChanges();
+                    expect(dialogRef.componentInstance.okLoadingText).toBe(dialogRef.componentInstance.okText);
+                });
+
+                fit('should show okLoadingText when loading and okLoadingText is custom', () => {
+                    const dialogRef = dialog.confirm({
+                        content: 'test: custom okLoadingText',
+                        okLoadingText: '加载中...',
+                        onOk: () => {}
+                    });
+                    const okButton = getConfirmElements().okButton;
+                    if (okButton) {
+                        okButton.click();
+                    }
+                    viewContainerFixture.detectChanges();
+                    expect(dialogRef.componentInstance.okLoadingText).toBe('加载中...');
+                });
+            });
         });
     });
 
