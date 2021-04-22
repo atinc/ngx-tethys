@@ -42,7 +42,7 @@ describe('ThyDialog', () => {
                 {
                     provide: THY_CONFIRM_DEFAULT_OPTIONS,
                     useValue: {
-                        title: 'test global default config'
+                        title: '全局定义标题'
                     }
                 }
                 // {
@@ -142,8 +142,10 @@ describe('ThyDialog', () => {
         });
     }
 
-    function getConfirmButtons() {
+    function getConfirmElements() {
         return {
+            headerTitle: getElementByDialogContainer('.dialog-header>h3'),
+            confirmFooter: getElementByDialogContainer('.thy-confirm-footer'),
             okButton: getElementByDialogContainer('.thy-confirm-footer button:first-child'),
             cancelButton: getElementByDialogContainer('.thy-confirm-footer button:nth-child(2)')
         };
@@ -1118,51 +1120,64 @@ describe('ThyDialog', () => {
             });
         });
 
-        describe('confirm button text', () => {
-            it('should show default value on the ok(cancel) button when the okText(cancelText) is not custom', () => {
-                dialog.confirm({
-                    content: 'test: default okText and cancelText',
-                    onOk: () => {}
+        describe('confirm options', () => {
+            describe('global custom THY_CONFIRM_DEFAULT_OPTIONS which missing some fields', () => {
+                beforeEach(() => {
+                    dialog.confirm({
+                        content: 'test: global custom',
+                        onOk: () => {}
+                    });
+                    viewContainerFixture.detectChanges();
                 });
-                viewContainerFixture.detectChanges();
-                expect(getConfirmButtons().okButton.textContent).toBe('确认');
-                expect(getConfirmButtons().cancelButton.textContent).toBe('取消');
+
+                it('should show global custom title', () => {
+                    expect(getConfirmElements().headerTitle.textContent).toBe('全局定义标题');
+                });
+
+                it('should show default okText and cancelText', () => {
+                    expect(getConfirmElements().okButton.textContent).toBe('确认');
+                    expect(getConfirmElements().cancelButton.textContent).toBe('取消');
+                });
+
+                it('should get correct style in cancel button when okType is not custom', () => {
+                    expect(getConfirmElements().okButton.classList.contains('btn-danger')).toBeTruthy();
+                });
+
+                it('should put the footer buttons in the default place when footerAlign is not custom', () => {
+                    expect(getConfirmElements().confirmFooter.classList.contains('thy-confirm-footer-left'));
+                });
             });
 
-            it('should show custom text on the ok(cancel) button when the okText(cancelText) is custom', () => {
-                dialog.confirm({
-                    content: 'test: custom okText and cancelText',
-                    okText: '好的，知道了',
-                    cancelText: '不了，谢谢',
-                    onOk: () => {}
+            describe('custom options', () => {
+                beforeEach(() => {
+                    dialog.confirm({
+                        title: '自定义标题',
+                        content: 'test: custom options',
+                        okText: '好的，知道了',
+                        cancelText: '不了，谢谢',
+                        okType: 'primary',
+                        footerAlign: 'right',
+                        onOk: () => {}
+                    });
+                    viewContainerFixture.detectChanges();
                 });
 
-                viewContainerFixture.detectChanges();
-                expect(getConfirmButtons().okButton.textContent).toBe('好的，知道了');
-                expect(getConfirmButtons().cancelButton.textContent).toBe('不了，谢谢');
-            });
-        });
-
-        describe('confirm okType', () => {
-            it('should get correct class when default okType', () => {
-                dialog.confirm({
-                    content: 'test: default okType',
-                    onOk: () => {}
+                it('should show correct title when the title is custom in options', () => {
+                    expect(getConfirmElements().headerTitle.textContent).toBe('自定义标题');
                 });
-                viewContainerFixture.detectChanges();
-                const okBtn = getConfirmButtons().okButton;
-                expect(okBtn.classList.contains('btn-danger')).toBeTruthy();
-            });
 
-            it('should get correct class when okType is custom', () => {
-                dialog.confirm({
-                    content: 'test: custom okType',
-                    okType: 'primary',
-                    onOk: () => {}
+                it('should show custom text on the ok(cancel) button when the okText(cancelText) is custom in options', () => {
+                    expect(getConfirmElements().okButton.textContent).toBe('好的，知道了');
+                    expect(getConfirmElements().cancelButton.textContent).toBe('不了，谢谢');
                 });
-                viewContainerFixture.detectChanges();
-                const okBtn = getConfirmButtons().okButton;
-                expect(okBtn.classList.contains('btn-primary')).toBeTruthy();
+
+                it('should get correct class when okType is custom in options', () => {
+                    expect(getConfirmElements().okButton.classList.contains('btn-primary')).toBeTruthy();
+                });
+
+                it('should put the footer buttons in the correct place when footerAlign is custom in options', () => {
+                    expect(getConfirmElements().confirmFooter.classList.contains('thy-confirm-footer-right'));
+                });
             });
         });
     });
