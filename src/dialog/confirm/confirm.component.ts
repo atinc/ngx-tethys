@@ -37,7 +37,7 @@ export class ThyConfirmComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.defaultConfig = this.options ? { ...this.defaultConfig, ...this.options } : this.defaultConfig;
+        this.defaultConfig = { ...this.defaultConfig, ...this.options };
         this.title = this.defaultConfig.title;
         this.content = this.defaultConfig.content;
         this.okText = this.defaultConfig.okText;
