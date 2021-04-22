@@ -2,7 +2,7 @@ import { ViewContainerRef } from '@angular/core';
 import { TestBed, ComponentFixture, fakeAsync, flushMicrotasks, inject, flush, tick } from '@angular/core/testing';
 import { Location } from '@angular/common';
 import { SpyLocation } from '@angular/common/testing';
-import { ThyDialog, ThyDialogModule } from '../index';
+import { ThyDialog, ThyDialogModule, THY_CONFIRM_DEFAULT_OPTIONS } from '../index';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { of } from 'rxjs';
 import { ThyDialogRef } from '../dialog-ref';
@@ -38,7 +38,13 @@ describe('ThyDialog', () => {
             imports: [ThyDialogModule, DialogTestModule],
             providers: [
                 bypassSanitizeProvider,
-                { provide: Location, useClass: SpyLocation }
+                { provide: Location, useClass: SpyLocation },
+                {
+                    provide: THY_CONFIRM_DEFAULT_OPTIONS,
+                    useValue: {
+                        title: '全局定义标题'
+                    }
+                }
                 // {
                 //     provide: ScrollDispatcher,
                 //     useFactory: () => ({
@@ -134,6 +140,15 @@ describe('ThyDialog', () => {
             }
             done();
         });
+    }
+
+    function getConfirmElements() {
+        return {
+            headerTitle: getElementByDialogContainer('.dialog-header>h3'),
+            confirmFooter: getElementByDialogContainer('.thy-confirm-footer'),
+            okButton: getElementByDialogContainer('.thy-confirm-footer button:first-child'),
+            cancelButton: getElementByDialogContainer('.thy-confirm-footer button:nth-child(2)')
+        };
     }
 
     it('should find the closest dialog', () => {
@@ -1102,6 +1117,68 @@ describe('ThyDialog', () => {
             viewContainerFixture.whenStable().then(() => {
                 expect(getDialogContainerElement()).toBeNull();
                 done();
+            });
+        });
+
+        describe('confirm options', () => {
+            it('should show default value', () => {
+                dialog.confirm({
+                    content: 'test: global custom',
+                    onOk: () => {}
+                });
+                viewContainerFixture.detectChanges();
+                expect(getConfirmElements().headerTitle.textContent).toBe('全局定义标题');
+                expect(getConfirmElements().okButton.textContent).toBe('确认');
+                expect(getConfirmElements().cancelButton.textContent).toBe('取消');
+                expect(getConfirmElements().okButton.classList.contains('btn-danger')).toBeTruthy();
+                expect(getConfirmElements().confirmFooter.classList.contains('thy-confirm-footer-left'));
+            });
+
+            it('should show custom value', () => {
+                dialog.confirm({
+                    title: '自定义标题',
+                    content: 'test: custom options',
+                    okText: '好的，知道了',
+                    cancelText: '不了，谢谢',
+                    okType: 'primary',
+                    footerAlign: 'right',
+                    onOk: () => {}
+                });
+                viewContainerFixture.detectChanges();
+                expect(getConfirmElements().headerTitle.textContent).toBe('自定义标题');
+                expect(getConfirmElements().okButton.textContent).toBe('好的，知道了');
+                expect(getConfirmElements().cancelButton.textContent).toBe('不了，谢谢');
+                expect(getConfirmElements().okButton.classList.contains('btn-primary')).toBeTruthy();
+                expect(getConfirmElements().confirmFooter.classList.contains('thy-confirm-footer-right'));
+            });
+
+            it('should show okText when loading and okLoadingText is not custom', () => {
+                const dialogRef = dialog.confirm({
+                    content: 'test: not custom okLoadingText',
+                    onOk: () => {}
+                });
+                const okButton = getConfirmElements().okButton;
+                if (okButton) {
+                    okButton.click();
+                }
+                viewContainerFixture.detectChanges();
+                expect(dialogRef.componentInstance.okLoadingText).toBe(dialogRef.componentInstance.okText);
+                expect(getConfirmElements().okButton.textContent).toBe(dialogRef.componentInstance.okText);
+            });
+
+            it('should show okLoadingText when loading and okLoadingText is custom', () => {
+                const dialogRef = dialog.confirm({
+                    content: 'test: custom okLoadingText',
+                    okLoadingText: '加载中...',
+                    onOk: () => {}
+                });
+                const okButton = getConfirmElements().okButton;
+                if (okButton) {
+                    okButton.click();
+                }
+                viewContainerFixture.detectChanges();
+                expect(dialogRef.componentInstance.okLoadingText).toBe('加载中...');
+                expect(getConfirmElements().okButton.textContent).toBe('加载中...');
             });
         });
     });
