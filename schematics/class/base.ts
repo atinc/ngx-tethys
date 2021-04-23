@@ -1,10 +1,13 @@
-import ts, { ImportDeclaration, SourceFile, StringLiteral, factory } from 'typescript';
-import { UpdateFileService } from '../../../utils';
-
+import ts, { ImportDeclaration, SourceFile, StringLiteral, factory, Program } from 'typescript';
+import { UpdateFileService } from '../utils';
+import { createCssSelectorForTs } from 'cyia-code-util';
 export abstract class MigrationBase {
+    constructor(protected sourceFile: SourceFile, protected updateFileService: UpdateFileService, protected program: Program) {
+        this.selector = createCssSelectorForTs(this.sourceFile);
+    }
     private printer = ts.createPrinter();
+    protected selector: ReturnType<typeof createCssSelectorForTs>;
     abstract run(): void;
-    constructor(protected sourceFile: SourceFile, protected updateFileService: UpdateFileService) {}
 
     createImportDeclaration(
         importNameList: string[],
@@ -15,17 +18,17 @@ export abstract class MigrationBase {
             newLine?: boolean;
         }
     ) {
-        const node = ts.createImportDeclaration(
+        const node = factory.createImportDeclaration(
             undefined,
             undefined,
-            ts.createImportClause(
+            factory.createImportClause(
+                false,
                 undefined,
-                ts.createNamedImports(
-                    importNameList.map(importName => ts.createImportSpecifier(undefined, ts.createIdentifier(importName)))
-                ),
-                false
+                factory.createNamedImports(
+                    importNameList.map(importName => factory.createImportSpecifier(undefined, factory.createIdentifier(importName)))
+                )
             ),
-            ts.createStringLiteral(importPackageName)
+            factory.createStringLiteral(importPackageName)
         );
         if (commentOptions && commentOptions.content !== undefined) {
             return ts.addSyntheticLeadingComment(
@@ -39,7 +42,7 @@ export abstract class MigrationBase {
     }
 
     createNamedImports(importSpecifierList: ts.ImportSpecifier[]) {
-        return ts.createNamedImports(importSpecifierList);
+        return factory.createNamedImports(importSpecifierList);
     }
 
     printNodeContent(node: ts.Node) {
@@ -47,11 +50,12 @@ export abstract class MigrationBase {
     }
 
     createStringLiteral(string: string) {
-        return ts.createStringLiteral(string);
+        return factory.createStringLiteral(string);
     }
 
     getImportDeclarationList(): ts.ImportDeclaration[] {
-        return this.sourceFile.statements
+        return this.selector
+            .queryAll('ImportDeclaration')
             .filter(item => ts.isImportDeclaration(item))
             .filter((item: ts.ImportDeclaration) => this.getImportDeclarationPackageName(item).startsWith('ngx-tethys')) as any[];
     }
