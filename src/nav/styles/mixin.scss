@@ -15,7 +15,7 @@
             color: $hover-color;
         }
     }
-    @include hover-focus-active {
+    @include hover-active {
         color: $hover-color;
         text-decoration: none;
         @if $border-bottom {
@@ -64,7 +64,7 @@
             display: none;
         }
     }
-    @include hover-focus-active {
+    @include hover-active {
         color: $nav-link-hover-color;
         text-decoration: none;
     }
