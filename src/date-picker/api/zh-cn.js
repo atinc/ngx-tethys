@@ -75,6 +75,12 @@ module.exports = [
                 description: '弹出层 className',
                 type: 'string',
                 default: '""'
+            },
+            {
+                name: 'thyPlacement',
+                description: `弹出位置，'top' | 'topLeft' | 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight' | 'left' | 'leftTop' | 'leftBottom' | 'right' | 'rightTop' | 'rightBottom'`,
+                type: 'string',
+                default: 'bottom'
             }
         ]
     },
@@ -150,12 +156,6 @@ module.exports = [
                 description: `模式，'decade' | 'year' | 'month' | 'date'`,
                 type: 'string|string[]',
                 default: ''
-            },
-            {
-                name: 'thyPlacement',
-                description: `弹出位置，'top' | 'topLeft' | 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight' | 'left' | 'leftTop' | 'leftBottom' | 'right' | 'rightTop' | 'rightBottom'`,
-                type: 'string',
-                default: 'bottom'
             },
             {
                 name: 'thyOffset',

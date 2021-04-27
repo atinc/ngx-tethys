@@ -1,9 +1,9 @@
-import { ThyPlacement, ThyUpperOverlayConfig } from 'ngx-tethys/core';
+import { ThyPlacement, ThyAbstractOverlayConfig } from 'ngx-tethys/core';
 
 import { Overlay, ScrollStrategy } from '@angular/cdk/overlay';
 import { ElementRef, InjectionToken } from '@angular/core';
 
-export class ThyPopoverConfig<TData = any> extends ThyUpperOverlayConfig<TData> {
+export class ThyPopoverConfig<TData = any> extends ThyAbstractOverlayConfig<TData> {
     /** Origin Element, for overlay flexible connected to */
     origin: ElementRef<any> | HTMLElement;
 

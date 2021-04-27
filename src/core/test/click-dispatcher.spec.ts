@@ -5,13 +5,13 @@ import { Subscription, Observable } from 'rxjs';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
 
 describe('ClickDispatcher', () => {
-    beforeEach(async(() => {
+    beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ClickDispatcherTestModule]
         });
 
         TestBed.compileComponents();
-    }));
+    });
 
     describe('basic usage', () => {
         let click: ThyClickDispatcher;

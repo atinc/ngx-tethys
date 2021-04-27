@@ -13,7 +13,7 @@ order: 20
 
 ## 模块导入
 ```ts
-import { ThyCardModule } from "tethys/card";
+import { ThyCardModule } from "ngx-tethys/card";
 ```
 
 ## 如何使用

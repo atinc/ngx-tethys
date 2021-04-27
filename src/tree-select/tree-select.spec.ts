@@ -1,17 +1,18 @@
-import { ThyTreeSelectNode } from './tree-select.class';
-import { TestBed, async, ComponentFixture, fakeAsync, tick, inject, flush, discardPeriodicTasks } from '@angular/core/testing';
-import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { Component, ViewChild, ViewChildren, QueryList, ElementRef, Sanitizer, SecurityContext, DebugElement } from '@angular/core';
-import { ThyTreeSelectModule } from './module';
-import { By, DomSanitizer } from '@angular/platform-browser';
-import { UpdateHostClassService } from '../core';
-import { ThyPositioningService } from '../positioning/positioning.service';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
+import { Component, DebugElement, Sanitizer, SecurityContext, ViewChild } from '@angular/core';
+import { async, fakeAsync, flush, inject, TestBed } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { By, DomSanitizer } from '@angular/platform-browser';
+
+import { UpdateHostClassService } from '../core';
 import { ThyFormModule } from '../form';
-import { filterTreeData, ThyTreeSelectComponent } from './tree-select.component';
-import { ThyIconRegistry, ThyIconComponent } from '../icon';
+import { ThyIconComponent, ThyIconRegistry } from '../icon';
+import { ThyPositioningService } from '../positioning/positioning.service';
 import { searchTreeSelectData } from './examples/mock-data';
+import { ThyTreeSelectModule } from './module';
+import { ThyTreeSelectNode } from './tree-select.class';
+import { filterTreeData, ThyTreeSelectComponent } from './tree-select.component';
 
 function treeNodesExpands(nodes: ThyTreeSelectNode[]) {
     const arr = [] as ThyTreeSelectNode[];
@@ -520,6 +521,7 @@ describe('ThyTreeSelect', () => {
             const componentInstance = fixture.debugElement.componentInstance;
             fixture.detectChanges();
             const filterNodes = filterTreeData(componentInstance.treeSelect.originTreeNodes, '2-1', 'name');
+            componentInstance.treeSelect.searchValue('2-1 ');
             componentInstance.treeSelect.treeNodes = filterNodes;
             fixture.detectChanges();
             expect(treeNodesExpands(componentInstance.treeSelect.treeNodes).length).toEqual(2);

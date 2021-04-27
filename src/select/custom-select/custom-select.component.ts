@@ -1,4 +1,4 @@
-import { getFlexiblePositions, InputBoolean, ScrollToService, UpdateHostClassService } from 'ngx-tethys/core';
+import { getFlexiblePositions, InputBoolean, ScrollToService, ThyPlacement, UpdateHostClassService } from 'ngx-tethys/core';
 import {
     IThyOptionParentComponent,
     SelectControlSize,
@@ -223,6 +223,9 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
     thyFooterTemplate: TemplateRef<any>;
 
     @Input()
+    thyPlacement: ThyPlacement = 'bottom';
+
+    @Input()
     thyFooterClass = 'thy-custom-select-footer';
 
     @ContentChild('selectedDisplay') selectedValueDisplayRef: TemplateRef<any>;
@@ -385,6 +388,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
     }
 
     public onSearchFilter(searchText: string) {
+        searchText = searchText.trim();
         if (this.thyServerSearch) {
             this.thyOnSearch.emit(searchText);
         } else {
@@ -607,7 +611,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
     }
 
     private getPositions() {
-        this.dropDownPositions = getFlexiblePositions('bottom', this.defaultOffset);
+        this.dropDownPositions = getFlexiblePositions(this.thyPlacement, this.defaultOffset);
     }
 
     private instanceSelectionModel() {

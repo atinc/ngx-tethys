@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="10.0.6"></a>
+## [10.0.6](https://github.com/atinc/ngx-tethys/compare/10.0.5...10.0.6) (2021-04-26)
+
+
+### Bug Fixes
+
+* **dialog:** support custom okText (#INFR-1880) ([#1227](https://github.com/atinc/ngx-tethys/issues/1227)) ([e58b237](https://github.com/atinc/ngx-tethys/commit/e58b237)), closes [#INFR-1880](https://github.com/atinc/ngx-tethys/issues/INFR-1880)
+* **nav:** remove style whrn focus ([#1224](https://github.com/atinc/ngx-tethys/issues/1224)) ([da73b86](https://github.com/atinc/ngx-tethys/commit/da73b86))
+
+
+### Features
+
+* **core:** add defaultPanelClass params for buildBaseOverlayConfig and simplified components use it #INFR-1852 ([#1209](https://github.com/atinc/ngx-tethys/issues/1209)) ([b11ec83](https://github.com/atinc/ngx-tethys/commit/b11ec83)), closes [#INFR-1852](https://github.com/atinc/ngx-tethys/issues/INFR-1852) [#INFR-1852](https://github.com/atinc/ngx-tethys/issues/INFR-1852) [#INFR-1852](https://github.com/atinc/ngx-tethys/issues/INFR-1852)
+* **date-picker:** add thyPlacement #INFR-1893 ([#1228](https://github.com/atinc/ngx-tethys/issues/1228)) ([532b69d](https://github.com/atinc/ngx-tethys/commit/532b69d)), closes [#INFR-1893](https://github.com/atinc/ngx-tethys/issues/INFR-1893)
+* **property-operation:** add thyFlexibleText #INFR-1911 ([#1234](https://github.com/atinc/ngx-tethys/issues/1234)) ([0daf9b4](https://github.com/atinc/ngx-tethys/commit/0daf9b4)), closes [#INFR-1911](https://github.com/atinc/ngx-tethys/issues/INFR-1911)
+* **select:** add thyPlacement #INFR-1884 ([#1229](https://github.com/atinc/ngx-tethys/issues/1229)) ([e38b4b0](https://github.com/atinc/ngx-tethys/commit/e38b4b0)), closes [#INFR-1884](https://github.com/atinc/ngx-tethys/issues/INFR-1884)
+* **select:** select support search with space #INFR-1894 ([#1230](https://github.com/atinc/ngx-tethys/issues/1230)) ([9e18c38](https://github.com/atinc/ngx-tethys/commit/9e18c38)), closes [#INFR-1894](https://github.com/atinc/ngx-tethys/issues/INFR-1894)
+* **tree-select:** tree-select support search with space #INFR-1895 ([#1232](https://github.com/atinc/ngx-tethys/issues/1232)) ([af562a0](https://github.com/atinc/ngx-tethys/commit/af562a0)), closes [#INFR-1895](https://github.com/atinc/ngx-tethys/issues/INFR-1895)
+
+
+
 <a name="10.0.5"></a>
 ## [10.0.5](https://github.com/atinc/ngx-tethys/compare/10.0.4...10.0.5) (2021-03-23)
 

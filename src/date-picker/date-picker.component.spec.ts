@@ -1,3 +1,6 @@
+import { format, fromUnixTime, isSameDay } from 'date-fns';
+import { dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
+
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { registerLocaleData } from '@angular/common';
@@ -8,10 +11,8 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 import { ThyDatePickerModule } from './date-picker.module';
-import { dispatchMouseEvent, dispatchKeyboardEvent } from 'ngx-tethys/testing';
-import { isSameDay, format, getUnixTime, fromUnixTime } from 'date-fns';
+import { ThyPickerComponent } from './picker.component';
 import { DateEntry } from './standard-types';
-import { convertDate } from './picker.util';
 
 registerLocaleData(zh);
 
@@ -496,6 +497,15 @@ describe('ThyDatePickerComponent', () => {
             // );
         }));
 
+        it('should support thyPlacement', fakeAsync(() => {
+            let placement = 'top';
+            fixtureInstance.thyPlacement = placement;
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            const pickComponentInstance = fixture.debugElement.query(By.directive(ThyPickerComponent)).componentInstance;
+            expect(pickComponentInstance.overlayPositions[0].originY).toEqual(placement);
+        }));
+
         it('should not reset time', fakeAsync(() => {
             fixtureInstance.thyValue = new Date('2019-08-02 13:03:33');
             fixtureInstance.thyShowTime = true;
@@ -653,6 +663,7 @@ describe('ThyDatePickerComponent', () => {
                 (ngModelChange)="thyOnChange($event)"
                 [thyDateRender]="thyDateRender"
                 [thyMode]="thyMode"
+                [thyPlacement]="thyPlacement"
                 (thyOnPanelChange)="thyOnPanelChange($event)"
                 (thyOnCalendarChange)="thyOnCalendarChange($event)"
                 [thyShowTime]="thyShowTime"
@@ -689,6 +700,7 @@ class ThyTestDatePickerComponent {
     thyDateRender: any;
     thyShowTime: boolean | object = false;
     thyMode: string;
+    thyPlacement: string = 'bottomLeft';
     thyOnChange(): void {}
     thyOnCalendarChange(): void {}
     thyOpenChange(): void {}

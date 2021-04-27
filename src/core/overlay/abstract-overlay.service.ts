@@ -5,18 +5,18 @@ import { ComponentType, Overlay, OverlayConfig, OverlayRef, ScrollStrategy } fro
 import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
 import { Injector, TemplateRef } from '@angular/core';
 
-import { ThyUpperOverlayContainer } from './upper-overlay-container';
-import { ThyUpperOverlayRef } from './upper-overlay-ref';
-import { ThyUpperOverlayConfig, ThyUpperOverlayOptions } from './upper-overlay.config';
+import { ThyAbstractOverlayContainer } from './abstract-overlay-container';
+import { ThyAbstractOverlayRef } from './abstract-overlay-ref';
+import { ThyAbstractOverlayConfig, ThyUpperOverlayOptions } from './abstract-overlay.config';
 
 export type ComponentTypeOrTemplateRef<T> = ComponentType<T> | TemplateRef<T>;
 
-export abstract class ThyUpperOverlayService<TConfig extends ThyUpperOverlayConfig, TContainer extends ThyUpperOverlayContainer> {
-    private openedOverlays: ThyUpperOverlayRef<unknown, TContainer>[] = [];
+export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverlayConfig, TContainer extends ThyAbstractOverlayContainer> {
+    private openedOverlays: ThyAbstractOverlayRef<unknown, TContainer>[] = [];
 
     private readonly _afterAllClosed = new Subject<void>();
 
-    private readonly _afterOpened = new Subject<ThyUpperOverlayRef<any, TContainer>>();
+    private readonly _afterOpened = new Subject<ThyAbstractOverlayRef<any, TContainer>>();
 
     constructor(
         protected options: ThyUpperOverlayOptions, // component name, e.g: dialog | popover | slide
@@ -37,19 +37,19 @@ export abstract class ThyUpperOverlayService<TConfig extends ThyUpperOverlayConf
         overlayRef: OverlayRef,
         containerInstance: TContainer,
         config: TConfig
-    ): ThyUpperOverlayRef<T, TContainer>;
+    ): ThyAbstractOverlayRef<T, TContainer>;
 
     /** Create injector for component content */
     protected abstract createInjector<T>(
         config: TConfig,
-        overlayRef: ThyUpperOverlayRef<T, TContainer>,
+        overlayRef: ThyAbstractOverlayRef<T, TContainer>,
         containerInstance: TContainer
     ): Injector;
 
     abstract open<T, TData = undefined, TResult = undefined>(
         componentOrTemplateRef: ComponentTypeOrTemplateRef<T>,
-        config?: ThyUpperOverlayConfig<TData>
-    ): ThyUpperOverlayRef<T, TContainer, TResult>;
+        config?: ThyAbstractOverlayConfig<TData>
+    ): ThyAbstractOverlayRef<T, TContainer, TResult>;
 
     /** Attach component or template ref to overlay container */
     protected attachUpperOverlayContent<T, TResult>(
@@ -57,7 +57,7 @@ export abstract class ThyUpperOverlayService<TConfig extends ThyUpperOverlayConf
         containerInstance: TContainer,
         overlayRef: OverlayRef,
         config: TConfig
-    ): ThyUpperOverlayRef<T, TContainer, TResult> {
+    ): ThyAbstractOverlayRef<T, TContainer, TResult> {
         // Create a reference to the dialog we're creating in order to give the user a handle
         // to modify and close it.
         const upperOverlayRef = this.createUpperOverlayRef<T>(overlayRef, containerInstance, config);
@@ -90,7 +90,7 @@ export abstract class ThyUpperOverlayService<TConfig extends ThyUpperOverlayConf
         return upperOverlayRef;
     }
 
-    protected removeOpenedOverlay(upperOverlayRef: ThyUpperOverlayRef<any, TContainer>) {
+    protected removeOpenedOverlay(upperOverlayRef: ThyAbstractOverlayRef<any, TContainer>) {
         const index = this.openedOverlays.indexOf(upperOverlayRef);
 
         if (index > -1) {
@@ -102,7 +102,7 @@ export abstract class ThyUpperOverlayService<TConfig extends ThyUpperOverlayConf
         }
     }
 
-    protected getUpperOverlayById(id: string): ThyUpperOverlayRef<any, TContainer> | undefined {
+    protected getUpperOverlayById(id: string): ThyAbstractOverlayRef<any, TContainer> | undefined {
         return this.openedOverlays.find(overlay => overlay.id === id);
     }
 
@@ -132,7 +132,7 @@ export abstract class ThyUpperOverlayService<TConfig extends ThyUpperOverlayConf
     protected openUpperOverlay<T, TResult = any>(
         componentOrTemplateRef: ComponentTypeOrTemplateRef<T>,
         config?: TConfig
-    ): ThyUpperOverlayRef<T, TContainer, TResult> {
+    ): ThyAbstractOverlayRef<T, TContainer, TResult> {
         config = { ...this.defaultConfig, ...config };
         if (config.id && this.getUpperOverlayById(config.id)) {
             throw Error(`${this.options.name} with id ${config.id} exists already. The ${this.options.name} id must be unique.`);

@@ -11,14 +11,14 @@ import { helpers } from 'ngx-tethys/util';
 import { ThyClickPositioner } from 'ngx-tethys/core';
 import { ThyConfirmComponent } from './confirm/confirm.component';
 import { ThyConfirmConfig } from './confirm.config';
-import { ThyUpperOverlayService, ThyUpperOverlayRef } from 'ngx-tethys/core';
+import { ThyAbstractOverlayService, ThyAbstractOverlayRef } from 'ngx-tethys/core';
 import { dialogUpperOverlayOptions } from './dialog.options';
 import { StaticProvider } from '@angular/core';
 
 @Injectable({
     providedIn: 'root'
 })
-export class ThyDialog extends ThyUpperOverlayService<ThyDialogConfig, ThyDialogContainerComponent> implements OnDestroy {
+export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDialogContainerComponent> implements OnDestroy {
     protected buildOverlayConfig(config: ThyDialogConfig<any>): OverlayConfig {
         const size = config.size || ThyDialogSizes.md;
         const overlayConfig = this.buildBaseOverlayConfig(config, [`dialog-${size}`]);
@@ -43,7 +43,7 @@ export class ThyDialog extends ThyUpperOverlayService<ThyDialogConfig, ThyDialog
         overlayRef: OverlayRef,
         containerInstance: ThyDialogContainerComponent,
         config: ThyDialogConfig<any>
-    ): ThyUpperOverlayRef<T, any> {
+    ): ThyAbstractOverlayRef<T, any> {
         return new ThyInternalDialogRef(overlayRef, containerInstance, config);
     }
 
