@@ -80,7 +80,7 @@ module.exports = [
     },
     {
         type: 'component',
-        name: 'thy-data-picker',
+        name: 'thy-date-picker',
         description: '参数列表',
         properties: [
             {

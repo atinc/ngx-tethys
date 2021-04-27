@@ -1,9 +1,18 @@
 <thy-date-picker class="d-block w-50 mb-3" thyFormat="yyyy-MM-dd HH:mm:ss" [(ngModel)]="today" [thyMinDate]="today"> </thy-date-picker>
 <thy-date-picker class="d-block w-50 mb-3" thyFormat="yyyy-MM-dd HH:mm:ss" [thyMaxDate]="today"> </thy-date-picker>
 <thy-range-picker
-  class="mb-3"
+  class="mb-3 w-50"
   [thyMinDate]="minDate"
   [thyMaxDate]="maxDate"
   [thyDefaultPickerValue]="defaultPickerValue"
   thyFormat="yyyy-MM-dd"
+></thy-range-picker>
+
+<thy-range-picker
+  class="mb-3 w-50"
+  thyFormat="yyyy-MM-dd"
+  [thyDisabledDate]="disableDate"
+  [(ngModel)]="dynamicDisabled"
+  (thyOnCalendarChange)="calendarChange($event)"
+  (thyOpenChange)="panelOpenChange($event)"
 ></thy-range-picker>
