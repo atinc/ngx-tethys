@@ -5,7 +5,5 @@ import { Component } from '@angular/core';
     templateUrl: './size.component.html'
 })
 export class ThyEmptySizeExampleComponent {
-    thySize: string = 'md';
-
     constructor() {}
 }

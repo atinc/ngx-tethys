@@ -1,4 +1,4 @@
 ---
-title: Default
+title: Basic
 order: 1
 ---

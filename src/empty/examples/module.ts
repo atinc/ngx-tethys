@@ -6,8 +6,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
-import { ThyEmptyAnotherExtraExampleComponent } from './another-extra/another-extra.component';
 import { ThyEmptyBasicExampleComponent } from './basic/basic.component';
+import { ThyEmptyContainerExampleComponent } from './container/container.component';
 import { ThyEmptyEntityNameExampleComponent } from './entity-name/entity-name.component';
 import { ThyEmptyExtraExampleComponent } from './extra/extra.component';
 import { ThyEmptyIconExampleComponent } from './icon/icon.component';
@@ -16,6 +16,7 @@ import { ThyEmptyMarginTopExampleComponent } from './margin-top/margin-top.compo
 import { ThyEmptyMessageExampleComponent } from './message/message.component';
 import { ThyEmptySizeExampleComponent } from './size/size.component';
 import { ThyEmptyTopExampleComponent } from './top/top.component';
+import { ThyEmptyTranslationKeyExampleComponent } from './translation-key/translation-key.component';
 
 const COMPONENTS = [
     ThyEmptyBasicExampleComponent,
@@ -26,8 +27,9 @@ const COMPONENTS = [
     ThyEmptyIconExampleComponent,
     ThyEmptyImgExampleComponent,
     ThyEmptyExtraExampleComponent,
-    ThyEmptyAnotherExtraExampleComponent,
-    ThyEmptyMarginTopExampleComponent
+    ThyEmptyContainerExampleComponent,
+    ThyEmptyMarginTopExampleComponent,
+    ThyEmptyTranslationKeyExampleComponent
 ];
 
 @NgModule({

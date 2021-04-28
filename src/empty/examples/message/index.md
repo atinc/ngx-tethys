@@ -1,4 +1,4 @@
 ---
-title: thyMessage
+title: Message
 order: 2
 ---
