@@ -3,7 +3,19 @@ import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'thy-empty-translation-key-example',
-    templateUrl: './translation-key.component.html'
+    templateUrl: './translation-key.component.html',
+    styles: [
+        `
+            .demo-empty {
+                background-color: white;
+                margin-bottom: 15px;
+                padding: 20px 0;
+            }
+            .demo-empty-last {
+                margin-bottom: 0;
+            }
+        `
+    ]
 })
 export class ThyEmptyTranslationKeyExampleComponent {
     translationValues = { translate: '示例' };

@@ -1,5 +1,5 @@
 import { NgxTethysModule, ThyTranslate } from 'ngx-tethys';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/internal/Observable';
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -8,8 +8,8 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 import { ThyEmptyBasicExampleComponent } from './basic/basic.component';
 import { ThyEmptyContainerExampleComponent } from './container/container.component';
+import { ThyEmptyCustomizeExampleComponent } from './customize/customize.component';
 import { ThyEmptyEntityNameExampleComponent } from './entity-name/entity-name.component';
-import { ThyEmptyExtraExampleComponent } from './extra/extra.component';
 import { ThyEmptyIconExampleComponent } from './icon/icon.component';
 import { ThyEmptyImgExampleComponent } from './img/img.component';
 import { ThyEmptyMarginTopExampleComponent } from './margin-top/margin-top.component';
@@ -26,7 +26,7 @@ const COMPONENTS = [
     ThyEmptyEntityNameExampleComponent,
     ThyEmptyIconExampleComponent,
     ThyEmptyImgExampleComponent,
-    ThyEmptyExtraExampleComponent,
+    ThyEmptyCustomizeExampleComponent,
     ThyEmptyContainerExampleComponent,
     ThyEmptyMarginTopExampleComponent,
     ThyEmptyTranslationKeyExampleComponent
