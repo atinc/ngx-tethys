@@ -45,4 +45,16 @@ import { ThyDatePickerModule } from 'ngx-tethys/date-picker';
 
 <div class="dg-alert dg-alert-info">指令使用</div>
 
+```html
+<thy-property-operation
+  class="w-100 mb-3"
+  thyLabelText="开始时间"
+  [thyValue]="date | thyDatePickerFormat"
+  thyIcon="calendar-check"
+  thyDatePicker
+  [(ngModel)]="date"
+></thy-property-operation>
+```
+展示效果：
+
 <example name="thy-date-picker-directive-example" inline>

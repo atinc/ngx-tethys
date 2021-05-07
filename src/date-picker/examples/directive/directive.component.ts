@@ -17,7 +17,7 @@ export class ThyDatePickerDirectiveExampleComponent implements OnInit {
 
     dateTime = {
         date: 1253498754,
-        with_time: 0
+        with_time: 1
     } as DateEntry;
 
     dateRange: { begin: number; end: number };
@@ -29,10 +29,6 @@ export class ThyDatePickerDirectiveExampleComponent implements OnInit {
     constructor() {}
 
     ngOnInit() {}
-
-    onChange(result: Date): void {
-        console.log('onChange: ', result);
-    }
 
     disableDate = (date: Date) => {
         if (!(this.selectedDateRange && this.selectedDateRange.length === 1)) {
