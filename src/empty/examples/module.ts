@@ -1,21 +1,22 @@
 import { NgxTethysModule, ThyTranslate } from 'ngx-tethys';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/internal/Observable';
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
-import { ThyEmptyAnotherExtraExampleComponent } from './another-extra/another-extra.component';
 import { ThyEmptyBasicExampleComponent } from './basic/basic.component';
+import { ThyEmptyContainerExampleComponent } from './container/container.component';
+import { ThyEmptyCustomizeExampleComponent } from './customize/customize.component';
 import { ThyEmptyEntityNameExampleComponent } from './entity-name/entity-name.component';
-import { ThyEmptyExtraExampleComponent } from './extra/extra.component';
 import { ThyEmptyIconExampleComponent } from './icon/icon.component';
 import { ThyEmptyImgExampleComponent } from './img/img.component';
 import { ThyEmptyMarginTopExampleComponent } from './margin-top/margin-top.component';
 import { ThyEmptyMessageExampleComponent } from './message/message.component';
 import { ThyEmptySizeExampleComponent } from './size/size.component';
 import { ThyEmptyTopExampleComponent } from './top/top.component';
+import { ThyEmptyTranslationKeyExampleComponent } from './translation-key/translation-key.component';
 
 const COMPONENTS = [
     ThyEmptyBasicExampleComponent,
@@ -25,9 +26,10 @@ const COMPONENTS = [
     ThyEmptyEntityNameExampleComponent,
     ThyEmptyIconExampleComponent,
     ThyEmptyImgExampleComponent,
-    ThyEmptyExtraExampleComponent,
-    ThyEmptyAnotherExtraExampleComponent,
-    ThyEmptyMarginTopExampleComponent
+    ThyEmptyCustomizeExampleComponent,
+    ThyEmptyContainerExampleComponent,
+    ThyEmptyMarginTopExampleComponent,
+    ThyEmptyTranslationKeyExampleComponent
 ];
 
 @NgModule({
