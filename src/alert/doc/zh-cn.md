@@ -9,8 +9,8 @@ order: 1
 
 ## 何时使用
 
-- 用于展示返回的一些错误提示。
-- 用于显示页面的一些提示说明。
+- 用于展示需要向用户显示警告的信息。
+- 用于非浮层的静态展示，用户可选择始终展示或手动关闭。
 
 
 ## 模块导入
@@ -27,5 +27,11 @@ import { ThyAlertModule } from "ngx-tethys/alert";
 
 展示效果如下：
 <example name="thy-alert-basic-example" />
+
+
+## 过渡
+
+thyType中的weak类型：`primary-week`、`success-week`、`warning-week`、`danger-week`，将替换为`primary-weak`、`success-weak`、`warning-weak`、`danger-weak`
+
 
 

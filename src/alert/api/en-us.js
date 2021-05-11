@@ -2,30 +2,31 @@ module.exports = [
     {
         type: 'component',
         name: 'thy-alert',
-        description: '警告提示，展现需要关注的信息',
+        description: 'Show alert messages',
         properties: [
             {
                 name: 'thyType',
-                description: '指定警告提示的类型',
+                description: 'Alert type',
                 type: `'success' | 'warning' | 'danger' | 'info' | 'primary-weak' | 
                 'success-weak' | 'warning-weak' | 'danger-weak'`,
                 default: 'info'
             },
             {
                 name: 'thyMessage',
-                description: '显示警告提示的内容',
+                description: 'Show alert message',
                 type: 'string',
                 default: ''
             },
             {
                 name: 'thyIcon',
-                description: '显示自定义图标，可传 true/false 控制是否显示图标，或者传字符串去指定图标名称',
+                description:
+                    'Show custom icon. Pass true or false to controls whether to show icons, or pass a string to specify the icon name.',
                 type: 'boolean | string',
                 default: ''
             },
             {
                 name: 'thyCloseable',
-                description: '是否显示关闭警告框按钮，默认不显示',
+                description: 'Whether Alert can be closed, it is not displayed by default',
                 type: 'boolean',
                 default: 'false'
             }
@@ -34,7 +35,7 @@ module.exports = [
     {
         type: 'directive',
         name: 'thyAlertActionItem',
-        description: '样式指令,可为警告内容添加自定义操作按钮',
+        description: 'Style Directive. Add custom action buttons for alert content.',
         properties: []
     }
 ];
