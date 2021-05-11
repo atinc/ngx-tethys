@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'thy-empty-entity-name-example',
-    templateUrl: './entity-name.component.html',
+    selector: 'thy-empty-customize-example',
+    templateUrl: './customize.component.html',
     styles: [
         `
+            .empty-button {
+                margin-top: 18px;
+            }
             .demo-empty {
                 background-color: white;
                 margin-bottom: 15px;
@@ -16,6 +19,8 @@ import { Component } from '@angular/core';
         `
     ]
 })
-export class ThyEmptyEntityNameExampleComponent {
+export class ThyEmptyCustomizeExampleComponent {
     constructor() {}
+
+    goHome() {}
 }

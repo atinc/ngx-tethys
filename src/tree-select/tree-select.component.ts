@@ -1,28 +1,27 @@
-import {
-    Component,
-    Input,
-    OnInit,
-    forwardRef,
-    HostBinding,
-    ContentChild,
-    TemplateRef,
-    ElementRef,
-    ViewChild,
-    NgZone,
-    HostListener,
-    Renderer2
-} from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { ThyTreeSelectNode, ThyTreeSelectType } from './tree-select.class';
-import { isObject, isArray } from 'ngx-tethys/util';
-import { BehaviorSubject, combineLatest, Observable, of } from 'rxjs';
-import { CdkOverlayOrigin, CdkConnectedOverlay, ConnectionPositionPair } from '@angular/cdk/overlay';
 import { getFlexiblePositions } from 'ngx-tethys/core';
 import { ThyTreeNode } from 'ngx-tethys/tree';
-
+import { isArray, isObject, produce, warnDeprecation } from 'ngx-tethys/util';
+import { Observable, of } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { produce } from 'ngx-tethys/util';
-import { warnDeprecation } from 'ngx-tethys/util';
+
+import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectionPositionPair } from '@angular/cdk/overlay';
+import {
+    Component,
+    ContentChild,
+    ElementRef,
+    forwardRef,
+    HostBinding,
+    HostListener,
+    Input,
+    NgZone,
+    OnInit,
+    Renderer2,
+    TemplateRef,
+    ViewChild
+} from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+
+import { ThyTreeSelectNode, ThyTreeSelectType } from './tree-select.class';
 
 type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -217,7 +216,7 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
     }
 
     searchValue(searchText: string) {
-        this.treeNodes = filterTreeData(this.originTreeNodes, searchText, this.thyShowKey);
+        this.treeNodes = filterTreeData(this.originTreeNodes, searchText.trim(), this.thyShowKey);
     }
 
     public setPosition() {
