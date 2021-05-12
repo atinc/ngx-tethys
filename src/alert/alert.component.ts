@@ -28,7 +28,7 @@ export class ThyAlertComponent implements OnInit {
     messageText: string;
 
     @Input() set thyType(value: ThyAlertType) {
-        if (value && value.indexOf('-week') != -1) {
+        if (value && value.indexOf('-week') !== -1) {
             console.warn('The type "xxx-week" will be removed, please use "xxx-weak" instead.');
         }
         this._type = value;
