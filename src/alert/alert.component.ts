@@ -2,10 +2,6 @@ import { Component, Input, OnInit, ContentChild, TemplateRef, HostBinding } from
 import { isString } from 'ngx-tethys/util';
 import { Dictionary } from 'ngx-tethys/types';
 
-/**
- * @deprecated week 替换为 weak
- */
-
 type ThyAlertType =
     | 'success'
     | 'warning'
@@ -31,7 +27,12 @@ export class ThyAlertComponent implements OnInit {
 
     messageText: string;
 
-    @Input() thyType: ThyAlertType = 'info';
+    @Input() set thyType(value: ThyAlertType) {
+        if (value && value.indexOf('-week') != -1) {
+            console.warn('The type "xxx-week" will be removed, please use "xxx-weak" instead.');
+        }
+        this._type = value;
+    }
 
     @Input() set thyMessage(value: string | TemplateRef<HTMLElement>) {
         if (value instanceof TemplateRef) {
@@ -53,7 +54,7 @@ export class ThyAlertComponent implements OnInit {
 
     get thyIcon() {
         if (this._showIcon) {
-            return this._icon || this._typeIcon[this.thyType];
+            return this._icon || this._typeIcon[this._type];
         } else {
             return null;
         }
@@ -84,10 +85,12 @@ export class ThyAlertComponent implements OnInit {
 
     private _icon: string;
 
+    private _type: ThyAlertType = 'info';
+
     constructor() {}
 
     ngOnInit() {
-        this.class = `thy-alert thy-alert-${this.thyType}`;
+        this.class = `thy-alert thy-alert-${this._type}`;
     }
 
     closeAlert() {

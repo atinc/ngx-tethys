@@ -29,13 +29,19 @@ module.exports = [
                 description: 'Whether Alert can be closed, it is not displayed by default',
                 type: 'boolean',
                 default: 'false'
+            },
+            {
+                name: 'operation',
+                description: 'Custom action',
+                type: 'ContentChild<TemplateRef>',
+                default: ''
             }
         ]
     },
     {
         type: 'directive',
         name: 'thyAlertActionItem',
-        description: 'Style Directive. Add custom action buttons for alert content.',
+        description: 'Style Directive. Add custom action styles for alert content.',
         properties: []
     }
 ];

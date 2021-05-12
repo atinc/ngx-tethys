@@ -29,8 +29,10 @@ Display of Results as follows：
 <example name="thy-alert-basic-example" />
 
 
-## Deprecated
+## thyAlertActionItem
 
-thyType：`primary-week`、`success-week`、`warning-week`、`danger-week`, will be replaced with `primary-weak`、`success-weak`、`warning-weak`、`danger-weak`
+Add custom action styles for alert content.
+
+<example name="thy-alert-operation-example" />
 
 

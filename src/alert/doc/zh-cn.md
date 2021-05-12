@@ -29,9 +29,11 @@ import { ThyAlertModule } from "ngx-tethys/alert";
 <example name="thy-alert-basic-example" />
 
 
-## 过渡
+## thyAlertActionItem 指令
 
-thyType中的weak类型：`primary-week`、`success-week`、`warning-week`、`danger-week`，将替换为`primary-weak`、`success-weak`、`warning-weak`、`danger-weak`
+样式指令，用于给警告框添加自定义操作按钮样式。
+
+<example name="thy-alert-operation-example" />
 
 
 

@@ -28,13 +28,19 @@ module.exports = [
                 description: '是否显示关闭警告框按钮，默认不显示',
                 type: 'boolean',
                 default: 'false'
+            },
+            {
+                name: 'operation',
+                description: '警告框自定义操作',
+                type: 'ContentChild<TemplateRef>',
+                default: ''
             }
         ]
     },
     {
         type: 'directive',
         name: 'thyAlertActionItem',
-        description: '样式指令,可为警告内容添加自定义操作按钮',
+        description: '样式指令,可为警告内容添加自定义操作按钮样式',
         properties: []
     }
 ];
