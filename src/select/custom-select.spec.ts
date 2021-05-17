@@ -505,6 +505,26 @@ class SelectWithThyAutoExpendComponent implements OnInit {
     }
 }
 
+@Component({
+    selector: 'placement-select',
+    template: `
+        <thy-custom-select [thyPlacement]="thyPlacement" style="width:500px;">
+            <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.label"></thy-option>
+        </thy-custom-select>
+    `
+})
+class SelectWithThyPlacementComponent implements OnInit {
+    listOfOption: Array<{ label: string; value: string }> = [];
+
+    thyPlacement = 'top';
+
+    @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
+
+    constructor() {}
+
+    ngOnInit() {}
+}
+
 describe('ThyCustomSelect', () => {
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
@@ -561,6 +581,16 @@ describe('ThyCustomSelect', () => {
                 expect(iconElement).toBeTruthy();
                 expect(iconElement.classList.contains('thy-icon-angle-down')).toBeTruthy();
             });
+
+            it('should get default placement', fakeAsync(() => {
+                let trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+                trigger.click();
+                fixture.detectChanges();
+                flush();
+
+                const componentInstance = fixture.debugElement.query(By.directive(ThySelectCustomComponent)).componentInstance;
+                expect(componentInstance.dropDownPositions[0].originY).toEqual('bottom');
+            }));
         });
 
         describe('overlay panel', () => {
@@ -1537,6 +1567,31 @@ describe('ThyCustomSelect', () => {
 
         it('auto expend', fakeAsync(() => {
             expect(fixture.componentInstance.select.panelOpen).toBe(true);
+        }));
+    });
+
+    describe('placement', () => {
+        let fixture: ComponentFixture<SelectWithThyPlacementComponent>;
+
+        beforeEach(async(() => {
+            configureThyCustomSelectTestingModule([SelectWithThyPlacementComponent]);
+        }));
+
+        beforeEach(fakeAsync(() => {
+            fixture = TestBed.createComponent(SelectWithThyPlacementComponent);
+            fixture.detectChanges();
+        }));
+
+        it('should get correct placement', fakeAsync(() => {
+            const componentInstance = fixture.debugElement.query(By.directive(ThySelectCustomComponent)).componentInstance;
+            componentInstance.thyPlacement = 'top';
+
+            let trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+            flush();
+
+            expect(componentInstance.dropDownPositions[0].originY).toEqual('top');
         }));
     });
 

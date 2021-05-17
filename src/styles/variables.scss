@@ -704,11 +704,15 @@ $tooltip-arrow-color: $tooltip-bg !default;
 // alert
 $alert-padding-y: 0.625rem !default;
 $alert-padding-x: 1.125rem !default;
-$thy-alert-week-colors: (
+$thy-alert-weak-colors: (
     'primary-week': $primary,
     'success-week': $success,
     'warning-week': $warning,
-    'danger-week': $danger
+    'danger-week': $danger,
+    'primary-weak': $primary,
+    'success-weak': $success,
+    'warning-weak': $warning,
+    'danger-weak': $danger
 ) !default;
 $alert-operation-margin-left: 40px !default;
 

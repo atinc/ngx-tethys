@@ -1,17 +1,24 @@
 <form thyForm #ngForm="ngForm" name="demoForm" [thyFormValidatorConfig]="validateConfig" #demoForm="thyForm">
-  <thy-form-group thyLabelText="用户名" thyLabelRequired>
-    <input thyInput name="username" [(ngModel)]="model.name" required placeholder="请输入用户名" />
+  <thy-form-group thyLabelText="Username" thyLabelRequired>
+    <input thyInput name="username" [(ngModel)]="model.name" required placeholder="Please type username" />
   </thy-form-group>
-  <thy-form-group thyLabelText="邮箱地址" thyLabelRequired>
-    <input thyInput name="email" email type="email" [(ngModel)]="model.email" required placeholder="请输入邮箱地址" />
+  <thy-form-group thyLabelText="Email" thyLabelRequired>
+    <input thyInput name="email" email type="email" [(ngModel)]="model.email" required placeholder="Please type email" />
   </thy-form-group>
-  <thy-form-group thyLabelText="密码" thyLabelRequired>
-    <input thyInput type="password" name="password" [(ngModel)]="model.password" required placeholder="请输入密码" />
+  <thy-form-group thyLabelText="Password" thyLabelRequired>
+    <input thyInput type="password" name="password" [(ngModel)]="model.password" required placeholder="Please type password" />
   </thy-form-group>
+  <thy-form-group-error></thy-form-group-error>
   <thy-form-group-footer>
-    <button [thyButton]="'primary'" thyLoadingText="确定" (thyFormSubmit)="submit()">
-      登录
+    <button [thyButton]="'primary'" thyLoadingText="Saving" (thyFormSubmit)="submit()">
+      Save
     </button>
-    <button [thyButton]="'link-secondary'" (click)="reset(demoForm)">重置</button>
+    <button [thyButton]="'primary'" (click)="demoForm.validator.setElementErrorMessage('username', 'This is custom error of username')">
+      Add custom error
+    </button>
+    <button [thyButton]="'primary'" (click)="demoForm.validator.addError('This is form error')">
+      Add form error
+    </button>
+    <button [thyButton]="'link-secondary'" (click)="reset(demoForm)">Reset</button>
   </thy-form-group-footer>
 </form>

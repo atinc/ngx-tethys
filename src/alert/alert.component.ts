@@ -1,7 +1,20 @@
 import { Component, Input, OnInit, ContentChild, TemplateRef, HostBinding } from '@angular/core';
 import { isString } from 'ngx-tethys/util';
 import { Dictionary } from 'ngx-tethys/types';
-type ThyAlertType = 'success' | 'warning' | 'danger' | 'info' | 'primary-week' | 'success-week' | 'warning-week' | 'danger-week';
+
+type ThyAlertType =
+    | 'success'
+    | 'warning'
+    | 'danger'
+    | 'info'
+    | 'primary-week'
+    | 'success-week'
+    | 'warning-week'
+    | 'danger-week'
+    | 'primary-weak'
+    | 'success-weak'
+    | 'warning-weak'
+    | 'danger-weak';
 
 @Component({
     selector: 'thy-alert',
@@ -14,7 +27,12 @@ export class ThyAlertComponent implements OnInit {
 
     messageText: string;
 
-    @Input() thyType: ThyAlertType = 'info';
+    @Input() set thyType(value: ThyAlertType) {
+        if (value && value.indexOf('-week') !== -1) {
+            console.warn('The type "xxx-week" will be removed, please use "xxx-weak" instead.');
+        }
+        this._type = value;
+    }
 
     @Input() set thyMessage(value: string | TemplateRef<HTMLElement>) {
         if (value instanceof TemplateRef) {
@@ -36,7 +54,7 @@ export class ThyAlertComponent implements OnInit {
 
     get thyIcon() {
         if (this._showIcon) {
-            return this._icon || this._typeIcon[this.thyType];
+            return this._icon || this._typeIcon[this._type];
         } else {
             return null;
         }
@@ -56,17 +74,23 @@ export class ThyAlertComponent implements OnInit {
         'primary-week': 'question-circle-fill',
         'success-week': 'check-circle-fill',
         'warning-week': 'waring-fill',
-        'danger-week': 'close-circle-fill'
+        'danger-week': 'close-circle-fill',
+        'primary-weak': 'question-circle-fill',
+        'success-weak': 'check-circle-fill',
+        'warning-weak': 'waring-fill',
+        'danger-weak': 'close-circle-fill'
     };
 
     private _showIcon = true;
 
     private _icon: string;
 
+    private _type: ThyAlertType = 'info';
+
     constructor() {}
 
     ngOnInit() {
-        this.class = `thy-alert thy-alert-${this.thyType}`;
+        this.class = `thy-alert thy-alert-${this._type}`;
     }
 
     closeAlert() {
