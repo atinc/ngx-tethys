@@ -45,34 +45,41 @@ export function HtmlMigrationSchematicsRule(migrationList: ClassType<HtmlMigrati
                         'CallExpression[expression=Component] PropertyAssignment[name=templateUrl]'
                     ) as any[];
 
-                    templateUrlNodeList.forEach(item => {
-                        const htmlPath = path.join(path.dirname(sf.fileName), (item.initializer as ts.StringLiteral).text);
-                        if (htmlPathList.includes(htmlPath)) {
-                            return;
-                        }
-                        htmlPathList.push(htmlPath);
-                        migrationList.forEach(Item => {
-                            new Item(htmlPath, 0, createCssSelectorForHtml(tree.read(htmlPath).toString()), updateFileService).run();
+                    templateUrlNodeList
+                        .sort((a, b) => b.pos - a.pos)
+                        .forEach(item => {
+                            const htmlPath = path.join(path.dirname(sf.fileName), (item.initializer as ts.StringLiteral).text);
+                            if (htmlPathList.includes(htmlPath)) {
+                                return;
+                            }
+                            htmlPathList.push(htmlPath);
+                            migrationList.forEach(Item => {
+                                new Item(htmlPath, 0, createCssSelectorForHtml(tree.read(htmlPath).toString()), updateFileService).run();
+                            });
                         });
-                    });
 
                     const templateNodeList: PropertyAssignment[] = instance.queryAll(
                         'CallExpression[expression=Component] PropertyAssignment[name=template]'
                     ) as any[];
-                    templateNodeList.forEach(item => {
-                        if (htmlPathList.includes(sf.fileName)) {
-                            return;
-                        }
-                        htmlPathList.push(sf.fileName);
-                        migrationList.forEach(Item => {
-                            new Item(
-                                sf.fileName,
-                                item.initializer.getStart() + 1,
-                                createCssSelectorForHtml((item.initializer as ts.StringLiteral).text),
-                                updateFileService
-                            ).run();
+
+                    templateNodeList
+                        .sort((a, b) => b.pos - a.pos)
+                        .forEach(item => {
+                            if (htmlPathList.includes(sf.fileName)) {
+                                return;
+                            }
+                            let str = item.initializer.getText();
+                            str = str.substr(1, str.length - 2);
+                            migrationList.forEach(Item => {
+                                new Item(
+                                    sf.fileName,
+                                    item.initializer.getStart() + 1,
+                                    createCssSelectorForHtml(str),
+                                    updateFileService
+                                ).run();
+                            });
                         });
-                    });
+                    htmlPathList.push(sf.fileName);
                     transformedList.push(sf.fileName);
                 });
         }

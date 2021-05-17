@@ -28,7 +28,11 @@ describe('ng-update v11 Schematic', () => {
             @Component({
                 template: '<thy-grid></thy-grid>',
             })
-            export class TestComponent implements OnInit {}
+            export class TestComponent1 implements OnInit {}
+            @Component({
+                template: \`<thy-grid></thy-grid>\`,
+            })
+            export class TestComponent2 implements OnInit {}
 `
         );
         tree = factory.getTree();
@@ -71,7 +75,8 @@ describe('ng-update v11 Schematic', () => {
     });
     it(`should template "thy-grid" to "thy-table"`, async () => {
         const result = workspaceTree.read(TEST_MODULE_PATH).toString();
-        expect(result).toContain('thy-table');
+        expect(result.match(/<thy-table>/g).length).toBe(2);
+        expect(result.match(/<\/thy-table>/g).length).toBe(2);
         expect(result).not.toContain(`thy-grid`);
     });
 });
