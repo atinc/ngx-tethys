@@ -16,9 +16,10 @@ module.exports = function(config) {
             jasmine: { random: false },
             clearContext: false // leave Jasmine Spec Runner output visible in browser
         },
-        coverageIstanbulReporter: {
-            reports: ['html', 'lcovonly'],
-            fixWebpackSourcePaths: true
+        coverageReporter: {
+            dir: 'coverage/',
+            subdir: '.',
+            reporters: [{ type: 'html' }, { type: 'text-summary' }, { type: 'lcovonly' }]
         },
         angularCli: {
             environment: 'dev'
