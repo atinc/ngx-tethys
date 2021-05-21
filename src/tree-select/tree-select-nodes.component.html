@@ -4,8 +4,9 @@
     [ngTemplateOutlet]="treeSelectNode"
     [ngTemplateOutletContext]="{ $implicit: treeNodes }"
   ></ng-container>
-
-  <thy-empty *ngIf="treeNodes?.length == 0" [thyMessage]="parent.thyEmptyOptionsText"></thy-empty>
+  <div class="thy-select-empty-margin">
+    <thy-empty thySize="sm" *ngIf="treeNodes?.length == 0" [thyMessage]="parent.thyEmptyOptionsText"></thy-empty>
+  </div>
 </div>
 
 <ng-template #treeSelectNode let-nodes>
