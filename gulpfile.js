@@ -1,7 +1,7 @@
 'use strict';
 
 const gulp = require('gulp');
-const gulpSass = require('gulp-sass');
+const sass = require('gulp-dart-sass');
 const gulpCleanCSS = require('gulp-clean-css');
 const gulpRename = require('gulp-rename');
 const path = require('path');
@@ -32,7 +32,7 @@ const buildTheme = function() {
     let _themePath = './src/styles/themes/*.scss';
     return gulp
         .src(_themePath)
-        .pipe(gulpSass.sync(scssOptions).on('error', gulpSass.logError))
+        .pipe(sass.sync(scssOptions).on('error', sass.logError))
         .pipe(gulpCleanCSS())
         .pipe(
             gulpRename(function(path) {
