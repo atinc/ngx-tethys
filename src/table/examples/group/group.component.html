@@ -1,0 +1,15 @@
+<thy-table
+  [thyGroups]="groups"
+  [thyModel]="model"
+  thyRowKey="id"
+  thyGroupBy="group_id"
+  thyMode="group"
+  thyRowClassName="thy-table-item-hover-display-operation"
+  [thyHoverDisplayOperation]="false"
+  (thyOnRowClick)="onRowClick($event)"
+>
+  <ng-template #group let-group>{{ group?.title }}</ng-template>
+  <thy-table-column thyTitle="姓名" thyModelKey="name"></thy-table-column>
+  <thy-table-column thyTitle="年龄" thyModelKey="age" thyClassName="text-center" thyHeaderClassName="text-center"></thy-table-column>
+  <thy-table-column thyTitle="备注" thyModelKey="desc" thyDefaultText="-"></thy-table-column>
+</thy-table>

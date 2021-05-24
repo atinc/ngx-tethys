@@ -2,6 +2,58 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="11.0.0-next.7"></a>
+# [11.0.0-next.7](https://github.com/atinc/ngx-tethys/compare/11.0.0-next.6...11.0.0-next.7) (2021-05-20)
+
+
+
+<a name="11.0.0-next.6"></a>
+# [11.0.0-next.6](https://github.com/atinc/ngx-tethys/compare/11.0.0-next.5...11.0.0-next.6) (2021-05-20)
+
+
+
+<a name="11.0.0-next.5"></a>
+# [11.0.0-next.5](https://github.com/atinc/ngx-tethys/compare/11.0.0-next.4...11.0.0-next.5) (2021-05-17)
+
+
+
+<a name="11.0.0-next.4"></a>
+# [11.0.0-next.4](https://github.com/atinc/ngx-tethys/compare/11.0.0-next.3...11.0.0-next.4) (2021-05-17)
+
+
+
+<a name="11.0.0-next.3"></a>
+# [11.0.0-next.3](https://github.com/atinc/ngx-tethys/compare/10.0.6...11.0.0-next.3) (2021-05-17)
+
+
+### Bug Fixes
+
+* **alert:** refactor alert docs and replace week to weak ([#1240](https://github.com/atinc/ngx-tethys/issues/1240)) ([3569ed3](https://github.com/atinc/ngx-tethys/commit/3569ed3)), closes [#INFR-1831](https://github.com/atinc/ngx-tethys/issues/INFR-1831) [#INFR-1924](https://github.com/atinc/ngx-tethys/issues/INFR-1924) [#INFR-1831](https://github.com/atinc/ngx-tethys/issues/INFR-1831)
+* **badge:** replace thyColor with thyBackgroundColor #INFR-1868 ([c1f0fac](https://github.com/atinc/ngx-tethys/commit/c1f0fac)), closes [#INFR-1868](https://github.com/atinc/ngx-tethys/issues/INFR-1868)
+* **card:** remove thyAlign in thy-card-content #INFR-1869 ([ca685cb](https://github.com/atinc/ngx-tethys/commit/ca685cb)), closes [#INFR-1869](https://github.com/atinc/ngx-tethys/issues/INFR-1869)
+* **dialog:** replace thyShowBorderTop with thyDivided #INFR-1870 ([fb027f9](https://github.com/atinc/ngx-tethys/commit/fb027f9)), closes [#INFR-1870](https://github.com/atinc/ngx-tethys/issues/INFR-1870)
+* **list:** replace thyFirstItemDefaultActive with thyAutoActiveFirstItem #INFR-1871 ([3c6242f](https://github.com/atinc/ngx-tethys/commit/3c6242f)), closes [#INFR-1871](https://github.com/atinc/ngx-tethys/issues/INFR-1871)
+* **notify:** remove ThyNotifyOption and removeItemById #INFR-1872 ([96c7d32](https://github.com/atinc/ngx-tethys/commit/96c7d32)), closes [#INFR-1872](https://github.com/atinc/ngx-tethys/issues/INFR-1872)
+* **schematics:** ng update html migration rule ([#1241](https://github.com/atinc/ngx-tethys/issues/1241)) ([1a704ff](https://github.com/atinc/ngx-tethys/commit/1a704ff))
+* **slide:** remove show and hide in ThySlideService; remove key and class in ThySlideConfig #INFR-1874 ([89770a0](https://github.com/atinc/ngx-tethys/commit/89770a0)), closes [#INFR-1874](https://github.com/atinc/ngx-tethys/issues/INFR-1874)
+
+
+### Features
+
+* **schematics:** add schematics when update to v11 ([d98b98f](https://github.com/atinc/ngx-tethys/commit/d98b98f)), closes [#INFR-1827](https://github.com/atinc/ngx-tethys/issues/INFR-1827) [#INFR-1875](https://github.com/atinc/ngx-tethys/issues/INFR-1875)
+
+
+### BREAKING CHANGES
+
+* **slide:** remove show and hide in ThySlideService; remove key and class in ThySlideConfig
+* **dialog:** replace thyShowBorderTop with thyDivided
+* **list:** replace thyFirstItemDefaultActive with thyAutoActiveFirstItem
+* **notify:** replace ThyNotifyOption with ThyNotifyOptions and replace removeItemById with removeNotifyById
+* **badge:** replace thyColor with thyBackgroundColor
+* **card:** remove thyAlign in thy-card-content
+
+
+
 <a name="10.0.6"></a>
 ## [10.0.6](https://github.com/atinc/ngx-tethys/compare/10.0.5...10.0.6) (2021-04-26)
 

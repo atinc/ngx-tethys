@@ -34,8 +34,4 @@ order: 1
 
 <example name="thy-date-picker-directive-example" />  
 
-我们也支持更加准确的时间选择。
-
-<example name="thy-date-picker-time-example" />  
-
 了解更多使用场景请查看示例：[示例](http://lib.worktile.live/ngx-tethys/components/date-picker/examples)

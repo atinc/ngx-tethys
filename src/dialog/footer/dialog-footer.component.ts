@@ -1,8 +1,9 @@
-import { Component, Input, ContentChild, TemplateRef, Inject, OnInit, ElementRef } from '@angular/core';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
-import { THY_DIALOG_LAYOUT_CONFIG, ThyDialogLayoutConfig, ThyDialogFooterAlign } from '../dialog.config';
 import { UpdateHostClassService } from 'ngx-tethys/core';
-import { warnDeprecation } from 'ngx-tethys/util';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
+
+import { Component, ContentChild, ElementRef, Inject, Input, OnInit, TemplateRef } from '@angular/core';
+
+import { THY_DIALOG_LAYOUT_CONFIG, ThyDialogFooterAlign, ThyDialogLayoutConfig } from '../dialog.config';
 
 @Component({
     selector: 'thy-dialog-footer',
@@ -13,15 +14,6 @@ import { warnDeprecation } from 'ngx-tethys/util';
 })
 export class DialogFooterComponent implements OnInit {
     @ContentChild('description') description: TemplateRef<any>;
-
-    /**
-     * @deprecated thyShowBorderTop will be deprecated, please use thyDivided.
-     */
-    @Input()
-    set thyShowBorderTop(value: string) {
-        warnDeprecation(`thyShowBorderTop will be deprecated, please use thyDivided.`);
-        this.divided = coerceBooleanProperty(value);
-    }
 
     @Input() set thyDivided(value: boolean) {
         this.divided = coerceBooleanProperty(value);

@@ -1,10 +1,12 @@
-import { Injectable, Injector, ApplicationRef, ComponentFactoryResolver, ComponentRef, Inject } from '@angular/core';
-import { ThyNotifyDetail, NotifyPlacement, ThyNotifyOptions, THY_NOTIFY_DEFAULT_OPTIONS } from './notify-option.interface';
-import { ThyNotifyContainerComponent } from './notify.container.component';
-import { Subject } from 'rxjs';
-import { DomPortalOutlet, ComponentPortal } from '@angular/cdk/portal';
-import { NotifyQueueStore } from './notify-queue.store';
 import { helpers } from 'ngx-tethys/util';
+import { Subject } from 'rxjs';
+
+import { ComponentPortal, DomPortalOutlet } from '@angular/cdk/portal';
+import { ApplicationRef, ComponentFactoryResolver, ComponentRef, Inject, Injectable, Injector } from '@angular/core';
+
+import { NotifyPlacement, THY_NOTIFY_DEFAULT_OPTIONS, ThyNotifyOptions } from './notify-option.interface';
+import { NotifyQueueStore } from './notify-queue.store';
+import { ThyNotifyContainerComponent } from './notify.container.component';
 
 const NOTIFY_OPTION_DEFAULT = {
     duration: 4500,
@@ -79,13 +81,6 @@ export class ThyNotifyService {
                   content: content || (options as ThyNotifyOptions)?.content
               };
         this.show(config);
-    }
-
-    /**
-     * @deprecated The removeItemById will be deprecated, please use removeNotifyById.
-     */
-    removeItemById(id: number) {
-        this.removeNotifyById(id);
     }
 
     removeNotifyById(id: number) {

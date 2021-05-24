@@ -1,5 +1,6 @@
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
+
+import { Component, HostBinding, Input, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-card-content',
@@ -10,14 +11,6 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 })
 export class ThyCardContentComponent implements OnInit {
     @HostBinding('class.thy-card-content') thyCardContentClass = true;
-
-    /**
-     * @deprecated remove in v11
-     */
-    @Input('thyAlign')
-    set thyAlign(value: any) {
-        console.warn('this property will remove in v11');
-    }
 
     @HostBinding('class.thy-card-content--scroll') scrollClassName = false;
 
