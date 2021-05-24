@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'thy-select-footer-example',
-    templateUrl: './footer.component.html'
+    selector: 'thy-select-multiple-example',
+    templateUrl: './multiple.component.html'
 })
-export class ThySelectFooterExampleComponent implements OnInit {
+export class ThySelectMultipleExampleComponent implements OnInit {
     listOfOption: Array<{ label: string; value: string }> = [];
+
+    listOfSelectedValue = ['a10', 'b11'];
 
     ngOnInit() {
         const children: Array<{ label: string; value: string }> = [];

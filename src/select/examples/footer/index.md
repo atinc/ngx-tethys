@@ -1,4 +1,4 @@
 ---
-title: Footer模板
-order: 2
+title: Footer
+order: 7
 ---
