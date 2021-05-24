@@ -1,4 +1,4 @@
-import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
@@ -6,12 +6,11 @@ import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { dispatchMouseEvent } from 'ngx-tethys/testing';
+import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { DateRangeItemInfo } from './date-range.class';
-import { formatDate } from '../util';
-import { DateHelperByDatePipe } from '../date-picker/date-helper.service';
+import { addDays, addYears, endOfDay, endOfYear, formatDate, startOfDay, startOfWeek, startOfYear } from '../util';
 import { ThyDateRangeModule } from './module';
-import { getUnixTime, startOfQuarter, endOfQuarter, setMonth, getMonth, startOfMonth, endOfMonth } from 'date-fns';
+import { getUnixTime, startOfQuarter, endOfQuarter, setMonth, getMonth, startOfMonth, endOfMonth, addMonths, endOfWeek } from 'date-fns';
 
 registerLocaleData(zh);
 
@@ -51,12 +50,9 @@ describe('ThyTestDateRangeComponent', () => {
         beforeEach(() => (fixtureInstance.useSuite = 1));
         it('should open by click and close by click at outside', fakeAsync(() => {
             fixture.detectChanges();
-            dispatchMouseEvent(getPickerTriggerElement(), 'click');
-            fixture.detectChanges();
-            tick(500);
-            fixture.detectChanges();
+            dispatchClickEvent(getPickerTriggerElement());
             expect(getPickerContainer()).not.toBeNull();
-            dispatchMouseEvent(queryFromOverlay('.cdk-overlay-backdrop'), 'click');
+            dispatchClickEvent(queryFromOverlay('.cdk-overlay-backdrop'));
             fixture.detectChanges();
             tick(500);
             expect(getPickerContainer()).toBeNull();
@@ -65,18 +61,13 @@ describe('ThyTestDateRangeComponent', () => {
         it('should not open by click when thyHiddenMenu is true', fakeAsync(() => {
             fixtureInstance.hiddenMenu = true;
             fixture.detectChanges();
-            dispatchMouseEvent(getPickerTriggerElement(), 'click');
-            fixture.detectChanges();
-            tick(500);
+            dispatchClickEvent(getPickerTriggerElement());
             expect(overlayContainerElement.childElementCount).toEqual(0);
         }));
 
-        it('should have thy-date-rage-text-active class in .thy-date-range-text element when click this element', fakeAsync(() => {
+        it('should have thy-date-range-text-active class in .thy-date-range-text element when click this element', fakeAsync(() => {
             fixture.detectChanges();
-            dispatchMouseEvent(getPickerTriggerElement(), 'click');
-            fixture.detectChanges();
-            tick(500);
-            fixture.detectChanges();
+            dispatchClickEvent(getPickerTriggerElement());
             expect(debugElement.query(By.css('.thy-date-range-container .thy-date-range-text-active'))).not.toBeNull();
         }));
 
@@ -90,14 +81,51 @@ describe('ThyTestDateRangeComponent', () => {
             const text = '自定义日期选择入口';
             fixtureInstance.customValue = text;
             fixture.detectChanges();
-            dispatchMouseEvent(getPickerTriggerElement(), 'click');
-            fixture.detectChanges();
-            tick(500);
-            fixture.detectChanges();
+            dispatchClickEvent(getPickerTriggerElement());
             const lastActionMenuItem = getPickerContainer()
                 .querySelector('thy-popover-container')
                 .querySelector('.thy-date-range-action-menu-container').lastChild;
             expect((lastActionMenuItem as HTMLElement).innerText).toEqual(text);
+        }));
+
+        it('should show setting right date when ngModel have init value', fakeAsync(() => {
+            const text = '这是本周';
+            const currentSelectedDate = {
+                key: 'Week',
+                text,
+                begin: getUnixTime(startOfWeek(new Date())),
+                end: getUnixTime(endOfWeek(new Date())),
+                timestamp: {
+                    interval: 7,
+                    unit: 'day'
+                }
+            } as DateRangeItemInfo;
+            fixtureInstance.selectedDate = currentSelectedDate;
+
+            fixture.detectChanges();
+            fixture.whenStable().then(() => {
+                const node = debugElement.query(By.css('.thy-date-range-text')).nativeNode;
+                expect(node.innerText).toEqual(text);
+            });
+        }));
+
+        it('should be custom date when select custom date from date popover', fakeAsync(() => {
+            fixture.detectChanges();
+            dispatchClickEvent(getPickerTriggerElement());
+            const actionMenuContainers = getPickerContainer().querySelector('.thy-date-range-action-menu-container');
+            dispatchClickEvent(actionMenuContainers.lastElementChild as HTMLElement);
+            expect(queryFromOverlay('.thy-calendar-picker-container')).not.toBeNull();
+            const leftHeader = getHeader('left');
+            const leftCell = getFirstCell('left');
+            const leftHeaderText = leftHeader.textContent.trim();
+            dispatchClickEvent(leftCell);
+
+            const rightHeader = getHeader('right');
+            const rightCell = getFirstCell('right');
+            const rightHeaderText = rightHeader.textContent.trim();
+            dispatchClickEvent(rightCell);
+            expect(+leftHeaderText[leftHeaderText.length - 2]).toBe(getMonth(new Date()) - 1);
+            expect(+rightHeaderText[rightHeaderText.length - 2]).toBe(getMonth(new Date()) + 1);
         }));
     });
 
@@ -106,17 +134,132 @@ describe('ThyTestDateRangeComponent', () => {
         it('should show customDateRanges second text when choose second option', fakeAsync(() => {
             const value = fixtureInstance.customDateRanges[1].text;
             fixture.detectChanges();
-            dispatchMouseEvent(getPickerTriggerElement(), 'click');
-            tick(500);
-            fixture.detectChanges();
+            dispatchClickEvent(getPickerTriggerElement());
             const secondOptional = getPickerContainer()
                 .querySelector('thy-popover-container')
                 .querySelector('.thy-date-range-action-menu-container')
                 .querySelectorAll('.action-menu-item')[1];
-            dispatchMouseEvent(secondOptional, 'click');
-            tick(500);
-            fixture.detectChanges();
+            dispatchClickEvent(secondOptional as HTMLElement);
             expect(getPickerTriggerElement().innerText).toEqual(value);
+        }));
+
+        it('should change month date text when when click arrow', fakeAsync(() => {
+            const originDate = fixtureInstance.customDateRanges[0];
+            fixture.detectChanges();
+            const modelChangedSpy = spyOn(debugElement.componentInstance, 'dateChanged');
+            const arrows = debugElement.queryAll(By.css('thy-icon-nav'));
+
+            // previous icon
+            const interval = originDate.timestamp.interval;
+            dispatchFakeEvent(arrows[0].nativeElement, 'click', true);
+            expect(modelChangedSpy).toHaveBeenCalledTimes(1);
+            const beginDate = originDate.begin * 1000;
+            const endDate = originDate.end * 1000;
+            const previousModelData = {
+                begin: getUnixTime(addMonths(beginDate, -1 * interval)),
+                end: getUnixTime(addMonths(endDate, -1 * interval)),
+                key: 'custom'
+            };
+            expect(modelChangedSpy).toHaveBeenCalledWith(Object.assign({}, originDate, previousModelData));
+            // next icon
+            dispatchFakeEvent(arrows[1].nativeElement, 'click', true);
+            expect(modelChangedSpy).toHaveBeenCalledTimes(2);
+            const nextModelData = {
+                begin: getUnixTime(addMonths(previousModelData.begin * 1000, 1 * interval)),
+                end: getUnixTime(addMonths(previousModelData.end * 1000, 1 * interval)),
+                key: 'custom'
+            };
+            expect(modelChangedSpy).toHaveBeenCalledWith(Object.assign({}, originDate, nextModelData));
+        }));
+
+        it('should change day date text when when click arrow', fakeAsync(() => {
+            fixtureInstance.customDateRanges = fixtureInstance.customDayDateRanges;
+
+            const originDate = fixtureInstance.customDateRanges[0];
+            fixture.detectChanges();
+            const modelChangedSpy = spyOn(debugElement.componentInstance, 'dateChanged');
+            const arrows = debugElement.queryAll(By.css('thy-icon-nav'));
+            // previous icon
+            const interval = originDate.timestamp.interval;
+            dispatchFakeEvent(arrows[0].nativeElement, 'click', true);
+            expect(modelChangedSpy).toHaveBeenCalledTimes(1);
+            const beginDate = originDate.begin * 1000;
+            const endDate = originDate.end * 1000;
+            const previousModelData = {
+                begin: getUnixTime(addDays(beginDate, -1 * interval)),
+                end: getUnixTime(addDays(endDate, -1 * interval)),
+                key: 'custom'
+            };
+            expect(modelChangedSpy).toHaveBeenCalledWith(Object.assign({}, originDate, previousModelData));
+            // next icon
+            dispatchFakeEvent(arrows[1].nativeElement, 'click', true);
+            expect(modelChangedSpy).toHaveBeenCalledTimes(2);
+            const nextModelData = {
+                begin: getUnixTime(addDays(previousModelData.begin * 1000, 1 * interval)),
+                end: getUnixTime(addDays(previousModelData.end * 1000, 1 * interval)),
+                key: 'custom'
+            };
+            expect(modelChangedSpy).toHaveBeenCalledWith(Object.assign({}, originDate, nextModelData));
+        }));
+
+        it('should change day date text when when click arrow', fakeAsync(() => {
+            fixtureInstance.customDateRanges = fixtureInstance.customYearDateRanges;
+
+            const originDate = fixtureInstance.customDateRanges[0];
+            fixture.detectChanges();
+            const modelChangedSpy = spyOn(debugElement.componentInstance, 'dateChanged');
+            const arrows = debugElement.queryAll(By.css('thy-icon-nav'));
+            // previous icon
+            const interval = originDate.timestamp.interval;
+            dispatchFakeEvent(arrows[0].nativeElement, 'click', true);
+            expect(modelChangedSpy).toHaveBeenCalledTimes(1);
+            const beginDate = originDate.begin * 1000;
+            const endDate = originDate.end * 1000;
+            const previousModelData = {
+                begin: getUnixTime(addYears(beginDate, -1 * interval)),
+                end: getUnixTime(addYears(endDate, -1 * interval)),
+                key: 'custom'
+            };
+            expect(modelChangedSpy).toHaveBeenCalledWith(Object.assign({}, originDate, previousModelData));
+            // next icon
+            dispatchFakeEvent(arrows[1].nativeElement, 'click', true);
+            expect(modelChangedSpy).toHaveBeenCalledTimes(2);
+            const nextModelData = {
+                begin: getUnixTime(addYears(previousModelData.begin * 1000, 1 * interval)),
+                end: getUnixTime(addYears(previousModelData.end * 1000, 1 * interval)),
+                key: 'custom'
+            };
+            expect(modelChangedSpy).toHaveBeenCalledWith(Object.assign({}, originDate, nextModelData));
+        }));
+
+        it('should change customs range days date when when click arrow', fakeAsync(() => {
+            fixtureInstance.customDateRanges = fixtureInstance.customWithoutTimestampDateRanges;
+
+            const originDate = fixtureInstance.customDateRanges[0];
+            fixture.detectChanges();
+            const modelChangedSpy = spyOn(debugElement.componentInstance, 'dateChanged');
+            const arrows = debugElement.queryAll(By.css('thy-icon-nav'));
+            // previous icon
+            const interval: number = originDate.end - originDate.begin + 24 * 60 * 60;
+            dispatchFakeEvent(arrows[0].nativeElement, 'click', true);
+            expect(modelChangedSpy).toHaveBeenCalledTimes(1);
+            const beginDate = originDate.begin;
+            const endDate = originDate.end;
+            const previousModelData = {
+                begin: beginDate - interval,
+                end: endDate - interval,
+                key: 'custom'
+            };
+            expect(modelChangedSpy).toHaveBeenCalledWith(Object.assign({}, originDate, previousModelData));
+            // next icon
+            dispatchFakeEvent(arrows[1].nativeElement, 'click', true);
+            expect(modelChangedSpy).toHaveBeenCalledTimes(2);
+            const nextModelData = {
+                begin: previousModelData.begin + interval,
+                end: previousModelData.end + interval,
+                key: 'custom'
+            };
+            expect(modelChangedSpy).toHaveBeenCalledWith(Object.assign({}, originDate, nextModelData));
         }));
     });
 
@@ -130,6 +273,20 @@ describe('ThyTestDateRangeComponent', () => {
 
     function queryFromOverlay(selector: string): HTMLElement {
         return overlayContainerElement.querySelector(selector) as HTMLElement;
+    }
+    function getFirstCell(partial: 'left' | 'right'): HTMLElement {
+        return queryFromOverlay(`.thy-calendar-range-${partial} tbody.thy-calendar-tbody td.thy-calendar-cell`) as HTMLElement;
+    }
+
+    function getHeader(partial: 'left' | 'right'): HTMLElement {
+        return queryFromOverlay(`.thy-calendar-range-${partial} .thy-calendar-header .thy-calendar-my-select`) as HTMLElement;
+    }
+
+    function dispatchClickEvent(selector: HTMLElement | HTMLInputElement): void {
+        dispatchMouseEvent(selector, 'click');
+        fixture.detectChanges();
+        tick(500);
+        fixture.detectChanges();
     }
 });
 
@@ -152,7 +309,8 @@ describe('ThyTestDateRangeComponent', () => {
                 *ngSwitchCase="2"
                 name="setCustomDateRanges"
                 [thyOptionalDateRanges]="customDateRanges"
-                [(ngModel)]="selectedDate"
+                [ngModel]="selectedDate"
+                (ngModelChange)="dateChanged($event)"
             ></thy-date-range>
         </ng-container>
     `
@@ -198,9 +356,46 @@ class ThyTestDateRangeComponent {
         }
     ];
 
+    customDayDateRanges: DateRangeItemInfo[] = [
+        {
+            key: 'day',
+            text: '今日',
+            begin: getUnixTime(startOfDay(new Date())),
+            end: getUnixTime(endOfDay(new Date())),
+            timestamp: {
+                interval: 1,
+                unit: 'day'
+            }
+        }
+    ];
+
+    customYearDateRanges: DateRangeItemInfo[] = [
+        {
+            key: 'year',
+            text: '今年',
+            begin: getUnixTime(startOfYear(new Date())),
+            end: getUnixTime(endOfYear(new Date())),
+            timestamp: {
+                interval: 1,
+                unit: 'year'
+            }
+        }
+    ];
+
+    customWithoutTimestampDateRanges: DateRangeItemInfo[] = [
+        {
+            key: 'year',
+            text: '2008/08/08-2008/08/24',
+            begin: getUnixTime(startOfDay(new Date('2008-08-08'))),
+            end: getUnixTime(endOfDay(new Date('2008-08-24')))
+        }
+    ];
+
     hiddenMenu = false;
 
     hiddenSwitchRangeIcon = false;
 
     customValue = '';
+
+    dateChanged(date: DateRangeItemInfo) {}
 }

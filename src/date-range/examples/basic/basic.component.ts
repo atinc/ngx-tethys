@@ -12,5 +12,7 @@ export class ThyDateRangeBasicExampleComponent implements OnInit {
 
     ngOnInit() {}
 
-    changeDate() {}
+    changeDate(date: DateRangeItemInfo) {
+        console.log(date);
+    }
 }
