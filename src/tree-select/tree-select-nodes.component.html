@@ -1,14 +1,13 @@
-<div class="thy-tree-select-options">
+<div class="thy-tree-select-options" *ngIf="treeNodes?.length > 0; else emptyPlaceholder">
   <ng-container
     *ngIf="treeNodes?.length > 0"
     [ngTemplateOutlet]="treeSelectNode"
     [ngTemplateOutletContext]="{ $implicit: treeNodes }"
   ></ng-container>
-  <div class="thy-select-empty-margin" *ngIf="treeNodes?.length == 0">
-    <thy-empty thySize="sm" [thyMessage]="parent.thyEmptyOptionsText"></thy-empty>
-  </div>
 </div>
-
+<ng-template #emptyPlaceholder>
+  <thy-empty class="thy-select-empty-content" thySize="sm" [thyMessage]="parent.thyEmptyOptionsText"></thy-empty>
+</ng-template>
 <ng-template #treeSelectNode let-nodes>
   <div class="thy-tree-select-node">
     <ng-container *ngFor="let node of nodes">
