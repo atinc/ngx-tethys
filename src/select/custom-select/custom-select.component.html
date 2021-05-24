@@ -42,7 +42,7 @@
         <ng-content></ng-content>
         <ng-container *ngIf="isHiddenOptions">
           <thy-loading [thyDone]="thyLoadState" thySize="sm"></thy-loading>
-          <div class="thy-select-empty-margin">
+          <div class="thy-select-empty-content">
             <thy-empty *ngIf="thyLoadState" [thyMessage]="emptySearchMessageText" thySize="sm"></thy-empty>
           </div>
         </ng-container>
@@ -50,7 +50,7 @@
     </ng-container>
     <ng-template #emptyPlaceholder>
       <thy-loading [thyDone]="thyLoadState" thySize="sm"></thy-loading>
-      <div class="thy-select-empty-margin">
+      <div class="thy-select-empty-content">
         <thy-empty *ngIf="thyLoadState" [thyMessage]="emptyStateText" thySize="sm"></thy-empty>
       </div>
     </ng-template>
