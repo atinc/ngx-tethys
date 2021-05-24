@@ -18,14 +18,28 @@ order: 997
 - `thy-grid` 组件改为 `thy-table`，`thy-grid-column` 改为 `thy-table-column`。代码中引用 `ThyGridModule` 改为 `ThyTableModule`，其他类型定义 `ThyGrid*` 改为 `ThyTable*`。
 
 ## 破坏性修改
- 对于在之前版本中组件废弃的 API 彻底移除，需要手动修改或者移除，涉及到的组件有：
-- `thy-badge` 组件中 `thyColor` 改为 `thyBackgroundColor`。
-- `thy-card-content` 组件中 `thyAlign` 移除。
-- `thy-dialog-footer` 组件中 `thyShowBorderTop` 改为 `thyDivided`。
-- `thy-selection-list` 组件中 `thyFirstItemDefaultActive` 改为 `thyAutoActiveFirstItem`。
-- `ThyNotifyService` 服务中 `removeItemById()` 改为 `removeNotifyById()`。
-- `ThyNotifyOption` 改服务为 `ThyNotifyOptions`。
-- `ThySlideConfig` 类型中 `key` 改为 `id`、`class` 改为 `panelClass`。
-- `ThySlideService` 服务中 `show()` 改为 `open()`、`hide()` 改为 `close()`。
+- `thy-grid` 组件改为 `thy-table`，`thy-grid-column` 改为 `thy-table-column`。代码中引用 `ThyGridModule` 改为 `ThyTableModule`，其他类型定义 `ThyGrid*` 改为 `ThyTable*`。使用命令自动升级时会自动修改。
+- `thy-badge` 组件中 `thyColor` 需修改为 `thyBackgroundColor`。
+- `thy-card-content` 组件中 `thyAlign` 需移除。
+- `thy-dialog-footer` 组件中 `thyShowBorderTop` 需修改为 `thyDivided`。
+- `thy-selection-list` 组件中 `thyFirstItemDefaultActive` 需修改为 `thyAutoActiveFirstItem`。
+- `ThyNotifyService` 服务中 `removeItemById()` 需修改为 `removeNotifyById()`。
+- `ThyNotifyOption` 类型需修改为 `ThyNotifyOptions`。
+- `ThySlideConfig` 类型中 `key` 需修改为 `id`、`class` 需修改为 `panelClass`。
+- `ThySlideService` 服务中 `show()` 需修改为 `open()`、`hide()` 需修改为 `close()`。
+- 按钮组件样式变量修改：
+  ``` css
+  $btn-border-radius: 1.25rem !default;
+  $btn-border-radius-lg: 1.65rem !default;
+  $btn-border-radius-sm: 1rem !default;
+  $btn-border-radius-xs: 0.75rem !default;
+  ```
+  改为
+  ```css
+  $btn-border-radius: 4px !default;
+  $btn-border-radius-lg: 4px !default;
+  $btn-border-radius-sm: 4px !default;
+  $btn-border-radius-xs: 4px !default;
+  ```
 
 
