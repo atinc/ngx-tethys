@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'thy-select-footer-example',
-    templateUrl: './footer.component.html'
+    selector: 'thy-select-empty-option-example',
+    templateUrl: './empty-option.component.html'
 })
-export class ThySelectFooterExampleComponent implements OnInit {
+export class ThySelectEmptyOptionExampleComponent implements OnInit {
     listOfOption: Array<{ label: string; value: string }> = [];
 
     ngOnInit() {

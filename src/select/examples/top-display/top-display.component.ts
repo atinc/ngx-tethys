@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { taskTypes } from '../mock-data';
 
 @Component({
-    selector: 'thy-select-group-example',
-    templateUrl: './group.component.html'
+    selector: 'thy-select-top-display-example',
+    templateUrl: './top-display.component.html'
 })
-export class ThySelectGroupExampleComponent implements OnInit {
+export class ThySelectTopDisplayExampleComponent implements OnInit {
     optionData = taskTypes;
 
     selectedTaskType: string;

@@ -1,10 +1,4 @@
-<thy-custom-select
-  thyEmptySearchMessageText="搜索结果为空"
-  thyPlaceHolder="搜索结果为空"
-  [thyShowSearch]="true"
-  style="width:500px;"
-  [thyFooterTemplate]="footer"
->
+<thy-custom-select thyPlaceHolder="自定义Footer" [thyShowSearch]="true" style="width:500px;" [thyFooterTemplate]="footer">
   <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.label"></thy-option>
   <ng-template #footer>
     <a class="flex-grow-1">更多页面</a>

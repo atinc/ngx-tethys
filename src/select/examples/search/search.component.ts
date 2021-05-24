@@ -1,21 +1,10 @@
-import {
-    Component,
-    ViewEncapsulation,
-    OnInit,
-    Input,
-    ViewChild,
-    ElementRef,
-    Renderer2,
-    Output,
-    EventEmitter,
-    TemplateRef
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'thy-select-empty-example',
-    templateUrl: './empty.component.html'
+    selector: 'thy-custom-select-search-example',
+    templateUrl: './search.component.html'
 })
-export class ThySelectEmptyExampleComponent implements OnInit {
+export class ThySelectSearchExampleComponent implements OnInit {
     listOfOption: Array<{ label: string; value: string }> = [];
 
     ngOnInit() {
@@ -23,6 +12,7 @@ export class ThySelectEmptyExampleComponent implements OnInit {
         for (let i = 10; i < 36; i++) {
             children.push({ label: i.toString(36) + i, value: i.toString(36) + i });
         }
+        children.push({ label: '张三', value: 'zhangsan' });
         this.listOfOption = children;
     }
 }
