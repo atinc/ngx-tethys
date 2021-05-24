@@ -1,7 +1,7 @@
 ---
 title: 8.x 升级指南
 path: 'migration-v8'
-order: 50
+order: 1000
 hidden: true
 ---
 

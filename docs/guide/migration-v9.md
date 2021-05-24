@@ -1,7 +1,7 @@
 ---
 title: 9.x 升级指南
 path: 'migration-v9'
-order: 60
+order: 999
 hidden: true
 ---
 
