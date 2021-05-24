@@ -1,7 +1,7 @@
 ---
 title: 常见问题
 path: 'faq'
-order: 40
+order: 10
 ---
 
 ## 组件的文档是怎么生成的？

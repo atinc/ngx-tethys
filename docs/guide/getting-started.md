@@ -1,7 +1,7 @@
 ---
 title: 快速上手
 path: 'getting-started'
-order: 10
+order: 1
 ---
 
 ## 使用 CLI 搭建本地项目
