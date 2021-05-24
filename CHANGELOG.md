@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="11.0.0"></a>
+# [11.0.0](https://github.com/atinc/ngx-tethys/compare/11.0.0-next.7...11.0.0) (2021-05-24)
+
+
+### Bug Fixes
+
+* **button:** change button default border-radius to 4px #INFR-1778 ([df1b27b](https://github.com/atinc/ngx-tethys/commit/df1b27b)), closes [#INFR-1778](https://github.com/atinc/ngx-tethys/issues/INFR-1778)
+* **tree-select:** fix empty style for tree-select #INFR-1952 ([#1252](https://github.com/atinc/ngx-tethys/issues/1252)) ([feca6b9](https://github.com/atinc/ngx-tethys/commit/feca6b9)), closes [#INFR-1952](https://github.com/atinc/ngx-tethys/issues/INFR-1952) [#INFR-1952](https://github.com/atinc/ngx-tethys/issues/INFR-1952) [#INFR-1952](https://github.com/atinc/ngx-tethys/issues/INFR-1952) [#INFR-1952](https://github.com/atinc/ngx-tethys/issues/INFR-1952) [#INFR-1952](https://github.com/atinc/ngx-tethys/issues/INFR-1952)
+
+
+
 <a name="11.0.0-next.7"></a>
 # [11.0.0-next.7](https://github.com/atinc/ngx-tethys/compare/11.0.0-next.6...11.0.0-next.7) (2021-05-20)
 
