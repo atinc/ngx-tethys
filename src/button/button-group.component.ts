@@ -1,11 +1,11 @@
-import { Component, HostBinding, Input, ContentChild, TemplateRef, ElementRef, ViewEncapsulation, OnInit } from '@angular/core';
 import { UpdateHostClassService } from 'ngx-tethys/core';
-import { ThyButtonType } from '.';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
-export type buttonGroupSize = 'sm' | 'lg' | 'xs' | 'md';
+import { Component, ElementRef, HostBinding, Input, OnInit, ViewEncapsulation } from '@angular/core';
 
-export type buttonGroupType = 'outline-primary' | 'outline-default';
+export type ButtonGroupSize = 'sm' | 'lg' | 'xs' | 'md';
+
+export type ButtonGroupType = 'outline-primary' | 'outline-default';
 
 const buttonGroupSizeMap = {
     sm: ['btn-group-sm'],
@@ -33,7 +33,7 @@ export class ThyButtonGroupComponent implements OnInit {
     private size: string;
 
     @Input()
-    set thySize(size: buttonGroupSize) {
+    set thySize(size: ButtonGroupSize) {
         this.size = size;
         if (this.initialized) {
             this.setClasses();
@@ -41,7 +41,7 @@ export class ThyButtonGroupComponent implements OnInit {
     }
 
     @Input()
-    set thyType(type: ThyButtonType) {
+    set thyType(type: ButtonGroupType) {
         this.type = type;
         if (this.initialized) {
             this.setClasses();

@@ -5,30 +5,30 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './size.component.html'
 })
 export class ThyButtonSizeExampleComponent implements OnInit {
-    btnSizes = [
+    sizes = [
         {
-            name: 'xs',
+            value: 'xs',
             height: 24
         },
         {
-            name: 'sm',
+            value: 'sm',
             height: 28
         },
         {
-            name: 'md',
+            value: 'md',
             height: 32
         },
         {
-            name: 'default',
+            value: 'default',
             height: 36
         },
         {
-            name: 'lg',
+            value: 'lg',
             height: 44
         }
     ];
 
-    currentSize = this.btnSizes[3];
+    size = this.sizes[3].value;
 
     constructor() {}
 

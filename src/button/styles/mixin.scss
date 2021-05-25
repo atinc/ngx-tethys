@@ -154,6 +154,7 @@
         color: $btn-link-disabled-color;
         @include hover {
             color: $btn-link-disabled-color;
+            text-decoration: none;
         }
     } // No need for an active state here
 }
