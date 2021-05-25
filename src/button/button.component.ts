@@ -22,7 +22,7 @@ const btnTypeClassesMap = {
 };
 
 @Component({
-    selector: '[thy-button],[thyButton]',
+    selector: 'thy-button,[thy-button],[thyButton]',
     templateUrl: './button.component.html',
     providers: [UpdateHostClassService],
     encapsulation: ViewEncapsulation.None,

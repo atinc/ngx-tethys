@@ -1,7 +1,7 @@
-import { Component, Directive, HostBinding, Input, ElementRef, Renderer2, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
-import { AfterContentInit, OnChanges, OnInit } from '@angular/core';
-import { coerceBooleanProperty, isUndefined } from 'ngx-tethys/util';
 import { UpdateHostClassService } from 'ngx-tethys/core';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
+
+import { ChangeDetectionStrategy, Component, ElementRef, HostBinding, Input, OnInit, ViewEncapsulation } from '@angular/core';
 
 export type IconShape = '' | 'dashed' | 'solid';
 
@@ -24,7 +24,7 @@ const themeClassesMap: any = {
 };
 
 @Component({
-    selector: '[thy-button-icon],[thyButtonIcon]',
+    selector: 'thy-button-icon,[thy-button-icon],[thyButtonIcon]',
     templateUrl: './button-icon.component.html',
     providers: [UpdateHostClassService],
     encapsulation: ViewEncapsulation.None,
