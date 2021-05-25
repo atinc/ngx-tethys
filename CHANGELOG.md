@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="10.0.7"></a>
+## [10.0.7](https://github.com/atinc/ngx-tethys/compare/10.0.6...10.0.7) (2021-05-25)
+
+
+### Bug Fixes
+
+* **alert:** refactor alert docs and replace week to weak ([#1240](https://github.com/atinc/ngx-tethys/issues/1240)) ([3569ed3](https://github.com/atinc/ngx-tethys/commit/3569ed3)), closes [#INFR-1831](https://github.com/atinc/ngx-tethys/issues/INFR-1831) [#INFR-1924](https://github.com/atinc/ngx-tethys/issues/INFR-1924) [#INFR-1831](https://github.com/atinc/ngx-tethys/issues/INFR-1831)
+* **tree-select:** fix empty style for tree-select #INFR-1952 ([#1252](https://github.com/atinc/ngx-tethys/issues/1252)) ([0b0b4b7](https://github.com/atinc/ngx-tethys/commit/0b0b4b7)), closes [#INFR-1952](https://github.com/atinc/ngx-tethys/issues/INFR-1952) [#INFR-1952](https://github.com/atinc/ngx-tethys/issues/INFR-1952) [#INFR-1952](https://github.com/atinc/ngx-tethys/issues/INFR-1952) [#INFR-1952](https://github.com/atinc/ngx-tethys/issues/INFR-1952) [#INFR-1952](https://github.com/atinc/ngx-tethys/issues/INFR-1952)
+
+
+
 <a name="10.0.6"></a>
 ## [10.0.6](https://github.com/atinc/ngx-tethys/compare/10.0.5...10.0.6) (2021-04-26)
 
