@@ -1,15 +1,17 @@
+import { ThyButtonModule } from 'ngx-tethys/button';
+
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+
 import { ThyButtonBasicExampleComponent } from './basic/basic.component';
-import { ThyButtonPairExampleComponent } from './pair/pair.component';
+import { ThyButtonBlockExampleComponent } from './block/block.component';
+import { ThyButtonGroupExampleComponent } from './group/group.component';
 import { ThyButtonIconExampleComponent } from './icon/icon.component';
 import { ThyButtonLinkExampleComponent } from './link/link.component';
-import { ThyButtonSizeExampleComponent } from './size/size.component';
-import { ThyButtonOutlineExampleComponent } from './outline/outline.component';
-import { ThyButtonSquareExampleComponent } from './square/square.component';
 import { ThyButtonLoadingExampleComponent } from './loading/loading.component';
-import { ThyButtonGroupExampleComponent } from './group/group.component';
-import { ThyButtonModule } from 'ngx-tethys/button';
-import { CommonModule } from '@angular/common';
+import { ThyButtonOutlineExampleComponent } from './outline/outline.component';
+import { ThyButtonPairExampleComponent } from './pair/pair.component';
+import { ThyButtonSizeExampleComponent } from './size/size.component';
 
 const COMPONENTS = [
     ThyButtonBasicExampleComponent,
@@ -18,9 +20,9 @@ const COMPONENTS = [
     ThyButtonLinkExampleComponent,
     ThyButtonSizeExampleComponent,
     ThyButtonOutlineExampleComponent,
-    ThyButtonSquareExampleComponent,
     ThyButtonLoadingExampleComponent,
-    ThyButtonGroupExampleComponent
+    ThyButtonGroupExampleComponent,
+    ThyButtonBlockExampleComponent
 ];
 
 @NgModule({

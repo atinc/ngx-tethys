@@ -1,36 +1,38 @@
-<div class="demo-card">
-  <thy-button-group thySize="md" thyType="outline-default">
-    <button thyButton *ngFor="let size of btnSizes" (click)="currentSize = size" [ngClass]="{ active: size === currentSize }">
-      {{ size.name }} - {{ size.height }}px
-    </button>
-  </thy-button-group>
+<thy-button-group thySize="sm" thyType="outline-default">
+  <button thyButton *ngFor="let item of sizes" (click)="size = item.value" [ngClass]="{ active: item.value === size }">
+    {{ item.value }}
+  </button>
+</thy-button-group>
 
-  <div class="mt-4">
-    <thy-button-group [thySize]="currentSize.name" thyType="outline-primary">
-      <button thyButton class="disabled">Left</button>
-      <button thyButton class="active">Middle</button>
-      <button thyButton>Right</button>
-    </thy-button-group>
-  </div>
-  <div class="mt-2">
-    <thy-button-group [thySize]="currentSize.name" thyType="outline-default">
-      <button thyButton="">年</button>
-      <button thyButton="">月</button>
-      <button thyButton="">日</button>
-    </thy-button-group>
-  </div>
-  <div class="mt-2">
-    <thy-button-group [thySize]="currentSize.name" thyType="outline-default">
-      <button thyButton="" class="active">Left</button>
-      <button thyButton="" class="disabled">Middle</button>
-      <button thyButton="">Right</button>
-    </thy-button-group>
-  </div>
-  <div class="mt-2">清除最小宽度:</div>
-  <div class="mt-2">
-    <thy-button-group [thySize]="currentSize.name" thyType="outline-default" thyClearMinWidth="true">
-      <button thyButtonIcon="user-add" class="active"></button>
-      <button thyButtonIcon="list-sample-fill"></button>
-    </thy-button-group>
-  </div>
+<div class="mt-4">
+  <thy-button-group [thySize]="size" thyType="outline-default">
+    <button thyButton class="disabled">Left</button>
+    <button thyButton class="active">Middle</button>
+    <button thyButton>Right</button>
+  </thy-button-group>
+</div>
+
+<div class="mt-2">
+  <thy-button-group [thySize]="size" thyType="outline-primary">
+    <button thyButton class="disabled">Left</button>
+    <button thyButton class="active">Middle</button>
+    <button thyButton>Right</button>
+  </thy-button-group>
+</div>
+
+<div class="mt-4">
+  <div class="mb-2">With Button Icon</div>
+  <thy-button-group [thySize]="size" thyType="outline-default">
+    <button thyButtonIcon="user-add" class="active"></button>
+    <button thyButtonIcon="list-sample-fill"></button>
+  </thy-button-group>
+</div>
+
+<div class="mt-4">
+  <div class="mb-2">Clear Min Width</div>
+  <thy-button-group [thySize]="size" thyType="outline-primary" thyClearMinWidth="true">
+    <button thyButton class="disabled">Left</button>
+    <button thyButton class="active">Middle</button>
+    <button thyButton>Right</button>
+  </thy-button-group>
 </div>

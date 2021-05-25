@@ -2,11 +2,11 @@ module.exports = [
     {
         type: 'component',
         name: 'thyButton',
-        description: '操作按钮，支持组件`thy-button`和`<button thyButton="primary">Button</button>`两种形式',
+        description: '操作按钮，支持组件`thy-button`和`thyButton`指令两种形式',
         properties: [
             {
                 name: 'thyButton',
-                description: `按钮类型，类型为\`'primary' | 'info' | 'warning' | 'danger'\`,支持添加前缀\`outline-\`实现线框按钮，支持添加前缀\`link-\`实现按钮链接`,
+                description: `按钮类型，类型为\`'primary' | 'info' | 'warning' | 'danger' | 'success'\`,支持添加前缀\`outline-\`实现线框按钮，支持添加前缀\`link-\`实现按钮链接`,
                 type: 'string',
                 default: 'primary'
             },
@@ -23,8 +23,8 @@ module.exports = [
                 default: 'default'
             },
             {
-                name: 'thySquare',
-                description: `按钮圆角恢复正常的方形，可以通过在\`buttonType\`后加上 -square 达到同样的效果，比如设置按钮类型为\`outline-primary-square\``,
+                name: 'thyBlock',
+                description: `按钮整块正式`,
                 type: 'boolean',
                 default: 'false'
             },
@@ -50,7 +50,7 @@ module.exports = [
     {
         type: 'directive',
         name: 'thyButtonIcon',
-        description: '操作按钮图标，支持组件`thy-button-icon`形式和`thyButtonIcon`指令形式',
+        description: '操作按钮图标，支持`thy-button-icon`组件和`thyButtonIcon`指令两种形式',
         properties: [
             {
                 name: 'thyButtonIcon',
@@ -71,16 +71,16 @@ module.exports = [
                 default: '-'
             },
             {
-                name: 'thyTheme',
-                description: `按钮展示类型，默认图标移上去显示主色， danger-weak 鼠标移上去显示 danger 红色`,
-                type: 'string',
-                default: '-'
-            },
-            {
                 name: 'thySize',
                 description: `大小，\`xs | sm | lg | 'md'\``,
                 type: 'string',
                 default: 'md'
+            },
+            {
+                name: 'thyTheme',
+                description: `按钮展示类型，默认图标移上去显示主色， danger-weak 鼠标移上去显示 danger 红色`,
+                type: 'string',
+                default: '-'
             },
             {
                 name: 'thyLight',
@@ -109,11 +109,10 @@ module.exports = [
             },
             {
                 name: 'thyType',
-                description: `\`default | info | primary | warning | danger\`，支持\`outline-\`前缀实现线框按钮组`,
+                description: `支持类型 \`outline-default | outline-primary \``,
                 type: 'string',
-                default: 'default'
+                default: 'outline-default'
             },
-
             {
                 name: 'thyClearMinWidth',
                 description: `是否需要最小宽度，默认按钮最小宽度为80px`,
