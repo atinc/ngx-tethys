@@ -24,7 +24,7 @@ module.exports = [
             },
             {
                 name: 'thyBlock',
-                description: `按钮整块正式`,
+                description: `按钮整块展示`,
                 type: 'boolean',
                 default: 'false'
             },
