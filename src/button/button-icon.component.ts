@@ -5,13 +5,13 @@ import { ChangeDetectionStrategy, Component, ElementRef, HostBinding, Input, OnI
 
 export type IconShape = '' | 'dashed' | 'solid';
 
-const sizeClassesMap: any = {
+const sizeClassesMap = {
     lg: ['btn-icon-lg'],
     sm: ['btn-icon-sm'],
     xs: ['btn-icon-xs']
 };
 
-const shapeClassesMap: any = {
+const shapeClassesMap = {
     'circle-dashed': ['btn-icon-circle', 'circle-dashed'],
     'circle-solid': ['btn-icon-circle', 'circle-solid'],
     'circle-thick-dashed': ['btn-icon-circle', 'circle-dashed', 'border-thick'],

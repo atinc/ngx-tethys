@@ -1,5 +1,5 @@
 import { InputBoolean, UpdateHostClassService } from 'ngx-tethys/core';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { coerceBooleanProperty, warnDeprecation } from 'ngx-tethys/util';
 
 import { ChangeDetectionStrategy, Component, ElementRef, HostBinding, Input, OnInit, Renderer2, ViewEncapsulation } from '@angular/core';
 
@@ -107,6 +107,7 @@ export class ThyButtonComponent implements OnInit {
                     classes.unshift('wtf');
                 }
                 this.iconClass = classes;
+                this.svgIconName = null;
             } else {
                 this.svgIconName = icon;
             }
@@ -118,6 +119,7 @@ export class ThyButtonComponent implements OnInit {
 
     @Input()
     set thySquare(value: boolean) {
+        warnDeprecation(`The thyButton's property thySquare is deprecated, the default is already square.`);
         this._isRadiusSquare = coerceBooleanProperty(value);
     }
 
