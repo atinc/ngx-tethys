@@ -27,7 +27,6 @@ export * from 'ngx-tethys/menu';
 export * from 'ngx-tethys/nav';
 export * from 'ngx-tethys/notify';
 export * from 'ngx-tethys/pagination';
-export * from 'ngx-tethys/positioning';
 export * from 'ngx-tethys/property-operation';
 export * from 'ngx-tethys/progress';
 export * from 'ngx-tethys/radio';
