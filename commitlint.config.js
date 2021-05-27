@@ -52,7 +52,6 @@ module.exports = {
                 'nav',
                 'pagination',
                 'popover',
-                'positioning',
                 'progress',
                 'property-operation',
                 'radio',

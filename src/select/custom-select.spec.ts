@@ -11,7 +11,6 @@ import { By } from '@angular/platform-browser';
 
 import { UpdateHostClassService } from '../core';
 import { ThyFormModule } from '../form';
-import { ThyPositioningService } from '../positioning/positioning.service';
 import { ThyOptionModule } from '../shared/option/module';
 import { ThyOptionComponent } from '../shared/option/option.component';
 import { DOWN_ARROW, ENTER, ESCAPE } from '../util/keycodes';
@@ -144,7 +143,7 @@ class SelectWithGroupsAndNgContainerComponent {
     `
 })
 class SingleSelectWithPreselectedArrayValuesComponent {
-    foods: any[] = [
+    foods = [
         { value: ['steak-0', 'steak-1'], viewValue: 'Steak' },
         { value: ['pizza-1', 'pizza-2'], viewValue: 'Pizza' },
         { value: ['tacos-2', 'tacos-3'], viewValue: 'Tacos' }
@@ -441,7 +440,7 @@ class SelectWithThyModeComponent {
 
     selectMode: SelectMode = 'multiple';
 
-    selectedFoods = null;
+    selectedFoods: string[] = null;
 
     @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
     @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
@@ -471,9 +470,9 @@ class SelectWithThySortComparatorComponent {
 
     selectMode: SelectMode = 'multiple';
 
-    thySortComparator;
+    thySortComparator: (a: ThyOptionComponent, b: ThyOptionComponent, options: ThyOptionComponent[]) => number;
 
-    selectedFoods = null;
+    selectedFoods: string[] = null;
 
     @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
     @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
@@ -534,7 +533,7 @@ describe('ThyCustomSelect', () => {
         TestBed.configureTestingModule({
             imports: [ThyFormModule, ThyOptionModule, ThySelectModule, ReactiveFormsModule, FormsModule],
             declarations: declarations,
-            providers: [UpdateHostClassService, ThyPositioningService, bypassSanitizeProvider, ...providers]
+            providers: [UpdateHostClassService, bypassSanitizeProvider, ...providers]
         }).compileComponents();
 
         inject([OverlayContainer, Platform], (oc: OverlayContainer, p: Platform) => {
