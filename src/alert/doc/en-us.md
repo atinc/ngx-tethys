@@ -14,14 +14,14 @@ order: 1
 
 
 ## Module Import
-```
+```ts
 import { ThyAlertModule } from "ngx-tethys/alert";
 ```
 
 ## How To Use
 
 Basic use as follows:
-```
+```html
 <thy-alert thyType="success" thyMessage="Well done! You successfully read this important alert message."></thy-alert>
 ```
 

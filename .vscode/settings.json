@@ -26,5 +26,9 @@
     "uploaders",
     "deletable"
   ],
-  "cSpell.words": ["Newable", "Positioner", "draggables", "inputor", "twotone"]
+  "cSpell.words": ["Newable", "Positioner", "draggables", "inputor", "twotone"],
+  "files.associations": {
+    "*.ttml": "xml",
+    "*.ttss": "css"
+  }
 }
