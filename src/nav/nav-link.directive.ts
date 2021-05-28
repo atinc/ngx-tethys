@@ -1,20 +1,92 @@
-import { Component, Directive, ElementRef, Renderer2, Input, HostBinding } from '@angular/core';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { InputBoolean, MixinBase, mixinUnsubscribe } from 'ngx-tethys/core';
+import { takeUntil } from 'rxjs/operators';
+
+import {
+    AfterViewInit,
+    ContentChildren,
+    Directive,
+    ElementRef,
+    HostBinding,
+    Input,
+    NgZone,
+    OnDestroy,
+    Optional,
+    QueryList,
+    Renderer2
+} from '@angular/core';
+import { RouterLinkActive } from '@angular/router';
 
 export type ThyNavLink = '' | 'active';
 
 @Directive({
     selector: '[thyNavLink]'
 })
-export class ThyNavLinkDirective {
+export class ThyNavLinkDirective extends mixinUnsubscribe(MixinBase) implements AfterViewInit, OnDestroy {
+    @HostBinding('class.active')
     @Input()
-    set thyNavLinkActive(active: string) {
-        this.navLinkActive = coerceBooleanProperty(active);
-    }
-
-    @HostBinding('class.active') navLinkActive = false;
+    @InputBoolean()
+    thyNavLinkActive: boolean;
 
     @HostBinding('class.nav-link') navLinkClass = true;
 
+    @ContentChildren(ThyNavLinkDirective, { descendants: true }) links: QueryList<ThyNavLinkDirective>;
+
+    @ContentChildren(RouterLinkActive, { descendants: true }) routers: QueryList<RouterLinkActive>;
+
     // @HostBinding('attr.href') navLinkHref = 'javascript:;';
+
+    public width = 0;
+
+    public height = 0;
+
+    public left = 0;
+
+    public top = 0;
+
+    public content: HTMLElement;
+
+    public isActive: boolean;
+
+    constructor(
+        public elementRef: ElementRef,
+        private renderer: Renderer2,
+        @Optional() private routerLinkActive: RouterLinkActive,
+        private ngZone: NgZone
+    ) {
+        super();
+    }
+
+    ngAfterViewInit() {
+        this.width = this.elementRef.nativeElement.offsetWidth;
+        this.height = this.elementRef.nativeElement.offsetHeight;
+        this.left = this.elementRef.nativeElement.offsetLeft;
+        this.top = this.elementRef.nativeElement.offsetTop;
+        this.content = this.elementRef.nativeElement.outerHTML;
+
+        this.ngZone.onStable.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(() => {
+            this.isActive = this.linkIsActive();
+        });
+    }
+
+    linkIsActive() {
+        return (
+            this.thyNavLinkActive ||
+            (this.routerLinkActive && this.routerLinkActive.isActive) ||
+            this.routers.some(router => router.isActive) ||
+            this.links.some(item => item.thyNavLinkActive)
+        );
+    }
+
+    setNavLinkHidden(value: boolean) {
+        if (value) {
+            this.renderer.addClass(this.elementRef.nativeElement, 'nav-item-hidden');
+        } else {
+            this.renderer.removeClass(this.elementRef.nativeElement, 'nav-item-hidden');
+        }
+    }
+
+    ngOnDestroy() {
+        this.ngUnsubscribe$.next();
+        this.ngUnsubscribe$.complete();
+    }
 }

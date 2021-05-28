@@ -1,0 +1,41 @@
+<ng-container *ngIf="thyResponsive; else fixed">
+  <div class="thy-nav-list" #navList>
+    <ng-container [ngTemplateOutlet]="content"></ng-container>
+  </div>
+
+  <a
+    href="javascript:;"
+    class="thy-nav-more-container"
+    [class.d-none]="hiddenItems.length === 0"
+    #moreOperationContainer
+    thyNavLink
+    [thyNavLinkActive]="moreActive"
+    (click)="openMore($event, navListPopover)"
+  >
+    <ng-container *ngIf="moreOperation; else defaultMoreOperation" [ngTemplateOutlet]="moreOperation"></ng-container>
+    <ng-template #defaultMoreOperation>
+      更多
+    </ng-template>
+  </a>
+</ng-container>
+
+<ng-template #navListPopover>
+  <ng-template *ngIf="morePopover; else default">
+    <ng-container [ngTemplateOutlet]="morePopover" [ngTemplateOutletContext]="{ $implicit: hiddenItems }"></ng-container>
+  </ng-template>
+  <ng-template #default>
+    <thy-action-menu>
+      <ng-container *ngFor="let item of hiddenItems">
+        <span thyActionMenuItem [thyActionMenuItemActive]="item.isActive" (click)="navItemClick(item)" [innerHTML]="item.content"></span>
+      </ng-container>
+    </thy-action-menu>
+  </ng-template>
+</ng-template>
+
+<ng-template #fixed>
+  <ng-container [ngTemplateOutlet]="content"></ng-container>
+</ng-template>
+
+<ng-template #content>
+  <ng-content></ng-content>
+</ng-template>
