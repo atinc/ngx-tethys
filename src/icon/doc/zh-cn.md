@@ -28,9 +28,8 @@ iconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl(`assets/i
 ```
 
 ## 基本使用
-图标组件库提供了组件和指令两种使用方式，同时支持 `outline`、`fill`和`twotone`三种类型的图标，可以使用`thyIconType`设置类型，也可以通过在`thyIconName`后加`-类型后缀`设置类型。
+图标组件支持 `outline`、`fill`和`twotone`三种类型的图标，可以使用`thyIconType`设置类型，也可以通过在`thyIconName`后加`-类型后缀`设置类型。
 ```html
-<i thyIcon thyIconName="bell"></i>
 <thy-icon thyIconName="bell"></thy-icon>
 <thy-icon thyIconName="bell-fill"></thy-icon>
 <thy-icon thyIconName="bell" thyIconType="fill"></thy-icon>
