@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'thy-icon-twotone-example',
-    templateUrl: './twotone.component.html'
+    templateUrl: './twotone.component.html',
+    styleUrls: ['./twotone.component.scss']
 })
 export class ThyIconTwotoneExampleComponent {
-    ttColor = '#348fe4';
+    ttColor = '#52c41a';
 
     changeColor() {
-        this.ttColor = '#B43235';
+        this.ttColor = '#ff5b57';
     }
 }
