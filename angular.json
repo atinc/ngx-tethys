@@ -69,8 +69,8 @@
               "site/src/assets",
               {
                 "glob": "**/*",
-                "input": "./node_modules/@tethys/icons/defs",
-                "output": "/assets/icons/defs/"
+                "input": "./node_modules/@tethys/icons",
+                "output": "/assets/icons/"
               }
             ],
             "styles": ["site/src/styles.scss"],
