@@ -2,7 +2,6 @@
   <div class="thy-nav-list" #navList>
     <ng-container [ngTemplateOutlet]="content"></ng-container>
   </div>
-
   <a
     href="javascript:;"
     class="thy-nav-more-container"
@@ -26,7 +25,13 @@
   <ng-template #default>
     <thy-action-menu>
       <ng-container *ngFor="let item of hiddenItems">
-        <span thyActionMenuItem [thyActionMenuItemActive]="item.isActive" (click)="navItemClick(item)" [innerHTML]="item.content"></span>
+        <span
+          class="more-nav-link"
+          thyActionMenuItem
+          [thyActionMenuItemActive]="item.isActive"
+          (click)="navItemClick(item)"
+          [innerHTML]="item.content"
+        ></span>
       </ng-container>
     </thy-action-menu>
   </ng-template>

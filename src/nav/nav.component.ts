@@ -5,6 +5,7 @@ import { take, takeUntil } from 'rxjs/operators';
 
 import { ViewportRuler } from '@angular/cdk/overlay';
 import {
+    AfterContentChecked,
     AfterViewInit,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
@@ -53,19 +54,24 @@ const navHorizontalClassesMap = {
     providers: [UpdateHostClassService],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ThyNavComponent extends mixinUnsubscribe(MixinBase) implements OnInit, AfterViewInit, OnDestroy {
+export class ThyNavComponent extends mixinUnsubscribe(MixinBase) implements OnInit, AfterViewInit, AfterContentChecked, OnDestroy {
     private _type: ThyNavType;
     private _size: ThyNavSize;
     private _horizontal: ThyNavHorizontal;
     private _initialized = false;
 
-    private wrapperSize: { height: number; width: number };
+    public wrapperOffset: { height: number; width: number; left: number; top: number } = {
+        height: 0,
+        width: 0,
+        left: 0,
+        top: 0
+    };
 
     public hiddenItems: ThyNavLinkDirective[] = [];
 
     public moreActive: boolean;
 
-    @ContentChildren(ThyNavLinkDirective, { descendants: true }) tabs: QueryList<ThyNavLinkDirective>;
+    @ContentChildren(ThyNavLinkDirective, { descendants: true }) links: QueryList<ThyNavLinkDirective>;
 
     @ContentChild('more') moreOperation: TemplateRef<any>;
 
@@ -147,11 +153,7 @@ export class ThyNavComponent extends mixinUnsubscribe(MixinBase) implements OnIn
                 this.setHiddenItems();
             });
 
-            this.ngZone.onStable.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(() => {
-                this.calculateMoreIsActive();
-            });
-
-            merge(this.tabs.changes, this.viewportRuler.change(100))
+            merge(this.links.changes, this.viewportRuler.change(100))
                 .pipe(takeUntil(this.ngUnsubscribe$))
                 .subscribe(() => {
                     this.resetSizes();
@@ -159,6 +161,10 @@ export class ThyNavComponent extends mixinUnsubscribe(MixinBase) implements OnIn
                     this.calculateMoreIsActive();
                 });
         }
+    }
+
+    ngAfterContentChecked() {
+        this.calculateMoreIsActive();
     }
 
     private calculateMoreIsActive() {
@@ -170,7 +176,7 @@ export class ThyNavComponent extends mixinUnsubscribe(MixinBase) implements OnIn
 
     private setHiddenItems() {
         this.moreActive = false;
-        const tabs = this.tabs.toArray();
+        const tabs = this.links.toArray();
         if (!tabs.length) {
             this.hiddenItems = [];
             return;
@@ -181,12 +187,12 @@ export class ThyNavComponent extends mixinUnsubscribe(MixinBase) implements OnIn
         for (let i = len - 1; i >= 0; i -= 1) {
             tabs[i].setNavLinkHidden(true);
             if (this.thyVertical) {
-                if (tabs[i].top + tabs[i].height < this.wrapperSize.height + this.elementRef.nativeElement.offsetTop) {
+                if (tabs[i].offset.top + tabs[i].offset.height < this.wrapperOffset.height + this.wrapperOffset.top) {
                     endIndex = i;
                     break;
                 }
             } else {
-                if (tabs[i].left + tabs[i].width < this.wrapperSize.width + this.elementRef.nativeElement.offsetLeft) {
+                if (tabs[i].offset.left + tabs[i].offset.width < this.wrapperOffset.width + this.wrapperOffset.left) {
                     endIndex = i;
                     break;
                 }
@@ -202,9 +208,11 @@ export class ThyNavComponent extends mixinUnsubscribe(MixinBase) implements OnIn
     }
 
     private resetSizes() {
-        this.wrapperSize = {
+        this.wrapperOffset = {
             height: this.elementRef.nativeElement.offsetHeight || 0,
-            width: this.elementRef.nativeElement.offsetWidth || 0
+            width: this.elementRef.nativeElement.offsetWidth || 0,
+            left: this.elementRef.nativeElement.offsetLeft || 0,
+            top: this.elementRef.nativeElement.offsetTop || 0
         };
     }
 
@@ -214,7 +222,8 @@ export class ThyNavComponent extends mixinUnsubscribe(MixinBase) implements OnIn
             hasBackdrop: true,
             backdropClosable: true,
             insideClosable: true,
-            placement: 'bottom'
+            placement: 'bottom',
+            panelClass: 'thy-nav-list-popover'
         });
     }
 

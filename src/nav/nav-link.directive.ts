@@ -35,13 +35,17 @@ export class ThyNavLinkDirective extends mixinUnsubscribe(MixinBase) implements 
 
     // @HostBinding('attr.href') navLinkHref = 'javascript:;';
 
-    public width = 0;
-
-    public height = 0;
-
-    public left = 0;
-
-    public top = 0;
+    public offset: {
+        width: number;
+        height: number;
+        left: number;
+        top: number;
+    } = {
+        width: 0,
+        height: 0,
+        left: 0,
+        top: 0
+    };
 
     public content: HTMLElement;
 
@@ -57,10 +61,13 @@ export class ThyNavLinkDirective extends mixinUnsubscribe(MixinBase) implements 
     }
 
     ngAfterViewInit() {
-        this.width = this.elementRef.nativeElement.offsetWidth;
-        this.height = this.elementRef.nativeElement.offsetHeight;
-        this.left = this.elementRef.nativeElement.offsetLeft;
-        this.top = this.elementRef.nativeElement.offsetTop;
+        this.offset = {
+            width: this.elementRef.nativeElement.offsetWidth,
+            height: this.elementRef.nativeElement.offsetHeight,
+            left: this.elementRef.nativeElement.offsetLeft,
+            top: this.elementRef.nativeElement.offsetTop
+        };
+
         this.content = this.elementRef.nativeElement.outerHTML;
 
         this.ngZone.onStable.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(() => {

@@ -126,6 +126,14 @@
     .nav-item-hidden {
         display: block;
     }
+    .more-nav-link,
+    .more-nav-link * {
+        text-decoration: none;
+        color: $secondary;
+        &:hover {
+            color: $gray-800;
+        }
+    }
 }
 
 .thy-nav-more-container {
