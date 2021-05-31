@@ -174,6 +174,18 @@ module.exports = [
                 description: `输入框大小，目前可传的大小有'xs' | 'sm' | 'md' | 'default' | 'lg'`,
                 type: 'string',
                 default: 'default'
+            },
+            {
+                name: 'append',
+                description: '自定义后置元素',
+                type: 'ContentChild<TemplateRef>',
+                default: ''
+            },
+            {
+                name: 'prepend',
+                description: '自定义前置元素',
+                type: 'ContentChild<TemplateRef>',
+                default: ''
             }
         ]
     }

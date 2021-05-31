@@ -5,7 +5,7 @@ subtitle: 输入框
 order: 1
 ---
 
-<div class="dg-alert dg-alert-info">输入框。</div>
+<div class="dg-alert dg-alert-info">通过鼠标或键盘输入字符。</div>
 
 ## 何时使用
 
