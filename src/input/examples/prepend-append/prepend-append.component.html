@@ -7,6 +7,14 @@
 </thy-input-group>
 <br />
 
+<thy-input-group>
+  <input thyInput placeholder="请输入元素" />
+  <ng-template #append>
+    <span class="input-group-text">.worktile.com</span>
+  </ng-template>
+</thy-input-group>
+<br />
+
 <thy-input [(ngModel)]="value" [thyAutofocus]="true">
   <ng-template #prepend>
     <div class="cursor-pointer" [thyActionMenuToggle]="menuTemplate">中国+86</div>
