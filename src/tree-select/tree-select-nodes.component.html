@@ -6,7 +6,9 @@
   ></ng-container>
 </div>
 <ng-template #emptyPlaceholder>
-  <thy-empty class="thy-select-empty-content" thySize="sm" [thyMessage]="parent.thyEmptyOptionsText"></thy-empty>
+  <div class="thy-select-empty-content">
+    <thy-empty thySize="sm" [thyMessage]="parent.thyEmptyOptionsText"></thy-empty>
+  </div>
 </ng-template>
 <ng-template #treeSelectNode let-nodes>
   <div class="thy-tree-select-node">
