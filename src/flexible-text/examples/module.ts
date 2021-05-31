@@ -6,14 +6,14 @@ import { FormsModule } from '@angular/forms';
 import { ThyEmptyModule, ThyTranslate, ThyFlexibleTextModule, ThyTooltipModule, ThyLabelModule } from 'ngx-tethys';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ThyFlexibleTextBasicExampleComponent } from './basic/basic.component';
-import { ThyFlexibleTextDirectiveExampleComponent } from './directive/directive.component';
-import { ThyFlexibleTextTooltipPlacementExampleComponent } from './tooltip-placement/tooltip-placement.component';
-import { ThyFlexibleTextTooltipTemplateExampleComponent } from './tooltip-template/tooltip-template.component';
+import { ThyFlexibleTextTemplateExampleComponent } from './template/template.component';
+import { ThyFlexibleTextPlacementExampleComponent } from './placement/placement.component';
+import { ThyFlexibleTextContainerExampleComponent } from './container/container.component';
 const COMPONENTS = [
     ThyFlexibleTextBasicExampleComponent,
-    ThyFlexibleTextDirectiveExampleComponent,
-    ThyFlexibleTextTooltipTemplateExampleComponent,
-    ThyFlexibleTextTooltipPlacementExampleComponent
+    ThyFlexibleTextTemplateExampleComponent,
+    ThyFlexibleTextPlacementExampleComponent,
+    ThyFlexibleTextContainerExampleComponent
 ];
 
 @NgModule({

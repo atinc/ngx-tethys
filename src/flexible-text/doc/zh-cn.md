@@ -4,11 +4,11 @@ title: FlexibleText
 subtitle: 文本提示
 ---
 
-<div class="dg-alert dg-alert-info">超出容器的文本缩略为“...”, 并用Tooltip显示全部内容</div>
+<div class="dg-alert dg-alert-info">响应式文本提示气泡框。</div>
 
 ## 何时使用
 
-文本显示样式，用于行内元素，单行显示文本，溢出显示 ...
+根据容器宽度和文字长度决定气泡框是否弹出。当文字超出容器大小时，鼠标移入则显示提示，移出消失。当文字未超出容器时，鼠标移入，不出现气泡提示。
 
 ## 模块导入
 ```ts
@@ -18,22 +18,8 @@ import { ThyFlexibleTextModule } from "ngx-tethys/flexible-text";
 ## 如何使用
 基本的使用如下：
 ```html
-<thy-flexible-text [thyTooltipContent]="showTextComponent" style="width:500px">
-  New platforms are providing creators with a chance
-         bypass pirate sites and platform rules, and connect directly with users
-</thy-flexible-text>
+<span thyFlexibleText [thyTooltipContent]="text" style="width:500px">{{ text }}</span>
 ```
 展示效果如下：
 <example name="thy-flexible-text-basic-example" />
 
-
-## thyFlexibleText 指令
-指令使用如下：
-```html
-<span thyFlexibleText [thyTooltipContent]="showTextDirective" style="width:500px">
-    New platforms are providing creators with a chance
-         bypass pirate sites and platform rules, and connect directly with users</span>
-```
-展示效果如下：
-
-<example name="thy-flexible-text-directive-example" />
