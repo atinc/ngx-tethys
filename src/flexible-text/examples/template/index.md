@@ -1,4 +1,4 @@
 ---
-title: template
+title: Template
 order: 3
 ---

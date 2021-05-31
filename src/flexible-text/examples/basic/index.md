@@ -1,4 +1,4 @@
 ---
-title: basic
+title: Basic
 order: 1
 ---

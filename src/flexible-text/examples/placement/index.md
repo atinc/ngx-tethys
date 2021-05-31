@@ -1,4 +1,4 @@
 ---
-title: placement
+title: Placement
 order: 2
 ---
