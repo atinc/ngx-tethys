@@ -1,4 +1,4 @@
-import { InputBoolean, MixinBase, mixinUnsubscribe } from 'ngx-tethys/core';
+import { Constructor, InputBoolean, MixinBase, mixinUnsubscribe, ThyUnsubscribe } from 'ngx-tethys/core';
 import { takeUntil } from 'rxjs/operators';
 
 import {
@@ -18,10 +18,12 @@ import { RouterLinkActive } from '@angular/router';
 
 export type ThyNavLink = '' | 'active';
 
+const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
+
 @Directive({
     selector: '[thyNavLink]'
 })
-export class ThyNavLinkDirective extends mixinUnsubscribe(MixinBase) implements AfterViewInit, OnDestroy {
+export class ThyNavLinkDirective extends _MixinBase implements AfterViewInit, OnDestroy {
     @HostBinding('class.active')
     @Input()
     @InputBoolean()

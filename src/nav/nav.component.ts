@@ -1,4 +1,4 @@
-import { InputBoolean, MixinBase, mixinUnsubscribe, UpdateHostClassService } from 'ngx-tethys/core';
+import { Constructor, InputBoolean, MixinBase, mixinUnsubscribe, ThyUnsubscribe, UpdateHostClassService } from 'ngx-tethys/core';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { merge } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
@@ -23,6 +23,8 @@ import {
 } from '@angular/core';
 
 import { ThyNavLinkDirective } from './nav-link.directive';
+
+const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
 export type ThyNavType = 'primary' | 'secondary' | 'thirdly' | 'secondary-divider';
 export type ThyNavSize = '' | 'sm';
@@ -54,7 +56,7 @@ const navHorizontalClassesMap = {
     providers: [UpdateHostClassService],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ThyNavComponent extends mixinUnsubscribe(MixinBase) implements OnInit, AfterViewInit, AfterContentChecked, OnDestroy {
+export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit, AfterContentChecked, OnDestroy {
     private _type: ThyNavType;
     private _size: ThyNavSize;
     private _horizontal: ThyNavHorizontal;
