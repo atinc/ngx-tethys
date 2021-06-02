@@ -156,5 +156,6 @@ describe('EmptyComponent', () => {
         componentInstance.thySize = 'sm';
         fixture.detectChanges();
         expect(empty.nativeElement.classList).toContain('thy-empty-state--sm');
+        expect(empty.nativeElement.classList).not.toContain('thy-empty-state--lg');
     });
 });
