@@ -148,7 +148,7 @@ describe('EmptyComponent', () => {
         expect(empty.nativeElement.classList).not.toContain('thy-empty-state--lg');
     });
 
-    it('should should create current size empty', () => {
+    it('should should create correct size empty', () => {
         componentInstance.thySize = 'lg';
         fixture.detectChanges();
         const empty = fixture.debugElement.query(By.directive(ThyEmptyComponent));
