@@ -64,7 +64,9 @@ export class ThyEmptyComponent implements OnInit, AfterViewInit {
     @Input()
     set thySize(value: string) {
         this.size = value;
-        this.updateClass();
+        if (this._initialized) {
+            this.updateClass();
+        }
     }
 
     @Input() thyMarginTop: number | string;
@@ -78,6 +80,8 @@ export class ThyEmptyComponent implements OnInit, AfterViewInit {
     @Input() thyDescription: string;
 
     private size: string = 'md';
+
+    private _initialized = false;
 
     @ContentChild('extra') extraTemplateRef: TemplateRef<any>;
 
@@ -141,11 +145,14 @@ export class ThyEmptyComponent implements OnInit, AfterViewInit {
 
     ngOnInit() {
         this.updateClass();
+        this._initialized = true;
     }
 
     updateClass() {
-        const classList = sizeClassMap[this.size];
-        this.updateHostClassService.updateClass(classList);
+        const classList = sizeClassMap[this.size] || sizeClassMap['md'];
+        if (classList) {
+            this.updateHostClassService.updateClass(classList);
+        }
     }
 
     ngAfterViewInit() {
