@@ -23,6 +23,7 @@ import { ThyEmptyModule } from '../empty.module';
                 [thyTopAuto]="thyTopAuto"
                 [thyContainer]="thyContainer"
                 [thyImageUrl]="thyImageUrl"
+                class="empty-test-example"
             >
                 <ng-template #extra>
                     <div class="sub-message">确实还没有数据啦啦啦啦</div>
@@ -117,5 +118,11 @@ describe('EmptyComponent', () => {
         fixture.detectChanges();
         const empty = fixture.debugElement.query(By.directive(ThyEmptyComponent));
         expect(empty.nativeElement.querySelector('.thy-empty-text').textContent).toContain('common.tips.NO_RESULT');
+    });
+
+    it('should should contain outer class', () => {
+        fixture.detectChanges();
+        const empty = fixture.debugElement.query(By.directive(ThyEmptyComponent));
+        expect(empty.nativeElement.classList).toContain('empty-test-example');
     });
 });
