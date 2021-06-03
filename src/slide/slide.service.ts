@@ -35,7 +35,7 @@ export class ThySlideService extends ThyAbstractOverlayService<ThySlideConfig, T
         return overlayConfig;
     }
 
-    protected attachUpperOverlayContainer(overlay: OverlayRef, config: ThySlideConfig): ThySlideContainerComponent {
+    protected attachOverlayContainer(overlay: OverlayRef, config: ThySlideConfig): ThySlideContainerComponent {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
         const injector = Injector.create({
             parent: userInjector || this.injector,
@@ -46,7 +46,7 @@ export class ThySlideService extends ThyAbstractOverlayService<ThySlideConfig, T
         return containerRef.instance;
     }
 
-    protected createUpperOverlayRef<T>(
+    protected createOverlayRef<T>(
         overlayRef: OverlayRef,
         containerInstance: ThySlideContainerComponent,
         config: ThySlideConfig
@@ -103,7 +103,7 @@ export class ThySlideService extends ThyAbstractOverlayService<ThySlideConfig, T
         if (this.overlayIsOpened(config)) {
             return;
         }
-        const slideRef = this.openUpperOverlay(componentOrTemplateRef, config);
+        const slideRef = this.openOverlay(componentOrTemplateRef, config);
         this.originElementAddActiveClass(slideRef.containerInstance.config);
         slideRef.afterClosed().subscribe(() => {
             this.originElementRemoveActiveClass(slideRef.containerInstance.config);

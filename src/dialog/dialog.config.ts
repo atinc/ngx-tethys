@@ -1,6 +1,7 @@
-import { InjectionToken } from '@angular/core';
+import { ThyAbstractOverlayConfig, ThyAbstractOverlayPosition } from 'ngx-tethys/core';
+
 import { ScrollStrategy } from '@angular/cdk/overlay';
-import { ThyAbstractOverlayConfig, ThyUpperOverlayPosition } from 'ngx-tethys/core';
+import { InjectionToken } from '@angular/core';
 
 /** Valid ARIA roles for a dialog element. */
 export type ThyDialogRole = 'dialog' | 'alertdialog';
@@ -22,7 +23,7 @@ export class ThyDialogConfig<TData = any> extends ThyAbstractOverlayConfig<TData
     role?: ThyDialogRole = 'dialog';
 
     /** Position overrides. */
-    position?: ThyUpperOverlayPosition;
+    position?: ThyAbstractOverlayPosition;
 
     /** Dialog size md, lg, sm*/
     size?: ThyDialogSizes;

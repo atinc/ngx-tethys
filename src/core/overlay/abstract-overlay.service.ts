@@ -1,4 +1,4 @@
-import { FunctionProp, concatArray } from 'ngx-tethys/util';
+import { concatArray, FunctionProp } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
 
 import { ComponentType, Overlay, OverlayConfig, OverlayRef, ScrollStrategy } from '@angular/cdk/overlay';
@@ -7,7 +7,7 @@ import { Injector, TemplateRef } from '@angular/core';
 
 import { ThyAbstractOverlayContainer } from './abstract-overlay-container';
 import { ThyAbstractOverlayRef } from './abstract-overlay-ref';
-import { ThyAbstractOverlayConfig, ThyUpperOverlayOptions } from './abstract-overlay.config';
+import { ThyAbstractOverlayConfig, ThyAbstractOverlayOptions } from './abstract-overlay.config';
 
 export type ComponentTypeOrTemplateRef<T> = ComponentType<T> | TemplateRef<T>;
 
@@ -19,7 +19,7 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
     private readonly _afterOpened = new Subject<ThyAbstractOverlayRef<any, TContainer>>();
 
     constructor(
-        protected options: ThyUpperOverlayOptions, // component name, e.g: dialog | popover | slide
+        protected options: ThyAbstractOverlayOptions, // component name, e.g: dialog | popover | slide
         protected overlay: Overlay,
         protected injector: Injector,
         protected defaultConfig: TConfig,
@@ -30,10 +30,10 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
     protected abstract buildOverlayConfig(config: TConfig): OverlayConfig;
 
     /** Attach overlay container to overlay*/
-    protected abstract attachUpperOverlayContainer(overlay: OverlayRef, config: TConfig): TContainer;
+    protected abstract attachOverlayContainer(overlay: OverlayRef, config: TConfig): TContainer;
 
     /** Create upper overlay ref by cdk overlay, container and config  */
-    protected abstract createUpperOverlayRef<T>(
+    protected abstract createOverlayRef<T>(
         overlayRef: OverlayRef,
         containerInstance: TContainer,
         config: TConfig
@@ -52,7 +52,7 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
     ): ThyAbstractOverlayRef<T, TContainer, TResult>;
 
     /** Attach component or template ref to overlay container */
-    protected attachUpperOverlayContent<T, TResult>(
+    protected attachOverlayContent<T, TResult>(
         componentOrTemplateRef: ComponentTypeOrTemplateRef<T>,
         containerInstance: TContainer,
         overlayRef: OverlayRef,
@@ -60,7 +60,7 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
     ): ThyAbstractOverlayRef<T, TContainer, TResult> {
         // Create a reference to the dialog we're creating in order to give the user a handle
         // to modify and close it.
-        const upperOverlayRef = this.createUpperOverlayRef<T>(overlayRef, containerInstance, config);
+        const upperOverlayRef = this.createOverlayRef<T>(overlayRef, containerInstance, config);
 
         // When the backdrop is clicked, we want to close it.
         if (config.hasBackdrop) {
@@ -129,7 +129,7 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
         return overlayConfig;
     }
 
-    protected openUpperOverlay<T, TResult = any>(
+    protected openOverlay<T, TResult = any>(
         componentOrTemplateRef: ComponentTypeOrTemplateRef<T>,
         config?: TConfig
     ): ThyAbstractOverlayRef<T, TContainer, TResult> {
@@ -140,8 +140,8 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
         const overlayConfig: OverlayConfig = this.buildOverlayConfig(config);
         const overlayRef = this.overlay.create(overlayConfig);
 
-        const overlayContainer = this.attachUpperOverlayContainer(overlayRef, config);
-        const upperOverlayRef = this.attachUpperOverlayContent<T, TResult>(componentOrTemplateRef, overlayContainer, overlayRef, config);
+        const overlayContainer = this.attachOverlayContainer(overlayRef, config);
+        const upperOverlayRef = this.attachOverlayContent<T, TResult>(componentOrTemplateRef, overlayContainer, overlayRef, config);
 
         this.openedOverlays.push(upperOverlayRef);
         upperOverlayRef.afterClosed().subscribe(() => {

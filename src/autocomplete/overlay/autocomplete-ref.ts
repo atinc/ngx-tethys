@@ -1,8 +1,10 @@
+import { ThyAbstractInternalOverlayRef, ThyAbstractOverlayRef } from 'ngx-tethys/core';
+
 import { OverlayRef } from '@angular/cdk/overlay';
+
 import { ThyAutocompleteContainerComponent } from './autocomplete-container.component';
-import { ThyAbstractOverlayRef, ThyAbstractInternalOverlayRef, ThyUpperOverlayPosition } from 'ngx-tethys/core';
-import { autocompleteUpperOverlayOptions } from './autocomplete.options';
 import { ThyAutocompleteConfig } from './autocomplete.config';
+import { autocompleteUpperOverlayOptions } from './autocomplete.options';
 
 export abstract class ThyAutocompleteRef<T, TResult = any> extends ThyAbstractOverlayRef<T, ThyAutocompleteContainerComponent, TResult> {}
 
