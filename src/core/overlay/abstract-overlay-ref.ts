@@ -1,9 +1,11 @@
-import { Observable, Subject } from 'rxjs';
-import { ThyUpperOverlayPosition, ThyUpperOverlayOptions, ThyAbstractOverlayConfig } from './abstract-overlay.config';
-import { filter, take } from 'rxjs/operators';
-import { OverlayRef, PositionStrategy, GlobalPositionStrategy } from '@angular/cdk/overlay';
-import { ThyAbstractOverlayContainer } from './abstract-overlay-container';
 import { ESCAPE } from 'ngx-tethys/util';
+import { Observable, Subject } from 'rxjs';
+import { filter, take } from 'rxjs/operators';
+
+import { GlobalPositionStrategy, OverlayRef, PositionStrategy } from '@angular/cdk/overlay';
+
+import { ThyAbstractOverlayContainer } from './abstract-overlay-container';
+import { ThyAbstractOverlayConfig, ThyAbstractOverlayOptions, ThyAbstractOverlayPosition } from './abstract-overlay.config';
 
 export abstract class ThyAbstractOverlayRef<
     TComponent = unknown,
@@ -21,7 +23,7 @@ export abstract class ThyAbstractOverlayRef<
     abstract beforeClosed(): Observable<TResult | undefined>;
     abstract keydownEvents(): Observable<KeyboardEvent>;
     abstract backdropClick(): Observable<MouseEvent>;
-    abstract updatePosition(position?: ThyUpperOverlayPosition): this;
+    abstract updatePosition(position?: ThyAbstractOverlayPosition): this;
 }
 
 // Counter for unique overlay ids.
@@ -65,7 +67,7 @@ export abstract class ThyAbstractInternalOverlayRef<
     }
 
     constructor(
-        private options: ThyUpperOverlayOptions,
+        private options: ThyAbstractOverlayOptions,
         protected overlayRef: OverlayRef,
         containerInstance: TContainer,
         protected config: ThyAbstractOverlayConfig
@@ -175,7 +177,7 @@ export abstract class ThyAbstractInternalOverlayRef<
      * Updates the overlay's position when is GlobalPositionStrategy
      * @param position New overlay position.
      */
-    updateGlobalPosition(position?: ThyUpperOverlayPosition): this {
+    updateGlobalPosition(position?: ThyAbstractOverlayPosition): this {
         const strategy = this.getPositionStrategy() as GlobalPositionStrategy;
 
         if (!(strategy instanceof GlobalPositionStrategy)) {

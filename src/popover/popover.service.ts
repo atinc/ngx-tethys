@@ -1,5 +1,5 @@
 import { getFlexiblePositions, ThyAbstractOverlayService } from 'ngx-tethys/core';
-import { FunctionProp, helpers, isFunction } from 'ngx-tethys/util';
+import { FunctionProp, isFunction } from 'ngx-tethys/util';
 import { of, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -30,7 +30,7 @@ import {
     THY_POPOVER_SCROLL_STRATEGY,
     ThyPopoverConfig
 } from './popover.config';
-import { popoverUpperOverlayOptions } from './popover.options';
+import { popoverAbstractOverlayOptions } from './popover.options';
 
 @Injectable({
     providedIn: 'root'
@@ -87,7 +87,7 @@ export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyP
         return overlayConfig;
     }
 
-    protected attachUpperOverlayContainer(overlay: OverlayRef, config: ThyPopoverConfig<any>): ThyPopoverContainerComponent {
+    protected attachOverlayContainer(overlay: OverlayRef, config: ThyPopoverConfig<any>): ThyPopoverContainerComponent {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
         const injector = Injector.create({
             parent: userInjector || this.injector,
@@ -98,7 +98,7 @@ export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyP
         return containerRef.instance;
     }
 
-    protected createUpperOverlayRef<T>(
+    protected createAbstractOverlayRef<T>(
         overlayRef: OverlayRef,
         containerInstance: ThyPopoverContainerComponent,
         config: ThyPopoverConfig<any>
@@ -161,7 +161,7 @@ export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyP
         private _overlayContainer: OverlayContainer
     ) {
         super(
-            popoverUpperOverlayOptions,
+            popoverAbstractOverlayOptions,
             overlay,
             injector,
             {
@@ -202,7 +202,7 @@ export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyP
             return;
         }
 
-        const popoverRef = this.openUpperOverlay(componentOrTemplateRef, config) as ThyPopoverRef<T>;
+        const popoverRef = this.openOverlay(componentOrTemplateRef, config) as ThyPopoverRef<T>;
         config = popoverRef.containerInstance.config;
         popoverRef.afterClosed().subscribe(() => {
             this.originElementRemoveActiveClass(config);

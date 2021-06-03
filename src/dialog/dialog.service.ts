@@ -1,19 +1,17 @@
-import { Injectable, TemplateRef, Injector, Optional, OnDestroy, Inject } from '@angular/core';
-import { Location } from '@angular/common';
-import { of, Subject } from 'rxjs';
-import { ComponentType, ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
-import { ThyDialogConfig, ThyDialogSizes, THY_DIALOG_DEFAULT_OPTIONS } from './dialog.config';
-import { Overlay, OverlayConfig, OverlayRef, ScrollStrategy } from '@angular/cdk/overlay';
+import { ThyAbstractOverlayRef, ThyAbstractOverlayService, ThyClickPositioner } from 'ngx-tethys/core';
+import { of } from 'rxjs';
+
+import { Directionality } from '@angular/cdk/bidi';
+import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
+import { ComponentPortal, ComponentType } from '@angular/cdk/portal';
+import { Inject, Injectable, Injector, OnDestroy, Optional, StaticProvider, TemplateRef } from '@angular/core';
+
+import { ThyConfirmConfig } from './confirm.config';
+import { ThyConfirmComponent } from './confirm/confirm.component';
 import { ThyDialogContainerComponent } from './dialog-container.component';
 import { ThyDialogRef, ThyInternalDialogRef } from './dialog-ref';
-import { Directionality } from '@angular/cdk/bidi';
-import { helpers } from 'ngx-tethys/util';
-import { ThyClickPositioner } from 'ngx-tethys/core';
-import { ThyConfirmComponent } from './confirm/confirm.component';
-import { ThyConfirmConfig } from './confirm.config';
-import { ThyAbstractOverlayService, ThyAbstractOverlayRef } from 'ngx-tethys/core';
-import { dialogUpperOverlayOptions } from './dialog.options';
-import { StaticProvider } from '@angular/core';
+import { THY_DIALOG_DEFAULT_OPTIONS, ThyDialogConfig, ThyDialogSizes } from './dialog.config';
+import { dialogAbstractOverlayOptions } from './dialog.options';
 
 @Injectable({
     providedIn: 'root'
@@ -27,7 +25,7 @@ export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDia
         return overlayConfig;
     }
 
-    protected attachUpperOverlayContainer(overlay: OverlayRef, config: ThyDialogConfig<any>): ThyDialogContainerComponent {
+    protected attachOverlayContainer(overlay: OverlayRef, config: ThyDialogConfig<any>): ThyDialogContainerComponent {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
         const injector = Injector.create({
             parent: userInjector || this.injector,
@@ -39,7 +37,7 @@ export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDia
         return containerRef.instance;
     }
 
-    protected createUpperOverlayRef<T>(
+    protected createAbstractOverlayRef<T>(
         overlayRef: OverlayRef,
         containerInstance: ThyDialogContainerComponent,
         config: ThyDialogConfig<any>
@@ -83,7 +81,7 @@ export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDia
         defaultConfig: ThyDialogConfig,
         clickPositioner: ThyClickPositioner
     ) {
-        super(dialogUpperOverlayOptions, overlay, injector, defaultConfig);
+        super(dialogAbstractOverlayOptions, overlay, injector, defaultConfig);
         clickPositioner.initialize();
     }
 
@@ -91,7 +89,7 @@ export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDia
         componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
         config?: ThyDialogConfig<TData>
     ): ThyDialogRef<T, TResult> {
-        const dialogRef = this.openUpperOverlay(componentOrTemplateRef, config);
+        const dialogRef = this.openOverlay(componentOrTemplateRef, config);
         const dialogRefInternal = dialogRef as ThyInternalDialogRef<T, TResult>;
         dialogRefInternal.updateSizeAndPosition(
             dialogRef.containerInstance.config.width,
@@ -110,7 +108,7 @@ export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDia
     }
 
     getDialogById(id: string): ThyDialogRef<any> | undefined {
-        return this.getUpperOverlayById(id) as ThyDialogRef<any> | undefined;
+        return this.getAbstractOverlayById(id) as ThyDialogRef<any> | undefined;
     }
 
     /**

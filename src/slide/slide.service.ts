@@ -10,7 +10,7 @@ import { Inject, Injectable, Injector, OnDestroy, Optional, StaticProvider } fro
 
 import { ThySlideContainerComponent } from './slide-container.component';
 import { ThyInternalSlideRef, ThySlideRef } from './slide-ref.service';
-import { slideDefaultConfigValue, slideUpperOverlayOptions, THY_SLIDE_DEFAULT_CONFIG, ThySlideConfig } from './slide.config';
+import { slideAbstractOverlayOptions, slideDefaultConfigValue, THY_SLIDE_DEFAULT_CONFIG, ThySlideConfig } from './slide.config';
 
 @Injectable()
 export class ThySlideService extends ThyAbstractOverlayService<ThySlideConfig, ThySlideContainerComponent> implements OnDestroy {
@@ -35,7 +35,7 @@ export class ThySlideService extends ThyAbstractOverlayService<ThySlideConfig, T
         return overlayConfig;
     }
 
-    protected attachUpperOverlayContainer(overlay: OverlayRef, config: ThySlideConfig): ThySlideContainerComponent {
+    protected attachOverlayContainer(overlay: OverlayRef, config: ThySlideConfig): ThySlideContainerComponent {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
         const injector = Injector.create({
             parent: userInjector || this.injector,
@@ -46,7 +46,7 @@ export class ThySlideService extends ThyAbstractOverlayService<ThySlideConfig, T
         return containerRef.instance;
     }
 
-    protected createUpperOverlayRef<T>(
+    protected createAbstractOverlayRef<T>(
         overlayRef: OverlayRef,
         containerInstance: ThySlideContainerComponent,
         config: ThySlideConfig
@@ -80,7 +80,7 @@ export class ThySlideService extends ThyAbstractOverlayService<ThySlideConfig, T
     }
 
     private overlayIsOpened(config: ThySlideConfig) {
-        const openedOverlay = this.getUpperOverlayById(config.id);
+        const openedOverlay = this.getAbstractOverlayById(config.id);
         this.close(openedOverlay);
         return openedOverlay;
     }
@@ -93,7 +93,7 @@ export class ThySlideService extends ThyAbstractOverlayService<ThySlideConfig, T
         defaultConfig: ThySlideConfig
     ) {
         const slideDefaultConfig = Object.assign({}, slideDefaultConfigValue, defaultConfig);
-        super(slideUpperOverlayOptions, overlay, injector, slideDefaultConfig);
+        super(slideAbstractOverlayOptions, overlay, injector, slideDefaultConfig);
     }
 
     open<T, TData = undefined, TResult = undefined>(
@@ -103,7 +103,7 @@ export class ThySlideService extends ThyAbstractOverlayService<ThySlideConfig, T
         if (this.overlayIsOpened(config)) {
             return;
         }
-        const slideRef = this.openUpperOverlay(componentOrTemplateRef, config);
+        const slideRef = this.openOverlay(componentOrTemplateRef, config);
         this.originElementAddActiveClass(slideRef.containerInstance.config);
         slideRef.afterClosed().subscribe(() => {
             this.originElementRemoveActiveClass(slideRef.containerInstance.config);
