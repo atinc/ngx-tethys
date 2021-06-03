@@ -47,7 +47,7 @@ export class ThySlideOption extends ThySlideConfig {}
 
 export const THY_SLIDE_DEFAULT_CONFIG = new InjectionToken<ThySlideConfig>('thy-slide-default-options');
 
-export const slideUpperOverlayOptions: ThyAbstractOverlayOptions = {
+export const slideAbstractOverlayOptions: ThyAbstractOverlayOptions = {
     name: 'slide',
     animationEnabled: true,
     disposeWhenClose: true

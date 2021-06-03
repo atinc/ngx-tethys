@@ -32,8 +32,8 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
     /** Attach overlay container to overlay*/
     protected abstract attachOverlayContainer(overlay: OverlayRef, config: TConfig): TContainer;
 
-    /** Create upper overlay ref by cdk overlay, container and config  */
-    protected abstract createOverlayRef<T>(
+    /** Create abstract overlay ref by cdk overlay, container and config  */
+    protected abstract createAbstractOverlayRef<T>(
         overlayRef: OverlayRef,
         containerInstance: TContainer,
         config: TConfig
@@ -58,15 +58,15 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
         overlayRef: OverlayRef,
         config: TConfig
     ): ThyAbstractOverlayRef<T, TContainer, TResult> {
-        // Create a reference to the dialog we're creating in order to give the user a handle
+        // Create a reference to the overlay we're creating in order to give the user a handle
         // to modify and close it.
-        const upperOverlayRef = this.createOverlayRef<T>(overlayRef, containerInstance, config);
+        const abstractOverlayRef = this.createAbstractOverlayRef<T>(overlayRef, containerInstance, config);
 
         // When the backdrop is clicked, we want to close it.
         if (config.hasBackdrop) {
             overlayRef.backdropClick().subscribe(() => {
-                if (upperOverlayRef.backdropClosable) {
-                    upperOverlayRef.close();
+                if (abstractOverlayRef.backdropClosable) {
+                    abstractOverlayRef.close();
                 }
             });
         }
@@ -75,23 +75,23 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
             containerInstance.attachTemplatePortal(
                 new TemplatePortal<T>(componentOrTemplateRef, null, <any>{
                     $implicit: config.initialState,
-                    [`${this.options.name}Ref`]: upperOverlayRef
+                    [`${this.options.name}Ref`]: abstractOverlayRef
                 })
             );
         } else {
-            const injector = this.createInjector<T>(config, upperOverlayRef, containerInstance);
+            const injector = this.createInjector<T>(config, abstractOverlayRef, containerInstance);
             const contentRef = containerInstance.attachComponentPortal<T>(new ComponentPortal(componentOrTemplateRef, undefined, injector));
             if (config.initialState) {
                 Object.assign(contentRef.instance, config.initialState);
             }
-            upperOverlayRef.componentInstance = contentRef.instance;
+            abstractOverlayRef.componentInstance = contentRef.instance;
         }
 
-        return upperOverlayRef;
+        return abstractOverlayRef;
     }
 
-    protected removeOpenedOverlay(upperOverlayRef: ThyAbstractOverlayRef<any, TContainer>) {
-        const index = this.openedOverlays.indexOf(upperOverlayRef);
+    protected removeOpenedOverlay(overlayRef: ThyAbstractOverlayRef<any, TContainer>) {
+        const index = this.openedOverlays.indexOf(overlayRef);
 
         if (index > -1) {
             this.openedOverlays.splice(index, 1);
@@ -102,7 +102,7 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
         }
     }
 
-    protected getUpperOverlayById(id: string): ThyAbstractOverlayRef<any, TContainer> | undefined {
+    protected getAbstractOverlayById(id: string): ThyAbstractOverlayRef<any, TContainer> | undefined {
         return this.openedOverlays.find(overlay => overlay.id === id);
     }
 
@@ -134,22 +134,22 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
         config?: TConfig
     ): ThyAbstractOverlayRef<T, TContainer, TResult> {
         config = { ...this.defaultConfig, ...config };
-        if (config.id && this.getUpperOverlayById(config.id)) {
+        if (config.id && this.getAbstractOverlayById(config.id)) {
             throw Error(`${this.options.name} with id ${config.id} exists already. The ${this.options.name} id must be unique.`);
         }
         const overlayConfig: OverlayConfig = this.buildOverlayConfig(config);
         const overlayRef = this.overlay.create(overlayConfig);
 
         const overlayContainer = this.attachOverlayContainer(overlayRef, config);
-        const upperOverlayRef = this.attachOverlayContent<T, TResult>(componentOrTemplateRef, overlayContainer, overlayRef, config);
+        const abstractOverlayRef = this.attachOverlayContent<T, TResult>(componentOrTemplateRef, overlayContainer, overlayRef, config);
 
-        this.openedOverlays.push(upperOverlayRef);
-        upperOverlayRef.afterClosed().subscribe(() => {
-            this.removeOpenedOverlay(upperOverlayRef);
+        this.openedOverlays.push(abstractOverlayRef);
+        abstractOverlayRef.afterClosed().subscribe(() => {
+            this.removeOpenedOverlay(abstractOverlayRef);
         });
-        this._afterOpened.next(upperOverlayRef);
+        this._afterOpened.next(abstractOverlayRef);
 
-        return upperOverlayRef;
+        return abstractOverlayRef;
     }
 
     afterAllClosed() {

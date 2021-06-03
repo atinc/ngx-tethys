@@ -4,7 +4,7 @@ import { OverlayRef } from '@angular/cdk/overlay';
 import { Injectable } from '@angular/core';
 
 import { ThySlideContainerComponent } from './slide-container.component';
-import { slideUpperOverlayOptions, ThySlideConfig } from './slide.config';
+import { slideAbstractOverlayOptions, ThySlideConfig } from './slide.config';
 
 export abstract class ThySlideRef<T, TResult = any> extends ThyAbstractOverlayRef<T, ThySlideContainerComponent, TResult> {}
 
@@ -12,7 +12,7 @@ export abstract class ThySlideRef<T, TResult = any> extends ThyAbstractOverlayRe
 export class ThyInternalSlideRef<T = any, TResult = any> extends ThyAbstractInternalOverlayRef<T, ThySlideContainerComponent, TResult>
     implements ThySlideRef<T> {
     constructor(overlayRef: OverlayRef, containerInstance: ThySlideContainerComponent, config: ThySlideConfig) {
-        super(slideUpperOverlayOptions, overlayRef, containerInstance, config);
+        super(slideAbstractOverlayOptions, overlayRef, containerInstance, config);
     }
 
     updatePosition(position?: ThyAbstractOverlayPosition): this {

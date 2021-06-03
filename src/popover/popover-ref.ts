@@ -1,15 +1,17 @@
+import { ThyAbstractInternalOverlayRef, ThyAbstractOverlayRef } from 'ngx-tethys/core';
+
 import { OverlayRef } from '@angular/cdk/overlay';
+
 import { ThyPopoverContainerComponent } from './popover-container.component';
-import { ThyAbstractOverlayRef, ThyAbstractInternalOverlayRef } from 'ngx-tethys/core';
-import { popoverUpperOverlayOptions } from './popover.options';
 import { ThyPopoverConfig } from './popover.config';
+import { popoverAbstractOverlayOptions } from './popover.options';
 
 export abstract class ThyPopoverRef<T, TResult = any> extends ThyAbstractOverlayRef<T, ThyPopoverContainerComponent, TResult> {}
 
 export class ThyInternalPopoverRef<T, TResult = any> extends ThyAbstractInternalOverlayRef<T, ThyPopoverContainerComponent, TResult>
     implements ThyPopoverRef<T, TResult> {
     constructor(overlayRef: OverlayRef, containerInstance: ThyPopoverContainerComponent, config: ThyPopoverConfig) {
-        super(popoverUpperOverlayOptions, overlayRef, containerInstance, config);
+        super(popoverAbstractOverlayOptions, overlayRef, containerInstance, config);
         containerInstance.insideClicked.subscribe(() => {
             this.close();
         });

@@ -4,13 +4,13 @@ import { GlobalPositionStrategy, OverlayRef } from '@angular/cdk/overlay';
 
 import { ThyDialogContainerComponent } from './dialog-container.component';
 import { ThyDialogConfig } from './dialog.config';
-import { dialogUpperOverlayOptions } from './dialog.options';
+import { dialogAbstractOverlayOptions } from './dialog.options';
 
 export abstract class ThyDialogRef<T, TResult = any> extends ThyAbstractOverlayRef<T, ThyDialogContainerComponent, TResult> {}
 
 export class ThyInternalDialogRef<T, TResult = any> extends ThyAbstractInternalOverlayRef<T, ThyDialogContainerComponent, TResult> {
     constructor(overlayRef: OverlayRef, containerInstance: ThyDialogContainerComponent, config: ThyDialogConfig<T>) {
-        super(dialogUpperOverlayOptions, overlayRef, containerInstance, config);
+        super(dialogAbstractOverlayOptions, overlayRef, containerInstance, config);
     }
 
     /**

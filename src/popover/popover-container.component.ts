@@ -1,29 +1,26 @@
+import { ThyAbstractOverlayContainer, ThyClickDispatcher } from 'ngx-tethys/core';
+import { Observable, timer } from 'rxjs';
+import { filter, takeUntil } from 'rxjs/operators';
+
+import { AnimationEvent } from '@angular/animations';
+import { CdkPortalOutlet } from '@angular/cdk/portal';
+import { DOCUMENT } from '@angular/common';
 import {
+    AfterViewInit,
+    ChangeDetectorRef,
     Component,
-    ComponentRef,
-    ViewChild,
-    EmbeddedViewRef,
-    Inject,
     ElementRef,
     EventEmitter,
     HostListener,
-    ChangeDetectorRef,
-    OnInit,
-    AfterViewInit,
+    Inject,
     NgZone,
-    OnDestroy
+    OnDestroy,
+    ViewChild
 } from '@angular/core';
-import { ComponentPortal, TemplatePortal, CdkPortalOutlet } from '@angular/cdk/portal';
-import { DOCUMENT } from '@angular/common';
-import { AnimationEvent } from '@angular/animations';
 
-import { ThyPopoverConfig } from './popover.config';
 import { thyPopoverAnimations } from './popover-animations';
-import { ThyAbstractOverlayContainer } from 'ngx-tethys/core';
-import { popoverUpperOverlayOptions } from './popover.options';
-import { Observable, fromEvent, timer } from 'rxjs';
-import { filter, takeUntil } from 'rxjs/operators';
-import { ThyClickDispatcher } from 'ngx-tethys/core';
+import { ThyPopoverConfig } from './popover.config';
+import { popoverAbstractOverlayOptions } from './popover.options';
 
 @Component({
     selector: 'thy-popover-container',
@@ -65,7 +62,7 @@ export class ThyPopoverContainerComponent extends ThyAbstractOverlayContainer im
         private thyClickDispatcher: ThyClickDispatcher,
         private ngZone: NgZone
     ) {
-        super(popoverUpperOverlayOptions, changeDetectorRef);
+        super(popoverAbstractOverlayOptions, changeDetectorRef);
 
         this.animationOpeningDone = this.animationStateChanged.pipe(
             filter((event: AnimationEvent) => {

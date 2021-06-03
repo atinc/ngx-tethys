@@ -23,7 +23,7 @@ import { ElementRef, Inject, Injectable, Injector, NgZone, OnDestroy, StaticProv
 import { ThyAutocompleteContainerComponent } from './autocomplete-container.component';
 import { ThyAutocompleteRef, ThyInternalAutocompleteRef } from './autocomplete-ref';
 import { THY_AUTOCOMPLETE_DEFAULT_CONFIG, ThyAutocompleteConfig } from './autocomplete.config';
-import { autocompleteUpperOverlayOptions } from './autocomplete.options';
+import { autocompleteAbstractOverlayOptions } from './autocomplete.options';
 
 @Injectable({
     providedIn: 'root'
@@ -81,7 +81,7 @@ export class ThyAutocompleteService extends ThyAbstractOverlayService<ThyAutocom
         return containerRef.instance;
     }
 
-    protected createOverlayRef<T>(
+    protected createAbstractOverlayRef<T>(
         overlayRef: OverlayRef,
         containerInstance: ThyAutocompleteContainerComponent,
         config: ThyAutocompleteConfig<any>
@@ -142,7 +142,7 @@ export class ThyAutocompleteService extends ThyAbstractOverlayService<ThyAutocom
         private _platform: Platform,
         private _overlayContainer: OverlayContainer
     ) {
-        super(autocompleteUpperOverlayOptions, overlay, injector, defaultConfig);
+        super(autocompleteAbstractOverlayOptions, overlay, injector, defaultConfig);
     }
 
     open<T, TData = any, TResult = any>(

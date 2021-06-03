@@ -1,6 +1,6 @@
 import { ThyAbstractOverlayOptions } from 'ngx-tethys/core';
 
-export const popoverUpperOverlayOptions: ThyAbstractOverlayOptions = {
+export const popoverAbstractOverlayOptions: ThyAbstractOverlayOptions = {
     name: 'popover',
     animationEnabled: true,
     disposeWhenClose: true

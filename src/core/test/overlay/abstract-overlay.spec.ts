@@ -119,7 +119,7 @@ export class TestDialogService extends ThyAbstractOverlayService<TestDialogConfi
         return overlayConfig;
     }
 
-    protected createOverlayRef<T>(
+    protected createAbstractOverlayRef<T>(
         overlayRef: OverlayRef,
         containerComponent: TestDialogContainerComponent,
         config: TestDialogConfig
@@ -145,7 +145,7 @@ export class TestDialogService extends ThyAbstractOverlayService<TestDialogConfi
 
     protected createInjector<T>(
         config: TestDialogConfig,
-        upperOverlayRef: ThyAbstractOverlayRef<T, any>,
+        abstractOverlayRef: ThyAbstractOverlayRef<T, any>,
         containerInstance: TestDialogContainerComponent
     ): Injector {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
@@ -154,7 +154,7 @@ export class TestDialogService extends ThyAbstractOverlayService<TestDialogConfi
             { provide: TestDialogContainerComponent, useValue: containerInstance },
             {
                 provide: TestDialogRef,
-                useValue: upperOverlayRef
+                useValue: abstractOverlayRef
             }
         ];
         return Injector.create({ parent: userInjector || this.injector, providers: injectionTokens });

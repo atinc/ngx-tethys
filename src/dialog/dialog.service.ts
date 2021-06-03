@@ -11,7 +11,7 @@ import { ThyConfirmComponent } from './confirm/confirm.component';
 import { ThyDialogContainerComponent } from './dialog-container.component';
 import { ThyDialogRef, ThyInternalDialogRef } from './dialog-ref';
 import { THY_DIALOG_DEFAULT_OPTIONS, ThyDialogConfig, ThyDialogSizes } from './dialog.config';
-import { dialogUpperOverlayOptions } from './dialog.options';
+import { dialogAbstractOverlayOptions } from './dialog.options';
 
 @Injectable({
     providedIn: 'root'
@@ -37,7 +37,7 @@ export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDia
         return containerRef.instance;
     }
 
-    protected createOverlayRef<T>(
+    protected createAbstractOverlayRef<T>(
         overlayRef: OverlayRef,
         containerInstance: ThyDialogContainerComponent,
         config: ThyDialogConfig<any>
@@ -81,7 +81,7 @@ export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDia
         defaultConfig: ThyDialogConfig,
         clickPositioner: ThyClickPositioner
     ) {
-        super(dialogUpperOverlayOptions, overlay, injector, defaultConfig);
+        super(dialogAbstractOverlayOptions, overlay, injector, defaultConfig);
         clickPositioner.initialize();
     }
 
@@ -108,7 +108,7 @@ export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDia
     }
 
     getDialogById(id: string): ThyDialogRef<any> | undefined {
-        return this.getUpperOverlayById(id) as ThyDialogRef<any> | undefined;
+        return this.getAbstractOverlayById(id) as ThyDialogRef<any> | undefined;
     }
 
     /**

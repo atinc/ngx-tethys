@@ -30,7 +30,7 @@ import {
     THY_POPOVER_SCROLL_STRATEGY,
     ThyPopoverConfig
 } from './popover.config';
-import { popoverUpperOverlayOptions } from './popover.options';
+import { popoverAbstractOverlayOptions } from './popover.options';
 
 @Injectable({
     providedIn: 'root'
@@ -98,7 +98,7 @@ export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyP
         return containerRef.instance;
     }
 
-    protected createOverlayRef<T>(
+    protected createAbstractOverlayRef<T>(
         overlayRef: OverlayRef,
         containerInstance: ThyPopoverContainerComponent,
         config: ThyPopoverConfig<any>
@@ -161,7 +161,7 @@ export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyP
         private _overlayContainer: OverlayContainer
     ) {
         super(
-            popoverUpperOverlayOptions,
+            popoverAbstractOverlayOptions,
             overlay,
             injector,
             {

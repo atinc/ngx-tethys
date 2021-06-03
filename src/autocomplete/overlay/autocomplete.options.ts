@@ -1,6 +1,6 @@
 import { ThyAbstractOverlayOptions } from 'ngx-tethys/core';
 
-export const autocompleteUpperOverlayOptions: ThyAbstractOverlayOptions = {
+export const autocompleteAbstractOverlayOptions: ThyAbstractOverlayOptions = {
     name: 'autocomplete',
     animationEnabled: true,
     disposeWhenClose: true
