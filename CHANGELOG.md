@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="11.0.1"></a>
+## [11.0.1](https://github.com/atinc/ngx-tethys/compare/11.0.0...11.0.1) (2021-06-07)
+
+
+### Bug Fixes
+
+* **empty:** remove HostBinding and use UpdateHostClassService #INFR-1969 ([4c33960](https://github.com/atinc/ngx-tethys/commit/4c33960)), closes [#INFR-1969](https://github.com/atinc/ngx-tethys/issues/INFR-1969) [#INFR-1969](https://github.com/atinc/ngx-tethys/issues/INFR-1969) [#INFR-1969](https://github.com/atinc/ngx-tethys/issues/INFR-1969) [#INFR-1969](https://github.com/atinc/ngx-tethys/issues/INFR-1969) [#INFR-1969](https://github.com/atinc/ngx-tethys/issues/INFR-1969) [#INFR-1969](https://github.com/atinc/ngx-tethys/issues/INFR-1969)
+
+
+
 <a name="11.0.0"></a>
 # [11.0.0](https://github.com/atinc/ngx-tethys/compare/11.0.0-next.7...11.0.0) (2021-05-24)
 
