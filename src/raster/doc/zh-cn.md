@@ -1,6 +1,5 @@
 ---
 category: layout
-title: Raster
+title: Grid
 subtitle: 栅格
-order: 30
 ---

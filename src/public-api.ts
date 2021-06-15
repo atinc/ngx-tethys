@@ -21,6 +21,8 @@ export * from 'ngx-tethys/raster';
 export * from 'ngx-tethys/input';
 export * from 'ngx-tethys/label';
 export * from 'ngx-tethys/layout';
+export * from 'ngx-tethys/space';
+export * from 'ngx-tethys/divider';
 export * from 'ngx-tethys/list';
 export * from 'ngx-tethys/loading';
 export * from 'ngx-tethys/menu';

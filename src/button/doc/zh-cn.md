@@ -2,6 +2,7 @@
 category: general
 title: Button
 subtitle: 按钮
+order: 10
 ---
 
 <div class="dg-alert dg-alert-info">按钮用于开始一个即时操作。</div>

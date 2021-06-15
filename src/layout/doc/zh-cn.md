@@ -2,7 +2,6 @@
 category: layout
 title: Layout
 subtitle: 布局
-order: 10
 ---
 
 <div class="dg-alert dg-alert-info">整体布局容器组件。</div>
