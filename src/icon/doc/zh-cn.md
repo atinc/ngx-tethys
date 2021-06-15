@@ -2,6 +2,7 @@
 category: general
 title: Icon
 subtitle: 图标
+order: 30
 ---
 
 <div class="dg-alert dg-alert-info">矢量图标。</div>

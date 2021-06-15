@@ -1,0 +1,20 @@
+$thy-space-padding: 4px;
+
+.thy-space {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    margin: -$thy-space-padding 0 -$thy-space-padding 0;
+
+    &.thy-space-vertical {
+        flex-direction: column;
+    }
+
+    .thy-space-item {
+        padding: $thy-space-padding 0px $thy-space-padding 0px;
+    }
+
+    // > * {
+    //     margin: 12px 0 0 12px;
+    // }
+}
