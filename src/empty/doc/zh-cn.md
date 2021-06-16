@@ -1,9 +1,8 @@
 ---
-category: feedback
+category: display
 title: Empty
 subtitle: 空状态
 description: 空状态时的展示占位组件。
-order: 1
 ---
 
 <div class="dg-alert dg-alert-info">空状态时的展示占位组件。</div>

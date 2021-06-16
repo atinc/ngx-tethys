@@ -1,5 +1,5 @@
 ---
-category: layout
+category: display
 title: Card
 subtitle: 卡片
 description: 通用的卡片组件。
