@@ -4,7 +4,7 @@ $thy-space-padding: 4px;
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-start;
-    margin: -$thy-space-padding 0 -$thy-space-padding 0;
+    margin: -$thy-space-padding 0px -$thy-space-padding 0px;
 
     &.thy-space-vertical {
         flex-direction: column;

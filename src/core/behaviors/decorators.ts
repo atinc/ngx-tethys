@@ -1,8 +1,6 @@
 import { SafeAny } from 'ngx-tethys/types';
 import { coerceBooleanProperty, coerceCssPixelValue, coerceNumberValue } from 'ngx-tethys/util';
 
-export type PropertyDecorator = (target: SafeAny, propName: string) => void;
-
 export function InputBoolean(): PropertyDecorator {
     return makePropDecorator('InputBoolean', coerceBooleanProperty);
 }

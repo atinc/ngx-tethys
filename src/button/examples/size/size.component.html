@@ -3,17 +3,17 @@
     {{ item.value }}
   </button>
 </thy-button-group>
-<div class="demo-buttons mt-4">
-  <button thyButton="primary" [thySize]="size">Primary</button>
-  <button thyButton="info" [thySize]="size">Info</button>
-  <button thyButton="warning" [thySize]="size">Warning</button>
-  <button thyButton="danger" [thySize]="size">Danger</button>
-  <button thyButton="success" [thySize]="size">Success</button>
-</div>
-<div class="demo-buttons mt-2">
-  <button thyButton="outline-primary" [thySize]="size">Primary</button>
-  <button thyButton="outline-info" [thySize]="size">Info</button>
-  <button thyButton="outline-warning" [thySize]="size">Warning</button>
-  <button thyButton="outline-danger" [thySize]="size">Danger</button>
-  <button thyButton="outline-success" [thySize]="size">Success</button>
-</div>
+<thy-space class="mt-4">
+  <button *thySpaceItem thyButton="primary" [thySize]="size">Primary</button>
+  <button *thySpaceItem thyButton="info" [thySize]="size">Info</button>
+  <button *thySpaceItem thyButton="warning" [thySize]="size">Warning</button>
+  <button *thySpaceItem thyButton="danger" [thySize]="size">Danger</button>
+  <button *thySpaceItem thyButton="success" [thySize]="size">Success</button>
+</thy-space>
+<thy-space class="mt-2">
+  <button *thySpaceItem thyButton="outline-primary" [thySize]="size">Primary</button>
+  <button *thySpaceItem thyButton="outline-info" [thySize]="size">Info</button>
+  <button *thySpaceItem thyButton="outline-warning" [thySize]="size">Warning</button>
+  <button *thySpaceItem thyButton="outline-danger" [thySize]="size">Danger</button>
+  <button *thySpaceItem thyButton="outline-success" [thySize]="size">Success</button>
+</thy-space>
