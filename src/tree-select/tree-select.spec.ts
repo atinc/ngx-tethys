@@ -8,7 +8,6 @@ import { By, DomSanitizer } from '@angular/platform-browser';
 import { UpdateHostClassService } from '../core';
 import { ThyFormModule } from '../form';
 import { ThyIconComponent, ThyIconRegistry } from '../icon';
-import { ThyPositioningService } from '../positioning/positioning.service';
 import { searchTreeSelectData } from './examples/mock-data';
 import { ThyTreeSelectModule } from './module';
 import { ThyTreeSelectNode } from './tree-select.class';
@@ -358,7 +357,6 @@ describe('ThyTreeSelect', () => {
             declarations: declarations,
             providers: [
                 UpdateHostClassService,
-                ThyPositioningService,
                 {
                     provide: Sanitizer,
                     useValue: {

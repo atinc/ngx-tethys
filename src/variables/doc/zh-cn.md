@@ -335,7 +335,7 @@ $table-default-header-height: inherit !default;
 $table-bordered-cell-height: 50px !default;
 $table-group-first-cell-padding-left: 43px !default;
 // grid
-$grid-footer-padding: 0 20px !default;
+$table-footer-padding: 0 20px !default;
 // action-menu
 $action-menu-width: 240px !default;
 $action-menu-group-width: 280px !default;
@@ -716,11 +716,15 @@ $tooltip-arrow-color: $tooltip-bg !default;
 // alert
 $alert-padding-y: 0.625rem !default;
 $alert-padding-x: 1.125rem !default;
-$thy-alert-week-colors: (
+$thy-alert-weak-colors: (
     'primary-week': $primary,
     'success-week': $success,
     'warning-week': $warning,
-    'danger-week': $danger
+    'danger-week': $danger,
+    'primary-weak': $primary,
+    'success-weak': $success,
+    'warning-weak': $warning,
+    'danger-weak': $danger
 ) !default;
 $alert-operation-margin-left: 40px !default;
 

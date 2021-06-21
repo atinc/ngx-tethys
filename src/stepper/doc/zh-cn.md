@@ -1,6 +1,5 @@
 ---
-category: layout
+category: nav
 title: Stepper
 subtitle: 步骤条
-order: 40
 ---

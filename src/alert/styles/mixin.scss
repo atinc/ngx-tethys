@@ -17,7 +17,7 @@
     @include thy-alert-inner($color);
 }
 
-@mixin thy-alert-week-variant($color) {
+@mixin thy-alert-weak-variant($color) {
     color: $gray-600;
     background: $white;
     border-color: $gray-200 $gray-200 $gray-200 $color;

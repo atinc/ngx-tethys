@@ -1,5 +1,5 @@
 import { bypassSanitizeProvider, injectDefaultSvgIconSet, typeInElement } from 'ngx-tethys/testing';
-import { dispatchFakeEvent, dispatchKeyboardEvent } from 'ngx-tethys/testing/dispatcher-events';
+import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing/dispatcher-events';
 import { fromEvent, Subject } from 'rxjs';
 
 import { Overlay, OverlayContainer, ScrollDispatcher } from '@angular/cdk/overlay';
@@ -11,10 +11,9 @@ import { By } from '@angular/platform-browser';
 
 import { UpdateHostClassService } from '../core';
 import { ThyFormModule } from '../form';
-import { ThyPositioningService } from '../positioning/positioning.service';
 import { ThyOptionModule } from '../shared/option/module';
 import { ThyOptionComponent } from '../shared/option/option.component';
-import { DOWN_ARROW, ENTER, ESCAPE } from '../util/keycodes';
+import { DOWN_ARROW, END, ENTER, ESCAPE, HOME } from '../util/keycodes';
 import { SelectMode, ThySelectCustomComponent } from './custom-select/custom-select.component';
 import { ThySelectModule } from './module';
 import { THY_SELECT_SCROLL_STRATEGY } from './select.config';
@@ -23,7 +22,13 @@ import { THY_SELECT_SCROLL_STRATEGY } from './select.config';
     selector: 'basic-select',
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-custom-select thyPlaceHolder="Food" [formControl]="control" [required]="isRequired">
+            <thy-custom-select
+                thyPlaceHolder="Food"
+                [thyEnableScrollLoad]="enableScrollLoad"
+                (thyOnScrollToBottom)="thyOnScrollToBottom()"
+                [formControl]="control"
+                [required]="isRequired"
+            >
                 <thy-option
                     *ngFor="let food of foods"
                     [thyValue]="food.value"
@@ -51,11 +56,13 @@ class BasicSelectComponent {
     ];
     control = new FormControl();
     isRequired: boolean;
+    enableScrollLoad: boolean;
     @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
     @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
 
     @ViewChild('footer', { static: true, read: TemplateRef })
     footerTemplate: TemplateRef<any>;
+    thyOnScrollToBottom = jasmine.createSpy('thyOnScrollToBottom callback');
 }
 
 @Component({
@@ -144,7 +151,7 @@ class SelectWithGroupsAndNgContainerComponent {
     `
 })
 class SingleSelectWithPreselectedArrayValuesComponent {
-    foods: any[] = [
+    foods = [
         { value: ['steak-0', 'steak-1'], viewValue: 'Steak' },
         { value: ['pizza-1', 'pizza-2'], viewValue: 'Pizza' },
         { value: ['tacos-2', 'tacos-3'], viewValue: 'Tacos' }
@@ -286,7 +293,12 @@ class SelectWithSearchUseSearchKeyComponent {
     selector: 'select-with-group-search',
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
-            <thy-custom-select thyPlaceHolder="Pokemon" [thyShowSearch]="true" [formControl]="control">
+            <thy-custom-select
+                thyPlaceHolder="Pokemon"
+                [thyShowSearch]="true"
+                [thyEmptySearchMessageText]="thyEmptySearchMessageText"
+                [formControl]="control"
+            >
                 <thy-option-group *ngFor="let group of pokemonTypes" [thyGroupLabel]="group.name">
                     <ng-container *ngFor="let pokemon of group.pokemon">
                         <thy-option [thyValue]="pokemon.value" [thyLabelText]="pokemon.viewValue"></thy-option>
@@ -314,7 +326,7 @@ class SelectWithSearchAndGroupComponent {
             ]
         }
     ];
-
+    thyEmptySearchMessageText = 'empty result';
     @ViewChild(ThySelectCustomComponent, { static: true })
     select: ThySelectCustomComponent;
 }
@@ -368,7 +380,9 @@ class SelectWithSearchAndServerSearchComponent {
                 thyPlaceHolder="Food"
                 [thyMode]="'multiple'"
                 style="width:500px"
+                [thyAllowClear]="thyAllowClear"
                 [(ngModel)]="selectedValue"
+                [thyDisabled]="disabled"
                 name="Food"
                 [required]="isRequired"
             >
@@ -395,6 +409,8 @@ class SelectEimtOptionsChangesComponent {
         { value: 'sushi-7', viewValue: 'Sushi' }
     ];
     selectedValue = ['sushi-7'];
+    thyAllowClear = true;
+    disabled = false;
     isRequired: boolean;
     @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
     @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
@@ -441,7 +457,7 @@ class SelectWithThyModeComponent {
 
     selectMode: SelectMode = 'multiple';
 
-    selectedFoods = null;
+    selectedFoods: string[] = null;
 
     @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
     @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
@@ -471,9 +487,9 @@ class SelectWithThySortComparatorComponent {
 
     selectMode: SelectMode = 'multiple';
 
-    thySortComparator;
+    thySortComparator: (a: ThyOptionComponent, b: ThyOptionComponent, options: ThyOptionComponent[]) => number;
 
-    selectedFoods = null;
+    selectedFoods: string[] = null;
 
     @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
     @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
@@ -534,7 +550,7 @@ describe('ThyCustomSelect', () => {
         TestBed.configureTestingModule({
             imports: [ThyFormModule, ThyOptionModule, ThySelectModule, ReactiveFormsModule, FormsModule],
             declarations: declarations,
-            providers: [UpdateHostClassService, ThyPositioningService, bypassSanitizeProvider, ...providers]
+            providers: [UpdateHostClassService, bypassSanitizeProvider, ...providers]
         }).compileComponents();
 
         inject([OverlayContainer, Platform], (oc: OverlayContainer, p: Platform) => {
@@ -632,6 +648,30 @@ describe('ThyCustomSelect', () => {
 
                 expect(overlayContainerElement.textContent).toEqual('');
                 expect(fixture.componentInstance.select.panelOpen).toBe(false);
+            }));
+
+            it('should remove select active item when mousemove', fakeAsync(() => {
+                trigger.click();
+                fixture.detectChanges();
+                flush();
+
+                const el = overlayContainerElement.querySelector('.thy-select-dropdown') as HTMLElement;
+                dispatchMouseEvent(el, 'mousemove');
+                expect(fixture.componentInstance.select.keyManager.activeItem).toEqual(null);
+            }));
+
+            it('should exec thyOnScrollToBottom when thyEnableScrollLoad is true', fakeAsync(() => {
+                fixture.componentInstance.enableScrollLoad = true;
+                const spy = fixture.componentInstance.thyOnScrollToBottom;
+
+                trigger.click();
+                fixture.detectChanges();
+                flush();
+
+                const el = overlayContainerElement.querySelector('.thy-select-dropdown-options') as HTMLElement;
+                dispatchFakeEvent(el, 'scroll');
+
+                expect(spy).toHaveBeenCalledTimes(1);
             }));
 
             it('should close the panel when a click occurs outside the panel', fakeAsync(() => {
@@ -1164,14 +1204,74 @@ describe('ThyCustomSelect', () => {
 
             const groups = fixture.componentInstance.select.optionGroups.toArray();
             const input = fixture.debugElement.query(By.css('.search-input-field')).nativeElement;
-
             typeInElement('cat2', input);
 
             tick(1000);
             fixture.detectChanges();
             flush();
 
-            expect(overlayContainerElement.querySelector('thy-empty')).toBeTruthy();
+            const emptyNode = overlayContainerElement.querySelector('thy-empty') as HTMLElement;
+            expect(emptyNode).toBeTruthy();
+            expect(emptyNode.textContent).toContain(fixture.componentInstance.thyEmptySearchMessageText);
+        }));
+    });
+
+    describe('remove and clear logic', () => {
+        beforeEach(async(() => {
+            configureThyCustomSelectTestingModule([SelectEimtOptionsChangesComponent]);
+        }));
+
+        it('should not remove selected value when disabled is true', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectEimtOptionsChangesComponent);
+            fixture.detectChanges();
+            flush();
+            fixture.detectChanges();
+
+            const trigger = fixture.debugElement.query(By.css('.choice-remove')).nativeElement;
+            fixture.componentInstance.disabled = true;
+
+            fixture.detectChanges();
+            trigger.click();
+            tick();
+            expect(fixture.componentInstance.selectedValue).toEqual(['sushi-7']);
+        }));
+
+        it('should remove selected value when click clear icon', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectEimtOptionsChangesComponent);
+            fixture.detectChanges();
+            flush();
+            fixture.detectChanges();
+
+            const trigger = fixture.debugElement.query(By.css('.choice-remove')).nativeElement;
+            trigger.click();
+            tick();
+            expect(fixture.componentInstance.selectedValue).toEqual([]);
+        }));
+
+        it('should not  clear selected value when disabled is true', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectEimtOptionsChangesComponent);
+            fixture.detectChanges();
+            flush();
+            fixture.detectChanges();
+
+            const trigger = fixture.debugElement.query(By.css('.select-control-clear')).nativeElement;
+            fixture.componentInstance.disabled = true;
+            fixture.detectChanges();
+            trigger.click();
+            tick();
+            expect(fixture.componentInstance.selectedValue).toEqual(['sushi-7']);
+        }));
+
+        it('should exec clear when click clear icon', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectEimtOptionsChangesComponent);
+            fixture.detectChanges();
+            flush();
+            fixture.detectChanges();
+
+            const trigger = fixture.debugElement.query(By.css('.select-control-clear')).nativeElement;
+            trigger.click();
+            tick();
+            expect(fixture.componentInstance.selectedValue).toEqual([]);
         }));
     });
 
@@ -1705,6 +1805,64 @@ describe('ThyCustomSelect', () => {
             flush();
 
             expect(spy).not.toHaveBeenCalled();
+        }));
+
+        it('should active first option when set keycode HOME', fakeAsync(() => {
+            const fixture = TestBed.createComponent(BasicSelectComponent);
+            fixture.detectChanges();
+
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+            flush();
+            dispatchKeyboardEvent(trigger, 'keydown', DOWN_ARROW);
+            expect(fixture.componentInstance.select.keyManager.activeItem).toEqual(fixture.componentInstance.select.options.toArray()[1]);
+            fixture.detectChanges();
+            dispatchKeyboardEvent(trigger, 'keydown', HOME);
+            expect(fixture.componentInstance.select.keyManager.activeItem).toEqual(fixture.componentInstance.select.options.toArray()[0]);
+        }));
+
+        it('should active last option when set keycode END', fakeAsync(() => {
+            const fixture = TestBed.createComponent(BasicSelectComponent);
+            fixture.detectChanges();
+
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+            flush();
+            dispatchKeyboardEvent(trigger, 'keydown', END);
+            expect(fixture.componentInstance.select.keyManager.activeItem).toEqual(
+                fixture.componentInstance.select.options.toArray()[fixture.componentInstance.select.options.length - 1]
+            );
+        }));
+
+        it('should select correct option when panel is closed', fakeAsync(() => {
+            const fixture = TestBed.createComponent(BasicSelectComponent);
+            fixture.detectChanges();
+
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            fixture.detectChanges();
+            flush();
+            dispatchKeyboardEvent(trigger, 'keydown', END);
+            tick();
+            expect(fixture.componentInstance.select.keyManager.activeItem).toEqual(
+                fixture.componentInstance.select.options.toArray()[fixture.componentInstance.select.options.length - 1]
+            );
+            dispatchKeyboardEvent(trigger, 'keydown', HOME);
+            tick();
+            expect(fixture.componentInstance.select.keyManager.activeItem).toEqual(fixture.componentInstance.select.options.toArray()[0]);
+        }));
+
+        it('should close panel when set keycode arrow', fakeAsync(() => {
+            const fixture = TestBed.createComponent(BasicSelectComponent);
+            fixture.detectChanges();
+
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+            flush();
+            dispatchKeyboardEvent(trigger, 'keydown', DOWN_ARROW, '', { alt: true });
+            expect(fixture.componentInstance.select.panelOpen).toBe(false);
         }));
     });
 });

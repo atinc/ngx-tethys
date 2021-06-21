@@ -1,15 +1,4 @@
-import {
-    Component,
-    ViewEncapsulation,
-    OnInit,
-    Input,
-    ViewChild,
-    ElementRef,
-    Renderer2,
-    Output,
-    EventEmitter,
-    TemplateRef
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { timer } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
@@ -20,7 +9,7 @@ import { tap } from 'rxjs/operators';
 export class ThySelectScrollLoadExampleComponent implements OnInit {
     loadMoreData: Array<{ thyLabelText: string; _id: string }> = [];
 
-    selectedTaskType: string;
+    listOfSelectedValue = '00';
 
     loading = false;
 

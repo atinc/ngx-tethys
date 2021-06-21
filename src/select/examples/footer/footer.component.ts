@@ -1,15 +1,4 @@
-import {
-    Component,
-    ViewEncapsulation,
-    OnInit,
-    Input,
-    ViewChild,
-    ElementRef,
-    Renderer2,
-    Output,
-    EventEmitter,
-    TemplateRef
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-select-footer-example',

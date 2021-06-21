@@ -1,4 +1,4 @@
 ---
-title: 默认select
-order: 7
+title: thy-select
+order: 71
 ---

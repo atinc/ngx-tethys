@@ -32,11 +32,6 @@ export interface ThyNotifyOptions {
     placement?: NotifyPlacement;
 }
 
-/**
- * @deprecated please use ThyNotifyOptions
- */
-export type ThyNotifyOption = ThyNotifyOptions;
-
 export const THY_NOTIFY_DEFAULT_OPTIONS = new InjectionToken<ThyNotifyOptions>('thy-notify-default-options');
 
 export const THY_NOTIFY_DEFAULT_OPTIONS_PROVIDER = {

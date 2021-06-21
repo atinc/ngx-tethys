@@ -39,7 +39,7 @@
     }
 }
 
-.dg-layout .content {
+.dg-layout .dg-content {
     display: block;
     overflow-y: auto;
     height: 100vh;
@@ -97,8 +97,9 @@ $dg-alert-bg-alpha: 0.05;
     }
 }
 
-.dg-doc-content {
-    :first-child {
+.dg-doc-content,
+.dg-examples {
+    > :first-child {
         margin-top: 0px;
     }
 }

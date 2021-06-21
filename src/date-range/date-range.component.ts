@@ -103,14 +103,6 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
         };
     }
 
-    private _getNewDate(fullDate: Date, timestamp: { year?: number; month?: number; day?: number } = {}) {
-        const newYear = fullDate.getFullYear() + (timestamp.year || 0);
-        const newMonth = fullDate.getMonth() + (timestamp.month || 0);
-        const newDate = fullDate.getDate() + (timestamp.day || 0);
-
-        return helpers.formatDate(new Date(newYear, newMonth, newDate));
-    }
-
     private _calculateNewTime(type: string) {
         if (this.selectedDate.timestamp) {
             const beginDate = new Date(this.selectedDate.begin * 1000);
