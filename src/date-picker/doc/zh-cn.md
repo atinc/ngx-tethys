@@ -14,7 +14,9 @@ import { ThyDatePickerModule } from 'ngx-tethys/date-picker';
 ```
 ## 如何使用
 
-<div class="dg-alert dg-alert-info">组件使用</div>
+日期提供组件`thy-date-picker`和指令`thyDatePicker`两种方式选择日期。
+
+## 组件使用
 
 组件有`thy-date-picker`、`thy-month-picker`、`thy-year-picker`和`thy-range-picker`四种类型，基本的使用如下：
 
@@ -43,7 +45,7 @@ import { ThyDatePickerModule } from 'ngx-tethys/date-picker';
 展示效果：
 <example name="thy-date-picker-basic-example" inline>
 
-<div class="dg-alert dg-alert-info">指令使用</div>
+## 指令使用
 
 ```html
 <thy-property-operation
