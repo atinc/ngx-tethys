@@ -3,7 +3,6 @@ import { IThyListOptionParentComponent, THY_LIST_OPTION_PARENT_COMPONENT, ThyLis
 import { coerceBooleanProperty, dom, helpers, keycodes } from 'ngx-tethys/util';
 import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
-
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
 import {
@@ -185,17 +184,6 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
         return dom.getHTMLElementBySelector(element, this.elementRef);
     }
 
-    private _compareValue(value1: any, value2: any) {
-        if (this.thyCompareWith) {
-            const compareFn = this.thyCompareWith as (o1: any, o2: any) => boolean;
-            return compareFn(value1, value2);
-        } else if (this.thyUniqueKey) {
-            return value1 && value1[this.thyUniqueKey] === value2 && value2[this.thyUniqueKey];
-        } else {
-            return value1 === value2;
-        }
-    }
-
     private _getOptionSelectionValue(option: ThyListOptionComponent) {
         if (option.thyValue) {
             return this.thyUniqueKey ? option.thyValue[this.thyUniqueKey] : option.thyValue;
@@ -230,20 +218,6 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
 
         if (hasChanged) {
             this._emitModelValueChange();
-        }
-    }
-
-    private _getOptionByValue(value: any) {
-        return this.options.find(option => {
-            return this._compareValue(option.thyValue, value);
-        });
-    }
-
-    private _getActiveOption() {
-        if (this._keyManager.activeItem) {
-            return this._getOptionByValue(this._keyManager.activeItem.thyValue);
-        } else {
-            return null;
         }
     }
 
@@ -297,10 +271,6 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
 
     registerOnTouched(fn: any): void {
         this._onTouched = fn;
-    }
-
-    setDisabledState(isDisabled: boolean): void {
-        this.disabled = isDisabled;
     }
 
     onKeydown(event: KeyboardEvent) {
@@ -360,18 +330,6 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
         return this.selectionModel.isSelected(this._getOptionSelectionValue(option));
     }
 
-    clearActiveItem() {
-        if (this._keyManager.activeItem) {
-            this._keyManager.setActiveItem(-1);
-        }
-    }
-
-    determineClearActiveItem() {
-        if (!this._getActiveOption()) {
-            this.clearActiveItem();
-        }
-    }
-
     /** Selects all of the options. */
     selectAll() {
         this._setAllOptionsSelected(true);
@@ -391,11 +349,6 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
                 }
             }
         });
-
-        // if (this._tempValues) {
-        //     this._setSelectionByValues(this._tempValues);
-        //     this._tempValues = null;
-        // }
     }
 
     ngOnDestroy() {
