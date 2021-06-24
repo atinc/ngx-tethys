@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
 import { DateEntry } from 'ngx-tethys/date-picker';
+
+import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-date-picker-basic-example',
