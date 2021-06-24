@@ -32,8 +32,11 @@
             .thy-icon {
                 font-size: $rem-10px;
             }
-            &:hover {
+            &:hover:not(.disabled) {
                 color: $primary;
+            }
+            &.disabled {
+                cursor: not-allowed;
             }
         }
         .input-number-handler-up {
@@ -42,9 +45,6 @@
         .input-number-handler-down {
             border-top: 1px solid $input-border-color;
             border-bottom-right-radius: 0.25rem;
-        }
-        .input-number-handler-disabled {
-            cursor: not-allowed;
         }
     }
     &:hover {

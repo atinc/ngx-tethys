@@ -5,7 +5,7 @@
     (mousedown)="up($event)"
     (mouseup)="stop()"
     (mouseleave)="stop()"
-    [class.input-number-handler-disabled]="disabledUp"
+    [class.disabled]="disabledUp"
   >
     <thy-icon thyIconName="angle-up"></thy-icon>
   </span>
@@ -15,7 +15,7 @@
     (mousedown)="down($event)"
     (mouseup)="stop()"
     (mouseleave)="stop()"
-    [class.input-number-handler-disabled]="disabledDown"
+    [class.disabled]="disabledDown"
   >
     <thy-icon thyIconName="angle-down"></thy-icon>
   </span>
