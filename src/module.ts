@@ -67,6 +67,7 @@ import { ThyDividerModule } from 'ngx-tethys/divider';
 import { ThyFullscreenModule } from 'ngx-tethys/fullscreen';
 import { ThyGuiderModule } from 'ngx-tethys/guider';
 import { ThyResizableModule } from 'ngx-tethys/resizable';
+import { ThyInputNumberModule } from 'ngx-tethys/input-number';
 
 const IMPORT_EXPORT_MODULES = [
     ThyLayoutModule,
@@ -94,6 +95,7 @@ const IMPORT_EXPORT_MODULES = [
     ThyStrengthModule,
     ThyFormModule,
     ThyInputModule,
+    ThyInputNumberModule,
     ThyDropdownModule,
     ThyCopyModule,
     ThyCheckboxModule,

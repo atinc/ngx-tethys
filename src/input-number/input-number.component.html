@@ -1,0 +1,41 @@
+<div class="input-number-handler-wrap" [class.input-number-disabled]="thyDisabled">
+  <span
+    unselectable="unselectable"
+    class="input-number-handler input-number-handler-up"
+    (mousedown)="up($event)"
+    (mouseup)="stop()"
+    (mouseleave)="stop()"
+    [class.input-number-handler-disabled]="disabledUp"
+  >
+    <thy-icon thyIconName="angle-up"></thy-icon>
+  </span>
+  <span
+    unselectable="unselectable"
+    class="input-number-handler input-number-handler-down"
+    (mousedown)="down($event)"
+    (mouseup)="stop()"
+    (mouseleave)="stop()"
+    [class.input-number-handler-disabled]="disabledDown"
+  >
+    <thy-icon thyIconName="angle-down"></thy-icon>
+  </span>
+</div>
+<input
+  thyInput
+  #input
+  autocomplete="off"
+  class="input-number-input form-control"
+  [thySize]="thySize"
+  [thyAutofocus]="thyAutoFocus"
+  [disabled]="thyDisabled"
+  [attr.min]="thyMin"
+  [attr.max]="thyMax"
+  [placeholder]="thyPlaceHolder"
+  [attr.step]="thyStep"
+  (keydown)="onKeyDown($event)"
+  (keyup)="stop()"
+  [(ngModel)]="displayValue"
+  (ngModelChange)="onModelChange($event)"
+  (blur)="onBlur($event)"
+  (focus)="onFocus($event)"
+/>

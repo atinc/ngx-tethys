@@ -19,6 +19,7 @@ export * from 'ngx-tethys/form';
 export * from 'ngx-tethys/table';
 export * from 'ngx-tethys/raster';
 export * from 'ngx-tethys/input';
+export * from 'ngx-tethys/input-number';
 export * from 'ngx-tethys/label';
 export * from 'ngx-tethys/layout';
 export * from 'ngx-tethys/space';

@@ -1,0 +1,22 @@
+<div style="width: 200px;">
+  <thy-input-number
+    [(ngModel)]="value"
+    thyPrecision="2"
+    [thySuffix]="suffix"
+    [thyMax]="max"
+    [thyStep]="step"
+    (ngModelChange)="change($event)"
+  ></thy-input-number>
+  <br />
+  <thy-input-number [(ngModel)]="value" [thyDisabled]="true"></thy-input-number>
+  <br />
+  <thy-input-number [(ngModel)]="value" [thyAutoFocus]="true"></thy-input-number>
+  <br />
+</div>
+
+<div class="mb-10" style="width: 200px;">
+  <ng-container *ngFor="let size of sizes">
+    <thy-input-number [(ngModel)]="value" thyPrecision="2" [thyMax]="max" [thyStep]="step" [thySize]="size"></thy-input-number>
+    <br />
+  </ng-container>
+</div>
