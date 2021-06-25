@@ -32,13 +32,13 @@ module.exports = [
                 name: 'thyPrevious',
                 description: '点击上一条事件',
                 type: 'EventEmitter<ThyArrowSwitcherEvent>',
-                default: '-'
+                default: '$event: { index: number, event: Event}'
             },
             {
                 name: 'thyNext',
                 description: '点击下一条事件',
                 type: 'EventEmitter<ThyArrowSwitcherEvent>',
-                default: '-'
+                default: '$event: { index: number, event: Event}'
             }
         ]
     }
