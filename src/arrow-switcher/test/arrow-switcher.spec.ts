@@ -1,13 +1,16 @@
-import { fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { fakeAsync, ComponentFixture, TestBed, flush } from '@angular/core/testing';
 import { ThyArrowSwitcherModule } from '../module';
-import { NgModule, Component } from '@angular/core';
+import { NgModule, Component, DebugElement, ViewChild } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ThyArrowSwitcherComponent } from '../arrow-switcher.component';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 describe('ThyArrowSwitcher', () => {
     let fixture: ComponentFixture<ThyDemoArrowSwitcherComponent>;
     let testComponent: ThyDemoArrowSwitcherComponent;
-    let arrowSwitcherComponent;
+    let arrowSwitcherComponent: DebugElement;
+    let btnElements: HTMLElement;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
@@ -21,6 +24,7 @@ describe('ThyArrowSwitcher', () => {
         fixture = TestBed.createComponent(ThyDemoArrowSwitcherComponent);
         testComponent = fixture.debugElement.componentInstance;
         arrowSwitcherComponent = fixture.debugElement.query(By.directive(ThyArrowSwitcherComponent));
+        btnElements = arrowSwitcherComponent.nativeElement.querySelectorAll('button');
     });
 
     it('should create', () => {
@@ -37,14 +41,68 @@ describe('ThyArrowSwitcher', () => {
         fixture.detectChanges();
         expect(arrowSwitcherComponent.nativeElement.classList.contains('thy-arrow-switcher-small')).toBe(true);
     });
+
+    it('should show correct total', () => {
+        testComponent.totalCount = 20;
+        fixture.detectChanges();
+        expect(arrowSwitcherComponent.componentInstance.total).toEqual(20);
+    });
+
+    it('should show correct index', fakeAsync(() => {
+        testComponent.index = 5;
+        fixture.detectChanges();
+        flush();
+        fixture.detectChanges();
+        expect(arrowSwitcherComponent.componentInstance.index).toEqual(5);
+    }));
+
+    it('should support disabled', fakeAsync(() => {
+        testComponent.index = 3;
+        fixture.detectChanges();
+        flush();
+        fixture.detectChanges();
+        expect(arrowSwitcherComponent.componentInstance.previousDisabled).toBeFalsy();
+        expect(arrowSwitcherComponent.componentInstance.nextDisabled).toBeFalsy();
+
+        testComponent.disabled = true;
+        fixture.detectChanges();
+        flush();
+        fixture.detectChanges();
+        testComponent.switcherComponent.getDisabled();
+        expect(arrowSwitcherComponent.componentInstance.previousDisabled).toBeTruthy();
+        expect(arrowSwitcherComponent.componentInstance.nextDisabled).toBeTruthy();
+    }));
+
+    it('should support thyPrevious', fakeAsync(() => {
+        testComponent.index = 3;
+        fixture.detectChanges();
+        flush();
+        fixture.detectChanges();
+        (btnElements[0] as HTMLElement).click();
+        fixture.detectChanges();
+        expect(arrowSwitcherComponent.componentInstance.index).toEqual(2);
+    }));
+
+    it('should support thyNext', fakeAsync(() => {
+        testComponent.index = 3;
+        fixture.detectChanges();
+        flush();
+        fixture.detectChanges();
+        (btnElements[1] as HTMLElement).click();
+        fixture.detectChanges();
+        expect(arrowSwitcherComponent.componentInstance.index).toEqual(4);
+    }));
 });
 
 @Component({
     selector: 'thy-demo-arrow-switcher',
     template: `
         <thy-arrow-switcher
+            #switcher
+            [(ngModel)]="index"
             [thyTotal]="totalCount"
             [thySize]="size"
+            [disabled]="disabled"
             (thyPrevious)="previousClick()"
             (thyNext)="nextClick()"
         ></thy-arrow-switcher>
@@ -55,10 +113,12 @@ class ThyDemoArrowSwitcherComponent {
     totalCount = 10;
     disabled = false;
     size = ``;
+
+    @ViewChild('switcher', { static: true }) switcherComponent: ThyArrowSwitcherComponent;
 }
 
 @NgModule({
-    imports: [ThyArrowSwitcherModule],
+    imports: [ThyArrowSwitcherModule, FormsModule, CommonModule],
     declarations: [ThyDemoArrowSwitcherComponent],
     exports: [ThyDemoArrowSwitcherComponent]
 })
