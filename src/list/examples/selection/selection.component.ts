@@ -1,14 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ThySelectionListChange } from 'ngx-tethys';
-import { ThySelectionListComponent } from 'ngx-tethys/list/selection/selection-list';
 
 @Component({
     selector: 'app-list-selection-example',
     templateUrl: './selection.component.html'
 })
 export class ThyListSelectionExampleComponent implements OnInit {
-    @ViewChild(ThySelectionListComponent, { static: true }) thySelectionListComponent: ThySelectionListComponent;
-
     public items = [
         {
             id: 1,
