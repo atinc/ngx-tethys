@@ -3,10 +3,10 @@ import { ThySelectionListChange } from 'ngx-tethys';
 import { ThySelectionListComponent } from 'ngx-tethys/list/selection/selection-list';
 
 @Component({
-    selector: 'app-list-selection-example',
-    templateUrl: './selection.component.html'
+    selector: 'app-list-operate-example',
+    templateUrl: './operate.component.html'
 })
-export class ThyListSelectionExampleComponent implements OnInit {
+export class ThyListOperateExampleComponent implements OnInit {
     @ViewChild(ThySelectionListComponent, { static: true }) thySelectionListComponent: ThySelectionListComponent;
 
     public items = [
@@ -36,14 +36,10 @@ export class ThyListSelectionExampleComponent implements OnInit {
         }
     ];
 
-    // public size = 'md';
-
-    public isMultiple = true;
-
     public stopKeyBoardEvent = false;
 
     public selectionModel = {
-        selectedValues: [2, 3]
+        selectedValues: [2]
     };
 
     constructor() {}
@@ -56,5 +52,17 @@ export class ThyListSelectionExampleComponent implements OnInit {
 
     selectionChange(event: ThySelectionListChange) {
         console.log(event);
+    }
+
+    selectAll() {
+        this.thySelectionListComponent.selectAll();
+    }
+
+    clearAll() {
+        this.thySelectionListComponent.deselectAll();
+    }
+
+    clearActiveItem() {
+        this.thySelectionListComponent.clearActiveItem();
     }
 }
