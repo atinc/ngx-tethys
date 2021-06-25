@@ -4,11 +4,11 @@ title: Avatar
 subtitle: 头像
 ---
 
-<div class="dg-alert dg-alert-info">头像展示。</div>
+<div class="dg-alert dg-alert-info">显示用户头像的组件。</div>
 
 ## 何时使用
 
-头像用来代表用户或事物，支持图片、字符展示。
+当需要显示用户头像时。
 
 ## 模块导入
 ```ts
@@ -40,7 +40,7 @@ import { ThyAvatarModule } from "ngx-tethys/avatar";
 <thy-avatar [thySrc]="avatarSrc" thyName="张学友" thyShowName="true"></thy-avatar>
 
 ```
-<example name="thy-avatar-name-example" inline />
+<example name="thy-avatar-name-example" />
 
 ## 大小
 头像固定的字符串大小为： `xxs`、`xs`、`sm`、`md`、`lg`，对应的大小为：`22px`、`24px`、`32px`、`36px`、`48px`，除此之外还支持 `28px`, `68px`, `110px`, `160px`， size 设置为 `md` 和 `36` 是等价的，推荐使用 `md`。
