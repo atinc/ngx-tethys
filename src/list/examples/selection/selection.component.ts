@@ -65,4 +65,8 @@ export class ThyListSelectionExampleComponent implements OnInit {
     clearAll() {
         this.thySelectionListComponent.deselectAll();
     }
+
+    clearActiveItem() {
+        this.thySelectionListComponent.clearActiveItem();
+    }
 }

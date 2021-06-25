@@ -17,6 +17,7 @@
     [thyBeforeKeydown]="thyBeforeKeydown"
     [thyBindKeyEventContainer]="body"
     (thySelectionChange)="selectionChange($event)"
+    thyAutoActiveFirstItem="true"
   >
     <thy-list-option *ngFor="let item of items" [thyDisabled]="item.id === 3" [thyValue]="item?.id">
       {{ item.name }}
@@ -28,4 +29,5 @@
 
   <button thyButton="primary" (click)="selectAll()" class="mr-3">选择全部</button>
   <button thyButton="warning" (click)="clearAll()" class="mr-3">清除全部</button>
+  <button thyButton="warning" (click)="clearActiveItem()" class="mr-3">清除activeItem</button>
 </div>

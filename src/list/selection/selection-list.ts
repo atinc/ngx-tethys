@@ -317,6 +317,12 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
         }
     }
 
+    clearActiveItem() {
+        if (this._keyManager.activeItem) {
+            this._keyManager.setActiveItem(-1);
+        }
+    }
+
     setActiveOption(option: ThyListOptionComponent) {
         this._keyManager.updateActiveItem(option); // .updateActiveItemIndex(this._getOptionIndex(option));
     }

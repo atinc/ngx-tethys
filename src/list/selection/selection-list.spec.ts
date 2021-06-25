@@ -211,6 +211,17 @@ describe('ThySelectionList without forms', () => {
             expect(selectionModel.selected[0]).toBeUndefined();
         });
 
+        it(`should remove hover state when invoke clearActiveItem method`, () => {
+            const selectionFixture = TestBed.createComponent(SelectionListWithListOptionsComponent);
+            selectionFixture.debugElement.componentInstance.autoActiveFirstItem = true;
+            const selectionListOptions = selectionFixture.debugElement.queryAll(By.directive(ThyListOptionComponent));
+            selectionFixture.detectChanges();
+            expect(selectionListOptions[0].nativeElement.classList).toContain('hover');
+            selectionFixture.componentInstance.thySelectionListComponent.clearActiveItem();
+            selectionFixture.detectChanges();
+            expect(selectionListOptions[0].nativeElement.classList).not.toContain('hover');
+        });
+
         function getSelectionList() {
             return fixture.debugElement.query(By.css('.thy-selection-list'));
         }
