@@ -32,13 +32,13 @@ module.exports = [
             {
                 name: 'thyOnRemove',
                 description: '移除按钮的事件, 当 thyShowRemove 为 true 时起作用',
-                type: 'Event',
+                type: 'EventEmitter<Event>',
                 default: ''
             },
             {
                 name: 'thyError',
                 description: '头像 img 加载 error 时触发',
-                type: 'Event',
+                type: 'EventEmitter<Event>',
                 default: ''
             },
             {
