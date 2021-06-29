@@ -1,0 +1,22 @@
+<p>可以调用组件的方法实现便捷操作，如 <code>selectAll</code> 实现在多选模式下的全选操作。</p>
+<div class="selection-list-wrapper" #body>
+  <thy-selection-list
+    [(ngModel)]="selectedValues"
+    [thyMultiple]="true"
+    [thyBeforeKeydown]="thyBeforeKeydown"
+    [thyBindKeyEventContainer]="body"
+    (thySelectionChange)="selectionChange($event)"
+  >
+    <thy-list-option *ngFor="let item of items" [thyValue]="item?.id">
+      {{ item.name }}
+    </thy-list-option>
+  </thy-selection-list>
+
+  <h6 class="my-3">已选择的值：</h6>
+  <p>{{ selectedValues | json }}</p>
+
+  <button thyButton="primary" (click)="selectAll()" class="mr-3">选择全部</button>
+  <button thyButton="warning" (click)="clearAll()" class="mr-3">清除全部</button>
+  <button thyButton="warning" (click)="clearActiveItem()" class="mr-3">清除activeItem</button>
+  <button thyButton="warning" (click)="determineClearActiveItem()" class="mr-3">确认清除activeItem</button>
+</div>
