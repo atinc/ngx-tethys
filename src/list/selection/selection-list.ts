@@ -233,10 +233,9 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
     }
 
     private _getOptionByValue(value: any) {
-        const result = this.options.find(option => {
+        return this.options.find(option => {
             return this._compareValue(option.thyValue, value);
         });
-        return result;
     }
 
     private _getActiveOption() {
@@ -297,6 +296,10 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
 
     registerOnTouched(fn: any): void {
         this._onTouched = fn;
+    }
+
+    setDisabledState(isDisabled: boolean): void {
+        this.disabled = isDisabled;
     }
 
     onKeydown(event: KeyboardEvent) {
