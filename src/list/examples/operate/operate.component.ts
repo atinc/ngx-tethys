@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ThySelectionListChange } from 'ngx-tethys';
+import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { ThyListOptionComponent, ThySelectionListChange } from 'ngx-tethys';
 import { ThySelectionListComponent } from 'ngx-tethys/list/selection/selection-list';
 
 @Component({
@@ -8,6 +8,8 @@ import { ThySelectionListComponent } from 'ngx-tethys/list/selection/selection-l
 })
 export class ThyListOperateExampleComponent implements OnInit {
     @ViewChild(ThySelectionListComponent, { static: true }) thySelectionListComponent: ThySelectionListComponent;
+
+    @ViewChildren(ThyListOptionComponent) optionQueryList: QueryList<ThyListOptionComponent>;
 
     public items = [
         {
@@ -38,9 +40,7 @@ export class ThyListOperateExampleComponent implements OnInit {
 
     public stopKeyBoardEvent = false;
 
-    public selectionModel = {
-        selectedValues: [2]
-    };
+    public selectedValues: any[] = [];
 
     constructor() {}
 
@@ -64,5 +64,14 @@ export class ThyListOperateExampleComponent implements OnInit {
 
     clearActiveItem() {
         this.thySelectionListComponent.clearActiveItem();
+    }
+
+    determineClearActiveItem() {
+        this.items.shift();
+        setTimeout(() => {
+            this.thySelectionListComponent.options = this.optionQueryList;
+
+            this.thySelectionListComponent.determineClearActiveItem();
+        }, 1000);
     }
 }

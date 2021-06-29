@@ -1,13 +1,13 @@
-import { Component, DebugElement, ViewChild } from '@angular/core';
+import { Component, DebugElement, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ThySelectionListChange } from './selection.interface';
-import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testing';
 import { ThyListModule } from '../list.module';
 import { By } from '@angular/platform-browser';
 import { ThyListOptionComponent, ThyListLayout } from '../../shared/option';
 import { ThySelectionListComponent } from './selection-list';
 import { FormsModule } from '@angular/forms';
 import { dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
-import { DOWN_ARROW, SHIFT, SPACE } from 'ngx-tethys/util';
+import { DOWN_ARROW, UP_ARROW, SPACE } from 'ngx-tethys/util';
 
 export function createFakeEvent(type: string, canBubble = false, cancelable = true) {
     const event = document.createEvent('Event');
@@ -90,8 +90,8 @@ describe('ThySelectionList without forms', () => {
         it(`should hover first when thyAutoActiveFirstItem is true`, () => {
             const selectionFixture = TestBed.createComponent(SelectionListWithListOptionsComponent);
             selectionFixture.debugElement.componentInstance.autoActiveFirstItem = true;
-            const selectionListOptions = selectionFixture.debugElement.queryAll(By.directive(ThyListOptionComponent));
             selectionFixture.detectChanges();
+            const selectionListOptions = selectionFixture.debugElement.queryAll(By.directive(ThyListOptionComponent));
             expect(selectionListOptions[0].nativeElement.classList).toContain('hover');
         });
 
@@ -214,13 +214,34 @@ describe('ThySelectionList without forms', () => {
         it(`should remove hover state when invoke clearActiveItem method`, () => {
             const selectionFixture = TestBed.createComponent(SelectionListWithListOptionsComponent);
             selectionFixture.debugElement.componentInstance.autoActiveFirstItem = true;
-            const selectionListOptions = selectionFixture.debugElement.queryAll(By.directive(ThyListOptionComponent));
             selectionFixture.detectChanges();
+            const selectionListOptions = selectionFixture.debugElement.queryAll(By.directive(ThyListOptionComponent));
             expect(selectionListOptions[0].nativeElement.classList).toContain('hover');
             selectionFixture.componentInstance.thySelectionListComponent.clearActiveItem();
             selectionFixture.detectChanges();
             expect(selectionListOptions[0].nativeElement.classList).not.toContain('hover');
         });
+
+        it('should remove keyManager.activeItem when it is not in options', fakeAsync(() => {
+            fixture.detectChanges();
+            const options = Array.from((fixture.debugElement.nativeElement as HTMLElement).querySelectorAll('thy-list-option'));
+            dispatchMouseEvent(options[0], 'click');
+            dispatchKeyboardEvent(options[0], 'keydown', DOWN_ARROW);
+            dispatchKeyboardEvent(options[0], 'keydown', UP_ARROW);
+
+            fixture.detectChanges();
+            const selectionListIns = fixture.componentInstance.thySelectionListComponent;
+            spyOn(selectionListIns, 'clearActiveItem');
+
+            const buttons = Array.from((fixture.debugElement.nativeElement as HTMLElement).querySelectorAll('button'));
+
+            dispatchMouseEvent(buttons[2], 'click');
+            fixture.detectChanges();
+            flush();
+            fixture.detectChanges();
+
+            expect(selectionListIns.clearActiveItem).toHaveBeenCalledTimes(1);
+        }));
 
         function getSelectionList() {
             return fixture.debugElement.query(By.css('.thy-selection-list'));
@@ -242,27 +263,42 @@ describe('ThySelectionList without forms', () => {
             [thyBeforeKeydown]="thyBeforeKeydown"
             [thyUniqueKey]="uniqueKey"
         >
-            <thy-list-option thyValue="inbox">
-                Inbox (disabled selection-option)
-            </thy-list-option>
-            <thy-list-option id="testSelect" class="test-native-focus" thyValue="starred">
-                Starred
-            </thy-list-option>
-            <thy-list-option thyValue="sent-mail">
-                Sent Mail
-            </thy-list-option>
-            <thy-list-option thyValue="drafts" *ngIf="showLastOption">
-                Drafts
+            <thy-list-option *ngFor="let item of items" [id]="item.id" [thyValue]="item.value">
+                {{ item.text }}
             </thy-list-option>
         </thy-selection-list>
         <button (click)="selectAll()">选择全部</button>
         <button (click)="deselectAll()">清除全部</button>
+        <button (click)="determineClearActiveItem()">确认清除</button>
     `
 })
 class SelectionListWithListOptionsComponent {
     @ViewChild(ThySelectionListComponent, { static: true }) thySelectionListComponent: ThySelectionListComponent;
 
-    showLastOption = true;
+    @ViewChildren(ThyListOptionComponent) optionQueryList: QueryList<ThyListOptionComponent>;
+
+    public items = [
+        {
+            id: 1,
+            value: 'inbox',
+            text: 'Inbox (disabled selection-option)'
+        },
+        {
+            id: 'testSelect',
+            value: 'starred',
+            text: 'Starred'
+        },
+        {
+            id: 3,
+            value: 'sent-mail',
+            text: 'Sent Mail'
+        },
+        {
+            id: 4,
+            value: 'drafts',
+            text: 'Drafts'
+        }
+    ];
 
     size = '';
 
@@ -292,6 +328,15 @@ class SelectionListWithListOptionsComponent {
 
     deselectAll() {
         this.thySelectionListComponent.deselectAll();
+    }
+
+    determineClearActiveItem() {
+        this.items.shift();
+        setTimeout(() => {
+            this.thySelectionListComponent.options = this.optionQueryList;
+
+            this.thySelectionListComponent.determineClearActiveItem();
+        }, 1000);
     }
 }
 
