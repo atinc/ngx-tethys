@@ -14,6 +14,7 @@ import { ThyAutocompleteContainerComponent } from './overlay/autocomplete-contai
 import { THY_AUTOCOMPLETE_DEFAULT_CONFIG_PROVIDER } from './overlay/autocomplete.config';
 import { ThyOptionModule } from 'ngx-tethys/shared';
 import { PortalModule } from '@angular/cdk/portal';
+import { ThyAutocompleteService } from './overlay/autocomplete.service';
 
 @NgModule({
     imports: [
@@ -32,6 +33,6 @@ import { PortalModule } from '@angular/cdk/portal';
     declarations: [ThyAutocompleteTriggerDirective, ThyAutocompleteComponent, ThyAutocompleteContainerComponent],
     entryComponents: [ThyAutocompleteContainerComponent],
     exports: [ThyAutocompleteTriggerDirective, ThyAutocompleteComponent, ThyAutocompleteContainerComponent, ThyOptionModule],
-    providers: [THY_AUTOCOMPLETE_DEFAULT_CONFIG_PROVIDER]
+    providers: [THY_AUTOCOMPLETE_DEFAULT_CONFIG_PROVIDER, ThyAutocompleteService]
 })
 export class ThyAutocompleteModule {}

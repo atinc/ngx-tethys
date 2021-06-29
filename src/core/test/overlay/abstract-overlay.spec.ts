@@ -103,9 +103,7 @@ class InternalTestDialogRef<T = undefined, TResult = undefined> extends ThyAbstr
     }
 }
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class TestDialogService extends ThyAbstractOverlayService<TestDialogConfig, TestDialogContainerComponent> {
     constructor(overlay: Overlay, injector: Injector, clickPositioner: ThyClickPositioner) {
         super(testDialogOptions, overlay, injector, {});
@@ -208,7 +206,7 @@ describe('abstract-overlay', () => {
         TestBed.configureTestingModule({
             imports: [TestDialogModule, NoopAnimationsModule],
             declarations: [TestDialogBasicContentComponent, TestDialogViewContainerComponent],
-            providers: []
+            providers: [TestDialogService]
         });
         TestBed.overrideModule(BrowserDynamicTestingModule, {
             set: {

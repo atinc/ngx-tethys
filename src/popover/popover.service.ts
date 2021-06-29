@@ -32,9 +32,7 @@ import {
 } from './popover.config';
 import { popoverAbstractOverlayOptions } from './popover.options';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyPopoverContainerComponent> implements OnDestroy {
     private readonly ngUnsubscribe$ = new Subject();
 
