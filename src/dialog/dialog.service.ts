@@ -13,9 +13,7 @@ import { ThyDialogRef, ThyInternalDialogRef } from './dialog-ref';
 import { THY_DIALOG_DEFAULT_OPTIONS, ThyDialogConfig, ThyDialogSizes } from './dialog.config';
 import { dialogAbstractOverlayOptions } from './dialog.options';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDialogContainerComponent> implements OnDestroy {
     protected buildOverlayConfig(config: ThyDialogConfig<any>): OverlayConfig {
         const size = config.size || ThyDialogSizes.md;
