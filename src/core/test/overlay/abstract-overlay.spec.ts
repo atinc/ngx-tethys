@@ -206,7 +206,7 @@ describe('abstract-overlay', () => {
         TestBed.configureTestingModule({
             imports: [TestDialogModule, NoopAnimationsModule],
             declarations: [TestDialogBasicContentComponent, TestDialogViewContainerComponent],
-            providers: []
+            providers: [TestDialogService]
         });
         TestBed.overrideModule(BrowserDynamicTestingModule, {
             set: {
