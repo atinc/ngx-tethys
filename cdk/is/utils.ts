@@ -1,0 +1,103 @@
+import { ElementRef, TemplateRef } from '@angular/core';
+import { warnDeprecation } from '@tethys/cdk/logger';
+
+export function inputValueToBoolean(value: boolean | string): boolean {
+    warnDeprecation(`The method inputValueToBoolean will be deprecated, please use coerceBooleanProperty instead.`);
+    return value === '' || (value && value !== 'false');
+}
+
+export function isUndefined(value: any): value is undefined {
+    return value === undefined;
+}
+
+export function isNull(value: any): value is null {
+    return value === null;
+}
+
+export function isUndefinedOrNull(value: any): value is undefined | null {
+    return isUndefined(value) || isNull(value);
+}
+
+export function isArray<T = any>(value: any): value is Array<T> {
+    return value && baseGetTag(value) === '[object Array]';
+}
+
+export function isEmpty(value: any): boolean {
+    return !(isArray(value) && value.length > 0);
+}
+
+export function isString(value?: any): value is string {
+    return typeof value == 'string' || (!isArray(value) && isObjectLike(value) && baseGetTag(value) === '[object String]');
+}
+
+function isObjectLike(value: any): value is object {
+    return value !== null && typeof value === 'object';
+}
+
+function baseGetTag(value: any) {
+    const objectProto = Object.prototype;
+    const hasOwnProperty = objectProto.hasOwnProperty;
+    const toString = objectProto.toString;
+    const symToStringTag = typeof Symbol !== 'undefined' ? Symbol.toStringTag : undefined;
+
+    if (value == null) {
+        return value === undefined ? '[object Undefined]' : '[object Null]';
+    }
+    if (!(symToStringTag && symToStringTag in Object(value))) {
+        return toString.call(value);
+    }
+    const isOwn = hasOwnProperty.call(value, symToStringTag);
+    const tag = value[symToStringTag];
+    let unmasked = false;
+    try {
+        value[symToStringTag] = undefined;
+        unmasked = true;
+    } catch (e) {}
+
+    const result = toString.call(value);
+    if (unmasked) {
+        if (isOwn) {
+            value[symToStringTag] = tag;
+        } else {
+            delete value[symToStringTag];
+        }
+    }
+    return result;
+}
+
+export function isNumber(value: any): value is number {
+    return typeof value === 'number' || (isObjectLike(value) && baseGetTag(value) === '[object Number]');
+}
+
+export function isObject(value: any): value is object {
+    // Avoid a V8 JIT bug in Chrome 19-20.
+    // See https://code.google.com/p/v8/issues/detail?id=2291 for more details.
+    const type = typeof value;
+    return !!value && (type === 'object' || type === 'function');
+}
+
+export function isFunction(value: any): value is Function {
+    const type = typeof value;
+    return !!value && type === 'function';
+}
+
+export function isDate(value: any): value is Date {
+    const type = typeof value;
+    return !!value && type === 'object' && !!value.getTime;
+}
+
+export function isBoolean(value: any): value is boolean {
+    return value === true || value === false || (isObjectLike(value) && baseGetTag(value) === '[object Boolean]');
+}
+
+export function isTemplateRef<C = any>(value: any): value is TemplateRef<C> {
+    return value instanceof TemplateRef;
+}
+
+export function isHTMLElement(value: any): value is HTMLElement {
+    return value instanceof HTMLElement;
+}
+
+export function isElementRef(value: any): value is ElementRef {
+    return value instanceof ElementRef;
+}

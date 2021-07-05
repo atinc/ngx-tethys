@@ -1,0 +1,12 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@tethys/cdk": ["./public-api.ts"],
+      "@tethys/cdk/*": ["./*"]
+    }
+  },
+  "include": ["./**/*.ts", "./public-api.ts"],
+  "files": ["./public-api.ts"]
+}

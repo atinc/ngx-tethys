@@ -22,6 +22,5 @@
     "strictMetadataEmit": false,
     "skipTemplateCodegen": true,
     "fullTemplateTypeCheck": true
-  },
-  "files": ["./src/public-api.ts"]
+  }
 }
