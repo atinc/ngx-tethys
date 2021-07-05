@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="11.0.2"></a>
+## [11.0.2](https://github.com/atinc/ngx-tethys/compare/11.0.1...11.0.2) (2021-07-05)
+
+
+### Bug Fixes
+
+* remove service provide:"root" for dialog, popover and autocomplete to fix get injector error ([#1293](https://github.com/atinc/ngx-tethys/issues/1293)) ([7e4b33c](https://github.com/atinc/ngx-tethys/commit/7e4b33c))
+
+
+### Features
+
+* **cdk:** add cdk and move immutable, is, logger to cdk #INFR-2039 ([2a48139](https://github.com/atinc/ngx-tethys/commit/2a48139)), closes [#INFR-2039](https://github.com/atinc/ngx-tethys/issues/INFR-2039)
+* **space:** add space module and components #INFR-1988 ([e02de2a](https://github.com/atinc/ngx-tethys/commit/e02de2a)), closes [#INFR-1988](https://github.com/atinc/ngx-tethys/issues/INFR-1988)
+
+
+
 <a name="11.0.1"></a>
 ## [11.0.1](https://github.com/atinc/ngx-tethys/compare/11.0.0...11.0.1) (2021-06-07)
 
