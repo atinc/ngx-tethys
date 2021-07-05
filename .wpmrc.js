@@ -4,6 +4,7 @@ module.exports = {
         'package.json',
         'package-lock.json',
         'src/package.json',
+        'cdk/package.json',
         {
             filename: './src/version.ts',
             type: 'code'
