@@ -1,7 +1,7 @@
 import { coerceArray } from '@angular/cdk/coercion';
 import { isFunction, isUndefinedOrNull } from '@tethys/cdk/is';
 
-export type Id = string;
+export type Id = string | number;
 
 export interface EntityAddOptions {
     prepend?: boolean;
@@ -15,8 +15,9 @@ export interface EntityMoveOptions {
     toIndex?: number;
 }
 
-export interface ProducerOptions {
-    idKey?: string;
+type ExtractKeysOfValueType<T, K> = { [I in keyof T]: T[I] extends K ? I : never }[keyof T];
+export interface ProducerOptions<TEntity> {
+    idKey?: ExtractKeysOfValueType<TEntity, Id>;
 }
 
 export class Producer<TEntity> {
@@ -24,10 +25,10 @@ export class Producer<TEntity> {
 
     private entities: TEntity[];
 
-    constructor(entities: TEntity[], options?: ProducerOptions) {
+    constructor(entities: TEntity[], options?: ProducerOptions<TEntity>) {
         this.entities = entities || [];
         if (options && options.idKey) {
-            this.idKey = options.idKey;
+            this.idKey = options.idKey as string;
         }
     }
 
@@ -94,8 +95,8 @@ export class Producer<TEntity> {
         for (let i = 0; i < this.entities.length; i++) {
             const oldEntity = this.entities[i];
             if (ids.indexOf(oldEntity[this.idKey]) >= 0) {
-                const newState = isFunction(newStateOrFn) ? (newStateOrFn as any)(oldEntity) : newStateOrFn;
-                this.entities[i] = { ...(oldEntity as any), ...newState };
+                const newState = isFunction(newStateOrFn) ? newStateOrFn(oldEntity) : newStateOrFn;
+                this.entities[i] = { ...oldEntity, ...newState };
             }
         }
         return [...this.entities];
@@ -166,6 +167,6 @@ export class Producer<TEntity> {
     }
 }
 
-export function produce<TEntity>(entities: TEntity[], options?: ProducerOptions) {
-    return new Producer(entities, options);
+export function produce<TEntity>(entities: TEntity[], options?: ProducerOptions<TEntity>) {
+    return new Producer<TEntity>(entities, options);
 }

@@ -182,7 +182,9 @@
           "options": {
             "main": "cdk/test.ts",
             "tsConfig": "cdk/tsconfig.spec.json",
-            "karmaConfig": "cdk/karma.conf.js"
+            "karmaConfig": "cdk/karma.conf.js",
+            "codeCoverage": true,
+            "codeCoverageExclude": ["/cdk/testing/**/*", "cdk/**/test/**/*"]
           }
         },
         "lint": {

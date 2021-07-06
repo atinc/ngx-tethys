@@ -419,4 +419,24 @@ describe('immutable', () => {
             ]);
         });
     });
+
+    describe(`id is number`, () => {
+        it('should add user success', () => {
+            const users = [{ id: 1, name: 'name1' }];
+            const addedUsers = produce(users, { idKey: 'id' }).add({ id: 2, name: 'name2' });
+            expect(addedUsers).toEqual([...users, { id: 2, name: 'name2' }]);
+        });
+
+        it('should remove user success', () => {
+            const users = [{ id: 1, name: 'name1' }];
+            const result = produce(users, { idKey: 'id' }).remove(1);
+            expect(result).toEqual([]);
+        });
+
+        it('should update user success', () => {
+            const users = [{ id: 1, name: 'name1' }];
+            const result = produce(users, { idKey: 'id' }).update(1, { name: 'new name' });
+            expect(result).toEqual([{ id: 1, name: 'new name' }]);
+        });
+    });
 });

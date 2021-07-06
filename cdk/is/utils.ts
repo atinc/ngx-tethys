@@ -1,10 +1,4 @@
 import { ElementRef, TemplateRef } from '@angular/core';
-import { warnDeprecation } from '@tethys/cdk/logger';
-
-export function inputValueToBoolean(value: boolean | string): boolean {
-    warnDeprecation(`The method inputValueToBoolean will be deprecated, please use coerceBooleanProperty instead.`);
-    return value === '' || (value && value !== 'false');
-}
 
 export function isUndefined(value: any): value is undefined {
     return value === undefined;
@@ -22,8 +16,23 @@ export function isArray<T = any>(value: any): value is Array<T> {
     return value && baseGetTag(value) === '[object Array]';
 }
 
-export function isEmpty(value: any): boolean {
-    return !(isArray(value) && value.length > 0);
+export function isEmpty(value?: any): boolean {
+    if (isUndefinedOrNull(value)) {
+        return true;
+    }
+    if (isArray(value)) {
+        return !value.length;
+    }
+    const tag = baseGetTag(value);
+    if (tag == '[object Map]' || tag == '[object Set]') {
+        return !value.size;
+    }
+    for (const key in value) {
+        if (Object.hasOwnProperty.call(value, key)) {
+            return false;
+        }
+    }
+    return true;
 }
 
 export function isString(value?: any): value is string {
