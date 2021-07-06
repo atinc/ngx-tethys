@@ -26,7 +26,7 @@
     "test": "npm run test:tethys && npm run test:schematics",
     "test:tethys": "ng test ngx-tethys",
     "test:cdk": "ng test cdk",
-    "report-coverage": "cat ./coverage/lcov.info | coveralls",
+    "report-coverage": "cat ./coverage/tethys/lcov.info | coveralls",
     "lint": "ng lint ngx-tethys",
     "pretty": "pretty-quick --staged",
     "e2e": "ng e2e",
