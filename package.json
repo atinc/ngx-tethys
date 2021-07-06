@@ -12,7 +12,7 @@
     "build:docs": "docgeni build --skip-site",
     "build": "npm run build:tethys && npm run build:cdk && npm run build:schematics",
     "build:tethys": "rimraf ./dist/tethys/* && node --max-old-space-size=8096 ./node_modules/@angular/cli/bin/ng build ngx-tethys --prod && npm run build:styles && npm run build:testing",
-    "build:styles": "cpx \"./src/**/*.scss\" built && npm run scss-bundle",
+    "build:styles": "cpx \"./src/**/*.scss\" dist/tethys && npm run scss-bundle",
     "scss-bundle": "scss-bundle --config ./scss-bundle.config.json && scss-bundle --config ./scss-bundle-basic.config.json",
     "build:testing": "cpx \"./src/core/testing/**/*.ts\" ./dist/tethys/core/testing",
     "build:theme": "gulp build-theme",
