@@ -1,8 +1,39 @@
-import { isString } from './index';
+import { isEmpty, isString } from './index';
 
 const falsey = [, null, undefined, false, 0, NaN, ''];
+const empties = [[], {}].concat(falsey.slice(1));
 
 describe('is', () => {
+    describe('#isEmpty', () => {
+        it('should return `true` for empty values', function() {
+            const expected = empties.map(value => {
+                return true;
+            });
+            const actual = empties.map(isEmpty);
+
+            expect(actual).toEqual(expected);
+
+            expect(isEmpty(true)).toEqual(true);
+            expect(isEmpty(Array.prototype.slice)).toEqual(true);
+
+            expect(isEmpty(1)).toEqual(true);
+            expect(isEmpty(NaN)).toEqual(true);
+            expect(isEmpty(/x/)).toEqual(true);
+            expect(isEmpty()).toEqual(true);
+
+            // if (Buffer) {
+            //     expect(isEmpty(new Buffer(0))).toEqual(true);
+            //     expect(isEmpty(new Buffer(1))).toEqual(false);
+            // }
+        });
+
+        it('should return `false` for non-empty values', function() {
+            expect(isEmpty([0])).toEqual(false);
+            expect(isEmpty({ a: 0 })).toEqual(false);
+            expect(isEmpty('a')).toEqual(false);
+        });
+    });
+
     describe('#isString', () => {
         it('should return `true` for strings', function() {
             expect(isString('a')).toEqual(true);
