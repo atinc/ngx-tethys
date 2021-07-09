@@ -7,13 +7,17 @@ import { ThyRateTemplateExampleComponent } from './template/template.component';
 import { ThyRateHalfExampleComponent } from './half/half.component';
 import { ThyRateDisabledExampleComponent } from './disabled/disabled.component';
 import { ThyRateClearExampleComponent } from './clear/clear.component';
+import { ThyRateCountExampleComponent } from './count/count.component';
+import { ThyRateTooltipExampleComponent } from './tooltip/tooltip.component';
 
 const COMPONENTS = [
     ThyRateBasicExampleComponent,
     ThyRateTemplateExampleComponent,
     ThyRateHalfExampleComponent,
     ThyRateDisabledExampleComponent,
-    ThyRateClearExampleComponent
+    ThyRateClearExampleComponent,
+    ThyRateCountExampleComponent,
+    ThyRateTooltipExampleComponent
 ];
 
 @NgModule({

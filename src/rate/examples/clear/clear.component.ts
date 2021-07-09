@@ -11,7 +11,5 @@ export class ThyRateClearExampleComponent implements OnInit {
 
     ngOnInit() {}
 
-    change(event: number) {
-        console.log(event);
-    }
+    change(event: number) {}
 }

@@ -9,8 +9,7 @@ import {
     SimpleChanges,
     OnChanges,
     TemplateRef,
-    ChangeDetectionStrategy,
-    ViewEncapsulation
+    ChangeDetectionStrategy
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { InputBoolean, InputNumber } from 'ngx-tethys/core';
@@ -38,9 +37,9 @@ export interface classStyleTypeInfo {
 export class ThyRateComponent implements ControlValueAccessor, OnInit, OnChanges {
     private _value = 0;
 
-    private currentValue = 0; // 当前触发的item
+    private currentValue = 0; // 当前的item
 
-    private hasHalf = false; // 是否是半数
+    private hasHalf = false;
 
     public rateArray: number[] = [];
 
@@ -48,23 +47,23 @@ export class ThyRateComponent implements ControlValueAccessor, OnInit, OnChanges
 
     private icons: string | TemplateRef<any> | string[] | TemplateRef<any>[] = null;
 
-    public iconValue: string = null; // rate-thyIcon
+    public iconValue: string = null; // thyIcon
 
-    public iconTemplate: TemplateRef<any> = null; //  rate-模版
+    public iconTemplate: TemplateRef<any> = null; // 模版
 
     private onTouchedCallback: () => void = noop;
 
     private onChangeCallback: (_: any) => void = noop;
 
-    @Input() @InputNumber() thyCount = 5; // 定义的数量
+    @Input() @InputNumber() thyCount = 5;
 
-    @Input() @InputBoolean() thyDisabled = false; // 是否禁止
+    @Input() @InputBoolean() thyDisabled = false;
 
-    @Input() @InputBoolean() thyAllowHalf = false; // 是否支持半星
+    @Input() @InputBoolean() thyAllowHalf = false;
 
-    @Input() @InputBoolean() thyAllowClear = true; // 是否支持清除
+    @Input() @InputBoolean() thyAllowClear = true;
 
-    @Input() thyTooltips: string[] = []; // 展示tooltip
+    @Input() thyTooltips: string[] = [];
 
     // 自定义: 数组(支持thyIcon、template模版)、非数组(thyIcon、单个template模版)
     @Input('thyIconTemplate')
@@ -74,7 +73,7 @@ export class ThyRateComponent implements ControlValueAccessor, OnInit, OnChanges
             this.iconValue = null;
             this.iconTemplate = null;
         } else {
-            this.setIcon();
+            this.setIconTemplate();
         }
     }
 
@@ -179,11 +178,11 @@ export class ThyRateComponent implements ControlValueAccessor, OnInit, OnChanges
             this.iconValue = null;
             this.iconTemplate = null;
         } else {
-            this.setIcon();
+            this.setIconTemplate();
         }
     }
 
-    setIcon() {
+    setIconTemplate() {
         if (helpers.isArray(this.icons) && this.icons.length > 0) {
             const currentIcon = (this.currentValue && this.currentValue - 1) || 0;
             if (this.icons[currentIcon] instanceof TemplateRef) {
