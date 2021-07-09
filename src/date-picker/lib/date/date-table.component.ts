@@ -1,3 +1,5 @@
+import { FunctionProp, TinyDate, valueFunctionProp } from 'ngx-tethys/util';
+
 import {
     ChangeDetectionStrategy,
     Component,
@@ -9,9 +11,9 @@ import {
     SimpleChanges,
     TemplateRef
 } from '@angular/core';
-import { TinyDate } from 'ngx-tethys/util';
-import { valueFunctionProp, FunctionProp } from 'ngx-tethys/util';
+
 import { DateHelperService } from '../../date-helper.service';
+import { DateCell, WeekDayLabel, WeekRow } from './types';
 
 const DATE_ROW_NUM = 6;
 const DATE_COL_NUM = 7;
@@ -223,36 +225,4 @@ export class DateTableComponent implements OnChanges {
     trackByWeekFn(_index: number, item: WeekRow): string {
         return `${item.year}-${item.weekNum}`;
     }
-}
-
-export interface WeekDayLabel {
-    short: string;
-    veryShort: string;
-}
-
-export interface DateCell {
-    value: Date;
-    label: string;
-    title: string;
-    dateCellRender: TemplateRef<Date> | string;
-    fullCellRender?: TemplateRef<Date> | string;
-    content: string;
-    isSelected?: boolean;
-    isToday?: boolean;
-    isDisabled?: boolean;
-    isSelectedStartDate?: boolean;
-    isSelectedEndDate?: boolean;
-    isInRange?: boolean;
-    classMap?: object;
-    onClick(date: TinyDate): void;
-    onMouseEnter(): void;
-}
-
-export interface WeekRow {
-    isCurrent?: boolean; // Is the week that today stays in
-    isActive?: boolean; // Is the week that current setting date stays in
-    weekNum?: number;
-    year?: number;
-    classMap?: object;
-    dateCells: DateCell[];
 }
