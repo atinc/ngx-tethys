@@ -42,19 +42,19 @@ module.exports = [
             },
             {
                 name: '[(ngModel)]',
-                description: '绑定当前评分值',
+                description: '绑定当前值',
                 type: 'number',
                 default: '0'
             },
             {
                 name: 'ngModelChange',
-                description: '当前数改变时的回调',
+                description: '当前值改变时的回调',
                 type: 'EventEmitter<number>',
                 default: '-'
             },
             {
                 name: 'thyItemHoverChange',
-                description: '当前数hover时的回调',
+                description: '当前值hover时的回调',
                 type: 'EventEmitter<number>',
                 default: '-'
             }

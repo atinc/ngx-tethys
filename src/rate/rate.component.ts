@@ -37,7 +37,7 @@ export interface classStyleTypeInfo {
 export class ThyRateComponent implements ControlValueAccessor, OnInit, OnChanges {
     private _value = 0;
 
-    private currentValue = 0; // 当前的item
+    private currentValue = 0;
 
     private hasHalf = false;
 
@@ -47,9 +47,9 @@ export class ThyRateComponent implements ControlValueAccessor, OnInit, OnChanges
 
     private icons: string | TemplateRef<any> | string[] | TemplateRef<any>[] = null;
 
-    public iconValue: string = null; // thyIcon
+    public iconValue: string = null;
 
-    public iconTemplate: TemplateRef<any> = null; // 模版
+    public iconTemplate: TemplateRef<any> = null;
 
     private onTouchedCallback: () => void = noop;
 
@@ -65,7 +65,6 @@ export class ThyRateComponent implements ControlValueAccessor, OnInit, OnChanges
 
     @Input() thyTooltips: string[] = [];
 
-    // 自定义: 数组(支持thyIcon、template模版)、非数组(thyIcon、单个template模版)
     @Input('thyIconTemplate')
     set thyIconTemplate(value: string | TemplateRef<any> | string[] | TemplateRef<any>[]) {
         this.icons = value;
@@ -173,7 +172,7 @@ export class ThyRateComponent implements ControlValueAccessor, OnInit, OnChanges
         });
     }
 
-    updateIcon() {
+    updateIcon(): void {
         if (!this.icons) {
             this.iconValue = null;
             this.iconTemplate = null;
@@ -182,7 +181,7 @@ export class ThyRateComponent implements ControlValueAccessor, OnInit, OnChanges
         }
     }
 
-    setIconTemplate() {
+    setIconTemplate(): void {
         if (helpers.isArray(this.icons) && this.icons.length > 0) {
             const currentIcon = (this.currentValue && this.currentValue - 1) || 0;
             if (this.icons[currentIcon] instanceof TemplateRef) {
@@ -207,7 +206,7 @@ export class ThyRateComponent implements ControlValueAccessor, OnInit, OnChanges
         this.onTouchedCallback = fn;
     }
 
-    trackByFn(index: number, item: number) {
+    trackByFn(index: number, item: any) {
         return item || index;
     }
 }
