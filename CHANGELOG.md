@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="12.0.0-next.0"></a>
+# [12.0.0-next.0](https://github.com/atinc/ngx-tethys/compare/11.0.3...12.0.0-next.0) (2021-07-09)
+
+
+### Features
+
+* upgrade ng to 12 ([eb35223](https://github.com/atinc/ngx-tethys/commit/eb35223))
+
+
+
 <a name="11.0.3"></a>
 ## [11.0.3](https://github.com/atinc/ngx-tethys/compare/11.0.2...11.0.3) (2021-07-06)
 
