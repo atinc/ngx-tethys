@@ -1,10 +1,11 @@
 .thy-nav {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     padding-left: 0;
     margin-bottom: 0;
     list-style: none;
 
+    .thy-nav-item,
     .nav-link {
         display: block;
         text-align: center;
@@ -14,6 +15,7 @@
         border-bottom-style: solid;
         border-bottom-width: $nav-border-width;
         border-bottom-color: transparent;
+        flex: 0 auto;
 
         @include nav-link-variant($nav-link-color, $nav-link-hover-color, $nav-border-bottom);
     }
@@ -24,6 +26,9 @@
         @include nav-link-size($nav-link-primary-padding-y $nav-link-primary-padding-x, $nav-link-primary-right);
         min-width: $nav-link-primary-min-width;
         @include nav-link-variant($nav-link-primary-color, $nav-link-hover-color, $nav-border-bottom);
+    }
+    .thy-nav-item {
+        @include nav-item-size($nav-link-primary-right);
     }
 }
 
@@ -103,3 +108,35 @@
 }
 
 @import './icon-nav.scss';
+
+.thy-nav-list {
+    display: flex;
+    flex-wrap: nowrap;
+    flex: 0 auto;
+    overflow: hidden;
+    .nav-item-hidden {
+        display: none;
+    }
+}
+
+.thy-nav-list-popover {
+    .thy-nav-item {
+        display: none;
+    }
+    .nav-item-hidden {
+        display: block;
+    }
+    .more-nav-link,
+    .more-nav-link * {
+        text-decoration: none;
+        color: $secondary;
+        &:hover {
+            color: $gray-800;
+        }
+    }
+}
+
+.thy-nav-more-container {
+    flex: 1 !important;
+    flex-grow: 0 !important;
+}
