@@ -84,37 +84,56 @@ describe('Store: EntityStore', () => {
             });
         });
 
-        it('should get 3 users when add one task', () => {
+        it('should task success for append', () => {
             const addEntity = {
                 _id: '3',
-                name: 'user 3'
+                name: 'task 3'
             };
             tasksEntityStore.add(addEntity);
             const state = tasksEntityStore.snapshot;
             expect(state.entities).toEqual([...initialTasks, addEntity]);
         });
 
-        it('store add one entity prepend', () => {
-            const addUserEntity = {
+        it('should add task success for prepend=true', () => {
+            const addEntity = {
                 _id: '3',
-                name: 'user 3'
+                name: 'task 3'
             };
-            tasksEntityStore.add(addUserEntity, {
+            tasksEntityStore.add(addEntity, {
                 prepend: true
             });
             const state = tasksEntityStore.snapshot;
-            expect(state.entities).toEqual([addUserEntity, ...initialTasks]);
+            expect(state.entities).toEqual([addEntity, ...initialTasks]);
+        });
+
+        it('should add task 3 success to afterId', () => {
+            const addEntity = {
+                _id: '3',
+                name: 'task 3'
+            };
+            tasksEntityStore.add(addEntity, {
+                afterId: '1'
+            });
+            const state = tasksEntityStore.snapshot;
+            expect(state.entities).toEqual([
+                { _id: '1', name: 'task 1' },
+                {
+                    _id: '3',
+                    name: 'task 3'
+                },
+                { _id: '2', name: 'task 2' }
+            ]);
         });
 
         it('store add entities', () => {
             const addEntities = [
                 {
                     _id: '3',
-                    name: 'user 3'
+                    name: 'task 3'
                 },
                 {
                     _id: '4',
-                    name: 'user 4'
+                    name: 'task 4'
                 }
             ];
             const originalEntities = tasksEntityStore.snapshot.entities;
