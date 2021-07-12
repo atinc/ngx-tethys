@@ -14,8 +14,9 @@ All notable changes to this project will be documented in this file. See [standa
 ### Features
 
 * upgrade ng to 12 ([eb35223](https://github.com/atinc/ngx-tethys/commit/eb35223))
-
-
+* **cdk:** update afterId type to Id from string #INFR-2082 ([8679d47](https://github.com/atinc/ngx-tethys/commit/8679d47)), closes [#INFR-2082](https://github.com/atinc/ngx-tethys/issues/INFR-2082)
+* **nav:** nav support responsive ([#1273](https://github.com/atinc/ngx-tethys/issues/1273)) ([4af8f26](https://github.com/atinc/ngx-tethys/commit/4af8f26))
+* **store:** support afterId for EntityStore add and addWithReferences #INFR-2083 ([8bfa5fb](https://github.com/atinc/ngx-tethys/commit/8bfa5fb)), closes [#INFR-2083](https://github.com/atinc/ngx-tethys/issues/INFR-2083)
 
 <a name="12.0.0-next.0"></a>
 # [12.0.0-next.0](https://github.com/atinc/ngx-tethys/compare/11.0.3...12.0.0-next.0) (2021-07-09)
