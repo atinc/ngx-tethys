@@ -12,6 +12,7 @@ export interface EntityStoreOptions<TEntity = unknown, TReferences = unknown> {
 
 export interface EntityAddOptions {
     prepend?: boolean;
+    afterId?: Id;
     // 如果是最后追加，自动跳转到最后一页
     autoGotoLastPage?: boolean;
 }
