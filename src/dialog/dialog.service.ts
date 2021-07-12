@@ -7,7 +7,7 @@ import { ComponentPortal, ComponentType } from '@angular/cdk/portal';
 import { Inject, Injectable, Injector, OnDestroy, Optional, StaticProvider, TemplateRef } from '@angular/core';
 
 import { ThyConfirmConfig } from './confirm.config';
-import { ThyConfirmComponent } from './confirm/confirm.component';
+import { ThyConfirmAbstractComponent, THY_CONFIRM_COMPONENT_TOKEN } from './confirm/token';
 import { ThyDialogContainerComponent } from './dialog-container.component';
 import { ThyDialogRef, ThyInternalDialogRef } from './dialog-ref';
 import { THY_DIALOG_DEFAULT_OPTIONS, ThyDialogConfig, ThyDialogSizes } from './dialog.config';
@@ -77,7 +77,8 @@ export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDia
         @Optional()
         @Inject(THY_DIALOG_DEFAULT_OPTIONS)
         defaultConfig: ThyDialogConfig,
-        clickPositioner: ThyClickPositioner
+        clickPositioner: ThyClickPositioner,
+        @Inject(THY_CONFIRM_COMPONENT_TOKEN) private confirmComponentType: ComponentType<ThyConfirmAbstractComponent>
     ) {
         super(dialogAbstractOverlayOptions, overlay, injector, defaultConfig);
         clickPositioner.initialize();
@@ -98,7 +99,7 @@ export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDia
     }
 
     confirm(options: ThyConfirmConfig) {
-        return this.open(ThyConfirmComponent, {
+        return this.open(this.confirmComponentType, {
             initialState: {
                 options: options
             }

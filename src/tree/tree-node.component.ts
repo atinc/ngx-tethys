@@ -1,25 +1,28 @@
+import { ThyDragStartEvent } from 'ngx-tethys/drag-drop';
+import { Subject } from 'rxjs';
+import { filter, takeUntil } from 'rxjs/operators';
+
 import {
+    ChangeDetectorRef,
     Component,
-    ViewEncapsulation,
     ContentChild,
-    TemplateRef,
-    Input,
-    HostBinding,
-    ViewChild,
     ElementRef,
-    Output,
     EventEmitter,
+    HostBinding,
+    Inject,
+    Input,
     NgZone,
     OnDestroy,
-    ChangeDetectorRef
+    Output,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
 } from '@angular/core';
-import { ThyTreeComponent } from './tree.component';
-import { ThyTreeNodeData, ThyTreeNodeCheckState, ThyTreeEmitEvent } from './tree.class';
+
+import { THY_TREE_ABSTRACT_TOKEN, ThyTreeAbstractComponent } from './tree-abstract';
 import { ThyTreeNode } from './tree-node.class';
+import { ThyTreeEmitEvent, ThyTreeNodeCheckState } from './tree.class';
 import { ThyTreeService } from './tree.service';
-import { takeUntil, filter } from 'rxjs/operators';
-import { Subject } from 'rxjs';
-import { ThyDragStartEvent } from 'ngx-tethys/drag-drop';
 
 @Component({
     selector: 'thy-tree-node',
@@ -74,7 +77,7 @@ export class ThyTreeNodeComponent implements OnDestroy {
     }
 
     constructor(
-        public root: ThyTreeComponent,
+        @Inject(THY_TREE_ABSTRACT_TOKEN) public root: ThyTreeAbstractComponent,
         public thyTreeService: ThyTreeService,
         private ngZone: NgZone,
         private cdr: ChangeDetectorRef
