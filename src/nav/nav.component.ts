@@ -6,6 +6,7 @@ import { take, takeUntil } from 'rxjs/operators';
 import { ViewportRuler } from '@angular/cdk/overlay';
 import {
     AfterContentChecked,
+    AfterContentInit,
     AfterViewInit,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
@@ -56,7 +57,7 @@ const navHorizontalClassesMap = {
     providers: [UpdateHostClassService],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit, AfterContentChecked, OnDestroy {
+export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit, AfterContentInit, AfterContentChecked, OnDestroy {
     private _type: ThyNavType;
     private _size: ThyNavSize;
     private _horizontal: ThyNavHorizontal;
@@ -151,7 +152,7 @@ export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit
     ngAfterViewInit() {
         if (this.thyResponsive) {
             this.ngZone.onStable.pipe(take(1)).subscribe(() => {
-                this.resetSizes();
+                this.links.toArray().forEach(link => link.setOffset());
                 this.setHiddenItems();
             });
 
@@ -162,6 +163,14 @@ export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit
                     this.setHiddenItems();
                     this.calculateMoreIsActive();
                 });
+        }
+    }
+
+    ngAfterContentInit(): void {
+        if (this.thyResponsive) {
+            this.ngZone.onStable.pipe(take(1)).subscribe(() => {
+                this.resetSizes();
+            });
         }
     }
 
@@ -199,6 +208,10 @@ export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit
                     break;
                 }
             }
+        }
+
+        if (endIndex === len - 1) {
+            tabs[endIndex].setNavLinkHidden(false);
         }
 
         const showItems = tabs.slice(0, endIndex);

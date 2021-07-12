@@ -63,18 +63,22 @@ export class ThyNavLinkDirective extends _MixinBase implements AfterViewInit, On
     }
 
     ngAfterViewInit() {
-        this.offset = {
-            width: this.elementRef.nativeElement.offsetWidth,
-            height: this.elementRef.nativeElement.offsetHeight,
-            left: this.elementRef.nativeElement.offsetLeft,
-            top: this.elementRef.nativeElement.offsetTop
-        };
+        this.setOffset();
 
         this.content = this.elementRef.nativeElement.outerHTML;
 
         this.ngZone.onStable.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(() => {
             this.isActive = this.linkIsActive();
         });
+    }
+
+    setOffset() {
+        this.offset = {
+            width: this.elementRef.nativeElement.offsetWidth,
+            height: this.elementRef.nativeElement.offsetHeight,
+            left: this.elementRef.nativeElement.offsetLeft,
+            top: this.elementRef.nativeElement.offsetTop
+        };
     }
 
     linkIsActive() {
