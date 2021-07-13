@@ -41,6 +41,13 @@
     }
 }
 
+@mixin nav-item-size($margin-right) {
+    margin-right: $margin-right;
+    &:last-child {
+        margin-right: 0;
+    }
+}
+
 @mixin nav-link-clear-margin-right() {
     &:last-child {
         margin-right: 0;
