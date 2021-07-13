@@ -36,7 +36,7 @@ module.exports = [
             },
             {
                 name: 'thyIconTemplate',
-                description: `自定义模版，目前支持传单个模版、单个图标名称、数组(templateRef | 图标名称)`,
+                description: `自定义模版，目前支持传单个模版或图标名称、数组(模版 | 图标名称)`,
                 type: 'TemplateRef|string[] | TemplateRef | string',
                 default: '-'
             },

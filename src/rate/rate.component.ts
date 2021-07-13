@@ -190,10 +190,10 @@ export class ThyRateComponent implements ControlValueAccessor, OnInit, OnChanges
                 this.iconValue = this.icons[currentIcon] as string;
             }
         } else if (!helpers.isArray(this.icons)) {
-            if (helpers.isString(this.icons)) {
-                this.iconValue = this.icons;
-            } else {
+            if (this.icons instanceof TemplateRef) {
                 this.iconTemplate = this.icons;
+            } else {
+                this.iconValue = this.icons;
             }
         }
     }
