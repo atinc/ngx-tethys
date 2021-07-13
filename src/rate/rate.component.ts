@@ -93,7 +93,7 @@ export class ThyRateComponent implements ControlValueAccessor, OnInit, OnChanges
         this.currentValue = Math.ceil(value);
     }
 
-    writeValue(value: any): void {
+    writeValue(value: number): void {
         this.thyValue = value || 0;
         this.updateRateArray();
         this.cdr.markForCheck();
