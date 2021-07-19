@@ -32,7 +32,7 @@ enum Type {
     ]
 })
 export class ThyInputNumberComponent implements ControlValueAccessor, OnChanges, OnInit, OnDestroy {
-    @HostBinding('class.input-number') _isInputNumber = true;
+    @HostBinding('class.thy-input-number') _isInputNumber = true;
 
     @ViewChild('input', { static: true }) inputElement: ElementRef<any>;
 
