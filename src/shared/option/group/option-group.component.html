@@ -1,2 +1,5 @@
-<span class="group-name text-desc">{{ thyGroupLabel }}</span>
+<span class="group-name text-desc">
+  <thy-icon thyIconName="angle-right" [thyIconRotate]="collapsed ? 0 : 90" *ngIf="thyCollapsible"></thy-icon>
+  <span class="ml-1">{{ thyGroupLabel }}</span>
+</span>
 <ng-content></ng-content>

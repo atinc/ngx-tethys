@@ -38,6 +38,22 @@
                 right: 20px;
             }
         }
+        .thy-option-group-collapsible {
+            padding-left: 35px;
+        }
+    }
+
+    .thy-option-item-group-collapsible {
+        cursor: pointer;
+        .text-desc {
+            color: $gray-600 !important;
+        }
+        .group-name {
+            padding-left: 15px;
+            &:hover {
+                background-color: $gray-80;
+            }
+        }
     }
 }
 .thy-select-dropdown {

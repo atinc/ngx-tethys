@@ -1,29 +1,30 @@
+import { ENTER, hasModifierKey, SPACE } from 'ngx-tethys/util';
+
+import { Highlightable } from '@angular/cdk/a11y';
 import {
-    Component,
-    Input,
-    TemplateRef,
-    ViewChild,
     ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    EventEmitter,
     HostBinding,
     HostListener,
-    ElementRef,
-    ChangeDetectorRef,
-    EventEmitter,
-    OnDestroy,
-    Output,
     Inject,
+    Input,
+    OnDestroy,
     Optional,
-    QueryList
+    Output,
+    TemplateRef,
+    ViewChild
 } from '@angular/core';
-import { Highlightable } from '@angular/cdk/a11y';
-import { SelectOptionBase } from './select-option-base';
-import { ENTER, SPACE, hasModifierKey } from 'ngx-tethys/util';
+
 import {
     IThyOptionGroupComponent,
     IThyOptionParentComponent,
     THY_OPTION_GROUP_COMPONENT,
     THY_OPTION_PARENT_COMPONENT
 } from './option.token';
+import { SelectOptionBase } from './select-option-base';
 
 export class ThyOptionSelectionChangeEvent {
     constructor(public option: ThyOptionComponent, public isUserInput = false) {}
@@ -86,6 +87,9 @@ export class ThyOptionComponent extends SelectOptionBase implements OnDestroy, H
         return this._selected;
     }
 
+    @HostBinding(`class.thy-option-group-collapsible`)
+    groupCollapsible: boolean = false;
+
     @Output() readonly selectionChange: EventEmitter<ThyOptionSelectionChangeEvent> = new EventEmitter();
     @Output() readonly visibleChange: EventEmitter<ThyOptionVisibleChangeEvent> = new EventEmitter();
 
@@ -141,10 +145,12 @@ export class ThyOptionComponent extends SelectOptionBase implements OnDestroy, H
         }
     }
 
-    hideOption() {
+    hideOption(collapsible = false) {
         if (!this._hidden) {
             this._hidden = true;
-            this.visibleChange.emit({ option: this });
+            if (!collapsible) {
+                this.visibleChange.emit({ option: this });
+            }
             this.cdr.markForCheck();
         }
     }

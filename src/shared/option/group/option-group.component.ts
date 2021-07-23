@@ -1,7 +1,19 @@
-import { Component, HostBinding, Input, OnInit, ContentChildren, QueryList, NgZone, OnDestroy, AfterContentInit } from '@angular/core';
-import { Observable, defer, Subject, merge, combineLatest } from 'rxjs';
-import { ThyOptionVisibleChangeEvent, ThyOptionComponent } from '../option.component';
-import { take, switchMap, startWith, takeUntil, reduce, debounceTime, map } from 'rxjs/operators';
+import { defer, merge, Observable, Subject } from 'rxjs';
+import { debounceTime, map, startWith, switchMap, take, takeUntil } from 'rxjs/operators';
+
+import {
+    AfterContentInit,
+    Component,
+    ContentChildren,
+    HostBinding,
+    HostListener,
+    Input,
+    NgZone,
+    OnDestroy,
+    QueryList
+} from '@angular/core';
+
+import { ThyOptionComponent, ThyOptionVisibleChangeEvent } from '../option.component';
 import { THY_OPTION_GROUP_COMPONENT } from '../option.token';
 
 @Component({
@@ -29,6 +41,13 @@ export class ThySelectOptionGroupComponent implements OnDestroy, AfterContentIni
 
     @Input() thyGroupLabel: string;
 
+    @Input() @HostBinding(`class.thy-option-item-group-collapsible`) thyCollapsible: boolean = true;
+
+    @Input()
+    set thyCollapsed(value: boolean) {
+        this.collapsed = value;
+    }
+
     @ContentChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
 
     _destroy$: Subject<any> = new Subject<any>();
@@ -43,9 +62,35 @@ export class ThySelectOptionGroupComponent implements OnDestroy, AfterContentIni
         );
     }) as Observable<ThyOptionVisibleChangeEvent>;
 
+    public collapsed = false;
+
     constructor(private _ngZone: NgZone) {}
 
+    @HostListener('click', ['$event'])
+    onClick(event: Event) {
+        if (this.thyCollapsible) {
+            this.collapsed = !this.collapsed;
+            this._collapseOptions();
+        }
+    }
+
+    _collapseOptions() {
+        this.options.forEach(option => {
+            if (this.collapsed) {
+                option.hideOption(true);
+            } else {
+                option.showOption();
+            }
+        });
+    }
+
     ngAfterContentInit() {
+        this._collapseOptions();
+        if (this.thyCollapsible) {
+            this.options.forEach(option => {
+                option.groupCollapsible = true;
+            });
+        }
         this.options.changes.pipe(startWith(null), takeUntil(this._destroy$)).subscribe(() => {
             this._resetOptions();
         });
