@@ -55,6 +55,11 @@
             }
         }
     }
+    .thy-option-item-group-collapsed {
+        .thy-option-item {
+            display: none;
+        }
+    }
 }
 .thy-select-dropdown {
     @include thy-select-options-dropdown();

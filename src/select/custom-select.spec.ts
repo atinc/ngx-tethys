@@ -122,7 +122,12 @@ class NgModelSelectComponent {
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
             <thy-custom-select thyPlaceHolder="Pokemon" [formControl]="control">
-                <thy-option-group *ngFor="let group of pokemonTypes" [thyGroupLabel]="group.name">
+                <thy-option-group
+                    *ngFor="let group of pokemonTypes"
+                    [thyGroupLabel]="group.name"
+                    [thyCollapsible]="collapsible"
+                    [thyCollapsed]="collapsed"
+                >
                     <ng-container *ngFor="let pokemon of group.pokemon">
                         <thy-option [thyValue]="pokemon.value" [thyLabelText]="pokemon.viewValue"></thy-option>
                     </ng-container>
@@ -132,6 +137,8 @@ class NgModelSelectComponent {
     `
 })
 class SelectWithGroupsAndNgContainerComponent {
+    collapsible = false;
+    collapsed = false;
     control = new FormControl();
     pokemonTypes = [
         {
@@ -783,10 +790,43 @@ describe('ThyCustomSelect', () => {
                 trigger.click();
                 groupFixture.detectChanges();
 
+                expect(document.querySelectorAll('.cdk-overlay-container .thy-option-item-group-collapsible').length).toEqual(0);
+
                 expect(document.querySelectorAll('.cdk-overlay-container thy-option').length).toBeGreaterThan(
                     0,
                     'Expected at least one option to be rendered.'
                 );
+            }));
+
+            it('should have thy-option-item-group-collapsible class when thyCollapsible is true and have thy-option-item-group-collapsed class when collapsed', fakeAsync(() => {
+                fixture.destroy();
+
+                const groupFixture = TestBed.createComponent(SelectWithGroupsAndNgContainerComponent);
+                groupFixture.detectChanges();
+                groupFixture.componentInstance.collapsible = true;
+                groupFixture.detectChanges();
+
+                trigger = groupFixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+                trigger.click();
+                groupFixture.detectChanges();
+
+                const groupNodeList = document.querySelectorAll('.cdk-overlay-container .thy-option-item-group-collapsible');
+                expect(groupNodeList.length).toEqual(1);
+
+                const groupNameNodeList = document.querySelectorAll(
+                    '.cdk-overlay-container .thy-option-item-group-collapsible .group-name'
+                );
+                (groupNameNodeList[0] as HTMLElement).click();
+                groupFixture.detectChanges();
+
+                const groupCollapsedNodeList = document.querySelectorAll('.cdk-overlay-container .thy-option-item-group-collapsed');
+                expect(groupCollapsedNodeList.length).toEqual(1);
+
+                (groupNameNodeList[0] as HTMLElement).click();
+                groupFixture.detectChanges();
+
+                const groupCollapsedNodeList1 = document.querySelectorAll('.cdk-overlay-container .thy-option-item-group-collapsed');
+                expect(groupCollapsedNodeList1.length).toEqual(0);
             }));
         });
 

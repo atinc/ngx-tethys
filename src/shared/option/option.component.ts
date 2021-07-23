@@ -145,12 +145,10 @@ export class ThyOptionComponent extends SelectOptionBase implements OnDestroy, H
         }
     }
 
-    hideOption(collapsible = false) {
+    hideOption() {
         if (!this._hidden) {
             this._hidden = true;
-            if (!collapsible) {
-                this.visibleChange.emit({ option: this });
-            }
+            this.visibleChange.emit({ option: this });
             this.cdr.markForCheck();
         }
     }
