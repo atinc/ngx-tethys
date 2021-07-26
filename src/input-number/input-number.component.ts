@@ -115,12 +115,12 @@ export class ThyInputNumberComponent implements ControlValueAccessor, OnChanges,
         this.updateValidValue(validValue);
     }
 
-    onBlur(event: Event) {
+    onBlur(event?: Event) {
         this.displayValue = this.formatterValue(this.validValue);
         this.thyBlur.emit(event);
     }
 
-    onFocus(event: Event) {
+    onFocus(event?: Event) {
         this.thyFocus.emit(event);
     }
 

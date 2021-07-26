@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'thy-input-number-basic-example',
-    templateUrl: './basic.component.html'
+    selector: 'thy-input-number-size-example',
+    templateUrl: './size.component.html'
 })
-export class ThyInputNumberBasicExampleComponent implements OnInit {
-    value: string | number = 0;
+export class ThyInputNumberSizeExampleComponent implements OnInit {
+    value = 0;
 
     step = 1;
 
     max = 10;
+
+    sizes = ['xs', 'sm', 'md', 'lg'];
 
     suffix = '%';
 
