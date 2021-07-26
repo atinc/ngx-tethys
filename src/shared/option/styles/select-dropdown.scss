@@ -51,8 +51,8 @@
             padding-left: 15px;
         }
 
-        &:hover {
-            .group-name {
+        .group-name {
+            &:hover {
                 background-color: $gray-100;
                 color: $gray-800;
             }
