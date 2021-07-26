@@ -1,4 +1,5 @@
 import {
+    ChangeDetectorRef,
     Component,
     ElementRef,
     EventEmitter,
@@ -72,7 +73,7 @@ export class ThyInputNumberComponent implements ControlValueAccessor, OnChanges,
 
     @Output() thyFocus = new EventEmitter<Event>();
 
-    constructor() {}
+    constructor(private cdr: ChangeDetectorRef) {}
 
     ngOnInit() {}
 
@@ -89,6 +90,7 @@ export class ThyInputNumberComponent implements ControlValueAccessor, OnChanges,
             const _value = this.getCurrentValidValue(value);
             this.updateValidValue(_value);
             this.displayValue = this.formatterValue(_value);
+            this.cdr.markForCheck();
         }
     }
 
