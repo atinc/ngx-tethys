@@ -51,6 +51,13 @@
             padding-left: 15px;
         }
 
+        .thy-option-item {
+            padding: {
+                left: 32px;
+                right: 32px;
+            }
+        }
+
         .group-name {
             &:hover {
                 background-color: $gray-100;
