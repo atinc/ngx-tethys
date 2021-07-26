@@ -87,9 +87,6 @@ export class ThyOptionComponent extends SelectOptionBase implements OnDestroy, H
         return this._selected;
     }
 
-    @HostBinding(`class.thy-option-group-collapsible`)
-    groupCollapsible: boolean = false;
-
     @Output() readonly selectionChange: EventEmitter<ThyOptionSelectionChangeEvent> = new EventEmitter();
     @Output() readonly visibleChange: EventEmitter<ThyOptionVisibleChangeEvent> = new EventEmitter();
 

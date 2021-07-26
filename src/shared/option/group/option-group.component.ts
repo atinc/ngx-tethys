@@ -32,9 +32,15 @@ export class ThySelectOptionGroupComponent implements OnDestroy, AfterContentIni
 
     @Input() thyGroupLabel: string;
 
-    @Input() @InputBoolean() @HostBinding(`class.thy-option-item-group-collapsible`) thyCollapsible = false;
+    @HostBinding(`class.thy-option-item-group-collapsible`)
+    @Input()
+    @InputBoolean()
+    thyCollapsible = false;
 
-    @Input() @InputBoolean() @HostBinding(`class.thy-option-item-group-collapsed`) thyCollapsed = false;
+    @HostBinding(`class.thy-option-item-group-collapsed`)
+    @Input()
+    @InputBoolean()
+    thyCollapsed = false;
 
     @ContentChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
 
@@ -52,18 +58,7 @@ export class ThySelectOptionGroupComponent implements OnDestroy, AfterContentIni
 
     constructor(private _ngZone: NgZone) {}
 
-    click(event: Event) {
-        if (this.thyCollapsible) {
-            this.thyCollapsed = !this.thyCollapsed;
-        }
-    }
-
     ngAfterContentInit() {
-        if (this.thyCollapsible) {
-            this.options.forEach(option => {
-                option.groupCollapsible = true;
-            });
-        }
         this.options.changes.pipe(startWith(null), takeUntil(this._destroy$)).subscribe(() => {
             this._resetOptions();
         });
@@ -91,6 +86,12 @@ export class ThySelectOptionGroupComponent implements OnDestroy, AfterContentIni
             .subscribe((data: boolean) => {
                 this._hidden = data;
             });
+    }
+
+    click(event: Event) {
+        if (this.thyCollapsible) {
+            this.thyCollapsed = !this.thyCollapsed;
+        }
     }
 
     ngOnDestroy() {

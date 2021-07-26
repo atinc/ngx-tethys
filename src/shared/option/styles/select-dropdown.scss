@@ -27,6 +27,7 @@
             height: 30px;
             display: flex;
             align-items: center;
+            color: $gray-600;
             padding: {
                 left: 20px;
                 right: 20px;
@@ -45,13 +46,15 @@
 
     .thy-option-item-group-collapsible {
         cursor: pointer;
-        .text-desc {
-            color: $gray-600 !important;
-        }
+
         .group-name {
             padding-left: 15px;
-            &:hover {
-                background-color: $gray-80;
+        }
+
+        &:hover {
+            .group-name {
+                background-color: $gray-100;
+                color: $gray-800;
             }
         }
     }
@@ -61,6 +64,7 @@
         }
     }
 }
+
 .thy-select-dropdown {
     @include thy-select-options-dropdown();
     &.thy-select-dropdown-multiple {
