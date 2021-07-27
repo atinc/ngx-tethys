@@ -169,33 +169,26 @@ describe('input-number component', () => {
         dispatchMouseEvent(upElement, 'mousedown');
         dispatchMouseEvent(upElement, 'mouseup');
         fixture.detectChanges();
-        fixture.whenStable().then(() => {
-            expect(inputNumberComponentInstance.modelValue).toBe(2);
-        });
+        expect(inputNumberComponentInstance.modelValue).toBe(2);
         fixture.detectChanges();
         tick();
         dispatchMouseEvent(upElement, 'mousedown');
         dispatchMouseEvent(upElement, 'mouseup');
         fixture.detectChanges();
-        fixture.whenStable().then(() => {
-            expect(inputNumberComponentInstance.modelValue).toBe(4);
-        });
+        expect(inputNumberComponentInstance.modelValue).toBe(4);
     }));
 
     it('should thydisabled work', fakeAsync(() => {
         fixture.detectChanges();
         inputNumberComponentInstance.thyDisabled = true;
         fixture.detectChanges();
-        fixture.whenStable().then(() => {
-            expect(inputElement.hasAttribute('disabled')).toBe(true);
-        });
         tick();
-        fixture.detectChanges();
+        expect(inputElement.hasAttribute('disabled')).toBe(true);
+
         inputNumberComponentInstance.thyDisabled = false;
         fixture.detectChanges();
-        fixture.whenStable().then(() => {
-            expect(inputElement.hasAttribute('disabled')).toBe(false);
-        });
+        tick();
+        expect(inputElement.hasAttribute('disabled')).toBe(false);
     }));
 
     it('should up and down work', fakeAsync(() => {
@@ -234,14 +227,13 @@ describe('input-number component', () => {
     }));
 
     it('should blur input work', fakeAsync(() => {
-        inputNumberComponentInstance.modelValue = '2aa';
+        inputNumberComponentInstance.modelValue = '3aa';
         fixture.detectChanges();
         tick();
         inputElement.blur();
         fixture.detectChanges();
-        fixture.whenStable().then(() => {
-            expect(inputElement.value).toBe('2');
-        });
+        tick();
+        expect(inputElement.value).toBe('3');
     }));
 
     it('should thyPrecision work', () => {
