@@ -7,19 +7,19 @@ module.exports = [
                 name: 'thyType',
                 description: `类型，'primary' | 'secondary' | 'thirdly' | 'secondary-divider'`,
                 type: 'string',
-                default: 'false'
+                default: ''
             },
             {
                 name: 'thySize',
-                description: '导航大小，sm、md',
+                description: `导航大小，'sm'|' '，' '为md大小`,
                 type: 'string',
-                default: 'md'
+                default: `' '`
             },
             {
                 name: 'thyHorizontal',
-                description: `水平对齐方式，'' | 'left' | 'center' | 'right'`,
+                description: `水平对齐方式，'left' | 'center' | 'right'`,
                 type: 'string',
-                default: 'true'
+                default: 'left'
             },
             {
                 name: 'thyVertical',
@@ -32,6 +32,12 @@ module.exports = [
                 description: '是否填充整行',
                 type: 'boolean',
                 default: 'false'
+            },
+            {
+                name: 'thyResponsive',
+                description: '是否是响应式布局',
+                type: 'boolean',
+                default: 'false'
             }
         ]
     },
@@ -41,7 +47,7 @@ module.exports = [
         properties: [
             {
                 name: 'thyNavLinkActive',
-                description: '是否激活',
+                description: '是否是激活状态',
                 type: 'boolean',
                 default: 'false'
             }
@@ -55,7 +61,7 @@ module.exports = [
                 name: 'thyType',
                 type: 'string',
                 default: 'primary',
-                description: `图标导航类型，'primary' | 'secondary' | 'individual' | ''`
+                description: `图标导航类型，'primary' | 'secondary' | 'individual' `
             }
         ]
     },
@@ -64,8 +70,8 @@ module.exports = [
         name: 'thyIconNavLink',
         properties: [
             {
-                name: 'thyIconNavLinkIcon',
-                description: '是否 Active 状态',
+                name: 'thyIconNavLinkActive',
+                description: '是否是激活状态',
                 type: 'boolean',
                 default: 'false'
             },
