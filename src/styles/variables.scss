@@ -26,8 +26,9 @@ $rem-20px: 1.25rem;
 $rem-26px: 1.625rem;
 // color
 $body-color: $gray-800 !default;
-$primary: #22d7bb !default;
-$primary-active: #18bfa4 !default;
+$primary: #348fe4 !default;
+// deprecated
+$primary-active: dark($primary, 10) !default;
 $secondary: $gray-700 !default;
 $success: #66c060 !default; // 2dbcff
 $info: #2dbcff !default;
