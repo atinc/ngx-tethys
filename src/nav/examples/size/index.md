@@ -1,4 +1,4 @@
 ---
-order: 70
+order: 60
 title: Size
 ---

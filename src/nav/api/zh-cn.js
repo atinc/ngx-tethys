@@ -38,6 +38,18 @@ module.exports = [
                 description: '是否是响应式布局',
                 type: 'boolean',
                 default: 'false'
+            },
+            {
+                name: 'more',
+                description: '自定义更多操作',
+                type: 'ContentChild<TemplateRef>',
+                default: ''
+            },
+            {
+                name: 'morePopover',
+                description: '自定义更多操作悬浮层',
+                type: 'ContentChild<TemplateRef>',
+                default: ''
             }
         ]
     },

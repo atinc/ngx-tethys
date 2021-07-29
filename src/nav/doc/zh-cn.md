@@ -2,10 +2,10 @@
 category: nav
 title: Nav
 subtitle: 导航
-description: 为页面、页面内部分布局和功能提供导航的列表。
+description: 切换不同的组件内容。
 ---
 
-<div class="dg-alert dg-alert-info">为页面、页面内部分布局和功能提供导航的列表。</div>
+<div class="dg-alert dg-alert-info">切换不同的组件内容。</div>
 
 ## 何时使用
 
@@ -15,7 +15,7 @@ description: 为页面、页面内部分布局和功能提供导航的列表。
 ```ts
 import { ThyNavModule } from "ngx-tethys/nav";
 ```
-## 如何使用
+## 基本使用
 ```html
 <thy-nav thyType="primary">
   <a href="javascript:;" thyNavLink thyNavLinkActive="true">导航一</a>
@@ -23,4 +23,18 @@ import { ThyNavModule } from "ngx-tethys/nav";
 </thy-nav>
 ```
 展示效果：
-<example name="thy-nav-basic-example">
+<example name="thy-nav-basic-example"></example>
+
+## 导航类型
+Nav支持四种类型：primary、secondary、thirdly、secondary-divider
+
+展示效果：
+<example name="thy-nav-type-example"></example>
+
+## 图标导航
+<example name="thy-nav-icon-nav-example"></example>
+
+## 导航大小
+<example name="thy-nav-size-example"></example>
+
+

@@ -1,4 +1,4 @@
 ---
-order: 60
+order: 40
 title: Icon Nav
 ---
