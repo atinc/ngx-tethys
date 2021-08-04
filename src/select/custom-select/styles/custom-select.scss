@@ -13,6 +13,7 @@
     }
     & .form-control-custom.disabled {
         cursor: default;
+        border-color: $input-border-color;
     }
 }
 
