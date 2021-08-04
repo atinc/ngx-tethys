@@ -113,6 +113,9 @@
         .choice-content {
             max-width: 100%;
         }
+        &.disabled {
+            padding-right: 10px;
+        }
     }
     .choice-remove {
         cursor: pointer;
