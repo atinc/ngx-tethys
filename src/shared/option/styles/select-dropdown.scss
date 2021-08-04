@@ -27,9 +27,13 @@
             height: 30px;
             display: flex;
             align-items: center;
+            color: $gray-600;
             padding: {
                 left: 20px;
                 right: 20px;
+            }
+            &:hover {
+                background-color: $gray-80;
             }
         }
         .thy-option-item {
