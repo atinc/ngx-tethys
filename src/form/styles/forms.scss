@@ -61,8 +61,6 @@
         // & + .form-control-feedback {
         //   color: $input-disabled-color;
         // }
-        // 如果 input 框禁用了，边框的颜色不在会因为 focus 等状态变化
-        border-color: $input-border-color !important;
     }
 
     // Thy Custom readonly is not disabled-bg
