@@ -42,8 +42,8 @@ module.exports = [
             },
             {
                 name: 'thyPlacement',
-                description: 'autocomplete显示位置',
-                type: 'number',
+                description: `autocomplete显示位置,'top' | 'topLeft' | 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight' | 'left' | 'leftTop' | 'leftBottom' | 'right' | 'rightTop' | 'rightBottom'`,
+                type: 'string',
                 default: 'bottomLeft'
             }
         ]
