@@ -1,27 +1,29 @@
-import { ViewContainerRef } from '@angular/core';
-import { TestBed, ComponentFixture, fakeAsync, flushMicrotasks, inject, flush, tick } from '@angular/core/testing';
+import { bypassSanitizeProvider, dispatchKeyboardEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
+import { of } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { OverlayContainer } from '@angular/cdk/overlay';
 import { Location } from '@angular/common';
 import { SpyLocation } from '@angular/common/testing';
-import { ThyDialog, ThyDialogModule, THY_CONFIRM_DEFAULT_OPTIONS } from '../index';
-import { OverlayContainer } from '@angular/cdk/overlay';
-import { of } from 'rxjs';
+import { ViewContainerRef } from '@angular/core';
+import { ComponentFixture, fakeAsync, flush, flushMicrotasks, inject, TestBed, tick } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+
+import { A, ESCAPE } from '../../util/keycodes';
+import { ThyDialogContainerComponent } from '../dialog-container.component';
 import { ThyDialogRef } from '../dialog-ref';
+import { ThyDialogSizes } from '../dialog.config';
+import { THY_CONFIRM_DEFAULT_OPTIONS, ThyDialog, ThyDialogModule } from '../index';
 import {
-    WithChildViewContainerComponent,
-    DialogTestModule,
+    DialogFullContentComponent,
     DialogSimpleContentComponent,
-    WithTemplateRefComponent,
-    WithViewContainerDirective,
+    DialogTestModule,
+    WithChildViewContainerComponent,
     WithInjectedDataDialogComponent,
     WithOnPushViewContainerComponent,
-    DialogFullContentComponent
+    WithTemplateRefComponent,
+    WithViewContainerDirective
 } from './module';
-import { ESCAPE, A } from '../../util/keycodes';
-import { dispatchKeyboardEvent, bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
-import { By } from '@angular/platform-browser';
-import { ThyDialogContainerComponent } from '../dialog-container.component';
-import { ThyDialogSizes } from '../dialog.config';
-import { map } from 'rxjs/operators';
 
 describe('ThyDialog', () => {
     let dialog: ThyDialog;
@@ -801,6 +803,17 @@ describe('ThyDialog', () => {
         it('should be able to find a dialog by id', () => {
             const dialogRef = dialog.open(DialogSimpleContentComponent, { id: 'pizza' });
             expect(dialog.getDialogById('pizza')).toBe(dialogRef);
+        });
+
+        it('should get correct openedDialogs', () => {
+            const dialogRef = dialog.open(DialogSimpleContentComponent, { id: 'pizza' });
+            const openedDialog = dialog.getOpenedDialogs();
+            expect(openedDialog.length).toEqual(1);
+            expect(openedDialog[0]).toEqual(dialogRef);
+
+            const dialogRef1 = dialog.open(DialogSimpleContentComponent, { id: 'hamburg' });
+            expect(openedDialog.length).toEqual(2);
+            expect(openedDialog[1]).toEqual(dialogRef1);
         });
     });
 
