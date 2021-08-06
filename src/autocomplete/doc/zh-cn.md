@@ -27,20 +27,48 @@ import { ThyAutocompleteModule } from "ngx-tethys/autocomplete";
 <div>
   <input
     thyInput
-    [(ngModel)]="value"
-    [thyAutofocus]="true"
-    [placeholder]="placeholder"
     thyAutocompleteTrigger
-    [thyAutocompleteWidth]="500"
+    [(ngModel)]="value"
+    [thyAutocompleteComponent]="auto"
     (ngModelChange)="valueChange($event)"
   />
-  <thy-autocomplete #auto [thyEmptyText]="'没有搜索到任何数据'">
-    <thy-option-group thyGroupLabel="最新浏览">
-      <thy-option *ngFor="let item of listOfOption" [thyLabelText]="item.label" [thyValue]="item.value"></thy-option>
-    </thy-option-group>
+  <thy-autocomplete #auto>
+    <thy-option *ngFor="let item of listOfOption" [thyLabelText]="item.label" [thyValue]="item.value"></thy-option>
   </thy-autocomplete>
 </div>
 ```
 
-展示效果如下：
+## 基础使用
 <example name="thy-autocomplete-basic-example" />
+
+## 高亮选中第一项
+<example name="thy-autocomplete-active-example" />
+
+## 自定义下拉列表样式
+<example name="thy-autocomplete-custom-example" />
+
+
+## 下拉列表全局配置
+
+下拉列表的默认选项可以通过`THY_AUTOCOMPLETE_DEFAULT_CONFIG`令牌提供一个`ThyAutocompleteConfig`实例来指定。
+
+```ts
+@NgModule({
+  providers: [
+    { provide: THY_AUTOCOMPLETE_DEFAULT_CONFIG, useValue: { placement: 'topRight' }}
+  ]
+})
+```
+
+默认的配置如下：
+```ts
+const DEFAULT_OPTIONS = {
+    hasBackdrop: false,
+    panelClass: '',
+    closeOnNavigation: true,
+    insideClosable: true,
+    manualClosure: false,
+    outsideClosable: true,
+    originActiveClass: 'thy-autocomplete-origin-active'
+};
+```
