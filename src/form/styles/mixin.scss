@@ -22,8 +22,7 @@
             box-shadow: $input-focus-box-shadow;
         }
     }
-    &:not(.disabled):not(:disabled) {
-        &:hover,
+    &:not([disabled]):not(.disabled):not(.is-invalid) {
         &:focus {
             border-color: $input-focus-border-color;
         }
