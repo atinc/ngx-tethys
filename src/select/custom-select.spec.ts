@@ -1221,19 +1221,21 @@ describe('ThyCustomSelect', () => {
             configureThyCustomSelectTestingModule([SelectEimtOptionsChangesComponent]);
         }));
 
-        it('should not remove selected value when disabled is true', fakeAsync(() => {
+        it('should not show remove icon when disabled is true', fakeAsync(() => {
             const fixture = TestBed.createComponent(SelectEimtOptionsChangesComponent);
             fixture.detectChanges();
             flush();
             fixture.detectChanges();
+            const removeIcon = fixture.debugElement.query(By.css('.choice-remove')).nativeElement;
+            expect(removeIcon).not.toBeNull();
 
-            const trigger = fixture.debugElement.query(By.css('.choice-remove')).nativeElement;
             fixture.componentInstance.disabled = true;
-
             fixture.detectChanges();
-            trigger.click();
+            const removeIcon2 = fixture.debugElement.query(By.css('.choice-remove'));
+            const choice = fixture.debugElement.query(By.css('.choice')).nativeElement as HTMLElement;
             tick();
-            expect(fixture.componentInstance.selectedValue).toEqual(['sushi-7']);
+            expect(choice.classList.contains('disabled')).toBeTruthy();
+            expect(removeIcon2).toBeNull();
         }));
 
         it('should remove selected value when click clear icon', fakeAsync(() => {
