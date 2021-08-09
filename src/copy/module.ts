@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ThyCopyDirective } from './copy.directive';
-import { ThyTooltipModule } from '../tooltip/tooltip.module';
+import { ThyNotifyModule } from '../notify/notify.module';
 
 @NgModule({
     declarations: [ThyCopyDirective],
-    imports: [CommonModule, ThyTooltipModule],
+    imports: [CommonModule, ThyNotifyModule],
     exports: [ThyCopyDirective]
 })
 export class ThyCopyModule {}
