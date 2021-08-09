@@ -55,7 +55,6 @@
     "@angular/platform-browser-dynamic": "^11.2.5",
     "@angular/router": "^11.2.5",
     "@ngx-translate/core": "^13.0.0",
-    "bootstrap": "4.5.0",
     "china-division": "^2.1.1",
     "core-js": "^2.5.4",
     "cyia-code-util": "^1.0.4",
