@@ -6,13 +6,12 @@ import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { ThyTooltipDirective } from './tooltip.directive';
 import { ThyTooltipComponent } from './tooltip.component';
 import { THY_TOOLTIP_DEFAULT_CONFIG_PROVIDER } from './tooltip.config';
-import { TooltipService } from './tooltip.service';
 
 @NgModule({
     imports: [A11yModule, CommonModule, OverlayModule],
     exports: [ThyTooltipDirective],
     declarations: [ThyTooltipDirective, ThyTooltipComponent],
     entryComponents: [ThyTooltipComponent],
-    providers: [THY_TOOLTIP_DEFAULT_CONFIG_PROVIDER, TooltipService]
+    providers: [THY_TOOLTIP_DEFAULT_CONFIG_PROVIDER]
 })
 export class ThyTooltipModule {}
