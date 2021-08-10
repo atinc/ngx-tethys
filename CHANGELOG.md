@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="12.0.0-next.1"></a>
+# [12.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/11.0.4...12.0.0-next.1) (2021-07-12)
+
+
+### Bug Fixes
+
+* import cycles would need to be created to compile this component #INFR-2077 ([f3eba0b](https://github.com/atinc/ngx-tethys/commit/f3eba0b)), closes [#INFR-2077](https://github.com/atinc/ngx-tethys/issues/INFR-2077)
+
+
+### Features
+
+* upgrade ng to 12 ([eb35223](https://github.com/atinc/ngx-tethys/commit/eb35223))
+* **cdk:** update afterId type to Id from string #INFR-2082 ([8679d47](https://github.com/atinc/ngx-tethys/commit/8679d47)), closes [#INFR-2082](https://github.com/atinc/ngx-tethys/issues/INFR-2082)
+* **nav:** nav support responsive ([#1273](https://github.com/atinc/ngx-tethys/issues/1273)) ([4af8f26](https://github.com/atinc/ngx-tethys/commit/4af8f26))
+* **store:** support afterId for EntityStore add and addWithReferences #INFR-2083 ([8bfa5fb](https://github.com/atinc/ngx-tethys/commit/8bfa5fb)), closes [#INFR-2083](https://github.com/atinc/ngx-tethys/issues/INFR-2083)
+
+<a name="12.0.0-next.0"></a>
+# [12.0.0-next.0](https://github.com/atinc/ngx-tethys/compare/11.0.3...12.0.0-next.0) (2021-07-09)
+
+
+### Features
+
+* upgrade ng to 12 ([eb35223](https://github.com/atinc/ngx-tethys/commit/eb35223))
+
+
 <a name="11.0.4"></a>
 ## [11.0.4](https://github.com/atinc/ngx-tethys/compare/11.0.3...11.0.4) (2021-07-12)
 

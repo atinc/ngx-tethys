@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject, Subscriber, from } from 'rxjs';
 import { coerceArray } from 'ngx-tethys/util';
 import { map, tap, mergeMap } from 'rxjs/operators';
-import { HttpClient, HttpEvent, HttpEventType, XhrFactory } from '@angular/common/http';
+import { XhrFactory } from '@angular/common';
+import { HttpClient, HttpEvent, HttpEventType } from '@angular/common/http';
 
 export enum ThyUploadStatus {
     pending = 'pending',

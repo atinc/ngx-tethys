@@ -6,7 +6,7 @@ An UI components based on Worktile Design and Angular.
 ![](https://img.shields.io/badge/Made%20with%20Angular-red?logo=angular)
 [![npm (scoped)](https://img.shields.io/npm/v/ngx-tethys?style=flat)](https://www.npmjs.com/package/ngx-tethys)
 [![npm](https://img.shields.io/npm/dm/ngx-tethys)](https://www.npmjs.com/package/ngx-tethys)
-[![release](https://img.shields.io/github/release-date/NG-ZORRO/ng-zorro-antd.svg?style=flat-square
+[![release](https://img.shields.io/github/release-date/atinc/ngx-tethys.svg?style=flat-square
 )](https://github.com/atinc/ngx-tethys)
 [![docgeni](https://img.shields.io/badge/docs%20by-docgeni-348fe4)](https://github.com/docgeni/docgeni)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)

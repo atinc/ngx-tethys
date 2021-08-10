@@ -1,4 +1,5 @@
-import { HttpHeaders, XhrFactory } from '@angular/common/http';
+import { XhrFactory } from '@angular/common';
+import { HttpHeaders } from '@angular/common/http';
 
 export class MockXhrFactory implements XhrFactory {
     mock: MockXMLHttpRequest;
