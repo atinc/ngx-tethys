@@ -84,7 +84,7 @@ module.exports = [
             },
             {
                 name: 'thyOptionActivated',
-                description: '只读，选中 option 变化时，调用此函数',
+                description: '只读，option 激活状态变化时，调用此函数',
                 type: 'EventEmitter<ThyAutocompleteActivatedEvent>',
                 default: ''
             }
