@@ -1,7 +1,13 @@
+@use "../mixins/shadow";
+@use "../variables";
+@use "mixins/border-radius";
+@use "variables" as bootstrap-variables;
+@use "vendor/rfs";
+
 // Inline code
 code {
-    @include font-size($code-font-size);
-    color: $code-color;
+    @include rfs.font-size(variables.$code-font-size);
+    color: variables.$code-color;
     word-wrap: break-word;
 
     // Streamline the style when inside anchors to avoid broken underline and more
@@ -12,30 +18,30 @@ code {
 
 // User input typically entered via keyboard
 kbd {
-    padding: $kbd-padding-y $kbd-padding-x;
-    @include font-size($kbd-font-size);
-    color: $kbd-color;
-    background-color: $kbd-bg;
-    @include border-radius($border-radius-sm);
-    @include box-shadow($kbd-box-shadow);
+    padding: bootstrap-variables.$kbd-padding-y bootstrap-variables.$kbd-padding-x;
+    @include rfs.font-size(bootstrap-variables.$kbd-font-size);
+    color: bootstrap-variables.$kbd-color;
+    background-color: bootstrap-variables.$kbd-bg;
+    @include border-radius.border-radius(variables.$border-radius-sm);
+    @include shadow.box-shadow(bootstrap-variables.$kbd-box-shadow);
 
     kbd {
         padding: 0;
-        @include font-size(100%);
-        font-weight: $nested-kbd-font-weight;
-        @include box-shadow(none);
+        @include rfs.font-size(100%);
+        font-weight: bootstrap-variables.$nested-kbd-font-weight;
+        @include shadow.box-shadow(none);
     }
 }
 
 // Blocks of code
 pre {
     display: block;
-    @include font-size($code-font-size);
-    color: $pre-color;
+    @include rfs.font-size(variables.$code-font-size);
+    color: bootstrap-variables.$pre-color;
 
     // Account for some code outputs that place code tags in pre tags
     code {
-        @include font-size(inherit);
+        @include rfs.font-size(inherit);
         color: inherit;
         word-break: normal;
     }
@@ -43,6 +49,6 @@ pre {
 
 // Enable scrollable blocks of code
 .pre-scrollable {
-    max-height: $pre-scrollable-max-height;
+    max-height: bootstrap-variables.$pre-scrollable-max-height;
     overflow-y: scroll;
 }

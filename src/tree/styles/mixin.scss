@@ -1,3 +1,5 @@
+@use "../../styles/variables";
+
 @mixin thy-tree-default() {
     .thy-tree-node {
         &-wrapper {
@@ -18,7 +20,7 @@
 @mixin drop-left-right-virtual-border($left, $right, $height) {
     content: '';
     width: 2px;
-    background-color: $primary;
+    background-color: variables.$primary;
     position: absolute;
     height: $height;
     left: $left;
@@ -38,14 +40,14 @@
             }
 
             .thy-drop-position-in {
-                border-color: $primary;
+                border-color: variables.$primary;
 
                 &::before {
-                    @include drop-left-right-virtual-border(0, initial, $tree-node-wrapper-height);
+                    @include drop-left-right-virtual-border(0, initial, variables.$tree-node-wrapper-height);
                 }
 
                 &::after {
-                    @include drop-left-right-virtual-border(initial, 0, $tree-node-wrapper-height);
+                    @include drop-left-right-virtual-border(initial, 0, variables.$tree-node-wrapper-height);
                 }
             }
 
@@ -53,7 +55,7 @@
                 border-top-color: transparent;
 
                 .thy-tree-node-content {
-                    border-top-color: $primary;
+                    border-top-color: variables.$primary;
                 }
             }
 
@@ -61,7 +63,7 @@
                 border-bottom-color: transparent;
 
                 .thy-tree-node-content {
-                    border-bottom-color: $primary;
+                    border-bottom-color: variables.$primary;
                 }
             }
         }
@@ -69,14 +71,14 @@
         &-sm {
             .thy-tree-node {
                 .thy-drop-position-in {
-                    border-color: $primary;
+                    border-color: variables.$primary;
 
                     &::before {
-                        @include drop-left-right-virtual-border(0, initial, $tree-node-wrapper-height-sm);
+                        @include drop-left-right-virtual-border(0, initial, variables.$tree-node-wrapper-height-sm);
                     }
 
                     &::after {
-                        @include drop-left-right-virtual-border(initial, 0, $tree-node-wrapper-height-sm);
+                        @include drop-left-right-virtual-border(initial, 0, variables.$tree-node-wrapper-height-sm);
                     }
                 }
             }

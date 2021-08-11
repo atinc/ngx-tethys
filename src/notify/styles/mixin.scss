@@ -1,6 +1,8 @@
+@use "../../styles/variables";
+
 @mixin thy-notify-state($state, $color) {
     .thy-notify-#{$state} {
-        border-left: $notify-border-radius-width solid $color;
+        border-left: variables.$notify-border-radius-width solid $color;
         .thy-notify-icon-container {
             .thy-icon {
                 color: $color;

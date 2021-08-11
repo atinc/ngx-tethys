@@ -1,3 +1,8 @@
+@use "sass:list";
+@use "sass:map";
+@use "../variables";
+@use "functions";
+
 // // Variables
 // //
 // // Variables should follow the `$component-state-property-size` formula for
@@ -82,7 +87,7 @@ $enable-deprecation-messages: true !default;
 $spacer: 1rem !default;
 $spacers: () !default;
 // // stylelint-disable-next-line scss/dollar-variable-default
-$spacers: map-merge(
+$spacers: map.merge(
     (
         0: 0,
         1: (
@@ -105,7 +110,7 @@ $spacers: map-merge(
 // // This variable affects the `.h-*` and `.w-*` classes.
 $sizes: () !default;
 // // stylelint-disable-next-line scss/dollar-variable-default
-$sizes: map-merge(
+$sizes: map.merge(
     (
         25: 25%,
         50: 50%,
@@ -120,7 +125,7 @@ $sizes: map-merge(
 // //
 // // Settings for the `<body>` element.
 
-$body-bg: $white !default;
+$body-bg: variables.$white !default;
 // $body-color: $gray-900 !default;
 
 // // Links
@@ -153,8 +158,8 @@ $grid-breakpoints: (
     xl: 1200px
 ) !default;
 
-@include _assert-ascending($grid-breakpoints, '$grid-breakpoints');
-@include _assert-starts-at-zero($grid-breakpoints, '$grid-breakpoints');
+@include functions.assert-ascending($grid-breakpoints, '$grid-breakpoints');
+@include functions.assert-starts-at-zero($grid-breakpoints, '$grid-breakpoints');
 
 // // Grid containers
 // //
@@ -167,7 +172,7 @@ $container-max-widths: (
     xl: 1140px
 ) !default;
 
-@include _assert-ascending($container-max-widths, '$container-max-widths');
+@include functions.assert-ascending($container-max-widths, '$container-max-widths');
 
 // // Grid columns
 // //
@@ -185,7 +190,7 @@ $grid-row-columns: 6 !default;
 // $line-height-sm: 1.5 !default;
 
 $border-width: 1px !default;
-$border-color: $gray-300 !default;
+$border-color: variables.$gray-300 !default;
 
 // $border-radius: 0.25rem !default;
 // $border-radius-lg: 0.3rem !default;
@@ -193,9 +198,9 @@ $border-color: $gray-300 !default;
 
 $rounded-pill: 50rem !default;
 
-$box-shadow-sm: 0 0.125rem 0.25rem rgba($black, 0.075) !default;
+$box-shadow-sm: 0 0.125rem 0.25rem rgba(variables.$black, 0.075) !default;
 // $box-shadow: 0 0.5rem 1rem rgba($black, 0.15) !default;
-$box-shadow-lg: 0 1rem 3rem rgba($black, 0.175) !default;
+$box-shadow-lg: 0 1rem 3rem rgba(variables.$black, 0.175) !default;
 
 // $component-active-color: $white !default;
 // $component-active-bg: theme-color('primary') !default;
@@ -210,7 +215,7 @@ $caret-spacing: $caret-width * 0.85 !default;
 
 $embed-responsive-aspect-ratios: () !default;
 // // stylelint-disable-next-line scss/dollar-variable-default
-$embed-responsive-aspect-ratios: join(((21 9), (16 9), (4 3), (1 1)), $embed-responsive-aspect-ratios);
+$embed-responsive-aspect-ratios: list.join(((21 9), (16 9), (4 3), (1 1)), $embed-responsive-aspect-ratios);
 
 // // Typography
 // //
@@ -236,12 +241,12 @@ $font-weight-bolder: bolder !default;
 $font-weight-base: $font-weight-normal !default;
 // $line-height-base: 1.5 !default;
 
-$h1-font-size: $font-size-base * 2.5 !default;
-$h2-font-size: $font-size-base * 2 !default;
-$h3-font-size: $font-size-base * 1.75 !default;
-$h4-font-size: $font-size-base * 1.5 !default;
-$h5-font-size: $font-size-base * 1.25 !default;
-$h6-font-size: $font-size-base !default;
+$h1-font-size: variables.$font-size-base * 2.5 !default;
+$h2-font-size: variables.$font-size-base * 2 !default;
+$h3-font-size: variables.$font-size-base * 1.75 !default;
+$h4-font-size: variables.$font-size-base * 1.5 !default;
+$h5-font-size: variables.$font-size-base * 1.25 !default;
+$h6-font-size: variables.$font-size-base !default;
 
 $headings-margin-bottom: $spacer / 2 !default;
 $headings-font-family: null !default;
@@ -260,25 +265,25 @@ $display3-weight: 300 !default;
 $display4-weight: 300 !default;
 $display-line-height: $headings-line-height !default;
 
-$lead-font-size: $font-size-base * 1.25 !default;
+$lead-font-size: variables.$font-size-base * 1.25 !default;
 $lead-font-weight: 300 !default;
 
 $small-font-size: 80% !default;
 
-$text-muted: $gray-600 !default;
+$text-muted: variables.$gray-600 !default;
 
-$blockquote-small-color: $gray-600 !default;
+$blockquote-small-color: variables.$gray-600 !default;
 $blockquote-small-font-size: $small-font-size !default;
-$blockquote-font-size: $font-size-base * 1.25 !default;
+$blockquote-font-size: variables.$font-size-base * 1.25 !default;
 
-$hr-border-color: rgba($black, 0.1) !default;
+$hr-border-color: rgba(variables.$black, 0.1) !default;
 $hr-border-width: $border-width !default;
 
 $mark-padding: 0.2em !default;
 
 $dt-font-weight: $font-weight-bold !default;
 
-$kbd-box-shadow: inset 0 -0.1rem 0 rgba($black, 0.25) !default;
+$kbd-box-shadow: inset 0 -0.1rem 0 rgba(variables.$black, 0.25) !default;
 $nested-kbd-font-weight: $font-weight-bold !default;
 
 $list-inline-padding: 0.5rem !default;
@@ -375,7 +380,7 @@ $btn-font-weight: $font-weight-normal !default;
 // $btn-focus-width: $input-btn-focus-width !default;
 // $btn-focus-box-shadow: $input-btn-focus-box-shadow !default;
 // $btn-disabled-opacity: 0.65 !default;
-$btn-active-box-shadow: inset 0 3px 5px rgba($black, 0.125) !default;
+$btn-active-box-shadow: inset 0 3px 5px rgba(variables.$black, 0.125) !default;
 
 // $btn-link-disabled-color: $gray-600 !default;
 
@@ -397,19 +402,19 @@ $btn-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, bo
 // $input-font-family: $input-btn-font-family !default;
 // $input-font-size: $input-btn-font-size !default;
 // $input-font-weight: $font-weight-base !default;
-$input-line-height: $input-btn-line-height !default;
+$input-line-height: variables.$input-btn-line-height !default;
 
 // $input-padding-y-sm: $input-btn-padding-y-sm !default;
 // $input-padding-x-sm: $input-btn-padding-x-sm !default;
 // $input-font-size-sm: $input-btn-font-size-sm !default;
-$input-line-height-sm: $input-btn-line-height-sm !default;
+$input-line-height-sm: variables.$input-btn-line-height-sm !default;
 
 // $input-padding-y-lg: $input-btn-padding-y-lg !default;
 // $input-padding-x-lg: $input-btn-padding-x-lg !default;
 // $input-font-size-lg: $input-btn-font-size-lg !default;
-$input-line-height-lg: $input-btn-line-height-lg !default;
+$input-line-height-lg: variables.$input-btn-line-height-lg !default;
 
-$input-bg: $white !default;
+$input-bg: variables.$white !default;
 // $input-disabled-bg: $gray-200 !default;
 
 // $input-color: $gray-700 !default;
@@ -417,15 +422,15 @@ $input-bg: $white !default;
 $input-border-width: $input-btn-border-width !default;
 // $input-box-shadow: inset 0 1px 1px rgba($black, 0.075) !default;
 
-$input-border-radius: $border-radius !default;
-$input-border-radius-lg: $border-radius-lg !default;
-$input-border-radius-sm: $border-radius-sm !default;
+$input-border-radius: variables.$border-radius !default;
+$input-border-radius-lg: variables.$border-radius-lg !default;
+$input-border-radius-sm: variables.$border-radius-sm !default;
 
 // $input-focus-bg: $input-bg !default;
 // $input-focus-border-color: lighten($component-active-bg, 25%) !default;
-$input-focus-color: $input-color !default;
-$input-focus-width: $input-btn-focus-width !default;
-$input-focus-box-shadow: $input-btn-focus-box-shadow !default;
+$input-focus-color: variables.$input-color !default;
+$input-focus-width: variables.$input-btn-focus-width !default;
+$input-focus-box-shadow: variables.$input-btn-focus-box-shadow !default;
 
 // $input-placeholder-color: $gray-600 !default;
 // $input-plaintext-color: $body-color !default;
@@ -436,9 +441,15 @@ $input-height-border: $input-border-width * 2 !default;
 // $input-height-inner-half: add($input-line-height * 0.5em, $input-padding-y) !default;
 // $input-height-inner-quarter: add($input-line-height * 0.25em, $input-padding-y / 2) !default;
 
-$input-height: add($input-line-height * 1em, add($input-padding-y * 2, $input-height-border, false)) !default;
-$input-height-sm: add($input-line-height-sm * 1em, add($input-padding-y-sm * 2, $input-height-border, false)) !default;
-$input-height-lg: add($input-line-height-lg * 1em, add($input-padding-y-lg * 2, $input-height-border, false)) !default;
+$input-height: functions.add($input-line-height * 1em, functions.add(variables.$input-padding-y * 2, $input-height-border, false)) !default;
+$input-height-sm: functions.add(
+    $input-line-height-sm * 1em,
+    functions.add(variables.$input-padding-y-sm * 2, $input-height-border, false)
+) !default;
+$input-height-lg: functions.add(
+    $input-line-height-lg * 1em,
+    functions.add(variables.$input-padding-y-lg * 2, $input-height-border, false)
+) !default;
 
 $input-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !default;
 
@@ -456,7 +467,7 @@ $form-group-margin-bottom: 1rem !default;
 
 // $input-group-addon-color: $input-color !default;
 // $input-group-addon-bg: $gray-200 !default;
-$input-group-addon-border-color: $input-border-color !default;
+$input-group-addon-border-color: variables.$input-border-color !default;
 
 // $custom-forms-transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !default;
 
@@ -596,7 +607,7 @@ $input-group-addon-border-color: $input-border-color !default;
 $form-feedback-margin-top: $form-text-margin-top !default;
 // $form-feedback-font-size: $small-font-size !default;
 // $form-feedback-valid-color: theme-color('success') !default;
-$form-feedback-invalid-color: theme-color('danger') !default;
+$form-feedback-invalid-color: functions.theme-color('danger') !default;
 
 // $form-feedback-icon-valid-color: $form-feedback-valid-color !default;
 // $form-feedback-icon-valid: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'><path fill='#{$form-feedback-icon-valid-color}' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/></svg>") !default;
@@ -914,7 +925,7 @@ $pagination-focus-outline: 0 !default;
 // $alert-padding-y: 0.75rem !default;
 // $alert-padding-x: 1.25rem !default;
 $alert-margin-bottom: 1rem !default;
-$alert-border-radius: $border-radius !default;
+$alert-border-radius: variables.$border-radius !default;
 $alert-link-font-weight: $font-weight-bold !default;
 $alert-border-width: $border-width !default;
 
@@ -925,11 +936,11 @@ $alert-border-width: $border-width !default;
 // // Progress bars
 
 // $progress-height: 1rem !default;
-$progress-font-size: $font-size-base * 0.75 !default;
-$progress-bg: $gray-200 !default;
+$progress-font-size: variables.$font-size-base * 0.75 !default;
+$progress-bg: variables.$gray-200 !default;
 // $progress-border-radius: $border-radius !default;
 // $progress-box-shadow: inset 0 0.1rem 0.1rem rgba($black, 0.1) !default;
-$progress-bar-color: $white !default;
+$progress-bar-color: variables.$white !default;
 // $progress-bar-bg: theme-color('primary') !default;
 $progress-bar-animation-timing: 1s linear infinite !default;
 $progress-bar-transition: width 0.6s ease !default;
@@ -1040,11 +1051,11 @@ $progress-bar-transition: width 0.6s ease !default;
 
 $kbd-padding-y: 0.2rem !default;
 $kbd-padding-x: 0.4rem !default;
-$kbd-font-size: $code-font-size !default;
-$kbd-color: $white !default;
-$kbd-bg: $gray-900 !default;
+$kbd-font-size: variables.$code-font-size !default;
+$kbd-color: variables.$white !default;
+$kbd-bg: variables.$gray-900 !default;
 
-$pre-color: $gray-900 !default;
+$pre-color: variables.$gray-900 !default;
 $pre-scrollable-max-height: 340px !default;
 
 // // Utilities

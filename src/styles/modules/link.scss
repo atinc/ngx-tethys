@@ -1,11 +1,15 @@
+@use "../bootstrap/mixins/hover";
+@use "../mixins/link";
+@use "../variables";
+
 a {
-    color: $link-color;
-    text-decoration: $link-decoration;
+    color: variables.$link-color;
+    text-decoration: variables.$link-decoration;
     background-color: transparent; // Remove the gray background on active links in IE 10.
     -webkit-text-decoration-skip: objects; // Remove gaps in links underline in iOS 8+ and Safari 8+.
-    @include hover {
-        color: $link-hover-color;
-        text-decoration: $link-hover-decoration;
+    @include hover.hover {
+        color: variables.$link-hover-color;
+        text-decoration: variables.$link-hover-decoration;
     }
     .thy-icon,
     .wtf {
@@ -22,7 +26,7 @@ a {
 a:not([href]):not([tabindex]) {
     // color: inherit;
     text-decoration: none;
-    @include hover-focus {
+    @include hover.hover-focus {
         // color: inherit;
         text-decoration: none;
     }
@@ -35,54 +39,54 @@ a:not([href]):not([tabindex]) {
 a.link-has-icon {
     .thy-icon,
     .wtf {
-        padding-right: $link-icon-padding-right;
+        padding-right: variables.$link-icon-padding-right;
     }
     // 新的 SVG 图标字体16px偏大, 所以改成14px, 之前的字体不变
     .thy-icon {
-        font-size: $font-size-base;
+        font-size: variables.$font-size-base;
     }
 }
 
 a {
     &.link-primary {
-        @include link-variant($primary, $link-decoration, $primary, $link-hover-decoration);
+        @include link.link-variant(variables.$primary, variables.$link-decoration, variables.$primary, variables.$link-hover-decoration);
     }
     &.link-info {
-        @include link-variant($info, $link-decoration, $info, $link-hover-decoration);
+        @include link.link-variant(variables.$info, variables.$link-decoration, variables.$info, variables.$link-hover-decoration);
     }
     &.link-secondary {
-        @include link-variant($gray-500, none, $primary, none);
+        @include link.link-variant(variables.$gray-500, none, variables.$primary, none);
     }
     &.link-danger-weak {
-        @include link-variant($gray-500, none, $danger, none);
+        @include link.link-variant(variables.$gray-500, none, variables.$danger, none);
     }
     &.link-danger {
-        @include link-variant($danger, $link-decoration, $danger, $link-hover-decoration);
+        @include link.link-variant(variables.$danger, variables.$link-decoration, variables.$danger, variables.$link-hover-decoration);
     }
     &.link-success {
-        @include link-variant($success, $link-decoration, $success, $link-hover-decoration);
+        @include link.link-variant(variables.$success, variables.$link-decoration, variables.$success, variables.$link-hover-decoration);
     }
     &.link-major {
-        @include link-variant($gray-800, none, $primary, none);
+        @include link.link-variant(variables.$gray-800, none, variables.$primary, none);
     }
     &.link-muted {
-        @include link-variant($gray-600, none, $primary, none);
+        @include link.link-variant(variables.$gray-600, none, variables.$primary, none);
     }
     &.link-sm {
-        @include link-size($font-size-sm, $font-size-sm);
+        @include link.link-size(variables.$font-size-sm, variables.$font-size-sm);
     }
     &.link-body {
-        @include link-variant($gray-800, none, $primary, none);
+        @include link.link-variant(variables.$gray-800, none, variables.$primary, none);
     }
     &.link-warning {
-        @include link-variant($warning, $link-decoration, $warning, $link-hover-decoration);
+        @include link.link-variant(variables.$warning, variables.$link-decoration, variables.$warning, variables.$link-hover-decoration);
     }
     &.link-warning-weak {
-        @include link-variant($gray-500, none, $warning, none);
+        @include link.link-variant(variables.$gray-500, none, variables.$warning, none);
     }
 
     &.disabled {
-        @include link-variant($gray-400, none, $gray-400, none);
+        @include link.link-variant(variables.$gray-400, none, variables.$gray-400, none);
         pointer-events: none;
     }
 }

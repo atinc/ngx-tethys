@@ -1,3 +1,5 @@
+@use "deprecate";
+
 // CSS image replacement
 @mixin text-hide($ignore-warning: false) {
     // stylelint-disable-next-line font-family-no-missing-generic-family-keyword
@@ -7,5 +9,5 @@
     background-color: transparent;
     border: 0;
 
-    @include deprecate('`text-hide()`', 'v4.1.0', 'v5', $ignore-warning);
+    @include deprecate.deprecate('`text-hide()`', 'v4.1.0', 'v5', $ignore-warning);
 }

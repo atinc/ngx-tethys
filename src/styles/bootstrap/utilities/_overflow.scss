@@ -1,6 +1,8 @@
+@use "../variables";
+
 // stylelint-disable declaration-no-important
 
-@each $value in $overflows {
+@each $value in variables.$overflows {
     .overflow-#{$value} {
         overflow: $value !important;
     }

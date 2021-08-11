@@ -1,4 +1,6 @@
-$slide-border-color: $gray-200 !default;
+@use "../../styles/variables";
+
+$slide-border-color: variables.$gray-200 !default;
 
 .thy-slide-backdrop {
     background: none;
@@ -30,12 +32,12 @@ $slide-border-color: $gray-200 !default;
     display: block;
     width: 100%;
     height: 100%;
-    background-color: $slide-bg;
+    background-color: variables.$slide-bg;
     overflow-y: auto;
     position: absolute;
 
     &.thy-slide-over {
-        box-shadow: $slide-box-shadow;
+        box-shadow: variables.$slide-box-shadow;
     }
     &.thy-slide-side {
         border: solid 1px $slide-border-color;
@@ -71,16 +73,16 @@ $slide-border-color: $gray-200 !default;
     .thy-slide-header {
         display: flex;
         flex-direction: row;
-        padding: 0 $slide-header-padding;
-        height: $slide-header-height;
-        border-bottom: solid 1px $slide-divider;
+        padding: 0 variables.$slide-header-padding;
+        height: variables.$slide-header-height;
+        border-bottom: solid 1px variables.$slide-divider;
         background-color: transparent;
         flex: 0 0 auto;
         align-items: center;
 
         .thy-slide-header-title {
-            color: $gray-800;
-            font-size: $font-size-md;
+            color: variables.$gray-800;
+            font-size: variables.$font-size-md;
             line-height: 1.25rem;
             font-weight: normal;
             margin-bottom: 0;
@@ -88,21 +90,21 @@ $slide-border-color: $gray-200 !default;
 
         .thy-slide-header-main {
             flex: 1;
-            padding: $slide-header-main-padding;
+            padding: variables.$slide-header-main-padding;
         }
 
         .close {
             outline: none;
-            @if $close-pill-enabled {
+            @if variables.$close-pill-enabled {
                 padding: 3px 7px;
                 margin-right: -7px;
                 &:hover {
-                    background: rgba($primary, 0.1);
-                    border-radius: $border-radius;
+                    background: rgba(variables.$primary, 0.1);
+                    border-radius: variables.$border-radius;
                 }
             } @else {
-                padding: 1rem $slide-header-padding;
-                margin: (-$slide-header-padding) (-$slide-header-padding) (-$slide-header-padding) auto;
+                padding: 1rem variables.$slide-header-padding;
+                margin: (-(variables.$slide-header-padding)) (-(variables.$slide-header-padding)) (-(variables.$slide-header-padding)) auto;
             }
         }
     }
@@ -110,22 +112,22 @@ $slide-border-color: $gray-200 !default;
     .thy-slide-body {
         flex: auto;
         overflow-y: auto;
-        padding: $slide-body-content-padding;
+        padding: variables.$slide-body-content-padding;
     }
 
     .thy-slide-footer {
         flex: 0 0 auto;
-        border-top: solid 1px $slide-divider;
-        padding: $slide-footer-padding;
-        height: $slide-footer-height;
+        border-top: solid 1px variables.$slide-divider;
+        padding: variables.$slide-footer-padding;
+        height: variables.$slide-footer-height;
     }
 
     .thy-slide-body-section {
         display: block;
-        padding-top: $slide-body-section-padding;
+        padding-top: variables.$slide-body-section-padding;
 
         &.thy-slide-body-section-divider:not(:last-child) {
-            border-bottom: 1px solid $slide-divider;
+            border-bottom: 1px solid variables.$slide-divider;
         }
     }
 }

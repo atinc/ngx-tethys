@@ -1,3 +1,7 @@
+@use "../../styles/bootstrap/mixins/border-radius";
+@use "../../styles/variables";
+@use "mixin";
+
 .thy-badge-container {
     position: relative;
     display: inline-block;
@@ -13,21 +17,21 @@
 // #region
 .thy-badge {
     display: inline-block;
-    font-size: $badge-font-size;
-    font-weight: $badge-font-weight;
+    font-size: variables.$badge-font-size;
+    font-weight: variables.$badge-font-weight;
     line-height: 1;
     vertical-align: 1px;
-    padding: $badge-padding-y $badge-padding-x;
-    @include border-radius($badge-border-radius);
+    padding: variables.$badge-padding-y variables.$badge-padding-x;
+    @include border-radius.border-radius(variables.$badge-border-radius);
 }
 
 .thy-badge-count {
     text-align: center;
     white-space: nowrap;
     // vertical-align: baseline;
-    color: $badge-color;
-    background-color: $badge-bg;
-    @include set-badge-size($font-size-sm, 2px, 0.3rem);
+    color: variables.$badge-color;
+    background-color: variables.$badge-bg;
+    @include mixin.set-badge-size(variables.$font-size-sm, 2px, 0.3rem);
 }
 
 .thy-badge-dot {
@@ -44,40 +48,40 @@
     height: 6px;
     border-radius: 50%;
     // vertical-align: middle;
-    border: solid 1px $badge-bg;
+    border: solid 1px variables.$badge-bg;
     background-color: transparent;
 }
 
 // #endregion
 // #region
 .thy-badge-danger {
-    @include set-badge-color($white, $badge-danger-color);
+    @include mixin.set-badge-color(variables.$white, variables.$badge-danger-color);
     &.thy-badge-hollow {
         background-color: transparent;
     }
 }
 
 .thy-badge-warning {
-    @include set-badge-color($white, $warning);
+    @include mixin.set-badge-color(variables.$white, variables.$warning);
     &.thy-badge-hollow {
         background-color: transparent;
     }
 }
 
 .thy-badge-primary {
-    @include set-badge-color($white, $primary);
+    @include mixin.set-badge-color(variables.$white, variables.$primary);
     &.thy-badge-hollow {
         background-color: transparent;
     }
 }
 
 .thy-badge-secondary {
-    @include set-badge-color($gray-600, $gray-200);
+    @include mixin.set-badge-color(variables.$gray-600, variables.$gray-200);
     &.thy-badge-dot {
-        @include set-badge-color($gray-600, $gray-400);
+        @include mixin.set-badge-color(variables.$gray-600, variables.$gray-400);
     }
     &.thy-badge-hollow {
-        @include set-badge-color($gray-600, $gray-400);
+        @include mixin.set-badge-color(variables.$gray-600, variables.$gray-400);
         background-color: transparent;
     }
 }
@@ -99,7 +103,7 @@
 
 .thy-badge-lg {
     &.thy-badge-count {
-        @include set-badge-size($font-size-sm, 6px, 9px);
+        @include mixin.set-badge-size(variables.$font-size-sm, 6px, 9px);
     }
     &.thy-badge-dot,
     &.thy-badge-hollow {
@@ -113,7 +117,7 @@
 
 .thy-badge-sm {
     &.thy-badge-count {
-        @include set-badge-size($font-size-xs, 1px, 4px);
+        @include mixin.set-badge-size(variables.$font-size-xs, 1px, 4px);
     }
 }
 

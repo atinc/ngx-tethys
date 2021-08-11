@@ -1,7 +1,9 @@
-@import './styles/variables.scss';
+@use "sass:meta";
+@use './styles/variables.scss' as variables2;
 // docgeni
 // $dg-primary: #4150b3;
-@import '~@docgeni/template/styles/index.scss';
+@use '~@docgeni/template/styles/index.scss';
+@use "../../src/styles/variables";
 
 .dg-tab-links,
 .dg-sidebar,
@@ -46,8 +48,8 @@
 }
 
 @import './assets/fonts/wtd/iconfont.css';
-@import '../../src/styles/index.scss';
-@import './styles/index.scss';
+@include meta.load-css('../../src/styles/index.scss');
+@include meta.load-css('./styles/index.scss');
 
 $dg-alert-bg-alpha: 0.05;
 
@@ -59,7 +61,7 @@ $dg-alert-bg-alpha: 0.05;
     margin: 10px 0px;
     padding: 10px 20px;
     border-left: 0px;
-    background: $gray-80;
+    background: variables.$gray-80;
     border-radius: 1px;
 
     &::after {
@@ -71,28 +73,28 @@ $dg-alert-bg-alpha: 0.05;
         bottom: 0px;
         width: 3px;
         border-radius: 1px;
-        background: $primary;
+        background: variables.$primary;
     }
 
     &.dg-alert-info {
-        background-color: rgba($color: $info, $alpha: $dg-alert-bg-alpha);
+        background-color: rgba($color: variables.$info, $alpha: $dg-alert-bg-alpha);
         &::after {
-            background: $info;
+            background: variables.$info;
         }
     }
 
     &.dg-alert-primary {
-        background-color: rgba($color: $primary, $alpha: $dg-alert-bg-alpha);
+        background-color: rgba($color: variables.$primary, $alpha: $dg-alert-bg-alpha);
         &::after {
-            background: $primary;
+            background: variables.$primary;
         }
     }
 
     &.dg-alert-danger {
         // box-shadow: rgba(0, 0, 0, 0.06) 0px 6px 16px -2px;
-        background-color: rgba($color: $danger, $alpha: $dg-alert-bg-alpha);
+        background-color: rgba($color: variables.$danger, $alpha: $dg-alert-bg-alpha);
         &::after {
-            background: $danger;
+            background: variables.$danger;
         }
     }
 }

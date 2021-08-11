@@ -1,5 +1,7 @@
+@use "../../styles/variables";
+
 @mixin activeColor {
-    color: $primary;
+    color: variables.$primary;
 }
 
 .thy-date-range-container {
@@ -12,7 +14,7 @@
             display: inline-block;
             transform: rotate(0);
             transition: transform 0.6s;
-            color: $gray-700;
+            color: variables.$gray-700;
         }
 
         &.thy-date-range-text-active {
@@ -28,7 +30,7 @@
             @include activeColor();
             &.thy-date-range-disabled {
                 cursor: default;
-                color: $gray-800;
+                color: variables.$gray-800;
             }
             .thy-date-range-text-caret-down {
                 @include activeColor();

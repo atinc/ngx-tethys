@@ -1,3 +1,12 @@
+@use "sass:map";
+@use "../../mixins/utilities";
+@use "../../variables";
+@use "../functions-variables";
+@use "../mixins/breakpoints";
+@use "../mixins/text-hide";
+@use "../mixins/text-truncate";
+@use "../variables" as bootstrap-variables;
+
 // stylelint-disable declaration-no-important
 
 //
@@ -5,7 +14,7 @@
 //
 
 .text-monospace {
-    font-family: $font-family-monospace !important;
+    font-family: variables.$font-family-monospace !important;
 }
 
 // Alignment
@@ -20,14 +29,14 @@
     white-space: nowrap !important;
 }
 .text-truncate {
-    @include text-truncate();
+    @include text-truncate.text-truncate();
 }
 
 // Responsive alignment
 
-@each $breakpoint in map-keys($grid-breakpoints) {
-    @include media-breakpoint-up($breakpoint) {
-        $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+@each $breakpoint in map.keys(bootstrap-variables.$grid-breakpoints) {
+    @include breakpoints.media-breakpoint-up($breakpoint) {
+        $infix: breakpoints.breakpoint-infix($breakpoint, bootstrap-variables.$grid-breakpoints);
 
         .text#{$infix}-left {
             text-align: left !important;
@@ -56,19 +65,19 @@
 // Weight and italics
 
 .font-weight-light {
-    font-weight: $font-weight-light !important;
+    font-weight: bootstrap-variables.$font-weight-light !important;
 }
 .font-weight-lighter {
-    font-weight: $font-weight-lighter !important;
+    font-weight: bootstrap-variables.$font-weight-lighter !important;
 }
 .font-weight-normal {
-    font-weight: $font-weight-normal !important;
+    font-weight: bootstrap-variables.$font-weight-normal !important;
 }
 .font-weight-bold {
-    font-weight: $font-weight-bold !important;
+    font-weight: bootstrap-variables.$font-weight-bold !important;
 }
 .font-weight-bolder {
-    font-weight: $font-weight-bolder !important;
+    font-weight: bootstrap-variables.$font-weight-bolder !important;
 }
 .font-italic {
     font-style: italic !important;
@@ -77,31 +86,31 @@
 // Contextual colors
 
 .text-white {
-    color: $white !important;
+    color: variables.$white !important;
 }
 
-@each $color, $value in $theme-colors {
-    @include text-emphasis-variant('.text-#{$color}', $value, true);
+@each $color, $value in functions-variables.$theme-colors {
+    @include utilities.text-emphasis-variant('.text-#{$color}', $value, true);
 }
 
 .text-body {
-    color: $body-color !important;
+    color: variables.$body-color !important;
 }
 .text-muted {
-    color: $text-muted !important;
+    color: bootstrap-variables.$text-muted !important;
 }
 
 .text-black-50 {
-    color: rgba($black, 0.5) !important;
+    color: rgba(variables.$black, 0.5) !important;
 }
 .text-white-50 {
-    color: rgba($white, 0.5) !important;
+    color: rgba(variables.$white, 0.5) !important;
 }
 
 // Misc
 
 .text-hide {
-    @include text-hide($ignore-warning: true);
+    @include text-hide.text-hide($ignore-warning: true);
 }
 
 .text-decoration-none {

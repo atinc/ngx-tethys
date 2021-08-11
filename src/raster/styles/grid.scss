@@ -1,3 +1,4 @@
+@use "sass:math";
 // $thy-grid-columns: 24 !default;
 // $thy-grid-gutter-width: 1.5rem !default;
 // $thy-grid-row-columns: 12 !default;
@@ -40,6 +41,6 @@
         display: block;
         box-sizing: border-box;
         width: 0;
-        flex: 0 0 percentage($i / 24);
+        flex: 0 0 math.percentage($i / 24);
     }
 }

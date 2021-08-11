@@ -1,3 +1,7 @@
+@use "../../variables";
+@use "../functions-variables";
+@use "../variables" as bootstrap-variables;
+
 // stylelint-disable property-blacklist, declaration-no-important
 
 //
@@ -5,19 +9,19 @@
 //
 
 .border {
-    border: $border-width solid $border-color !important;
+    border: bootstrap-variables.$border-width solid bootstrap-variables.$border-color !important;
 }
 .border-top {
-    border-top: $border-width solid $border-color !important;
+    border-top: bootstrap-variables.$border-width solid bootstrap-variables.$border-color !important;
 }
 .border-right {
-    border-right: $border-width solid $border-color !important;
+    border-right: bootstrap-variables.$border-width solid bootstrap-variables.$border-color !important;
 }
 .border-bottom {
-    border-bottom: $border-width solid $border-color !important;
+    border-bottom: bootstrap-variables.$border-width solid bootstrap-variables.$border-color !important;
 }
 .border-left {
-    border-left: $border-width solid $border-color !important;
+    border-left: bootstrap-variables.$border-width solid bootstrap-variables.$border-color !important;
 }
 
 .border-0 {
@@ -36,14 +40,14 @@
     border-left: 0 !important;
 }
 
-@each $color, $value in $theme-colors {
+@each $color, $value in functions-variables.$theme-colors {
     .border-#{$color} {
         border-color: $value !important;
     }
 }
 
 .border-white {
-    border-color: $white !important;
+    border-color: variables.$white !important;
 }
 
 //
@@ -51,35 +55,35 @@
 //
 
 .rounded-sm {
-    border-radius: $border-radius-sm !important;
+    border-radius: variables.$border-radius-sm !important;
 }
 
 .rounded {
-    border-radius: $border-radius !important;
+    border-radius: variables.$border-radius !important;
 }
 
 .rounded-top {
-    border-top-left-radius: $border-radius !important;
-    border-top-right-radius: $border-radius !important;
+    border-top-left-radius: variables.$border-radius !important;
+    border-top-right-radius: variables.$border-radius !important;
 }
 
 .rounded-right {
-    border-top-right-radius: $border-radius !important;
-    border-bottom-right-radius: $border-radius !important;
+    border-top-right-radius: variables.$border-radius !important;
+    border-bottom-right-radius: variables.$border-radius !important;
 }
 
 .rounded-bottom {
-    border-bottom-right-radius: $border-radius !important;
-    border-bottom-left-radius: $border-radius !important;
+    border-bottom-right-radius: variables.$border-radius !important;
+    border-bottom-left-radius: variables.$border-radius !important;
 }
 
 .rounded-left {
-    border-top-left-radius: $border-radius !important;
-    border-bottom-left-radius: $border-radius !important;
+    border-top-left-radius: variables.$border-radius !important;
+    border-bottom-left-radius: variables.$border-radius !important;
 }
 
 .rounded-lg {
-    border-radius: $border-radius-lg !important;
+    border-radius: variables.$border-radius-lg !important;
 }
 
 .rounded-circle {
@@ -87,7 +91,7 @@
 }
 
 .rounded-pill {
-    border-radius: $rounded-pill !important;
+    border-radius: bootstrap-variables.$rounded-pill !important;
 }
 
 .rounded-0 {

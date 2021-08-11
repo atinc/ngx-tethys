@@ -1,3 +1,5 @@
+@use "../../styles/variables";
+
 $calendar-full-prefix-cls: 'thy-calendar-full';
 
 .#{$calendar-full-prefix-cls} {
@@ -22,8 +24,8 @@ $calendar-full-prefix-cls: 'thy-calendar-full';
             position: absolute;
             top: 0;
             left: 0;
-            box-shadow: 0 0 16px 0 rgba($primary, 0.6);
-            background: $white;
+            box-shadow: 0 0 16px 0 rgba(variables.$primary, 0.6);
+            background: variables.$white;
             width: 100%;
             min-height: 100%;
             z-index: 2;
@@ -41,7 +43,7 @@ $calendar-full-prefix-cls: 'thy-calendar-full';
         height: 100%;
         thead {
             font-size: 14px;
-            color: $gray-500;
+            color: variables.$gray-500;
         }
 
         .#{$calendar-full-prefix-cls}-column-header,
@@ -67,7 +69,7 @@ $calendar-full-prefix-cls: 'thy-calendar-full';
                 text-align: center;
                 line-height: 24px;
                 border-radius: 50%;
-                color: $white;
+                color: variables.$white;
             }
         }
 
@@ -79,20 +81,20 @@ $calendar-full-prefix-cls: 'thy-calendar-full';
 
         .#{$calendar-full-prefix-cls}-last-month-cell,
         .#{$calendar-full-prefix-cls}-next-month-btn-day {
-            color: $gray-500;
+            color: variables.$gray-500;
         }
 
         .#{$calendar-full-prefix-cls}-tbody {
-            border: 1px solid $gray-200;
+            border: 1px solid variables.$gray-200;
             border-collapse: collapse;
 
             tr td:first-child,
             tr td:last-child {
-                background: $gray-80;
+                background: variables.$gray-80;
             }
 
             td {
-                border: 1px solid $gray-200;
+                border: 1px solid variables.$gray-200;
 
                 .#{$calendar-full-prefix-cls}-date-content {
                     height: 126px;

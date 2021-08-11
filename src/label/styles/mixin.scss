@@ -1,9 +1,10 @@
+@use "sass:color";
 @mixin label-variant($bg-color) {
     background-color: $bg-color;
     &.label-has-hover {
         &:focus,
         &:hover {
-            background-color: darken($bg-color, 10%);
+            background-color: color.adjust($bg-color, $lightness: -10%);
             cursor: pointer;
         }
     }

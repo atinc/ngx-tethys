@@ -1,6 +1,7 @@
-@import '../variables.scss';
-$yiq-text-dark: $gray-900 !default;
-$yiq-text-light: $white !default;
+@use "sass:map";
+@use '../variables.scss';
+$yiq-text-dark: variables.$gray-900 !default;
+$yiq-text-light: variables.$white !default;
 $yiq-contrasted-threshold: 150 !default;
 $blue: #007bff !default;
 $indigo: #6610f2 !default;
@@ -12,11 +13,11 @@ $yellow: #ffc107 !default;
 $green: #28a745 !default;
 $teal: #20c997 !default;
 $cyan: #17a2b8 !default;
-$dark: $gray-800 !default;
+$dark: variables.$gray-800 !default;
 
 $colors: () !default;
 // // stylelint-disable-next-line scss/dollar-variable-default
-$colors: map-merge(
+$colors: map.merge(
     (
         'blue': $blue,
         'indigo': $indigo,
@@ -28,22 +29,22 @@ $colors: map-merge(
         'green': $green,
         'teal': $teal,
         'cyan': $cyan,
-        'white': $white,
-        'gray': $gray-600,
-        'gray-dark': $gray-800
+        'white': variables.$white,
+        'gray': variables.$gray-600,
+        'gray-dark': variables.$gray-800
     ),
     $colors
 );
 $theme-colors: () !default;
-$theme-colors: map-merge(
+$theme-colors: map.merge(
     (
-        'primary': $primary,
-        'secondary': $secondary,
-        'success': $success,
-        'info': $info,
-        'warning': $warning,
-        'danger': $danger,
-        'light': $light,
+        'primary': variables.$primary,
+        'secondary': variables.$secondary,
+        'success': variables.$success,
+        'info': variables.$info,
+        'warning': variables.$warning,
+        'danger': variables.$danger,
+        'light': variables.$light,
         'dark': $dark
     ),
     $theme-colors

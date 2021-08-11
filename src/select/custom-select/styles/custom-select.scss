@@ -1,3 +1,5 @@
+@use "../../../styles/variables";
+
 .thy-select-custom {
     display: block;
     width: 100%;
@@ -5,7 +7,7 @@
     outline: none;
     &:focus {
         .form-control {
-            border-color: $input-focus-border-color;
+            border-color: variables.$input-focus-border-color;
         }
     }
     & .form-control-custom {

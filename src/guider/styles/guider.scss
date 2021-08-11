@@ -1,8 +1,10 @@
+@use "../../styles/variables";
+
 .thy-guider-highlight-container {
     display: inline-block;
     width: 16px;
     height: 16px;
-    background-color: $primary;
+    background-color: variables.$primary;
     border-radius: 50%;
 
     &::after {
@@ -13,7 +15,7 @@
         content: '';
         width: 16px;
         height: 16px;
-        border: 1px solid $primary;
+        border: 1px solid variables.$primary;
         border-radius: 50%;
         animation-name: highlightPulse;
         animation-timing-function: cubic-bezier(0, 0.42, 0.26, 0.96);
