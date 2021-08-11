@@ -4,6 +4,7 @@
 
 // Ascending
 // Used to evaluate Sass maps like our grid breakpoints.
+@import './functions-variables';
 @mixin _assert-ascending($map, $map-name) {
     $prev-key: null;
     $prev-num: null;
