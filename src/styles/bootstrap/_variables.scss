@@ -2,7 +2,7 @@
 @use "sass:map";
 @use "../variables";
 @use "functions";
-
+@forward "../variables.scss";
 // // Variables
 // //
 // // Variables should follow the `$component-state-property-size` formula for
@@ -407,12 +407,12 @@ $input-line-height: variables.$input-btn-line-height !default;
 // $input-padding-y-sm: $input-btn-padding-y-sm !default;
 // $input-padding-x-sm: $input-btn-padding-x-sm !default;
 // $input-font-size-sm: $input-btn-font-size-sm !default;
-$input-line-height-sm: variables.$input-btn-line-height-sm !default;
+// $input-line-height-sm: variables.$input-btn-line-height-sm !default;
 
 // $input-padding-y-lg: $input-btn-padding-y-lg !default;
 // $input-padding-x-lg: $input-btn-padding-x-lg !default;
 // $input-font-size-lg: $input-btn-font-size-lg !default;
-$input-line-height-lg: variables.$input-btn-line-height-lg !default;
+// $input-line-height-lg: variables.$input-btn-line-height-lg !default;
 
 $input-bg: variables.$white !default;
 // $input-disabled-bg: $gray-200 !default;
@@ -442,18 +442,18 @@ $input-height-border: $input-border-width * 2 !default;
 // $input-height-inner-quarter: add($input-line-height * 0.25em, $input-padding-y / 2) !default;
 
 $input-height: functions.add($input-line-height * 1em, functions.add(variables.$input-padding-y * 2, $input-height-border, false)) !default;
-$input-height-sm: functions.add(
-    $input-line-height-sm * 1em,
-    functions.add(variables.$input-padding-y-sm * 2, $input-height-border, false)
-) !default;
-$input-height-lg: functions.add(
-    $input-line-height-lg * 1em,
-    functions.add(variables.$input-padding-y-lg * 2, $input-height-border, false)
-) !default;
+// $input-height-sm: functions.add(
+//     variables.$input-line-height-sm * 1em,
+//     functions.add(variables.$input-padding-y-sm * 2, $input-height-border, false)
+// ) !default;
+// $input-height-lg: functions.add(
+//     variables.$input-line-height-lg * 1em,
+//     functions.add(variables.$input-padding-y-lg * 2, $input-height-border, false)
+// ) !default;
 
 $input-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !default;
 
-$form-text-margin-top: 0.25rem !default;
+// $form-text-margin-top: 0.25rem !default;
 
 // $form-check-input-gutter: 1.25rem !default;
 $form-check-input-margin-y: 0.3rem !default;
@@ -604,7 +604,7 @@ $input-group-addon-border-color: variables.$input-border-color !default;
 
 // // Form validation
 
-$form-feedback-margin-top: $form-text-margin-top !default;
+$form-feedback-margin-top: variables.$form-text-margin-top !default;
 // $form-feedback-font-size: $small-font-size !default;
 // $form-feedback-valid-color: theme-color('success') !default;
 $form-feedback-invalid-color: functions.theme-color('danger') !default;

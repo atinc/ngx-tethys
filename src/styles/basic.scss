@@ -1,6 +1,5 @@
 @forward './bootstrap/functions';
-// todo 应该重建变量出口
 @forward './variables';
-@forward './bootstrap/variables' as v-*;
+@forward './bootstrap/variables';
 @forward './bootstrap/mixins';
 @forward './mixins/index';
