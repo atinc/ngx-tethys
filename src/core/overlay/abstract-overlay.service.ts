@@ -106,6 +106,10 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
         return this.openedOverlays.find(overlay => overlay.id === id);
     }
 
+    protected getAbstractOverlays(): ThyAbstractOverlayRef<any, TContainer>[] {
+        return this.openedOverlays;
+    }
+
     protected buildBaseOverlayConfig(config: TConfig, defaultPanelClass?: string | string[]): OverlayConfig {
         const overlayConfig = new OverlayConfig({
             positionStrategy: this.overlay.position().global(),

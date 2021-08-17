@@ -13,12 +13,6 @@
         padding-right: $input-padding-x + $font-size-md;
     }
 
-    &:hover {
-        .form-control {
-            border-color: $primary;
-        }
-    }
-
     &-input {
         outline: none;
         &:not(.thy-input-readonly) {

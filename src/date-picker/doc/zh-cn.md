@@ -4,6 +4,8 @@ title: DatePick
 subtitle: 日期选择
 order: 1
 ---
+<div class="dg-alert dg-alert-info">选择日期的控件。</div>
+
 ## 何时使用
 
 当用户需要选择日期、日期区间以及日期时间，可以点击日期选择框以及指令组件弹出日期面板选择。

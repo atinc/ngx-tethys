@@ -110,6 +110,10 @@ export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDia
         return this.getAbstractOverlayById(id) as ThyDialogRef<any> | undefined;
     }
 
+    getOpenedDialogs(): ThyDialogRef<any>[] {
+        return this.getAbstractOverlays();
+    }
+
     /**
      * Finds the closest ThyDialogRef to an element by looking at the DOM.
      */
