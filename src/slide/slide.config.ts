@@ -16,7 +16,7 @@ export type ThySlideFromTypes =
 
 export type ThySlideMode = 'over' | 'push' | 'side';
 
-export class ThySlideConfig extends ThyAbstractOverlayConfig {
+export class ThySlideConfig<TData = unknown> extends ThyAbstractOverlayConfig<TData> {
     /**
      * Origin Element, for overlay flexible connected to
      */

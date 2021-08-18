@@ -10,7 +10,7 @@ import { ThyAbstractOverlayConfig, ThyAbstractOverlayOptions, ThyAbstractOverlay
 export abstract class ThyAbstractOverlayRef<
     TComponent = unknown,
     TContainer extends ThyAbstractOverlayContainer = ThyAbstractOverlayContainer,
-    TResult = any
+    TResult = unknown
 > {
     id: string;
     componentInstance: TComponent;
