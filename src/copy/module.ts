@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ThyCopyDirective } from './copy.directive';
-import { ThyNotifyModule } from '../notify/notify.module';
+import { ThyNotifyModule } from 'ngx-tethys/notify';
 
 @NgModule({
     declarations: [ThyCopyDirective],
