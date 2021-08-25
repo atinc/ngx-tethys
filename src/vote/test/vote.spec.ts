@@ -1,8 +1,9 @@
-import { fakeAsync, TestBed, ComponentFixture } from '@angular/core/testing';
-import { ThyVoteModule } from '../vote.module';
-import { NgModule, Component } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+
 import { ThyVoteComponent } from '../vote.component';
+import { ThyVoteModule } from '../vote.module';
 
 describe('ThyVote', () => {
     let fixture: ComponentFixture<ThyDemoVoteBasicComponent>;
@@ -65,6 +66,16 @@ describe('ThyVote', () => {
         expect(voteComponent.nativeElement.classList.contains('thy-vote-vertical-size-sm')).toBe(true);
         expect(voteComponent.nativeElement.classList.contains('thy-vote-horizontal')).toBe(false);
     });
+
+    it('should have thy-vote-disabled when thyDisabled is true', () => {
+        fixture.detectChanges();
+        expect(voteComponent.nativeElement.classList.contains('thy-vote-disabled')).toBe(false);
+
+        basicTestComponent.isDisabled = true;
+        fixture.detectChanges();
+        expect(voteComponent.componentInstance._isDisabled).toBe(true);
+        expect(voteComponent.nativeElement.classList.contains('thy-vote-disabled')).toBe(true);
+    });
 });
 
 @Component({
@@ -77,6 +88,7 @@ describe('ThyVote', () => {
             [thyLayout]="layout"
             [thySize]="size"
             [thyRound]="isRound"
+            [thyDisabled]="isDisabled"
         ></div>
     `
 })
@@ -87,6 +99,7 @@ class ThyDemoVoteBasicComponent {
     layout = '';
     size = '';
     isRound = true;
+    isDisabled = false;
 }
 
 @NgModule({

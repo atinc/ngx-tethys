@@ -1,6 +1,7 @@
-import { OnInit, Component, Input, HostBinding, ElementRef, TemplateRef, ContentChild } from '@angular/core';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { UpdateHostClassService } from 'ngx-tethys/core';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
+
+import { Component, ContentChild, ElementRef, HostBinding, Input, OnInit, TemplateRef } from '@angular/core';
 
 export type ThyVoteSizes = 'default' | 'sm';
 
@@ -27,6 +28,8 @@ export class ThyVoteComponent implements OnInit {
     @HostBinding(`class.thy-vote`) class = true;
 
     @HostBinding(`class.has-voted`) _hasVoted = true;
+
+    @HostBinding(`class.thy-vote-disabled`) _isDisabled = false;
 
     @Input()
     set thySize(value: ThyVoteSizes) {
@@ -64,6 +67,14 @@ export class ThyVoteComponent implements OnInit {
     @Input()
     set thyHasVoted(value: boolean) {
         this._hasVoted = coerceBooleanProperty(value);
+        if (this._initialized) {
+            this._setClassesByType();
+        }
+    }
+
+    @Input()
+    set thyDisabled(value: boolean) {
+        this._isDisabled = coerceBooleanProperty(value);
         if (this._initialized) {
             this._setClassesByType();
         }
