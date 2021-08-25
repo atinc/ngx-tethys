@@ -73,7 +73,6 @@ describe('ThyVote', () => {
 
         basicTestComponent.isDisabled = true;
         fixture.detectChanges();
-        expect(voteComponent.componentInstance._isDisabled).toBe(true);
         expect(voteComponent.nativeElement.classList.contains('thy-vote-disabled')).toBe(true);
     });
 });
