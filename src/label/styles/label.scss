@@ -1,11 +1,19 @@
+@use "sass:map";
+
 .thy-label {
-    padding: $label-size-padding;
     font-weight: normal;
     display: inline-block;
     line-height: 1;
     font-size: $font-size-sm;
     border-radius: $label-border-radius;
     color: $white;
+
+    /**** size ****/
+    @each $size, $padding in $label-size-paddings {
+        & {
+            @include labelSize($size, $padding);
+        }
+    }
 
     thy-icon,
     i {
@@ -14,7 +22,7 @@
     }
 
     &.thy-label-state {
-        padding: $label-size-padding-md;
+        @include labelSize(md, map-get($label-size-paddings, md));
     }
 
     &.thy-label-pill {
@@ -24,17 +32,75 @@
         // background: $gray-200;
     }
 
-    &--sm {
-        padding: $label-size-padding-sm;
+    /**** label type ****/
+    &-default {
+        @include label-color-variant($gray-500, $gray-600);
+        background-color: $label-default-bg;
     }
 
-    &--md {
-        padding: $label-size-padding-md;
+    &-primary {
+        @include label-variant($label-primary-bg);
+        @include label-color-variant($white, $white);
     }
 
-    &--lg {
-        padding: $label-size-padding-md;
-        font-size: $font-size-base;
+    &-success {
+        @include label-variant($label-success-bg);
+        @include label-color-variant($white, $white);
+    }
+
+    &-info {
+        @include label-variant($label-info-bg);
+        @include label-color-variant($white, $white);
+    }
+
+    &-warning {
+        @include label-variant($label-warning-bg);
+        @include label-color-variant($white, $white);
+    }
+
+    &-danger {
+        @include label-variant($label-danger-bg);
+        @include label-color-variant($white, $white);
+    }
+
+    &-emboss-default {
+        @include label-color-variant($gray-500, $gray-600);
+        // background-color: $label-default-bg;
+        @include label-variant(rgba($gray-700, 0.1));
+    }
+
+    &-emboss-primary {
+        @include label-variant(rgba($primary, 0.1));
+        @include label-color-variant($primary, $primary);
+    }
+
+    &-emboss-warning {
+        @include label-variant(rgba($warning, 0.1));
+        @include label-color-variant($warning, $warning);
+    }
+
+    &-emboss-danger {
+        @include label-variant(rgba($danger, 0.1));
+        @include label-color-variant($danger, $danger);
+    }
+
+    &-emboss-status {
+        thy-icon.thy-icon,
+        i.wtf {
+            font-size: $font-size-base;
+            margin-right: 6px;
+        }
+    }
+
+    &-outline {
+        border: 1px solid;
+        background: transparent;
+
+        @each $size, $padding in $label-size-paddings {
+            &.thy-label {
+                @include labelSize($size, $padding, $label-size-outline-diff);
+            }
+        }
     }
 }
 
@@ -44,68 +110,4 @@
     &.thy-label {
         padding: 0;
     }
-}
-
-.thy-label-default {
-    @include label-color-variant($gray-500, $gray-600);
-    background-color: $label-default-bg;
-}
-
-.thy-label-primary {
-    @include label-variant($label-primary-bg);
-    @include label-color-variant($white, $white);
-}
-
-.thy-label-success {
-    @include label-variant($label-success-bg);
-    @include label-color-variant($white, $white);
-}
-
-.thy-label-info {
-    @include label-variant($label-info-bg);
-    @include label-color-variant($white, $white);
-}
-
-.thy-label-warning {
-    @include label-variant($label-warning-bg);
-    @include label-color-variant($white, $white);
-}
-
-.thy-label-danger {
-    @include label-variant($label-danger-bg);
-    @include label-color-variant($white, $white);
-}
-
-.thy-label-emboss-default {
-    @include label-color-variant($gray-500, $gray-600);
-    // background-color: $label-default-bg;
-    @include label-variant(rgba($gray-700, 0.1));
-}
-
-.thy-label-emboss-primary {
-    @include label-variant(rgba($primary, 0.1));
-    @include label-color-variant($primary, $primary);
-}
-
-.thy-label-emboss-warning {
-    @include label-variant(rgba($warning, 0.1));
-    @include label-color-variant($warning, $warning);
-}
-
-.thy-label-emboss-danger {
-    @include label-variant(rgba($danger, 0.1));
-    @include label-color-variant($danger, $danger);
-}
-
-.thy-label-emboss-status {
-    thy-icon.thy-icon,
-    i.wtf {
-        font-size: $font-size-base;
-        margin-right: 6px;
-    }
-}
-
-.thy-label-outline {
-    border: 1px solid;
-    background: transparent;
 }
