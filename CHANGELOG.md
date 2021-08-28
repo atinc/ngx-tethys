@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="12.0.0-next.3"></a>
+# [12.0.0-next.3](https://github.com/atinc/ngx-tethys/compare/12.0.0-next.2...12.0.0-next.3) (2021-08-28)
+
+
+### Features
+
+* **copy:** support copy thyShowNotify #INFR-2223 ([#1333](https://github.com/atinc/ngx-tethys/issues/1333)) ([69a4f42](https://github.com/atinc/ngx-tethys/commit/69a4f42)), closes [#INFR-2223](https://github.com/atinc/ngx-tethys/issues/INFR-2223)
+* **vote:** vote support disabled #INFR-2229  ([#1331](https://github.com/atinc/ngx-tethys/issues/1331)) ([07e0d63](https://github.com/atinc/ngx-tethys/commit/07e0d63)), closes [#INFR-2229](https://github.com/atinc/ngx-tethys/issues/INFR-2229) [#INFR-2229](https://github.com/atinc/ngx-tethys/issues/INFR-2229)
+
+
+
 <a name="12.0.0-next.2"></a>
 # [12.0.0-next.2](https://github.com/atinc/ngx-tethys/compare/12.0.0-next.1...12.0.0-next.2) (2021-08-17)
 
