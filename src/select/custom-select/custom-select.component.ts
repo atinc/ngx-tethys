@@ -334,7 +334,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
             this.resetOptions();
             this.initializeSelection();
             this.initKeyManager();
-            this.highlightCorrectOption(false);
+            this.highlightCorrectBaseOnProperty();
             this.changeDetectorRef.markForCheck();
         });
         if (this.thyAutoExpand) {
@@ -344,6 +344,13 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
                 this.focus();
             });
         }
+    }
+
+    private highlightCorrectBaseOnProperty() {
+        if (this.thyEnableScrollLoad) {
+            return;
+        }
+        this.highlightCorrectOption(false);
     }
 
     public get isHiddenOptions(): boolean {
@@ -373,9 +380,10 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
     }
 
     public onOptionsScrolled(elementRef: ElementRef) {
-        const scroll = this.elementRef.nativeElement.scrollTop,
-            height = this.elementRef.nativeElement.clientHeight,
-            scrollHeight = this.elementRef.nativeElement.scrollHeight;
+        const scroll = elementRef.nativeElement.scrollTop,
+            height = elementRef.nativeElement.clientHeight,
+            scrollHeight = elementRef.nativeElement.scrollHeight;
+
         if (scroll + height + 10 >= scrollHeight) {
             this.ngZone.run(() => {
                 this.thyOnScrollToBottom.emit();
