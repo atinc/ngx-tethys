@@ -125,7 +125,7 @@
 }
 
 .btn-icon-sm {
-    @include btn-icon-size-variant($font-size-base, $btn-icon-circle-padding-sm, $font-size-base, $input-btn-height-md - 2);
+    @include btn-icon-size-variant($font-size-base, $btn-icon-circle-padding-sm, $font-size-base, $input-btn-height-md);
 }
 
 .btn-icon-lg {
