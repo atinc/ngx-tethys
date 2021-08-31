@@ -1034,6 +1034,7 @@ describe('ThyCustomSelect', () => {
 
                 typeInElement('any word', input);
                 fixture.detectChanges();
+                expect(fixtureIns.select['isInSearchState']).toBeTruthy();
                 tick(200);
                 fixture.detectChanges();
                 expect(fixtureIns.select['isInSearchState']).toBeFalsy();
@@ -1051,10 +1052,8 @@ describe('ThyCustomSelect', () => {
 
                 typeInElement('any word', input);
                 fixture.detectChanges();
-                tick(200);
-                fixture.detectChanges();
                 expect(fixtureIns.select['isInSearchState']).toBeFalsy();
-                expect(fixtureIns.select.keyManager.activeItem).toEqual(fixtureIns.select.options.toArray()[0]);
+                flush();
             }));
         });
     });
