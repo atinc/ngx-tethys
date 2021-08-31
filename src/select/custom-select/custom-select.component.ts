@@ -208,6 +208,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
     }
 
     @Input()
+    @InputBoolean()
     thyEnableScrollLoad = false;
 
     @Input() thyAllowClear = false;
@@ -283,6 +284,8 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
         }
     }
 
+    private searchText: string;
+
     constructor(
         private ngZone: NgZone,
         private elementRef: ElementRef,
@@ -334,7 +337,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
             this.resetOptions();
             this.initializeSelection();
             this.initKeyManager();
-            this.highlightCorrectBaseOnProperty();
+            this.highlightCorrectOption(false);
             this.changeDetectorRef.markForCheck();
         });
         if (this.thyAutoExpand) {
@@ -344,13 +347,6 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
                 this.focus();
             });
         }
-    }
-
-    private highlightCorrectBaseOnProperty() {
-        if (this.thyEnableScrollLoad) {
-            return;
-        }
-        this.highlightCorrectOption(false);
     }
 
     public get isHiddenOptions(): boolean {
@@ -397,6 +393,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
 
     public onSearchFilter(searchText: string) {
         searchText = searchText.trim();
+        this.searchText = searchText;
         if (this.thyServerSearch) {
             this.thyOnSearch.emit(searchText);
         } else {
@@ -537,7 +534,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
             this.close();
         });
         this.keyManager.change.pipe(takeUntil(this.destroy$)).subscribe(() => {
-            if (this.panelOpen && this.panel) {
+            if (this.panelOpen && this.panel && this.isScrollToActiveOption()) {
                 if (this.keyManager.activeItem) {
                     ScrollToService.scrollToElement(this.keyManager.activeItem.element.nativeElement, this.panel.nativeElement);
                 }
@@ -545,6 +542,10 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
                 this.keyManager.activeItem.selectViaInteraction();
             }
         });
+    }
+
+    private isScrollToActiveOption() {
+        return !this.thyEnableScrollLoad || (this.thyEnableScrollLoad && this.searchText);
     }
 
     private handleClosedKeydown(event: KeyboardEvent): void {
