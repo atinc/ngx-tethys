@@ -284,7 +284,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
         }
     }
 
-    private searchText: string;
+    private isInSearchState = false;
 
     constructor(
         private ngZone: NgZone,
@@ -337,7 +337,10 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
             this.resetOptions();
             this.initializeSelection();
             this.initKeyManager();
-            this.highlightCorrectOption(false);
+            if (this.isInSearchState) {
+                this.highlightCorrectOption(false);
+                this.isInSearchState = false;
+            }
             this.changeDetectorRef.markForCheck();
         });
         if (this.thyAutoExpand) {
@@ -393,8 +396,8 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
 
     public onSearchFilter(searchText: string) {
         searchText = searchText.trim();
-        this.searchText = searchText;
         if (this.thyServerSearch) {
+            this.isInSearchState = true;
             this.thyOnSearch.emit(searchText);
         } else {
             const options = this.options.toArray();
@@ -534,7 +537,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
             this.close();
         });
         this.keyManager.change.pipe(takeUntil(this.destroy$)).subscribe(() => {
-            if (this.panelOpen && this.panel && this.isScrollToActiveOption()) {
+            if (this.panelOpen && this.panel) {
                 if (this.keyManager.activeItem) {
                     ScrollToService.scrollToElement(this.keyManager.activeItem.element.nativeElement, this.panel.nativeElement);
                 }
@@ -542,10 +545,6 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
                 this.keyManager.activeItem.selectViaInteraction();
             }
         });
-    }
-
-    private isScrollToActiveOption() {
-        return !this.thyEnableScrollLoad || (this.thyEnableScrollLoad && this.searchText);
     }
 
     private handleClosedKeydown(event: KeyboardEvent): void {
