@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="12.0.0-next.4"></a>
+# [12.0.0-next.4](https://github.com/atinc/ngx-tethys/compare/12.0.0-next.3...12.0.0-next.4) (2021-09-01)
+
+
+### Bug Fixes
+
+* **button:** setting btn-icon-sm size to 32px #INFR-2248 ([#1338](https://github.com/atinc/ngx-tethys/issues/1338)) ([4ac080a](https://github.com/atinc/ngx-tethys/commit/4ac080a)), closes [#INFR-2248](https://github.com/atinc/ngx-tethys/issues/INFR-2248)
+
+
+### BREAKING CHANGES
+
+* **button:** fix btn-icon-sm from 30px  to 32px
+
+
+
 <a name="12.0.0-next.3"></a>
 # [12.0.0-next.3](https://github.com/atinc/ngx-tethys/compare/12.0.0-next.2...12.0.0-next.3) (2021-08-28)
 
