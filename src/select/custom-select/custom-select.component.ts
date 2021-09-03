@@ -284,7 +284,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
         }
     }
 
-    private isInSearchState = false;
+    private isSearching = false;
 
     constructor(
         private ngZone: NgZone,
@@ -337,9 +337,9 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
             this.resetOptions();
             this.initializeSelection();
             this.initKeyManager();
-            if (this.isInSearchState) {
+            if (this.isSearching) {
                 this.highlightCorrectOption(false);
-                this.isInSearchState = false;
+                this.isSearching = false;
             }
             this.changeDetectorRef.markForCheck();
         });
@@ -397,7 +397,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
     public onSearchFilter(searchText: string) {
         searchText = searchText.trim();
         if (this.thyServerSearch) {
-            this.isInSearchState = true;
+            this.isSearching = true;
             this.thyOnSearch.emit(searchText);
         } else {
             const options = this.options.toArray();
