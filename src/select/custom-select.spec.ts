@@ -655,6 +655,11 @@ describe('ThyCustomSelect', () => {
                 const componentInstance = fixture.debugElement.query(By.directive(ThySelectCustomComponent)).componentInstance;
                 expect(componentInstance.dropDownPositions[0].originY).toEqual('bottom');
             }));
+
+            it('should get right item count when invoke itemCount method', () => {
+                const ins = fixture.componentInstance.select;
+                expect(fixture.componentInstance.foods.length).toEqual(ins.getItemCount());
+            });
         });
 
         describe('overlay panel', () => {
@@ -1034,10 +1039,10 @@ describe('ThyCustomSelect', () => {
 
                 typeInElement('any word', input);
                 fixture.detectChanges();
-                expect(fixtureIns.select['isInSearchState']).toBeTruthy();
+                expect(fixtureIns.select['isSearching']).toBeTruthy();
                 tick(200);
                 fixture.detectChanges();
-                expect(fixtureIns.select['isInSearchState']).toBeFalsy();
+                expect(fixtureIns.select['isSearching']).toBeFalsy();
                 expect(fixtureIns.select.keyManager.activeItem).toEqual(fixtureIns.select.options.toArray()[0]);
             }));
 
@@ -1052,7 +1057,7 @@ describe('ThyCustomSelect', () => {
 
                 typeInElement('any word', input);
                 fixture.detectChanges();
-                expect(fixtureIns.select['isInSearchState']).toBeFalsy();
+                expect(fixtureIns.select['isSearching']).toBeFalsy();
                 flush();
             }));
         });
