@@ -1,6 +1,6 @@
 @use "../../styles/variables";
 
-$slide-border-color: variables.$gray-200 !default;
+$slide-border-color: variables.$slide-border-color !default;
 
 .thy-slide-backdrop {
     background: none;
