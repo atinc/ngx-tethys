@@ -2,9 +2,10 @@
 category: layout
 title: Space
 subtitle: 间距
+label: new
 ---
 
-<div class="dg-alert dg-alert-info">设置间距。</div>
+<alert>设置间距</alert>
 
 ## 何时使用
 当内部元素需要一段距离时使用，避免紧紧挨在一起。

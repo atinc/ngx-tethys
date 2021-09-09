@@ -4,7 +4,7 @@ title: Avatar
 subtitle: 头像
 ---
 
-<div class="dg-alert dg-alert-info">显示用户头像的组件。</div>
+<alert>显示用户头像的组件</alert>
 
 ## 何时使用
 

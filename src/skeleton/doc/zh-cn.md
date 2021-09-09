@@ -2,6 +2,7 @@
 category: feedback
 title: Skeleton
 subtitle: 骨架屏
+label: experimental
 ---
 
 在需要等待加载内容的位置提供一个占位图形组合。
