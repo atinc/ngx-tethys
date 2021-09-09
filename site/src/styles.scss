@@ -51,58 +51,34 @@
 @include meta.load-css('../../src/styles/index.scss');
 @include meta.load-css('./styles/index.scss');
 
-$dg-alert-bg-alpha: 0.05;
-
-.dg-alert {
-    position: relative;
-    font-size: 14px;
-    line-height: 20px;
-    // box-shadow: rgba(0, 0, 0, 0.06) 0px 6px 16px -2px;
-    margin: 10px 0px;
-    padding: 10px 20px;
-    border-left: 0px;
-    background: variables.$gray-80;
-    border-radius: 1px;
-
-    &::after {
-        content: '';
-        position: absolute;
-        display: inline-block;
-        top: 0px;
-        left: 0px;
-        bottom: 0px;
-        width: 3px;
-        border-radius: 1px;
-        background: variables.$primary;
-    }
-
-    &.dg-alert-info {
-        background-color: rgba($color: variables.$info, $alpha: $dg-alert-bg-alpha);
-        &::after {
-            background: variables.$info;
-        }
-    }
-
-    &.dg-alert-primary {
-        background-color: rgba($color: variables.$primary, $alpha: $dg-alert-bg-alpha);
-        &::after {
-            background: variables.$primary;
-        }
-    }
-
-    &.dg-alert-danger {
-        // box-shadow: rgba(0, 0, 0, 0.06) 0px 6px 16px -2px;
-        background-color: rgba($color: variables.$danger, $alpha: $dg-alert-bg-alpha);
-        &::after {
-            background: variables.$danger;
-        }
-    }
-}
-
 .dg-doc-content,
 .dg-examples {
     > :first-child {
         margin-top: 0px;
+    }
+}
+
+.dg-home {
+    .dg-hero {
+        .dg-hero-launch {
+            align-items: start;
+            padding-left: 20%;
+            text-align: unset;
+            .dg-launch-title {
+                color: #1e3042;
+            }
+            .dg-launch-action {
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+
+    @media (min-width: 768px) {
+        .dg-features {
+            grid-gap: 30px 50px;
+        }
     }
 }
 

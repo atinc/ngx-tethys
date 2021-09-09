@@ -5,7 +5,7 @@ subtitle: 导航
 description: 切换不同的组件内容。
 ---
 
-<div class="dg-alert dg-alert-info">切换不同的组件内容。</div>
+<alert>切换不同的组件内容</alert>
 
 ## 何时使用
 

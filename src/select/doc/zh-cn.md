@@ -5,7 +5,7 @@ subtitle: 选择
 order: 1
 ---
 
-<div class="dg-alert dg-alert-info">下拉选择组件，包含基于原生的 `thy-select` 和完全自定义的 `thy-custom-select` </div>
+<alert>下拉选择组件，包含基于原生的 `thy-select` 和完全自定义的 `thy-custom-select` </alert>
 
 ## 何时使用
 - 简单场景、UI风格可以接受浏览器默认select样式时使用 `thy-select`
