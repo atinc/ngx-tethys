@@ -3,29 +3,29 @@
 // Used in conjunction with global variables to enable certain theme features.
 
 // Vendor
-@use 'vendor/rfs';
+@forward 'vendor/rfs';
 
 // Deprecate
-@use 'mixins/deprecate';
+@forward 'mixins/deprecate';
 
 // Utilities
-@use 'mixins/breakpoints';
-@use 'mixins/hover';
-@use 'mixins/screen-reader';
-@use 'mixins/reset-text';
-@use 'mixins/text-hide';
-@use 'mixins/text-truncate';
+@forward 'mixins/breakpoints';
+@forward 'mixins/hover';
+@forward 'mixins/screen-reader';
+@forward 'mixins/reset-text';
+@forward 'mixins/text-hide';
+@forward 'mixins/text-truncate';
 
 // Components
-@use 'mixins/caret';
-@use 'mixins/lists';
+@forward 'mixins/caret';
+@forward 'mixins/lists';
 
 // Skins
-@use 'mixins/border-radius';
-@use 'mixins/gradients';
-@use 'mixins/transition';
+@forward 'mixins/border-radius';
+@forward 'mixins/gradients';
+@forward 'mixins/transition';
 
 // Layout
-@use 'mixins/clearfix';
-@use 'mixins/grid-framework';
-@use 'mixins/grid';
+@forward 'mixins/clearfix';
+@forward 'mixins/grid-framework';
+@forward 'mixins/grid';
