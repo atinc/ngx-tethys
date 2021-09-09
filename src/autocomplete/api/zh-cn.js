@@ -6,13 +6,13 @@ module.exports = [
         properties: [
             {
                 name: 'thyAutofocus',
-                description: '自动获取焦点',
+                description: '是否自动聚焦',
                 type: 'boolean',
                 default: 'false'
             },
             {
-                name: 'thyPlaceholder',
-                description: '输入框提示',
+                name: 'placeholder',
+                description: '默认显示字',
                 type: 'string',
                 default: ''
             }
@@ -24,26 +24,26 @@ module.exports = [
         properties: [
             {
                 name: 'thyAutocompleteComponent',
-                description: '下拉菜单组件实例',
+                description: '传入trigger触发的autocomplete组件实例',
                 type: 'ThyAutocompleteComponent',
                 default: ''
             },
             {
                 name: 'thyOffset',
-                description: '弹出框默认 offset',
+                description: 'overlay的offset',
                 type: 'number',
-                default: 4
+                default: 8
             },
             {
                 name: 'thyAutocompleteWidth',
-                description: '下拉菜单的宽度，不设置默认与输入框同宽',
+                description: 'autocomplete组件的宽度，不设置宽度则与trigger保持一致',
                 type: 'number',
                 default: ''
             },
             {
                 name: 'thyPlacement',
-                description: `下拉菜单的显示位置，'top' | 'topLeft' | 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight' | 'left' | 'leftTop' | 'leftBottom' | 'right' | 'rightTop' | 'rightBottom'`,
-                type: 'string',
+                description: 'autocomplete显示位置',
+                type: 'number',
                 default: 'bottomLeft'
             }
         ]
@@ -60,31 +60,31 @@ module.exports = [
             },
             {
                 name: 'thyAutoActiveFirstOption',
-                description: '是否默认高亮第一个选项',
-                type: 'boolean',
+                description: '自动激活第一个选项',
+                type: 'EventEmitter<ThyAutocompleteActivatedEvent>',
                 default: 'false'
             },
             {
                 name: 'thyOptionSelected',
-                description: '被选中时调用，参数包含选中项的 value 值',
+                description: 'output event: option选择事件',
                 type: 'EventEmitter<ThyOptionSelectionChangeEvent>',
                 default: ''
             },
             {
                 name: 'thyOpened',
-                description: '只读，展开下拉菜单的回调',
+                description: 'output event: 打开事件',
                 type: 'EventEmitter<void>',
                 default: ''
             },
             {
                 name: 'thyClosed',
-                description: '只读，关闭下拉菜单的回调',
+                description: 'output event: 关闭事件',
                 type: 'EventEmitter<void>',
                 default: ''
             },
             {
                 name: 'thyOptionActivated',
-                description: '只读，option 激活状态变化时，调用此函数',
+                description: 'option activated event: 激活状态改变触发(Arrow Up/Down select)',
                 type: 'EventEmitter<ThyAutocompleteActivatedEvent>',
                 default: ''
             }

@@ -1,6 +1,18 @@
-import { Directive, NgZone, ElementRef, HostBinding, Input, Inject, OnDestroy, Optional } from '@angular/core';
+import {
+    Directive,
+    NgZone,
+    ElementRef,
+    HostBinding,
+    Input,
+    Inject,
+    ContentChildren,
+    OnDestroy,
+    Optional,
+    AfterContentInit
+} from '@angular/core';
 import { DragRef } from './drag-ref';
 import { DOCUMENT } from '@angular/common';
+import { ThyDragHandleDirective } from './drag-handle.directive';
 import { ThyDragDropService } from './drag-drop.service';
 import { mixinUnsubscribe, MixinBase, Constructor, ThyUnsubscribe } from 'ngx-tethys/core';
 import { THY_DROP_CONTAINER_DIRECTIVE, IThyDropContainerDirective } from './drop-container.class';

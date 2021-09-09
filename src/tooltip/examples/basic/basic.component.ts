@@ -8,16 +8,13 @@ export class ThyTooltipBasicExampleComponent {
     showTooltips = true;
     tooltipConfig = {
         trigger: 'hover',
+        placement: 'top',
         disabled: false,
         showDelay: 200,
         hideDelay: 100,
-        offset: 1,
-        tooltipPin: true
+        offset: 4,
+        thyTooltipPin: true
     };
-
-    public offsetOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20];
-
-    public triggerOptions = ['hover', 'focus', 'click'];
 
     refreshTooltips() {
         this.showTooltips = false;

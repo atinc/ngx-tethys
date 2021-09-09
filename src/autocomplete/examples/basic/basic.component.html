@@ -1,13 +1,17 @@
 <div>
   <input
     thyInput
-    thyAutocompleteTrigger
     [(ngModel)]="value"
-    [placeholder]="'请输入'"
+    [thyAutofocus]="true"
+    [placeholder]="placeholder"
+    thyAutocompleteTrigger
     [thyAutocompleteComponent]="auto"
+    [thyAutocompleteWidth]="500"
     (ngModelChange)="valueChange($event)"
   />
-  <thy-autocomplete #auto>
-    <thy-option *ngFor="let item of listOfOption" [thyLabelText]="item.label" [thyValue]="item.value"></thy-option>
+  <thy-autocomplete #auto [thyEmptyText]="'没有搜索到任何数据'">
+    <thy-option-group thyGroupLabel="最新浏览">
+      <thy-option *ngFor="let item of listOfOption" [thyLabelText]="item.label" [thyValue]="item.value"></thy-option>
+    </thy-option-group>
   </thy-autocomplete>
 </div>
