@@ -5,10 +5,12 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
+import { ThyNavBasicExampleComponent } from './basic/basic.component';
 import { ThyNavFillExampleComponent } from './fill/fill.component';
 import { ThyNavHorizontalExampleComponent } from './horizontal/horizontal.component';
 import { ThyNavIconNavExampleComponent } from './icon-nav/icon-nav.component';
 import { ThyNavResponsiveExampleComponent } from './responsive/responsive.component';
+import { ThyNavSizeExampleComponent } from './size/size.component';
 import { ThyNavTypeExampleComponent } from './type/type.component';
 import { ThyNavVerticalExampleComponent } from './vertical/vertical.component';
 
@@ -18,7 +20,9 @@ const COMPONENTS = [
     ThyNavIconNavExampleComponent,
     ThyNavTypeExampleComponent,
     ThyNavVerticalExampleComponent,
-    ThyNavResponsiveExampleComponent
+    ThyNavResponsiveExampleComponent,
+    ThyNavBasicExampleComponent,
+    ThyNavSizeExampleComponent
 ];
 
 @NgModule({

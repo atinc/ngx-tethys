@@ -2,6 +2,55 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="12.0.0-next.4"></a>
+# [12.0.0-next.4](https://github.com/atinc/ngx-tethys/compare/12.0.0-next.3...12.0.0-next.4) (2021-09-01)
+
+
+### Bug Fixes
+
+* **button:** setting btn-icon-sm size to 32px #INFR-2248 ([#1338](https://github.com/atinc/ngx-tethys/issues/1338)) ([4ac080a](https://github.com/atinc/ngx-tethys/commit/4ac080a)), closes [#INFR-2248](https://github.com/atinc/ngx-tethys/issues/INFR-2248)
+
+
+### BREAKING CHANGES
+
+* **button:** fix btn-icon-sm from 30px  to 32px
+
+
+
+<a name="12.0.0-next.3"></a>
+# [12.0.0-next.3](https://github.com/atinc/ngx-tethys/compare/12.0.0-next.2...12.0.0-next.3) (2021-08-28)
+
+
+### Features
+
+* **copy:** support copy thyShowNotify #INFR-2223 ([#1333](https://github.com/atinc/ngx-tethys/issues/1333)) ([69a4f42](https://github.com/atinc/ngx-tethys/commit/69a4f42)), closes [#INFR-2223](https://github.com/atinc/ngx-tethys/issues/INFR-2223)
+* **vote:** vote support disabled #INFR-2229  ([#1331](https://github.com/atinc/ngx-tethys/issues/1331)) ([07e0d63](https://github.com/atinc/ngx-tethys/commit/07e0d63)), closes [#INFR-2229](https://github.com/atinc/ngx-tethys/issues/INFR-2229) [#INFR-2229](https://github.com/atinc/ngx-tethys/issues/INFR-2229)
+
+
+
+<a name="12.0.0-next.2"></a>
+# [12.0.0-next.2](https://github.com/atinc/ngx-tethys/compare/12.0.0-next.1...12.0.0-next.2) (2021-08-17)
+
+
+### Bug Fixes
+
+* **copy:** fix notifyService multiple calls error (#INFR-2186) ([#1321](https://github.com/atinc/ngx-tethys/issues/1321)) ([2b80dcf](https://github.com/atinc/ngx-tethys/commit/2b80dcf)), closes [#INFR-2186](https://github.com/atinc/ngx-tethys/issues/INFR-2186)
+* **copy:** fix notifyService multiple calls error (#INFR-2186) ([#1322](https://github.com/atinc/ngx-tethys/issues/1322)) ([c851fb6](https://github.com/atinc/ngx-tethys/commit/c851fb6)), closes [#INFR-2186](https://github.com/atinc/ngx-tethys/issues/INFR-2186)
+* **notify:** fix notifyService multiple calls error (#INFR-2186) ([16ba3b2](https://github.com/atinc/ngx-tethys/commit/16ba3b2)), closes [#INFR-2186](https://github.com/atinc/ngx-tethys/issues/INFR-2186)
+* darken primary 10% ([34a071e](https://github.com/atinc/ngx-tethys/commit/34a071e))
+* **core:** update backdropClosable type to boolean and format store tests ([9fccaf2](https://github.com/atinc/ngx-tethys/commit/9fccaf2))
+
+
+### Features
+
+* **card:** #INFR-1899 remove thy-card height and flex style ([#1311](https://github.com/atinc/ngx-tethys/issues/1311)) ([1b6c98e](https://github.com/atinc/ngx-tethys/commit/1b6c98e)), closes [#INFR-1899](https://github.com/atinc/ngx-tethys/issues/INFR-1899) [#INFR-1899](https://github.com/atinc/ngx-tethys/issues/INFR-1899) [#INFR-1899](https://github.com/atinc/ngx-tethys/issues/INFR-1899)
+* **dialog:** add getOpendsDialogs method #INFR-1919 ([#1313](https://github.com/atinc/ngx-tethys/issues/1313)) ([1897507](https://github.com/atinc/ngx-tethys/commit/1897507)), closes [#INFR-1919](https://github.com/atinc/ngx-tethys/issues/INFR-1919) [#INFR-1919](https://github.com/atinc/ngx-tethys/issues/INFR-1919)
+* **select:** group hover add background color and modify font color … ([#1314](https://github.com/atinc/ngx-tethys/issues/1314)) ([18ba417](https://github.com/atinc/ngx-tethys/commit/18ba417)), closes [#INFR-2152](https://github.com/atinc/ngx-tethys/issues/INFR-2152)
+* **select:** remove hover style and focus in style when disabled #INFR-2178 #INFR-2173 ([#1316](https://github.com/atinc/ngx-tethys/issues/1316)) ([adbfa72](https://github.com/atinc/ngx-tethys/commit/adbfa72)), closes [#INFR-2178](https://github.com/atinc/ngx-tethys/issues/INFR-2178) [#INFR-2173](https://github.com/atinc/ngx-tethys/issues/INFR-2173) [#INFR-2178](https://github.com/atinc/ngx-tethys/issues/INFR-2178) [#INFR-2173](https://github.com/atinc/ngx-tethys/issues/INFR-2173) [#INFR-2178](https://github.com/atinc/ngx-tethys/issues/INFR-2178)
+* **styles:** update primary default color to [#348](https://github.com/atinc/ngx-tethys/issues/348)fe4 #INFR-2170 ([b269fdd](https://github.com/atinc/ngx-tethys/commit/b269fdd)), closes [#348fe4](https://github.com/atinc/ngx-tethys/issues/348fe4) [#INFR-2170](https://github.com/atinc/ngx-tethys/issues/INFR-2170)
+
+
+
 <a name="12.0.0-next.1"></a>
 # [12.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/11.0.4...12.0.0-next.1) (2021-07-12)
 

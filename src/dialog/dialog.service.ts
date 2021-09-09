@@ -35,11 +35,11 @@ export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDia
         return containerRef.instance;
     }
 
-    protected createAbstractOverlayRef<T>(
+    protected createAbstractOverlayRef<T, TResult>(
         overlayRef: OverlayRef,
         containerInstance: ThyDialogContainerComponent,
         config: ThyDialogConfig<any>
-    ): ThyAbstractOverlayRef<T, any> {
+    ): ThyAbstractOverlayRef<T, ThyDialogContainerComponent, TResult> {
         return new ThyInternalDialogRef(overlayRef, containerInstance, config);
     }
 
@@ -84,7 +84,7 @@ export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDia
         clickPositioner.initialize();
     }
 
-    open<T, TData = any, TResult = any>(
+    open<T, TData = unknown, TResult = unknown>(
         componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
         config?: ThyDialogConfig<TData>
     ): ThyDialogRef<T, TResult> {
@@ -108,6 +108,10 @@ export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDia
 
     getDialogById(id: string): ThyDialogRef<any> | undefined {
         return this.getAbstractOverlayById(id) as ThyDialogRef<any> | undefined;
+    }
+
+    getOpenedDialogs(): ThyDialogRef<any>[] {
+        return this.getAbstractOverlays();
     }
 
     /**

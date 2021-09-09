@@ -19,7 +19,6 @@
 @mixin form-control-focus() {
     &:focus {
         color: bootstrap-variables.$input-focus-color;
-        background-color: variables.$input-focus-bg;
         border-color: variables.$input-focus-border-color;
         outline: 0;
         // Avoid using mixin so we can pass custom focus shadow properly
@@ -27,6 +26,11 @@
             box-shadow: variables.$input-box-shadow, bootstrap-variables.$input-focus-box-shadow;
         } @else {
             box-shadow: bootstrap-variables.$input-focus-box-shadow;
+        }
+    }
+    &:not([disabled]):not(.disabled):not(.is-invalid) {
+        &:focus {
+            border-color: variables.$input-focus-border-color;
         }
     }
 }

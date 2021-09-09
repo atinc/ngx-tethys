@@ -17,12 +17,6 @@
         padding-right: variables.$input-padding-x + variables.$font-size-md;
     }
 
-    &:hover {
-        .form-control {
-            border-color: variables.$primary;
-        }
-    }
-
     &-input {
         outline: none;
         &:not(.thy-input-readonly) {
