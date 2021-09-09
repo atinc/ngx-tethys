@@ -1,11 +1,11 @@
 import { Component, OnInit, Renderer2, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-    selector: 'thy-autocomplete-basic-example',
-    templateUrl: './basic.component.html',
+    selector: 'thy-autocomplete-active-example',
+    templateUrl: './active.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ThyAutocompleteBasicExampleComponent implements OnInit {
+export class ThyAutocompleteActiveExampleComponent implements OnInit {
     value = '';
 
     children: Array<{ label: string; value: string }> = [];

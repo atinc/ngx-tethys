@@ -208,6 +208,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
     }
 
     @Input()
+    @InputBoolean()
     thyEnableScrollLoad = false;
 
     @Input() thyAllowClear = false;
@@ -283,6 +284,8 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
         }
     }
 
+    private isSearching = false;
+
     constructor(
         private ngZone: NgZone,
         private elementRef: ElementRef,
@@ -334,7 +337,10 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
             this.resetOptions();
             this.initializeSelection();
             this.initKeyManager();
-            this.highlightCorrectOption(false);
+            if (this.isSearching) {
+                this.highlightCorrectOption(false);
+                this.isSearching = false;
+            }
             this.changeDetectorRef.markForCheck();
         });
         if (this.thyAutoExpand) {
@@ -373,9 +379,10 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
     }
 
     public onOptionsScrolled(elementRef: ElementRef) {
-        const scroll = this.elementRef.nativeElement.scrollTop,
-            height = this.elementRef.nativeElement.clientHeight,
-            scrollHeight = this.elementRef.nativeElement.scrollHeight;
+        const scroll = elementRef.nativeElement.scrollTop,
+            height = elementRef.nativeElement.clientHeight,
+            scrollHeight = elementRef.nativeElement.scrollHeight;
+
         if (scroll + height + 10 >= scrollHeight) {
             this.ngZone.run(() => {
                 this.thyOnScrollToBottom.emit();
@@ -390,6 +397,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
     public onSearchFilter(searchText: string) {
         searchText = searchText.trim();
         if (this.thyServerSearch) {
+            this.isSearching = true;
             this.thyOnSearch.emit(searchText);
         } else {
             const options = this.options.toArray();
