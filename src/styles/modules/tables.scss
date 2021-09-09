@@ -1,19 +1,26 @@
+@use "sass:map";
+@use "../bootstrap/mixins/breakpoints";
+@use "../bootstrap/mixins/hover";
+@use "../bootstrap/variables" as bootstrap-variables;
+@use "../mixins/tables";
+@use "../variables";
+
 .table {
     width: 100%;
     max-width: 100%;
-    color: $table-color;
-    margin-bottom: $table-margin-bottom;
-    background-color: $table-bg; // Reset for nesting within parents with `background-color`.
+    color: variables.$table-color;
+    margin-bottom: variables.$table-margin-bottom;
+    background-color: variables.$table-bg; // Reset for nesting within parents with `background-color`.
 
     th,
     td {
-        padding: $table-default-header-cell-padding;
+        padding: variables.$table-default-header-cell-padding;
         vertical-align: middle;
-        border-bottom: $table-border-width solid $table-border-color;
+        border-bottom: variables.$table-border-width solid variables.$table-border-color;
     }
 
     .table {
-        background-color: $body-bg;
+        background-color: bootstrap-variables.$body-bg;
     }
 }
 
@@ -33,58 +40,58 @@
 
 .table-default {
     tr {
-        height: $table-default-cell-height;
+        height: variables.$table-default-cell-height;
     }
-    @include table-set-header(
-        $table-default-header-height,
+    @include tables.table-set-header(
+        variables.$table-default-header-height,
         left,
         bottom,
         400,
-        $table-border-width,
+        variables.$table-border-width,
         transparent,
-        $table-border-color,
-        $table-default-head-color,
-        $table-default-header-padding
+        variables.$table-border-color,
+        variables.$table-default-head-color,
+        variables.$table-default-header-padding
     );
 
     &.table-sm {
-        @include table-size(0, $table-sm-cell-height);
+        @include tables.table-size(0, variables.$table-sm-cell-height);
         thead {
             th,
             td {
-                padding: $table-default-sm-header-padding;
+                padding: variables.$table-default-sm-header-padding;
             }
         }
     }
 }
 
 .table-bordered {
-    border: $table-border-width solid $table-border-color;
+    border: variables.$table-border-width solid variables.$table-border-color;
     tr {
-        height: $table-bordered-cell-height;
+        height: variables.$table-bordered-cell-height;
     }
 
     th,
     td {
         // padding: $table-bordered-padding;
-        border: $table-border-width solid $table-border-color;
+        border: variables.$table-border-width solid variables.$table-border-color;
     }
 
-    @include table-set-header(
-        $table-bordered-cell-height,
+    @include tables.table-set-header(
+        variables.$table-bordered-cell-height,
         center,
         middle,
         400,
-        $table-border-width,
-        $table-bordered-bg,
-        $table-border-color,
-        $table-bordered-head-color,
+        variables.$table-border-width,
+        variables.$table-bordered-bg,
+        variables.$table-border-color,
+        variables.$table-bordered-head-color,
         0
     );
 }
 
 .table-sm {
-    @include table-size($table-sm-cell-height, $table-sm-cell-height);
+    @include tables.table-size(variables.$table-sm-cell-height, variables.$table-sm-cell-height);
 }
 
 .table-fixed {
@@ -92,12 +99,12 @@
 }
 
 .table-hover {
-    @include table-hover-set-space-none();
+    @include tables.table-hover-set-space-none();
 
     tbody tr {
-        @include hover {
+        @include hover.hover {
             cursor: pointer;
-            background-color: $table-hover-color;
+            background-color: variables.$table-hover-color;
             // @include table-hover-box-shadow($table-hover-color);
         }
     }
@@ -106,7 +113,7 @@
 .table-draggable {
     thead tr {
         th:first-child {
-            padding-left: $table-draggable-first-td-padding-left;
+            padding-left: variables.$table-draggable-first-td-padding-left;
         }
     }
 
@@ -115,20 +122,20 @@
             position: relative;
 
             &:first-child {
-                padding-left: $table-draggable-first-td-padding-left;
+                padding-left: variables.$table-draggable-first-td-padding-left;
             }
 
             .table-draggable-icon {
                 position: absolute;
                 display: none;
-                color: $table-draggable-icon-color;
-                left: $table-draggable-icon-left;
+                color: variables.$table-draggable-icon-color;
+                left: variables.$table-draggable-icon-left;
                 top: 50%;
                 transform: translateY(-50%);
             }
         }
 
-        @include hover {
+        @include hover.hover {
             cursor: pointer;
 
             td {
@@ -139,7 +146,7 @@
         }
 
         &.table-draggable-ignore-item {
-            @include hover {
+            @include hover.hover {
                 cursor: inherit;
                 box-shadow: none;
 
@@ -155,19 +162,19 @@
     &.table-bordered {
         tbody tr td {
             &:first-child {
-                padding-left: $table-draggable-bordered-icon-padding-left;
+                padding-left: variables.$table-draggable-bordered-icon-padding-left;
             }
         }
     }
 }
 
 .table-responsive {
-    @each $breakpoint in map-keys($grid-breakpoints) {
-        $next: breakpoint-next($breakpoint, $grid-breakpoints);
-        $infix: breakpoint-infix($next, $grid-breakpoints);
+    @each $breakpoint in map.keys(bootstrap-variables.$grid-breakpoints) {
+        $next: breakpoints.breakpoint-next($breakpoint, bootstrap-variables.$grid-breakpoints);
+        $infix: breakpoints.breakpoint-infix($next, bootstrap-variables.$grid-breakpoints);
 
         &#{$infix} {
-            @include media-breakpoint-down($breakpoint) {
+            @include breakpoints.media-breakpoint-down($breakpoint) {
                 display: block;
                 width: 100%;
                 overflow-x: auto;
@@ -185,6 +192,6 @@
 
 .table-group {
     td:first-child {
-        padding-left: $table-group-first-cell-padding-left;
+        padding-left: variables.$table-group-first-cell-padding-left;
     }
 }

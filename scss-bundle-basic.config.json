@@ -4,6 +4,6 @@
     "rootDir": "./src",
     "outFile": "./dist/tethys/styles/basic.bundle.scss",
     "ignoreImports": ["~@angular/.*"],
-    "logLevel": "silent"
+    "logLevel": "trace"
   }
 }

@@ -1,26 +1,31 @@
+@use "mixins/breakpoints";
+@use "mixins/grid";
+@use "mixins/grid-framework";
+@use "variables";
+
 // Container widths
 //
 // Set the container width, and override it for fixed navbars in media queries.
 
-@if $enable-grid-classes {
+@if variables.$enable-grid-classes {
     // Single container class with breakpoint max-widths
     .container {
-        @include make-container();
-        @include make-container-max-widths();
+        @include grid.make-container();
+        @include grid.make-container-max-widths();
     }
 
     // 100% wide container at all breakpoints
     .container-fluid {
-        @include make-container();
+        @include grid.make-container();
     }
 
     // Responsive containers that are 100% wide until a breakpoint
-    @each $breakpoint, $container-max-width in $container-max-widths {
+    @each $breakpoint, $container-max-width in variables.$container-max-widths {
         .container-#{$breakpoint} {
             @extend .container-fluid;
         }
 
-        @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
+        @include breakpoints.media-breakpoint-up($breakpoint, variables.$grid-breakpoints) {
             %responsive-container-#{$breakpoint} {
                 max-width: $container-max-width;
             }
@@ -28,9 +33,9 @@
             // Extend each breakpoint which is smaller or equal to the current breakpoint
             $extend-breakpoint: true;
 
-            @each $name, $width in $grid-breakpoints {
+            @each $name, $width in variables.$grid-breakpoints {
                 @if ($extend-breakpoint) {
-                    .container#{breakpoint-infix($name, $grid-breakpoints)} {
+                    .container#{breakpoints.breakpoint-infix($name, variables.$grid-breakpoints)} {
                         @extend %responsive-container-#{$breakpoint};
                     }
 
@@ -48,9 +53,9 @@
 //
 // Rows contain your columns.
 
-@if $enable-grid-classes {
+@if variables.$enable-grid-classes {
     .row {
-        @include make-row();
+        @include grid.make-row();
     }
 
     // Remove the negative margin from default .row, then the horizontal padding
@@ -71,6 +76,6 @@
 //
 // Common styles for small and large grid columns
 
-@if $enable-grid-classes {
-    @include make-grid-columns();
+@if variables.$enable-grid-classes {
+    @include grid-framework.make-grid-columns();
 }

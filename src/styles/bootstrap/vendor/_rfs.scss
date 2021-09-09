@@ -1,3 +1,5 @@
+@use "sass:math";
+@use "sass:meta";
 // stylelint-disable property-blacklist, scss/dollar-variable-default
 
 // SCSS RFS mixin
@@ -22,7 +24,7 @@ $rfs-two-dimensional: false !default;
 // Factor of decrease
 $rfs-factor: 10 !default;
 
-@if type-of($rfs-factor) != 'number' or $rfs-factor <= 1 {
+@if meta.type-of($rfs-factor) != 'number' or $rfs-factor <= 1 {
     @error "`#{$rfs-factor}` is not a valid  $rfs-factor, it must be greater than 1.";
 }
 
@@ -39,7 +41,7 @@ $rfs-safari-iframe-resize-bug-fix: false !default;
 $enable-responsive-font-sizes: true !default;
 
 // Cache $rfs-base-font-size unit
-$rfs-base-font-size-unit: unit($rfs-base-font-size);
+$rfs-base-font-size-unit: math.unit($rfs-base-font-size);
 
 // Remove px-unit from $rfs-base-font-size for calculations
 @if $rfs-base-font-size-unit == 'px' {
@@ -49,7 +51,7 @@ $rfs-base-font-size-unit: unit($rfs-base-font-size);
 }
 
 // Cache $rfs-breakpoint unit to prevent multiple calls
-$rfs-breakpoint-unit-cache: unit($rfs-breakpoint);
+$rfs-breakpoint-unit-cache: math.unit($rfs-breakpoint);
 
 // Remove unit from $rfs-breakpoint for calculations
 @if $rfs-breakpoint-unit-cache == 'px' {
@@ -61,7 +63,7 @@ $rfs-breakpoint-unit-cache: unit($rfs-breakpoint);
 // Responsive font-size mixin
 @mixin rfs($fs, $important: false) {
     // Cache $fs unit
-    $fs-unit: if(type-of($fs) == 'number', unit($fs), false);
+    $fs-unit: if(meta.type-of($fs) == 'number', math.unit($fs), false);
 
     // Add !important suffix if needed
     $rfs-suffix: if($important, ' !important', '');

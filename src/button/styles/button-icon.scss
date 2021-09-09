@@ -1,6 +1,10 @@
+@use "../../styles/bootstrap/mixins/hover";
+@use "../../styles/variables";
+@use "mixin";
+
 .btn-icon {
     padding: 0px;
-    @include btn-link-variant($btn-link-color-default, $primary, none);
+    @include mixin.btn-link-variant(variables.$btn-link-color-default, variables.$primary, none);
     i,
     .wtf,
     .thy-icon {
@@ -13,11 +17,16 @@
         border: none;
         background: none;
     }
-    @include btn-icon-size-variant($font-size-md, $btn-icon-circle-padding-base, $font-size-md, $input-btn-height);
+    @include mixin.btn-icon-size-variant(
+        variables.$font-size-md,
+        variables.$btn-icon-circle-padding-base,
+        variables.$font-size-md,
+        variables.$input-btn-height
+    );
 }
 
 .btn-icon.btn-icon-danger-weak {
-    @include btn-link-variant($gray-500, $danger, none);
+    @include mixin.btn-link-variant(variables.$gray-500, variables.$danger, none);
 }
 
 .btn-icon-circle {
@@ -27,8 +36,8 @@
     i,
     .wtf,
     .thy-icon {
-        color: $btn-icon-color;
-        border-color: $btn-icon-color;
+        color: variables.$btn-icon-color;
+        border-color: variables.$btn-icon-color;
         border-width: 1px;
         border-radius: 50%;
         line-height: 1;
@@ -55,44 +64,44 @@
             i,
             .wtf,
             .thy-icon {
-                color: $btn-icon-thick-solid-color;
-                border-color: $btn-icon-thick-solid-color;
+                color: variables.$btn-icon-thick-solid-color;
+                border-color: variables.$btn-icon-thick-solid-color;
             }
         }
         &:not(:hover):not(.invalid).circle-dashed {
             i,
             .wtf,
             .thy-icon {
-                color: $btn-icon-thick-dashed-color;
-                border-color: $btn-icon-thick-dashed-color;
+                color: variables.$btn-icon-thick-dashed-color;
+                border-color: variables.$btn-icon-thick-dashed-color;
             }
         }
     }
-    @include hover-focus {
-        color: $primary;
+    @include hover.hover-focus {
+        color: variables.$primary;
         i,
         .wtf,
         .thy-icon {
-            border-color: $primary;
-            color: $primary;
+            border-color: variables.$primary;
+            color: variables.$primary;
             border-style: solid;
         }
     }
     &.invalid {
-        color: $danger;
+        color: variables.$danger;
         i,
         .wtf,
         .thy-icon {
-            border-color: $danger;
-            color: $danger;
+            border-color: variables.$danger;
+            color: variables.$danger;
         }
         &:hover,
         &:focus {
             i,
             .wtf,
             .thy-icon {
-                color: $primary;
-                border-color: $primary;
+                color: variables.$primary;
+                border-color: variables.$primary;
             }
         }
     }
@@ -113,23 +122,38 @@
 }
 
 .btn-icon-light {
-    color: $btn-icon-light-color;
+    color: variables.$btn-icon-light-color;
 }
 
 .btn-icon-active {
-    color: $primary;
+    color: variables.$primary;
 }
 
 .btn-icon-xs {
-    @include btn-icon-size-variant($font-size-base, $btn-icon-circle-padding-xs, $font-size-base, $input-btn-height-xs);
+    @include mixin.btn-icon-size-variant(
+        variables.$font-size-base,
+        variables.$btn-icon-circle-padding-xs,
+        variables.$font-size-base,
+        variables.$input-btn-height-xs
+    );
 }
 
 .btn-icon-sm {
-    @include btn-icon-size-variant($font-size-base, $btn-icon-circle-padding-sm, $font-size-base, $input-btn-height-md);
+    @include mixin.btn-icon-size-variant(
+        variables.$font-size-base,
+        variables.$btn-icon-circle-padding-sm,
+        variables.$font-size-base,
+        variables.$input-btn-height-md
+    );
 }
 
 .btn-icon-lg {
-    @include btn-icon-size-variant($font-size-lg, $btn-icon-circle-padding-lg, $font-size-lg, $input-btn-height-lg);
+    @include mixin.btn-icon-size-variant(
+        variables.$font-size-lg,
+        variables.$btn-icon-circle-padding-lg,
+        variables.$font-size-lg,
+        variables.$input-btn-height-lg
+    );
 }
 
 // 属性操作鼠标移上去  btn-icon-circle 样式的变化
@@ -138,18 +162,18 @@
         .btn-icon-circle {
             i,
             .wtf {
-                border: 2px solid $primary;
-                padding: $btn-icon-circle-padding-base - $btn-icon-circle-padding-difference;
-                color: $primary;
+                border: 2px solid variables.$primary;
+                padding: variables.$btn-icon-circle-padding-base - variables.$btn-icon-circle-padding-difference;
+                color: variables.$primary;
             }
             &.border-thick {
                 i,
                 .wtf {
-                    padding: $btn-icon-circle-padding-base - $btn-icon-circle-padding-difference;
+                    padding: variables.$btn-icon-circle-padding-base - variables.$btn-icon-circle-padding-difference;
                 }
                 i,
                 .wtf {
-                    padding: $btn-icon-circle-padding-base - $btn-icon-circle-padding-difference;
+                    padding: variables.$btn-icon-circle-padding-base - variables.$btn-icon-circle-padding-difference;
                 }
             }
         }

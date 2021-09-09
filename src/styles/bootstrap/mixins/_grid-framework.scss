@@ -1,9 +1,18 @@
+@use "sass:map";
+@use "../variables";
+@use "breakpoints";
+@use "grid";
+
 // Framework grid generation
 //
 // Used only by Bootstrap to generate the correct number of grid classes given
 // any value of `$grid-columns`.
 
-@mixin make-grid-columns($columns: $grid-columns, $gutter: $grid-gutter-width, $breakpoints: $grid-breakpoints) {
+@mixin make-grid-columns(
+    $columns: variables.$grid-columns,
+    $gutter: variables.$grid-gutter-width,
+    $breakpoints: variables.$grid-breakpoints
+) {
     // Common properties for all breakpoints
     %grid-column {
         position: relative;
@@ -12,8 +21,8 @@
         padding-left: $gutter / 2;
     }
 
-    @each $breakpoint in map-keys($breakpoints) {
-        $infix: breakpoint-infix($breakpoint, $breakpoints);
+    @each $breakpoint in map.keys($breakpoints) {
+        $infix: breakpoints.breakpoint-infix($breakpoint, $breakpoints);
 
         @if $columns > 0 {
             // Allow columns to stretch full width below their breakpoints
@@ -29,7 +38,7 @@
             @extend %grid-column;
         }
 
-        @include media-breakpoint-up($breakpoint, $breakpoints) {
+        @include breakpoints.media-breakpoint-up($breakpoint, $breakpoints) {
             // Provide basic `.col-{bp}` classes for equal-width flexbox columns
             .col#{$infix} {
                 flex-basis: 0;
@@ -38,22 +47,22 @@
                 max-width: 100%;
             }
 
-            @if $grid-row-columns > 0 {
-                @for $i from 1 through $grid-row-columns {
+            @if variables.$grid-row-columns > 0 {
+                @for $i from 1 through variables.$grid-row-columns {
                     .row-cols#{$infix}-#{$i} {
-                        @include row-cols($i);
+                        @include grid.row-cols($i);
                     }
                 }
             }
 
             .col#{$infix}-auto {
-                @include make-col-auto();
+                @include grid.make-col-auto();
             }
 
             @if $columns > 0 {
                 @for $i from 1 through $columns {
                     .col#{$infix}-#{$i} {
-                        @include make-col($i, $columns);
+                        @include grid.make-col($i, $columns);
                     }
                 }
             }
@@ -78,7 +87,7 @@
                     @if not($infix == '' and $i == 0) {
                         // Avoid emitting useless .offset-0
                         .offset#{$infix}-#{$i} {
-                            @include make-col-offset($i, $columns);
+                            @include grid.make-col-offset($i, $columns);
                         }
                     }
                 }

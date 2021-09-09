@@ -1,8 +1,13 @@
+@use "../../styles/bootstrap/variables" as bootstrap-variables;
+@use "../../styles/mixins/utilities";
+@use "../../styles/variables";
+@use "../custom-select/styles/mixin";
+
 // select
 
 select.form-control {
     &:not([size]):not([multiple]) {
-        height: $input-height;
+        height: bootstrap-variables.$input-height;
     }
 
     &:focus::-ms-value {
@@ -11,32 +16,32 @@ select.form-control {
         // in IE and (under certain conditions) Edge, as it looks bad and cannot be made to
         // match the appearance of the native widget.
         // See https://github.com/twbs/bootstrap/issues/19398.
-        color: $input-color;
-        background-color: $input-bg;
+        color: variables.$input-color;
+        background-color: bootstrap-variables.$input-bg;
     }
 }
 
 select.form-control-sm {
     &:not([size]):not([multiple]) {
-        height: $input-height-sm;
+        height: bootstrap-variables.$input-height-sm;
     }
 }
 
 select.form-control-lg {
     &:not([size]):not([multiple]) {
-        height: $input-height-lg;
+        height: bootstrap-variables.$input-height-lg;
     }
 }
 
 select.form-control-xs {
     &:not([size]):not([multiple]) {
-        height: $input-height-xs;
+        height: variables.$input-height-xs;
     }
 }
 
 select.form-control-md {
     &:not([size]):not([multiple]) {
-        height: $input-height-md;
+        height: variables.$input-height-md;
     }
 }
 
@@ -45,7 +50,7 @@ select.form-control-md {
     display: block;
 
     > .thy-icon {
-        @include select-arrow-variant();
+        @include mixin.select-arrow-variant();
     }
 
     &:hover {
@@ -57,10 +62,10 @@ select.form-control-md {
     .thy-select-remove {
         visibility: hidden;
         right: 12px;
-        font-size: $font-size-base;
+        font-size: variables.$font-size-base;
         z-index: 11;
-        background: $white;
-        @include absolute-vertical-align-middle(false);
+        background: variables.$white;
+        @include utilities.absolute-vertical-align-middle(false);
     }
 
     select {
@@ -71,7 +76,7 @@ select.form-control-md {
 
         &:required {
             &:invalid {
-                color: $input-form-check-border-color;
+                color: variables.$input-form-check-border-color;
             }
         }
     }
@@ -81,6 +86,6 @@ select.form-control-md {
     }
 
     option {
-        color: $input-color;
+        color: variables.$input-color;
     }
 }

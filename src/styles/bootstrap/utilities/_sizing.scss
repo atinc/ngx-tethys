@@ -1,9 +1,11 @@
+@use "../variables";
+
 // stylelint-disable declaration-no-important
 
 // Width and height
 
 @each $prop, $abbrev in (width: w, height: h) {
-    @each $size, $length in $sizes {
+    @each $size, $length in variables.$sizes {
         .#{$abbrev}-#{$size} {
             #{$prop}: $length !important;
         }

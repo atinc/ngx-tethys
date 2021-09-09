@@ -1,3 +1,5 @@
+@use "../../styles/variables";
+
 @mixin vote-color-variant($color) {
     background: rgba($color, 0.1);
     color: $color;
@@ -7,12 +9,12 @@
     }
     &.has-voted {
         background: $color;
-        color: $white;
+        color: variables.$white;
     }
 }
 @mixin vote-color-variant-weak($color) {
-    background-color: $gray-100;
-    color: $gray-600;
+    background-color: variables.$gray-100;
+    color: variables.$gray-600;
     &:hover {
         background: rgba($color, 0.2);
         color: $color;
@@ -53,40 +55,40 @@
     align-items: center;
     justify-content: space-between;
     .thy-icon {
-        margin-bottom: $vote-layout-vertical-icon-margin-bottom;
+        margin-bottom: variables.$vote-layout-vertical-icon-margin-bottom;
     }
     img {
-        margin-bottom: $vote-layout-vertical-icon-margin-bottom;
+        margin-bottom: variables.$vote-layout-vertical-icon-margin-bottom;
     }
 }
 
 .thy-vote-vertical-size-sm {
-    width: $vote-layout-vertical-sm;
-    @include vote-variant($vote-layout-vertical-padding-sm, $font-size-xs, $font-size-sm);
+    width: variables.$vote-layout-vertical-sm;
+    @include vote-variant(variables.$vote-layout-vertical-padding-sm, variables.$font-size-xs, variables.$font-size-sm);
 }
 
 .thy-vote-vertical-size-default {
-    width: $vote-layout-vertical-default;
-    @include vote-variant($vote-layout-vertical-padding-default, $font-size-base, $font-size-md);
+    width: variables.$vote-layout-vertical-default;
+    @include vote-variant(variables.$vote-layout-vertical-padding-default, variables.$font-size-base, variables.$font-size-md);
 }
 
 .thy-vote-horizontal {
     align-items: center;
     justify-content: space-between;
     .thy-icon {
-        margin-right: $vote-layout-horizontal-icon-margin-right;
+        margin-right: variables.$vote-layout-horizontal-icon-margin-right;
     }
     img {
-        margin-right: $vote-layout-horizontal-icon-margin-right;
+        margin-right: variables.$vote-layout-horizontal-icon-margin-right;
     }
 }
 
 .thy-vote-horizontal-size-sm {
-    @include vote-variant($vote-layout-horizontal-padding, $font-size-sm, $font-size-sm);
+    @include vote-variant(variables.$vote-layout-horizontal-padding, variables.$font-size-sm, variables.$font-size-sm);
 }
 
 .thy-vote-horizontal-size-default {
-    @include vote-variant($vote-layout-horizontal-padding, $font-size-base, $font-size-md);
+    @include vote-variant(variables.$vote-layout-horizontal-padding, variables.$font-size-base, variables.$font-size-md);
 }
 
 .thy-vote-round {
@@ -94,19 +96,19 @@
 }
 
 .thy-vote-success {
-    @include vote-color-variant($success);
+    @include vote-color-variant(variables.$success);
 }
 
 .thy-vote-primary {
-    @include vote-color-variant($primary);
+    @include vote-color-variant(variables.$primary);
 }
 
 .thy-vote-success-weak {
-    @include vote-color-variant-weak($success);
+    @include vote-color-variant-weak(variables.$success);
 }
 
 .thy-vote-primary-weak {
-    @include vote-color-variant-weak($primary);
+    @include vote-color-variant-weak(variables.$primary);
 }
 
 .thy-vote-disabled {

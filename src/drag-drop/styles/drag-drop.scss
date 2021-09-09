@@ -1,11 +1,13 @@
+@use "../../styles/variables";
+
 .thy-drop-position-in {
-    border: $primary 2px solid !important;
+    border: variables.$primary 2px solid !important;
 }
 
 .thy-drop-position-before {
-    border-top: $primary 2px solid !important;
+    border-top: variables.$primary 2px solid !important;
 }
 
 .thy-drop-position-after {
-    border-bottom: $primary 2px solid !important;
+    border-bottom: variables.$primary 2px solid !important;
 }

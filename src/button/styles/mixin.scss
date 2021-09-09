@@ -1,3 +1,10 @@
+@use "sass:color";
+@use "../../styles/bootstrap/mixins/gradients";
+@use "../../styles/bootstrap/mixins/hover";
+@use "../../styles/bootstrap/variables" as bootstrap-variables;
+@use "../../styles/mixins/shadow";
+@use "../../styles/variables";
+
 // Button variants
 //
 // Easily pump out default styles, as well as :hover, :focus, :active,
@@ -8,20 +15,20 @@
     $background,
     $hover-background,
     $border,
-    $hover-border: darken($border, 10%),
-    $active-background: darken($background, 10%),
-    $active-border: darken($border, 12.5%)
+    $hover-border: color.adjust($border, $lightness: -10%),
+    $active-background: color.adjust($background, $lightness: -10%),
+    $active-border: color.adjust($border, $lightness: -12.5%)
 ) {
     // color: color-yiq($background);
     color: $color;
-    @include gradient-bg($background);
+    @include gradients.gradient-bg($background);
     border-color: $border;
-    @include hover {
+    @include hover.hover {
         // color: color-yiq($hover-background);
         color: $hover-color;
-        @include gradient-bg($hover-background);
+        @include gradients.gradient-bg($hover-background);
         border-color: $hover-border;
-        @include box-shadow($btn-box-shadow);
+        @include shadow.box-shadow(variables.$btn-box-shadow);
     }
     &:focus,
     &.focus {
@@ -36,9 +43,9 @@
     &.disabled,
     &:disabled {
         &:hover {
-            @include button-disabled($btn-disabled-border-color);
+            @include button-disabled(variables.$btn-disabled-border-color);
         }
-        @include button-disabled($btn-disabled-border-color);
+        @include button-disabled(variables.$btn-disabled-border-color);
     }
     &:not(:disabled):not(.disabled):active,
     &:not(:disabled):not(.disabled).active,
@@ -78,9 +85,9 @@
     &.disabled,
     &:disabled {
         &:hover {
-            @include button-disabled($btn-outline-disabled-border-color);
+            @include button-disabled(variables.$btn-outline-disabled-border-color);
         }
-        @include button-disabled($btn-outline-disabled-border-color);
+        @include button-disabled(variables.$btn-outline-disabled-border-color);
     }
     &:not(:disabled):not(.disabled):active,
     &:not(:disabled):not(.disabled).active,
@@ -108,7 +115,7 @@
     @if $min-width {
         min-width: $min-width;
     }
-    @if $enable-rounded {
+    @if bootstrap-variables.$enable-rounded {
         border-radius: $border-radius;
     } @else {
         border-radius: 0;
@@ -121,17 +128,17 @@
 @mixin button-hover-box-shadow($color) {
     &:hover {
         // lighten($primary-active-theme, 15%)
-        @include box-shadow(0px 2px 5px 1px rgba($color, 0.6));
+        @include shadow.box-shadow(0px 2px 5px 1px rgba($color, 0.6));
     }
 }
 
 @mixin button-disabled($color) {
-    color: $btn-disabled-color;
-    background-color: $btn-disabled-bg-color;
+    color: variables.$btn-disabled-color;
+    background-color: variables.$btn-disabled-bg-color;
     border-color: $color;
     // border-color: $btn-disabled-border-color;
     // border: none;
-    @include box-shadow(none);
+    @include shadow.box-shadow(none);
 }
 
 @mixin button-icon-margin($right) {
@@ -141,7 +148,7 @@
 @mixin btn-link-variant($link-color, $link-hover-color, $link-hover-decoration) {
     color: $link-color;
     background-color: transparent;
-    @include hover {
+    @include hover.hover {
         color: $link-hover-color;
         text-decoration: $link-hover-decoration;
     }
@@ -151,28 +158,28 @@
     }
     &:disabled,
     &.disabled {
-        color: $btn-link-disabled-color;
-        @include hover {
-            color: $btn-link-disabled-color;
+        color: variables.$btn-link-disabled-color;
+        @include hover.hover {
+            color: variables.$btn-link-disabled-color;
             text-decoration: none;
         }
     } // No need for an active state here
 }
 
 @mixin btn-link-theme-variant($link-hover-color) {
-    @include hover {
+    @include hover.hover {
         color: $link-hover-color;
     }
 }
 
 @mixin btn-square-radius {
     // 设置大小也不影响 border-radius
-    border-radius: $border-radius;
+    border-radius: variables.$border-radius;
     &.btn-lg,
     &.btn-md,
     &.btn-sm,
     &.btn-xs {
-        border-radius: $border-radius;
+        border-radius: variables.$border-radius;
     }
 }
 
@@ -190,21 +197,21 @@
             i,
             .wtf,
             .thy-icon {
-                padding: $round-padding - $btn-icon-circle-padding-difference;
+                padding: $round-padding - variables.$btn-icon-circle-padding-difference;
             }
-            @include hover-focus {
+            @include hover.hover-focus {
                 i,
                 .wtf {
-                    padding: $round-padding - $btn-icon-circle-padding-difference;
+                    padding: $round-padding - variables.$btn-icon-circle-padding-difference;
                 }
             }
         }
-        @include hover-focus {
+        @include hover.hover-focus {
             i,
             .wtf,
             .thy-icon {
                 border-width: 2px;
-                padding: $round-padding - $btn-icon-circle-padding-difference;
+                padding: $round-padding - variables.$btn-icon-circle-padding-difference;
             }
         }
     }

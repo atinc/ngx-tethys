@@ -1,3 +1,6 @@
+@use "../../styles/bootstrap/mixins/hover";
+@use "../../styles/variables";
+
 // Checkboxes and radios
 //
 // Indent the labels to position radios/checkboxes as hanging controls.
@@ -13,11 +16,11 @@
 
 .form-check-input {
     position: absolute;
-    margin-top: $form-check-input-margin-t;
-    margin-left: -$form-check-input-margin-l;
+    margin-top: variables.$form-check-input-margin-t;
+    margin-left: -(variables.$form-check-input-margin-l);
 
     &:disabled ~ .form-check-label {
-        color: $input-form-check-disable-color;
+        color: variables.$input-form-check-disable-color;
     }
 }
 
@@ -33,12 +36,12 @@
     -ms-flex-align: center;
     align-items: center;
     padding-left: 0;
-    margin-right: $form-check-inline-margin-r;
+    margin-right: variables.$form-check-inline-margin-r;
     // Undo .form-check-input defaults and add some `margin-right`.
     .form-check-input {
         position: relative;
         margin-top: 0;
-        margin-right: $form-check-inline-input-margin-r;
+        margin-right: variables.$form-check-inline-input-margin-r;
         margin-left: 0;
     }
 }
@@ -48,11 +51,11 @@ input[type='checkbox'] {
     margin-top: 3px;
     -webkit-appearance: none;
     appearance: none;
-    width: $input-form-check-size;
-    height: $input-form-check-size;
-    border: solid 1px $input-form-check-border-color;
+    width: variables.$input-form-check-size;
+    height: variables.$input-form-check-size;
+    border: solid 1px variables.$input-form-check-border-color;
     cursor: pointer;
-    transition: border $transition-duration-normal;
+    transition: border variables.$transition-duration-normal;
 
     box-sizing: border-box;
     padding: 0;
@@ -66,7 +69,7 @@ input[type='checkbox'] {
             opacity: 1;
         }
         &:not(:disabled) {
-            border-color: $primary;
+            border-color: variables.$primary;
         }
     }
 
@@ -75,8 +78,8 @@ input[type='checkbox'] {
     }
 
     &:not(:disabled) {
-        @include hover {
-            border-color: $primary;
+        @include hover.hover {
+            border-color: variables.$primary;
         }
     }
 
@@ -90,7 +93,7 @@ input[type='checkbox'] {
     border-radius: 2px;
     &:after {
         position: absolute;
-        border: 3px solid $primary;
+        border: 3px solid variables.$primary;
         border-top: 0;
         border-left: 0;
         opacity: 0;
@@ -107,14 +110,14 @@ input[type='checkbox'] {
             transition: all 0.1s cubic-bezier(0.71, -0.46, 0.88, 0.6);
         }
         &:not(:disabled) {
-            background: $primary;
+            background: variables.$primary;
             &::after {
-                border-color: $white;
+                border-color: variables.$white;
             }
         }
         &:disabled {
             &::after {
-                border-color: $input-form-check-disable-color;
+                border-color: variables.$input-form-check-disable-color;
             }
         }
     }
@@ -126,7 +129,7 @@ input.form-check-indeterminate[type='checkbox'] {
         left: 50%;
         width: 6px;
         height: 6px;
-        background-color: $primary;
+        background-color: variables.$primary;
         border: 0;
         transform: translate(-50%, -50%);
         opacity: 1;
@@ -147,7 +150,7 @@ input[type='radio'] {
         width: 8px;
         height: 8px;
         border-radius: 100%;
-        background: $primary;
+        background: variables.$primary;
         opacity: 0;
         transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
     }
@@ -155,12 +158,12 @@ input[type='radio'] {
     &:checked {
         &:not(:disabled) {
             &::after {
-                background: $primary;
+                background: variables.$primary;
             }
         }
         &:disabled {
             &::after {
-                background: $input-form-check-disable-color;
+                background: variables.$input-form-check-disable-color;
             }
         }
     }
@@ -171,8 +174,8 @@ input[type='radio'] {
 .form-check-label {
     margin-left: 6px;
     cursor: pointer;
-    color: $input-label-color;
-    transition: color $transition-duration-normal;
+    color: variables.$input-label-color;
+    transition: color variables.$transition-duration-normal;
     user-select: none;
     .form-check-inline & {
         margin-left: 5px;
@@ -183,7 +186,7 @@ input[type='radio'] {
 
 // checked style
 .form-check-checked > .form-check-label {
-    color: $input-label-checked-color;
+    color: variables.$input-label-checked-color;
 }
 
 .form-check-no-label-text {

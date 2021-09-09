@@ -3,29 +3,29 @@
 // Used in conjunction with global variables to enable certain theme features.
 
 // Vendor
-@import 'vendor/rfs';
+@use 'vendor/rfs';
 
 // Deprecate
-@import 'mixins/deprecate';
+@use 'mixins/deprecate';
 
 // Utilities
-@import 'mixins/breakpoints';
-@import 'mixins/hover';
-@import 'mixins/screen-reader';
-@import 'mixins/reset-text';
-@import 'mixins/text-hide';
-@import 'mixins/text-truncate';
+@use 'mixins/breakpoints';
+@use 'mixins/hover';
+@use 'mixins/screen-reader';
+@use 'mixins/reset-text';
+@use 'mixins/text-hide';
+@use 'mixins/text-truncate';
 
 // Components
-@import 'mixins/caret';
-@import 'mixins/lists';
+@use 'mixins/caret';
+@use 'mixins/lists';
 
 // Skins
-@import 'mixins/border-radius';
-@import 'mixins/gradients';
-@import 'mixins/transition';
+@use 'mixins/border-radius';
+@use 'mixins/gradients';
+@use 'mixins/transition';
 
 // Layout
-@import 'mixins/clearfix';
-@import 'mixins/grid-framework';
-@import 'mixins/grid';
+@use 'mixins/clearfix';
+@use 'mixins/grid-framework';
+@use 'mixins/grid';

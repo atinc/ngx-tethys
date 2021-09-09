@@ -1,3 +1,6 @@
+@use "../../shared/option/styles/option.mixin";
+@use "../../styles/variables";
+
 .thy-list {
     display: block;
     overflow: auto;
@@ -5,15 +8,15 @@
     padding: 2px 0px;
     &-divided {
         .thy-list-item {
-            border-bottom: $thy-list-item-border-bottom;
+            border-bottom: variables.$thy-list-item-border-bottom;
         }
     }
 }
 
 .thy-list-option,
 .thy-list-item {
-    padding: $list-item-padding;
-    @include thy-option-common-layout();
+    padding: variables.$list-item-padding;
+    @include option.thy-option-common-layout();
 
     &.cdk-drag,
     &.thy-sortable-item {
@@ -27,16 +30,16 @@
 }
 
 .thy-list-option {
-    @include thy-option();
+    @include option.thy-option();
 }
 
 .thy-list-item {
-    @include thy-option($gray-80);
+    @include option.thy-option(variables.$gray-80);
 }
 
 .thy-multiple-selection-list {
     .thy-list-option {
-        @include thy-multiple-option();
+        @include option.thy-multiple-option();
     }
 }
 
@@ -44,28 +47,28 @@
     display: flex;
     flex-wrap: wrap;
     padding: 10px 0 0 10px;
-    @include thy-grid-option();
+    @include option.thy-grid-option();
 }
 
 .thy-list-sm {
-    @include thy-grid-option-sm();
+    @include option.thy-grid-option-sm();
 }
 
 .thy-list-item-meta {
     display: flex;
     flex: 1;
     align-items: center;
-    padding: $list-item-meta-padding;
+    padding: variables.$list-item-meta-padding;
     .thy-list-item-meta-content {
         flex: 1;
-        margin-left: $thy-list-item-meta-content-margin-left;
+        margin-left: variables.$thy-list-item-meta-content-margin-left;
         .thy-list-item-meta-title {
-            font-size: $thy-list-item-meta-title-font-size;
-            color: $gray-800;
+            font-size: variables.$thy-list-item-meta-title-font-size;
+            color: variables.$gray-800;
         }
         .thy-list-item-meta-description {
-            margin-top: $thy-list-item-meta-description-margin-top;
-            color: $gray-600;
+            margin-top: variables.$thy-list-item-meta-description-margin-top;
+            color: variables.$gray-600;
         }
     }
 }
