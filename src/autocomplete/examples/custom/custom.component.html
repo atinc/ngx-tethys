@@ -1,0 +1,17 @@
+<div>
+  <input
+    thyInput
+    thyAutocompleteTrigger
+    [(ngModel)]="value"
+    [placeholder]="'自定义样式'"
+    [thyAutocompleteWidth]="500"
+    [thyAutocompleteComponent]="auto"
+    (ngModelChange)="valueChange($event)"
+  />
+  <thy-autocomplete #auto>
+    <thy-option *ngFor="let item of listOfOption" [thyLabelText]="item.label" [thyValue]="item.value" [thyShowOptionCustom]="true">
+      <thy-icon thyIconName="task"></thy-icon>
+      <span style="margin-left: 5px;"> {{ item.label }} </span>
+    </thy-option>
+  </thy-autocomplete>
+</div>
