@@ -2,19 +2,7 @@ import { Component, Input, OnInit, ContentChild, TemplateRef, HostBinding } from
 import { isString } from 'ngx-tethys/util';
 import { Dictionary } from 'ngx-tethys/types';
 
-type ThyAlertType =
-    | 'success'
-    | 'warning'
-    | 'danger'
-    | 'info'
-    | 'primary-week'
-    | 'success-week'
-    | 'warning-week'
-    | 'danger-week'
-    | 'primary-weak'
-    | 'success-weak'
-    | 'warning-weak'
-    | 'danger-weak';
+type ThyAlertType = 'success' | 'warning' | 'danger' | 'info' | 'primary-weak' | 'success-weak' | 'warning-weak' | 'danger-weak';
 
 @Component({
     selector: 'thy-alert',
@@ -28,9 +16,6 @@ export class ThyAlertComponent implements OnInit {
     messageText: string;
 
     @Input() set thyType(value: ThyAlertType) {
-        if (value && value.indexOf('-week') !== -1) {
-            console.warn('The type "xxx-week" will be removed, please use "xxx-weak" instead.');
-        }
         this._type = value;
     }
 
@@ -71,10 +56,6 @@ export class ThyAlertComponent implements OnInit {
         warning: 'waring-fill',
         danger: 'close-circle-fill',
         info: 'minus-circle-fill',
-        'primary-week': 'question-circle-fill',
-        'success-week': 'check-circle-fill',
-        'warning-week': 'waring-fill',
-        'danger-week': 'close-circle-fill',
         'primary-weak': 'question-circle-fill',
         'success-weak': 'check-circle-fill',
         'warning-weak': 'waring-fill',
