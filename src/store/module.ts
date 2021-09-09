@@ -14,6 +14,9 @@ export class ThyRootStoreModule {
 @NgModule()
 export class ThyFeatureStoreModule {}
 
+/**
+ * @deprecated please use @tethys/store
+ */
 @NgModule({})
 export class ThyStoreModule {
     static forRoot(stores: Type<Store>[] = []): ModuleWithProviders<ThyRootStoreModule> {
