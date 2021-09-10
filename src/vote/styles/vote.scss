@@ -108,3 +108,7 @@
 .thy-vote-primary-weak {
     @include vote-color-variant-weak($primary);
 }
+
+.thy-vote-disabled {
+    pointer-events: none;
+}

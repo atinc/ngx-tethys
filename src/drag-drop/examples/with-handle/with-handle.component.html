@@ -1,0 +1,9 @@
+<p>设置 <code>thyDragHandle</code> 之后，只能拖动其对列表进行拖动排序等操作。以及设置 dragContent 之后的展示。</p>
+<ul [thyDropContainer]="nodes">
+  <ng-container *ngFor="let item of nodes">
+    <li [thyDrag]="item">
+      <span thyDragHandle [thyDisabled]="item.handleDisabled" class="cursor-pointer"><thy-icon thyIconName="drag"></thy-icon></span>
+      <span thyDragContent>{{ item.title }}</span>
+    </li>
+  </ng-container>
+</ul>

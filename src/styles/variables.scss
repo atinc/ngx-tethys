@@ -359,6 +359,14 @@ $label-size-padding: 5px 10px !default;
 $label-size-padding-sm: 4px 10px !default;
 $label-size-padding-md: 6px 10px !default;
 $label-size-padding-lg: 7px 10px !default;
+$label-size-outline-diff: 1px !default;
+$label-size-paddings: () !default;
+$label-size-paddings: (
+    default: 5,
+    sm: 4,
+    md: 6,
+    lg: 7
+);
 $label-border-radius: 3px !default;
 $label-pill-radius: 18px !default;
 $label-border-radius: 3px !default;

@@ -27,3 +27,18 @@
         }
     }
 }
+
+@mixin label-size($size, $padding, $minusValue: 0px) {
+    @if $size == lg {
+        &--#{$size} {
+            padding: #{$padding - $minusValue} 10px;
+            font-size: $font-size-base;
+        }
+    } @else if $size == default {
+        padding: #{$padding - $minusValue} 10px;
+    } @else {
+        &--#{$size} {
+            padding: #{$padding - $minusValue} 10px;
+        }
+    }
+}

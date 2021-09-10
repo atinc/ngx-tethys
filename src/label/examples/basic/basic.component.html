@@ -19,7 +19,9 @@
 
 <hr />
 <p class="font-size-xs">· 特殊类型<code>outline</code>，用于描述任务间的关联关系，不可修改文案及颜色</p>
-<span *ngFor="let status of relationLabels" class="mr-3" thyLabel="outline" [thyLabelColor]="status.color">{{ status.name }}</span>
+<span *ngFor="let status of relationLabels" class="mr-3" thyLabel="outline" [thySize]="status?.size" [thyLabelColor]="status.color">{{
+  status.name
+}}</span>
 
 <hr />
 <p class="font-size-xs">· 标签的颜色自定义，eg：<code>#7076fa</code>覆盖</p>

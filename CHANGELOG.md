@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="11.0.5"></a>
+## [11.0.5](https://github.com/atinc/ngx-tethys/compare/11.0.4...11.0.5) (2021-09-09)
+
+
+### Bug Fixes
+
+* **copy:** fix notifyService multiple calls error (#INFR-2186) ([#1321](https://github.com/atinc/ngx-tethys/issues/1321)) ([2b80dcf](https://github.com/atinc/ngx-tethys/commit/2b80dcf)), closes [#INFR-2186](https://github.com/atinc/ngx-tethys/issues/INFR-2186)
+* **copy:** update notify import to ngx-tethys/notify fix build error #INFR-2207 ([947e415](https://github.com/atinc/ngx-tethys/commit/947e415)), closes [#INFR-2207](https://github.com/atinc/ngx-tethys/issues/INFR-2207)
+* **notify:** fix notifyService multiple calls error (#INFR-2186) ([16ba3b2](https://github.com/atinc/ngx-tethys/commit/16ba3b2)), closes [#INFR-2186](https://github.com/atinc/ngx-tethys/issues/INFR-2186)
+* **select:** add condition for scroll load #INFR-2243 ([b3bd3fb](https://github.com/atinc/ngx-tethys/commit/b3bd3fb)), closes [#INFR-2243](https://github.com/atinc/ngx-tethys/issues/INFR-2243)
+* **select:** highlight option base on other property #INFR-2243 ([21f93de](https://github.com/atinc/ngx-tethys/commit/21f93de)), closes [#INFR-2243](https://github.com/atinc/ngx-tethys/issues/INFR-2243)
+* **select:** modify test for local search #INFR-2243 ([6c0a2b8](https://github.com/atinc/ngx-tethys/commit/6c0a2b8)), closes [#INFR-2243](https://github.com/atinc/ngx-tethys/issues/INFR-2243)
+* **select:** rename property #INFR-2243 ([e8de8f9](https://github.com/atinc/ngx-tethys/commit/e8de8f9)), closes [#INFR-2243](https://github.com/atinc/ngx-tethys/issues/INFR-2243)
+* **select:** use search state to scroll #INFR-2243 ([23191d9](https://github.com/atinc/ngx-tethys/commit/23191d9)), closes [#INFR-2243](https://github.com/atinc/ngx-tethys/issues/INFR-2243)
+
+
+### Features
+
+* **card:** #INFR-1899 remove thy-card height and flex style ([#1311](https://github.com/atinc/ngx-tethys/issues/1311)) ([1b6c98e](https://github.com/atinc/ngx-tethys/commit/1b6c98e)), closes [#INFR-1899](https://github.com/atinc/ngx-tethys/issues/INFR-1899) [#INFR-1899](https://github.com/atinc/ngx-tethys/issues/INFR-1899) [#INFR-1899](https://github.com/atinc/ngx-tethys/issues/INFR-1899)
+* **copy:** support copy thyShowNotify #INFR-2223 ([#1332](https://github.com/atinc/ngx-tethys/issues/1332)) ([9d869b1](https://github.com/atinc/ngx-tethys/commit/9d869b1)), closes [#INFR-2223](https://github.com/atinc/ngx-tethys/issues/INFR-2223)
+* **dialog:** add getOpendsDialogs method #INFR-1919 ([#1313](https://github.com/atinc/ngx-tethys/issues/1313)) ([1897507](https://github.com/atinc/ngx-tethys/commit/1897507)), closes [#INFR-1919](https://github.com/atinc/ngx-tethys/issues/INFR-1919) [#INFR-1919](https://github.com/atinc/ngx-tethys/issues/INFR-1919)
+* **select:** group hover add background color and modify font color … ([#1314](https://github.com/atinc/ngx-tethys/issues/1314)) ([18ba417](https://github.com/atinc/ngx-tethys/commit/18ba417)), closes [#INFR-2152](https://github.com/atinc/ngx-tethys/issues/INFR-2152)
+* **select:** remove hover style and focus in style when disabled #INFR-2178 #INFR-2173 ([#1316](https://github.com/atinc/ngx-tethys/issues/1316)) ([adbfa72](https://github.com/atinc/ngx-tethys/commit/adbfa72)), closes [#INFR-2178](https://github.com/atinc/ngx-tethys/issues/INFR-2178) [#INFR-2173](https://github.com/atinc/ngx-tethys/issues/INFR-2173) [#INFR-2178](https://github.com/atinc/ngx-tethys/issues/INFR-2178) [#INFR-2173](https://github.com/atinc/ngx-tethys/issues/INFR-2173) [#INFR-2178](https://github.com/atinc/ngx-tethys/issues/INFR-2178)
+* **vote:** vote support disabled #INFR-2229 ([#1330](https://github.com/atinc/ngx-tethys/issues/1330)) ([fb95507](https://github.com/atinc/ngx-tethys/commit/fb95507)), closes [#INFR-2229](https://github.com/atinc/ngx-tethys/issues/INFR-2229) [#INFR-2229](https://github.com/atinc/ngx-tethys/issues/INFR-2229)
+
+
+
 <a name="11.0.4"></a>
 ## [11.0.4](https://github.com/atinc/ngx-tethys/compare/11.0.3...11.0.4) (2021-07-12)
 
