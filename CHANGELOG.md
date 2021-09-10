@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="12.0.0"></a>
+# [12.0.0](https://github.com/atinc/ngx-tethys/compare/12.0.0-next.5...12.0.0) (2021-09-10)
+
+
+### Bug Fixes
+
+* **label:** better naming format ([8479bfe](https://github.com/atinc/ngx-tethys/commit/8479bfe))
+* **label:** fix outline type height ([#1334](https://github.com/atinc/ngx-tethys/issues/1334)) ([6203a74](https://github.com/atinc/ngx-tethys/commit/6203a74))
+* **label:** remove conflict lines for $label-size-paddings #INFR-2284 ([a9bbcfd](https://github.com/atinc/ngx-tethys/commit/a9bbcfd)), closes [#INFR-2284](https://github.com/atinc/ngx-tethys/issues/INFR-2284)
+
+
+### Performance Improvements
+
+* **flexible-text:** adjust applyOverflow timing of execution ([#1337](https://github.com/atinc/ngx-tethys/issues/1337)) ([414e21d](https://github.com/atinc/ngx-tethys/commit/414e21d))
+
+
+
 <a name="12.0.0-next.5"></a>
 # [12.0.0-next.5](https://github.com/atinc/ngx-tethys/compare/11.0.5...12.0.0-next.5) (2021-09-10)
 
