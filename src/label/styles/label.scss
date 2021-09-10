@@ -1,5 +1,6 @@
 @use "../../styles/variables";
 @use "mixin";
+@use "sass:map";
 
 .thy-label {
     font-weight: normal;
@@ -12,7 +13,14 @@
     /**** size ****/
     @each $size, $padding in variables.$label-size-paddings {
         & {
-            @include mixin.labelSize($size, $padding);
+            @include mixin.label-size($size, $padding);
+        }
+    }
+
+    /**** size ****/
+    @each $size, $padding in variables.$label-size-paddings {
+        & {
+            @include mixin.label-size($size, $padding);
         }
     }
 
@@ -23,7 +31,7 @@
     }
 
     &.thy-label-state {
-        @include mixin.labelSize(md, map-get(variables.$label-size-paddings, md));
+        @include mixin.label-size(md, map-get(variables.$label-size-paddings, md));
     }
 
     &.thy-label-pill {
@@ -99,7 +107,7 @@
 
         @each $size, $padding in variables.$label-size-paddings {
             &.thy-label {
-                @include mixin.labelSize($size, $padding, variables.$label-size-outline-diff);
+                @include mixin.label-size($size, $padding, variables.$label-size-outline-diff);
             }
         }
     }

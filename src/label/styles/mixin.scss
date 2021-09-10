@@ -31,7 +31,7 @@
     }
 }
 
-@mixin labelSize($size, $padding, $minusValue: 0px) {
+@mixin label-size($size, $padding, $minusValue: 0px) {
     @if $size == lg {
         &--#{$size} {
             padding: #{$padding - $minusValue} 10px;
