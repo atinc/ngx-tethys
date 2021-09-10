@@ -1,10 +1,13 @@
+@use "../../styles/mixins/link";
+@use "../../styles/variables";
+
 .thy-layout {
     display: flex;
     flex-direction: column;
     flex: auto;
     height: 100%;
     min-height: 0;
-    background: $layout-content-background;
+    background: variables.$layout-content-background;
 
     &--has-sidebar {
         flex-direction: row;
@@ -18,13 +21,13 @@
 .thy-layout-header {
     display: block;
     flex: 0 0 auto;
-    background: $layout-header-background;
-    padding: $layout-header-padding;
-    height: $layout-header-height;
-    line-height: $layout-header-height;
+    background: variables.$layout-header-background;
+    padding: variables.$layout-header-padding;
+    height: variables.$layout-header-height;
+    line-height: variables.$layout-header-height;
 
     &.header-has-border {
-        border-bottom: 1px solid $nav-border-color;
+        border-bottom: 1px solid variables.$nav-border-color;
     }
 }
 
@@ -32,23 +35,23 @@
     flex: auto; // = 1 1 auto
     display: flex;
     flex-direction: column;
-    padding: $layout-content-padding;
-    background: $layout-content-background;
+    padding: variables.$layout-content-padding;
+    background: variables.$layout-content-background;
     overflow-y: auto;
 
     .thy-layout-content-section {
         display: block;
         // overflow: hidden;
-        border-radius: $layout-content-section-border-radius;
-        background: $layout-content-section-background;
-        margin-bottom: $layout-content-section-margin-bottom;
+        border-radius: variables.$layout-content-section-border-radius;
+        background: variables.$layout-content-section-background;
+        margin-bottom: variables.$layout-content-section-margin-bottom;
     }
 
     .thy-layout-content-main {
         display: flex;
         flex-direction: column;
         flex: auto;
-        background: $layout-content-section-background;
+        background: variables.$layout-content-section-background;
     }
 
     // &--align-title {
@@ -61,24 +64,24 @@
     flex: 0 0 auto;
     transition: all 0.2s;
     position: relative;
-    background: $layout-sidebar-background;
+    background: variables.$layout-sidebar-background;
     min-width: 0;
-    width: $layout-sidebar-width;
-    border-right: $layout-sidebar-border-right;
+    width: variables.$layout-sidebar-width;
+    border-right: variables.$layout-sidebar-border-right;
     display: flex;
     flex-direction: column;
 
     .sidebar-header {
         padding: 0 10px;
-        min-height: $layout-header-height;
-        line-height: $layout-header-height;
+        min-height: variables.$layout-header-height;
+        line-height: variables.$layout-header-height;
         display: flex;
         flex-direction: row;
 
         .title {
             padding: 0px 0px 0px 10px;
-            color: $body-color;
-            font-size: $font-size-md;
+            color: variables.$body-color;
+            font-size: variables.$font-size-md;
             flex-grow: 1;
         }
 
@@ -107,11 +110,11 @@
         transition: background 200ms;
 
         &:hover {
-            background: $layout-sidebar-drag-background-hover;
+            background: variables.$layout-sidebar-drag-background-hover;
         }
 
         &:active {
-            background: $layout-sidebar-drag-background-active;
+            background: variables.$layout-sidebar-drag-background-active;
         }
     }
 
@@ -129,23 +132,23 @@
     display: flex;
 
     .layout-header-title {
-        font-size: $font-size-md;
-        color: $gray-800;
+        font-size: variables.$font-size-md;
+        color: variables.$gray-800;
         display: flex;
         align-items: center;
         flex: 0 0 auto;
 
         a {
-            @include link-variant($gray-800, none, $primary, none);
+            @include link.link-variant(variables.$gray-800, none, variables.$primary, none);
             &.prefix-icon {
                 &:hover {
-                    opacity: $layout-header-icon-link-opacity;
+                    opacity: variables.$layout-header-icon-link-opacity;
                 }
             }
         }
 
         .title-separator {
-            color: $layout-header-separator-color;
+            color: variables.$layout-header-separator-color;
             padding: 3px;
         }
 
@@ -158,16 +161,16 @@
 
         .prefix-icon {
             padding: 5px;
-            color: $primary;
-            font-size: $layout-header-prefix-icon-size;
+            color: variables.$primary;
+            font-size: variables.$layout-header-prefix-icon-size;
             .thy-icon {
-                font-size: $layout-header-prefix-icon-size;
+                font-size: variables.$layout-header-prefix-icon-size;
             }
         }
 
         .suffix-icon {
             margin-left: 10px;
-            color: $primary;
+            color: variables.$primary;
         }
     }
 
@@ -183,6 +186,6 @@
 }
 
 .thy-layout-header-sm {
-    height: $layout-header-height-sm;
-    line-height: $layout-header-height-sm;
+    height: variables.$layout-header-height-sm;
+    line-height: variables.$layout-header-height-sm;
 }

@@ -96,19 +96,19 @@ export class ThySlideService extends ThyAbstractOverlayService<ThySlideConfig, T
         super(slideAbstractOverlayOptions, overlay, injector, slideDefaultConfig);
     }
 
-    open<T, TData = undefined, TResult = undefined>(
+    open<T, TData = unknown, TResult = unknown>(
         componentOrTemplateRef: ComponentTypeOrTemplateRef<T>,
-        config: ThySlideConfig
+        config: ThySlideConfig<TData>
     ): ThySlideRef<T, TResult> {
         if (this.overlayIsOpened(config)) {
             return;
         }
-        const slideRef = this.openOverlay(componentOrTemplateRef, config);
+        const slideRef = this.openOverlay<T, TResult>(componentOrTemplateRef, config);
         this.originElementAddActiveClass(slideRef.containerInstance.config);
         slideRef.afterClosed().subscribe(() => {
             this.originElementRemoveActiveClass(slideRef.containerInstance.config);
         });
-        return slideRef as ThySlideRef<T, TResult>;
+        return slideRef;
     }
 
     ngOnDestroy() {

@@ -1,21 +1,23 @@
+import { EXPANDED_DROPDOWN_POSITIONS, UpdateHostClassService } from 'ngx-tethys/core';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
+
+import { ConnectedOverlayPositionChange, ConnectionPositionPair } from '@angular/cdk/overlay';
 import {
-    OnInit,
-    Component,
-    forwardRef,
     ChangeDetectorRef,
-    Input,
-    Output,
+    Component,
+    ElementRef,
     EventEmitter,
-    TemplateRef,
+    forwardRef,
     HostListener,
-    ViewChild,
-    ElementRef
+    Input,
+    OnInit,
+    Output,
+    TemplateRef,
+    ViewChild
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { ConnectedOverlayPositionChange, ConnectionPositionPair } from '@angular/cdk/overlay';
-import { EXPANDED_DROPDOWN_POSITIONS } from 'ngx-tethys/core';
-import { UpdateHostClassService } from 'ngx-tethys/core';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
+
+import { CascaderOption } from './types';
 
 function toArray<T>(value: T | T[]): T[] {
     let ret: T[];
@@ -47,18 +49,6 @@ const defaultDisplayRender = (label: any) => label.join(' / ');
 
 export type ThyCascaderTriggerType = 'click' | 'hover';
 export type ThyCascaderExpandTrigger = 'click' | 'hover';
-
-export interface CascaderOption {
-    value?: any;
-    label?: string;
-    title?: string;
-    disabled?: boolean;
-    loading?: boolean;
-    isLeaf?: boolean;
-    parent?: CascaderOption;
-    children?: CascaderOption[];
-    [key: string]: any;
-}
 
 @Component({
     selector: 'thy-cascader,[thy-cascader]',

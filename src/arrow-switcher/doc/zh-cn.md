@@ -4,7 +4,7 @@ title: Arrow Switcher
 subtitle: 上下条切换
 ---
 
-<div class="dg-alert dg-alert-info">用于上下条目的切换</div>
+<alert>用于上下条目的切换</alert>
 
 ## 何时使用
 

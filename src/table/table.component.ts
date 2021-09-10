@@ -9,60 +9,48 @@ import { ViewportRuler } from '@angular/cdk/overlay';
 import { DOCUMENT } from '@angular/common';
 import {
     Component,
-    Input,
-    Output,
-    ViewEncapsulation,
-    TemplateRef,
-    OnInit,
-    OnChanges,
-    EventEmitter,
     ContentChild,
     ContentChildren,
     DoCheck,
     ElementRef,
+    EventEmitter,
     HostBinding,
     Inject,
+    Input,
     IterableChangeRecord,
     IterableChanges,
     IterableDiffer,
     IterableDiffers,
+    OnChanges,
     OnDestroy,
+    OnInit,
+    Output,
     QueryList,
+    SimpleChanges,
+    TemplateRef,
     ViewChild,
-    SimpleChanges
+    ViewEncapsulation
 } from '@angular/core';
 
 import { IThyTableColumnParentComponent, THY_TABLE_COLUMN_PARENT_COMPONENT, ThyTableColumnComponent } from './table-column.component';
 import {
     PageChangedEvent,
+    ThyMultiSelectEvent,
+    ThyPage,
+    ThyRadioSelectEvent,
+    ThySwitchEvent,
     ThyTableColumn,
     ThyTableDraggableEvent,
     ThyTableEmptyOptions,
     ThyTableEvent,
-    ThyTableRowEvent,
-    ThyMultiSelectEvent,
-    ThyPage,
-    ThyRadioSelectEvent,
-    ThySwitchEvent
+    ThyTableRowEvent
 } from './table.interface';
 
 export type ThyTableTheme = 'default' | 'bordered';
-/**
- * @deprecated ThyGridTheme is deprecated, please use ThyTableTheme
- */
-export type ThyGridTheme = ThyTableTheme;
 
 export type ThyTableMode = 'list' | 'group' | 'tree';
-/**
- * @deprecated ThyGridMode is deprecated, please use ThyTableMode
- */
-export type ThyGridMode = ThyTableMode;
 
 export type ThyTableSize = 'default' | 'sm';
-/**
- * @deprecated ThyGridSize is deprecated, please use ThyTableSize
- */
-export type ThyGridSize = ThyTableSize;
 
 interface ThyTableGroup<T = unknown> {
     id?: string;
@@ -684,8 +672,3 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
         this._destroyInvalidAttribute();
     }
 }
-
-/**
- * @deprecated ThyGridComponent is deprecated, please use ThyTableComponent
- */
-export const ThyGridComponent = ThyTableComponent;

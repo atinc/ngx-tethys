@@ -3,7 +3,10 @@ category: other
 title: Store
 subtitle: 状态管理
 order: 10
+label: deprecated
 ---
+
+<alert type="warning">请使用 [@tethys/store](https://github.com/tethys-org/store) 替代 ngx-tethys/store, 此模块会在下一个大版本中移除。</alert>
 
 ## Usage
 

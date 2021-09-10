@@ -4,7 +4,7 @@ title: FlexibleText
 subtitle: 文本提示
 ---
 
-<div class="dg-alert dg-alert-info">响应式文本提示气泡框。</div>
+<alert>响应式文本提示气泡框</alert>
 
 ## 何时使用
 

@@ -1,0 +1,20 @@
+@use "../../variables";
+@use "../variables" as bootstrap-variables;
+
+@mixin reset-text() {
+    font-family: variables.$font-family-base;
+    // We deliberately do NOT reset font-size or word-wrap.
+    font-style: normal;
+    font-weight: bootstrap-variables.$font-weight-normal;
+    line-height: variables.$line-height-base;
+    text-align: left; // Fallback for where `start` is not supported
+    text-align: start;
+    text-decoration: none;
+    text-shadow: none;
+    text-transform: none;
+    letter-spacing: normal;
+    word-break: normal;
+    word-spacing: normal;
+    white-space: normal;
+    line-break: auto;
+}

@@ -4,7 +4,7 @@ title: DatePick
 subtitle: 日期选择
 order: 1
 ---
-<div class="dg-alert dg-alert-info">选择日期的控件。</div>
+<alert>选择日期的控件</alert>
 
 ## 何时使用
 

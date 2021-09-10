@@ -1,13 +1,16 @@
+@use "../bootstrap/mixins/hover";
+@use "../variables";
+
 @mixin link-variant($link-color, $link-decoration, $link-hover-color, $link-hover-decoration) {
     color: $link-color;
     text-decoration: $link-decoration;
-    @include hover {
+    @include hover.hover {
         color: $link-hover-color;
         text-decoration: $link-hover-decoration;
     }
 }
 
-@mixin link-size($font-size: $font-size-base, $icon-font-size: $font-size-base) {
+@mixin link-size($font-size: variables.$font-size-base, $icon-font-size: variables.$font-size-base) {
     font-size: $font-size;
     .thy-icon,
     .wtf {

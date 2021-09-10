@@ -46,20 +46,34 @@ describe('Store: EntityStore with refs', () => {
         }
     }
 
-    const initialUsers: UserInfo[] = [
-        { uid: '1', name: 'user 1' },
-        { uid: '2', name: 'user 2' }
-    ];
+    let initialUsers: UserInfo[];
+    let initialGroups: GroupInfo[];
+    let initialTasks: TaskInfo[];
 
-    const initialGroups: GroupInfo[] = [
-        { _id: 'group-1', name: 'group 1' },
-        { _id: 'group-2', name: 'group 2' }
-    ];
-
-    const initialTasks: TaskInfo[] = [
-        { _id: 'task-1', title: 'task 1', group_id: 'group-1', created_by: '1' },
-        { _id: 'task-2', title: 'task 2', group_id: 'group-2', created_by: '2' }
-    ];
+    beforeEach(() => {
+        initialUsers = [
+            { uid: '1', name: 'user 1' },
+            { uid: '2', name: 'user 2' }
+        ];
+        initialGroups = [
+            { _id: 'group-1', name: 'group 1' },
+            { _id: 'group-2', name: 'group 2' }
+        ];
+        initialTasks = [
+            {
+                _id: 'task-1',
+                title: 'task 1',
+                group_id: 'group-1',
+                created_by: '1'
+            },
+            {
+                _id: 'task-2',
+                title: 'task 2',
+                group_id: 'group-2',
+                created_by: '2'
+            }
+        ];
+    });
 
     it('should get initial data when call store initialize', () => {
         const tasksStore = new TasksStore();
@@ -74,8 +88,18 @@ describe('Store: EntityStore with refs', () => {
         );
         const state = tasksStore.snapshot;
         expect(state.entities).toEqual([
-            { _id: 'task-1', title: 'task 1', group_id: 'group-1', created_by: '1' },
-            { _id: 'task-2', title: 'task 2', group_id: 'group-2', created_by: '2' }
+            {
+                _id: 'task-1',
+                title: 'task 1',
+                group_id: 'group-1',
+                created_by: '1'
+            },
+            {
+                _id: 'task-2',
+                title: 'task 2',
+                group_id: 'group-2',
+                created_by: '2'
+            }
         ]);
         expect(state.pagination).toEqual({
             pageIndex: 1,
@@ -128,7 +152,10 @@ describe('Store: EntityStore with refs', () => {
             }
         ]);
 
-        expect(tasksStore.snapshot.references).toEqual({ groups: initialGroups, users: initialUsers });
+        expect(tasksStore.snapshot.references).toEqual({
+            groups: initialGroups,
+            users: initialUsers
+        });
     });
 
     it('should get correct refs with directly visit references by entitiesWithRefs$', () => {
@@ -192,13 +219,16 @@ describe('Store: EntityStore with refs', () => {
         beforeEach(() => {
             tasksStore = new TasksStore(
                 {
-                    entities: initialTasks,
+                    entities: [...initialTasks],
                     pagination: {
                         pageIndex: 1,
                         pageSize: 10,
                         count: initialTasks.length
                     },
-                    references: { groups: initialGroups, users: initialUsers }
+                    references: {
+                        groups: [...initialGroups],
+                        users: [...initialUsers]
+                    }
                 },
                 {
                     referencesIdKeys: {
@@ -292,13 +322,23 @@ describe('Store: EntityStore with refs', () => {
             );
             const state = tasksStore.snapshot;
             expect(state.entities).toEqual([
-                { _id: 'task-1', title: 'task 1', group_id: 'group-1', created_by: '1' },
+                {
+                    _id: 'task-1',
+                    title: 'task 1',
+                    group_id: 'group-1',
+                    created_by: '1'
+                },
                 {
                     _id: '3',
                     title: 'task 3',
                     group_id: 'group-3'
                 },
-                { _id: 'task-2', title: 'task 2', group_id: 'group-2', created_by: '2' }
+                {
+                    _id: 'task-2',
+                    title: 'task 2',
+                    group_id: 'group-2',
+                    created_by: '2'
+                }
             ]);
             expect(state.references).toEqual({
                 groups: [...initialGroups, newGroup],

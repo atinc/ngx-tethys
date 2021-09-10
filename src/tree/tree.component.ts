@@ -1,32 +1,33 @@
+import { SelectionModel } from '@angular/cdk/collections';
 import {
     Component,
-    Input,
-    Output,
-    ElementRef,
-    ViewEncapsulation,
-    TemplateRef,
-    OnInit,
-    OnChanges,
-    EventEmitter,
     ContentChild,
-    HostBinding,
+    ElementRef,
+    EventEmitter,
     forwardRef,
-    SimpleChanges
+    HostBinding,
+    Input,
+    OnChanges,
+    OnInit,
+    Output,
+    SimpleChanges,
+    TemplateRef,
+    ViewEncapsulation
 } from '@angular/core';
-import { ThyTreeNodeData, ThyTreeEmitEvent, ThyTreeDragDropEvent, ThyTreeIcons, ThyTreeNodeCheckState } from './tree.class';
-import { helpers } from 'ngx-tethys/util';
-import { ThyTreeService } from './tree.service';
-import { SelectionModel } from '@angular/cdk/collections';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { UpdateHostClassService } from 'ngx-tethys/core';
-import { ThyDragDropEvent, ThyDropPosition, ThyDragOverEvent, ThyDragStartEvent } from 'ngx-tethys/drag-drop';
+import { ThyDragDropEvent, ThyDragOverEvent, ThyDragStartEvent, ThyDropPosition } from 'ngx-tethys/drag-drop';
+import { helpers } from 'ngx-tethys/util';
+import { THY_TREE_ABSTRACT_TOKEN } from './tree-abstract';
 import { ThyTreeNode } from './tree-node.class';
+import { ThyTreeDragDropEvent, ThyTreeEmitEvent, ThyTreeIcons, ThyTreeNodeCheckState, ThyTreeNodeData } from './tree.class';
+import { ThyTreeService } from './tree.service';
 
 type ThyTreeSize = 'sm' | '';
 
 type ThyTreeType = 'default' | 'especial';
 
-const treeTypeClassMap: any = {
+const treeTypeClassMap = {
     default: ['thy-tree-default'],
     especial: ['thy-tree-especial']
 };
@@ -40,6 +41,10 @@ const treeTypeClassMap: any = {
             provide: NG_VALUE_ACCESSOR,
             useExisting: forwardRef(() => ThyTreeComponent),
             multi: true
+        },
+        {
+            provide: THY_TREE_ABSTRACT_TOKEN,
+            useExisting: forwardRef(() => ThyTreeComponent)
         },
         ThyTreeService,
         UpdateHostClassService
@@ -186,8 +191,10 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
     }
 
     private _setTreeType() {
-        if (this.thyType) {
-            this.updateHostClassService.addClass(treeTypeClassMap[this.thyType]);
+        if (this.thyType && treeTypeClassMap[this.thyType]) {
+            treeTypeClassMap[this.thyType].forEach(className => {
+                this.updateHostClassService.addClass(className);
+            });
         }
     }
 

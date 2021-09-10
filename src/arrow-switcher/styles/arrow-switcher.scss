@@ -1,3 +1,5 @@
+@use "../../styles/variables";
+
 @mixin switcher-size($size) {
     button {
         width: $size;
@@ -14,39 +16,39 @@
         display: flex;
         align-items: center;
         button {
-            background: $arrow-switcher-btn-bac;
-            border-radius: $input-border-radius-xs;
+            background: variables.$arrow-switcher-btn-bac;
+            border-radius: variables.$input-border-radius-xs;
             transition: none;
             display: flex;
             align-items: center;
             .thy-icon {
                 flex: 1;
-                font-size: $font-size-base;
+                font-size: variables.$font-size-base;
             }
         }
         button:disabled {
-            background: $arrow-switcher-btn-disabled-bac;
+            background: variables.$arrow-switcher-btn-disabled-bac;
             pointer-events: none;
             .thy-icon {
-                color: $arrow-switcher-btn-disabled-color;
+                color: variables.$arrow-switcher-btn-disabled-color;
             }
         }
         button:hover {
-            background: $arrow-switcher-btn-hover-bac;
+            background: variables.$arrow-switcher-btn-hover-bac;
             .thy-icon {
-                color: $arrow-switcher-btn-hover-color;
+                color: variables.$arrow-switcher-btn-hover-color;
             }
         }
         span {
             min-width: 58px;
             text-align: center;
             padding: 0 10px;
-            color: $gray-500;
+            color: variables.$gray-500;
         }
     }
-    @include switcher-size($arrow-switcher-btn-size);
+    @include switcher-size(variables.$arrow-switcher-btn-size);
 
     &.thy-arrow-switcher-small {
-        @include switcher-size($arrow-switcher-sm-btn-size);
+        @include switcher-size(variables.$arrow-switcher-sm-btn-size);
     }
 }

@@ -7,6 +7,8 @@ subtitle: 变量
 # 全局通用变量
 
 ```scss
+@use "sass:color";
+@use "sass:map";
 // gray color
 $white: #fff;
 // 直接使用 $gray-70 , $gray-99 会在将来的版本移除
@@ -35,8 +37,9 @@ $rem-20px: 1.25rem;
 $rem-26px: 1.625rem;
 // color
 $body-color: $gray-800 !default;
-$primary: #22d7bb !default;
-$primary-active: #18bfa4 !default;
+$primary: #348fe4 !default;
+// deprecated
+$primary-active: color.adjust($primary, $lightness: -10%) !default;
 $secondary: $gray-700 !default;
 $success: #66c060 !default; // 2dbcff
 $info: #2dbcff !default;
@@ -98,12 +101,6 @@ $code-font-size: 0.875rem !default;
 // pill style for close(dialog,slide)
 $close-pill-enabled: true !default;
 
-```
-
-# 组件的自定义
-
-```scss
-
 // ---input-btn 输入框和按钮复用的变量---
 
 // 按钮和输入框大小, 目前有5种大小, 按钮和输入框都是通过 padding 设置成对应大小的
@@ -131,10 +128,10 @@ $input-btn-padding-y-lg: 0.656rem !default;
 $input-btn-focus-width: 0.0625rem !default; // 1px
 
 // Buttons
-$btn-border-radius: 1.25rem !default;
-$btn-border-radius-lg: 1.65rem !default;
-$btn-border-radius-sm: 1rem !default;
-$btn-border-radius-xs: 0.75rem !default;
+$btn-border-radius: 4px !default;
+$btn-border-radius-lg: 4px !default;
+$btn-border-radius-sm: 4px !default;
+$btn-border-radius-xs: 4px !default;
 $btn-box-shadow: null !default;
 
 $btn-line-height: $input-btn-line-height;
@@ -325,12 +322,14 @@ $table-sm-cell-height: 44px !default;
 $table-bordered-padding: 11px 15px !default;
 $table-bordered-bg: $gray-100 !default;
 $table-bordered-head-color: $gray-700 !default;
+$table-draggable-first-th-padding-left: 20px !default;
+$table-draggable-first-td-padding-left: 20px !default;
 $table-draggable-icon-color: $gray-600 !default;
-$table-draggable-icon-left: 0px !default;
+$table-draggable-icon-left: 2px !default;
 $table-draggable-bordered-icon-padding-left: 30px !default;
 $table-default-header-cell-padding: 0 15px !default;
 $table-default-header-padding: 12px 15px !default;
-$table-default-sm-header-padding: 8px !default;
+$table-default-sm-header-padding: 8px 15px !default;
 $table-default-header-height: inherit !default;
 $table-bordered-cell-height: 50px !default;
 $table-group-first-cell-padding-left: 43px !default;
@@ -383,7 +382,7 @@ $label-warning-bg: $warning !default;
 $label-danger-bg: $danger !default;
 //avatar
 $avatar-sizes: () !default;
-$avatar-sizes: map-merge(
+$avatar-sizes: map.merge(
     (
         22: 12,
         24: 12,
@@ -533,6 +532,7 @@ $close-font-weight: normal !default;
 $close-color: $black !default;
 $close-text-shadow: 0 1px 0 $white !default;
 $close-text-color: $gray-400 !default;
+
 //empty
 $empty-icon-size: 3.125rem !default;
 $empty-icon-size-lg: 5rem !default;
@@ -717,10 +717,6 @@ $tooltip-arrow-color: $tooltip-bg !default;
 $alert-padding-y: 0.625rem !default;
 $alert-padding-x: 1.125rem !default;
 $thy-alert-weak-colors: (
-    'primary-week': $primary,
-    'success-week': $success,
-    'warning-week': $warning,
-    'danger-week': $danger,
     'primary-weak': $primary,
     'success-weak': $success,
     'warning-weak': $warning,
@@ -763,6 +759,7 @@ $statistic-title-size-default: $font-size-base;
 // result
 $result-padding: 30px !default;
 $result-title-font-size: $font-size-xlg !default;
+$result-subtitle-font-size: $font-size-base !default;
 $result-subtitle-color: $gray-600 !default;
 $result-extra-margin-top: 17px !default;
 $result-extra-item-margin: 6px !default;
@@ -777,5 +774,16 @@ $markdown-color-border-color: $gray-200 !default;
 // mention
 $mention-suggestions-width: 280px !default;
 $mention-suggestions-height: 315px !default;
+
+// Popover
+$popover-divider: $gray-100 !default;
+$popover-header-padding: 12px 20px !default;
+$popover-body-padding: 15px 20px !default;
+
+// divider
+$divider-orientation-margin: 5% !default;
+$divider-text-padding: 1em !default;
+$divider-color: $gray-200 !default;
+$divider-width: 1px !default;
 
 ```

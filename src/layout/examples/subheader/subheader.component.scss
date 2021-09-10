@@ -1,4 +1,4 @@
-@import 'variables.scss';
+@use 'variables.scss' as variables2;
 
 :host {
     .demo-layout-backdrop {
@@ -7,7 +7,7 @@
         }
 
         .thy-layout-content {
-            background: $gray-200;
+            background: variables2.$gray-200;
         }
     }
 }

@@ -1,14 +1,14 @@
-import { SchematicContext, Tree, chain, Rule, noop } from '@angular-devkit/schematics';
-import { getWorkspace, updateWorkspace } from '@schematics/angular/utility/workspace';
-import { NodePackageInstallTask, RunSchematicTask } from '@angular-devkit/schematics/tasks';
 import { JsonArray } from '@angular-devkit/core';
-import { fetchPackageMetadata } from '@angular/cli/utilities/package-metadata';
+import { chain, noop, SchematicContext, Tree } from '@angular-devkit/schematics';
+import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
+import { PackageManager } from '@angular/cli/lib/config/workspace-schema';
 import { getPackageManager } from '@angular/cli/utilities/package-manager';
+import { fetchPackageMetadata } from '@angular/cli/utilities/package-metadata';
+import { updateWorkspace } from '@schematics/angular/utility/workspace';
 
-import { addPackageToPackageJson, getPackageVersionFromPackageJson, getProjectFromWorkspace } from '../utils';
 import { DEPENDENCIES } from '../dependencies';
+import { addPackageToPackageJson, getPackageVersionFromPackageJson, getProjectFromWorkspace } from '../utils';
 import { VERSION } from '../version';
-import { PackageManager } from '@angular/cli/lib/config/schema';
 
 const TETHYS_PKG_NAME = 'ngx-tethys';
 
