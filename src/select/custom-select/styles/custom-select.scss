@@ -1,9 +1,10 @@
+@use "../../../styles/variables";
+
 .thy-select-custom {
     display: block;
     width: 100%;
     position: relative;
     outline: none;
-
     & .form-control-custom {
         cursor: pointer;
     }

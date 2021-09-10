@@ -1,12 +1,14 @@
+@use "../styles/variables";
+
 @mixin slider-type($color) {
     .thy-slider-rail {
-        background-color: $gray-200;
+        background-color: variables.$gray-200;
         .thy-slider-track {
             background-color: $color;
         }
         .thy-slider-pointer {
             border-color: $color;
-            background-color: $white;
+            background-color: variables.$white;
         }
     }
 }
@@ -21,7 +23,7 @@
         width: 100%;
         height: 5px;
         border-radius: 5px;
-        background-color: $gray-200;
+        background-color: variables.$gray-200;
         .thy-slider-track {
             position: absolute;
             height: 5px;
@@ -36,7 +38,7 @@
             border-radius: 50%;
             border-width: 2px;
             border-style: solid;
-            background-color: $white;
+            background-color: variables.$white;
         }
     }
 
@@ -63,30 +65,30 @@
     &.slider-disabled {
         cursor: not-allowed;
         .thy-slider-rail {
-            background-color: $gray-100;
+            background-color: variables.$gray-100;
             .thy-slider-track {
-                background-color: $gray-400;
+                background-color: variables.$gray-400;
             }
             .thy-slider-pointer {
-                border-color: $gray-100;
+                border-color: variables.$gray-100;
             }
         }
     }
 
     &.thy-slider-primary {
-        @include slider-type($primary);
+        @include slider-type(variables.$primary);
     }
     &,
     &.thy-slider-success {
-        @include slider-type($success);
+        @include slider-type(variables.$success);
     }
     &.thy-slider-info {
-        @include slider-type($info);
+        @include slider-type(variables.$info);
     }
     &.thy-slider-warning {
-        @include slider-type($warning);
+        @include slider-type(variables.$warning);
     }
     &.thy-slider-danger {
-        @include slider-type($danger);
+        @include slider-type(variables.$danger);
     }
 }

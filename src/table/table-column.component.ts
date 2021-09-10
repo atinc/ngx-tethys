@@ -1,35 +1,24 @@
 import {
     Component,
-    Input,
-    ElementRef,
-    ViewEncapsulation,
     ContentChild,
-    ContentChildren,
-    TemplateRef,
-    ViewChild,
+    ElementRef,
+    Inject,
     InjectionToken,
+    Input,
+    OnInit,
     Optional,
-    Inject
+    TemplateRef,
+    ViewEncapsulation
 } from '@angular/core';
-import { OnInit } from '@angular/core';
 
 export interface IThyTableColumnParentComponent {
     updateColumnSelections(key: string, selections: any): void;
 }
 
 /**
- * @deprecated IThyTableColumnParentComponent is deprecated, please use IThyTableColumnParentComponent
- */
-export interface IThyGridColumnParentComponent extends IThyTableColumnParentComponent {}
-
-/**
  * Injection token used to provide the parent component to options.
  */
 export const THY_TABLE_COLUMN_PARENT_COMPONENT = new InjectionToken<IThyTableColumnParentComponent>('THY_TABLE_COLUMN_PARENT_COMPONENT');
-/**
- * @deprecated THY_GRID_COLUMN_PARENT_COMPONENT is deprecated, please use THY_TABLE_COLUMN_PARENT_COMPONENT
- */
-export const THY_GRID_COLUMN_PARENT_COMPONENT = THY_TABLE_COLUMN_PARENT_COMPONENT;
 
 @Component({
     selector: 'thy-grid-column,thy-table-column',
@@ -109,7 +98,7 @@ export class ThyTableColumnComponent implements OnInit {
     constructor(
         private el: ElementRef,
         @Optional()
-        @Inject(THY_GRID_COLUMN_PARENT_COMPONENT)
+        @Inject(THY_TABLE_COLUMN_PARENT_COMPONENT)
         public parent: IThyTableColumnParentComponent
     ) {}
 
@@ -136,8 +125,3 @@ export class ThyTableColumnComponent implements OnInit {
         );
     }
 }
-
-/**
- * @deprecated ThyTableColumnComponent is deprecated, please use ThyTableColumnComponent
- */
-export const ThyGridColumnComponent = ThyTableColumnComponent;

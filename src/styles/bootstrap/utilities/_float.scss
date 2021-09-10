@@ -1,0 +1,21 @@
+@use "sass:map";
+@use "../mixins/breakpoints";
+@use "../variables";
+
+// stylelint-disable declaration-no-important
+
+@each $breakpoint in map.keys(variables.$grid-breakpoints) {
+    @include breakpoints.media-breakpoint-up($breakpoint) {
+        $infix: breakpoints.breakpoint-infix($breakpoint, variables.$grid-breakpoints);
+
+        .float#{$infix}-left {
+            float: left !important;
+        }
+        .float#{$infix}-right {
+            float: right !important;
+        }
+        .float#{$infix}-none {
+            float: none !important;
+        }
+    }
+}

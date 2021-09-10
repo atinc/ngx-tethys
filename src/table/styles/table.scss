@@ -1,3 +1,6 @@
+@use "../../styles/bootstrap/mixins/hover";
+@use "../../styles/variables";
+
 /**
  * @deprecated .thy-grid is deprecated, please use .thy-table
  */
@@ -23,7 +26,7 @@
     > button,
     > a {
         display: inline-block;
-        margin-right: $operation-link-margin-y;
+        margin-right: variables.$operation-link-margin-y;
 
         &:last-child {
             margin-right: 0;
@@ -47,7 +50,7 @@
     .thy-grid-group {
         &:hover {
             cursor: pointer;
-            background-color: $table-hover-color;
+            background-color: variables.$table-hover-color;
         }
 
         td {
@@ -59,7 +62,7 @@
             align-items: center;
 
             .expand-icon {
-                color: $gray-500;
+                color: variables.$gray-500;
                 margin-right: 5px;
             }
         }
@@ -70,7 +73,7 @@
         left: 0;
         top: 50%;
         margin-top: -8px;
-        color: $gray-500;
+        color: variables.$gray-500;
     }
 
     .thy-grid-checkbox-column {
@@ -87,7 +90,7 @@
 
         table {
             tr {
-                @include hover {
+                @include hover.hover {
                     .thy-operation-links {
                         a,
                         button {
@@ -107,7 +110,7 @@
             }
         }
 
-        @include hover {
+        @include hover.hover {
             .thy-operation-links {
                 a,
                 button {
@@ -122,7 +125,7 @@
         // justify-content: flex-end;
 
         &.thy-grid-footer-has-padding {
-            padding: $table-footer-padding;
+            padding: variables.$table-footer-padding;
         }
     }
 }
@@ -133,7 +136,7 @@
     td {
         display: table-cell;
         vertical-align: middle;
-        padding-left: $table-draggable-first-td-padding-left;
+        padding-left: variables.$table-draggable-first-td-padding-left;
 
         .table-draggable-icon {
             display: none;
@@ -164,7 +167,7 @@
     > button,
     > a {
         display: inline-block;
-        margin-right: $operation-link-margin-y;
+        margin-right: variables.$operation-link-margin-y;
 
         &:last-child {
             margin-right: 0;
@@ -188,7 +191,7 @@
     .thy-table-group {
         &:hover {
             cursor: pointer;
-            background-color: $table-hover-color;
+            background-color: variables.$table-hover-color;
         }
 
         td {
@@ -200,7 +203,7 @@
             align-items: center;
 
             .expand-icon {
-                color: $gray-500;
+                color: variables.$gray-500;
                 margin-right: 5px;
             }
         }
@@ -211,7 +214,7 @@
         left: 0;
         top: 50%;
         margin-top: -8px;
-        color: $gray-500;
+        color: variables.$gray-500;
     }
 
     .thy-table-checkbox-column {
@@ -228,7 +231,7 @@
 
         table {
             tr {
-                @include hover {
+                @include hover.hover {
                     .thy-operation-links {
                         a,
                         button {
@@ -248,7 +251,7 @@
             }
         }
 
-        @include hover {
+        @include hover.hover {
             .thy-operation-links {
                 a,
                 button {
@@ -263,7 +266,7 @@
         // justify-content: flex-end;
 
         &.thy-table-footer-has-padding {
-            padding: $table-footer-padding;
+            padding: variables.$table-footer-padding;
         }
     }
 }
@@ -274,7 +277,7 @@
     td {
         display: table-cell;
         vertical-align: middle;
-        padding-left: $table-draggable-first-td-padding-left;
+        padding-left: variables.$table-draggable-first-td-padding-left;
 
         .table-draggable-icon {
             display: none;

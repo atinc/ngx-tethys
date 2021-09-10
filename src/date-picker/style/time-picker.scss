@@ -1,9 +1,11 @@
+@use "../../styles/variables";
+
 .time-picker-section {
     margin: 0 auto;
     display: flex;
     padding: 0 20px;
     line-height: 50px;
-    border-top: solid 1px $gray-200;
+    border-top: solid 1px variables.$gray-200;
 
     thy-time-picker {
         margin: 10px 0;

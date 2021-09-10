@@ -1,11 +1,14 @@
+@use "../mixins/close";
+@use "../variables";
+
 .close {
     // float: right;
-    font-size: $close-font-size;
-    font-weight: $close-font-weight;
+    font-size: variables.$close-font-size;
+    font-weight: variables.$close-font-weight;
     // line-height: 1;
-    text-shadow: $close-text-shadow;
+    text-shadow: variables.$close-text-shadow;
     opacity: 1;
-    @include set-close-link-variant($close-text-color, $primary);
+    @include close.set-close-link-variant(variables.$close-text-color, variables.$primary);
     // Opinionated: add "hand" cursor to non-disabled .close elements
     &:not(:disabled):not(.disabled) {
         cursor: pointer;
@@ -28,45 +31,45 @@ button.close {
 } // stylelint-enable
 
 .close-link {
-    @include set-close-link-variant();
-    @include set-close-link-size();
+    @include close.set-close-link-variant();
+    @include close.set-close-link-size();
 }
 
 .close-link-sm {
-    @include set-close-link-size($font-size-sm);
+    @include close.set-close-link-size(variables.$font-size-sm);
 }
 
 .close-link-md {
-    @include set-close-link-size($font-size-md);
+    @include close.set-close-link-size(variables.$font-size-md);
 }
 
 .close-link-lg {
-    @include set-close-link-size($font-size-lg);
+    @include close.set-close-link-size(variables.$font-size-lg);
 }
 
 .close-link-danger {
-    @include set-close-link-variant($gray-300, $danger);
+    @include close.set-close-link-variant(variables.$gray-300, variables.$danger);
 }
 
 .remove-link {
-    @include set-close-link-variant($gray-400, $danger);
-    @include set-close-link-size($font-size-base);
+    @include close.set-close-link-variant(variables.$gray-400, variables.$danger);
+    @include close.set-close-link-size(variables.$font-size-base);
     .remove-link-icon {
-        background: $white;
+        background: variables.$white;
         border-radius: 50%;
     }
 }
 
 $removeLinkSizes: (
-    'xs': $font-size-sm,
-    'sm': $font-size-base,
-    'md': $font-size-base,
-    'default': $font-size-base,
-    'lg': $font-size-md
+    'xs': variables.$font-size-sm,
+    'sm': variables.$font-size-base,
+    'md': variables.$font-size-base,
+    'default': variables.$font-size-base,
+    'lg': variables.$font-size-md
 );
 
 @each $size, $value in $removeLinkSizes {
     .remove-link-#{$size} {
-        @include set-close-link-size($value);
+        @include close.set-close-link-size($value);
     }
 }

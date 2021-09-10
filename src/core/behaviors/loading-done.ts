@@ -1,4 +1,4 @@
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { OnDestroy } from '@angular/core';
 import { Constructor } from './constructor';
 

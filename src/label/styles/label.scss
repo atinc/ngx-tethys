@@ -1,12 +1,28 @@
+@use "../../styles/variables";
+@use "mixin";
 @use "sass:map";
 
 .thy-label {
     font-weight: normal;
     display: inline-block;
     line-height: 1;
-    font-size: $font-size-sm;
-    border-radius: $label-border-radius;
-    color: $white;
+    font-size: variables.$font-size-sm;
+    border-radius: variables.$label-border-radius;
+    color: variables.$white;
+
+    /**** size ****/
+    @each $size, $padding in variables.$label-size-paddings {
+        & {
+            @include mixin.label-size($size, $padding);
+        }
+    }
+
+    /**** size ****/
+    @each $size, $padding in variables.$label-size-paddings {
+        & {
+            @include mixin.label-size($size, $padding);
+        }
+    }
 
     /**** size ****/
     @each $size, $padding in $label-size-paddings {
@@ -18,76 +34,76 @@
     thy-icon,
     i {
         // cursor: pointer;
-        font-size: $font-size-sm;
+        font-size: variables.$font-size-sm;
     }
 
     &.thy-label-state {
-        @include label-size(md, map-get($label-size-paddings, md));
+        @include mixin.label-size(md, map-get(variables.$label-size-paddings, md));
     }
 
     &.thy-label-pill {
-        font-size: $font-size-sm;
-        border-radius: $label-pill-radius;
-        color: $gray-700;
+        font-size: variables.$font-size-sm;
+        border-radius: variables.$label-pill-radius;
+        color: variables.$gray-700;
         // background: $gray-200;
     }
 
     /**** label type ****/
     &-default {
-        @include label-color-variant($gray-500, $gray-600);
-        background-color: $label-default-bg;
+        @include mixin.label-color-variant(variables.$gray-500, variables.$gray-600);
+        background-color: variables.$label-default-bg;
     }
 
     &-primary {
-        @include label-variant($label-primary-bg);
-        @include label-color-variant($white, $white);
+        @include mixin.label-variant(variables.$label-primary-bg);
+        @include mixin.label-color-variant(variables.$white, variables.$white);
     }
 
     &-success {
-        @include label-variant($label-success-bg);
-        @include label-color-variant($white, $white);
+        @include mixin.label-variant(variables.$label-success-bg);
+        @include mixin.label-color-variant(variables.$white, variables.$white);
     }
 
     &-info {
-        @include label-variant($label-info-bg);
-        @include label-color-variant($white, $white);
+        @include mixin.label-variant(variables.$label-info-bg);
+        @include mixin.label-color-variant(variables.$white, variables.$white);
     }
 
     &-warning {
-        @include label-variant($label-warning-bg);
-        @include label-color-variant($white, $white);
+        @include mixin.label-variant(variables.$label-warning-bg);
+        @include mixin.label-color-variant(variables.$white, variables.$white);
     }
 
     &-danger {
-        @include label-variant($label-danger-bg);
-        @include label-color-variant($white, $white);
+        @include mixin.label-variant(variables.$label-danger-bg);
+        @include mixin.label-color-variant(variables.$white, variables.$white);
     }
 
     &-emboss-default {
-        @include label-color-variant($gray-500, $gray-600);
+        @include mixin.label-color-variant(variables.$gray-500, variables.$gray-600);
         // background-color: $label-default-bg;
-        @include label-variant(rgba($gray-700, 0.1));
+        @include mixin.label-variant(rgba(variables.$gray-700, 0.1));
     }
 
     &-emboss-primary {
-        @include label-variant(rgba($primary, 0.1));
-        @include label-color-variant($primary, $primary);
+        @include mixin.label-variant(rgba(variables.$primary, 0.1));
+        @include mixin.label-color-variant(variables.$primary, variables.$primary);
     }
 
     &-emboss-warning {
-        @include label-variant(rgba($warning, 0.1));
-        @include label-color-variant($warning, $warning);
+        @include mixin.label-variant(rgba(variables.$warning, 0.1));
+        @include mixin.label-color-variant(variables.$warning, variables.$warning);
     }
 
     &-emboss-danger {
-        @include label-variant(rgba($danger, 0.1));
-        @include label-color-variant($danger, $danger);
+        @include mixin.label-variant(rgba(variables.$danger, 0.1));
+        @include mixin.label-color-variant(variables.$danger, variables.$danger);
     }
 
     &-emboss-status {
         thy-icon.thy-icon,
         i.wtf {
-            font-size: $font-size-base;
+            font-size: variables.$font-size-base;
             margin-right: 6px;
         }
     }
@@ -96,9 +112,9 @@
         border: 1px solid;
         background: transparent;
 
-        @each $size, $padding in $label-size-paddings {
+        @each $size, $padding in variables.$label-size-paddings {
             &.thy-label {
-                @include label-size($size, $padding, $label-size-outline-diff);
+                @include mixin.label-size($size, $padding, variables.$label-size-outline-diff);
             }
         }
     }

@@ -10,7 +10,7 @@ import { ThyAbstractOverlayConfig, ThyAbstractOverlayOptions, ThyAbstractOverlay
 export abstract class ThyAbstractOverlayRef<
     TComponent = unknown,
     TContainer extends ThyAbstractOverlayContainer = ThyAbstractOverlayContainer,
-    TResult = any
+    TResult = unknown
 > {
     id: string;
     componentInstance: TComponent;
@@ -47,7 +47,7 @@ export abstract class ThyAbstractInternalOverlayRef<
     componentInstance: T;
 
     /** Whether the user is allowed to close the dialog. */
-    backdropClosable: boolean | undefined = this.config.backdropClosable;
+    backdropClosable: boolean = this.config.backdropClosable;
 
     /** Subject for notifying the user that the dialog has finished opening. */
     private readonly _afterOpened = new Subject<void>();

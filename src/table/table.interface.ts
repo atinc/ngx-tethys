@@ -1,4 +1,5 @@
 import { TemplateRef } from '@angular/core';
+
 export interface ThyTableColumn {
     key: string;
     model: string;
@@ -14,11 +15,6 @@ export interface ThyTableColumn {
     templateRef: TemplateRef<any>;
     headerTemplateRef: TemplateRef<any>;
 }
-
-/**
- * @deprecated ThyGridColumn is deprecated, please use ThyTableColumn
- */
-export type ThyGridColumn = ThyTableColumn;
 
 export interface ThyPage {
     index?: number;
@@ -39,11 +35,6 @@ export interface ThyTableEmptyOptions {
     container?: TemplateRef<any>;
 }
 
-/**
- * @deprecated ThyGridEmptyOptions is deprecated, please use ThyTableEmptyOptions
- */
-export type ThyGridEmptyOptions = ThyTableEmptyOptions;
-
 export interface PageChangedEvent {
     itemsPerPage: number;
     page: number;
@@ -53,11 +44,6 @@ export interface ThyTableEvent {
     event: Event;
     row: any;
 }
-
-/**
- * @deprecated ThyGridEvent is deprecated, please use ThyTableEvent
- */
-export type ThyGridEvent = ThyTableEvent;
 
 export interface ThyMultiSelectEvent extends ThyTableEvent {
     rows: any[];
@@ -80,16 +66,7 @@ export interface ThyTableDraggableEvent {
     [key: string]: any;
 }
 
-/**
- * @deprecated ThyGridDraggableEvent is deprecated, please use ThyTableDraggableEvent
- */
-export type ThyGridDraggableEvent = ThyTableDraggableEvent;
-
 export interface ThyTableRowEvent {
     event: Event;
     row: any;
 }
-/**
- * @deprecated ThyGridRowEvent is deprecated, please use ThyTableRowEvent
- */
-export type ThyGridRowEvent = ThyTableRowEvent;

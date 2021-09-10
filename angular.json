@@ -9,7 +9,7 @@
       "prefix": "thy",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "src/tsconfig.lib.json",
             "project": "src/ng-package.json"
@@ -60,7 +60,6 @@
             "main": "site/src/main.ts",
             "polyfills": "site/src/polyfills.ts",
             "tsConfig": "site/tsconfig.app.json",
-            "aot": true,
             "stylePreprocessorOptions": {
               "includePaths": ["./site/src/styles"]
             },
@@ -74,7 +73,13 @@
               }
             ],
             "styles": ["site/src/styles.scss"],
-            "scripts": []
+            "scripts": [],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -105,7 +110,8 @@
                 }
               ]
             }
-          }
+          },
+          "defaultConfiguration": ""
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",

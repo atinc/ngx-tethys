@@ -5,7 +5,7 @@ subtitle: 表单
 order: 1
 ---
 
-<div class="dg-alert dg-alert-info">表单验证和布局组件。</div>
+<alert>表单验证和布局组件</alert>
 
 ## 何时使用
 

@@ -56,13 +56,13 @@ $ yarn add ngx-tethys
     ```
     {
         "styles": [
-            "node_modules/ngx-tethys/styles/main.bundle.scss"
+            "node_modules/ngx-tethys/styles/main.bundle.scss" // or main.bundle.css
         ]
     }
     ```
 - 在`style.scss`中引入预构建样式文件
     ```scss
-    @import "~ngx-tethys/styles/main.bundle.scss";
+    @import "~ngx-tethys/styles/main.bundle.scss"; // or main.bundle.css
     ```
 
 ### 引入图标
@@ -106,5 +106,5 @@ export class AppModule { }
 <button thyButton="primary">主要按钮</button>
 ```
 
-> 在 <=9.0.0 版本，`ngx-tethys` 提供了根入口`NgxTethysModule`导入所有模块，将来的版本会移出，请避免使用根入口模块。
+> 在 <=11.0.0 版本，`ngx-tethys` 提供了根入口`NgxTethysModule`导入所有模块，将来的版本会移出，请避免使用根入口模块。
 

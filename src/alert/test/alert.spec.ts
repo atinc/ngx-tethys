@@ -76,16 +76,6 @@ describe('ThyAlert', () => {
             expect(iconElement.classList.contains('thy-icon-close-circle-fill')).toBe(true);
         });
 
-        // week 替换完成之后移除此测试
-        it('should have correct class when type is primary-week', () => {
-            testComponent.type = `primary-week`;
-            fixture.detectChanges();
-            const iconElement = alertContentElement.children[0];
-            expect(iconElement).toBeTruthy();
-            expect(alertElement.classList.contains('thy-alert-primary-week')).toBe(true);
-            expect(iconElement.classList.contains('thy-icon-question-circle-fill')).toBe(true);
-        });
-
         it('should have correct class when type is primary-weak', () => {
             testComponent.type = `primary-weak`;
             fixture.detectChanges();

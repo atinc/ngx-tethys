@@ -2,9 +2,10 @@
 category: layout
 title: Divider
 subtitle: 分割线
+label: new
 ---
 
-<div class="dg-alert dg-alert-info">内容分割线。</div>
+<alert>内容分割线</alert>
 
 ## 何时使用
 当需要对不同段落的文本进行分割，对行内文字/链接进行分割时使用。

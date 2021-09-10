@@ -5,7 +5,7 @@ subtitle: Alert
 order: 1
 ---
 
-<div class="dg-alert dg-alert-info">Alert component.</div>
+<alert>Alert component.</alert>
 
 ## When To Use
 
