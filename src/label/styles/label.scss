@@ -17,20 +17,6 @@
         }
     }
 
-    /**** size ****/
-    @each $size, $padding in variables.$label-size-paddings {
-        & {
-            @include mixin.label-size($size, $padding);
-        }
-    }
-
-    /**** size ****/
-    @each $size, $padding in $label-size-paddings {
-        & {
-            @include label-size($size, $padding);
-        }
-    }
-
     thy-icon,
     i {
         // cursor: pointer;
