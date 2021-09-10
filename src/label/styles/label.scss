@@ -2,13 +2,19 @@
 @use "mixin";
 
 .thy-label {
-    padding: variables.$label-size-padding;
     font-weight: normal;
     display: inline-block;
     line-height: 1;
     font-size: variables.$font-size-sm;
     border-radius: variables.$label-border-radius;
     color: variables.$white;
+
+    /**** size ****/
+    @each $size, $padding in variables.$label-size-paddings {
+        & {
+            @include mixin.labelSize($size, $padding);
+        }
+    }
 
     thy-icon,
     i {
@@ -17,7 +23,7 @@
     }
 
     &.thy-label-state {
-        padding: variables.$label-size-padding-md;
+        @include mixin.labelSize(md, map-get(variables.$label-size-paddings, md));
     }
 
     &.thy-label-pill {
@@ -27,17 +33,75 @@
         // background: $gray-200;
     }
 
-    &--sm {
-        padding: variables.$label-size-padding-sm;
+    /**** label type ****/
+    &-default {
+        @include mixin.label-color-variant(variables.$gray-500, variables.$gray-600);
+        background-color: variables.$label-default-bg;
     }
 
-    &--md {
-        padding: variables.$label-size-padding-md;
+    &-primary {
+        @include mixin.label-variant(variables.$label-primary-bg);
+        @include mixin.label-color-variant(variables.$white, variables.$white);
     }
 
-    &--lg {
-        padding: variables.$label-size-padding-md;
-        font-size: variables.$font-size-base;
+    &-success {
+        @include mixin.label-variant(variables.$label-success-bg);
+        @include mixin.label-color-variant(variables.$white, variables.$white);
+    }
+
+    &-info {
+        @include mixin.label-variant(variables.$label-info-bg);
+        @include mixin.label-color-variant(variables.$white, variables.$white);
+    }
+
+    &-warning {
+        @include mixin.label-variant(variables.$label-warning-bg);
+        @include mixin.label-color-variant(variables.$white, variables.$white);
+    }
+
+    &-danger {
+        @include mixin.label-variant(variables.$label-danger-bg);
+        @include mixin.label-color-variant(variables.$white, variables.$white);
+    }
+
+    &-emboss-default {
+        @include mixin.label-color-variant(variables.$gray-500, variables.$gray-600);
+        // background-color: $label-default-bg;
+        @include mixin.label-variant(rgba(variables.$gray-700, 0.1));
+    }
+
+    &-emboss-primary {
+        @include mixin.label-variant(rgba(variables.$primary, 0.1));
+        @include mixin.label-color-variant(variables.$primary, variables.$primary);
+    }
+
+    &-emboss-warning {
+        @include mixin.label-variant(rgba(variables.$warning, 0.1));
+        @include mixin.label-color-variant(variables.$warning, variables.$warning);
+    }
+
+    &-emboss-danger {
+        @include mixin.label-variant(rgba(variables.$danger, 0.1));
+        @include mixin.label-color-variant(variables.$danger, variables.$danger);
+    }
+
+    &-emboss-status {
+        thy-icon.thy-icon,
+        i.wtf {
+            font-size: variables.$font-size-base;
+            margin-right: 6px;
+        }
+    }
+
+    &-outline {
+        border: 1px solid;
+        background: transparent;
+
+        @each $size, $padding in variables.$label-size-paddings {
+            &.thy-label {
+                @include mixin.labelSize($size, $padding, variables.$label-size-outline-diff);
+            }
+        }
     }
 }
 
@@ -47,68 +111,4 @@
     &.thy-label {
         padding: 0;
     }
-}
-
-.thy-label-default {
-    @include mixin.label-color-variant(variables.$gray-500, variables.$gray-600);
-    background-color: variables.$label-default-bg;
-}
-
-.thy-label-primary {
-    @include mixin.label-variant(variables.$label-primary-bg);
-    @include mixin.label-color-variant(variables.$white, variables.$white);
-}
-
-.thy-label-success {
-    @include mixin.label-variant(variables.$label-success-bg);
-    @include mixin.label-color-variant(variables.$white, variables.$white);
-}
-
-.thy-label-info {
-    @include mixin.label-variant(variables.$label-info-bg);
-    @include mixin.label-color-variant(variables.$white, variables.$white);
-}
-
-.thy-label-warning {
-    @include mixin.label-variant(variables.$label-warning-bg);
-    @include mixin.label-color-variant(variables.$white, variables.$white);
-}
-
-.thy-label-danger {
-    @include mixin.label-variant(variables.$label-danger-bg);
-    @include mixin.label-color-variant(variables.$white, variables.$white);
-}
-
-.thy-label-emboss-default {
-    @include mixin.label-color-variant(variables.$gray-500, variables.$gray-600);
-    // background-color: $label-default-bg;
-    @include mixin.label-variant(rgba(variables.$gray-700, 0.1));
-}
-
-.thy-label-emboss-primary {
-    @include mixin.label-variant(rgba(variables.$primary, 0.1));
-    @include mixin.label-color-variant(variables.$primary, variables.$primary);
-}
-
-.thy-label-emboss-warning {
-    @include mixin.label-variant(rgba(variables.$warning, 0.1));
-    @include mixin.label-color-variant(variables.$warning, variables.$warning);
-}
-
-.thy-label-emboss-danger {
-    @include mixin.label-variant(rgba(variables.$danger, 0.1));
-    @include mixin.label-color-variant(variables.$danger, variables.$danger);
-}
-
-.thy-label-emboss-status {
-    thy-icon.thy-icon,
-    i.wtf {
-        font-size: variables.$font-size-base;
-        margin-right: 6px;
-    }
-}
-
-.thy-label-outline {
-    border: 1px solid;
-    background: transparent;
 }

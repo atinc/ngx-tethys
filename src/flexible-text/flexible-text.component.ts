@@ -1,9 +1,9 @@
-import { Component, Input, TemplateRef, ElementRef, OnInit, ViewContainerRef, OnDestroy, AfterContentInit } from '@angular/core';
-import { timer, Subject, Subscription } from 'rxjs';
+import { Component, Input, TemplateRef, ElementRef, OnInit, ViewContainerRef, OnDestroy, AfterContentInit, NgZone } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { TooltipService } from 'ngx-tethys/tooltip';
 import { UpdateHostClassService } from 'ngx-tethys/core';
 import { ContentObserver } from '@angular/cdk/observers';
-import { debounceTime } from 'rxjs/operators';
+import { debounceTime, take } from 'rxjs/operators';
 import { ThyPlacement } from 'ngx-tethys/core';
 import { isUndefinedOrNull } from 'ngx-tethys/util';
 
@@ -55,7 +55,8 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
         private viewContainerRef: ViewContainerRef,
         public tooltipService: TooltipService,
         private updateHostClassService: UpdateHostClassService,
-        private contentObserver: ContentObserver
+        private contentObserver: ContentObserver,
+        private ngZone: NgZone
     ) {
         this.updateHostClassService.initializeElement(this.elementRef);
     }
@@ -71,12 +72,18 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
     }
 
     ngAfterContentInit() {
-        this.applyOverflow();
-        this.subscription = this.contentObserver
-            .observe(this.elementRef)
-            .pipe(debounceTime(100))
-            .subscribe((value: MutationRecord[]) => {
+        // Wait for the next time period to avoid blocking the js thread
+        this.ngZone.onStable
+            .asObservable()
+            .pipe(take(1))
+            .subscribe(() => {
                 this.applyOverflow();
+                this.subscription = this.contentObserver
+                    .observe(this.elementRef)
+                    .pipe(debounceTime(100))
+                    .subscribe((value: MutationRecord[]) => {
+                        this.applyOverflow();
+                    });
             });
     }
 
