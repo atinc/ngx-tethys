@@ -11,7 +11,7 @@
     /**** size ****/
     @each $size, $padding in $label-size-paddings {
         & {
-            @include labelSize($size, $padding);
+            @include label-size($size, $padding);
         }
     }
 
@@ -22,7 +22,7 @@
     }
 
     &.thy-label-state {
-        @include labelSize(md, map-get($label-size-paddings, md));
+        @include label-size(md, map-get($label-size-paddings, md));
     }
 
     &.thy-label-pill {
@@ -98,7 +98,7 @@
 
         @each $size, $padding in $label-size-paddings {
             &.thy-label {
-                @include labelSize($size, $padding, $label-size-outline-diff);
+                @include label-size($size, $padding, $label-size-outline-diff);
             }
         }
     }
