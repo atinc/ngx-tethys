@@ -5,14 +5,26 @@ module.exports = [
         description: '预设时间段及自定义时间段选择',
         properties: [
             {
+                name: 'ngModel',
+                description: '绑定的日期区间',
+                type: 'DateRangeItemInfo',
+                default: ''
+            },
+            {
+                name: 'thyOptionalDateRanges',
+                description: '自定义可选值列表项',
+                type: 'DateRangeItemInfo[]',
+                default: ''
+            },
+            {
                 name: 'thyHiddenMenu',
-                description: '隐藏时间选择弹窗',
+                description: '隐藏下拉选择时间段',
                 type: 'boolean',
                 default: 'false'
             },
             {
                 name: 'thyDisabledSwitch',
-                description: '隐藏左右切换时间段的 icon',
+                description: '禁用左右切换时间段',
                 type: 'boolean',
                 default: 'false'
             },
@@ -35,15 +47,15 @@ module.exports = [
                 default: null
             },
             {
-                name: 'thyOptionalDateRanges',
-                description: '可选值列表项',
-                type: 'DateRangeItemInfo[]',
-                default: 'DateRangeItemInfo[]'
+                name: 'thyCustomKey',
+                description: '值有`custom`和`exception`。当值为`exception`，`thyPickerFormat`设置的自定义格式才会生效',
+                type: 'string',
+                default: 'custom'
             },
             {
-                name: 'ngModel',
-                description: '绑定的日期值',
-                type: 'DateRangeItemInfo',
+                name: 'thyPickerFormat',
+                description: '自定义日期展示格式，只有当`thyCustomKey`值设为`custom`时才会生效',
+                type: 'string',
                 default: ''
             }
         ]
