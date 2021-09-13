@@ -157,22 +157,6 @@ class YourDialogComponent {
 ## 打开Confirm
 `ThyDialog`服务提供了一个`confirm`方法，支持通过传入一个`ThyConfirmConfig`实例，来打开一个二次弹出提示框。
 
-### ThyConfirmConfig参数
-
-参数| 说明
----| --- 
-title | 标题
-content| 内容
-okText | 确认按钮的文案
-okType | 确认按钮的主题 primary \| danger
-cancelText | 取消按钮的文案
-okLoadingText | 确认按钮处于提交状态时的文案
-footerAlign | 底部对齐方式，left \| center \| right
-onOk | 确认后的回调事件
-
-
-### 设置Confirm的全局默认值
-
 Confirm对话框的默认选项可以通过在应用根模块中为`THY_CONFIRM_DEFAULT_OPTIONS`令牌提供一个`ThyConfirmConfig`实例来指定。
 
 ```ts

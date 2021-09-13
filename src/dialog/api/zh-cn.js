@@ -3,7 +3,11 @@ module.exports = [
         type: 'CLASS',
         name: 'Config参数',
         properties: [
-            { name: 'id', description: '弹出框的唯一标识', type: string },
+            {
+                name: 'id',
+                description: '弹出框的唯一标识',
+                type: 'string'
+            },
             {
                 name: 'size',
                 description: '弹出框的大小，ThyDialogSizes: sm (400), md (660), lg (800), maxLg (980), supperLg (94vw), full (全屏)',
@@ -138,6 +142,60 @@ module.exports = [
                 name: '#description',
                 description: '自定义弹出框底部的描述模板',
                 type: 'TemplateRef',
+                default: ''
+            }
+        ]
+    },
+    {
+        type: 'CLASS',
+        name: 'ThyConfirmConfig参数',
+        properties: [
+            {
+                name: 'title',
+                description: '标题',
+                type: 'string',
+                default: '确认删除'
+            },
+            {
+                name: 'content',
+                description: '提示内容',
+                type: 'string',
+                default: ''
+            },
+            {
+                name: 'okText',
+                description: '确认按钮的文案',
+                type: 'string',
+                default: '确认'
+            },
+            {
+                name: 'cancelText',
+                description: '取消按钮的文案',
+                type: 'string',
+                default: '取消'
+            },
+            {
+                name: 'okType',
+                description: '确认按钮的类型，primary | danger',
+                type: 'string',
+                default: 'danger'
+            },
+            {
+                name: 'okLoadingText',
+                description: '确认按钮处于提交状态时的文案',
+                type: 'string',
+                default: 'okText'
+            },
+            {
+                name: 'footerAlign',
+                description: '底部对齐方式，left | center | right',
+                type: 'string',
+                default: 'left'
+            },
+            {
+                name: 'onOk',
+                description: '确认后的回调事件',
+                type: '() => Observable<boolean> | void',
                 default: ''
             }
         ]
