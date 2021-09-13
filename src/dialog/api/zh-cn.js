@@ -3,6 +3,7 @@ module.exports = [
         type: 'CLASS',
         name: 'Config参数',
         properties: [
+            { name: 'id', description: '弹出框的唯一标识', type: string },
             {
                 name: 'size',
                 description: '弹出框的大小，ThyDialogSizes: sm (400), md (660), lg (800), maxLg (980), supperLg (94vw), full (全屏)',
@@ -61,6 +62,11 @@ module.exports = [
                 description: '自定义弹出框的高度',
                 type: 'string',
                 default: '85vh'
+            },
+            {
+                name: 'position',
+                description: '定位模态框的弹出位置',
+                type: '{ top?: string; bottom?: string; left?: string; right?: string;}'
             }
         ]
     },
@@ -127,6 +133,12 @@ module.exports = [
                 description: '对齐方式，`left | center | right`，可全局配置默认值',
                 type: 'string',
                 default: 'left'
+            },
+            {
+                name: '#description',
+                description: '自定义弹出框底部的描述模板',
+                type: 'TemplateRef',
+                default: ''
             }
         ]
     }
