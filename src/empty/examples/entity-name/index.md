@@ -1,4 +1,4 @@
 ---
-title: thyEntityName
-order: 3
+title: EntityName
+order: 100
 ---

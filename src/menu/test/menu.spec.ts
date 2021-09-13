@@ -1,19 +1,20 @@
-import { TestBed, ComponentFixture, async } from '@angular/core/testing';
-import { ThyMenuModule } from '../menu.module';
-import { NgModule, Component, ViewChild, ViewChildren } from '@angular/core';
+import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/testing/thy-icon';
+
+import { Component, DebugElement, NgModule, ViewChild } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyMenuComponent } from '../menu.component';
-import { ThyMenuGroupComponent } from '../group/menu-group.component';
-import { ThyMenuItemComponent } from '../item/menu-item.component';
-import { ThyMenuItemIconComponent } from '../item/icon/menu-item-icon.component';
-import { ThyMenuItemNameComponent } from '../item/name/menu-item-name.component';
-import { ThyMenuItemActionComponent } from '../item/action/menu-item-action.component';
-import { ThyPopover, ThyPopoverModule } from '../../popover';
-import { ThyPositioningService } from '../../positioning/positioning.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ThyMenuDividerComponent } from '../divider/menu-divider.component';
+
 import { ThyIconModule } from '../../icon/icon.module';
-import { injectDefaultSvgIconSet, bypassSanitizeProvider } from 'ngx-tethys/testing/thy-icon';
+import { ThyPopover, ThyPopoverModule } from '../../popover';
+import { ThyMenuDividerComponent } from '../divider/menu-divider.component';
+import { ThyMenuGroupComponent } from '../group/menu-group.component';
+import { ThyMenuItemActionComponent } from '../item/action/menu-item-action.component';
+import { ThyMenuItemIconComponent } from '../item/icon/menu-item-icon.component';
+import { ThyMenuItemComponent } from '../item/menu-item.component';
+import { ThyMenuItemNameComponent } from '../item/name/menu-item-name.component';
+import { ThyMenuComponent } from '../menu.component';
+import { ThyMenuModule } from '../menu.module';
 
 @Component({
     selector: 'thy-demo-thy-menu',
@@ -67,7 +68,7 @@ class ThyDemoMenuComponent {
     imports: [ThyMenuModule, BrowserAnimationsModule, ThyPopoverModule, ThyIconModule],
     declarations: [ThyDemoMenuComponent],
     exports: [ThyDemoMenuComponent],
-    providers: [ThyPopover, ThyPositioningService]
+    providers: [ThyPopover]
 })
 export class ThyMenuTestModule {}
 
@@ -101,7 +102,7 @@ describe('ThyMenu', () => {
     });
 
     describe('thy-menu-divider', () => {
-        let divider;
+        let divider: DebugElement;
 
         beforeEach(() => {
             divider = fixture.debugElement.query(By.directive(ThyMenuDividerComponent));
@@ -118,7 +119,7 @@ describe('ThyMenu', () => {
     });
 
     describe('thy-menu-group', () => {
-        let group;
+        let group: DebugElement;
 
         beforeEach(() => {
             group = fixture.debugElement.query(By.directive(ThyMenuGroupComponent));
@@ -135,7 +136,7 @@ describe('ThyMenu', () => {
     });
 
     describe('thy-menu-item', () => {
-        let item;
+        let item: DebugElement;
 
         beforeEach(() => {
             item = fixture.debugElement.query(By.directive(ThyMenuItemComponent));
@@ -157,7 +158,7 @@ describe('ThyMenu', () => {
     });
 
     describe('thy-menu-item-name', () => {
-        let name;
+        let name: DebugElement;
 
         beforeEach(() => {
             name = fixture.debugElement.query(By.directive(ThyMenuItemNameComponent));
@@ -206,7 +207,7 @@ describe('ThyMenu', () => {
     });
 
     describe('thy-menu-item-action', () => {
-        let action;
+        let action: DebugElement;
         beforeEach(() => {
             action = fixture.debugElement.query(By.directive(ThyMenuItemActionComponent));
         });

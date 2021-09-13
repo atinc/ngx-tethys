@@ -1,11 +1,10 @@
 ---
-category: layout
+category: display
 title: Card
 subtitle: 卡片
 description: 通用的卡片组件。
-order: 20
 ---
-<div class="dg-alert dg-alert-info">通用的卡片组件。</div>
+<alert>通用的卡片组件</alert>
 
 ## 何时使用
 
@@ -13,7 +12,7 @@ order: 20
 
 ## 模块导入
 ```ts
-import { ThyCardModule } from "tethys/card";
+import { ThyCardModule } from "ngx-tethys/card";
 ```
 
 ## 如何使用

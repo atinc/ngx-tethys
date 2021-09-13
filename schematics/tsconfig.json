@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "../built/schematics",
+    "outDir": "../dist/tethys/schematics",
     "rootDir": "./",
     "target": "ES2015",
     "module": "commonjs",

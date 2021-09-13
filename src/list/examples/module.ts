@@ -10,6 +10,7 @@ import { ThyListItemMetaExampleComponent } from './item-meta/item-meta.component
 import { ThyListGridObjectExampleComponent } from './grid-object/grid-object.component';
 import { ThyListDividedExampleComponent } from './divided/divided.component';
 import { ThyListSelectionExampleComponent } from './selection/selection.component';
+import { ThyListOperateExampleComponent } from './operate/operate.component';
 
 const COMPONENTS = [
     ThyListBasicExampleComponent,
@@ -18,7 +19,8 @@ const COMPONENTS = [
     ThyListSelectionExampleComponent,
     ThyListGridExampleComponent,
     ThyListItemMetaExampleComponent,
-    ThyListGridObjectExampleComponent
+    ThyListGridObjectExampleComponent,
+    ThyListOperateExampleComponent
 ];
 
 @NgModule({

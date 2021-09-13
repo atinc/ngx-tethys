@@ -1,6 +1,6 @@
-<thy-grid [thyModel]="listOfData">
+<thy-table [thyModel]="listOfData">
   <ng-container *ngFor="let col of listOfData">
-    <thy-grid-column [thyTitle]="col.title" [thyModelKey]="col.title" [thyWidth]="col.width">
+    <thy-table-column [thyTitle]="col.title" [thyModelKey]="col.title" [thyWidth]="col.width">
       <ng-template #header let-row>
         <div
           class="th-content"
@@ -17,6 +17,6 @@
           </thy-resize-handle>
         </div>
       </ng-template>
-    </thy-grid-column>
+    </thy-table-column>
   </ng-container>
-</thy-grid>
+</thy-table>

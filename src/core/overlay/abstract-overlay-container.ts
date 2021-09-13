@@ -1,14 +1,16 @@
-import { CdkPortalOutlet, TemplatePortal, ComponentPortal } from '@angular/cdk/portal';
-import { EmbeddedViewRef, ComponentRef, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { ThyUpperOverlayOptions, ThyAbstractOverlayConfig } from './abstract-overlay.config';
+
 import { AnimationEvent } from '@angular/animations';
+import { CdkPortalOutlet, ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
+import { ChangeDetectorRef, ComponentRef, EmbeddedViewRef, EventEmitter } from '@angular/core';
+
+import { ThyAbstractOverlayConfig, ThyAbstractOverlayOptions } from './abstract-overlay.config';
 
 export function throwPopoverContentAlreadyAttachedError(name: string) {
     throw Error(`Attempting to attach ${name} content after content is already attached`);
 }
 
-export abstract class ThyAbstractOverlayContainer {
+export abstract class ThyAbstractOverlayContainer<TData = unknown> {
     id?: string;
 
     animationState: string;
@@ -17,7 +19,7 @@ export abstract class ThyAbstractOverlayContainer {
 
     containerDestroy = new Subject<void>();
 
-    abstract config: ThyAbstractOverlayConfig;
+    abstract config: ThyAbstractOverlayConfig<TData>;
 
     /**portal outlet */
     abstract portalOutlet: CdkPortalOutlet;
@@ -38,7 +40,7 @@ export abstract class ThyAbstractOverlayContainer {
     /** Before detach content*/
     beforeDetachPortal() {}
 
-    constructor(private options: ThyUpperOverlayOptions, protected changeDetectorRef: ChangeDetectorRef) {}
+    constructor(private options: ThyAbstractOverlayOptions, protected changeDetectorRef: ChangeDetectorRef) {}
 
     /**
      * Attach a TemplatePortal as content to this overlay container.

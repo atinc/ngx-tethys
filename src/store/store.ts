@@ -1,18 +1,20 @@
-import { Observable, Observer, BehaviorSubject, from, of, PartialObserver, Subscription } from 'rxjs';
-import { distinctUntilChanged, map, shareReplay } from 'rxjs/operators';
-import { META_KEY, StoreMetaInfo } from './types';
 import { helpers } from 'ngx-tethys/util';
-import { getSingletonRootStore, RootStore } from './root-store';
-import { OnDestroy, isDevMode, Injectable } from '@angular/core';
-import { ActionState } from './action-state';
+import { BehaviorSubject, from, Observable, Observer, Subscription } from 'rxjs';
+import { distinctUntilChanged, map, shareReplay } from 'rxjs/operators';
+
+import { Directive, isDevMode, OnDestroy } from '@angular/core';
+
 import { Action } from './action';
+import { ActionState } from './action-state';
+import { getSingletonRootStore, RootStore } from './root-store';
+import { META_KEY, StoreMetaInfo } from './types';
 
 interface Action {
     type: string;
     payload?: any;
 }
 
-@Injectable()
+@Directive()
 export class Store<T = unknown> implements Observer<T>, OnDestroy {
     initialStateCache: any;
 
@@ -66,10 +68,9 @@ export class Store<T = unknown> implements Observer<T>, OnDestroy {
         if (result instanceof Observable) {
             result = result.pipe(map(r => r));
         } else {
-            result = Observable.create((observer: Observer<any>) => {
+            result = new Observable((observer: Observer<any>) => {
                 observer.next({});
             });
-            // result = of({});
         }
         return result.pipe(shareReplay());
     }

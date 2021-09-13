@@ -1,3 +1,9 @@
+@use "../../styles/bootstrap/mixins/border-radius";
+@use "../../styles/bootstrap/mixins/hover";
+@use "../../styles/bootstrap/variables" as bootstrap-variables;
+@use "../../styles/mixins/shadow";
+@use "../../styles/variables";
+@use "./button.scss";
 // stylelint-disable selector-no-qualifying-type
 
 // Make the div behave like a button
@@ -10,11 +16,11 @@
     > .btn {
         position: relative;
         flex: 0 1 auto;
-        padding: $btn-padding-y $btn-group-btn-padding-x-md;
+        padding: variables.$btn-padding-y variables.$btn-group-btn-padding-x-md;
 
         // Bring the hover, focused, and "active" buttons to the front to overlay
         // the borders properly
-        @include hover {
+        @include hover.hover {
             z-index: 1;
         }
         &:focus,
@@ -36,7 +42,7 @@
     .btn + .btn-group,
     .btn-group + .btn,
     .btn-group + .btn-group {
-        margin-left: -$btn-border-width;
+        margin-left: -(bootstrap-variables.$btn-border-width);
     }
 }
 
@@ -65,12 +71,12 @@
     // Reset rounded corners
     > .btn:not(:last-child):not(.dropdown-toggle),
     > .btn-group:not(:last-child) > .btn {
-        @include border-right-radius(0);
+        @include border-radius.border-right-radius(0);
     }
 
     > .btn:not(:first-child),
     > .btn-group:not(:first-child) > .btn {
-        @include border-left-radius(0);
+        @include border-radius.border-left-radius(0);
     }
 }
 
@@ -80,20 +86,20 @@
 
 .btn-group-xs > .btn {
     @extend .btn-xs;
-    padding: $btn-group-btn-padding-y-xs $btn-group-btn-padding-x-xs;
-    font-size: $font-size-xs;
+    padding: variables.$btn-group-btn-padding-y-xs variables.$btn-group-btn-padding-x-xs;
+    font-size: variables.$font-size-xs;
 }
 .btn-group-sm > .btn {
     @extend .btn-sm;
-    padding: $btn-group-btn-padding-y-sm $btn-group-btn-padding-x-sm;
+    padding: variables.$btn-group-btn-padding-y-sm variables.$btn-group-btn-padding-x-sm;
 }
 .btn-group-md > .btn {
     @extend .btn-md;
-    padding: $btn-group-btn-padding-y-md $btn-group-btn-padding-x-md;
+    padding: variables.$btn-group-btn-padding-y-md variables.$btn-group-btn-padding-x-md;
 }
 .btn-group-lg > .btn {
     @extend .btn-lg;
-    padding: $btn-group-btn-padding-y-lg $btn-group-btn-padding-x-lg;
+    padding: variables.$btn-group-btn-padding-y-lg variables.$btn-group-btn-padding-x-lg;
 }
 
 // type
@@ -110,11 +116,11 @@
 // The clickable button for toggling the menu
 // Set the same inset shadow as the :active state
 .btn-group.show .dropdown-toggle {
-    @include box-shadow($btn-active-box-shadow);
+    @include shadow.box-shadow(bootstrap-variables.$btn-active-box-shadow);
 
     // Show no shadow for `.btn-link` since it has no other button styles.
     &.btn-link {
-        @include box-shadow(none);
+        @include shadow.box-shadow(none);
     }
 }
 
@@ -136,19 +142,19 @@
     > .btn + .btn-group,
     > .btn-group + .btn,
     > .btn-group + .btn-group {
-        margin-top: -$btn-border-width;
+        margin-top: -(bootstrap-variables.$btn-border-width);
         margin-left: 0;
     }
 
     // Reset rounded corners
     > .btn:not(:last-child):not(.dropdown-toggle),
     > .btn-group:not(:last-child) > .btn {
-        @include border-bottom-radius(0);
+        @include border-radius.border-bottom-radius(0);
     }
 
     > .btn:not(:first-child),
     > .btn-group:not(:first-child) > .btn {
-        @include border-top-radius(0);
+        @include border-radius.border-top-radius(0);
     }
 }
 

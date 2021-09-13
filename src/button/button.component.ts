@@ -1,32 +1,35 @@
-import { Component, Directive, Input, ElementRef, Renderer2, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
-import { AfterContentInit, OnChanges, OnInit } from '@angular/core';
-import { coerceBooleanProperty, isUndefined } from 'ngx-tethys/util';
-import { UpdateHostClassService } from 'ngx-tethys/core';
+import { InputBoolean, UpdateHostClassService } from 'ngx-tethys/core';
+import { coerceBooleanProperty, warnDeprecation } from 'ngx-tethys/util';
+
+import { ChangeDetectionStrategy, Component, ElementRef, HostBinding, Input, OnInit, Renderer2, ViewEncapsulation } from '@angular/core';
 
 export type ThyButtonType = 'primary' | 'secondary' | 'info' | 'outline-primary' | 'outline-default' | 'danger' | 'link' | 'link-secondary';
 
-const btnTypeClassesMap: any = {
-    primary: ['btn', 'btn-primary'],
-    secondary: ['btn', 'btn-primary', 'btn-md'],
-    info: ['btn', 'btn-info'],
-    warning: ['btn', 'btn-warning'],
-    danger: ['btn', 'btn-danger'],
-    'outline-primary': ['btn', 'btn-outline-primary'],
-    'outline-default': ['btn', 'btn-outline-default'],
-    link: ['btn', 'btn-link'], // 链接按钮
-    'link-info': ['btn', 'btn-link', 'btn-link-info'], // 幽灵链接按钮
-    'link-secondary': ['btn', 'btn-link', 'btn-link-primary-weak'], // 幽灵链接按钮
-    'link-danger-weak': ['btn', 'btn-link', 'btn-link-danger-weak'], // 幽灵危险按钮
-    'link-danger': ['btn', 'btn-link', 'btn-link-danger'], // 危险按钮
-    'link-success': ['btn', 'btn-link', 'btn-link-success'] // 成功按钮
+const btnTypeClassesMap = {
+    primary: ['btn-primary'],
+    secondary: ['btn-primary', 'btn-md'],
+    info: ['btn-info'],
+    warning: ['btn-warning'],
+    danger: ['btn-danger'],
+    'outline-primary': ['btn-outline-primary'],
+    'outline-default': ['btn-outline-default'],
+    link: ['btn-link'], // 链接按钮
+    'link-info': ['btn-link', 'btn-link-info'], // 幽灵链接按钮
+    'link-secondary': ['btn-link', 'btn-link-primary-weak'], // 幽灵链接按钮
+    'link-danger-weak': ['btn-link', 'btn-link-danger-weak'], // 幽灵危险按钮
+    'link-danger': ['btn-link', 'btn-link-danger'], // 危险按钮
+    'link-success': ['btn-link', 'btn-link-success'] // 成功按钮
 };
 
 @Component({
-    selector: '[thy-button],[thyButton]',
+    selector: 'thy-button,[thy-button],[thyButton]',
     templateUrl: './button.component.html',
     providers: [UpdateHostClassService],
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {
+        class: 'btn'
+    }
 })
 export class ThyButtonComponent implements OnInit {
     private _nativeElement: any;
@@ -48,33 +51,18 @@ export class ThyButtonComponent implements OnInit {
     // 圆角方形
     _isRadiusSquare = false;
 
-    _iconClass: string[];
+    iconClass: string[];
 
     svgIconName: string;
 
-    _setBtnType(value: ThyButtonType) {
-        if (value) {
-            if (value.includes('-square')) {
-                this._type = value.replace('-square', '');
-                this._isRadiusSquare = true;
-            } else {
-                this._type = value;
-            }
-
-            if (this._initialized) {
-                this._setClasses();
-            }
-        }
-    }
-
     @Input()
     set thyButton(value: ThyButtonType) {
-        this._setBtnType(value);
+        this.setBtnType(value);
     }
 
     @Input()
     set thyType(value: ThyButtonType) {
-        this._setBtnType(value);
+        this.setBtnType(value);
     }
 
     @Input()
@@ -84,10 +72,10 @@ export class ThyButtonComponent implements OnInit {
         if (!this._loading && newLoading) {
             this._loading = newLoading;
             this._originalText = this._nativeElement.innerText;
-            this._setLoadingStatus();
+            this.setLoadingStatus();
         } else {
             this._loading = newLoading;
-            this._setLoadingStatus();
+            this.setLoadingStatus();
         }
     }
 
@@ -105,7 +93,7 @@ export class ThyButtonComponent implements OnInit {
     set thySize(size: string) {
         this._size = size;
         if (this._initialized) {
-            this._setClasses();
+            this.updateClasses();
         }
     }
 
@@ -118,22 +106,44 @@ export class ThyButtonComponent implements OnInit {
                 if (classes.length === 1) {
                     classes.unshift('wtf');
                 }
-                this._iconClass = classes;
+                this.iconClass = classes;
+                this.svgIconName = null;
             } else {
                 this.svgIconName = icon;
             }
         } else {
-            this._iconClass = null;
+            this.iconClass = null;
             this.svgIconName = null;
         }
     }
 
     @Input()
     set thySquare(value: boolean) {
+        warnDeprecation(`The thyButton's property thySquare is deprecated, the default is already square.`);
         this._isRadiusSquare = coerceBooleanProperty(value);
     }
 
-    private _setLoadingStatus() {
+    @HostBinding(`class.btn-block`)
+    @Input()
+    @InputBoolean()
+    thyBlock: boolean;
+
+    private setBtnType(value: ThyButtonType) {
+        if (value) {
+            if (value.includes('-square')) {
+                this._type = value.replace('-square', '');
+                this._isRadiusSquare = true;
+            } else {
+                this._type = value;
+            }
+
+            if (this._initialized) {
+                this.updateClasses();
+            }
+        }
+    }
+
+    private setLoadingStatus() {
         // let disabled = false;
         let innerText: string;
         if (this._loading) {
@@ -144,22 +154,20 @@ export class ThyButtonComponent implements OnInit {
             innerText = this._originalText ? this._originalText : null;
         }
         // this.renderer.setProperty(this._nativeElement, 'disabled', disabled);
-        this._setClasses();
+        this.updateClasses();
         if (innerText) {
             this.renderer.setProperty(this._nativeElement, 'innerText', innerText);
         }
     }
 
-    private _setClasses() {
-        let classNames: string[] = null;
+    private updateClasses() {
+        let classNames: string[] = [];
         if (btnTypeClassesMap[this._type]) {
             classNames = [...btnTypeClassesMap[this._type]];
         } else {
-            classNames = ['btn'];
             if (this._type) {
                 classNames.push(`btn-${this._type}`);
             }
-            // console.error(`button type (${this._type}) is not support`);
         }
         if (this._size) {
             classNames.push(`btn-${this._size}`);
@@ -182,7 +190,7 @@ export class ThyButtonComponent implements OnInit {
     }
 
     ngOnInit() {
-        this._setClasses();
+        this.updateClasses();
         this._initialized = true;
     }
 }

@@ -1,28 +1,11 @@
-<div class="custom-basic-container" cdkScrollable>
-  <div class="mb-2">大小</div>
-  <thy-select name="size" thySize="md" style="width:200px;" [(ngModel)]="thySize">
-    <option value="sm">小</option>
-    <option value="md">中</option>
-    <option value="">默认</option>
-    <option value="lg">大</option>
-  </thy-select>
-  <div class="mb-2 mt-2">其它设置</div>
-  <label name="backdrop" thyCheckbox [(ngModel)]="hasBackdrop" thyLabelText="是否显示遮罩"></label>
-  <label name="clear" thyCheckbox [(ngModel)]="allowClear" thyLabelText="是否支持清除选项"></label>
-  <label name="search" thyCheckbox [(ngModel)]="showSearch" thyLabelText="允许搜索"></label>
-  <label name="disabled" thyCheckbox [(ngModel)]="disabled" thyLabelText="禁用"></label>
-  <label name="multiple" thyCheckbox [(ngModel)]="isMultiple" thyLabelText="是否多选"></label>
-  <div class="mb-2 mt-2">展示</div>
-  <thy-custom-select
-    [thyPlaceHolder]="placeholder"
-    [thyShowSearch]="showSearch"
-    [thyAllowClear]="allowClear"
-    [thyDisabled]="disabled"
-    [thyMode]="thyMode"
-    [thySize]="thySize"
-    [thyHasBackdrop]="hasBackdrop"
-    style="width:500px;"
-  >
-    <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.label"></thy-option>
+<div class="custom-basic-container">
+  <thy-custom-select ngModel="a10">
+    <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.label"> </thy-option>
+  </thy-custom-select>
+  <thy-custom-select ngModel="a10" [thyDisabled]="true">
+    <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.label"> </thy-option>
+  </thy-custom-select>
+  <thy-custom-select ngModel="a10" [thyAllowClear]="true" [thyPlaceHolder]="'请选择'">
+    <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.label"> </thy-option>
   </thy-custom-select>
 </div>

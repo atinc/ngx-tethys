@@ -1,7 +1,10 @@
+@use "../../styles/variables";
+@use "mixin";
+
 .thy-switch {
-    margin-bottom: $switch-margin-bottom;
+    margin-bottom: variables.$switch-margin-bottom;
     box-sizing: content-box;
-    @include thy-switch($switch-width, $switch-height, 2);
+    @include mixin.thy-switch(variables.$switch-width, variables.$switch-height, 2);
 }
 
 .thy-switch-disabled {
@@ -24,14 +27,14 @@
 
 $switch-theme: (
     (
-        'primary': $primary,
-        'info': $gray-400,
-        'warning': $warning,
-        'danger': $danger
+        'primary': variables.$primary,
+        'info': variables.$gray-400,
+        'warning': variables.$warning,
+        'danger': variables.$danger
     )
 ) !default;
 @each $color, $value in $switch-theme {
     .thy-switch-#{$color} {
-        @include thy-switch-variant($value);
+        @include mixin.thy-switch-variant($value);
     }
 }

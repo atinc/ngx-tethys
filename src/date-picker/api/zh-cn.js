@@ -75,12 +75,18 @@ module.exports = [
                 description: '弹出层 className',
                 type: 'string',
                 default: '""'
+            },
+            {
+                name: 'thyPlacement',
+                description: `弹出位置，'top' | 'topLeft' | 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight' | 'left' | 'leftTop' | 'leftBottom' | 'right' | 'rightTop' | 'rightBottom'`,
+                type: 'string',
+                default: 'bottom'
             }
         ]
     },
     {
         type: 'component',
-        name: 'thy-data-picker',
+        name: 'thy-date-picker',
         description: '参数列表',
         properties: [
             {
@@ -138,24 +144,25 @@ module.exports = [
                 description: '时间发生变化的回调',
                 type: 'EventEmitter<Date>',
                 default: '-'
+            },
+            {
+                name: 'thyAutoStartAndEnd',
+                description: '是否取值开始日期的00:00以及截止日期的24:00',
+                type: 'boolean',
+                default: 'false'
             }
         ]
     },
     {
         type: 'DIRECTIVE',
         name: 'thyDatePicker',
+        description: '参数列表',
         properties: [
             {
                 name: 'thyMode',
                 description: `模式，'decade' | 'year' | 'month' | 'date'`,
                 type: 'string|string[]',
                 default: ''
-            },
-            {
-                name: 'thyPlacement',
-                description: `弹出位置，'top' | 'topLeft' | 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight' | 'left' | 'leftTop' | 'leftBottom' | 'right' | 'rightTop' | 'rightBottom'`,
-                type: 'string',
-                default: 'bottom'
             },
             {
                 name: 'thyOffset',
@@ -174,6 +181,12 @@ module.exports = [
                 description: '是否有幕布',
                 type: 'boolean',
                 default: 'true'
+            },
+            {
+                name: 'thyPopoverOptions',
+                description: 'popover的其他参数',
+                type: 'ThyPopoverConfig',
+                default: '-'
             },
             {
                 name: 'thyStopPropagation',

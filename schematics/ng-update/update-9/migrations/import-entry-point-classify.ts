@@ -1,7 +1,4 @@
-import ts from 'typescript';
-import { ContentChange, RemoveContentChange, ReplaceContentChange, UpdateContentChange } from '../../../types';
-
-import { MigrationBase } from './base';
+import { ImportEntryPointClassifyMigrationBase } from '../../../class';
 
 const NAME_PACKAGE_RELATION = {
     ThyActionMenuItemType: 'action-menu',
@@ -45,7 +42,7 @@ const NAME_PACKAGE_RELATION = {
     ThyAutocompleteConfig: 'autocomplete',
     THY_AUTOCOMPLETE_DEFAULT_CONFIG: 'autocomplete',
     THY_AUTOCOMPLETE_DEFAULT_CONFIG_PROVIDER: 'autocomplete',
-    autocompleteUpperOverlayOptions: 'autocomplete',
+    autocompleteAbstractOverlayOptions: 'autocomplete',
     ThyAutocompleteService: 'autocomplete',
     thyAvatarSizeMap: 'avatar',
     ThyAvatarComponent: 'avatar',
@@ -129,9 +126,9 @@ const NAME_PACKAGE_RELATION = {
     ThyAbstractOverlayContainer: 'core',
     ThyAbstractOverlayRef: 'core',
     ThyAbstractInternalOverlayRef: 'core',
-    ThyUpperOverlayPosition: 'core',
+    ThyAbstractOverlayPosition: 'core',
     ThyAbstractOverlayConfig: 'core',
-    ThyUpperOverlayOptions: 'core',
+    ThyAbstractOverlayOptions: 'core',
     ComponentTypeOrTemplateRef: 'core',
     ThyAbstractOverlayService: 'core',
     buildConnectedPositionOffset: 'core',
@@ -227,7 +224,7 @@ const NAME_PACKAGE_RELATION = {
     THY_DIALOG_LAYOUT_CONFIG: 'dialog',
     THY_DIALOG_LAYOUT_CONFIG_PROVIDER: 'dialog',
     ThyDialogModule: 'dialog',
-    dialogUpperOverlayOptions: 'dialog',
+    dialogAbstractOverlayOptions: 'dialog',
     ThyDialog: 'dialog',
     DialogFooterComponent: 'dialog',
     DialogHeaderComponent: 'dialog',
@@ -406,13 +403,8 @@ const NAME_PACKAGE_RELATION = {
     THY_POPOVER_DEFAULT_CONFIG: 'popover',
     THY_POPOVER_DEFAULT_CONFIG_PROVIDER: 'popover',
     ThyPopoverDirective: 'popover',
-    popoverUpperOverlayOptions: 'popover',
+    popoverAbstractOverlayOptions: 'popover',
     ThyPopover: 'popover',
-    NewClientRect: 'positioning',
-    PlacementTypes: 'positioning',
-    PositioningOptions: 'positioning',
-    defaultPositioningOptions: 'positioning',
-    ThyPositioningService: 'positioning',
     ThyParentProgress: 'progress',
     THY_PROGRESS_COMPONENT: 'progress',
     ThyProgressBarComponent: 'progress',
@@ -496,7 +488,7 @@ const NAME_PACKAGE_RELATION = {
     ThySlideConfig: 'slide',
     ThySlideOption: 'slide',
     THY_SLIDE_DEFAULT_CONFIG: 'slide',
-    slideUpperOverlayOptions: 'slide',
+    slideAbstractOverlayOptions: 'slide',
     slideDefaultConfigValue: 'slide',
     THY_SLIDE_DEFAULT_CONFIG_PROVIDER: 'slide',
     ThySlideModule: 'slide',
@@ -751,7 +743,7 @@ const NAME_PACKAGE_RELATION = {
     ThyVoteModule: 'vote'
 };
 
-export class ImportEntryPointClassifyMigration extends MigrationBase {
+export class ImportEntryPointClassifyMigrationByNg9 extends ImportEntryPointClassifyMigrationBase {
     readonly specifyGroup = {
         EntityAddOptions: 'store',
         IndexableObject: 'types',
@@ -764,59 +756,4 @@ export class ImportEntryPointClassifyMigration extends MigrationBase {
         references: 'util'
     };
     readonly relation = Object.assign({}, NAME_PACKAGE_RELATION, this.specifyGroup);
-
-    run() {
-        const importDeclarationList: ts.ImportDeclaration[] = this.getImportDeclarationList().filter(
-            item => this.getImportDeclarationPackageName(item) === 'ngx-tethys'
-        );
-        if (!importDeclarationList.length) {
-            return;
-        }
-        const contentChangeList: ContentChange[] = [];
-        for (const importDeclaration of importDeclarationList) {
-            const newImportDeclarationSourceGroup: { [name: string]: string[] } = {};
-            const warningList: string[] = [];
-            this.getImportDeclarationImportSpecifierList(importDeclaration).forEach(item => {
-                if (this.relation[item.name.text] !== undefined) {
-                    const list = newImportDeclarationSourceGroup[this.relation[item.name.text]] || [];
-                    list.push(item.name.text);
-                    newImportDeclarationSourceGroup[this.relation[item.name.text]] = list;
-                } else {
-                    warningList.push(item.name.text);
-                }
-            });
-            if (Object.entries(newImportDeclarationSourceGroup).length) {
-                contentChangeList.push(
-                    new ReplaceContentChange(
-                        importDeclaration.getStart(),
-                        importDeclaration.getWidth(),
-                        Object.entries(newImportDeclarationSourceGroup)
-                            .map(([key, value], index) =>
-                                this.printNodeContent(
-                                    this.createImportDeclaration(value, ['ngx-tethys', key].filter(a => !!a).join('/'), {
-                                        content:
-                                            warningList.length && !index
-                                                ? ` WARN: ${warningList.join(',')}没有找到对应的二级入口点`
-                                                : undefined
-                                    })
-                                )
-                            )
-                            .join('\n')
-                    )
-                );
-            } else if (warningList.length) {
-                contentChangeList.push(
-                    new ReplaceContentChange(
-                        importDeclaration.getStart(),
-                        importDeclaration.getWidth(),
-                        `// WARN: ${warningList.join(',')}没有找到对应的二级入口点`
-                    )
-                );
-            }
-        }
-        if (!contentChangeList.length) {
-            return;
-        }
-        this.updateFileService.change(this.sourceFile.fileName, contentChangeList);
-    }
 }

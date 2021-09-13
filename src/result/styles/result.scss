@@ -1,18 +1,20 @@
+@use "../../styles/variables";
+
 .thy-result {
     display: block;
     text-align: center;
-    padding: $result-padding;
+    padding: variables.$result-padding;
     &-title {
-        font-size: $result-title-font-size;
-        margin-top: $result-title-margin-top;
+        font-size: variables.$result-title-font-size;
+        margin-top: variables.$result-title-margin-top;
     }
     &-subtitle {
-        color: $result-subtitle-color;
-        font-size: $result-subtitle-font-size;
-        margin-top: $result-subtitle-margin-top;
+        color: variables.$result-subtitle-color;
+        font-size: variables.$result-subtitle-font-size;
+        margin-top: variables.$result-subtitle-margin-top;
     }
     &-extra {
-        margin-top: $result-extra-margin-top;
+        margin-top: variables.$result-extra-margin-top;
         & > *:not(:last-child) {
             margin-right: 8px;
         }

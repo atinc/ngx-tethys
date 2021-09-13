@@ -1,24 +1,23 @@
-import { ESCAPE } from '@angular/cdk/keycodes';
+import { ThyAbstractInternalOverlayRef, ThyAbstractOverlayPosition, ThyAbstractOverlayRef } from 'ngx-tethys/core';
+
 import { GlobalPositionStrategy, OverlayRef } from '@angular/cdk/overlay';
-import { Observable, Subject } from 'rxjs';
-import { filter, take } from 'rxjs/operators';
-import { ThyDialogConfig } from './dialog.config';
+
 import { ThyDialogContainerComponent } from './dialog-container.component';
-import { ThyAbstractOverlayRef, ThyAbstractInternalOverlayRef, ThyUpperOverlayPosition } from 'ngx-tethys/core';
-import { dialogUpperOverlayOptions } from './dialog.options';
+import { ThyDialogConfig } from './dialog.config';
+import { dialogAbstractOverlayOptions } from './dialog.options';
 
-export abstract class ThyDialogRef<T, TResult = any> extends ThyAbstractOverlayRef<T, ThyDialogContainerComponent, TResult> {}
+export abstract class ThyDialogRef<T, TResult = unknown> extends ThyAbstractOverlayRef<T, ThyDialogContainerComponent, TResult> {}
 
-export class ThyInternalDialogRef<T, TResult = any> extends ThyAbstractInternalOverlayRef<T, ThyDialogContainerComponent, TResult> {
+export class ThyInternalDialogRef<T, TResult = unknown> extends ThyAbstractInternalOverlayRef<T, ThyDialogContainerComponent, TResult> {
     constructor(overlayRef: OverlayRef, containerInstance: ThyDialogContainerComponent, config: ThyDialogConfig<T>) {
-        super(dialogUpperOverlayOptions, overlayRef, containerInstance, config);
+        super(dialogAbstractOverlayOptions, overlayRef, containerInstance, config);
     }
 
     /**
      * Updates the dialog's position.
      * @param position New dialog position.
      */
-    updatePosition(position?: ThyUpperOverlayPosition): this {
+    updatePosition(position?: ThyAbstractOverlayPosition): this {
         this.updateGlobalPosition(position);
         return this;
     }
@@ -28,7 +27,7 @@ export class ThyInternalDialogRef<T, TResult = any> extends ThyAbstractInternalO
      * @param width New width of the dialog.
      * @param height New height of the dialog.
      */
-    updateSizeAndPosition(width: string = '', height: string = '', position?: ThyUpperOverlayPosition): this {
+    updateSizeAndPosition(width: string = '', height: string = '', position?: ThyAbstractOverlayPosition): this {
         (this.getPositionStrategy() as GlobalPositionStrategy).width(width).height(height);
         this.updatePosition(position);
         return this;

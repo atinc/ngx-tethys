@@ -1,3 +1,5 @@
+@use "../../styles/variables";
+
 $resizable-prefix-cls: 'thy-resizable';
 $resize-height: 10px;
 $resize-top: -5px;
@@ -8,7 +10,7 @@ $resize-top: -5px;
         top: 0;
         left: 0;
         z-index: 8;
-        border: 1px dashed $gray-300;
+        border: 1px dashed variables.$gray-300;
     }
     &-handle {
         position: absolute;

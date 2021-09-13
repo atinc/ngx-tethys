@@ -1,10 +1,11 @@
-import { Injectable, NgZone, OnDestroy } from '@angular/core';
-import { fromEvent, Subject, Observable, Observer, Subscription } from 'rxjs';
+import { fromEvent, Observable, Subject, Subscription } from 'rxjs';
 import { auditTime } from 'rxjs/operators';
+
+import { Directive, NgZone, OnDestroy } from '@angular/core';
 
 const DEFAULT_EVENT_TIME = 100;
 
-@Injectable()
+@Directive()
 export abstract class ThyEventDispatcher implements OnDestroy {
     private _globalSubscription: Subscription = null;
 
@@ -31,10 +32,10 @@ export abstract class ThyEventDispatcher implements OnDestroy {
         return this._globalSubscription;
     }
 
-    constructor(private document: any, private ngZone: NgZone, private eventName: string) {}
+    constructor(private document: Document, private ngZone: NgZone, private eventName: string) {}
 
     protected subscribe(auditTimeInMs: number = DEFAULT_EVENT_TIME): Observable<Event> {
-        return Observable.create((observer: Observer<Event | void>) => {
+        return new Observable(observer => {
             if (!this._globalSubscription) {
                 this._addGlobalListener();
             }

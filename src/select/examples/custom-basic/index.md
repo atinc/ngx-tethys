@@ -1,4 +1,4 @@
 ---
-title: 基本使用
+title: Basic
 order: 1
 ---

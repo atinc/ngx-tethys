@@ -1,21 +1,24 @@
+@use "../../styles/variables";
+@use "mixin";
+
 .empty-state {
     display: block;
     text-align: center;
     .empty-icon {
         i {
-            color: $empty-icon-color;
+            color: variables.$empty-icon-color;
         }
     }
 
     .empty-text {
-        color: $empty-text-color;
+        color: variables.$empty-text-color;
         // margin-left: 15px;
     }
 
-    @include set-empty-state-size($empty-icon-size, $empty-text-size);
+    @include mixin.set-empty-state-size(variables.$empty-icon-size, variables.$empty-text-size);
 
     &--lg {
-        @include set-empty-state-size($empty-icon-size-lg, $empty-text-size-lg);
+        @include mixin.set-empty-state-size(variables.$empty-icon-size-lg, variables.$empty-text-size-lg);
     }
 }
 
@@ -25,30 +28,45 @@
     line-height: 1;
     .thy-empty-icon .empty-icon {
         svg {
-            color: $empty-icon-color;
+            color: variables.$empty-icon-color;
         }
     }
 
     .thy-empty-text {
-        color: $empty-text-color;
+        color: variables.$empty-text-color;
         &-with-extra {
-            color: $empty-text-color-with-extra;
+            color: variables.$empty-text-color-with-extra;
         }
     }
 
     .thy-empty-description {
-        color: $empty-description-color;
-        font-size: $empty-description-size;
-        margin-top: $empty-description-margin-top;
+        color: variables.$empty-description-color;
+        font-size: variables.$empty-description-size;
+        margin-top: variables.$empty-description-margin-top;
     }
 
-    @include set-empty-state-style($empty-text-size, $empty-text-margin-top, $empty-svg-width, $empty-svg-height);
+    @include mixin.set-empty-state-style(
+        variables.$empty-text-size,
+        variables.$empty-text-margin-top,
+        variables.$empty-svg-width,
+        variables.$empty-svg-height
+    );
 
     &--lg {
-        @include set-empty-state-style($empty-text-size-lg, $empty-text-margin-top-lg, $empty-svg-width-lg, $empty-svg-height-lg);
+        @include mixin.set-empty-state-style(
+            variables.$empty-text-size-lg,
+            variables.$empty-text-margin-top-lg,
+            variables.$empty-svg-width-lg,
+            variables.$empty-svg-height-lg
+        );
     }
 
     &--sm {
-        @include set-empty-state-style($empty-text-size-sm, $empty-text-margin-top-sm, $empty-svg-width-sm, $empty-svg-height-sm);
+        @include mixin.set-empty-state-style(
+            variables.$empty-text-size-sm,
+            variables.$empty-text-margin-top-sm,
+            variables.$empty-svg-width-sm,
+            variables.$empty-svg-height-sm
+        );
     }
 }

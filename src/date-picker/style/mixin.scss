@@ -1,3 +1,6 @@
+@use "../../styles/variables";
+@use "./variables.scss" as style;
+
 @mixin calendarLeftArrow {
     height: 100%;
 
@@ -19,7 +22,7 @@
 
     &:hover::before,
     &:hover::after {
-        border-color: $text-color;
+        border-color: style.$text-color;
     }
 
     &::after {
@@ -70,7 +73,7 @@
         cursor: pointer;
 
         &:hover {
-            color: $link-hover-color;
+            color: variables.$link-hover-color;
         }
     }
 
@@ -80,7 +83,7 @@
     .#{$calendar-prefix-cls}-month-select {
         display: inline-block;
         padding: 0 2px;
-        color: $heading-color;
+        color: style.$heading-color;
         line-height: 40px;
     }
 
@@ -96,7 +99,7 @@
         top: 0;
         display: inline-block;
         padding: 0 5px;
-        color: $secondary;
+        color: variables.$secondary;
         font-size: 16px;
         font-family: Arial, 'Hiragino Sans GB', 'Microsoft Yahei', 'Microsoft Sans Serif', sans-serif;
         line-height: 40px;
@@ -128,19 +131,19 @@
 }
 
 @mixin calendar-selected-cell {
-    .#{$calendar-prefix-cls}-date {
-        color: $white !important;
-        background: $primary;
-        border: $border-width-base $border-style-base transparent;
+    .#{style.$calendar-prefix-cls}-date {
+        color: variables.$white !important;
+        background: variables.$primary;
+        border: style.$border-width-base style.$border-style-base transparent;
 
         &:hover {
-            background: $primary;
+            background: variables.$primary;
         }
     }
 }
 
 // Placeholder text
-@mixin placeholder($color: $input-placeholder-color) {
+@mixin placeholder($color: variables.$input-placeholder-color) {
     // Firefox
     &::-moz-placeholder {
         color: $color;

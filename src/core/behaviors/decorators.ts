@@ -1,23 +1,76 @@
-import { coerceNumberValue, coerceBooleanProperty, coerceCssPixelValue } from 'ngx-tethys/util';
+import { SafeAny } from 'ngx-tethys/types';
+import { coerceBooleanProperty, coerceCssPixelValue, coerceNumberValue } from 'ngx-tethys/util';
 
-export function InputBoolean(): any {
-    return propDecoratorFactory('InputBoolean', coerceBooleanProperty);
+export function InputBoolean(): PropertyDecorator {
+    return makePropDecorator('InputBoolean', coerceBooleanProperty);
 }
 
-export function InputCssPixel(): any {
-    return propDecoratorFactory('InputCssPixel', coerceCssPixelValue);
+export function InputCssPixel(): PropertyDecorator {
+    return makePropDecorator('InputCssPixel', coerceCssPixelValue);
 }
 
-export function InputNumber(): any {
-    return propDecoratorFactory('InputNumber', coerceNumberValue);
+export function InputNumber(): PropertyDecorator {
+    return makePropDecorator('InputNumber', coerceNumberValue);
 }
 
-function propDecoratorFactory<T, D>(name: string, fallback: (v: T) => D): (target: any, propName: string) => void {
-    function propDecorator(target: any, propName: string, originalDescriptor?: TypedPropertyDescriptor<any>): any {
+// const ELEMENT_REF_NAME = '__eRef';
+// function makeInjectElementRef(target: SafeAny) {
+//     if (target[ELEMENT_REF_NAME]) {
+//         return;
+//     }
+
+//     const originalFactory = target.constructor.ɵfac;
+//     target.constructor.ɵfac = function(t?: Type<any>) {
+//         target[ELEMENT_REF_NAME] = directiveInject(ElementRef);
+//         const instance = originalFactory(t);
+//         return instance;
+//     };
+// }
+
+// function getElementRef(target: SafeAny): ElementRef {
+//     if (target[ELEMENT_REF_NAME]) {
+//         return target[ELEMENT_REF_NAME];
+//     } else {
+//         throw new Error(`ElementRef is not exist, make sure in Ivy`);
+//     }
+// }
+
+// export function ClassBinding(format: string): PropertyDecorator {
+//     let lastClassName = '';
+//     return makePropDecorator(
+//         'ClassBinding',
+//         (value: string, target?: SafeAny) => {
+//             const newClassName = format.replace(`{{value}}`, value);
+//             const element: HTMLElement = getElementRef(target).nativeElement;
+//             if (element) {
+//                 if (lastClassName !== newClassName) {
+//                     lastClassName && element.classList.remove(lastClassName);
+//                     element.classList.add(newClassName);
+//                     lastClassName = newClassName;
+//                 }
+//             }
+//             return newClassName;
+//         },
+//         (target: SafeAny, propName: string) => {
+//             if (!target.constructor.ɵcmp) {
+//                 throw new Error(`ClassBinding is only support Ivy`);
+//             }
+//             makeInjectElementRef(target);
+//         }
+//     );
+// }
+
+function makePropDecorator<T, D>(
+    name: string,
+    transform: (v: T, target?: SafeAny) => D,
+    initialize?: PropertyDecorator
+): PropertyDecorator {
+    function propDecorator(target: SafeAny, propName: string, originalDescriptor?: TypedPropertyDescriptor<any>): any {
+        initialize && initialize(target, propName);
         const privatePropName = `$$__${propName}`;
 
         if (Object.prototype.hasOwnProperty.call(target, privatePropName)) {
-            console.warn(`The prop "${privatePropName}" is already exist, it will be overrided by ${name} decorator.`);
+            console.warn(`The property "${privatePropName}" is already exist, it will be overrided by ${name} decorator.`);
         }
 
         Object.defineProperty(target, privatePropName, {
@@ -30,10 +83,11 @@ function propDecoratorFactory<T, D>(name: string, fallback: (v: T) => D): (targe
                 return originalDescriptor && originalDescriptor.get ? originalDescriptor.get.bind(this)() : this[privatePropName];
             },
             set(value: T): void {
+                const finalValue = transform(value, target);
                 if (originalDescriptor && originalDescriptor.set) {
-                    originalDescriptor.set.bind(this)(fallback(value));
+                    originalDescriptor.set.bind(this)(finalValue);
                 }
-                this[privatePropName] = fallback(value);
+                this[privatePropName] = finalValue;
             }
         };
     }

@@ -4,11 +4,11 @@ import { coerceArray, isFunction, isUndefinedOrNull } from './helpers';
 export interface EntityAddOptions {
     prepend?: boolean;
 
-    afterId?: string;
+    afterId?: Id;
 }
 
 export interface EntityMoveOptions {
-    afterId?: string;
+    afterId?: Id;
 
     toIndex?: number;
 }

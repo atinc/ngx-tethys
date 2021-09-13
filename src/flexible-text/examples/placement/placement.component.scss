@@ -1,0 +1,10 @@
+.flexible-content {
+    display: flex;
+    flex-wrap: wrap;
+    .flexible-item {
+        width: 300px;
+        margin-right: 30px;
+        margin-bottom: 20px;
+        background: #fff;
+    }
+}

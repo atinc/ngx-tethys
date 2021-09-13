@@ -14,15 +14,15 @@ export class ThyFormLayoutExampleComponent implements OnInit {
     layouts: LayoutInfo[] = [
         {
             value: 'horizontal',
-            text: 'Horizontal 水平'
+            text: 'Horizontal'
         },
         {
             value: 'vertical',
-            text: 'Vertical 垂直'
+            text: 'Vertical'
         },
         {
             value: 'inline',
-            text: 'Inline 行内'
+            text: 'Inline'
         }
     ];
 

@@ -1,0 +1,23 @@
+@use "../../mixins/background-variant";
+@use "../../variables";
+@use "../functions-variables";
+
+// stylelint-disable declaration-no-important
+
+@each $color, $value in functions-variables.$theme-colors {
+    @include background-variant.bg-variant('.bg-#{$color}', $value, true);
+}
+
+@if variables.$enable-gradients {
+    @each $color, $value in functions-variables.$theme-colors {
+        @include background-variant.bg-gradient-variant('.bg-gradient-#{$color}', $value, true);
+    }
+}
+
+.bg-white {
+    background-color: variables.$white !important;
+}
+
+.bg-transparent {
+    background-color: transparent !important;
+}

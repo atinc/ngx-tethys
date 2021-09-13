@@ -24,9 +24,6 @@ import { ThyDropdownModule } from 'ngx-tethys/dropdown';
 import { ThyEmptyModule } from 'ngx-tethys/empty';
 import { ThyFlexibleTextModule } from 'ngx-tethys/flexible-text';
 import { ThyFormModule } from 'ngx-tethys/form';
-import { ThyFullscreenModule } from 'ngx-tethys/fullscreen';
-import { ThyGridModule } from 'ngx-tethys/grid';
-import { ThyGuiderModule } from 'ngx-tethys/guider';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyInputModule } from 'ngx-tethys/input';
 import { ThyLabelModule } from 'ngx-tethys/label';
@@ -56,6 +53,7 @@ import { ThyStatisticModule } from 'ngx-tethys/statistic';
 import { ThyStepperModule } from 'ngx-tethys/stepper';
 import { ThyStrengthModule } from 'ngx-tethys/strength';
 import { ThySwitchModule } from 'ngx-tethys/switch';
+import { ThyTableModule } from 'ngx-tethys/table';
 import { ThyTimePickerModule } from 'ngx-tethys/time-picker';
 import { ThyTimelineModule } from 'ngx-tethys/timeline';
 import { ThyTooltipModule } from 'ngx-tethys/tooltip';
@@ -75,7 +73,7 @@ const IMPORT_EXPORT_MODULES = [
     ThyIconModule,
     ThyPopoverModule,
     ThyBadgeModule,
-    ThyGridModule,
+    ThyTableModule,
     ThyRasterModule,
     ThyAvatarModule,
     ThyLabelModule,

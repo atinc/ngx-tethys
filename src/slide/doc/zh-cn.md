@@ -6,7 +6,7 @@ description: 从父窗体边缘滑入，覆盖住部分父窗体内容。
 order: 30
 ---
 
-<div class="dg-alert dg-alert-info">从父窗体边缘滑入，覆盖住部分父窗体内容。</div>
+<alert>从父窗体边缘滑入，覆盖住部分父窗体内容</alert>
 
 ## 何时使用
 
@@ -15,7 +15,7 @@ order: 30
 
 ## 模块导入
 ```ts
-import { ThySlideModule } from "tethys/slide";
+import { ThySlideModule } from "ngx-tethys/slide";
 ```
 
 ## 如何使用

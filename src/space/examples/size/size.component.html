@@ -1,0 +1,14 @@
+<thy-button-group thySize="sm" thyType="outline-default">
+  <button thyButton *ngFor="let item of sizes" (click)="size = item" [ngClass]="{ active: size === item }">
+    {{ item }}
+  </button>
+</thy-button-group>
+
+<thy-space class="mt-3" [thySize]="size">
+  <button *thySpaceItem thyButton="primary">Button</button>
+  <button *thySpaceItem thyButton="info">Button</button>
+  <button *thySpaceItem thyButton="success">Button</button>
+  <button *thySpaceItem thyButton="outline-default">Button</button>
+  <button *thySpaceItem thyButton="outline-primary">Button</button>
+  <a href="javascript:;" *thySpaceItem thyButton="link">Link</a>
+</thy-space>

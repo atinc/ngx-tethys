@@ -1,3 +1,5 @@
+@use "sass:color";
+@use "sass:map";
 // gray color
 $white: #fff;
 // 直接使用 $gray-70 , $gray-99 会在将来的版本移除
@@ -26,8 +28,9 @@ $rem-20px: 1.25rem;
 $rem-26px: 1.625rem;
 // color
 $body-color: $gray-800 !default;
-$primary: #22d7bb !default;
-$primary-active: #18bfa4 !default;
+$primary: #348fe4 !default;
+// deprecated
+$primary-active: color.adjust($primary, $lightness: -10%) !default;
 $secondary: $gray-700 !default;
 $success: #66c060 !default; // 2dbcff
 $info: #2dbcff !default;
@@ -116,10 +119,10 @@ $input-btn-padding-y-lg: 0.656rem !default;
 $input-btn-focus-width: 0.0625rem !default; // 1px
 
 // Buttons
-$btn-border-radius: 1.25rem !default;
-$btn-border-radius-lg: 1.65rem !default;
-$btn-border-radius-sm: 1rem !default;
-$btn-border-radius-xs: 0.75rem !default;
+$btn-border-radius: 4px !default;
+$btn-border-radius-lg: 4px !default;
+$btn-border-radius-sm: 4px !default;
+$btn-border-radius-xs: 4px !default;
 $btn-box-shadow: null !default;
 
 $btn-line-height: $input-btn-line-height;
@@ -322,7 +325,7 @@ $table-default-header-height: inherit !default;
 $table-bordered-cell-height: 50px !default;
 $table-group-first-cell-padding-left: 43px !default;
 // grid
-$grid-footer-padding: 0 20px !default;
+$table-footer-padding: 0 20px !default;
 // action-menu
 $action-menu-width: 240px !default;
 $action-menu-group-width: 280px !default;
@@ -359,6 +362,14 @@ $label-size-padding: 5px 10px !default;
 $label-size-padding-sm: 4px 10px !default;
 $label-size-padding-md: 6px 10px !default;
 $label-size-padding-lg: 7px 10px !default;
+$label-size-outline-diff: 1px !default;
+$label-size-paddings: () !default;
+$label-size-paddings: (
+    default: 5,
+    sm: 4,
+    md: 6,
+    lg: 7
+);
 $label-border-radius: 3px !default;
 $label-pill-radius: 18px !default;
 $label-border-radius: 3px !default;
@@ -370,7 +381,7 @@ $label-warning-bg: $warning !default;
 $label-danger-bg: $danger !default;
 //avatar
 $avatar-sizes: () !default;
-$avatar-sizes: map-merge(
+$avatar-sizes: map.merge(
     (
         22: 12,
         24: 12,
@@ -704,11 +715,11 @@ $tooltip-arrow-color: $tooltip-bg !default;
 // alert
 $alert-padding-y: 0.625rem !default;
 $alert-padding-x: 1.125rem !default;
-$thy-alert-week-colors: (
-    'primary-week': $primary,
-    'success-week': $success,
-    'warning-week': $warning,
-    'danger-week': $danger
+$thy-alert-weak-colors: (
+    'primary-weak': $primary,
+    'success-weak': $success,
+    'warning-weak': $warning,
+    'danger-weak': $danger
 ) !default;
 $alert-operation-margin-left: 40px !default;
 

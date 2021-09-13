@@ -1,5 +1,5 @@
 import { Subject } from 'rxjs';
-import { XhrFactory } from '@angular/common/http';
+import { XhrFactory } from '@angular/common';
 import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { ThyUploaderModule } from '../module';
 import { ThyUploaderService, ThyUploadFile, ThyUploadResponse, ThyUploadStatus } from '../uploader.service';

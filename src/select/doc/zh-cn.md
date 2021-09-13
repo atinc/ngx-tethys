@@ -5,21 +5,56 @@ subtitle: 选择
 order: 1
 ---
 
-下拉选择器,包括自定义的custom-select、原生的select。
+<alert>下拉选择组件，包含基于原生的 `thy-select` 和完全自定义的 `thy-custom-select` </alert>
 
-## 自定义custom-select
- - 支持自定义大小、清除数据、搜索、禁用、多选
- - 支持自定义显示
- - 支持滚动加载
- - 支持Options分组
- - 支持服务端搜索
- 
+## 何时使用
+- 简单场景、UI风格可以接受浏览器默认select样式时使用 `thy-select`
+- UI风格需要统一、交互更复杂的场景建议使用 `thy-custom-select`
+
+## 模块导入
+```
+import { ThySelectModule } from "ngx-tethys/select";
+```
+
+## 如何使用
+`thy-select` 基本使用如下：
+
+```html
+<thy-select [(ngModel)]="selectedOption" style="width: 200px">
+  <option value="">请选择</option>
+  <option value="option1">选项1</option>
+  <option value="option2">选项2</option>
+</thy-select>
+```
+
+展示效果如下：
+<example name="thy-select-basic-example" /> 
+
+
+`thy-custom-select` 基本使用如下：
+
+```html
+<div class="custom-basic-container">
+  <thy-custom-select [(ngModel)]="selectedOption">
+    <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.label">
+    </thy-option>
+  </thy-custom-select>
+  <thy-custom-select [(ngModel)]="selectedOption" [thyDisabled]="true">
+    <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.label">
+    </thy-option>
+  </thy-custom-select>
+  <thy-custom-select [(ngModel)]="selectedOption" [thyShowSearch]="true">
+    <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.label">
+    </thy-option>
+  </thy-custom-select>
+  <thy-custom-select [(ngModel)]="selectedOption" [thyAllowClear]="true">
+    <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.label">
+    </thy-option>
+  </thy-custom-select>
+</div>
+```
+
+
+展示效果如下：
 <example name="thy-select-custom-basic-example" />
-
-## 原生select
-
-展示默认Select组件，支持自定义大小.
-
-<example name="thy-select-basic-example" />  
-
 

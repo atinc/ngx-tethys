@@ -3,10 +3,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ThyEmptyModule, ThyTranslate, ThyFlexibleTextModule, ThyTooltipModule } from 'ngx-tethys';
+import { ThyEmptyModule, ThyTranslate, ThyFlexibleTextModule, ThyTooltipModule, ThyLabelModule } from 'ngx-tethys';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ThyFlexibleTextBasicExampleComponent } from './basic/basic.component';
-const COMPONENTS = [ThyFlexibleTextBasicExampleComponent];
+import { ThyFlexibleTextTemplateExampleComponent } from './template/template.component';
+import { ThyFlexibleTextPlacementExampleComponent } from './placement/placement.component';
+import { ThyFlexibleTextContainerExampleComponent } from './container/container.component';
+const COMPONENTS = [
+    ThyFlexibleTextBasicExampleComponent,
+    ThyFlexibleTextTemplateExampleComponent,
+    ThyFlexibleTextPlacementExampleComponent,
+    ThyFlexibleTextContainerExampleComponent
+];
 
 @NgModule({
     declarations: [...COMPONENTS],
@@ -18,7 +26,8 @@ const COMPONENTS = [ThyFlexibleTextBasicExampleComponent];
         TranslateModule.forRoot(),
         TranslateModule,
         ThyFlexibleTextModule,
-        ThyTooltipModule
+        ThyTooltipModule,
+        ThyLabelModule
     ],
     exports: [...COMPONENTS],
     providers: []
