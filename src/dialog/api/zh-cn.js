@@ -5,8 +5,8 @@ module.exports = [
         properties: [
             {
                 name: 'size',
-                description: '弹出框的大小，ThyDialogSizes: sm, md, lg, max-lg',
-                type: 'ThyDialogSizes | string',
+                description: '弹出框的大小，ThyDialogSizes: sm (400), md (660), lg (800), maxLg (980), supperLg (94vw), full (全屏)',
+                type: 'ThyDialogSizes',
                 default: 'md'
             },
             {
@@ -43,6 +43,23 @@ module.exports = [
                 name: 'maxHeigh',
                 description: '弹出框最大高度',
                 type: 'number | string',
+                default: '85vh'
+            },
+            {
+                name: 'backdropClass',
+                description: '幕布的样式类名',
+                type: 'string | string[]'
+            },
+            {
+                name: 'width',
+                description: '自定义弹出框的宽度',
+                type: 'string',
+                default: '660px'
+            },
+            {
+                name: 'height',
+                description: '自定义弹出框的高度',
+                type: 'string',
                 default: '85vh'
             }
         ]
