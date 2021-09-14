@@ -1,11 +1,14 @@
+@use "../../styles/variables";
+$rate-star-font-size: 18px !default;
+
 .thy-rate-container {
     display: flex;
     align-items: center;
-    color: #ffcd5d;
+    color: variables.$warning;
 
     .thy-rate-star {
         position: relative;
-        font-size: 18px;
+        font-size: $rate-star-font-size;
         color: inherit;
         transition: all 0.3s;
         &:not(:last-child) {
@@ -28,10 +31,10 @@
 
         .thy-rate-item-left,
         .thy-rate-item-all {
-            color: #f0f0f0;
+            color: variables.$gray-100;
             transition: all 0.3s;
             .thy-icon {
-                font-size: 18px;
+                font-size: $rate-star-font-size;
             }
         }
 

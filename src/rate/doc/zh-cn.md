@@ -4,7 +4,7 @@ title: Rate
 subtitle: 评分
 ---
 
-<div class="dg-alert dg-alert-info">评分组件。</div>
+<alert>评分组件。</alert>
 
 ## 何时使用
 对事物进行快速的评级操作。
