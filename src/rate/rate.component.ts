@@ -16,12 +16,6 @@ import { InputBoolean, InputNumber } from 'ngx-tethys/core';
 import { helpers } from 'ngx-tethys/util';
 
 const noop = () => {};
-
-// tslint:disable-next-line: class-name
-export interface classStyleTypeInfo {
-    [key: string]: boolean;
-}
-
 @Component({
     selector: 'thy-rate',
     templateUrl: './rate.component.html',
@@ -43,7 +37,7 @@ export class ThyRateComponent implements ControlValueAccessor, OnInit, OnChanges
 
     public rateArray: number[] = [];
 
-    public rateStyleArray: classStyleTypeInfo[] = [];
+    public rateStyleArray: Record<string, boolean>[] = [];
 
     private icons: string | TemplateRef<any> | string[] | TemplateRef<any>[] = null;
 

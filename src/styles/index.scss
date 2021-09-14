@@ -80,16 +80,8 @@
 @forward '../space/styles/space.scss';
 @forward '../slider/slider.scss';
 @forward '../calendar/styles/calendar.scss';
-
-<<<<<<< HEAD
-@import '../fullscreen/styles/fullscreen.scss';
-@import '../guider/styles/guider.scss';
-@import '../guider/styles/guider-tip.scss';
-@import '../resizable/styles/resizable.scss';
-@import '../rate/styles/rate.scss';
-=======
 @forward '../fullscreen/styles/fullscreen.scss';
 @forward '../guider/styles/guider.scss';
 @forward '../guider/styles/guider-tip.scss';
 @forward '../resizable/styles/resizable.scss';
->>>>>>> 913ded0143b3857c2638a13f16707a4dbcb5ed0d
+@forward '../rate/styles/rate.scss';
