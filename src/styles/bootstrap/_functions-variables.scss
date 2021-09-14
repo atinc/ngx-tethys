@@ -1,0 +1,51 @@
+@use "sass:map";
+@use '../variables.scss';
+$yiq-text-dark: variables.$gray-900 !default;
+$yiq-text-light: variables.$white !default;
+$yiq-contrasted-threshold: 150 !default;
+$blue: #007bff !default;
+$indigo: #6610f2 !default;
+$purple: #6f42c1 !default;
+$pink: #e83e8c !default;
+$red: #dc3545 !default;
+$orange: #fd7e14 !default;
+$yellow: #ffc107 !default;
+$green: #28a745 !default;
+$teal: #20c997 !default;
+$cyan: #17a2b8 !default;
+$dark: variables.$gray-800 !default;
+
+$colors: () !default;
+// // stylelint-disable-next-line scss/dollar-variable-default
+$colors: map.merge(
+    (
+        'blue': $blue,
+        'indigo': $indigo,
+        'purple': $purple,
+        'pink': $pink,
+        'red': $red,
+        'orange': $orange,
+        'yellow': $yellow,
+        'green': $green,
+        'teal': $teal,
+        'cyan': $cyan,
+        'white': variables.$white,
+        'gray': variables.$gray-600,
+        'gray-dark': variables.$gray-800
+    ),
+    $colors
+);
+$theme-colors: () !default;
+$theme-colors: map.merge(
+    (
+        'primary': variables.$primary,
+        'secondary': variables.$secondary,
+        'success': variables.$success,
+        'info': variables.$info,
+        'warning': variables.$warning,
+        'danger': variables.$danger,
+        'light': variables.$light,
+        'dark': $dark
+    ),
+    $theme-colors
+);

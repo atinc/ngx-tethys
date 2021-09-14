@@ -1,10 +1,12 @@
-.#{$calendar-prefix-cls}-month {
-    .#{$calendar-prefix-cls}-header-wrap {
+@use "./variables.scss" as style;
+
+.#{style.$calendar-prefix-cls}-month {
+    .#{style.$calendar-prefix-cls}-header-wrap {
         position: relative;
         height: 288px;
     }
-    .#{$calendar-prefix-cls}-month-panel,
-    .#{$calendar-prefix-cls}-year-panel {
+    .#{style.$calendar-prefix-cls}-month-panel,
+    .#{style.$calendar-prefix-cls}-year-panel {
         top: 0;
         height: 100%;
     }

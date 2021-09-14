@@ -1,9 +1,13 @@
+@use "../../styles/bootstrap/mixins/caret";
+@use "../../styles/bootstrap/variables" as bootstrap-variables;
+@use "../../styles/variables";
+
 .thy-dropdown-toggle {
     // Generate the caret automatically
-    @include caret;
+    @include caret.caret;
     &.btn {
-        padding-left: $dropdown-toggle-y-l;
-        padding-right: $dropdown-toggle-y-r;
+        padding-left: variables.$dropdown-toggle-y-l;
+        padding-right: variables.$dropdown-toggle-y-r;
     }
     &::after {
         margin-left: 1.25rem;
@@ -15,11 +19,11 @@
         &::before {
             position: absolute;
             content: '';
-            width: $btn-border-width;
+            width: bootstrap-variables.$btn-border-width;
             height: 100%;
             top: 0;
             left: 0px;
-            background: rgba($white, 0.3);
+            background: rgba(variables.$white, 0.3);
         }
         min-width: inherit;
     }
@@ -29,29 +33,29 @@
 }
 .btn-group > .btn {
     &.thy-dropdown-toggle-split {
-        padding: $btn-padding-y $btn-group-btn-dropdown-padding-x;
+        padding: variables.$btn-padding-y variables.$btn-group-btn-dropdown-padding-x;
     }
 }
 .btn-group-xs > .btn {
     &.thy-dropdown-toggle-split {
-        padding: $btn-group-btn-padding-y-xs $btn-group-btn-dropdown-padding-x-xs;
+        padding: variables.$btn-group-btn-padding-y-xs variables.$btn-group-btn-dropdown-padding-x-xs;
     }
 }
 
 .btn-group-sm > .btn {
     &.thy-dropdown-toggle-split {
-        padding: $btn-group-btn-padding-y-sm $btn-group-btn-dropdown-padding-x-sm;
+        padding: variables.$btn-group-btn-padding-y-sm variables.$btn-group-btn-dropdown-padding-x-sm;
     }
 }
 
 .btn-group-md > .btn {
     &.thy-dropdown-toggle-split {
-        padding: $btn-group-btn-padding-y-md $btn-group-btn-dropdown-padding-x-md;
+        padding: variables.$btn-group-btn-padding-y-md variables.$btn-group-btn-dropdown-padding-x-md;
     }
 }
 
 .btn-group-lg > .btn {
     &.thy-dropdown-toggle-split {
-        padding: $btn-group-btn-padding-y-lg $btn-group-btn-dropdown-padding-x-lg;
+        padding: variables.$btn-group-btn-padding-y-lg variables.$btn-group-btn-dropdown-padding-x-lg;
     }
 }

@@ -1,5 +1,6 @@
 ---
 category: display
 title: Markdown
-subtitle: markdown 解析
+subtitle: 解析
+label: deprecated
 ---

@@ -1,4 +1,5 @@
 import { ThyDragDropEvent } from 'ngx-tethys/drag-drop';
+
 import { ThyTreeNode } from './tree-node.class';
 
 export enum ThyTreeNodeCheckState {

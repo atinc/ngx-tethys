@@ -1,3 +1,5 @@
+@use "../../styles/variables";
+
 @mixin statistic-color($color) {
     color: $color;
     &.thy-statistic-card {
@@ -20,7 +22,7 @@
     .thy-statistic-content {
         line-height: 1.5;
         &-value {
-            font-family: $font-family-statistics-number;
+            font-family: variables.$font-family-statistics-number;
         }
         &-prefix,
         &-suffix {
@@ -35,12 +37,16 @@
     }
 
     .thy-statistic-title {
-        font-size: $font-size-sm;
-        color: $gray-600;
+        font-size: variables.$font-size-sm;
+        color: variables.$gray-600;
     }
 }
 .thy-statistic-default {
-    @include statistic-size($statistic-size-default, $statistic-suffix-size-default, $statistic-title-size-default);
+    @include statistic-size(
+        variables.$statistic-size-default,
+        variables.$statistic-suffix-size-default,
+        variables.$statistic-title-size-default
+    );
 }
 
 .thy-statistic-card {
@@ -51,21 +57,21 @@
 }
 
 .thy-statistic-primary {
-    @include statistic-color($primary);
+    @include statistic-color(variables.$primary);
 }
 
 .thy-statistic-success {
-    @include statistic-color($success);
+    @include statistic-color(variables.$success);
 }
 
 .thy-statistic-warning {
-    @include statistic-color($warning);
+    @include statistic-color(variables.$warning);
 }
 
 .thy-statistic-danger {
-    @include statistic-color($danger);
+    @include statistic-color(variables.$danger);
 }
 
 .thy-statistic-info {
-    @include statistic-color($info);
+    @include statistic-color(variables.$info);
 }

@@ -10,7 +10,7 @@ export function throwPopoverContentAlreadyAttachedError(name: string) {
     throw Error(`Attempting to attach ${name} content after content is already attached`);
 }
 
-export abstract class ThyAbstractOverlayContainer {
+export abstract class ThyAbstractOverlayContainer<TData = unknown> {
     id?: string;
 
     animationState: string;
@@ -19,7 +19,7 @@ export abstract class ThyAbstractOverlayContainer {
 
     containerDestroy = new Subject<void>();
 
-    abstract config: ThyAbstractOverlayConfig;
+    abstract config: ThyAbstractOverlayConfig<TData>;
 
     /**portal outlet */
     abstract portalOutlet: CdkPortalOutlet;

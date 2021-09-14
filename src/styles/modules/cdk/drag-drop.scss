@@ -1,3 +1,6 @@
+@use "../../mixins/shadow";
+@use "../../variables";
+
 // 使用 `cdk` 的 `drag-drop` 时的样式
 // 添加在每个cdkDrag组件上的样式
 .thy-sortable-list,
@@ -8,12 +11,12 @@
 .cdk-drop-list-empty {
     display: block;
     line-height: 40px;
-    font-size: $font-size-sm;
-    color: $gray-500;
+    font-size: variables.$font-size-sm;
+    color: variables.$gray-500;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    background-color: $gray-100;
+    background-color: variables.$gray-100;
 }
 
 .thy-sortable-item,
@@ -31,7 +34,7 @@
         .cdk-drag-handle,
         .drag-handle {
             visibility: visible;
-            color: $gray-600;
+            color: variables.$gray-600;
         }
     }
 
@@ -51,7 +54,7 @@
 .thy-sortable-ghost,
 .cdk-drag-placeholder {
     color: transparent !important;
-    background: $gray-200 !important;
+    background: variables.$gray-200 !important;
     // margin-left: -20px;
     // padding-left: 20px;
 
@@ -70,8 +73,8 @@
 .thy-sortable-drag,
 .cdk-drag-preview {
     box-sizing: border-box;
-    @include item-box-shadow();
-    background: $white !important;
+    @include shadow.item-box-shadow();
+    background: variables.$white !important;
 }
 
 .cdk-drag-animating {

@@ -1,7 +1,10 @@
+@use "../mixins/utilities";
+@use "../variables";
+
 .icon-text {
     display: inline-block;
     position: relative;
-    font-size: $font-size-base;
+    font-size: variables.$font-size-base;
     // * {
     //     vertical-align: middle;
     // }
@@ -12,7 +15,7 @@
         width: 20px;
         font-size: 20px;
         svg {
-            @include absolute-vertical-align-middle(true);
+            @include utilities.absolute-vertical-align-middle(true);
         }
     }
 
@@ -31,10 +34,10 @@
     }
 
     &-xs {
-        font-size: $font-size-sm;
+        font-size: variables.$font-size-sm;
         thy-icon {
-            width: $font-size-sm;
-            font-size: $font-size-base;
+            width: variables.$font-size-sm;
+            font-size: variables.$font-size-base;
         }
     }
 
@@ -45,7 +48,7 @@
         width: 20px;
         font-size: 20px;
         &:before {
-            @include absolute-vertical-align-middle(true);
+            @include utilities.absolute-vertical-align-middle(true);
         }
     }
 
@@ -64,10 +67,10 @@
     }
 
     &-xs {
-        font-size: $font-size-sm;
+        font-size: variables.$font-size-sm;
         i {
-            width: $font-size-base;
-            font-size: $font-size-base;
+            width: variables.$font-size-base;
+            font-size: variables.$font-size-base;
         }
     }
     // #endregion

@@ -5,7 +5,7 @@ subtitle: 警告框
 order: 1
 ---
 
-<div class="dg-alert dg-alert-info">警告提示框。</div>
+<alert>警告提示框</alert>
 
 ## 何时使用
 

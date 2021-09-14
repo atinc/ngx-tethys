@@ -18,14 +18,18 @@ export class ThyRateTemplateExampleComponent implements AfterViewInit {
 
     value = 1;
 
-    iconsTemplate: TemplateRef<any>[] = null;
+    icon = 'smile';
+
+    icons = ['angry', 'angry', 'expressionless', 'smile', 'smile'];
+
+    templates: TemplateRef<any>[] = null;
 
     template: TemplateRef<any> = null;
 
     constructor() {}
 
     ngAfterViewInit(): void {
-        this.iconsTemplate = [this.icon1, this.icon2, this.icon3, this.icon4, this.icon5];
+        this.templates = [this.icon1, this.icon2, this.icon3, this.icon4, this.icon5];
         this.template = this.icon5;
     }
 }

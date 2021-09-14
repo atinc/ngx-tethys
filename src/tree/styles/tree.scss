@@ -1,11 +1,13 @@
-@import './mixin.scss';
+@use './mixin.scss';
+@use "../../styles/bootstrap/mixins/text-truncate";
+@use "../../styles/variables";
 
 .thy-tree {
     display: block;
     overflow: hidden;
     position: relative;
-    padding: $tree-padding;
-    color: $gray-700;
+    padding: variables.$tree-padding;
+    color: variables.$gray-700;
     transform: translateY(-10px);
 
     > div > .thy-tree-node {
@@ -14,14 +16,14 @@
 
     &-node {
         display: block;
-        padding: $tree-node-padding;
+        padding: variables.$tree-node-padding;
 
         &-wrapper {
             display: flex;
             cursor: pointer;
             align-items: center;
-            padding: $tree-node-wrapper-padding;
-            height: $tree-node-wrapper-height;
+            padding: variables.$tree-node-wrapper-padding;
+            height: variables.$tree-node-wrapper-height;
             margin: 0 -1000px;
             padding: 0 1000px;
             border: 2px solid transparent;
@@ -39,7 +41,7 @@
                 }
 
                 &:hover {
-                    color: $gray-600;
+                    color: variables.$gray-600;
                 }
             }
 
@@ -48,10 +50,10 @@
                 flex: 1;
                 display: flex;
                 align-items: center;
-                height: $tree-node-wrapper-height;
+                height: variables.$tree-node-wrapper-height;
 
                 .thy-tree-node-icon {
-                    color: $gray-300;
+                    color: variables.$gray-300;
                     margin-right: 8px;
                 }
 
@@ -64,14 +66,14 @@
                     flex: 1;
 
                     &.truncate {
-                        @include text-truncate();
+                        @include text-truncate.text-truncate();
                     }
                 }
             }
 
             &.disabled {
                 background: none;
-                color: $gray-400;
+                color: variables.$gray-400;
                 cursor: default; // not-allowed;
             }
 
@@ -79,16 +81,16 @@
                 &.hover,
                 &:hover {
                     // @include item-box-shadow();
-                    background-color: $gray-100;
+                    background-color: variables.$gray-100;
                 }
 
                 &.active {
-                    background: rgba($primary, 0.1);
-                    color: $primary;
+                    background: rgba(variables.$primary, 0.1);
+                    color: variables.$primary;
 
                     .thy-tree-node-content {
                         .thy-tree-node-icon {
-                            color: $primary;
+                            color: variables.$primary;
                         }
                     }
                 }
@@ -103,7 +105,7 @@
                     position: absolute;
                     left: 4px;
                     padding: 0;
-                    color: $gray-500;
+                    color: variables.$gray-500;
                     visibility: hidden;
                 }
             }
@@ -120,7 +122,7 @@
             width: 100%;
 
             input {
-                background-color: $white;
+                background-color: variables.$white;
             }
         }
 
@@ -161,13 +163,13 @@
 .thy-tree-sm {
     .thy-tree-node {
         &-wrapper {
-            height: $tree-node-wrapper-height-sm;
+            height: variables.$tree-node-wrapper-height-sm;
         }
     }
 }
 
 .thy-tree-default {
-    @include thy-tree-default();
+    @include mixin.thy-tree-default();
 }
 
-@include thy-tree-drag-drop();
+@include mixin.thy-tree-drag-drop();

@@ -35,7 +35,7 @@ import { popoverAbstractOverlayOptions } from './popover.options';
         '(@popoverContainer.done)': 'onAnimationDone($event)'
     }
 })
-export class ThyPopoverContainerComponent extends ThyAbstractOverlayContainer implements AfterViewInit, OnDestroy {
+export class ThyPopoverContainerComponent<TData = unknown> extends ThyAbstractOverlayContainer<TData> implements AfterViewInit, OnDestroy {
     @ViewChild(CdkPortalOutlet, { static: true })
     portalOutlet: CdkPortalOutlet;
 
@@ -56,8 +56,7 @@ export class ThyPopoverContainerComponent extends ThyAbstractOverlayContainer im
 
     constructor(
         private elementRef: ElementRef,
-        @Inject(DOCUMENT) private document: any,
-        public config: ThyPopoverConfig,
+        public config: ThyPopoverConfig<TData>,
         changeDetectorRef: ChangeDetectorRef,
         private thyClickDispatcher: ThyClickDispatcher,
         private ngZone: NgZone

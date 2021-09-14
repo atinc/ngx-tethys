@@ -1,0 +1,33 @@
+@use "sass:map";
+@use "../mixins/breakpoints";
+@use "../variables";
+
+// stylelint-disable declaration-no-important
+
+//
+// Utilities for common `display` values
+//
+
+@each $breakpoint in map.keys(variables.$grid-breakpoints) {
+    @include breakpoints.media-breakpoint-up($breakpoint) {
+        $infix: breakpoints.breakpoint-infix($breakpoint, variables.$grid-breakpoints);
+
+        @each $value in variables.$displays {
+            .d#{$infix}-#{$value} {
+                display: $value !important;
+            }
+        }
+    }
+}
+
+//
+// Utilities for toggling `display` in print
+//
+
+@media print {
+    @each $value in variables.$displays {
+        .d-print-#{$value} {
+            display: $value !important;
+        }
+    }
+}

@@ -1,11 +1,15 @@
+@use "sass:color";
+@use "../bootstrap/mixins/hover";
+@use "../bootstrap/variables";
+
 @mixin text-emphasis-variant($parent, $color, $ignore-warning: false) {
     #{$parent} {
         color: $color !important;
     }
-    @if $emphasized-link-hover-darken-percentage != 0 {
+    @if variables.$emphasized-link-hover-darken-percentage != 0 {
         a#{$parent} {
-            @include hover-focus() {
-                color: darken($color, $emphasized-link-hover-darken-percentage) !important;
+            @include hover.hover-focus() {
+                color: color.adjust($color, $lightness: - (variables.$emphasized-link-hover-darken-percentage)) !important;
             }
         }
     }

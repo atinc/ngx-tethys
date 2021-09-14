@@ -1,6 +1,8 @@
-import { Component, Input } from '@angular/core';
 import { isEmpty, isString, isTemplateRef } from 'ngx-tethys/util';
-import { DateCell } from './date-table.component';
+
+import { Component, Input } from '@angular/core';
+
+import { DateCell } from './types';
 
 @Component({
     selector: '[date-table-cell]',
