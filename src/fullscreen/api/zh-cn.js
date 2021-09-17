@@ -1,13 +1,14 @@
 module.exports = [
     {
         type: 'component',
-        name: 'Fullscreen 全屏',
-        description: '将某一区域进行全屏展示',
+        name: 'thyFullscreen',
+        description: '将某一区域进行全屏展示，支持组件`thy-fullscreen`和`thyFullscreen`指令两种形式',
         properties: [
             {
                 name: 'thyMode',
                 description: '全屏类型',
-                type: "FullscreenMode = 'immersive' | 'normal'",
+                type:
+                    "FullscreenMode = 'immersive' | 'emulated'，immersive 模式使用了浏览器提供的全屏，整个窗体都全屏，emulated 模式为仿真的，只会在 body 区域全屏，默认 immersive",
                 default: 'immersive'
             },
             {
