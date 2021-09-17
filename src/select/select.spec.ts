@@ -1,4 +1,4 @@
-import { TestBed, inject, ComponentFixture, fakeAsync } from '@angular/core/testing';
+import { TestBed, inject, ComponentFixture, fakeAsync, flush, tick } from '@angular/core/testing';
 import { ThySelectModule } from './module';
 import { Component, Sanitizer, SecurityContext, DebugElement } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -9,7 +9,13 @@ import { ThySelectComponent } from 'ngx-tethys';
 @Component({
     selector: 'app-basic-select-demo',
     template: `
-        <thy-select [thySize]="size" [disabled]="disabled" [(ngModel)]="value" (change)="change()" [thyAllowClear]="allowClear">
+        <thy-select
+            [thySize]="size"
+            [disabled]="disabled"
+            [(ngModel)]="value"
+            (ngModelChange)="change($event)"
+            [thyAllowClear]="allowClear"
+        >
             <option value="">请选择</option>
             <option value="option1">选项1</option>
             <option value="option2">选项2</option>
@@ -21,6 +27,7 @@ class BasicSelectComponent {
     allowClear = false;
     size = '';
     disabled: Boolean;
+    change(): void {}
 }
 
 describe(`select`, () => {
@@ -106,5 +113,24 @@ describe(`select`, () => {
             fixture.detectChanges();
             expect(selectElementChildren[0].classList.value.includes('thy-select-selection-allow-clear')).toBe(false);
         });
+
+        fit('clearValue', fakeAsync(() => {
+            const spy = spyOn(fixture.componentInstance, 'change');
+            fixture.componentInstance.allowClear = true;
+            fixture.componentInstance.value = '有值了';
+            fixture.detectChanges();
+            tick();
+            fixture.detectChanges();
+            expect(debugComponent.componentInstance._innerValue).toBe('有值了');
+            const removeBtn = debugComponent.nativeElement.querySelector('.thy-select-remove');
+            expect(removeBtn).toBeTruthy();
+
+            removeBtn.click();
+            fixture.detectChanges();
+            tick();
+            fixture.detectChanges();
+            expect(debugComponent.componentInstance._innerValue).toBe('');
+            expect(spy).toHaveBeenCalled();
+        }));
     });
 });
