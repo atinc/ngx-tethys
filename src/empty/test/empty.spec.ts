@@ -23,6 +23,7 @@ import { ThyEmptyModule } from '../empty.module';
                 [thyTopAuto]="thyTopAuto"
                 [thyContainer]="thyContainer"
                 [thyImageUrl]="thyImageUrl"
+                class="empty-test-example"
             >
                 <ng-template #extra>
                     <div class="sub-message">确实还没有数据啦啦啦啦</div>
@@ -117,5 +118,44 @@ describe('EmptyComponent', () => {
         fixture.detectChanges();
         const empty = fixture.debugElement.query(By.directive(ThyEmptyComponent));
         expect(empty.nativeElement.querySelector('.thy-empty-text').textContent).toContain('common.tips.NO_RESULT');
+    });
+
+    it('should should contain outer class', () => {
+        fixture.detectChanges();
+        const empty = fixture.debugElement.query(By.directive(ThyEmptyComponent));
+        expect(empty.nativeElement.classList).toContain('empty-test-example');
+    });
+
+    it('should should create a lg empty', () => {
+        fixture.detectChanges();
+        const empty = fixture.debugElement.query(By.directive(ThyEmptyComponent));
+        expect(empty.nativeElement.classList).toContain('thy-empty-state--lg');
+    });
+
+    it('should should create a sm empty', () => {
+        componentInstance.thySize = 'sm';
+        fixture.detectChanges();
+        const empty = fixture.debugElement.query(By.directive(ThyEmptyComponent));
+        expect(empty.nativeElement.classList).toContain('thy-empty-state--sm');
+    });
+
+    it('should should create a md empty', () => {
+        componentInstance.thySize = '';
+        fixture.detectChanges();
+        const empty = fixture.debugElement.query(By.directive(ThyEmptyComponent));
+        expect(empty.nativeElement.classList).toContain('thy-empty-state');
+        expect(empty.nativeElement.classList).not.toContain('thy-empty-state--sm');
+        expect(empty.nativeElement.classList).not.toContain('thy-empty-state--lg');
+    });
+
+    it('should should create correct size empty', () => {
+        componentInstance.thySize = 'lg';
+        fixture.detectChanges();
+        const empty = fixture.debugElement.query(By.directive(ThyEmptyComponent));
+        expect(empty.nativeElement.classList).toContain('thy-empty-state--lg');
+        componentInstance.thySize = 'sm';
+        fixture.detectChanges();
+        expect(empty.nativeElement.classList).toContain('thy-empty-state--sm');
+        expect(empty.nativeElement.classList).not.toContain('thy-empty-state--lg');
     });
 });

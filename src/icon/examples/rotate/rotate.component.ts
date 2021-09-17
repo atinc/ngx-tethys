@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'thy-icon-rotate-example',
-    templateUrl: './rotate.component.html'
+    templateUrl: './rotate.component.html',
+    styleUrls: ['./rotate.component.scss']
 })
-export class ThyIconRotateExampleComponent {
-    rotate = 0;
-}
+export class ThyIconRotateExampleComponent {}

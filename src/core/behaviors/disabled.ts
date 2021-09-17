@@ -1,5 +1,6 @@
-import { Constructor } from './constructor';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
+
+import { Constructor } from './constructor';
 
 export interface ThyCanDisable {
     thyDisabled: boolean;

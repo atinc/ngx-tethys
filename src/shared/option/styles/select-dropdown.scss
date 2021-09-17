@@ -1,5 +1,9 @@
+@use "../../../styles/variables";
+@use "../../select/select.mixin";
+@use "option.mixin";
+
 .thy-select-dropdown-options {
-    @include thy-select-options-container();
+    @include select.thy-select-options-container();
 
     .loading-more {
         min-height: auto;
@@ -7,11 +11,11 @@
     }
 
     .thy-option-item-group {
-        @include thy-option-common-layout();
+        @include option.thy-option-common-layout();
     }
 
     .thy-option-item {
-        @include thy-option();
+        @include option.thy-option();
         &.hidden {
             display: none;
         }
@@ -27,6 +31,8 @@
             height: 30px;
             display: flex;
             align-items: center;
+            color: variables.$gray-600;
+            background-color: variables.$gray-80;
             padding: {
                 left: 20px;
                 right: 20px;
@@ -41,11 +47,11 @@
     }
 }
 .thy-select-dropdown {
-    @include thy-select-options-dropdown();
+    @include select.thy-select-options-dropdown();
     &.thy-select-dropdown-multiple {
         .thy-select-dropdown-options {
             .thy-option-item {
-                @include thy-multiple-option();
+                @include option.thy-multiple-option();
             }
         }
     }
@@ -63,15 +69,15 @@
         display: flex;
         height: 41px;
         line-height: 40px;
-        color: $primary;
+        color: variables.$primary;
         cursor: pointer;
-        border-top: solid 1px $gray-200;
+        border-top: solid 1px variables.$gray-200;
         padding: {
             left: 20px;
             right: 20px;
         }
         &:hover {
-            background-color: $gray-80;
+            background-color: variables.$gray-80;
         }
     }
 }

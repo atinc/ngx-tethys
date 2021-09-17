@@ -1,22 +1,27 @@
-.#{$calendar-prefix-cls} {
+@use "../../styles/bootstrap/variables" as bootstrap-variables;
+@use "../../styles/variables";
+@use "mixin";
+@use "./variables.scss" as style;
+
+.#{style.$calendar-prefix-cls} {
     position: relative;
     width: 270px;
-    font-size: $font-size-base;
-    line-height: $line-height-base;
+    font-size: variables.$font-size-base;
+    line-height: variables.$line-height-base;
     text-align: left;
     list-style: none;
-    background-color: $white;
+    background-color: variables.$white;
     background-clip: padding-box;
-    border: $border-width-base $border-style-base $border-color-inverse;
-    border-radius: $border-radius-lg;
+    border: style.$border-width-base style.$border-style-base style.$border-color-inverse;
+    border-radius: variables.$border-radius-lg;
     outline: none;
-    box-shadow: $box-shadow;
+    box-shadow: variables.$box-shadow;
 
     &-input {
         width: 100%;
         height: 22px;
-        color: $input-color;
-        background: $input-bg;
+        color: variables.$input-color;
+        background: bootstrap-variables.$input-bg;
         border: 0;
         outline: 0;
         cursor: auto;
@@ -31,7 +36,7 @@
     }
 
     &-header {
-        @include calendarPanelHeader('thy-calendar');
+        @include mixin.calendarPanelHeader('thy-calendar');
     }
 
     &-body {
@@ -63,14 +68,14 @@
         line-height: 18px;
         text-align: center;
 
-        .#{$calendar-prefix-cls}-column-header-inner {
+        .#{style.$calendar-prefix-cls}-column-header-inner {
             display: block;
             font-weight: normal;
         }
     }
 
     &-week-number-header {
-        .#{$calendar-prefix-cls}-column-header-inner {
+        .#{style.$calendar-prefix-cls}-column-header-inner {
             display: none;
         }
     }
@@ -86,12 +91,12 @@
         height: 30px;
         margin: 0 auto;
         padding: 0;
-        color: $text-color;
+        color: style.$text-color;
         line-height: 28px;
         text-align: center;
         background: transparent;
-        border: $border-width-base $border-style-base transparent;
-        border-radius: $border-radius-lg;
+        border: style.$border-width-base style.$border-style-base transparent;
+        border-radius: variables.$border-radius-lg;
         transition: background 0.3s ease;
 
         &-panel {
@@ -104,30 +109,30 @@
         }
 
         &:hover {
-            background: $item-hover-bg;
+            background: style.$item-hover-bg;
             cursor: pointer;
         }
 
         &:active {
-            color: $text-color-inverse;
-            background: $primary;
+            color: style.$text-color-inverse;
+            background: variables.$primary;
         }
     }
 
     &-today &-date {
-        background-color: $item-hover-bg;
+        background-color: style.$item-hover-bg;
     }
 
     &-selected-day &-date {
-        background: $primary;
-        color: $white;
+        background: variables.$primary;
+        color: variables.$white;
     }
 
     &-last-month-cell &-date,
     &-next-month-btn-day &-date {
         &,
         &:hover {
-            color: $disabled-color;
+            color: style.$disabled-color;
             background: transparent;
             border-color: transparent;
         }
@@ -135,20 +140,20 @@
 
     &-disabled-cell &-date {
         position: relative;
-        border: $border-width-base $border-style-base transparent;
-        color: $disabled-color;
-        background: $disabled-bg;
+        border: style.$border-width-base style.$border-style-base transparent;
+        color: style.$disabled-color;
+        background: style.$disabled-bg;
         border-radius: 0;
         cursor: not-allowed;
         width: auto;
 
         &:hover {
-            background: $disabled-bg;
+            background: style.$disabled-bg;
         }
     }
 
     &-disabled-cell#{&}-today #{&}-date {
-        background-color: $item-hover-bg;
+        background-color: style.$item-hover-bg;
     }
 
     &-disabled-cell-first-of-row #{&}-date {
@@ -164,7 +169,7 @@
     &-footer {
         padding: 0 10px;
         line-height: 38px;
-        border-top: $border-width-base $border-style-base $border-color-split;
+        border-top: style.$border-width-base style.$border-style-base style.$border-color-split;
 
         &:empty {
             border-top: 0;
@@ -187,20 +192,20 @@
             cursor: pointer;
 
             &:hover {
-                color: $link-hover-color;
+                color: variables.$link-hover-color;
             }
         }
     }
 
-    .#{$calendar-prefix-cls}-today-btn,
-    .#{$calendar-prefix-cls}-clear-btn {
+    .#{style.$calendar-prefix-cls}-today-btn,
+    .#{style.$calendar-prefix-cls}-clear-btn {
         display: inline-block;
         margin: 0 0 0 8px;
         padding-left: 10px;
         text-align: center;
 
         &-disabled {
-            color: $disabled-color;
+            color: style.$disabled-color;
             cursor: not-allowed;
         }
 
@@ -209,7 +214,7 @@
         }
     }
 
-    .#{$calendar-prefix-cls}-clear-btn {
+    .#{style.$calendar-prefix-cls}-clear-btn {
         position: absolute;
         top: 7px;
         right: 5px;
@@ -223,22 +228,22 @@
         text-indent: -76px;
     }
 
-    .#{$calendar-prefix-cls}-clear-btn::after {
+    .#{style.$calendar-prefix-cls}-clear-btn::after {
         display: inline-block;
         width: 20px;
-        color: $disabled-color;
-        font-size: $font-size-base;
+        color: style.$disabled-color;
+        font-size: variables.$font-size-base;
         line-height: 1;
         text-indent: 43px;
         transition: color 0.3s ease;
     }
 
-    .#{$calendar-prefix-cls}-clear-btn:hover::after {
-        color: $secondary;
+    .#{style.$calendar-prefix-cls}-clear-btn:hover::after {
+        color: variables.$secondary;
     }
 
-    .#{$calendar-prefix-cls}-ok-btn {
-        font-size: $font-size-sm;
+    .#{style.$calendar-prefix-cls}-ok-btn {
+        font-size: variables.$font-size-sm;
         min-width: auto;
         padding: 0 7px;
         height: 24px;

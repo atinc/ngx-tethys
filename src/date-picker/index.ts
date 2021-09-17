@@ -17,6 +17,7 @@ export * from './lib/calendar/calendar-header.component';
 export * from './lib/calendar/calendar-footer.component';
 export * from './lib/date/date-table-cell.component';
 export * from './lib/date/date-table.component';
+export * from './lib/date/types';
 export * from './lib/decade/decade-panel.component';
 export * from './lib/month/month-panel.component';
 export * from './lib/month/month-table.component';

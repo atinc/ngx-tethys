@@ -1,0 +1,9 @@
+<div class="demo-card">
+  <thy-arrow-switcher
+    [(ngModel)]="index"
+    [thyTotal]="totalCount"
+    [disabled]="true"
+    (thyPrevious)="onPreviousClick($event)"
+    (thyNext)="onNextClick($event)"
+  ></thy-arrow-switcher>
+</div>

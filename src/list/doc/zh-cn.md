@@ -2,7 +2,6 @@
 category: display
 title: List
 subtitle: 列表
-order: 1
 ---
 
 ## 介绍

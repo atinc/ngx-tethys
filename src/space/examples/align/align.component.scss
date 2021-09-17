@@ -1,0 +1,19 @@
+:host {
+    &.space-align-container {
+        display: flex;
+        flex-wrap: wrap;
+
+        .space-align-example {
+            border: 1px solid #348fe4;
+            padding: 2px 4px;
+            // margin-right: 10px;
+            margin: 8px 4px;
+        }
+    }
+
+    .block {
+        height: 50px;
+        background: #eee;
+        padding: 10px;
+    }
+}

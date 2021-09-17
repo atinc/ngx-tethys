@@ -17,7 +17,7 @@ module.exports = function(config) {
             clearContext: false // leave Jasmine Spec Runner output visible in browser
         },
         coverageReporter: {
-            dir: 'coverage/',
+            dir: 'coverage/tethys',
             subdir: '.',
             reporters: [{ type: 'html' }, { type: 'text-summary' }, { type: 'lcovonly' }]
         },

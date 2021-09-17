@@ -2,7 +2,6 @@ module.exports = [
     {
         type: 'directive',
         name: 'thyRadio',
-        description: '单选框',
         properties: [
             {
                 name: 'thyLabelText',
@@ -45,7 +44,6 @@ module.exports = [
     {
         type: 'component',
         name: 'thy-radio-group',
-        description: '单选框组',
         properties: [
             {
                 name: 'ngModel',
@@ -58,6 +56,18 @@ module.exports = [
                 description: '值发生改变时触发回调函数',
                 type: 'function',
                 default: ''
+            },
+            {
+                name: 'thySize',
+                description: '大小，sm | md | lg',
+                type: 'string',
+                default: 'md'
+            },
+            {
+                name: 'thyDisabled',
+                description: '禁用单选组合框',
+                type: 'boolean',
+                default: 'false'
             }
         ]
     }

@@ -1,3 +1,5 @@
+@use "../../styles/variables";
+
 $anchor-border-width: 2px;
 
 .thy-anchor {
@@ -8,7 +10,7 @@ $anchor-border-width: 2px;
         margin-left: -4px;
         padding-left: 4px;
         overflow: auto;
-        background-color: $white;
+        background-color: variables.$white;
     }
 
     &-ink {
@@ -22,12 +24,12 @@ $anchor-border-width: 2px;
             width: $anchor-border-width;
             height: 100%;
             margin: 0 auto;
-            background-color: $nav-border-color;
+            background-color: variables.$nav-border-color;
             content: ' ';
         }
         &-full {
             position: absolute;
-            border-left: $anchor-border-width solid $primary;
+            border-left: $anchor-border-width solid variables.$primary;
             transition: top 0.2s ease-in-out;
         }
     }
@@ -43,7 +45,7 @@ $anchor-border-width: 2px;
             display: block;
             margin-bottom: 6px;
             overflow: hidden;
-            color: $gray-600;
+            color: variables.$gray-600;
             white-space: nowrap;
             text-overflow: ellipsis;
             transition: all 0.2s;
@@ -56,7 +58,7 @@ $anchor-border-width: 2px;
         }
 
         &-active > &-title {
-            color: $primary;
+            color: variables.$primary;
         }
     }
 }

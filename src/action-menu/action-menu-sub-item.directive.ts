@@ -1,19 +1,10 @@
-import {
-    Directive,
-    HostBinding,
-    Input,
-    Component,
-    HostListener,
-    ViewEncapsulation,
-    ElementRef,
-    OnInit,
-    AfterViewInit,
-    OnDestroy
-} from '@angular/core';
-import { ThyPositioningService } from 'ngx-tethys/positioning';
-import { ThyActionMenuItemDirective } from './action-menu-item.directive';
-import { mixinUnsubscribe, MixinBase, Constructor, ThyUnsubscribe } from 'ngx-tethys/core';
+import { Constructor, MixinBase, mixinUnsubscribe, ThyUnsubscribe } from 'ngx-tethys/core';
+import { getElementOffset } from 'ngx-tethys/util';
 import { takeUntil } from 'rxjs/operators';
+
+import { Directive, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
+
+import { ThyActionMenuItemDirective } from './action-menu-item.directive';
 
 type SubMenuDirection = 'left' | 'right' | 'auto';
 
@@ -28,7 +19,7 @@ export class ThyActionMenuSubItemDirective extends _MixinBase implements OnInit,
 
     @Input() thyActionMenuSubItem: SubMenuDirection = 'right';
 
-    constructor(private actionMenuItem: ThyActionMenuItemDirective, private positioningService: ThyPositioningService) {
+    constructor(private actionMenuItem: ThyActionMenuItemDirective) {
         super();
     }
 
@@ -41,7 +32,7 @@ export class ThyActionMenuSubItemDirective extends _MixinBase implements OnInit,
                 .pipe(takeUntil(this.ngUnsubscribe$))
                 .subscribe(() => {
                     const element = this.actionMenuItem.getElement();
-                    const offset = this.positioningService.offset(element);
+                    const offset = getElementOffset(element);
                     if (document.documentElement.clientWidth < offset.left + offset.width + offset.width) {
                         direction = 'left';
                     } else {

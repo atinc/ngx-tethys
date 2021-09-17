@@ -1,34 +1,36 @@
+@use "../../styles/variables";
+
 .thy-transfer {
     display: flex;
-    width: $transfer-width;
+    width: variables.$transfer-width;
 
     .thy-transfer-list {
         display: flex;
         flex-flow: column;
         flex: 1;
-        width: $transfer-list-width;
+        width: variables.$transfer-list-width;
 
         .thy-transfer-list-header {
-            padding: $transfer-list-header-padding;
+            padding: variables.$transfer-list-header-padding;
             width: 100%;
 
             .thy-transfer-list-header-title {
-                color: $transfer-list-header-font-color;
-                font-size: $transfer-list-header-font-size;
+                color: variables.$transfer-list-header-font-color;
+                font-size: variables.$transfer-list-header-font-size;
             }
         }
 
         .thy-transfer-list-body {
-            border: $transfer-list-border-width solid $transfer-list-border-color;
-            border-radius: $transfer-list-border-radius;
-            padding: $transfer-list-padding;
-            height: $transfer-list-height;
+            border: variables.$transfer-list-border-width solid variables.$transfer-list-border-color;
+            border-radius: variables.$transfer-list-border-radius;
+            padding: variables.$transfer-list-padding;
+            height: variables.$transfer-list-height;
             vertical-align: middle;
             overflow-y: auto;
 
             .thy-transfer-list-group-name {
                 padding: 12px 20px;
-                color: $gray-500;
+                color: variables.$gray-500;
                 line-height: 14px;
             }
         }
@@ -39,26 +41,26 @@
             .cdk-drop-list-empty {
                 margin: -12px 0;
                 padding: 12px 20px;
-                background: $white;
+                background: variables.$white;
             }
             .thy-transfer-list-content-item {
                 padding-right: 15px;
-                height: $transfer-list-item-line-hight;
-                min-height: $transfer-list-item-line-hight;
+                height: variables.$transfer-list-item-line-hight;
+                min-height: variables.$transfer-list-item-line-hight;
             }
         }
     }
 
     .thy-transfer-operation {
-        padding: $transfer-operation-padding;
+        padding: variables.$transfer-operation-padding;
         display: flex;
         align-items: center;
 
         .thy-transfer-operation-body {
             .operation-link {
                 display: block;
-                color: $transfer-operation-color;
-                font-size: $transfer-operation-font-size;
+                color: variables.$transfer-operation-color;
+                font-size: variables.$transfer-operation-font-size;
             }
         }
     }

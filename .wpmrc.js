@@ -1,9 +1,10 @@
 module.exports = {
-    allowBranch: ['master', 'v7.*', 'v8.*', 'v9.*', 'v10.*', 'v11.x'],
+    allowBranch: ['master', 'v7.*', 'v8.*', 'v9.*', 'v10.*', 'v11.*', '12.*'],
     bumpFiles: [
         'package.json',
         'package-lock.json',
         'src/package.json',
+        'cdk/package.json',
         {
             filename: './src/version.ts',
             type: 'code'

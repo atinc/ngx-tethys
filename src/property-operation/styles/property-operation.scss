@@ -1,3 +1,6 @@
+@use "../../styles/bootstrap/mixins/hover";
+@use "../../styles/variables";
+
 .thy-property-operation {
     display: inline-flex;
     cursor: pointer;
@@ -13,17 +16,17 @@
         pointer-events: none;
     }
     &:not(.thy-property-operation-disabled) {
-        @include hover {
+        @include hover.hover {
             .btn-icon-circle.border-thick:not(:hover):not(.invalid) i,
             .btn-icon-circle.border-thick:not(:hover):not(.invalid) .wtf,
             .btn-icon-circle.border-thick:not(:hover):not(.invalid) .thy-icon,
             .btn-icon-circle.border-thick:not(:hover):not(.invalid) thy-icon {
-                color: $primary;
-                border-color: $primary;
+                color: variables.$primary;
+                border-color: variables.$primary;
             }
 
             .thy-operation-content.only-has-tips > .thy-tips {
-                color: $primary;
+                color: variables.$primary;
             }
 
             .close-link {
@@ -42,13 +45,13 @@
             .thy-tips {
                 display: flex;
                 align-items: center;
-                font-size: $font-size-base;
+                font-size: variables.$font-size-base;
             }
         }
 
         .thy-tips {
-            color: $gray-500;
-            font-size: $font-size-sm;
+            color: variables.$gray-500;
+            font-size: variables.$font-size-sm;
         }
     }
 
@@ -65,33 +68,33 @@
     }
 
     &-primary {
-        color: $primary;
+        color: variables.$primary;
     }
 
     &-success {
-        color: $success;
+        color: variables.$success;
     }
 
     &-warning {
-        color: $warning;
+        color: variables.$warning;
     }
 
     &-danger {
-        color: $danger;
+        color: variables.$danger;
     }
     &.active {
         .thy-operation-icon {
             .btn-icon-circle {
                 &.border-thick {
                     .thy-icon {
-                        color: $primary;
-                        border-color: $primary;
+                        color: variables.$primary;
+                        border-color: variables.$primary;
                     }
                 }
             }
         }
         .thy-tips {
-            color: $primary;
+            color: variables.$primary;
         }
     }
 }

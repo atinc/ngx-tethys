@@ -1,16 +1,17 @@
-<div class="btn-pair">
-  <button thyButton="primary">Primary</button>
-  <button thyButton="primary" thyIcon="plus">New</button>
-  <button thyButton="info">Info</button>
-  <button thyButton="warning">Warning</button>
-  <button thyButton="danger">Danger</button>
-  <button thyButton="success">Success</button>
-</div>
-<div class="btn-pair mt-2">
-  <button thyButton="primary" disabled="disabled">Primary</button>
-  <button thyButton="primary" disabled="disabled" thyIcon="plus">New</button>
-  <button thyButton="info" disabled="disabled">Info</button>
-  <button thyButton="warning" disabled="disabled">Warning</button>
-  <button thyButton="danger" disabled="disabled">Danger</button>
-  <button thyButton="success" disabled="disabled">Success</button>
-</div>
+<thy-space>
+  <button *thySpaceItem thyButton="primary">Primary</button>
+  <button *thySpaceItem thyButton="primary" thyIcon="plus">New</button>
+  <button *thySpaceItem thyButton="info">Info</button>
+  <button *thySpaceItem thyButton="warning">Warning</button>
+  <button *thySpaceItem thyButton="danger">Danger</button>
+  <button *thySpaceItem thyButton="success">Success</button>
+</thy-space>
+
+<thy-space class="mt-2">
+  <button *thySpaceItem thyButton="primary" disabled="disabled">Primary</button>
+  <button *thySpaceItem thyButton="primary" disabled="disabled" thyIcon="plus">New</button>
+  <button *thySpaceItem thyButton="info" disabled="disabled">Info</button>
+  <button *thySpaceItem thyButton="warning" disabled="disabled">Warning</button>
+  <button *thySpaceItem thyButton="danger" disabled="disabled">Danger</button>
+  <button *thySpaceItem thyButton="success" disabled="disabled">Success</button>
+</thy-space>

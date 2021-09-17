@@ -53,7 +53,7 @@ export class NotifyQueueStore extends Store<NotifyQueueState> {
     addNotify(placement: NotifyPlacement, options: ThyNotifyOptions) {
         const key = this.convertQueueKey(placement);
         const state = this.snapshot;
-        if (state[key].length > options.maxStack) {
+        if (state[key].length >= options.maxStack) {
             state[key].shift();
         }
         state[key].push(options);

@@ -1,15 +1,17 @@
+@use "../styles/variables";
+
 .thy-popover-container {
-    background: $white;
+    background: variables.$white;
     min-width: 240px;
-    box-shadow: $box-shadow;
+    box-shadow: variables.$box-shadow;
     width: 100%;
 }
 
 .thy-popover-header {
-    padding: $popover-header-padding;
+    padding: variables.$popover-header-padding;
     display: flex;
     flex-direction: row;
-    border-bottom: solid 1px $popover-divider;
+    border-bottom: solid 1px variables.$popover-divider;
     background-color: transparent;
     .thy-popover-title,
     h5 {
@@ -17,7 +19,7 @@
         display: flex;
         align-items: center;
         margin: 0;
-        font-size: $font-size-md;
+        font-size: variables.$font-size-md;
         line-height: 20px;
         font-weight: normal;
     }
@@ -31,5 +33,5 @@
 .thy-popover-body {
     display: block;
     position: relative;
-    padding: $popover-body-padding;
+    padding: variables.$popover-body-padding;
 }

@@ -1,27 +1,26 @@
-import {
-    Component,
-    ChangeDetectionStrategy,
-    ComponentRef,
-    ViewChild,
-    EmbeddedViewRef,
-    ElementRef,
-    Inject,
-    EventEmitter,
-    ChangeDetectorRef,
-    HostBinding,
-    OnDestroy
-} from '@angular/core';
-import { ComponentPortal, CdkPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
-import { DOCUMENT } from '@angular/common';
-import { AnimationEvent } from '@angular/animations';
-import { ThyDialogConfig } from './dialog.config';
-import { thyDialogAnimations } from './dialog-animations';
-import { ThyClickPositioner } from 'ngx-tethys/core';
-import { FocusTrapFactory, FocusTrap } from '@angular/cdk/a11y';
-import { ThyAbstractOverlayContainer } from 'ngx-tethys/core';
-import { dialogUpperOverlayOptions } from './dialog.options';
+import { ThyAbstractOverlayContainer, ThyClickPositioner } from 'ngx-tethys/core';
 import { Observable } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
+
+import { AnimationEvent } from '@angular/animations';
+import { FocusTrap, FocusTrapFactory } from '@angular/cdk/a11y';
+import { CdkPortalOutlet } from '@angular/cdk/portal';
+import { DOCUMENT } from '@angular/common';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    EventEmitter,
+    HostBinding,
+    Inject,
+    OnDestroy,
+    ViewChild
+} from '@angular/core';
+
+import { thyDialogAnimations } from './dialog-animations';
+import { ThyDialogConfig } from './dialog.config';
+import { dialogAbstractOverlayOptions } from './dialog.options';
 
 @Component({
     selector: 'thy-dialog-container',
@@ -146,7 +145,7 @@ export class ThyDialogContainerComponent extends ThyAbstractOverlayContainer imp
         private clickPositioner: ThyClickPositioner,
         private focusTrapFactory: FocusTrapFactory
     ) {
-        super(dialogUpperOverlayOptions, changeDetectorRef);
+        super(dialogAbstractOverlayOptions, changeDetectorRef);
         this.animationOpeningDone = this.animationStateChanged.pipe(
             filter((event: AnimationEvent) => {
                 return event.phaseName === 'done' && event.toState === 'void';

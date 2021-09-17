@@ -1,10 +1,11 @@
+@use "../../styles/variables";
+@use "mixin";
+
 .thy-card {
     display: flex;
     flex-direction: column;
-    flex: auto;
-    height: 100%;
-    background: $white;
-    border-radius: $card-border-radius;
+    background: variables.$white;
+    border-radius: variables.$card-border-radius;
 
     .thy-card-header {
         padding: 10px 20px;
@@ -17,18 +18,18 @@
             margin-right: 7px;
             width: 0;
             height: 14px;
-            @include card-head-title-icon($card-title-icon-color);
+            @include mixin.card-head-title-icon(variables.$card-title-icon-color);
         }
 
         .card-header-title {
             line-height: 20px;
-            color: $card-title-color;
+            color: variables.$card-title-color;
         }
 
         .card-header-description {
             margin-left: 10px;
             font-size: 12px;
-            color: $card-title-info-color;
+            color: variables.$card-title-info-color;
         }
 
         .card-header-operation {
@@ -75,15 +76,15 @@
         .thy-card-header {
             position: relative;
             padding: {
-                top: $card-divided-spacing-y;
-                bottom: $card-divided-spacing-y;
+                top: variables.$card-divided-spacing-y;
+                bottom: variables.$card-divided-spacing-y;
             }
             &::after {
                 position: absolute;
                 content: ' ';
                 bottom: 0;
                 height: 1px;
-                background-color: $card-header-divider-color;
+                background-color: variables.$card-header-divider-color;
                 left: 20px;
                 right: 20px;
             }
@@ -94,8 +95,8 @@
         }
         .thy-card-content {
             padding: {
-                top: $card-divided-spacing-y;
-                bottom: $card-divided-spacing-y;
+                top: variables.$card-divided-spacing-y;
+                bottom: variables.$card-divided-spacing-y;
             }
 
             &--sm {

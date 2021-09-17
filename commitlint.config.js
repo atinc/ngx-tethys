@@ -5,6 +5,7 @@ module.exports = {
             2,
             'always',
             [
+                'cdk',
                 'schematics',
                 'variables',
                 'core',
@@ -52,7 +53,6 @@ module.exports = {
                 'nav',
                 'pagination',
                 'popover',
-                'positioning',
                 'progress',
                 'property-operation',
                 'radio',
@@ -78,6 +78,7 @@ module.exports = {
                 'back-top',
                 'timeline',
                 'divider',
+                'space',
                 'calendar',
                 'fullscreen',
                 'guider',

@@ -1,0 +1,14 @@
+<div>
+  <input
+    thyInput
+    thyAutocompleteTrigger
+    [(ngModel)]="value"
+    [thyAutofocus]="true"
+    [placeholder]="'自动聚焦'"
+    [thyAutocompleteComponent]="auto"
+    (ngModelChange)="valueChange($event)"
+  />
+  <thy-autocomplete #auto>
+    <thy-option *ngFor="let item of listOfOption" [thyLabelText]="item.label" [thyValue]="item.value"></thy-option>
+  </thy-autocomplete>
+</div>

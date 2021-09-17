@@ -70,13 +70,6 @@ module.exports = [
                 description: `内容区，滚动`
             },
             {
-                name: 'thyAlign',
-                type: 'string: title',
-                default: '-',
-                description: `内容区，对齐头部文字`
-            },
-
-            {
                 name: 'thySize',
                 type: ' md | sm',
                 default: 'md',

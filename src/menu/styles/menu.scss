@@ -1,3 +1,5 @@
+@use "../../styles/variables";
+
 .thy-menu {
     position: relative;
     display: block;
@@ -6,12 +8,12 @@
     transform: translateY(-10px);
 
     .thy-menu-item {
-        padding: $menu-item-padding;
-        min-height: $menu-height;
+        padding: variables.$menu-item-padding;
+        min-height: variables.$menu-height;
         align-items: center;
 
         &.active .thy-menu-item-content {
-            background: rgba($primary, 0.1);
+            background: rgba(variables.$primary, 0.1);
         }
 
         .thy-menu-item-content {
@@ -50,17 +52,17 @@
         .thy-menu-group-header {
             cursor: pointer;
             display: flex;
-            height: $menu-height;
+            height: variables.$menu-height;
             align-items: center;
-            font-size: $font-size-base;
+            font-size: variables.$font-size-base;
             margin: 0 -1000px;
-            padding: $menu-group-header-padding;
+            padding: variables.$menu-group-header-padding;
 
             &:hover {
-                background: $gray-100;
+                background: variables.$gray-100;
 
                 .thy-menu-group-title {
-                    color: $gray-800;
+                    color: variables.$gray-800;
                 }
 
                 .thy-menu-group-more {
@@ -71,20 +73,20 @@
             .thy-menu-group-arrow {
                 transition: all 0.2s cubic-bezier(0.4, 0.1, 0.5, 1) 0.1s;
                 display: inline-block;
-                color: $gray-500;
-                font-size: $font-size-md;
+                color: variables.$gray-500;
+                font-size: variables.$font-size-md;
                 width: 12px;
             }
 
             .thy-menu-group-folder {
                 margin-left: 6px;
-                color: $gray-500;
+                color: variables.$gray-500;
             }
 
             .thy-menu-group-title {
                 flex-grow: 1;
                 padding-left: 8px;
-                color: $gray-700;
+                color: variables.$gray-700;
                 overflow: hidden;
                 white-space: nowrap;
                 text-overflow: ellipsis;
@@ -92,12 +94,12 @@
 
             .thy-menu-group-more {
                 visibility: hidden;
-                color: $gray-500;
+                color: variables.$gray-500;
             }
         }
 
         .thy-menu-group-body {
-            margin-left: $menu-group-margin-left;
+            margin-left: variables.$menu-group-margin-left;
         }
 
         &.has-icon {
@@ -108,9 +110,9 @@
     }
 
     .thy-menu-divider {
-        margin: $menu-divider-margin;
+        margin: variables.$menu-divider-margin;
         display: block;
-        border-top: solid 1px $gray-200;
+        border-top: solid 1px variables.$gray-200;
     }
 }
 
@@ -123,16 +125,16 @@
 
     .thy-menu-item-content {
         display: flex;
-        min-height: $menu-height;
+        min-height: variables.$menu-height;
         cursor: pointer;
         overflow: hidden;
         align-items: center;
 
         &:hover {
-            background: $gray-100;
+            background: variables.$gray-100;
 
             .thy-menu-item-name {
-                color: $gray-800;
+                color: variables.$gray-800;
             }
 
             .thy-menu-item-action {
@@ -141,14 +143,14 @@
         }
 
         .thy-menu-item-icon {
-            color: $gray-500;
+            color: variables.$gray-500;
             padding: 0 8px 0 6px;
         }
 
         .thy-menu-item-name {
             flex-grow: 1;
-            color: $gray-700;
-            font-size: $font-size-base;
+            color: variables.$gray-700;
+            font-size: variables.$font-size-base;
         }
 
         .thy-menu-item-name-ellipsis {
@@ -159,17 +161,17 @@
 
         .thy-menu-item-action {
             visibility: hidden;
-            color: $gray-500;
+            color: variables.$gray-500;
         }
     }
 
     &.active .thy-menu-item-content {
         .thy-menu-item-icon {
-            color: $primary;
+            color: variables.$primary;
         }
 
         .thy-menu-item-name {
-            color: $primary;
+            color: variables.$primary;
         }
     }
 }
