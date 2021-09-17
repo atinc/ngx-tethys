@@ -1,20 +1,14 @@
-import {
-    forwardRef,
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    ElementRef,
-    Input,
-    Renderer2
-} from '@angular/core';
+import { PanelMode } from './standard-types';
+import { forwardRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, Renderer2 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { BasePickerComponent } from './base-picker.component';
 import { HeaderPickerComponent, SupportHeaderPanel } from './header-picker.component';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'thy-year-picker',
     exportAs: 'thyYearPicker',
-    templateUrl: './header-picker.component.html',
+    templateUrl: './base-picker.component.html',
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
@@ -23,8 +17,12 @@ import { HeaderPickerComponent, SupportHeaderPanel } from './header-picker.compo
         }
     ]
 })
-export class ThyYearPickerComponent extends HeaderPickerComponent {
+export class ThyYearPickerComponent extends BasePickerComponent {
     @Input() thyFormat = 'yyyy';
+
+    thyMode: PanelMode = 'year';
+
+    isRange = false;
 
     endPanelMode: SupportHeaderPanel = 'year';
 

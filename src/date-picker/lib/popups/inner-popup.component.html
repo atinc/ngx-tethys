@@ -1,18 +1,36 @@
-<calendar-header
+<!-- <calendar-header
   [(panelMode)]="panelMode"
   (panelModeChange)="panelModeChange.emit($event)"
   [(value)]="value"
   (valueChange)="headerChange.emit($event)"
   [enablePrev]="enablePrev"
   [enableNext]="enableNext"
-></calendar-header>
+></calendar-header> -->
 
 <div class="{{ prefixCls }}-body">
   <ng-container [ngSwitch]="panelMode">
     <ng-container *ngSwitchCase="'month'">
-      <month-table [value]="value" (valueChange)="onChooseMonth($event)" showWeekNumber="false" [disabledDate]="disabledDate"></month-table>
+      <month-header
+        [(value)]="value"
+        (panelModeChange)="panelModeChange.emit($event)"
+        (valueChange)="headerChange.emit($event)"
+      ></month-header>
+      <div class="{{ prefixCls }}-body">
+        <month-table [value]="value" [disabledDate]="disabledDate" (valueChange)="onChooseMonth($event)"></month-table>
+      </div>
     </ng-container>
-    <ng-container *ngSwitchCase="'date'">
+
+    <ng-container *ngSwitchCase="'year'">
+      <year-header
+        [(value)]="value"
+        (panelModeChange)="panelModeChange.emit($event)"
+        (valueChange)="headerChange.emit($event)"
+      ></year-header>
+      <div class="{{ prefixCls }}-body">
+        <year-table [value]="value" [disabledDate]="disabledDate" (valueChange)="onChooseMonth($event)"></year-table>
+      </div>
+    </ng-container>
+    <!-- <ng-container *ngSwitchCase="'date'">
       <date-table
         [showWeek]="showWeek"
         [value]="value"
@@ -24,6 +42,6 @@
         [hoverValue]="hoverValue"
         (dayHover)="dayHover.emit($event)"
       ></date-table>
-    </ng-container>
+    </ng-container> -->
   </ng-container>
 </div>

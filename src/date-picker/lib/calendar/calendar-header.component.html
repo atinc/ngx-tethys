@@ -4,7 +4,7 @@
     <a *ngIf="enablePrev" class="{{ prefixCls }}-prev-month-btn" role="button" (click)="previousMonth()" title="上月"></a>
 
     <span class="{{ prefixCls }}-my-select">
-      <ng-container *ngFor="let selector of yearMonthDaySelectors">
+      <ng-container *ngFor="let selector of selectors">
         <a
           class="{{ selector.className }}"
           role="button"

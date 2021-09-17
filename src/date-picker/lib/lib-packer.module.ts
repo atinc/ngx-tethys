@@ -1,3 +1,4 @@
+import { MonthHeaderComponent } from './month/month-header.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -16,15 +17,19 @@ import { DateTableCellComponent } from './date/date-table-cell.component';
 import { ThyButtonModule } from 'ngx-tethys/button';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyTimePickerModule } from 'ngx-tethys/time-picker';
+import { YearTableComponent } from './year/year-table.component';
+import { YearHeaderComponent } from './year/year-header.component';
 
 @NgModule({
     imports: [CommonModule, FormsModule, ThyButtonModule, ThyIconModule, ThyTimePickerModule],
     exports: [
-        CalendarHeaderComponent,
         CalendarFooterComponent,
         DateTableComponent,
         YearPanelComponent,
+        YearTableComponent,
+        YearHeaderComponent,
         MonthTableComponent,
+        MonthHeaderComponent,
         MonthPanelComponent,
         DecadePanelComponent,
         InnerPopupComponent,
@@ -32,11 +37,13 @@ import { ThyTimePickerModule } from 'ngx-tethys/time-picker';
         DateTableCellComponent
     ],
     declarations: [
-        CalendarHeaderComponent,
         CalendarFooterComponent,
         DateTableComponent,
         YearPanelComponent,
+        YearTableComponent,
+        YearHeaderComponent,
         MonthTableComponent,
+        MonthHeaderComponent,
         MonthPanelComponent,
         DecadePanelComponent,
         InnerPopupComponent,

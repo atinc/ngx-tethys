@@ -14,13 +14,19 @@ import { PanelMode } from '../../standard-types';
 import { TinyDate } from 'ngx-tethys/util';
 import { DateHelperService, DateHelperByDatePipe } from '../../date-helper.service';
 
+export interface PanelSelector {
+    className: string;
+    title?: string;
+    label: string;
+    onClick?(): void;
+}
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'calendar-header',
     exportAs: 'calendarHeader',
     templateUrl: 'calendar-header.component.html'
 })
-export class CalendarHeaderComponent implements OnInit, OnChanges {
+export abstract class CalendarHeaderComponent implements OnInit, OnChanges {
     @Input() enablePrev = true;
     @Input() enableNext = true;
     @Input() disabledMonth: (date: Date) => boolean;
@@ -35,18 +41,18 @@ export class CalendarHeaderComponent implements OnInit, OnChanges {
     @Output() readonly chooseYear = new EventEmitter<TinyDate>();
     @Output() readonly chooseMonth = new EventEmitter<TinyDate>();
 
+    abstract getSelectors(): PanelSelector[];
+
     prefixCls = 'thy-calendar';
-    yearMonthDaySelectors: YearMonthDaySelector[];
+    selectors: PanelSelector[];
 
-    // tslint:disable-next-line: max-line-length
-    private yearToMonth = false; // Indicate whether should change to month panel when current is year panel (if referer=month, it should show month panel when choosed a year)
-
-    constructor(private dateHelper: DateHelperService) {}
+    constructor(protected dateHelper: DateHelperService) {}
 
     ngOnInit(): void {
         if (!this.value) {
             this.value = new TinyDate();
         }
+        this.selectors = this.getSelectors();
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -73,48 +79,23 @@ export class CalendarHeaderComponent implements OnInit, OnChanges {
 
     changePanel(mode: PanelMode, value?: TinyDate): void {
         this.panelModeChange.emit(mode);
-        if (value) {
-            this.changeValueFromInside(value);
-        }
-    }
-
-    onChooseDecade(value: TinyDate): void {
-        this.changePanel('year', value);
-        this.chooseDecade.emit(value);
-    }
-
-    onChooseYear(value: TinyDate): void {
-        this.changePanel(this.yearToMonth ? 'month' : 'date', value);
-        this.yearToMonth = false; // Clear
-        this.chooseYear.emit(value);
-    }
-
-    onChooseMonth(value: TinyDate): void {
-        this.changePanel('date', value);
-        this.yearToMonth = false; // Clear
-        this.chooseMonth.emit(value);
-    }
-
-    changeToMonthPanel(): void {
-        this.changePanel('month');
-        this.yearToMonth = true;
     }
 
     private render(): void {
         if (this.value) {
-            this.yearMonthDaySelectors = this.createYearMonthDaySelectors();
+            this.selectors = this.getSelectors();
         }
     }
 
     private gotoMonth(amount: number): void {
-        this.changeValueFromInside(this.value.addMonths(amount));
+        this.changeValue(this.value.addMonths(amount));
     }
 
     private gotoYear(amount: number): void {
-        this.changeValueFromInside(this.value.addYears(amount));
+        this.changeValue(this.value.addYears(amount));
     }
 
-    private changeValueFromInside(value: TinyDate): void {
+    private changeValue(value: TinyDate): void {
         if (this.value !== value) {
             this.value = value;
             this.valueChange.emit(this.value);
@@ -122,48 +103,7 @@ export class CalendarHeaderComponent implements OnInit, OnChanges {
         }
     }
 
-    private formatDateTime(format: string): string {
+    formatDateTime(format: string): string {
         return this.dateHelper.format(this.value.nativeDate, format);
     }
-
-    private createYearMonthDaySelectors(): YearMonthDaySelector[] {
-        let year: YearMonthDaySelector;
-        let month: YearMonthDaySelector;
-
-        // NOTE: Compat for DatePipe formatting rules
-        let yearFormat = 'yyyy年';
-        if (this.dateHelper.relyOnDatePipe) {
-            yearFormat = (this.dateHelper as DateHelperByDatePipe).transCompatFormat(yearFormat);
-        }
-        year = {
-            className: `${this.prefixCls}-year-select`,
-            onClick: () => this.changePanel('year'),
-            label: this.formatDateTime(yearFormat)
-        };
-
-        month = {
-            className: `${this.prefixCls}-month-select`,
-            onClick: () => this.changeToMonthPanel(),
-            label: this.formatDateTime('MMM')
-        };
-
-        // NOTE: Compat for DatePipe formatting rules
-        let dayFormat = 'd日';
-        if (this.dateHelper.relyOnDatePipe) {
-            dayFormat = (this.dateHelper as DateHelperByDatePipe).transCompatFormat(dayFormat);
-        }
-
-        let result: YearMonthDaySelector[];
-
-        result = [year, month];
-
-        return result.filter(selector => !!selector);
-    }
-}
-
-export interface YearMonthDaySelector {
-    className: string;
-    title?: string;
-    label: string;
-    onClick?(): void;
 }
