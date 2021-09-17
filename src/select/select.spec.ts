@@ -26,7 +26,7 @@ class BasicSelectComponent {
     value = '';
     allowClear = false;
     size = '';
-    disabled: Boolean;
+    disabled = true;
     change(): void {}
 }
 
@@ -131,6 +131,18 @@ describe(`select`, () => {
             fixture.detectChanges();
             expect(debugComponent.componentInstance._innerValue).toBe('');
             expect(spy).toHaveBeenCalled();
+        }));
+
+        it('disabled', fakeAsync(() => {
+            expect(debugComponent.attributes['ng-reflect-is-disabled']).toBeUndefined();
+
+            fixture.debugElement.componentInstance.disabled = true;
+            fixture.detectChanges();
+            expect(debugComponent.attributes['ng-reflect-is-disabled']).toBe('true');
+
+            fixture.debugElement.componentInstance.disabled = false;
+            fixture.detectChanges();
+            expect(debugComponent.attributes['ng-reflect-is-disabled']).toBe('false');
         }));
     });
 });
