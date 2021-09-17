@@ -55,6 +55,8 @@ export class DatePopupComponent implements OnChanges, OnInit {
 
     [property: string]: any;
 
+    endPanelMode: PanelMode | PanelMode[] = 'date';
+
     constructor(private cdr: ChangeDetectorRef) {}
 
     setProperty<T extends keyof DatePopupComponent>(key: T, value: this[T]): void {
@@ -65,7 +67,7 @@ export class DatePopupComponent implements OnChanges, OnInit {
     ngOnInit(): void {
         // Initialization for range properties to prevent errors while later assignment
         if (this.isRange) {
-            ['panelMode', 'selectedValue', 'hoverValue'].forEach(prop => this.initialArray(prop));
+            ['selectedValue', 'hoverValue'].forEach(prop => this.initialArray(prop));
         }
         if (this.defaultPickerValue && !hasValue(this.value)) {
             const { value } = transformDateValue(this.defaultPickerValue);
@@ -82,6 +84,9 @@ export class DatePopupComponent implements OnChanges, OnInit {
             if (changes.value) {
                 this.reInitializeRangeRelatedValue();
             }
+        }
+        if (changes.panelMode) {
+            this.endPanelMode = this.panelMode;
         }
     }
 
@@ -206,7 +211,7 @@ export class DatePopupComponent implements OnChanges, OnInit {
     }
 
     enablePrevNext(direction: 'prev' | 'next', partType?: RangePartType): boolean {
-        if (this.isRange) {
+        if (this.isRange && this.panelMode === this.endPanelMode) {
             const [start, end] = this.valueForRangeShow;
             const showMiddle = !start.addMonths(1).isSame(end, 'month'); // One month diff then don't show middle prev/next
             if ((partType === 'left' && direction === 'next') || (partType === 'right' && direction === 'prev')) {
@@ -218,11 +223,13 @@ export class DatePopupComponent implements OnChanges, OnInit {
         }
     }
 
-    getPanelMode(partType?: RangePartType): PanelMode {
+    getPanelMode(panelMode: PanelMode | PanelMode[], partType?: RangePartType): PanelMode {
         if (this.isRange) {
-            return this.panelMode[this.getPartTypeIndex(partType)] as PanelMode;
+            console.log(panelMode[this.getPartTypeIndex(partType)] as PanelMode, '==========');
+            return panelMode[this.getPartTypeIndex(partType)] as PanelMode;
         } else {
-            return this.panelMode as PanelMode;
+            console.log(panelMode as PanelMode, '=======');
+            return panelMode as PanelMode;
         }
     }
 

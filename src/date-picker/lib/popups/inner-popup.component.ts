@@ -21,6 +21,9 @@ export class InnerPopupComponent implements OnChanges {
     @Input() hoverValue: TinyDate[]; // Range ONLY
 
     @Input() panelMode: PanelMode;
+
+    @Input() endPanelMode: PanelMode;
+
     @Output() readonly panelModeChange = new EventEmitter<PanelMode>();
 
     @Input() value: TinyDate;
@@ -42,6 +45,17 @@ export class InnerPopupComponent implements OnChanges {
     // The value real changed to outside
     onSelectDate(date: TinyDate | Date): void {
         const value = date instanceof TinyDate ? date : new TinyDate(date);
+
         this.selectDate.emit(value);
+    }
+
+    onChooseMonth(value: TinyDate): void {
+        if (this.endPanelMode === 'month') {
+            this.value = value;
+            this.selectDate.emit(value);
+        } else {
+            this.headerChange.emit(value);
+            this.panelModeChange.emit(this.endPanelMode);
+        }
     }
 }

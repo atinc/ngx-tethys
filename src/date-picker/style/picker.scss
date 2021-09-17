@@ -4,6 +4,11 @@
 
 .#{style.$calendar-prefix-cls}-picker-container {
     z-index: style.$zindex-picker;
+    .#{style.$calendar-prefix-cls}-decade-panel-table,
+    .#{style.$calendar-prefix-cls}-year-panel-table,
+    .#{style.$calendar-prefix-cls}-month-panel-table {
+        height: 208px;
+    }
 }
 
 .#{style.$calendar-prefix-cls}-picker {

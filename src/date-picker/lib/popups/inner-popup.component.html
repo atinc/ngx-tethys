@@ -8,15 +8,22 @@
 ></calendar-header>
 
 <div class="{{ prefixCls }}-body">
-  <date-table
-    [showWeek]="showWeek"
-    [value]="value"
-    (valueChange)="onSelectDate($event)"
-    showWeekNumber="false"
-    [disabledDate]="disabledDate"
-    [dateCellRender]="dateRender"
-    [selectedValue]="selectedValue"
-    [hoverValue]="hoverValue"
-    (dayHover)="dayHover.emit($event)"
-  ></date-table>
+  <ng-container [ngSwitch]="panelMode">
+    <ng-container *ngSwitchCase="'month'">
+      <month-table [value]="value" (valueChange)="onChooseMonth($event)" showWeekNumber="false" [disabledDate]="disabledDate"></month-table>
+    </ng-container>
+    <ng-container *ngSwitchCase="'date'">
+      <date-table
+        [showWeek]="showWeek"
+        [value]="value"
+        (valueChange)="onSelectDate($event)"
+        showWeekNumber="false"
+        [disabledDate]="disabledDate"
+        [dateCellRender]="dateRender"
+        [selectedValue]="selectedValue"
+        [hoverValue]="hoverValue"
+        (dayHover)="dayHover.emit($event)"
+      ></date-table>
+    </ng-container>
+  </ng-container>
 </div>
