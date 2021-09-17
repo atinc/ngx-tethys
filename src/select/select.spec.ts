@@ -114,7 +114,7 @@ describe(`select`, () => {
             expect(selectElementChildren[0].classList.value.includes('thy-select-selection-allow-clear')).toBe(false);
         });
 
-        fit('clearValue', fakeAsync(() => {
+        it('clearValue', fakeAsync(() => {
             const spy = spyOn(fixture.componentInstance, 'change');
             fixture.componentInstance.allowClear = true;
             fixture.componentInstance.value = '有值了';
