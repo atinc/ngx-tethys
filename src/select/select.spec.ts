@@ -114,7 +114,27 @@ describe(`select`, () => {
             expect(selectElementChildren[0].classList.value.includes('thy-select-selection-allow-clear')).toBe(false);
         });
 
-        it('clearValue', fakeAsync(() => {
+        it('should exist remove btn when allowClear is true and value is not null', fakeAsync(() => {
+            fixture.componentInstance.allowClear = true;
+            fixture.componentInstance.value = '有值了';
+            fixture.detectChanges();
+            tick();
+            fixture.detectChanges();
+
+            const removeBtn = debugComponent.nativeElement.querySelector('.thy-select-remove');
+            const removeIcon = debugComponent.nativeElement.querySelector('.remove-link-icon');
+            expect(removeBtn).toBeTruthy();
+            expect(removeIcon).toBeTruthy();
+
+            expect(removeBtn.nodeName).toEqual('A');
+            expect(removeIcon.nodeName).toEqual('THY-ICON');
+            expect(removeIcon.attributes['thyiconname'].nodeType).toEqual(2);
+            expect(removeIcon.attributes['thyiconname'].nodeValue).toEqual('close-circle-bold-fill');
+            expect(removeIcon.attributes['class'].nodeType).toEqual(2);
+            expect(removeIcon.attributes['class'].nodeValue).toContain('remove-link-icon thy-icon-close-circle-bold-fill thy-icon');
+        }));
+
+        it('show clear value when click remove btn', fakeAsync(() => {
             const spy = spyOn(fixture.componentInstance, 'change');
             fixture.componentInstance.allowClear = true;
             fixture.componentInstance.value = '有值了';
