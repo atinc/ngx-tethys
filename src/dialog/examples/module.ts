@@ -11,6 +11,7 @@ import { CdkScrollableModule } from '@angular/cdk/scrolling';
 import { ThyDialogSizeExampleComponent } from './size/size.component';
 import { ThyDialogFooterAlignExampleComponent } from './footer-align/footer-align.component';
 import { ThyDialogFooterDividerExampleComponent } from './footer-divider/footer-divider.component';
+import { ThyDialogBackdropExampleComponent } from './backdrop/backdrop.component';
 
 const COMPONENTS = [
     ThyDialogBasicExampleComponent,
@@ -18,7 +19,8 @@ const COMPONENTS = [
     ThyDialogConfirmExampleComponent,
     ThyDialogSizeExampleComponent,
     ThyDialogFooterAlignExampleComponent,
-    ThyDialogFooterDividerExampleComponent
+    ThyDialogFooterDividerExampleComponent,
+    ThyDialogBackdropExampleComponent
 ];
 
 @NgModule({
