@@ -105,6 +105,7 @@ module.exports = {
             ]
         }
     ],
+    footer: "Copyright © 2020-present Powered by <a href='https://worktile.com' target='_blank' >Worktile</a>",
     locales: [
         {
             key: 'zh-cn',
