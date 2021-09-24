@@ -1,0 +1,11 @@
+<thy-button-group thySize="md" thyType="outline-default">
+  <button thyButton *ngFor="let size of dialogSizes" (click)="currentSize = size" [ngClass]="{ active: size === currentSize }">
+    {{ size.value }} - {{ size.width }}
+  </button>
+</thy-button-group>
+
+<div class="demo-layout btn-pair mt-2">
+  <button thyButton="primary" (click)="openDialog()">
+    Open
+  </button>
+</div>

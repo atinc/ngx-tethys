@@ -8,8 +8,14 @@ import { ThyDialogBasicExampleComponent } from './basic/basic.component';
 import { ThyDialogBasicContentComponent } from './basic/dialog-content.component';
 import { ThyDialogConfirmExampleComponent } from './confirm/confirm.component';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
+import { ThyDialogSizeExampleComponent } from './size/size.component';
 
-const COMPONENTS = [ThyDialogBasicExampleComponent, ThyDialogBasicContentComponent, ThyDialogConfirmExampleComponent];
+const COMPONENTS = [
+    ThyDialogBasicExampleComponent,
+    ThyDialogBasicContentComponent,
+    ThyDialogConfirmExampleComponent,
+    ThyDialogSizeExampleComponent
+];
 
 @NgModule({
     declarations: COMPONENTS,
