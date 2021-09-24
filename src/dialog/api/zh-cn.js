@@ -99,7 +99,7 @@ module.exports = [
             {
                 name: '#dialogHeader',
                 description: '自定义头部模版',
-                type: 'TemplateRef',
+                type: 'ContentChild<TemplateRef>',
                 default: ''
             },
             {
@@ -141,7 +141,7 @@ module.exports = [
             {
                 name: '#description',
                 description: '自定义弹出框底部的描述模板',
-                type: 'TemplateRef',
+                type: 'ContentChild<TemplateRef>',
                 default: ''
             }
         ]
