@@ -1,11 +1,5 @@
 import { TemplateRef, ElementRef } from '@angular/core';
 import { coerceBooleanProperty as coerceBoolean, coerceCssPixelValue as coerceCssPixel, _isNumberValue } from '@angular/cdk/coercion';
-import { warnDeprecation } from '../logger';
-
-export function inputValueToBoolean(value: boolean | string): boolean {
-    warnDeprecation(`The method inputValueToBoolean will be deprecated, please use coerceBooleanProperty instead.`);
-    return value === '' || (value && value !== 'false');
-}
 
 export function isUndefined(value: any): value is undefined {
     return value === undefined;
@@ -23,7 +17,7 @@ export function isArray<T = any>(value: any): value is Array<T> {
     return value && baseGetTag(value) === '[object Array]';
 }
 
-export function isEmpty(value: any): boolean {
+export function isEmpty(value?: any): boolean {
     return !(isArray(value) && value.length > 0);
 }
 
@@ -131,14 +125,6 @@ export function isBoolean(value: any): value is boolean {
     return value === true || value === false || (isObjectLike(value) && baseGetTag(value) === '[object Boolean]');
 }
 
-export function fromArray(value: any): any[] {
-    if (Array.from && isFunction(Array.from)) {
-        return Array.from(value);
-    } else {
-        return Array.prototype.slice.call(value);
-    }
-}
-
 export function htmlElementIsEmpty(element: HTMLElement) {
     if (element && element.childNodes) {
         const nodes = element.childNodes;
@@ -170,7 +156,7 @@ export function hexToRgb(hexValue: string, alpha?: number): string {
     }
 }
 
-export function formatDate(date: Date | number): number {
+export function dateToUnixTimestamp(date: Date | number): number {
     if (isNumber(date)) {
         if (date.toString().length === 10) {
             return date as number;
