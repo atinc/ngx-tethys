@@ -12,6 +12,8 @@ import { ThyDialogSizeExampleComponent } from './size/size.component';
 import { ThyDialogFooterAlignExampleComponent } from './footer-align/footer-align.component';
 import { ThyDialogFooterDividerExampleComponent } from './footer-divider/footer-divider.component';
 import { ThyDialogBackdropExampleComponent } from './backdrop/backdrop.component';
+import { ThyDialogLayoutExampleComponent } from './layout/layout.component';
+import { ThyDialogFooterLayoutExampleComponent } from './layout/dialog-layout.component';
 
 const COMPONENTS = [
     ThyDialogBasicExampleComponent,
@@ -20,7 +22,9 @@ const COMPONENTS = [
     ThyDialogSizeExampleComponent,
     ThyDialogFooterAlignExampleComponent,
     ThyDialogFooterDividerExampleComponent,
-    ThyDialogBackdropExampleComponent
+    ThyDialogBackdropExampleComponent,
+    ThyDialogLayoutExampleComponent,
+    ThyDialogFooterLayoutExampleComponent
 ];
 
 @NgModule({
