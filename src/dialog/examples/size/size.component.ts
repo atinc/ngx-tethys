@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyDialog, ThyDialogSizes } from 'ngx-tethys';
+import { ThyDialog, ThyDialogConfig, ThyDialogSizes } from 'ngx-tethys';
 import { ThyDialogBasicContentComponent } from '../basic/dialog-content.component';
 
 @Component({
@@ -7,6 +7,8 @@ import { ThyDialogBasicContentComponent } from '../basic/dialog-content.componen
     templateUrl: './size.component.html'
 })
 export class ThyDialogSizeExampleComponent implements OnInit {
+    private config: ThyDialogConfig = {};
+
     public currentSize = {
         value: 'default',
         width: '660px'
@@ -44,8 +46,11 @@ export class ThyDialogSizeExampleComponent implements OnInit {
     ngOnInit() {}
 
     openDialog() {
-        this.thyDialog.open(ThyDialogBasicContentComponent, {
-            size: ThyDialogSizes[this.currentSize.value]
-        });
+        this.thyDialog.open(
+            ThyDialogBasicContentComponent,
+            Object.assign(this.config, {
+                size: ThyDialogSizes[this.currentSize.value]
+            })
+        );
     }
 }

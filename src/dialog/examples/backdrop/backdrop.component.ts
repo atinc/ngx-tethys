@@ -7,19 +7,15 @@ import { ThyDialogBasicContentComponent } from '../basic/dialog-content.componen
     templateUrl: './backdrop.component.html',
     styleUrls: ['./backdrop.component.scss']
 })
-export class ThyDialogBackdropExampleComponent implements OnInit {
+export class ThyDialogBackdropExampleComponent {
     public isCustomBackdropClass: boolean;
 
-    public config: ThyDialogConfig;
+    public config: ThyDialogConfig = {
+        hasBackdrop: true,
+        backdropClosable: true
+    };
 
     constructor(private thyDialog: ThyDialog) {}
-
-    ngOnInit() {
-        this.config = {
-            hasBackdrop: true,
-            backdropClosable: true
-        };
-    }
 
     openDialog() {
         this.thyDialog.open(ThyDialogBasicContentComponent, this.config);
