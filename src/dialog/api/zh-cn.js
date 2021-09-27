@@ -27,6 +27,11 @@ module.exports = [
                 default: 'true'
             },
             {
+                name: 'backdropClass',
+                description: '幕布的样式类名',
+                type: 'string | string[]'
+            },
+            {
                 name: 'closeOnNavigation',
                 description: '切换浏览器导航是否自动关闭弹出框',
                 type: 'boolean',
@@ -49,11 +54,6 @@ module.exports = [
                 description: '弹出框最大高度',
                 type: 'number | string',
                 default: '85vh'
-            },
-            {
-                name: 'backdropClass',
-                description: '幕布的样式类名',
-                type: 'string | string[]'
             },
             {
                 name: 'width',
@@ -128,7 +128,7 @@ module.exports = [
         properties: [
             {
                 name: 'thyDivided',
-                description: '顶部是否有分割线，可全局配置默认值',
+                description: '底部是否有分割线，可全局配置默认值',
                 type: 'boolean',
                 default: 'false'
             },
