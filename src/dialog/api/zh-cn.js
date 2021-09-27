@@ -28,7 +28,7 @@ module.exports = [
             },
             {
                 name: 'backdropClass',
-                description: '幕布的样式类名',
+                description: '自定义幕布的样式',
                 type: 'string | string[]'
             },
             {

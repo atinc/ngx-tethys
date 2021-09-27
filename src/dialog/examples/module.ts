@@ -9,8 +9,6 @@ import { ThyDialogBasicContentComponent } from './basic/dialog-content.component
 import { ThyDialogConfirmExampleComponent } from './confirm/confirm.component';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
 import { ThyDialogSizeExampleComponent } from './size/size.component';
-import { ThyDialogFooterAlignExampleComponent } from './footer-align/footer-align.component';
-import { ThyDialogFooterDividerExampleComponent } from './footer-divider/footer-divider.component';
 import { ThyDialogBackdropExampleComponent } from './backdrop/backdrop.component';
 import { ThyDialogLayoutExampleComponent } from './layout/layout.component';
 import { ThyDialogFooterLayoutExampleComponent } from './layout/dialog-layout.component';
@@ -20,8 +18,6 @@ const COMPONENTS = [
     ThyDialogBasicContentComponent,
     ThyDialogConfirmExampleComponent,
     ThyDialogSizeExampleComponent,
-    ThyDialogFooterAlignExampleComponent,
-    ThyDialogFooterDividerExampleComponent,
     ThyDialogBackdropExampleComponent,
     ThyDialogLayoutExampleComponent,
     ThyDialogFooterLayoutExampleComponent
