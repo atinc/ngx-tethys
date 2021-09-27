@@ -20,3 +20,7 @@ jobs:
       - run: npm run test-cdk -- --no-watch --no-progress --browsers=ChromeHeadlessCI
       - run: npm run test-schematics
       - run: npm run report-coverage
+workflows:
+  build_and_test:
+    jobs:
+      - build
