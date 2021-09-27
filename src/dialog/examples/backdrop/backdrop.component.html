@@ -1,6 +1,19 @@
 <div class="d-flex">
   <label class="mr-3" thyCheckbox name="hasBackdrop" [(ngModel)]="config.hasBackdrop" thyLabelText="是否有背景幕布"></label>
-  <label thyCheckbox name="backdropClosable" [(ngModel)]="config.backdropClosable" thyLabelText="点击幕布或ESC键自动关闭"></label>
+  <label
+    class="mr-3"
+    thyCheckbox
+    name="backdropClosable"
+    [(ngModel)]="config.backdropClosable"
+    thyLabelText="点击幕布或ESC键自动关闭"
+  ></label>
+  <label
+    thyCheckbox
+    name="backdropClass"
+    [(ngModel)]="isCustomBackdropClass"
+    (ngModelChange)="setBackdropClass()"
+    thyLabelText="自定义幕布样式"
+  ></label>
 </div>
 
 <div class="mt-2">
