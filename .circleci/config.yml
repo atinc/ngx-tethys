@@ -4,6 +4,9 @@ jobs:
     working_directory: ~/ngx-tethys
     docker:
       - image: circleci/node:14-browsers
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD
     steps:
       - checkout
       - restore_cache:
