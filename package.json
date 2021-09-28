@@ -23,9 +23,9 @@
     "pub-cdk-only": "npm publish dist/cdk",
     "pub-tethys-only": "npm publish dist/tethys",
     "pub": "wpm publish",
-    "test": "npm run test:tethys && npm run test:schematics",
-    "test:tethys": "ng test ngx-tethys",
-    "test:cdk": "ng test cdk",
+    "test": "npm run test-tethys && npm run test-schematics",
+    "test-tethys": "ng test ngx-tethys",
+    "test-cdk": "ng test cdk",
     "report-coverage": "cat ./coverage/tethys/lcov.info | coveralls",
     "lint": "ng lint ngx-tethys",
     "pretty": "pretty-quick --staged",
@@ -33,7 +33,7 @@
     "serve-demo": "http-server dist/site -p 8888 -g &",
     "build:schematics": "tsc -p ./schematics && npm run copy:schematics",
     "copy:schematics": "cpx \"./schematics/**/*.{json,template}\" ./dist/tethys/schematics/ -v",
-    "test:schematics": "TS_NODE_PROJECT=./schematics/tsconfig.json node --require ts-node/register/transpile-only ./node_modules/jasmine/bin/jasmine './schematics/**/*.spec.ts'"
+    "test-schematics": "TS_NODE_PROJECT=./schematics/tsconfig.json node --require ts-node/register/transpile-only ./node_modules/jasmine/bin/jasmine './schematics/**/*.spec.ts'"
   },
   "repository": {
     "type": "git",
