@@ -1,13 +1,13 @@
-import { forwardRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Renderer2, NgZone, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { DateHelperService } from 'ngx-tethys';
 import { CalendarHeader, PanelSelector } from '../calendar/calendar-header.component';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
-    selector: 'month-header',
+    selector: 'date-header',
     templateUrl: '../calendar/calendar-header.component.html'
 })
-export class MonthHeaderComponent extends CalendarHeader {
+export class DateHeaderComponent extends CalendarHeader {
     constructor(protected dateHelper: DateHelperService) {
         super(dateHelper);
     }
@@ -16,9 +16,16 @@ export class MonthHeaderComponent extends CalendarHeader {
         let yearFormat = 'yyyy年';
         return [
             {
-                className: `${this.prefixCls}-month-btn`,
+                className: `${this.prefixCls}-year-btn`,
+                title: '',
                 onClick: () => this.changePanel('year'),
                 label: this.formatDateTime(yearFormat)
+            },
+            {
+                className: `${this.prefixCls}-month-btn`,
+                title: '',
+                onClick: () => this.changePanel('month'),
+                label: this.formatDateTime('MMM')
             }
         ];
     }

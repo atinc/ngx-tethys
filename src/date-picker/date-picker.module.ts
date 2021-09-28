@@ -6,7 +6,7 @@ import localeZhHans from '@angular/common/locales/zh-Hans';
 import { LibPackerModule } from './lib/lib-packer.module';
 
 import { BasePickerComponent } from './base-picker.component';
-import { HeaderPickerComponent } from './header-picker.component';
+// import { HeaderPickerComponent } from './header-picker.component';
 import { ThyDatePickerComponent } from './date-picker.component';
 import { ThyMonthPickerComponent } from './month-picker.component';
 import { ThyRangePickerComponent } from './range-picker.component';
@@ -40,7 +40,6 @@ registerLocaleData(localeZhHans, 'zh-Hans');
         ThyRangePickerDirective
     ],
     declarations: [
-        HeaderPickerComponent,
         BasePickerComponent,
         ThyPickerComponent,
         ThyDatePickerComponent,

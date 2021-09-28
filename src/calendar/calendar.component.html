@@ -17,8 +17,9 @@
   <date-table
     [prefixCls]="prefixCls"
     [value]="currentDate"
+    [activeDate]="currentDate"
     [selectedValue]="currentDate"
-    [dateCellRender]="dateCell"
+    [cellRender]="dateCell"
     [disabledDate]="thyDisabledDate"
     (valueChange)="onDateSelect($event)"
   ></date-table>

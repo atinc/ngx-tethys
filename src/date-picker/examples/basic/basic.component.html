@@ -34,11 +34,12 @@
   (ngModelChange)="onChange($event)"
   [thyAllowClear]="isAllowClear"
   [thyMode]="'month'"
+  [thyAutoStartAndEnd]="true"
 ></thy-range-picker>
 
-<thy-week-picker
+<thy-range-picker
   class="d-block w-50 mb-3"
   [(ngModel)]="dateRange"
   (ngModelChange)="onChange($event)"
   [thyAllowClear]="isAllowClear"
-></thy-week-picker>
+></thy-range-picker>

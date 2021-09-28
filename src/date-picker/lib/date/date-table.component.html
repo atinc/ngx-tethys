@@ -4,21 +4,21 @@
       <th *ngIf="showWeek" role="columnheader" class="{{ prefixCls }}-column-header {{ prefixCls }}-week-number-header">
         <span class="{{ prefixCls }}-column-header-inner">x</span>
       </th>
-      <th *ngFor="let cell of headWeekDays" role="columnheader" title="{{ cell.short }}" class="{{ prefixCls }}-column-header">
-        <span *ngIf="prefixCls === 'thy-calendar'" class="{{ prefixCls }}-column-header-inner">{{ cell.veryShort }}</span>
-        <span *ngIf="prefixCls === 'thy-calendar-full'" class="{{ prefixCls }}-column-header-inner">周{{ cell.veryShort }}</span>
+      <th *ngFor="let cell of headRow" role="columnheader" title="{{ cell.title }}" class="{{ prefixCls }}-column-header">
+        <span *ngIf="prefixCls === 'thy-calendar'" class="{{ prefixCls }}-column-header-inner">{{ cell.content }}</span>
+        <span *ngIf="prefixCls === 'thy-calendar-full'" class="{{ prefixCls }}-column-header-inner">周{{ cell.content }}</span>
       </th>
     </tr>
   </thead>
   <tbody class="{{ prefixCls }}-tbody">
-    <tr *ngFor="let row of weekRows; trackBy: trackByWeekFn" [ngClass]="row.classMap" role="row">
+    <tr *ngFor="let row of bodyRows; trackBy: trackByBodyRow" [ngClass]="row.classMap" role="row">
       <td *ngIf="row.weekNum" role="gridcell" class="{{ prefixCls }}-week-number-cell">
         {{ row.weekNum }}
       </td>
       <!-- 在td中删除了鼠标事件 -->
       <!-- 去掉tooltip，故去掉title属性 -->
       <td
-        *ngFor="let cell of row.dateCells; trackBy: trackByDateFn"
+        *ngFor="let cell of row.dateCells; trackBy: trackByBodyColumn"
         role="gridcell"
         [ngClass]="cell.classMap"
         (click)="cell.isDisabled ? null : cell.onClick()"

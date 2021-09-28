@@ -2,7 +2,6 @@ import { PanelMode } from './standard-types';
 import { forwardRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, Renderer2 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BasePickerComponent } from './base-picker.component';
-import { HeaderPickerComponent, SupportHeaderPanel } from './header-picker.component';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -24,7 +23,7 @@ export class ThyYearPickerComponent extends BasePickerComponent {
 
     isRange = false;
 
-    endPanelMode: SupportHeaderPanel = 'year';
+    endPanelMode: PanelMode = 'year';
 
     constructor(cdr: ChangeDetectorRef, renderer: Renderer2, elementRef: ElementRef) {
         super(cdr);

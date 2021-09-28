@@ -1,6 +1,7 @@
 import {
     ChangeDetectionStrategy,
     Component,
+    Directive,
     EventEmitter,
     Input,
     OnChanges,
@@ -12,7 +13,7 @@ import {
 
 import { PanelMode } from '../../standard-types';
 import { TinyDate } from 'ngx-tethys/util';
-import { DateHelperService, DateHelperByDatePipe } from '../../date-helper.service';
+import { DateHelperService } from '../../date-helper.service';
 
 export interface PanelSelector {
     className: string;
@@ -20,26 +21,15 @@ export interface PanelSelector {
     label: string;
     onClick?(): void;
 }
-@Component({
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    selector: 'calendar-header',
-    exportAs: 'calendarHeader',
-    templateUrl: 'calendar-header.component.html'
-})
-export abstract class CalendarHeaderComponent implements OnInit, OnChanges {
-    @Input() enablePrev = true;
-    @Input() enableNext = true;
-    @Input() disabledMonth: (date: Date) => boolean;
-    @Input() disabledYear: (date: Date) => boolean;
+@Directive()
+export abstract class CalendarHeader implements OnInit, OnChanges {
+    @Input() showSuperPreBtn: boolean = true;
+    @Input() showSuperNextBtn: boolean = true;
+    @Input() showPreBtn: boolean = true;
+    @Input() showNextBtn: boolean = true;
     @Input() value: TinyDate;
     @Output() readonly valueChange = new EventEmitter<TinyDate>();
-
-    @Input() panelMode: PanelMode;
     @Output() readonly panelModeChange = new EventEmitter<PanelMode>();
-
-    @Output() readonly chooseDecade = new EventEmitter<TinyDate>();
-    @Output() readonly chooseYear = new EventEmitter<TinyDate>();
-    @Output() readonly chooseMonth = new EventEmitter<TinyDate>();
 
     abstract getSelectors(): PanelSelector[];
 
@@ -61,19 +51,19 @@ export abstract class CalendarHeaderComponent implements OnInit, OnChanges {
         }
     }
 
-    previousYear(): void {
+    superPrevious(): void {
         this.gotoYear(-1);
     }
 
-    nextYear(): void {
+    superNext(): void {
         this.gotoYear(1);
     }
 
-    previousMonth(): void {
+    previous(): void {
         this.gotoMonth(-1);
     }
 
-    nextMonth(): void {
+    next(): void {
         this.gotoMonth(1);
     }
 
@@ -95,7 +85,7 @@ export abstract class CalendarHeaderComponent implements OnInit, OnChanges {
         this.changeValue(this.value.addYears(amount));
     }
 
-    private changeValue(value: TinyDate): void {
+    public changeValue(value: TinyDate): void {
         if (this.value !== value) {
             this.value = value;
             this.valueChange.emit(this.value);

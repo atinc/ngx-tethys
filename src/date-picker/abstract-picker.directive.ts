@@ -14,6 +14,7 @@ import {
     Input,
     OnChanges,
     OnDestroy,
+    OnInit,
     Output,
     SimpleChange,
     TemplateRef
@@ -24,11 +25,13 @@ import { DatePopupComponent } from './lib/popups/date-popup.component';
 import { CompatibleValue, PanelMode } from './standard-types';
 
 @Directive()
-export abstract class PickerDirective extends AbstractPickerComponent implements AfterViewInit, OnDestroy, OnChanges {
+export abstract class PickerDirective extends AbstractPickerComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
     showWeek = false;
 
     @Input() thyDateRender: FunctionProp<TemplateRef<Date> | string>;
-    @Input() thyMode: PanelMode | PanelMode[];
+    @Input() thyMode: PanelMode = 'date';
+
+    panelMode: PanelMode | PanelMode[];
 
     @Output() readonly thyOnPanelChange = new EventEmitter<PanelMode | PanelMode[]>();
     @Output() readonly thyOnCalendarChange = new EventEmitter<Date[]>();
@@ -72,6 +75,10 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
         mapTo(true)
     );
 
+    ngOnInit() {
+        this.panelMode = this.isRange ? [this.thyMode, this.thyMode] : this.thyMode;
+    }
+
     private openOverlay(): void {
         const popoverRef = this.thyPopover.open(
             DatePopupComponent,
@@ -83,6 +90,7 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
                     offset: this.offset,
                     initialState: {
                         isRange: this.isRange,
+                        panelMode: this.panelMode,
                         showWeek: this.showWeek,
                         value: this.thyValue,
                         showTime: this.thyShowTime,

@@ -4,10 +4,20 @@
 
 .#{style.$calendar-prefix-cls}-picker-container {
     z-index: style.$zindex-picker;
-    .#{style.$calendar-prefix-cls}-decade-panel-table,
-    .#{style.$calendar-prefix-cls}-year-panel-table,
-    .#{style.$calendar-prefix-cls}-month-panel-table {
-        height: 208px;
+    .#{style.$calendar-prefix-cls}-decade,
+    .#{style.$calendar-prefix-cls}-year,
+    .#{style.$calendar-prefix-cls}-month {
+        height: 288px;
+        display: flex;
+        flex-direction: column;
+        .#{style.$calendar-prefix-cls}-body {
+            flex: 1;
+        }
+    }
+    .#{style.$calendar-prefix-cls}-decade {
+        .#{style.$calendar-prefix-cls}-body {
+            padding: 8px 0;
+        }
     }
 }
 

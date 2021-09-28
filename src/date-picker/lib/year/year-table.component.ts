@@ -1,122 +1,98 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnChanges, Output } from '@angular/core';
 import { TinyDate } from 'ngx-tethys/util';
-
-const MAX_ROW = 4;
-const MAX_COL = 3;
+import { CalendarTable } from '../calendar/calendar-table.component';
+import { DateCell, WeekRow, YearCell } from '../date/types';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'year-table',
     templateUrl: 'year-table.component.html'
 })
-export class YearTableComponent implements OnChanges {
-    @Input() value: TinyDate;
-    @Output() readonly valueChange = new EventEmitter<TinyDate>();
+export class YearTableComponent extends CalendarTable implements OnChanges {
+    MAX_ROW = 4;
 
-    @Input() disabledDate: (date: Date) => boolean;
+    MAX_COL = 3;
 
     @Output() readonly decadePanelShow = new EventEmitter<void>();
 
-    get currentYear(): number {
-        return this.value.getYear();
+    constructor() {
+        super();
     }
-    get startYear(): number {
-        return parseInt(`${this.currentYear / 10}`, 10) * 10;
-    }
-    get endYear(): number {
-        return this.startYear + 9;
-    }
-
-    prefixCls = 'thy-calendar-year-panel';
-    panelYears: PanelYearData[][];
-
-    constructor() {}
-
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes.value || changes.disabledDate) {
-            this.render();
-        }
-    }
-
-    previousDecade(): void {
-        this.gotoYear(-10);
-    }
-
-    nextDecade(): void {
-        this.gotoYear(10);
-    }
-
-    trackPanelYear(_index: number, yearData: PanelYearData): string {
-        return yearData.content;
-    }
-
-    private render(): void {
-        if (this.value) {
-            this.panelYears = this.makePanelYears();
-        }
-    }
-
-    // Re-render panel content by the header's buttons (NOTE: Do not try to trigger final value change)
-    private gotoYear(amount: number): void {
-        this.value = this.value.addYears(amount);
-        // this.valueChange.emit(this.value); // Do not trigger final value change
-        this.render();
-    }
-
     private chooseYear(year: number): void {
-        this.value = this.value.setYear(year);
+        this.value = this.activeDate.setYear(year);
         this.valueChange.emit(this.value);
         this.render();
     }
 
-    private makePanelYears(): PanelYearData[][] {
-        const years: PanelYearData[][] = [];
-        const currentYear = this.currentYear;
-        const startYear = this.startYear;
-        const endYear = this.endYear;
+    makeHeadRow(): DateCell[] {
+        return [];
+    }
+
+    makeBodyRows(): WeekRow[] {
+        const years: WeekRow[] = [];
+        const currentYear = this.activeDate && this.activeDate.getYear();
+        const startYear = parseInt(`${currentYear / 10}`, 10) * 10;
+        const endYear = startYear + 9;
         const previousYear = startYear - 1;
-        let index = 0;
-        for (let rowIndex = 0; rowIndex < MAX_ROW; rowIndex++) {
-            years[rowIndex] = [];
-            for (let colIndex = 0; colIndex < MAX_COL; colIndex++) {
-                const year = previousYear + index;
-                const content = String(year);
-                const disabled = this.disabledDate ? this.disabledDate(this.value.setYear(year).nativeDate) : false;
+        let yearValue = 0;
+        for (let rowIndex = 0; rowIndex < this.MAX_ROW; rowIndex++) {
+            const row: WeekRow = {
+                dateCells: [],
+                trackByIndex: rowIndex
+            };
+            for (let colIndex = 0; colIndex < this.MAX_COL; colIndex++) {
+                const yearNum = previousYear + yearValue;
+                const year = this.activeDate.setYear(yearNum);
+                const content = String(yearNum);
+                const isDisabled = this.disabledDate ? this.disabledDate(year.nativeDate) : false;
 
-                const cell: PanelYearData = (years[rowIndex][colIndex] = {
-                    disabled,
+                const cell: YearCell = {
+                    trackByIndex: colIndex,
+                    isDisabled,
                     content,
-                    year,
+                    value: year.nativeDate,
                     title: content,
-                    isCurrent: year === currentYear,
-                    isLowerThanStart: year < startYear,
-                    isBiggerThanEnd: year > endYear,
-                    classMap: null,
-                    onClick: () => this.chooseYear(cell.year)
-                });
-
-                cell.classMap = {
-                    [`${this.prefixCls}-cell`]: true,
-                    [`${this.prefixCls}-selected-cell`]: cell.isCurrent,
-                    [`${this.prefixCls}-cell-disabled`]: disabled,
-                    [`${this.prefixCls}-last-decade-cell`]: cell.isLowerThanStart,
-                    [`${this.prefixCls}-next-decade-cell`]: cell.isBiggerThanEnd
+                    isSelected: yearNum === currentYear,
+                    isSameDecade: yearNum >= startYear && yearNum <= endYear,
+                    classMap: {},
+                    onClick: () => this.chooseYear(cell.value.getFullYear()),
+                    onMouseEnter: () => {}
                 };
-                index++;
+                this.addCellProperty(cell, year);
+                row.dateCells.push(cell);
+                yearValue++;
             }
+            years.push(row);
         }
         return years;
     }
-}
 
-export interface PanelYearData {
-    disabled: boolean;
-    content: string;
-    year: number;
-    title: string;
-    isCurrent: boolean;
-    isLowerThanStart: boolean;
-    isBiggerThanEnd: boolean;
-    classMap: object | null;
-    onClick: VoidFunction | null;
+    private addCellProperty(cell: DateCell, year: TinyDate): void {
+        if (this.selectedValue?.length > 0) {
+            const [startSelected, endSelected] = this.selectedValue;
+            if (startSelected?.isSameYear(year)) {
+                cell.isSelected = true;
+            }
+
+            if (endSelected?.isSameYear(year)) {
+                cell.isSelected = true;
+            }
+
+            cell.isStartSingle = startSelected && !endSelected;
+            cell.isEndSingle = !startSelected && !!endSelected;
+            cell.isInRange = startSelected?.isBeforeYear(year) && year?.isBeforeYear(endSelected);
+        } else if (year.isSameYear(this.value)) {
+            cell.isSelected = true;
+        }
+        cell.classMap = this.getClassMap(cell);
+    }
+
+    getClassMap(cell: YearCell): { [key: string]: boolean } {
+        return {
+            [`${this.prefixCls}-year-panel-cell`]: true,
+            [`${this.prefixCls}-year-panel-selected-cell`]: cell.isSelected,
+            [`${this.prefixCls}-year-panel-cell-disabled`]: cell.isDisabled,
+            [`${this.prefixCls}-year-panel-cell-in-view`]: cell.isSameDecade
+        };
+    }
 }
