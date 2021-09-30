@@ -20,7 +20,9 @@ export class ThyDialogBasicContentComponent implements OnInit {
 
     constructor(private thyDialogRef: ThyDialogRef<any>, public thyDialog: ThyDialog) {}
 
-    ngOnInit() {}
+    ngOnInit() {
+        console.log(`ngOnInit get data: ${this.data}`);
+    }
 
     openSubDialog(template: TemplateRef<any>) {
         this.thyDialog.open(template);
