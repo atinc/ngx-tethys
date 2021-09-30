@@ -1,7 +1,70 @@
 module.exports = [
     {
+        type: 'service',
+        name: 'ThyDialog',
+        properties: [
+            {
+                name: 'open',
+                description: '打开 Dialog',
+                type: `(
+                    componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
+                    config?: ThyDialogConfig
+                ) => ThyDialogRef`,
+                default: ''
+            },
+            {
+                name: 'confirm',
+                description: '打开 Confirm',
+                type: `(options: ThyConfirmConfig) => ThyDialogRef`,
+                default: ''
+            },
+            {
+                name: 'getDialogById',
+                description: '根据 id 获取 Dialog',
+                type: `(id: string) => ThyDialogRef`,
+                default: ''
+            },
+            {
+                name: 'getOpenedDialogs',
+                description: '获取所有打开的 Dialog',
+                type: `() => ThyDialogRef[]`,
+                default: ''
+            },
+            {
+                name: 'getClosestDialog',
+                description: '获取与指定元素最接近的 ThyDialogRef',
+                type: `(element: HTMLElement) => ThyDialogRef`,
+                default: ''
+            },
+            {
+                name: 'afterOpened',
+                description: 'Dialog 打开后的回调',
+                type: '() => Subject',
+                default: ''
+            },
+            {
+                name: 'close',
+                description: '关闭 Dialog',
+                type: '() => void',
+                default: ''
+            },
+            {
+                name: 'closeAll',
+                description: '关闭所有打开的 Dialog',
+                type: '() => void',
+                default: ''
+            },
+            {
+                name: 'afterAllClosed',
+                description: '所有 Dialog 完全关闭后的回调',
+                type: '() => Subject',
+                default: ''
+            }
+        ]
+    },
+    {
         type: 'CLASS',
-        name: 'Config参数',
+        name: 'ThyDialogConfig',
         properties: [
             {
                 name: 'id',
@@ -71,6 +134,54 @@ module.exports = [
                 name: 'position',
                 description: '定位模态框的弹出位置',
                 type: '{ top?: string; bottom?: string; left?: string; right?: string;}'
+            }
+        ]
+    },
+    {
+        type: 'interface',
+        name: 'ThyDialogRef',
+        properties: [
+            {
+                name: 'close',
+                description: '关闭当前 Dialog',
+                type: '() => void',
+                default: ''
+            },
+            {
+                name: 'afterOpened',
+                description: 'Dialog 打开后的回调',
+                type: '() => Observable',
+                default: ''
+            },
+            {
+                name: 'beforeClosed',
+                description: 'Dialog 关闭前的回调',
+                type: '() => Observable',
+                default: ''
+            },
+            {
+                name: 'afterClosed',
+                description: 'Dialog 关闭后的回调',
+                type: '() => Observable',
+                default: ''
+            },
+            {
+                name: 'backdropClick',
+                description: '点击 Dialog 遮罩层的回调',
+                type: '() => Observable',
+                default: ''
+            },
+            {
+                name: 'getOverlayRef',
+                description: '获取 ThyDialogRef',
+                type: '() => ThyDialogRef',
+                default: ''
+            },
+            {
+                name: 'updatePosition',
+                description: '更新 Dialog 的位置',
+                type: '() => ThyDialogRef',
+                default: ''
             }
         ]
     },
@@ -148,7 +259,7 @@ module.exports = [
     },
     {
         type: 'CLASS',
-        name: 'ThyConfirmConfig参数',
+        name: 'ThyConfirmConfig',
         properties: [
             {
                 name: 'title',
