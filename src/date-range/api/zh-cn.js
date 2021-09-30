@@ -90,8 +90,8 @@ module.exports = [
             },
             {
                 name: 'timestamp',
-                description: '时间戳的转换格式',
-                type: `{ interval: number, unit: AttachTypes }，interval为时间间隔；unit可选值有'day' | 'month' | 'year'`,
+                description: `自定义时间段规则，interval为时间间隔；unit可选值有'day' | 'month' | 'year'`,
+                type: `{ interval: number, unit: AttachTypes }`,
                 default: ''
             }
         ]
