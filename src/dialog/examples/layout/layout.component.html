@@ -1,13 +1,13 @@
-<thy-radio-group [(ngModel)]="layoutConfig.footerAlign" name="dialogFooterAlign">
-  <label thyRadio thyLabelText="left" thyValue="left" [thyInline]="true"></label>
-  <label thyRadio thyLabelText="center" thyValue="center" [thyInline]="true"></label>
-  <label thyRadio thyLabelText="right" thyValue="right" [thyInline]="true"></label>
-</thy-radio-group>
+<label class="mb-2" thyCheckbox name="hasFooterDivider" [(ngModel)]="layoutConfig.footerDivided" thyLabelText="底部是否有分割线"></label>
 
-<label class="mt-2" thyCheckbox name="hasFooterDivider" [(ngModel)]="layoutConfig.footerDivided" thyLabelText="底部是否有分割线"></label>
-
-<div class="mt-2">
-  <button thyButton="primary" (click)="openDialog()">
-    Open
+<div class="btn-pair">
+  <button thyButton="primary" (click)="openDialog('left')">
+    Left
+  </button>
+  <button thyButton="primary" (click)="openDialog('center')">
+    Center
+  </button>
+  <button thyButton="primary" (click)="openDialog('right')">
+    Right
   </button>
 </div>

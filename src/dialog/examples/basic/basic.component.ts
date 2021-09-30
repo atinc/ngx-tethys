@@ -43,7 +43,6 @@ export class ThyDialogBasicExampleComponent extends mixinUnsubscribe(MixinBase) 
     ngOnInit() {}
 
     openTemplateDialog(template: TemplateRef<any>) {
-        console.log(this.config.closeOnNavigation);
         this.thyDialog.open(
             template,
             Object.assign(

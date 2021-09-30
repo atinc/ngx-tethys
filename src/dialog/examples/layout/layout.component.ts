@@ -14,10 +14,10 @@ export class ThyDialogLayoutExampleComponent {
 
     constructor(private thyDialog: ThyDialog) {}
 
-    openDialog() {
+    openDialog(footerAlign: string) {
         this.thyDialog.open(ThyDialogFooterLayoutExampleComponent, {
             initialState: {
-                layoutConfig: this.layoutConfig
+                layoutConfig: Object.assign(this.layoutConfig, { footerAlign: footerAlign })
             }
         });
     }
