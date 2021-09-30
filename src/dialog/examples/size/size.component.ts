@@ -9,11 +9,6 @@ import { ThyDialogBasicContentComponent } from '../basic/dialog-content.componen
 export class ThyDialogSizeExampleComponent implements OnInit {
     private config: ThyDialogConfig = {};
 
-    public currentSize = {
-        value: 'default',
-        width: '660px'
-    };
-
     constructor(private thyDialog: ThyDialog) {}
 
     dialogSizes = [
@@ -45,11 +40,11 @@ export class ThyDialogSizeExampleComponent implements OnInit {
 
     ngOnInit() {}
 
-    openDialog() {
+    openDialog(size: ThyDialogSizes) {
         this.thyDialog.open(
             ThyDialogBasicContentComponent,
             Object.assign(this.config, {
-                size: ThyDialogSizes[this.currentSize.value]
+                size: ThyDialogSizes[size]
             })
         );
     }
