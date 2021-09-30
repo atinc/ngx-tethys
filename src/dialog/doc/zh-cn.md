@@ -70,6 +70,9 @@ openProfile(template: TemplateRef<any>) {
 }
 ```
 
+展示效果如下：
+<example name="thy-dialog-basic-example" />
+
 ### 设置打开对话框的全局默认值
 
 对话框的默认选项可以通过在应用根模块中为`THY_DIALOG_DEFAULT_OPTIONS`令牌提供一个`ThyDialogConfig`实例来指定。
@@ -156,6 +159,8 @@ class YourDialogComponent {
 
 ## 打开Confirm
 `ThyDialog`服务提供了一个`confirm`方法，支持通过传入一个`ThyConfirmConfig`实例，来打开一个二次弹出提示框。
+
+<example name="thy-dialog-confirm-example" />
 
 Confirm对话框的默认选项可以通过在应用根模块中为`THY_CONFIRM_DEFAULT_OPTIONS`令牌提供一个`ThyConfirmConfig`实例来指定。
 
