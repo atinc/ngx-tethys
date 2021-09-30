@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { DateRangeItemInfo } from './date-range.class';
-import { addDays, addYears, endOfDay, endOfYear, formatDate, startOfDay, startOfWeek, startOfYear } from '../util';
+import { addDays, addYears, endOfDay, endOfYear, dateToUnixTimestamp, startOfDay, startOfWeek, startOfYear } from '../util';
 import { ThyDateRangeModule } from './module';
 import { getUnixTime, startOfQuarter, endOfQuarter, setMonth, getMonth, startOfMonth, endOfMonth, addMonths, endOfWeek } from 'date-fns';
 
@@ -324,8 +324,8 @@ class ThyTestDateRangeComponent {
         {
             key: '3month',
             text: '近三个月',
-            begin: formatDate(new Date(new Date().getFullYear(), new Date().getMonth() - 2, 1)),
-            end: formatDate(new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0)),
+            begin: dateToUnixTimestamp(new Date(new Date().getFullYear(), new Date().getMonth() - 2, 1)),
+            end: dateToUnixTimestamp(new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0)),
             timestamp: {
                 interval: 3,
                 unit: 'month'
