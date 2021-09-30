@@ -284,29 +284,53 @@ describe('ThyRangePickerComponent', () => {
         beforeEach(() => (fixtureInstance.useSuite = 1));
 
         it('should support date panel changes', fakeAsync(() => {
-            fixtureInstance.modelValue = { begin: new Date('2018-6-11'), end: new Date('2018-12-12') };
+            fixtureInstance.modelValue = { begin: new Date('2018-6-11'), end: new Date('2020-12-12') };
             fixture.detectChanges();
             openPickerByClickTrigger();
             // Click previous year button
             dispatchMouseEvent(queryFromOverlay('.thy-calendar-range-left .thy-calendar-prev-year-btn'), 'click');
             fixture.detectChanges();
-            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-year-select').textContent.indexOf('2017') > -1).toBeTruthy();
+            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-year-btn').textContent.indexOf('2017') > -1).toBeTruthy();
             // Click next year button * 2
             dispatchMouseEvent(queryFromOverlay('.thy-calendar-range-left .thy-calendar-next-year-btn'), 'click');
             fixture.detectChanges();
             dispatchMouseEvent(queryFromOverlay('.thy-calendar-range-left .thy-calendar-next-year-btn'), 'click');
             fixture.detectChanges();
-            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-year-select').textContent.indexOf('2019') > -1).toBeTruthy();
+            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-year-btn').textContent.indexOf('2019') > -1).toBeTruthy();
             // Click previous month button
             dispatchMouseEvent(queryFromOverlay('.thy-calendar-range-left .thy-calendar-prev-month-btn'), 'click');
             fixture.detectChanges();
-            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-month-select').textContent.indexOf('5') > -1).toBeTruthy();
+            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-month-btn').textContent.indexOf('5') > -1).toBeTruthy();
             // Click next month button * 2
             dispatchMouseEvent(queryFromOverlay('.thy-calendar-range-left .thy-calendar-next-month-btn'), 'click');
             fixture.detectChanges();
             dispatchMouseEvent(queryFromOverlay('.thy-calendar-range-left .thy-calendar-next-month-btn'), 'click');
             fixture.detectChanges();
-            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-month-select').textContent.indexOf('7') > -1).toBeTruthy();
+            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-month-btn').textContent.indexOf('7') > -1).toBeTruthy();
+        }));
+
+        it('should show current thy-calendar-next-month-btn and thy-calendar-next-year-btn', fakeAsync(() => {
+            fixtureInstance.modelValue = { begin: new Date('2018-10-11'), end: new Date('2018-12-12') };
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-next-year-btn')).toBeFalsy();
+            expect(queryFromOverlay('.thy-calendar-range-right .thy-calendar-prev-year-btn')).toBeFalsy();
+            fixture.detectChanges();
+            dispatchMouseEvent(queryFromOverlay('.thy-calendar-range-left .thy-calendar-next-month-btn'), 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-next-month-btn')).toBeFalsy();
+            expect(queryFromOverlay('.thy-calendar-range-right .thy-calendar-prev-month-btn')).toBeFalsy();
+            fixture.detectChanges();
+            dispatchMouseEvent(queryFromOverlay('.thy-calendar-range-left .thy-calendar-prev-year-btn'), 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-next-month-btn')).toBeDefined();
+            expect(queryFromOverlay('.thy-calendar-range-right .thy-calendar-prev-month-btn')).toBeDefined();
+            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-next-year-btn')).toBeDefined();
+            expect(queryFromOverlay('.thy-calendar-range-right .thy-calendar-pre-year-btn')).toBeDefined();
         }));
     }); // /panel switch and move forward/afterward
 

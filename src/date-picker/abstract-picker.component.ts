@@ -23,7 +23,7 @@ import { transformDateValue, makeValue } from './picker.util';
 @Directive()
 export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDestroy, ControlValueAccessor {
     thyValue: CompatibleValue | null;
-    thyMode: PanelMode = 'date';
+    @Input() thyMode: PanelMode = 'date';
     @Input() @InputBoolean() thyAllowClear = true;
     @Input() @InputBoolean() thyAutoFocus = false;
     @Input() @InputBoolean() thyDisabled = false;

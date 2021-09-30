@@ -300,13 +300,7 @@ export class DatePopupComponent implements OnChanges, OnInit {
         const headerMode = headerModes[mode];
         const [start, end] = value;
         const newStart = start || new TinyDate();
-        let newEnd = end || dateAddAmount(newStart, 1, mode);
-        if (headerMode === 'year') {
-            newEnd = end && end.isSameYear(newStart) ? end.addYears(1) : end || newStart.addYears(1);
-        }
-        if (headerMode === 'month') {
-            newEnd = end && end.isSameMonth(newStart) ? end.addMonths(1) : end || newStart.addMonths(1);
-        }
+        let newEnd = end || dateAddAmount(newStart, 1, headerMode);
         return [newStart, newEnd];
     }
 

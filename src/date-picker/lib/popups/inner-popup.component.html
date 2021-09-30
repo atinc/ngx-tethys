@@ -1,9 +1,8 @@
-<!-- <div class="{{ prefixCls }}-body"> -->
 <ng-container [ngSwitch]="panelMode">
   <ng-container *ngSwitchCase="'decade'">
     <div class="{{ prefixCls }}-decade">
       <decade-header
-        [(value)]="value"
+        [(value)]="activeDate"
         [showSuperPreBtn]="enableSuperPrevNext('prev', 'decade')"
         [showSuperNextBtn]="enableSuperPrevNext('next', 'decade')"
         [showNextBtn]="false"
@@ -20,7 +19,7 @@
   <ng-container *ngSwitchCase="'year'">
     <div class="{{ prefixCls }}-year">
       <year-header
-        [(value)]="value"
+        [(value)]="activeDate"
         [showSuperPreBtn]="enableSuperPrevNext('prev', 'year')"
         [showSuperNextBtn]="enableSuperPrevNext('next', 'year')"
         [showNextBtn]="false"
@@ -86,4 +85,3 @@
     </div>
   </ng-container>
 </ng-container>
-<!-- </div> -->

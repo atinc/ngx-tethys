@@ -1,6 +1,6 @@
-import { forwardRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Renderer2, NgZone, OnInit } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { DateHelperService } from 'ngx-tethys';
+import { forwardRef, ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+
+import { DateHelperService } from '../../../date-picker/date-helper.service';
 import { CalendarHeader, PanelSelector } from '../calendar/calendar-header.component';
 
 @Component({
@@ -9,12 +9,15 @@ import { CalendarHeader, PanelSelector } from '../calendar/calendar-header.compo
     templateUrl: '../calendar/calendar-header.component.html'
 })
 export class DecadeHeaderComponent extends CalendarHeader {
+    constructor(public dateHelper: DateHelperService) {
+        super(dateHelper);
+    }
     get startYear(): number {
-        return parseInt(`${this.value.getYear() / 10}`, 10) * 10;
+        return parseInt(`${this.value.getYear() / 100}`, 10) * 100;
     }
 
     get endYear(): number {
-        return this.startYear + 9;
+        return this.startYear + 99;
     }
 
     superPrevious(): void {

@@ -32,8 +32,6 @@ export class ThyMonthPickerComponent extends BasePickerComponent {
 
     thyMode: PanelMode = 'month';
 
-    endPanelMode: PanelMode = 'month';
-
     constructor(cdr: ChangeDetectorRef, renderer: Renderer2, elementRef: ElementRef) {
         super(cdr);
         renderer.addClass(elementRef.nativeElement, 'thy-calendar-picker');

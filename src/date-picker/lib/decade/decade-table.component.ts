@@ -13,7 +13,7 @@ export class DecadeTableComponent extends CalendarTable implements OnChanges {
     MAX_COL = 3;
 
     get startYear(): number {
-        return parseInt(`${this.value.getYear() / 100}`, 10) * 100;
+        return parseInt(`${this.activeDate.getYear() / 100}`, 10) * 100;
     }
     get endYear(): number {
         return this.startYear + 99;
@@ -34,7 +34,7 @@ export class DecadeTableComponent extends CalendarTable implements OnChanges {
 
     makeBodyRows(): WeekRow[] {
         const decades: WeekRow[] = [];
-        const currentYear = this.value.getYear();
+        const currentYear = this.value && this.value.getYear();
         const startYear = this.startYear;
         const endYear = this.endYear;
         const previousYear = startYear - 10;

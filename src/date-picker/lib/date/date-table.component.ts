@@ -81,7 +81,6 @@ export class DateTableComponent extends CalendarTable implements OnChanges {
                     dateCellRender: valueFunctionProp(this.cellRender, date),
                     content: `${date.getDate()}`,
                     onClick: () => this.chooseDate(date),
-                    // 暂时用不到鼠标事件的交互,在html这种删除了
                     onMouseEnter: () => this.dayHover.emit(date)
                 };
                 this.addCellProperty(cell, date);

@@ -1,5 +1,5 @@
 import { endOfDay, startOfDay } from 'date-fns';
-import { ThyPropertyOperationComponent, ThyPropertyOperationModule } from 'ngx-tethys';
+import { RangeEntry, ThyPropertyOperationComponent, ThyPropertyOperationModule } from 'ngx-tethys';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
 
 import { OverlayContainer } from '@angular/cdk/overlay';
@@ -7,7 +7,7 @@ import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgModel } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -133,12 +133,14 @@ describe('ThyRangePickerDirective', () => {
         <thy-property-operation
             thyLabelText="开始时间"
             thyRangePicker
+            [(ngModel)]="modelValue"
             (thyOnCalendarChange)="thyOnCalendarChange($event)"
             (thyOpenChange)="thyOpenChange($event)"
         ></thy-property-operation>
     `
 })
 class ThyTestRangePickerDirective {
+    modelValue: RangeEntry;
     thyOpenChange(): void {}
     thyOnCalendarChange(): void {}
 }

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { DateHelperService } from 'ngx-tethys';
+import { DateHelperService } from '../../../date-picker/date-helper.service';
 import { CalendarHeader, PanelSelector } from '../calendar/calendar-header.component';
 
 @Component({
@@ -16,7 +16,7 @@ export class YearHeaderComponent extends CalendarHeader {
         return this.startYear + 9;
     }
 
-    constructor(protected dateHelper: DateHelperService) {
+    constructor(public dateHelper: DateHelperService) {
         super(dateHelper);
     }
 

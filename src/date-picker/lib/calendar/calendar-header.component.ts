@@ -36,7 +36,7 @@ export abstract class CalendarHeader implements OnInit, OnChanges {
     prefixCls = 'thy-calendar';
     selectors: PanelSelector[];
 
-    constructor(protected dateHelper: DateHelperService) {}
+    constructor(public dateHelper: DateHelperService) {}
 
     ngOnInit(): void {
         if (!this.value) {

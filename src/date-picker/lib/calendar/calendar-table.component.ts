@@ -23,7 +23,10 @@ export abstract class CalendarTable implements OnInit, OnChanges {
     @Input() fullCellRender?: FunctionProp<TemplateRef<Date> | string>;
 
     @Output() readonly valueChange = new EventEmitter<TinyDate>();
+
     @Output() readonly cellHover = new EventEmitter<TinyDate>(); // Emitted when hover on a day by mouse enter
+
+    constructor() {}
 
     protected render(): void {
         if (this.activeDate) {
