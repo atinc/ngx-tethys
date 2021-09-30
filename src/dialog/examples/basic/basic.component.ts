@@ -1,5 +1,5 @@
 import { Component, OnInit, TemplateRef, Renderer2, OnDestroy } from '@angular/core';
-import { mixinUnsubscribe, ThyDialogConfig, ThyDialogLayoutConfig, MixinBase, ThyDialogSizes, ThyDialog, keycodes } from 'ngx-tethys';
+import { mixinUnsubscribe, ThyDialogConfig, MixinBase, ThyDialogSizes, ThyDialog, keycodes } from 'ngx-tethys';
 import { ThyDialogBasicContentComponent } from './dialog-content.component';
 import { takeUntil } from 'rxjs/operators';
 
@@ -14,7 +14,7 @@ export class ThyDialogBasicExampleComponent extends mixinUnsubscribe(MixinBase) 
         size: ThyDialogSizes.md,
         hasBackdrop: true,
         backdropClosable: true,
-        closeOnNavigation: true
+        closeOnNavigation: false
     };
 
     public layoutConfig = {
@@ -43,6 +43,7 @@ export class ThyDialogBasicExampleComponent extends mixinUnsubscribe(MixinBase) 
     ngOnInit() {}
 
     openTemplateDialog(template: TemplateRef<any>) {
+        console.log(this.config.closeOnNavigation);
         this.thyDialog.open(
             template,
             Object.assign(
