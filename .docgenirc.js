@@ -3,7 +3,7 @@ module.exports = {
     title: 'TETHYS',
     siteProjectName: 'site',
     repoUrl: 'https://github.com/atinc/ngx-tethys',
-    logoUrl: 'https://cdn.worktile.com/open-sources/ngx-tethys/logos/tethys.png',
+    logoUrl: 'https://cdn.worktile.com/open-sources/ngx-tethys/logos/tethys.png?100',
     navs: [
         null,
         {
@@ -105,6 +105,7 @@ module.exports = {
             ]
         }
     ],
+    footer: "Copyright © 2020-present Powered by <a href='https://worktile.com' target='_blank' >Worktile</a>",
     locales: [
         {
             key: 'zh-cn',
