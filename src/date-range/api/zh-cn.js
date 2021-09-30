@@ -59,5 +59,41 @@ module.exports = [
                 default: ''
             }
         ]
+    },
+    {
+        type: 'class',
+        name: 'DateRangeItemInfo参数',
+        properties: [
+            {
+                name: 'begin',
+                description: '开始时间',
+                type: 'number',
+                default: ''
+            },
+            {
+                name: 'end',
+                description: '截止时间',
+                type: 'number',
+                default: ''
+            },
+            {
+                name: 'key',
+                description: `时间段的唯一标识，如'week'、'month'`,
+                type: 'string',
+                default: ''
+            },
+            {
+                name: 'text',
+                description: '时间段的展示文本',
+                type: 'string',
+                default: ''
+            },
+            {
+                name: 'timestamp',
+                description: '时间戳的转换格式',
+                type: `{ interval: number, unit: AttachTypes }，interval为时间间隔；unit可选值有'day' | 'month' | 'year'`,
+                default: ''
+            }
+        ]
     }
 ];
