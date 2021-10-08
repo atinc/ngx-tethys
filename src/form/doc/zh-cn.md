@@ -12,16 +12,15 @@ order: 1
 表单具有数据收集、校验和提交功能，内部包含复选框、单选框、输入框、下拉选择框等元素。
 > 使用该组件前请确保您已经阅读并掌握了 [Angular Forms](https://angular.io/guide/forms#forms) 的使用方式。
 
+## 模块导入
+```ts
+import { ThyFormModule } from "ngx-tethys/form";
+```
 ## 具备功能
 
 - 统一表单布局，使用`thyForm`指令
 - 统一表单控件，使用`thy-form-group`组件
 - 基于 Angular 表单统一设置验证规则和错误反馈
-
-## 模块导入
-```ts
-import { ThyFormModule } from "ngx-tethys/form";
-```
 
 ## 基本使用
 

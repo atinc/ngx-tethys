@@ -102,7 +102,13 @@ module.exports = {
                         }
                     }
                 }
-            ]
+            ],
+            labels: {
+                'lack-doc': {
+                    text: 'Lack Doc',
+                    color: '#2dbcff'
+                }
+            }
         }
     ],
     footer: "Copyright © 2020-present Powered by <a href='https://worktile.com' target='_blank' >Worktile</a>",
