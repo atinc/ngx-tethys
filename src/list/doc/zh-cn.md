@@ -2,6 +2,7 @@
 category: display
 title: List
 subtitle: 列表
+label: lack-doc
 ---
 
 ## 介绍
