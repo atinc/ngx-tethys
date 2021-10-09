@@ -252,7 +252,7 @@ describe('form validate', () => {
         assertElementInvalidError('username', `user name is required`);
     }));
 
-    it('should get invalid message for min=0 when age= -1', fakeAsync(() => {
+    it('should get correct invalid message for min=0 when age=-1', fakeAsync(() => {
         testComponent.model.age = -1;
         fixture.detectChanges();
         tick();
@@ -260,7 +260,7 @@ describe('form validate', () => {
         assertElementInvalidError('age', `该选项输入值不能小于0`);
     }));
 
-    it('should get invalid message for max=10 when age= -1', fakeAsync(() => {
+    it('should get correct invalid message for max=10 when age=-1', fakeAsync(() => {
         testComponent.model.age = 11;
         fixture.detectChanges();
         tick();
