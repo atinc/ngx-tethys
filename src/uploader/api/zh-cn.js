@@ -5,10 +5,10 @@ module.exports = [
         description: '通过点击或者拖拽上传文件',
         properties: [
             {
-                name: 'thyOnFileSelect',
+                name: '(thyOnFileSelect)',
                 description: '文件选择事件',
-                type: 'EventEmitter',
-                default: '$event: { files: File[], nativeEvent: Event}'
+                type: 'EventEmitter<{ files: File[], nativeEvent: Event}>',
+                default: ''
             },
             {
                 name: 'thySizeExceedsHandler',
@@ -30,7 +30,7 @@ module.exports = [
             },
             {
                 name: 'thySizeThreshold',
-                description: '文件上传大小限制,单位kb，默认为0，表示没有任何限制',
+                description: '文件上传大小限制,单位`kb`，`0`表示没有任何限制',
                 type: 'number',
                 default: 0
             }
