@@ -17,6 +17,16 @@ export interface ThyUploadResponse {
     uploadFile?: ThyUploadFile;
 }
 
+export interface ThyUploadFileProgress {
+    status: ThyUploadStatus;
+    percentage: number;
+    speed?: number;
+    speedHuman?: string;
+    startTime: number | null;
+    endTime?: number | null;
+    estimatedTime?: number | null;
+    estimatedTimeHuman?: string | null;
+}
 export interface ThyUploadFile {
     identifier?: string;
     method: string;
@@ -32,16 +42,7 @@ export interface ThyUploadFile {
     response?: any;
     responseHeaders?: any;
 
-    progress?: {
-        status: ThyUploadStatus;
-        percentage: number;
-        speed?: number;
-        speedHuman?: string;
-        startTime: number | null;
-        endTime?: number | null;
-        estimatedTime?: number | null;
-        estimatedTimeHuman?: string | null;
-    };
+    progress?: ThyUploadFileProgress;
 }
 
 export interface ThyUploadFilesOptions {

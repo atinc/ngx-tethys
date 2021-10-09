@@ -124,16 +124,62 @@ module.exports = [
             {
                 name: 'progress',
                 description: '上传进度',
-                type: `{
-                    status: ThyUploadStatus;
-                    percentage: number;
-                    speed?: number;
-                    speedHuman?: string;
-                    startTime: number | null;
-                    endTime?: number | null;
-                    estimatedTime?: number | null;
-                    estimatedTimeHuman?: string | null;
-                }`,
+                type: `ThyUploadFileProgress`,
+                default: ''
+            }
+        ]
+    },
+    {
+        type: 'interface',
+        name: 'ThyUploadFileProgress',
+        description: '文件上传进度',
+        properties: [
+            {
+                name: 'status',
+                description: '上传状态',
+                type: 'ThyUploadStatus',
+                default: 'pending'
+            },
+            {
+                name: 'percentage',
+                description: '进度百分比',
+                type: 'number',
+                default: ''
+            },
+            {
+                name: 'speed',
+                description: '上传速度',
+                type: 'number',
+                default: ''
+            },
+            {
+                name: 'speedHuman',
+                description: '人类可读的上传速度, 比如: 120 kb/s',
+                type: 'string',
+                default: ''
+            },
+            {
+                name: 'startTime',
+                description: '开始上传时间',
+                type: 'number',
+                default: ''
+            },
+            {
+                name: 'endTime',
+                description: '结束上传时间',
+                type: 'number',
+                default: ''
+            },
+            {
+                name: 'estimatedTime',
+                description: '上传时间',
+                type: 'number',
+                default: ''
+            },
+            {
+                name: 'estimatedTime',
+                description: '人类可读的上传时间, 比如: 00:12:23',
+                type: 'number',
                 default: ''
             }
         ]
