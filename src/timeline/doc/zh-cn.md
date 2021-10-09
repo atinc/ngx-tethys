@@ -2,6 +2,7 @@
 category: display
 title: Timeline
 subtitle: 时间轴
+label: lack-doc
 ---
 
 展示时间流转信息。

@@ -2,6 +2,7 @@
 category: other
 title: Guider
 subtitle: 新手引导
+label: lack-doc
 ---
 
 ## 概览
