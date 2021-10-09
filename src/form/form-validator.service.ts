@@ -9,7 +9,7 @@ import { isUndefinedOrNull } from 'ngx-tethys/util';
 export class ThyFormValidatorService {
     private _ngForm: NgForm;
 
-    private _formElement: HTMLElement;
+    private _formElement: HTMLFormElement;
 
     private _config: ThyFormValidatorConfig;
 
@@ -22,7 +22,7 @@ export class ThyFormValidatorService {
     }> = {};
 
     private _getElement(name: string) {
-        const element = this._formElement[name];
+        const element = this._formElement.elements[name];
         if (element) {
             return element;
         } else {
@@ -119,7 +119,7 @@ export class ThyFormValidatorService {
 
     constructor(private thyFormValidateLoader: ThyFormValidatorLoader) {}
 
-    initialize(ngForm: NgForm, formElement: HTMLElement) {
+    initialize(ngForm: NgForm, formElement: HTMLFormElement) {
         this._ngForm = ngForm;
         this._formElement = formElement;
     }
