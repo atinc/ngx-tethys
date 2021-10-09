@@ -47,6 +47,9 @@ export class TestFormBasicDirectiveComponent {
                     placeholder="please input description"
                 ></textarea>
             </thy-form-group>
+            <thy-form-group thyLabelRequired>
+                <input thyInput name="age" [(ngModel)]="model.age" max="10" min="0" required placeholder="please input age" />
+            </thy-form-group>
             <thy-form-group-footer>
                 <button [thyButton]="'primary'" thyLoadingText="确定" thyFormSubmit (thyFormSubmit)="submit()">
                     登录
@@ -58,7 +61,8 @@ export class TestFormBasicDirectiveComponent {
 export class TestFormFullComponent {
     model = {
         name: '',
-        description: 'default'
+        description: 'default',
+        age: 5
     };
 
     enterKeyMode: ThyEnterKeyMode;
@@ -246,6 +250,22 @@ describe('form validate', () => {
     it('should get invalid messages when name is empty', fakeAsync(() => {
         dispatchFakeEvent(formSubmitDebugElement.nativeElement, 'click');
         assertElementInvalidError('username', `user name is required`);
+    }));
+
+    it('should get invalid message for min=0 when age= -1', fakeAsync(() => {
+        testComponent.model.age = -1;
+        fixture.detectChanges();
+        tick();
+        dispatchFakeEvent(formSubmitDebugElement.nativeElement, 'click');
+        assertElementInvalidError('age', `该选项输入值不能小于0`);
+    }));
+
+    it('should get invalid message for max=10 when age= -1', fakeAsync(() => {
+        testComponent.model.age = 11;
+        fixture.detectChanges();
+        tick();
+        dispatchFakeEvent(formSubmitDebugElement.nativeElement, 'click');
+        assertElementInvalidError('age', `该选项输入值不能大于10`);
     }));
 
     it('should clear error validations after input value', fakeAsync(() => {
