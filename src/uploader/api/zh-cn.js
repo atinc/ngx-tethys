@@ -35,5 +35,107 @@ module.exports = [
                 default: 0
             }
         ]
+    },
+    {
+        type: 'service',
+        name: 'ThyUploaderService',
+        description: '文件远程上传服务',
+        properties: [
+            {
+                name: 'upload',
+                description: '单个文件上传方法',
+                type: 'upload(uploadFile: ThyUploadFile): Observable<ThyUploadResponse>',
+                default: ''
+            },
+            {
+                name: 'uploadBulk',
+                description: '批量上传方法，`concurrent`为并发上传最大限制数，默认为`5`',
+                type:
+                    'uploadBulk(uploadFiles: ThyUploadFile[], concurrent = 5, options?: ThyUploadFilesOptions): Observable<ThyUploadResponse>',
+                default: ''
+            }
+        ]
+    },
+    {
+        type: 'interface',
+        name: 'ThyUploadFile',
+        description: '文件上传对象',
+        properties: [
+            {
+                name: 'method',
+                description: '上传方法',
+                type: '`POST | PUT`',
+                default: ''
+            },
+            {
+                name: 'url',
+                description: '远程上传地址',
+                type: 'string',
+                default: ''
+            },
+            {
+                name: 'nativeFile',
+                description: '原始文件',
+                type: 'File',
+                default: ''
+            },
+            {
+                name: 'identifier',
+                description: '文件唯一标识',
+                type: 'string',
+                default: ''
+            },
+            {
+                name: 'withCredentials',
+                description: '是否携带认证信息',
+                type: 'boolean',
+                default: ''
+            },
+            {
+                name: 'fileName',
+                description: '文件名',
+                type: 'string',
+                default: 'nativeFile.name'
+            },
+            {
+                name: 'fileField',
+                description: '文件字段',
+                type: 'string',
+                default: 'file'
+            },
+            {
+                name: 'headers',
+                description: '请求头',
+                type: 'Record<string, string>',
+                default: ''
+            },
+            {
+                name: 'data',
+                description: '请求数据',
+                type: 'Record<string, string>',
+                default: ''
+            },
+            {
+                name: 'response',
+                description: '上传响应结果',
+                type: 'Response',
+                default: ''
+            },
+            {
+                name: 'progress',
+                description: '上传进度',
+                type: `{
+                    status: ThyUploadStatus;
+                    percentage: number;
+                    speed?: number;
+                    speedHuman?: string;
+                    startTime: number | null;
+                    endTime?: number | null;
+                    estimatedTime?: number | null;
+                    estimatedTimeHuman?: string | null;
+                }`,
+                default: ''
+            }
+        ]
     }
 ];
