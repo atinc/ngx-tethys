@@ -38,10 +38,10 @@ export class ThyCollapsePanelComponent implements OnInit, OnDestroy {
 
     @Input()
     set thyExpandedIcon(value: string | TemplateRef<any>) {
-        if (value instanceof String) {
-            this.expandedIcon = value as string;
-        } else {
+        if (value instanceof TemplateRef) {
             this.expandedIconTemplate = value as TemplateRef<any>;
+        } else {
+            this.expandedIcon = value as string;
         }
     }
 

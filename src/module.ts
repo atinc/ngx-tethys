@@ -24,6 +24,8 @@ import { ThyDropdownModule } from 'ngx-tethys/dropdown';
 import { ThyEmptyModule } from 'ngx-tethys/empty';
 import { ThyFlexibleTextModule } from 'ngx-tethys/flexible-text';
 import { ThyFormModule } from 'ngx-tethys/form';
+import { ThyFullscreenModule } from 'ngx-tethys/fullscreen';
+import { ThyGuiderModule } from 'ngx-tethys/guider';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyInputModule } from 'ngx-tethys/input';
 import { ThyLabelModule } from 'ngx-tethys/label';
