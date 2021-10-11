@@ -35,7 +35,7 @@ export interface DecadeCell extends DateCell {
     isLowerThanStart?: boolean;
 }
 
-export interface WeekRow {
+export interface DateBodyRow {
     trackByIndex?: SafeAny;
     isCurrent?: boolean; // Is the week that today stays in
     isActive?: boolean; // Is the week that current setting date stays in

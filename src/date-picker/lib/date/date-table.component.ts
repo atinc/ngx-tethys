@@ -3,7 +3,7 @@ import { FunctionProp, TinyDate, valueFunctionProp } from 'ngx-tethys/util';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 
 import { DateHelperService } from '../../date-helper.service';
-import { DateCell, WeekRow } from './types';
+import { DateCell, DateBodyRow } from './types';
 import { CalendarTable } from '../calendar/calendar-table.component';
 
 @Component({
@@ -52,13 +52,13 @@ export class DateTableComponent extends CalendarTable implements OnChanges {
         return 'dd';
     }
 
-    makeBodyRows(): WeekRow[] {
-        const weekRows: WeekRow[] = [];
+    makeBodyRows(): DateBodyRow[] {
+        const dateRows: DateBodyRow[] = [];
         const firstDayOfMonth = this.activeDate.calendarStart({ weekStartsOn: this.dateHelper.getFirstDayOfWeek() });
 
         for (let week = 0; week < this.MAX_ROW; week++) {
             const weekStart = firstDayOfMonth.addDays(week * 7);
-            const row: WeekRow = {
+            const row: DateBodyRow = {
                 isActive: false,
                 isCurrent: false,
                 dateCells: [],
@@ -104,10 +104,10 @@ export class DateTableComponent extends CalendarTable implements OnChanges {
                 [`${this.prefixCls}-active-week`]: row.isActive
             };
 
-            weekRows.push(row);
+            dateRows.push(row);
         }
 
-        return weekRows;
+        return dateRows;
     }
 
     addCellProperty(cell: DateCell, date: TinyDate): void {

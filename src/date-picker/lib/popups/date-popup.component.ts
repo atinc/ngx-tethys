@@ -1,5 +1,5 @@
 import { endOfDay, startOfDay } from 'date-fns';
-import { FunctionProp, helpers, sortRangeValue, TinyDate } from 'ngx-tethys/util';
+import { FunctionProp, helpers, sortRangeValue, TinyDate, TinyDateCompareGrain } from 'ngx-tethys/util';
 
 import {
     ChangeDetectionStrategy,
@@ -300,7 +300,13 @@ export class DatePopupComponent implements OnChanges, OnInit {
         const headerMode = headerModes[mode];
         const [start, end] = value;
         const newStart = start || new TinyDate();
-        let newEnd = end || dateAddAmount(newStart, 1, headerMode);
+        let newEnd = end;
+        if (!newEnd) {
+            newEnd = dateAddAmount(newStart, 1, headerMode);
+        }
+        if (newStart.isSame(end, headerMode as TinyDateCompareGrain)) {
+            newEnd = dateAddAmount(newStart, 1, headerMode);
+        }
         return [newStart, newEnd];
     }
 

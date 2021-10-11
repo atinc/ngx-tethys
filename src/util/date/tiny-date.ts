@@ -201,6 +201,9 @@ export class TinyDate implements Record<string, any> {
     isSame(date: TinyDateType, grain: TinyDateCompareGrain = 'day'): boolean {
         let fn;
         switch (grain) {
+            case 'decade':
+                fn = (pre: Date, next: Date) => Math.abs(pre.getFullYear() - next.getFullYear()) < 11;
+                break;
             case 'year':
                 fn = isSameYear;
                 break;

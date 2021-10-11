@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, OnChanges, Output } from '@angular/core';
 import { TinyDate } from 'ngx-tethys/util';
 import { CalendarTable } from '../calendar/calendar-table.component';
-import { DateCell, WeekRow, YearCell } from '../date/types';
+import { DateCell, DateBodyRow, YearCell } from '../date/types';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -28,15 +28,15 @@ export class YearTableComponent extends CalendarTable implements OnChanges {
         return [];
     }
 
-    makeBodyRows(): WeekRow[] {
-        const years: WeekRow[] = [];
+    makeBodyRows(): DateBodyRow[] {
+        const years: DateBodyRow[] = [];
         const currentYear = this.activeDate && this.activeDate.getYear();
         const startYear = parseInt(`${currentYear / 10}`, 10) * 10;
         const endYear = startYear + 9;
         const previousYear = startYear - 1;
         let yearValue = 0;
         for (let rowIndex = 0; rowIndex < this.MAX_ROW; rowIndex++) {
-            const row: WeekRow = {
+            const row: DateBodyRow = {
                 dateCells: [],
                 trackByIndex: rowIndex
             };
@@ -52,7 +52,7 @@ export class YearTableComponent extends CalendarTable implements OnChanges {
                     content,
                     value: year.nativeDate,
                     title: content,
-                    isSelected: yearNum === currentYear,
+                    isSelected: yearNum === (this.value && this.value.getYear()),
                     isSameDecade: yearNum >= startYear && yearNum <= endYear,
                     classMap: {},
                     onClick: () => this.chooseYear(cell.value.getFullYear()),

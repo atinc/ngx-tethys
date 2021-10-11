@@ -124,8 +124,10 @@ describe('ThyTestDateRangeComponent', () => {
             const rightCell = getFirstCell('right');
             const rightHeaderText = rightHeader.textContent.trim();
             dispatchClickEvent(rightCell);
-            expect(+leftHeaderText[leftHeaderText.length - 2]).toBe(getMonth(new Date()) - 1);
-            expect(+rightHeaderText[rightHeaderText.length - 2]).toBe(getMonth(new Date()) + 1);
+            const leftHeaderMonth = new Date(Date.parse(leftHeaderText.replace('年', '-').replace('月', '-'))).getMonth();
+            const rightHeaderMonth = new Date(Date.parse(rightHeaderText.replace('年', '-').replace('月', '-'))).getMonth();
+            expect(leftHeaderMonth).toBe(getMonth(new Date()) - 2);
+            expect(rightHeaderMonth).toBe(getMonth(new Date()));
         }));
     });
 

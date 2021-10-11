@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnChanges } from '@angular/core';
 import { CalendarTable } from '../calendar/calendar-table.component';
-import { DateCell, DecadeCell, WeekRow } from '../date/types';
+import { DateCell, DecadeCell, DateBodyRow } from '../date/types';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -32,8 +32,8 @@ export class DecadeTableComponent extends CalendarTable implements OnChanges {
         return [];
     }
 
-    makeBodyRows(): WeekRow[] {
-        const decades: WeekRow[] = [];
+    makeBodyRows(): DateBodyRow[] {
+        const decades: DateBodyRow[] = [];
         const currentYear = this.value && this.value.getYear();
         const startYear = this.startYear;
         const endYear = this.endYear;
@@ -41,7 +41,7 @@ export class DecadeTableComponent extends CalendarTable implements OnChanges {
 
         let index = 0;
         for (let rowIndex = 0; rowIndex < this.MAX_ROW; rowIndex++) {
-            const row: WeekRow = {
+            const row: DateBodyRow = {
                 dateCells: [],
                 trackByIndex: rowIndex
             };

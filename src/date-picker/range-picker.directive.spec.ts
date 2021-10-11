@@ -1,5 +1,4 @@
 import { endOfDay, startOfDay } from 'date-fns';
-import { RangeEntry, ThyPropertyOperationComponent, ThyPropertyOperationModule } from 'ngx-tethys';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
 
 import { OverlayContainer } from '@angular/cdk/overlay';
@@ -13,6 +12,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ThyPopover } from '../popover/popover.service';
 import { ThyDatePickerModule } from './date-picker.module';
+import { ThyPropertyOperationComponent, ThyPropertyOperationModule } from 'ngx-tethys/property-operation';
+import { RangeEntry } from './standard-types';
 
 registerLocaleData(zh);
 

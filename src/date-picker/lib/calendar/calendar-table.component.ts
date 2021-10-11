@@ -1,14 +1,13 @@
-import { FunctionProp, TinyDate } from 'ngx-tethys';
-
 import { Directive, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange, SimpleChanges, TemplateRef } from '@angular/core';
-import { DateCell, isTemplateRef, WeekRow } from 'ngx-tethys';
 import { SafeAny } from 'ngx-tethys/types';
+import { FunctionProp, isTemplateRef, TinyDate } from 'ngx-tethys/util';
+import { DateCell, DateBodyRow } from '../date/types';
 
 @Directive()
 export abstract class CalendarTable implements OnInit, OnChanges {
     isTemplateRef = isTemplateRef;
     headRow: DateCell[] = [];
-    bodyRows: WeekRow[] = [];
+    bodyRows: DateBodyRow[] = [];
     MAX_ROW = 6;
     MAX_COL = 7;
 
@@ -21,7 +20,6 @@ export abstract class CalendarTable implements OnInit, OnChanges {
     @Input() disabledDate?: (d: Date) => boolean;
     @Input() cellRender?: FunctionProp<TemplateRef<Date> | string>;
     @Input() fullCellRender?: FunctionProp<TemplateRef<Date> | string>;
-
     @Output() readonly valueChange = new EventEmitter<TinyDate>();
 
     @Output() readonly cellHover = new EventEmitter<TinyDate>(); // Emitted when hover on a day by mouse enter
@@ -35,7 +33,7 @@ export abstract class CalendarTable implements OnInit, OnChanges {
         }
     }
 
-    trackByBodyRow(_index: number, item: WeekRow): SafeAny {
+    trackByBodyRow(_index: number, item: DateBodyRow): SafeAny {
         return item.trackByIndex;
     }
 
@@ -48,7 +46,7 @@ export abstract class CalendarTable implements OnInit, OnChanges {
     }
 
     abstract makeHeadRow(): DateCell[];
-    abstract makeBodyRows(): WeekRow[];
+    abstract makeBodyRows(): DateBodyRow[];
 
     ngOnInit(): void {
         this.render();

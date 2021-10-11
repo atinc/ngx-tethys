@@ -118,3 +118,9 @@ export function isAfterMoreThanOneYear(rightDate: TinyDate, leftDate: TinyDate) 
         return true;
     }
 }
+
+export function isAfterMoreThanOneDecade(rightDate: TinyDate, leftDate: TinyDate) {
+    rightDate = rightDate ? rightDate : leftDate ? leftDate : new TinyDate();
+    leftDate = leftDate ? leftDate : rightDate;
+    return rightDate.getYear() - leftDate.getYear() >= 20;
+}

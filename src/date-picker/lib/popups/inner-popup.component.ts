@@ -4,7 +4,12 @@ import { DisabledDateFn, PanelMode } from '../../standard-types';
 import { TinyDate } from 'ngx-tethys/util';
 import { FunctionProp } from 'ngx-tethys/util';
 import { RangePartType } from './date-popup.component';
-import { isAfterMoreThanLessOneYear, isAfterMoreThanOneMonth, isAfterMoreThanOneYear } from 'ngx-tethys/date-picker/picker.util';
+import {
+    isAfterMoreThanLessOneYear,
+    isAfterMoreThanOneDecade,
+    isAfterMoreThanOneMonth,
+    isAfterMoreThanOneYear
+} from 'ngx-tethys/date-picker/picker.util';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -16,7 +21,7 @@ export class InnerPopupComponent implements OnChanges {
     @Input() showWeek: boolean;
     @Input() isRange: boolean;
     @Input() activeDate: TinyDate;
-    @Input() headerValue: TinyDate[];
+    @Input() headerValue: TinyDate[]; // Range ONLY
     @Input() enablePrev: boolean;
     @Input() enableNext: boolean;
     @Input() disabledDate: DisabledDateFn;
@@ -110,6 +115,8 @@ export class InnerPopupComponent implements OnChanges {
                     return isAfterMoreThanLessOneYear(headerRightDate, headerLeftDate);
                 } else if (panelMode === 'month') {
                     return isAfterMoreThanOneYear(headerRightDate, headerLeftDate);
+                } else if (panelMode === 'year') {
+                    return isAfterMoreThanOneDecade(headerRightDate, headerLeftDate);
                 }
             } else {
                 return true;

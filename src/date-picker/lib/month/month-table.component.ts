@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnChanges } from '@angular/core';
 import { TinyDate } from 'ngx-tethys/util';
 import { DateHelperService } from '../../date-helper.service';
 import { CalendarTable } from '../calendar/calendar-table.component';
-import { DateCell, WeekRow } from '../date/types';
+import { DateCell, DateBodyRow } from '../date/types';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -29,11 +29,11 @@ export class MonthTableComponent extends CalendarTable implements OnChanges {
         return [];
     }
 
-    makeBodyRows(): WeekRow[] {
-        const months: WeekRow[] = [];
+    makeBodyRows(): DateBodyRow[] {
+        const months: DateBodyRow[] = [];
         let monthValue = 0;
         for (let rowIndex = 0; rowIndex < this.MAX_ROW; rowIndex++) {
-            const row: WeekRow = {
+            const row: DateBodyRow = {
                 dateCells: [],
                 trackByIndex: rowIndex
             };
