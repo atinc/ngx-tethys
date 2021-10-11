@@ -55,7 +55,7 @@ export class YearTableComponent extends CalendarTable implements OnChanges {
                     isSelected: yearNum === (this.value && this.value.getYear()),
                     isSameDecade: yearNum >= startYear && yearNum <= endYear,
                     classMap: {},
-                    onClick: () => this.chooseYear(cell.value.getFullYear()),
+                    onClick: () => this.chooseYear(cell.value?.getFullYear()),
                     onMouseEnter: () => {}
                 };
                 this.addCellProperty(cell, year);

@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 import { ThyDatePickerModule } from './date-picker.module';
-import { RangeEntry } from './standard-types';
+import { RangeEntry, PanelMode } from './standard-types';
 
 registerLocaleData(zh);
 
@@ -316,9 +316,10 @@ describe('ThyRangePickerComponent', () => {
             expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-next-year-btn')).toBeFalsy();
             expect(queryFromOverlay('.thy-calendar-range-right .thy-calendar-prev-year-btn')).toBeFalsy();
             fixture.detectChanges();
-            dispatchMouseEvent(queryFromOverlay('.thy-calendar-range-left .thy-calendar-next-month-btn'), 'click');
+            dispatchMouseEvent(queryFromOverlay('.thy-calendar-range-left  .thy-calendar-header .thy-calendar-next-month-btn'), 'click');
             fixture.detectChanges();
             tick(500);
+            fixture.detectChanges();
             fixture.detectChanges();
             expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-next-month-btn')).toBeFalsy();
             expect(queryFromOverlay('.thy-calendar-range-right .thy-calendar-prev-month-btn')).toBeFalsy();
@@ -375,6 +376,56 @@ describe('ThyRangePickerComponent', () => {
         }));
     });
 
+    describe('month mode', () => {
+        beforeEach(() => {
+            fixtureInstance.useSuite = 1;
+            fixtureInstance.thyMode = 'month';
+        });
+
+        it('should show month panel', fakeAsync(() => {
+            fixtureInstance.modelValue = { begin: new Date('2018-09-11'), end: new Date('2020-10-12') };
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-month')).toBeTruthy();
+            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-month-btn').textContent.trim()).toEqual('2018年');
+            expect(queryFromOverlay('.thy-calendar-range-right .thy-calendar-month')).toBeTruthy();
+            expect(queryFromOverlay('.thy-calendar-range-right .thy-calendar-month-btn').textContent.trim()).toEqual('2020年');
+        }));
+        it('should support previous and next year', fakeAsync(() => {
+            fixtureInstance.modelValue = { begin: new Date('2018-09-11'), end: new Date('2018-10-12') };
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-month-btn').textContent.indexOf('2018') > -1).toBeTruthy();
+            expect(queryFromOverlay('.thy-calendar-range-right .thy-calendar-month-btn').textContent.indexOf('2019') > -1).toBeTruthy();
+            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-next-year-btn')).not.toBeTruthy();
+            expect(queryFromOverlay('.thy-calendar-range-right .thy-calendar-prev-year-btn')).not.toBeTruthy();
+            dispatchMouseEvent(queryFromOverlay('.thy-calendar-range-left .thy-calendar-prev-year-btn'), 'click');
+            fixture.detectChanges();
+            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-month-btn').textContent.indexOf('2017') > -1).toBeTruthy();
+            fixture.detectChanges();
+            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-next-year-btn')).toBeTruthy();
+            expect(queryFromOverlay('.thy-calendar-range-right .thy-calendar-prev-year-btn')).toBeTruthy();
+            fixture.detectChanges();
+            tick(500);
+            dispatchMouseEvent(queryFromOverlay('.thy-calendar-range-left .thy-calendar-next-year-btn'), 'click');
+            fixture.detectChanges();
+            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-month-btn').textContent.indexOf('2018') > -1).toBeTruthy();
+        }));
+        it('should support panel changes', fakeAsync(() => {
+            fixtureInstance.modelValue = { begin: new Date('2018-09-11'), end: new Date('2018-10-12') };
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            dispatchMouseEvent(queryFromOverlay('.thy-calendar-range-left .thy-calendar-month-btn'), 'click');
+            fixture.detectChanges();
+            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-year')).toBeTruthy();
+        }));
+    });
     ////////////
 
     function getPickerTrigger(): HTMLInputElement {
@@ -428,6 +479,7 @@ describe('ThyRangePickerComponent', () => {
                 [thySuffixIcon]="thySuffixIcon"
                 (thyOpenChange)="thyOpenChange($event)"
                 [(ngModel)]="modelValue"
+                [thyMode]="thyMode"
                 (ngModelChange)="modelValueChange($event)"
                 (thyOnPanelChange)="thyOnPanelChange($event)"
                 (thyOnCalendarChange)="thyOnCalendarChange($event)"
@@ -458,6 +510,7 @@ class ThyTestRangePickerComponent {
     thySize: string;
     thySuffixIcon: string;
     modelValue: RangeEntry;
+    thyMode: PanelMode;
     thyOpen: boolean;
     thyOpenChange(): void {}
     modelValueChange(): void {}

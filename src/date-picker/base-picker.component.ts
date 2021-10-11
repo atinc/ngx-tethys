@@ -50,6 +50,7 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
 
     // Displays the time directly when the time must be displayed by default
     setDefaultTimePickerState() {
+        this.thyMode = this.thyMode || 'date';
         this.withTime = this.thyMustShowTime;
         this.panelMode = this.isRange ? [this.thyMode, this.thyMode] : this.thyMode;
         this.showWeek = this.thyMode === 'week';

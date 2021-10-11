@@ -76,6 +76,7 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
     );
 
     ngOnInit() {
+        this.thyMode = this.thyMode || 'date';
         this.panelMode = this.isRange ? [this.thyMode, this.thyMode] : this.thyMode;
     }
 
