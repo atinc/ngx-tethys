@@ -8,11 +8,9 @@ const UPLOAD_URL = `http://www.mocky.io/v2/5cf52b1f2f0000c02c4f072f?mocky-delay=
     templateUrl: './basic.component.html'
 })
 export class ThyUploaderBasicExampleComponent {
-    sizeThreshold = 0;
-    multiple = false;
     queueFiles: ThyUploadFile[] = [];
 
-    constructor(private thyUploaderService: ThyUploaderService, private notifyService: ThyNotifyService) {}
+    constructor(private thyUploaderService: ThyUploaderService) {}
 
     selectFiles(event: { files: File[] }) {
         const uploadFiles = event.files.map(file => {
@@ -42,10 +40,4 @@ export class ThyUploaderBasicExampleComponent {
             }
         );
     }
-
-    sizeExceedsHandler = (event: ThyFileSizeExceedsContext) => {
-        if (event.exceedsFiles.length > 0) {
-            this.notifyService.warning('提示', `不支持上传${event.sizeThreshold / 1024}M以上附件。`);
-        }
-    };
 }

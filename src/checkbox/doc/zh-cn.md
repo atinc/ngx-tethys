@@ -3,6 +3,7 @@ category: form
 title: Checkbox
 subtitle: 多选框
 order: 1
+label: lack-doc
 ---
 
 多选框。  

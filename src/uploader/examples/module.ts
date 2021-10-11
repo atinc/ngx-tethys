@@ -8,15 +8,15 @@ import { ThyFormModule } from 'ngx-tethys/form';
 import { ThyInputModule } from 'ngx-tethys/input';
 import { ThyCheckboxModule } from 'ngx-tethys/checkbox';
 import { ThyUploaderBasicExampleComponent } from './basic/basic.component';
-import { ThyUploaderMultipleExampleComponent } from './multiple/multiple.component';
 import { ThyUploaderAcceptFolderExampleComponent } from './accept-folder/accept-folder.component';
 import { ThyUploaderDropExampleComponent } from './drop/drop.component';
+import { ThyUploaderSizeExceedsHandlerExampleComponent } from './size-exceeds-handler/size-exceeds-handler.component';
 
 const COMPONENTS = [
     ThyUploaderBasicExampleComponent,
-    ThyUploaderMultipleExampleComponent,
     ThyUploaderDropExampleComponent,
-    ThyUploaderAcceptFolderExampleComponent
+    ThyUploaderAcceptFolderExampleComponent,
+    ThyUploaderSizeExceedsHandlerExampleComponent
 ];
 
 @NgModule({

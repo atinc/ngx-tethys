@@ -2,6 +2,7 @@
 category: display
 title: Tree
 subtitle: 树形控件
+label: lack-doc
 ---
 
 ## 概览

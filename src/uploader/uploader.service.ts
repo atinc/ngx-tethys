@@ -17,6 +17,16 @@ export interface ThyUploadResponse {
     uploadFile?: ThyUploadFile;
 }
 
+export interface ThyUploadFileProgress {
+    status: ThyUploadStatus;
+    percentage: number;
+    speed?: number;
+    speedHuman?: string;
+    startTime: number | null;
+    endTime?: number | null;
+    estimatedTime?: number | null;
+    estimatedTimeHuman?: string | null;
+}
 export interface ThyUploadFile {
     identifier?: string;
     method: string;
@@ -25,27 +35,14 @@ export interface ThyUploadFile {
     nativeFile: File;
     fileField?: string;
     fileName?: string;
-    headers?: {
-        [key: string]: string;
-    };
-    data?: {
-        [key: string]: string;
-    };
+    headers?: Record<string, string>;
+    data?: Record<string, string>;
 
     responseStatus?: any;
     response?: any;
     responseHeaders?: any;
 
-    progress?: {
-        status: ThyUploadStatus;
-        percentage: number;
-        speed?: number;
-        speedHuman?: string;
-        startTime: number | null;
-        endTime?: number | null;
-        estimatedTime?: number | null;
-        estimatedTimeHuman?: string | null;
-    };
+    progress?: ThyUploadFileProgress;
 }
 
 export interface ThyUploadFilesOptions {
@@ -84,74 +81,6 @@ export class ThyUploaderService {
             }
         });
     }
-
-    // private uploadByHttp(observer: Subscriber<ThyUploadResponse>, uploadFile: ThyUploadFile) {
-    //     const time: number = new Date().getTime();
-    //     let speed = 0;
-    //     let estimatedTime: number | null = null;
-
-    //     uploadFile.progress = {
-    //         status: ThyUploadStatus.started,
-    //         percentage: 0,
-    //         startTime: time
-    //     };
-
-    //     const formData = new FormData();
-    //     Object.keys(uploadFile.data || {}).forEach(key => formData.append(key, uploadFile.data[key]));
-    //     formData.append(uploadFile.fileField || 'file', uploadFile.nativeFile, uploadFile.fileName);
-    //     const headers = {
-    //         'Content-Type': 'multipart/form-data'
-    //     };
-    //     Object.keys(uploadFile.headers || {}).forEach(key => (headers[key] = uploadFile.headers[key]));
-
-    //     const subscription = this.http
-    //         .post(uploadFile.url, formData, {
-    //             headers: headers,
-    //             reportProgress: true,
-    //             observe: 'events',
-    //             withCredentials: uploadFile.withCredentials ? true : false
-    //         })
-    //         .subscribe(
-    //             (event: HttpEvent<any>) => {
-    //                 console.log('Subscribe data', event);
-    //                 switch (event.type) {
-    //                     case HttpEventType.Sent:
-    //                         observer.next({ status: ThyUploadStatus.started, uploadFile: uploadFile });
-    //                         break;
-    //                     case HttpEventType.UploadProgress:
-    //                         let percentage = Math.round((event.loaded * 100) / event.total);
-    //                         if (percentage === 100) {
-    //                             percentage = 99;
-    //                         }
-    //                         const diff = new Date().getTime() - time;
-    //                         speed = Math.round((event.loaded / diff) * 1000);
-    //                         const progressStartTime = (uploadFile.progress && uploadFile.progress.startTime) || new Date().getTime();
-    //                         estimatedTime = Math.ceil((event.total - event.loaded) / speed);
-
-    //                         uploadFile.progress.status = ThyUploadStatus.uploading;
-    //                         uploadFile.progress.percentage = percentage;
-    //                         uploadFile.progress.speed = speed;
-    //                         uploadFile.progress.speedHuman = `${this.humanizeBytes(speed)}/s`;
-    //                         uploadFile.progress.startTime = progressStartTime;
-    //                         uploadFile.progress.estimatedTime = estimatedTime;
-    //                         uploadFile.progress.estimatedTimeHuman = this.secondsToHuman(estimatedTime);
-
-    //                         observer.next({ status: ThyUploadStatus.uploading, uploadFile: uploadFile });
-    //                         break;
-    //                     case HttpEventType.Response:
-    //                         uploadFile.response = event.body;
-    //                         observer.next({ status: ThyUploadStatus.done, uploadFile: uploadFile });
-    //                         break;
-    //                     default:
-    //                         throw new Error(`Unhandled event: ${event.type}`);
-    //                 }
-    //             },
-    //             error => {
-    //                 observer.error(error);
-    //             }
-    //         );
-    //     return subscription;
-    // }
 
     private uploadByXhr(observer: Subscriber<ThyUploadResponse>, uploadFile: ThyUploadFile) {
         const xhr = this.xhrFactory.build();
@@ -270,7 +199,7 @@ export class ThyUploaderService {
      * @param concurrent 并发上传数, 默认 5
      * @param options onStared, onDone 回调
      */
-    uploadBulk(uploadFiles: ThyUploadFile[], concurrent = 5, options?: ThyUploadFilesOptions) {
+    uploadBulk(uploadFiles: ThyUploadFile[], concurrent = 5, options?: ThyUploadFilesOptions): Observable<ThyUploadResponse> {
         this.normalizeUploadFiles(uploadFiles);
         const result = from(uploadFiles).pipe(
             mergeMap(uploadFile => {

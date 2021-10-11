@@ -17,7 +17,6 @@ order: 1
 import { ThyInputModule } from "ngx-tethys/input";
 ```
 
-
 ## 基本使用
 
 输入框支持组件和指令两种使用方式：

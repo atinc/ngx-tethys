@@ -3,6 +3,7 @@ category: display
 title: Table
 subtitle: 列表
 name: table
+label: lack-doc
 ---
 
 ## 概览
