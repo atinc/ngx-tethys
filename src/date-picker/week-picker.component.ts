@@ -1,12 +1,6 @@
-import {
-    forwardRef,
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    ElementRef,
-    Renderer2
-} from '@angular/core';
+import { forwardRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Renderer2 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { PanelMode } from '.';
 
 import { BasePickerComponent } from './base-picker.component';
 
@@ -25,6 +19,7 @@ import { BasePickerComponent } from './base-picker.component';
 })
 export class ThyWeekPickerComponent extends BasePickerComponent {
     showWeek = true;
+    thyMode: PanelMode = 'week';
 
     constructor(cdr: ChangeDetectorRef, renderer: Renderer2, elementRef: ElementRef) {
         super(cdr);

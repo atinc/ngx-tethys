@@ -27,17 +27,22 @@
 <ng-template #tplInnerPopup let-partType="partType">
   <inner-popup
     [showWeek]="showWeek"
-    [panelMode]="getPanelMode(partType)"
+    [isRange]="isRange"
+    [panelMode]="getPanelMode(panelMode, partType)"
+    [endPanelMode]="getPanelMode(endPanelMode, partType)"
+    [partType]="partType"
     (panelModeChange)="onPanelModeChange($event, partType)"
     [value]="getValueBySelector(partType)"
+    [activeDate]="getActiveDate(partType)"
     [disabledDate]="disabledDate"
     [dateRender]="dateRender"
     [selectedValue]="selectedValue"
+    [headerValue]="valueForRangeShow"
     [hoverValue]="hoverValue"
     [enablePrev]="enablePrevNext('prev', partType)"
     [enableNext]="enablePrevNext('next', partType)"
     (dayHover)="onDayHover($event)"
-    (selectDate)="changeValueFromSelect($event)"
+    (selectDate)="changeValueFromSelect($event, partType)"
     (headerChange)="onHeaderChange($event, partType)"
   ></inner-popup>
 </ng-template>
