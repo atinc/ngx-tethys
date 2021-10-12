@@ -17,12 +17,13 @@ import { InputBoolean } from 'ngx-tethys/core';
 import { TinyDate } from 'ngx-tethys/util';
 
 import { ThyPickerComponent } from './picker.component';
-import { CompatibleDate, CompatibleValue, DisabledDateFn, DateEntry, RangeEntry } from './standard-types';
+import { CompatibleDate, CompatibleValue, DisabledDateFn, DateEntry, RangeEntry, PanelMode } from './standard-types';
 import { transformDateValue, makeValue } from './picker.util';
 
 @Directive()
 export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDestroy, ControlValueAccessor {
     thyValue: CompatibleValue | null;
+    @Input() thyMode: PanelMode = 'date';
     @Input() @InputBoolean() thyAllowClear = true;
     @Input() @InputBoolean() thyAutoFocus = false;
     @Input() @InputBoolean() thyDisabled = false;
@@ -45,7 +46,7 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
 
     @ViewChild(ThyPickerComponent, { static: true }) public picker: ThyPickerComponent;
 
-    isRange = false;
+    isRange: boolean;
 
     withTime: boolean;
 
@@ -84,6 +85,37 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
         this.picker.hideOverlay();
     }
 
+    getAutoStartAndEndValue(begin: TinyDate, end: TinyDate) {
+        let value: { begin: number; end: number };
+        switch (this.thyMode) {
+            case 'date':
+                value = {
+                    begin: begin.startOfDay().getUnixTime(),
+                    end: end.endOfDay().getUnixTime()
+                };
+                break;
+            case 'month':
+                value = {
+                    begin: begin.startOfMonth().getUnixTime(),
+                    end: end.endOfMonth().getUnixTime()
+                };
+                break;
+            case 'year':
+                value = {
+                    begin: begin.startOfYear().getUnixTime(),
+                    end: end.endOfYear().getUnixTime()
+                };
+                break;
+            default:
+                value = {
+                    begin: begin.startOfDay().getUnixTime(),
+                    end: end.endOfDay().getUnixTime()
+                };
+                break;
+        }
+        return value;
+    }
+
     onValueChange(originalValue: CompatibleValue): void {
         this.setFormatRule();
         this.thyValue = originalValue;
@@ -93,10 +125,7 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
             if (vAsRange.length) {
                 const [begin, end] = vAsRange as TinyDate[];
                 if (this.thyAutoStartAndEnd) {
-                    value = {
-                        begin: begin.startOfDay().getUnixTime(),
-                        end: end.endOfDay().getUnixTime()
-                    };
+                    value = this.getAutoStartAndEndValue(begin, end);
                 } else {
                     value = {
                         begin: begin.getUnixTime(),

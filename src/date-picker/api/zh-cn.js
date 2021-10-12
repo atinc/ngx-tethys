@@ -128,6 +128,12 @@ module.exports = [
         properties: [
             { name: 'ngModel', description: '日期', type: '{ begin: number | Date, end: number | Date }', default: '-' },
             {
+                name: 'thyMode',
+                description: `支持的选区间模式，| 'year' | 'month' | 'date'`,
+                type: 'string',
+                default: 'date'
+            },
+            {
                 name: 'thyFormat',
                 description: '展示的日期格式',
                 type: 'string',
