@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnChanges } from '@angular/core';
 import { TinyDate } from 'ngx-tethys/util';
 import { DateHelperService } from '../../date-helper.service';
-
-const MAX_ROW = 4;
-const MAX_COL = 3;
+import { CalendarTable } from '../calendar/calendar-table.component';
+import { DateCell, DateBodyRow } from '../date/types';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -11,87 +10,87 @@ const MAX_COL = 3;
     exportAs: 'monthTable',
     templateUrl: 'month-table.component.html'
 })
-export class MonthTableComponent implements OnChanges {
-    @Input() value: TinyDate = new TinyDate();
-    @Input() prefixCls = 'thy-calendar';
-    @Output() readonly valueChange = new EventEmitter<TinyDate>();
+export class MonthTableComponent extends CalendarTable implements OnChanges {
+    MAX_ROW = 4;
 
-    @Input() disabledDate: (date: Date) => boolean;
+    MAX_COL = 3;
 
-    panelMonths: PanelMonthData[][];
-
-    constructor(private dateHelper: DateHelperService) {}
-
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes.value || changes.disabledDate) {
-            this.render();
-        }
+    constructor(private dateHelper: DateHelperService) {
+        super();
     }
 
-    trackYear(_index: number): number {
-        return this.value ? this.value.getYear() : _index;
+    private chooseMonth(month: number): void {
+        this.value = this.activeDate.setMonth(month);
+        this.valueChange.emit(this.value);
+        this.render();
     }
 
-    trackPanelMonth(_index: number, monthData: PanelMonthData): string {
-        return monthData.content;
+    makeHeadRow(): DateCell[] {
+        return [];
     }
 
-    private render(): void {
-        if (this.value) {
-            this.panelMonths = this.makePanelMonths();
-        }
-    }
-
-    private makePanelMonths(): PanelMonthData[][] {
-        const months: PanelMonthData[][] = [];
-        const currentMonth = this.value.getMonth();
-        const today = new TinyDate();
-
+    makeBodyRows(): DateBodyRow[] {
+        const months: DateBodyRow[] = [];
         let monthValue = 0;
-        for (let rowIndex = 0; rowIndex < MAX_ROW; rowIndex++) {
-            months[rowIndex] = [];
-            for (let colIndex = 0; colIndex < MAX_COL; colIndex++) {
-                const month = this.value.setMonth(monthValue);
-                const disabled = this.disabledDate ? this.disabledDate(this.value.setMonth(monthValue).nativeDate) : false;
+        for (let rowIndex = 0; rowIndex < this.MAX_ROW; rowIndex++) {
+            const row: DateBodyRow = {
+                dateCells: [],
+                trackByIndex: rowIndex
+            };
+            for (let colIndex = 0; colIndex < this.MAX_COL; colIndex++) {
+                const month = this.activeDate.setMonth(monthValue);
+                const isDisabled = this.disabledDate ? this.disabledDate(this.activeDate.setMonth(monthValue).nativeDate) : false;
                 const content = this.dateHelper.format(month.nativeDate, 'MMMM');
-
-                const cell: PanelMonthData = (months[rowIndex][colIndex] = {
+                const cell: DateCell = {
+                    trackByIndex: colIndex,
                     value: month.nativeDate,
-                    disabled,
+                    isDisabled,
                     content,
-                    month: monthValue,
                     title: content,
                     classMap: null,
-                    onClick: () => this.chooseMonth(cell.month) // don't use monthValue here
-                });
-
-                cell.classMap = {
-                    [`${this.prefixCls}-month-panel-cell`]: true,
-                    [`${this.prefixCls}-month-panel-cell-disabled`]: disabled,
-                    [`${this.prefixCls}-month-panel-selected-cell`]: monthValue === currentMonth,
-                    [`${this.prefixCls}-month-panel-current-cell`]:
-                        today.getYear() === this.value.getYear() && monthValue === today.getMonth()
+                    isSelected: month.isSameMonth(this.value),
+                    onClick: () => this.chooseMonth(cell.value.getMonth()),
+                    onMouseEnter: () => {}
                 };
-
+                this.addCellProperty(cell, month);
+                row.dateCells.push(cell);
                 monthValue++;
             }
+            months.push(row);
         }
         return months;
     }
 
-    private chooseMonth(month: number): void {
-        this.value = this.value.setMonth(month);
-        this.valueChange.emit(this.value);
-        this.render();
-    }
-}
+    private addCellProperty(cell: DateCell, month: TinyDate): void {
+        if (this.selectedValue?.length > 0) {
+            const [startSelected, endSelected] = this.selectedValue;
+            if (startSelected?.isSameMonth(month)) {
+                cell.isSelectedStartDate = true;
+                cell.isSelected = true;
+            }
 
-export interface PanelMonthData {
-    disabled: boolean;
-    content: string;
-    month: number;
-    title: string;
-    classMap: object | null;
-    onClick: VoidFunction | null;
-    value: Date;
+            if (endSelected?.isSameMonth(month)) {
+                cell.isSelectedEndDate = true;
+                cell.isSelected = true;
+            }
+
+            cell.isStartSingle = startSelected && !endSelected;
+            cell.isEndSingle = !startSelected && !!endSelected;
+            cell.isInRange = startSelected?.isBeforeMonth(month) && month?.isBeforeMonth(endSelected);
+        } else if (month.isSameMonth(this.value)) {
+            cell.isSelected = true;
+        }
+        cell.classMap = this.getClassMap(cell);
+    }
+
+    getClassMap(cell: DateCell): { [key: string]: boolean } {
+        return {
+            [`${this.prefixCls}-month-panel-cell`]: true,
+            [`${this.prefixCls}-month-panel-cell-disabled`]: cell.isDisabled,
+            [`${this.prefixCls}-month-panel-selected-cell`]: cell.isSelected,
+            [`${this.prefixCls}-in-range-cell`]: !!cell.isInRange,
+            [`${this.prefixCls}-month-panel-current-cell`]:
+                new TinyDate().getYear() === this.activeDate.getYear() && cell.value.getMonth() === new TinyDate().getMonth()
+        };
+    }
 }

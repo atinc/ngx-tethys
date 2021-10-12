@@ -2,6 +2,7 @@
 category: nav
 title: Affix
 subtitle: 固钉
+label: lack-doc
 ---
 
 将页面元素钉在可视范围。

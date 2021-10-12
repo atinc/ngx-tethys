@@ -10,7 +10,18 @@ import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { DateRangeItemInfo } from './date-range.class';
 import { addDays, addYears, endOfDay, endOfYear, dateToUnixTimestamp, startOfDay, startOfWeek, startOfYear } from '../util';
 import { ThyDateRangeModule } from './module';
-import { getUnixTime, startOfQuarter, endOfQuarter, setMonth, getMonth, startOfMonth, endOfMonth, addMonths, endOfWeek } from 'date-fns';
+import {
+    getUnixTime,
+    startOfQuarter,
+    endOfQuarter,
+    setMonth,
+    getMonth,
+    startOfMonth,
+    endOfMonth,
+    addMonths,
+    endOfWeek,
+    getYear
+} from 'date-fns';
 
 registerLocaleData(zh);
 
@@ -124,8 +135,10 @@ describe('ThyTestDateRangeComponent', () => {
             const rightCell = getFirstCell('right');
             const rightHeaderText = rightHeader.textContent.trim();
             dispatchClickEvent(rightCell);
-            expect(+leftHeaderText[leftHeaderText.length - 2]).toBe(getMonth(new Date()) - 1);
-            expect(+rightHeaderText[rightHeaderText.length - 2]).toBe(getMonth(new Date()) + 1);
+            const currentMoth = getMonth(new Date());
+            const currentYear = getYear(new Date());
+            expect(leftHeaderText).toEqual(`${currentYear}年  ${currentMoth - 1}月`);
+            expect(rightHeaderText).toEqual(`${currentYear}年  ${currentMoth + 1}月`);
         }));
     });
 
