@@ -1,7 +1,15 @@
-import { CompatibleDate, DateEntry, RangeEntry, instanceOfDateEntry, instanceOfRangeEntry, CompatibleValue } from './standard-types';
+import {
+    CompatibleDate,
+    DateEntry,
+    RangeEntry,
+    instanceOfDateEntry,
+    instanceOfRangeEntry,
+    CompatibleValue,
+    PanelMode
+} from './standard-types';
 
 import { fromUnixTime } from 'date-fns';
-import { TinyDate } from 'ngx-tethys/util';
+import { helpers, TinyDate } from 'ngx-tethys/util';
 
 export function transformDateValue(value: CompatibleDate | number | DateEntry | RangeEntry): { value: CompatibleDate; withTime?: boolean } {
     if (!value) {
@@ -53,4 +61,66 @@ export function makeValue(value: CompatibleDate | null, isRange: boolean = false
     } else {
         return value ? new TinyDate(value as Date) : null;
     }
+}
+
+export function dateAddAmount(value: TinyDate, amount: number, mode: PanelMode): TinyDate {
+    let date: TinyDate;
+    switch (mode) {
+        case 'decade':
+            date = value.addYears(amount * 10);
+            break;
+        case 'year':
+            date = value.addYears(amount);
+            break;
+        case 'month':
+            date = value.addMonths(amount);
+            break;
+        default:
+            date = value.addMonths(amount);
+            break;
+    }
+    return date;
+}
+
+// rightDate 超过 leftDate 一个月
+export function isAfterMoreThanOneMonth(rightDate: TinyDate, leftDate: TinyDate) {
+    rightDate = rightDate ? rightDate : leftDate ? leftDate : new TinyDate();
+    leftDate = leftDate ? leftDate : rightDate;
+    if (rightDate.getYear() < leftDate.getYear()) {
+        return false;
+    }
+
+    if (rightDate.getYear() === leftDate.getYear() && leftDate.getMonth() + 1 >= rightDate.getMonth()) {
+        return false;
+    }
+
+    // 处理rightDate(2020,1,1) 为leftDate(2020,12,1)后一年1月,同时leftDate日期为12月的特殊情况
+    return !(rightDate.getYear() - leftDate.getYear() === 1 && rightDate.getMonth() === 0 && leftDate.getMonth() === 11);
+}
+
+// rightDate 超过 leftDate 不到一年
+export function isAfterMoreThanLessOneYear(rightDate: TinyDate, leftDate: TinyDate) {
+    rightDate = rightDate ? rightDate : leftDate ? leftDate : new TinyDate();
+    leftDate = leftDate ? leftDate : rightDate;
+    if (rightDate.getYear() <= leftDate.getYear()) {
+        return false;
+    }
+    // 处理rightDate(2021,1,1)日期比leftDate(2020,12,1)日期大1年,同时rightDate日期月份小于leftDate日期月份的情况
+    return !(rightDate.getYear() - leftDate.getYear() === 1 && rightDate.getMonth() <= leftDate.getMonth());
+}
+// rightDate 超过 leftDate 一年
+export function isAfterMoreThanOneYear(rightDate: TinyDate, leftDate: TinyDate) {
+    rightDate = rightDate ? rightDate : leftDate ? leftDate : new TinyDate();
+    leftDate = leftDate ? leftDate : rightDate;
+    if (leftDate.getYear() + 1 >= rightDate.getYear()) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+export function isAfterMoreThanOneDecade(rightDate: TinyDate, leftDate: TinyDate) {
+    rightDate = rightDate ? rightDate : leftDate ? leftDate : new TinyDate();
+    leftDate = leftDate ? leftDate : rightDate;
+    return rightDate.getYear() - leftDate.getYear() >= 20;
 }

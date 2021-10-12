@@ -178,6 +178,25 @@ describe('ThyDatePickerComponent', () => {
             expect(getPickerTriggerWrapper().querySelector('.thy-icon-angry')).toBeTruthy();
         });
 
+        it('should support thyReadonly', fakeAsync(() => {
+            fixtureInstance.thyReadonly = true;
+            fixture.detectChanges();
+            expect(getPickerTrigger().readOnly).toBe(true);
+
+            fixtureInstance.thyReadonly = false;
+            fixture.detectChanges();
+            expect(getPickerTrigger().readOnly).not.toBe(false);
+        }));
+
+        it('should support thyFormat', fakeAsync(() => {
+            fixtureInstance.thyFormat = 'dd.MM.yyyy';
+            fixtureInstance.thyValue = new Date('2020-03-04');
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            const input = getPickerTrigger();
+            expect(input.value).toBe('04.03.2020');
+        }));
+
         it('should support thyOpenChange', () => {
             const thyOpenChange = spyOn(fixtureInstance, 'thyOpenChange');
             fixture.detectChanges();
@@ -216,13 +235,13 @@ describe('ThyDatePickerComponent', () => {
         it('should support thyDefaultPickerValue', fakeAsync(() => {
             fixtureInstance.thyDefaultPickerValue = new Date('2021-10-10');
             fixture.detectChanges();
-            dispatchMouseEvent(getPickerTriggerWrapper(), 'click');
+            openPickerByClickTrigger();
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
             expect(getSelectedDayCell().textContent.trim()).toBe('10');
-            expect(queryFromOverlay('.thy-calendar-year-select').textContent.includes('2021')).toBeTruthy();
-            expect(queryFromOverlay('.thy-calendar-month-select').textContent.includes('10')).toBeTruthy();
+            expect(queryFromOverlay('.thy-calendar-year-btn').textContent.includes('2021')).toBeTruthy();
+            expect(queryFromOverlay('.thy-calendar-month-btn').textContent.includes('10')).toBeTruthy();
         }));
 
         it('should support thyOnChange', fakeAsync(() => {
@@ -262,7 +281,7 @@ describe('ThyDatePickerComponent', () => {
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
-            expect(queryFromOverlay('.thy-calendar-year-select').textContent.indexOf('2017') > -1).toBeTruthy();
+            expect(queryFromOverlay('.thy-calendar-year-btn').textContent.indexOf('2017') > -1).toBeTruthy();
             // Click next year button * 2
             dispatchMouseEvent(queryFromOverlay('.thy-calendar-next-year-btn'), 'click');
             fixture.detectChanges();
@@ -272,13 +291,13 @@ describe('ThyDatePickerComponent', () => {
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
-            expect(queryFromOverlay('.thy-calendar-year-select').textContent.indexOf('2019') > -1).toBeTruthy();
+            expect(queryFromOverlay('.thy-calendar-year-btn').textContent.indexOf('2019') > -1).toBeTruthy();
             // Click previous month button
             dispatchMouseEvent(queryFromOverlay('.thy-calendar-prev-month-btn'), 'click');
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
-            expect(queryFromOverlay('.thy-calendar-month-select').textContent.indexOf('10') > -1).toBeTruthy();
+            expect(queryFromOverlay('.thy-calendar-month-btn').textContent.indexOf('10') > -1).toBeTruthy();
             // Click next month button * 2
             dispatchMouseEvent(queryFromOverlay('.thy-calendar-next-month-btn'), 'click');
             fixture.detectChanges();
@@ -288,7 +307,7 @@ describe('ThyDatePickerComponent', () => {
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
-            expect(queryFromOverlay('.thy-calendar-month-select').textContent.indexOf('12') > -1).toBeTruthy();
+            expect(queryFromOverlay('.thy-calendar-month-btn').textContent.indexOf('12') > -1).toBeTruthy();
         }));
 
         it('should support month panel changes', fakeAsync(() => {
@@ -298,121 +317,80 @@ describe('ThyDatePickerComponent', () => {
             fixture.detectChanges();
             openPickerByClickTrigger();
             // Click month select to show month panel
-            dispatchMouseEvent(queryFromOverlay('.thy-calendar-header .thy-calendar-month-select'), 'click');
+            dispatchMouseEvent(queryFromOverlay('.thy-calendar-header .thy-calendar-month-btn'), 'click');
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
-            expect(queryFromOverlay('.thy-calendar-header .thy-calendar-month-panel')).toBeDefined();
-            expect(queryFromOverlay('.thy-calendar-month-panel-year-select-content').textContent.indexOf('2018') > -1).toBeTruthy();
+            expect(queryFromOverlay('.thy-calendar .thy-calendar-month')).toBeDefined();
+            expect(queryFromOverlay('.thy-calendar-my-select').textContent.indexOf('2018') > -1).toBeTruthy();
             // Goto previous year
-            dispatchMouseEvent(queryFromOverlay('.thy-calendar-month-panel-prev-year-btn'), 'click');
+            dispatchMouseEvent(queryFromOverlay('.thy-calendar-prev-year-btn'), 'click');
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
-            expect(queryFromOverlay('.thy-calendar-month-panel-year-select-content').textContent.indexOf('2017') > -1).toBeTruthy();
+            expect(queryFromOverlay('.thy-calendar-my-select').textContent.indexOf('2017') > -1).toBeTruthy();
             // Goto next year * 2
-            dispatchMouseEvent(queryFromOverlay('.thy-calendar-month-panel-next-year-btn'), 'click');
+            dispatchMouseEvent(queryFromOverlay('.thy-calendar-next-year-btn'), 'click');
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
-            dispatchMouseEvent(queryFromOverlay('.thy-calendar-month-panel-next-year-btn'), 'click');
+            dispatchMouseEvent(queryFromOverlay('.thy-calendar-next-year-btn'), 'click');
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
-            expect(queryFromOverlay('.thy-calendar-month-panel-year-select-content').textContent.indexOf('2019') > -1).toBeTruthy();
+            expect(queryFromOverlay('.thy-calendar-my-select').textContent.indexOf('2019') > -1).toBeTruthy();
             // Click to choose a year to change panel
-            dispatchMouseEvent(queryFromOverlay('td.thy-calendar-month-panel-selected-cell'), 'click');
+            dispatchMouseEvent(queryFromOverlay('.thy-calendar-month-panel-selected-cell'), 'click');
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
-            expect(queryFromOverlay('.thy-calendar-header .thy-calendar-month-panel')).toBeFalsy();
+            expect(queryFromOverlay('.thy-calendar .thy-calendar-month')).toBeFalsy();
         }));
 
-        // it('should support year panel changes', fakeAsync(() => {
-        //     fixtureInstance.thyValue = new Date('2018-11-11');
-        //     fixture.detectChanges();
-        //     tick(500);
-        //     fixture.detectChanges();
-        //     openPickerByClickTrigger();
-        //     // Click year select to show year panel
-        //     dispatchMouseEvent(queryFromOverlay('.thy-calendar-header .thy-calendar-year-select'), 'click');
-        //     fixture.detectChanges();
-        //     tick(500);
-        //     fixture.detectChanges();
-        //     expect(queryFromOverlay('.thy-calendar-header .thy-calendar-year-panel')).toBeDefined();
-        //     expect(
-        //         queryFromOverlay('.thy-calendar-year-panel-decade-select-content').textContent.indexOf('2010') > -1
-        //     ).toBeTruthy();
-        //     expect(
-        //         queryFromOverlay('.thy-calendar-year-panel-decade-select-content').textContent.indexOf('2019') > -1
-        //     ).toBeTruthy();
-        //     // Coverage for last/next cell
-        //     dispatchMouseEvent(queryFromOverlay('.thy-calendar-year-panel-last-decade-cell'), 'click');
-        //     fixture.detectChanges();
-        //     tick(500);
-        //     fixture.detectChanges();
-        //     dispatchMouseEvent(queryFromOverlay('.thy-calendar-year-panel-next-decade-cell'), 'click');
-        //     fixture.detectChanges();
-        //     tick(500);
-        //     fixture.detectChanges();
-        //     // Goto previous decade
-        //     dispatchMouseEvent(queryFromOverlay('.thy-calendar-year-panel-prev-decade-btn'), 'click');
-        //     fixture.detectChanges();
-        //     tick(500);
-        //     fixture.detectChanges();
-        //     expect(
-        //         queryFromOverlay('.thy-calendar-year-panel-decade-select-content').textContent.indexOf('2000') > -1
-        //     ).toBeTruthy();
-        //     expect(
-        //         queryFromOverlay('.thy-calendar-year-panel-decade-select-content').textContent.indexOf('2009') > -1
-        //     ).toBeTruthy();
-        //     // Goto next decade * 2
-        //     dispatchMouseEvent(queryFromOverlay('.thy-calendar-year-panel-next-decade-btn'), 'click');
-        //     fixture.detectChanges();
-        //     tick(500);
-        //     fixture.detectChanges();
-        //     dispatchMouseEvent(queryFromOverlay('.thy-calendar-year-panel-next-decade-btn'), 'click');
-        //     fixture.detectChanges();
-        //     tick(500);
-        //     fixture.detectChanges();
-        //     expect(
-        //         queryFromOverlay('.thy-calendar-year-panel-decade-select-content').textContent.indexOf('2020') > -1
-        //     ).toBeTruthy();
-        //     expect(
-        //         queryFromOverlay('.thy-calendar-year-panel-decade-select-content').textContent.indexOf('2029') > -1
-        //     ).toBeTruthy();
-        //     // Click to choose a year to change panel
-        //     dispatchMouseEvent(queryFromOverlay('td.thy-calendar-year-panel-selected-cell'), 'click');
-        //     fixture.detectChanges();
-        //     tick(500);
-        //     fixture.detectChanges();
-        //     expect(queryFromOverlay('.thy-calendar-header .thy-calendar-year-panel')).toBeFalsy();
-        // }));
-    }); // /panel switch and move forward/afterward
+        it('should support year panel changes', fakeAsync(() => {
+            fixtureInstance.thyValue = new Date('2018-11-11');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            // Click year select to show year panel
+            dispatchMouseEvent(queryFromOverlay('.thy-calendar .thy-calendar-year-btn'), 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(queryFromOverlay('.thy-calendar .thy-calendar-year')).toBeDefined();
+            expect(queryFromOverlay('.thy-calendar-year-btn').textContent.indexOf('2010') > -1).toBeTruthy();
+            expect(queryFromOverlay('.thy-calendar-year-btn').textContent.indexOf('2019') > -1).toBeTruthy();
+
+            // Goto previous decade
+            dispatchMouseEvent(queryFromOverlay('.thy-calendar-prev-year-btn'), 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(queryFromOverlay('.thy-calendar-year-btn').textContent.indexOf('2000') > -1).toBeTruthy();
+            expect(queryFromOverlay('.thy-calendar-year-btn').textContent.indexOf('2009') > -1).toBeTruthy();
+            // Goto next decade * 2
+            dispatchMouseEvent(queryFromOverlay('.thy-calendar-next-year-btn'), 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            dispatchMouseEvent(queryFromOverlay('.thy-calendar-next-year-btn'), 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(queryFromOverlay('.thy-calendar-year-btn').textContent.indexOf('2020') > -1).toBeTruthy();
+            expect(queryFromOverlay('.thy-calendar-year-btn').textContent.indexOf('2029') > -1).toBeTruthy();
+            // Click to choose a year to change panel
+            dispatchMouseEvent(queryFromOverlay('td.thy-calendar-year-panel-cell'), 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(queryFromOverlay('.thy-calendar .thy-calendar-year')).toBeFalsy();
+        }));
+    });
 
     describe('specified date picker testing', () => {
         beforeEach(() => (fixtureInstance.useSuite = 1));
-
-        it('should restore origin value when clean current value', fakeAsync(() => {
-            const initial = { date: null, with_time: 0 } as DateEntry;
-            fixtureInstance.thyValue = initial;
-            fixtureInstance.thyShowTime = true;
-            fixture.detectChanges();
-            openPickerByClickTrigger();
-            dispatchMouseEvent(getSetTimeButton(), 'click');
-            fixture.detectChanges();
-            tick(500);
-            dispatchMouseEvent(getConfirmButton(), 'click');
-            fixture.detectChanges();
-            tick(500);
-            dispatchMouseEvent(getPickerTriggerWrapper(), 'click');
-            fixture.detectChanges();
-            tick(500);
-            dispatchMouseEvent(getClearButton(), 'click');
-            fixture.detectChanges();
-            tick(500);
-            expect(fixtureInstance.thyValue).toBe(initial);
-        }));
 
         it('should use format rule yyyy-MM-dd when with_time is 0', fakeAsync(() => {
             const initial = { date: 1587629556, with_time: 0 } as DateEntry;
@@ -491,10 +469,15 @@ describe('ThyDatePickerComponent', () => {
             fixtureInstance.thyShowTime = true;
             fixture.detectChanges();
             openPickerByClickTrigger();
-            // TODO:
-            // expect((queryFromOverlay('input.thy-calendar-input') as HTMLInputElement).value).toBe(
-            //     '2018-11-11 00:22:33'
-            // );
+            fixture.detectChanges();
+            tick(500);
+            expect(queryFromOverlay('.time-picker-section')).toBeDefined();
+            dispatchMouseEvent(getSetTimeButton(), 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(getTimePickerWrap()).toBeDefined();
+            expect((queryFromOverlay('.time-picker-wrap input.thy-time-picker-field') as HTMLInputElement).value).toBe('11');
         }));
 
         it('should support thyPlacement', fakeAsync(() => {
@@ -506,28 +489,18 @@ describe('ThyDatePickerComponent', () => {
             expect(pickComponentInstance.overlayPositions[0].originY).toEqual(placement);
         }));
 
-        it('should not reset time', fakeAsync(() => {
-            fixtureInstance.thyValue = new Date('2019-08-02 13:03:33');
-            fixtureInstance.thyShowTime = true;
-            fixture.detectChanges();
-            openPickerByClickTrigger();
-
-            dispatchMouseEvent(getFirstCell(), 'click');
-
+        it('should support thyMode', fakeAsync(() => {
+            fixtureInstance.thyValue = new Date('2020-12-01');
             fixture.detectChanges();
             flush();
             fixture.detectChanges();
-            // TODO:
-            // expect((queryFromOverlay('input.thy-calendar-input') as HTMLInputElement).value).toBe(
-            //     '2019-07-29 13:03:33'
-            // );
-        }));
-
-        it('should support thyMode', fakeAsync(() => {
+            expect(getPickerTrigger().placeholder).toEqual('请选择日期');
             fixtureInstance.thyMode = 'month';
             fixture.detectChanges();
+            flush();
+            fixture.detectChanges();
             openPickerByClickTrigger();
-            expect(overlayContainerElement.querySelector('.thy-calendar-header .thy-calendar-month-panel')).toBeDefined();
+            expect(overlayContainerElement.querySelector('.thy-calendar .thy-calendar-month')).toBeDefined();
         }));
 
         it('should support thyOnPanelChange', fakeAsync(() => {
@@ -536,7 +509,7 @@ describe('ThyDatePickerComponent', () => {
             openPickerByClickTrigger();
 
             // Click header to month panel
-            dispatchMouseEvent(overlayContainerElement.querySelector('.thy-calendar-header .thy-calendar-month-select'), 'click');
+            dispatchMouseEvent(overlayContainerElement.querySelector('.thy-calendar-header .thy-calendar-month-btn'), 'click');
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
@@ -551,9 +524,15 @@ describe('ThyDatePickerComponent', () => {
             flush();
             fixture.detectChanges();
             openPickerByClickTrigger();
+            dispatchMouseEvent(getSetTimeButton(), 'click');
+            fixture.detectChanges();
+            tick(500);
 
-            // Click ok button
-            // TODO: ok button click logic
+            dispatchMouseEvent(overlayContainerElement.querySelector('.time-picker-btn-wrap > .time-picker-ok-btn'), 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(fixtureInstance.thyOnOk).toHaveBeenCalledWith(fixtureInstance.thyValue);
         }));
     }); // specified date picker testing
 
@@ -592,8 +571,6 @@ describe('ThyDatePickerComponent', () => {
         }));
     });
 
-    ////////////
-
     function getPickerTrigger(): HTMLInputElement {
         return debugElement.query(By.css('thy-picker input.thy-calendar-picker-input')).nativeElement as HTMLInputElement;
     }
@@ -612,6 +589,10 @@ describe('ThyDatePickerComponent', () => {
 
     function getFirstCell(): HTMLElement {
         return queryFromOverlay('tbody.thy-calendar-tbody td.thy-calendar-cell') as HTMLElement;
+    }
+
+    function getTimePickerWrap(): HTMLElement {
+        return queryFromOverlay('calendar-footer time-picker-wrap') as HTMLElement;
     }
 
     function getSetTimeButton(): HTMLElement {
@@ -658,6 +639,7 @@ describe('ThyDatePickerComponent', () => {
                 [thySize]="thySize"
                 [thyFormat]="thyFormat"
                 [thySuffixIcon]="thySuffixIcon"
+                [thyReadonly]="thyReadonly"
                 (thyOpenChange)="thyOpenChange($event)"
                 [ngModel]="thyValue"
                 (ngModelChange)="thyOnChange($event)"
@@ -695,6 +677,7 @@ class ThyTestDatePickerComponent {
     thySize: string;
     thySuffixIcon: string;
     thyFormat: string;
+    thyReadonly: boolean;
     thyValue: Date | null | DateEntry | number;
     thyDefaultPickerValue: Date | number;
     thyDateRender: any;

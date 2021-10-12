@@ -5,7 +5,7 @@ export type DisabledDateFn = (d: Date) => boolean;
 
 export type DisabledTimePartial = 'start' | 'end';
 
-export type PanelMode = 'decade' | 'year' | 'month' | 'date';
+export type PanelMode = 'decade' | 'year' | 'month' | 'date' | 'week';
 
 export type CompatibleValue = TinyDate[] | TinyDate;
 

@@ -1,9 +1,10 @@
 <div class="header">
-  <h2 draggable="true">拖拽上传</h2>
+  <h2 draggable="true">Drag Upload</h2>
 </div>
 <div class="body">
   <div class="demo-file-drop" thyFileDrop thyFileDropClassName="drop-over2" (thyOnDrop)="onDrop($event)">
-    <div class="drop-text">释放上传</div>
+    <div class="drop-text">Release to Upload</div>
+    <div class="text-desc">Drag file to this area to upload.</div>
   </div>
   <div *ngFor="let queueFile of queueFiles">
     <div style="margin: 5px 0;">
