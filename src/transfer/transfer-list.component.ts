@@ -42,6 +42,8 @@ export class ThyTransferListComponent implements OnInit, DoCheck {
 
     @Input() maxLock: number;
 
+    @Input() overMaxDisabled: boolean;
+
     @Input() template: TemplateRef<any>;
 
     @Input('renderContentRef') contentRef: TemplateRef<any>;

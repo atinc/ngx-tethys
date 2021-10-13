@@ -47,6 +47,12 @@ module.exports = [
                 default: ''
             },
             {
+                type: 'number',
+                name: 'thyRightMax',
+                description: '右侧选择最大数量',
+                default: ''
+            },
+            {
                 type: 'TemplateRef',
                 name: '#renderTemplate',
                 description: '设置自定义Item渲染数据模板',
