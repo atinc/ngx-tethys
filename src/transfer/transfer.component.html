@@ -2,6 +2,7 @@
   [items]="allDataSource"
   [title]="leftTitle"
   [draggable]="thyLeftDraggable"
+  [overMaxDisabled]="this.thyRightMax === this.rightDataSource.length || this.thyRightMax < this.rightDataSource.length"
   [renderContentRef]="leftContentRef"
   (draggableUpdate)="onDragUpdate('left', $event)"
   [template]="leftTemplateRef"

@@ -1,13 +1,12 @@
-import { Observable, isObservable } from 'rxjs';
-import { Component, Input, Output, ViewEncapsulation, HostBinding, EventEmitter, ContentChild, TemplateRef, OnInit } from '@angular/core';
+import { Component, ContentChild, EventEmitter, HostBinding, Input, OnInit, Output, TemplateRef, ViewEncapsulation } from '@angular/core';
 
 import {
-    ThyTransferItem,
-    ThyTransferChangeEvent,
-    ThyTransferSelectEvent,
-    ThyTransferDragEvent,
-    InnerTransferDragEvent,
     Direction,
+    InnerTransferDragEvent,
+    ThyTransferChangeEvent,
+    ThyTransferDragEvent,
+    ThyTransferItem,
+    ThyTransferSelectEvent,
     TransferDirection
 } from './transfer.interface';
 
@@ -56,6 +55,8 @@ export class ThyTransferComponent implements OnInit {
 
     @Input() thyRightLockMax: number;
 
+    @Input() thyRightMax: number;
+
     // Currently not implemented, in order to support the selections move
     @Input()
     set thyAutoMove(value: boolean) {
@@ -95,6 +96,12 @@ export class ThyTransferComponent implements OnInit {
 
     onSelect(from: Direction, event: ThyTransferSelectEvent) {
         if (event.item.isFixed) {
+            return;
+        }
+        if (
+            (this.thyRightMax === this.rightDataSource.length || this.thyRightMax < this.rightDataSource.length) &&
+            from === TransferDirection.left
+        ) {
             return;
         }
         const to = from === TransferDirection.left ? TransferDirection.right : TransferDirection.left;
