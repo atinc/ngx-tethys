@@ -310,6 +310,25 @@ describe('ThyDatePickerComponent', () => {
             expect(queryFromOverlay('.thy-calendar-month-btn').textContent.indexOf('12') > -1).toBeTruthy();
         }));
 
+        it('should set correct cell selected', fakeAsync(() => {
+            fixtureInstance.thyValue = new Date('2018-11-11');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            expect(getSelectedDayCell().textContent.trim()).toBe('11');
+            dispatchMouseEvent(queryFromOverlay('.thy-calendar-next-month-btn'), 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(getSelectedDayCell()).toBeNull();
+            dispatchMouseEvent(queryFromOverlay('.thy-calendar-prev-month-btn'), 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(getSelectedDayCell().textContent.trim()).toBe('11');
+        }));
+
         it('should support month panel changes', fakeAsync(() => {
             fixtureInstance.thyValue = new Date('2018-11-11');
             fixture.detectChanges();
@@ -329,16 +348,12 @@ describe('ThyDatePickerComponent', () => {
             tick(500);
             fixture.detectChanges();
             expect(queryFromOverlay('.thy-calendar-my-select').textContent.indexOf('2017') > -1).toBeTruthy();
-            // Goto next year * 2
+            // Goto next year
             dispatchMouseEvent(queryFromOverlay('.thy-calendar-next-year-btn'), 'click');
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
-            dispatchMouseEvent(queryFromOverlay('.thy-calendar-next-year-btn'), 'click');
-            fixture.detectChanges();
-            tick(500);
-            fixture.detectChanges();
-            expect(queryFromOverlay('.thy-calendar-my-select').textContent.indexOf('2019') > -1).toBeTruthy();
+            expect(queryFromOverlay('.thy-calendar-my-select').textContent.indexOf('2018') > -1).toBeTruthy();
             // Click to choose a year to change panel
             dispatchMouseEvent(queryFromOverlay('.thy-calendar-month-panel-selected-cell'), 'click');
             fixture.detectChanges();
