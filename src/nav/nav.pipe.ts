@@ -8,10 +8,6 @@ export class BypassSecurityTrustHtmlPipe implements PipeTransform {
     constructor(private sanitizer: DomSanitizer) {}
 
     transform(format: string): any {
-        if (format) {
-            return this.sanitizer.bypassSecurityTrustHtml(format);
-        } else {
-            return '';
-        }
+        return this.sanitizer.bypassSecurityTrustHtml(format);
     }
 }
