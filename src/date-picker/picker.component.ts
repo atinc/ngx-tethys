@@ -15,9 +15,7 @@ import {
 } from '@angular/core';
 
 import { DateHelperService } from './date-helper.service';
-import { CompatibleValue } from './standard-types';
-
-export type RangePartType = 'left' | 'right';
+import { CompatibleValue, RangePartType } from './standard-types';
 
 @Component({
     selector: 'thy-picker',

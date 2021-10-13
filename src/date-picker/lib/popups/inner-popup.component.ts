@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, TemplateRef } from '@angular/core';
 
-import { DisabledDateFn, PanelMode } from '../../standard-types';
+import { DisabledDateFn, PanelMode, RangePartType } from '../../standard-types';
 import { TinyDate } from 'ngx-tethys/util';
 import { FunctionProp } from 'ngx-tethys/util';
-import { RangePartType } from './date-popup.component';
 import { isAfterMoreThanLessOneYear, isAfterMoreThanOneDecade, isAfterMoreThanOneMonth, isAfterMoreThanOneYear } from '../../picker.util';
 
 @Component({
