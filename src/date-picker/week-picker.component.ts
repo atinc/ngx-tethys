@@ -1,8 +1,7 @@
 import { forwardRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Renderer2 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { PanelMode } from '.';
-
 import { BasePickerComponent } from './base-picker.component';
+import { PanelMode } from './standard-types';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
