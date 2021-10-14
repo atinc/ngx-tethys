@@ -25,6 +25,8 @@ export interface RangeEntry {
 
 export type DateType = number | DateEntry;
 
+export type RangePartType = 'left' | 'right';
+
 export function instanceOfDateEntry(object: DateEntry): object is DateEntry {
     return isSupportDateType(object, 'date') && typeof object.with_time === 'number';
 }

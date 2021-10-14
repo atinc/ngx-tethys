@@ -1,15 +1,9 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, TemplateRef } from '@angular/core';
 
-import { DisabledDateFn, PanelMode } from '../../standard-types';
+import { DisabledDateFn, PanelMode, RangePartType } from '../../standard-types';
 import { TinyDate } from 'ngx-tethys/util';
 import { FunctionProp } from 'ngx-tethys/util';
-import { RangePartType } from './date-popup.component';
-import {
-    isAfterMoreThanLessOneYear,
-    isAfterMoreThanOneDecade,
-    isAfterMoreThanOneMonth,
-    isAfterMoreThanOneYear
-} from 'ngx-tethys/date-picker/picker.util';
+import { isAfterMoreThanLessOneYear, isAfterMoreThanOneDecade, isAfterMoreThanOneMonth, isAfterMoreThanOneYear } from '../../picker.util';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -21,7 +15,7 @@ export class InnerPopupComponent implements OnChanges {
     @Input() showWeek: boolean;
     @Input() isRange: boolean;
     @Input() activeDate: TinyDate;
-    @Input() headerValue: TinyDate[]; // Range ONLY
+    @Input() rangeActiveDate: TinyDate[]; // Range ONLY
     @Input() enablePrev: boolean;
     @Input() enableNext: boolean;
     @Input() disabledDate: DisabledDateFn;
@@ -97,7 +91,7 @@ export class InnerPopupComponent implements OnChanges {
     enablePrevNext(direction: 'prev' | 'next', mode: PanelMode): boolean {
         if (this.isRange) {
             if ((this.partType === 'left' && direction === 'next') || (this.partType === 'right' && direction === 'prev')) {
-                const [headerLeftDate, headerRightDate] = this.headerValue;
+                const [headerLeftDate, headerRightDate] = this.rangeActiveDate;
                 return isAfterMoreThanOneMonth(headerRightDate, headerLeftDate);
             } else {
                 return true;
@@ -110,7 +104,7 @@ export class InnerPopupComponent implements OnChanges {
     enableSuperPrevNext(direction: 'prev' | 'next', panelMode: PanelMode) {
         if (this.isRange) {
             if ((this.partType === 'left' && direction === 'next') || (this.partType === 'right' && direction === 'prev')) {
-                const [headerLeftDate, headerRightDate] = this.headerValue;
+                const [headerLeftDate, headerRightDate] = this.rangeActiveDate;
                 if (panelMode === 'date') {
                     return isAfterMoreThanLessOneYear(headerRightDate, headerLeftDate);
                 } else if (panelMode === 'month') {
