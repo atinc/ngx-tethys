@@ -9,13 +9,15 @@
       </div>
     </ng-container>
     <ng-template #totalTemplate>
-      <ng-template
-        [ngTemplateOutlet]="showTotal"
-        [ngTemplateOutletContext]="{ $implicit: total, range: range }"
-      ></ng-template>
+      <ng-template [ngTemplateOutlet]="showTotal" [ngTemplateOutletContext]="{ $implicit: total, range: range }"></ng-template>
     </ng-template>
   </div>
   <div class="thy-pagination-content">
+    <div class="thy-pagination-size" *ngIf="config.showSizeChanger">
+      <thy-custom-select [(ngModel)]="pageSize" [thySize]="selectSize">
+        <thy-option *ngFor="let option of config.pageSizeOptions" [thyValue]="option" [thyLabelText]="option + '条/页'"></thy-option>
+      </thy-custom-select>
+    </div>
     <ul class="thy-pagination-pages">
       <li
         class="thy-page-item"
@@ -80,10 +82,7 @@
       </li>
     </ul>
     <ng-container *ngIf="config.totalPagesFormat">
-      <div
-        class="thy-pagination-count"
-        [innerHTML]="pageCount | paginationTotalPagesFormat: config.totalPagesFormat"
-      ></div>
+      <div class="thy-pagination-count" [innerHTML]="pageCount | paginationTotalPagesFormat: config.totalPagesFormat"></div>
     </ng-container>
     <ng-container *ngIf="config.showQuickJumper">
       <div class="thy-pagination-jumper">

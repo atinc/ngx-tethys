@@ -64,6 +64,8 @@ export class ThyPaginationComponent implements OnInit {
 
     @Input('thySize')
     set size(size: 'sm' | 'lg') {
+        this.selectSize = size;
+        console.log('===selectSize===', this.selectSize);
         this.updateHostClassService.addClass(`thy-pagination-${size}`);
     }
 
@@ -82,6 +84,16 @@ export class ThyPaginationComponent implements OnInit {
                 this.setMarginalCount(value);
             }
         }
+    }
+
+    @Input('thyShowSizeChanger')
+    set showSizeChanger(value: boolean) {
+        this.config.showSizeChanger = value;
+    }
+
+    @Input('thyPageSizeOptions')
+    set pageSizeOptions(value: number[]) {
+        this.config.pageSizeOptions = value;
     }
 
     @Input('thyHideOnSinglePage') hideOnSinglePage: boolean;
@@ -107,6 +119,8 @@ export class ThyPaginationComponent implements OnInit {
     public isHideOnSinglePage = false;
 
     private initialized = false;
+
+    public selectSize = 'md';
 
     @HostBinding('class.thy-pagination') isPaginationClass = true;
 

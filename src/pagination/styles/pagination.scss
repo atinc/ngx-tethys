@@ -31,7 +31,12 @@
 
     &-content {
         display: flex;
-        align-items: stretch;
+        align-items: center;
+    }
+
+    &-size {
+        width: 100px;
+        margin-right: 12px;
     }
 
     &-pages {

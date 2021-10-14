@@ -24,6 +24,7 @@ import { ThyPaginationModule } from "ngx-tethys/pagination";
   [thyPageSize]="10"
   [thyTotal]="50"
   [thyShowQuickJumper]="false"
+  [thyShowSizeChanger]="true"
 ></thy-pagination>
 ```
 
