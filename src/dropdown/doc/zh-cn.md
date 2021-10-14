@@ -2,6 +2,7 @@
 category: nav
 title: Dropdown
 subtitle: 下拉菜单
+label: lack-doc
 ---
 
 <alert>向下弹出的列表</alert>

@@ -58,8 +58,8 @@ describe('ThyPickerDirective', () => {
                 fixture.detectChanges();
                 openPickerByClickTrigger();
                 expect(getSelectedDayCell().textContent.trim()).toBe('10');
-                expect(queryFromOverlay('.thy-calendar-year-select').textContent.includes('2021')).toBeTruthy();
-                expect(queryFromOverlay('.thy-calendar-month-select').textContent.includes('10')).toBeTruthy();
+                expect(queryFromOverlay('.thy-calendar-year-btn').textContent.includes('2021')).toBeTruthy();
+                expect(queryFromOverlay('.thy-calendar-month-btn').textContent.includes('10')).toBeTruthy();
             }));
             it('should support thyMaxDate', fakeAsync(() => {
                 fixtureInstance.thyValue = new Date('2021-10-10 10:00');
@@ -235,7 +235,7 @@ describe('ThyPickerDirective', () => {
                     hasBackdrop: true,
                     backdropClass: 'thy-overlay-transparent-backdrop',
                     offset: 4,
-                    initialState: { ...getInitState(), mustShowTime: false, defaultPickerValue: null },
+                    initialState: { ...getInitState(), defaultPickerValue: null },
                     placement: 'bottom'
                 });
             }));
@@ -271,12 +271,13 @@ describe('ThyPickerDirective', () => {
             isRange: false,
             showWeek: false,
             value: null,
+            panelMode: 'date',
             showTime: undefined,
             mustShowTime: undefined,
             format: undefined,
             dateRender: undefined,
             disabledDate: undefined,
-            placeholder: '请选择日期',
+            placeholder: undefined,
             className: undefined,
             defaultPickerValue: undefined,
             minDate: undefined,
@@ -297,6 +298,7 @@ describe('ThyPickerDirective', () => {
             [thyMaxDate]="thyMaxDate"
             [thyDefaultPickerValue]="thyDefaultPickerValue"
             [thyOffset]="thyOffset"
+            [thyPlaceHolder]="thyPlaceHolder"
             [thyPlacement]="thyPlacement"
             [thyHasBackdrop]="thyHasBackdrop"
             [thyPopoverOptions]="popoverOptions"
@@ -305,7 +307,6 @@ describe('ThyPickerDirective', () => {
 })
 class ThyTestPickerDirective {
     @ViewChild(ThyDatePickerDirective, { read: false }) thyDatePickerDirective: ThyDatePickerDirective;
-
     thyPlaceHolder: string;
     thyPanelClassName: string;
     thyValue: Date | null;
@@ -331,10 +332,12 @@ class ThyTestPickerDirective {
 
 @Component({
     template: `
-        <thy-property-operation thyLabelText="开始时间" thyDatePicker></thy-property-operation>
+        <thy-property-operation thyLabelText="开始时间" thyDatePicker [(ngModel)]="thyValue"></thy-property-operation>
     `
 })
-class ThyTestPickerPlacementDirective {}
+class ThyTestPickerPlacementDirective {
+    thyValue: Date | null;
+}
 
 @Component({
     template: `
