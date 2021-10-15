@@ -15,9 +15,8 @@ import {
 } from '@angular/core';
 
 import { dateAddAmount, hasValue, makeValue, transformDateValue } from '../../picker.util';
-import { CompatibleDate, CompatibleValue, DisabledDateFn, PanelMode, SupportTimeOptions } from '../../standard-types';
+import { CompatibleDate, CompatibleValue, DisabledDateFn, PanelMode, RangePartType, SupportTimeOptions } from '../../standard-types';
 
-export type RangePartType = 'left' | 'right';
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'date-popup',
