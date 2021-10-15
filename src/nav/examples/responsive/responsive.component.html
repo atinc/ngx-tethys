@@ -1,20 +1,42 @@
-<thy-nav thyType="primary" [thyResponsive]="true">
-  <a href="javascript:;" thyNavLink [thyNavLinkActive]="activeIndex == 1" (click)="activeIndex = 1">导航一</a>
-  <a href="javascript:;" thyNavLink [thyNavLinkActive]="activeIndex == 2" (click)="activeIndex = 2">导航二</a>
-  <a href="javascript:;" thyNavLink [thyNavLinkActive]="activeIndex == 3" (click)="activeIndex = 3">导航三</a>
-  <a href="javascript:;" thyNavLink [thyNavLinkActive]="activeIndex == 4" (click)="activeIndex = 4">导航四</a>
-  <a href="javascript:;" thyNavLink [thyNavLinkActive]="activeIndex == 5" (click)="activeIndex = 5">导航五</a>
-  <a href="javascript:;" thyNavLink [thyNavLinkActive]="activeIndex == 6" (click)="activeIndex = 6">导航六</a>
-  <a href="javascript:;" thyNavLink [thyNavLinkActive]="activeIndex == 7" (click)="activeIndex = 7">导航七</a>
-  <a href="javascript:;" thyNavLink [thyNavLinkActive]="activeIndex == 8" (click)="activeIndex = 8">导航八</a>
-  <a href="javascript:;" thyNavLink [thyNavLinkActive]="activeIndex == 9" (click)="activeIndex = 9">导航九</a>
+<thy-nav thyType="primary" [thyResponsive]="true" class="responsive-nav">
+  <a
+    class="nav-tab"
+    href="javascript:;"
+    *ngFor="let item of navList"
+    thyNavLink
+    [thyNavLinkActive]="activeIndex == item.index"
+    (click)="activeIndex = item.index"
+    ><thy-icon thyIconName="more-circle"></thy-icon> <span class="ml-1">{{ item.name }}</span></a
+  >
 
-  <a href="javascript:;" thyNavLink [thyNavLinkActive]="activeIndex == 10" (click)="activeIndex = 10">导航十</a>
+  <ng-template #morePopover let-context>
+    <thy-action-menu>
+      <span thyActionMenuItem>自定义</span>
+      <ng-container *ngFor="let item of context">
+        <span
+          class="more-nav-link"
+          thyActionMenuItem
+          [thyActionMenuItemActive]="item.isActive"
+          (click)="navItemClick(item)"
+          [innerHTML]="item.content"
+        ></span>
+      </ng-container>
+    </thy-action-menu>
+  </ng-template>
+</thy-nav>
 
-  <a href="javascript:;" thyNavLink [thyNavLinkActive]="activeIndex == 11" (click)="activeIndex = 11">导航十一</a>
+<thy-nav thyType="primary" [thyResponsive]="true" class="responsive-nav">
+  <a
+    class="nav-tab"
+    href="javascript:;"
+    *ngFor="let item of navList"
+    thyNavLink
+    [thyNavLinkActive]="activeIndex == item.index"
+    (click)="activeIndex = item.index"
+    ><thy-icon thyIconName="more-circle"></thy-icon> <span class="ml-1">{{ item.name }}</span></a
+  >
 
-  <a href="javascript:;" thyNavLink [thyNavLinkActive]="activeIndex == 12" (click)="activeIndex = 12">导航十二</a>
-  <a href="javascript:;" thyNavLink [thyNavLinkActive]="activeIndex == 13" (click)="select(13)">导航十三</a>
-
-  <a href="javascript:;" thyNavLink [routerLink]="['../api']" routerLinkActive="active" (click)="activeIndex = 14"><div>导航十四</div></a>
+  <ng-template #more>
+    自定义
+  </ng-template>
 </thy-nav>
