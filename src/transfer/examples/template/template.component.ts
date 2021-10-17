@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ThySelectionListChange } from 'ngx-tethys';
+import { ThySelectionListChange, TransferDirection } from 'ngx-tethys';
 
 interface ThyTransferTemplateItem {
     _id: string;
@@ -17,52 +17,62 @@ export class ThyTransferTemplateExampleComponent implements OnInit {
         {
             _id: '5dd26d805f901d13de2eb964',
             name: '十二风华鉴',
-            color: '#FFA415'
+            color: '#FFA415',
+            direction: TransferDirection.right
         },
         {
             _id: '5dd26e335f901df42e2eb965',
             name: 'I won not stop',
-            color: '#2DBCFF'
+            color: '#2DBCFF',
+            direction: TransferDirection.right
         },
         {
             _id: '5dd36749fee6ad489db4a37a',
             name: 'ice-test2',
-            color: '#56ABFB'
+            color: '#56ABFB',
+            direction: TransferDirection.right
         },
         {
             _id: '5dd387fe31eaf54e818c4967',
             name: '归档',
-            color: '#56ABFB'
+            color: '#56ABFB',
+            direction: TransferDirection.left
         },
         {
             _id: '5dd65f03a756db4c55df6484',
             name: 'wt-rd-portal',
-            color: '#56ABFB'
+            color: '#56ABFB',
+            direction: TransferDirection.left
         },
         {
             _id: '5dd6663e861eb1d9983c9db0',
             name: '测试关联项目',
-            color: '#F6C659'
+            color: '#F6C659',
+            direction: TransferDirection.left
         },
         {
             _id: '5ddde3d4f6b332f7e0177cd9',
             name: '测试导入',
-            color: '#56ABFB'
+            color: '#56ABFB',
+            direction: TransferDirection.left
         },
         {
             _id: '5ddf416faceb2f5bdcf90911',
             name: 'xxx',
-            color: '#56ABFB'
+            color: '#56ABFB',
+            direction: TransferDirection.left
         },
         {
             _id: '5ddf42ebe9afd3b1bd80f85f',
             name: 'Sprint 04',
-            color: '#56ABFB'
+            color: '#56ABFB',
+            direction: TransferDirection.left
         },
         {
             _id: '5ddf44afe9afd3ea1a80f896',
             name: '【纯净】模版项目',
-            color: '#F6C659'
+            color: '#F6C659',
+            direction: TransferDirection.left
         }
     ];
 
@@ -91,8 +101,20 @@ export class ThyTransferTemplateExampleComponent implements OnInit {
     ngOnInit() {}
 
     selectionChange(event: ThySelectionListChange) {
-        if (event.selected) {
+        const selected = this.selectRight.filter(item => {
+            return item._id === event.value._id;
+        });
+        if (event.selected && selected.length === 0) {
+            this.transferData = (this.transferData || []).map(item => {
+                if (item._id === event.value._id) {
+                    return { ...item, direction: TransferDirection.right };
+                } else {
+                    return item;
+                }
+            });
             this.selectRight = [...this.selectRight, event.value];
+        } else {
+            this.remove(event.value);
         }
     }
 
@@ -105,5 +127,13 @@ export class ThyTransferTemplateExampleComponent implements OnInit {
                 return item._id !== removeItem._id;
             });
         }
+
+        this.transferData = (this.transferData || []).map(item => {
+            if (item._id === removeItem._id) {
+                return { ...item, direction: TransferDirection.left };
+            } else {
+                return item;
+            }
+        });
     }
 }
