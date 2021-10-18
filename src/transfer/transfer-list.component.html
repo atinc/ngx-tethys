@@ -1,5 +1,7 @@
 <div class="thy-transfer-list-header">
-  <span class="thy-transfer-list-header-title">{{ title }} · {{ items?.length }}</span>
+  <span class="thy-transfer-list-header-title"
+    >{{ title }} · {{ items?.length }}<span *ngIf="max"> (上限{{ max }}个)</span></span
+  >
 </div>
 <ng-container *ngIf="!contentRef; else renderContent">
   <div class="thy-transfer-list-body" cdkDropListGroup [cdkDropListGroupDisabled]="!draggable">
