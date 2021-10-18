@@ -88,7 +88,7 @@ class TestTransferComponent {
     dataSource: any[] = buildDataList();
     titles = ['Source', 'Target'];
 
-    rightMax = RIGHTMAX;
+    rightMax: any;
 
     change(ret: ThyTransferChangeEvent): void {}
 
@@ -186,7 +186,11 @@ describe('transfer', () => {
     });
 
     it('should be from left to right less than or equal thyRightMax', () => {
+        instance.rightMax = RIGHTMAX;
         fixture.detectChanges();
+        const rightTitle = (pageObject.rightList.querySelector('.thy-transfer-list-header-title') as any).innerText;
+        expect(rightTitle).toBe(`Target · ${RIGHTCOUNT} (上限${RIGHTMAX}个)`);
+
         pageObject
             .expectRight(RIGHTCOUNT)
             // 左侧选择一条 右侧达到最大选择
