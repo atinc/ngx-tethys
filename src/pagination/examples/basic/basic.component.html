@@ -1,7 +1,9 @@
 <thy-pagination
   [(thyPageIndex)]="currentIndex"
-  [thyPageSize]="10"
+  [thyPageSize]="pageSize"
   [thyTotal]="50"
   [thyShowQuickJumper]="false"
   [thyShowSizeChanger]="true"
+  [thyPageSizeOptions]="[10, 20, 50, 100]"
+  (thyPageSizeChanged)="onPageSizeChanged($event)"
 ></thy-pagination>

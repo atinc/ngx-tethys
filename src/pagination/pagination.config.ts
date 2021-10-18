@@ -10,7 +10,7 @@ export const PaginationDefaultConfig: ThyPaginationConfigModel = {
     maxCount: 7,
     rangeCount: DEFAULT_RANGE_COUNT,
     showQuickJumper: true,
-    showSizeChanger: true,
+    showSizeChanger: false,
     firstText: '第一页',
     lastText: '最后一页',
     previousText: '',
@@ -20,7 +20,7 @@ export const PaginationDefaultConfig: ThyPaginationConfigModel = {
     previousIcon: 'angle-left',
     nextIcon: 'angle-right',
     totalPagesFormat: '共{total}页',
-    pageSizeOptions: [20, 50, 100]
+    pageSizeOptions: [10, 20, 50, 100]
 };
 export interface ThyPaginationConfig {
     main?: ThyPaginationConfigModel;
