@@ -45,7 +45,7 @@
         cdkDrag
         [cdkDragData]="item"
         *ngFor="let item of unlockItems"
-        [ngClass]="{ active: item.checked, disabled: overMaxDisabled && item.direction === 'left' }"
+        [ngClass]="{ active: item.checked, disabled: disabled && item.direction === 'left' }"
       >
         <ng-template [ngTemplateOutlet]="template" [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
       </thy-list-item>

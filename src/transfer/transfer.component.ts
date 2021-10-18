@@ -98,10 +98,7 @@ export class ThyTransferComponent implements OnInit {
         if (event.item.isFixed) {
             return;
         }
-        if (
-            (this.thyRightMax === this.rightDataSource.length || this.thyRightMax < this.rightDataSource.length) &&
-            from === TransferDirection.left
-        ) {
+        if (this.thyRightMax <= this.rightDataSource.length && from === TransferDirection.left) {
             return;
         }
         const to = from === TransferDirection.left ? TransferDirection.right : TransferDirection.left;

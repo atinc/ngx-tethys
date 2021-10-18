@@ -44,7 +44,7 @@ export class ThyTransferListComponent implements OnInit, DoCheck {
 
     @Input() max: number;
 
-    @Input() overMaxDisabled: boolean;
+    @Input() disabled: boolean;
 
     @Input() template: TemplateRef<any>;
 
