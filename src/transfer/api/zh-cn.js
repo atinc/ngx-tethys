@@ -53,19 +53,19 @@ module.exports = [
                 default: ''
             },
             {
-                type: 'TemplateRef',
+                type: 'ContentChild<TemplateRef>',
                 name: '#renderTemplate',
                 description: '设置自定义Item渲染数据模板',
                 default: ''
             },
             {
-                type: 'TemplateRef',
+                type: 'ContentChild<TemplateRef>',
                 name: '#renderLeftTemplate',
                 description: '设置自定义左侧内容模版',
                 default: ''
             },
             {
-                type: 'TemplateRef',
+                type: 'ContentChild<TemplateRef>',
                 name: '#renderRightTemplate',
                 description: '设置自定义右侧内容模版',
                 default: ''
@@ -79,7 +79,7 @@ module.exports = [
         ]
     },
     {
-        type: 'component',
+        type: 'interface',
         name: 'TransferItem 属性说明',
         description: '用于设置选项的标题,方向,选中状态以及自定义类型',
         properties: [
@@ -110,7 +110,7 @@ module.exports = [
         ]
     },
     {
-        type: 'component',
+        type: 'interface',
         name: 'TransferRenderContent 属性说明',
         description: '用于设置选项的标题,方向,选中状态以及自定义类型',
         properties: [

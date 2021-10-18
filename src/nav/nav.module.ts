@@ -10,10 +10,11 @@ import { ThyIconNavLinkComponent } from './icon-nav/icon-nav-link.directive';
 import { ThyIconNavComponent } from './icon-nav/icon-nav.component';
 import { ThyNavLinkDirective } from './nav-link.directive';
 import { ThyNavComponent } from './nav.component';
+import { BypassSecurityTrustHtmlPipe } from './nav.pipe';
 
 @NgModule({
-    declarations: [ThyNavComponent, ThyNavLinkDirective, ThyIconNavComponent, ThyIconNavLinkComponent],
+    declarations: [ThyNavComponent, ThyNavLinkDirective, ThyIconNavComponent, ThyIconNavLinkComponent, BypassSecurityTrustHtmlPipe],
     imports: [CommonModule, ThyIconModule, ThyPopoverModule, ThyActionMenuModule, RouterModule],
-    exports: [ThyNavComponent, ThyNavLinkDirective, ThyIconNavComponent, ThyIconNavLinkComponent]
+    exports: [ThyNavComponent, ThyNavLinkDirective, ThyIconNavComponent, ThyIconNavLinkComponent, BypassSecurityTrustHtmlPipe]
 })
 export class ThyNavModule {}
