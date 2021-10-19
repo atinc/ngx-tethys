@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="12.0.2"></a>
+## [12.0.2](https://github.com/atinc/ngx-tethys/compare/12.0.1...12.0.2) (2021-10-19)
+
+
+### Features
+
+* **nav:** support nav more popover render component #INFR-2334 ([#1383](https://github.com/atinc/ngx-tethys/issues/1383)) ([cb9276d](https://github.com/atinc/ngx-tethys/commit/cb9276d)), closes [#INFR-2334](https://github.com/atinc/ngx-tethys/issues/INFR-2334) [#INFR-2334](https://github.com/atinc/ngx-tethys/issues/INFR-2334) [#INFR-2334](https://github.com/atinc/ngx-tethys/issues/INFR-2334)
+* **transfer:** support thyRightMax #INFR-2336 ([#1385](https://github.com/atinc/ngx-tethys/issues/1385)) ([201f2d1](https://github.com/atinc/ngx-tethys/commit/201f2d1)), closes [#INFR-2336](https://github.com/atinc/ngx-tethys/issues/INFR-2336) [#INFR-2336](https://github.com/atinc/ngx-tethys/issues/INFR-2336) [#INFR-2336](https://github.com/atinc/ngx-tethys/issues/INFR-2336) [#INFR-2336](https://github.com/atinc/ngx-tethys/issues/INFR-2336)
+
+
+
 <a name="12.0.1"></a>
 ## [12.0.1](https://github.com/atinc/ngx-tethys/compare/12.0.0...12.0.1) (2021-10-13)
 
