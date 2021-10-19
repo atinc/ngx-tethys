@@ -1,5 +1,7 @@
 <div class="thy-transfer-list-header">
-  <span class="thy-transfer-list-header-title">{{ title }} · {{ items?.length }}</span>
+  <span class="thy-transfer-list-header-title"
+    >{{ title }} · {{ items?.length }}<span *ngIf="max"> (上限{{ max }}个)</span></span
+  >
 </div>
 <ng-container *ngIf="!contentRef; else renderContent">
   <div class="thy-transfer-list-body" cdkDropListGroup [cdkDropListGroupDisabled]="!draggable">
@@ -43,7 +45,7 @@
         cdkDrag
         [cdkDragData]="item"
         *ngFor="let item of unlockItems"
-        [ngClass]="{ active: item.checked }"
+        [ngClass]="{ active: item.checked, disabled: disabled && item.direction === 'left' }"
       >
         <ng-template [ngTemplateOutlet]="template" [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
       </thy-list-item>

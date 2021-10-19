@@ -1,19 +1,19 @@
-import { Component, DebugElement, Injector, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { fakeAsync, tick, ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { ThyIconModule } from 'ngx-tethys/icon';
+import { ThyListModule } from 'ngx-tethys/list';
+import { ThySelectModule } from 'ngx-tethys/select';
+
+import { Component, DebugElement, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { of, Observable } from 'rxjs';
-import { delay, map } from 'rxjs/operators';
-import { ThyTransferModule } from '../transfer.module';
+
 import { ThyTransferComponent } from '../transfer.component';
-import { ThyTransferDragEvent, ThyTransferChangeEvent, TransferDirection, ThyTransferItem } from '../transfer.interface';
-import { CdkDropListGroup } from '@angular/cdk/drag-drop';
-import { ThyListModule } from 'ngx-tethys/list';
-import { ThyIconModule } from 'ngx-tethys/icon';
-import { ThySelectModule } from 'ngx-tethys/select';
+import { ThyTransferChangeEvent, ThyTransferDragEvent, ThyTransferItem, TransferDirection } from '../transfer.interface';
+import { ThyTransferModule } from '../transfer.module';
 
 const COUNT = 9;
 const RIGHTCOUNT = 5;
+const RIGHTMAX = 6;
 
 function buildDataList() {
     return [
@@ -75,6 +75,7 @@ function buildDataList() {
             [thyRightDraggable]="true"
             [thyRightCanLock]="true"
             [thyRightLockMax]="maxLock"
+            [thyRightMax]="rightMax"
             (thyDraggableUpdate)="onDragUpdate($event)"
             (thyChange)="change($event)"
         >
@@ -86,6 +87,8 @@ class TestTransferComponent {
     @ViewChild('comp', { static: true }) comp: ThyTransferComponent;
     dataSource: any[] = buildDataList();
     titles = ['Source', 'Target'];
+
+    rightMax: any;
 
     change(ret: ThyTransferChangeEvent): void {}
 
@@ -180,6 +183,34 @@ describe('transfer', () => {
             .transfer('left', 0)
             .expectRight(RIGHTCOUNT - 1)
             .expectLeft(COUNT);
+    });
+
+    it('should be from left to right less than or equal thyRightMax', () => {
+        instance.rightMax = RIGHTMAX;
+        fixture.detectChanges();
+        const rightTitle = (pageObject.rightList.querySelector('.thy-transfer-list-header-title') as any).innerText;
+        expect(rightTitle).toBe(`Target · ${RIGHTCOUNT} (上限${RIGHTMAX}个)`);
+
+        pageObject
+            .expectRight(RIGHTCOUNT)
+            // 左侧选择一条 右侧达到最大选择
+            .transfer('right', 0)
+            .expectRight(RIGHTMAX)
+            // 左侧再选择一条 右侧仍最大选择
+            .transfer('right', 1)
+            .expectRight(RIGHTMAX)
+            // 左侧再选择一条 右侧仍最大选择
+            .transfer('right', 2)
+            .expectRight(RIGHTMAX)
+            //取消第一条选择
+            .transfer('right', 0)
+            .expectRight(RIGHTMAX - 1)
+            // 未达到最大选择 可以继续选择
+            .transfer('right', 1)
+            .expectRight(RIGHTMAX)
+            .expectLeft(COUNT);
+        const leftFirst = pageObject.leftList.querySelectorAll('.thy-transfer-list-content-item')[0];
+        expect(leftFirst.classList).toContain('disabled');
     });
 
     class TransferPageObject {
