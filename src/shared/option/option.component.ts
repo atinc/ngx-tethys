@@ -159,13 +159,13 @@ export class ThyOptionComponent extends SelectOptionBase implements OnDestroy, H
 
     matchSearchText(searchText: string): boolean {
         if (this.thySearchKey) {
-            if (this.thySearchKey.indexOf(searchText) >= 0) {
+            if (this.thySearchKey.toLowerCase().indexOf(searchText.toLowerCase()) >= 0) {
                 return true;
             } else {
                 return false;
             }
         } else {
-            if (this.thyLabelText.indexOf(searchText) >= 0) {
+            if (this.thyLabelText.toLowerCase().indexOf(searchText.toLowerCase()) >= 0) {
                 return true;
             } else {
                 return false;
