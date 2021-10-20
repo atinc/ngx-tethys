@@ -3,12 +3,13 @@ import { NgForm, AbstractControl, ValidationErrors } from '@angular/forms';
 import { ThyFormValidatorLoader, ERROR_VALUE_REPLACE_REGEX } from './form-validator-loader';
 import { ThyFormValidatorConfig } from './form.class';
 import { Dictionary } from 'ngx-tethys/types';
+import { isUndefinedOrNull } from 'ngx-tethys/util';
 
 @Injectable()
 export class ThyFormValidatorService {
     private _ngForm: NgForm;
 
-    private _formElement: HTMLElement;
+    private _formElement: HTMLFormElement;
 
     private _config: ThyFormValidatorConfig;
 
@@ -21,7 +22,7 @@ export class ThyFormValidatorService {
     }> = {};
 
     private _getElement(name: string) {
-        const element = this._formElement[name];
+        const element = this._formElement.elements[name];
         if (element) {
             return element;
         } else {
@@ -76,7 +77,7 @@ export class ThyFormValidatorService {
         if (control) {
             return message.replace(ERROR_VALUE_REPLACE_REGEX, (tag, key) => {
                 if (key) {
-                    return control.errors[key][key] || control.errors[key].requiredLength;
+                    return isUndefinedOrNull(control.errors[key][key]) ? control.errors[key].requiredLength : control.errors[key][key];
                 }
             });
         } else {
@@ -118,7 +119,7 @@ export class ThyFormValidatorService {
 
     constructor(private thyFormValidateLoader: ThyFormValidatorLoader) {}
 
-    initialize(ngForm: NgForm, formElement: HTMLElement) {
+    initialize(ngForm: NgForm, formElement: HTMLFormElement) {
         this._ngForm = ngForm;
         this._formElement = formElement;
     }

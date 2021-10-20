@@ -12,8 +12,10 @@ import { CompatibleDate, CompatibleValue, PanelMode } from './standard-types';
 export class BasePickerComponent extends AbstractPickerComponent implements OnInit, OnChanges {
     showWeek = false;
 
+    panelMode: PanelMode | PanelMode[];
+
     @Input() thyDateRender: FunctionProp<TemplateRef<Date> | string>;
-    @Input() thyMode: PanelMode | PanelMode[];
+
     @Output() readonly thyOnPanelChange = new EventEmitter<PanelMode | PanelMode[]>();
     @Output() readonly thyOnCalendarChange = new EventEmitter<Date[]>();
 
@@ -37,27 +39,30 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
 
     ngOnInit(): void {
         super.ngOnInit();
-
-        if (!this.thyFormat) {
-            if (this.showWeek) {
-                this.thyFormat = 'yyyy-ww';
-            } else {
-                this.thyFormat = this.thyShowTime ? 'yyyy-MM-dd HH:mm' : 'yyyy-MM-dd';
-            }
-        }
         this.setDefaultTimePickerState();
     }
 
     onValueChange(value: CompatibleValue): void {
         this.restoreTimePickerState(value);
         super.onValueChange(value);
-
         this.closeOverlay();
     }
 
     // Displays the time directly when the time must be displayed by default
     setDefaultTimePickerState() {
+        this.thyMode = this.thyMode || 'date';
         this.withTime = this.thyMustShowTime;
+        this.panelMode = this.isRange ? [this.thyMode, this.thyMode] : this.thyMode;
+        this.showWeek = this.thyMode === 'week';
+        if (!this.thyFormat) {
+            const inputFormats: { [key in PanelMode]?: string } = {
+                year: 'yyyy',
+                month: 'yyyy-MM',
+                week: 'yyyy-ww',
+                date: this.thyShowTime ? 'yyyy-MM-dd HH:mm' : 'yyyy-MM-dd'
+            };
+            this.thyFormat = inputFormats[this.thyMode];
+        }
     }
 
     // Restore after clearing time to select whether the original picker time is displayed or not

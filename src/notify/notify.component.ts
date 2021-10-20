@@ -1,4 +1,4 @@
-import { Component, Input, HostBinding, OnInit, HostListener, OnDestroy, NgZone } from '@angular/core';
+import { Component, Input, HostBinding, OnInit, HostListener, OnDestroy, NgZone, ElementRef } from '@angular/core';
 import { ThyNotifyDetail, NotifyPlacement, ThyNotifyOptions } from './notify-option.interface';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { UpdateHostClassService } from 'ngx-tethys/core';
@@ -65,7 +65,7 @@ export class ThyNotifyComponent implements OnInit, OnDestroy {
         this.className = `thy-notify thy-notify-${type}`;
     }
 
-    constructor(private _queueStore: NotifyQueueStore, private _ngZone: NgZone) {}
+    constructor(private _queueStore: NotifyQueueStore, private _ngZone: NgZone, private elementRef: ElementRef) {}
 
     ngOnInit() {
         const iconName = {
@@ -81,6 +81,8 @@ export class ThyNotifyComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this._clearCloseTimer();
+        // fix dom not removed normally under firefox
+        this.elementRef.nativeElement.remove();
     }
 
     extendContent() {

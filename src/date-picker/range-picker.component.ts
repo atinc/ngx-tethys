@@ -1,3 +1,4 @@
+import { PanelMode } from './standard-types';
 import {
     forwardRef,
     ChangeDetectionStrategy,
@@ -6,7 +7,8 @@ import {
     ElementRef,
     Renderer2,
     NgZone,
-    OnInit
+    OnInit,
+    Input
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -27,6 +29,8 @@ import { BasePickerComponent } from './base-picker.component';
 })
 export class ThyRangePickerComponent extends BasePickerComponent implements OnInit {
     isRange = true;
+
+    @Input() thyMode: PanelMode = 'date';
 
     constructor(cdr: ChangeDetectorRef, protected renderer: Renderer2, protected elementRef: ElementRef) {
         super(cdr);
