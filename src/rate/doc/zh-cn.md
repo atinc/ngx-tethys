@@ -1,7 +1,8 @@
 ---
-category: display
+category: form
 title: Rate
 subtitle: 评分
+label: new
 ---
 
 <alert>评分组件。</alert>
@@ -28,12 +29,12 @@ import { ThyRateModule } from "ngx-tethys/rate";
 ## 清除
 <example name="thy-rate-clear-example"></example>
 
+## 自定义每项的提示信息
+<example name="thy-rate-tooltip-example"></example>
+
 ## 只读不可更改
 <example name="thy-rate-disabled-example"></example>
 
 ## 自定义展示模版
 <example name="thy-rate-template-example"></example>
-
-## 自定义每项的提示信息
-<example name="thy-rate-tooltip-example"></example>
 

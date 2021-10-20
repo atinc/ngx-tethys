@@ -1,1 +1,7 @@
-<thy-rate [(ngModel)]="value" [thyAllowClear]="true" (ngModelChange)="change($event)"></thy-rate>
+<div class="d-flex align-items-center">
+  <thy-rate [(ngModel)]="value" [thyAllowClear]="true" (ngModelChange)="change($event)"></thy-rate
+  ><span class="ml-5">allowClear: true</span>
+</div>
+<div class="d-flex align-items-center">
+  <thy-rate [(ngModel)]="value" [thyAllowClear]="false"></thy-rate><span class="ml-5">allowClear: false</span>
+</div>
