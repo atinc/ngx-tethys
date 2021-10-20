@@ -14,6 +14,9 @@ import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
             [thyTotal]="pagination.total"
             [thyShowQuickJumper]="canQuickJump"
             (thyPageIndexChange)="pageIndexChange($event)"
+            [thyShowSizeChanger]="showSizeChanger"
+            [thyPageSizeOptions]="[10, 20, 50, 100]"
+            (thyPageSizeChanged)="pageSizeChanged($event)"
         ></thy-pagination>
     `
 })
@@ -26,10 +29,14 @@ class ThyPaginationExampleComponent {
 
     canQuickJump = true;
 
+    showSizeChanger = false;
+
     pageIndexChange = jasmine.createSpy('pageIndexChange callback');
+
+    pageSizeChanged = jasmine.createSpy('pageSizeChange callback');
 }
 
-describe('ThyPagination', () => {
+fdescribe('ThyPagination', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ThyPaginationModule],
@@ -42,13 +49,11 @@ describe('ThyPagination', () => {
         let fixture: ComponentFixture<ThyPaginationExampleComponent>;
         let componentInstance: ThyPaginationExampleComponent;
         let paginationElement: HTMLElement;
-        let currentEle;
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyPaginationExampleComponent);
             componentInstance = fixture.debugElement.componentInstance;
             fixture.detectChanges();
             paginationElement = fixture.debugElement.query(By.directive(ThyPaginationComponent)).nativeElement;
-            currentEle = componentInstance.pagination;
         });
 
         it('should base element toBeTruthy', () => {
@@ -63,45 +68,45 @@ describe('ThyPagination', () => {
         });
 
         it('should pre btn disabled status', () => {
-            currentEle.pageIndex = 0;
+            componentInstance.pagination.pageIndex = 0;
             const nodes = Array.from(paginationElement.querySelectorAll('.thy-page-item')) as HTMLElement[];
             fixture.detectChanges();
             expect(nodes[0].classList).toContain('disabled');
         });
 
         it('should next btn disabled status', () => {
-            currentEle.pageIndex = currentEle.total / currentEle.pageSize + 1;
+            componentInstance.pagination.pageIndex = componentInstance.pagination.total / componentInstance.pagination.pageSize + 1;
             const nodes = Array.from(paginationElement.querySelectorAll('.thy-page-item')) as HTMLElement[];
             fixture.detectChanges();
             expect(nodes[nodes.length - 1].classList).toContain('disabled');
         });
 
         it('should btn click three page jumper three', () => {
-            currentEle.pageIndex = 2;
+            componentInstance.pagination.pageIndex = 2;
             const nodes = Array.from(paginationElement.querySelectorAll('.thy-page-item')) as HTMLElement[];
             fixture.detectChanges();
             expect(nodes[1].classList).toContain('active');
         });
 
         it('should pre btn click can works', () => {
-            currentEle.pageIndex = 2;
+            componentInstance.pagination.pageIndex = 2;
             fixture.detectChanges();
             expect(componentInstance.pageIndexChange).toHaveBeenCalledTimes(0);
             (paginationElement.querySelectorAll('.thy-page-item')[1] as HTMLElement).click();
             fixture.detectChanges();
             expect(componentInstance.pageIndexChange).toHaveBeenCalledTimes(1);
-            expect(currentEle.pageIndex).toBe(1);
+            expect(componentInstance.pagination.pageIndex).toBe(1);
         });
 
         it('should next btn click can works', () => {
             const list = paginationElement.querySelectorAll('.thy-page-item');
-            currentEle.pageIndex = 2;
+            componentInstance.pagination.pageIndex = 2;
             fixture.detectChanges();
             expect(componentInstance.pageIndexChange).toHaveBeenCalledTimes(0);
             (list[list.length - 1] as HTMLElement).click();
             fixture.detectChanges();
             expect(componentInstance.pageIndexChange).toHaveBeenCalledTimes(1);
-            expect(currentEle.pageIndex).toBe(3);
+            expect(componentInstance.pagination.pageIndex).toBe(3);
         });
 
         it('should QuickJumper can works', fakeAsync(() => {
@@ -111,7 +116,24 @@ describe('ThyPagination', () => {
             }
             dispatchMouseEvent(getPickerTriggerElement(), 'click');
             tick(100);
-            expect(currentEle.pageIndex).toEqual(4);
+            expect(componentInstance.pagination.pageIndex).toEqual(4);
+        }));
+
+        it('should showSizeChanger can works', fakeAsync(() => {
+            componentInstance.showSizeChanger = false;
+            fixture.detectChanges();
+            expect(paginationElement.querySelectorAll('.thy-pagination-size').length).toEqual(0);
+            fixture.detectChanges();
+            componentInstance.showSizeChanger = true;
+            fixture.detectChanges();
+            expect(paginationElement.querySelectorAll('.thy-pagination-size').length).toEqual(1);
+        }));
+
+        it('should page size changed can works', fakeAsync(() => {
+            componentInstance.showSizeChanger = true;
+            componentInstance.pagination.pageSize = 50;
+            fixture.detectChanges();
+            expect(paginationElement.querySelectorAll('.thy-pagination-size')[0].children[0].attributes[0].value).toEqual('50');
         }));
     });
 });
