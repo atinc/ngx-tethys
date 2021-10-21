@@ -48,7 +48,7 @@ describe('ng-add Schematic', () => {
         const workspace = getJsonFileContent(workspaceTree, '/angular.json');
         const defaultProject = workspace.defaultProject;
         const existStyle = workspace.projects[defaultProject].architect.build.options.styles.includes(
-            './node_modules/ngx-tethys/styles/main.bundle.scss'
+            './node_modules/ngx-tethys/styles/index.scss'
         );
 
         expect(existStyle).toBe(true);
@@ -59,7 +59,7 @@ describe('ng-add Schematic', () => {
 
         const workspace = getJsonFileContent(workspaceTree, '/angular.json');
         const existStyle = workspace.projects['ngx-tethys-chen'].architect.build.options.styles.includes(
-            './node_modules/ngx-tethys/styles/main.bundle.scss'
+            './node_modules/ngx-tethys/styles/index.scss'
         );
 
         expect(existStyle).toBe(true);
