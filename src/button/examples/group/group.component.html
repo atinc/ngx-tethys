@@ -20,8 +20,15 @@
   </thy-button-group>
 </div>
 
+<div class="mt-2">
+  <thy-button-group [thySize]="size" thyType="primary">
+    <button thyButton><thy-icon thyIconName="angle-left"></thy-icon>Backward</button>
+    <button thyButton>Forward <thy-icon thyIconName="angle-right"></thy-icon></button>
+  </thy-button-group>
+</div>
+
 <div class="mt-4">
-  <div class="mb-2">With Button Icon</div>
+  <div class="mb-2">Use Button Icon</div>
   <thy-button-group [thySize]="size" thyType="outline-default">
     <button thyButtonIcon="user-add" class="active"></button>
     <button thyButtonIcon="list-sample-fill"></button>

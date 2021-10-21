@@ -1,7 +1,17 @@
 import { InputBoolean, UpdateHostClassService } from 'ngx-tethys/core';
 import { coerceBooleanProperty, warnDeprecation } from 'ngx-tethys/util';
 
-import { ChangeDetectionStrategy, Component, ElementRef, HostBinding, Input, OnInit, Renderer2, ViewEncapsulation } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    ElementRef,
+    HostBinding,
+    Input,
+    OnInit,
+    Renderer2,
+    ViewEncapsulation,
+    AfterViewInit
+} from '@angular/core';
 
 export type ThyButtonType = 'primary' | 'secondary' | 'info' | 'outline-primary' | 'outline-default' | 'danger' | 'link' | 'link-secondary';
 
@@ -21,6 +31,8 @@ const btnTypeClassesMap = {
     'link-success': ['btn-link', 'btn-link-success'] // 成功按钮
 };
 
+const iconOnlyClass = 'thy-btn-icon-only';
+
 @Component({
     selector: 'thy-button,[thy-button],[thyButton]',
     templateUrl: './button.component.html',
@@ -28,12 +40,10 @@ const btnTypeClassesMap = {
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        class: 'btn'
+        class: 'thy-btn btn'
     }
 })
-export class ThyButtonComponent implements OnInit {
-    private _nativeElement: any;
-
+export class ThyButtonComponent implements OnInit, AfterViewInit {
     private _initialized = false;
 
     private _originalText: string;
@@ -55,6 +65,10 @@ export class ThyButtonComponent implements OnInit {
 
     svgIconName: string;
 
+    private get nativeElement(): HTMLElement {
+        return this.elementRef.nativeElement;
+    }
+
     @Input()
     set thyButton(value: ThyButtonType) {
         this.setBtnType(value);
@@ -66,15 +80,15 @@ export class ThyButtonComponent implements OnInit {
     }
 
     @Input()
+    @InputBoolean()
     set thyLoading(value: boolean) {
-        const newLoading = coerceBooleanProperty(value);
-        // from false to true
-        if (!this._loading && newLoading) {
-            this._loading = newLoading;
-            this._originalText = this._nativeElement.innerText;
+        if (!this._loading && value) {
+            this._loading = value;
+            const textElement = this.nativeElement.querySelector('span');
+            this._originalText = textElement ? textElement.innerText : '';
             this.setLoadingStatus();
         } else {
-            this._loading = newLoading;
+            this._loading = value;
             this.setLoadingStatus();
         }
     }
@@ -84,7 +98,7 @@ export class ThyButtonComponent implements OnInit {
         if (this._loadingText !== value) {
             this._loadingText = value;
             if (this._loading) {
-                this.renderer.setProperty(this._nativeElement, 'innerText', this._loadingText);
+                this.setLoadingText(this._loadingText);
             }
         }
     }
@@ -143,20 +157,18 @@ export class ThyButtonComponent implements OnInit {
         }
     }
 
-    private setLoadingStatus() {
-        // let disabled = false;
-        let innerText: string;
-        if (this._loading) {
-            // disabled = true;
-            innerText = this._loadingText ? this._loadingText : null;
-        } else {
-            // disabled = false;
-            innerText = this._originalText ? this._originalText : null;
+    private setLoadingText(text: string) {
+        const spanElement = this.nativeElement.querySelector('span');
+        if (spanElement) {
+            this.renderer.setProperty(spanElement, 'innerText', text);
         }
-        // this.renderer.setProperty(this._nativeElement, 'disabled', disabled);
+    }
+
+    private setLoadingStatus() {
+        const innerText = this._loading ? this._loadingText : this._originalText;
         this.updateClasses();
         if (innerText) {
-            this.renderer.setProperty(this._nativeElement, 'innerText', innerText);
+            this.setLoadingText(innerText);
         }
     }
 
@@ -172,9 +184,6 @@ export class ThyButtonComponent implements OnInit {
         if (this._size) {
             classNames.push(`btn-${this._size}`);
         }
-        if (this._icon) {
-            classNames.push('btn-has-icon');
-        }
         if (this._isRadiusSquare) {
             classNames.push('btn-square');
         }
@@ -185,12 +194,41 @@ export class ThyButtonComponent implements OnInit {
     }
 
     constructor(private elementRef: ElementRef, private renderer: Renderer2, private updateHostClassService: UpdateHostClassService) {
-        this._nativeElement = this.elementRef.nativeElement;
-        this.updateHostClassService.initializeElement(this._nativeElement);
+        this.updateHostClassService.initializeElement(this.nativeElement);
     }
 
     ngOnInit() {
         this.updateClasses();
         this._initialized = true;
+    }
+
+    ngAfterViewInit() {
+        this.assertIconOnly();
+        this.wrapSpanForText(this.nativeElement.childNodes);
+    }
+
+    private wrapSpanForText(nodes: NodeList): void {
+        nodes.forEach(node => {
+            if (node.nodeName === '#text') {
+                const span = this.renderer.createElement('span');
+                const parent = this.renderer.parentNode(node);
+                this.renderer.addClass(span, 'thy-btn-wrap-span');
+                this.renderer.insertBefore(parent, span, node);
+                this.renderer.appendChild(span, node);
+            }
+        });
+    }
+
+    private assertIconOnly(): void {
+        const listOfNode = Array.from(this.nativeElement.childNodes);
+        const iconCount = listOfNode.filter(node => ['THY-ICON', 'I'].includes(node.nodeName)).length;
+        const noText = listOfNode.every(node => node.nodeName !== '#text');
+        const noSpan = listOfNode.every(node => node.nodeName !== 'SPAN');
+        const isIconOnly = noSpan && noText && iconCount >= 1;
+        if (isIconOnly) {
+            this.renderer.addClass(this.nativeElement, iconOnlyClass);
+        } else {
+            this.renderer.removeClass(this.nativeElement, iconOnlyClass);
+        }
     }
 }
