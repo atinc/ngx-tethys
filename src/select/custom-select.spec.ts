@@ -1242,6 +1242,23 @@ describe('ThyCustomSelect', () => {
             expect(options[1].hidden).toBe(true);
             expect(optionNodes[1].classList).toContain('hidden');
         }));
+        it('should also find content when search by upperCase or lowerCase', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectWithSearchComponent);
+            fixture.detectChanges();
+            fixture.componentInstance.thyShowSearch = true;
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+
+            const input = fixture.debugElement.query(By.css('.search-input-field')).nativeElement;
+            typeInElement('sTeAk', input);
+            flush();
+            fixture.detectChanges();
+            flush();
+
+            const options = fixture.componentInstance.select.options.toArray();
+            expect(options[0].hidden).toBe(false);
+        }));
         it('should hide the thy-group when all options of the group is hidden', fakeAsync(() => {
             const fixture = TestBed.createComponent(SelectWithSearchAndGroupComponent);
             fixture.detectChanges();
