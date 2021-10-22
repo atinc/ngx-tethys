@@ -1179,20 +1179,24 @@ describe('ThyDialog', () => {
                 expect(getConfirmElements().okButton.textContent).toBe(dialogRef.componentInstance.okText);
             });
 
-            it('should show okLoadingText when loading and okLoadingText is custom', () => {
+            it('should show okLoadingText when loading and okLoadingText is custom', fakeAsync(() => {
                 const dialogRef = dialog.confirm({
                     content: 'test: custom okLoadingText',
                     okLoadingText: '加载中...',
                     onOk: () => {}
                 });
+                viewContainerFixture.detectChanges();
+                // 这个是因为按钮组件在 ngAfterViewInit 钩子中替换了 Dom 元素，如果不 tick 一下加载状态会修改失败
+                tick();
                 const okButton = getConfirmElements().okButton;
                 if (okButton) {
                     okButton.click();
                 }
                 viewContainerFixture.detectChanges();
                 expect(dialogRef.componentInstance.okLoadingText).toBe('加载中...');
-                expect(getConfirmElements().okButton.textContent).toBe('加载中...');
-            });
+                expect(okButton.textContent).toBe('加载中...');
+                flush();
+            }));
         });
     });
 
