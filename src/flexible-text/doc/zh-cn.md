@@ -4,7 +4,7 @@ title: FlexibleText
 subtitle: 文本提示
 ---
 
-<alert>响应式文本提示气泡框</alert>
+<alert>响应式文本提示气泡框。</alert>
 
 ## 何时使用
 
