@@ -5,7 +5,7 @@ subtitle: 间距
 label: new
 ---
 
-<alert>设置间距</alert>
+<alert>设置间距。</alert>
 
 ## 何时使用
 当内部元素需要一段距离时使用，避免紧紧挨在一起。

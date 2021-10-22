@@ -5,7 +5,7 @@ subtitle: 空状态
 description: 空状态时的展示占位组件。
 ---
 
-<alert>空状态时的展示占位组件</alert>
+<alert>空状态时的展示占位组件。</alert>
 
 ## 何时使用
 
