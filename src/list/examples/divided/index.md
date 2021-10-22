@@ -1,4 +1,4 @@
 ---
-title: 带分割线
+title: Divided
 order: 2
 ---
