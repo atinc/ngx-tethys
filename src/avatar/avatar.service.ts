@@ -5,7 +5,7 @@ export abstract class ThyAvatarService {
     ignoreAvatarSrcPaths = [`default.png`];
 
     /**
-     * @deprecated the avatarSrcTransform method will deprecated, please use srcTransform.
+     * @deprecated the avatarSrcTransform method will be deprecated, please use srcTransform.
      */
     abstract avatarSrcTransform(src: string, size: number): string;
 
@@ -17,7 +17,7 @@ export abstract class ThyAvatarService {
 @Injectable()
 export class ThyDefaultAvatarService extends ThyAvatarService {
     /**
-     * @deprecated the avatarSrcTransform method will deprecated, please use srcTransform.
+     * @deprecated the avatarSrcTransform method will be deprecated, please use srcTransform.
      */
     avatarSrcTransform(src: string, size: number): string {
         return src;

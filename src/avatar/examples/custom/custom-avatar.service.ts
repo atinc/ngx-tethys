@@ -9,7 +9,7 @@ export class CustomAvatarService extends ThyAvatarService {
     }
 
     /**
-     * @deprecated the avatarSrcTransform method will deprecated, please use srcTransform.
+     * @deprecated the avatarSrcTransform method will be deprecated, please use srcTransform.
      */
     avatarSrcTransform(src: string, size: number): string {
         return `assets/images/${src}`;
