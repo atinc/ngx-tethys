@@ -58,7 +58,7 @@ export class CustomAvatarService extends ThyAvatarService {
         super();
     }
 
-    avatarSrcTransform(src: string, size: number): string {
+   srcTransform(src: string, size: number): string {
         return `https://cdn.example.com/assets/images/${src}`;
     }
 }
