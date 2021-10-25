@@ -28,6 +28,7 @@ import { THY_SELECT_SCROLL_STRATEGY } from './select.config';
                 (thyOnScrollToBottom)="thyOnScrollToBottom()"
                 [formControl]="control"
                 [required]="isRequired"
+                [thySize]="size"
             >
                 <thy-option
                     *ngFor="let food of foods"
@@ -57,6 +58,7 @@ class BasicSelectComponent {
     control = new FormControl();
     isRequired: boolean;
     enableScrollLoad: boolean;
+    size = '';
     @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
     @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
 
@@ -659,6 +661,30 @@ describe('ThyCustomSelect', () => {
             it('should get right item count when invoke itemCount method', () => {
                 const ins = fixture.componentInstance.select;
                 expect(fixture.componentInstance.foods.length).toEqual(ins.getItemCount());
+            });
+        });
+
+        describe('size', () => {
+            let fixture: ComponentFixture<BasicSelectComponent>;
+
+            beforeEach(async(() => {
+                fixture = TestBed.createComponent(BasicSelectComponent);
+                fixture.detectChanges();
+            }));
+
+            it('should has correct size', () => {
+                const sizes = ['xs', 'sm', 'md', 'lg'];
+                fixture.componentInstance.size = '';
+                fixture.detectChanges();
+                const formControl = fixture.debugElement.query(By.css('.form-control')).nativeElement;
+                sizes.forEach(size => {
+                    expect(formControl.classList.contains(`form-control-${size}`)).not.toBeTruthy();
+                });
+                sizes.forEach(size => {
+                    fixture.componentInstance.size = size;
+                    fixture.detectChanges();
+                    expect(formControl.classList.contains(`form-control-${size}`)).toBeTruthy();
+                });
             });
         });
 
