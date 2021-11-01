@@ -1,6 +1,6 @@
 ---
 category: form
-title: DatePick
+title: DatePicker
 subtitle: 日期选择
 order: 1
 ---
