@@ -10,7 +10,7 @@ hero:
       link: docs/getting-started
       btnShape: round
     - text: 设计规范
-      link: docs/getting-started
+      link: design/intro
       btnShape: square
       btnType: outline-primary-light
 
