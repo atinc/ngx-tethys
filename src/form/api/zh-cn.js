@@ -59,6 +59,12 @@ module.exports = [
                 default: ''
             },
             {
+                name: 'thyTipsMode',
+                description: `提示文字的显示模式，'label'模式表示在 label 后通过图标+Tooltip 提示, 'default'模式在 Form Control 下方直接显示`,
+                type: `'default' | 'label'`,
+                default: 'default'
+            },
+            {
                 name: 'thyTips',
                 description: '提示文案',
                 type: 'string',
