@@ -59,6 +59,12 @@ module.exports = [
                 default: ''
             },
             {
+                name: 'thyTipsMode',
+                description: `配置tips的显示模式，'default' | 'label'，默认 'default'，与thyTips参数配合使用`,
+                type: 'string',
+                default: 'default'
+            },
+            {
                 name: 'thyTips',
                 description: '提示文案',
                 type: 'string',

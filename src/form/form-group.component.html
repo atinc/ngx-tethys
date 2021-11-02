@@ -20,7 +20,9 @@
       >{{ labelText }}</span
     >
 
-    <thy-icon class="label-tips-icon" *ngIf="tipMode === 'label' && tips" thyIconName="question-circle" [thyTooltip]="tips"></thy-icon>
+    <a class="link-secondary" href="javascript:;">
+      <thy-icon class="label-tips-icon" *ngIf="tipMode === 'label' && tips" thyIconName="question-circle" [thyTooltip]="tips"></thy-icon>
+    </a>
   </label>
   <div [ngClass]="{ 'col-sm-10 col-form-control': isHorizontal, 'position-relative': !isHorizontal }">
     <ng-content></ng-content>
