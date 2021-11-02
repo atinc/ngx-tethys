@@ -19,6 +19,7 @@ import { ThyFormGroupLabelDirective } from '../form-group-label.directive';
             </thy-form-group>
             <thy-form-group
                 [thyLabelText]="labelText"
+                [thyTipsMode]="tipsMode"
                 thyTips="This is display tips"
                 [thyLabelPaddingTopClear]="labelPaddingTopClear"
                 [thyFeedbackIcon]="feedbackIcon"
@@ -41,6 +42,8 @@ export class TestFormWithGroupComponent {
     };
 
     labelText = '';
+
+    tipsMode = 'default';
 
     feedbackIcon = 'calendar';
 
@@ -107,7 +110,8 @@ describe('form-group basic', () => {
         const userNameLabelElement: HTMLElement = userNameFormGroup.element.querySelector('.form-label');
         expect(userNameLabelElement).toBeTruthy();
         expect(userNameLabelElement.classList.contains(`form-label`)).toBe(true);
-        expect(userNameLabelElement.classList.contains(`label-required`)).toBe(true);
+        const labelTextSpan = userNameLabelElement.querySelector('span');
+        expect(labelTextSpan.classList.contains(`label-required`)).toBe(true);
         expect(userNameLabelElement.textContent).toContain(`User Name`);
 
         const displayNameLabelElement: HTMLElement = displayNameFormGroup.element.querySelector('.form-label');
@@ -122,6 +126,19 @@ describe('form-group basic', () => {
         expect(tipsElement).toBeTruthy();
         expect(tipsElement.classList.contains(`text-desc`)).toBe(true);
         expect(tipsElement.textContent).toContain(`This is display tips`);
+    });
+
+    it('should get correct tips icon', () => {
+        fixture.detectChanges();
+        testComponent.tipsMode = 'label';
+        fixture.detectChanges();
+
+        const displayNameFormGroup = getFormGroup(1);
+        const tipsElement: HTMLElement = displayNameFormGroup.element.querySelector('.label-tips-icon');
+        expect(tipsElement).toBeTruthy();
+
+        const defaultTipsElement: HTMLElement = displayNameFormGroup.element.querySelector('.form-text');
+        expect(defaultTipsElement).toBeFalsy();
     });
 
     it('should get correct feedback icon for form group', () => {
