@@ -60,8 +60,8 @@ module.exports = [
             },
             {
                 name: 'thyTipsMode',
-                description: `配置tips的显示模式，'default' | 'label'，默认 'default'，与thyTips参数配合使用`,
-                type: 'string',
+                description: `提示文字的显示模式，'label'模式表示在 label 后通过图标+Tooltip 提示, 'default'模式在 Form Control 下方直接显示`,
+                type: `'default' | 'label'`,
                 default: 'default'
             },
             {
