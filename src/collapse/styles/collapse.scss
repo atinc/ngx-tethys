@@ -1,15 +1,17 @@
+@use "../../styles/variables";
+
 $thy-collapse-prefix-cls: 'thy-collapse';
 
 .#{$thy-collapse-prefix-cls} {
     display: block;
     position: relative;
-    border: 1px solid $gray-200;
+    border: 1px solid variables.$gray-200;
     border-bottom: 0;
-    background-color: $gray-80;
+    background-color: variables.$gray-80;
     border-radius: 2px;
     .#{$thy-collapse-prefix-cls}-item {
         display: block;
-        border-bottom: 1px solid $gray-200;
+        border-bottom: 1px solid variables.$gray-200;
         &:last-child {
             border-radius: 0 0 2px 2px;
         }
@@ -26,8 +28,8 @@ $thy-collapse-prefix-cls: 'thy-collapse';
             }
         }
         .#{$thy-collapse-prefix-cls}-content {
-            border-top: 1px solid $gray-200;
-            background-color: $white;
+            border-top: 1px solid variables.$gray-200;
+            background-color: variables.$white;
             &-box {
                 padding: 16px;
             }
@@ -36,7 +38,7 @@ $thy-collapse-prefix-cls: 'thy-collapse';
     & &-item-disabled > &-header {
         &,
         & > &-icon {
-            color: $gray-400;
+            color: variables.$gray-400;
             cursor: not-allowed;
         }
     }
@@ -65,7 +67,7 @@ $thy-collapse-prefix-cls: 'thy-collapse';
 
 .#{$thy-collapse-prefix-cls}-borderless {
     border: 0;
-    background-color: $gray-80;
+    background-color: variables.$gray-80;
     .#{$thy-collapse-prefix-cls}-item {
         &:last-child,
         &:last-child > .#{$thy-collapse-prefix-cls}-header {

@@ -19,9 +19,11 @@
 </ng-container>
 
 <ng-template #navListPopover>
-  <ng-template *ngIf="morePopover; else default">
-    <ng-container [ngTemplateOutlet]="morePopover" [ngTemplateOutletContext]="{ $implicit: hiddenItems }"></ng-container>
-  </ng-template>
+  <ng-container
+    *ngIf="morePopover; else default"
+    [ngTemplateOutlet]="morePopover"
+    [ngTemplateOutletContext]="{ $implicit: hiddenItems }"
+  ></ng-container>
   <ng-template #default>
     <thy-action-menu>
       <ng-container *ngFor="let item of hiddenItems">
@@ -30,7 +32,7 @@
           thyActionMenuItem
           [thyActionMenuItemActive]="item.isActive"
           (click)="navItemClick(item)"
-          [innerHTML]="item.content"
+          [innerHTML]="item.elementRef.nativeElement.innerHTML | bypassSecurityTrustHtml"
         ></span>
       </ng-container>
     </thy-action-menu>

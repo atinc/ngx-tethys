@@ -17,7 +17,7 @@ export class ThyResultComponent implements OnInit {
 
     @ContentChild('thyIcon') iconTemplateRef: TemplateRef<any>;
 
-    @ContentChild('thyExtraTemplate') extraTemplateRef: TemplateRef<any>;
+    @ContentChild('thyExtra') extraTemplateRef: TemplateRef<any>;
 
     @ContentChild('thyTitle') titleTemplateRef: TemplateRef<any>;
 

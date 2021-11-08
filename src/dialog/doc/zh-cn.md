@@ -5,9 +5,23 @@ subtitle: 对话框
 order: 1
 ---
 
-## 概览
-`Dialog`主要提供了一个`ThyDialog`服务，用于打开模态框。 
+<alert>打开模态框。</alert>
 
+## 何时使用
+- 当需要在父窗体向用户弹出一个附加的对话弹框时使用。比如表单提交对话框。
+- 当需要向客户提示某些谨慎操作（比如删除操作）后的二次确认时使用。
+
+## 模块导入
+```ts
+import { ThyDialog } from 'ngx-tethys';
+
+// 按需导入 ThyDialogRef, ThyDialogSizes
+```
+
+## 如何使用
+Dialog组件提供了一个ThyDialog服务，用于配置和打开模态框。
+
+### 打开组件
 通过调用`open`方法并传要加载的组件和可选的配置对象可以打开对话框，`open`方法将返回一个`ThyDialogRef`的实例：
 
 ```ts
@@ -42,7 +56,7 @@ export class YourDialog {
 }
 ```
 
-## 打开模版
+### 打开模版
 
 `ThyDialog`服务的`open`方法不仅支持组件，也支持打开模版`TemplateRef<T>`，模版可以通过参数传递，也可以通过`@ViewChild()`方式从视图中获取。
 
@@ -55,7 +69,10 @@ openProfile(template: TemplateRef<any>) {
 }
 ```
 
-## 设置全局默认值
+展示效果如下：
+<example name="thy-dialog-basic-example" />
+
+### 设置打开对话框的全局默认值
 
 对话框的默认选项可以通过在应用根模块中为`THY_DIALOG_DEFAULT_OPTIONS`令牌提供一个`ThyDialogConfig`实例来指定。
 
@@ -80,7 +97,28 @@ const DEFAULT_OPTIONS = {
 };
 ```
 
-## 模态框组件共享数据
+### 设置对话框底部布局的全局默认值
+对话框的底部布局默认值可以通过在应用根模块中为`THY_DIALOG_LAYOUT_CONFIG`令牌提供一个`ThyDialogLayoutConfig`实例来指定。
+```ts
+@NgModule({
+  providers: [
+    { provide: THY_DIALOG_LAYOUT_CONFIG, useValue: {
+        footerAlign: 'right',
+        footerDivided: true
+    }}
+  ]
+})
+```
+默认的配置如下：
+```ts
+const DEFAULT_CONFIG = {
+    footerAlign: 'left',
+    footerDivided: false
+};
+```
+
+
+### 模态框组件共享数据
 如果要和对话框共享数据，可以通过`initialState`参数把信息传给该组件。
 
 ```ts
@@ -116,4 +154,40 @@ class YourDialogComponent {
       <span class="text-desc">当前打开的是一个对话框</span>
     </ng-template>
 </thy-dialog-footer>
+```
+
+## 打开Confirm
+`ThyDialog`服务提供了一个`confirm`方法，支持通过传入一个`ThyConfirmConfig`实例，来打开一个二次弹出提示框。
+
+<example name="thy-dialog-confirm-example" />
+
+Confirm对话框的默认选项可以通过在应用根模块中为`THY_CONFIRM_DEFAULT_OPTIONS`令牌提供一个`ThyConfirmConfig`实例来指定。
+
+```ts
+@NgModule({
+  providers: [
+    { provide: THY_CONFIRM_DEFAULT_OPTIONS, useValue: { 
+        title: '确认归档',
+        content: '确认要归档选中的6项任务吗？',
+        okText: '确认归档',
+        okType: 'primary',
+        cancelText: '取消归档',
+        footerAlign: 'right',
+        onOk: () => {
+          console.log('归档了6项任务');
+        }
+      }
+    }
+  ]
+})
+```
+默认的配置如下：
+```ts
+const DEFAULT_OPTIONS = {
+  title: '确认删除',
+  okText: '确认',
+  okType: 'danger',
+  cancelText: '取消',
+  footerAlign: 'left'
+};
 ```

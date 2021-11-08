@@ -2,9 +2,15 @@
 category: display
 title: Timeline
 subtitle: 时间轴
+label: lack-doc
 ---
 
-展示时间流转信息。
+<alert>展示时间流转信息。</alert>
+
+## 模块导入
+```ts
+import { ThyTimelineModule } from "ngx-tethys/timeline";
+```
 
 ## 自定义custom-timeline
  - 支持自定义timeline的排序，可正序和倒序

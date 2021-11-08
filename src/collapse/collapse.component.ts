@@ -41,21 +41,21 @@ export class ThyCollapseComponent implements OnInit {
 
     @Input() thyGhost: boolean;
 
-    private listOfNzCollapsePanelComponent: ThyCollapsePanelComponent[] = [];
+    private listOfCollapsePanelComponent: ThyCollapsePanelComponent[] = [];
 
     ngOnInit() {}
 
     addPanel(value: ThyCollapsePanelComponent): void {
-        this.listOfNzCollapsePanelComponent.push(value);
+        this.listOfCollapsePanelComponent.push(value);
     }
 
     removePanel(value: ThyCollapsePanelComponent): void {
-        this.listOfNzCollapsePanelComponent.splice(this.listOfNzCollapsePanelComponent.indexOf(value), 1);
+        this.listOfCollapsePanelComponent.splice(this.listOfCollapsePanelComponent.indexOf(value), 1);
     }
 
     click(collapse: ThyCollapsePanelComponent, event: Event): void {
         if (this.thyAccordion && !collapse.thyActive) {
-            this.listOfNzCollapsePanelComponent
+            this.listOfCollapsePanelComponent
                 .filter(item => item !== collapse)
                 .forEach(item => {
                     if (item.thyActive) {

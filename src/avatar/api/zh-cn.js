@@ -7,7 +7,7 @@ module.exports = [
             {
                 name: 'thySrc',
                 description:
-                    '头像路径地址, 默认为全路径，如果不是全路径，可以通过自定义服务 ThyAvatarService，重写 avatarSrcTransform 方法实现转换',
+                    '头像路径地址, 默认为全路径，如果不是全路径，可以通过自定义服务 ThyAvatarService，重写 srcTransform 方法实现转换',
                 type: 'string',
                 default: ''
             },

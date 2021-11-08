@@ -5,7 +5,7 @@ subtitle: 输入框
 order: 1
 ---
 
-<alert>通过鼠标或键盘输入字符</alert>
+<alert>通过鼠标或键盘输入字符。</alert>
 
 ## 何时使用
 
@@ -16,7 +16,6 @@ order: 1
 ```ts
 import { ThyInputModule } from "ngx-tethys/input";
 ```
-
 
 ## 基本使用
 

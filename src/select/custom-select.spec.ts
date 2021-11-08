@@ -28,6 +28,7 @@ import { THY_SELECT_SCROLL_STRATEGY } from './select.config';
                 (thyOnScrollToBottom)="thyOnScrollToBottom()"
                 [formControl]="control"
                 [required]="isRequired"
+                [thySize]="size"
             >
                 <thy-option
                     *ngFor="let food of foods"
@@ -57,6 +58,7 @@ class BasicSelectComponent {
     control = new FormControl();
     isRequired: boolean;
     enableScrollLoad: boolean;
+    size = '';
     @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
     @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
 
@@ -662,6 +664,30 @@ describe('ThyCustomSelect', () => {
             });
         });
 
+        describe('size', () => {
+            let fixture: ComponentFixture<BasicSelectComponent>;
+
+            beforeEach(async(() => {
+                fixture = TestBed.createComponent(BasicSelectComponent);
+                fixture.detectChanges();
+            }));
+
+            it('should has correct size', () => {
+                const sizes = ['xs', 'sm', 'md', 'lg'];
+                fixture.componentInstance.size = '';
+                fixture.detectChanges();
+                const formControl = fixture.debugElement.query(By.css('.form-control')).nativeElement;
+                sizes.forEach(size => {
+                    expect(formControl.classList.contains(`form-control-${size}`)).not.toBeTruthy();
+                });
+                sizes.forEach(size => {
+                    fixture.componentInstance.size = size;
+                    fixture.detectChanges();
+                    expect(formControl.classList.contains(`form-control-${size}`)).toBeTruthy();
+                });
+            });
+        });
+
         describe('overlay panel', () => {
             let fixture: ComponentFixture<BasicSelectComponent>;
             let trigger: HTMLElement;
@@ -1241,6 +1267,23 @@ describe('ThyCustomSelect', () => {
 
             expect(options[1].hidden).toBe(true);
             expect(optionNodes[1].classList).toContain('hidden');
+        }));
+        it('should also find content when search by upperCase or lowerCase', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectWithSearchComponent);
+            fixture.detectChanges();
+            fixture.componentInstance.thyShowSearch = true;
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+
+            const input = fixture.debugElement.query(By.css('.search-input-field')).nativeElement;
+            typeInElement('sTeAk', input);
+            flush();
+            fixture.detectChanges();
+            flush();
+
+            const options = fixture.componentInstance.select.options.toArray();
+            expect(options[0].hidden).toBe(false);
         }));
         it('should hide the thy-group when all options of the group is hidden', fakeAsync(() => {
             const fixture = TestBed.createComponent(SelectWithSearchAndGroupComponent);

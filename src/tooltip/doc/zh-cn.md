@@ -4,7 +4,7 @@ title: Tooltip
 subtitle: 文字提示
 ---
 
-<div class="dg-alert dg-alert-info">简单的文字提示框。</div>
+<alert>简单的文字提示框。</alert>
 
 ## 何时使用
 - 鼠标移入时显示提示，移出消失。

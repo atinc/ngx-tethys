@@ -2,10 +2,9 @@
 category: feedback
 title: Alert
 subtitle: 警告框
-order: 1
 ---
 
-<alert>警告提示框</alert>
+<alert>警告提示框。</alert>
 
 ## 何时使用
 

@@ -4,7 +4,7 @@ title: Avatar
 subtitle: 头像
 ---
 
-<alert>显示用户头像的组件</alert>
+<alert>显示用户头像的组件。</alert>
 
 ## 何时使用
 
@@ -14,6 +14,7 @@ subtitle: 头像
 ```ts
 import { ThyAvatarModule } from "ngx-tethys/avatar";
 ```
+
 ## 类型
 
 目前支持两种类型：图片和名称，名称支持中文和英文
@@ -57,7 +58,7 @@ export class CustomAvatarService extends ThyAvatarService {
         super();
     }
 
-    avatarSrcTransform(src: string, size: number): string {
+   srcTransform(src: string, size: number): string {
         return `https://cdn.example.com/assets/images/${src}`;
     }
 }

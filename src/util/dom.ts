@@ -4,19 +4,13 @@ import * as helpers from './helpers';
 const proto = Element.prototype;
 const vendor =
     proto.matches ||
-    (proto as any).matchesSelector ||
-    proto.webkitMatchesSelector ||
-    (proto as any).mozMatchesSelector ||
-    (proto as any).msMatchesSelector ||
-    (proto as any).oMatchesSelector;
+    proto['matchesSelector'] ||
+    proto['webkitMatchesSelector'] ||
+    proto['mozMatchesSelector'] ||
+    proto['msMatchesSelector'] ||
+    proto['oMatchesSelector'];
 
-/**
- * Match `el` to `selector`.
- */
-export function match(el: any, selector: string) {
-    if (vendor) {
-        return vendor.call(el, selector);
-    }
+export function fallbackMatches(el: Element | Node, selector: string) {
     const nodes = el.parentNode.querySelectorAll(selector);
     for (let i = 0; i < nodes.length; i++) {
         if (nodes[i] === el) {
@@ -25,18 +19,26 @@ export function match(el: any, selector: string) {
     }
     return false;
 }
+/**
+ * Match `el` to `selector`.
+ */
+export function match(el: Element | Node, selector: string) {
+    if (vendor) {
+        return vendor.call(el, selector);
+    }
+    return fallbackMatches(el, selector);
+}
 
-export function isDocument(element: any) {
+export function isDocument(element: any): element is Document {
     return (
-        (typeof HTMLDocument !== 'undefined' && element instanceof HTMLDocument) ||
-        (element.nodeType && element.nodeType === element.DOCUMENT_NODE)
+        (typeof element !== 'undefined' && element instanceof Document) || (element.nodeType && element.nodeType === element.DOCUMENT_NODE)
     );
 }
 
 export function isElement(element: any) {
     return (
         (typeof HTMLElement !== 'undefined' && element instanceof HTMLElement) ||
-        (element.nodeType && element.nodeType === element.ELEMENT_NODE)
+        (element && element.nodeType && element.nodeType === element.ELEMENT_NODE)
     );
 }
 
@@ -96,15 +98,6 @@ export function getOffset(element: HTMLElement, container: HTMLElement | Window)
     }
 
     return rect;
-}
-
-export function getElementOuterHeight(element: any) {
-    const _element = element.documentElement ? element.documentElement : element;
-    let height = _element.clientHeight;
-    const computedStyle = window.getComputedStyle(_element);
-    height += parseInt(computedStyle.marginTop, 10);
-    height += parseInt(computedStyle.marginBottom, 10);
-    return height;
 }
 
 export type ElementSelector = HTMLElement | ElementRef | string;

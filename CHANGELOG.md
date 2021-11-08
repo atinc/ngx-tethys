@@ -2,6 +2,54 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="12.0.3"></a>
+## [12.0.3](https://github.com/atinc/ngx-tethys/compare/12.0.2...12.0.3) (2021-11-08)
+
+
+### Bug Fixes
+
+* **form:** fix label tips hover style and add thyTipsMode description in docs #INFR-2372 ([#1398](https://github.com/atinc/ngx-tethys/issues/1398)) ([bd9fd6e](https://github.com/atinc/ngx-tethys/commit/bd9fd6e)), closes [#INFR-2372](https://github.com/atinc/ngx-tethys/issues/INFR-2372) [#INFR-2372](https://github.com/atinc/ngx-tethys/issues/INFR-2372) [#INFR-2372](https://github.com/atinc/ngx-tethys/issues/INFR-2372)
+* **select:** search supports lowercase and  uppercase (#INFR-2265) ([0160b30](https://github.com/atinc/ngx-tethys/commit/0160b30)), closes [#INFR-2265](https://github.com/atinc/ngx-tethys/issues/INFR-2265)
+
+
+### Features
+
+* **button:** supports passing pre and append thy-icon in ng-content, add only icon mode #INFR-2327 ([f542592](https://github.com/atinc/ngx-tethys/commit/f542592)), closes [#INFR-2327](https://github.com/atinc/ngx-tethys/issues/INFR-2327)
+* **form:** add tipsMode for form group, support label and default #INFR-2368 ([#1397](https://github.com/atinc/ngx-tethys/issues/1397)) ([99a5658](https://github.com/atinc/ngx-tethys/commit/99a5658)), closes [#INFR-2368](https://github.com/atinc/ngx-tethys/issues/INFR-2368)
+* **rate:**  add rate component #INFR-82 ([#1306](https://github.com/atinc/ngx-tethys/issues/1306)) ([860ba0d](https://github.com/atinc/ngx-tethys/commit/860ba0d)), closes [#INFR-82](https://github.com/atinc/ngx-tethys/issues/INFR-82)
+
+
+
+<a name="12.0.2"></a>
+## [12.0.2](https://github.com/atinc/ngx-tethys/compare/12.0.1...12.0.2) (2021-10-19)
+
+
+### Features
+
+* **nav:** support nav more popover render component #INFR-2334 ([#1383](https://github.com/atinc/ngx-tethys/issues/1383)) ([cb9276d](https://github.com/atinc/ngx-tethys/commit/cb9276d)), closes [#INFR-2334](https://github.com/atinc/ngx-tethys/issues/INFR-2334) [#INFR-2334](https://github.com/atinc/ngx-tethys/issues/INFR-2334) [#INFR-2334](https://github.com/atinc/ngx-tethys/issues/INFR-2334)
+* **transfer:** support thyRightMax #INFR-2336 ([#1385](https://github.com/atinc/ngx-tethys/issues/1385)) ([201f2d1](https://github.com/atinc/ngx-tethys/commit/201f2d1)), closes [#INFR-2336](https://github.com/atinc/ngx-tethys/issues/INFR-2336) [#INFR-2336](https://github.com/atinc/ngx-tethys/issues/INFR-2336) [#INFR-2336](https://github.com/atinc/ngx-tethys/issues/INFR-2336) [#INFR-2336](https://github.com/atinc/ngx-tethys/issues/INFR-2336)
+
+
+
+<a name="12.0.1"></a>
+## [12.0.1](https://github.com/atinc/ngx-tethys/compare/12.0.0...12.0.1) (2021-10-13)
+
+
+### Bug Fixes
+
+* **date-picker:** set correct cell selected when change month or year #INFR-2335 ([83f100e](https://github.com/atinc/ngx-tethys/commit/83f100e)), closes [#INFR-2335](https://github.com/atinc/ngx-tethys/issues/INFR-2335)
+* **form:** should display correct  invalid message when set min as 0 and type -1 #INFR-1490 ([2f07360](https://github.com/atinc/ngx-tethys/commit/2f07360)), closes [#INFR-1490](https://github.com/atinc/ngx-tethys/issues/INFR-1490)
+* **form:** should get correct element when name and dom attribute name are the same, as nodeType #INFR-1214 ([8453608](https://github.com/atinc/ngx-tethys/commit/8453608)), closes [#INFR-1214](https://github.com/atinc/ngx-tethys/issues/INFR-1214)
+* **notify:** fix dom not removed normally under firefox #WIK-2283 ([0d1af37](https://github.com/atinc/ngx-tethys/commit/0d1af37)), closes [#WIK-2283](https://github.com/atinc/ngx-tethys/issues/WIK-2283)
+* **util:** remove unused methods for util and improve test coverage #INFR-2313 ([#1373](https://github.com/atinc/ngx-tethys/issues/1373)) ([e947f88](https://github.com/atinc/ngx-tethys/commit/e947f88)), closes [#INFR-2313](https://github.com/atinc/ngx-tethys/issues/INFR-2313) [#INFR-2313](https://github.com/atinc/ngx-tethys/issues/INFR-2313)
+
+
+### Features
+
+* **date-picker:** date-picker support month/year range and refactor somethings #INFR-2290 ([360c1e2](https://github.com/atinc/ngx-tethys/commit/360c1e2)), closes [#INFR-2290](https://github.com/atinc/ngx-tethys/issues/INFR-2290) [#INFR-2290](https://github.com/atinc/ngx-tethys/issues/INFR-2290) [#INFR-2290](https://github.com/atinc/ngx-tethys/issues/INFR-2290) [#INFR-2290](https://github.com/atinc/ngx-tethys/issues/INFR-2290) [#INFR-2290](https://github.com/atinc/ngx-tethys/issues/INFR-2290)
+
+
+
 <a name="12.0.0"></a>
 # [12.0.0](https://github.com/atinc/ngx-tethys/compare/12.0.0-next.5...12.0.0) (2021-09-10)
 

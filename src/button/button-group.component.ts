@@ -14,11 +14,6 @@ const buttonGroupSizeMap = {
     xs: ['btn-group-xs']
 };
 
-const buttonGroupTypeMap = {
-    'outline-primary': ['btn-group-outline-primary'],
-    'outline-default': ['btn-group-outline-default']
-};
-
 @Component({
     selector: 'thy-button-group',
     template: '<ng-content></ng-content>',
@@ -68,8 +63,8 @@ export class ThyButtonGroupComponent implements OnInit {
 
     private setClasses() {
         let classNames: string[] = [];
-        if (buttonGroupTypeMap[this.type]) {
-            classNames = [...buttonGroupTypeMap[this.type]];
+        if (this.type) {
+            classNames.push(`btn-group-${this.type}`);
         }
         if (buttonGroupSizeMap[this.size]) {
             classNames.push(buttonGroupSizeMap[this.size]);

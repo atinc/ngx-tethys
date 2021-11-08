@@ -47,7 +47,7 @@ import {
 
 import { Locale } from 'date-fns';
 
-export type TinyDateCompareGrain = 'year' | 'quarter' | 'month' | 'week' | 'day' | 'hour' | 'minute' | 'second';
+export type TinyDateCompareGrain = 'decade' | 'year' | 'quarter' | 'month' | 'week' | 'day' | 'hour' | 'minute' | 'second';
 
 export type WeekDayIndex = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
@@ -201,6 +201,9 @@ export class TinyDate implements Record<string, any> {
     isSame(date: TinyDateType, grain: TinyDateCompareGrain = 'day'): boolean {
         let fn;
         switch (grain) {
+            case 'decade':
+                fn = (pre: Date, next: Date) => Math.abs(pre.getFullYear() - next.getFullYear()) < 11;
+                break;
             case 'year':
                 fn = isSameYear;
                 break;

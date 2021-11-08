@@ -44,6 +44,7 @@ import { ThyProgressModule } from 'ngx-tethys/progress';
 import { ThyPropertyOperationModule } from 'ngx-tethys/property-operation';
 import { ThyRadioModule } from 'ngx-tethys/radio';
 import { ThyRasterModule } from 'ngx-tethys/raster';
+import { ThyRateModule } from 'ngx-tethys/rate';
 import { ThyResizableModule } from 'ngx-tethys/resizable';
 import { ThyResultModule } from 'ngx-tethys/result';
 import { ThySelectModule } from 'ngx-tethys/select';
@@ -135,7 +136,8 @@ const IMPORT_EXPORT_MODULES = [
     ThyFullscreenModule,
     ThyGuiderModule,
     ThyResizableModule,
-    ThyCollapseModule
+    ThyCollapseModule,
+    ThyRateModule
 ];
 
 /**

@@ -1,5 +1,5 @@
 import { endOfDay, startOfDay } from 'date-fns';
-import { FunctionProp, sortRangeValue, TinyDate } from 'ngx-tethys/util';
+import { FunctionProp, helpers, sortRangeValue, TinyDate, TinyDateCompareGrain } from 'ngx-tethys/util';
 
 import {
     ChangeDetectionStrategy,
@@ -14,8 +14,8 @@ import {
     TemplateRef
 } from '@angular/core';
 
-import { hasValue, makeValue, transformDateValue } from '../../picker.util';
-import { CompatibleDate, CompatibleValue, DisabledDateFn, PanelMode, SupportTimeOptions } from '../../standard-types';
+import { dateAddAmount, hasValue, makeValue, transformDateValue } from '../../picker.util';
+import { CompatibleDate, CompatibleValue, DisabledDateFn, PanelMode, RangePartType, SupportTimeOptions } from '../../standard-types';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -48,12 +48,18 @@ export class DatePopupComponent implements OnChanges, OnInit {
     prefixCls = 'thy-calendar';
     showTimePicker = false;
     timeOptions: SupportTimeOptions | SupportTimeOptions[] | null;
-    valueForRangeShow: TinyDate[]; // Range ONLY
-    selectedValue: TinyDate[]; // Range ONLY
-    hoverValue: TinyDate[]; // Range ONLY
+    activeDate: TinyDate | TinyDate[];
+    selectedValue: TinyDate[] = []; // Range ONLY
+    hoverValue: TinyDate[] = []; // Range ONLY
+
+    get hasTimePicker(): boolean {
+        return !!this.showTime;
+    }
     private partTypeMap: { [key: string]: number } = { left: 0, right: 1 };
 
     [property: string]: any;
+
+    endPanelMode: PanelMode | PanelMode[] = 'date';
 
     constructor(private cdr: ChangeDetectorRef) {}
 
@@ -63,32 +69,54 @@ export class DatePopupComponent implements OnChanges, OnInit {
     }
 
     ngOnInit(): void {
-        // Initialization for range properties to prevent errors while later assignment
-        if (this.isRange) {
-            ['panelMode', 'selectedValue', 'hoverValue'].forEach(prop => this.initialArray(prop));
-        }
+        this.initPanelMode();
         if (this.defaultPickerValue && !hasValue(this.value)) {
             const { value } = transformDateValue(this.defaultPickerValue);
             this.value = makeValue(value, this.isRange);
-            if (this.isRange) {
-                this.reInitializeRangeRelatedValue();
-            }
         }
+        this.updateActiveDate();
         this.initDisabledDate();
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if (this.isRange) {
-            if (changes.value) {
-                this.reInitializeRangeRelatedValue();
+        if (changes.panelMode) {
+            if (helpers.isArray(this.panelMode)) {
+                this.endPanelMode = [...this.panelMode];
+            } else {
+                this.endPanelMode = this.panelMode;
             }
+        }
+        if (changes.defaultPickerValue) {
+            this.updateActiveDate();
+        }
+        if (changes.value && changes.value.currentValue) {
+            this.updateActiveDate();
         }
     }
 
-    reInitializeRangeRelatedValue() {
+    updateActiveDate() {
         this.clearHoverValue();
-        this.selectedValue = this.value as TinyDate[];
-        this.valueForRangeShow = this.normalizeRangeValue(this.value as TinyDate[]);
+        if (!this.value) {
+            const { value } = transformDateValue(this.defaultPickerValue);
+            this.value = makeValue(value, this.isRange);
+        }
+        if (this.isRange) {
+            this.selectedValue = this.value as TinyDate[];
+            this.activeDate = this.normalizeRangeValue(this.value as TinyDate[], this.getPanelMode(this.endPanelMode) as PanelMode);
+        } else {
+            this.activeDate = this.value as TinyDate;
+        }
+    }
+
+    initPanelMode() {
+        if (!this.panelMode) {
+            this.panelMode = this.isRange ? ['date', 'date'] : 'date';
+        }
+        if (helpers.isArray(this.panelMode)) {
+            this.endPanelMode = [...this.panelMode];
+        } else {
+            this.endPanelMode = this.panelMode;
+        }
     }
 
     initDisabledDate(): void {
@@ -161,12 +189,13 @@ export class DatePopupComponent implements OnChanges, OnInit {
 
     onHeaderChange(value: TinyDate, partType?: RangePartType): void {
         if (this.isRange) {
-            this.valueForRangeShow[this.getPartTypeIndex(partType)] = value;
-            this.valueForRangeShow = this.normalizeRangeValue(this.valueForRangeShow); // Should always take care of start/end
+            this.activeDate[this.getPartTypeIndex(partType)] = value;
+            this.activeDate = this.normalizeRangeValue(
+                this.activeDate as TinyDate[],
+                this.getPanelMode(this.endPanelMode, partType) as PanelMode
+            );
         } else {
-            if (this.showTimePicker) {
-                this.setValue(value);
-            }
+            this.activeDate = value;
         }
     }
 
@@ -178,7 +207,7 @@ export class DatePopupComponent implements OnChanges, OnInit {
         }
     }
 
-    changeValueFromSelect(value: TinyDate): void {
+    changeValueFromSelect(value: TinyDate, partType?: RangePartType): void {
         if (this.isRange) {
             const [left, right] = this.selectedValue as TinyDate[];
 
@@ -196,7 +225,7 @@ export class DatePopupComponent implements OnChanges, OnInit {
                     new TinyDate(startOfDay(this.selectedValue[0].nativeDate)),
                     new TinyDate(endOfDay(this.selectedValue[1].nativeDate))
                 ];
-                this.valueForRangeShow = this.normalizeRangeValue(this.selectedValue);
+                this.activeDate = this.normalizeRangeValue(this.selectedValue, this.getPanelMode(this.endPanelMode, partType) as PanelMode);
                 this.setValue(this.cloneRangeDate(this.selectedValue));
                 this.calendarChange.emit(this.cloneRangeDate(this.selectedValue));
             }
@@ -206,8 +235,8 @@ export class DatePopupComponent implements OnChanges, OnInit {
     }
 
     enablePrevNext(direction: 'prev' | 'next', partType?: RangePartType): boolean {
-        if (this.isRange) {
-            const [start, end] = this.valueForRangeShow;
+        if (this.isRange && this.panelMode === this.endPanelMode) {
+            const [start, end] = this.activeDate as TinyDate[];
             const showMiddle = !start.addMonths(1).isSame(end, 'month'); // One month diff then don't show middle prev/next
             if ((partType === 'left' && direction === 'next') || (partType === 'right' && direction === 'prev')) {
                 return showMiddle;
@@ -218,24 +247,32 @@ export class DatePopupComponent implements OnChanges, OnInit {
         }
     }
 
-    getPanelMode(partType?: RangePartType): PanelMode {
+    getPanelMode(panelMode: PanelMode | PanelMode[], partType?: RangePartType): PanelMode {
         if (this.isRange) {
-            return this.panelMode[this.getPartTypeIndex(partType)] as PanelMode;
+            return panelMode[this.getPartTypeIndex(partType)] as PanelMode;
         } else {
-            return this.panelMode as PanelMode;
+            return panelMode as PanelMode;
         }
     }
 
     getValueBySelector(partType?: RangePartType): TinyDate {
         if (this.isRange) {
-            const valueShow = this.valueForRangeShow; // Use the real time value that without decorations when timepicker is shown up
+            const valueShow = this.selectedValue; // Use the real time value that without decorations when timepicker is shown up
             return (valueShow as TinyDate[])[this.getPartTypeIndex(partType)];
         } else {
             return this.value as TinyDate;
         }
     }
 
-    getPartTypeIndex(partType?: RangePartType): number {
+    getActiveDate(partType?: RangePartType): TinyDate {
+        if (this.isRange) {
+            return this.activeDate[this.getPartTypeIndex(partType)];
+        } else {
+            return this.activeDate as TinyDate;
+        }
+    }
+
+    getPartTypeIndex(partType: RangePartType = 'left'): number {
         return this.partTypeMap[partType];
     }
 
@@ -250,14 +287,25 @@ export class DatePopupComponent implements OnChanges, OnInit {
         }
     }
 
-    private normalizeRangeValue(value: TinyDate[]): TinyDate[] {
+    private normalizeRangeValue(value: TinyDate[], mode: PanelMode = 'month'): TinyDate[] {
+        const headerModes: { [key in PanelMode]?: PanelMode } = {
+            date: 'month',
+            month: 'year',
+            year: 'decade'
+        };
+        const headerMode = headerModes[mode];
         const [start, end] = value;
         const newStart = start || new TinyDate();
-        const newEnd = end && end.isSameMonth(newStart) ? end.addMonths(1) : end || newStart.addMonths(1);
+        let newEnd = end;
+        if (!newEnd) {
+            newEnd = dateAddAmount(newStart, 1, headerMode);
+        }
+        if (newStart.isSame(end, headerMode as TinyDateCompareGrain)) {
+            newEnd = dateAddAmount(newStart, 1, headerMode);
+        }
         return [newStart, newEnd];
     }
 
-    // Renew and set a range value to trigger sub-component's change detection
     private setRangeValue(partType: RangePartType, value: TinyDate): void {
         const ref = (this.selectedValue = this.cloneRangeDate(this.selectedValue as TinyDate[]));
         ref[this.getPartTypeIndex(partType)] = value;
@@ -273,5 +321,3 @@ export class DatePopupComponent implements OnChanges, OnInit {
         }
     }
 }
-
-export type RangePartType = 'left' | 'right';

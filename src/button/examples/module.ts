@@ -1,5 +1,6 @@
 import { ThyButtonModule } from 'ngx-tethys/button';
 import { ThySpaceModule } from 'ngx-tethys/space';
+import { ThyIconModule } from 'ngx-tethys/icon';
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -29,7 +30,7 @@ const COMPONENTS = [
 @NgModule({
     declarations: [...COMPONENTS],
     entryComponents: [...COMPONENTS],
-    imports: [CommonModule, ThyButtonModule, ThySpaceModule],
+    imports: [CommonModule, ThyButtonModule, ThyIconModule, ThySpaceModule],
     exports: [...COMPONENTS]
 })
 export class ThyButtonExamplesModule {}

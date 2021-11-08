@@ -2,7 +2,13 @@
   <button thyButton="primary" [thyLoading]="'true'" [thyLoadingText]="'Loading...'">
     Loading
   </button>
-  <button thyButton="primary" [thyLoading]="loading" (click)="startLoading()" [thyLoadingText]="'Loading... ' + loadingSeconds + 's'">
+  <button
+    thyButton="primary"
+    thyIcon="plus"
+    [thyLoading]="loading"
+    (click)="startLoading()"
+    [thyLoadingText]="'Loading... ' + loadingSeconds + 's'"
+  >
     Click me!
   </button>
 </div>

@@ -141,8 +141,11 @@
     @include shadow.box-shadow(none);
 }
 
-@mixin button-icon-margin($right) {
-    margin-right: $right;
+@mixin button-icon-spacing($spacing) {
+    & > .thy-icon + span,
+    & > span + .thy-icon {
+        margin-left: $spacing;
+    }
 }
 
 @mixin btn-link-variant($link-color, $link-hover-color, $link-hover-decoration) {
