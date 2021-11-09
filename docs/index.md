@@ -11,7 +11,7 @@ hero:
       btnShape: round
     - text: 设计规范
       link: design/intro
-      btnShape: square
+      btnShape: round
       btnType: outline-primary-light
 
 features:
