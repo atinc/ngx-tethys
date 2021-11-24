@@ -192,7 +192,7 @@ export class ThySelectControlComponent implements OnInit {
 
     get maxSelectedTags() {
         if (this.thyMaxTagCount > 0 && this.thySelectedOptions instanceof Array && this.thySelectedOptions.length > this.thyMaxTagCount) {
-            return this.thySelectedOptions.slice(0, this.thyMaxTagCount);
+            return this.thySelectedOptions.slice(0, this.thyMaxTagCount - 1);
         }
         return this.thySelectedOptions;
     }
