@@ -224,7 +224,7 @@ describe('ThySelectControl', () => {
 
                 selectElement = fixture.debugElement.query(By.css('.form-control')).nativeElement;
                 lis = selectElement.querySelectorAll('.choice');
-                expect(lis.length).toEqual(4);
+                expect(lis.length).toEqual(3);
                 maxTagCountChoic = selectElement.querySelector('.max-tag-count-choice');
                 expect(maxTagCountChoic).toBeTruthy();
             }));
