@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="12.1.1"></a>
+## [12.1.1](https://github.com/atinc/ngx-tethys/compare/12.1.0...12.1.1) (2021-11-25)
+
+
+### Bug Fixes
+
+* **select-control:** fix style ([2b94564](https://github.com/atinc/ngx-tethys/commit/2b94564))
+* **tooltip:** text show align center to left #INFR-2384 ([8b8a887](https://github.com/atinc/ngx-tethys/commit/8b8a887)), closes [#INFR-2384](https://github.com/atinc/ngx-tethys/issues/INFR-2384)
+
+
+
 <a name="12.1.0"></a>
 # [12.1.0](https://github.com/atinc/ngx-tethys/compare/12.0.3...12.1.0) (2021-11-22)
 
