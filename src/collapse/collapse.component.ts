@@ -1,7 +1,6 @@
 import { UpdateHostClassService } from 'ngx-tethys/core';
 
-import { ChangeDetectorRef, Component, ElementRef, forwardRef, HostBinding, Input, OnInit } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ChangeDetectorRef, Component, ElementRef, HostBinding, Input, OnInit } from '@angular/core';
 
 import { ThyCollapsePanelComponent } from './collapse-panel.component';
 
@@ -19,14 +18,7 @@ export type Position = 'left' | 'right';
         '[class.thy-collapse-icon-position-right]': `thyExpandIconPosition === 'right'`,
         '[class.thy-collapse-icon-position-left]': `thyExpandIconPosition === 'left'`
     },
-    providers: [
-        UpdateHostClassService,
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => ThyCollapseComponent),
-            multi: true
-        }
-    ]
+    providers: [UpdateHostClassService]
 })
 export class ThyCollapseComponent implements OnInit {
     constructor(private cdr: ChangeDetectorRef, private elementRef: ElementRef, private updateHostClassService: UpdateHostClassService) {}
