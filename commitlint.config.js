@@ -84,7 +84,8 @@ module.exports = {
                 'guider',
                 'resizable',
                 'collapse',
-                'rate'
+                'rate',
+                'select-control'
             ]
         ]
     }

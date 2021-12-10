@@ -13,7 +13,7 @@ order: 1
 
 ## 模块导入
 ```ts
-import { ThyCollapseModule } from "tethys/collapse";
+import { ThyCollapseModule } from "ngx-tethys/collapse";
 ```
 
 ## 基本使用

@@ -1,4 +1,5 @@
-import { ThyCollapseComponent, ThyCollapseModule, ThyIconComponent, ThyIconModule } from 'ngx-tethys';
+import { ThyCollapseComponent, ThyCollapseModule } from 'ngx-tethys/collapse';
+import { ThyIconComponent, ThyIconModule } from 'ngx-tethys/icon';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
 
 import { CommonModule } from '@angular/common';

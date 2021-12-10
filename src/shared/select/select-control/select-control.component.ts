@@ -10,7 +10,7 @@ import {
     OnInit,
     ChangeDetectionStrategy
 } from '@angular/core';
-import { UpdateHostClassService } from 'ngx-tethys/core';
+import { InputNumber, UpdateHostClassService } from 'ngx-tethys/core';
 import { SelectOptionBase } from '../../option/select-option-base';
 import { isArray, isUndefinedOrNull } from 'ngx-tethys/util';
 
@@ -140,6 +140,8 @@ export class ThySelectControlComponent implements OnInit {
         this.setSelectControlClass();
     }
 
+    @Input() @InputNumber() thyMaxTagCount = 0;
+
     @Output()
     thyOnSearch = new EventEmitter<string>();
 
@@ -185,6 +187,13 @@ export class ThySelectControlComponent implements OnInit {
     }
 
     get multipleSelectedValue(): any {
+        return this.thySelectedOptions;
+    }
+
+    get maxSelectedTags() {
+        if (this.thyMaxTagCount > 0 && this.thySelectedOptions instanceof Array && this.thySelectedOptions.length > this.thyMaxTagCount) {
+            return this.thySelectedOptions.slice(0, this.thyMaxTagCount - 1);
+        }
         return this.thySelectedOptions;
     }
 
