@@ -83,6 +83,7 @@ module.exports = {
                 'fullscreen',
                 'guider',
                 'resizable',
+                'collapse',
                 'rate',
                 'select-control'
             ]

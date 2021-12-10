@@ -1,0 +1,14 @@
+<thy-collapse [thyBordered]="false">
+  <thy-collapse-panel
+    *ngFor="let item of panels"
+    [thyTitle]="item.name"
+    [thyExpandedIcon]="item.icon"
+    [ngStyle]="item.customStyle"
+    [thyExtraTemplate]="extra"
+    >{{ item.name + 'content' }}</thy-collapse-panel
+  >
+</thy-collapse>
+
+<ng-template #extra>
+  <thy-icon thyIconName="settings" (click)="$event.stopPropagation()"></thy-icon>
+</ng-template>
