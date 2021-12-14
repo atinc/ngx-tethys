@@ -280,7 +280,7 @@ describe('thy-stop-propagation', () => {
             fixture.detectChanges();
         });
 
-        fit('should stop propagation for click event when value is boolean true', () => {
+        it('should stop propagation for click event when value is boolean true', () => {
             childElement.nativeElement.click();
             fixture.detectChanges();
             expect(fixtureInstance.fatherClick).toHaveBeenCalledTimes(0);
