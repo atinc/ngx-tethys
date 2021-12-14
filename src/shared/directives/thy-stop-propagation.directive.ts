@@ -11,19 +11,26 @@ export class ThyStopPropagationDirective implements OnInit, OnDestroy {
 
     private _eventName = 'click';
 
+    private isStopPropagation = true;
+
     @Input()
     set thyStopPropagation(value: string | boolean) {
         if (value === false || value === 'false') {
-            this._eventName = '';
+            this.isStopPropagation = false;
         } else {
-            this._eventName = value && typeof value === 'string' ? value : 'click';
+            this.isStopPropagation = true;
+            if (value === true || value === 'true') {
+                this._eventName = 'click';
+            } else {
+                this._eventName = value;
+            }
         }
     }
 
     constructor(private _elementRef: ElementRef, private _renderer: Renderer2) {}
 
     ngOnInit() {
-        if (this._eventName) {
+        if (this.isStopPropagation) {
             this._listener = this._renderer.listen(this._elementRef.nativeElement, this._eventName, ($event: Event) => {
                 $event.stopPropagation();
             });
