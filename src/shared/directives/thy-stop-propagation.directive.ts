@@ -14,7 +14,7 @@ export class ThyStopPropagationDirective implements OnInit, OnDestroy {
     private isStopPropagation = true;
 
     @Input()
-    set thyStopPropagation(value: any) {
+    set thyStopPropagation(value: string | boolean) {
         if (value === false || value === 'false') {
             this.isStopPropagation = false;
         } else {
