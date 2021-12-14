@@ -22,7 +22,7 @@ export class ThyStopPropagationDirective implements OnInit, OnDestroy {
             if (value === true || value === 'true') {
                 this._eventName = 'click';
             } else {
-                this._eventName = value;
+                this._eventName = value as string;
             }
         }
     }
