@@ -46,6 +46,25 @@ class ThyStopPropagationDirectiveTrueComponent {
 @Component({
     template: `
         <div class="fatherContainer" (click)="fatherClick()">
+            <div class="childContainer" [thyStopPropagation]="true"></div>
+        </div>
+    `,
+    styles: [
+        `
+            .childContainer {
+                width: 50px;
+                height: 50px;
+            }
+        `
+    ]
+})
+class ThyStopPropagationDirectiveBooleanTrueComponent {
+    fatherClick = jasmine.createSpy('thyStopPropagation callback');
+}
+
+@Component({
+    template: `
+        <div class="fatherContainer" (click)="fatherClick()">
             <div class="childContainer" [thyStopPropagation]="false"></div>
         </div>
     `,
@@ -236,6 +255,33 @@ describe('thy-stop-propagation', () => {
 
         it('should stop propagation when hover', () => {
             childElement.nativeElement.thyTriggerAction = 'hover';
+            fixture.detectChanges();
+            expect(fixtureInstance.fatherClick).toHaveBeenCalledTimes(0);
+        });
+    });
+
+    describe('thy-stop-propagation-boolean-true', () => {
+        let fixture: ComponentFixture<ThyStopPropagationDirectiveBooleanTrueComponent>;
+        let fixtureInstance: ThyStopPropagationDirectiveBooleanTrueComponent;
+        let fatherElement: DebugElement;
+        let childElement: DebugElement;
+        beforeEach(fakeAsync(() => {
+            TestBed.configureTestingModule({
+                imports: [ThySharedModule, BrowserAnimationsModule],
+                declarations: [ThyStopPropagationDirectiveBooleanTrueComponent]
+            }).compileComponents();
+        }));
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(ThyStopPropagationDirectiveBooleanTrueComponent);
+            fixtureInstance = fixture.componentInstance;
+            fatherElement = fixture.debugElement.query(By.css('.fatherContainer'));
+            childElement = fixture.debugElement.query(By.css('.childContainer'));
+            fixture.detectChanges();
+        });
+
+        fit('should stop propagation for click event when value is boolean true', () => {
+            childElement.nativeElement.click();
             fixture.detectChanges();
             expect(fixtureInstance.fatherClick).toHaveBeenCalledTimes(0);
         });
