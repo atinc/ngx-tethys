@@ -46,7 +46,7 @@ class ThyStopPropagationDirectiveTrueComponent {
 @Component({
     template: `
         <div class="fatherContainer" (click)="fatherClick()">
-            <div class="childContainer" [thyStopPropagation]="true"></div>
+            <div class="childContainer" [thyStopPropagation]="isStopPropagation"></div>
         </div>
     `,
     styles: [
@@ -58,7 +58,8 @@ class ThyStopPropagationDirectiveTrueComponent {
         `
     ]
 })
-class ThyStopPropagationDirectiveBooleanTrueComponent {
+class ThyStopPropagationDirectiveStringOrBooleanTrueComponent {
+    isStopPropagation: string | boolean;
     fatherClick = jasmine.createSpy('thyStopPropagation callback');
 }
 
@@ -260,29 +261,41 @@ describe('thy-stop-propagation', () => {
         });
     });
 
-    describe('thy-stop-propagation-boolean-true', () => {
-        let fixture: ComponentFixture<ThyStopPropagationDirectiveBooleanTrueComponent>;
-        let fixtureInstance: ThyStopPropagationDirectiveBooleanTrueComponent;
+    describe('thy-stop-propagation-string-boolean-true', () => {
+        let fixture: ComponentFixture<ThyStopPropagationDirectiveStringOrBooleanTrueComponent>;
+        let fixtureInstance: ThyStopPropagationDirectiveStringOrBooleanTrueComponent;
         let fatherElement: DebugElement;
         let childElement: DebugElement;
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
                 imports: [ThySharedModule, BrowserAnimationsModule],
-                declarations: [ThyStopPropagationDirectiveBooleanTrueComponent]
+                declarations: [ThyStopPropagationDirectiveStringOrBooleanTrueComponent]
             }).compileComponents();
         }));
 
         beforeEach(() => {
-            fixture = TestBed.createComponent(ThyStopPropagationDirectiveBooleanTrueComponent);
+            fixture = TestBed.createComponent(ThyStopPropagationDirectiveStringOrBooleanTrueComponent);
             fixtureInstance = fixture.componentInstance;
             fatherElement = fixture.debugElement.query(By.css('.fatherContainer'));
             childElement = fixture.debugElement.query(By.css('.childContainer'));
             fixture.detectChanges();
         });
 
-        it('should stop propagation for click event when value is boolean true', () => {
+        it('should stop propagation when value is boolean true', () => {
+            fixtureInstance.isStopPropagation = true;
+            fixture.detectChanges();
             childElement.nativeElement.click();
             fixture.detectChanges();
+
+            expect(fixtureInstance.fatherClick).toHaveBeenCalledTimes(0);
+        });
+
+        it('should stop propagation when value is string true', () => {
+            fixtureInstance.isStopPropagation = 'true';
+            fixture.detectChanges();
+            childElement.nativeElement.click();
+            fixture.detectChanges();
+
             expect(fixtureInstance.fatherClick).toHaveBeenCalledTimes(0);
         });
     });
