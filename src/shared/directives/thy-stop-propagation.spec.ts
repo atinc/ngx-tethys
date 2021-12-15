@@ -7,13 +7,13 @@ import { ThySharedModule } from '../shared.module';
 
 @Component({
     template: `
-        <div class="fatherContainer" (click)="fatherClick()">
-            <div class="childContainer" thyStopPropagation></div>
+        <div class="father-container" (click)="fatherClick()">
+            <div class="child-container" thyStopPropagation></div>
         </div>
     `,
     styles: [
         `
-            .childContainer {
+            .child-container {
                 width: 50px;
                 height: 50px;
             }
@@ -26,13 +26,13 @@ class ThyStopPropagationDirectiveTrueViewComponent {
 
 @Component({
     template: `
-        <div class="fatherContainer" (click)="fatherClick()">
-            <div class="childContainer" [thyStopPropagation]></div>
+        <div class="father-container" (click)="fatherClick()">
+            <div class="child-container" [thyStopPropagation]></div>
         </div>
     `,
     styles: [
         `
-            .childContainer {
+            .child-container {
                 width: 50px;
                 height: 50px;
             }
@@ -45,13 +45,13 @@ class ThyStopPropagationDirectiveTrueComponent {
 
 @Component({
     template: `
-        <div class="fatherContainer" (click)="fatherClick()">
-            <div class="childContainer" [thyStopPropagation]="isStopPropagation"></div>
+        <div class="father-container" (click)="fatherClick()">
+            <div class="child-container" [thyStopPropagation]="isStopPropagation"></div>
         </div>
     `,
     styles: [
         `
-            .childContainer {
+            .child-container {
                 width: 50px;
                 height: 50px;
             }
@@ -65,13 +65,13 @@ class ThyStopPropagationDirectiveStringOrBooleanTrueComponent {
 
 @Component({
     template: `
-        <div class="fatherContainer" (click)="fatherClick()">
-            <div class="childContainer" [thyStopPropagation]="false"></div>
+        <div class="father-container" (click)="fatherClick()">
+            <div class="child-container" [thyStopPropagation]="false"></div>
         </div>
     `,
     styles: [
         `
-            .childContainer {
+            .child-container {
                 width: 50px;
                 height: 50px;
             }
@@ -84,13 +84,13 @@ class ThyStopPropagationDirectiveFalseComponent {
 
 @Component({
     template: `
-        <div class="fatherContainer" (click)="fatherClick()">
-            <div class="childContainer" thyStopPropagation="false"></div>
+        <div class="father-container" (click)="fatherClick()">
+            <div class="child-container" thyStopPropagation="false"></div>
         </div>
     `,
     styles: [
         `
-            .childContainer {
+            .child-container {
                 width: 50px;
                 height: 50px;
             }
@@ -103,13 +103,13 @@ class ThyStopPropagationDirectiveFalseViewComponent {
 
 @Component({
     template: `
-        <div class="fatherContainer" (click)="fatherClick()">
-            <div class="childContainer" [thyStopPropagation]="hover"></div>
+        <div class="father-container" (click)="fatherClick()">
+            <div class="child-container" [thyStopPropagation]="hover"></div>
         </div>
     `,
     styles: [
         `
-            .childContainer {
+            .child-container {
                 width: 50px;
                 height: 50px;
             }
@@ -137,8 +137,8 @@ describe('thy-stop-propagation', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyStopPropagationDirectiveTrueViewComponent);
             fixtureInstance = fixture.componentInstance;
-            fatherElement = fixture.debugElement.query(By.css('.fatherContainer'));
-            childElement = fixture.debugElement.query(By.css('.childContainer'));
+            fatherElement = fixture.debugElement.query(By.css('.father-container'));
+            childElement = fixture.debugElement.query(By.css('.child-container'));
             fixture.detectChanges();
         });
 
@@ -165,8 +165,8 @@ describe('thy-stop-propagation', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyStopPropagationDirectiveTrueComponent);
             fixtureInstance = fixture.componentInstance;
-            fatherElement = fixture.debugElement.query(By.css('.fatherContainer'));
-            childElement = fixture.debugElement.query(By.css('.childContainer'));
+            fatherElement = fixture.debugElement.query(By.css('.father-container'));
+            childElement = fixture.debugElement.query(By.css('.child-container'));
             fixture.detectChanges();
         });
 
@@ -193,8 +193,8 @@ describe('thy-stop-propagation', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyStopPropagationDirectiveFalseComponent);
             fixtureInstance = fixture.componentInstance;
-            fatherElement = fixture.debugElement.query(By.css('.fatherContainer'));
-            childElement = fixture.debugElement.query(By.css('.childContainer'));
+            fatherElement = fixture.debugElement.query(By.css('.father-container'));
+            childElement = fixture.debugElement.query(By.css('.child-container'));
             fixture.detectChanges();
         });
 
@@ -221,8 +221,8 @@ describe('thy-stop-propagation', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyStopPropagationDirectiveFalseViewComponent);
             fixtureInstance = fixture.componentInstance;
-            fatherElement = fixture.debugElement.query(By.css('.fatherContainer'));
-            childElement = fixture.debugElement.query(By.css('.childContainer'));
+            fatherElement = fixture.debugElement.query(By.css('.father-container'));
+            childElement = fixture.debugElement.query(By.css('.child-container'));
             fixture.detectChanges();
         });
 
@@ -249,8 +249,8 @@ describe('thy-stop-propagation', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyStopPropagationDirectiveEventComponent);
             fixtureInstance = fixture.componentInstance;
-            fatherElement = fixture.debugElement.query(By.css('.fatherContainer'));
-            childElement = fixture.debugElement.query(By.css('.childContainer'));
+            fatherElement = fixture.debugElement.query(By.css('.father-container'));
+            childElement = fixture.debugElement.query(By.css('.child-container'));
             fixture.detectChanges();
         });
 
@@ -276,8 +276,8 @@ describe('thy-stop-propagation', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyStopPropagationDirectiveStringOrBooleanTrueComponent);
             fixtureInstance = fixture.componentInstance;
-            fatherElement = fixture.debugElement.query(By.css('.fatherContainer'));
-            childElement = fixture.debugElement.query(By.css('.childContainer'));
+            fatherElement = fixture.debugElement.query(By.css('.father-container'));
+            childElement = fixture.debugElement.query(By.css('.child-container'));
             fixture.detectChanges();
         });
 
